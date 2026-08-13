@@ -1,0 +1,367 @@
+{
+  "verdict": "COMPARATOR_REFERENCE_BANKED",
+  "verdict_msg": "Opaque NBFNet-lite comparator on the IDENTICAL CSKG L2-genuine split (identity_ok=None): hits@1=0.0384 hits@10=0.1200 MRR=0.0754 (POP hits@10=0.5198); HIGH-degree GNN hits@10=0.2063 vs POP=0.7797; untrained control hits@10=0.0000. Banked as the TransE-tier absolute reference for the harder 2-hop CSKG task (NOT NBFNet-SOTA; calibration caveat attached). Glass-box grading downstream.",
+  "summary": "Opaque NBFNet-lite comparator on the IDENTICAL CSKG L2-genuine split (identity_ok=None): hits@1=0.0384 hits@10=0.1200 MRR=0.0754 (POP hits@10=0.5198); HIGH-degree GNN hits@10=0.2063 vs POP=0.7797; unt",
+  "run_mode": "memsmoke",
+  "elapsed_s": 189.72284659999423,
+  "anchor_name": "course_c_gnn_comparator_cskg_l2_genuine_v1",
+  "ts_iso": "2026-07-11T18:02:29.136984+00:00",
+  "device": "cuda",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config": {
+    "seeds": [
+      7,
+      17
+    ],
+    "dim": 32,
+    "n_layers": 3,
+    "epochs": 6,
+    "b_train": 6,
+    "b_eval": 16,
+    "lr": 0.005,
+    "wd": 1e-06,
+    "cskg_max_lines": 0,
+    "k_core": 8,
+    "cskg_max_nodes": 4000,
+    "min_support": 6,
+    "min_conf": 0.08,
+    "n_eval": 1500,
+    "min_heldout": 15,
+    "qpe": 8000
+  },
+  "gates": {
+    "reference": {
+      "primary_k": 10,
+      "gnn_hits_at_1": 0.0384,
+      "gnn_hits_at_10": 0.12,
+      "gnn_mrr": 0.0754,
+      "untrained_hits_at_10": 0.0,
+      "pop_hits_at_1": 0.0559,
+      "pop_hits_at_10": 0.5198,
+      "pop_mrr": 0.1729,
+      "gnn_strat_hits_at_10": {
+        "low": 0.0,
+        "mid": 0.1666,
+        "high": 0.2063
+      },
+      "pop_strat_hits_at_10": {
+        "low": 0.1869,
+        "mid": 0.5833,
+        "high": 0.7797
+      }
+    },
+    "identity_ok": null,
+    "train_converged": true,
+    "nondegenerate": true,
+    "arms_differ": true,
+    "peak_gpu_mem_mb": [
+      141.4,
+      110.8
+    ],
+    "glassbox_vs_comparator": {
+      "note": "INFORMATIONAL ONLY -- NOT a gate. The >=85%/60% grading is owned downstream. Comparator is TransE-tier ABSOLUTE for a harder 2-hop task, NOT NBFNet-SOTA; never market as SOTA.",
+      "glassbox_geom_best_hits_at_10": 0.0227,
+      "comparator_gnn_hits_at_10": 0.12,
+      "ratio_glassbox_over_comparator": 0.1892,
+      "glassbox_high_hits_at_10": 0.0581,
+      "comparator_high_hits_at_10": 0.2063,
+      "glassbox_pop_hits_at_10": 0.1746,
+      "comparator_pop_hits_at_10": 0.5198
+    }
+  },
+  "selftest": {
+    "l2_genuine": 110,
+    "N": 329,
+    "n_rel": 4,
+    "trained_hits": 0.1636,
+    "untrained_hits": 0.0,
+    "pop_hits": 0.1455,
+    "train_lift": 0.1636,
+    "trained_mrr": 0.0345,
+    "loss_first": 5.7953,
+    "loss_last": 0.0,
+    "lift_ok": true,
+    "converged": true,
+    "arms_differ": true,
+    "trained_meets_report": true,
+    "n_distinct_sigs": 2
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 7,
+      "N": 3155,
+      "n_rel": 27,
+      "n_train": 5396,
+      "n_test": 299,
+      "n_l2_genuine": 33,
+      "tert_bounds": [
+        10.0,
+        27.99999999999999
+      ],
+      "strata_counts": {
+        "low": 13,
+        "mid": 9,
+        "high": 11
+      },
+      "arm_hits": {
+        "GNN_TRAINED": {
+          "hits@1": 0.0,
+          "hits@10": 0.0606,
+          "mrr": 0.0192
+        },
+        "GNN_UNTRAINED": {
+          "hits@1": 0.0,
+          "hits@10": 0.0,
+          "mrr": 0.0064
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0606,
+          "hits@10": 0.4242,
+          "mrr": 0.1404
+        }
+      },
+      "arm_n": {
+        "GNN_TRAINED": 33,
+        "GNN_UNTRAINED": 33,
+        "BASELINE_POP": 33
+      },
+      "arm_sigs": {
+        "GNN_TRAINED": "c2e4643c8ca89444",
+        "GNN_UNTRAINED": "b5828a72ac470cf8",
+        "BASELINE_POP": "2daa60e69651ec4e"
+      },
+      "strat_hits": {
+        "GNN_TRAINED": {
+          "low": {
+            "hits": 0.0,
+            "n": 13
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 9
+          },
+          "high": {
+            "hits": 0.1818,
+            "n": 11
+          }
+        },
+        "GNN_UNTRAINED": {
+          "low": {
+            "hits": 0.0,
+            "n": 13
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 9
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 11
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.2308,
+            "n": 13
+          },
+          "mid": {
+            "hits": 0.3333,
+            "n": 9
+          },
+          "high": {
+            "hits": 0.6364,
+            "n": 11
+          }
+        }
+      },
+      "train": {
+        "loss_first": 8.0616,
+        "loss_last": 1e-05,
+        "n_batches": 5400,
+        "epochs": 6,
+        "qpe": 8000
+      },
+      "gnn_score_std": 6.106337,
+      "split_identity": {
+        "assert_identity": false,
+        "identity_ok": null,
+        "recomputed_pop_sig": "2daa60e69651ec4e",
+        "landed_ref": null,
+        "identity": {
+          "pop_sig": "2daa60e69651ec4e",
+          "N": 3155,
+          "n_rel": 27,
+          "n_train": 5396,
+          "n_l2_genuine": 33,
+          "strata_counts": {
+            "low": 13,
+            "mid": 9,
+            "high": 11
+          }
+        }
+      },
+      "validity": {
+        "train_converged": true,
+        "nondegenerate": true,
+        "arms_differ": true
+      },
+      "peak_gpu_mem_mb": 141.4,
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 8,
+        "n_core_nodes": 4000,
+        "n_core_edges": 5994,
+        "n_core_nodes_in_split": 3155,
+        "core_avgdeg": 3.7996830427892236,
+        "n_train": 5396,
+        "n_valid": 299,
+        "n_test": 299,
+        "n_rel_tokens": 27
+      }
+    },
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 17,
+      "N": 3044,
+      "n_rel": 28,
+      "n_train": 5336,
+      "n_test": 296,
+      "n_l2_genuine": 39,
+      "tert_bounds": [
+        13.0,
+        36.666666666666664
+      ],
+      "strata_counts": {
+        "low": 14,
+        "mid": 12,
+        "high": 13
+      },
+      "arm_hits": {
+        "GNN_TRAINED": {
+          "hits@1": 0.0769,
+          "hits@10": 0.1795,
+          "mrr": 0.1315
+        },
+        "GNN_UNTRAINED": {
+          "hits@1": 0.0,
+          "hits@10": 0.0,
+          "mrr": 0.0004
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0513,
+          "hits@10": 0.6154,
+          "mrr": 0.2055
+        }
+      },
+      "arm_n": {
+        "GNN_TRAINED": 39,
+        "GNN_UNTRAINED": 39,
+        "BASELINE_POP": 39
+      },
+      "arm_sigs": {
+        "GNN_TRAINED": "fada89f4236bca00",
+        "GNN_UNTRAINED": "6bf04bd908675735",
+        "BASELINE_POP": "82d004312b8e4380"
+      },
+      "strat_hits": {
+        "GNN_TRAINED": {
+          "low": {
+            "hits": 0.0,
+            "n": 14
+          },
+          "mid": {
+            "hits": 0.3333,
+            "n": 12
+          },
+          "high": {
+            "hits": 0.2308,
+            "n": 13
+          }
+        },
+        "GNN_UNTRAINED": {
+          "low": {
+            "hits": 0.0,
+            "n": 14
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 12
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 13
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.1429,
+            "n": 14
+          },
+          "mid": {
+            "hits": 0.8333,
+            "n": 12
+          },
+          "high": {
+            "hits": 0.9231,
+            "n": 13
+          }
+        }
+      },
+      "train": {
+        "loss_first": 8.05723,
+        "loss_last": 0.02018,
+        "n_batches": 5340,
+        "epochs": 6,
+        "qpe": 8000
+      },
+      "gnn_score_std": 4.416411,
+      "split_identity": {
+        "assert_identity": false,
+        "identity_ok": null,
+        "recomputed_pop_sig": "82d004312b8e4380",
+        "landed_ref": null,
+        "identity": {
+          "pop_sig": "82d004312b8e4380",
+          "N": 3044,
+          "n_rel": 28,
+          "n_train": 5336,
+          "n_l2_genuine": 39,
+          "strata_counts": {
+            "low": 14,
+            "mid": 12,
+            "high": 13
+          }
+        }
+      },
+      "validity": {
+        "train_converged": true,
+        "nondegenerate": true,
+        "arms_differ": true
+      },
+      "peak_gpu_mem_mb": 110.8,
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 8,
+        "n_core_nodes": 4000,
+        "n_core_edges": 5928,
+        "n_core_nodes_in_split": 3044,
+        "core_avgdeg": 3.894875164257556,
+        "n_train": 5336,
+        "n_valid": 296,
+        "n_test": 296,
+        "n_rel_tokens": 28
+      }
+    }
+  ],
+  "calibration_caveat": "Reference is TransE-tier ABSOLUTE for a HARDER 2-hop task, NOT NBFNet-on-FB15k237-tier; NEVER market as SOTA. The >=85%/60% glass-box grading is a downstream verdict_handler job.",
+  "split_referent": {
+    "source": "MEASURED@C:\\dev\\hd-instrument\\data\\exp_course_c_map_builder_cskg_l2_genuine_v1\\metrics.json",
+    "assert_identity": false
+  }
+}

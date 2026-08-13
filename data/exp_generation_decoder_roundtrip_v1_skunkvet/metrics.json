@@ -1,0 +1,203 @@
+{
+  "anchor_name": "generation_decoder_roundtrip_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "generation round-trip WORKS on real correlated fillers: exact-ordered=1.000 (>= 0.7) AND per_term=1.000 (>= ceiling 1.0-0.1). NOTE full-resonator(positions-unknown) collapses on correlated fillers (real perterm=0.000 vs synth 1.000) -> known-position decode is the right architecture; positions-unknown factorization is v2 (sparse-block resonator). roles-known: synth_ceiling_perterm=1.000; real exact=1.000 perterm=1.000; real single-shot exact=1.000; noorder exact=0.000 (must collapse) | full-resonator perterm synth=1.000 real=0.000",
+  "summary": "HARD_PASS: substrate-native generation decoder round-trip (full)",
+  "run_mode": "full",
+  "elapsed_s": 118.16,
+  "n_seeds": 3,
+  "config": {
+    "N": 8192,
+    "V": 1024,
+    "D": 3,
+    "F": 2,
+    "trials": 30,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "RESTARTS": 16,
+    "RESTARTS_LO": 1,
+    "MAX_ITER": 40,
+    "n_iters": 6,
+    "algebra": "bipolar_BSC_elementwise_product",
+    "position_binding": "protected_index_roll_E3",
+    "real_lexicon": "BGE_concept_randproj_sign_bipolar"
+  },
+  "arms": {
+    "synth_rolesknown": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "real_rolesknown_hi": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "real_rolesknown_lo": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl": {
+      "per_term_mean": 0.1259,
+      "per_term_per_seed": [
+        0.1222,
+        0.1333,
+        0.1222
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.3333,
+      "per_token_per_seed": [
+        0.3333,
+        0.3333,
+        0.3333
+      ]
+    },
+    "synth_fullreso_hi": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "real_fullreso_hi": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.0,
+      "per_token_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "controls": {
+    "noorder_collapsed": true,
+    "envelope_ceiling_GEN_svo_1k": 1.0
+  },
+  "correlation_cone": {
+    "7": {
+      "real_mean_pair_cos": 0.3397,
+      "synth_mean_pair_cos": -0.0
+    },
+    "13": {
+      "real_mean_pair_cos": 0.3362,
+      "synth_mean_pair_cos": -0.0
+    },
+    "19": {
+      "real_mean_pair_cos": 0.3436,
+      "synth_mean_pair_cos": -0.0
+    }
+  },
+  "arms_differ_verified": true,
+  "recovered_digests": {
+    "7": {
+      "synth_rolesknown": "a7e9fbf5b247d78d55e08a79635491ad8c9fe3e1cba09386866d59360972f4d5",
+      "real_rolesknown_hi": "a7e9fbf5b247d78d55e08a79635491ad8c9fe3e1cba09386866d59360972f4d5",
+      "real_rolesknown_lo": "a7e9fbf5b247d78d55e08a79635491ad8c9fe3e1cba09386866d59360972f4d5",
+      "noorder_ctrl": "cee1d11eef994dd6fe6874cf9c4b9f923d10524aefa0815573aac87a0db67904",
+      "synth_fullreso_hi": "0958a8f782d1143b7688db671afd1714bcd5289d3b18546450d18e7d665d56c4",
+      "real_fullreso_hi": "977543a0186019ed338e2dd3f90d134453817f1a90a44d9834cd70af971f2ec0"
+    },
+    "13": {
+      "synth_rolesknown": "9dca98da460b419be7f8c786e62c6d4c02f18be5021d8552b4d3558cfec01f71",
+      "real_rolesknown_hi": "9dca98da460b419be7f8c786e62c6d4c02f18be5021d8552b4d3558cfec01f71",
+      "real_rolesknown_lo": "9dca98da460b419be7f8c786e62c6d4c02f18be5021d8552b4d3558cfec01f71",
+      "noorder_ctrl": "f24e37044c50e5ef083a7c48ad7ed05d698cefe70afc3fad82179f36f8c2d1eb",
+      "synth_fullreso_hi": "8a025112b5edca50c2004361283816eddc35d5403d81ab3bee40fdd50322061f",
+      "real_fullreso_hi": "fdce87e7806d063abccf32002dbf45b39348e6d0630c6d7b61ac3220eeb9b2e9"
+    },
+    "19": {
+      "synth_rolesknown": "143fe62b0556a74f9daa61b747acdfaff3137ea0ec15c9d33c1cb91324c776c8",
+      "real_rolesknown_hi": "143fe62b0556a74f9daa61b747acdfaff3137ea0ec15c9d33c1cb91324c776c8",
+      "real_rolesknown_lo": "143fe62b0556a74f9daa61b747acdfaff3137ea0ec15c9d33c1cb91324c776c8",
+      "noorder_ctrl": "3ce9d4d0bbc41566ed38240ac91f9378bdcd3c4c0f9cc1aacd02014cebf1177c",
+      "synth_fullreso_hi": "23c8bb542df3d8a0f11617c5ef9a648adbee3ad38ae6044cc12bc8239921d530",
+      "real_fullreso_hi": "aa49690173b192c3ca497e52c0874696afd3dc372092719bfb5fed82cc4f23a0"
+    }
+  },
+  "bands": {
+    "HP_exact_ordered": 0.7,
+    "HP_perterm_within": 0.1,
+    "HF_exact_ordered": 0.3
+  },
+  "ts_iso": "2026-07-05T07:30:40.571898+00:00",
+  "pid": 28708,
+  "host": "FrameworkMPC"
+}

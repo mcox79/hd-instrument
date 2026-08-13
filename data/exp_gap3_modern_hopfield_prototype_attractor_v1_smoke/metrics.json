@@ -1,0 +1,104 @@
+{
+  "anchor": "gap3_modern_hopfield_prototype_attractor_v1",
+  "anchor_name": "gap3_modern_hopfield_prototype_attractor_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_MH_BELOW_FLOOR: best_MH_arm=ARM_MODERN_HOPFIELD_CONTINUOUS=0.2600 below MIDDLE_BAND lower bound 0.5 but distinguishable from HRR_BUNDLE. arms: ARM_BASELINE_NO_SCHEMA=0.4200+/-0.0000 | ARM_HRR_BUNDLE_PROTOTYPE=0.5800+/-0.0000 | ARM_LINEAR_MEAN_PROTOTYPE=0.4200+/-0.0000 | ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200+/-0.0000 | ARM_MODERN_HOPFIELD_CONTINUOUS=0.2600+/-0.0000",
+  "headline": "MIDDLE_BAND_MH_BELOW_FLOOR: best_MH_arm=ARM_MODERN_HOPFIELD_CONTINUOUS=0.2600 below MIDDLE_BAND lower bound 0.5 but distinguishable from HRR_BUNDLE. arms: ARM_BASELINE_NO_SCHEMA=0.4200+/-0.0000 | ARM_HRR_BUNDLE_PROTOTYPE=0.5800+/-0.0000 | ARM_LINEAR_MEAN_PROTOTYPE=0.4200+/-0.0000 | ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200+/-0.0000 | ARM_MODERN_HOPFIELD_CONTINUOUS=0.2600+/-0.0000",
+  "n_seeds": 1,
+  "N": 8192,
+  "run_mode": "smoke",
+  "n_categories": 5,
+  "instances_per_category": 20,
+  "heldout_per_category": 10,
+  "chance": 0.2,
+  "arms_tested": [
+    "ARM_BASELINE_NO_SCHEMA",
+    "ARM_HRR_BUNDLE_PROTOTYPE",
+    "ARM_LINEAR_MEAN_PROTOTYPE",
+    "ARM_MODERN_HOPFIELD_PROTOTYPE",
+    "ARM_MODERN_HOPFIELD_CONTINUOUS"
+  ],
+  "beta_prototype": 2.0,
+  "beta_continuous": 2.0,
+  "cell1_feature_reference": 0.4733,
+  "cross_cell_rail_tol": 0.03,
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_SCHEMA": {
+        "mean_heldout_top1": 0.42,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.42
+        ]
+      },
+      "ARM_HRR_BUNDLE_PROTOTYPE": {
+        "mean_heldout_top1": 0.58,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.58
+        ]
+      },
+      "ARM_LINEAR_MEAN_PROTOTYPE": {
+        "mean_heldout_top1": 0.42,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.42
+        ]
+      },
+      "ARM_MODERN_HOPFIELD_PROTOTYPE": {
+        "mean_heldout_top1": 0.22,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.22
+        ]
+      },
+      "ARM_MODERN_HOPFIELD_CONTINUOUS": {
+        "mean_heldout_top1": 0.26,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.26
+        ]
+      }
+    },
+    "best_mh_arm": "ARM_MODERN_HOPFIELD_CONTINUOUS",
+    "best_mh_score": 0.26,
+    "cross_cell_drift_vs_cell1": 0.10669999999999996,
+    "cell1_feature_reference": 0.4733,
+    "saturation_flags": [],
+    "chance": 0.2,
+    "beta_prototype": 2.0,
+    "beta_continuous": 2.0,
+    "honest_scope": "Modern-Hopfield prototype attractor for compositional gen; N=8192 5 cats x 20 train + 10 heldout; chance=0.2000; cell1_anchor_rail=ARM_HRR_BUNDLE_PROTOTYPE vs Cell 1 ARM_FEATURE_BASED_SCHEMA 0.4733 (rail_drift=0.1067)"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 8192,
+      "run_mode": "smoke",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.42,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.58,
+        "ARM_LINEAR_MEAN_PROTOTYPE": 0.42,
+        "ARM_MODERN_HOPFIELD_PROTOTYPE": 0.22,
+        "ARM_MODERN_HOPFIELD_CONTINUOUS": 0.26
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.2704164981842041,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782487497.6287477
+    }
+  ],
+  "metrics_source": "measured_cpu_gap3_modern_hopfield_prototype_4arm",
+  "elapsed_s": 0.35211849212646484,
+  "summary": "MIDDLE_BAND_MH_BELOW_FLOOR: best_MH_arm=ARM_MODERN_HOPFIELD_CONTINUOUS=0.2600 below MIDDLE_BAND lower bound 0.5 but distinguishable from HRR_BUNDLE. arms: ARM_BASELINE_NO_SCHEMA=0.4200+/-0.0000 | ARM_",
+  "honest_scope": "Modern-Hopfield prototype attractor for compositional gen; N=8192 5 cats x 20 train + 10 heldout; chance=0.2000; cell1_anchor_rail=ARM_HRR_BUNDLE_PROTOTYPE vs Cell 1 ARM_FEATURE_BASED_SCHEMA 0.4733 (rail_drift=0.1067)",
+  "substrate_only_decode_gate": "N/A (compositional-gen primitive cell; zero LLM forward calls)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0
+}

@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: cardinality mismatch at tiny dfeat=16",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_capacity_curve_v1.py\", line 503, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_capacity_curve_v1.py\", line 483, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_capacity_curve_v1.py\", line 455, in self_test\n    assert pt[\"n_units_done\"] == 2 * len(ARMS), f\"cardinality mismatch at tiny dfeat={dfeat}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: cardinality mismatch at tiny dfeat=16\n",
+  "ts_iso": "2026-07-20T08:06:49.699813+00:00",
+  "pid": 29184,
+  "anchor_name": "exp_novel_atom_real_codebook_capacity_curve_v1"
+}

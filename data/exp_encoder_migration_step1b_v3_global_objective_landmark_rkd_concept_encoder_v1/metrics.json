@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "RuntimeError: [enforce fail at alloc_cpu.cpp:121] data. DefaultCPUAllocator: not enough memory: you tried to allocate 6552109056 bytes.",
+  "summary": "CELL_CRASHED: RuntimeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core.py\", line 1727, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core.py\", line 1716, in main\n    return run_midscale(args.seed, args.device, args.n_dim,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core.py\", line 1487, in run_midscale\n    _run_unit(_semantic_unit, arm, c, c, Xhe, Xhe, 0,\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core.py\", line 1470, in _run_unit\n    u = fn(*a, **kw)\n        ^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core.py\", line 730, in _semantic_unit\n    sp = (cn[i] * cn[j]).sum(-1).numpy()\n                  ~~^^^\nRuntimeError: [enforce fail at alloc_cpu.cpp:121] data. DefaultCPUAllocator: not enough memory: you tried to allocate 6552109056 bytes.\n",
+  "ts_iso": "2026-07-04T16:43:11.631587+00:00",
+  "pid": 29376,
+  "anchor_name": "encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1"
+}

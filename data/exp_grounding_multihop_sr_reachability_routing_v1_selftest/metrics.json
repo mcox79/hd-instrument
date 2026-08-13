@@ -1,0 +1,83 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS SR-reachability machinery: NO_CLEANUP collapses; MEMORYLESS aliased; SUPPLIED recovers; SR_SEEDED recovers ~SUPPLIED and >> memoryless on a clean-reachability planted graph (M[on-path,G] >> M[off-path,G]); SR column non-degenerate; arms differ; typed subgraph + nbr table + k_sr + SR resolvent solve exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.1667926999507472,
+  "mechanism_selftest": {
+    "reach_no_cleanup": {
+      "1": 0.3818,
+      "2": 0.2727,
+      "3": 0.3091,
+      "4": 0.4455
+    },
+    "reach_memoryless": {
+      "1": 0.3818,
+      "2": 0.1091,
+      "3": 0.0273,
+      "4": 0.0091
+    },
+    "reach_supplied": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 0.3
+    },
+    "reach_autonomous_greedy": {
+      "1": 0.4091,
+      "2": 0.1455,
+      "3": 0.0727,
+      "4": 0.0727
+    },
+    "reach_sr_seeded": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "sr_stats": {
+      "gamma": 0.85,
+      "n_unique_goals": 110,
+      "sr_col_std_mean": 0.027566634118556976,
+      "sr_col_peak_mean": 1026.7080078125,
+      "sr_col_max_mean": 1.0
+    },
+    "sr_disc_frac": 1.0,
+    "nocleanup_ran": true,
+    "memoryless_aliased": true,
+    "supplied_reaches": true,
+    "sr_recovers": true,
+    "sr_near_supplied": true,
+    "sr_discriminates": true,
+    "sr_not_degenerate": true,
+    "arms_differ": true,
+    "Dmax": 3,
+    "n_synth": 1430
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  }
+}

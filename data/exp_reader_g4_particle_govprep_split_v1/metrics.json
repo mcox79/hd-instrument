@@ -1,0 +1,243 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pins OK (BASE=be02002c1579217f, G4V1=75fbfc1517b2653f, COMPOSED_V1=936581ccc427f6f6); g4_fp_reduction v1=8 -> v2=14 (skip-only=16); skip_fires=True rp_guard_fires=True; G4V2 precision 0.5111->0.5354; COMPOSED_V2 f1 0.5974(v1)->0.6099(v2), recall 0.7->0.68 (drop 0.02).",
+  "summary": "HARD_PASS: pins(base=True,g4v1=True,cv1=True) | g4_fp_red v1=8 skiponly=16 v2=14 | skip_fires=True rp_guard_fires=True | COMPOSED_V1 f1=0.5974 -> COMPOSED_V2 f1=0.6099 | recall base=0.7 cv2=0.68 drop=0.02",
+  "elapsed_s": 102.47,
+  "ts_iso": "2026-07-23T23:06:31.899824+00:00",
+  "anchor_name": "reader_g4_particle_govprep_split_v1",
+  "run_mode": "full",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "the G4 governing-preposition exclusion rule (off / v1 word-list-skip / v2_skiponly POS-skip / v2 POS-skip+RP-particle-guard), holding the reader's routing/labeling/learned-admissibility gate + G1/G2/G3 byte-identical across arms",
+  "fairness_pins": {
+    "base_hash_ok": true,
+    "g4v1_hash_ok": true,
+    "cv1_hash_ok": true,
+    "repro_counts_ok": true,
+    "base_kept_hash": "be02002c1579217f",
+    "v3_hash": "be02002c1579217f",
+    "g4v1_kept_hash": "75fbfc1517b2653f",
+    "banked_g4_hash": "75fbfc1517b2653f",
+    "composed_v1_kept_hash": "936581ccc427f6f6",
+    "banked_composed_hash": "936581ccc427f6f6"
+  },
+  "ablation": {
+    "g4v1_fp_reduction": 8,
+    "g4v2_skiponly_fp_reduction": 16,
+    "g4v2_fp_reduction": 14,
+    "skip_list_generalization_fires": true,
+    "rp_particle_guard_fires_on_corpus": true,
+    "v2_keeps_reduction": true,
+    "v2_precision_ge_v1": true,
+    "g4v1_exclusions": 20,
+    "g4v2_skiponly_exclusions": 36,
+    "g4v2_exclusions": 33
+  },
+  "composed": {
+    "recall_drop_cv2": 0.02,
+    "cv2_f1_ge_cv1": true,
+    "cv2_precision_up": true,
+    "composed_v1_f1": 0.5974,
+    "composed_v2_f1": 0.6099,
+    "composed_v1_precision": 0.5267,
+    "composed_v2_precision": 0.5528,
+    "composed_v1_recall": 0.69,
+    "composed_v2_recall": 0.68
+  },
+  "bands": {
+    "RECALL_RETENTION_OK": 0.02,
+    "RECALL_RETENTION_MB": 0.05,
+    "V3_BASE_HASH": "be02002c1579217f",
+    "G4V1_HASH": "75fbfc1517b2653f",
+    "COMPOSED_V1_HASH": "936581ccc427f6f6"
+  },
+  "arms": {
+    "BASE": {
+      "f1": 0.5738,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "recall_ceiling": 0.7,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "total_fp": 74,
+      "combined_target_fp": 68,
+      "kept_hash": "be02002c1579217f",
+      "suppression_counts": {}
+    },
+    "G4V1": {
+      "f1": 0.5872,
+      "precision": 0.5111,
+      "recall": 0.69,
+      "recall_ceiling": 0.69,
+      "n_pred": 135,
+      "subcat_fp": 29,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 31,
+      "total_fp": 66,
+      "combined_target_fp": 60,
+      "kept_hash": "75fbfc1517b2653f",
+      "suppression_counts": {
+        "g4_patient_excluded": 20
+      }
+    },
+    "G4V2_SKIPONLY": {
+      "f1": 0.6044,
+      "precision": 0.544,
+      "recall": 0.68,
+      "recall_ceiling": 0.68,
+      "n_pred": 125,
+      "subcat_fp": 22,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 30,
+      "total_fp": 57,
+      "combined_target_fp": 52,
+      "kept_hash": "158a989cec669dc2",
+      "suppression_counts": {
+        "g4_patient_excluded": 36
+      }
+    },
+    "G4V2": {
+      "f1": 0.5991,
+      "precision": 0.5354,
+      "recall": 0.68,
+      "recall_ceiling": 0.68,
+      "n_pred": 127,
+      "subcat_fp": 23,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 31,
+      "total_fp": 59,
+      "combined_target_fp": 54,
+      "kept_hash": "dfad49bda7484dc1",
+      "suppression_counts": {
+        "g4_patient_excluded": 33
+      }
+    },
+    "COMPOSED_V1": {
+      "f1": 0.5974,
+      "precision": 0.5267,
+      "recall": 0.69,
+      "recall_ceiling": 0.69,
+      "n_pred": 131,
+      "subcat_fp": 27,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 29,
+      "total_fp": 62,
+      "combined_target_fp": 56,
+      "kept_hash": "936581ccc427f6f6",
+      "suppression_counts": {
+        "g4_patient_excluded": 20,
+        "g2_emissions_suppressed": 9,
+        "g1_pred_dropped": 2,
+        "g3_selfloops_dropped": 1
+      }
+    },
+    "COMPOSED_V2": {
+      "f1": 0.6099,
+      "precision": 0.5528,
+      "recall": 0.68,
+      "recall_ceiling": 0.68,
+      "n_pred": 123,
+      "subcat_fp": 21,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 29,
+      "total_fp": 55,
+      "combined_target_fp": 50,
+      "kept_hash": "0189a719706d12e2",
+      "suppression_counts": {
+        "g4_patient_excluded": 33,
+        "g2_emissions_suppressed": 8,
+        "g1_pred_dropped": 2,
+        "g3_selfloops_dropped": 1
+      }
+    }
+  },
+  "lost_covered_by_arm": {
+    "G4V1": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ]
+    ],
+    "G4V2_SKIPONLY": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ],
+      [
+        "L12_12",
+        "pull",
+        "fruit"
+      ]
+    ],
+    "G4V2": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ],
+      [
+        "L12_12",
+        "pull",
+        "fruit"
+      ]
+    ],
+    "COMPOSED_V1": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ]
+    ],
+    "COMPOSED_V2": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ],
+      [
+        "L12_12",
+        "pull",
+        "fruit"
+      ]
+    ]
+  },
+  "n_lost_covered_by_arm": {
+    "G4V1": 1,
+    "G4V2_SKIPONLY": 2,
+    "G4V2": 2,
+    "COMPOSED_V1": 1,
+    "COMPOSED_V2": 2
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 46.1,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_base": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "arm": "V3_INTEGRATED",
+    "f1": 0.5738,
+    "kept_hash": "be02002c1579217f"
+  },
+  "cited_banked_g4": {
+    "source": "data/exp_reader_structural_precision_gate_v1/metrics.json",
+    "g4_govprep_hash": "75fbfc1517b2653f",
+    "composed_hash": "936581ccc427f6f6"
+  },
+  "scope_caveat": "Parser trained on UD-EWT (out-of-domain to 19th-c. McGuffey prose; same untested transfer V3/M/audit/gate1 flag). UNLABELED heads -> particle vs governing-prep is resolved by the RP/IN POS TAG (not the dep relation, which the parser does NOT emit; a head-based proxy MISFIRES on OOD parses). Gates are FIXED structural rules. HONEST SCOPE: on THIS slice the RP-particle guard is INERT (no particle-governed patients among the exclusions) and the L04_03 take/blocks recall loss is a PARTITIVE 'of' (one OF the blocks), NOT a particle -> the particle guard does NOT recover it; the load-bearing on-slice change is the POS-based skip generalization. The particle guard's value is HELD-OUT-ONLY (unit-proven, not banked). Precision-side result; CLAIM-VET-pending; the real transfer test is a held-out phrasal-rich run. Pluggable: import prev_governing_prep_v2 / g4_excludes(mode='v2') into the reader."
+}

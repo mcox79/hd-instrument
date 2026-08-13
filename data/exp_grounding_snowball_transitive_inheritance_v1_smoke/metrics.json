@@ -1,0 +1,185 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | STAGE1=STAGE1_HARD_PASS rel_auc=0.870 grounded_floor=0.516 gap=0.354 leakage=False baseline_in_band=True | STAGE2=STAGE2_HARD_PASS near_acc(d1)=0.630 far_acc(d3)=0.484 decay=0.146 monotone=True | SHUFFLED_CTRL near=0.495 genuine_margin=0.135 | cotrain_lift_near=-0.023 | acc_smooth_by_bin(d1,d2,d3,d4+)=[0.630,0.515,0.484,nan] shuf=[0.495,0.502,0.502,nan] | attr_assort smooth=0.685 shuf=-0.013 precond_ok=True | subgraph n=2143 E=6240 med_deg=3.0 seeds=30",
+  "summary": "HARD_PASS | STAGE1=STAGE1_HARD_PASS rel_auc=0.870 grounded_floor=0.516 gap=0.354 leakage=False baseline_in_band=True | STAGE2=STAGE2_HARD_PASS near_acc(d1)=0.630 far_acc(d3)=0.484 decay=0.146 monotone",
+  "run_mode": "smoke",
+  "elapsed_s": 5.545234299992444,
+  "anchor_name": "grounding_snowball_transitive_inheritance_v1",
+  "ts_iso": "2026-07-09T12:21:59.956059+00:00",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "n_nodes": 2500,
+    "seeds": [
+      7,
+      13
+    ],
+    "epochs": 45,
+    "batch": 256,
+    "code_dim": 128,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_attr": 1.0,
+    "n_ground_seeds": 30,
+    "diffuse_steps": 10,
+    "n_sources": 25,
+    "ridge_lambda": 1.0,
+    "k_labelprop": 7,
+    "n_pairs_per_bin": 4000
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 2143,
+    "n_edges": 6240,
+    "median_degree": 3.0,
+    "mean_degree": 5.823611759216052,
+    "frac_deg_ge_2": 1.0
+  },
+  "attr_meta": {
+    "assort_smooth": 0.6846898965322339,
+    "assort_shuffled": -0.013452363488786548,
+    "n_ground_seeds": 30,
+    "n_unreachable": 0,
+    "bin_counts": {
+      "0": 169,
+      "1": 1159,
+      "2": 785,
+      "3": 0
+    }
+  },
+  "gates": {
+    "stage1_verdict": "STAGE1_HARD_PASS",
+    "stage2_verdict": "STAGE2_HARD_PASS",
+    "relational_auc_mean": 0.8698124434993425,
+    "grounded_floor_acc_mean": 0.515790188193234,
+    "stage1_gap": 0.35402225530610854,
+    "leakage_flag": false,
+    "baseline_in_band": true,
+    "near_acc": 0.6301929671007946,
+    "far_acc": 0.48380022301513714,
+    "far_bin": 2,
+    "decay": 0.1463927440856575,
+    "monotone": true,
+    "shuffled_near_acc": 0.4952303825272871,
+    "genuine_margin": 0.13496258457350752,
+    "cotrain_lift_near": -0.02328181412204333,
+    "precondition_ok": true,
+    "attr_assort_smooth": 0.6846898965322339,
+    "attr_assort_shuffled": -0.013452363488786548,
+    "acc_struct_smooth_by_bin": {
+      "0": 0.6301929671007946,
+      "1": 0.51519098477674,
+      "2": 0.48380022301513714,
+      "3": NaN
+    },
+    "acc_struct_shuf_by_bin": {
+      "0": 0.4952303825272871,
+      "1": 0.502003473819382,
+      "2": 0.5020656445787794,
+      "3": NaN
+    },
+    "acc_grounded_smooth_by_bin": {
+      "0": 0.6069111529787513,
+      "1": 0.5161371028271203,
+      "2": 0.4787234042553191,
+      "3": NaN
+    },
+    "bands": {
+      "NEAR_ACC_HP": 0.6,
+      "DECAY_HP": 0.08,
+      "GENUINE_MARGIN_HP": 0.06,
+      "NEAR_ACC_HF": 0.55,
+      "DECAY_HF": 0.03,
+      "GENUINE_MARGIN_HF": 0.03,
+      "STAGE1_RELATIONAL_AUC_HP": 0.75,
+      "STAGE1_GAP_HP": 0.3
+    }
+  },
+  "discriminator_selftest": {
+    "near_acc": 0.6878466969238527,
+    "far_acc": 0.4989944695827049,
+    "decay": 0.18885222734114782,
+    "shuffled_near": 0.5136157337367625,
+    "genuine_margin": 0.1742309631870902,
+    "acc_smooth_by_bin": {
+      "0": 0.6878466969238527,
+      "1": 0.6996457489878543,
+      "2": 0.571716662465339,
+      "3": 0.4989944695827049
+    },
+    "acc_shuffled_by_bin": {
+      "0": 0.5136157337367625,
+      "1": 0.46558704453441296,
+      "2": 0.46861608268212757,
+      "3": 0.47988939165409755
+    }
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "relational_auc_ungrounded": 0.8684504437869822,
+      "grounded_floor_acc": 0.5371435717858929,
+      "acc_struct_smooth": {
+        "0": 0.6409547738693467,
+        "1": 0.5308827206801701,
+        "2": 0.47873936968484243,
+        "3": NaN
+      },
+      "acc_struct_shuf": {
+        "0": 0.5052923387096774,
+        "1": 0.5078848560700876,
+        "2": 0.4913685263947961,
+        "3": NaN
+      },
+      "acc_grounded_smooth": {
+        "0": 0.610105580693816,
+        "1": 0.5316487365524143,
+        "2": 0.472090112640801,
+        "3": NaN
+      },
+      "bin_counts": {
+        "0": 169,
+        "1": 1159,
+        "2": 785,
+        "3": 0
+      }
+    },
+    {
+      "seed": 13,
+      "relational_auc_ungrounded": 0.8711744432117028,
+      "grounded_floor_acc": 0.4944368046005751,
+      "acc_struct_smooth": {
+        "0": 0.6194311603322427,
+        "1": 0.49949924887331,
+        "2": 0.4888610763454318,
+        "3": NaN
+      },
+      "acc_struct_shuf": {
+        "0": 0.48516842634489693,
+        "1": 0.4961220915686765,
+        "2": 0.5127627627627628,
+        "3": NaN
+      },
+      "acc_grounded_smooth": {
+        "0": 0.6037167252636866,
+        "1": 0.5006254691018264,
+        "2": 0.4853566958698373,
+        "3": NaN
+      },
+      "bin_counts": {
+        "0": 169,
+        "1": 1159,
+        "2": 785,
+        "3": 0
+      }
+    }
+  ]
+}

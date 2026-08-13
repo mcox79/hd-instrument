@@ -1,0 +1,109 @@
+{
+  "anchor": "gap3_lars_vsa_relational_bottleneck_v1_n8192",
+  "anchor_name": "gap3_lars_vsa_relational_bottleneck_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_CONFOUND_BASELINE_LEAK: ARM_BASELINE=0.3333 >= 0.3. Baseline nearest-neighbor recovers structure - re-audit harness; heldout construction may leak training. arms: ARM_BASELINE=0.3333+/-0.1050 | ARM_RELBOTTLENECK=0.2000+/-0.0566 | ARM_RESONATOR=0.4267+/-0.0754",
+  "headline": "HARD_FAIL_CONFOUND_BASELINE_LEAK: ARM_BASELINE=0.3333 >= 0.3. Baseline nearest-neighbor recovers structure - re-audit harness; heldout construction may leak training. arms: ARM_BASELINE=0.3333+/-0.1050 | ARM_RELBOTTLENECK=0.2000+/-0.0566 | ARM_RESONATOR=0.4267+/-0.0754",
+  "n_seeds": 3,
+  "N": 8192,
+  "run_mode": "full",
+  "n_categories": 5,
+  "instances_per_category": 10,
+  "heldout_per_category": 5,
+  "k_symbols": 64,
+  "cat_signal_frac": 0.005,
+  "chance": 0.2,
+  "arms_tested": [
+    "ARM_BASELINE",
+    "ARM_RELBOTTLENECK",
+    "ARM_RESONATOR"
+  ],
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE": {
+        "mean_heldout_top1": 0.3333333333333333,
+        "std": 0.1049867716534908,
+        "cv": 0.3149603149604724,
+        "per_seed": [
+          0.24,
+          0.48,
+          0.28
+        ]
+      },
+      "ARM_RELBOTTLENECK": {
+        "mean_heldout_top1": 0.20000000000000004,
+        "std": 0.05656854249492382,
+        "cv": 0.282842712474619,
+        "per_seed": [
+          0.16,
+          0.16,
+          0.28
+        ]
+      },
+      "ARM_RESONATOR": {
+        "mean_heldout_top1": 0.4266666666666667,
+        "std": 0.07542472332656505,
+        "cv": 0.17677669529663684,
+        "per_seed": [
+          0.32,
+          0.48,
+          0.48
+        ]
+      }
+    },
+    "chance": 0.2,
+    "honest_scope": "Gap 3 compositional gen 3-arm discriminator at N=8192; 5 cats x 10 train + 5 heldout/cat; chance=0.2000; clean synthetic data; substrate-only (HRR + learned-symbol codebook + resonator)"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE": 0.24,
+        "ARM_RELBOTTLENECK": 0.16,
+        "ARM_RESONATOR": 0.32
+      },
+      "n_heldout_total": 25,
+      "chance": 0.2,
+      "elapsed_s": 0.1817014217376709,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782484034.3984764
+    },
+    {
+      "seed": 13,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE": 0.48,
+        "ARM_RELBOTTLENECK": 0.16,
+        "ARM_RESONATOR": 0.48
+      },
+      "n_heldout_total": 25,
+      "chance": 0.2,
+      "elapsed_s": 0.18948674201965332,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782484034.6216068
+    },
+    {
+      "seed": 19,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE": 0.28,
+        "ARM_RELBOTTLENECK": 0.28,
+        "ARM_RESONATOR": 0.48
+      },
+      "n_heldout_total": 25,
+      "chance": 0.2,
+      "elapsed_s": 0.19122791290283203,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782484034.8611684
+    }
+  ],
+  "metrics_source": "measured_cpu_gap3_lars_vsa_relational_bottleneck_3arm",
+  "elapsed_s": 0.8585457801818848,
+  "summary": "HARD_FAIL_CONFOUND_BASELINE_LEAK: ARM_BASELINE=0.3333 >= 0.3. Baseline nearest-neighbor recovers structure - re-audit harness; heldout construction may leak training. arms: ARM_BASELINE=0.3333+/-0.105",
+  "honest_scope": "Gap 3 compositional gen 3-arm discriminator at N=8192; 5 cats x 10 train + 5 heldout/cat; chance=0.2000; clean synthetic data; substrate-only (HRR + learned-symbol codebook + resonator)",
+  "substrate_only_decode_gate": "N/A (Gap 3 mechanism primitive cell; zero LLM forward calls)"
+}

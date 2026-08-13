@@ -1,0 +1,89 @@
+{
+  "verdict": "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H",
+  "run_mode": "full",
+  "verdict_msg": "expected 3 seeds, got 0 (failures=[{'seed': 7, 'failure_class': 'OutOfMemoryError', 'msg': 'CUDA out of memory. Tried to allocate 2.33 GiB. GPU 0 has a total capacity of 8.00 GiB of which 581.60 MiB is free. 6.80 GiB allowed; Of the allocated memory 5.46 GiB is allocated by PyTorch, and 2.79 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting'}, {'seed': 17, 'failure_class': 'OutOfMemoryError', 'msg': 'CUDA out of memory. Tried to allocate 2.32 GiB. GPU 0 has a total capacity of 8.00 GiB of which 1.41 GiB is free. 6.80 GiB allowed; Of the allocated memory 5.46 GiB is allocated by PyTorch, and 2.75 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting P'}, {'seed': 23, 'failure_class': 'OutOfMemoryError', 'msg': 'CUDA out of memory. Tried to allocate 1.83 GiB. GPU 0 has a total capacity of 8.00 GiB of which 571.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 6.31 GiB is allocated by PyTorch, and 2.99 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting'}])",
+  "summary": "cardinality breach",
+  "elapsed_s": 549.1018582999241,
+  "seed_failures": [
+    {
+      "seed": 7,
+      "failure_class": "OutOfMemoryError",
+      "msg": "CUDA out of memory. Tried to allocate 2.33 GiB. GPU 0 has a total capacity of 8.00 GiB of which 581.60 MiB is free. 6.80 GiB allowed; Of the allocated memory 5.46 GiB is allocated by PyTorch, and 2.79 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting"
+    },
+    {
+      "seed": 17,
+      "failure_class": "OutOfMemoryError",
+      "msg": "CUDA out of memory. Tried to allocate 2.32 GiB. GPU 0 has a total capacity of 8.00 GiB of which 1.41 GiB is free. 6.80 GiB allowed; Of the allocated memory 5.46 GiB is allocated by PyTorch, and 2.75 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting P"
+    },
+    {
+      "seed": 23,
+      "failure_class": "OutOfMemoryError",
+      "msg": "CUDA out of memory. Tried to allocate 1.83 GiB. GPU 0 has a total capacity of 8.00 GiB of which 571.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 6.31 GiB is allocated by PyTorch, and 2.99 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting"
+    }
+  ],
+  "mechanism_selftest": {
+    "grid": {
+      "ONESHOT_ROTATE": {
+        "hits@1": 0.7179,
+        "hits@10": 0.7436,
+        "mrr": 0.7412
+      },
+      "REPLAY_CONSOLIDATED": {
+        "hits@1": 0.359,
+        "hits@10": 0.5897,
+        "mrr": 0.4371
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@10": 0.0,
+        "mrr": 0.0406
+      },
+      "DISCRETE_BIND": {
+        "hits@1": 0.0513,
+        "hits@10": 0.2564,
+        "mrr": 0.1346
+      },
+      "SCRAMBLE_REPLAY": {
+        "hits@1": 0.0256,
+        "hits@10": 0.2308,
+        "mrr": 0.1288
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@10": 0.1282,
+        "mrr": 0.0669
+      },
+      "ORACLE_TRANSDUCTIVE": {
+        "hits@1": 1.0,
+        "hits@10": 1.0,
+        "mrr": 1.0
+      }
+    },
+    "grid_n_distinct_sigs": 7,
+    "grid_nhold": 39,
+    "grid_recovers": true,
+    "grid_beats_discrete": true,
+    "grid_beats_pop": true,
+    "grid_scramble_ok": true,
+    "grid_oracle_fires": true,
+    "geometry_fires": true,
+    "comp_l2_genuine": 150,
+    "freq_l2_genuine": 150,
+    "comp_oneshot": 0.2533,
+    "comp_replay": 0.1867,
+    "comp_discrete": 0.0267,
+    "comp_pop": 0.1733,
+    "comp_scramble": 0.0133,
+    "comp_random": 0.0133,
+    "freq_geo": 0.9933,
+    "freq_pop": 1.0,
+    "oneshot_beats_pop": true,
+    "oneshot_beats_discrete": true,
+    "scramble_not_beat": true,
+    "random_at_chance": true,
+    "no_manufacture": true,
+    "pop_fires_freq": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 7
+  }
+}

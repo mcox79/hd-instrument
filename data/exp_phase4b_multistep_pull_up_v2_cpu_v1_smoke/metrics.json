@@ -1,0 +1,239 @@
+{
+  "anchor_name": "phase4b_multistep_pull_up_v2_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: MultiArith-2op=0.567 (ratio 67.9x) | ASDiv-1op=0.058 | MAWPS-1op=0.583 | max_std=0.033 | REPORTED: ASDiv-2op=0.042 MAWPS-2op=0.008 SVAMP-2op=0.017 cliff_3op=None",
+  "run_mode": "smoke",
+  "op_depths": [
+    1,
+    2
+  ],
+  "benchmarks": [
+    "MultiArith",
+    "ASDiv",
+    "MAWPS",
+    "SVAMP"
+  ],
+  "n_seeds": 2,
+  "detail": {
+    "acc": {
+      "MultiArith_op1": 0.00835,
+      "MultiArith_op2": 0.5666500000000001,
+      "ASDiv_op1": 0.05835,
+      "ASDiv_op2": 0.0417,
+      "MAWPS_op1": 0.58335,
+      "MAWPS_op2": 0.00835,
+      "SVAMP_op1": 0.0917,
+      "SVAMP_op2": 0.01665
+    },
+    "GATING_op_depth_matched": {
+      "MultiArith_2op": 0.5666500000000001,
+      "ASDiv_1op": 0.05835,
+      "MAWPS_1op": 0.58335
+    },
+    "MultiArith_ratio_2op_1op": 67.86,
+    "REPORTED_cliff_3op_MultiArith": null,
+    "REPORTED_ASDiv_2op": 0.0417,
+    "REPORTED_MAWPS_2op": 0.00835,
+    "REPORTED_SVAMP_2op": 0.01665,
+    "max_seed_std": 0.0333,
+    "seeds_reproduce": false,
+    "honest_scope": "MultiArith 2-op composition (gated 2-op) + ASDiv/MAWPS 1-op generalization (gated 1-op, their content) + SVAMP representation-bound (reported). op-depth matched."
+  },
+  "metrics_source": "measured_cpu_substrate_multistep_composition_4bench_opdepth",
+  "per_unit": [
+    {
+      "op_depth": 1,
+      "benchmark": "MultiArith",
+      "seed": 1,
+      "accuracy": 0.0167,
+      "ceiling": 0.017,
+      "n_train_labeled": 4,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MultiArith_op1_s1",
+      "_partial_written_at": 1781922029.0487227
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "MultiArith",
+      "seed": 2,
+      "accuracy": 0.0,
+      "ceiling": 0.0,
+      "n_train_labeled": 3,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MultiArith_op1_s2",
+      "_partial_written_at": 1781922030.917699
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "ASDiv",
+      "seed": 1,
+      "accuracy": 0.05,
+      "ceiling": 0.233,
+      "n_train_labeled": 35,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "ASDiv_op1_s1",
+      "_partial_written_at": 1781922030.9640677
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "ASDiv",
+      "seed": 2,
+      "accuracy": 0.0667,
+      "ceiling": 0.233,
+      "n_train_labeled": 34,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "ASDiv_op1_s2",
+      "_partial_written_at": 1781922031.0261886
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "MAWPS",
+      "seed": 1,
+      "accuracy": 0.6167,
+      "ceiling": 0.65,
+      "n_train_labeled": 76,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MAWPS_op1_s1",
+      "_partial_written_at": 1781922032.981277
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "MAWPS",
+      "seed": 2,
+      "accuracy": 0.55,
+      "ceiling": 0.65,
+      "n_train_labeled": 71,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MAWPS_op1_s2",
+      "_partial_written_at": 1781922034.3736572
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "SVAMP",
+      "seed": 1,
+      "accuracy": 0.0667,
+      "ceiling": 0.283,
+      "n_train_labeled": 36,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "SVAMP_op1_s1",
+      "_partial_written_at": 1781922034.4121835
+    },
+    {
+      "op_depth": 1,
+      "benchmark": "SVAMP",
+      "seed": 2,
+      "accuracy": 0.1167,
+      "ceiling": 0.317,
+      "n_train_labeled": 40,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "SVAMP_op1_s2",
+      "_partial_written_at": 1781922034.4322884
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "MultiArith",
+      "seed": 1,
+      "accuracy": 0.5833,
+      "ceiling": 0.767,
+      "n_train_labeled": 82,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MultiArith_op2_s1",
+      "_partial_written_at": 1781922035.562448
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "MultiArith",
+      "seed": 2,
+      "accuracy": 0.55,
+      "ceiling": 0.683,
+      "n_train_labeled": 83,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MultiArith_op2_s2",
+      "_partial_written_at": 1781922036.5861251
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "ASDiv",
+      "seed": 1,
+      "accuracy": 0.0667,
+      "ceiling": 0.167,
+      "n_train_labeled": 14,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "ASDiv_op2_s1",
+      "_partial_written_at": 1781922036.623389
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "ASDiv",
+      "seed": 2,
+      "accuracy": 0.0167,
+      "ceiling": 0.15,
+      "n_train_labeled": 12,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "ASDiv_op2_s2",
+      "_partial_written_at": 1781922036.6727498
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "MAWPS",
+      "seed": 1,
+      "accuracy": 0.0,
+      "ceiling": 0.05,
+      "n_train_labeled": 3,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MAWPS_op2_s1",
+      "_partial_written_at": 1781922037.4956794
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "MAWPS",
+      "seed": 2,
+      "accuracy": 0.0167,
+      "ceiling": 0.017,
+      "n_train_labeled": 3,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "MAWPS_op2_s2",
+      "_partial_written_at": 1781922038.3319197
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "SVAMP",
+      "seed": 1,
+      "accuracy": 0.0333,
+      "ceiling": 0.15,
+      "n_train_labeled": 16,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "SVAMP_op2_s1",
+      "_partial_written_at": 1781922038.3707597
+    },
+    {
+      "op_depth": 2,
+      "benchmark": "SVAMP",
+      "seed": 2,
+      "accuracy": 0.0,
+      "ceiling": 0.167,
+      "n_train_labeled": 24,
+      "n_test": 60,
+      "run_mode": "smoke",
+      "_ckpt_key": "SVAMP_op2_s2",
+      "_partial_written_at": 1781922038.4221828
+    }
+  ],
+  "elapsed_s": 0.03650665283203125,
+  "summary": "HARD_FAIL: MultiArith-2op=0.567 (ratio 67.9x) | ASDiv-1op=0.058 | MAWPS-1op=0.583 | max_std=0.033 | REPORTED: ASDiv-2op=0.042 MAWPS-2op=0.008 SVAMP-2op=0.017 cliff_3op=None"
+}

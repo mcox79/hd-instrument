@@ -1,0 +1,9 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "formula self-tests pass: shift_invariance_diff=2.9e-08; synth hub r1=1.000->r8=1.000 (redundancy helps); degenerate==R1 True; arms_differ=True",
+  "summary": "SELFTEST_PASS (shift-invariant signal + redundancy-reduces-crosstalk + degenerate control)",
+  "run_mode": "self_test",
+  "elapsed_s": 0.28,
+  "ts_iso": "2026-07-05T14:25:46.693303+00:00",
+  "anchor_name": "mem_redundancy_bank_real_hub_deg8plus_v1"
+}

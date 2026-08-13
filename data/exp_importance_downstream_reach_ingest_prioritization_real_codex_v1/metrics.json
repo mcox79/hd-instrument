@@ -1,0 +1,184 @@
+{
+  "anchor_name": "importance_downstream_reach_ingest_prioritization_real_codex_v1",
+  "verdict": "HARD_FAIL_IMPORTANCE_AXIS_DOES_NOT_TRANSFER_TO_REAL_DATA",
+  "run_mode": "full",
+  "scale": "full",
+  "dataset": "codex_claimvalidity",
+  "elapsed_s": 97.98243546485901,
+  "n_ent": 2034,
+  "n_train": 32888,
+  "n_test": 3656,
+  "budget_grid": [
+    1000,
+    2000,
+    4000,
+    8000,
+    16000,
+    24000
+  ],
+  "info_ceiling": {
+    "q_full_orth_auroc": 0.7378475297942533,
+    "scramble_full_orth_auroc": 0.46376942791203213,
+    "info_ceiling_structural": 0.27407810188222115,
+    "q_smallB_mean": 0.49057759234343157,
+    "growth_range": 0.2472699374508217,
+    "thresholds": {
+      "CEIL_FULL_MIN": 0.55,
+      "CEIL_STRUCT_MIN": 0.03,
+      "CEIL_RANGE_MIN": 0.02
+    },
+    "info_ceiling_pass": true
+  },
+  "part1_separability": {
+    "spearman_corr": {
+      "importance_btwn__importance_reach": -0.07966918953717364,
+      "importance_btwn__schema_fit": -0.23250303915105147,
+      "importance_btwn__recurrence": -0.27059166482149105,
+      "importance_btwn__degree": 0.22015389649248474,
+      "importance_btwn__rel_freq": 0.037722881262798,
+      "importance_reach__schema_fit": 0.6959259524719954,
+      "importance_reach__recurrence": 0.7333611724810211,
+      "importance_reach__degree": 0.5959200852698745,
+      "importance_reach__rel_freq": 0.001469162269726397,
+      "schema_fit__recurrence": 0.9825118642556673,
+      "schema_fit__degree": 0.4101532506810521,
+      "schema_fit__rel_freq": -0.10115585816258683,
+      "recurrence__degree": 0.39714981238381863,
+      "recurrence__rel_freq": -0.12470682522748715,
+      "degree__rel_freq": 0.28863422103151326
+    },
+    "importance_btwn_R2_on_others": 0.13272487431616098,
+    "importance_btwn_unique_variance": 0.867275125683839,
+    "max_pop_corr": 0.22015389649248474,
+    "separability_tier": "SEPARABLE",
+    "R2_regressors": [
+      "degree",
+      "rel_freq",
+      "schema_fit",
+      "recurrence"
+    ]
+  },
+  "part2_foundation_growth": {
+    "auac_by_arm": {
+      "importance_btwn": 0.5382879047780933,
+      "importance_reach": 0.5849625756327937,
+      "importance_btwn_orth": 0.558096474606055,
+      "frequency": 0.5756449635861315,
+      "random": 0.5895057470415893,
+      "degree_matched": 0.5961727698267915
+    },
+    "facts_to_90pct_full": {
+      "importance_btwn": 19724.48987584695,
+      "importance_reach": null,
+      "importance_btwn_orth": 15949.68686106191,
+      "frequency": 23419.001207816902,
+      "random": 12496.620612358227,
+      "degree_matched": 9638.564170414933
+    },
+    "q_full_orth_auroc": 0.7378475297942533,
+    "margin_imp_freq_p05": -0.050637969657430844,
+    "margin_imp_rand_p05": -0.1050862681573039,
+    "margin_imp_freq_mean": -0.03700182737903572,
+    "margin_imp_rand_mean": -0.09054125412558565,
+    "beats_both": false,
+    "fails": true,
+    "n_boot_used": 400
+  },
+  "part3_popularity_neutrality": {
+    "auac_importance_btwn": 0.5382879047780933,
+    "auac_degree_matched": 0.5961727698267915,
+    "margin_imp_degmatched_p05": -0.10982181009980521,
+    "margin_imp_degmatched_mean": -0.09606677368881489,
+    "neutral": false,
+    "not_neutral": true
+  },
+  "primary_metric": "degree_orthogonalized_SR_PPR_resolvent_orth_AUROC (gamma=0.60)",
+  "ra_diagnostic": {
+    "ra_raw_auroc_full": 0.6292708787209899,
+    "ra_orth_auroc_full": 0.48849497723235447,
+    "degree_auroc_full": 0.6651523648664824,
+    "note": "RA orth AUROC near/below chance -> RA power is popularity; SR resolvent used as primary."
+  },
+  "qcurve_by_arm": {
+    "importance_btwn": {
+      "1000": 0.46215701894670314,
+      "2000": 0.44193457354356497,
+      "4000": 0.46567795392843636,
+      "8000": 0.5286745746927206,
+      "16000": 0.6427186926918491,
+      "24000": 0.6885646148652854
+    },
+    "importance_reach": {
+      "1000": 0.5601749050749585,
+      "2000": 0.5483483282179948,
+      "4000": 0.5680799884126809,
+      "8000": 0.5820416305560476,
+      "16000": 0.5975871024041293,
+      "24000": 0.6535434991309511
+    },
+    "importance_btwn_orth": {
+      "1000": 0.46320203232957785,
+      "2000": 0.465283530206034,
+      "4000": 0.4998140103615531,
+      "8000": 0.585667904802034,
+      "16000": 0.6645589337272383,
+      "24000": 0.6700524362098933
+    },
+    "frequency": {
+      "1000": 0.5319607407744351,
+      "2000": 0.5866502233671217,
+      "4000": 0.6105391933885247,
+      "8000": 0.4301612648372748,
+      "16000": 0.6276435067919884,
+      "24000": 0.6669148523574449
+    }
+  },
+  "qcurve_random_mean": {
+    "1000": 0.43539326459148314,
+    "2000": 0.5005813610152151,
+    "4000": 0.570915270522403,
+    "8000": 0.6506809345507998,
+    "16000": 0.6744887554325533,
+    "24000": 0.7049748961370815
+  },
+  "qcurve_degree_matched_mean": {
+    "1000": 0.4377168632201575,
+    "2000": 0.4826049562123831,
+    "4000": 0.5705330166771208,
+    "8000": 0.6536855974092926,
+    "16000": 0.7043503420333989,
+    "24000": 0.7281458434083955
+  },
+  "config": {
+    "kreach_hops": 3,
+    "n_btwn_sources": 192,
+    "sr_gamma": 0.6,
+    "rand_seeds": [
+      11,
+      23,
+      37
+    ],
+    "match_seeds": [
+      101,
+      202,
+      303
+    ],
+    "scramble_seeds": [
+      7,
+      17,
+      29
+    ],
+    "n_boot": 400,
+    "bands": {
+      "SEP_UNIQVAR_HP": 0.5,
+      "SEP_UNIQVAR_HF": 0.2,
+      "SEP_POPCORR_HP": 0.4,
+      "SEP_POPCORR_HF": 0.75,
+      "MARGIN_P05_FLOOR": 0.0
+    }
+  },
+  "arms_differ": true,
+  "verdict_msg": "HARD_FAIL_IMPORTANCE_AXIS_DOES_NOT_TRANSFER_TO_REAL_DATA | SEP tier=SEPARABLE (uniqvar=0.867 max_pop_corr=0.220) | GROWTH[SR-resolvent] auac imp=0.5383 freq=0.5756 rand=0.5895 (p05 imp-freq=-0.0506 imp-rand=-0.1051) | NEUTRAL auac degmatched=0.5962 (p05 imp-degm=-0.1098) | info_ceiling(full_orth=0.738 struct=0.274 range=0.247 pass=True) | RA-diag orth=0.488 (popularity-vacuous)",
+  "ts_iso": "2026-07-17T01:47:56.485502+00:00",
+  "summary": "HARD_FAIL_IMPORTANCE_AXIS_DOES_NOT_TRANSFER_TO_REAL_DATA"
+}

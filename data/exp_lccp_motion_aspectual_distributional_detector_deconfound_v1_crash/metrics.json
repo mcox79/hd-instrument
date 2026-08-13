@@ -1,0 +1,9 @@
+{
+  "anchor_name": "lccp_motion_aspectual_distributional_detector_deconfound_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: toy: induced detector must make motion P_do separate low, got {'pdo_motion_mean': 0.0, 'global_do_rate': 0.0, 'n_motion_verbs': 1, 'separates_low': False}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_lccp_motion_aspectual_distributional_detector_deconfound_v1.py\", line 635, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_lccp_motion_aspectual_distributional_detector_deconfound_v1.py\", line 625, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_lccp_motion_aspectual_distributional_detector_deconfound_v1.py\", line 587, in self_test\n    assert st_true[\"pdo_motion_mean\"] is not None and st_true[\"separates_low\"], \\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: toy: induced detector must make motion P_do separate low, got {'pdo_motion_mean': 0.0, 'global_do_rate': 0.0, 'n_motion_verbs': 1, 'separates_low': False}\n",
+  "ts_iso": "2026-07-19T15:40:13.270774+00:00"
+}

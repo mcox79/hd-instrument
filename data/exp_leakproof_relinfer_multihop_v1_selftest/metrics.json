@@ -1,0 +1,53 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS multi-hop leak-proof context + fusion + degree-matched rel-infer eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 8.671705199987628,
+  "multihop_selftest": {
+    "same_depth1_as_base": true,
+    "leak_at_hop_d1": 0,
+    "leak_at_hop_d3": 0,
+    "hop2_nonzero_heldout": 55,
+    "n_held": 55,
+    "disjoint_viol": 0,
+    "answer_leak": 0,
+    "struct_mh_auc": 0.49695960718046756,
+    "struct_mh_nq": 55,
+    "struct_mh_neg_leak": 0
+  },
+  "ctx_meta": {
+    "ctx_dim": 396,
+    "depth": 2,
+    "mean_hop_sizes_heldout": [
+      81.20253164556962,
+      132.40506329113924
+    ],
+    "leak_at_hop": 0
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 400,
+    "n_kept_pairs": 38831,
+    "min_deg": 2,
+    "cap_nodes": 400,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/PartOf",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/HasProperty"
+    ],
+    "n_rel_slots": 9
+  },
+  "learned_rel_infer_auc": 0.4783122362869199,
+  "raw_grounding_rel_infer_auc": 0.5113537271448666,
+  "struct_multihop_rel_infer_auc": 0.5737658227848101,
+  "ctx_only_shuffle_rel_infer_auc": 0.46912798874824196,
+  "collapse_shuffle_rel_infer_auc": 0.49288677918424745,
+  "popularity_rel_infer_auc": 0.5739135021097046
+}

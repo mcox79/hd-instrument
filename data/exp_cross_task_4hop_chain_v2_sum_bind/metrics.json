@@ -1,0 +1,63 @@
+{
+  "verdict": "HARD_FAIL_ORACLE_BROKEN",
+  "verdict_msg": "HARD_FAIL_ORACLE_BROKEN | NO=0.017 1SHOT=0.017 5SHOT=0.017 ORACLE=0.017 | lift_5=0.000 lift_1=0.000 n_seeds=2",
+  "summary": "HARD_FAIL_ORACLE_BROKEN | NO=0.017 1SHOT=0.017 5SHOT=0.017 ORACLE=0.017 | lift_5=0.000 lift_1=0.000 n_seeds=2",
+  "per_arm": {
+    "no_transfer": {
+      "7": 0.03333333333333333,
+      "17": 0.0
+    },
+    "1_shot_sum_bind": {
+      "7": 0.0,
+      "17": 0.03333333333333333
+    },
+    "5_shot_sum_bind": {
+      "7": 0.03333333333333333,
+      "17": 0.0
+    },
+    "oracle": {
+      "7": 0.03333333333333333,
+      "17": 0.0
+    }
+  },
+  "per_arm_summary": {
+    "no_transfer": {
+      "mean": 0.016666666666666666,
+      "std": 0.016666666666666666,
+      "cv": 1.0,
+      "n": 2
+    },
+    "1_shot_sum_bind": {
+      "mean": 0.016666666666666666,
+      "std": 0.016666666666666666,
+      "cv": 1.0,
+      "n": 2
+    },
+    "5_shot_sum_bind": {
+      "mean": 0.016666666666666666,
+      "std": 0.016666666666666666,
+      "cv": 1.0,
+      "n": 2
+    },
+    "oracle": {
+      "mean": 0.016666666666666666,
+      "std": 0.016666666666666666,
+      "cv": 1.0,
+      "n": 2
+    }
+  },
+  "lift_5shot": 0.0,
+  "lift_1shot": 0.0,
+  "oracle_mean": 0.016666666666666666,
+  "n_seeds_complete": 2,
+  "expected_n_units": 240,
+  "completed_units": 240,
+  "cardinality_ok": true,
+  "anchor_name": "cross_task_4hop_chain_v2_sum_bind",
+  "elapsed_s": 478.4,
+  "ts_iso": "2026-06-27T23:09:48Z",
+  "pid": 7496,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cross_task_4hop_chain_v2_sum_bind,N=8192,REL=6,ENT=80,TRAIN_X=200,TRAIN_Y=200,TEST=30,DEPTH=4,seeds=[7, 17],mode=smoke,HP_5shot>=0.50,HP_lift5>=0.30,HP_oracle>=0.70,expected_n=240,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v2_sum_bind_cross_task_4hop"
+}

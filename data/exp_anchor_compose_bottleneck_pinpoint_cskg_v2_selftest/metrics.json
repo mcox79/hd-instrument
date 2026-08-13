@@ -1,0 +1,97 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS bottleneck-pinpoint v2: run_corpus WITH the tail-oversample query_selector recovers planted held-out tails across >=2 budgets (ORACLE fires; ANCHOR beats RANDOM; scramble fails; selector oversampled the tail); Test-3 reachability BFS runs on the real split reconstruction; 7 validity-preflight checks declared (F.1-F.4 enforce)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 15.977729200036265,
+  "mechanism_selftest": {
+    "n_grid_entities": 61,
+    "k_grid": [
+      6,
+      12
+    ],
+    "top_budget": 12,
+    "heldout_mrr_top": {
+      "ANCHOR_COMPOSE": 0.40467,
+      "ADDITIVE_TRANSE": 0.00472,
+      "ONESHOT_ROTATE": 0.01821,
+      "RANDOM_CODES": 0.01338,
+      "ANCHOR_SCRAMBLE": 0.13595,
+      "ORACLE_ADDITIVE": 0.93169,
+      "BASELINE_POP": 0.00825
+    },
+    "oracle_across_budget": [
+      0.62037,
+      0.93169
+    ],
+    "tail_n_selftest": {
+      "cold": 10,
+      "d1": 5,
+      "d2_3plus": 46
+    },
+    "selector_oversampled": true,
+    "anchor_margin": 0.39129,
+    "scramble_margin": 0.26872,
+    "oracle_margin": 0.91831,
+    "oracle_ratio": 69.63,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "scramble_fails": true,
+    "pop_at_floor": true,
+    "reach_ok": true,
+    "reachability": {
+      "cold": {
+        "n": 10,
+        "n_bfs": 10,
+        "reach_frac_h1": 0.0,
+        "reach_frac_h2": 0.0,
+        "reach_frac_h3": 0.0,
+        "unreach_frac": 1.0
+      },
+      "d1": {
+        "n": 5,
+        "n_bfs": 5,
+        "reach_frac_h1": 0.4,
+        "reach_frac_h2": 0.4,
+        "reach_frac_h3": 0.6,
+        "unreach_frac": 0.4
+      },
+      "d2_3plus": {
+        "n": 46,
+        "n_bfs": 46,
+        "reach_frac_h1": 0.1956521739130435,
+        "reach_frac_h2": 0.45652173913043476,
+        "reach_frac_h3": 0.7608695652173914,
+        "unreach_frac": 0.2391304347826087
+      },
+      "_meta": {
+        "seed": 7,
+        "n_train": 651,
+        "n_support": 53,
+        "n_query": 61,
+        "reach_h": 3,
+        "d23_sampled": 46
+      }
+    },
+    "selftest_verdict": "BOTTLENECK_PINPOINT_OK__cold=DATA_LIMITED_EVIDENCE_ABSENT__d1=REPRESENTATION_INFERENCE_WALL__d2_3plus=NOT_BUDGET_LIMITED_NEAR_CEILING",
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "additive_direct_scores",
+      "build_anchor_compose_codes",
+      "build_heldout_entity_split_ac",
+      "reachability_by_bucket",
+      "run_corpus"
+    ],
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3",
+      "guard_baseline_valid_F4"
+    ]
+  }
+}

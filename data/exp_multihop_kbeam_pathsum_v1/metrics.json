@@ -1,0 +1,556 @@
+{
+  "anchor_name": "multihop_kbeam_pathsum_v1",
+  "verdict": "SANITY_BREACH",
+  "verdict_msg": "SANITY_BREACH: depth-2 rails out of [0.60, 0.70]. baseline=0.1017 (ok=False); beta_2=0.0967 (ok=False). 2026-06-24 beta-sweep regime not reproduced -- setup drifted; do NOT interpret main arms. PRIMARY K10_PATHSUM d5=0.0117 (cv=0.535) | K10_ARGMAX d5=0.0083 lift_ps_vs_am=+0.0033 | BASELINE d5=0.0083 BETA_2 d5=0.0083 K30_PATHSUM d5=0.0067 | depth-sweep K10_PATHSUM d3=0.0483 d5=0.0117 d7=0.0167 | SANITY d2: baseline=0.1017 (ok=False) beta2=0.0967 (ok=False) | cardinality: observed=45 expected=45 ok=True | bands HP_top1>=0.45 HP_lift>=0.10 cv<=0.10",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "expected_n_units": 45,
+  "cardinality_ok": true,
+  "config_version": "kbeam-pathsum-v1: N=8192 V_C=200 V_P=2 K_SET=20 n_chains=200 seeds=[7, 17, 23] depths=[3, 5, 7] K_beam_C=10 K_beam_D=10 K_beam_E=30 beta_2=2 | bands HP_top1>=0.45 HP_lift>=0.10 MB_lo=0.25 MB_lift_lo=0.05 cv<=0.10 | sanity_depth2=[0.60,0.70]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "V_C": 200,
+      "V_P": 2,
+      "K_SET": 20,
+      "K_beam_C": 10,
+      "K_beam_D": 10,
+      "K_beam_E": 30,
+      "beta_2": 2.0,
+      "hop_depths": [
+        3,
+        5,
+        7
+      ],
+      "sanity_depth": 2,
+      "expected_n_units": 45,
+      "config_version": "kbeam-pathsum-v1: N=8192 V_C=200 V_P=2 K_SET=20 n_chains=200 seeds=[7, 17, 23] depths=[3, 5, 7] K_beam_C=10 K_beam_D=10 K_beam_E=30 beta_2=2 | bands HP_top1>=0.45 HP_lift>=0.10 MB_lo=0.25 MB_lift_lo=0.05 cv<=0.10 | sanity_depth2=[0.60,0.70]",
+      "n_triples": 1400,
+      "n_chains_built": 200,
+      "sanity_baseline_top1_depth2": {
+        "top1": 0.12,
+        "n_chains": 200,
+        "depth": 2,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 4.26
+      },
+      "sanity_beta_2_replicate_depth2": {
+        "top1": 0.095,
+        "n_chains": 200,
+        "depth": 2,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 4.43
+      },
+      "arm_baseline_top1_d3": {
+        "top1": 0.035,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 6.25
+      },
+      "arm_beta_2_replicate_d3": {
+        "top1": 0.06,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 6.32
+      },
+      "arm_kbeam_k10_pathsum_d3": {
+        "top1": 0.045,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 44.02
+      },
+      "arm_kbeam_k10_argmax_d3": {
+        "top1": 0.035,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 7.25
+      },
+      "arm_kbeam_k30_pathsum_d3": {
+        "top1": 0.055,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 133.3
+      },
+      "arm_baseline_top1_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 10.0
+      },
+      "arm_beta_2_replicate_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 10.65
+      },
+      "arm_kbeam_k10_pathsum_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 93.3
+      },
+      "arm_kbeam_k10_argmax_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 10.61
+      },
+      "arm_kbeam_k30_pathsum_d5": {
+        "top1": 0.01,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 272.55
+      },
+      "arm_baseline_top1_d7": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 15.37
+      },
+      "arm_beta_2_replicate_d7": {
+        "top1": 0.015,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 14.56
+      },
+      "arm_kbeam_k10_pathsum_d7": {
+        "top1": 0.015,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 126.65
+      },
+      "arm_kbeam_k10_argmax_d7": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 13.79
+      },
+      "arm_kbeam_k30_pathsum_d7": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 364.83
+      },
+      "n_units_observed": 15,
+      "elapsed_s": 1139.1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782558996.9767895
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "V_C": 200,
+      "V_P": 2,
+      "K_SET": 20,
+      "K_beam_C": 10,
+      "K_beam_D": 10,
+      "K_beam_E": 30,
+      "beta_2": 2.0,
+      "hop_depths": [
+        3,
+        5,
+        7
+      ],
+      "sanity_depth": 2,
+      "expected_n_units": 45,
+      "config_version": "kbeam-pathsum-v1: N=8192 V_C=200 V_P=2 K_SET=20 n_chains=200 seeds=[7, 17, 23] depths=[3, 5, 7] K_beam_C=10 K_beam_D=10 K_beam_E=30 beta_2=2 | bands HP_top1>=0.45 HP_lift>=0.10 MB_lo=0.25 MB_lift_lo=0.05 cv<=0.10 | sanity_depth2=[0.60,0.70]",
+      "n_triples": 1400,
+      "n_chains_built": 200,
+      "sanity_baseline_top1_depth2": {
+        "top1": 0.08,
+        "n_chains": 200,
+        "depth": 2,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 4.07
+      },
+      "sanity_beta_2_replicate_depth2": {
+        "top1": 0.1,
+        "n_chains": 200,
+        "depth": 2,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 4.3
+      },
+      "arm_baseline_top1_d3": {
+        "top1": 0.02,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 5.96
+      },
+      "arm_beta_2_replicate_d3": {
+        "top1": 0.05,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 6.3
+      },
+      "arm_kbeam_k10_pathsum_d3": {
+        "top1": 0.06,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 42.56
+      },
+      "arm_kbeam_k10_argmax_d3": {
+        "top1": 0.02,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 6.65
+      },
+      "arm_kbeam_k30_pathsum_d3": {
+        "top1": 0.075,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 123.64
+      },
+      "arm_baseline_top1_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 10.21
+      },
+      "arm_beta_2_replicate_d5": {
+        "top1": 0.01,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 10.28
+      },
+      "arm_kbeam_k10_pathsum_d5": {
+        "top1": 0.02,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 80.83
+      },
+      "arm_kbeam_k10_argmax_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 10.29
+      },
+      "arm_kbeam_k30_pathsum_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 241.69
+      },
+      "arm_baseline_top1_d7": {
+        "top1": 0.02,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 13.95
+      },
+      "arm_beta_2_replicate_d7": {
+        "top1": 0.015,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 14.07
+      },
+      "arm_kbeam_k10_pathsum_d7": {
+        "top1": 0.025,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 121.77
+      },
+      "arm_kbeam_k10_argmax_d7": {
+        "top1": 0.02,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 13.98
+      },
+      "arm_kbeam_k30_pathsum_d7": {
+        "top1": 0.025,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 371.21
+      },
+      "n_units_observed": 15,
+      "elapsed_s": 1082.7,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782560079.6993468
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "V_C": 200,
+      "V_P": 2,
+      "K_SET": 20,
+      "K_beam_C": 10,
+      "K_beam_D": 10,
+      "K_beam_E": 30,
+      "beta_2": 2.0,
+      "hop_depths": [
+        3,
+        5,
+        7
+      ],
+      "sanity_depth": 2,
+      "expected_n_units": 45,
+      "config_version": "kbeam-pathsum-v1: N=8192 V_C=200 V_P=2 K_SET=20 n_chains=200 seeds=[7, 17, 23] depths=[3, 5, 7] K_beam_C=10 K_beam_D=10 K_beam_E=30 beta_2=2 | bands HP_top1>=0.45 HP_lift>=0.10 MB_lo=0.25 MB_lift_lo=0.05 cv<=0.10 | sanity_depth2=[0.60,0.70]",
+      "n_triples": 1400,
+      "n_chains_built": 200,
+      "sanity_baseline_top1_depth2": {
+        "top1": 0.105,
+        "n_chains": 200,
+        "depth": 2,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 4.1
+      },
+      "sanity_beta_2_replicate_depth2": {
+        "top1": 0.095,
+        "n_chains": 200,
+        "depth": 2,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 4.16
+      },
+      "arm_baseline_top1_d3": {
+        "top1": 0.035,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 6.11
+      },
+      "arm_beta_2_replicate_d3": {
+        "top1": 0.03,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 6.45
+      },
+      "arm_kbeam_k10_pathsum_d3": {
+        "top1": 0.04,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 42.49
+      },
+      "arm_kbeam_k10_argmax_d3": {
+        "top1": 0.035,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 5.96
+      },
+      "arm_kbeam_k30_pathsum_d3": {
+        "top1": 0.05,
+        "n_chains": 200,
+        "depth": 3,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 122.21
+      },
+      "arm_baseline_top1_d5": {
+        "top1": 0.015,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 10.34
+      },
+      "arm_beta_2_replicate_d5": {
+        "top1": 0.01,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 11.34
+      },
+      "arm_kbeam_k10_pathsum_d5": {
+        "top1": 0.01,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 83.52
+      },
+      "arm_kbeam_k10_argmax_d5": {
+        "top1": 0.015,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 11.14
+      },
+      "arm_kbeam_k30_pathsum_d5": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 5,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 243.42
+      },
+      "arm_baseline_top1_d7": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "baseline_top1",
+        "k_beam": 1,
+        "beta": null,
+        "elapsed_s_arm": 13.71
+      },
+      "arm_beta_2_replicate_d7": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "beta_soft",
+        "k_beam": 1,
+        "beta": 2.0,
+        "elapsed_s_arm": 14.57
+      },
+      "arm_kbeam_k10_pathsum_d7": {
+        "top1": 0.01,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 119.19
+      },
+      "arm_kbeam_k10_argmax_d7": {
+        "top1": 0.005,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_argmax",
+        "k_beam": 10,
+        "beta": null,
+        "elapsed_s_arm": 13.44
+      },
+      "arm_kbeam_k30_pathsum_d7": {
+        "top1": 0.01,
+        "n_chains": 200,
+        "depth": 7,
+        "mechanism": "kbeam_pathsum",
+        "k_beam": 30,
+        "beta": null,
+        "elapsed_s_arm": 359.69
+      },
+      "n_units_observed": 15,
+      "elapsed_s": 1072.7,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782561152.4575
+    }
+  ],
+  "smoke_preview_fullN": {},
+  "elapsed_s": 3294.7,
+  "summary": "SANITY_BREACH: depth-2 rails out of [0.60, 0.70]. baseline=0.1017 (ok=False); beta_2=0.0967 (ok=False). 2026-06-24 beta-sweep regime not reproduced -- setup drifted; do NOT interpret main arms. PRIMARY K10_PATHSUM d5=0.0117 (cv=0.535) | K10_ARGMAX d5=0.0083 lift_ps_vs_am=+0.0033 | BASELINE d5=0.0083 BETA_2 d5=0.0083 K30_PATHSUM d5=0.0067 | depth-sweep K10_PATHSUM d3=0.0483 d5=0.0117 d7=0.0167 | SANITY d2: baseline=0.1017 (ok=False) beta2=0.0967 (ok=False) | cardinality: observed=45 expected=45 ok=True | bands HP_top1>=0.45 HP_lift>=0.10 cv<=0.10",
+  "DESIGN_NOTE": "K-beam path-sum cell per M4 belief-propagation drill 2026-06-27. DRILL REJECTED direct soft-passing re-try (2026-06-24 BETA_2 already fair-tested moderate temperature and HARD_FAILED at top1=0.6483 vs baseline 0.6500 at 2-hop). DRILL RECOMMENDED K-beam path-sum as alternative addressing the diagnosed correlated-error rank-1 collapse failure mode. 5 arms x 3 seeds x [d3, d5, d7] = 45 units. HARD_PASS requires K10_PATHSUM d5 >= 0.45 (deflated from naive 0.65 because actual 5-hop baseline is ~0.17) AND (K10_PATHSUM - K10_ARGMAX) >= 0.10 (path-sum load-bearing) AND cv <= 0.10. K10_ARGMAX control isolates the path-sum aggregation as the load-bearing component (vs just having K candidates)."
+}

@@ -1,0 +1,9 @@
+{
+  "anchor_name": "compress_and_carry_comprehension_loop_ccl_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: arms must differ (discriminator fires)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_compress_and_carry_comprehension_loop_ccl_v1.py\", line 768, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_compress_and_carry_comprehension_loop_ccl_v1.py\", line 758, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_compress_and_carry_comprehension_loop_ccl_v1.py\", line 742, in self_test\n    assert hA != hB and hB != hC and hA != hC, \"arms must differ (discriminator fires)\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: arms must differ (discriminator fires)\n",
+  "ts_iso": "2026-07-19T08:33:57.538860+00:00"
+}

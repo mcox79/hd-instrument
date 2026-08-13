@@ -1,0 +1,581 @@
+{
+  "anchor_name": "fresh_W_bpc_per_encoder_v2",
+  "anchor": "fresh_W_bpc_per_encoder_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "FRESH_W_BPC MIDDLE_BAND: some encoder arms lift over CHAR_TRIGRAM_FRESH_W but none clear BPC<7.738 AND lift>=0.50 simultaneously; partial characterization of encoder contribution vs substrate-W bottleneck. FRESH_W_BPC unigram=7.738 | ARM_CHAR_TRIGRAM_FRESH_W=bpc7.738(lam0.00,lift0.000) | ARM_WORD2VEC_FRESH_W=bpc7.738(lam0.00,lift0.000) | ARM_GLOVE_FRESH_W=bpc7.738(lam0.00,lift0.000) | ARM_FASTTEXT_FRESH_W=bpc7.738(lam0.00,lift0.000) | n_llm=0",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 512,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_CHAR_TRIGRAM_FRESH_W",
+    "ARM_WORD2VEC_FRESH_W",
+    "ARM_GLOVE_FRESH_W",
+    "ARM_FASTTEXT_FRESH_W"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0
+      },
+      "ARM_CHAR_TRIGRAM_FRESH_W": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.7244,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0
+      },
+      "ARM_WORD2VEC_FRESH_W": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.6964,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "bpc_ok": true,
+        "cv_ok": true,
+        "lift_ok": false,
+        "arm_hard_pass": false
+      },
+      "ARM_GLOVE_FRESH_W": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.696,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "bpc_ok": true,
+        "cv_ok": true,
+        "lift_ok": false,
+        "arm_hard_pass": false
+      },
+      "ARM_FASTTEXT_FRESH_W": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.9408,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "bpc_ok": true,
+        "cv_ok": true,
+        "lift_ok": false,
+        "arm_hard_pass": false
+      }
+    },
+    "hard_pass_arms": [],
+    "all_encoder_arms_fail_vs_unigram": false,
+    "trigram_mean_bpc": 7.7378,
+    "n_seeds": 3,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "hp_bpc_bar": 7.738,
+    "hp_lift_over_trigram": 0.5,
+    "hf_bpc_bar": 7.738,
+    "hp_bpc_cv_max": 0.05,
+    "CONFIG_VERSION": "fresh_W_bpc_per_encoder_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_GLOVE_FRESH_W', 'ARM_FASTTEXT_FRESH_W'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.738 HP_lift>=0.50 HF_bpc>=7.738 cv_max=0.05",
+    "honest_scope": "Methodology-corrected V2 LM gap test: each of 4 encoder arms builds a COMPLETELY FRESH Hebbian W from scratch (no shared substrate state, no char-trigram contamination). N_DIM=8192 N_TRAIN=100000 N_HELD=20000 V=4000. HARD_PASS = ANY semantic encoder arm clears BPC<7.738 AND lift over ARM_CHAR_TRIGRAM_FRESH_W >= 0.50 bits. HARD_FAIL = ALL encoder arms >=7.738 (substrate-W bottleneck encoder-invariant).",
+    "cites": [
+      "preregs/2026-06-23_fresh_W_bpc_per_encoder_v2.md",
+      "preregs/2026-06-23_fresh_W_bpc_per_encoder_v1.md",
+      "experiments/exp_encoder_word2vec_substrate_bind_v1.py",
+      "experiments/exp_text8_substrate_pseudoLM_v2_temperature_calibrated_v1.py",
+      "USER_2026-06-23_methodology_correction_no_old_W",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24",
+      "Mikolov_2013_word2vec",
+      "Pennington_2014_GloVe",
+      "Bojanowski_2017_fastText"
+    ]
+  },
+  "metrics_source": "measured_gpu_fresh_W_bpc_per_encoder_v2",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "n_test": 7886
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 11.7223,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3973,
+            "0.3": 8.8099,
+            "0.5": 9.4815,
+            "0.7": 10.3221,
+            "1.0": 11.7685
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.874,
+            "0.3": 8.3927,
+            "0.5": 9.1703,
+            "0.7": 10.1169,
+            "1.0": 11.7223
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 2.35,
+          "wall_ingest_s": 0.93,
+          "wall_recall_s": 0.38,
+          "encoder_meta": {}
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "bpc_raw": 11.6929,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3996,
+            "0.3": 8.8164,
+            "0.5": 9.4866,
+            "0.7": 10.3203,
+            "1.0": 11.7507
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8752,
+            "0.3": 8.3959,
+            "0.5": 9.1697,
+            "0.7": 10.107,
+            "1.0": 11.6929
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 38.88,
+          "wall_ingest_s": 1.12,
+          "wall_recall_s": 0.36,
+          "encoder_meta": {
+            "n_hit": 3824,
+            "n_miss": 176,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        },
+        "ARM_GLOVE_FRESH_W": {
+          "bpc_raw": 11.6924,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4032,
+            "0.3": 8.82,
+            "0.5": 9.4797,
+            "0.7": 10.2959,
+            "1.0": 11.6932
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8845,
+            "0.3": 8.4163,
+            "0.5": 9.1911,
+            "0.7": 10.1224,
+            "1.0": 11.6924
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 107.2,
+          "wall_ingest_s": 1.05,
+          "wall_recall_s": 0.35,
+          "encoder_meta": {
+            "n_hit": 3985,
+            "n_miss": 15,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        },
+        "ARM_FASTTEXT_FRESH_W": {
+          "bpc_raw": 11.9354,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4096,
+            "0.3": 8.857,
+            "0.5": 9.5645,
+            "0.7": 10.4374,
+            "1.0": 11.9268
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8918,
+            "0.3": 8.4561,
+            "0.5": 9.2806,
+            "0.7": 10.2704,
+            "1.0": 11.9354
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 273.29,
+          "wall_ingest_s": 1.05,
+          "wall_recall_s": 0.35,
+          "encoder_meta": {
+            "n_hit": 3909,
+            "n_miss": 91,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "fresh_W_bpc_per_encoder_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_GLOVE_FRESH_W', 'ARM_FASTTEXT_FRESH_W'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.738 HP_lift>=0.50 HF_bpc>=7.738 cv_max=0.05",
+      "elapsed_s_seed": 462.59,
+      "device": "cuda",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782257459.3083074
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "n_test": 7886
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 11.7206,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.397,
+            "0.3": 8.8098,
+            "0.5": 9.4818,
+            "0.7": 10.3228,
+            "1.0": 11.7699
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8736,
+            "0.3": 8.3919,
+            "0.5": 9.1692,
+            "0.7": 10.1155,
+            "1.0": 11.7206
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 2.46,
+          "wall_ingest_s": 1.02,
+          "wall_recall_s": 0.34,
+          "encoder_meta": {}
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "bpc_raw": 11.6986,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3998,
+            "0.3": 8.8174,
+            "0.5": 9.4886,
+            "0.7": 10.3234,
+            "1.0": 11.7555
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8756,
+            "0.3": 8.3971,
+            "0.5": 9.1721,
+            "0.7": 10.1108,
+            "1.0": 11.6986
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.57,
+          "wall_ingest_s": 1.13,
+          "wall_recall_s": 0.36,
+          "encoder_meta": {
+            "n_hit": 3824,
+            "n_miss": 176,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        },
+        "ARM_GLOVE_FRESH_W": {
+          "bpc_raw": 11.7019,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4035,
+            "0.3": 8.8213,
+            "0.5": 9.4824,
+            "0.7": 10.3002,
+            "1.0": 11.6999
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8851,
+            "0.3": 8.4185,
+            "0.5": 9.1952,
+            "0.7": 10.1287,
+            "1.0": 11.7019
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.36,
+          "wall_ingest_s": 1.03,
+          "wall_recall_s": 0.34,
+          "encoder_meta": {
+            "n_hit": 3985,
+            "n_miss": 15,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        },
+        "ARM_FASTTEXT_FRESH_W": {
+          "bpc_raw": 11.9445,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.41,
+            "0.3": 8.8586,
+            "0.5": 9.5676,
+            "0.7": 10.442,
+            "1.0": 11.9337
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8924,
+            "0.3": 8.4584,
+            "0.5": 9.2849,
+            "0.7": 10.2767,
+            "1.0": 11.9445
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.39,
+          "wall_ingest_s": 1.06,
+          "wall_recall_s": 0.38,
+          "encoder_meta": {
+            "n_hit": 3909,
+            "n_miss": 91,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "fresh_W_bpc_per_encoder_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_GLOVE_FRESH_W', 'ARM_FASTTEXT_FRESH_W'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.738 HP_lift>=0.50 HF_bpc>=7.738 cv_max=0.05",
+      "elapsed_s_seed": 46.7,
+      "device": "cuda",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782257506.0355241
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "n_test": 7886
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 11.7302,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3971,
+            "0.3": 8.8107,
+            "0.5": 9.4838,
+            "0.7": 10.3261,
+            "1.0": 11.7748
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8743,
+            "0.3": 8.3943,
+            "0.5": 9.1736,
+            "0.7": 10.1221,
+            "1.0": 11.7302
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 2.32,
+          "wall_ingest_s": 1.01,
+          "wall_recall_s": 0.34,
+          "encoder_meta": {}
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "bpc_raw": 11.6978,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3996,
+            "0.3": 8.8167,
+            "0.5": 9.4875,
+            "0.7": 10.3219,
+            "1.0": 11.7533
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8755,
+            "0.3": 8.3969,
+            "0.5": 9.1718,
+            "0.7": 10.1103,
+            "1.0": 11.6978
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.48,
+          "wall_ingest_s": 1.13,
+          "wall_recall_s": 0.35,
+          "encoder_meta": {
+            "n_hit": 3824,
+            "n_miss": 176,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        },
+        "ARM_GLOVE_FRESH_W": {
+          "bpc_raw": 11.6936,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4033,
+            "0.3": 8.8204,
+            "0.5": 9.4804,
+            "0.7": 10.297,
+            "1.0": 11.6949
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8845,
+            "0.3": 8.4165,
+            "0.5": 9.1916,
+            "0.7": 10.1232,
+            "1.0": 11.6936
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.37,
+          "wall_ingest_s": 1.1,
+          "wall_recall_s": 0.35,
+          "encoder_meta": {
+            "n_hit": 3985,
+            "n_miss": 15,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        },
+        "ARM_FASTTEXT_FRESH_W": {
+          "bpc_raw": 11.9426,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4098,
+            "0.3": 8.858,
+            "0.5": 9.5668,
+            "0.7": 10.4409,
+            "1.0": 11.9322
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8922,
+            "0.3": 8.4577,
+            "0.5": 9.2838,
+            "0.7": 10.2753,
+            "1.0": 11.9426
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.4,
+          "wall_ingest_s": 1.05,
+          "wall_recall_s": 0.35,
+          "encoder_meta": {
+            "n_hit": 3909,
+            "n_miss": 91,
+            "n_vocab": 4000,
+            "pretrain_dim": 300
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "fresh_W_bpc_per_encoder_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_GLOVE_FRESH_W', 'ARM_FASTTEXT_FRESH_W'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.738 HP_lift>=0.50 HF_bpc>=7.738 cv_max=0.05",
+      "elapsed_s_seed": 44.06,
+      "device": "cuda",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782257550.118176
+    }
+  ],
+  "elapsed_s": 553.4328396320343,
+  "summary": "FRESH_W_BPC MIDDLE_BAND: some encoder arms lift over CHAR_TRIGRAM_FRESH_W but none clear BPC<7.738 AND lift>=0.50 simultaneously; partial characterization of encoder contribution vs substrate-W bottleneck. FRESH_W_BPC unigram=7.738 | ARM_CH",
+  "substrate_only_decode_gate": "TRUE (substrate-native Hebbian W per arm; pretrained encoders are open-weight static lookups; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "fresh_W_bpc_per_encoder_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_GLOVE_FRESH_W', 'ARM_FASTTEXT_FRESH_W'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.738 HP_lift>=0.50 HF_bpc>=7.738 cv_max=0.05",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

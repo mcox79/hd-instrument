@@ -1,0 +1,210 @@
+{
+  "verdict": "NEITHER_STRUCTURAL_OBJECTIVE_FIXED_VOICE_INVARIANCE",
+  "verdict_msg": "Floors valid (both floored). CO-PRIMARY side-by-side -- ARM_CONTRASTIVE[HARD_FAIL]: held_xvoice={'active_to_passive': 0.41, 'passive_to_active': 0.427} within=0.637 trained_xvoice={'active_to_passive': 0.39, 'passive_to_active': 0.42} band=HARD_FAIL || ARM_DEPHEAD[HARD_FAIL]: held_xvoice={'active_to_passive': 0.007, 'passive_to_active': 0.06} within=0.998 trained_xvoice={'active_to_passive': 0.0, 'passive_to_active': 0.003} band=HARD_FAIL. Run verdict = best-passing route (HARD_FAIL). ARM_FWDPRED(wall) held_xvoice={'active_to_passive': 0.03, 'passive_to_active': 0.04}. ARM_RANDOM(floor) held_xvoice={'active_to_passive': 0.027, 'passive_to_active': 0.157}.",
+  "summary": "NEITHER_STRUCTURAL_OBJECTIVE_FIXED_VOICE_INVARIANCE | chance=0.50 | Floors valid (both floored). CO-PRIMARY side-by-side -- ARM_CONTRASTIVE[HARD_FAIL]: held_xvoice={'active_to_passive': 0.41, 'passive_to_active': 0.427} within=0",
+  "run_mode": "smoke",
+  "elapsed_s": 42.115341200027615,
+  "ts_iso": "2026-07-31T01:29:38.055645+00:00",
+  "anchor_name": "encoder_role_contrastive_voice_invariance_v1",
+  "chance": 0.5,
+  "per_arm": {
+    "ARM_CONTRASTIVE": {
+      "7": {
+        "arm": "ARM_CONTRASTIVE",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_CONTRASTIVE",
+          "trained": true,
+          "steps": 500,
+          "final_loss": 9.657479286193848,
+          "final_extra": 1.9750984907150269
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.41,
+          "passive_to_active": 0.4266666666666667
+        },
+        "within_held": 0.6366666666666667,
+        "xvoice_trained": {
+          "active_to_passive": 0.39,
+          "passive_to_active": 0.42
+        },
+        "digest": "39515d85137c0fc2cd6dc13fab1fbb7283e333a28e7d645bc21ed369b3b87f0c"
+      }
+    },
+    "ARM_DEPHEAD": {
+      "7": {
+        "arm": "ARM_DEPHEAD",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_DEPHEAD",
+          "trained": true,
+          "steps": 500,
+          "final_loss": 5.028332710266113,
+          "final_extra": 0.7031821012496948
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.006666666666666667,
+          "passive_to_active": 0.06
+        },
+        "within_held": 0.9983333333333333,
+        "xvoice_trained": {
+          "active_to_passive": 0.0,
+          "passive_to_active": 0.0033333333333333335
+        },
+        "digest": "e454a933616e395c7f6304b538e12a564c724ef5f7a148e702e55fe4ac69c388"
+      }
+    },
+    "ARM_FWDPRED": {
+      "7": {
+        "arm": "ARM_FWDPRED",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_FWDPRED",
+          "trained": true,
+          "steps": 500,
+          "final_loss": 3.4669456481933594,
+          "final_extra": 0.0
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.03,
+          "passive_to_active": 0.04
+        },
+        "within_held": 0.9666666666666667,
+        "xvoice_trained": {
+          "active_to_passive": 0.0,
+          "passive_to_active": 0.0
+        },
+        "digest": "14d6d29d63d99002707d54ee11f90873df5a7ba338363b37042e4f217ac41c68"
+      }
+    },
+    "ARM_RANDOM": {
+      "7": {
+        "arm": "ARM_RANDOM",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_RANDOM",
+          "trained": false,
+          "steps": 0
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.02666666666666667,
+          "passive_to_active": 0.15666666666666668
+        },
+        "within_held": 1.0,
+        "xvoice_trained": {
+          "active_to_passive": 0.03333333333333333,
+          "passive_to_active": 0.17
+        },
+        "digest": "63ffb2d51503180186c7df704be183cc458c1c75a29e1172df98efa1364fb220"
+      }
+    }
+  },
+  "smoke_discriminator_fires": {
+    "fwdpred_trained_xvoice": 0.0,
+    "required": 0.08,
+    "per_arm": {
+      "ARM_CONTRASTIVE": {
+        "trained_xvoice": 0.405,
+        "margin": 0.405,
+        "fired": true
+      },
+      "ARM_DEPHEAD": {
+        "trained_xvoice": 0.0016666666666666668,
+        "margin": 0.0016666666666666668,
+        "fired": false
+      }
+    },
+    "any_fired": true
+  },
+  "bands": {
+    "xvoice_pass_min": 0.7,
+    "xvoice_fail_max": 0.55,
+    "within_pass_min": 0.85,
+    "within_fail_max": 0.65,
+    "floor_max": 0.6
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "ARM_CONTRASTIVE|7": "39515d85137c0fc2cd6dc13fab1fbb7283e333a28e7d645bc21ed369b3b87f0c",
+    "ARM_DEPHEAD|7": "e454a933616e395c7f6304b538e12a564c724ef5f7a148e702e55fe4ac69c388",
+    "ARM_FWDPRED|7": "14d6d29d63d99002707d54ee11f90873df5a7ba338363b37042e4f217ac41c68",
+    "ARM_RANDOM|7": "63ffb2d51503180186c7df704be183cc458c1c75a29e1172df98efa1364fb220"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "n_units_done": 4,
+  "params": {
+    "arms": [
+      "ARM_CONTRASTIVE",
+      "ARM_DEPHEAD",
+      "ARM_FWDPRED",
+      "ARM_RANDOM"
+    ],
+    "seeds": [
+      7
+    ],
+    "vocab_size": 54,
+    "max_len": 12,
+    "train_nouns": [
+      "dog",
+      "cat",
+      "bird",
+      "fish",
+      "horse",
+      "cow",
+      "sheep",
+      "goat",
+      "lion",
+      "tiger",
+      "bear",
+      "wolf",
+      "fox",
+      "deer",
+      "mouse",
+      "frog"
+    ],
+    "heldout_nouns": [
+      "duck",
+      "hawk",
+      "seal",
+      "crab",
+      "whale",
+      "shark",
+      "snake",
+      "owl"
+    ],
+    "train_verbs": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed",
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "heldout_verbs": [
+      "pushed",
+      "pulled",
+      "carried",
+      "called",
+      "touched",
+      "kicked",
+      "licked",
+      "hugged"
+    ],
+    "d_model": 48,
+    "n_layers": 2,
+    "steps": 500,
+    "batch": 64,
+    "tau_c": 0.1
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "closed-form nearest-centroid; discriminator = pre-registered bands (decide_verdict)",
+  "calibration_check": "default_ok_for_this_regime: bands are fixed HYPOTHESIZED thresholds set before running; chance=0.50 exact-by-construction."
+}

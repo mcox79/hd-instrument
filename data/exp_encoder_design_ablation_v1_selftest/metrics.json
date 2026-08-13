@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: selftest: single-bind roundtrip_cos=0.707 < 0.8",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_design_ablation_v1_core.py\", line 714, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_design_ablation_v1_core.py\", line 707, in main\n    return run_self_test()\n           ^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_design_ablation_v1_core.py\", line 665, in run_self_test\n    assert alg[\"roundtrip_cos_m1\"] > 0.8, (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: selftest: single-bind roundtrip_cos=0.707 < 0.8\n",
+  "ts_iso": "2026-07-04T02:56:32.342871+00:00",
+  "pid": 1264,
+  "anchor_name": "encoder_design_ablation_v1"
+}

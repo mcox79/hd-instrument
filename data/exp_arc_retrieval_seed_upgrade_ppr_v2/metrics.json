@@ -1,0 +1,170 @@
+{
+  "verdict": "SEED_UPGRADE_MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: seed_recall 0.5446 (floor 0.5, CLEARED); recall lift +0.1030 (B 0.3828 vs A 0.2798; seeding-only B-B0 +0.0032) in [0.05,0.15) OR structure gate unmet (D-A -0.2774 want<=0.03). Seeding helps but recall not decisively past +0.15. KEY WATCH end-to-end Chal B=0.3552 vs A=0.3101 (McNemar p=0.0548).",
+  "summary": "SEED_UPGRADE_MIDDLE_BAND: seed_recall=0.5446 (v1 0.365, floor 0.5) | recall@10 A=0.2798 B0=0.3796 B=0.3828 D=0.0024 | lift(B-A)=+0.1030 seeding-delta(B-B0)=+0.0032 D-A=-0.2774 | e2e Chal B=0.3552 A=0.3101 McNemar_p=0.0548 nec_not_suff=True",
+  "elapsed_s": 165.2,
+  "ts_iso": "2026-07-24T22:18:16.125052+00:00",
+  "anchor_name": "arc_retrieval_seed_upgrade_ppr_v2",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260724,
+  "n_questions": 1664,
+  "n_easy": 1177,
+  "n_challenge": 487,
+  "chance_theoretical": 0.2502,
+  "store_facts": 9720,
+  "graph_terms": 5403,
+  "incidence_nnz": 44307,
+  "lemma_keys": 4353,
+  "hops": 2,
+  "damp": 0.5,
+  "top_k": 10,
+  "seed_cos_upgraded": 0.45,
+  "seed_cos_baseline": 0.6,
+  "bigram_cos": 0.55,
+  "expand_wordnet": true,
+  "use_bigrams": true,
+  "max_bigrams": 24,
+  "seed_weights": {
+    "exact": 1.0,
+    "lemma": 1.0,
+    "syn": 0.5,
+    "hyp": 0.3,
+    "sem": 0.5,
+    "bigram": 0.5
+  },
+  "ppr_mass_moved": 0.72136,
+  "seed_recall": 0.5446,
+  "seed_precision": 0.0677,
+  "seed_recall_baseline": 0.365,
+  "seed_precision_baseline": 0.342,
+  "mean_seeds_upgraded": 112.23,
+  "mean_seeds_baseline": 13.58,
+  "n_empty_seed_q": 0,
+  "seed_quality_floor": 0.5,
+  "seed_ok": true,
+  "prior_seed_recall": 0.365,
+  "recall_at10": {
+    "A": 0.2798,
+    "B0": 0.3796,
+    "B": 0.3828,
+    "D": 0.0024
+  },
+  "recall_at20": {
+    "A": 0.3517,
+    "B0": 0.4625,
+    "B": 0.4741,
+    "D": 0.0037
+  },
+  "recall_lift_B_minus_A": 0.103,
+  "recall_seeding_delta_B_minus_B0": 0.0032,
+  "recall_D_minus_A": -0.2774,
+  "b0_reproduces_prior_B": true,
+  "prior_A_recall10": 0.2798,
+  "prior_B_recall10": 0.3796,
+  "end_to_end": {
+    "A": {
+      "bundle": {
+        "easy": 0.3653,
+        "challenge": 0.3101,
+        "chal_correct": 151,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.5064,
+        "challenge": 0.384,
+        "chal_correct": 187,
+        "chal_n": 487
+      }
+    },
+    "B0": {
+      "bundle": {
+        "easy": 0.3755,
+        "challenge": 0.3429,
+        "chal_correct": 167,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.548,
+        "challenge": 0.4148,
+        "chal_correct": 202,
+        "chal_n": 487
+      }
+    },
+    "B": {
+      "bundle": {
+        "easy": 0.3594,
+        "challenge": 0.3552,
+        "chal_correct": 173,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.5344,
+        "challenge": 0.423,
+        "chal_correct": 206,
+        "chal_n": 487
+      }
+    },
+    "D": {
+      "bundle": {
+        "easy": 0.1929,
+        "challenge": 0.2772,
+        "chal_correct": 135,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.209,
+        "challenge": 0.2608,
+        "chal_correct": 127,
+        "chal_n": 487
+      }
+    }
+  },
+  "challenge_A_ci95": [
+    0.269,
+    0.3511
+  ],
+  "challenge_B_ci95": [
+    0.3127,
+    0.3977
+  ],
+  "challenge_B_above_chance": true,
+  "mcnemar_B_vs_A_chal": {
+    "b_A_right_B_wrong": 49,
+    "c_A_wrong_B_right": 71,
+    "p_two_sided": 0.0548
+  },
+  "e2e_B_beats_A_significant": false,
+  "necessary_but_not_sufficient": true,
+  "arms_differ_verified": true,
+  "arm_topk_digests": {
+    "A": "fb885eb9b0e484210352d1173608bf3939fe0d41df20e9a681255bb796d3b05c",
+    "B0": "35f72f1a56bbe868f1293c041cd51b4fe3dea3ed597f4061e24ae920cf0a10f3",
+    "B": "258dab6b556ee5612a338927264688ef0b48ad987499e0b2ce5c261ae60fb5a1",
+    "D": "4e72c86f08d9f205a84ddf521b7ba811cbd26f7cfa7476862152e5f209bf4219"
+  },
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "structural_collapse_ok": true,
+  "mechanism_hardpass": false,
+  "bands": {
+    "HP_recall_lift": 0.15,
+    "HP_D_collapse": 0.03,
+    "MB_recall_lift": 0.05,
+    "seed_quality_floor": 0.5,
+    "AG_baseline_sat": 0.95,
+    "B0_repro_tol": 0.06
+  },
+  "grade_proxy": {
+    "easy_band": "emerging (~grade 2-3, above chance)",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "one_variable": "SEEDING (entity-linking): B vs B0 differ ONLY in seed-linking (morphy lemma + WordNet synonym/hypernym + lower SEED_COS + bigram phrase seeds). Graph, PPR (2 hops, damp 0.5, idf-weighted transition), and the bind+settle combiner are BIT-UNCHANGED from v1 arm B. Dropped v1's discriminative re-rank (HURT: v1 C 0.1953<B 0.3796) and the hub-idf ABLATION arm (near-inert: v1 C-E +0.0046).",
+  "wired_vs_stubbed": "WIRED: REAL WorldTree tablestore as a bipartite fact-term graph, SHARDED. UPGRADED semantic seed-linking (SemanticHDEncoder meaning-match + exact vocab + WordNet morphy lemma index + WordNet synonym/hypernym expansion + lowered cosine threshold + multi-token bigram phrase seeds) from stem + ALL choices. Batched scipy.sparse PPR (unchanged). Retrieved pools fed through the UNCHANGED agg.aggregate combiner (imported; SEEDING is the ONE variable). Shuffled-graph control. recall@K vs WorldTree gold central facts + seed_recall vs gold entity mentions + end-to-end ARC Easy/Challenge with paired McNemar B-vs-A significance. STORE COMPOSITION: full tablestore incl gold (recall@K of gold requires them present; gold facts are general curriculum sentences, NOT answer labels -> closed-book-over-curriculum, not answer-leak). STUBBED/NOTED-NOT-BUILT: discriminative re-rank (dropped, HURT in v1); hub-idf ablation arm (dropped, inert in v1); khop Merkle audit-chain (glassbox_sample gives seed->fact trace); iterative re-seeding (depth capped at 2 per WorldTree task-shape).",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large); VET-PENDING",
+  "compute_architecture": "mixed CPU: batched GloVe encode + scipy.sparse batched PPR + per-question seed linking; wall target < 10min",
+  "storage_strategy": "sharded (each fact = own embedding + own graph node; no superposition)",
+  "progress_logging": "line_buffered_stdout"
+}

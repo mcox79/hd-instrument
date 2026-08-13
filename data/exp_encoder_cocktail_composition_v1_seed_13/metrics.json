@@ -1,0 +1,118 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HF_CROSS_ENCODER_ZERO: cross_recall=0.000 < 0.1. Encoders don't interoperate. per_arm={'ARM_FHRR_ONLY': 0.3125, 'ARM_FHRR_PLUS_SPARSE': 0.421875, 'ARM_FHRR_PLUS_BINARY': 0.328125, 'ARM_SPARSE_PLUS_BINARY': 0.32421875, 'ARM_ALL_THREE_MIXED': 0.33984375, 'ARM_FHRR_QUERY_SPARSE_KEYS': 0.0}",
+  "elapsed_s": 39.866482973098755,
+  "summary": {
+    "seed": 13,
+    "mode": "full",
+    "N_DIM": 8192,
+    "M_items": 1024,
+    "N_QUERY": 256,
+    "per_arm_recall": {
+      "ARM_FHRR_ONLY": 0.3125,
+      "ARM_FHRR_PLUS_SPARSE": 0.421875,
+      "ARM_FHRR_PLUS_BINARY": 0.328125,
+      "ARM_SPARSE_PLUS_BINARY": 0.32421875,
+      "ARM_ALL_THREE_MIXED": 0.33984375,
+      "ARM_FHRR_QUERY_SPARSE_KEYS": 0.0
+    },
+    "per_arm_stats": {
+      "ARM_FHRR_ONLY": {
+        "n_query": 256,
+        "correct": 80,
+        "family_counts": {
+          "fhrr": 1024,
+          "sparse_bipolar": 0,
+          "binary_bipolar": 0
+        },
+        "arm_family_mix_expected": "ARM_FHRR_ONLY"
+      },
+      "ARM_FHRR_PLUS_SPARSE": {
+        "n_query": 256,
+        "correct": 108,
+        "family_counts": {
+          "fhrr": 514,
+          "sparse_bipolar": 510,
+          "binary_bipolar": 0
+        },
+        "arm_family_mix_expected": "ARM_FHRR_PLUS_SPARSE"
+      },
+      "ARM_FHRR_PLUS_BINARY": {
+        "n_query": 256,
+        "correct": 84,
+        "family_counts": {
+          "fhrr": 514,
+          "sparse_bipolar": 0,
+          "binary_bipolar": 510
+        },
+        "arm_family_mix_expected": "ARM_FHRR_PLUS_BINARY"
+      },
+      "ARM_SPARSE_PLUS_BINARY": {
+        "n_query": 256,
+        "correct": 83,
+        "family_counts": {
+          "fhrr": 0,
+          "sparse_bipolar": 514,
+          "binary_bipolar": 510
+        },
+        "arm_family_mix_expected": "ARM_SPARSE_PLUS_BINARY"
+      },
+      "ARM_ALL_THREE_MIXED": {
+        "n_query": 256,
+        "correct": 87,
+        "family_counts": {
+          "fhrr": 346,
+          "sparse_bipolar": 351,
+          "binary_bipolar": 327
+        },
+        "arm_family_mix_expected": "ARM_ALL_THREE_MIXED"
+      },
+      "ARM_FHRR_QUERY_SPARSE_KEYS": {
+        "n_query": 256,
+        "correct": 0,
+        "family_counts": {
+          "fhrr": 0,
+          "sparse_bipolar": 1024,
+          "binary_bipolar": 0
+        },
+        "arm_family_mix_expected": "ARM_FHRR_QUERY_SPARSE_KEYS"
+      }
+    },
+    "baseline_recall": 0.3125,
+    "mix_recall_min": 0.32421875,
+    "mix_ratio_min": 1.0375,
+    "cross_recall": 0.0,
+    "preflight_msg": "preflight_distinct(dim=512): {'fhrr': '748f22ac864ed924', 'sparse_bipolar': 'ba8dc44235401c73', 'binary_bipolar': 'b7a96baa0fced89c'}"
+  },
+  "per_arm_recall": {
+    "ARM_FHRR_ONLY": 0.3125,
+    "ARM_FHRR_PLUS_SPARSE": 0.421875,
+    "ARM_FHRR_PLUS_BINARY": 0.328125,
+    "ARM_SPARSE_PLUS_BINARY": 0.32421875,
+    "ARM_ALL_THREE_MIXED": 0.33984375,
+    "ARM_FHRR_QUERY_SPARSE_KEYS": 0.0
+  },
+  "arms_expected": [
+    "ARM_FHRR_ONLY",
+    "ARM_FHRR_PLUS_SPARSE",
+    "ARM_FHRR_PLUS_BINARY",
+    "ARM_SPARSE_PLUS_BINARY",
+    "ARM_ALL_THREE_MIXED",
+    "ARM_FHRR_QUERY_SPARSE_KEYS"
+  ],
+  "arms_observed": [
+    "ARM_FHRR_ONLY",
+    "ARM_FHRR_PLUS_SPARSE",
+    "ARM_FHRR_PLUS_BINARY",
+    "ARM_SPARSE_PLUS_BINARY",
+    "ARM_ALL_THREE_MIXED",
+    "ARM_FHRR_QUERY_SPARSE_KEYS"
+  ],
+  "cardinality_observed": 6,
+  "cardinality_expected": 6,
+  "mechanism_hashes": {
+    "fhrr": "748f22ac864ed924",
+    "sparse_bipolar": "ba8dc44235401c73",
+    "binary_bipolar": "b7a96baa0fced89c"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "run_mode": "full",
+  "anchor_name": "kramer_mmp_nonadd_bind_readout_v1",
+  "ts_iso": "2026-07-15T13:55:25.389220+00:00",
+  "elapsed_s": 2.28,
+  "provenance": {
+    "dataset": "Kramer2021_MMP_nonadditivity",
+    "doi": "10.1186/s13321-021-00525-z",
+    "paper": "J. Cheminformatics 13:48",
+    "urls": {
+      "MOESM2_chembl1613797": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13321-021-00525-z/MediaObjects/13321_2021_525_MOESM2_ESM.csv",
+      "MOESM3_chembl1614027": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13321-021-00525-z/MediaObjects/13321_2021_525_MOESM3_ESM.csv",
+      "MOESM4_chembl1613777": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13321-021-00525-z/MediaObjects/13321_2021_525_MOESM4_ESM.csv"
+    },
+    "retrieval_ts": "2026-07-15T13:55:25.340995+00:00",
+    "nonadditivity_definition": "Nonadditivity = deviation from strict additivity in a double-transformation cycle: pAct2 - pAct1 - pAct3 + pAct4 (Kramer 2019 JCIM 59:4034; Kramer 2021 JCheminform 13:48).",
+    "files": [
+      {
+        "tag": "MOESM2_chembl1613797",
+        "path": "data\\foundation_clusters\\kramer2021_mmp_nonadd\\MOESM2_chembl1613797.csv",
+        "bytes": 456218
+      },
+      {
+        "tag": "MOESM3_chembl1614027",
+        "path": "data\\foundation_clusters\\kramer2021_mmp_nonadd\\MOESM3_chembl1614027.csv",
+        "bytes": 227795
+      },
+      {
+        "tag": "MOESM4_chembl1613777",
+        "path": "data\\foundation_clusters\\kramer2021_mmp_nonadd\\MOESM4_chembl1613777.csv",
+        "bytes": 263539
+      }
+    ],
+    "acquire_errors": {},
+    "source_note": "verified-live unauthenticated Springer static-content URLs"
+  },
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29,
+    31,
+    37,
+    41
+  ],
+  "bands": {
+    "NOISE_FLOOR": 0.3,
+    "MIN_HI_FRAC": 0.15,
+    "HP_REL_HI": 0.3,
+    "HP_HI_MINUS_LO": 0.15,
+    "REFUTE_REL": 0.05,
+    "MUSTFAIL_REL_TOL": 0.08,
+    "MIN_NOVEL_HI_N": 4.0,
+    "POS_CTRL_REL": 0.3,
+    "NEG_CTRL_REL": 0.1
+  },
+  "controls": {
+    "pos_rel": 0.90781,
+    "pos_sym_mae": 0.04156,
+    "pos_sadd_mae": 0.4508,
+    "neg_rel": -0.01787,
+    "neg_sym_mae": 0.04149,
+    "neg_sadd_mae": 0.04076,
+    "pos_ok": true,
+    "neg_ok": true
+  },
+  "verdict": "ESCALATE_KRAMER_PERCOMPOUND_NO_CYCLE_STRUCTURE",
+  "verdict_msg": "ESCALATE_KRAMER_PERCOMPOUND_NO_CYCLE_STRUCTURE || the 3 Kramer MOESM CSVs are per-COMPOUND aggregate (ID,SMILES,VALUE,nOccurence,Nonadd_pC) with NO cycle/transformation columns; R1,R2 are NOT reconstructible without RDKit+MMP fragmentation (not forcing a broken SMILES encoding). per-compound |Nonadd_pC|>0.30 fraction=0.4795 over n=2903 values. HAND-OFF: ChEMBL-bulk NonadditivityAnalysis per-circle output (KramerChristian/NonadditivityAnalysis) which carries Transformation1/2 columns, OR Costanzo yeast SGA / NCI-ALMANAC fallback. pos_ctrl_rel=0.9078 neg_ctrl_rel=-0.0179",
+  "summary": "ESCALATE_KRAMER_PERCOMPOUND_NO_CYCLE_STRUCTURE || the 3 Kramer MOESM CSVs are per-COMPOUND aggregate (ID,SMILES,VALUE,nOccurence,Nonadd_pC) with NO cycle/transformation columns; R1,R2 are NOT reconstr",
+  "escalate": true,
+  "path": "B",
+  "per_assay": [
+    {
+      "tag": "MOESM2_chembl1613797",
+      "kind": "per_compound",
+      "header": [
+        "ID",
+        "SMILES",
+        "VALUE",
+        "nOccurence",
+        "Nonadd_pC"
+      ],
+      "n_rows": 6219,
+      "n_nonadd_values": 701,
+      "hi_frac": 0.4522111269614836,
+      "nonadd_abs_mean": 0.4177755717831669
+    },
+    {
+      "tag": "MOESM3_chembl1614027",
+      "kind": "per_compound",
+      "header": [
+        "ID",
+        "SMILES",
+        "VALUE",
+        "nOccurence",
+        "Nonadd_pC"
+      ],
+      "n_rows": 2876,
+      "n_nonadd_values": 941,
+      "hi_frac": 0.44739638682252925,
+      "nonadd_abs_mean": 0.40318203790648244
+    },
+    {
+      "tag": "MOESM4_chembl1613777",
+      "kind": "per_compound",
+      "header": [
+        "ID",
+        "SMILES",
+        "VALUE",
+        "nOccurence",
+        "Nonadd_pC"
+      ],
+      "n_rows": 3497,
+      "n_nonadd_values": 1261,
+      "hi_frac": 0.5186360031720857,
+      "nonadd_abs_mean": 0.5148585887946074
+    }
+  ],
+  "percompound_hi_frac": 0.47950396141922147,
+  "n_percompound_nonadd": 2903
+}

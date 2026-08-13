@@ -1,0 +1,23 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (real_code_path exercised: edge-loader, dataset-builder, ContentRoleReadout learned+fixed, head-train+checkpoint-roundtrip, eval+scramble-control, B0-table, build_verdict smoke+full paths, crash-diagnostic)",
+  "summary": "PROP_EXTRACTION_SELFTEACH_V6 SELFTEST_PASS",
+  "anchor_name": "prop_extraction_selfteach_v6",
+  "run_mode": "selftest",
+  "ts_iso": "2026-07-28T01:01:44.671108+00:00",
+  "pid": 10576,
+  "real_code_path_exercised": [
+    "_load_typed_edges",
+    "_build_dataset",
+    "ContentRoleReadout",
+    "PropositionHead",
+    "_train_head",
+    "_save_checkpoint",
+    "_eval_extraction",
+    "_arms_differ",
+    "_b0_table",
+    "build_verdict",
+    "_write_crash_metrics"
+  ],
+  "elapsed_s": 1.1939093999972101
+}

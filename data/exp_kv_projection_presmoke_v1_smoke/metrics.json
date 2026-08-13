@@ -1,0 +1,61 @@
+{
+  "anchor_name": "kv_projection_presmoke_v1",
+  "verdict": "DECROWD_OK_RECALL_NEEDS_CONTRASTIVE",
+  "verdict_msg": "DECROWD_OK_RECALL_NEEDS_CONTRASTIVE @ M=500: analytic projections DE-CROWD keys (keysep<0.95: mean_center=0.786, zca=0.007, svd_whiten_topk=0.618) but recall stays <0.5 -> de-crowding NECESSARY not SUFFICIENT; the value-cue->key ALIGNMENT needs the LEARNED/CONTRASTIVE projection (#7 cert). Best recall=0.064.",
+  "run_mode": "smoke",
+  "metrics_source": "measured_gpu_pythia2p8b_kv_projection_presmoke_keysep_recall",
+  "encoder": "EleutherAI/pythia-160m",
+  "rows": [
+    {
+      "M": 200,
+      "projection": "raw",
+      "keysep_max_cos_other": 0.9997,
+      "value_cue_recall": 0.13
+    },
+    {
+      "M": 200,
+      "projection": "mean_center",
+      "keysep_max_cos_other": 0.7575,
+      "value_cue_recall": 0.12
+    },
+    {
+      "M": 200,
+      "projection": "zca",
+      "keysep_max_cos_other": -0.0016,
+      "value_cue_recall": 0.03
+    },
+    {
+      "M": 200,
+      "projection": "svd_whiten_topk",
+      "keysep_max_cos_other": 0.5879,
+      "value_cue_recall": 0.08
+    },
+    {
+      "M": 500,
+      "projection": "raw",
+      "keysep_max_cos_other": 0.9997,
+      "value_cue_recall": 0.064
+    },
+    {
+      "M": 500,
+      "projection": "mean_center",
+      "keysep_max_cos_other": 0.7865,
+      "value_cue_recall": 0.05
+    },
+    {
+      "M": 500,
+      "projection": "zca",
+      "keysep_max_cos_other": 0.0068,
+      "value_cue_recall": 0.004
+    },
+    {
+      "M": 500,
+      "projection": "svd_whiten_topk",
+      "keysep_max_cos_other": 0.6178,
+      "value_cue_recall": 0.056
+    }
+  ],
+  "note": "DIAGNOSTIC pre-flight for #7 (analytic projections); contrastive = the cert",
+  "elapsed_s": 15.1208336353302,
+  "summary": "DECROWD_OK_RECALL_NEEDS_CONTRASTIVE @ M=500: analytic projections DE-CROWD keys (keysep<0.95: mean_center=0.786, zca=0.007, svd_whiten_topk=0.618) but recall stays <0.5 -> de-crowding NECESSARY not SUFFICIENT; the value-cue->key ALIGNMENT needs the LEARNED/CONTRASTIVE projection (#7 cert). Best recall=0.064."
+}

@@ -1,0 +1,382 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL",
+  "verdict_msg": "MIDDLE_BAND: win_pop=True win_form=False form_oracle=True g_discrete=True g_scramble=True g_seed_cv=True g_backdoor=False syn_comp=True syn_freq=True oracle_fires=True | oneshot_fair=0.0772 POP_fair=0.0442 additive_fair=0.1039",
+  "summary": "MIDDLE_BAND: win_pop=True win_form=False form_oracle=True g_discrete=True g_scramble=True g_seed_cv=True g_backdoor=False syn_comp=True syn_freq=True oracle_fires=True | oneshot_fair=0.0772 POP_fair=0",
+  "run_mode": "full",
+  "elapsed_s": 3412.003609899897,
+  "anchor_name": "course_c_rotate_cskg_l2_seed_17_gpu1024_v1",
+  "ts_iso": "2026-07-12T13:52:53.851342+00:00",
+  "device": "cuda",
+  "n_seeds": 1,
+  "seeds": [
+    17
+  ],
+  "config": {
+    "k": 24,
+    "fpe_dim": 1024,
+    "epochs": 250,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "min_support": 10,
+    "min_conf": 0.1,
+    "n_eval": 6000,
+    "min_heldout": 20,
+    "ckpt_every": 25
+  },
+  "gates": {
+    "fair_hits_at_k": {
+      "ONESHOT_ROTATE": 0.0772,
+      "ADDITIVE_TRANSE": 0.1039,
+      "BASELINE_POP": 0.0442,
+      "DISCRETE_BIND": 0.0002,
+      "SCRAMBLE_ROTATE": 0.0182,
+      "RANDOM_CODES": 0.0002,
+      "ORACLE_TRANSDUCTIVE": 0.1069
+    },
+    "agg_hits_at_k": {
+      "ONESHOT_ROTATE": 0.183,
+      "ADDITIVE_TRANSE": 0.1762,
+      "BASELINE_POP": 0.1675,
+      "SCRAMBLE_ROTATE": 0.0493,
+      "RANDOM_CODES": 0.0003,
+      "ORACLE_TRANSDUCTIVE": 0.2297,
+      "DISCRETE_BIND": 0.0003
+    },
+    "primary_k": 10,
+    "margin_oneshot_vs_pop_fair": 0.033,
+    "margin_oneshot_vs_additive_fair": -0.0267,
+    "oracle_direct": 0.2297,
+    "random_direct": 0.0003,
+    "additive_oracle": 0.1762,
+    "oracle_fires": true,
+    "oracle_fire_margin": 0.15,
+    "oracle_fpe_median": 0.0003,
+    "oneshot_fpe_median": 0.0008,
+    "realized_vs_ceiling_ratio": 0.7967,
+    "win_pop": true,
+    "win_form": false,
+    "form_oracle": true,
+    "g_discrete": true,
+    "g_scramble": true,
+    "seed_cv": 0.0,
+    "g_seed_cv": true,
+    "backdoor_r": 0.3118,
+    "g_backdoor": false,
+    "syn_comp_ok": true,
+    "syn_freq_ok": true,
+    "broken": false,
+    "fails": false,
+    "wins": false,
+    "mine_params": {
+      "MAX_RULES_PER_HEAD": 50,
+      "HUB_CAP": 60000,
+      "min_support": 10,
+      "min_conf": 0.1
+    },
+    "reference_vet": {
+      "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+      "l2_only_all": 0.276,
+      "l2_only_high": 0.226,
+      "pop_high": 0.412
+    }
+  },
+  "mechanism_selftest": {
+    "comp_l2_genuine": 61,
+    "freq_l2_genuine": 150,
+    "geometry_fires": true,
+    "metric_k": 10,
+    "oracle_recovers": true,
+    "oracle_fires_gate": true,
+    "arms_differ": true,
+    "oracle_direct": 0.4098,
+    "random_direct": 0.0492,
+    "comp_oneshot": 0.1311,
+    "comp_additive": 0.0328,
+    "comp_pop": 0.0,
+    "comp_discrete": 0.0492,
+    "comp_scramble": 0.0164,
+    "comp_random": 0.0492,
+    "freq_geo": 0.6867,
+    "freq_pop": 1.0,
+    "rot_beats_pop": true,
+    "rot_beats_additive": true,
+    "rot_beats_discrete": true,
+    "scramble_not_beat": true,
+    "random_at_chance": true,
+    "no_manufacture": true,
+    "pop_fires_freq": true,
+    "n_distinct_sigs": 7,
+    "selftest_verdict": "BROKEN_TEST_CONTROL_BEATS_POP",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ],
+    "resume_equiv_rotate_maxdev": 0.0,
+    "resume_equiv_additive_maxdev": 0.0,
+    "resume_equiv_max_dev": 0.0,
+    "resume_equiv_tol": 1e-05,
+    "resume_equiv_ok": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 17,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 460048,
+      "n_test": 25558,
+      "l2_genuine": {
+        "n_scanned": 17517,
+        "n_reach_l2": 7349,
+        "n_excl_l1i": 1023,
+        "n_excl_l1f": 326,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 6000
+      },
+      "tert_bounds": [
+        99.0,
+        347.0
+      ],
+      "strata_counts": {
+        "low": 2020,
+        "mid": 1985,
+        "high": 1995
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.0407,
+          "hits@10": 0.183,
+          "mrr": 0.0891
+        },
+        "ADDITIVE_TRANSE": {
+          "hits@1": 0.0232,
+          "hits@10": 0.1762,
+          "mrr": 0.0746
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0382,
+          "hits@10": 0.1675,
+          "mrr": 0.0833
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits@1": 0.007,
+          "hits@10": 0.0493,
+          "mrr": 0.0232
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@10": 0.0003,
+          "mrr": 0.0003
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits@1": 0.0625,
+          "hits@10": 0.2297,
+          "mrr": 0.1196
+        },
+        "DISCRETE_BIND": {
+          "hits@1": 0.0,
+          "hits@10": 0.0003,
+          "mrr": 0.0003
+        }
+      },
+      "arm_n": {
+        "ONESHOT_ROTATE": 6000,
+        "ADDITIVE_TRANSE": 6000,
+        "BASELINE_POP": 6000,
+        "SCRAMBLE_ROTATE": 6000,
+        "RANDOM_CODES": 6000,
+        "ORACLE_TRANSDUCTIVE": 6000,
+        "DISCRETE_BIND": 6000
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "7a8e196906e99b7b",
+        "SCRAMBLE_ROTATE": "7b01fe1f155f2b24",
+        "ORACLE_TRANSDUCTIVE": "25421968865aded3",
+        "RANDOM_CODES": "5da7bd80cea6fffc",
+        "ADDITIVE_TRANSE": "96a3b023f6ce166a",
+        "DISCRETE_BIND": "6cddacd54ac934e5",
+        "BASELINE_POP": "f7fe67bfd8c3af18"
+      },
+      "strat_hits": {
+        "ONESHOT_ROTATE": {
+          "low": {
+            "hits": 0.0307,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.1244,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.3955,
+            "n": 1995
+          }
+        },
+        "ADDITIVE_TRANSE": {
+          "low": {
+            "hits": 0.0653,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.1431,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.3213,
+            "n": 1995
+          }
+        },
+        "DISCRETE_BIND": {
+          "low": {
+            "hits": 0.0005,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.0005,
+            "n": 1995
+          }
+        },
+        "SCRAMBLE_ROTATE": {
+          "low": {
+            "hits": 0.005,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.0317,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.1118,
+            "n": 1995
+          }
+        },
+        "RANDOM_CODES": {
+          "low": {
+            "hits": 0.0,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.0005,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.0005,
+            "n": 1995
+          }
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "low": {
+            "hits": 0.0614,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.1531,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.4762,
+            "n": 1995
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.0129,
+            "n": 2020
+          },
+          "mid": {
+            "hits": 0.0761,
+            "n": 1985
+          },
+          "high": {
+            "hits": 0.4155,
+            "n": 1995
+          }
+        }
+      },
+      "fair_hits": {
+        "ONESHOT_ROTATE": {
+          "hits": 0.0772,
+          "n": 4005
+        },
+        "ADDITIVE_TRANSE": {
+          "hits": 0.1039,
+          "n": 4005
+        },
+        "BASELINE_POP": {
+          "hits": 0.0442,
+          "n": 4005
+        },
+        "DISCRETE_BIND": {
+          "hits": 0.0002,
+          "n": 4005
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits": 0.0182,
+          "n": 4005
+        },
+        "RANDOM_CODES": {
+          "hits": 0.0002,
+          "n": 4005
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits": 0.1069,
+          "n": 4005
+        }
+      },
+      "fpe_median": {
+        "ONESHOT_ROTATE": {
+          "metric": {
+            "hits@1": 0.0,
+            "hits@10": 0.0008333333333333334,
+            "mrr": 0.0005340081568271119,
+            "n": 6000
+          },
+          "ell": 19.13391
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "metric": {
+            "hits@1": 0.00016666666666666666,
+            "hits@10": 0.0003333333333333333,
+            "mrr": 0.0005642802736808496,
+            "n": 6000
+          },
+          "ell": 19.15598
+        }
+      },
+      "cross_channel_geom_vs_poprank_r": 0.3118,
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      },
+      "_min_support": 10,
+      "_min_conf": 0.1
+    }
+  ],
+  "reference_vet": {
+    "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+    "l2_only_all": 0.276,
+    "l2_only_high": 0.226,
+    "pop_high": 0.412
+  },
+  "cross_seed_note": "single-seed process-isolated FULL; 3-seed cv gate is computed downstream over the 3 seed metrics files (seed_cv here spans only this process's seed list)"
+}

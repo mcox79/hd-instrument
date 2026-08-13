@@ -1,0 +1,644 @@
+{
+  "anchor_name": "ingest_gate_knee_locate_real_regime_v3",
+  "elapsed_s": 437.33,
+  "ts_iso": "2026-07-16T03:39:20.201010+00:00",
+  "n_seeds": 3,
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "sweep_epochs": [
+      2,
+      3,
+      4,
+      6,
+      8,
+      11,
+      15,
+      20,
+      28,
+      40,
+      60,
+      90,
+      140,
+      220,
+      350
+    ],
+    "sweep_n_ent": 600,
+    "real_k_core": 10,
+    "real_max_nodes": 3500,
+    "real_epochs": 300,
+    "posctrl_n_ent": 1200,
+    "posctrl_epochs": 350,
+    "rel_scale": 4.0
+  },
+  "bands": {
+    "HP_POSCTRL_KEY_AUC_MIN": 0.75,
+    "HP_SWEEP_RISE_MIN": 0.2,
+    "HP_REAL_ABS_KEY_AUC_MIN": 0.7,
+    "HP_POSCTRL_MRR_MIN": 0.4,
+    "KNEE_BAND_FRAC": 0.05,
+    "BELOW_KNEE_FRAC": 0.2
+  },
+  "expected_n_units": 51,
+  "observed_n_units": 51,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "per_candidate_arrays": "per_candidate_arrays.npz",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "KNEE: floor=0.430 ceil=0.992 mid=0.711 knee_mrr=0.0215 | REAL: mrr=0.1092 key_auc=0.835 (ABOVE knee; mrr above knee_mrr) | POSCTRL: mrr=0.706 key_auc=0.991 | harness_valid=True arrays_ok=True(d=0.0e+00) card=True -> HARD_PASS",
+  "summary": "HARD_PASS: REAL_ABOVE_KNEE: surprise-as-novelty SURVIVES at real-CSKG strength (real KEY-AUC 0.835 above knee-mid 0.711 + pos-control fires) => the ingest-gate novelty criterion works in the REAL regime",
+  "finding": "REAL_ABOVE_KNEE: surprise-as-novelty SURVIVES at real-CSKG strength (real KEY-AUC 0.835 above knee-mid 0.711 + pos-control fires) => the ingest-gate novelty criterion works in the REAL regime",
+  "gates": {
+    "cardinality_ok": true,
+    "HP_POSCTRL_FIRES": true,
+    "HP_POSCTRL_GENERALIZES": true,
+    "HP_SWEEP_RISES": true,
+    "baseline_in_band": true
+  },
+  "run_mode": "full",
+  "knee": {
+    "floor": 0.4299722774220456,
+    "ceil": 0.992191064988592,
+    "mid": 0.7110816712053187,
+    "knee_mrr": 0.021492302128079635,
+    "band": 0.5622187875665464,
+    "above_thresh": 0.739192610583646,
+    "below_thresh": 0.5424160349353548
+  },
+  "real": {
+    "mrr": 0.10916041985505869,
+    "key_auc": 0.8352285283495869,
+    "knee_side": "ABOVE",
+    "mrr_side": "above"
+  },
+  "posctrl": {
+    "mrr": 0.7061811085776246,
+    "key_auc": 0.9907396162998946
+  },
+  "agg": {
+    "real_mrr": 0.10916041985505869,
+    "real_key_auc": 0.8352285283495869,
+    "posctrl_mrr": 0.7061811085776246,
+    "posctrl_key_auc": 0.9907396162998946,
+    "knee_mrr": 0.021492302128079635,
+    "knee_floor": 0.4299722774220456,
+    "knee_ceil": 0.992191064988592,
+    "knee_mid": 0.7110816712053187,
+    "array_recompute_delta": 0.0
+  },
+  "sweep_curve": [
+    {
+      "epochs": 2,
+      "mrr": 0.009041304512344568,
+      "key_auc": 0.4299722774220456
+    },
+    {
+      "epochs": 3,
+      "mrr": 0.00904233827182471,
+      "key_auc": 0.441957692402051
+    },
+    {
+      "epochs": 4,
+      "mrr": 0.00904449020959442,
+      "key_auc": 0.44909410956551604
+    },
+    {
+      "epochs": 6,
+      "mrr": 0.009016473320002003,
+      "key_auc": 0.45641237948038565
+    },
+    {
+      "epochs": 8,
+      "mrr": 0.008776259991514986,
+      "key_auc": 0.4608482986187778
+    },
+    {
+      "epochs": 11,
+      "mrr": 0.008836233303971134,
+      "key_auc": 0.466931319153112
+    },
+    {
+      "epochs": 15,
+      "mrr": 0.009207882077981988,
+      "key_auc": 0.48435207674002106
+    },
+    {
+      "epochs": 20,
+      "mrr": 0.011350795769061483,
+      "key_auc": 0.5551326635754766
+    },
+    {
+      "epochs": 28,
+      "mrr": 0.0291424006743599,
+      "key_auc": 0.8287195480974461
+    },
+    {
+      "epochs": 40,
+      "mrr": 0.20500516667942248,
+      "key_auc": 0.9733599519148206
+    },
+    {
+      "epochs": 60,
+      "mrr": 0.5654953285405834,
+      "key_auc": 0.9878640121684944
+    },
+    {
+      "epochs": 90,
+      "mrr": 0.7044877232766136,
+      "key_auc": 0.9916476533941759
+    },
+    {
+      "epochs": 140,
+      "mrr": 0.7352862631441615,
+      "key_auc": 0.992191064988592
+    },
+    {
+      "epochs": 220,
+      "mrr": 0.7463572699867776,
+      "key_auc": 0.9903467775569785
+    },
+    {
+      "epochs": 350,
+      "mrr": 0.7461119292977595,
+      "key_auc": 0.9905010303967027
+    }
+  ],
+  "sweep_per_seed": [
+    [
+      {
+        "epochs": 2,
+        "mrr": 0.007580485569726272,
+        "key_auc": 0.41172260248767206,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "b49683cb90e45629",
+        "surp_novel_sha": "64859ecbcb06987c"
+      },
+      {
+        "epochs": 3,
+        "mrr": 0.006992879564691099,
+        "key_auc": 0.42412784279090304,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "b31e38a81ec89ec4",
+        "surp_novel_sha": "3befc1d4e61ef30c"
+      },
+      {
+        "epochs": 4,
+        "mrr": 0.006637219163783238,
+        "key_auc": 0.4332293736660043,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "4e99475c0005ea14",
+        "surp_novel_sha": "da4fde597bba7d17"
+      },
+      {
+        "epochs": 6,
+        "mrr": 0.006372411839252865,
+        "key_auc": 0.44609001251195995,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "28a238df499ec108",
+        "surp_novel_sha": "df404b3aa2ddd8f2"
+      },
+      {
+        "epochs": 8,
+        "mrr": 0.006232879211129203,
+        "key_auc": 0.4557527415912269,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "fe35b7aed6520138",
+        "surp_novel_sha": "e4b9e33daede19d8"
+      },
+      {
+        "epochs": 11,
+        "mrr": 0.006197825366366356,
+        "key_auc": 0.46690126591594905,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "35e2ae2be23ae91c",
+        "surp_novel_sha": "276a28507618fda6"
+      },
+      {
+        "epochs": 15,
+        "mrr": 0.00638765400625767,
+        "key_auc": 0.48815043791859863,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "e4807864f60a2483",
+        "surp_novel_sha": "3f312d6728fdeaa5"
+      },
+      {
+        "epochs": 20,
+        "mrr": 0.0075132850918294795,
+        "key_auc": 0.5670447854566866,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "0a896b33479e7a4a",
+        "surp_novel_sha": "fa3a7cefa91fa2fa"
+      },
+      {
+        "epochs": 28,
+        "mrr": 0.021191836967829124,
+        "key_auc": 0.8466953705748141,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "005b70b62799365d",
+        "surp_novel_sha": "aec5429057de68da"
+      },
+      {
+        "epochs": 40,
+        "mrr": 0.15548723093591732,
+        "key_auc": 0.9824814160594686,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "795b7de8b0c6bd88",
+        "surp_novel_sha": "449ef1297cc830aa"
+      },
+      {
+        "epochs": 60,
+        "mrr": 0.4413583878891716,
+        "key_auc": 0.9928129829984544,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "76899759452dc6b6",
+        "surp_novel_sha": "733e4b2d490ce96a"
+      },
+      {
+        "epochs": 90,
+        "mrr": 0.5813948997494464,
+        "key_auc": 0.9941046588650916,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "a8216730a37248c3",
+        "surp_novel_sha": "84c02bfd89cc4bf4"
+      },
+      {
+        "epochs": 140,
+        "mrr": 0.6388065510669219,
+        "key_auc": 0.9934247810407006,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "7e74fa24d0e55c95",
+        "surp_novel_sha": "ea842d880ced8c87"
+      },
+      {
+        "epochs": 220,
+        "mrr": 0.6522644900797583,
+        "key_auc": 0.991107308456613,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "e3423473ae3b9eee",
+        "surp_novel_sha": "ea7a7080e80956b9"
+      },
+      {
+        "epochs": 350,
+        "mrr": 0.6568044561066576,
+        "key_auc": 0.9901965113711636,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "6b795acee5542ae1",
+        "surp_novel_sha": "68780c5d2e1fd00c"
+      }
+    ],
+    [
+      {
+        "epochs": 2,
+        "mrr": 0.011950108351451614,
+        "key_auc": 0.3273671524251122,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "a16e402e6277b230",
+        "surp_novel_sha": "57fe6d863e19c33d"
+      },
+      {
+        "epochs": 3,
+        "mrr": 0.012312875668032328,
+        "key_auc": 0.347852726871274,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "8293745d8662bf19",
+        "surp_novel_sha": "89eb44ca9c194d2d"
+      },
+      {
+        "epochs": 4,
+        "mrr": 0.012592790745172716,
+        "key_auc": 0.3617759623169206,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "693397fa8e388f13",
+        "surp_novel_sha": "d083e0d58cce3f0d"
+      },
+      {
+        "epochs": 6,
+        "mrr": 0.01285784443143906,
+        "key_auc": 0.37893298741444026,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "b4ba1c567132eb8a",
+        "surp_novel_sha": "88e739a3ad9f8a81"
+      },
+      {
+        "epochs": 8,
+        "mrr": 0.012275403222288723,
+        "key_auc": 0.388964635313167,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "a0e2d1d9da40abe5",
+        "surp_novel_sha": "bac6f3f1b0331ee6"
+      },
+      {
+        "epochs": 11,
+        "mrr": 0.01247959544425259,
+        "key_auc": 0.40114723632884375,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "cb11a41b5fb84aff",
+        "surp_novel_sha": "302932d8b923d75d"
+      },
+      {
+        "epochs": 15,
+        "mrr": 0.013056613347983274,
+        "key_auc": 0.4237534039891072,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "57a8c7b266d0d49a",
+        "surp_novel_sha": "8613d83c16aa4fd1"
+      },
+      {
+        "epochs": 20,
+        "mrr": 0.015609723156857588,
+        "key_auc": 0.4901661514683153,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "f5425f331f23e535",
+        "surp_novel_sha": "19ae5796578648ff"
+      },
+      {
+        "epochs": 28,
+        "mrr": 0.036129629542460136,
+        "key_auc": 0.7643326341355707,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "21d2809a6eef5b1c",
+        "surp_novel_sha": "5a9eadb92a403934"
+      },
+      {
+        "epochs": 40,
+        "mrr": 0.2345968664175742,
+        "key_auc": 0.9497709207330537,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "16896b4217be7def",
+        "surp_novel_sha": "3c6795a49e1a1827"
+      },
+      {
+        "epochs": 60,
+        "mrr": 0.6096880522363468,
+        "key_auc": 0.9753173989843232,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "18855d9334ccdac0",
+        "surp_novel_sha": "62a816e0d35b6cab"
+      },
+      {
+        "epochs": 90,
+        "mrr": 0.7567670856322944,
+        "key_auc": 0.983976411275484,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "ea3885fe54a471cb",
+        "surp_novel_sha": "dd65bdb0163816cd"
+      },
+      {
+        "epochs": 140,
+        "mrr": 0.775079904707421,
+        "key_auc": 0.9860970044895856,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "0344bf2e49a94931",
+        "surp_novel_sha": "8b73c97418b214b9"
+      },
+      {
+        "epochs": 220,
+        "mrr": 0.7805476926401826,
+        "key_auc": 0.9835467726503275,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "2b023382cc3997d4",
+        "surp_novel_sha": "0d7fa5bba6d4493b"
+      },
+      {
+        "epochs": 350,
+        "mrr": 0.7753825191352912,
+        "key_auc": 0.9856554059027011,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "0b65a523adabafc2",
+        "surp_novel_sha": "36c5986a0083120b"
+      }
+    ],
+    [
+      {
+        "epochs": 2,
+        "mrr": 0.0075933196158558145,
+        "key_auc": 0.5508270773533525,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "999864f328d02efc",
+        "surp_novel_sha": "1f9731cd635415b4"
+      },
+      {
+        "epochs": 3,
+        "mrr": 0.007821259582750704,
+        "key_auc": 0.5538925075439759,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "6220880793eb81ca",
+        "surp_novel_sha": "44c1c6645f308638"
+      },
+      {
+        "epochs": 4,
+        "mrr": 0.007903460719827308,
+        "key_auc": 0.5522769927136233,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "5ff261cb6069671f",
+        "surp_novel_sha": "0e060521942bfae2"
+      },
+      {
+        "epochs": 6,
+        "mrr": 0.007819163689314082,
+        "key_auc": 0.5442141385147568,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "cbd3c608309a7acb",
+        "surp_novel_sha": "be33a5fd68c9873d"
+      },
+      {
+        "epochs": 8,
+        "mrr": 0.007820497541127031,
+        "key_auc": 0.5378275189519394,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "01b8d2639dbf7a00",
+        "surp_novel_sha": "1e5f6f1a714104fe"
+      },
+      {
+        "epochs": 11,
+        "mrr": 0.007831279101294457,
+        "key_auc": 0.5327454552145433,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "846bbf8fb87b6665",
+        "surp_novel_sha": "ffd438a81f0abd71"
+      },
+      {
+        "epochs": 15,
+        "mrr": 0.008179378879705022,
+        "key_auc": 0.5411523883123573,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "64ae57dabfda23b0",
+        "surp_novel_sha": "4a4ba07f7c3ed711"
+      },
+      {
+        "epochs": 20,
+        "mrr": 0.010929379058497384,
+        "key_auc": 0.6081870538014278,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "0a760249b5481f74",
+        "surp_novel_sha": "4415a21e73308e7d"
+      },
+      {
+        "epochs": 28,
+        "mrr": 0.030105735512790444,
+        "key_auc": 0.8751306395819534,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "5684c89252f8f268",
+        "surp_novel_sha": "c9f7b8091b355687"
+      },
+      {
+        "epochs": 40,
+        "mrr": 0.2249314026847759,
+        "key_auc": 0.9878275189519393,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "a34ccf6f19069c7e",
+        "surp_novel_sha": "f407c230fed25c6b"
+      },
+      {
+        "epochs": 60,
+        "mrr": 0.6454395454962317,
+        "key_auc": 0.9954616545227055,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "185c6592b09c7d92",
+        "surp_novel_sha": "7f975bf0700f63fe"
+      },
+      {
+        "epochs": 90,
+        "mrr": 0.7753011844481,
+        "key_auc": 0.9968618900419519,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "60c72309d11dcec4",
+        "surp_novel_sha": "ff7863ffa56dd8d6"
+      },
+      {
+        "epochs": 140,
+        "mrr": 0.7919723336581415,
+        "key_auc": 0.9970514094354898,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "3c5748ea76410ff5",
+        "surp_novel_sha": "37e246ce6e58ff94"
+      },
+      {
+        "epochs": 220,
+        "mrr": 0.806259627240392,
+        "key_auc": 0.996386251563995,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "e664a20dfa349c23",
+        "surp_novel_sha": "a438f58963f6d5ee"
+      },
+      {
+        "epochs": 350,
+        "mrr": 0.8061488126513298,
+        "key_auc": 0.9956511739162435,
+        "n_infer": 1294,
+        "n_novel": 420,
+        "surp_infer_sha": "9d02a9710755486e",
+        "surp_novel_sha": "96dbafbf981230e2"
+      }
+    ]
+  ],
+  "real_per_seed": [
+    {
+      "seed": 7,
+      "rstar": "xintent",
+      "N": 2791,
+      "n_found": 4696,
+      "n_rstar": 170,
+      "n_infer": 528,
+      "real_mrr": 0.09614013104116449,
+      "real_key_auc": 0.8250779857397504,
+      "surp_infer_sha": "686b945170eedf62",
+      "surp_novel_sha": "81e776165b700811"
+    },
+    {
+      "seed": 13,
+      "rstar": "capableof",
+      "N": 2952,
+      "n_found": 5460,
+      "n_rstar": 138,
+      "n_infer": 604,
+      "real_mrr": 0.10743543205377482,
+      "real_key_auc": 0.8055835492849601,
+      "surp_infer_sha": "ee64fdb517f374e5",
+      "surp_novel_sha": "deecb9517c787123"
+    },
+    {
+      "seed": 17,
+      "rstar": "xeffect",
+      "N": 3028,
+      "n_found": 6271,
+      "n_rstar": 240,
+      "n_infer": 693,
+      "real_mrr": 0.12390569647023675,
+      "real_key_auc": 0.87502405002405,
+      "surp_infer_sha": "0f9f06067c228571",
+      "surp_novel_sha": "61e4d651354a2710"
+    }
+  ],
+  "posctrl_per_seed": [
+    {
+      "epochs": 350,
+      "mrr": 0.6103493167666579,
+      "key_auc": 0.9873923603444469,
+      "n_infer": 1294,
+      "n_novel": 420
+    },
+    {
+      "epochs": 350,
+      "mrr": 0.697978876408955,
+      "key_auc": 0.9884347170089056,
+      "n_infer": 1294,
+      "n_novel": 420
+    },
+    {
+      "epochs": 350,
+      "mrr": 0.8102151325572612,
+      "key_auc": 0.9963917715463311,
+      "n_infer": 1294,
+      "n_novel": 420
+    }
+  ]
+}

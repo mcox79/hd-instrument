@@ -1,0 +1,270 @@
+{
+  "anchor_name": "reader_parser_swap_struct_endtoend_v1",
+  "run_mode": "full",
+  "verdict": "LABELER_WALL_EATS_IT",
+  "verdict_msg": "LABELER_WALL_EATS_IT | PARSER lift gold-UPOS UAS canon=0.7868 struct=0.8269 (+0.0401, reproduced=True) | MODERN: raw_recall=-0.0074 -> labeled_recall=-0.0221 -> end_to_end=+0.0071 (canon=0.7611 struct=0.7682 min_seed=-0.0172) | McGUFFEY: raw_recall=-0.0100 -> labeled_recall=+0.0100 -> end_to_end=+0.0112 (canon=0.7622 struct=0.7734 min_seed=-0.0526) | labeler_wall M=+0.0147/McG=-0.0200 decision_wall M=-0.0292/McG=-0.0012 | n_lift=0 n_hurt=0 FOLD_JUSTIFIED=False arms_differ=True baseline_in_band=True leak_clean=True",
+  "summary": "LABELER_WALL_EATS_IT | PARSER lift gold-UPOS UAS canon=0.7868 struct=0.8269 (+0.0401, reproduced=True) | MODERN: raw_recall=-0.0074 -> labeled_recall=-0.0221 -> end_to_end=+0.0071 (canon=0.7611 struct=0.7682 min_seed=-0.0172) | McGUFFEY: raw_recall=-0.0100 -> labeled_recall=+0.0100 -> end_to_end=+0.0112 (canon=0.7622 struct=0.7734 min_seed=-0.0526) | labeler_wall M=+0.0147/McG=-0.0200 decision_wall M=-0.0292/McG=-0.0012 | n_lift=0 n_hurt=0 FOLD_JUSTIFIED=False arms_differ=True baseline_in_band=True leak_clean=True",
+  "elapsed_s": 618.68,
+  "ts_iso": "2026-07-21T14:01:16.138688+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "parser_train_ntrain": 12329,
+  "parser_train_ep": 6,
+  "GATE_D_positive_control": {
+    "canon_uas_gold_upos": 0.7868,
+    "canon_uas_nopunct": 0.812,
+    "struct_uas_gold_upos": 0.8269,
+    "struct_uas_nopunct": 0.8441,
+    "uas_lift": 0.0401,
+    "canon_reproduces_cited": true,
+    "struct_lift_reproduced": true,
+    "cited_canon_uas": 0.7868,
+    "cited_struct_uas": 0.8269
+  },
+  "leak_hunt_ff_struct_mutation_probe": {
+    "leak_clean": true,
+    "n_arcs_checked": 18402
+  },
+  "DOMAIN_modern": {
+    "domain": "modern",
+    "canon_backoff_endtoend_mean": 0.7611,
+    "struct_backoff_endtoend_mean": 0.7682,
+    "canon_backoff_per_seed": {
+      "7": 0.7241,
+      "13": 0.7708,
+      "19": 0.7885
+    },
+    "struct_backoff_per_seed": {
+      "7": 0.7069,
+      "13": 0.7708,
+      "19": 0.8269
+    },
+    "canon_candidate_recall_unlabeled": 0.9118,
+    "struct_candidate_recall_unlabeled": 0.9044,
+    "canon_candidate_recall_backoff": 0.75,
+    "struct_candidate_recall_backoff": 0.7279,
+    "DELTA_raw_attach_recall_unlabeled": -0.0074,
+    "DELTA_labeled_recall_backoff": -0.0221,
+    "DELTA_endtoend_who_affected": 0.0071,
+    "DELTA_endtoend_per_seed_paired": [
+      -0.0172,
+      0.0,
+      0.0384
+    ],
+    "DELTA_endtoend_min_over_seed": -0.0172,
+    "LABELER_WALL_absorbed": 0.0147,
+    "DECISION_WALL_absorbed": -0.0292,
+    "canon_residual_ext_to_dec": "32:6",
+    "struct_residual_ext_to_dec": "34:3",
+    "canon_per_construction_recall": {
+      "control_xcomp": {
+        "recall": 0.875,
+        "n": 16
+      },
+      "coordination_shared_subj": {
+        "recall": 0.875,
+        "n": 16
+      },
+      "cue_conflict_animate": {
+        "recall": 0.9375,
+        "n": 16
+      },
+      "locative_alternation": {
+        "recall": 0.7917,
+        "n": 24
+      },
+      "passive_by_agent": {
+        "recall": 0.75,
+        "n": 16
+      },
+      "prep_governed_patient": {
+        "recall": 0.25,
+        "n": 16
+      },
+      "relative_clause_patient": {
+        "recall": 0.5625,
+        "n": 16
+      },
+      "simple_svo": {
+        "recall": 0.9375,
+        "n": 16
+      }
+    },
+    "struct_per_construction_recall": {
+      "control_xcomp": {
+        "recall": 0.875,
+        "n": 16
+      },
+      "coordination_shared_subj": {
+        "recall": 0.875,
+        "n": 16
+      },
+      "cue_conflict_animate": {
+        "recall": 0.9375,
+        "n": 16
+      },
+      "locative_alternation": {
+        "recall": 0.7917,
+        "n": 24
+      },
+      "passive_by_agent": {
+        "recall": 0.6875,
+        "n": 16
+      },
+      "prep_governed_patient": {
+        "recall": 0.1875,
+        "n": 16
+      },
+      "relative_clause_patient": {
+        "recall": 0.5625,
+        "n": 16
+      },
+      "simple_svo": {
+        "recall": 0.875,
+        "n": 16
+      }
+    },
+    "n_pools_differ_backoff": 14,
+    "n_pools_differ_unlabeled": 32,
+    "pools_differ": true,
+    "domain_lifts": false,
+    "domain_hurts": false,
+    "n_gold_pos_pairs": 136,
+    "canon_no_giveaway": true,
+    "struct_no_giveaway": true,
+    "canon_leak_max_single_cue": 0.7419,
+    "struct_leak_max_single_cue": 0.7667
+  },
+  "DOMAIN_mcguffey": {
+    "domain": "mcguffey",
+    "canon_backoff_endtoend_mean": 0.7622,
+    "struct_backoff_endtoend_mean": 0.7734,
+    "canon_backoff_per_seed": {
+      "7": 0.7436,
+      "13": 0.7273,
+      "19": 0.8158
+    },
+    "struct_backoff_per_seed": {
+      "7": 0.7692,
+      "13": 0.7879,
+      "19": 0.7632
+    },
+    "canon_candidate_recall_unlabeled": 0.9,
+    "struct_candidate_recall_unlabeled": 0.89,
+    "canon_candidate_recall_backoff": 0.79,
+    "struct_candidate_recall_backoff": 0.8,
+    "DELTA_raw_attach_recall_unlabeled": -0.01,
+    "DELTA_labeled_recall_backoff": 0.01,
+    "DELTA_endtoend_who_affected": 0.0112,
+    "DELTA_endtoend_per_seed_paired": [
+      0.0256,
+      0.0606,
+      -0.0526
+    ],
+    "DELTA_endtoend_min_over_seed": -0.0526,
+    "LABELER_WALL_absorbed": -0.02,
+    "DECISION_WALL_absorbed": -0.0012,
+    "canon_residual_ext_to_dec": "22:4",
+    "struct_residual_ext_to_dec": "19:6",
+    "canon_per_construction_recall": {
+      "control": {
+        "recall": 1.0,
+        "n": 10
+      },
+      "coordination": {
+        "recall": 0.7111,
+        "n": 45
+      },
+      "pronoun": {
+        "recall": 0.875,
+        "n": 16
+      },
+      "relative": {
+        "recall": 1.0,
+        "n": 7
+      },
+      "simple": {
+        "recall": 0.8421,
+        "n": 19
+      },
+      "verb_not_found": {
+        "recall": 0.0,
+        "n": 3
+      }
+    },
+    "struct_per_construction_recall": {
+      "control": {
+        "recall": 1.0,
+        "n": 10
+      },
+      "coordination": {
+        "recall": 0.7857,
+        "n": 42
+      },
+      "pronoun": {
+        "recall": 0.875,
+        "n": 16
+      },
+      "relative": {
+        "recall": 0.6667,
+        "n": 6
+      },
+      "simple": {
+        "recall": 0.8261,
+        "n": 23
+      },
+      "verb_not_found": {
+        "recall": 0.0,
+        "n": 3
+      }
+    },
+    "n_pools_differ_backoff": 14,
+    "n_pools_differ_unlabeled": 42,
+    "pools_differ": true,
+    "domain_lifts": false,
+    "domain_hurts": false,
+    "n_gold_pos_pairs": 100,
+    "canon_no_giveaway": true,
+    "struct_no_giveaway": true,
+    "canon_leak_max_single_cue": 0.7083,
+    "struct_leak_max_single_cue": 0.7826
+  },
+  "n_domains_lift": 0,
+  "n_domains_hurt": 0,
+  "FOLD_INTO_PRODUCTION_JUSTIFIED": false,
+  "cited_canon_backoff_modern": 0.7611,
+  "cited_canon_backoff_mcguffey": 0.7622,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "one_variable": "the parser (canon deployed asset vs struct_upos trained in-cell); tagger/labeler/candgen/vote/mining/gold/split/seeds identical",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "recall + end-to-end decision-precision delta; no quantitative noise floor",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified)",
+  "deterministic_seeding": true,
+  "storage": "no_storage_production_hdlab_untouched",
+  "modern_gold_meta": {
+    "gold_name": "gold_construction_argstruct_ewt_v1",
+    "n_items": 136,
+    "n_sentences": 136,
+    "ud_source_split_counts": {
+      "train": 106,
+      "dev": 17,
+      "test": 13
+    },
+    "register_caveat": "UD-EWT is MODERN WEB TEXT (blogs, reviews, email, newsgroups), NOT children's narrative. This set tests CONSTRUCTION handling, NOT register transfer to McGuffey-style narrative. Register difference is a real confound for any cross-corpus generalization claim; state it.",
+    "label_derivation": "who-is-affected label = (verb_lemma, patient_head) DERIVED FROM THE GOLD PARSE ONLY (obj / obl / nsubj:pass / obl:agent edges). INDEPENDENT of our reader and of any semantic/plausibility cue. No hand-invented sentences; all sentences are real UD-EWT items selected by gold-parse pattern."
+  },
+  "mcguffey_gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  }
+}

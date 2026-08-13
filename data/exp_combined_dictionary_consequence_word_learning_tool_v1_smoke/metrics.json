@@ -1,0 +1,2086 @@
+{
+  "anchor_name": "combined_dictionary_consequence_word_learning_tool_v1",
+  "run_mode": "smoke",
+  "config": {
+    "W": 3,
+    "MIN_CONFIRM": 3,
+    "NEUTRAL_BAND": 0.34,
+    "N_PASSES": 3,
+    "K_MAX": 3,
+    "NEIGHBOR_FLOOR": 0.2,
+    "VOTE_MARGIN": 0.15,
+    "VOTE_MARGIN_SATURATE": 0.5,
+    "signal_mode": "signal_a_only",
+    "credit_mode": "referent_linked",
+    "n_anchor": 52,
+    "n_anchor_extended": 84,
+    "n_oov_items": 36
+  },
+  "corpus_stats": {
+    "little_women.clean.txt": {
+      "total_lines": 20372,
+      "excluded_lines": 1608,
+      "n_eval_citations": 12
+    }
+  },
+  "win_stats": {
+    "total_sents": 9358,
+    "goal_fire": 848,
+    "substring_dropped": 0,
+    "n_windows": 848
+  },
+  "exclusion_integrity": {
+    "exclusion_integrity_violations": 0,
+    "clean": true
+  },
+  "majority_floor": 0.6389,
+  "empty_overlay_floor": 0.1667,
+  "consequence_only_ref_093": 0.1944,
+  "three_way": {
+    "dict_only_primary": 0.2222,
+    "consequence_only_primary": 0.1667,
+    "combined_primary": 0.1667,
+    "dict_only_content": 0.1875,
+    "combined_content": 0.125,
+    "gap_combined_minus_dict": -0.0555,
+    "gap_combined_minus_consequence": 0.0
+  },
+  "arm1_dict_only": {
+    "dict_only_primary_accuracy": 0.2222,
+    "dict_only_content_accuracy": 0.1875,
+    "registered": {
+      "encore": "POS",
+      "find": "POS",
+      "improve": "POS",
+      "jell": "NEG",
+      "make": "POS",
+      "whisper": "POS"
+    },
+    "unmet_recall_correct": 4,
+    "unmet_total": 13,
+    "n_registered": 6
+  },
+  "arm2_consequence_only": {
+    "consequence_only_primary_accuracy": 0.1667,
+    "consequence_only_content_accuracy": 0.125,
+    "registered": {},
+    "learnable": {
+      "n_learnable": 0,
+      "registered_eval_lemmas": [],
+      "learnable_subset_size": 0,
+      "learnable_subset_accuracy": null,
+      "learnable_subset_correct": 0
+    },
+    "n_registered": 0
+  },
+  "arm3_combined": {
+    "combined_primary_accuracy": 0.1667,
+    "combined_content_accuracy": 0.125,
+    "met_recall": "1/23",
+    "unmet_recall": "5/13",
+    "registered": {
+      "encore": "POS",
+      "find": "POS",
+      "improve": "POS",
+      "jell": "NEG",
+      "make": "POS",
+      "whisper": "POS",
+      "have": "NEG",
+      "be": "NEG",
+      "ey": "NEG",
+      "say": "NEG",
+      "lov": "NEG",
+      "seem": "NEG",
+      "look": "NEG",
+      "mean": "NEG"
+    },
+    "n_registered": 14,
+    "learnable": {
+      "n_learnable": 8,
+      "registered_eval_lemmas": [
+        "be",
+        "encore",
+        "find",
+        "have",
+        "improve",
+        "jell",
+        "make",
+        "whisper"
+      ],
+      "learnable_subset_size": 9,
+      "learnable_subset_accuracy": 0.3333,
+      "learnable_subset_correct": 3
+    },
+    "bootstrap_curve": [
+      {
+        "pass": 1,
+        "n_windows_with_teacher": 7,
+        "n_windows_credited": 6,
+        "n_new_exposure_pairs": 17,
+        "n_newly_registered_pos": 5,
+        "n_newly_registered_neg": 1,
+        "cumulative_registered": 6,
+        "n_grounded_neutral": 0,
+        "n_lemmas_pending": 15
+      },
+      {
+        "pass": 2,
+        "n_windows_with_teacher": 18,
+        "n_windows_credited": 17,
+        "n_new_exposure_pairs": 49,
+        "n_newly_registered_pos": 0,
+        "n_newly_registered_neg": 2,
+        "cumulative_registered": 8,
+        "n_grounded_neutral": 0,
+        "n_lemmas_pending": 49
+      },
+      {
+        "pass": 3,
+        "n_windows_with_teacher": 77,
+        "n_windows_credited": 60,
+        "n_new_exposure_pairs": 119,
+        "n_newly_registered_pos": 0,
+        "n_newly_registered_neg": 6,
+        "cumulative_registered": 14,
+        "n_grounded_neutral": 7,
+        "n_lemmas_pending": 98
+      }
+    ]
+  },
+  "dict_detail_eval": {
+    "admit": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "agree": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "be": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.004728,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "befriend": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.0,
+      "n_neighbors": 2,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "buy": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.001664,
+      "n_neighbors": 43,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "carry": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.063492,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "come": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.014085,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "croak": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.049708,
+      "n_neighbors": 45,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "curve": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.032929,
+      "n_neighbors": 42,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "drag": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.006494,
+      "n_neighbors": 43,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "drink": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.036101,
+      "n_neighbors": 41,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "encore": {
+      "stage": "neighbor",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "find": {
+      "stage": "antonym",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "flee": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.070707,
+      "n_neighbors": 20,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "give": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005758,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "go": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.099298,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "have": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.015064,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "improve": {
+      "stage": "antonym",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "jell": {
+      "stage": "neighbor",
+      "polarity": "NEG",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 7,
+      "pseudo_pos": 0,
+      "pseudo_neg": 3
+    },
+    "like": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.007444,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "make": {
+      "stage": "antonym",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "practice": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "put": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.011796,
+      "n_neighbors": 47,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "rap": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.026616,
+      "n_neighbors": 21,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "refuse": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.013564,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "relent": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "ruin": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.111111,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "spoil": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.046942,
+      "n_neighbors": 45,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "take": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.051975,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "turn": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.059351,
+      "n_neighbors": 48,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "whip": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.027624,
+      "n_neighbors": 41,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "whisper": {
+      "stage": "neighbor",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 2,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "whitewash": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.0,
+      "n_neighbors": 18,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    }
+  },
+  "dict_detail_light": {
+    "ask": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "be": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.004728,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "begin": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.010962,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "buy": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.001664,
+      "n_neighbors": 43,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "carry": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.063492,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "come": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.014085,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "do": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.007444,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "feel": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.011236,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "find": {
+      "stage": "antonym",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "get": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.087653,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "give": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005758,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "go": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.099298,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "have": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.015064,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "know": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "look": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.011236,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "make": {
+      "stage": "antonym",
+      "polarity": "POS",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 3,
+      "pseudo_neg": 0
+    },
+    "mean": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "put": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.011796,
+      "n_neighbors": 47,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "say": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.008761,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "see": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.007444,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "seem": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.003597,
+      "n_neighbors": 41,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "take": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.051975,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "tell": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.026178,
+      "n_neighbors": 42,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "think": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.009412,
+      "n_neighbors": 50,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "try": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.022688,
+      "n_neighbors": 41,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "want": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.023428,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    }
+  },
+  "dict_detail_noise": {
+    "glance": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.021978,
+      "n_neighbors": 41,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "nod": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.021014,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "pause": {
+      "stage": "neighbor",
+      "polarity": "NEG",
+      "confidence": 1.0,
+      "vote_margin": 1.0,
+      "n_neighbors": 1,
+      "pseudo_pos": 0,
+      "pseudo_neg": 3
+    },
+    "sigh": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.0,
+      "n_neighbors": 42,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "sit": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.01699,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "speak": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.005025,
+      "n_neighbors": 49,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "stand": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.001626,
+      "n_neighbors": 43,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    },
+    "walk": {
+      "stage": "abstain",
+      "polarity": null,
+      "confidence": 0.0,
+      "vote_margin": 0.024561,
+      "n_neighbors": 41,
+      "pseudo_pos": 0,
+      "pseudo_neg": 0
+    }
+  },
+  "dict_coverage": {
+    "n_eval_lemmas": 33,
+    "n_dict_hit": 6,
+    "n_content_lemmas": 16,
+    "n_content_dict_hit": 3
+  },
+  "extended_anchor": {
+    "n_anchor_extended": 84,
+    "dict_only_primary": 0.2222,
+    "dict_only_content": 0.1875
+  },
+  "per_verb_content_16": [
+    {
+      "lemma": "admit",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "agree",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "befriend",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "croak",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "encore",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "neighbor",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": 1.0,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "flee",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "improve",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "antonym",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": 1.0,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "jell",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "neighbor",
+      "dict_polarity": "NEG",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 3,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": -1.0,
+      "final_verdict": "NEG",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "like",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "rap",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "refuse",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "relent",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "ruin",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "spoil",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "whip",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "whitewash",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    }
+  ],
+  "per_verb_all": [
+    {
+      "lemma": "admit",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "agree",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "be",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 1,
+      "consequence_real_neg": 7,
+      "combined_total": 8,
+      "combined_margin": -0.75,
+      "final_verdict": "NEG",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "befriend",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "buy",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "carry",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "come",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 1,
+      "consequence_real_neg": 0,
+      "combined_total": 1,
+      "combined_margin": 1.0,
+      "final_verdict": "PENDING",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "croak",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "curve",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "drag",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "drink",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "encore",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "neighbor",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": 1.0,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "find",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "antonym",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": 1.0,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 2,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "flee",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "give",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 2,
+      "combined_total": 2,
+      "combined_margin": -1.0,
+      "final_verdict": "PENDING",
+      "gold": {
+        "met": 3,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "go",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 1,
+      "combined_total": 1,
+      "combined_margin": -1.0,
+      "final_verdict": "PENDING",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "have",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 4,
+      "combined_total": 4,
+      "combined_margin": -1.0,
+      "final_verdict": "NEG",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "improve",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "antonym",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": 1.0,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "jell",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "neighbor",
+      "dict_polarity": "NEG",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 3,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": -1.0,
+      "final_verdict": "NEG",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "like",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "make",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "antonym",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 1,
+      "combined_total": 4,
+      "combined_margin": 0.5,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "practice",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "put",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "rap",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "refuse",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "relent",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "ruin",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "spoil",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "take",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 2,
+      "consequence_real_neg": 3,
+      "combined_total": 5,
+      "combined_margin": -0.2,
+      "final_verdict": "GROUNDED_NEUTRAL",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "turn",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "whip",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    },
+    {
+      "lemma": "whisper",
+      "is_content": false,
+      "in_eval": true,
+      "dict_stage": "neighbor",
+      "dict_polarity": "POS",
+      "dict_confidence": 1.0,
+      "dict_pseudo_pos": 3,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 3,
+      "combined_margin": 1.0,
+      "final_verdict": "POS",
+      "gold": {
+        "met": 0,
+        "unmet": 1
+      }
+    },
+    {
+      "lemma": "whitewash",
+      "is_content": true,
+      "in_eval": true,
+      "dict_stage": "abstain",
+      "dict_polarity": null,
+      "dict_confidence": 0.0,
+      "dict_pseudo_pos": 0,
+      "dict_pseudo_neg": 0,
+      "consequence_real_pos": 0,
+      "consequence_real_neg": 0,
+      "combined_total": 0,
+      "combined_margin": null,
+      "final_verdict": "ABSENT",
+      "gold": {
+        "met": 1,
+        "unmet": 0
+      }
+    }
+  ],
+  "light_verb_self_lock": {
+    "dict_alone_lock_words": [
+      "make",
+      "find"
+    ],
+    "dict_alone_lock_count": 2,
+    "combined_self_lock_words": [
+      "find"
+    ],
+    "combined_self_lock_count": 1,
+    "detail": {
+      "be": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 7,
+        "combined_verdict": "NEG",
+        "combined_self_lock": false
+      },
+      "have": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 4,
+        "combined_verdict": "NEG",
+        "combined_self_lock": false
+      },
+      "do": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 3,
+        "real_neg": 5,
+        "combined_verdict": "GROUNDED_NEUTRAL",
+        "combined_self_lock": false
+      },
+      "say": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 3,
+        "real_neg": 8,
+        "combined_verdict": "NEG",
+        "combined_self_lock": false
+      },
+      "try": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 4,
+        "real_neg": 4,
+        "combined_verdict": "GROUNDED_NEUTRAL",
+        "combined_self_lock": false
+      },
+      "look": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 4,
+        "combined_verdict": "NEG",
+        "combined_self_lock": false
+      },
+      "feel": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 1,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "want": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 3,
+        "real_neg": 2,
+        "combined_verdict": "GROUNDED_NEUTRAL",
+        "combined_self_lock": false
+      },
+      "think": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 2,
+        "real_neg": 2,
+        "combined_verdict": "GROUNDED_NEUTRAL",
+        "combined_self_lock": false
+      },
+      "make": {
+        "dict_pseudo_pos": 3,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": true,
+        "real_pos": 0,
+        "real_neg": 1,
+        "combined_verdict": "POS",
+        "combined_self_lock": false
+      },
+      "come": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 0,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "go": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 1,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "find": {
+        "dict_pseudo_pos": 3,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": true,
+        "real_pos": 0,
+        "real_neg": 0,
+        "combined_verdict": "POS",
+        "combined_self_lock": true
+      },
+      "ask": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 2,
+        "combined_verdict": "GROUNDED_NEUTRAL",
+        "combined_self_lock": false
+      },
+      "seem": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 3,
+        "combined_verdict": "NEG",
+        "combined_self_lock": false
+      },
+      "begin": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 0,
+        "combined_verdict": "ABSENT",
+        "combined_self_lock": false
+      },
+      "mean": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 3,
+        "combined_verdict": "NEG",
+        "combined_self_lock": false
+      },
+      "know": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 2,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "see": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 0,
+        "combined_verdict": "ABSENT",
+        "combined_self_lock": false
+      },
+      "tell": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 0,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "get": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 1,
+        "real_neg": 0,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "put": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 0,
+        "combined_verdict": "ABSENT",
+        "combined_self_lock": false
+      },
+      "take": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 2,
+        "real_neg": 3,
+        "combined_verdict": "GROUNDED_NEUTRAL",
+        "combined_self_lock": false
+      },
+      "give": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 2,
+        "combined_verdict": "PENDING",
+        "combined_self_lock": false
+      },
+      "carry": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 0,
+        "combined_verdict": "ABSENT",
+        "combined_self_lock": false
+      },
+      "buy": {
+        "dict_pseudo_pos": 0,
+        "dict_pseudo_neg": 0,
+        "dict_alone_lock": false,
+        "real_pos": 0,
+        "real_neg": 0,
+        "combined_verdict": "ABSENT",
+        "combined_self_lock": false
+      }
+    }
+  },
+  "light_verb_canary": {
+    "light_verb_canary_neutral_rate": 0.4286,
+    "light_verb_n_reached": 14,
+    "light_verb_n_neutral": 6,
+    "light_verb_n_polar_locked": 8,
+    "light_verb_reached_minconfirm": [
+      "ask",
+      "be",
+      "do",
+      "find",
+      "have",
+      "look",
+      "make",
+      "mean",
+      "say",
+      "seem",
+      "take",
+      "think",
+      "try",
+      "want"
+    ]
+  },
+  "noise_canary": {
+    "consolidated_count": 0,
+    "consolidated_words": []
+  },
+  "non_circularity": {
+    "scrambled_dict_accuracy": 0.1722,
+    "scrambled_dict_per_seed": [
+      0.1667,
+      0.1389,
+      0.1667,
+      0.1944,
+      0.1944
+    ],
+    "random_graph_accuracy": 0.2111,
+    "random_graph_per_seed": [
+      0.1667,
+      0.1667,
+      0.2222,
+      0.2222,
+      0.2778
+    ],
+    "scrambled_consequence_accuracy": 0.1667,
+    "random_credit_primary_accuracy": 0.1667,
+    "random_credit_learnable_subset_accuracy": null,
+    "random_credit_n_learnable": 0,
+    "combined_dict_scrambled_accuracy": 0.1778,
+    "combined_dict_scrambled_per_seed": [
+      0.1389,
+      0.1667,
+      0.1944,
+      0.1944,
+      0.1944
+    ],
+    "combined_conseq_scrambled_accuracy": 0.2444,
+    "combined_conseq_scrambled_per_seed": [
+      0.25,
+      0.1667,
+      0.2222,
+      0.2222,
+      0.3611
+    ],
+    "gap_combined_vs_dict_scrambled": -0.0111,
+    "gap_combined_vs_conseq_scrambled": -0.0777
+  },
+  "gate_detail": {
+    "HP1_primary>=0.75_&_unmet>=5": {
+      "pass": false,
+      "primary": 0.1667,
+      "unmet_recall": "5/13"
+    },
+    "HP2_content>=0.70": {
+      "pass": false,
+      "content_acc": 0.125
+    },
+    "HP3_three_way": {
+      "pass": false,
+      "combined>dict+0.03": false,
+      "gap_vs_dict": -0.0555,
+      "combined_content>=dict_content": false,
+      "combined>consequence+0.30": false,
+      "gap_vs_consequence": 0.0
+    },
+    "HP4_noncircularity": {
+      "pass": false,
+      "scr_dict_in[0.35,0.65]": false,
+      "scr_dict": 0.1722,
+      "random_graph_in[0.35,0.65]": false,
+      "random_graph": 0.2111,
+      "scr_conseq_in[0.40,0.60]": false,
+      "scr_conseq": 0.1667,
+      "combined_dict_scr_gap>=0.15": false,
+      "gap": -0.0111,
+      "exclusion_clean": true
+    },
+    "HP5_noise==0": {
+      "pass": true,
+      "noise_consolidated": 0
+    },
+    "HP6_zero_light_verb_self_lock": {
+      "pass": false,
+      "combined_self_lock": [
+        "find"
+      ],
+      "dict_alone_lock": [
+        "make",
+        "find"
+      ]
+    },
+    "HF_primary<=floor": true,
+    "HF_no_better_than_dict": true,
+    "HF_scr_dict_within_0.10": true,
+    "HF_scr_conseq_within_0.10": true,
+    "HF_random_graph_within_0.10": true,
+    "HF_random_credit_within_0.10": true,
+    "HF_combined_dict_scr_within_0.08": true,
+    "HF_noise>=1": false,
+    "HF_light_verb_self_lock>=1": true,
+    "HF_content<0.55": true,
+    "MB_conseq_no_marginal_value(gap4f<=0)": {
+      "signal": true,
+      "gap_vs_conseq_scrambled": -0.0777
+    }
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 3-way dict=0.2222/conseq=0.1667/combined=0.1667 (floor=0.6389, empty=0.1667) | content dict=0.1875/combined=0.125 | gap_vs_dict=-0.0555 gap_vs_conseq=0.0 | dict_cov=6/33(content 3/16) | lv_dict_alone_lock=['make', 'find'] lv_combined_self_lock=['find'] | noise=0 | scr_dict=0.1722 scr_conseq=0.1667 comb_dict_scr=0.1778 comb_conseq_scr=0.2444 | excl_clean=True",
+  "summary": "HARD_FAIL: 3-way dict=0.2222/conseq=0.1667/combined=0.1667 (floor=0.6389, empty=0.1667) | content dict=0.1875/combined=0.125 | gap_vs_dict=-0.0555 gap_vs_conseq=0.0 | dict_cov=6/33(content 3/16) | lv_dict_alone_lock=['make', 'find'] lv_combined_self_lock=['find'] | noise=0 | scr_dict=0.1722 scr_cons",
+  "elapsed_s": 88.62,
+  "discriminator_fires": {
+    "max_windows_with_teacher": 77,
+    "n_dict_priors_injected": 6,
+    "fires": true
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "verdict": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED",
+  "verdict_msg": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED || MAIN=0.0174 RANDOM=0.0010 SCRAMBLE=0.0049 POP=0.0243 (arena_margin=0.0165 ratio=18.0580 fires=True) | scramble_margin=0.0039 ceiling=0.0041 controlled=True | mean_aggregate_lift=0.0078 max_p_perm=0.2355 seeds_agree_sign=True per_seed_lift=[0.00779] per_seed_p=[0.2355] per_seed_n_qual=[2] | arms_differ=True(sigs=3) seeds=1",
+  "summary": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED || MAIN=0.0174 RANDOM=0.0010 SCRAMBLE=0.0049 POP=0.0243 (arena_margin=0.0165 ratio=18.0580 fires=True) | scramble_margin=0.0039 ceiling=0.0041 controlled=Tru",
+  "run_mode": "smoke",
+  "elapsed_s": 70.06715979997534,
+  "anchor_name": "bucket_diversity_degree_controlled_inference_cskg_v1",
+  "ts_iso": "2026-07-14T16:28:32.519265+00:00",
+  "device": "cpu",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "k": 12,
+    "epochs": 40,
+    "n_neg": 32,
+    "batch": 4096,
+    "neg_chunk": null,
+    "n_query_eval": 0,
+    "seeds": [
+      7
+    ]
+  },
+  "gates": {
+    "verdict": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED",
+    "main_mrr": 0.017426,
+    "random_mrr": 0.000965,
+    "scramble_mrr": 0.004861,
+    "pop_mrr": 0.02426,
+    "arena_margin": 0.016461,
+    "arena_ratio": 18.058,
+    "arena_fires": true,
+    "scramble_margin": 0.003896,
+    "scramble_ceiling": 0.004115,
+    "scramble_controlled": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 3,
+    "mean_aggregate_lift": 0.007794,
+    "max_p_perm_aggregate": 0.2355,
+    "seeds_agree_sign": true,
+    "all_seeds_qualify": true,
+    "per_seed_aggregate": [
+      {
+        "aggregate_lift": 0.007794,
+        "n_qualifying_strata": 2,
+        "sign_consistent": true,
+        "p_perm_aggregate": 0.2355,
+        "qualifying_strata": [
+          "d3_5",
+          "d6_8"
+        ]
+      }
+    ],
+    "per_seed_stratum_groups": [
+      {
+        "d3_5": {
+          "div1": {
+            "n_queries": 658,
+            "n_entities": 329,
+            "mean_rr": 0.014868
+          },
+          "div2": {
+            "n_queries": 1150,
+            "n_entities": 575,
+            "mean_rr": 0.0163
+          },
+          "div3plus": {
+            "n_queries": 384,
+            "n_entities": 192,
+            "mean_rr": 0.022017
+          }
+        },
+        "d6_8": {
+          "div1": {
+            "n_queries": 88,
+            "n_entities": 36,
+            "mean_rr": 0.005867
+          },
+          "div2": {
+            "n_queries": 524,
+            "n_entities": 195,
+            "mean_rr": 0.024251
+          },
+          "div3plus": {
+            "n_queries": 759,
+            "n_entities": 269,
+            "mean_rr": 0.017104
+          }
+        },
+        "d9_14": {
+          "div1": {
+            "n_queries": 16,
+            "n_entities": 4,
+            "mean_rr": 0.004618
+          },
+          "div2": {
+            "n_queries": 116,
+            "n_entities": 29,
+            "mean_rr": 0.027527
+          },
+          "div3plus": {
+            "n_queries": 436,
+            "n_entities": 109,
+            "mean_rr": 0.017585
+          }
+        },
+        "d15plus": {
+          "div1": {
+            "n_queries": 12,
+            "n_entities": 3,
+            "mean_rr": 0.009687
+          },
+          "div2": {
+            "n_queries": 32,
+            "n_entities": 8,
+            "mean_rr": 0.007345
+          },
+          "div3plus": {
+            "n_queries": 344,
+            "n_entities": 86,
+            "mean_rr": 0.01243
+          }
+        }
+      }
+    ],
+    "per_seed_stratum_perm": [
+      {
+        "d3_5": {
+          "real_lift": 0.007149,
+          "n1": 329,
+          "n3": 192,
+          "n_queries_div1": 658,
+          "n_queries_div3plus": 384,
+          "p_perm": 0.2355,
+          "null_mean": 0.000482,
+          "null_std": 0.005814
+        },
+        "d6_8": {
+          "real_lift": 0.011237,
+          "n1": 36,
+          "n3": 269,
+          "n_queries_div1": 88,
+          "n_queries_div3plus": 759,
+          "p_perm": 0.1018,
+          "null_mean": 3.8e-05,
+          "null_std": 0.007572
+        }
+      }
+    ],
+    "bands": {
+      "HELPS_THRESH": 0.02,
+      "HURTS_THRESH": -0.02,
+      "P_SIG_STRATUM": 0.1,
+      "P_SIG_CROSS_SEED": 0.15,
+      "ARENA_FIRE_RATIO": 3.0,
+      "ARENA_FIRE_ABS": 0.01,
+      "SCRAMBLE_CEIL_FRAC": 0.25,
+      "MIN_STRATUM_N": 10,
+      "N_PERM": 500
+    }
+  },
+  "self_test": {
+    "n_query": 357,
+    "n_entities_with_queries": 150,
+    "selftest_verdict": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED",
+    "gates": {
+      "verdict": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED",
+      "main_mrr": 0.217932,
+      "random_mrr": 0.030747,
+      "scramble_mrr": 0.066654,
+      "pop_mrr": 0.216394,
+      "arena_margin": 0.187185,
+      "arena_ratio": 7.088,
+      "arena_fires": true,
+      "scramble_margin": 0.035907,
+      "scramble_ceiling": 0.046796,
+      "scramble_controlled": true,
+      "arms_differ": true,
+      "n_distinct_sigs": 3,
+      "mean_aggregate_lift": 0.064081,
+      "max_p_perm_aggregate": 0.4251,
+      "seeds_agree_sign": true,
+      "all_seeds_qualify": true,
+      "per_seed_aggregate": [
+        {
+          "aggregate_lift": 0.064081,
+          "n_qualifying_strata": 2,
+          "sign_consistent": true,
+          "p_perm_aggregate": 0.4251,
+          "qualifying_strata": [
+            "d3_5",
+            "d6_8"
+          ]
+        }
+      ],
+      "per_seed_stratum_groups": [
+        {
+          "d3_5": {
+            "div1": {
+              "n_queries": 44,
+              "n_entities": 22,
+              "mean_rr": 0.151766
+            },
+            "div2": {
+              "n_queries": 18,
+              "n_entities": 9,
+              "mean_rr": 0.190359
+            },
+            "div3plus": {
+              "n_queries": 80,
+              "n_entities": 40,
+              "mean_rr": 0.253396
+            }
+          },
+          "d6_8": {
+            "div1": {
+              "n_queries": 84,
+              "n_entities": 31,
+              "mean_rr": 0.197599
+            },
+            "div2": {
+              "n_queries": 3,
+              "n_entities": 1,
+              "mean_rr": 0.247863
+            },
+            "div3plus": {
+              "n_queries": 128,
+              "n_entities": 47,
+              "mean_rr": 0.23503
+            }
+          },
+          "d9_14": {
+            "div1": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div2": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div3plus": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            }
+          },
+          "d15plus": {
+            "div1": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div2": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div3plus": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            }
+          }
+        }
+      ],
+      "per_seed_stratum_perm": [
+        {
+          "d3_5": {
+            "real_lift": 0.101631,
+            "n1": 22,
+            "n3": 40,
+            "n_queries_div1": 44,
+            "n_queries_div3plus": 80,
+            "p_perm": 0.0739,
+            "null_mean": -6.7e-05,
+            "null_std": 0.056386
+          },
+          "d6_8": {
+            "real_lift": 0.037432,
+            "n1": 31,
+            "n3": 47,
+            "n_queries_div1": 84,
+            "n_queries_div3plus": 128,
+            "p_perm": 0.4251,
+            "null_mean": 0.004105,
+            "null_std": 0.048781
+          }
+        }
+      ],
+      "bands": {
+        "HELPS_THRESH": 0.02,
+        "HURTS_THRESH": -0.02,
+        "P_SIG_STRATUM": 0.1,
+        "P_SIG_CROSS_SEED": 0.15,
+        "ARENA_FIRE_RATIO": 3.0,
+        "ARENA_FIRE_ABS": 0.01,
+        "SCRAMBLE_CEIL_FRAC": 0.25,
+        "MIN_STRATUM_N": 10,
+        "N_PERM": 500
+      }
+    },
+    "arena_fires": true,
+    "scramble_controlled": true,
+    "arms_differ": true,
+    "any_stratum_has_both_groups": true,
+    "p_perm_values": [
+      0.0739,
+      0.4251
+    ],
+    "p_valid": true,
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "additive_direct_scores",
+      "aggregate_across_strata",
+      "build_holdout_split",
+      "build_planted_bucket_arena",
+      "filtered_rr_per_query",
+      "fit_kge_anchor1",
+      "permutation_test_stratum",
+      "verdict_from_gates"
+    ]
+  },
+  "seed_failures": [],
+  "n_induced_triples": 91673
+}

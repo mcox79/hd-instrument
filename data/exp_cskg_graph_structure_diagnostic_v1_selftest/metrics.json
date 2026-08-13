@@ -1,0 +1,8 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "anchor_name": "cskg_graph_structure_diagnostic_v1",
+  "verdict_msg": "SELFTEST_PASS: k-core correct; skew discriminators fire both sides; POS control P3 HARD_PASS; NEG control P1+P3 HARD_FAIL; cardinality+symmetry classifier; fair-stratum mass-shrink; arms differ; power-law MLE sane",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0
+}

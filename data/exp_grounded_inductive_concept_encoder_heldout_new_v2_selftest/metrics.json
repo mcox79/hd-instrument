@@ -1,0 +1,48 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator + end-to-end degree-matched held-out eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 6.942141300067306,
+  "discriminator_selftest": {
+    "dm_auc_struct": 1.0,
+    "dm_auc_rand": 0.5238715277777778,
+    "dm_auc_pop_degmatched": 0.5141059027777778,
+    "n_tasks": 192
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 600,
+    "n_kept_pairs": 59378,
+    "min_deg": 2,
+    "cap_nodes": 600,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/PartOf",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/HasProperty"
+    ],
+    "n_rel_slots": 9
+  },
+  "split_meta": {
+    "n_train": 472,
+    "n_heldout": 128,
+    "n_eval_heldout": 128,
+    "n_train_anchors": 472,
+    "n_train_train_pairs": 36707,
+    "mean_eval_pos": 78.8515625,
+    "mean_ctx_neigh": 77.140625,
+    "feat_dim": 182,
+    "n_rel_slots": 9
+  },
+  "encoder_dm_auc": 0.5211718750000001,
+  "struct_dm_auc": 0.63125,
+  "pop_dm_auc": 0.6066796875,
+  "shuffle_dm_auc": 0.5159374999999999,
+  "lookup_dm_auc": 0.49773437499999995
+}

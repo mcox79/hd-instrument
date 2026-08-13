@@ -1,0 +1,181 @@
+{
+  "anchor_name": "phase_diagram_multihop_depth_at_production_V_C_2000_v1",
+  "verdict": "SANITY_BREACH",
+  "verdict_msg": "SANITY_BREACH_BASELINE_OUT_OF_BAND: BASELINE=0.9167 (sanity_breach=1/1) REPRO_PV2=0.9000 (meta_m7_breach=1/1) PART_5HOP_RAIL=1.0000 (cross_cell_breach=1/1; target=0.9550) PART_5HOP_VC2000=1.0000 (cv=nan) PART_7HOP_VC2000=1.0000 (cv=nan) PART_10HOP_VC2000=0.9667 (cv=nan) PART_15HOP_VC2000=0.9667 (cv=nan)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "phaseDiagramMultihopDepthProductionVC2000V1: N=2048 V_C=400 V_C_RAIL=200 V_P=10 K=20 N_PARTS=20 PART_SIZE=20 PART_SIZE_RAIL=10 depths=[5, 7, 10, 15] max_depth=15 n_chains=30 W_v1_depth=5 W_pv2_depth=10 W_d15_depth=15 baseline_v_p=2 baseline_n=60 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE META_M7=[0.08,0.25] cross_cell_5hop=[0.935,0.975] target=0.9550 HP_5VC2000=0.85 HF_5VC2000=0.50 HP_7VC2000=0.65 HF_7VC2000=0.40 HP_10VC2000=0.50 HF_10VC2000=0.25 HP_15VC2000=0.30 HF_15VC2000=0.15 phase_cv_max=0.10 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 400,
+      "V_C_rail": 200,
+      "V_P": 10,
+      "K_set": 20,
+      "n_partitions": 20,
+      "part_size": 20,
+      "part_size_rail": 10,
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "n_chains": 30,
+      "depths": [
+        5,
+        7,
+        10,
+        15
+      ],
+      "config_version": "phaseDiagramMultihopDepthProductionVC2000V1: N=2048 V_C=400 V_C_RAIL=200 V_P=10 K=20 N_PARTS=20 PART_SIZE=20 PART_SIZE_RAIL=10 depths=[5, 7, 10, 15] max_depth=15 n_chains=30 W_v1_depth=5 W_pv2_depth=10 W_d15_depth=15 baseline_v_p=2 baseline_n=60 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE META_M7=[0.08,0.25] cross_cell_5hop=[0.935,0.975] target=0.9550 HP_5VC2000=0.85 HF_5VC2000=0.50 HP_7VC2000=0.65 HF_7VC2000=0.40 HP_10VC2000=0.50 HF_10VC2000=0.25 HP_15VC2000=0.30 HF_15VC2000=0.15 phase_cv_max=0.10 baseline_sanity=[0.62,0.68]",
+      "gpu_avail": false,
+      "gpu_name": "cpu_fallback",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.9167,
+        "n_queries": 60,
+        "mechanism": "beta_sweep_naive_hard_gpu",
+        "elapsed_s_arm": 0.49
+      },
+      "baseline_sanity_ok": false,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.9,
+        "per_step_acc": [
+          1.0,
+          0.9667,
+          1.0,
+          0.9333,
+          0.9
+        ],
+        "n_queries": 30,
+        "depth": 5,
+        "mechanism": "verbatim_pointer_chain_v2_naive_forward_only",
+        "elapsed_s_arm": 0.47,
+        "W_n_bindings": 300,
+        "V_C": 400
+      },
+      "meta_m7_rail_ok": false,
+      "arm_part_oracle_5hop": {
+        "top1": 1.0,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 30,
+        "depth": 5,
+        "n_partitions": 20,
+        "part_size": 10,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.41,
+        "W_n_bindings": 150,
+        "W_regime": "v1_regime_max_depth_5_VC200_rail",
+        "V_C": 200
+      },
+      "cross_cell_5hop_ok": false,
+      "arm_part_oracle_5hop_vc2000": {
+        "top1": 1.0,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 30,
+        "depth": 5,
+        "n_partitions": 20,
+        "part_size": 20,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.53,
+        "W_n_bindings": 150,
+        "W_regime": "v1_regime_max_depth_5_VC2000",
+        "V_C": 400
+      },
+      "arm_part_oracle_7hop_vc2000": {
+        "top1": 1.0,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 30,
+        "depth": 7,
+        "n_partitions": 20,
+        "part_size": 20,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.72,
+        "W_n_bindings": 300,
+        "W_regime": "pointer_v2_max_depth_10_VC2000",
+        "V_C": 400
+      },
+      "arm_part_oracle_10hop_vc2000": {
+        "top1": 0.9667,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9667,
+          0.9667,
+          0.9667
+        ],
+        "n_queries": 30,
+        "depth": 10,
+        "n_partitions": 20,
+        "part_size": 20,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.89,
+        "W_n_bindings": 300,
+        "W_regime": "pointer_v2_max_depth_10_VC2000",
+        "V_C": 400
+      },
+      "arm_part_oracle_15hop_vc2000": {
+        "top1": 0.9667,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667
+        ],
+        "n_queries": 30,
+        "depth": 15,
+        "n_partitions": 20,
+        "part_size": 20,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 1.29,
+        "W_n_bindings": 450,
+        "W_regime": "depth15_extended_max_depth_15_VC2000",
+        "V_C": 400
+      },
+      "gpu_max_mem_alloc_mb": 0.0,
+      "elapsed_s": 5.1,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782511790.0741756
+    }
+  ],
+  "elapsed_s": 5.3,
+  "summary": "SANITY_BREACH_BASELINE_OUT_OF_BAND: BASELINE=0.9167 (sanity_breach=1/1) REPRO_PV2=0.9000 (meta_m7_breach=1/1) PART_5HOP_RAIL=1.0000 (cross_cell_breach=1/1; target=0.9550) PART_5HOP_VC2000=1.0000 (cv=nan) PART_7HOP_VC2000=1.0000 (cv=nan) PART_10HOP_VC2000=0.9667 (cv=nan) PART_15HOP_VC2000=0.9667 (cv=nan)",
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": false,
+  "gpu_name": "cpu_fallback",
+  "DESIGN_NOTE": "PRODUCTION_VC2000_DEPTH_PHASE_BOUNDARY: Extends v1 chain-grade (CHAIN_GRADE_DEPTH_EXTENDS_ALL_4_PHASE_POINTS at V_C=200: 5HOP=0.965 / 7HOP=0.882 / 10HOP=0.857 / 15HOP=0.808) to PRODUCTION V_C=2000 (10x retrieval-space size = audit-device deployment scale). MECHANISM identical to v1: partition-routed oracle cleanup on TWO-W canonical (W_v1_regime + W_pointer_v2) plus one extension W (W_depth15_extended) plus one rail-arm W (W_v1_rail on E_VC200 for cross-cell rail to v1 anchor band [0.935,0.975]). Disallow_s=set() preserved across all W constructions. N_PARTITIONS=20 held constant; PART_SIZE scales 10 -> 100 with V_C. Verdict tiers: CHAIN_GRADE_DEPTH_HOLDS_AT_PRODUCTION_V_C (all 4 PASS) / PARTIAL_DEPTH_HOLDS_TO_10 (cliff 10-15) / PARTIAL_DEPTH_HOLDS_TO_7 (cliff 7-10) / DEPTH_5_IS_PRODUCTION_CEILING. GPU-required at full per Fix #24; module-init memory projection asserts under 6 GB budget."
+}

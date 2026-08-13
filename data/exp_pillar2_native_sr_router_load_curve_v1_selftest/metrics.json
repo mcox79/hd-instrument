@@ -1,0 +1,32 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS native-SR-router: (a) SR finds planted routable structure; (b) shuffle kills a leaking router while native SR is invariant + ORACLE collapses; (c) load saturation collapses DENSE while SR survives; arms differ; no rank collapse",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.3693373999558389,
+  "mechanism_selftest": {
+    "chance": 0.125,
+    "D_small": 48,
+    "lo_M": 32,
+    "hi_M": 1200,
+    "sr_hi": 0.8408,
+    "dense_lo": 0.9688,
+    "dense_hi": 0.2867,
+    "oracle_hi": 1.0,
+    "rand_hi": 0.1467,
+    "eff_rank_hi": 16.0,
+    "leaky_intact": 1.0,
+    "leaky_shuffle": 0.105,
+    "sr_intact": 0.8408,
+    "sr_shuffle": 0.8408,
+    "oracle_shuffle": 0.105,
+    "a_sr_finds_structure": true,
+    "c_dense_collapses": true,
+    "c_sr_survives_load": true,
+    "b_leaky_dies": true,
+    "b_native_invariant": true,
+    "b_oracle_bites": true,
+    "rank_ok": true,
+    "arms_differ": true
+  }
+}

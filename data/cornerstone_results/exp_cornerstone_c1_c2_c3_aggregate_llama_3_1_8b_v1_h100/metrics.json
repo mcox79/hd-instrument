@@ -1,0 +1,42 @@
+{
+  "anchor": "cornerstone_c1_c2_c3_aggregate_llama_3_1_8b_v1_h100",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Cornerstone batch (C1 hyperprobe + C2 deletion + C3 drift) at Llama-3.1-8B frontier scale: 0 HARD_PASS / 0 MIDDLE / 0 HARD_FAIL / 3 FAILED_SETUP. Substantial Tier 1 reassessment needed; cells ['C1', 'C2', 'C3'] failed at frontier scale. Identify which BARRIER 8B exposes per-cell.",
+  "elapsed_s": 0.00028898600066895597,
+  "summary": {
+    "n_HARD_PASS": 0,
+    "n_MIDDLE_BAND": 0,
+    "n_HARD_FAIL": 0,
+    "n_FAILED_SETUP": 3,
+    "cells": [
+      {
+        "cell": "C1",
+        "anchor": "substrate_hyperprobe_llama_3_1_8b_val_sim_replication_v1_h100",
+        "verdict": "FAILED_SETUP",
+        "verdict_msg": "C1 post-processor could not find upstream probe_validation metrics at data/exp_phase05_probe_validation_v1/metrics.json; phase05_probe_validation_v1 did not write its output (likely upstream failure).",
+        "found": true,
+        "elapsed_s": 0.00022831900059827603,
+        "summary": "probe_validation metrics absent"
+      },
+      {
+        "cell": "C2",
+        "anchor": "substrate_deletion_cert_llama_3_1_8b_v1_h100",
+        "verdict": "FAILED_SETUP",
+        "verdict_msg": "C2: FAILED_SETUP: C2 FULL mode requires loaded Llama but model is None; do NOT silently fall back to synthetic (would emit fake HARD_PASS); see audit finding 4. boot_error visible in main log.",
+        "found": true,
+        "elapsed_s": 13.481460889999653,
+        "summary": "C2: FAILED_SETUP: C2 FULL mode requires loaded Llama but model is None; do NOT silently fall back to synthetic (would emit fake HARD_PASS); see audit finding 4. boot_error visible in main log."
+      },
+      {
+        "cell": "C3",
+        "anchor": "substrate_drift_detection_refusal_benign_llama_3_1_8b_v1_h100",
+        "verdict": "FAILED_SETUP",
+        "verdict_msg": "C3: FAILED_SETUP: C3 FULL mode requires loaded Llama but model is None; do NOT silently fall back to synthetic (would invalidate kappa_3 ratio); see audit finding 4. boot_error visible in main log.",
+        "found": true,
+        "elapsed_s": 13.481860437999785,
+        "summary": "C3: FAILED_SETUP: C3 FULL mode requires loaded Llama but model is None; do NOT silently fall back to synthetic (would invalidate kappa_3 ratio); see audit finding 4. boot_error visible in main log."
+      }
+    ]
+  },
+  "cornerstone_batch": true
+}

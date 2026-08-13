@@ -1,0 +1,331 @@
+{
+  "verdict": "CHAIN_GRADE_DEMONSTRATED",
+  "verdict_msg": "CHAIN_GRADE_DEMONSTRATED (all 4 rubric parts): (1) discriminator -- reader F1=0.592 beats naive positional F1=0.3407 by 0.2513, recovering 18 gold tuples the naive baseline misses; (2)+(3) glass-box -- deterministic replay stable, sha256 audit hash tamper-detected, causal role-edit flips the who-did-what tuple, bridge head-edit re-routes a candidate; (4) non-ceiling -- reader beats naive on BOTH disjoint halves (A=0.2775, B=0.2332) and on 7/7 lessons, runs stably on the L13-L17 extended slice (65 tuples over 74 sentences). ARM A reader rc=0.74 prec=0.4933 vs baseline_svo f1=0.2708 prec=0.1956. Component headroom remains (all-oracle F1=0.7106 CITED) -- not at ceiling.",
+  "summary": "CHAIN_GRADE_DEMONSTRATED: reader_f1=0.592 prec=0.4933 rec=0.74 rc=0.74 | naive_f1=0.3407 margin=0.2513 recovered_vs_naive=18 | baseline_svo_f1=0.2708 | glass_box_ok=True (replay=True tamper=True role_flip=True bridge=True) | pos_lessons=7/7 both_halves=True | parser_uas=0.7882",
+  "elapsed_s": 682.93,
+  "ts_iso": "2026-07-23T21:11:15.667744+00:00",
+  "anchor_name": "consolidated_reader_chaingrade_demo_v1",
+  "run_mode": "full",
+  "seed": 20260727,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "chain_grade_parts": {
+    "ARM_A_reader_composes": true,
+    "ARM_B_discriminator_fires": true,
+    "ARM_C_glass_box_ok": true,
+    "ARM_D_non_ceiling_ok": true
+  },
+  "chain_grade_demonstrated": true,
+  "one_variable": "per-arm: ARM A composed reader (do/have KEEPER + two-pass parse-fix + role clf + gate + knowledge-argmax MECHANISM; ECM dropped, net-negative) vs its own BASELINE_svo; ARM B structure vs no-structure (naive positional); ARM C one edited logged intermediate vs unedited; ARM D which subsample. All components byte-identical IMPORT of V3/E/M banked code.",
+  "bands": {
+    "HP_A_F1_MIN": 0.55,
+    "HP_A_RC_MIN": 0.7,
+    "HF_A_RC_MAX": 0.44,
+    "NAIVE_BAND": [
+      0.05,
+      0.95
+    ],
+    "HP_B_MARGIN_MIN": 0.12,
+    "HP_B_RECOVERED_MIN": 8,
+    "HP_D_POS_LESSON_MIN": 5,
+    "HF_D_POS_LESSON_MAX": 3,
+    "CITED_DOHAVE_F1": 0.592,
+    "CITED_DOHAVE_RC": 0.74,
+    "CITED_DOHAVE_PREC": 0.4933,
+    "CITED_V3_F1": 0.5738,
+    "CITED_ALL_ORACLE_F1": 0.7106,
+    "CITED_ECM_ONLY_F1": 0.5703
+  },
+  "arm_a_reader": {
+    "f1": 0.592,
+    "precision": 0.4933,
+    "recall": 0.74,
+    "recall_ceiling": 0.74,
+    "n_pred": 150,
+    "tp": 74,
+    "n_gold": 100,
+    "subcat_fp": 35,
+    "within_frame_fp": 6,
+    "spurious_verb_fp": 35,
+    "kept_hash": "1de528e0a501662f"
+  },
+  "arm_a_baseline_svo": {
+    "f1": 0.2708,
+    "precision": 0.1956,
+    "recall": 0.44,
+    "recall_ceiling": 0.44,
+    "kept_hash": "6fca7838894babc0"
+  },
+  "arm_b_naive": {
+    "f1": 0.3407,
+    "precision": 0.2348,
+    "recall": 0.62,
+    "recall_ceiling": 0.62,
+    "n_pred": 264,
+    "kept_hash": "d0149a461c333ba8",
+    "margin_reader_minus_naive": 0.2513,
+    "n_recovered_vs_naive": 18,
+    "recovered_vs_naive_sample": [
+      [
+        "L04_07",
+        "do",
+        "it"
+      ],
+      [
+        "L04_13",
+        "do",
+        "it"
+      ],
+      [
+        "L04_14",
+        "hold",
+        "hands"
+      ],
+      [
+        "L04_19",
+        "lay",
+        "foundation"
+      ],
+      [
+        "L04_19",
+        "show",
+        "way"
+      ],
+      [
+        "L05_17",
+        "have",
+        "it"
+      ],
+      [
+        "L07_04",
+        "spend",
+        "time"
+      ],
+      [
+        "L07_10",
+        "have",
+        "money"
+      ],
+      [
+        "L07_25",
+        "obey",
+        "parents"
+      ],
+      [
+        "L08_02",
+        "choose",
+        "places"
+      ],
+      [
+        "L08_08",
+        "choose",
+        "places"
+      ],
+      [
+        "L10_16",
+        "give",
+        "hour"
+      ],
+      [
+        "L10_41",
+        "give",
+        "books"
+      ],
+      [
+        "L12_04",
+        "invite",
+        "him"
+      ],
+      [
+        "L12_09",
+        "show",
+        "seeds"
+      ],
+      [
+        "L12_12",
+        "pull",
+        "fruit"
+      ],
+      [
+        "L12_15",
+        "enjoy",
+        "day"
+      ],
+      [
+        "L12_16",
+        "give",
+        "flowers"
+      ]
+    ]
+  },
+  "arm_c_glass_box": {
+    "replay_hash_stable": true,
+    "tamper_detected": true,
+    "causal_role_edit_flipped": true,
+    "bridge_head_edit_reroutes": true,
+    "glass_box_ok": true,
+    "audit_witness": {
+      "sid": "L04_02",
+      "audit_hash": "8f79ccc726d140d76df1da401dc0263978d39dd4782cb808c08373fbe852b93a",
+      "replay_hash": "8f79ccc726d140d76df1da401dc0263978d39dd4782cb808c08373fbe852b93a",
+      "tamper_hash": "b71dd019851a25cb1c5a5e930ade15b177fb031bc30d89549d5e1cda82215ddb",
+      "emitted": [
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ],
+        [
+          "rattling",
+          "cat",
+          "down"
+        ]
+      ]
+    },
+    "causal_witness": {
+      "sid": "L04_03",
+      "sentence": "Herbert took up one of the blocks and threw it fiercely at pussy",
+      "verb": "took",
+      "edited_step": "role assignment (AGENT<->PATIENT swap on one logged candidate pair)",
+      "before": [
+        "took",
+        "herbert",
+        "blocks"
+      ],
+      "after": [
+        "took",
+        "blocks",
+        "herbert"
+      ],
+      "agent_cand": "herbert",
+      "patient_cand": "blocks"
+    },
+    "bridge_witness": {
+      "sid": "L04_01",
+      "sentence": "the blockhouse he was building fell in sudden ruin",
+      "candidate": "blockhouse",
+      "edited_step": "parse head-arc (re-pointed one candidate's head)",
+      "from_predicate": "building",
+      "to_predicate": "fell"
+    }
+  },
+  "arm_d_scale": {
+    "per_lesson": [
+      {
+        "lesson": "L04",
+        "reader_f1": 0.6667,
+        "naive_f1": 0.3333,
+        "margin": 0.3334,
+        "n_gold": 18
+      },
+      {
+        "lesson": "L05",
+        "reader_f1": 0.5405,
+        "naive_f1": 0.3871,
+        "margin": 0.1534,
+        "n_gold": 16
+      },
+      {
+        "lesson": "L07",
+        "reader_f1": 0.6667,
+        "naive_f1": 0.2979,
+        "margin": 0.3688,
+        "n_gold": 13
+      },
+      {
+        "lesson": "L08",
+        "reader_f1": 0.7143,
+        "naive_f1": 0.375,
+        "margin": 0.3393,
+        "n_gold": 6
+      },
+      {
+        "lesson": "L09",
+        "reader_f1": 0.6111,
+        "naive_f1": 0.4583,
+        "margin": 0.1528,
+        "n_gold": 13
+      },
+      {
+        "lesson": "L10",
+        "reader_f1": 0.5172,
+        "naive_f1": 0.3191,
+        "margin": 0.1981,
+        "n_gold": 21
+      },
+      {
+        "lesson": "L12",
+        "reader_f1": 0.5641,
+        "naive_f1": 0.2449,
+        "margin": 0.3192,
+        "n_gold": 13
+      }
+    ],
+    "n_positive_margin_lessons": 7,
+    "n_lessons": 7,
+    "halves": {
+      "HALF_A": {
+        "lessons": [
+          "L04",
+          "L05",
+          "L07"
+        ],
+        "reader_f1": 0.6214,
+        "reader_recall_ceiling": 0.6809,
+        "naive_f1": 0.3439,
+        "margin": 0.2775,
+        "n_gold": 47
+      },
+      "HALF_B": {
+        "lessons": [
+          "L08",
+          "L09",
+          "L10",
+          "L12"
+        ],
+        "reader_f1": 0.5714,
+        "reader_recall_ceiling": 0.7925,
+        "naive_f1": 0.3382,
+        "margin": 0.2332,
+        "n_gold": 53
+      }
+    },
+    "both_halves_reader_wins": true,
+    "extended_throughput": {
+      "slice": [
+        "L13",
+        "L14",
+        "L15",
+        "L16",
+        "L17"
+      ],
+      "n_sentences": 74,
+      "n_tuples": 65,
+      "tuples_per_sentence": 0.878,
+      "dohave_extra_predicates": 16,
+      "crashed": false
+    }
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 407.7,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited": {
+    "dohave_only": "data/exp_multipred_argstruct_enumext_v4/metrics.json:arms.V4_DOHAVE_ONLY",
+    "v3_integrated": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json:arms.V3_INTEGRATED",
+    "oracle_audit": "data/exp_reader_component_oracle_ablation_audit_v1/metrics.json",
+    "ecm_dropped_vet": "VET seq 29495 -- ECM net-negative, dropped"
+  },
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web/blog) via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded budget (byte-identical reuse of V3/E code); out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer V3/E flagged. The extended L13-L17 scale slice is UNGOLDED -- ARM D reports THROUGHPUT/behavior stability there (tuples/sentence, do/have fire-rate), NOT accuracy; a truly held-out SECOND-GENRE accuracy demonstration requires new gold annotation (flagged follow-up). The knowledge table (29479) content is fairly REDUNDANT for this simple-narrative slice (29491); the reader keeps the argmax MECHANISM not a knowledge win. This is a DEMONSTRATION SCAFFOLD (chain-grade wiring of composed components), CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET (skunkworks VETs the numbers separately per the routing contract)."
+}

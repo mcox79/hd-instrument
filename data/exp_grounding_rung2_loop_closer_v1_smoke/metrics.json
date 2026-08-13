@@ -1,0 +1,1110 @@
+{
+  "verdict": "HARD_FAIL_GROUNDING_DOESNT_TRANSFER",
+  "verdict_msg": "HARD_FAIL_GROUNDING_DOESNT_TRANSFER || COMPLETABLE reach@1: GROUNDED=0.071 UNGROUNDED=0.067 SCRAMBLED=0.037 ONESHOT=0.101 POP=0.092 RANDOM=0.011 ORACLE=0.815 || lift(G-U)=0.004 scr_lift(S-U)=-0.030 G-SCR=0.034 G-POP=-0.021 pop_recover_frac=1.291 || STRATA lift(G-U) [n]: LOW=-0.019[1249] MID=-0.001[812] HIGH=0.040[939] (LOW_POSITIVE=False vs code_LOW=-0.040; LOW lift vs code G-ONESHOT=-0.013) || STRATA G/U/ONESHOT: LOW=0.041/0.060/0.054 MID=0.055/0.057/0.083 HIGH=0.125/0.084/0.179 || grounded eff_rank=54.0 rep_var=0.982 collapsed=False || agg_lift(>=0.03)=False tail_survives(LOW&MID>=0.02)=False low_positive=False scramble_ok(S-U<=0.02 & G-S>=0.02)=True pop_not_recovering=False || HARD_PASS(loop_closes)=False HARD_FAIL(no_transfer)=True || GATES: enough(1836>=60)=True neg_valid(rand<=0.15)=True oracle_fires=True || selected=concreteness,visual,haptic,aoa,interoceptive,olfactory(n=6) || n_hold=1994 nodes=1168 E=3324 seeds=2 run=smoke",
+  "summary": "HARD_FAIL_GROUNDING_DOESNT_TRANSFER || COMPLETABLE reach@1: GROUNDED=0.071 UNGROUNDED=0.067 SCRAMBLED=0.037 ONESHOT=0.101 POP=0.092 RANDOM=0.011 ORACLE=0.815 || lift(G-U)=0.004 scr_lift(S-U)=-0.030 G-",
+  "run_mode": "smoke",
+  "elapsed_s": 520.9603301999741,
+  "anchor_name": "grounding_rung2_loop_closer_v1",
+  "ts_iso": "2026-07-10T17:03:02.979076+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "n_nodes": 1800,
+    "dim": 64,
+    "kge_epochs": 350
+  },
+  "subgraph_meta": {
+    "n_subgraph": 1525,
+    "n_covered_connected": 1168,
+    "n_typed_edges": 3324,
+    "n_rels": 16,
+    "attr_coverage": {
+      "concreteness": 1.0,
+      "valence": 0.8261986301369864,
+      "arousal": 0.8261986301369864,
+      "dominance": 0.8261986301369864,
+      "visual": 1.0,
+      "haptic": 1.0,
+      "auditory": 1.0,
+      "gustatory": 1.0,
+      "olfactory": 1.0,
+      "interoceptive": 1.0,
+      "aoa": 0.9452054794520548
+    },
+    "coverage_frac_concreteness": 0.7685245901639344
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_GROUNDING_DOESNT_TRANSFER",
+    "arms": {
+      "GROUNDED": {
+        "hits1": 0.071000000461936,
+        "hits3": 0.16099999845027924,
+        "hits10": 0.3449999988079071,
+        "mrr": 0.16166363656520844
+      },
+      "UNGROUNDED": {
+        "hits1": 0.06666666641831398,
+        "hits3": 0.16766666620969772,
+        "hits10": 0.3413333296775818,
+        "mrr": 0.15994956344366074
+      },
+      "SCRAMBLED": {
+        "hits1": 0.03699999861419201,
+        "hits3": 0.09600000083446503,
+        "hits10": 0.2290000021457672,
+        "mrr": 0.10646039992570877
+      },
+      "ONESHOT_CODE": {
+        "hits1": 0.10066666826605797,
+        "hits3": 0.23866666108369827,
+        "hits10": 0.4403333365917206,
+        "mrr": 0.21376977115869522
+      },
+      "POPULARITY_DEGREE": {
+        "hits1": 0.09166666492819786,
+        "hits3": 0.17999999970197678,
+        "hits10": 0.35233333706855774,
+        "mrr": 0.17460378259420395
+      },
+      "RANDOM_CODES": {
+        "hits1": 0.01066666655242443,
+        "hits3": 0.02566666714847088,
+        "hits10": 0.09866666793823242,
+        "mrr": 0.051113976165652275
+      },
+      "TRANSE_TRANSDUCTIVE": {
+        "hits1": 0.8153333365917206,
+        "hits3": 0.9906666576862335,
+        "hits10": 0.9996666610240936,
+        "mrr": 0.9024350047111511
+      }
+    },
+    "strata": {
+      "LOW": {
+        "grounded_hits1": 0.04083266613290633,
+        "ungrounded_hits1": 0.0600480384307446,
+        "scrambled_hits1": 0.02401921537229784,
+        "oneshot_hits1": 0.053642914331465175,
+        "pop_hits1": 0.0,
+        "lift_grounded_ungrounded": -0.01921537229783827,
+        "lift_grounded_code": -0.012810248198558846,
+        "n": 1249
+      },
+      "MID": {
+        "grounded_hits1": 0.05541871921182266,
+        "ungrounded_hits1": 0.05665024630541872,
+        "scrambled_hits1": 0.03940886699507389,
+        "oneshot_hits1": 0.08251231527093596,
+        "pop_hits1": 0.0,
+        "lift_grounded_ungrounded": -0.0012315270935960576,
+        "lift_grounded_code": -0.027093596059113295,
+        "n": 812
+      },
+      "HIGH": {
+        "grounded_hits1": 0.12460063897763578,
+        "ungrounded_hits1": 0.08413205537806177,
+        "scrambled_hits1": 0.05218317358892439,
+        "oneshot_hits1": 0.17891373801916932,
+        "pop_hits1": 0.2928647497337593,
+        "lift_grounded_ungrounded": 0.040468583599574004,
+        "lift_grounded_code": -0.054313099041533544,
+        "n": 939
+      }
+    },
+    "cg": {
+      "grounded_hits1": 0.071000000461936,
+      "ungrounded_hits1": 0.06666666641831398,
+      "scrambled_hits1": 0.03699999861419201,
+      "oneshot_hits1": 0.10066666826605797,
+      "pop_hits1": 0.09166666492819786,
+      "random_hits1": 0.01066666655242443,
+      "oracle_hits1": 0.8153333365917206,
+      "lift_grounded_ungrounded": 0.004333334043622017,
+      "scramble_lift": -0.02966666780412197,
+      "grounded_minus_scrambled": 0.03400000184774399,
+      "grounded_minus_pop": -0.020666664466261864,
+      "pop_recover_frac": 1.2910797793211497,
+      "low_lift": -0.01921537229783827,
+      "mid_lift": -0.0012315270935960576,
+      "high_lift": 0.040468583599574004,
+      "low_lift_vs_code": -0.012810248198558846,
+      "low_positive": false,
+      "aggregate_lift_ok": false,
+      "tail_survives": false,
+      "tail_collapses": true,
+      "scramble_ok": true,
+      "scramble_launders": false,
+      "pop_not_recovering": false,
+      "pop_recovers": true,
+      "ties_ungrounded": false,
+      "grounded_eff_rank": 54.0452766418457,
+      "grounded_rep_var": 0.9824605584144592,
+      "collapsed": false,
+      "grounding_closes_loop": false,
+      "grounding_doesnt_transfer": true
+    },
+    "discriminator_fires": {
+      "enough_completable": true,
+      "negatives_valid": true,
+      "oracle_fires": true
+    },
+    "independence": {
+      "corr_matrix": [
+        [
+          1.0,
+          -0.029,
+          -0.169,
+          -0.121,
+          0.63,
+          0.515,
+          -0.158,
+          0.09,
+          0.251,
+          -0.391,
+          -0.445
+        ],
+        [
+          -0.029,
+          1.0,
+          -0.125,
+          0.652,
+          0.113,
+          0.135,
+          0.104,
+          0.125,
+          0.169,
+          0.03,
+          -0.221
+        ],
+        [
+          -0.169,
+          -0.125,
+          1.0,
+          -0.14,
+          -0.092,
+          -0.155,
+          0.219,
+          0.014,
+          0.005,
+          0.318,
+          0.072
+        ],
+        [
+          -0.121,
+          0.652,
+          -0.14,
+          1.0,
+          -0.006,
+          0.06,
+          0.028,
+          0.04,
+          0.019,
+          -0.03,
+          -0.117
+        ],
+        [
+          0.63,
+          0.113,
+          -0.092,
+          -0.006,
+          1.0,
+          0.486,
+          0.016,
+          0.062,
+          0.266,
+          -0.371,
+          -0.403
+        ],
+        [
+          0.515,
+          0.135,
+          -0.155,
+          0.06,
+          0.486,
+          1.0,
+          -0.273,
+          0.226,
+          0.364,
+          -0.005,
+          -0.458
+        ],
+        [
+          -0.158,
+          0.104,
+          0.219,
+          0.028,
+          0.016,
+          -0.273,
+          1.0,
+          -0.053,
+          0.09,
+          0.065,
+          -0.01
+        ],
+        [
+          0.09,
+          0.125,
+          0.014,
+          0.04,
+          0.062,
+          0.226,
+          -0.053,
+          1.0,
+          0.707,
+          0.182,
+          -0.121
+        ],
+        [
+          0.251,
+          0.169,
+          0.005,
+          0.019,
+          0.266,
+          0.364,
+          0.09,
+          0.707,
+          1.0,
+          0.118,
+          -0.25
+        ],
+        [
+          -0.391,
+          0.03,
+          0.318,
+          -0.03,
+          -0.371,
+          -0.005,
+          0.065,
+          0.182,
+          0.118,
+          1.0,
+          -0.023
+        ],
+        [
+          -0.445,
+          -0.221,
+          0.072,
+          -0.117,
+          -0.403,
+          -0.458,
+          -0.01,
+          -0.121,
+          -0.25,
+          -0.023,
+          1.0
+        ]
+      ],
+      "attr_names": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "r_target": {
+        "concreteness": 1.0,
+        "valence": -0.029,
+        "arousal": -0.169,
+        "dominance": -0.121,
+        "visual": 0.63,
+        "haptic": 0.515,
+        "auditory": -0.158,
+        "gustatory": 0.09,
+        "olfactory": 0.251,
+        "interoceptive": -0.391,
+        "aoa": -0.445
+      },
+      "selection_audit": [
+        {
+          "attr": "visual",
+          "r_target": 0.63,
+          "max_r_selected": 0.63,
+          "incr_r2": 0.3964,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "haptic",
+          "r_target": 0.515,
+          "max_r_selected": 0.515,
+          "incr_r2": 0.0569,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "aoa",
+          "r_target": -0.445,
+          "max_r_selected": 0.458,
+          "incr_r2": 0.0191,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "interoceptive",
+          "r_target": -0.391,
+          "max_r_selected": 0.391,
+          "incr_r2": 0.0614,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "olfactory",
+          "r_target": 0.251,
+          "max_r_selected": 0.364,
+          "incr_r2": 0.0032,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "arousal",
+          "r_target": -0.169,
+          "max_r_selected": 0.318,
+          "incr_r2": 0.0,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "auditory",
+          "r_target": -0.158,
+          "max_r_selected": 0.273,
+          "incr_r2": 0.008,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "dominance",
+          "r_target": -0.121,
+          "max_r_selected": 0.121,
+          "incr_r2": 0.0226,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "gustatory",
+          "r_target": 0.09,
+          "max_r_selected": 0.707,
+          "incr_r2": 0.0,
+          "target_ok": false,
+          "redundant": true,
+          "selected": false
+        },
+        {
+          "attr": "valence",
+          "r_target": -0.029,
+          "max_r_selected": 0.221,
+          "incr_r2": 0.0167,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        }
+      ],
+      "selected": [
+        "concreteness",
+        "visual",
+        "haptic",
+        "aoa",
+        "interoceptive",
+        "olfactory"
+      ],
+      "n_selected": 6,
+      "redundant_r": 0.7
+    },
+    "n_completable": 1836,
+    "n_heldout": 1994,
+    "bands": {
+      "GROUND_MARGIN": 0.03,
+      "STRAT_MARGIN": 0.02,
+      "TIE_EPS": 0.0,
+      "SCRAMBLE_MAX": 0.02,
+      "SCRAMBLE_BEAT": 0.02,
+      "POP_GAP": 0.03,
+      "POP_RECOVER_FRAC_MAX": 0.6,
+      "POP_RECOVER_FRAC_HI": 0.8,
+      "RANDOM_CEIL": 0.15,
+      "ORACLE_FIRE_MARGIN": 0.15,
+      "MIN_STRAT_Q": 40,
+      "HELDOUT_FRAC": 0.3,
+      "MIN_HELDOUT_COMPLETABLE": 60,
+      "N_RANK_NEG": 99,
+      "CONS_KNN": 8,
+      "CONS_PASSES": 6,
+      "CONS_ALPHA": 0.25,
+      "REL_EPOCHS": 400,
+      "COLLAPSE_RANK_FLOOR": 3.0,
+      "COLLAPSE_VAR_FLOOR": 0.02,
+      "DIM": 64
+    }
+  },
+  "independence": {
+    "corr_matrix": [
+      [
+        1.0,
+        -0.029,
+        -0.169,
+        -0.121,
+        0.63,
+        0.515,
+        -0.158,
+        0.09,
+        0.251,
+        -0.391,
+        -0.445
+      ],
+      [
+        -0.029,
+        1.0,
+        -0.125,
+        0.652,
+        0.113,
+        0.135,
+        0.104,
+        0.125,
+        0.169,
+        0.03,
+        -0.221
+      ],
+      [
+        -0.169,
+        -0.125,
+        1.0,
+        -0.14,
+        -0.092,
+        -0.155,
+        0.219,
+        0.014,
+        0.005,
+        0.318,
+        0.072
+      ],
+      [
+        -0.121,
+        0.652,
+        -0.14,
+        1.0,
+        -0.006,
+        0.06,
+        0.028,
+        0.04,
+        0.019,
+        -0.03,
+        -0.117
+      ],
+      [
+        0.63,
+        0.113,
+        -0.092,
+        -0.006,
+        1.0,
+        0.486,
+        0.016,
+        0.062,
+        0.266,
+        -0.371,
+        -0.403
+      ],
+      [
+        0.515,
+        0.135,
+        -0.155,
+        0.06,
+        0.486,
+        1.0,
+        -0.273,
+        0.226,
+        0.364,
+        -0.005,
+        -0.458
+      ],
+      [
+        -0.158,
+        0.104,
+        0.219,
+        0.028,
+        0.016,
+        -0.273,
+        1.0,
+        -0.053,
+        0.09,
+        0.065,
+        -0.01
+      ],
+      [
+        0.09,
+        0.125,
+        0.014,
+        0.04,
+        0.062,
+        0.226,
+        -0.053,
+        1.0,
+        0.707,
+        0.182,
+        -0.121
+      ],
+      [
+        0.251,
+        0.169,
+        0.005,
+        0.019,
+        0.266,
+        0.364,
+        0.09,
+        0.707,
+        1.0,
+        0.118,
+        -0.25
+      ],
+      [
+        -0.391,
+        0.03,
+        0.318,
+        -0.03,
+        -0.371,
+        -0.005,
+        0.065,
+        0.182,
+        0.118,
+        1.0,
+        -0.023
+      ],
+      [
+        -0.445,
+        -0.221,
+        0.072,
+        -0.117,
+        -0.403,
+        -0.458,
+        -0.01,
+        -0.121,
+        -0.25,
+        -0.023,
+        1.0
+      ]
+    ],
+    "attr_names": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa"
+    ],
+    "r_target": {
+      "concreteness": 1.0,
+      "valence": -0.029,
+      "arousal": -0.169,
+      "dominance": -0.121,
+      "visual": 0.63,
+      "haptic": 0.515,
+      "auditory": -0.158,
+      "gustatory": 0.09,
+      "olfactory": 0.251,
+      "interoceptive": -0.391,
+      "aoa": -0.445
+    },
+    "selection_audit": [
+      {
+        "attr": "visual",
+        "r_target": 0.63,
+        "max_r_selected": 0.63,
+        "incr_r2": 0.3964,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "haptic",
+        "r_target": 0.515,
+        "max_r_selected": 0.515,
+        "incr_r2": 0.0569,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "aoa",
+        "r_target": -0.445,
+        "max_r_selected": 0.458,
+        "incr_r2": 0.0191,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "interoceptive",
+        "r_target": -0.391,
+        "max_r_selected": 0.391,
+        "incr_r2": 0.0614,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "olfactory",
+        "r_target": 0.251,
+        "max_r_selected": 0.364,
+        "incr_r2": 0.0032,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "arousal",
+        "r_target": -0.169,
+        "max_r_selected": 0.318,
+        "incr_r2": 0.0,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "auditory",
+        "r_target": -0.158,
+        "max_r_selected": 0.273,
+        "incr_r2": 0.008,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "dominance",
+        "r_target": -0.121,
+        "max_r_selected": 0.121,
+        "incr_r2": 0.0226,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "gustatory",
+        "r_target": 0.09,
+        "max_r_selected": 0.707,
+        "incr_r2": 0.0,
+        "target_ok": false,
+        "redundant": true,
+        "selected": false
+      },
+      {
+        "attr": "valence",
+        "r_target": -0.029,
+        "max_r_selected": 0.221,
+        "incr_r2": 0.0167,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      }
+    ],
+    "selected": [
+      "concreteness",
+      "visual",
+      "haptic",
+      "aoa",
+      "interoceptive",
+      "olfactory"
+    ],
+    "n_selected": 6,
+    "redundant_r": 0.7
+  },
+  "mechanism_selftest": {
+    "grounded_reach": 0.1525,
+    "ungrounded_reach": 0.05,
+    "scrambled_reach": 0.03,
+    "pop_reach": 0.0075,
+    "grounded_reach_low": 0.1716,
+    "ungrounded_reach_low": 0.0237,
+    "transfer_margin": 0.1025,
+    "scramble_lift": -0.02,
+    "collapsed_var": 0.0,
+    "grounded_var": 0.2479,
+    "ST_CAPTURE_MIN": 0.05,
+    "ST_TRANSFER_MARGIN": 0.05,
+    "a_grounded_recovers": true,
+    "a_transfers": true,
+    "a_low_positive": true,
+    "c_scramble_no_transfer": true,
+    "a_beats_pop": true,
+    "d_collapse_caught": true,
+    "arms_differ": true,
+    "task_edges": 4023,
+    "noise_edges": 6005,
+    "n_queries": 400
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "arms": {
+        "GROUNDED": {
+          "hits1": 0.058666665107011795,
+          "hits3": 0.1653333306312561,
+          "hits10": 0.35066667199134827,
+          "mrr": 0.15656374394893646
+        },
+        "UNGROUNDED": {
+          "hits1": 0.07066666334867477,
+          "hits3": 0.1720000058412552,
+          "hits10": 0.3479999899864197,
+          "mrr": 0.16541439294815063
+        },
+        "SCRAMBLED": {
+          "hits1": 0.03799999877810478,
+          "hits3": 0.10133333504199982,
+          "hits10": 0.23266667127609253,
+          "mrr": 0.10840486735105515
+        },
+        "ONESHOT_CODE": {
+          "hits1": 0.10400000214576721,
+          "hits3": 0.23999999463558197,
+          "hits10": 0.44600000977516174,
+          "mrr": 0.21553397178649902
+        },
+        "POPULARITY_DEGREE": {
+          "hits1": 0.09066666662693024,
+          "hits3": 0.17466667294502258,
+          "hits10": 0.34333333373069763,
+          "mrr": 0.1722271591424942
+        },
+        "RANDOM_CODES": {
+          "hits1": 0.009333333000540733,
+          "hits3": 0.019999999552965164,
+          "hits10": 0.09000000357627869,
+          "mrr": 0.04692254215478897
+        },
+        "TRANSE_TRANSDUCTIVE": {
+          "hits1": 0.8246666789054871,
+          "hits3": 0.9933333396911621,
+          "hits10": 1.0,
+          "mrr": 0.9084237217903137
+        }
+      },
+      "arms_strat": {
+        "GROUNDED": {
+          "LOW": {
+            "hits1": 0.04146730462519936,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.05707196029776675,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.08297872340425531,
+            "n": 470
+          }
+        },
+        "UNGROUNDED": {
+          "LOW": {
+            "hits1": 0.0733652312599681,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.06947890818858561,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.06808510638297872,
+            "n": 470
+          }
+        },
+        "SCRAMBLED": {
+          "LOW": {
+            "hits1": 0.025518341307814992,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.03970223325062035,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.05319148936170213,
+            "n": 470
+          }
+        },
+        "ONESHOT_CODE": {
+          "LOW": {
+            "hits1": 0.05422647527910686,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.09429280397022333,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.17872340425531916,
+            "n": 470
+          }
+        },
+        "POPULARITY_DEGREE": {
+          "LOW": {
+            "hits1": 0.0,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.0,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.28936170212765955,
+            "n": 470
+          }
+        },
+        "RANDOM_CODES": {
+          "LOW": {
+            "hits1": 0.011164274322169059,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.004962779156327543,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.010638297872340425,
+            "n": 470
+          }
+        },
+        "TRANSE_TRANSDUCTIVE": {
+          "LOW": {
+            "hits1": 0.8070175438596491,
+            "n": 627
+          },
+          "MID": {
+            "hits1": 0.8213399503722084,
+            "n": 403
+          },
+          "HIGH": {
+            "hits1": 0.851063829787234,
+            "n": 470
+          }
+        }
+      },
+      "arm_sigs": {
+        "GROUNDED": "17751fb9ac4936ebebc7074ad11e65b8255d2f734846167b767c2653905f0354",
+        "UNGROUNDED": "21527561241ce1b4b023ab067df80b49e9366696f4aaeb1474a6761f072be101",
+        "SCRAMBLED": "62262d0a2b444aea734556b0741ff3b80ca03e7a0ddec73b37b005fbd9f07f9d",
+        "ONESHOT_CODE": "28bc99e47d84cd8f563a85ebdcf37fea73b78a268231251f0165fa9b961698cb",
+        "POPULARITY_DEGREE": "97bfdc17d58f282e75bef2b13e8584e2837674779601ff35f51139a01d395d60",
+        "RANDOM_CODES": "2e658531c76914b5ddff0385dbf43906e5882431d19a466ce69e8390d07d40af",
+        "TRANSE_TRANSDUCTIVE": "f829b5247f020b61349264a608d5803732678a81164fa1c4fbd85320d0df3500"
+      },
+      "grounded_eff_rank": 54.043460845947266,
+      "grounded_rep_var": 0.985093355178833,
+      "ungrounded_eff_rank": 96.64061737060547,
+      "scrambled_eff_rank": 54.60619354248047,
+      "n_agr_grounded": 318,
+      "n_agr_ungrounded": 8564,
+      "n_agr_scrambled": 100,
+      "deg_tertiles": [
+        8.0,
+        16.0
+      ],
+      "n_completable": 1852,
+      "n_heldout": 1994,
+      "n_queries": 1500,
+      "n_visible_tri": 4654,
+      "failures": [],
+      "kge_dim": 64,
+      "n_rels": 16
+    },
+    {
+      "seed": 13,
+      "arms": {
+        "GROUNDED": {
+          "hits1": 0.0833333358168602,
+          "hits3": 0.15666666626930237,
+          "hits10": 0.33933332562446594,
+          "mrr": 0.1667635291814804
+        },
+        "UNGROUNDED": {
+          "hits1": 0.06266666948795319,
+          "hits3": 0.16333332657814026,
+          "hits10": 0.3346666693687439,
+          "mrr": 0.15448473393917084
+        },
+        "SCRAMBLED": {
+          "hits1": 0.035999998450279236,
+          "hits3": 0.09066666662693024,
+          "hits10": 0.2253333330154419,
+          "mrr": 0.1045159325003624
+        },
+        "ONESHOT_CODE": {
+          "hits1": 0.09733333438634872,
+          "hits3": 0.23733332753181458,
+          "hits10": 0.4346666634082794,
+          "mrr": 0.21200557053089142
+        },
+        "POPULARITY_DEGREE": {
+          "hits1": 0.09266666322946548,
+          "hits3": 0.18533332645893097,
+          "hits10": 0.36133334040641785,
+          "mrr": 0.1769804060459137
+        },
+        "RANDOM_CODES": {
+          "hits1": 0.012000000104308128,
+          "hits3": 0.03133333474397659,
+          "hits10": 0.10733333230018616,
+          "mrr": 0.05530541017651558
+        },
+        "TRANSE_TRANSDUCTIVE": {
+          "hits1": 0.8059999942779541,
+          "hits3": 0.9879999756813049,
+          "hits10": 0.9993333220481873,
+          "mrr": 0.8964462876319885
+        }
+      },
+      "arms_strat": {
+        "GROUNDED": {
+          "LOW": {
+            "hits1": 0.04019292604501608,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.05378973105134474,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.16631130063965885,
+            "n": 469
+          }
+        },
+        "UNGROUNDED": {
+          "LOW": {
+            "hits1": 0.04662379421221865,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.044009779951100246,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.10021321961620469,
+            "n": 469
+          }
+        },
+        "SCRAMBLED": {
+          "LOW": {
+            "hits1": 0.022508038585209004,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.039119804400977995,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.0511727078891258,
+            "n": 469
+          }
+        },
+        "ONESHOT_CODE": {
+          "LOW": {
+            "hits1": 0.05305466237942122,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.07090464547677261,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.1791044776119403,
+            "n": 469
+          }
+        },
+        "POPULARITY_DEGREE": {
+          "LOW": {
+            "hits1": 0.0,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.0,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.29637526652452023,
+            "n": 469
+          }
+        },
+        "RANDOM_CODES": {
+          "LOW": {
+            "hits1": 0.012861736334405145,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.009779951100244499,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.01279317697228145,
+            "n": 469
+          }
+        },
+        "TRANSE_TRANSDUCTIVE": {
+          "LOW": {
+            "hits1": 0.7877813504823151,
+            "n": 622
+          },
+          "MID": {
+            "hits1": 0.7897310513447433,
+            "n": 409
+          },
+          "HIGH": {
+            "hits1": 0.8443496801705757,
+            "n": 469
+          }
+        }
+      },
+      "arm_sigs": {
+        "GROUNDED": "a43899923c26d38f8807c31e439290bb4a13b0c4df2e210410bc2c7158c667db",
+        "UNGROUNDED": "c6b9d5b0a5b555b2ddc20a47549e766060de266aed42d49854639cf2eddc4b7f",
+        "SCRAMBLED": "bcfbd33a7fcab00b4b19c4d58573b78fa16ac95501ff7030f6d777388e401b28",
+        "ONESHOT_CODE": "28caacdc931209416af264e3bd596878fd1d73daa28fa318a6c11c67e321c226",
+        "POPULARITY_DEGREE": "52505dbcef12f0db8b434c03bd6248ec6505998e6676c8cdf89a62bc4cee65c8",
+        "RANDOM_CODES": "e1729f0865a381b52abf13ad5bf139052141a3e9b61dac1739cc3f4eb08170c1",
+        "TRANSE_TRANSDUCTIVE": "2f4d14b17d19e5961f7e7071e1da3dac1da6618216b8f9464e2f4cced87701c4"
+      },
+      "grounded_eff_rank": 54.04709243774414,
+      "grounded_rep_var": 0.9798277616500854,
+      "ungrounded_eff_rank": 96.66159057617188,
+      "scrambled_eff_rank": 53.9826774597168,
+      "n_agr_grounded": 288,
+      "n_agr_ungrounded": 8410,
+      "n_agr_scrambled": 110,
+      "deg_tertiles": [
+        8.0,
+        18.0
+      ],
+      "n_completable": 1820,
+      "n_heldout": 1994,
+      "n_queries": 1500,
+      "n_visible_tri": 4654,
+      "failures": [],
+      "kge_dim": 64,
+      "n_rels": 16
+    }
+  ]
+}

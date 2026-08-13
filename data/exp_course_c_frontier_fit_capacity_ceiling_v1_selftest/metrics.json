@@ -1,0 +1,25 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST synthetic functional graph N=120: oracle_direct h@10=0.700 (>=0.50 req), RANDOM direct (3 seeds)=[0.1, 0.0, 0.1] (<0.30 req), FPE(0.55)=0.025 FPE(medht)=0.650; gate_d_reproduces=True; validity_preflight_ok=True; _fit_anchor1(k/lr/nneg)+adaptive_batch + direct/FPE/stratify/control code path runs; ok=True",
+  "summary": "SELFTEST synthetic functional graph N=120: oracle_direct h@10=0.700 (>=0.50 req), RANDOM direct (3 seeds)=[0.1, 0.0, 0.1] (<0.30 req), FPE(0.55)=0.025 FPE(medht)=0.650; gate_d_reproduces=True; validit",
+  "run_mode": "self_test",
+  "elapsed_s": 3.468729899963364,
+  "anchor_name": "course_c_frontier_fit_capacity_ceiling_v1",
+  "ts_iso": "2026-07-11T23:24:25.218992+00:00",
+  "device": "cuda",
+  "selftest": {
+    "oracle_direct_h10": 0.7,
+    "oracle_fpe_h10": 0.025,
+    "oracle_fpe_medht_h10": 0.65,
+    "random_direct_seeds": [
+      0.1,
+      0.0,
+      0.1
+    ],
+    "gate_d_reproduces": true,
+    "validity_preflight_ok": true,
+    "finite": true,
+    "fires": true,
+    "control_low": true
+  }
+}

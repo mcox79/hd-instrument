@@ -1,0 +1,859 @@
+{
+  "anchor_name": "learned_argstruct_parser_lccp_independent_gold_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES",
+  "verdict_msg": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES | slice=L04+L05 sents=46 reader=61 gold_pos=34 gold_nopat=70 | A P=0.180 R=0.324 F1=0.232 fp_rate=0.820 | B P=0.389 R=0.206 F1=0.269 | C P=0.438 R=0.206 F1=0.280 fp_rate=0.562 | dFPrate=+0.257 Rret=0.636 | subcatTN A=0.000 C=0.737 | FPclass A(sub=26,wf=17,sp=7) C(sub=5,wf=1,sp=3) | gen seenP=0.364 heldP=0.600 gap=-0.236 | LC first=0.333 late=0.000 | pred3 mechval=True cue_ok=True priorSep(T=0.66,I=0.31) adjShrink=True | base_in_band=True discrim=True",
+  "summary": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES | slice=L04+L05 sents=46 reader=61 gold_pos=34 gold_nopat=70 | A P=0.180 R=0.324 F1=0.232 fp_rate=0.820 | B P=0.389 R=0.206 F1=0.269 | C P=0.438 R=0.206 F1=0.280 fp_rate=0.562 | dFPrate=+0.257 Rret=0.636 | subcatTN A=0.000 C=0.737 | FPclass A(sub=26,wf=17,sp=7) C(sub=5,wf=1,sp=3) | gen seenP=0.364 heldP=0.600 gap=-0.236 | LC first=0.333 late=0.000 | pred3 mechval=True cue_ok=True priorSep(T=0.66,I=0.31) adjShrink=True | base_in_band=True discrim=True",
+  "elapsed_s": 4.8039530999958515,
+  "ts_iso": "2026-07-19T07:53:12.153134+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7
+  },
+  "arm_metrics": {
+    "A_handrule": {
+      "all": {
+        "precision": 0.1803,
+        "recall": 0.3235,
+        "f1": 0.2316,
+        "n_pred": 61,
+        "tp": 11,
+        "n_gold": 34,
+        "n_gold_covered": 11,
+        "subcat_fp": 26,
+        "within_frame_fp": 17,
+        "spurious_verb_fp": 7,
+        "total_fp": 50,
+        "fp_rate": 0.8197
+      },
+      "seen": {
+        "precision": 0.1778,
+        "recall": 0.5714,
+        "f1": 0.2712,
+        "n_pred": 45,
+        "tp": 8,
+        "n_gold": 14,
+        "n_gold_covered": 8,
+        "subcat_fp": 17,
+        "within_frame_fp": 14,
+        "spurious_verb_fp": 6,
+        "total_fp": 37,
+        "fp_rate": 0.8222
+      },
+      "heldout": {
+        "precision": 0.1875,
+        "recall": 0.4286,
+        "f1": 0.2609,
+        "n_pred": 16,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 9,
+        "within_frame_fp": 3,
+        "spurious_verb_fp": 1,
+        "total_fp": 13,
+        "fp_rate": 0.8125
+      }
+    },
+    "B_cuecomp": {
+      "all": {
+        "precision": 0.3889,
+        "recall": 0.2059,
+        "f1": 0.2692,
+        "n_pred": 18,
+        "tp": 7,
+        "n_gold": 34,
+        "n_gold_covered": 7,
+        "subcat_fp": 5,
+        "within_frame_fp": 2,
+        "spurious_verb_fp": 4,
+        "total_fp": 11,
+        "fp_rate": 0.6111
+      },
+      "seen": {
+        "precision": 0.3077,
+        "recall": 0.2857,
+        "f1": 0.2963,
+        "n_pred": 13,
+        "tp": 4,
+        "n_gold": 14,
+        "n_gold_covered": 4,
+        "subcat_fp": 4,
+        "within_frame_fp": 2,
+        "spurious_verb_fp": 3,
+        "total_fp": 9,
+        "fp_rate": 0.6923
+      },
+      "heldout": {
+        "precision": 0.6,
+        "recall": 0.4286,
+        "f1": 0.5,
+        "n_pred": 5,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 0,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.4
+      }
+    },
+    "C_lccp": {
+      "all": {
+        "precision": 0.4375,
+        "recall": 0.2059,
+        "f1": 0.28,
+        "n_pred": 16,
+        "tp": 7,
+        "n_gold": 34,
+        "n_gold_covered": 7,
+        "subcat_fp": 5,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 3,
+        "total_fp": 9,
+        "fp_rate": 0.5625
+      },
+      "seen": {
+        "precision": 0.3636,
+        "recall": 0.2857,
+        "f1": 0.32,
+        "n_pred": 11,
+        "tp": 4,
+        "n_gold": 14,
+        "n_gold_covered": 4,
+        "subcat_fp": 4,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 2,
+        "total_fp": 7,
+        "fp_rate": 0.6364
+      },
+      "heldout": {
+        "precision": 0.6,
+        "recall": 0.4286,
+        "f1": 0.5,
+        "n_pred": 5,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 0,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.4
+      }
+    }
+  },
+  "verdict_detail": {
+    "verdict": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES",
+    "fp_rate_reduction_A_minus_C": 0.2572,
+    "recall_retention_C_over_A": 0.6365,
+    "generalization_gap_seen_minus_heldout_precision": -0.2364,
+    "subcat_tn_rate_C": 0.7368,
+    "subcat_tn_rate_A": 0.0
+  },
+  "subcat_true_negatives": {
+    "A_handrule": {
+      "n_nopat_reader_attached": 19,
+      "n_suppressed_TN": 0,
+      "n_kept_FP": 19,
+      "tn_rate": 0.0
+    },
+    "B_cuecomp": {
+      "n_nopat_reader_attached": 19,
+      "n_suppressed_TN": 14,
+      "n_kept_FP": 5,
+      "tn_rate": 0.7368
+    },
+    "C_lccp": {
+      "n_nopat_reader_attached": 19,
+      "n_suppressed_TN": 14,
+      "n_kept_FP": 5,
+      "tn_rate": 0.7368
+    }
+  },
+  "learning_curve": {
+    "first_exposure_subcat_fp_rate": 0.3333,
+    "later_exposure_subcat_fp_rate": 0.0,
+    "n_first": 15,
+    "n_later": 4,
+    "slope_first_minus_later": 0.3333
+  },
+  "prediction3_cue_degradation": {
+    "probe_cue": "f_adj",
+    "adj_weight_normal": 0.7838,
+    "adj_weight_degraded_unreliable": 0.0265,
+    "adj_weight_shrinks": true,
+    "cue_structure_correct": true,
+    "learned_weights_normal": {
+      "bias": 1.193,
+      "f_adj": 0.7838,
+      "f_postv": 0.5735,
+      "f_prep": -6.6959,
+      "f_func": -5.4437,
+      "f_clause": -5.2241
+    },
+    "transitive_verb_prior_mean": 0.6634,
+    "intransitive_verb_prior_mean": 0.3103,
+    "prior_separates_verb_classes": true,
+    "n_pure_transitive_verbs": 10,
+    "n_pure_intransitive_verbs": 16,
+    "mechanism_validity": true
+  },
+  "kept_hashes": {
+    "A_handrule": "522d3e76993aa5cb",
+    "B_cuecomp": "1a64f3398716479c",
+    "C_lccp": "c21de56e6612e3cf"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "intransitive_overextraction_suppressed_by_C_kept_by_A": [
+      "L04_07",
+      "mean",
+      "do"
+    ],
+    "true_patient_kept_by_C": [
+      "L04_02",
+      "rub",
+      "castle"
+    ],
+    "lemma_parity": {
+      "came": "come",
+      "struggled": "struggle",
+      "looked": "look",
+      "wonder": "wonder"
+    },
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json -- single-annotator gold with pos (patient-taking) AND nopat (no-patient: intransitive/cognition/oblique/report) verb-instances, annotated from sentence text independent of reader output; makes SUBCAT true-negatives measurable.",
+  "data_meta": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ],
+    "n_sentences": 46,
+    "n_reader_svo": 61,
+    "n_gold_pos": 34,
+    "n_gold_nopat": 70,
+    "gold_meta": {
+      "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+      "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+      "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+      "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+      "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+      "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+      "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+    },
+    "artifacts": {
+      "w": [
+        1.193000909288368,
+        0.7838189130943477,
+        0.5734843039261901,
+        -6.695850073338649,
+        -5.443676032655873,
+        -5.224070374580361
+      ],
+      "feat_names": [
+        "bias",
+        "f_adj",
+        "f_postv",
+        "f_prep",
+        "f_func",
+        "f_clause"
+      ],
+      "n_train_examples": 55,
+      "n_candidates": 61,
+      "n_verb_instances": 38,
+      "seen_verbs": [
+        "begin",
+        "build",
+        "can't",
+        "come",
+        "cry",
+        "fall",
+        "finish",
+        "flit",
+        "go",
+        "hear",
+        "hold",
+        "keep",
+        "mean",
+        "nod",
+        "pass",
+        "rub",
+        "say",
+        "see",
+        "show",
+        "sit",
+        "take",
+        "wonder"
+      ],
+      "heldout_verbs": [
+        "get",
+        "knock",
+        "know",
+        "leave",
+        "look",
+        "open",
+        "tell",
+        "won't"
+      ],
+      "n_constructions": 4,
+      "constr_trans": {
+        "0": 0.6249302359209955,
+        "1": 0.06574965363080784,
+        "2": 0.8823873760046699,
+        "3": 0.02655998306440755
+      },
+      "verb_construction": {
+        "begin": 1,
+        "build": 1,
+        "can't": 2,
+        "come": 2,
+        "cry": 0,
+        "fall": 1,
+        "finish": 0,
+        "flit": 1,
+        "go": 3,
+        "hear": 2,
+        "hold": 3,
+        "keep": 1,
+        "mean": 1,
+        "nod": 2,
+        "pass": 2,
+        "rub": 2,
+        "say": 2,
+        "see": 2,
+        "show": 2,
+        "sit": 2,
+        "take": 1,
+        "wonder": 1
+      }
+    },
+    "glove_coverage": 0.978,
+    "reader_svo_dump": {
+      "L04_01": [
+        [
+          "building",
+          "herbert",
+          "ruin"
+        ]
+      ],
+      "L04_02": [
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ]
+      ],
+      "L04_03": [
+        [
+          "took",
+          "herbert",
+          "blocks"
+        ],
+        [
+          "took",
+          "herbert",
+          "one"
+        ]
+      ],
+      "L04_04": [
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      "L04_07": [
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_10": [
+        [
+          "won't",
+          "i",
+          "herbert"
+        ]
+      ],
+      "L04_11": [
+        [
+          "opened",
+          "papa",
+          "door"
+        ]
+      ],
+      "L04_12": [
+        [
+          "fell",
+          "castle",
+          "hetty"
+        ]
+      ],
+      "L04_13": [
+        [
+          "know",
+          "mean",
+          "know"
+        ],
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_14": [
+        [
+          "held",
+          "herbert",
+          "hands"
+        ],
+        [
+          "held",
+          "herbert",
+          "out"
+        ]
+      ],
+      "L04_15": [
+        [
+          "came",
+          "boy",
+          "eyes"
+        ],
+        [
+          "came",
+          "boy",
+          "tears"
+        ],
+        [
+          "got",
+          "boy",
+          "floor"
+        ]
+      ],
+      "L04_16": [
+        [
+          "said",
+          "boy",
+          "papa"
+        ]
+      ],
+      "L04_17": [
+        [
+          "taken",
+          "you",
+          "heart"
+        ],
+        [
+          "taken",
+          "you",
+          "way"
+        ]
+      ],
+      "L04_18": [
+        [
+          "heard",
+          "i",
+          "blocks"
+        ],
+        [
+          "heard",
+          "i",
+          "you"
+        ]
+      ],
+      "L04_19": [
+        [
+          "nodded",
+          "herbert",
+          "head"
+        ],
+        [
+          "sat",
+          "papa",
+          "blocks"
+        ],
+        [
+          "sat",
+          "papa",
+          "side"
+        ],
+        [
+          "sat",
+          "papa",
+          "son"
+        ],
+        [
+          "show",
+          "i",
+          "way"
+        ],
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ],
+      "L05_02": [
+        [
+          "began",
+          "he",
+          "work"
+        ]
+      ],
+      "L05_04": [
+        [
+          "crying",
+          "great",
+          "crying"
+        ]
+      ],
+      "L05_06": [
+        [
+          "flitted",
+          "shadow",
+          "face"
+        ],
+        [
+          "knocked",
+          "pussy",
+          "castle"
+        ]
+      ],
+      "L05_07": [
+        [
+          "told",
+          "joe",
+          "i"
+        ],
+        [
+          "told",
+          "joe",
+          "milk"
+        ],
+        [
+          "told",
+          "joe",
+          "place"
+        ]
+      ],
+      "L05_08": [
+        [
+          "wonder",
+          "herbert",
+          "you"
+        ]
+      ],
+      "L05_10": [
+        [
+          "crying",
+          "papa",
+          "use"
+        ]
+      ],
+      "L05_11": [
+        [
+          "go",
+          "you",
+          "kite"
+        ],
+        [
+          "looked",
+          "joe",
+          "book"
+        ],
+        [
+          "looked",
+          "joe",
+          "down"
+        ]
+      ],
+      "L05_12": [
+        [
+          "finished",
+          "time",
+          "castle"
+        ]
+      ],
+      "L05_13": [
+        [
+          "knocked",
+          "it",
+          "hetty"
+        ]
+      ],
+      "L05_14": [
+        [
+          "looked",
+          "herbert",
+          "sides"
+        ]
+      ],
+      "L05_15": [
+        [
+          "build",
+          "down",
+          "build"
+        ],
+        [
+          "build",
+          "down",
+          "sentence"
+        ]
+      ],
+      "L05_17": [
+        [
+          "can't",
+          "i",
+          "forehead"
+        ],
+        [
+          "can't",
+          "i",
+          "have"
+        ],
+        [
+          "can't",
+          "i",
+          "out"
+        ]
+      ],
+      "L05_20": [
+        [
+          "go",
+          "you",
+          "carriages"
+        ],
+        [
+          "go",
+          "you",
+          "out"
+        ],
+        [
+          "keep",
+          "you",
+          "way"
+        ]
+      ],
+      "L05_22": [
+        [
+          "seen",
+          "i",
+          "a"
+        ],
+        [
+          "seen",
+          "i",
+          "child"
+        ],
+        [
+          "seen",
+          "i",
+          "dash"
+        ],
+        [
+          "seen",
+          "i",
+          "dishes"
+        ],
+        [
+          "seen",
+          "i",
+          "hands"
+        ],
+        [
+          "seen",
+          "i",
+          "servant"
+        ],
+        [
+          "seen",
+          "i",
+          "tray"
+        ]
+      ],
+      "L05_24": [
+        [
+          "left",
+          "papa",
+          "crying"
+        ],
+        [
+          "left",
+          "papa",
+          "milk"
+        ],
+        [
+          "left",
+          "papa",
+          "room"
+        ]
+      ],
+      "L05_25": [
+        [
+          "get",
+          "castles",
+          "down"
+        ]
+      ]
+    },
+    "kept_C_dump": [
+      [
+        "L04_02",
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ]
+      ],
+      [
+        "L04_04",
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      [
+        "L04_10",
+        [
+          "won't",
+          "i",
+          "herbert"
+        ]
+      ],
+      [
+        "L04_11",
+        [
+          "opened",
+          "papa",
+          "door"
+        ]
+      ],
+      [
+        "L04_13",
+        [
+          "know",
+          "mean",
+          "know"
+        ]
+      ],
+      [
+        "L04_15",
+        [
+          "came",
+          "boy",
+          "eyes"
+        ]
+      ],
+      [
+        "L04_16",
+        [
+          "said",
+          "boy",
+          "papa"
+        ]
+      ],
+      [
+        "L04_18",
+        [
+          "heard",
+          "i",
+          "you"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "nodded",
+          "herbert",
+          "head"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "sat",
+          "papa",
+          "son"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ],
+      [
+        "L05_06",
+        [
+          "knocked",
+          "pussy",
+          "castle"
+        ]
+      ],
+      [
+        "L05_12",
+        [
+          "finished",
+          "time",
+          "castle"
+        ]
+      ],
+      [
+        "L05_17",
+        [
+          "can't",
+          "i",
+          "have"
+        ]
+      ],
+      [
+        "L05_22",
+        [
+          "seen",
+          "i",
+          "child"
+        ]
+      ],
+      [
+        "L05_24",
+        [
+          "left",
+          "papa",
+          "room"
+        ]
+      ]
+    ]
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "verdict_detail",
+    "subcat_true_negatives",
+    "learning_curve",
+    "prediction3_cue_degradation",
+    "scaffold_free_witness",
+    "data_meta"
+  ],
+  "notes": "LCCP learned argument-structure parser vs INDEPENDENT gold. A=hand-rule, B=learned cue-competition (global weights, best-candidate + threshold), C=+subcat transitivity prior + construction-level sharing for held-out. HARD_PASS = C reduces total mis-attachment FP-rate >=0.15 vs A at >=0.60 recall retention AND held-out precision within 0.10 of seen. HARD_FAIL = <0.05 reduction OR held-out drop >0.25 OR recall retention <0.40. CLAIM-VET-pending; single-annotator gold (caveated); document-scope within-frame residual flagged as next step, NOT built here."
+}

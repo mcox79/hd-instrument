@@ -1,0 +1,9 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (corpus + 4-arm tiny pipeline)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-07-31T01:30:32.105540+00:00",
+  "anchor_name": "encoder_role_contrastive_voice_invariance_v1"
+}

@@ -1,0 +1,552 @@
+{
+  "verdict": "SYS=SYS_HARD_PASS|REACH=REACH_HARD_PASS|ORACLE=READOUT_LIMIT",
+  "verdict_msg": "SYS=SYS_HARD_PASS|REACH=REACH_HARD_PASS|ORACLE=READOUT_LIMIT || SYSTEMATICITY: bind_seen=1.000 bind_heldout=1.000 flat_seen=1.000 flat_heldout=0.000 nobind=0.175 margin=1.000 gen_gap=0.000 chance=0.025 flat_valid=True || REACH: reach(D=1)=1 best_reach(D*=4)=4 reach_delta=3.0 strict=True edge_recall=1.000 edge_prec=1.000 reach_curve_D1=[0.7928, 0.0, 0.0, 0.0] reach_curve_Dstar=[0.8008, 0.6947, 0.6447, 0.6328] assort(smooth=0.763,shuf=-0.036) precond=True d1_in_band=True || ORACLE: oracle_reach=3.00 flat_oneshot_reach=1.50 flag=READOUT_LIMIT",
+  "summary": "SYS=SYS_HARD_PASS|REACH=REACH_HARD_PASS|ORACLE=READOUT_LIMIT || SYSTEMATICITY: bind_seen=1.000 bind_heldout=1.000 flat_seen=1.000 flat_heldout=0.000 nobind=0.175 margin=1.000 gen_gap=0.000 chance=0.02",
+  "run_mode": "smoke",
+  "elapsed_s": 4.240835499978857,
+  "anchor_name": "grounding_bind_chain_systematicity_v1",
+  "ts_iso": "2026-07-09T13:44:26.853670+00:00",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "sys_N": 1024,
+    "sys_R": 6,
+    "sys_F": 40,
+    "sys_n_train": 150,
+    "sys_n_test": 400,
+    "sys_heldout_frac": 0.3,
+    "reach_N": 1024,
+    "reach_n": 600,
+    "reach_T": 4,
+    "reach_deg": 4,
+    "reach_n_seeds_ground": 30,
+    "reach_n_sources": 15,
+    "reach_diffuse_steps": 10,
+    "reach_D": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "reach_cleanup_topk": 4,
+    "reach_n_pairs": 4000,
+    "cn_n_nodes": 1500,
+    "cn_epochs": 40,
+    "cn_code_dim": 128,
+    "cn_feat_dim": 4096,
+    "cn_temp": 0.15,
+    "cn_lr": 0.01,
+    "cn_lambda_cov": 1.0,
+    "cn_lambda_var": 1.0,
+    "cn_lambda_attr": 1.0,
+    "cn_n_ground_seeds": 30,
+    "cn_n_sources": 25,
+    "cn_diffuse_steps": 10,
+    "cn_ridge_lambda": 1.0,
+    "cn_n_pairs": 4000,
+    "cn_k_labelprop": 7
+  },
+  "cn_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 1237,
+    "n_edges": 3372,
+    "median_degree": 3.0,
+    "mean_degree": 5.451899757477769,
+    "frac_deg_ge_2": 1.0
+  },
+  "cn_bin_counts": {
+    "0": 112,
+    "1": 732,
+    "2": 363,
+    "3": 0
+  },
+  "gates": {
+    "sys_verdict": "SYS_HARD_PASS",
+    "reach_verdict": "REACH_HARD_PASS",
+    "oracle_flag": "READOUT_LIMIT",
+    "bind_seen": 1.0,
+    "bind_heldout": 1.0,
+    "flat_seen": 1.0,
+    "flat_heldout": 0.0,
+    "nobind_heldout": 0.175,
+    "sys_margin": 1.0,
+    "gen_gap": 0.0,
+    "flat_control_valid": true,
+    "reach_d1": 1,
+    "reach_best": 4,
+    "d_star": 4,
+    "reach_delta": 3,
+    "reach_strict_above_floor": true,
+    "d1_in_band": true,
+    "reach_precondition_ok": true,
+    "edge_recall": 1.0,
+    "edge_precision": 0.9995812395309882,
+    "reach_by_D": {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4
+    },
+    "reach_collapsed_by_D": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false
+    },
+    "reach_reason_by_D": {
+      "1": "ok",
+      "2": "ok",
+      "3": "ok",
+      "4": "ok"
+    },
+    "reach_curve_by_D": {
+      "1": [
+        0.7928,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "2": [
+        0.7707,
+        0.6636,
+        0.0,
+        0.0
+      ],
+      "3": [
+        0.8014,
+        0.681,
+        0.6303,
+        0.0
+      ],
+      "4": [
+        0.8008,
+        0.6947,
+        0.6447,
+        0.6328
+      ]
+    },
+    "reach_shuf_near_by_D": {
+      "1": 0.4281700897397356,
+      "2": 0.44890732437428443,
+      "3": 0.4222309566908232,
+      "4": 0.4318473720904945
+    },
+    "assort_smooth": 0.7625775080735093,
+    "assort_shuffled": -0.03590354456483268,
+    "oracle_reach": 3.0,
+    "flat_oneshot_reach": 1.5,
+    "bands": {
+      "SYS_BIND_HELDOUT_HP": 0.8,
+      "SYS_MARGIN_HP": 0.4,
+      "SYS_GENGAP_MAX": 0.15,
+      "REACH_THRESH": 0.55,
+      "MARGIN_FLOOR": 0.05,
+      "REACH_DELTA_HP": 1,
+      "SHUF_MAX": 0.58,
+      "ORACLE_DECODE_THRESH": 0.55
+    }
+  },
+  "discriminator_selftest": {
+    "reuse_ok": true,
+    "sys_bind_heldout_hi": 1.0,
+    "sys_flat_heldout_hi": 0.0,
+    "sys_flat_seen_hi": 1.0,
+    "sys_bind_heldout_lo": 0.58,
+    "sys_fires": true,
+    "sys_telemetry": true,
+    "reach_by_D": {
+      "1": 1,
+      "2": 2,
+      "3": 2,
+      "4": 4
+    },
+    "reach_edge_recall": 1.0,
+    "reach_fires": true,
+    "reach_telemetry": true,
+    "oracle_reach": 3,
+    "oracle_fires": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "systematicity": {
+        "bind_seen": 1.0,
+        "bind_heldout": 1.0,
+        "flat_seen": 1.0,
+        "flat_heldout": 0.0,
+        "nobind_heldout": 0.165,
+        "chance": 0.025,
+        "R": 6,
+        "F": 40,
+        "N": 1024,
+        "n_train": 150,
+        "n_test": 400
+      },
+      "reach": {
+        "reach_D": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "by_D": {
+          "1": {
+            "acc_smooth": {
+              "0": 0.7757790727134533,
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "acc_shuf": {
+              "0": 0.4320363820111167,
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "margin": {
+              "0": 0.34374269070233654,
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "field_std_ratio": 0.050930320023941655,
+            "reach": 1,
+            "near_acc": 0.7757790727134533,
+            "far_acc": 0.0,
+            "far_bin": 3
+          },
+          "2": {
+            "acc_smooth": {
+              "0": 0.7223207499366607,
+              "1": 0.6167168674698795,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "acc_shuf": {
+              "0": 0.45401718039413846,
+              "1": 0.5130391173520562,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "margin": {
+              "0": 0.26830356954252227,
+              "1": 0.10367775011782332,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "field_std_ratio": 0.018492475929341518,
+            "reach": 2,
+            "near_acc": 0.7223207499366607,
+            "far_acc": 0.0,
+            "far_bin": 3
+          },
+          "3": {
+            "acc_smooth": {
+              "0": 0.7696985051938181,
+              "1": 0.6267570281124498,
+              "2": 0.6160804020100502,
+              "3": 0.0
+            },
+            "acc_shuf": {
+              "0": 0.42193026781202625,
+              "1": 0.4764292878635908,
+              "2": 0.49020100502512565,
+              "3": 0.0
+            },
+            "margin": {
+              "0": 0.34776823738179186,
+              "1": 0.15032774024885903,
+              "2": 0.12587939698492456,
+              "3": 0.0
+            },
+            "field_std_ratio": 0.024920633888243466,
+            "reach": 3,
+            "near_acc": 0.7696985051938181,
+            "far_acc": 0.0,
+            "far_bin": 3
+          },
+          "4": {
+            "acc_smooth": {
+              "0": 0.7664048644540157,
+              "1": 0.6335341365461847,
+              "2": 0.635678391959799,
+              "3": 0.5338345864661654
+            },
+            "acc_shuf": {
+              "0": 0.4257200606366852,
+              "1": 0.5122868605817452,
+              "2": 0.4864321608040201,
+              "3": 0.4957345971563981
+            },
+            "margin": {
+              "0": 0.34068480381733046,
+              "1": 0.12124727596443952,
+              "2": 0.14924623115577895,
+              "3": 0.038099989309767324
+            },
+            "field_std_ratio": 0.015022991260109725,
+            "reach": 3,
+            "near_acc": 0.7664048644540157,
+            "far_acc": 0.5338345864661654,
+            "far_bin": 3
+          }
+        },
+        "edge_recall": 1.0,
+        "edge_precision": 1.0,
+        "assort_smooth": 0.7710147827929985,
+        "assort_shuffled": -0.06301580327382886,
+        "bin_counts": {
+          "0": 96,
+          "1": 202,
+          "2": 225,
+          "3": 47
+        },
+        "n_unreachable": 0,
+        "n_ground_seeds": 30
+      },
+      "oracle": {
+        "flat_oneshot": {
+          "acc_smooth": {
+            "0": 0.6735672809896491,
+            "1": 0.543064596895343,
+            "2": 0.5126852549610651,
+            "3": NaN
+          },
+          "acc_shuf": {
+            "0": 0.49608486991664563,
+            "1": 0.49687108886107634,
+            "2": 0.5379413974455297,
+            "3": NaN
+          },
+          "margin": {
+            "0": 0.1774824110730035,
+            "1": 0.046193508034266695,
+            "2": -0.025256142484464617,
+            "3": NaN
+          },
+          "field_std_ratio": 0.26032947624164043,
+          "reach": 1,
+          "near_acc": 0.6735672809896491,
+          "far_acc": 0.5126852549610651,
+          "far_bin": 2
+        },
+        "oracle": {
+          "acc_smooth": {
+            "0": 0.6131237183868763,
+            "1": 0.6153460381143431,
+            "2": 0.6153074027603513,
+            "3": NaN
+          },
+          "acc_shuf": {
+            "0": 0.5092656142759094,
+            "1": 0.5176913425345044,
+            "2": 0.5128205128205128,
+            "3": NaN
+          },
+          "margin": {
+            "0": 0.10385810411096685,
+            "1": 0.09765469557983864,
+            "2": 0.10248688993983857,
+            "3": NaN
+          },
+          "oracle_reach": 3
+        }
+      }
+    },
+    {
+      "seed": 13,
+      "systematicity": {
+        "bind_seen": 1.0,
+        "bind_heldout": 1.0,
+        "flat_seen": 1.0,
+        "flat_heldout": 0.0,
+        "nobind_heldout": 0.185,
+        "chance": 0.025,
+        "R": 6,
+        "F": 40,
+        "N": 1024,
+        "n_train": 150,
+        "n_test": 400
+      },
+      "reach": {
+        "reach_D": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "by_D": {
+          "1": {
+            "acc_smooth": {
+              "0": 0.809873417721519,
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "acc_shuf": {
+              "0": 0.42430379746835445,
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "margin": {
+              "0": 0.38556962025316455,
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "field_std_ratio": 0.18691620649026092,
+            "reach": 1,
+            "near_acc": 0.809873417721519,
+            "far_acc": 0.0,
+            "far_bin": 3
+          },
+          "2": {
+            "acc_smooth": {
+              "0": 0.8189873417721519,
+              "1": 0.7105527638190955,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "acc_shuf": {
+              "0": 0.4437974683544304,
+              "1": 0.4454750564051141,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "margin": {
+              "0": 0.37518987341772153,
+              "1": 0.2650777074139814,
+              "2": 0.0,
+              "3": 0.0
+            },
+            "field_std_ratio": 0.057088430311144626,
+            "reach": 2,
+            "near_acc": 0.8189873417721519,
+            "far_acc": 0.0,
+            "far_bin": 3
+          },
+          "3": {
+            "acc_smooth": {
+              "0": 0.8331645569620253,
+              "1": 0.7351758793969849,
+              "2": 0.6444723618090452,
+              "3": 0.0
+            },
+            "acc_shuf": {
+              "0": 0.42253164556962025,
+              "1": 0.43068438205063925,
+              "2": 0.5275056518462697,
+              "3": 0.0
+            },
+            "margin": {
+              "0": 0.41063291139240504,
+              "1": 0.3044914973463457,
+              "2": 0.11696670996277547,
+              "3": 0.0
+            },
+            "field_std_ratio": 0.09174315335820618,
+            "reach": 3,
+            "near_acc": 0.8331645569620253,
+            "far_acc": 0.0,
+            "far_bin": 3
+          },
+          "4": {
+            "acc_smooth": {
+              "0": 0.8351898734177216,
+              "1": 0.7557788944723618,
+              "2": 0.6537688442211055,
+              "3": 0.7316735822959889
+            },
+            "acc_shuf": {
+              "0": 0.4379746835443038,
+              "1": 0.431937829029832,
+              "2": 0.49284099472494347,
+              "3": 0.510958904109589
+            },
+            "margin": {
+              "0": 0.39721518987341775,
+              "1": 0.3238410654425298,
+              "2": 0.160927849496162,
+              "3": 0.2207146781863999
+            },
+            "field_std_ratio": 0.0490166978599753,
+            "reach": 4,
+            "near_acc": 0.8351898734177216,
+            "far_acc": 0.7316735822959889,
+            "far_bin": 3
+          }
+        },
+        "edge_recall": 1.0,
+        "edge_precision": 0.9991624790619765,
+        "assort_smooth": 0.7541402333540203,
+        "assort_shuffled": -0.008791285855836512,
+        "bin_counts": {
+          "0": 94,
+          "1": 227,
+          "2": 210,
+          "3": 39
+        },
+        "n_unreachable": 0,
+        "n_ground_seeds": 30
+      },
+      "oracle": {
+        "flat_oneshot": {
+          "acc_smooth": {
+            "0": 0.6528549772612431,
+            "1": 0.5590077674768229,
+            "2": 0.5436527847466132,
+            "3": NaN
+          },
+          "acc_shuf": {
+            "0": 0.4732323232323232,
+            "1": 0.5017517517517518,
+            "2": 0.5067703109327983,
+            "3": NaN
+          },
+          "margin": {
+            "0": 0.17962265402891986,
+            "1": 0.05725601572507111,
+            "2": 0.03688247381381482,
+            "3": NaN
+          },
+          "field_std_ratio": 0.24723065802624972,
+          "reach": 2,
+          "near_acc": 0.6528549772612431,
+          "far_acc": 0.5436527847466132,
+          "far_bin": 2
+        },
+        "oracle": {
+          "acc_smooth": {
+            "0": 0.6605504587155964,
+            "1": 0.6503636819663907,
+            "2": 0.6366834170854271,
+            "3": NaN
+          },
+          "acc_shuf": {
+            "0": 0.5145317545748116,
+            "1": 0.49298948422633954,
+            "2": 0.49824032176973354,
+            "3": NaN
+          },
+          "margin": {
+            "0": 0.14601870414078477,
+            "1": 0.15737419774005118,
+            "2": 0.13844309531569354,
+            "3": NaN
+          },
+          "oracle_reach": 3
+        }
+      }
+    }
+  ]
+}

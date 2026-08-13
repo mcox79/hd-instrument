@@ -1,0 +1,429 @@
+{
+  "anchor_name": "m1_modular_macrocolumn_W_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND[measured-mechanism]: PRIMARY content_router materially outperforms random_router at K>1 (the routing MECHANISM is validated as substrate-applicable). SECONDARY sqrt(K) capacity-multiplier INCONCLUSIVE in this regime: K=1 anchor reaches max swept N=1000 at recall>=0.90 (no cliff observed in tested range). Routes to research for revival drill: push N higher OR use sparse-bipolar keys to bring K=1 cliff into measurable range, then re-test capacity multiplier. anchor_K1_eff_cap=1000 best_modular_eff_cap=1000 (K=8) random_router_eff_cap=0 util=0.06 cv=0.000 content_vs_random_ratio=1000.00x",
+  "run_mode": "smoke",
+  "N_DIM_total": 4096,
+  "total_params_P": 16777216,
+  "K_values": [
+    1,
+    8,
+    32
+  ],
+  "N_items_sweep": [
+    327,
+    1000
+  ],
+  "noise_sigma": 0.1,
+  "M_top": 2,
+  "n_seeds": 1,
+  "detail": {
+    "K_values": [
+      1,
+      8,
+      32
+    ],
+    "N_items_sweep": [
+      327,
+      1000
+    ],
+    "M_top": 2,
+    "N_DIM_total": 4096,
+    "total_params_P": 16777216,
+    "cells_flat": [
+      {
+        "K": 1,
+        "N_items": 327,
+        "router_type": "content",
+        "n_per_shard": 4096,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.0,
+        "routing_entropy_mean": 0.0,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 1,
+        "N_items": 327,
+        "router_type": "random",
+        "n_per_shard": 4096,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.0,
+        "routing_entropy_mean": 0.0,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 1,
+        "N_items": 1000,
+        "router_type": "content",
+        "n_per_shard": 4096,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.0,
+        "routing_entropy_mean": 0.0,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 1,
+        "N_items": 1000,
+        "router_type": "random",
+        "n_per_shard": 4096,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.0,
+        "routing_entropy_mean": 0.0,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 8,
+        "N_items": 327,
+        "router_type": "content",
+        "n_per_shard": 1448,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.0642,
+        "routing_entropy_mean": 0.3466,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 8,
+        "N_items": 327,
+        "router_type": "random",
+        "n_per_shard": 1448,
+        "recall_mean": 0.5167,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.0765,
+        "routing_entropy_mean": 0.3183,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 8,
+        "N_items": 1000,
+        "router_type": "content",
+        "n_per_shard": 1448,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.06,
+        "routing_entropy_mean": 0.3466,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 8,
+        "N_items": 1000,
+        "router_type": "random",
+        "n_per_shard": 1448,
+        "recall_mean": 0.4833,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.184,
+        "routing_entropy_mean": 0.3209,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 32,
+        "N_items": 327,
+        "router_type": "content",
+        "n_per_shard": 724,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.4679,
+        "routing_entropy_mean": 0.3466,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 32,
+        "N_items": 327,
+        "router_type": "random",
+        "n_per_shard": 724,
+        "recall_mean": 0.1667,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.4679,
+        "routing_entropy_mean": 0.3291,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 32,
+        "N_items": 1000,
+        "router_type": "content",
+        "n_per_shard": 724,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.312,
+        "routing_entropy_mean": 0.3466,
+        "n_seeds_agg": 1
+      },
+      {
+        "K": 32,
+        "N_items": 1000,
+        "router_type": "random",
+        "n_per_shard": 724,
+        "recall_mean": 0.1167,
+        "recall_std": 0.0,
+        "recall_cv": 0.0,
+        "per_shard_util_mean": 0.264,
+        "routing_entropy_mean": 0.3294,
+        "n_seeds_agg": 1
+      }
+    ],
+    "effective_capacity_at_recall_0.90": {
+      "1": {
+        "content": 1000,
+        "random": 1000
+      },
+      "8": {
+        "content": 1000,
+        "random": 0
+      },
+      "32": {
+        "content": 1000,
+        "random": 0
+      }
+    },
+    "anchor_eff_cap_K1_content": 1000,
+    "best_modular_eff_cap": 1000,
+    "K_disc": 8,
+    "random_router_eff_cap_at_K_disc": 0,
+    "per_shard_util_at_K_disc": 0.0642,
+    "worst_cv_modular_content": 0.0,
+    "closest_N_in_sweep_to_alpha_0.3": 1000,
+    "recall_at_alpha_0.3_approx_by_K_router": {
+      "K=1_content": 1.0,
+      "K=1_random": 1.0,
+      "K=8_content": 1.0,
+      "K=8_random": 0.4833,
+      "K=32_content": 1.0,
+      "K=32_random": 0.1167
+    },
+    "n_seeds": 1,
+    "CONFIG_VERSION": "m1_v1; N_DIM_total=4096 total_params_P=16777216 M_top=2 K_values=[1, 8, 32] N_items=[327, 1000] sigma=0.10 seeds=[7] queries=60",
+    "honest_scope": "synthetic-bipolar HVs (substrate primitive; matches baa06f0a battery); fixed P=4096^2; K in {1,8,32}; Top-m=2 soft router; K=1 anchor reproduces substrate single-W; random-router NULLABILITY BRACKET (Pred 4)",
+    "substrate_W_vs_S_separation": "This cell exercises ONLY modular W_k matrices; no sequence-binding S matrix is created or modified.",
+    "cites": [
+      "research_brain_cortical_microcircuit_W_matrix_architecture_5x_drill_2026-06-22",
+      "Rinkus_2010_PMC2889687",
+      "Bricken_2023_ICLR_arxiv_2303.11934_SDM_CL",
+      "Kanerva_1988_SDM",
+      "baa06f0a_substrate_Hebbian_capacity_anchor"
+    ],
+    "primary_nullability_bracket": {
+      "K=8": {
+        "content_avg_recall": 1.0,
+        "random_avg_recall": 0.5,
+        "ratio_content_over_random": 2.0
+      },
+      "K=32": {
+        "content_avg_recall": 1.0,
+        "random_avg_recall": 0.1417,
+        "ratio_content_over_random": 7.057
+      }
+    },
+    "secondary_capacity_test": {
+      "anchor_eff_cap": 1000,
+      "best_modular_eff_cap": 1000,
+      "ratio": 1.0,
+      "secondary_pass": false,
+      "secondary_partial": false,
+      "secondary_inconclusive": true,
+      "rationale": "INCONCLUSIVE: K=1 anchor reaches max swept N (cliff above tested range); capacity-multiplier untestable in this regime"
+    }
+  },
+  "metrics_source": "measured_cpu_m1_modular_macrocolumn_W_v1",
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "K": 1,
+          "N_items": 327,
+          "n_per_shard": 4096,
+          "router_type": "content",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.0,
+          "routing_entropy_avg": 0.0,
+          "shard_writes_mean": 327.0,
+          "shard_writes_max": 327,
+          "n_queries": 60,
+          "wall_s_cell": 3.03
+        },
+        {
+          "K": 1,
+          "N_items": 327,
+          "n_per_shard": 4096,
+          "router_type": "random",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.0,
+          "routing_entropy_avg": 0.0,
+          "shard_writes_mean": 327.0,
+          "shard_writes_max": 327,
+          "n_queries": 60,
+          "wall_s_cell": 2.65
+        },
+        {
+          "K": 1,
+          "N_items": 1000,
+          "n_per_shard": 4096,
+          "router_type": "content",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.0,
+          "routing_entropy_avg": 0.0,
+          "shard_writes_mean": 1000.0,
+          "shard_writes_max": 1000,
+          "n_queries": 60,
+          "wall_s_cell": 3.74
+        },
+        {
+          "K": 1,
+          "N_items": 1000,
+          "n_per_shard": 4096,
+          "router_type": "random",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.0,
+          "routing_entropy_avg": 0.0,
+          "shard_writes_mean": 1000.0,
+          "shard_writes_max": 1000,
+          "n_queries": 60,
+          "wall_s_cell": 3.89
+        },
+        {
+          "K": 8,
+          "N_items": 327,
+          "n_per_shard": 1448,
+          "router_type": "content",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.0642,
+          "routing_entropy_avg": 0.3466,
+          "shard_writes_mean": 81.75,
+          "shard_writes_max": 87,
+          "n_queries": 60,
+          "wall_s_cell": 4.52
+        },
+        {
+          "K": 8,
+          "N_items": 327,
+          "n_per_shard": 1448,
+          "router_type": "random",
+          "noise_sigma": 0.1,
+          "recall": 0.5167,
+          "per_shard_util": 0.0765,
+          "routing_entropy_avg": 0.3183,
+          "shard_writes_mean": 81.75,
+          "shard_writes_max": 88,
+          "n_queries": 60,
+          "wall_s_cell": 3.68
+        },
+        {
+          "K": 8,
+          "N_items": 1000,
+          "n_per_shard": 1448,
+          "router_type": "content",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.06,
+          "routing_entropy_avg": 0.3466,
+          "shard_writes_mean": 250.0,
+          "shard_writes_max": 265,
+          "n_queries": 60,
+          "wall_s_cell": 3.83
+        },
+        {
+          "K": 8,
+          "N_items": 1000,
+          "n_per_shard": 1448,
+          "router_type": "random",
+          "noise_sigma": 0.1,
+          "recall": 0.4833,
+          "per_shard_util": 0.184,
+          "routing_entropy_avg": 0.3209,
+          "shard_writes_mean": 250.0,
+          "shard_writes_max": 296,
+          "n_queries": 60,
+          "wall_s_cell": 4.35
+        },
+        {
+          "K": 32,
+          "N_items": 327,
+          "n_per_shard": 724,
+          "router_type": "content",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.4679,
+          "routing_entropy_avg": 0.3466,
+          "shard_writes_mean": 20.4375,
+          "shard_writes_max": 30,
+          "n_queries": 60,
+          "wall_s_cell": 7.69
+        },
+        {
+          "K": 32,
+          "N_items": 327,
+          "n_per_shard": 724,
+          "router_type": "random",
+          "noise_sigma": 0.1,
+          "recall": 0.1667,
+          "per_shard_util": 0.4679,
+          "routing_entropy_avg": 0.3291,
+          "shard_writes_mean": 20.4375,
+          "shard_writes_max": 30,
+          "n_queries": 60,
+          "wall_s_cell": 9.23
+        },
+        {
+          "K": 32,
+          "N_items": 1000,
+          "n_per_shard": 724,
+          "router_type": "content",
+          "noise_sigma": 0.1,
+          "recall": 1.0,
+          "per_shard_util": 0.312,
+          "routing_entropy_avg": 0.3466,
+          "shard_writes_mean": 62.5,
+          "shard_writes_max": 82,
+          "n_queries": 60,
+          "wall_s_cell": 13.64
+        },
+        {
+          "K": 32,
+          "N_items": 1000,
+          "n_per_shard": 724,
+          "router_type": "random",
+          "noise_sigma": 0.1,
+          "recall": 0.1167,
+          "per_shard_util": 0.264,
+          "routing_entropy_avg": 0.3294,
+          "shard_writes_mean": 62.5,
+          "shard_writes_max": 79,
+          "n_queries": 60,
+          "wall_s_cell": 10.06
+        }
+      ],
+      "run_mode": "smoke",
+      "config_version": "m1_v1; N_DIM_total=4096 total_params_P=16777216 M_top=2 K_values=[1, 8, 32] N_items=[327, 1000] sigma=0.10 seeds=[7] queries=60",
+      "elapsed_s": 70.32,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782154578.7109632
+    }
+  ],
+  "elapsed_s": 70.46671557426453,
+  "summary": "MIDDLE_BAND[measured-mechanism]: PRIMARY content_router materially outperforms random_router at K>1 (the routing MECHANISM is validated as substrate-applicable). SECONDARY sqrt(K) capacity-multiplier INCONCLUSIVE in this regime: K=1 anchor reaches max swept N=1000 at recall>=0.90 (no cliff observed in tested range). Routes to research for revival drill: push N higher OR use sparse-bipolar keys to bring K=1 cliff into measurable range, then re-test capacity multiplier. anchor_K1_eff_cap=1000 best_modular_eff_cap=1000 (K=8) random_router_eff_cap=0 util=0.06 cv=0.000 content_vs_random_ratio=1000.00x",
+  "substrate_only_decode_gate": "substrate-only by construction (pure numpy; zero LLM forward calls; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "allow_synthetic": true,
+  "corpus_provenance": "synthetic_bipolar_HVs_per_substrate_primitive_baa06f0a_anchor"
+}

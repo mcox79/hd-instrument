@@ -1,0 +1,180 @@
+{
+  "anchor_name": "pc1_predictive_coding_residual_gate_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: PC arm(s) ['PC_RESIDUAL_GATE_THRESH_0p3'] partially meet criteria. VAN(rec=1.000,norm=183177.2); PC_RESIDUAL_GATE_THRESH_0p3(rec=1.000,norm=183177.2,skip=0.00,cv=0.000); PC_RESIDUAL_PROPORTIONAL(rec=1.000,norm=91578.4,skip=0.00,cv=0.000); RND(rec=0.515,norm=129159.0,skip=0.50)",
+  "summary": "n_seeds=3 N=4096 M=2000 alpha=0.488 mode=full threshold=0.3",
+  "elapsed_s": 1950.3961110115051,
+  "config_version": "ANCHOR=pc1_predictive_coding_residual_gate_v1,N=4096,M=2000,alpha=0.488,SEEDS=7-17-23,N_QUERIES=500,THRESHOLD_PC=0.3,RUN_MODE=full",
+  "N": 4096,
+  "M": 2000,
+  "alpha": 0.48828125,
+  "n_seeds": 3,
+  "n_queries": 500,
+  "threshold_pc": 0.3,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 646.7474031448364,
+      "arms": [
+        {
+          "arm_name": "VANILLA_HEBBIAN",
+          "recall_at_1": 1.0,
+          "W_norm": 183193.21011434894,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.50390625,
+          "wall_s": 131.3036117553711,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_GATE_THRESH_0p3",
+          "recall_at_1": 1.0,
+          "W_norm": 183193.21011434894,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.50390625,
+          "wall_s": 214.77864480018616,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_PROPORTIONAL",
+          "recall_at_1": 1.0,
+          "W_norm": 91593.36507172405,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.50341796875,
+          "wall_s": 214.46893095970154,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 0.4999823138344025
+        },
+        {
+          "arm_name": "RANDOM_GATE_CONTROL",
+          "recall_at_1": 0.528,
+          "W_norm": 128094.34794712841,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 1022,
+          "write_skip_frac": 0.511,
+          "mean_residual_at_convergence": 0.489990234375,
+          "wall_s": 69.59783053398132,
+          "recall_minus_vanilla": -0.472,
+          "wnorm_ratio_to_vanilla": 0.6992308714235211
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 655.8041434288025,
+      "arms": [
+        {
+          "arm_name": "VANILLA_HEBBIAN",
+          "recall_at_1": 1.0,
+          "W_norm": 183172.4232301358,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.504638671875,
+          "wall_s": 131.72901511192322,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_GATE_THRESH_0p3",
+          "recall_at_1": 1.0,
+          "W_norm": 183172.4232301358,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.504638671875,
+          "wall_s": 214.75382900238037,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_PROPORTIONAL",
+          "recall_at_1": 1.0,
+          "W_norm": 91577.05129145963,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.50390625,
+          "wall_s": 222.1167507171631,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 0.49994999070576923
+        },
+        {
+          "arm_name": "RANDOM_GATE_CONTROL",
+          "recall_at_1": 0.522,
+          "W_norm": 129822.61319200134,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 996,
+          "write_skip_frac": 0.498,
+          "mean_residual_at_convergence": 0.508056640625,
+          "wall_s": 72.38464498519897,
+          "recall_minus_vanilla": -0.478,
+          "wnorm_ratio_to_vanilla": 0.7087454044809662
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 647.5804693698883,
+      "arms": [
+        {
+          "arm_name": "VANILLA_HEBBIAN",
+          "recall_at_1": 1.0,
+          "W_norm": 183165.84629236968,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.49853515625,
+          "wall_s": 131.912367105484,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_GATE_THRESH_0p3",
+          "recall_at_1": 1.0,
+          "W_norm": 183165.84629236968,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.49853515625,
+          "wall_s": 214.59475445747375,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_PROPORTIONAL",
+          "recall_at_1": 1.0,
+          "W_norm": 91564.77031861471,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.497802734375,
+          "wall_s": 214.27946424484253,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 0.499900894037084
+        },
+        {
+          "arm_name": "RANDOM_GATE_CONTROL",
+          "recall_at_1": 0.494,
+          "W_norm": 129559.99891941957,
+          "n_writes_total": 2000,
+          "n_writes_skipped": 999,
+          "write_skip_frac": 0.4995,
+          "mean_residual_at_convergence": 0.4970703125,
+          "wall_s": 71.55234336853027,
+          "recall_minus_vanilla": -0.506,
+          "wnorm_ratio_to_vanilla": 0.7073371020960734
+        }
+      ]
+    }
+  ]
+}

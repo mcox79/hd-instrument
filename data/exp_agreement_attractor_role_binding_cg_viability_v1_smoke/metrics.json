@@ -1,0 +1,218 @@
+{
+  "anchor_name": "agreement_attractor_role_binding_cg_viability_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND_POSITIONAL_OR_COUNT_HEURISTIC",
+  "verdict_msg": "MIDDLE_BAND_POSITIONAL_OR_COUNT_HEURISTIC | Stage1 oracle-read(test)=1.0 (floor 0.9) | held-out acc: substrate=0.775 nearest=0.415 first=0.746 majority=0.543 bag=0.488 structshuffle=0.56 clean-abl=0.793 knnD=0.764 | CONFLICT sub=0.8235 maj=0.5224 near=0.0 | SNF(head-track) sub=0.5694 first=0.4026 maj=0.5489 bag=0.4729 ss=0.6014 delta=0.0205 (margin 0.1) | bin4=0.8171 | headtrack_win=False structure_used=False conflict_win=True arms_differ=True weights_nondeg=True baseline_in_band=True | Stage-1 representable (oracle-read=1.0). Substrate beats nearest-noun/frequency in aggregate but does NOT clear the genuine head-tracking bar on the subject-not-first subset: SNF sub=0.5694 vs strongest-non-structural base=0.5489 (delta=0.0205, need >=0.10); structure-shuffle control SNF=0.6014 (structure_used=False, need sub-ss>=0.10); conflict_win=True bin4_ok=True. It reduces to a POSITIONAL/COUNT heuristic, not learned head-tracking. Well-specified negative: a real CG here needs a structure-induction capability beyond fixed position/function-word weighting on a bound superposition.",
+  "summary": "MIDDLE_BAND_POSITIONAL_OR_COUNT_HEURISTIC | Stage1 oracle-read(test)=1.0 (floor 0.9) | held-out acc: substrate=0.775 nearest=0.415 first=0.746 majority=0.543 bag=0.488 structshuffle=0.56 clean-abl=0.793 knnD=0.764 | CONFLICT sub=0.8235 maj=0.5224 near=0.0 | SNF(head-track) sub=0.5694 first=0.4026 maj=0.5489 bag=0.4729 ss=0.6014 delta=0.0205 (margin 0.1) | bin4=0.8171 | headtrack_win=False structure_used=False conflict_win=True arms_differ=True weights_nondeg=True baseline_in_band=True | Stage-1 representable (oracle-read=1.0). Substrate beats nearest-noun/frequency in aggregate but does NOT clear the genuine head-tracking bar on the subject-not-first subset: SNF sub=0.5694 vs strongest-non-structural base=0.5489 (delta=0.0205, need >=0.10); structure-shuffle control SNF=0.6014 (structure_used=False, need sub-ss>=0.10); conflict_win=True bin4_ok=True. It reduces to a POSITIONAL/COUNT heuristic, not learned head-tracking. Well-specified negative: a real CG here needs a structure-induction capability beyond fixed position/function-word weighting on a bound superposition.",
+  "elapsed_s": 11.9,
+  "ts_iso": "2026-07-22T14:46:59.277363+00:00",
+  "seeds": [
+    7,
+    13
+  ],
+  "n_seed_rows": 2,
+  "expected_n_seed_rows": 2,
+  "cardinality_ok": true,
+  "N_DIM": 2048,
+  "R_RANK": 8,
+  "n_fwc": 6,
+  "readout_steps": 600,
+  "l2": 0.001,
+  "train_cap": 700,
+  "test_cap": 500,
+  "bands": {
+    "STAGE1_REPRESENTABLE_MIN": 0.9,
+    "HEADTRACK_MARGIN": 0.1,
+    "CONFLICT_BEAT_MAJOR": 0.15,
+    "WRONGROLE_COLLAPSE_MIN": 0.1,
+    "BIN4_ABOVE_CHANCE_MIN": 0.55
+  },
+  "summary_metrics": {
+    "stage1_oracle_read_test": 1.0,
+    "stage1_pass": true,
+    "acc_substrate": 0.775,
+    "acc_nearest": 0.415,
+    "acc_first": 0.746,
+    "acc_majority": 0.543,
+    "acc_bagcount": 0.488,
+    "acc_structshuffle": 0.56,
+    "acc_clean_ablation": 0.793,
+    "acc_knn_relational_D": 0.764,
+    "conflict_substrate": 0.8235,
+    "conflict_majority": 0.5224,
+    "conflict_nearest": 0.0,
+    "snf_substrate": 0.5694,
+    "snf_first": 0.4026,
+    "snf_majority": 0.5489,
+    "snf_bagcount": 0.4729,
+    "snf_structshuffle": 0.6014,
+    "snf_base_strongest": 0.5489,
+    "headtrack_delta": 0.0205,
+    "headtrack_win": false,
+    "conflict_win": true,
+    "structure_used": false,
+    "bin4_substrate_acc": 0.8171,
+    "arms_differ_all": true,
+    "weights_nondeg_all": true,
+    "baseline_in_band": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train": 700,
+      "n_test": 500,
+      "stage1_oracle_read_acc_train": 1.0,
+      "stage1_n_train": 691,
+      "stage1_oracle_read_acc_test": 1.0,
+      "stage1_n_test": 492,
+      "acc_substrate": 0.782,
+      "acc_nearest": 0.404,
+      "acc_first": 0.76,
+      "acc_majority": 0.464,
+      "acc_anynoun": 0.658,
+      "acc_bagcount": 0.464,
+      "acc_structshuffle": 0.488,
+      "acc_clean_ablation": 0.788,
+      "acc_knn_relational_D": 0.758,
+      "acc_scramble_info": 0.592,
+      "conflict_subset": {
+        "n": 298,
+        "substrate": 0.849,
+        "majority": 0.3758,
+        "nearest": 0.0,
+        "bagcount": 0.2819
+      },
+      "snf_subset": {
+        "n": 210,
+        "substrate": 0.5667,
+        "first_noun": 0.4286,
+        "majority": 0.4048,
+        "nearest": 0.581,
+        "bagcount": 0.4714,
+        "structshuffle": 0.519
+      },
+      "per_attractor_bin": {
+        "0": {
+          "acc": 0.6612,
+          "n": 121
+        },
+        "1": {
+          "acc": 0.8015,
+          "n": 136
+        },
+        "2": {
+          "acc": 0.7944,
+          "n": 107
+        },
+        "3": {
+          "acc": 0.8842,
+          "n": 95
+        },
+        "4": {
+          "acc": 0.8049,
+          "n": 41
+        }
+      },
+      "bin4_substrate_acc": 0.8049,
+      "nonce_transfer": {
+        "available": false,
+        "note": "nonce transfer DEFERRED: POS-tagging unavailable or <20 taggable prefixes (got 0). Substrate encoding is lexeme-free so lexical-memorization confound is architecturally excluded regardless; nonce is a redundant secondary check here.",
+        "n": 0,
+        "acc": null
+      },
+      "learned_weights_summary": {
+        "RV1_nearest": -0.055,
+        "RS1_first": 5.203,
+        "FW_START": 0.422,
+        "FW_DET": 0.91,
+        "FW_PREP": -1.344,
+        "FW_REL": 0.767,
+        "FW_CCONJ": -0.456
+      },
+      "arms_differ": true,
+      "weights_nondegenerate": true
+    },
+    {
+      "seed": 13,
+      "n_train": 700,
+      "n_test": 500,
+      "stage1_oracle_read_acc_train": 1.0,
+      "stage1_n_train": 688,
+      "stage1_oracle_read_acc_test": 1.0,
+      "stage1_n_test": 489,
+      "acc_substrate": 0.768,
+      "acc_nearest": 0.426,
+      "acc_first": 0.732,
+      "acc_majority": 0.622,
+      "acc_anynoun": 0.708,
+      "acc_bagcount": 0.512,
+      "acc_structshuffle": 0.632,
+      "acc_clean_ablation": 0.798,
+      "acc_knn_relational_D": 0.77,
+      "acc_scramble_info": 0.482,
+      "conflict_subset": {
+        "n": 287,
+        "substrate": 0.7979,
+        "majority": 0.669,
+        "nearest": 0.0,
+        "bagcount": 0.3415
+      },
+      "snf_subset": {
+        "n": 215,
+        "substrate": 0.5721,
+        "first_noun": 0.3767,
+        "majority": 0.693,
+        "nearest": 0.5488,
+        "bagcount": 0.4744,
+        "structshuffle": 0.6837
+      },
+      "per_attractor_bin": {
+        "0": {
+          "acc": 0.6917,
+          "n": 120
+        },
+        "1": {
+          "acc": 0.8036,
+          "n": 168
+        },
+        "2": {
+          "acc": 0.7477,
+          "n": 107
+        },
+        "3": {
+          "acc": 0.8125,
+          "n": 64
+        },
+        "4": {
+          "acc": 0.8293,
+          "n": 41
+        }
+      },
+      "bin4_substrate_acc": 0.8293,
+      "nonce_transfer": {
+        "available": false,
+        "note": "nonce transfer DEFERRED: POS-tagging unavailable or <20 taggable prefixes (got 0). Substrate encoding is lexeme-free so lexical-memorization confound is architecturally excluded regardless; nonce is a redundant secondary check here.",
+        "n": 0,
+        "acc": null
+      },
+      "learned_weights_summary": {
+        "RV1_nearest": 0.393,
+        "RS1_first": 4.919,
+        "FW_START": -0.147,
+        "FW_DET": 1.484,
+        "FW_PREP": -1.16,
+        "FW_REL": 0.639,
+        "FW_CCONJ": -0.461
+      },
+      "arms_differ": true,
+      "weights_nondegenerate": true
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "sequential_cpu_light_probe_wall_under_a_few_min_no_storage_no_composition",
+  "crlb_n/a": "real-text agreement head-tracking discrimination; the floor is HRR superposition crosstalk, reported as Stage-1 oracle-head read accuracy, not an argmax-capacity CRLB",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "no_store_write_no_push_no_atom_bank": true,
+  "honest_scope": "Beating nearest-noun is trivial here (nearest is the attractor -> below chance); the HONEST discriminator is beating the FIRST-NOUN positional heuristic on the subject-not-first subset via LEARNED function-word structure. A first-noun collapse is MIDDLE (positional heuristic), not head-tracking. A HARD_PASS is a GREEN-LIGHT-PENDING-VET (arm-D attributes representation vs learner), never a self-declared CG. Real Linzen corpus; lexeme-free structural encoding."
+}

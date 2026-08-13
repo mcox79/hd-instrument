@@ -1,0 +1,167 @@
+{
+  "anchor_name": "deep_reasoning_hub_robustness_v1",
+  "run_mode": "smoke",
+  "verdict": "HUBS_RESCUED_BY_PROTECTED_BINDING",
+  "verdict_msg": "index/protected binding rescues real hubs: ss_raw=0.222->idx_bind=0.622 (+0.400); iterative resonator does NOT (+0.022). collision_frac=0.88; idx_bind=0.622(+0.400) iter_mc=0.244(+0.022); ctrlB(indep-real)=0.194 ctrlC(synth)=0.335; colliding-slot ss_raw=0.169->idx=0.590. chain depth@0.5 base=2 iter=3",
+  "summary": "HUBS_RESCUED_BY_PROTECTED_BINDING: deep chained reasoning + hub-robustness over REAL atoms (smoke)",
+  "elapsed_s": 30.55,
+  "ts_iso": "2026-07-05T05:45:53.260620+00:00",
+  "pid": 31560,
+  "host": "FrameworkMPC",
+  "n_seeds": 1,
+  "config": {
+    "seeds": [
+      7
+    ],
+    "deg_bins": [
+      2,
+      3,
+      5,
+      "8plus"
+    ],
+    "hub_per_bin": 50,
+    "codebook_M": 8000,
+    "iter_n_iters": 6,
+    "chain_n_paths": 100,
+    "chain_Lmax": 5
+  },
+  "expected_n_units": 14,
+  "n_units_counted": 14,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "7": {
+      "hub_ss_raw": "713bd23d7b9d6845cff63fefd280d4d1da6d50fd2abadf252e088774d8ed7455",
+      "hub_ss_mc": "cbaecf7a597462df739dbd3463488bbddd8a47841f216f1275bf6a8f2c1bd4b0",
+      "hub_iter_mc": "e528c0acb83bff5eaed17de28520c1ea34d8c61461b5cfb7b11b6fcdbabd1758",
+      "chain_base": "2b2157108b8d53749eaccebf4225afc4e0d2e4b0dae44be8c5d1bd43759d8a42",
+      "chain_iter": "48e91ba8c3893763aa7ab5cb554ed3e3f75b9bd1d6dfc1d532c41d4382a66ef7"
+    }
+  },
+  "positive_control_ss_raw_deg_ge5": {
+    "measured_mean": 0.222,
+    "values": [
+      0.222
+    ],
+    "reference_floor_MEASURED": 0.219,
+    "within_tol_0.10": true
+  },
+  "cross_seed_hub_deg_ge5": {
+    "ss_raw_top1_mean": 0.222,
+    "ss_mc_top1_mean": 0.2144,
+    "iter_mc_top1_mean": 0.244,
+    "iter_mc_top1_values": [
+      0.244
+    ],
+    "idx_bind_top1_mean": 0.622,
+    "idx_bind_top1_values": [
+      0.622
+    ],
+    "ctrlB_indep_real_top1_mean": 0.1943,
+    "ctrlC_synth_top1_mean": 0.3349,
+    "collision_frac_mean": 0.8785
+  },
+  "cross_seed_chain_depth_at_0.5": {
+    "baseline": [
+      2
+    ],
+    "iter": [
+      3
+    ]
+  },
+  "per_seed": {
+    "7": {
+      "hub_robustness": {
+        "per_bin": {
+          "2": {
+            "n_sources": 50,
+            "n_edges": 100,
+            "ss_raw_top1": 0.79,
+            "ss_raw_top5": 1.0,
+            "ss_mc_top1": 0.79,
+            "iter_mc_top1": 0.79,
+            "idx_bind_top1": 1.0,
+            "ctrlB_indep_real_top1": 0.79,
+            "ctrlC_synth_top1": 0.79
+          },
+          "3": {
+            "n_sources": 50,
+            "n_edges": 150,
+            "ss_raw_top1": 0.6733333333333333,
+            "ss_raw_top5": 0.98,
+            "ss_mc_top1": 0.6733333333333333,
+            "iter_mc_top1": 0.6866666666666666,
+            "idx_bind_top1": 1.0,
+            "ctrlB_indep_real_top1": 0.6866666666666666,
+            "ctrlC_synth_top1": 0.6866666666666666
+          },
+          "5": {
+            "n_sources": 50,
+            "n_edges": 250,
+            "ss_raw_top1": 0.496,
+            "ss_raw_top5": 0.9,
+            "ss_mc_top1": 0.496,
+            "iter_mc_top1": 0.508,
+            "idx_bind_top1": 0.988,
+            "ctrlB_indep_real_top1": 0.484,
+            "ctrlC_synth_top1": 0.516
+          },
+          "8plus": {
+            "n_sources": 50,
+            "n_edges": 795,
+            "ss_raw_top1": 0.13584905660377358,
+            "ss_raw_top5": 0.3220125786163522,
+            "ss_mc_top1": 0.12578616352201258,
+            "iter_mc_top1": 0.1610062893081761,
+            "idx_bind_top1": 0.5069182389937107,
+            "ctrlB_indep_real_top1": 0.10314465408805032,
+            "ctrlC_synth_top1": 0.2779874213836478
+          }
+        },
+        "hub_aggregate": {
+          "deg_ge5_ss_raw_top1": 0.22200956937799043,
+          "deg_ge5_ss_raw_top5": 0.4602870813397129,
+          "deg_ge5_ss_mc_top1": 0.21435406698564594,
+          "deg_ge5_iter_mc_top1": 0.24401913875598086,
+          "deg_ge5_ctrlB_indep_real_top1": 0.19425837320574163,
+          "deg_ge5_ctrlC_synth_top1": 0.3349282296650718,
+          "deg_ge5_idx_bind_top1": 0.6220095693779905,
+          "deg_ge5_collision_frac": 0.8784688995215311,
+          "deg_ge5_ss_raw_unique_top1": 0.6062992125984252,
+          "deg_ge5_ss_raw_collide_top1": 0.16884531590413943,
+          "deg_ge5_idx_unique_top1": 0.8503937007874016,
+          "deg_ge5_idx_collide_top1": 0.5904139433551199,
+          "deg_ge5_n_edges": 1045,
+          "mean_iters_to_converge": 4.9
+        }
+      },
+      "chain_reasoning": {
+        "n_paths": 100,
+        "reached_per_hop": [
+          100,
+          100,
+          100,
+          100,
+          100
+        ],
+        "baseline_cumulative_onpath": [
+          0.95,
+          0.74,
+          0.47,
+          0.32,
+          0.2
+        ],
+        "iter_cumulative_onpath": [
+          0.96,
+          0.78,
+          0.53,
+          0.32,
+          0.2
+        ],
+        "baseline_depth_at_0.5": 2,
+        "iter_depth_at_0.5": 3
+      }
+    }
+  },
+  "notes": "REAL atom vectors = BGE semantic (re-encode-independent). REAL edges = concept partition. Algebra = hdlab HRR bind (circular-conv) + bundle + cleanup. BUILD1 = per-hop-cleanup chained retrieval over real paths (depth envelope). BUILD2 = roles-known iterative explaining-away resonator + mean-centered cleanup (hub rescue). Read-only; NO substrate mutation; NO LLM comparison."
+}

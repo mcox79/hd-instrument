@@ -1,0 +1,57 @@
+{
+  "anchor_name": "multihop_barrier1_M2_M3_M1_combined_5arm_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: D3 caught setup exception seed=7: BLOCKING make_deep_chains: only 200/500 generated for V=200 disallow|=0 max_depth=8",
+  "summary": "n_seeds=3 N_DIM=8192 V_C=200 V_P=10 K_SET=20 train=500 query=200 depths=[2, 3, 5, 8] mode=full",
+  "elapsed_s": 0.7323379516601562,
+  "config_version": "ANCHOR=multihop_barrier1_M2_M3_M1_combined_5arm_v1,N_DIM=8192,V_C=200,V_P=10,K_SET=20,N_CHAINS_TRAIN=500,N_CHAINS_QUERY=200,DEPTHS=2-3-5-8,GROVER_K=3,N_REPLAY_PASSES=10,SHORTCUT_FREQ_FRAC=0.2,STAB_FIT_STEPS=50,STAB_FIT_N_CHAINS=100,SEEDS=7-17-23,RUN_MODE=full,HP_combined_d5>=0.65,MB_combined_d5>=0.3,baseline_sanity=[0.105,0.185]",
+  "N_DIM": 8192,
+  "V_C": 200,
+  "V_P": 10,
+  "K_SET": 20,
+  "n_seeds": 3,
+  "n_chains_train": 500,
+  "n_chains_query": 200,
+  "depths": [
+    2,
+    3,
+    5,
+    8
+  ],
+  "grover_k_iters": 3,
+  "n_replay_passes": 10,
+  "shortcut_freq_frac": 0.2,
+  "stabilizer_fit_steps": 50,
+  "stabilizer_fit_n_chains": 100,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.23580694198608398,
+      "n_shortcuts_added": null,
+      "n_replay_events": null,
+      "shortcut_set_size": null,
+      "stabilizer_wall_s": null,
+      "arms": []
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 0.2297680377960205,
+      "n_shortcuts_added": null,
+      "n_replay_events": null,
+      "shortcut_set_size": null,
+      "stabilizer_wall_s": null,
+      "arms": []
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 0.22255730628967285,
+      "n_shortcuts_added": null,
+      "n_replay_events": null,
+      "shortcut_set_size": null,
+      "stabilizer_wall_s": null,
+      "arms": []
+    }
+  ]
+}

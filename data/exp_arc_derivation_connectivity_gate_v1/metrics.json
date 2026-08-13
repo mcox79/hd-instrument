@@ -1,0 +1,336 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "band",
+    "metric_a_correct_coverage_typed",
+    "metric_b_selectivity_gap_typed",
+    "metric_c_correct_coverage_untyped",
+    "metric_c_selectivity_gap_untyped"
+  ],
+  "anchor_name": "arc_derivation_connectivity_gate_v1",
+  "band": "RED",
+  "bands_preregistered": {
+    "GREEN": "correct_cov>=0.35 AND typed_gap>=0.15 AND typed_gap>untyped_gap",
+    "RED": "correct_cov<0.15 OR (typed_gap<0.05 AND untyped_gap<0.05)",
+    "YELLOW": "coverage ok but typed gap not clearly > untyped null"
+  },
+  "config": {
+    "depth": 3,
+    "licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ],
+    "n_sample": 100,
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85
+  },
+  "context_min_len0_trivial_overlap_inclusive": {
+    "note": "min_len=0 counts trivial given==choice lexical overlap (0 rule applications); NOT a derivation -- reported only to show how much apparent connectivity is pure lexical overlap vs real >=1-edge derivation (the headline min_len=1 numbers).",
+    "typed_correct_coverage": 0.15,
+    "typed_selectivity_gap": -0.0082,
+    "untyped_correct_coverage": 0.32,
+    "untyped_selectivity_gap": 0.0069
+  },
+  "depth_sweep_correct_coverage_typed": {
+    "2": 0.07,
+    "3": 0.07,
+    "4": 0.07
+  },
+  "elapsed_s": 126.7,
+  "example_chains": [
+    {
+      "a_lure_also_connected": null,
+      "correct_chain": "[deforestation] --IFTHEN--> [food] ; [food] --IFTHEN--> [now extinct]",
+      "correct_choice": "organisms may become extinct.",
+      "qid": "Mercury_7107240",
+      "stem": "The process of rain forest deforestation affects ecosystems on a global scale. Wildlife, people, and climate can be affected. One of the long-term effects of deforestation is that"
+    },
+    {
+      "a_lure_also_connected": "the impact of other energy-producing resources",
+      "correct_chain": "[nuclear reactor] --SOURCEOF--> [food] ; [food] --IFTHEN--> [soil to retain water]",
+      "correct_choice": "the effect of warmed water on aquatic life",
+      "qid": "Mercury_7212328",
+      "stem": "The development of a nuclear power plant at an ocean site is expected to produce an enormous amount of electric power for a large population. Ocean water will be used to cool the plant and then return"
+    },
+    {
+      "a_lure_also_connected": "heating the water before it is frozen",
+      "correct_chain": "[action can] --CAUSE--> [food] ; [food] --IFTHEN--> [soil to retain water]",
+      "correct_choice": "adding salt to the water before it is frozen",
+      "qid": "Mercury_SC_400697",
+      "stem": "Which action could change the melting point of ice?"
+    },
+    {
+      "a_lure_also_connected": null,
+      "correct_chain": "[a car] --SOURCEOF--> [food] ; [food] --IFTHEN--> [stays the same]",
+      "correct_choice": "The air stays cleaner.",
+      "qid": "Mercury_SC_410971",
+      "stem": "Cities control the amount of pollution that is allowed to come from cars. How does this most likely help people?"
+    },
+    {
+      "a_lure_also_connected": "What is the temperature of the substance?",
+      "correct_chain": "[information] --USEDFOR--> [food] ; [food] --COUPLEDRELATIONSHIP--> [expand]",
+      "correct_choice": "Will it expand to the volume of a larger container?",
+      "qid": "Mercury_7223143",
+      "stem": "A sample of an unknown substance takes the shape of its container. Which question needs to be answered to provide the additional information required to determine the state of the sample?"
+    },
+    {
+      "a_lure_also_connected": null,
+      "correct_chain": "[fire] --CAUSE--> [food] ; [food] --COUPLEDRELATIONSHIP--> [decrease]",
+      "correct_choice": "It decreases the competition for resources.",
+      "qid": "Mercury_SC_409666",
+      "stem": "Some pine trees are able to live through forest fires because of their thick bark. After a forest fire, new pine trees can grow in the space left by other trees that burned down. How does thick bark h"
+    }
+  ],
+  "graph": {
+    "n_fillers": 3189,
+    "n_licensed_rows": 1868,
+    "n_merged_pairs": 9355,
+    "n_nodes": 1654,
+    "n_null_edges": 43498,
+    "n_typed_edges": 1293,
+    "per_relation": {
+      "CAUSE": 380,
+      "COUPLEDRELATIONSHIP": 251,
+      "IFTHEN": 507,
+      "REQUIRES": 215,
+      "SOURCEOF": 178,
+      "USEDFOR": 337
+    }
+  },
+  "merged_pairs_top40": [
+    {
+      "a": "something",
+      "b": "that something",
+      "cos": 1.0
+    },
+    {
+      "a": "exist",
+      "b": "not exist any more",
+      "cos": 1.0
+    },
+    {
+      "a": "increase",
+      "b": "increase more",
+      "cos": 1.0
+    },
+    {
+      "a": "two objects",
+      "b": "between those two objects",
+      "cos": 1.0
+    },
+    {
+      "a": "change",
+      "b": "not change",
+      "cos": 1.0
+    },
+    {
+      "a": "ultraviolet light can",
+      "b": "ultraviolet light",
+      "cos": 1.0
+    },
+    {
+      "a": "something source of something else that something",
+      "b": "something a source of something else that something",
+      "cos": 1.0
+    },
+    {
+      "a": "oil",
+      "b": "oil can be",
+      "cos": 1.0
+    },
+    {
+      "a": "lever",
+      "b": "lever can be",
+      "cos": 1.0
+    },
+    {
+      "a": "gasoline operate",
+      "b": "gasoline to operate",
+      "cos": 1.0
+    },
+    {
+      "a": "chemical reaction",
+      "b": "a chemical reaction",
+      "cos": 1.0
+    },
+    {
+      "a": "lightning",
+      "b": "lightning can",
+      "cos": 1.0
+    },
+    {
+      "a": "heat energy",
+      "b": "heat energy can be",
+      "cos": 1.0
+    },
+    {
+      "a": "infection",
+      "b": "infection can",
+      "cos": 1.0
+    },
+    {
+      "a": "chemical reactions",
+      "b": "exergonic chemical reactions only",
+      "cos": 1.0
+    },
+    {
+      "a": "chemical reactions",
+      "b": "chemical reactions do not",
+      "cos": 1.0
+    },
+    {
+      "a": "an object",
+      "b": "object",
+      "cos": 1.0
+    },
+    {
+      "a": "microorganisms",
+      "b": "microorganisms can",
+      "cos": 1.0
+    },
+    {
+      "a": "energy",
+      "b": "the energy",
+      "cos": 1.0
+    },
+    {
+      "a": "energy",
+      "b": "storing;transporting energy",
+      "cos": 1.0
+    },
+    {
+      "a": "appear brighter",
+      "b": "appear to be brighter",
+      "cos": 1.0
+    },
+    {
+      "a": "animal",
+      "b": "an animal",
+      "cos": 1.0
+    },
+    {
+      "a": "a substance",
+      "b": "one substance",
+      "cos": 1.0
+    },
+    {
+      "a": "a resource",
+      "b": "resource",
+      "cos": 1.0
+    },
+    {
+      "a": "an organism",
+      "b": "organism",
+      "cos": 1.0
+    },
+    {
+      "a": "medicine can",
+      "b": "medicine",
+      "cos": 1.0
+    },
+    {
+      "a": "debris can",
+      "b": "debris",
+      "cos": 1.0
+    },
+    {
+      "a": "not break easily",
+      "b": "break easily",
+      "cos": 1.0
+    },
+    {
+      "a": "bauxite can",
+      "b": "bauxite",
+      "cos": 1.0
+    },
+    {
+      "a": "sound",
+      "b": "sound can be",
+      "cos": 1.0
+    },
+    {
+      "a": "too much water",
+      "b": "too much water can",
+      "cos": 1.0
+    },
+    {
+      "a": "the cell wall",
+      "b": "cell wall",
+      "cos": 1.0
+    },
+    {
+      "a": "things",
+      "b": "two things",
+      "cos": 1.0
+    },
+    {
+      "a": "things",
+      "b": "two or more things",
+      "cos": 1.0
+    },
+    {
+      "a": "Earth revolving around the Sun",
+      "b": "Earth revolving around the sun",
+      "cos": 1.0
+    },
+    {
+      "a": "burning fossil fuels",
+      "b": "fossil fuels burning",
+      "cos": 1.0
+    },
+    {
+      "a": "carbon dioxide into the atmosphere",
+      "b": "carbon dioxide in the atmosphere",
+      "cos": 1.0
+    },
+    {
+      "a": "circle graph; pie graph can be",
+      "b": "circle graph; pie graph",
+      "cos": 1.0
+    },
+    {
+      "a": "sun",
+      "b": "Sun",
+      "cos": 1.0
+    },
+    {
+      "a": "genetic information can be",
+      "b": "genetic information",
+      "cos": 1.0
+    }
+  ],
+  "metric_a_correct_coverage_typed": 0.07,
+  "metric_b_selectivity_gap_typed": 0.0296,
+  "metric_c_correct_coverage_untyped": 0.32,
+  "metric_c_selectivity_gap_untyped": 0.0069,
+  "min_len_policy": "HEADLINE metrics require min_len=1 (a DERIVATION: >=1 licensed edge traversed). min_len=0 (trivial given==choice lexical overlap, 0 rule applications) is reported only under context_min_len0_* -- it is NOT the pivot's derivation question.",
+  "notes": "CONNECTIVITY-ONLY gate (no scoring/weights/backtracking). ONE variable = typed-directed vs untyped-similarity edges (shared nodes/mapping/search/depth). STRICT tau_unify reported; NOT tuned to force a band. merged_pairs_top40 = spot-check for spurious merges.",
+  "pid": 20488,
+  "summary": "CONNECTIVITY GATE = RED | typed_cov=0.070 typed_gap=0.030 null_gap=0.007",
+  "ts_iso": "2026-07-25T08:34:49.745375+00:00",
+  "typed": {
+    "correct_coverage": 0.07,
+    "mean_wrong_coverage": 0.04040404040404041,
+    "n_correct_connected": 7,
+    "n_questions": 100,
+    "n_wrong_connected": 12,
+    "n_wrong_total": 297,
+    "selectivity_gap": 0.0295959595959596
+  },
+  "untyped_null": {
+    "correct_coverage": 0.32,
+    "mean_wrong_coverage": 0.31313131313131315,
+    "n_correct_connected": 32,
+    "n_questions": 100,
+    "n_wrong_connected": 93,
+    "n_wrong_total": 297,
+    "selectivity_gap": 0.006868686868686857
+  },
+  "verdict": "GATE_MEASURED",
+  "verdict_msg": "RED: redesign/SUPPLY rules first (coverage too sparse OR everything-connects). Fix = expand LICENSED table set / deeper hops -- NOT abandon reasoning."
+}

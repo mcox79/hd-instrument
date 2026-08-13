@@ -1,0 +1,300 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "cross-sentence memory helps but sub-threshold: xsent_maintained acc=0.2471 (baseline=0.0000, delta=0.2471), best xsent=xsent_recency acc=0.2824, p1_ok=True, sign_stability=1.0000, n_xsent=85.",
+  "summary": "read_xsent_coref_working_overlay_v1: MIDDLE_BAND",
+  "elapsed_s": 0.416,
+  "anchor_name": "read_xsent_coref_working_overlay_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-24T01:10:42.949166+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 5,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "xsent_recency",
+      "xsent_maintained",
+      "xsent_freq"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "mechanism_arm": "xsent_maintained",
+    "xsent_arms": [
+      "xsent_recency",
+      "xsent_maintained",
+      "xsent_freq"
+    ],
+    "validity_gate_max": 0.1,
+    "hp_abs": 0.3,
+    "hp_delta": 0.15,
+    "hp_sign_stability": 0.9,
+    "p1_regression_eps": 0.05,
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260724
+  },
+  "n_targets_total": 296,
+  "n_xsent": 85,
+  "n_same": 211,
+  "bucket_counts": {
+    "same": 211,
+    "plus1": 80,
+    "plus2": 3,
+    "long": 2
+  },
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.1411764705882353,
+      "n": 85
+    },
+    "xsent_recency": {
+      "acc": 0.2823529411764706,
+      "prec": 0.2823529411764706,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_maintained": {
+      "acc": 0.24705882352941178,
+      "prec": 0.24705882352941178,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_freq": {
+      "acc": 0.23529411764705882,
+      "prec": 0.23529411764705882,
+      "attempt_rate": 1.0,
+      "n": 85
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.27488151658767773,
+      "prec": 0.3515151515151515,
+      "attempt_rate": 0.7819905213270142,
+      "n": 211
+    },
+    "xsent_recency": {
+      "acc": 0.35071090047393366,
+      "prec": 0.35071090047393366,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_maintained": {
+      "acc": 0.3127962085308057,
+      "prec": 0.3127962085308057,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_freq": {
+      "acc": 0.3080568720379147,
+      "prec": 0.3080568720379147,
+      "attempt_rate": 1.0,
+      "n": 211
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.19594594594594594,
+      "prec": 0.327683615819209,
+      "attempt_rate": 0.597972972972973,
+      "n": 296
+    },
+    "xsent_recency": {
+      "acc": 0.3310810810810811,
+      "prec": 0.3310810810810811,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_maintained": {
+      "acc": 0.2939189189189189,
+      "prec": 0.2939189189189189,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_freq": {
+      "acc": 0.28716216216216217,
+      "prec": 0.28716216216216217,
+      "attempt_rate": 1.0,
+      "n": 296
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.27488151658767773,
+        "prec": 0.3515151515151515,
+        "attempt_rate": 0.7819905213270142,
+        "n": 211
+      },
+      "xsent_recency": {
+        "acc": 0.35071090047393366,
+        "prec": 0.35071090047393366,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_maintained": {
+        "acc": 0.3127962085308057,
+        "prec": 0.3127962085308057,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_freq": {
+        "acc": 0.3080568720379147,
+        "prec": 0.3080568720379147,
+        "attempt_rate": 1.0,
+        "n": 211
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.1375,
+        "n": 80
+      },
+      "xsent_recency": {
+        "acc": 0.2875,
+        "prec": 0.2875,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_maintained": {
+        "acc": 0.2625,
+        "prec": 0.2625,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_freq": {
+        "acc": 0.25,
+        "prec": 0.25,
+        "attempt_rate": 1.0,
+        "n": 80
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": null,
+        "attempt_rate": 0.0,
+        "n": 3
+      },
+      "xsent_recency": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_maintained": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_freq": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.5,
+        "n": 2
+      },
+      "xsent_recency": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_maintained": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_freq": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      }
+    }
+  },
+  "per_distance_winner": {
+    "same": {
+      "arm": "xsent_recency",
+      "acc": 0.35071090047393366
+    },
+    "plus1": {
+      "arm": "xsent_recency",
+      "acc": 0.2875
+    },
+    "plus2": {
+      "arm": "xsent_recency",
+      "acc": 0.3333333333333333
+    },
+    "long": {
+      "arm": "xsent_recency",
+      "acc": 0.0
+    }
+  },
+  "baseline_xsent_acc": 0.0,
+  "mech_xsent_acc": 0.24705882352941178,
+  "delta_xsent": 0.24705882352941178,
+  "best_xsent_arm": "xsent_recency",
+  "best_xsent_acc": 0.2823529411764706,
+  "validity_gate_ok": true,
+  "p1_no_regression_ok": true,
+  "bootstrap_sign_stability": 1.0,
+  "arms_differ_digests": {
+    "single_sentence_baseline": "eb55fe6d9ad2c0e78dee5316e30ed0d7adead532bb591ca3dd9246511846f45b",
+    "xsent_recency": "c07ed2c0802246a164e752bc4c7695d3a5740c8c6d3696f3490fabfc830fa4a8",
+    "xsent_maintained": "d4a0765f91773b1c82c6bd74c9f957a4034c23c6a2c053b376aa26d17da8374e",
+    "xsent_freq": "e51309c13a0cf003ef9f3e5de30498149da6d0507f30f9b025cb15d1d4fd98e3"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

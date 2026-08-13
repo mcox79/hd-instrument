@@ -1,0 +1,174 @@
+{
+  "anchor_name": "kv_learned_projection_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: LEARNED contrastive projection GENERALIZES the value-cue->key alignment to HELD-OUT facts (recall>=0.70, beats analytic ceiling by >0.30, seed-robust). keysep REPORTED (=0.878). HELD-OUT learned-recall worst=0.827 | keysep=0.878 | std=0.019 | analytic-ceiling=0.080 (margin=0.747) | shuffled-ctrl=0.015 | n_enc=2",
+  "run_mode": "full",
+  "encoder": "EleutherAI/pythia-2.8b",
+  "M_sweep": [
+    2000,
+    10000
+  ],
+  "n_seeds": 5,
+  "proj_dim": 256,
+  "detail": {
+    "by_M": {
+      "2000": {
+        "heldout_recall_mean": 0.9635999999999999,
+        "heldout_recall_std": 0.01068831137270992,
+        "keysep": 0.7317799999999999,
+        "rho_mean": 0.03052,
+        "shuffled_ctrl": 0.014799999999999999,
+        "analytic_ceiling": 0.0804
+      },
+      "10000": {
+        "heldout_recall_mean": 0.82728,
+        "heldout_recall_std": 0.018893215713583517,
+        "keysep": 0.8784000000000001,
+        "rho_mean": 0.041960000000000004,
+        "shuffled_ctrl": 0.0033599999999999997,
+        "analytic_ceiling": 0.03208
+      }
+    },
+    "worst_heldout_recall": 0.8273,
+    "worst_keysep": 0.8784,
+    "max_std": 0.0189,
+    "analytic_ceiling": 0.0804,
+    "learned_minus_analytic": 0.7469,
+    "honest_scope": "LEARNED contrastive key-projection generalizes the value-cue->key alignment to HELD-OUT facts on Pythia-2.8B; de-crowding table-stakes (reported); analytic ceiling reported."
+  },
+  "metrics_source": "measured_gpu_pythia2p8b_kv_learned_contrastive_projection_heldout",
+  "per_unit": [
+    {
+      "M": 2000,
+      "seed": 0,
+      "heldout_recall": 0.952,
+      "heldout_keysep": 0.732,
+      "rho_mean": 0.0292,
+      "shuffled_ctrl_recall": 0.008,
+      "analytic_ceiling_recall": 0.074,
+      "n_heldout": 500,
+      "run_mode": "full",
+      "_ckpt_key": "M2000_s0",
+      "_partial_written_at": 1781940431.848034
+    },
+    {
+      "M": 2000,
+      "seed": 1,
+      "heldout_recall": 0.982,
+      "heldout_keysep": 0.7295,
+      "rho_mean": 0.0342,
+      "shuffled_ctrl_recall": 0.018,
+      "analytic_ceiling_recall": 0.076,
+      "n_heldout": 500,
+      "run_mode": "full",
+      "_ckpt_key": "M2000_s1",
+      "_partial_written_at": 1781940450.321077
+    },
+    {
+      "M": 2000,
+      "seed": 2,
+      "heldout_recall": 0.954,
+      "heldout_keysep": 0.7352,
+      "rho_mean": 0.0357,
+      "shuffled_ctrl_recall": 0.012,
+      "analytic_ceiling_recall": 0.072,
+      "n_heldout": 500,
+      "run_mode": "full",
+      "_ckpt_key": "M2000_s2",
+      "_partial_written_at": 1781940468.8143613
+    },
+    {
+      "M": 2000,
+      "seed": 3,
+      "heldout_recall": 0.964,
+      "heldout_keysep": 0.736,
+      "rho_mean": 0.0275,
+      "shuffled_ctrl_recall": 0.022,
+      "analytic_ceiling_recall": 0.08,
+      "n_heldout": 500,
+      "run_mode": "full",
+      "_ckpt_key": "M2000_s3",
+      "_partial_written_at": 1781940487.4019034
+    },
+    {
+      "M": 2000,
+      "seed": 4,
+      "heldout_recall": 0.966,
+      "heldout_keysep": 0.7262,
+      "rho_mean": 0.026,
+      "shuffled_ctrl_recall": 0.014,
+      "analytic_ceiling_recall": 0.1,
+      "n_heldout": 500,
+      "run_mode": "full",
+      "_ckpt_key": "M2000_s4",
+      "_partial_written_at": 1781940505.8095865
+    },
+    {
+      "M": 10000,
+      "seed": 0,
+      "heldout_recall": 0.8112,
+      "heldout_keysep": 0.8836,
+      "rho_mean": 0.043,
+      "shuffled_ctrl_recall": 0.0032,
+      "analytic_ceiling_recall": 0.0348,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "_ckpt_key": "M10000_s0",
+      "_partial_written_at": 1781940563.2203724
+    },
+    {
+      "M": 10000,
+      "seed": 1,
+      "heldout_recall": 0.8052,
+      "heldout_keysep": 0.8784,
+      "rho_mean": 0.0369,
+      "shuffled_ctrl_recall": 0.0036,
+      "analytic_ceiling_recall": 0.026,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "_ckpt_key": "M10000_s1",
+      "_partial_written_at": 1781940620.3962939
+    },
+    {
+      "M": 10000,
+      "seed": 2,
+      "heldout_recall": 0.856,
+      "heldout_keysep": 0.8775,
+      "rho_mean": 0.0541,
+      "shuffled_ctrl_recall": 0.0024,
+      "analytic_ceiling_recall": 0.0288,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "_ckpt_key": "M10000_s2",
+      "_partial_written_at": 1781940678.806205
+    },
+    {
+      "M": 10000,
+      "seed": 3,
+      "heldout_recall": 0.8412,
+      "heldout_keysep": 0.8726,
+      "rho_mean": 0.0277,
+      "shuffled_ctrl_recall": 0.0024,
+      "analytic_ceiling_recall": 0.0336,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "_ckpt_key": "M10000_s3",
+      "_partial_written_at": 1781940736.4316144
+    },
+    {
+      "M": 10000,
+      "seed": 4,
+      "heldout_recall": 0.8228,
+      "heldout_keysep": 0.8799,
+      "rho_mean": 0.0481,
+      "shuffled_ctrl_recall": 0.0052,
+      "analytic_ceiling_recall": 0.0372,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "_ckpt_key": "M10000_s4",
+      "_partial_written_at": 1781940793.88108
+    }
+  ],
+  "elapsed_s": 382.2846939563751,
+  "summary": "HARD_PASS: LEARNED contrastive projection GENERALIZES the value-cue->key alignment to HELD-OUT facts (recall>=0.70, beats analytic ceiling by >0.30, seed-robust). keysep REPORTED (=0.878). HELD-OUT learned-recall worst=0.827 | keysep=0.878 | std=0.019 | analytic-ceiling=0.080 (margin=0.747) | shuffled-ctrl=0.015 | n_enc=2"
+}

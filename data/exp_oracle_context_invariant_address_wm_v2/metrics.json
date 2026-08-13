@@ -1,0 +1,531 @@
+{
+  "verdict": "INSUFFICIENT_ZEROSHOT",
+  "verdict_msg": "Context-invariance ALONE is NOT sufficient for TRUE zero-shot novel-role binding: with both can-fail floors valid (ARM_CONTEXTVARYING held=[0.022, 0.031, 0.045] <= 0.150, ARM_JITTERED held=[0.045, 0.062, 0.075] <= 0.150), ARM_ORACLE_INVARIANT held-out recall=[0.034, 0.077, 0.09] did not clear ORACLE_MIN=0.50 and/or beat ARM_JITTERED by >= 0.30 (gaps=[-0.011, 0.015, 0.015]) on every seed -- a perfectly stable, distinct per-role address (never seen in training) is not enough for the proven WM to generalize its addressing via ordinary end-to-end gradient descent alone. The residual gap implicates something beyond raw stability -- learned cheaply, before the encoder-training bet. ARM_ONEHOT_ORACLE (perfect-address ceiling) held-out recall=[0.067, 0.123, 0.119] for reference.",
+  "summary": "INSUFFICIENT_ZEROSHOT | chance_recall=0.0500 | Context-invariance ALONE is NOT sufficient for TRUE zero-shot novel-role binding: with both can-fail floors valid (ARM_CONTEXTVARYING held=[0.022, 0.031, 0.045]",
+  "run_mode": "full",
+  "elapsed_s": 670.0900592000689,
+  "ts_iso": "2026-07-30T18:53:00.493526+00:00",
+  "anchor_name": "oracle_context_invariant_address_wm_v2",
+  "chance_recall": 0.05,
+  "oracle_ceiling_ref": 1.0,
+  "bands": {
+    "chance_recall": 0.05,
+    "fail_max": 0.15000000000000002,
+    "oracle_min": 0.5,
+    "jitter_margin": 0.3,
+    "oracle_ceiling": 1.0,
+    "ctx_fails": true,
+    "jit_fails": true,
+    "context_held": [
+      0.02247191034257412,
+      0.03076923079788685,
+      0.04477611929178238
+    ],
+    "oracle_held": [
+      0.033707864582538605,
+      0.07692307978868484,
+      0.08955223858356476
+    ],
+    "jittered_held": [
+      0.04494382068514824,
+      0.0615384615957737,
+      0.0746268630027771
+    ],
+    "onehot_held": [
+      0.06741572916507721,
+      0.1230769231915474,
+      0.11940298229455948
+    ],
+    "gaps_oracle_vs_jittered": [
+      -0.011235956102609634,
+      0.015384618192911148,
+      0.014925375580787659
+    ]
+  },
+  "held_recall_mean_sd_by_arm": {
+    "context": {
+      "mean": 0.032672420144081116,
+      "sd": 0.009204565225223333
+    },
+    "oracle": {
+      "mean": 0.06672772765159607,
+      "sd": 0.023911049479143208
+    },
+    "jittered": {
+      "mean": 0.060369715094566345,
+      "sd": 0.01214619903771271
+    },
+    "onehot": {
+      "mean": 0.10329854488372803,
+      "sd": 0.025417275074938444
+    }
+  },
+  "table_diag": {
+    "n_ctx_per_role": [
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101
+    ],
+    "onehot_mean_norm_scale": 3.1861634254455566,
+    "jitter_std_measured": 5.175403594970703
+  },
+  "invariance_construction_check": {
+    "context_varies_across_sentences": true,
+    "oracle_invariant_across_sentences": true
+  },
+  "jitter_instability_check": {
+    "jitter_varies_across_occurrences": true,
+    "oracle_stable_across_calls": true,
+    "jitter_std_used": 5.175403594970703
+  },
+  "arm_results": {
+    "context": [
+      {
+        "eval_acc": 0.027272727340459824,
+        "train_acc": 0.9900000095367432,
+        "recall_train_acc": 0.030534351244568825,
+        "recall_heldout_acc": 0.02247191034257412,
+        "loss_curve": [
+          [
+            0,
+            2.9973301887512207
+          ],
+          [
+            32,
+            0.6412237882614136
+          ],
+          [
+            65,
+            0.1841905266046524
+          ],
+          [
+            98,
+            0.01328014675527811
+          ]
+        ],
+        "steps_run": 111,
+        "first_loss": 2.9973301887512207,
+        "last_loss": 0.01328014675527811,
+        "ev_logits_sha256": "8c681c050ee5fff7f03e28fe8e7c4d2c9aff2b6d9b483932f2c73bbc79b9bb04"
+      },
+      {
+        "eval_acc": 0.04545454680919647,
+        "train_acc": 0.9900000095367432,
+        "recall_train_acc": 0.05161290243268013,
+        "recall_heldout_acc": 0.03076923079788685,
+        "loss_curve": [
+          [
+            0,
+            2.9891881942749023
+          ],
+          [
+            32,
+            0.5435511469841003
+          ],
+          [
+            65,
+            0.06140366941690445
+          ],
+          [
+            98,
+            0.17764507234096527
+          ],
+          [
+            131,
+            0.04374063014984131
+          ]
+        ],
+        "steps_run": 153,
+        "first_loss": 2.9891881942749023,
+        "last_loss": 0.04374063014984131,
+        "ev_logits_sha256": "dafc1d0c4ed64dc1c3d01edc7686225e97495638eb8615de2c612557e919e4bb"
+      },
+      {
+        "eval_acc": 0.05454545468091965,
+        "train_acc": 0.996666669845581,
+        "recall_train_acc": 0.05882352963089943,
+        "recall_heldout_acc": 0.04477611929178238,
+        "loss_curve": [
+          [
+            0,
+            3.000109910964966
+          ],
+          [
+            32,
+            0.6876080632209778
+          ],
+          [
+            65,
+            0.09825092554092407
+          ],
+          [
+            98,
+            0.01860659383237362
+          ]
+        ],
+        "steps_run": 104,
+        "first_loss": 3.000109910964966,
+        "last_loss": 0.01860659383237362,
+        "ev_logits_sha256": "31182e4c46296b39575e778f31abec1857fe7c41cd5d70ef01f7f11ea98a1245"
+      }
+    ],
+    "oracle": [
+      {
+        "eval_acc": 0.48181816935539246,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.7862595319747925,
+        "recall_heldout_acc": 0.033707864582538605,
+        "loss_curve": [
+          [
+            0,
+            2.99704909324646
+          ],
+          [
+            32,
+            0.012328963726758957
+          ],
+          [
+            65,
+            0.00038339264574460685
+          ],
+          [
+            98,
+            0.00024375376233365387
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.99704909324646,
+        "last_loss": 0.00024375376233365387,
+        "ev_logits_sha256": "10e18fb06fe25f33fbbbd61c3cf6e75036cc01c410a1985232c3cbe38a5a1b5a"
+      },
+      {
+        "eval_acc": 0.5272727012634277,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.7161290049552917,
+        "recall_heldout_acc": 0.07692307978868484,
+        "loss_curve": [
+          [
+            0,
+            2.9929325580596924
+          ],
+          [
+            32,
+            0.026745449751615524
+          ],
+          [
+            65,
+            0.0010784039041027427
+          ],
+          [
+            98,
+            0.0003565864753909409
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.9929325580596924,
+        "last_loss": 0.0003565864753909409,
+        "ev_logits_sha256": "e26a0846838f7c8921a0c64bc36223cd1a2caddcfd4f09896e07d92e86f39c49"
+      },
+      {
+        "eval_acc": 0.6499999761581421,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.8954248428344727,
+        "recall_heldout_acc": 0.08955223858356476,
+        "loss_curve": [
+          [
+            0,
+            2.995293378829956
+          ],
+          [
+            32,
+            0.0022670922335237265
+          ],
+          [
+            65,
+            9.640711505198851e-05
+          ],
+          [
+            98,
+            0.00012226385297253728
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.995293378829956,
+        "last_loss": 0.00012226385297253728,
+        "ev_logits_sha256": "06d91013e418358994717dcccd5a717dedfa340cc360f2f437178454fd22961a"
+      }
+    ],
+    "jittered": [
+      {
+        "eval_acc": 0.040909089148044586,
+        "train_acc": 0.8666666746139526,
+        "recall_train_acc": 0.038167938590049744,
+        "recall_heldout_acc": 0.04494382068514824,
+        "loss_curve": [
+          [
+            0,
+            2.9922215938568115
+          ],
+          [
+            32,
+            2.5163142681121826
+          ],
+          [
+            65,
+            1.7439119815826416
+          ],
+          [
+            98,
+            1.0099533796310425
+          ],
+          [
+            131,
+            0.8163692951202393
+          ],
+          [
+            164,
+            0.5735955834388733
+          ],
+          [
+            197,
+            0.5157579779624939
+          ]
+        ],
+        "steps_run": 200,
+        "first_loss": 2.9922215938568115,
+        "last_loss": 0.5157579779624939,
+        "ev_logits_sha256": "980f1f955e4aac472d97a02f930a3b62bd5f50caa1cc0709d3b424d17be50d3a"
+      },
+      {
+        "eval_acc": 0.05000000074505806,
+        "train_acc": 0.8433333039283752,
+        "recall_train_acc": 0.04516129195690155,
+        "recall_heldout_acc": 0.0615384615957737,
+        "loss_curve": [
+          [
+            0,
+            3.0315804481506348
+          ],
+          [
+            32,
+            2.5337212085723877
+          ],
+          [
+            65,
+            1.6742995977401733
+          ],
+          [
+            98,
+            1.3622517585754395
+          ],
+          [
+            131,
+            1.085082769393921
+          ],
+          [
+            164,
+            0.8191388845443726
+          ],
+          [
+            197,
+            0.5351957678794861
+          ]
+        ],
+        "steps_run": 200,
+        "first_loss": 3.0315804481506348,
+        "last_loss": 0.5351957678794861,
+        "ev_logits_sha256": "fcb3c6e38bae7581a1af4f1f425011ad8cffb342d2180420243edbb41a581a40"
+      },
+      {
+        "eval_acc": 0.036363635212183,
+        "train_acc": 0.8700000047683716,
+        "recall_train_acc": 0.019607843831181526,
+        "recall_heldout_acc": 0.0746268630027771,
+        "loss_curve": [
+          [
+            0,
+            3.01149320602417
+          ],
+          [
+            32,
+            2.511765480041504
+          ],
+          [
+            65,
+            1.8887078762054443
+          ],
+          [
+            98,
+            1.4646869897842407
+          ],
+          [
+            131,
+            0.8581714630126953
+          ],
+          [
+            164,
+            0.6868056058883667
+          ],
+          [
+            197,
+            0.45323455333709717
+          ]
+        ],
+        "steps_run": 200,
+        "first_loss": 3.01149320602417,
+        "last_loss": 0.45323455333709717,
+        "ev_logits_sha256": "a34d843f843e0059d1bfc98036dd12433b97f4f5546aa54319fabcb0108bc9e5"
+      }
+    ],
+    "onehot": [
+      {
+        "eval_acc": 0.27272728085517883,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.4122137427330017,
+        "recall_heldout_acc": 0.06741572916507721,
+        "loss_curve": [
+          [
+            0,
+            2.9992997646331787
+          ],
+          [
+            32,
+            0.13057635724544525
+          ],
+          [
+            65,
+            0.06660638749599457
+          ],
+          [
+            98,
+            0.00292605091817677
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.9992997646331787,
+        "last_loss": 0.00292605091817677,
+        "ev_logits_sha256": "e7d8a2482f61c1cb38ab705fc73134931c08d9a7f2d5cf2978194d1e06312511"
+      },
+      {
+        "eval_acc": 0.47727271914482117,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.625806450843811,
+        "recall_heldout_acc": 0.1230769231915474,
+        "loss_curve": [
+          [
+            0,
+            2.992245674133301
+          ],
+          [
+            32,
+            0.044591426849365234
+          ],
+          [
+            65,
+            0.0010352160315960646
+          ],
+          [
+            98,
+            0.0004129630688112229
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.992245674133301,
+        "last_loss": 0.0004129630688112229,
+        "ev_logits_sha256": "b5e9f4cd7e171e7c5ee2a5f3d92d2fd182f1df3c0d0e51e58f5ad4f8a717563a"
+      },
+      {
+        "eval_acc": 0.5227272510528564,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.6993464231491089,
+        "recall_heldout_acc": 0.11940298229455948,
+        "loss_curve": [
+          [
+            0,
+            2.9958112239837646
+          ],
+          [
+            32,
+            0.18429449200630188
+          ],
+          [
+            65,
+            0.0027171513065695763
+          ],
+          [
+            98,
+            0.0018806877778843045
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.9958112239837646,
+        "last_loss": 0.0018806877778843045,
+        "ev_logits_sha256": "bcfd024ba2213aba77d165be360a466087815471315183deb8fde37fa7f8ed92"
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "n_units_done": 12,
+  "params": {
+    "S_TARGET_TOTAL": 15,
+    "K_SLOTS": 15,
+    "D_MEM": 64,
+    "HIDDEN": 64,
+    "ADDR_TEMP": 0.3,
+    "STEPS_WM": 200,
+    "LR": 0.01,
+    "train_n": 300,
+    "eval_n": 220,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "train_roles_v2": [
+      0,
+      1,
+      2,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "held_out_roles_v2": [
+      3,
+      4,
+      6,
+      7,
+      14
+    ],
+    "n_heldout_roles": 5,
+    "n_cached_sentences": 3015,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "oracle_probe_seed": 20260730,
+    "jitter_seed_offset": 3141593,
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 15
+}

@@ -1,0 +1,13 @@
+{
+  "anchor_name": "importance_ceiling_v7B_n_seeds_scale",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: structure verified (TRACE=0.997, RAND=-0.203, PCA=0.001, CRLB_k1=0.5000, CRLB_k8=0.1768, arms_differ=True)",
+  "summary": "SELFTEST_OK: structure verified (TRACE=0.997, RAND=-0.203, PCA=0.001, CRLB_k1=0.5000, CRLB_k8=0.1768, arms_differ=True)",
+  "elapsed_s": 0.5,
+  "ts_iso": "2026-06-27T23:56:24Z",
+  "pid": 30688,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "config_version": "ANCHOR=importance_ceiling_v7B_n_seeds_scale,N=512,M=128,seeds=[7],K_F=4,mode=smoke,device=cpu,HP_nontrace>=0.15,HP_cv<=0.30,HP_PCA_in=[0.094,0.194],HP_crlb_sanity<0.10,real_ceil<=0.05,rand_mean_tol=0.04,trace_sanity>=0.25,expected_n=5,hardening=L1early+L2perarm+L3outertry+L4importsentinel,rules=AA+AE+AF+AH+H_cardinality",
+  "_hardening_marker": "v7B_n_seeds_scale"
+}

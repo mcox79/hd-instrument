@@ -1,0 +1,111 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_FULL_3seeds_N4096_K10_M100_atom_feature_purity_0.940_pm_0.024_char_trigram_purity_0.887_pm_0.026_lift_+0.053_planted_block_purity_1.000_n_llm_calls_0_cv_feat_0.0261_elapsed_4.8s",
+  "elapsed_s": 4.808398485183716,
+  "summary": {
+    "anchor": "atom_feature_encoder_smoke_v1",
+    "config_version": "atom_feature_encoder_smoke_v1: ARM_CHAR_TRIGRAM_NAME (baseline) vs ARM_ATOM_FEATURE (cert_tier + mechanism_family + sigma_regime + metric_profile + graph_neighborhood); k-means K=10 on N=100 sampled atoms; mechanism_family_purity discriminator; HP purity >= 0.60 AND lift >= 0.15",
+    "run_mode": "full",
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "N_DIM": 4096,
+    "K_CLUSTERS": 10,
+    "N_ATOMS_SAMPLE": 100,
+    "arm_atom_feature_purity_mean": 0.94,
+    "arm_atom_feature_purity_std": 0.024494897427831758,
+    "arm_atom_feature_purity_cv": 0.02605840124175292,
+    "arm_char_trigram_purity_mean": 0.8866666666666667,
+    "arm_char_trigram_purity_std": 0.026246692913372727,
+    "purity_lift_mean": 0.05333333333333331,
+    "planted_block_purity_mean": 1.0,
+    "n_llm_calls": 0,
+    "n_chain_grade_atoms_pool": 451,
+    "hp_thresholds": {
+      "purity_floor": 0.6,
+      "lift_floor": 0.15,
+      "planted_purity_required": 1.0
+    },
+    "hp_gates": {
+      "purity_ok": true,
+      "lift_ok": false,
+      "planted_ok": true,
+      "no_llm": true
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_atom_feature_purity": 0.97,
+      "arm_char_trigram_purity": 0.85,
+      "purity_lift": 0.12,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "elapsed_s": 1.602933645248413,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "generation": 1,
+        "other": 85,
+        "trigram": 1,
+        "capacity": 8,
+        "storage": 2,
+        "binding": 1,
+        "whitening": 2
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782241854.1559358
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_atom_feature_purity": 0.91,
+      "arm_char_trigram_purity": 0.91,
+      "purity_lift": 0.0,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "elapsed_s": 1.5949797630310059,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "other": 91,
+        "trigram": 1,
+        "capacity": 5,
+        "binding": 1,
+        "whitening": 2
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782241855.7660544
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_atom_feature_purity": 0.94,
+      "arm_char_trigram_purity": 0.9,
+      "purity_lift": 0.039999999999999925,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "elapsed_s": 1.6104850769042969,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "generation": 1,
+        "other": 90,
+        "capacity": 5,
+        "storage": 2,
+        "whitening": 2
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782241857.3925536
+    }
+  }
+}

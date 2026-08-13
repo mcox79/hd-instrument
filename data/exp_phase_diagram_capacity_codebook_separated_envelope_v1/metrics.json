@@ -1,0 +1,578 @@
+{
+  "anchor_name": "phase_diagram_capacity_codebook_separated_envelope_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_UNIT_EXCEPTION: 1 units raised exceptions (META_RULE_J) | alpha0p5_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.99, 1.0] in_band=True] | alpha0p5_headroom2x[rec=1.0000 cv=0.0000 n=1 pred=[0.99, 1.0] in_band=True] | alpha1p0_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.99, 1.0] in_band=True] | alpha1p0_headroom2x[rec=1.0000 cv=0.0000 n=1 pred=[0.95, 1.0] in_band=True] | alpha2p0_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.95, 1.0] in_band=True] | alpha2p0_headroom2x[rec=1.0000 cv=0.0000 n=1 pred=[0.85, 0.95] in_band=True] | alpha4p0_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.75, 0.9] in_band=False] | alpha4p0_headroom2x[rec=1.0000 cv=0.0000 n=1 pred=[0.6, 0.8] in_band=False] | alpha8p0_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.4, 0.65] in_band=False] | alpha8p0_headroom2x[rec=1.0000 cv=0.0000 n=1 pred=[0.3, 0.55] in_band=False] | KNN=nan (>=0.95 FAIL) | BARE_E_R=nan (>=0.99 FAIL) | n_units=10/expected=69 (BREACH_META_RULE_H) | failures=1 [seed11_armMULTI_BANK_K4_alpha4p0_headroom10x:OutOfMemoryError]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_units": 10,
+  "n_units_expected": 69,
+  "cardinality_ok": false,
+  "n_failures": 1,
+  "failures": [
+    {
+      "key": "seed11_armMULTI_BANK_K4_alpha4p0_headroom10x",
+      "exc_type": "OutOfMemoryError",
+      "exc_msg": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.38 GiB is allocated by PyTorch, and 142.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 1082, in <module>\n    rec = run_unit(parsed)\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 734, in run_unit\n    rec = eval_recall_multibank(V_C, V_R, M, N_DIM, K_banks=K_banks, g=g)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 380, in eval_recall_multibank\n    Ws = ingest_hebbian_multibank_gpu(facts, E, R, sq, n_dim, K_banks)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 331, in ingest_hebbian_multibank_gpu\n    Ws[k] = ingest_hebbian_gpu(shards[k], E, R, sq, n_dim, batch=batch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 311, in ingest_hebbian_gpu\n    W = W + (V_.T @ K) / n_dim\n             ~~~~~^~~\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.38 GiB is allocated by PyTorch, and 142.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+    }
+  ],
+  "config_version": "phaseDiagCapCodebookSeparatedEnvelope-v1: N=16384 V_R=32 seeds=[11, 13, 19] mode=full encoder=SUBSTRATE_NATIVE HP_knn=0.95 HP_bare=0.99 CV_max=0.05 sigma_knn=0.10 HP_env_rec_min=0.95 HP_cb_delta=0.20 n_alpha=5 n_headroom=4 EXPECTED_N_UNITS=69 n_phase_kept=20 n_skipped=0 V_C_cap=200000",
+  "N_DIM": 16384,
+  "V_R": 32,
+  "ALPHA_N_AXIS": [
+    0.5,
+    1.0,
+    2.0,
+    4.0,
+    8.0
+  ],
+  "HEADROOM_AXIS": [
+    [
+      "10x",
+      10.0
+    ],
+    [
+      "2x",
+      2.0
+    ],
+    [
+      "1.0x",
+      1.0
+    ],
+    [
+      "0.5x",
+      0.5
+    ]
+  ],
+  "PREDICTED_SURFACE": {
+    "0.5_10x": [
+      0.99,
+      1.0
+    ],
+    "0.5_2x": [
+      0.99,
+      1.0
+    ],
+    "0.5_1.0x": [
+      0.65,
+      0.75
+    ],
+    "0.5_0.5x": [
+      0.45,
+      0.55
+    ],
+    "1.0_10x": [
+      0.99,
+      1.0
+    ],
+    "1.0_2x": [
+      0.95,
+      1.0
+    ],
+    "1.0_1.0x": [
+      0.55,
+      0.65
+    ],
+    "1.0_0.5x": [
+      0.4,
+      0.5
+    ],
+    "2.0_10x": [
+      0.95,
+      1.0
+    ],
+    "2.0_2x": [
+      0.85,
+      0.95
+    ],
+    "2.0_1.0x": [
+      0.45,
+      0.55
+    ],
+    "2.0_0.5x": [
+      0.3,
+      0.4
+    ],
+    "4.0_10x": [
+      0.75,
+      0.9
+    ],
+    "4.0_2x": [
+      0.6,
+      0.8
+    ],
+    "4.0_1.0x": [
+      0.35,
+      0.45
+    ],
+    "4.0_0.5x": [
+      0.2,
+      0.3
+    ],
+    "8.0_10x": [
+      0.4,
+      0.65
+    ],
+    "8.0_2x": [
+      0.3,
+      0.55
+    ],
+    "8.0_1.0x": [
+      0.2,
+      0.3
+    ],
+    "8.0_0.5x": [
+      0.15,
+      0.25
+    ]
+  },
+  "HP_KNN_SENTINEL": 0.95,
+  "HP_BARE_E_R": 0.99,
+  "HP_ENVELOPE_REC_MIN": 0.95,
+  "HP_CODEBOOK_DELTA": 0.2,
+  "HP_CODEBOOK_MIN_MATCHES": 3,
+  "CV_MAX": 0.05,
+  "KNN_SENTINEL_SIGMA": 0.1,
+  "HP_SCOPE": {
+    "MECH": [],
+    "KNN_SENTINEL": [
+      "HP_KNN_SENTINEL>=0.95"
+    ],
+    "BARE_E_R": [
+      "HP_BARE_E_R>=0.99"
+    ],
+    "MULTI_BANK": [],
+    "SMOKE": []
+  },
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "per_unit": [
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 0.5,
+      "headroom_label": "10x",
+      "headroom_target": 10.0,
+      "recall_at_1": 1.0,
+      "V_C": 2560,
+      "V_R": 32,
+      "M_facts": 8192,
+      "N": 16384,
+      "n_queries": 8192,
+      "alpha_M_over_VC": 3.2,
+      "alpha_N": 0.5,
+      "computed_headroom": 10.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 1.53,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3367,
+      "_ckpt_key": "seed11_armMECH_alpha0p5_headroom10x",
+      "_partial_written_at": 1782548803.1311936
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 0.5,
+      "headroom_label": "2x",
+      "headroom_target": 2.0,
+      "recall_at_1": 1.0,
+      "V_C": 512,
+      "V_R": 32,
+      "M_facts": 8192,
+      "N": 16384,
+      "n_queries": 8192,
+      "alpha_M_over_VC": 16.0,
+      "alpha_N": 0.5,
+      "computed_headroom": 2.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 1.08,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3239,
+      "_ckpt_key": "seed11_armMECH_alpha0p5_headroom2x",
+      "_partial_written_at": 1782548804.2149138
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 1.0,
+      "headroom_label": "10x",
+      "headroom_target": 10.0,
+      "recall_at_1": 1.0,
+      "V_C": 5120,
+      "V_R": 32,
+      "M_facts": 16384,
+      "N": 16384,
+      "n_queries": 16384,
+      "alpha_M_over_VC": 3.2,
+      "alpha_N": 1.0,
+      "computed_headroom": 10.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 2.92,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3527,
+      "_ckpt_key": "seed11_armMECH_alpha1p0_headroom10x",
+      "_partial_written_at": 1782548809.7251828
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 1.0,
+      "headroom_label": "2x",
+      "headroom_target": 2.0,
+      "recall_at_1": 1.0,
+      "V_C": 1024,
+      "V_R": 32,
+      "M_facts": 16384,
+      "N": 16384,
+      "n_queries": 16384,
+      "alpha_M_over_VC": 16.0,
+      "alpha_N": 1.0,
+      "computed_headroom": 2.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 2.08,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3271,
+      "_ckpt_key": "seed11_armMECH_alpha1p0_headroom2x",
+      "_partial_written_at": 1782548811.8067896
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 2.0,
+      "headroom_label": "10x",
+      "headroom_target": 10.0,
+      "recall_at_1": 1.0,
+      "V_C": 10240,
+      "V_R": 32,
+      "M_facts": 32768,
+      "N": 16384,
+      "n_queries": 32768,
+      "alpha_M_over_VC": 3.2,
+      "alpha_N": 2.0,
+      "computed_headroom": 10.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 6.4,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3847,
+      "_ckpt_key": "seed11_armMECH_alpha2p0_headroom10x",
+      "_partial_written_at": 1782548823.0033088
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 2.0,
+      "headroom_label": "2x",
+      "headroom_target": 2.0,
+      "recall_at_1": 1.0,
+      "V_C": 2048,
+      "V_R": 32,
+      "M_facts": 32768,
+      "N": 16384,
+      "n_queries": 32768,
+      "alpha_M_over_VC": 16.0,
+      "alpha_N": 2.0,
+      "computed_headroom": 2.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 4.08,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3335,
+      "_ckpt_key": "seed11_armMECH_alpha2p0_headroom2x",
+      "_partial_written_at": 1782548827.092454
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 4.0,
+      "headroom_label": "10x",
+      "headroom_target": 10.0,
+      "recall_at_1": 1.0,
+      "V_C": 20480,
+      "V_R": 32,
+      "M_facts": 65536,
+      "N": 16384,
+      "n_queries": 65536,
+      "alpha_M_over_VC": 3.2,
+      "alpha_N": 4.0,
+      "computed_headroom": 10.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 14.54,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 4488,
+      "_ckpt_key": "seed11_armMECH_alpha4p0_headroom10x",
+      "_partial_written_at": 1782548851.8064365
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 4.0,
+      "headroom_label": "2x",
+      "headroom_target": 2.0,
+      "recall_at_1": 1.0,
+      "V_C": 4096,
+      "V_R": 32,
+      "M_facts": 65536,
+      "N": 16384,
+      "n_queries": 65536,
+      "alpha_M_over_VC": 16.0,
+      "alpha_N": 4.0,
+      "computed_headroom": 2.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 8.47,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3464,
+      "_ckpt_key": "seed11_armMECH_alpha4p0_headroom2x",
+      "_partial_written_at": 1782548860.287501
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 8.0,
+      "headroom_label": "10x",
+      "headroom_target": 10.0,
+      "recall_at_1": 1.0,
+      "V_C": 40960,
+      "V_R": 32,
+      "M_facts": 131072,
+      "N": 16384,
+      "n_queries": 131072,
+      "alpha_M_over_VC": 3.2,
+      "alpha_N": 8.0,
+      "computed_headroom": 10.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 37.52,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 5770,
+      "_ckpt_key": "seed11_armMECH_alpha8p0_headroom10x",
+      "_partial_written_at": 1782548917.9093258
+    },
+    {
+      "seed": 11,
+      "arm": "MECH",
+      "alpha_N_target": 8.0,
+      "headroom_label": "2x",
+      "headroom_target": 2.0,
+      "recall_at_1": 1.0,
+      "V_C": 8192,
+      "V_R": 32,
+      "M_facts": 131072,
+      "N": 16384,
+      "n_queries": 131072,
+      "alpha_M_over_VC": 16.0,
+      "alpha_N": 8.0,
+      "computed_headroom": 2.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 19.28,
+      "run_mode": "full",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 3722,
+      "_ckpt_key": "seed11_armMECH_alpha8p0_headroom2x",
+      "_partial_written_at": 1782548937.1964374
+    }
+  ],
+  "detail": {
+    "surface": {
+      "alpha0p5_headroom10x": {
+        "alpha_N": 0.5,
+        "headroom_label": "10x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.99,
+          1.0
+        ],
+        "in_predicted_band": true
+      },
+      "alpha0p5_headroom2x": {
+        "alpha_N": 0.5,
+        "headroom_label": "2x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.99,
+          1.0
+        ],
+        "in_predicted_band": true
+      },
+      "alpha1p0_headroom10x": {
+        "alpha_N": 1.0,
+        "headroom_label": "10x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.99,
+          1.0
+        ],
+        "in_predicted_band": true
+      },
+      "alpha1p0_headroom2x": {
+        "alpha_N": 1.0,
+        "headroom_label": "2x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.95,
+          1.0
+        ],
+        "in_predicted_band": true
+      },
+      "alpha2p0_headroom10x": {
+        "alpha_N": 2.0,
+        "headroom_label": "10x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.95,
+          1.0
+        ],
+        "in_predicted_band": true
+      },
+      "alpha2p0_headroom2x": {
+        "alpha_N": 2.0,
+        "headroom_label": "2x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.85,
+          0.95
+        ],
+        "in_predicted_band": true
+      },
+      "alpha4p0_headroom10x": {
+        "alpha_N": 4.0,
+        "headroom_label": "10x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.75,
+          0.9
+        ],
+        "in_predicted_band": false
+      },
+      "alpha4p0_headroom2x": {
+        "alpha_N": 4.0,
+        "headroom_label": "2x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.6,
+          0.8
+        ],
+        "in_predicted_band": false
+      },
+      "alpha8p0_headroom10x": {
+        "alpha_N": 8.0,
+        "headroom_label": "10x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.4,
+          0.65
+        ],
+        "in_predicted_band": false
+      },
+      "alpha8p0_headroom2x": {
+        "alpha_N": 8.0,
+        "headroom_label": "2x",
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "predicted_band": [
+          0.3,
+          0.55
+        ],
+        "in_predicted_band": false
+      }
+    },
+    "knn_sentinel_mean": NaN,
+    "knn_sentinel_ok": false,
+    "bare_e_r_mean": NaN,
+    "bare_e_r_ok": false,
+    "multi_bank_probe_mean": NaN,
+    "envelope_cells_pass": [
+      "alpha0p5_headroom10x",
+      "alpha1p0_headroom10x",
+      "alpha2p0_headroom10x"
+    ],
+    "envelope_cells_fail": [],
+    "envelope_pass": true,
+    "codebook_matches": 0,
+    "codebook_details": [],
+    "codebook_pass": false,
+    "substrate_only_ok": true,
+    "n_llm_calls": 0,
+    "n_units_observed": 10,
+    "n_units_expected": 69,
+    "cardinality_ok": false,
+    "skip_registry": [],
+    "failures": [
+      {
+        "key": "seed11_armMULTI_BANK_K4_alpha4p0_headroom10x",
+        "exc_type": "OutOfMemoryError",
+        "exc_msg": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.38 GiB is allocated by PyTorch, and 142.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 1082, in <module>\n    rec = run_unit(parsed)\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 734, in run_unit\n    rec = eval_recall_multibank(V_C, V_R, M, N_DIM, K_banks=K_banks, g=g)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 380, in eval_recall_multibank\n    Ws = ingest_hebbian_multibank_gpu(facts, E, R, sq, n_dim, K_banks)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 331, in ingest_hebbian_multibank_gpu\n    Ws[k] = ingest_hebbian_gpu(shards[k], E, R, sq, n_dim, batch=batch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_codebook_separated_envelope_v1.py\", line 311, in ingest_hebbian_gpu\n    W = W + (V_.T @ K) / n_dim\n             ~~~~~^~~\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.38 GiB is allocated by PyTorch, and 142.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+      }
+    ]
+  },
+  "elapsed_s": 186.1,
+  "summary": "HARD_FAIL_UNIT_EXCEPTION: 1 units raised exceptions (META_RULE_J) | alpha0p5_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.99, 1.0] in_band=True] | alpha0p5_headroom2x[rec=1.0000 cv=0.0000 n=1 pred=[0.99, 1.0] in_band=True] | alpha1p0_headroom10x[rec=1.0000 cv=0.0000 n=1 pred=[0.99, 1.0] in_band=True",
+  "_atexit_synth": false,
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "gpu_max_mem_gb": 8.585216,
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_capacity_codebook_envelope_separated",
+  "allow_synthetic": true,
+  "metrics_source": "measured_substrate_bipolar_hebbian_W_capacity_codebook_separated_v1",
+  "DESIGN_NOTE": "CODEBOOK_SEPARATED_ENVELOPE_V1: 2D joint phase diagram cleanly separating (Effect A) codebook-exhaustion from (Effect B) weight-matrix envelope. Axes: codebook_headroom in {10x, 2x, 1.0x, 0.5x} x alpha_N in {0.5, 1.0, 2.0, 4.0, 8.0}; V_R=32 fixed; 3 seeds; 20 mech cells + 1 KNN + 1 BARE + 1 multi-bank probe = 69 total units (META_RULE_H). Per-arm HP scope: KNN_SENTINEL >=0.95 (sigma=0.10) and BARE_E_R_ENCODER >=0.99 only; mechanism arms exempt from HP gate (drill 2.4; Skunkworks batch 7 directive). BIAS-S runtime assertions on alpha_N, headroom, keys_unique_mode (META_RULE_J halt). Verdict: CHAIN_GRADE_BOTH if envelope HP at 10x-headroom alpha<=2 AND codebook separation delta>=0.20 at 3+ matched alphas; else MIDDLE_BAND (band-floor; META_RULE_L). GPU mandate (Fix #24): torch.cuda assert; W=N^2 fp32=1.07GB at N=16384."
+}

@@ -1,0 +1,218 @@
+{
+  "anchor_name": "community_of_communities_nested_retrieval_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: NESTED flat over per-community load (rd_L=0.000<= 0.1, abs@Lmax=1.000) WHILE SINGLE_TIER collapses (rd_L=0.980>= 0.3); tier1=1.000 tier2=1.000; Qs_min=0.666 Ql_min=0.937; v_inv=0.000. A 2nd routing tier bounds decode load to ~sqrt(L) regardless of per-community load.",
+  "summary": "nested-community-of-communities L-sweep [256, 4000] n_comm [3] N=8192 mode=smoke: st_rd_L=0.980 ne_rd_L=0.000 tier1@Lmax=1.000 tier2@Lmax=1.000 Qs_min=0.666 Ql_min=0.937",
+  "elapsed_s": 13.893513917922974,
+  "config_version": "ANCHOR=community_of_communities_nested_retrieval_v2,N=8192,Q=128,route_noise=0.5,L_GRID=[256, 4000],NCOMM_GRID=[3],seeds=[7, 17],mode=smoke",
+  "run_mode": "smoke",
+  "N": 8192,
+  "L_grid": [
+    256,
+    4000
+  ],
+  "n_comm_grid": [
+    3
+  ],
+  "n_seeds": 2,
+  "arms": [
+    "SINGLE_TIER",
+    "NESTED"
+  ],
+  "expected_n_units": 8,
+  "cardinality_ok": true,
+  "stats": {
+    "L_min": 256,
+    "L_max": 4000,
+    "nc_max": 3,
+    "single_tier_fid_Lmin": 0.99609375,
+    "single_tier_fid_Lmax": 0.01953125,
+    "single_tier_rel_deg_L": 0.9803921568627451,
+    "nested_fid_Lmin": 1.0,
+    "nested_fid_Lmax": 1.0,
+    "nested_rel_deg_L": 0.0,
+    "tier1_acc_Lmax": 1.0,
+    "tier2_acc_Lmax": 1.0,
+    "Q_super_min": 0.6660902475022689,
+    "Q_leaf_min": 0.9374418782112709,
+    "nested_v_invariance_spread": 0.0,
+    "nested_cv_across_seeds": 0.0,
+    "observed_units": 8,
+    "expected_n_units": 8,
+    "cardinality_ok": true,
+    "curve": {
+      "256": {
+        "st_fid": 0.99609375,
+        "ne_fid": 1.0,
+        "tier1_acc": 1.0,
+        "tier2_acc": 1.0,
+        "Q_super": 0.6665847367649863,
+        "Q_leaf": 0.9374418782112709
+      },
+      "4000": {
+        "st_fid": 0.01953125,
+        "ne_fid": 1.0,
+        "tier1_acc": 1.0,
+        "tier2_acc": 1.0,
+        "Q_super": 0.6660902475022689,
+        "Q_leaf": 0.9782057732253431
+      }
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 7.265345811843872,
+      "per_point": {
+        "L256_nc3": {
+          "L": 256,
+          "n_comm": 3,
+          "V": 768,
+          "n_leaf": 16,
+          "leaf_size": 16,
+          "st_fid": 0.9921875,
+          "ne_fid": 1.0,
+          "tier1_acc": 1.0,
+          "tier2_acc": 1.0,
+          "Q_super": 0.6666224496104386,
+          "Q_leaf": 0.9374333496430679,
+          "super_edges": 5596,
+          "decouple_abs_cos": 0.008711814880371094,
+          "st_pred_hash": "6ccd1ca270da4f724878eaf78d31c43ddace3e34940e612ea66ce0b01d904248",
+          "ne_pred_hash": "d6431f0297da0373b21088408406686cbb959fcd7d7df4b9a9e472e444e35041"
+        },
+        "L4000_nc3": {
+          "L": 4000,
+          "n_comm": 3,
+          "V": 12000,
+          "n_leaf": 64,
+          "leaf_size": 63,
+          "st_fid": 0.0234375,
+          "ne_fid": 1.0,
+          "tier1_acc": 1.0,
+          "tier2_acc": 1.0,
+          "Q_super": 0.66602617297687,
+          "Q_leaf": 0.9767634476204448,
+          "super_edges": 8929,
+          "decouple_abs_cos": 0.00977325439453125,
+          "st_pred_hash": "9703aa80690a358518dda22cdc33b1db35dfd9427c2dd24ab80f8bbb336de574",
+          "ne_pred_hash": "e73fa90c606aa833349915ba35d65fd04d8f0b4a1b2053afdc0d7867f7e74289"
+        }
+      },
+      "arms": [
+        "SINGLE_TIER",
+        "NESTED"
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 6.325817823410034,
+      "per_point": {
+        "L256_nc3": {
+          "L": 256,
+          "n_comm": 3,
+          "V": 768,
+          "n_leaf": 16,
+          "leaf_size": 16,
+          "st_fid": 1.0,
+          "ne_fid": 1.0,
+          "tier1_acc": 1.0,
+          "tier2_acc": 1.0,
+          "Q_super": 0.666547023919534,
+          "Q_leaf": 0.9374504067794739,
+          "super_edges": 5652,
+          "decouple_abs_cos": 0.009121894836425781,
+          "st_pred_hash": "26cca8e0bdcef2ff735eedcdc11a05f5cce6fde854913dbcd4bfeb1a1ce41491",
+          "ne_pred_hash": "26cca8e0bdcef2ff735eedcdc11a05f5cce6fde854913dbcd4bfeb1a1ce41491"
+        },
+        "L4000_nc3": {
+          "L": 4000,
+          "n_comm": 3,
+          "V": 12000,
+          "n_leaf": 64,
+          "leaf_size": 63,
+          "st_fid": 0.015625,
+          "ne_fid": 1.0,
+          "tier1_acc": 1.0,
+          "tier2_acc": 1.0,
+          "Q_super": 0.6661543220276678,
+          "Q_leaf": 0.9796480988302414,
+          "super_edges": 8959,
+          "decouple_abs_cos": 0.008863449096679688,
+          "st_pred_hash": "5e89f514ccdef4cd658398a1d6ccb9fcb125cde383cb54dd7f27b4a523867b78",
+          "ne_pred_hash": "c26345ac3286cb4ed06f1660930c93e6284199d5c38b659e13eef59fb63d39e8"
+        }
+      },
+      "arms": [
+        "SINGLE_TIER",
+        "NESTED"
+      ]
+    }
+  ],
+  "structured_gate_claims": [
+    {
+      "gate_name": "nested_flat_rd_L",
+      "measured": 0.0,
+      "threshold": 0.1,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "NESTED relative degradation over per-community load L"
+    },
+    {
+      "gate_name": "single_tier_collapse_rd_L",
+      "measured": 0.9803921568627451,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "SINGLE_TIER collapse over L (discriminator must fire)"
+    },
+    {
+      "gate_name": "nested_abs_at_Lmax",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "NESTED absolute fidelity at L_max (holds)"
+    },
+    {
+      "gate_name": "tier1_route_acc",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "tier-1 route accuracy at largest point"
+    },
+    {
+      "gate_name": "tier2_route_acc",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "tier-2 route accuracy at largest point"
+    },
+    {
+      "gate_name": "modularity_super_min",
+      "measured": 0.6660902475022689,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "min Newman Q of super partition (tier-1 structure)"
+    },
+    {
+      "gate_name": "modularity_leaf_min",
+      "measured": 0.9374418782112709,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "min Newman Q of leaf partition within supers (tier-2 structure)"
+    },
+    {
+      "gate_name": "nested_v_invariance_spread",
+      "measured": 0.0,
+      "threshold": 0.15,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "NESTED fidelity spread across n_comm at fixed L (total-V invariance)"
+    }
+  ]
+}

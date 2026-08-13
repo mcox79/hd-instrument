@@ -1,0 +1,642 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL_RELABEL",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_RELABEL: F1 BASE=0.5738 -> RELABEL_GATED=0.584 (+0.0102, closes 0.2609 of the +0.0391 ROLE_ORACLE gap). n_pred BASE=144 RELABEL_GATED=150 (delta +6; EMISSION-PRESERVING check, ROLE_ORACLE=+4). precision 0.4861->0.4867; recall 0.7->0.73. ABLATIONS: vs FORCEEMIT(f1=0.56) +0.024; vs LEFTMOST(f1=0.584) +0.0; vs NOLEX(f1=0.584) +0.0. P2 SCRAMBLE(f1=0.584) degrade 0.0. ROLE_ORACLE=0.6129. n_head_recovered=3 n_head_regressed=0. in_scope_5={'L04_12:rub/castle': False, 'L05_16:knock/castles': True, 'L05_22:see/child': False, 'L07_09:meet/boys': True, 'L10_11:find/boy': True}. failing_HP=['closes_half_gap', 'beats_leftmost', 'scramble_degrades']. hard_fail=[]. SEE autopsy[] (KEEP-DIGGING).",
+  "summary": "MIDDLE_BAND_PARTIAL_RELABEL: f1 BASE=0.5738 RELABEL_GATED=0.584 (+0.0102) | n_pred BASE=144 RELABEL_GATED=150 (+6) | gap_closed_frac=0.2609 | abl_forceemit=0.024 abl_nphead=0.0 abl_lexicon=0.0 | scramble_degrade=0.0 | ROLE_ORACLE=0.6129 | uas=0.7882",
+  "elapsed_s": 121.94,
+  "ts_iso": "2026-07-23T23:03:34.560468+00:00",
+  "anchor_name": "reader_role_relabel_emission_preserving_v4",
+  "run_mode": "full",
+  "seed": 20260727,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "headline_arm": "RELABEL_GATED",
+  "one_variable": "role_relabel_reassign: emission-preserving NP-head re-label + SUPPLIED tight ditransitive lexicon. NO force-emit (respect perceptron NONE), NO selectional/animacy/patient-fit knowledge. parser/perceptron/routing/admissibility-gate/>=2-patient argmax held constant.",
+  "bands": {
+    "CITED_AUDIT_F1_REAL": 0.5738,
+    "CITED_AUDIT_F1_ROLE_ORACLE": 0.6129,
+    "CITED_ROLE_GAP": 0.0391,
+    "CITED_BASE_N_PRED": 144,
+    "CITED_ROLEORA_N_PRED": 148,
+    "P1_REPRO_TOL": 0.02,
+    "HP_F1_MIN_LIFT": 0.0196,
+    "HP_RECALL_TOL": 0.005,
+    "HP_ABLATION_MARGIN": 0.01,
+    "HP_SCRAMBLE_MARGIN": 0.01,
+    "HP_EMISSION_PRESERVE_MARGIN": 6,
+    "HF_RECALL_REGRESS": 0.02,
+    "HF_EMISSION_INFLATE": 12
+  },
+  "f1": {
+    "BASE": 0.5738,
+    "RELABEL_GATED": 0.584,
+    "RELABEL_FORCEEMIT": 0.56,
+    "RELABEL_LEFTMOST": 0.584,
+    "RELABEL_NOLEX": 0.584,
+    "RELABEL_SCRAMBLE": 0.584,
+    "ROLE_ORACLE": 0.6129
+  },
+  "precision": {
+    "BASE": 0.4861,
+    "RELABEL_GATED": 0.4867,
+    "RELABEL_FORCEEMIT": 0.4667,
+    "RELABEL_LEFTMOST": 0.4867,
+    "RELABEL_NOLEX": 0.4867,
+    "RELABEL_SCRAMBLE": 0.4867,
+    "ROLE_ORACLE": 0.5135
+  },
+  "recall": {
+    "BASE": 0.7,
+    "RELABEL_GATED": 0.73,
+    "RELABEL_FORCEEMIT": 0.7,
+    "RELABEL_LEFTMOST": 0.73,
+    "RELABEL_NOLEX": 0.73,
+    "RELABEL_SCRAMBLE": 0.73,
+    "ROLE_ORACLE": 0.76
+  },
+  "recall_ceiling": {
+    "BASE": 0.7,
+    "RELABEL_GATED": 0.73,
+    "RELABEL_FORCEEMIT": 0.7,
+    "RELABEL_LEFTMOST": 0.73,
+    "RELABEL_NOLEX": 0.73,
+    "RELABEL_SCRAMBLE": 0.73,
+    "ROLE_ORACLE": 0.76
+  },
+  "n_pred": {
+    "BASE": 144,
+    "RELABEL_GATED": 150,
+    "RELABEL_FORCEEMIT": 150,
+    "RELABEL_LEFTMOST": 150,
+    "RELABEL_NOLEX": 150,
+    "RELABEL_SCRAMBLE": 150,
+    "ROLE_ORACLE": 148
+  },
+  "role_gap": 0.0391,
+  "head_lift": 0.0102,
+  "gap_closed_frac": 0.2609,
+  "n_pred_delta": 6,
+  "emission_preserving_ok": true,
+  "ablation_forceemit": 0.024,
+  "ablation_nphead": 0.0,
+  "ablation_lexicon": 0.0,
+  "scramble_degrade": 0.0,
+  "p1_reproduces": true,
+  "hard_pass_conditions": {
+    "p1_reproduces": true,
+    "closes_half_gap": false,
+    "no_recall_regress": true,
+    "precision_holds": true,
+    "emission_preserving": true,
+    "beats_force_emit": true,
+    "beats_leftmost": false,
+    "scramble_degrades": false
+  },
+  "hard_fail_reasons": [],
+  "in_scope_outcome": {
+    "L04_12:rub/castle": false,
+    "L05_16:knock/castles": true,
+    "L05_22:see/child": false,
+    "L07_09:meet/boys": true,
+    "L10_11:find/boy": true
+  },
+  "n_roleora_recovered": 6,
+  "roleora_recovered": [
+    [
+      "L04_01",
+      "build",
+      "blockhouse"
+    ],
+    [
+      "L04_12",
+      "rub",
+      "castle"
+    ],
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "n_head_recovered": 3,
+  "head_recovered": [
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "n_head_regressed": 0,
+  "head_regressed": [],
+  "n_head_of_roleora": 3,
+  "head_of_roleora": [
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "force_recovered": [
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "leftmost_recovered": [
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "nolex_recovered": [
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "scramble_recovered": [
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "roleora_headroom_coverage": 0.5,
+  "lexicon_audit": {
+    "n_ditransitive": 26,
+    "tight_set": [
+      "ask",
+      "assign",
+      "award",
+      "bequeath",
+      "bring",
+      "cable",
+      "fax",
+      "give",
+      "grant",
+      "hand",
+      "lend",
+      "loan",
+      "offer",
+      "owe",
+      "pass",
+      "promise",
+      "quote",
+      "read",
+      "rent",
+      "sell",
+      "send",
+      "show",
+      "teach",
+      "tell",
+      "wire",
+      "write"
+    ],
+    "dropped_edge_check": {
+      "find": true,
+      "book": true,
+      "call": true,
+      "catch": true,
+      "choose": true,
+      "dance": true,
+      "draw": true,
+      "pull": true,
+      "reach": true
+    },
+    "headroom_out": {
+      "see": true,
+      "rub": true,
+      "meet": true,
+      "knock": true,
+      "build": true,
+      "find": true
+    },
+    "scramble": {
+      "n_ditrans_marked": 10,
+      "real_ditrans_in_corpus": [
+        "ask",
+        "give",
+        "pass",
+        "read",
+        "sell",
+        "send",
+        "show",
+        "teach",
+        "tell",
+        "write"
+      ],
+      "fake_ditrans": [
+        "assure",
+        "cry",
+        "lie",
+        "meet",
+        "shap",
+        "spin",
+        "struggl",
+        "tak",
+        "touch",
+        "tread"
+      ]
+    }
+  },
+  "autopsy": [
+    {
+      "sid": "L04_01",
+      "gold_verb": "build",
+      "gold_patient": "blockhouse",
+      "recovered_by_relabel_gated": false,
+      "predicate_traces": [
+        {
+          "frame": "no_postverbal_core",
+          "reason": null,
+          "is_ditransitive": false,
+          "gate_admits": true,
+          "chunks": [],
+          "head": null,
+          "post_core": [],
+          "pre_core": [
+            "blockhouse",
+            "he"
+          ],
+          "perceptron_role_of_gold_patient": "NONE",
+          "final_role_of_gold_patient": "NONE",
+          "emitted_patients": null,
+          "diagnosis": "NON_POSTVERBAL: gold patient routed but NOT a post-verbal core (post_core=[], pre_core=['blockhouse', 'he']) -> fronted/OSV/prep-governed."
+        }
+      ]
+    },
+    {
+      "sid": "L04_12",
+      "gold_verb": "rub",
+      "gold_patient": "castle",
+      "recovered_by_relabel_gated": false,
+      "predicate_traces": [
+        {
+          "frame": "oblique_pp_skip",
+          "reason": null,
+          "is_ditransitive": false,
+          "gate_admits": true,
+          "chunks": [],
+          "head": null,
+          "post_core": [
+            "herbert's",
+            "castle"
+          ],
+          "pre_core": [
+            "pussy"
+          ],
+          "perceptron_role_of_gold_patient": "PATIENT",
+          "final_role_of_gold_patient": "PATIENT",
+          "emitted_patients": null,
+          "diagnosis": "NP_HEAD_MISPICK: chunk head =None but gold patient ='castle' (chunks=[], frame=oblique_pp_skip) -> chunk boundary / head-noun rule missed it OR (ditransitive) gold patient is the recipient chunk."
+        }
+      ]
+    },
+    {
+      "sid": "L05_16",
+      "gold_verb": "knock",
+      "gold_patient": "castles",
+      "recovered_by_relabel_gated": true,
+      "predicate_traces": [
+        {
+          "frame": "transitive",
+          "reason": "keep_head_dedupe",
+          "is_ditransitive": false,
+          "gate_admits": true,
+          "chunks": [
+            [
+              "castles",
+              "down"
+            ]
+          ],
+          "head": "castles",
+          "post_core": [
+            "castles",
+            "down"
+          ],
+          "pre_core": [
+            "pussy"
+          ],
+          "perceptron_role_of_gold_patient": "PATIENT",
+          "final_role_of_gold_patient": "PATIENT",
+          "emitted_patients": [
+            "castles"
+          ],
+          "diagnosis": "EMITTED_OK: frame=transitive, reason='keep_head_dedupe', perceptron='PATIENT' -> PATIENT; emitted ['castles'] (recovered=True)."
+        }
+      ]
+    },
+    {
+      "sid": "L05_22",
+      "gold_verb": "see",
+      "gold_patient": "child",
+      "recovered_by_relabel_gated": false,
+      "predicate_traces": [
+        {
+          "frame": "transitive",
+          "reason": "flip_missed_clause",
+          "is_ditransitive": false,
+          "gate_admits": true,
+          "chunks": [
+            [
+              "child",
+              "dash"
+            ],
+            [
+              "servant"
+            ]
+          ],
+          "head": "dash",
+          "post_core": [
+            "child",
+            "dash",
+            "servant"
+          ],
+          "pre_core": [
+            "i"
+          ],
+          "perceptron_role_of_gold_patient": "RECIPIENT",
+          "final_role_of_gold_patient": "RECIPIENT",
+          "emitted_patients": [
+            "dash"
+          ],
+          "diagnosis": "NP_HEAD_MISPICK: chunk head ='dash' but gold patient ='child' (chunks=[['child', 'dash'], ['servant']], frame=transitive) -> chunk boundary / head-noun rule missed it OR (ditransitive) gold patient is the recipient chunk."
+        }
+      ]
+    },
+    {
+      "sid": "L07_09",
+      "gold_verb": "meet",
+      "gold_patient": "boys",
+      "recovered_by_relabel_gated": true,
+      "predicate_traces": [
+        {
+          "frame": "transitive",
+          "reason": "collapse_split_np_to_head",
+          "is_ditransitive": false,
+          "gate_admits": true,
+          "chunks": [
+            [
+              "plenty",
+              "boys"
+            ]
+          ],
+          "head": "boys",
+          "post_core": [
+            "plenty",
+            "boys"
+          ],
+          "pre_core": [
+            "he"
+          ],
+          "perceptron_role_of_gold_patient": "RECIPIENT",
+          "final_role_of_gold_patient": "PATIENT",
+          "emitted_patients": [
+            "boys"
+          ],
+          "diagnosis": "EMITTED_OK: frame=transitive, reason='collapse_split_np_to_head', perceptron='RECIPIENT' -> PATIENT; emitted ['boys'] (recovered=True)."
+        }
+      ]
+    },
+    {
+      "sid": "L10_11",
+      "gold_verb": "find",
+      "gold_patient": "boy",
+      "recovered_by_relabel_gated": true,
+      "predicate_traces": [
+        {
+          "frame": "transitive",
+          "reason": "flip_head_over_trailing_appositive",
+          "is_ditransitive": false,
+          "gate_admits": true,
+          "chunks": [
+            [
+              "boy"
+            ],
+            [
+              "name"
+            ],
+            [
+              "joe"
+            ]
+          ],
+          "head": "boy",
+          "post_core": [
+            "boy",
+            "name",
+            "joe"
+          ],
+          "pre_core": [
+            "he"
+          ],
+          "perceptron_role_of_gold_patient": "RECIPIENT",
+          "final_role_of_gold_patient": "PATIENT",
+          "emitted_patients": [
+            "boy"
+          ],
+          "diagnosis": "EMITTED_OK: frame=transitive, reason='flip_head_over_trailing_appositive', perceptron='RECIPIENT' -> PATIENT; emitted ['boy'] (recovered=True)."
+        }
+      ]
+    }
+  ],
+  "arms": {
+    "BASE": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "be02002c1579217f"
+    },
+    "RELABEL_GATED": {
+      "recall_ceiling": 0.73,
+      "n_miss": 27,
+      "n_gold_pos": 100,
+      "precision": 0.4867,
+      "recall": 0.73,
+      "f1": 0.584,
+      "n_pred": 150,
+      "subcat_fp": 36,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 36,
+      "kept_hash": "0ba6219e34608300"
+    },
+    "RELABEL_FORCEEMIT": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4667,
+      "recall": 0.7,
+      "f1": 0.56,
+      "n_pred": 150,
+      "subcat_fp": 36,
+      "within_frame_fp": 8,
+      "spurious_verb_fp": 36,
+      "kept_hash": "0247f532c83b4a24"
+    },
+    "RELABEL_LEFTMOST": {
+      "recall_ceiling": 0.73,
+      "n_miss": 27,
+      "n_gold_pos": 100,
+      "precision": 0.4867,
+      "recall": 0.73,
+      "f1": 0.584,
+      "n_pred": 150,
+      "subcat_fp": 36,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 36,
+      "kept_hash": "3d0a2e47b7200ba7"
+    },
+    "RELABEL_NOLEX": {
+      "recall_ceiling": 0.73,
+      "n_miss": 27,
+      "n_gold_pos": 100,
+      "precision": 0.4867,
+      "recall": 0.73,
+      "f1": 0.584,
+      "n_pred": 150,
+      "subcat_fp": 36,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 36,
+      "kept_hash": "0ba6219e34608300"
+    },
+    "RELABEL_SCRAMBLE": {
+      "recall_ceiling": 0.73,
+      "n_miss": 27,
+      "n_gold_pos": 100,
+      "precision": 0.4867,
+      "recall": 0.73,
+      "f1": 0.584,
+      "n_pred": 150,
+      "subcat_fp": 36,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 36,
+      "kept_hash": "0ba6219e34608300"
+    },
+    "ROLE_ORACLE": {
+      "recall_ceiling": 0.76,
+      "n_miss": 24,
+      "n_gold_pos": 100,
+      "precision": 0.5135,
+      "recall": 0.76,
+      "f1": 0.6129,
+      "n_pred": 148,
+      "subcat_fp": 35,
+      "within_frame_fp": 4,
+      "spurious_verb_fp": 33,
+      "kept_hash": "598b7923a8b82dfc"
+    }
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 48.4,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_audit": {
+    "source": "data/exp_reader_component_oracle_ablation_audit_v1/metrics.json",
+    "f1_real": 0.5738,
+    "f1_role_oracle": 0.6129,
+    "role_uplift": 0.0391
+  },
+  "cited_drive3": {
+    "source": "data/exp_reader_role_valency_supplied_lexicon_v3/metrics.json",
+    "base_n_pred": 144,
+    "forceemit_n_pred": 156,
+    "roleora_n_pred": 148,
+    "note": "drive-3 blunt force-emit inflated n_pred 144->156 (+12 FP) -> F1 0.5391 < BASE."
+  },
+  "brain_check": "the brain does not force a patient onto a clause it parses as argument-less; it RE-LABELS a routed argument (recipient/agent confusion) to patient when a subject licenses SVO reading, and retrieves a verb's ditransitivity as a supplied lexical fact. Emission-preserving = the reader does not invent arguments; it corrects role assignment on arguments it already found.",
+  "scope_caveat": "Parser trained on UD-EWT out-of-domain to McGuffey. Tight ditransitive lexicon is a VerbNet-role-filter SUBSET (drops benefactive/edge datives incl. find). build/blockhouse OSV is drive-1's FRONTED arm, out of scope. MEASUREMENT cell, NOT banked; CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET (skunkworks VETs separately)."
+}

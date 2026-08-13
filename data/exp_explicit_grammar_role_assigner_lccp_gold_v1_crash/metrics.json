@@ -1,0 +1,9 @@
+{
+  "anchor_name": "explicit_grammar_role_assigner_lccp_gold_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: 2 canary item(s) failed -- see printed detail",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_explicit_grammar_role_assigner_lccp_gold_v1.py\", line 570, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_explicit_grammar_role_assigner_lccp_gold_v1.py\", line 560, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_explicit_grammar_role_assigner_lccp_gold_v1.py\", line 543, in self_test\n    assert n_fail == 0, f\"{n_fail} canary item(s) failed -- see printed detail\"\n           ^^^^^^^^^^^\nAssertionError: 2 canary item(s) failed -- see printed detail\n",
+  "ts_iso": "2026-07-20T23:29:41.177775+00:00"
+}

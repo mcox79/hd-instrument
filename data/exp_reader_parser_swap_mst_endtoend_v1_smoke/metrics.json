@@ -1,0 +1,394 @@
+{
+  "anchor_name": "reader_parser_swap_mst_endtoend_v1",
+  "run_mode": "smoke",
+  "verdict": "PARSER_ATTACH_NOT_LIFTABLE",
+  "verdict_msg": "PARSER_ATTACH_NOT_LIFTABLE | slice=L04+L05+L07 gold_pos=47 | BACKOFF base=0.7338 mst=0.7338 (delta=+0.0000 min_seed=+0.0000) | V1 base=0.7338 mst=0.7338 (delta=+0.0000) | ceiling(backoff) base=0.766 mst=0.766 | ATTACH-RECOVERY backoff: recovered=0 lost=0 net=0 (unlab: rec=0 lost=0 net=0) | favorable_coupling=False | negation/flip majority_flips=0 | parser_UAS base=0.7868 mst=0.7965 (+0.0097) | arms_differ=True baseline_in_band=True",
+  "summary": "PARSER_ATTACH_NOT_LIFTABLE | slice=L04+L05+L07 gold_pos=47 | BACKOFF base=0.7338 mst=0.7338 (delta=+0.0000 min_seed=+0.0000) | V1 base=0.7338 mst=0.7338 (delta=+0.0000) | ceiling(backoff) base=0.766 mst=0.766 | ATTACH-RECOVERY backoff: recovered=0 lost=0 net=0 (unlab: rec=0 lost=0 net=0) | favorable_coupling=False | negation/flip majority_flips=0 | parser_UAS base=0.7868 mst=0.7965 (+0.0097) | arms_differ=True baseline_in_band=True",
+  "elapsed_s": 52.93,
+  "ts_iso": "2026-07-21T05:22:13.776168+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07"
+  ],
+  "n_gold_pos_pairs": 47,
+  "parser_uas": {
+    "baseline_greedy": 0.7868,
+    "mst_retrain": 0.7965,
+    "delta": 0.0097,
+    "source": "MEASURED@data/exp_parser_uas_ladder_mst_retrain_v1/metrics.json"
+  },
+  "reader_baseline_parser": {
+    "means": {
+      "crude": 0.2923,
+      "unlabeled": 0.6465,
+      "v1": 0.7338,
+      "hardened": 0.7153,
+      "backoff": 0.7338
+    },
+    "ceiling": {
+      "unlabeled": 0.9149,
+      "v1": 0.7447,
+      "hardened": 0.8085,
+      "backoff": 0.766
+    },
+    "per_construction": {
+      "control": {
+        "mean_endtoend_acc": 0.8889,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 3.0
+      },
+      "coordination": {
+        "mean_endtoend_acc": 0.6445,
+        "mean_gold_in_pool": 0.7555,
+        "mean_n": 5.67
+      },
+      "pronoun": {
+        "mean_endtoend_acc": 0.8968,
+        "mean_gold_in_pool": 0.8968,
+        "mean_n": 5.33
+      },
+      "relative": {
+        "mean_endtoend_acc": 0.5834,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 2.5
+      },
+      "simple": {
+        "mean_endtoend_acc": 0.5556,
+        "mean_gold_in_pool": 0.5556,
+        "mean_n": 2.0
+      },
+      "verb_not_found": {
+        "mean_endtoend_acc": 0.0,
+        "mean_gold_in_pool": 0.0,
+        "mean_n": 2.0
+      }
+    },
+    "per_seed": [
+      {
+        "seed": 7,
+        "n_test_pos": 16,
+        "crude": 0.25,
+        "unlabeled": 0.8125,
+        "v1": 0.8125,
+        "hardened": 0.8125,
+        "backoff": 0.8125,
+        "test_ceiling_backoff": 0.9375,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 6,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 0.8333
+          },
+          "pronoun": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "relative": {
+            "n": 2,
+            "endtoend_acc": 0.5,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 2,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          }
+        }
+      },
+      {
+        "seed": 13,
+        "n_test_pos": 18,
+        "crude": 0.3889,
+        "unlabeled": 0.5556,
+        "v1": 0.7222,
+        "hardened": 0.6667,
+        "backoff": 0.7222,
+        "test_ceiling_backoff": 0.8333,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 6,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 0.8333
+          },
+          "pronoun": {
+            "n": 6,
+            "endtoend_acc": 0.8333,
+            "gold_in_pool": 0.8333
+          },
+          "simple": {
+            "n": 3,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 0.6667
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "n_test_pos": 21,
+        "crude": 0.2381,
+        "unlabeled": 0.5714,
+        "v1": 0.6667,
+        "hardened": 0.6667,
+        "backoff": 0.6667,
+        "test_ceiling_backoff": 0.7143,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 5,
+            "endtoend_acc": 0.6,
+            "gold_in_pool": 0.6
+          },
+          "pronoun": {
+            "n": 7,
+            "endtoend_acc": 0.8571,
+            "gold_in_pool": 0.8571
+          },
+          "relative": {
+            "n": 3,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 1,
+            "endtoend_acc": 0.0,
+            "gold_in_pool": 0.0
+          },
+          "verb_not_found": {
+            "n": 2,
+            "endtoend_acc": 0.0,
+            "gold_in_pool": 0.0
+          }
+        }
+      }
+    ]
+  },
+  "reader_mst_parser": {
+    "means": {
+      "crude": 0.2923,
+      "unlabeled": 0.665,
+      "v1": 0.7338,
+      "hardened": 0.7153,
+      "backoff": 0.7338
+    },
+    "ceiling": {
+      "unlabeled": 0.9149,
+      "v1": 0.7447,
+      "hardened": 0.8085,
+      "backoff": 0.766
+    },
+    "per_construction": {
+      "control": {
+        "mean_endtoend_acc": 0.8889,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 3.0
+      },
+      "coordination": {
+        "mean_endtoend_acc": 0.6222,
+        "mean_gold_in_pool": 0.7444,
+        "mean_n": 5.33
+      },
+      "pronoun": {
+        "mean_endtoend_acc": 0.8968,
+        "mean_gold_in_pool": 0.8968,
+        "mean_n": 5.33
+      },
+      "relative": {
+        "mean_endtoend_acc": 0.5834,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 2.5
+      },
+      "simple": {
+        "mean_endtoend_acc": 0.5833,
+        "mean_gold_in_pool": 0.5833,
+        "mean_n": 2.33
+      },
+      "verb_not_found": {
+        "mean_endtoend_acc": 0.0,
+        "mean_gold_in_pool": 0.0,
+        "mean_n": 2.0
+      }
+    },
+    "per_seed": [
+      {
+        "seed": 7,
+        "n_test_pos": 16,
+        "crude": 0.25,
+        "unlabeled": 0.8125,
+        "v1": 0.8125,
+        "hardened": 0.8125,
+        "backoff": 0.8125,
+        "test_ceiling_backoff": 0.9375,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 6,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 0.8333
+          },
+          "pronoun": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "relative": {
+            "n": 2,
+            "endtoend_acc": 0.5,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 2,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          }
+        }
+      },
+      {
+        "seed": 13,
+        "n_test_pos": 18,
+        "crude": 0.3889,
+        "unlabeled": 0.6111,
+        "v1": 0.7222,
+        "hardened": 0.6667,
+        "backoff": 0.7222,
+        "test_ceiling_backoff": 0.8333,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 5,
+            "endtoend_acc": 0.6,
+            "gold_in_pool": 0.8
+          },
+          "pronoun": {
+            "n": 6,
+            "endtoend_acc": 0.8333,
+            "gold_in_pool": 0.8333
+          },
+          "simple": {
+            "n": 4,
+            "endtoend_acc": 0.75,
+            "gold_in_pool": 0.75
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "n_test_pos": 21,
+        "crude": 0.2381,
+        "unlabeled": 0.5714,
+        "v1": 0.6667,
+        "hardened": 0.6667,
+        "backoff": 0.6667,
+        "test_ceiling_backoff": 0.7143,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 5,
+            "endtoend_acc": 0.6,
+            "gold_in_pool": 0.6
+          },
+          "pronoun": {
+            "n": 7,
+            "endtoend_acc": 0.8571,
+            "gold_in_pool": 0.8571
+          },
+          "relative": {
+            "n": 3,
+            "endtoend_acc": 0.6667,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 1,
+            "endtoend_acc": 0.0,
+            "gold_in_pool": 0.0
+          },
+          "verb_not_found": {
+            "n": 2,
+            "endtoend_acc": 0.0,
+            "gold_in_pool": 0.0
+          }
+        }
+      }
+    ]
+  },
+  "delta_backoff": 0.0,
+  "delta_backoff_min_seed": 0.0,
+  "delta_v1": 0.0,
+  "attach_recovery_backoff": {
+    "n_aligned_pos": 47,
+    "base_ceiling": 0.766,
+    "mst_ceiling": 0.766,
+    "n_recovered": 0,
+    "n_lost": 0,
+    "net_recovered": 0,
+    "both_hit": 36,
+    "both_miss": 11,
+    "recovered": [],
+    "lost": []
+  },
+  "attach_recovery_unlabeled": {
+    "n_aligned_pos": 47,
+    "base_ceiling": 0.9149,
+    "mst_ceiling": 0.9149,
+    "n_recovered": 0,
+    "n_lost": 0,
+    "net_recovered": 0,
+    "both_hit": 43,
+    "both_miss": 4,
+    "recovered": [],
+    "lost": []
+  },
+  "favorable_coupling": false,
+  "net_recovered_backoff": 0,
+  "negation_flip_spotcheck": {
+    "n_majority_flips": 0,
+    "flips": []
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  }
+}

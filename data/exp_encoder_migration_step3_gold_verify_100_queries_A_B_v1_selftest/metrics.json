@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: query 1 failed: AttributeError: 'CharPositionalEncoder' object has no attribute 'encode'",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 955, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 948, in main\n    return run_self_test()\n           ^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 707, in run_self_test\n    assert rec.get(\"failure_class\") is None, f\"query {row['qid']} failed: {rec.get('failure_class')}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: query 1 failed: AttributeError: 'CharPositionalEncoder' object has no attribute 'encode'\n",
+  "ts_iso": "2026-07-04T00:47:43.735186+00:00",
+  "pid": 31284,
+  "anchor_name": "encoder_migration_step3_gold_verify_100_queries_A_B_v1"
+}

@@ -1,0 +1,697 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all_arms_ok; routing_acc=1.0000 >= 0.95; leak=0.0000 < 0.05; ratio_resolved=0.9643 >= 0.8; ud_ret=0.9286 >= floor=0.9000 (non_ud=1.0000); baseline_resolved=1.0; diag_n_capacity_regression=1; tau_used=0.15",
+  "elapsed_s": 78.27,
+  "summary": {
+    "anchor": "kb_partition_by_source_class_v4_calibrated",
+    "smoke": false,
+    "kb_version": "v1",
+    "schema_version": "v2",
+    "encoder": "char_trigram_v1",
+    "inline_kb_manifest": {
+      "kb_version": "v1",
+      "schema_version": "v2",
+      "schema_hash": "0e58a20e69b5f4a97c312905ee8a3611c96c1847eb359a7dc0e81e50e44fc49d",
+      "encoder": "char_trigram_v1",
+      "chunk_ingest_version": "v1",
+      "n_dim": 2048,
+      "seed": 17,
+      "n_entities": 33646,
+      "n_relations": 75,
+      "n_triples": 40796,
+      "n_chunks": 13617,
+      "n_discovered": 1600,
+      "n_skipped": 8,
+      "coverage_ratio": 0.995,
+      "avg_chunks_per_file": 8.55,
+      "per_class": {
+        "memory": {
+          "n_files": 0,
+          "n_chunks": 0,
+          "n_files_zero_chunks": 0
+        },
+        "note": {
+          "n_files": 800,
+          "n_chunks": 8392,
+          "n_files_zero_chunks": 0
+        },
+        "prereg": {
+          "n_files": 800,
+          "n_chunks": 5225,
+          "n_files_zero_chunks": 8
+        }
+      },
+      "elapsed_s": 73.242,
+      "redact_timestamps_in_atoms": false,
+      "chunk_min_chars": 200,
+      "chunk_target_chars": 800,
+      "chunk_hard_max_chars": 1600,
+      "chunks_per_file_cap": 200,
+      "content_tag_max_chars": 600,
+      "_build_elapsed_s": 73.376,
+      "_n_files_discovered": 1600,
+      "_unreachable_classes": [
+        "memory"
+      ],
+      "_reachable_classes": [
+        "note",
+        "prereg"
+      ]
+    },
+    "cardinality_audit": {
+      "declared_classes": [
+        "note",
+        "memory",
+        "prereg"
+      ],
+      "reached_and_ingested": [
+        "note",
+        "prereg"
+      ],
+      "reached_zero_chunks": [],
+      "unreachable": [
+        "memory"
+      ],
+      "all_unreachable": false
+    },
+    "preview_info": null,
+    "inline_kb_dir": "C:\\dev\\hd-instrument\\data\\exp_kb_partition_by_source_class_v4_calibrated\\_inline_kb",
+    "arms": [
+      {
+        "arm": "ARM_SINGLE_W_BASELINE",
+        "ok": true,
+        "tau_used": 0.15,
+        "n_queries": 28,
+        "n_resolved": 28,
+        "ratio_resolved": 1.0,
+        "elapsed_s": 0.49,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "resolved": true,
+            "confidence": 0.5234,
+            "n_top": 8
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "resolved": true,
+            "confidence": 0.3496,
+            "n_top": 8
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "resolved": true,
+            "confidence": 0.459,
+            "n_top": 8
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "resolved": true,
+            "confidence": 0.3701,
+            "n_top": 8
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "resolved": true,
+            "confidence": 0.3086,
+            "n_top": 8
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "resolved": true,
+            "confidence": 0.376,
+            "n_top": 8
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "resolved": true,
+            "confidence": 0.4189,
+            "n_top": 8
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "resolved": true,
+            "confidence": 0.3896,
+            "n_top": 8
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "resolved": true,
+            "confidence": 0.4385,
+            "n_top": 8
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "resolved": true,
+            "confidence": 0.3105,
+            "n_top": 8
+          }
+        ]
+      },
+      {
+        "arm": "ARM_PARTITIONED_W_EQUAL_CAPACITY",
+        "ok": true,
+        "tau_used": 0.15,
+        "n_queries": 28,
+        "n_resolved": 27,
+        "ratio_resolved": 0.9643,
+        "n_routed_correctly": 27,
+        "n_with_topk": 27,
+        "routing_accuracy": 1.0,
+        "cross_partition_leak_rate": 0.0,
+        "n_capacity_regression": 1,
+        "elapsed_s": 0.799,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "expected_classes": [
+              "chunk_note",
+              "chunk_prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "expected_classes": [
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "expected_classes": [
+              "chunk_note",
+              "chunk_memory"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "expected_classes": [
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "expected_classes": [
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "expected_classes": [
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "expected_classes": [
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "expected_classes": [
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "expected_classes": [
+              "chunk_prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_prereg"
+            ]
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "expected_classes": [
+              "chunk_prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_prereg"
+            ]
+          },
+          {
+            "q": "language trio ingest pre reg",
+            "expected_classes": [
+              "chunk_prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_prereg"
+            ]
+          },
+          {
+            "q": "USER directive no busy work",
+            "expected_classes": [
+              "chunk_memory",
+              "chunk_note",
+              "chunk_prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "USER directive monitor armed",
+            "expected_classes": [
+              "chunk_memory",
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "memory curator skill dispatch",
+            "expected_classes": [
+              "chunk_memory",
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          },
+          {
+            "q": "fleet waiting on shared file",
+            "expected_classes": [
+              "chunk_memory",
+              "chunk_note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_correct": true,
+            "top1_classes": [
+              "chunk_note"
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "ARM_PARTITIONED_W_MEMORY_OVERSIZED",
+        "ok": true,
+        "tau_used": 0.15,
+        "n_user_directive_total": 14,
+        "n_user_directive_resolved": 13,
+        "user_directive_retention": 0.9286,
+        "n_non_ud_total": 14,
+        "n_non_ud_resolved": 14,
+        "non_ud_resolved_ratio": 1.0,
+        "ud_floor_applied": 0.9,
+        "memory_k": 32,
+        "default_k": 8,
+        "elapsed_s": 0.803,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.5234
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3496
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "is_ud": true,
+            "k": 32,
+            "resolved": true,
+            "n_top": 32,
+            "confidence": 0.459
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3701
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.2822
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3066
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.4189
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3896
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3584
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.2227
+          },
+          {
+            "q": "language trio ingest pre reg",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.166
+          },
+          {
+            "q": "USER directive no busy work",
+            "is_ud": true,
+            "k": 32,
+            "resolved": true,
+            "n_top": 32,
+            "confidence": 0.3223
+          },
+          {
+            "q": "USER directive monitor armed",
+            "is_ud": true,
+            "k": 32,
+            "resolved": true,
+            "n_top": 32,
+            "confidence": 0.3115
+          },
+          {
+            "q": "memory curator skill dispatch",
+            "is_ud": true,
+            "k": 32,
+            "resolved": true,
+            "n_top": 32,
+            "confidence": 0.291
+          },
+          {
+            "q": "fleet waiting on shared file",
+            "is_ud": true,
+            "k": 32,
+            "resolved": true,
+            "n_top": 32,
+            "confidence": 0.4434
+          }
+        ]
+      },
+      {
+        "arm": "ARM_DIAG_RANK_BASED_GATE",
+        "ok": true,
+        "diagnostic_only": true,
+        "n_queries": 28,
+        "n_resolved_rankgated": 28,
+        "ratio_resolved_rankgated": 1.0,
+        "topn_for_sigma": 50,
+        "sigma_mult": 1.0,
+        "elapsed_s": 0.409,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "top1": 0.5234,
+            "noise_mean": 0.2901,
+            "noise_sigma": 0.042,
+            "threshold_rank": 0.3321,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "top1": 0.3496,
+            "noise_mean": 0.2322,
+            "noise_sigma": 0.0356,
+            "threshold_rank": 0.2679,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "top1": 0.459,
+            "noise_mean": 0.1674,
+            "noise_sigma": 0.0184,
+            "threshold_rank": 0.1858,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "top1": 0.3701,
+            "noise_mean": 0.196,
+            "noise_sigma": 0.0268,
+            "threshold_rank": 0.2228,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "top1": 0.3086,
+            "noise_mean": 0.1938,
+            "noise_sigma": 0.0306,
+            "threshold_rank": 0.2244,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "top1": 0.376,
+            "noise_mean": 0.2249,
+            "noise_sigma": 0.0331,
+            "threshold_rank": 0.258,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "top1": 0.4189,
+            "noise_mean": 0.2173,
+            "noise_sigma": 0.0424,
+            "threshold_rank": 0.2597,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "top1": 0.3896,
+            "noise_mean": 0.1632,
+            "noise_sigma": 0.0241,
+            "threshold_rank": 0.1873,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "top1": 0.4385,
+            "noise_mean": 0.2809,
+            "noise_sigma": 0.0292,
+            "threshold_rank": 0.3101,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "top1": 0.3105,
+            "noise_mean": 0.1674,
+            "noise_sigma": 0.0166,
+            "threshold_rank": 0.1839,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "language trio ingest pre reg",
+            "top1": 0.21,
+            "noise_mean": 0.1823,
+            "noise_sigma": 0.014,
+            "threshold_rank": 0.1962,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "USER directive no busy work",
+            "top1": 0.3223,
+            "noise_mean": 0.1899,
+            "noise_sigma": 0.0203,
+            "threshold_rank": 0.2102,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "USER directive monitor armed",
+            "top1": 0.3115,
+            "noise_mean": 0.2105,
+            "noise_sigma": 0.0271,
+            "threshold_rank": 0.2375,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "memory curator skill dispatch",
+            "top1": 0.291,
+            "noise_mean": 0.2064,
+            "noise_sigma": 0.023,
+            "threshold_rank": 0.2294,
+            "resolved_rankgated": true
+          },
+          {
+            "q": "fleet waiting on shared file",
+            "top1": 0.4434,
+            "noise_mean": 0.1759,
+            "noise_sigma": 0.0159,
+            "threshold_rank": 0.1918,
+            "resolved_rankgated": true
+          }
+        ]
+      },
+      {
+        "arm": "ARM_DIAG_COSINE_DIST_DUMP",
+        "ok": true,
+        "diagnostic_only": true,
+        "n_queries": 28,
+        "aggregate_top1_mean": 0.3473,
+        "aggregate_top1_min": 0.166,
+        "aggregate_top1_max": 0.5234,
+        "aggregate_topk_mean": 0.2719,
+        "dump_path": "C:\\dev\\hd-instrument\\data\\exp_kb_partition_by_source_class_v4_calibrated\\cosine_distribution.json",
+        "elapsed_s": 0.697
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "all_arms_ok; routing_acc=1.0000 >= 0.95; leak=0.0000 < 0.05; ratio_resolved=0.9643 >= 0.8; ud_ret=0.9286 >= floor=0.9000 (non_ud=1.0000); baseline_resolved=1.0; diag_n_capacity_regression=1; tau_used=0.15",
+    "elapsed_s": 78.27,
+    "v4_calibrated_bands": {
+      "routing_hp_floor": 0.95,
+      "leak_hp_ceil": 0.05,
+      "ratio_resolved_floor": 0.8,
+      "routing_mb_floor": 0.9,
+      "ud_relative_gap": 0.1,
+      "ud_abs_floor": 0.7,
+      "default_tau": 0.15,
+      "self_contained_max_files_full": 800,
+      "self_contained_max_files_smoke": 50,
+      "full_n_preview_baseline_hf_floor": 0.4
+    },
+    "chunk_classes_ingested": [
+      "note",
+      "memory",
+      "prereg"
+    ],
+    "v4_fixes_applied": [
+      "FIX_A_tau_0.15",
+      "FIX_B_cardinality_gate",
+      "FIX_C_max_files_800",
+      "FIX_D_pass_schema_version_to_query",
+      "DIAG_RANK_BASED_GATE",
+      "DIAG_COSINE_DIST_DUMP",
+      "D1_FULL_N_PREVIEW_in_smoke"
+    ]
+  }
+}

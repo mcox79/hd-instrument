@@ -1,0 +1,402 @@
+{
+  "verdict": "EXTENDED_LADDER_FIT_CLIMBING_UNDER_BUDGET",
+  "verdict_msg": "FIT STILL CLIMBING but NOT fired: best oracle_direct h@10=0.526 at E3_kcap_ep300 (< 0.90); the highest-escalation rung is the best and improved >= 0.03 on the prior, so capacity is still buying direct-readout accuracy. Core is dense (avgdeg=39.7). ONE more capacity rung MAY be warranted but this is a STRATEGY call, not an auto keep-cranking -- do NOT silently escalate capacity forever; flag the trajectory to strategy (epochs/k vs representation-change).",
+  "summary": "FIT STILL CLIMBING but NOT fired: best oracle_direct h@10=0.526 at E3_kcap_ep300 (< 0.90); the highest-escalation rung is the best and improved >= 0.03 on the prior, so capacity is still buying direct",
+  "run_mode": "full",
+  "elapsed_s": 13089.018714100006,
+  "anchor_name": "course_c_strengthened_fit_recipe_extended_ladder_v1",
+  "ts_iso": "2026-07-12T01:29:49.828940+00:00",
+  "device": "cpu",
+  "seed": 7,
+  "N": 25752,
+  "n_rel": 29,
+  "oracle_fire_threshold": 0.9,
+  "cskg_provenance": {
+    "n_xcut_edges_streamed": 1244862,
+    "k_core": 12,
+    "n_core_nodes": 25752,
+    "n_core_edges": 511164,
+    "n_core_nodes_in_split": 25752,
+    "core_avgdeg": 39.69897483690587,
+    "n_train": 460048,
+    "n_valid": 25558,
+    "n_test": 25558,
+    "n_rel_tokens": 29
+  },
+  "core_avgdeg": 39.69897483690587,
+  "core_dense": true,
+  "deg_tertile_bounds": [
+    66.33333333333331,
+    271.0
+  ],
+  "ladder": [
+    {
+      "label": "E0_repro_L5",
+      "fit_kind": "anchor1",
+      "k": 32,
+      "fpe_dim": 8192,
+      "epochs": 150,
+      "lr": 0.05,
+      "n_neg": 64,
+      "batch": 8192,
+      "oracle_direct_h10": 0.418,
+      "oracle_direct_h1": 0.08,
+      "oracle_direct_mrr": 0.1859,
+      "oracle_direct_strat": {
+        "low": {
+          "hits": 0.3293,
+          "n": 167
+        },
+        "mid": {
+          "hits": 0.3653,
+          "n": 167
+        },
+        "high": {
+          "hits": 0.5602,
+          "n": 166
+        }
+      },
+      "oracle_fpe_h10": 0.0,
+      "oracle_fpe_h1": 0.0,
+      "oracle_fpe_mrr": 0.0002,
+      "oracle_fpe_medht_h10": 0.418,
+      "oracle_fpe_medht_mrr": 0.1846,
+      "ell_prereg": 0.55,
+      "ell_medht": 7.8774,
+      "fpe_prereg_health": {
+        "finite": true,
+        "std": 0.00781412,
+        "rng": 0.08350062
+      },
+      "fpe_medht_health": {
+        "finite": true,
+        "std": 0.06842643,
+        "rng": 0.66801494
+      },
+      "fires_direct": false,
+      "fires_fpe": false,
+      "fires_fpe_medht": false,
+      "within_budget": true,
+      "elapsed_s": 1316.8
+    },
+    {
+      "label": "E1_ep450_hiLR",
+      "fit_kind": "anchor1",
+      "k": 32,
+      "fpe_dim": 8192,
+      "epochs": 450,
+      "lr": 0.05,
+      "n_neg": 64,
+      "batch": 8192,
+      "oracle_direct_h10": 0.424,
+      "oracle_direct_h1": 0.064,
+      "oracle_direct_mrr": 0.1709,
+      "oracle_direct_strat": {
+        "low": {
+          "hits": 0.3174,
+          "n": 167
+        },
+        "mid": {
+          "hits": 0.4072,
+          "n": 167
+        },
+        "high": {
+          "hits": 0.5482,
+          "n": 166
+        }
+      },
+      "oracle_fpe_h10": 0.0,
+      "oracle_fpe_h1": 0.0,
+      "oracle_fpe_mrr": 0.0003,
+      "oracle_fpe_medht_h10": 0.43,
+      "oracle_fpe_medht_mrr": 0.17,
+      "ell_prereg": 0.55,
+      "ell_medht": 7.8689,
+      "fpe_prereg_health": {
+        "finite": true,
+        "std": 0.00781289,
+        "rng": 0.08533667
+      },
+      "fpe_medht_health": {
+        "finite": true,
+        "std": 0.06842037,
+        "rng": 0.65930468
+      },
+      "fires_direct": false,
+      "fires_fpe": false,
+      "fires_fpe_medht": false,
+      "within_budget": true,
+      "elapsed_s": 3932.2
+    },
+    {
+      "label": "E2_lrfix_ep450",
+      "fit_kind": "anchor1",
+      "k": 32,
+      "fpe_dim": 8192,
+      "epochs": 450,
+      "lr": 0.005,
+      "n_neg": 64,
+      "batch": 8192,
+      "oracle_direct_h10": 0.412,
+      "oracle_direct_h1": 0.072,
+      "oracle_direct_mrr": 0.1866,
+      "oracle_direct_strat": {
+        "low": {
+          "hits": 0.3353,
+          "n": 167
+        },
+        "mid": {
+          "hits": 0.3832,
+          "n": 167
+        },
+        "high": {
+          "hits": 0.5181,
+          "n": 166
+        }
+      },
+      "oracle_fpe_h10": 0.002,
+      "oracle_fpe_h1": 0.0,
+      "oracle_fpe_mrr": 0.0005,
+      "oracle_fpe_medht_h10": 0.412,
+      "oracle_fpe_medht_mrr": 0.1863,
+      "ell_prereg": 0.55,
+      "ell_medht": 7.8845,
+      "fpe_prereg_health": {
+        "finite": true,
+        "std": 0.00781581,
+        "rng": 0.08229464
+      },
+      "fpe_medht_health": {
+        "finite": true,
+        "std": 0.06714533,
+        "rng": 0.64791238
+      },
+      "fires_direct": false,
+      "fires_fpe": false,
+      "fires_fpe_medht": false,
+      "within_budget": true,
+      "elapsed_s": 4080.5
+    },
+    {
+      "label": "E3_kcap_ep300",
+      "fit_kind": "anchor1",
+      "k": 48,
+      "fpe_dim": 8192,
+      "epochs": 300,
+      "lr": 0.005,
+      "n_neg": 64,
+      "batch": 8192,
+      "oracle_direct_h10": 0.526,
+      "oracle_direct_h1": 0.074,
+      "oracle_direct_mrr": 0.2204,
+      "oracle_direct_strat": {
+        "low": {
+          "hits": 0.4311,
+          "n": 167
+        },
+        "mid": {
+          "hits": 0.503,
+          "n": 167
+        },
+        "high": {
+          "hits": 0.6446,
+          "n": 166
+        }
+      },
+      "oracle_fpe_h10": 0.002,
+      "oracle_fpe_h1": 0.0,
+      "oracle_fpe_mrr": 0.0013,
+      "oracle_fpe_medht_h10": 0.526,
+      "oracle_fpe_medht_mrr": 0.2134,
+      "ell_prereg": 0.55,
+      "ell_medht": 9.6597,
+      "fpe_prereg_health": {
+        "finite": true,
+        "std": 0.00781152,
+        "rng": 0.08562637
+      },
+      "fpe_medht_health": {
+        "finite": true,
+        "std": 0.06027433,
+        "rng": 0.64609897
+      },
+      "fires_direct": false,
+      "fires_fpe": false,
+      "fires_fpe_medht": false,
+      "within_budget": true,
+      "elapsed_s": 3742.4
+    }
+  ],
+  "fpe_diagnosis": "FPE_BANDWIDTH_BUG_CONFIRMED",
+  "lever_attribution": {
+    "fit_escalation_direct_gain": 0.108,
+    "readout_fix_fpe_gain": 0.524,
+    "best_direct": 0.526,
+    "best_fpe_prereg": 0.002,
+    "best_fpe_medht": 0.526,
+    "ell_prereg": 0.55,
+    "ell_medht_best_rung": 9.6597
+  },
+  "random_control": {
+    "oracle_direct_h10": 0.0,
+    "oracle_direct_mrr": 0.0003,
+    "max_allowed": 0.05,
+    "control_ok": true
+  },
+  "gate_d": {
+    "l5_direct_ref": 0.424,
+    "e0_direct": 0.418,
+    "tol": 0.1,
+    "gate_d_ok": true
+  },
+  "firing_config": null,
+  "best_config": {
+    "label": "E3_kcap_ep300",
+    "fit_kind": "anchor1",
+    "k": 48,
+    "fpe_dim": 8192,
+    "epochs": 300,
+    "lr": 0.005,
+    "n_neg": 64,
+    "batch": 8192,
+    "oracle_direct_h10": 0.526,
+    "oracle_direct_h1": 0.074,
+    "oracle_direct_mrr": 0.2204,
+    "oracle_direct_strat": {
+      "low": {
+        "hits": 0.4311,
+        "n": 167
+      },
+      "mid": {
+        "hits": 0.503,
+        "n": 167
+      },
+      "high": {
+        "hits": 0.6446,
+        "n": 166
+      }
+    },
+    "oracle_fpe_h10": 0.002,
+    "oracle_fpe_h1": 0.0,
+    "oracle_fpe_mrr": 0.0013,
+    "oracle_fpe_medht_h10": 0.526,
+    "oracle_fpe_medht_mrr": 0.2134,
+    "ell_prereg": 0.55,
+    "ell_medht": 9.6597,
+    "fpe_prereg_health": {
+      "finite": true,
+      "std": 0.00781152,
+      "rng": 0.08562637
+    },
+    "fpe_medht_health": {
+      "finite": true,
+      "std": 0.06027433,
+      "rng": 0.64609897
+    },
+    "fires_direct": false,
+    "fires_fpe": false,
+    "fires_fpe_medht": false,
+    "within_budget": true,
+    "elapsed_s": 3742.4
+  },
+  "best_fpe_config": {
+    "label": "E2_lrfix_ep450",
+    "fit_kind": "anchor1",
+    "k": 32,
+    "fpe_dim": 8192,
+    "epochs": 450,
+    "lr": 0.005,
+    "n_neg": 64,
+    "batch": 8192,
+    "oracle_direct_h10": 0.412,
+    "oracle_direct_h1": 0.072,
+    "oracle_direct_mrr": 0.1866,
+    "oracle_direct_strat": {
+      "low": {
+        "hits": 0.3353,
+        "n": 167
+      },
+      "mid": {
+        "hits": 0.3832,
+        "n": 167
+      },
+      "high": {
+        "hits": 0.5181,
+        "n": 166
+      }
+    },
+    "oracle_fpe_h10": 0.002,
+    "oracle_fpe_h1": 0.0,
+    "oracle_fpe_mrr": 0.0005,
+    "oracle_fpe_medht_h10": 0.412,
+    "oracle_fpe_medht_mrr": 0.1863,
+    "ell_prereg": 0.55,
+    "ell_medht": 7.8845,
+    "fpe_prereg_health": {
+      "finite": true,
+      "std": 0.00781581,
+      "rng": 0.08229464
+    },
+    "fpe_medht_health": {
+      "finite": true,
+      "std": 0.06714533,
+      "rng": 0.64791238
+    },
+    "fires_direct": false,
+    "fires_fpe": false,
+    "fires_fpe_medht": false,
+    "within_budget": true,
+    "elapsed_s": 4080.5
+  },
+  "best_fpe_medht_config": {
+    "label": "E3_kcap_ep300",
+    "fit_kind": "anchor1",
+    "k": 48,
+    "fpe_dim": 8192,
+    "epochs": 300,
+    "lr": 0.005,
+    "n_neg": 64,
+    "batch": 8192,
+    "oracle_direct_h10": 0.526,
+    "oracle_direct_h1": 0.074,
+    "oracle_direct_mrr": 0.2204,
+    "oracle_direct_strat": {
+      "low": {
+        "hits": 0.4311,
+        "n": 167
+      },
+      "mid": {
+        "hits": 0.503,
+        "n": 167
+      },
+      "high": {
+        "hits": 0.6446,
+        "n": 166
+      }
+    },
+    "oracle_fpe_h10": 0.002,
+    "oracle_fpe_h1": 0.0,
+    "oracle_fpe_mrr": 0.0013,
+    "oracle_fpe_medht_h10": 0.526,
+    "oracle_fpe_medht_mrr": 0.2134,
+    "ell_prereg": 0.55,
+    "ell_medht": 9.6597,
+    "fpe_prereg_health": {
+      "finite": true,
+      "std": 0.00781152,
+      "rng": 0.08562637
+    },
+    "fpe_medht_health": {
+      "finite": true,
+      "std": 0.06027433,
+      "rng": 0.64609897
+    },
+    "fires_direct": false,
+    "fires_fpe": false,
+    "fires_fpe_medht": false,
+    "within_budget": true,
+    "elapsed_s": 3742.4
+  },
+  "climbing": true,
+  "per_rung_budget_s": 5317.2
+}

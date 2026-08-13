@@ -1,0 +1,355 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | extract=1.000 (oracle=1.000, random=0.000) | foundation_prec FULL=1.000 vs NO_GATE=0.913 | true_recall=0.952 | accept_false_rate=0.000 | accept_true_rate=0.950 | query_acc=1.000 | novel_owl=True hold_release=True | weakest_interface=['none (all interfaces at/above target)']",
+  "summary": "HARD_PASS | extract=1.000 (oracle=1.000, random=0.000) | foundation_prec FULL=1.000 vs NO_GATE=0.913 | true_recall=0.952 | accept_false_rate=0.000 | accept_true_rate=0.950 | query_acc=1.000 | novel_owl=True hold_release=True | weakest_interface=['none (all interfaces at/above target)']",
+  "run_mode": "smoke",
+  "elapsed_s": 0.5872424999834038,
+  "anchor_name": "read_grow_foundation_endtoend_v1",
+  "ts_iso": "2026-07-17T01:41:23.853109+00:00",
+  "seeds": [
+    11,
+    23
+  ],
+  "n_read_sentences": 23,
+  "expected_n_units": 8,
+  "weakest_interface": [
+    "none (all interfaces at/above target)"
+  ],
+  "arms": {
+    "FULL_LOOP": {
+      "mapping_acc": 1.0,
+      "extraction_acc": 1.0,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9523809523809523,
+      "accept_false_rate": 0.0,
+      "accept_true_rate": 0.95,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "n_accepted": 20.0,
+      "n_false_in_store": 0.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true
+    },
+    "NO_GATE": {
+      "mapping_acc": 1.0,
+      "extraction_acc": 1.0,
+      "foundation_precision": 0.9130434782608695,
+      "true_recall": 1.0,
+      "accept_false_rate": 1.0,
+      "accept_true_rate": 1.0,
+      "query_acc": 0.9210526315789473,
+      "store_roundtrip_acc": 0.8809523809523809,
+      "n_accepted": 23.0,
+      "n_false_in_store": 2.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true
+    },
+    "ORACLE_LEXICON": {
+      "mapping_acc": 1.0,
+      "extraction_acc": 1.0,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9523809523809523,
+      "accept_false_rate": 0.0,
+      "accept_true_rate": 0.95,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "n_accepted": 20.0,
+      "n_false_in_store": 0.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true
+    },
+    "RANDOM_LEXICON": {
+      "mapping_acc": 0.022727272727272728,
+      "extraction_acc": 0.0,
+      "foundation_precision": 0.0,
+      "true_recall": 0.0,
+      "accept_false_rate": 0.0,
+      "accept_true_rate": 0.0,
+      "query_acc": 0.0,
+      "store_roundtrip_acc": 0.0,
+      "n_accepted": 1.0,
+      "n_false_in_store": 0.0,
+      "novel_owl_ok": false,
+      "novel_owl_place_ok": false,
+      "hold_release_ok": false,
+      "kitten_query_ok": false
+    }
+  },
+  "metric_a_extraction_acc": 1.0,
+  "metric_b_foundation_precision": 1.0,
+  "metric_b_true_recall": 0.9523809523809523,
+  "metric_c_query_acc": 1.0,
+  "metric_d_accept_true_rate": 0.95,
+  "metric_d_accept_false_rate": 0.0,
+  "gate_vs_accept_all_precision_gain": 0.08695652173913049,
+  "full_loop_per_seed": [
+    {
+      "seed": 11,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "extraction_acc": 1.0,
+      "n_sentences": 23,
+      "n_accepted": 20,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9523809523809523,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.95,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "d35610da9a7f37caa86f86d40f7158bdf817b574666f76fb11e7e404d334750e",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    },
+    {
+      "seed": 23,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "extraction_acc": 1.0,
+      "n_sentences": 23,
+      "n_accepted": 20,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9523809523809523,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.95,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "d35610da9a7f37caa86f86d40f7158bdf817b574666f76fb11e7e404d334750e",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    }
+  ],
+  "prereg": {
+    "hard_pass": "extract>=0.90 & FULL prec==1.0 & recall>=0.90 & accept_false_rate==0 & accept_true_rate>=0.85 & (FULL-NOGATE prec)>=0.05 & novel_owl & hold_release & query>=0.85",
+    "hard_fail": "extract<0.50 | accept_false_rate==1.0 | accept_true_rate<0.50 | FULL prec<0.70 | query<0.50",
+    "compute_architecture": "sequential-CPU (genuine sequential dependency: foundation grows fact-by-fact)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "learn_lexicon",
+      "encode_meaning",
+      "decode_meaning",
+      "make_phasors",
+      "run_loop"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "VacuousSmokeError: VACUOUS SMOKE: negative/frontier control 'semantic_on_planted_random_words' PASSED the 'M5>=0.75' gate at run_mode=self_test -- the discriminator does not fire at this V/N (the arm that MUST fail passed). The smoke tests NOTHING; a green verdict is meaningless. Remedy: raise smoke V (and/or N) until the control fails, or route the smoke remote if it cannot be both fast and discriminating. node2vec M5=0.945 should pass while semantic M5=0.953 must fail",
+  "summary": "CELL_CRASHED: VacuousSmokeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_structure_aware_sharpness_v1_core.py\", line 731, in main\n    return run_self_test(device_arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_structure_aware_sharpness_v1_core.py\", line 597, in run_self_test\n    assert_discriminator_fires(bool(m5_sem >= 0.75),\n  File \"D:\\AI\\hd-instrument\\experiments\\_seed_checkpoint.py\", line 774, in assert_discriminator_fires\n    raise VacuousSmokeError(\nexperiments._seed_checkpoint.VacuousSmokeError: VACUOUS SMOKE: negative/frontier control 'semantic_on_planted_random_words' PASSED the 'M5>=0.75' gate at run_mode=self_test -- the discriminator does not fire at this V/N (the arm that MUST fail passed). The smoke tests NOTHING; a green verdict is meaningless. Remedy: raise smoke V (and/or N) until the control fails, or route the smoke remote if it cannot be both fast and discriminating. node2vec M5=0.945 should pass while semantic M5=0.953 must fail\n",
+  "ts_iso": "2026-07-10T00:45:50.239599+00:00",
+  "pid": 9992,
+  "anchor_name": "exp_encoder_structure_aware_sharpness_v1"
+}

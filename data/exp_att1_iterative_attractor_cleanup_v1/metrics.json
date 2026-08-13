@@ -1,0 +1,391 @@
+{
+  "anchor_name": "att1_iterative_attractor_cleanup_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: iterative-attractor partial mechanism; best_att1_lift=0.005 at NOISE_HARDER (0.03 <= lift < 0.10 OR basin_ratio < 2x OR cv > 0.10); MEASURED_MECHANISM; characterize but do NOT swap-in to revival cells yet. DISCRIMINATOR @ NOISE_HARDER=2.00: argmax=0.002 | best_att1=ATT1_HIGH_TEMP recall=0.007 lift=0.005 cv=0.935 | basin@2.00 argmax=0.007 best_att1=0.007 (ratio=1.00x) | conv=1.00",
+  "run_mode": "full",
+  "N_DIM": 4096,
+  "M": 1000,
+  "N_EVAL": 200,
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARGMAX_BASELINE": {
+        "recall_gentle_mean": 0.1283,
+        "recall_gentle_std": 0.0262,
+        "recall_harder_mean": 0.0017,
+        "recall_harder_std": 0.0024,
+        "recall_harder_cv": 1.4142,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.1533,
+          "1.0": 0.0067,
+          "1.5": 0.0067,
+          "2.0": 0.0067,
+          "2.5": 0.0,
+          "3.0": 0.0
+        }
+      },
+      "ATT1_SOFTATTRACTOR": {
+        "recall_gentle_mean": 0.1317,
+        "recall_gentle_std": 0.0193,
+        "recall_harder_mean": 0.0033,
+        "recall_harder_std": 0.0024,
+        "recall_harder_cv": 0.7071,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 3.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.14,
+          "1.0": 0.0067,
+          "1.5": 0.0067,
+          "2.0": 0.0133,
+          "2.5": 0.0067,
+          "3.0": 0.0
+        }
+      },
+      "ATT1_LOW_TEMP": {
+        "recall_gentle_mean": 0.105,
+        "recall_gentle_std": 0.0122,
+        "recall_harder_mean": 0.0033,
+        "recall_harder_std": 0.0024,
+        "recall_harder_cv": 0.7071,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 3.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.1133,
+          "1.0": 0.02,
+          "1.5": 0.0,
+          "2.0": 0.0067,
+          "2.5": 0.0,
+          "3.0": 0.0
+        }
+      },
+      "ATT1_HIGH_TEMP": {
+        "recall_gentle_mean": 0.1317,
+        "recall_gentle_std": 0.0131,
+        "recall_harder_mean": 0.0067,
+        "recall_harder_std": 0.0062,
+        "recall_harder_cv": 0.9354,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 3.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.12,
+          "1.0": 0.0133,
+          "1.5": 0.0,
+          "2.0": 0.0067,
+          "2.5": 0.0,
+          "3.0": 0.0133
+        }
+      }
+    },
+    "argmax_recall_harder": 0.0017,
+    "argmax_basin_at_discriminator_sigma": 0.0067,
+    "discriminator_sigma": 2.0,
+    "best_att1_arm": "ATT1_HIGH_TEMP",
+    "best_att1_recall_harder": 0.0067,
+    "best_att1_lift_over_argmax": 0.005,
+    "best_att1_cv": 0.9354,
+    "best_att1_basin_at_discriminator_sigma": 0.0067,
+    "best_att1_frac_converged": 1.0,
+    "basin_ratio_best_att1_over_argmax": 1.0,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "att1_iterative_attractor_v1; N_DIM=4096 M=1000 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0] arms=[('ARGMAX_BASELINE', 'argmax', None, 1), ('ATT1_SOFTATTRACTOR', 'iterative', 4.0, 8), ('ATT1_LOW_TEMP', 'iterative', 2.0, 8), ('ATT1_HIGH_TEMP', 'iterative', 16.0, 8)] noise_gentle=0.500 noise_harder=2.000 tol=0.0010 seeds=[7, 17, 23] mode=full",
+    "honest_scope": "HD-substrate-native attractor cleanup; N_DIM=4096, M=1000, 4 arms x 2 noise regimes x 3 seeds; cleanup-only test (no encoder)",
+    "cites": [
+      "hdlab.iterative_attractor (NEW primitive 2026-06-22)",
+      "research_brain_mechanism_x_HD_broad_exploration_drill_2026-06-22",
+      "Saxena_Bartlett_2024_arXiv_2212.01196_VSA_FSM_attractor",
+      "Ramsauer_2021_ICLR_Modern_Hopfield",
+      "Krotov_Hopfield_2016_NeurIPS_dense_associative_memory"
+    ]
+  },
+  "metrics_source": "measured_cpu_att1_iterative_attractor_cleanup_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "temp": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.115,
+          "recall_at_1_noise_harder": 0.0,
+          "mean_iterations_gentle": 1.0,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.16,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.27
+        },
+        "ATT1_SOFTATTRACTOR": {
+          "mode": "iterative",
+          "temp": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.14,
+          "recall_at_1_noise_harder": 0.005,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.12,
+            "1.0": 0.02,
+            "1.5": 0.02,
+            "2.0": 0.02,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.6
+        },
+        "ATT1_LOW_TEMP": {
+          "mode": "iterative",
+          "temp": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.12,
+          "recall_at_1_noise_harder": 0.0,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.14,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 1.37
+        },
+        "ATT1_HIGH_TEMP": {
+          "mode": "iterative",
+          "temp": 16.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.12,
+          "recall_at_1_noise_harder": 0.005,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.1,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.0,
+            "3.0": 0.04
+          },
+          "wall_s": 0.69
+        }
+      },
+      "N_DIM": 4096,
+      "M": 1000,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "att1_iterative_attractor_v1; N_DIM=4096 M=1000 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0] arms=[('ARGMAX_BASELINE', 'argmax', None, 1), ('ATT1_SOFTATTRACTOR', 'iterative', 4.0, 8), ('ATT1_LOW_TEMP', 'iterative', 2.0, 8), ('ATT1_HIGH_TEMP', 'iterative', 16.0, 8)] noise_gentle=0.500 noise_harder=2.000 tol=0.0010 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782219151.4787364
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "temp": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.105,
+          "recall_at_1_noise_harder": 0.005,
+          "mean_iterations_gentle": 1.0,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.1,
+            "1.0": 0.0,
+            "1.5": 0.02,
+            "2.0": 0.02,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.26
+        },
+        "ATT1_SOFTATTRACTOR": {
+          "mode": "iterative",
+          "temp": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.105,
+          "recall_at_1_noise_harder": 0.0,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.1,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.02,
+            "3.0": 0.0
+          },
+          "wall_s": 0.59
+        },
+        "ATT1_LOW_TEMP": {
+          "mode": "iterative",
+          "temp": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.105,
+          "recall_at_1_noise_harder": 0.005,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.08,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.02,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 1.4
+        },
+        "ATT1_HIGH_TEMP": {
+          "mode": "iterative",
+          "temp": 16.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.15,
+          "recall_at_1_noise_harder": 0.0,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.1,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.69
+        }
+      },
+      "N_DIM": 4096,
+      "M": 1000,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "att1_iterative_attractor_v1; N_DIM=4096 M=1000 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0] arms=[('ARGMAX_BASELINE', 'argmax', None, 1), ('ATT1_SOFTATTRACTOR', 'iterative', 4.0, 8), ('ATT1_LOW_TEMP', 'iterative', 2.0, 8), ('ATT1_HIGH_TEMP', 'iterative', 16.0, 8)] noise_gentle=0.500 noise_harder=2.000 tol=0.0010 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782219154.4887528
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "temp": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.165,
+          "recall_at_1_noise_harder": 0.0,
+          "mean_iterations_gentle": 1.0,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.2,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.29
+        },
+        "ATT1_SOFTATTRACTOR": {
+          "mode": "iterative",
+          "temp": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.15,
+          "recall_at_1_noise_harder": 0.005,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.2,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.02,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.74
+        },
+        "ATT1_LOW_TEMP": {
+          "mode": "iterative",
+          "temp": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.09,
+          "recall_at_1_noise_harder": 0.005,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.12,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.0,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 1.54
+        },
+        "ATT1_HIGH_TEMP": {
+          "mode": "iterative",
+          "temp": 16.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.125,
+          "recall_at_1_noise_harder": 0.015,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.16,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.02,
+            "2.5": 0.0,
+            "3.0": 0.0
+          },
+          "wall_s": 0.93
+        }
+      },
+      "N_DIM": 4096,
+      "M": 1000,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "att1_iterative_attractor_v1; N_DIM=4096 M=1000 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0] arms=[('ARGMAX_BASELINE', 'argmax', None, 1), ('ATT1_SOFTATTRACTOR', 'iterative', 4.0, 8), ('ATT1_LOW_TEMP', 'iterative', 2.0, 8), ('ATT1_HIGH_TEMP', 'iterative', 16.0, 8)] noise_gentle=0.500 noise_harder=2.000 tol=0.0010 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782219158.0754812
+    }
+  ],
+  "elapsed_s": 9.604074001312256,
+  "summary": "MIDDLE_BAND: iterative-attractor partial mechanism; best_att1_lift=0.005 at NOISE_HARDER (0.03 <= lift < 0.10 OR basin_ratio < 2x OR cv > 0.10); MEASURED_MECHANISM; characterize but do NOT swap-in to revival cells yet. DISCRIMINATOR @ NOISE_HARDER=2.00: argmax=0.002 | best_att1=ATT1_HIGH_TEMP recall=0.007 lift=0.005 cv=0.935 | basin@2.00 argmax=0.007 best_att1=0.007 (ratio=1.00x) | conv=1.00",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native cleanup; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": false
+}

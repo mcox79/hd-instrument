@@ -1,0 +1,103 @@
+{
+  "anchor": "c1_cls_replay_continual_ingest_v1",
+  "anchor_name": "c1_cls_replay_continual_ingest_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: replay delta 0.000 < HARD_FAIL bar 0.20. A05=1.000 B05=1.000 delta=0.000 C05=n/a D05=n/a | A03=n/a A15=n/a A01=n/a B01=n/a | cv_A=0.000 cv_B=0.000 | anchor03=True anchor15=True null=True rand_ok=True llm=0",
+  "n_seeds": 1,
+  "N": 1024,
+  "N_DIM": 1024,
+  "J_tasks": 3,
+  "alphas": [
+    0.5
+  ],
+  "arms": [
+    "NONE",
+    "ONLINE_1to1"
+  ],
+  "run_mode": "smoke",
+  "config_version": "c1-cls-replay-v1: J=3 N_DIM=1024 arms=NONE,ONLINE_1to1 alphas=[0.5]; bands HP=0.85 delta=0.40 noise=0.10 recall_steps=3 run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_keys",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_taskA": {
+      "NONE@a0.50": 1.0,
+      "ONLINE_1to1@a0.50": 1.0
+    },
+    "std_taskA": {
+      "NONE@a0.50": 0.0,
+      "ONLINE_1to1@a0.50": 0.0
+    },
+    "cv_taskA": {
+      "NONE@a0.50": 0.0,
+      "ONLINE_1to1@a0.50": 0.0
+    },
+    "mean_taskJ": {
+      "NONE@a0.50": 1.0,
+      "ONLINE_1to1@a0.50": 1.0
+    },
+    "mean_taskA_cosine": {
+      "NONE@a0.50": 0.7483099340594564,
+      "ONLINE_1to1@a0.50": 0.7218077544063356
+    },
+    "delta_B_minus_A_at_alpha05": 0.0,
+    "anchor_alpha_03_NONE_ok": true,
+    "anchor_alpha_15_NONE_ok": true,
+    "null_bracket_alpha_01_ok": true,
+    "random_replay_discriminator_ok": true,
+    "substrate_only_ok": true,
+    "cv_NONE_alpha05": 0.0,
+    "cv_ONLINE_alpha05": 0.0,
+    "zero_llm_calls_at_inference": true,
+    "honest_scope": "CLS replay rescue of continual learning on synthetic-bipolar (key, value) Hebbian-superposition at N_DIM=1024, J=3 tasks, alpha=[0.5]. Substrate-only-decode gate enforced (n_llm=0)."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "M": 171,
+      "run_mode": "smoke",
+      "config_version": "c1-cls-replay-v1: J=3 N_DIM=1024 arms=NONE,ONLINE_1to1 alphas=[0.5]; bands HP=0.85 delta=0.40 noise=0.10 recall_steps=3 run_mode=smoke",
+      "elapsed_s": 18.71113395690918,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782114065.1861641,
+      "per_unit": [
+        {
+          "arm": "NONE",
+          "alpha": 0.5,
+          "seed": 1,
+          "j_tasks": 3,
+          "m_per_task": 171,
+          "n_dim": 1024,
+          "task_A_recall": 1.0,
+          "task_J_recall": 1.0,
+          "task_A_cosine": 0.7483099340594564,
+          "task_J_cosine": 0.749120556672705,
+          "ingest_wall_s": 6.547925233840942,
+          "n_probe": 30,
+          "forgetting_curve": null
+        },
+        {
+          "arm": "ONLINE_1to1",
+          "alpha": 0.5,
+          "seed": 1,
+          "j_tasks": 3,
+          "m_per_task": 171,
+          "n_dim": 1024,
+          "task_A_recall": 1.0,
+          "task_J_recall": 1.0,
+          "task_A_cosine": 0.7218077544063356,
+          "task_J_cosine": 0.49074040425397414,
+          "ingest_wall_s": 11.909718751907349,
+          "n_probe": 30,
+          "forgetting_curve": null
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_cpu_synthetic_bipolar_cls_replay",
+  "elapsed_s": 19.128576040267944,
+  "summary": "HARD_FAIL: replay delta 0.000 < HARD_FAIL bar 0.20. A05=1.000 B05=1.000 delta=0.000 C05=n/a D05=n/a | A03=n/a A15=n/a A01=n/a B01=n/a | cv_A=0.000 cv_B=0.000 | anchor03=True anchor15=True null=True ra"
+}

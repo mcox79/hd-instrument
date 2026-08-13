@@ -1,0 +1,316 @@
+{
+  "verdict": "INCONCLUSIVE_GEOMETRY_READOUT_UNDERFIT",
+  "verdict_msg": "CSKG L2-genuine INCONCLUSIVE: transductive ORACLE did NOT fire (oracle=0.025 random=0.002, margin < 0.15) -> the FPE-kernel readout/coord-fit capacity is the bottleneck (under-fit), not a substrate-reasoning wall. geom_best=0.014 POP=0.275. Increase k / kge_epochs / fpe_dim.",
+  "summary": "CSKG L2-genuine INCONCLUSIVE: transductive ORACLE did NOT fire (oracle=0.025 random=0.002, margin < 0.15) -> the FPE-kernel readout/coord-fit capacity is the bottleneck (under-fit), not a substrate-re",
+  "run_mode": "smoke",
+  "elapsed_s": 21.63542010000674,
+  "anchor_name": "course_c_map_builder_cskg_l2_genuine_v1",
+  "ts_iso": "2026-07-11T04:59:45.668198+00:00",
+  "device": "cpu",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "seeds": [
+      7
+    ],
+    "k": 8,
+    "fpe_dim": 512,
+    "kge_epochs": 150,
+    "replay_passes": 25,
+    "cskg_max_lines": 800000,
+    "k_core": 3,
+    "cskg_max_nodes": 3000,
+    "min_support": 2,
+    "min_conf": 0.05,
+    "n_eval": 2000,
+    "min_heldout": 10
+  },
+  "gates": {
+    "reach_hits_at_k": {
+      "ONESHOT_ROTATE": 0.0138,
+      "REPLAY_CONSOLIDATED": 0.0115,
+      "BASELINE_POP": 0.2752,
+      "DISCRETE_BIND": 0.0,
+      "SCRAMBLE_REPLAY": 0.0229,
+      "RANDOM_CODES": 0.0023,
+      "ORACLE_TRANSDUCTIVE": 0.0252
+    },
+    "primary_k": 10,
+    "geom_best": 0.0138,
+    "geom_best_high": 0.0276,
+    "pop_high": 0.6621,
+    "strat": {
+      "ONESHOT_ROTATE": {
+        "low": 0.0067,
+        "mid": 0.0071,
+        "high": 0.0276
+      },
+      "REPLAY_CONSOLIDATED": {
+        "low": 0.0067,
+        "mid": 0.0071,
+        "high": 0.0207
+      },
+      "DISCRETE_BIND": {
+        "low": 0.0,
+        "mid": 0.0,
+        "high": 0.0
+      },
+      "BASELINE_POP": {
+        "low": 0.0533,
+        "mid": 0.1135,
+        "high": 0.6621
+      }
+    },
+    "g_agg": false,
+    "g_high": false,
+    "g_discrete": false,
+    "g_scramble": true,
+    "g_oracle": false,
+    "syn_comp_ok": true,
+    "syn_freq_ok": true,
+    "realizes": false,
+    "fails": true,
+    "g_consol_low": false,
+    "g_agg_no_regress": false,
+    "g_flat": true,
+    "flat_gap": 0.014,
+    "backdoor_r": null,
+    "g_backdoor": false,
+    "consolidation_helps": false,
+    "margin_vs_pop": -0.2614,
+    "margin_high_vs_pop": -0.6345
+  },
+  "mechanism_selftest": {
+    "grid": {
+      "ONESHOT_ROTATE": {
+        "hits@1": 0.7179,
+        "hits@10": 0.7436,
+        "mrr": 0.7416
+      },
+      "REPLAY_CONSOLIDATED": {
+        "hits@1": 0.359,
+        "hits@10": 0.5897,
+        "mrr": 0.4371
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@10": 0.0,
+        "mrr": 0.0406
+      },
+      "DISCRETE_BIND": {
+        "hits@1": 0.0513,
+        "hits@10": 0.2564,
+        "mrr": 0.1346
+      },
+      "SCRAMBLE_REPLAY": {
+        "hits@1": 0.0256,
+        "hits@10": 0.2308,
+        "mrr": 0.1288
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@10": 0.1282,
+        "mrr": 0.0669
+      },
+      "ORACLE_TRANSDUCTIVE": {
+        "hits@1": 1.0,
+        "hits@10": 1.0,
+        "mrr": 1.0
+      }
+    },
+    "grid_n_distinct_sigs": 7,
+    "grid_nhold": 39,
+    "grid_recovers": true,
+    "grid_beats_discrete": true,
+    "grid_beats_pop": true,
+    "grid_scramble_ok": true,
+    "grid_oracle_fires": true,
+    "geometry_fires": true,
+    "comp_l2_genuine": 150,
+    "freq_l2_genuine": 150,
+    "comp_oneshot": 0.2733,
+    "comp_replay": 0.0667,
+    "comp_discrete": 0.0333,
+    "comp_pop": 0.1733,
+    "comp_scramble": 0.0,
+    "comp_random": 0.02,
+    "freq_geo": 0.8133,
+    "freq_pop": 1.0,
+    "oneshot_beats_pop": true,
+    "oneshot_beats_discrete": true,
+    "scramble_not_beat": true,
+    "random_at_chance": true,
+    "no_manufacture": true,
+    "pop_fires_freq": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 7
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 7,
+      "N": 2894,
+      "n_rel": 19,
+      "n_train": 14839,
+      "n_test": 824,
+      "l2_genuine": {
+        "n_scanned": 824,
+        "n_reach_l2": 480,
+        "n_excl_l1i": 25,
+        "n_excl_l1f": 19,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 436
+      },
+      "tert_bounds": [
+        14.0,
+        59.0
+      ],
+      "strata_counts": {
+        "low": 150,
+        "mid": 141,
+        "high": 145
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.0046,
+          "hits@10": 0.0138,
+          "mrr": 0.0109
+        },
+        "REPLAY_CONSOLIDATED": {
+          "hits@1": 0.0069,
+          "hits@10": 0.0115,
+          "mrr": 0.0116
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0413,
+          "hits@10": 0.2752,
+          "mrr": 0.1129
+        },
+        "DISCRETE_BIND": {
+          "hits@1": 0.0,
+          "hits@10": 0.0,
+          "mrr": 0.0025
+        },
+        "SCRAMBLE_REPLAY": {
+          "hits@1": 0.0046,
+          "hits@10": 0.0229,
+          "mrr": 0.0137
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@10": 0.0023,
+          "mrr": 0.002
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits@1": 0.0046,
+          "hits@10": 0.0252,
+          "mrr": 0.0129
+        }
+      },
+      "arm_n": {
+        "ONESHOT_ROTATE": 436,
+        "REPLAY_CONSOLIDATED": 436,
+        "BASELINE_POP": 436,
+        "DISCRETE_BIND": 436,
+        "SCRAMBLE_REPLAY": 436,
+        "RANDOM_CODES": 436,
+        "ORACLE_TRANSDUCTIVE": 436
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "ad0e9f9f7157862c",
+        "REPLAY_CONSOLIDATED": "dbc6a4791f947ffe",
+        "SCRAMBLE_REPLAY": "a603fa8340f85ebb",
+        "RANDOM_CODES": "c0c2ba6b0dbf5fb7",
+        "ORACLE_TRANSDUCTIVE": "964c0e85e3cc0bf4",
+        "DISCRETE_BIND": "a2991b86f433875f",
+        "BASELINE_POP": "b67fcac7d0208fef"
+      },
+      "strat_hits": {
+        "ONESHOT_ROTATE": {
+          "low": {
+            "hits": 0.0067,
+            "n": 150
+          },
+          "mid": {
+            "hits": 0.0071,
+            "n": 141
+          },
+          "high": {
+            "hits": 0.0276,
+            "n": 145
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "low": {
+            "hits": 0.0067,
+            "n": 150
+          },
+          "mid": {
+            "hits": 0.0071,
+            "n": 141
+          },
+          "high": {
+            "hits": 0.0207,
+            "n": 145
+          }
+        },
+        "DISCRETE_BIND": {
+          "low": {
+            "hits": 0.0,
+            "n": 150
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 141
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 145
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.0533,
+            "n": 150
+          },
+          "mid": {
+            "hits": 0.1135,
+            "n": 141
+          },
+          "high": {
+            "hits": 0.6621,
+            "n": 145
+          }
+        }
+      },
+      "cross_channel_geom_vs_poprank_r": 0.0083,
+      "backdoor_coord_precision_vs_degree_r": null,
+      "replay_consolidation": {
+        "n_commit": 41,
+        "n_frozen": 19,
+        "n_rel": 19
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 107694,
+        "k_core": 3,
+        "n_core_nodes": 3000,
+        "n_core_edges": 16487,
+        "n_core_nodes_in_split": 2894,
+        "core_avgdeg": 11.393918451969592,
+        "n_train": 14839,
+        "n_valid": 824,
+        "n_test": 824,
+        "n_rel_tokens": 19
+      }
+    }
+  ],
+  "reference_vet": {
+    "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+    "l2_only_all": 0.276,
+    "l2_only_high": 0.226,
+    "pop_high": 0.412
+  }
+}

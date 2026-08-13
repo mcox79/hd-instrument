@@ -1,0 +1,318 @@
+{
+  "anchor_name": "cert_ledger_numeric_entailment_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "TIER-2 SELF-CHECK LOOP CLOSES: over 518 REAL (cited_value, op, cited_threshold) triples harvested from the substrate's own on-disk self-record, the substrate re-derived each cited inequality via exact-match ledger retrieval + decode_then_compare comparison -- op_agreement min=1.0000 (== Python oracle); injected metric AND threshold inconsistencies CAUGHT (flag_recall min=1.0000); random baseline near chance (max=0.5039); scrambled-residue collapses (max=0.4710) -> CRT decode load-bearing. Retrieval hit_rate=0.033. AUDIT BYPRODUCT: 11 candidate (UNCONFIRMED, free-text-parse) miscited inequalities -- the free-text verdict_msg is not a clean structured (metric,threshold) source; manual sample review classifies all as parse artifacts (sci-notation / relative-threshold / cross-clause joins), 0 CONFIRMED genuine verdict-vs-number contradictions. HONEST SCOPE: narrow glass-box numeric self-check (does the cited number satisfy the cited threshold), NOT self-improvement; both legs by-construction exact -> the FINDING is loop-closure over real self-record data + the honest limitation that verdict_msg is not machine-clean. n_triples=518 op_agree_min=1.0000 inject_flip_min=1.000 corrupt_recall_min=1.0000 scramthr_recall_min=1.0000 random_max=0.5039 scram_residue_max=0.4710 retrieval_hit_rate=0.033 n_candidate_miscited=11",
+  "summary": "HARD_PASS: Tier-2 numeric-entailment self-check loop over own cert-record (full)",
+  "run_mode": "full",
+  "elapsed_s": 2.83,
+  "n_seeds": 3,
+  "n_units": 18,
+  "expected_n_units": 18,
+  "cardinality_ok": true,
+  "n_triples_checked": 518,
+  "config": {
+    "regime": "large",
+    "moduli": [
+      40,
+      41,
+      43
+    ],
+    "M": 70520,
+    "N": 8192,
+    "SB": 2730,
+    "SCALE": 1000,
+    "OFFSET": 20000,
+    "RES": 0.002,
+    "INJECT_GAP": 0.01,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "cap": null,
+    "retrieval_leg": "exact_match_over_cert_ledger_jsonl_self_record",
+    "comparison_leg": "decode_then_compare_two_CRT_decodes_from_exp_math_rns_subtract_compare_v1",
+    "triple_source": "verdict_msg_cited_NUM_op_NUM_inequalities_across_data_metrics_json",
+    "storage_strategy": "no_storage_algebraic_bind"
+  },
+  "harvest_stats": {
+    "n_files_scanned": 4067,
+    "n_files_with_cited_inequality": 382,
+    "n_raw_matches": 538,
+    "harvest_parse_failures": {
+      "json_decode": 0,
+      "os_error": 0,
+      "value_error": 0
+    }
+  },
+  "n_ledger_rows": 1336,
+  "n_ledger_exp_keys": 949,
+  "n_triples_skipped_out_of_range": 20,
+  "inject_flip_min": 1.0,
+  "arms": {
+    "7": {
+      "seed": 7,
+      "n_triples": 518,
+      "op_agreement": 1.0,
+      "scram_residue_agreement": 0.471,
+      "random_baseline_agreement": 0.5039,
+      "corrupted_metric_flag_recall": 1.0,
+      "corrupted_metric_flip_rate": 1.0,
+      "corrupted_metric_n": 103,
+      "scrambled_threshold_flag_recall": 1.0,
+      "scrambled_threshold_flip_rate": 1.0,
+      "scrambled_threshold_n": 103,
+      "retrieval_hit_rate": 0.0328,
+      "class_balance": {
+        "GT": 299,
+        "EQ": 14,
+        "LT": 205
+      },
+      "n_candidate_miscited": 11
+    },
+    "13": {
+      "seed": 13,
+      "n_triples": 518,
+      "op_agreement": 1.0,
+      "scram_residue_agreement": 0.471,
+      "random_baseline_agreement": 0.4788,
+      "corrupted_metric_flag_recall": 1.0,
+      "corrupted_metric_flip_rate": 1.0,
+      "corrupted_metric_n": 103,
+      "scrambled_threshold_flag_recall": 1.0,
+      "scrambled_threshold_flip_rate": 1.0,
+      "scrambled_threshold_n": 103,
+      "retrieval_hit_rate": 0.0328,
+      "class_balance": {
+        "GT": 299,
+        "EQ": 14,
+        "LT": 205
+      },
+      "n_candidate_miscited": 11
+    },
+    "19": {
+      "seed": 19,
+      "n_triples": 518,
+      "op_agreement": 1.0,
+      "scram_residue_agreement": 0.471,
+      "random_baseline_agreement": 0.4865,
+      "corrupted_metric_flag_recall": 1.0,
+      "corrupted_metric_flip_rate": 1.0,
+      "corrupted_metric_n": 103,
+      "scrambled_threshold_flag_recall": 1.0,
+      "scrambled_threshold_flip_rate": 1.0,
+      "scrambled_threshold_n": 103,
+      "retrieval_hit_rate": 0.0328,
+      "class_balance": {
+        "GT": 299,
+        "EQ": 14,
+        "LT": 205
+      },
+      "n_candidate_miscited": 11
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm": "substrate_op_agreement",
+      "value": 1.0
+    },
+    {
+      "seed": 7,
+      "arm": "corrupted_metric_flag_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 7,
+      "arm": "scrambled_threshold_flag_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 7,
+      "arm": "scram_residue_agreement",
+      "value": 0.471
+    },
+    {
+      "seed": 7,
+      "arm": "random_baseline_agreement",
+      "value": 0.5039
+    },
+    {
+      "seed": 7,
+      "arm": "retrieval_hit_rate",
+      "value": 0.0328
+    },
+    {
+      "seed": 13,
+      "arm": "substrate_op_agreement",
+      "value": 1.0
+    },
+    {
+      "seed": 13,
+      "arm": "corrupted_metric_flag_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 13,
+      "arm": "scrambled_threshold_flag_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 13,
+      "arm": "scram_residue_agreement",
+      "value": 0.471
+    },
+    {
+      "seed": 13,
+      "arm": "random_baseline_agreement",
+      "value": 0.4788
+    },
+    {
+      "seed": 13,
+      "arm": "retrieval_hit_rate",
+      "value": 0.0328
+    },
+    {
+      "seed": 19,
+      "arm": "substrate_op_agreement",
+      "value": 1.0
+    },
+    {
+      "seed": 19,
+      "arm": "corrupted_metric_flag_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 19,
+      "arm": "scrambled_threshold_flag_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 19,
+      "arm": "scram_residue_agreement",
+      "value": 0.471
+    },
+    {
+      "seed": 19,
+      "arm": "random_baseline_agreement",
+      "value": 0.4865
+    },
+    {
+      "seed": 19,
+      "arm": "retrieval_hit_rate",
+      "value": 0.0328
+    }
+  ],
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    [
+      "substrate_op_agreement",
+      "oracle_quant"
+    ]
+  ],
+  "controls": {
+    "controls_collapsed": true
+  },
+  "candidate_miscited_inequalities": [
+    {
+      "exp_key": "exp_multi_fact_aggregation_cpu_v1",
+      "name": "",
+      "cited": "-1.0 >= 0.85",
+      "recorded_verdict": "HARD_PASS",
+      "path": "C:/dev/hd-instrument/data/exp_multi_fact_aggregation_cpu_v1/metrics.json"
+    },
+    {
+      "exp_key": "exp_resonator_capacity_gpu_v1",
+      "name": "K",
+      "cited": "3.0 < 0.75",
+      "recorded_verdict": "HARD_FAIL",
+      "path": "C:/dev/hd-instrument/data/exp_resonator_capacity_gpu_v1/metrics.json"
+    },
+    {
+      "exp_key": "exp_resonator_k4_multiaxis_rescue_cpu_v1",
+      "name": "K",
+      "cited": "4.0 < 0.65",
+      "recorded_verdict": "HARD_FAIL",
+      "path": "C:/dev/hd-instrument/data/exp_resonator_k4_multiaxis_rescue_cpu_v1/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_betM_logforget_fitform_v1_smoke",
+      "name": "correct_forms",
+      "cited": "3.0 <= 2.0",
+      "recorded_verdict": "BETM_LOGFORGET_HARD_FAIL_HARNESS_REJECTED",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_betM_logforget_fitform_v1_smoke/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_betM_logforget_longt_v1_smoke",
+      "name": "gap",
+      "cited": "4.86 <= 1.0",
+      "recorded_verdict": "BETM_LONGT_HARD_FAIL_NO_DISCRIMINATION",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_betM_logforget_longt_v1_smoke/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_delta_lambda_drift_v1",
+      "name": "",
+      "cited": "2.0 < 0.7",
+      "recorded_verdict": "DELTA_DRIFT_NO_POWERLAW",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_delta_lambda_drift_v1/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_delta_lambda_drift_v1_smoke",
+      "name": "",
+      "cited": "2.0 < 0.7",
+      "recorded_verdict": "DELTA_DRIFT_NO_POWERLAW",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_delta_lambda_drift_v1_smoke/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_moe_alpha_c_prestep_v2",
+      "name": "max_residual",
+      "cited": "0.0002 > 0.05",
+      "recorded_verdict": "ALPHA_C_HARD_FAIL",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_moe_alpha_c_prestep_v2/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_multihop_hmm_per_hop_pfail_v1",
+      "name": "p_fail",
+      "cited": "0.035 > 0.035",
+      "recorded_verdict": "PFAIL_HIGHER",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_multihop_hmm_per_hop_pfail_v1/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_multihop_hub_census_v1",
+      "name": "",
+      "cited": "0.67 < 0.5",
+      "recorded_verdict": "HUBNESS_ABSENT",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_multihop_hub_census_v1/metrics.json"
+    },
+    {
+      "exp_key": "exp_wave14_pt_spacing_cross_cut_v1",
+      "name": "spacing_effect",
+      "cited": "-0.062 >= 0.05",
+      "recorded_verdict": "SPACING_DOMINANT",
+      "path": "C:/dev/hd-instrument/data/exp_wave14_pt_spacing_cross_cut_v1/metrics.json"
+    }
+  ],
+  "n_candidate_miscited_total": 11,
+  "n_confirmed_inconsistencies": 0,
+  "audit_note": "Candidates are UNCONFIRMED: extracted from free-text verdict_msg, which is not a clean structured (metric,threshold) source. Manual review of representative flagged candidates across the corpus (2026-07-05) classifies ALL as free-text parse artifacts, NOT genuine verdict-does-not-follow-from-number contradictions: (a) config-count joined to a different metric's threshold (e.g. 'K=3 <0.75' means success@K3=0.7 < 0.75); (b) garbled shorthand annotations (e.g. 'a3=1.000<0.95' where the real arm is heldout_top1=1.000>=0.85); (c) malformed inline annotations (e.g. 'BPC=4.8466 >= 6.99' where the real fail is compose_lift=-0.0059); (d) display-precision ties (e.g. '0.035 > 0.035'). Scientific-notation and relative-threshold (coefficient*ORACLE) classes are handled correctly by the parser. 0 CONFIRMED inconsistencies. The finding is loop-closure over real self-record numbers, plus the honest limitation that verdict_msg free-text is not machine-clean; a reliable Tier-2 audit would need a STRUCTURED (measured, threshold, op, gate_verdict) field in metrics.json.",
+  "composition": {
+    "retrieval_cell": "exp_cert_ledger_self_query_v1 (SMOKE HARD_PASS; exact-match retrieval leg)",
+    "comparator_cell": "exp_math_rns_subtract_compare_v1 (MEASURED_MECHANISM; decode_then_compare leg)",
+    "finding": "loop closes over REAL self-record data (retrieval + comparison + flag); both legs by-construction exact -> exactness is EXPECTED, not a new mechanism"
+  },
+  "scope_guardrail": "NARROW glass-box numeric self-check: verifies whether a cited number satisfies a cited threshold over the substrate's own record. NOT autonomous self-improvement, NOT the substrate rewriting itself.",
+  "bands": {
+    "HP_op_agree": 0.99,
+    "HF_op_agree": 0.9,
+    "HP_flag_recall": 0.95,
+    "HF_flag_recall": 0.7,
+    "max_random_agree": 0.72,
+    "max_scram_agree": 0.72,
+    "inject_must_flip": 0.99,
+    "min_triples_smoke": 100,
+    "min_triples_full": 300
+  },
+  "ts_iso": "2026-07-06T13:02:05.848332+00:00",
+  "pid": 17856,
+  "host": "Home"
+}

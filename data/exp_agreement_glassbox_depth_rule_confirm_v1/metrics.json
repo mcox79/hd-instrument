@@ -1,0 +1,186 @@
+{
+  "verdict": "HARD_PASS_DEPTH_RULE_CONFIRMED",
+  "verdict_tag": "HARD_PASS_DEPTH_RULE_CONFIRMED",
+  "verdict_msg": "DEPTH-RULE CONFIRM | BURIED held-out(mean of 5 splits): nearest_depth0=0.7586(+-0.0037) nearest_noun_raw=0.5511 majority=0.5959 | full-corpus buried: nearest_depth0=0.7589 nearest_noun=0.5507 first_noun=0.4305 majority=0.6117 | SCRAMBLE-DISCRIMINATOR true=0.7589 scrambled=0.5303 DROP=+0.2286 (change_frac=0.634) | pos_depth_buried=0.7658 | easy nearest_depth0=0.9052 | HARD_PASS_DEPTH_RULE_CONFIRMED",
+  "summary": "HARD_PASS_DEPTH_RULE_CONFIRMED | nd0_heldout_buried=0.7586 vs majority=0.5959 (margin=+0.1627) | scramble_drop=+0.2286 | nd0_full_buried=0.7589 vs nearest_noun=0.5507",
+  "elapsed_s": 5.94,
+  "run_mode": "full",
+  "anchor_name": "exp_agreement_glassbox_depth_rule_confirm_v1",
+  "ts_iso": "2026-07-22T21:52:38.061450+00:00",
+  "heldout_multiseed": {
+    "n_splits": 5,
+    "nearest_depth0_buried_mean": 0.7586,
+    "nearest_depth0_buried_std": 0.0037,
+    "nearest_noun_buried_mean": 0.5511,
+    "majority_buried_mean": 0.5959,
+    "per_split": {
+      "seed_7": {
+        "n_test": 5673,
+        "n_buried": 2455,
+        "majority_buried": 0.5743,
+        "nearest_depth0": {
+          "acc": 0.765,
+          "select_acc": 0.5527
+        },
+        "nearest_noun": {
+          "acc": 0.5503,
+          "select_acc": 0.3352
+        },
+        "first_noun": {
+          "acc": 0.4607,
+          "select_acc": 0.0
+        }
+      },
+      "seed_13": {
+        "n_test": 5894,
+        "n_buried": 2562,
+        "majority_buried": 0.6175,
+        "nearest_depth0": {
+          "acc": 0.7545,
+          "select_acc": 0.5351
+        },
+        "nearest_noun": {
+          "acc": 0.5656,
+          "select_acc": 0.3439
+        },
+        "first_noun": {
+          "acc": 0.4305,
+          "select_acc": 0.0
+        }
+      },
+      "seed_19": {
+        "n_test": 5904,
+        "n_buried": 2418,
+        "majority_buried": 0.5939,
+        "nearest_depth0": {
+          "acc": 0.7605,
+          "select_acc": 0.538
+        },
+        "nearest_noun": {
+          "acc": 0.5471,
+          "select_acc": 0.328
+        },
+        "first_noun": {
+          "acc": 0.4533,
+          "select_acc": 0.0
+        }
+      },
+      "seed_23": {
+        "n_test": 5981,
+        "n_buried": 2522,
+        "majority_buried": 0.6082,
+        "nearest_depth0": {
+          "acc": 0.7565,
+          "select_acc": 0.55
+        },
+        "nearest_noun": {
+          "acc": 0.5436,
+          "select_acc": 0.3358
+        },
+        "first_noun": {
+          "acc": 0.4362,
+          "select_acc": 0.0
+        }
+      },
+      "seed_31": {
+        "n_test": 5710,
+        "n_buried": 2506,
+        "majority_buried": 0.5854,
+        "nearest_depth0": {
+          "acc": 0.7566,
+          "select_acc": 0.5263
+        },
+        "nearest_noun": {
+          "acc": 0.5491,
+          "select_acc": 0.324
+        },
+        "first_noun": {
+          "acc": 0.4525,
+          "select_acc": 0.0
+        }
+      }
+    }
+  },
+  "full_corpus": {
+    "n_buried": 6425,
+    "n_easy": 8336,
+    "majority_buried": 0.6117,
+    "majority_easy": 0.5118,
+    "nearest_depth0": {
+      "buried_acc": 0.7589,
+      "buried_select_acc": 0.5466,
+      "easy_acc": 0.9052,
+      "easy_select_acc": 0.8259
+    },
+    "nearest_noun": {
+      "buried_acc": 0.5507,
+      "buried_select_acc": 0.3354,
+      "easy_acc": 0.3618,
+      "easy_select_acc": 0.1126
+    },
+    "first_noun": {
+      "buried_acc": 0.4305,
+      "buried_select_acc": 0.0,
+      "easy_acc": 1.0,
+      "easy_select_acc": 1.0
+    },
+    "pos_depth": {
+      "buried_acc": 0.7658,
+      "buried_select_acc": 0.5595,
+      "easy_acc": 0.9091,
+      "easy_select_acc": 0.8306,
+      "status": "run"
+    }
+  },
+  "scramble_discriminator": {
+    "true_acc": 0.7589,
+    "scrambled_acc_mean": 0.5303,
+    "scramble_drop": 0.2286,
+    "per_seed_scrambled_acc": [
+      0.5282,
+      0.5209,
+      0.5306,
+      0.5368,
+      0.5349
+    ],
+    "per_seed_change_frac": [
+      0.6325,
+      0.6389,
+      0.6279,
+      0.6361,
+      0.635
+    ],
+    "change_frac_mean": 0.6341,
+    "seeds": [
+      101,
+      103,
+      107,
+      109,
+      113
+    ],
+    "interpretation": "drop toward nearest_noun_raw => lift is DEPTH not position"
+  },
+  "verdict_conditions": {
+    "cond_a_margin_over_maj": true,
+    "cond_b_lift_over_nearest": true,
+    "cond_c_scramble_fires": true,
+    "hf_i_ties_majority": false,
+    "hf_ii_scramble_no_effect": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "nearest_depth0": "5176c1a080b90b8c85f5e79617241a2b42c81928b7bf82aa153fe1dd3b3f5c74",
+    "nearest_noun": "80975e0046f6d53ab6f601ef0fc8db066d1695137b5c0f54d1ed9cdb77315ea1",
+    "first_noun": "260b7a133a083edbcac71ee007fa45a43cfd4832152bc992765f4b5cd7b51b1b"
+  },
+  "bands": {
+    "HP_MARGIN_OVER_MAJ": 0.1,
+    "HP_LIFT_OVER_NEAREST": 0.05,
+    "HP_SCRAMBLE_DROP": 0.1,
+    "HF_SCRAMBLE_NOEFFECT": 0.05
+  },
+  "n_preps": 43,
+  "n_subord": 18,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "classification accuracy over deterministic rules; no per-decode Gaussian noise floor"
+}

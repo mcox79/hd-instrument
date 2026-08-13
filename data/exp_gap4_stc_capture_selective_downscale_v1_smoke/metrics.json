@@ -1,0 +1,472 @@
+{
+  "anchor": "gap4_stc_capture_selective_downscale_v1",
+  "anchor_name": "gap4_stc_capture_selective_downscale_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_STC_DOESNT_HELP: drift_red=0.0000 <= 0.05; STC arm not meaningfully better than baseline. best_stc=ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.0000+/-0.0000 min_integ=0.9944 n_pers=0 | ARM_GLOBAL_DOWNSCALE_99_100=fin_forget=0.0000+/-0.0000 min_integ=0.9931 n_pers=0 | ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100=fin_forget=0.0000+/-0.0000 min_integ=0.9939 n_pers=400 | ARM_STC_TAG_DECAY_K500_PRP_BUDGET_50=fin_forget=0.0000+/-0.0000 min_integ=0.9928 n_pers=200 | ARM_STC_TAG_DECAY_K100_PRP_BUDGET_INFINITY=fin_forget=0.0000+/-0.0000 min_integ=0.9944 n_pers=16777216",
+  "headline": "HARD_FAIL_STC_DOESNT_HELP: drift_red=0.0000 <= 0.05; STC arm not meaningfully better than baseline. best_stc=ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.0000+/-0.0000 min_integ=0.9944 n_pers=0 | ARM_GLOBAL_DOWNSCALE_99_100=fin_forget=0.0000+/-0.0000 min_integ=0.9931 n_pers=0 | ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100=fin_forget=0.0000+/-0.0000 min_integ=0.9939 n_pers=400 | ARM_STC_TAG_DECAY_K500_PRP_BUDGET_50=fin_forget=0.0000+/-0.0000 min_integ=0.9928 n_pers=200 | ARM_STC_TAG_DECAY_K100_PRP_BUDGET_INFINITY=fin_forget=0.0000+/-0.0000 min_integ=0.9944 n_pers=16777216",
+  "n_seeds": 1,
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_cycles": 500,
+  "arms_tested": [
+    "ARM_BASELINE_NO_DOWNSCALE",
+    "ARM_GLOBAL_DOWNSCALE_99_100",
+    "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100",
+    "ARM_STC_TAG_DECAY_K500_PRP_BUDGET_50",
+    "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_INFINITY"
+  ],
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_DOWNSCALE": {
+        "mean_final_forget": 0.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.9943684895833333,
+        "mean_n_persistent_final": 0.0,
+        "mean_persistent_fraction_final": 0.0,
+        "mean_W_frob_final": 97010.10636011075,
+        "per_seed_forget": [
+          0.0
+        ],
+        "per_seed_min_integ": [
+          0.9943684895833333
+        ]
+      },
+      "ARM_GLOBAL_DOWNSCALE_99_100": {
+        "mean_final_forget": 0.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.9930989583333333,
+        "mean_n_persistent_final": 0.0,
+        "mean_persistent_fraction_final": 0.0,
+        "mean_W_frob_final": 95089.35455496372,
+        "per_seed_forget": [
+          0.0
+        ],
+        "per_seed_min_integ": [
+          0.9930989583333333
+        ]
+      },
+      "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100": {
+        "mean_final_forget": 0.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.9939127604166667,
+        "mean_n_persistent_final": 400.0,
+        "mean_persistent_fraction_final": 2.384185791015625e-05,
+        "mean_W_frob_final": 95089.38513290012,
+        "per_seed_forget": [
+          0.0
+        ],
+        "per_seed_min_integ": [
+          0.9939127604166667
+        ]
+      },
+      "ARM_STC_TAG_DECAY_K500_PRP_BUDGET_50": {
+        "mean_final_forget": 0.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.9928059895833333,
+        "mean_n_persistent_final": 200.0,
+        "mean_persistent_fraction_final": 1.1920928955078125e-05,
+        "mean_W_frob_final": 95089.36806540345,
+        "per_seed_forget": [
+          0.0
+        ],
+        "per_seed_min_integ": [
+          0.9928059895833333
+        ]
+      },
+      "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_INFINITY": {
+        "mean_final_forget": 0.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.9943684895833333,
+        "mean_n_persistent_final": 16777216.0,
+        "mean_persistent_fraction_final": 1.0,
+        "mean_W_frob_final": 97010.10636011075,
+        "per_seed_forget": [
+          0.0
+        ],
+        "per_seed_min_integ": [
+          0.9943684895833333
+        ]
+      }
+    },
+    "best_stc_arm": "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100",
+    "baseline_label": "ARM_BASELINE_NO_DOWNSCALE",
+    "drift_reduction_abs": 0.0,
+    "destroys_older_offenders": [],
+    "honest_scope": "STC-with-bounded-PRP over 500 cycles N=4096; 5 arms (baseline + global + 3 STC variants); forget on first 30 oldest atoms (forget-prone tail)",
+    "encoder_provenance": "SUBSTRATE_NATIVE"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 4096,
+      "run_mode": "smoke",
+      "n_cycles": 500,
+      "arms": {
+        "ARM_BASELINE_NO_DOWNSCALE": {
+          "arm": "ARM_BASELINE_NO_DOWNSCALE",
+          "arm_cfg": {
+            "mode": "baseline",
+            "gamma": 1.0,
+            "J_downscale": null,
+            "theta_tag": null,
+            "K_tag_decay": null,
+            "J_replay": null,
+            "N_PRP": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999853515625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9984375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9943684895833333,
+              "forget": 0.0
+            }
+          ],
+          "capture_log_summary": [],
+          "decay_log_summary": [],
+          "final_cycle": 500,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "final_integrity": 0.9943684895833333,
+          "min_integrity": 0.9943684895833333,
+          "n_persistent_final": 0,
+          "persistent_fraction_final": 0.0,
+          "W_frob_final": 97010.10636011075,
+          "elapsed_s": 34.34729623794556
+        },
+        "ARM_GLOBAL_DOWNSCALE_99_100": {
+          "arm": "ARM_GLOBAL_DOWNSCALE_99_100",
+          "arm_cfg": {
+            "mode": "global",
+            "gamma": 0.99,
+            "J_downscale": 100,
+            "theta_tag": null,
+            "K_tag_decay": null,
+            "J_replay": null,
+            "N_PRP": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999853515625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.998046875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9930989583333333,
+              "forget": 0.0
+            }
+          ],
+          "capture_log_summary": [],
+          "decay_log_summary": [],
+          "final_cycle": 500,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "final_integrity": 0.9930989583333333,
+          "min_integrity": 0.9930989583333333,
+          "n_persistent_final": 0,
+          "persistent_fraction_final": 0.0,
+          "W_frob_final": 95089.35455496372,
+          "elapsed_s": 35.60227560997009
+        },
+        "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100": {
+          "arm": "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100",
+          "arm_cfg": {
+            "mode": "stc",
+            "gamma": 0.99,
+            "J_downscale": 100,
+            "theta_tag": 0.5,
+            "K_tag_decay": 100,
+            "J_replay": 100,
+            "N_PRP": 100
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9998046875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.998193359375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9939127604166667,
+              "forget": 0.0
+            }
+          ],
+          "capture_log_summary": [
+            {
+              "cycle": 100,
+              "n_promoted_to_persistent": 100,
+              "n_persistent_total": 100,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 200,
+              "n_promoted_to_persistent": 100,
+              "n_persistent_total": 200,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 300,
+              "n_promoted_to_persistent": 100,
+              "n_persistent_total": 300,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 400,
+              "n_promoted_to_persistent": 100,
+              "n_persistent_total": 400,
+              "n_tags_at_capture_time": 16777216
+            }
+          ],
+          "decay_log_summary": [],
+          "final_cycle": 500,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "final_integrity": 0.9939127604166667,
+          "min_integrity": 0.9939127604166667,
+          "n_persistent_final": 400,
+          "persistent_fraction_final": 2.384185791015625e-05,
+          "W_frob_final": 95089.38513290012,
+          "elapsed_s": 98.94078302383423
+        },
+        "ARM_STC_TAG_DECAY_K500_PRP_BUDGET_50": {
+          "arm": "ARM_STC_TAG_DECAY_K500_PRP_BUDGET_50",
+          "arm_cfg": {
+            "mode": "stc",
+            "gamma": 0.99,
+            "J_downscale": 100,
+            "theta_tag": 0.5,
+            "K_tag_decay": 500,
+            "J_replay": 100,
+            "N_PRP": 50
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999755859375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.997998046875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9928059895833333,
+              "forget": 0.0
+            }
+          ],
+          "capture_log_summary": [
+            {
+              "cycle": 100,
+              "n_promoted_to_persistent": 50,
+              "n_persistent_total": 50,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 200,
+              "n_promoted_to_persistent": 50,
+              "n_persistent_total": 100,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 300,
+              "n_promoted_to_persistent": 50,
+              "n_persistent_total": 150,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 400,
+              "n_promoted_to_persistent": 50,
+              "n_persistent_total": 200,
+              "n_tags_at_capture_time": 16777216
+            }
+          ],
+          "decay_log_summary": [],
+          "final_cycle": 500,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "final_integrity": 0.9928059895833333,
+          "min_integrity": 0.9928059895833333,
+          "n_persistent_final": 200,
+          "persistent_fraction_final": 1.1920928955078125e-05,
+          "W_frob_final": 95089.36806540345,
+          "elapsed_s": 94.95450258255005
+        },
+        "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_INFINITY": {
+          "arm": "ARM_STC_TAG_DECAY_K100_PRP_BUDGET_INFINITY",
+          "arm_cfg": {
+            "mode": "stc",
+            "gamma": 0.99,
+            "J_downscale": 100,
+            "theta_tag": 0.5,
+            "K_tag_decay": 100,
+            "J_replay": 100,
+            "N_PRP": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999853515625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9984375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9943684895833333,
+              "forget": 0.0
+            }
+          ],
+          "capture_log_summary": [
+            {
+              "cycle": 100,
+              "n_promoted_to_persistent": 16777216,
+              "n_persistent_total": 16777216,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 200,
+              "n_promoted_to_persistent": 0,
+              "n_persistent_total": 16777216,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 300,
+              "n_promoted_to_persistent": 0,
+              "n_persistent_total": 16777216,
+              "n_tags_at_capture_time": 16777216
+            },
+            {
+              "cycle": 400,
+              "n_promoted_to_persistent": 0,
+              "n_persistent_total": 16777216,
+              "n_tags_at_capture_time": 16777216
+            }
+          ],
+          "decay_log_summary": [],
+          "final_cycle": 500,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "final_integrity": 0.9943684895833333,
+          "min_integrity": 0.9943684895833333,
+          "n_persistent_final": 16777216,
+          "persistent_fraction_final": 1.0,
+          "W_frob_final": 97010.10636011075,
+          "elapsed_s": 95.44860768318176
+        }
+      },
+      "elapsed_s": 359.5453197956085,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782495908.4282484
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_STC_capture_5arm_continual_writes",
+  "encoder_provenance": "SUBSTRATE_NATIVE",
+  "elapsed_s": 359.68251633644104,
+  "summary": "HARD_FAIL_STC_DOESNT_HELP: drift_red=0.0000 <= 0.05; STC arm not meaningfully better than baseline. best_stc=ARM_STC_TAG_DECAY_K100_PRP_BUDGET_100. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.0000+/-",
+  "honest_scope": "STC-with-bounded-PRP over 500 cycles N=4096; 5 arms (baseline + global + 3 STC variants); forget on first 30 oldest atoms (forget-prone tail)",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls)"
+}

@@ -1,0 +1,260 @@
+{
+  "verdict": "CHAIN_FLAT",
+  "verdict_msg": "CHAIN_FLAT | THE-NUMBER L_chain_lift = chain_learned(M20) - singleshot_learned = 0.6001 - 0.5936 = +0.0066 (per-seed min=+0.0020, need>=0.05) | ANTI-TRAP1 singleshot_near_chance=True (ss_learned=0.5936 band=[0.42, 0.6]) | ANTI-TRAP2 chain_learned - chain_grounding = 0.6001 - 0.5395 = +0.0607 (need>=0.03, beats=True) diff_vs_ground=+0.0139 | chain_learned - struct_multihop = +0.1615 (beats=True) | chain_learned - ss_grounding = +0.0533 (beats=True) | chain_learned dose-response(topM) [(5, 0.6025), (20, 0.6001), ('ALL', 0.5681)] | grounding-chain [(5, 0.5381), (20, 0.5395), ('ALL', 0.5372)] | randinit-chain [(5, 0.5392), (20, 0.5331), ('ALL', 0.5211)] | VALIDITY power=True(n_q=226) collapse=0.5049(ok=True) bridge_shuffle=0.5010(ok=True) pop=0.4882(ok=True) | leak-proof witnesses: ctx_leak=0 train_leak=0 (MUST be 0) | corpus K=700 targets=226 mean_obs_deg_query=13.90",
+  "summary": "CHAIN_FLAT | THE-NUMBER L_chain_lift = chain_learned(M20) - singleshot_learned = 0.6001 - 0.5936 = +0.0066 (per-seed min=+0.0020, need>=0.05) | ANTI-TRAP1 singleshot_near_chance=True (ss_learned=0.593",
+  "run_mode": "full",
+  "elapsed_s": 9.716793700004928,
+  "anchor_name": "leakproof_relinfer_chain_intermediate_v1",
+  "ts_iso": "2026-07-27T05:30:07.884965+00:00",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "topM_levels": [
+    5,
+    20,
+    "ALL"
+  ],
+  "expected_total_units": 3,
+  "total_units_run": 3,
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 700,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "top_rel": 16,
+    "epochs": 50,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 160,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "w_geo": 1.0,
+    "w_rel": 0.5,
+    "w_ema": 0.5,
+    "ema_momentum": 0.99,
+    "infonce_tau": 0.2,
+    "feat_dropout": 0.1,
+    "n_targets": 250,
+    "n_neg": 20,
+    "max_degree": 16,
+    "min_obs_ctx": 1,
+    "topM_levels": [
+      5,
+      20,
+      100000
+    ],
+    "min_instances": 100
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 700,
+    "n_kept_pairs": 67963,
+    "min_deg": 2,
+    "cap_nodes": 700,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/PartOf",
+      "/r/UsedFor",
+      "/r/HasProperty",
+      "/r/HasA",
+      "/r/Desires",
+      "/r/MadeOf",
+      "/r/NotHasProperty",
+      "/r/NotDesires",
+      "/r/ReceivesAction",
+      "/r/Entails",
+      "/r/MotivatedByGoal"
+    ],
+    "n_rel_slots": 17
+  },
+  "split_meta": {
+    "n_concepts": 700,
+    "n_targets": 226,
+    "leak_ctx_witness": 0,
+    "leak_train_witness": 0,
+    "mean_obs_deg_query": 13.902654867256636,
+    "mean_obs_deg_bridge": 15.734513274336283,
+    "mean_n_common_bridges": 1.1327433628318584,
+    "max_degree": 16,
+    "mean_sparse_deg": 15.542857142857143,
+    "n_endpoints": 452,
+    "n_bridges": 181,
+    "n_rel_slots": 17
+  },
+  "gates": {
+    "singleshot_learned": 0.5935840707964603,
+    "singleshot_grounding": 0.5468289085545722,
+    "chain_learned_primary": 0.6001474926253687,
+    "chain_grounding_primary": 0.5394542772861356,
+    "struct_multihop": 0.4386430678466076,
+    "popularity": 0.48816371681415927,
+    "collapse": 0.5049410029498526,
+    "bridge_shuffle": 0.5010324483775811,
+    "L_chain_lift": 0.006563421828908529,
+    "L_chain_lift_min": 0.0019911504424777737,
+    "diff_vs_grounding": 0.013938053097345119,
+    "margin_over_struct": 0.1615044247787611,
+    "margin_over_grounding_chain": 0.06069321533923311,
+    "margin_over_ss_grounding": 0.05331858407079648,
+    "singleshot_near_chance": true,
+    "lift_ok": false,
+    "beats_struct": true,
+    "beats_grounding_chain": true,
+    "beats_ss_grounding": true,
+    "power_ok": true,
+    "n_query": 226,
+    "collapse_ok": true,
+    "bridge_shuf_ok": true,
+    "pop_ok": true,
+    "validity_ok": true,
+    "chain_learned_curve": [
+      [
+        5,
+        0.6025
+      ],
+      [
+        20,
+        0.6001
+      ],
+      [
+        "ALL",
+        0.5681
+      ]
+    ],
+    "chain_grounding_curve": [
+      [
+        5,
+        0.5381
+      ],
+      [
+        20,
+        0.5395
+      ],
+      [
+        "ALL",
+        0.5372
+      ]
+    ],
+    "chain_randinit_curve": [
+      [
+        5,
+        0.5392
+      ],
+      [
+        20,
+        0.5331
+      ],
+      [
+        "ALL",
+        0.5211
+      ]
+    ],
+    "primary_topM": 20,
+    "hp_chain_lift": 0.05,
+    "hp_over_struct": 0.03,
+    "hp_over_grounding_chain": 0.03,
+    "hp_over_ss_grounding": 0.03,
+    "ss_chance_band": [
+      0.42,
+      0.6
+    ],
+    "collapse_band": [
+      0.42,
+      0.58
+    ],
+    "bridge_shuf_band": [
+      0.42,
+      0.58
+    ],
+    "pop_band": [
+      0.42,
+      0.58
+    ],
+    "min_query_tasks": 100,
+    "leak_ctx_witness": 0,
+    "leak_train_witness": 0
+  },
+  "per_seed": [
+    {
+      "ARM_SINGLESHOT_LEARNED": 0.5847345132743365,
+      "ARM_SINGLESHOT_GROUNDING": 0.5403761061946902,
+      "ARM_STRUCT_MULTIHOP": 0.4378318584070796,
+      "ARM_POPULARITY": 0.48749999999999993,
+      "ARM_CHAIN_LEARNED@M5": 0.5986725663716814,
+      "ARM_CHAIN_GROUNDING@M5": 0.5283185840707965,
+      "ARM_CHAIN_RANDINIT@M5": 0.5418141592920354,
+      "ARM_CHAIN_LEARNED@M20": 0.590929203539823,
+      "ARM_CHAIN_GROUNDING@M20": 0.5288716814159292,
+      "ARM_CHAIN_RANDINIT@M20": 0.5329646017699115,
+      "ARM_CHAIN_LEARNED@MALL": 0.5579646017699116,
+      "ARM_CHAIN_GROUNDING@MALL": 0.5278761061946903,
+      "ARM_CHAIN_RANDINIT@MALL": 0.5219026548672566,
+      "ARM_COLLAPSE@M20": 0.511504424778761,
+      "ARM_BRIDGE_SHUFFLE@M20": 0.4710176991150442,
+      "_n_query": 226,
+      "_neg_leak": 0
+    },
+    {
+      "ARM_SINGLESHOT_LEARNED": 0.6097345132743364,
+      "ARM_SINGLESHOT_GROUNDING": 0.5517699115044248,
+      "ARM_STRUCT_MULTIHOP": 0.43727876106194685,
+      "ARM_POPULARITY": 0.4888274336283186,
+      "ARM_CHAIN_LEARNED@M5": 0.6199115044247787,
+      "ARM_CHAIN_GROUNDING@M5": 0.543141592920354,
+      "ARM_CHAIN_RANDINIT@M5": 0.5285398230088496,
+      "ARM_CHAIN_LEARNED@M20": 0.6117256637168141,
+      "ARM_CHAIN_GROUNDING@M20": 0.5442477876106194,
+      "ARM_CHAIN_RANDINIT@M20": 0.5267699115044249,
+      "ARM_CHAIN_LEARNED@MALL": 0.5780973451327432,
+      "ARM_CHAIN_GROUNDING@MALL": 0.5349557522123894,
+      "ARM_CHAIN_RANDINIT@MALL": 0.5205752212389381,
+      "ARM_COLLAPSE@M20": 0.5117256637168142,
+      "ARM_BRIDGE_SHUFFLE@M20": 0.511283185840708,
+      "_n_query": 226,
+      "_neg_leak": 0
+    },
+    {
+      "ARM_SINGLESHOT_LEARNED": 0.5862831858407079,
+      "ARM_SINGLESHOT_GROUNDING": 0.5483407079646018,
+      "ARM_STRUCT_MULTIHOP": 0.44081858407079644,
+      "ARM_POPULARITY": 0.4881637168141594,
+      "ARM_CHAIN_LEARNED@M5": 0.5890486725663717,
+      "ARM_CHAIN_GROUNDING@M5": 0.5426991150442478,
+      "ARM_CHAIN_RANDINIT@M5": 0.5473451327433628,
+      "ARM_CHAIN_LEARNED@M20": 0.5977876106194692,
+      "ARM_CHAIN_GROUNDING@M20": 0.5452433628318584,
+      "ARM_CHAIN_RANDINIT@M20": 0.5396017699115043,
+      "ARM_CHAIN_LEARNED@MALL": 0.5683628318584071,
+      "ARM_CHAIN_GROUNDING@MALL": 0.5488938053097344,
+      "ARM_CHAIN_RANDINIT@MALL": 0.5207964601769912,
+      "ARM_COLLAPSE@M20": 0.4915929203539824,
+      "ARM_BRIDGE_SHUFFLE@M20": 0.5207964601769911,
+      "_n_query": 226,
+      "_neg_leak": 0
+    }
+  ],
+  "chain_selftest": {
+    "n_targets": 25,
+    "leak_ctx": 0,
+    "leak_train": 0,
+    "hide_ok": true,
+    "ss_auc": 0.25,
+    "chain_auc": 0.25,
+    "mechanism_fires": true,
+    "neg_leak": 0
+  },
+  "seed_failures": []
+}

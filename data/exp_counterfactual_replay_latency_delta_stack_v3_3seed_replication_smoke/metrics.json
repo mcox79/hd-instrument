@@ -1,0 +1,204 @@
+{
+  "anchor_name": "counterfactual_replay_latency_delta_stack_v3_3seed_replication",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: speedup>=3.0x with acc preserved but HP gate missed (setup>=4ms OR cv in [0.1,0.15) OR speedup<5.0x). BASELINE setup=28.938ms acc=1.000 | DELTA_SHORT setup=3.772ms query=4.150ms acc=1.000 | AMORTIZED setup=4.051ms acc=1.000 | RANDOM acc=0.000 | speedup=7.67x speedup_cv=0.000 short_setup_cv=0.000 short_acc_cv=0.000 arms_distinct=True cardinality_ok=True n_seeds=1 [BIAS-Q: ARM_BASELINE_FULL_REWRITE@acc=1.000,ARM_DELTA_STACK_SHORT@acc=1.000,ARM_DELTA_STACK_AMORTIZED@acc=1.000,ARM_DIRECT_LOOKUP_ORACLE@acc=1.000]",
+  "summary": "MIDDLE_BAND: speedup>=3.0x with acc preserved but HP gate missed (setup>=4ms OR cv in [0.1,0.15) OR speedup<5.0x). BASELINE setup=28.938ms acc=1.000 | DELTA_SHORT setup=3.772ms query=4.150ms acc=1.000 | AMORTIZED setup=4.051ms acc=1.000 | RANDOM acc=0.000 | speedup=7.67x speedup_cv=0.000 short_setup_cv=0.000 short_acc_cv=0.000 arms_distinct=True cardinality_ok=True n_seeds=1 [BIAS-Q: ARM_BASELINE_FULL_REWRITE@acc=1.000,ARM_DELTA_STACK_SHORT@acc=1.000,ARM_DELTA_STACK_AMORTIZED@acc=1.000,ARM_DIRECT_LOOKUP_ORACLE@acc=1.000]",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    13
+  ],
+  "n_arms": 5,
+  "n_cycles": 200,
+  "short_stack": 1,
+  "amortized_stack": 5,
+  "cv_hp_max_HYPOTHESIZED": 0.1,
+  "cv_mb_max_HYPOTHESIZED": 0.15,
+  "speedup_hp_min_HYPOTHESIZED": 5.0,
+  "speedup_mb_min_HYPOTHESIZED": 3.0,
+  "expected_n_units": 1000,
+  "observed_n_units": 1000,
+  "cardinality_ok": true,
+  "arms": [
+    "ARM_BASELINE_FULL_REWRITE",
+    "ARM_DELTA_STACK_SHORT",
+    "ARM_DELTA_STACK_AMORTIZED",
+    "ARM_DIRECT_LOOKUP_ORACLE",
+    "ARM_RANDOM_DELTAS"
+  ],
+  "arms_signature_sha256_16": "43b5169384d81cf3",
+  "arm_aggregates": {
+    "ARM_BASELINE_FULL_REWRITE": {
+      "arm": "ARM_BASELINE_FULL_REWRITE",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "setup_latency_ms_mean": 28.938077503698878,
+      "query_latency_ms_mean": 4.48304949561134,
+      "setup_latency_ms_median": 28.265500033739954,
+      "query_latency_ms_median": 4.452250024769455,
+      "accuracy_cv": 0.0,
+      "setup_latency_cv": 0.0,
+      "query_latency_cv": 0.0,
+      "per_seed_setup_ms": [
+        28.938077503698878
+      ],
+      "per_seed_query_ms": [
+        4.48304949561134
+      ],
+      "per_seed_accuracy": [
+        1.0
+      ]
+    },
+    "ARM_DELTA_STACK_SHORT": {
+      "arm": "ARM_DELTA_STACK_SHORT",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "setup_latency_ms_mean": 3.7721624987898394,
+      "query_latency_ms_mean": 4.1496995044872165,
+      "setup_latency_ms_median": 3.675500047393143,
+      "query_latency_ms_median": 4.035550053231418,
+      "accuracy_cv": 0.0,
+      "setup_latency_cv": 0.0,
+      "query_latency_cv": 0.0,
+      "per_seed_setup_ms": [
+        3.7721624987898394
+      ],
+      "per_seed_query_ms": [
+        4.1496995044872165
+      ],
+      "per_seed_accuracy": [
+        1.0
+      ]
+    },
+    "ARM_DELTA_STACK_AMORTIZED": {
+      "arm": "ARM_DELTA_STACK_AMORTIZED",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "setup_latency_ms_mean": 4.0509880013996735,
+      "query_latency_ms_mean": 4.334078501560725,
+      "setup_latency_ms_median": 3.712850040756166,
+      "query_latency_ms_median": 4.167350009083748,
+      "accuracy_cv": 0.0,
+      "setup_latency_cv": 0.0,
+      "query_latency_cv": 0.0,
+      "per_seed_setup_ms": [
+        4.0509880013996735
+      ],
+      "per_seed_query_ms": [
+        4.334078501560725
+      ],
+      "per_seed_accuracy": [
+        1.0
+      ]
+    },
+    "ARM_DIRECT_LOOKUP_ORACLE": {
+      "arm": "ARM_DIRECT_LOOKUP_ORACLE",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "setup_latency_ms_mean": 0.0197524979012087,
+      "query_latency_ms_mean": 0.0043469981756061316,
+      "setup_latency_ms_median": 0.014899997040629387,
+      "query_latency_ms_median": 0.00400003045797348,
+      "accuracy_cv": 0.0,
+      "setup_latency_cv": 0.0,
+      "query_latency_cv": 0.0,
+      "per_seed_setup_ms": [
+        0.0197524979012087
+      ],
+      "per_seed_query_ms": [
+        0.0043469981756061316
+      ],
+      "per_seed_accuracy": [
+        1.0
+      ]
+    },
+    "ARM_RANDOM_DELTAS": {
+      "arm": "ARM_RANDOM_DELTAS",
+      "n_seeds": 1,
+      "accuracy_mean": 0.0,
+      "setup_latency_ms_mean": 4.345396999269724,
+      "query_latency_ms_mean": 4.629033503006212,
+      "setup_latency_ms_median": 3.8733999826945364,
+      "query_latency_ms_median": 4.053350014146417,
+      "accuracy_cv": 0.0,
+      "setup_latency_cv": 0.0,
+      "query_latency_cv": 0.0,
+      "per_seed_setup_ms": [
+        4.345396999269724
+      ],
+      "per_seed_query_ms": [
+        4.629033503006212
+      ],
+      "per_seed_accuracy": [
+        0.0
+      ]
+    }
+  },
+  "per_arm_seed_rows": [
+    {
+      "arm": "ARM_BASELINE_FULL_REWRITE",
+      "seed": 13,
+      "n_cycles": 200,
+      "accuracy": 1.0,
+      "setup_latency_ms": 28.938077503698878,
+      "query_latency_ms": 4.48304949561134,
+      "setup_latency_ms_median": 28.265500033739954,
+      "query_latency_ms_median": 4.452250024769455
+    },
+    {
+      "arm": "ARM_DELTA_STACK_SHORT",
+      "seed": 13,
+      "n_cycles": 200,
+      "stack_size": 1,
+      "accuracy": 1.0,
+      "setup_latency_ms": 3.7721624987898394,
+      "query_latency_ms": 4.1496995044872165,
+      "setup_latency_ms_median": 3.675500047393143,
+      "query_latency_ms_median": 4.035550053231418
+    },
+    {
+      "arm": "ARM_DELTA_STACK_AMORTIZED",
+      "seed": 13,
+      "n_cycles": 200,
+      "stack_size": 5,
+      "filler_cache_hoisted": true,
+      "accuracy": 1.0,
+      "setup_latency_ms": 4.0509880013996735,
+      "query_latency_ms": 4.334078501560725,
+      "setup_latency_ms_median": 3.712850040756166,
+      "query_latency_ms_median": 4.167350009083748
+    },
+    {
+      "arm": "ARM_DIRECT_LOOKUP_ORACLE",
+      "seed": 13,
+      "n_cycles": 200,
+      "accuracy": 1.0,
+      "setup_latency_ms": 0.0197524979012087,
+      "query_latency_ms": 0.0043469981756061316,
+      "setup_latency_ms_median": 0.014899997040629387,
+      "query_latency_ms_median": 0.00400003045797348
+    },
+    {
+      "arm": "ARM_RANDOM_DELTAS",
+      "seed": 13,
+      "n_cycles": 200,
+      "stack_size": 1,
+      "accuracy": 0.0,
+      "setup_latency_ms": 4.345396999269724,
+      "query_latency_ms": 4.629033503006212,
+      "setup_latency_ms_median": 3.8733999826945364,
+      "query_latency_ms_median": 4.053350014146417
+    }
+  ],
+  "auto_promote_parent": false,
+  "parent_atom_name": "counterfactual_replay_latency_delta_stack_v2_single_intervention",
+  "parent_v2_metrics_path": "data/exp_counterfactual_replay_latency_delta_stack_v2_single_intervention/metrics.json",
+  "parent_v2_verdict_MEASURED": "HARD_PASS_2seed_smoke",
+  "parent_v2_speedup_MEASURED": 5.467,
+  "parent_v2_short_setup_ms_MEASURED": 2.103,
+  "hp_target_setup_ms_HYPOTHESIZED": 4.0,
+  "hp_target_speedup_HYPOTHESIZED": 5.0,
+  "hp_target_cv_HYPOTHESIZED": 0.1,
+  "elapsed_s": 49.66205978393555
+}

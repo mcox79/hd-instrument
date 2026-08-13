@@ -1,0 +1,1399 @@
+{
+  "anchor_name": "reader_selfimprove_artmap_stream_udewt_v1",
+  "run_mode": "full",
+  "verdict": "READER_LEARNS",
+  "verdict_msg": "READER_LEARNS | UD-EWT dev+test out-of-sample: 2536 patient arcs, 239 errors (labeler_acc=0.9058) | immediate_recall(exact)=1.0 | NEW-ATOMS money decline=0.7467 (rel) | FIRST-PASS arc rise=0.0468 | onset~2.6667atoms | transient_regressions=40.0 | END-STATE net_fixed=228.3333 net_broken=0.3333 (irreducible_collisions=0.0, fixable_broken=0.3333, stable=True) | COMPRESSION 2.6483x (31.0rules pur=1.0 vig=0.497) | base_rate_override=0.9014 | SCRAMBLE decline=0.03 fp=0.0187 (collapse=0.7168, fires=True) | leak_clean=True",
+  "summary": "READER_LEARNS | UD-EWT dev+test out-of-sample: 2536 patient arcs, 239 errors (labeler_acc=0.9058) | immediate_recall(exact)=1.0 | NEW-ATOMS money decline=0.7467 (rel) | FIRST-PASS arc rise=0.0468 | onset~2.6667atoms | transient_regressions=40.0 | END-STATE net_fixed=228.3333 net_broken=0.3333 (irreducible_collisions=0.0, fixable_broken=0.3333, stable=True) | COMPRESSION 2.6483x (31.0rules pur=1.0 vig=0.497) | base_rate_override=0.9014 | SCRAMBLE decline=0.03 fp=0.0187 (collapse=0.7168, fires=True) | leak_clean=True",
+  "elapsed_s": 37.17,
+  "ts_iso": "2026-07-21T15:32:42.522906+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "n_patient_arcs": 2536,
+  "n_errors": 239,
+  "labeler_acc": 0.9058,
+  "IMMEDIATE_RECALL_exact": 1.0,
+  "EXACT_RECALL_hippo": 0.9958,
+  "NEW_ATOMS_decline_relative": 0.7467,
+  "FIRST_PASS_arc_rise": 0.0468,
+  "GENERALIZATION_onset_atoms": 2.6667,
+  "TRANSIENT_REGRESSIONS_mean": 40.0,
+  "REGRESSIONS_at_zero": false,
+  "ENDSTATE_net_fixed": 228.3333,
+  "ENDSTATE_net_broken": 0.3333,
+  "ENDSTATE_irreducible_exact_collisions": 0.0,
+  "ENDSTATE_net_broken_fixable": 0.3333,
+  "ENDSTATE_stable": true,
+  "COMPRESSION_ratio": 2.6483,
+  "RULE_PURITY": 1.0,
+  "SETTLED_vigilance": 0.497,
+  "n_rules_mean": 31.0,
+  "BASE_RATE_override_arc_acc": 0.9014,
+  "MUSTFAIL_scramble_atoms_decline": 0.03,
+  "MUSTFAIL_scramble_fp_rise": 0.0187,
+  "MUSTFAIL_decline_collapse": 0.7168,
+  "scramble_collapses": true,
+  "leak_clean": true,
+  "rho0": 0.24299,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "online ARTMAP self-improving reader",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <180s)",
+  "deterministic_seeding": true,
+  "compose_in_cell_no_hdlab_mutation": true,
+  "consolidation_note": "rule prototypes consolidated by continual.replay_cycle (NOT AdditiveKGMap)",
+  "artmap_note": "minimal-faithful ARTMAP: nearest-rule predictive-match + purity-gated new-rule + regression-tuned per-rule vigilance + two-tier exact-atom exceptions (not full fuzzy-ART complement-coding)",
+  "per_seed": [
+    {
+      "seed": 7,
+      "immediate_recall": 1.0,
+      "regressions": 53,
+      "regression_events": [
+        {
+          "stream_pos": 199,
+          "n_atoms": 8,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 625,
+          "n_atoms": 21,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 1347,
+          "n_atoms": 37,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 1601,
+          "n_atoms": 45,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 1929,
+          "n_atoms": 48,
+          "regressions": 25
+        },
+        {
+          "stream_pos": 2342,
+          "n_atoms": 57,
+          "regressions": 3
+        },
+        {
+          "stream_pos": 2713,
+          "n_atoms": 60,
+          "regressions": 11
+        },
+        {
+          "stream_pos": 3155,
+          "n_atoms": 67,
+          "regressions": 4
+        },
+        {
+          "stream_pos": 3962,
+          "n_atoms": 75,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 4029,
+          "n_atoms": 77,
+          "regressions": 5
+        }
+      ],
+      "final_net_broken": 0,
+      "final_net_fixed": 229,
+      "final_exact_collisions": 0,
+      "final_net_broken_fixable": 0,
+      "atoms_decline_rel": 0.4545,
+      "first_pass_arc_rise": 0.0025,
+      "curve": [
+        {
+          "lo": 0,
+          "n_sents": 100,
+          "new_atoms": 11,
+          "n_errors": 11,
+          "prefix_rate": 0.1818,
+          "first_pass_arc_acc": 0.9252
+        },
+        {
+          "lo": 100,
+          "n_sents": 100,
+          "new_atoms": 6,
+          "n_errors": 12,
+          "prefix_rate": 0.5,
+          "first_pass_arc_acc": 0.9586
+        },
+        {
+          "lo": 200,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 8,
+          "prefix_rate": 0.5,
+          "first_pass_arc_acc": 0.9648
+        },
+        {
+          "lo": 300,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 17,
+          "prefix_rate": 0.7059,
+          "first_pass_arc_acc": 0.966
+        },
+        {
+          "lo": 400,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 14,
+          "prefix_rate": 0.7143,
+          "first_pass_arc_acc": 0.9675
+        },
+        {
+          "lo": 500,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 10,
+          "prefix_rate": 0.8,
+          "first_pass_arc_acc": 0.9645
+        },
+        {
+          "lo": 600,
+          "n_sents": 100,
+          "new_atoms": 7,
+          "n_errors": 24,
+          "prefix_rate": 0.75,
+          "first_pass_arc_acc": 0.951
+        },
+        {
+          "lo": 700,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 14,
+          "prefix_rate": 0.8571,
+          "first_pass_arc_acc": 0.9797
+        },
+        {
+          "lo": 800,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 15,
+          "prefix_rate": 0.7333,
+          "first_pass_arc_acc": 0.9655
+        },
+        {
+          "lo": 900,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 16,
+          "prefix_rate": 0.75,
+          "first_pass_arc_acc": 0.9716
+        },
+        {
+          "lo": 1000,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 11,
+          "prefix_rate": 0.9091,
+          "first_pass_arc_acc": 0.9767
+        },
+        {
+          "lo": 1100,
+          "n_sents": 100,
+          "new_atoms": 1,
+          "n_errors": 9,
+          "prefix_rate": 1.0,
+          "first_pass_arc_acc": 0.9932
+        },
+        {
+          "lo": 1200,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 13,
+          "prefix_rate": 0.7692,
+          "first_pass_arc_acc": 0.9706
+        },
+        {
+          "lo": 1300,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 13,
+          "prefix_rate": 0.8462,
+          "first_pass_arc_acc": 0.9784
+        },
+        {
+          "lo": 1400,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 13,
+          "prefix_rate": 0.8462,
+          "first_pass_arc_acc": 0.9792
+        },
+        {
+          "lo": 1500,
+          "n_sents": 100,
+          "new_atoms": 1,
+          "n_errors": 18,
+          "prefix_rate": 0.9444,
+          "first_pass_arc_acc": 0.9938
+        },
+        {
+          "lo": 1600,
+          "n_sents": 100,
+          "new_atoms": 1,
+          "n_errors": 11,
+          "prefix_rate": 0.9091,
+          "first_pass_arc_acc": 0.993
+        },
+        {
+          "lo": 1700,
+          "n_sents": 66,
+          "new_atoms": 6,
+          "n_errors": 10,
+          "prefix_rate": 0.6,
+          "first_pass_arc_acc": 0.9277
+        }
+      ],
+      "compression": {
+        "n_atoms": 78,
+        "n_rules": 29,
+        "n_singletons": 6,
+        "compression_ratio": 2.69,
+        "rule_purity": 1.0,
+        "mean_vigilance": 0.4978
+      },
+      "first_rule_at_atom": 3,
+      "sleep_decisions": {
+        "singleton": 66,
+        "new_rule": 29,
+        "tighten": 39,
+        "exception": 39,
+        "vig_raise": 58,
+        "slot_in": 12
+      },
+      "scramble": {
+        "atoms_decline_rel": 0.6,
+        "first_pass_arc_rise": 0.0334,
+        "immediate_recall": 0.2304
+      },
+      "decline_collapse": -0.1455,
+      "rules_inspect": [
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 2
+          },
+          "support": 4,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.6697,
+          "member_verbs": [
+            "considered",
+            "influenced",
+            "interpreted",
+            "returned"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj:pass": 2,
+            "obl": 1,
+            "nsubj": 1
+          },
+          "support": 4,
+          "n_exceptions": 3,
+          "vigilance_rho": 0.5397,
+          "member_verbs": [
+            "attacked",
+            "based",
+            "beat",
+            "donated"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 1,
+            "nsubj:pass": 1,
+            "ccomp": 1,
+            "nsubj": 1
+          },
+          "support": 4,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5714,
+          "member_verbs": [
+            "get",
+            "giving",
+            "hope",
+            "pack"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "xcomp": 1,
+            "obj": 2
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.4132,
+          "member_verbs": [
+            "evacuated",
+            "have",
+            "post"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "obl": 1
+          },
+          "support": 3,
+          "n_exceptions": 4,
+          "vigilance_rho": 0.4485,
+          "member_verbs": [
+            "needed",
+            "provided",
+            "verified"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.4667,
+          "member_verbs": [
+            "billed",
+            "married",
+            "sold"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2,
+            "obj": 1
+          },
+          "support": 3,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.2897,
+          "member_verbs": [
+            "join",
+            "mean",
+            "took"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 3
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.4239,
+          "member_verbs": [
+            "founded",
+            "located",
+            "said"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "obl": 2
+          },
+          "support": 3,
+          "n_exceptions": 3,
+          "vigilance_rho": 0.5685,
+          "member_verbs": [
+            "have",
+            "like",
+            "take"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "obj": 1
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5503,
+          "member_verbs": [
+            "prepared",
+            "said"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "obl": 1,
+            "nsubj": 1,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5366,
+          "member_verbs": [
+            "amplifiaed",
+            "appreciated",
+            "exceeded"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2
+          },
+          "support": 2,
+          "n_exceptions": 4,
+          "vigilance_rho": 0.563,
+          "member_verbs": [
+            "finished",
+            "make"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "obj": 1
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.6718,
+          "member_verbs": [
+            "considered",
+            "needed"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 3,
+          "vigilance_rho": 0.5359,
+          "member_verbs": [
+            "caused",
+            "cooked"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj:pass": 2
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.6407,
+          "member_verbs": [
+            "attached"
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "immediate_recall": 1.0,
+      "regressions": 45,
+      "regression_events": [
+        {
+          "stream_pos": 735,
+          "n_atoms": 30,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 1965,
+          "n_atoms": 50,
+          "regressions": 8
+        },
+        {
+          "stream_pos": 2052,
+          "n_atoms": 52,
+          "regressions": 5
+        },
+        {
+          "stream_pos": 2752,
+          "n_atoms": 60,
+          "regressions": 11
+        },
+        {
+          "stream_pos": 2762,
+          "n_atoms": 61,
+          "regressions": 2
+        },
+        {
+          "stream_pos": 3557,
+          "n_atoms": 72,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 3606,
+          "n_atoms": 73,
+          "regressions": 17
+        }
+      ],
+      "final_net_broken": 1,
+      "final_net_fixed": 230,
+      "final_exact_collisions": 0,
+      "final_net_broken_fixable": 1,
+      "atoms_decline_rel": 0.9286,
+      "first_pass_arc_rise": 0.0978,
+      "curve": [
+        {
+          "lo": 0,
+          "n_sents": 100,
+          "new_atoms": 14,
+          "n_errors": 16,
+          "prefix_rate": 0.1875,
+          "first_pass_arc_acc": 0.8931
+        },
+        {
+          "lo": 100,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 12,
+          "prefix_rate": 0.75,
+          "first_pass_arc_acc": 0.972
+        },
+        {
+          "lo": 200,
+          "n_sents": 100,
+          "new_atoms": 9,
+          "n_errors": 15,
+          "prefix_rate": 0.4667,
+          "first_pass_arc_acc": 0.9371
+        },
+        {
+          "lo": 300,
+          "n_sents": 100,
+          "new_atoms": 8,
+          "n_errors": 17,
+          "prefix_rate": 0.7059,
+          "first_pass_arc_acc": 0.9424
+        },
+        {
+          "lo": 400,
+          "n_sents": 100,
+          "new_atoms": 7,
+          "n_errors": 16,
+          "prefix_rate": 0.625,
+          "first_pass_arc_acc": 0.9527
+        },
+        {
+          "lo": 500,
+          "n_sents": 100,
+          "new_atoms": 1,
+          "n_errors": 6,
+          "prefix_rate": 0.8333,
+          "first_pass_arc_acc": 0.9926
+        },
+        {
+          "lo": 600,
+          "n_sents": 100,
+          "new_atoms": 1,
+          "n_errors": 15,
+          "prefix_rate": 0.9333,
+          "first_pass_arc_acc": 0.993
+        },
+        {
+          "lo": 700,
+          "n_sents": 100,
+          "new_atoms": 1,
+          "n_errors": 11,
+          "prefix_rate": 1.0,
+          "first_pass_arc_acc": 0.9929
+        },
+        {
+          "lo": 800,
+          "n_sents": 100,
+          "new_atoms": 6,
+          "n_errors": 13,
+          "prefix_rate": 0.6923,
+          "first_pass_arc_acc": 0.9556
+        },
+        {
+          "lo": 900,
+          "n_sents": 100,
+          "new_atoms": 2,
+          "n_errors": 13,
+          "prefix_rate": 0.8462,
+          "first_pass_arc_acc": 0.9862
+        },
+        {
+          "lo": 1000,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 16,
+          "prefix_rate": 0.8125,
+          "first_pass_arc_acc": 0.9718
+        },
+        {
+          "lo": 1100,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 13,
+          "prefix_rate": 0.8462,
+          "first_pass_arc_acc": 0.9722
+        },
+        {
+          "lo": 1200,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 11,
+          "prefix_rate": 0.6364,
+          "first_pass_arc_acc": 0.966
+        },
+        {
+          "lo": 1300,
+          "n_sents": 100,
+          "new_atoms": 2,
+          "n_errors": 16,
+          "prefix_rate": 0.9375,
+          "first_pass_arc_acc": 0.9869
+        },
+        {
+          "lo": 1400,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 14,
+          "prefix_rate": 0.8571,
+          "first_pass_arc_acc": 0.9864
+        },
+        {
+          "lo": 1500,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 12,
+          "prefix_rate": 0.8333,
+          "first_pass_arc_acc": 0.9662
+        },
+        {
+          "lo": 1600,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 14,
+          "prefix_rate": 0.7857,
+          "first_pass_arc_acc": 0.9787
+        },
+        {
+          "lo": 1700,
+          "n_sents": 66,
+          "new_atoms": 1,
+          "n_errors": 9,
+          "prefix_rate": 0.8889,
+          "first_pass_arc_acc": 0.9909
+        }
+      ],
+      "compression": {
+        "n_atoms": 80,
+        "n_rules": 30,
+        "n_singletons": 4,
+        "compression_ratio": 2.667,
+        "rule_purity": 1.0,
+        "mean_vigilance": 0.4964
+      },
+      "first_rule_at_atom": 3,
+      "sleep_decisions": {
+        "singleton": 68,
+        "new_rule": 30,
+        "vig_raise": 77,
+        "tighten": 26,
+        "exception": 26,
+        "slot_in": 11
+      },
+      "scramble": {
+        "atoms_decline_rel": 0.3846,
+        "first_pass_arc_rise": 0.0494,
+        "immediate_recall": 0.3419
+      },
+      "decline_collapse": 0.544,
+      "rules_inspect": [
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "obj": 4
+          },
+          "support": 5,
+          "n_exceptions": 3,
+          "vigilance_rho": 0.4858,
+          "member_verbs": [
+            "buy",
+            "develop",
+            "estimate",
+            "modelling",
+            "offer"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "ccomp": 1,
+            "expl": 1,
+            "obj": 2
+          },
+          "support": 4,
+          "n_exceptions": 3,
+          "vigilance_rho": 0.6834,
+          "member_verbs": [
+            "ask",
+            "do",
+            "take"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 2
+          },
+          "support": 4,
+          "n_exceptions": 4,
+          "vigilance_rho": 0.6493,
+          "member_verbs": [
+            "beat",
+            "declared",
+            "picked",
+            "returned"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1,
+            "obj": 1
+          },
+          "support": 4,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.7126,
+          "member_verbs": [
+            "found",
+            "implied",
+            "said",
+            "shrunk"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "iobj": 1,
+            "obl": 2,
+            "obj": 1
+          },
+          "support": 4,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.3178,
+          "member_verbs": [
+            "commits",
+            "contain",
+            "need",
+            "take"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "obl": 1,
+            "nsubj": 2
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5476,
+          "member_verbs": [
+            "based",
+            "called",
+            "done"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "obl": 2
+          },
+          "support": 3,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.4673,
+          "member_verbs": [
+            "formalizes",
+            "gave",
+            "take"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.6422,
+          "member_verbs": [
+            "cooked",
+            "given",
+            "turned"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj:pass": 1,
+            "nsubj": 2
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5305,
+          "member_verbs": [
+            "attached",
+            "blacklined",
+            "cooked"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.514,
+          "member_verbs": [
+            "predicted",
+            "sets"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5773,
+          "member_verbs": [
+            "prepared",
+            "regarded"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj:pass": 1,
+            "nsubj": 1
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.6126,
+          "member_verbs": [
+            "attached",
+            "brought"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obj": 1,
+            "obl": 1
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5005,
+          "member_verbs": [
+            "get",
+            "see"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "advmod": 2
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.243,
+          "member_verbs": [
+            "thinking"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "iobj": 1,
+            "xcomp": 1
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.243,
+          "member_verbs": [
+            "give",
+            "want"
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "immediate_recall": 1.0,
+      "regressions": 22,
+      "regression_events": [
+        {
+          "stream_pos": 478,
+          "n_atoms": 14,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 699,
+          "n_atoms": 23,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 764,
+          "n_atoms": 24,
+          "regressions": 2
+        },
+        {
+          "stream_pos": 856,
+          "n_atoms": 28,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 1044,
+          "n_atoms": 38,
+          "regressions": 3
+        },
+        {
+          "stream_pos": 1703,
+          "n_atoms": 55,
+          "regressions": 2
+        },
+        {
+          "stream_pos": 2532,
+          "n_atoms": 65,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 2847,
+          "n_atoms": 72,
+          "regressions": 5
+        },
+        {
+          "stream_pos": 3041,
+          "n_atoms": 76,
+          "regressions": 2
+        },
+        {
+          "stream_pos": 3424,
+          "n_atoms": 79,
+          "regressions": 4
+        }
+      ],
+      "final_net_broken": 0,
+      "final_net_fixed": 226,
+      "final_exact_collisions": 0,
+      "final_net_broken_fixable": 0,
+      "atoms_decline_rel": 0.8571,
+      "first_pass_arc_rise": 0.0401,
+      "curve": [
+        {
+          "lo": 0,
+          "n_sents": 100,
+          "new_atoms": 7,
+          "n_errors": 10,
+          "prefix_rate": 0.3,
+          "first_pass_arc_acc": 0.9504
+        },
+        {
+          "lo": 100,
+          "n_sents": 100,
+          "new_atoms": 8,
+          "n_errors": 11,
+          "prefix_rate": 0.4545,
+          "first_pass_arc_acc": 0.9437
+        },
+        {
+          "lo": 200,
+          "n_sents": 100,
+          "new_atoms": 8,
+          "n_errors": 13,
+          "prefix_rate": 0.4615,
+          "first_pass_arc_acc": 0.9504
+        },
+        {
+          "lo": 300,
+          "n_sents": 100,
+          "new_atoms": 8,
+          "n_errors": 14,
+          "prefix_rate": 0.5714,
+          "first_pass_arc_acc": 0.9429
+        },
+        {
+          "lo": 400,
+          "n_sents": 100,
+          "new_atoms": 9,
+          "n_errors": 18,
+          "prefix_rate": 0.5556,
+          "first_pass_arc_acc": 0.9448
+        },
+        {
+          "lo": 500,
+          "n_sents": 100,
+          "new_atoms": 8,
+          "n_errors": 16,
+          "prefix_rate": 0.625,
+          "first_pass_arc_acc": 0.9452
+        },
+        {
+          "lo": 600,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 15,
+          "prefix_rate": 0.7333,
+          "first_pass_arc_acc": 0.9648
+        },
+        {
+          "lo": 700,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 15,
+          "prefix_rate": 0.8,
+          "first_pass_arc_acc": 0.972
+        },
+        {
+          "lo": 800,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 13,
+          "prefix_rate": 0.9231,
+          "first_pass_arc_acc": 0.981
+        },
+        {
+          "lo": 900,
+          "n_sents": 100,
+          "new_atoms": 2,
+          "n_errors": 17,
+          "prefix_rate": 0.8824,
+          "first_pass_arc_acc": 0.9866
+        },
+        {
+          "lo": 1000,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 9,
+          "prefix_rate": 0.6667,
+          "first_pass_arc_acc": 0.971
+        },
+        {
+          "lo": 1100,
+          "n_sents": 100,
+          "new_atoms": 7,
+          "n_errors": 14,
+          "prefix_rate": 0.7143,
+          "first_pass_arc_acc": 0.9457
+        },
+        {
+          "lo": 1200,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 9,
+          "prefix_rate": 0.8889,
+          "first_pass_arc_acc": 0.9779
+        },
+        {
+          "lo": 1300,
+          "n_sents": 100,
+          "new_atoms": 0,
+          "n_errors": 10,
+          "prefix_rate": 1.0,
+          "first_pass_arc_acc": 1.0
+        },
+        {
+          "lo": 1400,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 12,
+          "prefix_rate": 0.75,
+          "first_pass_arc_acc": 0.9712
+        },
+        {
+          "lo": 1500,
+          "n_sents": 100,
+          "new_atoms": 4,
+          "n_errors": 14,
+          "prefix_rate": 0.7143,
+          "first_pass_arc_acc": 0.9708
+        },
+        {
+          "lo": 1600,
+          "n_sents": 100,
+          "new_atoms": 3,
+          "n_errors": 12,
+          "prefix_rate": 0.75,
+          "first_pass_arc_acc": 0.9806
+        },
+        {
+          "lo": 1700,
+          "n_sents": 66,
+          "new_atoms": 1,
+          "n_errors": 17,
+          "prefix_rate": 0.9412,
+          "first_pass_arc_acc": 0.9905
+        }
+      ],
+      "compression": {
+        "n_atoms": 88,
+        "n_rules": 34,
+        "n_singletons": 7,
+        "compression_ratio": 2.588,
+        "rule_purity": 1.0,
+        "mean_vigilance": 0.4968
+      },
+      "first_rule_at_atom": 2,
+      "sleep_decisions": {
+        "singleton": 76,
+        "new_rule": 34,
+        "vig_raise": 71,
+        "tighten": 32,
+        "exception": 32,
+        "slot_in": 10
+      },
+      "scramble": {
+        "atoms_decline_rel": -0.8947,
+        "first_pass_arc_rise": -0.0266,
+        "immediate_recall": 0.295
+      },
+      "decline_collapse": 1.7518,
+      "rules_inspect": [
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "obl": 1,
+            "nsubj": 1,
+            "nsubj:pass": 2
+          },
+          "support": 4,
+          "n_exceptions": 5,
+          "vigilance_rho": 0.5518,
+          "member_verbs": [
+            "added",
+            "announced",
+            "arrested",
+            "beat"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "iobj": 1,
+            "advmod": 1,
+            "obj": 2
+          },
+          "support": 4,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.4356,
+          "member_verbs": [
+            "had",
+            "left",
+            "mean",
+            "thinking"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 3,
+            "nsubj": 1
+          },
+          "support": 4,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5222,
+          "member_verbs": [
+            "eat",
+            "put",
+            "take"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5599,
+          "member_verbs": [
+            "billed",
+            "committed"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.6,
+          "member_verbs": [
+            "acted",
+            "charged",
+            "cooked"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "obj": 1
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5935,
+          "member_verbs": [
+            "finished",
+            "implied",
+            "said"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2,
+            "obj": 1
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5024,
+          "member_verbs": [
+            "attached",
+            "forward",
+            "remove"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.3725,
+          "member_verbs": [
+            "arrested",
+            "closed",
+            "founded"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5154,
+          "member_verbs": [
+            "filed",
+            "seeking"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 3,
+          "vigilance_rho": 0.4997,
+          "member_verbs": [
+            "bombed"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj:pass": 1,
+            "nsubj": 1
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5757,
+          "member_verbs": [
+            "get",
+            "pack"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obj": 2
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.7042,
+          "member_verbs": [
+            "approved",
+            "like"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "expl": 1
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.5908,
+          "member_verbs": [
+            "said",
+            "shipped"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "xcomp": 1,
+            "obl": 1
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.4431,
+          "member_verbs": [
+            "named",
+            "pushing"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "xcomp": 1
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.4779,
+          "member_verbs": [
+            "have",
+            "take"
+          ]
+        }
+      ]
+    }
+  ]
+}

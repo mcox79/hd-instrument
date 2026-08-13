@@ -1,0 +1,262 @@
+{
+  "anchor_name": "depparse_global_beam_earlyupdate_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: GLOBAL-beam training UAS (0.8090) does NOT beat LOCAL greedy (0.8109) -- search does not help this feature set; saturation is deeper than decode (earned bound). UAS local_greedy=0.8109 local+beam=0.7394 global_beam=0.8090 (2SE-lo=0.8051, vals=[0.8044, 0.8099, 0.8126]) | global-local=-0.0019 (2SE margin=-0.0058) | beam-hurts control local-localbeam=+0.0715 (reproduced=True) | learning-curve 0.0000->0.0000 rise=+0.0000 (ok=True) | buried-sid local=0.2182 global=0.3091",
+  "summary": "HARD_FAIL: GLOBAL-beam training UAS (0.8090) does NOT beat LOCAL greedy (0.8109) -- search does not help this feature set; saturation is deeper than decode (earned bound). UAS local_greedy=0.8109 local+beam=0.7394 global_beam=0.8090 (2SE-lo=0.8051, vals=[0.8044, 0.8099, 0.8126]) | global-local=-0.0019 (2SE margin=-0.0058) | beam-hurts control local-localbeam=+0.0715 (reproduced=True) | learning-curve 0.0000->0.0000 rise=+0.0000 (ok=True) | buried-sid local=0.2182 global=0.3091",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "n_seeds": 3,
+      "n_train": 12329,
+      "n_dev": 1989,
+      "n_pool": 4050,
+      "beam_width": 8,
+      "epochs_local": 10,
+      "epochs_global": 6,
+      "local_uas_mean": 0.8109,
+      "local_uas_vals": [
+        0.8103,
+        0.8104,
+        0.8119
+      ],
+      "local_beam_uas_mean": 0.7394,
+      "local_beam_uas_vals": [
+        0.7365,
+        0.741,
+        0.7408
+      ],
+      "global_uas_mean": 0.809,
+      "global_uas_vals": [
+        0.8044,
+        0.8099,
+        0.8126
+      ],
+      "global_uas_se": 0.002,
+      "global_uas_mean_minus_2se": 0.8051,
+      "local_uas_29451_cited": 0.8109,
+      "local_beam_29451_cited": 0.7528,
+      "eval_local_seed1": {
+        "uas_all": 0.8103,
+        "uas_nopunct": 0.8235,
+        "n_arcs": 24444,
+        "by_distance": {
+          "1": {
+            "uas": 0.8897,
+            "n": 11099
+          },
+          "2": {
+            "uas": 0.8671,
+            "n": 5303
+          },
+          "3-6": {
+            "uas": 0.7191,
+            "n": 5885
+          },
+          "7+": {
+            "uas": 0.5109,
+            "n": 2157
+          }
+        }
+      },
+      "eval_local_beam_seed1": {
+        "uas_all": 0.7365,
+        "uas_nopunct": 0.7602,
+        "n_arcs": 24444,
+        "by_distance": {
+          "1": {
+            "uas": 0.8296,
+            "n": 11099
+          },
+          "2": {
+            "uas": 0.8131,
+            "n": 5303
+          },
+          "3-6": {
+            "uas": 0.6083,
+            "n": 5885
+          },
+          "7+": {
+            "uas": 0.4186,
+            "n": 2157
+          }
+        }
+      },
+      "eval_global_seed1": {
+        "uas_all": 0.8044,
+        "uas_nopunct": 0.823,
+        "n_arcs": 24444,
+        "by_distance": {
+          "1": {
+            "uas": 0.8765,
+            "n": 11099
+          },
+          "2": {
+            "uas": 0.8678,
+            "n": 5303
+          },
+          "3-6": {
+            "uas": 0.7274,
+            "n": 5885
+          },
+          "7+": {
+            "uas": 0.4873,
+            "n": 2157
+          }
+        }
+      },
+      "learning_curve": {},
+      "lc_lo_uas": 0.0,
+      "lc_hi_uas": 0.0,
+      "lc_rise": 0.0,
+      "lc_points": 0,
+      "lc_expected_points": 0,
+      "buried_sid_local": {
+        "buried": 0.2182,
+        "easy": 0.9362,
+        "all": 0.8906,
+        "n_buried": 55,
+        "n_easy": 1286
+      },
+      "buried_sid_global": {
+        "buried": 0.3091,
+        "easy": 0.9215,
+        "all": 0.8903,
+        "n_buried": 55,
+        "n_easy": 1286
+      },
+      "global_minus_local": -0.0019,
+      "local_minus_localbeam": 0.0715,
+      "arms_differ_weights": true,
+      "arms_differ_heads": true
+    }
+  ],
+  "elapsed_s": 1061.6741244792938,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "discrete parse accuracy, no noise floor",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "n_train": 12329,
+  "n_dev": 1989,
+  "n_pool": 4050,
+  "beam_width": 8,
+  "epochs_local": 10,
+  "epochs_global": 6,
+  "local_uas_mean": 0.8109,
+  "local_uas_vals": [
+    0.8103,
+    0.8104,
+    0.8119
+  ],
+  "local_beam_uas_mean": 0.7394,
+  "local_beam_uas_vals": [
+    0.7365,
+    0.741,
+    0.7408
+  ],
+  "global_uas_mean": 0.809,
+  "global_uas_vals": [
+    0.8044,
+    0.8099,
+    0.8126
+  ],
+  "global_uas_se": 0.002,
+  "global_uas_mean_minus_2se": 0.8051,
+  "local_uas_29451_cited": 0.8109,
+  "local_beam_29451_cited": 0.7528,
+  "eval_local_seed1": {
+    "uas_all": 0.8103,
+    "uas_nopunct": 0.8235,
+    "n_arcs": 24444,
+    "by_distance": {
+      "1": {
+        "uas": 0.8897,
+        "n": 11099
+      },
+      "2": {
+        "uas": 0.8671,
+        "n": 5303
+      },
+      "3-6": {
+        "uas": 0.7191,
+        "n": 5885
+      },
+      "7+": {
+        "uas": 0.5109,
+        "n": 2157
+      }
+    }
+  },
+  "eval_local_beam_seed1": {
+    "uas_all": 0.7365,
+    "uas_nopunct": 0.7602,
+    "n_arcs": 24444,
+    "by_distance": {
+      "1": {
+        "uas": 0.8296,
+        "n": 11099
+      },
+      "2": {
+        "uas": 0.8131,
+        "n": 5303
+      },
+      "3-6": {
+        "uas": 0.6083,
+        "n": 5885
+      },
+      "7+": {
+        "uas": 0.4186,
+        "n": 2157
+      }
+    }
+  },
+  "eval_global_seed1": {
+    "uas_all": 0.8044,
+    "uas_nopunct": 0.823,
+    "n_arcs": 24444,
+    "by_distance": {
+      "1": {
+        "uas": 0.8765,
+        "n": 11099
+      },
+      "2": {
+        "uas": 0.8678,
+        "n": 5303
+      },
+      "3-6": {
+        "uas": 0.7274,
+        "n": 5885
+      },
+      "7+": {
+        "uas": 0.4873,
+        "n": 2157
+      }
+    }
+  },
+  "learning_curve": {},
+  "lc_lo_uas": 0.0,
+  "lc_hi_uas": 0.0,
+  "lc_rise": 0.0,
+  "lc_points": 0,
+  "lc_expected_points": 0,
+  "buried_sid_local": {
+    "buried": 0.2182,
+    "easy": 0.9362,
+    "all": 0.8906,
+    "n_buried": 55,
+    "n_easy": 1286
+  },
+  "buried_sid_global": {
+    "buried": 0.3091,
+    "easy": 0.9215,
+    "all": 0.8903,
+    "n_buried": 55,
+    "n_easy": 1286
+  },
+  "global_minus_local": -0.0019,
+  "local_minus_localbeam": 0.0715,
+  "arms_differ_weights": true,
+  "arms_differ_heads": true
+}

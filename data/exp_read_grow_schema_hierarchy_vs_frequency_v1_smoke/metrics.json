@@ -1,0 +1,342 @@
+{
+  "verdict": "MIDDLE_BAND_VACUOUS_DISCRIMINATOR",
+  "verdict_msg": "HIER selection differs from FREQ on <5% of answered terms in a majority of seeds (fire_fracs=[0.01449, 0.01389, 0.0597]); structure rarely overrides popularity at this scale -> a null is untrustworthy, re-spec regime before trusting",
+  "summary": "MIDDLE_BAND_VACUOUS_DISCRIMINATOR: freq_prec=[0.30435, 0.33333, 0.32836] hier_prec=[0.30435, 0.34722, 0.32836] isa=[0.30435, 0.34722, 0.32836] frame=[0.30435, 0.33333, 0.32836] | fire=[0.01449, 0.01389, 0.0597] | Q1m=[0.0, 0.01389, 0.0] Q2m=[0.0, 0.01389, 0.0] Q3m=[0.0, 0.0, 0.0]",
+  "elapsed_s": 6.28,
+  "ts_iso": "2026-07-18T04:07:34.118451+00:00",
+  "anchor_name": "read_grow_schema_hierarchy_vs_frequency_v1",
+  "run_mode": "smoke",
+  "bands": {
+    "q1_hp_margin": 0.03,
+    "q1_min_fire_frac": 0.05,
+    "q2_hp_reread_gain": 0.01,
+    "q3_hp_margin": 0.03,
+    "q3_min_coverage": 0.15,
+    "seed_majority": 2,
+    "fail_eps": 0.0
+  },
+  "diag": {
+    "n_seeds": 3,
+    "seed_majority": 2,
+    "fires_ok_seeds": 1,
+    "q1_pass_seeds": 0,
+    "q2_pass_seeds": 1,
+    "q3_pass_seeds": 0,
+    "q1_margins": [
+      0.0,
+      0.01389,
+      0.0
+    ],
+    "q2_margins": [
+      0.0,
+      0.01389,
+      0.0
+    ],
+    "q2_hier_reread_gains": [
+      -0.01449,
+      0.02778,
+      0.01493
+    ],
+    "q2_freq_reread_gains": [
+      -0.01449,
+      0.01389,
+      0.01493
+    ],
+    "q3_margins": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "q3_covs": [
+      0.14035,
+      0.03571,
+      0.05556
+    ],
+    "fire_fracs": [
+      0.01449,
+      0.01389,
+      0.0597
+    ],
+    "freq_prec": [
+      0.30435,
+      0.33333,
+      0.32836
+    ],
+    "hier_prec": [
+      0.30435,
+      0.34722,
+      0.32836
+    ],
+    "isa_prec": [
+      0.30435,
+      0.34722,
+      0.32836
+    ],
+    "frame_prec": [
+      0.30435,
+      0.33333,
+      0.32836
+    ],
+    "discriminator_vacuous": true,
+    "axes_passed": {
+      "Q1_structure_beats_freq": false,
+      "Q2_reread_compounds": false,
+      "Q3_generalizes_heldout": false
+    }
+  },
+  "gate": {
+    "real_baseline": "FREQ = raw-frequency-genus popularity selection on SAME imported candidates (the rule that tied flat vocab ~0.390 in the bootstrapping VET)",
+    "one_variable": "selection rule (structure vs frequency); identical candidates/gold/coverage",
+    "difficulty_on": "Q3 held-out prose NEVER read; Q2 genuine causal (incomplete-hierarchy) first read",
+    "no_leak": "H/C/slot-frame + selection from READ prose only; held-out glossary genus unseen",
+    "matched_coverage": true,
+    "discriminator_fires_fracs": [
+      0.01449,
+      0.01389,
+      0.0597
+    ],
+    "baseline_in_band": true,
+    "arms_differ_verified": true,
+    "seed_curated_facts": 0,
+    "seed_note": "is-a hierarchy + recognized classes + slot-frame entirely self-learned from reading (0 curated seed); prior knowledge = NLTK POS tagger; WordNet lenient-EVAL only",
+    "min_support": 3,
+    "reach_cap": 6,
+    "run_at_full_corpus": false
+  },
+  "seed_results": [
+    {
+      "offset": 0,
+      "n_gold_all": 274,
+      "n_gold_heldout": 57,
+      "n_gold_readpool": 220,
+      "n_terms_domain": 258,
+      "n_recognized_classes": 23,
+      "n_candidates": 352,
+      "q1": {
+        "freq": {
+          "precision": 0.30435,
+          "denom": 69,
+          "hits": 21
+        },
+        "isa": {
+          "precision": 0.30435,
+          "denom": 69,
+          "hits": 21
+        },
+        "frame": {
+          "precision": 0.30435,
+          "denom": 69,
+          "hits": 21
+        },
+        "hier": {
+          "precision": 0.30435,
+          "denom": 69,
+          "hits": 21
+        },
+        "freq_lenient": {
+          "precision": 0.47826,
+          "denom": 69,
+          "hits": 33
+        },
+        "hier_lenient": {
+          "precision": 0.49275,
+          "denom": 69,
+          "hits": 34
+        }
+      },
+      "q1_margin": 0.0,
+      "fire_frac": 0.01449,
+      "n_diff": 1,
+      "n_answered": 69,
+      "hier_fires": {
+        "freq": 255,
+        "isa": 3
+      },
+      "q2": {
+        "hier_causal": 0.31884,
+        "hier_full": 0.30435,
+        "freq_causal": 0.31884,
+        "freq_full": 0.30435,
+        "hier_reread_gain": -0.01449,
+        "freq_reread_gain": -0.01449
+      },
+      "q2_margin": 0.0,
+      "q3": {
+        "freq": {
+          "precision": 0.125,
+          "denom": 8,
+          "hits": 1
+        },
+        "hier": {
+          "precision": 0.125,
+          "denom": 8,
+          "hits": 1
+        }
+      },
+      "q3_cov": 0.14035,
+      "q3_margin": 0.0,
+      "foundations_digest": {
+        "freq": "508dd4a47cb9016f4fa214a73443d6a3110e7948ee238cf5ba2b19e77b06234d",
+        "hier": "ed11e5139450f96e713d1e758f66f4e45351397b2205cb5ed789c431fddd510e"
+      }
+    },
+    {
+      "offset": 1,
+      "n_gold_all": 274,
+      "n_gold_heldout": 56,
+      "n_gold_readpool": 220,
+      "n_terms_domain": 256,
+      "n_recognized_classes": 30,
+      "n_candidates": 346,
+      "q1": {
+        "freq": {
+          "precision": 0.33333,
+          "denom": 72,
+          "hits": 24
+        },
+        "isa": {
+          "precision": 0.34722,
+          "denom": 72,
+          "hits": 25
+        },
+        "frame": {
+          "precision": 0.33333,
+          "denom": 72,
+          "hits": 24
+        },
+        "hier": {
+          "precision": 0.34722,
+          "denom": 72,
+          "hits": 25
+        },
+        "freq_lenient": {
+          "precision": 0.48611,
+          "denom": 72,
+          "hits": 35
+        },
+        "hier_lenient": {
+          "precision": 0.48611,
+          "denom": 72,
+          "hits": 35
+        }
+      },
+      "q1_margin": 0.01389,
+      "fire_frac": 0.01389,
+      "n_diff": 1,
+      "n_answered": 72,
+      "hier_fires": {
+        "freq": 255,
+        "isa": 1
+      },
+      "q2": {
+        "hier_causal": 0.31944,
+        "hier_full": 0.34722,
+        "freq_causal": 0.31944,
+        "freq_full": 0.33333,
+        "hier_reread_gain": 0.02778,
+        "freq_reread_gain": 0.01389
+      },
+      "q2_margin": 0.01389,
+      "q3": {
+        "freq": {
+          "precision": 0.0,
+          "denom": 2,
+          "hits": 0
+        },
+        "hier": {
+          "precision": 0.0,
+          "denom": 2,
+          "hits": 0
+        }
+      },
+      "q3_cov": 0.03571,
+      "q3_margin": 0.0,
+      "foundations_digest": {
+        "freq": "f7c1008b13327590d6f6f5ab4b9c22952f7de95172567d48203c9fdcc0242a00",
+        "hier": "297dd4ff550a68a93b0003c8013be3efd78af888af6b5f5ac2fb1eb364e6b94d"
+      }
+    },
+    {
+      "offset": 2,
+      "n_gold_all": 274,
+      "n_gold_heldout": 54,
+      "n_gold_readpool": 221,
+      "n_terms_domain": 266,
+      "n_recognized_classes": 34,
+      "n_candidates": 361,
+      "q1": {
+        "freq": {
+          "precision": 0.32836,
+          "denom": 67,
+          "hits": 22
+        },
+        "isa": {
+          "precision": 0.32836,
+          "denom": 67,
+          "hits": 22
+        },
+        "frame": {
+          "precision": 0.32836,
+          "denom": 67,
+          "hits": 22
+        },
+        "hier": {
+          "precision": 0.32836,
+          "denom": 67,
+          "hits": 22
+        },
+        "freq_lenient": {
+          "precision": 0.47761,
+          "denom": 67,
+          "hits": 32
+        },
+        "hier_lenient": {
+          "precision": 0.47761,
+          "denom": 67,
+          "hits": 32
+        }
+      },
+      "q1_margin": 0.0,
+      "fire_frac": 0.0597,
+      "n_diff": 4,
+      "n_answered": 67,
+      "hier_fires": {
+        "freq": 261,
+        "isa": 5
+      },
+      "q2": {
+        "hier_causal": 0.31343,
+        "hier_full": 0.32836,
+        "freq_causal": 0.31343,
+        "freq_full": 0.32836,
+        "hier_reread_gain": 0.01493,
+        "freq_reread_gain": 0.01493
+      },
+      "q2_margin": 0.0,
+      "q3": {
+        "freq": {
+          "precision": 0.0,
+          "denom": 3,
+          "hits": 0
+        },
+        "hier": {
+          "precision": 0.0,
+          "denom": 3,
+          "hits": 0
+        }
+      },
+      "q3_cov": 0.05556,
+      "q3_margin": 0.0,
+      "foundations_digest": {
+        "freq": "73e00f9149f0885b3ded5ba5e7d4e01c0aec6415efd1617c653550c4ef63bea6",
+        "hier": "a69bdf2b5f670b7238c1cffe064619bc429cf9deb074a083fa844805862cbf4d"
+      }
+    }
+  ],
+  "n_sections": 45,
+  "seed_offsets": [
+    0,
+    1,
+    2
+  ]
+}

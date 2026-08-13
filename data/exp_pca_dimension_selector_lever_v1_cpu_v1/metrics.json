@@ -1,0 +1,210 @@
+{
+  "anchor_name": "pca_dimension_selector_lever_v1_cpu_v1",
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "MEASURED_MECHANISM (Director realistic peg): PCA-selector never HURTS recall but does not robustly BEAT full-N even on anisotropic keys -> no genuine denoising win in the tested regime (or the win is within seed-noise). PCA_robustly_helps(aniso)=[] | never_worse_full_all=True seed_stable=True | per_rank={'r64': ('anisotropic', 'k=95', 'sel=1.00 full=1.00 half=1.00'), 'r256': ('mid', 'k=186', 'sel=1.00 full=1.00 half=1.00'), 'r512': ('mid', 'k=285', 'sel=1.00 full=1.00 half=1.00'), 'r1024': ('isotropic', 'k=380', 'sel=1.00 full=1.00 half=1.00')}",
+  "run_mode": "full",
+  "N": 1024,
+  "M": 600,
+  "sigma_frac": 3.0,
+  "var_retain": 0.9,
+  "ranks": [
+    64,
+    256,
+    512,
+    1024
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "per_rank": {
+      "rank64": {
+        "anisotropy": "anisotropic",
+        "k_sel_mean": 94.7,
+        "recall_selector": 1.0,
+        "recall_naive_half": 1.0,
+        "recall_full": 1.0,
+        "margin_vs_full_mean": 0.0,
+        "margin_vs_half_mean": 0.0,
+        "ROBUST_beats_full": false,
+        "ROBUST_beats_half": false,
+        "never_worse_than_full": true,
+        "seed_cv": 0.0
+      },
+      "rank256": {
+        "anisotropy": "mid",
+        "k_sel_mean": 186.3,
+        "recall_selector": 1.0,
+        "recall_naive_half": 1.0,
+        "recall_full": 1.0,
+        "margin_vs_full_mean": 0.0,
+        "margin_vs_half_mean": 0.0,
+        "ROBUST_beats_full": false,
+        "ROBUST_beats_half": false,
+        "never_worse_than_full": true,
+        "seed_cv": 0.0
+      },
+      "rank512": {
+        "anisotropy": "mid",
+        "k_sel_mean": 285.3,
+        "recall_selector": 1.0,
+        "recall_naive_half": 1.0,
+        "recall_full": 1.0,
+        "margin_vs_full_mean": 0.0,
+        "margin_vs_half_mean": 0.0,
+        "ROBUST_beats_full": false,
+        "ROBUST_beats_half": false,
+        "never_worse_than_full": true,
+        "seed_cv": 0.0
+      },
+      "rank1024": {
+        "anisotropy": "isotropic",
+        "k_sel_mean": 380.0,
+        "recall_selector": 1.0,
+        "recall_naive_half": 1.0,
+        "recall_full": 1.0,
+        "margin_vs_full_mean": 0.0,
+        "margin_vs_half_mean": 0.0,
+        "ROBUST_beats_full": false,
+        "ROBUST_beats_half": false,
+        "never_worse_than_full": true,
+        "seed_cv": 0.0
+      }
+    },
+    "anisotropic_ranks": [
+      64
+    ],
+    "isotropic_ranks": [
+      1024
+    ],
+    "ranks_PCA_robustly_helps": [],
+    "never_worse_than_full_all": true,
+    "seed_stable": true,
+    "N": 1024,
+    "sigma_frac": 3.0,
+    "honest_claim": "PCA dimension-selector measured on RECALL (non-circular). PCA-to-top-k denoises a noised query by dropping tail noise dims; it HELPS iff keys are ANISOTROPIC (signal in r<<N dims). The selector picks k from the variance spectrum. Win = robustly beats full-N (denoise) AND naive-half on the anisotropic regime; on isotropic keys PCA loses (no noise-only dims to drop) = honest negative bound."
+  },
+  "metrics_source": "measured_cpu_pca_dim_selector_recall_anisotropy",
+  "per_unit": [
+    {
+      "rank": 64,
+      "seed": 1,
+      "k_sel": 96,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank64_s1",
+      "_partial_written_at": 1781999653.8452682
+    },
+    {
+      "rank": 64,
+      "seed": 2,
+      "k_sel": 94,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank64_s2",
+      "_partial_written_at": 1781999654.4091082
+    },
+    {
+      "rank": 64,
+      "seed": 3,
+      "k_sel": 94,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank64_s3",
+      "_partial_written_at": 1781999654.942532
+    },
+    {
+      "rank": 256,
+      "seed": 1,
+      "k_sel": 187,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank256_s1",
+      "_partial_written_at": 1781999655.8895543
+    },
+    {
+      "rank": 256,
+      "seed": 2,
+      "k_sel": 186,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank256_s2",
+      "_partial_written_at": 1781999656.5669258
+    },
+    {
+      "rank": 256,
+      "seed": 3,
+      "k_sel": 186,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank256_s3",
+      "_partial_written_at": 1781999657.5164754
+    },
+    {
+      "rank": 512,
+      "seed": 1,
+      "k_sel": 285,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank512_s1",
+      "_partial_written_at": 1781999658.3138783
+    },
+    {
+      "rank": 512,
+      "seed": 2,
+      "k_sel": 285,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank512_s2",
+      "_partial_written_at": 1781999659.330057
+    },
+    {
+      "rank": 512,
+      "seed": 3,
+      "k_sel": 286,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank512_s3",
+      "_partial_written_at": 1781999660.7543736
+    },
+    {
+      "rank": 1024,
+      "seed": 1,
+      "k_sel": 380,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank1024_s1",
+      "_partial_written_at": 1781999662.5249412
+    },
+    {
+      "rank": 1024,
+      "seed": 2,
+      "k_sel": 380,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank1024_s2",
+      "_partial_written_at": 1781999663.4217505
+    },
+    {
+      "rank": 1024,
+      "seed": 3,
+      "k_sel": 380,
+      "recall_selector": 1.0,
+      "recall_naive_half": 1.0,
+      "recall_full": 1.0,
+      "_ckpt_key": "rank1024_s3",
+      "_partial_written_at": 1781999664.4868062
+    }
+  ],
+  "elapsed_s": 11.3296799659729,
+  "summary": "MEASURED_MECHANISM (Director realistic peg): PCA-selector never HURTS recall but does not robustly BEAT full-N even on anisotropic keys -> no genuine denoising win in the tested regime (or the win is within seed-noise). PCA_robustly_helps(aniso)=[] | never_worse_full_all=True seed_stable=True | per_rank={'r64': ('anisotropic', 'k=95', 'sel=1.00 full=1.00 half=1.00'), 'r256': ('mid', 'k=186', 'sel=1.00 full=1.00 half=1.00'), 'r512': ('mid', 'k=285', 'sel=1.00 full=1.00 half=1.00'), 'r1024': ('isotropic', 'k=380', 'sel=1.00 full=1.00 half=1.00')}"
+}

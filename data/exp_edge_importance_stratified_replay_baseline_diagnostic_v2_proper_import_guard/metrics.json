@@ -1,0 +1,202 @@
+{
+  "anchor_name": "edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: TRACE cor=+0.060 below 0.3 -- drill claim contradicted; either Cauchy-Schwarz math is wrong OR test rigging wrong. SURPRISE_NEGATIVE. alpha=1.953 mode=full cor(RAND)=-0.008 cor(TRACE)=+0.060 cor(STRAT)=-0.002 cor(INV_WGT)=-0.013",
+  "summary": "n_seeds=3 N=512 M_TOTAL=1000 alpha=1.953 n_bins=10 k_per_bin=8 mode=full arms=['ARM_RAND_IMPORTANCE', 'ARM_TRACE_ONLY', 'ARM_STRATIFIED_REPLAY', 'ARM_INVERSE_WEIGHTED_REPLAY'] DIAGNOSTIC_COR_GATE=0.3 v2_proper_import_guard=true",
+  "elapsed_s": 8.924199104309082,
+  "config_version": "ANCHOR=edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard,N=512,M_OLD=600,M_RECENT=400,alpha=1.953,N_BINS=10,K_PER_BIN=8,TOTAL_REPLAY_EVENTS=80,SEEDS=7-17-23,RUN_MODE=full",
+  "N": 512,
+  "M_OLD": 600,
+  "M_RECENT": 400,
+  "alpha": 1.953125,
+  "n_seeds": 3,
+  "n_bins_stratified": 10,
+  "k_per_bin": 8,
+  "total_replay_events": 80,
+  "diagnostic_cor_gate": 0.3,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "expected_arm_nameset": [
+    "ARM_INVERSE_WEIGHTED_REPLAY",
+    "ARM_RAND_IMPORTANCE",
+    "ARM_STRATIFIED_REPLAY",
+    "ARM_TRACE_ONLY"
+  ],
+  "v2_proper_import_guard": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "anchor_name": "edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard",
+      "elapsed_s": 2.8168516159057617,
+      "trace_total": 3000.0,
+      "n_retrieved": 240,
+      "n_unretrieved": 360,
+      "arms": [
+        {
+          "arm_name": "ARM_RAND_IMPORTANCE",
+          "cor_importance_magnitude": -0.008144650539856559,
+          "importance_min": 0.0010168642154040342,
+          "importance_max": 0.9998420501916171,
+          "importance_mean": 0.5081049940067767,
+          "n_nonzero_atoms": 1000,
+          "atom_norms_min": 34.53549889018183,
+          "atom_norms_max": 43.01805409959434,
+          "atom_norms_mean": 38.73724219086538,
+          "wall_s": 0.023000717163085938
+        },
+        {
+          "arm_name": "ARM_TRACE_ONLY",
+          "cor_importance_magnitude": 0.056543989620993274,
+          "importance_min": 0.0,
+          "importance_max": 28.0,
+          "importance_mean": 3.0,
+          "n_nonzero_atoms": 240,
+          "atom_norms_min": 34.53549889018183,
+          "atom_norms_max": 43.01805409959434,
+          "atom_norms_mean": 38.73724219086538,
+          "wall_s": 0.011999130249023438
+        },
+        {
+          "arm_name": "ARM_STRATIFIED_REPLAY",
+          "cor_importance_magnitude": -0.006974134753390263,
+          "importance_min": 0.0,
+          "importance_max": 1.0,
+          "importance_mean": 0.08,
+          "n_nonzero_atoms": 80,
+          "atom_norms_min": 34.53549889018183,
+          "atom_norms_max": 43.01805409959434,
+          "atom_norms_mean": 38.73724219086538,
+          "wall_s": 0.018999814987182617
+        },
+        {
+          "arm_name": "ARM_INVERSE_WEIGHTED_REPLAY",
+          "cor_importance_magnitude": 0.0030703246642117365,
+          "importance_min": 0.0,
+          "importance_max": 0.0014189301072996608,
+          "importance_mean": 5.3206570438055636e-05,
+          "n_nonzero_atoms": 73,
+          "atom_norms_min": 34.53549889018183,
+          "atom_norms_max": 43.01805409959434,
+          "atom_norms_mean": 38.73724219086538,
+          "wall_s": 0.012001752853393555
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "anchor_name": "edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard",
+      "elapsed_s": 2.8610548973083496,
+      "trace_total": 3000.0,
+      "n_retrieved": 240,
+      "n_unretrieved": 360,
+      "arms": [
+        {
+          "arm_name": "ARM_RAND_IMPORTANCE",
+          "cor_importance_magnitude": -0.002566892879007743,
+          "importance_min": 0.000934898868723999,
+          "importance_max": 0.9977555665969455,
+          "importance_mean": 0.4902420905125337,
+          "n_nonzero_atoms": 1000,
+          "atom_norms_min": 35.05120156224364,
+          "atom_norms_max": 43.643626961062786,
+          "atom_norms_mean": 38.8996973193578,
+          "wall_s": 0.025996685028076172
+        },
+        {
+          "arm_name": "ARM_TRACE_ONLY",
+          "cor_importance_magnitude": 0.06986602980936815,
+          "importance_min": 0.0,
+          "importance_max": 30.0,
+          "importance_mean": 3.0,
+          "n_nonzero_atoms": 240,
+          "atom_norms_min": 35.05120156224364,
+          "atom_norms_max": 43.643626961062786,
+          "atom_norms_mean": 38.8996973193578,
+          "wall_s": 0.02969193458557129
+        },
+        {
+          "arm_name": "ARM_STRATIFIED_REPLAY",
+          "cor_importance_magnitude": -0.0026347763609253826,
+          "importance_min": 0.0,
+          "importance_max": 1.0,
+          "importance_mean": 0.08,
+          "n_nonzero_atoms": 80,
+          "atom_norms_min": 35.05120156224364,
+          "atom_norms_max": 43.643626961062786,
+          "atom_norms_mean": 38.8996973193578,
+          "wall_s": 0.02269768714904785
+        },
+        {
+          "arm_name": "ARM_INVERSE_WEIGHTED_REPLAY",
+          "cor_importance_magnitude": -0.00935510015754691,
+          "importance_min": 0.0,
+          "importance_max": 0.0020378228579196918,
+          "importance_mean": 5.294786635792573e-05,
+          "n_nonzero_atoms": 72,
+          "atom_norms_min": 35.05120156224364,
+          "atom_norms_max": 43.643626961062786,
+          "atom_norms_mean": 38.8996973193578,
+          "wall_s": 0.010284900665283203
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "anchor_name": "edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard",
+      "elapsed_s": 3.1861073970794678,
+      "trace_total": 3000.0,
+      "n_retrieved": 240,
+      "n_unretrieved": 360,
+      "arms": [
+        {
+          "arm_name": "ARM_RAND_IMPORTANCE",
+          "cor_importance_magnitude": -0.011844925411090479,
+          "importance_min": 0.0003133318147198194,
+          "importance_max": 0.9981018155950692,
+          "importance_mean": 0.49713159729887757,
+          "n_nonzero_atoms": 1000,
+          "atom_norms_min": 34.563310555029844,
+          "atom_norms_max": 43.32903358450529,
+          "atom_norms_mean": 38.84985227387522,
+          "wall_s": 0.012000083923339844
+        },
+        {
+          "arm_name": "ARM_TRACE_ONLY",
+          "cor_importance_magnitude": 0.054249178832633325,
+          "importance_min": 0.0,
+          "importance_max": 32.0,
+          "importance_mean": 3.0,
+          "n_nonzero_atoms": 240,
+          "atom_norms_min": 34.563310555029844,
+          "atom_norms_max": 43.32903358450529,
+          "atom_norms_mean": 38.84985227387522,
+          "wall_s": 0.01600170135498047
+        },
+        {
+          "arm_name": "ARM_STRATIFIED_REPLAY",
+          "cor_importance_magnitude": 0.00432340937092001,
+          "importance_min": 0.0,
+          "importance_max": 1.0,
+          "importance_mean": 0.08,
+          "n_nonzero_atoms": 80,
+          "atom_norms_min": 34.563310555029844,
+          "atom_norms_max": 43.32903358450529,
+          "atom_norms_mean": 38.84985227387522,
+          "wall_s": 0.018002748489379883
+        },
+        {
+          "arm_name": "ARM_INVERSE_WEIGHTED_REPLAY",
+          "cor_importance_magnitude": -0.03370281735137087,
+          "importance_min": 0.0,
+          "importance_max": 0.0013943392498711848,
+          "importance_mean": 5.340778654311632e-05,
+          "n_nonzero_atoms": 73,
+          "atom_norms_min": 34.563310555029844,
+          "atom_norms_max": 43.32903358450529,
+          "atom_norms_mean": 38.84985227387522,
+          "wall_s": 0.021999120712280273
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "parietal_cortex_spatial_relations_distinct_v2",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: arms-distinct=PASS hrr=1.000 learned=1.000",
+  "summary": "SELFTEST_OK: arms-distinct=PASS hrr=1.000 learned=1.000",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-30T17:45:46Z",
+  "pid": 22948,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=parietal_cortex_spatial_relations_distinct_v2,N=512,grid=3x3,scenes=10,n_distractors=2,seeds=[7],mode=smoke,HP_hrr>=0.55,HP_lift>=0.30,HP_frac>=0.50,HP_cv<=0.10,HP_lookup>=0.95,HF_hrr<0.30,HF_lookup<0.90,chance=0.25,n_dirs=4,expected_n=200,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_RULE_AF_arms_distinct+META_RULE_AH_atomic_write",
+  "_hardening_marker": "v2_parietal_relations_distinct",
+  "_phase": "selftest_done",
+  "arms_distinct_pass": true
+}

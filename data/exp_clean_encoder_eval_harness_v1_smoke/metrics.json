@@ -1,0 +1,373 @@
+{
+  "anchor_name": "clean_encoder_eval_harness_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CLEAN_ENCODER_EVAL HARD_PASS: arm ARM_WORD2VEC_300D clears BOTH bands (WS353 rho=0.596 >= 0.50 AND SimLex rho=0.578 >= 0.40); encoder candidate aligned with human similarity judgement on canonical external benchmarks; chain-grade-eligible for downstream substrate use. dual_arms_count=3. CLEAN_ENCODER_EVAL: ARM_CHAR_TRIGRAM_HONEST=ws0.229/sl-0.032 | ARM_WORD2VEC_300D=ws0.596/sl0.578/DUAL | ARM_GLOVE_300D=ws0.586/sl0.527/DUAL | ARM_FASTTEXT_300D=ws0.563/sl0.599/DUAL | sanity_ok=True",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "PRETRAIN_DIM": 300,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_CHAR_TRIGRAM_HONEST": {
+        "WordSim353": {
+          "rho_mean": 0.2291,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.2291
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        },
+        "SimLex999": {
+          "rho_mean": -0.0324,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            -0.0324
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        }
+      },
+      "ARM_WORD2VEC_300D": {
+        "WordSim353": {
+          "rho_mean": 0.5955,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.5955
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        },
+        "SimLex999": {
+          "rho_mean": 0.5781,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.5781
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        }
+      },
+      "ARM_GLOVE_300D": {
+        "WordSim353": {
+          "rho_mean": 0.5856,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.5856
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        },
+        "SimLex999": {
+          "rho_mean": 0.5272,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.5272
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        }
+      },
+      "ARM_FASTTEXT_300D": {
+        "WordSim353": {
+          "rho_mean": 0.563,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.563
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        },
+        "SimLex999": {
+          "rho_mean": 0.5987,
+          "rho_std": 0.0,
+          "rho_per_seed": [
+            0.5987
+          ],
+          "n_pairs_used_mean": 50.0,
+          "coverage_mean": 1.0
+        }
+      }
+    },
+    "pass_per_arm": {
+      "ARM_CHAR_TRIGRAM_HONEST": {
+        "ws353_rho_mean": 0.2291,
+        "simlex_rho_mean": -0.0324,
+        "ws353_hard_pass": false,
+        "simlex_hard_pass": false,
+        "dual_hard_pass": false,
+        "ws353_hard_fail": true
+      },
+      "ARM_WORD2VEC_300D": {
+        "ws353_rho_mean": 0.5955,
+        "simlex_rho_mean": 0.5781,
+        "ws353_hard_pass": true,
+        "simlex_hard_pass": true,
+        "dual_hard_pass": true,
+        "ws353_hard_fail": false
+      },
+      "ARM_GLOVE_300D": {
+        "ws353_rho_mean": 0.5856,
+        "simlex_rho_mean": 0.5272,
+        "ws353_hard_pass": true,
+        "simlex_hard_pass": true,
+        "dual_hard_pass": true,
+        "ws353_hard_fail": false
+      },
+      "ARM_FASTTEXT_300D": {
+        "ws353_rho_mean": 0.563,
+        "simlex_rho_mean": 0.5987,
+        "ws353_hard_pass": true,
+        "simlex_hard_pass": true,
+        "dual_hard_pass": true,
+        "ws353_hard_fail": false
+      }
+    },
+    "any_dual_hard_pass_arms": [
+      "ARM_WORD2VEC_300D",
+      "ARM_GLOVE_300D",
+      "ARM_FASTTEXT_300D"
+    ],
+    "all_ws353_hard_fail": false,
+    "sanity_planted_pair_ok": true,
+    "sanity_planted_pair_failures": [],
+    "n_seeds": 1,
+    "HP_WS353_RHO": 0.5,
+    "HP_SIMLEX_RHO": 0.4,
+    "HF_WS353_RHO": 0.25,
+    "CONFIG_VERSION": "clean_encoder_eval_harness_v1; N_DIM=4096 PRETRAIN_DIM=300 seeds=[0] arms=['ARM_CHAR_TRIGRAM_HONEST', 'ARM_WORD2VEC_300D', 'ARM_GLOVE_300D', 'ARM_FASTTEXT_300D'] pairs_cap=50 mode=smoke; bands HP_ws353_rho>=0.50 HP_simlex_rho>=0.40 HF_ws353_rho<0.25",
+    "honest_scope": "External-ground-truth encoder eval; 4 arms x 2 canonical word-similarity benchmarks (WordSim353 + SimLex-999) x 1 seeds. NO substrate W / atoms / internal state in loop. Metric: Spearman rho between per-arm cosine and human similarity score. HARD_PASS = ANY arm rho>=0.50 on WS353 AND rho>=0.40 on SimLex. HARD_FAIL = ALL arms rho<0.25 on WS353 (setup or fully null). Methodology fix for char-trigram-contaminated substrate state.",
+    "cites": [
+      "preregs/2026-06-23_clean_encoder_eval_harness_v1.md",
+      "experiments/exp_encoder_word2vec_substrate_bind_v1.py (sibling; substrate-internal metric)",
+      "Mikolov_2013_word2vec",
+      "Pennington_2014_GloVe",
+      "Bojanowski_2017_fastText",
+      "Finkelstein_2001_WordSim353",
+      "Hill_2015_SimLex_999",
+      "USER_2026-06-23_contamination_diagnosis",
+      "USER_2026-06-22_no_minilm_no_bge"
+    ]
+  },
+  "metrics_source": "measured_cpu_clean_encoder_eval_harness_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_CHAR_TRIGRAM_HONEST": {
+          "by_benchmark": {
+            "WordSim353": {
+              "rho": 0.22906208725233185,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 0.05,
+              "encoder_meta": {
+                "n_hit": 68,
+                "n_miss": 0,
+                "n_vocab": 68,
+                "pretrain_dim": 0
+              }
+            },
+            "SimLex999": {
+              "rho": -0.03242230658430622,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 0.06,
+              "encoder_meta": {
+                "n_hit": 67,
+                "n_miss": 0,
+                "n_vocab": 67,
+                "pretrain_dim": 0
+              }
+            }
+          },
+          "meta": {
+            "WordSim353": {
+              "n_hit": 68,
+              "n_miss": 0,
+              "n_vocab": 68,
+              "pretrain_dim": 0
+            },
+            "SimLex999": {
+              "n_hit": 67,
+              "n_miss": 0,
+              "n_vocab": 67,
+              "pretrain_dim": 0
+            }
+          }
+        },
+        "ARM_WORD2VEC_300D": {
+          "by_benchmark": {
+            "WordSim353": {
+              "rho": 0.5955045496762502,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 101.8,
+              "encoder_meta": {
+                "n_hit": 68,
+                "n_miss": 0,
+                "n_vocab": 68,
+                "pretrain_dim": 300
+              }
+            },
+            "SimLex999": {
+              "rho": 0.5781043714458266,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 0.28,
+              "encoder_meta": {
+                "n_hit": 67,
+                "n_miss": 0,
+                "n_vocab": 67,
+                "pretrain_dim": 300
+              }
+            }
+          },
+          "meta": {
+            "WordSim353": {
+              "n_hit": 68,
+              "n_miss": 0,
+              "n_vocab": 68,
+              "pretrain_dim": 300
+            },
+            "SimLex999": {
+              "n_hit": 67,
+              "n_miss": 0,
+              "n_vocab": 67,
+              "pretrain_dim": 300
+            }
+          }
+        },
+        "ARM_GLOVE_300D": {
+          "by_benchmark": {
+            "WordSim353": {
+              "rho": 0.5855626638965111,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 251.32,
+              "encoder_meta": {
+                "n_hit": 68,
+                "n_miss": 0,
+                "n_vocab": 68,
+                "pretrain_dim": 300
+              }
+            },
+            "SimLex999": {
+              "rho": 0.527195454462145,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 0.12,
+              "encoder_meta": {
+                "n_hit": 67,
+                "n_miss": 0,
+                "n_vocab": 67,
+                "pretrain_dim": 300
+              }
+            }
+          },
+          "meta": {
+            "WordSim353": {
+              "n_hit": 68,
+              "n_miss": 0,
+              "n_vocab": 68,
+              "pretrain_dim": 300
+            },
+            "SimLex999": {
+              "n_hit": 67,
+              "n_miss": 0,
+              "n_vocab": 67,
+              "pretrain_dim": 300
+            }
+          }
+        },
+        "ARM_FASTTEXT_300D": {
+          "by_benchmark": {
+            "WordSim353": {
+              "rho": 0.5629893000487947,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 781.86,
+              "encoder_meta": {
+                "n_hit": 68,
+                "n_miss": 0,
+                "n_vocab": 68,
+                "pretrain_dim": 300
+              }
+            },
+            "SimLex999": {
+              "rho": 0.5986600473599925,
+              "n_pairs_total": 50,
+              "n_pairs_used": 50,
+              "coverage": 1.0,
+              "wall_encode_s": 0.08,
+              "encoder_meta": {
+                "n_hit": 67,
+                "n_miss": 0,
+                "n_vocab": 67,
+                "pretrain_dim": 300
+              }
+            }
+          },
+          "meta": {
+            "WordSim353": {
+              "n_hit": 68,
+              "n_miss": 0,
+              "n_vocab": 68,
+              "pretrain_dim": 300
+            },
+            "SimLex999": {
+              "n_hit": 67,
+              "n_miss": 0,
+              "n_vocab": 67,
+              "pretrain_dim": 300
+            }
+          }
+        }
+      },
+      "sanity_planted_pair": {
+        "ARM_CHAR_TRIGRAM_HONEST": {
+          "cos_king_queen": -0.0029,
+          "cos_king_potato": 0.1196,
+          "semantic_order_correct": false
+        },
+        "ARM_WORD2VEC_300D": {
+          "cos_king_queen": 0.6437,
+          "cos_king_potato": 0.0697,
+          "semantic_order_correct": true
+        },
+        "ARM_GLOVE_300D": {
+          "cos_king_queen": 0.6325,
+          "cos_king_potato": 0.1199,
+          "semantic_order_correct": true
+        },
+        "ARM_FASTTEXT_300D": {
+          "cos_king_queen": 0.7695,
+          "cos_king_potato": 0.2893,
+          "semantic_order_correct": true
+        }
+      },
+      "N_DIM": 4096,
+      "PRETRAIN_DIM": 300,
+      "n_ws353_pairs": 50,
+      "n_simlex_pairs": 50,
+      "run_mode": "smoke",
+      "config_version": "clean_encoder_eval_harness_v1; N_DIM=4096 PRETRAIN_DIM=300 seeds=[0] arms=['ARM_CHAR_TRIGRAM_HONEST', 'ARM_WORD2VEC_300D', 'ARM_GLOVE_300D', 'ARM_FASTTEXT_300D'] pairs_cap=50 mode=smoke; bands HP_ws353_rho>=0.50 HP_simlex_rho>=0.40 HF_ws353_rho<0.25",
+      "elapsed_s_seed": 1135.94,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782245613.5420103
+    }
+  ],
+  "elapsed_s": 1136.7196862697601,
+  "summary": "CLEAN_ENCODER_EVAL HARD_PASS: arm ARM_WORD2VEC_300D clears BOTH bands (WS353 rho=0.596 >= 0.50 AND SimLex rho=0.578 >= 0.40); encoder candidate aligned with human similarity judgement on canonical external benchmarks; chain-grade-eligible for downstream substrate use. dual_arms_count=3. CLEAN_ENCODER_EVAL: ARM_CHAR_TRIGRAM_HONEST=ws0.229/sl-0.032 | ARM_WORD2VEC_300D=ws0.596/sl0.578/DUAL | ARM_GLOVE_300D=ws0.586/sl0.527/DUAL | ARM_FASTTEXT_300D=ws0.563/sl0.599/DUAL | sanity_ok=True",
+  "substrate_only_decode_gate": "TRUE (pure encoder eval; no substrate W/atoms in loop; cosine on bipolar HD; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

@@ -1,0 +1,13 @@
+{
+  "anchor_name": "pfc_controller_per_step_operator_select_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm structure verified",
+  "summary": "SELFTEST_OK: per-arm structure verified",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-27T18:23:41Z",
+  "pid": 22140,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_controller_per_step_operator_select_v1,N=512,N_OPS=4,V=200,seeds=[7],depths=[2],n_train=30,n_test=10,mode=smoke,HP_lift>=0.15,HP_cv<=0.10,expected_n=4,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_pfc_controller",
+  "_phase": "selftest_done"
+}

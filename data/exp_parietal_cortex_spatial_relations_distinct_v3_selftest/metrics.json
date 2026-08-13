@@ -1,0 +1,21 @@
+{
+  "anchor_name": "parietal_cortex_spatial_relations_distinct_v3",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: arms-distinct=PASS hrr=1.000 learned=1.000",
+  "summary": "SELFTEST_OK: arms-distinct=PASS hrr=1.000 learned=1.000",
+  "elapsed_s": 0.3,
+  "ts_iso": "2026-06-30T19:05:43Z",
+  "pid": 25196,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=parietal_cortex_spatial_relations_distinct_v3,N=512,grid=3x3,scenes=10,n_distractors=2,seeds=[7],mode=smoke,HP_hrr>=0.55,HP_lift>=0.30,HP_frac>=0.50,HP_cv<=0.10,HP_lookup>=0.95,HF_hrr<0.30,HF_lookup<0.90,chance=0.25,n_dirs=4,expected_n=200,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_RULE_AF_arms_hash_distinct+META_RULE_AY_self_report+META_RULE_AH_atomic_write",
+  "_hardening_marker": "v3_parietal_relations_codepath_hash",
+  "_phase": "selftest_done",
+  "arms_distinct_pass": true,
+  "arm_hashes": {
+    "no_rel_baseline": "52c6634595be81198f13c2b23932eb804004b7065ef722bcb4552c4ebf9e1dfa",
+    "direct_difference": "8c5aca6024bf278c14dce37fed75b96bd66603e378f63d08f4b33b5dba9e4a82",
+    "hrr_unbind": "e83b7115d1e9ae08c5a0809ee3cafb89de9e63545092a542bdb01026fc0c998d",
+    "learned_rel_lookup": "bf93b2599c1ec73bb6d9518de28594f45386a2d3a86cd4cfaa0857473a2e5494",
+    "random_vectors": "cb61e80012cf04c79a97817c04df8496d5407f52bae3652e85c9dcb3b22c85c5"
+  }
+}

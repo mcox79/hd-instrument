@@ -1,0 +1,249 @@
+{
+  "anchor_name": "cls_ca3complete_significance_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: CA3-completion is a small MM refinement -- lift positive (mean=0.0533) but NOT both tests clear p<0.05 at n=3 (paired-t p=0.0572, sign-test p=0.2500). NO_CLEANUP already retains ~0.88 so CA3 is marginal, not load-bearing. CA3-lift mean=0.0533 (per-seed=['0.080', '0.040', '0.040']) | paired-t t=4.0 p=0.0572 | sign-test 3/3 p=0.2500 | n=3 | FULL_old=0.933 NO_CLEANUP_old=0.880 NAIVE_old=0.020 | regime_sane=True budget_ok=True",
+  "run_mode": "smoke",
+  "D": 1024,
+  "T": 600,
+  "E": 12,
+  "V": 64,
+  "n_seeds": 3,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "detail": {
+    "PRIMARY_ca3_completion_lift": {
+      "per_seed_lift": [
+        0.07999999999999996,
+        0.040000000000000036,
+        0.040000000000000036
+      ],
+      "mean_lift": 0.05333,
+      "std_lift": 0.02309,
+      "sem_lift": 0.01333,
+      "n": 3,
+      "paired_t_stat": 4.0,
+      "paired_t_p_two_sided": 0.057191,
+      "sign_n_pos": 3,
+      "sign_n_neg": 0,
+      "sign_n_nonzero": 3,
+      "sign_test_p_two_sided": 0.25
+    },
+    "CONSOLIDATE_FULL": {
+      "old_retention": 0.9333,
+      "new_acquisition": 0.8933
+    },
+    "CONSOLIDATE_NO_CLEANUP": {
+      "old_retention": 0.88,
+      "new_acquisition": 0.8333
+    },
+    "NAIVE_NO_CONSOLIDATION": {
+      "old_retention": 0.02,
+      "new_acquisition": 0.96
+    },
+    "regime_sane": true,
+    "regime_sane_detail": "naive_old=0.0200<=0.55 AND full_old=0.9333>=0.80",
+    "budget_respected": true,
+    "n_seeds": 3,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "alpha_sig": 0.05,
+    "CONFIG_VERSION": "ANCHOR=cls_ca3complete_significance_v1, D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 n_seeds=3 seeds=[7, 17, 23] mode=smoke alpha_sig=0.05",
+    "note": "PARENT MAIN claim (exp_cls_ca3complete_consolidation_v1) UNTOUCHED; this cell firms ONLY the CA3-completion sub-claim via cross-seed significance of the paired lift.",
+    "cites": [
+      "exp_cls_ca3complete_consolidation_v1 (commit 92e01cf3f; parent MAIN claim CHAIN_GRADE, 3 seeds)",
+      "notes/research_hippocampal_biology_consolidation_loop_brain_first_2026-07-08.md (RANK 1 CA3 completion)",
+      "hdlab.iterative_attractor.iterative_cleanup (certified CA3-completion primitive)"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.0,
+          "new_acquisition": 0.94
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.96,
+          "new_acquisition": 0.9
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.86
+        }
+      },
+      "ca3_lift_full_minus_nocleanup_old": 0.08,
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "55740555c2586d25d822f4dbd535947b685f8beccd771102fbace64fcd1eed41",
+        "CONSOLIDATE_FULL": "4f08f8e2ea834de6cbdf4eb8cf6e5da09d31db55fe57895ca7d84bac1a90c12c",
+        "CONSOLIDATE_NO_CLEANUP": "9bde560bfd3a917dbfc8b5ee90eb3096e3ca9e3866860aa0913c5681b40d599d"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=cls_ca3complete_significance_v1, D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 n_seeds=3 seeds=[7, 17, 23] mode=smoke alpha_sig=0.05",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1783532089.022696
+    },
+    {
+      "seed": 17,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.06,
+          "new_acquisition": 0.96
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.92,
+          "new_acquisition": 0.92
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.88
+        }
+      },
+      "ca3_lift_full_minus_nocleanup_old": 0.04,
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "6a2f4c8c61f9fcebcba650f926e18a5b054bc0e62e1252715c9fd1436cb561f4",
+        "CONSOLIDATE_FULL": "a1851c8d36238ebd41b05704badc0f174d127000e6e2731c9cd6e5f9ca5587eb",
+        "CONSOLIDATE_NO_CLEANUP": "77a834c8431861ea7772e3c2ba62e93ee544c4fe3635837be8a92f54135e9126"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=cls_ca3complete_significance_v1, D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 n_seeds=3 seeds=[7, 17, 23] mode=smoke alpha_sig=0.05",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1783532092.6341617
+    },
+    {
+      "seed": 23,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.0,
+          "new_acquisition": 0.98
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.92,
+          "new_acquisition": 0.86
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.76
+        }
+      },
+      "ca3_lift_full_minus_nocleanup_old": 0.04,
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "2d24b79d8e44ee1f0fe3b993223c130af53ef6e0e8f9cd80342e90c990e8911f",
+        "CONSOLIDATE_FULL": "477d52fe9dd1b4546dc74b1e3a43bec9600cfd217380a908365407664a123b47",
+        "CONSOLIDATE_NO_CLEANUP": "425e327d16d6a5d715a815c9d69db8670d509b88f12cc34643e627af2062ed10"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=cls_ca3complete_significance_v1, D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 n_seeds=3 seeds=[7, 17, 23] mode=smoke alpha_sig=0.05",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1783532096.508501
+    }
+  ],
+  "metrics_source": "measured_cpu_cls_ca3complete_significance_v1",
+  "elapsed_s": 11.368177890777588,
+  "summary": "MIDDLE_BAND: CA3-completion is a small MM refinement -- lift positive (mean=0.0533) but NOT both tests clear p<0.05 at n=3 (paired-t p=0.0572, sign-test p=0.2500). NO_CLEANUP already retains ~0.88 so CA3 is marginal, not load-bearing. CA3-lift mean=0.0533 (per-seed=['0.080', '0.040', '0.040']) | paired-t t=4.0 p=0.0572 | sign-test 3/3 p=0.2500 | n=3 | FULL_old=0.933 NO_CLEANUP_old=0.880 NAIVE_old=0.020 | regime_sane=True budget_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native store + cleanup; no encoder)",
+  "config_version": "ANCHOR=cls_ca3complete_significance_v1, D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 n_seeds=3 seeds=[7, 17, 23] mode=smoke alpha_sig=0.05",
+  "structured_gate_claims": [
+    {
+      "gate_name": "mean_lift_positive",
+      "measured": 0.05333,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "CA3-completion lift FULL_old - NO_CLEANUP_old, paired mean across 3 seeds"
+    },
+    {
+      "gate_name": "paired_t_significant",
+      "measured": 0.057191,
+      "threshold": 0.05,
+      "op": "<",
+      "gate_verdict": false,
+      "note": "paired-t two-sided p on the within-seed lift"
+    },
+    {
+      "gate_name": "sign_test_significant",
+      "measured": 0.25,
+      "threshold": 0.05,
+      "op": "<",
+      "gate_verdict": false,
+      "note": "sign-test two-sided binomial p (3/3 positive)"
+    },
+    {
+      "gate_name": "regime_sane",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "consolidation loop behaved (NAIVE forgets, FULL retains) at this run"
+    }
+  ]
+}

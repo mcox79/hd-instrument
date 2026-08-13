@@ -1,0 +1,136 @@
+{
+  "anchor_name": "n11_random_indexing_semantic_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate-native distributional signal is real but partial. Substantive ratios=[1.368, 1.457, 1.353]; CONTROL=1.081; max_cv=0.000. Per by-construction-saturation discipline, this is MEASURED_MECHANISM not chain-grade win; consider lever (N_DIM up, window tuning, BEAGLE-only, or hub-spoke composition variant). ratios: RI_alone=1.368 BEAGLE=1.457 hub_spoke=1.353 CONTROL=1.081 | CVs: RI=0.000 BEAGLE=0.000 hub=0.000",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "sparsity": 10,
+  "window": 5,
+  "min_count": 5,
+  "max_tokens": 200000,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "RANDOM_INDEXING_ALONE": {
+        "ratio_mean": 1.3679,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0,
+        "similar_mean": 0.5776,
+        "dissim_mean": 0.4223,
+        "n_seeds": 1
+      },
+      "RI_PLUS_BEAGLE_ORDER": {
+        "ratio_mean": 1.4567,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0,
+        "similar_mean": 0.4867,
+        "dissim_mean": 0.3341,
+        "n_seeds": 1
+      },
+      "RI_HUB_SPOKE_KGSTORE": {
+        "ratio_mean": 1.3525,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0,
+        "similar_mean": 0.298,
+        "dissim_mean": 0.2203,
+        "n_seeds": 1
+      },
+      "CONTROL_RANDOM_PERMUTE": {
+        "ratio_mean": 1.0811,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0,
+        "similar_mean": 0.673,
+        "dissim_mean": 0.6225,
+        "n_seeds": 1
+      }
+    },
+    "headline_arm": "RANDOM_INDEXING_ALONE",
+    "headline_ratio_mean": 1.3679,
+    "headline_ratio_cv": 0.0,
+    "control_ratio_mean": 1.0811,
+    "all_substantive_pass_15x": false,
+    "any_substantive_fail_11x": false,
+    "control_is_null": true,
+    "control_breaks_probe": false,
+    "max_substantive_cv": 0.0,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "n11_random_indexing_v1; N=8192 sparsity=10 window=5 min_count=5 max_tokens=200000 seeds=[0]",
+    "honest_scope": "text8 corpus (~17M tokens full / 200k smoke); N_DIM=8192; sparsity=10; window=5; substrate-only (no LLM at any stage); handcrafted probe set (7 categories, capped 100 similar / 100 dissimilar pairs)",
+    "cites": [
+      "research_brain_drill_substrate_native_relational_semantic_encoding_5x_DEEPER_2026-06-22",
+      "Sahlgren_2005_random_indexing",
+      "Kanerva_1988_sparse_distributed_memory",
+      "Jones_Mewhort_2007_BEAGLE",
+      "Patterson_Nestor_Rogers_2007_ATL_hub_and_spoke",
+      "CERT_585_char_trigram_encoder"
+    ]
+  },
+  "metrics_source": "measured_cpu_n11_random_indexing_semantic_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "RANDOM_INDEXING_ALONE": {
+          "n_similar": 100,
+          "n_dissimilar": 100,
+          "similar_mean_cos": 0.5776,
+          "dissim_mean_cos": 0.4223,
+          "ratio": 1.3679,
+          "similar_std_cos": 0.2464,
+          "dissim_std_cos": 0.1596,
+          "wall_s_arm": 0.01
+        },
+        "RI_PLUS_BEAGLE_ORDER": {
+          "n_similar": 100,
+          "n_dissimilar": 100,
+          "similar_mean_cos": 0.4867,
+          "dissim_mean_cos": 0.3341,
+          "ratio": 1.4567,
+          "similar_std_cos": 0.2668,
+          "dissim_std_cos": 0.1399,
+          "wall_s_arm": 0.01
+        },
+        "RI_HUB_SPOKE_KGSTORE": {
+          "n_similar": 100,
+          "n_dissimilar": 100,
+          "similar_mean_cos": 0.298,
+          "dissim_mean_cos": 0.2203,
+          "ratio": 1.3525,
+          "similar_std_cos": 0.1299,
+          "dissim_std_cos": 0.0891,
+          "wall_s_arm": 0.16
+        },
+        "CONTROL_RANDOM_PERMUTE": {
+          "n_similar": 100,
+          "n_dissimilar": 100,
+          "similar_mean_cos": 0.673,
+          "dissim_mean_cos": 0.6225,
+          "ratio": 1.0811,
+          "similar_std_cos": 0.2113,
+          "dissim_std_cos": 0.1801,
+          "wall_s_arm": 0.01
+        }
+      },
+      "n_tokens": 200000,
+      "vocab_size_bag": 4533,
+      "vocab_size_order": 4533,
+      "vocab_size_ctrl": 4533,
+      "n_probe_words": 49,
+      "n_similar_pairs": 100,
+      "n_dissimilar_pairs": 100,
+      "fit_wall_s_bag": 7.93,
+      "fit_wall_s_order": 40.61,
+      "fit_wall_s_ctrl": 22.92,
+      "unit_wall_s": 74.3,
+      "run_mode": "smoke",
+      "config_version": "n11_random_indexing_v1; N=8192 sparsity=10 window=5 min_count=5 max_tokens=200000 seeds=[0]",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782185056.4459574
+    }
+  ],
+  "elapsed_s": 74.66352939605713,
+  "summary": "MIDDLE_BAND: substrate-native distributional signal is real but partial. Substantive ratios=[1.368, 1.457, 1.353]; CONTROL=1.081; max_cv=0.000. Per by-construction-saturation discipline, this is MEASURED_MECHANISM not chain-grade win; consider lever (N_DIM up, window tuning, BEAGLE-only, or hub-spoke composition variant). ratios: RI_alone=1.368 BEAGLE=1.457 hub_spoke=1.353 CONTROL=1.081 | CVs: RI=0.000 BEAGLE=0.000 hub=0.000",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "_name_says_smoke_workaround": true
+}

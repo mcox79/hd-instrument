@@ -1,0 +1,2338 @@
+{
+  "anchor_name": "learned_argstruct_parser_lccp_independent_gold_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES",
+  "verdict_msg": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 reader=225 gold_pos=100 gold_nopat=180 | A P=0.196 R=0.440 F1=0.271 fp_rate=0.804 | B P=0.434 R=0.360 F1=0.393 | C P=0.500 R=0.340 F1=0.405 fp_rate=0.500 | dFPrate=+0.304 Rret=0.773 | subcatTN A=0.000 C=0.662 | FPclass A(sub=107,wf=53,sp=21) C(sub=24,wf=6,sp=4) | gen seenP=0.449 heldP=0.632 gap=-0.183 | LC first=0.257 late=0.417 | pred3 mechval=True cue_ok=True priorSep(T=0.79,I=0.34) adjShrink=True | base_in_band=True discrim=True",
+  "summary": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 reader=225 gold_pos=100 gold_nopat=180 | A P=0.196 R=0.440 F1=0.271 fp_rate=0.804 | B P=0.434 R=0.360 F1=0.393 | C P=0.500 R=0.340 F1=0.405 fp_rate=0.500 | dFPrate=+0.304 Rret=0.773 | subcatTN A=0.000 C=0.662 | FPclass A(sub=107,wf=53,sp=21) C(sub=24,wf=6,sp=4) | gen seenP=0.449 heldP=0.632 gap=-0.183 | LC first=0.257 late=0.417 | pred3 mechval=True cue_ok=True priorSep(T=0.79,I=0.34) adjShrink=True | base_in_band=True discrim=True",
+  "elapsed_s": 12.069603699987056,
+  "ts_iso": "2026-07-19T13:23:25.683816+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7
+  },
+  "arm_metrics": {
+    "A_handrule": {
+      "all": {
+        "precision": 0.1956,
+        "recall": 0.44,
+        "f1": 0.2708,
+        "n_pred": 225,
+        "tp": 44,
+        "n_gold": 100,
+        "n_gold_covered": 44,
+        "subcat_fp": 107,
+        "within_frame_fp": 53,
+        "spurious_verb_fp": 21,
+        "total_fp": 181,
+        "fp_rate": 0.8044
+      },
+      "seen": {
+        "precision": 0.1628,
+        "recall": 0.5957,
+        "f1": 0.2557,
+        "n_pred": 172,
+        "tp": 28,
+        "n_gold": 47,
+        "n_gold_covered": 28,
+        "subcat_fp": 94,
+        "within_frame_fp": 32,
+        "spurious_verb_fp": 18,
+        "total_fp": 144,
+        "fp_rate": 0.8372
+      },
+      "heldout": {
+        "precision": 0.3019,
+        "recall": 0.5161,
+        "f1": 0.381,
+        "n_pred": 53,
+        "tp": 16,
+        "n_gold": 31,
+        "n_gold_covered": 16,
+        "subcat_fp": 13,
+        "within_frame_fp": 21,
+        "spurious_verb_fp": 3,
+        "total_fp": 37,
+        "fp_rate": 0.6981
+      }
+    },
+    "B_cuecomp": {
+      "all": {
+        "precision": 0.4337,
+        "recall": 0.36,
+        "f1": 0.3934,
+        "n_pred": 83,
+        "tp": 36,
+        "n_gold": 100,
+        "n_gold_covered": 36,
+        "subcat_fp": 29,
+        "within_frame_fp": 9,
+        "spurious_verb_fp": 9,
+        "total_fp": 47,
+        "fp_rate": 0.5663
+      },
+      "seen": {
+        "precision": 0.371,
+        "recall": 0.4894,
+        "f1": 0.422,
+        "n_pred": 62,
+        "tp": 23,
+        "n_gold": 47,
+        "n_gold_covered": 23,
+        "subcat_fp": 24,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 9,
+        "total_fp": 39,
+        "fp_rate": 0.629
+      },
+      "heldout": {
+        "precision": 0.619,
+        "recall": 0.4194,
+        "f1": 0.5,
+        "n_pred": 21,
+        "tp": 13,
+        "n_gold": 31,
+        "n_gold_covered": 13,
+        "subcat_fp": 5,
+        "within_frame_fp": 3,
+        "spurious_verb_fp": 0,
+        "total_fp": 8,
+        "fp_rate": 0.381
+      }
+    },
+    "C_lccp": {
+      "all": {
+        "precision": 0.5,
+        "recall": 0.34,
+        "f1": 0.4048,
+        "n_pred": 68,
+        "tp": 34,
+        "n_gold": 100,
+        "n_gold_covered": 34,
+        "subcat_fp": 24,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 4,
+        "total_fp": 34,
+        "fp_rate": 0.5
+      },
+      "seen": {
+        "precision": 0.449,
+        "recall": 0.4681,
+        "f1": 0.4583,
+        "n_pred": 49,
+        "tp": 22,
+        "n_gold": 47,
+        "n_gold_covered": 22,
+        "subcat_fp": 19,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 4,
+        "total_fp": 27,
+        "fp_rate": 0.551
+      },
+      "heldout": {
+        "precision": 0.6316,
+        "recall": 0.3871,
+        "f1": 0.48,
+        "n_pred": 19,
+        "tp": 12,
+        "n_gold": 31,
+        "n_gold_covered": 12,
+        "subcat_fp": 5,
+        "within_frame_fp": 2,
+        "spurious_verb_fp": 0,
+        "total_fp": 7,
+        "fp_rate": 0.3684
+      }
+    }
+  },
+  "verdict_detail": {
+    "verdict": "HARD_PASS_LCCP_REDUCES_MISATTACH_AND_GENERALIZES",
+    "fp_rate_reduction_A_minus_C": 0.3044,
+    "recall_retention_C_over_A": 0.7727,
+    "generalization_gap_seen_minus_heldout_precision": -0.1826,
+    "subcat_tn_rate_C": 0.662,
+    "subcat_tn_rate_A": 0.0
+  },
+  "subcat_true_negatives": {
+    "A_handrule": {
+      "n_nopat_reader_attached": 71,
+      "n_suppressed_TN": 0,
+      "n_kept_FP": 71,
+      "tn_rate": 0.0
+    },
+    "B_cuecomp": {
+      "n_nopat_reader_attached": 71,
+      "n_suppressed_TN": 42,
+      "n_kept_FP": 29,
+      "tn_rate": 0.5915
+    },
+    "C_lccp": {
+      "n_nopat_reader_attached": 71,
+      "n_suppressed_TN": 47,
+      "n_kept_FP": 24,
+      "tn_rate": 0.662
+    }
+  },
+  "learning_curve": {
+    "first_exposure_subcat_fp_rate": 0.2571,
+    "later_exposure_subcat_fp_rate": 0.4167,
+    "n_first": 35,
+    "n_later": 36,
+    "slope_first_minus_later": -0.1595
+  },
+  "prediction3_cue_degradation": {
+    "probe_cue": "f_adj",
+    "adj_weight_normal": 1.7656,
+    "adj_weight_degraded_unreliable": -1.2905,
+    "adj_weight_shrinks": true,
+    "cue_structure_correct": true,
+    "learned_weights_normal": {
+      "bias": -0.443,
+      "f_adj": 1.7656,
+      "f_postv": 4.1146,
+      "f_prep": -10.0227,
+      "f_func": -8.2974,
+      "f_clause": -9.0653
+    },
+    "transitive_verb_prior_mean": 0.7928,
+    "intransitive_verb_prior_mean": 0.3438,
+    "prior_separates_verb_classes": true,
+    "n_pure_transitive_verbs": 26,
+    "n_pure_intransitive_verbs": 32,
+    "mechanism_validity": true
+  },
+  "kept_hashes": {
+    "A_handrule": "6fca7838894babc0",
+    "B_cuecomp": "4d773b70dc256a1d",
+    "C_lccp": "abbed72715740f6e"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "intransitive_overextraction_suppressed_by_C_kept_by_A": [
+      "L04_07",
+      "mean",
+      "do"
+    ],
+    "true_patient_kept_by_C": [
+      "L04_02",
+      "rub",
+      "castle"
+    ],
+    "lemma_parity": {
+      "came": "come",
+      "struggled": "struggle",
+      "looked": "look",
+      "wonder": "wonder"
+    },
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json -- single-annotator gold with pos (patient-taking) AND nopat (no-patient: intransitive/cognition/oblique/report) verb-instances, annotated from sentence text independent of reader output; makes SUBCAT true-negatives measurable.",
+  "data_meta": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "n_sentences": 163,
+    "n_reader_svo": 225,
+    "n_gold_pos": 100,
+    "n_gold_nopat": 180,
+    "gold_meta": {
+      "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+      "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+      "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+      "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+      "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+      "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+      "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+    },
+    "artifacts": {
+      "w": [
+        -0.4429968309179872,
+        1.7656098841998868,
+        4.114551971207834,
+        -10.022727687675852,
+        -8.297368167142423,
+        -9.065257286508594
+      ],
+      "feat_names": [
+        "bias",
+        "f_adj",
+        "f_postv",
+        "f_prep",
+        "f_func",
+        "f_clause"
+      ],
+      "n_train_examples": 209,
+      "n_candidates": 225,
+      "n_verb_instances": 142,
+      "seen_verbs": [
+        "ask",
+        "beat",
+        "begin",
+        "build",
+        "call",
+        "can't",
+        "choose",
+        "come",
+        "commence",
+        "cry",
+        "enjoy",
+        "fear",
+        "find",
+        "finish",
+        "flit",
+        "get",
+        "give",
+        "go",
+        "hear",
+        "hold",
+        "hunt",
+        "include",
+        "intend",
+        "keep",
+        "know",
+        "lay",
+        "leap",
+        "lie",
+        "live",
+        "look",
+        "mean",
+        "meddle",
+        "meet",
+        "nod",
+        "obey",
+        "obtain",
+        "open",
+        "put",
+        "reach",
+        "rub",
+        "rule",
+        "say",
+        "send",
+        "show",
+        "sit",
+        "spend",
+        "struggle",
+        "tell",
+        "thank",
+        "think",
+        "touch",
+        "tread",
+        "try",
+        "wake",
+        "walk",
+        "won't",
+        "wonder",
+        "work"
+      ],
+      "heldout_verbs": [
+        "admire",
+        "amuse",
+        "become",
+        "continue",
+        "fall",
+        "invite",
+        "knock",
+        "lead",
+        "leave",
+        "make",
+        "pass",
+        "peel",
+        "run",
+        "see",
+        "stand",
+        "stroke",
+        "take",
+        "teach",
+        "wish"
+      ],
+      "n_constructions": 4,
+      "constr_trans": {
+        "0": 0.39079890257492556,
+        "1": 0.0018598196621644135,
+        "2": 0.8969883009293608,
+        "3": 0.3386814332120689
+      },
+      "verb_construction": {
+        "ask": 0,
+        "beat": 1,
+        "begin": 1,
+        "build": 2,
+        "call": 2,
+        "can't": 3,
+        "choose": 2,
+        "come": 2,
+        "commence": 2,
+        "cry": 0,
+        "enjoy": 2,
+        "fear": 3,
+        "find": 0,
+        "finish": 0,
+        "flit": 1,
+        "get": 3,
+        "give": 0,
+        "go": 3,
+        "hear": 2,
+        "hold": 3,
+        "hunt": 2,
+        "include": 2,
+        "intend": 0,
+        "keep": 2,
+        "know": 0,
+        "lay": 2,
+        "leap": 1,
+        "lie": 2,
+        "live": 1,
+        "look": 3,
+        "mean": 1,
+        "meddle": 1,
+        "meet": 2,
+        "nod": 2,
+        "obey": 2,
+        "obtain": 2,
+        "open": 2,
+        "put": 2,
+        "reach": 2,
+        "rub": 2,
+        "rule": 2,
+        "say": 2,
+        "send": 0,
+        "show": 2,
+        "sit": 2,
+        "spend": 2,
+        "struggle": 2,
+        "tell": 2,
+        "thank": 2,
+        "think": 0,
+        "touch": 0,
+        "tread": 1,
+        "try": 1,
+        "wake": 1,
+        "walk": 2,
+        "won't": 2,
+        "wonder": 0,
+        "work": 1
+      }
+    },
+    "glove_coverage": 0.988,
+    "reader_svo_dump": {
+      "L04_01": [
+        [
+          "building",
+          "herbert",
+          "ruin"
+        ]
+      ],
+      "L04_02": [
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ]
+      ],
+      "L04_03": [
+        [
+          "took",
+          "herbert",
+          "blocks"
+        ],
+        [
+          "took",
+          "herbert",
+          "one"
+        ]
+      ],
+      "L04_04": [
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      "L04_07": [
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_10": [
+        [
+          "won't",
+          "i",
+          "herbert"
+        ]
+      ],
+      "L04_11": [
+        [
+          "opened",
+          "papa",
+          "door"
+        ]
+      ],
+      "L04_12": [
+        [
+          "fell",
+          "castle",
+          "hetty"
+        ]
+      ],
+      "L04_13": [
+        [
+          "know",
+          "mean",
+          "know"
+        ],
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_14": [
+        [
+          "held",
+          "herbert",
+          "hands"
+        ],
+        [
+          "held",
+          "herbert",
+          "out"
+        ]
+      ],
+      "L04_15": [
+        [
+          "came",
+          "boy",
+          "eyes"
+        ],
+        [
+          "came",
+          "boy",
+          "tears"
+        ],
+        [
+          "got",
+          "boy",
+          "floor"
+        ]
+      ],
+      "L04_16": [
+        [
+          "said",
+          "boy",
+          "papa"
+        ]
+      ],
+      "L04_17": [
+        [
+          "taken",
+          "you",
+          "heart"
+        ],
+        [
+          "taken",
+          "you",
+          "way"
+        ]
+      ],
+      "L04_18": [
+        [
+          "heard",
+          "i",
+          "blocks"
+        ],
+        [
+          "heard",
+          "i",
+          "you"
+        ]
+      ],
+      "L04_19": [
+        [
+          "nodded",
+          "herbert",
+          "head"
+        ],
+        [
+          "sat",
+          "papa",
+          "blocks"
+        ],
+        [
+          "sat",
+          "papa",
+          "side"
+        ],
+        [
+          "sat",
+          "papa",
+          "son"
+        ],
+        [
+          "show",
+          "i",
+          "way"
+        ],
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ],
+      "L05_02": [
+        [
+          "began",
+          "he",
+          "work"
+        ]
+      ],
+      "L05_04": [
+        [
+          "crying",
+          "great",
+          "crying"
+        ]
+      ],
+      "L05_06": [
+        [
+          "flitted",
+          "shadow",
+          "face"
+        ],
+        [
+          "knocked",
+          "pussy",
+          "castle"
+        ]
+      ],
+      "L05_07": [
+        [
+          "told",
+          "joe",
+          "i"
+        ],
+        [
+          "told",
+          "joe",
+          "milk"
+        ],
+        [
+          "told",
+          "joe",
+          "place"
+        ]
+      ],
+      "L05_08": [
+        [
+          "wonder",
+          "herbert",
+          "you"
+        ]
+      ],
+      "L05_10": [
+        [
+          "crying",
+          "papa",
+          "use"
+        ]
+      ],
+      "L05_11": [
+        [
+          "go",
+          "you",
+          "kite"
+        ],
+        [
+          "looked",
+          "joe",
+          "book"
+        ],
+        [
+          "looked",
+          "joe",
+          "down"
+        ]
+      ],
+      "L05_12": [
+        [
+          "finished",
+          "time",
+          "castle"
+        ]
+      ],
+      "L05_13": [
+        [
+          "knocked",
+          "it",
+          "hetty"
+        ]
+      ],
+      "L05_14": [
+        [
+          "looked",
+          "herbert",
+          "sides"
+        ]
+      ],
+      "L05_15": [
+        [
+          "build",
+          "down",
+          "build"
+        ],
+        [
+          "build",
+          "down",
+          "sentence"
+        ]
+      ],
+      "L05_17": [
+        [
+          "can't",
+          "i",
+          "forehead"
+        ],
+        [
+          "can't",
+          "i",
+          "have"
+        ],
+        [
+          "can't",
+          "i",
+          "out"
+        ]
+      ],
+      "L05_20": [
+        [
+          "go",
+          "you",
+          "carriages"
+        ],
+        [
+          "go",
+          "you",
+          "out"
+        ],
+        [
+          "keep",
+          "you",
+          "way"
+        ]
+      ],
+      "L05_22": [
+        [
+          "seen",
+          "i",
+          "a"
+        ],
+        [
+          "seen",
+          "i",
+          "child"
+        ],
+        [
+          "seen",
+          "i",
+          "dash"
+        ],
+        [
+          "seen",
+          "i",
+          "dishes"
+        ],
+        [
+          "seen",
+          "i",
+          "hands"
+        ],
+        [
+          "seen",
+          "i",
+          "servant"
+        ],
+        [
+          "seen",
+          "i",
+          "tray"
+        ]
+      ],
+      "L05_24": [
+        [
+          "left",
+          "papa",
+          "crying"
+        ],
+        [
+          "left",
+          "papa",
+          "milk"
+        ],
+        [
+          "left",
+          "papa",
+          "room"
+        ]
+      ],
+      "L05_25": [
+        [
+          "get",
+          "castles",
+          "down"
+        ]
+      ],
+      "L07_01": [
+        [
+          "sent",
+          "parents",
+          "james"
+        ]
+      ],
+      "L07_02": [
+        [
+          "sent",
+          "they",
+          "sent"
+        ]
+      ],
+      "L07_04": [
+        [
+          "go",
+          "he",
+          "fields"
+        ],
+        [
+          "spend",
+          "fields",
+          "boys"
+        ],
+        [
+          "spend",
+          "fields",
+          "time"
+        ]
+      ],
+      "L07_06": [
+        [
+          "said",
+          "tell",
+          "lessons"
+        ],
+        [
+          "went",
+          "he",
+          "home"
+        ],
+        [
+          "went",
+          "he",
+          "tell"
+        ]
+      ],
+      "L07_07": [
+        [
+          "come",
+          "james",
+          "aunt's"
+        ],
+        [
+          "told",
+          "mother",
+          "haste"
+        ],
+        [
+          "told",
+          "mother",
+          "home"
+        ],
+        [
+          "told",
+          "mother",
+          "james"
+        ],
+        [
+          "told",
+          "mother",
+          "school"
+        ]
+      ],
+      "L07_09": [
+        [
+          "met",
+          "there",
+          "boys"
+        ],
+        [
+          "met",
+          "there",
+          "plenty"
+        ]
+      ],
+      "L07_10": [
+        [
+          "found",
+          "boys",
+          "james"
+        ],
+        [
+          "found",
+          "boys",
+          "money"
+        ],
+        [
+          "given",
+          "aunt",
+          "james"
+        ],
+        [
+          "led",
+          "boys",
+          "boat"
+        ],
+        [
+          "led",
+          "boys",
+          "james"
+        ]
+      ],
+      "L07_11": [
+        [
+          "think",
+          "james",
+          "danger"
+        ]
+      ],
+      "L07_12": [
+        [
+          "knew",
+          "them",
+          "boat"
+        ]
+      ],
+      "L07_13": [
+        [
+          "struggled",
+          "they",
+          "tide"
+        ],
+        [
+          "struggled",
+          "they",
+          "wind"
+        ]
+      ],
+      "L07_17": [
+        [
+          "known",
+          "he",
+          "one"
+        ]
+      ],
+      "L07_20": [
+        [
+          "saw",
+          "men",
+          "boys"
+        ],
+        [
+          "went",
+          "men",
+          "out"
+        ]
+      ],
+      "L07_21": [
+        [
+          "reached",
+          "they",
+          "grave"
+        ],
+        [
+          "reached",
+          "they",
+          "them"
+        ],
+        [
+          "reached",
+          "they",
+          "watery"
+        ]
+      ],
+      "L07_25": [
+        [
+          "became",
+          "he",
+          "books"
+        ],
+        [
+          "obey",
+          "regular",
+          "parents"
+        ]
+      ],
+      "L08_01": [
+        [
+          "stroke",
+          "i",
+          "fur"
+        ],
+        [
+          "wakes",
+          "as",
+          "pur"
+        ]
+      ],
+      "L08_02": [
+        [
+          "choosing",
+          "kitten",
+          "places"
+        ],
+        [
+          "hear",
+          "i",
+          "mew"
+        ],
+        [
+          "open",
+          "i",
+          "door"
+        ],
+        [
+          "say",
+          "i",
+          "hour"
+        ],
+        [
+          "say",
+          "i",
+          "you"
+        ]
+      ],
+      "L08_04": [
+        [
+          "looking",
+          "can",
+          "beggar"
+        ],
+        [
+          "looking",
+          "can",
+          "cat"
+        ],
+        [
+          "looking",
+          "can",
+          "i"
+        ]
+      ],
+      "L08_08": [
+        [
+          "choosing",
+          "children",
+          "places"
+        ],
+        [
+          "intend",
+          "children",
+          "kittens"
+        ],
+        [
+          "intend",
+          "children",
+          "little"
+        ],
+        [
+          "intend",
+          "children",
+          "obey"
+        ]
+      ],
+      "L09_02": [
+        [
+          "including",
+          "it",
+          "flat"
+        ],
+        [
+          "including",
+          "it",
+          "paddle"
+        ]
+      ],
+      "L09_03": [
+        [
+          "lies",
+          "fur",
+          "skin"
+        ]
+      ],
+      "L09_04": [
+        [
+          "build",
+          "beavers",
+          "huts"
+        ]
+      ],
+      "L09_05": [
+        [
+          "build",
+          "they",
+          "banks"
+        ],
+        [
+          "build",
+          "they",
+          "huts"
+        ],
+        [
+          "build",
+          "they",
+          "lakes"
+        ],
+        [
+          "build",
+          "they",
+          "rivers"
+        ]
+      ],
+      "L09_06": [
+        [
+          "build",
+          "they",
+          "dam"
+        ],
+        [
+          "build",
+          "they",
+          "purpose"
+        ],
+        [
+          "build",
+          "they",
+          "stream"
+        ],
+        [
+          "build",
+          "they",
+          "water"
+        ]
+      ],
+      "L09_11": [
+        [
+          "commence",
+          "they",
+          "houses"
+        ]
+      ],
+      "L09_12": [
+        [
+          "makes",
+          "freezing",
+          "them"
+        ]
+      ],
+      "L09_13": [
+        [
+          "obtain",
+          "they",
+          "branches"
+        ],
+        [
+          "obtain",
+          "they",
+          "dams"
+        ],
+        [
+          "obtain",
+          "they",
+          "huts"
+        ],
+        [
+          "obtain",
+          "they",
+          "trees"
+        ],
+        [
+          "obtain",
+          "they",
+          "wood"
+        ]
+      ],
+      "L09_14": [
+        [
+          "peel",
+          "they",
+          "bark"
+        ]
+      ],
+      "L09_16": [
+        [
+          "called",
+          "men",
+          "trappers"
+        ],
+        [
+          "hunt",
+          "men",
+          "animals"
+        ]
+      ],
+      "L09_17": [
+        [
+          "saw",
+          "gentleman",
+          "beavers"
+        ]
+      ],
+      "L09_18": [
+        [
+          "lay",
+          "tree",
+          "dam"
+        ],
+        [
+          "leap",
+          "they",
+          "tree"
+        ]
+      ],
+      "L09_19": [
+        [
+          "thought",
+          "forward",
+          "children"
+        ],
+        [
+          "thought",
+          "forward",
+          "little"
+        ]
+      ],
+      "L09_20": [
+        [
+          "left",
+          "so",
+          "play"
+        ],
+        [
+          "left",
+          "so",
+          "them"
+        ]
+      ],
+      "L10_01": [
+        [
+          "lived",
+          "charles",
+          "father"
+        ]
+      ],
+      "L10_03": [
+        [
+          "amuse",
+          "son",
+          "hour"
+        ],
+        [
+          "told",
+          "rose",
+          "son"
+        ]
+      ],
+      "L10_05": [
+        [
+          "stood",
+          "bank",
+          "fisherman"
+        ],
+        [
+          "stood",
+          "bank",
+          "hut"
+        ],
+        [
+          "stood",
+          "bank",
+          "poor"
+        ]
+      ],
+      "L10_06": [
+        [
+          "kept",
+          "wife",
+          "wheel"
+        ]
+      ],
+      "L10_07": [
+        [
+          "worked",
+          "they",
+          "want"
+        ]
+      ],
+      "L10_09": [
+        [
+          "send",
+          "they",
+          "teach"
+        ],
+        [
+          "teach",
+          "they",
+          "teach"
+        ]
+      ],
+      "L10_10": [
+        [
+          "called",
+          "charles",
+          "day"
+        ],
+        [
+          "called",
+          "charles",
+          "fisherman"
+        ]
+      ],
+      "L10_11": [
+        [
+          "found",
+          "he",
+          "boy"
+        ],
+        [
+          "found",
+          "he",
+          "joe"
+        ],
+        [
+          "found",
+          "he",
+          "name"
+        ],
+        [
+          "making",
+          "table",
+          "marks"
+        ]
+      ],
+      "L10_12": [
+        [
+          "asked",
+          "charles",
+          "pictures"
+        ]
+      ],
+      "L10_13": [
+        [
+          "trying",
+          "joe",
+          "words"
+        ]
+      ],
+      "L10_14": [
+        [
+          "make",
+          "i",
+          "you"
+        ],
+        [
+          "saw",
+          "i",
+          "sign"
+        ],
+        [
+          "trying",
+          "i",
+          "them"
+        ]
+      ],
+      "L10_15": [
+        [
+          "teach",
+          "i",
+          "you"
+        ]
+      ],
+      "L10_16": [
+        [
+          "gives",
+          "father",
+          "day"
+        ],
+        [
+          "gives",
+          "father",
+          "hour"
+        ],
+        [
+          "gives",
+          "father",
+          "me"
+        ],
+        [
+          "gives",
+          "father",
+          "myself"
+        ]
+      ],
+      "L10_17": [
+        [
+          "fall",
+          "mother",
+          "knees"
+        ]
+      ],
+      "L10_18": [
+        [
+          "told",
+          "they",
+          "him"
+        ],
+        [
+          "told",
+          "they",
+          "it"
+        ],
+        [
+          "told",
+          "they",
+          "things"
+        ]
+      ],
+      "L10_19": [
+        [
+          "came",
+          "hour",
+          "book"
+        ],
+        [
+          "came",
+          "hour",
+          "charles"
+        ],
+        [
+          "came",
+          "hour",
+          "pocket"
+        ]
+      ],
+      "L10_20": [
+        [
+          "began",
+          "charles",
+          "teach"
+        ]
+      ],
+      "L10_24": [
+        [
+          "said",
+          "rose",
+          "walk"
+        ]
+      ],
+      "L10_26": [
+        [
+          "see",
+          "i",
+          "house"
+        ],
+        [
+          "see",
+          "i",
+          "see"
+        ]
+      ],
+      "L10_27": [
+        [
+          "fear",
+          "i",
+          "boat"
+        ],
+        [
+          "fear",
+          "i",
+          "out"
+        ]
+      ],
+      "L10_29": [
+        [
+          "told",
+          "he",
+          "charles"
+        ],
+        [
+          "told",
+          "he",
+          "venture"
+        ]
+      ],
+      "L10_30": [
+        [
+          "left",
+          "gentleman",
+          "mr"
+        ]
+      ],
+      "L10_31": [
+        [
+          "went",
+          "rose",
+          "son"
+        ]
+      ],
+      "L10_34": [
+        [
+          "thought",
+          "he",
+          "charles"
+        ],
+        [
+          "thought",
+          "he",
+          "way"
+        ]
+      ],
+      "L10_36": [
+        [
+          "put",
+          "he",
+          "head"
+        ]
+      ],
+      "L10_37": [
+        [
+          "met",
+          "sight",
+          "eyes"
+        ]
+      ],
+      "L10_38": [
+        [
+          "ruling",
+          "charles",
+          "copybook"
+        ],
+        [
+          "ruling",
+          "charles",
+          "joe"
+        ]
+      ],
+      "L10_40": [
+        [
+          "feared",
+          "he",
+          "father"
+        ]
+      ],
+      "L10_41": [
+        [
+          "gave",
+          "father",
+          "books"
+        ],
+        [
+          "gave",
+          "father",
+          "joe"
+        ],
+        [
+          "gave",
+          "father",
+          "paper"
+        ],
+        [
+          "gave",
+          "father",
+          "pens"
+        ]
+      ],
+      "L10_42": [
+        [
+          "came",
+          "boy",
+          "home"
+        ]
+      ],
+      "L10_43": [
+        [
+          "beating",
+          "heart",
+          "joy"
+        ],
+        [
+          "ran",
+          "he",
+          "hands"
+        ],
+        [
+          "ran",
+          "he",
+          "parcels"
+        ]
+      ],
+      "L12_01": [
+        [
+          "came",
+          "they",
+          "garden"
+        ],
+        [
+          "walking",
+          "frank",
+          "mother"
+        ]
+      ],
+      "L12_03": [
+        [
+          "called",
+          "he",
+          "mother"
+        ],
+        [
+          "said",
+          "mother",
+          "come"
+        ],
+        [
+          "said",
+          "mother",
+          "garden"
+        ],
+        [
+          "said",
+          "mother",
+          "look"
+        ]
+      ],
+      "L12_04": [
+        [
+          "invited",
+          "gardener",
+          "mother"
+        ],
+        [
+          "wish",
+          "i",
+          "gate"
+        ]
+      ],
+      "L12_05": [
+        [
+          "thanked",
+          "mother",
+          "man"
+        ]
+      ],
+      "L12_06": [
+        [
+          "touched",
+          "frank",
+          "nothing"
+        ],
+        [
+          "touched",
+          "frank",
+          "son"
+        ],
+        [
+          "walked",
+          "frank",
+          "gravel"
+        ],
+        [
+          "walked",
+          "frank",
+          "paths"
+        ]
+      ],
+      "L12_07": [
+        [
+          "tread",
+          "he",
+          "borders"
+        ]
+      ],
+      "L12_09": [
+        [
+          "showed",
+          "he",
+          "him"
+        ],
+        [
+          "showed",
+          "he",
+          "seeds"
+        ]
+      ],
+      "L12_10": [
+        [
+          "admiring",
+          "frank",
+          "beauty"
+        ],
+        [
+          "admiring",
+          "frank",
+          "boy"
+        ],
+        [
+          "admiring",
+          "frank",
+          "flower"
+        ],
+        [
+          "admiring",
+          "frank",
+          "gate"
+        ],
+        [
+          "finding",
+          "frank",
+          "boy"
+        ]
+      ],
+      "L12_12": [
+        [
+          "meddled",
+          "gardener",
+          "flowers"
+        ],
+        [
+          "said",
+          "then",
+          "he"
+        ]
+      ],
+      "L12_13": [
+        [
+          "choose",
+          "i",
+          "garden"
+        ],
+        [
+          "found",
+          "boy",
+          "gardener"
+        ],
+        [
+          "meddles",
+          "garden",
+          "plants"
+        ]
+      ],
+      "L12_15": [
+        [
+          "continued",
+          "he",
+          "walk"
+        ],
+        [
+          "enjoyed",
+          "mother",
+          "day"
+        ]
+      ],
+      "L12_16": [
+        [
+          "left",
+          "they",
+          "flowers"
+        ],
+        [
+          "left",
+          "they",
+          "gardener"
+        ],
+        [
+          "left",
+          "they",
+          "them"
+        ]
+      ]
+    },
+    "kept_C_dump": [
+      [
+        "L04_02",
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ]
+      ],
+      [
+        "L04_04",
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      [
+        "L04_10",
+        [
+          "won't",
+          "i",
+          "herbert"
+        ]
+      ],
+      [
+        "L04_11",
+        [
+          "opened",
+          "papa",
+          "door"
+        ]
+      ],
+      [
+        "L04_15",
+        [
+          "came",
+          "boy",
+          "eyes"
+        ]
+      ],
+      [
+        "L04_16",
+        [
+          "said",
+          "boy",
+          "papa"
+        ]
+      ],
+      [
+        "L04_18",
+        [
+          "heard",
+          "i",
+          "you"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "nodded",
+          "herbert",
+          "head"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "sat",
+          "papa",
+          "son"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ],
+      [
+        "L05_06",
+        [
+          "knocked",
+          "pussy",
+          "castle"
+        ]
+      ],
+      [
+        "L05_15",
+        [
+          "build",
+          "down",
+          "sentence"
+        ]
+      ],
+      [
+        "L05_22",
+        [
+          "seen",
+          "i",
+          "child"
+        ]
+      ],
+      [
+        "L05_24",
+        [
+          "left",
+          "papa",
+          "room"
+        ]
+      ],
+      [
+        "L07_04",
+        [
+          "spend",
+          "fields",
+          "time"
+        ]
+      ],
+      [
+        "L07_06",
+        [
+          "said",
+          "tell",
+          "lessons"
+        ]
+      ],
+      [
+        "L07_07",
+        [
+          "told",
+          "mother",
+          "james"
+        ]
+      ],
+      [
+        "L07_09",
+        [
+          "met",
+          "there",
+          "plenty"
+        ]
+      ],
+      [
+        "L07_13",
+        [
+          "struggled",
+          "they",
+          "tide"
+        ]
+      ],
+      [
+        "L07_20",
+        [
+          "saw",
+          "men",
+          "boys"
+        ]
+      ],
+      [
+        "L07_21",
+        [
+          "reached",
+          "they",
+          "them"
+        ]
+      ],
+      [
+        "L07_25",
+        [
+          "obey",
+          "regular",
+          "parents"
+        ]
+      ],
+      [
+        "L08_01",
+        [
+          "stroke",
+          "i",
+          "fur"
+        ]
+      ],
+      [
+        "L08_02",
+        [
+          "choosing",
+          "kitten",
+          "places"
+        ]
+      ],
+      [
+        "L08_02",
+        [
+          "hear",
+          "i",
+          "mew"
+        ]
+      ],
+      [
+        "L08_02",
+        [
+          "open",
+          "i",
+          "door"
+        ]
+      ],
+      [
+        "L08_02",
+        [
+          "say",
+          "i",
+          "hour"
+        ]
+      ],
+      [
+        "L08_08",
+        [
+          "choosing",
+          "children",
+          "places"
+        ]
+      ],
+      [
+        "L09_02",
+        [
+          "including",
+          "it",
+          "flat"
+        ]
+      ],
+      [
+        "L09_03",
+        [
+          "lies",
+          "fur",
+          "skin"
+        ]
+      ],
+      [
+        "L09_04",
+        [
+          "build",
+          "beavers",
+          "huts"
+        ]
+      ],
+      [
+        "L09_05",
+        [
+          "build",
+          "they",
+          "huts"
+        ]
+      ],
+      [
+        "L09_06",
+        [
+          "build",
+          "they",
+          "stream"
+        ]
+      ],
+      [
+        "L09_11",
+        [
+          "commence",
+          "they",
+          "houses"
+        ]
+      ],
+      [
+        "L09_12",
+        [
+          "makes",
+          "freezing",
+          "them"
+        ]
+      ],
+      [
+        "L09_13",
+        [
+          "obtain",
+          "they",
+          "wood"
+        ]
+      ],
+      [
+        "L09_16",
+        [
+          "called",
+          "men",
+          "trappers"
+        ]
+      ],
+      [
+        "L09_16",
+        [
+          "hunt",
+          "men",
+          "animals"
+        ]
+      ],
+      [
+        "L09_17",
+        [
+          "saw",
+          "gentleman",
+          "beavers"
+        ]
+      ],
+      [
+        "L09_18",
+        [
+          "lay",
+          "tree",
+          "dam"
+        ]
+      ],
+      [
+        "L09_20",
+        [
+          "left",
+          "so",
+          "them"
+        ]
+      ],
+      [
+        "L10_03",
+        [
+          "told",
+          "rose",
+          "son"
+        ]
+      ],
+      [
+        "L10_05",
+        [
+          "stood",
+          "bank",
+          "hut"
+        ]
+      ],
+      [
+        "L10_06",
+        [
+          "kept",
+          "wife",
+          "wheel"
+        ]
+      ],
+      [
+        "L10_10",
+        [
+          "called",
+          "charles",
+          "day"
+        ]
+      ],
+      [
+        "L10_11",
+        [
+          "making",
+          "table",
+          "marks"
+        ]
+      ],
+      [
+        "L10_14",
+        [
+          "make",
+          "i",
+          "you"
+        ]
+      ],
+      [
+        "L10_18",
+        [
+          "told",
+          "they",
+          "him"
+        ]
+      ],
+      [
+        "L10_19",
+        [
+          "came",
+          "hour",
+          "charles"
+        ]
+      ],
+      [
+        "L10_26",
+        [
+          "see",
+          "i",
+          "see"
+        ]
+      ],
+      [
+        "L10_29",
+        [
+          "told",
+          "he",
+          "charles"
+        ]
+      ],
+      [
+        "L10_30",
+        [
+          "left",
+          "gentleman",
+          "mr"
+        ]
+      ],
+      [
+        "L10_36",
+        [
+          "put",
+          "he",
+          "head"
+        ]
+      ],
+      [
+        "L10_37",
+        [
+          "met",
+          "sight",
+          "eyes"
+        ]
+      ],
+      [
+        "L10_38",
+        [
+          "ruling",
+          "charles",
+          "copybook"
+        ]
+      ],
+      [
+        "L10_41",
+        [
+          "gave",
+          "father",
+          "books"
+        ]
+      ],
+      [
+        "L10_42",
+        [
+          "came",
+          "boy",
+          "home"
+        ]
+      ],
+      [
+        "L12_03",
+        [
+          "said",
+          "mother",
+          "come"
+        ]
+      ],
+      [
+        "L12_04",
+        [
+          "invited",
+          "gardener",
+          "mother"
+        ]
+      ],
+      [
+        "L12_04",
+        [
+          "wish",
+          "i",
+          "gate"
+        ]
+      ],
+      [
+        "L12_05",
+        [
+          "thanked",
+          "mother",
+          "man"
+        ]
+      ],
+      [
+        "L12_06",
+        [
+          "walked",
+          "frank",
+          "gravel"
+        ]
+      ],
+      [
+        "L12_09",
+        [
+          "showed",
+          "he",
+          "him"
+        ]
+      ],
+      [
+        "L12_10",
+        [
+          "admiring",
+          "frank",
+          "beauty"
+        ]
+      ],
+      [
+        "L12_12",
+        [
+          "said",
+          "then",
+          "he"
+        ]
+      ],
+      [
+        "L12_15",
+        [
+          "continued",
+          "he",
+          "walk"
+        ]
+      ],
+      [
+        "L12_15",
+        [
+          "enjoyed",
+          "mother",
+          "day"
+        ]
+      ],
+      [
+        "L12_16",
+        [
+          "left",
+          "they",
+          "gardener"
+        ]
+      ]
+    ]
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "verdict_detail",
+    "subcat_true_negatives",
+    "learning_curve",
+    "prediction3_cue_degradation",
+    "scaffold_free_witness",
+    "data_meta"
+  ],
+  "notes": "LCCP learned argument-structure parser vs INDEPENDENT gold. A=hand-rule, B=learned cue-competition (global weights, best-candidate + threshold), C=+subcat transitivity prior + construction-level sharing for held-out. HARD_PASS = C reduces total mis-attachment FP-rate >=0.15 vs A at >=0.60 recall retention AND held-out precision within 0.10 of seen. HARD_FAIL = <0.05 reduction OR held-out drop >0.25 OR recall retention <0.40. CLAIM-VET-pending; single-annotator gold (caveated); document-scope within-frame residual flagged as next step, NOT built here."
+}

@@ -1,0 +1,12 @@
+{
+  "anchor_name": "importance_6channel_brain_analog_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: structure verified (TRACE=0.288, EQ=-0.195, LEARNED=-0.063, BEST=0.708)",
+  "summary": "SELFTEST_OK: structure verified (TRACE=0.288, EQ=-0.195, LEARNED=-0.063, BEST=0.708)",
+  "elapsed_s": 0.8,
+  "ts_iso": "2026-06-27T21:15:53Z",
+  "pid": 3636,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=importance_6channel_brain_analog_v1,N=1024,M=80,seeds=[7],n_consensus=4,mode=smoke,HP_fusion>=0.15,HP_lift_trace>=0.05,HP_lift_best>=0.03,HP_cor<=0.30,HP_cv<=0.20,MW_learned>=0.20,HF_cor>=0.50,HF_cv>=0.30,trace_smoke_sanity>=0.20,expected_n=5,n_channels=6,hardening=L1early+L2perarm+L3outertry+L4importsentinel,fairness=META_RULE_AA+same_atom_set+clean_split+trace_sanity",
+  "_hardening_marker": "v1_6channel_brain_analog"
+}

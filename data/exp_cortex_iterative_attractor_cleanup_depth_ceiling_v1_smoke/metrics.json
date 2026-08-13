@@ -1,0 +1,615 @@
+{
+  "anchor_name": "cortex_iterative_attractor_cleanup_depth_ceiling_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (iterative/resonator attractor cleanup TIES/LOSES single-shot at every N -- the one-shot argmax snap is already the MAP decoder; the chain depth ceiling is store-capacity/collision-bound, not cleanup-bound. LEVER CLOSED. First-class result: the measured capacity law (usable-depth vs N_TEST) and its N-independence above): n_seeds=3 units=3/3 | per-N tiers: N8192:HARD_FAIL | CAPACITY LAW (usable-depth vs N_TEST) NT25(fill0.15):ss=9.0,it=9.0 | usable-depth-vs-N N8192=9.00 (rises_with_N=False, expect ~flat=collision-limited) | DECISIVE-TIE global_max_abs_gap=0.04 max_delta_usable=0 | PC(N=8192) ss_d1=0.92 ss_d5=0.7067 d5_in_v2_range=True",
+  "summary": "HARD_FAIL (iterative/resonator attractor cleanup TIES/LOSES single-shot at every N -- the one-shot argmax snap is already the MAP decoder; the chain depth ceiling is store-capacity/collision-bound, not cleanup-bound. LEVER CLOSED. First-class result: the measured capacity law (usable-depth vs N_TEST) and its N-independence above): n_seeds=3 units=3/3 | per-N tiers: N8192:HARD_FAIL | CAPACITY LAW (usable-depth vs N_TEST) NT25(fill0.15):ss=9.0,it=9.0 | usable-depth-vs-N N8192=9.00 (rises_with_N=False, expect ~flat=collision-limited) | DECISIVE-TIE global_max_abs_gap=0.04 max_delta_usable=0 | PC(N=8192) ss_d1=0.92 ss_d5=0.7067 d5_in_v2_range=True",
+  "elapsed_s": 104.88,
+  "ts_iso": "2026-07-05T19:09:20.145252+00:00",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "config_version": "ANCHOR=cortex_iterative_attractor_cleanup_depth_ceiling_v1,N_LIST=8192,V=512,P=8,D_MAX=12,MOVERN=1.00,NTEST=25,BETA_ITER=12.0,T_ITER=6,FLOOR=0.50,V_CHAIN=256,KEY_SLOTS=2048,SEEDS=7-17-23,RUN_MODE=smoke,store=FACTORED_HEBBIAN,difficulty=NTEST_collision,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+  "N_LIST": [
+    8192
+  ],
+  "V": 512,
+  "P": 8,
+  "D_MAX": 12,
+  "DEPTHS": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "NTEST_TARGETS": [
+    25
+  ],
+  "MOVERN_FIXED": 1.0,
+  "KEY_SLOTS": 2048,
+  "BETA_ITER": 12.0,
+  "T_ITER": 6,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "extra": {
+    "cardinality_ok": true,
+    "n_units": 3,
+    "expected_n_units": 3,
+    "n_seeds": 3,
+    "N_LIST": [
+      8192
+    ],
+    "NTEST_TARGETS": [
+      25
+    ],
+    "MOVERN_FIXED": 1.0,
+    "KEY_SLOTS": 2048,
+    "per_N_summary": [
+      {
+        "N": 8192,
+        "n_tier_majority": "HARD_FAIL",
+        "seed_tiers": [
+          "HARD_FAIL",
+          "HARD_FAIL",
+          "HARD_FAIL"
+        ],
+        "n_pass": 0,
+        "n_fail": 3,
+        "n_fail_ctl": 0,
+        "n_iterate": 0,
+        "n_middle": 0,
+        "all_seeds_extend": false,
+        "mean_usable_ss_at_disc": 9.0,
+        "mean_usable_it_at_disc": 9.0,
+        "mean_delta_usable_at_disc": 0.0,
+        "seed_delta_usable": [
+          0,
+          0,
+          0
+        ],
+        "mean_gap_cross_at_disc": 0.0117,
+        "mean_ctl_usable_at_disc": 0.0,
+        "mean_it_faith_at_disc": 1.0
+      }
+    ],
+    "capacity_law_usable_depth_vs_NTEST": [
+      {
+        "n_test": 25,
+        "fill": 0.1465,
+        "mean_usable_ss": 9.0,
+        "mean_usable_it": 9.0,
+        "mean_delta_usable": 0.0,
+        "max_of_max_abs_gap": 0.04
+      }
+    ],
+    "depth_ceiling_vs_N": {
+      "usable_ss_by_N": [
+        [
+          8192,
+          9.0
+        ]
+      ],
+      "usable_it_by_N": [
+        [
+          8192,
+          9.0
+        ]
+      ],
+      "delta_usable_by_N": [
+        [
+          8192,
+          0.0
+        ]
+      ],
+      "ss_usable_depth_rises_with_N": false
+    },
+    "decisive_tie_audit": {
+      "global_max_abs_gap": 0.04,
+      "max_delta_usable": 0,
+      "iterative_bit_identical_everywhere": true
+    },
+    "positive_control_v2_reproduce": {
+      "N": 8192,
+      "mean_ss_d1": 0.92,
+      "mean_ss_d5": 0.7067,
+      "v2_regen_d5_ref_range": [
+        0.4,
+        0.95
+      ],
+      "d1_sanity_ok": true,
+      "d5_in_v2_range": true
+    },
+    "headline_N": null,
+    "chance_floor": 0.00195,
+    "usable_floor": 0.5,
+    "usable_floor_secondary": 0.3,
+    "beta_iter": 12.0,
+    "t_iter": 6
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 8192,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 7,
+          "n_tier": "HARD_FAIL",
+          "n_tier_reasons": [
+            "HARD_FAIL @N_TEST=25 fill=0.15 usable_ss=10 usable_it=10 delta=0 max_abs_gap=0.040 (iterative TIES/LOSES single-shot at a fair op-point -- the one-shot argmax snap was already the MAP decoder; the depth ceiling is store-capacity/collision-bound, not cleanup-bound)"
+          ],
+          "disc_summary": {
+            "phase_points": [
+              {
+                "n_test": 25,
+                "fill": 0.1465,
+                "usable_ss": 10,
+                "usable_it": 10,
+                "usable_ctl": 0,
+                "delta_usable": 0,
+                "mean_gap_cross": 0.035,
+                "max_abs_gap": 0.04,
+                "ss_in_band": true
+              }
+            ],
+            "disc_n_test": 25,
+            "disc_fill": 0.1465,
+            "usable_ss": 10,
+            "usable_it": 10,
+            "usable_ctl": 0,
+            "delta_usable": 0,
+            "mean_gap_cross": 0.035,
+            "max_abs_gap": 0.04,
+            "curves_identical": true,
+            "it_faith_min": 1.0,
+            "isolation_clean": true,
+            "arms_differ": true,
+            "usable_ss_secfloor": 12,
+            "usable_it_secfloor": 12,
+            "ss_curve": {
+              "1": 0.84,
+              "2": 0.76,
+              "3": 0.76,
+              "4": 0.76,
+              "5": 0.68,
+              "6": 0.68,
+              "7": 0.6,
+              "8": 0.6,
+              "9": 0.56,
+              "10": 0.52,
+              "11": 0.44,
+              "12": 0.44
+            },
+            "it_curve": {
+              "1": 0.84,
+              "2": 0.76,
+              "3": 0.76,
+              "4": 0.76,
+              "5": 0.68,
+              "6": 0.72,
+              "7": 0.64,
+              "8": 0.64,
+              "9": 0.6,
+              "10": 0.56,
+              "11": 0.48,
+              "12": 0.48
+            }
+          },
+          "phase_map": [
+            {
+              "n_test": 25,
+              "fill": 0.1465,
+              "m_over_n": 1.0,
+              "usable_ss": 10,
+              "usable_it": 10,
+              "usable_ctl": 0,
+              "delta_usable": 0,
+              "mean_gap_cross": 0.035,
+              "ss_in_band": true,
+              "d1_sanity_ok": true,
+              "max_abs_gap": 0.04,
+              "curves_identical": true,
+              "ss_d1": 0.84,
+              "it_d1": 0.84,
+              "it_faith_min": 1.0,
+              "isolation_clean": true,
+              "arms_differ": true,
+              "ss_curve": {
+                "1": 0.84,
+                "2": 0.76,
+                "3": 0.76,
+                "4": 0.76,
+                "5": 0.68,
+                "6": 0.68,
+                "7": 0.6,
+                "8": 0.6,
+                "9": 0.56,
+                "10": 0.52,
+                "11": 0.44,
+                "12": 0.44
+              },
+              "it_curve": {
+                "1": 0.84,
+                "2": 0.76,
+                "3": 0.76,
+                "4": 0.76,
+                "5": 0.68,
+                "6": 0.72,
+                "7": 0.64,
+                "8": 0.64,
+                "9": 0.6,
+                "10": 0.56,
+                "11": 0.48,
+                "12": 0.48
+              },
+              "control_curve": {
+                "1": 0.0,
+                "2": 0.0,
+                "3": 0.0,
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "7": 0.0,
+                "8": 0.0,
+                "9": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "12": 0.0
+              },
+              "gap_curve": {
+                "1": 0.0,
+                "2": 0.0,
+                "3": 0.0,
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.04,
+                "7": 0.04,
+                "8": 0.04,
+                "9": 0.04,
+                "10": 0.04,
+                "11": 0.04,
+                "12": 0.04
+              }
+            }
+          ]
+        }
+      ],
+      "elapsed_s": 43.23,
+      "config_version": "ANCHOR=cortex_iterative_attractor_cleanup_depth_ceiling_v1,N_LIST=8192,V=512,P=8,D_MAX=12,MOVERN=1.00,NTEST=25,BETA_ITER=12.0,T_ITER=6,FLOOR=0.50,V_CHAIN=256,KEY_SLOTS=2048,SEEDS=7-17-23,RUN_MODE=smoke,store=FACTORED_HEBBIAN,difficulty=NTEST_collision,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783278498.7477446
+    },
+    {
+      "seed": 17,
+      "run_mode": "smoke",
+      "N": 8192,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 17,
+          "n_tier": "HARD_FAIL",
+          "n_tier_reasons": [
+            "HARD_FAIL @N_TEST=25 fill=0.15 usable_ss=7 usable_it=7 delta=0 max_abs_gap=0.000 (iterative TIES/LOSES single-shot at a fair op-point -- the one-shot argmax snap was already the MAP decoder; the depth ceiling is store-capacity/collision-bound, not cleanup-bound)"
+          ],
+          "disc_summary": {
+            "phase_points": [
+              {
+                "n_test": 25,
+                "fill": 0.1465,
+                "usable_ss": 7,
+                "usable_it": 7,
+                "usable_ctl": 0,
+                "delta_usable": 0,
+                "mean_gap_cross": 0.0,
+                "max_abs_gap": 0.0,
+                "ss_in_band": true
+              }
+            ],
+            "disc_n_test": 25,
+            "disc_fill": 0.1465,
+            "usable_ss": 7,
+            "usable_it": 7,
+            "usable_ctl": 0,
+            "delta_usable": 0,
+            "mean_gap_cross": 0.0,
+            "max_abs_gap": 0.0,
+            "curves_identical": true,
+            "it_faith_min": 1.0,
+            "isolation_clean": true,
+            "arms_differ": true,
+            "usable_ss_secfloor": 12,
+            "usable_it_secfloor": 12,
+            "ss_curve": {
+              "1": 0.96,
+              "2": 0.92,
+              "3": 0.76,
+              "4": 0.68,
+              "5": 0.68,
+              "6": 0.6,
+              "7": 0.52,
+              "8": 0.4,
+              "9": 0.36,
+              "10": 0.36,
+              "11": 0.36,
+              "12": 0.36
+            },
+            "it_curve": {
+              "1": 0.96,
+              "2": 0.92,
+              "3": 0.76,
+              "4": 0.68,
+              "5": 0.68,
+              "6": 0.6,
+              "7": 0.52,
+              "8": 0.4,
+              "9": 0.36,
+              "10": 0.36,
+              "11": 0.36,
+              "12": 0.36
+            }
+          },
+          "phase_map": [
+            {
+              "n_test": 25,
+              "fill": 0.1465,
+              "m_over_n": 1.0,
+              "usable_ss": 7,
+              "usable_it": 7,
+              "usable_ctl": 0,
+              "delta_usable": 0,
+              "mean_gap_cross": 0.0,
+              "ss_in_band": true,
+              "d1_sanity_ok": true,
+              "max_abs_gap": 0.0,
+              "curves_identical": true,
+              "ss_d1": 0.96,
+              "it_d1": 0.96,
+              "it_faith_min": 1.0,
+              "isolation_clean": true,
+              "arms_differ": true,
+              "ss_curve": {
+                "1": 0.96,
+                "2": 0.92,
+                "3": 0.76,
+                "4": 0.68,
+                "5": 0.68,
+                "6": 0.6,
+                "7": 0.52,
+                "8": 0.4,
+                "9": 0.36,
+                "10": 0.36,
+                "11": 0.36,
+                "12": 0.36
+              },
+              "it_curve": {
+                "1": 0.96,
+                "2": 0.92,
+                "3": 0.76,
+                "4": 0.68,
+                "5": 0.68,
+                "6": 0.6,
+                "7": 0.52,
+                "8": 0.4,
+                "9": 0.36,
+                "10": 0.36,
+                "11": 0.36,
+                "12": 0.36
+              },
+              "control_curve": {
+                "1": 0.0,
+                "2": 0.0,
+                "3": 0.0,
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "7": 0.0,
+                "8": 0.0,
+                "9": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "12": 0.0
+              },
+              "gap_curve": {
+                "1": 0.0,
+                "2": 0.0,
+                "3": 0.0,
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "7": 0.0,
+                "8": 0.0,
+                "9": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "12": 0.0
+              }
+            }
+          ]
+        }
+      ],
+      "elapsed_s": 28.71,
+      "config_version": "ANCHOR=cortex_iterative_attractor_cleanup_depth_ceiling_v1,N_LIST=8192,V=512,P=8,D_MAX=12,MOVERN=1.00,NTEST=25,BETA_ITER=12.0,T_ITER=6,FLOOR=0.50,V_CHAIN=256,KEY_SLOTS=2048,SEEDS=7-17-23,RUN_MODE=smoke,store=FACTORED_HEBBIAN,difficulty=NTEST_collision,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "17",
+      "_partial_written_at": 1783278527.480269
+    },
+    {
+      "seed": 23,
+      "run_mode": "smoke",
+      "N": 8192,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 23,
+          "n_tier": "HARD_FAIL",
+          "n_tier_reasons": [
+            "HARD_FAIL @N_TEST=25 fill=0.15 usable_ss=10 usable_it=10 delta=0 max_abs_gap=0.000 (iterative TIES/LOSES single-shot at a fair op-point -- the one-shot argmax snap was already the MAP decoder; the depth ceiling is store-capacity/collision-bound, not cleanup-bound)"
+          ],
+          "disc_summary": {
+            "phase_points": [
+              {
+                "n_test": 25,
+                "fill": 0.1465,
+                "usable_ss": 10,
+                "usable_it": 10,
+                "usable_ctl": 0,
+                "delta_usable": 0,
+                "mean_gap_cross": 0.0,
+                "max_abs_gap": 0.0,
+                "ss_in_band": true
+              }
+            ],
+            "disc_n_test": 25,
+            "disc_fill": 0.1465,
+            "usable_ss": 10,
+            "usable_it": 10,
+            "usable_ctl": 0,
+            "delta_usable": 0,
+            "mean_gap_cross": 0.0,
+            "max_abs_gap": 0.0,
+            "curves_identical": true,
+            "it_faith_min": 1.0,
+            "isolation_clean": true,
+            "arms_differ": true,
+            "usable_ss_secfloor": 12,
+            "usable_it_secfloor": 12,
+            "ss_curve": {
+              "1": 0.96,
+              "2": 0.96,
+              "3": 0.84,
+              "4": 0.76,
+              "5": 0.76,
+              "6": 0.72,
+              "7": 0.68,
+              "8": 0.64,
+              "9": 0.56,
+              "10": 0.52,
+              "11": 0.48,
+              "12": 0.44
+            },
+            "it_curve": {
+              "1": 0.96,
+              "2": 0.96,
+              "3": 0.84,
+              "4": 0.76,
+              "5": 0.76,
+              "6": 0.72,
+              "7": 0.68,
+              "8": 0.64,
+              "9": 0.56,
+              "10": 0.52,
+              "11": 0.48,
+              "12": 0.44
+            }
+          },
+          "phase_map": [
+            {
+              "n_test": 25,
+              "fill": 0.1465,
+              "m_over_n": 1.0,
+              "usable_ss": 10,
+              "usable_it": 10,
+              "usable_ctl": 0,
+              "delta_usable": 0,
+              "mean_gap_cross": 0.0,
+              "ss_in_band": true,
+              "d1_sanity_ok": true,
+              "max_abs_gap": 0.0,
+              "curves_identical": true,
+              "ss_d1": 0.96,
+              "it_d1": 0.96,
+              "it_faith_min": 1.0,
+              "isolation_clean": true,
+              "arms_differ": true,
+              "ss_curve": {
+                "1": 0.96,
+                "2": 0.96,
+                "3": 0.84,
+                "4": 0.76,
+                "5": 0.76,
+                "6": 0.72,
+                "7": 0.68,
+                "8": 0.64,
+                "9": 0.56,
+                "10": 0.52,
+                "11": 0.48,
+                "12": 0.44
+              },
+              "it_curve": {
+                "1": 0.96,
+                "2": 0.96,
+                "3": 0.84,
+                "4": 0.76,
+                "5": 0.76,
+                "6": 0.72,
+                "7": 0.68,
+                "8": 0.64,
+                "9": 0.56,
+                "10": 0.52,
+                "11": 0.48,
+                "12": 0.44
+              },
+              "control_curve": {
+                "1": 0.0,
+                "2": 0.0,
+                "3": 0.0,
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "7": 0.0,
+                "8": 0.0,
+                "9": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "12": 0.0
+              },
+              "gap_curve": {
+                "1": 0.0,
+                "2": 0.0,
+                "3": 0.0,
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "7": 0.0,
+                "8": 0.0,
+                "9": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "12": 0.0
+              }
+            }
+          ]
+        }
+      ],
+      "elapsed_s": 32.26,
+      "config_version": "ANCHOR=cortex_iterative_attractor_cleanup_depth_ceiling_v1,N_LIST=8192,V=512,P=8,D_MAX=12,MOVERN=1.00,NTEST=25,BETA_ITER=12.0,T_ITER=6,FLOOR=0.50,V_CHAIN=256,KEY_SLOTS=2048,SEEDS=7-17-23,RUN_MODE=smoke,store=FACTORED_HEBBIAN,difficulty=NTEST_collision,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "23",
+      "_partial_written_at": 1783278559.809063
+    }
+  ],
+  "n_llm_forward_calls": 0,
+  "bands": {
+    "USABLE_FLOOR": 0.5,
+    "USABLE_FLOOR_SECONDARY": 0.3,
+    "HP_DEPTH_MARGIN": 2,
+    "HP_FID_GAP": 0.05,
+    "HP_FAITH_MIN": 0.95,
+    "HP_CTL_USABLE_MAX": 1,
+    "HP_D1_SANITY": 0.8,
+    "SS_BAND_LO": 2
+  }
+}

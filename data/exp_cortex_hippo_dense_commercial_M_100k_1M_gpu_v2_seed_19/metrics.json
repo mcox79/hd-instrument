@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "RuntimeError: PRE_UPLOAD_MEMORY_ABORT: estimated peak 8485.3 MB > 6 GB HF gate (arm=ARM_STD, M=500000, N=8192, V=256)",
+  "summary": "CELL_CRASHED: RuntimeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_19.py\", line 340, in <module>\n    main()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_19.py\", line 331, in main\n    _main()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_19.py\", line 192, in _main\n    result = run_seed(seed, out_dir)\n             ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_19.py\", line 127, in run_seed\n    arms_at_M = run_one_M(\n                ^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\_substrate_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_core.py\", line 536, in run_one_M\n    r = run_arm(\n        ^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\_substrate_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_core.py\", line 512, in run_arm\n    return _run_arm_torch(\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\_substrate_cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_core.py\", line 388, in _run_arm_torch\n    raise RuntimeError(\nRuntimeError: PRE_UPLOAD_MEMORY_ABORT: estimated peak 8485.3 MB > 6 GB HF gate (arm=ARM_STD, M=500000, N=8192, V=256)\n",
+  "ts_iso": "2026-07-01T23:31:27.488544+00:00",
+  "pid": 43900,
+  "anchor_name": "cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_19"
+}

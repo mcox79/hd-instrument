@@ -1,0 +1,10 @@
+{
+  "anchor_name": "generation_decoder_roundtrip_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\AI\\\\hd-instrument\\\\data\\\\exp_generation_decoder_roundtrip_v1_selftest\\\\_heartbeat.jsonl'",
+  "summary": "CELL_CRASHED: FileNotFoundError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_generation_decoder_roundtrip_v1.py\", line 661, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_generation_decoder_roundtrip_v1.py\", line 652, in main\n    return _run_selftest()\n           ^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_generation_decoder_roundtrip_v1.py\", line 639, in _run_selftest\n    _cfg, summary, _dg, _cone = run_all(\"selftest\", output_dir, t0)\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_generation_decoder_roundtrip_v1.py\", line 469, in run_all\n    _heartbeat(output_dir, unit, total_units, t0, extra={\"arm\": \"synth_iid_R16\", \"seed\": seed})\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_generation_decoder_roundtrip_v1.py\", line 147, in _heartbeat\n    with open(output_dir / \"_heartbeat.jsonl\", \"a\", encoding=\"utf-8\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\AI\\\\hd-instrument\\\\data\\\\exp_generation_decoder_roundtrip_v1_selftest\\\\_heartbeat.jsonl'\n",
+  "ts_iso": "2026-07-05T07:09:07.054460+00:00",
+  "pid": 9792
+}

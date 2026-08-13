@@ -1,0 +1,7 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "summary": "self_test ok",
+  "elapsed_s": 0.0
+}

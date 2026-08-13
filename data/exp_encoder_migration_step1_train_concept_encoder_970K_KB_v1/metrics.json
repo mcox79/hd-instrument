@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: selftest: mean_nnz 616.91 outside [18, 22] (target k=20 at n_dim=1024)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1_train_concept_encoder_970K_KB_v1_core.py\", line 673, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1_train_concept_encoder_970K_KB_v1_core.py\", line 665, in main\n    return run_self_test()\n           ^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1_train_concept_encoder_970K_KB_v1_core.py\", line 530, in run_self_test\n    assert 18 <= mean_nnz <= 22, (\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: selftest: mean_nnz 616.91 outside [18, 22] (target k=20 at n_dim=1024)\n",
+  "ts_iso": "2026-07-03T23:28:20.869028+00:00",
+  "pid": 7016,
+  "anchor_name": "encoder_migration_step1_train_concept_encoder_970K_KB_v1"
+}

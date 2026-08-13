@@ -1,0 +1,25 @@
+{
+  "anchor_name": "control_branching_depth_chain_survival_self_margin_v1",
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS formula+pipeline (seed=7 rmse_horizon=0.338 rmse_const=0.261 rmse_hick1=0.236)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.34,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=control_branching_depth_chain_survival_self_margin_v1,N=256,n_ops_set=[2, 4],V=40,seeds=[7],gamma=0.85,depths=[1, 2, 3, 4, 6, 8],anchor_d=[1, 2, 3, 4],heldout_d=[6, 8],density=0.210,sr_steps=150,sr_batch=32,rollout_per_V=20,lr=0.50,tune_depth=4,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],n_train_chains=16,n_test_chains=12,mode=selftest,device=cpu,expected_n=1,HP_RMSE<=0.12,const_gap>=0.10,hick_gap>=0.03,mu_real>=0.50,mu_shuf<=0.20",
+  "selftest_seed_result": {
+    "rmse_horizon": 0.33827616453663545,
+    "rmse_const": 0.26144422107679943,
+    "rmse_hick1": 0.23639142145754027,
+    "fit": {
+      "mu0": 4.045112081150093,
+      "beta": 0.9196258064729452,
+      "mu_const": 2.665673371440675,
+      "hick_C1": 0.13411089727729375,
+      "hick_Cp": 0.018976518426224127,
+      "hick_p": 2.6,
+      "mu0_shuf": -0.09166273687510688,
+      "beta_shuf": -1.3216872420889092
+    }
+  },
+  "ts_iso": "2026-07-06T15:55:41.501155+00:00"
+}

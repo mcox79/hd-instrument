@@ -1,0 +1,234 @@
+{
+  "anchor_name": "learner_module_refactor_proof_v1",
+  "verdict": "HARD_PASS_REFACTOR_PROVEN",
+  "verdict_msg": "HARD_PASS_REFACTOR_PROVEN | A(condenser) max_delta=0.0 verdict=HARD_PASS_BEHAVIOR_PRESERVED | B(ruleind) ctrl_max_delta=0.0 real_max_delta=0.0 verdict=HARD_PASS_BEHAVIOR_PRESERVED ctrl_acc_mean=1.0 (banked=1.0) real_beat_simvote_margin_mean=0.0537 (banked=0.0537) | C(autoselect) xor->ruleind ppattach->estimation verdict=HARD_PASS_AUTOSELECT_DISCRIMINATES",
+  "summary": "HARD_PASS_REFACTOR_PROVEN | A(condenser) max_delta=0.0 verdict=HARD_PASS_BEHAVIOR_PRESERVED | B(ruleind) ctrl_max_delta=0.0 real_max_delta=0.0 verdict=HARD_PASS_BEHAVIOR_PRESERVED ctrl_acc_mean=1.0 (banked=1.0) real_beat_simvote_margin_mean=0.0537 (banked=0.0537) | C(autoselect) xor->ruleind ppattach->estimation verdict=HARD_PASS_AUTOSELECT_DISCRIMINATES",
+  "elapsed_s": 629.22,
+  "ts_iso": "2026-07-23T16:55:50.620066+00:00",
+  "part_a_condenser_reproduction": {
+    "n_mine": 4151,
+    "n_train_evidence": 4708,
+    "n_unseen_items": 48,
+    "n_seen_items": 48,
+    "module_curve_full_unseen": {
+      "0.00": 0.5,
+      "0.25": 0.5729,
+      "0.50": 0.6667,
+      "0.75": 0.7083,
+      "1.00": 0.75
+    },
+    "module_curve_verbatim_unseen": {
+      "0.00": 0.5,
+      "0.25": 0.5,
+      "0.50": 0.5,
+      "0.75": 0.5,
+      "1.00": 0.5
+    },
+    "module_curve_full_seen": {
+      "0.00": 0.5,
+      "0.25": 0.5625,
+      "0.50": 0.6146,
+      "0.75": 0.6458,
+      "1.00": 0.6979
+    },
+    "banked_curve_full_unseen": {
+      "0.00": 0.5,
+      "0.25": 0.5729,
+      "0.50": 0.6667,
+      "0.75": 0.7083,
+      "1.00": 0.75
+    },
+    "banked_curve_verbatim_unseen": {
+      "0.00": 0.5,
+      "0.25": 0.5,
+      "0.50": 0.5,
+      "0.75": 0.5,
+      "1.00": 0.5
+    },
+    "deltas_full_unseen": {
+      "0.00": 0.0,
+      "0.25": 0.0,
+      "0.50": 0.0,
+      "0.75": 0.0,
+      "1.00": 0.0
+    },
+    "deltas_verbatim_unseen": {
+      "0.00": 0.0,
+      "0.25": 0.0,
+      "0.50": 0.0,
+      "0.75": 0.0,
+      "1.00": 0.0
+    },
+    "max_delta": 0.0,
+    "reproduction_verdict": "HARD_PASS_BEHAVIOR_PRESERVED"
+  },
+  "part_b_ruleind_reproduction": {
+    "ctrl_rows": [
+      {
+        "seed": 0,
+        "direct_ruleind_acc": 1.0,
+        "module_ruleind_acc": 1.0,
+        "delta": 0.0,
+        "simvote_acc": 0.3833,
+        "linear_acc": 0.4667,
+        "module_margin_over_simvote": 0.6167
+      },
+      {
+        "seed": 1,
+        "direct_ruleind_acc": 1.0,
+        "module_ruleind_acc": 1.0,
+        "delta": 0.0,
+        "simvote_acc": 0.4167,
+        "linear_acc": 0.45,
+        "module_margin_over_simvote": 0.5833
+      },
+      {
+        "seed": 2,
+        "direct_ruleind_acc": 1.0,
+        "module_ruleind_acc": 1.0,
+        "delta": 0.0,
+        "simvote_acc": 0.5167,
+        "linear_acc": 0.55,
+        "module_margin_over_simvote": 0.4833
+      }
+    ],
+    "ctrl_module_acc_mean": 1.0,
+    "ctrl_max_delta": 0.0,
+    "ctrl_module_margin_over_simvote_mean": 0.5611,
+    "banked_CONTROL_ruleind_acc_mean": 1.0,
+    "real_rows": [
+      {
+        "seed": 7,
+        "n_seen_fail": 357,
+        "n_held_fail": 227,
+        "direct_net_gain": 0.0756,
+        "module_net_gain": 0.0756,
+        "delta_net_gain": 0.0,
+        "direct_fix_rate": 0.4405,
+        "module_fix_rate": 0.4405,
+        "delta_fix_rate": 0.0,
+        "simvote_net_gain": 0.0,
+        "linear_net_gain": 0.0495,
+        "module_margin_over_simvote": 0.0756
+      },
+      {
+        "seed": 13,
+        "n_seen_fail": 356,
+        "n_held_fail": 228,
+        "direct_net_gain": 0.0641,
+        "module_net_gain": 0.0641,
+        "delta_net_gain": 0.0,
+        "direct_fix_rate": 0.3158,
+        "module_fix_rate": 0.3158,
+        "delta_fix_rate": 0.0,
+        "simvote_net_gain": 0.0062,
+        "linear_net_gain": 0.0617,
+        "module_margin_over_simvote": 0.0579
+      },
+      {
+        "seed": 19,
+        "n_seen_fail": 299,
+        "n_held_fail": 285,
+        "direct_net_gain": 0.0575,
+        "module_net_gain": 0.0575,
+        "delta_net_gain": 0.0,
+        "direct_fix_rate": 0.3789,
+        "module_fix_rate": 0.3789,
+        "delta_fix_rate": 0.0,
+        "simvote_net_gain": 0.0298,
+        "linear_net_gain": 0.037,
+        "module_margin_over_simvote": 0.0277
+      }
+    ],
+    "real_max_delta": 0.0,
+    "real_beat_simvote_margin_mean": 0.0537,
+    "banked_beat_simvote_margin_mean": 0.0537,
+    "banked_PRIMARY_real_ruleind_net_gain_mean": 0.0657,
+    "leak_clean": true,
+    "parser_uas": 0.7855,
+    "overall_max_delta": 0.0,
+    "reproduction_verdict": "HARD_PASS_BEHAVIOR_PRESERVED"
+  },
+  "part_c_autoselect": {
+    "chosen_xor_control": "ruleind",
+    "chosen_ppattach_real": "estimation",
+    "xor_control_results": {
+      "estimation": {
+        "compression_ratio": 0.9901,
+        "description_bits": 202.0,
+        "null_bits": 200.0,
+        "n_free_params": 2,
+        "cost_rank": 1,
+        "is_episodic": false,
+        "metrics": {
+          "n_keys": 2,
+          "n_classes": 2,
+          "model_bits": 2.0,
+          "data_bits": 200.0
+        }
+      },
+      "ruleind": {
+        "compression_ratio": 7.9602,
+        "description_bits": 25.12,
+        "null_bits": 200.0,
+        "n_free_params": 8,
+        "cost_rank": 3,
+        "is_episodic": false,
+        "metrics": {
+          "n_rules": 4,
+          "n_episodic": 0,
+          "model_bits": 25.125,
+          "data_bits_rules": 0.0,
+          "data_bits_residual": 0.0
+        }
+      }
+    },
+    "ppattach_real_results": {
+      "estimation": {
+        "compression_ratio": 1.2398,
+        "description_bits": 273.06,
+        "null_bits": 338.54,
+        "n_free_params": 30,
+        "cost_rank": 1,
+        "is_episodic": false,
+        "metrics": {
+          "n_keys": 30,
+          "n_classes": 2,
+          "model_bits": 30.0,
+          "data_bits": 243.057
+        }
+      },
+      "ruleind": {
+        "compression_ratio": 1.2316,
+        "description_bits": 274.88,
+        "null_bits": 338.54,
+        "n_free_params": 40,
+        "cost_rank": 3,
+        "is_episodic": false,
+        "metrics": {
+          "n_rules": 14,
+          "n_episodic": 162,
+          "model_bits": 97.884,
+          "data_bits_rules": 15.0,
+          "data_bits_residual": 162.0
+        }
+      }
+    },
+    "autoselect_verdict": "HARD_PASS_AUTOSELECT_DISCRIMINATES"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "reproduction-delta + auto-select discrimination measurement, not a CRLB-bound cell",
+  "deterministic_seeding": true,
+  "module_paths": [
+    "hdlab/learner/core.py",
+    "hdlab/learner/registry.py",
+    "hdlab/learner/plugins/estimation_plugin.py",
+    "hdlab/learner/plugins/ruleind_plugin.py"
+  ],
+  "wrapped_source_cells": [
+    "experiments/exp_online_knowledge_condenser_selectional_v1.py (29476)",
+    "experiments/exp_parser_ruleinduction_cls_ppattach_v1.py (29485)"
+  ],
+  "not_banked": true,
+  "not_queued": true
+}

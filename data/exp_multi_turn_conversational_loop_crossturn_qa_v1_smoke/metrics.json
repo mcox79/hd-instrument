@@ -1,0 +1,435 @@
+{
+  "anchor_name": "multi_turn_conversational_loop_crossturn_qa_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (composes) | MEM_salience answerable=1.000 (clear=1.000 distr=1.000) parse=1.000 coref=1.000 | LOCAL answerable=0.000 control=1.000 | mem_benefit(S-L)=1.000 | MEM_salience amb_halluc=0.000 (abstain) | salience_load(S-R distr)=1.000 | MEM_recency distr=0.000",
+  "summary": "HARD_PASS (composes) | MEM_salience answerable=1.000 (clear=1.000 distr=1.000) parse=1.000 coref=1.000 | LOCAL answerable=0.000 control=1.000 | mem_benefit(S-L)=1.000 | MEM_salience amb_halluc=0.000 (abstain) | salience_load(S-R distr)=1.000 | MEM_recency distr=0.000",
+  "composition_outcome": "composes",
+  "run_mode": "smoke",
+  "elapsed_s": 0.0007,
+  "ts_iso": "2026-07-23T04:37:26.015159+00:00",
+  "n_dialogues": 8,
+  "arms": [
+    "LOCAL",
+    "MEM_recency",
+    "MEM_salience"
+  ],
+  "gates": {
+    "mem_salience_answerable_acc": 1.0,
+    "local_answerable_acc": 0.0,
+    "mem_minus_local": 1.0,
+    "mem_salience_ambiguous_hallucination_rate": 0.0,
+    "local_within_turn_control_acc": 1.0,
+    "mem_salience_distractor_acc": 1.0,
+    "mem_recency_distractor_acc": 0.0,
+    "salience_over_recency_distractor": 1.0
+  },
+  "weakest_interface": [
+    "none (clean composition across all gates)"
+  ],
+  "salience_params": {
+    "role_w": {
+      "subject": 1.0,
+      "object": 0.6
+    },
+    "decay": 0.75,
+    "tie_eps": 0.15
+  },
+  "bands": {
+    "HP_answerable_min": 0.8,
+    "HP_mem_minus_local_min": 0.5,
+    "HP_local_control_min": 0.8,
+    "HP_salience_over_recency_min": 0.3,
+    "HF_answerable_max": 0.5,
+    "HF_mem_minus_local_max": 0.2
+  },
+  "per_arm": {
+    "LOCAL": {
+      "by_class": {
+        "cross_turn_clear": {
+          "n": 2,
+          "answer_acc": 0.0,
+          "coref_acc": 0.0,
+          "hallucination_rate": 0.0
+        },
+        "cross_turn_distractor": {
+          "n": 2,
+          "answer_acc": 0.0,
+          "coref_acc": 0.0,
+          "hallucination_rate": 0.0
+        },
+        "cross_turn_ambiguous": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        },
+        "within_turn_control": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        }
+      },
+      "answerable_answer_acc": 0.0,
+      "answerable_coref_acc": 0.0,
+      "parse_acc": 1.0
+    },
+    "MEM_recency": {
+      "by_class": {
+        "cross_turn_clear": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        },
+        "cross_turn_distractor": {
+          "n": 2,
+          "answer_acc": 0.0,
+          "coref_acc": 0.0,
+          "hallucination_rate": 0.0
+        },
+        "cross_turn_ambiguous": {
+          "n": 2,
+          "answer_acc": 0.0,
+          "coref_acc": 0.0,
+          "hallucination_rate": 1.0
+        },
+        "within_turn_control": {
+          "n": 2,
+          "answer_acc": 0.5,
+          "coref_acc": 0.5,
+          "hallucination_rate": 0.0
+        }
+      },
+      "answerable_answer_acc": 0.5,
+      "answerable_coref_acc": 0.5,
+      "parse_acc": 1.0
+    },
+    "MEM_salience": {
+      "by_class": {
+        "cross_turn_clear": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        },
+        "cross_turn_distractor": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        },
+        "cross_turn_ambiguous": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        },
+        "within_turn_control": {
+          "n": 2,
+          "answer_acc": 1.0,
+          "coref_acc": 1.0,
+          "hallucination_rate": 0.0
+        }
+      },
+      "answerable_answer_acc": 1.0,
+      "answerable_coref_acc": 1.0,
+      "parse_acc": 1.0
+    }
+  },
+  "per_dialogue": {
+    "LOCAL": [
+      {
+        "id": "clear1",
+        "cls": "cross_turn_clear",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": "owl",
+        "gold_answer": "worm",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      },
+      {
+        "id": "clear2",
+        "cls": "cross_turn_clear",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": "frog",
+        "gold_answer": "pond",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      },
+      {
+        "id": "distr1",
+        "cls": "cross_turn_distractor",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": "frog",
+        "gold_answer": "worm",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      },
+      {
+        "id": "distr2",
+        "cls": "cross_turn_distractor",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": "cat",
+        "gold_answer": "seed",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      },
+      {
+        "id": "amb1",
+        "cls": "cross_turn_ambiguous",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": null,
+        "gold_answer": null,
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "amb2",
+        "cls": "cross_turn_ambiguous",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": null,
+        "gold_answer": null,
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "ctrl1",
+        "cls": "within_turn_control",
+        "resolved_entity": "frog",
+        "answer": "worm",
+        "gold_entity": "frog",
+        "gold_answer": "worm",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "ctrl2",
+        "cls": "within_turn_control",
+        "resolved_entity": "owl",
+        "answer": "barn",
+        "gold_entity": "owl",
+        "gold_answer": "barn",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      }
+    ],
+    "MEM_recency": [
+      {
+        "id": "clear1",
+        "cls": "cross_turn_clear",
+        "resolved_entity": "owl",
+        "answer": "worm",
+        "gold_entity": "owl",
+        "gold_answer": "worm",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "clear2",
+        "cls": "cross_turn_clear",
+        "resolved_entity": "frog",
+        "answer": "pond",
+        "gold_entity": "frog",
+        "gold_answer": "pond",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "distr1",
+        "cls": "cross_turn_distractor",
+        "resolved_entity": "cow",
+        "answer": null,
+        "gold_entity": "frog",
+        "gold_answer": "worm",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      },
+      {
+        "id": "distr2",
+        "cls": "cross_turn_distractor",
+        "resolved_entity": "mouse",
+        "answer": null,
+        "gold_entity": "cat",
+        "gold_answer": "seed",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      },
+      {
+        "id": "amb1",
+        "cls": "cross_turn_ambiguous",
+        "resolved_entity": "dog",
+        "answer": "grass",
+        "gold_entity": null,
+        "gold_answer": null,
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": true
+      },
+      {
+        "id": "amb2",
+        "cls": "cross_turn_ambiguous",
+        "resolved_entity": "owl",
+        "answer": "worm",
+        "gold_entity": null,
+        "gold_answer": null,
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": true
+      },
+      {
+        "id": "ctrl1",
+        "cls": "within_turn_control",
+        "resolved_entity": "frog",
+        "answer": "worm",
+        "gold_entity": "frog",
+        "gold_answer": "worm",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "ctrl2",
+        "cls": "within_turn_control",
+        "resolved_entity": "barn",
+        "answer": null,
+        "gold_entity": "owl",
+        "gold_answer": "barn",
+        "coref_correct": false,
+        "answer_correct": false,
+        "hallucinated": false
+      }
+    ],
+    "MEM_salience": [
+      {
+        "id": "clear1",
+        "cls": "cross_turn_clear",
+        "resolved_entity": "owl",
+        "answer": "worm",
+        "gold_entity": "owl",
+        "gold_answer": "worm",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "clear2",
+        "cls": "cross_turn_clear",
+        "resolved_entity": "frog",
+        "answer": "pond",
+        "gold_entity": "frog",
+        "gold_answer": "pond",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "distr1",
+        "cls": "cross_turn_distractor",
+        "resolved_entity": "frog",
+        "answer": "worm",
+        "gold_entity": "frog",
+        "gold_answer": "worm",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "distr2",
+        "cls": "cross_turn_distractor",
+        "resolved_entity": "cat",
+        "answer": "seed",
+        "gold_entity": "cat",
+        "gold_answer": "seed",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "amb1",
+        "cls": "cross_turn_ambiguous",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": null,
+        "gold_answer": null,
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "amb2",
+        "cls": "cross_turn_ambiguous",
+        "resolved_entity": null,
+        "answer": null,
+        "gold_entity": null,
+        "gold_answer": null,
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "ctrl1",
+        "cls": "within_turn_control",
+        "resolved_entity": "frog",
+        "answer": "worm",
+        "gold_entity": "frog",
+        "gold_answer": "worm",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      },
+      {
+        "id": "ctrl2",
+        "cls": "within_turn_control",
+        "resolved_entity": "owl",
+        "answer": "barn",
+        "gold_entity": "owl",
+        "gold_answer": "barn",
+        "coref_correct": true,
+        "answer_correct": true,
+        "hallucinated": false
+      }
+    ]
+  },
+  "arms_differ_digests": {
+    "LOCAL": "6bdb4a1c18cd378b44bf69327d1ab6805d42b11eac02170bd0d65e1ba82156b7",
+    "MEM_recency": "b8785196c08c64fbc0ce08770c5cc09f28d7134c5459f6a408fcef33af42958a",
+    "MEM_salience": "707a5c1027812bd42306b90b342707f6429306438562e1d801d83774e27dc256"
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential_cpu_pure_python",
+  "reuse_credited": {
+    "ie_extract": "exp_read_grow_foundation_realprose_glassbox_ie_v2.py",
+    "coref_memory": "exp_read_coref_hobbs_centering_resolver_v1.py (_mentions_from_triples/_pron_number)",
+    "salience_rank": "exp_coref_salience_rank_topicality_v1.py (Centering freq+role+decay)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "gates",
+    "per_arm",
+    "per_dialogue",
+    "arms_differ_digests"
+  ],
+  "notes": "FIRST end-to-end multi-turn conversational loop integration test. Arms: LOCAL (within-turn only), MEM_recency (cross-turn memory, salience OFF ablation), MEM_salience (assembled loop). HARD_PASS=components compose; HARD_FAIL=MM ceilings compound / no memory benefit / zero-hallucination broken. Glass-box, no LLM, no autograd. CLAIM-VET-pending; hand-constructed dialogues (realistic register, not answer-leaking)."
+}

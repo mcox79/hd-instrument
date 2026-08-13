@@ -1,0 +1,161 @@
+{
+  "anchor_name": "cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_7",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_HARD_PASS: min_repl=1.000 max_std=0.299 gap=0.701 n_arms=2 max_gpu_mb=0.0",
+  "summary": "chunk_seed=7 N_c=1024 V=128 M_LIST=[10000] beta_base=13.0 chunk=512 upload_batch=2048 mode=smoke backend=torch.cpu int8_keys=False v2_chunked_upload_fix",
+  "elapsed_s": 23.16890811920166,
+  "config_version": "ANCHOR=cortex_hippo_dense_commercial_M_100k_1M_gpu_v2_seed_7,N_c=1024,V=128,M_LIST=[10000],beta_base=13.0,M_ref=100000,chunk=512,upload_batch=2048,n_queries=50,int8_keys=False,SEED=7,RUN_MODE=smoke,backend=torch.cpu,discipline=v2_chunked_upload_FP16_INT8_fix_META_RULES_AC_AF_AG_AH_CRLB_adaptive_beta",
+  "N_c": 1024,
+  "V_DIM": 128,
+  "M_LIST": [
+    10000
+  ],
+  "beta_base": 13.0,
+  "M_REF": 100000,
+  "chunk_size": 512,
+  "upload_batch": 2048,
+  "n_queries": 50,
+  "int8_keys": false,
+  "backend": "torch.cpu",
+  "torch_available": true,
+  "cuda_available": false,
+  "n_seeds": 1,
+  "expected_n_units": 2,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "discriminator_reachability": true,
+  "crlb_formula_reference": "logit_gap = beta * (1 - sqrt(2*log(M)/N)); p_win = 1 / (1 + M * exp(-logit_gap))",
+  "crlb_p_win_predicted_M10000": 0.9598133835247478,
+  "adaptive_beta_M10000": 13.0,
+  "primitive_reference_testbed_T2": "hdlab/chunked_attention.py",
+  "primitive_reference_int8_pareto": "hdlab/int8_dense.py",
+  "v2_fix_applied": "chunked_FP16_upload_STD_chunked_INT8_upload_REPL",
+  "v1_root_cause": "keys_f32.to(device) at M=500k allocates 15.26 GiB (2x FP32 during transfer)",
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "chunk_seed": 7,
+  "run_mode": "smoke",
+  "headline": {
+    "hp_repl_m100k": null,
+    "hp_repl_m500k": null,
+    "hp_repl_m1m": null,
+    "std_vals": [
+      0.2993868589401245
+    ],
+    "gap_per_M": {
+      "10000": 0.7006131410598755
+    },
+    "max_gpu_mb": 0.0,
+    "n_arm_outcomes": 2,
+    "expected_arm_count": 2,
+    "hp_flags": [
+      "HP_STD_BEATEN_min_gap=0.701"
+    ],
+    "hf_flags": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 23.13635778427124,
+      "per_M": {
+        "10000": [
+          {
+            "arm_name": "ARM_STD",
+            "seed": 7,
+            "M": 10000,
+            "N": 1024,
+            "V": 128,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 512,
+            "upload_batch": 2048,
+            "recall_cosine_mean": 0.2993868589401245,
+            "recall_cosine_std": 0.07575385272502899,
+            "arm_hash": "a5ddac6a8e2569ba",
+            "backend": "torch.cpu",
+            "int8_keys": false,
+            "upload_strategy": "chunked_upload_FP16_keys",
+            "estimated_peak_mb": 25.732496,
+            "wall_s": 0.19955921173095703,
+            "gpu_mem_peak_mb": 0.0,
+            "p_win_predicted": 0.8855491240348625
+          },
+          {
+            "arm_name": "ARM_REPL",
+            "seed": 7,
+            "M": 10000,
+            "N": 1024,
+            "V": 128,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 512,
+            "upload_batch": 2048,
+            "recall_cosine_mean": 1.0,
+            "recall_cosine_std": 8.766676984350852e-08,
+            "arm_hash": "ff856c2943f971da",
+            "backend": "torch.cpu",
+            "int8_keys": false,
+            "upload_strategy": "chunked_upload_FP16_keys",
+            "estimated_peak_mb": 25.732496,
+            "wall_s": 0.140425443649292,
+            "gpu_mem_peak_mb": 0.0,
+            "p_win_predicted": 0.8855491240348625
+          }
+        ]
+      },
+      "preview_arm": {
+        "M": 100000,
+        "arms": [
+          {
+            "arm_name": "ARM_STD",
+            "seed": 7,
+            "M": 100000,
+            "N": 8192,
+            "V": 256,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 1024,
+            "upload_batch": 8192,
+            "recall_cosine_mean": 0.2748553156852722,
+            "recall_cosine_std": 0.05841885879635811,
+            "arm_hash": "adb0721ed201d3b5",
+            "backend": "torch.cpu",
+            "int8_keys": false,
+            "upload_strategy": "chunked_upload_FP16_keys",
+            "estimated_peak_mb": 1724.869008,
+            "wall_s": 9.615861415863037,
+            "gpu_mem_peak_mb": 0.0,
+            "p_win_predicted": 0.6895159178443061
+          },
+          {
+            "arm_name": "ARM_REPL",
+            "seed": 7,
+            "M": 100000,
+            "N": 8192,
+            "V": 256,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 1024,
+            "upload_batch": 8192,
+            "recall_cosine_mean": 0.9999998211860657,
+            "recall_cosine_std": 9.170881298814493e-08,
+            "arm_hash": "fc99d46cb94d998d",
+            "backend": "torch.cpu",
+            "int8_keys": true,
+            "upload_strategy": "chunked_upload_INT8_keys",
+            "estimated_peak_mb": 905.669008,
+            "wall_s": 13.005927085876465,
+            "gpu_mem_peak_mb": 0.0,
+            "p_win_predicted": 0.6895159178443061
+          }
+        ]
+      }
+    }
+  ]
+}

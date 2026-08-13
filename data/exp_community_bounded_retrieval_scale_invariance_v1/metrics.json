@@ -1,0 +1,295 @@
+{
+  "anchor_name": "community_bounded_retrieval_scale_invariance_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: TREATMENT flat (rd=0.000<= 0.1, abs@Vmax=1.000) WHILE CONTROL collapses (rd=1.000>= 0.3); route@Vmax=1.000; modQ_min=0.510. Community-bounded two-stage retrieval decouples effective-V from total-V.",
+  "summary": "community-bounded-retrieval V-sweep [580, 2900, 29000, 58000] N=8192 mode=full: ctrl_rd=1.000 treat_rd=0.000 route@Vmax=1.000 modQ_min=0.510",
+  "elapsed_s": 48.156524419784546,
+  "config_version": "ANCHOR=community_bounded_retrieval_scale_invariance_v1,N=8192,Q=128,route_noise=0.6,V_GRID=[580, 2900, 29000, 58000],seeds=[7, 17, 23],mode=full",
+  "run_mode": "full",
+  "N": 8192,
+  "V_grid": [
+    580,
+    2900,
+    29000,
+    58000
+  ],
+  "n_seeds": 3,
+  "arms": [
+    "CONTROL",
+    "TREATMENT"
+  ],
+  "expected_n_units": 24,
+  "cardinality_ok": true,
+  "stats": {
+    "V_min": 580,
+    "V_max": 58000,
+    "ctrl_fid_Vmin": 0.7890625,
+    "ctrl_fid_Vmax": 0.0,
+    "ctrl_rel_deg": 1.0,
+    "treat_fid_Vmin": 1.0,
+    "treat_fid_Vmax": 1.0,
+    "treat_rel_deg": 0.0,
+    "route_acc_Vmax": 1.0,
+    "modularity_Q_min": 0.5097400443597488,
+    "treat_cv_across_seeds": 0.0,
+    "observed_units": 24,
+    "expected_n_units": 24,
+    "cardinality_ok": true,
+    "curve": {
+      "580": {
+        "ctrl_fid": 0.7890625,
+        "treat_fid": 1.0,
+        "route_acc": 1.0,
+        "modularity_Q": 0.9509478035339712
+      },
+      "2900": {
+        "ctrl_fid": 0.0234375,
+        "treat_fid": 1.0,
+        "route_acc": 1.0,
+        "modularity_Q": 0.9809927168621618
+      },
+      "29000": {
+        "ctrl_fid": 0.0,
+        "treat_fid": 1.0,
+        "route_acc": 1.0,
+        "modularity_Q": 0.7080810789522713
+      },
+      "58000": {
+        "ctrl_fid": 0.0,
+        "treat_fid": 1.0,
+        "route_acc": 1.0,
+        "modularity_Q": 0.5097400443597488
+      }
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 16.328801155090332,
+      "per_V": {
+        "580": {
+          "V": 580,
+          "comm_size": 24,
+          "n_comm": 25,
+          "ctrl_fid": 0.8125,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9509276175985528,
+          "modularity_edges": 3584,
+          "decouple_abs_cos": 0.008342742919921875,
+          "ctrl_pred_hash": "0fa3f4137a530811e8b0a785feb3dc0929631f10eb09267aff9ffef7ad4336c4",
+          "treat_pred_hash": "dd7c52771b629bdc2aa948e000151b7573b02de37dfcaf48827a07467c6e85f7"
+        },
+        "2900": {
+          "V": 2900,
+          "comm_size": 54,
+          "n_comm": 54,
+          "ctrl_fid": 0.0234375,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9809539936197217,
+          "modularity_edges": 9452,
+          "decouple_abs_cos": 0.009220123291015625,
+          "ctrl_pred_hash": "44192712d649fffbffb3b495c2e625c752dfd133e2cbd6aa810f14cc66f49327",
+          "treat_pred_hash": "6f938be62bf01b0100c2d7cefc69d52da83d6fb89888c56cc33e1e53040e4d00"
+        },
+        "29000": {
+          "V": 29000,
+          "comm_size": 170,
+          "n_comm": 171,
+          "ctrl_fid": 0.0,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.709777416504538,
+          "modularity_edges": 8741,
+          "decouple_abs_cos": 0.009860992431640625,
+          "ctrl_pred_hash": "01f0508235bc053bfe86e3e883da1af63d5ae93a325388c642d7119d7d1ab94b",
+          "treat_pred_hash": "215165b2d5d80ae7da02c7b1aa12e171a4c6acba63d0ba0591871465ba98dae7"
+        },
+        "58000": {
+          "V": 58000,
+          "comm_size": 241,
+          "n_comm": 241,
+          "ctrl_fid": 0.0,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.505468577784328,
+          "modularity_edges": 8910,
+          "decouple_abs_cos": 0.009146690368652344,
+          "ctrl_pred_hash": "a064e0929590e72d56e6315cb0ba67598a9ae955a44b49f885eb30739834a5e2",
+          "treat_pred_hash": "dd5feb1f694989e60a7f19406d23b6b5d4d948bdfda6c17a00555416fc903f17"
+        }
+      },
+      "arms": [
+        "CONTROL",
+        "TREATMENT"
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 15.853580236434937,
+      "per_V": {
+        "580": {
+          "V": 580,
+          "comm_size": 24,
+          "n_comm": 25,
+          "ctrl_fid": 0.78125,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9509671020268815,
+          "modularity_edges": 3616,
+          "decouple_abs_cos": 0.008360862731933594,
+          "ctrl_pred_hash": "d1ffb068bb93bbb25da0eb7ae5aa2d7c89057cdcbce47df2ff8ac5fed424d1a7",
+          "treat_pred_hash": "0eae0a3c3dd705b85f03590a81cdc4a8557ba4d69593d6c7a2bafb1b8e124f94"
+        },
+        "2900": {
+          "V": 2900,
+          "comm_size": 54,
+          "n_comm": 54,
+          "ctrl_fid": 0.0234375,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9809727197101603,
+          "modularity_edges": 9513,
+          "decouple_abs_cos": 0.00811767578125,
+          "ctrl_pred_hash": "0e79cad88eed7b325aea40cabe63d55c8a0ef6c503720c1542611917288e70d5",
+          "treat_pred_hash": "18eb38ea2233a94b99976bc61281f19d22d611a6891124d447ec60d2463b7088"
+        },
+        "29000": {
+          "V": 29000,
+          "comm_size": 170,
+          "n_comm": 171,
+          "ctrl_fid": 0.0,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.7043301318901839,
+          "modularity_edges": 8716,
+          "decouple_abs_cos": 0.008564949035644531,
+          "ctrl_pred_hash": "679a1f862da7276dfecf90e43d73ac2b89518baf7c337e486014ae006c8ac553",
+          "treat_pred_hash": "825b97d20383a3db58fb9d010f158b0d2f6eee67555337c31bf3796cb891c3c9"
+        },
+        "58000": {
+          "V": 58000,
+          "comm_size": 241,
+          "n_comm": 241,
+          "ctrl_fid": 0.0,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.512149086230623,
+          "modularity_edges": 8936,
+          "decouple_abs_cos": 0.008616447448730469,
+          "ctrl_pred_hash": "65490fde50daf9fb212a00db014b17b0efb966f0ebdb87e15ec2a5411a0a5548",
+          "treat_pred_hash": "8aa50e22ad105f86b5e2c3bc9bd1bd603d7a22d467499aadc2efd478b402198e"
+        }
+      },
+      "arms": [
+        "CONTROL",
+        "TREATMENT"
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 15.936393976211548,
+      "per_V": {
+        "580": {
+          "V": 580,
+          "comm_size": 24,
+          "n_comm": 25,
+          "ctrl_fid": 0.7734375,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9509486909764795,
+          "modularity_edges": 3602,
+          "decouple_abs_cos": 0.008511543273925781,
+          "ctrl_pred_hash": "b54e5ed8a518e50c7805f01ac3e27ddd4b4a0da2dfd2db9f833bb11c63891a86",
+          "treat_pred_hash": "55ab0961a9142d942a59c33ff050dc1f36d7a75073858c24308ef18a3bbd94fc"
+        },
+        "2900": {
+          "V": 2900,
+          "comm_size": 54,
+          "n_comm": 54,
+          "ctrl_fid": 0.0234375,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9810514372566035,
+          "modularity_edges": 9496,
+          "decouple_abs_cos": 0.0088958740234375,
+          "ctrl_pred_hash": "fed8ab6c438ea69928f138ae1b2ae004a74392640b6ac7d1d18ad0327f52a33d",
+          "treat_pred_hash": "e0f6c0e9050acb6065b793ab360e7b684349d1ebe366a9073f67e64426816504"
+        },
+        "29000": {
+          "V": 29000,
+          "comm_size": 170,
+          "n_comm": 171,
+          "ctrl_fid": 0.0,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.7101356884620922,
+          "modularity_edges": 8714,
+          "decouple_abs_cos": 0.009243011474609375,
+          "ctrl_pred_hash": "a6c232dd14a7f6aa0e01750589cf082092f2193b334694ec41854c48c7faf2e6",
+          "treat_pred_hash": "1275e5efdd2e06308c370c874d815c721083ea69cddd44b806649701a92c1067"
+        },
+        "58000": {
+          "V": 58000,
+          "comm_size": 241,
+          "n_comm": 241,
+          "ctrl_fid": 0.0,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.5116024690642955,
+          "modularity_edges": 8933,
+          "decouple_abs_cos": 0.009090423583984375,
+          "ctrl_pred_hash": "afa2a8e2bde0dba3683a3871e006af53f7fe4ec78575de6ec7ec00e2864f3f98",
+          "treat_pred_hash": "cfb895dcdd884d56729453254ca5fd4e136588d1d252cff9ba783bd46cd7a609"
+        }
+      },
+      "arms": [
+        "CONTROL",
+        "TREATMENT"
+      ]
+    }
+  ],
+  "structured_gate_claims": [
+    {
+      "gate_name": "treat_flat_rd",
+      "measured": 0.0,
+      "threshold": 0.1,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "treatment relative degradation V_min->V_max"
+    },
+    {
+      "gate_name": "control_collapse_rd",
+      "measured": 1.0,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "control relative degradation (discriminator must fire)"
+    },
+    {
+      "gate_name": "treat_abs_at_Vmax",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "treatment absolute fidelity at V_max (holds)"
+    },
+    {
+      "gate_name": "route_acc_at_Vmax",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "coarse-route accuracy at V_max (not leaking)"
+    },
+    {
+      "gate_name": "modularity_min",
+      "measured": 0.5097400443597488,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "min Newman Q across V (real community structure)"
+    }
+  ]
+}

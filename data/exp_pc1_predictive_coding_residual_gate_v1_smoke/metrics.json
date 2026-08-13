@@ -1,0 +1,72 @@
+{
+  "anchor_name": "pc1_predictive_coding_residual_gate_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: PC arm(s) ['PC_RESIDUAL_GATE_THRESH_0p3', 'PC_RESIDUAL_PROPORTIONAL'] partially meet criteria. VAN(rec=1.000,norm=2293.0); PC_RESIDUAL_GATE_THRESH_0p3(rec=1.000,norm=2293.0,skip=0.00,cv=0.000); PC_RESIDUAL_PROPORTIONAL(rec=1.000,norm=1148.0,skip=0.00,cv=0.000); RND(rec=0.480,norm=1678.7,skip=0.46)",
+  "summary": "n_seeds=1 N=256 M=80 alpha=0.312 mode=smoke threshold=0.3",
+  "elapsed_s": 0.3202943801879883,
+  "config_version": "ANCHOR=pc1_predictive_coding_residual_gate_v1,N=256,M=80,alpha=0.312,SEEDS=7,N_QUERIES=50,THRESHOLD_PC=0.3,RUN_MODE=smoke",
+  "N": 256,
+  "M": 80,
+  "alpha": 0.3125,
+  "n_seeds": 1,
+  "n_queries": 50,
+  "threshold_pc": 0.3,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.20626258850097656,
+      "arms": [
+        {
+          "arm_name": "VANILLA_HEBBIAN",
+          "recall_at_1": 1.0,
+          "W_norm": 2293.001526384141,
+          "n_writes_total": 80,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.47265625,
+          "wall_s": 0.013813257217407227,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_GATE_THRESH_0p3",
+          "recall_at_1": 1.0,
+          "W_norm": 2293.001526384141,
+          "n_writes_total": 80,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.47265625,
+          "wall_s": 0.05501508712768555,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 1.0
+        },
+        {
+          "arm_name": "PC_RESIDUAL_PROPORTIONAL",
+          "recall_at_1": 1.0,
+          "W_norm": 1148.0072658720924,
+          "n_writes_total": 80,
+          "n_writes_skipped": 0,
+          "write_skip_frac": 0.0,
+          "mean_residual_at_convergence": 0.47265625,
+          "wall_s": 0.11653423309326172,
+          "recall_minus_vanilla": 0.0,
+          "wnorm_ratio_to_vanilla": 0.500657000295328
+        },
+        {
+          "arm_name": "RANDOM_GATE_CONTROL",
+          "recall_at_1": 0.48,
+          "W_norm": 1678.7114105765768,
+          "n_writes_total": 80,
+          "n_writes_skipped": 37,
+          "write_skip_frac": 0.4625,
+          "mean_residual_at_convergence": 0.51171875,
+          "wall_s": 0.0036857128143310547,
+          "recall_minus_vanilla": -0.52,
+          "wnorm_ratio_to_vanilla": 0.7321021775435775
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,460 @@
+{
+  "verdict": "HARD_FAIL_ONE_HEAD_FAR_MISS",
+  "verdict_msg": "HARD_FAIL_ONE_HEAD_FAR_MISS | THE FIX: can a TRAINED two-head encoder (shared trunk -> VICReg store head + RKD retrieval head) achieve BOTH high superposition AND high pointwise, replacing the anchor-sweep ORACLE? HEADLINE twohead_shared: store SP_wta@J5=0.753 (hit>=0.83:False) + ret SC_dense@a1.2=0.984 (hit>=0.9:True) -> achieves_both=False joint=0.908. CEILING twohead_split: SP=0.790 SC=0.971 both=False. FRONTIER (single code, dual readout): singlehead_distill(SP0.73/SC0.97) singlehead_native(SP0.80/SC0.97); frontier_both=False (best_joint=0.961). ORACLE ref (store=native_untrained SP=0.852 + teacher SC=0.996) both=True. CROSS-CHECK (heads specialized): store-head SC_dense=0.971 (NOT forced BGE-like) ; ret-head SP_wta=0.753 (NOT forced decorrelated). cache=bge_large_v2_name_43905_8a40445a.npz. INTERPRETATION: the SHARED trunk forces interference: the two objectives (decorrelate store vs match-BGE retrieval) collide in the shared features so neither head reaches its target, OR the shared trunk gains nothing over a single code. Check the twohead_split CEILING: if split achieves both, the fix is per-head trunks (independent encoders); if even split fails, the trained system cannot reach the oracle at this regime -> escalate.",
+  "summary": "HARD_FAIL_ONE_HEAD_FAR_MISS: trained two-head decoupled store/retrieval encoder (full)",
+  "run_mode": "full",
+  "device": "cuda",
+  "elapsed_s": 1186.8970106000197,
+  "ts_iso": "2026-07-08T14:32:02.187516+00:00",
+  "anchor_name": "encoder_twohead_decoupled_store_retrieval_v1",
+  "cache_source": "bge_large_v2_name_43905_8a40445a.npz",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units": 5,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "classification": {
+    "verdict": "HARD_FAIL_ONE_HEAD_FAR_MISS",
+    "headline": {
+      "arm": "twohead_shared",
+      "store_sp_wta": 0.7533333333333333,
+      "ret_sc_dense": 0.9843333333333334,
+      "sp_hit": false,
+      "sc_hit": true,
+      "both": false,
+      "joint": 0.9076305220883534
+    },
+    "ceiling": {
+      "arm": "twohead_split",
+      "sp": 0.7895333333333332,
+      "sc": 0.9713333333333333,
+      "both": false,
+      "joint": 0.9512449799196786
+    },
+    "frontier": {
+      "singlehead_distill": {
+        "sp": 0.7323333333333333,
+        "sc": 0.9743333333333334,
+        "both": false,
+        "joint": 0.8823293172690763
+      },
+      "singlehead_native": {
+        "sp": 0.7976666666666666,
+        "sc": 0.975,
+        "both": false,
+        "joint": 0.9610441767068273
+      }
+    },
+    "frontier_both": false,
+    "best_frontier_joint": 0.9610441767068273,
+    "oracle_ref": {
+      "store_arm": "native_untrained",
+      "sp": 0.8524666666666665,
+      "sc": 0.9956666666666667,
+      "achieves_both": true
+    },
+    "cross_check": {
+      "store_head_sc_dense": 0.9713333333333333,
+      "ret_head_sp_wta": 0.7533333333333333
+    },
+    "thresholds": {
+      "SP_HI": 0.83,
+      "SC_HI": 0.9,
+      "MIDDLE_TOL": 0.05
+    }
+  },
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2
+  },
+  "bands": {
+    "SP_HI": 0.83,
+    "SC_HI": 0.9,
+    "MIDDLE_TOL": 0.05,
+    "GAMMA_VAR": 1.0,
+    "MU_VIC": 1.0,
+    "NU_VIC": 1.0,
+    "LAMBDA_D": 1.0
+  },
+  "arms_config": [
+    {
+      "name": "twohead_shared",
+      "kind": "twohead",
+      "shared": true,
+      "lambda_d": 1.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "twohead_split",
+      "kind": "twohead",
+      "shared": false,
+      "lambda_d": 1.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "singlehead_distill",
+      "kind": "singlehead",
+      "lambda_d": 1.0,
+      "mu": 0.0,
+      "nu": 0.0
+    },
+    {
+      "name": "singlehead_native",
+      "kind": "singlehead",
+      "lambda_d": 0.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "teacher_bge",
+      "kind": "teacher"
+    },
+    {
+      "name": "native_untrained",
+      "kind": "untrained"
+    }
+  ],
+  "regime": {
+    "N": 4096,
+    "H": 512,
+    "V": 40000,
+    "iters": 800,
+    "B": 8192,
+    "lr": 0.001,
+    "Js": [
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "alphas": [
+      0.0,
+      0.8,
+      1.2,
+      1.6
+    ],
+    "nq": 600,
+    "sep_sample": 1500
+  },
+  "agg": {
+    "n_seeds": 5,
+    "arms": {
+      "twohead_shared": {
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9888888888888889,
+          "5": 0.7533333333333333,
+          "8": 0.20383333333333337
+        },
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9720000000000001,
+          "3": 0.48722222222222217,
+          "5": 0.03346666666666667,
+          "8": 0.004333333333333333
+        },
+        "sc_ret_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9959999999999999,
+          "1.2": 0.9843333333333334,
+          "1.6": 0.9523333333333334
+        },
+        "sc_ret_wta_mean": {
+          "0.0": 1.0,
+          "0.8": 0.923,
+          "1.2": 0.7733333333333332,
+          "1.6": 0.5403333333333334
+        },
+        "sc_store_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9936666666666667,
+          "1.2": 0.9713333333333333,
+          "1.6": 0.9033333333333333
+        },
+        "sep_store_wta_mean": 0.27386471033096316,
+        "sep_store_dense_mean": 0.6627024054527283,
+        "sp_wta_op_per_seed": [
+          0.7879999999999999,
+          0.671,
+          0.8106666666666666,
+          0.7046666666666666,
+          0.7923333333333333
+        ],
+        "sc_ret_dense_op_per_seed": [
+          0.9783333333333334,
+          0.9783333333333334,
+          0.9866666666666667,
+          0.9866666666666667,
+          0.9916666666666667
+        ],
+        "sp_wta_op_cv": 0.07308630913712669
+      },
+      "twohead_split": {
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9915555555555556,
+          "5": 0.7895333333333332,
+          "8": 0.23962500000000003
+        },
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9803333333333335,
+          "3": 0.5078888888888888,
+          "5": 0.033600000000000005,
+          "8": 0.004833333333333334
+        },
+        "sc_ret_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9936666666666667,
+          "1.2": 0.9713333333333333,
+          "1.6": 0.9126666666666667
+        },
+        "sc_ret_wta_mean": {
+          "0.0": 1.0,
+          "0.8": 0.8220000000000001,
+          "1.2": 0.5286666666666666,
+          "1.6": 0.2336666666666667
+        },
+        "sc_store_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9953333333333333,
+          "1.2": 0.9746666666666666,
+          "1.6": 0.9393333333333335
+        },
+        "sep_store_wta_mean": 0.2487669199705124,
+        "sep_store_dense_mean": 0.6375370144844055,
+        "sp_wta_op_per_seed": [
+          0.7826666666666666,
+          0.865,
+          0.762,
+          0.8066666666666665,
+          0.7313333333333333
+        ],
+        "sc_ret_dense_op_per_seed": [
+          0.975,
+          0.97,
+          0.9733333333333334,
+          0.9633333333333334,
+          0.975
+        ],
+        "sp_wta_op_cv": 0.0571537801544515
+      },
+      "singlehead_distill": {
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 0.9998333333333334,
+          "3": 0.9620000000000001,
+          "5": 0.7323333333333333,
+          "8": 0.35658333333333336
+        },
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.953,
+          "3": 0.5368888888888887,
+          "5": 0.15106666666666668,
+          "8": 0.03254166666666666
+        },
+        "sc_ret_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9933333333333334,
+          "1.2": 0.9743333333333334,
+          "1.6": 0.914
+        },
+        "sc_ret_wta_mean": {
+          "0.0": 1.0,
+          "0.8": 0.8086666666666666,
+          "1.2": 0.5026666666666666,
+          "1.6": 0.22866666666666666
+        },
+        "sc_store_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9933333333333334,
+          "1.2": 0.9743333333333334,
+          "1.6": 0.914
+        },
+        "sep_store_wta_mean": 0.26459048986434935,
+        "sep_store_dense_mean": 0.5193864583969117,
+        "sp_wta_op_per_seed": [
+          0.7223333333333333,
+          0.7759999999999999,
+          0.7433333333333333,
+          0.727,
+          0.693
+        ],
+        "sc_ret_dense_op_per_seed": [
+          0.9783333333333334,
+          0.96,
+          0.985,
+          0.975,
+          0.9733333333333334
+        ],
+        "sp_wta_op_cv": 0.03716230109594937
+      },
+      "singlehead_native": {
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9915555555555556,
+          "5": 0.7976666666666666,
+          "8": 0.230875
+        },
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9791666666666666,
+          "3": 0.5178888888888888,
+          "5": 0.034466666666666666,
+          "8": 0.0045
+        },
+        "sc_ret_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.994,
+          "1.2": 0.975,
+          "1.6": 0.9393333333333335
+        },
+        "sc_ret_wta_mean": {
+          "0.0": 1.0,
+          "0.8": 0.916,
+          "1.2": 0.7516666666666667,
+          "1.6": 0.457
+        },
+        "sc_store_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.994,
+          "1.2": 0.975,
+          "1.6": 0.9393333333333335
+        },
+        "sep_store_wta_mean": 0.2410920590162277,
+        "sep_store_dense_mean": 0.624663770198822,
+        "sp_wta_op_per_seed": [
+          0.7873333333333332,
+          0.732,
+          0.8243333333333334,
+          0.854,
+          0.7906666666666666
+        ],
+        "sc_ret_dense_op_per_seed": [
+          0.97,
+          0.975,
+          0.98,
+          0.9666666666666667,
+          0.9833333333333333
+        ],
+        "sp_wta_op_cv": 0.0512389653680834
+      },
+      "teacher_bge": {
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9634444444444444,
+          "5": 0.7455333333333333,
+          "8": 0.39099999999999996
+        },
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9618333333333334,
+          "3": 0.5674444444444445,
+          "5": 0.1714,
+          "8": 0.036250000000000004
+        },
+        "sc_ret_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.999,
+          "1.2": 0.9956666666666667,
+          "1.6": 0.985
+        },
+        "sc_ret_wta_mean": {
+          "0.0": 1.0,
+          "0.8": 0.8273333333333334,
+          "1.2": 0.5896666666666667,
+          "1.6": 0.33666666666666667
+        },
+        "sc_store_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.999,
+          "1.2": 0.9956666666666667,
+          "1.6": 0.985
+        },
+        "sep_store_wta_mean": 0.26114687919616697,
+        "sep_store_dense_mean": 0.5205200552940369,
+        "sp_wta_op_per_seed": [
+          0.7513333333333333,
+          0.7569999999999999,
+          0.7346666666666666,
+          0.7579999999999999,
+          0.7266666666666667
+        ],
+        "sc_ret_dense_op_per_seed": [
+          0.9983333333333333,
+          0.9933333333333333,
+          0.9966666666666667,
+          0.9933333333333333,
+          0.9966666666666667
+        ],
+        "sp_wta_op_cv": 0.016908930512633077
+      },
+      "native_untrained": {
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9834444444444446,
+          "5": 0.8524666666666665,
+          "8": 0.5692083333333333
+        },
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9588333333333334,
+          "3": 0.5531111111111111,
+          "5": 0.16293333333333332,
+          "8": 0.035125
+        },
+        "sc_ret_dense_mean": {
+          "0.0": null,
+          "0.8": null,
+          "1.2": null,
+          "1.6": null
+        },
+        "sc_ret_wta_mean": {
+          "0.0": null,
+          "0.8": null,
+          "1.2": null,
+          "1.6": null
+        },
+        "sc_store_dense_mean": {
+          "0.0": 1.0,
+          "0.8": 0.9986666666666666,
+          "1.2": 0.9926666666666666,
+          "1.6": 0.9773333333333334
+        },
+        "sep_store_wta_mean": 0.1737512767314911,
+        "sep_store_dense_mean": 0.5196667790412903,
+        "sp_wta_op_per_seed": [
+          0.8596666666666666,
+          0.881,
+          0.8266666666666665,
+          0.8636666666666667,
+          0.8313333333333333
+        ],
+        "sc_ret_dense_op_per_seed": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "sp_wta_op_cv": 0.02406181305482133
+      }
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS leak-proof split + fusion + degree-matched relational-inference eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 4.833751800004393,
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.328
+  },
+  "leakproof_split_selftest": {
+    "overlap": 0,
+    "viols": 0,
+    "n_eval_queries": 52,
+    "mean_predict_deg": 12.461538461538462
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 400,
+    "n_kept_pairs": 38831,
+    "min_deg": 2,
+    "cap_nodes": 400,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/PartOf",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/HasProperty"
+    ],
+    "n_rel_slots": 9
+  },
+  "split_meta": {
+    "n_train": 321,
+    "n_heldout": 79,
+    "n_eval_queries": 79,
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 2750,
+    "mean_held_context_size": 151.56962025316454,
+    "mean_predict_deg": 34.81012658227848,
+    "n_rel_slots": 9,
+    "mode": "two_new_concept"
+  },
+  "learned_rel_infer_auc": 0.5279182862474031,
+  "raw_grounding_rel_infer_auc": 0.5354148569863332,
+  "collapse_shuffle_rel_infer_auc": 0.4834454751173172,
+  "popularity_rel_infer_auc": 0.6310958158535311
+}

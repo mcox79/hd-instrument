@@ -1,0 +1,210 @@
+{
+  "verdict": "INCONCLUSIVE_SCRAMBLE_NOT_CONTROLLED",
+  "verdict_msg": "INCONCLUSIVE_SCRAMBLE_NOT_CONTROLLED || MAIN=0.0242 RANDOM=0.0011 SCRAMBLE=0.0107 POP=0.0244 (arena_margin=0.0231 ratio=22.3367 fires=True) | scramble_controlled=False | per_seed partial_rho(khop,RR|deg)=[0.1424, 0.1594] perm_p=[0.002, 0.002] sign_ok=True | per_seed raw_spearman=[0.214911, 0.225792] degree_only=[0.162769, 0.16207] | dist2hub_rho=[-0.138703, -0.111145] meanNbrDeg_rho=[0.163384, 0.169605] | bottom/top-decile khop=[(110.4918, 185.1694), (112.2514, 187.7978)] | n_entities=[1835, 1835] | arms_differ=True(sigs=6) seeds=2",
+  "summary": "INCONCLUSIVE_SCRAMBLE_NOT_CONTROLLED || MAIN=0.0242 RANDOM=0.0011 SCRAMBLE=0.0107 POP=0.0244 (arena_margin=0.0231 ratio=22.3367 fires=True) | scramble_controlled=False | per_seed partial_rho(khop,RR|d",
+  "run_mode": "full",
+  "elapsed_s": 474.0557615000289,
+  "anchor_name": "reachability_predicts_relational_failure_cskg_v1",
+  "ts_iso": "2026-07-15T18:42:26.147152+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "k": 16,
+    "epochs": 150,
+    "n_neg": 64,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "ckpt_every": 20,
+    "seeds": [
+      7,
+      13
+    ]
+  },
+  "gates": {
+    "verdict": "INCONCLUSIVE_SCRAMBLE_NOT_CONTROLLED",
+    "main_mrr": 0.024213,
+    "random_mrr": 0.001084,
+    "scramble_mrr": 0.010686,
+    "pop_mrr": 0.024351,
+    "arena_margin": 0.023129,
+    "arena_ratio": 22.337,
+    "arena_fires": true,
+    "scramble_margin": 0.009602,
+    "scramble_ceiling": 0.005782,
+    "scramble_controlled": false,
+    "arms_differ": true,
+    "n_distinct_sigs": 6,
+    "enough_entities": true,
+    "correct_sign_both": true,
+    "hard": true,
+    "middle": true,
+    "per_seed_partial_rho_khop": [
+      0.142379,
+      0.159393
+    ],
+    "per_seed_perm_p_khop": [
+      0.001996,
+      0.001996
+    ],
+    "per_seed_n_entities": [
+      1835,
+      1835
+    ],
+    "per_seed_diagnostic": [
+      {
+        "seed": 7,
+        "n_entities": 1835,
+        "partial_rho_khop": 0.142379,
+        "perm_p_khop": 0.001996,
+        "perm_null_mean": 0.002847,
+        "perm_null_std": 0.023856,
+        "partial_rho_dist2hub": -0.138703,
+        "partial_rho_meanNbrDeg": 0.163384,
+        "raw_spearman_khop": 0.214911,
+        "spearman_degree_only": 0.162769,
+        "bottom_decile_mean_khop": 110.4918,
+        "top_decile_mean_khop": 185.1694,
+        "n_hubs": 720,
+        "mean_nq": 2.463,
+        "median_deg": 9.0,
+        "measured_reachability_active": false,
+        "n_grounded_entities": 0
+      },
+      {
+        "seed": 13,
+        "n_entities": 1835,
+        "partial_rho_khop": 0.159393,
+        "perm_p_khop": 0.001996,
+        "perm_null_mean": 0.003672,
+        "perm_null_std": 0.022459,
+        "partial_rho_dist2hub": -0.111145,
+        "partial_rho_meanNbrDeg": 0.169605,
+        "raw_spearman_khop": 0.225792,
+        "spearman_degree_only": 0.16207,
+        "bottom_decile_mean_khop": 112.2514,
+        "top_decile_mean_khop": 187.7978,
+        "n_hubs": 720,
+        "mean_nq": 2.463,
+        "median_deg": 9.0,
+        "measured_reachability_active": false,
+        "n_grounded_entities": 0
+      }
+    ],
+    "bands": {
+      "RHO_HARD": 0.1,
+      "RHO_MID": 0.04,
+      "P_SIG": 0.05,
+      "P_MID": 0.15,
+      "EXPECTED_SIGN": 1,
+      "MIN_ENTITIES": 200,
+      "N_PERM": 500,
+      "KHOP_K": 2,
+      "HUB_FRAC": 0.01,
+      "DEG_STRATA_BINS": 10,
+      "ARENA_FIRE_RATIO": 3.0,
+      "ARENA_FIRE_ABS": 0.01,
+      "SCRAMBLE_CEIL_FRAC": 0.25
+    }
+  },
+  "self_test": {
+    "n_query": 357,
+    "n_entities": 150,
+    "selftest_verdict": "INCONCLUSIVE_INSUFFICIENT_ENTITIES",
+    "gates": {
+      "verdict": "INCONCLUSIVE_INSUFFICIENT_ENTITIES",
+      "main_mrr": 0.217932,
+      "random_mrr": 0.030747,
+      "scramble_mrr": 0.066654,
+      "pop_mrr": 0.216394,
+      "arena_margin": 0.187185,
+      "arena_ratio": 7.088,
+      "arena_fires": true,
+      "scramble_margin": 0.035907,
+      "scramble_ceiling": 0.046796,
+      "scramble_controlled": true,
+      "arms_differ": true,
+      "n_distinct_sigs": 3,
+      "enough_entities": false,
+      "correct_sign_both": true,
+      "hard": true,
+      "middle": true,
+      "per_seed_partial_rho_khop": [
+        0.157805
+      ],
+      "per_seed_perm_p_khop": [
+        0.045908
+      ],
+      "per_seed_n_entities": [
+        150
+      ],
+      "per_seed_diagnostic": [
+        {
+          "seed": 7,
+          "n_entities": 150,
+          "partial_rho_khop": 0.157805,
+          "perm_p_khop": 0.045908,
+          "perm_null_mean": 0.005771,
+          "perm_null_std": 0.082697,
+          "partial_rho_dist2hub": -0.128261,
+          "partial_rho_meanNbrDeg": 0.174,
+          "raw_spearman_khop": 0.34527,
+          "spearman_degree_only": 0.318266,
+          "bottom_decile_mean_khop": 52.4,
+          "top_decile_mean_khop": 77.0667,
+          "n_hubs": 2,
+          "mean_nq": 2.38,
+          "median_deg": 9.0,
+          "measured_reachability_active": false,
+          "n_grounded_entities": 0
+        }
+      ],
+      "bands": {
+        "RHO_HARD": 0.1,
+        "RHO_MID": 0.04,
+        "P_SIG": 0.05,
+        "P_MID": 0.15,
+        "EXPECTED_SIGN": 1,
+        "MIN_ENTITIES": 200,
+        "N_PERM": 500,
+        "KHOP_K": 2,
+        "HUB_FRAC": 0.01,
+        "DEG_STRATA_BINS": 10,
+        "ARENA_FIRE_RATIO": 3.0,
+        "ARENA_FIRE_ABS": 0.01,
+        "SCRAMBLE_CEIL_FRAC": 0.25
+      }
+    },
+    "arena_fires": true,
+    "scramble_controlled": true,
+    "arms_differ": true,
+    "partial_rho_in_bounds": true,
+    "perm_p_in_bounds": true,
+    "mode_a_fires": true,
+    "mode_a_inert_when_empty": true,
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "additive_direct_scores",
+      "build_holdout_split",
+      "build_planted_bucket_arena",
+      "build_undirected_adj",
+      "degree_vector",
+      "distance_to_hub",
+      "filtered_rr_per_query",
+      "fit_kge_anchor1",
+      "k_hop_reachable_mass",
+      "mean_neighbor_degree",
+      "measured_reachability",
+      "partial_spearman",
+      "perm_p_partial_stratified",
+      "quantile_strata",
+      "top_degree_hubs",
+      "verdict_from_gates"
+    ]
+  },
+  "seed_failures": [],
+  "n_induced_triples": 91673
+}

@@ -1,0 +1,752 @@
+{
+  "verdict": "HARD_FAIL_ROUTE_LOSES",
+  "summary": "HARD_FAIL_ROUTE_LOSES",
+  "verdict_msg": "profile=full seeds=5 N=[30, 60, 120] rho=[0.0, 0.3] | HARD_FAIL_ROUTE_LOSES | RETENTION@Nmax=120: route=0.719 vs eng_best[consolidate_everything]=0.826 (margin=-0.106 TIE=0.010) | scaling gap(Nmin=30)=-0.153 -> gap(Nmax)=-0.106 (delta=+0.047 SCALE_EPS=0.010 present=True) | native_exact_all=0.700 -> native_no_dom | every@Nmin=0.948 every@Nmax=0.826 forget_drop=+0.122(fired=True) | POSCTRL route-every=+0.127(fired=True) NULLGUARD route-every=-0.275(held=True) | ARENA ARENA_VALID | route_worse_than_engineering_in_continual_regime",
+  "elapsed_s": 0.3616749999928288,
+  "ts_iso": "2026-07-16T17:55:43.889993+00:00",
+  "anchor_name": "multisource_arena_continual_retention_v1",
+  "profile": "full",
+  "run_mode": "full",
+  "seeds": [
+    11,
+    23,
+    37,
+    53,
+    71
+  ],
+  "config": {
+    "D": 256,
+    "N_list": [
+      30,
+      60,
+      120
+    ],
+    "rho_list": [
+      0.0,
+      0.3
+    ],
+    "p_noise": 0.35,
+    "native_alpha": 0.5,
+    "E_EARLY": 10,
+    "HOLD_WINDOW": 4,
+    "MU_SCHEMA": 1.0,
+    "MU_RECUR": 0.8
+  },
+  "primary_metric": "mean_early_reliable_item_recall_fidelity_heldout_clean_value",
+  "bands": {
+    "TIE_EPS": 0.01,
+    "X_BAND": 0.03,
+    "SCALE_EPS": 0.01,
+    "FORGET_MIN_DROP": 0.08,
+    "POSCTRL_MIN_GAP": 0.1
+  },
+  "retention_by_N": {
+    "consolidate_everything": {
+      "30": 0.9479480442650307,
+      "60": 0.902494913934975,
+      "120": 0.8257727950250093
+    },
+    "decide_at_arrival_commit": {
+      "30": 0.7270198590021646,
+      "60": 0.7794441437102893,
+      "120": 0.6641212742709303
+    },
+    "route_gate_hold": {
+      "30": 0.794457514548836,
+      "60": 0.7872711430621437,
+      "120": 0.7193245831307267
+    },
+    "native_exact_all": {
+      "30": 0.76,
+      "60": 0.74,
+      "120": 0.7
+    },
+    "native_exact_routed": {
+      "30": 0.7699999999999999,
+      "60": 0.77,
+      "120": 0.74
+    }
+  },
+  "contract": {
+    "route_gate_hold_at_Nmax": 0.7193245831307267,
+    "eng_best_at_Nmax": 0.8257727950250093,
+    "eng_best_name": "consolidate_everything",
+    "margin": -0.10644821189428266,
+    "gap_at_Nmin": -0.1534905297161947,
+    "gap_at_Nmax": -0.10644821189428266,
+    "scaling_delta": 0.04704231782191204,
+    "scaling_present": true,
+    "localization": "route_worse_than_engineering_in_continual_regime"
+  },
+  "frontier2_native": {
+    "native_exact_all_at_Nmax": 0.7,
+    "native_dominates_both": false,
+    "native_exact_routed_by_N": {
+      "30": 0.7699999999999999,
+      "60": 0.77,
+      "120": 0.74
+    },
+    "finding": "NATIVE_DOES_NOT_DOMINATE: exact storage does not strictly beat both -- under the tested capacity bound the distributed arms are competitive."
+  },
+  "controls": {
+    "confirmed_forgetting": {
+      "every_small": 0.9479480442650307,
+      "every_large": 0.8257727950250093,
+      "drop": 0.12217524924002132
+    },
+    "positive_control_route_can_win": {
+      "route": 0.8913065909351482,
+      "everything": 0.764193351165045,
+      "gap": 0.12711323977010314,
+      "fired": true
+    },
+    "null_gate_guard": {
+      "route": 0.588103064957965,
+      "everything": 0.8629322606029504,
+      "delta": -0.2748291956449853,
+      "held": true
+    },
+    "controls_ok": true
+  },
+  "arena_validity": {
+    "verdict": "ARENA_VALID",
+    "arena_valid": true,
+    "baseline_in_band": true,
+    "arms_differ_verified": true,
+    "distinct_arm_outputs": 4
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "per_unit": [
+    {
+      "seed": 11,
+      "N": 30,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9476253522217082,
+        "decide_at_arrival_commit": 0.5857337884500726,
+        "route_gate_hold": 0.6824242927837492,
+        "native_exact_all": 0.7,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 14,
+        "route_gate_hold": 16,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.6666666666666666,
+      "n_probe": 10
+    },
+    {
+      "seed": 11,
+      "N": 30,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.951547248454062,
+        "decide_at_arrival_commit": 0.6170026729275682,
+        "route_gate_hold": 0.6992168630428746,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 16,
+        "route_gate_hold": 15,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.7333333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 11,
+      "N": 60,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.8928093093667206,
+        "decide_at_arrival_commit": 0.8481795164481282,
+        "route_gate_hold": 0.9319337977101958,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.9
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 33,
+        "route_gate_hold": 37,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.6666666666666666,
+      "n_probe": 10
+    },
+    {
+      "seed": 11,
+      "N": 60,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9037263065125554,
+        "decide_at_arrival_commit": 0.7666469484216917,
+        "route_gate_hold": 0.7745494763295364,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 30,
+        "route_gate_hold": 27,
+        "native_exact_all": 30,
+        "native_exact_routed": 27
+      },
+      "reliable_frac": 0.6333333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 11,
+      "N": 120,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.8265827003599903,
+        "decide_at_arrival_commit": 0.46178511513963166,
+        "route_gate_hold": 0.6224995193688807,
+        "native_exact_all": 0.5,
+        "native_exact_routed": 0.5
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 64,
+        "route_gate_hold": 72,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.675,
+      "n_probe": 10
+    },
+    {
+      "seed": 11,
+      "N": 120,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.8271566138364277,
+        "decide_at_arrival_commit": 0.5626543231034192,
+        "route_gate_hold": 0.8062048205675099,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 60,
+        "route_gate_hold": 66,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.6,
+      "n_probe": 10
+    },
+    {
+      "seed": 23,
+      "N": 30,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9443154972449921,
+        "decide_at_arrival_commit": 0.7786997394536933,
+        "route_gate_hold": 0.7774574266854476,
+        "native_exact_all": 0.9,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 13,
+        "route_gate_hold": 14,
+        "native_exact_all": 15,
+        "native_exact_routed": 14
+      },
+      "reliable_frac": 0.5333333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 23,
+      "N": 30,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9415798813332936,
+        "decide_at_arrival_commit": 0.6830179719888161,
+        "route_gate_hold": 0.8730941895839719,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.9
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 17,
+        "route_gate_hold": 15,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.6333333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 23,
+      "N": 60,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9106212792944601,
+        "decide_at_arrival_commit": 0.767997289141378,
+        "route_gate_hold": 0.9492105436635244,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.9
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 34,
+        "route_gate_hold": 34,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.6833333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 23,
+      "N": 60,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9014885342118821,
+        "decide_at_arrival_commit": 0.6724553969343974,
+        "route_gate_hold": 0.6634582343372504,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.6
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 33,
+        "route_gate_hold": 34,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.75,
+      "n_probe": 10
+    },
+    {
+      "seed": 23,
+      "N": 120,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.831670123779254,
+        "decide_at_arrival_commit": 0.643373074481695,
+        "route_gate_hold": 0.720593775033062,
+        "native_exact_all": 0.7,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 58,
+        "route_gate_hold": 65,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.65,
+      "n_probe": 10
+    },
+    {
+      "seed": 23,
+      "N": 120,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.8283099317047282,
+        "decide_at_arrival_commit": 0.7291982751455238,
+        "route_gate_hold": 0.6332906169334566,
+        "native_exact_all": 0.5,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 68,
+        "route_gate_hold": 68,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.5833333333333334,
+      "n_probe": 10
+    },
+    {
+      "seed": 37,
+      "N": 30,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9488439806717939,
+        "decide_at_arrival_commit": 0.7831196727869303,
+        "route_gate_hold": 0.7997333926699015,
+        "native_exact_all": 0.9,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 14,
+        "route_gate_hold": 15,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.5333333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 37,
+      "N": 30,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9458557041633548,
+        "decide_at_arrival_commit": 0.6829814408194907,
+        "route_gate_hold": 0.8718668926310998,
+        "native_exact_all": 0.7,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 16,
+        "route_gate_hold": 19,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.8,
+      "n_probe": 10
+    },
+    {
+      "seed": 37,
+      "N": 60,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.8985954647338241,
+        "decide_at_arrival_commit": 0.8489217483560321,
+        "route_gate_hold": 0.7647135927668092,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 35,
+        "route_gate_hold": 34,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.6333333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 37,
+      "N": 60,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9011975279731667,
+        "decide_at_arrival_commit": 0.6606946902705265,
+        "route_gate_hold": 0.7531272451529328,
+        "native_exact_all": 0.7,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 32,
+        "route_gate_hold": 32,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.7,
+      "n_probe": 10
+    },
+    {
+      "seed": 37,
+      "N": 120,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.8239358843028001,
+        "decide_at_arrival_commit": 0.7973902770327077,
+        "route_gate_hold": 0.8019129934493254,
+        "native_exact_all": 0.9,
+        "native_exact_routed": 0.9
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 67,
+        "route_gate_hold": 66,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.6916666666666667,
+      "n_probe": 10
+    },
+    {
+      "seed": 37,
+      "N": 120,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.81448241853812,
+        "decide_at_arrival_commit": 0.7203282116736653,
+        "route_gate_hold": 0.7910705930516347,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 60,
+        "route_gate_hold": 65,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.6,
+      "n_probe": 10
+    },
+    {
+      "seed": 53,
+      "N": 30,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9538715682334319,
+        "decide_at_arrival_commit": 0.7854723072588747,
+        "route_gate_hold": 0.7836441646026593,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 16,
+        "route_gate_hold": 16,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.6,
+      "n_probe": 10
+    },
+    {
+      "seed": 53,
+      "N": 30,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9459564156356445,
+        "decide_at_arrival_commit": 0.7724623733488546,
+        "route_gate_hold": 0.7781322039402296,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 17,
+        "route_gate_hold": 16,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.7666666666666667,
+      "n_probe": 10
+    },
+    {
+      "seed": 53,
+      "N": 60,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.898454680186376,
+        "decide_at_arrival_commit": 0.7596784633121271,
+        "route_gate_hold": 0.8485624187470566,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 33,
+        "route_gate_hold": 36,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.6833333333333333,
+      "n_probe": 10
+    },
+    {
+      "seed": 53,
+      "N": 60,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9027460436267234,
+        "decide_at_arrival_commit": 0.666770866898635,
+        "route_gate_hold": 0.7562756975416068,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 32,
+        "route_gate_hold": 32,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.65,
+      "n_probe": 10
+    },
+    {
+      "seed": 53,
+      "N": 120,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.8186708829480628,
+        "decide_at_arrival_commit": 0.7212396998373144,
+        "route_gate_hold": 0.8187971191880017,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.9
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 65,
+        "route_gate_hold": 62,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.6666666666666666,
+      "n_probe": 10
+    },
+    {
+      "seed": 53,
+      "N": 120,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.8242099640017401,
+        "decide_at_arrival_commit": 0.6350789262687371,
+        "route_gate_hold": 0.7224608212585198,
+        "native_exact_all": 0.7,
+        "native_exact_routed": 0.6
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 66,
+        "route_gate_hold": 66,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.7083333333333334,
+      "n_probe": 10
+    },
+    {
+      "seed": 71,
+      "N": 30,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9536516101564668,
+        "decide_at_arrival_commit": 0.7929066223761813,
+        "route_gate_hold": 0.7922070314576144,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 16,
+        "route_gate_hold": 16,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.6666666666666666,
+      "n_probe": 10
+    },
+    {
+      "seed": 71,
+      "N": 30,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.9462331845355594,
+        "decide_at_arrival_commit": 0.788802000611165,
+        "route_gate_hold": 0.8867986880908114,
+        "native_exact_all": 0.8,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 30,
+        "decide_at_arrival_commit": 15,
+        "route_gate_hold": 16,
+        "native_exact_all": 15,
+        "native_exact_routed": 15
+      },
+      "reliable_frac": 0.6,
+      "n_probe": 10
+    },
+    {
+      "seed": 71,
+      "N": 60,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.9183000079533249,
+        "decide_at_arrival_commit": 0.8563579234821794,
+        "route_gate_hold": 0.7670318217996238,
+        "native_exact_all": 0.7,
+        "native_exact_routed": 0.8
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 34,
+        "route_gate_hold": 32,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.5666666666666667,
+      "n_probe": 10
+    },
+    {
+      "seed": 71,
+      "N": 60,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.8970099854907165,
+        "decide_at_arrival_commit": 0.9467385938377963,
+        "route_gate_hold": 0.6638486025728996,
+        "native_exact_all": 1.0,
+        "native_exact_routed": 0.7
+      },
+      "consolidated": {
+        "consolidate_everything": 60,
+        "decide_at_arrival_commit": 29,
+        "route_gate_hold": 33,
+        "native_exact_all": 30,
+        "native_exact_routed": 30
+      },
+      "reliable_frac": 0.6666666666666666,
+      "n_probe": 10
+    },
+    {
+      "seed": 71,
+      "N": 120,
+      "rho": 0.0,
+      "retention": {
+        "consolidate_everything": 0.830748646511241,
+        "decide_at_arrival_commit": 0.5539449208718573,
+        "route_gate_hold": 0.45616479306518143,
+        "native_exact_all": 0.6,
+        "native_exact_routed": 0.5
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 60,
+        "route_gate_hold": 66,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.725,
+      "n_probe": 10
+    },
+    {
+      "seed": 71,
+      "N": 120,
+      "rho": 0.3,
+      "retention": {
+        "consolidate_everything": 0.8319607842677286,
+        "decide_at_arrival_commit": 0.8162199191547511,
+        "route_gate_hold": 0.820250779391694,
+        "native_exact_all": 0.9,
+        "native_exact_routed": 0.9
+      },
+      "consolidated": {
+        "consolidate_everything": 120,
+        "decide_at_arrival_commit": 61,
+        "route_gate_hold": 66,
+        "native_exact_all": 60,
+        "native_exact_routed": 60
+      },
+      "reliable_frac": 0.6666666666666666,
+      "n_probe": 10
+    }
+  ]
+}

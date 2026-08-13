@@ -1,0 +1,116 @@
+{
+  "verdict": "KB_BELOW_FLOOR",
+  "verdict_msg": "fact-retrieval Easy 0.260 BELOW semantic-IR floor 0.302 (delta -0.043); ARC-vocab coverage=0.678",
+  "summary": "KB_BELOW_FLOOR: fact_easy=0.260 floor(sir)=0.302 empty=0.250 scramble=0.268 | ingest_coverage=0.9057 arc_cov=0.678",
+  "elapsed_s": 467.6,
+  "ts_iso": "2026-07-24T17:18:38.469848+00:00",
+  "anchor_name": "arc_fact_retrieval_semantic_kb_climb_v1",
+  "mode": "smoke",
+  "n_dim": 1024,
+  "seed": 20260724,
+  "n_questions": 400,
+  "n_easy": 400,
+  "n_challenge": 0,
+  "chance_theoretical": 0.2504,
+  "control_random_pick": 0.2225,
+  "empty_acc_easy": 0.25,
+  "fact_retrieval_acc_easy": 0.26,
+  "semantic_ir_floor_acc_easy": 0.3025,
+  "scramble_acc_easy": 0.2675,
+  "delta_fact_minus_floor_easy": -0.0425,
+  "delta_fact_minus_empty_easy": 0.01,
+  "delta_fact_minus_scramble_easy": -0.0075,
+  "fact_retrieval_climb_curve_easy": {
+    "0.00": {
+      "store_cols": 0,
+      "acc_easy": 0.255
+    },
+    "0.25": {
+      "store_cols": 3000,
+      "acc_easy": 0.245
+    },
+    "0.50": {
+      "store_cols": 6000,
+      "acc_easy": 0.2525
+    },
+    "0.75": {
+      "store_cols": 9000,
+      "acc_easy": 0.2575
+    },
+    "1.00": {
+      "store_cols": 12000,
+      "acc_easy": 0.26
+    }
+  },
+  "fact_retrieval_acc_challenge": null,
+  "semantic_ir_acc_challenge": null,
+  "n_triples_ingested": 12000,
+  "n_live_facts": 12000,
+  "fact_store_rows": 12000,
+  "semantic_ir_store_rows": 12000,
+  "ingest_coverage_sem_frac": 0.9057,
+  "ingest_n_sem": 14142,
+  "ingest_n_oov": 1473,
+  "arc_vocab_coverage": {
+    "arc_content_words_seen": 6239,
+    "arc_content_words_in_kb": 4230,
+    "arc_vocab_coverage": 0.678
+  },
+  "trust_gate_fire_histogram": {
+    "CLEAN_STORE": 8334,
+    "COMBINE": 3639,
+    "CONSISTENT_DUP": 17,
+    "FLAG": 10
+  },
+  "glassbox_roundtrip": {
+    "n_sampled": 120,
+    "subject_recovery": 0.9583,
+    "relation_recovery": 1.0,
+    "object_recovery": 0.975,
+    "note": "semantic-filler cleanup is HARDER than random-code (correlated codes -> argmax may return a near-synonym); crowding cost vs 29531 random-code 1.000."
+  },
+  "fuzzy_conflict_demo": {
+    "exact_hash_detected_variant_conflict": false,
+    "fuzzy_detected_hits": [
+      [
+        0,
+        "washington",
+        0.7344
+      ],
+      [
+        1,
+        "new_york",
+        1.0
+      ]
+    ],
+    "fuzzy_fired": true,
+    "sr_cos_usa_vs_united_states": 0.7344,
+    "sr_cos_usa_vs_banana": 0.5039,
+    "fuzzy_threshold": 0.55,
+    "separation_can_fail": 0.2305,
+    "note": "closes 29531 gap #a (exact-dictionary conflict, no surface-variant). Bounded demo; ANN/LSH sub-linear fuzzy retrieval at KB-scale = noted-not-built (29532/29534)."
+  },
+  "baseline_in_band": true,
+  "leak_flag": false,
+  "discriminator_fires_fact_frac_matched_gt_0.10": 1.0,
+  "arms_differ_verified": true,
+  "arm_store_hashes": {
+    "fact": "235fa8431ff8346b4075ad6fe84a40127422e8ac8aa137fb5de46a925a385df8",
+    "semantic_ir": "019f0168f4e55a56d421afc4dcd4d625ada9b4c820eb4fd5ebf1fb4140b63cf8",
+    "scramble": "5132c853e7e6bc1f6f6e1904bcb542806927c1b73973b4e2f8e314b6ed1e24f8"
+  },
+  "bands": {
+    "HP_beat_floor": 0.02,
+    "HP_beat_empty": 0.05,
+    "HP_beat_scramble": 0.03,
+    "flat_eps": 0.02
+  },
+  "grade_proxy": {
+    "easy_band": "below grade 3 (~chance; no science knowledge)",
+    "challenge_band": "n/a",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "human_scale_statement": "Fact-retrieval over 12000 vetted ConceptNet triples answers ARC-Easy at 0.260 (semantic-IR floor 0.302; empty/chance 0.250). Limit diagnosis: ARC-Easy content-word coverage by the KB = 0.678 (coverage-OK).",
+  "wired_vs_stubbed": "WIRED: SemanticHDFactStore (semantic bipolar codes injected for SUBJECT/OBJECT fillers), ConceptNet ingest through the trust-gate, glass-box round-trip on the real bundles, semantic fuzzy-conflict demo, ARC fact-retrieval vs semantic-IR floor + empty + scramble, ingest+ARC-vocab coverage monitors. STUBBED/NOTED-NOT-BUILT: ANN/LSH sub-linear fuzzy retrieval at KB-scale (fuzzy demo is bounded); ARC scoring uses semantic-text-encode of the live-fact set (fair vs the floor's same encoder), NOT free-text->triple extraction against role-bound bundles (the bundle rep is validated separately by round-trip+fuzzy); reasoning/multi-hop layer (Challenge) = separate, deferred.",
+  "contract": "INLINE-LOCAL; store LOCAL-ONLY + UNCOMMITTED; no push/remote-persist; NOT remote-portable (ConceptNet+GloVe git-ignored); VET-PENDING"
+}

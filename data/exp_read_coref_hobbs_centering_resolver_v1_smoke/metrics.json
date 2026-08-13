@@ -1,0 +1,953 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | COREF local_antecedent_acc=1.000 (10/10 bound) | GUARDRAIL wrong_guess_rate=0.000 (abstain=1.000 on 6 ties; tiebreak-arm wrong_guess=0.000) | Pred B schema broke 2 of 2 schema-ties | precision FULL=1.000 vs OFF=1.000 vs NOGATE=0.949 | recall=0.955 query=1.000 accept_false=0.000 | coverage: FULL bound=10.0 vs OFF bound=0.0 | weakest=['none (local antecedents bound, ties abstained, precision preserved)']",
+  "summary": "HARD_PASS | COREF local_antecedent_acc=1.000 (10/10 bound) | GUARDRAIL wrong_guess_rate=0.000 (abstain=1.000 on 6 ties; tiebreak-arm wrong_guess=0.000) | Pred B schema broke 2 of 2 schema-ties | precision FULL=1.000 vs OFF=1.000 vs NOGATE=0.949 | recall=0.955 query=1.000 accept_false=0.000 | coverag",
+  "run_mode": "smoke",
+  "elapsed_s": 0.3247522999881767,
+  "anchor_name": "read_coref_hobbs_centering_resolver_v1",
+  "ts_iso": "2026-07-17T03:27:01.693766+00:00",
+  "seeds": [
+    11,
+    23
+  ],
+  "window": 2,
+  "n_coref_items": 19,
+  "expected_n_units": 6,
+  "weakest_interface": [
+    "none (local antecedents bound, ties abstained, precision preserved)"
+  ],
+  "metric_a_local_antecedent_resolution_acc": 1.0,
+  "metric_a_n_unambiguous": 10,
+  "metric_b_guardrail_wrong_guess_rate": 0.0,
+  "metric_b_guardrail_abstain_rate": 1.0,
+  "metric_b_guardrail_wrong_guess_rate_tiebreak_arm": 0.0,
+  "metric_b_n_ambiguous_ties": 6,
+  "metric_b_n_ambiguous_guessed": 0,
+  "metric_c_foundation_precision_full": 1.0,
+  "metric_c_foundation_precision_resolver_off": 1.0,
+  "metric_c_foundation_precision_nogate": 0.9487179487179487,
+  "metric_c_precision_delta_on_minus_off": 0.0,
+  "metric_c_true_recall": 0.9545454545454546,
+  "metric_c_query_acc": 1.0,
+  "metric_c_accept_false_rate": 0.0,
+  "metric_d_coverage_lift": 10,
+  "metric_d_full_coref_bound": 10.0,
+  "metric_d_full_coref_abstain": 9.0,
+  "metric_d_off_coref_bound": 0.0,
+  "pred_b_schema_ties_broken": 2,
+  "pred_b_n_schema_resolvable": 2,
+  "n_unresolvable_abstained": 1,
+  "n_unresolvable": 1,
+  "coref_per_item": [
+    {
+      "kind": "unambiguous",
+      "text": "It chases the cat.",
+      "intended_gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "expected_antecedent": "bird",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "bird",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "It lives in the pond.",
+      "intended_gold": [
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "emitted": [
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "expected_antecedent": "frog",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "frog",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_PREP",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "It lives in a field.",
+      "intended_gold": [
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ]
+      ],
+      "emitted": [
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ]
+      ],
+      "expected_antecedent": "cow",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "cow",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_PREP",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "It eats the seed.",
+      "intended_gold": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "expected_antecedent": "cat",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "cat",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "It lives in the barn.",
+      "intended_gold": [
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "emitted": [
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "expected_antecedent": "cat",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "cat",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_PREP",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "It chases the mouse.",
+      "intended_gold": [
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "emitted": [
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "expected_antecedent": "owl",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "owl",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "They chase the cat.",
+      "intended_gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "expected_antecedent": "bird",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "bird",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "they",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "They eat bread.",
+      "intended_gold": [
+        [
+          "dog",
+          "eats",
+          "bread"
+        ]
+      ],
+      "emitted": [
+        [
+          "dog",
+          "eats",
+          "bread"
+        ]
+      ],
+      "expected_antecedent": "dog",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "dog",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "they",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "They chase the mouse.",
+      "intended_gold": [
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "emitted": [
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "expected_antecedent": "cat",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "cat",
+        "antecedent_sidx": 0,
+        "current_sidx": 1,
+        "pron": "they",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unambiguous",
+      "text": "It chases the frog.",
+      "intended_gold": [
+        [
+          "cat",
+          "chases",
+          "frog"
+        ]
+      ],
+      "emitted": [
+        [
+          "cat",
+          "chases",
+          "frog"
+        ]
+      ],
+      "expected_antecedent": "cat",
+      "info": {
+        "reason": "BOUND",
+        "antecedent": "cat",
+        "antecedent_sidx": 1,
+        "current_sidx": 2,
+        "pron": "it",
+        "rule": "HOBBS_COREF",
+        "base_rule": "SVO_ACTIVE",
+        "schema_broke": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "schema_resolvable",
+      "text": "It eats the worm.",
+      "intended_gold": [
+        [
+          "bird",
+          "eats",
+          "worm"
+        ]
+      ],
+      "emitted": [],
+      "expected_antecedent": "bird",
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "it",
+        "pnum": "singular",
+        "tied": [
+          "bird",
+          "seed"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": false
+    },
+    {
+      "kind": "schema_resolvable",
+      "text": "It chases the dog.",
+      "intended_gold": [
+        [
+          "cow",
+          "chases",
+          "dog"
+        ]
+      ],
+      "emitted": [],
+      "expected_antecedent": "cow",
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "it",
+        "pnum": "singular",
+        "tied": [
+          "cow",
+          "grass"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": false
+    },
+    {
+      "kind": "ambiguous",
+      "text": "It chases the bird.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "it",
+        "pnum": "singular",
+        "tied": [
+          "cat",
+          "dog",
+          "grass"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "ambiguous",
+      "text": "It eats a seed.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "it",
+        "pnum": "singular",
+        "tied": [
+          "cat",
+          "dog"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "ambiguous",
+      "text": "It eats a worm.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "it",
+        "pnum": "singular",
+        "tied": [
+          "bird",
+          "cat"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "ambiguous",
+      "text": "It eats a seed.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "it",
+        "pnum": "singular",
+        "tied": [
+          "frog",
+          "mouse"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "ambiguous",
+      "text": "They eat grass.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "they",
+        "pnum": "plural",
+        "tied": [
+          "bird",
+          "cat"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "ambiguous",
+      "text": "They chase the cat.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "GENUINE_TIE",
+        "pron": "they",
+        "pnum": "plural",
+        "tied": [
+          "cow",
+          "frog",
+          "seed"
+        ],
+        "schema_tiebreak_used": false
+      },
+      "correct": true
+    },
+    {
+      "kind": "unresolvable",
+      "text": "It lives in the pond.",
+      "intended_gold": [],
+      "emitted": [],
+      "expected_antecedent": null,
+      "info": {
+        "reason": "NO_AGREEMENT_CANDIDATE",
+        "pron": "it",
+        "pnum": "singular",
+        "n_cands": 2
+      },
+      "correct": true
+    }
+  ],
+  "arms": {
+    "FULL_RESOLVER_ON_GATE": {
+      "mapping_acc": 1.0,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "query_acc": 1.0,
+      "n_accepted": 34.0,
+      "n_false_in_store": 0.0,
+      "n_coref_bound": 10.0,
+      "n_coref_abstain": 9.0
+    },
+    "RESOLVER_OFF_GATE": {
+      "mapping_acc": 1.0,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "query_acc": 1.0,
+      "n_accepted": 31.0,
+      "n_false_in_store": 0.0,
+      "n_coref_bound": 0.0,
+      "n_coref_abstain": 19.0
+    },
+    "RESOLVER_ON_NO_GATE": {
+      "mapping_acc": 1.0,
+      "foundation_precision": 0.9487179487179487,
+      "true_recall": 1.0,
+      "accept_false_rate": 1.0,
+      "query_acc": 0.9285714285714286,
+      "n_accepted": 39.0,
+      "n_false_in_store": 2.0,
+      "n_coref_bound": 10.0,
+      "n_coref_abstain": 9.0
+    }
+  },
+  "full_per_seed": [
+    {
+      "seed": 11,
+      "use_gate": true,
+      "resolver_on": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "n_accepted": 34,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "query_acc": 1.0,
+      "n_coref_bound": 10,
+      "n_coref_abstain": 9,
+      "accepted_hash": "7fd0c67eee3e9fff6382c1fa69f47a5b8227eefef3be9a6515e97867e8baef2e",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ],
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "eats",
+          "worm"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "chases",
+          "frog"
+        ],
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ],
+        [
+          "cat",
+          "eats",
+          "bread"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "grass"
+        ],
+        [
+          "cat",
+          "eats",
+          "seed"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "eats",
+          "seed"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "bird"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "chases",
+          "mouse"
+        ],
+        [
+          "frog",
+          "eats",
+          "grass"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    },
+    {
+      "seed": 23,
+      "use_gate": true,
+      "resolver_on": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "n_accepted": 34,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "query_acc": 1.0,
+      "n_coref_bound": 10,
+      "n_coref_abstain": 9,
+      "accepted_hash": "7fd0c67eee3e9fff6382c1fa69f47a5b8227eefef3be9a6515e97867e8baef2e",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ],
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "eats",
+          "worm"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "chases",
+          "frog"
+        ],
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ],
+        [
+          "cat",
+          "eats",
+          "bread"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "grass"
+        ],
+        [
+          "cat",
+          "eats",
+          "seed"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "eats",
+          "seed"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "bird"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "chases",
+          "mouse"
+        ],
+        [
+          "frog",
+          "eats",
+          "grass"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    }
+  ],
+  "prereg": {
+    "hard_pass": "local_antecedent_acc>=0.80 & guardrail_wrong_guess_rate<0.30 & tiebreak-arm wrong_guess==0 & FULL precision>=0.90 & FULL precision>=OFF-0.02 & coverage_lift>=1 & accept_false_rate==0",
+    "hard_fail": "guardrail_wrong_guess_rate>=0.30 | local_antecedent_acc<0.40 | FULL precision<0.85 | FULL precision<OFF-0.05 | accept_false_rate==1.0",
+    "middle": "otherwise (partial; report dominant class)",
+    "pred_a_P": 0.45,
+    "pred_c_P": 0.55,
+    "pred_b_P": 0.35,
+    "scope": "it/they pronouns referring to animals (he/she/1st/2nd person NOT resolved)",
+    "resolver": "recency-then-subject-role rank -> number-agreement filter -> bind-on-exactly-one / abstain-on-0-or-2+",
+    "window": 2,
+    "compute_architecture": "sequential-CPU (foundation grows fact-by-fact; discourse memory per document)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact)",
+    "parser_class": "fully-symbolic glass-box Hobbs/Centering resolver over discourse memory (NO LLM)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract",
+      "resolve_coref",
+      "analyze_coref",
+      "run_discourse_loop",
+      "learn_lexicon"
+    ],
+    "crlb_n/a": "no quantitative noise floor; resolution gated by number agreement + discourse ranking"
+  }
+}

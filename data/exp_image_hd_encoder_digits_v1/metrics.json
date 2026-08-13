@@ -1,0 +1,83 @@
+{
+  "verdict": "PASS",
+  "verdict_msg": "HD_record=0.907 pixel_kNN=0.985 pixel_linear=0.961 chance=0.100 | scramble=0.107 delta=0.800 collapsed=True | struct_gap=0.127 (same=0.467 diff=0.340) | value_only=0.196 fixed_global=0.911 (isomorphism_ok=True) | posrec=0.993(chance 0.059) | PASS",
+  "summary": "image->HD encoder on load_digits: PASS",
+  "elapsed_s": 45.720978300028946,
+  "anchor_name": "image_hd_encoder_digits_v1",
+  "ts_iso": "2026-07-21T15:35:14.102119+00:00",
+  "run_mode": "full",
+  "config": {
+    "N": 10000,
+    "Q": 17,
+    "n_pos": 64,
+    "n_classes": 10,
+    "n_train": 1257,
+    "n_test": 540,
+    "temp": 3.0,
+    "test_size": 0.3,
+    "split_seed": 0,
+    "encoder_seed": 0
+  },
+  "arms": {
+    "HD_record": {
+      "test_acc": 0.9074074074074074
+    },
+    "HD_scramble": {
+      "test_acc": 0.10740740740740741
+    },
+    "HD_value_only": {
+      "test_acc": 0.1962962962962963
+    },
+    "HD_fixed_global": {
+      "test_acc": 0.9111111111111111
+    }
+  },
+  "baselines": {
+    "pixel_knn_k3": 0.9851851851851852,
+    "pixel_linear_logreg": 0.9611111111111111,
+    "uniform_chance": 0.1,
+    "majority_class_chance": 0.10185185185185185
+  },
+  "structure": {
+    "same_class_cosine": 0.46748799085617065,
+    "diff_class_cosine": 0.3400352895259857,
+    "struct_gap": 0.12745270133018494,
+    "position_recovery": {
+      "exact_level_acc": 0.993125,
+      "chance_level_acc": 0.058823529411764705,
+      "mean_abs_level_err": 0.006875,
+      "n_probe": 25
+    }
+  },
+  "witnesses": {
+    "iterative_cleanup_acc": 0.9074074074074074,
+    "argmax_cleanup_acc": 0.9074074074074074,
+    "fixed_global_isomorphism_ok": true
+  },
+  "discriminator": {
+    "scramble_delta": 0.8,
+    "collapsed": true,
+    "well_above_chance": true,
+    "structure_ok": true
+  },
+  "bands": {
+    "PASS_RECORD_MIN": 0.55,
+    "SCRAMBLE_COLLAPSE_MAX": 0.25,
+    "SCRAMBLE_DELTA_MIN": 0.3,
+    "STRUCT_GAP_MIN": 0.02
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "HD_record": "483da87e11b907f72aa97e92c395660ddae998b1effcd1dbfdae07f48adb1666",
+    "HD_scramble": "99843a6e4b4f5ce336f8ec473c74f9cfaefae064ff096f9f9ff3fcaa3fffe9ac",
+    "HD_value_only": "db794ebace5faee770a6cf1afe48756c29b581e2c0fcd961f99b956534ae3958"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "primitives_reused": [
+    "hdlab.binding.bsc_bind",
+    "hdlab.binding.bsc_bundle",
+    "hdlab.iterative_attractor.iterative_cleanup",
+    "hdlab.iterative_attractor.argmax_cleanup"
+  ],
+  "recipe_adopted": "Kanerva record-based position-value + Rahimi/Kleyko thermometer level code"
+}

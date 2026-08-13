@@ -1,0 +1,414 @@
+{
+  "verdict": "INVALID",
+  "verdict_msg": "FAIRNESS GATE FAILED (cell-fix, NOT a capability verdict): the role axis lacks a genuine separable learnable structure in this stream -- failed check(s): 3_dissociation. Per the flat=fix rule, a 2comp-vs-1comp result under a failed fairness gate is a BROKEN TEST; add/strengthen role structure (e.g. more role-critical items, a harder role-cue construction) before re-running. FAIRNESS[1:role_crit=0.940(n=200)>=0.70=True | 2:headroom=0.255(oracle=0.685-frozen=0.430)>=0.15=True | 3:dissoc_1comp=0.055 dissoc_2comp=0.055<=0.05=False | 4:wrongrole_role=0.060 shuffled_role=0.050<=0.20=True | ALL_OK=False]",
+  "summary": "INVALID | hardness=[1, 3, 8] target=8 chance=0.0500 | FAIRNESS GATE FAILED (cell-fix, NOT a capability verdict): the role axis lacks a genuine separable learnable structure in this stream -- failed check(",
+  "run_mode": "lite",
+  "elapsed_s": 0.17901249998249114,
+  "ts_iso": "2026-07-31T21:31:28.493678+00:00",
+  "anchor_name": "multi_competency_growing_library_v1",
+  "chance": 0.05,
+  "bands": {
+    "fairness_checks": {
+      "1_role_critical": {
+        "value": 0.94,
+        "n": 200,
+        "bar": 0.7,
+        "ok": true
+      },
+      "2_role_headroom": {
+        "oracle_role": 0.685,
+        "frozen_role": 0.43,
+        "headroom": 0.25500000000000006,
+        "bar": 0.15,
+        "ok": true
+      },
+      "3_dissociation": {
+        "role_score_1comp_by_construction": 0.43,
+        "entity_track_role_leak_1comp": 0.485,
+        "entity_track_role_leak_2comp": 0.485,
+        "dissoc_1comp": 0.05499999999999999,
+        "dissoc_2comp": 0.05499999999999999,
+        "bar": 0.05,
+        "ok": false
+      },
+      "4_role_floors_collapse": {
+        "wrongrole_role": 0.06,
+        "shuffled_role": 0.05,
+        "bar": 0.2,
+        "ok": true
+      }
+    },
+    "fairness_ok": false,
+    "fairness_summary": {
+      "role_critical_fraction": 0.94,
+      "role_critical_n": 200,
+      "oracle_role": 0.685,
+      "frozen_role": 0.43,
+      "role_headroom": 0.25500000000000006,
+      "wrongrole_role": 0.06,
+      "shuffled_role": 0.05,
+      "dissoc_1comp": 0.05499999999999999,
+      "dissoc_2comp": 0.05499999999999999,
+      "entity_track_role_leak_1comp": 0.485,
+      "entity_track_role_leak_2comp": 0.485
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "n_units_done": 4,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "bases": [
+    {
+      "kind": "base",
+      "seed": 7,
+      "arm": "frozen",
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "chance": 0.05,
+      "frozen_profile": {
+        "1": 0.4941489361702127,
+        "3": 0.4225531914893617,
+        "8": 0.41014184397163117
+      },
+      "frozen_target_loop": 0.41014184397163117,
+      "frozen_easy_loop": 0.4941489361702127,
+      "oracle_target_loop": 0.6398226950354611,
+      "wc_frozen": 0.16885099482326568,
+      "profile_decline": 0.08400709219858155,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.035,
+          "b_competitive_coref": 0.115,
+          "c_overwrite": 0.03723404255319149
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.43,
+          "b_competitive_coref": 0.055,
+          "c_overwrite": 0.3404255319148936
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.06,
+          "b_competitive_coref": 0.07,
+          "c_overwrite": 0.047872340425531915
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.05,
+          "b_competitive_coref": 0.045,
+          "c_overwrite": 0.05319148936170213
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.010638297872340425
+      },
+      "pooled_b": 0.054999999701976776,
+      "pooled_c": 0.05319149047136307,
+      "frozen_per_type_target": {
+        "a_name_maintenance": 0.43,
+        "b_competitive_coref": 0.46,
+        "c_overwrite": 0.3404255319148936
+      },
+      "frozen_overall_target": 0.41014184397163117,
+      "fairness": {
+        "role_critical_fraction": 0.94,
+        "role_critical_n": 200,
+        "oracle_role": 0.685,
+        "frozen_role": 0.43,
+        "role_headroom": 0.25500000000000006,
+        "wrongrole_role": 0.06,
+        "shuffled_role": 0.05
+      }
+    }
+  ],
+  "online": [
+    {
+      "kind": "online",
+      "seed": 7,
+      "arm": "graded_1comp",
+      "n_competency": 1,
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "grade_order": [
+        1,
+        3,
+        8
+      ],
+      "curve_overall": [
+        0.41014184397163117,
+        0.4485106382978723,
+        0.4674822695035461,
+        0.4812411347517731
+      ],
+      "curve_entity": [
+        0.4002127659574468,
+        0.4577659574468085,
+        0.4862234042553192,
+        0.5068617021276596
+      ],
+      "curve_role": [
+        0.43,
+        0.43,
+        0.43,
+        0.43
+      ],
+      "curve_entity_role_leak": [
+        0.43,
+        0.47,
+        0.48,
+        0.485
+      ],
+      "entity_role_leak_final": 0.485,
+      "curve_meta": [
+        {
+          "entcons": 0.6941666666666667,
+          "q_agree": 0.7395209580838323
+        },
+        {
+          "entcons": 0.7225,
+          "q_agree": 0.8023952095808383
+        },
+        {
+          "entcons": 0.7391666666666666,
+          "q_agree": 0.8173652694610778
+        },
+        {
+          "entcons": 0.7516666666666667,
+          "q_agree": 0.8323353293413174
+        }
+      ],
+      "climb_overall": 0.07109929078014193,
+      "climb_entity": 0.10664893617021276,
+      "climb_role": NaN,
+      "easy_t1": 0.5052127659574467,
+      "easy_tG": 0.5534751773049645,
+      "forgetting": -0.04826241134751785,
+      "weight_move_entity": 0.27878262087483285,
+      "weight_move_role": 0.0,
+      "loss_e_first": 0.8245571255683899,
+      "loss_e_last": 0.8172428011894226,
+      "loss_e_descent": 0.007314324378967285,
+      "loss_r_first": NaN,
+      "loss_r_last": NaN,
+      "loss_r_descent": NaN,
+      "train_loop_entity": 0.5105797101449275,
+      "wc_tuned_entity": 0.17408299113400919,
+      "final_entcons": 0.7516666666666667,
+      "final_q_agree": 0.8323353293413174,
+      "steps_per_grade": 60,
+      "replay_cap": 400
+    },
+    {
+      "kind": "online",
+      "seed": 7,
+      "arm": "graded_2comp",
+      "n_competency": 2,
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "grade_order": [
+        1,
+        3,
+        8
+      ],
+      "curve_overall": [
+        0.41014184397163117,
+        0.46351063829787237,
+        0.48414893617021276,
+        0.49624113475177306
+      ],
+      "curve_entity": [
+        0.4002127659574468,
+        0.4577659574468085,
+        0.4862234042553192,
+        0.5068617021276596
+      ],
+      "curve_role": [
+        0.43,
+        0.475,
+        0.48,
+        0.475
+      ],
+      "curve_entity_role_leak": [
+        0.43,
+        0.47,
+        0.48,
+        0.485
+      ],
+      "entity_role_leak_final": 0.485,
+      "curve_meta": [
+        {
+          "entcons": 0.6941666666666667,
+          "q_agree": 0.7395209580838323
+        },
+        {
+          "entcons": 0.7225,
+          "q_agree": 0.8023952095808383
+        },
+        {
+          "entcons": 0.7391666666666666,
+          "q_agree": 0.8173652694610778
+        },
+        {
+          "entcons": 0.7516666666666667,
+          "q_agree": 0.8323353293413174
+        }
+      ],
+      "climb_overall": 0.08609929078014189,
+      "climb_entity": 0.10664893617021276,
+      "climb_role": 0.044999999999999984,
+      "easy_t1": 0.5518794326241134,
+      "easy_tG": 0.6101418439716312,
+      "forgetting": -0.05826241134751775,
+      "weight_move_entity": 0.27878262087483285,
+      "weight_move_role": 0.2775063763793923,
+      "loss_e_first": 0.8245571255683899,
+      "loss_e_last": 0.8172428011894226,
+      "loss_e_descent": 0.007314324378967285,
+      "loss_r_first": 0.8208015561103821,
+      "loss_r_last": 0.8187148571014404,
+      "loss_r_descent": 0.0020866990089416504,
+      "train_loop_entity": 0.5105797101449275,
+      "wc_tuned_entity": 0.17408299113400919,
+      "final_entcons": 0.7516666666666667,
+      "final_q_agree": 0.8323353293413174,
+      "steps_per_grade": 60,
+      "replay_cap": 400
+    },
+    {
+      "kind": "online",
+      "seed": 7,
+      "arm": "shuffled_2comp",
+      "n_competency": 2,
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "grade_order": [
+        8,
+        3,
+        1
+      ],
+      "curve_overall": [
+        0.41014184397163117,
+        0.46184397163120566,
+        0.48237588652482266,
+        0.5081205673758865
+      ],
+      "curve_entity": [
+        0.4002127659574468,
+        0.4577659574468085,
+        0.48356382978723406,
+        0.5146808510638298
+      ],
+      "curve_role": [
+        0.43,
+        0.47,
+        0.48,
+        0.495
+      ],
+      "curve_entity_role_leak": [
+        0.43,
+        0.475,
+        0.48,
+        0.485
+      ],
+      "entity_role_leak_final": 0.485,
+      "curve_meta": [
+        {
+          "entcons": 0.6941666666666667,
+          "q_agree": 0.7395209580838323
+        },
+        {
+          "entcons": 0.7225,
+          "q_agree": 0.8023952095808383
+        },
+        {
+          "entcons": 0.7391666666666666,
+          "q_agree": 0.8173652694610778
+        },
+        {
+          "entcons": 0.7525,
+          "q_agree": 0.8353293413173652
+        }
+      ],
+      "climb_overall": 0.09797872340425534,
+      "climb_entity": 0.11446808510638296,
+      "climb_role": 0.065,
+      "easy_t1": 0.5471985815602837,
+      "easy_tG": 0.6201418439716312,
+      "forgetting": -0.07294326241134752,
+      "weight_move_entity": 0.27870582537491145,
+      "weight_move_role": 0.2795185847975217,
+      "loss_e_first": 0.8233729600906372,
+      "loss_e_last": 0.8178772330284119,
+      "loss_e_descent": 0.005495727062225342,
+      "loss_r_first": 0.828144371509552,
+      "loss_r_last": 0.8162866234779358,
+      "loss_r_descent": 0.011857748031616211,
+      "train_loop_entity": 0.5089130434782608,
+      "wc_tuned_entity": 0.17417589012382184,
+      "final_entcons": 0.7525,
+      "final_q_agree": 0.8353293413173652,
+      "steps_per_grade": 60,
+      "replay_cap": 400
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "V_FILL": 20,
+    "DEPTH": 1,
+    "hardness": [
+      1,
+      3,
+      8
+    ],
+    "steps_per_grade": 60,
+    "nctx": 40,
+    "replay_cap": 400,
+    "eval_n": 200,
+    "seeds": [
+      7
+    ],
+    "arms": [
+      "base",
+      "graded_1comp",
+      "graded_2comp",
+      "shuffled_2comp"
+    ],
+    "LR": 0.0001,
+    "batch": 128
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

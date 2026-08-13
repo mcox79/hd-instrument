@@ -1,0 +1,11 @@
+{
+  "anchor_name": "pfc_gate_waypoint_rescue_replay_bidirectional_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST1-ST13 (TD shrink, reach-matrix identity, gamma_for_span, open/verify/c2f/combo non-degenerate, c2f center-pick, verify-gate reject+fallback, index interp, hop schedule, reverse-SR, generate_candidates, score_bidirectional, replay-select, recovery/delta-vs-verify/flatness formulas, spearman/entropy/binom, pipeline, verdict wiring)",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 5.8,
+  "ts_iso": "2026-07-09T00:37:36.020037+00:00",
+  "pid": 32960,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=pfc_gate_waypoint_rescue_replay_bidirectional_v1,parent=pfc_gate_waypoint_rescue_coarse2fine_verify_v1,N=256,n_ops_set=[4],depth_set=[4, 8],seeds=[7],gS=0.85,gL=0.95,span_thr=5,tau_pctl=0.70,max_retry=5,seg_len=2,regimes=['op4_V40_d4', 'op4_V40_d8'],density=0.210,sr_steps=120,sr_batch=32,rollout_per_V=20,lr=0.50,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],n_train=12,n_test=8,mode=selftest,device=cuda,expected_n=22,rescue=wp_replay_generate_select,keycmp=wp_bisect_verify,n_cand=5,perturb=0.60,HP_recov>=0.20,HP_delta>=0.15,HP_flat>=0.50,HF_delta<=0.05,HF_flat<0.20,lift_flat>0.05,lift_rand>0.10,idx_gap<0.05,anti_taut<0.85,degen<0.10,sign_p<0.05,cv<0.15"
+}

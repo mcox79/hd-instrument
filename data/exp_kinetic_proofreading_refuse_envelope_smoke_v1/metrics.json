@@ -1,0 +1,642 @@
+{
+  "anchor_name": "kinetic_proofreading_refuse_envelope_smoke_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS pre-reg: envelope-OR-refuse META chain-grade-eligible. KP_2STEP silent_err@1.5=0.0 <= 0.05 ; recall_accepted@0.5=1.0 >= 0.80 ; REFUSE_GATED ood_refuse@1.5=1.0 >= 0.90 ; sanity endpoints PASS.",
+  "run_mode": "full",
+  "M": 200,
+  "N_DIM": 4096,
+  "N_EVAL": 200,
+  "N_OOD": 50,
+  "sigmas": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    10.0
+  ],
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "detail": {
+    "kp2_silent_err_at_1p5": 0.0,
+    "kp2_recall_accepted_at_0p5": 1.0,
+    "refuse_ood_refuse_at_1p5": 1.0,
+    "sigma0_accept_rates_per_arm": {
+      "ARM_SINGLE_SHOT": 1.0,
+      "ARM_KP_2STEP": 1.0,
+      "ARM_KP_3STEP": 1.0,
+      "ARM_REFUSE_GATED": 1.0
+    },
+    "sigma0_recall_accepted_per_arm": {
+      "ARM_SINGLE_SHOT": 1.0,
+      "ARM_KP_2STEP": 1.0,
+      "ARM_KP_3STEP": 1.0,
+      "ARM_REFUSE_GATED": 1.0
+    },
+    "refuse_accept_rate_at_extreme_sigma_10": 0.0,
+    "n_seeds": 3,
+    "per_seed_summaries": [
+      {
+        "seed": 7,
+        "tau": 0.8882,
+        "kp2_silent_err_1p5": 0.0,
+        "kp2_recall_acc_0p5": 1.0,
+        "refuse_ood_1p5": 1.0
+      },
+      {
+        "seed": 17,
+        "tau": 0.8874,
+        "kp2_silent_err_1p5": 0.0,
+        "kp2_recall_acc_0p5": 1.0,
+        "refuse_ood_1p5": 1.0
+      },
+      {
+        "seed": 23,
+        "tau": 0.8879,
+        "kp2_silent_err_1p5": 0.0,
+        "kp2_recall_acc_0p5": 1.0,
+        "refuse_ood_1p5": 1.0
+      }
+    ],
+    "sanity_clean_endpoint_ok": true,
+    "sanity_extreme_endpoint_ok": true
+  },
+  "metrics_source": "measured_cpu_kinetic_proofreading_refuse_envelope_smoke_v1",
+  "per_seed": [
+    {
+      "seed": 7,
+      "M": 200,
+      "N_DIM": 4096,
+      "N_EVAL": 200,
+      "N_OOD": 50,
+      "sigmas": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        10.0
+      ],
+      "tau_calibrated_at_sigma": 0.5,
+      "tau": 0.8882141709327698,
+      "by_sigma": {
+        "s0p00": {
+          "sigma": 0.0,
+          "tau": 0.8882141709327698,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s0p50": {
+          "sigma": 0.5,
+          "tau": 0.8882141709327698,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.995,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s1p00": {
+          "sigma": 1.0,
+          "tau": 0.8882141709327698,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s1p50": {
+          "sigma": 1.5,
+          "tau": 0.8882141709327698,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s2p00": {
+          "sigma": 2.0,
+          "tau": 0.8882141709327698,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s10p00": {
+          "sigma": 10.0,
+          "tau": 0.8882141709327698,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        }
+      },
+      "run_mode": "full",
+      "_ckpt_key": "seed_7",
+      "_partial_written_at": 1782238077.3264768
+    },
+    {
+      "seed": 17,
+      "M": 200,
+      "N_DIM": 4096,
+      "N_EVAL": 200,
+      "N_OOD": 50,
+      "sigmas": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        10.0
+      ],
+      "tau_calibrated_at_sigma": 0.5,
+      "tau": 0.887378454208374,
+      "by_sigma": {
+        "s0p00": {
+          "sigma": 0.0,
+          "tau": 0.887378454208374,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s0p50": {
+          "sigma": 0.5,
+          "tau": 0.887378454208374,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s1p00": {
+          "sigma": 1.0,
+          "tau": 0.887378454208374,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s1p50": {
+          "sigma": 1.5,
+          "tau": 0.887378454208374,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s2p00": {
+          "sigma": 2.0,
+          "tau": 0.887378454208374,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s10p00": {
+          "sigma": 10.0,
+          "tau": 0.887378454208374,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        }
+      },
+      "run_mode": "full",
+      "_ckpt_key": "seed_17",
+      "_partial_written_at": 1782238078.0216553
+    },
+    {
+      "seed": 23,
+      "M": 200,
+      "N_DIM": 4096,
+      "N_EVAL": 200,
+      "N_OOD": 50,
+      "sigmas": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        10.0
+      ],
+      "tau_calibrated_at_sigma": 0.5,
+      "tau": 0.8879446983337402,
+      "by_sigma": {
+        "s0p00": {
+          "sigma": 0.0,
+          "tau": 0.8879446983337402,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s0p50": {
+          "sigma": 0.5,
+          "tau": 0.8879446983337402,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s1p00": {
+          "sigma": 1.0,
+          "tau": 0.8879446983337402,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s1p50": {
+          "sigma": 1.5,
+          "tau": 0.8879446983337402,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s2p00": {
+          "sigma": 2.0,
+          "tau": 0.8879446983337402,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        },
+        "s10p00": {
+          "sigma": 10.0,
+          "tau": 0.8879446983337402,
+          "ARM_SINGLE_SHOT": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_2STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_KP_3STEP": {
+            "accept_rate": 1.0,
+            "recall_at_1_accepted": 1.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 0.0
+          },
+          "ARM_REFUSE_GATED": {
+            "accept_rate": 0.0,
+            "recall_at_1_accepted": 0.0,
+            "silent_error_rate": 0.0,
+            "ood_refuse_rate": 1.0
+          }
+        }
+      },
+      "run_mode": "full",
+      "_ckpt_key": "seed_23",
+      "_partial_written_at": 1782238078.6152084
+    }
+  ],
+  "elapsed_s": 2.056393623352051,
+  "summary": "HARD_PASS pre-reg: envelope-OR-refuse META chain-grade-eligible. KP_2STEP silent_err@1.5=0.0 <= 0.05 ; recall_accepted@0.5=1.0 >= 0.80 ; REFUSE_GATED ood_refuse@1.5=1.0 >= 0.90 ; sanity endpoints PASS."
+}

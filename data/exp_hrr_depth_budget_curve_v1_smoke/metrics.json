@@ -1,0 +1,3458 @@
+{
+  "anchor_name": "hrr_depth_budget_curve_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate HRR depth-budget spans safe regime AND cleanup actively compensates at Donoho-Tanner wall. involutive(V=100,k=20,M=1,OFF)=1.000 (>=0.99); safe_ceiling(V=100,k=20,M=16,ON)=1.000 cv=0.000 (>=0.95); wall_gap(V=1000,k=10,M=256)=0.550 (>=0.20). Secondary: wall_gap_k20=0.200; shallow_wide_lift=-0.050; FHRR_CC involutive=1.000 wall_ON=0.000. M_max(V=100)=444.7 M_max(V=1000)=296.5.",
+  "summary": "HARD_PASS: substrate HRR depth-budget spans safe regime AND cleanup actively compensates at Donoho-Tanner wall. involutive(V=100,k=20,M=1,OFF)=1.000 (>=0.99); safe_ceiling(V=100,k=20,M=16,ON)=1.000 cv=0.000 (>=0.95); wall_gap(V=1000,k=10,M=256)=0.550 (>=0.20). Secondary: wall_gap_k20=0.200; shallow_wide_lift=-0.050; FHRR_CC involutive=1.000 wall_ON=0.000. M_max(V=100)=444.7 M_max(V=1000)=296.5.",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "V_GRID": [
+    100,
+    1000
+  ],
+  "K_GRID_CHEAP": [
+    1,
+    5,
+    10,
+    15,
+    20
+  ],
+  "K_GRID_EXPENSIVE": [
+    1,
+    10,
+    20
+  ],
+  "M_GRID_CHEAP": [
+    1,
+    5,
+    16
+  ],
+  "M_GRID_EXPENSIVE": [
+    64,
+    256
+  ],
+  "BIND_VARIANTS": [
+    "ELEM_BIPOLAR",
+    "FHRR_CC"
+  ],
+  "CLEANUP_GRID": [
+    "OFF",
+    "ON"
+  ],
+  "TR_per_cell": 20,
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "cells_per_seed": 168,
+  "expected_n_units": 168,
+  "M_max_V100_frady_sommer": 444.7175494689298,
+  "M_max_V1000_frady_sommer": 296.4783663126199,
+  "config_version": "ANCHOR=hrr_depth_budget_curve_v1,N_DIM=8192,V=[100, 1000],k_cheap=[1, 5, 10, 15, 20],k_exp=[1, 10, 20],M_cheap=[1, 5, 16],M_exp=[64, 256],variants=['ELEM_BIPOLAR', 'FHRR_CC'],cleanup=['OFF', 'ON'],seeds=[7],TR=20,mode=smoke,scope=A2_donoho_tanner_probe,M_max(V=100)=444.7,M_max(V=1000)=296.5",
+  "per_seed": [
+    {
+      "seed": 7,
+      "TR": 20,
+      "N": 8192,
+      "V_GRID": [
+        100,
+        1000
+      ],
+      "cells": {
+        "ELEM_BIPOLAR_V100_k1_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.1067197322845459
+        },
+        "ELEM_BIPOLAR_V100_k1_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.11118388175964355
+        },
+        "ELEM_BIPOLAR_V100_k1_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.12966442108154297
+        },
+        "ELEM_BIPOLAR_V100_k5_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 5,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.09970855712890625
+        },
+        "ELEM_BIPOLAR_V100_k5_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 5,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.14092326164245605
+        },
+        "ELEM_BIPOLAR_V100_k5_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 5,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.2286691665649414
+        },
+        "ELEM_BIPOLAR_V100_k10_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.11522722244262695
+        },
+        "ELEM_BIPOLAR_V100_k10_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.17989468574523926
+        },
+        "ELEM_BIPOLAR_V100_k10_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.37007641792297363
+        },
+        "ELEM_BIPOLAR_V100_k15_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 15,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.12939715385437012
+        },
+        "ELEM_BIPOLAR_V100_k15_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 15,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.21921396255493164
+        },
+        "ELEM_BIPOLAR_V100_k15_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 15,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.6681461334228516
+        },
+        "ELEM_BIPOLAR_V100_k20_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.1419684886932373
+        },
+        "ELEM_BIPOLAR_V100_k20_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.2898702621459961
+        },
+        "ELEM_BIPOLAR_V100_k20_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7168126106262207
+        },
+        "ELEM_BIPOLAR_V100_k1_M64_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.3635718822479248
+        },
+        "ELEM_BIPOLAR_V100_k1_M256_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7061421871185303
+        },
+        "ELEM_BIPOLAR_V100_k10_M64_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 17,
+          "recall": 0.85,
+          "wall_s": 1.3689119815826416
+        },
+        "ELEM_BIPOLAR_V100_k10_M256_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 3,
+          "recall": 0.15,
+          "wall_s": 4.790817975997925
+        },
+        "ELEM_BIPOLAR_V100_k20_M64_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 5,
+          "recall": 0.25,
+          "wall_s": 2.133687973022461
+        },
+        "ELEM_BIPOLAR_V100_k20_M256_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 2,
+          "recall": 0.1,
+          "wall_s": 8.983673334121704
+        },
+        "ELEM_BIPOLAR_V100_k1_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.11898517608642578
+        },
+        "ELEM_BIPOLAR_V100_k1_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.14065217971801758
+        },
+        "ELEM_BIPOLAR_V100_k1_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.1909623146057129
+        },
+        "ELEM_BIPOLAR_V100_k5_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 5,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.1238400936126709
+        },
+        "ELEM_BIPOLAR_V100_k5_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 5,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.28635716438293457
+        },
+        "ELEM_BIPOLAR_V100_k5_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 5,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.5045032501220703
+        },
+        "ELEM_BIPOLAR_V100_k10_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.12436246871948242
+        },
+        "ELEM_BIPOLAR_V100_k10_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.3676035404205322
+        },
+        "ELEM_BIPOLAR_V100_k10_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.9145476818084717
+        },
+        "ELEM_BIPOLAR_V100_k15_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 15,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.12934017181396484
+        },
+        "ELEM_BIPOLAR_V100_k15_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 15,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.48098087310791016
+        },
+        "ELEM_BIPOLAR_V100_k15_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 15,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.3889801502227783
+        },
+        "ELEM_BIPOLAR_V100_k20_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.11124348640441895
+        },
+        "ELEM_BIPOLAR_V100_k20_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.5307481288909912
+        },
+        "ELEM_BIPOLAR_V100_k20_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.5758516788482666
+        },
+        "ELEM_BIPOLAR_V100_k1_M64_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.4112391471862793
+        },
+        "ELEM_BIPOLAR_V100_k1_M256_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 1,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.3772296905517578
+        },
+        "ELEM_BIPOLAR_V100_k10_M64_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 18,
+          "recall": 0.9,
+          "wall_s": 3.4514265060424805
+        },
+        "ELEM_BIPOLAR_V100_k10_M256_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 10,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 8,
+          "recall": 0.4,
+          "wall_s": 14.444399356842041
+        },
+        "ELEM_BIPOLAR_V100_k20_M64_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 9,
+          "recall": 0.45,
+          "wall_s": 6.8080973625183105
+        },
+        "ELEM_BIPOLAR_V100_k20_M256_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 100,
+          "k": 20,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 5,
+          "recall": 0.25,
+          "wall_s": 32.875510931015015
+        },
+        "FHRR_CC_V100_k1_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7343714237213135
+        },
+        "FHRR_CC_V100_k1_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7025411128997803
+        },
+        "FHRR_CC_V100_k1_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7864313125610352
+        },
+        "FHRR_CC_V100_k5_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 5,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7819433212280273
+        },
+        "FHRR_CC_V100_k5_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 5,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 2,
+          "recall": 0.1,
+          "wall_s": 0.955470085144043
+        },
+        "FHRR_CC_V100_k5_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 5,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 1,
+          "recall": 0.05,
+          "wall_s": 1.7653462886810303
+        },
+        "FHRR_CC_V100_k10_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.9127111434936523
+        },
+        "FHRR_CC_V100_k10_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 1.2950844764709473
+        },
+        "FHRR_CC_V100_k10_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 2.1615991592407227
+        },
+        "FHRR_CC_V100_k15_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 15,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.9170968532562256
+        },
+        "FHRR_CC_V100_k15_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 15,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 1.5160226821899414
+        },
+        "FHRR_CC_V100_k15_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 15,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 1,
+          "recall": 0.05,
+          "wall_s": 2.7687172889709473
+        },
+        "FHRR_CC_V100_k20_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7783019542694092
+        },
+        "FHRR_CC_V100_k20_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 1.3888819217681885
+        },
+        "FHRR_CC_V100_k20_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 3.102876663208008
+        },
+        "FHRR_CC_V100_k1_M64_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.249607801437378
+        },
+        "FHRR_CC_V100_k1_M256_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 2.8580095767974854
+        },
+        "FHRR_CC_V100_k10_M64_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 1,
+          "recall": 0.05,
+          "wall_s": 7.138342618942261
+        },
+        "FHRR_CC_V100_k10_M256_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 23.210924863815308
+        },
+        "FHRR_CC_V100_k20_M64_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 1,
+          "recall": 0.05,
+          "wall_s": 11.049018621444702
+        },
+        "FHRR_CC_V100_k20_M256_OFF": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 46.71942114830017
+        },
+        "FHRR_CC_V100_k1_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.6553709506988525
+        },
+        "FHRR_CC_V100_k1_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7556896209716797
+        },
+        "FHRR_CC_V100_k1_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.897122859954834
+        },
+        "FHRR_CC_V100_k5_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 5,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7426846027374268
+        },
+        "FHRR_CC_V100_k5_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 5,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 1,
+          "recall": 0.05,
+          "wall_s": 1.1443355083465576
+        },
+        "FHRR_CC_V100_k5_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 5,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 1.909705400466919
+        },
+        "FHRR_CC_V100_k10_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7723677158355713
+        },
+        "FHRR_CC_V100_k10_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 1.315537452697754
+        },
+        "FHRR_CC_V100_k10_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 2.7061197757720947
+        },
+        "FHRR_CC_V100_k15_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 15,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7527413368225098
+        },
+        "FHRR_CC_V100_k15_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 15,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 1.647723913192749
+        },
+        "FHRR_CC_V100_k15_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 15,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 1,
+          "recall": 0.05,
+          "wall_s": 3.9181196689605713
+        },
+        "FHRR_CC_V100_k20_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.7995233535766602
+        },
+        "FHRR_CC_V100_k20_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 2.0058507919311523
+        },
+        "FHRR_CC_V100_k20_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 5.35470724105835
+        },
+        "FHRR_CC_V100_k1_M64_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.6479737758636475
+        },
+        "FHRR_CC_V100_k1_M256_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 1,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 4.151626348495483
+        },
+        "FHRR_CC_V100_k10_M64_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 11.129429578781128
+        },
+        "FHRR_CC_V100_k10_M256_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 10,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 44.63862633705139
+        },
+        "FHRR_CC_V100_k20_M64_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 25.42077875137329
+        },
+        "FHRR_CC_V100_k20_M256_ON": {
+          "variant": "FHRR_CC",
+          "V": 100,
+          "k": 20,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 85.0241858959198
+        },
+        "ELEM_BIPOLAR_V1000_k1_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.1726436614990234
+        },
+        "ELEM_BIPOLAR_V1000_k1_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.1084818840026855
+        },
+        "ELEM_BIPOLAR_V1000_k1_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.145324945449829
+        },
+        "ELEM_BIPOLAR_V1000_k5_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 5,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.1331188678741455
+        },
+        "ELEM_BIPOLAR_V1000_k5_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 5,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.0841176509857178
+        },
+        "ELEM_BIPOLAR_V1000_k5_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 5,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.1391127109527588
+        },
+        "ELEM_BIPOLAR_V1000_k10_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.0281500816345215
+        },
+        "ELEM_BIPOLAR_V1000_k10_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.1606311798095703
+        },
+        "ELEM_BIPOLAR_V1000_k10_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.201430082321167
+        },
+        "ELEM_BIPOLAR_V1000_k15_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 15,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.0976271629333496
+        },
+        "ELEM_BIPOLAR_V1000_k15_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 15,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.1610448360443115
+        },
+        "ELEM_BIPOLAR_V1000_k15_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 15,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.3812446594238281
+        },
+        "ELEM_BIPOLAR_V1000_k20_M1_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.986957311630249
+        },
+        "ELEM_BIPOLAR_V1000_k20_M5_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.2460577487945557
+        },
+        "ELEM_BIPOLAR_V1000_k20_M16_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 19,
+          "recall": 0.95,
+          "wall_s": 1.4465699195861816
+        },
+        "ELEM_BIPOLAR_V1000_k1_M64_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.0876944065093994
+        },
+        "ELEM_BIPOLAR_V1000_k1_M256_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.2682774066925049
+        },
+        "ELEM_BIPOLAR_V1000_k10_M64_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 17,
+          "recall": 0.85,
+          "wall_s": 2.212853193283081
+        },
+        "ELEM_BIPOLAR_V1000_k10_M256_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 4.7777228355407715
+        },
+        "ELEM_BIPOLAR_V1000_k20_M64_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 3,
+          "recall": 0.15,
+          "wall_s": 2.8519535064697266
+        },
+        "ELEM_BIPOLAR_V1000_k20_M256_OFF": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 8.933233976364136
+        },
+        "ELEM_BIPOLAR_V1000_k1_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.0243229866027832
+        },
+        "ELEM_BIPOLAR_V1000_k1_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.2398066520690918
+        },
+        "ELEM_BIPOLAR_V1000_k1_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.7446930408477783
+        },
+        "ELEM_BIPOLAR_V1000_k5_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 5,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.064619779586792
+        },
+        "ELEM_BIPOLAR_V1000_k5_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 5,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 2.01831316947937
+        },
+        "ELEM_BIPOLAR_V1000_k5_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 5,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 4.151238918304443
+        },
+        "ELEM_BIPOLAR_V1000_k10_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.0751819610595703
+        },
+        "ELEM_BIPOLAR_V1000_k10_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 2.9201581478118896
+        },
+        "ELEM_BIPOLAR_V1000_k10_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 6.748903036117554
+        },
+        "ELEM_BIPOLAR_V1000_k15_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 15,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 0.9993038177490234
+        },
+        "ELEM_BIPOLAR_V1000_k15_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 15,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 3.531662940979004
+        },
+        "ELEM_BIPOLAR_V1000_k15_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 15,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 10.278217554092407
+        },
+        "ELEM_BIPOLAR_V1000_k20_M1_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 1.278371810913086
+        },
+        "ELEM_BIPOLAR_V1000_k20_M5_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 4.431232929229736
+        },
+        "ELEM_BIPOLAR_V1000_k20_M16_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 12.330082893371582
+        },
+        "ELEM_BIPOLAR_V1000_k1_M64_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 4.042989730834961
+        },
+        "ELEM_BIPOLAR_V1000_k1_M256_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 1,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 19,
+          "recall": 0.95,
+          "wall_s": 10.721562147140503
+        },
+        "ELEM_BIPOLAR_V1000_k10_M64_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 14,
+          "recall": 0.7,
+          "wall_s": 23.727983713150024
+        },
+        "ELEM_BIPOLAR_V1000_k10_M256_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 10,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 11,
+          "recall": 0.55,
+          "wall_s": 110.53914761543274
+        },
+        "ELEM_BIPOLAR_V1000_k20_M64_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 9,
+          "recall": 0.45,
+          "wall_s": 57.06979703903198
+        },
+        "ELEM_BIPOLAR_V1000_k20_M256_ON": {
+          "variant": "ELEM_BIPOLAR",
+          "V": 1000,
+          "k": 20,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 4,
+          "recall": 0.2,
+          "wall_s": 189.5632357597351
+        },
+        "FHRR_CC_V1000_k1_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.613827466964722
+        },
+        "FHRR_CC_V1000_k1_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.267203569412231
+        },
+        "FHRR_CC_V1000_k1_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.437851667404175
+        },
+        "FHRR_CC_V1000_k5_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 5,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 7.591012477874756
+        },
+        "FHRR_CC_V1000_k5_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 5,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 8.307578563690186
+        },
+        "FHRR_CC_V1000_k5_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 5,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 8.070164680480957
+        },
+        "FHRR_CC_V1000_k10_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 7.415035963058472
+        },
+        "FHRR_CC_V1000_k10_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 7.720871925354004
+        },
+        "FHRR_CC_V1000_k10_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 8.839577436447144
+        },
+        "FHRR_CC_V1000_k15_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 15,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 7.625367641448975
+        },
+        "FHRR_CC_V1000_k15_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 15,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 7.741281747817993
+        },
+        "FHRR_CC_V1000_k15_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 15,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 9.09315013885498
+        },
+        "FHRR_CC_V1000_k20_M1_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 1,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.984244585037231
+        },
+        "FHRR_CC_V1000_k20_M5_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 5,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 8.534031629562378
+        },
+        "FHRR_CC_V1000_k20_M16_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 16,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 12.093574047088623
+        },
+        "FHRR_CC_V1000_k1_M64_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 9.838316440582275
+        },
+        "FHRR_CC_V1000_k1_M256_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 9.660664319992065
+        },
+        "FHRR_CC_V1000_k10_M64_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 13.053533792495728
+        },
+        "FHRR_CC_V1000_k10_M256_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 32.31089186668396
+        },
+        "FHRR_CC_V1000_k20_M64_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 64,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 19.716599702835083
+        },
+        "FHRR_CC_V1000_k20_M256_OFF": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 256,
+          "cleanup": "OFF",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 56.07585334777832
+        },
+        "FHRR_CC_V1000_k1_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 7.9207117557525635
+        },
+        "FHRR_CC_V1000_k1_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 7.919288635253906
+        },
+        "FHRR_CC_V1000_k1_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 9.380940198898315
+        },
+        "FHRR_CC_V1000_k5_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 5,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.480654239654541
+        },
+        "FHRR_CC_V1000_k5_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 5,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 11.773340702056885
+        },
+        "FHRR_CC_V1000_k5_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 5,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 15.646093130111694
+        },
+        "FHRR_CC_V1000_k10_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.422767400741577
+        },
+        "FHRR_CC_V1000_k10_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 11.762504816055298
+        },
+        "FHRR_CC_V1000_k10_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 20.808279991149902
+        },
+        "FHRR_CC_V1000_k15_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 15,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.430631399154663
+        },
+        "FHRR_CC_V1000_k15_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 15,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 13.231459617614746
+        },
+        "FHRR_CC_V1000_k15_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 15,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 26.96374797821045
+        },
+        "FHRR_CC_V1000_k20_M1_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 1,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 8.68487286567688
+        },
+        "FHRR_CC_V1000_k20_M5_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 5,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 15.71012020111084
+        },
+        "FHRR_CC_V1000_k20_M16_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 16,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 33.39564251899719
+        },
+        "FHRR_CC_V1000_k1_M64_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 14.108726501464844
+        },
+        "FHRR_CC_V1000_k1_M256_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 1,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 20,
+          "recall": 1.0,
+          "wall_s": 30.38198232650757
+        },
+        "FHRR_CC_V1000_k10_M64_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 61.4672486782074
+        },
+        "FHRR_CC_V1000_k10_M256_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 10,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 223.8204915523529
+        },
+        "FHRR_CC_V1000_k20_M64_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 64,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 109.7780933380127
+        },
+        "FHRR_CC_V1000_k20_M256_ON": {
+          "variant": "FHRR_CC",
+          "V": 1000,
+          "k": 20,
+          "M": 256,
+          "cleanup": "ON",
+          "n": 20,
+          "hit": 0,
+          "recall": 0.0,
+          "wall_s": 432.37760639190674
+        }
+      },
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=hrr_depth_budget_curve_v1,N_DIM=8192,V=[100, 1000],k_cheap=[1, 5, 10, 15, 20],k_exp=[1, 10, 20],M_cheap=[1, 5, 16],M_exp=[64, 256],variants=['ELEM_BIPOLAR', 'FHRR_CC'],cleanup=['OFF', 'ON'],seeds=[7],TR=20,mode=smoke,scope=A2_donoho_tanner_probe,M_max(V=100)=444.7,M_max(V=1000)=296.5",
+      "anchor_name": "hrr_depth_budget_curve_v1",
+      "elapsed_s": 2236.121730566025
+    }
+  ],
+  "agg_across_seeds": {
+    "ELEM_BIPOLAR_V1000_k10_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M256_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M256_ON": {
+      "recall_mean": 0.55,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.55
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M64_OFF": {
+      "recall_mean": 0.85,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.85
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k10_M64_ON": {
+      "recall_mean": 0.7,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.7
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k15_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k15_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k15_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k15_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k15_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k15_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M256_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M256_ON": {
+      "recall_mean": 0.95,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.95
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M64_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k1_M64_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M16_OFF": {
+      "recall_mean": 0.95,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.95
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M256_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M256_ON": {
+      "recall_mean": 0.2,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.2
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M64_OFF": {
+      "recall_mean": 0.15,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.15
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k20_M64_ON": {
+      "recall_mean": 0.45,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.45
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k5_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k5_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k5_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k5_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k5_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V1000_k5_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M256_OFF": {
+      "recall_mean": 0.15,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.15
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M256_ON": {
+      "recall_mean": 0.4,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.4
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M64_OFF": {
+      "recall_mean": 0.85,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.85
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k10_M64_ON": {
+      "recall_mean": 0.9,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.9
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k15_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k15_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k15_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k15_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k15_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k15_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M256_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M256_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M64_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k1_M64_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M256_OFF": {
+      "recall_mean": 0.1,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.1
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M256_ON": {
+      "recall_mean": 0.25,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.25
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M64_OFF": {
+      "recall_mean": 0.25,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.25
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k20_M64_ON": {
+      "recall_mean": 0.45,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.45
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k5_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k5_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k5_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k5_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k5_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "ELEM_BIPOLAR_V100_k5_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M16_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M256_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M256_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M64_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k10_M64_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k15_M16_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k15_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k15_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k15_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k15_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k15_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M256_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M256_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M64_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k1_M64_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M16_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M256_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M256_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M64_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k20_M64_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k5_M16_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k5_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k5_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k5_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V1000_k5_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V1000_k5_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M16_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M256_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M256_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k10_M64_OFF": {
+      "recall_mean": 0.05,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.05
+      ]
+    },
+    "FHRR_CC_V100_k10_M64_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k15_M16_OFF": {
+      "recall_mean": 0.05,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.05
+      ]
+    },
+    "FHRR_CC_V100_k15_M16_ON": {
+      "recall_mean": 0.05,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.05
+      ]
+    },
+    "FHRR_CC_V100_k15_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k15_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k15_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k15_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M16_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M16_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M256_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M256_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M5_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M5_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M64_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k1_M64_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M16_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M256_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M256_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M5_OFF": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M5_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k20_M64_OFF": {
+      "recall_mean": 0.05,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.05
+      ]
+    },
+    "FHRR_CC_V100_k20_M64_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k5_M16_OFF": {
+      "recall_mean": 0.05,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.05
+      ]
+    },
+    "FHRR_CC_V100_k5_M16_ON": {
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.0
+      ]
+    },
+    "FHRR_CC_V100_k5_M1_OFF": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k5_M1_ON": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    "FHRR_CC_V100_k5_M5_OFF": {
+      "recall_mean": 0.1,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.1
+      ]
+    },
+    "FHRR_CC_V100_k5_M5_ON": {
+      "recall_mean": 0.05,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "n_seeds": 1,
+      "per_seed_recall": [
+        0.05
+      ]
+    }
+  },
+  "summary_fields": {
+    "involutive_V100_k20_M1_OFF_recall": 1.0,
+    "ceiling_safe_V100_k20_M16_ON_recall": 1.0,
+    "ceiling_safe_V100_k20_M16_ON_cv": 0.0,
+    "wall_V1000_k10_M256_ON_recall": 0.55,
+    "wall_V1000_k10_M256_OFF_recall": 0.0,
+    "wall_V1000_k10_M256_cleanup_gap": 0.55,
+    "wall_V1000_k20_M256_ON_recall": 0.2,
+    "wall_V1000_k20_M256_OFF_recall": 0.0,
+    "wall_V1000_k20_M256_cleanup_gap": 0.2,
+    "base_V100_k10_M5_ON_recall": 1.0,
+    "shallow_wide_V1000_k1_M256_ON_recall": 0.95,
+    "deep_narrow_V1000_k20_M16_ON_recall": 1.0,
+    "shallow_wide_lift": -0.050000000000000044,
+    "fhrr_involutive_V100_k20_M1_OFF_recall": 1.0,
+    "fhrr_wall_V1000_k10_M256_ON_recall": 0.0,
+    "M_max_V100": 444.7175494689298,
+    "M_max_V1000": 296.4783663126199,
+    "expected_n_units": 168,
+    "observed_n_units": 168,
+    "cardinality_ok": true,
+    "hp_conditions": {
+      "involutive_V100_k20_M1_OFF>=0.99": true,
+      "safe_regime_ceiling_V100_k20_M16_ON>=0.95": true,
+      "wall_cleanup_gap_V1000_k10_M256>=0.20": true
+    }
+  },
+  "elapsed_s": 2236.15828704834
+}

@@ -1,0 +1,273 @@
+{
+  "anchor_name": "exp_encoder_structure_aware_sharpness_v1",
+  "run_mode": "full",
+  "seed": 13,
+  "device": "cuda",
+  "sizes": [
+    5000,
+    9000
+  ],
+  "arms": [
+    "A_baseline_semantic",
+    "B_struct_node2vec",
+    "C_hybrid_walk_semantic"
+  ],
+  "expected_n_units": 6,
+  "n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "per_size": [
+    {
+      "n_target": 5000,
+      "n_nodes": 4440,
+      "n_edges": 14767,
+      "rel_types": 16,
+      "seed": 13,
+      "heldout_frac": 0.3,
+      "per_arm": {
+        "A_baseline_semantic": {
+          "arm": "A_baseline_semantic",
+          "M1_mean_cosine_per_hop": {
+            "1": 0.2368489842684496,
+            "2": 0.09880811467186594,
+            "3": 0.039888444628152976,
+            "4": 0.03231389689519888,
+            "5": 0.024920426347297887,
+            "6": 0.01898936897713617
+          },
+          "M1_counts_per_hop": {
+            "1": 21,
+            "2": 305,
+            "3": 2635,
+            "4": 6242,
+            "5": 2646,
+            "6": 151
+          },
+          "M1_monotonic_123": true,
+          "M2_spearman": -0.06556231726779387,
+          "M3_1hop_auc_full": 0.8670198888888889,
+          "M4_codeknn_meanhop": 3.1775,
+          "M4_random_meanhop": 3.8995,
+          "M4_ratio": 0.8148480574432619,
+          "M5_heldout_auc": 0.6918807777777778,
+          "M5_seen_auc_heldout_encoder": 0.9052294444444444,
+          "downstream_reach_at_10": 0.087,
+          "downstream_mrr": 0.05022706111257913,
+          "n_heldout_edges": 4430
+        },
+        "B_struct_node2vec": {
+          "arm": "B_struct_node2vec",
+          "M1_mean_cosine_per_hop": {
+            "1": 0.16117789640667893,
+            "2": 0.08796712108048015,
+            "3": 0.0537405721723072,
+            "4": 0.049114036893075044,
+            "5": 0.05727098437998646,
+            "6": 0.06807459145784378
+          },
+          "M1_counts_per_hop": {
+            "1": 21,
+            "2": 305,
+            "3": 2635,
+            "4": 6242,
+            "5": 2646,
+            "6": 151
+          },
+          "M1_monotonic_123": true,
+          "M2_spearman": 0.0014917369686926179,
+          "M3_1hop_auc_full": 0.9314594444444444,
+          "M4_codeknn_meanhop": 2.3225,
+          "M4_random_meanhop": 3.8995,
+          "M4_ratio": 0.5955891780997563,
+          "M5_heldout_auc": 0.5685248888888889,
+          "M5_seen_auc_heldout_encoder": 0.9416256666666667,
+          "downstream_reach_at_10": 0.024,
+          "downstream_mrr": 0.010772856893719129,
+          "n_heldout_edges": 4430
+        },
+        "C_hybrid_walk_semantic": {
+          "arm": "C_hybrid_walk_semantic",
+          "M1_mean_cosine_per_hop": {
+            "1": 0.33425780776001157,
+            "2": 0.23418308316317737,
+            "3": 0.19928661372735249,
+            "4": 0.19446424949290253,
+            "5": 0.18203006939573926,
+            "6": 0.13809891106153757
+          },
+          "M1_counts_per_hop": {
+            "1": 21,
+            "2": 305,
+            "3": 2635,
+            "4": 6242,
+            "5": 2646,
+            "6": 151
+          },
+          "M1_monotonic_123": true,
+          "M2_spearman": -0.08684097738778457,
+          "M3_1hop_auc_full": 0.7511101111111111,
+          "M4_codeknn_meanhop": 3.3225,
+          "M4_random_meanhop": 3.8995,
+          "M4_ratio": 0.8520323118348505,
+          "M5_heldout_auc": 0.6749054444444444,
+          "M5_seen_auc_heldout_encoder": 0.8176422222222223,
+          "downstream_reach_at_10": 0.084,
+          "downstream_mrr": 0.04933884363646409,
+          "n_heldout_edges": 4430
+        }
+      },
+      "code_hashes": {
+        "A_baseline_semantic": "4d2fac6408de5e441b9e39fdcf0abcc08751877bdf3b7b6cb524b4416d8fd9b2",
+        "B_struct_node2vec": "59ff00ff4359750ddea709eeefa36fc491953b744f09c96b95ac633b092a652a",
+        "C_hybrid_walk_semantic": "1ac8d64cf1f3f6f6bad8475b4ee6b0bd8a306cdaf5d82fc492d6205be90fa5b3"
+      },
+      "m5_A": 0.6918807777777778,
+      "m5_B": 0.5685248888888889,
+      "m5_C": 0.6749054444444444,
+      "best_struct_arm": "C_hybrid_walk_semantic",
+      "best_struct_m5": 0.6749054444444444,
+      "delta_m5_struct_vs_baseline": -0.016975333333333342,
+      "delta_reach_struct_vs_baseline": -0.002999999999999989,
+      "elapsed_s": 58.8
+    },
+    {
+      "n_target": 9000,
+      "n_nodes": 7895,
+      "n_edges": 26571,
+      "rel_types": 16,
+      "seed": 13,
+      "heldout_frac": 0.3,
+      "per_arm": {
+        "A_baseline_semantic": {
+          "arm": "A_baseline_semantic",
+          "M1_mean_cosine_per_hop": {
+            "1": 0.12471021451056004,
+            "2": 0.08709834204606151,
+            "3": 0.04514809146542423,
+            "4": 0.029480521467578246,
+            "5": 0.026941673725152143,
+            "6": 0.01841955653153696
+          },
+          "M1_counts_per_hop": {
+            "1": 10,
+            "2": 186,
+            "3": 1917,
+            "4": 6164,
+            "5": 3457,
+            "6": 266
+          },
+          "M1_monotonic_123": true,
+          "M2_spearman": -0.05560900309450697,
+          "M3_1hop_auc_full": 0.8159913333333333,
+          "M4_codeknn_meanhop": 3.4515,
+          "M4_random_meanhop": 4.109,
+          "M4_ratio": 0.8399853979070333,
+          "M5_heldout_auc": 0.6902567777777778,
+          "M5_seen_auc_heldout_encoder": 0.8519078888888889,
+          "downstream_reach_at_10": 0.075,
+          "downstream_mrr": 0.04116416370807627,
+          "n_heldout_edges": 7971
+        },
+        "B_struct_node2vec": {
+          "arm": "B_struct_node2vec",
+          "M1_mean_cosine_per_hop": {
+            "1": 0.19326394535601138,
+            "2": 0.08939019087401609,
+            "3": 0.060693887339532765,
+            "4": 0.05839252690782367,
+            "5": 0.06606934282396366,
+            "6": 0.08148941353901773
+          },
+          "M1_counts_per_hop": {
+            "1": 10,
+            "2": 186,
+            "3": 1917,
+            "4": 6164,
+            "5": 3457,
+            "6": 266
+          },
+          "M1_monotonic_123": true,
+          "M2_spearman": 0.04454427539266858,
+          "M3_1hop_auc_full": 0.9115881111111112,
+          "M4_codeknn_meanhop": 2.5725,
+          "M4_random_meanhop": 4.109,
+          "M4_ratio": 0.6260647359454855,
+          "M5_heldout_auc": 0.5678723333333333,
+          "M5_seen_auc_heldout_encoder": 0.9393654444444445,
+          "downstream_reach_at_10": 0.018,
+          "downstream_mrr": 0.008481273395202535,
+          "n_heldout_edges": 7971
+        },
+        "C_hybrid_walk_semantic": {
+          "arm": "C_hybrid_walk_semantic",
+          "M1_mean_cosine_per_hop": {
+            "1": 0.22749717719852924,
+            "2": 0.1712428372057896,
+            "3": 0.1462446650291949,
+            "4": 0.13922059814357135,
+            "5": 0.13642425209109796,
+            "6": 0.13733575412219293
+          },
+          "M1_counts_per_hop": {
+            "1": 10,
+            "2": 186,
+            "3": 1917,
+            "4": 6164,
+            "5": 3457,
+            "6": 266
+          },
+          "M1_monotonic_123": true,
+          "M2_spearman": -0.03177029697062706,
+          "M3_1hop_auc_full": 0.6991053333333334,
+          "M4_codeknn_meanhop": 3.5365,
+          "M4_random_meanhop": 4.109,
+          "M4_ratio": 0.8606716962764663,
+          "M5_heldout_auc": 0.6578853333333333,
+          "M5_seen_auc_heldout_encoder": 0.7425425555555556,
+          "downstream_reach_at_10": 0.072,
+          "downstream_mrr": 0.04541303812807636,
+          "n_heldout_edges": 7971
+        }
+      },
+      "code_hashes": {
+        "A_baseline_semantic": "40b88f832be87d459f96a59fbda2e23f7a87ea5ae1731670466fa8d66d378392",
+        "B_struct_node2vec": "83ba789e0d5db94159b7b7901ebb6190a55da9f6301dbfa80541f95e202fbb9c",
+        "C_hybrid_walk_semantic": "44846dc6f9acc239249237f62b5451dacfca7cdfe3f1c9ed4e2f69fa4636ee58"
+      },
+      "m5_A": 0.6902567777777778,
+      "m5_B": 0.5678723333333333,
+      "m5_C": 0.6578853333333333,
+      "best_struct_arm": "C_hybrid_walk_semantic",
+      "best_struct_m5": 0.6578853333333333,
+      "delta_m5_struct_vs_baseline": -0.03237144444444451,
+      "delta_reach_struct_vs_baseline": -0.0030000000000000027,
+      "elapsed_s": 79.3
+    }
+  ],
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: canonical n=4440 best=C_hybrid_walk_semantic deltaM5=-0.017 (HP>=+0.10, HF<=+0.03) deltaReach=-0.003 (HP>=+0.05) | A_M5=0.692 B_M5=0.569 C_M5=0.675",
+  "summary": "HARD_FAIL: canonical n=4440 best=C_hybrid_walk_semantic deltaM5=-0.017 (HP>=+0.10, HF<=+0.03) deltaReach=-0.003 (HP>=+0.05) | A_M5=0.692 B_M5=0.569 C_M5=0.675",
+  "elapsed_s": 138.1,
+  "base_cfg": {
+    "epochs": 80,
+    "batch": 256,
+    "code_dim": 512,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_bind": 1.0
+  },
+  "n2v_cfg": {
+    "walks_per_node": 10,
+    "walk_len": 40,
+    "window": 5,
+    "negs": 5,
+    "epochs": 5,
+    "batch": 4096,
+    "lr": 0.025,
+    "max_pairs": 2000000
+  },
+  "heldout_frac": 0.3
+}

@@ -1,0 +1,70 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS fair-test machinery: NO_CLEANUP collapses; unique-successor reach ~ceiling 1.0; goal-carrying >= memoryless; arms differ; set-accepting >= naive; typed subgraph + nbr table + k_sr + unique-successor sampler exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.1219565999927,
+  "mechanism_selftest": {
+    "reach_no_cleanup": {
+      "1": 0.2375,
+      "2": 0.3125,
+      "3": 0.4125,
+      "4": 0.4375
+    },
+    "reach_memoryless_aliased": {
+      "1": 0.2375,
+      "2": 0.075,
+      "3": 0.0375,
+      "4": 0.025
+    },
+    "reach_goal_waypoint_aliased": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 0.3125
+    },
+    "reach_unique_successor": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "setacc_memoryless1": 1.0,
+    "us_reachable": true,
+    "memoryless_aliased": true,
+    "goal_recovers": true,
+    "us_beats_aliased": true,
+    "arms_differ": true,
+    "setacc_ge_reach": true,
+    "nocleanup_ran": true,
+    "us_ok": true,
+    "Dmax": 3,
+    "n_synth": 1400
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  }
+}

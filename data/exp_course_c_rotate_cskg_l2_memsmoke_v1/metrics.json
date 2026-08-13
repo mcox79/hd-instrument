@@ -1,0 +1,622 @@
+{
+  "verdict": "INCONCLUSIVE_ORACLE_UNDERFIT",
+  "verdict_msg": "INCONCLUSIVE: transductive ORACLE did NOT fire under the DIRECT readout (oracle=0.105 random=0.001 margin<0.15) -> even the rotation fit cannot recover edges it was trained on at this capacity; the reasoning question is not askable. Escalate (epochs/k/dim or functional-form is not the wall). ADDITIVE oracle=0.155 for reference.",
+  "summary": "INCONCLUSIVE: transductive ORACLE did NOT fire under the DIRECT readout (oracle=0.105 random=0.001 margin<0.15) -> even the rotation fit cannot recover edges it was trained on at this capacity; the re",
+  "run_mode": "memsmoke",
+  "elapsed_s": 4554.796870099963,
+  "anchor_name": "course_c_rotate_cskg_l2_memsmoke_v1",
+  "ts_iso": "2026-07-12T10:24:18.426668+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config": {
+    "k": 24,
+    "fpe_dim": 4096,
+    "epochs": 25,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "min_support": 10,
+    "min_conf": 0.1,
+    "n_eval": 3000,
+    "min_heldout": 20
+  },
+  "gates": {
+    "fair_hits_at_k": {
+      "ONESHOT_ROTATE": 0.0294,
+      "ADDITIVE_TRANSE": 0.0554,
+      "BASELINE_POP": 0.0447,
+      "DISCRETE_BIND": 0.0,
+      "SCRAMBLE_ROTATE": 0.002,
+      "RANDOM_CODES": 0.0005,
+      "ORACLE_TRANSDUCTIVE": 0.0434
+    },
+    "agg_hits_at_k": {
+      "ONESHOT_ROTATE": 0.072,
+      "ADDITIVE_TRANSE": 0.1547,
+      "BASELINE_POP": 0.1658,
+      "SCRAMBLE_ROTATE": 0.0032,
+      "RANDOM_CODES": 0.0005,
+      "ORACLE_TRANSDUCTIVE": 0.1048,
+      "DISCRETE_BIND": 0.0
+    },
+    "primary_k": 10,
+    "margin_oneshot_vs_pop_fair": -0.0152,
+    "margin_oneshot_vs_additive_fair": -0.026,
+    "oracle_direct": 0.1048,
+    "random_direct": 0.0005,
+    "additive_oracle": 0.1547,
+    "oracle_fires": false,
+    "oracle_fire_margin": 0.15,
+    "oracle_fpe_median": 0.0015,
+    "oneshot_fpe_median": 0.0015,
+    "realized_vs_ceiling_ratio": 0.6867,
+    "win_pop": false,
+    "win_form": false,
+    "form_oracle": false,
+    "g_discrete": false,
+    "g_scramble": true,
+    "seed_cv": 0.0832,
+    "g_seed_cv": true,
+    "backdoor_r": 0.2588,
+    "g_backdoor": false,
+    "syn_comp_ok": true,
+    "syn_freq_ok": true,
+    "broken": false,
+    "fails": true,
+    "wins": false,
+    "mine_params": {
+      "MAX_RULES_PER_HEAD": 50,
+      "HUB_CAP": 60000,
+      "min_support": 10,
+      "min_conf": 0.1
+    },
+    "reference_vet": {
+      "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+      "l2_only_all": 0.276,
+      "l2_only_high": 0.226,
+      "pop_high": 0.412
+    }
+  },
+  "mechanism_selftest": {
+    "comp_l2_genuine": 61,
+    "freq_l2_genuine": 150,
+    "geometry_fires": true,
+    "metric_k": 10,
+    "oracle_recovers": true,
+    "oracle_fires_gate": true,
+    "arms_differ": true,
+    "oracle_direct": 0.4098,
+    "random_direct": 0.0492,
+    "comp_oneshot": 0.1311,
+    "comp_additive": 0.0328,
+    "comp_pop": 0.0,
+    "comp_discrete": 0.0492,
+    "comp_scramble": 0.0164,
+    "comp_random": 0.0492,
+    "freq_geo": 0.8667,
+    "freq_pop": 1.0,
+    "rot_beats_pop": true,
+    "rot_beats_additive": true,
+    "rot_beats_discrete": true,
+    "scramble_not_beat": true,
+    "random_at_chance": true,
+    "no_manufacture": true,
+    "pop_fires_freq": true,
+    "n_distinct_sigs": 7,
+    "selftest_verdict": "BROKEN_TEST_CONTROL_BEATS_POP",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 460048,
+      "n_test": 25558,
+      "l2_genuine": {
+        "n_scanned": 9038,
+        "n_reach_l2": 3744,
+        "n_excl_l1i": 574,
+        "n_excl_l1f": 170,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 3000
+      },
+      "tert_bounds": [
+        99.0,
+        369.0
+      ],
+      "strata_counts": {
+        "low": 1001,
+        "mid": 1006,
+        "high": 993
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.012,
+          "hits@10": 0.0767,
+          "mrr": 0.0367
+        },
+        "ADDITIVE_TRANSE": {
+          "hits@1": 0.0283,
+          "hits@10": 0.145,
+          "mrr": 0.0693
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.041,
+          "hits@10": 0.1637,
+          "mrr": 0.0828
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits@1": 0.0013,
+          "hits@10": 0.005,
+          "mrr": 0.004
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@10": 0.0003,
+          "mrr": 0.0005
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits@1": 0.018,
+          "hits@10": 0.113,
+          "mrr": 0.0512
+        },
+        "DISCRETE_BIND": {
+          "hits@1": 0.0,
+          "hits@10": 0.0,
+          "mrr": 0.0003
+        }
+      },
+      "arm_n": {
+        "ONESHOT_ROTATE": 3000,
+        "ADDITIVE_TRANSE": 3000,
+        "BASELINE_POP": 3000,
+        "SCRAMBLE_ROTATE": 3000,
+        "RANDOM_CODES": 3000,
+        "ORACLE_TRANSDUCTIVE": 3000,
+        "DISCRETE_BIND": 3000
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "05da5f4ae1b6da67",
+        "SCRAMBLE_ROTATE": "f7205d6770a3accb",
+        "ORACLE_TRANSDUCTIVE": "53f955b2b9007566",
+        "RANDOM_CODES": "cf73d333e474d7f6",
+        "ADDITIVE_TRANSE": "30d6c53543064c90",
+        "DISCRETE_BIND": "3efbc9a4c958c52b",
+        "BASELINE_POP": "90bb45e9366943cf"
+      },
+      "strat_hits": {
+        "ONESHOT_ROTATE": {
+          "low": {
+            "hits": 0.007,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.0567,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.1672,
+            "n": 993
+          }
+        },
+        "ADDITIVE_TRANSE": {
+          "low": {
+            "hits": 0.018,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.0964,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.3223,
+            "n": 993
+          }
+        },
+        "DISCRETE_BIND": {
+          "low": {
+            "hits": 0.0,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 993
+          }
+        },
+        "SCRAMBLE_ROTATE": {
+          "low": {
+            "hits": 0.0,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.005,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.0101,
+            "n": 993
+          }
+        },
+        "RANDOM_CODES": {
+          "low": {
+            "hits": 0.0,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.001,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 993
+          }
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "low": {
+            "hits": 0.015,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.0825,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.2427,
+            "n": 993
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.01,
+            "n": 1001
+          },
+          "mid": {
+            "hits": 0.0875,
+            "n": 1006
+          },
+          "high": {
+            "hits": 0.3938,
+            "n": 993
+          }
+        }
+      },
+      "fair_hits": {
+        "ONESHOT_ROTATE": {
+          "hits": 0.0319,
+          "n": 2007
+        },
+        "ADDITIVE_TRANSE": {
+          "hits": 0.0573,
+          "n": 2007
+        },
+        "BASELINE_POP": {
+          "hits": 0.0483,
+          "n": 2007
+        },
+        "DISCRETE_BIND": {
+          "hits": 0.0,
+          "n": 2007
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits": 0.0025,
+          "n": 2007
+        },
+        "RANDOM_CODES": {
+          "hits": 0.0005,
+          "n": 2007
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits": 0.0488,
+          "n": 2007
+        }
+      },
+      "fpe_median": {
+        "ONESHOT_ROTATE": {
+          "metric": {
+            "hits@1": 0.0003333333333333333,
+            "hits@10": 0.002,
+            "mrr": 0.0013203207369430763,
+            "n": 3000
+          },
+          "ell": 16.24933
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "metric": {
+            "hits@1": 0.0006666666666666666,
+            "hits@10": 0.002,
+            "mrr": 0.0015368390215743078,
+            "n": 3000
+          },
+          "ell": 16.15911
+        }
+      },
+      "cross_channel_geom_vs_poprank_r": 0.2839,
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      },
+      "_min_support": 10,
+      "_min_conf": 0.1
+    },
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 17,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 460048,
+      "n_test": 25558,
+      "l2_genuine": {
+        "n_scanned": 8728,
+        "n_reach_l2": 3684,
+        "n_excl_l1i": 531,
+        "n_excl_l1f": 153,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 3000
+      },
+      "tert_bounds": [
+        100.0,
+        343.0
+      ],
+      "strata_counts": {
+        "low": 1003,
+        "mid": 998,
+        "high": 999
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.0137,
+          "hits@10": 0.0673,
+          "mrr": 0.0341
+        },
+        "ADDITIVE_TRANSE": {
+          "hits@1": 0.027,
+          "hits@10": 0.1643,
+          "mrr": 0.0725
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.036,
+          "hits@10": 0.168,
+          "mrr": 0.0826
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits@1": 0.0007,
+          "hits@10": 0.0013,
+          "mrr": 0.0015
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@10": 0.0007,
+          "mrr": 0.0004
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits@1": 0.02,
+          "hits@10": 0.0967,
+          "mrr": 0.0476
+        },
+        "DISCRETE_BIND": {
+          "hits@1": 0.0,
+          "hits@10": 0.0,
+          "mrr": 0.0003
+        }
+      },
+      "arm_n": {
+        "ONESHOT_ROTATE": 3000,
+        "ADDITIVE_TRANSE": 3000,
+        "BASELINE_POP": 3000,
+        "SCRAMBLE_ROTATE": 3000,
+        "RANDOM_CODES": 3000,
+        "ORACLE_TRANSDUCTIVE": 3000,
+        "DISCRETE_BIND": 3000
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "809997d6bf87a572",
+        "SCRAMBLE_ROTATE": "ca8287ab40d343cf",
+        "ORACLE_TRANSDUCTIVE": "8e5ad3e5a08d8a00",
+        "RANDOM_CODES": "38b798f96d641823",
+        "ADDITIVE_TRANSE": "a493f72d935261cf",
+        "DISCRETE_BIND": "01fd1541dee75b22",
+        "BASELINE_POP": "82a30458eeb7d422"
+      },
+      "strat_hits": {
+        "ONESHOT_ROTATE": {
+          "low": {
+            "hits": 0.01,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.0441,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.1481,
+            "n": 999
+          }
+        },
+        "ADDITIVE_TRANSE": {
+          "low": {
+            "hits": 0.0209,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.0862,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.3864,
+            "n": 999
+          }
+        },
+        "DISCRETE_BIND": {
+          "low": {
+            "hits": 0.0,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.0,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 999
+          }
+        },
+        "SCRAMBLE_ROTATE": {
+          "low": {
+            "hits": 0.002,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.001,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.001,
+            "n": 999
+          }
+        },
+        "RANDOM_CODES": {
+          "low": {
+            "hits": 0.0,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.001,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.001,
+            "n": 999
+          }
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "low": {
+            "hits": 0.015,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.0611,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.2142,
+            "n": 999
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.009,
+            "n": 1003
+          },
+          "mid": {
+            "hits": 0.0731,
+            "n": 998
+          },
+          "high": {
+            "hits": 0.4224,
+            "n": 999
+          }
+        }
+      },
+      "fair_hits": {
+        "ONESHOT_ROTATE": {
+          "hits": 0.027,
+          "n": 2001
+        },
+        "ADDITIVE_TRANSE": {
+          "hits": 0.0535,
+          "n": 2001
+        },
+        "BASELINE_POP": {
+          "hits": 0.041,
+          "n": 2001
+        },
+        "DISCRETE_BIND": {
+          "hits": 0.0,
+          "n": 2001
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits": 0.0015,
+          "n": 2001
+        },
+        "RANDOM_CODES": {
+          "hits": 0.0005,
+          "n": 2001
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits": 0.038,
+          "n": 2001
+        }
+      },
+      "fpe_median": {
+        "ONESHOT_ROTATE": {
+          "metric": {
+            "hits@1": 0.0,
+            "hits@10": 0.001,
+            "mrr": 0.0006078157624004262,
+            "n": 3000
+          },
+          "ell": 15.22021
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "metric": {
+            "hits@1": 0.0003333333333333333,
+            "hits@10": 0.001,
+            "mrr": 0.0007926366765815932,
+            "n": 3000
+          },
+          "ell": 15.18857
+        }
+      },
+      "cross_channel_geom_vs_poprank_r": 0.2337,
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      },
+      "_min_support": 10,
+      "_min_conf": 0.1
+    }
+  ],
+  "reference_vet": {
+    "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+    "l2_only_all": 0.276,
+    "l2_only_high": 0.226,
+    "pop_high": 0.412
+  },
+  "cross_seed_note": "single-seed process-isolated FULL; 3-seed cv gate is computed downstream over the 3 seed metrics files (seed_cv here spans only this process's seed list)"
+}

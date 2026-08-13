@@ -1,0 +1,240 @@
+{
+  "verdict": "MIDDLE_BAND_DERIVED_TYPING_PARTIAL",
+  "verdict_msg": "HEADLINE D_FEAT=1024: typing_acc derived=0.729 naive=0.654 hand=1.000 random=0.471 | margin_vs_naive=0.0750 (per_seed=[0.1, 0.0125, 0.1125] all_positive=True) margin_vs_random=0.2583 | sentence_resolution_acc derived=0.483 naive=0.567 hand=1.000 random=0.000 | CURVE D_FEAT=[256, 1024]: derived=[0.8167, 0.7292] naive=[0.6417, 0.6542] margin=[0.175, 0.075] | flip_classification=POSITIVE_THROUGHOUT_CURVE | mechanics_ceiling_check=1.0000 | cardinality_ok=True (1920/1920) arms_differ=True",
+  "summary": "MIDDLE_BAND_DERIVED_TYPING_PARTIAL: HEADLINE D_FEAT=1024: typing_acc derived=0.729 naive=0.654 hand=1.000 random=0.471 | margin_vs_naive=0.0750 (per_seed=[0.1, 0.0125, 0.1125] all_positive=True) margin_vs_random=0.2583 | sentence_resolution_acc derived=0.4",
+  "elapsed_s": 20.008859499997925,
+  "anchor_name": "derived_filler_typing_single_edge_grounding_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T15:58:16.446732+00:00",
+  "config": {
+    "n_tokens": 1500000,
+    "vocab_size": 6000,
+    "window": 5,
+    "min_count": 5,
+    "N_CODE": 1024,
+    "RI_SPARSITY": 10,
+    "RIDGE_ALPHA": 10.0,
+    "ALPHA_FRAC": 0.3,
+    "MIN_OCC_PER_DRAW": 20,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "k_draws": 10,
+    "dfeat_curve": [
+      256,
+      1024
+    ],
+    "V": 6000,
+    "exemplar_artifact": [
+      "church",
+      "temple",
+      "stadium",
+      "tower",
+      "monastery",
+      "palace"
+    ],
+    "test_artifact": [
+      "cathedral",
+      "castle",
+      "factory",
+      "monument"
+    ],
+    "exemplar_location": [
+      "island",
+      "mountain",
+      "desert",
+      "peninsula",
+      "plateau"
+    ],
+    "test_location": [
+      "forest",
+      "delta",
+      "harbor",
+      "prairie"
+    ]
+  },
+  "typing_acc_by_dfeat": {
+    "256": {
+      "derived": 0.8166666666666667,
+      "naive": 0.6416666666666667,
+      "hand": 1.0,
+      "random": 0.5916666666666667
+    },
+    "1024": {
+      "derived": 0.7291666666666666,
+      "naive": 0.6541666666666667,
+      "hand": 1.0,
+      "random": 0.4708333333333333
+    }
+  },
+  "typing_acc_per_seed_headline": {
+    "derived": {
+      "7": 0.725,
+      "13": 0.725,
+      "19": 0.7375
+    },
+    "naive": {
+      "7": 0.625,
+      "13": 0.7125,
+      "19": 0.625
+    },
+    "hand": {
+      "7": 1.0,
+      "13": 1.0,
+      "19": 1.0
+    },
+    "random": {
+      "7": 0.4625,
+      "13": 0.45,
+      "19": 0.5
+    }
+  },
+  "typing_curve": {
+    "derived": [
+      0.8167,
+      0.7292
+    ],
+    "naive": [
+      0.6417,
+      0.6542
+    ],
+    "hand": [
+      1.0,
+      1.0
+    ],
+    "random": [
+      0.5917,
+      0.4708
+    ]
+  },
+  "margin_curve": [
+    0.175,
+    0.075
+  ],
+  "headline_dfeat": 1024,
+  "headline_typing_acc": {
+    "derived": 0.7291666666666666,
+    "naive": 0.6541666666666667,
+    "hand": 1.0,
+    "random": 0.4708333333333333
+  },
+  "headline_margin_vs_naive": 0.07499999999999996,
+  "headline_margin_vs_random": 0.2583333333333333,
+  "headline_per_seed_margins": [
+    0.09999999999999998,
+    0.012499999999999956,
+    0.11250000000000004
+  ],
+  "headline_all_seeds_positive": true,
+  "flip_classification": "POSITIVE_THROUGHOUT_CURVE",
+  "sentence_resolution_acc": {
+    "derived": 0.48333333333333334,
+    "naive": 0.5666666666666667,
+    "hand": 1.0,
+    "random": 0.0
+  },
+  "per_sentence": [
+    {
+      "sentence": "The team built a cathedral near the forest.",
+      "true_patient": "cathedral",
+      "false_candidate": "forest",
+      "arm_resolution_rate": {
+        "derived": 0.6666666666666666,
+        "naive": 0.8,
+        "hand": 1.0,
+        "random": 0.0
+      }
+    },
+    {
+      "sentence": "The workers built a castle beside the delta.",
+      "true_patient": "castle",
+      "false_candidate": "delta",
+      "arm_resolution_rate": {
+        "derived": 0.26666666666666666,
+        "naive": 0.4666666666666667,
+        "hand": 1.0,
+        "random": 0.0
+      }
+    },
+    {
+      "sentence": "The settlers built a factory across the harbor.",
+      "true_patient": "factory",
+      "false_candidate": "harbor",
+      "arm_resolution_rate": {
+        "derived": 0.0,
+        "naive": 0.0,
+        "hand": 1.0,
+        "random": 0.0
+      }
+    },
+    {
+      "sentence": "The monks built a monument within the prairie.",
+      "true_patient": "monument",
+      "false_candidate": "prairie",
+      "arm_resolution_rate": {
+        "derived": 1.0,
+        "naive": 1.0,
+        "hand": 1.0,
+        "random": 0.0
+      }
+    }
+  ],
+  "mechanics_ceiling_check": 1.0,
+  "baseline_in_band": true,
+  "cardinality_ok": true,
+  "expected_n_units": 1920,
+  "n_units_done": 1920,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "dfeat256__derived_vs_naive": true,
+    "dfeat256__derived_vs_hand": true,
+    "dfeat256__derived_vs_random": true,
+    "dfeat256__naive_vs_hand": true,
+    "dfeat256__naive_vs_random": true,
+    "dfeat256__hand_vs_random": true,
+    "dfeat1024__derived_vs_naive": true,
+    "dfeat1024__derived_vs_hand": true,
+    "dfeat1024__derived_vs_random": true,
+    "dfeat1024__naive_vs_hand": true,
+    "dfeat1024__naive_vs_random": true,
+    "dfeat1024__hand_vs_random": true
+  },
+  "arms_differ_exempted": [],
+  "se_webs_hashes": {
+    "WEB_EMPTY": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+    "WEB_BUILD_EDGE": "5a3b092b6881cb3967b2e00f400592843d808ef7d3bf87a711a831f99752f279",
+    "WEB_EAT_EDGE_ONLY": "ca3c7cd826cf60ccaddcc0a7e7e4e5e78260d78bf1da4cff2cbb6dd8d073c14e",
+    "WEB_BOTH_EDGES": "915005da283b50a733feaeb6be463ad87afc340dcb5398e69d76eede1a60dd95",
+    "WEB_MEMORIZATION": "40c9e7ff9296393f117f9d9fc05f9e8e17fd23b7067d922bb59936e84a59553e"
+  },
+  "bands": {
+    "HP_TYPING_ACC_MIN": 0.6,
+    "HP_VS_NAIVE_MARGIN_MIN": 0.05,
+    "HP_VS_RANDOM_MARGIN_MIN": 0.15,
+    "HP_RANDOM_AT_CHANCE_MAX": 0.65,
+    "HP_SENTENCE_RESOLUTION_MIN": 0.5,
+    "HF_VS_NAIVE_MARGIN_MAX": 0.0,
+    "HF_TYPING_ACC_FLOOR": 0.3,
+    "CEIL_CHECK_MIN": 0.95,
+    "CHANCE_FLOOR": 0.5
+  },
+  "crlb_n/a": "binary typing-accuracy + categorical sentence-resolution metric over discrete ARTIFACT/LOCATION candidates; closed-form chance floor = 0.50 (THEORETICAL); not a CRLB regime",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "integration_of": [
+    "exp_single_edge_grounding_hd_binding_verbnet_v1 (storage/recall, reused byte-identical)",
+    "exp_learned_codebook_generalization_gate_v1 (atom 29368, real codebook, AUC=0.927, reused unmodified)",
+    "exp_novel_atom_real_codebook_generalization_v1 (atoms 29379-82, ridge induction, reused unmodified)"
+  ],
+  "claim_ceiling": "This cell measures whether filler-typing can be DERIVED from a noun's own learned codebook encoding rather than hand-stipulated, on a small curated exemplar/test-noun set at real-corpus scale. Per 29379-82's own finding, the induction-vs-naive margin is expected to be CAPACITY-GATED (D_FEAT-dependent); a MIDDLE_BAND / flip-only-at-headline result is the honest expected outcome, not evidence against the integration.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "typing_acc_by_dfeat",
+    "sentence_resolution_acc",
+    "cardinality_ok",
+    "arms_differ_verified",
+    "baseline_in_band"
+  ]
+}

@@ -1,0 +1,1266 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cue-aware beats text-order on real flashbacks by 1.000 (CUE 1.000 vs TEXT 0.000); no linear regression (CUE 1.000 == TEXT 1.000); validity gate fires (TEXT_fb 0.000); P2 ablation collapses to text-order. Precision: NAIVE_REVERSE wins flashback (1.000) but WRECKS linear (0.000) -> the win is the TENSE CUE.",
+  "summary": "HARD_PASS: flashback CUE 1.000 vs TEXT 0.000 (margin +1.000); linear CUE 1.000 vs TEXT 1.000; validity_gate=True",
+  "elapsed_s": 1.567,
+  "ts_iso": "2026-07-24T02:43:10.893792+00:00",
+  "anchor_name": "read_temporal_chronological_event_order_v1",
+  "n_dim": 1024,
+  "prereg_bands": {
+    "validity_gate_max_text_flashback_acc": 0.6,
+    "hard_pass_margin": 0.25,
+    "hard_fail_margin": 0.1,
+    "nonflash_regress_max": 0.05
+  },
+  "gates": {
+    "validity_gate_fires": true,
+    "p2_ablation_collapses_to_textorder": true,
+    "margin_flashback": 1.0,
+    "regression_linear": 0.0
+  },
+  "arms": {
+    "TEXT": {
+      "flashback_acc": 0.0,
+      "linear_acc": 1.0,
+      "flashback_n_scored": 16,
+      "linear_n_scored": 9,
+      "signature_sha256": "516f568465e24c56"
+    },
+    "CUE": {
+      "flashback_acc": 1.0,
+      "linear_acc": 1.0,
+      "flashback_n_scored": 16,
+      "linear_n_scored": 9,
+      "signature_sha256": "dd221816c464acff"
+    },
+    "CUE_ABLATE": {
+      "flashback_acc": 0.0,
+      "linear_acc": 1.0,
+      "flashback_n_scored": 16,
+      "linear_n_scored": 9,
+      "signature_sha256": "516f568465e24c56"
+    },
+    "NAIVE_REVERSE": {
+      "flashback_acc": 1.0,
+      "linear_acc": 0.0,
+      "flashback_n_scored": 16,
+      "linear_n_scored": 9,
+      "signature_sha256": "f1e09c3085de2573"
+    }
+  },
+  "arms_differ_exempted": [
+    [
+      "TEXT",
+      "CUE_ABLATE"
+    ]
+  ],
+  "improving_property": {
+    "cue_density_bins": {
+      "(0.34,0.5]": {
+        "text_acc": 0.0,
+        "cue_acc": 1.0,
+        "lift": 1.0,
+        "n_items": 6,
+        "n_pairs": 6
+      },
+      "(0,0.34]": {
+        "text_acc": 0.0,
+        "cue_acc": 1.0,
+        "lift": 1.0,
+        "n_items": 6,
+        "n_pairs": 10
+      },
+      "0.0": {
+        "text_acc": 1.0,
+        "cue_acc": 1.0,
+        "lift": 0.0,
+        "n_items": 8,
+        "n_pairs": 9
+      }
+    },
+    "sequence_matrix": {
+      "shared_matrix_mean_chain_depth": 1.15,
+      "shared_matrix_full_recovery_frac": 0.85,
+      "per_item_depths": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        0,
+        1,
+        1
+      ],
+      "per_item_seqlens": [
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_distinct_event_lemmas": 37,
+      "flashback_chrono_successor_acc": 1.0,
+      "flashback_text_successor_acc": 0.0,
+      "n_flashback_scored": 12
+    }
+  },
+  "autopsy": {},
+  "gold": {
+    "n_flashback_items": 12,
+    "n_linear_items": 8,
+    "flashback": [
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "The first man who came in was a large officer she had once seen talking to her father.",
+        "pairs": [
+          [
+            "seen",
+            "came"
+          ]
+        ]
+      },
+      {
+        "source": "The Flying U Ranch (Bower), LitBank 1206",
+        "text": "He looked at the others -- at all, that is, save Pink and Irish, who had disappeared.",
+        "pairs": [
+          [
+            "disappeared",
+            "looked"
+          ]
+        ]
+      },
+      {
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "text": "Her hand closed on the oilskin packet that had lain in his palm.",
+        "pairs": [
+          [
+            "lain",
+            "closed"
+          ]
+        ]
+      },
+      {
+        "source": "Night and Day (Woolf), LitBank 1245",
+        "text": "Denham, mother, she said aloud, for she saw that her mother had forgotten his name.",
+        "pairs": [
+          [
+            "forgotten",
+            "said"
+          ],
+          [
+            "forgotten",
+            "saw"
+          ]
+        ]
+      },
+      {
+        "source": "Personality Plus (Ferber), LitBank 12677",
+        "text": "He stood framed in the great plate-glass window of the very building which had brought about the defeat of his predecessor.",
+        "pairs": [
+          [
+            "brought",
+            "stood"
+          ]
+        ]
+      },
+      {
+        "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+        "text": "I thought of course that somebody had stolen them, some boy from the village, or perhaps the chastised cowherd.",
+        "pairs": [
+          [
+            "stolen",
+            "thought"
+          ]
+        ]
+      },
+      {
+        "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+        "text": "Upon asking him why he did not write, he said that he had decided upon doing no more writing.",
+        "pairs": [
+          [
+            "decided",
+            "said"
+          ]
+        ]
+      },
+      {
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "When I turned, I found that the young man had taken out the dog and was standing at the door looking in upon us.",
+        "pairs": [
+          [
+            "taken",
+            "turned"
+          ],
+          [
+            "taken",
+            "found"
+          ]
+        ]
+      },
+      {
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "When we came to the door, we found the woman who had brought such consolation with her standing there.",
+        "pairs": [
+          [
+            "brought",
+            "came"
+          ],
+          [
+            "brought",
+            "found"
+          ]
+        ]
+      },
+      {
+        "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+        "text": "Oh, I beg your pardon, cried Alice hastily, afraid that she had hurt the poor animal's feelings.",
+        "pairs": [
+          [
+            "hurt",
+            "cried"
+          ]
+        ]
+      },
+      {
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "Raising my eyes as he went out, I once more saw him looking at me after he had passed the door.",
+        "pairs": [
+          [
+            "passed",
+            "saw"
+          ]
+        ]
+      },
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "She heard neither voices nor footsteps, and wondered if everybody had got well of the cholera.",
+        "pairs": [
+          [
+            "got",
+            "wondered"
+          ],
+          [
+            "got",
+            "heard"
+          ]
+        ]
+      }
+    ],
+    "linear": [
+      {
+        "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+        "text": "I advanced towards the screen, and demanded the reason for such extraordinary conduct.",
+        "pairs": [
+          [
+            "advanced",
+            "demanded"
+          ]
+        ]
+      },
+      {
+        "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+        "text": "So she set to work, and very soon finished off the cake.",
+        "pairs": [
+          [
+            "set",
+            "finished"
+          ]
+        ]
+      },
+      {
+        "source": "Treasure Island (Stevenson), LitBank 120",
+        "text": "Then he passed his hand over his eyes several times and at last turned back into the house.",
+        "pairs": [
+          [
+            "passed",
+            "turned"
+          ]
+        ]
+      },
+      {
+        "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+        "text": "He listened till I paused to breathe, and then he said that.",
+        "pairs": [
+          [
+            "listened",
+            "paused"
+          ],
+          [
+            "paused",
+            "said"
+          ]
+        ]
+      },
+      {
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+        "text": "The lad quickened his pace and came near.",
+        "pairs": [
+          [
+            "quickened",
+            "came"
+          ]
+        ]
+      },
+      {
+        "source": "The Masque of the Red Death (Poe), LitBank 1064",
+        "text": "The revel went whirlingly on, until at length there commenced the sounding of midnight.",
+        "pairs": [
+          [
+            "went",
+            "commenced"
+          ]
+        ]
+      },
+      {
+        "source": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+        "text": "There he lay a while trembling and at last drifted into dreamless sleep.",
+        "pairs": [
+          [
+            "lay",
+            "drifted"
+          ]
+        ]
+      },
+      {
+        "source": "The Moonstone (Collins), LitBank 155",
+        "text": "The three guardian priests followed and watched it in disguise.",
+        "pairs": [
+          [
+            "followed",
+            "watched"
+          ]
+        ]
+      }
+    ]
+  },
+  "per_arm_detail": {
+    "TEXT": {
+      "flashback": {
+        "acc": 0.0,
+        "n_correct": 0,
+        "n_scored": 16,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "seen"
+            ]
+          },
+          {
+            "source": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "looked",
+              "disappeared"
+            ]
+          },
+          {
+            "source": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "closed",
+              "lain"
+            ]
+          },
+          {
+            "source": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "saw",
+              "forgotten"
+            ]
+          },
+          {
+            "source": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stood",
+              "brought"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "thought",
+              "stolen"
+            ]
+          },
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "decided"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "turned",
+              "found",
+              "taken"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "found",
+              "brought"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "cried",
+              "afraid",
+              "hurt"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "saw",
+              "passed"
+            ]
+          },
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "heard",
+              "wondered",
+              "got"
+            ]
+          }
+        ]
+      },
+      "linear": {
+        "acc": 1.0,
+        "n_correct": 9,
+        "n_scored": 9,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "source": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "source": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "source": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "source": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "CUE": {
+      "flashback": {
+        "acc": 1.0,
+        "n_correct": 16,
+        "n_scored": 16,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "came"
+            ]
+          },
+          {
+            "source": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "disappeared",
+              "looked"
+            ]
+          },
+          {
+            "source": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lain",
+              "closed"
+            ]
+          },
+          {
+            "source": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "forgotten",
+              "said",
+              "saw"
+            ]
+          },
+          {
+            "source": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "stood"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stolen",
+              "thought"
+            ]
+          },
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "decided",
+              "said"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "taken",
+              "turned",
+              "found"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "came",
+              "found"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "hurt",
+              "cried",
+              "afraid"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "went",
+              "saw"
+            ]
+          },
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "got",
+              "heard",
+              "wondered"
+            ]
+          }
+        ]
+      },
+      "linear": {
+        "acc": 1.0,
+        "n_correct": 9,
+        "n_scored": 9,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "source": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "source": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "source": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "source": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "CUE_ABLATE": {
+      "flashback": {
+        "acc": 0.0,
+        "n_correct": 0,
+        "n_scored": 16,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "seen"
+            ]
+          },
+          {
+            "source": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "looked",
+              "disappeared"
+            ]
+          },
+          {
+            "source": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "closed",
+              "lain"
+            ]
+          },
+          {
+            "source": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "saw",
+              "forgotten"
+            ]
+          },
+          {
+            "source": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stood",
+              "brought"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "thought",
+              "stolen"
+            ]
+          },
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "decided"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "turned",
+              "found",
+              "taken"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "found",
+              "brought"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "cried",
+              "afraid",
+              "hurt"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "saw",
+              "passed"
+            ]
+          },
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "heard",
+              "wondered",
+              "got"
+            ]
+          }
+        ]
+      },
+      "linear": {
+        "acc": 1.0,
+        "n_correct": 9,
+        "n_scored": 9,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "source": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "source": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "source": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "source": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "NAIVE_REVERSE": {
+      "flashback": {
+        "acc": 1.0,
+        "n_correct": 16,
+        "n_scored": 16,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "came"
+            ]
+          },
+          {
+            "source": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "disappeared",
+              "looked"
+            ]
+          },
+          {
+            "source": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lain",
+              "closed"
+            ]
+          },
+          {
+            "source": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "forgotten",
+              "saw",
+              "said"
+            ]
+          },
+          {
+            "source": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "stood"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stolen",
+              "thought"
+            ]
+          },
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "decided",
+              "said"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "taken",
+              "found",
+              "turned"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "found",
+              "came"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "hurt",
+              "afraid",
+              "cried"
+            ]
+          },
+          {
+            "source": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "saw",
+              "went"
+            ]
+          },
+          {
+            "source": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "got",
+              "wondered",
+              "heard"
+            ]
+          }
+        ]
+      },
+      "linear": {
+        "acc": 0.0,
+        "n_correct": 0,
+        "n_scored": 9,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "source": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "demanded",
+              "advanced"
+            ]
+          },
+          {
+            "source": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "set"
+            ]
+          },
+          {
+            "source": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "turned",
+              "passed"
+            ]
+          },
+          {
+            "source": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "paused",
+              "listened"
+            ]
+          },
+          {
+            "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "quickened"
+            ]
+          },
+          {
+            "source": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "commenced",
+              "went"
+            ]
+          },
+          {
+            "source": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "drifted",
+              "lay"
+            ]
+          },
+          {
+            "source": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "watched",
+              "followed"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "honest_scope": "clean 0/1 flashback separation reflects past-perfect being a high-precision cue on CONSERVATIVE short single-frame flashbacks; graded frontier = extraction robustness + multi-sentence multi-frame chronology (the situation-model NEXT PHASE), named not claimed."
+}

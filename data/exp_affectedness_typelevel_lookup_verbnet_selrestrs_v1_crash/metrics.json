@@ -1,0 +1,9 @@
+{
+  "anchor_name": "affectedness_typelevel_lookup_verbnet_selrestrs_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: a row where arms disagree must be flagged as differing",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_affectedness_typelevel_lookup_verbnet_selrestrs_v1.py\", line 732, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_affectedness_typelevel_lookup_verbnet_selrestrs_v1.py\", line 720, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_affectedness_typelevel_lookup_verbnet_selrestrs_v1.py\", line 664, in self_test\n    assert differ_flag2 is True, \"a row where arms disagree must be flagged as differing\"\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: a row where arms disagree must be flagged as differing\n",
+  "ts_iso": "2026-07-20T17:07:32.153364+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "anchor_name": "anisotropy_rescue_4arm_sweep_v1_gpu",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "CALIBRATION FLAG: ARM D (attention upper-bound) = 0.445 < 0.80 -> meter under-calibrated; interpret arms RELATIVE only. ARM1_RAW=0.019(kill if>=0.80) | A=0.041(A'dense=0.040) B=0.612(B'charikar=0.982, degrade=0.108, 238b/mem) C=0.573 D=0.445",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "M_SWEEP": [
+    400,
+    1000
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "ARM1_RAW@M10": 0.019,
+    "arm_A": 0.041,
+    "arm_Ap_dense": 0.04,
+    "arm_B": 0.612,
+    "arm_Bp_charikar": 0.982,
+    "arm_C": 0.573,
+    "arm_D": 0.445,
+    "B_M_indep_degrade": 0.108,
+    "B_storage_bits_per_mem": 238.1,
+    "storage_class": "A/C-superpos=M-INDEP O(d'^2); B-flyLSH=O(M) per-mem-compressed (C2)",
+    "CONFIG_VERSION": "4arm(A-cerebellar-K5/A'-dense / B-flyLSH/B'-charikar / C-compose / D-attn); expand5x kwta0.10 flytopk20; C1-ARM1_RAW>=0.80-kill C2-storage-class; FP16",
+    "cites": [
+      "dense_KV_learned_key_MM_anisotropy",
+      "research_biology_brain_drill",
+      "Litwin-Kumar2017_cerebellar",
+      "fly_LSH_Dasgupta2017"
+    ],
+    "A_pass": false,
+    "B_pass": false,
+    "C_pass": false
+  },
+  "metrics_source": "measured_gpu_anisotropy_rescue_4arm",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_M": {
+        "M400": {
+          "arm1_raw": 0.035,
+          "arm_A": 0.095,
+          "arm_Ap_dense": 0.095,
+          "arm_B": 0.72,
+          "arm_Bp_charikar": 0.99,
+          "arm_C": 0.7,
+          "arm_D": 0.7525,
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M1000": {
+          "arm1_raw": 0.019,
+          "arm_A": 0.041,
+          "arm_Ap_dense": 0.04,
+          "arm_B": 0.612,
+          "arm_Bp_charikar": 0.982,
+          "arm_C": 0.573,
+          "arm_D": 0.445,
+          "B_storage_bits_per_mem": 238.1
+        }
+      },
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782057994.0657356
+    }
+  ],
+  "elapsed_s": 85.18308281898499,
+  "summary": "CALIBRATION FLAG: ARM D (attention upper-bound) = 0.445 < 0.80 -> meter under-calibrated; interpret arms RELATIVE only. ARM1_RAW=0.019(kill if>=0.80) | A=0.041(A'dense=0.040) B=0.612(B'charikar=0.982, degrade=0.108, 238b/mem) C=0.573 D=0.445"
+}

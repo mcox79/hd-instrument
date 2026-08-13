@@ -1,0 +1,440 @@
+{
+  "anchor_name": "multi_turn_loop_realtext_oracle_vs_real_compounding_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (compounds-collapses) | ORACLE cross=1.000 all=1.000 | REAL cross=0.191 all=0.258 (parse RELF1=0.217 R=0.375) | REAL_NOMEM cross=0.143 | FREQ cross=0.381 | ORACLE-REAL gap=0.742 (NC=0.429 CO=1.000 CC=1.000 CMP=0.750) | mem_benefit(REAL-NOMEM)=0.048 | REAL_over_FREQ=-0.191 | REAL hallucination=0.419",
+  "summary": "HARD_FAIL (compounds-collapses) | ORACLE cross=1.000 all=1.000 | REAL cross=0.191 all=0.258 (parse RELF1=0.217 R=0.375) | REAL_NOMEM cross=0.143 | FREQ cross=0.381 | ORACLE-REAL gap=0.742 (NC=0.429 CO=1.000 CC=1.000 CMP=0.750) | mem_benefit(REAL-NOMEM)=0.048 | REAL_over_FREQ=-0.191 | REAL hallucinat",
+  "composition_outcome": "compounds-collapses",
+  "run_mode": "full",
+  "elapsed_s": 5.5046,
+  "ts_iso": "2026-07-23T04:53:04.818417+00:00",
+  "n_questions": 31,
+  "n_passages": 14,
+  "arms": [
+    "ORACLE",
+    "REAL",
+    "REAL_NOMEM",
+    "FREQUENCY"
+  ],
+  "ORACLE": {
+    "per_slice": {
+      "NC": 1.0,
+      "n_NC": 7,
+      "CO": 1.0,
+      "n_CO": 3,
+      "CC": 1.0,
+      "n_CC": 5,
+      "CMP": 1.0,
+      "n_CMP": 16,
+      "all": 1.0
+    },
+    "all": 1.0,
+    "cross_turn": 1.0,
+    "within_turn": 1.0,
+    "hallucination_rate": 0.0,
+    "n_hallucinated": 0,
+    "n_abstained": 0
+  },
+  "REAL": {
+    "per_slice": {
+      "NC": 0.5714,
+      "n_NC": 7,
+      "CO": 0.0,
+      "n_CO": 3,
+      "CC": 0.0,
+      "n_CC": 5,
+      "CMP": 0.25,
+      "n_CMP": 16,
+      "all": 0.2581
+    },
+    "all": 0.2581,
+    "cross_turn": 0.1905,
+    "within_turn": 0.5714,
+    "hallucination_rate": 0.4194,
+    "n_hallucinated": 13,
+    "n_abstained": 10,
+    "relf1": {
+      "micro_precision": 0.153,
+      "micro_recall": 0.375,
+      "micro_f1": 0.217,
+      "tp": 9,
+      "n_extracted": 59,
+      "n_gold": 24,
+      "per_passage": {
+        "L14_henry": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 3,
+          "n_ext": 4
+        },
+        "L18_king": {
+          "p": 0.25,
+          "r": 0.5,
+          "tp": 1,
+          "n_gold": 2,
+          "n_ext": 4
+        },
+        "L21_bee": {
+          "p": 0.5,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L23_doll": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L26_patty": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 7
+        },
+        "L28_sam": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 6
+        },
+        "L2_cat": {
+          "p": 0.5,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L32_tiger": {
+          "p": 0.2,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 5
+        },
+        "L35_willie": {
+          "p": 0.2,
+          "r": 0.5,
+          "tp": 1,
+          "n_gold": 2,
+          "n_ext": 5
+        },
+        "L57_laura": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L5_dogs": {
+          "p": 0.222,
+          "r": 0.4,
+          "tp": 2,
+          "n_gold": 5,
+          "n_ext": 9
+        },
+        "L5b_dodger": {
+          "p": 0.5,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L60_geo": {
+          "p": 0.167,
+          "r": 0.5,
+          "tp": 1,
+          "n_gold": 2,
+          "n_ext": 6
+        },
+        "L8_puss": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 2,
+          "n_ext": 3
+        }
+      }
+    },
+    "coref_stage": {
+      "n_pron_attempts": 34,
+      "n_pron_resolved": 31,
+      "resolved_rate": 0.912
+    }
+  },
+  "REAL_NOMEM": {
+    "per_slice": {
+      "NC": 0.5714,
+      "n_NC": 7,
+      "CO": 0.0,
+      "n_CO": 3,
+      "CC": 0.0,
+      "n_CC": 5,
+      "CMP": 0.1875,
+      "n_CMP": 16,
+      "all": 0.2258
+    },
+    "all": 0.2258,
+    "cross_turn": 0.1429,
+    "within_turn": 0.5714,
+    "hallucination_rate": 0.1935,
+    "n_hallucinated": 6,
+    "n_abstained": 18,
+    "relf1": {
+      "micro_precision": 0.174,
+      "micro_recall": 0.333,
+      "micro_f1": 0.229,
+      "tp": 8,
+      "n_extracted": 46,
+      "n_gold": 24,
+      "per_passage": {
+        "L14_henry": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 3,
+          "n_ext": 2
+        },
+        "L18_king": {
+          "p": 0.333,
+          "r": 0.5,
+          "tp": 1,
+          "n_gold": 2,
+          "n_ext": 3
+        },
+        "L21_bee": {
+          "p": 0.5,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L23_doll": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 1
+        },
+        "L26_patty": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 6
+        },
+        "L28_sam": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 5
+        },
+        "L2_cat": {
+          "p": 0.5,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L32_tiger": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 4
+        },
+        "L35_willie": {
+          "p": 0.333,
+          "r": 0.5,
+          "tp": 1,
+          "n_gold": 2,
+          "n_ext": 3
+        },
+        "L57_laura": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "n_ext": 1
+        },
+        "L5_dogs": {
+          "p": 0.286,
+          "r": 0.4,
+          "tp": 2,
+          "n_gold": 5,
+          "n_ext": 7
+        },
+        "L5b_dodger": {
+          "p": 0.5,
+          "r": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "n_ext": 2
+        },
+        "L60_geo": {
+          "p": 0.167,
+          "r": 0.5,
+          "tp": 1,
+          "n_gold": 2,
+          "n_ext": 6
+        },
+        "L8_puss": {
+          "p": 0.0,
+          "r": 0.0,
+          "tp": 0,
+          "n_gold": 2,
+          "n_ext": 2
+        }
+      }
+    },
+    "coref_stage": {
+      "n_pron_attempts": 0,
+      "n_pron_resolved": 0,
+      "resolved_rate": 0.0
+    }
+  },
+  "FREQUENCY": {
+    "per_slice": {
+      "NC": 0.2857,
+      "n_NC": 7,
+      "CO": 0.0,
+      "n_CO": 3,
+      "CC": 0.4,
+      "n_CC": 5,
+      "CMP": 0.375,
+      "n_CMP": 16,
+      "all": 0.3226
+    },
+    "all": 0.3226,
+    "cross_turn": 0.381,
+    "within_turn": 0.2857,
+    "hallucination_rate": 0.6774,
+    "n_hallucinated": 21,
+    "n_abstained": 0
+  },
+  "gap_all": 0.7419,
+  "gap_slice": {
+    "NC": 0.4286,
+    "CO": 1.0,
+    "CC": 1.0,
+    "CMP": 0.75
+  },
+  "compounding_cost_oracle_minus_real": 0.7419,
+  "cross_turn_slices": [
+    "CC",
+    "CMP"
+  ],
+  "bootstrap": {
+    "p_real_vs_freq_crossturn": 0.9532,
+    "obs_real_minus_freq": -0.1905,
+    "p_real_vs_nomem_crossturn": 0.3576,
+    "obs_real_minus_nomem": 0.0476,
+    "n_boot": 5000
+  },
+  "weakest_interface": [
+    "MM ceilings COMPOUND: ORACLE-REAL all-Q gap=0.742 >= 0.40 (parse RELF1=0.217 recall=0.375; per-slice gap NC=0.429 CO=1.000 CC=1.000 CMP=0.750 localizes cascade)",
+    "REAL cross-turn collapses toward the memoryless floor (REAL=0.191 - FREQ=0.381 = -0.191 <= 0.10)",
+    "ZERO-HALLUCINATION BREAKS at scale: REAL hallucination_rate=0.419 > 0.35 (real MM parse/coref errors -> confident WRONG answers, not abstains)",
+    "cross-turn memory NOT load-bearing under real components (REAL-REAL_NOMEM cross=0.048 < 0.15)"
+  ],
+  "positive_control": {
+    "real_relf1_f1": 0.217,
+    "v4_handrule_floor": 0.217,
+    "tol": 0.05,
+    "reproduced": true
+  },
+  "bands": {
+    "HP_real_cross_min": 0.5,
+    "HP_mem_benefit_min": 0.15,
+    "HP_gap_max": 0.25,
+    "HP_oracle_cross_min": 0.7,
+    "HP_halluc_max": 0.2,
+    "HF_gap_min": 0.4,
+    "HF_real_over_freq_max": 0.1,
+    "HF_halluc_max": 0.35
+  },
+  "arms_differ_digests": {
+    "ORACLE": "bb5f8cb899d745460c121efbcf025d006d13918d43729872768f3bbef12321bf",
+    "REAL": "6e71567a69f6276fead7398cb48dce37dd986e1cb12e418d852e52e7d82483ec",
+    "REAL_NOMEM": "aabe3bee37cea52e9bdc0069b24438b585f02924aa5ada66b105123eed7e6d87",
+    "FREQUENCY": "ac415fa469202fcf17967c9c874bdc59cae70eaeafea912f3d1de09cb752ba88"
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential_cpu_pure_python",
+  "reuse_credited": {
+    "loop_discipline": "exp_multi_turn_conversational_loop_crossturn_qa_v1.py",
+    "realtext_components_and_gold": "exp_oracle_mention_upperbound_reader_v1.py (passages, gold rels, Q-set, learned role-assigner, maintained WorkingOverlay coref, relation-emission, query engine, frequency floor)"
+  },
+  "gold_rels_added_for_oracle_store": {
+    "L32_tiger": [
+      [
+        "poss",
+        "tigress",
+        "kitten"
+      ]
+    ],
+    "L60_geo": [
+      [
+        "svo",
+        "sent",
+        "george",
+        "ball"
+      ]
+    ],
+    "L5b_dodger": [
+      [
+        "poss",
+        "james",
+        "terrier"
+      ]
+    ],
+    "L23_doll": [
+      [
+        "poss",
+        "mary",
+        "dog"
+      ]
+    ],
+    "L28_sam": [
+      [
+        "poss",
+        "man",
+        "hat"
+      ],
+      [
+        "svo",
+        "gave",
+        "mother",
+        "cents"
+      ]
+    ],
+    "L26_patty": [
+      [
+        "svo",
+        "brought",
+        "patty",
+        "bread"
+      ]
+    ]
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "ORACLE",
+    "REAL",
+    "REAL_NOMEM",
+    "FREQUENCY",
+    "gap_all",
+    "gap_slice",
+    "arms_differ_digests",
+    "positive_control"
+  ],
+  "notes": "DECISIVE real-text composition test. ORACLE (completed gold store = perfect parse+coref) vs REAL (learned role-assigner + v4 hand-rule mentions + maintained cross-turn coref, true MM) vs REAL_NOMEM (coref OFF = within-turn baseline) vs FREQUENCY (memoryless floor). ORACLE-REAL gap = compounding cost; per-slice gap localizes the cascade; hallucination_rate = does zero-hallucination survive real MM. Glass-box, no LLM, no autograd. CLAIM-VET-pending. McGuffey = real-text testbed for the composition question, not a breadth/recognition target."
+}

@@ -1,0 +1,79 @@
+{
+  "anchor_name": "gt_induction_fb15k237_dense_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "GT_DENSE h@10=0.300 mrr=0.211 h@1=0.170 | SPARSE h@10=0.000 | POP_DEG h@10=0.140 mrr=0.062 | POP_RELFREQ h@10=0.443 (ref) | BROKEN h@10=0.173 mrr=0.092 | ceiling=0.570 ach/ceil=0.526 || beats_popdeg=True density_contrast=True broken_fails=True ceiling_ok=True",
+  "summary": "GT_DENSE h@10=0.300 mrr=0.211 h@1=0.170 | SPARSE h@10=0.000 | POP_DEG h@10=0.140 mrr=0.062 | POP_RELFREQ h@10=0.443 (ref) | BROKEN h@10=0.173 mrr=0.092 | ceiling=0.570 ach/ceil=0.526 || beats_popdeg=T",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "elapsed_s": 5.901526212692261,
+  "gates": {
+    "GT_DENSE_hits10": 0.3,
+    "GT_DENSE_mrr": 0.21100332407071667,
+    "GT_DENSE_hits1": 0.17,
+    "GT_SPARSE_hits10": 0.0,
+    "POP_DEGREE_hits10": 0.14,
+    "POP_DEGREE_mrr": 0.06151529318354921,
+    "POP_RELFREQ_hits10_ref": 0.44333333333333336,
+    "BROKEN_hits10": 0.17333333333333334,
+    "BROKEN_mrr": 0.09198895188830894,
+    "ceiling": 0.57,
+    "achieved_over_ceiling": 0.5263157894736842,
+    "beats_popdeg": true,
+    "density_contrast": true,
+    "broken_fails": true,
+    "ceiling_ok": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_ent": 14541,
+      "n_rel": 237,
+      "n_train": 272115,
+      "avgdeg_dense": 37.42727460284712,
+      "n_train_sparse": 21811,
+      "avgdeg_sparse": 2.9999312289388627,
+      "n_test_eval": 300,
+      "n_rules_dense": 838,
+      "n_rules_sparse": 20,
+      "hub_skipped": 81,
+      "median_cand_set": 17,
+      "ceiling_hits10_reach": 0.57,
+      "GT_DENSE": {
+        "hits@1": 0.17,
+        "hits@10": 0.3,
+        "mrr": 0.21100332407071667,
+        "n": 300
+      },
+      "GT_SPARSE": {
+        "hits@1": 0.0,
+        "hits@10": 0.0,
+        "mrr": 0.0,
+        "n": 300
+      },
+      "POP_DEGREE": {
+        "hits@1": 0.03333333333333333,
+        "hits@10": 0.14,
+        "mrr": 0.06151529318354921,
+        "n": 300
+      },
+      "POP_RELFREQ": {
+        "hits@1": 0.24666666666666667,
+        "hits@10": 0.44333333333333336,
+        "mrr": 0.31606394316473063,
+        "n": 300
+      },
+      "BROKEN_VERIF": {
+        "hits@1": 0.056666666666666664,
+        "hits@10": 0.17333333333333334,
+        "mrr": 0.09198895188830894,
+        "n": 300
+      },
+      "RANDOM": {
+        "hits@1": 0.0,
+        "hits@10": 0.0,
+        "mrr": 0.0006700593272456608,
+        "n": 300
+      }
+    }
+  ]
+}

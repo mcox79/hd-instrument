@@ -1,0 +1,209 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS on_miss_ratio=0.348 (pertoken 0.43->0.15) off_miss_mean=1.000 (flat~1.0 by construction) retention_gap=0.852 on_spearman=-0.783 off_spearman=0.000 on_cov 0.50->0.79 (d=+0.291) use_real_auc=0.8924 use_shuffle_auc=0.5122+-0.1003 auc_delta=0.3802 binacc=0.8 n_sent=6000 n_content_tokens=40448 n_grown=8422 n_escalations=2099",
+  "summary": "HARD_PASS_BREADTH_LOOP",
+  "elapsed_s": 2.87,
+  "ts_iso": "2026-07-21T22:54:41.964801+00:00",
+  "anchor_name": "exp_breadth_foundation_active_growth_loop_ud_ewt_v1",
+  "mode_tag": "full",
+  "n_sent": 6000,
+  "n_content_tokens": 40448,
+  "n_bins": 12,
+  "bands": {
+    "learns": true,
+    "baseline_flat": true,
+    "retention_gap_ok": true,
+    "shuffle_collapses": true,
+    "arms_differ": true,
+    "deterministic": true,
+    "cardinality_ok": true
+  },
+  "miss_rate_per_token": {
+    "note": "PRIMARY confound-free active-learning curve: asks per content token per bin. OFF = 1.0 by construction (every token re-asks, no retention); ON declines by retention.",
+    "growth_ON_curve": [
+      0.4251,
+      0.2742,
+      0.2052,
+      0.2083,
+      0.176,
+      0.1653,
+      0.1554,
+      0.1344,
+      0.1116,
+      0.1064,
+      0.1784,
+      0.1478
+    ],
+    "growth_OFF_curve": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "growth_SHUFFLE_curve": [
+      0.4251,
+      0.2742,
+      0.2052,
+      0.2083,
+      0.176,
+      0.1653,
+      0.1554,
+      0.1344,
+      0.1116,
+      0.1064,
+      0.1784,
+      0.1478
+    ],
+    "on_ratio_last_over_first": 0.3477,
+    "off_miss_mean": 1.0,
+    "on_spearman_vs_index": -0.7832,
+    "off_spearman_vs_index": 0.0,
+    "on_monotone_decreasing_frac": 0.8182,
+    "retention_gap_off_minus_on_last": 0.8522
+  },
+  "ask_rate_per_sentence": {
+    "note": "USER-named view (new-gaps per sentence). Carries a mild sentence-length drift across UD-EWT genre blocks -> the per-token miss rate above drives the verdict.",
+    "growth_ON_curve": [
+      4.396,
+      2.516,
+      2.012,
+      1.15,
+      0.832,
+      0.748,
+      0.838,
+      0.898,
+      0.53,
+      0.586,
+      1.16,
+      1.178
+    ],
+    "growth_OFF_curve": [
+      10.34,
+      9.176,
+      9.806,
+      5.522,
+      4.726,
+      4.524,
+      5.394,
+      6.682,
+      4.748,
+      5.508,
+      6.502,
+      7.968
+    ],
+    "growth_SHUFFLE_curve": [
+      4.396,
+      2.516,
+      2.012,
+      1.15,
+      0.832,
+      0.748,
+      0.838,
+      0.898,
+      0.53,
+      0.586,
+      1.16,
+      1.178
+    ],
+    "on_ratio_last_over_first": 0.268,
+    "off_ratio_last_over_first": 0.7706
+  },
+  "coverage": {
+    "growth_ON_curve": [
+      0.5027,
+      0.6458,
+      0.7153,
+      0.6827,
+      0.675,
+      0.7029,
+      0.7075,
+      0.7378,
+      0.7279,
+      0.7386,
+      0.7161,
+      0.7934
+    ],
+    "growth_OFF_curve": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "growth_SHUFFLE_curve": [
+      0.5027,
+      0.6458,
+      0.7153,
+      0.6827,
+      0.675,
+      0.7029,
+      0.7075,
+      0.7378,
+      0.7279,
+      0.7386,
+      0.7161,
+      0.7934
+    ],
+    "on_cov_delta_last_minus_first": 0.2907,
+    "off_cov_delta_last_minus_first": 0.0,
+    "on_coverage_asymptote": 0.7934
+  },
+  "usefulness_probe": {
+    "real_auc": 0.8924,
+    "shuffle_auc_mean": 0.5122,
+    "shuffle_auc_std": 0.1003,
+    "shuffle_auc_max": 0.7014,
+    "auc_delta_real_minus_shuffle_mean": 0.3802,
+    "real_binary_acc": 0.8,
+    "majority_chance": 0.64,
+    "n_high": 16,
+    "n_low": 9,
+    "n_used": 25,
+    "n_shuffle_seeds": 20
+  },
+  "residual_gap_breakdown": {
+    "by_category_types": {
+      "named_entity": 1255,
+      "verb_not_in_verbnet": 377,
+      "adj_oov_wordnet": 100,
+      "noun_oov_wordnet": 367
+    },
+    "by_category_frac_of_grown_types": {
+      "named_entity": 0.149,
+      "verb_not_in_verbnet": 0.0448,
+      "adj_oov_wordnet": 0.0119,
+      "noun_oov_wordnet": 0.0436
+    },
+    "n_grown_types": 8422,
+    "n_resolved_types": 6323,
+    "n_resolved_sense_flagged": 1192,
+    "n_escalations": 2099
+  },
+  "store_hashes": {
+    "ON": "356a11d2cef936384d878087550e8a8c0ddf889a2567395a9f2dd7920d42cde9",
+    "OFF": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "SHUFFLE": "b422941b93470470fe98f98787b32ce10047503c2a33653054a6190df2e61c61"
+  },
+  "prereg_bands": {
+    "HARD_PASS": "learns AND baseline_flat AND retention_gap AND shuffle_collapses AND arms_differ AND deterministic",
+    "HARD_FAIL": "on_ask_ratio>0.80 OR on_cov_delta<0.10 OR off_ask_ratio<0.70 OR not shuffle_collapses OR not arms_differ"
+  },
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n/a": "accuracy/rate curves on real corpus + labeled human gold; no substrate noise floor",
+  "final_metrics_atomicity": "tmp_replace"
+}

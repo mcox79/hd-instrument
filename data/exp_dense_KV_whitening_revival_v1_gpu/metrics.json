@@ -1,0 +1,72 @@
+{
+  "anchor_name": "dense_KV_whitening_revival_v1_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: whitening does NOT recover ARM1 @M=10k (whitened 0.068 ~ raw 0.048) -> isotropization does not rescue the M-indep store on real keys (contra the synthetic PoC -> real-vs-synthetic anisotropy investigation). ARM1_raw={200: 0.07, 400: 0.0475} ARM1_WHITENED={200: 0.155, 400: 0.0675} (recovery@M10=+0.020 vs raw; random-ref=0.824) ARM2={200: 0.93, 400: 0.75} ARM0={200: 1.0, 400: 1.0} | cv@M10=0.000 | fidelity-anchor cal(proj768 cue->key)=0.320 (>=CERT591 0.827? False)",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "C": 256,
+  "M_LK": [
+    200,
+    400
+  ],
+  "ZCA_TAU": 0.05,
+  "n_seeds": 1,
+  "detail": {
+    "calibration_mean": 0.32,
+    "fidelity_anchor_ok": false,
+    "ZCA_TAU": 0.05,
+    "arm1_raw_by_M": {
+      "200": 0.07,
+      "400": 0.0475
+    },
+    "arm1_whitened_by_M": {
+      "200": 0.155,
+      "400": 0.0675
+    },
+    "arm2_softmax_by_M": {
+      "200": 0.93,
+      "400": 0.75
+    },
+    "arm0_knn_by_M": {
+      "200": 1.0,
+      "400": 1.0
+    },
+    "whitened_recovery_at_M10": 0.02,
+    "random_ref_10k": 0.824,
+    "arm1_whitened_cv@M10": 0.0,
+    "capacity_bound": "~13d (=~9984 @d=768); ~13x compression vs explicit dict (M*d vs d^2 at the bound)",
+    "CONFIG_VERSION": "whitening-revival: RANDOM-PERM-split(GATE1-fix) + shrinkage-ZCA(tau=0.05)-isotropize-keys; proj768 C256 TRAIN_M600 CAL_POOL100 M[200, 400]; FP16",
+    "cites": [
+      "dense_KV_learned_key_MM",
+      "skunkworks_whitening_revival_cpu_poc",
+      "flagship_shrinkage_zca",
+      "CERT591_kv_learned_projection_v1"
+    ]
+  },
+  "metrics_source": "measured_gpu_dense_kv_whitening_revival",
+  "per_unit": [
+    {
+      "seed": 0,
+      "calibration_recall": 0.32,
+      "arms": {
+        "M200": {
+          "arm1_raw": 0.07,
+          "arm1_whitened": 0.155,
+          "arm2_softmax": 0.93,
+          "arm0_knn": 1.0
+        },
+        "M400": {
+          "arm1_raw": 0.0475,
+          "arm1_whitened": 0.0675,
+          "arm2_softmax": 0.75,
+          "arm0_knn": 1.0
+        }
+      },
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782054139.3949335
+    }
+  ],
+  "elapsed_s": 62.51072025299072,
+  "summary": "HARD_FAIL: whitening does NOT recover ARM1 @M=10k (whitened 0.068 ~ raw 0.048) -> isotropization does not rescue the M-indep store on real keys (contra the synthetic PoC -> real-vs-synthetic anisotropy investigation). ARM1_raw={200: 0.07, 400: 0.0475} ARM1_WHITENED={200: 0.155, 400: 0.0675} (recovery@M10=+0.020 vs raw; random-ref=0.824) ARM2={200: 0.93, 400: 0.75} ARM0={200: 1.0, 400: 1.0} | cv@M10=0.000 | fidelity-anchor cal(proj768 cue->key)=0.320 (>=CERT591 0.827? False)"
+}

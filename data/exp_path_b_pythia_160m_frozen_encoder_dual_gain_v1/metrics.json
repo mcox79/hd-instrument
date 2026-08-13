@@ -1,0 +1,632 @@
+{
+  "anchor_name": "path_b_pythia_160m_frozen_encoder_dual_gain_v1",
+  "anchor": "path_b_pythia_160m_frozen_encoder_dual_gain_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "PATH_B_PYTHIA MIDDLE_BAND: ARM_PYTHIA_160M_FRESH_W passes one criterion but not both (metric_A=FAIL metric_B=MID); partial-mechanism. PATH_B_PYTHIA_DUAL_GAIN unigram=7.738 trigram=7.738 w2v=inf pythia=7.738 pythia+LL=7.738 | cleanup_pythia@s1.5=0.000 | lift_over_w2v=nan | metric_A=FAIL metric_B=MID | n_llm=0",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "PYTHIA_MODEL_NAME": "EleutherAI/pythia-160m",
+  "PYTHIA_HIDDEN_DIM": 768,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 512,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SIGMA_SWEEP": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "DISCRIMINATOR_SIGMA": 1.5,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_CHAR_TRIGRAM_FRESH_W",
+    "ARM_WORD2VEC_FRESH_W",
+    "ARM_PYTHIA_160M_FRESH_W",
+    "ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0
+      },
+      "ARM_CHAR_TRIGRAM_FRESH_W": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.7244,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "cleanup15_mean": 0.0017,
+        "cleanup15_std": 0.0024,
+        "cleanup15_cv": 1.4142,
+        "n_valid": 3
+      },
+      "ARM_WORD2VEC_FRESH_W": {
+        "bpc_best_mean": Infinity,
+        "bpc_best_std": NaN,
+        "bpc_best_cv": NaN,
+        "bpc_raw_mean": Infinity,
+        "best_lambda_mean": NaN,
+        "n_valid_seeds": 0,
+        "n_load_failed": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": true,
+        "cleanup15_mean": NaN,
+        "cleanup15_std": NaN,
+        "cleanup15_cv": NaN,
+        "n_valid": 0
+      },
+      "ARM_PYTHIA_160M_FRESH_W": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.9643,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "cleanup15_mean": 0.0,
+        "cleanup15_std": 0.0,
+        "cleanup15_cv": 0.0,
+        "n_valid": 3,
+        "metric_a_pass": false,
+        "metric_a_fail": true,
+        "metric_b_pass": false,
+        "metric_b_fail": false,
+        "lift_over_w2v_bits": NaN
+      },
+      "ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 11.9643,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "cleanup15_mean": NaN,
+        "cleanup15_std": NaN,
+        "cleanup15_cv": NaN,
+        "n_valid": 0
+      }
+    },
+    "metric_a_pass": false,
+    "metric_a_fail": true,
+    "metric_b_pass": false,
+    "metric_b_fail": false,
+    "lift_over_w2v_bits": NaN,
+    "n_seeds": 3,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "hp_bpc_bar": 7.738,
+    "hp_bpc_lift_over_w2v": 0.3,
+    "hp_cleanup_recall_15": 0.2,
+    "hf_cleanup_recall_15": 0.05,
+    "hp_cleanup_cv_max": 0.3,
+    "hp_bpc_cv_max": 0.05,
+    "CONFIG_VERSION": "path_b_pythia_160m_frozen_encoder_dual_gain_v1; N_DIM=8192 W2V_DIM=300 PYTHIA=EleutherAI/pythia-160m PYTHIA_HIDDEN_DIM=768 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_PYTHIA_160M_FRESH_W', 'ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sigma_sweep=[0.0, 0.5, 1.0, 1.5, 2.0] disc_sigma=1.50 N_CLEANUP_EVAL=200; bands HP_bpc<7.738 HP_lift_w2v>=0.30 HP_recall15>=0.20 HF_recall15<=0.05 cv_max=0.05",
+    "honest_scope": "Path B pythia-160m frozen encoder dual-gain test. 5 arms x 3 seeds. N_DIM=8192 V=4000 N_TRAIN=100000 N_HELD=20000. HARD_PASS = ARM_PYTHIA_160M_FRESH_W clears BOTH cleanup-recall>=0.20@sigma=1.5 AND bpc<7.738 with >=0.30-bit lift over word2vec.",
+    "cites": [
+      "preregs/2026-06-23_path_b_pythia_160m_frozen_encoder_dual_gain_v1.md",
+      "experiments/exp_fresh_W_bpc_per_encoder_v1.py",
+      "experiments/exp_encoder_dual_gain_softhebb_v1.py",
+      "USER_2026-06-23_path_b_blanket_authorization",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24",
+      "Biderman_2023_Pythia_2304.01373"
+    ]
+  },
+  "metrics_source": "measured_gpu_path_b_pythia_160m_frozen_encoder_dual_gain_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_best": 7.7378,
+          "bpc_raw": 7.7378,
+          "n_test": 7886,
+          "cleanup_by_sigma": {},
+          "is_unigram_baseline": true
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 11.7223,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3973,
+            "0.3": 8.8099,
+            "0.5": 9.4815,
+            "0.7": 10.3221,
+            "1.0": 11.7685
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.874,
+            "0.3": 8.3927,
+            "0.5": 9.1703,
+            "0.7": 10.1169,
+            "1.0": 11.7223
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 1.86,
+          "wall_ingest_s": 0.91,
+          "wall_recall_s": 0.34,
+          "encoder_meta": {},
+          "cleanup_by_sigma": {
+            "0.0": 1.0,
+            "0.5": 0.02,
+            "1.0": 0.01,
+            "1.5": 0.005,
+            "2.0": 0.0
+          },
+          "cleanup_at_disc_sigma": 0.005
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "load_failed": true,
+          "compute_failed": false,
+          "load_error": "ModuleNotFoundError: No module named 'gensim'",
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": NaN,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {},
+          "bpc_per_lambda_test": {},
+          "n_dev": 0,
+          "n_test": 0,
+          "wall_encode_s": 0.0,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {},
+          "cleanup_by_sigma": {},
+          "cleanup_at_disc_sigma": NaN
+        },
+        "ARM_PYTHIA_160M_FRESH_W": {
+          "bpc_raw": 11.9643,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4086,
+            "0.3": 8.857,
+            "0.5": 9.5719,
+            "0.7": 10.4559,
+            "1.0": 11.9643
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8899,
+            "0.3": 8.4537,
+            "0.5": 9.2837,
+            "0.7": 10.283,
+            "1.0": 11.9643
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 11.29,
+          "wall_ingest_s": 0.9,
+          "wall_recall_s": 0.32,
+          "encoder_meta": {
+            "n_vocab": 4000,
+            "pretrain_dim": 768,
+            "encoder": "EleutherAI/pythia-160m",
+            "frozen": true,
+            "mean_pool": true
+          },
+          "cleanup_by_sigma": {
+            "0.0": 1.0,
+            "0.5": 0.0,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "cleanup_at_disc_sigma": 0.0
+        },
+        "ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM": {
+          "bpc_raw": 11.9643,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4086,
+            "0.3": 8.857,
+            "0.5": 9.5719,
+            "0.7": 10.4559,
+            "1.0": 11.9643
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8899,
+            "0.3": 8.4537,
+            "0.5": 9.2837,
+            "0.7": 10.283,
+            "1.0": 11.9643
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.0,
+          "wall_ingest_s": 0.91,
+          "wall_recall_s": 0.34,
+          "cleanup_by_sigma": {},
+          "cleanup_at_disc_sigma": NaN,
+          "sanity_lam1_matches_pythia_raw": true,
+          "sanity_lam0_matches_unigram": true,
+          "encoder_meta": {
+            "n_vocab": 4000,
+            "pretrain_dim": 768,
+            "encoder": "EleutherAI/pythia-160m",
+            "frozen": true,
+            "mean_pool": true
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PYTHIA_HIDDEN_DIM": 768,
+      "run_mode": "full",
+      "config_version": "path_b_pythia_160m_frozen_encoder_dual_gain_v1; N_DIM=8192 W2V_DIM=300 PYTHIA=EleutherAI/pythia-160m PYTHIA_HIDDEN_DIM=768 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_PYTHIA_160M_FRESH_W', 'ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sigma_sweep=[0.0, 0.5, 1.0, 1.5, 2.0] disc_sigma=1.50 N_CLEANUP_EVAL=200; bands HP_bpc<7.738 HP_lift_w2v>=0.30 HP_recall15>=0.20 HF_recall15<=0.05 cv_max=0.05",
+      "elapsed_s_seed": 36.98,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782249164.2409966
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_best": 7.7378,
+          "bpc_raw": 7.7378,
+          "n_test": 7886,
+          "cleanup_by_sigma": {},
+          "is_unigram_baseline": true
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 11.7206,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.397,
+            "0.3": 8.8098,
+            "0.5": 9.4818,
+            "0.7": 10.3228,
+            "1.0": 11.7699
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8736,
+            "0.3": 8.3919,
+            "0.5": 9.1692,
+            "0.7": 10.1155,
+            "1.0": 11.7206
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 1.95,
+          "wall_ingest_s": 1.07,
+          "wall_recall_s": 0.32,
+          "encoder_meta": {},
+          "cleanup_by_sigma": {
+            "0.0": 1.0,
+            "0.5": 0.08,
+            "1.0": 0.01,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "cleanup_at_disc_sigma": 0.0
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "load_failed": true,
+          "compute_failed": false,
+          "load_error": "ModuleNotFoundError: No module named 'gensim'",
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": NaN,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {},
+          "bpc_per_lambda_test": {},
+          "n_dev": 0,
+          "n_test": 0,
+          "wall_encode_s": 0.0,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {},
+          "cleanup_by_sigma": {},
+          "cleanup_at_disc_sigma": NaN
+        },
+        "ARM_PYTHIA_160M_FRESH_W": {
+          "bpc_raw": 11.9643,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4086,
+            "0.3": 8.857,
+            "0.5": 9.5719,
+            "0.7": 10.4559,
+            "1.0": 11.9643
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8899,
+            "0.3": 8.4537,
+            "0.5": 9.2837,
+            "0.7": 10.283,
+            "1.0": 11.9643
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 1.29,
+          "wall_ingest_s": 0.9,
+          "wall_recall_s": 0.33,
+          "encoder_meta": {
+            "n_vocab": 4000,
+            "pretrain_dim": 768,
+            "encoder": "EleutherAI/pythia-160m",
+            "frozen": true,
+            "mean_pool": true
+          },
+          "cleanup_by_sigma": {
+            "0.0": 1.0,
+            "0.5": 0.0,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "cleanup_at_disc_sigma": 0.0
+        },
+        "ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM": {
+          "bpc_raw": 11.9643,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4086,
+            "0.3": 8.857,
+            "0.5": 9.5719,
+            "0.7": 10.4559,
+            "1.0": 11.9643
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8899,
+            "0.3": 8.4537,
+            "0.5": 9.2837,
+            "0.7": 10.283,
+            "1.0": 11.9643
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.0,
+          "wall_ingest_s": 1.13,
+          "wall_recall_s": 0.33,
+          "cleanup_by_sigma": {},
+          "cleanup_at_disc_sigma": NaN,
+          "sanity_lam1_matches_pythia_raw": true,
+          "sanity_lam0_matches_unigram": true,
+          "encoder_meta": {
+            "n_vocab": 4000,
+            "pretrain_dim": 768,
+            "encoder": "EleutherAI/pythia-160m",
+            "frozen": true,
+            "mean_pool": true
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PYTHIA_HIDDEN_DIM": 768,
+      "run_mode": "full",
+      "config_version": "path_b_pythia_160m_frozen_encoder_dual_gain_v1; N_DIM=8192 W2V_DIM=300 PYTHIA=EleutherAI/pythia-160m PYTHIA_HIDDEN_DIM=768 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_PYTHIA_160M_FRESH_W', 'ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sigma_sweep=[0.0, 0.5, 1.0, 1.5, 2.0] disc_sigma=1.50 N_CLEANUP_EVAL=200; bands HP_bpc<7.738 HP_lift_w2v>=0.30 HP_recall15>=0.20 HF_recall15<=0.05 cv_max=0.05",
+      "elapsed_s_seed": 27.35,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782249191.6094224
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_best": 7.7378,
+          "bpc_raw": 7.7378,
+          "n_test": 7886,
+          "cleanup_by_sigma": {},
+          "is_unigram_baseline": true
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 11.7302,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3971,
+            "0.3": 8.8107,
+            "0.5": 9.4838,
+            "0.7": 10.3261,
+            "1.0": 11.7748
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8743,
+            "0.3": 8.3943,
+            "0.5": 9.1736,
+            "0.7": 10.1221,
+            "1.0": 11.7302
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 1.96,
+          "wall_ingest_s": 1.15,
+          "wall_recall_s": 0.32,
+          "encoder_meta": {},
+          "cleanup_by_sigma": {
+            "0.0": 1.0,
+            "0.5": 0.045,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "cleanup_at_disc_sigma": 0.0
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "load_failed": true,
+          "compute_failed": false,
+          "load_error": "ModuleNotFoundError: No module named 'gensim'",
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": NaN,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {},
+          "bpc_per_lambda_test": {},
+          "n_dev": 0,
+          "n_test": 0,
+          "wall_encode_s": 0.0,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {},
+          "cleanup_by_sigma": {},
+          "cleanup_at_disc_sigma": NaN
+        },
+        "ARM_PYTHIA_160M_FRESH_W": {
+          "bpc_raw": 11.9643,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4086,
+            "0.3": 8.857,
+            "0.5": 9.5719,
+            "0.7": 10.4559,
+            "1.0": 11.9643
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8899,
+            "0.3": 8.4537,
+            "0.5": 9.2838,
+            "0.7": 10.283,
+            "1.0": 11.9643
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 1.19,
+          "wall_ingest_s": 0.9,
+          "wall_recall_s": 0.32,
+          "encoder_meta": {
+            "n_vocab": 4000,
+            "pretrain_dim": 768,
+            "encoder": "EleutherAI/pythia-160m",
+            "frozen": true,
+            "mean_pool": true
+          },
+          "cleanup_by_sigma": {
+            "0.0": 1.0,
+            "0.5": 0.0,
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "cleanup_at_disc_sigma": 0.0
+        },
+        "ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM": {
+          "bpc_raw": 11.9643,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.4086,
+            "0.3": 8.857,
+            "0.5": 9.5719,
+            "0.7": 10.4559,
+            "1.0": 11.9643
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.8899,
+            "0.3": 8.4537,
+            "0.5": 9.2838,
+            "0.7": 10.283,
+            "1.0": 11.9643
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_encode_s": 0.0,
+          "wall_ingest_s": 1.15,
+          "wall_recall_s": 0.33,
+          "cleanup_by_sigma": {},
+          "cleanup_at_disc_sigma": NaN,
+          "sanity_lam1_matches_pythia_raw": true,
+          "sanity_lam0_matches_unigram": true,
+          "encoder_meta": {
+            "n_vocab": 4000,
+            "pretrain_dim": 768,
+            "encoder": "EleutherAI/pythia-160m",
+            "frozen": true,
+            "mean_pool": true
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PYTHIA_HIDDEN_DIM": 768,
+      "run_mode": "full",
+      "config_version": "path_b_pythia_160m_frozen_encoder_dual_gain_v1; N_DIM=8192 W2V_DIM=300 PYTHIA=EleutherAI/pythia-160m PYTHIA_HIDDEN_DIM=768 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_PYTHIA_160M_FRESH_W', 'ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sigma_sweep=[0.0, 0.5, 1.0, 1.5, 2.0] disc_sigma=1.50 N_CLEANUP_EVAL=200; bands HP_bpc<7.738 HP_lift_w2v>=0.30 HP_recall15>=0.20 HF_recall15<=0.05 cv_max=0.05",
+      "elapsed_s_seed": 27.62,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782249219.2480597
+    }
+  ],
+  "elapsed_s": 92.00816011428833,
+  "summary": "PATH_B_PYTHIA MIDDLE_BAND: ARM_PYTHIA_160M_FRESH_W passes one criterion but not both (metric_A=FAIL metric_B=MID); partial-mechanism. PATH_B_PYTHIA_DUAL_GAIN unigram=7.738 trigram=7.738 w2v=inf pythia=7.738 pythia+LL=7.738 | cleanup_pythia@",
+  "substrate_only_decode_gate": "TRUE (pythia is a static lookup-table built once from open-weights public checkpoint; zero LLM at inference time)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "path_b_pythia_160m_frozen_encoder_dual_gain_v1; N_DIM=8192 W2V_DIM=300 PYTHIA=EleutherAI/pythia-160m PYTHIA_HIDDEN_DIM=768 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_PYTHIA_160M_FRESH_W', 'ARM_PYTHIA_PLUS_LOG_LINEAR_UNIGRAM'] seeds=[7, 17, 23] mode=full INGEST_CHUNK=4096 RECALL_BATCH=512 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sigma_sweep=[0.0, 0.5, 1.0, 1.5, 2.0] disc_sigma=1.50 N_CLEANUP_EVAL=200; bands HP_bpc<7.738 HP_lift_w2v>=0.30 HP_recall15>=0.20 HF_recall15<=0.05 cv_max=0.05",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

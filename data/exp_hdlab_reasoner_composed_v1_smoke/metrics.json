@@ -1,0 +1,183 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "coverage_fraction",
+    "n_covered",
+    "covered_subset",
+    "whole_set",
+    "preregistered_bands_pivot_note_s6",
+    "traces"
+  ],
+  "anchor_name": "hdlab_reasoner_composed_v1",
+  "bands_definition": {
+    "beats_shuffle_direction": ">= 0.15 absolute",
+    "beats_similarity_pipeline": ">= 0.10 absolute (typed - baseline on covered subset)",
+    "beats_untyped_null": ">= 0.15 absolute",
+    "coverage_subset_acc": ">= 0.50",
+    "note": "WIRED_COVERAGE_LIMITED when n_covered<10: coverage is the KNOWN bottleneck (RED gate); the composed wiring + traces are the deliverable, not a bands win."
+  },
+  "chance": 0.3333,
+  "config": {
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "depth": 3,
+    "licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ],
+    "n_eval": 12,
+    "one_variable_across_arms": "edge_structure (node-identity + search + decision identical)",
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING",
+  "correct_reachable_fraction": 0.1667,
+  "coverage_fraction": 0.25,
+  "covered_subset": {
+    "baseline_acc": 0.3333,
+    "n": 3,
+    "shuffle_direction_acc": 0.3333,
+    "typed_acc": 0.3333,
+    "typed_minus_baseline": 0.0,
+    "typed_minus_shuffle": 0.0,
+    "typed_minus_untyped_null": 0.3333,
+    "untyped_null_acc": 0.0
+  },
+  "elapsed_s": 141.6,
+  "graph": {
+    "max_degree_node_label": "something",
+    "max_typed_node_degree": 83,
+    "n_fillers": 3189,
+    "n_licensed_rows": 1868,
+    "n_merges": 3728,
+    "n_nodes": 2359,
+    "n_null_edges": 191545,
+    "n_typed_edges": 1735,
+    "neg_flagged_fillers": 61,
+    "per_relation": {
+      "CAUSE": 380,
+      "COUPLEDRELATIONSHIP": 251,
+      "IFTHEN": 507,
+      "REQUIRES": 215,
+      "SOURCEOF": 178,
+      "USEDFOR": 337
+    }
+  },
+  "n_bands_pass": 1,
+  "n_correct_reachable": 2,
+  "n_covered": 3,
+  "pid": 24416,
+  "preregistered_bands_pivot_note_s6": {
+    "beats_shuffle_direction_ge_0.15": false,
+    "beats_similarity_pipeline_ge_0.10": false,
+    "beats_untyped_null_ge_0.15": true,
+    "coverage_subset_acc_ge_0.50": false
+  },
+  "promotions": {
+    "P1_done": "hdlab/typed_rule_parser.py (parse_tablestore_typed promoted)",
+    "P3_noted": "M3 meet-in-middle search reused-by-import (gate.meet_connected); promote to hdlab superseding K=2 multi_hop.py",
+    "P4_noted": "CI/polarity reused-by-import (PolarityLexicon.contradicts; _ci_two_phase_pol available as fuller settle); promote to hdlab"
+  },
+  "run_mode": "full",
+  "summary": "COMPOSED REASONER wired end-to-end | coverage=0.250 (n_covered=3/12) | covered-subset typed_acc=0.333 vs baseline 0.333 (d=+0.000) vs shuffle 0.333 (d=+0.000) vs untyped-null 0.000 (d=+0.333) | whole-set typed=0.167 baseline=0.167 | tier=WIRED_COVERAGE_LIMITED",
+  "tier": "WIRED_COVERAGE_LIMITED",
+  "traces": [
+    {
+      "chain_len": 0,
+      "chosen_choice": "begin dividing into more cells.",
+      "chosen_correct": false,
+      "correct_choice": "stop sending signals to the brain.",
+      "decision_mode": "similarity_fallback",
+      "derivation_chain": null,
+      "do_calculus": [],
+      "givens_covered": 0.0,
+      "kind": "INCORRECT_OR_UNCOVERED",
+      "qid": "Mercury_7107170",
+      "stem": "If a nerve cell stopped functioning, the cell would",
+      "why_others_not_chosen": [
+        {
+          "choice": "start producing oxygen.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "become a different type of cell.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "stop sending signals to the brain.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    },
+    {
+      "chain_len": 0,
+      "chosen_choice": "0.1 km",
+      "chosen_correct": false,
+      "correct_choice": "1.5 km",
+      "decision_mode": "abstain_index0",
+      "derivation_chain": null,
+      "do_calculus": [],
+      "givens_covered": 0.0,
+      "kind": "INCORRECT_OR_UNCOVERED",
+      "qid": "Mercury_411071",
+      "stem": "Jeremy walked at an average rate of speed of 3 kilometers per hour (km/h). How far had Jeremy walked in 30 minutes?",
+      "why_others_not_chosen": [
+        {
+          "choice": "1.5 km",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "10 km",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "90 km",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    },
+    {
+      "chain_len": 3,
+      "chosen_choice": "increase",
+      "chosen_correct": true,
+      "correct_choice": "increase",
+      "decision_mode": "derivation",
+      "derivation_chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+      "do_calculus": [
+        {
+          "audit_sha256_12": "1646286e0f90",
+          "dst": "increase",
+          "intervention": "do(object increases)",
+          "propagated": "increase increases",
+          "src": "object"
+        }
+      ],
+      "givens_covered": 0.5,
+      "kind": "CORRECT_DERIVATION",
+      "qid": "NYSEDREGENTS_2012_8_42",
+      "stem": "If the force used to push a shopping cart increases, the cart's acceleration will",
+      "why_others_not_chosen": [
+        {
+          "choice": "decrease",
+          "reason": "derivable but not selected (givens_covered=0.5, chain_len=3, combiner=0.4816)"
+        },
+        {
+          "choice": "remain the same",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    }
+  ],
+  "ts_iso": "2026-07-25T13:39:49.623963+00:00",
+  "verdict": "COMPOSED_REASONER_WIRED",
+  "verdict_msg": "Composed verification-by-derivation reasoner (hdlab/reasoner.py) wired end-to-end: comprehend->typed-graph->meet-in-middle derivation search->CI consistency->do-calculus routing->decision->inspectable trace. Coverage on the current LICENSED WorldTree table is LOW as EXPECTED (connectivity gate was RED, COVERAGE_BOUND); the DELIVERABLE is the wiring being DONE + working + producing real derivation traces on the covered subset. Rule-supply (Step 1) + grounded meaning (Step 5) expand coverage. COMPREHENSION uses the INTERIM _content_words stand-in (not situation_reader). Bands reported STRAIGHT, NOT tuned; both must-fail controls present.",
+  "whole_set": {
+    "baseline_acc": 0.1667,
+    "typed_acc": 0.1667
+  }
+}

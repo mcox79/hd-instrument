@@ -1,0 +1,165 @@
+{
+  "verdict": "HARD_FAIL_2_POL_NO_LIFT",
+  "verdict_msg": "Coverage OK (frac_q_any_neg=0.3083) but polarity does NOT lift the lure subset: settle_pol-settle on Challenge lexical-HARD = [-0.0317, -0.0556] (want >= 0.03 both seeds); settle_pol-pos_only (Chal) = -0.1201. Full Chal settle_pol 0.5041 vs wordoverlap 0.7413 (-0.2372). end-to-end retr Chal settle_pol 0.2751540041067762 vs settle 0.2936344969199179 ~chance 0.250 -> retrieval remains the wall (HARD-FAIL 3 territory: fixing aggregation contradiction-blindness alone cannot move the end-to-end needle; redirect to retrieval).",
+  "summary": "HARD_FAIL_2_POL_NO_LIFT: [Chal oracle] settle_pol=0.5041 settle=0.6273 pos_only=0.6242 wordoverlap=0.7413 bundle=0.7033 single=0.5883 | lexical-HARD Chal lift(settle_pol-settle)=[-0.0317, -0.0556] | coverage frac_q_any_neg=0.3083 | chance=0.250",
+  "elapsed_s": 109.4,
+  "ts_iso": "2026-07-24T21:05:54.011133+00:00",
+  "anchor_name": "arc_aggregation_polarity_ci_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seeds": [
+    20260724,
+    20260725
+  ],
+  "pol_mag": 1.0,
+  "n_questions": 1664,
+  "n_easy": 1177,
+  "n_challenge": 487,
+  "chance_theoretical": 0.2502,
+  "control_random_pick": 0.2398,
+  "coverage_oracle": {
+    "n_neg_fc": 1366,
+    "n_neg_ff": 1841,
+    "poss_fc": 24293,
+    "poss_ff": 13899,
+    "n_q_any_neg": 735,
+    "n_q_any_fc_neg": 513,
+    "n_q": 1664,
+    "frac_fc_neg": 0.05623,
+    "frac_ff_neg": 0.132456,
+    "frac_q_any_neg": 0.441707,
+    "frac_q_any_fc_neg": 0.308293
+  },
+  "coverage_ok": true,
+  "polarity_antonym_fires": 7735,
+  "polarity_negation_fires": 20837,
+  "n_lexical_hard_challenge": 126,
+  "n_lexical_hard_easy": 211,
+  "subset_challenge_by_arm_by_seed": {
+    "oracle_single": [
+      0.3968,
+      0.3889
+    ],
+    "oracle_bundle": [
+      0.4444,
+      0.4762
+    ],
+    "oracle_settle": [
+      0.373,
+      0.4048
+    ],
+    "oracle_pos_only": [
+      0.3492,
+      0.373
+    ],
+    "oracle_settle_pol": [
+      0.3413,
+      0.3492
+    ],
+    "oracle_wordoverlap": [
+      0.0,
+      0.0
+    ]
+  },
+  "subset_easy_by_arm_by_seed": {
+    "oracle_single": [
+      0.4123,
+      0.3744
+    ],
+    "oracle_bundle": [
+      0.4455,
+      0.436
+    ],
+    "oracle_settle": [
+      0.4265,
+      0.4313
+    ],
+    "oracle_pos_only": [
+      0.4171,
+      0.4265
+    ],
+    "oracle_settle_pol": [
+      0.3981,
+      0.4123
+    ],
+    "oracle_wordoverlap": [
+      0.0,
+      0.0
+    ]
+  },
+  "lift_settlepol_minus_settle_challenge_subset_by_seed": [
+    -0.0317,
+    -0.0556
+  ],
+  "lift_all_seeds_ge_band": false,
+  "oracle_settle_pol_acc_challenge": 0.5041,
+  "oracle_settle_acc_challenge": 0.6273,
+  "oracle_pos_only_acc_challenge": 0.6242,
+  "oracle_wordoverlap_acc_challenge": 0.7413,
+  "oracle_bundle_acc_challenge": 0.7033,
+  "oracle_single_acc_challenge": 0.5883,
+  "oracle_settle_pol_acc_easy": 0.5506,
+  "oracle_settle_acc_easy": 0.6602,
+  "oracle_pos_only_acc_easy": 0.658,
+  "oracle_wordoverlap_acc_easy": 0.8207,
+  "delta_settlepol_minus_posonly_challenge": -0.1201,
+  "delta_settlepol_minus_settle_challenge": -0.1232,
+  "delta_settlepol_minus_wordoverlap_challenge": -0.2372,
+  "retr_settle_pol_acc_challenge": 0.2751540041067762,
+  "retr_settle_acc_challenge": 0.2936344969199179,
+  "retr_wordoverlap_acc_challenge": 0.2874743326488706,
+  "retr_coverage": {
+    "n_neg_fc": 6194,
+    "n_neg_ff": 15964,
+    "poss_fc": 66530,
+    "poss_ff": 74880,
+    "n_q_any_neg": 1461,
+    "n_q_any_fc_neg": 1075,
+    "n_q": 1664,
+    "frac_fc_neg": 0.093101,
+    "frac_ff_neg": 0.213194,
+    "frac_q_any_neg": 0.878005,
+    "frac_q_any_fc_neg": 0.646034
+  },
+  "oracle_shuffled_pol_acc_easy": 0.2319,
+  "oracle_inverted_pol_acc_easy": 0.1491,
+  "mustfail_shuffled_pol_collapsed": true,
+  "mustfail_inverted_pol_below_chance": true,
+  "mustfail_breach": false,
+  "arms_differ_verified": true,
+  "arm_digests_seed0": {
+    "oracle_single": "788685d0558909a94cca4ef8d13183dc89939ad5a39a9943771ded5a306fabf1",
+    "oracle_sum": "f9f4b0deb84039f37fa2ef9a90baed9eb2554e98aa64f22f1152885af9765b88",
+    "oracle_bundle": "5b41e8668d95b5d1a4eff73b476ec1a33772290026236fc631513b3f700f2a1c",
+    "oracle_settle": "5eb166fe544a82d4eaec0630e50d2dfa3fe7f3c6a7eb6a459db2d0801b53e77e",
+    "oracle_pos_only": "c28227274464c339ede3ae833692395024dbd2de45945aefb150d0a7219be408",
+    "oracle_settle_pol": "61565dd1605909b178b0bc6293a8beb8736a596114ab0319fee2174684a16a31",
+    "oracle_shuffled_pol": "5570c30820d9181251fd71810e1229d20beb3e24f4811a5c8eca5b4c36475e72",
+    "oracle_inverted_pol": "11c629216a460aab9358034fb25463de2f5e4179d119785f0c6286fe20608939",
+    "oracle_wordoverlap": "a14909c51315f91bd20e6fabb5a33c4d16acc9d5bbcabc5f9f23bacf8a575d60",
+    "retr_single": "cbea54c7c13c4e634fa816aef38de4d0e2ef3f4cc35ecc9be1f0859ad897f1ac",
+    "retr_settle": "9ffa42a25500c9738d7c18ffb36542b2428b5f3e6b894b90e00b72783a1e4037",
+    "retr_settle_pol": "0ccafb1e7fce1593bc9bcc24e179d2988ebffd8403de52dfe47785fc181eb41b",
+    "retr_wordoverlap": "db47fa793661ddb1daab41b79345d45ec5c1b38fd183bd1adf1827f77623a56a"
+  },
+  "bands": {
+    "POL_MAG": 1.0,
+    "COV_FLOOR_QFRAC": 0.05,
+    "HP_POL_LIFT_SUBSET": 0.03,
+    "HP_POL_BEATS_POSONLY": 0.02,
+    "MUSTFAIL_EPS": 0.05,
+    "LEAK_EPS": 0.05
+  },
+  "grade_proxy": {
+    "easy_band": "~grade 4-5",
+    "challenge_band": "~grade 3-4",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "leakage_audit": "POL is contradiction-ONLY ({-1}) and symmetric across choices (never boosts the correct choice); it can only SUPPRESS a contradicted choice. Gold-answer leak is guarded by shuffled_pol (structure destroyed -> must collapse) + inverted_pol (readout flipped -> below chance), both run WITH the POL edges present.",
+  "wired_vs_stubbed": "WIRED: PolarityLexicon (WordNet lemma.antonyms() + curated science flip-pairs + negation-cue asymmetry) computes a {-1,0} POL override on fact-fact + fact-choice edges BEFORE Kintsch CI relaxation; one-variable POL on/off (settle_pol vs settle vs pos_only); word-overlap DUMB baseline; lexical-HARD subset = word-overlap-baseline-wrong items; ORACLE gold pool (isolates aggregation) + held-out RETRIEVAL (fair, test-gold excluded); multi-seed subset replication; must-fail shuffled_pol + inverted_pol WITH POL edges (leak audit). Reuses 29537's parse/retrieval/relaxation/_pick UNCHANGED (build-on). STUBBED/NOTED-NOT-BUILT: WorldTree relation-type source (i) IFTHEN/COUPLED directional-rule sign is NOT turned into an antecedent/consequent parser this cycle (fragile; antonym+negation are the leak-safe well-defined core -- author decision per the note's autonomy grant); POL support (+1) intentionally omitted (redundant with cosine + leak-prone).",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored); VET-PENDING",
+  "compute_architecture": "mixed: batched retrieval matmul + per-question signed-graph relaxation + WordNet-cached POL (CPU numpy); wall < 10min",
+  "storage_strategy": "sharded (each fact its own embedding vector; composed via graph relaxation per META_STORAGE)",
+  "builds_on": "atom 29537 exp_arc_aggregation_retriever_bindsettle_v1 (CI collapsed, no negative edges); MEASURED@data/exp_arc_aggregation_retriever_bindsettle_v1/metrics.json"
+}

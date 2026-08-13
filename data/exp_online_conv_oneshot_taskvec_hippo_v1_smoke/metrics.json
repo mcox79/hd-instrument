@@ -1,0 +1,149 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | TV_HIPPO=1.000 VANILLA=0.000 TV_ONLY=1.000 ORACLE=1.000 RANDOM=0.033 | delta_vs_VANILLA=+1.000 delta_vs_TV_ONLY=+0.000 cv=0.000 | arms_distinct=True cardinality_ok=True",
+  "summary": "HARD_PASS | TV_HIPPO=1.000 VANILLA=0.000 TV_ONLY=1.000 ORACLE=1.000 RANDOM=0.033 | delta_vs_VANILLA=+1.000 delta_vs_TV_ONLY=+0.000 cv=0.000 | arms_distinct=True cardinality_ok=True",
+  "per_arm_summary": {
+    "VANILLA_RETRIEVAL": {
+      "acc_mean": 0.0,
+      "acc_std": 0.0,
+      "acc_cv": 0.0,
+      "n": 2
+    },
+    "TASKVEC_ONLY": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "acc_cv": 0.0,
+      "n": 2
+    },
+    "TASKVEC_PLUS_HIPPO": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "acc_cv": 0.0,
+      "n": 2
+    },
+    "ORACLE": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "acc_cv": 0.0,
+      "n": 2
+    },
+    "RANDOM_INJECT": {
+      "acc_mean": 0.03333333333333333,
+      "acc_std": 0.03333333333333333,
+      "acc_cv": 1.0,
+      "n": 2
+    }
+  },
+  "delta_vs_vanilla": 1.0,
+  "delta_vs_tv_only": 0.0,
+  "cv_tv_hippo": 0.0,
+  "arms_distinct": true,
+  "n_seeds_complete": 2,
+  "expected_n_units": 300,
+  "completed_units": 300,
+  "cardinality_ok": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=online_conv_oneshot_taskvec_hippo_v1,N=2048,V=60,n_turns=10,fact_turns=[3, 7],n_scenarios=30,seeds=[7, 17],N_h=256,N_c=512,sparsity=0.10,n_replay=5,refuse_V_REL=64,alpha=1.00,mode=smoke,HP_TV_HIPPO>=0.85,HP_delta>=0.50,expected_n=300,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "online_conv_oneshot_taskvec_hippo_v1",
+      "per_arm": {
+        "VANILLA_RETRIEVAL": {
+          "integrated_query_acc": 0.0,
+          "n_scenarios": 30,
+          "n_correct": 0,
+          "arm_status": "OK"
+        },
+        "TASKVEC_ONLY": {
+          "integrated_query_acc": 1.0,
+          "n_scenarios": 30,
+          "n_correct": 30,
+          "arm_status": "OK"
+        },
+        "TASKVEC_PLUS_HIPPO": {
+          "integrated_query_acc": 1.0,
+          "n_scenarios": 30,
+          "n_correct": 30,
+          "arm_status": "OK"
+        },
+        "ORACLE": {
+          "integrated_query_acc": 1.0,
+          "n_scenarios": 30,
+          "n_correct": 30,
+          "arm_status": "OK"
+        },
+        "RANDOM_INJECT": {
+          "integrated_query_acc": 0.06666666666666667,
+          "n_scenarios": 30,
+          "n_correct": 2,
+          "arm_status": "OK"
+        }
+      },
+      "arm_pred_hashes": {
+        "VANILLA_RETRIEVAL": "e8af018953d209ef",
+        "TASKVEC_ONLY": "dbce02df0b309e99",
+        "TASKVEC_PLUS_HIPPO": "dbce02df0b309e99",
+        "ORACLE": "dbce02df0b309e99",
+        "RANDOM_INJECT": "646fb12684ebd7d1"
+      },
+      "arms_distinct": true
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=online_conv_oneshot_taskvec_hippo_v1,N=2048,V=60,n_turns=10,fact_turns=[3, 7],n_scenarios=30,seeds=[7, 17],N_h=256,N_c=512,sparsity=0.10,n_replay=5,refuse_V_REL=64,alpha=1.00,mode=smoke,HP_TV_HIPPO>=0.85,HP_delta>=0.50,expected_n=300,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "online_conv_oneshot_taskvec_hippo_v1",
+      "per_arm": {
+        "VANILLA_RETRIEVAL": {
+          "integrated_query_acc": 0.0,
+          "n_scenarios": 30,
+          "n_correct": 0,
+          "arm_status": "OK"
+        },
+        "TASKVEC_ONLY": {
+          "integrated_query_acc": 1.0,
+          "n_scenarios": 30,
+          "n_correct": 30,
+          "arm_status": "OK"
+        },
+        "TASKVEC_PLUS_HIPPO": {
+          "integrated_query_acc": 1.0,
+          "n_scenarios": 30,
+          "n_correct": 30,
+          "arm_status": "OK"
+        },
+        "ORACLE": {
+          "integrated_query_acc": 1.0,
+          "n_scenarios": 30,
+          "n_correct": 30,
+          "arm_status": "OK"
+        },
+        "RANDOM_INJECT": {
+          "integrated_query_acc": 0.0,
+          "n_scenarios": 30,
+          "n_correct": 0,
+          "arm_status": "OK"
+        }
+      },
+      "arm_pred_hashes": {
+        "VANILLA_RETRIEVAL": "16a3456f7487658d",
+        "TASKVEC_ONLY": "bf228d326e20e074",
+        "TASKVEC_PLUS_HIPPO": "bf228d326e20e074",
+        "ORACLE": "bf228d326e20e074",
+        "RANDOM_INJECT": "af3a553a34f3f6b7"
+      },
+      "arms_distinct": true
+    }
+  ],
+  "anchor_name": "online_conv_oneshot_taskvec_hippo_v1",
+  "elapsed_s": 3.5,
+  "ts_iso": "2026-06-28T13:32:36Z",
+  "pid": 12104,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=online_conv_oneshot_taskvec_hippo_v1,N=2048,V=60,n_turns=10,fact_turns=[3, 7],n_scenarios=30,seeds=[7, 17],N_h=256,N_c=512,sparsity=0.10,n_replay=5,refuse_V_REL=64,alpha=1.00,mode=smoke,HP_TV_HIPPO>=0.85,HP_delta>=0.50,expected_n=300,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "n_llm_calls_total": 0,
+  "_hardening_marker": "v1_online_conv_oneshot"
+}

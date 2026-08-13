@@ -1,0 +1,213 @@
+{
+  "anchor": "ca3_sequence_prediction_lm_smoke_v1",
+  "anchor_name": "ca3_sequence_prediction_lm_smoke_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: CA3_FULL BPC 11.289 >= PATH_A_RAW BPC 11.145; CA3 composition does not lift over raw rank-1 Hebbian; mechanism rejected. BPC unigram=10.253 path_a=11.145 ca3_hetero=11.277 ca3_full=11.289 | lift_full_over_unigram=-1.035 lift_full_over_path_a=-0.144 n_llm=0 (n_seeds=3 N_DIM=4096 N_TRAIN=10000)",
+  "n_seeds": 3,
+  "N": 4096,
+  "N_DIM": 4096,
+  "N_TRAIN": 10000,
+  "N_HELD": 2000,
+  "VOCAB_CAP": 4000,
+  "K_POS": 16,
+  "INGEST_CHUNK": 4096,
+  "CLEANUP_TEMP": 4.0,
+  "CLEANUP_MAX_STEPS": 4,
+  "CLEANUP_TOL": 0.001,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_PATH_A_RAW",
+    "ARM_CA3_HETERO_ONLY",
+    "ARM_CA3_FULL"
+  ],
+  "run_mode": "smoke",
+  "config_version": "ca3-sequence-prediction-lm-smoke-v1: N_DIM=4096 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 K_POS=16 INGEST_CHUNK=4096 cleanup_temp=4.0 cleanup_max_steps=4 cleanup_tol=0.001 run_mode=smoke; arms=[UNIGRAM,PATH_A_RAW,CA3_HETERO_ONLY,CA3_FULL]; bands HP=CA3_FULL<UNIGRAM HF=CA3_FULL>=PATH_A_RAW MID=between",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_unigram_bpc": 10.253482205750885,
+    "mean_path_a_raw_bpc": 11.144630330985573,
+    "mean_ca3_hetero_only_bpc": 11.276582070723355,
+    "mean_ca3_full_bpc": 11.2885110166974,
+    "cv_unigram": 0.0,
+    "cv_path_a_raw": 0.00010007504907006075,
+    "cv_ca3_hetero_only": 0.0005875676960338009,
+    "cv_ca3_full": 0.0008243581828040758,
+    "ca3_full_lift_over_unigram_bits": -1.0350288109465158,
+    "ca3_full_lift_over_path_a_raw_bits": -0.143880685711828,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "CA3 composition LM smoke. text8 N_TRAIN=10000 N_HELD=2000 V=4000 N_DIM=4096 K_POS=16. 4 arms (UNIGRAM, PATH_A_RAW, CA3_HETERO_ONLY, CA3_FULL). HARD_PASS when CA3_FULL beats UNIGRAM (mechanism survives smoke); HARD_FAIL when CA3_FULL >= PATH_A_RAW (composition does not lift over raw rank-1 Hebbian, mechanism rejected). Smoke scale; full N_TRAIN=100k queued only if smoke not-HARD_FAIL."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 2522,
+      "N": 4096,
+      "M": 10000,
+      "N_DIM": 4096,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 4000,
+      "K_POS": 16,
+      "n_eval": 1661,
+      "run_mode": "smoke",
+      "config_version": "ca3-sequence-prediction-lm-smoke-v1: N_DIM=4096 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 K_POS=16 INGEST_CHUNK=4096 cleanup_temp=4.0 cleanup_max_steps=4 cleanup_tol=0.001 run_mode=smoke; arms=[UNIGRAM,PATH_A_RAW,CA3_HETERO_ONLY,CA3_FULL]; bands HP=CA3_FULL<UNIGRAM HF=CA3_FULL>=PATH_A_RAW MID=between",
+      "unigram_bpc": 10.253482205750885,
+      "unigram_acc": 0.049969897652016856,
+      "path_a_raw_bpc": 11.145326058135865,
+      "path_a_raw_acc": 0.09813365442504515,
+      "ca3_hetero_only_bpc": 11.28470974149293,
+      "ca3_hetero_only_acc": 0.04334738109572547,
+      "ca3_full_bpc": 11.294688862826595,
+      "ca3_full_acc": 0.028898254063816978,
+      "ca3_full_cleanup_iters": 3,
+      "ca3_full_cleanup_converged": true,
+      "wall_pa_ingest_s": 0.9594154357910156,
+      "wall_ca3_ingest_s": 1.3143210411071777,
+      "wall_cleanup_s": 7.984816789627075,
+      "elapsed_s": 13.352936267852783,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782237336.1902976,
+      "per_unit": [
+        {
+          "arm": "ARM_UNIGRAM",
+          "bpc": 10.253482205750885,
+          "acc": 0.049969897652016856
+        },
+        {
+          "arm": "ARM_PATH_A_RAW",
+          "bpc": 11.145326058135865,
+          "acc": 0.09813365442504515
+        },
+        {
+          "arm": "ARM_CA3_HETERO_ONLY",
+          "bpc": 11.28470974149293,
+          "acc": 0.04334738109572547
+        },
+        {
+          "arm": "ARM_CA3_FULL",
+          "bpc": 11.294688862826595,
+          "acc": 0.028898254063816978,
+          "cleanup_iters": 3,
+          "cleanup_converged": true
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "V": 2522,
+      "N": 4096,
+      "M": 10000,
+      "N_DIM": 4096,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 4000,
+      "K_POS": 16,
+      "n_eval": 1661,
+      "run_mode": "smoke",
+      "config_version": "ca3-sequence-prediction-lm-smoke-v1: N_DIM=4096 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 K_POS=16 INGEST_CHUNK=4096 cleanup_temp=4.0 cleanup_max_steps=4 cleanup_tol=0.001 run_mode=smoke; arms=[UNIGRAM,PATH_A_RAW,CA3_HETERO_ONLY,CA3_FULL]; bands HP=CA3_FULL<UNIGRAM HF=CA3_FULL>=PATH_A_RAW MID=between",
+      "unigram_bpc": 10.253482205750885,
+      "unigram_acc": 0.049969897652016856,
+      "path_a_raw_bpc": 11.14305657507508,
+      "path_a_raw_acc": 0.10114388922335943,
+      "ca3_hetero_only_bpc": 11.276556387980827,
+      "ca3_hetero_only_acc": 0.044551475015051176,
+      "ca3_full_bpc": 11.275358700800219,
+      "ca3_full_acc": 0.048163756773028296,
+      "ca3_full_cleanup_iters": 3,
+      "ca3_full_cleanup_converged": true,
+      "wall_pa_ingest_s": 0.9651410579681396,
+      "wall_ca3_ingest_s": 1.5048787593841553,
+      "wall_cleanup_s": 8.809160470962524,
+      "elapsed_s": 14.893784761428833,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782237351.135256,
+      "per_unit": [
+        {
+          "arm": "ARM_UNIGRAM",
+          "bpc": 10.253482205750885,
+          "acc": 0.049969897652016856
+        },
+        {
+          "arm": "ARM_PATH_A_RAW",
+          "bpc": 11.14305657507508,
+          "acc": 0.10114388922335943
+        },
+        {
+          "arm": "ARM_CA3_HETERO_ONLY",
+          "bpc": 11.276556387980827,
+          "acc": 0.044551475015051176
+        },
+        {
+          "arm": "ARM_CA3_FULL",
+          "bpc": 11.275358700800219,
+          "acc": 0.048163756773028296,
+          "cleanup_iters": 3,
+          "cleanup_converged": true
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "V": 2522,
+      "N": 4096,
+      "M": 10000,
+      "N_DIM": 4096,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 4000,
+      "K_POS": 16,
+      "n_eval": 1661,
+      "run_mode": "smoke",
+      "config_version": "ca3-sequence-prediction-lm-smoke-v1: N_DIM=4096 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 K_POS=16 INGEST_CHUNK=4096 cleanup_temp=4.0 cleanup_max_steps=4 cleanup_tol=0.001 run_mode=smoke; arms=[UNIGRAM,PATH_A_RAW,CA3_HETERO_ONLY,CA3_FULL]; bands HP=CA3_FULL<UNIGRAM HF=CA3_FULL>=PATH_A_RAW MID=between",
+      "unigram_bpc": 10.253482205750885,
+      "unigram_acc": 0.049969897652016856,
+      "path_a_raw_bpc": 11.14550835974578,
+      "path_a_raw_acc": 0.09632751354605659,
+      "ca3_hetero_only_bpc": 11.268480082696309,
+      "ca3_hetero_only_acc": 0.05177603853100542,
+      "ca3_full_bpc": 11.29548548646539,
+      "ca3_full_acc": 0.034918723660445516,
+      "ca3_full_cleanup_iters": 4,
+      "ca3_full_cleanup_converged": true,
+      "wall_pa_ingest_s": 1.1395282745361328,
+      "wall_ca3_ingest_s": 1.643533706665039,
+      "wall_cleanup_s": 10.74497675895691,
+      "elapsed_s": 16.955522298812866,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782237368.1085422,
+      "per_unit": [
+        {
+          "arm": "ARM_UNIGRAM",
+          "bpc": 10.253482205750885,
+          "acc": 0.049969897652016856
+        },
+        {
+          "arm": "ARM_PATH_A_RAW",
+          "bpc": 11.14550835974578,
+          "acc": 0.09632751354605659
+        },
+        {
+          "arm": "ARM_CA3_HETERO_ONLY",
+          "bpc": 11.268480082696309,
+          "acc": 0.05177603853100542
+        },
+        {
+          "arm": "ARM_CA3_FULL",
+          "bpc": 11.29548548646539,
+          "acc": 0.034918723660445516,
+          "cleanup_iters": 4,
+          "cleanup_converged": true
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_ca3_sequence_prediction_lm_smoke_v1",
+  "elapsed_s": 45.40303707122803,
+  "summary": "HARD_FAIL: CA3_FULL BPC 11.289 >= PATH_A_RAW BPC 11.145; CA3 composition does not lift over raw rank-1 Hebbian; mechanism rejected. BPC unigram=10.253 path_a=11.145 ca3_hetero=11.277 ca3_full=11.289 |"
+}

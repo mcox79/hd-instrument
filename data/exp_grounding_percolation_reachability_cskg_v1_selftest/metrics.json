@@ -1,0 +1,8 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "anchor_name": "grounding_percolation_reachability_cskg_v1",
+  "verdict_msg": "SELFTEST_PASS: BFS+island correct; degree-preserving swap preserves degree seq + ControlB fires; ControlA fires; hub<anchor concreteness (P3); arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0
+}

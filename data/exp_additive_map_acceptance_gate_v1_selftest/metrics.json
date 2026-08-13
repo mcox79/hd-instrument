@@ -1,0 +1,35 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS AdditiveKGMap live API (fit/compose/insert/score/persist) reproduces the anchor-beats-random+scramble discriminator on the planted arena",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 24.415115699986927,
+  "selftest": {
+    "seed": 7,
+    "N": 300,
+    "n_rel": 6,
+    "n_train": 651,
+    "n_heldout_entities": 45,
+    "n_support": 53,
+    "n_query_total": 61,
+    "n_query_scored": 61,
+    "n_cold": 10,
+    "anchor_mrr": 0.40076897792126953,
+    "scramble_mrr": 0.09634678964918665,
+    "random_mrr": 0.007490571893269528,
+    "anchor_spectrum": {
+      "hits@1": 0.2786885245901639,
+      "hits@3": 0.4262295081967213,
+      "hits@10": 0.6721311475409836,
+      "hits@100": 0.7704918032786885
+    },
+    "persisted_dir": "C:\\dev\\hd-instrument\\data\\exp_additive_map_acceptance_gate_v1_selftest\\fitted_map_seed7",
+    "persist_reload_ok": true,
+    "selftest_checks": {
+      "anchor_recovers": true,
+      "beats_random": true,
+      "beats_scramble": true,
+      "persist_ok": true
+    }
+  }
+}

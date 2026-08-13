@@ -1,0 +1,40 @@
+{
+  "anchor_name": "cross_corpus_compose_chat_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cross-corpus composition adds NO value (best compose <= single). n=17 single=0.059 union=0.059 hub=0.059 best_compose=0.059(UNION) lift=+0.000; per_corpus: conceptnet(n=6 s=0.167 u=0.167 h=0.167), hotpotqa(n=6 s=0.000 u=0.000 h=0.000), fb15k(n=5 s=0.000 u=0.000 h=0.000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 17,
+      "single_acc": 0.058823529411764705,
+      "union_acc": 0.058823529411764705,
+      "hub_acc": 0.058823529411764705,
+      "per_corpus": {
+        "conceptnet": {
+          "n": 6,
+          "single": 0.16666666666666666,
+          "union": 0.16666666666666666,
+          "hub": 0.16666666666666666
+        },
+        "hotpotqa": {
+          "n": 6,
+          "single": 0.0,
+          "union": 0.0,
+          "hub": 0.0
+        },
+        "fb15k": {
+          "n": 5,
+          "single": 0.0,
+          "union": 0.0,
+          "hub": 0.0
+        }
+      },
+      "n_llm_calls": 0,
+      "eval_wall_s": 107.153076171875
+    }
+  ],
+  "elapsed_s": 135.029883146286,
+  "summary": "HARD_FAIL: cross-corpus composition adds NO value (best compose <= single). n=17 single=0.059 union=0.059 hub=0.059 best_compose=0.059(UNION) lift=+0.000; per_corpus: conceptnet(n=6 s=0.167 u=0.167 h=0.167), hotpotqa(n=6 s=0.000 u=0.000 h=0.000), fb15k(n=5 s=0.000 u=0.000 h=0.000)",
+  "n_llm_calls": 0
+}

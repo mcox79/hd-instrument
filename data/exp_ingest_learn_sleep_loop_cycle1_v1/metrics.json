@@ -1,0 +1,437 @@
+{
+  "anchor_name": "ingest_learn_sleep_loop_cycle1_v1",
+  "cycle_ran_end_to_end": true,
+  "curriculum_vehicle": "McGuffey First Reader (grade 1) -- ordered graded-reader curriculum vehicle (de-emphasized testbed, legitimate as graded curriculum; framing flagged)",
+  "step1_read": {
+    "n_sentences": 9,
+    "n_entities": 11,
+    "n_events": 2,
+    "entities": [
+      {
+        "cluster": 0,
+        "heads": [
+          "dog"
+        ],
+        "n_mentions": 1,
+        "is_person": false,
+        "sent_indices": [
+          0
+        ]
+      },
+      {
+        "cluster": 3,
+        "heads": [
+          "man"
+        ],
+        "n_mentions": 1,
+        "is_person": true,
+        "sent_indices": [
+          1
+        ]
+      },
+      {
+        "cluster": 4,
+        "heads": [
+          "pen"
+        ],
+        "n_mentions": 1,
+        "is_person": false,
+        "sent_indices": [
+          1
+        ]
+      },
+      {
+        "cluster": 5,
+        "heads": [
+          "rat"
+        ],
+        "n_mentions": 1,
+        "is_person": false,
+        "sent_indices": [
+          2
+        ]
+      },
+      {
+        "cluster": 6,
+        "heads": [
+          "box"
+        ],
+        "n_mentions": 1,
+        "is_person": false,
+        "sent_indices": [
+          2
+        ]
+      },
+      {
+        "cluster": 7,
+        "heads": [
+          "Rab"
+        ],
+        "n_mentions": 2,
+        "is_person": false,
+        "sent_indices": [
+          3,
+          4
+        ]
+      },
+      {
+        "cluster": 8,
+        "heads": [
+          "hat"
+        ],
+        "n_mentions": 2,
+        "is_person": false,
+        "sent_indices": [
+          3,
+          5
+        ]
+      },
+      {
+        "cluster": 9,
+        "heads": [
+          "Ann"
+        ],
+        "n_mentions": 2,
+        "is_person": true,
+        "sent_indices": [
+          4,
+          5
+        ]
+      },
+      {
+        "cluster": 10,
+        "heads": [
+          "Ned"
+        ],
+        "n_mentions": 1,
+        "is_person": true,
+        "sent_indices": [
+          6
+        ]
+      },
+      {
+        "cluster": 11,
+        "heads": [
+          "hen"
+        ],
+        "n_mentions": 4,
+        "is_person": true,
+        "sent_indices": [
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "cluster": 12,
+        "heads": [
+          "nest"
+        ],
+        "n_mentions": 1,
+        "is_person": false,
+        "sent_indices": [
+          8
+        ]
+      }
+    ],
+    "who_did_what": {
+      "triple": {
+        "tp": 2,
+        "n_pred": 2,
+        "n_gold": 9,
+        "precision": 1.0,
+        "recall": 0.2222,
+        "f1": 0.3636
+      },
+      "pair_agent_patient": {
+        "tp": 2,
+        "n_pred": 2,
+        "n_gold": 9,
+        "precision": 1.0,
+        "recall": 0.2222,
+        "f1": 0.3636
+      },
+      "reader_triples": [
+        [
+          "run",
+          "dog",
+          "?"
+        ],
+        [
+          "run",
+          "rat",
+          "box"
+        ]
+      ],
+      "gold_triples": [
+        [
+          "be",
+          "she",
+          "hen"
+        ],
+        [
+          "catch",
+          "ann",
+          "rab"
+        ],
+        [
+          "feed",
+          "ned",
+          "hen"
+        ],
+        [
+          "have",
+          "man",
+          "pen"
+        ],
+        [
+          "have",
+          "rab",
+          "hat"
+        ],
+        [
+          "have",
+          "she",
+          "hat"
+        ],
+        [
+          "leave",
+          "she",
+          "nest"
+        ],
+        [
+          "run",
+          "dog",
+          "?"
+        ],
+        [
+          "run",
+          "rat",
+          "box"
+        ]
+      ],
+      "reader_out": [
+        {
+          "pred": "ran",
+          "agent": "dog",
+          "patient": "?",
+          "norm_pred": "run",
+          "sent_idx": 0
+        },
+        {
+          "pred": "ran",
+          "agent": "rat",
+          "patient": "box",
+          "norm_pred": "run",
+          "sent_idx": 2
+        }
+      ]
+    },
+    "memory_roundtrip": {
+      "n_direct_events": 2,
+      "n_probes": 6,
+      "n_ok": 4,
+      "roundtrip_rate": 0.6666666666666666
+    },
+    "coref_acc": 0.3333333333333333,
+    "n_coref_targets": 3
+  },
+  "step2_flag_unknowns": {
+    "unread_sentences": [
+      {
+        "sent_idx": 1
+      },
+      {
+        "sent_idx": 3
+      },
+      {
+        "sent_idx": 4
+      },
+      {
+        "sent_idx": 5
+      },
+      {
+        "sent_idx": 6
+      },
+      {
+        "sent_idx": 7
+      },
+      {
+        "sent_idx": 8
+      }
+    ],
+    "coref_abstained": [],
+    "unfilled_roles": [
+      {
+        "predicate": "ran",
+        "agent": "dog",
+        "patient": "?",
+        "sent_idx": 0
+      }
+    ],
+    "suppressed_predicates": [],
+    "n_flagged": 8,
+    "clarify_gate": {
+      "clarify_tau": 0.35,
+      "refuse_tau": 0.55,
+      "flag_semantics": "flag = non-ACCEPT (REFUSE or CLARIFY)",
+      "flag_recall_on_unknowns": 1.0,
+      "flag_fp_on_clear": 0.0,
+      "clarify_band_recall_on_unknowns": 0.0,
+      "n_unknown_pop": 2,
+      "n_clear_pop": 1,
+      "gate_fires_on_real_unknowns": true
+    }
+  },
+  "step3_condense": {
+    "n_stream_tuples": 24,
+    "n_mine_sents": 60,
+    "n_seed_kept": 29,
+    "n_vetted_pool": 97,
+    "n_heldout_groups": 3,
+    "n_unseen_items": 3,
+    "knowledge_ON_acc": 1.0,
+    "knowledge_OFF_acc": 0.5,
+    "knowledge_random_acc": 0.6667,
+    "knowledge_impact_delta": 0.5,
+    "store_path": "D:\\AI\\hd-instrument\\data\\exp_ingest_learn_sleep_loop_cycle1_v1\\condensed_knowledge.json",
+    "store_queryable": true,
+    "demo_query": {
+      "verb": "run",
+      "supersense": "noun.animal",
+      "result": {
+        "attested_nouns": [
+          "cat",
+          "frog",
+          "rat"
+        ],
+        "total_count": 3
+      }
+    }
+  },
+  "step4_sleep": {
+    "class_level": {
+      "n_episodes": 24,
+      "chosen_plugin": "ruleind",
+      "ruleind_compression_ratio": 1.1743,
+      "ruleind_is_episodic": false,
+      "ruleind_n_rules": 3,
+      "ruleind_n_episodic": 13,
+      "generalized_a_rule": true,
+      "sample_rules": [
+        {
+          "conjunct": [
+            "verb=f"
+          ],
+          "majority_class": "noun.artifact",
+          "coverage": 2,
+          "precision": 1.0
+        },
+        {
+          "conjunct": [
+            "verb=see"
+          ],
+          "majority_class": "noun.animal",
+          "coverage": 5,
+          "precision": 0.8
+        },
+        {
+          "conjunct": [
+            "verb=stand"
+          ],
+          "majority_class": "noun.artifact",
+          "coverage": 4,
+          "precision": 0.75
+        }
+      ]
+    },
+    "per_item_facts": {
+      "n_episodes": 24,
+      "chosen_plugin": "KEEP_EPISODIC",
+      "ruleind_compression_ratio": 0.9636,
+      "ruleind_is_episodic": true,
+      "ruleind_n_rules": 0,
+      "ruleind_n_episodic": 24,
+      "generalized_a_rule": false,
+      "sample_rules": []
+    },
+    "averaging_collapse_detected_on_per_item": true
+  },
+  "harness": {
+    "A_reading_curve": {
+      "who_did_what_triple_f1_before": 0.3636,
+      "who_did_what_triple_f1_after": 0.3636,
+      "who_did_what_f1_delta": 0.0,
+      "who_did_what_pair_f1_before": 0.3636,
+      "coref_xsent_acc_before": 0.3333333333333333,
+      "coref_xsent_acc_after": 0.3333333333333333,
+      "n_xsent_targets": 3,
+      "single_sentence_xsent_acc_baseline": 0.0,
+      "delta_is_zero_by_construction": true,
+      "WIRING_NOTE": "reader is STRUCTURAL/STATIC; NO feedback path knowledge->reader is wired yet, so a one-cycle easy-reading delta of ~0 is EXPECTED + HONEST (matches banked 29491). Curve infra set up for subsequent units.",
+      "curve_path": "D:\\AI\\hd-instrument\\data\\exp_ingest_learn_sleep_loop_cycle1_v1\\reading_curve.json"
+    },
+    "B_knowledge_impact": {
+      "store_queryable": true,
+      "store_path": "D:\\AI\\hd-instrument\\data\\exp_ingest_learn_sleep_loop_cycle1_v1\\condensed_knowledge.json",
+      "demo_query": {
+        "verb": "run",
+        "supersense": "noun.animal",
+        "result": {
+          "attested_nouns": [
+            "cat",
+            "frog",
+            "rat"
+          ],
+          "total_count": 3
+        }
+      },
+      "knowledge_ON_acc": 1.0,
+      "knowledge_OFF_acc": 0.5,
+      "knowledge_random_acc": 0.6667,
+      "downstream_probe_delta_ON_minus_OFF": 0.5,
+      "n_unseen_probe_items": 3,
+      "probe": "held-out UNSEEN-noun selectional 2AFC (class-condensed generalization; HARD probe per 29491)",
+      "knowledge_moves_probe": true
+    },
+    "C_integrity": {
+      "flag_gate_fires_on_real_unknowns": true,
+      "n_flagged_total": 8,
+      "clarify_gate": {
+        "clarify_tau": 0.35,
+        "refuse_tau": 0.55,
+        "flag_semantics": "flag = non-ACCEPT (REFUSE or CLARIFY)",
+        "flag_recall_on_unknowns": 1.0,
+        "flag_fp_on_clear": 0.0,
+        "clarify_band_recall_on_unknowns": 0.0,
+        "n_unknown_pop": 2,
+        "n_clear_pop": 1,
+        "gate_fires_on_real_unknowns": true
+      },
+      "sleep_generalized_a_rule": true,
+      "sleep_class_compression_ratio": 1.1743,
+      "sleep_class_n_rules": 3,
+      "averaging_collapse_detectable_on_per_item": true
+    }
+  },
+  "VET_PENDING": true,
+  "wiring_state": {
+    "WIRED": [
+      "READ = real SituationReader (29518) on grade-1 unit -> entities+who-did-what+coref+memory",
+      "FLAG = reader intrinsic abstain + real banked ClarifyGate (29xx M1.8) recall/precision",
+      "CONDENSE = real condenser (29476) class-level knowledge, stored LOCAL + queryable",
+      "SLEEP = real LEARNER MODULE (29487) MDL rule-induction vs episodic-averaging",
+      "HARNESS A/B/C computed from real measured numbers; curve infra persisted"
+    ],
+    "STUBBED_OR_MISSING": [
+      "FEEDBACK PATH knowledge->reader NOT wired: condensed selectional knowledge does not yet feed the reader's (structural) role/patient decision -> harness A delta ~0 by construction.",
+      "GRADE-1 mention+coref+SVO gold is SUPPLIED by this cell (no released grade-1 gold file); transparent + VET-recomputable, but single-annotator.",
+      "GRADE-UNIT ALIGNMENT: condenser mines its own configured McGuffey slice (MINING_FILES_SMOKE), not strictly the grade-1 First Reader passage read in step 1 -> condense stream != read passage.",
+      "FLAG->CONDENSE not causally wired: flagged unknowns are reported but do not yet TARGET the condense step (condenser condenses the whole stream, not the flagged gaps)."
+    ]
+  },
+  "elapsed_s": 4.886,
+  "verdict": "CYCLE_COMPLETE",
+  "verdict_msg": "A_delta=0.0 B_delta=0.5 C_gate=True C_rule=True",
+  "summary": "CYCLE_COMPLETE"
+}

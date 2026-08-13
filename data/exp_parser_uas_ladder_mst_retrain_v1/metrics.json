@@ -1,0 +1,79 @@
+{
+  "anchor_name": "parser_uas_ladder_mst_retrain_v1",
+  "run_mode": "full",
+  "verdict": "UAS_LIFT_REAL",
+  "verdict_msg": "UAS_LIFT_REAL | S0_greedy=0.7868 S1a_mst_inf=0.7882 S1b_mst_retrain=0.7965(ep5) | best_ladder=0.7965 (delta_vs_baseline=+0.0097) | persisted=S1b_mst_retrain@arc_parser_mst_retrain_ud_ewt.npz",
+  "summary": "UAS_LIFT_REAL | S0_greedy=0.7868 S1a_mst_inf=0.7882 S1b_mst_retrain=0.7965(ep5) | best_ladder=0.7965 (delta_vs_baseline=+0.0097) | persisted=S1b_mst_retrain@arc_parser_mst_retrain_ud_ewt.npz",
+  "elapsed_s": 203.33,
+  "ts_iso": "2026-07-21T05:18:23.035219+00:00",
+  "n_train": 12329,
+  "n_dev": 1989,
+  "S0_greedy_1storder_uas": 0.7868,
+  "S1a_mst_inference_uas": 0.7882,
+  "S1b_mst_retrain_uas": 0.7965,
+  "S1b_best_epoch": 5,
+  "best_ladder_uas": 0.7965,
+  "delta_vs_baseline": 0.0097,
+  "baseline_reref_uas": 0.7868,
+  "persisted_parser_path": "D:\\AI\\hd-instrument\\data\\frontend_assets\\arc_parser_mst_retrain_ud_ewt.npz",
+  "persisted_which": "S1b_mst_retrain",
+  "persisted_uas": 0.7965,
+  "s1b_history": [
+    {
+      "epoch": 1,
+      "uas": 0.7873,
+      "corr": 19244,
+      "tot": 24444
+    },
+    {
+      "epoch": 2,
+      "uas": 0.7928,
+      "corr": 19378,
+      "tot": 24444
+    },
+    {
+      "epoch": 3,
+      "uas": 0.7964,
+      "corr": 19466,
+      "tot": 24444
+    },
+    {
+      "epoch": 4,
+      "uas": 0.7961,
+      "corr": 19461,
+      "tot": 24444
+    },
+    {
+      "epoch": 5,
+      "uas": 0.7965,
+      "corr": 19470,
+      "tot": 24444
+    },
+    {
+      "epoch": 6,
+      "uas": 0.7965,
+      "corr": 19469,
+      "tot": 24444
+    },
+    {
+      "epoch": 7,
+      "uas": 0.7963,
+      "corr": 19465,
+      "tot": 24444
+    },
+    {
+      "epoch": 8,
+      "uas": 0.7961,
+      "corr": 19459,
+      "tot": 24444
+    }
+  ],
+  "prior_2ndorder_measured_hurt": {
+    "uas": 0.7783,
+    "source": "data/exp_depparse_2ndorder_cpu_v1/metrics.json"
+  },
+  "compute_architecture": "sequential-CPU (justified)",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true"
+}

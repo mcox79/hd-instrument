@@ -1,0 +1,307 @@
+{
+  "anchor_name": "frame_order_recovery_hard_comprehension_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_MACHINERY_OK: order+superposition+scale run end-to-end AT N=8192; the content-vs-occupancy ORDER discriminator fires (gap=0.800); occupancy is at chance (0.200); the CITED-regime decode reproduces the cited cliff (0.700 at bs=N//D); BIAS proves occupancy order-degeneracy. The pre-registered comprehension band is FULL-only (canonical = remote multi-seed). set_recognition=1.000; ORDER content=1.000 vs occupancy=0.200 (chance 1/D!=0.167); gap=0.800; SUPERPOSITION parse=0.800; DECODE@scale cited-regime(bs=N//D,true-frame)=0.700 cv=0.000 (cited V8192D26=0.856); cellbs(bs=N//B_TOTAL) razor-edge=0.700; partition-restricted(mechanism)=1.000; scale content parse=0.700",
+  "summary": "HARD_PASS: frame ORDER-recovery hard comprehension v2 (decode-regime posctrl fix) (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 11.0,
+  "n_seeds": 1,
+  "n_units": 3,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "config": {
+    "N": 8192,
+    "GSBC_DIM": 8192,
+    "K_ACTIVE": 192,
+    "F_SPARSE": 0.02,
+    "trials": 20,
+    "seeds": [
+      7
+    ],
+    "conditions": {
+      "order": {
+        "B_TOTAL": 8,
+        "D": 3,
+        "V_ROLE": 1024,
+        "mode": "injective",
+        "B_OCC": 3
+      },
+      "superpose": {
+        "B_TOTAL": 8,
+        "D": 4,
+        "V_ROLE": 1024,
+        "mode": "superpose",
+        "B_OCC": 2
+      },
+      "scale": {
+        "B_TOTAL": 32,
+        "D": 26,
+        "V_ROLE": 300,
+        "mode": "injective",
+        "B_OCC": 26
+      }
+    },
+    "classifier": "role_typed_matched_filter_over_partition_restricted_correlation",
+    "frame_def": "assignment_role_to_block_set_and_order_are_separate_DOF",
+    "posctrl_decode_regime": "cited_bs_N_over_D_disjoint_blocks_full_codebook_argmax",
+    "native_filler": "GSBC_EXPAND2X_seed7_FULL_projected_sparse_bipolar",
+    "pool_meta": {
+      "encoder": "GSBC_EXPAND2X_seed7_FULL",
+      "ckpt": "data\\substrate_concept_encoder_v12_gwta_seed7\\_ckpt_best_GSBC_EXPAND2X.pt",
+      "K_active": 192,
+      "gsbc_dim": 8192,
+      "pool_n": 10000,
+      "sample_seed": 20260705,
+      "bge_cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+      "note": "BOUNDED probe: 10000 of 177899 concepts (5.6pct); native GSBC_EXPAND2X codes, sparse"
+    }
+  },
+  "arms": {
+    "content_frame": {
+      "order_recovery_mean": 1.0,
+      "order_recovery_per_seed": [
+        1.0
+      ],
+      "order_recovery_cv": 0.0,
+      "superposition_survival_mean": 0.8,
+      "superposition_survival_per_seed": [
+        0.8
+      ],
+      "decode_at_scale_parse_mean": 0.7,
+      "set_recognition_mean": 1.0
+    },
+    "occupancy_baseline": {
+      "order_recovery_mean": 0.2,
+      "order_recovery_per_seed": [
+        0.2
+      ],
+      "chance_order": 0.16666666666666666,
+      "superposition_parse_mean": 0.4,
+      "set_recognition_mean": 1.0
+    },
+    "decode_at_scale_posctrl": {
+      "cited_regime_true_frame_mean": 0.7,
+      "cited_regime_true_frame_per_seed": [
+        0.7
+      ],
+      "cited_regime_true_frame_cv": 0.0,
+      "cited_regime_bs": 315,
+      "cellbs_full_codebook_true_frame_mean": 0.7,
+      "cellbs_full_codebook_true_frame_per_seed": [
+        0.7
+      ],
+      "cellbs_bs": 256,
+      "partition_restricted_true_frame_mean": 1.0,
+      "cited_V8192D26_exact_ordered": 0.856
+    }
+  },
+  "per_condition": {
+    "order": {
+      "set_recognition_mean": 1.0,
+      "set_recognition_per_seed": [
+        1.0
+      ],
+      "order_content_mean": 1.0,
+      "order_content_per_seed": [
+        1.0
+      ],
+      "order_content_cv": 0.0,
+      "order_occupancy_mean": 0.2,
+      "order_occupancy_per_seed": [
+        0.2
+      ],
+      "parse_content_mean": 1.0,
+      "parse_content_per_seed": [
+        1.0
+      ],
+      "parse_occupancy_mean": 0.2,
+      "decode_scale_full_mean": 1.0,
+      "decode_scale_full_per_seed": [
+        1.0
+      ],
+      "decode_scale_part_mean": 1.0,
+      "decode_scale_cited_mean": 1.0,
+      "decode_scale_cited_per_seed": [
+        1.0
+      ],
+      "decode_scale_cited_cv": 0.0,
+      "bs_cited": 2730,
+      "chance_order": 0.16666666666666666
+    },
+    "superpose": {
+      "set_recognition_mean": 1.0,
+      "set_recognition_per_seed": [
+        1.0
+      ],
+      "order_content_mean": 0.8,
+      "order_content_per_seed": [
+        0.8
+      ],
+      "order_content_cv": 0.0,
+      "order_occupancy_mean": 0.4,
+      "order_occupancy_per_seed": [
+        0.4
+      ],
+      "parse_content_mean": 0.8,
+      "parse_content_per_seed": [
+        0.8
+      ],
+      "parse_occupancy_mean": 0.4,
+      "decode_scale_full_mean": 0.0,
+      "decode_scale_full_per_seed": [
+        0.0
+      ],
+      "decode_scale_part_mean": 1.0,
+      "decode_scale_cited_mean": 1.0,
+      "decode_scale_cited_per_seed": [
+        1.0
+      ],
+      "decode_scale_cited_cv": 0.0,
+      "bs_cited": 2048,
+      "chance_order": null
+    },
+    "scale": {
+      "set_recognition_mean": 1.0,
+      "set_recognition_per_seed": [
+        1.0
+      ],
+      "order_content_mean": 0.7,
+      "order_content_per_seed": [
+        0.7
+      ],
+      "order_content_cv": 0.0,
+      "order_occupancy_mean": 0.0,
+      "order_occupancy_per_seed": [
+        0.0
+      ],
+      "parse_content_mean": 0.7,
+      "parse_content_per_seed": [
+        0.7
+      ],
+      "parse_occupancy_mean": 0.0,
+      "decode_scale_full_mean": 0.7,
+      "decode_scale_full_per_seed": [
+        0.7
+      ],
+      "decode_scale_part_mean": 1.0,
+      "decode_scale_cited_mean": 0.7,
+      "decode_scale_cited_per_seed": [
+        0.7
+      ],
+      "decode_scale_cited_cv": 0.0,
+      "bs_cited": 315,
+      "chance_order": 2.4795962632247972e-27
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "condition": "order",
+      "D": 3,
+      "V_ROLE": 1024,
+      "B_TOTAL": 8,
+      "bs": 1024,
+      "bs_cited": 2730,
+      "B_OCC": 3,
+      "chance_order": 0.16666666666666666,
+      "set_recognition": 1.0,
+      "order_content": 1.0,
+      "order_occupancy": 0.2,
+      "parse_content": 1.0,
+      "parse_occupancy": 0.2,
+      "decode_scale_full": 1.0,
+      "decode_scale_part": 1.0,
+      "decode_scale_cited": 1.0,
+      "digest_content_order": "bb3be9b836e183ec0bea9bf78971974d82d521d4ea56798a8d87ee0de5c17855",
+      "digest_occupancy_order": "65da8debd077ab69b037d4485e364aef44e7822ce08a84874ce2824ed7783249",
+      "cb_digest": "f6fe655d6b89d0ef97d7afb60384fb9fbc1f49654da50763a310ab4ac82ced97"
+    },
+    {
+      "seed": 7,
+      "condition": "superpose",
+      "D": 4,
+      "V_ROLE": 1024,
+      "B_TOTAL": 8,
+      "bs": 1024,
+      "bs_cited": 2048,
+      "B_OCC": 2,
+      "chance_order": null,
+      "set_recognition": 1.0,
+      "order_content": 0.8,
+      "order_occupancy": 0.4,
+      "parse_content": 0.8,
+      "parse_occupancy": 0.4,
+      "decode_scale_full": 0.0,
+      "decode_scale_part": 1.0,
+      "decode_scale_cited": 1.0,
+      "digest_content_order": "4172d2cfcab0f490164ff32162070034705a2dd2bce2273a5831682b363a08e8",
+      "digest_occupancy_order": "dd6c73aa962f5f984ab8d18b2bc183af2ccf2de1a45ef954763f3a8bcd3439c8",
+      "cb_digest": "f90276e9b91ad4553ad6e4fc22364b991a1d2f4d08eba84e6685a2956311f77d"
+    },
+    {
+      "seed": 7,
+      "condition": "scale",
+      "D": 26,
+      "V_ROLE": 300,
+      "B_TOTAL": 32,
+      "bs": 256,
+      "bs_cited": 315,
+      "B_OCC": 26,
+      "chance_order": 2.4795962632247972e-27,
+      "set_recognition": 1.0,
+      "order_content": 0.7,
+      "order_occupancy": 0.0,
+      "parse_content": 0.7,
+      "parse_occupancy": 0.0,
+      "decode_scale_full": 0.7,
+      "decode_scale_part": 1.0,
+      "decode_scale_cited": 0.7,
+      "digest_content_order": "6a752bafec1a770cd43119c1ce67013d428bde7917af2a647809ba7974532b5f",
+      "digest_occupancy_order": "9e37e27cdf5b185a69b24947fe8ba39b3abf7c5395dbc9d4d5b925a90c2b1c36",
+      "cb_digest": "a51f60639344a1c52c98051b2d3ef4cdc86524051314aa77b45332abc1e46462"
+    }
+  ],
+  "bias_audit": {
+    "energy_invariant_under_role_swap": true,
+    "frames_differ_under_role_swap": true,
+    "partitions_disjoint_nonempty": true,
+    "chance_order_D3": 0.1667,
+    "occupancy_degenerate_for_order": true
+  },
+  "bands": {
+    "HP_order": 0.75,
+    "HP_superpose": 0.5,
+    "HP_decode_scale": 0.6,
+    "HF_order": 0.25,
+    "order_occ_max": 0.32,
+    "order_gap_min": 0.45,
+    "pos_ctrl_decode_floor": 0.6,
+    "pos_ctrl_cv_max": 0.2,
+    "cv_max": 0.15
+  },
+  "hp_scope": {
+    "content_frame": [
+      "HP_order",
+      "HP_superpose",
+      "HP_decode_scale",
+      "order_gap_min",
+      "cv_max"
+    ],
+    "occupancy_baseline": [
+      "order_occ_max_near_chance_BIAS_gate"
+    ],
+    "decode_at_scale_posctrl": [
+      "pos_ctrl_decode_floor",
+      "pos_ctrl_cv_max"
+    ]
+  },
+  "cited_baselines": {
+    "prior_trivial_set_only": "data/exp_frame_classify_then_known_decode_v1:sparse_block.parse_mean=1.0 (SET only)",
+    "decode_hard_cliff": "data/exp_generation_decoder_gsbc_native_blocklocal_v1:blocklocal_gsbc@V8192D26=0.856 (bs=N//D)",
+    "v1_posctrl_regime_fail": "data/exp_frame_order_recovery_hard_comprehension_v1:decode 0.525 at bs=N//B_TOTAL=256 (wrong regime)"
+  },
+  "ts_iso": "2026-07-06T14:58:41.129038+00:00",
+  "pid": 21528,
+  "host": "FrameworkMPC"
+}

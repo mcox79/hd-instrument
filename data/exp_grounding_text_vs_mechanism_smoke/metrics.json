@@ -1,0 +1,139 @@
+{
+  "anchor_name": "grounding_text_vs_mechanism",
+  "run_mode": "smoke",
+  "ts_iso": "2026-08-13T04:40:55.795858+00:00",
+  "prereg": "preregs/2026-08-13_grounding_text_vs_mechanism.md",
+  "wire_status": "EXPERIMENT_LOCAL_NOT_WIRED",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "STRUCTURAL gate(s) failed: S1_cardinality, S5_yield_floor, S6_blind_hygiene -- the blind sample is NOT fit to hand-score. No quality claim.",
+  "QUALITY_CLAIM": "NONE -- this cell emits no quality tier. The primary discriminator is a BLIND DIRECTOR HAND-SCORE on blind_sample.json / SCORING_SHEET.txt. MECHANISM_IS_BINDING is a pre-registered, expected, acceptable outcome (prereg sec 3).",
+  "quality_bands_recorded_not_evaluated": {
+    "primary_statistic": "MEANINGFUL rate on the TEXTBOOK arm (Director blind hand-score, n=50/arm)",
+    "TEXT_HYPOTHESIS_SUPPORTED": "MEANINGFUL(TEXTBOOK) >= 0.20",
+    "MIXED": "MEANINGFUL(TEXTBOOK) in [0.10, 0.20)",
+    "MECHANISM_IS_BINDING": "MEANINGFUL(TEXTBOOK) < 0.10 AND RELATED(TEXTBOOK) >= RELATED(NEWS) + 0.10 -- pre-declared, expected, acceptable",
+    "NULL_NO_TEXT_EFFECT": "MEANINGFUL(TEXTBOOK) < 0.10 and RELATED not above NEWS by 0.10",
+    "secondary_reported_not_gated": "RELATED rate per arm and the MEANINGFUL:RELATED ratio per arm; under (A) the ratio shifts toward MEANINGFUL, under (B) it stays adjacency-dominated",
+    "power": "SE of a proportion at n=50, p~0.2 is 0.057; differences below ~0.10 are unresolvable",
+    "reference_point": "MEASURED@notes/director_handscore_readout_v1_2026-08-13.md -- 3 MEANINGFUL / 19 RELATED / 78 NOISE over 100 mixed-corpus rows"
+  },
+  "cooccurrence_control_bands_recorded": {
+    "COOC_REPRODUCES_supports_B": "either_top1 >= 0.50 OR top5_containment >= 0.70, AND >= 0.20 above the permutation floor",
+    "COOC_PARTIAL": "either_top1 in [0.20, 0.50) or top5_containment in [0.40, 0.70), above the floor",
+    "COOC_DOES_NOT_EXPLAIN": "either_top1 < 0.20 and top5_containment < 0.40 -- the substrate output is NOT reproducible from plain co-occurrence; weakens (B)",
+    "note": "reported per arm; does NOT gate the primary. If the substrate largely REPRODUCES the baseline, (B) is supported regardless of the hand-score."
+  },
+  "cooccurrence_control_per_arm": null,
+  "matched_n_per_arm": {
+    "NEWS": 1200,
+    "TEXTBOOK": 1200
+  },
+  "per_arm": {
+    "NEWS": {
+      "arm": "NEWS",
+      "corpus": "OneStopEnglish (Ele+Int+Adv)",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 1200,
+      "n_chunks": 8,
+      "n_grounded": 5,
+      "n_meaning_facts": 5,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 227,
+      "pairs_digest": "bee443b08deb1278fb1ae5e5fcbfc2a1a386e6f20f0d9cb19caf443a23d974b7",
+      "elapsed_s": 95.46
+    },
+    "TEXTBOOK": {
+      "arm": "TEXTBOOK",
+      "corpus": "OpenStax (biology_2e, anatomy_physiology_2e, psychology_2e, microbiology, chemistry_2e)",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 1200,
+      "n_chunks": 8,
+      "n_grounded": 27,
+      "n_meaning_facts": 27,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 606,
+      "pairs_digest": "e3d55059170edd00bc90ceb776ebe2f2097e5d1cadd1e547587a9a96dd116d1a",
+      "elapsed_s": 1412.54
+    }
+  },
+  "per_arm_refusal_reasons": {
+    "NEWS": {
+      "CLOSED_CLASS_SUBJECT": 8,
+      "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 219
+    },
+    "TEXTBOOK": {
+      "CLOSED_CLASS_SUBJECT": 5,
+      "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 595,
+      "NO_STANDING_HYPOTHESIS": 6
+    }
+  },
+  "structural_gates": {
+    "S1_cardinality": {
+      "ok": false,
+      "expected_n_units": 22,
+      "missing_units": [
+        "NEWS|decile4",
+        "NEWS|decile9",
+        "TEXTBOOK|decile4",
+        "TEXTBOOK|decile9"
+      ],
+      "missing_arms": []
+    },
+    "S2_integrity": {
+      "ok": true,
+      "per_arm": {
+        "NEWS": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        },
+        "TEXTBOOK": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        }
+      }
+    },
+    "S3_arms_differ": {
+      "ok": true,
+      "digests": {
+        "NEWS": "bee443b08deb1278fb1ae5e5fcbfc2a1a386e6f20f0d9cb19caf443a23d974b7",
+        "TEXTBOOK": "e3d55059170edd00bc90ceb776ebe2f2097e5d1cadd1e547587a9a96dd116d1a"
+      }
+    },
+    "S4_matched_n": {
+      "ok": true,
+      "n_sentences_per_arm": {
+        "NEWS": 1200,
+        "TEXTBOOK": 1200
+      }
+    },
+    "S5_yield_floor": {
+      "ok": false,
+      "floor": 50,
+      "per_arm": {
+        "NEWS": 5,
+        "TEXTBOOK": 27
+      }
+    },
+    "S6_blind_hygiene": {
+      "ok": false,
+      "note": "not reached"
+    }
+  },
+  "blind_material": null,
+  "files": {
+    "blind": "blind_sample.json",
+    "sheet": "SCORING_SHEET.txt",
+    "key_SEALED": "arm_key.json",
+    "provenance_SEALED": "blind_provenance_sealed.json",
+    "cooccurrence_control_SEALED": "cooccurrence_control.json"
+  },
+  "summary": "HARD_FAIL"
+}

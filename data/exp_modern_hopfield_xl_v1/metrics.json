@@ -1,0 +1,684 @@
+{
+  "anchor": "modern_hopfield_xl_v1",
+  "anchor_name": "modern_hopfield_xl_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: modern - classical gap at M=10000 is 0.000 < 0.10. Modern Hopfield did NOT beat classical above its capacity bound (no super-linear lift detected). M=1000[mod=1.000 cls=1.000 shf=0.007 gap=0.000] | M=2000[mod=1.000 cls=1.000 shf=0.000 gap=0.000] | M=5000[mod=1.000 cls=1.000 shf=0.000 gap=0.000] | M=10000[mod=1.000 cls=1.000 shf=0.000 gap=0.000] | llm=0 | gpu_util_mean=25.1%",
+  "n_seeds": 3,
+  "N_DIM": 65536,
+  "M_GRID": [
+    1000,
+    2000,
+    5000,
+    10000
+  ],
+  "BETA_GRID": [
+    1.0,
+    2.0,
+    4.0,
+    8.0
+  ],
+  "NQ": 100,
+  "NOISE_STDEV": 0.1,
+  "arms": [
+    "MODERN_HOPFIELD",
+    "CLASSICAL_HEBBIAN",
+    "SHUFFLED_QUERY"
+  ],
+  "run_mode": "full",
+  "config_version": "modern-hopfield-xl-v1: N=65536 M_grid=[1000, 2000, 5000, 10000] beta_grid=[1.0, 2.0, 4.0, 8.0] NQ=100 noise=0.100 seeds=[7, 17, 23] arms=MODERN_HOPFIELD,CLASSICAL_HEBBIAN,SHUFFLED_QUERY run_mode=full",
+  "corpus_provenance": "synthetic_bipolar_HD_keys_L2_normalized",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "device": "cuda:0",
+  "cuda_ok": true,
+  "detail": {
+    "M_summary": {
+      "M1000": {
+        "modern_mean": 1.0,
+        "modern_cv": 0.0,
+        "classical_mean": 1.0,
+        "shuffled_mean": 0.006666666517655055,
+        "gap_mean": 0.0,
+        "best_beta_modes": [
+          "b1.0"
+        ],
+        "per_beta_modern_mean": {
+          "b1.0": 1.0,
+          "b2.0": 1.0,
+          "b4.0": 1.0,
+          "b8.0": 1.0
+        },
+        "n_seeds_with_M": 3,
+        "alpha": 0.0152587890625
+      },
+      "M2000": {
+        "modern_mean": 1.0,
+        "modern_cv": 0.0,
+        "classical_mean": 1.0,
+        "shuffled_mean": 0.0,
+        "gap_mean": 0.0,
+        "best_beta_modes": [
+          "b1.0"
+        ],
+        "per_beta_modern_mean": {
+          "b1.0": 1.0,
+          "b2.0": 1.0,
+          "b4.0": 1.0,
+          "b8.0": 1.0
+        },
+        "n_seeds_with_M": 3,
+        "alpha": 0.030517578125
+      },
+      "M5000": {
+        "modern_mean": 1.0,
+        "modern_cv": 0.0,
+        "classical_mean": 1.0,
+        "shuffled_mean": 0.0,
+        "gap_mean": 0.0,
+        "best_beta_modes": [
+          "b2.0",
+          "b1.0"
+        ],
+        "per_beta_modern_mean": {
+          "b1.0": 0.9966666499773661,
+          "b2.0": 1.0,
+          "b4.0": 1.0,
+          "b8.0": 1.0
+        },
+        "n_seeds_with_M": 3,
+        "alpha": 0.0762939453125
+      },
+      "M10000": {
+        "modern_mean": 1.0,
+        "modern_cv": 0.0,
+        "classical_mean": 1.0,
+        "shuffled_mean": 0.0,
+        "gap_mean": 0.0,
+        "best_beta_modes": [
+          "b2.0"
+        ],
+        "per_beta_modern_mean": {
+          "b1.0": 0.8633333245913187,
+          "b2.0": 1.0,
+          "b4.0": 1.0,
+          "b8.0": 1.0
+        },
+        "n_seeds_with_M": 3,
+        "alpha": 0.152587890625
+      }
+    },
+    "M_max": 10000,
+    "modern_at_M_max": 1.0,
+    "classical_at_M_max": 1.0,
+    "shuffled_at_M_max": 0.0,
+    "gap_modern_minus_classical_at_M_max": 0.0,
+    "classical_theoretical_bound_at_N": 9175.04,
+    "classical_capacity_alpha_at_M_max": 0.152587890625,
+    "above_classical_bound": true,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "gpu_util_mean": 25.13888888888889,
+    "gpu_util_p50": 20.0,
+    "gpu_util_max": 99.0,
+    "gpu_util_n_samples": 108,
+    "honest_scope": "Krotov exponential-energy Modern Hopfield vs Classical Hebbian retrieval on synthetic bipolar L2-normalized HD keys at N_DIM=65536; M sweep through [1000, 2000, 5000, 10000] with classical theoretical bound 0.14*N=9175. Single-step retrieval (MODERN: softmax(beta*sims) @ K; CLASSICAL: implicit-W = (1/N) * K.T @ K @ q); gaussian noise stdev=0.10 on bipolar queries. SHUFFLED arm is the mechanism-null floor (random keys, true labels). substrate-only gate enforced (n_llm=0). cuda_required=True for full run."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 65536,
+      "M": 10000,
+      "run_mode": "full",
+      "config_version": "modern-hopfield-xl-v1: N=65536 M_grid=[1000, 2000, 5000, 10000] beta_grid=[1.0, 2.0, 4.0, 8.0] NQ=100 noise=0.100 seeds=[7, 17, 23] arms=MODERN_HOPFIELD,CLASSICAL_HEBBIAN,SHUFFLED_QUERY run_mode=full",
+      "elapsed_s": 4.095589637756348,
+      "n_llm_calls": 0,
+      "device": "cuda:0",
+      "cuda_ok": true,
+      "gpu_util_samples": [
+        10.0,
+        10.0,
+        10.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        13.0,
+        13.0,
+        13.0,
+        13.0,
+        13.0,
+        28.0,
+        28.0,
+        28.0,
+        28.0,
+        28.0,
+        19.0,
+        19.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        38.0,
+        38.0,
+        38.0,
+        38.0
+      ],
+      "gpu_util_mean": 17.583333333333332,
+      "gpu_util_p50": 13.0,
+      "gpu_util_max": 38.0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782159696.5434625,
+      "per_unit": [
+        {
+          "M": 1000,
+          "seed": 7,
+          "N_DIM": 65536,
+          "alpha": 0.0152587890625,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.9533612728118896,
+          "device": "cuda:0"
+        },
+        {
+          "M": 2000,
+          "seed": 7,
+          "N_DIM": 65536,
+          "alpha": 0.030517578125,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.7314755916595459,
+          "device": "cuda:0"
+        },
+        {
+          "M": 5000,
+          "seed": 7,
+          "N_DIM": 65536,
+          "alpha": 0.0762939453125,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.9554421901702881,
+          "device": "cuda:0"
+        },
+        {
+          "M": 10000,
+          "seed": 7,
+          "N_DIM": 65536,
+          "alpha": 0.152587890625,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 0.7799999713897705,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b2.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 1.4547839164733887,
+          "device": "cuda:0"
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 65536,
+      "M": 10000,
+      "run_mode": "full",
+      "config_version": "modern-hopfield-xl-v1: N=65536 M_grid=[1000, 2000, 5000, 10000] beta_grid=[1.0, 2.0, 4.0, 8.0] NQ=100 noise=0.100 seeds=[7, 17, 23] arms=MODERN_HOPFIELD,CLASSICAL_HEBBIAN,SHUFFLED_QUERY run_mode=full",
+      "elapsed_s": 3.773430824279785,
+      "n_llm_calls": 0,
+      "device": "cuda:0",
+      "cuda_ok": true,
+      "gpu_util_samples": [
+        38.0,
+        38.0,
+        38.0,
+        38.0,
+        38.0,
+        38.0,
+        7.0,
+        7.0,
+        7.0,
+        7.0,
+        7.0,
+        7.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        12.0,
+        12.0,
+        12.0,
+        12.0,
+        21.0,
+        21.0,
+        21.0,
+        21.0,
+        21.0,
+        21.0,
+        21.0,
+        21.0,
+        26.0,
+        26.0,
+        26.0,
+        38.0,
+        38.0,
+        38.0
+      ],
+      "gpu_util_mean": 20.166666666666668,
+      "gpu_util_p50": 21.0,
+      "gpu_util_max": 38.0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782159700.3243406,
+      "per_unit": [
+        {
+          "M": 1000,
+          "seed": 17,
+          "N_DIM": 65536,
+          "alpha": 0.0152587890625,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.009999999776482582
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.009999999776482582,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.6355321407318115,
+          "device": "cuda:0"
+        },
+        {
+          "M": 2000,
+          "seed": 17,
+          "N_DIM": 65536,
+          "alpha": 0.030517578125,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.7859985828399658,
+          "device": "cuda:0"
+        },
+        {
+          "M": 5000,
+          "seed": 17,
+          "N_DIM": 65536,
+          "alpha": 0.0762939453125,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 0.9899999499320984,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b2.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.9494280815124512,
+          "device": "cuda:0"
+        },
+        {
+          "M": 10000,
+          "seed": 17,
+          "N_DIM": 65536,
+          "alpha": 0.152587890625,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 0.9300000071525574,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b2.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 1.4014735221862793,
+          "device": "cuda:0"
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 65536,
+      "M": 10000,
+      "run_mode": "full",
+      "config_version": "modern-hopfield-xl-v1: N=65536 M_grid=[1000, 2000, 5000, 10000] beta_grid=[1.0, 2.0, 4.0, 8.0] NQ=100 noise=0.100 seeds=[7, 17, 23] arms=MODERN_HOPFIELD,CLASSICAL_HEBBIAN,SHUFFLED_QUERY run_mode=full",
+      "elapsed_s": 3.701725482940674,
+      "n_llm_calls": 0,
+      "device": "cuda:0",
+      "cuda_ok": true,
+      "gpu_util_samples": [
+        38.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        12.0,
+        12.0,
+        12.0,
+        12.0,
+        84.0,
+        84.0,
+        84.0,
+        84.0,
+        84.0,
+        21.0,
+        21.0,
+        21.0,
+        99.0,
+        99.0,
+        99.0,
+        99.0,
+        46.0,
+        46.0,
+        46.0,
+        46.0,
+        32.0
+      ],
+      "gpu_util_mean": 37.666666666666664,
+      "gpu_util_p50": 20.5,
+      "gpu_util_max": 99.0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782159704.0318966,
+      "per_unit": [
+        {
+          "M": 1000,
+          "seed": 23,
+          "N_DIM": 65536,
+          "alpha": 0.0152587890625,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.009999999776482582
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.009999999776482582
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.009999999776482582,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.6618247032165527,
+          "device": "cuda:0"
+        },
+        {
+          "M": 2000,
+          "seed": 23,
+          "N_DIM": 65536,
+          "alpha": 0.030517578125,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 0.7317368984222412,
+          "device": "cuda:0"
+        },
+        {
+          "M": 5000,
+          "seed": 23,
+          "N_DIM": 65536,
+          "alpha": 0.0762939453125,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b1.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 1.0177326202392578,
+          "device": "cuda:0"
+        },
+        {
+          "M": 10000,
+          "seed": 23,
+          "N_DIM": 65536,
+          "alpha": 0.152587890625,
+          "per_beta": {
+            "b1.0": {
+              "top1_modern": 0.8799999952316284,
+              "top1_shuffled": 0.0
+            },
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b4.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b2.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 100,
+          "wall_s": 1.2894299030303955,
+          "device": "cuda:0"
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_gpu_synthetic_bipolar_HD_modern_vs_classical_hopfield",
+  "elapsed_s": 11.616975545883179,
+  "summary": "HARD_FAIL: modern - classical gap at M=10000 is 0.000 < 0.10. Modern Hopfield did NOT beat classical above its capacity bound (no super-linear lift detected). M=1000[mod=1.000 cls=1.000 shf=0.007 gap="
+}

@@ -1,0 +1,228 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS per-relation info-ceiling reframe: planted determined relations separate from one-to-many (oracle recovers determined, caps one-to-many); guard-fix flips the false control-beats-POP break to healthy (pop_at_floor); must-fails fire; 4 validity-preflight declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 48.94525619992055,
+  "mechanism_selftest": {
+    "N": 360,
+    "n_heldout_entities": 54,
+    "n_support": 432,
+    "n_query": 430,
+    "n_cold": 0,
+    "heldout_mrr": {
+      "ANCHOR_COMPOSE": 0.14779,
+      "ANCHOR_PEEL": 0.1667,
+      "ANCHOR_HARDNEG": 0.15618,
+      "ANCHOR_PEEL_HARDNEG": 0.16612,
+      "ADDITIVE_TRANSE": 0.00303,
+      "RANDOM_CODES": 0.01507,
+      "ANCHOR_SCRAMBLE": 0.05415,
+      "ANCHOR_PEEL_SCRAMBLE": 0.05622,
+      "IDENTITY_SHUFFLE": 0.07628,
+      "ORACLE_ADDITIVE": 0.13641,
+      "ORACLE_HARDNEG": 0.16488,
+      "BASELINE_POP": 0.00381
+    },
+    "heldout_metric_spectrum": {
+      "ANCHOR_COMPOSE": {
+        "hits@1": 0.06279,
+        "hits@3": 0.16744,
+        "hits@10": 0.29767,
+        "hits@100": 0.75349,
+        "mrr": 0.14779
+      },
+      "ANCHOR_PEEL": {
+        "hits@1": 0.08605,
+        "hits@3": 0.1814,
+        "hits@10": 0.30233,
+        "hits@100": 0.66279,
+        "mrr": 0.1667
+      },
+      "ANCHOR_HARDNEG": {
+        "hits@1": 0.07442,
+        "hits@3": 0.18605,
+        "hits@10": 0.3,
+        "hits@100": 0.73488,
+        "mrr": 0.15618
+      },
+      "ANCHOR_PEEL_HARDNEG": {
+        "hits@1": 0.08837,
+        "hits@3": 0.18605,
+        "hits@10": 0.3186,
+        "hits@100": 0.6186,
+        "mrr": 0.16612
+      },
+      "ADDITIVE_TRANSE": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.0,
+        "mrr": 0.00303
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@3": 0.00698,
+        "hits@10": 0.02093,
+        "hits@100": 0.24651,
+        "mrr": 0.01507
+      },
+      "ANCHOR_SCRAMBLE": {
+        "hits@1": 0.01163,
+        "hits@3": 0.02791,
+        "hits@10": 0.1186,
+        "hits@100": 0.60698,
+        "mrr": 0.05415
+      },
+      "ANCHOR_PEEL_SCRAMBLE": {
+        "hits@1": 0.01163,
+        "hits@3": 0.03953,
+        "hits@10": 0.13256,
+        "hits@100": 0.46977,
+        "mrr": 0.05622
+      },
+      "IDENTITY_SHUFFLE": {
+        "hits@1": 0.02326,
+        "hits@3": 0.05581,
+        "hits@10": 0.17442,
+        "hits@100": 0.67442,
+        "mrr": 0.07628
+      },
+      "ORACLE_ADDITIVE": {
+        "hits@1": 0.06744,
+        "hits@3": 0.13953,
+        "hits@10": 0.26744,
+        "hits@100": 0.70465,
+        "mrr": 0.13641
+      },
+      "ORACLE_HARDNEG": {
+        "hits@1": 0.07907,
+        "hits@3": 0.18372,
+        "hits@10": 0.32326,
+        "hits@100": 0.75116,
+        "mrr": 0.16488
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.03721,
+        "mrr": 0.00381
+      }
+    },
+    "n_distinct_sigs": 12,
+    "det_oracle_mrr": 0.43195,
+    "multi_oracle_mrr": 0.06572,
+    "determined_vs_onetomany_sep": 0.36623,
+    "determined_query_frac": 0.19302,
+    "anchor_margin": 0.13272,
+    "scramble_margin": 0.09364,
+    "oracle_margin": 0.12134,
+    "oracle_ratio": 9.05,
+    "old_broken_via_pop": true,
+    "new_broken": false,
+    "pop_at_floor": true,
+    "det_separates": true,
+    "oracle_fires": true,
+    "anchor_beats_random": true,
+    "scramble_fails": true,
+    "guard_fix_fires": true,
+    "arms_differ": true,
+    "selftest_verdict": "BROKEN_MUST_FAIL_CONTROL_FIRED",
+    "validity_preflight_ok": true,
+    "per_relation": [
+      {
+        "rel": "r2",
+        "tph": 1.0,
+        "n_query": 14,
+        "mrr_best": 0.184651,
+        "mrr_baseline": 0.25136,
+        "mrr_oracle_hn": 0.207093,
+        "mrr_oracle_uni": 0.146527,
+        "frac_of_ceiling": 0.891632,
+        "determined": true
+      },
+      {
+        "rel": "r0",
+        "tph": 1.0,
+        "n_query": 16,
+        "mrr_best": 0.003145,
+        "mrr_baseline": 0.013107,
+        "mrr_oracle_hn": 0.07523,
+        "mrr_oracle_uni": 0.065179,
+        "frac_of_ceiling": 0.041799,
+        "determined": true
+      },
+      {
+        "rel": "r3",
+        "tph": 1.0,
+        "n_query": 11,
+        "mrr_best": 0.729574,
+        "mrr_baseline": 0.719056,
+        "mrr_oracle_hn": 0.551884,
+        "mrr_oracle_uni": 0.474613,
+        "frac_of_ceiling": 1.32197,
+        "determined": true
+      },
+      {
+        "rel": "r1",
+        "tph": 1.0,
+        "n_query": 42,
+        "mrr_best": 0.66698,
+        "mrr_baseline": 0.5931,
+        "mrr_oracle_hn": 0.651582,
+        "mrr_oracle_uni": 0.655631,
+        "frac_of_ceiling": 1.023633,
+        "determined": true
+      },
+      {
+        "rel": "r4",
+        "tph": 5.0,
+        "n_query": 128,
+        "mrr_best": 0.090199,
+        "mrr_baseline": 0.077542,
+        "mrr_oracle_hn": 0.110015,
+        "mrr_oracle_uni": 0.077153,
+        "frac_of_ceiling": 0.819881,
+        "determined": false
+      },
+      {
+        "rel": "r5",
+        "tph": 5.0,
+        "n_query": 106,
+        "mrr_best": 0.115756,
+        "mrr_baseline": 0.076847,
+        "mrr_oracle_hn": 0.134212,
+        "mrr_oracle_uni": 0.090397,
+        "frac_of_ceiling": 0.862488,
+        "determined": false
+      },
+      {
+        "rel": "r6",
+        "tph": 5.0,
+        "n_query": 113,
+        "mrr_best": 0.07913,
+        "mrr_baseline": 0.079036,
+        "mrr_oracle_hn": 0.044684,
+        "mrr_oracle_uni": 0.029608,
+        "frac_of_ceiling": 1.770884,
+        "determined": false
+      }
+    ],
+    "rel_cardinality": {
+      "r2": 1.0,
+      "r0": 1.0,
+      "r3": 1.0,
+      "r1": 1.0,
+      "r4": 5.0,
+      "r5": 5.0,
+      "r6": 5.0
+    },
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

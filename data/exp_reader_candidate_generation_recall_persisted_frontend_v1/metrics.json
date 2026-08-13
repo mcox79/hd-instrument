@@ -1,0 +1,122 @@
+{
+  "anchor_name": "reader_candidate_generation_recall_persisted_frontend_v1",
+  "lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_gold_pos_pairs": 100,
+  "aggregate_recall": {
+    "crude_handrule_reader": 0.44,
+    "parser_core": 0.84,
+    "parser_extended": 0.9,
+    "proxy_arc_existence_CITED": 0.82
+  },
+  "per_construction": {
+    "coordination": {
+      "n_gold_pairs": 27,
+      "crude_recall": 0.5556,
+      "parser_core_recall": 0.7778,
+      "parser_ext_recall": 0.8148,
+      "located_rate": 1.0,
+      "pos_ok_rate": 0.8519
+    },
+    "relative": {
+      "n_gold_pairs": 3,
+      "crude_recall": 0.0,
+      "parser_core_recall": 0.6667,
+      "parser_ext_recall": 0.6667,
+      "located_rate": 1.0,
+      "pos_ok_rate": 0.6667
+    },
+    "control_aspect": {
+      "n_gold_pairs": 12,
+      "crude_recall": 0.8333,
+      "parser_core_recall": 0.9167,
+      "parser_ext_recall": 1.0,
+      "located_rate": 1.0,
+      "pos_ok_rate": 1.0
+    },
+    "pronoun_obj": {
+      "n_gold_pairs": 29,
+      "crude_recall": 0.1034,
+      "parser_core_recall": 0.9655,
+      "parser_ext_recall": 1.0,
+      "located_rate": 1.0,
+      "pos_ok_rate": 1.0
+    },
+    "simple": {
+      "n_gold_pairs": 29,
+      "crude_recall": 0.5517,
+      "parser_core_recall": 0.7586,
+      "parser_ext_recall": 0.8621,
+      "located_rate": 1.0,
+      "pos_ok_rate": 0.931
+    }
+  },
+  "difficulty_on": {
+    "n_hard_construction_pairs": 71,
+    "n_total": 100,
+    "hard_fraction": 0.71
+  },
+  "domain_shift_funnel": {
+    "located_rate": 1.0,
+    "pos_ok_rate": 0.93,
+    "parser_extended_recall": 0.9,
+    "n_verb_mistag_when_located": 3,
+    "n_patient_mistag_when_located": 4,
+    "n_parse_structural_fail_when_pos_ok": 3,
+    "note": "funnel: tokenizer/coref (located) -> POS tagger (pos_ok|located) -> parser (recovered|pos_ok)"
+  },
+  "over_generation": {
+    "mean_candidates_per_sentence": 11.65,
+    "mean_tokens_per_sentence": 23.73,
+    "candidate_precision": 0.1053,
+    "n_candidate_pairs": 874,
+    "note": "unlabeled parser cannot tell subject from object -> low precision by design; Step-2 vote selects"
+  },
+  "margin_calibration": {
+    "mean_margin_recovered": 17.653,
+    "mean_margin_missed": 9.493,
+    "n_recovered": 90,
+    "n_missed": 3,
+    "margin_vs_recovery_auc": 0.807,
+    "abstain_sweep": {
+      "0": {
+        "kept": 93,
+        "n": 93,
+        "precision": 0.9677
+      },
+      "2": {
+        "kept": 92,
+        "n": 93,
+        "precision": 0.9674
+      },
+      "4": {
+        "kept": 90,
+        "n": 93,
+        "precision": 0.9667
+      },
+      "6": {
+        "kept": 85,
+        "n": 93,
+        "precision": 0.9647
+      },
+      "8": {
+        "kept": 76,
+        "n": 93,
+        "precision": 0.9737
+      }
+    }
+  },
+  "real_above_proxy": true,
+  "parser_beats_crude": true,
+  "elapsed_s": 15.0,
+  "verdict": "MEASURED_CANDIDATE_RECALL",
+  "verdict_msg": "parser_ext=0.900 crude=0.440 proxy=0.82 (real ABOVE proxy; parser beats crude) hard_frac=0.71",
+  "summary": "parser_ext=0.900 crude=0.440 proxy=0.82 (real ABOVE proxy; parser beats crude) hard_frac=0.71"
+}

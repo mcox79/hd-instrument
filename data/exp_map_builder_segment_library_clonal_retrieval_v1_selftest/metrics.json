@@ -1,0 +1,49 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS SEGMENT_LIBRARY_CLONAL_RETRIEVAL: on a planted type-structured arena the SEG_SOFT_COMPOSE population decode composes held-out tails from support and clears RANDOM; the soft population decode beats the hard one-shot decode; typed-assignment-scramble compose fails; the REAL KGStore per-slot segment path (ingest_triples) is exercised; 7 validity-preflight checks declared (F.1-F.4 ENFORCE)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.1456521999789402,
+  "mechanism_selftest": {
+    "real_code_path_ok": true,
+    "exercised_entrypoints": [
+      "KGStore",
+      "build_segment_module",
+      "ingest_triples",
+      "module_segment_sims"
+    ],
+    "planted_arms": {
+      "MONO_PC_ORACLE_d1024": 1.0,
+      "MONO_MATCHED_ORACLE": 1.0,
+      "SEG_SOFT_ORACLE": 0.43938,
+      "SEG_HARD_ORACLE": 0.33485,
+      "MONO_MATCHED_COMPOSE": 0.03679,
+      "SEG_SOFT_COMPOSE": 0.05469,
+      "SEG_HARD_COMPOSE": 0.04943,
+      "SEG_SCRAMBLE_COMPOSE": 0.03378,
+      "RANDOM_CODES": 0.02206,
+      "BASELINE_POP": 0.01564
+    },
+    "internal_relscramble_mrr": 0.13756,
+    "n_distinct_sigs": 10,
+    "soft_recovers": true,
+    "soft_beats_random": true,
+    "soft_ge_hard": true,
+    "relscramble_fails": true,
+    "compose_sanity": true,
+    "arms_differ": true,
+    "seg_signature_unique_frac": 0.9,
+    "mods_finite": true,
+    "selftest_verdict": "INCONCLUSIVE_POSCONTROL_OR_ORACLE_FAILED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3",
+      "guard_baseline_valid_F4"
+    ]
+  }
+}

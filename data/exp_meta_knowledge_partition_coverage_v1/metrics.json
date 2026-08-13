@@ -1,0 +1,136 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | COMPOSED ece=0.152 auroc=0.860 conf_sep=1.413 ood=0.676 | best_single auroc=0.861 lift=-0.000 | random auroc=0.464",
+  "summary": "HARD_FAIL | COMPOSED ece=0.152 auroc=0.860 conf_sep=1.413 ood=0.676 | best_single auroc=0.861 lift=-0.000 | random auroc=0.464",
+  "per_arm": {
+    "partition_density": {
+      "7": {
+        "ece": 0.25428571428571434,
+        "auroc": 0.4873131336273555,
+        "conf_sep_std": -0.06570028885143002,
+        "ood_refuse_rate": 0.5616438356164384
+      },
+      "17": {
+        "ece": 0.16293333333333337,
+        "auroc": 0.4885943635943636,
+        "conf_sep_std": -0.027585497782837063,
+        "ood_refuse_rate": 0.5157232704402516
+      }
+    },
+    "cosine_sep": {
+      "7": {
+        "ece": 0.13143917236496494,
+        "auroc": 0.8593275674437253,
+        "conf_sep_std": 1.3998673975564426,
+        "ood_refuse_rate": 0.6986301369863014
+      },
+      "17": {
+        "ece": 0.11314178375942328,
+        "auroc": 0.860995610995611,
+        "conf_sep_std": 1.4316797068865528,
+        "ood_refuse_rate": 0.6540880503144654
+      }
+    },
+    "entropy": {
+      "7": {
+        "ece": 0.09859277096192437,
+        "auroc": 0.8540008018786872,
+        "conf_sep_std": 1.3473647173616818,
+        "ood_refuse_rate": 0.684931506849315
+      },
+      "17": {
+        "ece": 0.12897744893561155,
+        "auroc": 0.867001617001617,
+        "conf_sep_std": 1.3653231558287606,
+        "ood_refuse_rate": 0.7169811320754716
+      }
+    },
+    "composed": {
+      "7": {
+        "ece": 0.16990384064868966,
+        "auroc": 0.8592702903946389,
+        "conf_sep_std": 1.3898303779374663,
+        "ood_refuse_rate": 0.6986301369863014
+      },
+      "17": {
+        "ece": 0.13315363845534295,
+        "auroc": 0.8612843612843613,
+        "conf_sep_std": 1.4366250406861631,
+        "ood_refuse_rate": 0.6540880503144654
+      }
+    },
+    "random_baseline": {
+      "7": {
+        "ece": 0.30920763260029843,
+        "auroc": 0.4434961910762358,
+        "conf_sep_std": 0.0,
+        "ood_refuse_rate": 0.5
+      },
+      "17": {
+        "ece": 0.31524534310526847,
+        "auroc": 0.4837722337722338,
+        "conf_sep_std": 0.0,
+        "ood_refuse_rate": 0.5
+      }
+    }
+  },
+  "per_arm_summary": {
+    "partition_density": {
+      "ece_mean": 0.20860952380952386,
+      "auroc_mean": 0.48795374861085955,
+      "auroc_std": 0.0006406149835040398,
+      "auroc_cv": 0.0013128600514450124,
+      "conf_sep_std_mean": -0.04664289331713354,
+      "ood_refuse_rate_mean": 0.5386835530283449,
+      "n": 2
+    },
+    "cosine_sep": {
+      "ece_mean": 0.12229047806219412,
+      "auroc_mean": 0.8601615892196681,
+      "auroc_std": 0.0008340217759428281,
+      "auroc_cv": 0.0009696105782861638,
+      "conf_sep_std_mean": 1.4157735522214976,
+      "ood_refuse_rate_mean": 0.6763590936503834,
+      "n": 2
+    },
+    "entropy": {
+      "ece_mean": 0.11378510994876796,
+      "auroc_mean": 0.8605012094401521,
+      "auroc_std": 0.006500407561464916,
+      "auroc_cv": 0.0075542108368379,
+      "conf_sep_std_mean": 1.3563439365952212,
+      "ood_refuse_rate_mean": 0.7009563194623933,
+      "n": 2
+    },
+    "composed": {
+      "ece_mean": 0.1515287395520163,
+      "auroc_mean": 0.8602773258395,
+      "auroc_std": 0.001007035444861193,
+      "auroc_cv": 0.0011705939638458787,
+      "conf_sep_std_mean": 1.4132277093118146,
+      "ood_refuse_rate_mean": 0.6763590936503834,
+      "n": 2
+    },
+    "random_baseline": {
+      "ece_mean": 0.31222648785278345,
+      "auroc_mean": 0.46363421242423475,
+      "auroc_std": 0.020138021347998997,
+      "auroc_cv": 0.043435149538904816,
+      "conf_sep_std_mean": 0.0,
+      "ood_refuse_rate_mean": 0.5,
+      "n": 2
+    }
+  },
+  "lift_over_single": -0.00022388360065206392,
+  "n_seeds_complete": 2,
+  "expected_n_units": 5000,
+  "completed_units": 5000,
+  "cardinality_ok": true,
+  "anchor_name": "meta_knowledge_partition_coverage_v1",
+  "elapsed_s": 8.4,
+  "ts_iso": "2026-06-27T22:19:49Z",
+  "pid": 33408,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=meta_knowledge_partition_coverage_v1,N=1024,P=64,V=1000,Q=500,OOD=150,K=10,seeds=[7, 17],calib=200,mode=smoke,HP_ECE<=0.05,HP_AUROC>=0.75,expected_n=5000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_meta_knowledge_partition_coverage"
+}

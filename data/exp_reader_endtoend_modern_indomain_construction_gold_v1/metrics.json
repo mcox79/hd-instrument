@@ -1,0 +1,1013 @@
+{
+  "anchor_name": "reader_endtoend_modern_indomain_construction_gold_v1",
+  "run_mode": "full",
+  "verdict": "DEEPER_BOUND_REGISTER_NOT_LIMITER",
+  "verdict_msg": "DEEPER_BOUND_REGISTER_NOT_LIMITER | modern in-domain UD-EWT, n_pos=136 verb_found=0.9706 | END-TO-END who-affected: UNLAB=0.6119 V1=0.7571 BACKOFF=0.7611 (noamb=0.7733, ceil=0.75) vs McGUFFEY backoff=0.7622 (delta=-0.0011) | RESIDUAL backoff ext:dec=32:6 (ext_frac=0.8421) | LEAK ud_split: train(memorized)=0.7769(ceil=0.8099,n=121) dev=0.4375(ceil=0.5,n=16) test(HELDOUT)=0.9048(ceil=0.9524,n=21) | baseline_in_band=True arms_differ=True no_giveaway=True (max_single_cue_gold_sel=0.7419)",
+  "summary": "DEEPER_BOUND_REGISTER_NOT_LIMITER | modern in-domain UD-EWT, n_pos=136 verb_found=0.9706 | END-TO-END who-affected: UNLAB=0.6119 V1=0.7571 BACKOFF=0.7611 (noamb=0.7733, ceil=0.75) vs McGUFFEY backoff=0.7622 (delta=-0.0011) | RESIDUAL backoff ext:dec=32:6 (ext_frac=0.8421) | LEAK ud_split: train(memorized)=0.7769(ceil=0.8099,n=121) dev=0.4375(ceil=0.5,n=16) test(HELDOUT)=0.9048(ceil=0.9524,n=21) | baseline_in_band=True arms_differ=True no_giveaway=True (max_single_cue_gold_sel=0.7419)",
+  "elapsed_s": 375.2,
+  "ts_iso": "2026-07-21T10:12:02.522856+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "n_gold_pos_pairs": 136,
+  "verb_found_rate": 0.9705882352941176,
+  "n_genuine_ambiguity": 5,
+  "MCGUFFEY_baseline_backoff": 0.7622,
+  "MCGUFFEY_baseline_v1": 0.742,
+  "MCGUFFEY_ceiling": 0.79,
+  "PRIMARY_modern_endtoend_backoff_vote": 0.7611,
+  "modern_endtoend_backoff_excl_ambiguity": 0.7733,
+  "modern_endtoend_v1_vote": 0.7571,
+  "modern_endtoend_unlabeled_vote": 0.6119,
+  "delta_backoff_vs_mcguffey": -0.0011,
+  "candidate_recall_ceiling_unlabeled": 0.9118,
+  "candidate_recall_ceiling_v1": 0.7353,
+  "candidate_recall_ceiling_backoff": 0.75,
+  "RESIDUAL_PARTITION_backoff": {
+    "n_total": 158,
+    "correct": 120,
+    "extraction_err": 32,
+    "decision_err": 6,
+    "residual": 38,
+    "extraction_frac_of_residual": 0.8421,
+    "decision_frac_of_residual": 0.1579,
+    "ext_to_dec_ratio": "32:6"
+  },
+  "RESIDUAL_PARTITION_unlabeled": {
+    "n_total": 158,
+    "correct": 96,
+    "extraction_err": 11,
+    "decision_err": 51,
+    "residual": 62,
+    "extraction_frac_of_residual": 0.1774,
+    "decision_frac_of_residual": 0.8226,
+    "ext_to_dec_ratio": "11:51"
+  },
+  "LEAK_ud_source_split_breakdown": {
+    "train": {
+      "n_test_fold_instances": 121,
+      "endtoend_acc": 0.7769,
+      "extraction_ceiling_gold_in_pool": 0.8099,
+      "ext_err": 23,
+      "dec_err": 4,
+      "correct": 94,
+      "leak_status": "MEMORIZED_by_frontend"
+    },
+    "dev": {
+      "n_test_fold_instances": 16,
+      "endtoend_acc": 0.4375,
+      "extraction_ceiling_gold_in_pool": 0.5,
+      "ext_err": 8,
+      "dec_err": 1,
+      "correct": 7,
+      "leak_status": "early_stop_seen"
+    },
+    "test": {
+      "n_test_fold_instances": 21,
+      "endtoend_acc": 0.9048,
+      "extraction_ceiling_gold_in_pool": 0.9524,
+      "ext_err": 1,
+      "dec_err": 1,
+      "correct": 19,
+      "leak_status": "TRULY_HELD_OUT"
+    }
+  },
+  "leak_free_test_heldout_endtoend_acc": 0.9048,
+  "per_gold_construction_backoff_union": {
+    "control_xcomp": {
+      "n": 22,
+      "endtoend_acc": 0.8182,
+      "extraction_ceiling": 0.8182,
+      "ext_err": 4,
+      "dec_err": 0
+    },
+    "coordination_shared_subj": {
+      "n": 21,
+      "endtoend_acc": 0.9048,
+      "extraction_ceiling": 0.9524,
+      "ext_err": 1,
+      "dec_err": 1
+    },
+    "cue_conflict_animate": {
+      "n": 23,
+      "endtoend_acc": 0.9565,
+      "extraction_ceiling": 0.9565,
+      "ext_err": 1,
+      "dec_err": 0
+    },
+    "locative_alternation": {
+      "n": 34,
+      "endtoend_acc": 0.7647,
+      "extraction_ceiling": 0.7941,
+      "ext_err": 7,
+      "dec_err": 1
+    },
+    "passive_by_agent": {
+      "n": 14,
+      "endtoend_acc": 0.6429,
+      "extraction_ceiling": 0.7143,
+      "ext_err": 4,
+      "dec_err": 1
+    },
+    "prep_governed_patient": {
+      "n": 14,
+      "endtoend_acc": 0.2857,
+      "extraction_ceiling": 0.3571,
+      "ext_err": 9,
+      "dec_err": 1
+    },
+    "relative_clause_patient": {
+      "n": 15,
+      "endtoend_acc": 0.6667,
+      "extraction_ceiling": 0.7333,
+      "ext_err": 4,
+      "dec_err": 1
+    },
+    "simple_svo": {
+      "n": 15,
+      "endtoend_acc": 0.8,
+      "extraction_ceiling": 0.8667,
+      "ext_err": 2,
+      "dec_err": 1
+    }
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "leak_guard_backoff": {
+    "n_usable_pools": 31,
+    "max_single_feature_gold_selection_acc": 0.7419,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.7419,
+      "f_postv": 0.2903,
+      "f_prep": 0.0968,
+      "f_func": 0.0323,
+      "f_clause": 0.0323,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.0323,
+      "f_prep_nonpatient_sense": 0.0645,
+      "f_alternation": 0.0645,
+      "f_gfit": 0.3871,
+      "f_plaus": 0.3548,
+      "f_passive_subject": 0.0645
+    },
+    "leak": false
+  },
+  "no_giveaway_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "end-to-end decision-precision measurement",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified: <9min)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "gold_name": "gold_construction_argstruct_ewt_v1",
+    "n_items": 136,
+    "n_sentences": 136,
+    "ud_source_split_counts": {
+      "train": 106,
+      "dev": 17,
+      "test": 13
+    },
+    "register_caveat": "UD-EWT is MODERN WEB TEXT (blogs, reviews, email, newsgroups), NOT children's narrative. This set tests CONSTRUCTION handling, NOT register transfer to McGuffey-style narrative. Register difference is a real confound for any cross-corpus generalization claim; state it.",
+    "label_derivation": "who-is-affected label = (verb_lemma, patient_head) DERIVED FROM THE GOLD PARSE ONLY (obj / obl / nsubj:pass / obl:agent edges). INDEPENDENT of our reader and of any semantic/plausibility cue. No hand-invented sentences; all sentences are real UD-EWT items selected by gold-parse pattern."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_test_pos": 58,
+      "unlabeled_vote_endtoend_acc": 0.5345,
+      "labeled_v1_vote_endtoend_acc": 0.6897,
+      "labeled_backoff_vote_endtoend_acc": 0.7241,
+      "backoff_endtoend_acc_excl_ambiguity": 0.7368,
+      "test_ceiling_backoff": 0.7414,
+      "test_ceiling_unlabeled": 0.931,
+      "residual_partition_backoff": {
+        "n": 58,
+        "correct": 42,
+        "extraction_err": 15,
+        "decision_err": 1,
+        "residual": 16,
+        "extraction_frac_of_residual": 0.9375,
+        "decision_frac_of_residual": 0.0625,
+        "decision_examples": [
+          {
+            "sid": "newsgroup-groups.google.com_n3td3v_a04e0c855b022009_ENG_20051207_035500-0006",
+            "v": "subscrib",
+            "gold": "it",
+            "picked": "alert",
+            "constr": "control",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_unlabeled": {
+        "n": 58,
+        "correct": 31,
+        "extraction_err": 4,
+        "decision_err": 23,
+        "residual": 27,
+        "extraction_frac_of_residual": 0.1481,
+        "decision_frac_of_residual": 0.8519,
+        "decision_examples": [
+          {
+            "sid": "answers-20081218053636AA9vV0u_ans-0005",
+            "v": "discuss",
+            "gold": "details",
+            "picked": "writing",
+            "constr": "relative",
+            "n_cands": 4
+          },
+          {
+            "sid": "answers-20111106153454AAgT9Df_ans-0014",
+            "v": "look",
+            "gold": "menu",
+            "picked": "you",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "answers-20111108091938AAmE8Tv_ans-0023",
+            "v": "pack",
+            "gold": "bags",
+            "picked": "your",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "answers-20111108092321AAK0Eqp_ans-0017",
+            "v": "look",
+            "gold": "record",
+            "picked": "hand",
+            "constr": "coordination",
+            "n_cands": 5
+          },
+          {
+            "sid": "answers-20111108100918AATaSIx_ans-0007",
+            "v": "eaten",
+            "gold": "babies",
+            "picked": "adults",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "email-enronsent14_01-0004",
+            "v": "look",
+            "gold": "job",
+            "picked": "peter",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "email-enronsent26_01-0022",
+            "v": "wrap",
+            "gold": "loi",
+            "picked": "couple",
+            "constr": "simple",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent26_01-0023",
+            "v": "refer",
+            "gold": "equipment",
+            "picked": "we",
+            "constr": "simple",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent26_01-0034",
+            "v": "wrap",
+            "gold": "loi",
+            "picked": "couple",
+            "constr": "simple",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent34_01-0039",
+            "v": "blown",
+            "gold": "i",
+            "picked": "time",
+            "constr": "pronoun",
+            "n_cands": 3
+          },
+          {
+            "sid": "email-enronsent37_01-0063",
+            "v": "get",
+            "gold": "premium",
+            "picked": "their",
+            "constr": "control",
+            "n_cands": 2
+          },
+          {
+            "sid": "email-enronsent44_01-0034",
+            "v": "look",
+            "gold": "problems",
+            "picked": "liquidation",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "newsgroup-groups.google.com_alt.animals_0084bdc731bfc8d8_ENG_20040905_212000-0023",
+            "v": "valu",
+            "gold": "life",
+            "picked": "epa",
+            "constr": "relative",
+            "n_cands": 6
+          },
+          {
+            "sid": "newsgroup-groups.google.com_emails_ec0a1064de05e74b_ENG_20040929_023800-0037",
+            "v": "use",
+            "gold": "code",
+            "picked": "sql",
+            "constr": "control",
+            "n_cands": 3
+          },
+          {
+            "sid": "newsgroup-groups.google.com_magicworld_04c89d43ff4fd6ea_ENG_20050104_152000-0035",
+            "v": "put",
+            "gold": "focus",
+            "picked": "your",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "reviews-029870-0002",
+            "v": "look",
+            "gold": "tour",
+            "picked": "tours",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "reviews-034501-0005",
+            "v": "fil",
+            "gold": "store",
+            "picked": "goodness",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "reviews-047762-0005",
+            "v": "look",
+            "gold": "that",
+            "picked": "we",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "reviews-369608-0002",
+            "v": "take",
+            "gold": "me",
+            "picked": "who",
+            "constr": "pronoun",
+            "n_cands": 5
+          },
+          {
+            "sid": "reviews-388799-0003",
+            "v": "order",
+            "gold": "everything",
+            "picked": "we",
+            "constr": "relative",
+            "n_cands": 2
+          },
+          {
+            "sid": "reviews-396874-0002",
+            "v": "get",
+            "gold": "ferrari",
+            "picked": "my",
+            "constr": "control",
+            "n_cands": 2
+          },
+          {
+            "sid": "weblog-blogspot.com_alaindewitt_20060924104100_ENG_20060924_104100-0021",
+            "v": "use",
+            "gold": "gas",
+            "picked": "poison",
+            "constr": "simple",
+            "n_cands": 6
+          },
+          {
+            "sid": "weblog-blogspot.com_rigorousintuition_20050518101500_ENG_20050518_101500-0004",
+            "v": "look",
+            "gold": "me",
+            "picked": "government",
+            "constr": "pronoun",
+            "n_cands": 4
+          }
+        ]
+      },
+      "per_gold_construction_backoff": {
+        "control_xcomp": {
+          "n": 8,
+          "acc": 0.875,
+          "ceiling": 0.875,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 7
+        },
+        "coordination_shared_subj": {
+          "n": 8,
+          "acc": 0.875,
+          "ceiling": 0.875,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 7
+        },
+        "cue_conflict_animate": {
+          "n": 6,
+          "acc": 1.0,
+          "ceiling": 1.0,
+          "ext_err": 0,
+          "dec_err": 0,
+          "correct": 6
+        },
+        "locative_alternation": {
+          "n": 11,
+          "acc": 0.8182,
+          "ceiling": 0.8182,
+          "ext_err": 2,
+          "dec_err": 0,
+          "correct": 9
+        },
+        "passive_by_agent": {
+          "n": 5,
+          "acc": 0.6,
+          "ceiling": 0.6,
+          "ext_err": 2,
+          "dec_err": 0,
+          "correct": 3
+        },
+        "prep_governed_patient": {
+          "n": 11,
+          "acc": 0.2727,
+          "ceiling": 0.3636,
+          "ext_err": 7,
+          "dec_err": 1,
+          "correct": 3
+        },
+        "relative_clause_patient": {
+          "n": 4,
+          "acc": 0.75,
+          "ceiling": 0.75,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 3
+        },
+        "simple_svo": {
+          "n": 5,
+          "acc": 0.8,
+          "ceiling": 0.8,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 4
+        }
+      },
+      "abstain_backoff": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.3389,
+        "forced_committed_precision": 0.84,
+        "abstain_committed_precision": 0.9487,
+        "abstain_rate": 0.22,
+        "n_test_nonempty": 50,
+        "n_abstained": 11,
+        "parser_margin_mean_correct": 16.8067,
+        "parser_margin_mean_wrong": 14.2057,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_backoff": [
+        -1.1928,
+        8.2718,
+        0.028,
+        1.3582,
+        -1.3797,
+        -5.5829,
+        0.0,
+        1.3582,
+        0.0,
+        3.1006,
+        -1.0753,
+        0.173,
+        1.7543
+      ]
+    },
+    {
+      "seed": 13,
+      "n_test_pos": 48,
+      "unlabeled_vote_endtoend_acc": 0.6667,
+      "labeled_v1_vote_endtoend_acc": 0.8125,
+      "labeled_backoff_vote_endtoend_acc": 0.7708,
+      "backoff_endtoend_acc_excl_ambiguity": 0.7872,
+      "test_ceiling_backoff": 0.8125,
+      "test_ceiling_unlabeled": 0.9375,
+      "residual_partition_backoff": {
+        "n": 48,
+        "correct": 37,
+        "extraction_err": 9,
+        "decision_err": 2,
+        "residual": 11,
+        "extraction_frac_of_residual": 0.8182,
+        "decision_frac_of_residual": 0.1818,
+        "decision_examples": [
+          {
+            "sid": "email-enronsent11_01-0117",
+            "v": "give",
+            "gold": "price",
+            "picked": "favour",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "email-enronsent19_01-0024",
+            "v": "ne",
+            "gold": "that",
+            "picked": "assets",
+            "constr": "relative",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_unlabeled": {
+        "n": 48,
+        "correct": 32,
+        "extraction_err": 3,
+        "decision_err": 13,
+        "residual": 16,
+        "extraction_frac_of_residual": 0.1875,
+        "decision_frac_of_residual": 0.8125,
+        "decision_examples": [
+          {
+            "sid": "answers-20111108091938AAmE8Tv_ans-0023",
+            "v": "pack",
+            "gold": "bags",
+            "picked": "your",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "answers-20111108103447AAI7MDa_ans-0001",
+            "v": "do",
+            "gold": "experience",
+            "picked": "work",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent11_01-0117",
+            "v": "give",
+            "gold": "price",
+            "picked": "me",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "email-enronsent19_01-0024",
+            "v": "ne",
+            "gold": "that",
+            "picked": "assets",
+            "constr": "relative",
+            "n_cands": 5
+          },
+          {
+            "sid": "email-enronsent24_01-0060",
+            "v": "want",
+            "gold": "whomever",
+            "picked": "you",
+            "constr": "relative",
+            "n_cands": 2
+          },
+          {
+            "sid": "email-enronsent33_01-0049",
+            "v": "send",
+            "gold": "letter",
+            "picked": "you",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "newsgroup-groups.google.com_eHolistic_417b09016150421f_ENG_20051120_175800-0003",
+            "v": "search",
+            "gold": "what",
+            "picked": "you",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "reviews-006970-0006",
+            "v": "offer",
+            "gold": "card",
+            "picked": "my",
+            "constr": "coordination",
+            "n_cands": 4
+          },
+          {
+            "sid": "reviews-034501-0005",
+            "v": "fil",
+            "gold": "store",
+            "picked": "lots",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "reviews-109263-0003",
+            "v": "cover",
+            "gold": "sonic",
+            "picked": "grease",
+            "constr": "coordination",
+            "n_cands": 7
+          },
+          {
+            "sid": "reviews-260640-0001",
+            "v": "send",
+            "gold": "dogs",
+            "picked": "my",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "reviews-388799-0003",
+            "v": "order",
+            "gold": "everything",
+            "picked": "we",
+            "constr": "relative",
+            "n_cands": 2
+          },
+          {
+            "sid": "weblog-blogspot.com_rigorousintuition_20050518101500_ENG_20050518_101500-0084",
+            "v": "search",
+            "gold": "info",
+            "picked": "dog",
+            "constr": "coordination",
+            "n_cands": 5
+          }
+        ]
+      },
+      "per_gold_construction_backoff": {
+        "control_xcomp": {
+          "n": 7,
+          "acc": 0.8571,
+          "ceiling": 0.8571,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 6
+        },
+        "coordination_shared_subj": {
+          "n": 6,
+          "acc": 0.8333,
+          "ceiling": 1.0,
+          "ext_err": 0,
+          "dec_err": 1,
+          "correct": 5
+        },
+        "cue_conflict_animate": {
+          "n": 8,
+          "acc": 0.875,
+          "ceiling": 0.875,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 7
+        },
+        "locative_alternation": {
+          "n": 11,
+          "acc": 0.8182,
+          "ceiling": 0.8182,
+          "ext_err": 2,
+          "dec_err": 0,
+          "correct": 9
+        },
+        "passive_by_agent": {
+          "n": 4,
+          "acc": 0.75,
+          "ceiling": 0.75,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 3
+        },
+        "prep_governed_patient": {
+          "n": 2,
+          "acc": 0.0,
+          "ceiling": 0.0,
+          "ext_err": 2,
+          "dec_err": 0,
+          "correct": 0
+        },
+        "relative_clause_patient": {
+          "n": 6,
+          "acc": 0.5,
+          "ceiling": 0.6667,
+          "ext_err": 2,
+          "dec_err": 1,
+          "correct": 3
+        },
+        "simple_svo": {
+          "n": 4,
+          "acc": 1.0,
+          "ceiling": 1.0,
+          "ext_err": 0,
+          "dec_err": 0,
+          "correct": 4
+        }
+      },
+      "abstain_backoff": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.3756,
+        "forced_committed_precision": 0.8605,
+        "abstain_committed_precision": 0.8889,
+        "abstain_rate": 0.1628,
+        "n_test_nonempty": 43,
+        "n_abstained": 7,
+        "parser_margin_mean_correct": 17.2903,
+        "parser_margin_mean_wrong": 15.7974,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_backoff": [
+        -2.2112,
+        9.9825,
+        1.2318,
+        2.117,
+        -0.9641,
+        -0.7689,
+        0.0,
+        -0.9101,
+        3.0272,
+        3.261,
+        -1.1408,
+        -0.2507,
+        2.8419
+      ]
+    },
+    {
+      "seed": 19,
+      "n_test_pos": 52,
+      "unlabeled_vote_endtoend_acc": 0.6346,
+      "labeled_v1_vote_endtoend_acc": 0.7692,
+      "labeled_backoff_vote_endtoend_acc": 0.7885,
+      "backoff_endtoend_acc_excl_ambiguity": 0.7959,
+      "test_ceiling_backoff": 0.8462,
+      "test_ceiling_unlabeled": 0.9231,
+      "residual_partition_backoff": {
+        "n": 52,
+        "correct": 41,
+        "extraction_err": 8,
+        "decision_err": 3,
+        "residual": 11,
+        "extraction_frac_of_residual": 0.7273,
+        "decision_frac_of_residual": 0.2727,
+        "decision_examples": [
+          {
+            "sid": "reviews-011257-0007",
+            "v": "spread",
+            "gold": "word",
+            "picked": "neighbors",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "reviews-217747-0004",
+            "v": "recommend",
+            "gold": "company",
+            "picked": "services",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "reviews-292997-0004",
+            "v": "recommend",
+            "gold": "menu",
+            "picked": "four-course",
+            "constr": "simple",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_unlabeled": {
+        "n": 52,
+        "correct": 33,
+        "extraction_err": 4,
+        "decision_err": 15,
+        "residual": 19,
+        "extraction_frac_of_residual": 0.2105,
+        "decision_frac_of_residual": 0.7895,
+        "decision_examples": [
+          {
+            "sid": "answers-20081218053636AA9vV0u_ans-0005",
+            "v": "discuss",
+            "gold": "details",
+            "picked": "writing",
+            "constr": "relative",
+            "n_cands": 4
+          },
+          {
+            "sid": "answers-20111108064026AA86V9T_ans-0001",
+            "v": "find",
+            "gold": "sort",
+            "picked": "agra",
+            "constr": "control",
+            "n_cands": 6
+          },
+          {
+            "sid": "email-enronsent03_01-0070",
+            "v": "fill",
+            "gold": "number",
+            "picked": "my",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent11_01-0026",
+            "v": "plant",
+            "gold": "grass",
+            "picked": "augustine",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent11_01-0031",
+            "v": "hang",
+            "gold": "folks",
+            "picked": "dad",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "email-enronsent26_01-0023",
+            "v": "refer",
+            "gold": "equipment",
+            "picked": "cell",
+            "constr": "simple",
+            "n_cands": 4
+          },
+          {
+            "sid": "email-enronsent33_01-0049",
+            "v": "send",
+            "gold": "letter",
+            "picked": "you",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "email-enronsent37_01-0063",
+            "v": "get",
+            "gold": "premium",
+            "picked": "their",
+            "constr": "control",
+            "n_cands": 2
+          },
+          {
+            "sid": "newsgroup-groups.google.com_magicworld_04c89d43ff4fd6ea_ENG_20050104_152000-0035",
+            "v": "put",
+            "gold": "focus",
+            "picked": "your",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "reviews-011257-0007",
+            "v": "spread",
+            "gold": "word",
+            "picked": "my",
+            "constr": "simple",
+            "n_cands": 5
+          },
+          {
+            "sid": "reviews-217747-0004",
+            "v": "recommend",
+            "gold": "company",
+            "picked": "services",
+            "constr": "simple",
+            "n_cands": 5
+          },
+          {
+            "sid": "reviews-260640-0001",
+            "v": "send",
+            "gold": "dogs",
+            "picked": "my",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "reviews-292997-0004",
+            "v": "recommend",
+            "gold": "menu",
+            "picked": "four-course",
+            "constr": "simple",
+            "n_cands": 4
+          },
+          {
+            "sid": "reviews-388799-0003",
+            "v": "order",
+            "gold": "everything",
+            "picked": "we",
+            "constr": "relative",
+            "n_cands": 2
+          },
+          {
+            "sid": "reviews-396874-0002",
+            "v": "get",
+            "gold": "ferrari",
+            "picked": "my",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_gold_construction_backoff": {
+        "control_xcomp": {
+          "n": 7,
+          "acc": 0.7143,
+          "ceiling": 0.7143,
+          "ext_err": 2,
+          "dec_err": 0,
+          "correct": 5
+        },
+        "coordination_shared_subj": {
+          "n": 7,
+          "acc": 1.0,
+          "ceiling": 1.0,
+          "ext_err": 0,
+          "dec_err": 0,
+          "correct": 7
+        },
+        "cue_conflict_animate": {
+          "n": 9,
+          "acc": 1.0,
+          "ceiling": 1.0,
+          "ext_err": 0,
+          "dec_err": 0,
+          "correct": 9
+        },
+        "locative_alternation": {
+          "n": 12,
+          "acc": 0.6667,
+          "ceiling": 0.75,
+          "ext_err": 3,
+          "dec_err": 1,
+          "correct": 8
+        },
+        "passive_by_agent": {
+          "n": 5,
+          "acc": 0.6,
+          "ceiling": 0.8,
+          "ext_err": 1,
+          "dec_err": 1,
+          "correct": 3
+        },
+        "prep_governed_patient": {
+          "n": 1,
+          "acc": 1.0,
+          "ceiling": 1.0,
+          "ext_err": 0,
+          "dec_err": 0,
+          "correct": 1
+        },
+        "relative_clause_patient": {
+          "n": 5,
+          "acc": 0.8,
+          "ceiling": 0.8,
+          "ext_err": 1,
+          "dec_err": 0,
+          "correct": 4
+        },
+        "simple_svo": {
+          "n": 6,
+          "acc": 0.6667,
+          "ceiling": 0.8333,
+          "ext_err": 1,
+          "dec_err": 1,
+          "correct": 4
+        }
+      },
+      "abstain_backoff": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.4287,
+        "forced_committed_precision": 0.8367,
+        "abstain_committed_precision": 0.9,
+        "abstain_rate": 0.1837,
+        "n_test_nonempty": 49,
+        "n_abstained": 9,
+        "parser_margin_mean_correct": 17.8797,
+        "parser_margin_mean_wrong": 12.0762,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_backoff": [
+        -2.0106,
+        9.1081,
+        0.8299,
+        3.3981,
+        0.0784,
+        -1.7028,
+        0.0,
+        1.323,
+        2.0751,
+        -0.127,
+        -0.3128,
+        -0.2854,
+        4.5152
+      ]
+    }
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND || NO_CLEANUP fid@1=0.444(hop1_ok=True cap) @2=0.038(collapses=True) @3=0.015 @4=0.003 slope=-0.135 || PLAIN @2=0.137(gain2=0.099) DG_RESEP @2=0.121(gain2=0.083) CA1_RESIDUAL @2=0.090(gain2=0.052) || best_cand=PLAIN_CLEANUP best_gain2=0.099 hp_arms=[] any_material(>=0.05)=True || bands: HOP1>=0.30 BASE_COLLAPSE<=0.40&<=0.50x@1 GAIN2_HP>=0.10 RECOVER>=0.50x(cand@1) PERSIST3>=0.05 || n=1525 E=4262 rel_types=16 seeds=2 n_chains~500 hit@K=10",
+  "summary": "MIDDLE_BAND || NO_CLEANUP fid@1=0.444(hop1_ok=True cap) @2=0.038(collapses=True) @3=0.015 @4=0.003 slope=-0.135 || PLAIN @2=0.137(gain2=0.099) DG_RESEP @2=0.121(gain2=0.083) CA1_RESIDUAL @2=0.090(gain",
+  "run_mode": "smoke",
+  "elapsed_s": 8.127586399990832,
+  "anchor_name": "grounding_multihop_perhop_cleanup_gate_v1",
+  "ts_iso": "2026-07-09T18:49:55.393492+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "n_nodes": 1800,
+    "epochs": 60,
+    "batch": 256,
+    "code_dim": 128,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_bind": 1.0,
+    "dg_dim": 4096,
+    "n_chains": 500,
+    "cos_floor_c": 1.1
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 1525,
+    "n_edges": 4262,
+    "median_degree": 3.0,
+    "mean_degree": 5.589508196721312,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 4262
+  },
+  "gates": {
+    "verdict": "MIDDLE_BAND",
+    "fid_mean": {
+      "NO_CLEANUP": {
+        "1": 0.4439999908208847,
+        "2": 0.03800000064074993,
+        "3": 0.014999999664723873,
+        "4": 0.003000000026077032
+      },
+      "PLAIN_CLEANUP": {
+        "1": 0.4439999908208847,
+        "2": 0.13700000196695328,
+        "3": 0.03399999998509884,
+        "4": 0.020999999716877937
+      },
+      "DG_RESEP": {
+        "1": 0.4009999930858612,
+        "2": 0.12099999934434891,
+        "3": 0.031000000424683094,
+        "4": 0.019999999552965164
+      },
+      "CA1_RESIDUAL": {
+        "1": 0.34200000762939453,
+        "2": 0.08999999985098839,
+        "3": 0.026000000536441803,
+        "4": 0.013000000268220901
+      }
+    },
+    "decay_slope": {
+      "NO_CLEANUP": -0.13459999733604486,
+      "PLAIN_CLEANUP": -0.1371999975293874,
+      "DG_RESEP": -0.12329999795183537,
+      "CA1_RESIDUAL": -0.10510000213980672
+    },
+    "base_fid1": 0.4439999908208847,
+    "base_fid2": 0.03800000064074993,
+    "base_fid3": 0.014999999664723873,
+    "hop1_ok": true,
+    "baseline_collapses": true,
+    "candidate_eval": {
+      "PLAIN_CLEANUP": {
+        "fid1": 0.4439999908208847,
+        "fid2": 0.13700000196695328,
+        "fid3": 0.03399999998509884,
+        "gain2": 0.09900000132620335,
+        "gain3": 0.019000000320374966,
+        "recover_floor": 0.22199999541044235,
+        "hard_pass": false
+      },
+      "DG_RESEP": {
+        "fid1": 0.4009999930858612,
+        "fid2": 0.12099999934434891,
+        "fid3": 0.031000000424683094,
+        "gain2": 0.08299999870359898,
+        "gain3": 0.01600000075995922,
+        "recover_floor": 0.2004999965429306,
+        "hard_pass": false
+      },
+      "CA1_RESIDUAL": {
+        "fid1": 0.34200000762939453,
+        "fid2": 0.08999999985098839,
+        "fid3": 0.026000000536441803,
+        "gain2": 0.05199999921023846,
+        "gain3": 0.01100000087171793,
+        "recover_floor": 0.17100000381469727,
+        "hard_pass": false
+      }
+    },
+    "hp_arms": [],
+    "best_candidate": "PLAIN_CLEANUP",
+    "best_gain2": 0.09900000132620335,
+    "any_material": true,
+    "bands": {
+      "HOP1_MIN": 0.3,
+      "BASE_COLLAPSE_ABS": 0.4,
+      "BASE_COLLAPSE_FRAC": 0.5,
+      "GAIN2_HP": 0.1,
+      "RECOVER_FRAC": 0.5,
+      "PERSIST3_HP": 0.05,
+      "MATERIAL_MIN": 0.05,
+      "NOVELTY_LAMBDA": 0.5,
+      "HIT_K": 10,
+      "MAX_REACH": 4,
+      "DG_ACTIVE_FRAC": 0.05
+    }
+  },
+  "mechanism_selftest": {
+    "fid_no_cleanup": {
+      "1": 1.0,
+      "2": 0.7533,
+      "3": 0.1267,
+      "4": 0.0733
+    },
+    "fid_plain": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "fid_dg": {
+      "1": 0.9533,
+      "2": 0.7067,
+      "3": 0.52,
+      "4": 0.3533
+    },
+    "fid_ca1": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "hop1_high": true,
+    "baseline_fails": true,
+    "best_cand_gain_deep": 0.9266666695475578,
+    "metric_separates": true,
+    "arms_differ": true,
+    "cos_raw": 0.07041770129946608,
+    "cos_sketch": 0.031420364763269475,
+    "sketch_decorrelates": true,
+    "resid_pred_cos": 0.10607098042964935,
+    "resid_cue_cos": 0.053632184863090515,
+    "residual_reduces_cue": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "arms": {
+        "NO_CLEANUP": {
+          "fid": {
+            "1": 0.4519999921321869,
+            "2": 0.041999999433755875,
+            "3": 0.009999999776482582,
+            "4": 0.006000000052154064
+          }
+        },
+        "PLAIN_CLEANUP": {
+          "fid": {
+            "1": 0.4519999921321869,
+            "2": 0.14800000190734863,
+            "3": 0.026000000536441803,
+            "4": 0.019999999552965164
+          }
+        },
+        "DG_RESEP": {
+          "fid": {
+            "1": 0.421999990940094,
+            "2": 0.1379999965429306,
+            "3": 0.029999999329447746,
+            "4": 0.017999999225139618
+          }
+        },
+        "CA1_RESIDUAL": {
+          "fid": {
+            "1": 0.3580000102519989,
+            "2": 0.0860000029206276,
+            "3": 0.019999999552965164,
+            "4": 0.01600000075995922
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "fc52864913e59ac704ac68077b802db4582cbe1ca20f098c93bd03e3a43291ed",
+        "PLAIN_CLEANUP": "8fb052218c609ff293121d5e94acceef853ef7b6e3a0018d037c85bb6e71780a",
+        "DG_RESEP": "cfcc71629dab8e4a7b4f55ed9a6508f09008877e672b92ddc0c4d4867a34258f",
+        "CA1_RESIDUAL": "9bbd2573079d90d56684608d8ad0fda473695b3ca3e49657bf5b5e5ad01a0f14"
+      },
+      "encoder_digest": "c1170cd3f09fffeea9627766e2fd137bca731711f80bf5f4c07ce12f9fdcc17c",
+      "n_chains": 500,
+      "sketch_active": 0.050048828125,
+      "dg_active_m": 205
+    },
+    {
+      "seed": 13,
+      "arms": {
+        "NO_CLEANUP": {
+          "fid": {
+            "1": 0.4359999895095825,
+            "2": 0.03400000184774399,
+            "3": 0.019999999552965164,
+            "4": 0.0
+          }
+        },
+        "PLAIN_CLEANUP": {
+          "fid": {
+            "1": 0.4359999895095825,
+            "2": 0.12600000202655792,
+            "3": 0.041999999433755875,
+            "4": 0.02199999988079071
+          }
+        },
+        "DG_RESEP": {
+          "fid": {
+            "1": 0.3799999952316284,
+            "2": 0.10400000214576721,
+            "3": 0.03200000151991844,
+            "4": 0.02199999988079071
+          }
+        },
+        "CA1_RESIDUAL": {
+          "fid": {
+            "1": 0.32600000500679016,
+            "2": 0.09399999678134918,
+            "3": 0.03200000151991844,
+            "4": 0.009999999776482582
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "0ce1e4ef1d0472fad1f0cc12f6d941203cc0f2b38a692236141adcc5e0c70b32",
+        "PLAIN_CLEANUP": "43620e3a4212107b93fcf417c75c738ed3731871ca0792a2aa6c5e7e8594df63",
+        "DG_RESEP": "3b0064a11edbabdf5a253845eb7605e7aa2ae882cbae0bbbf5da0bd6ef459387",
+        "CA1_RESIDUAL": "ca027d530b03cc3856010c7698455e38af01badd1fa5210433f62436a9e14cd3"
+      },
+      "encoder_digest": "a87a20c2ceae2f57db6999a6ed9d1afb48c958784a2ad9dd21f932f891cbb06b",
+      "n_chains": 500,
+      "sketch_active": 0.050048828125,
+      "dg_active_m": 205
+    }
+  ]
+}

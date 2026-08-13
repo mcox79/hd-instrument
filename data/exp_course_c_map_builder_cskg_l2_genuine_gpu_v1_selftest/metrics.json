@@ -1,0 +1,72 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS course-C map-builder-on-CSKG apparatus: SYN_COMPOSITIONAL L2-genuine extraction non-empty, ONESHOT beats POP + DISCRETE, SCRAMBLE does not beat ONESHOT, ORACLE fires; SYN_FREQ_GUESSABLE no manufactured headroom; arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 6.028482900001109,
+  "mechanism_selftest": {
+    "grid": {
+      "ONESHOT_ROTATE": {
+        "hits@1": 0.7179,
+        "hits@10": 0.7436,
+        "mrr": 0.7412
+      },
+      "REPLAY_CONSOLIDATED": {
+        "hits@1": 0.359,
+        "hits@10": 0.5897,
+        "mrr": 0.4371
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@10": 0.0,
+        "mrr": 0.0406
+      },
+      "DISCRETE_BIND": {
+        "hits@1": 0.0513,
+        "hits@10": 0.2564,
+        "mrr": 0.1346
+      },
+      "SCRAMBLE_REPLAY": {
+        "hits@1": 0.0256,
+        "hits@10": 0.2308,
+        "mrr": 0.1288
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@10": 0.1282,
+        "mrr": 0.0669
+      },
+      "ORACLE_TRANSDUCTIVE": {
+        "hits@1": 1.0,
+        "hits@10": 1.0,
+        "mrr": 1.0
+      }
+    },
+    "grid_n_distinct_sigs": 7,
+    "grid_nhold": 39,
+    "grid_recovers": true,
+    "grid_beats_discrete": true,
+    "grid_beats_pop": true,
+    "grid_scramble_ok": true,
+    "grid_oracle_fires": true,
+    "geometry_fires": true,
+    "comp_l2_genuine": 150,
+    "freq_l2_genuine": 150,
+    "comp_oneshot": 0.2667,
+    "comp_replay": 0.1867,
+    "comp_discrete": 0.0267,
+    "comp_pop": 0.1733,
+    "comp_scramble": 0.0133,
+    "comp_random": 0.0133,
+    "freq_geo": 1.0,
+    "freq_pop": 1.0,
+    "oneshot_beats_pop": true,
+    "oneshot_beats_discrete": true,
+    "scramble_not_beat": true,
+    "random_at_chance": true,
+    "no_manufacture": true,
+    "pop_fires_freq": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 7
+  }
+}

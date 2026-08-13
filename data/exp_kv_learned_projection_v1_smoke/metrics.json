@@ -1,0 +1,96 @@
+{
+  "anchor_name": "kv_learned_projection_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: learned projection does NOT generalize the alignment to held-out (recall<0.40) OR doesn't beat the analytic ceiling by >0.30. HELD-OUT learned-recall worst=0.134 | keysep=0.987 | std=0.030 | analytic-ceiling=0.145 (margin=-0.011) | shuffled-ctrl=0.135 | n_enc=2",
+  "run_mode": "smoke",
+  "encoder": "EleutherAI/pythia-160m",
+  "M_sweep": [
+    400,
+    1000
+  ],
+  "n_seeds": 2,
+  "proj_dim": 128,
+  "detail": {
+    "by_M": {
+      "400": {
+        "heldout_recall_mean": 0.18,
+        "heldout_recall_std": 0.03,
+        "keysep": 0.98255,
+        "rho_mean": 0.24015,
+        "shuffled_ctrl": 0.135,
+        "analytic_ceiling": 0.14500000000000002
+      },
+      "1000": {
+        "heldout_recall_mean": 0.134,
+        "heldout_recall_std": 0.0020000000000000018,
+        "keysep": 0.9873000000000001,
+        "rho_mean": 0.2107,
+        "shuffled_ctrl": 0.07200000000000001,
+        "analytic_ceiling": 0.104
+      }
+    },
+    "worst_heldout_recall": 0.134,
+    "worst_keysep": 0.9873,
+    "max_std": 0.03,
+    "analytic_ceiling": 0.145,
+    "learned_minus_analytic": -0.011,
+    "honest_scope": "LEARNED contrastive key-projection generalizes the value-cue->key alignment to HELD-OUT facts on Pythia-2.8B; de-crowding table-stakes (reported); analytic ceiling reported."
+  },
+  "metrics_source": "measured_gpu_pythia2p8b_kv_learned_contrastive_projection_heldout",
+  "per_unit": [
+    {
+      "M": 400,
+      "seed": 0,
+      "heldout_recall": 0.21,
+      "heldout_keysep": 0.9796,
+      "rho_mean": 0.1502,
+      "shuffled_ctrl_recall": 0.13,
+      "analytic_ceiling_recall": 0.14,
+      "n_heldout": 100,
+      "run_mode": "smoke",
+      "_ckpt_key": "M400_s0",
+      "_partial_written_at": 1781940119.6674466
+    },
+    {
+      "M": 400,
+      "seed": 1,
+      "heldout_recall": 0.15,
+      "heldout_keysep": 0.9855,
+      "rho_mean": 0.3301,
+      "shuffled_ctrl_recall": 0.14,
+      "analytic_ceiling_recall": 0.15,
+      "n_heldout": 100,
+      "run_mode": "smoke",
+      "_ckpt_key": "M400_s1",
+      "_partial_written_at": 1781940129.7998536
+    },
+    {
+      "M": 1000,
+      "seed": 0,
+      "heldout_recall": 0.136,
+      "heldout_keysep": 0.9876,
+      "rho_mean": 0.2576,
+      "shuffled_ctrl_recall": 0.064,
+      "analytic_ceiling_recall": 0.12,
+      "n_heldout": 250,
+      "run_mode": "smoke",
+      "_ckpt_key": "M1000_s0",
+      "_partial_written_at": 1781940150.9188251
+    },
+    {
+      "M": 1000,
+      "seed": 1,
+      "heldout_recall": 0.132,
+      "heldout_keysep": 0.987,
+      "rho_mean": 0.1638,
+      "shuffled_ctrl_recall": 0.08,
+      "analytic_ceiling_recall": 0.088,
+      "n_heldout": 250,
+      "run_mode": "smoke",
+      "_ckpt_key": "M1000_s1",
+      "_partial_written_at": 1781940171.4471104
+    }
+  ],
+  "elapsed_s": 62.01105570793152,
+  "summary": "HARD_FAIL: learned projection does NOT generalize the alignment to held-out (recall<0.40) OR doesn't beat the analytic ceiling by >0.30. HELD-OUT learned-recall worst=0.134 | keysep=0.987 | std=0.030 | analytic-ceiling=0.145 (margin=-0.011) | shuffled-ctrl=0.135 | n_enc=2"
+}

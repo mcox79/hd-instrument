@@ -1,0 +1,381 @@
+{
+  "anchor_name": "enc1_structured_n_lift_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: ALL 4 non-baseline encoder arms HARD_FAIL at sigma=1.50; cleanup ceiling at this regime is Shannon-floor candidate (decoder AND encoder both null). Pivot: descope sigma=1.5 stress regime; substrate operating envelope <= sigma=1.0; OR signal-side intervention (richer encoder upstream). regime=BOTH_NULL. DISCRIMINATOR @ sigma=1.50: ARM_BASELINE_N512=0.020(cv0.35,HARD_FAIL) | ARM_DENSE_N4096=0.027(cv0.09,HARD_FAIL) | ARM_SPARSE_FANIN_K5_N4096=0.018(cv0.68,HARD_FAIL) | ARM_MEDIAN_SUB_N512=0.025(cv0.57,HARD_FAIL) | ARM_MEDIAN_SUB_SPARSE_N4096=0.023(cv0.10,HARD_FAIL) | regime=BOTH_NULL | sanity_sigma0_ok=True",
+  "run_mode": "full",
+  "N_DIM_BASELINE": 512,
+  "N_DIM_LIFT": 4096,
+  "K_SPARSE": 5,
+  "M": 200,
+  "N_EVAL": 200,
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_BASELINE_N512": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0071,
+        "recall_discriminator_cv": 0.3536,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.3,
+          "1.0": 0.0733,
+          "1.5": 0.0333,
+          "2.0": 0.0333
+        },
+        "per_arm_classification": "HARD_FAIL"
+      },
+      "ARM_DENSE_N4096": {
+        "recall_discriminator_mean": 0.0267,
+        "recall_discriminator_std": 0.0024,
+        "recall_discriminator_cv": 0.0884,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2667,
+          "1.0": 0.02,
+          "1.5": 0.0133,
+          "2.0": 0.0133
+        },
+        "per_arm_classification": "HARD_FAIL"
+      },
+      "ARM_SPARSE_FANIN_K5_N4096": {
+        "recall_discriminator_mean": 0.0183,
+        "recall_discriminator_std": 0.0125,
+        "recall_discriminator_cv": 0.6803,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2467,
+          "1.0": 0.0667,
+          "1.5": 0.0133,
+          "2.0": 0.0267
+        },
+        "per_arm_classification": "HARD_FAIL"
+      },
+      "ARM_MEDIAN_SUB_N512": {
+        "recall_discriminator_mean": 0.025,
+        "recall_discriminator_std": 0.0141,
+        "recall_discriminator_cv": 0.5657,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2,
+          "1.0": 0.0333,
+          "1.5": 0.0267,
+          "2.0": 0.0333
+        },
+        "per_arm_classification": "HARD_FAIL"
+      },
+      "ARM_MEDIAN_SUB_SPARSE_N4096": {
+        "recall_discriminator_mean": 0.0233,
+        "recall_discriminator_std": 0.0024,
+        "recall_discriminator_cv": 0.101,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.1733,
+          "1.0": 0.0733,
+          "1.5": 0.0133,
+          "2.0": 0.0333
+        },
+        "per_arm_classification": "HARD_FAIL"
+      }
+    },
+    "baseline_recall_discriminator": 0.02,
+    "n_hard_pass_arms": 0,
+    "n_hard_fail_nonbaseline_arms": 4,
+    "discriminating_regime_call": "BOTH_NULL",
+    "discriminating_regime_explanation": "neither dense lift nor sparse-fan-in clears HARD_PASS; Shannon-floor candidate at sigma=1.5 M=200",
+    "sanity_sigma0_recall_all_1_0_ok": true,
+    "sanity_sigma0_failures": [],
+    "discriminator_sigma": 1.5,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "enc1_structured_n_lift_v1; N_BASELINE=512 N_LIFT=4096 K_SPARSE=5 M=200 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_BASELINE_N512', 'ARM_DENSE_N4096', 'ARM_SPARSE_FANIN_K5_N4096', 'ARM_MEDIAN_SUB_N512', 'ARM_MEDIAN_SUB_SPARSE_N4096'] discriminator_sigma=1.50 seeds=[7, 17, 23] mode=full",
+    "honest_scope": "HD-substrate-native encoder-side cleanup-ceiling drill; 5 arms x 5 sigmas x 3 seeds at M=200; baseline N=512, lift N=4096, K=5; discriminating gate: dense-N-lift vs sparse-fan-in vs median-sub vs composition",
+    "cites": [
+      "notes/research_encoder_side_cleanup_ceiling_break_2026-06-23.md (source-of-truth)",
+      "notes/research_alternative_cleanup_mechanisms_post_att1_rejection_2026-06-23.md (parent)",
+      "Litwin_Kumar_2017_optimal_synaptic_connectivity",
+      "Cayco_Gajic_2017_PMC5729189_cerebellar_GC",
+      "Dasgupta_Stevens_Navlakha_2017_fly_LSH",
+      "Foldiak_1990_anti_Hebbian_decorrelation",
+      "Johnson_Lindenstrauss_lemma",
+      "CERT_591_dense_projected_KV"
+    ]
+  },
+  "metrics_source": "measured_cpu_enc1_structured_n_lift_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_BASELINE_N512": {
+          "N_dim": 512,
+          "encoding": "dense",
+          "preprocess": "none",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.01,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.3,
+            "1.0": 0.06,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "wall_s": 0.03
+        },
+        "ARM_DENSE_N4096": {
+          "N_dim": 4096,
+          "encoding": "dense",
+          "preprocess": "none",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.025,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.3,
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "wall_s": 0.1
+        },
+        "ARM_SPARSE_FANIN_K5_N4096": {
+          "N_dim": 4096,
+          "encoding": "sparse",
+          "preprocess": "none",
+          "K_sparse": 5,
+          "recall_at_1_discriminator": 0.035,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.18,
+            "1.0": 0.06,
+            "1.5": 0.04,
+            "2.0": 0.02
+          },
+          "wall_s": 0.11
+        },
+        "ARM_MEDIAN_SUB_N512": {
+          "N_dim": 512,
+          "encoding": "dense",
+          "preprocess": "median_sub",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.045,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.18,
+            "1.0": 0.0,
+            "1.5": 0.06,
+            "2.0": 0.06
+          },
+          "wall_s": 0.02
+        },
+        "ARM_MEDIAN_SUB_SPARSE_N4096": {
+          "N_dim": 4096,
+          "encoding": "sparse",
+          "preprocess": "median_sub",
+          "K_sparse": 5,
+          "recall_at_1_discriminator": 0.025,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.16,
+            "1.0": 0.1,
+            "1.5": 0.02,
+            "2.0": 0.08
+          },
+          "wall_s": 0.14
+        }
+      },
+      "N": 512,
+      "N_DIM_BASELINE": 512,
+      "N_DIM_LIFT": 4096,
+      "K_SPARSE": 5,
+      "M": 200,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "enc1_structured_n_lift_v1; N_BASELINE=512 N_LIFT=4096 K_SPARSE=5 M=200 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_BASELINE_N512', 'ARM_DENSE_N4096', 'ARM_SPARSE_FANIN_K5_N4096', 'ARM_MEDIAN_SUB_N512', 'ARM_MEDIAN_SUB_SPARSE_N4096'] discriminator_sigma=1.50 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782198230.9615517
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_BASELINE_N512": {
+          "N_dim": 512,
+          "encoding": "dense",
+          "preprocess": "none",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.025,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.3,
+            "1.0": 0.1,
+            "1.5": 0.06,
+            "2.0": 0.06
+          },
+          "wall_s": 0.02
+        },
+        "ARM_DENSE_N4096": {
+          "N_dim": 4096,
+          "encoding": "dense",
+          "preprocess": "none",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.03,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.28,
+            "1.0": 0.02,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "wall_s": 0.11
+        },
+        "ARM_SPARSE_FANIN_K5_N4096": {
+          "N_dim": 4096,
+          "encoding": "sparse",
+          "preprocess": "none",
+          "K_sparse": 5,
+          "recall_at_1_discriminator": 0.015,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.28,
+            "1.0": 0.06,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "wall_s": 0.1
+        },
+        "ARM_MEDIAN_SUB_N512": {
+          "N_dim": 512,
+          "encoding": "dense",
+          "preprocess": "median_sub",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.015,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.16,
+            "1.0": 0.06,
+            "1.5": 0.02,
+            "2.0": 0.02
+          },
+          "wall_s": 0.02
+        },
+        "ARM_MEDIAN_SUB_SPARSE_N4096": {
+          "N_dim": 4096,
+          "encoding": "sparse",
+          "preprocess": "median_sub",
+          "K_sparse": 5,
+          "recall_at_1_discriminator": 0.025,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.16,
+            "1.0": 0.04,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "wall_s": 0.13
+        }
+      },
+      "N": 512,
+      "N_DIM_BASELINE": 512,
+      "N_DIM_LIFT": 4096,
+      "K_SPARSE": 5,
+      "M": 200,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "enc1_structured_n_lift_v1; N_BASELINE=512 N_LIFT=4096 K_SPARSE=5 M=200 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_BASELINE_N512', 'ARM_DENSE_N4096', 'ARM_SPARSE_FANIN_K5_N4096', 'ARM_MEDIAN_SUB_N512', 'ARM_MEDIAN_SUB_SPARSE_N4096'] discriminator_sigma=1.50 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782198231.3609881
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_BASELINE_N512": {
+          "N_dim": 512,
+          "encoding": "dense",
+          "preprocess": "none",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.025,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.3,
+            "1.0": 0.06,
+            "1.5": 0.02,
+            "2.0": 0.04
+          },
+          "wall_s": 0.02
+        },
+        "ARM_DENSE_N4096": {
+          "N_dim": 4096,
+          "encoding": "dense",
+          "preprocess": "none",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.025,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.22,
+            "1.0": 0.02,
+            "1.5": 0.02,
+            "2.0": 0.02
+          },
+          "wall_s": 0.11
+        },
+        "ARM_SPARSE_FANIN_K5_N4096": {
+          "N_dim": 4096,
+          "encoding": "sparse",
+          "preprocess": "none",
+          "K_sparse": 5,
+          "recall_at_1_discriminator": 0.005,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.28,
+            "1.0": 0.08,
+            "1.5": 0.0,
+            "2.0": 0.04
+          },
+          "wall_s": 0.09
+        },
+        "ARM_MEDIAN_SUB_N512": {
+          "N_dim": 512,
+          "encoding": "dense",
+          "preprocess": "median_sub",
+          "K_sparse": null,
+          "recall_at_1_discriminator": 0.015,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.26,
+            "1.0": 0.04,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "wall_s": 0.03
+        },
+        "ARM_MEDIAN_SUB_SPARSE_N4096": {
+          "N_dim": 4096,
+          "encoding": "sparse",
+          "preprocess": "median_sub",
+          "K_sparse": 5,
+          "recall_at_1_discriminator": 0.02,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.2,
+            "1.0": 0.08,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "wall_s": 0.14
+        }
+      },
+      "N": 512,
+      "N_DIM_BASELINE": 512,
+      "N_DIM_LIFT": 4096,
+      "K_SPARSE": 5,
+      "M": 200,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "enc1_structured_n_lift_v1; N_BASELINE=512 N_LIFT=4096 K_SPARSE=5 M=200 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_BASELINE_N512', 'ARM_DENSE_N4096', 'ARM_SPARSE_FANIN_K5_N4096', 'ARM_MEDIAN_SUB_N512', 'ARM_MEDIAN_SUB_SPARSE_N4096'] discriminator_sigma=1.50 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782198231.783104
+    }
+  ],
+  "elapsed_s": 1.2737197875976562,
+  "summary": "DISCRIMINATOR HARD_FAIL: ALL 4 non-baseline encoder arms HARD_FAIL at sigma=1.50; cleanup ceiling at this regime is Shannon-floor candidate (decoder AND encoder both null). Pivot: descope sigma=1.5 stress regime; substrate operating envelope <= sigma=1.0; OR signal-side intervention (richer encoder upstream). regime=BOTH_NULL. DISCRIMINATOR @ sigma=1.50: ARM_BASELINE_N512=0.020(cv0.35,HARD_FAIL) | ARM_DENSE_N4096=0.027(cv0.09,HARD_FAIL) | ARM_SPARSE_FANIN_K5_N4096=0.018(cv0.68,HARD_FAIL) | ARM_MEDIAN_SUB_N512=0.025(cv0.57,HARD_FAIL) | ARM_MEDIAN_SUB_SPARSE_N4096=0.023(cv0.10,HARD_FAIL) | regime=BOTH_NULL | sanity_sigma0_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native encoder-side; no LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": false
+}

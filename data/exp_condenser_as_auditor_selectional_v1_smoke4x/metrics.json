@@ -1,0 +1,149 @@
+{
+  "anchor_name": "condenser_as_auditor_selectional_v1",
+  "run_mode": "smoke4x",
+  "verdict": "HARD_FAIL_CONDENSER_AUDITOR_USELESS",
+  "verdict_msg": "VERDICT_core catch_rate_injected=0.9 false_flag_rate_clean=0.6528 precision_mixed=0.3649 enrichment_lift=1.2407 coverage_overlap=0.1244 catch_rate_scrambled_mean=0.66 n_injected=30 n_checkable_clean=72 n_seed_entries=579 base_rate=0.2941 arms_differ=True",
+  "summary": "VERDICT_core catch_rate_injected=0.9 false_flag_rate_clean=0.6528 precision_mixed=0.3649 enrichment_lift=1.2407 coverage_overlap=0.1244 catch_rate_scrambled_mean=0.66 n_injected=30 n_checkable_clean=72 n_seed_entries=579 base_rate=0.2941 arms_differ=True",
+  "elapsed_s": 44.61394879990257,
+  "ts_iso": "2026-07-23T14:45:13.267538+00:00",
+  "n_mining_sentences": 738,
+  "n_reading_stream_evidence": 564,
+  "established_min": 2,
+  "min_verb_total_evidence": 3,
+  "disagree_low": 0.35,
+  "disagree_high": 0.65,
+  "n_inject_cap": 30,
+  "n_seed_entries": 579,
+  "n_checkable_clean": 72,
+  "n_flagged_clean": 47,
+  "coverage_overlap": 0.1244,
+  "false_flag_rate_clean": 0.6528,
+  "n_injected": 30,
+  "n_caught": 27,
+  "catch_rate_injected": 0.9,
+  "precision_mixed": 0.3649,
+  "base_rate_injected_fraction": 0.2941,
+  "enrichment_lift": 1.2407,
+  "catch_rate_scrambled_mean": 0.66,
+  "false_flag_rate_scrambled_mean": 0.8213,
+  "precision_scrambled_mean": 0.2934,
+  "catch_rate_scrambled_per_seed": [
+    0.6333,
+    0.6667,
+    0.6,
+    0.7667,
+    0.6333
+  ],
+  "arms_differ_verified": true,
+  "digest_real": "241658b8ad57a46b",
+  "digest_scrambled_seed0": "3f04ecbaca09bf2e",
+  "injected_records_sample": [
+    {
+      "v": "ask",
+      "n_wrong": "high",
+      "violated_class": "noun.artifact",
+      "rating": 0.7,
+      "rating_source": "verb_own_high"
+    },
+    {
+      "v": "catch",
+      "n_wrong": "give",
+      "violated_class": "noun.animal",
+      "rating": 0.75,
+      "rating_source": "verb_own_high"
+    },
+    {
+      "v": "come",
+      "n_wrong": "kw",
+      "violated_class": "noun.artifact",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "err",
+      "n_wrong": "way",
+      "violated_class": "noun.act",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "fed",
+      "n_wrong": "father",
+      "violated_class": "noun.animal",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "feed",
+      "n_wrong": "cents",
+      "violated_class": "noun.animal",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "fil",
+      "n_wrong": "schoolhouse",
+      "violated_class": "noun.food",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "find",
+      "n_wrong": "sir",
+      "violated_class": "noun.location",
+      "rating": 0.8,
+      "rating_source": "verb_own_high"
+    },
+    {
+      "v": "get",
+      "n_wrong": "gig",
+      "violated_class": "noun.act",
+      "rating": 0.7,
+      "rating_source": "verb_own_high"
+    },
+    {
+      "v": "give",
+      "n_wrong": "town",
+      "violated_class": "noun.food",
+      "rating": 0.8,
+      "rating_source": "verb_own_high"
+    },
+    {
+      "v": "go",
+      "n_wrong": "fourth",
+      "violated_class": "noun.artifact",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "hear",
+      "n_wrong": "song",
+      "violated_class": "noun.animal",
+      "rating": 0.7,
+      "rating_source": "verb_own_high"
+    }
+  ],
+  "n_dominant_verbs": 39,
+  "n_verbs_with_any_evidence": 106,
+  "has_signal": true,
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference; the seed table (29479) and the condenser's corpus evidence (29476's reading pipeline) are both pre-built/read-only here",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "recall/precision/false-flag-rate measurement; no quantitative noise floor",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng consumed in sorted order; no hash()",
+  "held_out_property": "the condenser's corpus-reading evidence is built with ZERO visibility into scaled_seed_table_v1.json (injected or original) -- the reading pass never consults the seed table in any way; this is the held-out guarantee: the auditor's knowledge source is independent of what it judges.",
+  "injection_design_note": "realistic, non-pinned: swaps the FILLER NOUN to a real, corpus-attested, cross-class distractor (29476's own sample_distractor, mechanical fixed-RNG) never attested for that verb; the RATING is copied verbatim from an existing real LLM rating (never invented/tuned to cross a threshold) -- the opposite of 29479's inject_errors, which corrupted the NUMBER to an extreme (0.05/0.95) chosen specifically to cross its own detector's threshold by construction.",
+  "honest_scope_note": "class-granularity only, per 29476: this auditor can judge whether the LLM's assigned filler-class matches corpus-attested usage; it cannot judge FINE within-class distinctions (e.g. which specific FOOD noun is most typical).",
+  "ontology_comparison_ref": "29479 MEASURED: ontology auditor catch_rate=1.0 (VACUOUS -- injected values were extreme 0.05/0.95 chosen to trivially cross its own CONTRA_THRESH=0.45 gap) with false_flag_rate=0.1845 on clean entries and (per task brief) 79%% of its clean flags were hand-inspected as ontology-WRONG/LLM-RIGHT (give|money, hold|hands, eat|acorn) -- i.e. ~21%% flag precision. This cell's false_flag_rate_clean and precision_mixed are the direct structural analogs, computed against a NON-pinned injected battery.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "catch_rate_injected",
+    "false_flag_rate_clean",
+    "precision_mixed",
+    "enrichment_lift",
+    "coverage_overlap",
+    "catch_rate_scrambled_mean",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "held_out_property"
+  ]
+}

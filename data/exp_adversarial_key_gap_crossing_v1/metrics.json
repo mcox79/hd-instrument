@@ -1,0 +1,213 @@
+{
+  "anchor_name": "adversarial_key_gap_crossing_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_ADVERSARIAL_ROBUST: ARM_TARGETED_PGD false_recall=0.000 < 0.10 at epsilon=0.5 (large adversarial budget). Substrate withstands gradient attack even at high-epsilon regime. M3 implication: encoder is sole attack surface; cortex-noise is prudent (not load-bearing). disc_eps=0.5 PGD@disc=0.000 RND@disc=0.0 grad_advantage=0.0 RND@0.20=0.000 BOUNDARY@0.50=0.466 BOUNDARY@0.90=0.000 BOUNDARY@0.10=1.000",
+  "summary": "anchor=adversarial_key_gap_crossing_v1 N=8192 M=1000 N_query=500 PGD_steps=100 epsilons=[0.05, 0.2, 0.5, 0.8, 1.2] alphas=[0.9, 0.7, 0.5, 0.3, 0.1] seed=7 mode=full",
+  "elapsed_s": 429.065810918808,
+  "config_version": "ANCHOR=adversarial_key_gap_crossing_v1,N=8192,M=1000,N_query=500,K_proj_seed=42,PGD_steps=100,epsilon_grid=[0.05, 0.2, 0.5, 0.8, 1.2],alpha_grid=[0.9, 0.7, 0.5, 0.3, 0.1],SEED=7,RUN_MODE=full,hardening=METARULE_AF+METARULE_AH+METARULE_H+startmarker+heartbeat",
+  "run_mode": "full",
+  "N": 8192,
+  "M": 1000,
+  "N_query": 500,
+  "K_proj_seed": 42,
+  "pgd_steps": 100,
+  "epsilon_grid": [
+    0.05,
+    0.2,
+    0.5,
+    0.8,
+    1.2
+  ],
+  "alpha_grid": [
+    0.9,
+    0.7,
+    0.5,
+    0.3,
+    0.1
+  ],
+  "seed": 7,
+  "expected_n_units": 15,
+  "n_units_observed": 15,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "ARM_RANDOM": "dbc3cc311a91c5636d01faf753129b7288a0c4ad6a4d98539d4fb4bd895ecf61",
+    "ARM_TARGETED_PGD": "17eef057d06e01ee7bbe865a8128705365f167e760daf750627b126fb49eb221",
+    "ARM_BOUNDARY_INTERPOLATE": "2164665a304cadd68a41971cc2e605d974c4388ed01c81478fc1a2553e4e6c79"
+  },
+  "verdict_fields": {
+    "cardinality_ok": true,
+    "discriminator_epsilon": 0.5,
+    "pgd_false_recall_at_disc": 0.0,
+    "random_false_recall_at_disc": 0.0,
+    "pgd_gradient_advantage": 0.0,
+    "random_false_recall_at_sanity_eps_0.20": 0.0,
+    "random_false_recall_max_over_grid": 0.0,
+    "boundary_false_recall_at_alpha_0.50": 0.466,
+    "boundary_false_recall_at_alpha_0.90": 0.0,
+    "boundary_false_recall_at_alpha_0.10": 1.0
+  },
+  "arm_results": {
+    "ARM_RANDOM": [
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "epsilon": 0.05,
+        "arm_status": "OK",
+        "wall_s": 28.3218412399292
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "epsilon": 0.2,
+        "arm_status": "OK",
+        "wall_s": 32.31365084648132
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "epsilon": 0.5,
+        "arm_status": "OK",
+        "wall_s": 26.06376028060913
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "epsilon": 0.8,
+        "arm_status": "OK",
+        "wall_s": 25.101546049118042
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "epsilon": 1.2,
+        "arm_status": "OK",
+        "wall_s": 25.986376523971558
+      }
+    ],
+    "ARM_TARGETED_PGD": [
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "pgd_steps": 100,
+        "epsilon": 0.05,
+        "arm_status": "OK",
+        "wall_s": 29.771169900894165
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "pgd_steps": 100,
+        "epsilon": 0.2,
+        "arm_status": "OK",
+        "wall_s": 29.866109132766724
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "pgd_steps": 100,
+        "epsilon": 0.5,
+        "arm_status": "OK",
+        "wall_s": 35.636436462402344
+      },
+      {
+        "n_queries": 500,
+        "n_false": 500,
+        "n_target_hit": 500,
+        "false_recall": 1.0,
+        "targeted_hit_rate": 1.0,
+        "pgd_steps": 100,
+        "epsilon": 0.8,
+        "arm_status": "OK",
+        "wall_s": 29.032243728637695
+      },
+      {
+        "n_queries": 500,
+        "n_false": 500,
+        "n_target_hit": 500,
+        "false_recall": 1.0,
+        "targeted_hit_rate": 1.0,
+        "pgd_steps": 100,
+        "epsilon": 1.2,
+        "arm_status": "OK",
+        "wall_s": 29.89760732650757
+      }
+    ],
+    "ARM_BOUNDARY_INTERPOLATE": [
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "alpha": 0.9,
+        "arm_status": "OK",
+        "wall_s": 26.244686126708984
+      },
+      {
+        "n_queries": 500,
+        "n_false": 0,
+        "n_target_hit": 0,
+        "false_recall": 0.0,
+        "targeted_hit_rate": 0.0,
+        "alpha": 0.7,
+        "arm_status": "OK",
+        "wall_s": 25.62095355987549
+      },
+      {
+        "n_queries": 500,
+        "n_false": 233,
+        "n_target_hit": 233,
+        "false_recall": 0.466,
+        "targeted_hit_rate": 0.466,
+        "alpha": 0.5,
+        "arm_status": "OK",
+        "wall_s": 26.81205654144287
+      },
+      {
+        "n_queries": 500,
+        "n_false": 500,
+        "n_target_hit": 500,
+        "false_recall": 1.0,
+        "targeted_hit_rate": 1.0,
+        "alpha": 0.3,
+        "arm_status": "OK",
+        "wall_s": 33.77797055244446
+      },
+      {
+        "n_queries": 500,
+        "n_false": 500,
+        "n_target_hit": 500,
+        "false_recall": 1.0,
+        "targeted_hit_rate": 1.0,
+        "alpha": 0.1,
+        "arm_status": "OK",
+        "wall_s": 24.474727153778076
+      }
+    ]
+  }
+}

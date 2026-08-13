@@ -1,0 +1,36 @@
+{
+  "anchor_name": "pos_discriminative_multiseed_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: above HMM but gain<0.03 or tag-acc<0.92 (discriminative edge within margin). mean=0.9007 std=0.0020 spread=0.0045 vs iso-protocol-HMM=0.6697 (gain=0.2310) (n=3 seeds, vals=[0.9017, 0.898, 0.9025], train=240 sents, 38 tags)",
+  "run_mode": "smoke",
+  "metrics_source": "measured_cpu_pos_discriminative_vs_isoprotocol_hmm_ptb",
+  "n_seeds": 3,
+  "accuracy": 0.9007,
+  "hmm_acc": 0.6697,
+  "gain_vs_hmm": 0.231,
+  "spread": 0.0045,
+  "vals": [
+    0.9017,
+    0.898,
+    0.9025
+  ],
+  "per_seed": [
+    {
+      "accuracy": 0.9007,
+      "std": 0.002,
+      "spread": 0.0045,
+      "vals": [
+        0.9017,
+        0.898,
+        0.9025
+      ],
+      "hmm_acc": 0.6697,
+      "gain_vs_hmm": 0.231,
+      "n_train": 240,
+      "n_tags": 38,
+      "n_seeds": 3
+    }
+  ],
+  "elapsed_s": 16.622889757156372,
+  "summary": "MIDDLE_BAND: above HMM but gain<0.03 or tag-acc<0.92 (discriminative edge within margin). mean=0.9007 std=0.0020 spread=0.0045 vs iso-protocol-HMM=0.6697 (gain=0.2310) (n=3 seeds, vals=[0.9017, 0.898, 0.9025], train=240 sents, 38 tags)"
+}

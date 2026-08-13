@@ -1,0 +1,614 @@
+{
+  "anchor_name": "flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: variant B (shrinkage-ZCA whiten-before-topk) holds keysep<=raw AND recall>=raw at anchor f0.02 (passes; recall<0.80*dense or weak-diversify -> document margin) -> L-build variant=B at f0.02. dense_rec=0.63 | f0.02[raw_rec=0.01 Bshrink_rec=0.46(ks=0.30 div=True) Dabs_rec=0.00 fix=+0.46] f0.05[raw_rec=0.01 Bshrink_rec=0.53(ks=0.34 div=True) Dabs_rec=0.00 fix=+0.52] f0.10[raw_rec=0.02 Bshrink_rec=0.57(ks=0.38 div=True) Dabs_rec=0.00 fix=+0.56] f0.20[raw_rec=0.02 Bshrink_rec=0.59(ks=0.44 div=True) Dabs_rec=0.01 fix=+0.57] | B_anchor_pass=['f0.02', 'f0.05'] C_anchor_pass=['f0.02', 'f0.05']",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-2.8b",
+  "N": 8192,
+  "M": 5000,
+  "FRACS": [
+    0.02,
+    0.05,
+    0.1,
+    0.2
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "anchor_fracs": [
+      "f0.02",
+      "f0.05"
+    ],
+    "dense_recall": 0.6336,
+    "by_f": {
+      "f0.02": {
+        "raw_sparse": {
+          "keysep": 0.9019607901573181,
+          "recall": 0.0064,
+          "rho": 0.6995832505848428
+        },
+        "variants": {
+          "A_naive_topk": {
+            "keysep": 0.5705521106719971,
+            "recall": 0.5824,
+            "rho": 0.0787459313153648,
+            "support_overlap": 0.059238578829084045
+          },
+          "B_whiten_before_topk": {
+            "keysep": 0.30061349272727966,
+            "recall": 0.464,
+            "rho": 0.03505625850778279,
+            "support_overlap": 0.03499846908558747
+          },
+          "C_random_fixed_positions": {
+            "keysep": 0.7055214643478394,
+            "recall": 0.4792,
+            "rho": 0.14517573531481434,
+            "support_overlap": 1.0
+          },
+          "D_abs_zca_neg_control": {
+            "keysep": 0.05521472170948982,
+            "recall": 0.0024,
+            "rho": 0.012898435203240717,
+            "support_overlap": 0.023526511939273097
+          }
+        },
+        "B_diversifies_vs_A": true,
+        "B_rho_survives_vs_raw": true,
+        "B_beats_D_recall": 0.4616
+      },
+      "f0.05": {
+        "raw_sparse": {
+          "keysep": 0.8124999403953552,
+          "recall": 0.0096,
+          "rho": 0.5586865488484538
+        },
+        "variants": {
+          "A_naive_topk": {
+            "keysep": 0.6063569784164429,
+            "recall": 0.608,
+            "rho": 0.10027740820586156,
+            "support_overlap": 0.08535687457546993
+          },
+          "B_whiten_before_topk": {
+            "keysep": 0.33740827441215515,
+            "recall": 0.5256,
+            "rho": 0.042203361077533905,
+            "support_overlap": 0.058671114281616824
+          },
+          "C_random_fixed_positions": {
+            "keysep": 0.6919315457344055,
+            "recall": 0.5704,
+            "rho": 0.13701425007193255,
+            "support_overlap": 1.0
+          },
+          "D_abs_zca_neg_control": {
+            "keysep": 0.04400977864861488,
+            "recall": 0.0032,
+            "rho": 0.010903472228466366,
+            "support_overlap": 0.04531733325601637
+          }
+        },
+        "B_diversifies_vs_A": true,
+        "B_rho_survives_vs_raw": true,
+        "B_beats_D_recall": 0.5224
+      },
+      "f0.10": {
+        "raw_sparse": {
+          "keysep": 0.79296875,
+          "recall": 0.016,
+          "rho": 0.5143978952693404
+        },
+        "variants": {
+          "A_naive_topk": {
+            "keysep": 0.632478654384613,
+            "recall": 0.624,
+            "rho": 0.11886788483521192,
+            "support_overlap": 0.12274071751881446
+          },
+          "B_whiten_before_topk": {
+            "keysep": 0.3791208863258362,
+            "recall": 0.568,
+            "rho": 0.05033851910630067,
+            "support_overlap": 0.08904929144764982
+          },
+          "C_random_fixed_positions": {
+            "keysep": 0.6849817037582397,
+            "recall": 0.5992,
+            "rho": 0.1269523309076949,
+            "support_overlap": 1.0
+          },
+          "D_abs_zca_neg_control": {
+            "keysep": 0.03663003817200661,
+            "recall": 0.0032,
+            "rho": 0.009151542730766644,
+            "support_overlap": 0.07702731179783891
+          }
+        },
+        "B_diversifies_vs_A": true,
+        "B_rho_survives_vs_raw": true,
+        "B_beats_D_recall": 0.5648
+      },
+      "f0.20": {
+        "raw_sparse": {
+          "keysep": 0.7988280653953552,
+          "recall": 0.0176,
+          "rho": 0.5227828258700711
+        },
+        "variants": {
+          "A_naive_topk": {
+            "keysep": 0.6761294007301331,
+            "recall": 0.6248,
+            "rho": 0.13976046559904173,
+            "support_overlap": 0.1818993447642398
+          },
+          "B_whiten_before_topk": {
+            "keysep": 0.44291818141937256,
+            "recall": 0.5856,
+            "rho": 0.061068691378884356,
+            "support_overlap": 0.14916086512020477
+          },
+          "C_random_fixed_positions": {
+            "keysep": 0.6837606430053711,
+            "recall": 0.6096,
+            "rho": 0.12930097495965523,
+            "support_overlap": 1.0
+          },
+          "D_abs_zca_neg_control": {
+            "keysep": 0.02869352698326111,
+            "recall": 0.0128,
+            "rho": 0.0072092074599621105,
+            "support_overlap": 0.13681616727064203
+          }
+        },
+        "B_diversifies_vs_A": true,
+        "B_rho_survives_vs_raw": true,
+        "B_beats_D_recall": 0.5728
+      }
+    },
+    "B_anchor_pass": [
+      "f0.02",
+      "f0.05"
+    ],
+    "C_anchor_pass": [
+      "f0.02",
+      "f0.05"
+    ],
+    "CONFIG_VERSION": "CERT591-proj-verbatim + a3f473dd-topk-sparse + amendmentv5: 4-variant(A-naive/B-SHRINKAGE-ZCA-relfloor-tau1e-2/C-random-fixed/D-abs-ZCA-neg-control) x f{0.02-anchor,0.05-anchor,0.10,0.20} x 3seed; gate@f0.02|f0.05; rho-apples-to-apples-same-heldout",
+    "cites": [
+      "CERT591_kv_learned_projection_v1",
+      "a3f473dd_sparse_super_capacity",
+      "amendment_v5_shrinkage_zca_relfloor"
+    ]
+  },
+  "metrics_source": "measured_flagship_probe_whiten_before_topk_3variant",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_variant": {
+        "A_naive_topk": {
+          "f0.02": {
+            "recall": 0.5824,
+            "keysep": 0.5582822561264038,
+            "rho": 0.07575423742314163,
+            "support_overlap": 0.058218824049830135
+          },
+          "f0.05": {
+            "recall": 0.6152,
+            "keysep": 0.5990220308303833,
+            "rho": 0.09874470010578776,
+            "support_overlap": 0.08521998318895872
+          },
+          "f0.10": {
+            "recall": 0.6272,
+            "keysep": 0.632478654384613,
+            "rho": 0.11788484742872422,
+            "support_overlap": 0.11875598894917647
+          },
+          "f0.20": {
+            "recall": 0.6288,
+            "keysep": 0.6761294007301331,
+            "rho": 0.13976046559904173,
+            "support_overlap": 0.1782918233315995
+          }
+        },
+        "B_whiten_before_topk": {
+          "f0.02": {
+            "recall": 0.464,
+            "keysep": 0.29447856545448303,
+            "rho": 0.03483124939893321,
+            "support_overlap": 0.03449731865392406
+          },
+          "f0.05": {
+            "recall": 0.5256,
+            "keysep": 0.33740827441215515,
+            "rho": 0.042203361077533905,
+            "support_overlap": 0.058671114281616824
+          },
+          "f0.10": {
+            "recall": 0.5696,
+            "keysep": 0.3791208863258362,
+            "rho": 0.05033851910630067,
+            "support_overlap": 0.08904929144764982
+          },
+          "f0.20": {
+            "recall": 0.5856,
+            "keysep": 0.4438339173793793,
+            "rho": 0.06089294653496234,
+            "support_overlap": 0.14747749887485476
+          }
+        },
+        "C_random_fixed_positions": {
+          "f0.02": {
+            "recall": 0.4552,
+            "keysep": 0.7055215239524841,
+            "rho": 0.14865363970864193,
+            "support_overlap": 1.0
+          },
+          "f0.05": {
+            "recall": 0.5704,
+            "keysep": 0.7017114758491516,
+            "rho": 0.13760103541817828,
+            "support_overlap": 1.0
+          },
+          "f0.10": {
+            "recall": 0.5992,
+            "keysep": 0.692307710647583,
+            "rho": 0.13149700668738115,
+            "support_overlap": 1.0
+          },
+          "f0.20": {
+            "recall": 0.612,
+            "keysep": 0.6855921745300293,
+            "rho": 0.12930097495965523,
+            "support_overlap": 1.0
+          }
+        },
+        "D_abs_zca_neg_control": {
+          "f0.02": {
+            "recall": 0.004,
+            "keysep": 0.05521472170948982,
+            "rho": 0.012898435203240717,
+            "support_overlap": 0.023526511939273097
+          },
+          "f0.05": {
+            "recall": 0.0032,
+            "keysep": 0.04400977864861488,
+            "rho": 0.010922848080710663,
+            "support_overlap": 0.04531733325601637
+          },
+          "f0.10": {
+            "recall": 0.0056,
+            "keysep": 0.03663003817200661,
+            "rho": 0.009157351057848232,
+            "support_overlap": 0.07751942251514929
+          },
+          "f0.20": {
+            "recall": 0.0128,
+            "keysep": 0.02869352698326111,
+            "rho": 0.0072092074599621105,
+            "support_overlap": 0.13736140053619553
+          }
+        }
+      },
+      "raw_sparse_baseline": {
+        "f0.02": {
+          "recall": 0.0064,
+          "keysep": 0.9019607901573181,
+          "rho": 0.6995832505848428,
+          "support_overlap": 0.5405790409720337
+        },
+        "f0.05": {
+          "recall": 0.0096,
+          "keysep": 0.8124999403953552,
+          "rho": 0.5586865488484538,
+          "support_overlap": 0.3924072006008322
+        },
+        "f0.10": {
+          "recall": 0.016,
+          "keysep": 0.79296875,
+          "rho": 0.5143978952693404,
+          "support_overlap": 0.35864265522887573
+        },
+        "f0.20": {
+          "recall": 0.0176,
+          "keysep": 0.7988280653953552,
+          "rho": 0.5239623339296438,
+          "support_overlap": 0.35102284789578503
+        }
+      },
+      "dense_projected_baseline": {
+        "recall": 0.6376,
+        "keysep": 0.8759839534759521,
+        "rho": 0.2000452901383607
+      },
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782032268.2026474
+    },
+    {
+      "seed": 17,
+      "by_variant": {
+        "A_naive_topk": {
+          "f0.02": {
+            "recall": 0.572,
+            "keysep": 0.5705521106719971,
+            "rho": 0.0787459313153648,
+            "support_overlap": 0.059238578829084045
+          },
+          "f0.05": {
+            "recall": 0.6,
+            "keysep": 0.6100244522094727,
+            "rho": 0.10027740820586156,
+            "support_overlap": 0.08535687457546993
+          },
+          "f0.10": {
+            "recall": 0.624,
+            "keysep": 0.6306471824645996,
+            "rho": 0.11886788483521192,
+            "support_overlap": 0.1230940944964858
+          },
+          "f0.20": {
+            "recall": 0.6216,
+            "keysep": 0.6758240461349487,
+            "rho": 0.13747240468155775,
+            "support_overlap": 0.18339858527460728
+          }
+        },
+        "B_whiten_before_topk": {
+          "f0.02": {
+            "recall": 0.4584,
+            "keysep": 0.30061349272727966,
+            "rho": 0.03568370138004935,
+            "support_overlap": 0.03895223342776715
+          },
+          "f0.05": {
+            "recall": 0.5216,
+            "keysep": 0.3374083638191223,
+            "rho": 0.04258633347107373,
+            "support_overlap": 0.0596352534644602
+          },
+          "f0.10": {
+            "recall": 0.5648,
+            "keysep": 0.3791208863258362,
+            "rho": 0.0508740671736608,
+            "support_overlap": 0.08957994379683816
+          },
+          "f0.20": {
+            "recall": 0.6,
+            "keysep": 0.4426129162311554,
+            "rho": 0.06137458795161129,
+            "support_overlap": 0.15008458486260012
+          }
+        },
+        "C_random_fixed_positions": {
+          "f0.02": {
+            "recall": 0.4832,
+            "keysep": 0.7055214643478394,
+            "rho": 0.1378608013363816,
+            "support_overlap": 1.0
+          },
+          "f0.05": {
+            "recall": 0.5768,
+            "keysep": 0.6821516156196594,
+            "rho": 0.12738129957090671,
+            "support_overlap": 1.0
+          },
+          "f0.10": {
+            "recall": 0.604,
+            "keysep": 0.6849817037582397,
+            "rho": 0.1259980885098704,
+            "support_overlap": 1.0
+          },
+          "f0.20": {
+            "recall": 0.6096,
+            "keysep": 0.6770451664924622,
+            "rho": 0.12558213074365743,
+            "support_overlap": 1.0
+          }
+        },
+        "D_abs_zca_neg_control": {
+          "f0.02": {
+            "recall": 0.0024,
+            "keysep": 0.05521472543478012,
+            "rho": 0.012930641754614629,
+            "support_overlap": 0.02364165132998824
+          },
+          "f0.05": {
+            "recall": 0.0,
+            "keysep": 0.04400977864861488,
+            "rho": 0.010903472228466366,
+            "support_overlap": 0.045601768071202455
+          },
+          "f0.10": {
+            "recall": 0.0016,
+            "keysep": 0.03663003817200661,
+            "rho": 0.009151542730766644,
+            "support_overlap": 0.07702731179783891
+          },
+          "f0.20": {
+            "recall": 0.0144,
+            "keysep": 0.02869352698326111,
+            "rho": 0.007189912544048911,
+            "support_overlap": 0.13681616727064203
+          }
+        }
+      },
+      "raw_sparse_baseline": {
+        "f0.02": {
+          "recall": 0.0064,
+          "keysep": 0.9019607901573181,
+          "rho": 0.6983830716917284,
+          "support_overlap": 0.5419162522967619
+        },
+        "f0.05": {
+          "recall": 0.0096,
+          "keysep": 0.8124999403953552,
+          "rho": 0.558239267195006,
+          "support_overlap": 0.39119137580722774
+        },
+        "f0.10": {
+          "recall": 0.016,
+          "keysep": 0.79296875,
+          "rho": 0.5138754558334168,
+          "support_overlap": 0.35033775761535646
+        },
+        "f0.20": {
+          "recall": 0.0176,
+          "keysep": 0.8007811903953552,
+          "rho": 0.5219038512059647,
+          "support_overlap": 0.36170749302033783
+        }
+      },
+      "dense_projected_baseline": {
+        "recall": 0.6296,
+        "keysep": 0.8772801160812378,
+        "rho": 0.1973324997888936
+      },
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782032457.7548964
+    },
+    {
+      "seed": 23,
+      "by_variant": {
+        "A_naive_topk": {
+          "f0.02": {
+            "recall": 0.5824,
+            "keysep": 0.576687216758728,
+            "rho": 0.0851371099320863,
+            "support_overlap": 0.062299292956132644
+          },
+          "f0.05": {
+            "recall": 0.608,
+            "keysep": 0.6063569784164429,
+            "rho": 0.10637204832225156,
+            "support_overlap": 0.087263052361821
+          },
+          "f0.10": {
+            "recall": 0.6176,
+            "keysep": 0.6446886658668518,
+            "rho": 0.1246234047785103,
+            "support_overlap": 0.12274071751881446
+          },
+          "f0.20": {
+            "recall": 0.6248,
+            "keysep": 0.6776556372642517,
+            "rho": 0.14314529015790758,
+            "support_overlap": 0.1818993447642398
+          }
+        },
+        "B_whiten_before_topk": {
+          "f0.02": {
+            "recall": 0.4712,
+            "keysep": 0.30061352252960205,
+            "rho": 0.03505625850778279,
+            "support_overlap": 0.03499846908558747
+          },
+          "f0.05": {
+            "recall": 0.5264,
+            "keysep": 0.334963321685791,
+            "rho": 0.04207357890707097,
+            "support_overlap": 0.05583848126892619
+          },
+          "f0.10": {
+            "recall": 0.568,
+            "keysep": 0.380952388048172,
+            "rho": 0.050274463345090135,
+            "support_overlap": 0.08749672424757989
+          },
+          "f0.20": {
+            "recall": 0.5848,
+            "keysep": 0.44291818141937256,
+            "rho": 0.061068691378884356,
+            "support_overlap": 0.14916086512020477
+          }
+        },
+        "C_random_fixed_positions": {
+          "f0.02": {
+            "recall": 0.4792,
+            "keysep": 0.6932516098022461,
+            "rho": 0.14517573531481434,
+            "support_overlap": 1.0
+          },
+          "f0.05": {
+            "recall": 0.5384,
+            "keysep": 0.6919315457344055,
+            "rho": 0.13701425007193255,
+            "support_overlap": 1.0
+          },
+          "f0.10": {
+            "recall": 0.576,
+            "keysep": 0.6800976991653442,
+            "rho": 0.1269523309076949,
+            "support_overlap": 1.0
+          },
+          "f0.20": {
+            "recall": 0.58,
+            "keysep": 0.6837606430053711,
+            "rho": 0.1295199245333767,
+            "support_overlap": 1.0
+          }
+        },
+        "D_abs_zca_neg_control": {
+          "f0.02": {
+            "recall": 0.0024,
+            "keysep": 0.05521472170948982,
+            "rho": 0.012670106941265904,
+            "support_overlap": 0.02267171632934035
+          },
+          "f0.05": {
+            "recall": 0.0048,
+            "keysep": 0.04400977864861488,
+            "rho": 0.010811083406520138,
+            "support_overlap": 0.044346849101217015
+          },
+          "f0.10": {
+            "recall": 0.0032,
+            "keysep": 0.03663003817200661,
+            "rho": 0.009110701189125128,
+            "support_overlap": 0.07647490145500557
+          },
+          "f0.20": {
+            "recall": 0.008,
+            "keysep": 0.02869352698326111,
+            "rho": 0.00721885033661695,
+            "support_overlap": 0.1364064929212908
+          }
+        }
+      },
+      "raw_sparse_baseline": {
+        "f0.02": {
+          "recall": 0.0064,
+          "keysep": 0.9019607901573181,
+          "rho": 0.7000852635233187,
+          "support_overlap": 0.5380041065510082
+        },
+        "f0.05": {
+          "recall": 0.0096,
+          "keysep": 0.8203124403953552,
+          "rho": 0.5587599474110538,
+          "support_overlap": 0.39002053665595005
+        },
+        "f0.10": {
+          "recall": 0.016,
+          "keysep": 0.794921875,
+          "rho": 0.5154459993776271,
+          "support_overlap": 0.35349393914297417
+        },
+        "f0.20": {
+          "recall": 0.0176,
+          "keysep": 0.7988280653953552,
+          "rho": 0.5227828258700711,
+          "support_overlap": 0.3600084757867836
+        }
+      },
+      "dense_projected_baseline": {
+        "recall": 0.6336,
+        "keysep": 0.8729730248451233,
+        "rho": 0.20598475850993295
+      },
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782032631.9551415
+    }
+  ],
+  "elapsed_s": 582.989143371582,
+  "summary": "HARD_PASS: variant B (shrinkage-ZCA whiten-before-topk) holds keysep<=raw AND recall>=raw at anchor f0.02 (passes; recall<0.80*dense or weak-diversify -> document margin) -> L-build variant=B at f0.02. dense_rec=0.63 | f0.02[raw_rec=0.01 Bshrink_rec=0.46(ks=0.30 div=True) Dabs_rec=0.00 fix=+0.46] f0.05[raw_rec=0.01 Bshrink_rec=0.53(ks=0.34 div=True) Dabs_rec=0.00 fix=+0.52] f0.10[raw_rec=0.02 Bshrink_rec=0.57(ks=0.38 div=True) Dabs_rec=0.00 fix=+0.56] f0.20[raw_rec=0.02 Bshrink_rec=0.59(ks=0.44 div=True) Dabs_rec=0.01 fix=+0.57] | B_anchor_pass=['f0.02', 'f0.05'] C_anchor_pass=['f0.02', 'f0.05']"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": "GOOD_TARGET",
+  "verdict_msg": "[GOOD_TARGET] n_lessons=62 n_sent=460 mean_sent_len=13.08 n_whoaffected_decisions=503 (verbs_total=745 verbs_no_patient=242) | cross_sent_ref_rate=0.4087 (sents_with_pron=252) | escalation_rate=0.171 (low_margin=0.0915 contradiction_flag=0.0895) | uncertain_split: register=0.3488 discourse=0.4535 register_only=0.1628 (n_unc=86 reg_only=14 disc_only=23 both=16 other=33) | CONTRADICTION_FLAG mcg_rate=0.0895 vs ud_rate=0.0625 (ud_lift=1.6875) | tau_abstain=7.1108(UD16pct)",
+  "summary": "GOOD_TARGET",
+  "elapsed_s": 24.9,
+  "run_mode": "full",
+  "anchor_name": "census_mcguffey_first_reader_whoaffected_escalation_recon_v1",
+  "ts_iso": "2026-07-21T17:48:04.350608+00:00",
+  "note": "RECONNAISSANCE/CENSUS -- reader BEHAVIOR + text STRUCTURE, NO gold who-affected; escalation = reader's OWN confidence signals (arc-parser margin + contradiction flag), NOT verified correctness.",
+  "structure": {
+    "n_lessons": 62,
+    "n_prose_sentences": 460,
+    "mean_sent_len_tokens": 13.08,
+    "median_sent_len_tokens": 11.0,
+    "n_sents_with_pronoun": 252,
+    "n_cross_sentence_referential_sents": 188,
+    "cross_sentence_referential_rate": 0.4087
+  },
+  "escalation": {
+    "n_whoaffected_decisions": 503,
+    "n_verbs_total": 745,
+    "n_verbs_no_patient_candidate": 242,
+    "escalation_rate": 0.171,
+    "low_margin_rate": 0.0915,
+    "contradiction_flag_rate": 0.0895,
+    "n_escalate": 86,
+    "n_low_margin": 46,
+    "n_contradiction_flag": 45,
+    "tau_abstain_ud16pct": 7.1108
+  },
+  "uncertain_split": {
+    "n_uncertain": 86,
+    "register_only": 14,
+    "discourse_only": 23,
+    "both": 16,
+    "other_parse": 33,
+    "register_share": 0.3488,
+    "discourse_share": 0.4535,
+    "register_only_share": 0.1628
+  },
+  "contradiction_flag_comparability": {
+    "mcguffey_flag_rate": 0.0895,
+    "ud_ewt_flag_rate": 0.0625,
+    "ud_ewt_flag_error_lift_ratio": 1.6875,
+    "note": "UD lift = P(isolated wrong|flag)/P(wrong|noflag) MEASURED with UD gold; McGuffey has no gold so only flag_rate is comparable, not lift."
+  },
+  "calibration": {
+    "ud_subset_docs": 80,
+    "n_ud_base_margins": 1015,
+    "tau_abstain_percentile": 16
+  }
+}

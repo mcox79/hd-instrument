@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: ",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_v3e_decline_vs_plateau_v1_seed_7.py\", line 63, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_v3e_decline_vs_plateau_v1_seed_7.py\", line 47, in main\n    return core.run_self_test()\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_v3e_decline_vs_plateau_v1_core.py\", line 740, in run_self_test\n    assert v_alg == \"HARD_FAIL\" and \"FALSE_WIN_ALGEBRA_LAST_STEP\" in m_alg\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "ts_iso": "2026-07-04T18:59:32.923122+00:00",
+  "pid": 24952,
+  "anchor_name": "encoder_v3e_decline_vs_plateau_v1"
+}

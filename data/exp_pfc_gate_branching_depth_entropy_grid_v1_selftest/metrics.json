@@ -1,0 +1,11 @@
+{
+  "anchor_name": "pfc_gate_branching_depth_entropy_grid_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST1-ST12 (cfrpe-TD shrink, adaptive LR, Go/NoGo argmax, mechanism-fires reach, anti-tautology, waypoint build+shuffle, hier>=shuffled mechanism, closure formulas, spearman+entropy, binom, pipeline, verdict wiring)",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 2.0,
+  "ts_iso": "2026-07-05T23:45:19.533092+00:00",
+  "pid": 16984,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=pfc_gate_branching_depth_entropy_grid_v1,N=256,n_ops_set=[2, 4],depth_set=[4],seeds=[7],gamma=0.85,seg_len=2,regimes=['op4_V40_d4', 'op2_V40_d4'],density=0.210,sr_steps=120,sr_batch=32,rollout_per_V=20,lr=0.50,lr_decay_end=0.20,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],n_train_chains=12,n_test_chains=8,mode=selftest,device=cuda,expected_n=14,HP_closure>=0.25,shuf_gap>0.10,cv<0.10,corr<0.85,sign_p<0.05,reach_rank_margin=0.05"
+}

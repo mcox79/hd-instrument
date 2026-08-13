@@ -1,0 +1,501 @@
+{
+  "anchor": "cert_ledger_global_consistency_v1",
+  "anchor_name": "cert_ledger_global_consistency_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "GS1[cycle]=HARD_PASS recall=1.000 fp=0 scr_balacc=0.500 gap=0.500 real_cyc=0 | GS2[fork]=HARD_PASS recall=1.000 fp=0 scr_balacc=0.500 gap=0.500 real_fork_cand=0 | GS3[monotonicity]=HARD_PASS recall=1.000 fp=0 scr_balacc=0.500 gap=0.500 real_regr=0 | posctrl_singlehop=1.000 n_seeds=1",
+  "n_seeds": 1,
+  "seeds": [
+    1
+  ],
+  "N": 2048,
+  "N_DIM": 2048,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "config_version": "ANCHOR=cert_ledger_global_consistency_v1,cert-ledger-global-consistency-v1: N_DIM=2048 n_per_class=10 real_max=40 run_mode=smoke; HP recall>=0.90 zeroFP scrambled_balacc<=0.65 gap>=0.30",
+  "expected_n_subjects": {
+    "gs1": 20,
+    "gs2": 20,
+    "gs3": 40
+  },
+  "arms": [
+    "gs1_mechanism",
+    "gs1_scrambled",
+    "gs2_mechanism",
+    "gs2_scrambled",
+    "gs3_mechanism",
+    "gs3_scrambled",
+    "posctrl_singlehop"
+  ],
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "real_load_skips": [],
+  "detail": {
+    "tiers": {
+      "gs1": "HARD_PASS",
+      "gs2": "HARD_PASS",
+      "gs3": "HARD_PASS"
+    },
+    "tasks": {
+      "gs1": {
+        "tier": "HARD_PASS",
+        "recall": 1.0,
+        "precision": 1.0,
+        "mechanism_balacc": 1.0,
+        "scrambled_balacc": 0.5,
+        "gap_balacc": 0.5,
+        "constructed_fp": 0,
+        "real_fp": 0
+      },
+      "gs2": {
+        "tier": "HARD_PASS",
+        "recall": 1.0,
+        "precision": 1.0,
+        "mechanism_balacc": 1.0,
+        "scrambled_balacc": 0.5,
+        "gap_balacc": 0.5,
+        "constructed_fp": 0,
+        "real_fp": null
+      },
+      "gs3": {
+        "tier": "HARD_PASS",
+        "recall": 1.0,
+        "precision": 1.0,
+        "mechanism_balacc": 1.0,
+        "scrambled_balacc": 0.5,
+        "gap_balacc": 0.5,
+        "constructed_fp": 0,
+        "real_fp": 0
+      }
+    },
+    "posctrl_singlehop_recall": 1.0,
+    "real_fork_candidates_max": 0,
+    "bands": {
+      "HP_RECALL": 0.9,
+      "HF_RECALL": 0.6,
+      "MAX_CONSTRUCTED_FP": 0,
+      "MAX_SCRAMBLED_BALACC": 0.65,
+      "MIN_DISCRIM_GAP": 0.3,
+      "MAX_REAL_CYCLE_FP": 0,
+      "MAX_REAL_REGRESSION_FP": 0
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "n_records": 337,
+      "n_ent": 443,
+      "n_gs1": 20,
+      "n_gs2": 20,
+      "n_gs3": 40,
+      "n_edges": 212,
+      "tau": 2309663.742872537,
+      "tau_scrambled": 2297015.172311166,
+      "tau_calib": {
+        "tau": 2309663.742872537,
+        "mean_edge_conf": 4201498.724137931,
+        "mean_sink_conf": 417828.76160714286,
+        "separation": 3783669.962530788,
+        "n_edge": 232,
+        "n_sink": 105
+      },
+      "posctrl_recall": 1.0,
+      "posctrl_total": 232,
+      "tasks": {
+        "gs1": {
+          "mechanism": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 10,
+            "fn": 0,
+            "recall": 1.0,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "balanced_accuracy": 1.0,
+            "preds": [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          },
+          "scrambled": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 10,
+            "fn": 10,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "balanced_accuracy": 0.5,
+            "preds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "gap_balacc": 0.5
+        },
+        "gs2": {
+          "mechanism": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 10,
+            "fn": 0,
+            "recall": 1.0,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "balanced_accuracy": 1.0,
+            "preds": [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          },
+          "scrambled": {
+            "tp": 10,
+            "fp": 10,
+            "tn": 0,
+            "fn": 0,
+            "recall": 1.0,
+            "specificity": 0.0,
+            "precision": 0.5,
+            "balanced_accuracy": 0.5,
+            "preds": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "gap_balacc": 0.5
+        },
+        "gs3": {
+          "mechanism": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 30,
+            "fn": 0,
+            "recall": 1.0,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "balanced_accuracy": 1.0,
+            "preds": [
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          },
+          "scrambled": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 30,
+            "fn": 10,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "balanced_accuracy": 0.5,
+            "preds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "gap_balacc": 0.5
+        }
+      },
+      "real": {
+        "n_real_subjects": 20,
+        "n_real_multirow": 20,
+        "cycles": {
+          "count": 0,
+          "subjects": []
+        },
+        "forks_unconfirmed": {
+          "count": 0,
+          "candidates": [],
+          "caveat": "UNCONFIRMED audit candidates: a naive distinct-sink fork heuristic cannot yet separate a genuine contested lineage from an atom_id-string collision across two unrelated independent landed atoms. Manual/hdi_skunkworks review required. NOT gated; reported only."
+        },
+        "silent_regressions": {
+          "count": 0,
+          "subjects": []
+        }
+      },
+      "arm_digests": {
+        "gs1_mechanism": "5b69ea1b8c15b127398b64af963689c01514d98a5e4bfe59576c11c5ba4564ef",
+        "gs1_scrambled": "298b7784d13a28bcf231940f467138792c3e549de2ea3c36a62e9e3bc0800dc1",
+        "gs2_mechanism": "5b69ea1b8c15b127398b64af963689c01514d98a5e4bfe59576c11c5ba4564ef",
+        "gs2_scrambled": "c4d2dce18fe96ce034d9a7ad851d1d0075fba70b4d42aea11e66624a08fbf15d",
+        "gs3_mechanism": "c1d622639c8e936f1f77f12bdd686aa659e415612383c069a4e16606f77075b5",
+        "gs3_scrambled": "4095dcdb04bdd58ec61a3265287803c8354249f68e8bbd55c8c08e6a22c9e9c6"
+      },
+      "elapsed_s": 3.6190540000097826
+    }
+  ],
+  "metrics_source": "measured_cert_ledger_global_consistency_3task",
+  "elapsed_s": 3.6231369972229004,
+  "summary": "GS1[cycle]=HARD_PASS recall=1.000 fp=0 scr_balacc=0.500 gap=0.500 real_cyc=0 | GS2[fork]=HARD_PASS recall=1.000 fp=0 scr_balacc=0.500 gap=0.500 real_fork_cand=0 | GS3[monotonicity]=HARD_PASS recall=1.",
+  "structured_gate_claims": [
+    {
+      "gate_name": "gs1_recall",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "detection recall on constructed positives"
+    },
+    {
+      "gate_name": "gs1_constructed_fp",
+      "measured": 0,
+      "threshold": 0,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "false positives on constructed negatives (zero required)"
+    },
+    {
+      "gate_name": "gs1_scrambled_balacc",
+      "measured": 0.5,
+      "threshold": 0.65,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "scrambled-control balanced accuracy must collapse"
+    },
+    {
+      "gate_name": "gs1_discrim_gap",
+      "measured": 0.5,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "mechanism minus scrambled balanced accuracy"
+    },
+    {
+      "gate_name": "gs2_recall",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "detection recall on constructed positives"
+    },
+    {
+      "gate_name": "gs2_constructed_fp",
+      "measured": 0,
+      "threshold": 0,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "false positives on constructed negatives (zero required)"
+    },
+    {
+      "gate_name": "gs2_scrambled_balacc",
+      "measured": 0.5,
+      "threshold": 0.65,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "scrambled-control balanced accuracy must collapse"
+    },
+    {
+      "gate_name": "gs2_discrim_gap",
+      "measured": 0.5,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "mechanism minus scrambled balanced accuracy"
+    },
+    {
+      "gate_name": "gs3_recall",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "detection recall on constructed positives"
+    },
+    {
+      "gate_name": "gs3_constructed_fp",
+      "measured": 0,
+      "threshold": 0,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "false positives on constructed negatives (zero required)"
+    },
+    {
+      "gate_name": "gs3_scrambled_balacc",
+      "measured": 0.5,
+      "threshold": 0.65,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "scrambled-control balanced accuracy must collapse"
+    },
+    {
+      "gate_name": "gs3_discrim_gap",
+      "measured": 0.5,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "mechanism minus scrambled balanced accuracy"
+    },
+    {
+      "gate_name": "posctrl_singlehop_recall",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "Gate D: KGStore reproduces at test regime"
+    },
+    {
+      "gate_name": "gs1_real_cycles",
+      "measured": 0,
+      "threshold": 0,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "real-ledger cycles (null/false-positive check; gated)"
+    },
+    {
+      "gate_name": "gs3_real_regressions",
+      "measured": 0,
+      "threshold": 0,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "real-ledger silent regressions (null check; gated)"
+    }
+  ]
+}

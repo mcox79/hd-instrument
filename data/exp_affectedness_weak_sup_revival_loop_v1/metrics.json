@@ -1,0 +1,201 @@
+{
+  "anchor_name": "affectedness_weak_sup_revival_loop_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_LEARNING_MECHANISM_BOUND|MIDDLE_P2_SHUFFLED_PARTIAL",
+  "verdict_msg": "P1=HARD_FAIL_LEARNING_MECHANISM_BOUND P2=MIDDLE_P2_SHUFFLED_PARTIAL | FROZEN_STACK(0.5574 ref)=0.5369(reproduces=True) FROZEN_HARNESS=0.4337 CONTRAST_AFF=0.4195 ABSOLUTE_AFF=0.8750 SHUFFLED_AFF=0.2706 CONTRAST_LOC=0.3696 | delta(AFF-LOC)_meanmin=+0.0499/-0.0320 shufdelta=-0.1631 | wn_repro_corr=0.2704 loc_repro_corr=0.0025 | oracle_P=1.000(CONSTRUCTION_DETERMINED_ORACLE_TRIVIAL) | pairs: AFF=74 LOC=186 SHUF=213 n_swaps_seed0=3 | arms_differ=True base_in_band=True disc_fires=True",
+  "summary": "P1=HARD_FAIL_LEARNING_MECHANISM_BOUND P2=MIDDLE_P2_SHUFFLED_PARTIAL | FROZEN_STACK(0.5574 ref)=0.5369(reproduces=True) FROZEN_HARNESS=0.4337 CONTRAST_AFF=0.4195 ABSOLUTE_AFF=0.8750 SHUFFLED_AFF=0.2706 CONTRAST_LOC=0.3696 | delta(AFF-LOC)_meanmin=+0.0499/-0.0320 shufdelta=-0.1631 | wn_repro_corr=0.2704 loc_repro_corr=0.0025 | oracle_P=1.000(CONSTRUCTION_DETERMINED_ORACLE_TRIVIAL) | pairs: AFF=74 LOC=186 SHUF=213 n_swaps_seed0=3 | arms_differ=True base_in_band=True disc_fires=True",
+  "elapsed_s": 42.78634989997954,
+  "ts_iso": "2026-07-20T04:36:08.592751+00:00",
+  "config": {
+    "mode": "full",
+    "gold_slice": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "mining_files": [
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_primer.clean.txt",
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_first_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_second_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_fourth_reader.clean.txt"
+    ],
+    "mining_max_sents": null,
+    "min_err_gap": 0.05,
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "coh_lr": 0.5,
+    "coh_margin": 0.2,
+    "oja_eta": 0.002,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "div_thr": 3,
+    "shuffle_seed": 303
+  },
+  "gold_slice": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "frozen_stack_reference": {
+    "published_precision": 0.5574,
+    "published_recall": 0.34,
+    "reproduced_per_seed": [
+      0.5574,
+      0.5147,
+      0.5385
+    ],
+    "reproduced_mean": 0.5368666666666667,
+    "seed7_reproduces_within_tol": true,
+    "tolerance": 0.02,
+    "citation": "data/exp_quotative_speaker_attribution_stack_break050_v1/metrics.json:arm_metrics.Q_quotative, atom 29345 CG"
+  },
+  "wn_leakage_repro_check": {
+    "corr_wn_cos_gated": 0.270377711071556,
+    "coverage": 0.7956,
+    "corr_wn_place_only": 0.0025427929407405066,
+    "floor": 0.1,
+    "cited_vet_reference": 0.2732,
+    "n_cands": 225,
+    "n_gold_correct": 44
+  },
+  "per_arm_precision": {
+    "FROZEN_HARNESS": [
+      0.4337,
+      0.4337,
+      0.4337
+    ],
+    "CONTRAST_AFF": [
+      0.4405,
+      0.3878,
+      0.4302
+    ],
+    "ABSOLUTE_AFF": [
+      0.875,
+      0.875,
+      0.875
+    ],
+    "SHUFFLED_AFF": [
+      0.2319,
+      0.2868,
+      0.2932
+    ],
+    "CONTRAST_LOC": [
+      0.2586,
+      0.4198,
+      0.4304
+    ]
+  },
+  "mean_precision": {
+    "FROZEN_HARNESS": 0.4337,
+    "CONTRAST_AFF": 0.4195,
+    "ABSOLUTE_AFF": 0.875,
+    "SHUFFLED_AFF": 0.2706,
+    "CONTRAST_LOC": 0.3696
+  },
+  "min_precision": {
+    "FROZEN_HARNESS": 0.4337,
+    "CONTRAST_AFF": 0.3878,
+    "ABSOLUTE_AFF": 0.875,
+    "SHUFFLED_AFF": 0.2319,
+    "CONTRAST_LOC": 0.2586
+  },
+  "delta_contrast_aff_minus_loc": {
+    "mean": 0.0499,
+    "min": -0.032,
+    "per_seed": [
+      0.1819,
+      -0.032,
+      -0.0002
+    ]
+  },
+  "p2_mustfail_control": {
+    "verdict": "MIDDLE_P2_SHUFFLED_PARTIAL",
+    "shuffled_delta_vs_frozen_harness": -0.1631
+  },
+  "oracle_ceiling_guard": {
+    "oracle_precision": 1.0,
+    "flag": "CONSTRUCTION_DETERMINED_ORACLE_TRIVIAL"
+  },
+  "contrast_pair_stats": {
+    "AFF": {
+      "n_multi_candidate_instances": 1736,
+      "n_informative_pairs": 74,
+      "mean_err_gap": 0.0202,
+      "max_err_gap": 1.0
+    },
+    "LOC": {
+      "n_multi_candidate_instances": 1736,
+      "n_informative_pairs": 186,
+      "mean_err_gap": 0.0536,
+      "max_err_gap": 0.5
+    },
+    "SHUFFLED": {
+      "n_multi_candidate_instances": 1736,
+      "n_informative_pairs": 213,
+      "mean_err_gap": 0.0419,
+      "max_err_gap": 0.9
+    }
+  },
+  "gates": {
+    "arms_differ_verified": true,
+    "baseline_in_band": true,
+    "discriminator_fires": true,
+    "cardinality_ok": true,
+    "wn_repro_floor_ok": true,
+    "stack_positive_control_ok": true,
+    "n_swaps_seed0_contrast_aff_vs_frozen": 3
+  },
+  "arms_differ_verified": true,
+  "w_hashes_seed0": {
+    "FROZEN_HARNESS": "bd3e6ba9d08f56cf",
+    "CONTRAST_AFF": "1da623218e36a3d1",
+    "ABSOLUTE_AFF": "fffc11eec111c9db",
+    "SHUFFLED_AFF": "1df7aa9ee8f44389",
+    "CONTRAST_LOC": "1f6e13887f6fc183"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n/a": "extraction-precision metric; no quantitative noise floor applies",
+  "signal_definitions": {
+    "SIG_WN_COS_GATED": "blind WordNet first-noun-sense lexname bucket x hand-curated Levin change-of-state verb gate (AFF.COS_VERB_CLASS, reused unchanged)",
+    "SIG_WN_PLACE_ONLY": "blind WordNet-lexname locative-exclusion only (-1.0 iff noun.location, else 0.0)"
+  },
+  "curated_vs_derived_label": "CURATED / weak-supervision (WordNet-lexname NP-ontology is BLIND, but the change-of-state verb gate is hand-curated, reused unchanged from the design-gate; this is a revival of a CURATED target, not a text-derived one -- text-internal derivation was independently HARD_FAILED (0.0443) in the design-gate cell and not retried here).",
+  "explicitly_not_retried": [
+    "fully hand-curated (eval-peeked) ontology signal (the design-gate's own SIG_COS_VERB_GATED_ONTOLOGY, corr 0.3561) -- deliberately using the BLIND WordNet variant here per Director contract",
+    "double-independent WordNet-ontology x VerbNet-gate (corr 0.1443 MIDDLE per the VET) -- not used as the primary target here; could be tried as a harder-mode follow-up if this loop HARD_PASSes"
+  ],
+  "gold_meta_independence": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "frozen_stack_reference",
+    "wn_leakage_repro_check",
+    "per_arm_precision",
+    "mean_precision",
+    "p2_mustfail_control",
+    "oracle_ceiling_guard",
+    "gates"
+  ]
+}

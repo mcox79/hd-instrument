@@ -1,0 +1,73 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS decisive-win chain machinery: NO_CLEANUP collapses at reach>=2 (must-fail control fires), dense-Hopfield sharpens, path-object composes, voted readout valid, arms differ; D_f/N load computed; typed subgraph + 3-dim encoders exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.1536981000099331,
+  "mechanism_selftest": {
+    "fid_no_cleanup": {
+      "1": 1.0,
+      "2": 0.6133,
+      "3": 0.1533,
+      "4": 0.0467
+    },
+    "fid_plain": {
+      "1": 1.0,
+      "2": 0.98,
+      "3": 0.9667,
+      "4": 0.9667
+    },
+    "fid_dense": {
+      "1": 0.98,
+      "2": 0.9667,
+      "3": 0.9667,
+      "4": 0.96
+    },
+    "fid_path": {
+      "1": 0.98,
+      "2": 0.26,
+      "3": 0.0467,
+      "4": 0.0333
+    },
+    "fid_voted": {
+      "1": 0.8,
+      "2": 0.1733,
+      "3": 0.06,
+      "4": 0.04
+    },
+    "hop1_high": true,
+    "baseline_fails": true,
+    "dense_sharpens": true,
+    "path_composes": true,
+    "vote_valid": true,
+    "arms_differ": true,
+    "df_load": 10.416666666666666,
+    "df_above_thresh": true
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  }
+}

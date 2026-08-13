@@ -1,0 +1,329 @@
+{
+  "anchor_name": "substrate_encoder_ablation_on_fair_harness_v1",
+  "anchor": "substrate_encoder_ablation_on_fair_harness_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "ENC_ABLATION HARD_FAIL: rail_A_diverge (A=4.9616 vs ref 7.3065 tol 0.10); rail_E_diverge (E=5.1588 vs ref 7.2268 tol 0.10); arm_C_out_of_range (C=5.3850 notin [7.18, 7.35]). ENC_ABLATION A_FAIR_HARNESS_ASSHIPPED=bpc4.9616|top10.3306|mrr0.4154|rawT17.724 | B_W2V_DENSE_NO_SPARSIFY=bpc5.1188|top10.3306|mrr0.4071|rawT17.874 | C_CHAR_TRIGRAM_DENSE_FAIR_FILTER=bpc5.3850|top10.3306|mrr0.3919|rawT17.847 | D_W2V_SPARSE_NO_FILTER=bpc4.9568|top10.3700|mrr0.4466|rawT17.716 | E_CHAR_TRIGRAM_NO_FILTER_ALPHA1=bpc5.1588|top10.3700|mrr0.4354|rawT17.805 | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 512,
+  "RECALL_BATCH": 128,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "arms": [
+    "A_FAIR_HARNESS_ASSHIPPED",
+    "B_W2V_DENSE_NO_SPARSIFY",
+    "C_CHAR_TRIGRAM_DENSE_FAIR_FILTER",
+    "D_W2V_SPARSE_NO_FILTER",
+    "E_CHAR_TRIGRAM_NO_FILTER_ALPHA1"
+  ],
+  "arm_config": {
+    "A_FAIR_HARNESS_ASSHIPPED": {
+      "encoder": "word2vec",
+      "sparsify": true,
+      "filter_unk": true,
+      "alpha": 0.1
+    },
+    "B_W2V_DENSE_NO_SPARSIFY": {
+      "encoder": "word2vec",
+      "sparsify": false,
+      "filter_unk": true,
+      "alpha": 0.1
+    },
+    "C_CHAR_TRIGRAM_DENSE_FAIR_FILTER": {
+      "encoder": "char_trigram",
+      "sparsify": false,
+      "filter_unk": true,
+      "alpha": 0.1
+    },
+    "D_W2V_SPARSE_NO_FILTER": {
+      "encoder": "word2vec",
+      "sparsify": true,
+      "filter_unk": false,
+      "alpha": 0.1
+    },
+    "E_CHAR_TRIGRAM_NO_FILTER_ALPHA1": {
+      "encoder": "char_trigram",
+      "sparsify": false,
+      "filter_unk": false,
+      "alpha": 1.0
+    }
+  },
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "A_FAIR_HARNESS_ASSHIPPED": {
+        "bpc_best_mean": 4.9616,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4154,
+        "raw_bpc_at_T1_L1_mean": 7.7237,
+        "best_T_for_bpc_mean": 0.1,
+        "best_lambda_for_bpc_mean": 0.5,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "word2vec",
+          "sparsify": true,
+          "filter_unk": true,
+          "alpha": 0.1
+        }
+      },
+      "B_W2V_DENSE_NO_SPARSIFY": {
+        "bpc_best_mean": 5.1188,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4071,
+        "raw_bpc_at_T1_L1_mean": 7.8739,
+        "best_T_for_bpc_mean": 0.02,
+        "best_lambda_for_bpc_mean": 0.1,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "word2vec",
+          "sparsify": false,
+          "filter_unk": true,
+          "alpha": 0.1
+        }
+      },
+      "C_CHAR_TRIGRAM_DENSE_FAIR_FILTER": {
+        "bpc_best_mean": 5.385,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.3919,
+        "raw_bpc_at_T1_L1_mean": 7.8468,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "char_trigram",
+          "sparsify": false,
+          "filter_unk": true,
+          "alpha": 0.1
+        }
+      },
+      "D_W2V_SPARSE_NO_FILTER": {
+        "bpc_best_mean": 4.9568,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.37,
+        "mrr_at_10_mean": 0.4466,
+        "raw_bpc_at_T1_L1_mean": 7.7165,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "word2vec",
+          "sparsify": true,
+          "filter_unk": false,
+          "alpha": 0.1
+        }
+      },
+      "E_CHAR_TRIGRAM_NO_FILTER_ALPHA1": {
+        "bpc_best_mean": 5.1588,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.37,
+        "mrr_at_10_mean": 0.4354,
+        "raw_bpc_at_T1_L1_mean": 7.805,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "char_trigram",
+          "sparsify": false,
+          "filter_unk": false,
+          "alpha": 1.0
+        }
+      }
+    },
+    "rail_A_ok": false,
+    "rail_E_ok": false,
+    "rail_A_diverge": true,
+    "rail_E_diverge": true,
+    "arm_C_in_range": false,
+    "arm_C_near_fair_harness": false,
+    "arm_C_near_cleanup_cells": false,
+    "bonus_chain_grade_rail_flip": true,
+    "FAIR_HARNESS_REF_BPC": 7.3065,
+    "CLEANUP_CELLS_REF_BPC": 7.2268,
+    "SANITY_RAIL_TOL": 0.05,
+    "ARM_C_CENTER_TOL": 0.05,
+    "CHAIN_GRADE_BONUS_B_MAX": 7.25,
+    "n_seeds": 1,
+    "n_llm_calls": 0,
+    "zero_llm_calls_at_inference": true,
+    "CONFIG_VERSION": "substrate_encoder_ablation_on_fair_harness_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['A_FAIR_HARNESS_ASSHIPPED', 'B_W2V_DENSE_NO_SPARSIFY', 'C_CHAR_TRIGRAM_DENSE_FAIR_FILTER', 'D_W2V_SPARSE_NO_FILTER', 'E_CHAR_TRIGRAM_NO_FILTER_ALPHA1'] seeds=[0] mode=smoke sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10 bands rail_tol=0.05 arm_c_tol=0.05 bonus_B_max=7.25 hf_C_range=[7.18,7.35]",
+    "WHAT_THIS_DOES_NOT_SHOW": "This cell does NOT claim a substrate-as-LM advance; it ATTRIBUTES the prior 7.22 vs 7.30 methodology delta to one of three axes (encoder family, ctx-unk filter, alpha-Laplace). It is a calibration cell, not a science cell. Downstream cf-RPE / STDP / heterogeneous plasticity TIERING is the consumer of this result, not the cell's own claim.",
+    "honest_scope": "5-arm encoder-ablation cell on fair_harness scaffolding (pure numpy, rank-1 Hebbian, joint (T,lambda) sweep). N_DIM=512 N_TRAIN=2000 N_HELD=400 V=300 seed=[0]. Arm A (fair_harness as-shipped) and arm E (cleanup-cells as-shipped) act as sanity rails against 7.3065 and 7.2268 references. Arm C (char-trigram + fair-harness filter, alpha=0.1) decides whether encoder family or filter+alpha dominates the gap. Arm B tests whether removing sparsification yields a free BPC lift (chain-grade bonus).",
+    "cites": [
+      "notes/research_surprise_baseline_7p22_vs_7p30_2x_drill_2026-06-24.md",
+      "notes/exp_dev_handoff_research_baseline_7p22_vs_7p30_2x_drill_2026-06-24.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "experiments/exp_substrate_multi_iteration_cleanup_LM_v1.py"
+    ]
+  },
+  "metrics_source": "measured_cpu_encoder_ablation_on_fair_harness_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "A_FAIR_HARNESS_ASSHIPPED": {
+          "bpc_best": 4.9616,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.9487,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4154,
+          "raw_bpc_at_T1_L1": 7.7237,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.06,
+          "config": {
+            "encoder": "word2vec",
+            "sparsify": true,
+            "filter_unk": true,
+            "alpha": 0.1
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        },
+        "B_W2V_DENSE_NO_SPARSIFY": {
+          "bpc_best": 5.1188,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 5.0813,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4071,
+          "raw_bpc_at_T1_L1": 7.8739,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.05,
+          "config": {
+            "encoder": "word2vec",
+            "sparsify": false,
+            "filter_unk": true,
+            "alpha": 0.1
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        },
+        "C_CHAR_TRIGRAM_DENSE_FAIR_FILTER": {
+          "bpc_best": 5.385,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 5.1602,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.3919,
+          "raw_bpc_at_T1_L1": 7.8468,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.03,
+          "config": {
+            "encoder": "char_trigram",
+            "sparsify": false,
+            "filter_unk": true,
+            "alpha": 0.1
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        },
+        "D_W2V_SPARSE_NO_FILTER": {
+          "bpc_best": 4.9568,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 4.872,
+          "top1_acc": 0.37,
+          "mrr_at_10": 0.4466,
+          "raw_bpc_at_T1_L1": 7.7165,
+          "n_dev": 199,
+          "n_test": 200,
+          "elapsed_s_arm": 0.08,
+          "config": {
+            "encoder": "word2vec",
+            "sparsify": true,
+            "filter_unk": false,
+            "alpha": 0.1
+          },
+          "n_eval_total": 399,
+          "n_held_ctx": 399
+        },
+        "E_CHAR_TRIGRAM_NO_FILTER_ALPHA1": {
+          "bpc_best": 5.1588,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 5.0315,
+          "top1_acc": 0.37,
+          "mrr_at_10": 0.4354,
+          "raw_bpc_at_T1_L1": 7.805,
+          "n_dev": 199,
+          "n_test": 200,
+          "elapsed_s_arm": 0.09,
+          "config": {
+            "encoder": "char_trigram",
+            "sparsify": false,
+            "filter_unk": false,
+            "alpha": 1.0
+          },
+          "n_eval_total": 399,
+          "n_held_ctx": 399
+        }
+      },
+      "V": 300,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "N_HELD": 400,
+      "VOCAB_CAP": 300,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "smoke",
+      "config_version": "substrate_encoder_ablation_on_fair_harness_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['A_FAIR_HARNESS_ASSHIPPED', 'B_W2V_DENSE_NO_SPARSIFY', 'C_CHAR_TRIGRAM_DENSE_FAIR_FILTER', 'D_W2V_SPARSE_NO_FILTER', 'E_CHAR_TRIGRAM_NO_FILTER_ALPHA1'] seeds=[0] mode=smoke sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10 bands rail_tol=0.05 arm_c_tol=0.05 bonus_B_max=7.25 hf_C_range=[7.18,7.35]",
+      "elapsed_s_seed": 32.35,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 282,
+        "n_miss": 18,
+        "n_vocab": 300,
+        "pretrain_dim": 300,
+        "fallback_to_char_trigram": false
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782310517.81932
+    }
+  ],
+  "elapsed_s": 32.42119836807251,
+  "summary": "ENC_ABLATION HARD_FAIL: rail_A_diverge (A=4.9616 vs ref 7.3065 tol 0.10); rail_E_diverge (E=5.1588 vs ref 7.2268 tol 0.10); arm_C_out_of_range (C=5.3850 notin [7.18, 7.35]). ENC_ABLATION A_FAIR_HARNESS_ASSHIPPED=bpc4.9616|top10.3306|mrr0.41",
+  "substrate_only_decode_gate": "TRUE (substrate cosine logits; word2vec is static open-weight lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_encoder_ablation_on_fair_harness_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['A_FAIR_HARNESS_ASSHIPPED', 'B_W2V_DENSE_NO_SPARSIFY', 'C_CHAR_TRIGRAM_DENSE_FAIR_FILTER', 'D_W2V_SPARSE_NO_FILTER', 'E_CHAR_TRIGRAM_NO_FILTER_ALPHA1'] seeds=[0] mode=smoke sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10 bands rail_tol=0.05 arm_c_tol=0.05 bonus_B_max=7.25 hf_C_range=[7.18,7.35]",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

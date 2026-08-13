@@ -1,0 +1,248 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | THE-NUMBER learned - raw_grounding = 0.6431 - 0.6402 = +0.0029 (min=+0.0023, need>=0.03, n_q=478 power_ok=True) | LEARNED same_lex_auc=0.6431 (min=0.6426) prec@10=0.2483 rec@1=0.2835 | RAW_GROUNDING=0.6402 RAW+CTX=0.6527 (ctx_input_value=+0.0125, learning_beyond_ctx=-0.0096) | LEARNED_RICH(ground+ctx)=0.6507 | RANDOM_INIT=0.6234 (learned-randinit=+0.0197) COLLAPSE_shuffle=0.5012 -> can_fail=True | category_base_rate(random floor)=0.0989 | input_ceiling=True | train=2022 heldout=478 K=2500 pairs=138256 rels=17 lexnames=43",
+  "summary": "MIDDLE_BAND | THE-NUMBER learned - raw_grounding = 0.6431 - 0.6402 = +0.0029 (min=+0.0023, need>=0.03, n_q=478 power_ok=True) | LEARNED same_lex_auc=0.6431 (min=0.6426) prec@10=0.2483 rec@1=0.2835 | R",
+  "run_mode": "smoke",
+  "elapsed_s": 12.519257799955085,
+  "anchor_name": "grounded_r1_landmark_geometry_wordnet_neighbourhood_v1",
+  "ts_iso": "2026-07-26T16:56:20.440010+00:00",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 2500,
+    "seeds": [
+      7,
+      13
+    ],
+    "epochs": 140,
+    "batch": 256,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 256,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "heldout_frac": 0.2,
+    "top_rel": 16,
+    "ctx_min_neigh": 1
+  },
+  "data_meta": {
+    "n_grounded_total": 24938,
+    "n_induced_pairs_total": 188720,
+    "n_kept_concepts": 2500,
+    "n_kept_pairs": 138256,
+    "min_deg": 2,
+    "cap_nodes": 2500,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/PartOf",
+      "/r/HasProperty",
+      "/r/HasSubevent",
+      "/r/HasPrerequisite",
+      "/r/Causes",
+      "/r/Desires",
+      "/r/HasA",
+      "/r/MadeOf",
+      "/r/MotivatedByGoal",
+      "/r/ReceivesAction"
+    ],
+    "n_rel_slots": 17,
+    "n_lexnames": 43
+  },
+  "split_meta": {
+    "n_train": 2022,
+    "n_heldout": 478,
+    "mean_train_ctx_neigh": 88.29574678536103,
+    "mean_held_ctx_neigh": 101.7970711297071,
+    "n_rel_slots": 17
+  },
+  "gates": {
+    "learned_same_lex_auc": 0.6431213216966092,
+    "learned_same_lex_auc_min": 0.6425692065403794,
+    "learned_rich_same_lex_auc": 0.650740939887701,
+    "raw_grounding_same_lex_auc": 0.6402344194745488,
+    "raw_ground_plus_ctx_same_lex_auc": 0.6526933236431272,
+    "random_init_same_lex_auc": 0.6234028313099829,
+    "collapse_shuffle_same_lex_auc": 0.5012487970163431,
+    "margin_over_raw_grounding": 0.0028869022220602836,
+    "margin_over_raw_grounding_min": 0.002334787065830568,
+    "margin_over_raw_plus_ctx": -0.009572001946517972,
+    "ctx_input_value": 0.01245890416857831,
+    "margin_over_random_init": 0.01971849038662632,
+    "category_base_rate": 0.09889024082374218,
+    "can_fail_fired": true,
+    "power_ok": true,
+    "n_query": 478,
+    "input_ceiling": true,
+    "real_margin": false,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "hp_learned_signal": 0.6,
+    "hf_auc": 0.53,
+    "hp_margin_over_raw": 0.03,
+    "min_query_tasks": 150,
+    "learned_precision_at_10": 0.248326359832636,
+    "raw_precision_at_10": 0.249163179916318
+  },
+  "arms_aggregate": {
+    "ARM_LEARNED": {
+      "same_lex_auc_mean": 0.6431213216966092,
+      "same_lex_auc_min": 0.6425692065403794,
+      "precision_at_k_mean": 0.248326359832636,
+      "recall_at_1_mean": 0.2834728033472803,
+      "category_base_rate_mean": 0.09889024082374218,
+      "n_seeds": 2
+    },
+    "ARM_LEARNED_RICH": {
+      "same_lex_auc_mean": 0.650740939887701,
+      "same_lex_auc_min": 0.649780287339387,
+      "precision_at_k_mean": 0.2575313807531381,
+      "recall_at_1_mean": 0.29707112970711297,
+      "category_base_rate_mean": 0.09889024082374218,
+      "n_seeds": 2
+    },
+    "ARM_RAW_GROUNDING": {
+      "same_lex_auc_mean": 0.6402344194745488,
+      "same_lex_auc_min": 0.6402344194745488,
+      "precision_at_k_mean": 0.249163179916318,
+      "recall_at_1_mean": 0.29497907949790797,
+      "category_base_rate_mean": 0.09889024082374218,
+      "n_seeds": 2
+    },
+    "ARM_RAW_GROUND_PLUS_CTX": {
+      "same_lex_auc_mean": 0.6526933236431272,
+      "same_lex_auc_min": 0.6526933236431272,
+      "precision_at_k_mean": 0.27133891213389116,
+      "recall_at_1_mean": 0.2928870292887029,
+      "category_base_rate_mean": 0.09889024082374218,
+      "n_seeds": 2
+    },
+    "ARM_RANDOM_INIT": {
+      "same_lex_auc_mean": 0.6234028313099829,
+      "same_lex_auc_min": 0.6228070243891545,
+      "precision_at_k_mean": 0.24236401673640168,
+      "recall_at_1_mean": 0.2792887029288703,
+      "category_base_rate_mean": 0.09889024082374218,
+      "n_seeds": 2
+    },
+    "ARM_COLLAPSE_SHUFFLE": {
+      "same_lex_auc_mean": 0.5012487970163431,
+      "same_lex_auc_min": 0.5006236690106394,
+      "precision_at_k_mean": 0.09989539748953977,
+      "recall_at_1_mean": 0.1098326359832636,
+      "category_base_rate_mean": 0.09889024082374218,
+      "n_seeds": 2
+    }
+  },
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.5159291666666667,
+    "auc_label_shuffle": 0.49755667277929666,
+    "prec_struct": 1.0,
+    "base_rate": 0.1666666666666666,
+    "n_query": 60
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "ARM_LEARNED": {
+        "same_lex_auc": 0.6436734368528388,
+        "precision_at_k": 0.2481171548117155,
+        "recall_at_1": 0.2824267782426778,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_LEARNED_RICH": {
+        "same_lex_auc": 0.649780287339387,
+        "precision_at_k": 0.2583682008368201,
+        "recall_at_1": 0.29916317991631797,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_RAW_GROUNDING": {
+        "same_lex_auc": 0.6402344194745488,
+        "precision_at_k": 0.249163179916318,
+        "recall_at_1": 0.29497907949790797,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_RAW_GROUND_PLUS_CTX": {
+        "same_lex_auc": 0.6526933236431272,
+        "precision_at_k": 0.27133891213389116,
+        "recall_at_1": 0.2928870292887029,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_RANDOM_INIT": {
+        "same_lex_auc": 0.6228070243891545,
+        "precision_at_k": 0.2412133891213389,
+        "recall_at_1": 0.27824267782426776,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_COLLAPSE_SHUFFLE": {
+        "same_lex_auc": 0.5018739250220469,
+        "precision_at_k": 0.10334728033472805,
+        "recall_at_1": 0.11715481171548117,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      }
+    },
+    {
+      "ARM_LEARNED": {
+        "same_lex_auc": 0.6425692065403794,
+        "precision_at_k": 0.24853556485355652,
+        "recall_at_1": 0.28451882845188287,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_LEARNED_RICH": {
+        "same_lex_auc": 0.651701592436015,
+        "precision_at_k": 0.25669456066945606,
+        "recall_at_1": 0.29497907949790797,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_RAW_GROUNDING": {
+        "same_lex_auc": 0.6402344194745488,
+        "precision_at_k": 0.249163179916318,
+        "recall_at_1": 0.29497907949790797,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_RAW_GROUND_PLUS_CTX": {
+        "same_lex_auc": 0.6526933236431272,
+        "precision_at_k": 0.27133891213389116,
+        "recall_at_1": 0.2928870292887029,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_RANDOM_INIT": {
+        "same_lex_auc": 0.6239986382308114,
+        "precision_at_k": 0.24351464435146444,
+        "recall_at_1": 0.2803347280334728,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      },
+      "ARM_COLLAPSE_SHUFFLE": {
+        "same_lex_auc": 0.5006236690106394,
+        "precision_at_k": 0.09644351464435147,
+        "recall_at_1": 0.10251046025104603,
+        "category_base_rate": 0.09889024082374218,
+        "n_query": 478
+      }
+    }
+  ]
+}

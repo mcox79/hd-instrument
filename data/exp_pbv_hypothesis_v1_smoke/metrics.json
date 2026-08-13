@@ -1,0 +1,2128 @@
+{
+  "anchor_name": "pbv_hypothesis_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-08-12T22:15:57.174020+00:00",
+  "prereg": "preregs/2026-08-12_pbv_hypothesis_v1.md",
+  "wire_status": "VET_PENDING",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "PBV verification does not work: C1 abandon 0.285714 (fail<0.6), C2 abandon 0.214286 (fail>0.5), separation 0.071428 (fail<0.3)",
+  "integrity": {
+    "cardinality_ok": true,
+    "missing_arms": [],
+    "segments_ok": true,
+    "missing_segments_per_arm": {
+      "A_BASELINE": [],
+      "B_PBV": [],
+      "C1_INJECT_WRONG": [],
+      "C2_INJECT_RIGHT": []
+    },
+    "arms_must_differ_ok": true,
+    "no_tautology_facts": true,
+    "no_closed_class_objects": true,
+    "no_leak_ok": true
+  },
+  "primary": {
+    "C1_abandon_rate": 0.285714,
+    "C2_abandon_rate": 0.214286,
+    "separation": 0.071428,
+    "P1_ok": false,
+    "P2_ok": true,
+    "P3_ok": false,
+    "hard_fail": true,
+    "C1_detail": {
+      "n_injected": 30,
+      "n_scored": 14,
+      "n_abandoned": 4,
+      "n_survived": 10,
+      "n_never_met_evidence": 16,
+      "abandon_rate": 0.285714
+    },
+    "C2_detail": {
+      "n_injected": 30,
+      "n_scored": 14,
+      "n_abandoned": 3,
+      "n_survived": 11,
+      "n_never_met_evidence": 16,
+      "abandon_rate": 0.214286
+    }
+  },
+  "secondary": {
+    "S1_revision_rate": 0.317183,
+    "S1_ok": true,
+    "S2_median_encounters_to_abandon": 3.0,
+    "S2_ok": true,
+    "S3_yield_ratio_B_over_A": 0.796721,
+    "S3_ok": true,
+    "n_grounded_A": 305,
+    "n_grounded_B": 243
+  },
+  "diagnostic": {
+    "D1_informative_encounter_rate": 0.393912,
+    "D1_n_encounters": 31045,
+    "D1_note": "Medina ~7% highly informative is CITED@audit G; this filter is a coarse distributional proxy and is not expected to reproduce it. Not scored.",
+    "D2_revision_quality": {
+      "n_scored": 995,
+      "n_uncovered_by_judge": 367,
+      "n_better": 367,
+      "n_worse": 359,
+      "n_tied": 269,
+      "mean_delta": -0.000722,
+      "median_delta": 0.0,
+      "judge": "hdlab.grounded_similarity (Lancaster+Brysbaert)",
+      "caveat": "concrete-biased; GROUNDED_CAP=0.45 saturates a known 16.4% of pairs; partial coverage expected; DIAGNOSTIC ONLY -- carries no verdict",
+      "rows": [
+        {
+          "lemma": "above",
+          "first_obj": "people",
+          "final_obj": "know",
+          "sim_first": 0.0,
+          "sim_final": 0.0941,
+          "delta": 0.0941,
+          "banked": false
+        },
+        {
+          "lemma": "absorb",
+          "first_obj": "hospital",
+          "final_obj": "people",
+          "sim_first": 0.025,
+          "sim_final": 0.0247,
+          "delta": -0.0002,
+          "banked": false
+        },
+        {
+          "lemma": "accept",
+          "first_obj": "people",
+          "final_obj": "driving",
+          "sim_first": 0.4156,
+          "sim_final": 0.1765,
+          "delta": -0.2391,
+          "banked": false
+        },
+        {
+          "lemma": "account",
+          "first_obj": "need",
+          "final_obj": "goodbye",
+          "sim_first": 0.2101,
+          "sim_final": 0.0,
+          "delta": -0.2101,
+          "banked": true
+        },
+        {
+          "lemma": "achieve",
+          "first_obj": "soon",
+          "final_obj": "people",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "achievement",
+          "first_obj": "people",
+          "final_obj": "need",
+          "sim_first": 0.3377,
+          "sim_final": 0.45,
+          "delta": 0.1123,
+          "banked": false
+        },
+        {
+          "lemma": "action",
+          "first_obj": "cover",
+          "final_obj": "dangerous",
+          "sim_first": 0.3504,
+          "sim_final": 0.45,
+          "delta": 0.0996,
+          "banked": false
+        },
+        {
+          "lemma": "adapt",
+          "first_obj": "plan",
+          "final_obj": "yes",
+          "sim_first": 0.2121,
+          "sim_final": 0.2944,
+          "delta": 0.0823,
+          "banked": false
+        },
+        {
+          "lemma": "add",
+          "first_obj": "position",
+          "final_obj": "beautiful",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "addict",
+          "first_obj": "land",
+          "final_obj": "fall",
+          "sim_first": 0.313,
+          "sim_final": 0.45,
+          "delta": 0.137,
+          "banked": false
+        },
+        {
+          "lemma": "addition",
+          "first_obj": "course",
+          "final_obj": "report",
+          "sim_first": 0.3038,
+          "sim_final": 0.171,
+          "delta": -0.1328,
+          "banked": false
+        },
+        {
+          "lemma": "address",
+          "first_obj": "office",
+          "final_obj": "mean",
+          "sim_first": 0.1116,
+          "sim_final": 0.3067,
+          "delta": 0.1951,
+          "banked": false
+        },
+        {
+          "lemma": "adhere",
+          "first_obj": "loyal",
+          "final_obj": "people",
+          "sim_first": 0.2774,
+          "sim_final": 0.0,
+          "delta": -0.2774,
+          "banked": false
+        },
+        {
+          "lemma": "advantage",
+          "first_obj": "friend",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "affect",
+          "first_obj": "car",
+          "final_obj": "report",
+          "sim_first": 0.1489,
+          "sim_final": 0.0,
+          "delta": -0.1489,
+          "banked": false
+        },
+        {
+          "lemma": "afford",
+          "first_obj": "course",
+          "final_obj": "sell",
+          "sim_first": 0.0,
+          "sim_final": 0.2572,
+          "delta": 0.2572,
+          "banked": true
+        },
+        {
+          "lemma": "aggressive",
+          "first_obj": "feel",
+          "final_obj": "mad",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "agree",
+          "first_obj": "president",
+          "final_obj": "anymore",
+          "sim_first": 0.4244,
+          "sim_final": 0.0575,
+          "delta": -0.367,
+          "banked": false
+        },
+        {
+          "lemma": "alcohol",
+          "first_obj": "finish",
+          "final_obj": "happy",
+          "sim_first": 0.1463,
+          "sim_final": 0.3361,
+          "delta": 0.1897,
+          "banked": false
+        },
+        {
+          "lemma": "allergy",
+          "first_obj": "look",
+          "final_obj": "understand",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "alliance",
+          "first_obj": "use",
+          "final_obj": "report",
+          "sim_first": 0.0,
+          "sim_final": 0.2003,
+          "delta": 0.2003,
+          "banked": false
+        },
+        {
+          "lemma": "allow",
+          "first_obj": "brain",
+          "final_obj": "world",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "although",
+          "first_obj": "able",
+          "final_obj": "fat",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "altitude",
+          "first_obj": "air",
+          "final_obj": "history",
+          "sim_first": 0.2027,
+          "sim_final": 0.0,
+          "delta": -0.2027,
+          "banked": false
+        },
+        {
+          "lemma": "ambassador",
+          "first_obj": "world",
+          "final_obj": "creator",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "amend",
+          "first_obj": "world",
+          "final_obj": "man",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "amino",
+          "first_obj": "long",
+          "final_obj": "want",
+          "sim_first": 0.0,
+          "sim_final": 0.0897,
+          "delta": 0.0897,
+          "banked": false
+        },
+        {
+          "lemma": "among",
+          "first_obj": "tomorrow",
+          "final_obj": "act",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "analysis",
+          "first_obj": "word",
+          "final_obj": "visitor",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "analyze",
+          "first_obj": "age",
+          "final_obj": "open",
+          "sim_first": 0.203,
+          "sim_final": 0.0,
+          "delta": -0.203,
+          "banked": false
+        },
+        {
+          "lemma": "animal",
+          "first_obj": "believe",
+          "final_obj": "respect",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "anti",
+          "first_obj": "think",
+          "final_obj": "look",
+          "sim_first": 0.1514,
+          "sim_final": 0.0054,
+          "delta": -0.146,
+          "banked": false
+        },
+        {
+          "lemma": "antibiotic",
+          "first_obj": "country",
+          "final_obj": "long",
+          "sim_first": 0.1109,
+          "sim_final": 0.0,
+          "delta": -0.1109,
+          "banked": false
+        },
+        {
+          "lemma": "ape",
+          "first_obj": "new",
+          "final_obj": "baby",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "apologize",
+          "first_obj": "new",
+          "final_obj": "client",
+          "sim_first": 0.0,
+          "sim_final": 0.3841,
+          "delta": 0.3841,
+          "banked": false
+        },
+        {
+          "lemma": "app",
+          "first_obj": "real",
+          "final_obj": "weekend",
+          "sim_first": 0.0213,
+          "sim_final": 0.0,
+          "delta": -0.0213,
+          "banked": false
+        },
+        {
+          "lemma": "appeal",
+          "first_obj": "welcome",
+          "final_obj": "plan",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "apple",
+          "first_obj": "short",
+          "final_obj": "look",
+          "sim_first": 0.0119,
+          "sim_final": 0.0,
+          "delta": -0.0119,
+          "banked": false
+        },
+        {
+          "lemma": "apply",
+          "first_obj": "want",
+          "final_obj": "control",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "april",
+          "first_obj": "people",
+          "final_obj": "want",
+          "sim_first": 0.0,
+          "sim_final": 0.0669,
+          "delta": 0.0669,
+          "banked": false
+        },
+        {
+          "lemma": "argue",
+          "first_obj": "ago",
+          "final_obj": "control",
+          "sim_first": 0.0,
+          "sim_final": 0.2711,
+          "delta": 0.2711,
+          "banked": false
+        },
+        {
+          "lemma": "arms",
+          "first_obj": "believe",
+          "final_obj": "novelty",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "arrest",
+          "first_obj": "hate",
+          "final_obj": "tell",
+          "sim_first": 0.0686,
+          "sim_final": 0.0,
+          "delta": -0.0686,
+          "banked": false
+        },
+        {
+          "lemma": "article",
+          "first_obj": "help",
+          "final_obj": "king",
+          "sim_first": 0.0,
+          "sim_final": 0.3987,
+          "delta": 0.3987,
+          "banked": false
+        },
+        {
+          "lemma": "aspect",
+          "first_obj": "tomorrow",
+          "final_obj": "need",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "association",
+          "first_obj": "try",
+          "final_obj": "use",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "astronaut",
+          "first_obj": "government",
+          "final_obj": "day",
+          "sim_first": 0.3359,
+          "sim_final": 0.45,
+          "delta": 0.1141,
+          "banked": false
+        },
+        {
+          "lemma": "atmosphere",
+          "first_obj": "buy",
+          "final_obj": "people",
+          "sim_first": 0.0302,
+          "sim_final": 0.244,
+          "delta": 0.2138,
+          "banked": false
+        },
+        {
+          "lemma": "atom",
+          "first_obj": "people",
+          "final_obj": "change",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "auction",
+          "first_obj": "black",
+          "final_obj": "amaze",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "august",
+          "first_obj": "park",
+          "final_obj": "happy",
+          "sim_first": 0.2481,
+          "sim_final": 0.0174,
+          "delta": -0.2307,
+          "banked": false
+        },
+        {
+          "lemma": "austerity",
+          "first_obj": "try",
+          "final_obj": "straight",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "autopsy",
+          "first_obj": "world",
+          "final_obj": "air",
+          "sim_first": 0.2058,
+          "sim_final": 0.2639,
+          "delta": 0.058,
+          "banked": false
+        },
+        {
+          "lemma": "average",
+          "first_obj": "country",
+          "final_obj": "today",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "avoid",
+          "first_obj": "mark",
+          "final_obj": "lawyer",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "backpack",
+          "first_obj": "clothes",
+          "final_obj": "territory",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "bacteria",
+          "first_obj": "respect",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.2694,
+          "delta": 0.2694,
+          "banked": false
+        },
+        {
+          "lemma": "balloon",
+          "first_obj": "bag",
+          "final_obj": "mile",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "banning",
+          "first_obj": "cover",
+          "final_obj": "tough",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "barrier",
+          "first_obj": "man",
+          "final_obj": "food",
+          "sim_first": 0.3154,
+          "sim_final": 0.0897,
+          "delta": -0.2257,
+          "banked": false
+        },
+        {
+          "lemma": "basic",
+          "first_obj": "start",
+          "final_obj": "idea",
+          "sim_first": 0.0,
+          "sim_final": 0.2731,
+          "delta": 0.2731,
+          "banked": false
+        },
+        {
+          "lemma": "basis",
+          "first_obj": "parent",
+          "final_obj": "quit",
+          "sim_first": 0.0,
+          "sim_final": 0.1452,
+          "delta": 0.1452,
+          "banked": false
+        },
+        {
+          "lemma": "bear",
+          "first_obj": "night",
+          "final_obj": "know",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "bee",
+          "first_obj": "group",
+          "final_obj": "sweet",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "begin",
+          "first_obj": "return",
+          "final_obj": "place",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "beginning",
+          "first_obj": "police",
+          "final_obj": "come",
+          "sim_first": 0.0,
+          "sim_final": 0.1097,
+          "delta": 0.1097,
+          "banked": false
+        },
+        {
+          "lemma": "benefit",
+          "first_obj": "people",
+          "final_obj": "age",
+          "sim_first": 0.0373,
+          "sim_final": 0.1163,
+          "delta": 0.0791,
+          "banked": false
+        },
+        {
+          "lemma": "betray",
+          "first_obj": "think",
+          "final_obj": "client",
+          "sim_first": 0.0038,
+          "sim_final": 0.407,
+          "delta": 0.4033,
+          "banked": false
+        },
+        {
+          "lemma": "beyond",
+          "first_obj": "new",
+          "final_obj": "lot",
+          "sim_first": 0.2025,
+          "sim_final": 0.2307,
+          "delta": 0.0282,
+          "banked": false
+        },
+        {
+          "lemma": "bike",
+          "first_obj": "remember",
+          "final_obj": "minute",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "billion",
+          "first_obj": "ago",
+          "final_obj": "ahead",
+          "sim_first": 0.45,
+          "sim_final": 0.3968,
+          "delta": -0.0532,
+          "banked": false
+        },
+        {
+          "lemma": "billionaire",
+          "first_obj": "able",
+          "final_obj": "away",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "biological",
+          "first_obj": "work",
+          "final_obj": "water",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "biologist",
+          "first_obj": "report",
+          "final_obj": "course",
+          "sim_first": 0.45,
+          "sim_final": 0.1923,
+          "delta": -0.2577,
+          "banked": false
+        },
+        {
+          "lemma": "biology",
+          "first_obj": "sure",
+          "final_obj": "quiet",
+          "sim_first": 0.1774,
+          "sim_final": 0.0,
+          "delta": -0.1774,
+          "banked": false
+        },
+        {
+          "lemma": "blackberry",
+          "first_obj": "big",
+          "final_obj": "touch",
+          "sim_first": 0.1863,
+          "sim_final": 0.1261,
+          "delta": -0.0602,
+          "banked": false
+        },
+        {
+          "lemma": "blast",
+          "first_obj": "afraid",
+          "final_obj": "save",
+          "sim_first": 0.2164,
+          "sim_final": 0.0,
+          "delta": -0.2164,
+          "banked": false
+        },
+        {
+          "lemma": "block",
+          "first_obj": "believe",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "bond",
+          "first_obj": "letter",
+          "final_obj": "strong",
+          "sim_first": 0.1146,
+          "sim_final": 0.45,
+          "delta": 0.3354,
+          "banked": false
+        },
+        {
+          "lemma": "bonus",
+          "first_obj": "feel",
+          "final_obj": "quiet",
+          "sim_first": 0.0,
+          "sim_final": 0.0477,
+          "delta": 0.0477,
+          "banked": false
+        },
+        {
+          "lemma": "boom",
+          "first_obj": "hurt",
+          "final_obj": "bring",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "bottle",
+          "first_obj": "probably",
+          "final_obj": "bar",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "bound",
+          "first_obj": "letter",
+          "final_obj": "blue",
+          "sim_first": 0.2361,
+          "sim_final": 0.0,
+          "delta": -0.2361,
+          "banked": false
+        },
+        {
+          "lemma": "branch",
+          "first_obj": "new",
+          "final_obj": "believe",
+          "sim_first": 0.0599,
+          "sim_final": 0.0,
+          "delta": -0.0599,
+          "banked": false
+        },
+        {
+          "lemma": "broad",
+          "first_obj": "alive",
+          "final_obj": "help",
+          "sim_first": 0.1342,
+          "sim_final": 0.396,
+          "delta": 0.2618,
+          "banked": false
+        },
+        {
+          "lemma": "brown",
+          "first_obj": "birthday",
+          "final_obj": "secretary",
+          "sim_first": 0.0,
+          "sim_final": 0.2423,
+          "delta": 0.2423,
+          "banked": false
+        },
+        {
+          "lemma": "build",
+          "first_obj": "real",
+          "final_obj": "young",
+          "sim_first": 0.2713,
+          "sim_final": 0.2298,
+          "delta": -0.0416,
+          "banked": false
+        },
+        {
+          "lemma": "bullet",
+          "first_obj": "need",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.3281,
+          "delta": 0.3281,
+          "banked": true
+        },
+        {
+          "lemma": "burn",
+          "first_obj": "break",
+          "final_obj": "report",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "buyer",
+          "first_obj": "lot",
+          "final_obj": "number",
+          "sim_first": 0.0176,
+          "sim_final": 0.3463,
+          "delta": 0.3286,
+          "banked": false
+        },
+        {
+          "lemma": "cake",
+          "first_obj": "birthday",
+          "final_obj": "blow",
+          "sim_first": 0.2782,
+          "sim_final": 0.4473,
+          "delta": 0.1691,
+          "banked": false
+        },
+        {
+          "lemma": "campaigner",
+          "first_obj": "believe",
+          "final_obj": "tough",
+          "sim_first": 0.0,
+          "sim_final": 0.0279,
+          "delta": 0.0279,
+          "banked": false
+        },
+        {
+          "lemma": "candle",
+          "first_obj": "blow",
+          "final_obj": "seat",
+          "sim_first": 0.0,
+          "sim_final": 0.0987,
+          "delta": 0.0987,
+          "banked": false
+        },
+        {
+          "lemma": "capacity",
+          "first_obj": "minute",
+          "final_obj": "max",
+          "sim_first": 0.0,
+          "sim_final": 0.3681,
+          "delta": 0.3681,
+          "banked": false
+        },
+        {
+          "lemma": "capital",
+          "first_obj": "attack",
+          "final_obj": "today",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "capitalist",
+          "first_obj": "business",
+          "final_obj": "actually",
+          "sim_first": 0.2919,
+          "sim_final": 0.4433,
+          "delta": 0.1515,
+          "banked": false
+        },
+        {
+          "lemma": "capsule",
+          "first_obj": "course",
+          "final_obj": "man",
+          "sim_first": 0.1004,
+          "sim_final": 0.2513,
+          "delta": 0.1509,
+          "banked": false
+        },
+        {
+          "lemma": "carefully",
+          "first_obj": "meet",
+          "final_obj": "iphone",
+          "sim_first": 0.45,
+          "sim_final": 0.1107,
+          "delta": -0.3393,
+          "banked": false
+        },
+        {
+          "lemma": "carry",
+          "first_obj": "bus",
+          "final_obj": "lie",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "cat",
+          "first_obj": "book",
+          "final_obj": "client",
+          "sim_first": 0.45,
+          "sim_final": 0.4318,
+          "delta": -0.0182,
+          "banked": false
+        },
+        {
+          "lemma": "celebrate",
+          "first_obj": "park",
+          "final_obj": "dangerous",
+          "sim_first": 0.1807,
+          "sim_final": 0.45,
+          "delta": 0.2693,
+          "banked": false
+        },
+        {
+          "lemma": "cell",
+          "first_obj": "brain",
+          "final_obj": "big",
+          "sim_first": 0.4211,
+          "sim_final": 0.0595,
+          "delta": -0.3616,
+          "banked": false
+        },
+        {
+          "lemma": "cellular",
+          "first_obj": "time",
+          "final_obj": "strong",
+          "sim_first": 0.0,
+          "sim_final": 0.0649,
+          "delta": 0.0649,
+          "banked": false
+        },
+        {
+          "lemma": "cellulose",
+          "first_obj": "people",
+          "final_obj": "quiet",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "chain",
+          "first_obj": "water",
+          "final_obj": "sue",
+          "sim_first": 0.0477,
+          "sim_final": 0.0,
+          "delta": -0.0477,
+          "banked": false
+        },
+        {
+          "lemma": "chair",
+          "first_obj": "book",
+          "final_obj": "cold",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "chamber",
+          "first_obj": "good",
+          "final_obj": "box",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "character",
+          "first_obj": "body",
+          "final_obj": "boat",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "charity",
+          "first_obj": "money",
+          "final_obj": "attack",
+          "sim_first": 0.0,
+          "sim_final": 0.0264,
+          "delta": 0.0264,
+          "banked": false
+        },
+        {
+          "lemma": "chart",
+          "first_obj": "people",
+          "final_obj": "charge",
+          "sim_first": 0.1754,
+          "sim_final": 0.0,
+          "delta": -0.1754,
+          "banked": false
+        },
+        {
+          "lemma": "cheap",
+          "first_obj": "people",
+          "final_obj": "cash",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "chemical",
+          "first_obj": "change",
+          "final_obj": "blue",
+          "sim_first": 0.0919,
+          "sim_final": 0.0,
+          "delta": -0.0919,
+          "banked": false
+        },
+        {
+          "lemma": "chemistry",
+          "first_obj": "certain",
+          "final_obj": "body",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "chimpanzee",
+          "first_obj": "important",
+          "final_obj": "friend",
+          "sim_first": 0.0,
+          "sim_final": 0.3447,
+          "delta": 0.3447,
+          "banked": false
+        },
+        {
+          "lemma": "china",
+          "first_obj": "big",
+          "final_obj": "point",
+          "sim_first": 0.3861,
+          "sim_final": 0.0,
+          "delta": -0.3861,
+          "banked": false
+        },
+        {
+          "lemma": "chloroplast",
+          "first_obj": "able",
+          "final_obj": "thing",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "chosen",
+          "first_obj": "start",
+          "final_obj": "check",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "chromosome",
+          "first_obj": "group",
+          "final_obj": "small",
+          "sim_first": 0.2622,
+          "sim_final": 0.0,
+          "delta": -0.2622,
+          "banked": false
+        },
+        {
+          "lemma": "cigarette",
+          "first_obj": "expect",
+          "final_obj": "menthol",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "citizen",
+          "first_obj": "cause",
+          "final_obj": "country",
+          "sim_first": 0.2771,
+          "sim_final": 0.45,
+          "delta": 0.1729,
+          "banked": false
+        },
+        {
+          "lemma": "claim",
+          "first_obj": "want",
+          "final_obj": "pirate",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "claimant",
+          "first_obj": "big",
+          "final_obj": "thanks",
+          "sim_first": 0.0836,
+          "sim_final": 0.1165,
+          "delta": 0.0329,
+          "banked": false
+        },
+        {
+          "lemma": "classroom",
+          "first_obj": "write",
+          "final_obj": "woman",
+          "sim_first": 0.1131,
+          "sim_final": 0.45,
+          "delta": 0.3369,
+          "banked": false
+        },
+        {
+          "lemma": "client",
+          "first_obj": "return",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.3865,
+          "delta": 0.3865,
+          "banked": true
+        },
+        {
+          "lemma": "climate",
+          "first_obj": "people",
+          "final_obj": "area",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "climb",
+          "first_obj": "amaze",
+          "final_obj": "help",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "climber",
+          "first_obj": "forward",
+          "final_obj": "helicopter",
+          "sim_first": 0.45,
+          "sim_final": 0.0853,
+          "delta": -0.3647,
+          "banked": false
+        },
+        {
+          "lemma": "closer",
+          "first_obj": "new",
+          "final_obj": "spend",
+          "sim_first": 0.45,
+          "sim_final": 0.0982,
+          "delta": -0.3518,
+          "banked": false
+        },
+        {
+          "lemma": "coach",
+          "first_obj": "mind",
+          "final_obj": "bag",
+          "sim_first": 0.0,
+          "sim_final": 0.0824,
+          "delta": 0.0824,
+          "banked": false
+        },
+        {
+          "lemma": "coal",
+          "first_obj": "big",
+          "final_obj": "dioxide",
+          "sim_first": 0.2467,
+          "sim_final": 0.0,
+          "delta": -0.2467,
+          "banked": false
+        },
+        {
+          "lemma": "cocaine",
+          "first_obj": "big",
+          "final_obj": "control",
+          "sim_first": 0.052,
+          "sim_final": 0.0,
+          "delta": -0.052,
+          "banked": false
+        },
+        {
+          "lemma": "code",
+          "first_obj": "apartment",
+          "final_obj": "given",
+          "sim_first": 0.0,
+          "sim_final": 0.1806,
+          "delta": 0.1806,
+          "banked": false
+        },
+        {
+          "lemma": "colleague",
+          "first_obj": "boss",
+          "final_obj": "ahead",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "collect",
+          "first_obj": "course",
+          "final_obj": "place",
+          "sim_first": 0.4442,
+          "sim_final": 0.0512,
+          "delta": -0.3929,
+          "banked": false
+        },
+        {
+          "lemma": "collection",
+          "first_obj": "bill",
+          "final_obj": "apartment",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "combine",
+          "first_obj": "people",
+          "final_obj": "small",
+          "sim_first": 0.45,
+          "sim_final": 0.2058,
+          "delta": -0.2442,
+          "banked": false
+        },
+        {
+          "lemma": "commission",
+          "first_obj": "bank",
+          "final_obj": "strong",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "committee",
+          "first_obj": "bill",
+          "final_obj": "act",
+          "sim_first": 0.3377,
+          "sim_final": 0.0,
+          "delta": -0.3377,
+          "banked": false
+        },
+        {
+          "lemma": "common",
+          "first_obj": "course",
+          "final_obj": "respect",
+          "sim_first": 0.0,
+          "sim_final": 0.4342,
+          "delta": 0.4342,
+          "banked": false
+        },
+        {
+          "lemma": "communication",
+          "first_obj": "people",
+          "final_obj": "pay",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "compartment",
+          "first_obj": "money",
+          "final_obj": "big",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "compensate",
+          "first_obj": "hate",
+          "final_obj": "forgive",
+          "sim_first": 0.0,
+          "sim_final": 0.1584,
+          "delta": 0.1584,
+          "banked": false
+        },
+        {
+          "lemma": "competitor",
+          "first_obj": "money",
+          "final_obj": "novelty",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "complete",
+          "first_obj": "ask",
+          "final_obj": "die",
+          "sim_first": 0.0,
+          "sim_final": 0.3525,
+          "delta": 0.3525,
+          "banked": false
+        },
+        {
+          "lemma": "complex",
+          "first_obj": "happen",
+          "final_obj": "black",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "component",
+          "first_obj": "little",
+          "final_obj": "strong",
+          "sim_first": 0.3874,
+          "sim_final": 0.0605,
+          "delta": -0.3269,
+          "banked": false
+        },
+        {
+          "lemma": "compose",
+          "first_obj": "new",
+          "final_obj": "small",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "computer",
+          "first_obj": "clothes",
+          "final_obj": "place",
+          "sim_first": 0.2628,
+          "sim_final": 0.2896,
+          "delta": 0.0267,
+          "banked": false
+        },
+        {
+          "lemma": "concentration",
+          "first_obj": "way",
+          "final_obj": "fat",
+          "sim_first": 0.1513,
+          "sim_final": 0.0,
+          "delta": -0.1513,
+          "banked": false
+        },
+        {
+          "lemma": "concept",
+          "first_obj": "loyal",
+          "final_obj": "living",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "confederation",
+          "first_obj": "care",
+          "final_obj": "drunk",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "confidence",
+          "first_obj": "club",
+          "final_obj": "client",
+          "sim_first": 0.1052,
+          "sim_final": 0.0,
+          "delta": -0.1052,
+          "banked": false
+        },
+        {
+          "lemma": "congress",
+          "first_obj": "black",
+          "final_obj": "team",
+          "sim_first": 0.4017,
+          "sim_final": 0.3961,
+          "delta": -0.0056,
+          "banked": false
+        },
+        {
+          "lemma": "connect",
+          "first_obj": "start",
+          "final_obj": "brain",
+          "sim_first": 0.0701,
+          "sim_final": 0.0,
+          "delta": -0.0701,
+          "banked": false
+        },
+        {
+          "lemma": "connection",
+          "first_obj": "learn",
+          "final_obj": "company",
+          "sim_first": 0.0345,
+          "sim_final": 0.0,
+          "delta": -0.0345,
+          "banked": false
+        },
+        {
+          "lemma": "conservation",
+          "first_obj": "moment",
+          "final_obj": "world",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "consider",
+          "first_obj": "think",
+          "final_obj": "accident",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "consist",
+          "first_obj": "novelty",
+          "final_obj": "blue",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "constable",
+          "first_obj": "chief",
+          "final_obj": "peter",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "consumer",
+          "first_obj": "big",
+          "final_obj": "dioxide",
+          "sim_first": 0.3867,
+          "sim_final": 0.0,
+          "delta": -0.3867,
+          "banked": false
+        },
+        {
+          "lemma": "consumption",
+          "first_obj": "major",
+          "final_obj": "big",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "contact",
+          "first_obj": "company",
+          "final_obj": "touch",
+          "sim_first": 0.053,
+          "sim_final": 0.45,
+          "delta": 0.397,
+          "banked": false
+        },
+        {
+          "lemma": "container",
+          "first_obj": "city",
+          "final_obj": "living",
+          "sim_first": 0.1671,
+          "sim_final": 0.0331,
+          "delta": -0.134,
+          "banked": false
+        },
+        {
+          "lemma": "continue",
+          "first_obj": "change",
+          "final_obj": "bill",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "contribute",
+          "first_obj": "people",
+          "final_obj": "certainly",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "correct",
+          "first_obj": "body",
+          "final_obj": "miss",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "cost",
+          "first_obj": "fall",
+          "final_obj": "friend",
+          "sim_first": 0.0,
+          "sim_final": 0.1488,
+          "delta": 0.1488,
+          "banked": false
+        },
+        {
+          "lemma": "crater",
+          "first_obj": "today",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "create",
+          "first_obj": "control",
+          "final_obj": "find",
+          "sim_first": 0.45,
+          "sim_final": 0.1146,
+          "delta": -0.3354,
+          "banked": false
+        },
+        {
+          "lemma": "criminal",
+          "first_obj": "crime",
+          "final_obj": "certainly",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "crisis",
+          "first_obj": "home",
+          "final_obj": "cause",
+          "sim_first": 0.45,
+          "sim_final": 0.3389,
+          "delta": -0.1111,
+          "banked": false
+        },
+        {
+          "lemma": "criticism",
+          "first_obj": "world",
+          "final_obj": "story",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "criticize",
+          "first_obj": "book",
+          "final_obj": "absolutely",
+          "sim_first": 0.0,
+          "sim_final": 0.1625,
+          "delta": 0.1625,
+          "banked": false
+        },
+        {
+          "lemma": "crop",
+          "first_obj": "course",
+          "final_obj": "bank",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "cross",
+          "first_obj": "case",
+          "final_obj": "hello",
+          "sim_first": 0.4382,
+          "sim_final": 0.0,
+          "delta": -0.4382,
+          "banked": false
+        },
+        {
+          "lemma": "cultural",
+          "first_obj": "know",
+          "final_obj": "position",
+          "sim_first": 0.0839,
+          "sim_final": 0.0,
+          "delta": -0.0839,
+          "banked": false
+        },
+        {
+          "lemma": "cup",
+          "first_obj": "time",
+          "final_obj": "cold",
+          "sim_first": 0.0,
+          "sim_final": 0.2691,
+          "delta": 0.2691,
+          "banked": false
+        },
+        {
+          "lemma": "curious",
+          "first_obj": "expect",
+          "final_obj": "island",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "currently",
+          "first_obj": "company",
+          "final_obj": "lawyer",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "cytoplasm",
+          "first_obj": "system",
+          "final_obj": "beer",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "damage",
+          "first_obj": "building",
+          "final_obj": "body",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "danger",
+          "first_obj": "today",
+          "final_obj": "past",
+          "sim_first": 0.3767,
+          "sim_final": 0.45,
+          "delta": 0.0733,
+          "banked": false
+        },
+        {
+          "lemma": "data",
+          "first_obj": "family",
+          "final_obj": "hate",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "dating",
+          "first_obj": "ask",
+          "final_obj": "people",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "dazzle",
+          "first_obj": "evidence",
+          "final_obj": "bring",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "december",
+          "first_obj": "ago",
+          "final_obj": "visitor",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "decision",
+          "first_obj": "expect",
+          "final_obj": "need",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "decode",
+          "first_obj": "help",
+          "final_obj": "want",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "decrease",
+          "first_obj": "country",
+          "final_obj": "system",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "deeply",
+          "first_obj": "lot",
+          "final_obj": "client",
+          "sim_first": 0.0,
+          "sim_final": 0.0,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "define",
+          "first_obj": "fault",
+          "final_obj": "world",
+          "sim_first": 0.45,
+          "sim_final": 0.0,
+          "delta": -0.45,
+          "banked": false
+        },
+        {
+          "lemma": "delight",
+          "first_obj": "club",
+          "final_obj": "brother",
+          "sim_first": 0.0,
+          "sim_final": 0.0404,
+          "delta": 0.0404,
+          "banked": false
+        },
+        {
+          "lemma": "deliver",
+          "first_obj": "business",
+          "final_obj": "thank",
+          "sim_first": 0.1528,
+          "sim_final": 0.0,
+          "delta": -0.1528,
+          "banked": false
+        },
+        {
+          "lemma": "demand",
+          "first_obj": "bus",
+          "final_obj": "visitor",
+          "sim_first": 0.0,
+          "sim_final": 0.0883,
+          "delta": 0.0883,
+          "banked": false
+        },
+        {
+          "lemma": "democracy",
+          "first_obj": "evidence",
+          "final_obj": "time",
+          "sim_first": 0.0,
+          "sim_final": 0.3124,
+          "delta": 0.3124,
+          "banked": false
+        },
+        {
+          "lemma": "demonstrate",
+          "first_obj": "position",
+          "final_obj": "people",
+          "sim_first": 0.45,
+          "sim_final": 0.45,
+          "delta": 0.0,
+          "banked": false
+        },
+        {
+          "lemma": "demonstrator",
+          "first_obj": "believe",
+          "final_obj": "woman",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "dense",
+          "first_obj": "need",
+          "final_obj": "pull",
+          "sim_first": 0.0,
+          "sim_final": 0.4472,
+          "delta": 0.4472,
+          "banked": false
+        },
+        {
+          "lemma": "depend",
+          "first_obj": "group",
+          "final_obj": "think",
+          "sim_first": 0.0,
+          "sim_final": 0.45,
+          "delta": 0.45,
+          "banked": false
+        },
+        {
+          "lemma": "depression",
+          "first_obj": "baby",
+          "final_obj": "pain",
+          "sim_first": 0.0,
+          "sim_final": 0.2735,
+          "delta": 0.2735,
+          "banked": false
+        }
+      ]
+    },
+    "D3_memory": {
+      "A": {
+        "n_items": 6925,
+        "n_traces": 22682,
+        "trace_ctx_d": 256,
+        "n_standing_hypotheses": 0,
+        "n_log_entries": 0,
+        "n_rejected": 0,
+        "hypothesis_state_bytes": 0,
+        "retained_trace_bytes": 46452736,
+        "hypothesis_state_bytes_per_item": 0.0
+      },
+      "B": {
+        "n_items": 6925,
+        "n_traces": 31045,
+        "trace_ctx_d": 256,
+        "n_standing_hypotheses": 4393,
+        "n_log_entries": 20654,
+        "n_rejected": 2770,
+        "hypothesis_state_bytes": 5973108,
+        "retained_trace_bytes": 63580160,
+        "hypothesis_state_bytes_per_item": 862.54
+      }
+    },
+    "D4_agreement": {
+      "n_both_grounded": 86,
+      "n_agree": 63,
+      "agreement_rate": 0.732558
+    }
+  },
+  "config": {
+    "N_DIM": 2048,
+    "SCHEMA_THRESH_FULL": 0.25,
+    "CHUNK_SIZE": 150,
+    "PBV_COMMIT_STRENGTH": 0.6,
+    "PBV_INFORMATIVE_MIN": 0.3,
+    "INJECT_STRENGTH": 0.9,
+    "ARM_SEEDS": {
+      "A_BASELINE": 3001,
+      "B_PBV": 3002,
+      "C1_INJECT_WRONG": 3003,
+      "C2_INJECT_RIGHT": 3004
+    },
+    "INJECT_SEED": 20260812
+  },
+  "arms": {
+    "A_BASELINE": {
+      "arm": "A_BASELINE",
+      "pbv": false,
+      "n_sentences": 7500,
+      "n_chunks": 50,
+      "segments_seen": {
+        "bootstrap": 1500,
+        "ele_cont": 1500,
+        "int_cont": 1500,
+        "adv_new": 1500,
+        "bio_new": 1500
+      },
+      "n_grounded": 305,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 2466,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 69,
+        "TAUTOLOGY_NO_ANCHOR": 2397
+      },
+      "trajectory": {
+        "n_items": 6925,
+        "n_items_with_hypothesis": 0,
+        "n_items_revised": 0,
+        "revision_rate": null,
+        "n_encounters": 22682,
+        "n_informative_encounters": 0,
+        "informative_encounter_rate": 0.0,
+        "n_confirm": 0,
+        "n_disconfirm": 0,
+        "n_abandon": 0,
+        "n_repropose": 0,
+        "n_revive": 0
+      },
+      "n_injected": 0,
+      "memory_bytes": {
+        "n_items": 6925,
+        "n_traces": 22682,
+        "trace_ctx_d": 256,
+        "n_standing_hypotheses": 0,
+        "n_log_entries": 0,
+        "n_rejected": 0,
+        "hypothesis_state_bytes": 0,
+        "retained_trace_bytes": 46452736,
+        "hypothesis_state_bytes_per_item": 0.0
+      },
+      "elapsed_s": 158.4
+    },
+    "B_PBV": {
+      "arm": "B_PBV",
+      "pbv": true,
+      "n_sentences": 7500,
+      "n_chunks": 50,
+      "segments_seen": {
+        "bootstrap": 1500,
+        "ele_cont": 1500,
+        "int_cont": 1500,
+        "adv_new": 1500,
+        "bio_new": 1500
+      },
+      "n_grounded": 243,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 7349,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 235,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 6534,
+        "NO_STANDING_HYPOTHESIS": 580
+      },
+      "trajectory": {
+        "n_items": 6925,
+        "n_items_with_hypothesis": 4458,
+        "n_items_revised": 1414,
+        "revision_rate": 0.317183,
+        "n_encounters": 31045,
+        "n_informative_encounters": 12229,
+        "informative_encounter_rate": 0.393912,
+        "n_confirm": 788,
+        "n_disconfirm": 7048,
+        "n_abandon": 2770,
+        "n_repropose": 2770,
+        "n_revive": 2885
+      },
+      "n_injected": 0,
+      "memory_bytes": {
+        "n_items": 6925,
+        "n_traces": 31045,
+        "trace_ctx_d": 256,
+        "n_standing_hypotheses": 4393,
+        "n_log_entries": 20654,
+        "n_rejected": 2770,
+        "hypothesis_state_bytes": 5973108,
+        "retained_trace_bytes": 63580160,
+        "hypothesis_state_bytes_per_item": 862.54
+      },
+      "elapsed_s": 220.78
+    },
+    "C1_INJECT_WRONG": {
+      "arm": "C1_INJECT_WRONG",
+      "pbv": true,
+      "n_sentences": 7500,
+      "n_chunks": 50,
+      "segments_seen": {
+        "bootstrap": 1500,
+        "ele_cont": 1500,
+        "int_cont": 1500,
+        "adv_new": 1500,
+        "bio_new": 1500
+      },
+      "n_grounded": 246,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 7337,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 235,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 6522,
+        "NO_STANDING_HYPOTHESIS": 580
+      },
+      "trajectory": {
+        "n_items": 6925,
+        "n_items_with_hypothesis": 4458,
+        "n_items_revised": 1411,
+        "revision_rate": 0.31651,
+        "n_encounters": 31024,
+        "n_informative_encounters": 12224,
+        "informative_encounter_rate": 0.394018,
+        "n_confirm": 783,
+        "n_disconfirm": 7048,
+        "n_abandon": 2767,
+        "n_repropose": 2767,
+        "n_revive": 2881
+      },
+      "n_injected": 30,
+      "memory_bytes": {
+        "n_items": 6925,
+        "n_traces": 31024,
+        "trace_ctx_d": 256,
+        "n_standing_hypotheses": 4393,
+        "n_log_entries": 20669,
+        "n_rejected": 2767,
+        "hypothesis_state_bytes": 5976540,
+        "retained_trace_bytes": 63537152,
+        "hypothesis_state_bytes_per_item": 863.04
+      },
+      "elapsed_s": 225.21
+    },
+    "C2_INJECT_RIGHT": {
+      "arm": "C2_INJECT_RIGHT",
+      "pbv": true,
+      "n_sentences": 7500,
+      "n_chunks": 50,
+      "segments_seen": {
+        "bootstrap": 1500,
+        "ele_cont": 1500,
+        "int_cont": 1500,
+        "adv_new": 1500,
+        "bio_new": 1500
+      },
+      "n_grounded": 246,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 7337,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 235,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 6522,
+        "NO_STANDING_HYPOTHESIS": 580
+      },
+      "trajectory": {
+        "n_items": 6925,
+        "n_items_with_hypothesis": 4458,
+        "n_items_revised": 1410,
+        "revision_rate": 0.316285,
+        "n_encounters": 31024,
+        "n_informative_encounters": 12224,
+        "informative_encounter_rate": 0.394018,
+        "n_confirm": 787,
+        "n_disconfirm": 7044,
+        "n_abandon": 2766,
+        "n_repropose": 2766,
+        "n_revive": 2881
+      },
+      "n_injected": 30,
+      "memory_bytes": {
+        "n_items": 6925,
+        "n_traces": 31024,
+        "trace_ctx_d": 256,
+        "n_standing_hypotheses": 4393,
+        "n_log_entries": 20667,
+        "n_rejected": 2766,
+        "hypothesis_state_bytes": 5976004,
+        "retained_trace_bytes": 63537152,
+        "hypothesis_state_bytes_per_item": 862.96
+      },
+      "elapsed_s": 316.75
+    }
+  },
+  "limitations": [
+    "hypotheses are NOT persisted across a foundation_persistence save/load cycle (that module was not edited this session); every arm runs in ONE process",
+    "the proposer's metric is still distributional relatedness, not reference (audit B.2.2) -- this build fixes the missing hypothesis, not the wrong metric",
+    "C2 is a NON-TRIVIALITY CONTROL, circular w.r.t. correctness; never an accuracy number",
+    "this cell does NOT measure sense selection and bears on no sense-selection claim"
+  ]
+}

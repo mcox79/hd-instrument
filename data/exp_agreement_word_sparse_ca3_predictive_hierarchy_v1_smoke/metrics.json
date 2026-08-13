@@ -1,0 +1,309 @@
+{
+  "anchor_name": "agreement_word_sparse_ca3_predictive_hierarchy_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_(b)_NOT_STRUCTURE_INDUCTION",
+  "verdict_msg": "HARD_FAIL_(b)_NOT_STRUCTURE_INDUCTION | brain-faithful sparse CA3 CLEARED Stage-0 on real words (in-vocab lift=0.0249 at E=4,f=0.20,center,win=1 -- the crosstalk fix WORKED) but the prediction-residual head selector did NOT induce head-tracking on the novel-lexeme SNF subset: tgph_snf(annealed)=0.5271 vs majority 0.6269 (need >=0.7269), structure-shuffle SNF=0.4936 drop=0.0335 (need >=0.10), annealed - fixed=0.0 (need >0). EARNED negative: the subject/head signal is NOT in the lexical prediction error -- b2 (chunking) + dense + sparse prediction all exhausted; a real CG needs a different mechanism. glass-box-non-gradient confirmed.",
+  "summary": "HARD_FAIL_(b)_NOT_STRUCTURE_INDUCTION | brain-faithful sparse CA3 CLEARED Stage-0 on real words (in-vocab lift=0.0249 at E=4,f=0.20,center,win=1 -- the crosstalk fix WORKED) but the prediction-residual head selector did NOT induce head-tracking on the novel-lexeme SNF subset: tgph_snf(annealed)=0.5271 vs majority 0.6269 (need >=0.7269), structure-shuffle SNF=0.4936 drop=0.0335 (need >=0.10), annealed - fixed=0.0 (need >0). EARNED negative: the subject/head signal is NOT in the lexical prediction error -- b2 (chunking) + dense + sparse prediction all exhausted; a real CG needs a different mechanism. glass-box-non-gradient confirmed.",
+  "elapsed_s": 371.32,
+  "ts_iso": "2026-07-22T19:02:00.877665+00:00",
+  "seeds": [
+    7
+  ],
+  "n_seed_rows": 1,
+  "expected_n_seed_rows": 1,
+  "cardinality_ok": true,
+  "N_DIM": 1024,
+  "VOCAB_CAP": 2000,
+  "best_cfg": {
+    "E": 4,
+    "f": 0.2,
+    "method": "center",
+    "window": 1
+  },
+  "sweep_axes": {
+    "E": [
+      1,
+      4
+    ],
+    "f": [
+      0.1,
+      0.15,
+      0.2
+    ],
+    "method": [
+      "rand",
+      "center"
+    ],
+    "window": [
+      1
+    ]
+  },
+  "anneal_pctiles": [
+    80,
+    68,
+    56,
+    44,
+    32,
+    20
+  ],
+  "fixed_pctile": 20,
+  "n_checkpoints": 6,
+  "bands": {
+    "MAJORITY_BAR": 0.6269,
+    "ABL_FLOOR": 0.4889,
+    "HEADTRACK_MARGIN": 0.1,
+    "SHUFFLE_DROP_MIN": 0.1,
+    "STAGE0_MARGIN": 0.02
+  },
+  "summary_metrics": {
+    "stage0_pass": true,
+    "stage0_invocab_lift": 0.0249,
+    "stage0_invocab_ca3": 0.108,
+    "stage0_invocab_unigram": 0.0831,
+    "best_cfg": "E=4,f=0.20,center,win=1",
+    "novel_lexeme_disjoint": true,
+    "snf_tgph_annealed": 0.5271,
+    "snf_tgph_fixed": 0.5271,
+    "snf_structshuffle": 0.4936,
+    "snf_first": 0.4395,
+    "snf_bagcount": 0.5016,
+    "snf_majority_local": 0.5955,
+    "majority_bar_cited": 0.6269,
+    "abl_floor_cited": 0.4889,
+    "shuffle_drop": 0.0335,
+    "annealed_minus_fixed": 0.0,
+    "beats_majority_by_margin": false,
+    "structure_used": false,
+    "curriculum_helps": false,
+    "arms_differ_all": true,
+    "verdict_band": "HARD_FAIL_b"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train": 4000,
+      "n_test": 1500,
+      "novel_lexeme_disjoint": true,
+      "n_train_subj_lex": 1452,
+      "n_test_subj_lex": 651,
+      "vocab_size": 2001,
+      "n_snf": 628,
+      "stage0_sweep": [
+        {
+          "E": 1,
+          "f": 0.1,
+          "method": "rand",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0281,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.055
+        },
+        {
+          "E": 1,
+          "f": 0.15,
+          "method": "rand",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0282,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.0548
+        },
+        {
+          "E": 1,
+          "f": 0.2,
+          "method": "rand",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.028,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.0551
+        },
+        {
+          "E": 4,
+          "f": 0.1,
+          "method": "rand",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0435,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.0396
+        },
+        {
+          "E": 4,
+          "f": 0.15,
+          "method": "rand",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0476,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.0355
+        },
+        {
+          "E": 4,
+          "f": 0.2,
+          "method": "rand",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0473,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.0358
+        },
+        {
+          "E": 1,
+          "f": 0.1,
+          "method": "center",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0679,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.0152
+        },
+        {
+          "E": 1,
+          "f": 0.15,
+          "method": "center",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.068,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.015
+        },
+        {
+          "E": 1,
+          "f": 0.2,
+          "method": "center",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0681,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": -0.015
+        },
+        {
+          "E": 4,
+          "f": 0.1,
+          "method": "center",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.0903,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": 0.0072
+        },
+        {
+          "E": 4,
+          "f": 0.15,
+          "method": "center",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.1064,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": 0.0233
+        },
+        {
+          "E": 4,
+          "f": 0.2,
+          "method": "center",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.264,
+          "invocab_ca3": 0.108,
+          "invocab_unigram": 0.0831,
+          "invocab_lift": 0.0249
+        }
+      ],
+      "stage0_best_cfg": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1,
+        "D": 4096
+      },
+      "stage0_invocab_lift": 0.0249,
+      "stage0_invocab_ca3": 0.108,
+      "stage0_invocab_unigram": 0.0831,
+      "stage0_unk_rate": 0.264,
+      "stage0_cfg": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1
+      },
+      "stage0_pass": true,
+      "snf_tgph_annealed": 0.5271,
+      "snf_tgph_fixed": 0.5271,
+      "snf_structshuffle": 0.4936,
+      "snf_first": 0.4395,
+      "snf_bagcount": 0.5016,
+      "snf_majority_local": 0.5955,
+      "shuffle_drop": 0.0334,
+      "annealed_minus_fixed": 0.0,
+      "fire_frac_annealed_per_ckpt": [
+        0.578,
+        0.743,
+        0.851,
+        0.916,
+        0.947,
+        0.981
+      ],
+      "resid_std": 0.0358,
+      "resid_mean": 0.4808,
+      "anneal_thetas": [
+        0.5065,
+        0.5019,
+        0.4987,
+        0.4943,
+        0.486,
+        0.4427
+      ],
+      "learning_curve": [
+        {
+          "theta": 0.5065,
+          "snf": 0.5271
+        },
+        {
+          "theta": 0.5019,
+          "snf": 0.5271
+        },
+        {
+          "theta": 0.4987,
+          "snf": 0.5271
+        },
+        {
+          "theta": 0.4943,
+          "snf": 0.5271
+        },
+        {
+          "theta": 0.486,
+          "snf": 0.5271
+        },
+        {
+          "theta": 0.4427,
+          "snf": 0.5271
+        }
+      ],
+      "head_slot_var_snf": 5.4746,
+      "arms_differ": true,
+      "stage1_skipped": false
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "chunked_numpy_softshard_sparse_bind_store_foreground_no_composition",
+  "crlb_n/a": "real-word agreement head-tracking; floor is crosstalk, reported as Stage-0 sparse next-word in-vocab lift and Stage-1 head-promotion SNF, not an argmax CRLB",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "glass_box_non_gradient": true,
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "mechanism_note": "SPARSE CA3 = 29444 soft-shard (random expand E*N + kWTA active-fraction f + LEARNED train-mean centering, unsupervised, keyless); bind store M=sum value_code*sparse_key; retrieve q=M*key argmax cosine. ONE change vs the dense fair cell; same real-word cache + novel-lexeme held-out + structure-shuffle + bars.",
+  "no_store_write_no_push_no_atom_bank": true
+}

@@ -1,0 +1,153 @@
+{
+  "anchor_name": "continual_write_label_free_importance_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Workload A holds (label-free LRU recovers oracle in access-correlated regime) but Workload B best-proxy does NOT recover oracle within 0.10 -> honest scope-bound (label-free importance works iff access-correlated; no proxy recovers the silent-important case). A[oracle=1.00 best=LRU(1.00) wall=0.00 fifo=0.00 pass=True] B[oracle=1.00 best=LRU(0.00) wall=0.00 fifo=0.00 pass=False] switch=False cv=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "detail": {
+    "by_workload": {
+      "A_access_correlated": {
+        "oracle": 1.0,
+        "write_all": 0.0,
+        "fifo": 0.0,
+        "proxies_important_old_recall": {
+          "LRU": 1.0,
+          "access_freq": 1.0,
+          "age_weighted": 0.0,
+          "kramers_escape": 1.0,
+          "recall_error": 0.0
+        },
+        "best_proxy": "LRU",
+        "best_recall": 1.0,
+        "within_oracle": true,
+        "beats_naive": true,
+        "pass": true
+      },
+      "B_access_uncorrelated": {
+        "oracle": 1.0,
+        "write_all": 0.0,
+        "fifo": 0.0,
+        "proxies_important_old_recall": {
+          "LRU": 0.0,
+          "access_freq": 0.0,
+          "age_weighted": 0.0,
+          "kramers_escape": 0.0,
+          "recall_error": 0.0
+        },
+        "best_proxy": "LRU",
+        "best_recall": 0.0,
+        "within_oracle": false,
+        "beats_naive": true,
+        "pass": false
+      }
+    },
+    "proxies": [
+      "LRU",
+      "access_freq",
+      "age_weighted",
+      "kramers_escape",
+      "recall_error"
+    ],
+    "KRAMERS_TAU": 50.0,
+    "cites": [
+      "skunkworks_continual_write_label_free_demo",
+      "amendment_v3_v2",
+      "kramers_escape_kim2026",
+      "crosstalk_law_7315be3c"
+    ],
+    "best_proxy_switches_A_to_B": false,
+    "worst_cv": 0.0
+  },
+  "metrics_source": "measured_cpu_continual_write_label_free_importance_4arm_5proxy_2workload",
+  "per_seed": [
+    {
+      "seed": 1,
+      "cells": {
+        "A_access_correlated|label_free_inference|LRU": {
+          "important_old_recall": 1.0,
+          "all_recall": 0.975,
+          "imp_present": 1.0
+        },
+        "A_access_correlated|label_free_inference|access_freq": {
+          "important_old_recall": 1.0,
+          "all_recall": 0.975,
+          "imp_present": 1.0
+        },
+        "A_access_correlated|label_free_inference|age_weighted": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "A_access_correlated|label_free_inference|kramers_escape": {
+          "important_old_recall": 1.0,
+          "all_recall": 0.975,
+          "imp_present": 1.0
+        },
+        "A_access_correlated|label_free_inference|recall_error": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.575,
+          "imp_present": 0.0667
+        },
+        "A_access_correlated|write_all|-": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.0,
+          "imp_present": 1.0
+        },
+        "A_access_correlated|fifo|-": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "A_access_correlated|oracle_protect|-": {
+          "important_old_recall": 1.0,
+          "all_recall": 0.975,
+          "imp_present": 1.0
+        },
+        "B_access_uncorrelated|label_free_inference|LRU": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "B_access_uncorrelated|label_free_inference|access_freq": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "B_access_uncorrelated|label_free_inference|age_weighted": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "B_access_uncorrelated|label_free_inference|kramers_escape": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "B_access_uncorrelated|label_free_inference|recall_error": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.575,
+          "imp_present": 0.0667
+        },
+        "B_access_uncorrelated|write_all|-": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.0,
+          "imp_present": 1.0
+        },
+        "B_access_uncorrelated|fifo|-": {
+          "important_old_recall": 0.0,
+          "all_recall": 0.95,
+          "imp_present": 0.0
+        },
+        "B_access_uncorrelated|oracle_protect|-": {
+          "important_old_recall": 1.0,
+          "all_recall": 0.975,
+          "imp_present": 1.0
+        }
+      },
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1782022614.5220997
+    }
+  ],
+  "elapsed_s": 0.7208802700042725,
+  "summary": "MIDDLE_BAND: Workload A holds (label-free LRU recovers oracle in access-correlated regime) but Workload B best-proxy does NOT recover oracle within 0.10 -> honest scope-bound (label-free importance works iff access-correlated; no proxy recovers the silent-important case). A[oracle=1.00 best=LRU(1.00) wall=0.00 fifo=0.00 pass=True] B[oracle=1.00 best=LRU(0.00) wall=0.00 fifo=0.00 pass=False] switch=False cv=0.000"
+}

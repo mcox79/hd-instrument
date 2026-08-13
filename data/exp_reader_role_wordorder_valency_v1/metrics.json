@@ -1,0 +1,210 @@
+{
+  "verdict": "HARD_FAIL_STRUCTURAL_ROLE_NULL",
+  "verdict_msg": "HARD_FAIL: F1(FRONTED_OSV)=0.5657 <= F1(BASE)=0.5738 (structural lever null). F1 BASE=0.5738 FRONTED_OSV=0.5657 FRONTED_ANTI=0.5578 CANONICAL_BLUNT=0.5312 ROLE_ORACLE=0.6129. precision BASE=0.4861 FRONTED_OSV=0.4702. recall BASE=0.7 FRONTED_OSV=0.71. gap_closed_frac=-0.2072. n_head_recovered=1 n_head_regressed=0.",
+  "summary": "HARD_FAIL_STRUCTURAL_ROLE_NULL: f1 BASE=0.5738 FRONTED_OSV=0.5657 (+-0.0081) FRONTED_ANTI=0.5578 CANONICAL_BLUNT=0.5312 ROLE_ORACLE=0.6129 | gap_closed_frac=-0.2072 (role_gap=0.0391) | precision BASE=0.4861 FRONTED_OSV=0.4702 | recall BASE=0.7 FRONTED_OSV=0.71 | parser_uas=0.7882",
+  "elapsed_s": 204.88,
+  "ts_iso": "2026-07-23T21:14:02.527155+00:00",
+  "anchor_name": "reader_role_wordorder_valency_v1",
+  "run_mode": "full",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "headline_arm": "FRONTED_OSV",
+  "one_variable": "role_wordorder_reassign: a WORD-IDENTITY-FREE structural override; HEADLINE mode 'fronted' reassigns, on non-passive clauses with >=2 pre-verbal core candidates and no post-verbal core, the farthest pre-verbal core -> PATIENT and nearest -> AGENT (OSV reanalysis); parser/perceptron/routing/admissibility-gate/>=2-patient selectional argmax held constant across arms",
+  "bands": {
+    "CITED_AUDIT_F1_REAL": 0.5738,
+    "CITED_AUDIT_F1_ROLE_ORACLE": 0.6129,
+    "CITED_ROLE_GAP": 0.0391,
+    "P1_REPRO_TOL": 0.02,
+    "HP_GAP_CLOSE_FRAC": 0.5,
+    "HP_F1_MIN_LIFT": 0.0196,
+    "HP_RECALL_TOL": 0.005,
+    "HP_ANTI_MARGIN": 0.01,
+    "HF_RECALL_REGRESS": 0.02
+  },
+  "f1": {
+    "BASE": 0.5738,
+    "ROLE_ORACLE": 0.6129,
+    "FRONTED_OSV": 0.5657,
+    "FRONTED_ANTI": 0.5578,
+    "CANONICAL_BLUNT": 0.5312
+  },
+  "precision": {
+    "BASE": 0.4861,
+    "ROLE_ORACLE": 0.5135,
+    "FRONTED_OSV": 0.4702,
+    "FRONTED_ANTI": 0.4636,
+    "CANONICAL_BLUNT": 0.4359
+  },
+  "recall": {
+    "BASE": 0.7,
+    "ROLE_ORACLE": 0.76,
+    "FRONTED_OSV": 0.71,
+    "FRONTED_ANTI": 0.7,
+    "CANONICAL_BLUNT": 0.68
+  },
+  "recall_ceiling": {
+    "BASE": 0.7,
+    "ROLE_ORACLE": 0.76,
+    "FRONTED_OSV": 0.71,
+    "FRONTED_ANTI": 0.7,
+    "CANONICAL_BLUNT": 0.68
+  },
+  "role_gap": 0.0391,
+  "head_lift": -0.0081,
+  "gap_closed_frac": -0.2072,
+  "p1_reproduces": true,
+  "hard_pass_conditions": {
+    "p1_reproduces": true,
+    "closes_half_gap": false,
+    "no_recall_regress": true,
+    "precision_holds": false,
+    "anti_direction_fails": false
+  },
+  "hard_fail_reasons": [
+    "F1(FRONTED_OSV)=0.5657 <= F1(BASE)=0.5738 (structural lever null)"
+  ],
+  "n_roleora_recovered": 6,
+  "roleora_recovered": [
+    [
+      "L04_01",
+      "build",
+      "blockhouse"
+    ],
+    [
+      "L04_12",
+      "rub",
+      "castle"
+    ],
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "n_head_recovered": 1,
+  "head_recovered": [
+    [
+      "L04_01",
+      "build",
+      "blockhouse"
+    ]
+  ],
+  "n_head_regressed": 0,
+  "head_regressed": [],
+  "n_head_of_roleora": 1,
+  "head_of_roleora": [
+    [
+      "L04_01",
+      "build",
+      "blockhouse"
+    ]
+  ],
+  "roleora_headroom_coverage": 0.1667,
+  "arms": {
+    "BASE": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "be02002c1579217f"
+    },
+    "ROLE_ORACLE": {
+      "recall_ceiling": 0.76,
+      "n_miss": 24,
+      "n_gold_pos": 100,
+      "precision": 0.5135,
+      "recall": 0.76,
+      "f1": 0.6129,
+      "n_pred": 148,
+      "subcat_fp": 35,
+      "within_frame_fp": 4,
+      "spurious_verb_fp": 33,
+      "kept_hash": "598b7923a8b82dfc"
+    },
+    "FRONTED_OSV": {
+      "recall_ceiling": 0.71,
+      "n_miss": 29,
+      "n_gold_pos": 100,
+      "precision": 0.4702,
+      "recall": 0.71,
+      "f1": 0.5657,
+      "n_pred": 151,
+      "subcat_fp": 36,
+      "within_frame_fp": 8,
+      "spurious_verb_fp": 36,
+      "kept_hash": "b6cac1a27c7c3327"
+    },
+    "FRONTED_ANTI": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4636,
+      "recall": 0.7,
+      "f1": 0.5578,
+      "n_pred": 151,
+      "subcat_fp": 36,
+      "within_frame_fp": 9,
+      "spurious_verb_fp": 36,
+      "kept_hash": "eb980a1db2ec7be8"
+    },
+    "CANONICAL_BLUNT": {
+      "recall_ceiling": 0.68,
+      "n_miss": 32,
+      "n_gold_pos": 100,
+      "precision": 0.4359,
+      "recall": 0.68,
+      "f1": 0.5312,
+      "n_pred": 156,
+      "subcat_fp": 41,
+      "within_frame_fp": 11,
+      "spurious_verb_fp": 36,
+      "kept_hash": "e25cf5d20f8b7c0b"
+    }
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 68.5,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_audit": {
+    "source": "data/exp_reader_component_oracle_ablation_audit_v1/metrics.json",
+    "f1_real": 0.5738,
+    "f1_role_oracle": 0.6129,
+    "role_uplift": 0.0391
+  },
+  "run1_canonical_blunt_note": "Run 1 of this cell tested a BLANKET canonical post-verbal override (now the CANONICAL_BLUNT arm): net-negative (F1 0.5738->0.5312, precision 0.4861->0.4359, within_frame_fp 6->11) because it steals the patient label onto ditransitive/light-verb recipients (regressed hold/hands, show/way, give/hour, give/books, show/seeds). The HEADLINE fronted/OSV arm is the narrow redirect converged on by the brain deep-dive + the empirical scour.",
+  "brain_check": "thematic-role assignment dissociable from parsing; map constituents gated by word-order canonicity; parietal reanalysis for non-canonical/passive only. Lever = word-order-aware reanalysis (structural), NOT selectional/animacy (redundant per 29491).",
+  "scope_caveat": "Parser trained on UD-EWT out-of-domain to McGuffey (same untested transfer already flagged). The fronted trigger uses a structural OSV signature (>=2 pre-verbal core + no post-verbal core); genuine OSV cases mis-routed by the parser won't present that signature (bounded by head_regressed). Reversible-role + dialogue shelved (out of scope). MEASUREMENT cell, NOT banked; CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET (skunkworks VETs separately)."
+}

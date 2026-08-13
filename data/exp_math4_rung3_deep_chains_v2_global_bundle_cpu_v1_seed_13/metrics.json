@@ -1,0 +1,607 @@
+{
+  "anchor_name": "math4_rung3_deep_chains_v2_global_bundle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: STORAGE-STRATEGY chain-composition survives at DEEP L. (I) SHARDED L=20 NPROP=100 = 1.000 (matched-filter chain-independent at deep L); (II) SHARDED-BUNDLED storage gap at DEEP L = 0.960 at L=20 NPROP=100; (III) BUNDLED_L1 - BUNDLED_L=20 chain-degradation = 0.480 at NPROP=100 (single-hop bundle nonzero; deep multi-hop bundle collapses). Extends math4_proof_chains_v2 (L<=10) to DEEP L=20. matrix={\"BUNDLED\": {\"10\": {\"4\": 0.64, \"8\": 0.56, \"12\": 0.6, \"16\": 0.62, \"20\": 0.61}, \"20\": {\"4\": 0.01, \"8\": 0.06, \"12\": 0.09, \"16\": 0.59, \"20\": 0.07}, \"50\": {\"4\": 0.13, \"8\": 0.21, \"12\": 0.14, \"16\": 0.21, \"20\": 0.12}, \"100\": {\"4\": 0.03, \"8\": 0.06, \"12\": 0.18, \"16\": 0.08, \"20\": 0.04}}, \"BUNDLED_L1\": {\"10\": {\"4\": 0.72, \"8\": 0.79, \"12\": 0.67, \"16\": 0.66, \"20\": 0.72}, \"20\": {\"4\": 0.42, \"8\": 0.53, \"12\": 0.55, \"16\": 0.54, \"20\": 0.54}, \"50\": {\"4\": 0.49, \"8\": 0.55, \"12\": 0.42, \"16\": 0.52, \"20\": 0.49}, \"100\": {\"4\": 0.52, \"8\": 0.53, \"12\": 0.55, \"16\": 0.56, \"20\": 0.49}}, \"SHARDED\": {\"10\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}, \"20\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}, \"50\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}, \"100\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "seed": 13,
+  "device": "cuda",
+  "N": 8192,
+  "L_grid": [
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "NPROP_grid": [
+    10,
+    20,
+    50,
+    100
+  ],
+  "TR": 100,
+  "arms": [
+    "SHARDED",
+    "BUNDLED",
+    "BUNDLED_L1"
+  ],
+  "expected_n_units": 60,
+  "n_units_observed": 60,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "meta_arm_hashes_by_nprop": {
+    "10": {
+      "sharded_hash": "14a651591edea6f0",
+      "bundle_hash": "bdbbe805107e83fb"
+    },
+    "20": {
+      "sharded_hash": "e7f014e99905bfe5",
+      "bundle_hash": "709f43815ae33c9c"
+    },
+    "50": {
+      "sharded_hash": "1c4bc19e84113c07",
+      "bundle_hash": "dd3596102d491304"
+    },
+    "100": {
+      "sharded_hash": "2141ece2628c2446",
+      "bundle_hash": "b2fb9ee7a6c49359"
+    }
+  },
+  "criteria": {
+    "sharded_at_L_max_NPROP_max": 1.0,
+    "L_max": 20,
+    "NPROP_max": 100,
+    "max_storage_gap_at_L_max": 0.96,
+    "max_storage_gap_at_NPROP": 100,
+    "max_chain_degradation_gap": 0.48,
+    "max_chain_degradation_gap_at_NPROP": 100,
+    "crit_I_sharded_matched_filter_robust_at_deep_L": true,
+    "crit_II_storage_strategy_gap_at_deep_L": true,
+    "crit_III_chain_degradation_signature_at_deep_L": true
+  },
+  "per_unit": [
+    {
+      "L": 4,
+      "NPROP": 10,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 4,
+      "NPROP": 10,
+      "arm": "BUNDLED",
+      "acc": 0.64,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 4,
+      "NPROP": 10,
+      "arm": "BUNDLED_L1",
+      "acc": 0.72,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.0
+    },
+    {
+      "L": 8,
+      "NPROP": 10,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 8,
+      "NPROP": 10,
+      "arm": "BUNDLED",
+      "acc": 0.56,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 8,
+      "NPROP": 10,
+      "arm": "BUNDLED_L1",
+      "acc": 0.79,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.0
+    },
+    {
+      "L": 12,
+      "NPROP": 10,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 12,
+      "NPROP": 10,
+      "arm": "BUNDLED",
+      "acc": 0.6,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 12,
+      "NPROP": 10,
+      "arm": "BUNDLED_L1",
+      "acc": 0.67,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 16,
+      "NPROP": 10,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 16,
+      "NPROP": 10,
+      "arm": "BUNDLED",
+      "acc": 0.62,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 16,
+      "NPROP": 10,
+      "arm": "BUNDLED_L1",
+      "acc": 0.66,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.0
+    },
+    {
+      "L": 20,
+      "NPROP": 10,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 20,
+      "NPROP": 10,
+      "arm": "BUNDLED",
+      "acc": 0.61,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.007
+    },
+    {
+      "L": 20,
+      "NPROP": 10,
+      "arm": "BUNDLED_L1",
+      "acc": 0.72,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 4,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 4,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.01,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 4,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.42,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 8,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 8,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.06,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 8,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.53,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 12,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 12,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.09,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 12,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.55,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 16,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 16,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.59,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 16,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.54,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 20,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.01
+    },
+    {
+      "L": 20,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.07,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 20,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.54,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.0
+    },
+    {
+      "L": 4,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 4,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.13,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 4,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.49,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.0
+    },
+    {
+      "L": 8,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 8,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.21,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 8,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.55,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.0
+    },
+    {
+      "L": 12,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 12,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.14,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.008
+    },
+    {
+      "L": 12,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.42,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 16,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 16,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.21,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 16,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.52,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 20,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.007
+    },
+    {
+      "L": 20,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.12,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.008
+    },
+    {
+      "L": 20,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.49,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 4,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 4,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.03,
+      "TR": 100,
+      "L_eff": 4,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 4,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.52,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 8,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 8,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.06,
+      "TR": 100,
+      "L_eff": 8,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 8,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.53,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 12,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 12,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.18,
+      "TR": 100,
+      "L_eff": 12,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 12,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.55,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 16,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 16,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.08,
+      "TR": 100,
+      "L_eff": 16,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 16,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.56,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 20,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 20,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.04,
+      "TR": 100,
+      "L_eff": 20,
+      "elapsed_s": 0.01
+    },
+    {
+      "L": 20,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.49,
+      "TR": 100,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    }
+  ],
+  "elapsed_s": 0.20653939247131348,
+  "summary": "HARD_PASS: STORAGE-STRATEGY chain-composition survives at DEEP L. (I) SHARDED L=20 NPROP=100 = 1.000 (matched-filter chain-independent at deep L); (II) SHARDED-BUNDLED storage gap at DEEP L = 0.960 at L=20 NPROP=100; (III) BUNDLED_L1 - BUNDLED_L=20 chain-degradation = 0.480 at NPROP=100 (single-hop bundle nonzero; deep multi-hop bundle collapses). Extends math4_proof_chains_v2 (L<=10) to DEEP L=20. matrix={\"BUNDLED\": {\"10\": {\"4\": 0.64, \"8\": 0.56, \"12\": 0.6, \"16\": 0.62, \"20\": 0.61}, \"20\": {\"4\": 0.01, \"8\": 0.06, \"12\": 0.09, \"16\": 0.59, \"20\": 0.07}, \"50\": {\"4\": 0.13, \"8\": 0.21, \"12\": 0.14, \"16\": 0.21, \"20\": 0.12}, \"100\": {\"4\": 0.03, \"8\": 0.06, \"12\": 0.18, \"16\": 0.08, \"20\": 0.04}}, \"BUNDLED_L1\": {\"10\": {\"4\": 0.72, \"8\": 0.79, \"12\": 0.67, \"16\": 0.66, \"20\": 0.72}, \"20\": {\"4\": 0.42, \"8\": 0.53, \"12\": 0.55, \"16\": 0.54, \"20\": 0.54}, \"50\": {\"4\": 0.49, \"8\": 0.55, \"12\": 0.42, \"16\": 0.52, \"20\": 0.49}, \"100\": {\"4\": 0.52, \"8\": 0.53, \"12\": 0.55, \"16\": 0.56, \"20\": 0.49}}, \"SHARDED\": {\"10\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}, \"20\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}, \"50\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}, \"100\": {\"4\": 1.0, \"8\": 1.0, \"12\": 1.0, \"16\": 1.0, \"20\": 1.0}}}"
+}

@@ -1,0 +1,944 @@
+{
+  "anchor_name": "labeler_patient_role_recalibration_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | slice=L04+L05+L07 gold_pos=47 hard_frac=0.8511 | PHASE1 domain_shift=False (in-domain obj-recall=0.9221 McGuffey patient-role-recall=0.875; obj_confusion={'obj->obj': 0.9221, 'obj->obl': 0.0519, 'obj->nsubj': 0.0059, 'obj->iobj': 0.0059, 'obj->ccomp': 0.0024, 'obj->dep': 0.0}) | PHASE3 END-TO-END UNLAB=0.6465 V1(baseline)=0.7338 BACKOFF=0.7338(g=+0.000) RECAL=0.7338(g=+0.000,min=0.0) ROBUST=0.7546(g=+0.021,min=0.0) | best_fix=robust recall 0.7447->0.7447 pool 1.0638->1.1277 coupling_broken=False recall_up=True precision_ok=True | IN-DOMAIN label-acc orig=0.9393 recal=0.9393(drop=0.0) robust=0.9228(drop=0.0165) | RESIDUAL v1 ext:dec=10:5 best ext:dec=10:4 | recal_b_obj=0.0 recal_fires=False robust_fires=False baseline_in_band=True arms_differ=False leak_clean=True asset_untouched=True",
+  "summary": "MIDDLE_BAND | slice=L04+L05+L07 gold_pos=47 hard_frac=0.8511 | PHASE1 domain_shift=False (in-domain obj-recall=0.9221 McGuffey patient-role-recall=0.875; obj_confusion={'obj->obj': 0.9221, 'obj->obl': 0.0519, 'obj->nsubj': 0.0059, 'obj->iobj': 0.0059, 'obj->ccomp': 0.0024, 'obj->dep': 0.0}) | PHASE3 END-TO-END UNLAB=0.6465 V1(baseline)=0.7338 BACKOFF=0.7338(g=+0.000) RECAL=0.7338(g=+0.000,min=0.0) ROBUST=0.7546(g=+0.021,min=0.0) | best_fix=robust recall 0.7447->0.7447 pool 1.0638->1.1277 coupling_broken=False recall_up=True precision_ok=True | IN-DOMAIN label-acc orig=0.9393 recal=0.9393(drop=0.0) robust=0.9228(drop=0.0165) | RESIDUAL v1 ext:dec=10:5 best ext:dec=10:4 | recal_b_obj=0.0 recal_fires=False robust_fires=False baseline_in_band=True arms_differ=False leak_clean=True asset_untouched=True",
+  "elapsed_s": 66.66,
+  "ts_iso": "2026-07-21T04:49:35.187580+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07"
+  ],
+  "n_gold_pos_pairs": 47,
+  "hard_frac": 0.8511,
+  "PHASE1_domain_shift": false,
+  "PHASE1_in_domain_obj_recall": 0.9221,
+  "PHASE1_mcguffey_patient_role_recall": 0.875,
+  "PHASE1_confusion_in_domain_orig": {
+    "obj": {
+      "n": 847,
+      "dist": {
+        "obj": 781,
+        "obl": 44,
+        "iobj": 5,
+        "xcomp": 5,
+        "nsubj": 5,
+        "advmod": 2,
+        "ccomp": 2,
+        "advcl": 2,
+        "expl": 1
+      },
+      "recall_as_self": 0.9221
+    },
+    "nsubj:pass": {
+      "n": 83,
+      "dist": {
+        "nsubj:pass": 52,
+        "nsubj": 30,
+        "obl": 1
+      },
+      "recall_as_self": 0.6265
+    },
+    "iobj": {
+      "n": 56,
+      "dist": {
+        "iobj": 45,
+        "obj": 11
+      },
+      "recall_as_self": 0.8036
+    },
+    "obj_confusion_summary": {
+      "obj->obj": 0.9221,
+      "obj->obl": 0.0519,
+      "obj->nsubj": 0.0059,
+      "obj->iobj": 0.0059,
+      "obj->ccomp": 0.0024,
+      "obj->dep": 0.0
+    }
+  },
+  "PHASE1_confusion_in_domain_recal": {
+    "obj": {
+      "n": 847,
+      "dist": {
+        "obj": 781,
+        "obl": 44,
+        "iobj": 5,
+        "xcomp": 5,
+        "nsubj": 5,
+        "advmod": 2,
+        "ccomp": 2,
+        "advcl": 2,
+        "expl": 1
+      },
+      "recall_as_self": 0.9221
+    },
+    "nsubj:pass": {
+      "n": 83,
+      "dist": {
+        "nsubj:pass": 52,
+        "nsubj": 30,
+        "obl": 1
+      },
+      "recall_as_self": 0.6265
+    },
+    "iobj": {
+      "n": 56,
+      "dist": {
+        "iobj": 45,
+        "obj": 11
+      },
+      "recall_as_self": 0.8036
+    },
+    "obj_confusion_summary": {
+      "obj->obj": 0.9221,
+      "obj->obl": 0.0519,
+      "obj->nsubj": 0.0059,
+      "obj->iobj": 0.0059,
+      "obj->ccomp": 0.0024,
+      "obj->dep": 0.0
+    }
+  },
+  "PHASE1_confusion_in_domain_robust": {
+    "obj": {
+      "n": 847,
+      "dist": {
+        "obj": 774,
+        "obl": 48,
+        "nsubj": 8,
+        "iobj": 6,
+        "xcomp": 5,
+        "advmod": 2,
+        "ccomp": 2,
+        "expl": 1,
+        "nsubj:pass": 1
+      },
+      "recall_as_self": 0.9138
+    },
+    "nsubj:pass": {
+      "n": 83,
+      "dist": {
+        "nsubj": 39,
+        "nsubj:pass": 37,
+        "obj": 4,
+        "obl": 2,
+        "advcl": 1
+      },
+      "recall_as_self": 0.4458
+    },
+    "iobj": {
+      "n": 56,
+      "dist": {
+        "iobj": 31,
+        "obj": 24,
+        "obl": 1
+      },
+      "recall_as_self": 0.5536
+    },
+    "obj_confusion_summary": {
+      "obj->obj": 0.9138,
+      "obj->obl": 0.0567,
+      "obj->nsubj": 0.0094,
+      "obj->iobj": 0.0071,
+      "obj->ccomp": 0.0024,
+      "obj->dep": 0.0
+    }
+  },
+  "PHASE1_confusion_mcguffey_orig": {
+    "n_patient_arcs_correctly_attached": 40,
+    "n_parser_attach_miss": 5,
+    "n_token_not_found": 0,
+    "predicted_label_dist": {
+      "obj": 35,
+      "obl": 5
+    },
+    "patient_tagged_obj_or_pass": 35,
+    "patient_role_recall": 0.875
+  },
+  "PHASE1_confusion_mcguffey_recal": {
+    "n_patient_arcs_correctly_attached": 40,
+    "n_parser_attach_miss": 5,
+    "n_token_not_found": 0,
+    "predicted_label_dist": {
+      "obj": 35,
+      "obl": 5
+    },
+    "patient_tagged_obj_or_pass": 35,
+    "patient_role_recall": 0.875
+  },
+  "PHASE1_confusion_mcguffey_robust": {
+    "n_patient_arcs_correctly_attached": 40,
+    "n_parser_attach_miss": 5,
+    "n_token_not_found": 0,
+    "predicted_label_dist": {
+      "obj": 35,
+      "obl": 5
+    },
+    "patient_tagged_obj_or_pass": 35,
+    "patient_role_recall": 0.875
+  },
+  "PHASE2_recal_b_obj": 0.0,
+  "PHASE2_recal_dev_base_acc": 0.9436,
+  "PHASE2_recal_curve": [
+    {
+      "b_obj": 0.0,
+      "obj_precision": 0.907,
+      "obj_recall": 0.9399,
+      "obj_f1": 0.9232,
+      "label_acc": 0.9436,
+      "acc_drop": 0.0
+    },
+    {
+      "b_obj": 0.5,
+      "obj_precision": 0.9026,
+      "obj_recall": 0.9409,
+      "obj_f1": 0.9214,
+      "label_acc": 0.9435,
+      "acc_drop": 0.0001
+    },
+    {
+      "b_obj": 1.0,
+      "obj_precision": 0.8991,
+      "obj_recall": 0.942,
+      "obj_f1": 0.92,
+      "label_acc": 0.9433,
+      "acc_drop": 0.0003
+    },
+    {
+      "b_obj": 2.0,
+      "obj_precision": 0.8932,
+      "obj_recall": 0.9451,
+      "obj_f1": 0.9184,
+      "label_acc": 0.9432,
+      "acc_drop": 0.0004
+    },
+    {
+      "b_obj": 4.0,
+      "obj_precision": 0.8812,
+      "obj_recall": 0.9534,
+      "obj_f1": 0.9159,
+      "label_acc": 0.9429,
+      "acc_drop": 0.0007
+    },
+    {
+      "b_obj": 8.0,
+      "obj_precision": 0.8466,
+      "obj_recall": 0.9606,
+      "obj_f1": 0.9,
+      "label_acc": 0.9415,
+      "acc_drop": 0.0021
+    }
+  ],
+  "PHASE2_robust_train_sents": 2500,
+  "PHASE2_robust_epochs": 3,
+  "PHASE3_endtoend_mean": {
+    "unlabeled_endtoend": 0.6465,
+    "v1_endtoend": 0.7338,
+    "backoff_endtoend": 0.7338,
+    "recal_endtoend": 0.7338,
+    "robust_endtoend": 0.7546,
+    "gain_recal_vs_v1": 0.0,
+    "gain_robust_vs_v1": 0.0208,
+    "gain_backoff_vs_v1": 0.0
+  },
+  "PHASE3_gain_recal_vs_v1_min": 0.0,
+  "PHASE3_gain_robust_vs_v1_min": 0.0,
+  "candidate_recall_ceiling": {
+    "unlabeled": 0.9149,
+    "v1": 0.7447,
+    "backoff": 0.766,
+    "recal": 0.7447,
+    "robust": 0.7447
+  },
+  "mean_pool_size": {
+    "v1": 1.0638,
+    "backoff": 1.0851,
+    "recal": 1.0638,
+    "robust": 1.1277
+  },
+  "IN_DOMAIN_label_acc": {
+    "orig": 0.9393,
+    "recal": 0.9393,
+    "robust": 0.9228,
+    "recal_drop": 0.0,
+    "robust_drop": 0.0165
+  },
+  "best_fix": "robust",
+  "coupling_broken": false,
+  "recall_up": true,
+  "precision_ok": true,
+  "RESIDUAL_PARTITION_v1": {
+    "correct": 40,
+    "extraction_err": 10,
+    "decision_err": 5,
+    "residual": 15,
+    "ext_to_dec_ratio": "10:5",
+    "extraction_frac_of_residual": 0.6667
+  },
+  "RESIDUAL_PARTITION_recal": {
+    "correct": 40,
+    "extraction_err": 10,
+    "decision_err": 5,
+    "residual": 15,
+    "ext_to_dec_ratio": "10:5",
+    "extraction_frac_of_residual": 0.6667
+  },
+  "RESIDUAL_PARTITION_robust": {
+    "correct": 41,
+    "extraction_err": 10,
+    "decision_err": 4,
+    "residual": 14,
+    "ext_to_dec_ratio": "10:4",
+    "extraction_frac_of_residual": 0.7143
+  },
+  "per_construction_v1": {
+    "control": {
+      "mean_endtoend_acc": 0.8889,
+      "mean_gold_in_pool": 1.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6445,
+      "mean_gold_in_pool": 0.7555
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.8968,
+      "mean_gold_in_pool": 0.8968
+    },
+    "relative": {
+      "mean_endtoend_acc": 0.5834,
+      "mean_gold_in_pool": 1.0
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.5556,
+      "mean_gold_in_pool": 0.5556
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0
+    }
+  },
+  "per_construction_recal": {
+    "control": {
+      "mean_endtoend_acc": 0.8889,
+      "mean_gold_in_pool": 1.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6445,
+      "mean_gold_in_pool": 0.7555
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.8968,
+      "mean_gold_in_pool": 0.8968
+    },
+    "relative": {
+      "mean_endtoend_acc": 0.5834,
+      "mean_gold_in_pool": 1.0
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.5556,
+      "mean_gold_in_pool": 0.5556
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0
+    }
+  },
+  "per_construction_robust": {
+    "control": {
+      "mean_endtoend_acc": 0.8889,
+      "mean_gold_in_pool": 1.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.7555,
+      "mean_gold_in_pool": 0.7555
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.8889,
+      "mean_gold_in_pool": 0.8889
+    },
+    "relative": {
+      "mean_endtoend_acc": 0.5834,
+      "mean_gold_in_pool": 1.0
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.4444,
+      "mean_gold_in_pool": 0.5556
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0
+    }
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": false,
+  "recal_fires": false,
+  "robust_fires": false,
+  "leak_guard_recal": {
+    "n_usable_pools": 7,
+    "max_single_feature_gold_selection_acc": 0.8571,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.8571,
+      "f_postv": 0.4286,
+      "f_prep": 0.1429,
+      "f_func": 0.0,
+      "f_clause": 0.1429,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.1429,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.5714,
+      "f_plaus": 0.4286,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "leak_guard_robust": {
+    "n_usable_pools": 9,
+    "max_single_feature_gold_selection_acc": 0.6667,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.6667,
+      "f_postv": 0.5556,
+      "f_prep": 0.0,
+      "f_func": 0.0,
+      "f_clause": 0.1111,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.0,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.4444,
+      "f_plaus": 0.2222,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "leak_clean_best": true,
+  "labeler_asset_hash_before": "4b0b892dcee23940",
+  "labeler_asset_hash_after": "4b0b892dcee23940",
+  "labeler_asset_untouched": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "end-to-end + label-accuracy measurement",
+  "calibration_check": "adaptive_with_discriminator_gate: RECAL b_obj tuned on UD-EWT DEV by obj-F1, guarded by overall-label-acc non-regression; ROBUST features register-invariant",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_test_pos": 16,
+      "unlabeled_endtoend": 0.8125,
+      "v1_endtoend": 0.8125,
+      "backoff_endtoend": 0.8125,
+      "recal_endtoend": 0.8125,
+      "robust_endtoend": 0.875,
+      "gain_recal_vs_v1": 0.0,
+      "gain_robust_vs_v1": 0.0625,
+      "gain_backoff_vs_v1": 0.0,
+      "test_ceiling_v1": 0.9375,
+      "test_ceiling_recal": 0.9375,
+      "test_ceiling_robust": 0.9375,
+      "residual_partition_v1": {
+        "n": 16,
+        "correct": 13,
+        "extraction_err": 1,
+        "decision_err": 2,
+        "residual": 3,
+        "extraction_frac_of_residual": 0.3333,
+        "decision_frac_of_residual": 0.6667,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_recal": {
+        "n": 16,
+        "correct": 13,
+        "extraction_err": 1,
+        "decision_err": 2,
+        "residual": 3,
+        "extraction_frac_of_residual": 0.3333,
+        "decision_frac_of_residual": 0.6667,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_robust": {
+        "n": 16,
+        "correct": 14,
+        "extraction_err": 1,
+        "decision_err": 1,
+        "residual": 2,
+        "extraction_frac_of_residual": 0.5,
+        "decision_frac_of_residual": 0.5,
+        "decision_examples": [
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 0.5,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        }
+      },
+      "per_construction_recal": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 0.5,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        }
+      },
+      "per_construction_robust": {
+        "control": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 0.5,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        }
+      }
+    },
+    {
+      "seed": 13,
+      "n_test_pos": 18,
+      "unlabeled_endtoend": 0.5556,
+      "v1_endtoend": 0.7222,
+      "backoff_endtoend": 0.7222,
+      "recal_endtoend": 0.7222,
+      "robust_endtoend": 0.7222,
+      "gain_recal_vs_v1": 0.0,
+      "gain_robust_vs_v1": 0.0,
+      "gain_backoff_vs_v1": 0.0,
+      "test_ceiling_v1": 0.8333,
+      "test_ceiling_recal": 0.8333,
+      "test_ceiling_robust": 0.8333,
+      "residual_partition_v1": {
+        "n": 18,
+        "correct": 13,
+        "extraction_err": 3,
+        "decision_err": 2,
+        "residual": 5,
+        "extraction_frac_of_residual": 0.6,
+        "decision_frac_of_residual": 0.4,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_07",
+            "v": "take",
+            "gold": "him",
+            "picked": "aunt",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_recal": {
+        "n": 18,
+        "correct": 13,
+        "extraction_err": 3,
+        "decision_err": 2,
+        "residual": 5,
+        "extraction_frac_of_residual": 0.6,
+        "decision_frac_of_residual": 0.4,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_07",
+            "v": "take",
+            "gold": "him",
+            "picked": "aunt",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_robust": {
+        "n": 18,
+        "correct": 13,
+        "extraction_err": 3,
+        "decision_err": 2,
+        "residual": 5,
+        "extraction_frac_of_residual": 0.6,
+        "decision_frac_of_residual": 0.4,
+        "decision_examples": [
+          {
+            "sid": "L04_17",
+            "v": "take",
+            "gold": "way",
+            "picked": "heart",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_07",
+            "v": "take",
+            "gold": "him",
+            "picked": "aunt",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        }
+      },
+      "per_construction_recal": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        }
+      },
+      "per_construction_robust": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 0.3333,
+          "gold_in_pool": 0.6667
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "n_test_pos": 21,
+      "unlabeled_endtoend": 0.5714,
+      "v1_endtoend": 0.6667,
+      "backoff_endtoend": 0.6667,
+      "recal_endtoend": 0.6667,
+      "robust_endtoend": 0.6667,
+      "gain_recal_vs_v1": 0.0,
+      "gain_robust_vs_v1": 0.0,
+      "gain_backoff_vs_v1": 0.0,
+      "test_ceiling_v1": 0.7143,
+      "test_ceiling_recal": 0.7143,
+      "test_ceiling_robust": 0.7143,
+      "residual_partition_v1": {
+        "n": 21,
+        "correct": 14,
+        "extraction_err": 6,
+        "decision_err": 1,
+        "residual": 7,
+        "extraction_frac_of_residual": 0.8571,
+        "decision_frac_of_residual": 0.1429,
+        "decision_examples": [
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_recal": {
+        "n": 21,
+        "correct": 14,
+        "extraction_err": 6,
+        "decision_err": 1,
+        "residual": 7,
+        "extraction_frac_of_residual": 0.8571,
+        "decision_frac_of_residual": 0.1429,
+        "decision_examples": [
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_robust": {
+        "n": 21,
+        "correct": 14,
+        "extraction_err": 6,
+        "decision_err": 1,
+        "residual": 7,
+        "extraction_frac_of_residual": 0.8571,
+        "decision_frac_of_residual": 0.1429,
+        "decision_examples": [
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 5,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 7,
+          "endtoend_acc": 0.8571,
+          "gold_in_pool": 0.8571
+        },
+        "relative": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "verb_not_found": {
+          "n": 2,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "per_construction_recal": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 5,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 7,
+          "endtoend_acc": 0.8571,
+          "gold_in_pool": 0.8571
+        },
+        "relative": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "verb_not_found": {
+          "n": 2,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "per_construction_robust": {
+        "control": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 5,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "relative": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "verb_not_found": {
+          "n": 2,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      }
+    }
+  ]
+}

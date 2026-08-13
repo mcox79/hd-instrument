@@ -1,0 +1,384 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "primary_adjudication",
+    "clean_typed_correct_coverage",
+    "clean_typed_selectivity_gap",
+    "clean_untyped_correct_coverage",
+    "clean_untyped_selectivity_gap",
+    "sanity"
+  ],
+  "anchor_name": "arc_derivation_connectivity_gate_cleannodes_v2",
+  "bands_preregistered": {
+    "PRIMARY": {
+      "COVERAGE_BOUND_CONFIRMED": "clean_typed_cov < 0.15",
+      "NODE_IDENTITY_BOUND_FLIP": "clean_typed_cov >= 0.15",
+      "STRONG_FLIP_PARENT_GREEN": "clean_typed_cov >= 0.35 AND typed_gap>=0.15 AND typed_gap>untyped_gap"
+    },
+    "SANITY": {
+      "mega_hub_broken": "clean max typed node-degree < 100",
+      "negation_preserved": "clean polarity-contradiction merges <= 5"
+    },
+    "SECONDARY": "selectivity_survives = typed_gap>untyped_gap AND typed_gap>0"
+  },
+  "clean_merged_pairs_top40": [
+    {
+      "a": "something",
+      "b": "that something",
+      "cos": 1.0
+    },
+    {
+      "a": "increase",
+      "b": "increase more",
+      "cos": 1.0
+    },
+    {
+      "a": "two objects",
+      "b": "between those two objects",
+      "cos": 1.0
+    },
+    {
+      "a": "ultraviolet light can",
+      "b": "ultraviolet light",
+      "cos": 1.0
+    },
+    {
+      "a": "something source of something else that something",
+      "b": "something a source of something else that something",
+      "cos": 1.0
+    },
+    {
+      "a": "oil",
+      "b": "oil can be",
+      "cos": 1.0
+    },
+    {
+      "a": "lever",
+      "b": "lever can be",
+      "cos": 1.0
+    },
+    {
+      "a": "gasoline operate",
+      "b": "gasoline to operate",
+      "cos": 1.0
+    },
+    {
+      "a": "chemical reaction",
+      "b": "a chemical reaction",
+      "cos": 1.0
+    },
+    {
+      "a": "lightning",
+      "b": "lightning can",
+      "cos": 1.0
+    },
+    {
+      "a": "heat energy",
+      "b": "heat energy can be",
+      "cos": 1.0
+    },
+    {
+      "a": "infection",
+      "b": "infection can",
+      "cos": 1.0
+    },
+    {
+      "a": "chemical reactions",
+      "b": "exergonic chemical reactions only",
+      "cos": 1.0
+    },
+    {
+      "a": "an object",
+      "b": "object",
+      "cos": 1.0
+    },
+    {
+      "a": "microorganisms",
+      "b": "microorganisms can",
+      "cos": 1.0
+    },
+    {
+      "a": "energy",
+      "b": "the energy",
+      "cos": 1.0
+    },
+    {
+      "a": "energy",
+      "b": "storing;transporting energy",
+      "cos": 1.0
+    },
+    {
+      "a": "appear brighter",
+      "b": "appear to be brighter",
+      "cos": 1.0
+    },
+    {
+      "a": "animal",
+      "b": "an animal",
+      "cos": 1.0
+    },
+    {
+      "a": "a substance",
+      "b": "one substance",
+      "cos": 1.0
+    },
+    {
+      "a": "a resource",
+      "b": "resource",
+      "cos": 1.0
+    },
+    {
+      "a": "an organism",
+      "b": "organism",
+      "cos": 1.0
+    },
+    {
+      "a": "medicine can",
+      "b": "medicine",
+      "cos": 1.0
+    },
+    {
+      "a": "debris can",
+      "b": "debris",
+      "cos": 1.0
+    },
+    {
+      "a": "bauxite can",
+      "b": "bauxite",
+      "cos": 1.0
+    },
+    {
+      "a": "sound",
+      "b": "sound can be",
+      "cos": 1.0
+    },
+    {
+      "a": "too much water",
+      "b": "too much water can",
+      "cos": 1.0
+    },
+    {
+      "a": "the cell wall",
+      "b": "cell wall",
+      "cos": 1.0
+    },
+    {
+      "a": "things",
+      "b": "two things",
+      "cos": 1.0
+    },
+    {
+      "a": "things",
+      "b": "two or more things",
+      "cos": 1.0
+    },
+    {
+      "a": "Earth revolving around the Sun",
+      "b": "Earth revolving around the sun",
+      "cos": 1.0
+    },
+    {
+      "a": "carbon dioxide into the atmosphere",
+      "b": "carbon dioxide in the atmosphere",
+      "cos": 1.0
+    },
+    {
+      "a": "circle graph; pie graph can be",
+      "b": "circle graph; pie graph",
+      "cos": 1.0
+    },
+    {
+      "a": "sun",
+      "b": "Sun",
+      "cos": 1.0
+    },
+    {
+      "a": "genetic information can be",
+      "b": "genetic information",
+      "cos": 1.0
+    },
+    {
+      "a": "vehicle can be",
+      "b": "vehicle",
+      "cos": 1.0
+    },
+    {
+      "a": "have a 0% probability of being homozygous recessive",
+      "b": "have a 25% probability of being homozygous recessive",
+      "cos": 1.0
+    },
+    {
+      "a": "have a 0% probability of being homozygous recessive",
+      "b": "have a 50% probability of being homozygous recessive",
+      "cos": 1.0
+    },
+    {
+      "a": "to be that color",
+      "b": "have the same color",
+      "cos": 1.0
+    },
+    {
+      "a": "a food shortage can",
+      "b": "a food shortage",
+      "cos": 1.0
+    }
+  ],
+  "clean_typed_correct_coverage": 0.06,
+  "clean_typed_selectivity_gap": -0.0107,
+  "clean_untyped_correct_coverage": 0.49,
+  "clean_untyped_selectivity_gap": -0.0454,
+  "config": {
+    "depth": 3,
+    "licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ],
+    "n_sample": 100,
+    "neg_marker": "sign_flip_binding",
+    "one_variable": "node_identity (head-gate + polarity-gate + neg-aware encoding); rules/Qs/depth/typed-vs-untyped/thresholds identical to parent",
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85
+  },
+  "context_min_len0_trivial_overlap_inclusive": {
+    "note": "min_len=0 counts trivial given==choice lexical overlap (0 rule applications); NOT a derivation -- context only.",
+    "typed_correct_coverage": 0.17,
+    "typed_selectivity_gap": -0.0287,
+    "untyped_correct_coverage": 0.49,
+    "untyped_selectivity_gap": -0.0454
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING",
+  "depth_sweep_correct_coverage_clean_typed": {
+    "2": 0.03,
+    "3": 0.06,
+    "4": 0.07
+  },
+  "elapsed_s": 93.9,
+  "example_chains_clean": [
+    {
+      "correct_chain": "[plants] --SOURCEOF--> [acid] ; [acid] --CAUSE--> [chemical reaction]",
+      "correct_choice": "chemical energy to electrical energy.",
+      "qid": "Mercury_7064575",
+      "stem": "Coal-powered plants are designed specifically to convert"
+    },
+    {
+      "correct_chain": "[star] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [come from the same source]",
+      "correct_choice": "use its fuel source much more quickly.",
+      "qid": "Mercury_188335",
+      "stem": "A star with twice the mass as the Sun would"
+    },
+    {
+      "correct_chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+      "correct_choice": "increase",
+      "qid": "NYSEDREGENTS_2012_8_42",
+      "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+    },
+    {
+      "correct_chain": "[energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [something] ; [something] --IFTHEN--> [solar energy]",
+      "correct_choice": "Clouds reflect the energy into space.",
+      "qid": "Mercury_7161315",
+      "stem": "Some part of Earth is being heated by the Sun at all times. If Earth absorbed all of the energy it received from the Sun, environmental conditions would change on the planet and existing ecosystems wo"
+    },
+    {
+      "correct_chain": "[ocean] --SOURCEOF--> [heat and moisture a hurricane] ; [heat and moisture a hurricane] --COUPLEDRELATIONSHIP--> [increase]",
+      "correct_choice": "It increased over-fishing and destruction of ecosystems.",
+      "qid": "Mercury_7159285",
+      "stem": "The Florida Fish and Wildlife Conservation Commission (FWC) has helped to develop more than 300 artificial reefs in both the Atlantic Ocean and the Gulf of Mexico. Which is an unexpected negative resu"
+    },
+    {
+      "correct_chain": "[energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [something] ; [something] --IFTHEN--> [solar energy]",
+      "correct_choice": "Energy is transferred from the leaf to the caterpillar.",
+      "qid": "MCAS_2006_9_1",
+      "stem": "A caterpillar eats an oak leaf. Which of the following best describes the energy transfer in this situation?"
+    }
+  ],
+  "graph_clean": {
+    "n_fillers": 3189,
+    "n_licensed_rows": 1868,
+    "n_merge_candidates": 7841,
+    "n_merges": 3726,
+    "n_nodes": 2362,
+    "n_null_edges": 139631,
+    "n_typed_edges": 1737,
+    "per_relation": {
+      "CAUSE": 380,
+      "COUPLEDRELATIONSHIP": 251,
+      "IFTHEN": 507,
+      "REQUIRES": 215,
+      "SOURCEOF": 178,
+      "USEDFOR": 337
+    }
+  },
+  "graph_old_diagnostic": {
+    "max_typed_node_degree": 498,
+    "n_merges": 9355,
+    "n_nodes": 1654,
+    "n_null_edges": 43498,
+    "n_typed_edges": 1293
+  },
+  "notes": "ONE-VARIABLE ablation of exp_arc_derivation_connectivity_gate_v1: node-identity only. Head-lemma gate kills the transitive cross-head mega-hub; neg-aware encoding + PolarityLexicon.contradicts merge-gate preserve negation. STRAIGHT report; NOT tuned. COVERAGE_BOUND_CONFIRMED is the EXPECTED, fully-reportable outcome -> mandates RULE-SUPPLY.",
+  "parent_band_on_clean_nodes": "RED",
+  "parent_ref_on_disk": {
+    "band": "RED",
+    "n_merged_pairs": 9355,
+    "n_nodes": 1654,
+    "note": "recomputed OLD-identity in-cell (graph_old_diagnostic) as the self-contained before.",
+    "source": "data/exp_arc_derivation_connectivity_gate_v1/metrics.json",
+    "typed_cov": 0.07,
+    "typed_gap": 0.0296,
+    "untyped_cov": 0.32,
+    "untyped_gap": 0.0069
+  },
+  "pid": 15192,
+  "primary_adjudication": "COVERAGE_BOUND_CONFIRMED",
+  "run_mode": "full",
+  "sanity": {
+    "clean_head_merges_blocked": 3797,
+    "clean_max_degree_node_label": "something",
+    "clean_max_typed_node_degree": 83,
+    "clean_pol_contradiction_candidates": 590,
+    "clean_pol_contradiction_remaining": 0,
+    "clean_pol_merges_blocked": 318,
+    "mega_hub_broken": true,
+    "neg_flagged_fillers": 399,
+    "negation_preserved": true,
+    "old_max_degree_node_label": "food",
+    "old_max_typed_node_degree": 498,
+    "old_pol_contradiction_merged": 1979
+  },
+  "secondary_selectivity": {
+    "clean_typed_gap": -0.0107,
+    "clean_untyped_gap": -0.0454,
+    "note": "SURVIVES = typed_gap>untyped_gap AND >0 (typing mechanism corroborated but starved); VANISHES = otherwise (the parent 4.3x gap was a mega-hub artifact).",
+    "parent_typed_gap_on_disk": 0.0296,
+    "parent_untyped_gap_on_disk": 0.0069,
+    "selectivity_survives_clean_nodes": false
+  },
+  "strong_flip_parent_green": false,
+  "summary": "CLEAN-NODES GATE primary=COVERAGE_BOUND_CONFIRMED | clean_typed_cov=0.060 (parent RED 0.070) | max_deg 498->83 | neg_merges 1979->0 | typed_gap=-0.0107 vs untyped_gap=-0.0454 (survives=False)",
+  "ts_iso": "2026-07-25T09:12:36.265446+00:00",
+  "typed": {
+    "correct_coverage": 0.06,
+    "mean_wrong_coverage": 0.0707070707070707,
+    "n_correct_connected": 6,
+    "n_questions": 100,
+    "n_wrong_connected": 21,
+    "n_wrong_total": 297,
+    "selectivity_gap": -0.010707070707070707
+  },
+  "untyped_null": {
+    "correct_coverage": 0.49,
+    "mean_wrong_coverage": 0.5353535353535354,
+    "n_correct_connected": 49,
+    "n_questions": 100,
+    "n_wrong_connected": 159,
+    "n_wrong_total": 297,
+    "selectivity_gap": -0.04535353535353537
+  },
+  "verdict": "GATE_MEASURED",
+  "verdict_msg": "COVERAGE-BOUND CONFIRMED: clean node-identity keeps typed correct-coverage below the RED ceiling -> the parent 0.070 was a mega-hub artifact; RULE-SUPPLY is mandatory next (the licensed table set does not connect ARC Qs to answers by depth<=3 even with clean nodes)."
+}

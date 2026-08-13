@@ -1,0 +1,65 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS settling readout + reach + over-smoothing gate telemetry-sensitive",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.7494168999837711,
+  "discriminator_selftest": {
+    "oneshot_reach": 2,
+    "oneshot_curve": [
+      0.9982287449392713,
+      0.6727867203219315,
+      0.5631287726358148,
+      0.26609029779058596
+    ],
+    "iter_reach_by_T": {
+      "1": 0,
+      "2": 1,
+      "4": 1,
+      "8": 2,
+      "16": 2,
+      "32": 4
+    },
+    "iter_collapsed_by_T": {
+      "1": true,
+      "2": false,
+      "4": false,
+      "8": false,
+      "16": false,
+      "32": false
+    },
+    "best_iter_reach": 4,
+    "pure_diffuse_fsr_tmax": 0.14663563857167022,
+    "pure_curve_tmax": [
+      0.8724696356275303,
+      0.864185110663984,
+      0.6984406438631791,
+      0.8197246237592059
+    ],
+    "telemetry_T": true,
+    "near_margin": 0.34211371050481343,
+    "telemetry_seed": true,
+    "telemetry_moves": true
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0
+  },
+  "attr_meta": {
+    "assort_smooth": 0.8260885757331407,
+    "assort_shuffled": -0.07636136971512199,
+    "n_ground_seeds": 20,
+    "n_unreachable": 0,
+    "bin_counts": {
+      "0": 61,
+      "1": 122,
+      "2": 19,
+      "3": 0
+    }
+  }
+}

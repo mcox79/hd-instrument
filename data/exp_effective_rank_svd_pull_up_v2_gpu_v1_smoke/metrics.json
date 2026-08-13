@@ -1,0 +1,121 @@
+{
+  "anchor_name": "effective_rank_svd_pull_up_v2_gpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "need >=3 encoders for correlation",
+  "run_mode": "smoke",
+  "encoders": [
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "BAAI/bge-small-en-v1.5",
+    "EleutherAI/pythia-160m"
+  ],
+  "M_MAX": 1500,
+  "grid": [
+    25,
+    50,
+    100,
+    200,
+    400,
+    800,
+    1500
+  ],
+  "n_seeds": 2,
+  "detail": {
+    "per_encoder": {
+      "sentence-transformers/all-MiniLM-L6-v2": {
+        "nominal_D": 384,
+        "capacity_mean": 170.45454514462807,
+        "capacity_std": 75.00000010330575,
+        "d_eff_PR": 237.8865146560927,
+        "d_eff_rank95": 213.5,
+        "d_eff_spectral": 164.52056286588618
+      },
+      "EleutherAI/pythia-160m": {
+        "nominal_D": 768,
+        "capacity_mean": 2.604166663953993,
+        "capacity_std": 0.0,
+        "d_eff_PR": 350.68867168442773,
+        "d_eff_rank95": 361.5,
+        "d_eff_spectral": 153.68777106669637
+      }
+    }
+  },
+  "metrics_source": "measured_gpu_effective_rank_capacity_cross_encoder",
+  "per_unit": [
+    {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "nominal_D": 384,
+      "seed": 1,
+      "d_eff": {
+        "participation_ratio": 238.69656077742945,
+        "rank95": 214,
+        "spectral_entropy": 165.74233321240686
+      },
+      "capacity": 245.45454524793382,
+      "capacity_curve": {
+        "25": 1.0,
+        "50": 1.0,
+        "100": 0.98,
+        "200": 0.95,
+        "400": 0.73
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "all-MiniLM-L6-v2_s1",
+      "_partial_written_at": 1781928354.0811102
+    },
+    {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "nominal_D": 384,
+      "seed": 2,
+      "d_eff": {
+        "participation_ratio": 237.0764685347559,
+        "rank95": 213,
+        "spectral_entropy": 163.2987925193655
+      },
+      "capacity": 95.45454504132232,
+      "capacity_curve": {
+        "25": 1.0,
+        "50": 1.0,
+        "100": 0.89
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "all-MiniLM-L6-v2_s2",
+      "_partial_written_at": 1781928370.442176
+    },
+    {
+      "encoder": "EleutherAI/pythia-160m",
+      "nominal_D": 768,
+      "seed": 1,
+      "d_eff": {
+        "participation_ratio": 351.5070528247024,
+        "rank95": 362,
+        "spectral_entropy": 154.813796123566
+      },
+      "capacity": 2.604166663953993,
+      "capacity_curve": {
+        "25": 0.04
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "pythia-160m_s1",
+      "_partial_written_at": 1781928485.2543035
+    },
+    {
+      "encoder": "EleutherAI/pythia-160m",
+      "nominal_D": 768,
+      "seed": 2,
+      "d_eff": {
+        "participation_ratio": 349.87029054415314,
+        "rank95": 361,
+        "spectral_entropy": 152.56174600982672
+      },
+      "capacity": 2.604166663953993,
+      "capacity_curve": {
+        "25": 0.04
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "pythia-160m_s2",
+      "_partial_written_at": 1781928553.1658115
+    }
+  ],
+  "elapsed_s": 212.6795473098755,
+  "summary": "need >=3 encoders for correlation"
+}

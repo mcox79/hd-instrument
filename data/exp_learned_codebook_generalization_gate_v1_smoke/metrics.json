@@ -1,0 +1,198 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ppmi_svd: AUC=0.850+-0.001 ws_sp=0.476 sl_sp=0.166 | ppmi_rp AUC=0.794 ws_sp=0.385 | ri_raw AUC=0.683 | random(neg-ctrl) AUC=0.515 ws_sp=0.037 | discriminator_fires=True corpus=1500000tok V=6000 N=1024",
+  "summary": "HARD_PASS: ppmi_svd: AUC=0.850+-0.001 ws_sp=0.476 sl_sp=0.166 | ppmi_rp AUC=0.794 ws_sp=0.385 | ri_raw AUC=0.683 | random(neg-ctrl) AUC=0.515 ws_sp=0.037 | discriminator_f",
+  "elapsed_s": 60.41228459999547,
+  "anchor_name": "exp_learned_codebook_generalization_gate_v1",
+  "ts_iso": "2026-07-20T02:22:51.066610+00:00",
+  "config": {
+    "n_tokens": 1500000,
+    "vocab_size": 6000,
+    "V": 6000,
+    "N": 1024,
+    "window": 5,
+    "min_count": 5,
+    "ri_sparsity": 10,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_wordsim_pairs": 208,
+    "n_simlex_pairs": 406,
+    "n_true_pairs": 205,
+    "n_random_pairs": 2000
+  },
+  "arm_summary": {
+    "random": {
+      "auc_mean": 0.5149886178861789,
+      "auc_std": 0.006178663668197265,
+      "ws_spearman_mean": 0.037264718720525045,
+      "sl_spearman_mean": -0.04636029701087958,
+      "n_seeds": 3
+    },
+    "ri_raw_rp": {
+      "auc_mean": 0.6826154471544715,
+      "auc_std": 0.0028776610827013706,
+      "ws_spearman_mean": 0.24267052788631113,
+      "sl_spearman_mean": 0.008237134535482074,
+      "n_seeds": 3
+    },
+    "ppmi_rp": {
+      "auc_mean": 0.7943536585365853,
+      "auc_std": 0.01238341082947524,
+      "ws_spearman_mean": 0.3848548709721436,
+      "sl_spearman_mean": 0.12490047121168235,
+      "n_seeds": 3
+    },
+    "ppmi_svd": {
+      "auc_mean": 0.8496097560975611,
+      "auc_std": 0.0009848122891667848,
+      "ws_spearman_mean": 0.4755884666782662,
+      "sl_spearman_mean": 0.1662059258912559,
+      "n_seeds": 3
+    }
+  },
+  "per_unit": {
+    "random__seed7": {
+      "arm": "random",
+      "seed": 7,
+      "auc": 0.5077219512195122,
+      "ws_spearman": 0.042522079700444755,
+      "sl_spearman": -0.06322831056250731,
+      "mean_cos_true": 0.0006433850843254749,
+      "mean_cos_random": -0.0004857343650038599,
+      "failure_class": null
+    },
+    "ri_raw_rp__seed7": {
+      "arm": "ri_raw_rp",
+      "seed": 7,
+      "auc": 0.6866512195121951,
+      "ws_spearman": 0.25001425258985077,
+      "sl_spearman": 0.010399337148880881,
+      "mean_cos_true": 0.8103730746247945,
+      "mean_cos_random": 0.732581929988883,
+      "failure_class": null
+    },
+    "ppmi_rp__seed7": {
+      "arm": "ppmi_rp",
+      "seed": 7,
+      "auc": 0.8000756097560976,
+      "ws_spearman": 0.44494756938006164,
+      "sl_spearman": 0.1549727171295116,
+      "mean_cos_true": 0.14602473624431747,
+      "mean_cos_random": 0.07345034786489363,
+      "failure_class": null
+    },
+    "ppmi_svd__seed7": {
+      "arm": "ppmi_svd",
+      "seed": 7,
+      "auc": 0.8495975609756098,
+      "ws_spearman": 0.474394703009409,
+      "sl_spearman": 0.16709929999072282,
+      "mean_cos_true": 0.2287780338412667,
+      "mean_cos_random": 0.11132019517194201,
+      "failure_class": null
+    },
+    "random__seed13": {
+      "arm": "random",
+      "seed": 13,
+      "auc": 0.5144195121951219,
+      "ws_spearman": 0.06642558022075531,
+      "sl_spearman": -0.07161484385767343,
+      "mean_cos_true": 0.0012305182280694755,
+      "mean_cos_random": -0.0005148771583757818,
+      "failure_class": null
+    },
+    "ri_raw_rp__seed13": {
+      "arm": "ri_raw_rp",
+      "seed": 13,
+      "auc": 0.6810512195121952,
+      "ws_spearman": 0.23953242525354346,
+      "sl_spearman": 0.008173418161077918,
+      "mean_cos_true": 0.8240279241466878,
+      "mean_cos_random": 0.7504361635644726,
+      "failure_class": null
+    },
+    "ppmi_rp__seed13": {
+      "arm": "ppmi_rp",
+      "seed": 13,
+      "auc": 0.8058268292682926,
+      "ws_spearman": 0.33687339507022057,
+      "sl_spearman": 0.15550662567957269,
+      "mean_cos_true": 0.1320663403633016,
+      "mean_cos_random": 0.06279548541950979,
+      "failure_class": null
+    },
+    "ppmi_svd__seed13": {
+      "arm": "ppmi_svd",
+      "seed": 13,
+      "auc": 0.848409756097561,
+      "ws_spearman": 0.47411065348999004,
+      "sl_spearman": 0.15558086183061395,
+      "mean_cos_true": 0.22841466753816803,
+      "mean_cos_random": 0.11127259841399521,
+      "failure_class": null
+    },
+    "random__seed19": {
+      "arm": "random",
+      "seed": 19,
+      "auc": 0.5228243902439025,
+      "ws_spearman": 0.0028464962403750658,
+      "sl_spearman": -0.0042377366124580025,
+      "mean_cos_true": 0.0022307289651874347,
+      "mean_cos_random": -0.00019487302247794193,
+      "failure_class": null
+    },
+    "ri_raw_rp__seed19": {
+      "arm": "ri_raw_rp",
+      "seed": 19,
+      "auc": 0.6801439024390243,
+      "ws_spearman": 0.23846490581553917,
+      "sl_spearman": 0.006138648296487423,
+      "mean_cos_true": 0.8230201527148943,
+      "mean_cos_random": 0.7493429329005898,
+      "failure_class": null
+    },
+    "ppmi_rp__seed19": {
+      "arm": "ppmi_rp",
+      "seed": 19,
+      "auc": 0.7771585365853658,
+      "ws_spearman": 0.3727436484661486,
+      "sl_spearman": 0.06422207082596273,
+      "mean_cos_true": 0.13212031001975427,
+      "mean_cos_random": 0.06641608972032806,
+      "failure_class": null
+    },
+    "ppmi_svd__seed19": {
+      "arm": "ppmi_svd",
+      "seed": 19,
+      "auc": 0.8508219512195122,
+      "ws_spearman": 0.4782600435353997,
+      "sl_spearman": 0.17593761585243092,
+      "mean_cos_true": 0.2296437223939452,
+      "mean_cos_random": 0.11135233337672065,
+      "failure_class": null
+    }
+  },
+  "bands": {
+    "HP_AUC": 0.72,
+    "HP_SPEARMAN": 0.35,
+    "HF_AUC": 0.58,
+    "HF_SPEARMAN": 0.1,
+    "NEG_CTRL_AUC_MAX": 0.58
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "n_units_done": 12,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "7": true,
+    "13": true,
+    "19": true
+  },
+  "discriminator_fires": true,
+  "crlb_n/a": "distributional-geometry generalization test; no argmax/capacity noise-floor",
+  "prior_art": "Kanerva1988/Sahlgren2005 RI; Jones-Mewhort2007 BEAGLE; Church-Hanks1990/Levy-Goldberg2015 PPMI/SVD",
+  "codebook_substrate_note": "codes are dense real L2-normalized HD; bundle(sum)-compatible + bipolarizable for HDC bind"
+}

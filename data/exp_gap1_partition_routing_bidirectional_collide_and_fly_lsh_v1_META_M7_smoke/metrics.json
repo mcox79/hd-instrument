@@ -1,0 +1,124 @@
+{
+  "anchor_name": "gap1_partition_routing_bidirectional_collide_and_fly_lsh_v1_META_M7",
+  "verdict": "HARD_PASS_CHAIN_GRADE_BOTH_ROUTERS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_BOTH_ROUTERS: BASELINE=0.6450 (sanity_breach=0/1) REPRODUCE_PV2=0.2500 (META_M7_breach=0/1) SINGLE=0.7600 PART_ORACLE=0.9800 (cross_cell_drift=0/1 vs 0.9550) PART_BIDIR_COLLIDE=0.9200 (cv=nan) PART_FLY_LSH=0.9400 (cv=nan) PART_NAIVE_CENTROID=0.9200 | BIAS_P_REMOVED_VIA_BOTH_INDEPENDENT_PATHS | Bidirectional state IS a substrate-native routing signal | rails=[]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "gap1PartitionRoutingBidirCollideFlyLshV1MetaM7: N=2048 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=50 K_SET=20 POINTER_V2_N=100 POINTER_V2_DEPTH=10 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7] mode=smoke depth=5 midhop=2 HP_router>=0.80 HP_cv<=0.07 HF<0.50 META_M7=[0.08,0.25] cross_cell_part_oracle=0.9550+/-0.02 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_partitions": 20,
+      "part_size": 10,
+      "n_lsh_expansions": 5,
+      "lsh_topk": 20,
+      "pointer_n_chains": 50,
+      "pointer_v2_n_chains": 100,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "midpoint_hop": 2,
+      "config_version": "gap1PartitionRoutingBidirCollideFlyLshV1MetaM7: N=2048 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=50 K_SET=20 POINTER_V2_N=100 POINTER_V2_DEPTH=10 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7] mode=smoke depth=5 midhop=2 HP_router>=0.80 HP_cv<=0.07 HF<0.50 META_M7=[0.08,0.25] cross_cell_part_oracle=0.9550+/-0.02 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.645,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 0.8
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.25,
+        "per_step_acc": [
+          0.75,
+          0.56,
+          0.42,
+          0.33,
+          0.25
+        ],
+        "n_queries": 100,
+        "depth": 5,
+        "elapsed_s_arm": 0.99,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 1000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_top1_5hop": {
+        "top1": 0.76,
+        "per_step_acc": [
+          0.92,
+          0.82,
+          0.8,
+          0.78,
+          0.76
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "elapsed_s_arm": 0.51,
+        "W_n_bindings": 250
+      },
+      "arm_part_oracle_5hop": {
+        "top1": 0.98,
+        "per_step_acc": [
+          0.98,
+          0.98,
+          0.96,
+          0.98,
+          0.98
+        ],
+        "routing_acc_per_hop": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed_cross_cell_sanity",
+        "W_n_bindings": 250,
+        "elapsed_s_arm": 0.4
+      },
+      "cross_cell_part_oracle_drift": false,
+      "arm_part_bidir_collide_5hop": {
+        "top1": 0.92,
+        "endpoint_routing_acc": 0.92,
+        "n_queries": 50,
+        "depth": 5,
+        "n_partitions": 20,
+        "midpoint_hop": 2,
+        "mechanism": "partition_meet_in_middle_bidirectional_collide_chain_endpoint_router_oracle_free",
+        "elapsed_s_arm": 2.16
+      },
+      "arm_part_fly_lsh_5hop": {
+        "top1": 0.94,
+        "endpoint_routing_acc": 0.94,
+        "n_queries": 50,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_chain_endpoint_fly_lsh_router_oracle_free",
+        "elapsed_s_arm": 2.64
+      },
+      "arm_part_naive_centroid_5hop": {
+        "top1": 0.92,
+        "endpoint_routing_acc": 0.92,
+        "n_queries": 50,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_chain_endpoint_naive_centroid_falsification_anchor",
+        "elapsed_s_arm": 0.5
+      },
+      "elapsed_s": 8.2,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782487777.020082
+    }
+  ],
+  "elapsed_s": 8.3,
+  "summary": "HARD_PASS_CHAIN_GRADE_BOTH_ROUTERS: BASELINE=0.6450 (sanity_breach=0/1) REPRODUCE_PV2=0.2500 (META_M7_breach=0/1) SINGLE=0.7600 PART_ORACLE=0.9800 (cross_cell_drift=0/1 vs 0.9550) PART_BIDIR_COLLIDE=0.9200 (cv=nan) PART_FLY_LSH=0.9400 (cv=nan) PART_NAIVE_CENTROID=0.9200 | BIAS_P_REMOVED_VIA_BOTH_INDEPENDENT_PATHS | Bidirectional state IS a substrate-native routing signal | rails=[]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Gap 1 partition-routing BIAS-P removal: tests USER steelman (bidirectional-collide) + Research-ranked Anchor 2 (fly-LSH). Cell B v2 PART_ORACLE=0.9550 used oracle target_part = target_o // part_sz. This cell replaces oracle with substrate-native routers; verdict_msg explicitly states which router (if any) removes BIAS-P. Cross-cell sanity rail: ARM_PART_ORACLE must reproduce Cell B v2 0.9550 +/- 0.02."
+}

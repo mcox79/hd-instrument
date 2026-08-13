@@ -1,0 +1,120 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | depth=3 | PFC=0.590 Single=0.560 Random=0.010 Oracle=0.990 | lift_over_single=0.030 lift_over_random=0.580 pfc_cv=0.085 | n_seeds=2",
+  "summary": "HARD_FAIL | depth=3 | PFC=0.590 Single=0.560 Random=0.010 Oracle=0.990 | lift_over_single=0.030 lift_over_random=0.580 pfc_cv=0.085 | n_seeds=2",
+  "per_arm": {
+    "single_operator_baseline": {
+      "2": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "3": {
+        "7": 0.62,
+        "17": 0.5
+      }
+    },
+    "random_router": {
+      "2": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "3": {
+        "7": 0.0,
+        "17": 0.02
+      }
+    },
+    "pfc_controller_cosine_argmax": {
+      "2": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "3": {
+        "7": 0.64,
+        "17": 0.54
+      }
+    },
+    "diag_oracle_router": {
+      "2": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "3": {
+        "7": 0.98,
+        "17": 1.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "single_operator_baseline": {
+      "2": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "3": {
+        "mean": 0.56,
+        "std": 0.06,
+        "cv": 0.10714285714285712,
+        "n": 2
+      }
+    },
+    "random_router": {
+      "2": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "3": {
+        "mean": 0.01,
+        "std": 0.01,
+        "cv": 1.0,
+        "n": 2
+      }
+    },
+    "pfc_controller_cosine_argmax": {
+      "2": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "3": {
+        "mean": 0.5900000000000001,
+        "std": 0.04999999999999999,
+        "cv": 0.08474576271186438,
+        "n": 2
+      }
+    },
+    "diag_oracle_router": {
+      "2": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "3": {
+        "mean": 0.99,
+        "std": 0.010000000000000009,
+        "cv": 0.01010101010101011,
+        "n": 2
+      }
+    }
+  },
+  "decision_depth": 3,
+  "lift_over_single": 0.030000000000000027,
+  "lift_over_random": 0.5800000000000001,
+  "pfc_cv": 0.08474576271186438,
+  "n_seeds_complete": 2,
+  "expected_n_units": 16,
+  "completed_units": 16,
+  "cardinality_ok": true,
+  "anchor_name": "pfc_controller_per_step_operator_select_v1",
+  "elapsed_s": 3.3,
+  "ts_iso": "2026-06-27T18:30:33Z",
+  "pid": 6524,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_controller_per_step_operator_select_v1,N=2048,N_OPS=4,V=600,seeds=[7, 17],depths=[2, 3],n_train=200,n_test=50,mode=smoke,HP_lift>=0.15,HP_cv<=0.10,expected_n=16,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_pfc_controller"
+}

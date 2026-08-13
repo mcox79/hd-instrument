@@ -1,0 +1,222 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS NATIVE_CODE_FAMILY_SWEEP: reference ORACLE fires, the structured content code beats random-bipolar on MEMORIZE on the planted homophilic arena, content relation-scramble AND identity-shuffle fail, POP at floor, >=10 distinct arm sigs, 4 validity-preflight checks",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.24093650002032518,
+  "mechanism_selftest": {
+    "n_grid_entities": 104,
+    "n_heldout_entities": 15,
+    "n_support": 118,
+    "n_query": 112,
+    "n_cold": 0,
+    "n_dim": 256,
+    "store_injection_smoke": {
+      "store_injection_smoke": "ok",
+      "W_norm": 8.0623
+    },
+    "random_mrr": 0.05078,
+    "pop_mrr": 0.03105,
+    "family_mrr": {
+      "RANDOM_BIPOLAR": {
+        "NATIVE_ANCHOR_COMPOSE": 0.2545,
+        "MEMORIZE_FIXEDCODE": 0.03469,
+        "ORACLE_FOLDIN": 0.76315,
+        "NATIVE_SCRAMBLE": 0.1073,
+        "IDENTITY_SHUFFLE": 0.13546
+      },
+      "BLOCK_SPARSE_BSDC": {
+        "NATIVE_ANCHOR_COMPOSE": 0.42987,
+        "MEMORIZE_FIXEDCODE": 0.07485,
+        "ORACLE_FOLDIN": 0.66476,
+        "NATIVE_SCRAMBLE": 0.14637,
+        "IDENTITY_SHUFFLE": 0.0917
+      },
+      "GAUSSIAN_DENSE": {
+        "NATIVE_ANCHOR_COMPOSE": 0.29298,
+        "MEMORIZE_FIXEDCODE": 0.03916,
+        "ORACLE_FOLDIN": 0.71604,
+        "NATIVE_SCRAMBLE": 0.13656,
+        "IDENTITY_SHUFFLE": 0.14239
+      },
+      "CONTENT_TRIGRAM": {
+        "NATIVE_ANCHOR_COMPOSE": 0.88691,
+        "MEMORIZE_FIXEDCODE": 0.12565,
+        "ORACLE_FOLDIN": 0.81228,
+        "NATIVE_SCRAMBLE": 0.74472,
+        "IDENTITY_SHUFFLE": 0.12556
+      }
+    },
+    "family_spectrum": {
+      "RANDOM_BIPOLAR": {
+        "NATIVE_ANCHOR_COMPOSE": {
+          "hits@1": 0.16964,
+          "hits@3": 0.27679,
+          "hits@10": 0.41964,
+          "hits@100": 0.96429,
+          "mrr": 0.2545
+        },
+        "MEMORIZE_FIXEDCODE": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.10714,
+          "hits@100": 1.0,
+          "mrr": 0.03469
+        },
+        "ORACLE_FOLDIN": {
+          "hits@1": 0.66964,
+          "hits@3": 0.83929,
+          "hits@10": 0.91964,
+          "hits@100": 1.0,
+          "mrr": 0.76315
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.02679,
+          "hits@3": 0.07143,
+          "hits@10": 0.3125,
+          "hits@100": 0.94643,
+          "mrr": 0.1073
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.02679,
+          "hits@3": 0.10714,
+          "hits@10": 0.47321,
+          "hits@100": 0.92857,
+          "mrr": 0.13546
+        }
+      },
+      "BLOCK_SPARSE_BSDC": {
+        "NATIVE_ANCHOR_COMPOSE": {
+          "hits@1": 0.28571,
+          "hits@3": 0.57143,
+          "hits@10": 0.69643,
+          "hits@100": 0.83929,
+          "mrr": 0.42987
+        },
+        "MEMORIZE_FIXEDCODE": {
+          "hits@1": 0.02679,
+          "hits@3": 0.08929,
+          "hits@10": 0.08929,
+          "hits@100": 1.0,
+          "mrr": 0.07485
+        },
+        "ORACLE_FOLDIN": {
+          "hits@1": 0.58036,
+          "hits@3": 0.71429,
+          "hits@10": 0.77679,
+          "hits@100": 0.91964,
+          "mrr": 0.66476
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.04464,
+          "hits@3": 0.17857,
+          "hits@10": 0.42857,
+          "hits@100": 0.89286,
+          "mrr": 0.14637
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.03571,
+          "hits@3": 0.0625,
+          "hits@10": 0.21429,
+          "hits@100": 0.95536,
+          "mrr": 0.0917
+        }
+      },
+      "GAUSSIAN_DENSE": {
+        "NATIVE_ANCHOR_COMPOSE": {
+          "hits@1": 0.22321,
+          "hits@3": 0.29464,
+          "hits@10": 0.41964,
+          "hits@100": 0.92857,
+          "mrr": 0.29298
+        },
+        "MEMORIZE_FIXEDCODE": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.10714,
+          "hits@100": 0.97321,
+          "mrr": 0.03916
+        },
+        "ORACLE_FOLDIN": {
+          "hits@1": 0.61607,
+          "hits@3": 0.79464,
+          "hits@10": 0.91964,
+          "hits@100": 0.97321,
+          "mrr": 0.71604
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.04464,
+          "hits@3": 0.08929,
+          "hits@10": 0.375,
+          "hits@100": 0.96429,
+          "mrr": 0.13656
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.05357,
+          "hits@3": 0.125,
+          "hits@10": 0.34821,
+          "hits@100": 0.91071,
+          "mrr": 0.14239
+        }
+      },
+      "CONTENT_TRIGRAM": {
+        "NATIVE_ANCHOR_COMPOSE": {
+          "hits@1": 0.77679,
+          "hits@3": 1.0,
+          "hits@10": 1.0,
+          "hits@100": 1.0,
+          "mrr": 0.88691
+        },
+        "MEMORIZE_FIXEDCODE": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.80357,
+          "hits@100": 1.0,
+          "mrr": 0.12565
+        },
+        "ORACLE_FOLDIN": {
+          "hits@1": 0.80357,
+          "hits@3": 0.80357,
+          "hits@10": 0.80357,
+          "hits@100": 1.0,
+          "mrr": 0.81228
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.58036,
+          "hits@3": 0.90179,
+          "hits@10": 1.0,
+          "hits@100": 1.0,
+          "mrr": 0.74472
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.01786,
+          "hits@3": 0.03571,
+          "hits@10": 0.60714,
+          "hits@100": 1.0,
+          "mrr": 0.12556
+        }
+      }
+    },
+    "ref_oracle_mrr": 0.76315,
+    "oracle_ratio": 15.03,
+    "struct_margin": 0.09096,
+    "content_scramble_margin": 0.14219,
+    "content_idshuf_margin": 0.76135,
+    "n_distinct_sigs": 22,
+    "ref_oracle_recovers": true,
+    "ref_oracle_fires": true,
+    "structured_beats_random": true,
+    "content_scramble_fails": true,
+    "content_idshuf_fails": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "BROKEN_TEST_RANDOM_BEATS_POP",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

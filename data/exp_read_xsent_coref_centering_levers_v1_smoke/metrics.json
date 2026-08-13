@@ -1,0 +1,517 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "levers help but sub-threshold: xsent_all acc=0.3059 (backbone=0.2471 delta=0.0588, single=0.0000 delta=0.3059), p1_ok=True, sign_stability=0.7700, n_xsent=85. per-lever: {'xsent_gender_only': '0.2471', 'xsent_chain_only': '0.0118', 'xsent_centering_only': '0.2471', 'xsent_adaptive_only': '0.2941', 'xsent_all': '0.3059', 'xsent_all_minus_centering': '0.3059'}",
+  "summary": "read_xsent_coref_centering_levers_v1: MIDDLE_BAND",
+  "elapsed_s": 0.088,
+  "anchor_name": "read_xsent_coref_centering_levers_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-24T01:32:34.484633+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 5,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll"
+    ]
+  },
+  "gazetteer": {
+    "path": "data\\lexicons\\name_gender_gazetteer.tsv",
+    "source": "NLTK 'names' (Kantrowitz/Ross), unambiguous-only",
+    "n_entries": 7210,
+    "general_not_from_litbank": true
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "xsent_backbone",
+      "xsent_gender_only",
+      "xsent_chain_only",
+      "xsent_centering_only",
+      "xsent_adaptive_only",
+      "xsent_all",
+      "xsent_all_minus_centering"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "backbone_arm": "xsent_backbone",
+    "mechanism_arm": "xsent_all",
+    "lever_arms": [
+      "xsent_gender_only",
+      "xsent_chain_only",
+      "xsent_centering_only",
+      "xsent_adaptive_only",
+      "xsent_all",
+      "xsent_all_minus_centering"
+    ],
+    "validity_gate_max": 0.1,
+    "hp_abs": 0.3,
+    "hp_delta_backbone": 0.05,
+    "hp_delta_single": 0.15,
+    "hp_sign_stability": 0.9,
+    "p1_regression_eps": 0.05,
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260724
+  },
+  "n_targets_total": 296,
+  "n_xsent": 85,
+  "n_same": 211,
+  "bucket_counts": {
+    "same": 211,
+    "plus1": 80,
+    "plus2": 3,
+    "long": 2
+  },
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.1411764705882353,
+      "n": 85
+    },
+    "xsent_backbone": {
+      "acc": 0.24705882352941178,
+      "prec": 0.24705882352941178,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_gender_only": {
+      "acc": 0.24705882352941178,
+      "prec": 0.24705882352941178,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_chain_only": {
+      "acc": 0.011764705882352941,
+      "prec": 0.011764705882352941,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_centering_only": {
+      "acc": 0.24705882352941178,
+      "prec": 0.24705882352941178,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_adaptive_only": {
+      "acc": 0.29411764705882354,
+      "prec": 0.29411764705882354,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_all": {
+      "acc": 0.3058823529411765,
+      "prec": 0.3058823529411765,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_all_minus_centering": {
+      "acc": 0.3058823529411765,
+      "prec": 0.3058823529411765,
+      "attempt_rate": 1.0,
+      "n": 85
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.27488151658767773,
+      "prec": 0.3515151515151515,
+      "attempt_rate": 0.7819905213270142,
+      "n": 211
+    },
+    "xsent_backbone": {
+      "acc": 0.3127962085308057,
+      "prec": 0.3127962085308057,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_gender_only": {
+      "acc": 0.3080568720379147,
+      "prec": 0.3080568720379147,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_chain_only": {
+      "acc": 0.014218009478672985,
+      "prec": 0.014218009478672985,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_centering_only": {
+      "acc": 0.33649289099526064,
+      "prec": 0.33649289099526064,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_adaptive_only": {
+      "acc": 0.36492890995260663,
+      "prec": 0.36492890995260663,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_all": {
+      "acc": 0.35545023696682465,
+      "prec": 0.35545023696682465,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_all_minus_centering": {
+      "acc": 0.35545023696682465,
+      "prec": 0.35545023696682465,
+      "attempt_rate": 1.0,
+      "n": 211
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.19594594594594594,
+      "prec": 0.327683615819209,
+      "attempt_rate": 0.597972972972973,
+      "n": 296
+    },
+    "xsent_backbone": {
+      "acc": 0.2939189189189189,
+      "prec": 0.2939189189189189,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_gender_only": {
+      "acc": 0.2905405405405405,
+      "prec": 0.2905405405405405,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_chain_only": {
+      "acc": 0.013513513513513514,
+      "prec": 0.013513513513513514,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_centering_only": {
+      "acc": 0.3108108108108108,
+      "prec": 0.3108108108108108,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_adaptive_only": {
+      "acc": 0.34459459459459457,
+      "prec": 0.34459459459459457,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_all": {
+      "acc": 0.34121621621621623,
+      "prec": 0.34121621621621623,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_all_minus_centering": {
+      "acc": 0.34121621621621623,
+      "prec": 0.34121621621621623,
+      "attempt_rate": 1.0,
+      "n": 296
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.27488151658767773,
+        "prec": 0.3515151515151515,
+        "attempt_rate": 0.7819905213270142,
+        "n": 211
+      },
+      "xsent_backbone": {
+        "acc": 0.3127962085308057,
+        "prec": 0.3127962085308057,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_gender_only": {
+        "acc": 0.3080568720379147,
+        "prec": 0.3080568720379147,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_chain_only": {
+        "acc": 0.014218009478672985,
+        "prec": 0.014218009478672985,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_centering_only": {
+        "acc": 0.33649289099526064,
+        "prec": 0.33649289099526064,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_adaptive_only": {
+        "acc": 0.36492890995260663,
+        "prec": 0.36492890995260663,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_all": {
+        "acc": 0.35545023696682465,
+        "prec": 0.35545023696682465,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_all_minus_centering": {
+        "acc": 0.35545023696682465,
+        "prec": 0.35545023696682465,
+        "attempt_rate": 1.0,
+        "n": 211
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.1375,
+        "n": 80
+      },
+      "xsent_backbone": {
+        "acc": 0.2625,
+        "prec": 0.2625,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_gender_only": {
+        "acc": 0.2625,
+        "prec": 0.2625,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_chain_only": {
+        "acc": 0.0125,
+        "prec": 0.0125,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_centering_only": {
+        "acc": 0.2625,
+        "prec": 0.2625,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_adaptive_only": {
+        "acc": 0.3,
+        "prec": 0.3,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_all": {
+        "acc": 0.3125,
+        "prec": 0.3125,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_all_minus_centering": {
+        "acc": 0.3125,
+        "prec": 0.3125,
+        "attempt_rate": 1.0,
+        "n": 80
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": null,
+        "attempt_rate": 0.0,
+        "n": 3
+      },
+      "xsent_backbone": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_gender_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_chain_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_centering_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_adaptive_only": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_all": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_all_minus_centering": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.5,
+        "n": 2
+      },
+      "xsent_backbone": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_gender_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_chain_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_centering_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_adaptive_only": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_all": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_all_minus_centering": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      }
+    }
+  },
+  "per_distance_winner": {
+    "same": {
+      "arm": "xsent_adaptive_only",
+      "acc": 0.36492890995260663
+    },
+    "plus1": {
+      "arm": "xsent_all",
+      "acc": 0.3125
+    },
+    "plus2": {
+      "arm": "xsent_adaptive_only",
+      "acc": 0.3333333333333333
+    },
+    "long": {
+      "arm": "xsent_backbone",
+      "acc": 0.0
+    }
+  },
+  "per_lever_ablation": {
+    "xsent_gender_only": {
+      "xsent_acc": 0.24705882352941178,
+      "delta_vs_backbone": 0.0
+    },
+    "xsent_chain_only": {
+      "xsent_acc": 0.011764705882352941,
+      "delta_vs_backbone": -0.23529411764705882
+    },
+    "xsent_centering_only": {
+      "xsent_acc": 0.24705882352941178,
+      "delta_vs_backbone": 0.0
+    },
+    "xsent_adaptive_only": {
+      "xsent_acc": 0.29411764705882354,
+      "delta_vs_backbone": 0.047058823529411764
+    },
+    "xsent_all": {
+      "xsent_acc": 0.3058823529411765,
+      "delta_vs_backbone": 0.05882352941176472
+    },
+    "xsent_all_minus_centering": {
+      "xsent_acc": 0.3058823529411765,
+      "delta_vs_backbone": 0.05882352941176472
+    }
+  },
+  "baseline_xsent_acc": 0.0,
+  "backbone_xsent_acc": 0.24705882352941178,
+  "mech_xsent_acc": 0.3058823529411765,
+  "delta_vs_backbone": 0.05882352941176472,
+  "delta_vs_single_sentence": 0.3058823529411765,
+  "validity_gate_ok": true,
+  "p1_no_regression_ok": true,
+  "p1_same_bucket": {
+    "baseline": 0.27488151658767773,
+    "xsent_all": 0.35545023696682465
+  },
+  "bootstrap_sign_stability": 0.77,
+  "arms_differ_digests": {
+    "single_sentence_baseline": "eb55fe6d9ad2c0e78dee5316e30ed0d7adead532bb591ca3dd9246511846f45b",
+    "xsent_backbone": "d4a0765f91773b1c82c6bd74c9f957a4034c23c6a2c053b376aa26d17da8374e",
+    "xsent_gender_only": "12c35427de8bf1ce58c5ede78bc89cf1ce0e44b073c3900c2ab5f98d34b43eeb",
+    "xsent_chain_only": "f9efe37c48f8fa4906891e9cbfba3774d252215c910688aeed5160c63486d557",
+    "xsent_centering_only": "9e93d14116acab62ddaf098777733e6de21312ea353b3c11f19f8904c7573b50",
+    "xsent_adaptive_only": "db7c50d7ece604bd6243e4d1db1119ecaa51bbf6a48661b19bd48b9e70cca1c7",
+    "xsent_all": "b8f99b9117104610ff1117c8eaedaf72b9ab8066b2c14077fe7061719cb3b860",
+    "xsent_all_minus_centering": "b8f99b9117104610ff1117c8eaedaf72b9ab8066b2c14077fe7061719cb3b860"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

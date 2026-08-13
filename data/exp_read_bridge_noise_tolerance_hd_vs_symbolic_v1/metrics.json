@@ -1,0 +1,500 @@
+{
+  "anchor_name": "read_bridge_noise_tolerance_hd_vs_symbolic_v1",
+  "verdict": "HD_GRACEFUL_ADVANTAGE",
+  "verdict_msg": "DELTA@realistic(p0.4-0.6): MIX single +0.132 multi +0.280; WRONG single +0.154 multi +0.189; MISSING single +0.014; slopes MIX HD -0.729 sym -1.052 (gentler=True); cleanup R_hd 0.062 vs R_sym 0.037 @sigma=3.0 (win +0.025); can_fail=True",
+  "summary": "HD_GRACEFUL_ADVANTAGE: MIX-delta +0.13 WRONG-delta +0.15 gentler=True cleanup-win +0.03",
+  "elapsed_s": 387.52,
+  "ts_iso": "2026-07-19T03:49:33.063160+00:00",
+  "pid": 22320,
+  "seed": 20260719,
+  "n_dim": 2048,
+  "n_seeds": 5,
+  "n_distractors": 200,
+  "n_query": {
+    "single": 82,
+    "multi": 82,
+    "conj": 5
+  },
+  "decision_numbers": {
+    "realistic_band": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "d_mix_single": 0.1317,
+    "d_mix_multi": 0.2796,
+    "d_wrong_single": 0.1537,
+    "d_wrong_multi": 0.1894,
+    "d_missing_single": 0.0138,
+    "slope_hd_mix": -0.7295,
+    "slope_sym_mix": -1.0525,
+    "slope_hd_wrong": -1.2226,
+    "slope_sym_wrong": -1.21,
+    "gentler_mix": true
+  },
+  "curves": {
+    "WRONG": {
+      "p_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.8
+      ],
+      "n_corrupt": [
+        230.0,
+        229.8,
+        229.2,
+        229.0,
+        229.6,
+        229.8,
+        228.6,
+        229.2
+      ],
+      "acc": {
+        "hd_single": [
+          1.0,
+          0.8317,
+          0.7366,
+          0.5098,
+          0.4927,
+          0.3049,
+          0.1317,
+          0.0707
+        ],
+        "sym_single": [
+          1.0,
+          0.6805,
+          0.539,
+          0.3073,
+          0.2805,
+          0.1707,
+          0.0171,
+          0.0146
+        ],
+        "hd_multi": [
+          1.0,
+          0.7512,
+          0.6366,
+          0.4122,
+          0.3878,
+          0.1902,
+          0.078,
+          0.061
+        ],
+        "sym_multi": [
+          1.0,
+          0.439,
+          0.2878,
+          0.1756,
+          0.0537,
+          0.0341,
+          0.0,
+          0.0
+        ],
+        "hd_conj": [
+          1.0,
+          0.64,
+          0.52,
+          0.4,
+          0.24,
+          0.12,
+          0.04,
+          0.0
+        ],
+        "sym_conj": [
+          1.0,
+          0.4,
+          0.32,
+          0.2,
+          0.04,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "std": {
+        "hd_single": [
+          0.0,
+          0.021,
+          0.0585,
+          0.0683,
+          0.0595,
+          0.0913,
+          0.034,
+          0.0331
+        ],
+        "sym_single": [
+          0.0,
+          0.0459,
+          0.0943,
+          0.0537,
+          0.0204,
+          0.045,
+          0.0183,
+          0.0179
+        ],
+        "hd_multi": [
+          0.0,
+          0.0473,
+          0.0796,
+          0.0656,
+          0.0574,
+          0.0549,
+          0.0473,
+          0.0309
+        ],
+        "sym_multi": [
+          0.0,
+          0.1043,
+          0.095,
+          0.0226,
+          0.035,
+          0.0365,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "MISSING": {
+      "p_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.8
+      ],
+      "n_corrupt": [
+        230.0,
+        207.2,
+        181.4,
+        161.2,
+        133.6,
+        114.6,
+        89.4,
+        43.2
+      ],
+      "acc": {
+        "hd_single": [
+          1.0,
+          0.9146,
+          0.8634,
+          0.7463,
+          0.6,
+          0.5756,
+          0.4195,
+          0.1951
+        ],
+        "sym_single": [
+          1.0,
+          0.9049,
+          0.8537,
+          0.7293,
+          0.5902,
+          0.561,
+          0.4024,
+          0.1707
+        ],
+        "hd_multi": [
+          1.0,
+          0.8854,
+          0.8488,
+          0.7244,
+          0.578,
+          0.5293,
+          0.3463,
+          0.1659
+        ],
+        "sym_multi": [
+          1.0,
+          0.8195,
+          0.7171,
+          0.5634,
+          0.4366,
+          0.3244,
+          0.1293,
+          0.0366
+        ],
+        "hd_conj": [
+          1.0,
+          0.84,
+          0.76,
+          0.68,
+          0.4,
+          0.32,
+          0.12,
+          0.2
+        ],
+        "sym_conj": [
+          1.0,
+          0.76,
+          0.68,
+          0.6,
+          0.32,
+          0.24,
+          0.04,
+          0.08
+        ]
+      },
+      "std": {
+        "hd_single": [
+          0.0,
+          0.0336,
+          0.0907,
+          0.0404,
+          0.0272,
+          0.0594,
+          0.1469,
+          0.0267
+        ],
+        "sym_single": [
+          0.0,
+          0.0322,
+          0.0852,
+          0.0537,
+          0.0239,
+          0.0517,
+          0.1343,
+          0.0318
+        ],
+        "hd_multi": [
+          0.0,
+          0.0854,
+          0.0999,
+          0.0738,
+          0.1013,
+          0.107,
+          0.1333,
+          0.0183
+        ],
+        "sym_multi": [
+          0.0,
+          0.1365,
+          0.1494,
+          0.0857,
+          0.0924,
+          0.1056,
+          0.109,
+          0.0244
+        ]
+      }
+    },
+    "MIX": {
+      "p_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.8
+      ],
+      "n_corrupt": [
+        230.0,
+        218.6,
+        206.2,
+        198.0,
+        177.2,
+        167.2,
+        164.2,
+        137.2
+      ],
+      "acc": {
+        "hd_single": [
+          1.0,
+          0.9341,
+          0.8707,
+          0.7537,
+          0.7098,
+          0.6366,
+          0.5585,
+          0.4244
+        ],
+        "sym_single": [
+          1.0,
+          0.9171,
+          0.8122,
+          0.639,
+          0.6317,
+          0.5244,
+          0.3537,
+          0.161
+        ],
+        "hd_multi": [
+          1.0,
+          0.9317,
+          0.8488,
+          0.7098,
+          0.6756,
+          0.5683,
+          0.4585,
+          0.3439
+        ],
+        "sym_multi": [
+          1.0,
+          0.8366,
+          0.661,
+          0.4073,
+          0.422,
+          0.2976,
+          0.1439,
+          0.0195
+        ],
+        "hd_conj": [
+          1.0,
+          0.8,
+          0.8,
+          0.56,
+          0.56,
+          0.44,
+          0.28,
+          0.24
+        ],
+        "sym_conj": [
+          1.0,
+          0.76,
+          0.64,
+          0.36,
+          0.44,
+          0.28,
+          0.16,
+          0.0
+        ]
+      },
+      "std": {
+        "hd_single": [
+          0.0,
+          0.0333,
+          0.0559,
+          0.0729,
+          0.0687,
+          0.0829,
+          0.0484,
+          0.0569
+        ],
+        "sym_single": [
+          0.0,
+          0.0272,
+          0.058,
+          0.0875,
+          0.0665,
+          0.0711,
+          0.0204,
+          0.0633
+        ],
+        "hd_multi": [
+          0.0,
+          0.039,
+          0.0705,
+          0.1033,
+          0.1081,
+          0.1324,
+          0.0977,
+          0.1001
+        ],
+        "sym_multi": [
+          0.0,
+          0.062,
+          0.1203,
+          0.1048,
+          0.0746,
+          0.1739,
+          0.0452,
+          0.0183
+        ]
+      }
+    }
+  },
+  "cleanup_recovery": {
+    "sigmas": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "R": 3,
+    "curve": {
+      "0.0": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "0.25": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "0.5": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "0.75": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "1.0": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "1.5": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "2.0": {
+        "single_obs": 1.0,
+        "R_hd": 1.0,
+        "R_sym": 1.0
+      },
+      "3.0": {
+        "single_obs": 0.0292,
+        "R_hd": 0.0625,
+        "R_sym": 0.0375
+      }
+    },
+    "sigma_mid": 3.0,
+    "recovery_rate_R_hd": 0.0625,
+    "R_sym_at_mid": 0.0375,
+    "cleanup_win": 0.025
+  },
+  "can_fail": {
+    "confirmed": true,
+    "must_degrade_fired": true,
+    "no_advantage_regime_missing": true,
+    "sym_mix_p0": 1.0,
+    "sym_mix_realistic": 0.5033
+  },
+  "arms_differ_verified": true,
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "decision_numbers",
+    "curves",
+    "cleanup_recovery",
+    "can_fail"
+  ],
+  "cited": {
+    "bridge": "exp_read_bridge_rolefiller_hd_reasoning_map_v1",
+    "plan": "notes/learned_in_substrate_reader_plan_forms_hd_reasoning_maps_2026-07-18.md"
+  },
+  "caveats": [
+    "CLEAN queries + CLEAN gold (the true world); only the STORE is corrupted -> tests robustness to the reader's extraction noise, NOT the reader's extraction itself. Same corrupted store consumed by both substrates at every (type,rate,seed) -> one variable = the substrate.",
+    "The HD win, where present, is PARTIAL-MATCH graceful retrieval (cosine-select tolerates a corrupted binding + reads a clean role) vs brittle symbolic exact-match; it is NOT magic recovery of a genuinely-wrong value. On MISSING (dropped relations) HD has NO structural advantage (both fail) -- that is the built-in no-advantage regime and is reported.",
+    "Cleanup-recovery: single-observation cleanup == symbolic argmax (tie by construction); the distributed advantage measured here is R-fold analog averaging (bundle+cleanup) vs discrete majority voting, isolated on a synthetic codebook (Kanerva/Hopfield hallmark).",
+    "Crosstalk is the can-fail: at 200 distractors + N=2048 the cosine-select can pick a wrong fact -> HD collapses too; the curves measure whether it does at the reader's real rate.",
+    "MIX rate p == 1 - precision; realistic band p in {0.4,0.5,0.6} == precision ~0.4-0.6. single-annotator/auto gold; CLAIM-VET-pending (skunkworks landed-VET before fact)."
+  ]
+}

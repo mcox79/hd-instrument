@@ -1,0 +1,16 @@
+{
+  "anchor_name": "depparse_hashed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: UAS <0.70. UAS=0.7070 (3918 arcs, train=400)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uas": 0.707,
+      "n_arcs": 3918,
+      "n_train": 400
+    }
+  ],
+  "elapsed_s": 5.7441394329071045,
+  "summary": "HARD_FAIL: UAS <0.70. UAS=0.7070 (3918 arcs, train=400)"
+}

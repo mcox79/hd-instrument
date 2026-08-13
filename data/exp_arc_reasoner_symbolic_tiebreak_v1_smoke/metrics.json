@@ -1,0 +1,251 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "per_mode",
+    "deltas",
+    "preregistered_bands",
+    "traces",
+    "prereg_thresholds"
+  ],
+  "anchor_name": "arc_reasoner_symbolic_tiebreak_v1",
+  "config": {
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "link_mode": "lemma_syn",
+    "n_eval": 60,
+    "n_rules": 233,
+    "n_total_test": 1172,
+    "one_variable_across_arms": "tiebreak_mode (graph/search/coverage/CI/do identical)",
+    "rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "seed": 20260725,
+    "tiebreak_modes": [
+      "legacy",
+      "symbolic"
+    ]
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "deltas": {
+    "d_derived_acc": 0.0,
+    "d_tie_acc": 0.0,
+    "fixed_chance": 0.25,
+    "n_trace_flips": 0,
+    "partition_identical": true
+  },
+  "elapsed_s": 89.8,
+  "graph": {
+    "n_nodes": 215,
+    "n_rules": 233,
+    "n_typed_edges": 209,
+    "per_relation": {
+      "CAUSE": 106,
+      "COUPLEDRELATIONSHIP": 18,
+      "IFTHEN": 5,
+      "REQUIRES": 36,
+      "SOURCEOF": 28,
+      "USEDFOR": 40
+    }
+  },
+  "n_bands_pass": 3,
+  "n_traces": 5,
+  "per_mode": {
+    "legacy": {
+      "derived_acc": 0.3077,
+      "dist_only": {
+        "acc": 0.0,
+        "n": 6
+      },
+      "fixed_chance": 0.25,
+      "gold_only": {
+        "acc": 1.0,
+        "n": 2
+      },
+      "mode": "legacy",
+      "n_derived": 13,
+      "n_questions": 60,
+      "tie": {
+        "acc": 0.4,
+        "n": 5
+      }
+    },
+    "symbolic": {
+      "derived_acc": 0.3077,
+      "dist_only": {
+        "acc": 0.0,
+        "n": 6
+      },
+      "fixed_chance": 0.25,
+      "gold_only": {
+        "acc": 1.0,
+        "n": 2
+      },
+      "mode": "symbolic",
+      "n_derived": 13,
+      "n_questions": 60,
+      "tie": {
+        "acc": 0.4,
+        "n": 5
+      }
+    }
+  },
+  "pid": 11844,
+  "prereg_bands_def": {
+    "gold_only_preserved_ge_0.95": "GUARDRAIL: symbolic gold_only acc >= 0.95 (clean wins preserved)",
+    "overall_derived_gt_fixed_chance": "symbolic overall derived-acc > mean(1/n_choices)",
+    "partition_identical_one_variable": "derived partition counts identical across modes (one variable)",
+    "tie_subset_abs_ge_0.42": "symbolic TIE-subset acc >= 0.42 (toward 0.50; strictly > legacy)",
+    "tie_subset_rises_ge_0.10": "symbolic TIE-acc - legacy TIE-acc >= 0.10 absolute"
+  },
+  "prereg_thresholds": {
+    "gold_only_floor": 0.95,
+    "tie_abs_pass": 0.42,
+    "tie_rise_pass": 0.1,
+    "tie_rise_stuck": 0.03
+  },
+  "preregistered_bands": {
+    "gold_only_preserved_ge_0.95": true,
+    "overall_derived_gt_fixed_chance": true,
+    "partition_identical_one_variable": true,
+    "tie_subset_abs_ge_0.42": false,
+    "tie_subset_rises_ge_0.10": false
+  },
+  "run_mode": "smoke",
+  "summary": "symbolic tie-break: TIE-subset acc 0.400->0.400 (d=+0.000, n_tie=5) | overall derived-acc 0.308->0.308 (d=+0.000) vs fixed chance 0.250 | gold_only 1.000->1.000 (n=2) | dist_only 0.000 (n=6) | 3/5 bands -> HONEST-NEG-decision-meaning-bound",
+  "tier": "HONEST_NEG",
+  "traces": [
+    {
+      "chosen_choice": "endothermic.",
+      "gold_chain": "[reaction] --CAUSE--> [endothermic]",
+      "gold_choice": "endothermic.",
+      "gold_term_rel": "CAUSE",
+      "intent_relations": [],
+      "is_flip": false,
+      "legacy_correct": true,
+      "qid": "Mercury_7043820",
+      "stem": "When cold temperatures are produced in a chemical reaction, the reaction is known as",
+      "symbolic_correct": true,
+      "why_others_not_chosen": [
+        {
+          "choice": "exothermic.",
+          "reason": "NOT a valid derivation (no chain / CI-rejected)"
+        },
+        {
+          "choice": "suspension.",
+          "reason": "NOT a valid derivation (no chain / CI-rejected)"
+        },
+        {
+          "choice": "vaporization.",
+          "reason": "derivable but LOST tie-break: term_rel=CAUSE (intent=[]), givens_covered=1.0, chain_len=2, combiner=0.5603"
+        }
+      ]
+    },
+    {
+      "chosen_choice": "the effect of warmed water on aquatic life",
+      "gold_chain": "[force] --COUPLEDRELATIONSHIP--> [acceleration] ; [acceleration] --REQUIRES--> [force]",
+      "gold_choice": "the effect of warmed water on aquatic life",
+      "gold_term_rel": "REQUIRES",
+      "intent_relations": [
+        "USEDFOR"
+      ],
+      "is_flip": false,
+      "legacy_correct": true,
+      "qid": "Mercury_7212328",
+      "stem": "The development of a nuclear power plant at an ocean site is expected to produce an enormous amount of electric power for a large population. Ocean water will be used to cool the plant and then returned to the ocean. What unintended consequence should be analyzed before starting ",
+      "symbolic_correct": true,
+      "why_others_not_chosen": [
+        {
+          "choice": "number of kilowatts produced per home",
+          "reason": "NOT a valid derivation (no chain / CI-rejected)"
+        },
+        {
+          "choice": "the impact of other energy-producing resources",
+          "reason": "derivable but LOST tie-break: term_rel=COUPLEDRELATIONSHIP (intent=['USEDFOR']), givens_covered=0.125, chain_len=1, combiner=0.483"
+        },
+        {
+          "choice": "energy use per person",
+          "reason": "derivable but LOST tie-break: term_rel=SOURCEOF (intent=['USEDFOR']), givens_covered=0.25, chain_len=2, combiner=0.6224"
+        }
+      ]
+    },
+    {
+      "chosen_choice": "The oxygen is a solution that dissolves the water.",
+      "gold_chain": "[fish] --REQUIRES--> [water]",
+      "gold_choice": "The oxygen is a solute that is dissolved in the water.",
+      "gold_term_rel": "REQUIRES",
+      "intent_relations": [],
+      "is_flip": false,
+      "legacy_correct": false,
+      "qid": "ACTAAP_2010_7_14",
+      "stem": "Fish breathe oxygen that is in the water where they swim. Which best describes the oxygen that fish breathe?",
+      "symbolic_correct": false,
+      "why_others_not_chosen": [
+        {
+          "choice": "The oxygen is a substance that dissolves the water.",
+          "reason": "derivable but LOST tie-break: term_rel=REQUIRES (intent=[]), givens_covered=0.333, chain_len=1, combiner=0.8588"
+        },
+        {
+          "choice": "The oxygen is a solute that is dissolved in the water.",
+          "reason": "derivable but LOST tie-break: term_rel=REQUIRES (intent=[]), givens_covered=0.333, chain_len=1, combiner=0.8588"
+        },
+        {
+          "choice": "The oxygen is a solvent that is dissolved in the water.",
+          "reason": "NOT a valid derivation (no chain / CI-rejected)"
+        }
+      ]
+    },
+    {
+      "chosen_choice": "The current will be tripled.",
+      "gold_chain": "[circuit] --REQUIRES--> [conductor] ; [conductor] --USEDFOR--> [current]",
+      "gold_choice": "The current will be cut in half.",
+      "gold_term_rel": "USEDFOR",
+      "intent_relations": [],
+      "is_flip": false,
+      "legacy_correct": false,
+      "qid": "MCAS_2004_9_5",
+      "stem": "The voltage is held constant in an electric circuit. What will happen to the current in this circuit if the resistance is doubled?",
+      "symbolic_correct": false,
+      "why_others_not_chosen": [
+        {
+          "choice": "The current will be doubled.",
+          "reason": "derivable but LOST tie-break: term_rel=USEDFOR (intent=[]), givens_covered=0.429, chain_len=2, combiner=0.7839"
+        },
+        {
+          "choice": "The current will be cut in half.",
+          "reason": "derivable but LOST tie-break: term_rel=USEDFOR (intent=[]), givens_covered=0.429, chain_len=2, combiner=0.7839"
+        },
+        {
+          "choice": "The current will stay the same.",
+          "reason": "derivable but LOST tie-break: term_rel=USEDFOR (intent=[]), givens_covered=0.429, chain_len=2, combiner=0.7839"
+        }
+      ]
+    },
+    {
+      "chosen_choice": "absorb water",
+      "gold_chain": "[stems] --USEDFOR--> [support]",
+      "gold_choice": "provide support",
+      "gold_term_rel": "USEDFOR",
+      "intent_relations": [],
+      "is_flip": false,
+      "legacy_correct": false,
+      "qid": "Mercury_SC_416104",
+      "stem": "What do stems do for plants?",
+      "symbolic_correct": false,
+      "why_others_not_chosen": [
+        {
+          "choice": "make food",
+          "reason": "derivable but LOST tie-break: term_rel=SOURCEOF (intent=[]), givens_covered=0.333, chain_len=1, combiner=0.4098"
+        },
+        {
+          "choice": "provide support",
+          "reason": "derivable but LOST tie-break: term_rel=USEDFOR (intent=[]), givens_covered=0.333, chain_len=1, combiner=0.3299"
+        },
+        {
+          "choice": "attract pollinators",
+          "reason": "NOT a valid derivation (no chain / CI-rejected)"
+        }
+      ]
+    }
+  ],
+  "ts_iso": "2026-07-25T21:22:58.874557+00:00",
+  "verdict": "HONEST-NEG-decision-meaning-bound",
+  "verdict_msg": "Symbolic tie-break for the composed DerivationReasoner: among CO-DERIVABLE valid candidates on the TIE subset (gold AND >=1 distractor both derive), rank by question-INTENT / relation-type match (asked-relation parsed from the stem; a candidate REACHED BY the asked relation beats one reached by an off-type chain) -> do-calculus-present -> chain completeness -> shortest chain, with the thin-cosine combiner DEMOTED to the last tiebreak. ONE variable across arms = the tie-break METHOD (rules/graph/search/coverage/CI/do-calculus identical; the DERIVED partition is byte-identical across modes). GUARDRAIL = gold_only subset acc preserved >= 0.95 (clean single-candidate wins untouched). Fixed chance = mean(1/n_choices) over the derived subset (NOT the old 1/int(mean) quirk). Held-out ARC-Challenge test; science rules NOT derived from test labels. CAN-FAIL pre-registered: TIE rise < +0.03 = the DECISION is meaning-bound (which valid derivation actually ANSWERS the question needs grounded question-relevance meaning) -> HONEST-NEG, isolated."
+}

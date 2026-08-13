@@ -1,0 +1,234 @@
+{
+  "anchor_name": "bundling_slot_peel_sic_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "BUNDLING_WALL_BEATEN (HARD_PASS): confidence-ordered successive cancellation raises J-item bundling recall above flat top-J readout at the capacity shoulder (best_cancel=1.000 vs FLAT_TOPJ=0.829, lift=0.171, cv=0.000). MECHANISM: slotting_alone_null=True (SLOT_NODEFLATE<=FLAT+.05), slots_unnecessary=True (SLOT_PEEL_POWER~FLAT_PEEL -> attribute to CANCELLATION not theta-gamma slots), ordering_loadbearing=True (POWER>>FIXED). traj: N192_J16(FT=0.97,FP=1.00,ND=0.95,SF=1.00,SP=1.00) N192_J32(FT=0.83,FP=1.00,ND=0.59,SF=0.66,SP=1.00) N192_J48(FT=0.75,FP=1.00,ND=0.38,SF=0.21,SP=0.46)",
+  "summary": "HARD_PASS",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_cell": {
+        "N192_J16": {
+          "N": 192,
+          "J": 16,
+          "TR": 20,
+          "recall": {
+            "FLAT_TOPJ": 0.965625,
+            "FLAT_PEEL": 1.0,
+            "SLOT_NODEFLATE": 0.953125,
+            "SLOT_PEEL_FIXED": 0.996875,
+            "SLOT_PEEL_POWER": 1.0
+          }
+        },
+        "N192_J32": {
+          "N": 192,
+          "J": 32,
+          "TR": 20,
+          "recall": {
+            "FLAT_TOPJ": 0.8265625,
+            "FLAT_PEEL": 1.0,
+            "SLOT_NODEFLATE": 0.5890625,
+            "SLOT_PEEL_FIXED": 0.628125,
+            "SLOT_PEEL_POWER": 0.9984375
+          }
+        },
+        "N192_J48": {
+          "N": 192,
+          "J": 48,
+          "TR": 20,
+          "recall": {
+            "FLAT_TOPJ": 0.7458333333333333,
+            "FLAT_PEEL": 0.9979166666666666,
+            "SLOT_NODEFLATE": 0.3666666666666667,
+            "SLOT_PEEL_FIXED": 0.225,
+            "SLOT_PEEL_POWER": 0.5083333333333333
+          }
+        }
+      },
+      "arms_hashes": {
+        "N192_J16_FLAT_TOPJ": "c915f54939ebd3ce272aeed068a6941b8d08d3052b2ac4bffafd1684d7c40cd3",
+        "N192_J16_FLAT_PEEL": "9dc41a0be97e008e9ce5a92eaa4837d3380b7fbb4bf3910c3a05b8e10f4c35cc",
+        "N192_J16_SLOT_NODEFLATE": "78339628dbaefd7c8e611a452c8d1528e5cf940744f81481597ad1f23b17f62e",
+        "N192_J16_SLOT_PEEL_FIXED": "1079d11c9b3d92a363cfd3073f8ecd2a699a06e39e7a6e8681a729e59716ef71",
+        "N192_J16_SLOT_PEEL_POWER": "9dc41a0be97e008e9ce5a92eaa4837d3380b7fbb4bf3910c3a05b8e10f4c35cc",
+        "N192_J32_FLAT_TOPJ": "6e07786d8d859e3e7a4f95ea4ea822c14a048ffcf23b2c0842dcffac2b310908",
+        "N192_J32_FLAT_PEEL": "657130d34dc69c1e0b5a91570a6753dc8b69426ae70210569f9b32d05fbd07bf",
+        "N192_J32_SLOT_NODEFLATE": "fd4756499cf226735cea7f40b533bcf15b87ca7619a086ac27bcb9211dab8829",
+        "N192_J32_SLOT_PEEL_FIXED": "8813ee3b2d554d49594adbd9b55d05fd641f1f7c3f071086ccd796cfe5d2e6d5",
+        "N192_J32_SLOT_PEEL_POWER": "657130d34dc69c1e0b5a91570a6753dc8b69426ae70210569f9b32d05fbd07bf",
+        "N192_J48_FLAT_TOPJ": "639ab636cd79c98938e7b09027bc5665dcf5f07e078b39c484d3d033917697e0",
+        "N192_J48_FLAT_PEEL": "35e43e8736b96179156780f7da4e5f76f675b70929f936786cc74809c0cc45db",
+        "N192_J48_SLOT_NODEFLATE": "171a59505db0f00d550647562e2ef81a21c60fdc6a72665235437dac9769c295",
+        "N192_J48_SLOT_PEEL_FIXED": "ccf55614bda8fe96fed192b33a48b960cf8bb9a0cbc18e4df74af2aa0be27d53",
+        "N192_J48_SLOT_PEEL_POWER": "e28b5d1da8cb3e556613d106313d3e7c99ff5296843da18aacee786cddadfe92"
+      },
+      "V": 1000,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=bundling_slot_peel_sic_v1,V=1000,N=[192]",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783525718.3076048
+    },
+    {
+      "seed": 13,
+      "by_cell": {
+        "N192_J16": {
+          "N": 192,
+          "J": 16,
+          "TR": 20,
+          "recall": {
+            "FLAT_TOPJ": 0.975,
+            "FLAT_PEEL": 1.0,
+            "SLOT_NODEFLATE": 0.94375,
+            "SLOT_PEEL_FIXED": 0.996875,
+            "SLOT_PEEL_POWER": 1.0
+          }
+        },
+        "N192_J32": {
+          "N": 192,
+          "J": 32,
+          "TR": 20,
+          "recall": {
+            "FLAT_TOPJ": 0.83125,
+            "FLAT_PEEL": 1.0,
+            "SLOT_NODEFLATE": 0.5953125,
+            "SLOT_PEEL_FIXED": 0.6828125,
+            "SLOT_PEEL_POWER": 0.9953125
+          }
+        },
+        "N192_J48": {
+          "N": 192,
+          "J": 48,
+          "TR": 20,
+          "recall": {
+            "FLAT_TOPJ": 0.7520833333333334,
+            "FLAT_PEEL": 1.0,
+            "SLOT_NODEFLATE": 0.39166666666666666,
+            "SLOT_PEEL_FIXED": 0.203125,
+            "SLOT_PEEL_POWER": 0.4145833333333333
+          }
+        }
+      },
+      "arms_hashes": {
+        "N192_J16_FLAT_TOPJ": "b722040595dee5975c2f4a6db4bfe179afdd71b449b86a68e161cd90ba7c1301",
+        "N192_J16_FLAT_PEEL": "f0fca715eb12475ad4497c5b40d448513079ef4feceef75f70874f9d3a0b2b67",
+        "N192_J16_SLOT_NODEFLATE": "0d67aacb3bc375ec893d87385ece9b4f0b54432661c0ed9e55d4cd50e4ce59b1",
+        "N192_J16_SLOT_PEEL_FIXED": "f0fca715eb12475ad4497c5b40d448513079ef4feceef75f70874f9d3a0b2b67",
+        "N192_J16_SLOT_PEEL_POWER": "f0fca715eb12475ad4497c5b40d448513079ef4feceef75f70874f9d3a0b2b67",
+        "N192_J32_FLAT_TOPJ": "3b9387c835cbbb891ac2c52a120556751482a8126dfbb1c6251ef81715e45b90",
+        "N192_J32_FLAT_PEEL": "13df906fb9d751f9f35b2e2a1bfdd9788e37dd4b28579c6890eecf9fb93b63ac",
+        "N192_J32_SLOT_NODEFLATE": "08fd2071a69f606995b60694ffa24b458a4f4cd88fc96c853c0675bd7cdc2e53",
+        "N192_J32_SLOT_PEEL_FIXED": "0a90e0ead725521d338e31ca4f2d714f4fd656a827685b47010b656c0c5d5bc8",
+        "N192_J32_SLOT_PEEL_POWER": "2140e5be6473237dc568c5c4525655486ebfdaa4a89806a03448f9c14a5677ea",
+        "N192_J48_FLAT_TOPJ": "f5e14de5ef0e617f85c51f11324ac3d51700cb42a516ed8dcc6234c8aed1c9ef",
+        "N192_J48_FLAT_PEEL": "9a8a707e7f85bf7502c654f57738b975bbd3cf25cf997b5b710783cb0c7488be",
+        "N192_J48_SLOT_NODEFLATE": "2bbe21fb15ed9983f758fbf0e0fec9660b1af9345f8d67533e4fd39c27a4dd55",
+        "N192_J48_SLOT_PEEL_FIXED": "434e728b50e7f6736d2f27860faa6810c62e4e9c58a3d27b3b4f2ecf95e67395",
+        "N192_J48_SLOT_PEEL_POWER": "22afe23ad715c51d649c0ea7ac3ed314768787f662f429c989fcf111f211e159"
+      },
+      "V": 1000,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=bundling_slot_peel_sic_v1,V=1000,N=[192]",
+      "_ckpt_key": "13",
+      "_partial_written_at": 1783525791.963719
+    }
+  ],
+  "detail": {
+    "trajectory": {
+      "N192_J16": {
+        "FLAT_TOPJ": 0.9703124999999999,
+        "FLAT_PEEL": 1.0,
+        "SLOT_NODEFLATE": 0.9484375,
+        "SLOT_PEEL_FIXED": 0.996875,
+        "SLOT_PEEL_POWER": 1.0,
+        "N": 192,
+        "J": 16
+      },
+      "N192_J32": {
+        "FLAT_TOPJ": 0.82890625,
+        "FLAT_PEEL": 1.0,
+        "SLOT_NODEFLATE": 0.5921875000000001,
+        "SLOT_PEEL_FIXED": 0.65546875,
+        "SLOT_PEEL_POWER": 0.996875,
+        "N": 192,
+        "J": 32
+      },
+      "N192_J48": {
+        "FLAT_TOPJ": 0.7489583333333334,
+        "FLAT_PEEL": 0.9989583333333333,
+        "SLOT_NODEFLATE": 0.37916666666666665,
+        "SLOT_PEEL_FIXED": 0.2140625,
+        "SLOT_PEEL_POWER": 0.4614583333333333,
+        "N": 192,
+        "J": 48
+      }
+    },
+    "shoulders": {
+      "192": "N192_J32"
+    },
+    "bands": {
+      "shoulder_window": [
+        0.7,
+        0.9
+      ],
+      "cancel_lift_hp": 0.1,
+      "cancel_abs_hp": 0.95,
+      "nodeflate_null_margin": 0.05,
+      "slots_equiv_tol": 0.05,
+      "ordering_lb": 0.1,
+      "cv_max": 0.1
+    },
+    "min_flat_topj": 0.7489583333333334,
+    "discriminator_fires": true,
+    "per_shoulder": {
+      "192": {
+        "shoulder_cell": "N192_J32",
+        "J": 32,
+        "FLAT_TOPJ": 0.82890625,
+        "FLAT_PEEL": 1.0,
+        "SLOT_NODEFLATE": 0.5921875000000001,
+        "SLOT_PEEL_FIXED": 0.65546875,
+        "SLOT_PEEL_POWER": 0.996875,
+        "best_cancel": 1.0,
+        "best_cancel_arm": "FLAT_PEEL",
+        "cancel_lift_vs_flat": 0.17109375000000004,
+        "cv_best": 0.0,
+        "capability_pass": true,
+        "slotting_alone_null": true,
+        "slots_unnecessary": true,
+        "ordering_loadbearing": true
+      }
+    },
+    "cancellation_ever_beats_flat": true,
+    "arms_differ_verified": true,
+    "arms_distinct_at_hardest": 5,
+    "hardest_cell": "N192_J48"
+  },
+  "config": {
+    "V": 1000,
+    "N_GRID": [
+      192
+    ],
+    "J_BY_N": {
+      "192": [
+        16,
+        32,
+        48
+      ]
+    },
+    "TR": 20,
+    "SEEDS": [
+      7,
+      13
+    ],
+    "ARMS": [
+      "FLAT_TOPJ",
+      "FLAT_PEEL",
+      "SLOT_NODEFLATE",
+      "SLOT_PEEL_FIXED",
+      "SLOT_PEEL_POWER"
+    ],
+    "EXPECTED_N_UNITS": 6
+  },
+  "elapsed_s": 0.12444059998961166
+}

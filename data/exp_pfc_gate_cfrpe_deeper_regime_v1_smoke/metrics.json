@@ -1,0 +1,340 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS [EXTENDS_VIA_BRANCHING_horizon_attributable=-0.008_NOT_the_lever] | n_fair_d6=1/2 focus=op2_V300_d6@g0.95 | ADD=0.118 GONOGO=0.382 CTRL=0.118 ORACLE=0.979 | closure=0.306 gonogo_lift=0.264 dynamics_lift=0.264 horizon_attributable=-0.008 horizon_is_the_lever=False | baseline_in_band=True cv=0.143 reach_tcos_corr=-0.104 sign_p=1.368e-08 reach_rank=0.694 (min=0.550) oracle_rail=True | MECH [op4_V300] baseSR rr d4=0.455 d6=0.403 (degr=0.052) deepSR(g0.95) rr d4=0.460 d6=0.411 | deep-base@d6=0.008 | per_regime=[op4_V300_d4:add=0.076(FAIR),op4_V300_d6:add=0.007(unfair),op2_V300_d6:add=0.118(FAIR)] n_seeds=3",
+  "summary": "HARD_PASS [EXTENDS_VIA_BRANCHING_horizon_attributable=-0.008_NOT_the_lever] | n_fair_d6=1/2 focus=op2_V300_d6@g0.95 | ADD=0.118 GONOGO=0.382 CTRL=0.118 ORACLE=0.979 | closure=0.306 gonogo_lift=0.264 dynamics_lift=0.264 horizon_attributable=-0.008 horizon_is_the_lever=False | baseline_in_band=True cv=0.143 reach_tcos_corr=-0.104 sign_p=1.368e-08 reach_rank=0.694 (min=0.550) oracle_rail=True | MECH [op4_V300] baseSR rr d4=0.455 d6=0.403 (degr=0.052) deepSR(g0.95) rr d4=0.460 d6=0.411 | deep-base@d6=0.008 | per_regime=[op4_V300_d4:add=0.076(FAIR),op4_V300_d6:add=0.007(unfair),op2_V300_d6:add=0.118(FAIR)] n_seeds=3",
+  "per_regime": {
+    "op4_V300_d4": {
+      "n_ops": 4,
+      "V": 300,
+      "dd": 4,
+      "n_seeds": 3,
+      "arm_means": {
+        "v1_no_goal": 0.048611111111111105,
+        "additive_baseline": 0.07638888888888888,
+        "cfrpe_control_identity": 0.09722222222222221,
+        "oracle": 0.9652777777777777,
+        "gonogo_g0.85": 0.24305555555555558,
+        "gonogo_g0.95": 0.2638888888888889
+      },
+      "arm_cvs": {
+        "v1_no_goal": 0.4040610178208844,
+        "additive_baseline": 0.12856486930664499,
+        "cfrpe_control_identity": 0.3642156795423419,
+        "oracle": 0.0366835936229697,
+        "gonogo_g0.85": 0.2649605284427343,
+        "gonogo_g0.95": 0.19692933614599686
+      },
+      "arm_stds": {
+        "v1_no_goal": 0.019641855032959656,
+        "additive_baseline": 0.009820927516479824,
+        "cfrpe_control_identity": 0.035409857733283236,
+        "oracle": 0.03540985773328324,
+        "gonogo_g0.85": 0.06440012844094238,
+        "gonogo_g0.95": 0.05196746370519362
+      },
+      "additive": 0.07638888888888888,
+      "control_identity": 0.09722222222222221,
+      "oracle": 0.9652777777777777,
+      "v1_no_goal": 0.048611111111111105,
+      "headroom": 0.8888888888888888,
+      "baseline_in_band": true,
+      "reach_rank_chance": 0.25,
+      "reach_rank_min": 0.3,
+      "oracle_rail_ok": true,
+      "gamma": {
+        "g0.85": {
+          "gamma": 0.85,
+          "gonogo": 0.24305555555555558,
+          "closure": 0.18750000000000003,
+          "gonogo_lift": 0.16666666666666669,
+          "dynamics_lift": 0.14583333333333337,
+          "gonogo_cv": 0.2649605284427343,
+          "reach_rank_test": 0.4548611111111111,
+          "reach_rank_train": 0.4826388888888889,
+          "reach_tcos_corr_test": -0.070484335705652,
+          "sign_test_p": 6.960169412195683e-05,
+          "n_gonogo_only": 30,
+          "n_additive_only": 6,
+          "best_w_reach_per_seed": {
+            "7": 2.0,
+            "17": 0.5,
+            "23": 0.5
+          },
+          "all_w_reach_zero": false,
+          "af_collision": false,
+          "is_deep": false,
+          "hp_ok": false
+        },
+        "g0.95": {
+          "gamma": 0.95,
+          "gonogo": 0.2638888888888889,
+          "closure": 0.2109375,
+          "gonogo_lift": 0.1875,
+          "dynamics_lift": 0.16666666666666669,
+          "gonogo_cv": 0.19692933614599686,
+          "reach_rank_test": 0.4600694444444445,
+          "reach_rank_train": 0.484375,
+          "reach_tcos_corr_test": -0.0706363565729969,
+          "sign_test_p": 1.429926123819314e-05,
+          "n_gonogo_only": 33,
+          "n_additive_only": 6,
+          "best_w_reach_per_seed": {
+            "7": 1.0,
+            "17": 0.5,
+            "23": 0.5
+          },
+          "all_w_reach_zero": false,
+          "af_collision": false,
+          "is_deep": true,
+          "hp_ok": false
+        }
+      }
+    },
+    "op4_V300_d6": {
+      "n_ops": 4,
+      "V": 300,
+      "dd": 6,
+      "n_seeds": 3,
+      "arm_means": {
+        "v1_no_goal": 0.0,
+        "additive_baseline": 0.006944444444444444,
+        "cfrpe_control_identity": 0.006944444444444444,
+        "oracle": 0.9236111111111112,
+        "gonogo_g0.85": 0.10416666666666667,
+        "gonogo_g0.95": 0.10416666666666667
+      },
+      "arm_cvs": {
+        "v1_no_goal": 0.0,
+        "additive_baseline": 1.414213562373095,
+        "cfrpe_control_identity": 1.414213562373095,
+        "oracle": 0.02126636935899389,
+        "gonogo_g0.85": 0.43204937989385733,
+        "gonogo_g0.95": 0.43204937989385733
+      },
+      "arm_stds": {
+        "v1_no_goal": 0.0,
+        "additive_baseline": 0.009820927516479826,
+        "cfrpe_control_identity": 0.009820927516479826,
+        "oracle": 0.019641855032959635,
+        "gonogo_g0.85": 0.04500514373894347,
+        "gonogo_g0.95": 0.04500514373894347
+      },
+      "additive": 0.006944444444444444,
+      "control_identity": 0.006944444444444444,
+      "oracle": 0.9236111111111112,
+      "v1_no_goal": 0.0,
+      "headroom": 0.9166666666666667,
+      "baseline_in_band": false,
+      "reach_rank_chance": 0.25,
+      "reach_rank_min": 0.3,
+      "oracle_rail_ok": true,
+      "gamma": {
+        "g0.85": {
+          "gamma": 0.85,
+          "gonogo": 0.10416666666666667,
+          "closure": 0.10606060606060605,
+          "gonogo_lift": 0.09722222222222222,
+          "dynamics_lift": 0.09722222222222222,
+          "gonogo_cv": 0.43204937989385733,
+          "reach_rank_test": 0.40277777777777773,
+          "reach_rank_train": 0.37384259259259256,
+          "reach_tcos_corr_test": -0.033400994597113286,
+          "sign_test_p": 0.000518798828125,
+          "n_gonogo_only": 15,
+          "n_additive_only": 1,
+          "best_w_reach_per_seed": {
+            "7": 1.0,
+            "17": 1.0,
+            "23": 0.5
+          },
+          "all_w_reach_zero": false,
+          "af_collision": false,
+          "is_deep": false,
+          "hp_ok": false
+        },
+        "g0.95": {
+          "gamma": 0.95,
+          "gonogo": 0.10416666666666667,
+          "closure": 0.10606060606060605,
+          "gonogo_lift": 0.09722222222222222,
+          "dynamics_lift": 0.09722222222222222,
+          "gonogo_cv": 0.43204937989385733,
+          "reach_rank_test": 0.4108796296296296,
+          "reach_rank_train": 0.38310185185185186,
+          "reach_tcos_corr_test": -0.0334905337756398,
+          "sign_test_p": 0.000518798828125,
+          "n_gonogo_only": 15,
+          "n_additive_only": 1,
+          "best_w_reach_per_seed": {
+            "7": 1.0,
+            "17": 1.0,
+            "23": 0.5
+          },
+          "all_w_reach_zero": false,
+          "af_collision": false,
+          "is_deep": true,
+          "hp_ok": false
+        }
+      }
+    },
+    "op2_V300_d6": {
+      "n_ops": 2,
+      "V": 300,
+      "dd": 6,
+      "n_seeds": 3,
+      "arm_means": {
+        "v1_no_goal": 0.0625,
+        "additive_baseline": 0.11805555555555554,
+        "cfrpe_control_identity": 0.11805555555555554,
+        "oracle": 0.9791666666666666,
+        "gonogo_g0.85": 0.3888888888888889,
+        "gonogo_g0.95": 0.3819444444444444
+      },
+      "arm_cvs": {
+        "v1_no_goal": 0.5443310539518174,
+        "additive_baseline": 0.3626125884099398,
+        "cfrpe_control_identity": 0.3626125884099398,
+        "oracle": 0.030089650263257342,
+        "gonogo_g0.85": 0.1262690680690263,
+        "gonogo_g0.95": 0.14316377952748746
+      },
+      "arm_stds": {
+        "v1_no_goal": 0.034020690871988585,
+        "additive_baseline": 0.042808430576173444,
+        "cfrpe_control_identity": 0.042808430576173444,
+        "oracle": 0.02946278254943948,
+        "gonogo_g0.85": 0.049104637582399115,
+        "gonogo_g0.95": 0.054680610236193125
+      },
+      "additive": 0.11805555555555554,
+      "control_identity": 0.11805555555555554,
+      "oracle": 0.9791666666666666,
+      "v1_no_goal": 0.0625,
+      "headroom": 0.861111111111111,
+      "baseline_in_band": true,
+      "reach_rank_chance": 0.5,
+      "reach_rank_min": 0.55,
+      "oracle_rail_ok": true,
+      "gamma": {
+        "g0.85": {
+          "gamma": 0.85,
+          "gonogo": 0.3888888888888889,
+          "closure": 0.3145161290322581,
+          "gonogo_lift": 0.27083333333333337,
+          "dynamics_lift": 0.27083333333333337,
+          "gonogo_cv": 0.1262690680690263,
+          "reach_rank_test": 0.6932870370370371,
+          "reach_rank_train": 0.6388888888888888,
+          "reach_tcos_corr_test": -0.10298931946257402,
+          "sign_test_p": 7.59715845788378e-09,
+          "n_gonogo_only": 44,
+          "n_additive_only": 5,
+          "best_w_reach_per_seed": {
+            "7": 0.5,
+            "17": 0.5,
+            "23": 2.0
+          },
+          "all_w_reach_zero": false,
+          "af_collision": false,
+          "is_deep": false,
+          "hp_ok": false
+        },
+        "g0.95": {
+          "gamma": 0.95,
+          "gonogo": 0.3819444444444444,
+          "closure": 0.3064516129032258,
+          "gonogo_lift": 0.2638888888888889,
+          "dynamics_lift": 0.2638888888888889,
+          "gonogo_cv": 0.14316377952748746,
+          "reach_rank_test": 0.6944444444444445,
+          "reach_rank_train": 0.6469907407407408,
+          "reach_tcos_corr_test": -0.10420647215555368,
+          "sign_test_p": 1.3680484300948592e-08,
+          "n_gonogo_only": 43,
+          "n_additive_only": 5,
+          "best_w_reach_per_seed": {
+            "7": 0.5,
+            "17": 0.5,
+            "23": 2.0
+          },
+          "all_w_reach_zero": false,
+          "af_collision": false,
+          "is_deep": true,
+          "hp_ok": true
+        }
+      }
+    }
+  },
+  "reach_rank_by_group": {
+    "op4_V300": {
+      "n_ops": 4,
+      "V": 300,
+      "by_depth": {
+        "4": {
+          "g0.85": 0.4548611111111111,
+          "g0.95": 0.4600694444444445
+        },
+        "6": {
+          "g0.85": 0.40277777777777773,
+          "g0.95": 0.4108796296296296
+        }
+      },
+      "baseline_reach_rank_d4": 0.4548611111111111,
+      "baseline_reach_rank_d6": 0.40277777777777773,
+      "baseline_degradation_d4_to_d6": 0.05208333333333337,
+      "deep_gamma_key": "g0.95",
+      "deep_reach_rank_d4": 0.4600694444444445,
+      "deep_reach_rank_d6": 0.4108796296296296,
+      "deep_degradation_d4_to_d6": 0.04918981481481488,
+      "deep_minus_baseline_reach_rank_d6": 0.00810185185185186,
+      "deep_minus_baseline_reach_rank_d4": 0.00520833333333337
+    },
+    "op2_V300": {
+      "n_ops": 2,
+      "V": 300,
+      "by_depth": {
+        "6": {
+          "g0.85": 0.6932870370370371,
+          "g0.95": 0.6944444444444445
+        }
+      }
+    }
+  },
+  "d6_regime_keys": [
+    "op4_V300_d6",
+    "op2_V300_d6"
+  ],
+  "fair_d6_regime_keys": [
+    "op2_V300_d6"
+  ],
+  "hp_pairs": [
+    {
+      "regime": "op2_V300_d6",
+      "gamma": "g0.95",
+      "closure": 0.3064516129032258
+    }
+  ],
+  "focus_regime": "op2_V300_d6",
+  "focus_gamma": "g0.95",
+  "focus_closure": 0.3064516129032258,
+  "focus_gonogo_lift": 0.2638888888888889,
+  "focus_baseline_in_band": true,
+  "focus_reach_rank_test": 0.6944444444444445,
+  "focus_gonogo_cv": 0.14316377952748746,
+  "focus_reach_tcos_corr": -0.10420647215555368,
+  "horizon_attributable_at_focus": -0.008064516129032306,
+  "horizon_is_the_lever": false,
+  "clears_25pct_headroom": true,
+  "cv_gate_enforced": false,
+  "expected_n_units": 54,
+  "completed_units": 54,
+  "cardinality_ok": true,
+  "n_seeds_complete": 3,
+  "anchor_name": "pfc_gate_cfrpe_deeper_regime_v1",
+  "elapsed_s": 125.8,
+  "ts_iso": "2026-07-05T22:05:06.481018+00:00",
+  "pid": 3540,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_gate_cfrpe_deeper_regime_v1,N=2048,n_ops_set=[2, 4],seeds=[7, 17, 23],gammas=[0.85, 0.95],regimes=['op4_V300_d4', 'op4_V300_d6', 'op2_V300_d6'],density=0.210,sr_steps=300,sr_batch=64,rollout_per_V=8,baseline_gamma=0.85,lr=0.50,lr_decay_end=0.20,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],n_train_chains=48,n_test_chains=48,mode=smoke,device=cpu,expected_n=54,HP_closure>=0.25,cv<0.10,corr<0.85,sign_p<0.05,reach_rank_margin=0.05",
+  "device": "cpu"
+}

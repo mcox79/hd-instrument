@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "TypeError: RNG state must be a torch.ByteTensor",
+  "summary": "CELL_CRASHED: TypeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3b_nce_ablation_dense_recovery_diagnostic_v1_core.py\", line 1192, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3b_nce_ablation_dense_recovery_diagnostic_v1_core.py\", line 1185, in main\n    return run_diag(args.run_mode, args.seed, args.device, args.n_dim,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3b_nce_ablation_dense_recovery_diagnostic_v1_core.py\", line 719, in run_diag\n    st, diag = _train_student_diag(\n               ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3b_nce_ablation_dense_recovery_diagnostic_v1_core.py\", line 364, in _train_student_diag\n    gen.set_state(ck[\"gen_state\"])\nTypeError: RNG state must be a torch.ByteTensor\n",
+  "ts_iso": "2026-07-04T17:44:12.070328+00:00",
+  "pid": 17416,
+  "anchor_name": "encoder_migration_step1b_v3b_batch_ratio_match_nce_ablation_dense_recovery_v1"
+}

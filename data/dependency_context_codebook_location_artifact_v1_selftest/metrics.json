@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: random-context control must preserve nnz mass",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_dependency_context_codebook_location_artifact_v1.py\", line 691, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_dependency_context_codebook_location_artifact_v1.py\", line 671, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_dependency_context_codebook_location_artifact_v1.py\", line 618, in self_test\n    assert random_cooc.nnz == window_cooc.nnz, \"random-context control must preserve nnz mass\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: random-context control must preserve nnz mass\n",
+  "ts_iso": "2026-07-20T16:43:51.003636+00:00",
+  "pid": 4040,
+  "anchor_name": "dependency_context_codebook_location_artifact_v1"
+}

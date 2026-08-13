@@ -1,0 +1,696 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "CLEAN LEARNING-CURVE-TO-A-BOUND (honest): valid + positive-control reproduces the banked 0.4523 (recency full backbone-subset=0.4523, local_window=0.4070, backbone=0.2462). The learned centering ranker is UNDER the hand-rule: learned_full test=0.3609 vs recency_centrality test=0.6348 (beat delta=-0.2739; HP needs >=+0.02 w/ stability>=0.90, stability=0.0000). Cb-ablation: learned_nocb=0.3261 (cb_delta=0.0348; needs >=+0.01) => Cb-continuity ADDS a real lift. Learning curve 0.1217->0.3609 (rise 0.2391). Net vs recency fixed=12 broke=75. Importance(full)={\"role\": 0.024729267829681836, \"recency\": 0.5711871961657224, \"cb\": 0.2183232848052545, \"phi\": 0.0, \"primacy\": 0.18576025119934123}. The same-gender residual is consistent with classic-centering (per the ablation).",
+  "summary": "read_xsent_coref_learned_centering_cb_continuity_v1: MIDDLE_BAND",
+  "elapsed_s": 10.384,
+  "anchor_name": "read_xsent_coref_learned_centering_cb_continuity_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-24T09:43:34.424358+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 25,
+    "n_books_parsed": 25
+  },
+  "config": {
+    "feature_names": [
+      "role",
+      "recency",
+      "cb",
+      "phi",
+      "primacy"
+    ],
+    "cb_feature_idx": 2,
+    "learner": "softmax_ranking_GD (in-substrate, glass-box); LEARNER MODULE (hdlab/learner) is MDL classification/rule-induction, no ranking-loss plugin -> escape-hatch linear ranker per cell-author discipline",
+    "epochs": 300,
+    "lr": 0.5,
+    "l2": 0.001,
+    "local_window": 5,
+    "test_every": 3,
+    "n_train_books": 17,
+    "n_test_books": 8,
+    "subset_def": "xsent AND backbone suppressed-pool n_pool>=2 (the 29513/29514 wall)",
+    "recency_centrality_banked": 0.45226130653266333,
+    "local_window_banked": 0.40703517587939697,
+    "backbone_banked": 0.24623115577889448,
+    "bands": {
+      "validity_gate_max": 0.1,
+      "posctrl_eps": 0.03,
+      "beat_margin": 0.02,
+      "cb_margin": 0.01,
+      "hp_sign_stability": 0.9,
+      "sanity_floor": 0.15
+    },
+    "pass_criterion": "valid AND posctrl reproduces 0.4523 AND learned_full >= recency + 0.02 (stability>=0.90) AND cb_delta >= 0.01"
+  },
+  "n_train_examples": 248,
+  "n_test_subset": 230,
+  "n_full_backbone_subset": 597,
+  "validity_single_sentence_xsent_acc": 0.0,
+  "recency_centrality_full_subset_acc": 0.45226130653266333,
+  "local_window_full_subset_acc": 0.40703517587939697,
+  "backbone_full_subset_acc": 0.24623115577889448,
+  "recency_centrality_test_subset_acc": 0.6347826086956522,
+  "local_window_test_subset_acc": 0.45652173913043476,
+  "learned_full_test_subset_acc": 0.36086956521739133,
+  "learned_nocb_test_subset_acc": 0.32608695652173914,
+  "handrule_fixed_rolerule_test_subset_acc": 0.4043478260869565,
+  "single_feature_test_subset_acc": {
+    "role": 0.4043478260869565,
+    "recency": 0.32608695652173914,
+    "cb": 0.3173913043478261,
+    "phi": 0.2565217391304348,
+    "primacy": 0.2565217391304348
+  },
+  "best_single_feature_test_subset_acc": 0.4043478260869565,
+  "learned_beats_fixed_rolerule": -0.04347826086956519,
+  "beat_delta_learned_minus_recency": -0.27391304347826084,
+  "cb_delta_full_minus_nocb": 0.034782608695652195,
+  "sign_stability_learned_vs_recency": 0.0,
+  "learning_curve": [
+    {
+      "n_books": 1,
+      "n_train_ex": 1,
+      "test_acc": 0.12173913043478261,
+      "selected": "softmax_l2_0.001"
+    },
+    {
+      "n_books": 2,
+      "n_train_ex": 26,
+      "test_acc": 0.3173913043478261,
+      "selected": "single_cb"
+    },
+    {
+      "n_books": 4,
+      "n_train_ex": 39,
+      "test_acc": 0.4043478260869565,
+      "selected": "role_primary"
+    },
+    {
+      "n_books": 8,
+      "n_train_ex": 120,
+      "test_acc": 0.3826086956521739,
+      "selected": "softmax_l2_0.001"
+    },
+    {
+      "n_books": 12,
+      "n_train_ex": 155,
+      "test_acc": 0.3695652173913043,
+      "selected": "softmax_l2_0.001"
+    },
+    {
+      "n_books": 16,
+      "n_train_ex": 241,
+      "test_acc": 0.34782608695652173,
+      "selected": "softmax_l2_0.001"
+    },
+    {
+      "n_books": 17,
+      "n_train_ex": 248,
+      "test_acc": 0.36086956521739133,
+      "selected": "softmax_l2_0.1"
+    }
+  ],
+  "learning_curve_rise": 0.2391304347826087,
+  "weights_glassbox": {
+    "feature_names": [
+      "role",
+      "recency",
+      "cb",
+      "phi",
+      "primacy"
+    ],
+    "w_full": [
+      0.026245647170803577,
+      0.6062119478140245,
+      0.23171069768964098,
+      0.0,
+      0.19715092435878553
+    ],
+    "w_nocb": [
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "feat_mean": [
+      6.579041487839771,
+      0.15061385636779973,
+      0.06545064377682404,
+      1.0,
+      0.5000000000000001
+    ],
+    "feat_std": [
+      14.543968311495217,
+      0.26883861465680575,
+      0.24731934215912446,
+      1.0,
+      0.31660470095967375
+    ],
+    "importance_full": {
+      "role": 0.024729267829681836,
+      "recency": 0.5711871961657224,
+      "cb": 0.2183232848052545,
+      "phi": 0.0,
+      "primacy": 0.18576025119934123
+    },
+    "importance_nocb": {
+      "role": 0.0,
+      "recency": 1.0,
+      "cb": 0.0,
+      "phi": 0.0,
+      "primacy": 0.0
+    },
+    "selected_full": "softmax_l2_0.1",
+    "selected_nocb": "single_recency",
+    "val_acc_full": 0.26548672566371684,
+    "val_acc_nocb": 0.24778761061946902,
+    "n_train_used": 248
+  },
+  "glass_box_traces": [
+    {
+      "pronoun": "his",
+      "cb_head": "prince",
+      "gold_cluster": 3,
+      "gold_idx": 4,
+      "pick_idx": 4,
+      "correct": true,
+      "candidates": [
+        {
+          "head": "fellow-men",
+          "x_raw": {
+            "role": 7.0,
+            "recency": 0.202,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 1.0
+          },
+          "score": 0.366,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "dominions",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.091,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.75
+          },
+          "score": -0.051,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "court",
+          "x_raw": {
+            "role": 3.0,
+            "recency": 0.183,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.5
+          },
+          "score": 0.005,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "abbeys",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.223,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.25
+          },
+          "score": -0.064,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "prince",
+          "x_raw": {
+            "role": 3.0,
+            "recency": 0.607,
+            "cb": 1.0,
+            "phi": 1.0,
+            "primacy": 0.0
+          },
+          "score": 1.586,
+          "is_gold": true,
+          "is_pick": true
+        }
+      ]
+    },
+    {
+      "pronoun": "he",
+      "cb_head": "duke",
+      "gold_cluster": 3,
+      "gold_idx": 4,
+      "pick_idx": 6,
+      "correct": false,
+      "candidates": [
+        {
+          "head": "fellow-men",
+          "x_raw": {
+            "role": 10.0,
+            "recency": 0.009,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 1.0
+          },
+          "score": -0.063,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "dominions",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.001,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.833
+          },
+          "score": -0.202,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "court",
+          "x_raw": {
+            "role": 3.0,
+            "recency": 0.001,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.667
+          },
+          "score": -0.301,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "abbeys",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.002,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.5
+          },
+          "score": -0.407,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "prince",
+          "x_raw": {
+            "role": 3.0,
+            "recency": 0.005,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.333
+          },
+          "score": -0.501,
+          "is_gold": true,
+          "is_pick": false
+        },
+        {
+          "head": "friends",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.01,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.167
+          },
+          "score": -0.596,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "duke",
+          "x_raw": {
+            "role": 4.0,
+            "recency": 0.905,
+            "cb": 1.0,
+            "phi": 1.0,
+            "primacy": 0.0
+          },
+          "score": 2.26,
+          "is_gold": false,
+          "is_pick": true
+        }
+      ]
+    },
+    {
+      "pronoun": "he",
+      "cb_head": "duke",
+      "gold_cluster": 3,
+      "gold_idx": 4,
+      "pick_idx": 6,
+      "correct": false,
+      "candidates": [
+        {
+          "head": "fellow-men",
+          "x_raw": {
+            "role": 10.0,
+            "recency": 0.008,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 1.0
+          },
+          "score": -0.065,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "dominions",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.001,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.833
+          },
+          "score": -0.202,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "court",
+          "x_raw": {
+            "role": 3.0,
+            "recency": 0.001,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.667
+          },
+          "score": -0.301,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "abbeys",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.002,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.5
+          },
+          "score": -0.408,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "prince",
+          "x_raw": {
+            "role": 3.0,
+            "recency": 0.004,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.333
+          },
+          "score": -0.502,
+          "is_gold": true,
+          "is_pick": false
+        },
+        {
+          "head": "friends",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.009,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.167
+          },
+          "score": -0.598,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "duke",
+          "x_raw": {
+            "role": 6.0,
+            "recency": 0.905,
+            "cb": 1.0,
+            "phi": 1.0,
+            "primacy": 0.0
+          },
+          "score": 2.264,
+          "is_gold": false,
+          "is_pick": true
+        }
+      ]
+    },
+    {
+      "pronoun": "she",
+      "cb_head": null,
+      "gold_cluster": 2,
+      "gold_idx": 0,
+      "pick_idx": 0,
+      "correct": true,
+      "candidates": [
+        {
+          "head": "lennox",
+          "x_raw": {
+            "role": 18.0,
+            "recency": 0.819,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 1.0
+          },
+          "score": 1.777,
+          "is_gold": true,
+          "is_pick": true
+        },
+        {
+          "head": "mother",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.273,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.8
+          },
+          "score": 0.39,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "herself",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.301,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.6
+          },
+          "score": 0.33,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "girl",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.407,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.4
+          },
+          "score": 0.444,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "mary",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.449,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.2
+          },
+          "score": 0.415,
+          "is_gold": false,
+          "is_pick": false
+        },
+        {
+          "head": "possible",
+          "x_raw": {
+            "role": 1.0,
+            "recency": 0.607,
+            "cb": 0.0,
+            "phi": 1.0,
+            "primacy": 0.0
+          },
+          "score": 0.645,
+          "is_gold": false,
+          "is_pick": false
+        }
+      ]
+    }
+  ],
+  "autopsy": {
+    "learned_vs_recency_fixed": 12,
+    "learned_vs_recency_broke": 75,
+    "learned_net_vs_recency": -63,
+    "cb_vs_nocb_fixed": 16,
+    "cb_vs_nocb_broke": 8,
+    "cb_net": 8,
+    "n_test_subset": 230,
+    "n_learned_decisions_tpool2": 207,
+    "n_gold_absent_from_pool": 9
+  },
+  "arms_differ_digests": {
+    "learned_full": "318185fb642cb141822afaa4145c4bc8a8136cf0043b167c8aea477188b1c7ba",
+    "learned_nocb": "c387b43b51500ffa0100d1f78533401c70ebf365451313c56d71a0263a5c03b8",
+    "recency_centrality": "d6e58e8749749c60e9e04fdc727fb5521a790f1f14f02674ee91a49f3f271b24"
+  },
+  "arms_differ_verified": true,
+  "learner_fit": true,
+  "validity_ok": true,
+  "posctrl_ok": true,
+  "beat": false,
+  "cb_helps": true,
+  "broken": false,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_targets": 26,
+      "n_feat_dumps": 21
+    },
+    "105_persuasion_brat.conll": {
+      "n_targets": 114,
+      "n_feat_dumps": 110
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_targets": 22,
+      "n_feat_dumps": 18
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_targets": 39,
+      "n_feat_dumps": 27
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_targets": 95,
+      "n_feat_dumps": 80
+    },
+    "113_the_secret_garden_brat.conll": {
+      "n_targets": 139,
+      "n_feat_dumps": 130
+    },
+    "1260_jane_eyre_an_autobiography_brat.conll": {
+      "n_targets": 65,
+      "n_feat_dumps": 53
+    },
+    "1342_pride_and_prejudice_brat.conll": {
+      "n_targets": 82,
+      "n_feat_dumps": 69
+    },
+    "1400_great_expectations_brat.conll": {
+      "n_targets": 63,
+      "n_feat_dumps": 51
+    },
+    "158_emma_brat.conll": {
+      "n_targets": 108,
+      "n_feat_dumps": 96
+    },
+    "174_the_picture_of_dorian_gray_brat.conll": {
+      "n_targets": 44,
+      "n_feat_dumps": 36
+    },
+    "209_the_turn_of_the_screw_brat.conll": {
+      "n_targets": 100,
+      "n_feat_dumps": 89
+    },
+    "2489_moby_dick_brat.conll": {
+      "n_targets": 21,
+      "n_feat_dumps": 18
+    },
+    "2814_dubliners_brat.conll": {
+      "n_targets": 83,
+      "n_feat_dumps": 57
+    },
+    "2852_the_hound_of_the_baskervilles_brat.conll": {
+      "n_targets": 59,
+      "n_feat_dumps": 50
+    },
+    "345_dracula_brat.conll": {
+      "n_targets": 43,
+      "n_feat_dumps": 41
+    },
+    "36_the_war_of_the_worlds_brat.conll": {
+      "n_targets": 12,
+      "n_feat_dumps": 10
+    },
+    "514_little_women_brat.conll": {
+      "n_targets": 41,
+      "n_feat_dumps": 39
+    },
+    "521_the_life_and_adventures_of_robinson_crusoe_brat.conll": {
+      "n_targets": 61,
+      "n_feat_dumps": 43
+    },
+    "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll": {
+      "n_targets": 80,
+      "n_feat_dumps": 68
+    },
+    "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll": {
+      "n_targets": 137,
+      "n_feat_dumps": 135
+    },
+    "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll": {
+      "n_targets": 108,
+      "n_feat_dumps": 80
+    },
+    "76_adventures_of_huckleberry_finn_brat.conll": {
+      "n_targets": 59,
+      "n_feat_dumps": 53
+    },
+    "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll": {
+      "n_targets": 36,
+      "n_feat_dumps": 24
+    },
+    "84_frankenstein_or_the_modern_prometheus_brat.conll": {
+      "n_targets": 53,
+      "n_feat_dumps": 43
+    }
+  },
+  "book_failures": [],
+  "train_books": [
+    "1023_bleak_house_brat.conll",
+    "105_persuasion_brat.conll",
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll",
+    "1260_jane_eyre_an_autobiography_brat.conll",
+    "1342_pride_and_prejudice_brat.conll",
+    "158_emma_brat.conll",
+    "174_the_picture_of_dorian_gray_brat.conll",
+    "2489_moby_dick_brat.conll",
+    "2814_dubliners_brat.conll",
+    "345_dracula_brat.conll",
+    "36_the_war_of_the_worlds_brat.conll",
+    "521_the_life_and_adventures_of_robinson_crusoe_brat.conll",
+    "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+    "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+    "76_adventures_of_huckleberry_finn_brat.conll",
+    "84_frankenstein_or_the_modern_prometheus_brat.conll"
+  ],
+  "test_books": [
+    "1064_the_masque_of_the_red_death_brat.conll",
+    "113_the_secret_garden_brat.conll",
+    "1400_great_expectations_brat.conll",
+    "209_the_turn_of_the_screw_brat.conll",
+    "2852_the_hound_of_the_baskervilles_brat.conll",
+    "514_little_women_brat.conll",
+    "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+    "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll"
+  ],
+  "expected_n_units": 25,
+  "cardinality_ok": true
+}

@@ -1,0 +1,753 @@
+{
+  "anchor_name": "reader_integration_endtoend_whoaffected_v2_extraction_hardened",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_EXTRACTION_FIX_HURTS",
+  "verdict_msg": "HARD_FAIL_EXTRACTION_FIX_HURTS | slice=L04+L05+L07 gold_pos=47 | END-TO-END who-affected: CRUDE=0.2923 UNLAB=0.6465 V1(baseline)=0.7338 HARDENED=0.7153 (ceil_hard=0.8085) gain_HARD_vs_V1=-0.018(min=-0.0555) | RESIDUAL PARTITION hardened ext:dec=9:7 (ext_frac=0.5625) | unlab ext:dec=3:17 (ext_frac=0.15) | hard_frac=0.8511 baseline_in_band=True arms_differ=True below_ceiling=True no_giveaway=True (max_single_cue_gold_sel hard=0.8333)",
+  "summary": "HARD_FAIL_EXTRACTION_FIX_HURTS | slice=L04+L05+L07 gold_pos=47 | END-TO-END who-affected: CRUDE=0.2923 UNLAB=0.6465 V1(baseline)=0.7338 HARDENED=0.7153 (ceil_hard=0.8085) gain_HARD_vs_V1=-0.018(min=-0.0555) | RESIDUAL PARTITION hardened ext:dec=9:7 (ext_frac=0.5625) | unlab ext:dec=3:17 (ext_frac=0.15) | hard_frac=0.8511 baseline_in_band=True arms_differ=True below_ceiling=True no_giveaway=True (max_single_cue_gold_sel hard=0.8333)",
+  "elapsed_s": 208.1,
+  "ts_iso": "2026-07-21T03:05:33.953556+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07"
+  ],
+  "n_gold_pos_pairs": 47,
+  "hard_frac": 0.8511,
+  "PRIMARY_endtoend_hardened_vote": 0.7153,
+  "baseline_endtoend_labeled_v1_vote": 0.7338,
+  "ablation": {
+    "crude_4feat": 0.2923,
+    "unlabeled_plus_vote": 0.6465,
+    "labeled_v1_plus_vote": 0.7338,
+    "labeled_hardened_plus_vote": 0.7153
+  },
+  "candidate_recall_ceiling_unlabeled": 0.9149,
+  "candidate_recall_ceiling_v1": 0.7447,
+  "candidate_recall_ceiling_hardened": 0.8085,
+  "gain_hardened_vs_v1_mean": -0.0185,
+  "gain_hardened_vs_v1_min": -0.0555,
+  "RESIDUAL_PARTITION_hardened": {
+    "n_total": 55,
+    "correct": 39,
+    "extraction_err": 9,
+    "decision_err": 7,
+    "residual": 16,
+    "extraction_frac_of_residual": 0.5625,
+    "decision_frac_of_residual": 0.4375,
+    "ext_to_dec_ratio": "9:7"
+  },
+  "RESIDUAL_PARTITION_labeled_v1": {
+    "n_total": 55,
+    "correct": 40,
+    "extraction_err": 10,
+    "decision_err": 5,
+    "residual": 15,
+    "extraction_frac_of_residual": 0.6667,
+    "decision_frac_of_residual": 0.3333,
+    "ext_to_dec_ratio": "10:5"
+  },
+  "RESIDUAL_PARTITION_unlabeled": {
+    "n_total": 55,
+    "correct": 35,
+    "extraction_err": 3,
+    "decision_err": 17,
+    "residual": 20,
+    "extraction_frac_of_residual": 0.15,
+    "decision_frac_of_residual": 0.85,
+    "ext_to_dec_ratio": "3:17"
+  },
+  "per_construction_mean_hardened": {
+    "control": {
+      "mean_endtoend_acc": 0.8889,
+      "mean_gold_in_pool": 1.0,
+      "mean_n": 3.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6445,
+      "mean_gold_in_pool": 0.8222,
+      "mean_n": 5.67
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.8968,
+      "mean_gold_in_pool": 0.8968,
+      "mean_n": 5.33
+    },
+    "relative": {
+      "mean_endtoend_acc": 0.5834,
+      "mean_gold_in_pool": 1.0,
+      "mean_n": 2.5
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.4444,
+      "mean_gold_in_pool": 0.5556,
+      "mean_n": 2.0
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0,
+      "mean_n": 2.0
+    }
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "endtoend_below_ceiling": true,
+  "leak_guard_hardened": {
+    "n_usable_pools": 12,
+    "max_single_feature_gold_selection_acc": 0.8333,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.8333,
+      "f_postv": 0.25,
+      "f_prep": 0.1667,
+      "f_func": 0.0,
+      "f_clause": 0.0833,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.1667,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.5833,
+      "f_plaus": 0.3333,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "no_giveaway_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "end-to-end decision-precision measurement",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified: <9min)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_test_pos": 16,
+      "crude_endtoend_acc": 0.25,
+      "crude_precision_ref": 1.0,
+      "unlabeled_vote_endtoend_acc": 0.8125,
+      "labeled_v1_vote_endtoend_acc": 0.8125,
+      "labeled_hardened_vote_endtoend_acc": 0.8125,
+      "gain_hardened_vs_v1": 0.0,
+      "test_ceiling_unlabeled": 1.0,
+      "test_ceiling_v1": 0.9375,
+      "test_ceiling_hardened": 0.9375,
+      "residual_partition_unlabeled": {
+        "n": 16,
+        "correct": 13,
+        "extraction_err": 0,
+        "decision_err": 3,
+        "residual": 3,
+        "extraction_frac_of_residual": 0.0,
+        "decision_frac_of_residual": 1.0,
+        "decision_examples": [
+          {
+            "sid": "L04_07",
+            "v": "cover",
+            "gold": "face",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "L05_05",
+            "v": "forget",
+            "gold": "grief",
+            "picked": "his",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 5
+          }
+        ]
+      },
+      "residual_partition_v1": {
+        "n": 16,
+        "correct": 13,
+        "extraction_err": 1,
+        "decision_err": 2,
+        "residual": 3,
+        "extraction_frac_of_residual": 0.3333,
+        "decision_frac_of_residual": 0.6667,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_hardened": {
+        "n": 16,
+        "correct": 13,
+        "extraction_err": 1,
+        "decision_err": 2,
+        "residual": 3,
+        "extraction_frac_of_residual": 0.3333,
+        "decision_frac_of_residual": 0.6667,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "per_construction_hardened": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 0.5,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        }
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 0.5,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        }
+      },
+      "abstain_hardened": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.3352,
+        "forced_committed_precision": 0.8125,
+        "abstain_committed_precision": 0.8571,
+        "abstain_rate": 0.125,
+        "n_test_nonempty": 16,
+        "n_abstained": 2,
+        "parser_margin_mean_correct": 19.1869,
+        "parser_margin_mean_wrong": 13.6164,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_hardened": [
+        -3.019,
+        2.2838,
+        1.6222,
+        1.5007,
+        0.0,
+        -0.6531,
+        0.0,
+        1.5007,
+        0.0,
+        0.0,
+        1.0822,
+        2.3176,
+        0.0
+      ]
+    },
+    {
+      "seed": 13,
+      "n_test_pos": 18,
+      "crude_endtoend_acc": 0.3889,
+      "crude_precision_ref": 0.875,
+      "unlabeled_vote_endtoend_acc": 0.5556,
+      "labeled_v1_vote_endtoend_acc": 0.7222,
+      "labeled_hardened_vote_endtoend_acc": 0.6667,
+      "gain_hardened_vs_v1": -0.0555,
+      "test_ceiling_unlabeled": 1.0,
+      "test_ceiling_v1": 0.8333,
+      "test_ceiling_hardened": 0.8333,
+      "residual_partition_unlabeled": {
+        "n": 18,
+        "correct": 10,
+        "extraction_err": 0,
+        "decision_err": 8,
+        "residual": 8,
+        "extraction_frac_of_residual": 0.0,
+        "decision_frac_of_residual": 1.0,
+        "decision_examples": [
+          {
+            "sid": "L04_17",
+            "v": "take",
+            "gold": "way",
+            "picked": "heart",
+            "constr": "simple",
+            "n_cands": 5
+          },
+          {
+            "sid": "L04_19",
+            "v": "nod",
+            "gold": "head",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 9
+          },
+          {
+            "sid": "L05_22",
+            "v": "see",
+            "gold": "child",
+            "picked": "room",
+            "constr": "simple",
+            "n_cands": 8
+          },
+          {
+            "sid": "L07_01",
+            "v": "send",
+            "gold": "him",
+            "picked": "school",
+            "constr": "pronoun",
+            "n_cands": 4
+          },
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 5
+          },
+          {
+            "sid": "L07_07",
+            "v": "take",
+            "gold": "him",
+            "picked": "his",
+            "constr": "control",
+            "n_cands": 4
+          },
+          {
+            "sid": "L07_20",
+            "v": "see",
+            "gold": "boys",
+            "picked": "them",
+            "constr": "coordination",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_25",
+            "v": "obey",
+            "gold": "parents",
+            "picked": "his",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_v1": {
+        "n": 18,
+        "correct": 13,
+        "extraction_err": 3,
+        "decision_err": 2,
+        "residual": 5,
+        "extraction_frac_of_residual": 0.6,
+        "decision_frac_of_residual": 0.4,
+        "decision_examples": [
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_07",
+            "v": "take",
+            "gold": "him",
+            "picked": "aunt",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_hardened": {
+        "n": 18,
+        "correct": 12,
+        "extraction_err": 3,
+        "decision_err": 3,
+        "residual": 6,
+        "extraction_frac_of_residual": 0.5,
+        "decision_frac_of_residual": 0.5,
+        "decision_examples": [
+          {
+            "sid": "L04_17",
+            "v": "take",
+            "gold": "way",
+            "picked": "heart",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "boys",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_07",
+            "v": "take",
+            "gold": "him",
+            "picked": "aunt",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_hardened": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 0.3333,
+          "gold_in_pool": 0.6667
+        }
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        }
+      },
+      "abstain_hardened": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.3151,
+        "forced_committed_precision": 0.7059,
+        "abstain_committed_precision": 0.8333,
+        "abstain_rate": 0.2941,
+        "n_test_nonempty": 17,
+        "n_abstained": 5,
+        "parser_margin_mean_correct": 21.5896,
+        "parser_margin_mean_wrong": 8.2061,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_hardened": [
+        -2.5809,
+        1.4052,
+        1.3204,
+        1.8457,
+        0.0,
+        1.3366,
+        0.0,
+        1.8457,
+        0.0,
+        2.3159,
+        1.3351,
+        -1.4534,
+        0.0
+      ]
+    },
+    {
+      "seed": 19,
+      "n_test_pos": 21,
+      "crude_endtoend_acc": 0.2381,
+      "crude_precision_ref": 0.625,
+      "unlabeled_vote_endtoend_acc": 0.5714,
+      "labeled_v1_vote_endtoend_acc": 0.6667,
+      "labeled_hardened_vote_endtoend_acc": 0.6667,
+      "gain_hardened_vs_v1": 0.0,
+      "test_ceiling_unlabeled": 0.8571,
+      "test_ceiling_v1": 0.7143,
+      "test_ceiling_hardened": 0.7619,
+      "residual_partition_unlabeled": {
+        "n": 21,
+        "correct": 12,
+        "extraction_err": 3,
+        "decision_err": 6,
+        "residual": 9,
+        "extraction_frac_of_residual": 0.3333,
+        "decision_frac_of_residual": 0.6667,
+        "decision_examples": [
+          {
+            "sid": "L04_19",
+            "v": "show",
+            "gold": "way",
+            "picked": "you",
+            "constr": "coordination",
+            "n_cands": 5
+          },
+          {
+            "sid": "L05_06",
+            "v": "knock",
+            "gold": "castle",
+            "picked": "your",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "L05_16",
+            "v": "knock",
+            "gold": "castles",
+            "picked": "my",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_09",
+            "v": "meet",
+            "gold": "boys",
+            "picked": "plenty",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 5
+          },
+          {
+            "sid": "L07_25",
+            "v": "obey",
+            "gold": "parents",
+            "picked": "his",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_v1": {
+        "n": 21,
+        "correct": 14,
+        "extraction_err": 6,
+        "decision_err": 1,
+        "residual": 7,
+        "extraction_frac_of_residual": 0.8571,
+        "decision_frac_of_residual": 0.1429,
+        "decision_examples": [
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "residual_partition_hardened": {
+        "n": 21,
+        "correct": 14,
+        "extraction_err": 5,
+        "decision_err": 2,
+        "residual": 7,
+        "extraction_frac_of_residual": 0.7143,
+        "decision_frac_of_residual": 0.2857,
+        "decision_examples": [
+          {
+            "sid": "L04_19",
+            "v": "show",
+            "gold": "way",
+            "picked": "you",
+            "constr": "coordination",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_10",
+            "v": "give",
+            "gold": "money",
+            "picked": "him",
+            "constr": "relative",
+            "n_cands": 3
+          }
+        ]
+      },
+      "per_construction_hardened": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 5,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.8
+        },
+        "pronoun": {
+          "n": 7,
+          "endtoend_acc": 0.8571,
+          "gold_in_pool": 0.8571
+        },
+        "relative": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "verb_not_found": {
+          "n": 2,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 5,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 7,
+          "endtoend_acc": 0.8571,
+          "gold_in_pool": 0.8571
+        },
+        "relative": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "verb_not_found": {
+          "n": 2,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "abstain_hardened": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.2592,
+        "forced_committed_precision": 0.8235,
+        "abstain_committed_precision": 0.8,
+        "abstain_rate": 0.1176,
+        "n_test_nonempty": 17,
+        "n_abstained": 2,
+        "parser_margin_mean_correct": 24.984,
+        "parser_margin_mean_wrong": 20.3286,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_hardened": [
+        -3.4598,
+        2.8825,
+        2.2781,
+        -0.2621,
+        0.0,
+        -2.1247,
+        0.0,
+        -0.2621,
+        0.0,
+        1.8212,
+        -0.3143,
+        5.1028,
+        0.0
+      ]
+    }
+  ]
+}

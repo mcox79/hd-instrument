@@ -1,0 +1,180 @@
+{
+  "anchor_name": "morph_ruleset_wug_v2_cpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate inflects word-forms via inspectable algebraic rules -- all 8 core English inflectional rules generalize to NOVEL stems (>=0.90), allomorphy handled by conditioned transforms (naive single-transform collapses), and a ~24-entry irregular exception list overrides the regular rule (dual-route). STRUCTURED morphology LAYER, not fluent language. rules(cond>=0.90)=8/8 min_rule=1.000 dual_route=1.000 regular_only=0.000 disc_fire[naive=True,scram=True,irreg=True]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "N": 8192,
+  "NSTEM": 60,
+  "TR": 6,
+  "NIRREG": 24,
+  "arms_differ_verified": true,
+  "detail": {
+    "agg_rule": {
+      "plural_s": {
+        "kind": "allomorphic",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 0.317,
+        "scrambled_mean": 0.3333
+      },
+      "pres3sg_s": {
+        "kind": "allomorphic",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 0.3464,
+        "scrambled_mean": 0.3595
+      },
+      "past_ed": {
+        "kind": "allomorphic",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 0.3203,
+        "scrambled_mean": 0.3301
+      },
+      "prog_ing": {
+        "kind": "simple",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 1.0,
+        "scrambled_mean": 0.0877
+      },
+      "pastpart_en": {
+        "kind": "simple",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 1.0,
+        "scrambled_mean": 0.2076
+      },
+      "comp_er": {
+        "kind": "simple",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 1.0,
+        "scrambled_mean": 0.0058
+      },
+      "super_est": {
+        "kind": "simple",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 1.0,
+        "scrambled_mean": 0.0877
+      },
+      "poss_s": {
+        "kind": "simple",
+        "conditioned_mean": 1.0,
+        "conditioned_cv": 0.0,
+        "naive_mean": 1.0,
+        "scrambled_mean": 0.1257
+      }
+    },
+    "irregular": {
+      "dual_route": 1.0,
+      "regular_only": 0.0,
+      "dual_route_on_regulars": 1.0
+    },
+    "n_rules_conditioned_ge_0.90": 8,
+    "min_conditioned_rule_acc": 1.0,
+    "naive_discriminator_fires": true,
+    "scrambled_discriminator_fires": true,
+    "irregular_discriminator_fires": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "run_mode": "smoke",
+      "NIRREG": 24,
+      "TR": 6,
+      "per_rule": {
+        "plural_s": {
+          "kind": "allomorphic",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 0.317,
+          "scrambled": 0.3333,
+          "stem_recovery": 1.0
+        },
+        "pres3sg_s": {
+          "kind": "allomorphic",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 0.3464,
+          "scrambled": 0.3595,
+          "stem_recovery": 1.0
+        },
+        "past_ed": {
+          "kind": "allomorphic",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 0.3203,
+          "scrambled": 0.3301,
+          "stem_recovery": 1.0
+        },
+        "prog_ing": {
+          "kind": "simple",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 1.0,
+          "scrambled": 0.0877,
+          "stem_recovery": 1.0
+        },
+        "pastpart_en": {
+          "kind": "simple",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 1.0,
+          "scrambled": 0.2076,
+          "stem_recovery": 1.0
+        },
+        "comp_er": {
+          "kind": "simple",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 1.0,
+          "scrambled": 0.0058,
+          "stem_recovery": 1.0
+        },
+        "super_est": {
+          "kind": "simple",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 1.0,
+          "scrambled": 0.0877,
+          "stem_recovery": 1.0
+        },
+        "poss_s": {
+          "kind": "simple",
+          "conditioned": 1.0,
+          "conditioned_cv": 0.0,
+          "naive_single": 1.0,
+          "scrambled": 0.1257,
+          "stem_recovery": 1.0
+        }
+      },
+      "irregular": {
+        "dual_route": 1.0,
+        "regular_only": 0.0,
+        "dual_route_on_regulars": 1.0,
+        "gate_sep": 0.9644,
+        "reg_gate_max": 0.0356
+      }
+    }
+  ],
+  "demo": [
+    "  walk  --[past_ed  ]--> walked    substrate selected voiceless allomorph /t/ (gold /t/) MATCH",
+    "  dog   --[plural_s ]--> dogs      substrate selected voiced allomorph /z/ (gold /z/) MATCH",
+    "  bus   --[plural_s ]--> buses     substrate selected sibilant allomorph /iz/ (gold /iz/) MATCH",
+    "  cat   --[plural_s ]--> cats      substrate selected voiceless allomorph /s/ (gold /s/) MATCH",
+    "  play  --[prog_ing ]--> playing   (rule applied to novel stem, stem recovered=yes)",
+    "  big   --[comp_er  ]--> bigger    (rule applied to novel stem, stem recovered=yes)",
+    "  go    --[past_ed  ]--> went      [EXCEPTION retrieved cos=1.00 > 0.50 gate; regular route would give go+/d/]",
+    "  foot  --[plural_s ]--> feet      [EXCEPTION retrieved cos=1.00 > 0.50 gate; regular route would give foot+/s/]"
+  ],
+  "smoke_block": null,
+  "elapsed_s": 36.28345020004781,
+  "summary": "HARD_PASS: substrate inflects word-forms via inspectable algebraic rules -- all 8 core English inflectional rules generalize to NOVEL stems (>=0.90), allomorphy handled by conditioned transforms (naive single-transform collapses), and a ~24-entry irregular exception list overrides the regular rule (dual-route). STRUCTURED morphology LAYER, not fluent language. rules(cond>=0.90)=8/8 min_rule=1.000 dual_route=1.000 regular_only=0.000 disc_fire[naive=True,scram=True,irreg=True]"
+}

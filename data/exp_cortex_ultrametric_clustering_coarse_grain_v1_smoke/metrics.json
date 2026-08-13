@@ -1,0 +1,81 @@
+{
+  "anchor_name": "cortex_ultrametric_clustering_coarse_grain_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: clustering detects structure (cap_drop>=0.05, rec_cl>=0.50) but full PASS band not cleared. hp_checks=[cap=False,rec_cl=True,rec_un=True,cv=True]. ULTRA(rec_cl=1.000,rec_un=1.000,rec_all=1.000,cap_drop=0.192,n_cl=4.0,cv=0.000); RANDOM(rec_all=0.922,cap_drop=0.192); NO_COLLAPSE(rec_cl=1.000,rec_un=1.000); d_ULTRA_vs_RND=+0.078",
+  "summary": "n_seeds=1 N=512 N_FAMILIES=4 ATOMS_PER_FAM=6 N_RANDOM=80 N_TOTAL=104 alpha=0.203 mode=smoke cos_thresh=0.85 min_cl_size=5 family_noise=0.012",
+  "elapsed_s": 0.12088179588317871,
+  "config_version": "ANCHOR=cortex_ultrametric_clustering_coarse_grain_v1,N=512,N_FAMILIES=4,ATOMS_PER_FAMILY=6,N_RANDOM=80,FAMILY_NOISE=0.012,COSINE_THRESH=0.85,MIN_CLUSTER_SIZE=5,CLUSTER_DISTANCE=0.15,SEEDS=7,N_QUERIES=40,RUN_MODE=smoke",
+  "N": 512,
+  "N_FAMILIES": 4,
+  "ATOMS_PER_FAMILY": 6,
+  "N_RANDOM_ATOMS": 80,
+  "N_TOTAL_ATOMS": 104,
+  "alpha": 0.203125,
+  "n_seeds": 1,
+  "n_queries": 40,
+  "cosine_thresh": 0.85,
+  "min_cluster_size": 5,
+  "cluster_distance": 0.15,
+  "family_noise": 0.012,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.07376813888549805,
+      "arms": [
+        {
+          "arm_name": "ARM_NO_COLLAPSE",
+          "recall_clustered": 1.0,
+          "recall_unclustered": 1.0,
+          "recall_all": 1.0,
+          "n_qualifying_clusters": 4,
+          "n_clustered_atoms": 24,
+          "n_unclustered_atoms": 80,
+          "effective_capacity": 104,
+          "capacity_drop": 0,
+          "capacity_drop_frac": 0.0,
+          "min_within_cluster_cosine": 0.9192157406165449,
+          "max_between_cluster_cosine": 0.0662237001878849,
+          "W_norm_pre": 10.198039027185569,
+          "W_norm_post": 10.198039027185569,
+          "wall_s": 0.007039070129394531
+        },
+        {
+          "arm_name": "ARM_ULTRAMETRIC_COLLAPSE",
+          "recall_clustered": 1.0,
+          "recall_unclustered": 1.0,
+          "recall_all": 1.0,
+          "n_qualifying_clusters": 4,
+          "n_clustered_atoms": 24,
+          "n_unclustered_atoms": 80,
+          "effective_capacity": 84,
+          "capacity_drop": 20,
+          "capacity_drop_frac": 0.19230769230769232,
+          "min_within_cluster_cosine": 0.9192157406165449,
+          "max_between_cluster_cosine": 0.0662237001878849,
+          "W_norm_pre": 10.198039027185569,
+          "W_norm_post": 10.132102930231655,
+          "wall_s": 0.043203115463256836
+        },
+        {
+          "arm_name": "ARM_RANDOM_CLUSTER_COLLAPSE",
+          "recall_clustered": 0.7916666666666666,
+          "recall_unclustered": 1.0,
+          "recall_all": 0.921875,
+          "n_qualifying_clusters": 4,
+          "n_clustered_atoms": 24,
+          "n_unclustered_atoms": 80,
+          "effective_capacity": 84,
+          "capacity_drop": 20,
+          "capacity_drop_frac": 0.19230769230769232,
+          "min_within_cluster_cosine": 0.9192157406165449,
+          "max_between_cluster_cosine": 0.0662237001878849,
+          "W_norm_pre": 10.198039027185569,
+          "W_norm_post": 9.171155118268164,
+          "wall_s": 0.021425247192382812
+        }
+      ]
+    }
+  ]
+}

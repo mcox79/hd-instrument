@@ -1,0 +1,598 @@
+{
+  "anchor_name": "multihop_router_crt_residue_addressed_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_MACHINERY_OK: oracle reproduces (0.980>=0.85), naive in band (0.503), random near chance (0.054), scram collapses (0.005); all at N=8192 V=200 K=5. CRT router measured route=0.415 e2e=0.147 (deliverable band FULL-only, canonical=remote). ORACLE route=1.000 e2e=0.980(reproduce) | CRT route=0.415(cv_e2e=0.129) e2e=0.147 | NAIVE route=0.503 e2e=0.237 | STATIC route=0.048 | RANDOM route=0.054 | SCRAM e2e=0.005 | crt_minus_naive_route=-0.088",
+  "summary": "HARD_PASS: thalamic CRT-residue dynamic router vs oracle/naive/static (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 17.87,
+  "n_seeds": 3,
+  "n_units": 18,
+  "expected_n_units": 18,
+  "cardinality_ok": true,
+  "config": {
+    "N": 8192,
+    "V_CONCEPTS": 200,
+    "N_PARTITIONS": 20,
+    "PART_SIZE": 10,
+    "K_HOPS": 5,
+    "N_RELATIONS": 8,
+    "MODULI": [
+      4,
+      5
+    ],
+    "ADDR_DIMS": [
+      384,
+      384
+    ],
+    "A_TOTAL": 768,
+    "n_chains": 200,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "partition_scheme": "residue_class_id_mod_Npartitions",
+    "mechanism": "crt_residue_addressed_router_over_certified_partition_chain",
+    "binding": "hebbian_outer_product_EoR_p"
+  },
+  "arms": {
+    "oracle": {
+      "route_acc_mean": 1.0,
+      "route_acc_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "step_acc_mean": 0.9847,
+      "step_acc_per_seed": [
+        0.983,
+        0.985,
+        0.986
+      ],
+      "e2e_mean": 0.98,
+      "e2e_per_seed": [
+        0.98,
+        0.995,
+        0.965
+      ],
+      "e2e_cv": 0.0125
+    },
+    "crt_residue": {
+      "route_acc_mean": 0.4147,
+      "route_acc_per_seed": [
+        0.384,
+        0.44,
+        0.42
+      ],
+      "step_acc_mean": 0.388,
+      "step_acc_per_seed": [
+        0.357,
+        0.41,
+        0.397
+      ],
+      "e2e_mean": 0.1467,
+      "e2e_per_seed": [
+        0.12,
+        0.16,
+        0.16
+      ],
+      "e2e_cv": 0.1286
+    },
+    "naive_centroid": {
+      "route_acc_mean": 0.503,
+      "route_acc_per_seed": [
+        0.47,
+        0.525,
+        0.514
+      ],
+      "step_acc_mean": 0.48,
+      "step_acc_per_seed": [
+        0.443,
+        0.504,
+        0.493
+      ],
+      "e2e_mean": 0.2367,
+      "e2e_per_seed": [
+        0.225,
+        0.225,
+        0.26
+      ],
+      "e2e_cv": 0.0697
+    },
+    "static_bridge": {
+      "route_acc_mean": 0.0477,
+      "route_acc_per_seed": [
+        0.052,
+        0.045,
+        0.046
+      ],
+      "step_acc_mean": 0.0197,
+      "step_acc_per_seed": [
+        0.023,
+        0.02,
+        0.016
+      ],
+      "e2e_mean": 0.01,
+      "e2e_per_seed": [
+        0.015,
+        0.015,
+        0.0
+      ],
+      "e2e_cv": 0.7071
+    },
+    "random_router": {
+      "route_acc_mean": 0.0543,
+      "route_acc_per_seed": [
+        0.066,
+        0.055,
+        0.042
+      ],
+      "step_acc_mean": 0.0213,
+      "step_acc_per_seed": [
+        0.022,
+        0.027,
+        0.015
+      ],
+      "e2e_mean": 0.0133,
+      "e2e_per_seed": [
+        0.01,
+        0.025,
+        0.005
+      ],
+      "e2e_cv": 0.6374
+    },
+    "scrambled_crt": {
+      "route_acc_mean": 0.07,
+      "route_acc_per_seed": [
+        0.071,
+        0.068,
+        0.071
+      ],
+      "step_acc_mean": 0.039,
+      "step_acc_per_seed": [
+        0.04,
+        0.037,
+        0.04
+      ],
+      "e2e_mean": 0.005,
+      "e2e_per_seed": [
+        0.005,
+        0.005,
+        0.005
+      ],
+      "e2e_cv": 0.0
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm": "oracle",
+      "route_acc_per_hop": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "route_acc_mean": 1.0,
+      "step_acc_per_hop": [
+        0.995,
+        0.99,
+        0.97,
+        0.98,
+        0.98
+      ],
+      "step_acc_mean": 0.983,
+      "e2e": 0.98,
+      "n_chains": 200
+    },
+    {
+      "seed": 7,
+      "arm": "crt_residue",
+      "route_acc_per_hop": [
+        0.715,
+        0.475,
+        0.345,
+        0.22,
+        0.165
+      ],
+      "route_acc_mean": 0.384,
+      "step_acc_per_hop": [
+        0.71,
+        0.465,
+        0.305,
+        0.185,
+        0.12
+      ],
+      "step_acc_mean": 0.357,
+      "e2e": 0.12,
+      "n_chains": 200
+    },
+    {
+      "seed": 7,
+      "arm": "naive_centroid",
+      "route_acc_per_hop": [
+        0.785,
+        0.555,
+        0.41,
+        0.335,
+        0.265
+      ],
+      "route_acc_mean": 0.47,
+      "step_acc_per_hop": [
+        0.78,
+        0.535,
+        0.38,
+        0.295,
+        0.225
+      ],
+      "step_acc_mean": 0.443,
+      "e2e": 0.225,
+      "n_chains": 200
+    },
+    {
+      "seed": 7,
+      "arm": "static_bridge",
+      "route_acc_per_hop": [
+        0.06,
+        0.045,
+        0.025,
+        0.055,
+        0.075
+      ],
+      "route_acc_mean": 0.052,
+      "step_acc_per_hop": [
+        0.06,
+        0.02,
+        0.01,
+        0.01,
+        0.015
+      ],
+      "step_acc_mean": 0.023,
+      "e2e": 0.015,
+      "n_chains": 200
+    },
+    {
+      "seed": 7,
+      "arm": "random_router",
+      "route_acc_per_hop": [
+        0.055,
+        0.09,
+        0.08,
+        0.05,
+        0.055
+      ],
+      "route_acc_mean": 0.066,
+      "step_acc_per_hop": [
+        0.055,
+        0.02,
+        0.025,
+        0.0,
+        0.01
+      ],
+      "step_acc_mean": 0.022,
+      "e2e": 0.01,
+      "n_chains": 200
+    },
+    {
+      "seed": 7,
+      "arm": "scrambled_crt",
+      "route_acc_per_hop": [
+        0.155,
+        0.045,
+        0.065,
+        0.04,
+        0.05
+      ],
+      "route_acc_mean": 0.071,
+      "step_acc_per_hop": [
+        0.155,
+        0.02,
+        0.01,
+        0.01,
+        0.005
+      ],
+      "step_acc_mean": 0.04,
+      "e2e": 0.005,
+      "n_chains": 200
+    },
+    {
+      "seed": 13,
+      "arm": "oracle",
+      "route_acc_per_hop": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "route_acc_mean": 1.0,
+      "step_acc_per_hop": [
+        0.975,
+        0.985,
+        0.98,
+        0.99,
+        0.995
+      ],
+      "step_acc_mean": 0.985,
+      "e2e": 0.995,
+      "n_chains": 200
+    },
+    {
+      "seed": 13,
+      "arm": "crt_residue",
+      "route_acc_per_hop": [
+        0.8,
+        0.53,
+        0.385,
+        0.27,
+        0.215
+      ],
+      "route_acc_mean": 0.44,
+      "step_acc_per_hop": [
+        0.775,
+        0.515,
+        0.365,
+        0.235,
+        0.16
+      ],
+      "step_acc_mean": 0.41,
+      "e2e": 0.16,
+      "n_chains": 200
+    },
+    {
+      "seed": 13,
+      "arm": "naive_centroid",
+      "route_acc_per_hop": [
+        0.84,
+        0.65,
+        0.495,
+        0.375,
+        0.265
+      ],
+      "route_acc_mean": 0.525,
+      "step_acc_per_hop": [
+        0.815,
+        0.645,
+        0.48,
+        0.355,
+        0.225
+      ],
+      "step_acc_mean": 0.504,
+      "e2e": 0.225,
+      "n_chains": 200
+    },
+    {
+      "seed": 13,
+      "arm": "static_bridge",
+      "route_acc_per_hop": [
+        0.05,
+        0.035,
+        0.05,
+        0.035,
+        0.055
+      ],
+      "route_acc_mean": 0.045,
+      "step_acc_per_hop": [
+        0.05,
+        0.01,
+        0.015,
+        0.01,
+        0.015
+      ],
+      "step_acc_mean": 0.02,
+      "e2e": 0.015,
+      "n_chains": 200
+    },
+    {
+      "seed": 13,
+      "arm": "random_router",
+      "route_acc_per_hop": [
+        0.03,
+        0.045,
+        0.065,
+        0.065,
+        0.07
+      ],
+      "route_acc_mean": 0.055,
+      "step_acc_per_hop": [
+        0.03,
+        0.02,
+        0.025,
+        0.035,
+        0.025
+      ],
+      "step_acc_mean": 0.027,
+      "e2e": 0.025,
+      "n_chains": 200
+    },
+    {
+      "seed": 13,
+      "arm": "scrambled_crt",
+      "route_acc_per_hop": [
+        0.16,
+        0.07,
+        0.05,
+        0.03,
+        0.03
+      ],
+      "route_acc_mean": 0.068,
+      "step_acc_per_hop": [
+        0.155,
+        0.02,
+        0.005,
+        0.0,
+        0.005
+      ],
+      "step_acc_mean": 0.037,
+      "e2e": 0.005,
+      "n_chains": 200
+    },
+    {
+      "seed": 19,
+      "arm": "oracle",
+      "route_acc_per_hop": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "route_acc_mean": 1.0,
+      "step_acc_per_hop": [
+        0.995,
+        0.99,
+        0.985,
+        0.995,
+        0.965
+      ],
+      "step_acc_mean": 0.986,
+      "e2e": 0.965,
+      "n_chains": 200
+    },
+    {
+      "seed": 19,
+      "arm": "crt_residue",
+      "route_acc_per_hop": [
+        0.745,
+        0.5,
+        0.36,
+        0.295,
+        0.2
+      ],
+      "route_acc_mean": 0.42,
+      "step_acc_per_hop": [
+        0.74,
+        0.48,
+        0.34,
+        0.265,
+        0.16
+      ],
+      "step_acc_mean": 0.397,
+      "e2e": 0.16,
+      "n_chains": 200
+    },
+    {
+      "seed": 19,
+      "arm": "naive_centroid",
+      "route_acc_per_hop": [
+        0.8,
+        0.625,
+        0.48,
+        0.36,
+        0.305
+      ],
+      "route_acc_mean": 0.514,
+      "step_acc_per_hop": [
+        0.795,
+        0.61,
+        0.445,
+        0.355,
+        0.26
+      ],
+      "step_acc_mean": 0.493,
+      "e2e": 0.26,
+      "n_chains": 200
+    },
+    {
+      "seed": 19,
+      "arm": "static_bridge",
+      "route_acc_per_hop": [
+        0.03,
+        0.05,
+        0.085,
+        0.04,
+        0.025
+      ],
+      "route_acc_mean": 0.046,
+      "step_acc_per_hop": [
+        0.03,
+        0.015,
+        0.02,
+        0.015,
+        0.0
+      ],
+      "step_acc_mean": 0.016,
+      "e2e": 0.0,
+      "n_chains": 200
+    },
+    {
+      "seed": 19,
+      "arm": "random_router",
+      "route_acc_per_hop": [
+        0.04,
+        0.035,
+        0.05,
+        0.045,
+        0.04
+      ],
+      "route_acc_mean": 0.042,
+      "step_acc_per_hop": [
+        0.04,
+        0.015,
+        0.01,
+        0.005,
+        0.005
+      ],
+      "step_acc_mean": 0.015,
+      "e2e": 0.005,
+      "n_chains": 200
+    },
+    {
+      "seed": 19,
+      "arm": "scrambled_crt",
+      "route_acc_per_hop": [
+        0.165,
+        0.03,
+        0.065,
+        0.06,
+        0.035
+      ],
+      "route_acc_mean": 0.071,
+      "step_acc_per_hop": [
+        0.16,
+        0.015,
+        0.005,
+        0.015,
+        0.005
+      ],
+      "step_acc_mean": 0.04,
+      "e2e": 0.005,
+      "n_chains": 200
+    }
+  ],
+  "arm_route_digests": {
+    "oracle": "a6e444ba64604ad4",
+    "crt_residue": "f7e3728b1a84972c",
+    "naive_centroid": "d3c24bd15062408b",
+    "static_bridge": "ff7a7e1961eaa401",
+    "random_router": "f7058c1ab159fc85",
+    "scrambled_crt": "4fd1251f0f7525c6"
+  },
+  "arms_differ_verified": true,
+  "crlb": {
+    "within_partition_floor": 0.1,
+    "routing_floor": 0.05,
+    "formula": "within=1/PART_SIZE=0.10; routing=1/N_PARTITIONS=0.05"
+  },
+  "bands": {
+    "HP_crt_route": 0.9,
+    "HP_crt_e2e": 0.7,
+    "HP_cv": 0.05,
+    "crt_beats_naive_margin": 0.05,
+    "oracle_repro_floor": 0.85,
+    "random_route_ceil": 0.15,
+    "scram_e2e_ceil": 0.1,
+    "naive_band": [
+      0.05,
+      0.95
+    ],
+    "HF_crt_e2e": 0.2
+  },
+  "controls": {
+    "scram_collapsed": true
+  },
+  "ts_iso": "2026-07-05T22:41:57.133749+00:00",
+  "pid": 9588,
+  "host": "FrameworkMPC"
+}

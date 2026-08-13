@@ -1,0 +1,14 @@
+{
+  "anchor_name": "pfc_goal_conditioned_gate_v1",
+  "verdict": "RUNNING",
+  "verdict_msg": "RUNNING: seed=17 (2/2)",
+  "summary": "RUNNING: seed=17 (2/2)",
+  "elapsed_s": 300.6,
+  "ts_iso": "2026-06-27T22:26:58Z",
+  "pid": 3488,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_goal_conditioned_gate_v1,N=8192,N_OPS=4,V=1200,seeds=[7, 17],depths=[3, 6],n_train=200,n_test=50,mode=smoke,HP_lift>=0.20,HP_cv<=0.10,expected_n=20,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_pfc_goal_conditioned_gate",
+  "_phase": "seed_running",
+  "_current_seed": 17
+}

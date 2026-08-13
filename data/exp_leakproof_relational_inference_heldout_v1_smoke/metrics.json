@@ -1,0 +1,191 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | THE-NUMBER learned - raw_grounding = 0.5750 - 0.4938 = +0.0812 (min=+0.0812, need>=0.03) | LEARNED=0.5750 (min=0.5750) RAW_GROUNDING=0.4938 RANDOM_INIT=0.4850 STRUCT_2HOP=0.5300 POPULARITY=0.5078 COLLAPSE=0.4755 | VALIDITY power_ok=True(n_q=172) can_fail=True(collapse~0.5) pop_ok=True(pop~0.5) | leak-proof witness: context-INT-predict overlap=0/12137 predict-targets (MUST be 0) | corpus: K=800 train=628 heldout=172 eval_queries=172 mean_ctx=70.63 pairs=75622 rels=17",
+  "summary": "HARD_PASS | THE-NUMBER learned - raw_grounding = 0.5750 - 0.4938 = +0.0812 (min=+0.0812, need>=0.03) | LEARNED=0.5750 (min=0.5750) RAW_GROUNDING=0.4938 RANDOM_INIT=0.4850 STRUCT_2HOP=0.5300 POPULARITY",
+  "run_mode": "smoke",
+  "elapsed_s": 7.789760999963619,
+  "anchor_name": "leakproof_relational_inference_heldout_v1",
+  "ts_iso": "2026-07-26T20:08:28.731742+00:00",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "seeds": [
+      7
+    ],
+    "heldout_frac": 0.2,
+    "top_rel": 16,
+    "predict_frac": 0.5,
+    "epochs": 80,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 192,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "w_geo": 1.0,
+    "w_rel": 0.5,
+    "w_ema": 0.5,
+    "ema_momentum": 0.99,
+    "infonce_tau": 0.2,
+    "feat_dropout": 0.1,
+    "n_deg_bins": 5
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 800,
+    "n_kept_pairs": 75622,
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/PartOf",
+      "/r/UsedFor",
+      "/r/HasProperty",
+      "/r/HasA",
+      "/r/Desires",
+      "/r/MadeOf",
+      "/r/NotHasProperty",
+      "/r/NotDesires",
+      "/r/ReceivesAction",
+      "/r/Entails",
+      "/r/CausesDesire"
+    ],
+    "n_rel_slots": 17
+  },
+  "split_meta": {
+    "n_train": 628,
+    "n_heldout": 172,
+    "n_eval_queries": 172,
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 12137,
+    "mean_held_context_size": 70.62790697674419,
+    "n_rel_slots": 17,
+    "predict_frac": 0.5
+  },
+  "gates": {
+    "learned_rel_infer_auc": 0.5750371447028424,
+    "learned_rel_infer_auc_min": 0.5750371447028424,
+    "raw_grounding_rel_infer_auc": 0.4938320054550675,
+    "random_init_rel_infer_auc": 0.4850147143267299,
+    "struct_2hop_rel_infer_auc": 0.5300024224806201,
+    "popularity_rel_infer_auc": 0.5077505024404249,
+    "collapse_shuffle_rel_infer_auc": 0.47554209732988806,
+    "margin_over_raw_grounding": 0.0812051392477749,
+    "margin_over_raw_grounding_min": 0.0812051392477749,
+    "margin_over_random_init": 0.09002243037611252,
+    "margin_over_struct_2hop": 0.04503472222222227,
+    "real_margin": true,
+    "is_tie": false,
+    "power_ok": true,
+    "n_query": 172,
+    "can_fail_fired": true,
+    "pop_ok": true,
+    "validity_ok": true,
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 12137,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "pop_band": [
+      0.44,
+      0.56
+    ],
+    "hp_margin_over_raw": 0.03,
+    "tie_eps": 0.03,
+    "hp_learned_floor": 0.53,
+    "min_query_tasks": 100
+  },
+  "arms_aggregate": {
+    "ARM_RAW_GROUNDING": {
+      "rel_infer_auc_mean": 0.4938320054550675,
+      "rel_infer_auc_min": 0.4938320054550675,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_LEARNED": {
+      "rel_infer_auc_mean": 0.5750371447028424,
+      "rel_infer_auc_min": 0.5750371447028424,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_RANDOM_INIT": {
+      "rel_infer_auc_mean": 0.4850147143267299,
+      "rel_infer_auc_min": 0.4850147143267299,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_STRUCT_2HOP": {
+      "rel_infer_auc_mean": 0.5300024224806201,
+      "rel_infer_auc_min": 0.5300024224806201,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_POPULARITY": {
+      "rel_infer_auc_mean": 0.5077505024404249,
+      "rel_infer_auc_min": 0.5077505024404249,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_COLLAPSE_SHUFFLE": {
+      "rel_infer_auc_mean": 0.47554209732988806,
+      "rel_infer_auc_min": 0.47554209732988806,
+      "n_query": 172,
+      "n_seeds": 1
+    }
+  },
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.328
+  },
+  "leakproof_split_selftest": {
+    "overlap": 0,
+    "viols": 0,
+    "n_eval_queries": 52
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "ARM_RAW_GROUNDING": {
+        "rel_infer_auc": 0.4938320054550675,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_LEARNED": {
+        "rel_infer_auc": 0.5750371447028424,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_RANDOM_INIT": {
+        "rel_infer_auc": 0.4850147143267299,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_STRUCT_2HOP": {
+        "rel_infer_auc": 0.5300024224806201,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_POPULARITY": {
+        "rel_infer_auc": 0.5077505024404249,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_COLLAPSE_SHUFFLE": {
+        "rel_infer_auc": 0.47554209732988806,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      }
+    }
+  ]
+}

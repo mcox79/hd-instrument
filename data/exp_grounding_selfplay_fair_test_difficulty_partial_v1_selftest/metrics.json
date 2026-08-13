@@ -1,0 +1,36 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS machinery telemetry-sensitive (case1 collapses, case2 stays) + pipeline exercised (subgraph + eval set + determinacy)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.6889593999949284,
+  "machinery_selftest": {
+    "case1_within": 0.2906,
+    "case1_floor": 0.2965,
+    "case1_residual": -0.0059,
+    "case1_within_bin": -0.0669,
+    "case1_collapses": true,
+    "case2_within": 0.5803,
+    "case2_floor": -0.0023,
+    "case2_residual": 0.5826,
+    "case2_within_bin": 0.5371,
+    "case2_stays": true,
+    "separation": true,
+    "E": 8
+  },
+  "determinacy": {
+    "0.30": 0.9541984732824428,
+    "0.50": 0.9923664122137404,
+    "0.70": 1.0
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 131,
+    "n_edges": 252,
+    "median_degree": 2.0,
+    "mean_degree": 3.8473282442748094,
+    "frac_deg_ge_2": 1.0
+  },
+  "config_version": "ANCHOR=grounding_selfplay_fair_test_difficulty_partial_v1,xarm=A0_shared,marm=A4_mirror,anchor=[0.28,0.50],collapse<=0.15,real>=0.25,mirStay>=0.40,mirRaw>=0.20,failband=[0.05,0.95],diffVar>=0.001,stC1<=0.15,stC2>=0.25,detTau=0.50"
+}

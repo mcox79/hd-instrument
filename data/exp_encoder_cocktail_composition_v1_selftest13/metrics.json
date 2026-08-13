@@ -1,0 +1,21 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: baseline=1.000 mix_fhrr_plus_sparse=0.500 preflight=preflight_distinct(dim=256): {'fhrr': '9c6cda999d85da0d', 'sparse_bipolar': '5243245e9f40614e', 'binary_bipolar': '7e94cc0fe21deb44'}",
+  "elapsed_s": 0.0,
+  "summary": {
+    "mode": "selftest"
+  },
+  "per_arm_recall": {},
+  "arms_expected": [
+    "ARM_FHRR_ONLY",
+    "ARM_FHRR_PLUS_SPARSE",
+    "ARM_FHRR_PLUS_BINARY",
+    "ARM_SPARSE_PLUS_BINARY",
+    "ARM_ALL_THREE_MIXED",
+    "ARM_FHRR_QUERY_SPARSE_KEYS"
+  ],
+  "arms_observed": [],
+  "cardinality_observed": 0,
+  "cardinality_expected": 6,
+  "mechanism_hashes": {}
+}

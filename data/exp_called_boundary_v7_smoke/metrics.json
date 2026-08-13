@@ -1,0 +1,835 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_HANDSCORE",
+  "verdict_msg": "CALLED 118 -> 111 facts; ANY_WRONG_LEFT_BOUNDARY 48 -> 10; L4 62 -> 28; 52 refusals; other 4 patterns byte-identical=True",
+  "summary": "CALLED antecedent left-boundary (A) and head-selection (B) fix, measured separately",
+  "elapsed_s": 21.09,
+  "run_mode": "smoke",
+  "headline": {
+    "BASELINE": {
+      "n_called_facts": 118,
+      "n_refusals": 45,
+      "L1": 7,
+      "L2": 44,
+      "L3": 1,
+      "L4": 62,
+      "ANY_WRONG_LEFT_BOUNDARY": 48
+    },
+    "A_OFF_B_OFF": {
+      "n_called_facts": 118,
+      "n_refusals": 45,
+      "L1": 7,
+      "L2": 44,
+      "L3": 1,
+      "L4": 62,
+      "ANY_WRONG_LEFT_BOUNDARY": 48
+    },
+    "A_ONLY": {
+      "n_called_facts": 117,
+      "n_refusals": 46,
+      "L1": 0,
+      "L2": 1,
+      "L3": 9,
+      "L4": 45,
+      "ANY_WRONG_LEFT_BOUNDARY": 10
+    },
+    "B_ONLY": {
+      "n_called_facts": 109,
+      "n_refusals": 54,
+      "L1": 7,
+      "L2": 44,
+      "L3": 1,
+      "L4": 29,
+      "ANY_WRONG_LEFT_BOUNDARY": 48
+    },
+    "A_PLUS_B": {
+      "n_called_facts": 111,
+      "n_refusals": 52,
+      "L1": 0,
+      "L2": 1,
+      "L3": 9,
+      "L4": 28,
+      "ANY_WRONG_LEFT_BOUNDARY": 10
+    }
+  },
+  "arms": {
+    "BASELINE": {
+      "n_called_facts_emitted": 118,
+      "n_refusals": 45,
+      "refusals_by_reason": {
+        "REFUSE_COORDINATE_LIST_ITEM_prev4": 11,
+        "REFUSE_MK_REJECTED": 34
+      },
+      "counts": {
+        "ANY_WRONG_LEFT_BOUNDARY": 48,
+        "CLEAN_LEFT_BOUNDARY": 70,
+        "L1_FUNCTION_WORD_START": 7,
+        "L2_CROSSES_FINITE_VERB": 44,
+        "L3_TRUNCATED_MIDPHRASE": 1,
+        "L4_HEAD_NOT_ADJACENT": 62
+      },
+      "rate_any_wrong_left_boundary": 0.4068,
+      "rate_L4_head_not_adjacent": 0.5254,
+      "antecedent_mode_mix": {
+        "PREPATCH": 118
+      },
+      "residual_L4_by_mode": {
+        "PREPATCH": 62
+      },
+      "examples": {
+        "L1_FUNCTION_WORD_START": [
+          {
+            "provenance": "BIO:1851",
+            "sentence": "The nucleus stores chromatin (DNA plus proteins) in a gel-like substance called the nucleoplasm",
+            "antecedent_captured": "in a gel-like substance",
+            "mode": "PREPATCH",
+            "banked_fact": "nucleoplasm ISA substance"
+          },
+          {
+            "provenance": "BIO:3411",
+            "sentence": "Processes that use an organic molecule to regenerate NAD+ from NADH are collectively referred to as fermentation",
+            "antecedent_captured": "from NADH are collectively",
+            "mode": "PREPATCH",
+            "banked_fact": "fermentation ISA nadh"
+          },
+          {
+            "provenance": "BIO:3704",
+            "sentence": "Energy levels higher than those in blue light will physically tear the molecules apart, in a process called bleaching",
+            "antecedent_captured": "in a process",
+            "mode": "PREPATCH",
+            "banked_fact": "bleach ISA process"
+          },
+          {
+            "provenance": "BIO:3763",
+            "sentence": "In the thylakoid, that opening is a passage through a specialized protein channel called the ATP synthase",
+            "antecedent_captured": "that opening is a passage through a specialized protein channel",
+            "mode": "PREPATCH",
+            "banked_fact": "ATP synthase ISA channel"
+          },
+          {
+            "provenance": "BIO:3930",
+            "sentence": "A nerve cell consists of a cell body, several short, branched extensions called dendrites that receive stimuli, and a long extension called an axon, which transmits signals to other nerve cells or muscle cells",
+            "antecedent_captured": "and a long extension",
+            "mode": "PREPATCH",
+            "banked_fact": "axon ISA extension"
+          }
+        ],
+        "L2_CROSSES_FINITE_VERB": [
+          {
+            "provenance": "BIO:511",
+            "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+            "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+            "mode": "PREPATCH",
+            "banked_fact": "monomer ISA molecule"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "it is also an interdisciplinary field of study",
+            "mode": "PREPATCH",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "PREPATCH",
+            "banked_fact": "impurity ISA mold"
+          },
+          {
+            "provenance": "BIO:823",
+            "sentence": "Through the process of infrared spectrometry, FDA chemist Alma Levant Hayden and her team discovered that the \"miracle drug\" was nothing more than a common compound called creatine",
+            "antecedent_captured": "was nothing more than a common compound",
+            "mode": "PREPATCH",
+            "banked_fact": "creatine ISA compound"
+          },
+          {
+            "provenance": "BIO:1396",
+            "sentence": "Fats are a stored form of energy and are also known as triacylglycerols or triglycerides",
+            "antecedent_captured": "Fats are a stored form of energy and are also",
+            "mode": "PREPATCH",
+            "banked_fact": "triacylglycerols ISA energy"
+          }
+        ],
+        "L3_TRUNCATED_MIDPHRASE": [
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "PREPATCH",
+            "banked_fact": "impurity ISA mold"
+          }
+        ],
+        "L4_HEAD_NOT_ADJACENT": [
+          {
+            "provenance": "BIO:455",
+            "sentence": "For example, a branch of biology called virology studies viruses, which exhibit some of the characteristics of living entities but lack others",
+            "antecedent_captured": "a branch of biology",
+            "mode": "PREPATCH",
+            "banked_fact": "virology studies virus ISA branch"
+          },
+          {
+            "provenance": "BIO:511",
+            "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+            "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+            "mode": "PREPATCH",
+            "banked_fact": "monomer ISA molecule"
+          },
+          {
+            "provenance": "BIO:545",
+            "sentence": "Many organisms belonging to the Archaea domain live under extreme conditions and are called extremophiles",
+            "antecedent_captured": "Many organisms belonging to the Archaea domain live under extreme conditions and",
+            "mode": "PREPATCH",
+            "banked_fact": "extremophiles ISA belonging"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "it is also an interdisciplinary field of study",
+            "mode": "PREPATCH",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "PREPATCH",
+            "banked_fact": "impurity ISA mold"
+          }
+        ]
+      }
+    },
+    "A_OFF_B_OFF": {
+      "n_called_facts_emitted": 118,
+      "n_refusals": 45,
+      "refusals_by_reason": {
+        "ONLY_TRIGGER_MATERIAL_LEFT_OF_TRIGGER": 1,
+        "REFUSE_COORDINATE_LIST_ITEM_prev4": 11,
+        "REFUSE_MK_REJECTED": 33
+      },
+      "counts": {
+        "ANY_WRONG_LEFT_BOUNDARY": 48,
+        "CLEAN_LEFT_BOUNDARY": 70,
+        "L1_FUNCTION_WORD_START": 7,
+        "L2_CROSSES_FINITE_VERB": 44,
+        "L3_TRUNCATED_MIDPHRASE": 1,
+        "L4_HEAD_NOT_ADJACENT": 62
+      },
+      "rate_any_wrong_left_boundary": 0.4068,
+      "rate_L4_head_not_adjacent": 0.5254,
+      "antecedent_mode_mix": {
+        "BE_LINKED": 47,
+        "REDUCED_RELATIVE": 71
+      },
+      "residual_L4_by_mode": {
+        "BE_LINKED": 22,
+        "REDUCED_RELATIVE": 40
+      },
+      "examples": {
+        "L1_FUNCTION_WORD_START": [
+          {
+            "provenance": "BIO:1851",
+            "sentence": "The nucleus stores chromatin (DNA plus proteins) in a gel-like substance called the nucleoplasm",
+            "antecedent_captured": "in a gel-like substance",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "nucleoplasm ISA substance"
+          },
+          {
+            "provenance": "BIO:3411",
+            "sentence": "Processes that use an organic molecule to regenerate NAD+ from NADH are collectively referred to as fermentation",
+            "antecedent_captured": "from NADH are collectively",
+            "mode": "BE_LINKED",
+            "banked_fact": "fermentation ISA nadh"
+          },
+          {
+            "provenance": "BIO:3704",
+            "sentence": "Energy levels higher than those in blue light will physically tear the molecules apart, in a process called bleaching",
+            "antecedent_captured": "in a process",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "bleach ISA process"
+          },
+          {
+            "provenance": "BIO:3763",
+            "sentence": "In the thylakoid, that opening is a passage through a specialized protein channel called the ATP synthase",
+            "antecedent_captured": "that opening is a passage through a specialized protein channel",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "ATP synthase ISA channel"
+          },
+          {
+            "provenance": "BIO:3930",
+            "sentence": "A nerve cell consists of a cell body, several short, branched extensions called dendrites that receive stimuli, and a long extension called an axon, which transmits signals to other nerve cells or muscle cells",
+            "antecedent_captured": "and a long extension",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "axon ISA extension"
+          }
+        ],
+        "L2_CROSSES_FINITE_VERB": [
+          {
+            "provenance": "BIO:511",
+            "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+            "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "monomer ISA molecule"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "it is also an interdisciplinary field of study",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA mold"
+          },
+          {
+            "provenance": "BIO:823",
+            "sentence": "Through the process of infrared spectrometry, FDA chemist Alma Levant Hayden and her team discovered that the \"miracle drug\" was nothing more than a common compound called creatine",
+            "antecedent_captured": "was nothing more than a common compound",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "creatine ISA compound"
+          },
+          {
+            "provenance": "BIO:1396",
+            "sentence": "Fats are a stored form of energy and are also known as triacylglycerols or triglycerides",
+            "antecedent_captured": "Fats are a stored form of energy and are also",
+            "mode": "BE_LINKED",
+            "banked_fact": "triacylglycerols ISA energy"
+          }
+        ],
+        "L3_TRUNCATED_MIDPHRASE": [
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA mold"
+          }
+        ],
+        "L4_HEAD_NOT_ADJACENT": [
+          {
+            "provenance": "BIO:455",
+            "sentence": "For example, a branch of biology called virology studies viruses, which exhibit some of the characteristics of living entities but lack others",
+            "antecedent_captured": "a branch of biology",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "virology studies virus ISA branch"
+          },
+          {
+            "provenance": "BIO:511",
+            "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+            "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "monomer ISA molecule"
+          },
+          {
+            "provenance": "BIO:545",
+            "sentence": "Many organisms belonging to the Archaea domain live under extreme conditions and are called extremophiles",
+            "antecedent_captured": "Many organisms belonging to the Archaea domain live under extreme conditions and",
+            "mode": "BE_LINKED",
+            "banked_fact": "extremophiles ISA belonging"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "it is also an interdisciplinary field of study",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA mold"
+          }
+        ]
+      }
+    },
+    "A_ONLY": {
+      "n_called_facts_emitted": 117,
+      "n_refusals": 46,
+      "refusals_by_reason": {
+        "ONLY_TRIGGER_MATERIAL_LEFT_OF_TRIGGER": 1,
+        "REFUSE_COORDINATE_LIST_ITEM_prev4": 11,
+        "REFUSE_COPULA_SUBJECT_UNREACHABLE": 7,
+        "REFUSE_LEFT_EDGE_IN_NEGATION_SCOPE": 1,
+        "REFUSE_MK_REJECTED": 24,
+        "REFUSE_NO_NP_MATERIAL": 2
+      },
+      "counts": {
+        "ANY_WRONG_LEFT_BOUNDARY": 10,
+        "CLEAN_LEFT_BOUNDARY": 107,
+        "L1_FUNCTION_WORD_START": 0,
+        "L2_CROSSES_FINITE_VERB": 1,
+        "L3_TRUNCATED_MIDPHRASE": 9,
+        "L4_HEAD_NOT_ADJACENT": 45
+      },
+      "rate_any_wrong_left_boundary": 0.0855,
+      "rate_L4_head_not_adjacent": 0.3846,
+      "antecedent_mode_mix": {
+        "BE_LINKED": 43,
+        "REDUCED_RELATIVE": 74
+      },
+      "residual_L4_by_mode": {
+        "BE_LINKED": 20,
+        "REDUCED_RELATIVE": 25
+      },
+      "examples": {
+        "L2_CROSSES_FINITE_VERB": [
+          {
+            "provenance": "BIO:3930",
+            "sentence": "The junction between nerve cells where signal transmission occurs is called a synapse",
+            "antecedent_captured": "The junction between nerve cells where signal transmission occurs",
+            "mode": "BE_LINKED",
+            "banked_fact": "synapse ISA junction"
+          }
+        ],
+        "L3_TRUNCATED_MIDPHRASE": [
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA small"
+          },
+          {
+            "provenance": "BIO:979",
+            "sentence": "This attraction is sometimes stronger than water\u2019s cohesive forces, especially when the water is exposed to charged surfaces such as those on the inside of thin glass tubes known as capillary tubes",
+            "antecedent_captured": "surfaces such as those on the inside of thin glass tubes",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "capillary tube ISA surface"
+          },
+          {
+            "provenance": "BIO:2230",
+            "sentence": "Proteins (predominantly two proteins called claudins and occludins) tightly hold the cells against each other",
+            "antecedent_captured": "two proteins",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "claudins ISA protein"
+          },
+          {
+            "provenance": "BIO:3620",
+            "sentence": "The thylakoid membrane encloses an internal space called the thylakoid lumen",
+            "antecedent_captured": "an internal space",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "thylakoid lumen ISA space"
+          },
+          {
+            "provenance": "BIO:3753",
+            "sentence": "Those two chlorophylls can undergo oxidation upon excitation; they can actually give up an electron in a process called a photoact",
+            "antecedent_captured": "give up an electron in a process",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "photoact ISA electron"
+          }
+        ],
+        "L4_HEAD_NOT_ADJACENT": [
+          {
+            "provenance": "BIO:455",
+            "sentence": "For example, a branch of biology called virology studies viruses, which exhibit some of the characteristics of living entities but lack others",
+            "antecedent_captured": "a branch of biology",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "virology studies virus ISA branch"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "an interdisciplinary field of study",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA small"
+          },
+          {
+            "provenance": "BIO:979",
+            "sentence": "This attraction is sometimes stronger than water\u2019s cohesive forces, especially when the water is exposed to charged surfaces such as those on the inside of thin glass tubes known as capillary tubes",
+            "antecedent_captured": "surfaces such as those on the inside of thin glass tubes",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "capillary tube ISA surface"
+          },
+          {
+            "provenance": "BIO:1620",
+            "sentence": "The mRNA is read in sets of three bases known as codons",
+            "antecedent_captured": "read in sets of three bases",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "codon ISA read"
+          }
+        ]
+      }
+    },
+    "B_ONLY": {
+      "n_called_facts_emitted": 109,
+      "n_refusals": 54,
+      "refusals_by_reason": {
+        "ONLY_TRIGGER_MATERIAL_LEFT_OF_TRIGGER": 1,
+        "REFUSE_COORDINATE_LIST_ITEM_prev4": 11,
+        "REFUSE_MK_REJECTED": 42
+      },
+      "counts": {
+        "ANY_WRONG_LEFT_BOUNDARY": 48,
+        "CLEAN_LEFT_BOUNDARY": 61,
+        "L1_FUNCTION_WORD_START": 7,
+        "L2_CROSSES_FINITE_VERB": 44,
+        "L3_TRUNCATED_MIDPHRASE": 1,
+        "L4_HEAD_NOT_ADJACENT": 29
+      },
+      "rate_any_wrong_left_boundary": 0.4404,
+      "rate_L4_head_not_adjacent": 0.2661,
+      "antecedent_mode_mix": {
+        "BE_LINKED": 40,
+        "REDUCED_RELATIVE": 69
+      },
+      "residual_L4_by_mode": {
+        "BE_LINKED": 21,
+        "REDUCED_RELATIVE": 8
+      },
+      "examples": {
+        "L1_FUNCTION_WORD_START": [
+          {
+            "provenance": "BIO:1851",
+            "sentence": "The nucleus stores chromatin (DNA plus proteins) in a gel-like substance called the nucleoplasm",
+            "antecedent_captured": "in a gel-like substance",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "nucleoplasm ISA substance"
+          },
+          {
+            "provenance": "BIO:3411",
+            "sentence": "Processes that use an organic molecule to regenerate NAD+ from NADH are collectively referred to as fermentation",
+            "antecedent_captured": "from NADH are collectively",
+            "mode": "BE_LINKED",
+            "banked_fact": "fermentation ISA nadh"
+          },
+          {
+            "provenance": "BIO:3704",
+            "sentence": "Energy levels higher than those in blue light will physically tear the molecules apart, in a process called bleaching",
+            "antecedent_captured": "in a process",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "bleach ISA process"
+          },
+          {
+            "provenance": "BIO:3763",
+            "sentence": "In the thylakoid, that opening is a passage through a specialized protein channel called the ATP synthase",
+            "antecedent_captured": "that opening is a passage through a specialized protein channel",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "ATP synthase ISA channel"
+          },
+          {
+            "provenance": "BIO:3930",
+            "sentence": "A nerve cell consists of a cell body, several short, branched extensions called dendrites that receive stimuli, and a long extension called an axon, which transmits signals to other nerve cells or muscle cells",
+            "antecedent_captured": "and a long extension",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "axon ISA extension"
+          }
+        ],
+        "L2_CROSSES_FINITE_VERB": [
+          {
+            "provenance": "BIO:511",
+            "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+            "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "monomer ISA unit"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "it is also an interdisciplinary field of study",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA elements"
+          },
+          {
+            "provenance": "BIO:823",
+            "sentence": "Through the process of infrared spectrometry, FDA chemist Alma Levant Hayden and her team discovered that the \"miracle drug\" was nothing more than a common compound called creatine",
+            "antecedent_captured": "was nothing more than a common compound",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "creatine ISA compound"
+          },
+          {
+            "provenance": "BIO:1396",
+            "sentence": "Fats are a stored form of energy and are also known as triacylglycerols or triglycerides",
+            "antecedent_captured": "Fats are a stored form of energy and are also",
+            "mode": "BE_LINKED",
+            "banked_fact": "triacylglycerols ISA form"
+          }
+        ],
+        "L3_TRUNCATED_MIDPHRASE": [
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA elements"
+          }
+        ],
+        "L4_HEAD_NOT_ADJACENT": [
+          {
+            "provenance": "BIO:455",
+            "sentence": "For example, a branch of biology called virology studies viruses, which exhibit some of the characteristics of living entities but lack others",
+            "antecedent_captured": "a branch of biology",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "virology studies virus ISA branch"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "it is also an interdisciplinary field of study",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:1396",
+            "sentence": "Fats are a stored form of energy and are also known as triacylglycerols or triglycerides",
+            "antecedent_captured": "Fats are a stored form of energy and are also",
+            "mode": "BE_LINKED",
+            "banked_fact": "triacylglycerols ISA form"
+          },
+          {
+            "provenance": "BIO:2052",
+            "sentence": "The side of the Golgi apparatus that is closer to the ER is called the cis face",
+            "antecedent_captured": "The side of the Golgi apparatus that is closer to the ER",
+            "mode": "BE_LINKED",
+            "banked_fact": "cis face ISA closer"
+          },
+          {
+            "provenance": "BIO:2326",
+            "sentence": "HIV is able to penetrate the plasma membranes of a subtype of lymphocytes called T-helper cells, as well as some monocytes and central nervous system cells",
+            "antecedent_captured": "HIV is able to penetrate the plasma membranes of a subtype of lymphocytes",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "T-helper cells ISA hiv"
+          }
+        ]
+      }
+    },
+    "A_PLUS_B": {
+      "n_called_facts_emitted": 111,
+      "n_refusals": 52,
+      "refusals_by_reason": {
+        "ONLY_TRIGGER_MATERIAL_LEFT_OF_TRIGGER": 1,
+        "REFUSE_COORDINATE_LIST_ITEM_prev4": 11,
+        "REFUSE_COPULA_SUBJECT_UNREACHABLE": 7,
+        "REFUSE_LEFT_EDGE_IN_NEGATION_SCOPE": 1,
+        "REFUSE_MK_REJECTED": 30,
+        "REFUSE_NO_NP_MATERIAL": 2
+      },
+      "counts": {
+        "ANY_WRONG_LEFT_BOUNDARY": 10,
+        "CLEAN_LEFT_BOUNDARY": 101,
+        "L1_FUNCTION_WORD_START": 0,
+        "L2_CROSSES_FINITE_VERB": 1,
+        "L3_TRUNCATED_MIDPHRASE": 9,
+        "L4_HEAD_NOT_ADJACENT": 28
+      },
+      "rate_any_wrong_left_boundary": 0.0901,
+      "rate_L4_head_not_adjacent": 0.2523,
+      "antecedent_mode_mix": {
+        "BE_LINKED": 38,
+        "REDUCED_RELATIVE": 73
+      },
+      "residual_L4_by_mode": {
+        "BE_LINKED": 20,
+        "REDUCED_RELATIVE": 8
+      },
+      "examples": {
+        "L2_CROSSES_FINITE_VERB": [
+          {
+            "provenance": "BIO:3930",
+            "sentence": "The junction between nerve cells where signal transmission occurs is called a synapse",
+            "antecedent_captured": "The junction between nerve cells where signal transmission occurs",
+            "mode": "BE_LINKED",
+            "banked_fact": "synapse ISA junction"
+          }
+        ],
+        "L3_TRUNCATED_MIDPHRASE": [
+          {
+            "provenance": "BIO:665",
+            "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+            "antecedent_captured": "small amounts of other elements",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "impurity ISA elements"
+          },
+          {
+            "provenance": "BIO:979",
+            "sentence": "This attraction is sometimes stronger than water\u2019s cohesive forces, especially when the water is exposed to charged surfaces such as those on the inside of thin glass tubes known as capillary tubes",
+            "antecedent_captured": "surfaces such as those on the inside of thin glass tubes",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "capillary tube ISA surface"
+          },
+          {
+            "provenance": "BIO:2230",
+            "sentence": "Proteins (predominantly two proteins called claudins and occludins) tightly hold the cells against each other",
+            "antecedent_captured": "two proteins",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "claudins ISA protein"
+          },
+          {
+            "provenance": "BIO:3620",
+            "sentence": "The thylakoid membrane encloses an internal space called the thylakoid lumen",
+            "antecedent_captured": "an internal space",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "thylakoid lumen ISA space"
+          },
+          {
+            "provenance": "BIO:3753",
+            "sentence": "Those two chlorophylls can undergo oxidation upon excitation; they can actually give up an electron in a process called a photoact",
+            "antecedent_captured": "give up an electron in a process",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "photoact ISA process"
+          }
+        ],
+        "L4_HEAD_NOT_ADJACENT": [
+          {
+            "provenance": "BIO:455",
+            "sentence": "For example, a branch of biology called virology studies viruses, which exhibit some of the characteristics of living entities but lack others",
+            "antecedent_captured": "a branch of biology",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "virology studies virus ISA branch"
+          },
+          {
+            "provenance": "BIO:561",
+            "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+            "antecedent_captured": "an interdisciplinary field of study",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "neuroscience ISA field"
+          },
+          {
+            "provenance": "BIO:979",
+            "sentence": "This attraction is sometimes stronger than water\u2019s cohesive forces, especially when the water is exposed to charged surfaces such as those on the inside of thin glass tubes known as capillary tubes",
+            "antecedent_captured": "surfaces such as those on the inside of thin glass tubes",
+            "mode": "REDUCED_RELATIVE",
+            "banked_fact": "capillary tube ISA surface"
+          },
+          {
+            "provenance": "BIO:1396",
+            "sentence": "Fats are a stored form of energy and are also known as triacylglycerols or triglycerides",
+            "antecedent_captured": "a stored form of energy and",
+            "mode": "BE_LINKED",
+            "banked_fact": "triacylglycerols ISA form"
+          },
+          {
+            "provenance": "BIO:2052",
+            "sentence": "The side of the Golgi apparatus that is closer to the ER is called the cis face",
+            "antecedent_captured": "closer to the ER",
+            "mode": "BE_LINKED",
+            "banked_fact": "cis face ISA closer"
+          }
+        ]
+      }
+    }
+  },
+  "other_pattern_hashes": {
+    "A_OFF_B_OFF": {
+      "APPOSITIVE": "d3b8ecbf5523a2eeb57f6932637abddd291ec0d6230ddae0042573c2b304944d",
+      "COPULA": "50f290bdafe7f6dd399dda635a0ac52e493cb505b5aa00e070e56b69aee42cbc",
+      "GLOSSARY_COLON": "b73af03a2fff2bcc0f02e4a356cd8938aeb3051f95a99e9e5b8560731ef77750",
+      "REFERS_TO": "0845dacf2d855d46b3f5dc2aac51312d3ebef60d472a1dc99837d029cba08a70"
+    },
+    "A_ONLY": {
+      "APPOSITIVE": "d3b8ecbf5523a2eeb57f6932637abddd291ec0d6230ddae0042573c2b304944d",
+      "COPULA": "50f290bdafe7f6dd399dda635a0ac52e493cb505b5aa00e070e56b69aee42cbc",
+      "GLOSSARY_COLON": "b73af03a2fff2bcc0f02e4a356cd8938aeb3051f95a99e9e5b8560731ef77750",
+      "REFERS_TO": "0845dacf2d855d46b3f5dc2aac51312d3ebef60d472a1dc99837d029cba08a70"
+    },
+    "A_PLUS_B": {
+      "APPOSITIVE": "d3b8ecbf5523a2eeb57f6932637abddd291ec0d6230ddae0042573c2b304944d",
+      "COPULA": "50f290bdafe7f6dd399dda635a0ac52e493cb505b5aa00e070e56b69aee42cbc",
+      "GLOSSARY_COLON": "b73af03a2fff2bcc0f02e4a356cd8938aeb3051f95a99e9e5b8560731ef77750",
+      "REFERS_TO": "0845dacf2d855d46b3f5dc2aac51312d3ebef60d472a1dc99837d029cba08a70"
+    },
+    "BASELINE": {
+      "APPOSITIVE": "d3b8ecbf5523a2eeb57f6932637abddd291ec0d6230ddae0042573c2b304944d",
+      "COPULA": "50f290bdafe7f6dd399dda635a0ac52e493cb505b5aa00e070e56b69aee42cbc",
+      "GLOSSARY_COLON": "b73af03a2fff2bcc0f02e4a356cd8938aeb3051f95a99e9e5b8560731ef77750",
+      "REFERS_TO": "0845dacf2d855d46b3f5dc2aac51312d3ebef60d472a1dc99837d029cba08a70"
+    },
+    "B_ONLY": {
+      "APPOSITIVE": "d3b8ecbf5523a2eeb57f6932637abddd291ec0d6230ddae0042573c2b304944d",
+      "COPULA": "50f290bdafe7f6dd399dda635a0ac52e493cb505b5aa00e070e56b69aee42cbc",
+      "GLOSSARY_COLON": "b73af03a2fff2bcc0f02e4a356cd8938aeb3051f95a99e9e5b8560731ef77750",
+      "REFERS_TO": "0845dacf2d855d46b3f5dc2aac51312d3ebef60d472a1dc99837d029cba08a70"
+    }
+  },
+  "other_pattern_counts": {
+    "A_OFF_B_OFF": {
+      "APPOSITIVE": 82,
+      "COPULA": 255,
+      "GLOSSARY_COLON": 27,
+      "REFERS_TO": 4
+    },
+    "A_ONLY": {
+      "APPOSITIVE": 82,
+      "COPULA": 255,
+      "GLOSSARY_COLON": 27,
+      "REFERS_TO": 4
+    },
+    "A_PLUS_B": {
+      "APPOSITIVE": 82,
+      "COPULA": 255,
+      "GLOSSARY_COLON": 27,
+      "REFERS_TO": 4
+    },
+    "BASELINE": {
+      "APPOSITIVE": 82,
+      "COPULA": 255,
+      "GLOSSARY_COLON": 27,
+      "REFERS_TO": 4
+    },
+    "B_ONLY": {
+      "APPOSITIVE": 82,
+      "COPULA": 255,
+      "GLOSSARY_COLON": 27,
+      "REFERS_TO": 4
+    }
+  },
+  "other_patterns_unchanged_BASELINE_vs_A_PLUS_B": {
+    "APPOSITIVE": true,
+    "COPULA": true,
+    "GLOSSARY_COLON": true,
+    "REFERS_TO": true
+  },
+  "concurrent_edit_churn_neutral_BASELINE_vs_A_OFF_B_OFF": true,
+  "called_set_differs_BASELINE_vs_A_PLUS_B": true,
+  "n_disagreeing_matches": 63,
+  "prepatch_module_sha256": "d9a3eedf83756b32e61fe306d20c9c7a9733c22a3b7ca2cc77cd65e14c24b14f",
+  "postpatch_module_sha256": "51a18bf60f31299abfe49ed5c41e08ff8da494c013c9a5f82c8b2302b03691f1",
+  "corpus_files": [
+    "D:\\AI\\hd-instrument\\data\\corpora\\textbook_biology_2e\\cleaned\\biology_2e.clean.txt",
+    "D:\\AI\\hd-instrument\\data\\corpora\\textbook_anatomy_physiology_2e\\cleaned\\anatomy_physiology_2e.clean.txt",
+    "D:\\AI\\hd-instrument\\data\\corpora\\textbook_psychology_2e\\cleaned\\psychology_2e.clean.txt"
+  ],
+  "corpus_sentences": 6000,
+  "corpus_sentences_per_file": {
+    "BIO": 6000
+  },
+  "mcguffey_excluded": true,
+  "detector_provenance": "L1-L4 flag block copied VERBATIM from experiments/exp_definitional_predicate_v6.py::called_left_boundary_diagnostic. Same token sets, same tests. Per arm it is handed the span that arm actually uses; for BASELINE that is m.group('dfs') exactly as in v6.",
+  "detector_caveats": {
+    "L1_L2_zero_by_construction_when_A_on": true,
+    "L3_upper_bound": "fires on any open-class token abutting a correctly-bounded NP",
+    "L4_wrong_ruler_for_copula_antecedents": "see residual_L4_by_mode per arm"
+  },
+  "sampling_selftest": {
+    "checked": true,
+    "reproduces_v5_fid_list": true,
+    "n": 50,
+    "seed": 42
+  },
+  "audit_sample_path": "D:\\AI\\hd-instrument\\data\\exp_called_boundary_v7_smoke\\called_audit_sample.json",
+  "paired_sample_path": "D:\\AI\\hd-instrument\\data\\exp_called_boundary_v7_smoke\\called_paired_before_after.json",
+  "called_facts_path": "D:\\AI\\hd-instrument\\data\\exp_called_boundary_v7_smoke\\called_facts_v7.jsonl",
+  "quality_scored_here": false,
+  "banked": false,
+  "wire_status": "UNBANKED_PENDING_DIRECTOR_HANDSCORE",
+  "ts_iso": "2026-08-13T03:08:11.224229+00:00",
+  "anchor_name": "called_boundary_v7"
+}

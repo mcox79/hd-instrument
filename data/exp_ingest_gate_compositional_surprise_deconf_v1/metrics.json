@@ -1,0 +1,231 @@
+{
+  "anchor_name": "ingest_gate_compositional_surprise_deconf_v1",
+  "elapsed_s": 251.0,
+  "ts_iso": "2026-07-16T13:54:33.377226+00:00",
+  "n_seeds": 3,
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "n_ent": 600,
+    "edges_per_rel": 420,
+    "n_rstar": 420,
+    "train_frac_rstar": 0.5,
+    "frac_heldout_base": 0.28,
+    "epochs": 350,
+    "reach_k": 2,
+    "rel_scale": 4.0,
+    "comp_path_topM": 5,
+    "TAU": 3.0
+  },
+  "bands": {
+    "HP_DECONF_MIN": 0.65,
+    "HF_DECONF_MAX": 0.58,
+    "DECISIVE_MARGIN": 0.1,
+    "CONVERGE_EPS": 0.07,
+    "FLAT_REPRO_MAX": 0.6,
+    "SCHEMAFIT_GAP_MIN": 0.08
+  },
+  "expected_n_units": 3,
+  "observed_n_units": 3,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "single_seed_loop_short_cell_no_heartbeat",
+  "per_candidate_arrays": "per_candidate_arrays.npz",
+  "verdict": "INCONCLUSIVE_harness",
+  "verdict_msg": "DECONF_AUC add_flat=0.545 schemafit=0.719 comp_op=0.666 comp_path=0.553 recur=0.287 | comp_beats_flat=True converges_sf=True | cos(Dr*,Dr0+Dr1)=0.745 corr(comp,flat)=0.150 corr(comp,sf)=0.492 | CONF=0.990 POSCTRL=0.999 RAND=0.366 infer_mrr=0.740 rstar_mrr=0.958 bal=0.38 | GATE_D[flat_inert=True sf_carries=True] harness=False arrays_ok=True(d=0.0e+00) card=True -> INCONCLUSIVE_harness",
+  "summary": "INCONCLUSIVE_harness: INCONCLUSIVE: harness/positive-control not validated (posctrl=0.999 conf=0.990 randlabel=0.366 rstar_mrr=0.958 infer_mrr=0.740 class_bal=0.38 card=True GATE_D_flat_inert=True[0.545] GATE_D_sf_carries=True[flat=0.545 sf=0.719]). If GATE_D failed, the split diverged from the race and the compositional arm is on the wrong arena.",
+  "finding": "INCONCLUSIVE: harness/positive-control not validated (posctrl=0.999 conf=0.990 randlabel=0.366 rstar_mrr=0.958 infer_mrr=0.740 class_bal=0.38 card=True GATE_D_flat_inert=True[0.545] GATE_D_sf_carries=True[flat=0.545 sf=0.719]). If GATE_D failed, the split diverged from the race and the compositional arm is on the wrong arena.",
+  "gates": {
+    "cardinality_ok": true,
+    "all_seeds_ok": true,
+    "HP_POSCTRL_FIRES": true,
+    "HP_CONF_REPRODUCES": true,
+    "HP_RANDLABEL_CHANCE": false,
+    "HP_RSTAR_TRAINED": true,
+    "HP_FOUNDATION_STRONG": true,
+    "baseline_in_band": true,
+    "class_balance_ok": true,
+    "GATE_D_FLAT_INERT": true,
+    "GATE_D_SCHEMAFIT_CARRIES": true
+  },
+  "harness_valid": false,
+  "run_mode": "full",
+  "agg": {
+    "deconf": {
+      "add_flat": 0.5448544266191325,
+      "schemafit": 0.719126559714795,
+      "comp_op": 0.665614973262032,
+      "comp_path": 0.5529233511586452,
+      "recur": 0.2865002970885324
+    },
+    "deconf_exact": {
+      "add_flat": 0.654320987654321,
+      "schemafit": 0.7193562610229276,
+      "comp_op": 0.7380952380952381,
+      "comp_path": 0.6419753086419753,
+      "recur": 0.20612874779541446
+    },
+    "conf_auc": 0.9898774369185426,
+    "posctrl_auc": 0.9990778533635677,
+    "randlabel_auc": 0.3655614973262032,
+    "infer_mrr": 0.7398428864100283,
+    "rstar_train_mrr": 0.9578042328042328,
+    "cos_dstar_dcomp": 0.7445586919784546,
+    "corr_comp_flat": 0.15018215850806627,
+    "corr_comp_schemafit": 0.492115788499143,
+    "min_class": 3,
+    "min_class_frac": 0.375,
+    "array_recompute_delta": 0.0,
+    "head_to_head": {
+      "comp_op_works": true,
+      "comp_path_works": false,
+      "comp_beats_flat": true,
+      "both_comp_chance": false,
+      "converges_schemafit": true,
+      "best_comp": 0.665614973262032,
+      "best_comp_name": "comp_op"
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "status": "OK",
+      "N": 600,
+      "n_deriv": 50,
+      "n_underiv": 33,
+      "deriv_frac": 0.6024096385542169,
+      "deconf": {
+        "add_flat": 0.696060606060606,
+        "schemafit": 0.7445454545454545,
+        "comp_op": 0.6936363636363636,
+        "comp_path": 0.6881818181818182,
+        "recur": 0.283030303030303
+      },
+      "deconf_exact": {
+        "add_flat": 0.808641975308642,
+        "schemafit": 0.8672839506172839,
+        "comp_op": 0.8333333333333334,
+        "comp_path": 0.7839506172839507,
+        "recur": 0.12654320987654322
+      },
+      "conf_auc": 0.9868600452229085,
+      "posctrl_auc": 1.0,
+      "randlabel_auc": 0.49454545454545457,
+      "infer_mrr": 0.664604140948956,
+      "rstar_train_mrr": 0.9091269841269842,
+      "schemafit_deriv_mean": 0.640075125208681,
+      "schemafit_underiv_mean": 0.4835837506956038,
+      "recur_deriv_mean": 0.673734938801914,
+      "recur_underiv_mean": 0.6038118104003047,
+      "comp_op_deriv_mean": 0.4084285714285714,
+      "comp_op_underiv_mean": 0.5786082604264423,
+      "cos_dstar_dcomp": 0.8327323198318481,
+      "corr_comp_flat": 0.1350889601388394,
+      "corr_comp_schemafit": 0.4845507077193714,
+      "recurrence_form": "graded_deg_over_deg_plus_tau_TAU_3.0",
+      "arm_score_sha": {
+        "add_flat": "079028b2607ea094",
+        "schemafit": "ad9f6ec0438bc018",
+        "comp_op": "b6e38a0a47db0f5c",
+        "comp_path": "0d985bdcb7ed35ff",
+        "recur": "7d87b0eda53747c5"
+      }
+    },
+    {
+      "seed": 13,
+      "status": "OK",
+      "N": 600,
+      "n_deriv": 5,
+      "n_underiv": 3,
+      "deriv_frac": 0.625,
+      "deconf": {
+        "add_flat": 0.5,
+        "schemafit": 0.6,
+        "comp_op": 0.6,
+        "comp_path": 0.5,
+        "recur": 0.4
+      },
+      "deconf_exact": {
+        "add_flat": 0.5,
+        "schemafit": 0.5714285714285714,
+        "comp_op": 0.6428571428571429,
+        "comp_path": 0.5,
+        "recur": 0.2857142857142857
+      },
+      "conf_auc": 0.992636934291789,
+      "posctrl_auc": 1.0,
+      "randlabel_auc": 0.3,
+      "infer_mrr": 0.7514750489265283,
+      "rstar_train_mrr": 1.0,
+      "schemafit_deriv_mean": 0.6853088480801335,
+      "schemafit_underiv_mean": 0.6631886477462436,
+      "recur_deriv_mean": 0.7164118355870933,
+      "recur_underiv_mean": 0.5798969072164949,
+      "comp_op_deriv_mean": 0.1,
+      "comp_op_underiv_mean": 0.22222222222222224,
+      "cos_dstar_dcomp": 0.7294884324073792,
+      "corr_comp_flat": NaN,
+      "corr_comp_schemafit": 0.5096698655899128,
+      "recurrence_form": "graded_deg_over_deg_plus_tau_TAU_3.0",
+      "arm_score_sha": {
+        "add_flat": "f5a5fd42d16a2030",
+        "schemafit": "e954d0740893c161",
+        "comp_op": "12cfbee8ab0c78af",
+        "comp_path": "f5a5fd42d16a2030",
+        "recur": "a8f0bbbeba8fd9a0"
+      }
+    },
+    {
+      "seed": 17,
+      "status": "OK",
+      "N": 600,
+      "n_deriv": 17,
+      "n_underiv": 11,
+      "deriv_frac": 0.6071428571428571,
+      "deconf": {
+        "add_flat": 0.4385026737967914,
+        "schemafit": 0.8128342245989305,
+        "comp_op": 0.7032085561497327,
+        "comp_path": 0.47058823529411764,
+        "recur": 0.17647058823529413
+      },
+      "deconf_exact": {
+        "add_flat": NaN,
+        "schemafit": NaN,
+        "comp_op": NaN,
+        "comp_path": NaN,
+        "recur": NaN
+      },
+      "conf_auc": 0.9901353312409301,
+      "posctrl_auc": 0.997233560090703,
+      "randlabel_auc": 0.30213903743315507,
+      "infer_mrr": 0.8034494693546003,
+      "rstar_train_mrr": 0.9642857142857143,
+      "schemafit_deriv_mean": 0.6284493764116664,
+      "schemafit_underiv_mean": 0.4517377447260586,
+      "recur_deriv_mean": 0.675190985485103,
+      "recur_underiv_mean": 0.5573593073593073,
+      "comp_op_deriv_mean": 0.4852941176470588,
+      "comp_op_underiv_mean": 0.6551948051948052,
+      "cos_dstar_dcomp": 0.6714553236961365,
+      "corr_comp_flat": 0.16527535687729314,
+      "corr_comp_schemafit": 0.48212679218814486,
+      "recurrence_form": "graded_deg_over_deg_plus_tau_TAU_3.0",
+      "arm_score_sha": {
+        "add_flat": "ceb9c78a560cc61a",
+        "schemafit": "57c2314a4c374f51",
+        "comp_op": "3052756aae333138",
+        "comp_path": "0f51ecf65f30ab12",
+        "recur": "c31433db86aad7b9"
+      }
+    }
+  ]
+}

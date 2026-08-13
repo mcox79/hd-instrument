@@ -1,0 +1,664 @@
+{
+  "anchor_name": "cert_ledger_source_direct_entailment_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SOURCE-DIRECT MAKES THE TIER-2 SELF-AUDIT MEANINGFUL: over 538 real cited claims (385 nontrivial) harvested from the substrate's own on-disk verdict_msgs, the retrieval-free audit re-checks each cited number DIRECTLY against its citing cell's OWN metrics.json -- coverage_nontrivial=0.8130 (24.8x the 0.0328 ledger-retrieval ceiling; coverage_all=0.8271). The cited entailments are then re-evaluated on the PERSISTED source value via the VET'd decode_then_compare comparator: op-agreement min=1.0000 (==Python oracle, exact CRT decode); entailment_holds_rate=0.9791 of cited inequalities actually HOLD vs source (the non-holding remainder is surfaced as SOURCE-BACKED audit candidates). FIRING CONTROL: scrambled-source resolution collapses (nontrivial max=0.0831; lift_min=0.7299) -> resolution is genuinely source-specific, not coincidental. Scrambled-RESIDUE comparator control collapses (max=0.4710) -> CRT decode load-bearing. HONEST RESIDUAL: ~19% of nontrivial cited numbers do NOT resolve to a persisted source metric (number lives only in prose / is a relative-or-derived threshold / a genuine miscitation) -- measured + bucketed, not hidden. HONEST SCOPE: the source-direct DISCRIMINATOR is the resolution/coverage rate (scramble collapses it); the comparator op-agreement is an EXACTNESS GUARD that is source-independent by construction. NARROW glass-box monitor; reads cells + verdicts, NEVER edits the ledger/cells/code. n_claims=538 n_nontrivial=385 coverage_all=0.8271 coverage_nontrivial=0.8130 (=24.8x ledger-retrieval baseline 0.0328) scrambled_nontrivial_max=0.0831 lift_min=0.7299 op_agreement_min=1.0000 entailment_holds_rate=0.9791 scram_residue_max=0.4710",
+  "summary": "HARD_PASS: Tier-2 source-direct entailment self-audit over own metrics (full)",
+  "run_mode": "full",
+  "elapsed_s": 4.56,
+  "n_seeds": 5,
+  "n_units": 20,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "n_claims": 538,
+  "n_nontrivial": 385,
+  "config": {
+    "regime": "large",
+    "moduli": [
+      40,
+      41,
+      43
+    ],
+    "M": 70520,
+    "N": 8192,
+    "SB": 2730,
+    "SCALE": 1000,
+    "OFFSET": 20000,
+    "RES": 0.002,
+    "REL_TOL": 0.0001,
+    "seeds": [
+      7,
+      13,
+      19,
+      23,
+      29
+    ],
+    "retrieval_leg": "REPLACED -> source_direct_metric_lookup_in_citing_cell_own_metrics_json",
+    "comparison_leg": "decode_then_compare_two_CRT_decodes_from_exp_math_rns_subtract_compare_v1",
+    "claim_source": "verdict_msg_cited_NUM_op_NUM_inequalities_across_data_metrics_json",
+    "resolution": "precision_aware_tolerance_from_cited_decimals_prefer_name_matched_leaf",
+    "storage_strategy": "no_storage_algebraic_bind (comparator CRT; source lookup is direct file read)"
+  },
+  "harvest_stats": {
+    "n_files_scanned": 4073,
+    "n_files_with_cited_inequality": 382,
+    "n_raw_claims": 538,
+    "harvest_parse_failures": {
+      "json_decode": 0,
+      "os_error": 0,
+      "value_error": 0
+    },
+    "n_structured_gate_files": 1
+  },
+  "arms": {
+    "7": {
+      "seed": 7,
+      "n_claims": 538,
+      "n_nontrivial": 385,
+      "coverage_source_direct_all": 0.8271,
+      "coverage_source_direct_nontrivial": 0.813,
+      "scrambled_source_coverage_all": 0.2193,
+      "scrambled_source_coverage_nontrivial": 0.0831,
+      "random_value_coverage_nontrivial": 0.0779,
+      "coverage_lift_nontrivial": 0.7299,
+      "coverage_multiple_vs_ledger_retrieval": 24.79,
+      "n_resolved_in_comparator_range": 431,
+      "op_agreement_guard": 1.0,
+      "entailment_holds_rate": 0.9791,
+      "entailment_holds_rate_quant_faithful": 0.9906,
+      "n_quant_faithful": 425,
+      "scram_residue_agreement": 0.471,
+      "source_confirmed_rate_nontrivial": 0.7922,
+      "scrambled_source_confirmed_rate_nontrivial": 0.0727,
+      "name_match_rate_among_resolved": 0.564,
+      "residual_buckets": {
+        "no_leaf_match": 72,
+        "trivial_excluded": 21,
+        "resolved_out_of_comparator_range": 14
+      },
+      "n_not_holding_candidates": 4,
+      "n_unbacked_nontrivial_candidates": 40
+    },
+    "13": {
+      "seed": 13,
+      "n_claims": 538,
+      "n_nontrivial": 385,
+      "coverage_source_direct_all": 0.8271,
+      "coverage_source_direct_nontrivial": 0.813,
+      "scrambled_source_coverage_all": 0.1952,
+      "scrambled_source_coverage_nontrivial": 0.039,
+      "random_value_coverage_nontrivial": 0.0883,
+      "coverage_lift_nontrivial": 0.774,
+      "coverage_multiple_vs_ledger_retrieval": 24.79,
+      "n_resolved_in_comparator_range": 431,
+      "op_agreement_guard": 1.0,
+      "entailment_holds_rate": 0.9791,
+      "entailment_holds_rate_quant_faithful": 0.9906,
+      "n_quant_faithful": 425,
+      "scram_residue_agreement": 0.471,
+      "source_confirmed_rate_nontrivial": 0.7922,
+      "scrambled_source_confirmed_rate_nontrivial": 0.0338,
+      "name_match_rate_among_resolved": 0.564,
+      "residual_buckets": {
+        "no_leaf_match": 72,
+        "trivial_excluded": 21,
+        "resolved_out_of_comparator_range": 14
+      },
+      "n_not_holding_candidates": 4,
+      "n_unbacked_nontrivial_candidates": 40
+    },
+    "19": {
+      "seed": 19,
+      "n_claims": 538,
+      "n_nontrivial": 385,
+      "coverage_source_direct_all": 0.8271,
+      "coverage_source_direct_nontrivial": 0.813,
+      "scrambled_source_coverage_all": 0.2138,
+      "scrambled_source_coverage_nontrivial": 0.0468,
+      "random_value_coverage_nontrivial": 0.0701,
+      "coverage_lift_nontrivial": 0.7662,
+      "coverage_multiple_vs_ledger_retrieval": 24.79,
+      "n_resolved_in_comparator_range": 431,
+      "op_agreement_guard": 1.0,
+      "entailment_holds_rate": 0.9791,
+      "entailment_holds_rate_quant_faithful": 0.9906,
+      "n_quant_faithful": 425,
+      "scram_residue_agreement": 0.471,
+      "source_confirmed_rate_nontrivial": 0.7922,
+      "scrambled_source_confirmed_rate_nontrivial": 0.0416,
+      "name_match_rate_among_resolved": 0.564,
+      "residual_buckets": {
+        "no_leaf_match": 72,
+        "trivial_excluded": 21,
+        "resolved_out_of_comparator_range": 14
+      },
+      "n_not_holding_candidates": 4,
+      "n_unbacked_nontrivial_candidates": 40
+    },
+    "23": {
+      "seed": 23,
+      "n_claims": 538,
+      "n_nontrivial": 385,
+      "coverage_source_direct_all": 0.8271,
+      "coverage_source_direct_nontrivial": 0.813,
+      "scrambled_source_coverage_all": 0.197,
+      "scrambled_source_coverage_nontrivial": 0.0442,
+      "random_value_coverage_nontrivial": 0.0701,
+      "coverage_lift_nontrivial": 0.7688,
+      "coverage_multiple_vs_ledger_retrieval": 24.79,
+      "n_resolved_in_comparator_range": 431,
+      "op_agreement_guard": 1.0,
+      "entailment_holds_rate": 0.9791,
+      "entailment_holds_rate_quant_faithful": 0.9906,
+      "n_quant_faithful": 425,
+      "scram_residue_agreement": 0.471,
+      "source_confirmed_rate_nontrivial": 0.7922,
+      "scrambled_source_confirmed_rate_nontrivial": 0.039,
+      "name_match_rate_among_resolved": 0.564,
+      "residual_buckets": {
+        "no_leaf_match": 72,
+        "trivial_excluded": 21,
+        "resolved_out_of_comparator_range": 14
+      },
+      "n_not_holding_candidates": 4,
+      "n_unbacked_nontrivial_candidates": 40
+    },
+    "29": {
+      "seed": 29,
+      "n_claims": 538,
+      "n_nontrivial": 385,
+      "coverage_source_direct_all": 0.8271,
+      "coverage_source_direct_nontrivial": 0.813,
+      "scrambled_source_coverage_all": 0.2007,
+      "scrambled_source_coverage_nontrivial": 0.0571,
+      "random_value_coverage_nontrivial": 0.0649,
+      "coverage_lift_nontrivial": 0.7558,
+      "coverage_multiple_vs_ledger_retrieval": 24.79,
+      "n_resolved_in_comparator_range": 431,
+      "op_agreement_guard": 1.0,
+      "entailment_holds_rate": 0.9791,
+      "entailment_holds_rate_quant_faithful": 0.9906,
+      "n_quant_faithful": 425,
+      "scram_residue_agreement": 0.471,
+      "source_confirmed_rate_nontrivial": 0.7922,
+      "scrambled_source_confirmed_rate_nontrivial": 0.0468,
+      "name_match_rate_among_resolved": 0.564,
+      "residual_buckets": {
+        "no_leaf_match": 72,
+        "trivial_excluded": 21,
+        "resolved_out_of_comparator_range": 14
+      },
+      "n_not_holding_candidates": 4,
+      "n_unbacked_nontrivial_candidates": 40
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm": "source_direct_coverage_nontrivial",
+      "value": 0.813
+    },
+    {
+      "seed": 7,
+      "arm": "scrambled_source_coverage_nontrivial",
+      "value": 0.0831
+    },
+    {
+      "seed": 7,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 7,
+      "arm": "entailment_holds_rate",
+      "value": 0.9791
+    },
+    {
+      "seed": 13,
+      "arm": "source_direct_coverage_nontrivial",
+      "value": 0.813
+    },
+    {
+      "seed": 13,
+      "arm": "scrambled_source_coverage_nontrivial",
+      "value": 0.039
+    },
+    {
+      "seed": 13,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 13,
+      "arm": "entailment_holds_rate",
+      "value": 0.9791
+    },
+    {
+      "seed": 19,
+      "arm": "source_direct_coverage_nontrivial",
+      "value": 0.813
+    },
+    {
+      "seed": 19,
+      "arm": "scrambled_source_coverage_nontrivial",
+      "value": 0.0468
+    },
+    {
+      "seed": 19,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 19,
+      "arm": "entailment_holds_rate",
+      "value": 0.9791
+    },
+    {
+      "seed": 23,
+      "arm": "source_direct_coverage_nontrivial",
+      "value": 0.813
+    },
+    {
+      "seed": 23,
+      "arm": "scrambled_source_coverage_nontrivial",
+      "value": 0.0442
+    },
+    {
+      "seed": 23,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 23,
+      "arm": "entailment_holds_rate",
+      "value": 0.9791
+    },
+    {
+      "seed": 29,
+      "arm": "source_direct_coverage_nontrivial",
+      "value": 0.813
+    },
+    {
+      "seed": 29,
+      "arm": "scrambled_source_coverage_nontrivial",
+      "value": 0.0571
+    },
+    {
+      "seed": 29,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 29,
+      "arm": "entailment_holds_rate",
+      "value": 0.9791
+    }
+  ],
+  "arms_differ_verified": true,
+  "controls": {
+    "controls_collapsed": true
+  },
+  "structured_gate_claims_audit": {
+    "n_adopter_files": 1,
+    "n_claims_total": 15,
+    "n_agree_total": 15,
+    "recompute_agreement": 1.0,
+    "per_file": [
+      {
+        "exp_key": "exp_cert_ledger_global_consistency_v1",
+        "n_claims": 15,
+        "n_agree": 15
+      }
+    ],
+    "note": "SECONDARY high-confidence retrieval-free arm: recompute op(measured,threshold)==gate_verdict directly from structured_gate_claims. Machine-clean, no free-text parse. Adoption is currently 1 distinct cell (3 run-variant files) -- this is the SOUND-but-tiny path; the free-text source-direct resolution above is the SCALE path (corpus-wide coverage)."
+  },
+  "audit_candidates": {
+    "not_holding_source_backed": [
+      {
+        "exp_key": "exp_wave14_betM_logforget_fitform_v1_smoke",
+        "name": "correct_forms",
+        "cited": "3.0 <= 2.0",
+        "resolved_source_value": 3.0,
+        "resolved_path": "t_grid",
+        "recorded_verdict": "BETM_LOGFORGET_HARD_FAIL_HARNESS_REJECTED",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_betM_logforget_fitform_v1_smoke/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_betM_logforget_longt_v1_smoke",
+        "name": "gap",
+        "cited": "4.86 <= 1.0",
+        "resolved_source_value": 4.861897,
+        "resolved_path": "bic_gap",
+        "recorded_verdict": "BETM_LONGT_HARD_FAIL_NO_DISCRIMINATION",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_betM_logforget_longt_v1_smoke/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_moe_alpha_c_prestep_v2",
+        "name": "max_residual",
+        "cited": "0.0002 > 0.05",
+        "resolved_source_value": 0.000193,
+        "resolved_path": "residual",
+        "recorded_verdict": "ALPHA_C_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_moe_alpha_c_prestep_v2/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_multihop_hub_census_v1",
+        "name": "",
+        "cited": "0.67 < 0.5",
+        "resolved_source_value": 0.669765,
+        "resolved_path": "65536",
+        "recorded_verdict": "HUBNESS_ABSENT",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_multihop_hub_census_v1/metrics.json"
+      }
+    ],
+    "n_not_holding_total": 4,
+    "unbacked_nontrivial": [
+      {
+        "exp_key": "exp_activation_barrier_r3b_n8192_v3_n8192",
+        "name": "ratio",
+        "cited": "0.9524 <= 1.02",
+        "recorded_verdict": "HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_activation_barrier_r3b_n8192_v3_n8192/metrics.json"
+      },
+      {
+        "exp_key": "exp_encoder_v5_k256_capacity_paired_v1_seed13",
+        "name": "",
+        "cited": "0.0974 >= 0.03",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_encoder_v5_k256_capacity_paired_v1_seed13/metrics.json"
+      },
+      {
+        "exp_key": "exp_encoder_v5_k256_capacity_paired_v1_seed7",
+        "name": "",
+        "cited": "0.093 >= 0.03",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_encoder_v5_k256_capacity_paired_v1_seed7/metrics.json"
+      },
+      {
+        "exp_key": "exp_encoder_v6_k256_plateau_followup_v1_seed7",
+        "name": "",
+        "cited": "0.0227 >= 0.02",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_encoder_v6_k256_plateau_followup_v1_seed7/metrics.json"
+      },
+      {
+        "exp_key": "exp_encoder_v7_k512_capacity_paired_v1_seed13",
+        "name": "",
+        "cited": "0.119 >= 0.03",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_encoder_v7_k512_capacity_paired_v1_seed13/metrics.json"
+      },
+      {
+        "exp_key": "exp_encoder_v7_k512_capacity_paired_v1_seed7",
+        "name": "",
+        "cited": "0.124 >= 0.03",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_encoder_v7_k512_capacity_paired_v1_seed7/metrics.json"
+      },
+      {
+        "exp_key": "exp_eviction_id_external_codebook_v1",
+        "name": "",
+        "cited": "0.01 <= 0.15",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_eviction_id_external_codebook_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_generation_decoder_rns_crt_highvocab_v1",
+        "name": "gap",
+        "cited": "0.84 >= 0.3",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_generation_decoder_rns_crt_highvocab_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_layer_05_production_wiring_skeleton_smoke_2026_07_03",
+        "name": "",
+        "cited": "0.084 <= 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_layer_05_production_wiring_skeleton_smoke_2026_07_03/metrics.json"
+      },
+      {
+        "exp_key": "exp_path_d_k1_cross_n_null_prediction_v1_n4096",
+        "name": "",
+        "cited": "0.078 > 0.03",
+        "recorded_verdict": "NULL_PRED_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_path_d_k1_cross_n_null_prediction_v1_n4096/metrics.json"
+      },
+      {
+        "exp_key": "exp_path_d_percolation_depth_sweep_v1_n4096",
+        "name": "max_deep_div",
+        "cited": "16.143 > 2.0",
+        "recorded_verdict": "PERC_DEPTH_HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_path_d_percolation_depth_sweep_v1_n4096/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n131072_v6_n131072",
+        "name": "delta",
+        "cited": "0.001472 < 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n131072_v6_n131072/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n16384_v3_n16384",
+        "name": "",
+        "cited": "0.00097 < 0.15",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n16384_v3_n16384/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n16384_v3_n16384",
+        "name": "delta",
+        "cited": "0.004391 < 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n16384_v3_n16384/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n32768_v4_n32768",
+        "name": "",
+        "cited": "0.00097 < 0.15",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n32768_v4_n32768/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n32768_v4_n32768",
+        "name": "delta",
+        "cited": "0.004391 < 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n32768_v4_n32768/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n65536_v5_n65536",
+        "name": "",
+        "cited": "0.0009702 < 0.15",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n65536_v5_n65536/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp56_sherman_morrison_cert_drop_n65536_v5_n65536",
+        "name": "delta",
+        "cited": "0.004391 < 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_pp56_sherman_morrison_cert_drop_n65536_v5_n65536/metrics.json"
+      },
+      {
+        "exp_key": "exp_pp58_scs_formula_test_d8_tau005_v1_n8192",
+        "name": "d_estimate",
+        "cited": "1.449 < 1.5",
+        "recorded_verdict": "HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_pp58_scs_formula_test_d8_tau005_v1_n8192/metrics.json"
+      },
+      {
+        "exp_key": "exp_sherman_morrison_rank1_deletion_cert_drop_v1_n8192",
+        "name": "delta",
+        "cited": "0.003854 < 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_sherman_morrison_rank1_deletion_cert_drop_v1_n8192/metrics.json"
+      },
+      {
+        "exp_key": "exp_sherman_morrison_rank1_deletion_cert_drop_v2_n4096",
+        "name": "",
+        "cited": "0.001911 < 0.15",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_sherman_morrison_rank1_deletion_cert_drop_v2_n4096/metrics.json"
+      },
+      {
+        "exp_key": "exp_sherman_morrison_rank1_deletion_cert_drop_v2_n4096",
+        "name": "delta",
+        "cited": "0.005153 < 0.1",
+        "recorded_verdict": "HARD_PASS",
+        "path": "C:/dev/hd-instrument/data/exp_sherman_morrison_rank1_deletion_cert_drop_v2_n4096/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_KG_capacity_sweep_M_10k_100k_1M_v1",
+        "name": "",
+        "cited": "0.149 < 0.5",
+        "recorded_verdict": "MEASURED_MECHANISM_at_M_cliff_X",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_KG_capacity_sweep_M_10k_100k_1M_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_inv1_authoring_blind_C3_symbol_overlap_cpu_v1",
+        "name": "z",
+        "cited": "0.48 < 1.0",
+        "recorded_verdict": "C3_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_inv1_authoring_blind_C3_symbol_overlap_cpu_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_m4d_capability_graph_walk_heldout_cpu_v1",
+        "name": "",
+        "cited": "0.1241 >= 0.04",
+        "recorded_verdict": "PARTIAL",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_m4d_capability_graph_walk_heldout_cpu_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_pc_cleanup_family_phase_diagram_v2_M_sweep_s11_selftest",
+        "name": "M100vsM3200@N2048",
+        "cited": "0.4665 > 0.4556",
+        "recorded_verdict": "SELFTEST_OK",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_pc_cleanup_family_phase_diagram_v2_M_sweep_s11_selftest/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_pc_cleanup_family_phase_diagram_v2_M_sweep_s11_selftest",
+        "name": "N2048vsN8192@M800",
+        "cited": "0.4596 < 0.4798",
+        "recorded_verdict": "SELFTEST_OK",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_pc_cleanup_family_phase_diagram_v2_M_sweep_s11_selftest/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_polynomial_p4_bcm_factorial_rung1_v1_n512",
+        "name": "",
+        "cited": "0.199 < 0.3",
+        "recorded_verdict": "HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_polynomial_p4_bcm_factorial_rung1_v1_n512/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_trained_mini_lm_readout_fix_nsweep_v1",
+        "name": "",
+        "cited": "0.026 < 0.3",
+        "recorded_verdict": "HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_trained_mini_lm_readout_fix_nsweep_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_substrate_trained_mini_lm_readout_fix_nsweep_v2_capped",
+        "name": "",
+        "cited": "0.024 < 0.3",
+        "recorded_verdict": "HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_substrate_trained_mini_lm_readout_fix_nsweep_v2_capped/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_1rsb_cascade_depth_v1",
+        "name": "max_delta",
+        "cited": "0.068 < 0.08",
+        "recorded_verdict": "CASCADE_DEPTH_RS_SMOOTH",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_1rsb_cascade_depth_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_betB_replay_hB_collateral_v1",
+        "name": "lift",
+        "cited": "0.122 < 0.15",
+        "recorded_verdict": "HB_INCONCLUSIVE",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_betB_replay_hB_collateral_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_betB_task_geometry_v1_2026-05-24_rerun",
+        "name": "2",
+        "cited": "0.103 < 0.2",
+        "recorded_verdict": "TASK_GEOMETRY_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_betB_task_geometry_v1_2026-05-24_rerun/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_boolean_noise_stab_kerdock_kkl_v1",
+        "name": "",
+        "cited": "0.2115 > 0.1",
+        "recorded_verdict": "BOOLEAN_NOISE_STAB_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_boolean_noise_stab_kerdock_kkl_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_boolean_noise_stab_kerdock_kkl_v1_reship_2026-05-24",
+        "name": "",
+        "cited": "0.2115 > 0.1",
+        "recorded_verdict": "BOOLEAN_NOISE_STAB_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_boolean_noise_stab_kerdock_kkl_v1_reship_2026-05-24/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_boolean_noise_stab_kerdock_kkl_v1_reship_2026-05-24_rerun_2026-05-24",
+        "name": "",
+        "cited": "0.2115 > 0.1",
+        "recorded_verdict": "BOOLEAN_NOISE_STAB_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_boolean_noise_stab_kerdock_kkl_v1_reship_2026-05-24_rerun_2026-05-24/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_boolean_noise_stab_kerdock_kkl_v1_smoke",
+        "name": "",
+        "cited": "0.144 > 0.1",
+        "recorded_verdict": "BOOLEAN_NOISE_STAB_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_boolean_noise_stab_kerdock_kkl_v1_smoke/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_fieldA_lyapunov_spectrum_v1",
+        "name": "",
+        "cited": "1.5439 > 0.2",
+        "recorded_verdict": "LYAP_HARD_FAIL_FAR_FROM_EDGE",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_fieldA_lyapunov_spectrum_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_k7_multistep_inference_v1",
+        "name": "acc@d5",
+        "cited": "0.008 < 0.1",
+        "recorded_verdict": "MULTISTEP_INFER_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_k7_multistep_inference_v1/metrics.json"
+      },
+      {
+        "exp_key": "exp_wave14_k8_hierarchical_concepts_v1",
+        "name": "cos",
+        "cited": "0.049 < 0.05",
+        "recorded_verdict": "HIER_CONCEPTS_HARD_FAIL",
+        "path": "C:/dev/hd-instrument/data/exp_wave14_k8_hierarchical_concepts_v1/metrics.json"
+      }
+    ],
+    "n_unbacked_nontrivial_total": 40,
+    "note": "not_holding = QUANT-FAITHFUL cited inequality that does NOT hold when re-evaluated on the RESOLVED persisted source value (SOURCE-BACKED candidate: higher confidence than the predecessor's free-text-only flags; sub-resolution ties below RES like '0.0 < 1e-10' are EXCLUDED as comparator artifacts -- but the list still includes FAIL-verdict citations where the failing inequality is EXPECTED to not-hold; VET should classify). unbacked_nontrivial = nontrivial cited number that does NOT appear as any persisted numeric leaf in its OWN citing metrics.json (prose-only / relative threshold / potential miscitation)."
+  },
+  "bands": {
+    "HP_coverage_nt": 0.6,
+    "HF_coverage_nt": 0.2,
+    "coverage_multiple_hp": 5.0,
+    "baseline_ledger_retrieval": 0.0328,
+    "HP_lift": 0.4,
+    "HF_lift": 0.1,
+    "max_scrambled_nt": 0.15,
+    "HP_op_agree": 0.99,
+    "HF_op_agree": 0.9,
+    "max_scram_residue": 0.72,
+    "min_claims_smoke": 100,
+    "min_claims_full": 300,
+    "min_resolved_nt": 30
+  },
+  "composition": {
+    "predecessor": "exp_cert_ledger_numeric_entailment_v1 (Tier-2; retrieval_hit_rate=0.0328 REPLACED here)",
+    "sibling_negative": "exp_cert_ledger_retrieval_coverage_v1 (content-addressable ceiling ~0.15-0.17)",
+    "comparator_cell": "exp_math_rns_subtract_compare_v1 (MEASURED_MECHANISM; decode_then_compare leg reused)",
+    "finding": "SKIP retrieval entirely -> audit each cited claim directly against its citing cell's own metrics.json. Every metrics.json is its own referent (exact, non-fuzzy). This lifts audit coverage from the ~0.033 ledger-retrieval ceiling to the majority of cited claims."
+  },
+  "scope_guardrail": "NARROW glass-box MONITOR: the audit READS cell metrics + verdicts and CHECKS entailment. It NEVER edits the ledger, never re-labels a cert_status, never edits code, never triggers a re-encode. Not fluent-language, not self-improvement.",
+  "ts_iso": "2026-07-06T15:49:58.557930+00:00",
+  "pid": 21128,
+  "host": "Home"
+}

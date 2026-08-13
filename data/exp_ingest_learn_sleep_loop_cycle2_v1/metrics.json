@@ -1,0 +1,290 @@
+{
+  "anchor_name": "ingest_learn_sleep_loop_cycle2_v1",
+  "corpus": "OneStopEnglish graded (Ele/Int/Adv), data/corpora/onestop",
+  "partA_coverage_fix": {
+    "banked_predicate_recall": 0.2222,
+    "spacy_predicate_recall": 1.0,
+    "recall_delta": 0.7778,
+    "banked": {
+      "n_gold": 9,
+      "n_reader_events": 2,
+      "predicate_recall": 0.2222,
+      "n_pred_matched": 2,
+      "triple_f1": 0.3636,
+      "pair_f1": 0.3636,
+      "reader_events": [
+        [
+          "ran",
+          "dog",
+          "?"
+        ],
+        [
+          "ran",
+          "rat",
+          "box"
+        ]
+      ]
+    },
+    "spacy": {
+      "n_gold": 9,
+      "n_reader_events": 9,
+      "predicate_recall": 1.0,
+      "n_pred_matched": 9,
+      "triple_f1": 0.6667,
+      "pair_f1": 0.6667,
+      "reader_events": [
+        [
+          "run",
+          "dog",
+          "?"
+        ],
+        [
+          "have",
+          "man",
+          "pen"
+        ],
+        [
+          "run",
+          "rat",
+          "box"
+        ],
+        [
+          "have",
+          "rab",
+          "hat"
+        ],
+        [
+          "catch",
+          "ann",
+          "rab"
+        ],
+        [
+          "have",
+          "?",
+          "hat"
+        ],
+        [
+          "feed",
+          "ned",
+          "hen"
+        ],
+        [
+          "be",
+          "?",
+          "hen"
+        ],
+        [
+          "leave",
+          "?",
+          "nest"
+        ]
+      ]
+    },
+    "arms_differ": true,
+    "verdict": "PASS_COVERAGE_FIXED"
+  },
+  "partB_feedback_ablation": {
+    "n_test_items": 1778,
+    "n_hard_items": 31,
+    "acc_without_knowledge": 0.9826,
+    "acc_with_conservative_gate": 0.8369,
+    "acc_with_aggressive_override": 0.6445,
+    "delta_conservative_minus_without": -0.1457,
+    "delta_aggressive_minus_without": -0.3381,
+    "hard_acc_without": 0.0,
+    "hard_acc_conservative": 0.2581,
+    "hard_delta_conservative": 0.2581,
+    "gate_design_note": "aggressive (fire on every >=2-candidate item) HURTS: it overrides the strong structural nearest-noun prior even when structure was right. conservative gate = brain-faithful: override ONLY when the nearest pick is selectionally unsupported AND an alternative is clearly better.",
+    "discriminator_fired": true,
+    "verdict": "HURT_REGRESSION"
+  },
+  "partC_learning_curve": {
+    "curve_acc_with": {
+      "0.00": 0.9826,
+      "0.25": 0.8583,
+      "0.50": 0.8375,
+      "0.75": 0.8442,
+      "1.00": 0.8369
+    },
+    "acc_without_flat": 0.9826,
+    "rise_full_minus_zero": -0.1457,
+    "n_steps": 4,
+    "n_nonneg_steps": 1,
+    "zero_knowledge_matches_without_selfcheck": true,
+    "verdict": "FLAT_HONEST_CANFAIL"
+  },
+  "partD_knowledge_impact_2afc": {
+    "n_heldout_groups": 156,
+    "n_unseen_items": 48,
+    "acc_on": 0.75,
+    "acc_off": 0.5,
+    "acc_random": 0.5208,
+    "delta_on_minus_off": 0.25,
+    "n_unseen_ge_20": true,
+    "verdict": "PASS_KNOWLEDGE_MOVES_PROBE"
+  },
+  "partE_integrity": {
+    "flag_gate": {
+      "n_unknown_pop": 2,
+      "n_clear_pop": 1,
+      "flag_recall_on_unknowns": 1.0,
+      "flag_fp_on_clear": 0.0,
+      "gate_fires_on_real_unknowns": true,
+      "clarify_tau": 0.35,
+      "refuse_tau": 0.55
+    },
+    "flag_gate_fires_on_real_unknowns": true,
+    "sleep_class_generalized_a_rule": false,
+    "sleep_class_compression_ratio": 0.9075,
+    "sleep_class_n_rules": 34,
+    "averaging_collapse_detectable_on_per_item": true,
+    "sleep_detail": {
+      "class_level": {
+        "n_episodes": 2625,
+        "chosen_plugin": "KEEP_EPISODIC",
+        "compression_ratio": 0.9075,
+        "n_rules": 34,
+        "is_episodic": false,
+        "generalized_a_rule": false,
+        "sample_rules": [
+          {
+            "conjunct": [
+              "verb=solve"
+            ],
+            "majority_class": "noun.state",
+            "coverage": 7,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=experience"
+            ],
+            "majority_class": "noun.act",
+            "coverage": 6,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=throw"
+            ],
+            "majority_class": "noun.artifact",
+            "coverage": 5,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=read"
+            ],
+            "majority_class": "noun.communication",
+            "coverage": 5,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=delay"
+            ],
+            "majority_class": "noun.act",
+            "coverage": 3,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=employ"
+            ],
+            "majority_class": "noun.person",
+            "coverage": 3,
+            "precision": 1.0
+          }
+        ]
+      },
+      "per_item_facts": {
+        "n_episodes": 2625,
+        "chosen_plugin": "KEEP_EPISODIC",
+        "compression_ratio": 0.9307,
+        "n_rules": 8,
+        "is_episodic": false,
+        "generalized_a_rule": false,
+        "sample_rules": [
+          {
+            "conjunct": [
+              "verb=solve"
+            ],
+            "majority_class": "problem",
+            "coverage": 7,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=experience"
+            ],
+            "majority_class": "violence",
+            "coverage": 6,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=sleep"
+            ],
+            "majority_class": "average",
+            "coverage": 2,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=weigh"
+            ],
+            "majority_class": "kg",
+            "coverage": 2,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=cut"
+            ],
+            "majority_class": "tree",
+            "coverage": 2,
+            "precision": 1.0
+          },
+          {
+            "conjunct": [
+              "verb=gain"
+            ],
+            "majority_class": "experience",
+            "coverage": 2,
+            "precision": 1.0
+          }
+        ]
+      },
+      "averaging_collapse_detected_on_per_item": true
+    }
+  },
+  "condensed_knowledge_store": {
+    "path": "D:\\AI\\hd-instrument\\data\\exp_ingest_learn_sleep_loop_cycle2_v1\\condensed_knowledge_onestop.json",
+    "n_verbs": 375,
+    "queryable": true
+  },
+  "n_test_articles": 60,
+  "n_train_articles": 90,
+  "n_test_wdw_items": 1778,
+  "n_train_svo_evidence": 2625,
+  "VET_PENDING": true,
+  "wiring_state": {
+    "WIRED": [
+      "FIX1 coverage: SpacyEventReader(SituationReader) spaCy clause-head predicate detection (present/possessive/copular) -> grade-1 predicate recall 0.222->1.000",
+      "FIX2 feedback wire: condensed selectional knowledge (verb->class) tie-breaks the reader patient decision on ambiguous (>=2 candidate) items -- ABLATED with vs without",
+      "LEARNING CURVE: ingest Ele batches -> re-score who-did-what on held-out harder Int articles",
+      "PART D: knowledge-impact UNSEEN-noun 2AFC at n=48 (>=20 target)",
+      "INTEGRITY: ClarifyGate flag-fires + LEARNER MODULE rule-induction vs per-item collapse",
+      "corpus repointed McGuffey -> OneStopEnglish (modern graded, 3 aligned levels)"
+    ],
+    "STUBBED_OR_MISSING_OR_FLAT": [
+      "LEARNING CURVE is FLAT on this held-out set/scale -- honest can-fail, reported.",
+      "who-did-what gold = spaCy dependency SILVER (supplied grammar), not human gold; reader roles use POSITION+knowledge only (independent of the dep labels).",
+      "coref accuracy on onestop NOT scored (no coref gold); coref path exercised only on the supplied grade-1 unit."
+    ]
+  },
+  "elapsed_s": 19.524,
+  "verdict": "CYCLE2_COMPLETE",
+  "verdict_msg": "coverage=PASS_COVERAGE_FIXED B=HURT_REGRESSION C=FLAT_HONEST_CANFAIL D=PASS_KNOWLEDGE_MOVES_PROBE flag=True sleep=False",
+  "summary": "coverage=PASS_COVERAGE_FIXED B=HURT_REGRESSION C=FLAT_HONEST_CANFAIL D=PASS_KNOWLEDGE_MOVES_PROBE flag=True sleep=False"
+}

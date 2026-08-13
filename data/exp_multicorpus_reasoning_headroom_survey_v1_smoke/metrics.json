@@ -1,0 +1,212 @@
+{
+  "anchor_name": "multicorpus_reasoning_headroom_survey_v1",
+  "verdict": "INCONCLUSIVE_INSUFFICIENT_CORPORA",
+  "verdict_msg": "WINNER=FB15K237 (fair=0.000 HIGH=0.000) | control[SYN_COMP=0.860 SYN_FREQ=0.000 fires=True] | WN18RR_all=n/a mustfail_fires=None | ladder: FB15K237[fair=0.000 HIGH=0.000 ALL=0.000] :: INCONCLUSIVE_INSUFFICIENT_CORPORA",
+  "summary": "WINNER=FB15K237 (fair=0.000 HIGH=0.000) | control[SYN_COMP=0.860 SYN_FREQ=0.000 fires=True] | WN18RR_all=n/a mustfail_fires=None | ladder: FB15K237[fair=0.000 HIGH=0.000 ALL=0.000] :: INCONCLUSIVE_INS",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "elapsed_s": 0.472515344619751,
+  "gates": {
+    "control_fires": true,
+    "syn_compositional_headroom": 0.86,
+    "syn_freq_guessable_headroom": 0.0,
+    "winner": "FB15K237",
+    "winner_fair_score": 0.0,
+    "winner_high_headroom": 0.0,
+    "wn18rr_all_headroom": null,
+    "wn18rr_mustfail_fires": null,
+    "n_real_ranked": 1,
+    "statuses": {
+      "FB15K237": {
+        "status": "OK",
+        "role": "reference_reproducer"
+      }
+    },
+    "ranking": [
+      [
+        "FB15K237",
+        0.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "arms_differ_verified": true,
+  "table_digests": {
+    "SYN_COMPOSITIONAL": "2b504dbd44f203bb4e0a15463a9ff5c3aa4eff188744d9bea11a86afc8175b04",
+    "SYN_FREQ_GUESSABLE": "b9214157569bc11bf33d8756325c1f55cdeab2ec1ee472c6dbccad562d045aa5",
+    "FB15K237": "b9214157569bc11bf33d8756325c1f55cdeab2ec1ee472c6dbccad562d045aa5"
+  },
+  "ranking": [
+    [
+      "FB15K237",
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "real_mean_strata": {
+    "FB15K237": {
+      "low": {
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.03508771929824561,
+        "headroom": 0.0,
+        "n": 57.0
+      },
+      "mid": {
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.29545454545454547,
+        "headroom": 0.0,
+        "n": 44.0
+      },
+      "high": {
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.8163265306122449,
+        "headroom": 0.0,
+        "n": 49.0
+      },
+      "all": {
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.36666666666666664,
+        "headroom": 0.0,
+        "n": 150.0
+      }
+    }
+  },
+  "real_per_seed": {
+    "FB15K237": [
+      {
+        "corpus": "FB15K237",
+        "n_test_eval": 150,
+        "n_ent": 12982,
+        "n_rel": 237,
+        "tert_q1": 2,
+        "tert_q2": 14,
+        "strata": {
+          "low": {
+            "n": 57,
+            "reach_ceiling": 0.0,
+            "pop_relfreq_h10": 0.03508771929824561,
+            "headroom": 0.0
+          },
+          "mid": {
+            "n": 44,
+            "reach_ceiling": 0.0,
+            "pop_relfreq_h10": 0.29545454545454547,
+            "headroom": 0.0
+          },
+          "high": {
+            "n": 49,
+            "reach_ceiling": 0.0,
+            "pop_relfreq_h10": 0.8163265306122449,
+            "headroom": 0.0
+          },
+          "all": {
+            "n": 150,
+            "reach_ceiling": 0.0,
+            "pop_relfreq_h10": 0.36666666666666664,
+            "headroom": 0.0
+          }
+        }
+      }
+    ]
+  },
+  "real_provenance": {
+    "FB15K237": {
+      "corpus": "FB15K237",
+      "n_nodes": 12982,
+      "n_edges": 53001,
+      "avgdeg": 8.165305808041904,
+      "n_train": 15000,
+      "n_valid": 17535,
+      "n_test": 20466,
+      "n_rel": 237
+    }
+  },
+  "corpus_statuses": {
+    "FB15K237": {
+      "status": "OK",
+      "role": "reference_reproducer"
+    }
+  },
+  "syn_compositional": {
+    "corpus": "SYN_COMPOSITIONAL",
+    "n_test_eval": 200,
+    "n_ent": 520,
+    "n_rel": 4,
+    "tert_q1": 3,
+    "tert_q2": 5,
+    "strata": {
+      "low": {
+        "n": 80,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 1.0
+      },
+      "mid": {
+        "n": 83,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 1.0
+      },
+      "high": {
+        "n": 37,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.7567567567567568,
+        "headroom": 0.24324324324324326
+      },
+      "all": {
+        "n": 200,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.14,
+        "headroom": 0.86
+      }
+    }
+  },
+  "syn_freq_guessable": {
+    "corpus": "SYN_FREQ_GUESSABLE",
+    "n_test_eval": 200,
+    "n_ent": 402,
+    "n_rel": 3,
+    "tert_q1": 201,
+    "tert_q2": 201,
+    "strata": {
+      "low": {
+        "n": 200,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 1.0,
+        "headroom": 0.0
+      },
+      "mid": {
+        "n": 0,
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 0.0
+      },
+      "high": {
+        "n": 0,
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 0.0
+      },
+      "all": {
+        "n": 200,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 1.0,
+        "headroom": 0.0
+      }
+    }
+  },
+  "reference_fb_vet_table": {
+    "low": 0.32,
+    "mid": 0.299,
+    "high": 0.027,
+    "all": 0.011,
+    "source": "CITED@notes VET aa7f151f (FB15k-237 headroom)"
+  },
+  "reference_syn_anchors": {
+    "syn_compositional_expected": 0.86,
+    "syn_freq_guessable_expected": 0.0,
+    "source": "CITED@data/exp_cskg_dense_core_headroom_acceptance_v1_smoke/metrics.json"
+  }
+}

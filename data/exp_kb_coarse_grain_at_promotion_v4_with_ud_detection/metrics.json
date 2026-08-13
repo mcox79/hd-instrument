@@ -1,0 +1,257 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "n_atoms_full=4735 < 10000 (RC-2 invariant: scale insufficient to break saturation)",
+  "elapsed_s": 8.66,
+  "summary": {
+    "anchor": "kb_coarse_grain_at_promotion_v4_with_ud_detection",
+    "smoke": false,
+    "kb_version": "v1",
+    "inline_kb_manifest": {
+      "kb_version": "v1",
+      "schema_version": "v2",
+      "schema_hash": "0e58a20e69b5f4a97c312905ee8a3611c96c1847eb359a7dc0e81e50e44fc49d",
+      "encoder": "char_trigram_v1",
+      "chunk_ingest_version": "v1",
+      "n_dim": 2048,
+      "seed": 17,
+      "n_entities": 4735,
+      "n_relations": 75,
+      "n_triples": 6594,
+      "n_chunks": 2199,
+      "n_discovered": 400,
+      "n_skipped": 1,
+      "coverage_ratio": 0.9975,
+      "avg_chunks_per_file": 5.51,
+      "per_class": {
+        "memory": {
+          "n_files": 0,
+          "n_chunks": 0,
+          "n_files_zero_chunks": 0
+        },
+        "note": {
+          "n_files": 200,
+          "n_chunks": 1138,
+          "n_files_zero_chunks": 0
+        },
+        "prereg": {
+          "n_files": 200,
+          "n_chunks": 1061,
+          "n_files_zero_chunks": 1
+        }
+      },
+      "elapsed_s": 2.585,
+      "redact_timestamps_in_atoms": false,
+      "chunk_min_chars": 200,
+      "chunk_target_chars": 800,
+      "chunk_hard_max_chars": 1600,
+      "chunks_per_file_cap": 200,
+      "content_tag_max_chars": 600,
+      "_build_elapsed_s": 2.618,
+      "_n_files_discovered": 400,
+      "_smoke": false,
+      "_v4_external_memory_used": false,
+      "_v4_external_memory_dir": "C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory",
+      "_v4_external_memory_files": 0,
+      "_v4_ud_relabel_stats": {
+        "n_atoms_total": 6594,
+        "n_unique_source_paths": 399,
+        "n_ud_source_paths": 182,
+        "n_atoms_relabeled": 2184,
+        "sample_ud_source_paths": [
+          "notes/blocker_ping_to_all_20260618T070145Z_n1.md",
+          "notes/blocker_ping_to_all_20260618T072415Z_n2.md",
+          "notes/blocker_ping_to_all_20260618T072537Z_n3.md",
+          "notes/blocker_ping_to_all_20260618T073145Z_n2.md",
+          "notes/blocker_ping_to_all_20260618T075538Z_n5.md",
+          "notes/blocker_ping_to_all_20260618T082538Z_n6.md",
+          "notes/blocker_ping_to_all_20260618T085538Z_n7.md",
+          "notes/blocker_ping_to_all_20260618T092538Z_n8.md",
+          "notes/blocker_ping_to_all_20260618T095538Z_n9.md",
+          "notes/blocker_ping_to_all_20260618T102538Z_n10.md"
+        ]
+      },
+      "_v4_ud_relabel_elapsed_s": 0.129,
+      "_v4_n_atoms_relabeled_to_user_directive": 2184
+    },
+    "inline_kb_dir": "C:\\dev\\hd-instrument\\data\\exp_kb_coarse_grain_at_promotion_v4_with_ud_detection\\_inline_kb",
+    "external_memory_dir": "C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory",
+    "n_inline_entities": 4735,
+    "n_atoms_per_seed": 4735,
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "cosine_thresh": 0.85,
+    "min_cluster_size": 5,
+    "ud_source_class_from_memory": "chunk_memory",
+    "ud_source_class_from_content": "user_directive",
+    "ud_content_markers": [
+      "USER:",
+      "USER directive",
+      "USER-locked",
+      "USER LOCKED",
+      "USER 2026-",
+      "USER 2025-"
+    ],
+    "n_ud_in_sample_per_seed": [
+      236,
+      236,
+      236
+    ],
+    "n_ud_in_sample_min": 236,
+    "seed_results": [
+      {
+        "seed": 17,
+        "baseline": {
+          "arm": "ARM_NO_COARSE_GRAIN_BASELINE",
+          "ok": true,
+          "n_atoms": 3492,
+          "n_user_directive_atoms": 236,
+          "capacity_used": 3492,
+          "capacity_drop_fraction": 0.0,
+          "recall_unclustered": 1.0,
+          "elapsed_s": 0.0
+        },
+        "ultra": {
+          "arm": "ARM_COARSE_GRAIN_ULTRAMETRIC",
+          "ok": true,
+          "seed": 17,
+          "n_atoms": 3492,
+          "n_user_directive_atoms": 236,
+          "n_clusters": 2,
+          "n_clustered_atoms": 75,
+          "n_unclustered_atoms": 3417,
+          "effective_capacity_used": 3419,
+          "capacity_drop_fraction": 0.0209,
+          "recall_clustered": 1.0,
+          "recall_unclustered": 0.6634,
+          "user_directive_mixing_violations": 0,
+          "audit_events_emitted": 2,
+          "by_class_sizes": {
+            "user_directive": 236,
+            "chunk_prereg": 2249,
+            "chunk_note": 1007
+          },
+          "elapsed_s": 1.812
+        },
+        "random": {
+          "arm": "ARM_RANDOM_CLUSTER_COLLAPSE",
+          "ok": true,
+          "seed": 17,
+          "n_atoms": 3492,
+          "n_clusters": 2,
+          "capacity_drop_fraction": 0.0209,
+          "recall_clustered": 0.0133,
+          "elapsed_s": 0.042
+        }
+      },
+      {
+        "seed": 23,
+        "baseline": {
+          "arm": "ARM_NO_COARSE_GRAIN_BASELINE",
+          "ok": true,
+          "n_atoms": 3492,
+          "n_user_directive_atoms": 236,
+          "capacity_used": 3492,
+          "capacity_drop_fraction": 0.0,
+          "recall_unclustered": 1.0,
+          "elapsed_s": 0.0
+        },
+        "ultra": {
+          "arm": "ARM_COARSE_GRAIN_ULTRAMETRIC",
+          "ok": true,
+          "seed": 23,
+          "n_atoms": 3492,
+          "n_user_directive_atoms": 236,
+          "n_clusters": 3,
+          "n_clustered_atoms": 121,
+          "n_unclustered_atoms": 3371,
+          "effective_capacity_used": 3374,
+          "capacity_drop_fraction": 0.0338,
+          "recall_clustered": 1.0,
+          "recall_unclustered": 0.6592,
+          "user_directive_mixing_violations": 0,
+          "audit_events_emitted": 3,
+          "by_class_sizes": {
+            "user_directive": 236,
+            "chunk_prereg": 2249,
+            "chunk_note": 1007
+          },
+          "elapsed_s": 1.834
+        },
+        "random": {
+          "arm": "ARM_RANDOM_CLUSTER_COLLAPSE",
+          "ok": true,
+          "seed": 23,
+          "n_atoms": 3492,
+          "n_clusters": 3,
+          "capacity_drop_fraction": 0.0338,
+          "recall_clustered": 0.0083,
+          "elapsed_s": 0.044
+        }
+      },
+      {
+        "seed": 31,
+        "baseline": {
+          "arm": "ARM_NO_COARSE_GRAIN_BASELINE",
+          "ok": true,
+          "n_atoms": 3492,
+          "n_user_directive_atoms": 236,
+          "capacity_used": 3492,
+          "capacity_drop_fraction": 0.0,
+          "recall_unclustered": 1.0,
+          "elapsed_s": 0.0
+        },
+        "ultra": {
+          "arm": "ARM_COARSE_GRAIN_ULTRAMETRIC",
+          "ok": true,
+          "seed": 31,
+          "n_atoms": 3492,
+          "n_user_directive_atoms": 236,
+          "n_clusters": 3,
+          "n_clustered_atoms": 115,
+          "n_unclustered_atoms": 3377,
+          "effective_capacity_used": 3380,
+          "capacity_drop_fraction": 0.0321,
+          "recall_clustered": 1.0,
+          "recall_unclustered": 0.6595,
+          "user_directive_mixing_violations": 0,
+          "audit_events_emitted": 3,
+          "by_class_sizes": {
+            "user_directive": 236,
+            "chunk_prereg": 2249,
+            "chunk_note": 1007
+          },
+          "elapsed_s": 1.801
+        },
+        "random": {
+          "arm": "ARM_RANDOM_CLUSTER_COLLAPSE",
+          "ok": true,
+          "seed": 31,
+          "n_atoms": 3492,
+          "n_clusters": 3,
+          "capacity_drop_fraction": 0.0321,
+          "recall_clustered": 0.0087,
+          "elapsed_s": 0.044
+        }
+      }
+    ],
+    "full_n_preview": null,
+    "verdict": "HARD_FAIL",
+    "verdict_msg": "n_atoms_full=4735 < 10000 (RC-2 invariant: scale insufficient to break saturation)",
+    "elapsed_s": 8.66,
+    "cardinality_ok": false,
+    "hp_min_n_ud_in_sample": 10,
+    "hp_min_n_atoms_full": 10000,
+    "hp_min_capacity_drop": 0.2,
+    "hp_min_gap_vs_random": 0.3,
+    "hp_max_cv": 0.05,
+    "hp_max_rec_unclustered_nonsat": 0.999,
+    "chunk_classes_ingested": [
+      "note",
+      "memory",
+      "prereg"
+    ]
+  }
+}

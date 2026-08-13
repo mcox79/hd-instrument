@@ -1,0 +1,51 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS CONJUNCTION_NATIVE_BIND_VS_HOMOPHILY: FHRR bind is the group homomorphism (bind(a,b)=code[(a+b)%L]); on the synthetic additive-conjunction arena NATIVE_BIND solves NOVEL combos while the frequency/homophily null fails; the ARBITRARY + SHUFFLE must-fails fire; 6 validity-preflight checks declared. REAL CSKG FULL measures whether real value-skew lets the frequency null climb (reframe weakens) or it stays near chance (reframe holds).",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.1049328000517562,
+  "mechanism_selftest": {
+    "homomorphism_ok": true,
+    "homomorphism_pred": [
+      8,
+      17,
+      3
+    ],
+    "homomorphism_expect": [
+      8,
+      17,
+      3
+    ],
+    "clean_native_bind_novel": 1.0,
+    "clean_freq_null_novel": 0.02098,
+    "clean_dissociation": 0.97902,
+    "arb_native_bind_novel": 0.00699,
+    "arb_freq_null_novel": 0.02797,
+    "arb_gap": -0.02098,
+    "shuf_native_bind_novel": 0.02098,
+    "shuf_pop_novel": 0.02098,
+    "shuf_gap": 0.0,
+    "oracle_clean_novel": 1.0,
+    "n_distinct_sigs_clean": 6,
+    "n_novel": 143,
+    "n_seen": 217,
+    "bind_beats": true,
+    "dissociates": true,
+    "null_fails": true,
+    "arb_mustfail": true,
+    "shuf_mustfail": true,
+    "ceiling_ok": true,
+    "arms_differ": true,
+    "novel_seen_ok": true,
+    "decisive_selftest_verdict": "NATIVE_BIND_COMPOSITION_BEATS_FREQUENCY_ON_CONJUNCTIONS",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin",
+      "full_gates_exercised"
+    ]
+  }
+}

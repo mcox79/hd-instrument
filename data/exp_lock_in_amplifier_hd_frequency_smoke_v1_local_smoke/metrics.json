@@ -1,0 +1,247 @@
+{
+  "anchor_name": "lock_in_amplifier_hd_frequency_smoke_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: lock-in amplifier mechanism REAL at substrate. P32 lifts recall x8.17 (HP>=4.0x) AND P8 x3.52 (HP>=2.0x) over baseline at sigma_32.0. discrim_sigma=sigma_32.0 (baseline=0.1150 in-band [0.05, 0.3]): P8=0.4050(x3.52) P32=0.9400(x8.17); full summary: {'ARM_BASELINE_SINGLE_SHOT': {'sigma_4.0': 1.0, 'sigma_8.0': 0.935, 'sigma_16.0': 0.46499999999999997, 'sigma_32.0': 0.115, 'sigma_64.0': 0.055}, 'ARM_LOCK_IN_P8': {'sigma_4.0': 1.0, 'sigma_8.0': 1.0, 'sigma_16.0': 0.9450000000000001, 'sigma_32.0': 0.405, 'sigma_64.0': 0.125}, 'ARM_LOCK_IN_P32': {'sigma_4.0': 1.0, 'sigma_8.0': 1.0, 'sigma_16.0': 1.0, 'sigma_32.0': 0.94, 'sigma_64.0': 0.395}}",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config": {
+    "N_DIM": 1024,
+    "M": 50,
+    "K_SIGNAL": 31,
+    "P_SWEEP": [
+      1,
+      8,
+      32
+    ],
+    "SIGMAS": [
+      4.0,
+      8.0,
+      16.0,
+      32.0,
+      64.0
+    ],
+    "N_EVAL": 100
+  },
+  "summary": {
+    "ARM_BASELINE_SINGLE_SHOT": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 0.935,
+      "sigma_16.0": 0.46499999999999997,
+      "sigma_32.0": 0.115,
+      "sigma_64.0": 0.055
+    },
+    "ARM_LOCK_IN_P8": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 0.9450000000000001,
+      "sigma_32.0": 0.405,
+      "sigma_64.0": 0.125
+    },
+    "ARM_LOCK_IN_P32": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 0.94,
+      "sigma_64.0": 0.395
+    }
+  },
+  "per_seed_arm": [
+    {
+      "seed": 7,
+      "arm": "ARM_BASELINE_SINGLE_SHOT",
+      "P": 1,
+      "M": 50,
+      "N_DIM": 1024,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_4.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_8.0": {
+          "recall_at_1": 0.88,
+          "n_eval": 100
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.41,
+          "n_eval": 100
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.1,
+          "n_eval": 100
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.08,
+          "n_eval": 100
+        }
+      },
+      "elapsed_s": 0.29009222984313965,
+      "run_mode": "smoke"
+    },
+    {
+      "seed": 7,
+      "arm": "ARM_LOCK_IN_P8",
+      "P": 8,
+      "M": 50,
+      "N_DIM": 1024,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_4.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.98,
+          "n_eval": 100
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.38,
+          "n_eval": 100
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.17,
+          "n_eval": 100
+        }
+      },
+      "elapsed_s": 5.002187728881836,
+      "run_mode": "smoke"
+    },
+    {
+      "seed": 7,
+      "arm": "ARM_LOCK_IN_P32",
+      "P": 32,
+      "M": 50,
+      "N_DIM": 1024,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_4.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.96,
+          "n_eval": 100
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.37,
+          "n_eval": 100
+        }
+      },
+      "elapsed_s": 9.209235429763794,
+      "run_mode": "smoke"
+    },
+    {
+      "seed": 17,
+      "arm": "ARM_BASELINE_SINGLE_SHOT",
+      "P": 1,
+      "M": 50,
+      "N_DIM": 1024,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_4.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_8.0": {
+          "recall_at_1": 0.99,
+          "n_eval": 100
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.52,
+          "n_eval": 100
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.13,
+          "n_eval": 100
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.03,
+          "n_eval": 100
+        }
+      },
+      "elapsed_s": 1.418886661529541,
+      "run_mode": "smoke"
+    },
+    {
+      "seed": 17,
+      "arm": "ARM_LOCK_IN_P8",
+      "P": 8,
+      "M": 50,
+      "N_DIM": 1024,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_4.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.91,
+          "n_eval": 100
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.43,
+          "n_eval": 100
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.08,
+          "n_eval": 100
+        }
+      },
+      "elapsed_s": 3.0915744304656982,
+      "run_mode": "smoke"
+    },
+    {
+      "seed": 17,
+      "arm": "ARM_LOCK_IN_P32",
+      "P": 32,
+      "M": 50,
+      "N_DIM": 1024,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_4.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 100
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.92,
+          "n_eval": 100
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.42,
+          "n_eval": 100
+        }
+      },
+      "elapsed_s": 6.590352296829224,
+      "run_mode": "smoke"
+    }
+  ],
+  "elapsed_s": 25.604907035827637
+}

@@ -1,0 +1,362 @@
+{
+  "anchor_name": "reader_integration_endtoend_whoaffected_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | slice=L04+L05+L07 gold_pos=47 | END-TO-END who-affected: CRUDE=0.2923 UNLAB+vote=0.6465 LAB+conjfix+vote=0.7338 (ceiling=0.8284, gap=0.0946) gain_vs_unlab=+0.087(min=0.0) gain_vs_crude=0.4415 | train-shift(parser-oracle)=-0.0579 oracle_trained_on_parser=0.7917 | CONJ-recovery: coord_gip conj=0.7555 noconj=0.7555 recovers=False | ABSTAIN: forced=0.8002 committed=0.8708 rate=0.239 -> HARD_PASS_ABSTAIN_HELPS | hard_frac=0.8511 baseline_in_band=True arms_differ=True below_ceiling=True no_giveaway=True (max_single_cue_gold_sel lab=0.8571)",
+  "summary": "MIDDLE_BAND | slice=L04+L05+L07 gold_pos=47 | END-TO-END who-affected: CRUDE=0.2923 UNLAB+vote=0.6465 LAB+conjfix+vote=0.7338 (ceiling=0.8284, gap=0.0946) gain_vs_unlab=+0.087(min=0.0) gain_vs_crude=0.4415 | train-shift(parser-oracle)=-0.0579 oracle_trained_on_parser=0.7917 | CONJ-recovery: coord_gip conj=0.7555 noconj=0.7555 recovers=False | ABSTAIN: forced=0.8002 committed=0.8708 rate=0.239 -> HARD_PASS_ABSTAIN_HELPS | hard_frac=0.8511 baseline_in_band=True arms_differ=True below_ceiling=True no_giveaway=True (max_single_cue_gold_sel lab=0.8571)",
+  "elapsed_s": 56.33,
+  "ts_iso": "2026-07-21T02:12:42.504988+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07"
+  ],
+  "n_gold_pos_pairs": 47,
+  "n_verb_found": 45,
+  "hard_frac": 0.8511,
+  "PRIMARY_endtoend_labeled_conjfix_vote": 0.7338,
+  "candidate_recall_ceiling_labeled_conjfix": 0.8284,
+  "endtoend_vs_ceiling_gap": 0.0946,
+  "ablation": {
+    "crude_4feat": 0.2923,
+    "unlabeled_plus_vote": 0.6465,
+    "labeled_conjfix_plus_vote": 0.7338
+  },
+  "gain_labeled_vs_unlabeled_mean": 0.0873,
+  "gain_labeled_vs_unlabeled_min": 0.0,
+  "gain_labeled_vs_crude_mean": 0.4415,
+  "train_distribution_shift_delta_parser_minus_oracle": -0.0579,
+  "oracle_trained_vote_on_parser_test_mean": 0.7917,
+  "conj_propagation_recovers_coordination": false,
+  "coord_gold_in_pool_conjfix_mean": 0.7555,
+  "coord_gold_in_pool_noconj_mean": 0.7555,
+  "abstain_verdict": "HARD_PASS_ABSTAIN_HELPS",
+  "abstain_gain": 0.0706,
+  "abstain_forced_precision_mean": 0.8002,
+  "abstain_committed_precision_mean": 0.8708,
+  "abstain_rate_mean": 0.239,
+  "per_construction_mean": {
+    "control": {
+      "mean_endtoend_acc": 0.8889,
+      "mean_gold_in_pool": 1.0,
+      "mean_n": 3.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6445,
+      "mean_gold_in_pool": 0.7555,
+      "mean_n": 5.67
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.8968,
+      "mean_gold_in_pool": 0.8968,
+      "mean_n": 5.33
+    },
+    "relative": {
+      "mean_endtoend_acc": 0.5834,
+      "mean_gold_in_pool": 1.0,
+      "mean_n": 2.5
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.5556,
+      "mean_gold_in_pool": 0.5556,
+      "mean_n": 2.0
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0,
+      "mean_n": 2.0
+    }
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "endtoend_below_ceiling": true,
+  "leak_guard_labeled": {
+    "n_usable_pools": 7,
+    "max_single_feature_gold_selection_acc": 0.8571,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.8571,
+      "f_postv": 0.4286,
+      "f_prep": 0.1429,
+      "f_func": 0.0,
+      "f_clause": 0.1429,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.1429,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.5714,
+      "f_plaus": 0.4286,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "leak_guard_unlabeled": {
+    "n_usable_pools": 42,
+    "max_single_feature_gold_selection_acc": 0.4048,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.4048,
+      "f_postv": 0.2143,
+      "f_prep": 0.0476,
+      "f_func": 0.0,
+      "f_clause": 0.0238,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.119,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.2857,
+      "f_plaus": 0.1905,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "no_giveaway_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "end-to-end decision-precision measurement",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified: <4min)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train_verbs": 20,
+      "n_test_verbs": 13,
+      "n_test_pos": 16,
+      "crude_endtoend_acc": 0.25,
+      "crude_precision_ref": 1.0,
+      "unlabeled_vote_endtoend_acc": 0.8125,
+      "labeled_conjfix_vote_endtoend_acc": 0.8125,
+      "oracle_trained_vote_on_parser_test_acc": 0.875,
+      "gain_labeled_vs_unlabeled": 0.0,
+      "gain_labeled_vs_crude": 0.5625,
+      "train_shift_delta_parser_minus_oracle": -0.0625,
+      "test_ceiling_labeled_conjfix": 0.9375,
+      "test_ceiling_unlabeled": 1.0,
+      "coord_gold_in_pool_conjfix": 0.8333,
+      "coord_gold_in_pool_noconj": 0.8333,
+      "coord_n": 6,
+      "coord_endtoend_acc_conjfix": 0.6667,
+      "per_construction": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 0.5,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        }
+      },
+      "abstain": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.5306,
+        "forced_committed_precision": 0.8125,
+        "abstain_committed_precision": 0.8462,
+        "abstain_rate": 0.1875,
+        "n_test_nonempty": 16,
+        "n_abstained": 3,
+        "parser_margin_mean_correct": 19.1869,
+        "parser_margin_mean_wrong": 13.6164,
+        "completeness_conf_mean_correct": 0.8269,
+        "completeness_conf_mean_wrong": 0.7833
+      },
+      "w_labeled_conjfix": [
+        -3.4958,
+        4.5026,
+        2.0758,
+        1.0608,
+        0.0,
+        -2.5366,
+        0.0,
+        1.0608,
+        0.0,
+        0.0,
+        2.0391,
+        2.2776,
+        0.0
+      ]
+    },
+    {
+      "seed": 13,
+      "n_train_verbs": 20,
+      "n_test_verbs": 13,
+      "n_test_pos": 18,
+      "crude_endtoend_acc": 0.3889,
+      "crude_precision_ref": 0.875,
+      "unlabeled_vote_endtoend_acc": 0.5556,
+      "labeled_conjfix_vote_endtoend_acc": 0.7222,
+      "oracle_trained_vote_on_parser_test_acc": 0.8333,
+      "gain_labeled_vs_unlabeled": 0.1666,
+      "gain_labeled_vs_crude": 0.3333,
+      "train_shift_delta_parser_minus_oracle": -0.1111,
+      "test_ceiling_labeled_conjfix": 0.8333,
+      "test_ceiling_unlabeled": 1.0,
+      "coord_gold_in_pool_conjfix": 0.8333,
+      "coord_gold_in_pool_noconj": 0.8333,
+      "coord_n": 6,
+      "coord_endtoend_acc_conjfix": 0.6667,
+      "per_construction": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.8333
+        },
+        "pronoun": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "simple": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        }
+      },
+      "abstain": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.5088,
+        "forced_committed_precision": 0.7647,
+        "abstain_committed_precision": 0.9091,
+        "abstain_rate": 0.3529,
+        "n_test_nonempty": 17,
+        "n_abstained": 6,
+        "parser_margin_mean_correct": 22.209,
+        "parser_margin_mean_wrong": 8.8488,
+        "completeness_conf_mean_correct": 0.8192,
+        "completeness_conf_mean_wrong": 0.9
+      },
+      "w_labeled_conjfix": [
+        -2.729,
+        3.3046,
+        1.8103,
+        1.5429,
+        0.0,
+        0.4107,
+        0.0,
+        1.5429,
+        0.0,
+        1.8129,
+        2.0341,
+        -2.6892,
+        0.0
+      ]
+    },
+    {
+      "seed": 19,
+      "n_train_verbs": 20,
+      "n_test_verbs": 13,
+      "n_test_pos": 21,
+      "crude_endtoend_acc": 0.2381,
+      "crude_precision_ref": 0.625,
+      "unlabeled_vote_endtoend_acc": 0.5714,
+      "labeled_conjfix_vote_endtoend_acc": 0.6667,
+      "oracle_trained_vote_on_parser_test_acc": 0.6667,
+      "gain_labeled_vs_unlabeled": 0.0953,
+      "gain_labeled_vs_crude": 0.4286,
+      "train_shift_delta_parser_minus_oracle": 0.0,
+      "test_ceiling_labeled_conjfix": 0.7143,
+      "test_ceiling_unlabeled": 0.8571,
+      "coord_gold_in_pool_conjfix": 0.6,
+      "coord_gold_in_pool_noconj": 0.6,
+      "coord_n": 5,
+      "coord_endtoend_acc_conjfix": 0.6,
+      "per_construction": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 5,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 7,
+          "endtoend_acc": 0.8571,
+          "gold_in_pool": 0.8571
+        },
+        "relative": {
+          "n": 3,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "verb_not_found": {
+          "n": 2,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "abstain": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.5587,
+        "forced_committed_precision": 0.8235,
+        "abstain_committed_precision": 0.8571,
+        "abstain_rate": 0.1765,
+        "n_test_nonempty": 17,
+        "n_abstained": 3,
+        "parser_margin_mean_correct": 24.984,
+        "parser_margin_mean_wrong": 22.6917,
+        "completeness_conf_mean_correct": 0.8679,
+        "completeness_conf_mean_wrong": 0.7833
+      },
+      "w_labeled_conjfix": [
+        -3.7926,
+        6.2555,
+        2.5742,
+        -0.5254,
+        0.0,
+        -1.6733,
+        0.0,
+        -0.5254,
+        0.0,
+        1.3645,
+        -0.2164,
+        3.8975,
+        0.0
+      ]
+    }
+  ]
+}

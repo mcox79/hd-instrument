@@ -1,0 +1,380 @@
+{
+  "anchor_name": "ingest_gate_combination_rule_race_v1",
+  "elapsed_s": 26.52,
+  "ts_iso": "2026-07-16T12:44:05.469138+00:00",
+  "n_seeds": 3,
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "n_ent": 300,
+    "edges_per_rel": 180,
+    "n_rstar": 180,
+    "train_frac_rstar": 0.5,
+    "frac_heldout_base": 0.28,
+    "epochs": 140,
+    "reach_k": 2,
+    "rel_scale": 4.0,
+    "calib_frac": 0.5
+  },
+  "bands": {
+    "HP_DECONF_MIN": 0.65,
+    "HF_DECONF_MAX": 0.58,
+    "DECISIVE_MARGIN": 0.05,
+    "TIE_EPS": 0.02,
+    "SCHEMAFIT_LEAK_MAX": 0.95,
+    "PRECHECK_DIFF_MIN": 0.1,
+    "TAU": 3.0,
+    "PRECISION_MIN": 0.5,
+    "SURPRISE_FLOOR": 0.5
+  },
+  "expected_n_units": 3,
+  "observed_n_units": 3,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "single_seed_loop_short_cell_no_heartbeat",
+  "per_candidate_arrays": "per_candidate_arrays.npz",
+  "verdict": "SCHEMAFIT_CARRIES_the_fix",
+  "verdict_msg": "DECONF_AUC[test] flat=0.473 schemafit=0.761 brain=0.497 hybrid=0.664 learned=0.580 | precheck_diff=0.097 (hi=0.513 lo=0.416 fires=False hard=False) | route_acc brain=0.50 learned=0.54 | CONF=0.980 POSCTRL=0.997 RAND=0.465 infer_mrr=0.715 rstar_mrr=0.949 bal=0.38 | harness=True arrays_ok=True(d=0.0e+00) card=True -> SCHEMAFIT_CARRIES_the_fix",
+  "summary": "SCHEMAFIT_CARRIES_the_fix: SCHEMAFIT_CARRIES: schema_fit_alone DECONF_AUC=0.761 >= 0.65 while flat(v4)=0.473 ~chance; brain-faithful=0.497 does not beat schema_fit_alone (interaction inert) and learned=0.580. The v4 fix is the schema_fit STRUCTURAL signal, not the surprise*schema decomposition. BRAIN-CHECK: the schema-fit channel is load-bearing; the precision-weighted surprise interaction is not measurable on this geometry.",
+  "finding": "SCHEMAFIT_CARRIES: schema_fit_alone DECONF_AUC=0.761 >= 0.65 while flat(v4)=0.473 ~chance; brain-faithful=0.497 does not beat schema_fit_alone (interaction inert) and learned=0.580. The v4 fix is the schema_fit STRUCTURAL signal, not the surprise*schema decomposition. BRAIN-CHECK: the schema-fit channel is load-bearing; the precision-weighted surprise interaction is not measurable on this geometry.",
+  "gates": {
+    "cardinality_ok": true,
+    "all_seeds_ok": true,
+    "HP_POSCTRL_FIRES": true,
+    "HP_CONF_REPRODUCES": true,
+    "HP_RANDLABEL_CHANCE": true,
+    "HP_RSTAR_TRAINED": true,
+    "HP_FOUNDATION_STRONG": true,
+    "baseline_in_band": true,
+    "class_balance_ok": true
+  },
+  "harness_valid": true,
+  "run_mode": "smoke",
+  "precheck_fires": false,
+  "precheck_hard": false,
+  "agg": {
+    "deconf_test": {
+      "flat": 0.47341269841269845,
+      "schemafit": 0.7611111111111111,
+      "brain": 0.49682539682539684,
+      "hybrid": 0.6642857142857143,
+      "learned": 0.5801587301587302
+    },
+    "deconf_full": {
+      "flat": 0.49292328042328043,
+      "schemafit": 0.6731481481481482,
+      "brain": 0.5218915343915344,
+      "hybrid": 0.6154100529100529,
+      "learned": 0.6828042328042327
+    },
+    "conf_auc": 0.9801270278543006,
+    "posctrl_auc": 0.9974279835390947,
+    "randlabel_auc": 0.46514550264550264,
+    "infer_mrr": 0.7150054201370146,
+    "rstar_train_mrr": 0.9490740740740741,
+    "precheck_diff": 0.09684861435685906,
+    "precheck_high": 0.5126929596210869,
+    "precheck_low": 0.4158443452642278,
+    "routing_accuracy": {
+      "flat": 0.5031018518518519,
+      "schemafit": 0.5343518518518519,
+      "brain": 0.5031018518518519,
+      "hybrid": 0.5340542328042328,
+      "learned": 0.5400066137566139
+    },
+    "min_class": 5,
+    "min_class_frac": 0.3846153846153846,
+    "array_recompute_delta": 0.0,
+    "head_to_head": {
+      "brain_works": false,
+      "learned_works": false,
+      "schemafit_alone_works": true,
+      "learned_beats_brain": true,
+      "hybrid_beats_brain": true,
+      "schemafit_leak": false
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "status": "OK",
+      "N": 300,
+      "n_deriv": 8,
+      "n_underiv": 5,
+      "deriv_frac": 0.6153846153846154,
+      "deconf_test": {
+        "flat": 0.2916666666666667,
+        "schemafit": 0.9166666666666666,
+        "brain": 0.3333333333333333,
+        "hybrid": 0.75,
+        "learned": 0.5833333333333334
+      },
+      "deconf_full": {
+        "flat": 0.3875,
+        "schemafit": 0.725,
+        "brain": 0.4625,
+        "hybrid": 0.6875,
+        "learned": 0.725
+      },
+      "deconf_exact_flat": 0.8181818181818182,
+      "conf_auc": 0.979504132231405,
+      "posctrl_auc": 1.0,
+      "randlabel_auc": 0.3875,
+      "infer_mrr": 0.7230996595421385,
+      "rstar_train_mrr": 0.95,
+      "schemafit_deriv_mean": 0.7625418060200668,
+      "schemafit_underiv_mean": 0.6317725752508361,
+      "precheck": {
+        "low": 0.4226394525616898,
+        "low_gain_fast": 0.36600998668587403,
+        "low_gain_refit": 0.866009986685874,
+        "mid": 0.21320118187908862,
+        "mid_gain_fast": 0.13226059728964681,
+        "mid_gain_refit": 0.6203558353848849,
+        "high": 0.491910127782638,
+        "high_gain_fast": 0.23558456414688797,
+        "high_gain_refit": 0.4789178974802213,
+        "diff_high_minus_low": 0.06927067522094821,
+        "global_refit_gain": 0.6415425212064725,
+        "global_fast_gain": 0.24392347358742483
+      },
+      "routing": {
+        "flat": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.4,
+          "routing_accuracy": 0.55625
+        },
+        "schemafit": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.375,
+          "slow_underivable": 0.4,
+          "routing_accuracy": 0.65
+        },
+        "brain": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.4,
+          "routing_accuracy": 0.55625
+        },
+        "hybrid": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.5,
+          "slow_underivable": 0.2,
+          "routing_accuracy": 0.6312500000000001
+        },
+        "learned": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.5,
+          "slow_underivable": 0.2,
+          "routing_accuracy": 0.6312500000000001
+        }
+      },
+      "reduced_gen": false,
+      "n_calib": 6,
+      "n_test": 7,
+      "arm_score_sha": {
+        "flat": "b3a51e8ffd8126d5",
+        "schemafit": "c305f7bb8d6dfe23",
+        "brain": "e07a3e6ca8d7ecd0",
+        "hybrid": "c344db6b87502d8e",
+        "learned": "3ee22504e9003494"
+      }
+    },
+    {
+      "seed": 13,
+      "status": "OK",
+      "N": 300,
+      "n_deriv": 14,
+      "n_underiv": 9,
+      "deriv_frac": 0.6086956521739131,
+      "deconf_test": {
+        "flat": 0.6285714285714286,
+        "schemafit": 0.7,
+        "brain": 0.6571428571428571,
+        "hybrid": 0.7428571428571429,
+        "learned": 0.6571428571428571
+      },
+      "deconf_full": {
+        "flat": 0.5912698412698413,
+        "schemafit": 0.6944444444444444,
+        "brain": 0.6031746031746031,
+        "hybrid": 0.6587301587301587,
+        "learned": 0.6984126984126984
+      },
+      "deconf_exact_flat": 0.6136363636363636,
+      "conf_auc": 0.9884802571166208,
+      "posctrl_auc": 0.9924691358024691,
+      "randlabel_auc": 0.5079365079365079,
+      "infer_mrr": 0.6764749677630633,
+      "rstar_train_mrr": 0.9111111111111111,
+      "schemafit_deriv_mean": 0.679945054945055,
+      "schemafit_underiv_mean": 0.580267558528428,
+      "precheck": {
+        "low": 0.4455063402580819,
+        "low_gain_fast": 0.2943765542523078,
+        "low_gain_refit": 0.6607684956442492,
+        "mid": 0.44653728406895254,
+        "mid_gain_fast": 0.35802035819569844,
+        "mid_gain_refit": 0.8017703581956984,
+        "high": 0.5994835941959579,
+        "high_gain_fast": 0.5924740807879247,
+        "high_gain_refit": 0.9883074141212581,
+        "diff_high_minus_low": 0.15397725393787598,
+        "global_refit_gain": 0.8237392020889301,
+        "global_fast_gain": 0.42019962572326686
+      },
+      "routing": {
+        "flat": {
+          "skip_redundant": 0.765,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.2222222222222222,
+          "routing_accuracy": 0.4968055555555556
+        },
+        "schemafit": {
+          "skip_redundant": 0.765,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.2222222222222222,
+          "routing_accuracy": 0.4968055555555556
+        },
+        "brain": {
+          "skip_redundant": 0.765,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.2222222222222222,
+          "routing_accuracy": 0.4968055555555556
+        },
+        "hybrid": {
+          "skip_redundant": 0.765,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.07142857142857142,
+          "slow_underivable": 0.2222222222222222,
+          "routing_accuracy": 0.5146626984126984
+        },
+        "learned": {
+          "skip_redundant": 0.765,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.14285714285714285,
+          "slow_underivable": 0.2222222222222222,
+          "routing_accuracy": 0.5325198412698413
+        }
+      },
+      "reduced_gen": false,
+      "n_calib": 11,
+      "n_test": 12,
+      "arm_score_sha": {
+        "flat": "dba6c1747c3c5757",
+        "schemafit": "4943375f07e54cfa",
+        "brain": "76eabba437f76c2e",
+        "hybrid": "b68363f998d94926",
+        "learned": "9668c5f654c01ca6"
+      }
+    },
+    {
+      "seed": 17,
+      "status": "OK",
+      "N": 300,
+      "n_deriv": 8,
+      "n_underiv": 5,
+      "deriv_frac": 0.6153846153846154,
+      "deconf_test": {
+        "flat": 0.5,
+        "schemafit": 0.6666666666666666,
+        "brain": 0.5,
+        "hybrid": 0.5,
+        "learned": 0.5
+      },
+      "deconf_full": {
+        "flat": 0.5,
+        "schemafit": 0.6,
+        "brain": 0.5,
+        "hybrid": 0.5,
+        "learned": 0.625
+      },
+      "deconf_exact_flat": NaN,
+      "conf_auc": 0.9723966942148761,
+      "posctrl_auc": 0.9998148148148148,
+      "randlabel_auc": 0.5,
+      "infer_mrr": 0.7454416331058421,
+      "rstar_train_mrr": 0.9861111111111112,
+      "schemafit_deriv_mean": 0.7216764214046822,
+      "schemafit_underiv_mean": 0.6779264214046823,
+      "precheck": {
+        "low": 0.3793872429729118,
+        "low_gain_fast": 0.37697495555952737,
+        "low_gain_refit": 0.9936416222261941,
+        "mid": 0.3865611458083157,
+        "mid_gain_fast": 0.38071823675661687,
+        "mid_gain_refit": 0.9848849034232836,
+        "high": 0.4466851568846648,
+        "high_gain_fast": 0.3498253668626193,
+        "high_gain_refit": 0.7831587001959527,
+        "diff_high_minus_low": 0.067297913911753,
+        "global_refit_gain": 0.9099922771982825,
+        "global_fast_gain": 0.36768458489059036
+      },
+      "routing": {
+        "flat": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.0,
+          "routing_accuracy": 0.45625
+        },
+        "schemafit": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.0,
+          "routing_accuracy": 0.45625
+        },
+        "brain": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.0,
+          "routing_accuracy": 0.45625
+        },
+        "hybrid": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.0,
+          "routing_accuracy": 0.45625
+        },
+        "learned": {
+          "skip_redundant": 0.825,
+          "discard_noise": 1.0,
+          "fast_derivable": 0.0,
+          "slow_underivable": 0.0,
+          "routing_accuracy": 0.45625
+        }
+      },
+      "reduced_gen": false,
+      "n_calib": 6,
+      "n_test": 7,
+      "arm_score_sha": {
+        "flat": "39f37f8d1931b3bd",
+        "schemafit": "f186019b1b945ef1",
+        "brain": "39f37f8d1931b3bd",
+        "hybrid": "b4f11bb5b91b10c6",
+        "learned": "517c19467e106479"
+      }
+    }
+  ]
+}

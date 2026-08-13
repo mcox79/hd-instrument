@@ -1,0 +1,102 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS closed-form budget-sweep: closed-form (spectral+ALS) X/D recovers planted held-out tails via the anchor bundle and clears RANDOM across >=2 budgets; relation-scramble fails; ORACLE fires; POP at floor; 7 validity-preflight checks declared (F.1-F.4 enforce)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.17761210002936423,
+  "mechanism_selftest": {
+    "n_grid_entities": 300,
+    "n_heldout_entities": 45,
+    "n_query": 61,
+    "k_grid": [
+      6,
+      12
+    ],
+    "top_budget": 12,
+    "heldout_mrr_top": {
+      "CLOSEDFORM_ANCHOR": 0.07095,
+      "CLOSEDFORM_MEMORIZE": 0.00359,
+      "CLOSEDFORM_SCRAMBLE": 0.04763,
+      "CLOSEDFORM_ORACLE": 0.32705,
+      "RANDOM_CODES": 0.01338,
+      "BASELINE_POP": 0.00825
+    },
+    "cf_oracle_across_budget": [
+      0.2253,
+      0.32705
+    ],
+    "heldout_metric_spectrum_top": {
+      "CLOSEDFORM_ANCHOR": {
+        "hits@1": 0.0,
+        "hits@3": 0.09836,
+        "hits@10": 0.19672,
+        "hits@100": 0.57377,
+        "mrr": 0.07095
+      },
+      "CLOSEDFORM_MEMORIZE": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.0,
+        "mrr": 0.00359
+      },
+      "CLOSEDFORM_SCRAMBLE": {
+        "hits@1": 0.01639,
+        "hits@3": 0.04918,
+        "hits@10": 0.06557,
+        "hits@100": 0.44262,
+        "mrr": 0.04763
+      },
+      "CLOSEDFORM_ORACLE": {
+        "hits@1": 0.13115,
+        "hits@3": 0.45902,
+        "hits@10": 0.67213,
+        "hits@100": 0.95082,
+        "mrr": 0.32705
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.31148,
+        "mrr": 0.01338
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.19672,
+        "mrr": 0.00825
+      }
+    },
+    "n_distinct_sigs": 6,
+    "anchor_margin": 0.05757,
+    "scramble_margin": 0.02332,
+    "oracle_margin": 0.31367,
+    "oracle_ratio": 24.44,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "scramble_fails": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "STRICT_PATH_VIABLE_BUDGET_LIMITED",
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "additive_direct_scores",
+      "build_anchor_compose_codes",
+      "closedform_als_coords",
+      "run_corpus"
+    ],
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3",
+      "guard_baseline_valid_F4"
+    ]
+  }
+}

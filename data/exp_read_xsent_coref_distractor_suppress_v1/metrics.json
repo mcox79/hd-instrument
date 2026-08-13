@@ -1,0 +1,721 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ACCURACY PASS: generic-distractor suppression lifts cross-sentence coref sup_both acc=0.2487 vs plateau p1_backbone=0.2053 (delta=+0.0434, sign_stability=1.000), validity_gate=OK (single_sentence=0.0000), faithful sup_off=0.2053==p1. fixed=40 broke=14 net=26. TRUST axis: sup_both_abstain attempt=1.0000 prec=0.2487 cwr=0.7513 (trust_pass=False).",
+  "summary": "read_xsent_coref_distractor_suppress_v1: HARD_PASS",
+  "elapsed_s": 1.567,
+  "anchor_name": "read_xsent_coref_distractor_suppress_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-24T05:01:26.685492+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 25,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll",
+      "113_the_secret_garden_brat.conll",
+      "1260_jane_eyre_an_autobiography_brat.conll",
+      "1342_pride_and_prejudice_brat.conll",
+      "1400_great_expectations_brat.conll",
+      "158_emma_brat.conll",
+      "174_the_picture_of_dorian_gray_brat.conll",
+      "209_the_turn_of_the_screw_brat.conll",
+      "2489_moby_dick_brat.conll",
+      "2814_dubliners_brat.conll",
+      "2852_the_hound_of_the_baskervilles_brat.conll",
+      "345_dracula_brat.conll",
+      "36_the_war_of_the_worlds_brat.conll",
+      "514_little_women_brat.conll",
+      "521_the_life_and_adventures_of_robinson_crusoe_brat.conll",
+      "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+      "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+      "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+      "76_adventures_of_huckleberry_finn_brat.conll",
+      "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll",
+      "84_frankenstein_or_the_modern_prometheus_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "p1_backbone",
+      "sup_off",
+      "sup_nonref",
+      "sup_struct",
+      "sup_both",
+      "sup_both_nochain",
+      "sup_both_abstain",
+      "sup_both_margin"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "p1_arm": "p1_backbone",
+    "faithful_arm": "sup_off",
+    "mechanism_arm": "sup_both",
+    "trust_arm": "sup_both_abstain",
+    "plateau_acc_cited": 0.2053,
+    "bundle_focus_acc_cited": 0.187,
+    "validity_gate_max": 0.1,
+    "faithful_eps": 0.005,
+    "plateau_repro_eps": 0.01,
+    "hp_acc_delta": 0.03,
+    "hp_sign_stability": 0.9,
+    "trust_cwr_drop": 0.1,
+    "trust_prec_gain": 0.05,
+    "n_bootstrap": 2000,
+    "bootstrap_seed": 20260724,
+    "pass_criterion": "ACCURACY (sup_both >= plateau + 0.03, sign_stability >= 0.90); TRUST secondary (recognized if fires, not required)"
+  },
+  "n_targets_total": 1690,
+  "n_xsent": 599,
+  "n_same": 1091,
+  "bucket_counts": {
+    "same": 1091,
+    "plus1": 486,
+    "plus2": 66,
+    "long": 47
+  },
+  "n_targets_with_suppression_fired": 1676,
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.2637729549248748,
+      "confident_wrong_rate": 0.2637729549248748,
+      "n": 599
+    },
+    "p1_backbone": {
+      "acc": 0.20534223706176963,
+      "prec": 0.20534223706176963,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7946577629382304,
+      "n": 599
+    },
+    "sup_off": {
+      "acc": 0.20534223706176963,
+      "prec": 0.20534223706176963,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7946577629382304,
+      "n": 599
+    },
+    "sup_nonref": {
+      "acc": 0.21035058430717862,
+      "prec": 0.21035058430717862,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7896494156928213,
+      "n": 599
+    },
+    "sup_struct": {
+      "acc": 0.24373956594323873,
+      "prec": 0.24373956594323873,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7562604340567612,
+      "n": 599
+    },
+    "sup_both": {
+      "acc": 0.24874791318864775,
+      "prec": 0.24874791318864775,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7512520868113522,
+      "n": 599
+    },
+    "sup_both_nochain": {
+      "acc": 0.24707846410684475,
+      "prec": 0.24707846410684475,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7529215358931552,
+      "n": 599
+    },
+    "sup_both_abstain": {
+      "acc": 0.24874791318864775,
+      "prec": 0.24874791318864775,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7512520868113522,
+      "n": 599
+    },
+    "sup_both_margin": {
+      "acc": 0.03005008347245409,
+      "prec": 0.10526315789473684,
+      "attempt_rate": 0.2854757929883139,
+      "confident_wrong_rate": 0.25542570951585974,
+      "n": 599
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.2758936755270394,
+      "prec": 0.34717416378316035,
+      "attempt_rate": 0.7946837763519706,
+      "confident_wrong_rate": 0.5187901008249313,
+      "n": 1091
+    },
+    "p1_backbone": {
+      "acc": 0.3437213565536205,
+      "prec": 0.3437213565536205,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6562786434463794,
+      "n": 1091
+    },
+    "sup_off": {
+      "acc": 0.3437213565536205,
+      "prec": 0.3437213565536205,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6562786434463794,
+      "n": 1091
+    },
+    "sup_nonref": {
+      "acc": 0.35013748854262144,
+      "prec": 0.35013748854262144,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6498625114573785,
+      "n": 1091
+    },
+    "sup_struct": {
+      "acc": 0.38588450962419796,
+      "prec": 0.38588450962419796,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.614115490375802,
+      "n": 1091
+    },
+    "sup_both": {
+      "acc": 0.38863428047662696,
+      "prec": 0.38863428047662696,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.611365719523373,
+      "n": 1091
+    },
+    "sup_both_nochain": {
+      "acc": 0.3950504124656279,
+      "prec": 0.3950504124656279,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6049495875343721,
+      "n": 1091
+    },
+    "sup_both_abstain": {
+      "acc": 0.38863428047662696,
+      "prec": 0.38863428047662696,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.611365719523373,
+      "n": 1091
+    },
+    "sup_both_margin": {
+      "acc": 0.032080659945004586,
+      "prec": 0.12773722627737227,
+      "attempt_rate": 0.25114573785517874,
+      "confident_wrong_rate": 0.21906507791017416,
+      "n": 1091
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.17810650887573964,
+      "prec": 0.29365853658536584,
+      "attempt_rate": 0.606508875739645,
+      "confident_wrong_rate": 0.4284023668639053,
+      "n": 1690
+    },
+    "p1_backbone": {
+      "acc": 0.29467455621301775,
+      "prec": 0.29467455621301775,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7053254437869823,
+      "n": 1690
+    },
+    "sup_off": {
+      "acc": 0.29467455621301775,
+      "prec": 0.29467455621301775,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.7053254437869823,
+      "n": 1690
+    },
+    "sup_nonref": {
+      "acc": 0.3005917159763314,
+      "prec": 0.3005917159763314,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6994082840236686,
+      "n": 1690
+    },
+    "sup_struct": {
+      "acc": 0.33550295857988166,
+      "prec": 0.33550295857988166,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6644970414201183,
+      "n": 1690
+    },
+    "sup_both": {
+      "acc": 0.3390532544378698,
+      "prec": 0.3390532544378698,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6609467455621302,
+      "n": 1690
+    },
+    "sup_both_nochain": {
+      "acc": 0.342603550295858,
+      "prec": 0.342603550295858,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.657396449704142,
+      "n": 1690
+    },
+    "sup_both_abstain": {
+      "acc": 0.3390532544378698,
+      "prec": 0.3390532544378698,
+      "attempt_rate": 1.0,
+      "confident_wrong_rate": 0.6609467455621302,
+      "n": 1690
+    },
+    "sup_both_margin": {
+      "acc": 0.031360946745562134,
+      "prec": 0.11910112359550562,
+      "attempt_rate": 0.26331360946745563,
+      "confident_wrong_rate": 0.2319526627218935,
+      "n": 1690
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.2758936755270394,
+        "prec": 0.34717416378316035,
+        "attempt_rate": 0.7946837763519706,
+        "confident_wrong_rate": 0.5187901008249313,
+        "n": 1091
+      },
+      "p1_backbone": {
+        "acc": 0.3437213565536205,
+        "prec": 0.3437213565536205,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.6562786434463794,
+        "n": 1091
+      },
+      "sup_off": {
+        "acc": 0.3437213565536205,
+        "prec": 0.3437213565536205,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.6562786434463794,
+        "n": 1091
+      },
+      "sup_nonref": {
+        "acc": 0.35013748854262144,
+        "prec": 0.35013748854262144,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.6498625114573785,
+        "n": 1091
+      },
+      "sup_struct": {
+        "acc": 0.38588450962419796,
+        "prec": 0.38588450962419796,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.614115490375802,
+        "n": 1091
+      },
+      "sup_both": {
+        "acc": 0.38863428047662696,
+        "prec": 0.38863428047662696,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.611365719523373,
+        "n": 1091
+      },
+      "sup_both_nochain": {
+        "acc": 0.3950504124656279,
+        "prec": 0.3950504124656279,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.6049495875343721,
+        "n": 1091
+      },
+      "sup_both_abstain": {
+        "acc": 0.38863428047662696,
+        "prec": 0.38863428047662696,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.611365719523373,
+        "n": 1091
+      },
+      "sup_both_margin": {
+        "acc": 0.032080659945004586,
+        "prec": 0.12773722627737227,
+        "attempt_rate": 0.25114573785517874,
+        "confident_wrong_rate": 0.21906507791017416,
+        "n": 1091
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.2551440329218107,
+        "confident_wrong_rate": 0.2551440329218107,
+        "n": 486
+      },
+      "p1_backbone": {
+        "acc": 0.22633744855967078,
+        "prec": 0.22633744855967078,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7736625514403292,
+        "n": 486
+      },
+      "sup_off": {
+        "acc": 0.22633744855967078,
+        "prec": 0.22633744855967078,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7736625514403292,
+        "n": 486
+      },
+      "sup_nonref": {
+        "acc": 0.23045267489711935,
+        "prec": 0.23045267489711935,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7695473251028807,
+        "n": 486
+      },
+      "sup_struct": {
+        "acc": 0.2716049382716049,
+        "prec": 0.2716049382716049,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7283950617283951,
+        "n": 486
+      },
+      "sup_both": {
+        "acc": 0.2757201646090535,
+        "prec": 0.2757201646090535,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7242798353909465,
+        "n": 486
+      },
+      "sup_both_nochain": {
+        "acc": 0.2716049382716049,
+        "prec": 0.2716049382716049,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7283950617283951,
+        "n": 486
+      },
+      "sup_both_abstain": {
+        "acc": 0.2757201646090535,
+        "prec": 0.2757201646090535,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7242798353909465,
+        "n": 486
+      },
+      "sup_both_margin": {
+        "acc": 0.026748971193415638,
+        "prec": 0.0962962962962963,
+        "attempt_rate": 0.2777777777777778,
+        "confident_wrong_rate": 0.25102880658436216,
+        "n": 486
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.25757575757575757,
+        "confident_wrong_rate": 0.25757575757575757,
+        "n": 66
+      },
+      "p1_backbone": {
+        "acc": 0.18181818181818182,
+        "prec": 0.18181818181818182,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.8181818181818182,
+        "n": 66
+      },
+      "sup_off": {
+        "acc": 0.18181818181818182,
+        "prec": 0.18181818181818182,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.8181818181818182,
+        "n": 66
+      },
+      "sup_nonref": {
+        "acc": 0.19696969696969696,
+        "prec": 0.19696969696969696,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.803030303030303,
+        "n": 66
+      },
+      "sup_struct": {
+        "acc": 0.19696969696969696,
+        "prec": 0.19696969696969696,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.803030303030303,
+        "n": 66
+      },
+      "sup_both": {
+        "acc": 0.19696969696969696,
+        "prec": 0.19696969696969696,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.803030303030303,
+        "n": 66
+      },
+      "sup_both_nochain": {
+        "acc": 0.21212121212121213,
+        "prec": 0.21212121212121213,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.7878787878787878,
+        "n": 66
+      },
+      "sup_both_abstain": {
+        "acc": 0.19696969696969696,
+        "prec": 0.19696969696969696,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.803030303030303,
+        "n": 66
+      },
+      "sup_both_margin": {
+        "acc": 0.07575757575757576,
+        "prec": 0.2631578947368421,
+        "attempt_rate": 0.2878787878787879,
+        "confident_wrong_rate": 0.21212121212121213,
+        "n": 66
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.3617021276595745,
+        "confident_wrong_rate": 0.3617021276595745,
+        "n": 47
+      },
+      "p1_backbone": {
+        "acc": 0.02127659574468085,
+        "prec": 0.02127659574468085,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9787234042553191,
+        "n": 47
+      },
+      "sup_off": {
+        "acc": 0.02127659574468085,
+        "prec": 0.02127659574468085,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9787234042553191,
+        "n": 47
+      },
+      "sup_nonref": {
+        "acc": 0.02127659574468085,
+        "prec": 0.02127659574468085,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9787234042553191,
+        "n": 47
+      },
+      "sup_struct": {
+        "acc": 0.02127659574468085,
+        "prec": 0.02127659574468085,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9787234042553191,
+        "n": 47
+      },
+      "sup_both": {
+        "acc": 0.0425531914893617,
+        "prec": 0.0425531914893617,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9574468085106383,
+        "n": 47
+      },
+      "sup_both_nochain": {
+        "acc": 0.0425531914893617,
+        "prec": 0.0425531914893617,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9574468085106383,
+        "n": 47
+      },
+      "sup_both_abstain": {
+        "acc": 0.0425531914893617,
+        "prec": 0.0425531914893617,
+        "attempt_rate": 1.0,
+        "confident_wrong_rate": 0.9574468085106383,
+        "n": 47
+      },
+      "sup_both_margin": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.3617021276595745,
+        "confident_wrong_rate": 0.3617021276595745,
+        "n": 47
+      }
+    }
+  },
+  "base_acc_xsent": 0.0,
+  "p1_acc_xsent": 0.20534223706176963,
+  "sup_off_acc_xsent": 0.20534223706176963,
+  "mech_acc_xsent": 0.24874791318864775,
+  "delta_acc": 0.04340567612687812,
+  "sign_stability": 1.0,
+  "validity_gate_ok": true,
+  "faithful_ok": true,
+  "plateau_repro_ok": true,
+  "acc_pass": true,
+  "trust_pass": false,
+  "autopsy": {
+    "fixed_wrong_to_right": 40,
+    "broken_right_to_wrong": 14,
+    "net": 26,
+    "n_residual_miss": 450,
+    "residual_miss_multi_specific_competitor": 450,
+    "residual_miss_generic_still_present": 450,
+    "per_bucket_delta_vs_backbone": {
+      "same": null,
+      "plus1": {
+        "n": 486,
+        "backbone_acc": 0.22633744855967078,
+        "sup_both_acc": 0.2757201646090535,
+        "delta": 0.04938271604938274
+      },
+      "plus2": {
+        "n": 66,
+        "backbone_acc": 0.18181818181818182,
+        "sup_both_acc": 0.19696969696969696,
+        "delta": 0.015151515151515138
+      },
+      "long": {
+        "n": 47,
+        "backbone_acc": 0.02127659574468085,
+        "sup_both_acc": 0.0425531914893617,
+        "delta": 0.02127659574468085
+      }
+    }
+  },
+  "arms_differ_digests": {
+    "single_sentence_baseline": "d61ab8885b099c60cd39fa46c5a74dfa2209bbc801e929cd24ec245fd24fd7c3",
+    "p1_backbone": "bfa28e80d766c3fec0cc6ae4efa2c8aa17225a1dbd1edb1e959b8be5ed96d78b",
+    "sup_off": "bfa28e80d766c3fec0cc6ae4efa2c8aa17225a1dbd1edb1e959b8be5ed96d78b",
+    "sup_nonref": "0fc50687f77714662e2f2120288ef6cab3aca530911ae3db252149a4ab796f66",
+    "sup_struct": "b1973e07bad7ab02ef45706190e67cbdc949fde070900e86f9574f08d2f25c87",
+    "sup_both": "c3e570047e04fef0f3ed429e73d617c3c0188445140521b6b11bcae3e6bd36c7",
+    "sup_both_nochain": "8326a1c21934e5fde3c7cb5c53fa7a2a70bcc85cb48c4f6ce344dd69bc252d92",
+    "sup_both_abstain": "c3e570047e04fef0f3ed429e73d617c3c0188445140521b6b11bcae3e6bd36c7",
+    "sup_both_margin": "1ffac8bb60a6f15c3e55718d01e882c206ae27ef0c17640611cadbb4f6430b33"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    },
+    "113_the_secret_garden_brat.conll": {
+      "n_mentions": 329,
+      "n_sentences": 109,
+      "n_targets": 139
+    },
+    "1260_jane_eyre_an_autobiography_brat.conll": {
+      "n_mentions": 295,
+      "n_sentences": 65,
+      "n_targets": 65
+    },
+    "1342_pride_and_prejudice_brat.conll": {
+      "n_mentions": 370,
+      "n_sentences": 111,
+      "n_targets": 82
+    },
+    "1400_great_expectations_brat.conll": {
+      "n_mentions": 354,
+      "n_sentences": 103,
+      "n_targets": 63
+    },
+    "158_emma_brat.conll": {
+      "n_mentions": 319,
+      "n_sentences": 77,
+      "n_targets": 108
+    },
+    "174_the_picture_of_dorian_gray_brat.conll": {
+      "n_mentions": 284,
+      "n_sentences": 109,
+      "n_targets": 44
+    },
+    "209_the_turn_of_the_screw_brat.conll": {
+      "n_mentions": 269,
+      "n_sentences": 121,
+      "n_targets": 100
+    },
+    "2489_moby_dick_brat.conll": {
+      "n_mentions": 300,
+      "n_sentences": 94,
+      "n_targets": 21
+    },
+    "2814_dubliners_brat.conll": {
+      "n_mentions": 333,
+      "n_sentences": 96,
+      "n_targets": 83
+    },
+    "2852_the_hound_of_the_baskervilles_brat.conll": {
+      "n_mentions": 290,
+      "n_sentences": 111,
+      "n_targets": 59
+    },
+    "345_dracula_brat.conll": {
+      "n_mentions": 340,
+      "n_sentences": 94,
+      "n_targets": 43
+    },
+    "36_the_war_of_the_worlds_brat.conll": {
+      "n_mentions": 218,
+      "n_sentences": 70,
+      "n_targets": 12
+    },
+    "514_little_women_brat.conll": {
+      "n_mentions": 288,
+      "n_sentences": 85,
+      "n_targets": 41
+    },
+    "521_the_life_and_adventures_of_robinson_crusoe_brat.conll": {
+      "n_mentions": 352,
+      "n_sentences": 28,
+      "n_targets": 61
+    },
+    "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll": {
+      "n_mentions": 320,
+      "n_sentences": 128,
+      "n_targets": 80
+    },
+    "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll": {
+      "n_mentions": 353,
+      "n_sentences": 59,
+      "n_targets": 137
+    },
+    "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll": {
+      "n_mentions": 271,
+      "n_sentences": 117,
+      "n_targets": 108
+    },
+    "76_adventures_of_huckleberry_finn_brat.conll": {
+      "n_mentions": 294,
+      "n_sentences": 99,
+      "n_targets": 59
+    },
+    "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll": {
+      "n_mentions": 501,
+      "n_sentences": 81,
+      "n_targets": 36
+    },
+    "84_frankenstein_or_the_modern_prometheus_brat.conll": {
+      "n_mentions": 381,
+      "n_sentences": 79,
+      "n_targets": 53
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 25,
+  "cardinality_ok": true
+}

@@ -1,0 +1,784 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: CAUSAL_NET clears the hard subset (NONADJ+BRIDGE) at 1.000, beating BOTH baselines (MOST_RECENT 0.364, CONNECTIVE_ONLY 0.636; margin 0.364). Validity gate fires: locality FAILS on NONADJ (MOST_RECENT 0.000) -- the inverse of coref -- and CONNECTIVE_ONLY FAILS on BRIDGE (0.000). No control regression (CAUSAL_NET 1.000 == MOST_RECENT 1.000).",
+  "summary": "HARD_PASS: CAUSAL_NET hard 1.000 vs MOST_RECENT 0.364 / CONNECTIVE_ONLY 0.636; validity(MR_nonadj 0.000, CONN_bridge 0.000)=True; ctrl 1.000",
+  "elapsed_s": 4.988,
+  "ts_iso": "2026-07-24T06:24:37.660316+00:00",
+  "anchor_name": "read_causal_chain_on_chain_cause_v1",
+  "n_dim": 1024,
+  "prereg_bands": {
+    "validity_gate_mostrecent_nonadj_max": 0.4,
+    "validity_gate_conn_bridge_max": 0.3,
+    "hard_pass_mech_min": 0.8,
+    "hard_pass_margin": 0.15,
+    "hard_fail_mech_max": 0.55,
+    "control_regress_max": 0.001
+  },
+  "gates": {
+    "validity_gate_fires": true,
+    "validity_mostrecent_defeated_on_nonadj": true,
+    "validity_connective_defeated_on_bridge": true,
+    "baseline_in_band": true,
+    "mech_hard_acc": 1.0,
+    "mostrecent_hard_acc": 0.3636,
+    "connective_hard_acc": 0.6364,
+    "margin_over_best_baseline": 0.3636,
+    "control_regression": 0.0
+  },
+  "arms": {
+    "MOST_RECENT": {
+      "nonadj_acc": 0.0,
+      "bridge_acc": 1.0,
+      "control_acc": 1.0,
+      "overall_acc": 0.5625,
+      "signature_sha256": "82133813c586ebf9"
+    },
+    "CONNECTIVE_ONLY": {
+      "nonadj_acc": 1.0,
+      "bridge_acc": 0.0,
+      "control_acc": 1.0,
+      "overall_acc": 0.75,
+      "signature_sha256": "92f885fd04bacdd8"
+    },
+    "CAUSAL_NET": {
+      "nonadj_acc": 1.0,
+      "bridge_acc": 1.0,
+      "control_acc": 1.0,
+      "overall_acc": 1.0,
+      "signature_sha256": "3af809b1c1e90444"
+    }
+  },
+  "improving_property_by_causal_distance": {
+    "0": {
+      "most_recent_acc": 0.5625,
+      "causal_net_acc": 1.0,
+      "lift": 0.4375,
+      "n_items": 16
+    }
+  },
+  "substrate_glassbox_envelope": {
+    "n_distinct_event_entities": 44,
+    "n_causal_edges_ingested": 16,
+    "substrate_causal_recall_acc": 0.8125,
+    "substrate_causal_recall_n": 16,
+    "per_item_on_chain": [
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "subset": "NONADJ",
+        "on_chain": [
+          "remembered"
+        ],
+        "dead_end": [
+          "said",
+          "talked"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "subset": "NONADJ",
+        "on_chain": [
+          "seemed"
+        ],
+        "dead_end": [
+          "hopped",
+          "pecked"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "subset": "NONADJ",
+        "on_chain": [
+          "distracted"
+        ],
+        "dead_end": [
+          "came",
+          "saw",
+          "heard"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Little Women (Alcott), LitBank 514",
+        "subset": "NONADJ",
+        "on_chain": [
+          "woke"
+        ],
+        "dead_end": [
+          "rushed",
+          "sang"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Little Women (Alcott), LitBank 514",
+        "subset": "NONADJ",
+        "on_chain": [
+          "felt"
+        ],
+        "dead_end": [
+          "laughed",
+          "said",
+          "looked"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Little Women (Alcott), LitBank 514",
+        "subset": "NONADJ",
+        "on_chain": [
+          "promised"
+        ],
+        "dead_end": [
+          "descended",
+          "made",
+          "forgive"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "subset": "NONADJ",
+        "on_chain": [
+          "knew"
+        ],
+        "dead_end": [
+          "said"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Great Expectations (Dickens), LitBank 1400",
+        "subset": "CONTROL",
+        "on_chain": [
+          "told",
+          "took"
+        ],
+        "dead_end": [],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "subset": "CONTROL",
+        "on_chain": [
+          "died"
+        ],
+        "dead_end": [
+          "taken"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "subset": "CONTROL",
+        "on_chain": [
+          "said"
+        ],
+        "dead_end": [
+          "went"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "subset": "CONTROL",
+        "on_chain": [
+          "said"
+        ],
+        "dead_end": [
+          "saw"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "subset": "CONTROL",
+        "on_chain": [
+          "considered"
+        ],
+        "dead_end": [
+          "persuaded"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "subset": "BRIDGE",
+        "on_chain": [
+          "caught"
+        ],
+        "dead_end": [
+          "stopped"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "subset": "BRIDGE",
+        "on_chain": [
+          "slipped"
+        ],
+        "dead_end": [
+          "shouted"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "subset": "BRIDGE",
+        "on_chain": [
+          "threw"
+        ],
+        "dead_end": [
+          "caught"
+        ],
+        "gold_cause_on_chain": true
+      },
+      {
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "subset": "BRIDGE",
+        "on_chain": [
+          "tripped"
+        ],
+        "dead_end": [
+          "dodged",
+          "plunged"
+        ],
+        "gold_cause_on_chain": true
+      }
+    ]
+  },
+  "autopsy_hard_misses": [],
+  "gold": {
+    "n_items": 16,
+    "n_nonadj": 7,
+    "n_bridge": 4,
+    "n_control": 5,
+    "items": [
+      {
+        "subset": "NONADJ",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "\"No,\" said Mary frowning. She frowned because she remembered that her father and mother had never talked to her about anything in particular.",
+        "cause": "remembered",
+        "outcome": "frowned"
+      },
+      {
+        "subset": "NONADJ",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "He hopped about and pecked the earth briskly, looking for seeds and insects. It actually gave Mary a queer feeling in her heart, because he was so pretty and cheerful and seemed so like a person.",
+        "cause": "seemed",
+        "outcome": "gave"
+      },
+      {
+        "subset": "NONADJ",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "When Ben Weatherstaff came through the door in the wall he saw him standing there and he heard Mary muttering something under her breath. \"What art sayin'?\" he asked rather testily because he did not want his attention distracted from the long thin straight boy figure.",
+        "cause": "distracted",
+        "outcome": "asked"
+      },
+      {
+        "subset": "NONADJ",
+        "source": "Little Women (Alcott), LitBank 514",
+        "text": "Beth had a rapture with her mother, and then rushed up to impart the glorious news to her family of invalids. How blithely she sang that evening, and how they all laughed at her because she woke Amy in the night by playing the piano on her face in her sleep.",
+        "cause": "woke",
+        "outcome": "laughed"
+      },
+      {
+        "subset": "NONADJ",
+        "source": "Little Women (Alcott), LitBank 514",
+        "text": "But the boy laughed and said pleasantly, though he looked a little startled, \"Don't mind me, stay if you like.\" I only came here because I don't know many people and felt rather strange at first, you know.",
+        "cause": "felt",
+        "outcome": "came"
+      },
+      {
+        "subset": "NONADJ",
+        "source": "Little Women (Alcott), LitBank 514",
+        "text": "She obediently descended, and made as light of the prank as she could without betraying Meg. If the boy held his tongue because he promised, and not from obstinacy, I'll forgive him.",
+        "cause": "promised",
+        "outcome": "held"
+      },
+      {
+        "subset": "NONADJ",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "\"The rain is as contrary as I ever was,\" she said. \"It came because it knew I did not want it.\"",
+        "cause": "knew",
+        "outcome": "came"
+      },
+      {
+        "subset": "CONTROL",
+        "source": "Great Expectations (Dickens), LitBank 1400",
+        "text": "I was very much afraid of him again. I told him I must go, but he took no notice, so I thought the best thing I could do was to slip off.",
+        "cause": "took",
+        "outcome": "thought"
+      },
+      {
+        "subset": "CONTROL",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "The Ayah had been taken ill in the night, and it was because she had just died that the servants had wailed in the huts.",
+        "cause": "died",
+        "outcome": "wailed"
+      },
+      {
+        "subset": "CONTROL",
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "He was agreeably surprised to see us stirring so soon and said he would gladly share our walk. So he took care of Ada, and Miss Jellyby and I went first.",
+        "cause": "said",
+        "outcome": "took"
+      },
+      {
+        "subset": "CONTROL",
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "\"We are not likely to be far out, my love, if we go in that direction,\" said I. So to Chancery Lane we went, and there, sure enough, we saw it written up.",
+        "cause": "said",
+        "outcome": "went"
+      },
+      {
+        "subset": "CONTROL",
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "But of course I soon considered that I must not take tears where I was going. Therefore I made myself sob less and persuaded myself to be quiet.",
+        "cause": "considered",
+        "outcome": "made"
+      },
+      {
+        "subset": "BRIDGE",
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "text": "Tommy stopped Conrad's rush with a straight blow with his fist. It caught the other on the point of the jaw and he fell like a log.",
+        "cause": "caught",
+        "outcome": "fell"
+      },
+      {
+        "subset": "BRIDGE",
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "text": "\"Get a move on, George,\" shouted Julius. The chauffeur slipped in his clutch, and with a bound the car started.",
+        "cause": "slipped",
+        "outcome": "started"
+      },
+      {
+        "subset": "BRIDGE",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "He caught hold of his pillow and threw it at her. He was not strong enough to throw it far and it only fell at her feet.",
+        "cause": "threw",
+        "outcome": "fell"
+      },
+      {
+        "subset": "BRIDGE",
+        "source": "The Secret Adversary (Christie), LitBank 1155",
+        "text": "Tommy dodged aside, and the man plunged past him. The second man tripped over his body and fell.",
+        "cause": "tripped",
+        "outcome": "fell"
+      }
+    ]
+  },
+  "per_arm_detail": {
+    "MOST_RECENT": {
+      "NONADJ": [
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "remembered",
+          "gold_outcome": "frowned",
+          "correct": false
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "pecked",
+          "gold_cause": "seemed",
+          "gold_outcome": "gave",
+          "correct": false
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "heard",
+          "gold_cause": "distracted",
+          "gold_outcome": "asked",
+          "correct": false
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "sang",
+          "gold_cause": "woke",
+          "gold_outcome": "laughed",
+          "correct": false
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "looked",
+          "gold_cause": "felt",
+          "gold_outcome": "came",
+          "correct": false
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "made",
+          "gold_cause": "promised",
+          "gold_outcome": "held",
+          "correct": false
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "knew",
+          "gold_outcome": "came",
+          "correct": false
+        }
+      ],
+      "BRIDGE": [
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": "caught",
+          "gold_cause": "caught",
+          "gold_outcome": "fell",
+          "correct": true
+        },
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": "slipped",
+          "gold_cause": "slipped",
+          "gold_outcome": "started",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "threw",
+          "gold_cause": "threw",
+          "gold_outcome": "fell",
+          "correct": true
+        },
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": "tripped",
+          "gold_cause": "tripped",
+          "gold_outcome": "fell",
+          "correct": true
+        }
+      ],
+      "CONTROL": [
+        {
+          "source": "Great Expectations (Dickens), LitBank 1400",
+          "scored": true,
+          "pred": "took",
+          "gold_cause": "took",
+          "gold_outcome": "thought",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "died",
+          "gold_cause": "died",
+          "gold_outcome": "wailed",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "said",
+          "gold_outcome": "took",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "said",
+          "gold_outcome": "went",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "considered",
+          "gold_cause": "considered",
+          "gold_outcome": "made",
+          "correct": true
+        }
+      ]
+    },
+    "CONNECTIVE_ONLY": {
+      "NONADJ": [
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "remembered",
+          "gold_cause": "remembered",
+          "gold_outcome": "frowned",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "seemed",
+          "gold_cause": "seemed",
+          "gold_outcome": "gave",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "distracted",
+          "gold_cause": "distracted",
+          "gold_outcome": "asked",
+          "correct": true
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "woke",
+          "gold_cause": "woke",
+          "gold_outcome": "laughed",
+          "correct": true
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "felt",
+          "gold_cause": "felt",
+          "gold_outcome": "came",
+          "correct": true
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "promised",
+          "gold_cause": "promised",
+          "gold_outcome": "held",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "knew",
+          "gold_cause": "knew",
+          "gold_outcome": "came",
+          "correct": true
+        }
+      ],
+      "BRIDGE": [
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": null,
+          "gold_cause": "caught",
+          "gold_outcome": "fell",
+          "correct": false
+        },
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": null,
+          "gold_cause": "slipped",
+          "gold_outcome": "started",
+          "correct": false
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": null,
+          "gold_cause": "threw",
+          "gold_outcome": "fell",
+          "correct": false
+        },
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": null,
+          "gold_cause": "tripped",
+          "gold_outcome": "fell",
+          "correct": false
+        }
+      ],
+      "CONTROL": [
+        {
+          "source": "Great Expectations (Dickens), LitBank 1400",
+          "scored": true,
+          "pred": "took",
+          "gold_cause": "took",
+          "gold_outcome": "thought",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "died",
+          "gold_cause": "died",
+          "gold_outcome": "wailed",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "said",
+          "gold_outcome": "took",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "said",
+          "gold_outcome": "went",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "considered",
+          "gold_cause": "considered",
+          "gold_outcome": "made",
+          "correct": true
+        }
+      ]
+    },
+    "CAUSAL_NET": {
+      "NONADJ": [
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "remembered",
+          "gold_cause": "remembered",
+          "gold_outcome": "frowned",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "seemed",
+          "gold_cause": "seemed",
+          "gold_outcome": "gave",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "distracted",
+          "gold_cause": "distracted",
+          "gold_outcome": "asked",
+          "correct": true
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "woke",
+          "gold_cause": "woke",
+          "gold_outcome": "laughed",
+          "correct": true
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "felt",
+          "gold_cause": "felt",
+          "gold_outcome": "came",
+          "correct": true
+        },
+        {
+          "source": "Little Women (Alcott), LitBank 514",
+          "scored": true,
+          "pred": "promised",
+          "gold_cause": "promised",
+          "gold_outcome": "held",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "knew",
+          "gold_cause": "knew",
+          "gold_outcome": "came",
+          "correct": true
+        }
+      ],
+      "BRIDGE": [
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": "caught",
+          "gold_cause": "caught",
+          "gold_outcome": "fell",
+          "correct": true
+        },
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": "slipped",
+          "gold_cause": "slipped",
+          "gold_outcome": "started",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "threw",
+          "gold_cause": "threw",
+          "gold_outcome": "fell",
+          "correct": true
+        },
+        {
+          "source": "The Secret Adversary (Christie), LitBank 1155",
+          "scored": true,
+          "pred": "tripped",
+          "gold_cause": "tripped",
+          "gold_outcome": "fell",
+          "correct": true
+        }
+      ],
+      "CONTROL": [
+        {
+          "source": "Great Expectations (Dickens), LitBank 1400",
+          "scored": true,
+          "pred": "took",
+          "gold_cause": "took",
+          "gold_outcome": "thought",
+          "correct": true
+        },
+        {
+          "source": "The Secret Garden (Burnett), LitBank 113",
+          "scored": true,
+          "pred": "died",
+          "gold_cause": "died",
+          "gold_outcome": "wailed",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "said",
+          "gold_outcome": "took",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "said",
+          "gold_cause": "said",
+          "gold_outcome": "went",
+          "correct": true
+        },
+        {
+          "source": "Bleak House (Dickens), LitBank 1023",
+          "scored": true,
+          "pred": "considered",
+          "gold_cause": "considered",
+          "gold_outcome": "made",
+          "correct": true
+        }
+      ]
+    }
+  },
+  "honest_scope": "REAL verbatim LitBank gold; (cause,outcome) from MEANING (non-circular). NONADJ: the non-vacuous finding is LOCALITY (most-recent) does NOT identify the cause (inverse of coref) -- the connective arm getting the marked cause 'for free' is the point. BRIDGE proves CONNECTIVE-ONLY is insufficient (unstated links exist), but the inferred force-action cause coincides with the most-recent event on these items, so it does NOT independently prove the plausibility rule beats locality; a NON-adjacent implicit-cause bridge test is the named NEXT lever. Integration payoff (noted, not required): causal centrality -> referent signal for the coref same-gender residual."
+}

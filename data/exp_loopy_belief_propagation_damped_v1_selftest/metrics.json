@@ -1,0 +1,13 @@
+{
+  "anchor_name": "loopy_belief_propagation_damped_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm + per-cycle structure verified",
+  "summary": "SELFTEST_OK: per-arm + per-cycle structure verified",
+  "elapsed_s": 0.5,
+  "ts_iso": "2026-06-27T22:09:20Z",
+  "pid": 38324,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=loopy_belief_propagation_damped_v1,N=512,N_OPS=4,V=200,seeds=[7],cycle_sizes=[4],n_train=30,n_test=10,mode=smoke,damping_alpha=0.30,HP_d2_lift>=0.08,HP_d5_lift>=0.08,HP_cv<=0.10,expected_n=4,FAIR=SAME_FACTORS_SAME_READOUT_DIFFER_ONLY_MP_ITERS,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_loopy_bp_damped",
+  "_phase": "selftest_done"
+}

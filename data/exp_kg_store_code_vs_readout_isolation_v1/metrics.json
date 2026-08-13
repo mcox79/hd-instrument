@@ -1,0 +1,630 @@
+{
+  "verdict": "READOUT_IS_THE_LIMITER",
+  "verdict_msg": "READOUT_IS_THE_LIMITER || 2x2 ORACLE MRR: NN(natcode/natread)=0.0231 AN(addcode/natread)=0.0062 NA(natcode/addread)=0.0004 AA(addcode/addread)=0.1373 || G(gap)=0.1142 AN_rise=-0.0169 (codes>=0.50*G=False flat<=0.20*G=True) NA_rise=-0.0001 (readout if >0.20*G) || BF(bridge)=0.1360 (>=0.50*AA=True) | reproduces NN(0.023+-0.008)=True AA(0.137+-0.030)=True | RANDOM=0.0004(floor<=0.004=True) SCR-RND=0.0031 IDS-RND=0.0035(ctrl) | AA_COMPOSE=0.1282 NN_COMPOSE=0.0140 | pos_controls=True",
+  "summary": "READOUT_IS_THE_LIMITER || 2x2 ORACLE MRR: NN(natcode/natread)=0.0231 AN(addcode/natread)=0.0062 NA(natcode/addread)=0.0004 AA(addcode/addread)=0.1373 || G(gap)=0.1142 AN_rise=-0.0169 (codes>=0.50*G=Fa",
+  "run_mode": "full",
+  "elapsed_s": 5355.438315900043,
+  "anchor_name": "kg_store_code_vs_readout_isolation_v1",
+  "ts_iso": "2026-07-13T21:11:27.992009+00:00",
+  "device": "cuda",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "n_dim": 1024,
+    "k": 24,
+    "epochs": 500,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "ckpt_every": 20,
+    "heldout_entity_frac": 0.15,
+    "support_frac": 0.5,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "n_heldout_eval": 3000,
+    "min_heldout": 20,
+    "seeds": [
+      7,
+      13,
+      17
+    ]
+  },
+  "gates": {
+    "verdict": "READOUT_IS_THE_LIMITER",
+    "oracle_2x2_mrr": {
+      "NN": 0.023083,
+      "AN": 0.006164,
+      "NA": 0.000383,
+      "AA": 0.137295
+    },
+    "gap_G": 0.114212,
+    "an_rise": -0.016919,
+    "na_rise": -6.6e-05,
+    "bridge_fidelity_mrr": 0.136,
+    "bridge_ok": true,
+    "realized": {
+      "AA_COMPOSE": 0.128205,
+      "NN_COMPOSE": 0.013969
+    },
+    "controls": {
+      "RANDOM": 0.000449,
+      "SCRAMBLE": 0.003552,
+      "IDSHUF": 0.003917,
+      "POP": 0.000118
+    },
+    "nn_reproduces": true,
+    "aa_reproduces": true,
+    "random_floor": true,
+    "scramble_controlled": true,
+    "idshuf_controlled": true,
+    "fits_finite": true,
+    "W_finite": true,
+    "pos_controls_ok": true,
+    "codes_limiter": false,
+    "readout_flat": true,
+    "na_rises": false,
+    "heldout_metric_spectrum": {
+      "NN_ORACLE_nativecode_nativeread": {
+        "hits@1": 0.009111,
+        "hits@3": 0.022111,
+        "hits@10": 0.045889,
+        "hits@100": 0.149222,
+        "mrr": 0.023083
+      },
+      "AN_ORACLE_addcode_nativeread": {
+        "hits@1": 0.0,
+        "hits@3": 0.000222,
+        "hits@10": 0.003111,
+        "hits@100": 0.158556,
+        "mrr": 0.006164
+      },
+      "NA_ORACLE_nativecode_addread": {
+        "hits@1": 0.0,
+        "hits@3": 0.000111,
+        "hits@10": 0.000333,
+        "hits@100": 0.004111,
+        "mrr": 0.000383
+      },
+      "AA_ORACLE_addcode_addread": {
+        "hits@1": 0.055556,
+        "hits@3": 0.145333,
+        "hits@10": 0.304667,
+        "hits@100": 0.740111,
+        "mrr": 0.137295
+      },
+      "BF_ADD_bridgefidelity": {
+        "hits@1": 0.053778,
+        "hits@3": 0.142778,
+        "hits@10": 0.302,
+        "hits@100": 0.733889,
+        "mrr": 0.136
+      },
+      "AA_COMPOSE_realized": {
+        "hits@1": 0.052111,
+        "hits@3": 0.125889,
+        "hits@10": 0.278,
+        "hits@100": 0.787889,
+        "mrr": 0.128205
+      },
+      "NN_COMPOSE_realized": {
+        "hits@1": 0.004,
+        "hits@3": 0.010222,
+        "hits@10": 0.029555,
+        "hits@100": 0.136889,
+        "mrr": 0.013969
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@3": 0.000111,
+        "hits@10": 0.000667,
+        "hits@100": 0.003889,
+        "mrr": 0.000449
+      },
+      "NATIVE_SCRAMBLE": {
+        "hits@1": 0.000555,
+        "hits@3": 0.002445,
+        "hits@10": 0.006889,
+        "hits@100": 0.043778,
+        "mrr": 0.003552
+      },
+      "IDENTITY_SHUFFLE": {
+        "hits@1": 0.001,
+        "hits@3": 0.002778,
+        "hits@10": 0.006222,
+        "hits@100": 0.046889,
+        "mrr": 0.003917
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.0,
+        "mrr": 0.000118
+      }
+    },
+    "bands": {
+      "CITED_NN_ORACLE": 0.023083,
+      "CITED_AA_ORACLE": 0.137293,
+      "CITED_AA_COMPOSE": 0.12821,
+      "REPRODUCE_TOL_NATIVE": 0.008,
+      "REPRODUCE_TOL_ADD": 0.03,
+      "CODES_RISE_FRAC": 0.5,
+      "READOUT_FLAT_FRAC": 0.2,
+      "BF_FIDELITY_FRAC": 0.5,
+      "RANDOM_FLOOR_MRR": 0.004
+    }
+  },
+  "mechanism_selftest": {
+    "native_planted": {
+      "oracle": 0.76315,
+      "native": 0.26618,
+      "random": 0.05078,
+      "scramble": 0.09467,
+      "idshuf": 0.21703
+    },
+    "native_codesens": {
+      "rand_code_oracle": 1.0,
+      "corr_code_oracle": 0.72584
+    },
+    "transe_planted": {
+      "NN_ORACLE_nativecode_nativeread": 0.9918,
+      "AN_ORACLE_addcode_nativeread": 0.16914,
+      "NA_ORACLE_nativecode_addread": 0.01858,
+      "AA_ORACLE_addcode_addread": 0.46496,
+      "BF_ADD_bridgefidelity": 0.48886,
+      "AA_COMPOSE_realized": 0.44217,
+      "NN_COMPOSE_realized": 0.02328,
+      "RANDOM_CODES": 0.01637,
+      "NATIVE_SCRAMBLE": 0.04898,
+      "IDENTITY_SHUFFLE": 0.01595,
+      "BASELINE_POP": 0.00825
+    },
+    "n_distinct_sigs": 11,
+    "native_oracle_fires": true,
+    "native_scramble_fails": true,
+    "native_idshuf_fails": true,
+    "native_codes_matter": true,
+    "add_learned_recovers": true,
+    "add_beats_random": true,
+    "bridge_preserves": true,
+    "na_at_floor": true,
+    "arms_differ": true,
+    "fits_finite": true,
+    "attribution_selftest_verdict": "INCONCLUSIVE_POSCONTROL_OR_BRIDGE_FAILED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  },
+  "unit_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 359692,
+      "n_heldout_entities": 3862,
+      "n_support": 36254,
+      "n_query_total": 36333,
+      "n_query_scored": 3000,
+      "n_cold": 154,
+      "n_dim": 1024,
+      "k": 24,
+      "arm_hits": {
+        "NN_ORACLE_nativecode_nativeread": {
+          "hits@1": 0.014,
+          "hits@3": 0.028333,
+          "hits@10": 0.054,
+          "hits@100": 0.153667,
+          "mrr": 0.028851
+        },
+        "AN_ORACLE_addcode_nativeread": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.163,
+          "mrr": 0.005858
+        },
+        "NA_ORACLE_nativecode_addread": {
+          "hits@1": 0.0,
+          "hits@3": 0.000333,
+          "hits@10": 0.000333,
+          "hits@100": 0.003667,
+          "mrr": 0.000429
+        },
+        "AA_ORACLE_addcode_addread": {
+          "hits@1": 0.063667,
+          "hits@3": 0.169333,
+          "hits@10": 0.340667,
+          "hits@100": 0.763333,
+          "mrr": 0.154422
+        },
+        "BF_ADD_bridgefidelity": {
+          "hits@1": 0.057667,
+          "hits@3": 0.161,
+          "hits@10": 0.337667,
+          "hits@100": 0.749333,
+          "mrr": 0.148608
+        },
+        "AA_COMPOSE_realized": {
+          "hits@1": 0.041,
+          "hits@3": 0.109667,
+          "hits@10": 0.274,
+          "hits@100": 0.798,
+          "mrr": 0.116915
+        },
+        "NN_COMPOSE_realized": {
+          "hits@1": 0.002667,
+          "hits@3": 0.008667,
+          "hits@10": 0.027,
+          "hits@100": 0.136,
+          "mrr": 0.012463
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.000667,
+          "hits@100": 0.005,
+          "mrr": 0.000468
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.000333,
+          "hits@3": 0.002,
+          "hits@10": 0.006667,
+          "hits@100": 0.044,
+          "mrr": 0.00338
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.000667,
+          "hits@3": 0.002333,
+          "hits@10": 0.006333,
+          "hits@100": 0.049333,
+          "mrr": 0.003802
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.0,
+          "mrr": 0.000118
+        }
+      },
+      "arm_n": {
+        "NN_ORACLE_nativecode_nativeread": 3000,
+        "AN_ORACLE_addcode_nativeread": 3000,
+        "NA_ORACLE_nativecode_addread": 3000,
+        "AA_ORACLE_addcode_addread": 3000,
+        "BF_ADD_bridgefidelity": 3000,
+        "AA_COMPOSE_realized": 3000,
+        "NN_COMPOSE_realized": 3000,
+        "RANDOM_CODES": 3000,
+        "NATIVE_SCRAMBLE": 3000,
+        "IDENTITY_SHUFFLE": 3000,
+        "BASELINE_POP": 3000
+      },
+      "arm_sigs": {
+        "NN_ORACLE_nativecode_nativeread": "513ba51e215a3e9d",
+        "AN_ORACLE_addcode_nativeread": "f480bb30828f6122",
+        "NA_ORACLE_nativecode_addread": "26c62d9f86c9e2f0",
+        "AA_ORACLE_addcode_addread": "a75ca29c8167b4b6",
+        "BF_ADD_bridgefidelity": "036fd1873dc81f30",
+        "AA_COMPOSE_realized": "e4a1079076293909",
+        "NN_COMPOSE_realized": "75790832eee8e788",
+        "RANDOM_CODES": "c247417c923c1e3c",
+        "NATIVE_SCRAMBLE": "fadae7cbb6b2b7c1",
+        "IDENTITY_SHUFFLE": "1cb18418692bd13d",
+        "BASELINE_POP": "f8b6da2d4305c360"
+      },
+      "diag": {
+        "fits_finite": true,
+        "native_W_finite": true,
+        "bridged_W_finite": true,
+        "bridge_rms": 1.0,
+        "Xo_norm": 1433.7765,
+        "w_add_hash": "6698a86f4575d9bb",
+        "w_nat_hash": "e90d6be1179c31d8"
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 13,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 375272,
+      "n_heldout_entities": 3862,
+      "n_support": 28420,
+      "n_query_total": 28532,
+      "n_query_scored": 3000,
+      "n_cold": 180,
+      "n_dim": 1024,
+      "k": 24,
+      "arm_hits": {
+        "NN_ORACLE_nativecode_nativeread": {
+          "hits@1": 0.007,
+          "hits@3": 0.021,
+          "hits@10": 0.042667,
+          "hits@100": 0.145333,
+          "mrr": 0.021056
+        },
+        "AN_ORACLE_addcode_nativeread": {
+          "hits@1": 0.0,
+          "hits@3": 0.000667,
+          "hits@10": 0.005,
+          "hits@100": 0.158667,
+          "mrr": 0.006468
+        },
+        "NA_ORACLE_nativecode_addread": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.000333,
+          "hits@100": 0.002667,
+          "mrr": 0.000323
+        },
+        "AA_ORACLE_addcode_addread": {
+          "hits@1": 0.042,
+          "hits@3": 0.125,
+          "hits@10": 0.286333,
+          "hits@100": 0.735,
+          "mrr": 0.120369
+        },
+        "BF_ADD_bridgefidelity": {
+          "hits@1": 0.045,
+          "hits@3": 0.122667,
+          "hits@10": 0.281667,
+          "hits@100": 0.733667,
+          "mrr": 0.122443
+        },
+        "AA_COMPOSE_realized": {
+          "hits@1": 0.060333,
+          "hits@3": 0.138,
+          "hits@10": 0.286667,
+          "hits@100": 0.796333,
+          "mrr": 0.13797
+        },
+        "NN_COMPOSE_realized": {
+          "hits@1": 0.003333,
+          "hits@3": 0.009333,
+          "hits@10": 0.032333,
+          "hits@100": 0.142333,
+          "mrr": 0.013672
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.000333,
+          "hits@100": 0.003667,
+          "mrr": 0.000325
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.001,
+          "hits@3": 0.003667,
+          "hits@10": 0.009333,
+          "hits@100": 0.049667,
+          "mrr": 0.004593
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.001333,
+          "hits@3": 0.004,
+          "hits@10": 0.008,
+          "hits@100": 0.056333,
+          "mrr": 0.004878
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.0,
+          "mrr": 0.000117
+        }
+      },
+      "arm_n": {
+        "NN_ORACLE_nativecode_nativeread": 3000,
+        "AN_ORACLE_addcode_nativeread": 3000,
+        "NA_ORACLE_nativecode_addread": 3000,
+        "AA_ORACLE_addcode_addread": 3000,
+        "BF_ADD_bridgefidelity": 3000,
+        "AA_COMPOSE_realized": 3000,
+        "NN_COMPOSE_realized": 3000,
+        "RANDOM_CODES": 3000,
+        "NATIVE_SCRAMBLE": 3000,
+        "IDENTITY_SHUFFLE": 3000,
+        "BASELINE_POP": 3000
+      },
+      "arm_sigs": {
+        "NN_ORACLE_nativecode_nativeread": "3201983c24ecb02b",
+        "AN_ORACLE_addcode_nativeread": "060942db7ef95e8a",
+        "NA_ORACLE_nativecode_addread": "2e9c0c33d23656d6",
+        "AA_ORACLE_addcode_addread": "606a84206b87dfda",
+        "BF_ADD_bridgefidelity": "9a2656f0cd9e87e0",
+        "AA_COMPOSE_realized": "dd5e80c3d1457027",
+        "NN_COMPOSE_realized": "3fcf4dc6ac4c1563",
+        "RANDOM_CODES": "8bab57336aa5f83b",
+        "NATIVE_SCRAMBLE": "9af4243781b6d79a",
+        "IDENTITY_SHUFFLE": "08922e7743bbc567",
+        "BASELINE_POP": "736cac7d8d56c9b4"
+      },
+      "diag": {
+        "fits_finite": true,
+        "native_W_finite": true,
+        "bridged_W_finite": true,
+        "bridge_rms": 1.0,
+        "Xo_norm": 1431.3187,
+        "w_add_hash": "a246ef20269f30c5",
+        "w_nat_hash": "8ba8f1c42d78903e"
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 17,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 371254,
+      "n_heldout_entities": 3862,
+      "n_support": 31133,
+      "n_query_total": 31232,
+      "n_query_scored": 3000,
+      "n_cold": 155,
+      "n_dim": 1024,
+      "k": 24,
+      "arm_hits": {
+        "NN_ORACLE_nativecode_nativeread": {
+          "hits@1": 0.006333,
+          "hits@3": 0.017,
+          "hits@10": 0.041,
+          "hits@100": 0.148667,
+          "mrr": 0.019341
+        },
+        "AN_ORACLE_addcode_nativeread": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.004333,
+          "hits@100": 0.154,
+          "mrr": 0.006166
+        },
+        "NA_ORACLE_nativecode_addread": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.000333,
+          "hits@100": 0.006,
+          "mrr": 0.000397
+        },
+        "AA_ORACLE_addcode_addread": {
+          "hits@1": 0.061,
+          "hits@3": 0.141667,
+          "hits@10": 0.287,
+          "hits@100": 0.722,
+          "mrr": 0.137093
+        },
+        "BF_ADD_bridgefidelity": {
+          "hits@1": 0.058667,
+          "hits@3": 0.144667,
+          "hits@10": 0.286667,
+          "hits@100": 0.718667,
+          "mrr": 0.136948
+        },
+        "AA_COMPOSE_realized": {
+          "hits@1": 0.055,
+          "hits@3": 0.13,
+          "hits@10": 0.273333,
+          "hits@100": 0.769333,
+          "mrr": 0.129731
+        },
+        "NN_COMPOSE_realized": {
+          "hits@1": 0.006,
+          "hits@3": 0.012667,
+          "hits@10": 0.029333,
+          "hits@100": 0.132333,
+          "mrr": 0.015773
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@3": 0.000333,
+          "hits@10": 0.001,
+          "hits@100": 0.003,
+          "mrr": 0.000554
+        },
+        "NATIVE_SCRAMBLE": {
+          "hits@1": 0.000333,
+          "hits@3": 0.001667,
+          "hits@10": 0.004667,
+          "hits@100": 0.037667,
+          "mrr": 0.002682
+        },
+        "IDENTITY_SHUFFLE": {
+          "hits@1": 0.001,
+          "hits@3": 0.002,
+          "hits@10": 0.004333,
+          "hits@100": 0.035,
+          "mrr": 0.00307
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.0,
+          "mrr": 0.000119
+        }
+      },
+      "arm_n": {
+        "NN_ORACLE_nativecode_nativeread": 3000,
+        "AN_ORACLE_addcode_nativeread": 3000,
+        "NA_ORACLE_nativecode_addread": 3000,
+        "AA_ORACLE_addcode_addread": 3000,
+        "BF_ADD_bridgefidelity": 3000,
+        "AA_COMPOSE_realized": 3000,
+        "NN_COMPOSE_realized": 3000,
+        "RANDOM_CODES": 3000,
+        "NATIVE_SCRAMBLE": 3000,
+        "IDENTITY_SHUFFLE": 3000,
+        "BASELINE_POP": 3000
+      },
+      "arm_sigs": {
+        "NN_ORACLE_nativecode_nativeread": "8d4594240c256595",
+        "AN_ORACLE_addcode_nativeread": "89ceb3f475fb6dfb",
+        "NA_ORACLE_nativecode_addread": "425a2c86c3c4c27d",
+        "AA_ORACLE_addcode_addread": "1a0d61b4aa209953",
+        "BF_ADD_bridgefidelity": "7e1686b017dc5adc",
+        "AA_COMPOSE_realized": "275f7d067340d516",
+        "NN_COMPOSE_realized": "08df628f52a7ecf4",
+        "RANDOM_CODES": "d9e67086cfad8994",
+        "NATIVE_SCRAMBLE": "af456c2f33d67247",
+        "IDENTITY_SHUFFLE": "1d4cbdda3787c6ff",
+        "BASELINE_POP": "88ff172702dc6376"
+      },
+      "diag": {
+        "fits_finite": true,
+        "native_W_finite": true,
+        "bridged_W_finite": true,
+        "bridge_rms": 1.0,
+        "Xo_norm": 1418.0598,
+        "w_add_hash": "dd797bb5242909f9",
+        "w_nat_hash": "c4170e7193c853ee"
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    }
+  ]
+}

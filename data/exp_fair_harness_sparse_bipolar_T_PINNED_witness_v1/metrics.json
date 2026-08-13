@@ -1,0 +1,353 @@
+{
+  "anchor_name": "fair_harness_sparse_bipolar_T_PINNED_witness_v1",
+  "anchor": "fair_harness_sparse_bipolar_T_PINNED_witness_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "T_PINNED MIDDLE_BAND: partial T-pinned defense. T005 beats unigram by <0.20 bits (0.190). TPIN_WITNESS uni=bpc10.146 | T005=bpc9.956(+0.190_vs_uni,+0.020_vs_full) | T010=bpc9.936(+0.210_vs_uni,+0.000_vs_full) | T_FULL_GRID=bpc9.936",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N_TRAIN": 10000,
+  "N_HELD": 2000,
+  "VOCAB_CAP": 4000,
+  "PRETRAIN_DIM": 300,
+  "T_PIN_005": 0.05,
+  "T_PIN_010": 0.1,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "TEMP_GRID_FULL": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "SPARSE_BIPOLAR_F": 0.05,
+  "ARMS": [
+    "ARM_UNIGRAM",
+    "ARM_SUBSTRATE_SPARSE_BIPOLAR_T005",
+    "ARM_SUBSTRATE_SPARSE_BIPOLAR_T010",
+    "ARM_SUBSTRATE_SPARSE_BIPOLAR_T_FULL_GRID"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 10.1459,
+        "bpc_std": 0.0
+      },
+      "ARM_SUBSTRATE_SPARSE_BIPOLAR_T005": {
+        "bpc_best_mean": 9.9561,
+        "bpc_best_std": 0.048,
+        "bpc_best_cv": 0.0048,
+        "top1_acc_mean": 0.0654,
+        "mrr_at_10_mean": 0.1083,
+        "best_lambda_for_bpc_mean": 0.2333,
+        "T_fixed_mean": 0.05,
+        "raw_bpc_at_T_L1_mean": 11.3841,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false
+      },
+      "ARM_SUBSTRATE_SPARSE_BIPOLAR_T010": {
+        "bpc_best_mean": 9.9361,
+        "bpc_best_std": 0.0116,
+        "bpc_best_cv": 0.0012,
+        "top1_acc_mean": 0.0654,
+        "mrr_at_10_mean": 0.1078,
+        "best_lambda_for_bpc_mean": 0.3667,
+        "T_fixed_mean": 0.1,
+        "raw_bpc_at_T_L1_mean": 10.2616,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false
+      },
+      "ARM_SUBSTRATE_SPARSE_BIPOLAR_T_FULL_GRID": {
+        "bpc_best_mean": 9.9361,
+        "bpc_best_std": 0.0116,
+        "bpc_best_cv": 0.0012,
+        "top1_acc_mean": 0.0654,
+        "mrr_at_10_mean": 0.1084,
+        "best_T_for_bpc_mean": 0.1,
+        "best_lambda_for_bpc_mean": 0.3667,
+        "raw_bpc_at_T1_L1_mean": 11.1682,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false
+      }
+    },
+    "unigram_bpc_mean": 10.1459,
+    "bpc005_vs_unigram": 0.1898,
+    "bpc010_vs_unigram": 0.2098,
+    "bpc005_vs_fullgrid": 0.02,
+    "bpc010_vs_fullgrid": 0.0,
+    "t005_clears_unigram_by_020": false,
+    "t010_clears_unigram_by_020": true,
+    "t005_within_010_of_fullgrid": true,
+    "t010_within_010_of_fullgrid": true,
+    "t005_underperforms_unigram": false,
+    "t010_underperforms_unigram": false,
+    "t005_gap_exceeds_030": false,
+    "t010_gap_exceeds_030": false,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "fair_harness_sparse_bipolar_T_PINNED_witness_v1; N_DIM=8192 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full T_PIN_005=0.050 T_PIN_010=0.100 lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] full_temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] sparse_f=0.050 HARD_PASS=margin_uni>=0.20_gap_grid<=0.10 HARD_FAIL=underperform_uni_OR_gap_grid>0.30",
+    "honest_scope": "T-PINNED cherry-pick defense: T_PINNED at {0.05, 0.10} predicted by methodology audit BEFORE empirical results. HARD_PASS = both pinned arms clear unigram by >=0.20 bits AND within 0.10 bits of full-grid. HARD_FAIL = any pinned arm underperforms unigram OR gap to full-grid >0.30. N_DIM=8192 N_TRAIN=10000 N_HELD=2000 V=4000.",
+    "cites": [
+      "preregs/2026-06-23_fair_harness_sparse_bipolar_T_PINNED_witness_v1.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 10.1459,
+          "top1_unigram": 0.0554,
+          "mrr_unigram": 0.0969,
+          "n_test": 831
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T005": {
+          "bpc_best": 9.9091,
+          "T_fixed": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 10.2142,
+          "top1_acc": 0.0614,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.1086,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T_L1": 11.2018,
+          "raw_top1_at_T_L1": 0.0698,
+          "raw_mrr_at_T_L1": 0.1046,
+          "n_dev": 830,
+          "n_test": 831,
+          "lambda_sweep_size": 6,
+          "elapsed_s_arm": 0.88
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T010": {
+          "bpc_best": 9.9216,
+          "T_fixed": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 10.1532,
+          "top1_acc": 0.0614,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.1095,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T_L1": 10.2302,
+          "raw_top1_at_T_L1": 0.0698,
+          "raw_mrr_at_T_L1": 0.1046,
+          "n_dev": 830,
+          "n_test": 831,
+          "lambda_sweep_size": 6,
+          "elapsed_s_arm": 0.94
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T_FULL_GRID": {
+          "bpc_best": 9.9216,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 10.1532,
+          "top1_acc": 0.0614,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.111,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.1656,
+          "n_dev": 830,
+          "n_test": 831,
+          "grid_size": 42,
+          "elapsed_s_arm": 4.36
+        }
+      },
+      "V": 2522,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "fair_harness_sparse_bipolar_T_PINNED_witness_v1; N_DIM=8192 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full T_PIN_005=0.050 T_PIN_010=0.100 lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] full_temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] sparse_f=0.050 HARD_PASS=margin_uni>=0.20_gap_grid<=0.10 HARD_FAIL=underperform_uni_OR_gap_grid>0.30",
+      "elapsed_s_seed": 55.0,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 2349,
+        "n_miss": 173,
+        "n_vocab": 2522,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 10.1459,
+          "top1_unigram": 0.0554,
+          "mrr_unigram": 0.0969,
+          "n_test": 831
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T005": {
+          "bpc_best": 9.9372,
+          "T_fixed": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 10.2551,
+          "top1_acc": 0.0674,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.1086,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T_L1": 11.4104,
+          "raw_top1_at_T_L1": 0.0674,
+          "raw_mrr_at_T_L1": 0.1043,
+          "n_dev": 830,
+          "n_test": 831,
+          "lambda_sweep_size": 6,
+          "elapsed_s_arm": 1.04
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T010": {
+          "bpc_best": 9.9366,
+          "T_fixed": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 10.1668,
+          "top1_acc": 0.0674,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.1072,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T_L1": 10.2531,
+          "raw_top1_at_T_L1": 0.0674,
+          "raw_mrr_at_T_L1": 0.1043,
+          "n_dev": 830,
+          "n_test": 831,
+          "lambda_sweep_size": 6,
+          "elapsed_s_arm": 1.04
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T_FULL_GRID": {
+          "bpc_best": 9.9366,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 10.1668,
+          "top1_acc": 0.0674,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.1072,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.1672,
+          "n_dev": 830,
+          "n_test": 831,
+          "grid_size": 42,
+          "elapsed_s_arm": 4.41
+        }
+      },
+      "V": 2522,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "fair_harness_sparse_bipolar_T_PINNED_witness_v1; N_DIM=8192 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full T_PIN_005=0.050 T_PIN_010=0.100 lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] full_temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] sparse_f=0.050 HARD_PASS=margin_uni>=0.20_gap_grid<=0.10 HARD_FAIL=underperform_uni_OR_gap_grid>0.30",
+      "elapsed_s_seed": 16.12,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 2349,
+        "n_miss": 173,
+        "n_vocab": 2522,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 10.1459,
+          "top1_unigram": 0.0554,
+          "mrr_unigram": 0.0969,
+          "n_test": 831
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T005": {
+          "bpc_best": 10.022,
+          "T_fixed": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 10.2667,
+          "top1_acc": 0.0674,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.1077,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T_L1": 11.5402,
+          "raw_top1_at_T_L1": 0.0674,
+          "raw_mrr_at_T_L1": 0.108,
+          "n_dev": 830,
+          "n_test": 831,
+          "lambda_sweep_size": 6,
+          "elapsed_s_arm": 0.96
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T010": {
+          "bpc_best": 9.9501,
+          "T_fixed": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 10.1763,
+          "top1_acc": 0.0674,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.1068,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T_L1": 10.3016,
+          "raw_top1_at_T_L1": 0.0674,
+          "raw_mrr_at_T_L1": 0.108,
+          "n_dev": 830,
+          "n_test": 831,
+          "lambda_sweep_size": 6,
+          "elapsed_s_arm": 0.92
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR_T_FULL_GRID": {
+          "bpc_best": 9.9501,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 10.1763,
+          "top1_acc": 0.0674,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.1069,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.1718,
+          "n_dev": 830,
+          "n_test": 831,
+          "grid_size": 42,
+          "elapsed_s_arm": 3.79
+        }
+      },
+      "V": 2522,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "fair_harness_sparse_bipolar_T_PINNED_witness_v1; N_DIM=8192 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full T_PIN_005=0.050 T_PIN_010=0.100 lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] full_temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] sparse_f=0.050 HARD_PASS=margin_uni>=0.20_gap_grid<=0.10 HARD_FAIL=underperform_uni_OR_gap_grid>0.30",
+      "elapsed_s_seed": 15.3,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 2349,
+        "n_miss": 173,
+        "n_vocab": 2522,
+        "pretrain_dim": 300
+      }
+    }
+  ],
+  "elapsed_s": 86.45,
+  "config_version": "fair_harness_sparse_bipolar_T_PINNED_witness_v1; N_DIM=8192 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full T_PIN_005=0.050 T_PIN_010=0.100 lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] full_temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] sparse_f=0.050 HARD_PASS=margin_uni>=0.20_gap_grid<=0.10 HARD_FAIL=underperform_uni_OR_gap_grid>0.30",
+  "device": "cpu",
+  "corpus_provenance": "text8 (C:\\dev\\hd-instrument\\data\\text8_cache\\text8.txt)",
+  "prereg": {
+    "HARD_PASS": "BOTH T005 AND T010 clear unigram by >= 0.20 bits BPC AND both within 0.10 bits of T_FULL_GRID",
+    "HARD_FAIL": "any T-PINNED arm underperforms unigram (bpc_best >= unigram_bpc) OR gap to T_FULL_GRID > 0.30 bits",
+    "MIDDLE_BAND": "T-PINNED arms beat unigram but by < 0.20 bits, OR beat by >= 0.20 but within 0.10-0.30 bits of T_FULL_GRID"
+  },
+  "summary": "T_PINNED MIDDLE_BAND: partial T-pinned defense. T005 beats unigram by <0.20 bits (0.190). TPIN_WITNESS uni=bpc10.146 | T005=bpc9.956(+0.190_vs_uni,+0.020_vs_full) | T010=bpc9.936(+0.210_vs_uni,+0.000_vs_full) | T_FULL_GRID=bpc9.936"
+}

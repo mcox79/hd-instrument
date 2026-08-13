@@ -1,0 +1,123 @@
+{
+  "verdict": "HARD_FAIL_SATURATION",
+  "verdict_msg": "HARD_FAIL_SATURATION | BTSP_new=0.020 BTSP_old=0.017 BinHeb=0.925 ContHeb=0.954 | cv=0.034 tag=0.480 alpha=0.0488 | n=2",
+  "summary": "HARD_FAIL_SATURATION | BTSP_new=0.020 BTSP_old=0.017 BinHeb=0.925 ContHeb=0.954 | cv=0.034 tag=0.480 alpha=0.0488 | n=2",
+  "per_arm": {
+    "hebbian_baseline": {
+      "7": {
+        "new_pattern_acc": 0.9532565474510193,
+        "old_pattern_acc": 0.9532565474510193,
+        "tag_fraction": 0.0
+      },
+      "17": {
+        "new_pattern_acc": 0.9539400339126587,
+        "old_pattern_acc": 0.9539400339126587,
+        "tag_fraction": 0.0
+      }
+    },
+    "binary_hebbian": {
+      "7": {
+        "new_pattern_acc": 0.924662709236145,
+        "old_pattern_acc": 0.924662709236145,
+        "tag_fraction": 1.0
+      },
+      "17": {
+        "new_pattern_acc": 0.9260218739509583,
+        "old_pattern_acc": 0.9260218739509583,
+        "tag_fraction": 1.0
+      }
+    },
+    "btsp_full": {
+      "7": {
+        "new_pattern_acc": 0.019030913710594177,
+        "old_pattern_acc": 0.017655758187174797,
+        "tag_fraction": 0.477
+      },
+      "17": {
+        "new_pattern_acc": 0.02038712427020073,
+        "old_pattern_acc": 0.01686844602227211,
+        "tag_fraction": 0.484
+      }
+    },
+    "btsp_no_neuromod": {
+      "7": {
+        "new_pattern_acc": 0.019030913710594177,
+        "old_pattern_acc": 0.017655758187174797,
+        "tag_fraction": 1.0
+      },
+      "17": {
+        "new_pattern_acc": 0.02038712427020073,
+        "old_pattern_acc": 0.01686844602227211,
+        "tag_fraction": 1.0
+      }
+    },
+    "diag_tag_fraction": {
+      "7": {
+        "new_pattern_acc": 1.0,
+        "old_pattern_acc": 1.0,
+        "tag_fraction": 1.0
+      },
+      "17": {
+        "new_pattern_acc": 1.0,
+        "old_pattern_acc": 1.0,
+        "tag_fraction": 1.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "hebbian_baseline": {
+      "mean_new": 0.953598290681839,
+      "std_new": 0.00034174323081970215,
+      "cv_new": 0.00035837231899330473,
+      "mean_old": 0.953598290681839,
+      "mean_tag": 0.0,
+      "n": 2
+    },
+    "binary_hebbian": {
+      "mean_new": 0.9253422915935516,
+      "std_new": 0.0006795823574066162,
+      "cv_new": 0.0007344118642154493,
+      "mean_old": 0.9253422915935516,
+      "mean_tag": 1.0,
+      "n": 2
+    },
+    "btsp_full": {
+      "mean_new": 0.019709018990397453,
+      "std_new": 0.0006781052798032761,
+      "cv_new": 0.034405836238407386,
+      "mean_old": 0.017262102104723454,
+      "mean_tag": 0.4805,
+      "n": 2
+    },
+    "btsp_no_neuromod": {
+      "mean_new": 0.019709018990397453,
+      "std_new": 0.0006781052798032761,
+      "cv_new": 0.034405836238407386,
+      "mean_old": 0.017262102104723454,
+      "mean_tag": 1.0,
+      "n": 2
+    },
+    "diag_tag_fraction": {
+      "mean_new": 1.0,
+      "std_new": 0.0,
+      "cv_new": 0.0,
+      "mean_old": 1.0,
+      "mean_tag": 1.0,
+      "n": 2
+    }
+  },
+  "alpha_load": 0.048828125,
+  "saturation_score": 0.953598290681839,
+  "btsp_cv": 0.034405836238407386,
+  "n_seeds_complete": 2,
+  "expected_n_units": 20,
+  "completed_units": 20,
+  "cardinality_ok": true,
+  "anchor_name": "btsp_binary_synapse_one_shot_v1",
+  "elapsed_s": 406.9,
+  "ts_iso": "2026-06-27T18:37:41Z",
+  "pid": 19216,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=btsp_binary_synapse_one_shot_v1,N=2048,N_CAT=100,N_TRAIN=10,alpha=0.0488,proto_noise=0.85,seeds=[7, 17],mode=smoke,HP_new>=0.70,HP_old_frac>=0.90,HP_cv<=0.10,HP_sat_lo=0.95,expected_n=20,elig_decay=0.70,elig_tau=0.30,gate_p=0.50,tag_frac=0.050,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_btsp"
+}

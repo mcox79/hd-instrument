@@ -1,0 +1,18 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST synthetic functional graph N=120: oracle_direct h@10=0.950 (>=0.50 req), RANDOM direct=0.100 (<0.30 req), oracle_fpe h@10=0.075; _fit_anchor1(lr/nneg) + FPE/direct/stratify/control code path runs; ok=True",
+  "summary": "SELFTEST synthetic functional graph N=120: oracle_direct h@10=0.950 (>=0.50 req), RANDOM direct=0.100 (<0.30 req), oracle_fpe h@10=0.075; _fit_anchor1(lr/nneg) + FPE/direct/stratify/control code path ",
+  "run_mode": "self_test",
+  "elapsed_s": 5.794520499999635,
+  "anchor_name": "course_c_strengthened_fit_recipe_extended_ladder_v1",
+  "ts_iso": "2026-07-11T21:51:33.148128+00:00",
+  "device": "cuda",
+  "selftest": {
+    "oracle_direct_h10": 0.95,
+    "oracle_fpe_h10": 0.075,
+    "random_direct_h10": 0.1,
+    "finite": true,
+    "fires": true,
+    "control_low": true
+  }
+}

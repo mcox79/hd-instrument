@@ -1,0 +1,155 @@
+{
+  "anchor_name": "phase_diagram_multihop_depth_extension_via_partition_oracle_v1",
+  "verdict": "SANITY_BREACH",
+  "verdict_msg": "SANITY_BREACH_BASELINE_OUT_OF_BAND: BASELINE=0.7833 (sanity_breach=1/1) REPRO_PV2=0.6667 (meta_m7_breach=1/1) PART_5HOP=0.9333 (cv=nan, cross_cell_breach=1/1; target=0.9550) PART_7HOP=0.9667 (cv=nan) PART_10HOP=0.9667 (cv=nan) PART_15HOP=0.9667 (cv=nan)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "phaseDiagramMultihopDepthExtensionV1: N=2048 V_C=200 V_P=10 K=20 N_PARTS=20 PART_SIZE=10 depths=[5, 7, 10, 15] max_depth=15 n_chains=30 W_v1_depth=5 W_pv2_depth=10 W_d15_depth=15 baseline_v_p=2 baseline_n=60 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE META_M7=[0.08,0.25] cross_cell_5hop=[0.935,0.975] target=0.9550 HP_7=0.65 HF_7=0.40 HP_10=0.50 HF_10=0.25 HP_15=0.30 HF_15=0.15 phase_cv_max=0.10 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 200,
+      "V_P": 10,
+      "K_set": 20,
+      "n_partitions": 20,
+      "part_size": 10,
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "n_chains": 30,
+      "depths": [
+        5,
+        7,
+        10,
+        15
+      ],
+      "config_version": "phaseDiagramMultihopDepthExtensionV1: N=2048 V_C=200 V_P=10 K=20 N_PARTS=20 PART_SIZE=10 depths=[5, 7, 10, 15] max_depth=15 n_chains=30 W_v1_depth=5 W_pv2_depth=10 W_d15_depth=15 baseline_v_p=2 baseline_n=60 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE META_M7=[0.08,0.25] cross_cell_5hop=[0.935,0.975] target=0.9550 HP_7=0.65 HF_7=0.40 HP_10=0.50 HF_10=0.25 HP_15=0.30 HF_15=0.15 phase_cv_max=0.10 baseline_sanity=[0.62,0.68]",
+      "gpu_avail": false,
+      "gpu_name": "cpu_fallback",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.7833,
+        "n_queries": 60,
+        "mechanism": "beta_sweep_naive_hard_gpu",
+        "elapsed_s_arm": 0.06
+      },
+      "baseline_sanity_ok": false,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.6667,
+        "per_step_acc": [
+          0.9333,
+          0.9333,
+          0.8,
+          0.7667,
+          0.6667
+        ],
+        "n_queries": 30,
+        "depth": 5,
+        "mechanism": "verbatim_pointer_chain_v2_naive_forward_only",
+        "elapsed_s_arm": 0.09,
+        "W_n_bindings": 300
+      },
+      "meta_m7_rail_ok": false,
+      "arm_part_oracle_5hop": {
+        "top1": 0.9333,
+        "per_step_acc": [
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9333,
+          0.9333
+        ],
+        "n_queries": 30,
+        "depth": 5,
+        "n_partitions": 20,
+        "part_size": 10,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.07,
+        "W_n_bindings": 150,
+        "W_regime": "v1_regime_max_depth_5"
+      },
+      "cross_cell_5hop_ok": false,
+      "arm_part_oracle_7hop": {
+        "top1": 0.9667,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667
+        ],
+        "n_queries": 30,
+        "depth": 7,
+        "n_partitions": 20,
+        "part_size": 10,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.07,
+        "W_n_bindings": 300,
+        "W_regime": "pointer_v2_max_depth_10"
+      },
+      "arm_part_oracle_10hop": {
+        "top1": 0.9667,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667
+        ],
+        "n_queries": 30,
+        "depth": 10,
+        "n_partitions": 20,
+        "part_size": 10,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.09,
+        "W_n_bindings": 300,
+        "W_regime": "pointer_v2_max_depth_10"
+      },
+      "arm_part_oracle_15hop": {
+        "top1": 0.9667,
+        "per_step_acc": [
+          1.0,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          0.9667,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9667,
+          0.9667
+        ],
+        "n_queries": 30,
+        "depth": 15,
+        "n_partitions": 20,
+        "part_size": 10,
+        "mechanism": "partition_oracle_per_hop_gpu",
+        "elapsed_s_arm": 0.15,
+        "W_n_bindings": 450,
+        "W_regime": "depth15_extended_max_depth_15"
+      },
+      "gpu_max_mem_alloc_mb": 0.0,
+      "elapsed_s": 0.6,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782496677.2022405
+    }
+  ],
+  "elapsed_s": 0.6,
+  "summary": "SANITY_BREACH_BASELINE_OUT_OF_BAND: BASELINE=0.7833 (sanity_breach=1/1) REPRO_PV2=0.6667 (meta_m7_breach=1/1) PART_5HOP=0.9333 (cv=nan, cross_cell_breach=1/1; target=0.9550) PART_7HOP=0.9667 (cv=nan) PART_10HOP=0.9667 (cv=nan) PART_15HOP=0.9667 (cv=nan)",
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": false,
+  "gpu_name": "cpu_fallback",
+  "DESIGN_NOTE": "PHASE_DIAGRAM_DEPTH_EXTENSION: Cell B v2's depth=5 phase point at PART_ORACLE=0.9550 reproduced as cross-cell rail (W_v1_regime; band=[0.935,0.975] = target+/-0.02). META_M7 reproduce arm at depth=5 on W_pointer_v2 retains pointer-chain-v2's band [0.08,0.25]. Three NEW phase points (7HOP/10HOP/15HOP) probe the depth phase boundary: predicted by 0.95-per-step compounding (~0.70/~0.60/~0.46). TWO-W canonical (W_v1_regime + W_pointer_v2) plus one extended W (W_depth15_extended) for 15HOP because pointer_v2's max_depth=10 doesn't contain 15-hop chains. Disallow_s=set() preserved across all three W constructions. Verdict tiers the phase boundary cleanly: CHAIN_GRADE_DEPTH_EXTENDS (all 4 PASS) / PARTIAL_DEPTH_EXTENDS_TO_10 (cliff 10-15) / PARTIAL_DEPTH_EXTENDS_TO_7 (cliff 7-10) / DEPTH_5_IS_CEILING. GPU-required at full per Fix #24."
+}

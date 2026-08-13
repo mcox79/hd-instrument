@@ -1,0 +1,281 @@
+{
+  "verdict": "SEED_HARD_FAIL",
+  "verdict_msg": "SEED_HARD_FAIL | pooled_r=0.3159 within_max=0.2561 partial=0.1875 fair_margin=-0.0371 dm_margin=-0.1351 | split_ok=True pop_ok=True oneshot_faithful=None",
+  "summary": "SEED_HARD_FAIL | pooled_r=0.3159 within_max=0.2561 partial=0.1875 fair_margin=-0.0371 dm_margin=-0.1351 | split_ok=True pop_ok=True oneshot_faithful=None",
+  "run_mode": "smoke",
+  "elapsed_s": 72.26024930004496,
+  "anchor_name": "course_c_debias_cskg_l2_smoke_cpu_v1",
+  "ts_iso": "2026-07-13T02:04:58.224698+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config": {
+    "k": 24,
+    "fpe_dim": 2048,
+    "epochs": 120,
+    "n_neg": 64,
+    "batch": 8192,
+    "cskg_max_lines": 800000,
+    "k_core": 3,
+    "cskg_max_nodes": 3000,
+    "min_support": 2,
+    "min_conf": 0.05,
+    "n_eval": 2000,
+    "min_heldout": 10
+  },
+  "mechanism_selftest": {
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ],
+    "validity_checks": {
+      "positive_control_passes": true,
+      "metric_moves": true,
+      "negative_control_fails_with_margin": true,
+      "full_gates_exercised_at_selftest": true
+    },
+    "selftest_detail": {
+      "confound": {
+        "pooled_r": 0.9355,
+        "partial_r": -0.0431,
+        "within_max": 0.5957
+      },
+      "leak": {
+        "partial_r": 0.9445
+      },
+      "metric_moves": {
+        "pop_full": 0.0,
+        "pop_degmatched": 1.0,
+        "oneshot_degmatched": 1.0
+      },
+      "gate_probe": {
+        "synth_pass_verdict": "SEED_HARD_PASS",
+        "synth_fail_verdict": "SEED_HARD_FAIL"
+      }
+    }
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 7,
+      "N": 2894,
+      "n_rel": 19,
+      "n_train": 14839,
+      "n_test": 824,
+      "l2_genuine": {
+        "n_scanned": 824,
+        "n_reach_l2": 494,
+        "n_excl_l1i": 31,
+        "n_excl_l1f": 19,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 444
+      },
+      "tert_bounds": [
+        12.0,
+        49.333333333333314
+      ],
+      "strata_counts": {
+        "low": 149,
+        "mid": 147,
+        "high": 148
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.0045,
+          "hits@10": 0.0495,
+          "mrr": 0.0218
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0495,
+          "hits@10": 0.2342,
+          "mrr": 0.1093
+        }
+      },
+      "arm_sigs_recomputed": {
+        "ONESHOT_ROTATE": "f75d506683a17f28",
+        "BASELINE_POP": "0b59d2b14182b2f8"
+      },
+      "fair_unmatched": {
+        "oneshot": 0.0203,
+        "pop": 0.0574,
+        "margin": -0.0371,
+        "n": 296
+      },
+      "verification": {
+        "split_identity_ok": true,
+        "split_identity_detail": "n/a (non-reference seed)",
+        "pop_faithful_ok": true,
+        "pop_sig_exact": null,
+        "oneshot_faithful": null,
+        "oneshot_sig_exact": null,
+        "device": "cpu"
+      },
+      "pooled_backdoor_r": 0.3159,
+      "within_stratum_r": {
+        "low": {
+          "r": 0.222,
+          "n": 149
+        },
+        "mid": {
+          "r": 0.2561,
+          "n": 147
+        },
+        "high": {
+          "r": 0.1451,
+          "n": 148
+        }
+      },
+      "within_max_abs_r": 0.2561,
+      "partial_r_logdeg": 0.1875,
+      "degmatched_fair": {
+        "oneshot": 0.0203,
+        "pop": 0.1554,
+        "margin": -0.1351,
+        "n": 296,
+        "n_allowed": 2781
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 107694,
+        "k_core": 3,
+        "n_core_nodes": 3000,
+        "n_core_edges": 16487,
+        "n_core_nodes_in_split": 2894,
+        "core_avgdeg": 11.393918451969592,
+        "n_train": 14839,
+        "n_valid": 824,
+        "n_test": 824,
+        "n_rel_tokens": 19
+      },
+      "_min_support": 2,
+      "_min_conf": 0.05,
+      "seed_verdict": "SEED_HARD_FAIL",
+      "seed_gates": {
+        "p1_pass": false,
+        "p1_fail": false,
+        "p2_pass": false,
+        "p2_fail": true,
+        "within_max_abs_r": 0.2561,
+        "partial_r_logdeg": 0.1875,
+        "degmatched_margin": -0.1351,
+        "R_BACKDOOR": 0.15,
+        "R_LEAK": 0.25,
+        "DEG_MARGIN_PASS": 0.02
+      }
+    },
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 17,
+      "N": 2865,
+      "n_rel": 19,
+      "n_train": 12955,
+      "n_test": 719,
+      "l2_genuine": {
+        "n_scanned": 719,
+        "n_reach_l2": 355,
+        "n_excl_l1i": 26,
+        "n_excl_l1f": 8,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 321
+      },
+      "tert_bounds": [
+        13.0,
+        45.0
+      ],
+      "strata_counts": {
+        "low": 113,
+        "mid": 111,
+        "high": 97
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.0,
+          "hits@10": 0.0249,
+          "mrr": 0.0127
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0498,
+          "hits@10": 0.2056,
+          "mrr": 0.1071
+        }
+      },
+      "arm_sigs_recomputed": {
+        "ONESHOT_ROTATE": "33a25a42f0e38f87",
+        "BASELINE_POP": "ebd60c41f65a5fc3"
+      },
+      "fair_unmatched": {
+        "oneshot": 0.0223,
+        "pop": 0.058,
+        "margin": -0.0357,
+        "n": 224
+      },
+      "verification": {
+        "split_identity_ok": true,
+        "split_identity_detail": "n/a (non-reference seed)",
+        "pop_faithful_ok": true,
+        "pop_sig_exact": null,
+        "oneshot_faithful": null,
+        "oneshot_sig_exact": null,
+        "device": "cpu"
+      },
+      "pooled_backdoor_r": 0.1201,
+      "within_stratum_r": {
+        "low": {
+          "r": 0.0417,
+          "n": 113
+        },
+        "mid": {
+          "r": 0.1945,
+          "n": 111
+        },
+        "high": {
+          "r": -0.0425,
+          "n": 97
+        }
+      },
+      "within_max_abs_r": 0.1945,
+      "partial_r_logdeg": 0.0941,
+      "degmatched_fair": {
+        "oneshot": 0.0223,
+        "pop": 0.1741,
+        "margin": -0.1518,
+        "n": 224,
+        "n_allowed": 2768
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 107694,
+        "k_core": 3,
+        "n_core_nodes": 3000,
+        "n_core_edges": 14393,
+        "n_core_nodes_in_split": 2865,
+        "core_avgdeg": 10.047469458987784,
+        "n_train": 12955,
+        "n_valid": 719,
+        "n_test": 719,
+        "n_rel_tokens": 19
+      },
+      "_min_support": 2,
+      "_min_conf": 0.05,
+      "seed_verdict": "SEED_HARD_FAIL",
+      "seed_gates": {
+        "p1_pass": true,
+        "p1_fail": false,
+        "p2_pass": false,
+        "p2_fail": true,
+        "within_max_abs_r": 0.1945,
+        "partial_r_logdeg": 0.0941,
+        "degmatched_margin": -0.1518,
+        "R_BACKDOOR": 0.15,
+        "R_LEAK": 0.25,
+        "DEG_MARGIN_PASS": 0.02
+      }
+    }
+  ],
+  "cross_seed_note": "single-seed process-isolated re-score; 3-seed debias headline aggregated downstream over the 3 seed metrics files (mean within_max/partial/dm_margin)."
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "pfc_controller_orthogonal_role_basis_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm + alignment-monotonicity verified",
+  "summary": "SELFTEST_OK: per-arm + alignment-monotonicity verified",
+  "elapsed_s": 0.7,
+  "ts_iso": "2026-06-27T22:09:14Z",
+  "pid": 23316,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_controller_orthogonal_role_basis_v1,N=512,N_OPS=4,V=200,seeds=[7],depths=[3],decision_depth=4,n_train=30,n_test=10,mode=smoke,HP_lift_shared>=0.10,HP_lift_partitioned>=0.03,HP_cv<=0.10,expected_n=3,FAIR=SAME_INIT_DIFFER_ONLY_BY_GRAM_SCHMIDT,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_pfc_orthogonal_role_basis",
+  "_phase": "selftest_done",
+  "alignments": {
+    "shared_mean_abs_align_with_E": 0.033671874552965164,
+    "orthogonal_mean_abs_align_with_E": 1.217063960723408e-08,
+    "partitioned_mean_abs_align_with_E": 0.035465821623802185
+  }
+}

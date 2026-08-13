@@ -1,0 +1,126 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_MACHINERY_OK: all 4 arms produce finite ret_agree10 vs the name-aligned BGE eval-oracle; codes bit-distinct; discriminator FIRES (must-fail COARSE=0.1338 < 0.30 at smoke scale). The DENSE-ceiling MEANING verdict is FULL-only (needs full training scale + multi-seed); smoke previews DENSE=0.1990 GRADED=0.1886. [DENSE=0.1990 COARSE=0.1338 GRADED=0.1886 RANDINIT=0.1311 | graded-coarse lift=+0.0547 | modularity_z(DENSE)=336.17 align_frac=1.000 chance=0.0047]",
+  "summary": "SMOKE_MACHINERY_OK: all 4 arms produce finite ret_agree10 vs the name-aligned BGE eval-oracle; codes bit-distinct; discriminator FIRES (must-fail COARSE=0.1338 < 0.30 at smoke scale). The DENSE-ceilin",
+  "elapsed_s": 335.09180550000747,
+  "run_mode": "smoke",
+  "anchor_name": "encoder_native_gradedcode_ret_agree_v1_smoke_seed7",
+  "seed": 7,
+  "device": "cpu",
+  "N": 4096,
+  "geometry": {
+    "code_dim": 4096,
+    "kb": 32,
+    "blk_l": 128,
+    "m_coarse": 1,
+    "m_graded": 5
+  },
+  "gold": {
+    "source": "BGE_large_v2_name_177899",
+    "role": "eval_oracle_only_never_ingested",
+    "dim": 1024,
+    "aligned": 2143,
+    "n_nodes": 2143,
+    "align_frac": 1.0
+  },
+  "ret_agree10": {
+    "NATIVE_DENSE": 0.198973401773216,
+    "NATIVE_COARSE": 0.1338310779281375,
+    "NATIVE_GRADED": 0.1885674288380784,
+    "NATIVE_RANDINIT": 0.13112459169388646
+  },
+  "modularity_z": {
+    "NATIVE_DENSE": 336.1744780586245,
+    "NATIVE_COARSE": 384.05406402080473,
+    "NATIVE_GRADED": 441.9588606130884,
+    "NATIVE_RANDINIT": 65.03876562996275
+  },
+  "graded_minus_coarse_lift": 0.05473635090994089,
+  "ret_bar": 0.3,
+  "ret_bar_strict": 0.335,
+  "chance_floor": 0.004668534080298786,
+  "discriminator_fires_coarse_below_bar": true,
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 2143,
+    "n_edges": 6240,
+    "median_degree": 3.0,
+    "mean_degree": 5.823611759216052,
+    "frac_deg_ge_2": 1.0
+  },
+  "config": {
+    "n_nodes": 2500,
+    "epochs": 400,
+    "batch": 256,
+    "k_rewire": 40,
+    "code_dim": 4096,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "simgrace_sigma": 0.05
+  },
+  "objective": "native teacher-free relational encoder (graph InfoNCE + VICReg, char-trigram surface, NO teacher) re-parameterized to code_dim=4096; graded_block_code(m=1 coarse vs m=5 graded) at certified geometry; ret_agree10 scored vs name-aligned BGE eval-oracle (never ingested)",
+  "per_arm": {
+    "NATIVE_DENSE": {
+      "ret_agree10": 0.198973401773216,
+      "modularity_z": 336.1744780586245,
+      "m_true": 0.5268535017967224,
+      "null_mean": 0.003449053044460015,
+      "null_std": 0.0015569428463899852
+    },
+    "NATIVE_COARSE": {
+      "ret_agree10": 0.1338310779281375,
+      "modularity_z": 384.05406402080473,
+      "m_true": 0.11170871555805206,
+      "null_mean": 0.00923853034619242,
+      "null_std": 0.0002668118757527552
+    },
+    "NATIVE_GRADED": {
+      "ret_agree10": 0.1885674288380784,
+      "modularity_z": 441.9588606130884,
+      "m_true": 0.2146284431219101,
+      "null_mean": 0.0417445607483387,
+      "null_std": 0.00039117641432450447
+    },
+    "NATIVE_RANDINIT": {
+      "ret_agree10": 0.13112459169388646,
+      "modularity_z": 65.03876562996275,
+      "m_true": 0.054008401930332184,
+      "null_mean": 0.011606448376551271,
+      "null_std": 0.0006519489283518433
+    },
+    "align_frac": 1.0,
+    "chance_floor": 0.004668534080298786
+  },
+  "unit_failures": [],
+  "n_units": 4,
+  "expected_n_units": 4,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "NATIVE_DENSE": "529d4c18235582cfe6c803018331631f61d6763a04037ff0ac795a927e49454b",
+    "NATIVE_COARSE": "14d828be01b7eb72ac79879e84a1f21868b201316e404f3e2113e6920ce7c69b",
+    "NATIVE_GRADED": "67199b94f1d3897e8e098d9b427148378ea13f009efeb9f6f9e8e67dfb8f2d3b",
+    "NATIVE_RANDINIT": "dd288830516155ecd0b2e725fe7185a004c08093e46f35da9be18a579d15271c"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "no closed-form noise floor; discriminator is ret_agree10 AGREEMENT; chance floor = 10/(V-1)",
+  "discriminator_reachability": true,
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "hp_scope": {
+    "NATIVE_GRADED": [
+      "ret_agree10_bar"
+    ]
+  },
+  "baseline_in_band_note": "AG saturate-high failure mode cannot occur (non-distilled native vs BGE will not exceed 0.95 ret_agree10); the DENSE ceiling is the band-checked arm, floor is the live risk and IS the meaning-limiter signal",
+  "ts_iso": "2026-07-09T01:26:20.862191+00:00"
+}

@@ -1,0 +1,413 @@
+{
+  "verdict": "MIDDLE",
+  "summary": "MIDDLE",
+  "verdict_msg": "profile=full seeds=5 | ARENA ARENA_VALID (max|r|=0.199 copy=4.00x p<=0.0002 cMI=4/4) | GATE GATE_MARGINAL_MULTISIGNAL_ONLY (within-cell: route=0.593 wsum=0.617 best-single[recurrence]=0.645 rr_route=-14.8% rr_wsum=-8.0%; marginal: route=0.776 wsum=0.866 single=0.813 rr_wsum_marg=28.3%)",
+  "elapsed_s": 1.1881699999939883,
+  "ts_iso": "2026-07-16T15:39:04.495457+00:00",
+  "anchor_name": "multisource_arena_v1",
+  "profile": "full",
+  "seeds": [
+    11,
+    23,
+    37,
+    53,
+    71
+  ],
+  "arena_validity": {
+    "verdict": "ARENA_VALID",
+    "max_abs_r": 0.19882968005911214,
+    "mean_pairwise_abs_r": {
+      "unexpectedness|schema_fit": 0.013712175489813364,
+      "unexpectedness|recurrence": 0.14469674287053663,
+      "unexpectedness|importance": 0.031454883376804646,
+      "schema_fit|recurrence": 0.16648875404358462,
+      "schema_fit|importance": 0.02457012144762686,
+      "recurrence|importance": 0.17018894423942593
+    },
+    "copying_ratio_mean": 4.0,
+    "copying_worst_pvalue": 0.0001999600079984003,
+    "mean_conditional_mi": {
+      "unexpectedness": 0.026962818899917092,
+      "schema_fit": 0.03314054298084955,
+      "recurrence": 0.21738545514297888,
+      "importance": 0.03455140363629348
+    },
+    "min_informative_signals_of_4": 4
+  },
+  "gate_baseline": {
+    "verdict": "GATE_MARGINAL_MULTISIGNAL_ONLY",
+    "within_cell_bal_acc": {
+      "route": 0.5934826010099823,
+      "weighted_sum": 0.6169418651139992,
+      "best_single": 0.6452949370282537
+    },
+    "marginal_bal_acc": {
+      "route": 0.7755945590477104,
+      "weighted_sum": 0.8659479987837759,
+      "best_single": 0.8130235120144598
+    },
+    "best_single_signal": "recurrence",
+    "rel_err_reduction_within_cell": {
+      "route_vs_single": -0.14769596784284625,
+      "wsum_vs_single": -0.07974177452228795
+    },
+    "rel_err_reduction_marginal": {
+      "route_vs_single": -0.20039033151692198,
+      "wsum_vs_single": 0.2831291491818589
+    },
+    "baseline_in_band": true,
+    "arms_differ_verified": true
+  },
+  "per_seed": [
+    {
+      "self_test_fails": [],
+      "self_test_notes": [
+        "ST1 reliability-vs-assert-accuracy r=0.954",
+        "ST2 copy4-of-0 shares-parent-error=0.94 (n=67)",
+        "ST2 copy5-of-0 shares-parent-error=0.94 (n=69)",
+        "ST3 clusters=[5, 1, 2, 3, 5, 5] copies-merged=True indep-separate=True",
+        "ST4 schema RA-index: frac_nonzero=0.47 std=0.1157 distinct=180",
+        "ST5 schema-vs-importance RAW r=0.029 (must be |r|<0.3)",
+        "ST6 realized disagreement rate=0.38",
+        "ST7 truth base-rate=0.49"
+      ],
+      "truth_base_rate": 0.49,
+      "pairwise_abs_r": {
+        "unexpectedness|schema_fit": 0.030841989452798257,
+        "unexpectedness|recurrence": 0.1314163923283611,
+        "unexpectedness|importance": 0.037261164424162156,
+        "schema_fit|recurrence": 0.1706030744845671,
+        "schema_fit|importance": 0.028851129959051567,
+        "recurrence|importance": 0.1455516691257615
+      },
+      "max_abs_r": 0.1706030744845671,
+      "conditional_mi": {
+        "unexpectedness": 0.022634523874545894,
+        "schema_fit": 0.0316679905136401,
+        "recurrence": 0.20574899990877857,
+        "importance": 0.03638748680661904
+      },
+      "n_informative": 4,
+      "copying": {
+        "corr_ind_mean": 4.0,
+        "corr_cop_mean": 1.0,
+        "corr_ratio": 4.0,
+        "corr_pvalue": 0.0001999600079984003,
+        "naive_separation": 0.0
+      },
+      "best_single_signal": "recurrence",
+      "best_single_within_signal": "importance",
+      "single_within_cell": {
+        "unexpectedness": 0.5013146551724138,
+        "schema_fit": 0.5144019088542937,
+        "recurrence": 0.5,
+        "importance": 0.6605142878010113
+      },
+      "within_cell": {
+        "route": 0.5883068289469771,
+        "weighted_sum": 0.63474977691158,
+        "best_single": 0.6605142878010113,
+        "n_cells": 8
+      },
+      "marginal": {
+        "route": 0.7622797642485266,
+        "weighted_sum": 0.8649991562447266,
+        "best_single": 0.8065394158713493
+      },
+      "rel_err_reduction": {
+        "route_vs_single": -0.21269660624689268,
+        "wsum_vs_single": -0.07589276945572755,
+        "route_marg_vs_single": -0.22877865184874088,
+        "wsum_marg_vs_single": 0.3021790750642092
+      },
+      "route_thresholds": {
+        "rel": 0.65,
+        "sal": 0.65,
+        "sf": 0.35,
+        "su": 0.35
+      },
+      "arms_differ": true,
+      "n_test": 800
+    },
+    {
+      "self_test_fails": [],
+      "self_test_notes": [
+        "ST1 reliability-vs-assert-accuracy r=0.915",
+        "ST2 copy4-of-0 shares-parent-error=0.89 (n=53)",
+        "ST2 copy5-of-0 shares-parent-error=0.94 (n=54)",
+        "ST3 clusters=[5, 1, 2, 3, 5, 5] copies-merged=True indep-separate=True",
+        "ST4 schema RA-index: frac_nonzero=0.55 std=0.1168 distinct=235",
+        "ST5 schema-vs-importance RAW r=0.053 (must be |r|<0.3)",
+        "ST6 realized disagreement rate=0.37",
+        "ST7 truth base-rate=0.49"
+      ],
+      "truth_base_rate": 0.486875,
+      "pairwise_abs_r": {
+        "unexpectedness|schema_fit": 0.0010717279477740994,
+        "unexpectedness|recurrence": 0.1425140277113261,
+        "unexpectedness|importance": 0.07289415016257278,
+        "schema_fit|recurrence": 0.19882968005911214,
+        "schema_fit|importance": 0.05260470729915491,
+        "recurrence|importance": 0.19723170655756905
+      },
+      "max_abs_r": 0.19882968005911214,
+      "conditional_mi": {
+        "unexpectedness": 0.03411614748085662,
+        "schema_fit": 0.032472286115368496,
+        "recurrence": 0.22453286216469592,
+        "importance": 0.03261681299927003
+      },
+      "n_informative": 4,
+      "copying": {
+        "corr_ind_mean": 4.0,
+        "corr_cop_mean": 1.0,
+        "corr_ratio": 4.0,
+        "corr_pvalue": 0.0001999600079984003,
+        "naive_separation": 0.0
+      },
+      "best_single_signal": "recurrence",
+      "best_single_within_signal": "importance",
+      "single_within_cell": {
+        "unexpectedness": 0.5306817065392633,
+        "schema_fit": 0.55339706898424,
+        "recurrence": 0.5,
+        "importance": 0.6352747212047728
+      },
+      "within_cell": {
+        "route": 0.586956022261074,
+        "weighted_sum": 0.6229875211171776,
+        "best_single": 0.6352747212047728,
+        "n_cells": 8
+      },
+      "marginal": {
+        "route": 0.7805087874066983,
+        "weighted_sum": 0.861785260681595,
+        "best_single": 0.8053256251916087
+      },
+      "rel_err_reduction": {
+        "route_vs_single": -0.13247970939471684,
+        "wsum_vs_single": -0.03368891821313483,
+        "route_marg_vs_single": -0.12747870801864097,
+        "wsum_marg_vs_single": 0.29002089024586236
+      },
+      "route_thresholds": {
+        "rel": 0.65,
+        "sal": 0.65,
+        "sf": 0.35,
+        "su": 0.35
+      },
+      "arms_differ": true,
+      "n_test": 800
+    },
+    {
+      "self_test_fails": [],
+      "self_test_notes": [
+        "ST1 reliability-vs-assert-accuracy r=0.928",
+        "ST2 copy4-of-0 shares-parent-error=0.91 (n=57)",
+        "ST2 copy5-of-0 shares-parent-error=0.89 (n=56)",
+        "ST3 clusters=[5, 1, 2, 3, 5, 5] copies-merged=True indep-separate=True",
+        "ST4 schema RA-index: frac_nonzero=0.54 std=0.1152 distinct=241",
+        "ST5 schema-vs-importance RAW r=-0.016 (must be |r|<0.3)",
+        "ST6 realized disagreement rate=0.39",
+        "ST7 truth base-rate=0.48"
+      ],
+      "truth_base_rate": 0.483125,
+      "pairwise_abs_r": {
+        "unexpectedness|schema_fit": 0.00977636004894961,
+        "unexpectedness|recurrence": 0.16828863198769115,
+        "unexpectedness|importance": 0.011130339401035024,
+        "schema_fit|recurrence": 0.19326376057572972,
+        "schema_fit|importance": 0.015641751904400217,
+        "recurrence|importance": 0.16102329774326757
+      },
+      "max_abs_r": 0.19326376057572972,
+      "conditional_mi": {
+        "unexpectedness": 0.03521444514211551,
+        "schema_fit": 0.03436935732743232,
+        "recurrence": 0.20222585939974835,
+        "importance": 0.04397544123537679
+      },
+      "n_informative": 4,
+      "copying": {
+        "corr_ind_mean": 4.0,
+        "corr_cop_mean": 1.0,
+        "corr_ratio": 4.0,
+        "corr_pvalue": 0.0001999600079984003,
+        "naive_separation": 0.0
+      },
+      "best_single_signal": "recurrence",
+      "best_single_within_signal": "importance",
+      "single_within_cell": {
+        "unexpectedness": 0.49206036477232135,
+        "schema_fit": 0.5058261842950142,
+        "recurrence": 0.5,
+        "importance": 0.6644329059428163
+      },
+      "within_cell": {
+        "route": 0.6088289907800777,
+        "weighted_sum": 0.6429663682927749,
+        "best_single": 0.6644329059428163,
+        "n_cells": 8
+      },
+      "marginal": {
+        "route": 0.7930451127819549,
+        "weighted_sum": 0.8824561403508772,
+        "best_single": 0.8255012531328321
+      },
+      "rel_err_reduction": {
+        "route_vs_single": -0.1657013340922613,
+        "wsum_vs_single": -0.06397092572605877,
+        "route_marg_vs_single": -0.18599640933572703,
+        "wsum_marg_vs_single": 0.32639138240574495
+      },
+      "route_thresholds": {
+        "rel": 0.65,
+        "sal": 0.65,
+        "sf": 0.35,
+        "su": 0.35
+      },
+      "arms_differ": true,
+      "n_test": 800
+    },
+    {
+      "self_test_fails": [],
+      "self_test_notes": [
+        "ST1 reliability-vs-assert-accuracy r=0.773",
+        "ST2 copy4-of-0 shares-parent-error=0.91 (n=58)",
+        "ST2 copy5-of-0 shares-parent-error=0.88 (n=58)",
+        "ST3 clusters=[5, 1, 2, 3, 5, 5] copies-merged=True indep-separate=True",
+        "ST4 schema RA-index: frac_nonzero=0.50 std=0.1211 distinct=229",
+        "ST5 schema-vs-importance RAW r=-0.016 (must be |r|<0.3)",
+        "ST6 realized disagreement rate=0.36",
+        "ST7 truth base-rate=0.50"
+      ],
+      "truth_base_rate": 0.49875,
+      "pairwise_abs_r": {
+        "unexpectedness|schema_fit": 0.00599372751848617,
+        "unexpectedness|recurrence": 0.13591266726082168,
+        "unexpectedness|importance": 0.025915394153698944,
+        "schema_fit|recurrence": 0.13487628311281644,
+        "schema_fit|importance": 0.01596803204900957,
+        "recurrence|importance": 0.16130630080952546
+      },
+      "max_abs_r": 0.16130630080952546,
+      "conditional_mi": {
+        "unexpectedness": 0.019838216172548502,
+        "schema_fit": 0.03235022553262213,
+        "recurrence": 0.2278874982851528,
+        "importance": 0.029554729874642686
+      },
+      "n_informative": 4,
+      "copying": {
+        "corr_ind_mean": 4.0,
+        "corr_cop_mean": 1.0,
+        "corr_ratio": 4.0,
+        "corr_pvalue": 0.0001999600079984003,
+        "naive_separation": 0.0
+      },
+      "best_single_signal": "recurrence",
+      "best_single_within_signal": "importance",
+      "single_within_cell": {
+        "unexpectedness": 0.5019042789459174,
+        "schema_fit": 0.5158053391053391,
+        "recurrence": 0.5,
+        "importance": 0.6262752596825665
+      },
+      "within_cell": {
+        "route": 0.5992814848918117,
+        "weighted_sum": 0.5939330881924606,
+        "best_single": 0.6262752596825665,
+        "n_cells": 8
+      },
+      "marginal": {
+        "route": 0.7759192614614301,
+        "weighted_sum": 0.85144734783289,
+        "best_single": 0.8159755906743859
+      },
+      "rel_err_reduction": {
+        "route_vs_single": -0.07222902815539294,
+        "wsum_vs_single": -0.08654008686348982,
+        "route_marg_vs_single": -0.21766856559816367,
+        "wsum_marg_vs_single": 0.19275571805118613
+      },
+      "route_thresholds": {
+        "rel": 0.65,
+        "sal": 0.65,
+        "sf": 0.35,
+        "su": 0.35
+      },
+      "arms_differ": true,
+      "n_test": 800
+    },
+    {
+      "self_test_fails": [],
+      "self_test_notes": [
+        "ST1 reliability-vs-assert-accuracy r=0.906",
+        "ST2 copy4-of-0 shares-parent-error=0.93 (n=60)",
+        "ST2 copy5-of-0 shares-parent-error=0.92 (n=59)",
+        "ST3 clusters=[5, 1, 2, 3, 5, 5] copies-merged=True indep-separate=True",
+        "ST4 schema RA-index: frac_nonzero=0.53 std=0.1270 distinct=286",
+        "ST5 schema-vs-importance RAW r=-0.010 (must be |r|<0.3)",
+        "ST6 realized disagreement rate=0.35",
+        "ST7 truth base-rate=0.49"
+      ],
+      "truth_base_rate": 0.486875,
+      "pairwise_abs_r": {
+        "unexpectedness|schema_fit": 0.02087707248105868,
+        "unexpectedness|recurrence": 0.1453519950644831,
+        "unexpectedness|importance": 0.010073368742554335,
+        "schema_fit|recurrence": 0.13487097198569772,
+        "schema_fit|importance": 0.009784986026518044,
+        "recurrence|importance": 0.185831746961006
+      },
+      "max_abs_r": 0.185831746961006,
+      "conditional_mi": {
+        "unexpectedness": 0.023010761829518906,
+        "schema_fit": 0.03484285541518474,
+        "recurrence": 0.2265320559565188,
+        "importance": 0.03022254726555884
+      },
+      "n_informative": 4,
+      "copying": {
+        "corr_ind_mean": 4.0,
+        "corr_cop_mean": 1.0,
+        "corr_ratio": 4.0,
+        "corr_pvalue": 0.0001999600079984003,
+        "naive_separation": 0.0
+      },
+      "best_single_signal": "recurrence",
+      "best_single_within_signal": "importance",
+      "single_within_cell": {
+        "unexpectedness": 0.5018809393595436,
+        "schema_fit": 0.497810895029645,
+        "recurrence": 0.5,
+        "importance": 0.6399775105101015
+      },
+      "within_cell": {
+        "route": 0.5840396781699712,
+        "weighted_sum": 0.5900725710560033,
+        "best_single": 0.6399775105101015,
+        "n_cells": 8
+      },
+      "marginal": {
+        "route": 0.7662198693399414,
+        "weighted_sum": 0.8690520888087907,
+        "best_single": 0.8117756752021226
+      },
+      "rel_err_reduction": {
+        "route_vs_single": -0.15537316132496745,
+        "wsum_vs_single": -0.13861617235302873,
+        "route_marg_vs_single": -0.24202932278333744,
+        "wsum_marg_vs_single": 0.3042986801422917
+      },
+      "route_thresholds": {
+        "rel": 0.65,
+        "sal": 0.65,
+        "sf": 0.35,
+        "su": 0.35
+      },
+      "arms_differ": true,
+      "n_test": 800
+    }
+  ]
+}

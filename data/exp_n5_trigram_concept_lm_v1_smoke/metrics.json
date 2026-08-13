@@ -1,0 +1,35 @@
+{
+  "anchor_name": "n5_trigram_concept_lm_v1",
+  "config_version": "N=16384,V_C=1024,f=0.0060,ARMS=3,WB_THRESH=3,DECODE=countprop_interp,MAX_DOCS=200,SEEDS=7,SPLIT=0.8,BANDS=HP<=4.30/MB<=4.70,SANITY=4.96+-0.05,ENCODER=SUBSTRATE_NATIVE,SYNTH=False",
+  "verdict": "SMOKE_INFRA_OK",
+  "verdict_msg": "SMOKE_INFRA_OK: 11/11 selftests passed; ARM dispatcher + HRR bind/unbind + Witten-Bell backoff + pre-reg bands LOCKED. residuals_per_token.npz not on local laptop (lives on marsh@home); deferring real smoke + full to remote runner. queue_add gate is structural-only on local.",
+  "summary": "SMOKE_INFRA_OK: 11/11 selftests passed; ARM dispatcher + HRR bind/unbind + Witten-Bell backoff + pre-reg bands LOCKED. residuals_per_token.npz not on local laptop (lives on marsh@home); deferring real smoke + full to remote runner. queue_add gate is structural-only on local.",
+  "run_mode": "smoke",
+  "n_seeds": 0,
+  "N_DIM": 16384,
+  "V_C": 1024,
+  "f_sparse": 0.006,
+  "encoder_provenance": "SUBSTRATE_NATIVE",
+  "corpus_provenance_real": true,
+  "all_arms": [
+    "ARM_BIGRAM_BASELINE",
+    "ARM_TRIGRAM_HRR",
+    "ARM_TRIGRAM_HRR_PLUS_BACKOFF"
+  ],
+  "wb_backoff_threshold": 3,
+  "pre_reg_bands": {
+    "HARD_PASS_BPC_THRESHOLD": 4.3,
+    "MIDDLE_BAND_UPPER_BPC": 4.7,
+    "HARD_FAIL_SANITY_ANCHOR_BPC": 4.96,
+    "HARD_FAIL_SANITY_TOLERANCE": 0.05,
+    "P_HARD_PASS": 0.25,
+    "P_MIDDLE": 0.45,
+    "P_HARD_FAIL": 0.3,
+    "CV_MAX_HP": 0.05
+  },
+  "zero_llm_calls_at_inference": true,
+  "smoke_infra_only": true,
+  "smoke_reason": "residuals_per_token.npz absent on local (expected; lives on marsh@home)",
+  "per_seed": [],
+  "elapsed_s": 0.0
+}

@@ -1,0 +1,102 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS reachability_predicts_relational_failure: real fit/score/RR + reachability tool (k-hop mass, distance-to-hub, partial-Spearman, stratified permutation) + mode-(a) measured-reachability traversal all exercised; arena fires; scramble collapses; p/rho in bounds",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.6533383999485523,
+  "self_test": {
+    "n_query": 357,
+    "n_entities": 150,
+    "selftest_verdict": "INCONCLUSIVE_INSUFFICIENT_ENTITIES",
+    "gates": {
+      "verdict": "INCONCLUSIVE_INSUFFICIENT_ENTITIES",
+      "main_mrr": 0.217932,
+      "random_mrr": 0.030747,
+      "scramble_mrr": 0.066654,
+      "pop_mrr": 0.216394,
+      "arena_margin": 0.187185,
+      "arena_ratio": 7.088,
+      "arena_fires": true,
+      "scramble_margin": 0.035907,
+      "scramble_ceiling": 0.046796,
+      "scramble_controlled": true,
+      "arms_differ": true,
+      "n_distinct_sigs": 3,
+      "enough_entities": false,
+      "correct_sign_both": true,
+      "hard": true,
+      "middle": true,
+      "per_seed_partial_rho_khop": [
+        0.157805
+      ],
+      "per_seed_perm_p_khop": [
+        0.045908
+      ],
+      "per_seed_n_entities": [
+        150
+      ],
+      "per_seed_diagnostic": [
+        {
+          "seed": 7,
+          "n_entities": 150,
+          "partial_rho_khop": 0.157805,
+          "perm_p_khop": 0.045908,
+          "perm_null_mean": 0.005771,
+          "perm_null_std": 0.082697,
+          "partial_rho_dist2hub": -0.128261,
+          "partial_rho_meanNbrDeg": 0.174,
+          "raw_spearman_khop": 0.34527,
+          "spearman_degree_only": 0.318266,
+          "bottom_decile_mean_khop": 52.4,
+          "top_decile_mean_khop": 77.0667,
+          "n_hubs": 2,
+          "mean_nq": 2.38,
+          "median_deg": 9.0,
+          "measured_reachability_active": false,
+          "n_grounded_entities": 0
+        }
+      ],
+      "bands": {
+        "RHO_HARD": 0.1,
+        "RHO_MID": 0.04,
+        "P_SIG": 0.05,
+        "P_MID": 0.15,
+        "EXPECTED_SIGN": 1,
+        "MIN_ENTITIES": 200,
+        "N_PERM": 500,
+        "KHOP_K": 2,
+        "HUB_FRAC": 0.01,
+        "DEG_STRATA_BINS": 10,
+        "ARENA_FIRE_RATIO": 3.0,
+        "ARENA_FIRE_ABS": 0.01,
+        "SCRAMBLE_CEIL_FRAC": 0.25
+      }
+    },
+    "arena_fires": true,
+    "scramble_controlled": true,
+    "arms_differ": true,
+    "partial_rho_in_bounds": true,
+    "perm_p_in_bounds": true,
+    "mode_a_fires": true,
+    "mode_a_inert_when_empty": true,
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "additive_direct_scores",
+      "build_holdout_split",
+      "build_planted_bucket_arena",
+      "build_undirected_adj",
+      "degree_vector",
+      "distance_to_hub",
+      "filtered_rr_per_query",
+      "fit_kge_anchor1",
+      "k_hop_reachable_mass",
+      "mean_neighbor_degree",
+      "measured_reachability",
+      "partial_spearman",
+      "perm_p_partial_stratified",
+      "quantile_strata",
+      "top_degree_hubs",
+      "verdict_from_gates"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_SMOKE_1seeds_N1024_K5_M30_atom_feature_purity_1.000_pm_0.000_char_trigram_purity_0.967_pm_0.000_lift_+0.033_planted_block_purity_1.000_n_llm_calls_0_cv_feat_0.0000_elapsed_0.0s",
+  "elapsed_s": 0.030307292938232422,
+  "summary": {
+    "anchor": "atom_feature_encoder_smoke_v1",
+    "config_version": "atom_feature_encoder_smoke_v1: ARM_CHAR_TRIGRAM_NAME (baseline) vs ARM_ATOM_FEATURE (cert_tier + mechanism_family + sigma_regime + metric_profile + graph_neighborhood); k-means K=5 on N=30 sampled atoms; mechanism_family_purity discriminator; HP purity >= 0.60 AND lift >= 0.15",
+    "run_mode": "smoke",
+    "seeds": [
+      7
+    ],
+    "N_DIM": 1024,
+    "K_CLUSTERS": 5,
+    "N_ATOMS_SAMPLE": 30,
+    "arm_atom_feature_purity_mean": 1.0,
+    "arm_atom_feature_purity_std": 0.0,
+    "arm_atom_feature_purity_cv": 0.0,
+    "arm_char_trigram_purity_mean": 0.9666666666666667,
+    "arm_char_trigram_purity_std": 0.0,
+    "purity_lift_mean": 0.033333333333333326,
+    "planted_block_purity_mean": 1.0,
+    "n_llm_calls": 0,
+    "n_chain_grade_atoms_pool": 451,
+    "hp_thresholds": {
+      "purity_floor": 0.6,
+      "lift_floor": 0.15,
+      "planted_purity_required": 1.0
+    },
+    "hp_gates": {
+      "purity_ok": true,
+      "lift_ok": false,
+      "planted_ok": true,
+      "no_llm": true
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 1024,
+      "M": 30,
+      "run_mode": "smoke",
+      "arm_atom_feature_purity": 1.0,
+      "arm_char_trigram_purity": 0.9666666666666667,
+      "purity_lift": 0.033333333333333326,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 30,
+      "k_clusters": 5,
+      "elapsed_s": 0.030307292938232422,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "capacity": 1,
+        "other": 29
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782241722.2723653
+    }
+  }
+}

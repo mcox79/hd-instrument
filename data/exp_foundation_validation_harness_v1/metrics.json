@@ -1,0 +1,189 @@
+{
+  "verdict": "HARD_PASS_foundation_validated",
+  "verdict_msg": "claim1=HARD_PASS(gap=0.2533) claim2=HARD_PASS(cohesion=0.4765,contra=0) claim3=HARD_PASS(mech=1.0,scr=0.0,abl=0.0) smoke_controls_discriminate=True",
+  "summary": "claim1=HARD_PASS(gap=0.2533) claim2=HARD_PASS(cohesion=0.4765,contra=0) claim3=HARD_PASS(mech=1.0,scr=0.0,abl=0.0) smoke_controls_discriminate=True",
+  "elapsed_s": 125.31054310000036,
+  "ts_iso": "2026-08-12T14:27:19.938042+00:00",
+  "anchor_name": "foundation_validation_harness_v1",
+  "run_mode": "full",
+  "foundation_dir": "D:\\AI\\hd-instrument\\data\\foundation_snapshots\\reading_grounding_v1_full_20260812T142513Z",
+  "n_facts_loaded": 7966,
+  "seed": 20260812,
+  "claim1_correctness": {
+    "verdict": "HARD_PASS",
+    "n_live_grounded_meaning": 3544,
+    "n_self_grounded": 2328,
+    "self_grounded_rate": 0.6569,
+    "n_cross_grounded": 1216,
+    "n_sampled": 150,
+    "precision_hat": 0.98,
+    "chance_hat": 0.7267,
+    "gap": 0.2533,
+    "wilson_precision": [
+      0.9429,
+      0.9932
+    ],
+    "wilson_chance": [
+      0.6504,
+      0.7917
+    ],
+    "not_found_rate": 0.0067,
+    "corpus_n_sentences": 30889
+  },
+  "claim2_coherence": {
+    "verdict": "HARD_PASS",
+    "same_rep_at_scale": {
+      "verdict": "HARD_PASS",
+      "cohesion_gap": 0.4765,
+      "n_qualifying_clusters": 605,
+      "n_missing_vec": 0
+    },
+    "no_contradictions": {
+      "verdict": "HARD_PASS",
+      "active_contradiction_count": 0,
+      "flagged_pairs_count": 0,
+      "examples": []
+    },
+    "concept_neighborhoods_descriptive": {
+      "ender": [
+        "ian:0.680",
+        "die:0.317",
+        "line:0.315",
+        "problem:0.295",
+        "settlement:0.289"
+      ],
+      "interior": [
+        "world':0.263",
+        "minu:0.244",
+        "astrophysicist:0.242",
+        "fascinat:0.227",
+        "liam:0.218"
+      ],
+      "university": [
+        "significantly:0.276",
+        "chart:0.273",
+        "grim:0.248",
+        "defin:0.246",
+        "chain:0.242"
+      ],
+      "sandberg": [
+        "full:0.356",
+        "reason:0.356",
+        "before:0.332",
+        "now:0.331",
+        "wasn:0.328"
+      ],
+      "biological": [
+        "that:0.300",
+        "family:0.287",
+        "charge:0.280",
+        "exactly:0.280",
+        "polygraph:0.271"
+      ],
+      "currie": [
+        "ceo:0.369",
+        "leave:0.345",
+        "mak:0.343",
+        "water:0.305",
+        "rock:0.302"
+      ],
+      "explod": [
+        "zon:0.235",
+        "scandal:0.217",
+        "journalism:0.216",
+        "unpopular:0.200",
+        "hiroshi:0.199"
+      ],
+      "commit": [
+        "extrem:0.634",
+        "hurt:0.443",
+        "start:0.387",
+        "step:0.379",
+        "new:0.375"
+      ],
+      "refund": [
+        "yen:0.593",
+        "upgrade:0.418",
+        "signatur:0.374",
+        "farmland:0.365",
+        "follower:0.350"
+      ],
+      "villag": [
+        "scum:0.461",
+        "defend:0.328",
+        "right:0.312",
+        "month:0.308",
+        "really:0.304"
+      ]
+    }
+  },
+  "claim3_can_reason": {
+    "verdict": "HARD_PASS",
+    "n_available_chains": 356,
+    "n_sampled": 150,
+    "mechanism_accuracy": 1.0,
+    "scrambled_accuracy": 0.0,
+    "ablation_accuracy": 0.0,
+    "gap_vs_scramble": 1.0,
+    "gap_vs_ablation": 1.0,
+    "leaked_count": 0,
+    "arms_differ_verified": true,
+    "controls_discriminate": true,
+    "example_chains": [
+      {
+        "A": "blank",
+        "B": "daunt",
+        "C": "sheet",
+        "B_hat": "daunt",
+        "C_hat": "sheet"
+      },
+      {
+        "A": "calorie",
+        "B": "skim",
+        "C": "soft",
+        "B_hat": "skim",
+        "C_hat": "soft"
+      },
+      {
+        "A": "logical",
+        "B": "inductive",
+        "C": "deductive",
+        "B_hat": "inductive",
+        "C_hat": "deductive"
+      },
+      {
+        "A": "trilogy",
+        "B": "obscurity",
+        "C": "audienc",
+        "B_hat": "obscurity",
+        "C_hat": "audienc"
+      },
+      {
+        "A": "thermodynamic",
+        "B": "transfer",
+        "C": "convert",
+        "B_hat": "transfer",
+        "C_hat": "convert"
+      }
+    ]
+  },
+  "smoke_controls_discriminate": true,
+  "bands": {
+    "claim1": {
+      "hard_pass_gap_min": 0.2,
+      "hard_fail_gap_max": 0.05
+    },
+    "claim2a": {
+      "hard_pass_cohesion_min": 0.1,
+      "hard_fail_cohesion_max": 0.02
+    },
+    "claim2b": {
+      "hard_pass_active_contradictions": 0
+    },
+    "claim3": {
+      "hard_pass_mech_min": 0.5,
+      "hard_pass_gap_min": 0.2,
+      "hard_fail_gap_max": 0.05
+    }
+  }
+}

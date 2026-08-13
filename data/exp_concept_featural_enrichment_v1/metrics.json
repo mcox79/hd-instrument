@@ -1,0 +1,292 @@
+{
+  "verdict": "CONTENT_ENRICHMENT_HARD_FAIL",
+  "verdict_msg": "HONEST CEILING: content-enriched features do NOT beat content-thin in-sample (B=0.1168 vs A=0.1865, lift -0.0697 <= 0.02). Bound property content carries no material separable signal for ARC selection here. Sub-diagnosis: scorer/content: the binding mechanism IS content-faithful (dam mechanism fires) but the enriched content does NOT separate THESE real gold-vs-lure pairs linearly; redirect = nonlinear learner on the richer features OR deeper perceptual grounding. dam mechanism fires=True (lift=0.3841); RANDOM collapses=True; end-to-end C_combined lift=-0.0206. Redirect = deeper perceptual grounding / richer property source (report STRAIGHT).",
+  "summary": "CONTENT_ENRICHMENT_HARD_FAIL: [in-sample prec] A=0.1865 B=0.1168 C=0.1865 B_single=0.0727 RANDOM=0.1066 (lift B-A=-0.0697); [subset] A=0.1865 B=0.1168; [dam] margin_lift=0.3841 fires=True; [TEST Chal] A=0.3663 B=0.3086 C=0.3457 ORACLE=0.7119 best_lift=-0.0206 McNemar_p=0.4237107971667936; q_cov=0.626 fact_cov=0.9991 | chance=0.2501",
+  "elapsed_s": 95.9,
+  "ts_iso": "2026-07-25T05:38:53.020044+00:00",
+  "anchor_name": "concept_featural_enrichment_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260725,
+  "gamma": 0.5,
+  "k_props": 6,
+  "single_group": "KIND",
+  "n_questions": 987,
+  "n_easy": 500,
+  "n_challenge": 487,
+  "n_train": 494,
+  "n_test": 493,
+  "n_test_challenge": 243,
+  "n_train_challenge": 244,
+  "n_train_covered_subset": 244,
+  "n_covered_subset_total": 987,
+  "n_train_rows": 49400,
+  "n_train_gold_pos": 977,
+  "chance_theoretical": 0.2501,
+  "store_facts": 9720,
+  "graph_terms": 5403,
+  "question_concept_property_coverage": 0.626,
+  "fact_property_coverage": 0.9991,
+  "n_property_concepts": 4261,
+  "n_unique_fillers": 6161,
+  "coverage_min": 0.3,
+  "coverage_bound": false,
+  "k_wide": 100,
+  "k_sel": 4,
+  "rr_top_t": 10,
+  "mu_supp": 1.0,
+  "l2_reg": 1.0,
+  "gd_iters": 400,
+  "gd_lr": 0.5,
+  "split_frac_train": 0.5,
+  "flat_feature_names": [
+    "g_stem",
+    "mean_choice",
+    "max_choice",
+    "g_disc",
+    "coh",
+    "surf_pull",
+    "rr_score",
+    "lure_penalty",
+    "degree",
+    "neg_cue"
+  ],
+  "enr_feature_names": [
+    "enr_cos_max",
+    "enr_cos_mean",
+    "prop_overlap",
+    "distinct_match",
+    "has_property"
+  ],
+  "relation_groups": [
+    "SOURCE",
+    "REQUIRES",
+    "COMPOSITION",
+    "USE",
+    "CAUSE",
+    "KIND",
+    "LOCATION",
+    "ECOLOGY",
+    "PROP"
+  ],
+  "learned_weights_by_arm": {
+    "A_thin": {
+      "g_stem": 0.76071,
+      "mean_choice": 1.0136,
+      "max_choice": 1.47011,
+      "g_disc": 0.60331,
+      "coh": -1.90452,
+      "surf_pull": 0.72381,
+      "rr_score": 2.85262,
+      "lure_penalty": -0.08581,
+      "degree": -1.32974,
+      "neg_cue": -0.27301
+    },
+    "B_enriched": {
+      "enr_cos_max": -0.24291,
+      "enr_cos_mean": -0.12893,
+      "prop_overlap": 1.64732,
+      "distinct_match": 0.45644,
+      "has_property": 0.0
+    },
+    "C_combined": {
+      "g_stem": 0.88012,
+      "mean_choice": 1.18243,
+      "max_choice": 1.62831,
+      "g_disc": 0.65156,
+      "coh": -1.70301,
+      "surf_pull": 0.89901,
+      "rr_score": 2.94023,
+      "lure_penalty": -0.06403,
+      "degree": -1.22368,
+      "neg_cue": -0.28696,
+      "enr_cos_max": -0.65039,
+      "enr_cos_mean": -0.69163,
+      "prop_overlap": 0.10786,
+      "distinct_match": -0.17813,
+      "has_property": 0.0
+    },
+    "B_single": {
+      "enr_cos_max": -0.17813,
+      "enr_cos_mean": 0.14453,
+      "prop_overlap": 0.71668,
+      "distinct_match": 0.26153,
+      "has_property": -0.06439
+    },
+    "RANDOM": {
+      "enr_cos_max": 0.01066,
+      "enr_cos_mean": 0.25439,
+      "prop_overlap": 0.96472,
+      "distinct_match": 0.61093,
+      "has_property": 0.0
+    }
+  },
+  "enr_learner_nontrivial": true,
+  "insample_train_precision_by_arm": {
+    "A_thin": 0.1865,
+    "B_enriched": 0.1168,
+    "C_combined": 0.1865,
+    "B_single": 0.0727,
+    "RANDOM": 0.1066,
+    "ORACLE": 0.9754
+  },
+  "A_insample_precision": 0.1865,
+  "B_insample_precision": 0.1168,
+  "C_insample_precision": 0.1865,
+  "B_single_insample_precision": 0.0727,
+  "RANDOM_insample_precision": 0.1066,
+  "insample_precision_lift_B_minus_A": -0.0697,
+  "random_property_collapses": true,
+  "random_collapse_eps": 0.02,
+  "baseline_precision_regression_ok": true,
+  "insample_covered_subset_precision_by_arm": {
+    "A_thin": 0.1865,
+    "B_enriched": 0.1168,
+    "C_combined": 0.1865,
+    "B_single": 0.0727,
+    "RANDOM": 0.1066,
+    "ORACLE": 0.9754
+  },
+  "A_covered_subset_precision": 0.1865,
+  "B_covered_subset_precision": 0.1168,
+  "subset_hard_pass": false,
+  "hub_binding": {
+    "B_enriched_precision": 0.1168,
+    "B_single_precision": 0.0727,
+    "multi_feature_beats_single": true
+  },
+  "dam_mechanism": {
+    "thin_margin": -0.0,
+    "enr_margin": 0.3841,
+    "margin_lift": 0.3841,
+    "fires": true,
+    "hp_threshold": 0.05,
+    "thin_sims": {
+      "hydro": 0.9988,
+      "nuclear": 0.9987,
+      "coal": 0.9988
+    },
+    "enr_sims": {
+      "hydro": 0.9993,
+      "nuclear": 0.6152,
+      "coal": 0.6115
+    }
+  },
+  "acc_by_arm": {
+    "A_thin": {
+      "test_easy": 0.528,
+      "test_challenge": 0.3663,
+      "test_chal_lure": 0.5238,
+      "insample_train_precision": 0.1865,
+      "insample_covered_subset_precision": 0.1865,
+      "test_sel_gold_precision": 0.1461
+    },
+    "B_enriched": {
+      "test_easy": 0.452,
+      "test_challenge": 0.3086,
+      "test_chal_lure": 0.4524,
+      "insample_train_precision": 0.1168,
+      "insample_covered_subset_precision": 0.1168,
+      "test_sel_gold_precision": 0.0988
+    },
+    "C_combined": {
+      "test_easy": 0.556,
+      "test_challenge": 0.3457,
+      "test_chal_lure": 0.4048,
+      "insample_train_precision": 0.1865,
+      "insample_covered_subset_precision": 0.1865,
+      "test_sel_gold_precision": 0.144
+    },
+    "B_single": {
+      "test_easy": 0.396,
+      "test_challenge": 0.2881,
+      "test_chal_lure": 0.381,
+      "insample_train_precision": 0.0727,
+      "insample_covered_subset_precision": 0.0727,
+      "test_sel_gold_precision": 0.0648
+    },
+    "RANDOM": {
+      "test_easy": 0.44,
+      "test_challenge": 0.284,
+      "test_chal_lure": 0.381,
+      "insample_train_precision": 0.1066,
+      "insample_covered_subset_precision": 0.1066,
+      "test_sel_gold_precision": 0.0947
+    },
+    "ORACLE": {
+      "test_easy": 0.836,
+      "test_challenge": 0.7119,
+      "test_chal_lure": 0.7143,
+      "insample_train_precision": 0.9754,
+      "insample_covered_subset_precision": 0.9754,
+      "test_sel_gold_precision": 0.963
+    }
+  },
+  "A_thin_test_challenge": 0.3663,
+  "B_enriched_test_challenge": 0.3086,
+  "C_combined_test_challenge": 0.3457,
+  "oracle_gold_test_challenge": 0.7119,
+  "selection_gap": 0.3456,
+  "best_repr_arm": "C_combined",
+  "best_repr_lift_challenge": -0.0206,
+  "gap_fraction_closed": -0.0596,
+  "test_sel_gold_precision_A": 0.1461,
+  "test_sel_gold_precision_B": 0.0988,
+  "mcnemar_challenge": {
+    "arm": "C_combined",
+    "b_A_right_arm_wrong": 15,
+    "c_A_wrong_arm_right": 10,
+    "stat": 0.64,
+    "p_value": 0.42371,
+    "significant": false
+  },
+  "test_sel_gold_precision_by_arm": {
+    "A_thin": 0.1461,
+    "B_enriched": 0.0988,
+    "C_combined": 0.144,
+    "B_single": 0.0648,
+    "RANDOM": 0.0947,
+    "ORACLE": 0.963
+  },
+  "pred1_representational_hp": false,
+  "pred1_hard_fail": true,
+  "pred2_mechanism_hp": true,
+  "pred4_endtoend_hp": false,
+  "hard_fail_sub_diagnosis": "scorer/content: the binding mechanism IS content-faithful (dam mechanism fires) but the enriched content does NOT separate THESE real gold-vs-lure pairs linearly; redirect = nonlinear learner on the richer features OR deeper perceptual grounding",
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "arms_differ_verified": true,
+  "n_distinct_pick_vectors": 5,
+  "arm_pick_digests": {
+    "A_thin": "5ad87d0162d9118ad3b70c3d928847e37a7fc515cae4a6ec699e90a7fde43939",
+    "B_enriched": "293fbd17852460b3c85c646a0dfe8ada59dc147e2912b04e494901c34362e65e",
+    "C_combined": "5793683a46a048c42397389dc2358b9e30764178f7385fe9cf4bced39afbf639",
+    "B_single": "d519f1eb76d324fd114e0e7ae90c3d196825a5b4915738193038a464765348ec",
+    "RANDOM": "71621ffc405d148b9f5de4373286a418a409e33141870b91495bd340957d77ea",
+    "ORACLE": "a8e2b177303d2f2f066d942cb0ffa2e1cac525f3ac55c89c4a565ec5fdddca06"
+  },
+  "bands": {
+    "ENR_LIFT_HP": 0.05,
+    "ENR_LIFT_HF": 0.02,
+    "ENR_SUBSET_HP": 0.4,
+    "RANDOM_COLLAPSE_EPS": 0.02,
+    "PLANT_MECH_HP": 0.05,
+    "CHAL_LIFT_HP": 0.05,
+    "MB_CHAL_LIFT": 0.02,
+    "COVERAGE_MIN": 0.3,
+    "mcnemar_alpha": 0.05,
+    "ag_baseline_sat": 0.95
+  },
+  "grade_proxy": {
+    "easy_band": "~grade 3-4",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "wired_vs_stubbed": "WIRED: the CONCEPT MEANING content is the ONLY variable. The WIDE re-retrieval pool (RR top-100, mr.reformulate_seeds/_rownorm_scores IMPORTED UNCHANGED, built on THIN term encodings) and the bind+bundle combiner (agg.aggregate 'bundle' IMPORTED UNCHANGED) are held fixed. Arm A_thin reuses 29545's EXACT flat feature assembly + glass-box learner (imported) -> regression-anchor to the ~0.186 in-sample ceiling. Arm B_enriched binds each concept's up-to-K DISTINCTIVE WorldTree property fillers under their relation-GROUP role key (the SAME bipolar binding EventBundleCodec/hd_fact_store use) and ADDS them (gamma-weighted; gamma=0 recovers thin EXACTLY) to the thin vector; features = enriched fact-vs-question cosine (max/mean) + symbolic shared-property overlap + distinctiveness-weighted match + coverage. C_combined = flat+content. B_single = content from the single highest-coverage group only (hub multi-feature ablation). RANDOM permutes the concept->property assignment (must collapse toward A). ORACLE = gold ceiling. PLANTED dam mechanism: enriched separates hydro gold from nuclear/coal lures where the thin base is near-equal (the case where relation-STRUCTURE (29546) provably cannot help). NO LEAK: TRAIN/TEST disjoint (learned._split_train_test); learner never sees TEST gold; gold used for TRAIN label + ORACLE + eval only. FIRST GATE = property coverage (reported). PRIMARY = in-sample TRAIN precision; SECONDARY = TEST sel_gold_precision + end-to-end Challenge + McNemar + covered-subset precision; MECHANISM = dam margin lift. STUBBED/NOTED-NOT-BUILT: perceptual grounding + nonlinear learner (the redirects if this HARD_FAILs).",
+  "contract": "INLINE-LOCAL foreground-to-completion; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large; inherits 29544/29545/29546 contract); VET-PENDING; FULL eval slice bounded (limit_easy=500 limit_chal=600, stratified) to fit one foreground call",
+  "compute_architecture": "mixed CPU: batched GloVe encode (store + unique property fillers + terms + questions) + scipy sparse batched PPR (2 passes, UNCHANGED) + numpy elementwise property bind + sum (cheap) + per-question feature assembly (continuous cosine + symbolic set-intersection overlap) + 5 glass-box full-batch logreg trains (deterministic zero-init GD) + UNCHANGED combiner; wall target < 10min. No GPU speedup needed (matmuls small).",
+  "storage_strategy": "sharded (each fact = own thin embedding + own property bundle + own graph node)",
+  "progress_logging": "line_buffered_stdout",
+  "calibration_check": "default_ok_for_this_regime (learner hyperparams inherited from 29545 L2/iters/lr author-set a priori; wide pool + combiner UNCHANGED; GAMMA=0.5, K_PROPS=6, relation->group map author-set a priori NOT tuned to force a win; RANDOM-property must-fail control present; the dam mechanism is analytic (shared bound-property components align by construction) so the discriminator survives scale)"
+}

@@ -1,0 +1,130 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS reciprocal cold-rescue: the trained-inverse head-bundle lifts a planted COLD entity (only head edges) over the tail-only ANCHOR; relation-scramble collapses; ORACLE fires; POP at floor; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 11.4667132999748,
+  "mechanism_selftest": {
+    "n_grid_entities": 400,
+    "n_heldout_entities": 80,
+    "n_tail_support": 70,
+    "n_head_support": 198,
+    "n_query": 78,
+    "n_cold": 14,
+    "n_cold_q": 14,
+    "n_cold_with_recip": 14,
+    "support_deg_hist": {
+      "cold": 14,
+      "d1": 4,
+      "d2_3": 24,
+      "d4_7": 36,
+      "d8plus": 0
+    },
+    "cold_recip_deg_hist": {
+      "recip0": 0,
+      "recip1": 1,
+      "recip2plus": 13
+    },
+    "heldout_mrr": {
+      "ANCHOR_COMPOSE": 0.29037,
+      "ANCHOR_RECIP": 0.26574,
+      "ANCHOR_RECIP_SCRAMBLE": 0.22285,
+      "ADDITIVE_TRANSE": 0.00535,
+      "ONESHOT_ROTATE": 0.01578,
+      "RANDOM_CODES": 0.00746,
+      "ANCHOR_SCRAMBLE": 0.16095,
+      "ORACLE_ADDITIVE": 0.91957,
+      "BASELINE_POP": 0.00642
+    },
+    "heldout_metric_spectrum": {
+      "ANCHOR_COMPOSE": {
+        "hits@1": 0.20513,
+        "hits@3": 0.33333,
+        "hits@10": 0.42308,
+        "hits@100": 0.65385,
+        "mrr": 0.29037
+      },
+      "ANCHOR_RECIP": {
+        "hits@1": 0.19231,
+        "hits@3": 0.25641,
+        "hits@10": 0.46154,
+        "hits@100": 0.89744,
+        "mrr": 0.26574
+      },
+      "ANCHOR_RECIP_SCRAMBLE": {
+        "hits@1": 0.12821,
+        "hits@3": 0.25641,
+        "hits@10": 0.42308,
+        "hits@100": 0.87179,
+        "mrr": 0.22285
+      },
+      "ADDITIVE_TRANSE": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.07692,
+        "mrr": 0.00535
+      },
+      "ONESHOT_ROTATE": {
+        "hits@1": 0.0,
+        "hits@3": 0.01282,
+        "hits@10": 0.02564,
+        "hits@100": 0.24359,
+        "mrr": 0.01578
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.16667,
+        "mrr": 0.00746
+      },
+      "ANCHOR_SCRAMBLE": {
+        "hits@1": 0.10256,
+        "hits@3": 0.17949,
+        "hits@10": 0.25641,
+        "hits@100": 0.39744,
+        "mrr": 0.16095
+      },
+      "ORACLE_ADDITIVE": {
+        "hits@1": 0.87179,
+        "hits@3": 0.96154,
+        "hits@10": 1.0,
+        "hits@100": 1.0,
+        "mrr": 0.91957
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.14103,
+        "mrr": 0.00642
+      }
+    },
+    "cold_bucket_mrr": {
+      "anchor": 0.00525,
+      "recip": 0.11355,
+      "recip_scramble": 0.02586,
+      "random": 0.012,
+      "n": 14
+    },
+    "n_distinct_sigs": 9,
+    "oracle_margin": 0.91211,
+    "oracle_ratio": 123.27,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "cold_recip_recovers": true,
+    "cold_recip_beats_anchor": true,
+    "cold_scramble_fails": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "INCONCLUSIVE_BASELINE_NOT_REPRODUCED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

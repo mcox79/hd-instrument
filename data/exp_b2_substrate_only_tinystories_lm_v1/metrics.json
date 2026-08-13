@@ -1,0 +1,62 @@
+{
+  "anchor_name": "b2_substrate_only_tinystories_lm_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate-only LM fails to beat unigram floor; mechanism broken. ppl SUB=1984.33 UNI=464.94 BIGRAM=764.36 | acc SUB=0.1470 UNI=0.0624 BIGRAM=0.1972 (n_seeds=3, V_DIM=2048, N_TRAIN=120000, N_HELD=10000)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config": {
+    "V_DIM": 2048,
+    "N_TRAIN": 120000,
+    "N_HELD": 10000,
+    "VOCAB_CAP": 8000
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 8000,
+      "V_DIM": 2048,
+      "N_TRAIN": 120000,
+      "N_HELD": 10000,
+      "n_eval": 8429,
+      "ppl_substrate": 1921.0679931640625,
+      "ppl_unigram": 464.93914215464326,
+      "ppl_bigram": 764.3577508106143,
+      "acc_substrate": 0.1435520227785028,
+      "acc_unigram": 0.062403606596274766,
+      "acc_bigram": 0.1971764147585716,
+      "elapsed_s": 7.035067081451416
+    },
+    {
+      "seed": 17,
+      "V": 8000,
+      "V_DIM": 2048,
+      "N_TRAIN": 120000,
+      "N_HELD": 10000,
+      "n_eval": 8429,
+      "ppl_substrate": 1973.54248046875,
+      "ppl_unigram": 464.93914215464326,
+      "ppl_bigram": 764.3577508106143,
+      "acc_substrate": 0.15553446434927037,
+      "acc_unigram": 0.062403606596274766,
+      "acc_bigram": 0.1971764147585716,
+      "elapsed_s": 7.386778354644775
+    },
+    {
+      "seed": 23,
+      "V": 8000,
+      "V_DIM": 2048,
+      "N_TRAIN": 120000,
+      "N_HELD": 10000,
+      "n_eval": 8429,
+      "ppl_substrate": 2058.364990234375,
+      "ppl_unigram": 464.93914215464326,
+      "ppl_bigram": 764.3577508106143,
+      "acc_substrate": 0.1418910902835449,
+      "acc_unigram": 0.062403606596274766,
+      "acc_bigram": 0.1971764147585716,
+      "elapsed_s": 7.128582000732422
+    }
+  ],
+  "elapsed_s": 21.81389546394348,
+  "summary": "HARD_FAIL: substrate-only LM fails to beat unigram floor; mechanism broken. ppl SUB=1984.33 UNI=464.94 BIGRAM=764.36 | acc SUB=0.1470 UNI=0.0624 BIGRAM=0.1972 (n_seeds=3, V_DIM=2048, N_TRAIN=120000, N_HELD=10000)"
+}

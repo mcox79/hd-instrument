@@ -1,0 +1,77 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS consol inductive-replay: INTERLEAVED anchor-compose beats CONTINUAL+RANDOM on the planted held-out-head arena via REAL additive readout; SHUFFLE/SCRAMBLE controls below; ORACLE fires; POP above floor; compute-matched; 5 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 2.2757313000038266,
+  "mechanism_selftest": {
+    "N": 500,
+    "n_heldout": 100,
+    "n_support": 191,
+    "n_query": 232,
+    "n_cold": 3,
+    "steps_interleaved": 140,
+    "steps_continual": 160,
+    "step_mismatch": 0.14286,
+    "compute_matched": true,
+    "heldout_mrr": {
+      "INTERLEAVED": 0.23129,
+      "CONTINUAL": 0.17925,
+      "SHUFFLE": 0.02573,
+      "SCRAMBLE": 0.16493,
+      "RANDOM": 0.0185,
+      "ORACLE": 0.5091,
+      "POP_RELFREQ": 0.21521
+    },
+    "heldout_hits_at_10": {
+      "INTERLEAVED": 0.39655,
+      "CONTINUAL": 0.38362,
+      "SHUFFLE": 0.04741,
+      "SCRAMBLE": 0.32328,
+      "RANDOM": 0.03448,
+      "ORACLE": 0.94828,
+      "POP_RELFREQ": 0.39655
+    },
+    "dose_traj": {
+      "1": 0.019792,
+      "2": 0.019806,
+      "4": 0.024459,
+      "8": 0.181856,
+      "14": 0.207011,
+      "20": 0.231291
+    },
+    "n_distinct_sigs": 7,
+    "beat_continual": 0.05204,
+    "beat_random": 0.21279,
+    "scramble_margin": 0.06636,
+    "shuffle_margin": 0.20556,
+    "oracle_margin": 0.4906,
+    "oracle_ratio": 27.52,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "inter_recovers": true,
+    "inter_beats_random": true,
+    "inter_beats_cont": true,
+    "inter_beats_pop": true,
+    "beat_pop": 0.01608,
+    "scramble_fails": true,
+    "shuffle_fails": true,
+    "baseline_in_band": true,
+    "pop_above_floor": true,
+    "arms_differ": true,
+    "validity_preflight_ok": true,
+    "support_deg_hist": {
+      "cold": 403,
+      "d1": 3,
+      "d2_3": 94,
+      "d4plus": 0
+    },
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "guard_baseline_valid"
+    ]
+  }
+}

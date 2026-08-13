@@ -1,0 +1,11 @@
+{
+  "anchor_name": "pfc_gate_cfrpe_trained_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST1-ST7 (cfrpe-TD shrink, adaptive LR, Go/NoGo argmax, mechanism-fires reach ranking, pipeline, binom, anti-tautology control uninformative)",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 0.8,
+  "ts_iso": "2026-07-05T18:07:25.122600+00:00",
+  "pid": 29772,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=pfc_gate_cfrpe_trained_v1,N=256,V=40,N_OPS=4,seeds=[7],depths=[4],dec_depth=6,n_train_triples=20,n_train_chains=12,n_test_chains=8,sr_steps=120,sr_batch=32,gamma=0.85,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],mode=selftest,device=cuda,expected_n=5,HP_lift>=0.155,cv<0.10,sign_p<0.05,reach_rank>0.30"
+}

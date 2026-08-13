@@ -1,0 +1,60 @@
+{
+  "anchor_name": "hebbian_capacity_projected_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL[pre-flight]: keys NOT de-crowded (rho_mean=[0.1899, 0.26071] > 0.10) -> the #7 projection did not generalize-de-crowd these keys; capacity-on-crowded-keys is meaningless. Fix the projection/split before measuring. ",
+  "run_mode": "smoke",
+  "encoder": "EleutherAI/pythia-160m",
+  "M_sweep": [
+    50,
+    100,
+    250,
+    500,
+    1000
+  ],
+  "n_seeds": 2,
+  "proj_dim": 128,
+  "detail": {
+    "preflight_fail": true,
+    "rho_mean_per_seed": [
+      0.1899,
+      0.26071
+    ]
+  },
+  "metrics_source": "measured_gpu_pythia2p8b_hebbian_capacity_projected_keys",
+  "per_unit": [
+    {
+      "seed": 0,
+      "rho_mean": 0.1899,
+      "rho_var": 0.16536,
+      "e_sq": 0.201419,
+      "preflight_fail": true,
+      "m_crit_obs": 0.0,
+      "m_crit_pred": 0.0,
+      "recall_1k_proj": 0.0,
+      "recall_1k_raw": 0.0,
+      "canfail_halfdim_mcrit": 0.0,
+      "curve": {},
+      "run_mode": "smoke",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1781947618.1075099
+    },
+    {
+      "seed": 1,
+      "rho_mean": 0.26071,
+      "rho_var": 0.12762,
+      "e_sq": 0.195585,
+      "preflight_fail": true,
+      "m_crit_obs": 0.0,
+      "m_crit_pred": 0.0,
+      "recall_1k_proj": 0.0,
+      "recall_1k_raw": 0.0,
+      "canfail_halfdim_mcrit": 0.0,
+      "curve": {},
+      "run_mode": "smoke",
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1781947645.7178416
+    }
+  ],
+  "elapsed_s": 55.114322662353516,
+  "summary": "HARD_FAIL[pre-flight]: keys NOT de-crowded (rho_mean=[0.1899, 0.26071] > 0.10) -> the #7 projection did not generalize-de-crowd these keys; capacity-on-crowded-keys is meaningless. Fix the projection/split before measuring. "
+}

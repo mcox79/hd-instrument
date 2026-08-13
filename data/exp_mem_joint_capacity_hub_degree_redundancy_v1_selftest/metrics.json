@@ -1,0 +1,9 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "formula self-tests pass: bind-diff=2.2e-08 unbind-diff=3.7e-08 phaseroll-diff=0.0e+00; unprot_deg5=0.200 < prot_deg5=0.740; leaf R1=0.728<=R4=1.000",
+  "summary": "SELFTEST_PASS (formula self-tests: HRR bit-identity + phase-roll + mechanism direction)",
+  "run_mode": "self_test",
+  "elapsed_s": 0.03,
+  "ts_iso": "2026-07-05T06:44:12.723328+00:00",
+  "anchor_name": "mem_joint_capacity_hub_degree_redundancy_v1"
+}

@@ -1,0 +1,25 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS grounding: (a) informative attribute grounds + degree-flat; (b) scrambled does not ground; (c) fairness gate passes headroom world + blocks common-cause world; (d) collapse caught; arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.24949309998191893,
+  "mechanism_selftest": {
+    "a_gap": 0.2654,
+    "a_scr_gap": -0.5175,
+    "a_low_gap": 0.2302,
+    "a_high_gap": NaN,
+    "c_head_FA": 0.4356,
+    "c_head_C": 0.9793,
+    "c_unpred_FA": -0.0424,
+    "c_unpred_C": -0.002,
+    "d_healthy_repvar": 0.9981,
+    "a_grounds": true,
+    "a_flat": true,
+    "b_scr_no_ground": true,
+    "c_headroom_passes": true,
+    "c_commoncause_blocks": true,
+    "d_collapse_caught": true,
+    "arms_differ": true
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "verdict": "HONEST-WALL-structure-insufficient",
+  "verdict_msg": "NONE of {sparse-kWTA, sparse-GSBC, weighted-fusion, typed-bind} lifts relations past ~0.139 (best_rel_alone 0.0935 ~= wt_dense 0.1302) AND best weighted-fusion (0.2496) does not beat context 0.2453 by >= FUSE_EPS (0.01) -- weighted fusion may FIX the naive-concat dilution but relations add ~0 NET; relational grounding is mechanism+data limited even after the nearest fixes; grounding needs MORE than taxonomy (sensorimotor/Barsalou) [best_rel_alone=relations_worldtree_sparse_kwta_naive p@10=0.0935 ci[0.0793, 0.11] | best_fused=both_wordnet_dense_weighted p@10=0.2496 | context=0.2453 | wt_dense=0.1302 | shuffle=0.0273 chance=0.0201]",
+  "summary": "HONEST-WALL-structure-insufficient: NONE of {sparse-kWTA, sparse-GSBC, weighted-fusion, typed-bind} lifts relations past ~0.139 (best_rel_alone 0.0935 ~= wt_dense 0.1302) AND best weighted-fusion (0.2496) does not beat context 0.2453 by >= FUSE_EPS (0.01) -- weighted fusion may FIX the naive-concat dilution but relations add ~0 NET; relational grounding is mechanism+data limited even after the nearest fixes; grounding needs MORE than taxonomy (sensorimotor/Barsalou) [best_rel_alone=relations_worldtree_sparse_kwta_naive p@10=0.0935 ci[0.0793, 0.11] | best_fused=both_wordnet_dense_weighted p@10=0.2496 | context=0.2453 | wt_dense=0.1302 | shuffle=0.0273 chance=0.0201]",
+  "run_mode": "smoke",
+  "elapsed_s": 258.45,
+  "ts_iso": "2026-07-25T18:53:42.693913+00:00",
+  "anchor_name": "native_meaning_encoder_wordnet_mechanism_v1",
+  "device": "cpu",
+  "seeds": [
+    20260725
+  ],
+  "primary_metric": "held-out (5-fold CV, no-leak) retrieval p@10 vs Binder-65 gold neighborhoods",
+  "one_variable": "the MECHANISM: relation coding {DENSE, SPARSE-GSBC} x fusion/readout {naive-concat-single-lambda, weighted-block-diag} (+ typed-bind encoding lever); relation SOURCE=WordNet richer set; density is INSTRUMENTED not the hypothesis",
+  "arms_p_at_10": {
+    "chance": 0.0201,
+    "context_only": 0.2453,
+    "untrained_input": 0.0331,
+    "relations_worldtree_dense_naive": 0.1302,
+    "relations_wordnet_dense_naive": 0.0489,
+    "relations_wordnet_dense_lifted": 0.0338,
+    "relations_wordnet_sparse_gsbc_naive": 0.0331,
+    "relations_wordnet_sparse_kwta_naive": 0.0353,
+    "relations_wordnet_typedbind_naive": 0.0424,
+    "relations_worldtree_sparse_gsbc_naive": 0.0338,
+    "relations_worldtree_sparse_kwta_naive": 0.0935,
+    "both_wordnet_dense_naiveconcat": 0.2187,
+    "both_wordnet_dense_weighted": 0.2496,
+    "both_wordnet_sparse_naiveconcat": 0.2453,
+    "both_wordnet_sparse_weighted": 0.2453,
+    "both_wordnet_kwta_weighted": 0.2489,
+    "shuffle_wordnet_kwta": 0.0273
+  },
+  "arms_full": {
+    "chance": {
+      "p_at_10": 0.0201,
+      "spearman": 0.0088,
+      "disc_acc": 0.0576,
+      "n_held": 139
+    },
+    "context_only": {
+      "p_at_10": 0.2453,
+      "spearman": 0.7028,
+      "disc_acc": 0.1079,
+      "n_held": 139
+    },
+    "untrained_input": {
+      "p_at_10": 0.0331,
+      "spearman": 0.6164,
+      "disc_acc": 0.1079,
+      "n_held": 139
+    },
+    "relations_worldtree_dense_naive": {
+      "p_at_10": 0.1302,
+      "spearman": 0.4221,
+      "disc_acc": 0.0863,
+      "n_held": 139
+    },
+    "relations_wordnet_dense_naive": {
+      "p_at_10": 0.0489,
+      "spearman": 0.5448,
+      "disc_acc": 0.0863,
+      "n_held": 139
+    },
+    "relations_wordnet_dense_lifted": {
+      "p_at_10": 0.0338,
+      "spearman": 0.6177,
+      "disc_acc": 0.1079,
+      "n_held": 139
+    },
+    "relations_wordnet_sparse_gsbc_naive": {
+      "p_at_10": 0.0331,
+      "spearman": 0.6174,
+      "disc_acc": 0.1079,
+      "n_held": 139
+    },
+    "relations_wordnet_sparse_kwta_naive": {
+      "p_at_10": 0.0353,
+      "spearman": 0.6231,
+      "disc_acc": 0.0791,
+      "n_held": 139
+    },
+    "relations_wordnet_typedbind_naive": {
+      "p_at_10": 0.0424,
+      "spearman": 0.6342,
+      "disc_acc": 0.1007,
+      "n_held": 139
+    },
+    "relations_worldtree_sparse_gsbc_naive": {
+      "p_at_10": 0.0338,
+      "spearman": 0.6227,
+      "disc_acc": 0.1007,
+      "n_held": 139
+    },
+    "relations_worldtree_sparse_kwta_naive": {
+      "p_at_10": 0.0935,
+      "spearman": 0.6479,
+      "disc_acc": 0.0647,
+      "n_held": 139
+    },
+    "both_wordnet_dense_naiveconcat": {
+      "p_at_10": 0.2187,
+      "spearman": 0.6519,
+      "disc_acc": 0.1151,
+      "n_held": 139
+    },
+    "both_wordnet_dense_weighted": {
+      "p_at_10": 0.2496,
+      "spearman": 0.7015,
+      "disc_acc": 0.1151,
+      "n_held": 139
+    },
+    "both_wordnet_sparse_naiveconcat": {
+      "p_at_10": 0.2453,
+      "spearman": 0.7039,
+      "disc_acc": 0.1223,
+      "n_held": 139
+    },
+    "both_wordnet_sparse_weighted": {
+      "p_at_10": 0.2453,
+      "spearman": 0.7039,
+      "disc_acc": 0.1223,
+      "n_held": 139
+    },
+    "both_wordnet_kwta_weighted": {
+      "p_at_10": 0.2489,
+      "spearman": 0.7033,
+      "disc_acc": 0.1079,
+      "n_held": 139
+    },
+    "shuffle_wordnet_kwta": {
+      "p_at_10": 0.0273,
+      "spearman": 0.6121,
+      "disc_acc": 0.0935,
+      "n_held": 139
+    }
+  },
+  "best_relation_alone_arm": "relations_worldtree_sparse_kwta_naive",
+  "best_relation_alone_p10": 0.0935,
+  "best_relation_alone_p10_ci": [
+    0.0793,
+    0.11
+  ],
+  "best_fused_weighted_arm": "both_wordnet_dense_weighted",
+  "best_fused_weighted_p10": 0.2496,
+  "rescue_signals": {
+    "S1_relations_alone_rescued": false,
+    "S2_fusion_rescued": false,
+    "relations_generalize": true
+  },
+  "lever_deltas": {
+    "kwta_minus_dense_relations_alone_wordnet": -0.0136,
+    "gsbc_minus_denselifted_wordnet_pure_regime": -0.0007,
+    "worldtree_kwta_minus_dense_SPARSE_VALIDITY": -0.0367,
+    "worldtree_gsbc_minus_dense_LOSSY_CHECK": -0.0964,
+    "weighted_minus_naive_fusion_dense": 0.0309,
+    "best_fused_minus_context": 0.0043,
+    "typedbind_minus_dense_relations": -0.0065,
+    "note": "worldtree_kwta_minus_dense ~0 => faithful sparse code PRESERVES signal (valid sparse test); worldtree_gsbc_minus_dense <<0 => GSBC random-lift is LOSSY (its null result is confounded, not a fair sparse test)"
+  },
+  "crosstalk": {
+    "dense_lifted": {
+      "own": 0.6345,
+      "cross": 0.5471,
+      "margin": 0.0874,
+      "pairwise_overlap": 0.4061
+    },
+    "sparse_gsbc": {
+      "own": 0.5749,
+      "cross": 0.4931,
+      "margin": 0.0818,
+      "pairwise_overlap": 0.3168
+    },
+    "sparse_kwta": {
+      "own": 0.5492,
+      "cross": 0.4454,
+      "margin": 0.1038,
+      "pairwise_overlap": 0.2973
+    },
+    "note": "pairwise_overlap = within-bundle constituent interference (LOWER=less crosstalk, fairest regime cmp). own/cross = bundle recoverability (cross biased UP by non-negativity). Crosstalk-limited iff sparse pairwise_overlap << dense AND the FAITHFUL (kWTA) sparse arm >> dense arm; NOT crosstalk if sparse composes cleaner but the faithful arm stays flat"
+  },
+  "density": {
+    "mean_worldtree_rels_per_concept": 2.4,
+    "mean_wordnet_rels_per_concept": 32.96,
+    "density_ratio_wn_over_wt": 13.8,
+    "note": "VET seq29564: density is NOT the lever (corr n_rel vs p10 ~= -0.007); reported as instrumentation only"
+  },
+  "coverage": {
+    "binder_concepts": 534,
+    "matched_binder_x_worldtree_x_wordnet_noun": 139,
+    "n_test_after_vocab_filter": 139,
+    "binder_with_wordnet_noun_rels_broad": 502,
+    "nan_imputed_cells_binder_internal": 178
+  },
+  "positive_controls_gate_D": {
+    "context_only": 0.2453,
+    "context_band": [
+      0.2,
+      0.29
+    ],
+    "relations_worldtree_dense_naive": 0.1302,
+    "worldtree_band": [
+      0.1,
+      0.18
+    ],
+    "both_dense_naiveconcat": 0.2187,
+    "reproduce_ok": true,
+    "reference_predecessor": {
+      "context": 0.2426,
+      "relations_worldtree": 0.139,
+      "both": 0.2043,
+      "source": "MEASURED@data/exp_native_meaning_encoder_binder_grounded_v1_smoke/metrics.json"
+    }
+  },
+  "shuffle_collapsed": true,
+  "shuffle_wordnet_kwta_p10": 0.0273,
+  "arms_differ_verified": true,
+  "arm_pk_hashes": {
+    "chance": "23febb1180d1eb9f",
+    "context_only": "15727a0e7e01379a",
+    "untrained_input": "33d5183f09d5d32f",
+    "relations_worldtree_dense_naive": "512ea936d7e2adc6",
+    "relations_wordnet_dense_naive": "5a23737086cf60f3",
+    "relations_wordnet_dense_lifted": "5ead31d54a956759",
+    "relations_wordnet_sparse_gsbc_naive": "33d5183f09d5d32f",
+    "relations_wordnet_sparse_kwta_naive": "8de8317062f9d599",
+    "relations_wordnet_typedbind_naive": "57f3f8f8b07af2a7",
+    "relations_worldtree_sparse_gsbc_naive": "1fb3c7cff2065258",
+    "relations_worldtree_sparse_kwta_naive": "4a06c64ece688a80",
+    "both_wordnet_dense_naiveconcat": "67dde41007c639b7",
+    "both_wordnet_dense_weighted": "17719fab6f7f2dbf",
+    "both_wordnet_sparse_naiveconcat": "1b6dac163c0a5264",
+    "both_wordnet_sparse_weighted": "1b6dac163c0a5264",
+    "both_wordnet_kwta_weighted": "6046e8b9d3f9731e",
+    "shuffle_wordnet_kwta": "f4a00068c21c5fe5"
+  },
+  "no_leak": "held concepts' Binder vectors NEVER in ridge/fusion training (5-fold CV; inner-CV lambda select is TRAIN-only); shuffle-collapse verifies",
+  "bands": {
+    "LIFT": 0.05,
+    "FLAT_EPS": 0.03,
+    "FUSE_EPS": 0.01,
+    "SHUFFLE_EPS": 0.03,
+    "MIN_HELDOUT": 40,
+    "chance_p10": 0.0201,
+    "N_FOLDS": 5
+  },
+  "config": {
+    "N_DIM": 300,
+    "SPARSE_DIM": 4096,
+    "gsbc": {
+      "kb": 64,
+      "blk_l": 64,
+      "m": 3,
+      "tau": 0.1
+    },
+    "RIDGE_LAMBDA": 10.0,
+    "RIDGE_LAMBDA_HD": 136.53,
+    "fusion_rel_mult_grid": [
+      1.0,
+      10.0,
+      30.0
+    ],
+    "inner_folds": 3,
+    "cap_similar": 20,
+    "cap_total": 60,
+    "encoder_profile": {
+      "max_sentences": 70000,
+      "steps": 1500,
+      "batch": 512
+    },
+    "vocab": 20690,
+    "n_worldtree_triples": 3648,
+    "wordnet_sense_policy": "first_most_frequent_noun_synset"
+  },
+  "brain_fidelity": "WordNet structural relations = SUPPLIED clean vetted structure (not a borrowed distributional encoder); sparse GSBC codes = cortical low-crosstalk composition; weighted fusion = learned readout; native encoder trained only by error-driven context(ARC)+relation(WT) prediction",
+  "calibration_check": "adaptive_with_discriminator_gate: fusion relation-block lambda multiplier selected by inner-CV MSE on TRAIN folds only (no leak); RIDGE_LAMBDA_HD dim-scaled (4096/300) not tuned-for-PASS; shuffle-collapse still gates",
+  "crlb_n/a": "retrieval p@10 vs Binder gold neighborhoods has no closed-form estimator noise floor; empirical chance floor measured (~0.026) + shuffle-collapse is the discriminator gate",
+  "cardinality_ok": true,
+  "sweep_axis": "none_fixed_arm_matrix",
+  "final_metrics_atomicity": "tmp_replace",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_sorted_no_builtin_hash_seeded_rng",
+  "storage": "no_composition_selfcontained",
+  "contract": "INLINE-LOCAL CPU foreground; no push/remote-persist by exp_dev; no atom banking; VET-PENDING"
+}

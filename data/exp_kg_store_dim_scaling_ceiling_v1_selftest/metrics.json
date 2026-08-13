@@ -1,0 +1,82 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS DIM_SCALING_CEILING: Hebbian heteroassociative recall cosine rises with n_dim (SNR ~ sqrt(N/M)); on the planted arena ORACLE fires and the relation-scramble + identity-shuffle must-fails STILL fire at EVERY dim; W-hash differs across dims; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.19416360009927303,
+  "mechanism_selftest": {
+    "compose_harness": {
+      "n_grid_entities": 104,
+      "n_heldout_entities": 15,
+      "n_support": 118,
+      "n_query": 112,
+      "n_cold": 0,
+      "dims": [
+        256,
+        512
+      ],
+      "planted_oracle_mrr": {
+        "256": 0.76315,
+        "512": 0.88702
+      },
+      "planted_native_mrr": {
+        "256": 0.26618,
+        "512": 0.39134
+      },
+      "planted_random_mrr": {
+        "256": 0.05078,
+        "512": 0.04223
+      },
+      "n_distinct_sigs": {
+        "256": 7,
+        "512": 7
+      },
+      "w_train_hash": {
+        "256": "ebe353d649bbe001",
+        "512": "733c35f8c56f0746"
+      },
+      "dimension_discriminator": {
+        "n_lo": 128,
+        "n_hi": 1024,
+        "M": 110,
+        "load_lo": 0.859,
+        "load_hi": 0.107,
+        "cos_lo": 0.7334,
+        "cos_hi": 0.9509,
+        "margin": 0.2175,
+        "hi_clears": true,
+        "margin_clears": true,
+        "stable": true,
+        "ok": true
+      },
+      "oracle_fires_all": true,
+      "scramble_all": true,
+      "idshuf_all": true,
+      "arms_differ": true,
+      "oracle_not_collapse": true,
+      "dimension_sweep_selftest_verdict": "HARD_FAIL_CODE_STRUCTURE_WALL_NOT_DIMENSION",
+      "validity_preflight_ok": true,
+      "validity_preflight_declared": [
+        "positive_control_passes",
+        "metric_moves",
+        "negative_control_fails_with_margin",
+        "full_gates_exercised_at_selftest"
+      ]
+    },
+    "dimension_discriminator": {
+      "n_lo": 128,
+      "n_hi": 1024,
+      "M": 110,
+      "load_lo": 0.859,
+      "load_hi": 0.107,
+      "cos_lo": 0.7334,
+      "cos_hi": 0.9509,
+      "margin": 0.2175,
+      "hi_clears": true,
+      "margin_clears": true,
+      "stable": true,
+      "ok": true
+    },
+    "ok": true
+  }
+}

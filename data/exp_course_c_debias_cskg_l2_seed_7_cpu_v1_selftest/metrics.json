@@ -1,0 +1,41 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS course-C DEBIAS: partial-r separates degree-confound from within-degree leak; degree-matched masking moves POP; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.004637600039131939,
+  "mechanism_selftest": {
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ],
+    "validity_checks": {
+      "positive_control_passes": true,
+      "metric_moves": true,
+      "negative_control_fails_with_margin": true,
+      "full_gates_exercised_at_selftest": true
+    },
+    "selftest_detail": {
+      "confound": {
+        "pooled_r": 0.9355,
+        "partial_r": -0.0431,
+        "within_max": 0.5957
+      },
+      "leak": {
+        "partial_r": 0.9445
+      },
+      "metric_moves": {
+        "pop_full": 0.0,
+        "pop_degmatched": 1.0,
+        "oneshot_degmatched": 1.0
+      },
+      "gate_probe": {
+        "synth_pass_verdict": "SEED_HARD_PASS",
+        "synth_fail_verdict": "SEED_HARD_FAIL"
+      }
+    }
+  }
+}

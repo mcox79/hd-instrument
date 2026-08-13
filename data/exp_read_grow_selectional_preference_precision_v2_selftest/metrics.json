@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: META_RULE_AF VIOLATION: BASE/RANDOM_NULL/SURFACE/SELECTIONAL are not pairwise distinct at self-test scale (may occur benignly at tiny-N if TAU calibrated on 10 sentences never fires -- checked at smoke scale properly; this is informational at self_test)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_selectional_preference_precision_v2.py\", line 1120, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_selectional_preference_precision_v2.py\", line 983, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_selectional_preference_precision_v2.py\", line 948, in self_test\n    assert len({h_b, h_r, h_s, h_c}) == 4, (\"META_RULE_AF VIOLATION: BASE/RANDOM_NULL/SURFACE/SELECTIONAL are \"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: META_RULE_AF VIOLATION: BASE/RANDOM_NULL/SURFACE/SELECTIONAL are not pairwise distinct at self-test scale (may occur benignly at tiny-N if TAU calibrated on 10 sentences never fires -- checked at smoke scale properly; this is informational at self_test)\n",
+  "ts_iso": "2026-07-17T15:35:36.696121+00:00",
+  "pid": 2892,
+  "anchor_name": "read_grow_selectional_preference_precision_v2"
+}

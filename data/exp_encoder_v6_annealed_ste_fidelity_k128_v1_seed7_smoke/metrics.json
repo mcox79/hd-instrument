@@ -1,0 +1,689 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_MACHINERY_OK: all 3 STE arms (hard + 2 annealed) train end-to-end with differing codes, per-arm RANDOM_BLOCK/algebra/shuffled-key checks fire, cardinality holds; both hard and anneal STE branches executed [HARD_STE ret=0.4826 hi80=0.7866 floored=True] [ANNEAL_STE ret=0.4868 hi80=0.7718] [ANNEAL_W2X ret=0.4700] delta_B=0.0041 delta_A|B=-0.0168 code_ceiling=0.4295 cap_diag=train_loss_floored_at_low_ret->capacity_NOT_bottleneck(favors_B) (the B-lift discriminator is a FULL-only question; smoke's tiny V_train cannot reproduce it -- REMOTE-QUEUE OFFICIAL LANDING is canonical, this local smoke is a machinery gate)",
+  "summary": "SMOKE_MACHINERY_OK: all 3 STE arms (hard + 2 annealed) train end-to-end with differing codes, per-arm RANDOM_BLOCK/algebra/shuffled-key checks fire, cardinality holds; both hard and anneal STE branches executed [HARD_STE ret=0.4826 hi80=0.7866 floored=True] [ANNEAL_STE ret=0.4868 hi80=0.7718] [ANNEAL_W2X ret=0.4700] delta_B=0.0041 delta_A|B=-0.0168 code_ceiling=0.4295 cap_diag=train_loss_floored_at_low_ret->capacity_NOT_bottleneck(favors_B) (the B-lift discriminator is a FULL-only question; smoke's tiny V_train cannot reproduce it -- REMOTE-QUEUE OFFICIAL LANDING is canonical, this local smoke is a machinery gate)",
+  "elapsed_s": 7.93204720003996,
+  "run_mode": "smoke",
+  "anchor_name": "encoder_v6_annealed_ste_fidelity_k128_v1_seed7_smoke",
+  "run_tag": "seed7",
+  "seed": 7,
+  "device": "cpu",
+  "N": 4096,
+  "student_arch": "mlp",
+  "ste_arms": {
+    "HARD_STE": [
+      "hard",
+      256
+    ],
+    "ANNEAL_STE": [
+      "anneal",
+      256
+    ],
+    "ANNEAL_STE_W2X": [
+      "anneal",
+      512
+    ]
+  },
+  "control_arm": "HARD_STE",
+  "b_arm": "ANNEAL_STE",
+  "a_on_b_arm": "ANNEAL_STE_W2X",
+  "kb": 128,
+  "blk_l": 32,
+  "sparsity": 0.03125,
+  "tau_hi": 2.0,
+  "tau_lo": 0.1,
+  "anneal_frac": 0.8,
+  "cons_weight": 0.5,
+  "warmup_steps": 40,
+  "steps": 200,
+  "batch": 32,
+  "nce_weight": 0.0,
+  "objective": "in_batch",
+  "lr_schedule": "cosine_longer_8000",
+  "min_step_for_best": 10,
+  "dense_eval_every": 40,
+  "teacher_cache": "bge_large_v2_name_43905_8a40445a.npz",
+  "teacher_cache_bytes": 334512907,
+  "teacher_n_concepts": 43905,
+  "n_train": 3000,
+  "n_held_pool": 800,
+  "recovery": {
+    "HARD_STE": {
+      "ste_mode": "hard",
+      "mlp_hidden": 256,
+      "kb": 128,
+      "blk_l": 32,
+      "sparsity": 0.03125,
+      "final": {
+        "spearman_all": 0.8928121776896906,
+        "ret_agree10": 0.4826250000000001,
+        "hi80_cos": 0.786551296710968,
+        "hi80_calib_err": 0.055046916007995605
+      },
+      "bestval_on_test": {
+        "spearman_all": 0.8928121776896906,
+        "ret_agree10": 0.4826250000000001,
+        "hi80_cos": 0.786551296710968,
+        "hi80_calib_err": 0.055046916007995605
+      },
+      "final_dense": {
+        "spearman_all": 0.9432672956259442,
+        "ret_agree10": 0.6904999999999994,
+        "hi80_cos": 0.7949567437171936,
+        "hi80_calib_err": 0.04664146900177002
+      },
+      "bestval_dense_on_test": {
+        "spearman_all": 0.9432672956259442,
+        "ret_agree10": 0.6904999999999994,
+        "hi80_cos": 0.7949567437171936,
+        "hi80_calib_err": 0.04664146900177002
+      },
+      "rkd_last": -1.0,
+      "cons_last": -1.0,
+      "tau_last": NaN,
+      "train_loss_floored": true,
+      "train_loss_descent_frac_by_half": 0.9893535437485779,
+      "rkd_traj": [
+        {
+          "step": 0,
+          "rkd": 0.041987232863903046,
+          "dense_full": 0.8342128778304396
+        },
+        {
+          "step": 40,
+          "rkd": 0.002568342024460435,
+          "dense_full": 0.9053069350609318
+        },
+        {
+          "step": 80,
+          "rkd": 0.001949253841303289,
+          "dense_full": 0.9281180864317032
+        },
+        {
+          "step": 120,
+          "rkd": 0.0018929438665509224,
+          "dense_full": 0.9363009847386815
+        },
+        {
+          "step": 160,
+          "rkd": 0.001518404227681458,
+          "dense_full": 0.9372316848187654
+        },
+        {
+          "step": 200,
+          "rkd": NaN,
+          "dense_full": 0.9392237317692663
+        }
+      ],
+      "best_step": 200,
+      "best_ckpt_fallback_to_final": false,
+      "crlb_r_max": 0.901
+    },
+    "ANNEAL_STE": {
+      "ste_mode": "anneal",
+      "mlp_hidden": 256,
+      "kb": 128,
+      "blk_l": 32,
+      "sparsity": 0.03125,
+      "final": {
+        "spearman_all": 0.863506589697493,
+        "ret_agree10": 0.4867500000000002,
+        "hi80_cos": 0.7717633247375488,
+        "hi80_calib_err": 0.0698348879814148
+      },
+      "bestval_on_test": {
+        "spearman_all": 0.863506589697493,
+        "ret_agree10": 0.4867500000000002,
+        "hi80_cos": 0.7717633247375488,
+        "hi80_calib_err": 0.0698348879814148
+      },
+      "final_dense": {
+        "spearman_all": 0.9521612751762761,
+        "ret_agree10": 0.7056250000000002,
+        "hi80_cos": 0.7705252766609192,
+        "hi80_calib_err": 0.07107293605804443
+      },
+      "bestval_dense_on_test": {
+        "spearman_all": 0.9521612751762761,
+        "ret_agree10": 0.7056250000000002,
+        "hi80_cos": 0.7705252766609192,
+        "hi80_calib_err": 0.07107293605804443
+      },
+      "rkd_last": -1.0,
+      "cons_last": -1.0,
+      "tau_last": NaN,
+      "train_loss_floored": true,
+      "train_loss_descent_frac_by_half": -0.7614082175851438,
+      "rkd_traj": [
+        {
+          "step": 0,
+          "rkd": 0.002818010514602065,
+          "dense_full": 0.8385675109911013
+        },
+        {
+          "step": 40,
+          "rkd": 0.0019189484883099794,
+          "dense_full": 0.908922837929056
+        },
+        {
+          "step": 80,
+          "rkd": 0.004067210014909506,
+          "dense_full": 0.9126258091978006
+        },
+        {
+          "step": 120,
+          "rkd": 0.0009520541643723845,
+          "dense_full": 0.9279232960645717
+        },
+        {
+          "step": 160,
+          "rkd": 0.0011773669393733144,
+          "dense_full": 0.9456278147845001
+        },
+        {
+          "step": 200,
+          "rkd": NaN,
+          "dense_full": 0.9509714343305881
+        }
+      ],
+      "best_step": 200,
+      "best_ckpt_fallback_to_final": false,
+      "crlb_r_max": 0.901
+    },
+    "ANNEAL_STE_W2X": {
+      "ste_mode": "anneal",
+      "mlp_hidden": 512,
+      "kb": 128,
+      "blk_l": 32,
+      "sparsity": 0.03125,
+      "final": {
+        "spearman_all": 0.8374112805923697,
+        "ret_agree10": 0.47000000000000014,
+        "hi80_cos": 0.778180718421936,
+        "hi80_calib_err": 0.06341749429702759
+      },
+      "bestval_on_test": {
+        "spearman_all": 0.8374112805923697,
+        "ret_agree10": 0.47000000000000014,
+        "hi80_cos": 0.778180718421936,
+        "hi80_calib_err": 0.06341749429702759
+      },
+      "final_dense": {
+        "spearman_all": 0.9553670930781201,
+        "ret_agree10": 0.727375,
+        "hi80_cos": 0.7724434733390808,
+        "hi80_calib_err": 0.06915473937988281
+      },
+      "bestval_dense_on_test": {
+        "spearman_all": 0.9553670930781201,
+        "ret_agree10": 0.727375,
+        "hi80_cos": 0.7724434733390808,
+        "hi80_calib_err": 0.06915473937988281
+      },
+      "rkd_last": -1.0,
+      "cons_last": -1.0,
+      "tau_last": NaN,
+      "train_loss_floored": false,
+      "train_loss_descent_frac_by_half": 0.6251346158025509,
+      "rkd_traj": [
+        {
+          "step": 0,
+          "rkd": 0.0029906712006777525,
+          "dense_full": 0.896559084622627
+        },
+        {
+          "step": 40,
+          "rkd": 0.0016917615430429578,
+          "dense_full": 0.8852724760430434
+        },
+        {
+          "step": 80,
+          "rkd": 0.0015323299448937178,
+          "dense_full": 0.9140051551919693
+        },
+        {
+          "step": 120,
+          "rkd": 0.0008951718918979168,
+          "dense_full": 0.9141071703437212
+        },
+        {
+          "step": 160,
+          "rkd": 0.0006578276515938342,
+          "dense_full": 0.9379978359409172
+        },
+        {
+          "step": 200,
+          "rkd": NaN,
+          "dense_full": 0.9529380029479875
+        }
+      ],
+      "best_step": 200,
+      "best_ckpt_fallback_to_final": false,
+      "crlb_r_max": 0.901
+    }
+  },
+  "capacity_hypothesis_diagnostic": "train_loss_not_floored_or_ret_high->capacity_may_matter",
+  "code_ceiling_ret_agree10_k128": 0.4295278,
+  "code_ceiling_source": "MEASURED@data/exp_encoder_teacher_sparsifier_bypass_v1/metrics.json:/recovery/ortho_k128_ret_agree10",
+  "determinism": {
+    "torch_version": "2.12.0+cpu",
+    "cuda_available": false,
+    "num_threads_requested": 8,
+    "deterministic_algorithms_set": true,
+    "deterministic_algorithms_error": "",
+    "cublas_workspace_config": ":4096:8"
+  },
+  "canonical_source": "remote_queue_official_landing_only; local_smoke_is_gate_only",
+  "per_unit": [
+    {
+      "unit": "semantic::HARD_STE_DENSE_LAST",
+      "arm": "HARD_STE_DENSE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9432672956259442,
+      "pearson_all": 0.9471038424896868,
+      "hi80_cos": 0.7949567437171936,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.04664146900177002,
+      "ret_agree10": 0.6904999999999994,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::HARD_STE_BLOCK_LAST",
+      "arm": "HARD_STE_BLOCK_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.8928121776896906,
+      "pearson_all": 0.9062457546609697,
+      "hi80_cos": 0.786551296710968,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.055046916007995605,
+      "ret_agree10": 0.4826250000000001,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::HARD_STE_DENSE_BESTVAL",
+      "arm": "HARD_STE_DENSE_BESTVAL",
+      "kind": "semantic",
+      "spearman_all": 0.9432672956259442,
+      "pearson_all": 0.9471038424896868,
+      "hi80_cos": 0.7949567437171936,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.04664146900177002,
+      "ret_agree10": 0.6904999999999994,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::HARD_STE_BLOCK_BESTVAL",
+      "arm": "HARD_STE_BLOCK_BESTVAL",
+      "kind": "semantic",
+      "spearman_all": 0.8928121776896906,
+      "pearson_all": 0.9062457546609697,
+      "hi80_cos": 0.786551296710968,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.055046916007995605,
+      "ret_agree10": 0.4826250000000001,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::HARD_STE_RANDOM_BLOCK",
+      "arm": "HARD_STE_RANDOM_BLOCK",
+      "kind": "semantic",
+      "spearman_all": 0.001078022412216381,
+      "pearson_all": 0.0019512474696981694,
+      "hi80_cos": 0.005859374068677425,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.8357388386502862,
+      "ret_agree10": 0.010624999999999987,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_DENSE_LAST",
+      "arm": "ANNEAL_STE_DENSE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9521612751762761,
+      "pearson_all": 0.9620838587582207,
+      "hi80_cos": 0.7705252766609192,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.07107293605804443,
+      "ret_agree10": 0.7056250000000002,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_BLOCK_LAST",
+      "arm": "ANNEAL_STE_BLOCK_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.863506589697493,
+      "pearson_all": 0.8709673290737211,
+      "hi80_cos": 0.7717633247375488,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.0698348879814148,
+      "ret_agree10": 0.4867500000000002,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_DENSE_BESTVAL",
+      "arm": "ANNEAL_STE_DENSE_BESTVAL",
+      "kind": "semantic",
+      "spearman_all": 0.9521612751762761,
+      "pearson_all": 0.9620838587582207,
+      "hi80_cos": 0.7705252766609192,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.07107293605804443,
+      "ret_agree10": 0.7056250000000002,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_BLOCK_BESTVAL",
+      "arm": "ANNEAL_STE_BLOCK_BESTVAL",
+      "kind": "semantic",
+      "spearman_all": 0.863506589697493,
+      "pearson_all": 0.8709673290737211,
+      "hi80_cos": 0.7717633247375488,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.0698348879814148,
+      "ret_agree10": 0.4867500000000002,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_RANDOM_BLOCK",
+      "arm": "ANNEAL_STE_RANDOM_BLOCK",
+      "kind": "semantic",
+      "spearman_all": -0.006990406035375577,
+      "pearson_all": -0.0009369381513037721,
+      "hi80_cos": 0.0039062495343387127,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.8376919631846249,
+      "ret_agree10": 0.011999999999999981,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_W2X_DENSE_LAST",
+      "arm": "ANNEAL_STE_W2X_DENSE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9553670930781201,
+      "pearson_all": 0.9651818092472233,
+      "hi80_cos": 0.7724434733390808,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.06915473937988281,
+      "ret_agree10": 0.727375,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_W2X_BLOCK_LAST",
+      "arm": "ANNEAL_STE_W2X_BLOCK_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.8374112805923697,
+      "pearson_all": 0.8349324009646163,
+      "hi80_cos": 0.778180718421936,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.06341749429702759,
+      "ret_agree10": 0.47000000000000014,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_W2X_DENSE_BESTVAL",
+      "arm": "ANNEAL_STE_W2X_DENSE_BESTVAL",
+      "kind": "semantic",
+      "spearman_all": 0.9553670930781201,
+      "pearson_all": 0.9651818092472233,
+      "hi80_cos": 0.7724434733390808,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.06915473937988281,
+      "ret_agree10": 0.727375,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_W2X_BLOCK_BESTVAL",
+      "arm": "ANNEAL_STE_W2X_BLOCK_BESTVAL",
+      "kind": "semantic",
+      "spearman_all": 0.8374112805923697,
+      "pearson_all": 0.8349324009646163,
+      "hi80_cos": 0.778180718421936,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.06341749429702759,
+      "ret_agree10": 0.47000000000000014,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::ANNEAL_STE_W2X_RANDOM_BLOCK",
+      "arm": "ANNEAL_STE_W2X_RANDOM_BLOCK",
+      "kind": "semantic",
+      "spearman_all": -0.0067943406654263905,
+      "pearson_all": -0.005946369559547724,
+      "hi80_cos": -0.003069196129217744,
+      "hi80_n": 28,
+      "hi80_teacher_mean": 0.8415982127189636,
+      "hi80_calib_err": 0.8446674088481814,
+      "ret_agree10": 0.01162499999999998,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::CHARPOS",
+      "arm": "CHARPOS",
+      "kind": "semantic",
+      "spearman_all": 0.5078974705601447,
+      "pearson_all": 0.6356456727271779,
+      "hi80_cos": 0.5735294222831726,
+      "hi80_n": 34,
+      "hi80_teacher_mean": 0.833848774433136,
+      "hi80_calib_err": 0.2603193521499634,
+      "ret_agree10": 0.24666666666666676,
+      "n_pairs_sampled": 7977
+    },
+    {
+      "unit": "keyed::HARD_STE_RANDOM_BLOCK::J5",
+      "arm": "HARD_STE_RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.394912987947464,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::HARD_STE_BLOCK_LAST::J5",
+      "arm": "HARD_STE_BLOCK_LAST",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.08520201593637466,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::HARD_STE_BLOCK_BESTVAL::J5",
+      "arm": "HARD_STE_BLOCK_BESTVAL",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.08061693608760834,
+      "n_trials": 20
+    },
+    {
+      "unit": "shuffled_key::HARD_STE_BLOCK_LAST::J5",
+      "arm": "HARD_STE_BLOCK_LAST",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0038222516886889935,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::ANNEAL_STE_RANDOM_BLOCK::J5",
+      "arm": "ANNEAL_STE_RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.39894169569015503,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::ANNEAL_STE_BLOCK_LAST::J5",
+      "arm": "ANNEAL_STE_BLOCK_LAST",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.11066045612096786,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::ANNEAL_STE_BLOCK_BESTVAL::J5",
+      "arm": "ANNEAL_STE_BLOCK_BESTVAL",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.1024835854768753,
+      "n_trials": 20
+    },
+    {
+      "unit": "shuffled_key::ANNEAL_STE_BLOCK_LAST::J5",
+      "arm": "ANNEAL_STE_BLOCK_LAST",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.003479021368548274,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::ANNEAL_STE_W2X_RANDOM_BLOCK::J5",
+      "arm": "ANNEAL_STE_W2X_RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.3991974890232086,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::ANNEAL_STE_W2X_BLOCK_LAST::J5",
+      "arm": "ANNEAL_STE_W2X_BLOCK_LAST",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.09499435126781464,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::ANNEAL_STE_W2X_BLOCK_BESTVAL::J5",
+      "arm": "ANNEAL_STE_W2X_BLOCK_BESTVAL",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.1010415330529213,
+      "n_trials": 20
+    },
+    {
+      "unit": "shuffled_key::ANNEAL_STE_W2X_BLOCK_LAST::J5",
+      "arm": "ANNEAL_STE_W2X_BLOCK_LAST",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.004356765188276768,
+      "n_trials": 20
+    }
+  ],
+  "unit_failures": [],
+  "n_units": 28,
+  "expected_n_units": 28,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "HARD_STE_DENSE_LAST": "0e59093d6743c836885b03e6b2518bd8bbba3094e52d797e2cc69b9b4bbdc32d",
+    "HARD_STE_BLOCK_LAST": "98eed1294fd12d029a0d32b476cce764d7485143d2a491616f5f3740471d9693",
+    "HARD_STE_DENSE_BESTVAL": "0e59093d6743c836885b03e6b2518bd8bbba3094e52d797e2cc69b9b4bbdc32d",
+    "HARD_STE_BLOCK_BESTVAL": "98eed1294fd12d029a0d32b476cce764d7485143d2a491616f5f3740471d9693",
+    "HARD_STE_RANDOM_BLOCK": "980a8fdccb567d013c58bd4baf6f6b229d002f5d97b2880ad55b4aa0d7384396",
+    "ANNEAL_STE_DENSE_LAST": "a52590bd5046538e061dc6fbc0267f0f5690fde765cda014b0340a128534577c",
+    "ANNEAL_STE_BLOCK_LAST": "1f37f4cb8ec3234efa3d399d8c819f4be07bfc2f254edae524844c1795cbb7b1",
+    "ANNEAL_STE_DENSE_BESTVAL": "a52590bd5046538e061dc6fbc0267f0f5690fde765cda014b0340a128534577c",
+    "ANNEAL_STE_BLOCK_BESTVAL": "1f37f4cb8ec3234efa3d399d8c819f4be07bfc2f254edae524844c1795cbb7b1",
+    "ANNEAL_STE_RANDOM_BLOCK": "5f575b08420c917badea9595208df87f941f93bc1d59982e0002c3f79e9e0b02",
+    "ANNEAL_STE_W2X_DENSE_LAST": "6eba55aeedbf2194db1f269776b73f7a3aa7cabe89b0e16d881b2b317a6844c2",
+    "ANNEAL_STE_W2X_BLOCK_LAST": "eb48b79916c4924c85b66dba99e7aa2d5bedd369b1e03da59517d2ada624e456",
+    "ANNEAL_STE_W2X_DENSE_BESTVAL": "6eba55aeedbf2194db1f269776b73f7a3aa7cabe89b0e16d881b2b317a6844c2",
+    "ANNEAL_STE_W2X_BLOCK_BESTVAL": "eb48b79916c4924c85b66dba99e7aa2d5bedd369b1e03da59517d2ada624e456",
+    "ANNEAL_STE_W2X_RANDOM_BLOCK": "40cdd861b3b695ed2dd803336a09fe922c461eccaff358545765c48a167de980",
+    "CHARPOS": "048c29a1672e213baa57267874bc402bf3fb5e647179958797bb3b42189b6a97"
+  },
+  "arms_differ_exempted": [
+    [
+      "HARD_STE_DENSE_BESTVAL",
+      "HARD_STE_DENSE_LAST"
+    ],
+    [
+      "HARD_STE_BLOCK_BESTVAL",
+      "HARD_STE_BLOCK_LAST"
+    ],
+    [
+      "ANNEAL_STE_DENSE_BESTVAL",
+      "ANNEAL_STE_DENSE_LAST"
+    ],
+    [
+      "ANNEAL_STE_BLOCK_BESTVAL",
+      "ANNEAL_STE_BLOCK_LAST"
+    ],
+    [
+      "ANNEAL_STE_W2X_DENSE_BESTVAL",
+      "ANNEAL_STE_W2X_DENSE_LAST"
+    ],
+    [
+      "ANNEAL_STE_W2X_BLOCK_BESTVAL",
+      "ANNEAL_STE_W2X_BLOCK_LAST"
+    ]
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "composition_algebra": "SBC_block_local_circular_convolution",
+  "methodology": "PAIRED nested-ablation at FIXED K=128 (3.125% active): HARD_STE control (== v3e) -> ANNEAL_STE (+lever B, temperature-annealed soft-to-hard block STE + soft/hard consistency) -> ANNEAL_STE_W2X (+lever A capacity on top of B). ONE trainer (nce_weight=0 -> NCE dropped) so arms are bit-paired to each other. FINAL-step ret_agree10 delta_B (ANNEAL-HARD) is the PRIMARY gated comparison; the control == v3e config is a Gate-D positive control that must reproduce v3e's ~0.21. Every arm logs its TRAIN-LOSS (RKD) trajectory -> free capacity diagnostic (if HARD_STE train-loss floored while ret ~0.20, capacity is NOT the bottleneck). LR schedule held constant (8000 steps) across arms so lever C is not confounded with B.",
+  "sequenced_next_cell": "IF LEVER_B lifts: tau-schedule sweep + EMA + full B+A+C stack for 0.35. IF LEVER_B_DEAD: the 0.43 ceiling is structural (k-WTA rank cap); accept ~0.30 sparsity-honest fallback per encoder goals.",
+  "storage_strategy": "no_composition; single-hop retrieval-agreement is the metric; keyed-J5 SBC is a fixed integrity control (bounded 5-item bundle, not a chain)",
+  "compute_architecture": "batched-GPU: student forward/backward + annealed soft block are batched matmul/elementwise on cuda (device auto->cuda on the GPU box); eval samples pairs batched",
+  "progress_logging": "print_flush_true",
+  "baseline_in_band": true,
+  "crlb_floor_computed": {
+    "K128_spearman_r_max": 0.901
+  },
+  "crlb_formula_reference": "ret_agree10 discriminator reachability uses the EMPIRICAL K128 code ceiling 0.4295 (MEASURED@bypass): max attainable B-lift = 0.4295-0.2112 = 0.2183 >> HARD_PASS delta_B 0.05 -> reachable.",
+  "crlb_n_a": "ret_agree10 has no closed-form sigma CRLB; reachability via empirical code ceiling per META_RULE #9",
+  "discriminator_reachability": true,
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "ts_iso": "2026-07-04T22:33:53.088295+00:00"
+}

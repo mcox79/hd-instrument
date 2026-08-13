@@ -1,0 +1,458 @@
+{
+  "verdict": "HARD_PASS_INDUCTION_BEATS_NAIVE_NN_AT_D_FEAT_1024",
+  "verdict_msg": "HEADLINE D_FEAT=1024: margin(codebook_derived-memorize_prototype)=0.3233 all_seeds_positive=True per_seed_margins=[0.3075, 0.345, 0.3175] vs_random_margin=0.7575 | CURVE D_FEAT=[256, 1024]: codebook_derived=[0.3325, 0.7683] memorize_prototype=[0.2267, 0.445] random_code=[0.0108, 0.0108] margin=[0.1058, 0.3233] cheat_cosine_to_true=[0.4899, 0.6097] | flip_classification=POSITIVE_THROUGHOUT_CURVE | ceiling_check(mechanics)=1.000 | cardinality_ok=True (24/24) arms_differ=True",
+  "summary": "HARD_PASS_INDUCTION_BEATS_NAIVE_NN_AT_D_FEAT_1024: HEADLINE D_FEAT=1024: margin(codebook_derived-memorize_prototype)=0.3233 all_seeds_positive=True per_seed_margins=[0.3075, 0.345, 0.3175] vs_random_margin=0.7575 | CURVE D_FEAT=[256, 1024]: codebook_derived=[0.3325, 0.76",
+  "elapsed_s": 101.94658349998645,
+  "anchor_name": "exp_novel_atom_real_codebook_capacity_curve_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T08:09:22.284565+00:00",
+  "config": {
+    "n_tokens": 1500000,
+    "vocab_size": 6000,
+    "window": 5,
+    "min_count": 5,
+    "rank_lo": 400,
+    "rank_hi": 2400,
+    "f_novel": 20,
+    "n_distractor": 80,
+    "k_eval": 20,
+    "N": 1024,
+    "RI_SPARSITY": 10,
+    "RIDGE_ALPHA": 10.0,
+    "R_ROLES": 6,
+    "ALPHA_FRAC": 0.3,
+    "MIN_OCC_PER_DRAW": 20,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "dfeat_curve": [
+      256,
+      1024
+    ],
+    "V": 6000,
+    "held_ranks": [
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000,
+      1100,
+      1200,
+      1300,
+      1400,
+      1500,
+      1600,
+      1700,
+      1800,
+      1900,
+      2000,
+      2100,
+      2200,
+      2300
+    ],
+    "held_counts": [
+      341.0,
+      277.0,
+      240.0,
+      212.0,
+      191.0,
+      174.0,
+      157.0,
+      145.0,
+      134.0,
+      124.0,
+      117.0,
+      109.0,
+      102.0,
+      97.0,
+      92.0,
+      87.0,
+      83.0,
+      79.0,
+      75.0,
+      71.0
+    ],
+    "n_seen": 5980,
+    "n_candidates": 100
+  },
+  "by_dfeat": {
+    "256": {
+      "dfeat": 256,
+      "arm_summary": {
+        "codebook_derived": {
+          "acc_mean": 0.3325,
+          "acc_std": 0.007359800721939879,
+          "acc_per_seed": {
+            "7": 0.335,
+            "13": 0.34,
+            "19": 0.3225
+          },
+          "n_seeds": 3
+        },
+        "handed_ceiling": {
+          "acc_mean": 1.0,
+          "acc_std": 0.0,
+          "acc_per_seed": {
+            "7": 1.0,
+            "13": 1.0,
+            "19": 1.0
+          },
+          "n_seeds": 3
+        },
+        "random_code": {
+          "acc_mean": 0.010833333333333334,
+          "acc_std": 0.0023570226039551587,
+          "acc_per_seed": {
+            "7": 0.0125,
+            "13": 0.0075,
+            "19": 0.0125
+          },
+          "n_seeds": 3
+        },
+        "memorize_prototype": {
+          "acc_mean": 0.22666666666666666,
+          "acc_std": 0.015456030825826174,
+          "acc_per_seed": {
+            "7": 0.24,
+            "13": 0.205,
+            "19": 0.235
+          },
+          "n_seeds": 3
+        }
+      },
+      "cheat_cosine_mean": 0.4898909338133442,
+      "margin_codebook_vs_memorize_mean": 0.10583333333333336,
+      "margin_codebook_vs_random_mean": 0.32166666666666666,
+      "per_seed_margin_codebook_vs_memorize": {
+        "7": 0.09500000000000003,
+        "13": 0.13500000000000004,
+        "19": 0.08750000000000002
+      },
+      "per_unit": {
+        "codebook_derived__seed7__dfeat256": {
+          "arm": "codebook_derived",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 0.335,
+          "failure_class": null
+        },
+        "handed_ceiling__seed7__dfeat256": {
+          "arm": "handed_ceiling",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed7__dfeat256": {
+          "arm": "random_code",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 0.0125,
+          "failure_class": null
+        },
+        "memorize_prototype__seed7__dfeat256": {
+          "arm": "memorize_prototype",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 0.24,
+          "failure_class": null
+        },
+        "codebook_derived__seed13__dfeat256": {
+          "arm": "codebook_derived",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 0.34,
+          "failure_class": null
+        },
+        "handed_ceiling__seed13__dfeat256": {
+          "arm": "handed_ceiling",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed13__dfeat256": {
+          "arm": "random_code",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 0.0075,
+          "failure_class": null
+        },
+        "memorize_prototype__seed13__dfeat256": {
+          "arm": "memorize_prototype",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 0.205,
+          "failure_class": null
+        },
+        "codebook_derived__seed19__dfeat256": {
+          "arm": "codebook_derived",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 0.3225,
+          "failure_class": null
+        },
+        "handed_ceiling__seed19__dfeat256": {
+          "arm": "handed_ceiling",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed19__dfeat256": {
+          "arm": "random_code",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 0.0125,
+          "failure_class": null
+        },
+        "memorize_prototype__seed19__dfeat256": {
+          "arm": "memorize_prototype",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 0.235,
+          "failure_class": null
+        }
+      },
+      "n_units_done": 12,
+      "arms_differ_verified": true,
+      "arms_differ_detail": {
+        "seed7__codebook_derived_vs_handed_ceiling": true,
+        "seed7__codebook_derived_vs_random_code": true,
+        "seed7__codebook_derived_vs_memorize_prototype": true,
+        "seed7__handed_ceiling_vs_random_code": true,
+        "seed7__handed_ceiling_vs_memorize_prototype": true,
+        "seed7__memorize_prototype_vs_random_code": true,
+        "seed13__codebook_derived_vs_handed_ceiling": true,
+        "seed13__codebook_derived_vs_random_code": true,
+        "seed13__codebook_derived_vs_memorize_prototype": true,
+        "seed13__handed_ceiling_vs_random_code": true,
+        "seed13__handed_ceiling_vs_memorize_prototype": true,
+        "seed13__memorize_prototype_vs_random_code": true,
+        "seed19__codebook_derived_vs_handed_ceiling": true,
+        "seed19__codebook_derived_vs_random_code": true,
+        "seed19__codebook_derived_vs_memorize_prototype": true,
+        "seed19__handed_ceiling_vs_random_code": true,
+        "seed19__handed_ceiling_vs_memorize_prototype": true,
+        "seed19__memorize_prototype_vs_random_code": true
+      },
+      "arms_differ_exempted": []
+    },
+    "1024": {
+      "dfeat": 1024,
+      "arm_summary": {
+        "codebook_derived": {
+          "acc_mean": 0.7683333333333332,
+          "acc_std": 0.02124591463996991,
+          "acc_per_seed": {
+            "7": 0.7475,
+            "13": 0.7975,
+            "19": 0.76
+          },
+          "n_seeds": 3
+        },
+        "handed_ceiling": {
+          "acc_mean": 1.0,
+          "acc_std": 0.0,
+          "acc_per_seed": {
+            "7": 1.0,
+            "13": 1.0,
+            "19": 1.0
+          },
+          "n_seeds": 3
+        },
+        "random_code": {
+          "acc_mean": 0.010833333333333334,
+          "acc_std": 0.0023570226039551587,
+          "acc_per_seed": {
+            "7": 0.0125,
+            "13": 0.0075,
+            "19": 0.0125
+          },
+          "n_seeds": 3
+        },
+        "memorize_prototype": {
+          "acc_mean": 0.445,
+          "acc_std": 0.005400617248673222,
+          "acc_per_seed": {
+            "7": 0.44,
+            "13": 0.4525,
+            "19": 0.4425
+          },
+          "n_seeds": 3
+        }
+      },
+      "cheat_cosine_mean": 0.6097161816032886,
+      "margin_codebook_vs_memorize_mean": 0.3233333333333332,
+      "margin_codebook_vs_random_mean": 0.7574999999999998,
+      "per_seed_margin_codebook_vs_memorize": {
+        "7": 0.30750000000000005,
+        "13": 0.345,
+        "19": 0.3175
+      },
+      "per_unit": {
+        "codebook_derived__seed7__dfeat1024": {
+          "arm": "codebook_derived",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 0.7475,
+          "failure_class": null
+        },
+        "handed_ceiling__seed7__dfeat1024": {
+          "arm": "handed_ceiling",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed7__dfeat1024": {
+          "arm": "random_code",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 0.0125,
+          "failure_class": null
+        },
+        "memorize_prototype__seed7__dfeat1024": {
+          "arm": "memorize_prototype",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 0.44,
+          "failure_class": null
+        },
+        "codebook_derived__seed13__dfeat1024": {
+          "arm": "codebook_derived",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 0.7975,
+          "failure_class": null
+        },
+        "handed_ceiling__seed13__dfeat1024": {
+          "arm": "handed_ceiling",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed13__dfeat1024": {
+          "arm": "random_code",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 0.0075,
+          "failure_class": null
+        },
+        "memorize_prototype__seed13__dfeat1024": {
+          "arm": "memorize_prototype",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 0.4525,
+          "failure_class": null
+        },
+        "codebook_derived__seed19__dfeat1024": {
+          "arm": "codebook_derived",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 0.76,
+          "failure_class": null
+        },
+        "handed_ceiling__seed19__dfeat1024": {
+          "arm": "handed_ceiling",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed19__dfeat1024": {
+          "arm": "random_code",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 0.0125,
+          "failure_class": null
+        },
+        "memorize_prototype__seed19__dfeat1024": {
+          "arm": "memorize_prototype",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 0.4425,
+          "failure_class": null
+        }
+      },
+      "n_units_done": 12,
+      "arms_differ_verified": true,
+      "arms_differ_detail": {
+        "seed7__codebook_derived_vs_handed_ceiling": true,
+        "seed7__codebook_derived_vs_random_code": true,
+        "seed7__codebook_derived_vs_memorize_prototype": true,
+        "seed7__handed_ceiling_vs_random_code": true,
+        "seed7__handed_ceiling_vs_memorize_prototype": true,
+        "seed7__memorize_prototype_vs_random_code": true,
+        "seed13__codebook_derived_vs_handed_ceiling": true,
+        "seed13__codebook_derived_vs_random_code": true,
+        "seed13__codebook_derived_vs_memorize_prototype": true,
+        "seed13__handed_ceiling_vs_random_code": true,
+        "seed13__handed_ceiling_vs_memorize_prototype": true,
+        "seed13__memorize_prototype_vs_random_code": true,
+        "seed19__codebook_derived_vs_handed_ceiling": true,
+        "seed19__codebook_derived_vs_random_code": true,
+        "seed19__codebook_derived_vs_memorize_prototype": true,
+        "seed19__handed_ceiling_vs_random_code": true,
+        "seed19__handed_ceiling_vs_memorize_prototype": true,
+        "seed19__memorize_prototype_vs_random_code": true
+      },
+      "arms_differ_exempted": []
+    }
+  },
+  "headline_dfeat": 1024,
+  "headline_margin_mean": 0.3233333333333332,
+  "headline_all_seeds_positive": true,
+  "headline_per_seed_margins": [
+    0.30750000000000005,
+    0.345,
+    0.3175
+  ],
+  "flip_classification": "POSITIVE_THROUGHOUT_CURVE",
+  "codebook_curve": [
+    0.3325,
+    0.7683
+  ],
+  "memorize_prototype_curve": [
+    0.2267,
+    0.445
+  ],
+  "random_code_curve": [
+    0.0108,
+    0.0108
+  ],
+  "cheat_cosine_curve": [
+    0.4899,
+    0.6097
+  ],
+  "margin_curve": [
+    0.1058,
+    0.3233
+  ],
+  "ceiling_check_mechanics_acc_mean": 1.0,
+  "bands": {
+    "HP_MARGIN_MIN": 0.03,
+    "HP_MARGIN_ALL_SEEDS_POSITIVE": true,
+    "HP_RANDOM_MARGIN_MIN": 0.05,
+    "HF_MARGIN_MAX": 0.0,
+    "CEIL_CHECK_MIN": 0.9,
+    "CHANCE_FLOOR": 0.01
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 24,
+  "n_units_done": 24,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "crlb_n/a": "classification-accuracy generalization over C=100 discrete candidates; closed-form chance floor = 1/C = 0.01000 (THEORETICAL); not a CRLB regime",
+  "prior_art": "LevyGoldberg2015 PPMI-SVD; ChurchHanks1990 PMI; Kanerva1988/Sahlgren2005 RI; Khodak2018 a-la-carte (capacity-vs-linear-induction); Snell2017 ProtoNet; Plate1995 HRR unitary vectors; McClelland1995 CLS; GreffVanSteenkisteSchmidhuber2020",
+  "integration_of": [
+    "exp_novel_atom_real_codebook_generalization_v1 (atom 29381, VET-named revival target; D_FEAT=256 margin=-0.026)",
+    "exp_learned_codebook_generalization_gate_v1 (real codebook CG, atom 29368, AUC=0.927)"
+  ],
+  "revival_of_atom": "math::MEASURED_MECHANISM_novel_atom_real_codebook_generalization_v1_RETIERED...(29381)"
+}

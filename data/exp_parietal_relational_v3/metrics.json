@@ -1,0 +1,177 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | PARIETAL_REL_LOAD_BEARING_v3_codepath_hash_distinct | NO_REL=0.246 DIRECT=1.000 HRR=0.995 LEARNED=1.000 RAND=0.258 | lift=0.749 frac_direct=0.995 cv_hrr=0.002 arms_distinct=True | n_seeds=3",
+  "summary": "HARD_PASS | PARIETAL_REL_LOAD_BEARING_v3_codepath_hash_distinct | NO_REL=0.246 DIRECT=1.000 HRR=0.995 LEARNED=1.000 RAND=0.258 | lift=0.749 frac_direct=0.995 cv_hrr=0.002 arms_distinct=True | n_seeds=3",
+  "verdict_reason": "PARIETAL_REL_LOAD_BEARING_v3_codepath_hash_distinct",
+  "per_arm": {
+    "no_rel_baseline": {
+      "7": {
+        "recall": 0.2535,
+        "n_queries": 2000.0,
+        "intermediate_hash": "ee3f446235d5db36e4f141b35adb6f7191dda85e2191cab8f1b4651429ef4d0b"
+      },
+      "13": {
+        "recall": 0.245,
+        "n_queries": 2000.0,
+        "intermediate_hash": "3f70ffebaf333285b1b73219941648fb732b5711c90b6731d420fec5646e2133"
+      },
+      "19": {
+        "recall": 0.2395,
+        "n_queries": 2000.0,
+        "intermediate_hash": "28df0ea9f729d4fcc6d5bccd4a5e7b44a2313afbae7de7d8e87ebebab23fc69e"
+      }
+    },
+    "direct_difference": {
+      "7": {
+        "recall": 1.0,
+        "n_queries": 2000.0,
+        "intermediate_hash": "3dd0df0c53c7727a258bb533ae00e6cad0d7cb8c45718996c0efba879fffe55c"
+      },
+      "13": {
+        "recall": 1.0,
+        "n_queries": 2000.0,
+        "intermediate_hash": "137dbd4c385458150aa7a62c1f1bdbfd9e1a98bced51144926dbb72d1dc1d9d7"
+      },
+      "19": {
+        "recall": 1.0,
+        "n_queries": 2000.0,
+        "intermediate_hash": "018b1942737dcf530cb943264499a65400774017797b83b2b68011a67b51ee5b"
+      }
+    },
+    "hrr_unbind": {
+      "7": {
+        "recall": 0.994,
+        "n_queries": 2000.0,
+        "intermediate_hash": "380b6b0bd84ec8811e703f93ee76db0bdbb012f02dcc1c92dcf1e4a0e85981e1"
+      },
+      "13": {
+        "recall": 0.998,
+        "n_queries": 2000.0,
+        "intermediate_hash": "a0ca20ff7e3f5243c5335ac061eb88aaddbc6f29d2980a67698a57f2e391598d"
+      },
+      "19": {
+        "recall": 0.9945,
+        "n_queries": 2000.0,
+        "intermediate_hash": "717a379f46fb6306f8b5145006d92712ac12f811028d6f0f4433e2b295b85cbc"
+      }
+    },
+    "learned_rel_lookup": {
+      "7": {
+        "recall": 1.0,
+        "n_queries": 2000.0,
+        "intermediate_hash": "82983d8f10ecaa62a3320d4665b0e76ee9de781fdcb92b7c699a05214cee37b9"
+      },
+      "13": {
+        "recall": 1.0,
+        "n_queries": 2000.0,
+        "intermediate_hash": "26bd806d5884af70bb630162affc8ae4c546b9287d18706b2130786c9427946e"
+      },
+      "19": {
+        "recall": 1.0,
+        "n_queries": 2000.0,
+        "intermediate_hash": "1b71476d7a92c05e9c851de1e2da712b0fe2caffb4261a564417e94040109fdb"
+      }
+    },
+    "random_vectors": {
+      "7": {
+        "recall": 0.2635,
+        "n_queries": 2000.0,
+        "intermediate_hash": "391b3877c4f9c43a2410de71380b72b2ea5e06936f574f0a718d6e33fccb0bc1"
+      },
+      "13": {
+        "recall": 0.2515,
+        "n_queries": 2000.0,
+        "intermediate_hash": "1a7028d9e18919b6e85d19bab6228ecd2f87c7897c2c306b3fadbae45c5b5a5a"
+      },
+      "19": {
+        "recall": 0.259,
+        "n_queries": 2000.0,
+        "intermediate_hash": "4cd3424869110fa600cc2b60e55785811a66882b5ffd2b37516aa15bde0a0323"
+      }
+    }
+  },
+  "per_arm_summary": {
+    "no_rel_baseline": {
+      "mean_recall": 0.246,
+      "std_recall": 0.005759050847723671,
+      "cv": 0.02341077580375476,
+      "n": 3
+    },
+    "direct_difference": {
+      "mean_recall": 1.0,
+      "std_recall": 0.0,
+      "cv": 0.0,
+      "n": 3
+    },
+    "hrr_unbind": {
+      "mean_recall": 0.9954999999999999,
+      "std_recall": 0.0017795130420052098,
+      "cv": 0.00178755704872447,
+      "n": 3
+    },
+    "learned_rel_lookup": {
+      "mean_recall": 1.0,
+      "std_recall": 0.0,
+      "cv": 0.0,
+      "n": 3
+    },
+    "random_vectors": {
+      "mean_recall": 0.258,
+      "std_recall": 0.004949747468305837,
+      "cv": 0.01918506770661177,
+      "n": 3
+    }
+  },
+  "arms_distinct_all_seeds": true,
+  "arm_pair_distinctness": {
+    "direct_difference__hrr_unbind": true,
+    "direct_difference__learned_rel_lookup": true,
+    "direct_difference__no_rel_baseline": true,
+    "direct_difference__random_vectors": true,
+    "hrr_unbind__learned_rel_lookup": true,
+    "hrr_unbind__no_rel_baseline": true,
+    "hrr_unbind__random_vectors": true,
+    "learned_rel_lookup__no_rel_baseline": true,
+    "learned_rel_lookup__random_vectors": true,
+    "no_rel_baseline__random_vectors": true
+  },
+  "arms_distinct_diag_first_seed": {
+    "arm_pair_distinctness": {
+      "direct_difference__hrr_unbind": true,
+      "direct_difference__learned_rel_lookup": true,
+      "direct_difference__no_rel_baseline": true,
+      "direct_difference__random_vectors": true,
+      "hrr_unbind__learned_rel_lookup": true,
+      "hrr_unbind__no_rel_baseline": true,
+      "hrr_unbind__random_vectors": true,
+      "learned_rel_lookup__no_rel_baseline": true,
+      "learned_rel_lookup__random_vectors": true,
+      "no_rel_baseline__random_vectors": true
+    },
+    "n_distinct_pairs": 10,
+    "n_pairs": 10,
+    "all_pairs_distinct": true,
+    "arm_hashes": {
+      "no_rel_baseline": "ee3f446235d5db36e4f141b35adb6f7191dda85e2191cab8f1b4651429ef4d0b",
+      "direct_difference": "3dd0df0c53c7727a258bb533ae00e6cad0d7cb8c45718996c0efba879fffe55c",
+      "hrr_unbind": "380b6b0bd84ec8811e703f93ee76db0bdbb012f02dcc1c92dcf1e4a0e85981e1",
+      "learned_rel_lookup": "82983d8f10ecaa62a3320d4665b0e76ee9de781fdcb92b7c699a05214cee37b9",
+      "random_vectors": "391b3877c4f9c43a2410de71380b72b2ea5e06936f574f0a718d6e33fccb0bc1"
+    }
+  },
+  "suspect_1000": false,
+  "lift_over_baseline": 0.7494999999999999,
+  "fraction_of_direct": 0.9954999999999999,
+  "hrr_cv": 0.00178755704872447,
+  "n_seeds_complete": 3,
+  "expected_n_units": 30000,
+  "completed_units": 30000,
+  "cardinality_ok": true,
+  "anchor_name": "parietal_cortex_spatial_relations_distinct_v3",
+  "elapsed_s": 1.7,
+  "ts_iso": "2026-07-01T00:50:21Z",
+  "pid": 31824,
+  "run_mode": "full",
+  "config_version": "ANCHOR=parietal_cortex_spatial_relations_distinct_v3,N=8192,grid=5x5,scenes=500,n_distractors=10,seeds=[7, 13, 19],mode=full,HP_hrr>=0.55,HP_lift>=0.30,HP_frac>=0.50,HP_cv<=0.10,HP_lookup>=0.95,HF_hrr<0.30,HF_lookup<0.90,chance=0.25,n_dirs=4,expected_n=30000,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_RULE_AF_arms_hash_distinct+META_RULE_AY_self_report+META_RULE_AH_atomic_write",
+  "_hardening_marker": "v3_parietal_relations_codepath_hash"
+}

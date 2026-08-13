@@ -1,0 +1,61 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ULTRA(cap_drop=0.270, rec_clst=1.000, rec_unclst=1.000); RANDOM(rec_clst=0.530); gap=0.470 >= 0.05; mechanism non-null; USER_DIRECTIVE separation preserved",
+  "elapsed_s": 3.72,
+  "summary": {
+    "anchor": "kb_coarse_grain_at_promotion_v1",
+    "smoke": false,
+    "kb_version": "v1",
+    "n_atoms_sample": 600,
+    "cosine_thresh": 0.85,
+    "min_cluster_size": 5,
+    "arms": [
+      {
+        "arm": "ARM_NO_COARSE_GRAIN_BASELINE",
+        "ok": true,
+        "n_atoms": 600,
+        "capacity_used": 600,
+        "capacity_drop_fraction": 0.0,
+        "recall_unclustered": 1.0,
+        "elapsed_s": 0.066
+      },
+      {
+        "arm": "ARM_COARSE_GRAIN_ULTRAMETRIC",
+        "ok": true,
+        "n_atoms": 600,
+        "n_user_directive_atoms": 0,
+        "n_clusters": 7,
+        "n_clustered_atoms": 169,
+        "n_unclustered_atoms": 431,
+        "effective_capacity_used": 438,
+        "capacity_drop_fraction": 0.27,
+        "recall_clustered": 1.0,
+        "recall_unclustered": 1.0,
+        "user_directive_mixing_violations": 0,
+        "audit_events_emitted": 7,
+        "by_class_sizes": {
+          "wordnet": 120,
+          "gene_ontology": 120,
+          "framenet": 120,
+          "note": 120,
+          "neurolex": 120
+        },
+        "cosine_thresh": 0.85,
+        "min_cluster_size": 5,
+        "elapsed_s": 0.368
+      },
+      {
+        "arm": "ARM_RANDOM_CLUSTER_COLLAPSE",
+        "ok": true,
+        "n_atoms": 600,
+        "n_clusters": 7,
+        "capacity_drop_fraction": 0.2683,
+        "recall_clustered": 0.5298,
+        "elapsed_s": 0.04
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "ULTRA(cap_drop=0.270, rec_clst=1.000, rec_unclst=1.000); RANDOM(rec_clst=0.530); gap=0.470 >= 0.05; mechanism non-null; USER_DIRECTIVE separation preserved",
+    "elapsed_s": 3.72
+  }
+}

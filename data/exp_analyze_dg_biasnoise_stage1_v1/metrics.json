@@ -1,0 +1,80 @@
+{
+  "verdict": "AMBIGUOUS_MIDDLE",
+  "verdict_msg": "AMBIGUOUS_MIDDLE | config=full seeds=[7, 13, 17, 23, 29] n_eval=3000 | cross-seed cofail phi-corr=0.080 | concentration ratio=3.023 (z=10.41 vs null 2.592+-0.041; top-decile rate=0.6613 pop-avg=0.2187) | Jaccard cofail-set=0.164 topdecile(diag)=0.065 | bands: BIAS(z>=3.0 AND corr>=0.15) NOISE(z<1.0 OR corr<0.05)",
+  "summary": "AMBIGUOUS_MIDDLE | config=full seeds=[7, 13, 17, 23, 29] n_eval=3000 | cross-seed cofail phi-corr=0.080 | concentration ratio=3.023 (z=10.41 vs null 2.592+-0.041; top-decile rate=0.6613 pop-avg=0.2187",
+  "run_mode": "full",
+  "elapsed_s": 1054.325321100012,
+  "anchor_name": "analyze_dg_biasnoise_stage1_v1",
+  "ts_iso": "2026-07-09T16:45:10.493173+00:00",
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "n_eval": 3000,
+  "cross_seed_cofail_corr": 0.08018338554931057,
+  "concentration_ratio": 3.023468454739408,
+  "concentration_z": 10.408155130326366,
+  "null_ratio_mean": 2.5918317586101796,
+  "null_ratio_std": 0.04147100910050463,
+  "n_perm": 400,
+  "top_decile_cofail_rate": 0.6613333333333332,
+  "population_avg_cofail_rate": 0.21873333333333334,
+  "jaccard_cofailset": 0.16358741745045194,
+  "jaccard_topdecile_diag": 0.06484128387682024,
+  "bands": {
+    "CONC_Z_BIAS": 3.0,
+    "CONC_Z_NOISE": 1.0,
+    "COFAIL_CORR_BIAS": 0.15,
+    "COFAIL_CORR_NOISE": 0.05,
+    "TOP_DECILE": 0.1
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "grounding_acc": 0.569,
+      "speaker_fail_rate": 0.304,
+      "listener_fail_rate": 0.431,
+      "cofail_rate": 0.20866666666666667
+    },
+    {
+      "seed": 13,
+      "grounding_acc": 0.5816666666666667,
+      "speaker_fail_rate": 0.29633333333333334,
+      "listener_fail_rate": 0.41833333333333333,
+      "cofail_rate": 0.207
+    },
+    {
+      "seed": 17,
+      "grounding_acc": 0.5926666666666667,
+      "speaker_fail_rate": 0.31733333333333336,
+      "listener_fail_rate": 0.4073333333333333,
+      "cofail_rate": 0.224
+    },
+    {
+      "seed": 23,
+      "grounding_acc": 0.5893333333333334,
+      "speaker_fail_rate": 0.31966666666666665,
+      "listener_fail_rate": 0.4106666666666667,
+      "cofail_rate": 0.224
+    },
+    {
+      "seed": 29,
+      "grounding_acc": 0.5703333333333334,
+      "speaker_fail_rate": 0.32066666666666666,
+      "listener_fail_rate": 0.42966666666666664,
+      "cofail_rate": 0.23
+    }
+  ],
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 7065,
+    "n_edges": 23837,
+    "median_degree": 3.0,
+    "mean_degree": 6.747912243453645,
+    "frac_deg_ge_2": 1.0
+  }
+}

@@ -1,0 +1,2367 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "per_config",
+    "verdicts",
+    "attributions",
+    "preregistered_bands",
+    "prereg_thresholds"
+  ],
+  "anchor_name": "arc_rule_supply_expansion_correctness_v1",
+  "attributions": {
+    "lemma": {
+      "attribution_coverage_dist": 1.0,
+      "attribution_coverage_gold": 1.0,
+      "n_dist_attributed": 148,
+      "n_dist_newly_derivable": 148,
+      "n_gold_attributed": 51,
+      "n_gold_newly_derivable": 51,
+      "per_rule": [
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "Mercury_SC_408366"
+          ],
+          "rule": "survival --REQUIRES--> producer",
+          "rule_index": 0,
+          "targets_qid": [
+            "Mercury_SC_408366"
+          ]
+        },
+        {
+          "dist_help": 58,
+          "gold_help": 13,
+          "questions_dist": [
+            "LEAP_2001_8_10379",
+            "LEAP_2005_8_10404",
+            "MCAS_2012_8_23640",
+            "MEAP_2005_5_12",
+            "MEA_2014_8_10",
+            "MSA_2012_5_15",
+            "Mercury_188528",
+            "Mercury_400699",
+            "Mercury_401312",
+            "Mercury_409295",
+            "Mercury_7126263",
+            "Mercury_7128923",
+            "Mercury_7133245",
+            "Mercury_7150343",
+            "Mercury_7160563",
+            "Mercury_7161315",
+            "Mercury_7164623",
+            "Mercury_7177398",
+            "Mercury_7210210",
+            "Mercury_7212905",
+            "Mercury_7213325",
+            "Mercury_7218348",
+            "Mercury_7221043",
+            "Mercury_7245840",
+            "Mercury_LBS10131",
+            "Mercury_SC_401295",
+            "Mercury_SC_407592",
+            "Mercury_SC_408872",
+            "Mercury_SC_413624",
+            "Mercury_SC_415453",
+            "Mercury_SC_LBS10027",
+            "NYSEDREGENTS_2008_4_3",
+            "NYSEDREGENTS_2008_8_34",
+            "NYSEDREGENTS_2015_4_11",
+            "NYSEDREGENTS_2015_4_29",
+            "OHAT_2008_5_34"
+          ],
+          "questions_gold": [
+            "MEAP_2005_5_12",
+            "Mercury_401312",
+            "Mercury_7133245",
+            "Mercury_7161315",
+            "Mercury_7164623",
+            "Mercury_7202843",
+            "Mercury_7221043",
+            "Mercury_SC_401656",
+            "Mercury_SC_415453",
+            "Mercury_SC_LBS10027",
+            "NYSEDREGENTS_2015_4_29",
+            "OHAT_2007_8_12",
+            "OHAT_2008_5_34"
+          ],
+          "rule": "energy --COUPLEDRELATIONSHIP--> sunlight",
+          "rule_index": 1,
+          "targets_qid": [
+            "NYSEDREGENTS_2015_4_29",
+            "Mercury_7221043"
+          ]
+        },
+        {
+          "dist_help": 2,
+          "gold_help": 3,
+          "questions_dist": [
+            "Mercury_7040793",
+            "NCEOGA_2013_5_17"
+          ],
+          "questions_gold": [
+            "Mercury_409647",
+            "Mercury_7168823",
+            "TIMSS_2007_8_pg60"
+          ],
+          "rule": "oxygen --COUPLEDRELATIONSHIP--> fish",
+          "rule_index": 2,
+          "targets_qid": [
+            "Mercury_409647",
+            "Mercury_7168823",
+            "Mercury_7138390"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "decay --COUPLEDRELATIONSHIP--> oxygen",
+          "rule_index": 3,
+          "targets_qid": [
+            "Mercury_7140333"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "Mercury_406777"
+          ],
+          "rule": "reproduction --REQUIRES--> parents",
+          "rule_index": 4,
+          "targets_qid": [
+            "Mercury_406777"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "Mercury_SC_401277"
+          ],
+          "rule": "light --USEDFOR--> prey",
+          "rule_index": 5,
+          "targets_qid": [
+            "Mercury_SC_401277"
+          ]
+        },
+        {
+          "dist_help": 15,
+          "gold_help": 2,
+          "questions_dist": [
+            "MCAS_2001_8_4",
+            "Mercury_409647",
+            "Mercury_7040793",
+            "Mercury_7168823",
+            "Mercury_7202843",
+            "Mercury_7230318",
+            "Mercury_7230388",
+            "Mercury_SC_405296",
+            "Mercury_SC_409241",
+            "Mercury_SC_409666",
+            "TIMSS_2003_8_pg117"
+          ],
+          "questions_gold": [
+            "Mercury_7040793",
+            "Mercury_7230388"
+          ],
+          "rule": "oxygen --COUPLEDRELATIONSHIP--> plant",
+          "rule_index": 6,
+          "targets_qid": [
+            "Mercury_7040793"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "volcano --CAUSE--> pollution",
+          "rule_index": 7,
+          "targets_qid": [
+            "MCAS_1998_8_24"
+          ]
+        },
+        {
+          "dist_help": 55,
+          "gold_help": 21,
+          "questions_dist": [
+            "LEAP_2007_8_10417",
+            "MDSA_2009_4_34",
+            "MEAP_2005_5_12",
+            "Mercury_401195",
+            "Mercury_401428",
+            "Mercury_7102323",
+            "Mercury_7103600",
+            "Mercury_7111178",
+            "Mercury_7116288",
+            "Mercury_7133613",
+            "Mercury_7143010",
+            "Mercury_7159320",
+            "Mercury_7160563",
+            "Mercury_7161315",
+            "Mercury_7206430",
+            "Mercury_7268048",
+            "Mercury_SC_402171",
+            "Mercury_SC_406623",
+            "Mercury_SC_408748",
+            "Mercury_SC_408872",
+            "Mercury_SC_409245",
+            "Mercury_SC_409383",
+            "Mercury_SC_415471",
+            "NAEP_2005_4_S14+3",
+            "NYSEDREGENTS_2012_4_29",
+            "NYSEDREGENTS_2013_4_21",
+            "NYSEDREGENTS_2015_4_25",
+            "NYSEDREGENTS_2015_4_29",
+            "OHAT_2008_5_34",
+            "VASoL_2009_5_37",
+            "WASL_2005_8_12"
+          ],
+          "questions_gold": [
+            "MDSA_2009_4_34",
+            "MEAP_2005_5_12",
+            "Mercury_401312",
+            "Mercury_7040793",
+            "Mercury_7099190",
+            "Mercury_7111178",
+            "Mercury_7143010",
+            "Mercury_7188195",
+            "Mercury_7202843",
+            "Mercury_7268048",
+            "Mercury_SC_401656",
+            "Mercury_SC_402171",
+            "Mercury_SC_409245",
+            "Mercury_SC_409383",
+            "NAEP_2005_4_S14+3",
+            "NYSEDREGENTS_2010_4_30",
+            "NYSEDREGENTS_2012_4_29",
+            "NYSEDREGENTS_2013_4_21",
+            "NYSEDREGENTS_2015_4_25",
+            "OHAT_2007_8_12",
+            "OHAT_2008_5_34"
+          ],
+          "rule": "sunlight --COUPLEDRELATIONSHIP--> plant",
+          "rule_index": 8,
+          "targets_qid": [
+            "Mercury_7188195"
+          ]
+        },
+        {
+          "dist_help": 3,
+          "gold_help": 1,
+          "questions_dist": [
+            "MCAS_2012_8_23640",
+            "Mercury_188528",
+            "Mercury_LBS10131"
+          ],
+          "questions_gold": [
+            "MCAS_2005_8_7"
+          ],
+          "rule": "sunlight --COUPLEDRELATIONSHIP--> convection",
+          "rule_index": 9,
+          "targets_qid": [
+            "MCAS_2005_8_7"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "plant --USEDFOR--> protection",
+          "rule_index": 10,
+          "targets_qid": [
+            "CSZ10358"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "NYSEDREGENTS_2012_4_9"
+          ],
+          "rule": "magnetism --CAUSE--> force",
+          "rule_index": 11,
+          "targets_qid": [
+            "Mercury_SC_401373"
+          ]
+        },
+        {
+          "dist_help": 6,
+          "gold_help": 2,
+          "questions_dist": [
+            "Mercury_7123078",
+            "Mercury_SC_415453",
+            "NAEP_2005_8_S11+1"
+          ],
+          "questions_gold": [
+            "Mercury_7033828",
+            "NAEP_2005_8_S11+1"
+          ],
+          "rule": "electricity --CAUSE--> current",
+          "rule_index": 12,
+          "targets_qid": [
+            "Mercury_SC_401373"
+          ]
+        },
+        {
+          "dist_help": 3,
+          "gold_help": 1,
+          "questions_dist": [
+            "MCAS_2005_9_17",
+            "MEA_2013_8_15",
+            "Mercury_414365"
+          ],
+          "questions_gold": [
+            "Mercury_7136028"
+          ],
+          "rule": "force --COUPLEDRELATIONSHIP--> friction",
+          "rule_index": 13,
+          "targets_qid": [
+            "Mercury_7042945"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "pull --CAUSE--> falling",
+          "rule_index": 14,
+          "targets_qid": [
+            "Mercury_7098473"
+          ]
+        },
+        {
+          "dist_help": 17,
+          "gold_help": 10,
+          "questions_dist": [
+            "AKDE&ED_2008_8_36",
+            "LEAP_2005_8_10404",
+            "MCAS_2012_8_23651",
+            "Mercury_400699",
+            "Mercury_400811",
+            "Mercury_7164623",
+            "Mercury_LBS10131",
+            "Mercury_SC_407592",
+            "Mercury_SC_413299",
+            "Mercury_SC_413624",
+            "Mercury_SC_LBS10662",
+            "NYSEDREGENTS_2008_4_3",
+            "NYSEDREGENTS_2013_4_1",
+            "NYSEDREGENTS_2015_4_11"
+          ],
+          "questions_gold": [
+            "AKDE&ED_2008_8_36",
+            "MCAS_2012_8_23640",
+            "Mercury_400699",
+            "Mercury_409295",
+            "Mercury_7015540",
+            "Mercury_7082845",
+            "Mercury_7085278",
+            "Mercury_SC_408872",
+            "Mercury_SC_413624",
+            "NYSEDREGENTS_2013_4_1"
+          ],
+          "rule": "energy --COUPLEDRELATIONSHIP--> radiation",
+          "rule_index": 15,
+          "targets_qid": [
+            "Mercury_7015540",
+            "MCAS_2012_8_23640"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 1,
+          "questions_dist": [
+            "Mercury_7133245"
+          ],
+          "questions_gold": [
+            "Mercury_LBS10131"
+          ],
+          "rule": "heating --COUPLEDRELATIONSHIP--> conduction",
+          "rule_index": 16,
+          "targets_qid": [
+            "Mercury_LBS10131",
+            "Mercury_SC_LBS10662"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "growth --COUPLEDRELATIONSHIP--> reproduction",
+          "rule_index": 17,
+          "targets_qid": [
+            "Mercury_7093048"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "prey --COUPLEDRELATIONSHIP--> competition",
+          "rule_index": 18,
+          "targets_qid": [
+            "Mercury_7182210"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "wind --COUPLEDRELATIONSHIP--> force",
+          "rule_index": 19,
+          "targets_qid": [
+            "MCAS_2000_4_34"
+          ]
+        }
+      ]
+    },
+    "lemma_syn": {
+      "attribution_coverage_dist": 1.0,
+      "attribution_coverage_gold": 1.0,
+      "n_dist_attributed": 177,
+      "n_dist_newly_derivable": 177,
+      "n_gold_attributed": 65,
+      "n_gold_newly_derivable": 65,
+      "per_rule": [
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "Mercury_SC_408366"
+          ],
+          "rule": "survival --REQUIRES--> producer",
+          "rule_index": 0,
+          "targets_qid": [
+            "Mercury_SC_408366"
+          ]
+        },
+        {
+          "dist_help": 60,
+          "gold_help": 14,
+          "questions_dist": [
+            "LEAP_2001_8_10379",
+            "LEAP_2005_8_10404",
+            "MCAS_2012_8_23640",
+            "MCAS_2014_8_6",
+            "MDSA_2007_8_30",
+            "MEAP_2005_5_12",
+            "MEA_2010_8_18",
+            "MEA_2014_8_10",
+            "MSA_2012_5_15",
+            "Mercury_188528",
+            "Mercury_400699",
+            "Mercury_401312",
+            "Mercury_409295",
+            "Mercury_416379",
+            "Mercury_7071523",
+            "Mercury_7099330",
+            "Mercury_7126263",
+            "Mercury_7128923",
+            "Mercury_7139878",
+            "Mercury_7150343",
+            "Mercury_7160563",
+            "Mercury_7161315",
+            "Mercury_7164623",
+            "Mercury_7177398",
+            "Mercury_7210210",
+            "Mercury_7213325",
+            "Mercury_7218348",
+            "Mercury_7221043",
+            "Mercury_7245840",
+            "Mercury_7271758",
+            "Mercury_LBS10131",
+            "Mercury_SC_401295",
+            "Mercury_SC_407592",
+            "Mercury_SC_408321",
+            "Mercury_SC_408872",
+            "Mercury_SC_409241",
+            "Mercury_SC_415453",
+            "Mercury_SC_LBS10027",
+            "NYSEDREGENTS_2008_4_3",
+            "NYSEDREGENTS_2008_8_11",
+            "NYSEDREGENTS_2015_4_11",
+            "NYSEDREGENTS_2015_4_29",
+            "OHAT_2008_5_34"
+          ],
+          "questions_gold": [
+            "LEAP_2005_8_10404",
+            "MEAP_2005_5_12",
+            "Mercury_401312",
+            "Mercury_7161315",
+            "Mercury_7164623",
+            "Mercury_7185343",
+            "Mercury_7202843",
+            "Mercury_7212905",
+            "Mercury_7221043",
+            "Mercury_SC_401656",
+            "Mercury_SC_415453",
+            "Mercury_SC_LBS10027",
+            "NYSEDREGENTS_2015_4_29",
+            "OHAT_2008_5_34"
+          ],
+          "rule": "energy --COUPLEDRELATIONSHIP--> sunlight",
+          "rule_index": 1,
+          "targets_qid": [
+            "NYSEDREGENTS_2015_4_29",
+            "Mercury_7221043"
+          ]
+        },
+        {
+          "dist_help": 3,
+          "gold_help": 3,
+          "questions_dist": [
+            "Mercury_7040793",
+            "Mercury_SC_405726",
+            "NCEOGA_2013_5_17"
+          ],
+          "questions_gold": [
+            "Mercury_409647",
+            "Mercury_7168823",
+            "TIMSS_2007_8_pg60"
+          ],
+          "rule": "oxygen --COUPLEDRELATIONSHIP--> fish",
+          "rule_index": 2,
+          "targets_qid": [
+            "Mercury_409647",
+            "Mercury_7168823",
+            "Mercury_7138390"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 1,
+          "questions_dist": [
+            "Mercury_416379"
+          ],
+          "questions_gold": [
+            "Mercury_7159250"
+          ],
+          "rule": "decay --COUPLEDRELATIONSHIP--> oxygen",
+          "rule_index": 3,
+          "targets_qid": [
+            "Mercury_7140333"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 1,
+          "questions_dist": [
+            "Mercury_7106628"
+          ],
+          "questions_gold": [
+            "Mercury_406777"
+          ],
+          "rule": "reproduction --REQUIRES--> parents",
+          "rule_index": 4,
+          "targets_qid": [
+            "Mercury_406777"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "Mercury_SC_401277"
+          ],
+          "rule": "light --USEDFOR--> prey",
+          "rule_index": 5,
+          "targets_qid": [
+            "Mercury_SC_401277"
+          ]
+        },
+        {
+          "dist_help": 13,
+          "gold_help": 4,
+          "questions_dist": [
+            "MCAS_2001_8_4",
+            "Mercury_409647",
+            "Mercury_7168823",
+            "Mercury_7202843",
+            "Mercury_7230318",
+            "Mercury_SC_405296",
+            "Mercury_SC_409241",
+            "TIMSS_1995_8_J7",
+            "TIMSS_2003_8_pg117"
+          ],
+          "questions_gold": [
+            "Mercury_7040793",
+            "Mercury_7109498",
+            "Mercury_7159250",
+            "Mercury_SC_409241"
+          ],
+          "rule": "oxygen --COUPLEDRELATIONSHIP--> plant",
+          "rule_index": 6,
+          "targets_qid": [
+            "Mercury_7040793"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 0,
+          "questions_dist": [
+            "MCAS_1998_8_24"
+          ],
+          "questions_gold": [],
+          "rule": "volcano --CAUSE--> pollution",
+          "rule_index": 7,
+          "targets_qid": [
+            "MCAS_1998_8_24"
+          ]
+        },
+        {
+          "dist_help": 58,
+          "gold_help": 22,
+          "questions_dist": [
+            "LEAP_2007_8_10417",
+            "MDSA_2009_4_34",
+            "MEAP_2005_5_12",
+            "Mercury_401195",
+            "Mercury_401428",
+            "Mercury_7102323",
+            "Mercury_7103600",
+            "Mercury_7111178",
+            "Mercury_7116288",
+            "Mercury_7133613",
+            "Mercury_7143010",
+            "Mercury_7159320",
+            "Mercury_7160563",
+            "Mercury_7161315",
+            "Mercury_7206430",
+            "Mercury_7268048",
+            "Mercury_7271758",
+            "Mercury_SC_402171",
+            "Mercury_SC_406623",
+            "Mercury_SC_408748",
+            "Mercury_SC_408872",
+            "Mercury_SC_409241",
+            "Mercury_SC_409245",
+            "Mercury_SC_409383",
+            "Mercury_SC_415471",
+            "NAEP_2005_4_S14+3",
+            "NYSEDREGENTS_2012_4_29",
+            "NYSEDREGENTS_2013_4_21",
+            "NYSEDREGENTS_2015_4_25",
+            "NYSEDREGENTS_2015_4_29",
+            "OHAT_2008_5_34",
+            "VASoL_2009_5_37",
+            "WASL_2005_8_12"
+          ],
+          "questions_gold": [
+            "MDSA_2009_4_34",
+            "MEAP_2005_5_12",
+            "Mercury_401312",
+            "Mercury_7040793",
+            "Mercury_7111178",
+            "Mercury_7143010",
+            "Mercury_7185343",
+            "Mercury_7188195",
+            "Mercury_7202843",
+            "Mercury_7268048",
+            "Mercury_SC_401656",
+            "Mercury_SC_402171",
+            "Mercury_SC_409245",
+            "Mercury_SC_409383",
+            "NAEP_2005_4_S14+3",
+            "NYSEDREGENTS_2010_4_30",
+            "NYSEDREGENTS_2012_4_29",
+            "NYSEDREGENTS_2013_4_21",
+            "NYSEDREGENTS_2015_4_25",
+            "OHAT_2007_8_12",
+            "OHAT_2008_5_34",
+            "WASL_2005_8_12"
+          ],
+          "rule": "sunlight --COUPLEDRELATIONSHIP--> plant",
+          "rule_index": 8,
+          "targets_qid": [
+            "Mercury_7188195"
+          ]
+        },
+        {
+          "dist_help": 4,
+          "gold_help": 1,
+          "questions_dist": [
+            "MCAS_2012_8_23640",
+            "MCAS_2014_8_6",
+            "Mercury_188528",
+            "Mercury_LBS10131"
+          ],
+          "questions_gold": [
+            "MCAS_2005_8_7"
+          ],
+          "rule": "sunlight --COUPLEDRELATIONSHIP--> convection",
+          "rule_index": 9,
+          "targets_qid": [
+            "MCAS_2005_8_7"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "CSZ10358"
+          ],
+          "rule": "plant --USEDFOR--> protection",
+          "rule_index": 10,
+          "targets_qid": [
+            "CSZ10358"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 2,
+          "questions_dist": [
+            "Mercury_7015540"
+          ],
+          "questions_gold": [
+            "Mercury_SC_401373",
+            "NYSEDREGENTS_2012_4_9"
+          ],
+          "rule": "magnetism --CAUSE--> force",
+          "rule_index": 11,
+          "targets_qid": [
+            "Mercury_SC_401373"
+          ]
+        },
+        {
+          "dist_help": 6,
+          "gold_help": 3,
+          "questions_dist": [
+            "Mercury_7123078",
+            "Mercury_SC_415453",
+            "NAEP_2005_8_S11+1"
+          ],
+          "questions_gold": [
+            "Mercury_7033828",
+            "Mercury_SC_401373",
+            "NAEP_2005_8_S11+1"
+          ],
+          "rule": "electricity --CAUSE--> current",
+          "rule_index": 12,
+          "targets_qid": [
+            "Mercury_SC_401373"
+          ]
+        },
+        {
+          "dist_help": 14,
+          "gold_help": 2,
+          "questions_dist": [
+            "LEAP_2000_8_4",
+            "MCAS_2005_9_17",
+            "MDSA_2013_8_20",
+            "MEA_2013_8_15",
+            "MSA_2013_5_23",
+            "Mercury_414365",
+            "Mercury_7093958",
+            "Mercury_7098473",
+            "Mercury_7214778",
+            "Mercury_SC_405827",
+            "Mercury_SC_413439",
+            "NCEOGA_2013_5_11"
+          ],
+          "questions_gold": [
+            "Mercury_7043068",
+            "Mercury_7136028"
+          ],
+          "rule": "force --COUPLEDRELATIONSHIP--> friction",
+          "rule_index": 13,
+          "targets_qid": [
+            "Mercury_7042945"
+          ]
+        },
+        {
+          "dist_help": 2,
+          "gold_help": 3,
+          "questions_dist": [
+            "Mercury_414365",
+            "NYSEDREGENTS_2012_8_42"
+          ],
+          "questions_gold": [
+            "Mercury_414365",
+            "Mercury_7098473",
+            "NYSEDREGENTS_2015_4_7"
+          ],
+          "rule": "pull --CAUSE--> falling",
+          "rule_index": 14,
+          "targets_qid": [
+            "Mercury_7098473"
+          ]
+        },
+        {
+          "dist_help": 20,
+          "gold_help": 9,
+          "questions_dist": [
+            "AKDE&ED_2008_8_36",
+            "LEAP_2005_8_10404",
+            "MCAS_2012_8_23651",
+            "Mercury_188528",
+            "Mercury_400699",
+            "Mercury_400811",
+            "Mercury_7143308",
+            "Mercury_7164623",
+            "Mercury_7222460",
+            "Mercury_LBS10131",
+            "Mercury_SC_407592",
+            "Mercury_SC_408872",
+            "Mercury_SC_413299",
+            "Mercury_SC_LBS10662",
+            "NYSEDREGENTS_2008_4_3",
+            "NYSEDREGENTS_2013_4_1",
+            "NYSEDREGENTS_2015_4_11"
+          ],
+          "questions_gold": [
+            "AKDE&ED_2008_8_36",
+            "MCAS_2012_8_23640",
+            "Mercury_400699",
+            "Mercury_409295",
+            "Mercury_7015540",
+            "Mercury_7082845",
+            "Mercury_7085278",
+            "Mercury_SC_408872",
+            "NYSEDREGENTS_2013_4_1"
+          ],
+          "rule": "energy --COUPLEDRELATIONSHIP--> radiation",
+          "rule_index": 15,
+          "targets_qid": [
+            "Mercury_7015540",
+            "MCAS_2012_8_23640"
+          ]
+        },
+        {
+          "dist_help": 5,
+          "gold_help": 4,
+          "questions_dist": [
+            "MCAS_2012_8_23640",
+            "Mercury_407539",
+            "Mercury_SC_LBS10337"
+          ],
+          "questions_gold": [
+            "Mercury_407539",
+            "Mercury_LBS10131",
+            "Mercury_SC_LBS10337",
+            "Mercury_SC_LBS10662"
+          ],
+          "rule": "heating --COUPLEDRELATIONSHIP--> conduction",
+          "rule_index": 16,
+          "targets_qid": [
+            "Mercury_LBS10131",
+            "Mercury_SC_LBS10662"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 1,
+          "questions_dist": [
+            "Mercury_7106628"
+          ],
+          "questions_gold": [
+            "Mercury_7093048"
+          ],
+          "rule": "growth --COUPLEDRELATIONSHIP--> reproduction",
+          "rule_index": 17,
+          "targets_qid": [
+            "Mercury_7093048"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "prey --COUPLEDRELATIONSHIP--> competition",
+          "rule_index": 18,
+          "targets_qid": [
+            "Mercury_7182210"
+          ]
+        },
+        {
+          "dist_help": 5,
+          "gold_help": 1,
+          "questions_dist": [
+            "LEAP_2000_8_4",
+            "MCAS_2014_8_20",
+            "Mercury_SC_415762"
+          ],
+          "questions_gold": [
+            "Mercury_SC_415762"
+          ],
+          "rule": "wind --COUPLEDRELATIONSHIP--> force",
+          "rule_index": 19,
+          "targets_qid": [
+            "MCAS_2000_4_34"
+          ]
+        }
+      ]
+    }
+  },
+  "config": {
+    "arms": [
+      "BASE",
+      "EXPANSION",
+      "SCRAMBLE_PAIR",
+      "FLIP_DIR"
+    ],
+    "base_rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "depth_bump": 6,
+    "expansion_rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v2_expansion.json",
+    "link_modes": [
+      "lemma_syn",
+      "lemma"
+    ],
+    "n_eval": 1172,
+    "n_rules": {
+      "BASE": 233,
+      "EXPANSION": 253,
+      "FLIP_DIR": 253,
+      "SCRAMBLE_PAIR": 253
+    },
+    "n_total_test": 1172,
+    "one_variable_across_arms": "rule_set (reasoner/link/CI/do/decision identical)",
+    "seed": 20260726
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "elapsed_s": 105.8,
+  "host": "FrameworkMPC",
+  "per_config": {
+    "lemma": {
+      "arm_results": {
+        "BASE": {
+          "buckets": {
+            "dist_only": 69,
+            "gold_only": 16,
+            "not_derived": 1043,
+            "tie": 44
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 13,
+              "LINK_FAILURE": 26,
+              "STRUCTURALLY_ABSENT": 30
+            },
+            "n_dist_only": 69
+          },
+          "covered_subset": {
+            "acc": 0.24031,
+            "n": 129
+          },
+          "distractor_derive_rate": 0.048364,
+          "link_mode": "lemma",
+          "n_dist_cand_derivable": 170,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 261,
+          "struct_absent_qids": [
+            "Mercury_406777",
+            "Mercury_SC_401277",
+            "Mercury_SC_408366",
+            "MEAP_2005_8_39",
+            "Mercury_405950",
+            "Mercury_7138390",
+            "Mercury_7099190",
+            "Mercury_7040793",
+            "Mercury_7268048",
+            "Mercury_SC_401373",
+            "Mercury_7093048",
+            "Mercury_7174738",
+            "Mercury_SC_409245",
+            "Mercury_401014",
+            "MCAS_1998_8_24",
+            "Mercury_7188195",
+            "Mercury_7221043",
+            "Mercury_7082443",
+            "MCAS_2005_8_7",
+            "ACTAAP_2007_7_3",
+            "NCEOGA_2013_5_17",
+            "MCAS_2012_8_23640",
+            "Mercury_405464",
+            "Mercury_7143010",
+            "NAEP_2000_4_S12+3",
+            "MCAS_2000_4_34",
+            "Mercury_7015540",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_SC_LBS10662"
+          ],
+          "typed_acc": 0.222696
+        },
+        "EXPANSION": {
+          "buckets": {
+            "dist_only": 93,
+            "gold_only": 24,
+            "not_derived": 968,
+            "tie": 87
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 20,
+              "LINK_FAILURE": 46,
+              "STRUCTURALLY_ABSENT": 27
+            },
+            "n_dist_only": 93
+          },
+          "covered_subset": {
+            "acc": 0.259804,
+            "n": 204
+          },
+          "distractor_derive_rate": 0.090469,
+          "link_mode": "lemma",
+          "n_dist_cand_derivable": 318,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 266,
+          "struct_absent_qids": [
+            "MCAS_2001_8_4",
+            "MEAP_2005_8_39",
+            "Mercury_405950",
+            "Mercury_7210210",
+            "Mercury_7138390",
+            "Mercury_SC_401373",
+            "Mercury_7093048",
+            "Mercury_7174738",
+            "Mercury_401014",
+            "Mercury_401195",
+            "NYSEDREGENTS_2015_4_11",
+            "Mercury_7133613",
+            "Mercury_7082443",
+            "Mercury_414365",
+            "Mercury_7245840",
+            "ACTAAP_2007_7_3",
+            "NCEOGA_2013_5_17",
+            "Mercury_7123078",
+            "Mercury_405464",
+            "Mercury_SC_409241",
+            "NAEP_2000_4_S12+3",
+            "Mercury_SC_407592",
+            "Mercury_7218348",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_7212905",
+            "Mercury_SC_LBS10662"
+          ],
+          "typed_acc": 0.226962
+        },
+        "FLIP_DIR": {
+          "buckets": {
+            "dist_only": 72,
+            "gold_only": 15,
+            "not_derived": 1040,
+            "tie": 45
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 15,
+              "LINK_FAILURE": 27,
+              "STRUCTURALLY_ABSENT": 30
+            },
+            "n_dist_only": 72
+          },
+          "covered_subset": {
+            "acc": 0.234848,
+            "n": 132
+          },
+          "distractor_derive_rate": 0.050356,
+          "link_mode": "lemma",
+          "n_dist_cand_derivable": 177,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 261,
+          "struct_absent_qids": [
+            "Mercury_406777",
+            "Mercury_SC_401277",
+            "Mercury_SC_408366",
+            "MEAP_2005_8_39",
+            "Mercury_7138390",
+            "Mercury_7040793",
+            "Mercury_7268048",
+            "Mercury_SC_401373",
+            "Mercury_7093048",
+            "Mercury_7174738",
+            "Mercury_SC_409245",
+            "Mercury_401014",
+            "MCAS_1998_8_24",
+            "Mercury_7188195",
+            "Mercury_7221043",
+            "Mercury_7082443",
+            "MCAS_2005_8_7",
+            "ACTAAP_2007_7_3",
+            "NCEOGA_2013_5_17",
+            "MCAS_2012_8_23640",
+            "Mercury_405464",
+            "Mercury_SC_401147",
+            "Mercury_7143010",
+            "NAEP_2000_4_S12+3",
+            "Mercury_7182210",
+            "MCAS_2000_4_34",
+            "Mercury_7015540",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_SC_LBS10662"
+          ],
+          "typed_acc": 0.222696
+        },
+        "SCRAMBLE_PAIR": {
+          "buckets": {
+            "dist_only": 102,
+            "gold_only": 24,
+            "not_derived": 965,
+            "tie": 81
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 25,
+              "LINK_FAILURE": 49,
+              "STRUCTURALLY_ABSENT": 28
+            },
+            "n_dist_only": 102
+          },
+          "covered_subset": {
+            "acc": 0.241546,
+            "n": 207
+          },
+          "distractor_derive_rate": 0.089047,
+          "link_mode": "lemma",
+          "n_dist_cand_derivable": 313,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 261,
+          "struct_absent_qids": [
+            "Mercury_406777",
+            "Mercury_SC_401277",
+            "Mercury_7142415",
+            "MEAP_2005_8_39",
+            "Mercury_405950",
+            "Mercury_7210210",
+            "Mercury_7138390",
+            "Mercury_LBS10131",
+            "Mercury_SC_401373",
+            "Mercury_7093048",
+            "Mercury_7174738",
+            "Mercury_401014",
+            "Mercury_401195",
+            "NYSEDREGENTS_2015_4_11",
+            "MCAS_1998_8_24",
+            "Mercury_7082443",
+            "MCAS_2005_8_7",
+            "Mercury_7245840",
+            "ACTAAP_2007_7_3",
+            "NCEOGA_2013_5_17",
+            "Mercury_7123078",
+            "Mercury_405464",
+            "Mercury_SC_409241",
+            "NAEP_2000_4_S12+3",
+            "Mercury_SC_407592",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_SC_LBS10662"
+          ],
+          "typed_acc": 0.222696
+        }
+      },
+      "comparisons": {
+        "EXPANSION": {
+          "arm_target_acc": 0.066667,
+          "arm_target_correct": 2,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.090469,
+          "distractor_derive_rate_base": 0.048364,
+          "distractor_derive_rate_delta": 0.042105,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 9,
+              "n": 9,
+              "qids": [
+                "TIMSS_2007_8_pg60",
+                "Mercury_7082845",
+                "Mercury_7033828",
+                "NYSEDREGENTS_2012_4_9",
+                "OHAT_2007_8_12",
+                "Mercury_7136028",
+                "Mercury_7085278",
+                "Mercury_SC_401656",
+                "NYSEDREGENTS_2010_4_30"
+              ]
+            },
+            "correct_gained": 24,
+            "tie_conversion": {
+              "correct": 15,
+              "n": 42,
+              "qids": [
+                "Mercury_406777",
+                "Mercury_SC_401277",
+                "Mercury_SC_408366",
+                "Mercury_400699",
+                "Mercury_409647",
+                "NYSEDREGENTS_2015_4_29",
+                "Mercury_SC_413624",
+                "MEAP_2005_5_12",
+                "Mercury_7099190",
+                "Mercury_LBS10131",
+                "Mercury_7040793",
+                "Mercury_7268048",
+                "Mercury_409295",
+                "Mercury_7168823",
+                "Mercury_7161315",
+                "Mercury_SC_402171",
+                "Mercury_7164623",
+                "Mercury_SC_408872",
+                "Mercury_SC_409245",
+                "NYSEDREGENTS_2013_4_21",
+                "AKDE&ED_2008_8_36",
+                "Mercury_7133245",
+                "NYSEDREGENTS_2012_4_29",
+                "Mercury_401312",
+                "Mercury_7188195",
+                "Mercury_7221043",
+                "MCAS_2005_8_7",
+                "OHAT_2008_5_34",
+                "Mercury_7230388",
+                "Mercury_7111178",
+                "MCAS_2012_8_23640",
+                "Mercury_SC_LBS10027",
+                "NYSEDREGENTS_2015_4_25",
+                "NAEP_2005_4_S14+3",
+                "NAEP_2005_8_S11+1",
+                "MDSA_2009_4_34",
+                "Mercury_7143010",
+                "Mercury_SC_409383",
+                "NYSEDREGENTS_2013_4_1",
+                "Mercury_7015540",
+                "Mercury_7202843",
+                "Mercury_SC_415453"
+              ]
+            },
+            "total": 51
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 1,
+              "n": 1,
+              "qids": [
+                "Mercury_401428"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": 3,
+            "new_dist_only": {
+              "n": 38,
+              "qids": [
+                "NYSEDREGENTS_2008_8_34",
+                "MCAS_2001_8_4",
+                "Mercury_7103600",
+                "LEAP_2007_8_10417",
+                "Mercury_400811",
+                "LEAP_2005_8_10404",
+                "Mercury_7102323",
+                "MCAS_2005_9_17",
+                "Mercury_7177398",
+                "Mercury_7210210",
+                "Mercury_7128923",
+                "Mercury_7160563",
+                "Mercury_SC_401295",
+                "MSA_2012_5_15",
+                "LEAP_2001_8_10379",
+                "WASL_2005_8_12",
+                "Mercury_7230318",
+                "Mercury_401195",
+                "Mercury_SC_405296",
+                "NYSEDREGENTS_2015_4_11",
+                "Mercury_7126263",
+                "Mercury_7133613",
+                "Mercury_414365",
+                "Mercury_7245840",
+                "Mercury_7213325",
+                "Mercury_7123078",
+                "TIMSS_2003_8_pg117",
+                "Mercury_7206430",
+                "Mercury_7150343",
+                "Mercury_SC_409241",
+                "Mercury_188528",
+                "Mercury_SC_406623",
+                "Mercury_SC_407592",
+                "Mercury_7218348",
+                "NYSEDREGENTS_2008_4_3",
+                "VASoL_2009_5_37",
+                "Mercury_7212905",
+                "MEA_2013_8_15"
+              ]
+            }
+          },
+          "target_acc_delta": 0.066667,
+          "target_bucket_n": 30,
+          "targeted_split": {
+            "n_newly_gold": 51,
+            "n_nontargeted": 38,
+            "n_targeted": 13,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": 0.004266
+        },
+        "FLIP_DIR": {
+          "arm_target_acc": 0.0,
+          "arm_target_correct": 0,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.050356,
+          "distractor_derive_rate_base": 0.048364,
+          "distractor_derive_rate_delta": 0.001992,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 0,
+              "n": 0,
+              "qids": []
+            },
+            "correct_gained": 0,
+            "tie_conversion": {
+              "correct": 0,
+              "n": 0,
+              "qids": []
+            },
+            "total": 0
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 0,
+              "n": 1,
+              "qids": [
+                "Mercury_SC_402282"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": 0,
+            "new_dist_only": {
+              "n": 3,
+              "qids": [
+                "Mercury_7163818",
+                "Mercury_SC_401147",
+                "Mercury_7182210"
+              ]
+            }
+          },
+          "target_acc_delta": 0.0,
+          "target_bucket_n": 30,
+          "targeted_split": {
+            "n_newly_gold": 0,
+            "n_nontargeted": 0,
+            "n_targeted": 0,
+            "overfit_signal": "none"
+          },
+          "whole_set_typed_acc_delta": 0.0
+        },
+        "SCRAMBLE_PAIR": {
+          "arm_target_acc": 0.033333,
+          "arm_target_correct": 1,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.089047,
+          "distractor_derive_rate_base": 0.048364,
+          "distractor_derive_rate_delta": 0.040683,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 9,
+              "n": 9,
+              "qids": [
+                "Mercury_7082845",
+                "Mercury_7033828",
+                "OHAT_2007_8_12",
+                "Mercury_7085278",
+                "Mercury_SC_401668",
+                "Mercury_SC_401656",
+                "Mercury_7218400",
+                "NYSEDREGENTS_2013_4_1",
+                "NYSEDREGENTS_2010_4_30"
+              ]
+            },
+            "correct_gained": 21,
+            "tie_conversion": {
+              "correct": 12,
+              "n": 36,
+              "qids": [
+                "Mercury_SC_408366",
+                "Mercury_400699",
+                "NYSEDREGENTS_2015_4_29",
+                "Mercury_SC_413624",
+                "MEAP_2005_5_12",
+                "Mercury_7099190",
+                "VASoL_2007_5_22",
+                "Mercury_7268048",
+                "Mercury_409295",
+                "Mercury_7161315",
+                "Mercury_SC_402171",
+                "LEAP_2001_8_10379",
+                "Mercury_7164623",
+                "Mercury_SC_409245",
+                "NYSEDREGENTS_2013_4_21",
+                "AKDE&ED_2008_8_36",
+                "Mercury_7133245",
+                "Mercury_7133613",
+                "NYSEDREGENTS_2012_4_29",
+                "Mercury_401312",
+                "Mercury_7188195",
+                "Mercury_7221043",
+                "OHAT_2008_5_34",
+                "Mercury_7230388",
+                "Mercury_7111178",
+                "MCAS_2012_8_23640",
+                "Mercury_SC_LBS10027",
+                "NYSEDREGENTS_2015_4_25",
+                "NAEP_2005_4_S14+3",
+                "NYSEDREGENTS_2012_8_28",
+                "NAEP_2005_8_S11+1",
+                "MDSA_2009_4_34",
+                "Mercury_7143010",
+                "Mercury_7015540",
+                "Mercury_7202843",
+                "Mercury_SC_415453"
+              ]
+            },
+            "total": 45
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 1,
+              "n": 1,
+              "qids": [
+                "Mercury_401428"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": -1,
+            "new_dist_only": {
+              "n": 42,
+              "qids": [
+                "NYSEDREGENTS_2008_8_34",
+                "Mercury_7103600",
+                "Mercury_7211680",
+                "LEAP_2007_8_10417",
+                "Mercury_7215828",
+                "Mercury_7201740",
+                "Mercury_400811",
+                "Mercury_7142415",
+                "LEAP_2005_8_10404",
+                "Mercury_7102323",
+                "MCAS_2005_9_17",
+                "Mercury_7177398",
+                "Mercury_7210210",
+                "Mercury_LBS10131",
+                "Mercury_7128923",
+                "Mercury_7160563",
+                "Mercury_SC_401375",
+                "Mercury_SC_408872",
+                "WASL_2005_8_12",
+                "Mercury_401195",
+                "NYSEDREGENTS_2015_4_11",
+                "AIMS_2008_8_13",
+                "Mercury_7126263",
+                "Mercury_7245840",
+                "Mercury_7034808",
+                "Mercury_7213325",
+                "MEAP_2005_5_14",
+                "Mercury_7123078",
+                "Mercury_7206430",
+                "Mercury_SC_405501",
+                "Mercury_7150343",
+                "Mercury_SC_409241",
+                "Mercury_SC_401147",
+                "Mercury_7140333",
+                "Mercury_SC_LBS10664",
+                "MCAS_2014_8_6",
+                "Mercury_SC_406623",
+                "Mercury_SC_407592",
+                "Mercury_7218348",
+                "NYSEDREGENTS_2008_4_3",
+                "VASoL_2009_5_37",
+                "LEAP_2009_8_10430"
+              ]
+            }
+          },
+          "target_acc_delta": 0.033333,
+          "target_bucket_n": 30,
+          "targeted_split": {
+            "n_newly_gold": 45,
+            "n_nontargeted": 39,
+            "n_targeted": 6,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": 0.0
+        }
+      },
+      "positive_control_buckets_anchor": {
+        "dist_only": 69,
+        "gold_only": 16,
+        "tie": 44
+      },
+      "target_bucket_n": 30
+    },
+    "lemma_syn": {
+      "arm_results": {
+        "BASE": {
+          "buckets": {
+            "dist_only": 114,
+            "gold_only": 26,
+            "not_derived": 966,
+            "tie": 66
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 14,
+              "LINK_FAILURE": 31,
+              "STRUCTURALLY_ABSENT": 69
+            },
+            "n_dist_only": 114
+          },
+          "covered_subset": {
+            "acc": 0.242718,
+            "n": 206
+          },
+          "distractor_derive_rate": 0.077952,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 274,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 281,
+          "struct_absent_qids": [
+            "Mercury_7086660",
+            "Mercury_7186568",
+            "Mercury_7218820",
+            "Mercury_406777",
+            "Mercury_SC_401277",
+            "FCAT_2008_5_2",
+            "Mercury_SC_408366",
+            "Mercury_409647",
+            "MEAP_2005_8_39",
+            "NYSEDREGENTS_2015_4_29",
+            "Mercury_7252753",
+            "MDSA_2009_5_39",
+            "Mercury_7043068",
+            "Mercury_7138390",
+            "Mercury_LBS10131",
+            "Mercury_7013948",
+            "Mercury_7040793",
+            "Mercury_7268048",
+            "Mercury_SC_401373",
+            "Mercury_7168823",
+            "Mercury_7093048",
+            "Mercury_7081603",
+            "Mercury_7218628",
+            "Mercury_178255",
+            "Mercury_7164623",
+            "Mercury_417127",
+            "Mercury_7222460",
+            "NCEOGA_2013_8_26",
+            "Mercury_7174738",
+            "Mercury_7205870",
+            "Mercury_SC_409245",
+            "Mercury_401014",
+            "CSZ10358",
+            "Mercury_7131530",
+            "MCAS_1998_8_24",
+            "Mercury_7188195",
+            "Mercury_7221043",
+            "Mercury_7082443",
+            "OHAT_2007_8_12",
+            "MCAS_2005_8_7",
+            "NCEOGA_2013_8_7",
+            "Mercury_SC_400032",
+            "ACTAAP_2007_7_3",
+            "Mercury_7082320",
+            "Mercury_SC_415073",
+            "NCEOGA_2013_5_17",
+            "MCAS_2012_8_23640",
+            "Mercury_SC_LBS10027",
+            "Mercury_7081305",
+            "Mercury_SC_401661",
+            "Mercury_7139650",
+            "Mercury_7098473",
+            "Mercury_SC_LBS10337",
+            "Mercury_7042945",
+            "Mercury_405464",
+            "Mercury_7143010",
+            "NAEP_2000_4_S12+3",
+            "Mercury_7140333",
+            "Mercury_7182210",
+            "MCAS_2000_4_34",
+            "Mercury_7015540",
+            "Mercury_SC_407592",
+            "Mercury_SC_408657",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_7212905",
+            "Mercury_SC_LBS10662",
+            "Mercury_405143",
+            "Mercury_SC_405341"
+          ],
+          "typed_acc": 0.239761
+        },
+        "EXPANSION": {
+          "buckets": {
+            "dist_only": 135,
+            "gold_only": 33,
+            "not_derived": 880,
+            "tie": 124
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 30,
+              "LINK_FAILURE": 51,
+              "STRUCTURALLY_ABSENT": 54
+            },
+            "n_dist_only": 135
+          },
+          "covered_subset": {
+            "acc": 0.263699,
+            "n": 292
+          },
+          "distractor_derive_rate": 0.128307,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 451,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 286,
+          "struct_absent_qids": [
+            "Mercury_7086660",
+            "Mercury_7218820",
+            "MCAS_2001_8_4",
+            "Mercury_7139878",
+            "FCAT_2008_5_2",
+            "Mercury_7071523",
+            "Mercury_7271758",
+            "MEAP_2005_8_39",
+            "Mercury_SC_405726",
+            "LEAP_2000_8_4",
+            "Mercury_7210210",
+            "Mercury_7138390",
+            "Mercury_7160563",
+            "Mercury_7013948",
+            "NYSEDREGENTS_2012_8_42",
+            "Mercury_7081603",
+            "Mercury_7218628",
+            "Mercury_178255",
+            "Mercury_417127",
+            "Mercury_7222460",
+            "NCEOGA_2013_8_26",
+            "Mercury_7205870",
+            "Mercury_7230318",
+            "Mercury_401014",
+            "Mercury_7143308",
+            "Mercury_401195",
+            "Mercury_7214778",
+            "NYSEDREGENTS_2015_4_11",
+            "Mercury_7131530",
+            "Mercury_7082443",
+            "NCEOGA_2013_8_7",
+            "Mercury_SC_400032",
+            "MDSA_2007_8_30",
+            "ACTAAP_2007_7_3",
+            "Mercury_7082320",
+            "Mercury_SC_415073",
+            "NCEOGA_2013_5_17",
+            "Mercury_7106628",
+            "Mercury_7081305",
+            "Mercury_SC_401661",
+            "TIMSS_1995_8_J7",
+            "Mercury_7123078",
+            "Mercury_7139650",
+            "MEA_2010_8_18",
+            "Mercury_7206430",
+            "Mercury_405464",
+            "NAEP_2000_4_S12+3",
+            "Mercury_SC_407592",
+            "Mercury_SC_408657",
+            "Mercury_7218348",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_405143",
+            "Mercury_SC_405341"
+          ],
+          "typed_acc": 0.244027
+        },
+        "FLIP_DIR": {
+          "buckets": {
+            "dist_only": 120,
+            "gold_only": 27,
+            "not_derived": 954,
+            "tie": 71
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 14,
+              "LINK_FAILURE": 35,
+              "STRUCTURALLY_ABSENT": 71
+            },
+            "n_dist_only": 120
+          },
+          "covered_subset": {
+            "acc": 0.238532,
+            "n": 218
+          },
+          "distractor_derive_rate": 0.083073,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 292,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 281,
+          "struct_absent_qids": [
+            "Mercury_7086660",
+            "Mercury_7186568",
+            "Mercury_7218820",
+            "Mercury_406777",
+            "FCAT_2008_5_2",
+            "Mercury_SC_408366",
+            "Mercury_409647",
+            "MEAP_2005_8_39",
+            "NYSEDREGENTS_2015_4_29",
+            "Mercury_7252753",
+            "MDSA_2009_5_39",
+            "Mercury_7043068",
+            "Mercury_7138390",
+            "Mercury_LBS10131",
+            "Mercury_7013948",
+            "Mercury_7040793",
+            "Mercury_7268048",
+            "Mercury_SC_401373",
+            "Mercury_7168823",
+            "Mercury_7093048",
+            "Mercury_7081603",
+            "Mercury_7218628",
+            "Mercury_178255",
+            "Mercury_7164623",
+            "Mercury_417127",
+            "Mercury_7222460",
+            "Mercury_7007420",
+            "NCEOGA_2013_8_26",
+            "Mercury_7205870",
+            "Mercury_SC_409245",
+            "Mercury_401014",
+            "CSZ10358",
+            "Mercury_7214778",
+            "VASoL_2009_3_23",
+            "Mercury_7131530",
+            "Mercury_416576",
+            "MCAS_1998_8_24",
+            "Mercury_7188195",
+            "Mercury_7221043",
+            "Mercury_7082443",
+            "OHAT_2007_8_12",
+            "MCAS_2005_8_7",
+            "NCEOGA_2013_8_7",
+            "Mercury_SC_400032",
+            "ACTAAP_2007_7_3",
+            "Mercury_7082320",
+            "Mercury_SC_415073",
+            "NCEOGA_2013_5_17",
+            "MCAS_2012_8_23640",
+            "Mercury_SC_LBS10027",
+            "Mercury_7081305",
+            "Mercury_SC_401661",
+            "Mercury_7139650",
+            "Mercury_7098473",
+            "Mercury_SC_LBS10337",
+            "Mercury_7042945",
+            "Mercury_405464",
+            "Mercury_SC_401147",
+            "NAEP_2000_4_S12+3",
+            "Mercury_7140333",
+            "Mercury_7182210",
+            "MCAS_2000_4_34",
+            "Mercury_7015540",
+            "Mercury_SC_407592",
+            "Mercury_SC_408657",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_7212905",
+            "Mercury_SC_LBS10662",
+            "Mercury_405143",
+            "Mercury_SC_405341"
+          ],
+          "typed_acc": 0.239761
+        },
+        "SCRAMBLE_PAIR": {
+          "buckets": {
+            "dist_only": 152,
+            "gold_only": 33,
+            "not_derived": 868,
+            "tie": 119
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 36,
+              "LINK_FAILURE": 51,
+              "STRUCTURALLY_ABSENT": 65
+            },
+            "n_dist_only": 152
+          },
+          "covered_subset": {
+            "acc": 0.233553,
+            "n": 304
+          },
+          "distractor_derive_rate": 0.131152,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 461,
+          "n_dist_cand_total": 3515,
+          "n_questions": 1172,
+          "n_typed_correct": 278,
+          "struct_absent_qids": [
+            "Mercury_7086660",
+            "Mercury_7186568",
+            "Mercury_7218820",
+            "MCAS_2001_8_4",
+            "Mercury_406777",
+            "Mercury_7139878",
+            "Mercury_SC_401277",
+            "FCAT_2008_5_2",
+            "Mercury_7211680",
+            "Mercury_7201740",
+            "Mercury_7057173",
+            "Mercury_7271758",
+            "MEAP_2005_8_39",
+            "MDSA_2009_5_39",
+            "Mercury_7043068",
+            "Mercury_7210210",
+            "Mercury_LBS10131",
+            "Mercury_7160563",
+            "Mercury_SC_401373",
+            "Mercury_7081603",
+            "Mercury_7218628",
+            "Mercury_178255",
+            "Mercury_417127",
+            "Mercury_7222460",
+            "Mercury_SC_401375",
+            "Mercury_7205870",
+            "Mercury_401014",
+            "Mercury_401195",
+            "Mercury_7214778",
+            "NYSEDREGENTS_2015_4_11",
+            "Mercury_7131530",
+            "Mercury_7082443",
+            "MCAS_2005_8_7",
+            "NCEOGA_2013_8_7",
+            "Mercury_7188528",
+            "Mercury_SC_400032",
+            "Mercury_SC_407247",
+            "ACTAAP_2007_7_3",
+            "Mercury_7082320",
+            "Mercury_SC_415073",
+            "Mercury_7005425",
+            "NCEOGA_2013_5_17",
+            "Mercury_7106628",
+            "Mercury_7203473",
+            "MEAP_2005_5_14",
+            "Mercury_7081305",
+            "Mercury_SC_401661",
+            "TIMSS_1995_8_J7",
+            "Mercury_7123078",
+            "Mercury_7139650",
+            "MEA_2010_8_18",
+            "Mercury_7206430",
+            "Mercury_7042945",
+            "Mercury_405464",
+            "NAEP_2000_4_S12+3",
+            "Mercury_SC_405931",
+            "Mercury_SC_407592",
+            "Mercury_SC_408657",
+            "Mercury_7187863",
+            "MCAS_1998_4_13",
+            "Mercury_7188580",
+            "Mercury_SC_LBS10662",
+            "Mercury_405143",
+            "Mercury_SC_405341",
+            "Mercury_7111125"
+          ],
+          "typed_acc": 0.237201
+        }
+      },
+      "comparisons": {
+        "EXPANSION": {
+          "arm_target_acc": 0.130435,
+          "arm_target_correct": 9,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.128307,
+          "distractor_derive_rate_base": 0.077952,
+          "distractor_derive_rate_delta": 0.050355,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 12,
+              "n": 12,
+              "qids": [
+                "TIMSS_2007_8_pg60",
+                "Mercury_7082845",
+                "Mercury_7033828",
+                "NYSEDREGENTS_2012_4_9",
+                "Mercury_7159250",
+                "Mercury_7136028",
+                "Mercury_7085278",
+                "Mercury_7109498",
+                "Mercury_SC_401656",
+                "Mercury_7185343",
+                "NYSEDREGENTS_2015_4_7",
+                "NYSEDREGENTS_2010_4_30"
+              ]
+            },
+            "correct_gained": 28,
+            "tie_conversion": {
+              "correct": 16,
+              "n": 53,
+              "qids": [
+                "Mercury_406777",
+                "Mercury_SC_401277",
+                "Mercury_SC_408366",
+                "Mercury_400699",
+                "Mercury_SC_415762",
+                "LEAP_2005_8_10404",
+                "Mercury_409647",
+                "NYSEDREGENTS_2015_4_29",
+                "Mercury_7043068",
+                "MEAP_2005_5_12",
+                "Mercury_LBS10131",
+                "Mercury_7040793",
+                "Mercury_7268048",
+                "Mercury_409295",
+                "Mercury_SC_401373",
+                "Mercury_7168823",
+                "Mercury_7093048",
+                "Mercury_7161315",
+                "Mercury_SC_402171",
+                "Mercury_7164623",
+                "Mercury_SC_408872",
+                "WASL_2005_8_12",
+                "Mercury_SC_409245",
+                "NYSEDREGENTS_2013_4_21",
+                "CSZ10358",
+                "AKDE&ED_2008_8_36",
+                "NYSEDREGENTS_2012_4_29",
+                "Mercury_401312",
+                "Mercury_7188195",
+                "Mercury_7221043",
+                "OHAT_2007_8_12",
+                "Mercury_414365",
+                "MCAS_2005_8_7",
+                "OHAT_2008_5_34",
+                "Mercury_7111178",
+                "MCAS_2012_8_23640",
+                "Mercury_SC_LBS10027",
+                "NYSEDREGENTS_2015_4_25",
+                "NAEP_2005_4_S14+3",
+                "NAEP_2005_8_S11+1",
+                "Mercury_7098473",
+                "Mercury_SC_LBS10337",
+                "Mercury_407539",
+                "MDSA_2009_4_34",
+                "Mercury_SC_409241",
+                "Mercury_7143010",
+                "Mercury_SC_409383",
+                "NYSEDREGENTS_2013_4_1",
+                "Mercury_7015540",
+                "Mercury_7202843",
+                "Mercury_SC_415453",
+                "Mercury_7212905",
+                "Mercury_SC_LBS10662"
+              ]
+            },
+            "total": 65
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 1,
+              "n": 5,
+              "qids": [
+                "Mercury_SC_413439",
+                "MDSA_2013_8_20",
+                "NCEOGA_2013_5_11",
+                "Mercury_7245840",
+                "Mercury_401428"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": -2,
+            "new_dist_only": {
+              "n": 49,
+              "qids": [
+                "MCAS_2001_8_4",
+                "Mercury_7139878",
+                "Mercury_7103600",
+                "MCAS_2014_8_20",
+                "Mercury_7071523",
+                "LEAP_2007_8_10417",
+                "NYSEDREGENTS_2008_8_11",
+                "Mercury_400811",
+                "Mercury_7093958",
+                "Mercury_7102323",
+                "Mercury_7099330",
+                "Mercury_7271758",
+                "Mercury_SC_405726",
+                "LEAP_2000_8_4",
+                "MCAS_2005_9_17",
+                "Mercury_7177398",
+                "Mercury_7210210",
+                "Mercury_7128923",
+                "Mercury_416379",
+                "Mercury_7160563",
+                "Mercury_SC_401295",
+                "MSA_2012_5_15",
+                "NYSEDREGENTS_2012_8_42",
+                "MSA_2013_5_23",
+                "LEAP_2001_8_10379",
+                "Mercury_7230318",
+                "Mercury_7143308",
+                "Mercury_401195",
+                "Mercury_SC_405296",
+                "Mercury_7214778",
+                "Mercury_SC_405827",
+                "NYSEDREGENTS_2015_4_11",
+                "Mercury_7126263",
+                "Mercury_7133613",
+                "MDSA_2007_8_30",
+                "Mercury_7213325",
+                "Mercury_7106628",
+                "TIMSS_1995_8_J7",
+                "Mercury_7123078",
+                "TIMSS_2003_8_pg117",
+                "MEA_2010_8_18",
+                "Mercury_7206430",
+                "Mercury_7150343",
+                "Mercury_188528",
+                "MCAS_2014_8_6",
+                "Mercury_SC_406623",
+                "Mercury_7218348",
+                "NYSEDREGENTS_2008_4_3",
+                "MEA_2013_8_15"
+              ]
+            }
+          },
+          "target_acc_delta": 0.130435,
+          "target_bucket_n": 69,
+          "targeted_split": {
+            "n_newly_gold": 65,
+            "n_nontargeted": 47,
+            "n_targeted": 18,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": 0.004266
+        },
+        "FLIP_DIR": {
+          "arm_target_acc": 0.0,
+          "arm_target_correct": 0,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.083073,
+          "distractor_derive_rate_base": 0.077952,
+          "distractor_derive_rate_delta": 0.005121,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 3,
+              "n": 3,
+              "qids": [
+                "Mercury_7012740",
+                "Mercury_7093958",
+                "NYSEDREGENTS_2012_4_9"
+              ]
+            },
+            "correct_gained": 3,
+            "tie_conversion": {
+              "correct": 0,
+              "n": 3,
+              "qids": [
+                "Mercury_SC_401277",
+                "Mercury_7174738",
+                "Mercury_7143010"
+              ]
+            },
+            "total": 6
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 1,
+              "n": 2,
+              "qids": [
+                "Mercury_SC_402282",
+                "NCEOGA_2013_5_11"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": -1,
+            "new_dist_only": {
+              "n": 9,
+              "qids": [
+                "MSA_2013_5_23",
+                "Mercury_7007420",
+                "Mercury_7214778",
+                "VASoL_2009_3_23",
+                "Mercury_416576",
+                "MCAS_2009_5_6519",
+                "Mercury_7163818",
+                "Mercury_SC_401147",
+                "Mercury_180828"
+              ]
+            }
+          },
+          "target_acc_delta": 0.0,
+          "target_bucket_n": 69,
+          "targeted_split": {
+            "n_newly_gold": 6,
+            "n_nontargeted": 5,
+            "n_targeted": 1,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": 0.0
+        },
+        "SCRAMBLE_PAIR": {
+          "arm_target_acc": 0.043478,
+          "arm_target_correct": 3,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.131152,
+          "distractor_derive_rate_base": 0.077952,
+          "distractor_derive_rate_delta": 0.0532,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 11,
+              "n": 11,
+              "qids": [
+                "Mercury_7082845",
+                "Mercury_7033828",
+                "Mercury_7180810",
+                "Mercury_7085278",
+                "Mercury_SC_413458",
+                "Mercury_7109498",
+                "Mercury_SC_401656",
+                "Mercury_7185343",
+                "Mercury_7218400",
+                "NYSEDREGENTS_2013_4_1",
+                "NYSEDREGENTS_2010_4_30"
+              ]
+            },
+            "correct_gained": 23,
+            "tie_conversion": {
+              "correct": 12,
+              "n": 49,
+              "qids": [
+                "Mercury_SC_408366",
+                "Mercury_400699",
+                "Mercury_SC_415762",
+                "LEAP_2005_8_10404",
+                "Mercury_409647",
+                "NYSEDREGENTS_2015_4_29",
+                "MEAP_2005_5_12",
+                "VASoL_2007_5_22",
+                "MCAS_2006_8_24",
+                "Mercury_7040793",
+                "Mercury_7268048",
+                "Mercury_409295",
+                "Mercury_7168823",
+                "Mercury_7161315",
+                "Mercury_SC_402171",
+                "LEAP_2001_8_10379",
+                "Mercury_7164623",
+                "Mercury_7174738",
+                "WASL_2005_8_12",
+                "Mercury_SC_409245",
+                "MDSA_2007_8_24",
+                "NYSEDREGENTS_2013_4_21",
+                "CSZ10358",
+                "AKDE&ED_2008_8_36",
+                "Mercury_7133613",
+                "NYSEDREGENTS_2012_4_29",
+                "Mercury_401312",
+                "Mercury_7188195",
+                "Mercury_7221043",
+                "OHAT_2007_8_12",
+                "OHAT_2008_5_34",
+                "Mercury_7111178",
+                "MCAS_2012_8_23640",
+                "Mercury_SC_LBS10027",
+                "NYSEDREGENTS_2015_4_25",
+                "NAEP_2005_4_S14+3",
+                "NYSEDREGENTS_2012_8_28",
+                "NAEP_2005_8_S11+1",
+                "Mercury_7098473",
+                "Mercury_SC_LBS10337",
+                "Mercury_407539",
+                "MDSA_2009_4_34",
+                "Mercury_SC_409666",
+                "Mercury_SC_409241",
+                "Mercury_7143010",
+                "Mercury_7015540",
+                "Mercury_7202843",
+                "Mercury_SC_415453",
+                "Mercury_7212905"
+              ]
+            },
+            "total": 60
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 1,
+              "n": 4,
+              "qids": [
+                "Mercury_SC_407302",
+                "NCEOGA_2013_5_11",
+                "Mercury_7245840",
+                "Mercury_401428"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": -5,
+            "new_dist_only": {
+              "n": 60,
+              "qids": [
+                "MCAS_2001_8_4",
+                "Mercury_7139878",
+                "Mercury_7103600",
+                "Mercury_7211680",
+                "LEAP_2007_8_10417",
+                "Mercury_7215828",
+                "Mercury_7201740",
+                "NYSEDREGENTS_2008_8_11",
+                "Mercury_400811",
+                "Mercury_7142415",
+                "TIMSS_1995_8_N2",
+                "Mercury_7057173",
+                "Mercury_7093958",
+                "Mercury_7102323",
+                "Mercury_7099330",
+                "Mercury_7271758",
+                "MSA_2012_8_30",
+                "MCAS_2005_9_17",
+                "Mercury_7177398",
+                "OHAT_2007_8_24",
+                "Mercury_7210210",
+                "Mercury_7128923",
+                "Mercury_416379",
+                "Mercury_7160563",
+                "MSA_2013_5_23",
+                "Mercury_SC_401375",
+                "Mercury_SC_408872",
+                "Mercury_401195",
+                "Mercury_7214778",
+                "NYSEDREGENTS_2015_4_11",
+                "AIMS_2008_8_13",
+                "Mercury_7126263",
+                "WASL_2004_8_17",
+                "Mercury_7034808",
+                "Mercury_7188528",
+                "Mercury_7213325",
+                "Mercury_SC_407247",
+                "Mercury_7005425",
+                "Mercury_7106628",
+                "Mercury_7203473",
+                "MEAP_2005_5_14",
+                "TIMSS_1995_8_J7",
+                "MCAS_2004_5_33",
+                "Mercury_7123078",
+                "Mercury_SC_400142",
+                "MEA_2010_8_18",
+                "Mercury_7206430",
+                "Mercury_SC_405501",
+                "Mercury_7150343",
+                "Mercury_SC_401147",
+                "Mercury_SC_LBS10664",
+                "Mercury_SC_407383",
+                "Mercury_SC_405931",
+                "MCAS_2014_8_6",
+                "Mercury_SC_406623",
+                "Mercury_7218348",
+                "NYSEDREGENTS_2008_4_3",
+                "Mercury_7188580",
+                "Mercury_7111125",
+                "LEAP_2009_8_10430"
+              ]
+            }
+          },
+          "target_acc_delta": 0.043478,
+          "target_bucket_n": 69,
+          "targeted_split": {
+            "n_newly_gold": 60,
+            "n_nontargeted": 49,
+            "n_targeted": 11,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": -0.00256
+        }
+      },
+      "positive_control_buckets_anchor": {
+        "dist_only": 114,
+        "gold_only": 26,
+        "tie": 66
+      },
+      "target_bucket_n": 69
+    }
+  },
+  "pid": 17148,
+  "prereg_thresholds": {
+    "depth_bump": 6,
+    "lift_min": 0.05,
+    "lift_over_scramble": 0.03,
+    "positive_control_anchor": {
+      "lemma": {
+        "dist_only": 69,
+        "gold_only": 16,
+        "tie": 44
+      },
+      "lemma_syn": {
+        "dist_only": 114,
+        "gold_only": 26,
+        "tie": 66
+      }
+    },
+    "scramble_max": 0.02,
+    "sel_tol": 0.005
+  },
+  "preregistered_bands": {
+    "hard_pass": false,
+    "honest_neg": true,
+    "inconclusive": false,
+    "middle_band": false
+  },
+  "primary_config": "lemma_syn",
+  "run_mode": "full",
+  "summary": "RULE-SUPPLY EXPANSION correctness [lemma_syn]: BASE buckets={'gold_only': 26, 'dist_only': 114, 'tie': 66, 'not_derived': 966} (repro_ok=True) EXPANSION buckets={'gold_only': 33, 'dist_only': 135, 'tie': 124, 'not_derived': 880} | target-bucket(STRUCT_ABSENT n=69) acc 0.0000->0.1304 (delta=0.1304) | newly-gold-derivable=65 (clean_win=12[correct=12] tie_conv=53[correct=16]) | promiscuity: new_dist_only=49 gold_only_eroded=5 | dist-derive rate base=0.0780 exp=0.1283 (delta=0.0504) sel_held=False | scramble_pair_lift=0.0435 flip_lift=0.0000 | whole-set typed_acc base=0.2398 exp=0.2440 | HONEST_NEG_COVERAGE_NOT_CORRECTNESS",
+  "tier": "VET_PENDING",
+  "ts_iso": "2026-07-26T02:42:04.561467+00:00",
+  "verdict": "HONEST_NEG_COVERAGE_NOT_CORRECTNESS",
+  "verdict_msg": "Rule-supply expansion (233 v1 -> 253 with 20 VETTED general science rules) tested for CORRECTNESS (not just coverage) + SELECTIVITY on ARC-Challenge (1172) via the composed DerivationReasoner. ONE variable = the rule SET (reasoner/link/CI/do/decision identical). PRIMARY = target-bucket (STRUCTURALLY_ABSENT-under-BASE) typed-accuracy delta; newly-gold-derivable split into clean_win (gold_only) vs meaning-bound tie_conversion; promiscuity harm (new dist_only + gold_only erosion) netted out. SELECTIVITY gate = candidate-level distractor-derive rate must stay <= base + 0.005. MUST-FAIL controls: SCRAMBLE_PAIR (arg1 deranged: same vocab/relations/degree, knowledge destroyed) + FLIP_DIR (arg0<->arg1 reversed) -- both target-bucket lifts must collapse. POSITIVE CONTROL: BASE reproduces prior buckets exactly. Held-out ARC test; rules NOT derived from labels (targets_qid is a recording tag). INLINE-LOCAL; VET-PENDING; no bank.",
+  "verdicts": {
+    "lemma": {
+      "distractor_derive_rate_base": 0.048364,
+      "distractor_derive_rate_expansion": 0.090469,
+      "flip_dir_lift": 0.0,
+      "link_mode": "lemma",
+      "max_scramble_lift": 0.033333,
+      "real_beats_scramble": true,
+      "real_lift": 0.066667,
+      "real_lift_ok": true,
+      "repro_ok": true,
+      "scramble_collapsed": false,
+      "scramble_pair_lift": 0.033333,
+      "selectivity_held": false,
+      "verdict": "HONEST_NEG_COVERAGE_NOT_CORRECTNESS"
+    },
+    "lemma_syn": {
+      "distractor_derive_rate_base": 0.077952,
+      "distractor_derive_rate_expansion": 0.128307,
+      "flip_dir_lift": 0.0,
+      "link_mode": "lemma_syn",
+      "max_scramble_lift": 0.043478,
+      "real_beats_scramble": true,
+      "real_lift": 0.130435,
+      "real_lift_ok": true,
+      "repro_ok": true,
+      "scramble_collapsed": false,
+      "scramble_pair_lift": 0.043478,
+      "selectivity_held": false,
+      "verdict": "HONEST_NEG_COVERAGE_NOT_CORRECTNESS"
+    }
+  }
+}

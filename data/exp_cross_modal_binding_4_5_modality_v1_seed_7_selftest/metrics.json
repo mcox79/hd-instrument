@@ -1,0 +1,14 @@
+{
+  "anchor_name": "cross_modal_binding_4_5_modality_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: 3-mod BIND=1.000, 5-mod BIND=1.000, 5-mod NO_BIND=0.000, 5-mod lift=1.000, codebook_indep=0.025, backend=torch.cpu, elapsed=3.3s",
+  "summary": "selftest OK: 3-mod BIND=1.000, 5-mod BIND=1.000, 5-mod NO_BIND=0.000, 5-mod lift=1.000, codebook_indep=0.025, backend=torch.cpu, elapsed=3.3s",
+  "elapsed_s": 3.49,
+  "ts_iso": "2026-07-01T15:31:46Z",
+  "pid": 1240,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=cross_modal_binding_4_5_modality_v1_seed_7,SEED=7,mode=selftest,K=[10,100,1000],N=[2048,4096,8192],n_mod=[3,4,5],arms=[BIND_NMOD,NO_BIND],V_MOD=2048,expected_n_full=1080,expected_n_smoke=40,hardening=L1early+L2perpt+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_cross_modal_45_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

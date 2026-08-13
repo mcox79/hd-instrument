@@ -1,0 +1,190 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: R_pointer=100.00 (d_a|ptr=0.483 vs d_b|ptr=0.000) ; R_mag=100.00 (d_b|mag=0.502 vs d_a|mag=0.000) ; clean acc a=1.000 b=0.993 ; seeds HP=3/3 HF=0/3 ; HP_RATIO=2.0 HFAIL_RATIO=1.3 MIN_EFFECT=0.08",
+  "summary": "HARD_PASS: R_pointer=100.00 (d_a|ptr=0.483 vs d_b|ptr=0.000) ; R_mag=100.00 (d_b|mag=0.502 vs d_a|mag=0.000) ; clean acc a=1.000 b=0.993 ; seeds HP=3/3 HF=0/3 ; HP_RATIO=2.0 HFAIL_RATIO=1.3 MIN_EFFECT=0.08",
+  "n_units": 3,
+  "expected_n_units": 3,
+  "mean_d_a_pointer": 0.48333333333333334,
+  "mean_d_b_pointer": 0.0,
+  "mean_d_a_mag": 0.0,
+  "mean_d_b_mag": 0.502,
+  "mean_R_pointer": 100.0,
+  "mean_R_mag": 100.0,
+  "mean_clean_acc_a": 1.0,
+  "mean_clean_acc_b": 0.9926666666666666,
+  "n_seeds_hard_pass": 3,
+  "n_seeds_hard_fail": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "run_mode": "full",
+      "m_train": 800,
+      "m_test": 500,
+      "task_a": {
+        "acc_clean": 1.0,
+        "acc_pabl": 0.496,
+        "acc_mabl": 1.0,
+        "hash_clean": "885db442962377cf",
+        "hash_pabl": "2d0ec28b6e4d07c2",
+        "hash_mabl": "7f305733c64c2fd6"
+      },
+      "task_b": {
+        "acc_clean": 0.994,
+        "acc_pabl": 0.994,
+        "acc_mabl": 0.48,
+        "hash_clean": "5f252d5685675a2a",
+        "hash_pabl": "a3a75c0b87f33fee",
+        "hash_mabl": "8b125fe3dae0e819"
+      },
+      "d_a_pointer": 0.504,
+      "d_b_pointer": 0.0,
+      "d_a_mag": 0.0,
+      "d_b_mag": 0.514,
+      "R_pointer": 100.0,
+      "R_mag": 100.0,
+      "control_R_pointer": 0.0,
+      "control_R_mag": 100.0,
+      "control_dissociation": false,
+      "effect_present": true,
+      "seed_verdict": "HARD_PASS",
+      "elapsed_s": 37.92265409999527,
+      "config_version": "ANCHOR=exp_dual_number_double_dissociation_v1,N=8192,run_mode=full",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783612061.4942613
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "run_mode": "full",
+      "m_train": 800,
+      "m_test": 500,
+      "task_a": {
+        "acc_clean": 1.0,
+        "acc_pabl": 0.53,
+        "acc_mabl": 1.0,
+        "hash_clean": "0f9211c642d99459",
+        "hash_pabl": "014bec8c296743e3",
+        "hash_mabl": "5a009f05ff2400d6"
+      },
+      "task_b": {
+        "acc_clean": 0.992,
+        "acc_pabl": 0.992,
+        "acc_mabl": 0.51,
+        "hash_clean": "859b0a7a6d75a5ab",
+        "hash_pabl": "a2981152abc6aff1",
+        "hash_mabl": "3d7c7026b3d8625b"
+      },
+      "d_a_pointer": 0.47,
+      "d_b_pointer": 0.0,
+      "d_a_mag": 0.0,
+      "d_b_mag": 0.482,
+      "R_pointer": 100.0,
+      "R_mag": 100.0,
+      "control_R_pointer": 100.0,
+      "control_R_mag": 0.6782178217821783,
+      "control_dissociation": false,
+      "effect_present": true,
+      "seed_verdict": "HARD_PASS",
+      "elapsed_s": 36.49241429998074,
+      "config_version": "ANCHOR=exp_dual_number_double_dissociation_v1,N=8192,run_mode=full",
+      "_ckpt_key": "17",
+      "_partial_written_at": 1783612097.9912748
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "run_mode": "full",
+      "m_train": 800,
+      "m_test": 500,
+      "task_a": {
+        "acc_clean": 1.0,
+        "acc_pabl": 0.524,
+        "acc_mabl": 1.0,
+        "hash_clean": "4ce69544f40a923c",
+        "hash_pabl": "5105d468067aa0d0",
+        "hash_mabl": "6c09b14fb56b30bd"
+      },
+      "task_b": {
+        "acc_clean": 0.992,
+        "acc_pabl": 0.992,
+        "acc_mabl": 0.482,
+        "hash_clean": "d0e42ce85cd24e2d",
+        "hash_pabl": "99e96bd989c3872e",
+        "hash_mabl": "28119f60ea1afef9"
+      },
+      "d_a_pointer": 0.476,
+      "d_b_pointer": 0.0,
+      "d_a_mag": 0.0,
+      "d_b_mag": 0.51,
+      "R_pointer": 100.0,
+      "R_mag": 100.0,
+      "control_R_pointer": 0.0,
+      "control_R_mag": 100.0,
+      "control_dissociation": false,
+      "effect_present": true,
+      "seed_verdict": "HARD_PASS",
+      "elapsed_s": 35.792231799976435,
+      "config_version": "ANCHOR=exp_dual_number_double_dissociation_v1,N=8192,run_mode=full",
+      "_ckpt_key": "23",
+      "_partial_written_at": 1783612133.7886908
+    }
+  ],
+  "config": {
+    "N_DIM": 8192,
+    "S_SLOTS": 4,
+    "V_TOK": 64,
+    "F_OCC": 0.15,
+    "F_B": 0.1,
+    "HP_RATIO": 2.0,
+    "HFAIL_RATIO": 1.3,
+    "MIN_EFFECT": 0.08
+  },
+  "run_mode": "full",
+  "elapsed_s": 110.2435981000308,
+  "ts_iso": "2026-07-09T15:48:53.814241+00:00",
+  "structured_gate_claims": [
+    {
+      "gate_name": "R_pointer_ge_2",
+      "measured": 100.0,
+      "threshold": 2.0,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "R_mag_ge_2",
+      "measured": 100.0,
+      "threshold": 2.0,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "d_a_pointer_ge_min_effect",
+      "measured": 0.48333333333333334,
+      "threshold": 0.08,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "d_b_mag_ge_min_effect",
+      "measured": 0.502,
+      "threshold": 0.08,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "clean_acc_a_in_band",
+      "measured": 1.0,
+      "threshold": 0.6,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "clean_acc_b_in_band",
+      "measured": 0.9926666666666666,
+      "threshold": 0.6,
+      "op": ">=",
+      "gate_verdict": true
+    }
+  ]
+}

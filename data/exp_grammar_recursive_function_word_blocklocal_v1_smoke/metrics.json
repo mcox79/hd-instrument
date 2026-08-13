@@ -1,0 +1,763 @@
+{
+  "anchor_name": "grammar_recursive_function_word_blocklocal_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_MACHINERY_OK: recursion depth 1->3 x vocab 64->256 run end-to-end AT N=8192; the structured-vs-control ATTACHMENT discriminator FIRES at the easy corner (gap=0.500); both controls stay near chance at every embedding config; structural_audit proves flat_bag is structure-blind. Envelope preview: 4/6 cells hold, max_recursion_depth@V>=256=3. The pre-registered grammar band is FULL-only (canonical = remote multi-seed). ENVELOPE: max_recursion_depth@V>=256=3, cells_hold=4/6; ANCHOR L2V256(bs=512): structured tree_exact=1.000 attach=1.000 term=1.000 func=1.000 embed=1.000 | flat_bag tree_exact=0.000 attach=0.450 | scrambled tree_exact=0.000 attach=0.450; EASY L2V64(bs=512): structured tree_exact=1.000 attach=1.000 term=1.000 func=1.000 embed=1.000 | flat_bag tree_exact=0.000 attach=0.500 | scrambled tree_exact=0.000 attach=0.500",
+  "summary": "HARD_PASS: recursive constituency + function-word operators via block-local SBC (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 0.22,
+  "n_seeds": 1,
+  "n_units": 6,
+  "expected_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "envelope": {
+    "holds_surface": {
+      "L1_V64": false,
+      "L1_V256": false,
+      "L2_V64": true,
+      "L2_V256": true,
+      "L3_V64": true,
+      "L3_V256": true
+    },
+    "max_recursion_depth_at_Vge256": 3,
+    "n_cells_hold": 4,
+    "n_cells_total": 6,
+    "anchor_holds": true
+  },
+  "config": {
+    "N": 8192,
+    "S_SLOTS": 8,
+    "F_SPARSE": 0.02,
+    "V_FUNC": 8,
+    "levels_grid": [
+      1,
+      2,
+      3
+    ],
+    "V_grid": [
+      64,
+      256
+    ],
+    "boundary": [],
+    "trials": 40,
+    "seeds": [
+      7
+    ],
+    "content_slots": [
+      2,
+      4,
+      7
+    ],
+    "func_slots": [
+      0,
+      1,
+      3,
+      5,
+      6
+    ],
+    "func_types": [
+      "COMP",
+      "DET",
+      "AUX",
+      "PREP",
+      "CONJ"
+    ],
+    "host_slots": [
+      2,
+      7
+    ],
+    "recursion_axis": "LEVELS_banded_blocks_bs=N/(LEVELS*S_SLOTS)",
+    "vocab_axis": "V_content_per_clause",
+    "algebra": "block_local_sparse_superposition_disjoint_bands",
+    "position_binding": "disjoint_band_index_per_level_and_slot",
+    "attachment_binding": "EMBED_HOOK_superposed_in_host_block",
+    "function_word_treatment": "closed_class_type_partitioned_selectional_restriction_COMP_gates_recursion",
+    "storage_strategy": "sharded_block_disjoint_per_slot"
+  },
+  "arms": {
+    "structured": {
+      "tree_exact_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0
+      },
+      "attachment_acc_by_cell": {
+        "L1_V64": NaN,
+        "L1_V256": NaN,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0
+      },
+      "terminal_perslot_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0
+      },
+      "function_perslot_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0
+      },
+      "embed_detection_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0
+      },
+      "anchor_tree_exact": 1.0,
+      "anchor_attachment_acc": 1.0,
+      "anchor_tree_exact_cv": 0.0
+    },
+    "flat_bag": {
+      "tree_exact_by_cell": {
+        "L1_V64": 0.0,
+        "L1_V256": 0.0,
+        "L2_V64": 0.0,
+        "L2_V256": 0.0,
+        "L3_V64": 0.0,
+        "L3_V256": 0.0
+      },
+      "attachment_acc_by_cell": {
+        "L1_V64": NaN,
+        "L1_V256": NaN,
+        "L2_V64": 0.5,
+        "L2_V256": 0.45,
+        "L3_V64": 0.425,
+        "L3_V256": 0.525
+      },
+      "terminal_perslot_by_cell": {
+        "L1_V64": 0.5857,
+        "L1_V256": 0.5857,
+        "L2_V64": 0.4727,
+        "L2_V256": 0.4523,
+        "L3_V64": 0.375,
+        "L3_V256": 0.3717
+      },
+      "function_perslot_by_cell": {
+        "L1_V64": 0.7688,
+        "L1_V256": 0.775,
+        "L2_V64": 0.6192,
+        "L2_V256": 0.6038,
+        "L3_V64": 0.4972,
+        "L3_V256": 0.5083
+      },
+      "embed_detection_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L2_V64": 0.5,
+        "L2_V256": 0.5,
+        "L3_V64": 0.5,
+        "L3_V256": 0.5
+      },
+      "anchor_tree_exact": 0.0,
+      "anchor_attachment_acc": 0.45,
+      "attachment_chance": 0.5
+    },
+    "scrambled_roles": {
+      "tree_exact_by_cell": {
+        "L1_V64": 0.0,
+        "L1_V256": 0.0,
+        "L2_V64": 0.0,
+        "L2_V256": 0.0,
+        "L3_V64": 0.0,
+        "L3_V256": 0.0
+      },
+      "attachment_acc_by_cell": {
+        "L1_V64": NaN,
+        "L1_V256": NaN,
+        "L2_V64": 0.5,
+        "L2_V256": 0.45,
+        "L3_V64": 0.4,
+        "L3_V256": 0.4
+      },
+      "terminal_perslot_by_cell": {
+        "L1_V64": 0.0786,
+        "L1_V256": 0.0679,
+        "L2_V64": 0.0909,
+        "L2_V256": 0.0886,
+        "L3_V64": 0.07,
+        "L3_V256": 0.0717
+      },
+      "function_perslot_by_cell": {
+        "L1_V64": 0.1187,
+        "L1_V256": 0.1187,
+        "L2_V64": 0.1346,
+        "L2_V256": 0.1423,
+        "L3_V64": 0.1139,
+        "L3_V256": 0.1194
+      },
+      "embed_detection_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L2_V64": 0.5,
+        "L2_V256": 0.5,
+        "L3_V64": 0.5,
+        "L3_V256": 0.5
+      },
+      "anchor_tree_exact": 0.0,
+      "anchor_attachment_acc": 0.45,
+      "attachment_chance": 0.5
+    }
+  },
+  "grid": {
+    "L1_V64": {
+      "levels": 1,
+      "V": 64,
+      "n_seeds": 1,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.5857,
+        "function_perslot_mean": 0.7688,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0786,
+        "function_perslot_mean": 0.1187,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      }
+    },
+    "L1_V256": {
+      "levels": 1,
+      "V": 256,
+      "n_seeds": 1,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.5857,
+        "function_perslot_mean": 0.775,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0679,
+        "function_perslot_mean": 0.1187,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      }
+    },
+    "L2_V64": {
+      "levels": 2,
+      "V": 64,
+      "n_seeds": 1,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.4727,
+        "function_perslot_mean": 0.6192,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.5,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0909,
+        "function_perslot_mean": 0.1346,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.5,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      }
+    },
+    "L2_V256": {
+      "levels": 2,
+      "V": 256,
+      "n_seeds": 1,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.4523,
+        "function_perslot_mean": 0.6038,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.45,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0886,
+        "function_perslot_mean": 0.1423,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.45,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      }
+    },
+    "L3_V64": {
+      "levels": 3,
+      "V": 64,
+      "n_seeds": 1,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.375,
+        "function_perslot_mean": 0.4972,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.425,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.07,
+        "function_perslot_mean": 0.1139,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      }
+    },
+    "L3_V256": {
+      "levels": 3,
+      "V": 256,
+      "n_seeds": 1,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.3717,
+        "function_perslot_mean": 0.5083,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.525,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0717,
+        "function_perslot_mean": 0.1194,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0
+        ],
+        "tree_exact_cv": 0.0
+      }
+    }
+  },
+  "per_unit": [
+    {
+      "levels": 1,
+      "V": 64,
+      "seed": 7,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 40,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "b4255b221cfe8fa6714cf5440368a690e5143f027ec3c479bb1da78b35d5652b",
+      "structured_rec_digest": "dbfcb358b43a5f65d6a158c2f1ee92a19e2b2892cc6fe5741ac8d87f643efd6d",
+      "flat_bag": {
+        "terminal_perslot": 0.5857142857142857,
+        "function_perslot": 0.76875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "32c5072b48458de6c801cbcd2bfddcf561037a31bfd75748edd9dd9b38d8d46f",
+      "flat_bag_rec_digest": "4b10a369ca1230e50ab8cf0a215fd487cf5a2b55ae02fb99ef413b0824eb3e37",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07857142857142857,
+        "function_perslot": 0.11875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "d071d7808510eab7e1e5a7472f7475e74ac38fb33cebd984f888249d980235d5",
+      "scrambled_roles_rec_digest": "8c6e1be5cc33342d2dfe87c0f20357b195829e1003f7c1182161df0e8687424e"
+    },
+    {
+      "levels": 1,
+      "V": 256,
+      "seed": 7,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 40,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "089a03f69362fdcaf97aab80fa1714d7f71a9a0d8c0dafa9a0851478dd72ac2e",
+      "structured_rec_digest": "c192e7251ddb4441d968c8201eefbc09e0ac032875c61ea439e311eebefcf4c0",
+      "flat_bag": {
+        "terminal_perslot": 0.5857142857142857,
+        "function_perslot": 0.775,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "5d7a8c59e2bab751c85cf1bef56abfc5cc8bd8acd5008b4b67ecb7b7008f6abf",
+      "flat_bag_rec_digest": "a0655234dc25f4a490b00154557be5f749668e3dca5991369f823a3c464bf4ca",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06785714285714285,
+        "function_perslot": 0.11875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "bddc86a9781fff28ef43ff2eb697f04e0a79290207ecd55ab9b661c5d431ffa9",
+      "scrambled_roles_rec_digest": "4f78bcb5949b81d634e4cd7527dd259bef2b2ef2abea2572a726dbe29a90d687"
+    },
+    {
+      "levels": 2,
+      "V": 64,
+      "seed": 7,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 40,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 20
+      },
+      "structured_comp_digest": "534481bacf99eb975664d20dbee6c958aec18a5c9557dbdf13c5a471dc121094",
+      "structured_rec_digest": "815697c23ce52741f1c7fc2b1fb01b65539a4cd29c6c729d66ab7df286e649fc",
+      "flat_bag": {
+        "terminal_perslot": 0.4727272727272727,
+        "function_perslot": 0.6192307692307693,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 20
+      },
+      "flat_bag_comp_digest": "16a684eabddebfb18001bfda0a6eb780b03becf38925f10543a8cde6ed67fa5b",
+      "flat_bag_rec_digest": "9c3cbd87b076e2537ecb20ef0607ce3f41706722dae2263d6a6bdc020a8add34",
+      "scrambled_roles": {
+        "terminal_perslot": 0.09090909090909091,
+        "function_perslot": 0.1346153846153846,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 20
+      },
+      "scrambled_roles_comp_digest": "438e8601edeb5c673b7bcd88eaa4cf785d7a24a04a65ec93c82cd758549e5f22",
+      "scrambled_roles_rec_digest": "593296c37f41726bc36d1d84ff5b1ef84bf2d25117cf818a2abf4f9854d342b4"
+    },
+    {
+      "levels": 2,
+      "V": 256,
+      "seed": 7,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 40,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 20
+      },
+      "structured_comp_digest": "c10c03b2770d61b68380e087c7572f508dae900fba8d8011721631ee29558d3a",
+      "structured_rec_digest": "6099fd9be7ae36470cb4440352151b38743b38089bf2b1b62893241f2de0f551",
+      "flat_bag": {
+        "terminal_perslot": 0.45227272727272727,
+        "function_perslot": 0.6038461538461538,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.45,
+        "tree_exact": 0.0,
+        "n_attach_total": 20
+      },
+      "flat_bag_comp_digest": "ba202ea81aca41c3343becca48070dbc16f6e589d7bc1acdcb1d647848e8caa9",
+      "flat_bag_rec_digest": "5b6f522952e4d40248aafdb29ea1ea413436c4b37e3d1e02b7a60081085b506b",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08863636363636364,
+        "function_perslot": 0.1423076923076923,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.45,
+        "tree_exact": 0.0,
+        "n_attach_total": 20
+      },
+      "scrambled_roles_comp_digest": "4e2d4934e6869e05a59dd9d969485c59c3ebbaa15162664bd9b34f38ffe3bddd",
+      "scrambled_roles_rec_digest": "c43bbf1e66a87d4985b0b56eb44c2b4cbcc1eb193824681606bc1383b9a90299"
+    },
+    {
+      "levels": 3,
+      "V": 64,
+      "seed": 7,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 40,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "3b680f4aaeb42b84689fdae5735c313c9d4d98f7c6b1e1a39f8b2527899073cf",
+      "structured_rec_digest": "34c4e667d67ea14c35ef7ebebc5c6b0ac61630a043ee347ddacb6600992f656c",
+      "flat_bag": {
+        "terminal_perslot": 0.375,
+        "function_perslot": 0.49722222222222223,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.425,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "a9add85ee5c0806f5061d8948c0ad3b9521a21e987a2c14dde12da1ad7685b5f",
+      "flat_bag_rec_digest": "42c39fb58fb0a6990e2a1b92e9bd55b015b3bcb14b5b6e2a08c81e1c37ccc755",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07,
+        "function_perslot": 0.11388888888888889,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "59efb4a83b6874a7675305b67dfbff9f036788a6b624fdb5a2f1f1641c85852b",
+      "scrambled_roles_rec_digest": "d1793075bdc1810658a8f8d3154a37f37724dd436b12ee86bbb49959e7347066"
+    },
+    {
+      "levels": 3,
+      "V": 256,
+      "seed": 7,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 40,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "d3f783a0d44e4ade957fd8f98fc3dde74b9424fbabe416e5a78400c1b98c4934",
+      "structured_rec_digest": "0b3e068f47441e92b48a68a8969bcea7408b19626f93704f552345e19afff162",
+      "flat_bag": {
+        "terminal_perslot": 0.37166666666666665,
+        "function_perslot": 0.5083333333333333,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "2928fddd25ea1a0c4b0cc8da01cccd009c89443d70dfe860f2394908644de857",
+      "flat_bag_rec_digest": "94de6e9f03a59ebd185b3aca0ef762728187acec2e937be0e47bb88116fdc4b8",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07166666666666667,
+        "function_perslot": 0.11944444444444445,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "aae8fee59ea8a1dcc3f71a06641872672f97f5dfdbabae99f95f596b09411260",
+      "scrambled_roles_rec_digest": "6867b02db1a77f5bbff01d067c496bc5535041888ce364686c72fbfd643ce563"
+    }
+  ],
+  "structural_audit": {
+    "flat_bag_invariant_under_attach_swap": true,
+    "structured_differs_under_attach_swap": true,
+    "partition_exact_disjoint": true,
+    "bag_blind_to_structure": true,
+    "attachment_chance": 0.5
+  },
+  "bands": {
+    "FLOOR_TREE": 0.8,
+    "FLOOR_ATTACH": 0.9,
+    "FLOOR_TERM": 0.9,
+    "GAP_MIN": 0.35,
+    "TREE_GAP_MIN": 0.6,
+    "CTRL_LO": 0.35,
+    "CTRL_HI": 0.65,
+    "CV_MAX": 0.15,
+    "HF_TREE": 0.3,
+    "HF_GAP": 0.15,
+    "ANCHOR": [
+      2,
+      256
+    ],
+    "EASY": [
+      2,
+      64
+    ]
+  },
+  "hp_scope": {
+    "structured": [
+      "FLOOR_TREE",
+      "FLOOR_ATTACH",
+      "FLOOR_TERM",
+      "GAP_MIN",
+      "TREE_GAP_MIN",
+      "CV_MAX",
+      "envelope_reaches_ANCHOR"
+    ],
+    "flat_bag": [
+      "attachment_near_chance_BIAS_gate_only"
+    ],
+    "scrambled_roles": [
+      "attachment_near_chance_BIAS_gate_only"
+    ]
+  },
+  "cited_baselines": {
+    "blocklocal_decoder": "data/exp_generation_decoder_gsbc_native_blocklocal_v1 (blocklocal exact_ordered=1.000 to D<=26 at V<=1024; block-local Stage A/B/C)",
+    "comprehension_role_typing": "data/exp_comprehension_envelope_superposition_vocab_v1 (role-typed partition-restricted decode; superposition load L)"
+  },
+  "kb_referent_declared": false,
+  "framing": "NARROW structured glass-box grammar-structure primitive; NOT a language model, NOT fluent English, NOT raw-text prediction; synthetic clean sparse-bipolar codes; Stage-3 not Stage-4",
+  "ts_iso": "2026-07-06T00:37:11.133178+00:00",
+  "pid": 23712,
+  "host": "FrameworkMPC"
+}

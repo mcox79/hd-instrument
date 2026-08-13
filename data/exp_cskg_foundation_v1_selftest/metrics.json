@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "ModuleNotFoundError: No module named 'hdlab'",
+  "summary": "CELL_CRASHED: ModuleNotFoundError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_cskg_foundation_v1.py\", line 751, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_cskg_foundation_v1.py\", line 742, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_cskg_foundation_v1.py\", line 705, in self_test\n    from hdlab.hd_fact_store import HDFactStore\nModuleNotFoundError: No module named 'hdlab'\n",
+  "ts_iso": "2026-07-26T13:55:32.219339+00:00",
+  "pid": 18632,
+  "anchor_name": "cskg_foundation_v1"
+}

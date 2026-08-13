@@ -1,0 +1,1340 @@
+{
+  "anchor_name": "math_rns_multiply_star_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "MULTIPLY TRANSLATES: the STAR operator (decode-then-exponentiate) makes MODULAR MULTIPLICATION exact via elementwise integer-power of the existing phase-linear encoding. Single-step exact-multiply min=1.000 (>= 0.99, cv<0.1) across 3 all-prime regimes M in [385,65231]; all 4 controls collapse (bind=0.003 rand_exp=0.020 rand_cb=0.007 scram=0.037) -- isolating exponentiation, decode, phase-linearity, and CRT each as load-bearing; 10-step multiply-chains hold (d3_min=1.000, d10_min=0.007); exact equality-check crisp (accept=1.000, reject=1.000). PRIME-NECESSITY FINDING: composite moduli (8,9,25) ALSO exact (min=1.000) -> PRIME_NOT_REQUIRED: decode-then-exponentiate is modulus-agnostic; prime-cyclicity is load-bearing only for the REJECTED discrete-log route, NOT this one (inverts the drill's prediction 3). near-miss runner-up<=0.5*rank1 on 1.000 of decodes. star_multiply[min=1.000 mean=1.000 cv_max=0.000] ctrls[bind=0.003 rand_exp=0.020 rand_cb=0.007 scram=0.037] chain[d3_min=1.000 d10_min=0.007] eq[accept_min=1.000 reject_min=1.000] composite[min=1.000 finding=PRIME_NOT_REQUIRED] nearmiss_frac_min=1.000",
+  "summary": "HARD_PASS: RNS star-operator modular multiplication (full)",
+  "run_mode": "full",
+  "elapsed_s": 15.14,
+  "n_seeds": 3,
+  "n_units": 120,
+  "expected_n_units": 120,
+  "cardinality_ok": true,
+  "prime_necessity_finding": "PRIME_NOT_REQUIRED",
+  "composite_mult_min": 1.0,
+  "config": {
+    "N": 8192,
+    "R_MODULI": 3,
+    "SB": 2730,
+    "regimes": {
+      "prime_small": [
+        5,
+        7,
+        11
+      ],
+      "prime_mid": [
+        13,
+        17,
+        19
+      ],
+      "prime_large": [
+        37,
+        41,
+        43
+      ],
+      "composite": [
+        8,
+        9,
+        25
+      ]
+    },
+    "prime_regimes": [
+      "prime_small",
+      "prime_mid",
+      "prime_large"
+    ],
+    "composite_regimes": [
+      "composite"
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "trials": 300,
+    "depths": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "mechanism": "star_operator_decode_then_exponentiate",
+    "multiply": "per_subblock_elementwise_integer_power",
+    "decode": "per_subblock_phasor_argmax_then_CRT",
+    "storage_strategy": "no_storage_algebraic_star"
+  },
+  "arms": {
+    "prime_small": {
+      "M": 385,
+      "moduli": [
+        5,
+        7,
+        11
+      ],
+      "all_prime": true,
+      "star_multiply": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "bind_not_power": {
+        "exact_mean": 0.0011,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0033
+        ]
+      },
+      "random_exponent": {
+        "exact_mean": 0.0156,
+        "per_seed": [
+          0.0167,
+          0.02,
+          0.01
+        ]
+      },
+      "random_codebook": {
+        "exact_mean": 0.0067,
+        "per_seed": [
+          0.0067,
+          0.0067,
+          0.0067
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0245,
+        "per_seed": [
+          0.0267,
+          0.0367,
+          0.01
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 0.9933,
+          "exact_per_seed": [
+            0.9933,
+            0.9933,
+            0.9933
+          ],
+          "per_step_ok_mean": 0.9993
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.3606,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.6394
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    },
+    "prime_mid": {
+      "M": 4199,
+      "moduli": [
+        13,
+        17,
+        19
+      ],
+      "all_prime": true,
+      "star_multiply": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "bind_not_power": {
+        "exact_mean": 0.0011,
+        "per_seed": [
+          0.0033,
+          0.0,
+          0.0
+        ]
+      },
+      "random_exponent": {
+        "exact_mean": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "random_codebook": {
+        "exact_mean": 0.0044,
+        "per_seed": [
+          0.0033,
+          0.0033,
+          0.0067
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0011,
+        "per_seed": [
+          0.0033,
+          0.0,
+          0.0
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 0.4978,
+          "exact_per_seed": [
+            0.4733,
+            0.5267,
+            0.4933
+          ],
+          "per_step_ok_mean": 0.9347
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.3494,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.6506
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    },
+    "prime_large": {
+      "M": 65231,
+      "moduli": [
+        37,
+        41,
+        43
+      ],
+      "all_prime": true,
+      "star_multiply": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "bind_not_power": {
+        "exact_mean": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "random_exponent": {
+        "exact_mean": 0.0011,
+        "per_seed": [
+          0.0033,
+          0.0,
+          0.0
+        ]
+      },
+      "random_codebook": {
+        "exact_mean": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0011,
+        "per_seed": [
+          0.0033,
+          0.0,
+          0.0
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 0.0067,
+          "exact_per_seed": [
+            0.0067,
+            0.0067,
+            0.0067
+          ],
+          "per_step_ok_mean": 0.662
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.6666,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.3334
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    },
+    "composite": {
+      "M": 1800,
+      "moduli": [
+        8,
+        9,
+        25
+      ],
+      "all_prime": false,
+      "star_multiply": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "bind_not_power": {
+        "exact_mean": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "random_exponent": {
+        "exact_mean": 0.01,
+        "per_seed": [
+          0.01,
+          0.0167,
+          0.0033
+        ]
+      },
+      "random_codebook": {
+        "exact_mean": 0.0022,
+        "per_seed": [
+          0.0033,
+          0.0033,
+          0.0
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0122,
+        "per_seed": [
+          0.01,
+          0.0067,
+          0.02
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 0.5556,
+          "exact_per_seed": [
+            0.5333,
+            0.5467,
+            0.5867
+          ],
+          "per_step_ok_mean": 0.902
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.3454,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.6546
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    }
+  },
+  "demos": [
+    {
+      "a": 3,
+      "b": 4,
+      "decoded_product": 12,
+      "expected_mod_M": 12,
+      "M": 385,
+      "correct": true,
+      "wrapped": false
+    },
+    {
+      "a": 7,
+      "b": 11,
+      "decoded_product": 77,
+      "expected_mod_M": 77,
+      "M": 385,
+      "correct": true,
+      "wrapped": false
+    },
+    {
+      "a": 20,
+      "b": 20,
+      "decoded_product": 15,
+      "expected_mod_M": 15,
+      "M": 385,
+      "correct": true,
+      "wrapped": true
+    },
+    {
+      "a": 50,
+      "b": 50,
+      "decoded_product": 190,
+      "expected_mod_M": 190,
+      "M": 385,
+      "correct": true,
+      "wrapped": true
+    },
+    {
+      "a": 100,
+      "b": 100,
+      "decoded_product": 375,
+      "expected_mod_M": 375,
+      "M": 385,
+      "correct": true,
+      "wrapped": true
+    }
+  ],
+  "per_unit": [
+    {
+      "regime": "prime_small",
+      "arm": "star_multiply",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "bind_not_power",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "random_exponent",
+      "seed": 7,
+      "value": 0.0167
+    },
+    {
+      "regime": "prime_small",
+      "arm": "random_codebook",
+      "seed": 7,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_small",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.0267
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 0.9933
+    },
+    {
+      "regime": "prime_small",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "star_multiply",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "bind_not_power",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "random_exponent",
+      "seed": 13,
+      "value": 0.02
+    },
+    {
+      "regime": "prime_small",
+      "arm": "random_codebook",
+      "seed": 13,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_small",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0367
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 0.9933
+    },
+    {
+      "regime": "prime_small",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "star_multiply",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "bind_not_power",
+      "seed": 19,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_small",
+      "arm": "random_exponent",
+      "seed": 19,
+      "value": 0.01
+    },
+    {
+      "regime": "prime_small",
+      "arm": "random_codebook",
+      "seed": 19,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_small",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.01
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_small",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 0.9933
+    },
+    {
+      "regime": "prime_small",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "star_multiply",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "bind_not_power",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "random_exponent",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "random_codebook",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 0.4733
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "star_multiply",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "bind_not_power",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "random_exponent",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "random_codebook",
+      "seed": 13,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 0.5267
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "star_multiply",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "bind_not_power",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "random_exponent",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "random_codebook",
+      "seed": 19,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 0.4933
+    },
+    {
+      "regime": "prime_mid",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "star_multiply",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "bind_not_power",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "random_exponent",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_large",
+      "arm": "random_codebook",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_large",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "star_multiply",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "bind_not_power",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "random_exponent",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "random_codebook",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_large",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "star_multiply",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "bind_not_power",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "random_exponent",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "random_codebook",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "prime_large",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 0.0067
+    },
+    {
+      "regime": "prime_large",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "star_multiply",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "bind_not_power",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "composite",
+      "arm": "random_exponent",
+      "seed": 7,
+      "value": 0.01
+    },
+    {
+      "regime": "composite",
+      "arm": "random_codebook",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "composite",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.01
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 0.5333
+    },
+    {
+      "regime": "composite",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "star_multiply",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "bind_not_power",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "composite",
+      "arm": "random_exponent",
+      "seed": 13,
+      "value": 0.0167
+    },
+    {
+      "regime": "composite",
+      "arm": "random_codebook",
+      "seed": 13,
+      "value": 0.0033
+    },
+    {
+      "regime": "composite",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0067
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 0.5467
+    },
+    {
+      "regime": "composite",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "star_multiply",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "bind_not_power",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "composite",
+      "arm": "random_exponent",
+      "seed": 19,
+      "value": 0.0033
+    },
+    {
+      "regime": "composite",
+      "arm": "random_codebook",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "composite",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.02
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "composite",
+      "arm": "mult_chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 0.5867
+    },
+    {
+      "regime": "composite",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    }
+  ],
+  "arms_differ_verified": true,
+  "controls": {
+    "scram_collapsed": true
+  },
+  "bands": {
+    "HP_mult_exact": 0.99,
+    "HP_cv": 0.1,
+    "HF_mult": 0.6,
+    "ctrl_max": 0.15,
+    "ctrl_leak": 0.4,
+    "HP_composite_exact": 0.9,
+    "HP_chain_d3": 0.75,
+    "HF_chain_d3": 0.2,
+    "HP_eq_accept": 0.99,
+    "HP_eq_reject": 0.99,
+    "nearmiss_frac": 0.9
+  },
+  "ts_iso": "2026-07-06T05:25:32.284892+00:00",
+  "pid": 9000,
+  "host": "Home"
+}

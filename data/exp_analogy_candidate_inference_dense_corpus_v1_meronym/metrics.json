@@ -1,0 +1,468 @@
+{
+  "verdict": "HARD_FAIL_ANALOGY_TIES_FLOOR_AND_FLAT",
+  "verdict_msg": "ANALOGY_v2 top1=0.00000 top10=0.00000 | FREQ_PRIOR=0.02500 (beats=False d=-0.0250) | FLAT=0.01667 (beats=False) | STORE_RECALL_FLOOR=0.00000 (leak_band=0.0200 collapsed=True) | ABLATION[NEITHER=0.00000 CAP_ONLY=0.00000 STRUCT_ONLY=0.00000] cap_effect=+0.0000 struct_effect=+0.0000 interaction=+0.0000 driver=NEITHER_MOVED | controls[SCRAM=0.00000 SHUF=0.00000 RAND=0.00000] collapse_band=0.0550 collapse=True | cap_bound_frac=0.000 zero_role_frac=0.000 | clears_floor=False clears_flat=False outdeg_corr=0.000 structure_genuine=False base_rate=0.00038 n_heldout=120",
+  "summary": "ANALOGY_v2 top1=0.00000 top10=0.00000 | FREQ_PRIOR=0.02500 (beats=False d=-0.0250) | FLAT=0.01667 (beats=False) | STORE_RECALL_FLOOR=0.00000 (leak_band=0.0200 collapsed=True) | ABLATION[NEITHER=0.00000 CAP_ONLY=0.00000 STRUCT_ONLY=0.00000] cap_effect=+0.0000 struct_effect=+0.0000 interaction=+0.0000 driver=NEITHER_MOVED | controls[SCRAM=0.00000 SHUF=0.00000 RAND=0.00000] collapse_band=0.0550 collapse=True | cap_bound_frac=0.000 zero_role_frac=0.000 | clears_floor=False clears_flat=False outdeg_corr=0.000 structure_genuine=False base_rate=0.00038 n_heldout=120",
+  "elapsed_s": 126.13671700004488,
+  "run_mode": "full",
+  "anchor_name": "exp_analogy_candidate_inference_heldout_edge_v2",
+  "ts_iso": "2026-07-26T06:17:35.827745+00:00",
+  "config": {
+    "run_mode": "full",
+    "N": 1024,
+    "rel_types": [
+      "WORDNET_ALL"
+    ],
+    "max_rows_per_rel": 100000,
+    "heldout_rels": [
+      "PART_MERONYM"
+    ],
+    "n_heldout_per_rel": 100,
+    "flat_steps": 500,
+    "topk": 10,
+    "topk_align": 50,
+    "use_idf": true,
+    "role_weight": 0.5,
+    "cap_rels": 4,
+    "struct_role_weight": 0.25,
+    "gamma": 1.0,
+    "min_nonr_deg": 5,
+    "max_dense_heads": 700,
+    "max_concepts": 2500,
+    "per_feat_cap": 20
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "n_triples": 3248,
+  "n_rel_types_loaded": 6,
+  "base_rate_floor": 0.0003837298541826554,
+  "arm_summary": {
+    "STORE_RECALL_FLOOR": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "FLAT": {
+      "top1": 0.016666666666666666,
+      "top10": 0.025000000000000005
+    },
+    "ABLATE_NEITHER_V1": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "ABLATE_CAPACITY_ONLY": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "ABLATE_STRUCTURE_ONLY": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "ANALOGY_v2": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "SCRAMBLED_ANALOGY_SOURCE": {
+      "top1": 0.0,
+      "top10": 0.008333333333333333
+    },
+    "SHUFFLED_PROFILE": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "RANDOM_ALIGNMENT": {
+      "top1": 0.0,
+      "top10": 0.0
+    },
+    "FREQUENCY_PRIOR": {
+      "top1": 0.025000000000000005,
+      "top10": 0.05000000000000001
+    }
+  },
+  "per_relation_summary": {
+    "PART_MERONYM": {
+      "ABLATE_NEITHER_V1": {
+        "top1": 0.0,
+        "top10": 0.0
+      },
+      "ABLATE_CAPACITY_ONLY": {
+        "top1": 0.0,
+        "top10": 0.0
+      },
+      "ABLATE_STRUCTURE_ONLY": {
+        "top1": 0.0,
+        "top10": 0.0
+      },
+      "ANALOGY_v2": {
+        "top1": 0.0,
+        "top10": 0.0
+      },
+      "SCRAMBLED_ANALOGY_SOURCE": {
+        "top1": 0.0,
+        "top10": 0.008333333333333333
+      },
+      "SHUFFLED_PROFILE": {
+        "top1": 0.0,
+        "top10": 0.0
+      },
+      "RANDOM_ALIGNMENT": {
+        "top1": 0.0,
+        "top10": 0.0
+      },
+      "FREQUENCY_PRIOR": {
+        "top1": 0.025000000000000005,
+        "top10": 0.05000000000000001
+      }
+    }
+  },
+  "primary_metric": "analogy_v2_top1 (held-out edge NEVER stored; capacity-limited structured alignment)",
+  "store_recall_floor_top1": 0.0,
+  "store_recall_collapsed": true,
+  "floor_leak_band": 0.02,
+  "flat_top1": 0.016666666666666666,
+  "analogy_v2_top1": 0.0,
+  "frequency_prior_top1": 0.025000000000000005,
+  "analogy_minus_floor": 0.0,
+  "analogy_minus_flat": -0.016666666666666666,
+  "analogy_minus_freq_prior": -0.025000000000000005,
+  "beats_frequency_prior": false,
+  "beats_flat": false,
+  "ablation": {
+    "NEITHER_V1": 0.0,
+    "CAPACITY_ONLY": 0.0,
+    "STRUCTURE_ONLY": 0.0,
+    "BOTH_ANALOGY_v2": 0.0
+  },
+  "capacity_effect": 0.0,
+  "structure_effect": 0.0,
+  "ablation_interaction": 0.0,
+  "driver": "NEITHER_MOVED",
+  "neither_reproduces_v1": null,
+  "controls": {
+    "SCRAMBLED_ANALOGY_SOURCE": {
+      "top1": 0.0,
+      "collapsed": true
+    },
+    "SHUFFLED_PROFILE": {
+      "top1": 0.0,
+      "collapsed": true
+    },
+    "RANDOM_ALIGNMENT": {
+      "top1": 0.0,
+      "collapsed": true
+    }
+  },
+  "collapse_band": 0.05500000000000001,
+  "controls_collapse": true,
+  "clears_floor_hp": false,
+  "clears_flat_hp": false,
+  "outdeg_corr_mean": 0.0,
+  "positive_outdegree": false,
+  "structure_genuine": false,
+  "cardinality_ok": true,
+  "expected_units": 30,
+  "actual_units": 30,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "ABLATE_NEITHER_V1": "0c95928220e0e7676c8b1141127f5eda54eb260d6f9d88b121012fc35e37ca22",
+    "ABLATE_CAPACITY_ONLY": "3abe9b096b97eb1868eabf62d6c53dd8c41f269bf385a99b16a596b6f0794505",
+    "ABLATE_STRUCTURE_ONLY": "efc8dc631b1f5f342b97c877b89c82e139f689f683253c7e98aa804cb3786955",
+    "ANALOGY_v2": "efc8dc631b1f5f342b97c877b89c82e139f689f683253c7e98aa804cb3786955",
+    "SCRAMBLED_ANALOGY_SOURCE": "79305134690e04a39abebb2dea167e0d255dd899f81f9c8e8c53d5950ec13a58",
+    "SHUFFLED_PROFILE": "6fd83b81f801c430e7d92e0a8442f022cdc464705473049940004b528fff2747",
+    "RANDOM_ALIGNMENT": "ae7081c6fd090753663a3d4182d3a9afe654f78a1cd82d74f961f91c1b713d97",
+    "FREQUENCY_PRIOR": "553d90a401d89bf46a7570395f2962c1106cc2d13b1d5c04ff8bf8e37e58ba8d",
+    "STORE_RECALL_FLOOR": "ea608afda74fce101a771c887ec191fe97e48d95ab11940a9fe87311297f3f15",
+    "FLAT": "b231ccbdb25eeb7615f5d78220b633d792e6786031ac5e7e761f46abb0421422"
+  },
+  "arm_collisions": [
+    [
+      "ABLATE_STRUCTURE_ONLY",
+      "ANALOGY_v2"
+    ]
+  ],
+  "analogy_bug_collisions": [],
+  "ablation_sibling_collisions": [
+    [
+      "ABLATE_STRUCTURE_ONLY",
+      "ANALOGY_v2"
+    ]
+  ],
+  "cap_bound_frac": 0.0,
+  "zero_role_frac": 0.0,
+  "cap_rels": 4,
+  "per_seed": [
+    {
+      "seed": 7,
+      "R": 6,
+      "n_dict": 2606,
+      "base_rate": 0.0003837298541826554,
+      "n_heldout": 40,
+      "n_stored": 3122,
+      "arms": {
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_NEITHER_V1": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_CAPACITY_ONLY": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_STRUCTURE_ONLY": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ANALOGY_v2": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "SCRAMBLED_ANALOGY_SOURCE": {
+          "top1": 0.0,
+          "top10": 0.025,
+          "n": 40
+        },
+        "SHUFFLED_PROFILE": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "RANDOM_ALIGNMENT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "FREQUENCY_PRIOR": {
+          "top1": 0.025,
+          "top10": 0.05,
+          "n": 40
+        }
+      },
+      "outdeg_diag": {
+        "outdeg_corr": 0.0,
+        "outdeg_bins": {
+          "tercile_0": {
+            "deg_mean": 1.0,
+            "acc_top1": 0.0,
+            "n": 14
+          },
+          "tercile_1": {
+            "deg_mean": 1.3846153846153846,
+            "acc_top1": 0.0,
+            "n": 13
+          },
+          "tercile_2": {
+            "deg_mean": 2.230769230769231,
+            "acc_top1": 0.0,
+            "n": 13
+          }
+        },
+        "n_queries": 40,
+        "cap_bound_frac": 0.0,
+        "zero_role_frac": 0.0
+      }
+    },
+    {
+      "seed": 13,
+      "R": 6,
+      "n_dict": 2606,
+      "base_rate": 0.0003837298541826554,
+      "n_heldout": 40,
+      "n_stored": 3122,
+      "arms": {
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "FLAT": {
+          "top1": 0.025,
+          "top10": 0.025,
+          "n": 40
+        },
+        "ABLATE_NEITHER_V1": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_CAPACITY_ONLY": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_STRUCTURE_ONLY": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ANALOGY_v2": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "SCRAMBLED_ANALOGY_SOURCE": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "SHUFFLED_PROFILE": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "RANDOM_ALIGNMENT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "FREQUENCY_PRIOR": {
+          "top1": 0.025,
+          "top10": 0.05,
+          "n": 40
+        }
+      },
+      "outdeg_diag": {
+        "outdeg_corr": 0.0,
+        "outdeg_bins": {
+          "tercile_0": {
+            "deg_mean": 1.0,
+            "acc_top1": 0.0,
+            "n": 14
+          },
+          "tercile_1": {
+            "deg_mean": 1.3846153846153846,
+            "acc_top1": 0.0,
+            "n": 13
+          },
+          "tercile_2": {
+            "deg_mean": 2.230769230769231,
+            "acc_top1": 0.0,
+            "n": 13
+          }
+        },
+        "n_queries": 40,
+        "cap_bound_frac": 0.0,
+        "zero_role_frac": 0.0
+      }
+    },
+    {
+      "seed": 19,
+      "R": 6,
+      "n_dict": 2606,
+      "base_rate": 0.0003837298541826554,
+      "n_heldout": 40,
+      "n_stored": 3122,
+      "arms": {
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "FLAT": {
+          "top1": 0.025,
+          "top10": 0.05,
+          "n": 40
+        },
+        "ABLATE_NEITHER_V1": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_CAPACITY_ONLY": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ABLATE_STRUCTURE_ONLY": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "ANALOGY_v2": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "SCRAMBLED_ANALOGY_SOURCE": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "SHUFFLED_PROFILE": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "RANDOM_ALIGNMENT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "n": 40
+        },
+        "FREQUENCY_PRIOR": {
+          "top1": 0.025,
+          "top10": 0.05,
+          "n": 40
+        }
+      },
+      "outdeg_diag": {
+        "outdeg_corr": 0.0,
+        "outdeg_bins": {
+          "tercile_0": {
+            "deg_mean": 1.0,
+            "acc_top1": 0.0,
+            "n": 14
+          },
+          "tercile_1": {
+            "deg_mean": 1.3846153846153846,
+            "acc_top1": 0.0,
+            "n": 13
+          },
+          "tercile_2": {
+            "deg_mean": 2.230769230769231,
+            "acc_top1": 0.0,
+            "n": 13
+          }
+        },
+        "n_queries": 40,
+        "cap_bound_frac": 0.0,
+        "zero_role_frac": 0.0
+      }
+    }
+  ],
+  "corpus": "wordnet_dense_v1",
+  "density_report": {
+    "n_triples": 3248,
+    "n_concepts": 2606,
+    "per_heldout_relation": {
+      "PART_MERONYM": {
+        "n_dense_heads": 40,
+        "min_nonr_deg": 5,
+        "nonr_deg_median": 7.0,
+        "nonr_deg_mean": 12.1,
+        "nonr_deg_p90": 22.1,
+        "has_twin_frac": 0.0,
+        "usable_cohypo_twin_frac": 0.0,
+        "tail_fanout_median": 1.0,
+        "tail_fanout_mean": 2.67458432304038
+      }
+    }
+  },
+  "min_nonr_deg": 5,
+  "primary_heldout_relation": [
+    "PART_MERONYM"
+  ]
+}

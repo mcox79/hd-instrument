@@ -1,0 +1,865 @@
+{
+  "anchor_name": "math_rns_add_chain_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "MATH TRANSLATES: phase-linear residue encoding makes ADDITION exact via the existing bind operator. Single-step exact-add min=1.000 (>= 0.99, cv<0.1) across M in [504,70520]; random-codebook control fails (0.007); scrambled-CRT collapses (0.020); 10-step chains hold (d3_min=1.000, d10_min=1.000); exact equality-check crisp (accept=1.000, reject=1.000); near-miss runner-up<=0.5*rank1 on 1.000 of decodes (is-math-easier probe). phase_add[min=1.000 mean=1.000 cv_max=0.000] rand_add[max=0.007] scram[max=0.020] chain[d3_min=1.000 d10_min=1.000] eq[accept_min=1.000 reject_min=1.000] nearmiss_frac_min=1.000",
+  "summary": "HARD_PASS: RNS phase-linear addition chain + exact equality check (full)",
+  "run_mode": "full",
+  "elapsed_s": 8.23,
+  "n_seeds": 3,
+  "n_units": 72,
+  "expected_n_units": 72,
+  "cardinality_ok": true,
+  "config": {
+    "N": 8192,
+    "R_MODULI": 3,
+    "SB": 2730,
+    "regimes": {
+      "small": [
+        7,
+        8,
+        9
+      ],
+      "mid": [
+        16,
+        17,
+        19
+      ],
+      "large": [
+        40,
+        41,
+        43
+      ]
+    },
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "trials": 300,
+    "depths": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "mechanism": "phase_linear_phasor_FPE_residues",
+    "bind": "FHRR_elementwise_complex_product",
+    "decode": "per_subblock_phasor_argmax_then_CRT",
+    "storage_strategy": "no_storage_algebraic_bind"
+  },
+  "arms": {
+    "small": {
+      "M": 504,
+      "moduli": [
+        7,
+        8,
+        9
+      ],
+      "phase_linear_add": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "random_codebook_add": {
+        "exact_mean": 0.0033,
+        "per_seed": [
+          0.0,
+          0.0067,
+          0.0033
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0122,
+        "per_seed": [
+          0.02,
+          0.0067,
+          0.01
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.3724,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.6276
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    },
+    "mid": {
+      "M": 5168,
+      "moduli": [
+        16,
+        17,
+        19
+      ],
+      "phase_linear_add": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "random_codebook_add": {
+        "exact_mean": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0022,
+        "per_seed": [
+          0.0,
+          0.0033,
+          0.0033
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.3562,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.6438
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    },
+    "large": {
+      "M": 70520,
+      "moduli": [
+        40,
+        41,
+        43
+      ],
+      "phase_linear_add": {
+        "exact_mean": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "cv": 0.0
+      },
+      "random_codebook_add": {
+        "exact_mean": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "scrambled_modulus": {
+        "exact_mean": 0.0022,
+        "per_seed": [
+          0.0033,
+          0.0033,
+          0.0
+        ]
+      },
+      "chain": {
+        "d1": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d3": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d5": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        },
+        "d10": {
+          "exact_mean": 1.0,
+          "exact_per_seed": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_ok_mean": 1.0
+        }
+      },
+      "equality_check": {
+        "accept_mean": 1.0,
+        "accept_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "reject_mean": 1.0,
+        "reject_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "crisp_gap": 0.3401,
+        "sim_equal_min": 1.0,
+        "sim_unequal_max": 0.6599
+      },
+      "nearmiss_frac_below_half_mean": 1.0
+    }
+  },
+  "demos": [
+    {
+      "a": 7,
+      "b": 5,
+      "decoded_sum": 12,
+      "expected_mod_M": 12,
+      "M": 504,
+      "correct": true,
+      "wrapped": false
+    },
+    {
+      "a": 12,
+      "b": 30,
+      "decoded_sum": 42,
+      "expected_mod_M": 42,
+      "M": 504,
+      "correct": true,
+      "wrapped": false
+    },
+    {
+      "a": 250,
+      "b": 250,
+      "decoded_sum": 500,
+      "expected_mod_M": 500,
+      "M": 504,
+      "correct": true,
+      "wrapped": false
+    },
+    {
+      "a": 100,
+      "b": 404,
+      "decoded_sum": 0,
+      "expected_mod_M": 0,
+      "M": 504,
+      "correct": true,
+      "wrapped": true
+    },
+    {
+      "a": 503,
+      "b": 2,
+      "decoded_sum": 1,
+      "expected_mod_M": 1,
+      "M": 504,
+      "correct": true,
+      "wrapped": true
+    }
+  ],
+  "per_unit": [
+    {
+      "regime": "small",
+      "arm": "phase_linear_add",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "random_codebook_add",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "small",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.02
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "phase_linear_add",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "random_codebook_add",
+      "seed": 13,
+      "value": 0.0067
+    },
+    {
+      "regime": "small",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0067
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "phase_linear_add",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "random_codebook_add",
+      "seed": 19,
+      "value": 0.0033
+    },
+    {
+      "regime": "small",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.01
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "small",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "phase_linear_add",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "random_codebook_add",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "mid",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "phase_linear_add",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "random_codebook_add",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "mid",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0033
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "phase_linear_add",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "random_codebook_add",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "mid",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.0033
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "mid",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "phase_linear_add",
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "random_codebook_add",
+      "seed": 7,
+      "value": 0.0
+    },
+    {
+      "regime": "large",
+      "arm": "scrambled_modulus",
+      "seed": 7,
+      "value": 0.0033
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 7,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "equality",
+      "seed": 7,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "phase_linear_add",
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "random_codebook_add",
+      "seed": 13,
+      "value": 0.0
+    },
+    {
+      "regime": "large",
+      "arm": "scrambled_modulus",
+      "seed": 13,
+      "value": 0.0033
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 13,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "equality",
+      "seed": 13,
+      "value": 1.0,
+      "reject": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "phase_linear_add",
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "random_codebook_add",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "large",
+      "arm": "scrambled_modulus",
+      "seed": 19,
+      "value": 0.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 1,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 3,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 5,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "chain",
+      "depth": 10,
+      "seed": 19,
+      "value": 1.0
+    },
+    {
+      "regime": "large",
+      "arm": "equality",
+      "seed": 19,
+      "value": 1.0,
+      "reject": 1.0
+    }
+  ],
+  "arms_differ_verified": true,
+  "controls": {
+    "scram_collapsed": true
+  },
+  "bands": {
+    "HP_exact_add": 0.99,
+    "HP_cv": 0.1,
+    "HF_exact_add": 0.6,
+    "B_ctrl_max": 0.15,
+    "B_leak": 0.4,
+    "C_scram_max": 0.05,
+    "HP_chain_d3": 0.75,
+    "HF_chain_d3": 0.2,
+    "HP_eq_accept": 0.99,
+    "HP_eq_reject": 0.99,
+    "nearmiss_frac": 0.9
+  },
+  "ts_iso": "2026-07-06T00:12:16.609432+00:00",
+  "pid": 26680,
+  "host": "Home"
+}

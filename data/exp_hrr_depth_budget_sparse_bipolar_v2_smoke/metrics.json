@@ -1,0 +1,272 @@
+{
+  "anchor_name": "hrr_depth_budget_sparse_bipolar_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HRR_BUNDLE_SPARSE_v2 HARD_PASS: ARM_SPARSE_f0.02 alpha_c=1.221 vs ARM_DENSE_f1.0 alpha_c=0.012 -> lift=100.1x (>= 20x); substrate-native sparse-bipolar W-free Hopfield delivers Willshaw super-capacity at f=0.02 vs dense; CERT 592 paradigm confirmed at N=4096. Chain-grade-eligible substrate-native compression primitive. alpha_c: dense=0.012 sparse_f0.02=1.221 lift=100.1x | lifts_by_arm={'ARM_DENSE_f1.0': 1.0, 'ARM_SPARSE_f0.1': 30.016, 'ARM_SPARSE_f0.05': 60.033, 'ARM_SPARSE_f0.02': 100.057, 'ARM_SPARSE_f0.01': 200.115} | capped(dense=False, sparse_f0.02=True) | n_seeds=1",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "F_GRID": [
+    1.0,
+    0.1,
+    0.05,
+    0.02,
+    0.01
+  ],
+  "FLIP": 0.05,
+  "RECALL_THRESH": 0.95,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_DENSE_f1.0": {
+        "f": 1.0,
+        "alpha_c_mean": 0.0122,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          0.0122
+        ],
+        "any_capped": false,
+        "all_capped": false
+      },
+      "ARM_SPARSE_f0.1": {
+        "f": 0.1,
+        "alpha_c_mean": 0.3662,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          0.3662
+        ],
+        "any_capped": true,
+        "all_capped": true
+      },
+      "ARM_SPARSE_f0.05": {
+        "f": 0.05,
+        "alpha_c_mean": 0.7324,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          0.7324
+        ],
+        "any_capped": true,
+        "all_capped": true
+      },
+      "ARM_SPARSE_f0.02": {
+        "f": 0.02,
+        "alpha_c_mean": 1.2207,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          1.2207
+        ],
+        "any_capped": true,
+        "all_capped": true
+      },
+      "ARM_SPARSE_f0.01": {
+        "f": 0.01,
+        "alpha_c_mean": 2.4414,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          2.4414
+        ],
+        "any_capped": true,
+        "all_capped": true
+      }
+    },
+    "dense_alpha_c": 0.0122,
+    "sparse_f0_02_alpha_c": 1.2207,
+    "lift_ratio_sparse_f0_02_vs_dense": 100.057,
+    "lifts_by_arm_vs_dense": {
+      "ARM_DENSE_f1.0": 1.0,
+      "ARM_SPARSE_f0.1": 30.016,
+      "ARM_SPARSE_f0.05": 60.033,
+      "ARM_SPARSE_f0.02": 100.057,
+      "ARM_SPARSE_f0.01": 200.115
+    },
+    "any_capped_dense": false,
+    "any_capped_sparse_f0_02": true,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "hrr_depth_budget_sparse_bipolar_v2; N_DIM=4096 arms=['ARM_DENSE_f1.0', 'ARM_SPARSE_f0.1', 'ARM_SPARSE_f0.05', 'ARM_SPARSE_f0.02', 'ARM_SPARSE_f0.01'] f_grid=[1.0, 0.1, 0.05, 0.02, 0.01] seeds=[7] FLIP=0.050 recall_thresh=0.95 mode=smoke; bands HP_lift>=20.0x HF_lift<=2.0x; metric=W-free-Hopfield-cue-FLIP-recall",
+    "honest_scope": "Substrate-native W-free Hopfield recall (single-step; correlation-matrix r = sign((cue @ P.T) @ P - cue * diag)); cue = FLIP=0.05 on nonzero positions; exact-recovery on nonzero positions; recall_thresh=0.95; alpha_c(f) = max M/N where recall>=thresh. HARD_PASS = alpha_c(f=0.02) >= 20x alpha_c(f=1.0); HARD_FAIL = lift <= 2.0x. Corrects v1 bundle/top-M-cleanup metric (wrong paradigm vs CERT 592).",
+    "cites": [
+      "preregs/2026-06-23_hrr_depth_budget_sparse_bipolar_v2.md",
+      "notes/research_drill_sparse_bipolar_depth_enc1_composition_2026-06-23.md",
+      "data/exp_sparse_boundary_v2_cpu_v1/metrics.json (CERT 592 reference paradigm)",
+      "experiments/exp_hrr_depth_budget_sparse_bipolar_v1.py (v1 wrong-metric)"
+    ]
+  },
+  "metrics_source": "measured_cpu_hrr_depth_budget_sparse_bipolar_v2_wfree_hopfield",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_DENSE_f1.0": {
+          "f": 1.0,
+          "alpha_c": 0.0122,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M1": {
+              "M": 1,
+              "alpha": 0.0002,
+              "recall": 1.0,
+              "wall_s": 0.0
+            },
+            "M50": {
+              "M": 50,
+              "alpha": 0.0122,
+              "recall": 1.0,
+              "wall_s": 0.01
+            },
+            "M200": {
+              "M": 200,
+              "alpha": 0.0488,
+              "recall": 0.93,
+              "wall_s": 0.11
+            }
+          },
+          "wall_s": 0.12
+        },
+        "ARM_SPARSE_f0.1": {
+          "f": 0.1,
+          "alpha_c": 0.3662,
+          "alpha_c_capped": true,
+          "per_M": {
+            "M1": {
+              "M": 1,
+              "alpha": 0.0002,
+              "recall": 1.0,
+              "wall_s": 0.0
+            },
+            "M100": {
+              "M": 100,
+              "alpha": 0.0244,
+              "recall": 1.0,
+              "wall_s": 0.06
+            },
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.18
+            },
+            "M1500": {
+              "M": 1500,
+              "alpha": 0.3662,
+              "recall": 0.9993,
+              "wall_s": 0.62
+            }
+          },
+          "wall_s": 0.86
+        },
+        "ARM_SPARSE_f0.05": {
+          "f": 0.05,
+          "alpha_c": 0.7324,
+          "alpha_c_capped": true,
+          "per_M": {
+            "M1": {
+              "M": 1,
+              "alpha": 0.0002,
+              "recall": 1.0,
+              "wall_s": 0.0
+            },
+            "M200": {
+              "M": 200,
+              "alpha": 0.0488,
+              "recall": 1.0,
+              "wall_s": 0.07
+            },
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.32
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 0.9997,
+              "wall_s": 2.52
+            }
+          },
+          "wall_s": 2.94
+        },
+        "ARM_SPARSE_f0.02": {
+          "f": 0.02,
+          "alpha_c": 1.2207,
+          "alpha_c_capped": true,
+          "per_M": {
+            "M1": {
+              "M": 1,
+              "alpha": 0.0002,
+              "recall": 1.0,
+              "wall_s": 0.0
+            },
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.52
+            },
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 1.0,
+              "wall_s": 1.72
+            },
+            "M5000": {
+              "M": 5000,
+              "alpha": 1.2207,
+              "recall": 1.0,
+              "wall_s": 5.69
+            }
+          },
+          "wall_s": 7.96
+        },
+        "ARM_SPARSE_f0.01": {
+          "f": 0.01,
+          "alpha_c": 2.4414,
+          "alpha_c_capped": true,
+          "per_M": {
+            "M1": {
+              "M": 1,
+              "alpha": 0.0002,
+              "recall": 1.0,
+              "wall_s": 0.0
+            },
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.46
+            },
+            "M4000": {
+              "M": 4000,
+              "alpha": 0.9766,
+              "recall": 1.0,
+              "wall_s": 3.97
+            },
+            "M10000": {
+              "M": 10000,
+              "alpha": 2.4414,
+              "recall": 1.0,
+              "wall_s": 17.9
+            }
+          },
+          "wall_s": 22.43
+        }
+      },
+      "N_DIM": 4096,
+      "FLIP": 0.05,
+      "RECALL_THRESH": 0.95,
+      "run_mode": "smoke",
+      "config_version": "hrr_depth_budget_sparse_bipolar_v2; N_DIM=4096 arms=['ARM_DENSE_f1.0', 'ARM_SPARSE_f0.1', 'ARM_SPARSE_f0.05', 'ARM_SPARSE_f0.02', 'ARM_SPARSE_f0.01'] f_grid=[1.0, 0.1, 0.05, 0.02, 0.01] seeds=[7] FLIP=0.050 recall_thresh=0.95 mode=smoke; bands HP_lift>=20.0x HF_lift<=2.0x; metric=W-free-Hopfield-cue-FLIP-recall",
+      "elapsed_s_seed": 34.32,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782250178.5286756
+    }
+  ],
+  "elapsed_s": 34.502856969833374,
+  "summary": "HRR_BUNDLE_SPARSE_v2 HARD_PASS: ARM_SPARSE_f0.02 alpha_c=1.221 vs ARM_DENSE_f1.0 alpha_c=0.012 -> lift=100.1x (>= 20x); substrate-native sparse-bipolar W-free Hopfield delivers Willshaw super-capacity at f=0.02 vs dense; CERT 592 paradigm confirmed at N=4096. Chain-grade-eligible substrate-native compression primitive. alpha_c: dense=0.012 sparse_f0.02=1.221 lift=100.1x | lifts_by_arm={'ARM_DENSE_f1.0': 1.0, 'ARM_SPARSE_f0.1': 30.016, 'ARM_SPARSE_f0.05': 60.033, 'ARM_SPARSE_f0.02': 100.057, 'ARM_SPARSE_f0.01': 200.115} | capped(dense=False, sparse_f0.02=True) | n_seeds=1",
+  "substrate_only_decode_gate": "TRUE (substrate-native sparse-bipolar W-free Hopfield; numpy only; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_name_says_smoke_workaround": true
+}

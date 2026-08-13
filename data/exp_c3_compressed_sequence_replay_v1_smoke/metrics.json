@@ -1,0 +1,222 @@
+{
+  "anchor": "c3_compressed_sequence_replay_v1",
+  "anchor_name": "c3_compressed_sequence_replay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: compressed-replay binds sequences. B_d5=1.000 >= 0.80 AND A_d5=0.000 <= 0.20 AND delta=1.000 >= 0.50 AND order_delta=1.000 AND seeds reproduce (cv_A=0.000 cv_B=0.000 <= 0.05). A_d5=0.000 B_d5=1.000 delta=1.000 C_d5=0.000 D_d5=1.000 | cv_A=0.000 cv_B=0.000 | substrate_only=True W_unchanged=True llm=0",
+  "n_seeds": 1,
+  "N": 1024,
+  "N_DIM": 1024,
+  "K_SEQ": 8,
+  "N_SEQ": 4,
+  "depths": [
+    1,
+    3,
+    5
+  ],
+  "arms": [
+    "NONE",
+    "COMPRESSED",
+    "UNORDERED",
+    "ONLINE_NO_GAP"
+  ],
+  "run_mode": "smoke",
+  "config_version": "c3-compressed-sequence-replay-v1: K=8 N_SEQ=4 N_DIM=1024 arms=NONE,COMPRESSED,UNORDERED,ONLINE_NO_GAP depths=[1, 3, 5]; bands HP_B@d5=0.80 delta=0.50 order_delta=0.30 compression_ratio=20 sleep_pass_count=1 run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_keys_sequences",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_recall_nn": {
+      "NONE": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "COMPRESSED": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "UNORDERED": {
+        "1": 0.15,
+        "3": 0.05,
+        "5": 0.0
+      },
+      "ONLINE_NO_GAP": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0
+      }
+    },
+    "cv_recall_nn": {
+      "NONE": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "COMPRESSED": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "UNORDERED": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "ONLINE_NO_GAP": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      }
+    },
+    "delta_B_minus_A_at_d5": 1.0,
+    "order_delta_B_minus_C_at_d5": 1.0,
+    "substrate_only_ok": true,
+    "W_unchanged_by_sleep_all_arms": true,
+    "cv_NONE_at_d5": 0.0,
+    "cv_COMPRESSED_at_d5": 0.0,
+    "zero_llm_calls_at_inference": true,
+    "arms_collapse_null_at_d5": false,
+    "arms_collapse_top_at_d5": false,
+    "honest_scope": "Compressed-replay sequence-binding test on synthetic-bipolar disjoint-key sequences at N_DIM=1024, K=8, N_SEQ=4, depths=[1, 3, 5]. The biological 'compression' motivation does NOT directly transfer to software (no Hebbian window); arm D (ONLINE_NO_GAP) is the explicit honest-scope control. Substrate-only-decode gate enforced (n_llm=0). W matrix unchanged by sleep pass (assertion enforced)."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "M": 32,
+      "run_mode": "smoke",
+      "config_version": "c3-compressed-sequence-replay-v1: K=8 N_SEQ=4 N_DIM=1024 arms=NONE,COMPRESSED,UNORDERED,ONLINE_NO_GAP depths=[1, 3, 5]; bands HP_B@d5=0.80 delta=0.50 order_delta=0.30 compression_ratio=20 sleep_pass_count=1 run_mode=smoke",
+      "elapsed_s": 0.6920320987701416,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782141068.7418501,
+      "per_unit": [
+        {
+          "arm": "NONE",
+          "seed": 1,
+          "n_dim": 1024,
+          "k_seq": 8,
+          "n_seq": 4,
+          "sequence_matrix_norm": 0.0,
+          "W_norm_before_sleep": 0.005599385030306562,
+          "W_norm_after_sleep": 0.005599385030306562,
+          "W_unchanged_by_sleep": true,
+          "sleep_compression_ratio": 20,
+          "sleep_pass_count": 1,
+          "sequence_recall_nn": {
+            "1": 0.0,
+            "3": 0.0,
+            "5": 0.0
+          },
+          "sequence_recall_cos": {
+            "1": -0.009082031249990638,
+            "3": -0.007617187499992149,
+            "5": -0.01350911458331941
+          },
+          "chain_recall_nn": {
+            "1": 0.0,
+            "3": 0.0,
+            "5": 0.0
+          },
+          "arm_wall_s": 0.19565057754516602,
+          "n_probes_per_depth": 20
+        },
+        {
+          "arm": "COMPRESSED",
+          "seed": 1,
+          "n_dim": 1024,
+          "k_seq": 8,
+          "n_seq": 4,
+          "sequence_matrix_norm": 0.005160929434286741,
+          "W_norm_before_sleep": 0.0056171381615201695,
+          "W_norm_after_sleep": 0.0056171381615201695,
+          "W_unchanged_by_sleep": true,
+          "sleep_compression_ratio": 20,
+          "sleep_pass_count": 1,
+          "sequence_recall_nn": {
+            "1": 1.0,
+            "3": 1.0,
+            "5": 1.0
+          },
+          "sequence_recall_cos": {
+            "1": 0.9999999999989695,
+            "3": 0.9999999999989695,
+            "5": 0.9999999999989696
+          },
+          "chain_recall_nn": {
+            "1": 1.0,
+            "3": 1.0,
+            "5": 1.0
+          },
+          "arm_wall_s": 0.15851092338562012,
+          "n_probes_per_depth": 20
+        },
+        {
+          "arm": "UNORDERED",
+          "seed": 1,
+          "n_dim": 1024,
+          "k_seq": 8,
+          "n_seq": 4,
+          "sequence_matrix_norm": 0.005316747913428433,
+          "W_norm_before_sleep": 0.005600040549750863,
+          "W_norm_after_sleep": 0.005600040549750863,
+          "W_unchanged_by_sleep": true,
+          "sleep_compression_ratio": 20,
+          "sleep_pass_count": 1,
+          "sequence_recall_nn": {
+            "1": 0.15,
+            "3": 0.05,
+            "5": 0.0
+          },
+          "sequence_recall_cos": {
+            "1": 0.1569335937498383,
+            "3": 0.053515624999944854,
+            "5": -0.005371093749994464
+          },
+          "chain_recall_nn": {
+            "1": 0.15,
+            "3": 0.05,
+            "5": 0.0
+          },
+          "arm_wall_s": 0.16256308555603027,
+          "n_probes_per_depth": 20
+        },
+        {
+          "arm": "ONLINE_NO_GAP",
+          "seed": 1,
+          "n_dim": 1024,
+          "k_seq": 8,
+          "n_seq": 4,
+          "sequence_matrix_norm": 0.005156185339843463,
+          "W_norm_before_sleep": 0.005604502409993325,
+          "W_norm_after_sleep": 0.005604502409993325,
+          "W_unchanged_by_sleep": true,
+          "sleep_compression_ratio": 20,
+          "sleep_pass_count": 1,
+          "sequence_recall_nn": {
+            "1": 1.0,
+            "3": 1.0,
+            "5": 1.0
+          },
+          "sequence_recall_cos": {
+            "1": 0.9999999999989695,
+            "3": 0.9999999999989695,
+            "5": 0.9999999999989696
+          },
+          "chain_recall_nn": {
+            "1": 1.0,
+            "3": 1.0,
+            "5": 1.0
+          },
+          "arm_wall_s": 0.16225004196166992,
+          "n_probes_per_depth": 20
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_cpu_synthetic_bipolar_sequence_replay",
+  "elapsed_s": 0.822486400604248,
+  "summary": "HARD_PASS: compressed-replay binds sequences. B_d5=1.000 >= 0.80 AND A_d5=0.000 <= 0.20 AND delta=1.000 >= 0.50 AND order_delta=1.000 AND seeds reproduce (cv_A=0.000 cv_B=0.000 <= 0.05). A_d5=0.000 B_"
+}

@@ -1,0 +1,15 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (15 formula selftests ran successfully)",
+  "summary": "SELFTEST_PASS 15/15",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "anchor_name": "exp_cortex_integration_end_to_end_v2",
+  "ts_iso": "2026-07-03T23:33:39.232314+00:00",
+  "selftest_result": {
+    "selftests_passed": 15,
+    "arms_differ_verified": true,
+    "cell_source": "exp_cortex_integration_end_to_end_v2",
+    "primitives_covered": 6
+  }
+}

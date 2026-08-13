@@ -1,0 +1,1365 @@
+{
+  "anchor_name": "explicit_grammar_role_assigner_lccp_gold_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_CRUDE_CUES_ALREADY_SUFFICIENT_NO_EXERCISABLE_MATERIAL",
+  "verdict_msg": "HARD_FAIL_CRUDE_CUES_ALREADY_SUFFICIENT_NO_EXERCISABLE_MATERIAL | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 gold_pos=100 | A_crude P=0.434 R=0.360 F1=0.393 | D_grammar P=0.427 R=0.350 F1=0.385 | coverage: by_agent=0 prep_gold_patients=0 alt_verb_occ=4 n_resolvable_gold_pos=0 | resolvable_recall A=0.000 D=0.000 gain=+0.000 | residual_regression=+0.007 | real_corpus_arms_identical=False n_flipped=0 | canary_all_pass=True canary_mechanism_differs=True | baseline_in_band=True",
+  "summary": "HARD_FAIL_CRUDE_CUES_ALREADY_SUFFICIENT_NO_EXERCISABLE_MATERIAL | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 gold_pos=100 | A_crude P=0.434 R=0.360 F1=0.393 | D_grammar P=0.427 R=0.350 F1=0.385 | coverage: by_agent=0 prep_gold_patients=0 alt_verb_occ=4 n_resolvable_gold_pos=0 | resolvable_recall A=0.000 D=0.000 gain=+0.000 | residual_regression=+0.007 | real_corpus_arms_identical=False n_flipped=0 | canary_all_pass=True canary_mechanism_differs=True | baseline_in_band=True",
+  "elapsed_s": 29.909453000000212,
+  "ts_iso": "2026-07-20T23:51:09.325534+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ]
+  },
+  "arm_metrics": {
+    "A_crude": {
+      "precision": 0.4337,
+      "recall": 0.36,
+      "f1": 0.3934,
+      "n_pred": 83,
+      "tp": 36,
+      "n_gold": 100,
+      "n_gold_covered": 36,
+      "subcat_fp": 29,
+      "within_frame_fp": 9,
+      "spurious_verb_fp": 9,
+      "total_fp": 47,
+      "fp_rate": 0.5663
+    },
+    "D_grammar": {
+      "precision": 0.4268,
+      "recall": 0.35,
+      "f1": 0.3846,
+      "n_pred": 82,
+      "tp": 35,
+      "n_gold": 100,
+      "n_gold_covered": 35,
+      "subcat_fp": 31,
+      "within_frame_fp": 8,
+      "spurious_verb_fp": 8,
+      "total_fp": 47,
+      "fp_rate": 0.5732
+    }
+  },
+  "verdict_detail": {
+    "verdict": "HARD_FAIL_CRUDE_CUES_ALREADY_SUFFICIENT_NO_EXERCISABLE_MATERIAL",
+    "n_grammar_resolvable_gold_pos": 0,
+    "A_crude_resolvable_recall": 0.0,
+    "D_grammar_resolvable_recall": 0.0,
+    "resolvable_recall_gain_D_minus_A": 0.0,
+    "residual_precision_regression_A_minus_D": 0.0069
+  },
+  "coverage_audit": {
+    "n_gold_pos_total": 100,
+    "by_agent_gold_pos_patients": [],
+    "n_by_agent": 0,
+    "prep_governed_gold_pos_patients": [],
+    "n_prep_governed_gold_patients": 0,
+    "alternation_verb_occurrences": [
+      {
+        "sid": "L04_07",
+        "v": "cover",
+        "surf": "covered"
+      },
+      {
+        "sid": "L04_19",
+        "v": "pile",
+        "surf": "pile"
+      },
+      {
+        "sid": "L12_09",
+        "v": "plant",
+        "surf": "plants"
+      },
+      {
+        "sid": "L12_13",
+        "v": "plant",
+        "surf": "plants"
+      }
+    ],
+    "n_alternation_verb_occurrences": 4,
+    "grammar_resolvable_gold_pos_ids": []
+  },
+  "subset_metrics": {
+    "A_crude": {
+      "grammar_resolvable": {
+        "n_gold": 0,
+        "tp": 0,
+        "recall": 0.0
+      },
+      "residual": {
+        "n_gold": 100,
+        "tp": 36,
+        "recall": 0.36
+      }
+    },
+    "D_grammar": {
+      "grammar_resolvable": {
+        "n_gold": 0,
+        "tp": 0,
+        "recall": 0.0
+      },
+      "residual": {
+        "n_gold": 100,
+        "tp": 35,
+        "recall": 0.35
+      }
+    }
+  },
+  "canary_probe": [
+    {
+      "sent": "the cake was eaten by the boy",
+      "target_p": "boy",
+      "resolved_by": "passive_flip_agent_from_by",
+      "score": 1.0,
+      "out_tup": [
+        "eaten",
+        "boy",
+        "cake"
+      ],
+      "pass": true
+    },
+    {
+      "sent": "he was pleased with the gift",
+      "target_p": "gift",
+      "resolved_by": "prep_sense_reject_instrument_or_comitative",
+      "score": 0.0,
+      "out_tup": [
+        "pleased",
+        "he",
+        "gift"
+      ],
+      "pass": true
+    },
+    {
+      "sent": "papa sat down by the pile",
+      "target_p": "pile",
+      "resolved_by": "prep_sense_reject_agent_or_location",
+      "score": 0.0,
+      "out_tup": [
+        "sat",
+        "papa",
+        "pile"
+      ],
+      "pass": true
+    },
+    {
+      "sent": "she loaded the truck with hay",
+      "target_p": "truck",
+      "resolved_by": "word_order_default_postverbal",
+      "score": 1.0,
+      "out_tup": [
+        "loaded",
+        "she",
+        "truck"
+      ],
+      "pass": true
+    },
+    {
+      "sent": "she loaded the truck with hay",
+      "target_p": "hay",
+      "resolved_by": "alternation_with_holistic_patient_frame",
+      "score": 0.0,
+      "out_tup": [
+        "loaded",
+        "she",
+        "hay"
+      ],
+      "pass": true
+    },
+    {
+      "sent": "she loaded hay onto the truck",
+      "target_p": "truck",
+      "resolved_by": "alternation_goal_destination_not_patient",
+      "score": 0.0,
+      "out_tup": [
+        "loaded",
+        "she",
+        "truck"
+      ],
+      "pass": true
+    }
+  ],
+  "canary_all_pass": true,
+  "canary_mechanism_differs_from_default": true,
+  "real_corpus_kept_hashes": {
+    "A_crude": "4d773b70dc256a1d",
+    "D_grammar": "2908276ab81889a9"
+  },
+  "real_corpus_arms_identical": false,
+  "arms_differ_verified": true,
+  "arms_differ_exempted": null,
+  "baseline_in_band": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "data_meta": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "n_sentences": 163,
+    "n_reader_svo": 225,
+    "n_gold_pos": 100,
+    "n_gold_nopat": 180,
+    "resolved_by_log": [
+      {
+        "sid": "L04_01",
+        "v": "build",
+        "p": "ruin",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L04_02",
+        "v": "rub",
+        "p": "castle",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_03",
+        "v": "take",
+        "p": "blocks",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L04_04",
+        "v": "pass",
+        "p": "harm",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_07",
+        "v": "mean",
+        "p": "do",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L04_10",
+        "v": "won't",
+        "p": "herbert",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_11",
+        "v": "open",
+        "p": "door",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_12",
+        "v": "fall",
+        "p": "hetty",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L04_13",
+        "v": "know",
+        "p": "know",
+        "score": 0.0,
+        "resolved_by": "word_order_default_preverbal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L04_13",
+        "v": "mean",
+        "p": "do",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L04_14",
+        "v": "hold",
+        "p": "hands",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L04_15",
+        "v": "come",
+        "p": "eyes",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_15",
+        "v": "get",
+        "p": "floor",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_source",
+        "flipped": false
+      },
+      {
+        "sid": "L04_16",
+        "v": "say",
+        "p": "papa",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_17",
+        "v": "take",
+        "p": "heart",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L04_18",
+        "v": "hear",
+        "p": "you",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_19",
+        "v": "nod",
+        "p": "head",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L04_19",
+        "v": "sit",
+        "p": "blocks",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L04_19",
+        "v": "show",
+        "p": "you",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L05_02",
+        "v": "begin",
+        "p": "work",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L05_04",
+        "v": "cry",
+        "p": "crying",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_comparative",
+        "flipped": false
+      },
+      {
+        "sid": "L05_06",
+        "v": "flit",
+        "p": "face",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L05_06",
+        "v": "knock",
+        "p": "castle",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L05_07",
+        "v": "tell",
+        "p": "i",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L05_08",
+        "v": "wonder",
+        "p": "you",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L05_10",
+        "v": "cry",
+        "p": "use",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L05_11",
+        "v": "go",
+        "p": "kite",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L05_11",
+        "v": "look",
+        "p": "book",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L05_12",
+        "v": "finish",
+        "p": "castle",
+        "score": 0.0,
+        "resolved_by": "word_order_default_preverbal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L05_13",
+        "v": "knock",
+        "p": "hetty",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L05_14",
+        "v": "look",
+        "p": "sides",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_source",
+        "flipped": false
+      },
+      {
+        "sid": "L05_15",
+        "v": "build",
+        "p": "sentence",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L05_17",
+        "v": "can't",
+        "p": "forehead",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L05_20",
+        "v": "go",
+        "p": "carriages",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L05_20",
+        "v": "keep",
+        "p": "way",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L05_22",
+        "v": "see",
+        "p": "child",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L05_24",
+        "v": "leave",
+        "p": "crying",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L05_25",
+        "v": "get",
+        "p": "down",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_01",
+        "v": "send",
+        "p": "james",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_02",
+        "v": "send",
+        "p": "sent",
+        "score": 0.0,
+        "resolved_by": "word_order_default_preverbal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_04",
+        "v": "go",
+        "p": "fields",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_goal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_04",
+        "v": "spend",
+        "p": "time",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_06",
+        "v": "say",
+        "p": "lessons",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_06",
+        "v": "go",
+        "p": "home",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_07",
+        "v": "come",
+        "p": "aunt's",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_07",
+        "v": "tell",
+        "p": "james",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_09",
+        "v": "meet",
+        "p": "boys",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L07_10",
+        "v": "find",
+        "p": "james",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_10",
+        "v": "give",
+        "p": "james",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_10",
+        "v": "lead",
+        "p": "boat",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_11",
+        "v": "think",
+        "p": "danger",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L07_12",
+        "v": "know",
+        "p": "boat",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_13",
+        "v": "struggle",
+        "p": "tide",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_17",
+        "v": "know",
+        "p": "one",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_agent_or_location",
+        "flipped": false
+      },
+      {
+        "sid": "L07_20",
+        "v": "see",
+        "p": "boys",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_20",
+        "v": "go",
+        "p": "out",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_21",
+        "v": "reach",
+        "p": "them",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L07_25",
+        "v": "become",
+        "p": "books",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L07_25",
+        "v": "obey",
+        "p": "parents",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_01",
+        "v": "stroke",
+        "p": "fur",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_01",
+        "v": "wake",
+        "p": "pur",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_instrument_or_comitative",
+        "flipped": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "choose",
+        "p": "places",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "hear",
+        "p": "mew",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "open",
+        "p": "door",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "say",
+        "p": "hour",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_04",
+        "v": "look",
+        "p": "beggar",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_08",
+        "v": "choose",
+        "p": "places",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L08_08",
+        "v": "intend",
+        "p": "kittens",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L09_02",
+        "v": "include",
+        "p": "flat",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_03",
+        "v": "lie",
+        "p": "skin",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_04",
+        "v": "build",
+        "p": "huts",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_05",
+        "v": "build",
+        "p": "huts",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_06",
+        "v": "build",
+        "p": "dam",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_11",
+        "v": "commence",
+        "p": "houses",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_12",
+        "v": "make",
+        "p": "them",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_13",
+        "v": "obtain",
+        "p": "huts",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_14",
+        "v": "peel",
+        "p": "bark",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_source",
+        "flipped": false
+      },
+      {
+        "sid": "L09_16",
+        "v": "call",
+        "p": "trappers",
+        "score": 0.0,
+        "resolved_by": "agentless_passive_no_bare_object",
+        "flipped": false
+      },
+      {
+        "sid": "L09_16",
+        "v": "hunt",
+        "p": "animals",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_17",
+        "v": "see",
+        "p": "beavers",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_18",
+        "v": "lay",
+        "p": "dam",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L09_18",
+        "v": "leap",
+        "p": "tree",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L09_19",
+        "v": "think",
+        "p": "children",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L09_20",
+        "v": "leave",
+        "p": "play",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_01",
+        "v": "live",
+        "p": "father",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_instrument_or_comitative",
+        "flipped": false
+      },
+      {
+        "sid": "L10_03",
+        "v": "amuse",
+        "p": "hour",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_benefactive",
+        "flipped": false
+      },
+      {
+        "sid": "L10_03",
+        "v": "tell",
+        "p": "son",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_05",
+        "v": "stand",
+        "p": "fisherman",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_06",
+        "v": "keep",
+        "p": "wheel",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_07",
+        "v": "work",
+        "p": "want",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_09",
+        "v": "send",
+        "p": "teach",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_09",
+        "v": "teach",
+        "p": "teach",
+        "score": 0.0,
+        "resolved_by": "word_order_default_preverbal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_10",
+        "v": "call",
+        "p": "day",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_11",
+        "v": "find",
+        "p": "boy",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_11",
+        "v": "make",
+        "p": "marks",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_12",
+        "v": "ask",
+        "p": "pictures",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_13",
+        "v": "try",
+        "p": "words",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_14",
+        "v": "make",
+        "p": "you",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_14",
+        "v": "see",
+        "p": "sign",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L10_14",
+        "v": "try",
+        "p": "them",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_15",
+        "v": "teach",
+        "p": "you",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_16",
+        "v": "give",
+        "p": "day",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_17",
+        "v": "fall",
+        "p": "knees",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L10_18",
+        "v": "tell",
+        "p": "him",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_19",
+        "v": "come",
+        "p": "book",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_20",
+        "v": "begin",
+        "p": "teach",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_24",
+        "v": "say",
+        "p": "walk",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_26",
+        "v": "see",
+        "p": "house",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L10_27",
+        "v": "fear",
+        "p": "boat",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_location",
+        "flipped": false
+      },
+      {
+        "sid": "L10_29",
+        "v": "tell",
+        "p": "charles",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_30",
+        "v": "leave",
+        "p": "mr",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_31",
+        "v": "go",
+        "p": "son",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L10_34",
+        "v": "think",
+        "p": "charles",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_36",
+        "v": "put",
+        "p": "head",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_37",
+        "v": "meet",
+        "p": "eyes",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_38",
+        "v": "rule",
+        "p": "copybook",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_40",
+        "v": "fear",
+        "p": "father",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_41",
+        "v": "give",
+        "p": "books",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_42",
+        "v": "come",
+        "p": "home",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L10_43",
+        "v": "beat",
+        "p": "joy",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_instrument_or_comitative",
+        "flipped": false
+      },
+      {
+        "sid": "L10_43",
+        "v": "run",
+        "p": "hands",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_01",
+        "v": "come",
+        "p": "garden",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_01",
+        "v": "walk",
+        "p": "mother",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_instrument_or_comitative",
+        "flipped": false
+      },
+      {
+        "sid": "L12_03",
+        "v": "call",
+        "p": "mother",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_03",
+        "v": "say",
+        "p": "come",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_04",
+        "v": "invite",
+        "p": "mother",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_04",
+        "v": "wish",
+        "p": "gate",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_05",
+        "v": "thank",
+        "p": "man",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_06",
+        "v": "touch",
+        "p": "nothing",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_06",
+        "v": "walk",
+        "p": "gravel",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_07",
+        "v": "tread",
+        "p": "borders",
+        "score": 1.0,
+        "resolved_by": "prep_sense_keep_partitive",
+        "flipped": false
+      },
+      {
+        "sid": "L12_09",
+        "v": "show",
+        "p": "him",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_10",
+        "v": "admire",
+        "p": "beauty",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_10",
+        "v": "find",
+        "p": "boy",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_12",
+        "v": "meddle",
+        "p": "flowers",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_instrument_or_comitative",
+        "flipped": false
+      },
+      {
+        "sid": "L12_12",
+        "v": "say",
+        "p": "he",
+        "score": 0.0,
+        "resolved_by": "word_order_default_preverbal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_13",
+        "v": "choose",
+        "p": "garden",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_13",
+        "v": "find",
+        "p": "gardener",
+        "score": 0.0,
+        "resolved_by": "funcword_or_clausal_reject",
+        "flipped": false
+      },
+      {
+        "sid": "L12_13",
+        "v": "meddle",
+        "p": "plants",
+        "score": 0.0,
+        "resolved_by": "prep_sense_reject_instrument_or_comitative",
+        "flipped": false
+      },
+      {
+        "sid": "L12_15",
+        "v": "continue",
+        "p": "walk",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_15",
+        "v": "enjoy",
+        "p": "day",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      },
+      {
+        "sid": "L12_16",
+        "v": "leave",
+        "p": "flowers",
+        "score": 1.0,
+        "resolved_by": "word_order_default_postverbal",
+        "flipped": false
+      }
+    ],
+    "n_flipped_by_passive": 0
+  },
+  "independent_gold_source": "D:\\AI\\hd-instrument\\data\\gold_mcguffey_lccp_argstruct_v1.json",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "verdict_detail",
+    "coverage_audit",
+    "subset_metrics",
+    "canary_probe",
+    "data_meta"
+  ],
+  "notes": "Explicit-grammar (passive-flip + VerbNet-style alternation-frame table + preposition-sense lookup) vs the crude 4-5-cue LCCP reader, same gold. See coverage_audit for the honest fraction of gold-pos items the grammar layer can actually act on in this corpus."
+}

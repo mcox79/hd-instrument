@@ -1,0 +1,395 @@
+{
+  "anchor_name": "gap1_multihop_beam_search_v2_meta_m6_rail",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_BEAM_MARGINAL: BASELINE=0.6500 (sanity_breach=1/3 in [0.62,0.68]) | REPRODUCE_POINTER_CHAIN_V2=0.1217 (cv=0.136 META_M6_breach=0/3 rail=[0.08,0.25]) | SINGLE_V1_REGIME=0.3233 (V1_DOC_breach=0/3 rail=[0.20,0.50] advisory) | BEAM_W2=0.1917 (cv=0.121) BEAM_W5=0.2050 (cv=0.190) BEAM_W10=0.2533 (cv=0.107) | monotonic_W5>=W2-tol=True W10>=W5-tol=True | lift_W10_over_REPRODUCE=+0.1317 | pointer_v2_5hop_ref=0.122",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "gap1MultihopBeamSearch-v2-META_M6_rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTERV2_V_P=10 POINTERV2_N=200 POINTERV2_DEPTH=10 K_SET=20 V1_V_P=10 V1_N=200 V1_DEPTH=5 TEST_DEPTH=5 beam_configs=[('ARM_BEAM_W2_TOPK3_5HOP', 2, 3), ('ARM_BEAM_W5_TOPK3_5HOP', 5, 3), ('ARM_BEAM_W10_TOPK5_5HOP', 10, 5)] seeds=[7, 17, 23] mode=full HP_W10>=0.50 HP_partial>=0.30 mid_W10=[0.20,0.30) HF_W10<0.20 HP_cv<=0.07 monotonic_tol=0.020 baseline_sanity=[0.62,0.68] META_M6_rail=[0.08,0.25] V1_DOC_rail=[0.20,0.50]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "baseline_n_chains": 200,
+      "pointerv2_n_chains": 200,
+      "pointerv2_max_depth": 10,
+      "v1_n_chains": 200,
+      "v1_max_depth": 5,
+      "test_depth": 5,
+      "K_SET": 20,
+      "config_version": "gap1MultihopBeamSearch-v2-META_M6_rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTERV2_V_P=10 POINTERV2_N=200 POINTERV2_DEPTH=10 K_SET=20 V1_V_P=10 V1_N=200 V1_DEPTH=5 TEST_DEPTH=5 beam_configs=[('ARM_BEAM_W2_TOPK3_5HOP', 2, 3), ('ARM_BEAM_W5_TOPK3_5HOP', 5, 3), ('ARM_BEAM_W10_TOPK5_5HOP', 10, 5)] seeds=[7, 17, 23] mode=full HP_W10>=0.50 HP_partial>=0.30 mid_W10=[0.20,0.30) HF_W10<0.20 HP_cv<=0.07 monotonic_tol=0.020 baseline_sanity=[0.62,0.68] META_M6_rail=[0.08,0.25] V1_DOC_rail=[0.20,0.50]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.605,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 3.41
+      },
+      "baseline_sanity_ok": false,
+      "arm_reproduce_pointer_chain_v2": {
+        "top1": 0.145,
+        "per_step_acc": [
+          0.69,
+          0.485,
+          0.31,
+          0.205,
+          0.145
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 7.8,
+        "regime": "pointer_v2 (n_chains=200 max_depth=10 -> 2000 bindings)",
+        "mechanism": "k1_noise0_pointer_chain_v2_equivalent"
+      },
+      "meta_m6_rail_ok": true,
+      "arm_single_top1_5hop_v1_regime": {
+        "top1": 0.3,
+        "per_step_acc": [
+          0.84,
+          0.635,
+          0.515,
+          0.395,
+          0.3
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 7.81,
+        "regime": "v1 (n_chains=200 max_depth=5 -> 1000 bindings)",
+        "mechanism": "k1_noise0_v1_regime_single_top1"
+      },
+      "v1_doc_rail_ok": true,
+      "arm_beam_w2_topk3_5hop": {
+        "top1": 0.2,
+        "correct_in_beam_per_hop": [
+          0.93,
+          0.775,
+          0.605,
+          0.41,
+          0.28
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.69,
+          0.55,
+          0.405,
+          0.28,
+          0.2
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 2,
+        "top_k": 3,
+        "elapsed_s_arm": 14.19,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_beam_w5_topk3_5hop": {
+        "top1": 0.26,
+        "correct_in_beam_per_hop": [
+          0.98,
+          0.95,
+          0.87,
+          0.745,
+          0.58
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.69,
+          0.545,
+          0.42,
+          0.31,
+          0.26
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 5,
+        "top_k": 3,
+        "elapsed_s_arm": 29.18,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_beam_w10_topk5_5hop": {
+        "top1": 0.275,
+        "correct_in_beam_per_hop": [
+          1.0,
+          1.0,
+          0.995,
+          0.945,
+          0.89
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.69,
+          0.54,
+          0.42,
+          0.305,
+          0.275
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 10,
+        "top_k": 5,
+        "elapsed_s_arm": 55.86,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "elapsed_s": 119.5,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782499997.143679
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "baseline_n_chains": 200,
+      "pointerv2_n_chains": 200,
+      "pointerv2_max_depth": 10,
+      "v1_n_chains": 200,
+      "v1_max_depth": 5,
+      "test_depth": 5,
+      "K_SET": 20,
+      "config_version": "gap1MultihopBeamSearch-v2-META_M6_rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTERV2_V_P=10 POINTERV2_N=200 POINTERV2_DEPTH=10 K_SET=20 V1_V_P=10 V1_N=200 V1_DEPTH=5 TEST_DEPTH=5 beam_configs=[('ARM_BEAM_W2_TOPK3_5HOP', 2, 3), ('ARM_BEAM_W5_TOPK3_5HOP', 5, 3), ('ARM_BEAM_W10_TOPK5_5HOP', 10, 5)] seeds=[7, 17, 23] mode=full HP_W10>=0.50 HP_partial>=0.30 mid_W10=[0.20,0.30) HF_W10<0.20 HP_cv<=0.07 monotonic_tol=0.020 baseline_sanity=[0.62,0.68] META_M6_rail=[0.08,0.25] V1_DOC_rail=[0.20,0.50]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.67,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 3.36
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.645,
+          0.375,
+          0.26,
+          0.2,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 7.61,
+        "regime": "pointer_v2 (n_chains=200 max_depth=10 -> 2000 bindings)",
+        "mechanism": "k1_noise0_pointer_chain_v2_equivalent"
+      },
+      "meta_m6_rail_ok": true,
+      "arm_single_top1_5hop_v1_regime": {
+        "top1": 0.32,
+        "per_step_acc": [
+          0.79,
+          0.63,
+          0.515,
+          0.375,
+          0.32
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 7.71,
+        "regime": "v1 (n_chains=200 max_depth=5 -> 1000 bindings)",
+        "mechanism": "k1_noise0_v1_regime_single_top1"
+      },
+      "v1_doc_rail_ok": true,
+      "arm_beam_w2_topk3_5hop": {
+        "top1": 0.16,
+        "correct_in_beam_per_hop": [
+          0.92,
+          0.735,
+          0.555,
+          0.415,
+          0.32
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.645,
+          0.425,
+          0.35,
+          0.275,
+          0.16
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 2,
+        "top_k": 3,
+        "elapsed_s_arm": 14.11,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_beam_w5_topk3_5hop": {
+        "top1": 0.175,
+        "correct_in_beam_per_hop": [
+          0.985,
+          0.95,
+          0.855,
+          0.665,
+          0.545
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.645,
+          0.43,
+          0.36,
+          0.265,
+          0.175
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 5,
+        "top_k": 3,
+        "elapsed_s_arm": 29.25,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_beam_w10_topk5_5hop": {
+        "top1": 0.215,
+        "correct_in_beam_per_hop": [
+          1.0,
+          1.0,
+          0.99,
+          0.94,
+          0.895
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.645,
+          0.435,
+          0.395,
+          0.315,
+          0.215
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 10,
+        "top_k": 5,
+        "elapsed_s_arm": 55.76,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "elapsed_s": 119.0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782500116.1255784
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "baseline_n_chains": 200,
+      "pointerv2_n_chains": 200,
+      "pointerv2_max_depth": 10,
+      "v1_n_chains": 200,
+      "v1_max_depth": 5,
+      "test_depth": 5,
+      "K_SET": 20,
+      "config_version": "gap1MultihopBeamSearch-v2-META_M6_rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTERV2_V_P=10 POINTERV2_N=200 POINTERV2_DEPTH=10 K_SET=20 V1_V_P=10 V1_N=200 V1_DEPTH=5 TEST_DEPTH=5 beam_configs=[('ARM_BEAM_W2_TOPK3_5HOP', 2, 3), ('ARM_BEAM_W5_TOPK3_5HOP', 5, 3), ('ARM_BEAM_W10_TOPK5_5HOP', 10, 5)] seeds=[7, 17, 23] mode=full HP_W10>=0.50 HP_partial>=0.30 mid_W10=[0.20,0.30) HF_W10<0.20 HP_cv<=0.07 monotonic_tol=0.020 baseline_sanity=[0.62,0.68] META_M6_rail=[0.08,0.25] V1_DOC_rail=[0.20,0.50]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.675,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 3.4
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.64,
+          0.415,
+          0.265,
+          0.16,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 7.84,
+        "regime": "pointer_v2 (n_chains=200 max_depth=10 -> 2000 bindings)",
+        "mechanism": "k1_noise0_pointer_chain_v2_equivalent"
+      },
+      "meta_m6_rail_ok": true,
+      "arm_single_top1_5hop_v1_regime": {
+        "top1": 0.35,
+        "per_step_acc": [
+          0.83,
+          0.675,
+          0.57,
+          0.435,
+          0.35
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 7.73,
+        "regime": "v1 (n_chains=200 max_depth=5 -> 1000 bindings)",
+        "mechanism": "k1_noise0_v1_regime_single_top1"
+      },
+      "v1_doc_rail_ok": true,
+      "arm_beam_w2_topk3_5hop": {
+        "top1": 0.215,
+        "correct_in_beam_per_hop": [
+          0.935,
+          0.74,
+          0.55,
+          0.45,
+          0.35
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.64,
+          0.485,
+          0.345,
+          0.295,
+          0.215
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 2,
+        "top_k": 3,
+        "elapsed_s_arm": 14.21,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_beam_w5_topk3_5hop": {
+        "top1": 0.18,
+        "correct_in_beam_per_hop": [
+          0.97,
+          0.93,
+          0.82,
+          0.685,
+          0.51
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.64,
+          0.485,
+          0.33,
+          0.3,
+          0.18
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 5,
+        "top_k": 3,
+        "elapsed_s_arm": 29.26,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_beam_w10_topk5_5hop": {
+        "top1": 0.27,
+        "correct_in_beam_per_hop": [
+          0.995,
+          0.995,
+          0.97,
+          0.905,
+          0.875
+        ],
+        "top_of_beam_correct_per_hop": [
+          0.64,
+          0.505,
+          0.34,
+          0.315,
+          0.27
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "beam_width": 10,
+        "top_k": 5,
+        "elapsed_s_arm": 56.07,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "elapsed_s": 119.7,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782500235.8884673
+    }
+  ],
+  "elapsed_s": 358.3,
+  "summary": "MIDDLE_BAND_BEAM_MARGINAL: BASELINE=0.6500 (sanity_breach=1/3 in [0.62,0.68]) | REPRODUCE_POINTER_CHAIN_V2=0.1217 (cv=0.136 META_M6_breach=0/3 rail=[0.08,0.25]) | SINGLE_V1_REGIME=0.3233 (V1_DOC_breach=0/3 rail=[0.20,0.50] advisory) | BEAM_W2=0.1917 (cv=0.121) BEAM_W5=0.2050 (cv=0.190) BEAM_W10=0.2533 (cv=0.107) | monotonic_W5>=W2-tol=True W10>=W5-tol=True | lift_W10_over_REPRODUCE=+0.1317 | pointer_v2_5hop_ref=0.122",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Cell X (beam search) v2 META_M6_rail: stage-1 re-analysis of Cell X v1 (substrate_multihop_beam_search_with_WM_candidates_v1) shows v1's SINGLE_TOP1_5HOP=0.33 was a REGIME ARTIFACT vs pointer-chain v2's 0.122 mean (META_M7 cross-cell mismatch). v1 ran with W = make_deep_chains(n=200, V_P=10, max_depth=5) -> 1000 bindings; pointer-chain v2 used max_depth=10 -> 2000 bindings. The forward K=1 cleanup primitive is algorithmically identical across cells; the 2x crosstalk diff in the (V_C=200, V_P=10) key space drove the gap. v2 introduces two-W discipline: ARM_REPRODUCE_POINTER_CHAIN_V2 uses W_pointer_v2_regime (HARD; n=200 max_depth=10) for the META_M6 rail. All BEAM arms (W2/W5/W10) run on the HARD W_pointer_v2_regime so any lift over REPRODUCE_POINTER_CHAIN_V2 is real beam-search mechanism contribution, NOT a low-crosstalk W shortcut. ARM_SINGLE_TOP1_5HOP_V1_REGIME on W_v1_regime is informational (reproduces v1's 0.33). Same fix pattern as Cell B v2 + Cell C v2. Pre-reg: preregs/2026-06-25_gap1_multihop_beam_search_v2_META_M6_rail.md."
+}

@@ -1,0 +1,239 @@
+{
+  "verdict": "HARD_PASS_RETAINED_TRACE_RECOVERS",
+  "verdict_msg": "HARD_PASS_RETAINED_TRACE_RECOVERS | RETAINED-TRACE RE-QUERY (mechanism A): cheap COARSE shortlist by condensing the RETAINED DENSE code (random proj D_COARSE=128), FINE read recovers within the shortlist from the retained trace. HEADLINE B@k0.1: final_recall=0.992 (recover>=0.9:True) vs full_fine CEILING=0.992 (Gate-D reproduce dense 0.9933:True). SPARSE control: sparse_fullV=0.541 (Gate-D reproduce v1 wall 0.5383:True) sparse_shortlist(A')=0.561 -> max_sparse=0.561 (fails<=0.7:True). GAP B-sparse=+0.432 (>= 0.2:True). shortlist_hit@k0.1=1.000 (>= 0.65:True). COST_ratio B(k0.1)=0.200 (<= 0.5:True) -> ~5.0x cheaper than full fine. CURVE[k0.05:B0.992/hit1.000/cost0.150 k0.1:B0.992/hit1.000/cost0.200 k0.15:B0.992/hit1.000/cost0.250 k0.25:B0.992/hit1.000/cost0.350]. coarse_only(top1)=0.811. cache=bge_large_v2_name_177899_54f7cf6a.npz. INTERPRETATION: retained-trace re-query RECOVERS fine fidelity near the dense ceiling at materially lower coarse-read cost, where sparse-condense CANNOT -- the brain-first index-dont-invert fix works; the v1 info-wall is the quantization step, not the retrieval.",
+  "summary": "HARD_PASS_RETAINED_TRACE_RECOVERS: retained-trace re-query coarse-to-fine selective-depth (full)",
+  "run_mode": "full",
+  "device": "cuda",
+  "elapsed_s": 6254.989201300021,
+  "ts_iso": "2026-07-08T19:13:00.841898+00:00",
+  "anchor_name": "encoder_retained_trace_requery_coarse_to_fine_v1",
+  "cache_source": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "cardinality_ok": true,
+  "kcardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units": 5,
+  "arms_differ_verified": true,
+  "fam_hash": {
+    "dense_fine": "9ee93407d2c2541751125e26d8efa71c743144cbd4e5aab96f71dc7cae433ddc",
+    "sparse_fine": "4920967ed9fdbf8b082d29d0c18e11e664b48277066c3c36459667a67d172683",
+    "coarse": "160c5fbd35ecda5fdcc3ad41de6bfb291ac0c471b501f21b69acfb9f5057f9a7"
+  },
+  "baseline_in_band": true,
+  "gate_d": {
+    "dense_ok": true,
+    "sparse_ok": true,
+    "tol": 0.12,
+    "dense_prior": 0.9933,
+    "sparse_prior": 0.5383,
+    "dense_measured": 0.9923333333333334,
+    "sparse_measured": 0.5413333333333333
+  },
+  "classification": {
+    "verdict": "HARD_PASS_RETAINED_TRACE_RECOVERS",
+    "k_op": 0.1,
+    "ceiling_full_fine": 0.9923333333333334,
+    "B_retained_trace": 0.9923333333333334,
+    "Aprime_sparse_shortlist": 0.5606666666666666,
+    "sparse_fullV": 0.5413333333333333,
+    "max_sparse": 0.5606666666666666,
+    "shortlist_hit_rate": 1.0,
+    "cost_ratio_B": 0.2,
+    "b_recovers": true,
+    "sparse_fails": true,
+    "beats_by_gap": true,
+    "cost_ok": true,
+    "hit_ok": true,
+    "gap_B_minus_sparse": 0.43166666666666675,
+    "thresholds": {
+      "RECOVER_HI": 0.9,
+      "CEIL_TOL": 0.05,
+      "DISCRIM_GAP": 0.2,
+      "SPARSE_FAIL_CEIL": 0.7,
+      "COST_MAX": 0.5,
+      "MIDDLE_TOL": 0.05,
+      "HIT_FLOOR": 0.65
+    }
+  },
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2,
+    "K_OP_FRAC": 0.1,
+    "D_COARSE": 128
+  },
+  "bands": {
+    "RECOVER_HI": 0.9,
+    "CEIL_TOL": 0.05,
+    "DISCRIM_GAP": 0.2,
+    "SPARSE_FAIL_CEIL": 0.7,
+    "COST_MAX": 0.5,
+    "MIDDLE_TOL": 0.05,
+    "HIT_FLOOR": 0.65,
+    "LAMBDA_D": 1.0
+  },
+  "k_fracs": [
+    0.05,
+    0.1,
+    0.15,
+    0.25
+  ],
+  "regime": {
+    "N": 4096,
+    "Din": 1024,
+    "V": 40000,
+    "iters": 800,
+    "B": 8192,
+    "lr": 0.001,
+    "Js": [
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "alphas": [
+      0.0,
+      0.8,
+      1.2,
+      1.6
+    ],
+    "nq": 600
+  },
+  "agg": {
+    "n_seeds": 5,
+    "alphas": [
+      "0.0",
+      "0.8",
+      "1.2",
+      "1.6"
+    ],
+    "arms_by_alpha": {
+      "0.0": {
+        "full_fine": 1.0,
+        "sparse_fullv": 1.0,
+        "coarse_only": 1.0,
+        "b_by_k": {
+          "0.05": 1.0,
+          "0.1": 1.0,
+          "0.15": 1.0,
+          "0.25": 1.0
+        },
+        "aprime_by_k": {
+          "0.05": 1.0,
+          "0.1": 1.0,
+          "0.15": 1.0,
+          "0.25": 1.0
+        },
+        "hit_by_k": {
+          "0.05": 1.0,
+          "0.1": 1.0,
+          "0.15": 1.0,
+          "0.25": 1.0
+        }
+      },
+      "0.8": {
+        "full_fine": 0.998,
+        "sparse_fullv": 0.9146666666666666,
+        "coarse_only": 0.9893333333333333,
+        "b_by_k": {
+          "0.05": 0.998,
+          "0.1": 0.998,
+          "0.15": 0.998,
+          "0.25": 0.998
+        },
+        "aprime_by_k": {
+          "0.05": 0.9163333333333334,
+          "0.1": 0.9153333333333332,
+          "0.15": 0.915,
+          "0.25": 0.915
+        },
+        "hit_by_k": {
+          "0.05": 1.0,
+          "0.1": 1.0,
+          "0.15": 1.0,
+          "0.25": 1.0
+        }
+      },
+      "1.2": {
+        "full_fine": 0.9923333333333334,
+        "sparse_fullv": 0.5413333333333333,
+        "coarse_only": 0.8106666666666665,
+        "b_by_k": {
+          "0.05": 0.9923333333333334,
+          "0.1": 0.9923333333333334,
+          "0.15": 0.9923333333333334,
+          "0.25": 0.9923333333333334
+        },
+        "aprime_by_k": {
+          "0.05": 0.5813333333333334,
+          "0.1": 0.5606666666666666,
+          "0.15": 0.5529999999999999,
+          "0.25": 0.5456666666666667
+        },
+        "hit_by_k": {
+          "0.05": 1.0,
+          "0.1": 1.0,
+          "0.15": 1.0,
+          "0.25": 1.0
+        }
+      },
+      "1.6": {
+        "full_fine": 0.9706666666666667,
+        "sparse_fullv": 0.21666666666666665,
+        "coarse_only": 0.44699999999999995,
+        "b_by_k": {
+          "0.05": 0.9663333333333334,
+          "0.1": 0.9703333333333333,
+          "0.15": 0.9703333333333333,
+          "0.25": 0.9706666666666667
+        },
+        "aprime_by_k": {
+          "0.05": 0.2693333333333333,
+          "0.1": 0.25,
+          "0.15": 0.2373333333333333,
+          "0.25": 0.22666666666666666
+        },
+        "hit_by_k": {
+          "0.05": 0.9949999999999999,
+          "0.1": 0.999,
+          "0.15": 0.9993333333333332,
+          "0.25": 1.0
+        }
+      }
+    },
+    "cost_ratio_by_k": {
+      "0.05": 0.15000000000000002,
+      "0.1": 0.2,
+      "0.15": 0.25,
+      "0.25": 0.35
+    },
+    "sp_native_mean": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.9983333333333334,
+      "5": 0.9547333333333332,
+      "8": 0.6756249999999999
+    },
+    "b_op_per_seed": [
+      0.9916666666666667,
+      0.9883333333333333,
+      1.0,
+      0.9916666666666667,
+      0.99
+    ],
+    "sparse_fullv_op_per_seed": [
+      0.5216666666666666,
+      0.5683333333333334,
+      0.555,
+      0.53,
+      0.5316666666666666
+    ],
+    "b_op_cv": 0.004058799453676385
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ]
+}

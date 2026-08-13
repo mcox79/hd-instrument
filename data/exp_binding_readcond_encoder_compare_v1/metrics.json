@@ -1,0 +1,37 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (encoder resolver + real MLM_V2 encoder + role split + arms-differ + rc bands import + verdict branches)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 21.26514929998666,
+  "ts_iso": "2026-07-30T15:43:45.754050+00:00",
+  "anchor_name": "binding_readcond_encoder_compare_v1",
+  "encoder_arm": "MLM_V2(selftest)",
+  "chance": 0.05,
+  "selftest": {
+    "n_cached": 3006,
+    "encoder_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+    "tiny": {
+      "learned": 0.2150000035762787,
+      "ri_mean": 0.04000000096857548,
+      "arms_differ": true
+    },
+    "mlm_reference": {
+      "source": "readcond_metrics",
+      "none": [
+        0.06142857298254967,
+        0.055714286863803864
+      ],
+      "pca_whiten": [
+        0.05000000074505806,
+        0.05999999865889549
+      ],
+      "near_chance_band": 0.06142857298254967
+    },
+    "verdict_branches_ok": true
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns"
+}

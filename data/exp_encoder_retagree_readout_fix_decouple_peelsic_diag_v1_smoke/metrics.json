@@ -1,0 +1,80 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "NEITHER_READOUT_FIX_LIFTS_RET_AGREE10: best 0.1058 < 0.3; the decouple/whiten and peel/SIC READOUT transforms do NOT close the top-10 gap. The gap is a quantization-resolution vs neighborhood-crowding problem, not a code-correlation or bundle-decomposition problem -> route to the graded-code / STE-anneal (finer-quantization) lever. [baseline_ret_agree10=0.1944 armA_whiten=0.0976 armB_peelsic=0.1058 best=0.1058(armB_peelsic) gate=0.3]",
+  "summary": "NEITHER_READOUT_FIX_LIFTS_RET_AGREE10: best 0.1058 < 0.3; the decouple/whiten and peel/SIC READOUT transforms do NOT close the top-10 gap. The gap is a quantization-resolution vs neighborhood-crowding problem, not a code-correlation or bundle-decomposition problem -> route to the graded-code / STE-anneal (finer-quantization) lever. [baseline_ret_agree10=0.1944 armA_whiten=0.0976 armB_peelsic=0.1058 best=0.1058(armB_peelsic) gate=0.3]",
+  "elapsed_s": 60.94201759999851,
+  "run_mode": "smoke",
+  "anchor_name": "encoder_retagree_readout_fix_decouple_peelsic_diag_v1_smoke",
+  "seed": 7,
+  "device": "cpu",
+  "N": 4096,
+  "code_source": "synthetic_randproj_sbc_of_real_teacher",
+  "teacher_cache": "bge_large_v2_name_20820_e1aa0b31.npz",
+  "n_held_corpus": 8000,
+  "n_queries": 500,
+  "n_train": 0,
+  "arms": {
+    "baseline_ret_agree10": 0.19439999999999996,
+    "armA_whiten_ret_agree10": 0.09760000000000041,
+    "armB_peelsic_ret_agree10": 0.10580000000000053,
+    "armB_peelsic_parity_numpy": 0.10499999999999991,
+    "best_fix": 0.10580000000000053,
+    "delta_best_vs_baseline": -0.08859999999999943
+  },
+  "diagnostics": {
+    "teacher_margin_top1_top10": 0.050888121128082275,
+    "teacher_top1_median": 0.9363826513290405,
+    "teacher_top10_median": 0.8375557661056519,
+    "student_margin_top1_top10": 0.03125,
+    "code_mean_nnz": 128.0,
+    "code_offdiag_corr_abs": 0.01119828037917614
+  },
+  "discriminator_fires": true,
+  "hp_ret_agree10": 0.3,
+  "hp_strict": 0.315,
+  "hp_min_lift": 0.02,
+  "per_unit": [
+    {
+      "unit": "arm::baseline",
+      "arm": "baseline",
+      "ret_agree10": 0.19439999999999996
+    },
+    {
+      "unit": "arm::armA_whiten",
+      "arm": "armA_whiten",
+      "ret_agree10": 0.09760000000000041,
+      "zca_eps": 0.01
+    },
+    {
+      "unit": "arm::armB_peelsic",
+      "arm": "armB_peelsic",
+      "ret_agree10": 0.10580000000000053,
+      "peelsic_parity_numpy": 0.10499999999999991
+    }
+  ],
+  "unit_failures": [],
+  "n_units": 3,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "write_metrics_tmp_replace",
+  "progress_logging": "print_flush_true",
+  "crlb_n/a": "no quantitative noise-floor estimator applies; this is a retrieval-agreement diagnostic, not a capacity CRLB cell",
+  "discriminator_reachability": true,
+  "baseline_in_band": true,
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "hp_scope": {
+    "armA_whiten": [
+      "ret_agree10"
+    ],
+    "armB_peelsic": [
+      "ret_agree10"
+    ]
+  },
+  "ts_iso": "2026-07-08T22:26:39.477715+00:00"
+}

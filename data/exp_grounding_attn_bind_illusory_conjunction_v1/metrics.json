@@ -1,0 +1,513 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND || ILLUSORY-2AFC @M=4: ATTN=0.815 FLAT=0.515 SCRAM=0.439 margin=0.300 (chance=0.5) || COLOR-OF-SHAPE @M=4: ATTN=0.697 FLAT=0.288 (chance~1/present-colors) || LEARNING-CURVE color-of-shape(train 1->24)=0.626->0.667 rise=0.042 ; illusory=0.763->0.794 || LABEL-SHUFFLE ATTN illusory=0.499 cos=0.176 (collapse<=0.66 => front-end learned) || FRONT-END(color=0.782 shape=0.887 floor=0.75 ok=True) || flat_in_band=True scramble_collapsed=True || SCALE(ATTN illusory by M)={2: 0.0, 3: 0.795, 4: 0.815, 6: 0.788} || FREE-BY-CONSTRUCTION novel-conjunction=1.000 (un-gated, NOT headline)",
+  "summary": "MIDDLE_BAND || ILLUSORY-2AFC @M=4: ATTN=0.815 FLAT=0.515 SCRAM=0.439 margin=0.300 (chance=0.5) || COLOR-OF-SHAPE @M=4: ATTN=0.697 FLAT=0.288 (chance~1/present-colors) || LEARNING-CURVE color-of-shape(",
+  "run_mode": "full",
+  "elapsed_s": 20.798941600020044,
+  "anchor_name": "grounding_attn_bind_illusory_conjunction_v1",
+  "ts_iso": "2026-07-23T02:59:06.222266+00:00",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "N": 1024,
+    "M_list": [
+      2,
+      3,
+      4,
+      6
+    ],
+    "M_primary": 4,
+    "n_train_curve": [
+      1,
+      2,
+      4,
+      8,
+      24
+    ],
+    "n_scenes": 220,
+    "n_query": 4
+  },
+  "gates": {
+    "attn_illusory_2afc": 0.8145413542233952,
+    "flat_illusory_2afc": 0.5149449122366051,
+    "scram_illusory_2afc": 0.43857435102565173,
+    "illusory_margin": 0.29959644198679014,
+    "attn_color_of_shape": 0.6971077533577533,
+    "flat_color_of_shape": 0.28791208791208794,
+    "curve_cos_lo": 0.6257077150556343,
+    "curve_cos_hi": 0.6674026079078496,
+    "learn_rise": 0.04169489285221528,
+    "curve_ill_lo": 0.7628787878787878,
+    "curve_ill_hi": 0.7941903746949618,
+    "front_color_acc": 0.7822222222222223,
+    "front_shape_acc": 0.8866666666666667,
+    "front_end_ok": true,
+    "label_shuffle_illusory": 0.4988852593210391,
+    "label_shuffle_cos": 0.176329185520362,
+    "label_shuffle_collapsed": true,
+    "flat_in_band": true,
+    "scramble_collapsed": true,
+    "learn_ok": false,
+    "free_novel_conjunction": 1.0,
+    "scale": {
+      "2": {
+        "attn_ill": 0.0,
+        "flat_ill": 0.0,
+        "attn_cos": 0.7182815255731922
+      },
+      "3": {
+        "attn_ill": 0.7945362708354317,
+        "flat_ill": 0.5320484853946562,
+        "attn_cos": 0.7268048003272524
+      },
+      "4": {
+        "attn_ill": 0.8145413542233952,
+        "flat_ill": 0.5149449122366051,
+        "attn_cos": 0.6971077533577533
+      },
+      "6": {
+        "attn_ill": 0.7883267607582676,
+        "flat_ill": 0.519728102947281,
+        "attn_cos": 0.6605176284049173
+      }
+    },
+    "bands": {
+      "ILL_HP": 0.78,
+      "ILL_FLAT_MAX": 0.62,
+      "ILL_MARGIN_HP": 0.18,
+      "ILL_SCRAMBLE_MAX": 0.66,
+      "LEARN_RISE_HP": 0.06,
+      "LABEL_SHUFFLE_MAX": 0.66,
+      "FRONT_ACC_MIN": 0.75,
+      "ILL_HF": 0.62
+    }
+  },
+  "discriminator_selftest": {
+    "reuse_ok": true,
+    "front_learns": true,
+    "fa_c24": 0.8466666666666667,
+    "fa_s24": 0.86,
+    "cos1": 0.5735294117647058,
+    "cos24": 0.7558823529411764,
+    "attn_ill1": 0.8061797752808989,
+    "attn_ill24": 0.851123595505618,
+    "flat_ill24": 0.5589887640449438,
+    "scram_ill24": 0.43258426966292135,
+    "label_shuffle_ill": 0.5393258426966292,
+    "fires": true,
+    "telemetry": true,
+    "label_shuffle_collapses": true,
+    "scramble_collapses": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.7477272727272727,
+        "2": 0.75,
+        "4": 0.7727272727272727,
+        "8": 0.7638888888888888,
+        "24": 0.7638888888888888
+      },
+      "curve_color_of_shape": {
+        "1": 0.6299019607843137,
+        "2": 0.616822429906542,
+        "4": 0.6475,
+        "8": 0.6064356435643564,
+        "24": 0.7301980198019802
+      },
+      "front_acc_by_train": {
+        "1": [
+          0.78,
+          0.6666666666666666
+        ],
+        "2": [
+          0.8266666666666667,
+          0.7466666666666667
+        ],
+        "4": [
+          0.7866666666666666,
+          0.8133333333333334
+        ],
+        "8": [
+          0.8266666666666667,
+          0.9
+        ],
+        "24": [
+          0.8066666666666666,
+          0.9133333333333333
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.5659090909090909,
+        "color_of_shape": 0.23039215686274508
+      },
+      "by_M": {
+        "2": {
+          "ATTN": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.6674107142857143,
+            "color_of_shape_n": 448
+          },
+          "FLAT": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.6517857142857143,
+            "color_of_shape_n": 448
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.6517857142857143,
+            "color_of_shape_n": 448
+          }
+        },
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.7990654205607477,
+            "illusory_n": 856,
+            "color_of_shape": 0.6889400921658986,
+            "color_of_shape_n": 868
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5432242990654206,
+            "illusory_n": 856,
+            "color_of_shape": 0.35023041474654376,
+            "color_of_shape_n": 868
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.3901869158878505,
+            "illusory_n": 856,
+            "color_of_shape": 0.1935483870967742,
+            "color_of_shape_n": 868
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8428899082568807,
+            "illusory_n": 872,
+            "color_of_shape": 0.7139423076923077,
+            "color_of_shape_n": 832
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5275229357798165,
+            "illusory_n": 872,
+            "color_of_shape": 0.3173076923076923,
+            "color_of_shape_n": 832
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4506880733944954,
+            "illusory_n": 872,
+            "color_of_shape": 0.18990384615384615,
+            "color_of_shape_n": 832
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.7886363636363637,
+            "illusory_n": 880,
+            "color_of_shape": 0.6614832535885168,
+            "color_of_shape_n": 836
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5238636363636363,
+            "illusory_n": 880,
+            "color_of_shape": 0.2284688995215311,
+            "color_of_shape_n": 836
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.47045454545454546,
+            "illusory_n": 880,
+            "color_of_shape": 0.15311004784688995,
+            "color_of_shape_n": 836
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "10c896bcc74ad5a12bf41c56e7c0ea7f82bc06f0838d6446533dec9cbb6775e9",
+        "FLAT": "a9210b220d422bcd2b037754a7e4f7718385d87d48954910e38f072dba22bbea",
+        "SCRAM": "25537de5401cfbac694b365b66a7e41c0cca29b0c24f73618b2f1ab1852fe1c0"
+      }
+    },
+    {
+      "seed": 13,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.7772727272727272,
+        "2": 0.7361111111111112,
+        "4": 0.7613636363636364,
+        "8": 0.7954545454545454,
+        "24": 0.805045871559633
+      },
+      "curve_color_of_shape": {
+        "1": 0.6410891089108911,
+        "2": 0.5247524752475248,
+        "4": 0.6299019607843137,
+        "8": 0.6188118811881188,
+        "24": 0.6225
+      },
+      "front_acc_by_train": {
+        "1": [
+          0.7133333333333334,
+          0.7266666666666667
+        ],
+        "2": [
+          0.8266666666666667,
+          0.7666666666666667
+        ],
+        "4": [
+          0.78,
+          0.8
+        ],
+        "8": [
+          0.6933333333333334,
+          0.8666666666666667
+        ],
+        "24": [
+          0.82,
+          0.8333333333333334
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.4793577981651376,
+        "color_of_shape": 0.1466346153846154
+      },
+      "by_M": {
+        "2": {
+          "ATTN": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.7106481481481481,
+            "color_of_shape_n": 432
+          },
+          "FLAT": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.6828703703703703,
+            "color_of_shape_n": 432
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.7013888888888888,
+            "color_of_shape_n": 432
+          }
+        },
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.791860465116279,
+            "illusory_n": 860,
+            "color_of_shape": 0.6886574074074074,
+            "color_of_shape_n": 864
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5151162790697674,
+            "illusory_n": 860,
+            "color_of_shape": 0.40046296296296297,
+            "color_of_shape_n": 864
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.37790697674418605,
+            "illusory_n": 860,
+            "color_of_shape": 0.23726851851851852,
+            "color_of_shape_n": 864
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8107798165137615,
+            "illusory_n": 872,
+            "color_of_shape": 0.7023809523809523,
+            "color_of_shape_n": 840
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5412844036697247,
+            "illusory_n": 872,
+            "color_of_shape": 0.2785714285714286,
+            "color_of_shape_n": 840
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4426605504587156,
+            "illusory_n": 872,
+            "color_of_shape": 0.1976190476190476,
+            "color_of_shape_n": 840
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.795662100456621,
+            "illusory_n": 876,
+            "color_of_shape": 0.6773809523809524,
+            "color_of_shape_n": 840
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5205479452054794,
+            "illusory_n": 876,
+            "color_of_shape": 0.23095238095238096,
+            "color_of_shape_n": 840
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4920091324200913,
+            "illusory_n": 876,
+            "color_of_shape": 0.1761904761904762,
+            "color_of_shape_n": 840
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "b62efa45602fcfc399b2541bbcebbed9737614c3fd52de623a303bfa4c52af6c",
+        "FLAT": "3ed50b031ede59dd392252bdb47f62056d42255970d8b5a7cc92b0d2f16cd90d",
+        "SCRAM": "02828e2d9a911569a8f4d7d7fe71870e4474d2e106180590a9f7ef9081d4c224"
+      }
+    },
+    {
+      "seed": 17,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.7636363636363637,
+        "2": 0.75,
+        "4": 0.7159090909090909,
+        "8": 0.768348623853211,
+        "24": 0.8136363636363636
+      },
+      "curve_color_of_shape": {
+        "1": 0.6061320754716981,
+        "2": 0.5887850467289719,
+        "4": 0.6460396039603961,
+        "8": 0.6568627450980392,
+        "24": 0.6495098039215687
+      },
+      "front_acc_by_train": {
+        "1": [
+          0.86,
+          0.7066666666666667
+        ],
+        "2": [
+          0.7066666666666667,
+          0.7733333333333333
+        ],
+        "4": [
+          0.8066666666666666,
+          0.8466666666666667
+        ],
+        "8": [
+          0.7466666666666667,
+          0.8933333333333333
+        ],
+        "24": [
+          0.72,
+          0.9133333333333333
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.4513888888888889,
+        "color_of_shape": 0.15196078431372548
+      },
+      "by_M": {
+        "2": {
+          "ATTN": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.7767857142857143,
+            "color_of_shape_n": 448
+          },
+          "FLAT": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.7857142857142857,
+            "color_of_shape_n": 448
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.0,
+            "illusory_n": 0,
+            "color_of_shape": 0.7924107142857143,
+            "color_of_shape_n": 448
+          }
+        },
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.7926829268292683,
+            "illusory_n": 820,
+            "color_of_shape": 0.8028169014084507,
+            "color_of_shape_n": 852
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5378048780487805,
+            "illusory_n": 820,
+            "color_of_shape": 0.4107981220657277,
+            "color_of_shape_n": 852
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.35609756097560974,
+            "illusory_n": 820,
+            "color_of_shape": 0.21713615023474178,
+            "color_of_shape_n": 852
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.7899543378995434,
+            "illusory_n": 876,
+            "color_of_shape": 0.675,
+            "color_of_shape_n": 840
+          },
+          "FLAT": {
+            "illusory_2afc": 0.476027397260274,
+            "illusory_n": 876,
+            "color_of_shape": 0.26785714285714285,
+            "color_of_shape_n": 840
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4223744292237443,
+            "illusory_n": 876,
+            "color_of_shape": 0.1976190476190476,
+            "color_of_shape_n": 840
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.7806818181818181,
+            "illusory_n": 880,
+            "color_of_shape": 0.6426886792452831,
+            "color_of_shape_n": 848
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5147727272727273,
+            "illusory_n": 880,
+            "color_of_shape": 0.2358490566037736,
+            "color_of_shape_n": 848
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4784090909090909,
+            "illusory_n": 880,
+            "color_of_shape": 0.1804245283018868,
+            "color_of_shape_n": 848
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "c00bc485e920dbb5c74bb67923503d13cdba510daa85be8f612e80838b17dca1",
+        "FLAT": "e1d04ee6e83e9d5daa65b943bf2d9ed7d2db8b4ebab08c21d60b75a0261d6a7f",
+        "SCRAM": "72904647b92daa72de08c7775f05ff66d83c0fc80534af857dfa01ab8834603e"
+      }
+    }
+  ]
+}

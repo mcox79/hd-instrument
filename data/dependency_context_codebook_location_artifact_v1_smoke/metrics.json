@@ -1,0 +1,219 @@
+{
+  "verdict": "HARD_FAIL_CONFLATION_NOT_CONTEXT_TYPE_EFFECT",
+  "verdict_msg": "AUC(loc-vs-art) window=1.0000 dependency=1.0000 combined=1.0000 random_context=0.5208 | best_test=combined margin_vs_window=0.0000 (HP>=0.05 HF<=0.02) | acc_location window=0.750 dependency=1.000 combined=1.000 naive_1nn=1.000 (gap_to_naive=0.250 close_half_gap=True) | acc_artifact window=1.000 combined=1.000 no_artifact_regression=True | combined_wordsim_auc=0.7488 (>= 0.85 required) no_wordsim_regression=False | random_must_fail_ok=True | dep_zero_row_frac_by_seed={'7': 0.0, '13': 0.0, '19': 0.0} | cardinality_ok=True (96/96) arms_differ=True",
+  "summary": "HARD_FAIL_CONFLATION_NOT_CONTEXT_TYPE_EFFECT: AUC(loc-vs-art) window=1.0000 dependency=1.0000 combined=1.0000 random_context=0.5208 | best_test=combined margin_vs_window=0.0000 (HP>=0.05 HF<=0.02) | acc_location window=0.750 dependency=1.000 combined=1.000 naive_1nn",
+  "elapsed_s": 98.18764640000882,
+  "anchor_name": "dependency_context_codebook_location_artifact_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T16:55:26.859306+00:00",
+  "config": {
+    "n_tokens": 1500000,
+    "vocab_size": 6000,
+    "window": 5,
+    "min_count": 5,
+    "N_TARGET": 512,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "locative_preps": [
+      "in",
+      "at",
+      "near",
+      "on"
+    ],
+    "artifact_verb_forms": {
+      "build": [
+        "build",
+        "built",
+        "builds",
+        "building"
+      ],
+      "make": [
+        "make",
+        "made",
+        "makes",
+        "making"
+      ],
+      "use": [
+        "use",
+        "used",
+        "uses",
+        "using"
+      ],
+      "create": [
+        "create",
+        "created",
+        "creates",
+        "creating"
+      ]
+    },
+    "dep_col_names": [
+      "pobj_of:in",
+      "pobj_of:at",
+      "pobj_of:near",
+      "pobj_of:on",
+      "dobj_of:build",
+      "nsubj_of:build",
+      "dobj_of:make",
+      "nsubj_of:make",
+      "dobj_of:use",
+      "nsubj_of:use",
+      "dobj_of:create",
+      "nsubj_of:create"
+    ],
+    "V": 6000,
+    "exemplar_artifact": [
+      "church",
+      "temple",
+      "stadium",
+      "tower",
+      "monastery",
+      "palace"
+    ],
+    "test_artifact": [
+      "cathedral",
+      "castle",
+      "factory",
+      "monument"
+    ],
+    "exemplar_location": [
+      "island",
+      "mountain",
+      "desert",
+      "peninsula",
+      "plateau"
+    ],
+    "test_location": [
+      "forest",
+      "delta",
+      "harbor",
+      "prairie"
+    ]
+  },
+  "dep_trigger_hits": {
+    "pobj_of:in": 28278,
+    "pobj_of:at": 3920,
+    "pobj_of:near": 244,
+    "pobj_of:on": 6572,
+    "dobj_of:build": 583,
+    "nsubj_of:build": 562,
+    "dobj_of:make": 1669,
+    "nsubj_of:make": 1688,
+    "dobj_of:use": 3397,
+    "nsubj_of:use": 3379,
+    "dobj_of:create": 423,
+    "nsubj_of:create": 451
+  },
+  "dep_misses": 9296,
+  "dep_zero_row_frac_by_seed": {
+    "7": 0.0,
+    "13": 0.0,
+    "19": 0.0
+  },
+  "arm_summary": {
+    "window": {
+      "acc_overall_mean": 0.875,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 1.0,
+      "acc_location_mean": 0.75,
+      "auc_mean": 1.0,
+      "auc_std": 0.0,
+      "auc_per_seed": {
+        "7": 1.0,
+        "13": 1.0,
+        "19": 1.0
+      }
+    },
+    "dependency": {
+      "acc_overall_mean": 0.875,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 0.75,
+      "acc_location_mean": 1.0,
+      "auc_mean": 1.0,
+      "auc_std": 0.0,
+      "auc_per_seed": {
+        "7": 1.0,
+        "13": 1.0,
+        "19": 1.0
+      }
+    },
+    "combined": {
+      "acc_overall_mean": 1.0,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 1.0,
+      "acc_location_mean": 1.0,
+      "auc_mean": 1.0,
+      "auc_std": 0.0,
+      "auc_per_seed": {
+        "7": 1.0,
+        "13": 1.0,
+        "19": 1.0
+      }
+    },
+    "random_context": {
+      "acc_overall_mean": 0.5416666666666666,
+      "acc_overall_std": 0.05892556509887896,
+      "acc_artifact_mean": 0.5,
+      "acc_location_mean": 0.5833333333333334,
+      "auc_mean": 0.5208333333333334,
+      "auc_std": 0.10622957319984969,
+      "auc_per_seed": {
+        "7": 0.625,
+        "13": 0.375,
+        "19": 0.5625
+      }
+    }
+  },
+  "naive_location_acc": 1.0,
+  "naive_artifact_acc": 1.0,
+  "wordsim_auc_combined": 0.7488073170731707,
+  "loc_auc_margin_best": 0.0,
+  "best_test_arm": "combined",
+  "gap_to_naive": 0.25,
+  "close_half_gap": true,
+  "no_artifact_regression": true,
+  "no_wordsim_regression": false,
+  "random_must_fail_ok": true,
+  "dep_sparsity_limited": false,
+  "baseline_in_band": true,
+  "cardinality_ok": true,
+  "expected_n_units": 96,
+  "n_units_done": 96,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "window_vs_dependency": true,
+    "window_vs_combined": true,
+    "window_vs_random_context": true,
+    "dependency_vs_combined": true,
+    "dependency_vs_random_context": true,
+    "combined_vs_random_context": true
+  },
+  "arms_differ_exempted": [],
+  "bands": {
+    "HP_LOC_AUC_MARGIN_MIN": 0.05,
+    "HP_NO_ARTIFACT_REGRESSION_TOL": 0.05,
+    "HP_NO_WORDSIM_REGRESSION_MIN": 0.85,
+    "HF_LOC_AUC_MARGIN_MAX": 0.02,
+    "CHANCE_AUC": 0.5
+  },
+  "crlb_n/a": "binary typing-accuracy + rank-sum AUC over discrete ARTIFACT/LOCATION test items; closed-form chance floor = 0.50 (THEORETICAL); not a CRLB regime",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "combine_method": "concatenate_unit_normalized_channels_then_renormalize",
+  "parser_staging_status": "no_spacy_in_venv; text8_has_zero_punctuation_sentence_boundaries; rule_based_POS_free_preposition_verb_slot_approximation_used (see prereg for full staging-dependency note)",
+  "integration_of": [
+    "exp_learned_codebook_generalization_gate_v1 (atom 29368, window-PPMI-SVD mechanism + wordsim/simlex eval, reused unmodified)",
+    "exp_derived_filler_typing_single_edge_grounding_v1 (atom 29391, EXACT item/split, reused unmodified)"
+  ],
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_summary",
+    "cardinality_ok",
+    "arms_differ_verified",
+    "baseline_in_band",
+    "loc_auc_margin_best"
+  ]
+}

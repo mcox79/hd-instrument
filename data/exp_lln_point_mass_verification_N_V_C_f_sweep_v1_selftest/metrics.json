@@ -1,0 +1,9 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (primitive + verdict-aggregator T1-T6 all pass)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "anchor_name": "lln_point_mass_verification_N_V_C_f_sweep_v1",
+  "config_version": "ANCHOR=lln_point_mass_verification_N_V_C_f_sweep_v1,run_mode=self_test,N_SWEEP=[4096, 8192, 16384],V_C_SWEEP=[100, 200, 400],F_SWEEP=[0.05, 0.1, 0.15, 0.2, 0.3],SEEDS=[7],N_ITEMS_IN_KB=50,N_ITEMS_OOD=50,HP_CENTER_TOL=0.0100,HP_SPREAD_LO=0.50,HP_SPREAD_HI=2.00,HP_OOD_REL_TOL=0.30"
+}

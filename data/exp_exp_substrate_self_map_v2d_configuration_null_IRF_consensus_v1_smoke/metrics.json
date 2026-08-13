@@ -1,0 +1,312 @@
+{
+  "anchor_name": "substrate_self_map_v2d_configuration_null_IRF_consensus",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: mechanism partially recovered (one or more HARD_PASS bars unmet); ablation discriminates dominant fix. ABC: cons_gap=0.0386 cons_cv=0.000 n_clusters_real=19.0 n_clusters_shuf=15.0 cluster_gap=4.0 arrows=0.0 (pass 2.7) | recall=1.000 (pass 0.95 / fail 0.50) | n_llm=0 | ablations: A_irf cgap=1.0, B_cfg cgap=3.0, C_cons cons_gap=-0.0421",
+  "summary": "MIDDLE_BAND: mechanism partially recovered (one or more HARD_PASS bars unmet); ablation discriminates dominant fix. ABC: cons_gap=0.0386 cons_cv=0.000 n_clusters_real=19.0 n_clusters_shuf=15.0 cluster_gap=4.0 arrows=0.0 (pass 2.7) | recall=1.000 (pass 0.95 / fail 0.50) | n_llm=0 | ablations: A_irf cgap=1.0, B_cfg cgap=3.0, C_cons cons_gap=-0.0421",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "v2d-three-coupled-fixes: char_trigram_atom_encode + KGStore_multivalue_Hebbian + IRF_relation_weighting + configuration_model_null_rewire + consensus_clustering co_cluster_stability_discriminator; FULL-Store admit (every relations.jsonl triple); chain-grade-only anchor sampling; ablation arms ABC/A_irf/B_cfg/C_cons; N1024 max_ingest=5000 n_anchors=20 n_rel_samples=8 kset=12 kconsensus=3 bands cons_gap>=0.05 cons_cv<=0.10 recall>=0.95 arrows>=50%v2c",
+  "per_seed": [
+    {
+      "seed": 1,
+      "_ckpt_key": "1",
+      "N": 1024,
+      "run_mode": "smoke",
+      "config_version": "v2d-three-coupled-fixes: char_trigram_atom_encode + KGStore_multivalue_Hebbian + IRF_relation_weighting + configuration_model_null_rewire + consensus_clustering co_cluster_stability_discriminator; FULL-Store admit (every relations.jsonl triple); chain-grade-only anchor sampling; ablation arms ABC/A_irf/B_cfg/C_cons; N1024 max_ingest=5000 n_anchors=20 n_rel_samples=8 kset=12 kconsensus=3 bands cons_gap>=0.05 cons_cv<=0.10 recall>=0.95 arrows>=50%v2c",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177319,
+      "n_relation_types": 33,
+      "n_triples": 5000,
+      "n_anchors": 20,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 272.4,
+      "t_encoding_s": 15.1,
+      "arms": {
+        "ABC": {
+          "arm": "ABC",
+          "use_irf": true,
+          "use_config_null": true,
+          "use_consensus": true,
+          "n_clusters_real": 19,
+          "n_clusters_shuf": 15,
+          "cluster_gap": 4,
+          "consensus_stability_real": 0.993,
+          "consensus_stability_shuf": 0.9544,
+          "consensus_gap": 0.0386,
+          "coherence_real": 0.3976,
+          "coherence_shuf": 0.3286,
+          "elapsed_s": 70.3,
+          "_clusters_real": [
+            [
+              136
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ],
+            [
+              411
+            ],
+            [
+              414
+            ],
+            [
+              287
+            ],
+            [
+              38
+            ],
+            [
+              182
+            ],
+            [
+              186
+            ],
+            [
+              62
+            ],
+            [
+              326
+            ],
+            [
+              203
+            ],
+            [
+              220,
+              245
+            ],
+            [
+              358
+            ],
+            [
+              109
+            ],
+            [
+              366
+            ],
+            [
+              114
+            ],
+            [
+              120
+            ],
+            [
+              382
+            ]
+          ]
+        },
+        "A_irf": {
+          "arm": "A_irf",
+          "use_irf": true,
+          "use_config_null": false,
+          "use_consensus": false,
+          "n_clusters_real": 19,
+          "n_clusters_shuf": 18,
+          "cluster_gap": 1,
+          "consensus_stability_real": 0.0,
+          "consensus_stability_shuf": 0.0,
+          "consensus_gap": null,
+          "coherence_real": 0.3976,
+          "coherence_shuf": 0.3851,
+          "elapsed_s": 64.4,
+          "_clusters_real": [
+            [
+              136
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ],
+            [
+              411
+            ],
+            [
+              414
+            ],
+            [
+              287
+            ],
+            [
+              38
+            ],
+            [
+              182
+            ],
+            [
+              186
+            ],
+            [
+              62
+            ],
+            [
+              326
+            ],
+            [
+              203
+            ],
+            [
+              220,
+              245
+            ],
+            [
+              358
+            ],
+            [
+              109
+            ],
+            [
+              366
+            ],
+            [
+              114
+            ],
+            [
+              120
+            ],
+            [
+              382
+            ]
+          ]
+        },
+        "B_cfg": {
+          "arm": "B_cfg",
+          "use_irf": false,
+          "use_config_null": true,
+          "use_consensus": false,
+          "n_clusters_real": 12,
+          "n_clusters_shuf": 9,
+          "cluster_gap": 3,
+          "consensus_stability_real": 0.0,
+          "consensus_stability_shuf": 0.0,
+          "consensus_gap": null,
+          "coherence_real": 0.3063,
+          "coherence_shuf": 0.339,
+          "elapsed_s": 56.6,
+          "_clusters_real": [
+            [
+              120,
+              136,
+              220
+            ],
+            [
+              12,
+              15,
+              326
+            ],
+            [
+              411
+            ],
+            [
+              414
+            ],
+            [
+              287
+            ],
+            [
+              38
+            ],
+            [
+              109,
+              182
+            ],
+            [
+              186,
+              245,
+              358,
+              366
+            ],
+            [
+              62
+            ],
+            [
+              203
+            ],
+            [
+              114
+            ],
+            [
+              382
+            ]
+          ]
+        },
+        "C_cons": {
+          "arm": "C_cons",
+          "use_irf": false,
+          "use_config_null": false,
+          "use_consensus": true,
+          "n_clusters_real": 12,
+          "n_clusters_shuf": 18,
+          "cluster_gap": -6,
+          "consensus_stability_real": 0.9439,
+          "consensus_stability_shuf": 0.986,
+          "consensus_gap": -0.0421,
+          "coherence_real": 0.3063,
+          "coherence_shuf": 0.3984,
+          "elapsed_s": 56.1,
+          "_clusters_real": [
+            [
+              120,
+              136,
+              220
+            ],
+            [
+              12,
+              15,
+              326
+            ],
+            [
+              411
+            ],
+            [
+              414
+            ],
+            [
+              287
+            ],
+            [
+              38
+            ],
+            [
+              109,
+              182
+            ],
+            [
+              186,
+              245,
+              358,
+              366
+            ],
+            [
+              62
+            ],
+            [
+              203
+            ],
+            [
+              114
+            ],
+            [
+              382
+            ]
+          ]
+        }
+      },
+      "n_anchors_in_multi_clusters_abc": 0,
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782177163.4084485
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 277.4,
+  "DESIGN_NOTE": "Phase 1 substrate-native self-mapping v2d (three coupled mechanism fixes) per Research drill 2026-06-22. v2c HARD_FAIL with cluster_gap=-3 was diagnosed as null-model + relation-weighting + discriminator misspecification, NOT substrate can't-self-map. v2d holds scope (full ~200k relations, char_trigram encoding, chain-grade-only anchors) constant and changes ONLY the measurement: IRF weighting on Hebbian write, configuration-model degree-preserving rewire null, and consensus co-cluster stability discriminator. 4 arms (ABC + 3 single-fix ablations) test the drill's 4 falsifiable predictions to discriminate which fix(es) are load-bearing.",
+  "predictions": {
+    "P1_A_irf_alone": "predicts cluster_gap rises from -3 toward 0 but stays in MIDDLE",
+    "P2_B_cfg_alone": "predicts cluster_gap turns POSITIVE (config-null loses spurious-cluster advantage)",
+    "P3_C_cons_alone": "predicts consensus_cv low by construction; consensus_gap small",
+    "P4_ABC_combined": "predicts HARD_PASS at P_deflated=0.42"
+  }
+}

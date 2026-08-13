@@ -1,0 +1,582 @@
+{
+  "dataset": "CoDEx-M triple classification (Safavi & Koutra, EMNLP 2020) -- human-verified hard negatives",
+  "generalization_of": "exp_codex_claimvalidity_degree_orthogonal_schemafit_v2 (CoDEx-S, commit 754f97b23)",
+  "verdict": "MIDDLE",
+  "verdict_msg": "GENERALIZATION to CoDEx-M: degree-orthogonal pairwise SR/PPR schema-fit (a-priori, label-free, held-out val-fit): min point margin_orth-over-freq=0.1315 (gate>=0.10), max=0.2095; RA raw frontier=0.1104; min bootstrap p05 margin=0.1169 (floor>=0.072); label_free_verified=True; pop-neutral(held-out deg_explained<0.10 & resid>freq)=False; cert fires all calipers=True",
+  "signal_definition": "schema-fit(h,t) = residual of pairwise SR/PPR resolvent 0.5*(M[t,h]+M[h,t]) after label-free OLS projection on [1, log head_deg, log tail_deg], projection FIT ON VAL-matched rows, APPLIED to TEST-matched rows (held-out). Resolvent computed via sparse splu column-solve (identical math to v2 dense inverse; self-test verifies equality on a planted graph).",
+  "config": {
+    "prereg_gammas": [
+      0.5,
+      0.6,
+      0.7
+    ],
+    "diag_gammas": [
+      0.4,
+      0.8
+    ],
+    "verdict_gamma": 0.6,
+    "calipers": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "seeds": [
+      12345,
+      67890
+    ],
+    "n_boot": 300,
+    "freq_chance_band": [
+      0.45,
+      0.55
+    ],
+    "margin_hard_pass": 0.1,
+    "ra_frontier": 0.072,
+    "boot_p05_floor": 0.072,
+    "deg_explained_max": 0.1,
+    "n_ent": 17050,
+    "n_rel": 51,
+    "n_train": 185584
+  },
+  "decisive": {
+    "min_point_margin_orth_over_freq": 0.13146415742564843,
+    "max_point_margin_orth_over_freq": 0.20948948567470616,
+    "margin_RA_raw_vs_freq_base": 0.11036985868597848,
+    "min_bootstrap_p05_margin": 0.11685040821314653,
+    "point_pass_ge_0.10_all": true,
+    "robust_pass_p05_ge_RA_all": true,
+    "beats_ra": true
+  },
+  "label_free": {
+    "label_free_verified_bit_identical_under_shuffle": true,
+    "leak_found": false,
+    "resid_digest_real": "043f9ea48969fac6ea3bdf33adfbc6e432750948684df6c5fe5a0082a1a1e752",
+    "resid_digest_labelshuffled": "043f9ea48969fac6ea3bdf33adfbc6e432750948684df6c5fe5a0082a1a1e752",
+    "degree_regression_inputs": [
+      "sr_score",
+      "log_head_deg",
+      "log_tail_deg"
+    ],
+    "uses_truth_labels": false
+  },
+  "popularity_neutrality": {
+    "verdict_gamma": 0.6,
+    "max_heldout_degree_explained_fraction_over_calipers": 0.12664967906057403,
+    "deg_explained_max_threshold": 0.1,
+    "insample_projection_anchor_degree_explained": 0.0,
+    "popularity_neutral_by_construction": false
+  },
+  "per_caliper": {
+    "cal0.15": {
+      "certificate_fires": true,
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8196,
+      "freq_logistic_auroc": 0.5038026679681146,
+      "certificate_auroc": 0.5038026679681146,
+      "RA_raw_auroc": 0.6164127426131997,
+      "RA_orth_heldout_auroc": 0.5917508237064539,
+      "margin_RA_raw_vs_freq": 0.1126100746450851,
+      "margin_RA_orth_vs_freq": 0.08794815573833936,
+      "gamma_sweep": {
+        "g0.40": {
+          "sr_raw_auroc": 0.6778969243290481,
+          "sr_orth_heldout_auroc": 0.6090189157729335,
+          "sr_orth_insample_auroc": 0.6026482165472046,
+          "margin_orth_vs_freq": 0.10521624780481897,
+          "margin_raw_vs_freq": 0.17409425636093356,
+          "degree_explained_fraction_heldout": 0.05843664083944819,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0018879923812814784,
+            8.054247419611617e-05,
+            -0.00020717312258777904
+          ]
+        },
+        "g0.50": {
+          "sr_raw_auroc": 0.6733693672900707,
+          "sr_orth_heldout_auroc": 0.635266825393763,
+          "sr_orth_insample_auroc": 0.6271065758130298,
+          "margin_orth_vs_freq": 0.13146415742564843,
+          "margin_raw_vs_freq": 0.16956669932195612,
+          "degree_explained_fraction_heldout": 0.06032705770227611,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0020817453787907456,
+            9.022210157119242e-05,
+            -0.00014810365971910426
+          ]
+        },
+        "g0.60": {
+          "sr_raw_auroc": 0.6667703668610978,
+          "sr_orth_heldout_auroc": 0.6770517215959123,
+          "sr_orth_insample_auroc": 0.6607085352256729,
+          "margin_orth_vs_freq": 0.17324905362779774,
+          "margin_raw_vs_freq": 0.16296769889298324,
+          "degree_explained_fraction_heldout": 0.09230741290129756,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0019227212188829587,
+            9.11912512200574e-05,
+            3.3370753889149296e-05
+          ]
+        },
+        "g0.70": {
+          "sr_raw_auroc": 0.6571564090709773,
+          "sr_orth_heldout_auroc": 0.7118374650253751,
+          "sr_orth_insample_auroc": 0.706262306768696,
+          "margin_orth_vs_freq": 0.20803479705726058,
+          "margin_raw_vs_freq": 0.1533537411028627,
+          "degree_explained_fraction_heldout": 0.026318093714024462,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0009863388634478922,
+            8.517168707904892e-05,
+            0.0004596378653584709
+          ]
+        },
+        "g0.80": {
+          "sr_raw_auroc": 0.6424762367863385,
+          "sr_orth_heldout_auroc": 0.6980694257170765,
+          "sr_orth_insample_auroc": 0.6981599959127296,
+          "margin_orth_vs_freq": 0.19426675774896196,
+          "margin_raw_vs_freq": 0.1386735688182239,
+          "degree_explained_fraction_heldout": 0.0,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            -0.002016905101017495,
+            8.468995037693664e-05,
+            0.0014845615188732795
+          ]
+        }
+      }
+    },
+    "cal0.20": {
+      "certificate_fires": true,
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8582,
+      "freq_logistic_auroc": 0.503200973285748,
+      "certificate_auroc": 0.503200973285748,
+      "RA_raw_auroc": 0.6135708319717265,
+      "RA_orth_heldout_auroc": 0.5866183202761184,
+      "margin_RA_raw_vs_freq": 0.11036985868597848,
+      "margin_RA_orth_vs_freq": 0.0834173469903704,
+      "gamma_sweep": {
+        "g0.40": {
+          "sr_raw_auroc": 0.6776437662717342,
+          "sr_orth_heldout_auroc": 0.6104336734014998,
+          "sr_orth_insample_auroc": 0.602182186287809,
+          "margin_orth_vs_freq": 0.10723270011575181,
+          "margin_raw_vs_freq": 0.1744427929859862,
+          "degree_explained_fraction_heldout": 0.0747189408767668,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0018607463754000948,
+            7.98881918288501e-05,
+            -0.00020057757926256092
+          ]
+        },
+        "g0.50": {
+          "sr_raw_auroc": 0.6732870949102958,
+          "sr_orth_heldout_auroc": 0.6366426214628929,
+          "sr_orth_insample_auroc": 0.6254609798540474,
+          "margin_orth_vs_freq": 0.13344164817714488,
+          "margin_raw_vs_freq": 0.17008612162454784,
+          "degree_explained_fraction_heldout": 0.08183128725967849,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0020567025380389403,
+            8.904094569082441e-05,
+            -0.00014111359386296602
+          ]
+        },
+        "g0.60": {
+          "sr_raw_auroc": 0.6668723310852993,
+          "sr_orth_heldout_auroc": 0.6788435372339313,
+          "sr_orth_insample_auroc": 0.6561930606411961,
+          "margin_orth_vs_freq": 0.17564256394818334,
+          "margin_raw_vs_freq": 0.16367135779955133,
+          "degree_explained_fraction_heldout": 0.12664967906057403,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0019117047842188738,
+            8.739200723921986e-05,
+            3.966103136769357e-05
+          ]
+        },
+        "g0.70": {
+          "sr_raw_auroc": 0.65752795586911,
+          "sr_orth_heldout_auroc": 0.7109045934158095,
+          "sr_orth_insample_auroc": 0.7019155168114845,
+          "margin_orth_vs_freq": 0.2077036201300615,
+          "margin_raw_vs_freq": 0.15432698258336197,
+          "degree_explained_fraction_heldout": 0.04262153070607895,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0010139257750935416,
+            7.354071906214737e-05,
+            0.00046321175759660074
+          ]
+        },
+        "g0.80": {
+          "sr_raw_auroc": 0.6432128759521767,
+          "sr_orth_heldout_auroc": 0.6971282183186686,
+          "sr_orth_insample_auroc": 0.697607561875427,
+          "margin_orth_vs_freq": 0.19392724503292058,
+          "margin_raw_vs_freq": 0.1400119026664287,
+          "degree_explained_fraction_heldout": 0.0,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            -0.0018894629583642586,
+            5.10718424676735e-05,
+            0.0014806600843348125
+          ]
+        }
+      }
+    },
+    "cal0.25": {
+      "certificate_fires": true,
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8844,
+      "freq_logistic_auroc": 0.5037709513777275,
+      "certificate_auroc": 0.5037709513777275,
+      "RA_raw_auroc": 0.6155149993218808,
+      "RA_orth_heldout_auroc": 0.5860135151306499,
+      "margin_RA_raw_vs_freq": 0.11174404794415327,
+      "margin_RA_orth_vs_freq": 0.08224256375292238,
+      "gamma_sweep": {
+        "g0.40": {
+          "sr_raw_auroc": 0.6785672752556448,
+          "sr_orth_heldout_auroc": 0.6115944116840247,
+          "sr_orth_insample_auroc": 0.6035264295683704,
+          "margin_orth_vs_freq": 0.10782346030629719,
+          "margin_raw_vs_freq": 0.17479632387791721,
+          "degree_explained_fraction_heldout": 0.07229736681168653,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0017981133208995778,
+            0.00010032325493673487,
+            -0.0001932820671521287
+          ]
+        },
+        "g0.50": {
+          "sr_raw_auroc": 0.6741541306665145,
+          "sr_orth_heldout_auroc": 0.6384207258187088,
+          "sr_orth_insample_auroc": 0.6274808628212909,
+          "margin_orth_vs_freq": 0.13464977444098125,
+          "margin_raw_vs_freq": 0.170383179288787,
+          "degree_explained_fraction_heldout": 0.07903341737816023,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0019707019850806035,
+            0.00011916143493918735,
+            -0.00013256750589159987
+          ]
+        },
+        "g0.60": {
+          "sr_raw_auroc": 0.6676981391713362,
+          "sr_orth_heldout_auroc": 0.6822354092372723,
+          "sr_orth_insample_auroc": 0.6597857255803954,
+          "margin_orth_vs_freq": 0.1784644578595448,
+          "margin_raw_vs_freq": 0.1639271877936087,
+          "degree_explained_fraction_heldout": 0.12319056845668905,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.00180094783866331,
+            0.00012923982222044138,
+            4.879898825956071e-05
+          ]
+        },
+        "g0.70": {
+          "sr_raw_auroc": 0.6582712593440838,
+          "sr_orth_heldout_auroc": 0.7132604370524337,
+          "sr_orth_insample_auroc": 0.7053084920776652,
+          "margin_orth_vs_freq": 0.20948948567470616,
+          "margin_raw_vs_freq": 0.15450030796635628,
+          "degree_explained_fraction_heldout": 0.03728748325135129,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            0.0008806070669296848,
+            0.00012929000903849944,
+            0.00047148549072743493
+          ]
+        },
+        "g0.80": {
+          "sr_raw_auroc": 0.6438573394693405,
+          "sr_orth_heldout_auroc": 0.6991489603910876,
+          "sr_orth_insample_auroc": 0.6996211379679048,
+          "margin_orth_vs_freq": 0.1953780090133601,
+          "margin_raw_vs_freq": 0.140086388091613,
+          "degree_explained_fraction_heldout": 0.0,
+          "residual_beats_freq": true,
+          "proj_coef": [
+            -0.002031794207000367,
+            0.0001233219145562053,
+            0.001484032202051253
+          ]
+        }
+      }
+    }
+  },
+  "config_grid": {
+    "cal0.15_seed12345": {
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8196,
+      "n_boot": 300,
+      "freq_auroc_boot_mean": 0.5038878508383458,
+      "g0.40": {
+        "margin_orth_mean": 0.10517698447296936,
+        "margin_orth_p05": 0.09024336670492783,
+        "margin_orth_p50": 0.10511452705879915,
+        "frac_ge_0.10": 0.74,
+        "frac_ge_RA": 1.0
+      },
+      "g0.50": {
+        "margin_orth_mean": 0.13138928885903003,
+        "margin_orth_p05": 0.11685040821314653,
+        "margin_orth_p50": 0.13135287818990404,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.60": {
+        "margin_orth_mean": 0.17316018028708335,
+        "margin_orth_p05": 0.15858709058012246,
+        "margin_orth_p50": 0.17297003760024127,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.70": {
+        "margin_orth_mean": 0.20812739641382155,
+        "margin_orth_p05": 0.1929724112192383,
+        "margin_orth_p50": 0.20757148406582956,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.80": {
+        "margin_orth_mean": 0.19444125177049434,
+        "margin_orth_p05": 0.17891299199575653,
+        "margin_orth_p50": 0.1943692805956609,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      }
+    },
+    "cal0.15_seed67890": {
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8196,
+      "n_boot": 300,
+      "freq_auroc_boot_mean": 0.5044130893485952,
+      "g0.40": {
+        "margin_orth_mean": 0.10491761248595362,
+        "margin_orth_p05": 0.09130177362895352,
+        "margin_orth_p50": 0.1048879499238902,
+        "frac_ge_0.10": 0.7233333333333334,
+        "frac_ge_RA": 1.0
+      },
+      "g0.50": {
+        "margin_orth_mean": 0.13109532359348633,
+        "margin_orth_p05": 0.11699444857797717,
+        "margin_orth_p50": 0.13122229571911423,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.60": {
+        "margin_orth_mean": 0.1725973394738953,
+        "margin_orth_p05": 0.15822991224132668,
+        "margin_orth_p50": 0.1731629836958281,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.70": {
+        "margin_orth_mean": 0.2070293458326532,
+        "margin_orth_p05": 0.19222303594582643,
+        "margin_orth_p50": 0.20690156476176158,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.80": {
+        "margin_orth_mean": 0.19304404766384498,
+        "margin_orth_p05": 0.17789624598383547,
+        "margin_orth_p50": 0.19335738909432115,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      }
+    },
+    "cal0.20_seed12345": {
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8582,
+      "n_boot": 300,
+      "freq_auroc_boot_mean": 0.5028998530167498,
+      "g0.40": {
+        "margin_orth_mean": 0.10721809466840952,
+        "margin_orth_p05": 0.09420678468212756,
+        "margin_orth_p50": 0.10685027317275564,
+        "frac_ge_0.10": 0.8266666666666667,
+        "frac_ge_RA": 1.0
+      },
+      "g0.50": {
+        "margin_orth_mean": 0.13344129264469937,
+        "margin_orth_p05": 0.12009143361679195,
+        "margin_orth_p50": 0.13324746349604855,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.60": {
+        "margin_orth_mean": 0.17572620300723016,
+        "margin_orth_p05": 0.16166885971858336,
+        "margin_orth_p50": 0.17589796907879238,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.70": {
+        "margin_orth_mean": 0.20779987859762206,
+        "margin_orth_p05": 0.19246405318029294,
+        "margin_orth_p50": 0.20817690482702736,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.80": {
+        "margin_orth_mean": 0.1939963458795689,
+        "margin_orth_p05": 0.17999035262185303,
+        "margin_orth_p50": 0.19421733123684748,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      }
+    },
+    "cal0.20_seed67890": {
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8582,
+      "n_boot": 300,
+      "freq_auroc_boot_mean": 0.5024125625248795,
+      "g0.40": {
+        "margin_orth_mean": 0.10870513884248446,
+        "margin_orth_p05": 0.09348595742696322,
+        "margin_orth_p50": 0.10892521745849171,
+        "frac_ge_0.10": 0.8366666666666667,
+        "frac_ge_RA": 1.0
+      },
+      "g0.50": {
+        "margin_orth_mean": 0.13480902820597152,
+        "margin_orth_p05": 0.11996392255633584,
+        "margin_orth_p50": 0.13522382086738016,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.60": {
+        "margin_orth_mean": 0.17656952976709964,
+        "margin_orth_p05": 0.16254832350097234,
+        "margin_orth_p50": 0.17690321981398352,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.70": {
+        "margin_orth_mean": 0.20833726195223826,
+        "margin_orth_p05": 0.19398998956569619,
+        "margin_orth_p50": 0.20829208091911672,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.80": {
+        "margin_orth_mean": 0.19454921502048958,
+        "margin_orth_p05": 0.17973230150408645,
+        "margin_orth_p50": 0.19426071443646437,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      }
+    },
+    "cal0.25_seed12345": {
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8844,
+      "n_boot": 300,
+      "freq_auroc_boot_mean": 0.5033409879759105,
+      "g0.40": {
+        "margin_orth_mean": 0.10824953113728182,
+        "margin_orth_p05": 0.09464128607732313,
+        "margin_orth_p50": 0.10841924569310246,
+        "frac_ge_0.10": 0.7966666666666666,
+        "frac_ge_RA": 1.0
+      },
+      "g0.50": {
+        "margin_orth_mean": 0.13513207615788478,
+        "margin_orth_p05": 0.1211848686498376,
+        "margin_orth_p50": 0.13550983837909308,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.60": {
+        "margin_orth_mean": 0.17902226214618147,
+        "margin_orth_p05": 0.16579697234671373,
+        "margin_orth_p50": 0.1792690686937887,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.70": {
+        "margin_orth_mean": 0.21020526193507444,
+        "margin_orth_p05": 0.19727947655383865,
+        "margin_orth_p50": 0.20957273955039563,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.80": {
+        "margin_orth_mean": 0.1963104357347445,
+        "margin_orth_p05": 0.18319783966898018,
+        "margin_orth_p50": 0.19558241728505044,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      }
+    },
+    "cal0.25_seed67890": {
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 8844,
+      "n_boot": 300,
+      "freq_auroc_boot_mean": 0.5038203690183709,
+      "g0.40": {
+        "margin_orth_mean": 0.1079811346760724,
+        "margin_orth_p05": 0.09363911754953914,
+        "margin_orth_p50": 0.10812423308834077,
+        "frac_ge_0.10": 0.83,
+        "frac_ge_RA": 1.0
+      },
+      "g0.50": {
+        "margin_orth_mean": 0.13485986969241595,
+        "margin_orth_p05": 0.1204301322008955,
+        "margin_orth_p50": 0.13518693465874837,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.60": {
+        "margin_orth_mean": 0.17858781940765564,
+        "margin_orth_p05": 0.1647018941928806,
+        "margin_orth_p50": 0.17875810667345354,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.70": {
+        "margin_orth_mean": 0.20934460415287873,
+        "margin_orth_p05": 0.19545670329975867,
+        "margin_orth_p50": 0.20947265154434952,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      },
+      "g0.80": {
+        "margin_orth_mean": 0.19529114915208604,
+        "margin_orth_p05": 0.18168204044408878,
+        "margin_orth_p50": 0.19532910453695104,
+        "frac_ge_0.10": 1.0,
+        "frac_ge_RA": 1.0
+      }
+    }
+  },
+  "prereg_bands": {
+    "HARD_PASS": "cert fires all configs AND point margin_orth>=0.10 for all prereg gamma x caliper AND bootstrap p05 margin>=0.072 all configs AND label-free verified AND pop-neutral by construction (heldout deg_explained<0.10 AND resid>freq)",
+    "HARD_FAIL": "certificate breaks OR max margin_orth<=RA raw margin (collapse) OR label leak detected",
+    "MIDDLE": "otherwise (margin in (RA's +0.072,+0.10), or not robust across all gammas/configs)",
+    "SPLIT_NOT_FREQUENCY_BLIND": "a config had no control driving freq baseline into [0.45,0.55]"
+  },
+  "honesty_notes": [
+    "GENERALIZATION test: SAME signal + certificate + guards as CoDEx-S v2; ONLY the dataset changed (CoDEx-M). Bands inherited VERBATIM. Numerical resolvent path is sparse splu column-solve (scales to n_ent~17k) computing the IDENTICAL M entries as v2's dense inverse; self-test asserts equality on a planted graph.",
+    "gamma HARD-PASS set {0.5,0.6,0.7} inherited a-priori from v1/v2 (NOT selected to pass); {0.4,0.8} logged as sensitivity diagnostics; HARD-PASS requires ALL prereg gammas to clear at ALL calipers.",
+    "degree projection is LABEL-FREE (inputs: score + log-degrees only) AND HELD-OUT (fit on VAL, applied to TEST); label-permutation leak probe asserts the residual is bit-identical -> no leak.",
+    "margin reported as MARGIN-OVER-FREQ vs the freq-at-chance certificate baseline; RA raw frontier ~+0.072 on CoDEx-S. Compare margin_RA_orth_vs_freq vs margin_RA_raw_vs_freq per caliper on CoDEx-M.",
+    "popularity-neutral BY CONSTRUCTION: in-sample projection drives degree_explained to ~0 EXACTLY; held-out residual re-residualized on test degrees explains <deg_explained_max of its above-chance AUROC -> the signal is structure, not residual popularity the matching missed.",
+    "GENERALIZATION CALL (report block): win GENERALIZES iff cert fires AND structural margin-over-freq clearly positive at g in [0.6,0.7] AND beats RA frontier AND popularity-neutral; COLLAPSE iff no margin / cert cannot fire / max margin <= RA."
+  ],
+  "elapsed_s": 1178.7594838142395
+}

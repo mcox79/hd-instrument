@@ -1,0 +1,191 @@
+{
+  "anchor_name": "att1_iterative_attractor_cleanup_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: iterative-attractor does NOT unlock argmax cleanup; no benefit in either regime. best_att1_lift=0.000. Mechanism rejected as substrate-mine swap-in. Route to Research for 2x-revival angle. DISCRIMINATOR @ NOISE_HARDER=1.50: argmax=0.040 | best_att1=ATT1_SOFTATTRACTOR recall=0.040 lift=0.000 cv=0.000 | basin@1.50 argmax=0.040 best_att1=0.040 (ratio=1.00x) | conv=1.00",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "M": 200,
+  "N_EVAL": 50,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARGMAX_BASELINE": {
+        "recall_gentle_mean": 0.34,
+        "recall_gentle_std": 0.0,
+        "recall_harder_mean": 0.04,
+        "recall_harder_std": 0.0,
+        "recall_harder_cv": 0.0,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.34,
+          "1.0": 0.06,
+          "1.5": 0.04,
+          "2.0": 0.06
+        }
+      },
+      "ATT1_SOFTATTRACTOR": {
+        "recall_gentle_mean": 0.22,
+        "recall_gentle_std": 0.0,
+        "recall_harder_mean": 0.04,
+        "recall_harder_std": 0.0,
+        "recall_harder_cv": 0.0,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 3.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.22,
+          "1.0": 0.02,
+          "1.5": 0.04,
+          "2.0": 0.0
+        }
+      },
+      "ATT1_LOW_TEMP": {
+        "recall_gentle_mean": 0.2,
+        "recall_gentle_std": 0.0,
+        "recall_harder_mean": 0.02,
+        "recall_harder_std": 0.0,
+        "recall_harder_cv": 0.0,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 4.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2,
+          "1.0": 0.02,
+          "1.5": 0.02,
+          "2.0": 0.0
+        }
+      },
+      "ATT1_HIGH_TEMP": {
+        "recall_gentle_mean": 0.3,
+        "recall_gentle_std": 0.0,
+        "recall_harder_mean": 0.02,
+        "recall_harder_std": 0.0,
+        "recall_harder_cv": 0.0,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 3.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.3,
+          "1.0": 0.08,
+          "1.5": 0.02,
+          "2.0": 0.04
+        }
+      }
+    },
+    "argmax_recall_harder": 0.04,
+    "argmax_basin_at_discriminator_sigma": 0.04,
+    "discriminator_sigma": 1.5,
+    "best_att1_arm": "ATT1_SOFTATTRACTOR",
+    "best_att1_recall_harder": 0.04,
+    "best_att1_lift_over_argmax": 0.0,
+    "best_att1_cv": 0.0,
+    "best_att1_basin_at_discriminator_sigma": 0.04,
+    "best_att1_frac_converged": 1.0,
+    "basin_ratio_best_att1_over_argmax": 1.0,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "att1_iterative_attractor_v1; N_DIM=512 M=200 N_EVAL=50 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 'argmax', None, 1), ('ATT1_SOFTATTRACTOR', 'iterative', 4.0, 8), ('ATT1_LOW_TEMP', 'iterative', 2.0, 8), ('ATT1_HIGH_TEMP', 'iterative', 16.0, 8)] noise_gentle=0.500 noise_harder=1.500 tol=0.0010 seeds=[0] mode=smoke",
+    "honest_scope": "HD-substrate-native attractor cleanup; N_DIM=512, M=200, 4 arms x 2 noise regimes x 1 seeds; cleanup-only test (no encoder)",
+    "cites": [
+      "hdlab.iterative_attractor (NEW primitive 2026-06-22)",
+      "research_brain_mechanism_x_HD_broad_exploration_drill_2026-06-22",
+      "Saxena_Bartlett_2024_arXiv_2212.01196_VSA_FSM_attractor",
+      "Ramsauer_2021_ICLR_Modern_Hopfield",
+      "Krotov_Hopfield_2016_NeurIPS_dense_associative_memory"
+    ]
+  },
+  "metrics_source": "measured_cpu_att1_iterative_attractor_cleanup_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "temp": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.34,
+          "recall_at_1_noise_harder": 0.04,
+          "mean_iterations_gentle": 1.0,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.34,
+            "1.0": 0.06,
+            "1.5": 0.04,
+            "2.0": 0.06
+          },
+          "wall_s": 0.2
+        },
+        "ATT1_SOFTATTRACTOR": {
+          "mode": "iterative",
+          "temp": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.22,
+          "recall_at_1_noise_harder": 0.04,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.22,
+            "1.0": 0.02,
+            "1.5": 0.04,
+            "2.0": 0.0
+          },
+          "wall_s": 0.38
+        },
+        "ATT1_LOW_TEMP": {
+          "mode": "iterative",
+          "temp": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.2,
+          "recall_at_1_noise_harder": 0.02,
+          "mean_iterations_gentle": 4.0,
+          "mean_iterations_harder": 4.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.2,
+            "1.0": 0.02,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "wall_s": 0.47
+        },
+        "ATT1_HIGH_TEMP": {
+          "mode": "iterative",
+          "temp": 16.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.3,
+          "recall_at_1_noise_harder": 0.02,
+          "mean_iterations_gentle": 3.0,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.3,
+            "1.0": 0.08,
+            "1.5": 0.02,
+            "2.0": 0.04
+          },
+          "wall_s": 0.33
+        }
+      },
+      "N_DIM": 512,
+      "M": 200,
+      "N_EVAL": 50,
+      "run_mode": "smoke",
+      "config_version": "att1_iterative_attractor_v1; N_DIM=512 M=200 N_EVAL=50 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 'argmax', None, 1), ('ATT1_SOFTATTRACTOR', 'iterative', 4.0, 8), ('ATT1_LOW_TEMP', 'iterative', 2.0, 8), ('ATT1_HIGH_TEMP', 'iterative', 16.0, 8)] noise_gentle=0.500 noise_harder=1.500 tol=0.0010 seeds=[0] mode=smoke",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782186564.2293875
+    }
+  ],
+  "elapsed_s": 1.4515862464904785,
+  "summary": "DISCRIMINATOR HARD_FAIL: iterative-attractor does NOT unlock argmax cleanup; no benefit in either regime. best_att1_lift=0.000. Mechanism rejected as substrate-mine swap-in. Route to Research for 2x-revival angle. DISCRIMINATOR @ NOISE_HARDER=1.50: argmax=0.040 | best_att1=ATT1_SOFTATTRACTOR recall=0.040 lift=0.000 cv=0.000 | basin@1.50 argmax=0.040 best_att1=0.040 (ratio=1.00x) | conv=1.00",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native cleanup; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

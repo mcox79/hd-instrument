@@ -1,0 +1,497 @@
+{
+  "verdict": "HOLDS_AND_SCALES",
+  "verdict_msg": "HOLDS_AND_SCALES | context-sweep margin(learned-raw) vs #ctx-edges: [(1, 0.0563, 0.5556, 0.4993, 0.5205, 0.4857, True), (3, 0.0567, 0.556, 0.4993, 0.53, 0.4822, True), ('ALL', 0.1041, 0.6035, 0.4993, 0.5589, 0.4906, True)] | survives_minimal(ctx=1)=True margin=+0.0563(min=+0.0563) learned=0.5556 | ALL-ctx positive-control margin=+0.1041 valid=True | constraints_grow(all>=min)=True (delta=+0.0479) | all_levels_valid=True",
+  "summary": "HOLDS_AND_SCALES | context-sweep margin(learned-raw) vs #ctx-edges: [(1, 0.0563, 0.5556, 0.4993, 0.5205, 0.4857, True), (3, 0.0567, 0.556, 0.4993, 0.53, 0.4822, True), ('ALL', 0.1041, 0.6035, 0.4993, ",
+  "run_mode": "smoke",
+  "elapsed_s": 20.331092500011437,
+  "anchor_name": "leakproof_relinfer_context_sweep_v1",
+  "ts_iso": "2026-07-26T20:36:48.757235+00:00",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "max_context_levels": [
+    1,
+    3,
+    "ALL"
+  ],
+  "expected_total_units": 3,
+  "total_units_run": 3,
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "seeds": [
+      7
+    ],
+    "heldout_frac": 0.2,
+    "top_rel": 16,
+    "predict_frac": 0.5,
+    "epochs": 80,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 192,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "w_geo": 1.0,
+    "w_rel": 0.5,
+    "w_ema": 0.5,
+    "ema_momentum": 0.99,
+    "infonce_tau": 0.2,
+    "feat_dropout": 0.1,
+    "n_deg_bins": 5,
+    "max_context_levels": [
+      1,
+      3,
+      100000
+    ]
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 800,
+    "n_kept_pairs": 75622,
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/PartOf",
+      "/r/UsedFor",
+      "/r/HasProperty",
+      "/r/HasA",
+      "/r/Desires",
+      "/r/MadeOf",
+      "/r/NotHasProperty",
+      "/r/NotDesires",
+      "/r/ReceivesAction",
+      "/r/Entails",
+      "/r/CausesDesire"
+    ],
+    "n_rel_slots": 17
+  },
+  "sweep_summary": {
+    "verdict": "HOLDS_AND_SCALES",
+    "curve": [
+      [
+        1,
+        0.0563,
+        0.5556,
+        0.4993,
+        0.5205,
+        0.4857,
+        true
+      ],
+      [
+        3,
+        0.0567,
+        0.556,
+        0.4993,
+        0.53,
+        0.4822,
+        true
+      ],
+      [
+        "ALL",
+        0.1041,
+        0.6035,
+        0.4993,
+        0.5589,
+        0.4906,
+        true
+      ]
+    ],
+    "survives_minimal": true,
+    "all_valid": true,
+    "constraints_grow": true,
+    "margin_min_ctx": 0.05625645994832046,
+    "margin_all_ctx": 0.10414800459374102,
+    "margin_delta": 0.04789154464542056,
+    "all_levels_valid": true
+  },
+  "per_level": [
+    {
+      "max_context": 1,
+      "level_verdict": "HARD_PASS",
+      "gates": {
+        "learned_rel_infer_auc": 0.5555742176284812,
+        "learned_rel_infer_auc_min": 0.5555742176284812,
+        "raw_grounding_rel_infer_auc": 0.4993177576801608,
+        "random_init_rel_infer_auc": 0.4810247990238301,
+        "struct_2hop_rel_infer_auc": 0.5204618863049095,
+        "popularity_rel_infer_auc": 0.5342766652311225,
+        "collapse_shuffle_rel_infer_auc": 0.48574827734711457,
+        "margin_over_raw_grounding": 0.05625645994832046,
+        "margin_over_raw_grounding_min": 0.05625645994832046,
+        "margin_over_random_init": 0.07454941860465114,
+        "margin_over_struct_2hop": 0.03511233132357172,
+        "real_margin": true,
+        "is_tie": false,
+        "power_ok": true,
+        "n_query": 172,
+        "can_fail_fired": true,
+        "pop_ok": true,
+        "validity_ok": true,
+        "no_overlap_witness_overlap": 0,
+        "no_overlap_witness_predict_targets": 12137,
+        "collapse_band": [
+          0.44,
+          0.56
+        ],
+        "pop_band": [
+          0.44,
+          0.56
+        ],
+        "hp_margin_over_raw": 0.03,
+        "tie_eps": 0.03,
+        "hp_learned_floor": 0.53,
+        "min_query_tasks": 100
+      },
+      "arms_aggregate": {
+        "ARM_RAW_GROUNDING": {
+          "rel_infer_auc_mean": 0.4993177576801608,
+          "rel_infer_auc_min": 0.4993177576801608,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_LEARNED": {
+          "rel_infer_auc_mean": 0.5555742176284812,
+          "rel_infer_auc_min": 0.5555742176284812,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_RANDOM_INIT": {
+          "rel_infer_auc_mean": 0.4810247990238301,
+          "rel_infer_auc_min": 0.4810247990238301,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_STRUCT_2HOP": {
+          "rel_infer_auc_mean": 0.5204618863049095,
+          "rel_infer_auc_min": 0.5204618863049095,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_POPULARITY": {
+          "rel_infer_auc_mean": 0.5342766652311225,
+          "rel_infer_auc_min": 0.5342766652311225,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_COLLAPSE_SHUFFLE": {
+          "rel_infer_auc_mean": 0.48574827734711457,
+          "rel_infer_auc_min": 0.48574827734711457,
+          "n_query": 172,
+          "n_seeds": 1
+        }
+      },
+      "split_meta": {
+        "n_train": 628,
+        "n_heldout": 172,
+        "n_eval_queries": 172,
+        "no_overlap_witness_overlap": 0,
+        "no_overlap_witness_predict_targets": 12137,
+        "mean_held_context_size": 1.0,
+        "n_rel_slots": 17,
+        "predict_frac": 0.5,
+        "max_context": 1
+      },
+      "n_seeds": 1,
+      "per_seed": [
+        {
+          "ARM_RAW_GROUNDING": {
+            "rel_infer_auc": 0.4993177576801608,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_LEARNED": {
+            "rel_infer_auc": 0.5555742176284812,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_RANDOM_INIT": {
+            "rel_infer_auc": 0.4810247990238301,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_STRUCT_2HOP": {
+            "rel_infer_auc": 0.5204618863049095,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_POPULARITY": {
+            "rel_infer_auc": 0.5342766652311225,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_COLLAPSE_SHUFFLE": {
+            "rel_infer_auc": 0.48574827734711457,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          }
+        }
+      ]
+    },
+    {
+      "max_context": 3,
+      "level_verdict": "HARD_PASS",
+      "gates": {
+        "learned_rel_infer_auc": 0.5560377189204708,
+        "learned_rel_infer_auc_min": 0.5560377189204708,
+        "raw_grounding_rel_infer_auc": 0.4993177576801608,
+        "random_init_rel_infer_auc": 0.47322028423772605,
+        "struct_2hop_rel_infer_auc": 0.5299655469422911,
+        "popularity_rel_infer_auc": 0.5342766652311225,
+        "collapse_shuffle_rel_infer_auc": 0.48222724662647143,
+        "margin_over_raw_grounding": 0.056719961240310035,
+        "margin_over_raw_grounding_min": 0.056719961240310035,
+        "margin_over_random_init": 0.08281743468274477,
+        "margin_over_struct_2hop": 0.02607217197817968,
+        "real_margin": true,
+        "is_tie": false,
+        "power_ok": true,
+        "n_query": 172,
+        "can_fail_fired": true,
+        "pop_ok": true,
+        "validity_ok": true,
+        "no_overlap_witness_overlap": 0,
+        "no_overlap_witness_predict_targets": 12137,
+        "collapse_band": [
+          0.44,
+          0.56
+        ],
+        "pop_band": [
+          0.44,
+          0.56
+        ],
+        "hp_margin_over_raw": 0.03,
+        "tie_eps": 0.03,
+        "hp_learned_floor": 0.53,
+        "min_query_tasks": 100
+      },
+      "arms_aggregate": {
+        "ARM_RAW_GROUNDING": {
+          "rel_infer_auc_mean": 0.4993177576801608,
+          "rel_infer_auc_min": 0.4993177576801608,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_LEARNED": {
+          "rel_infer_auc_mean": 0.5560377189204708,
+          "rel_infer_auc_min": 0.5560377189204708,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_RANDOM_INIT": {
+          "rel_infer_auc_mean": 0.47322028423772605,
+          "rel_infer_auc_min": 0.47322028423772605,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_STRUCT_2HOP": {
+          "rel_infer_auc_mean": 0.5299655469422911,
+          "rel_infer_auc_min": 0.5299655469422911,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_POPULARITY": {
+          "rel_infer_auc_mean": 0.5342766652311225,
+          "rel_infer_auc_min": 0.5342766652311225,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_COLLAPSE_SHUFFLE": {
+          "rel_infer_auc_mean": 0.48222724662647143,
+          "rel_infer_auc_min": 0.48222724662647143,
+          "n_query": 172,
+          "n_seeds": 1
+        }
+      },
+      "split_meta": {
+        "n_train": 628,
+        "n_heldout": 172,
+        "n_eval_queries": 172,
+        "no_overlap_witness_overlap": 0,
+        "no_overlap_witness_predict_targets": 12137,
+        "mean_held_context_size": 3.0,
+        "n_rel_slots": 17,
+        "predict_frac": 0.5,
+        "max_context": 3
+      },
+      "n_seeds": 1,
+      "per_seed": [
+        {
+          "ARM_RAW_GROUNDING": {
+            "rel_infer_auc": 0.4993177576801608,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_LEARNED": {
+            "rel_infer_auc": 0.5560377189204708,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_RANDOM_INIT": {
+            "rel_infer_auc": 0.47322028423772605,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_STRUCT_2HOP": {
+            "rel_infer_auc": 0.5299655469422911,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_POPULARITY": {
+            "rel_infer_auc": 0.5342766652311225,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_COLLAPSE_SHUFFLE": {
+            "rel_infer_auc": 0.48222724662647143,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          }
+        }
+      ]
+    },
+    {
+      "max_context": null,
+      "level_verdict": "HARD_PASS",
+      "gates": {
+        "learned_rel_infer_auc": 0.6034657622739018,
+        "learned_rel_infer_auc_min": 0.6034657622739018,
+        "raw_grounding_rel_infer_auc": 0.4993177576801608,
+        "random_init_rel_infer_auc": 0.4803395061728395,
+        "struct_2hop_rel_infer_auc": 0.5588765073212747,
+        "popularity_rel_infer_auc": 0.5342766652311225,
+        "collapse_shuffle_rel_infer_auc": 0.49060239018087853,
+        "margin_over_raw_grounding": 0.10414800459374102,
+        "margin_over_raw_grounding_min": 0.10414800459374102,
+        "margin_over_random_init": 0.12312625610106231,
+        "margin_over_struct_2hop": 0.04458925495262711,
+        "real_margin": true,
+        "is_tie": false,
+        "power_ok": true,
+        "n_query": 172,
+        "can_fail_fired": true,
+        "pop_ok": true,
+        "validity_ok": true,
+        "no_overlap_witness_overlap": 0,
+        "no_overlap_witness_predict_targets": 12137,
+        "collapse_band": [
+          0.44,
+          0.56
+        ],
+        "pop_band": [
+          0.44,
+          0.56
+        ],
+        "hp_margin_over_raw": 0.03,
+        "tie_eps": 0.03,
+        "hp_learned_floor": 0.53,
+        "min_query_tasks": 100
+      },
+      "arms_aggregate": {
+        "ARM_RAW_GROUNDING": {
+          "rel_infer_auc_mean": 0.4993177576801608,
+          "rel_infer_auc_min": 0.4993177576801608,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_LEARNED": {
+          "rel_infer_auc_mean": 0.6034657622739018,
+          "rel_infer_auc_min": 0.6034657622739018,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_RANDOM_INIT": {
+          "rel_infer_auc_mean": 0.4803395061728395,
+          "rel_infer_auc_min": 0.4803395061728395,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_STRUCT_2HOP": {
+          "rel_infer_auc_mean": 0.5588765073212747,
+          "rel_infer_auc_min": 0.5588765073212747,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_POPULARITY": {
+          "rel_infer_auc_mean": 0.5342766652311225,
+          "rel_infer_auc_min": 0.5342766652311225,
+          "n_query": 172,
+          "n_seeds": 1
+        },
+        "ARM_COLLAPSE_SHUFFLE": {
+          "rel_infer_auc_mean": 0.49060239018087853,
+          "rel_infer_auc_min": 0.49060239018087853,
+          "n_query": 172,
+          "n_seeds": 1
+        }
+      },
+      "split_meta": {
+        "n_train": 628,
+        "n_heldout": 172,
+        "n_eval_queries": 172,
+        "no_overlap_witness_overlap": 0,
+        "no_overlap_witness_predict_targets": 12137,
+        "mean_held_context_size": 70.62790697674419,
+        "n_rel_slots": 17,
+        "predict_frac": 0.5,
+        "max_context": null
+      },
+      "n_seeds": 1,
+      "per_seed": [
+        {
+          "ARM_RAW_GROUNDING": {
+            "rel_infer_auc": 0.4993177576801608,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_LEARNED": {
+            "rel_infer_auc": 0.6034657622739018,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_RANDOM_INIT": {
+            "rel_infer_auc": 0.4803395061728395,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_STRUCT_2HOP": {
+            "rel_infer_auc": 0.5588765073212747,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_POPULARITY": {
+            "rel_infer_auc": 0.5342766652311225,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          },
+          "ARM_COLLAPSE_SHUFFLE": {
+            "rel_infer_auc": 0.49060239018087853,
+            "n_query": 172,
+            "neg_in_exclude": 0
+          }
+        }
+      ]
+    }
+  ],
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.328
+  },
+  "leakproof_split_selftest": {
+    "overlap": 0,
+    "viols": 0,
+    "cap_mean_ctx": 2.0,
+    "cap_viol": 0,
+    "overlap_cap": 0,
+    "n_eval_queries": 52
+  },
+  "seed_failures": []
+}

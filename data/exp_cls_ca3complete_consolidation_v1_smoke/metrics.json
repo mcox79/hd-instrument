@@ -1,0 +1,91 @@
+{
+  "anchor_name": "cls_ca3complete_consolidation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Buzsaki two-stage CLS consolidation retains OLD (0.960 >= 0.80) AND acquires NEW (0.900 >= 0.70) while no-consolidation forgets OLD (0.000 <= 0.55); gap=0.960 >= 0.25; discrete fixed-budget phase respected. Continual-learning-without-forgetting demonstrated. CONSOLIDATE_FULL old=0.960 new=0.900 | NAIVE old=0.000 new=0.940 | NO_CLEANUP old=0.880 new=0.860 | gap(full-naive old)=0.960 ca3_lift=0.080 budget_ok=True",
+  "run_mode": "smoke",
+  "D": 1024,
+  "T": 600,
+  "E": 12,
+  "V": 64,
+  "n_seeds": 1,
+  "detail": {
+    "CONSOLIDATE_FULL": {
+      "old_retention": 0.96,
+      "new_acquisition": 0.9,
+      "old_retention_cv": 0.0
+    },
+    "NAIVE_NO_CONSOLIDATION": {
+      "old_retention": 0.0,
+      "new_acquisition": 0.94
+    },
+    "CONSOLIDATE_NO_CLEANUP": {
+      "old_retention": 0.88,
+      "new_acquisition": 0.86
+    },
+    "gap_full_minus_naive_old": 0.96,
+    "ca3_cleanup_lift_full_minus_nocleanup_old": 0.08,
+    "budget_respected": true,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7] mode=smoke",
+    "cites": [
+      "notes/research_hippocampal_biology_consolidation_loop_brain_first_2026-07-08.md (RANK 1 + RANK 2)",
+      "research_drill_cls_2substrate_rescue_2x_2026-06-11 (RESCUE-4 diagnosis, cycle-228 HF)",
+      "hdlab.iterative_attractor.iterative_cleanup (certified CA3-completion primitive)"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.0,
+          "new_acquisition": 0.94
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.96,
+          "new_acquisition": 0.9
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.86
+        }
+      },
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "55740555c2586d25d822f4dbd535947b685f8beccd771102fbace64fcd1eed41",
+        "CONSOLIDATE_FULL": "4f08f8e2ea834de6cbdf4eb8cf6e5da09d31db55fe57895ca7d84bac1a90c12c",
+        "CONSOLIDATE_NO_CLEANUP": "9bde560bfd3a917dbfc8b5ee90eb3096e3ca9e3866860aa0913c5681b40d599d"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "smoke",
+      "config_version": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7] mode=smoke",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1783525737.0789065
+    }
+  ],
+  "metrics_source": "measured_cpu_cls_ca3complete_consolidation_v1",
+  "elapsed_s": 7.7053468227386475,
+  "summary": "HARD_PASS: Buzsaki two-stage CLS consolidation retains OLD (0.960 >= 0.80) AND acquires NEW (0.900 >= 0.70) while no-consolidation forgets OLD (0.000 <= 0.55); gap=0.960 >= 0.25; discrete fixed-budget phase respected. Continual-learning-without-forgetting demonstrated. CONSOLIDATE_FULL old=0.960 new=0.900 | NAIVE old=0.000 new=0.940 | NO_CLEANUP old=0.880 new=0.860 | gap(full-naive old)=0.960 ca3_lift=0.080 budget_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native store + cleanup; no encoder)",
+  "config_version": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7] mode=smoke"
+}

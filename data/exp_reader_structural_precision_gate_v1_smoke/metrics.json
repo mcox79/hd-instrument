@@ -1,0 +1,238 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: P1 reproduction FAILED: BASE kept_hash=78d052df06cdc084 != V3 be02002c1579217f; f1 regressed: COMPOSED f1 0.5429 < base 0.5556",
+  "summary": "HARD_FAIL: BASE_hash_ok=False | combined(spurious+subcat)_fp 17->16 (-1) | recall 0.5882->0.5588 | precision 0.5263->0.5278 | f1 0.5556->0.5429 | gates_fired=2/4 clean=1",
+  "elapsed_s": 22.86,
+  "ts_iso": "2026-07-23T21:22:35.747266+00:00",
+  "anchor_name": "reader_structural_precision_gate_v1",
+  "run_mode": "smoke",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05"
+  ],
+  "n_sentences": 46,
+  "one_variable": "which structural emission gate(s) are on (G1 contraction / G2 verb-class+dobj / G3 self-loop / G4 governing-prep), holding the reader's routing/labeling/learned admissibility gate byte-identical to V3 across arms",
+  "p1_reproduction": {
+    "base_hash_ok": false,
+    "repro_counts_ok": false,
+    "base_kept_hash": "78d052df06cdc084",
+    "v3_kept_hash": "be02002c1579217f",
+    "base_subcat_fp": 11,
+    "base_spurious_verb_fp": 6,
+    "base_f1": 0.5556
+  },
+  "bands": {
+    "RECALL_RETENTION_OK": 0.02,
+    "RECALL_RETENTION_MB": 0.05,
+    "FP_REDUCTION_HARD_PASS": 4,
+    "V3_BASE_HASH": "be02002c1579217f"
+  },
+  "composed": {
+    "fp_reduction": 1,
+    "base_combined_fp": 17,
+    "comp_combined_fp": 16,
+    "recall_drop": 0.0294,
+    "precision_up": true,
+    "f1_nonregress": false,
+    "n_gates_fired": 2,
+    "n_gates_clean": 1,
+    "composed_suppression_counts": {
+      "g4_patient_excluded": 2,
+      "g2_emissions_suppressed": 4,
+      "g1_pred_dropped": 2
+    }
+  },
+  "per_gate": {
+    "G1_CONTRACTION": {
+      "fired": true,
+      "spurious_verb_fp": 5,
+      "subcat_fp": 11,
+      "combined_fp": 16,
+      "combined_fp_reduction": 1,
+      "precision": 0.5405,
+      "recall": 0.5882,
+      "f1": 0.5634,
+      "recall_drop": 0.0,
+      "n_lost_covered": 0,
+      "suppression_counts": {
+        "g1_pred_dropped": 2
+      }
+    },
+    "G2_DOBJ": {
+      "fired": false,
+      "spurious_verb_fp": 6,
+      "subcat_fp": 11,
+      "combined_fp": 17,
+      "combined_fp_reduction": 0,
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "f1": 0.5556,
+      "recall_drop": 0.0,
+      "n_lost_covered": 0,
+      "suppression_counts": {
+        "g2_emissions_suppressed": 4
+      }
+    },
+    "G3_SELFLOOP": {
+      "fired": false,
+      "spurious_verb_fp": 6,
+      "subcat_fp": 11,
+      "combined_fp": 17,
+      "combined_fp_reduction": 0,
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "f1": 0.5556,
+      "recall_drop": 0.0,
+      "n_lost_covered": 0,
+      "suppression_counts": {}
+    },
+    "G4_GOVPREP": {
+      "fired": true,
+      "spurious_verb_fp": 6,
+      "subcat_fp": 11,
+      "combined_fp": 17,
+      "combined_fp_reduction": 0,
+      "precision": 0.5135,
+      "recall": 0.5588,
+      "f1": 0.5352,
+      "recall_drop": 0.0294,
+      "n_lost_covered": 1,
+      "suppression_counts": {
+        "g4_patient_excluded": 2
+      }
+    }
+  },
+  "arms": {
+    "BASE": {
+      "f1": 0.5556,
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "recall_ceiling": 0.5882,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 6,
+      "total_fp": 18,
+      "kept_hash": "78d052df06cdc084",
+      "suppression_counts": {}
+    },
+    "G1_CONTRACTION": {
+      "f1": 0.5634,
+      "precision": 0.5405,
+      "recall": 0.5882,
+      "recall_ceiling": 0.5882,
+      "n_pred": 37,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 5,
+      "total_fp": 17,
+      "kept_hash": "35ce34db4f793710",
+      "suppression_counts": {
+        "g1_pred_dropped": 2
+      }
+    },
+    "G2_DOBJ": {
+      "f1": 0.5556,
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "recall_ceiling": 0.5882,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 6,
+      "total_fp": 18,
+      "kept_hash": "78d052df06cdc084",
+      "suppression_counts": {
+        "g2_emissions_suppressed": 4
+      }
+    },
+    "G3_SELFLOOP": {
+      "f1": 0.5556,
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "recall_ceiling": 0.5882,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 6,
+      "total_fp": 18,
+      "kept_hash": "78d052df06cdc084",
+      "suppression_counts": {}
+    },
+    "G4_GOVPREP": {
+      "f1": 0.5352,
+      "precision": 0.5135,
+      "recall": 0.5588,
+      "recall_ceiling": 0.5588,
+      "n_pred": 37,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 6,
+      "total_fp": 18,
+      "kept_hash": "c281efab0e67ec03",
+      "suppression_counts": {
+        "g4_patient_excluded": 2
+      }
+    },
+    "COMPOSED": {
+      "f1": 0.5429,
+      "precision": 0.5278,
+      "recall": 0.5588,
+      "recall_ceiling": 0.5588,
+      "n_pred": 36,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 5,
+      "total_fp": 17,
+      "kept_hash": "4ee855c4a2812baf",
+      "suppression_counts": {
+        "g4_patient_excluded": 2,
+        "g2_emissions_suppressed": 4,
+        "g1_pred_dropped": 2
+      }
+    }
+  },
+  "lost_covered_by_arm": {
+    "G1_CONTRACTION": [],
+    "G2_DOBJ": [],
+    "G3_SELFLOOP": [],
+    "G4_GOVPREP": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ]
+    ],
+    "COMPOSED": [
+      [
+        "L04_03",
+        "take",
+        "blocks"
+      ]
+    ]
+  },
+  "n_lost_covered_by_arm": {
+    "G1_CONTRACTION": 0,
+    "G2_DOBJ": 0,
+    "G3_SELFLOOP": 0,
+    "G4_GOVPREP": 1,
+    "COMPOSED": 1
+  },
+  "parser_info": {
+    "n_train": 1500,
+    "epochs": 2,
+    "elapsed_s": 4.0,
+    "uas_dev": 0.7475,
+    "n_dev": 300
+  },
+  "cited_base": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "arm": "V3_INTEGRATED",
+    "f1": 0.5738,
+    "subcat_fp": 35,
+    "spurious_verb_fp": 33,
+    "kept_hash": "be02002c1579217f"
+  },
+  "scope_caveat": "Parser trained on UD-EWT (out-of-domain to 19th-c. McGuffey prose, same untested transfer V3/M/audit already flag). Gates are FIXED structural rules (no learned weight). BASE reproduces V3 byte-identically (P1). Precision-side result; CLAIM-VET-pending; strategic read = HYPOTHESIS pending skunkworks landed-VET. Pluggable: clause_predicate_pass_gated drops into the consolidated reader by importing this module and flipping the 4 flags."
+}

@@ -1,0 +1,121 @@
+{
+  "anchor_name": "lexicon_realvec_endtoend_reframe_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "END-TO-END real-CoDEx grounding + reframe [ENDTOEND_ON_REAL_GEOMETRY_RESIDUAL_IS_SEMANTIC_GROUNDING_COST]. raw fitted k=24 X d_eff/D=0.805. Q1 PIPELINE (learned lexicon -> scaffold -> real DC-centered geometry, V=200, tol_bar=0.81, map_acc=0.953): LEARNED_real=0.932 vs ORACLE_real=1.000 (gap_real=+0.068, need<=0.15; rule survives real geometry=True) vs RANDOM=0.005 (above_random=+0.927, need>=0.3); benign-geometry ref=0.932 (marginal geometry_cost=+0.000); concept_geomPres=+0.380 (grounded, not orthogonalized). Q2 REFRAME (real negatives-gate residual): DC_DEFLATE negrej=0.793 auc=0.924 -- of the 385 SURVIVORS, near-true cos mean=0.758 vs 1477 REJECTED mean=0.493 (diff=+0.264); survivor-vs-rejected sep-AUC=0.949 (perm_p=0.0005, need sep>=0.58 p<0.01). GEOMETRY-DRIVEN (survivor-population contrast, encoding_fix-consistent): grounded keeps 385 semantic survivors while geometry-DISCARDING FPE_WIDE (geomPres=+0.02) collapses to n_surv=9 and RANDOM (geomPres=-0.02) to n_surv=0 (perfect-but-vacuous rejection: ungrounded codes have NO semantic neighbours to survive) -> driven=True (WIDE sep-AUC=0.998 on <20 survivors is noise, NOT used). HONEST: negrej=1.0 is the RANDOM ceiling because random codes have NO semantic neighbours; a grounded codebook is EXPECTED below 1.0 and its residual survivors ARE the semantically-near-true negatives -- the legitimate cost of grounding, not a bug (iff Q2 semantic + geometry-driven).",
+  "summary": "HARD_PASS [ENDTOEND_ON_REAL_GEOMETRY_RESIDUAL_IS_SEMANTIC_GROUNDING_COST]: end-to-end learned-lexicon grounding on real DC-centered CoDEx geometry + negatives-gate reframe (full)",
+  "run_mode": "full",
+  "elapsed_s": 16.98,
+  "N": 2048,
+  "k_dim": 24,
+  "fit_epochs": 200,
+  "n_seeds": 3,
+  "fit_cached": true,
+  "V_concept": 200,
+  "raw_X_d_eff_over_D": 0.8046237760930136,
+  "track_a_pipeline": {
+    "means": {
+      "map_acc": 0.9533333333333333,
+      "learned_real_obj": 0.9316666666666666,
+      "learned_real_subj": 0.9250000000000002,
+      "oracle_real_obj": 1.0,
+      "oracle_real_subj": 1.0,
+      "random_obj": 0.005,
+      "learned_benign_obj": 0.9316666666666666,
+      "concept_geom_pres": 0.38001923763335715
+    },
+    "stds": {
+      "map_acc": 0.010274023338281637,
+      "learned_real_obj": 0.020138409955990918,
+      "learned_real_subj": 0.008164965809277268,
+      "oracle_real_obj": 0.0,
+      "oracle_real_subj": 0.0,
+      "random_obj": 0.004082482904638631,
+      "learned_benign_obj": 0.020138409955990918,
+      "concept_geom_pres": 0.017869018981608056
+    },
+    "tolerance_bar": 0.815,
+    "gap_real_oracle_minus_learned": 0.06833333333333336,
+    "learned_real_above_random": 0.9266666666666666,
+    "marginal_geometry_cost_benign_minus_real": 0.0,
+    "q1_pass": true,
+    "q1_fail": false
+  },
+  "track_b_reframe": {
+    "DC_DEFLATE": {
+      "neg_reject_at_90recall": 0.793233082706767,
+      "auc_pos_vs_neg": 0.9243585954339348,
+      "gate_threshold": 1.0776648380645326,
+      "n_pos": 1490,
+      "n_neg": 1862,
+      "n_survivors": 385,
+      "n_rejected": 1477,
+      "survivor_near_true_mean": 0.7575921327990004,
+      "rejected_near_true_mean": 0.49333168020123713,
+      "survivor_minus_rejected_near_true": 0.26426045259776326,
+      "sep_auc_survivor_vs_rejected": 0.9487342718216111,
+      "sep_auc_perm_p": 0.0004997501249375312,
+      "codebook_geom_pres": 0.43996668960735374
+    },
+    "FPE_WIDE": {
+      "neg_reject_at_90recall": 0.9951664876476907,
+      "auc_pos_vs_neg": 0.9983596335037017,
+      "gate_threshold": 0.9818563962710606,
+      "n_pos": 1490,
+      "n_neg": 1862,
+      "n_survivors": 9,
+      "n_rejected": 1853,
+      "survivor_near_true_mean": 0.9493927152591287,
+      "rejected_near_true_mean": 0.5460223034794982,
+      "survivor_minus_rejected_near_true": 0.4033704117796305,
+      "sep_auc_survivor_vs_rejected": 0.9980212268393596,
+      "sep_auc_perm_p": 0.0004997501249375312,
+      "codebook_geom_pres": 0.018464058755030564
+    },
+    "RANDOM": {
+      "neg_reject_at_90recall": 1.0,
+      "auc_pos_vs_neg": 1.0,
+      "gate_threshold": 0.939689810116043,
+      "n_pos": 1490,
+      "n_neg": 1862,
+      "n_survivors": 0,
+      "n_rejected": 1862,
+      "survivor_near_true_mean": NaN,
+      "rejected_near_true_mean": 0.5479719993473912,
+      "survivor_minus_rejected_near_true": NaN,
+      "sep_auc_survivor_vs_rejected": NaN,
+      "sep_auc_perm_p": NaN,
+      "codebook_geom_pres": -0.02458909004568005
+    }
+  },
+  "reframe_resolution": {
+    "dc_sep_auc": 0.9487342718216111,
+    "dc_perm_p": 0.0004997501249375312,
+    "wide_sep_auc": 0.9980212268393596,
+    "geometry_driven": true,
+    "q2_semantic": true,
+    "q2_artifact": false,
+    "interpretation": "SEMANTIC_HARDNESS_grounding_cost"
+  },
+  "bands": {
+    "gap_hard_pass": 0.15,
+    "gap_hard_fail": 0.3,
+    "above_random_pass": 0.3,
+    "above_random_fail": 0.05,
+    "sep_auc_pass": 0.58,
+    "sep_auc_fail": 0.53,
+    "perm_p_pass": 0.01,
+    "perm_p_fail": 0.05,
+    "geom_driven_margin": 0.05
+  },
+  "headline": "ENDTOEND_ON_REAL_GEOMETRY_RESIDUAL_IS_SEMANTIC_GROUNDING_COST",
+  "honest_read": "Q1 tests whether the VET'd benign-geometry learned-lexicon win LIFTS to REAL CoDEx geometry: LEARNED must track ORACLE on the SAME real DC-centered codebook (a small gap => the learning rule survives real geometry; the benign reference isolates the marginal geometry cost). Q2 resolves the negrej~0.8 residual WITHOUT chasing the vacuous negrej->1.0: it asks whether the gate's surviving negatives are the semantically NEAR-TRUE ones (grounding cost) vs random (artifact), and defeats the by-construction tautology with a geometry-DISCARDING control (FPE_WIDE) whose survivors should NOT track near-true. A partial recovery is MIDDLE, not a win.",
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "track_a_pipeline",
+    "track_b_reframe",
+    "reframe_resolution"
+  ],
+  "human_readable_labels": "DEFERRED: Q-ids/P-ids glass-box-legal; no label files on disk."
+}

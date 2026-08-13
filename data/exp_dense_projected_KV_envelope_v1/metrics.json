@@ -1,0 +1,1439 @@
+{
+  "anchor_name": "dense_projected_KV_envelope_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (CHAIN-GRADE): the M-INDEPENDENT superposition store (ARM1, O(d^2)) holds recall>=0.80 at M>=10000 -> genuine substrate KV storage at scale (not a dict). win=d768_s0.1_M10000(d768,sig0.1,M>=10000) | ARM1_superpos(M-indep)=0.824 cv=0.007 | ARM0_kNN=1.000 ARM2_softmax=1.000 (both O(M*d) baselines) | ARM1_curve={'M1000': 1.0, 'M3000': 1.0, 'M10000': 0.824, 'M30000': 0.286, 'M100000': 0.065}",
+  "run_mode": "full",
+  "C": 256,
+  "M_GRID": [
+    1000,
+    3000,
+    10000,
+    30000,
+    100000
+  ],
+  "D_GRID": [
+    768,
+    1024
+  ],
+  "SIGMAS": [
+    0.0,
+    0.1,
+    0.3
+  ],
+  "n_seeds": 5,
+  "detail": {
+    "win_config": "d768_s0.1_M10000",
+    "C": 256,
+    "arm1_superpos@win": 0.824,
+    "arm0_knn@win": 1.0,
+    "arm2_softmax@win": 1.0,
+    "arm1_cv@win": 0.007,
+    "arm1_superpos_curve_d768_s0.1": {
+      "M1000": 1.0,
+      "M3000": 1.0,
+      "M10000": 0.824,
+      "M30000": 0.286,
+      "M100000": 0.065
+    },
+    "all_cfgs_median": {
+      "d768_s0.0_M1000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.0_M3000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.0_M10000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.824,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.0_M30000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.281,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.0_M100000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.0625,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.1_M1000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.1_M3000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.1_M10000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.824,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.1_M30000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.286,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.1_M100000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.065,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.3_M1000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.3_M3000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.9995,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.3_M10000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.7825,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.3_M30000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.2565,
+        "arm2_softmax": 1.0
+      },
+      "d768_s0.3_M100000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.063,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.0_M1000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.0_M3000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.0_M10000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.944,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.0_M30000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.43,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.0_M100000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.1065,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.1_M1000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.1_M3000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.1_M10000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.94,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.1_M30000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.4255,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.1_M100000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.096,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.3_M1000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.3_M3000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 1.0,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.3_M10000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.9195,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.3_M30000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.399,
+        "arm2_softmax": 1.0
+      },
+      "d1024_s0.3_M100000": {
+        "arm0_knn": 1.0,
+        "arm1_superpos_Mindep": 0.089,
+        "arm2_softmax": 1.0
+      }
+    },
+    "CONFIG_VERSION": "fixed-C256-codebook + random-iid-keys-core + 3arm(ARM0-kNN/ARM1-superpos-Mindep/ARM2-softmax-beta1oversqrtd) + query-sampled + win-axis-ARM1@M>=10000",
+    "honest_scope": "value-CLASS recall from a fixed C=256 codebook at M-INDEPENDENT storage (vocab model); NOT M distinct arbitrary values (O(M) theorem).",
+    "cites": [
+      "flagship_LBUILD_honest_negative_c13268e2",
+      "CERT591_kv_learned_projection_v1",
+      "RMT_crosstalk_AGS",
+      "modern_hopfield_Ramsauer2020"
+    ]
+  },
+  "metrics_source": "measured_cpu_dense_kv_envelope_3arm_Ccodebook",
+  "per_unit": [
+    {
+      "seed": 1,
+      "cfgs": {
+        "d768_s0.0_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9995,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.808,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.281,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0625,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8225,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.273,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.07,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9995,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.7805,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2585,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0705,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9425,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4255,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.1065,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.938,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4315,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.095,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9345,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4165,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0965,
+          "arm2_softmax": 1.0
+        }
+      },
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1782041994.7445695
+    },
+    {
+      "seed": 2,
+      "cfgs": {
+        "d768_s0.0_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8305,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2785,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0635,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8305,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.286,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0675,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.999,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.7825,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2465,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.06,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.948,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4305,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.1075,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9425,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4255,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.104,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9195,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.397,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.094,
+          "arm2_softmax": 1.0
+        }
+      },
+      "_ckpt_key": "s2",
+      "_partial_written_at": 1782042079.7002773
+    },
+    {
+      "seed": 3,
+      "cfgs": {
+        "d768_s0.0_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.824,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2795,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0565,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9995,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.824,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.291,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.063,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9995,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.7815,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2565,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.049,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9435,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.43,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.1,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.94,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4065,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.088,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9175,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.399,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0875,
+          "arm2_softmax": 1.0
+        }
+      },
+      "_ckpt_key": "s3",
+      "_partial_written_at": 1782042160.4529166
+    },
+    {
+      "seed": 4,
+      "cfgs": {
+        "d768_s0.0_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9995,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8335,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2945,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.067,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8295,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.294,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.065,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.784,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2575,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.063,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.944,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4205,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.1115,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.939,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.439,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0985,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.93,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.397,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.089,
+          "arm2_softmax": 1.0
+        }
+      },
+      "_ckpt_key": "s4",
+      "_partial_written_at": 1782042237.0065384
+    },
+    {
+      "seed": 5,
+      "cfgs": {
+        "d768_s0.0_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8175,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.284,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.0_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.062,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.8145,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.277,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.1_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.0575,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M1000": {
+          "M": 1000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M3000": {
+          "M": 3000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.998,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.785,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M30000": {
+          "M": 30000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.2515,
+          "arm2_softmax": 1.0
+        },
+        "d768_s0.3_M100000": {
+          "M": 100000,
+          "d": 768,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.07,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9515,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.4395,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.0_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.0,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.1025,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9425,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.424,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.1_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.1,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.096,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M1000": {
+          "M": 1000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 1.0,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M3000": {
+          "M": 3000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9995,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M10000": {
+          "M": 10000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.9195,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M30000": {
+          "M": 30000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.404,
+          "arm2_softmax": 1.0
+        },
+        "d1024_s0.3_M100000": {
+          "M": 100000,
+          "d": 1024,
+          "sigma": 0.3,
+          "arm0_knn": 1.0,
+          "arm1_superpos_Mindep": 0.082,
+          "arm2_softmax": 1.0
+        }
+      },
+      "_ckpt_key": "s5",
+      "_partial_written_at": 1782042313.1886654
+    }
+  ],
+  "elapsed_s": 395.6445064544678,
+  "summary": "HARD_PASS (CHAIN-GRADE): the M-INDEPENDENT superposition store (ARM1, O(d^2)) holds recall>=0.80 at M>=10000 -> genuine substrate KV storage at scale (not a dict). win=d768_s0.1_M10000(d768,sig0.1,M>=10000) | ARM1_superpos(M-indep)=0.824 cv=0.007 | ARM0_kNN=1.000 ARM2_softmax=1.000 (both O(M*d) baselines) | ARM1_curve={'M1000': 1.0, 'M3000': 1.0, 'M10000': 0.824, 'M30000': 0.286, 'M100000': 0.065}"
+}

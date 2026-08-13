@@ -1,0 +1,107 @@
+{
+  "verdict": "HARD_PASS_ADAPTATION_IS_A_REAL_LEVER",
+  "verdict_msg": "in-domain self-training LIFTS: net_recovered=1 net_regressed=0 arc_delta=0.0119 (b_arc=0.9524->s_arc=0.9643) s_uas=0.792 b_uas=0.7882. 0.81 is NOT a fair ceiling; domain-adaptation moves the parser where algorithmic levers could not.",
+  "summary": "HARD_PASS_ADAPTATION_IS_A_REAL_LEVER: uas_dev b=0.7882 s=0.792 | arc_acc_present b=0.9524 s=0.9643 (delta=0.0119) | reader rc b=0.6 s=0.61 f1 b=0.4478 s=0.4552 | net_recovered=1 net_regressed=0",
+  "elapsed_s": 168.7,
+  "ts_iso": "2026-07-23T21:29:24.320146+00:00",
+  "anchor_name": "parser_indomain_selftrain_adapt_v1",
+  "run_mode": "full",
+  "seed": 20260724,
+  "eval_slice": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "parser TRAINING SET: UD-EWT only (BASELINE) vs UD-EWT + in-domain McGuffey silver self-parses (SELFTRAIN). All else byte-identical reuse of module M.",
+  "bands": {
+    "REPRO_UAS": 0.7882,
+    "REPRO_TOL": 0.005,
+    "UAS_WRECK_TOL": 0.01,
+    "ARC_HP_DELTA": 0.03,
+    "BASELINE_ARC_BAND": [
+      0.05,
+      0.95
+    ],
+    "PARSE_ORACLE_UPLIFT_F1_headroom": 0.0221,
+    "PARSE_ORACLE_N_RECOVERED_headroom": 3
+  },
+  "net_recovered": 1,
+  "net_regressed": 0,
+  "arc_delta": 0.0119,
+  "recovered_items": [
+    [
+      "L04_14",
+      "hold",
+      "hands"
+    ]
+  ],
+  "regressed_items": [],
+  "baseline": {
+    "uas_dev": 0.7882,
+    "parser_info": {
+      "n_train": 12329,
+      "epochs": 6,
+      "elapsed_s": 72.0,
+      "uas_dev": 0.7882,
+      "n_dev": 600
+    },
+    "arc_acc_present": 0.9524,
+    "arc_n_correct": 80,
+    "arc_n_present": 84,
+    "arc_n_total": 100,
+    "arc_coverage": 0.84,
+    "reader": {
+      "recall_ceiling": 0.6,
+      "n_miss": 40,
+      "n_gold_pos": 100,
+      "f1": 0.4478,
+      "precision": 0.3571,
+      "recall": 0.6,
+      "n_pred": 168,
+      "kept_hash": "da404cb8a4587965"
+    },
+    "W_hash": "6361368df2d77712"
+  },
+  "selftrain": {
+    "uas_dev": 0.792,
+    "parser_info": {
+      "n_ud": 12329,
+      "n_silver": 1766,
+      "n_adapt_sents": 900,
+      "epochs": 6,
+      "elapsed_s": 68.1,
+      "uas_dev": 0.792,
+      "n_dev": 600
+    },
+    "arc_acc_present": 0.9643,
+    "arc_n_correct": 81,
+    "arc_n_present": 84,
+    "arc_n_total": 100,
+    "arc_coverage": 0.84,
+    "reader": {
+      "recall_ceiling": 0.61,
+      "n_miss": 39,
+      "n_gold_pos": 100,
+      "f1": 0.4552,
+      "precision": 0.3631,
+      "recall": 0.61,
+      "n_pred": 168,
+      "kept_hash": "faf87e55626b19c9"
+    },
+    "W_hash": "2d26c574255e4b47"
+  },
+  "arms_differ_verified": true,
+  "headroom_note": "PARSE_ORACLE (perfect parse) uplift is only +0.0221 F1 / +3 reader items (CITED@data/exp_reader_component_oracle_ablation_audit_v1/metrics.json). Any real adaptation captures a fraction of that already-tiny reader headroom; the arc proxy is the finer-grained parser-level signal.",
+  "scope_caveat": "PROBE, not a capability claim. Self-training is the UNSUPERVISED in-domain adaptation lever (no gold, no train-on-test). It does NOT test a SUPERVISED in-domain gold-TREE fine-tune -- no McGuffey gold dependency trees exist; building them + fine-tuning is the scoped follow-up if this probe motivates it. uas_dev is UD-EWT dev (the parser's OWN in-domain); McGuffey UAS has no gold-tree reference, so arc_acc_present (gold argstruct arcs) is the in-domain proxy. LOCAL-ONLY, NOT banked, CLAIM-VET-pending.",
+  "robustness_dose_response": {
+    "test": "expand in-domain adapt corpus ~2.7x (Second+Third+Fourth McGuffey readers, 4721 silver from 2400 sents vs 1766 from 900); one variable = corpus size",
+    "result": "IDENTICAL outcome: uas_dev 0.7924 (vs 0.792), arc_acc_present 0.9524->0.9643 (+1 arc, same), reader rc 0.60->0.61 f1 0.4478->0.4535, net_recovered=1 (same item L04_14 hold/hands), net_regressed=0",
+    "read": "lift is STABLE + zero-regression + reproducible across 2 corpus sizes (NOT single-seed noise) but PLATEAUS at +1 arc / +1 reader item -- more in-domain data does not grow it. Parser arc-accuracy on the reader-relevant argument arcs is already ~0.95 (near-ceiling), so adaptation headroom is nearly exhausted."
+  },
+  "honest_deflation": "HARD_PASS fired per the pre-registered band (net_recovered>=1, net_regressed==0, uas not wrecked) and the direction is REAL + dose-response-stable, UNLIKE the algorithmic search/valency levers that HARD_FAILed. BUT effect size is TINY (+1 arc, +1 reader item, +~0.006 F1) and SATURATED. Practical fair verdict: 0.81 is NOT a hard fair ceiling (adaptation moves it a hair) but IS effectively a fair ceiling for reader-recall purposes -- 0.7882 is an ALL-ARCS UD-EWT figure; on the argument arcs the reader actually needs the parser already scores ~0.95, so PARSE is not the reader bottleneck. Consistent with the audit ranking ENUM (uplift +0.0527) above PARSE (+0.0221) as the top underperformer."
+}

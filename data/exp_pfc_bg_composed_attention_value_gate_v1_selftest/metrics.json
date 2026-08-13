@@ -1,0 +1,11 @@
+{
+  "anchor_name": "pfc_bg_composed_attention_value_gate_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST-READOUT, ST-V8 (Gate-D v8 arbitration reproduce), ST-WIRING (v8 goal drives Go/NoGo; wrong goal flips it), ST-REDUCE (w_reach=0==additive), ST-PIPELINE",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 0.8,
+  "ts_iso": "2026-07-08T09:23:54.391340+00:00",
+  "pid": 22672,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=pfc_bg_composed_attention_value_gate_v1,N=512,V=60,n_ops=4,dd=4,K_grid=[4],seeds=[7],density=0.210,sr_steps=200,sr_batch=32,rollout_per_V=20,gamma=0.85,lr=0.50,gate_tau=0.050,recency_gap=3.00,cue_q=0.250,arb_q*=0.150,n_train_chains=16,n_test_chains=16,mode=selftest,device=cuda,expected_n=6,HP_closure>=0.25,att_lift>=0.15,scramble>=0.30,tax<=0.20,nav_rail>=0.90"
+}

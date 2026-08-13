@@ -1,0 +1,235 @@
+{
+  "verdict": "HARD_FAIL_REAL_BOUND",
+  "verdict_msg": "HARD_FAIL_REAL_BOUND | mode=smoke | CROSSFIT within(raw)=0.334 (anchor=True) task_diff_floor=0.016 residual=0.318 within_bin=0.335 partial_lomo=0.334 partial_coll=0.334 (spk_fail=0.436 lis_fail=0.534 ground=0.466 in_band=True) | MIRROR within=0.782 floor=0.029 residual=0.752 within_bin=0.784 (rise=+0.447 valid=True) | diff_var=0.0446 n_varying_bins=8 ok=True shared_diff_corr=0.362 | determinacy@0.50=0.996 (all={'0.30': 0.9785714285714285, '0.50': 0.9957142857142857, '0.70': 0.9985714285714286} mean_ncoll=0.00) | selftest c1_resid=-0.006 c1_bin=-0.067 c2_resid=0.583 c2_bin=0.537 ok=True | bands: collapse<=0.15 real>=0.25 mirStay>=0.40 | n_ens=4 n_mir=2 n_eval=700 nodes=1237 E=3372 run=smoke",
+  "summary": "HARD_FAIL_REAL_BOUND | mode=smoke | CROSSFIT within(raw)=0.334 (anchor=True) task_diff_floor=0.016 residual=0.318 within_bin=0.335 partial_lomo=0.334 partial_coll=0.334 (spk_fail=0.436 lis_fail=0.534 ",
+  "run_mode": "smoke",
+  "elapsed_s": 34.47896310000215,
+  "anchor_name": "grounding_selfplay_fair_test_difficulty_partial_v1",
+  "ts_iso": "2026-07-09T22:38:04.697901+00:00",
+  "n_ens": 4,
+  "n_mir": 2,
+  "ens_seeds": [
+    7,
+    13,
+    17,
+    23
+  ],
+  "mir_seeds": [
+    101,
+    103
+  ],
+  "config": {
+    "n_nodes": 1500,
+    "ens_seeds": [
+      7,
+      13,
+      17,
+      23
+    ],
+    "mir_seeds": [
+      101,
+      103
+    ],
+    "epochs": 80,
+    "batch": 256,
+    "code_dim": 96,
+    "feat_dim": 4096,
+    "lr": 0.01,
+    "lambda_ent": 0.1,
+    "temp": 0.15,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_rel": 0.05,
+    "K": 12,
+    "K_wide": 96,
+    "n_dist": 7,
+    "gumbel_tau": 2.0,
+    "gumbel_tau_end": 0.5,
+    "neighbor_weight": 0.5,
+    "n_eval": 700,
+    "n_bins": 8
+  },
+  "config_version": "ANCHOR=grounding_selfplay_fair_test_difficulty_partial_v1,xarm=A0_shared,marm=A4_mirror,anchor=[0.28,0.50],collapse<=0.15,real>=0.25,mirStay>=0.40,mirRaw>=0.20,failband=[0.05,0.95],diffVar>=0.001,stC1<=0.15,stC2>=0.25,detTau=0.50",
+  "subgraph_meta": {
+    "n_nodes": 1237,
+    "n_edges": 3372,
+    "median_degree": 3.0
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_REAL_BOUND",
+    "crossfit": {
+      "raw_within_model": 0.3343463655682292,
+      "task_diff_floor": 0.01616218544715752,
+      "residual": 0.3181841801210717,
+      "cross_floor_samerole": -0.007412074696264694,
+      "within_bin_ens": 0.33547108223742195,
+      "partial_lomo": 0.3339948937768795,
+      "partial_collision": 0.33390647122974026,
+      "speaker_fail_rate": 0.4360714285714286,
+      "listener_fail_rate": 0.5342857142857143,
+      "grounding_acc": 0.46571428571428575,
+      "per_model_within": [
+        0.3491161596039144,
+        0.30407442441254945,
+        0.33439376265165754,
+        0.34980111560479554
+      ],
+      "per_seed_within_bin": [
+        0.3458075041765978,
+        0.3067391598436899,
+        0.33697845123031583,
+        0.35235921369908435
+      ]
+    },
+    "mirror": {
+      "raw_within_model": 0.7816395506986009,
+      "task_diff_floor": 0.029458627066617643,
+      "residual": 0.7521809236319833,
+      "within_bin_ens": 0.7842069694955465,
+      "rise_over_crossfit": 0.4472931851303717
+    },
+    "difficulty": {
+      "diff_var": 0.04457943239795918,
+      "n_varying_bins": 8,
+      "shared_diff_corr": 0.36173177501713955,
+      "difficulty_ok": true
+    },
+    "determinacy": {
+      "by_tau": {
+        "0.30": 0.9785714285714285,
+        "0.50": 0.9957142857142857,
+        "0.70": 0.9985714285714286
+      },
+      "primary_tau": 0.5,
+      "primary": 0.9957142857142857,
+      "mean_ncoll_primary": 0.004285714285714286
+    },
+    "anchor_ok": true,
+    "baseline_in_band": true,
+    "mirror_valid": true,
+    "machinery_selftest_ok": true,
+    "collapses": false,
+    "stays": true,
+    "bands": {
+      "ANCHOR_LO": 0.28,
+      "ANCHOR_HI": 0.5,
+      "COLLAPSE_MAX": 0.15,
+      "REAL_MIN": 0.25,
+      "MIRROR_STAY_MIN": 0.4,
+      "MIRROR_RAW_MARGIN": 0.2,
+      "FAILRATE_LO": 0.05,
+      "FAILRATE_HI": 0.95,
+      "DIFF_VAR_MIN": 0.001
+    }
+  },
+  "per_model": [
+    {
+      "role": "crossfit",
+      "arm": "A0_shared",
+      "seed": 7,
+      "K": 12,
+      "grounding_acc": 0.46,
+      "speaker_fail_rate": 0.4714285714285714,
+      "listener_fail_rate": 0.54,
+      "symbol_entropy_bits": 2.78937140174146,
+      "n_symbols_used": 11,
+      "within_model_corr": 0.3491161596039144,
+      "within_bin_ens": 0.3458075041765978,
+      "partial_lomo": 0.347790574196049,
+      "partial_collision": 0.3495101207154888,
+      "n_varying_bins": 8
+    },
+    {
+      "role": "crossfit",
+      "arm": "A0_shared",
+      "seed": 13,
+      "K": 12,
+      "grounding_acc": 0.46285714285714286,
+      "speaker_fail_rate": 0.45,
+      "listener_fail_rate": 0.5371428571428571,
+      "symbol_entropy_bits": 2.7679164546189776,
+      "n_symbols_used": 10,
+      "within_model_corr": 0.30407442441254945,
+      "within_bin_ens": 0.3067391598436899,
+      "partial_lomo": 0.3071424823092103,
+      "partial_collision": 0.30466295555328,
+      "n_varying_bins": 8
+    },
+    {
+      "role": "crossfit",
+      "arm": "A0_shared",
+      "seed": 17,
+      "K": 12,
+      "grounding_acc": 0.44857142857142857,
+      "speaker_fail_rate": 0.4185714285714286,
+      "listener_fail_rate": 0.5514285714285714,
+      "symbol_entropy_bits": 2.913707670510938,
+      "n_symbols_used": 12,
+      "within_model_corr": 0.33439376265165754,
+      "within_bin_ens": 0.33697845123031583,
+      "partial_lomo": 0.3359853984040869,
+      "partial_collision": 0.33134579974844025,
+      "n_varying_bins": 8
+    },
+    {
+      "role": "crossfit",
+      "arm": "A0_shared",
+      "seed": 23,
+      "K": 12,
+      "grounding_acc": 0.49142857142857144,
+      "speaker_fail_rate": 0.4042857142857143,
+      "listener_fail_rate": 0.5085714285714286,
+      "symbol_entropy_bits": 3.134984223657334,
+      "n_symbols_used": 11,
+      "within_model_corr": 0.34980111560479554,
+      "within_bin_ens": 0.35235921369908435,
+      "partial_lomo": 0.3450611201981717,
+      "partial_collision": 0.35010700890175206,
+      "n_varying_bins": 8
+    },
+    {
+      "role": "mirror",
+      "arm": "A4_mirror",
+      "seed": 101,
+      "K": 12,
+      "grounding_acc": 0.6814285714285714,
+      "speaker_fail_rate": 0.29714285714285715,
+      "listener_fail_rate": 0.31857142857142856,
+      "within_model_corr": 0.7832154750902324,
+      "within_bin_ens": 0.7873184283885332
+    },
+    {
+      "role": "mirror",
+      "arm": "A4_mirror",
+      "seed": 103,
+      "K": 12,
+      "grounding_acc": 0.5928571428571429,
+      "speaker_fail_rate": 0.39,
+      "listener_fail_rate": 0.40714285714285714,
+      "within_model_corr": 0.7800636263069693,
+      "within_bin_ens": 0.7810955106025599
+    }
+  ],
+  "determinacy": {
+    "0.30": 0.9785714285714285,
+    "0.50": 0.9957142857142857,
+    "0.70": 0.9985714285714286
+  },
+  "machinery_selftest": {
+    "case1_within": 0.2906,
+    "case1_floor": 0.2965,
+    "case1_residual": -0.0059,
+    "case1_within_bin": -0.0671,
+    "case1_collapses": true,
+    "case2_within": 0.5803,
+    "case2_floor": -0.0023,
+    "case2_residual": 0.5826,
+    "case2_within_bin": 0.5371,
+    "case2_stays": true,
+    "separation": true,
+    "E": 8
+  },
+  "unit_failures": [],
+  "per_item_sidecar": "per_item_masks.npz",
+  "n_eval_items": 700
+}

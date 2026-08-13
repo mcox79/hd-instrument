@@ -1,0 +1,1298 @@
+{
+  "anchor_name": "pragmatic_curriculum_dialogue_role_sharded_scaling_v1",
+  "run_mode": "self_test",
+  "verdict": "NULL_MARGIN_CONVERGES",
+  "verdict_msg": "NULL/CONVERGE (data-scale read, NOT a ceiling): role-sharded's margin over attention-flat SHRINKS as n_train rises (margin(n=12)=-0.0000 -> margin(n=40)=-0.2500, trend=-0.2500 <= -thresh=0.05) -- at THESE scales (n up to 40), flat selection catches up once given enough data; the role-sharded organ's own measured collapse threshold (hdlab/role_slot_summarizer.py) is calibrated at K~1600, far above this cell's n, so this is a diagnosis that OUR n range sits below where sharding's structural edge is expected to bite, not evidence the mechanism itself is wrong.",
+  "summary": "NULL/CONVERGE (data-scale read, NOT a ceiling): role-sharded's margin over attention-flat SHRINKS as n_train rises (margin(n=12)=-0.0000 -> margin(n=40)=-0.2500, trend=-0.2500 <= -thresh=0.05) -- at THESE scales (n up to 40), flat selection catches up once given enough data; the role-sharded organ's own measured collapse threshold (hdlab/role_slot_summarizer.py) is calibrated at K~1600, far above this cell's n, so this is a diagnosis that OUR n range sits below where sharding's structural edge is expected to bite, not evidence the mechanism itself is wrong.",
+  "elapsed_s": 0.5224,
+  "ts_iso": "2026-08-08T02:05:13.358036+00:00",
+  "pid": 22312,
+  "positive_controls": {
+    "mdl_xor_control": {
+      "chosen_name": "ruleind",
+      "compression_ratios": {
+        "estimation": 0.967741935483871,
+        "ruleind": 7.380981670562186,
+        "gam": 4.529063974435123
+      },
+      "passed": true
+    },
+    "vsa_synthetic_control": {
+      "acc": 1.0,
+      "acc_scramble": 0.2685185185185185,
+      "acc_scramble_trials": [
+        0.16666666666666666,
+        0.5833333333333334,
+        0.08333333333333333,
+        1.0,
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.25,
+        0.0
+      ],
+      "passed": true
+    }
+  },
+  "noise_estimate_note": "Director-facing honesty report (see final task response for the full write-up + 6-8 verbatim samples): this cell's own eyeball QA of ~40/72 items found roughly 6-8 items (~10-15%) with either (a) a request/response referent mismatch (the response answers a DIFFERENT proposition than the one immediately requested, e.g. 'let me take your temperature' answered by a refusal of 'going to see a doctor'), or (b) a false-positive lexical cue match (e.g. \"won't LOSE shape\" \u2014 a positive durability claim \u2014 matched the 'won't' refuse-cue substring; \"will you be here long\" \u2014 an informational question \u2014 matched the 'will you' request-pattern and its answer 'I won't have a long time' then matched 'won't' as a refusal of a request that was never really made). Order-of-magnitude comparable to the original 30-item file's ~10% Director-caught noise; NOT hand-corrected in this pass (auto-label + filter + honest-report, per the task brief -- hand-dropping specific indices is a follow-up curation step, not done here).",
+  "data": {
+    "n_items_total": 72,
+    "data_path": "D:\\AI\\hd-instrument\\experiments\\data\\dialogue_request_response_dailydialog_scaling_v1.jsonl",
+    "test_size": 24,
+    "test_gold_counts": {
+      "MET": 12,
+      "UNMET": 12
+    },
+    "test_subtype_counts": {
+      "direct": 6,
+      "idiomatic": 16,
+      "concession": 2
+    },
+    "pool_size": 48,
+    "pool_gold_counts": {
+      "MET": 24,
+      "UNMET": 24
+    },
+    "pool_subtype_counts": {
+      "idiomatic": 37,
+      "direct": 7,
+      "concession": 4
+    },
+    "test_ids": [
+      "dds_test_282_12",
+      "dds_test_403_4",
+      "dds_test_486_1",
+      "dds_test_547_11",
+      "dds_test_96_4",
+      "dds_train_10396_0",
+      "dds_train_10612_2",
+      "dds_train_2061_1",
+      "dds_train_2210_13",
+      "dds_train_2515_3",
+      "dds_train_5423_0",
+      "dds_train_5432_3",
+      "dds_train_5433_8",
+      "dds_train_5512_3",
+      "dds_train_6609_0",
+      "dds_train_701_0",
+      "dds_train_7069_2",
+      "dds_train_7800_0",
+      "dds_train_8116_0",
+      "dds_train_8496_2",
+      "dds_train_8580_0",
+      "dds_train_9817_4",
+      "dds_validation_199_0",
+      "dds_validation_694_1"
+    ],
+    "n_features_seen": 24,
+    "role_fallback_ids_unweighted": {}
+  },
+  "config": {
+    "n_train_sweep": [
+      12,
+      24,
+      40
+    ],
+    "n_seeds": 5,
+    "split_seed": 20260822101,
+    "subsample_seed_base": 20260822200,
+    "scramble_seed": 461207,
+    "scramble_band": 0.6,
+    "growth_thresh": 0.05
+  },
+  "curve": {
+    "12": {
+      "majority": {
+        "mean_acc": 0.5,
+        "std_acc": 0.0,
+        "acc_values": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "mdl": {
+        "mean_acc": 0.575,
+        "std_acc": 0.15229722402080886,
+        "acc_values": [
+          0.7916666666666666,
+          0.5,
+          0.3333333333333333,
+          0.625,
+          0.625
+        ],
+        "frac_episodic": 0.2
+      },
+      "naive_flat": {
+        "mean_acc": 0.5166666666666666,
+        "std_acc": 0.08579691784155832,
+        "acc_values": [
+          0.4583333333333333,
+          0.6666666666666666,
+          0.5416666666666666,
+          0.5,
+          0.4166666666666667
+        ],
+        "mean_acc_scramble": 0.6,
+        "acc_scramble_values": [
+          0.7083333333333334,
+          0.375,
+          0.75,
+          0.625,
+          0.5416666666666666
+        ]
+      },
+      "attention_flat": {
+        "mean_acc": 0.5416666666666667,
+        "std_acc": 0.10206207261596577,
+        "acc_values": [
+          0.5416666666666666,
+          0.7083333333333334,
+          0.4166666666666667,
+          0.5833333333333334,
+          0.4583333333333333
+        ],
+        "mean_acc_scramble": 0.5666666666666667,
+        "acc_scramble_values": [
+          0.5833333333333334,
+          0.375,
+          0.7083333333333334,
+          0.6666666666666666,
+          0.5
+        ]
+      },
+      "role_sharded": {
+        "mean_acc": 0.5416666666666666,
+        "std_acc": 0.13176156917368245,
+        "acc_values": [
+          0.4166666666666667,
+          0.7916666666666666,
+          0.5416666666666666,
+          0.5,
+          0.4583333333333333
+        ],
+        "mean_acc_scramble": 0.575,
+        "acc_scramble_values": [
+          0.5833333333333334,
+          0.375,
+          0.7916666666666666,
+          0.6666666666666666,
+          0.4583333333333333
+        ]
+      }
+    },
+    "24": {
+      "majority": {
+        "mean_acc": 0.5,
+        "std_acc": 0.0,
+        "acc_values": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "mdl": {
+        "mean_acc": 0.625,
+        "std_acc": 0.10206207261596574,
+        "acc_values": [
+          0.6666666666666666,
+          0.7916666666666666,
+          0.5,
+          0.5416666666666666,
+          0.625
+        ],
+        "frac_episodic": 0.2
+      },
+      "naive_flat": {
+        "mean_acc": 0.5916666666666667,
+        "std_acc": 0.0485912657903775,
+        "acc_values": [
+          0.625,
+          0.5833333333333334,
+          0.625,
+          0.5,
+          0.625
+        ],
+        "mean_acc_scramble": 0.4833333333333333,
+        "acc_scramble_values": [
+          0.6666666666666666,
+          0.5416666666666666,
+          0.5833333333333334,
+          0.4166666666666667,
+          0.20833333333333334
+        ]
+      },
+      "attention_flat": {
+        "mean_acc": 0.6833333333333333,
+        "std_acc": 0.07728015412913089,
+        "acc_values": [
+          0.6666666666666666,
+          0.75,
+          0.7083333333333334,
+          0.5416666666666666,
+          0.75
+        ],
+        "mean_acc_scramble": 0.475,
+        "acc_scramble_values": [
+          0.7083333333333334,
+          0.5,
+          0.4583333333333333,
+          0.4583333333333333,
+          0.25
+        ]
+      },
+      "role_sharded": {
+        "mean_acc": 0.6166666666666666,
+        "std_acc": 0.15,
+        "acc_values": [
+          0.7916666666666666,
+          0.5416666666666666,
+          0.7916666666666666,
+          0.4166666666666667,
+          0.5416666666666666
+        ],
+        "mean_acc_scramble": 0.4833333333333333,
+        "acc_scramble_values": [
+          0.7083333333333334,
+          0.5833333333333334,
+          0.4166666666666667,
+          0.5416666666666666,
+          0.16666666666666666
+        ]
+      }
+    },
+    "40": {
+      "majority": {
+        "mean_acc": 0.5,
+        "std_acc": 0.0,
+        "acc_values": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "mdl": {
+        "mean_acc": 0.7083333333333333,
+        "std_acc": 0.11785113019775792,
+        "acc_values": [
+          0.625,
+          0.5416666666666666,
+          0.7083333333333334,
+          0.875,
+          0.7916666666666666
+        ],
+        "frac_episodic": 0.0
+      },
+      "naive_flat": {
+        "mean_acc": 0.65,
+        "std_acc": 0.07728015412913088,
+        "acc_values": [
+          0.5833333333333334,
+          0.5416666666666666,
+          0.7083333333333334,
+          0.75,
+          0.6666666666666666
+        ],
+        "mean_acc_scramble": 0.4833333333333333,
+        "acc_scramble_values": [
+          0.4583333333333333,
+          0.4166666666666667,
+          0.4166666666666667,
+          0.5833333333333334,
+          0.5416666666666666
+        ]
+      },
+      "attention_flat": {
+        "mean_acc": 0.7833333333333333,
+        "std_acc": 0.016666666666666653,
+        "acc_values": [
+          0.7916666666666666,
+          0.75,
+          0.7916666666666666,
+          0.7916666666666666,
+          0.7916666666666666
+        ],
+        "mean_acc_scramble": 0.4666666666666667,
+        "acc_scramble_values": [
+          0.5,
+          0.3333333333333333,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "role_sharded": {
+        "mean_acc": 0.5333333333333333,
+        "std_acc": 0.05527707983925667,
+        "acc_values": [
+          0.5,
+          0.4583333333333333,
+          0.5416666666666666,
+          0.625,
+          0.5416666666666666
+        ],
+        "mean_acc_scramble": 0.4666666666666667,
+        "acc_scramble_values": [
+          0.4583333333333333,
+          0.4166666666666667,
+          0.2916666666666667,
+          0.5416666666666666,
+          0.625
+        ]
+      }
+    }
+  },
+  "raw_points": {
+    "12": [
+      {
+        "n_train": 12,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.7916666666666666,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.4583333333333333,
+          "acc_scramble": 0.7083333333333334,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.5833333333333334,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.4166666666666667,
+          "acc_scramble": 0.5833333333333334,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260834200,
+        "seed_idx": 0
+      },
+      {
+        "n_train": 12,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.5,
+          "chosen_plugin": "KEEP_EPISODIC",
+          "is_episodic": true
+        },
+        "naive_flat": {
+          "acc": 0.6666666666666666,
+          "acc_scramble": 0.375,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.7083333333333334,
+          "acc_scramble": 0.375,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.375,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260834201,
+        "seed_idx": 1
+      },
+      {
+        "n_train": 12,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.3333333333333333,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.75,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.4166666666666667,
+          "acc_scramble": 0.7083333333333334,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.7916666666666666,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260834202,
+        "seed_idx": 2
+      },
+      {
+        "n_train": 12,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.625,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.5,
+          "acc_scramble": 0.625,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.5833333333333334,
+          "acc_scramble": 0.6666666666666666,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5,
+          "acc_scramble": 0.6666666666666666,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260834203,
+        "seed_idx": 3
+      },
+      {
+        "n_train": 12,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.625,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.4166666666666667,
+          "acc_scramble": 0.5416666666666666,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.4583333333333333,
+          "acc_scramble": 0.5,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.4583333333333333,
+          "acc_scramble": 0.4583333333333333,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260834204,
+        "seed_idx": 4
+      }
+    ],
+    "24": [
+      {
+        "n_train": 24,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.6666666666666666,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.625,
+          "acc_scramble": 0.6666666666666666,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.6666666666666666,
+          "acc_scramble": 0.7083333333333334,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.7083333333333334,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260846200,
+        "seed_idx": 0
+      },
+      {
+        "n_train": 24,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.7916666666666666,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.5833333333333334,
+          "acc_scramble": 0.5416666666666666,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.75,
+          "acc_scramble": 0.5,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.5833333333333334,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260846201,
+        "seed_idx": 1
+      },
+      {
+        "n_train": 24,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.5,
+          "chosen_plugin": "KEEP_EPISODIC",
+          "is_episodic": true
+        },
+        "naive_flat": {
+          "acc": 0.625,
+          "acc_scramble": 0.5833333333333334,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.7083333333333334,
+          "acc_scramble": 0.4583333333333333,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.4166666666666667,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260846202,
+        "seed_idx": 2
+      },
+      {
+        "n_train": 24,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.5416666666666666,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.5,
+          "acc_scramble": 0.4166666666666667,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.4583333333333333,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.4166666666666667,
+          "acc_scramble": 0.5416666666666666,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260846203,
+        "seed_idx": 3
+      },
+      {
+        "n_train": 24,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.625,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.625,
+          "acc_scramble": 0.20833333333333334,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.75,
+          "acc_scramble": 0.25,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.16666666666666666,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260846204,
+        "seed_idx": 4
+      }
+    ],
+    "40": [
+      {
+        "n_train": 40,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.625,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.5833333333333334,
+          "acc_scramble": 0.4583333333333333,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.5,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5,
+          "acc_scramble": 0.4583333333333333,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260862200,
+        "seed_idx": 0
+      },
+      {
+        "n_train": 40,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.5416666666666666,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.4166666666666667,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.75,
+          "acc_scramble": 0.3333333333333333,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.4583333333333333,
+          "acc_scramble": 0.4166666666666667,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260862201,
+        "seed_idx": 1
+      },
+      {
+        "n_train": 40,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.7083333333333334,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.7083333333333334,
+          "acc_scramble": 0.4166666666666667,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.5,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.2916666666666667,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260862202,
+        "seed_idx": 2
+      },
+      {
+        "n_train": 40,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.875,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.75,
+          "acc_scramble": 0.5833333333333334,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.5,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.625,
+          "acc_scramble": 0.5416666666666666,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260862203,
+        "seed_idx": 3
+      },
+      {
+        "n_train": 40,
+        "majority": {
+          "acc": 0.5
+        },
+        "mdl": {
+          "acc": 0.7916666666666666,
+          "chosen_plugin": "ruleind",
+          "is_episodic": false
+        },
+        "naive_flat": {
+          "acc": 0.6666666666666666,
+          "acc_scramble": 0.5416666666666666,
+          "n_distinct_preds": 2
+        },
+        "attention_flat": {
+          "acc": 0.7916666666666666,
+          "acc_scramble": 0.5,
+          "n_distinct_preds": 2
+        },
+        "role_sharded": {
+          "acc": 0.5416666666666666,
+          "acc_scramble": 0.625,
+          "n_distinct_preds": 2
+        },
+        "seed": 20260862204,
+        "seed_idx": 4
+      }
+    ]
+  },
+  "train_ids_by_point": {
+    "12": [
+      {
+        "seed": 20260834200,
+        "seed_idx": 0,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_783_1",
+          "dds_train_10664_8",
+          "dds_train_2100_6",
+          "dds_train_7340_3",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8053_0",
+          "dds_validation_549_0",
+          "dds_validation_606_0",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260834201,
+        "seed_idx": 1,
+        "train_ids": [
+          "dds_test_563_2",
+          "dds_train_11099_4",
+          "dds_train_2174_2",
+          "dds_train_6285_0",
+          "dds_train_7720_2",
+          "dds_train_8088_0",
+          "dds_train_8735_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9174_0",
+          "dds_train_9633_2",
+          "dds_validation_13_0"
+        ]
+      },
+      {
+        "seed": 20260834202,
+        "seed_idx": 2,
+        "train_ids": [
+          "dds_test_397_5",
+          "dds_test_563_2",
+          "dds_train_10745_8",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3492_3",
+          "dds_train_7085_2",
+          "dds_train_7791_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_9814_0",
+          "dds_validation_746_7"
+        ]
+      },
+      {
+        "seed": 20260834203,
+        "seed_idx": 3,
+        "train_ids": [
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_6285_0",
+          "dds_train_7085_2",
+          "dds_train_7467_1",
+          "dds_train_7720_2",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_8053_0",
+          "dds_train_8466_5",
+          "dds_train_9166_8",
+          "dds_train_9633_2"
+        ]
+      },
+      {
+        "seed": 20260834204,
+        "seed_idx": 4,
+        "train_ids": [
+          "dds_test_563_2",
+          "dds_test_783_1",
+          "dds_train_10664_8",
+          "dds_train_10973_0",
+          "dds_train_2100_6",
+          "dds_train_284_2",
+          "dds_train_7467_1",
+          "dds_train_839_6",
+          "dds_validation_13_0",
+          "dds_validation_606_0",
+          "dds_validation_746_7",
+          "dds_validation_808_5"
+        ]
+      }
+    ],
+    "24": [
+      {
+        "seed": 20260846200,
+        "seed_idx": 0,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_397_5",
+          "dds_test_563_2",
+          "dds_train_10664_8",
+          "dds_train_2100_6",
+          "dds_train_2174_2",
+          "dds_train_3168_7",
+          "dds_train_3492_3",
+          "dds_train_6500_9",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7720_2",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_8735_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9814_0",
+          "dds_validation_13_0",
+          "dds_validation_549_0",
+          "dds_validation_606_0",
+          "dds_validation_737_0",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260846201,
+        "seed_idx": 1,
+        "train_ids": [
+          "dds_test_397_5",
+          "dds_test_587_7",
+          "dds_test_783_1",
+          "dds_train_10973_0",
+          "dds_train_111_0",
+          "dds_train_1353_4",
+          "dds_train_2100_6",
+          "dds_train_2174_2",
+          "dds_train_3168_7",
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6285_0",
+          "dds_train_7340_3",
+          "dds_train_7720_2",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8053_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_9174_0",
+          "dds_validation_737_0",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260846202,
+        "seed_idx": 2,
+        "train_ids": [
+          "dds_test_468_6",
+          "dds_test_563_2",
+          "dds_test_587_7",
+          "dds_train_10664_8",
+          "dds_train_10745_8",
+          "dds_train_111_0",
+          "dds_train_1309_8",
+          "dds_train_1353_4",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3168_7",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6500_9",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7720_2",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_8735_6",
+          "dds_train_9174_0",
+          "dds_train_9257_2",
+          "dds_train_9814_0",
+          "dds_validation_737_0"
+        ]
+      },
+      {
+        "seed": 20260846203,
+        "seed_idx": 3,
+        "train_ids": [
+          "dds_test_563_2",
+          "dds_test_783_1",
+          "dds_train_111_0",
+          "dds_train_1309_8",
+          "dds_train_1353_4",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3492_3",
+          "dds_train_5679_0",
+          "dds_train_6500_9",
+          "dds_train_7340_3",
+          "dds_train_7467_1",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_839_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9174_0",
+          "dds_train_9257_2",
+          "dds_validation_549_0",
+          "dds_validation_746_7",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260846204,
+        "seed_idx": 4,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_397_5",
+          "dds_test_587_7",
+          "dds_test_783_1",
+          "dds_train_10973_0",
+          "dds_train_111_0",
+          "dds_train_2100_6",
+          "dds_train_284_2",
+          "dds_train_3688_8",
+          "dds_train_6500_9",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7467_1",
+          "dds_train_7720_2",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_8053_0",
+          "dds_train_8466_5",
+          "dds_train_8837_2",
+          "dds_train_9257_2",
+          "dds_train_9633_2",
+          "dds_validation_13_0",
+          "dds_validation_606_0",
+          "dds_validation_808_3"
+        ]
+      }
+    ],
+    "40": [
+      {
+        "seed": 20260862200,
+        "seed_idx": 0,
+        "train_ids": [
+          "dds_test_468_6",
+          "dds_test_563_2",
+          "dds_test_587_7",
+          "dds_test_783_1",
+          "dds_train_10664_8",
+          "dds_train_11099_4",
+          "dds_train_111_0",
+          "dds_train_1309_8",
+          "dds_train_1353_4",
+          "dds_train_2100_6",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6285_0",
+          "dds_train_6857_0",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7720_2",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_8735_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9174_0",
+          "dds_train_9257_2",
+          "dds_train_9633_2",
+          "dds_train_9814_0",
+          "dds_validation_13_0",
+          "dds_validation_549_0",
+          "dds_validation_606_0",
+          "dds_validation_737_0",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260862201,
+        "seed_idx": 1,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_397_5",
+          "dds_test_563_2",
+          "dds_test_587_7",
+          "dds_test_783_1",
+          "dds_train_10664_8",
+          "dds_train_10745_8",
+          "dds_train_10973_0",
+          "dds_train_111_0",
+          "dds_train_1309_8",
+          "dds_train_1353_4",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3168_7",
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6500_9",
+          "dds_train_7340_3",
+          "dds_train_7467_1",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_8735_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9174_0",
+          "dds_train_9257_2",
+          "dds_train_9814_0",
+          "dds_validation_13_0",
+          "dds_validation_549_0",
+          "dds_validation_606_0",
+          "dds_validation_737_0",
+          "dds_validation_746_7",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260862202,
+        "seed_idx": 2,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_397_5",
+          "dds_test_468_6",
+          "dds_test_563_2",
+          "dds_test_783_1",
+          "dds_train_10664_8",
+          "dds_train_10745_8",
+          "dds_train_11099_4",
+          "dds_train_111_0",
+          "dds_train_2100_6",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3168_7",
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6285_0",
+          "dds_train_6500_9",
+          "dds_train_6857_0",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7720_2",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_8735_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9174_0",
+          "dds_train_9257_2",
+          "dds_train_9633_2",
+          "dds_validation_13_0",
+          "dds_validation_606_0",
+          "dds_validation_737_0",
+          "dds_validation_746_7",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260862203,
+        "seed_idx": 3,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_397_5",
+          "dds_test_468_6",
+          "dds_test_587_7",
+          "dds_test_783_1",
+          "dds_train_10745_8",
+          "dds_train_10973_0",
+          "dds_train_111_0",
+          "dds_train_1309_8",
+          "dds_train_1353_4",
+          "dds_train_2100_6",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3168_7",
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6500_9",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7467_1",
+          "dds_train_7720_2",
+          "dds_train_7791_0",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8053_0",
+          "dds_train_8088_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_8735_6",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9633_2",
+          "dds_train_9814_0",
+          "dds_validation_13_0",
+          "dds_validation_606_0",
+          "dds_validation_737_0",
+          "dds_validation_746_7",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      },
+      {
+        "seed": 20260862204,
+        "seed_idx": 4,
+        "train_ids": [
+          "dds_test_307_4",
+          "dds_test_468_6",
+          "dds_test_563_2",
+          "dds_test_783_1",
+          "dds_train_10664_8",
+          "dds_train_10745_8",
+          "dds_train_10973_0",
+          "dds_train_11099_4",
+          "dds_train_111_0",
+          "dds_train_1309_8",
+          "dds_train_1353_4",
+          "dds_train_2174_2",
+          "dds_train_284_2",
+          "dds_train_3168_7",
+          "dds_train_3492_3",
+          "dds_train_3688_8",
+          "dds_train_5679_0",
+          "dds_train_6285_0",
+          "dds_train_6857_0",
+          "dds_train_7085_2",
+          "dds_train_7340_3",
+          "dds_train_7467_1",
+          "dds_train_7720_2",
+          "dds_train_7835_5",
+          "dds_train_7860_5",
+          "dds_train_8088_0",
+          "dds_train_839_6",
+          "dds_train_8466_5",
+          "dds_train_8837_2",
+          "dds_train_9166_8",
+          "dds_train_9257_2",
+          "dds_train_9633_2",
+          "dds_train_9814_0",
+          "dds_validation_13_0",
+          "dds_validation_549_0",
+          "dds_validation_606_0",
+          "dds_validation_737_0",
+          "dds_validation_746_7",
+          "dds_validation_808_3",
+          "dds_validation_808_5"
+        ]
+      }
+    ]
+  },
+  "margins": {
+    "margin_role_attn_by_n": {
+      "12": -1.1102230246251565e-16,
+      "24": -0.06666666666666676,
+      "40": -0.25
+    },
+    "margin_attn_naive_by_n": {
+      "12": 0.025000000000000133,
+      "24": 0.09166666666666667,
+      "40": 0.1333333333333333
+    },
+    "role_attn_trend_nmin_to_nmax": -0.2499999999999999,
+    "naive_floored_or_degrades": false,
+    "role_acc_rises_by_at_least_thresh": false,
+    "role_ahead_at_every_n": false
+  },
+  "scramble_at_max_ntrain": {
+    "n_train": 40,
+    "accs": {
+      "naive_flat": 0.4833333333333333,
+      "attention_flat": 0.4666666666666667,
+      "role_sharded": 0.4666666666666667
+    },
+    "collapses": {
+      "naive_flat": true,
+      "attention_flat": true,
+      "role_sharded": true
+    }
+  },
+  "gates": {
+    "positive_controls_passed": true,
+    "grows": false,
+    "partial": false,
+    "converges": true,
+    "growth_thresh": 0.05
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "expected_n_units": 15
+}

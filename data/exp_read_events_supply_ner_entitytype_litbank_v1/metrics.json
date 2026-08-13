@@ -1,0 +1,1070 @@
+{
+  "verdict": "CLEAN_NEGATIVE",
+  "verdict_msg": "CLEAN_NEGATIVE: NER gate does NOT reduce inanimate-agent noise 196->196 (rel +0.000, net_fix -1); spaCy own-errors / common-noun residual / breaks dominate. Split-of-196: proper_ner_place=0 (NER-fixable) vs ner_person_mistyped=5 (spaCy own-error) vs common_untagged=174 (NER can't tag). Suppressed 3 (ner-extra 1 places WordNet missed; 2 breaks; net_fix -1); 25 books.",
+  "summary": "NER gate does NOT reduce inanimate-agent noise 196->196 (rel +0.000, net_fix -1); spaCy own-errors / common-noun residual / breaks dominate",
+  "elapsed_s": 78.8845302000409,
+  "anchor_name": "read_events_supply_ner_entitytype_litbank_v1",
+  "run_mode": "full",
+  "seed": 20260724,
+  "parser_uas_dev": 0.7882,
+  "gate": {
+    "n_books": 25,
+    "no_gate": {
+      "n_events": 2601,
+      "n_nonverb_pred": 160,
+      "n_inanimate_agent": 196,
+      "n_obviously_wrong": 338,
+      "n_agent_unfilled": 0,
+      "obviously_wrong_rate": 0.12995001922337562
+    },
+    "ner_gate": {
+      "n_events": 2601,
+      "n_nonverb_pred": 160,
+      "n_inanimate_agent": 196,
+      "n_obviously_wrong": 338,
+      "n_agent_unfilled": 3,
+      "obviously_wrong_rate": 0.12995001922337562
+    },
+    "rel_reduction_196": 0.0,
+    "combined_place_agent_noise": {
+      "no_gate": 197,
+      "ner_gate": 196,
+      "rel_reduction": 0.005076142131979695
+    },
+    "residual_split_of_196": {
+      "proper_ner_place": 0,
+      "ner_person_mistyped": 5,
+      "common_untagged": 174,
+      "other_ner": 17
+    },
+    "residual_split_examples": {
+      "proper_ner_place": [],
+      "ner_person_mistyped": [
+        {
+          "agent": "bennet",
+          "pred": "made",
+          "ner_type": "PERSON",
+          "book": "1342_pride_and_prejudice_brat",
+          "sent": 5
+        },
+        {
+          "agent": "bennet",
+          "pred": "replied",
+          "ner_type": "PERSON",
+          "book": "1342_pride_and_prejudice_brat",
+          "sent": 20
+        },
+        {
+          "agent": "bennet",
+          "pred": "make",
+          "ner_type": "PERSON",
+          "book": "1342_pride_and_prejudice_brat",
+          "sent": 70
+        },
+        {
+          "agent": "bennet",
+          "pred": "scolding",
+          "ner_type": "PERSON",
+          "book": "1342_pride_and_prejudice_brat",
+          "sent": 70
+        },
+        {
+          "agent": "beth",
+          "pred": "hear",
+          "ner_type": "PERSON",
+          "book": "514_little_women_brat",
+          "sent": 23
+        }
+      ],
+      "common_untagged": [
+        {
+          "agent": "smoke",
+          "pred": "lowering",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 4
+        },
+        {
+          "agent": "smoke",
+          "pred": "making",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 4
+        },
+        {
+          "agent": "fog",
+          "pred": "creeping",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 11
+        },
+        {
+          "agent": "fog",
+          "pred": "lying",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 11
+        },
+        {
+          "agent": "fog",
+          "pred": "hovering",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 11
+        },
+        {
+          "agent": "fog",
+          "pred": "drooping",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 11
+        },
+        {
+          "agent": "gas",
+          "pred": "looming",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 14
+        },
+        {
+          "agent": "shops",
+          "pred": "lighted",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 15
+        },
+        {
+          "agent": "sky",
+          "pred": "rained",
+          "ner_type": "UNTAGGED",
+          "book": "1023_bleak_house_brat",
+          "sent": 52
+        },
+        {
+          "agent": "rank",
+          "pred": "had",
+          "ner_type": "UNTAGGED",
+          "book": "105_persuasion_brat",
+          "sent": 9
+        },
+        {
+          "agent": "word",
+          "pred": "had",
+          "ner_type": "UNTAGGED",
+          "book": "105_persuasion_brat",
+          "sent": 21
+        },
+        {
+          "agent": "word",
+          "pred": "give",
+          "ner_type": "UNTAGGED",
+          "book": "105_persuasion_brat",
+          "sent": 21
+        },
+        {
+          "agent": "springs",
+          "pred": "shewn",
+          "ner_type": "UNTAGGED",
+          "book": "105_persuasion_brat",
+          "sent": 33
+        },
+        {
+          "agent": "scarlet",
+          "pred": "stains",
+          "ner_type": "UNTAGGED",
+          "book": "1064_the_masque_of_the_red_death_brat",
+          "sent": 4
+        },
+        {
+          "agent": "scarlet",
+          "pred": "shut",
+          "ner_type": "UNTAGGED",
+          "book": "1064_the_masque_of_the_red_death_brat",
+          "sent": 4
+        }
+      ],
+      "other_ner": [
+        {
+          "agent": "march",
+          "pred": "married",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 2
+        },
+        {
+          "agent": "years",
+          "pred": "had",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "years",
+          "pred": "doing",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "years",
+          "pred": "laying",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "years",
+          "pred": "leading",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "years",
+          "pred": "walking",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "years",
+          "pred": "russell",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "years",
+          "pred": "dining",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 32
+        },
+        {
+          "agent": "winters",
+          "pred": "revolving",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 33
+        },
+        {
+          "agent": "winters",
+          "pred": "seen",
+          "ner_type": "DATE",
+          "book": "105_persuasion_brat",
+          "sent": 33
+        },
+        {
+          "agent": "years",
+          "pred": "had",
+          "ner_type": "DATE",
+          "book": "158_emma_brat",
+          "sent": 3
+        },
+        {
+          "agent": "july",
+          "pred": "st",
+          "ner_type": "DATE",
+          "book": "2814_dubliners_brat",
+          "sent": 66
+        },
+        {
+          "agent": "cents",
+          "pred": "dropping",
+          "ner_type": "MONEY",
+          "book": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat",
+          "sent": 49
+        },
+        {
+          "agent": "cents",
+          "pred": "sinking",
+          "ner_type": "MONEY",
+          "book": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat",
+          "sent": 49
+        },
+        {
+          "agent": "cents",
+          "pred": "flourishing",
+          "ner_type": "MONEY",
+          "book": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat",
+          "sent": 49
+        }
+      ]
+    },
+    "suppression_accounting": {
+      "n_suppressed": 3,
+      "n_supp_confirmed_inanimate": 0,
+      "n_supp_ner_only_extra_catches": 1,
+      "n_supp_break_over_suppression": 2,
+      "net_fix": -1,
+      "break_examples": [
+        {
+          "agent": "mary",
+          "pred": "acquired",
+          "ner_type": "ORG",
+          "book": "105_persuasion_brat",
+          "sent": 21
+        },
+        {
+          "agent": "mary",
+          "pred": "placed",
+          "ner_type": "ORG",
+          "book": "105_persuasion_brat",
+          "sent": 21
+        }
+      ],
+      "ner_extra_catch_examples": [
+        {
+          "agent": "ogilvy",
+          "pred": "exclaimed",
+          "ner_type": "ORG",
+          "book": "36_the_war_of_the_worlds_brat",
+          "sent": 61
+        }
+      ]
+    },
+    "agent_unfilled": {
+      "no_gate": 0,
+      "ner_gate": 3
+    },
+    "ner_total_place_tags": 113,
+    "positive_control_vs_pos_cell": {
+      "cited_inanimate": 196,
+      "measured_nogate_inanimate": 196,
+      "cited_n_events": 2601,
+      "measured_nogate_n_events": 2601,
+      "inanimate_reproduced": true,
+      "n_events_reproduced": true
+    },
+    "discriminator_fires": true,
+    "arms_differ": true,
+    "n_suppressed": 3,
+    "verdict_gate": "CLEAN_NEGATIVE",
+    "glass_box": [
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 4,
+        "text": "smoke lowering down from chimney-pots , making a soft black drizzle , with flakes of soot in it as big as full-grown snowflakes -- gone into mourning , one might imagine , for the death of the sun .",
+        "nogate_events": [
+          [
+            "lowering",
+            "smoke",
+            "down"
+          ],
+          [
+            "making",
+            "smoke",
+            "drizzle"
+          ]
+        ],
+        "ner_events": [
+          [
+            "lowering",
+            "smoke",
+            "down"
+          ],
+          [
+            "making",
+            "smoke",
+            "drizzle"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "lowering",
+            "agent": "smoke",
+            "patient": "down",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          },
+          {
+            "pred": "making",
+            "agent": "smoke",
+            "patient": "drizzle",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 11,
+        "text": "fog creeping into the cabooses of collier-brigs ; fog lying out on the yards and hovering in the rigging of great ships ; fog drooping on the gunwales of barges and small boats .",
+        "nogate_events": [
+          [
+            "creeping",
+            "fog",
+            "brigs"
+          ],
+          [
+            "lying",
+            "fog",
+            "out"
+          ],
+          [
+            "hovering",
+            "fog",
+            "ships"
+          ],
+          [
+            "drooping",
+            "fog",
+            "barges"
+          ]
+        ],
+        "ner_events": [
+          [
+            "creeping",
+            "fog",
+            "brigs"
+          ],
+          [
+            "lying",
+            "fog",
+            "out"
+          ],
+          [
+            "hovering",
+            "fog",
+            "ships"
+          ],
+          [
+            "drooping",
+            "fog",
+            "barges"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "creeping",
+            "agent": "fog",
+            "patient": "brigs",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          },
+          {
+            "pred": "lying",
+            "agent": "fog",
+            "patient": "out",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          },
+          {
+            "pred": "hovering",
+            "agent": "fog",
+            "patient": "ships",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          },
+          {
+            "pred": "drooping",
+            "agent": "fog",
+            "patient": "barges",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 14,
+        "text": "gas looming through the fog in divers places in the streets , much as the sun may , from the spongey fields , be seen to loom by husbandman and ploughboy .",
+        "nogate_events": [
+          [
+            "looming",
+            "gas",
+            "fog"
+          ]
+        ],
+        "ner_events": [
+          [
+            "looming",
+            "gas",
+            "fog"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "looming",
+            "agent": "gas",
+            "patient": "fog",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 15,
+        "text": "most of the shops lighted two hours before their time -- as the gas seems to know , for it has a haggard and unwilling look .",
+        "nogate_events": [
+          [
+            "lighted",
+            "shops",
+            "hours"
+          ]
+        ],
+        "ner_events": [
+          [
+            "lighted",
+            "shops",
+            "hours"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "lighted",
+            "agent": "shops",
+            "patient": "hours",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 52,
+        "text": "the last lord chancellor handled it neatly , when , correcting mr. blowers , the eminent silk gown who said that such a thing might happen when the sky rained potatoes , he observed , \" or when we get through jarndyce an",
+        "nogate_events": [
+          [
+            "handled",
+            "lord",
+            "it"
+          ],
+          [
+            "correcting",
+            "lord",
+            "mr"
+          ],
+          [
+            "rained",
+            "sky",
+            "potatoes"
+          ],
+          [
+            "get",
+            "we",
+            "jarndyce"
+          ]
+        ],
+        "ner_events": [
+          [
+            "handled",
+            "lord",
+            "it"
+          ],
+          [
+            "correcting",
+            "lord",
+            "mr"
+          ],
+          [
+            "rained",
+            "sky",
+            "potatoes"
+          ],
+          [
+            "get",
+            "we",
+            "jarndyce"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "rained",
+            "agent": "sky",
+            "patient": "potatoes",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 2,
+        "text": "\" walter elliot , born march 1 , 1760 , married , july 15 , 1784 , elizabeth , daughter of james stevenson , esq. of south park , in the county of gloucester , by which lady ( who died 1800 ) he has issue elizabeth , bor",
+        "nogate_events": [
+          [
+            "married",
+            "march",
+            "july"
+          ],
+          [
+            "elizabeth",
+            "he",
+            "june"
+          ],
+          [
+            "born",
+            "anne",
+            "august"
+          ],
+          [
+            "born",
+            "anne",
+            "son"
+          ]
+        ],
+        "ner_events": [
+          [
+            "married",
+            "march",
+            "july"
+          ],
+          [
+            "elizabeth",
+            "he",
+            "june"
+          ],
+          [
+            "born",
+            "anne",
+            "august"
+          ],
+          [
+            "born",
+            "anne",
+            "son"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "married",
+            "agent": "march",
+            "patient": "july",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 9,
+        "text": "his good looks and his rank had one fair claim on his attachment ; since to them he must have owed a wife of very superior character to any thing deserved by his own .",
+        "nogate_events": [
+          [
+            "had",
+            "rank",
+            "claim"
+          ],
+          [
+            "owed",
+            "them",
+            "wife"
+          ]
+        ],
+        "ner_events": [
+          [
+            "had",
+            "rank",
+            "claim"
+          ],
+          [
+            "owed",
+            "them",
+            "wife"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "had",
+            "agent": "rank",
+            "patient": "claim",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 21,
+        "text": "mary had acquired a little artificial importance , by becoming mrs charles musgrove ; but anne , with an elegance of mind and sweetness of character , which must have placed her high with any people of real understanding",
+        "nogate_events": [
+          [
+            "acquired",
+            "mary",
+            "importance"
+          ],
+          [
+            "placed",
+            "mary",
+            "people"
+          ],
+          [
+            "had",
+            "word",
+            "weight"
+          ],
+          [
+            "give",
+            "word",
+            "way"
+          ]
+        ],
+        "ner_events": [
+          [
+            "acquired",
+            "?",
+            "importance"
+          ],
+          [
+            "placed",
+            "?",
+            "people"
+          ],
+          [
+            "had",
+            "word",
+            "weight"
+          ],
+          [
+            "give",
+            "word",
+            "way"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "had",
+            "agent": "word",
+            "patient": "weight",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          },
+          {
+            "pred": "give",
+            "agent": "word",
+            "patient": "way",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 32,
+        "text": "for thirteen years had she been doing the honours , and laying down the domestic law at home , and leading the way to the chaise and four , and walking immediately after lady russell out of all the drawing-rooms and dini",
+        "nogate_events": [
+          [
+            "had",
+            "years",
+            "she"
+          ],
+          [
+            "doing",
+            "years",
+            "honours"
+          ],
+          [
+            "laying",
+            "years",
+            "down"
+          ],
+          [
+            "leading",
+            "years",
+            "way"
+          ],
+          [
+            "walking",
+            "years",
+            "lady"
+          ],
+          [
+            "russell",
+            "years",
+            "drawing"
+          ],
+          [
+            "dining",
+            "years",
+            "rooms"
+          ]
+        ],
+        "ner_events": [
+          [
+            "had",
+            "years",
+            "she"
+          ],
+          [
+            "doing",
+            "years",
+            "honours"
+          ],
+          [
+            "laying",
+            "years",
+            "down"
+          ],
+          [
+            "leading",
+            "years",
+            "way"
+          ],
+          [
+            "walking",
+            "years",
+            "lady"
+          ],
+          [
+            "russell",
+            "years",
+            "drawing"
+          ],
+          [
+            "dining",
+            "years",
+            "rooms"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "had",
+            "agent": "years",
+            "patient": "she",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "doing",
+            "agent": "years",
+            "patient": "honours",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "laying",
+            "agent": "years",
+            "patient": "down",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "leading",
+            "agent": "years",
+            "patient": "way",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "walking",
+            "agent": "years",
+            "patient": "lady",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "russell",
+            "agent": "years",
+            "patient": "drawing",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "dining",
+            "agent": "years",
+            "patient": "rooms",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 33,
+        "text": "thirteen winters ' revolving frosts had seen her opening every ball of credit which a scanty neighbourhood afforded , and thirteen springs shewn their blossoms , as she travelled up to london with her father , for a few ",
+        "nogate_events": [
+          [
+            "revolving",
+            "winters",
+            "frosts"
+          ],
+          [
+            "seen",
+            "winters",
+            "opening"
+          ],
+          [
+            "shewn",
+            "springs",
+            "blossoms"
+          ],
+          [
+            "london",
+            "she",
+            "father"
+          ]
+        ],
+        "ner_events": [
+          [
+            "revolving",
+            "winters",
+            "frosts"
+          ],
+          [
+            "seen",
+            "winters",
+            "opening"
+          ],
+          [
+            "shewn",
+            "springs",
+            "blossoms"
+          ],
+          [
+            "london",
+            "she",
+            "father"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "revolving",
+            "agent": "winters",
+            "patient": "frosts",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "seen",
+            "agent": "winters",
+            "patient": "opening",
+            "ner_type": "DATE",
+            "class": "other_ner_DATE",
+            "suppressed": false
+          },
+          {
+            "pred": "shewn",
+            "agent": "springs",
+            "patient": "blossoms",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "1064_the_masque_of_the_red_death_brat",
+        "sent_idx": 4,
+        "text": "the scarlet stains upon the body and especially upon the face of the victim , were the pest ban which shut him out from the aid and from the sympathy of his fellow-men .",
+        "nogate_events": [
+          [
+            "stains",
+            "scarlet",
+            "body"
+          ],
+          [
+            "shut",
+            "scarlet",
+            "him"
+          ]
+        ],
+        "ner_events": [
+          [
+            "stains",
+            "scarlet",
+            "body"
+          ],
+          [
+            "shut",
+            "scarlet",
+            "him"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "stains",
+            "agent": "scarlet",
+            "patient": "body",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          },
+          {
+            "pred": "shut",
+            "agent": "scarlet",
+            "patient": "him",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      },
+      {
+        "book": "1064_the_masque_of_the_red_death_brat",
+        "sent_idx": 9,
+        "text": "a strong and lofty wall girdled it in .",
+        "nogate_events": [
+          [
+            "girdled",
+            "wall",
+            "it"
+          ]
+        ],
+        "ner_events": [
+          [
+            "girdled",
+            "wall",
+            "it"
+          ]
+        ],
+        "inanimate_agents": [
+          {
+            "pred": "girdled",
+            "agent": "wall",
+            "patient": "it",
+            "ner_type": "UNTAGGED",
+            "class": "common_untagged",
+            "suppressed": false
+          }
+        ]
+      }
+    ]
+  },
+  "bands": {
+    "HP_REL_REDUCTION_196": 0.15,
+    "CLEAN_NEG_REL": 0.0,
+    "positive_control_tol": 0.15,
+    "place_org_types": [
+      "FAC",
+      "GPE",
+      "LOC",
+      "ORG"
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_differ_exempted": false,
+  "baseline_in_band": "n/a_noise_count_metric; discriminator_fires + positive_control used",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "proxy inanimate-agent count comparison; no Cramer-Rao floor applies",
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "deterministic_seeding": true,
+  "progress_logging": "per-book flush prints in run_gate",
+  "ts_iso": "2026-07-24T10:15:30.703948+00:00",
+  "notes": "SUPPLY-NER cell. ONE variable = NER-gate on/off. Base extractor = 29520/POS-cell NLTK path (ORC.pos_tag_sentence + banked reader W/clf/gate/sel_fn); gate_on=False reproduces the POS-cell NLTK arm (inanimate=196 positive control). spaCy NER (en_core_web_sm) run natively on each raw sentence types agent tokens; agents typed GPE/LOC/ORG/FAC for a non-locative predicate are SUPPRESSED (agent->'?'). NER = SUPPLIED preprocessing (fixed typing), NOT an LLM in the glass-box reasoning. HONEST WALL (pre-build MEASURED): spaCy MIS-TYPES 19c literary places (Howard Grove/Kent) as PERSON -> NOT suppressed; and common-noun things (shops/streets) are NER-UNTAGGED -> NER cannot fix them (only WordNet-animacy could, which 29513 REJECTED for polysemy). Suppression trades a wrong place-agent for an unfilled agent (n_agent_unfilled rises); NER's own PERSON-mistyping + common-noun residual reported (no free lunch). Combined place-agent-noise metric (is_inanimate OR NER-place) shows NER's extra catches beyond WordNet."
+}

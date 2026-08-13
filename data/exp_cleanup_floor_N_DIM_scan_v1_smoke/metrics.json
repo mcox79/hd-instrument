@@ -1,0 +1,113 @@
+{
+  "anchor_name": "cleanup_floor_N_DIM_scan_v1",
+  "verdict": "META_DECISION_SMOKE_PARTIAL",
+  "verdict_msg": "META_DECISION_SMOKE_PARTIAL: smoke N_DIM_sweep=[512, 2048] lacks N_HIGH_A=8192 and/or N_HIGH_B=16384; decision rule not evaluable (this is OK -- smoke is a gate-only run). sigma_0_sanity=PASS. N-SCAN DECISION @ sigma=1.50: recall(N=8192)=-1.0000 recall(N=16384)=-1.0000 knee_N_at_0p20=None max_cv=0.000 sigma_0_sanity=PASS M=200 seeds=1",
+  "run_mode": "smoke",
+  "M": 200,
+  "n_seeds": 1,
+  "detail": {
+    "agg": {
+      "512": {
+        "1.0": {
+          "mean": 0.025,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.025
+          ]
+        },
+        "1.5": {
+          "mean": 0.05,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.05
+          ]
+        }
+      },
+      "2048": {
+        "1.0": {
+          "mean": 0.05,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.05
+          ]
+        },
+        "1.5": {
+          "mean": 0.05,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.05
+          ]
+        }
+      }
+    },
+    "n_seeds": 1,
+    "M": 200,
+    "N_DIM_sweep": [
+      512,
+      2048
+    ],
+    "sigma_sweep": [
+      1.0,
+      1.5
+    ],
+    "discriminator_sigma": 1.5,
+    "N_DIM_high_a": 8192,
+    "N_DIM_high_b": 16384,
+    "recall_at_N_high_a_disc": -1.0,
+    "recall_at_N_high_b_disc": -1.0,
+    "knee_N_at_recall_0p20": null,
+    "knee_recall_at_knee_N": null,
+    "max_cv_across_cells": 0.0,
+    "sanity_violations": [],
+    "CONFIG_VERSION": "cleanup_floor_N_DIM_scan_v1; M=200 N_EVAL=40 N_DIM_sweep=[512, 2048] sigma_sweep=[1.0, 1.5] seeds=[0] mode=smoke",
+    "honest_scope": "META-INFORMER for Shannon-floor cleanup-ceiling atom (cert row 675). M=200 N_DIM_sweep=[512, 2048] sigma_sweep=[1.0, 1.5] N_EVAL=40 seeds=[0]. Random bipolar codebook L2-normalized. ARGMAX_BASELINE arm only (noise-floor characterization, not mechanism comparison). Not a chain-grade candidate; informs META-tiering only. Branch #1 of 3 (N_DIM-scan); branch #2 (M-scan) just closed META_DECISION_M_INDEPENDENT; branch #3 (learned-encoder keys) remains.",
+    "cites": [
+      "cert_ledger_row_675_meta_cleanup_ceiling_shannon_floor_2026-06-23",
+      "skunkworks_tiering_measured_mechanism_2026-06-23",
+      "cleanup_floor_M_scan_v1_META_DECISION_M_INDEPENDENT_branch2_closed",
+      "ENC1_N4096_M200_argmax_0p027_prior_data_point"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 0,
+      "grid": {
+        "512": {
+          "1.0": 0.025,
+          "1.5": 0.05
+        },
+        "2048": {
+          "1.0": 0.05,
+          "1.5": 0.05
+        }
+      },
+      "sanity_sigma_0": {
+        "512": 1.0,
+        "2048": 1.0
+      },
+      "M": 200,
+      "N_DIM_sweep": [
+        512,
+        2048
+      ],
+      "sigma_sweep": [
+        1.0,
+        1.5
+      ],
+      "N_EVAL": 40,
+      "run_mode": "smoke",
+      "config_version": "cleanup_floor_N_DIM_scan_v1; M=200 N_EVAL=40 N_DIM_sweep=[512, 2048] sigma_sweep=[1.0, 1.5] seeds=[0] mode=smoke",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782199660.6314385
+    }
+  ],
+  "elapsed_s": 0.10670328140258789,
+  "summary": "META_DECISION_SMOKE_PARTIAL: smoke N_DIM_sweep=[512, 2048] lacks N_HIGH_A=8192 and/or N_HIGH_B=16384; decision rule not evaluable (this is OK -- smoke is a gate-only run). sigma_0_sanity=PASS. N-SCAN DECISION @ sigma=1.50: recall(N=8192)=-1.0000 recall(N=16384)=-1.0000 knee_N_at_0p20=None max_cv=0.000 sigma_0_sanity=PASS M=200 seeds=1",
+  "substrate_only_decode_gate": "TRUE (HD codebook; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0
+}

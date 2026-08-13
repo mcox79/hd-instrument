@@ -1,0 +1,387 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "delta_acc=0.333 (detector=0.750 vs baseline=0.417); detector_acc_lexicon_miss=1.000 (baseline_acc_lexicon_miss=0.143); scramble_acc_mean=0.500 scramble_sanity_ok=True; coverage_gain_full=14/24 coverage_gain_miss=12/14",
+  "summary": "HARD_PASS: delta_acc=0.333 (detector=0.750 vs baseline=0.417); detector_acc_lexicon_miss=1.000 (baseline_acc_lexicon_miss=0.143); scramble_acc_mean=0.500 scramble_sanity_ok=True; coverage_gain_full=14/24 coverage_gain_miss=12/14",
+  "elapsed_s": 0.008404699998209253,
+  "anchor_name": "exp_goal_congruence_outcome_valence_v1",
+  "ts_iso": "2026-08-05T19:05:04.709481+00:00",
+  "pid": 29364,
+  "run_mode": "full",
+  "n_items_full": 24,
+  "n_items_lexicon_covered": 10,
+  "n_items_lexicon_miss": 14,
+  "baseline_acc_full": 0.4166666666666667,
+  "baseline_acc_lexicon_covered": 0.8,
+  "baseline_acc_lexicon_miss": 0.14285714285714285,
+  "detector_acc_full": 0.75,
+  "detector_acc_lexicon_covered": 0.4,
+  "detector_acc_lexicon_miss": 1.0,
+  "delta_acc_full": 0.3333333333333333,
+  "scramble_acc_mean": 0.5,
+  "scramble_accs_per_seed": [
+    0.375,
+    0.625,
+    0.5833333333333334,
+    0.5833333333333334,
+    0.3333333333333333
+  ],
+  "scramble_sanity_ok": true,
+  "coverage_gain_full": 14,
+  "coverage_gain_miss": 12,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "baseline": "39dd122b69be34766951d47577f84ee2acc447fe9cd2dbd78a8f8d488b0319b0",
+    "detector": "2429020b28f10d658147a3acd7818a4ef9c506e9cee8c7c07a9ab92da6db0f92",
+    "scrambled_seed0": "f7afd4ee5a5fdd38b466288f7ea953fd32d79e2787d4ced910330968a851775e"
+  },
+  "per_item_baseline": [
+    {
+      "id": "cov_ach_1",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_ach_2",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_ach_3",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_ach_4",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_1",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_2",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_3",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_4",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_neu_1",
+      "gold": "NEUTRAL",
+      "pred": "ACHIEVED",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_neu_2",
+      "gold": "NEUTRAL",
+      "pred": "ACHIEVED",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "miss_ach_1",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_2",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_3",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_4",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_5",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_6",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_1",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_2",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_3",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_4",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_5",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_6",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_neu_1",
+      "gold": "NEUTRAL",
+      "pred": "NEUTRAL",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_neu_2",
+      "gold": "NEUTRAL",
+      "pred": "NEUTRAL",
+      "correct": true,
+      "lexicon_covered": false
+    }
+  ],
+  "per_item_detector": [
+    {
+      "id": "cov_ach_1",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_ach_2",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_ach_3",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_ach_4",
+      "gold": "ACHIEVED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_1",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_2",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_3",
+      "gold": "BLOCKED",
+      "pred": "NEUTRAL",
+      "correct": false,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_blk_4",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_neu_1",
+      "gold": "NEUTRAL",
+      "pred": "NEUTRAL",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "cov_neu_2",
+      "gold": "NEUTRAL",
+      "pred": "NEUTRAL",
+      "correct": true,
+      "lexicon_covered": true
+    },
+    {
+      "id": "miss_ach_1",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_2",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_3",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_4",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_5",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_ach_6",
+      "gold": "ACHIEVED",
+      "pred": "ACHIEVED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_1",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_2",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_3",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_4",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_5",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_blk_6",
+      "gold": "BLOCKED",
+      "pred": "BLOCKED",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_neu_1",
+      "gold": "NEUTRAL",
+      "pred": "NEUTRAL",
+      "correct": true,
+      "lexicon_covered": false
+    },
+    {
+      "id": "miss_neu_2",
+      "gold": "NEUTRAL",
+      "pred": "NEUTRAL",
+      "correct": true,
+      "lexicon_covered": false
+    }
+  ],
+  "hard_pass_band": "delta>=0.15 AND miss_acc>=0.60",
+  "middle_band": "0.05<=delta<0.15 OR 0.40<=miss_acc<0.60",
+  "hard_fail_band": "delta<0.05 OR miss_acc<0.40",
+  "honest_gap_note": "Detector reads only the outcome-clause text, not the goal-owner's maintained goal STATE (polarity of desire / whose goal). If a case requires conditioning outcome valence on the specific goal (mismatch between clause-affect and goal-relative congruence), this architecture cannot resolve it -- would need wiring through the situation-model goal register, not a fix within this detector.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_msg",
+    "summary",
+    "elapsed_s"
+  ]
+}

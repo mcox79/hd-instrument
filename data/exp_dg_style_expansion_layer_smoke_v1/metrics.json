@@ -1,0 +1,147 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SMOKE_1seeds_NIN4096_NEXP16384_K5_M200_FLAT_recall0.020_mac0.0901_PR142.6_DENSE_recall0.060_mac0.0896_PR142.1_DGSP_recall0.020_mac0.0892_PR142.2_DGKWTA_recall0.020_mac0.0159_PR195.3_mac_reduction=0.823_HPrecall=False_HPortho=True_endpoint=True_elapsed_448.3s",
+  "elapsed_s": 448.2801442146301,
+  "n_llm_calls": 0,
+  "summary": {
+    "anchor": "dg_style_expansion_layer_smoke_v1",
+    "config_version": "dg_style_expansion_layer_smoke_v1; N_INPUT=4096 N_EXPANDED=16384 K_SPARSE=5 M=200 N_EVAL=50 KWTA_FRAC=0.020 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] seeds=[7] mode=smoke; HP_recall>=0.20 HP_ortho_reduction>=0.30 HF_recall_gap<=0.020",
+    "run_mode": "smoke",
+    "seeds": [
+      7
+    ],
+    "N_INPUT": 4096,
+    "N_EXPANDED": 16384,
+    "K_SPARSE": 5,
+    "M": 200,
+    "N_EVAL": 50,
+    "KWTA_FRAC": 0.02,
+    "SIGMA_SWEEP": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "DISCRIMINATOR_SIGMA": 1.5,
+    "arms": {
+      "ARM_FLAT_N4096": {
+        "recall_at_disc_sigma_mean": 0.02,
+        "recall_at_disc_sigma_std": 0.0,
+        "mean_abs_cosine_mean": 0.09010622650384903,
+        "participation_ratio_mean": 142.5510075925748,
+        "rep_dim": 4096
+      },
+      "ARM_DENSE_LIFT_N16384": {
+        "recall_at_disc_sigma_mean": 0.06,
+        "recall_at_disc_sigma_std": 0.0,
+        "mean_abs_cosine_mean": 0.08962605893611908,
+        "participation_ratio_mean": 142.1455476911595,
+        "rep_dim": 16384
+      },
+      "ARM_DG_SPARSE_LIFT_N16384": {
+        "recall_at_disc_sigma_mean": 0.02,
+        "recall_at_disc_sigma_std": 0.0,
+        "mean_abs_cosine_mean": 0.08919406682252884,
+        "participation_ratio_mean": 142.24690540036067,
+        "rep_dim": 16384
+      },
+      "ARM_DG_SPARSE_LIFT_PLUS_KWTA": {
+        "recall_at_disc_sigma_mean": 0.02,
+        "recall_at_disc_sigma_std": 0.0,
+        "mean_abs_cosine_mean": 0.01592659018933773,
+        "participation_ratio_mean": 195.29347064798054,
+        "rep_dim": 16384
+      }
+    },
+    "hp_gates": {
+      "hp_recall_ok": false,
+      "hp_ortho_ok": true,
+      "endpoint_ok": true,
+      "hp_recall_floor": 0.2,
+      "hp_orthogonality_reduction_floor": 0.3,
+      "mac_reduction_actual": 0.8232465079573896
+    },
+    "hf_gates": {
+      "hf_recall_dg_sparse": true,
+      "hf_recall_dg_kwta": true,
+      "hf_recall_gap": 0.02
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 200,
+      "run_mode": "smoke",
+      "vocab_size": 200,
+      "w2v_hit": 200,
+      "w2v_miss": 0,
+      "arms": {
+        "ARM_FLAT_N4096": {
+          "recall_by_sigma": {
+            "sigma_0.0": 1.0,
+            "sigma_0.5": 0.2,
+            "sigma_1.0": 0.08,
+            "sigma_1.5": 0.02,
+            "sigma_2.0": 0.04
+          },
+          "recall_at_disc_sigma": 0.02,
+          "mean_abs_cosine": 0.09010622650384903,
+          "participation_ratio": 142.5510075925748,
+          "rep_dim": 4096,
+          "encode_elapsed_s": 0.0059964656829833984,
+          "arm_elapsed_s": 1.2522306442260742
+        },
+        "ARM_DENSE_LIFT_N16384": {
+          "recall_by_sigma": {
+            "sigma_0.0": 1.0,
+            "sigma_0.5": 0.1,
+            "sigma_1.0": 0.04,
+            "sigma_1.5": 0.06,
+            "sigma_2.0": 0.0
+          },
+          "recall_at_disc_sigma": 0.06,
+          "mean_abs_cosine": 0.08962605893611908,
+          "participation_ratio": 142.1455476911595,
+          "rep_dim": 16384,
+          "encode_elapsed_s": 16.15843892097473,
+          "arm_elapsed_s": 38.65065002441406
+        },
+        "ARM_DG_SPARSE_LIFT_N16384": {
+          "recall_by_sigma": {
+            "sigma_0.0": 1.0,
+            "sigma_0.5": 0.14,
+            "sigma_1.0": 0.04,
+            "sigma_1.5": 0.02,
+            "sigma_2.0": 0.02
+          },
+          "recall_at_disc_sigma": 0.02,
+          "mean_abs_cosine": 0.08919406682252884,
+          "participation_ratio": 142.24690540036067,
+          "rep_dim": 16384,
+          "encode_elapsed_s": 6.897218942642212,
+          "arm_elapsed_s": 40.471447229385376
+        },
+        "ARM_DG_SPARSE_LIFT_PLUS_KWTA": {
+          "recall_by_sigma": {
+            "sigma_0.0": 1.0,
+            "sigma_0.5": 0.0,
+            "sigma_1.0": 0.02,
+            "sigma_1.5": 0.02,
+            "sigma_2.0": 0.02
+          },
+          "recall_at_disc_sigma": 0.02,
+          "mean_abs_cosine": 0.01592659018933773,
+          "participation_ratio": 195.29347064798054,
+          "rep_dim": 16384,
+          "encode_elapsed_s": 8.61640739440918,
+          "arm_elapsed_s": 58.51304650306702
+        }
+      },
+      "elapsed_s": 448.2801442146301,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782254309.557919
+    }
+  }
+}

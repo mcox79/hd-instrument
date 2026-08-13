@@ -1,0 +1,132 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_FULL_3seeds_N4096_K10_M100_epochs100_learned_purity_1.000_pm_0.000_sage_purity_1.000_pm_0.000_trig_purity_0.897_pm_0.012_lift_over_baseline_+0.103_lift_over_untrained_+0.000_planted_1.000_n_llm_calls_0_cv_learned_0.0000_elapsed_233.7s",
+  "elapsed_s": 233.66903233528137,
+  "summary": {
+    "anchor": "path_c_atom_graph_encoder_phase1_smoke_v1",
+    "config_version": "path_c_atom_graph_encoder_phase1_smoke_v1: ARM_CHAR_TRIGRAM_NAME (baseline) vs ARM_GRAPHSAGE_2HOP (untrained 2-hop mean-pool over base cert/family/sigma bipolar HVs) vs ARM_GRAPHSAGE_2HOP_LEARNED (same + contrastive-trained linear projection W); k-means K=10 on N=100 sampled atoms; mechanism_family_purity discriminator; HP LEARNED.purity >= 0.92 AND lift_over_baseline >= 0.05 AND lift_over_untrained >= 0.03",
+    "run_mode": "full",
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "N_DIM": 4096,
+    "K_CLUSTERS": 10,
+    "N_ATOMS_SAMPLE": 100,
+    "LEARNED_EPOCHS": 100,
+    "arm_char_trigram_purity_mean": 0.8966666666666666,
+    "arm_char_trigram_purity_std": 0.012472191289246483,
+    "arm_graphsage_2hop_purity_mean": 1.0,
+    "arm_graphsage_2hop_purity_std": 0.0,
+    "arm_graphsage_2hop_learned_purity_mean": 1.0,
+    "arm_graphsage_2hop_learned_purity_std": 0.0,
+    "arm_graphsage_2hop_learned_purity_cv": 0.0,
+    "lift_learned_over_baseline_mean": 0.10333333333333332,
+    "lift_learned_over_untrained_mean": 0.0,
+    "planted_graph_purity_mean": 1.0,
+    "n_llm_calls": 0,
+    "n_chain_grade_atoms_pool": 451,
+    "hp_thresholds": {
+      "purity_floor": 0.92,
+      "lift_over_baseline": 0.05,
+      "lift_over_untrained": 0.03,
+      "planted_purity_required": 1.0
+    },
+    "hp_gates": {
+      "purity_ok": true,
+      "lift_baseline_ok": true,
+      "lift_untrained_ok": false,
+      "planted_ok": true,
+      "no_llm": true
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_char_trigram_purity": 0.88,
+      "arm_graphsage_2hop_purity": 1.0,
+      "arm_graphsage_2hop_learned_purity": 1.0,
+      "lift_learned_over_baseline": 0.12,
+      "lift_learned_over_untrained": 0.0,
+      "lift_untrained_over_baseline": 0.12,
+      "planted_graph_purity": 1.0,
+      "avg_adjacency_degree": 0.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "learned_epochs": 100,
+      "elapsed_s": 84.46803426742554,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "storage": 2,
+        "binding": 1,
+        "other": 85,
+        "generation": 1,
+        "whitening": 2,
+        "trigram": 1,
+        "capacity": 8
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782243141.1447046
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_char_trigram_purity": 0.91,
+      "arm_graphsage_2hop_purity": 1.0,
+      "arm_graphsage_2hop_learned_purity": 1.0,
+      "lift_learned_over_baseline": 0.08999999999999997,
+      "lift_learned_over_untrained": 0.0,
+      "lift_untrained_over_baseline": 0.08999999999999997,
+      "planted_graph_purity": 1.0,
+      "avg_adjacency_degree": 0.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "learned_epochs": 100,
+      "elapsed_s": 74.01107168197632,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "binding": 1,
+        "other": 91,
+        "whitening": 2,
+        "trigram": 1,
+        "capacity": 5
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782243215.1984813
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_char_trigram_purity": 0.9,
+      "arm_graphsage_2hop_purity": 1.0,
+      "arm_graphsage_2hop_learned_purity": 1.0,
+      "lift_learned_over_baseline": 0.09999999999999998,
+      "lift_learned_over_untrained": 0.0,
+      "lift_untrained_over_baseline": 0.09999999999999998,
+      "planted_graph_purity": 1.0,
+      "avg_adjacency_degree": 0.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "learned_epochs": 100,
+      "elapsed_s": 75.18992638587952,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "storage": 2,
+        "other": 90,
+        "generation": 1,
+        "whitening": 2,
+        "capacity": 5
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782243290.4583902
+    }
+  }
+}

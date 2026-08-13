@@ -1,0 +1,646 @@
+{
+  "verdict": "HARD_PASS_INDUCTION_BEATS_NAIVE_NN_AT_D_FEAT_1024",
+  "verdict_msg": "HEADLINE D_FEAT=1024: margin(codebook_derived-memorize_prototype)=0.1672 all_seeds_positive=True per_seed_margins=[0.17, 0.1658, 0.1658] vs_random_margin=0.7361 | CURVE D_FEAT=[256, 512, 1024]: codebook_derived=[0.3142, 0.5519, 0.7422] memorize_prototype=[0.34, 0.5194, 0.575] random_code=[0.0061, 0.0061, 0.0061] margin=[-0.0258, 0.0325, 0.1672] cheat_cosine_to_true=[0.5566, 0.6166, 0.6742] | flip_classification=FLIPS_POSITIVE_WITH_CAPACITY | ceiling_check(mechanics)=1.000 | cardinality_ok=True (36/36) arms_differ=True",
+  "summary": "HARD_PASS_INDUCTION_BEATS_NAIVE_NN_AT_D_FEAT_1024: HEADLINE D_FEAT=1024: margin(codebook_derived-memorize_prototype)=0.1672 all_seeds_positive=True per_seed_margins=[0.17, 0.1658, 0.1658] vs_random_margin=0.7361 | CURVE D_FEAT=[256, 512, 1024]: codebook_derived=[0.3142, ",
+  "elapsed_s": 615.0722576999979,
+  "anchor_name": "exp_novel_atom_real_codebook_capacity_curve_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-20T08:19:54.830229+00:00",
+  "config": {
+    "n_tokens": 8000000,
+    "vocab_size": 10000,
+    "window": 5,
+    "min_count": 5,
+    "rank_lo": 800,
+    "rank_hi": 4800,
+    "f_novel": 30,
+    "n_distractor": 120,
+    "k_eval": 40,
+    "N": 1024,
+    "RI_SPARSITY": 10,
+    "RIDGE_ALPHA": 10.0,
+    "R_ROLES": 6,
+    "ALPHA_FRAC": 0.3,
+    "MIN_OCC_PER_DRAW": 20,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "dfeat_curve": [
+      256,
+      512,
+      1024
+    ],
+    "V": 10000,
+    "held_ranks": [
+      800,
+      933,
+      1066,
+      1199,
+      1332,
+      1465,
+      1598,
+      1731,
+      1864,
+      1997,
+      2130,
+      2263,
+      2396,
+      2529,
+      2662,
+      2795,
+      2928,
+      3061,
+      3194,
+      3327,
+      3460,
+      3593,
+      3726,
+      3859,
+      3992,
+      4125,
+      4258,
+      4391,
+      4524,
+      4657
+    ],
+    "held_counts": [
+      1013.0,
+      898.0,
+      791.0,
+      701.0,
+      630.0,
+      582.0,
+      539.0,
+      500.0,
+      465.0,
+      434.0,
+      406.0,
+      382.0,
+      362.0,
+      342.0,
+      322.0,
+      306.0,
+      291.0,
+      278.0,
+      264.0,
+      253.0,
+      241.0,
+      229.0,
+      219.0,
+      209.0,
+      200.0,
+      193.0,
+      185.0,
+      179.0,
+      173.0,
+      166.0
+    ],
+    "n_seen": 9970,
+    "n_candidates": 150
+  },
+  "by_dfeat": {
+    "256": {
+      "dfeat": 256,
+      "arm_summary": {
+        "codebook_derived": {
+          "acc_mean": 0.3141666666666667,
+          "acc_std": 0.0042491829279939905,
+          "acc_per_seed": {
+            "7": 0.32,
+            "13": 0.3125,
+            "19": 0.31
+          },
+          "n_seeds": 3
+        },
+        "handed_ceiling": {
+          "acc_mean": 1.0,
+          "acc_std": 0.0,
+          "acc_per_seed": {
+            "7": 1.0,
+            "13": 1.0,
+            "19": 1.0
+          },
+          "n_seeds": 3
+        },
+        "random_code": {
+          "acc_mean": 0.006111111111111111,
+          "acc_std": 0.002078698548207745,
+          "acc_per_seed": {
+            "7": 0.006666666666666667,
+            "13": 0.0033333333333333335,
+            "19": 0.008333333333333333
+          },
+          "n_seeds": 3
+        },
+        "memorize_prototype": {
+          "acc_mean": 0.34,
+          "acc_std": 0.007484551991837503,
+          "acc_per_seed": {
+            "7": 0.3308333333333333,
+            "13": 0.3491666666666667,
+            "19": 0.34
+          },
+          "n_seeds": 3
+        }
+      },
+      "cheat_cosine_mean": 0.5566481273952631,
+      "margin_codebook_vs_memorize_mean": -0.02583333333333332,
+      "margin_codebook_vs_random_mean": 0.3080555555555556,
+      "per_seed_margin_codebook_vs_memorize": {
+        "7": -0.010833333333333306,
+        "13": -0.03666666666666668,
+        "19": -0.030000000000000027
+      },
+      "per_unit": {
+        "codebook_derived__seed7__dfeat256": {
+          "arm": "codebook_derived",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 0.32,
+          "failure_class": null
+        },
+        "handed_ceiling__seed7__dfeat256": {
+          "arm": "handed_ceiling",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed7__dfeat256": {
+          "arm": "random_code",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 0.006666666666666667,
+          "failure_class": null
+        },
+        "memorize_prototype__seed7__dfeat256": {
+          "arm": "memorize_prototype",
+          "seed": 7,
+          "dfeat": 256,
+          "novel_query_acc": 0.3308333333333333,
+          "failure_class": null
+        },
+        "codebook_derived__seed13__dfeat256": {
+          "arm": "codebook_derived",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 0.3125,
+          "failure_class": null
+        },
+        "handed_ceiling__seed13__dfeat256": {
+          "arm": "handed_ceiling",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed13__dfeat256": {
+          "arm": "random_code",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 0.0033333333333333335,
+          "failure_class": null
+        },
+        "memorize_prototype__seed13__dfeat256": {
+          "arm": "memorize_prototype",
+          "seed": 13,
+          "dfeat": 256,
+          "novel_query_acc": 0.3491666666666667,
+          "failure_class": null
+        },
+        "codebook_derived__seed19__dfeat256": {
+          "arm": "codebook_derived",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 0.31,
+          "failure_class": null
+        },
+        "handed_ceiling__seed19__dfeat256": {
+          "arm": "handed_ceiling",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed19__dfeat256": {
+          "arm": "random_code",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 0.008333333333333333,
+          "failure_class": null
+        },
+        "memorize_prototype__seed19__dfeat256": {
+          "arm": "memorize_prototype",
+          "seed": 19,
+          "dfeat": 256,
+          "novel_query_acc": 0.34,
+          "failure_class": null
+        }
+      },
+      "n_units_done": 12,
+      "arms_differ_verified": true,
+      "arms_differ_detail": {
+        "seed7__codebook_derived_vs_handed_ceiling": true,
+        "seed7__codebook_derived_vs_random_code": true,
+        "seed7__codebook_derived_vs_memorize_prototype": true,
+        "seed7__handed_ceiling_vs_random_code": true,
+        "seed7__handed_ceiling_vs_memorize_prototype": true,
+        "seed7__memorize_prototype_vs_random_code": true,
+        "seed13__codebook_derived_vs_handed_ceiling": true,
+        "seed13__codebook_derived_vs_random_code": true,
+        "seed13__codebook_derived_vs_memorize_prototype": true,
+        "seed13__handed_ceiling_vs_random_code": true,
+        "seed13__handed_ceiling_vs_memorize_prototype": true,
+        "seed13__memorize_prototype_vs_random_code": true,
+        "seed19__codebook_derived_vs_handed_ceiling": true,
+        "seed19__codebook_derived_vs_random_code": true,
+        "seed19__codebook_derived_vs_memorize_prototype": true,
+        "seed19__handed_ceiling_vs_random_code": true,
+        "seed19__handed_ceiling_vs_memorize_prototype": true,
+        "seed19__memorize_prototype_vs_random_code": true
+      },
+      "arms_differ_exempted": []
+    },
+    "512": {
+      "dfeat": 512,
+      "arm_summary": {
+        "codebook_derived": {
+          "acc_mean": 0.5519444444444445,
+          "acc_std": 0.004101339738953727,
+          "acc_per_seed": {
+            "7": 0.5466666666666666,
+            "13": 0.5525,
+            "19": 0.5566666666666666
+          },
+          "n_seeds": 3
+        },
+        "handed_ceiling": {
+          "acc_mean": 1.0,
+          "acc_std": 0.0,
+          "acc_per_seed": {
+            "7": 1.0,
+            "13": 1.0,
+            "19": 1.0
+          },
+          "n_seeds": 3
+        },
+        "random_code": {
+          "acc_mean": 0.006111111111111111,
+          "acc_std": 0.002078698548207745,
+          "acc_per_seed": {
+            "7": 0.006666666666666667,
+            "13": 0.0033333333333333335,
+            "19": 0.008333333333333333
+          },
+          "n_seeds": 3
+        },
+        "memorize_prototype": {
+          "acc_mean": 0.5194444444444444,
+          "acc_std": 0.0020786985482077044,
+          "acc_per_seed": {
+            "7": 0.52,
+            "13": 0.5216666666666666,
+            "19": 0.5166666666666667
+          },
+          "n_seeds": 3
+        }
+      },
+      "cheat_cosine_mean": 0.6166027209809416,
+      "margin_codebook_vs_memorize_mean": 0.032500000000000084,
+      "margin_codebook_vs_random_mean": 0.5458333333333334,
+      "per_seed_margin_codebook_vs_memorize": {
+        "7": 0.026666666666666616,
+        "13": 0.03083333333333338,
+        "19": 0.039999999999999925
+      },
+      "per_unit": {
+        "codebook_derived__seed7__dfeat512": {
+          "arm": "codebook_derived",
+          "seed": 7,
+          "dfeat": 512,
+          "novel_query_acc": 0.5466666666666666,
+          "failure_class": null
+        },
+        "handed_ceiling__seed7__dfeat512": {
+          "arm": "handed_ceiling",
+          "seed": 7,
+          "dfeat": 512,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed7__dfeat512": {
+          "arm": "random_code",
+          "seed": 7,
+          "dfeat": 512,
+          "novel_query_acc": 0.006666666666666667,
+          "failure_class": null
+        },
+        "memorize_prototype__seed7__dfeat512": {
+          "arm": "memorize_prototype",
+          "seed": 7,
+          "dfeat": 512,
+          "novel_query_acc": 0.52,
+          "failure_class": null
+        },
+        "codebook_derived__seed13__dfeat512": {
+          "arm": "codebook_derived",
+          "seed": 13,
+          "dfeat": 512,
+          "novel_query_acc": 0.5525,
+          "failure_class": null
+        },
+        "handed_ceiling__seed13__dfeat512": {
+          "arm": "handed_ceiling",
+          "seed": 13,
+          "dfeat": 512,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed13__dfeat512": {
+          "arm": "random_code",
+          "seed": 13,
+          "dfeat": 512,
+          "novel_query_acc": 0.0033333333333333335,
+          "failure_class": null
+        },
+        "memorize_prototype__seed13__dfeat512": {
+          "arm": "memorize_prototype",
+          "seed": 13,
+          "dfeat": 512,
+          "novel_query_acc": 0.5216666666666666,
+          "failure_class": null
+        },
+        "codebook_derived__seed19__dfeat512": {
+          "arm": "codebook_derived",
+          "seed": 19,
+          "dfeat": 512,
+          "novel_query_acc": 0.5566666666666666,
+          "failure_class": null
+        },
+        "handed_ceiling__seed19__dfeat512": {
+          "arm": "handed_ceiling",
+          "seed": 19,
+          "dfeat": 512,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed19__dfeat512": {
+          "arm": "random_code",
+          "seed": 19,
+          "dfeat": 512,
+          "novel_query_acc": 0.008333333333333333,
+          "failure_class": null
+        },
+        "memorize_prototype__seed19__dfeat512": {
+          "arm": "memorize_prototype",
+          "seed": 19,
+          "dfeat": 512,
+          "novel_query_acc": 0.5166666666666667,
+          "failure_class": null
+        }
+      },
+      "n_units_done": 12,
+      "arms_differ_verified": true,
+      "arms_differ_detail": {
+        "seed7__codebook_derived_vs_handed_ceiling": true,
+        "seed7__codebook_derived_vs_random_code": true,
+        "seed7__codebook_derived_vs_memorize_prototype": true,
+        "seed7__handed_ceiling_vs_random_code": true,
+        "seed7__handed_ceiling_vs_memorize_prototype": true,
+        "seed7__memorize_prototype_vs_random_code": true,
+        "seed13__codebook_derived_vs_handed_ceiling": true,
+        "seed13__codebook_derived_vs_random_code": true,
+        "seed13__codebook_derived_vs_memorize_prototype": true,
+        "seed13__handed_ceiling_vs_random_code": true,
+        "seed13__handed_ceiling_vs_memorize_prototype": true,
+        "seed13__memorize_prototype_vs_random_code": true,
+        "seed19__codebook_derived_vs_handed_ceiling": true,
+        "seed19__codebook_derived_vs_random_code": true,
+        "seed19__codebook_derived_vs_memorize_prototype": true,
+        "seed19__handed_ceiling_vs_random_code": true,
+        "seed19__handed_ceiling_vs_memorize_prototype": true,
+        "seed19__memorize_prototype_vs_random_code": true
+      },
+      "arms_differ_exempted": []
+    },
+    "1024": {
+      "dfeat": 1024,
+      "arm_summary": {
+        "codebook_derived": {
+          "acc_mean": 0.7422222222222222,
+          "acc_std": 0.009387080693731028,
+          "acc_per_seed": {
+            "7": 0.7291666666666666,
+            "13": 0.7508333333333334,
+            "19": 0.7466666666666667
+          },
+          "n_seeds": 3
+        },
+        "handed_ceiling": {
+          "acc_mean": 1.0,
+          "acc_std": 0.0,
+          "acc_per_seed": {
+            "7": 1.0,
+            "13": 1.0,
+            "19": 1.0
+          },
+          "n_seeds": 3
+        },
+        "random_code": {
+          "acc_mean": 0.006111111111111111,
+          "acc_std": 0.002078698548207745,
+          "acc_per_seed": {
+            "7": 0.006666666666666667,
+            "13": 0.0033333333333333335,
+            "19": 0.008333333333333333
+          },
+          "n_seeds": 3
+        },
+        "memorize_prototype": {
+          "acc_mean": 0.575,
+          "acc_std": 0.01132434283924414,
+          "acc_per_seed": {
+            "7": 0.5591666666666667,
+            "13": 0.585,
+            "19": 0.5808333333333333
+          },
+          "n_seeds": 3
+        }
+      },
+      "cheat_cosine_mean": 0.6741756431543368,
+      "margin_codebook_vs_memorize_mean": 0.16722222222222227,
+      "margin_codebook_vs_random_mean": 0.7361111111111112,
+      "per_seed_margin_codebook_vs_memorize": {
+        "7": 0.16999999999999993,
+        "13": 0.1658333333333334,
+        "19": 0.1658333333333334
+      },
+      "per_unit": {
+        "codebook_derived__seed7__dfeat1024": {
+          "arm": "codebook_derived",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 0.7291666666666666,
+          "failure_class": null
+        },
+        "handed_ceiling__seed7__dfeat1024": {
+          "arm": "handed_ceiling",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed7__dfeat1024": {
+          "arm": "random_code",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 0.006666666666666667,
+          "failure_class": null
+        },
+        "memorize_prototype__seed7__dfeat1024": {
+          "arm": "memorize_prototype",
+          "seed": 7,
+          "dfeat": 1024,
+          "novel_query_acc": 0.5591666666666667,
+          "failure_class": null
+        },
+        "codebook_derived__seed13__dfeat1024": {
+          "arm": "codebook_derived",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 0.7508333333333334,
+          "failure_class": null
+        },
+        "handed_ceiling__seed13__dfeat1024": {
+          "arm": "handed_ceiling",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed13__dfeat1024": {
+          "arm": "random_code",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 0.0033333333333333335,
+          "failure_class": null
+        },
+        "memorize_prototype__seed13__dfeat1024": {
+          "arm": "memorize_prototype",
+          "seed": 13,
+          "dfeat": 1024,
+          "novel_query_acc": 0.585,
+          "failure_class": null
+        },
+        "codebook_derived__seed19__dfeat1024": {
+          "arm": "codebook_derived",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 0.7466666666666667,
+          "failure_class": null
+        },
+        "handed_ceiling__seed19__dfeat1024": {
+          "arm": "handed_ceiling",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 1.0,
+          "failure_class": null
+        },
+        "random_code__seed19__dfeat1024": {
+          "arm": "random_code",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 0.008333333333333333,
+          "failure_class": null
+        },
+        "memorize_prototype__seed19__dfeat1024": {
+          "arm": "memorize_prototype",
+          "seed": 19,
+          "dfeat": 1024,
+          "novel_query_acc": 0.5808333333333333,
+          "failure_class": null
+        }
+      },
+      "n_units_done": 12,
+      "arms_differ_verified": true,
+      "arms_differ_detail": {
+        "seed7__codebook_derived_vs_handed_ceiling": true,
+        "seed7__codebook_derived_vs_random_code": true,
+        "seed7__codebook_derived_vs_memorize_prototype": true,
+        "seed7__handed_ceiling_vs_random_code": true,
+        "seed7__handed_ceiling_vs_memorize_prototype": true,
+        "seed7__memorize_prototype_vs_random_code": true,
+        "seed13__codebook_derived_vs_handed_ceiling": true,
+        "seed13__codebook_derived_vs_random_code": true,
+        "seed13__codebook_derived_vs_memorize_prototype": true,
+        "seed13__handed_ceiling_vs_random_code": true,
+        "seed13__handed_ceiling_vs_memorize_prototype": true,
+        "seed13__memorize_prototype_vs_random_code": true,
+        "seed19__codebook_derived_vs_handed_ceiling": true,
+        "seed19__codebook_derived_vs_random_code": true,
+        "seed19__codebook_derived_vs_memorize_prototype": true,
+        "seed19__handed_ceiling_vs_random_code": true,
+        "seed19__handed_ceiling_vs_memorize_prototype": true,
+        "seed19__memorize_prototype_vs_random_code": true
+      },
+      "arms_differ_exempted": []
+    }
+  },
+  "headline_dfeat": 1024,
+  "headline_margin_mean": 0.16722222222222227,
+  "headline_all_seeds_positive": true,
+  "headline_per_seed_margins": [
+    0.16999999999999993,
+    0.1658333333333334,
+    0.1658333333333334
+  ],
+  "flip_classification": "FLIPS_POSITIVE_WITH_CAPACITY",
+  "codebook_curve": [
+    0.3142,
+    0.5519,
+    0.7422
+  ],
+  "memorize_prototype_curve": [
+    0.34,
+    0.5194,
+    0.575
+  ],
+  "random_code_curve": [
+    0.0061,
+    0.0061,
+    0.0061
+  ],
+  "cheat_cosine_curve": [
+    0.5566,
+    0.6166,
+    0.6742
+  ],
+  "margin_curve": [
+    -0.0258,
+    0.0325,
+    0.1672
+  ],
+  "ceiling_check_mechanics_acc_mean": 1.0,
+  "bands": {
+    "HP_MARGIN_MIN": 0.03,
+    "HP_MARGIN_ALL_SEEDS_POSITIVE": true,
+    "HP_RANDOM_MARGIN_MIN": 0.05,
+    "HF_MARGIN_MAX": 0.0,
+    "CEIL_CHECK_MIN": 0.9,
+    "CHANCE_FLOOR": 0.006666666666666667
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 36,
+  "n_units_done": 36,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "crlb_n/a": "classification-accuracy generalization over C=150 discrete candidates; closed-form chance floor = 1/C = 0.00667 (THEORETICAL); not a CRLB regime",
+  "prior_art": "LevyGoldberg2015 PPMI-SVD; ChurchHanks1990 PMI; Kanerva1988/Sahlgren2005 RI; Khodak2018 a-la-carte (capacity-vs-linear-induction); Snell2017 ProtoNet; Plate1995 HRR unitary vectors; McClelland1995 CLS; GreffVanSteenkisteSchmidhuber2020",
+  "integration_of": [
+    "exp_novel_atom_real_codebook_generalization_v1 (atom 29381, VET-named revival target; D_FEAT=256 margin=-0.026)",
+    "exp_learned_codebook_generalization_gate_v1 (real codebook CG, atom 29368, AUC=0.927)"
+  ],
+  "revival_of_atom": "math::MEASURED_MECHANISM_novel_atom_real_codebook_generalization_v1_RETIERED...(29381)"
+}

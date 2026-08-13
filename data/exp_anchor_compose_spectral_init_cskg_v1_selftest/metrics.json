@@ -1,0 +1,57 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS spectral-init warm-start: real fit runs with X_init (gaussian AND spectral); spectral init changes the fit and carries scale-matched structure; ORACLE fires; 6 validity-preflight checks declared (F.1-F.4 ENFORCE)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 11.647342200041749,
+  "mechanism_selftest": {
+    "n_grid_entities": 300,
+    "n_heldout_entities": 45,
+    "n_support": 53,
+    "n_query": 61,
+    "n_cold": 10,
+    "heldout_mrr": {
+      "ANCHOR_GAUSS": 0.404671,
+      "ANCHOR_SPEC": 0.374131,
+      "ANCHOR_SPEC_SCRAMBLE": 0.323441,
+      "ORACLE_GAUSS": 0.931694,
+      "RANDOM_CODES": 0.013377
+    },
+    "heldout_hits_at_10": {
+      "ANCHOR_GAUSS": 0.65574,
+      "ANCHOR_SPEC": 0.60656,
+      "ANCHOR_SPEC_SCRAMBLE": 0.57377,
+      "ORACLE_GAUSS": 1.0,
+      "RANDOM_CODES": 0.0
+    },
+    "n_distinct_sigs": 5,
+    "anchor_margin": 0.391294,
+    "oracle_margin": 0.918317,
+    "oracle_ratio": 69.65,
+    "lift_spec_vs_gauss": -0.03054,
+    "scramble_lift": -0.08123,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "init_changed_fit": true,
+    "arms_differ": true,
+    "spec_structure": true,
+    "scale_matched": true,
+    "guard_ok_planted": true,
+    "selftest_verdict": "INCONCLUSIVE_BASELINE_REPRO_DRIFT",
+    "validity_preflight_ok": true,
+    "init_diag": {
+      "spec_norm": 6.000604152679443,
+      "spec_std": 0.1000211089849472
+    },
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "guard_baseline_valid",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin"
+    ]
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "verdict": "AWARE_USES_CONTENT_BUT_NO_GROUNDING_LIFT",
+  "verdict_msg": "PERCEPTION-MEANING grounding (content-aware recognition INTO the word<->referent bind; clean images, no McGuffey). PRIMARY olivetti(40-class, chance=0.025): i2w BLIND(raw)=0.317 AWARE(hog)=0.232 (aware-blind=-0.085) | SHUFFLE-SENS blind=-0.030 aware=0.188 | scr_collapse(aware)=0.193 | w2i blind=0.710 aware=0.630 || SECONDARY digits(10-class,chance=0.100): i2w blind=0.746 aware=0.754 shuffsens blind=-0.014 aware=0.330 -> AWARE_USES_CONTENT_BUT_NO_GROUNDING_LIFT",
+  "summary": "perception-meaning grounding (content-aware vs content-blind through the bind): AWARE_USES_CONTENT_BUT_NO_GROUNDING_LIFT",
+  "elapsed_s": 261.1444017000031,
+  "anchor_name": "reader_perception_meaning_grounding_v1",
+  "ts_iso": "2026-07-22T12:29:28.295954+00:00",
+  "run_mode": "full",
+  "config": {
+    "params": {
+      "grid": 16,
+      "grid_hog": 8,
+      "n_orient": 9,
+      "Q": 17
+    },
+    "N": 8192,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "cell_px": 8,
+    "arms": [
+      "rung1_raw",
+      "rung3_hog"
+    ],
+    "shuffle_seed": 424242,
+    "olivetti_k_train": 7,
+    "digits_k_train": 30,
+    "primary_dataset": "sklearn_fetch_olivetti_faces_64x64_40class",
+    "secondary_dataset": "sklearn_load_digits_8x8_upscaled32_10class",
+    "note_mcguffey": "NOT USED (USER: de-emphasize McGuffey; use clean captioned corpus)"
+  },
+  "primary_olivetti": {
+    "n_img": 400,
+    "n_classes": 40,
+    "chance_i2w": 0.025,
+    "n_train": 280,
+    "n_test": 120,
+    "arms": {
+      "rung1_raw": {
+        "i2w_clean": 0.3166666666666667,
+        "w2i_clean": 0.71,
+        "i2w_scr": 0.018333333333333333,
+        "i2w_shuf": 0.3466666666666667,
+        "w2i_shuf": 0.745,
+        "i2w_clean_std": 0.025276251480171822,
+        "shuffle_sensitivity": -0.02999999999999997,
+        "scramble_collapse": 0.2983333333333334,
+        "n_seeds": 5
+      },
+      "rung3_hog": {
+        "i2w_clean": 0.2316666666666667,
+        "w2i_clean": 0.6300000000000001,
+        "i2w_scr": 0.03833333333333333,
+        "i2w_shuf": 0.04333333333333333,
+        "w2i_shuf": 0.155,
+        "i2w_clean_std": 0.04453463071962463,
+        "shuffle_sensitivity": 0.18833333333333335,
+        "scramble_collapse": 0.19333333333333336,
+        "n_seeds": 5
+      }
+    }
+  },
+  "secondary_digits": {
+    "n_img": 400,
+    "n_classes": 10,
+    "chance_i2w": 0.1,
+    "n_train": 300,
+    "n_test": 100,
+    "arms": {
+      "rung1_raw": {
+        "i2w_clean": 0.746,
+        "w2i_clean": 0.9800000000000001,
+        "i2w_scr": 0.11399999999999999,
+        "i2w_shuf": 0.76,
+        "w2i_shuf": 1.0,
+        "i2w_clean_std": 0.01959591794226544,
+        "shuffle_sensitivity": -0.014000000000000012,
+        "scramble_collapse": 0.632,
+        "n_seeds": 5
+      },
+      "rung3_hog": {
+        "i2w_clean": 0.7539999999999999,
+        "w2i_clean": 0.9400000000000001,
+        "i2w_scr": 0.12399999999999997,
+        "i2w_shuf": 0.42400000000000004,
+        "w2i_shuf": 0.8400000000000001,
+        "i2w_clean_std": 0.032619012860600205,
+        "shuffle_sensitivity": 0.32999999999999985,
+        "scramble_collapse": 0.6299999999999999,
+        "n_seeds": 5
+      }
+    }
+  },
+  "chance": {
+    "olivetti_i2w": 0.025,
+    "digits_i2w": 0.1
+  },
+  "verdict_detail": {
+    "headline_metric": "i2w held-out grounding (ground a NEW held-out image to its referent word THROUGH the word<->image bind store); discriminator = global pixel-shuffle sensitivity contrast between arms",
+    "olivetti_gates": {
+      "chance_i2w": 0.025,
+      "blind_i2w_clean": 0.3166666666666667,
+      "aware_i2w_clean": 0.2316666666666667,
+      "blind_i2w_shuf": 0.3466666666666667,
+      "aware_i2w_shuf": 0.04333333333333333,
+      "aware_over_blind": -0.08500000000000002,
+      "aware_shuffle_sensitivity": 0.18833333333333335,
+      "blind_shuffle_sensitivity": -0.02999999999999997,
+      "aware_lift_over_chance": 0.2066666666666667,
+      "aware_scramble_collapse": 0.19333333333333336,
+      "blind_w2i_clean": 0.71,
+      "aware_w2i_clean": 0.6300000000000001,
+      "shuffle_contrast_aware_minus_blind": 0.21833333333333332,
+      "verdict": "AWARE_USES_CONTENT_BUT_NO_GROUNDING_LIFT",
+      "gate_flags": {
+        "over_blind_ok": false,
+        "aware_sens_ok": true,
+        "contrast_ok": true,
+        "blind_noisefloor_ok": true,
+        "scramble_ok": true,
+        "lift_ok": true,
+        "strong": false,
+        "blind_saturated": false
+      }
+    },
+    "digits_gates": {
+      "chance_i2w": 0.1,
+      "blind_i2w_clean": 0.746,
+      "aware_i2w_clean": 0.7539999999999999,
+      "blind_i2w_shuf": 0.76,
+      "aware_i2w_shuf": 0.42400000000000004,
+      "aware_over_blind": 0.007999999999999896,
+      "aware_shuffle_sensitivity": 0.32999999999999985,
+      "blind_shuffle_sensitivity": -0.014000000000000012,
+      "aware_lift_over_chance": 0.6539999999999999,
+      "aware_scramble_collapse": 0.6299999999999999,
+      "blind_w2i_clean": 0.9800000000000001,
+      "aware_w2i_clean": 0.9400000000000001,
+      "shuffle_contrast_aware_minus_blind": 0.34399999999999986,
+      "verdict": "AWARE_USES_CONTENT_BUT_NO_GROUNDING_LIFT",
+      "gate_flags": {
+        "over_blind_ok": false,
+        "aware_sens_ok": true,
+        "contrast_ok": true,
+        "blind_noisefloor_ok": true,
+        "scramble_ok": true,
+        "lift_ok": true,
+        "strong": true,
+        "blind_saturated": false
+      }
+    },
+    "note": "CONTENT-BLIND rung1_raw = the current grounding encoder (Kanerva pixel-record; content-blind: keyed retrieval saturates for any encoder, atom 29428). CONTENT-AWARE rung3_hog = specified HOG shape front-end (atom 29431). The word<->referent match is cross-instance held-out (bind train, ground NEW instances) so CONTENT recognition (not rote code recall) drives it. PERCEPTION_MEANING_WIN = aware grounds >= blind AND aware collapses under global pixel-shuffle (uses content) while blind is shuffle-invariant (a consistent global permutation only relabels the random record positions). CONTENT_AWARE_NOT_USING_CONTENT / CONTENT_DOESNT_HELP = honest negative. Global shuffle = ONE fixed permutation applied to every image."
+  },
+  "bands": {
+    "CHANCE_EPS": 0.03,
+    "AWARE_OVER_BLIND_MIN": 0.05,
+    "SHUFFLE_SENS_MIN": 0.15,
+    "SHUFFLE_INVARIANT_MAX": 0.12,
+    "SHUFFLE_CONTRAST_MIN": 0.1,
+    "SCR_COLLAPSE_MIN": 0.1,
+    "STRONG_GROUND_MIN": 0.3,
+    "RAW_SAT_MAX": 0.95
+  },
+  "must_fail_controls": {
+    "global_pixel_shuffle": "ONE fixed permutation of the front-end input grid, same for every image; content-blind invariant, content-aware collapses = the perception-meaning discriminator",
+    "word_scramble": "class<->word assignment permuted before building the store; grounding must collapse to chance (base-rate control)"
+  },
+  "blind_saturated_flag": false,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "rung1_raw": "3c88cf77124bc88f732f8b0054bc4bb21d24f50a706e453d2989b17c115dbb2e",
+    "rung3_hog": "0da5e809484a0974e5af6999b3a5b1476f1098d8d86c0877be357c4cade89698"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "primitives_reused": [
+    "exp_reader_image_word_grounding_v1 encoder (encode_record / build_position_vectors / build_level_codebook / feat_raw / quantize_global / _resize) VERBATIM",
+    "exp_reader_image_shape_recognition_hog_v1 HOG front-end (feat_hog logic) + loaders (load_olivetti / load_digits_up) VERBATIM",
+    "additive-superposition grounding store M = sum bind(word, image) (composed in-cell)"
+  ],
+  "recipe_adopted": "content-blind (raw pixel-record) vs content-aware (HOG shape) encoder fed into the SAME word<->referent bind store; cross-instance held-out grounding; global-pixel-shuffle sensitivity discriminator; word-scramble base-rate control",
+  "local_only": true,
+  "banked": false
+}

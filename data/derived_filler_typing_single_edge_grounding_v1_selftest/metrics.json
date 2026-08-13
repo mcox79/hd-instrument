@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: cardinality mismatch at tiny dfeat=16",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_derived_filler_typing_single_edge_grounding_v1.py\", line 703, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_derived_filler_typing_single_edge_grounding_v1.py\", line 683, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_derived_filler_typing_single_edge_grounding_v1.py\", line 634, in self_test\n    assert pt[\"n_units\"] == expected_units, f\"cardinality mismatch at tiny dfeat={dfeat}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: cardinality mismatch at tiny dfeat=16\n",
+  "ts_iso": "2026-07-20T15:56:54.219878+00:00",
+  "pid": 26976,
+  "anchor_name": "derived_filler_typing_single_edge_grounding_v1"
+}

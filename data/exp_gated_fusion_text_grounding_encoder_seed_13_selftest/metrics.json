@@ -1,0 +1,7 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (real code path @ N=24 synthetic)",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "summary": "SELFTEST_PASS (real code path @ N=24 synthetic)"
+}

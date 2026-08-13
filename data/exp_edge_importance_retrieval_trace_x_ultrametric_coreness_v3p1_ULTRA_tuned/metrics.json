@@ -1,0 +1,54 @@
+{
+  "anchor_name": "edge_importance_retrieval_trace_x_ultrametric_coreness_v3p1_ULTRA_tuned",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: D3 caught setup exception seed=7: META_RULE_K coreness-fires FAIL: coreness_atoms=0 at seed=7 with ULTRA_COS=0.7, ULTRA_MIN_SIZE=3. v3.1 cell is DEGENERATE at these thresholds -- composition would silently reduce to TRACE-only. Tune thresholds looser OR raise N. v3 had the same issue at (0.85, 5); v3.1 must NOT repeat it.",
+  "summary": "n_seeds=3 N=512 M_OLD=600 M_RECENT=400 alpha=1.953 J_comp=3000 arity=3 N_USE=240 mode=full LAMBDA=[0.1, 0.3, 0.5] N_PRUNE_FRAC=0.3 ULTRA_COS=0.7 ULTRA_MIN_SIZE=3",
+  "elapsed_s": 4.122935056686401,
+  "config_version": "ANCHOR=edge_importance_retrieval_trace_x_ultrametric_coreness_v3p1_ULTRA_tuned,N=512,M_OLD=600,M_RECENT=400,alpha=1.953,J_composite=3000,arity=3,USE_FRAC=0.4,DOWNSCALE_SCALE=0.2,LAMBDA_LIST=[0.1, 0.3, 0.5],ULTRA_COS=0.7,ULTRA_MIN_SIZE=3,N_PRUNE_FRAC=0.3,SEEDS=7-17-23,N_QUERIES=200,RUN_MODE=full",
+  "N": 512,
+  "M_OLD": 600,
+  "M_RECENT": 400,
+  "alpha": 1.953125,
+  "n_seeds": 3,
+  "n_queries": 200,
+  "n_use": 240,
+  "n_composite_queries": 3000,
+  "composite_arity": 3,
+  "downscale_scale": 0.2,
+  "lambda_list": [
+    0.1,
+    0.3,
+    0.5
+  ],
+  "n_prune_frac": 0.3,
+  "ultrametric_cosine_thresh": 0.7,
+  "ultrametric_min_cluster_size": 3,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 1.4285550117492676,
+      "trace_total": null,
+      "coreness_atoms": null,
+      "n_edges_H": null,
+      "arms": []
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 1.381291151046753,
+      "trace_total": null,
+      "coreness_atoms": null,
+      "n_edges_H": null,
+      "arms": []
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 1.2660200595855713,
+      "trace_total": null,
+      "coreness_atoms": null,
+      "n_edges_H": null,
+      "arms": []
+    }
+  ]
+}

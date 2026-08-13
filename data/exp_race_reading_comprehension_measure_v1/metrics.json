@@ -1,0 +1,176 @@
+{
+  "verdict": "READING_RUNG_ESTABLISHED",
+  "verdict_msg": "HD passage-support reads RACE-middle 0.395 (+0.145 over chance); mismatched(middle) collapses to 0.244 (~chance) = GENUINE reading of THIS passage; RACE-high 0.317 (lexically-adversarial, at/below chance -- distractors copy passage surface words); word-scramble delta +0.089 (~0 = signal is lexical-overlap, not order-sensitive)",
+  "summary": "READING_RUNG_ESTABLISHED: hd_middle=0.395 hd_high=0.317 chance=0.25 mismatched=0.240 scramble=0.285 lexical=0.340",
+  "elapsed_s": 5.5,
+  "ts_iso": "2026-07-24T17:06:17.227352+00:00",
+  "anchor_name": "race_reading_comprehension_measure_v1",
+  "run_mode": "full",
+  "mode": "full",
+  "n_dim": 2048,
+  "n_questions": 2000,
+  "n_middle": 1000,
+  "n_high": 1000,
+  "n_articles": 555,
+  "chance_theoretical": 0.25,
+  "control_random_pick": 0.2415,
+  "control_majority": 0.2715,
+  "majority_modal_index": 2,
+  "hd_support_acc": 0.356,
+  "hd_support_acc_middle": 0.395,
+  "hd_support_acc_high": 0.317,
+  "lexical_overlap_acc": 0.34,
+  "lexical_overlap_acc_middle": 0.386,
+  "word_scramble_acc": 0.2855,
+  "word_scramble_acc_middle": 0.306,
+  "mismatched_passage_acc": 0.2405,
+  "mismatched_passage_acc_middle": 0.244,
+  "mismatched_passage_acc_high": 0.237,
+  "hd_above_chance_middle": 0.145,
+  "hd_vs_lexical_overlap_middle": 0.009,
+  "word_scramble_delta_middle": 0.089,
+  "mismatched_collapse_delta_middle": 0.151,
+  "mismatched_at_chance": true,
+  "leak_flag": false,
+  "baseline_in_band": true,
+  "discriminator_fires_arms_differ": true,
+  "store_differ_hd_scramble": true,
+  "routing_differ_mismatched": true,
+  "arm_store_hashes": {
+    "hd": "34d3661cc445a355a8c55d93a4476c0d799b438c80b288d78484ae6816caf879",
+    "scramble": "169325fd4bd29a8183bcb74c43c4ee492fa7f3893c14fae429da40e47dff7819",
+    "mismatched_store": "34d3661cc445a355a8c55d93a4476c0d799b438c80b288d78484ae6816caf879"
+  },
+  "reading_rung_established": true,
+  "arc_fair_easy_full_ingest": 0.3733,
+  "deconfound_statement": "SAME substrate mechanism as ARC (char-trigram HD encode -> max-cosine -> argmax). On ARC (knowledge NOT in-context) it scored ~chance (Easy full-ingest MEASURED@D:\\AI\\hd-instrument\\data\\exp_arc_knowledge_scale_ingest_climb_v1\\metrics.json: 0.3733). On RACE (answer IN passage) the HD arm reads middle 0.395 / high 0.317. If RACE >> ARC, the ARC miss is a KNOWLEDGE gap not a reading/mechanism gap -- the reading rung is established, so an ARC miss is de-confounded as missing knowledge.",
+  "grade_proxy": {
+    "middle_band": "emerging lexical retrieval, far below a real middle school (gr 6-8) student",
+    "high_band": "emerging lexical retrieval, far below a real high school (gr 9-12) student",
+    "note": "COARSE heuristic proxy (NOT calibrated to real student score distributions). A real middle/high-school student scores ~0.85+ (Turkers 0.855, human ceiling 0.945; CITED Lai et al. 2017). The substrate is a LEXICAL retriever, not a comprehender -- read the word-scramble delta: near-zero collapse means the signal is bag-of-word/trigram overlap, NOT order-sensitive comprehension."
+  },
+  "human_scale_note": "RACE-middle ~ middle school (gr 6-8); RACE-high ~ high school (gr 9-12). Human ceiling ~0.945, Turkers ~0.855 (CITED Lai et al. 2017). Chance=0.25.",
+  "glassbox_examples": [
+    {
+      "qid": "high10001.txt#3f22bb",
+      "source": "high",
+      "question": "The examples of kids lying in the passage show   _  .",
+      "options": [
+        "lying is a sign of intelligent development",
+        "lying is good for children's growing up",
+        "at what age children begin to tell lies",
+        "9-year-old children are masters of lying"
+      ],
+      "picked_index": 3,
+      "correct_index": 0,
+      "correct": false,
+      "pick_cosine": 0.2559
+    },
+    {
+      "qid": "high10001.txt#58f0b8",
+      "source": "high",
+      "question": "According to the passage, a lie works when   _  .",
+      "options": [
+        "the liar's words are sweet enough",
+        "it is given to a complete stranger",
+        "someone gives the liar cooperation",
+        "we are willing to lie for the dignity"
+      ],
+      "picked_index": 3,
+      "correct_index": 2,
+      "correct": false,
+      "pick_cosine": 0.2715
+    },
+    {
+      "qid": "high10001.txt#b7e507",
+      "source": "high",
+      "question": "Lying is complex because   _  .",
+      "options": [
+        "it is practiced by clever ones",
+        "people are for it as well as against it",
+        "ancient stories are full of lies",
+        "it is the whole part of great culture"
+      ],
+      "picked_index": 0,
+      "correct_index": 1,
+      "correct": false,
+      "pick_cosine": 0.3447
+    },
+    {
+      "qid": "high10001.txt#e8ca1f",
+      "source": "high",
+      "question": "From Para.1 we learn that lying is very   _  .",
+      "options": [
+        "harmful",
+        "easy",
+        "interesting",
+        "common"
+      ],
+      "picked_index": 2,
+      "correct_index": 3,
+      "correct": false,
+      "pick_cosine": 0.2031
+    },
+    {
+      "qid": "high10001.txt#f8ad64",
+      "source": "high",
+      "question": "What will the writer most likely talk about if he continues the passage?",
+      "options": [
+        "How to become clever liars.",
+        "How to avoid stupid lies.",
+        "How to get through the bushes.",
+        "How to tell truth from lies."
+      ],
+      "picked_index": 2,
+      "correct_index": 3,
+      "correct": false,
+      "pick_cosine": 0.2969
+    },
+    {
+      "qid": "high10002.txt#095714",
+      "source": "high",
+      "question": "The description of Mr. Torres's long trip to work shows   _  .",
+      "options": [
+        "the effective traffic system",
+        "the kindness of New Yorkers",
+        "the loyalty of his guide dog",
+        "his will to overcome difficulty"
+      ],
+      "picked_index": 0,
+      "correct_index": 3,
+      "correct": false,
+      "pick_cosine": 0.2227
+    },
+    {
+      "qid": "high10002.txt#200039",
+      "source": "high",
+      "question": "What is the principle of the hospital in employing a worker?",
+      "options": [
+        "Sympathy counts most.",
+        "Ability comes first.",
+        "Preference for the blind.",
+        "Easy job for the weak."
+      ],
+      "picked_index": 3,
+      "correct_index": 1,
+      "correct": false,
+      "pick_cosine": 0.2852
+    },
+    {
+      "qid": "high10002.txt#5106fb",
+      "source": "high",
+      "question": "Mr. Torres does not feel sorry for himselfbecause he   _  .",
+      "options": [
+        "was once saved by his lovely guide dog",
+        "is taken good care of by the government",
+        "thinks it's natural to have setbacks in life",
+        "believes it takes a little longer to do things"
+      ],
+      "picked_index": 3,
+      "correct_index": 2,
+      "correct": false,
+      "pick_cosine": 0.4404
+    }
+  ],
+  "VET_PENDING": true
+}

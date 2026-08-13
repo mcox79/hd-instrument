@@ -1,0 +1,34 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS held-out-entity inductive probe: ORACLE (learned held-out codes) recovers and clears RANDOM by the fire margin, POP at floor, 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 10.248661099933088,
+  "mechanism_selftest": {
+    "n_grid_entities": 264,
+    "n_heldout_entities": 39,
+    "n_heldout_queries": 114,
+    "heldout_hits": {
+      "ONESHOT_ROTATE": 0.02632,
+      "ADDITIVE_TRANSE": 0.0614,
+      "RANDOM_CODES": 0.02632,
+      "CODEALIAS": 0.02632,
+      "ORACLE_TRANSDUCTIVE": 0.33333,
+      "BASELINE_POP": 0.0
+    },
+    "n_distinct_sigs": 6,
+    "oracle_margin": 0.30701,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "MIDDLE_BAND_PARTIAL_ENTITY_TRANSFER",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

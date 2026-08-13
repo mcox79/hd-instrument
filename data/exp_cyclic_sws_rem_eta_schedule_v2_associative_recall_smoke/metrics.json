@@ -1,0 +1,51 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | RAW_HEBB=0.848 CONST=0.541 CYC_S=0.463 CYC_L=0.465 BEST=0.465(cyclic_high_low_long) | lift=-0.076 top5_lift=-0.078 entropy_lift=-0.043 frob_ratio=13.96 cv_best=0.000 | alpha=2.0000 snr=0.71 gates=OK | n_seeds=1 | reasons=UNCLASSIFIED_REGIME",
+  "summary": "MIDDLE_BAND | RAW_HEBB=0.848 CONST=0.541 CYC_S=0.463 CYC_L=0.465 BEST=0.465(cyclic_high_low_long) | lift=-0.076 top5_lift=-0.078 entropy_lift=-0.043 frob_ratio=13.96 cv_best=0.000 | alpha=2.0000 snr=0.71 gates=OK | n_seeds=1 | reasons=UNCLASSIFIED_REGIME",
+  "per_arm_summary": {
+    "constant_eta": {
+      "top1": 0.541015625,
+      "top5": 0.68310546875,
+      "entropy": 6.164068222045898,
+      "cv": 0.0
+    },
+    "cyclic_high_low_short": {
+      "top1": 0.46337890625,
+      "top5": 0.6083984375,
+      "entropy": 6.117950439453125,
+      "cv": 0.0,
+      "frob_ratio": 15.308024964522156
+    },
+    "cyclic_high_low_long": {
+      "top1": 0.46484375,
+      "top5": 0.60498046875,
+      "entropy": 6.121091842651367,
+      "cv": 0.0,
+      "frob_ratio": 13.964725640071462
+    },
+    "diag_raw_hebbian": {
+      "top1": 0.84765625
+    }
+  },
+  "best_cyclic_label": "cyclic_high_low_long",
+  "lift_best_cyclic_over_constant": -0.076171875,
+  "top5_lift_best_over_constant": -0.078125,
+  "entropy_delta_best_over_constant": -0.04297637939453125,
+  "diag_frob_ratio_high_over_low_best": 13.964725640071462,
+  "long_minus_short_top1": 0.00146484375,
+  "n_seeds_complete": 1,
+  "alpha": 2.0,
+  "snr_hebbian": 0.7071067811865475,
+  "pre_dispatch_gates_msg": "OK",
+  "pre_dispatch_gates_ok": true,
+  "expected_n_units": 4,
+  "completed_units": 4,
+  "cardinality_ok": true,
+  "anchor_name": "cyclic_sws_rem_eta_schedule_v2_associative_recall",
+  "elapsed_s": 3.6,
+  "ts_iso": "2026-06-27T23:35:56Z",
+  "pid": 37588,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cyclic_sws_rem_eta_schedule_v2_associative_recall,N=1024,M_PAIRS=2048,N_PULSES=20,seeds=[11],mode=smoke,eta_high=1.00,eta_low=0.10,eta_const=0.50,proto_noise=4.00,replay_frac=0.20,alpha=2.0000,snr=0.71,period_long=5,HP_baseline=[0.30,0.70],HP_lift>=0.10,HP_frob>=3.0,HP_top5_lift>=0.05,HP_entropy_lift>=0.05,HP_cv<=0.10,expected_n=4,READOUT=ASSOC_RECALL_KEY_CUED_NOISY_PROBE,FAIR=ETA_CYCLED_REPLAY_FRAC_FIXED,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v2_assoc_recall_readout_replay_cycle_compose"
+}

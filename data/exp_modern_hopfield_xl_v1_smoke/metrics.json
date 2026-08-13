@@ -1,0 +1,154 @@
+{
+  "anchor": "modern_hopfield_xl_v1",
+  "anchor_name": "modern_hopfield_xl_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: modern - classical gap at M=200 is 0.000 < 0.10. Modern Hopfield did NOT beat classical above its capacity bound (no super-linear lift detected). M=50[mod=1.000 cls=1.000 shf=0.000 gap=0.000] | M=200[mod=1.000 cls=1.000 shf=0.000 gap=0.000] | llm=0 | gpu_util_mean=nan%",
+  "n_seeds": 1,
+  "N_DIM": 512,
+  "M_GRID": [
+    50,
+    200
+  ],
+  "BETA_GRID": [
+    2.0,
+    8.0
+  ],
+  "NQ": 20,
+  "NOISE_STDEV": 0.1,
+  "arms": [
+    "MODERN_HOPFIELD",
+    "CLASSICAL_HEBBIAN",
+    "SHUFFLED_QUERY"
+  ],
+  "run_mode": "smoke",
+  "config_version": "modern-hopfield-xl-v1: N=512 M_grid=[50, 200] beta_grid=[2.0, 8.0] NQ=20 noise=0.100 seeds=[1] arms=MODERN_HOPFIELD,CLASSICAL_HEBBIAN,SHUFFLED_QUERY run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_HD_keys_L2_normalized",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "device": "cpu",
+  "cuda_ok": false,
+  "detail": {
+    "M_summary": {
+      "M50": {
+        "modern_mean": 1.0,
+        "modern_cv": 0.0,
+        "classical_mean": 1.0,
+        "shuffled_mean": 0.0,
+        "gap_mean": 0.0,
+        "best_beta_modes": [
+          "b2.0"
+        ],
+        "per_beta_modern_mean": {
+          "b2.0": 1.0,
+          "b8.0": 1.0
+        },
+        "n_seeds_with_M": 1,
+        "alpha": 0.09765625
+      },
+      "M200": {
+        "modern_mean": 1.0,
+        "modern_cv": 0.0,
+        "classical_mean": 1.0,
+        "shuffled_mean": 0.0,
+        "gap_mean": 0.0,
+        "best_beta_modes": [
+          "b2.0"
+        ],
+        "per_beta_modern_mean": {
+          "b2.0": 1.0,
+          "b8.0": 1.0
+        },
+        "n_seeds_with_M": 1,
+        "alpha": 0.390625
+      }
+    },
+    "M_max": 200,
+    "modern_at_M_max": 1.0,
+    "classical_at_M_max": 1.0,
+    "shuffled_at_M_max": 0.0,
+    "gap_modern_minus_classical_at_M_max": 0.0,
+    "classical_theoretical_bound_at_N": 71.68,
+    "classical_capacity_alpha_at_M_max": 0.390625,
+    "above_classical_bound": true,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "gpu_util_mean": NaN,
+    "gpu_util_p50": NaN,
+    "gpu_util_max": NaN,
+    "gpu_util_n_samples": 0,
+    "honest_scope": "Krotov exponential-energy Modern Hopfield vs Classical Hebbian retrieval on synthetic bipolar L2-normalized HD keys at N_DIM=512; M sweep through [50, 200] with classical theoretical bound 0.14*N=72. Single-step retrieval (MODERN: softmax(beta*sims) @ K; CLASSICAL: implicit-W = (1/N) * K.T @ K @ q); gaussian noise stdev=0.10 on bipolar queries. SHUFFLED arm is the mechanism-null floor (random keys, true labels). substrate-only gate enforced (n_llm=0). cuda_required=True for full run."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "M": 200,
+      "run_mode": "smoke",
+      "config_version": "modern-hopfield-xl-v1: N=512 M_grid=[50, 200] beta_grid=[2.0, 8.0] NQ=20 noise=0.100 seeds=[1] arms=MODERN_HOPFIELD,CLASSICAL_HEBBIAN,SHUFFLED_QUERY run_mode=smoke",
+      "elapsed_s": 0.05249309539794922,
+      "n_llm_calls": 0,
+      "device": "cpu",
+      "cuda_ok": false,
+      "gpu_util_samples": [],
+      "gpu_util_mean": NaN,
+      "gpu_util_p50": NaN,
+      "gpu_util_max": NaN,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782159534.699413,
+      "per_unit": [
+        {
+          "M": 50,
+          "seed": 1,
+          "N_DIM": 512,
+          "alpha": 0.09765625,
+          "per_beta": {
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b2.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 20,
+          "wall_s": 0.03233528137207031,
+          "device": "cpu"
+        },
+        {
+          "M": 200,
+          "seed": 1,
+          "N_DIM": 512,
+          "alpha": 0.390625,
+          "per_beta": {
+            "b2.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            },
+            "b8.0": {
+              "top1_modern": 1.0,
+              "top1_shuffled": 0.0
+            }
+          },
+          "best_modern_top1": 1.0,
+          "best_modern_beta": "b2.0",
+          "worst_shuffled_top1": 0.0,
+          "top1_classical": 1.0,
+          "gap_modern_minus_classical": 0.0,
+          "n_probe": 20,
+          "wall_s": 0.018163681030273438,
+          "device": "cpu"
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_gpu_synthetic_bipolar_HD_modern_vs_classical_hopfield",
+  "elapsed_s": 0.1505904197692871,
+  "summary": "HARD_FAIL: modern - classical gap at M=200 is 0.000 < 0.10. Modern Hopfield did NOT beat classical above its capacity bound (no super-linear lift detected). M=50[mod=1.000 cls=1.000 shf=0.000 gap=0.00"
+}

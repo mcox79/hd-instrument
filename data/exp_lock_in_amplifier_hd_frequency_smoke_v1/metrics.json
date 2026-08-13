@@ -1,0 +1,344 @@
+{
+  "anchor_name": "lock_in_amplifier_hd_frequency_smoke_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: lock-in amplifier mechanism REAL at substrate. P32 lifts recall x4.32 (HP>=4.0x) AND P8 x3.73 (HP>=2.0x) over baseline at sigma_32.0. discrim_sigma=sigma_32.0 (baseline=0.2317 in-band [0.05, 0.3]): P8=0.8650(x3.73) P32=1.0000(x4.32); full summary: {'ARM_BASELINE_SINGLE_SHOT': {'sigma_8.0': 1.0, 'sigma_16.0': 0.8766666666666666, 'sigma_32.0': 0.23166666666666666, 'sigma_64.0': 0.05333333333333332, 'sigma_128.0': 0.015000000000000001}, 'ARM_LOCK_IN_P8': {'sigma_8.0': 1.0, 'sigma_16.0': 1.0, 'sigma_32.0': 0.8650000000000001, 'sigma_64.0': 0.225, 'sigma_128.0': 0.045000000000000005}, 'ARM_LOCK_IN_P32': {'sigma_8.0': 1.0, 'sigma_16.0': 1.0, 'sigma_32.0': 1.0, 'sigma_64.0': 0.8700000000000001, 'sigma_128.0': 0.21333333333333335}}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "config": {
+    "N_DIM": 4096,
+    "M": 200,
+    "K_SIGNAL": 31,
+    "P_SWEEP": [
+      1,
+      8,
+      32
+    ],
+    "SIGMAS": [
+      8.0,
+      16.0,
+      32.0,
+      64.0,
+      128.0
+    ],
+    "N_EVAL": 200
+  },
+  "summary": {
+    "ARM_BASELINE_SINGLE_SHOT": {
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 0.8766666666666666,
+      "sigma_32.0": 0.23166666666666666,
+      "sigma_64.0": 0.05333333333333332,
+      "sigma_128.0": 0.015000000000000001
+    },
+    "ARM_LOCK_IN_P8": {
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 0.8650000000000001,
+      "sigma_64.0": 0.225,
+      "sigma_128.0": 0.045000000000000005
+    },
+    "ARM_LOCK_IN_P32": {
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 1.0,
+      "sigma_64.0": 0.8700000000000001,
+      "sigma_128.0": 0.21333333333333335
+    }
+  },
+  "per_seed_arm": [
+    {
+      "seed": 7,
+      "arm": "ARM_BASELINE_SINGLE_SHOT",
+      "P": 1,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.85,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.25,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.04,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.015,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 6.495481967926025,
+      "run_mode": "full"
+    },
+    {
+      "seed": 7,
+      "arm": "ARM_LOCK_IN_P8",
+      "P": 8,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.87,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.205,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.025,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 14.98184871673584,
+      "run_mode": "full"
+    },
+    {
+      "seed": 7,
+      "arm": "ARM_LOCK_IN_P32",
+      "P": 32,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.855,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.195,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 26.81144118309021,
+      "run_mode": "full"
+    },
+    {
+      "seed": 17,
+      "arm": "ARM_BASELINE_SINGLE_SHOT",
+      "P": 1,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.905,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.205,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.075,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.02,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 10.934086561203003,
+      "run_mode": "full"
+    },
+    {
+      "seed": 17,
+      "arm": "ARM_LOCK_IN_P8",
+      "P": 8,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.835,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.23,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.06,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 14.436581134796143,
+      "run_mode": "full"
+    },
+    {
+      "seed": 17,
+      "arm": "ARM_LOCK_IN_P32",
+      "P": 32,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.87,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.24,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 24.873798847198486,
+      "run_mode": "full"
+    },
+    {
+      "seed": 23,
+      "arm": "ARM_BASELINE_SINGLE_SHOT",
+      "P": 1,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 0.875,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.24,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.045,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.01,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 10.208481311798096,
+      "run_mode": "full"
+    },
+    {
+      "seed": 23,
+      "arm": "ARM_LOCK_IN_P8",
+      "P": 8,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 0.89,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.24,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.05,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 13.995046377182007,
+      "run_mode": "full"
+    },
+    {
+      "seed": 23,
+      "arm": "ARM_LOCK_IN_P32",
+      "P": 32,
+      "M": 200,
+      "N_DIM": 4096,
+      "K_SIGNAL": 31,
+      "by_sigma": {
+        "sigma_8.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_16.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_32.0": {
+          "recall_at_1": 1.0,
+          "n_eval": 200
+        },
+        "sigma_64.0": {
+          "recall_at_1": 0.885,
+          "n_eval": 200
+        },
+        "sigma_128.0": {
+          "recall_at_1": 0.205,
+          "n_eval": 200
+        }
+      },
+      "elapsed_s": 23.994325399398804,
+      "run_mode": "full"
+    }
+  ],
+  "elapsed_s": 146.75740599632263
+}

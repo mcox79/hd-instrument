@@ -1,0 +1,117 @@
+{
+  "anchor_name": "hebbian_capacity_projected_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate fails at M=1k on projected keys OR projected~raw (projection doesn't help -> confound not resolved). M_crit_obs=201 vs pred=7 (ratio=29.10, within-2x=False) | recall@1k proj=0.004 raw=0.001 (proj/raw=4.2x) | CV=0.001 | canfail(half-dim)=202",
+  "run_mode": "full",
+  "encoder": "EleutherAI/pythia-2.8b",
+  "M_sweep": [
+    1000,
+    5000,
+    10000,
+    25000,
+    50000
+  ],
+  "n_seeds": 5,
+  "proj_dim": 256,
+  "detail": {
+    "m_crit_obs_mean": 200.84,
+    "m_crit_pred_mean": 6.9,
+    "obs_over_pred": 29.099,
+    "recall_1k_proj": 0.0042,
+    "recall_1k_raw": 0.001,
+    "proj_over_raw": 4.2,
+    "m_crit_cv": 0.001,
+    "canfail_halfdim_mcrit": 201.54,
+    "honest_scope": "substrate Hebbian-superposition capacity on #7-PROJECTED Pythia-2.8B keys; M_crit vs full-crosstalk prediction 1/E[<ki,kj>^2]; measures SUBSTRATE capacity not encoder key-quality (confound resolved by #7)."
+  },
+  "metrics_source": "measured_gpu_pythia2p8b_hebbian_capacity_projected_keys",
+  "per_unit": [
+    {
+      "seed": 0,
+      "m_crit_obs": 200.6,
+      "m_crit_pred": 7.65,
+      "rho_mean": 0.27719,
+      "rho_var": 0.05397,
+      "e_sq": 0.130804,
+      "recall_1k_proj": 0.003,
+      "recall_1k_raw": 0.001,
+      "canfail_halfdim_mcrit": 201.01,
+      "curve": {
+        "1000": 0.003
+      },
+      "run_mode": "full",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1781945689.568058
+    },
+    {
+      "seed": 1,
+      "m_crit_obs": 201.21,
+      "m_crit_pred": 7.69,
+      "rho_mean": 0.27576,
+      "rho_var": 0.05398,
+      "e_sq": 0.130025,
+      "recall_1k_proj": 0.006,
+      "recall_1k_raw": 0.001,
+      "canfail_halfdim_mcrit": 202.02,
+      "curve": {
+        "1000": 0.006
+      },
+      "run_mode": "full",
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1781945963.0520482
+    },
+    {
+      "seed": 2,
+      "m_crit_obs": 200.8,
+      "m_crit_pred": 5.97,
+      "rho_mean": 0.34226,
+      "rho_var": 0.05026,
+      "e_sq": 0.167396,
+      "recall_1k_proj": 0.004,
+      "recall_1k_raw": 0.001,
+      "canfail_halfdim_mcrit": 200.8,
+      "curve": {
+        "1000": 0.004
+      },
+      "run_mode": "full",
+      "_ckpt_key": "s2",
+      "_partial_written_at": 1781946235.8379462
+    },
+    {
+      "seed": 3,
+      "m_crit_obs": 200.8,
+      "m_crit_pred": 5.7,
+      "rho_mean": 0.35422,
+      "rho_var": 0.04991,
+      "e_sq": 0.17538,
+      "recall_1k_proj": 0.004,
+      "recall_1k_raw": 0.001,
+      "canfail_halfdim_mcrit": 201.01,
+      "curve": {
+        "1000": 0.004
+      },
+      "run_mode": "full",
+      "_ckpt_key": "s3",
+      "_partial_written_at": 1781946511.1984215
+    },
+    {
+      "seed": 4,
+      "m_crit_obs": 200.8,
+      "m_crit_pred": 7.5,
+      "rho_mean": 0.27841,
+      "rho_var": 0.05576,
+      "e_sq": 0.133276,
+      "recall_1k_proj": 0.004,
+      "recall_1k_raw": 0.001,
+      "canfail_halfdim_mcrit": 202.84,
+      "curve": {
+        "1000": 0.004
+      },
+      "run_mode": "full",
+      "_ckpt_key": "s4",
+      "_partial_written_at": 1781946788.188781
+    }
+  ],
+  "elapsed_s": 1374.5446138381958,
+  "summary": "HARD_FAIL: substrate fails at M=1k on projected keys OR projected~raw (projection doesn't help -> confound not resolved). M_crit_obs=201 vs pred=7 (ratio=29.10, within-2x=False) | recall@1k proj=0.004 raw=0.001 (proj/raw=4.2x) | CV=0.001 | canfail(half-dim)=202"
+}

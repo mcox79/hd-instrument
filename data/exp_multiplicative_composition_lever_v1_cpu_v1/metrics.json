@@ -1,0 +1,919 @@
+{
+  "anchor_name": "multiplicative_composition_lever_v1_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (depth-axis refuse-gate; data-decides -> Skunkworks): the selector ROBUSTLY beats always-chain (per-seed margin > seed-noise) on the high-fabrication loads [1.0, 1.5] (where always-chain goes negative), is NEVER worse than always-chain elsewhere, and beats always-flat everywhere (chain adds depth value). No single fixed operator wins. The value is LOAD-DEPENDENT (marginal at high-K_max load [0.6] where there is little fabrication to avoid -- honest, not a flaw). Composes with refuse-gate #5b (load-axis). kmax={'alpha0.60': 6, 'alpha1.00': 4, 'alpha1.50': 4} | ROBUST_beat_chain=[1.0, 1.5] marginal(within-noise)=[0.6] never_worse_all=True beats_flat=[0.6, 1.0, 1.5] fab_real=[0.6, 1.0, 1.5] seed_stable=True",
+  "run_mode": "full",
+  "N": 2048,
+  "loads": [
+    0.6,
+    1.0,
+    1.5
+  ],
+  "chain_len": 10,
+  "cal_seeds": [
+    101,
+    102
+  ],
+  "test_seeds": [
+    1,
+    2,
+    3
+  ],
+  "detail": {
+    "per_load": {
+      "alpha0.60": {
+        "kmax": 6,
+        "U_selector": 0.7712,
+        "U_always_chain": 0.7151,
+        "U_flat": -0.7778,
+        "ooe_chain_acc": 0.3485,
+        "inenv_chain_acc": 0.9733,
+        "n_ooe_depths": 3,
+        "seed_cv": 0.1319,
+        "margin_vs_chain_mean": 0.0561,
+        "margin_vs_chain_std": 0.0668,
+        "ROBUST_beats_chain": false,
+        "never_worse_than_chain": true,
+        "sel_beats_flat": true,
+        "fabrication_real": true
+      },
+      "alpha1.00": {
+        "kmax": 4,
+        "U_selector": 0.4655,
+        "U_always_chain": 0.0712,
+        "U_flat": -0.7778,
+        "ooe_chain_acc": 0.0905,
+        "inenv_chain_acc": 0.9489,
+        "n_ooe_depths": 5,
+        "seed_cv": 0.1831,
+        "margin_vs_chain_mean": 0.3943,
+        "margin_vs_chain_std": 0.0524,
+        "ROBUST_beats_chain": true,
+        "never_worse_than_chain": true,
+        "sel_beats_flat": true,
+        "fabrication_real": true
+      },
+      "alpha1.50": {
+        "kmax": 4,
+        "U_selector": 0.3736,
+        "U_always_chain": -0.1522,
+        "U_flat": -0.7778,
+        "ooe_chain_acc": 0.0268,
+        "inenv_chain_acc": 0.9203,
+        "n_ooe_depths": 5,
+        "seed_cv": 0.0093,
+        "margin_vs_chain_mean": 0.5258,
+        "margin_vs_chain_std": 0.0057,
+        "ROBUST_beats_chain": true,
+        "never_worse_than_chain": true,
+        "sel_beats_flat": true,
+        "fabrication_real": true
+      }
+    },
+    "kmax_by_load": {
+      "alpha0.60": 6,
+      "alpha1.00": 4,
+      "alpha1.50": 4
+    },
+    "testable_loads_with_OOE": [
+      0.6,
+      1.0,
+      1.5
+    ],
+    "loads_ROBUST_beat_chain": [
+      1.0,
+      1.5
+    ],
+    "loads_marginal_within_seednoise": [
+      0.6
+    ],
+    "never_worse_than_chain_all_loads": true,
+    "loads_sel_beats_flat": [
+      0.6,
+      1.0,
+      1.5
+    ],
+    "loads_fabrication_real": [
+      0.6,
+      1.0,
+      1.5
+    ],
+    "seed_stable": true,
+    "honest_claim": "Depth-axis refuse-gate: selector refuses chains deeper than CALIBRATED K_max(load) (cal seeds), TESTED held-out via risk-utility (correct +1 / fabricate -1 / refuse 0). Genuine cost = OOE chains FABRICATE. The refuse-gate ROBUSTLY earns its keep WHERE FABRICATION IS SIGNIFICANT (low-K_max / high-load: per-seed margin over always-chain exceeds seed-noise, always-chain goes NEGATIVE); at low load (high K_max) the value is marginal (little fabrication to avoid) but the selector is NEVER worse. Beats always-flat everywhere (chain adds depth value). Load-dependent value is the honest characterization, not a flaw."
+  },
+  "metrics_source": "measured_cpu_depth_axis_refuse_gate_chain_composition",
+  "per_unit": [
+    {
+      "load": 0.6,
+      "seed": 1,
+      "kmax": 6,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 6,
+          "in_envelope": true,
+          "chain_acc": 0.8235,
+          "u_selector": 0.6471,
+          "u_always_chain": 0.6471,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.4706,
+          "u_selector": 0.0,
+          "u_always_chain": -0.0588,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.2353,
+          "u_selector": 0.0,
+          "u_always_chain": -0.5294,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.1176,
+          "u_selector": 0.0,
+          "u_always_chain": -0.7647,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a0p60_s1",
+      "_partial_written_at": 1781998296.9484937
+    },
+    {
+      "load": 0.6,
+      "seed": 2,
+      "kmax": 8,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 6,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 7,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 8,
+          "in_envelope": true,
+          "chain_acc": 0.8088,
+          "u_selector": 0.6176,
+          "u_always_chain": 0.6176,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.4853,
+          "u_selector": 0.0,
+          "u_always_chain": -0.0294,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a0p60_s2",
+      "_partial_written_at": 1781998570.7125542
+    },
+    {
+      "load": 0.6,
+      "seed": 3,
+      "kmax": 8,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 6,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 7,
+          "in_envelope": true,
+          "chain_acc": 0.9706,
+          "u_selector": 0.9412,
+          "u_always_chain": 0.9412,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 8,
+          "in_envelope": true,
+          "chain_acc": 0.8088,
+          "u_selector": 0.6176,
+          "u_always_chain": 0.6176,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.4338,
+          "u_selector": 0.0,
+          "u_always_chain": -0.1324,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a0p60_s3",
+      "_partial_written_at": 1781998590.1720157
+    },
+    {
+      "load": 1.0,
+      "seed": 1,
+      "kmax": 4,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 0.5536,
+          "u_selector": 0.1071,
+          "u_always_chain": 0.1071,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": false,
+          "chain_acc": 0.25,
+          "u_selector": 0.0,
+          "u_always_chain": -0.5,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 6,
+          "in_envelope": false,
+          "chain_acc": 0.0893,
+          "u_selector": 0.0,
+          "u_always_chain": -0.8214,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.0536,
+          "u_selector": 0.0,
+          "u_always_chain": -0.8929,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.0,
+          "u_selector": 0.0,
+          "u_always_chain": -1.0,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.0,
+          "u_selector": 0.0,
+          "u_always_chain": -1.0,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a1p00_s1",
+      "_partial_written_at": 1781998297.406907
+    },
+    {
+      "load": 1.0,
+      "seed": 2,
+      "kmax": 5,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": true,
+          "chain_acc": 0.837,
+          "u_selector": 0.674,
+          "u_always_chain": 0.674,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 6,
+          "in_envelope": false,
+          "chain_acc": 0.2907,
+          "u_selector": 0.0,
+          "u_always_chain": -0.4185,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.0881,
+          "u_selector": 0.0,
+          "u_always_chain": -0.8238,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.0264,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9471,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.0044,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9912,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a1p00_s2",
+      "_partial_written_at": 1781998626.579083
+    },
+    {
+      "load": 1.0,
+      "seed": 3,
+      "kmax": 5,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": true,
+          "chain_acc": 0.8943,
+          "u_selector": 0.7885,
+          "u_always_chain": 0.7885,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 6,
+          "in_envelope": false,
+          "chain_acc": 0.2731,
+          "u_selector": 0.0,
+          "u_always_chain": -0.4537,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.0705,
+          "u_selector": 0.0,
+          "u_always_chain": -0.859,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.0264,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9471,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.0044,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9912,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a1p00_s3",
+      "_partial_written_at": 1781998663.3314025
+    },
+    {
+      "load": 1.5,
+      "seed": 1,
+      "kmax": 4,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 0.6804,
+          "u_selector": 0.3607,
+          "u_always_chain": 0.3607,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": false,
+          "chain_acc": 0.1056,
+          "u_selector": 0.0,
+          "u_always_chain": -0.7889,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 6,
+          "in_envelope": false,
+          "chain_acc": 0.0117,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9765,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.0029,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9941,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.0,
+          "u_selector": 0.0,
+          "u_always_chain": -1.0,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.0,
+          "u_selector": 0.0,
+          "u_always_chain": -1.0,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a1p50_s1",
+      "_partial_written_at": 1781998718.967843
+    },
+    {
+      "load": 1.5,
+      "seed": 2,
+      "kmax": 4,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 0.6628,
+          "u_selector": 0.3255,
+          "u_always_chain": 0.3255,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": false,
+          "chain_acc": 0.0997,
+          "u_selector": 0.0,
+          "u_always_chain": -0.8006,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 6,
+          "in_envelope": false,
+          "chain_acc": 0.0088,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9824,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.0029,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9941,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.0,
+          "u_selector": 0.0,
+          "u_always_chain": -1.0,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.0,
+          "u_selector": 0.0,
+          "u_always_chain": -1.0,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a1p50_s2",
+      "_partial_written_at": 1781998774.3326552
+    },
+    {
+      "load": 1.5,
+      "seed": 3,
+      "kmax": 4,
+      "rows": [
+        {
+          "K": 1,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": 1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 2,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 3,
+          "in_envelope": true,
+          "chain_acc": 1.0,
+          "u_selector": 1.0,
+          "u_always_chain": 1.0,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 4,
+          "in_envelope": true,
+          "chain_acc": 0.7009,
+          "u_selector": 0.4018,
+          "u_always_chain": 0.4018,
+          "u_flat": -1.0,
+          "selector_action": "chain"
+        },
+        {
+          "K": 5,
+          "in_envelope": false,
+          "chain_acc": 0.1378,
+          "u_selector": 0.0,
+          "u_always_chain": -0.7243,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 6,
+          "in_envelope": false,
+          "chain_acc": 0.0235,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9531,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 7,
+          "in_envelope": false,
+          "chain_acc": 0.0029,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9941,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 8,
+          "in_envelope": false,
+          "chain_acc": 0.0029,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9941,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        },
+        {
+          "K": 9,
+          "in_envelope": false,
+          "chain_acc": 0.0029,
+          "u_selector": 0.0,
+          "u_always_chain": -0.9941,
+          "u_flat": -1.0,
+          "selector_action": "refuse"
+        }
+      ],
+      "_ckpt_key": "a1p50_s3",
+      "_partial_written_at": 1781998825.1313252
+    }
+  ],
+  "elapsed_s": 182.01453590393066,
+  "summary": "HARD_PASS (depth-axis refuse-gate; data-decides -> Skunkworks): the selector ROBUSTLY beats always-chain (per-seed margin > seed-noise) on the high-fabrication loads [1.0, 1.5] (where always-chain goes negative), is NEVER worse than always-chain elsewhere, and beats always-flat everywhere (chain adds depth value). No single fixed operator wins. The value is LOAD-DEPENDENT (marginal at high-K_max load [0.6] where there is little fabrication to avoid -- honest, not a flaw). Composes with refuse-gate #5b (load-axis). kmax={'alpha0.60': 6, 'alpha1.00': 4, 'alpha1.50': 4} | ROBUST_beat_chain=[1.0, 1.5] marginal(within-noise)=[0.6] never_worse_all=True beats_flat=[0.6, 1.0, 1.5] fab_real=[0.6, 1.0, 1.5] seed_stable=True"
+}

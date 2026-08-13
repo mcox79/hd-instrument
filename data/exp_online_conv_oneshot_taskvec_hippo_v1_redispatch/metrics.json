@@ -1,0 +1,14 @@
+{
+  "anchor_name": "online_conv_oneshot_taskvec_hippo_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: cell mechanics verified",
+  "summary": "SELFTEST_OK: cell mechanics verified",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-28T14:03:16Z",
+  "pid": 14108,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=online_conv_oneshot_taskvec_hippo_v1,N=512,V=40,n_turns=10,fact_turns=[3, 7],n_scenarios=4,seeds=[7],N_h=128,N_c=256,sparsity=0.10,n_replay=3,refuse_V_REL=32,alpha=1.00,mode=smoke,HP_TV_HIPPO>=0.85,HP_delta>=0.50,expected_n=20,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "n_llm_calls_total": 0,
+  "_hardening_marker": "v1_online_conv_oneshot",
+  "_phase": "selftest_done"
+}

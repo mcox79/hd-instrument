@@ -1,0 +1,1616 @@
+{
+  "anchor_name": "generation_decoder_rns_crt_highvocab_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "RNS/CRT PUSHES PAST THE CLIFF: rns_crt exact-ordered=1.000 (>= 0.85, cv=0.000<0.1) at V=65536 D=26 where the v1-style correlated single-block has fallen off the cliff (single_corr=0.160; gap=0.840>= 0.3). Effective vocab = prod(moduli) reached with sum(moduli) codes. iid ceiling (1.000) confirms the cliff is a correlation artifact; scram control collapses (0.000) confirms CRT is load-bearing. ANCHOR(V8192D26) rns=1.000 single_corr=0.693 single_synth=1.000 scram=0.000; ENVELOPE(V65536D26) rns=1.000(cv=0.000) single_corr=0.160(cliff) single_synth=1.000 scram=0.000 gap=0.840; map[V8192D26[rns=1.00,corr=0.69] V16384D26[rns=1.00,corr=0.48] V32768D26[rns=1.00,corr=0.32] V49152D26[rns=1.00,corr=0.21] V65536D26[rns=1.00,corr=0.16] V65536D16[rns=1.00,corr=1.00] V65536D32[rns=1.00,corr=0.03]]",
+  "summary": "HARD_PASS: RNS/CRT high-vocab generation envelope-push vs single-block (full)",
+  "run_mode": "full",
+  "elapsed_s": 47.81,
+  "n_seeds": 3,
+  "n_units": 84,
+  "expected_n_units": 84,
+  "cardinality_ok": true,
+  "config": {
+    "N": 8192,
+    "F_SPARSE": 0.02,
+    "R_MODULI": 3,
+    "N_CLUSTERS": 128,
+    "FRAC_SHARED": 0.85,
+    "grid": [
+      [
+        8192,
+        26,
+        "anchor"
+      ],
+      [
+        16384,
+        26,
+        "sweep"
+      ],
+      [
+        32768,
+        26,
+        "sweep"
+      ],
+      [
+        49152,
+        26,
+        "sweep"
+      ],
+      [
+        65536,
+        26,
+        "envelope"
+      ],
+      [
+        65536,
+        16,
+        "boundary"
+      ],
+      [
+        65536,
+        32,
+        "boundary"
+      ]
+    ],
+    "anchor": [
+      8192,
+      26
+    ],
+    "envelope": [
+      65536,
+      26
+    ],
+    "trials": 25,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "moduli": {
+      "8192": [
+        20,
+        21,
+        23
+      ],
+      "12288": [
+        22,
+        23,
+        25
+      ],
+      "16384": [
+        25,
+        27,
+        28
+      ],
+      "32768": [
+        31,
+        33,
+        35
+      ],
+      "49152": [
+        36,
+        37,
+        41
+      ],
+      "65536": [
+        40,
+        41,
+        43
+      ]
+    },
+    "mechanism": "rns_crt_subblock_decomposition",
+    "algebra": "block_superposition_sum",
+    "position_binding": "disjoint_block_index",
+    "residue_binding": "disjoint_subblock_index"
+  },
+  "arms": {
+    "single_corr@V8192D26": {
+      "per_term_mean": 0.9866,
+      "per_term_per_seed": [
+        0.9892,
+        0.9892,
+        0.9815
+      ],
+      "exact_ordered_mean": 0.6933,
+      "exact_ordered_per_seed": [
+        0.72,
+        0.76,
+        0.6
+      ],
+      "exact_ordered_cv": 0.0981,
+      "per_token_mean": 0.9866,
+      "per_token_per_seed": [
+        0.9892,
+        0.9892,
+        0.9815
+      ]
+    },
+    "single_synth@V8192D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V8192D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V8192D26": {
+      "per_term_mean": 0.001,
+      "per_term_per_seed": [
+        0.0031,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.0057,
+      "per_token_per_seed": [
+        0.0077,
+        0.0062,
+        0.0031
+      ]
+    },
+    "single_corr@V16384D26": {
+      "per_term_mean": 0.9744,
+      "per_term_per_seed": [
+        0.9785,
+        0.9754,
+        0.9692
+      ],
+      "exact_ordered_mean": 0.48,
+      "exact_ordered_per_seed": [
+        0.56,
+        0.44,
+        0.44
+      ],
+      "exact_ordered_cv": 0.1179,
+      "per_token_mean": 0.9744,
+      "per_token_per_seed": [
+        0.9785,
+        0.9754,
+        0.9692
+      ]
+    },
+    "single_synth@V16384D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V16384D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V16384D26": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.0015,
+      "per_token_per_seed": [
+        0.0,
+        0.0015,
+        0.0031
+      ]
+    },
+    "single_corr@V32768D26": {
+      "per_term_mean": 0.9595,
+      "per_term_per_seed": [
+        0.9569,
+        0.9554,
+        0.9662
+      ],
+      "exact_ordered_mean": 0.32,
+      "exact_ordered_per_seed": [
+        0.24,
+        0.28,
+        0.44
+      ],
+      "exact_ordered_cv": 0.27,
+      "per_token_mean": 0.9595,
+      "per_token_per_seed": [
+        0.9569,
+        0.9554,
+        0.9662
+      ]
+    },
+    "single_synth@V32768D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V32768D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V32768D26": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.0005,
+      "per_token_per_seed": [
+        0.0,
+        0.0,
+        0.0015
+      ]
+    },
+    "single_corr@V49152D26": {
+      "per_term_mean": 0.9441,
+      "per_term_per_seed": [
+        0.9538,
+        0.9323,
+        0.9462
+      ],
+      "exact_ordered_mean": 0.2133,
+      "exact_ordered_per_seed": [
+        0.28,
+        0.16,
+        0.2
+      ],
+      "exact_ordered_cv": 0.2339,
+      "per_token_mean": 0.9441,
+      "per_token_per_seed": [
+        0.9538,
+        0.9323,
+        0.9462
+      ]
+    },
+    "single_synth@V49152D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V49152D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V49152D26": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.001,
+      "per_token_per_seed": [
+        0.0,
+        0.0015,
+        0.0015
+      ]
+    },
+    "single_corr@V65536D26": {
+      "per_term_mean": 0.9221,
+      "per_term_per_seed": [
+        0.9246,
+        0.9154,
+        0.9262
+      ],
+      "exact_ordered_mean": 0.16,
+      "exact_ordered_per_seed": [
+        0.16,
+        0.12,
+        0.2
+      ],
+      "exact_ordered_cv": 0.2041,
+      "per_token_mean": 0.9221,
+      "per_token_per_seed": [
+        0.9246,
+        0.9154,
+        0.9262
+      ]
+    },
+    "single_synth@V65536D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V65536D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V65536D26": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.0,
+      "per_token_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "single_corr@V65536D16": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "single_synth@V65536D16": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V65536D16": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V65536D16": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.0008,
+      "per_token_per_seed": [
+        0.0025,
+        0.0,
+        0.0
+      ]
+    },
+    "single_corr@V65536D32": {
+      "per_term_mean": 0.8942,
+      "per_term_per_seed": [
+        0.895,
+        0.8875,
+        0.9
+      ],
+      "exact_ordered_mean": 0.0267,
+      "exact_ordered_per_seed": [
+        0.04,
+        0.0,
+        0.04
+      ],
+      "exact_ordered_cv": 0.7071,
+      "per_token_mean": 0.8942,
+      "per_token_per_seed": [
+        0.895,
+        0.8875,
+        0.9
+      ]
+    },
+    "single_synth@V65536D32": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_crt@V65536D32": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rns_scram@V65536D32": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_cv": 0.0,
+      "per_token_mean": 0.0004,
+      "per_token_per_seed": [
+        0.0,
+        0.0013,
+        0.0
+      ]
+    }
+  },
+  "per_unit": [
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 0.9892,
+      "exact_ordered": 0.72,
+      "per_token": 0.9892
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0031,
+      "exact_ordered": 0.0,
+      "per_token": 0.0077
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 0.9785,
+      "exact_ordered": 0.56,
+      "per_token": 0.9785
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 0.9569,
+      "exact_ordered": 0.24,
+      "per_token": 0.9569
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 0.9538,
+      "exact_ordered": 0.28,
+      "per_token": 0.9538
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 0.9246,
+      "exact_ordered": 0.16,
+      "per_token": 0.9246
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0025
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 7,
+      "arm": "single_corr",
+      "per_term": 0.895,
+      "exact_ordered": 0.04,
+      "per_token": 0.895
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 7,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 7,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 7,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 0.9892,
+      "exact_ordered": 0.76,
+      "per_token": 0.9892
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0062
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 0.9754,
+      "exact_ordered": 0.44,
+      "per_token": 0.9754
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0015
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 0.9554,
+      "exact_ordered": 0.28,
+      "per_token": 0.9554
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 0.9323,
+      "exact_ordered": 0.16,
+      "per_token": 0.9323
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0015
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 0.9154,
+      "exact_ordered": 0.12,
+      "per_token": 0.9154
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 13,
+      "arm": "single_corr",
+      "per_term": 0.8875,
+      "exact_ordered": 0.0,
+      "per_token": 0.8875
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 13,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 13,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 13,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0013
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 0.9815,
+      "exact_ordered": 0.6,
+      "per_token": 0.9815
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0031
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 0.9692,
+      "exact_ordered": 0.44,
+      "per_token": 0.9692
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 16384,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0031
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 0.9662,
+      "exact_ordered": 0.44,
+      "per_token": 0.9662
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 32768,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0015
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 0.9462,
+      "exact_ordered": 0.2,
+      "per_token": 0.9462
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "sweep",
+      "V": 49152,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0015
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 0.9262,
+      "exact_ordered": 0.2,
+      "per_token": 0.9262
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "envelope",
+      "V": 65536,
+      "D": 26,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 16,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 19,
+      "arm": "single_corr",
+      "per_term": 0.9,
+      "exact_ordered": 0.04,
+      "per_token": 0.9
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 19,
+      "arm": "single_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 19,
+      "arm": "rns_crt",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 65536,
+      "D": 32,
+      "seed": 19,
+      "arm": "rns_scram",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    }
+  ],
+  "efficiency": {
+    "V8192": {
+      "V": 8192,
+      "moduli": [
+        20,
+        21,
+        23
+      ],
+      "M_effective_vocab": 9660,
+      "rns_codebook_entries": 64,
+      "single_codebook_entries": 8192,
+      "codebook_compression_x": 128.0
+    },
+    "V16384": {
+      "V": 16384,
+      "moduli": [
+        25,
+        27,
+        28
+      ],
+      "M_effective_vocab": 18900,
+      "rns_codebook_entries": 80,
+      "single_codebook_entries": 16384,
+      "codebook_compression_x": 204.8
+    },
+    "V32768": {
+      "V": 32768,
+      "moduli": [
+        31,
+        33,
+        35
+      ],
+      "M_effective_vocab": 35805,
+      "rns_codebook_entries": 99,
+      "single_codebook_entries": 32768,
+      "codebook_compression_x": 330.99
+    },
+    "V49152": {
+      "V": 49152,
+      "moduli": [
+        36,
+        37,
+        41
+      ],
+      "M_effective_vocab": 54612,
+      "rns_codebook_entries": 114,
+      "single_codebook_entries": 49152,
+      "codebook_compression_x": 431.16
+    },
+    "V65536": {
+      "V": 65536,
+      "moduli": [
+        40,
+        41,
+        43
+      ],
+      "M_effective_vocab": 70520,
+      "rns_codebook_entries": 124,
+      "single_codebook_entries": 65536,
+      "codebook_compression_x": 528.52
+    }
+  },
+  "controls": {
+    "scram_collapsed": true
+  },
+  "arms_differ_verified": true,
+  "bands": {
+    "HP_rns_floor": 0.85,
+    "HP_cv": 0.1,
+    "single_cliff_thresh": 0.7,
+    "rns_gap": 0.3,
+    "scram_collapse": 0.1,
+    "synth_ceiling_floor": 0.9,
+    "HF_rns_floor": 0.5
+  },
+  "ts_iso": "2026-07-05T18:46:21.660547+00:00",
+  "pid": 10252,
+  "host": "Home"
+}

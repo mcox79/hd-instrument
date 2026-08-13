@@ -1,0 +1,70 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator + deeptext-MLM + end-to-end held-out eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 12.47037580003962,
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.5159291666666667,
+    "auc_label_shuffle": 0.49755667277929666,
+    "prec_struct": 1.0,
+    "base_rate": 0.1666666666666666,
+    "n_query": 60
+  },
+  "deeptext_selftest": {
+    "mlm_loss0": 4.946864128112793,
+    "mlm_lossN": 3.5336036682128906,
+    "loss_dropped": true,
+    "rep_finite": true,
+    "rep_distinct": true,
+    "tok_deterministic": true,
+    "rep_shape": [
+      40,
+      32
+    ]
+  },
+  "data_meta": {
+    "n_grounded_total": 24938,
+    "n_induced_pairs_total": 188720,
+    "n_kept_concepts": 400,
+    "n_kept_pairs": 38837,
+    "min_deg": 2,
+    "cap_nodes": 400,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/PartOf",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/HasProperty"
+    ],
+    "n_rel_slots": 9,
+    "n_lexnames": 33,
+    "tok_vocab": 1024,
+    "max_len": 32,
+    "tri_vocab": 512,
+    "ewt_sentences": 12544,
+    "n_mined_total": 853,
+    "mean_mined_per_concept": 2.1325,
+    "text_nonempty": 400,
+    "text_coverage": 1.0,
+    "total_tokens_used": 11173,
+    "mean_tokens_per_concept": 27.9325,
+    "mean_text_chars": 403.275
+  },
+  "split_meta": {
+    "n_train": 319,
+    "n_heldout": 81,
+    "mean_train_ctx_neigh": 170.26332288401255,
+    "mean_held_ctx_neigh": 162.25925925925927,
+    "n_rel_slots": 9
+  },
+  "full_fusion_same_lex_auc": 0.5675029489981445,
+  "deep_text_same_lex_auc": 0.6411087477614702,
+  "chartrigram_gloss_same_lex_auc": 0.6403442147200834,
+  "raw_grounding_same_lex_auc": 0.6398436718383941,
+  "collapse_shuffle_same_lex_auc": 0.4988774449512043
+}

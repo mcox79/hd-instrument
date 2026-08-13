@@ -1,0 +1,283 @@
+{
+  "run_mode": "full",
+  "anchor_name": "crossmodule_interface_hub_identity_bind_heldout_v2",
+  "ts_iso": "2026-07-15T23:17:32.205099+00:00",
+  "elapsed_s": 73.69,
+  "provenance": {
+    "module_P": {
+      "dataset": "BioGRID_yeast_TAB3",
+      "source": "downloads.thebiogrid.org/BioGRID/Latest-Release",
+      "relation": "physical_interaction",
+      "url": "https://downloads.thebiogrid.org/Download/BioGRID/Release-Archive/BIOGRID-5.0.259/BIOGRID-ORGANISM-5.0.259.tab3.zip",
+      "bytes": 186580917,
+      "ok": true
+    },
+    "module_G": {
+      "dataset": "Costanzo2016_yeast_SGA",
+      "source": "thecellmap.org/yeast/costanzo2016",
+      "relation": "genetic_interaction_epsilon",
+      "kind": "pairwise",
+      "bytes": 521571629,
+      "ok": true,
+      "urls_tried": {
+        "S1_pairwise_thecellmap_https": "https://thecellmap.org/costanzo2016/data_files/Raw%20genetic%20interaction%20datasets:%20Pair-wise%20interaction%20format.zip",
+        "S2_matrix_thecellmap_https": "https://thecellmap.org/costanzo2016/data_files/Raw%20genetic%20interaction%20datasets:%20Matrix%20format.zip"
+      }
+    },
+    "join_key": "SGD_systematic_ORF_name_exact_string_equality_no_crosswalk",
+    "retrieval_ts": "2026-07-15T23:17:32.204070+00:00",
+    "acquire_errors": {},
+    "filter": "|epsilon| > 0.080 AND p < 0.050 (Costanzo pairwise); |epsilon| > 0.080 (matrix); BioGRID Experimental System Type == physical"
+  },
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "bands": {
+    "JOIN_PRECISION_MIN": 0.9,
+    "FUZZY_GAIN_MAX": 0.05,
+    "REL_JACCARD_MAX": 0.5,
+    "HP_HUB_ABS": 0.3,
+    "HP_MARGIN_ABS": 0.15,
+    "HP_MARGIN_REL": 1.5,
+    "MUSTFAIL_SCRAMBLE_TOL": 0.03,
+    "MUSTFAIL_NOHUB_TOL": 0.05,
+    "MUSTFAIL_CEIL_TOL": 0.05,
+    "MIN_SHARED": 60,
+    "MIN_QUERIES": 30,
+    "N_DIM": 16384,
+    "TOP_V": 400
+  },
+  "join": {
+    "join_precision": 0.98915,
+    "n_shared_orfs": 5356,
+    "fuzzy_extra": 0,
+    "fuzzy_gain_frac": 0.0,
+    "n_phys_edges": 190430,
+    "n_gen_edges": 837667,
+    "n_phys_orfs": 5808,
+    "n_gen_orfs": 5848,
+    "edge_jaccard": 0.02188,
+    "join_ok": true,
+    "distinct_ok": true
+  },
+  "verdict": "HARD_PASS_INTERFACE_HUB_HELDOUT_PREDICTIVE_COMPOSES_CROSS_MODULE",
+  "verdict_msg": "HARD_PASS_INTERFACE_HUB_HELDOUT_PREDICTIVE_COMPOSES_CROSS_MODULE || JOIN precision=0.9892 n_shared=5356 fuzzy_gain=0.0000 | edge_jaccard=0.0219(distinct=True) | n_queries=794 (seen=394 novel=400 novel_no_direct_edge=True conj_never_stored=True) | [NOVEL] HUB=0.8315(>=0.30 above=True) MERGED=0.4349 NO_HUB=0.0929 SCRAMBLE=0.0983 RANDOM=0.0189 PHYS_ONLY=0.2123 GEN_ONLY=0.2496 single_ceiling=0.2496 margin_abs=0.3967(>=0.15) margin_ok=True beats_single(>=0.15)=True mustfails_ok=True | [SEEN] HUB=0.8270 ceiling=0.2649 beats_single=True | [ALL] HUB=0.8293 all_pass=True | arms_differ=True determ=True",
+  "summary": "HARD_PASS_INTERFACE_HUB_HELDOUT_PREDICTIVE_COMPOSES_CROSS_MODULE || JOIN precision=0.9892 n_shared=5356 fuzzy_gain=0.0000 | edge_jaccard=0.0219(distinct=True) | n_queries=794 (seen=394 novel=400 novel",
+  "n_queries": 794,
+  "n_seen": 394,
+  "n_novel": 400,
+  "n_v": 400,
+  "n_phys_edges_in": 3176,
+  "n_gen_edges_in": 2843,
+  "heldout": {
+    "split_axis": "pair_(X,Y)_is_direct_stored_edge_in_phys_or_gen",
+    "n_seen": 394,
+    "n_novel": 400,
+    "novel_no_direct_edge": true,
+    "seen_all_direct_edge": true,
+    "conjunction_never_stored": true,
+    "novel_pass": true,
+    "all_pass": true,
+    "seen_pass": true
+  },
+  "maps": {
+    "HUB": 0.82925,
+    "MERGED": 0.42626,
+    "NO_HUB": 0.09411,
+    "SCRAMBLE": 0.09163,
+    "RANDOM": 0.01879,
+    "PHYS_ONLY": 0.20654,
+    "GEN_ONLY": 0.25718
+  },
+  "maps_by_stratum": {
+    "ALL": {
+      "HUB": 0.82925,
+      "MERGED": 0.42626,
+      "NO_HUB": 0.09411,
+      "SCRAMBLE": 0.09163,
+      "RANDOM": 0.01879,
+      "PHYS_ONLY": 0.20654,
+      "GEN_ONLY": 0.25718
+    },
+    "SEEN": {
+      "HUB": 0.82695,
+      "MERGED": 0.41752,
+      "NO_HUB": 0.09537,
+      "SCRAMBLE": 0.0849,
+      "RANDOM": 0.01871,
+      "PHYS_ONLY": 0.20068,
+      "GEN_ONLY": 0.26488
+    },
+    "NOVEL": {
+      "HUB": 0.83152,
+      "MERGED": 0.43487,
+      "NO_HUB": 0.09288,
+      "SCRAMBLE": 0.09826,
+      "RANDOM": 0.01886,
+      "PHYS_ONLY": 0.21231,
+      "GEN_ONLY": 0.24959
+    }
+  },
+  "gates_by_stratum": {
+    "ALL": {
+      "hub_above": true,
+      "margin_ok": true,
+      "rel_ok": true,
+      "beats_single": true,
+      "scram_mf": true,
+      "nohub_mf": true,
+      "mustfails_ok": true,
+      "stratum_pass": true,
+      "single_ceiling": 0.25718,
+      "strong_baseline": 0.42626,
+      "margin_abs": 0.40299
+    },
+    "SEEN": {
+      "hub_above": true,
+      "margin_ok": true,
+      "rel_ok": true,
+      "beats_single": true,
+      "scram_mf": true,
+      "nohub_mf": true,
+      "mustfails_ok": true,
+      "stratum_pass": true,
+      "single_ceiling": 0.26488,
+      "strong_baseline": 0.41752,
+      "margin_abs": 0.40943
+    },
+    "NOVEL": {
+      "hub_above": true,
+      "margin_ok": true,
+      "rel_ok": true,
+      "beats_single": true,
+      "scram_mf": true,
+      "nohub_mf": true,
+      "mustfails_ok": true,
+      "stratum_pass": true,
+      "single_ceiling": 0.24959,
+      "strong_baseline": 0.43487,
+      "margin_abs": 0.39665
+    }
+  },
+  "gates": {
+    "join_ok": true,
+    "distinct_ok": true,
+    "arms_differ": true,
+    "determinism_ok": true,
+    "novel_power_ok": true,
+    "novel_no_direct_edge": true,
+    "novel_pass": true,
+    "all_pass": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "maps_novel": {
+        "HUB": 0.85042,
+        "MERGED": 0.42262,
+        "NO_HUB": 0.09544,
+        "SCRAMBLE": 0.08864,
+        "RANDOM": 0.01904,
+        "PHYS_ONLY": 0.21658,
+        "GEN_ONLY": 0.26167
+      },
+      "maps_seen": {
+        "HUB": 0.81688,
+        "MERGED": 0.42064,
+        "NO_HUB": 0.08895,
+        "SCRAMBLE": 0.09634,
+        "RANDOM": 0.02054,
+        "PHYS_ONLY": 0.18748,
+        "GEN_ONLY": 0.2578
+      }
+    },
+    {
+      "seed": 13,
+      "maps_novel": {
+        "HUB": 0.84223,
+        "MERGED": 0.45119,
+        "NO_HUB": 0.0877,
+        "SCRAMBLE": 0.10718,
+        "RANDOM": 0.01778,
+        "PHYS_ONLY": 0.20564,
+        "GEN_ONLY": 0.25406
+      },
+      "maps_seen": {
+        "HUB": 0.83584,
+        "MERGED": 0.41638,
+        "NO_HUB": 0.11488,
+        "SCRAMBLE": 0.07672,
+        "RANDOM": 0.0168,
+        "PHYS_ONLY": 0.19953,
+        "GEN_ONLY": 0.25864
+      }
+    },
+    {
+      "seed": 17,
+      "maps_novel": {
+        "HUB": 0.81538,
+        "MERGED": 0.43416,
+        "NO_HUB": 0.09591,
+        "SCRAMBLE": 0.09857,
+        "RANDOM": 0.0248,
+        "PHYS_ONLY": 0.20878,
+        "GEN_ONLY": 0.25423
+      },
+      "maps_seen": {
+        "HUB": 0.8127,
+        "MERGED": 0.43987,
+        "NO_HUB": 0.06625,
+        "SCRAMBLE": 0.08143,
+        "RANDOM": 0.01624,
+        "PHYS_ONLY": 0.21555,
+        "GEN_ONLY": 0.26262
+      }
+    },
+    {
+      "seed": 23,
+      "maps_novel": {
+        "HUB": 0.82971,
+        "MERGED": 0.44087,
+        "NO_HUB": 0.08736,
+        "SCRAMBLE": 0.10387,
+        "RANDOM": 0.01819,
+        "PHYS_ONLY": 0.22648,
+        "GEN_ONLY": 0.25101
+      },
+      "maps_seen": {
+        "HUB": 0.82198,
+        "MERGED": 0.4083,
+        "NO_HUB": 0.1152,
+        "SCRAMBLE": 0.07698,
+        "RANDOM": 0.01749,
+        "PHYS_ONLY": 0.20254,
+        "GEN_ONLY": 0.26563
+      }
+    },
+    {
+      "seed": 29,
+      "maps_novel": {
+        "HUB": 0.81987,
+        "MERGED": 0.4255,
+        "NO_HUB": 0.09798,
+        "SCRAMBLE": 0.09306,
+        "RANDOM": 0.01451,
+        "PHYS_ONLY": 0.20406,
+        "GEN_ONLY": 0.22697
+      },
+      "maps_seen": {
+        "HUB": 0.84736,
+        "MERGED": 0.40242,
+        "NO_HUB": 0.09157,
+        "SCRAMBLE": 0.09302,
+        "RANDOM": 0.02249,
+        "PHYS_ONLY": 0.1983,
+        "GEN_ONLY": 0.27972
+      }
+    }
+  ]
+}

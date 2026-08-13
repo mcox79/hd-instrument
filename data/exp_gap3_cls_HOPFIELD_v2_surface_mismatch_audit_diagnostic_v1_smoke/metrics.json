@@ -1,0 +1,92 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | REGIME_SATURATION: all arms > 0.95 at fair readout; surface-mismatch was NOT the v2 bug | BASE=1.000 HEB=1.000 HOP=1.000 GEN=1.000 | arms_range=0.000 arms_max=1.000 | n=1",
+  "summary": "HARD_FAIL | REGIME_SATURATION: all arms > 0.95 at fair readout; surface-mismatch was NOT the v2 bug | BASE=1.000 HEB=1.000 HOP=1.000 GEN=1.000 | arms_range=0.000 arms_max=1.000 | n=1",
+  "verdict_reason": "REGIME_SATURATION: all arms > 0.95 at fair readout; surface-mismatch was NOT the v2 bug",
+  "per_arm": {
+    "arm_baseline_hebbian_W": {
+      "11": {
+        "heldout_acc": 1.0,
+        "mean_true_cos": 0.17840531468391418,
+        "mean_best_false_cos": 0.05535707622766495,
+        "margin": 0.12304823845624924,
+        "w_row_norm_mean": 10.050821304321289,
+        "w_row_norm_cv": 0.002931262133643031
+      }
+    },
+    "arm_hebbian_slow_W": {
+      "11": {
+        "heldout_acc": 1.0,
+        "mean_true_cos": 0.17840531468391418,
+        "mean_best_false_cos": 0.05535707622766495,
+        "margin": 0.12304823845624924,
+        "w_row_norm_mean": 1005.0820922851562,
+        "w_row_norm_cv": 0.0029312605038285255
+      }
+    },
+    "arm_hopfield_replay_slow_W": {
+      "11": {
+        "heldout_acc": 1.0,
+        "mean_true_cos": 0.17840564250946045,
+        "mean_best_false_cos": 0.055356983095407486,
+        "margin": 0.12304866313934326,
+        "w_row_norm_mean": 1007.092041015625,
+        "w_row_norm_cv": 0.002923213643953204
+      }
+    },
+    "arm_hopfield_generative_replay_W": {
+      "11": {
+        "heldout_acc": 1.0,
+        "mean_true_cos": 0.17847520112991333,
+        "mean_best_false_cos": 0.0553569495677948,
+        "margin": 0.12311824411153793,
+        "w_row_norm_mean": 1006.6989135742188,
+        "w_row_norm_cv": 0.0029310868121683598
+      }
+    }
+  },
+  "per_arm_summary": {
+    "arm_baseline_hebbian_W": {
+      "mean_acc": 1.0,
+      "std_acc": 0.0,
+      "cv_acc": 0.0,
+      "mean_margin": 0.12304823845624924,
+      "n": 1
+    },
+    "arm_hebbian_slow_W": {
+      "mean_acc": 1.0,
+      "std_acc": 0.0,
+      "cv_acc": 0.0,
+      "mean_margin": 0.12304823845624924,
+      "n": 1
+    },
+    "arm_hopfield_replay_slow_W": {
+      "mean_acc": 1.0,
+      "std_acc": 0.0,
+      "cv_acc": 0.0,
+      "mean_margin": 0.12304866313934326,
+      "n": 1
+    },
+    "arm_hopfield_generative_replay_W": {
+      "mean_acc": 1.0,
+      "std_acc": 0.0,
+      "cv_acc": 0.0,
+      "mean_margin": 0.12311824411153793,
+      "n": 1
+    }
+  },
+  "alpha_load": 0.048828125,
+  "arms_range": 0.0,
+  "arms_max": 1.0,
+  "n_seeds_complete": 1,
+  "expected_n_units": 4,
+  "completed_units": 4,
+  "cardinality_ok": true,
+  "anchor_name": "gap3_cls_HOPFIELD_v2_surface_mismatch_audit_diagnostic_v1",
+  "elapsed_s": 3.0,
+  "ts_iso": "2026-06-27T18:50:49Z",
+  "pid": 25372,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=gap3_cls_HOPFIELD_v2_surface_mismatch_audit_diagnostic_v1,N=2048,N_CAT=100,N_TRAIN=100,N_HELDOUT=30,N_REPLAY=500,proto_noise=0.60,alpha=0.0488,seeds=[11],mode=smoke,HP_baseline=[0.50,0.80],HP_arms_diff>=0.05,HF_arms_diff<=0.02,HF_baseline_ceiling=0.95,expected_n=4,hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIRNESS=ALL_ARMS_READ_SAME_SURFACE_W_COSINE",
+  "_hardening_marker": "v1_hopfield_surface_audit"
+}

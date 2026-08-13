@@ -1,0 +1,477 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "GENERALIZES: all 3 stress conditions (harder-difficulty, held-out eval-draw, independent entity-file harness) clear lift>=0.05 on >=2 types incl. non-coref. The certified encoder break is a REAL representation improvement, not a base_loop-harness-specific artifact. c1_harder: a_name_maintenance fz=0.408 tn=0.517 lift=+0.108 | b_competitive_coref fz=0.392 tn=0.533 lift=+0.142 | c_overwrite fz=0.367 tn=0.598 lift=+0.231 || c2_heldout: a_name_maintenance fz=0.467 tn=0.667 lift=+0.200 | b_competitive_coref fz=0.492 tn=0.642 lift=+0.150 | c_overwrite fz=0.360 tn=0.563 lift=+0.203 || c3_indep: a_name_maintenance fz=0.092 tn=0.142 lift=+0.050 | b_competitive_coref fz=0.250 tn=0.425 lift=+0.175 | c_overwrite fz=0.098 tn=0.170 lift=+0.072",
+  "summary": "HARD_PASS | GENERALIZES: all 3 stress conditions (harder-difficulty, held-out eval-draw, independent entity-file harness) clear lift>=0.05 on >=2 types incl. non-",
+  "run_mode": "lite",
+  "elapsed_s": 255.4465226000175,
+  "ts_iso": "2026-08-01T01:27:38.651387+00:00",
+  "anchor_name": "encoder_alltype_transfer_stress_v1",
+  "bands": {
+    "bars": {
+      "lift_min": 0.05,
+      "n_types_min": 2,
+      "drift_max": 0.01
+    },
+    "modcheck": {
+      "ok": true,
+      "dup_within": false,
+      "collide_colors": false,
+      "n_modifiers_ext": 16
+    },
+    "max_drift": 0.0,
+    "conditions": {
+      "c1_harder": {
+        "per_type_mean": {
+          "a_name_maintenance": {
+            "frozen": 0.4083333333333334,
+            "tuned": 0.5166666666666667,
+            "lift": 0.10833333333333334,
+            "per_seed_lift": [
+              0.10000000000000003,
+              0.15000000000000002,
+              0.07499999999999996
+            ]
+          },
+          "b_competitive_coref": {
+            "frozen": 0.39166666666666666,
+            "tuned": 0.5333333333333333,
+            "lift": 0.14166666666666664,
+            "per_seed_lift": [
+              0.14999999999999997,
+              0.17499999999999993,
+              0.10000000000000003
+            ]
+          },
+          "c_overwrite": {
+            "frozen": 0.3669590643274854,
+            "tuned": 0.5984405458089669,
+            "lift": 0.23148148148148148,
+            "per_seed_lift": [
+              0.2894736842105263,
+              0.21052631578947367,
+              0.19444444444444448
+            ]
+          }
+        },
+        "clears": [
+          "a_name_maintenance",
+          "b_competitive_coref",
+          "c_overwrite"
+        ],
+        "clears_non_coref": [
+          "a_name_maintenance",
+          "c_overwrite"
+        ],
+        "generalizes_here": true
+      },
+      "c2_heldout": {
+        "per_type_mean": {
+          "a_name_maintenance": {
+            "frozen": 0.4666666666666666,
+            "tuned": 0.6666666666666666,
+            "lift": 0.20000000000000004,
+            "per_seed_lift": [
+              0.17500000000000004,
+              0.325,
+              0.10000000000000003
+            ]
+          },
+          "b_competitive_coref": {
+            "frozen": 0.49166666666666664,
+            "tuned": 0.6416666666666666,
+            "lift": 0.15,
+            "per_seed_lift": [
+              0.07500000000000007,
+              0.17499999999999993,
+              0.2
+            ]
+          },
+          "c_overwrite": {
+            "frozen": 0.3598927875243665,
+            "tuned": 0.5629142300194933,
+            "lift": 0.20302144249512674,
+            "per_seed_lift": [
+              0.15000000000000002,
+              0.23684210526315796,
+              0.22222222222222227
+            ]
+          }
+        },
+        "clears": [
+          "a_name_maintenance",
+          "b_competitive_coref",
+          "c_overwrite"
+        ],
+        "clears_non_coref": [
+          "a_name_maintenance",
+          "c_overwrite"
+        ],
+        "generalizes_here": true
+      },
+      "c3_indep": {
+        "per_type_mean": {
+          "a_name_maintenance": {
+            "frozen": 0.09166666666666667,
+            "tuned": 0.1416666666666667,
+            "lift": 0.05000000000000001,
+            "per_seed_lift": [
+              0.1,
+              0.05,
+              0.0
+            ]
+          },
+          "b_competitive_coref": {
+            "frozen": 0.25,
+            "tuned": 0.425,
+            "lift": 0.17500000000000002,
+            "per_seed_lift": [
+              0.19999999999999998,
+              0.225,
+              0.10000000000000003
+            ]
+          },
+          "c_overwrite": {
+            "frozen": 0.097953216374269,
+            "tuned": 0.16959064327485376,
+            "lift": 0.07163742690058479,
+            "per_seed_lift": [
+              0.07894736842105263,
+              0.05263157894736842,
+              0.08333333333333333
+            ]
+          }
+        },
+        "clears": [
+          "a_name_maintenance",
+          "b_competitive_coref",
+          "c_overwrite"
+        ],
+        "clears_non_coref": [
+          "a_name_maintenance",
+          "c_overwrite"
+        ],
+        "generalizes_here": true
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "units": [
+    {
+      "seed": 7,
+      "conditions": {
+        "c1_harder": {
+          "frozen": {
+            "a_name_maintenance": 0.425,
+            "b_competitive_coref": 0.325,
+            "c_overwrite": 0.2894736842105263
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.425,
+            "b_competitive_coref": 0.325,
+            "c_overwrite": 0.2894736842105263
+          },
+          "tuned": {
+            "a_name_maintenance": 0.525,
+            "b_competitive_coref": 0.475,
+            "c_overwrite": 0.5789473684210527
+          },
+          "lift": {
+            "a_name_maintenance": 0.10000000000000003,
+            "b_competitive_coref": 0.14999999999999997,
+            "c_overwrite": 0.2894736842105263
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        },
+        "c2_heldout": {
+          "frozen": {
+            "a_name_maintenance": 0.5,
+            "b_competitive_coref": 0.475,
+            "c_overwrite": 0.375
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.5,
+            "b_competitive_coref": 0.475,
+            "c_overwrite": 0.375
+          },
+          "tuned": {
+            "a_name_maintenance": 0.675,
+            "b_competitive_coref": 0.55,
+            "c_overwrite": 0.525
+          },
+          "lift": {
+            "a_name_maintenance": 0.17500000000000004,
+            "b_competitive_coref": 0.07500000000000007,
+            "c_overwrite": 0.15000000000000002
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        },
+        "c3_indep": {
+          "frozen": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.15,
+            "c_overwrite": 0.10526315789473684
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.15,
+            "c_overwrite": 0.10526315789473684
+          },
+          "tuned": {
+            "a_name_maintenance": 0.2,
+            "b_competitive_coref": 0.35,
+            "c_overwrite": 0.18421052631578946
+          },
+          "lift": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.19999999999999998,
+            "c_overwrite": 0.07894736842105263
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        }
+      },
+      "diag_c3": {
+        "tau_frozen1": 0.13969154527426275,
+        "tau_frozen2": 0.13969154527426275,
+        "tau_tuned": 0.1256288671092371,
+        "n_files_mean_tuned": 12.175,
+        "n_files_mean_frozen": 10.9
+      }
+    },
+    {
+      "seed": 13,
+      "conditions": {
+        "c1_harder": {
+          "frozen": {
+            "a_name_maintenance": 0.4,
+            "b_competitive_coref": 0.4,
+            "c_overwrite": 0.39473684210526316
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.4,
+            "b_competitive_coref": 0.4,
+            "c_overwrite": 0.39473684210526316
+          },
+          "tuned": {
+            "a_name_maintenance": 0.55,
+            "b_competitive_coref": 0.575,
+            "c_overwrite": 0.6052631578947368
+          },
+          "lift": {
+            "a_name_maintenance": 0.15000000000000002,
+            "b_competitive_coref": 0.17499999999999993,
+            "c_overwrite": 0.21052631578947367
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        },
+        "c2_heldout": {
+          "frozen": {
+            "a_name_maintenance": 0.45,
+            "b_competitive_coref": 0.55,
+            "c_overwrite": 0.3157894736842105
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.45,
+            "b_competitive_coref": 0.55,
+            "c_overwrite": 0.3157894736842105
+          },
+          "tuned": {
+            "a_name_maintenance": 0.775,
+            "b_competitive_coref": 0.725,
+            "c_overwrite": 0.5526315789473685
+          },
+          "lift": {
+            "a_name_maintenance": 0.325,
+            "b_competitive_coref": 0.17499999999999993,
+            "c_overwrite": 0.23684210526315796
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        },
+        "c3_indep": {
+          "frozen": {
+            "a_name_maintenance": 0.05,
+            "b_competitive_coref": 0.15,
+            "c_overwrite": 0.10526315789473684
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.05,
+            "b_competitive_coref": 0.15,
+            "c_overwrite": 0.10526315789473684
+          },
+          "tuned": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.375,
+            "c_overwrite": 0.15789473684210525
+          },
+          "lift": {
+            "a_name_maintenance": 0.05,
+            "b_competitive_coref": 0.225,
+            "c_overwrite": 0.05263157894736842
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        }
+      },
+      "diag_c3": {
+        "tau_frozen1": 0.13969154527426275,
+        "tau_frozen2": 0.13969154527426275,
+        "tau_tuned": 0.12560992414411937,
+        "n_files_mean_tuned": 12.15,
+        "n_files_mean_frozen": 10.75
+      }
+    },
+    {
+      "seed": 19,
+      "conditions": {
+        "c1_harder": {
+          "frozen": {
+            "a_name_maintenance": 0.4,
+            "b_competitive_coref": 0.45,
+            "c_overwrite": 0.4166666666666667
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.4,
+            "b_competitive_coref": 0.45,
+            "c_overwrite": 0.4166666666666667
+          },
+          "tuned": {
+            "a_name_maintenance": 0.475,
+            "b_competitive_coref": 0.55,
+            "c_overwrite": 0.6111111111111112
+          },
+          "lift": {
+            "a_name_maintenance": 0.07499999999999996,
+            "b_competitive_coref": 0.10000000000000003,
+            "c_overwrite": 0.19444444444444448
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        },
+        "c2_heldout": {
+          "frozen": {
+            "a_name_maintenance": 0.45,
+            "b_competitive_coref": 0.45,
+            "c_overwrite": 0.3888888888888889
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.45,
+            "b_competitive_coref": 0.45,
+            "c_overwrite": 0.3888888888888889
+          },
+          "tuned": {
+            "a_name_maintenance": 0.55,
+            "b_competitive_coref": 0.65,
+            "c_overwrite": 0.6111111111111112
+          },
+          "lift": {
+            "a_name_maintenance": 0.10000000000000003,
+            "b_competitive_coref": 0.2,
+            "c_overwrite": 0.22222222222222227
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        },
+        "c3_indep": {
+          "frozen": {
+            "a_name_maintenance": 0.125,
+            "b_competitive_coref": 0.45,
+            "c_overwrite": 0.08333333333333333
+          },
+          "frozen2": {
+            "a_name_maintenance": 0.125,
+            "b_competitive_coref": 0.45,
+            "c_overwrite": 0.08333333333333333
+          },
+          "tuned": {
+            "a_name_maintenance": 0.125,
+            "b_competitive_coref": 0.55,
+            "c_overwrite": 0.16666666666666666
+          },
+          "lift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.10000000000000003,
+            "c_overwrite": 0.08333333333333333
+          },
+          "drift": {
+            "a_name_maintenance": 0.0,
+            "b_competitive_coref": 0.0,
+            "c_overwrite": 0.0
+          }
+        }
+      },
+      "diag_c3": {
+        "tau_frozen1": 0.13969154527426275,
+        "tau_frozen2": 0.13969154527426275,
+        "tau_tuned": 0.12532403362452416,
+        "n_files_mean_tuned": 12.1,
+        "n_files_mean_frozen": 11.025
+      }
+    }
+  ],
+  "params": {
+    "eval_n": 40,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "conditions": [
+      "c1_harder",
+      "c2_heldout",
+      "c3_indep"
+    ],
+    "n_mods_harder": 16,
+    "n_mods_std": 8,
+    "measurement": "frozen_vs_retrained_encoder_alltype_transfer_stress"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

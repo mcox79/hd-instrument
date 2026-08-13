@@ -1,0 +1,218 @@
+{
+  "verdict": "CHAIN_FLAT",
+  "verdict_msg": "CHAIN_FLAT | THE-NUMBER L_chain_lift = chain_learned(M20) - singleshot_learned = 0.5785 - 0.5737 = +0.0047 (per-seed min=+0.0047, need>=0.05) | ANTI-TRAP1 singleshot_near_chance=True (ss_learned=0.5737 band=[0.42, 0.6]) | ANTI-TRAP2 chain_learned - chain_grounding = 0.5785 - 0.5426 = +0.0359 (need>=0.03, beats=True) diff_vs_ground=+0.0079 | chain_learned - struct_multihop = +0.1429 (beats=True) | chain_learned - ss_grounding = +0.0327 (beats=True) | chain_learned dose-response(topM) [(5, 0.585), (20, 0.5785), ('ALL', 0.5448)] | grounding-chain [(5, 0.5369), (20, 0.5426), ('ALL', 0.5322)] | randinit-chain [(5, 0.546), (20, 0.541), ('ALL', 0.5228)] | VALIDITY power=True(n_q=200) collapse=0.4908(ok=True) bridge_shuffle=0.5075(ok=True) pop=0.4880(ok=True) | leak-proof witnesses: ctx_leak=0 train_leak=0 (MUST be 0) | corpus K=700 targets=200 mean_obs_deg_query=13.86",
+  "summary": "CHAIN_FLAT | THE-NUMBER L_chain_lift = chain_learned(M20) - singleshot_learned = 0.5785 - 0.5737 = +0.0047 (per-seed min=+0.0047, need>=0.05) | ANTI-TRAP1 singleshot_near_chance=True (ss_learned=0.573",
+  "run_mode": "smoke",
+  "elapsed_s": 5.586395399994217,
+  "anchor_name": "leakproof_relinfer_chain_intermediate_v1",
+  "ts_iso": "2026-07-27T05:27:51.026199+00:00",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "topM_levels": [
+    5,
+    20,
+    "ALL"
+  ],
+  "expected_total_units": 1,
+  "total_units_run": 1,
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 700,
+    "seeds": [
+      7
+    ],
+    "top_rel": 16,
+    "epochs": 45,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 160,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "w_geo": 1.0,
+    "w_rel": 0.5,
+    "w_ema": 0.5,
+    "ema_momentum": 0.99,
+    "infonce_tau": 0.2,
+    "feat_dropout": 0.1,
+    "n_targets": 200,
+    "n_neg": 20,
+    "max_degree": 16,
+    "min_obs_ctx": 1,
+    "topM_levels": [
+      5,
+      20,
+      100000
+    ],
+    "min_instances": 20
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 700,
+    "n_kept_pairs": 67963,
+    "min_deg": 2,
+    "cap_nodes": 700,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/PartOf",
+      "/r/UsedFor",
+      "/r/HasProperty",
+      "/r/HasA",
+      "/r/Desires",
+      "/r/MadeOf",
+      "/r/NotHasProperty",
+      "/r/NotDesires",
+      "/r/ReceivesAction",
+      "/r/Entails",
+      "/r/MotivatedByGoal"
+    ],
+    "n_rel_slots": 17
+  },
+  "split_meta": {
+    "n_concepts": 700,
+    "n_targets": 200,
+    "leak_ctx_witness": 0,
+    "leak_train_witness": 0,
+    "mean_obs_deg_query": 13.855,
+    "mean_obs_deg_bridge": 15.76,
+    "mean_n_common_bridges": 1.145,
+    "max_degree": 16,
+    "mean_sparse_deg": 15.542857142857143,
+    "n_endpoints": 400,
+    "n_bridges": 170,
+    "n_rel_slots": 17
+  },
+  "gates": {
+    "singleshot_learned": 0.57375,
+    "singleshot_grounding": 0.5457500000000001,
+    "chain_learned_primary": 0.5784999999999999,
+    "chain_grounding_primary": 0.542625,
+    "struct_multihop": 0.435625,
+    "popularity": 0.488,
+    "collapse": 0.49075,
+    "bridge_shuffle": 0.5075,
+    "L_chain_lift": 0.004749999999999921,
+    "L_chain_lift_min": 0.004749999999999921,
+    "diff_vs_grounding": 0.007874999999999965,
+    "margin_over_struct": 0.14287499999999992,
+    "margin_over_grounding_chain": 0.03587499999999988,
+    "margin_over_ss_grounding": 0.032749999999999835,
+    "singleshot_near_chance": true,
+    "lift_ok": false,
+    "beats_struct": true,
+    "beats_grounding_chain": true,
+    "beats_ss_grounding": true,
+    "power_ok": true,
+    "n_query": 200,
+    "collapse_ok": true,
+    "bridge_shuf_ok": true,
+    "pop_ok": true,
+    "validity_ok": true,
+    "chain_learned_curve": [
+      [
+        5,
+        0.585
+      ],
+      [
+        20,
+        0.5785
+      ],
+      [
+        "ALL",
+        0.5448
+      ]
+    ],
+    "chain_grounding_curve": [
+      [
+        5,
+        0.5369
+      ],
+      [
+        20,
+        0.5426
+      ],
+      [
+        "ALL",
+        0.5322
+      ]
+    ],
+    "chain_randinit_curve": [
+      [
+        5,
+        0.546
+      ],
+      [
+        20,
+        0.541
+      ],
+      [
+        "ALL",
+        0.5228
+      ]
+    ],
+    "primary_topM": 20,
+    "hp_chain_lift": 0.05,
+    "hp_over_struct": 0.03,
+    "hp_over_grounding_chain": 0.03,
+    "hp_over_ss_grounding": 0.03,
+    "ss_chance_band": [
+      0.42,
+      0.6
+    ],
+    "collapse_band": [
+      0.42,
+      0.58
+    ],
+    "bridge_shuf_band": [
+      0.42,
+      0.58
+    ],
+    "pop_band": [
+      0.42,
+      0.58
+    ],
+    "min_query_tasks": 20,
+    "leak_ctx_witness": 0,
+    "leak_train_witness": 0
+  },
+  "per_seed": [
+    {
+      "ARM_SINGLESHOT_LEARNED": 0.57375,
+      "ARM_SINGLESHOT_GROUNDING": 0.5457500000000001,
+      "ARM_STRUCT_MULTIHOP": 0.435625,
+      "ARM_POPULARITY": 0.488,
+      "ARM_CHAIN_LEARNED@M5": 0.585,
+      "ARM_CHAIN_GROUNDING@M5": 0.536875,
+      "ARM_CHAIN_RANDINIT@M5": 0.5459999999999999,
+      "ARM_CHAIN_LEARNED@M20": 0.5784999999999999,
+      "ARM_CHAIN_GROUNDING@M20": 0.542625,
+      "ARM_CHAIN_RANDINIT@M20": 0.541,
+      "ARM_CHAIN_LEARNED@MALL": 0.5447500000000001,
+      "ARM_CHAIN_GROUNDING@MALL": 0.5322499999999999,
+      "ARM_CHAIN_RANDINIT@MALL": 0.52275,
+      "ARM_COLLAPSE@M20": 0.49075,
+      "ARM_BRIDGE_SHUFFLE@M20": 0.5075,
+      "_n_query": 200,
+      "_neg_leak": 0
+    }
+  ],
+  "chain_selftest": {
+    "n_targets": 25,
+    "leak_ctx": 0,
+    "leak_train": 0,
+    "hide_ok": true,
+    "ss_auc": 0.25,
+    "chain_auc": 0.25,
+    "mechanism_fires": true,
+    "neg_leak": 0
+  },
+  "seed_failures": []
+}

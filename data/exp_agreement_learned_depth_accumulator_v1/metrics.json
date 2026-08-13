@@ -1,0 +1,277 @@
+{
+  "verdict": "HARD_PASS_LEARNED_DEPTH_GENERALIZES",
+  "verdict_tag": "HARD_PASS_LEARNED_DEPTH_GENERALIZES",
+  "verdict_msg": "LEARNED-DEPTH | held-out buried (n=2677, 5 seeds): learned_depth=0.7733(+-0.0012) local_bag=0.4533 fixed_random=0.5690 | shortcut_best=0.5521 nearest_noun=0.5521 first_noun=0.4135 majority=0.6279 | deterministic_ceiling=0.7561 | SCRAMBLE true=0.7736 scrambled=0.5203 DROP=+0.2533 (change_frac=0.730) | number_flip_change=0.0000 | vocab=160 | learned delta: of=0.3161 that=0.063 ,=-0.0944 the=-0.0399 | HARD_PASS_LEARNED_DEPTH_GENERALIZES",
+  "summary": "HARD_PASS_LEARNED_DEPTH_GENERALIZES | learned_depth=0.7733 vs shortcut_best=0.5521 (lift=+0.2212) vs ceiling=0.7561 | fixed_random=0.5690 | scramble_drop=+0.2533 | flip_change=0.0000",
+  "elapsed_s": 211.57,
+  "run_mode": "full",
+  "anchor_name": "exp_agreement_learned_depth_accumulator_v1",
+  "ts_iso": "2026-07-22T23:34:53.266378+00:00",
+  "held_out_buried_n": 2677,
+  "n_seeds": 5,
+  "arms": {
+    "learned_depth": {
+      "buried_mean": 0.7733,
+      "buried_std": 0.0012,
+      "per_seed": [
+        0.7751213908195496,
+        0.7721329927444458,
+        0.7717594504356384,
+        0.7736272215843201,
+        0.7736272215843201
+      ]
+    },
+    "local_bag": {
+      "buried_mean": 0.4533,
+      "per_seed": [
+        0.453119158744812,
+        0.45274561643600464,
+        0.4534927010536194,
+        0.4534927010536194,
+        0.4534927010536194
+      ]
+    },
+    "fixed_random": {
+      "buried_mean": 0.569,
+      "per_seed": [
+        0.5465072989463806,
+        0.6186029314994812,
+        0.5517370104789734,
+        0.5932013392448425,
+        0.5349271297454834
+      ]
+    },
+    "nearest_noun": {
+      "buried": 0.5521
+    },
+    "first_noun": {
+      "buried": 0.4135
+    },
+    "deterministic_depth": {
+      "buried": 0.7561,
+      "note": "hand-coded 0.759-ceiling positive control at test regime"
+    },
+    "majority": {
+      "buried": 0.6279
+    }
+  },
+  "shortcut_best": 0.5521,
+  "scramble_discriminator": {
+    "true_acc": 0.7736,
+    "scrambled_acc_mean": 0.5203,
+    "scramble_drop": 0.2533,
+    "per_seed_scrambled": [
+      0.5334,
+      0.5088,
+      0.5106,
+      0.5256,
+      0.523
+    ],
+    "per_seed_change_frac": [
+      0.7206,
+      0.7363,
+      0.7493,
+      0.7176,
+      0.7273
+    ],
+    "change_frac_mean": 0.7302,
+    "seeds": [
+      101,
+      103,
+      107,
+      109,
+      113
+    ]
+  },
+  "number_flip_change_frac": 0.0,
+  "learned_deltas_inspect": {
+    "of": 0.3161,
+    "in": 0.2705,
+    "to": 0.187,
+    "that": 0.063,
+    "which": 0.108,
+    "who": null,
+    ",": -0.0944,
+    "(": 0.2718,
+    ")": -0.4957,
+    "the": -0.0399,
+    "a": null,
+    "and": 0.0938,
+    "is": null,
+    "are": null
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "learned_depth": 0.7751,
+      "local_bag": 0.4531,
+      "fixed_random": 0.5465,
+      "beta": 6.1701,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.40498,
+          "val_buried": 0.7618,
+          "beta": 6.0169
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.40514,
+          "val_buried": 0.7607,
+          "beta": 6.0837
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.4094,
+          "val_buried": 0.7749,
+          "beta": 6.1701
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "learned_depth": 0.7721,
+      "local_bag": 0.4527,
+      "fixed_random": 0.6186,
+      "beta": 5.8149,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.40534,
+          "val_buried": 0.7595,
+          "beta": 6.1174
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.40545,
+          "val_buried": 0.7607,
+          "beta": 6.1336
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.40575,
+          "val_buried": 0.7642,
+          "beta": 6.1111
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "learned_depth": 0.7718,
+      "local_bag": 0.4535,
+      "fixed_random": 0.5517,
+      "beta": 5.7325,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.40575,
+          "val_buried": 0.763,
+          "beta": 6.1625
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.40539,
+          "val_buried": 0.7607,
+          "beta": 6.1756
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.40582,
+          "val_buried": 0.7666,
+          "beta": 6.1862
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "learned_depth": 0.7736,
+      "local_bag": 0.4535,
+      "fixed_random": 0.5932,
+      "beta": 5.3143,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.40536,
+          "val_buried": 0.7595,
+          "beta": 6.1417
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.40599,
+          "val_buried": 0.7583,
+          "beta": 6.1473
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.40563,
+          "val_buried": 0.7642,
+          "beta": 6.1869
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "learned_depth": 0.7736,
+      "local_bag": 0.4535,
+      "fixed_random": 0.5349,
+      "beta": 5.1737,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.40649,
+          "val_buried": 0.7512,
+          "beta": 6.1501
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.40532,
+          "val_buried": 0.7654,
+          "beta": 6.1592
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.40657,
+          "val_buried": 0.7607,
+          "beta": 6.098
+        }
+      ]
+    }
+  ],
+  "verdict_conditions": {
+    "cond_a_lift_over_shortcut": true,
+    "cond_b_approach_ceiling": true,
+    "cond_c_control_must_fail": true,
+    "cond_d_scramble_fires": true,
+    "hf_i_tie_shortcut": false,
+    "hf_ii_control_wins": false,
+    "hf_iii_scramble_no_effect": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "learned_depth": "17b7b692d04d6c93a5aeb1f43454fdca49c86165621964b02c2f3ded0bbc6cc5",
+    "local_bag": "367804ba044252d2678d37afb83c53bf979ffb1e65bd0f53e29f74b6c1cc7622",
+    "fixed_random": "0c7546c5ae214d93602b29db6f24e5fbb902b899c4d9c03524c37521bc908776",
+    "nearest_noun": "3e3ec050b1995d3c3c7a99d26755b571f237f69712da34198048c2e869c23eca"
+  },
+  "baseline_in_band": true,
+  "bands": {
+    "HP_LIFT_OVER_SHORTCUT": 0.05,
+    "HP_APPROACH_CEILING": 0.7,
+    "HP_CONTROL_MARGIN": 0.02,
+    "HP_SCRAMBLE_DROP": 0.1,
+    "HF_TIE_SHORTCUT": 0.02,
+    "HF_CONTROL_WINS": 0.05,
+    "HF_SCRAMBLE_NOEFFECT": 0.05
+  },
+  "n_vocab": 160,
+  "n_train": 6747,
+  "n_val": 1802,
+  "n_test": 6212,
+  "final_metrics_atomicity": "tmp_replace",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "observed_n_units": 5,
+  "crlb_n_a": "classification accuracy over deterministic-at-runtime selectors; no per-decode Gaussian noise floor",
+  "runtime_glassbox": "hard argmin over learned depth register; NO autograd, NO torch; gradient build-time only (manual numpy)",
+  "progress_logging": "per-VAL_EVERY val_buried prints with flush=True + _heartbeat.jsonl during training"
+}

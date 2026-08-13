@@ -1,0 +1,148 @@
+{
+  "anchor_name": "contextual_encoding_hrr_PRODUCTION_held_out_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "HRR_BIND_HELD_OUT_WSD MIDDLE_BAND: partial generalization to held-out contexts (lift over static exceeds 0.05 for at least one bind arm but ARM_BIND_RECENT_5 did not clear HP threshold acc>=0.70 AND lift>=0.30). sanity[ARM_BIND_RECENT_5 same_ctx=1.000 >=0.90 OK]. HRR_BIND_HELD_OUT_WSD: ARM_STATIC_WORD2VEC=0.200(baseline,same_ctx=0.200) | ARM_BIND_RECENT_5=0.340(lift=+0.140,same_ctx=1.000) | ARM_BIND_SENTENCE=0.530(lift=+0.330,same_ctx=1.000) | ARM_BIND_WEIGHTED_PHASE=0.470(lift=+0.270,same_ctx=1.000)",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "PRETRAIN_DIM": 300,
+  "n_seeds": 1,
+  "n_words": 5,
+  "n_senses_per_word": 5,
+  "n_contexts_per_sense": 4,
+  "n_tuples": 100,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_STATIC_WORD2VEC": {
+        "wsd_acc_held_out_mean": 0.2,
+        "wsd_acc_held_out_std": 0.0,
+        "wsd_acc_held_out_cv": 0.0,
+        "wsd_acc_held_out_per_seed": [
+          0.2
+        ],
+        "wsd_acc_same_context_sanity_mean": 0.2
+      },
+      "ARM_BIND_RECENT_5": {
+        "wsd_acc_held_out_mean": 0.34,
+        "wsd_acc_held_out_std": 0.0,
+        "wsd_acc_held_out_cv": 0.0,
+        "wsd_acc_held_out_per_seed": [
+          0.34
+        ],
+        "wsd_acc_same_context_sanity_mean": 1.0
+      },
+      "ARM_BIND_SENTENCE": {
+        "wsd_acc_held_out_mean": 0.53,
+        "wsd_acc_held_out_std": 0.0,
+        "wsd_acc_held_out_cv": 0.0,
+        "wsd_acc_held_out_per_seed": [
+          0.53
+        ],
+        "wsd_acc_same_context_sanity_mean": 1.0
+      },
+      "ARM_BIND_WEIGHTED_PHASE": {
+        "wsd_acc_held_out_mean": 0.47,
+        "wsd_acc_held_out_std": 0.0,
+        "wsd_acc_held_out_cv": 0.0,
+        "wsd_acc_held_out_per_seed": [
+          0.47
+        ],
+        "wsd_acc_same_context_sanity_mean": 1.0
+      }
+    },
+    "static_held_out_mean": 0.2,
+    "lifts_over_static_held_out": {
+      "ARM_BIND_RECENT_5": 0.14,
+      "ARM_BIND_SENTENCE": 0.33,
+      "ARM_BIND_WEIGHTED_PHASE": 0.27
+    },
+    "target_arm": "ARM_BIND_RECENT_5",
+    "target_arm_held_out_mean": 0.34,
+    "target_arm_lift": 0.14,
+    "target_arm_hard_pass_eligible": false,
+    "all_hard_fail": false,
+    "sanity_target_same_context_mean": 1.0,
+    "sanity_smoke_reproduction_ok": true,
+    "n_seeds": 1,
+    "n_words": 5,
+    "n_tuples": 100,
+    "CONFIG_VERSION": "contextual_encoding_hrr_PRODUCTION_held_out_v1; N_DIM=4096 PRETRAIN_DIM=300 arms=['ARM_STATIC_WORD2VEC', 'ARM_BIND_RECENT_5', 'ARM_BIND_SENTENCE', 'ARM_BIND_WEIGHTED_PHASE'] seeds=[7] mode=smoke PHASE_K=7 contexts_per_sense=4 senses_per_word=5; leave_one_out=TRUE; bands HP_arm=ARM_BIND_RECENT_5 HP_acc>=0.70 HP_lift>=0.30 HF_lift<=0.05",
+    "honest_scope": "Substrate-native HRR-binding for polysemy with TRUE leave-one-out CV: 4 arms (1 static word2vec + 3 context-bind variants) on 50-polysemous-word x 5-sense x 4-context = 1000 tuples; N_DIM=4096 seeds=1; HARD_PASS = ARM_BIND_RECENT_5 mean held-out WSD acc>=0.70 AND lift>=0.30 over static; HARD_FAIL = ALL bind arms within 0.05 of static on held-out (binding does not generalize to new contexts; mechanism null at production).",
+    "cites": [
+      "preregs/2026-06-22_contextual_encoding_hrr_PRODUCTION_held_out_v1.md",
+      "experiments/exp_contextual_encoding_hrr_binding_smoke_v1.py (smoke precedent; flagged by-construction-saturation)",
+      "USER_2026-06-22_hippocampus_CA3_substrate_native_polysemy_held_out_generalization"
+    ]
+  },
+  "metrics_source": "measured_cpu_contextual_encoding_hrr_PRODUCTION_held_out_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_STATIC_WORD2VEC": {
+          "wsd_acc_held_out": 0.2,
+          "wsd_acc_same_context_sanity": 0.2,
+          "per_word_acc_held_out": {
+            "apple": 0.2,
+            "bank": 0.2,
+            "bark": 0.2,
+            "bass": 0.2,
+            "bat": 0.2
+          },
+          "wall_s": 2.0
+        },
+        "ARM_BIND_RECENT_5": {
+          "wsd_acc_held_out": 0.34,
+          "wsd_acc_same_context_sanity": 1.0,
+          "per_word_acc_held_out": {
+            "apple": 0.15,
+            "bank": 0.85,
+            "bark": 0.15,
+            "bass": 0.1,
+            "bat": 0.45
+          },
+          "wall_s": 1.76
+        },
+        "ARM_BIND_SENTENCE": {
+          "wsd_acc_held_out": 0.53,
+          "wsd_acc_same_context_sanity": 1.0,
+          "per_word_acc_held_out": {
+            "apple": 0.45,
+            "bank": 0.75,
+            "bark": 0.45,
+            "bass": 0.3,
+            "bat": 0.7
+          },
+          "wall_s": 1.95
+        },
+        "ARM_BIND_WEIGHTED_PHASE": {
+          "wsd_acc_held_out": 0.47,
+          "wsd_acc_same_context_sanity": 1.0,
+          "per_word_acc_held_out": {
+            "apple": 0.4,
+            "bank": 0.9,
+            "bark": 0.2,
+            "bass": 0.15,
+            "bat": 0.7
+          },
+          "wall_s": 1.44
+        }
+      },
+      "N_DIM": 4096,
+      "PRETRAIN_DIM": 300,
+      "n_words": 5,
+      "n_senses_per_word": 5,
+      "n_contexts_per_sense": 4,
+      "n_tuples": 100,
+      "run_mode": "smoke",
+      "config_version": "contextual_encoding_hrr_PRODUCTION_held_out_v1; N_DIM=4096 PRETRAIN_DIM=300 arms=['ARM_STATIC_WORD2VEC', 'ARM_BIND_RECENT_5', 'ARM_BIND_SENTENCE', 'ARM_BIND_WEIGHTED_PHASE'] seeds=[7] mode=smoke PHASE_K=7 contexts_per_sense=4 senses_per_word=5; leave_one_out=TRUE; bands HP_arm=ARM_BIND_RECENT_5 HP_acc>=0.70 HP_lift>=0.30 HF_lift<=0.05",
+      "elapsed_s_seed": 184.79,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782250014.1100097
+    }
+  ],
+  "elapsed_s": 0.0045261383056640625,
+  "summary": "HRR_BIND_HELD_OUT_WSD MIDDLE_BAND: partial generalization to held-out contexts (lift over static exceeds 0.05 for at least one bind arm but ARM_BIND_RECENT_5 did not clear HP threshold acc>=0.70 AND lift>=0.30). sanity[ARM_BIND_RECENT_5 same_ctx=1.000 >=0.90 OK]. HRR_BIND_HELD_OUT_WSD: ARM_STATIC_WORD2VEC=0.200(baseline,same_ctx=0.200) | ARM_BIND_RECENT_5=0.340(lift=+0.140,same_ctx=1.000) | ARM_BIND_SENTENCE=0.530(lift=+0.330,same_ctx=1.000) | ARM_BIND_WEIGHTED_PHASE=0.470(lift=+0.270,same_ctx=1.000)",
+  "substrate_only_decode_gate": "TRUE (substrate-native HRR bind on pretrained word2vec; numpy + open-weight gensim cache; zero LLM at inference; held-out leave-one-out CV)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0
+}

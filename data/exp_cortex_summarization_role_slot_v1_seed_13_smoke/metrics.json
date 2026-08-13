@@ -1,0 +1,163 @@
+{
+  "anchor_name": "cortex_summarization_role_slot_v1_seed_13",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ROLE_mean>=0.7 AND REC@1600>=0.5 AND lift>=0.15. seed=13 BASE=0.500 (@200=0.875) FLAT=0.562 (@1600=0.125) ROLE=0.875 (@1600=0.750) REC=1.000 (@1600=1.000) lift_role_flat_at_1600=0.625 n_rows=8/8 mode=smoke",
+  "summary": "chunk_seed=13 n_seeds=1 N_DIM=8192 V_CB=1024 S_ROLES=4 L2=5 coverages=[200, 1600] N_TRIALS=8 mode=smoke backend=numpy",
+  "elapsed_s": 4.871491432189941,
+  "config_version": "ANCHOR=cortex_summarization_role_slot_v1_seed_13,N_DIM=8192,V_CB=1024,S_ROLES=4,L2_ROLES=5,coverage_loads=[200, 1600],N_trials=8,role_query_cos=0.85,expected_n_units=8,mode=smoke,chunk_seed=13,backend=numpy,chance_floor=0.0010,bernoulli_sigma_p05=0.1768,HP_role=0.7,HP_recursive=0.5,HP_lift=0.15,HP_positive=0.7,hardening=v1_role_slot_summarization_recursive_two_level",
+  "N_DIM": 8192,
+  "V_CB": 1024,
+  "S_ROLES": 4,
+  "L2_ROLES": 5,
+  "coverage_loads": [
+    200,
+    1600
+  ],
+  "N_trials": 8,
+  "role_query_cos": 0.85,
+  "HP_role_mean_top1": 0.7,
+  "HP_recursive_at_max_top1": 0.5,
+  "HP_lift_role_over_flat": 0.15,
+  "HP_positive_control_top1": 0.7,
+  "HF_recursive_floor": 0.2,
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 8,
+  "cardinality_ok": true,
+  "chunk_seed": 13,
+  "run_mode": "smoke",
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    [
+      "ARM_BASELINE",
+      "ARM_SUMMARY_FLAT"
+    ]
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.0009765625,
+  "crlb_formula_reference": "chance_floor=1/V_CB; bernoulli_sigma_p05=sqrt(0.25/N_TRIALS); FLAT_SNR_prediction=1/sqrt(K) per Frady-Sommer 2018 Sec 3.4",
+  "discriminator_reachability": true,
+  "calibration_check": "codebook_cleanup_top1_over_V_CB_1024_role_slots_S_4_L2_5_role_query_cos_0.85",
+  "composition_parents_cg": [
+    "wm_multibank_codebook_cleanup_commit_6e2ff698",
+    "cortex_context_retention_v2_M1_5_atom_18",
+    "cortex_attention_binding_router_v2_M1_6_atom_D",
+    "refuse_gate_composition_M1_4_atom_15",
+    "fhrr_bipolar_bind_involutive_xor"
+  ],
+  "positive_control_arm": "ARM_BASELINE_at_load_20",
+  "sweep_alignment_verdict": "ALIGNED",
+  "discriminating_fraction": 0.67,
+  "milestone_target": "M1_7_first_wave",
+  "per_seed": [
+    {
+      "seed": 13,
+      "elapsed_s": 4.809014797210693,
+      "n_arm_rows": 8,
+      "arms": [
+        {
+          "top1_mean": 0.875,
+          "top1_std_bernoulli": 0.11692679333668567,
+          "recall_cosine_mean": 0.8753357976966072,
+          "n_trials": 8,
+          "K_pool": 200,
+          "arm_name": "ARM_BASELINE",
+          "coverage_load": 200,
+          "wall_s": 0.10301661491394043,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "top1_std_bernoulli": 1e-06,
+          "recall_cosine_mean": 1.0000001192092896,
+          "n_trials": 8,
+          "K_bundled": 200,
+          "arm_name": "ARM_SUMMARY_FLAT",
+          "coverage_load": 200,
+          "wall_s": 0.17182540893554688,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "top1_std_bernoulli": 1e-06,
+          "recall_cosine_mean": 1.0000001192092896,
+          "n_trials": 8,
+          "S_roles": 4,
+          "K_bundled": 200,
+          "role_query_cos": 0.85,
+          "arm_name": "ARM_SUMMARY_ROLE",
+          "coverage_load": 200,
+          "wall_s": 0.1611161231994629,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "top1_std_bernoulli": 1e-06,
+          "recall_cosine_mean": 1.0000001192092896,
+          "n_trials": 8,
+          "S_roles": 4,
+          "L2_roles": 5,
+          "K_bundled": 200,
+          "chunk_size": 200,
+          "n_chunks_mean": 1.0,
+          "role_query_cos": 0.85,
+          "arm_name": "ARM_RECURSIVE",
+          "coverage_load": 200,
+          "wall_s": 0.17450237274169922,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.125,
+          "top1_std_bernoulli": 0.11692679333668567,
+          "recall_cosine_mean": 0.12457276873465162,
+          "n_trials": 8,
+          "K_pool": 1600,
+          "arm_name": "ARM_BASELINE",
+          "coverage_load": 1600,
+          "wall_s": 0.86515212059021,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.125,
+          "top1_std_bernoulli": 0.11692679333668567,
+          "recall_cosine_mean": 0.13107301350828493,
+          "n_trials": 8,
+          "K_bundled": 1600,
+          "arm_name": "ARM_SUMMARY_FLAT",
+          "coverage_load": 1600,
+          "wall_s": 0.8944859504699707,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.75,
+          "top1_std_bernoulli": 0.15309310892394862,
+          "recall_cosine_mean": 0.7493897378444672,
+          "n_trials": 8,
+          "S_roles": 4,
+          "K_bundled": 1600,
+          "role_query_cos": 0.85,
+          "arm_name": "ARM_SUMMARY_ROLE",
+          "coverage_load": 1600,
+          "wall_s": 1.2374470233917236,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "top1_std_bernoulli": 1e-06,
+          "recall_cosine_mean": 1.0000001192092896,
+          "n_trials": 8,
+          "S_roles": 4,
+          "L2_roles": 5,
+          "K_bundled": 1600,
+          "chunk_size": 200,
+          "n_chunks_mean": 5.0,
+          "role_query_cos": 0.85,
+          "arm_name": "ARM_RECURSIVE",
+          "coverage_load": 1600,
+          "wall_s": 1.140326976776123,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "anchor_name": "dense_KV_envelope_learned_key_calibration_v1_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HALT (GATE-1 meter-check FAILED): calibration cue->key recall 0.604 does NOT reproduce CERT591's 0.827 (+/-0.06) -> the recall meter is not validated on real pythia keys -> do NOT interpret the learned-key arms (meter suspect). GATE1 cal_mean=0.604 cal_worst=0.599 (CERT591 0.827/0.805, meter_valid=False) | GATE2 ARM1-learned={3000: 0.0205, 10000: 0.008} ARM2={3000: 1.0, 10000: 0.9955} (random-ref@10k=0.824) | best_M(ARM1>=0.80)=None",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-2.8b",
+  "proj_dim": 256,
+  "C": 256,
+  "CAL_POOL": 2500,
+  "M_LK": [
+    3000,
+    10000
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "calibration_mean": 0.604,
+    "calibration_worst": 0.5992,
+    "CERT591_target_mean": 0.827,
+    "meter_valid": false,
+    "arm1_superpos_learned_by_M": {
+      "3000": 0.0205,
+      "10000": 0.008
+    },
+    "arm2_softmax_learned_by_M": {
+      "3000": 1.0,
+      "10000": 0.9955
+    },
+    "random_ref_10k": 0.824,
+    "learned_vs_random_10k": -0.816,
+    "best_M_arm1_ge_0.80": null,
+    "CONFIG_VERSION": "pythia-proj256 + GATE1-calibration(repro CERT591 0.827) + GATE2-learned-key ARM1/ARM2 @M[3000, 10000] vs random-ref 0.824; C=256; FP16(CERT591-referent-match, Skunkworks precision-fix)",
+    "cites": [
+      "dense_projected_KV_envelope_v1_random_core_MM",
+      "CERT591_kv_learned_projection_v1",
+      "HMM_decreased_capacity_2503.09518"
+    ]
+  },
+  "metrics_source": "measured_gpu_dense_kv_learned_key_calibration",
+  "per_unit": [
+    {
+      "seed": 7,
+      "calibration_recall": 0.6012,
+      "learned_key": {
+        "M3000": {
+          "arm1_superpos_learned": 0.022,
+          "arm2_softmax_learned": 1.0
+        },
+        "M10000": {
+          "arm1_superpos_learned": 0.011,
+          "arm2_softmax_learned": 0.997
+        }
+      },
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782049273.4712343
+    },
+    {
+      "seed": 17,
+      "calibration_recall": 0.6116,
+      "learned_key": {
+        "M3000": {
+          "arm1_superpos_learned": 0.0205,
+          "arm2_softmax_learned": 1.0
+        },
+        "M10000": {
+          "arm1_superpos_learned": 0.008,
+          "arm2_softmax_learned": 0.9945
+        }
+      },
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782049355.9087682
+    },
+    {
+      "seed": 23,
+      "calibration_recall": 0.5992,
+      "learned_key": {
+        "M3000": {
+          "arm1_superpos_learned": 0.009,
+          "arm2_softmax_learned": 1.0
+        },
+        "M10000": {
+          "arm1_superpos_learned": 0.0055,
+          "arm2_softmax_learned": 0.9955
+        }
+      },
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782049438.0276754
+    }
+  ],
+  "elapsed_s": 248.21581888198853,
+  "summary": "HALT (GATE-1 meter-check FAILED): calibration cue->key recall 0.604 does NOT reproduce CERT591's 0.827 (+/-0.06) -> the recall meter is not validated on real pythia keys -> do NOT interpret the learned-key arms (meter suspect). GATE1 cal_mean=0.604 cal_worst=0.599 (CERT591 0.827/0.805, meter_valid=False) | GATE2 ARM1-learned={3000: 0.0205, 10000: 0.008} ARM2={3000: 1.0, 10000: 0.9955} (random-ref@10k=0.824) | best_M(ARM1>=0.80)=None"
+}

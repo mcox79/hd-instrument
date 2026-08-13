@@ -1,0 +1,257 @@
+{
+  "anchor_name": "cls_distributed_protection_budget_envelope_v1",
+  "verdict": "CHARACTERIZATION",
+  "verdict_msg": "CHARACTERIZATION_LINEAR_MUST_REHEARSE: NOT BUDGET-EFFICIENT: equal-compute-corrected protection tracks budget ~linearly -- you must rehearse most of the corpus to protect it; does NOT scale to textbook-after-textbook. CLAIM-VET-pending; NOT self-declared chain-grade. EQUAL-COMPUTE-CORRECTED never-replayed protection vs REPLAY BUDGET (chance=0.0069) | shape=LINEAR_MUST_REHEARSE genuine[lo=-0.038 hi=0.472 max=0.472] eff_ratio=-0.08 linear_ratio=0.111 | curve: b=0.083(n_rep=12,n_held=132)[no=0.083 sub=0.076 fStr=0.114 fRnd=0.220 GEN=-0.038(rnd=-0.144) all=1.000 1nn=0.000 fresh=0.000 diff=Y] b=0.250(n_rep=36,n_held=108)[no=0.083 sub=0.232 fStr=0.139 fRnd=0.296 GEN=0.093(rnd=-0.065) all=1.000 1nn=0.000 fresh=0.000 diff=Y] b=0.750(n_rep=108,n_held=36)[no=0.139 sub=0.611 fStr=0.139 fRnd=0.528 GEN=0.472(rnd=0.083) all=1.000 1nn=0.000 fresh=0.000 diff=Y] | confounds_ok=True arms_differ=True units=3/3",
+  "run_mode": "smoke",
+  "n_units": 3,
+  "expected_n_units": 3,
+  "arms_differ": true,
+  "chance": 0.00694,
+  "shape": {
+    "label": "LINEAR_MUST_REHEARSE",
+    "genuine_lo": -0.0379,
+    "genuine_hi": 0.4722,
+    "genuine_max": 0.4722,
+    "budget_lo": 0.0833,
+    "budget_hi": 0.75,
+    "eff_ratio": -0.08,
+    "linear_ratio": 0.111
+  },
+  "points": [
+    {
+      "elig_per_class": 1,
+      "budget_frac": 0.0833,
+      "n_replayed": 12,
+      "n_never_replayed": 132,
+      "n_seeds": 1,
+      "agg": {
+        "no_replay": 0.0833,
+        "subsample_replay": 0.0758,
+        "equal_compute_struct": 0.1136,
+        "equal_compute_random": 0.2197,
+        "replay_all": 1.0,
+        "one_nn_proximity": 0.0,
+        "fresh_net_subsample": 0.0,
+        "heldout_initial": 1.0,
+        "genuine_effect": -0.0379,
+        "genuine_effect_random": -0.1439,
+        "raw_effect": -0.0076,
+        "struct_contribution": 0.0303,
+        "filler_contribution": 0.1364
+      },
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "elig_per_class": 3,
+      "budget_frac": 0.25,
+      "n_replayed": 36,
+      "n_never_replayed": 108,
+      "n_seeds": 1,
+      "agg": {
+        "no_replay": 0.0833,
+        "subsample_replay": 0.2315,
+        "equal_compute_struct": 0.1389,
+        "equal_compute_random": 0.2963,
+        "replay_all": 1.0,
+        "one_nn_proximity": 0.0,
+        "fresh_net_subsample": 0.0,
+        "heldout_initial": 1.0,
+        "genuine_effect": 0.0926,
+        "genuine_effect_random": -0.0648,
+        "raw_effect": 0.1481,
+        "struct_contribution": 0.0556,
+        "filler_contribution": 0.213
+      },
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "elig_per_class": 9,
+      "budget_frac": 0.75,
+      "n_replayed": 108,
+      "n_never_replayed": 36,
+      "n_seeds": 1,
+      "agg": {
+        "no_replay": 0.1389,
+        "subsample_replay": 0.6111,
+        "equal_compute_struct": 0.1389,
+        "equal_compute_random": 0.5278,
+        "replay_all": 1.0,
+        "one_nn_proximity": 0.0,
+        "fresh_net_subsample": 0.0,
+        "heldout_initial": 1.0,
+        "genuine_effect": 0.4722,
+        "genuine_effect_random": 0.0833,
+        "raw_effect": 0.4722,
+        "struct_contribution": 0.0,
+        "filler_contribution": 0.3889
+      },
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    }
+  ],
+  "per_unit": [
+    {
+      "elig_per_class": 1,
+      "budget_frac": 0.0833,
+      "seed": 7,
+      "n_replayed": 12,
+      "n_never_replayed": 132,
+      "no_replay": 0.0833,
+      "subsample_replay": 0.0758,
+      "equal_compute_struct": 0.1136,
+      "equal_compute_random": 0.2197,
+      "replay_all": 1.0,
+      "one_nn_proximity": 0.0,
+      "fresh_net_subsample": 0.0,
+      "heldout_initial": 1.0,
+      "genuine_effect": -0.0379,
+      "genuine_effect_random": -0.1439,
+      "raw_effect": -0.0076,
+      "struct_contribution": 0.0303,
+      "filler_contribution": 0.1364,
+      "arm_digests": {
+        "no_replay": "ae82e7dac8ce612ba91d8fad1eeb66c9253df7e074a981d50f8ed6f98b931249",
+        "subsample_replay": "ca4a4e37a2818cce7d4d26f76b1a635edcfe9b1d9359e412ae8431f36e24a5ef",
+        "equal_compute_struct": "29bb1064c9c2e1038e1aaea923623ce5330629250cf779ec0ec71f2ed438dbf4",
+        "equal_compute_random": "115ca0e5e56c614ee7735a9c0c1dc850a73f7070934ed95817b361a36151ad15",
+        "replay_all": "bbbffda2a59524534f34fb49d92afb44a08a399316a201951d0d84cba6b42a53",
+        "one_nn_proximity": "db34844d5aebff7f64d00f89d0e84321ed4eec5f9ecb196be8887466bab35fd9",
+        "fresh_net_subsample": "db34844d5aebff7f64d00f89d0e84321ed4eec5f9ecb196be8887466bab35fd9"
+      }
+    },
+    {
+      "elig_per_class": 3,
+      "budget_frac": 0.25,
+      "seed": 7,
+      "n_replayed": 36,
+      "n_never_replayed": 108,
+      "no_replay": 0.0833,
+      "subsample_replay": 0.2315,
+      "equal_compute_struct": 0.1389,
+      "equal_compute_random": 0.2963,
+      "replay_all": 1.0,
+      "one_nn_proximity": 0.0,
+      "fresh_net_subsample": 0.0,
+      "heldout_initial": 1.0,
+      "genuine_effect": 0.0926,
+      "genuine_effect_random": -0.0648,
+      "raw_effect": 0.1481,
+      "struct_contribution": 0.0556,
+      "filler_contribution": 0.213,
+      "arm_digests": {
+        "no_replay": "30489bebbc4ba5f136c90db7f8e9a472e3dd47bf04b93d5a0d55b02d970560d8",
+        "subsample_replay": "26d0fd93158004f8fac0df71b7c3e6cc7760d77e67172177afc2c9bd811fff8c",
+        "equal_compute_struct": "909f8509e243afe76e6c93c92d14c74cf6738b08b445d41104fd88fd672e6c99",
+        "equal_compute_random": "884a756454f3d3d20324e8efd7551d77ac710f84c8a98e031c0b1a4d4a458830",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "676ccd5255d57be94ea773c1675e28b58cad945588762f3fd9c3cad667a8dd9d",
+        "fresh_net_subsample": "dad5d9a658cbc7591f790e80fc40a7e1ea54fa4172a64b7688cd8e726c9591c9"
+      }
+    },
+    {
+      "elig_per_class": 9,
+      "budget_frac": 0.75,
+      "seed": 7,
+      "n_replayed": 108,
+      "n_never_replayed": 36,
+      "no_replay": 0.1389,
+      "subsample_replay": 0.6111,
+      "equal_compute_struct": 0.1389,
+      "equal_compute_random": 0.5278,
+      "replay_all": 1.0,
+      "one_nn_proximity": 0.0,
+      "fresh_net_subsample": 0.0,
+      "heldout_initial": 1.0,
+      "genuine_effect": 0.4722,
+      "genuine_effect_random": 0.0833,
+      "raw_effect": 0.4722,
+      "struct_contribution": 0.0,
+      "filler_contribution": 0.3889,
+      "arm_digests": {
+        "no_replay": "97ca624ad6ce77e81ef56f0a19520d74a9064e532ef979d69c2200b5060f0923",
+        "subsample_replay": "61eee808d6da77a94f5c4e9e85dce74905031855a1aed1bc9cc0a9f95af25322",
+        "equal_compute_struct": "8842563e74dce43c3d3544e5204458b7a1b6556b3d49945dc512c854af25ae31",
+        "equal_compute_random": "6936db6b86995964f8873ac354da77aaf89de0294051f2727c47786357761960",
+        "replay_all": "f503acde3c10c8b80691dced89deb4b6cc0db94c901b6a64c47237e90ed5eb77",
+        "one_nn_proximity": "80f7f7aa3a94ad17d1ff85b42e41285d218e8a7e019ea4a1d608ee49234a26ce",
+        "fresh_net_subsample": "f10f38f6d30a74482a303628e9867926508430290bb0957239e6055d56c95967"
+      }
+    }
+  ],
+  "anchor_positive_control": {
+    "elig_per_class": 3,
+    "subsample_heldout": 0.2315,
+    "parent_measured": 0.247,
+    "deviation": 0.015499999999999986,
+    "tolerance": 0.1
+  },
+  "config": {
+    "N": 256,
+    "D_T": 64,
+    "H": 160,
+    "OLD_CLASSES": 12,
+    "OLD_EXEMPLARS": 12,
+    "K_INTERFERE": 8,
+    "NEW_CPB": 3,
+    "NEW_EXEMPLARS": 12,
+    "E_OLD": 400,
+    "E_NEW": 200,
+    "LR": 0.04,
+    "SHARED_FRAC": 0.75,
+    "BUDGET_GRID": [
+      1,
+      3,
+      9
+    ],
+    "ANCHOR_ELIG": 3,
+    "seeds": [
+      7
+    ]
+  },
+  "elapsed_s": 33.668941259384155,
+  "summary": "CHARACTERIZATION_LINEAR_MUST_REHEARSE: NOT BUDGET-EFFICIENT: equal-compute-corrected protection tracks budget ~linearly -- you must rehearse most of the corpus to protect it; does NOT scale to textbook-after-textbook. CLAIM-VET-pending; NOT self-declared chain-grade. EQUAL-COMPUTE-CORRECTED never-replayed protection vs REPLAY BUDGET (chance=0.0069) | shape=LINEAR_MUST_REHEARSE genuine[lo=-0.038 hi=0.472 max=0.472] eff_ratio=-0.08 linear_ratio=0.111 | curve: b=0.083(n_rep=12,n_held=132)[no=0.083 sub=0.076 fStr=0.114 fRnd=0.220 GEN=-0.038(rnd=-0.144) all=1.000 1nn=0.000 fresh=0.000 diff=Y] b=0.250(n_rep=36,n_held=108)[no=0.083 sub=0.232 fStr=0.139 fRnd=0.296 GEN=0.093(rnd=-0.065) all=1.000 1nn=0.000 fresh=0.000 diff=Y] b=0.750(n_rep=108,n_held=36)[no=0.139 sub=0.611 fStr=0.139 fRnd=0.528 GEN=0.472(rnd=0.083) all=1.000 1nn=0.000 fresh=0.000 diff=Y] | confounds_ok=True arms_differ=True units=3/3",
+  "structured_gate_claims": [
+    {
+      "gate_name": "cardinality",
+      "measured": 3,
+      "threshold": 3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "all budget x seed units completed (META_RULE_H)"
+    },
+    {
+      "gate_name": "arms_differ",
+      "measured": 1,
+      "threshold": 1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "the 6 arms produce differing held-out predictions (META_RULE_AF)"
+    },
+    {
+      "gate_name": "anchor_positive_control_dev",
+      "measured": 0.015499999999999986,
+      "threshold": 0.1,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "ELIG=3 subsample held-out reproduces parent MEASURED 0.247 (Gate D positive control)"
+    },
+    {
+      "gate_name": "confounds_independence_max",
+      "measured": 0.0,
+      "threshold": 0.25,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "both confounds fail across ALL budgets -> held-out content independent (difficulty ON)"
+    },
+    {
+      "gate_name": "genuine_effect_max",
+      "measured": 0.4722,
+      "threshold": 0.08,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "peak equal-compute-corrected genuine effect over budget (descriptor, not pass/fail)"
+    }
+  ]
+}

@@ -1,0 +1,2738 @@
+{
+  "verdict": "SUPPLY_POS_NULL_ON_GOLD_HARD_PROSE_ONLY",
+  "verdict_msg": "SUPPLY_POS_NULL_ON_GOLD_HARD_PROSE_ONLY: spaCy-POS gate NULL on McGuffey gold F1 0.592->0.597 (delta +0.005, |.|<0.01); the supply-POS win is LitBank-hard-prose-noise-only, not measurable on easy gold. LitBank demo: 108 noisy predicates suppressed. Over-suppression false_suppress(TP)=0; gate removed 2 McGuffey tuples (2 within-gold FP, 0 off-gold). LitBank demo: 108 suppressions over 25 books.",
+  "summary": "spaCy-POS gate NULL on McGuffey gold F1 0.592->0.597 (delta +0.005, |.|<0.01); the supply-POS win is LitBank-hard-prose-noise-only, not measurable on easy gold. LitBank demo: 108 noisy predicates suppressed",
+  "elapsed_s": 76.85695010004565,
+  "anchor_name": "read_events_supply_pos_gate_reader_gold_translate_v1",
+  "run_mode": "full",
+  "seed": 20260724,
+  "gold_translation_test": {
+    "mcg_slice": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "parser_uas_dev": 0.7882,
+    "gate_off": {
+      "f1": 0.592,
+      "precision": 0.4933,
+      "recall": 0.74,
+      "n_pred": 150,
+      "tp": 74,
+      "n_gold": 100
+    },
+    "gate_on": {
+      "f1": 0.5968,
+      "precision": 0.5,
+      "recall": 0.74,
+      "n_pred": 148,
+      "tp": 74,
+      "n_gold": 100
+    },
+    "naive": {
+      "f1": 0.3407
+    },
+    "delta_f1": 0.0048,
+    "delta_precision": 0.0067,
+    "delta_recall": 0.0,
+    "translate_verdict": "GOLD_NULL_HARD_PROSE_ONLY",
+    "n_removed": 2,
+    "over_suppression": {
+      "false_suppress_TP_dropped": 0,
+      "within_gold_fp_removed": 2,
+      "offgold_removed": 0,
+      "false_suppress_examples": []
+    },
+    "positive_control_gate_off_f1": {
+      "cited": 0.592,
+      "measured": 0.592,
+      "reproduced": true
+    },
+    "baseline_in_band": true,
+    "arms_differ": true
+  },
+  "litbank_glassbox": {
+    "n_books_scanned": 25,
+    "total_suppressed": 108,
+    "demo_passages": [
+      {
+        "passage_id": "1064_the_masque_of_the_red_death_brat",
+        "n_sentences": 84,
+        "n_events_kept": 73,
+        "n_suppressed": 8,
+        "suppressed": [
+          {
+            "sent_idx": 7,
+            "predicate": "depopulated",
+            "tense": "PASSIVE",
+            "agent": "dominions",
+            "patient": "court"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "this",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 30,
+            "predicate": "varied",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "opened"
+          },
+          {
+            "sent_idx": 42,
+            "predicate": "bold",
+            "tense": "SIMPLE_PAST",
+            "agent": "chamber",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 45,
+            "predicate": "hundred",
+            "tense": "SIMPLE_PAST",
+            "agent": "assembly",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 68,
+            "predicate": "crowded",
+            "tense": "PASSIVE",
+            "agent": "apartments",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 75,
+            "predicate": "heroded",
+            "tense": "PAST_PERFECT",
+            "agent": "question",
+            "patient": "herod"
+          },
+          {
+            "sent_idx": 75,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "question",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "devastated",
+            "agent": "?",
+            "patient": "country",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "shut",
+            "agent": "victim",
+            "patient": "fellow-men",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "summoned",
+            "agent": "dominions",
+            "patient": "court",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "girdled",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 11,
+            "predicate": "welded",
+            "agent": "courtiers",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 12,
+            "predicate": "resolved",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 17,
+            "predicate": "provided",
+            "agent": "prince",
+            "patient": "?",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 21,
+            "predicate": "raged",
+            "agent": "?",
+            "patient": "prospero",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+        "n_sentences": 94,
+        "n_events_kept": 72,
+        "n_suppressed": 8,
+        "suppressed": [
+          {
+            "sent_idx": 16,
+            "predicate": "renowned",
+            "tense": "SIMPLE_PAST",
+            "agent": "you",
+            "patient": "conqueror"
+          },
+          {
+            "sent_idx": 32,
+            "predicate": "thereupon",
+            "tense": "PAST_PERFECT",
+            "agent": "waggon",
+            "patient": "father"
+          },
+          {
+            "sent_idx": 51,
+            "predicate": "em",
+            "tense": "PAST_PERFECT",
+            "agent": "you",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 55,
+            "predicate": "i",
+            "tense": "PAST_PERFECT",
+            "agent": "?",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 55,
+            "predicate": "sir",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "sir"
+          },
+          {
+            "sent_idx": 71,
+            "predicate": "frowned",
+            "tense": "SIMPLE_PAST",
+            "agent": "stripling",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 72,
+            "predicate": "john",
+            "tense": "SIMPLE_PAST",
+            "agent": "you",
+            "patient": "durbeyfield"
+          },
+          {
+            "sent_idx": 76,
+            "predicate": "fred",
+            "tense": "SIMPLE_PAST",
+            "agent": "my",
+            "patient": "fred"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "carried",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "inclined",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "gave",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "slung",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "ruffled",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "worn",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "came",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "met",
+            "agent": "?",
+            "patient": "mare",
+            "tense": "PASSIVE"
+          }
+        ]
+      }
+    ],
+    "all_books": [
+      {
+        "passage_id": "1064_the_masque_of_the_red_death_brat",
+        "n_sentences": 84,
+        "n_events_kept": 73,
+        "n_suppressed": 8,
+        "suppressed": [
+          {
+            "sent_idx": 7,
+            "predicate": "depopulated",
+            "tense": "PASSIVE",
+            "agent": "dominions",
+            "patient": "court"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "this",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 30,
+            "predicate": "varied",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "opened"
+          },
+          {
+            "sent_idx": 42,
+            "predicate": "bold",
+            "tense": "SIMPLE_PAST",
+            "agent": "chamber",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 45,
+            "predicate": "hundred",
+            "tense": "SIMPLE_PAST",
+            "agent": "assembly",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 68,
+            "predicate": "crowded",
+            "tense": "PASSIVE",
+            "agent": "apartments",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 75,
+            "predicate": "heroded",
+            "tense": "PAST_PERFECT",
+            "agent": "question",
+            "patient": "herod"
+          },
+          {
+            "sent_idx": 75,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "question",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "devastated",
+            "agent": "?",
+            "patient": "country",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "shut",
+            "agent": "victim",
+            "patient": "fellow-men",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "summoned",
+            "agent": "dominions",
+            "patient": "court",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "girdled",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 11,
+            "predicate": "welded",
+            "agent": "courtiers",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 12,
+            "predicate": "resolved",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 17,
+            "predicate": "provided",
+            "agent": "prince",
+            "patient": "?",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 21,
+            "predicate": "raged",
+            "agent": "?",
+            "patient": "prospero",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+        "n_sentences": 94,
+        "n_events_kept": 72,
+        "n_suppressed": 8,
+        "suppressed": [
+          {
+            "sent_idx": 16,
+            "predicate": "renowned",
+            "tense": "SIMPLE_PAST",
+            "agent": "you",
+            "patient": "conqueror"
+          },
+          {
+            "sent_idx": 32,
+            "predicate": "thereupon",
+            "tense": "PAST_PERFECT",
+            "agent": "waggon",
+            "patient": "father"
+          },
+          {
+            "sent_idx": 51,
+            "predicate": "em",
+            "tense": "PAST_PERFECT",
+            "agent": "you",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 55,
+            "predicate": "i",
+            "tense": "PAST_PERFECT",
+            "agent": "?",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 55,
+            "predicate": "sir",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "sir"
+          },
+          {
+            "sent_idx": 71,
+            "predicate": "frowned",
+            "tense": "SIMPLE_PAST",
+            "agent": "stripling",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 72,
+            "predicate": "john",
+            "tense": "SIMPLE_PAST",
+            "agent": "you",
+            "patient": "durbeyfield"
+          },
+          {
+            "sent_idx": 76,
+            "predicate": "fred",
+            "tense": "SIMPLE_PAST",
+            "agent": "my",
+            "patient": "fred"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "carried",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "inclined",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "gave",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "slung",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "ruffled",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "worn",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "came",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "met",
+            "agent": "?",
+            "patient": "mare",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat",
+        "n_sentences": 91,
+        "n_events_kept": 87,
+        "n_suppressed": 7,
+        "suppressed": [
+          {
+            "sent_idx": 2,
+            "predicate": "natured",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "gentlemen"
+          },
+          {
+            "sent_idx": 15,
+            "predicate": "unemployed",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "my"
+          },
+          {
+            "sent_idx": 16,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 20,
+            "predicate": "rash",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 22,
+            "predicate": "stairs",
+            "tense": "PASSIVE",
+            "agent": "my",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 34,
+            "predicate": "meridian",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 84,
+            "predicate": "straight",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "written",
+            "agent": "my",
+            "patient": "i",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "pleased",
+            "agent": "i",
+            "patient": "i",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "saw",
+            "agent": "i",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "done",
+            "agent": "law-copyists",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "appeared",
+            "agent": "scrivener",
+            "patient": "me",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "presented",
+            "agent": "scrivener",
+            "patient": "presented",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 10,
+            "predicate": "filled",
+            "agent": "i",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 18,
+            "predicate": "conferred",
+            "agent": "york",
+            "patient": "me",
+            "tense": "PAST_PERFECT"
+          }
+        ]
+      },
+      {
+        "passage_id": "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat",
+        "n_sentences": 59,
+        "n_events_kept": 66,
+        "n_suppressed": 7,
+        "suppressed": [
+          {
+            "sent_idx": 11,
+            "predicate": "mirvan",
+            "tense": "SIMPLE_PAST",
+            "agent": "mirvan",
+            "patient": "duval"
+          },
+          {
+            "sent_idx": 14,
+            "predicate": "indebted",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "do"
+          },
+          {
+            "sent_idx": 21,
+            "predicate": "dissatisfied",
+            "tense": "PASSIVE",
+            "agent": "duval",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 22,
+            "predicate": "surprised",
+            "tense": "PASSIVE",
+            "agent": "your",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 37,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "evelyn",
+            "patient": "me"
+          },
+          {
+            "sent_idx": 47,
+            "predicate": "hitherto",
+            "tense": "PAST_PERFECT",
+            "agent": "strangers",
+            "patient": "witness"
+          },
+          {
+            "sent_idx": 58,
+            "predicate": "acquainted",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "belmont"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 2,
+            "predicate": "pitied",
+            "agent": "relator",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "prevented",
+            "agent": "england",
+            "patient": "france",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "used",
+            "agent": "?",
+            "patient": "daughter",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "advised",
+            "agent": "daughter",
+            "patient": "orphan",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "bequeathed",
+            "agent": "daughter",
+            "patient": "orphan",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "placed",
+            "agent": "you",
+            "patient": "child",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 11,
+            "predicate": "informed",
+            "agent": "mirvan",
+            "patient": "duval",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 11,
+            "predicate": "induced",
+            "agent": "mirvan",
+            "patient": "duval",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "158_emma_brat",
+        "n_sentences": 77,
+        "n_events_kept": 62,
+        "n_suppressed": 6,
+        "suppressed": [
+          {
+            "sent_idx": 3,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "taylor",
+            "patient": "governess"
+          },
+          {
+            "sent_idx": 15,
+            "predicate": "self",
+            "tense": "SIMPLE_PAST",
+            "agent": "weston",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 32,
+            "predicate": "depressed",
+            "tense": "SIMPLE_PAST",
+            "agent": "man",
+            "patient": "to"
+          },
+          {
+            "sent_idx": 33,
+            "predicate": "disposed",
+            "tense": "PASSIVE",
+            "agent": "people",
+            "patient": "himself"
+          },
+          {
+            "sent_idx": 36,
+            "predicate": "thought",
+            "tense": "SIMPLE_PAST",
+            "agent": "weston",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 38,
+            "predicate": "miss",
+            "tense": "PAST_PERFECT",
+            "agent": "weston",
+            "patient": "taylor"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "seemed",
+            "agent": "disposition",
+            "patient": "world",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "lived",
+            "agent": "disposition",
+            "patient": "world",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "died",
+            "agent": "mother",
+            "patient": "governess",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "supplied",
+            "agent": "mother",
+            "patient": "governess",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "fallen",
+            "agent": "governess",
+            "patient": "mother",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "ceased",
+            "agent": "taylor",
+            "patient": "governess",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "allowed",
+            "agent": "taylor",
+            "patient": "friend",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "passed",
+            "agent": "taylor",
+            "patient": "friend",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "2852_the_hound_of_the_baskervilles_brat",
+        "n_sentences": 111,
+        "n_events_kept": 61,
+        "n_suppressed": 6,
+        "suppressed": [
+          {
+            "sent_idx": 70,
+            "predicate": "aged",
+            "tense": "SIMPLE_PAST",
+            "agent": "your",
+            "patient": "my"
+          },
+          {
+            "sent_idx": 70,
+            "predicate": "minded",
+            "tense": "SIMPLE_PAST",
+            "agent": "your",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 86,
+            "predicate": "minded",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 87,
+            "predicate": "minded",
+            "tense": "SIMPLE_PAST",
+            "agent": "my",
+            "patient": "your"
+          },
+          {
+            "sent_idx": 92,
+            "predicate": "yes",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "jove"
+          },
+          {
+            "sent_idx": 92,
+            "predicate": "haired",
+            "tense": "PASSIVE",
+            "agent": "jove",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "seated",
+            "agent": "holmes",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "stood",
+            "agent": "i",
+            "patient": "our",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "picked",
+            "agent": "i",
+            "patient": "our",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "left",
+            "agent": "i",
+            "patient": "?",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "known",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "engraved",
+            "agent": "m.r.c.s.",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "given",
+            "agent": "holmes",
+            "patient": "my",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 11,
+            "predicate": "said",
+            "agent": "i",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "1342_pride_and_prejudice_brat",
+        "n_sentences": 111,
+        "n_events_kept": 50,
+        "n_suppressed": 5,
+        "suppressed": [
+          {
+            "sent_idx": 10,
+            "predicate": "delighted",
+            "tense": "PASSIVE",
+            "agent": "my",
+            "patient": "morris"
+          },
+          {
+            "sent_idx": 13,
+            "predicate": "married",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 36,
+            "predicate": "determined",
+            "tense": "PASSIVE",
+            "agent": "william",
+            "patient": "you"
+          },
+          {
+            "sent_idx": 41,
+            "predicate": "half",
+            "tense": "PASSIVE",
+            "agent": "lizzy",
+            "patient": "jane"
+          },
+          {
+            "sent_idx": 44,
+            "predicate": "bennet",
+            "tense": "SIMPLE_PAST",
+            "agent": "bennet",
+            "patient": "you"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "acknowledged",
+            "agent": "?",
+            "patient": "fortune",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "fixed",
+            "agent": "man",
+            "patient": "families",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "considered",
+            "agent": "man",
+            "patient": "daughters",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "said",
+            "agent": "my",
+            "patient": "lady",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "replied",
+            "agent": "bennet",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "returned",
+            "agent": "?",
+            "patient": "long",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "told",
+            "agent": "long",
+            "patient": "here",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "made",
+            "agent": "bennet",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "1400_great_expectations_brat",
+        "n_sentences": 103,
+        "n_events_kept": 91,
+        "n_suppressed": 5,
+        "suppressed": [
+          {
+            "sent_idx": 0,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "my",
+            "patient": "pirrip"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "my"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "sacred",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "mine"
+          },
+          {
+            "sent_idx": 73,
+            "predicate": "frightened",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 88,
+            "predicate": "broken",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "i"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "called",
+            "agent": "i",
+            "patient": "myself",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "came",
+            "agent": "i",
+            "patient": "pip",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "called",
+            "agent": "i",
+            "patient": "pip",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "married",
+            "agent": "i",
+            "patient": "blacksmith",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "saw",
+            "agent": "i",
+            "patient": "my",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "saw",
+            "agent": "i",
+            "patient": "my",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "derived",
+            "agent": "i",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "gave",
+            "agent": "my",
+            "patient": "me",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "514_little_women_brat",
+        "n_sentences": 85,
+        "n_events_kept": 74,
+        "n_suppressed": 5,
+        "suppressed": [
+          {
+            "sent_idx": 0,
+            "predicate": "christmas",
+            "tense": "PASSIVE",
+            "agent": "pilgrims",
+            "patient": "jo"
+          },
+          {
+            "sent_idx": 20,
+            "predicate": "satisfied",
+            "tense": "PASSIVE",
+            "agent": "you",
+            "patient": "you"
+          },
+          {
+            "sent_idx": 51,
+            "predicate": "miss",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "march"
+          },
+          {
+            "sent_idx": 74,
+            "predicate": "haired",
+            "tense": "SIMPLE_PAST",
+            "agent": "elizabeth",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 82,
+            "predicate": "worn",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 3,
+            "predicate": "added",
+            "agent": "i",
+            "patient": "amy",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "got",
+            "agent": "we",
+            "patient": "father",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "said",
+            "agent": "we",
+            "patient": "beth",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "brightened",
+            "agent": "shone",
+            "patient": "jo",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "darkened",
+            "agent": "shone",
+            "patient": "jo",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "said",
+            "agent": "shone",
+            "patient": "we",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "added",
+            "agent": "?",
+            "patient": "father",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "spoke",
+            "agent": "nobody",
+            "patient": "meg",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "76_adventures_of_huckleberry_finn_brat",
+        "n_sentences": 99,
+        "n_events_kept": 104,
+        "n_suppressed": 5,
+        "suppressed": [
+          {
+            "sent_idx": 5,
+            "predicate": "aunt",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "polly"
+          },
+          {
+            "sent_idx": 12,
+            "predicate": "satisfied",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 37,
+            "predicate": "wicked",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 55,
+            "predicate": "scared",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "me"
+          },
+          {
+            "sent_idx": 86,
+            "predicate": "agin",
+            "tense": "SIMPLE_PAST",
+            "agent": "my",
+            "patient": "i"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 2,
+            "predicate": "made",
+            "agent": "?",
+            "patient": "twain",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "told",
+            "agent": "twain",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "stretched",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "told",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "lied",
+            "agent": "i",
+            "patient": "polly",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "said",
+            "agent": "polly",
+            "patient": "i",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "found",
+            "agent": "tom",
+            "patient": "robbers",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "made",
+            "agent": "tom",
+            "patient": "us",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "829_gullivers_travels_into_several_remote_nations_of_the_world_brat",
+        "n_sentences": 81,
+        "n_events_kept": 186,
+        "n_suppressed": 5,
+        "suppressed": [
+          {
+            "sent_idx": 11,
+            "predicate": "surgeon",
+            "tense": "PASSIVE",
+            "agent": "my",
+            "patient": "swallow"
+          },
+          {
+            "sent_idx": 34,
+            "predicate": "inclined",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "myself"
+          },
+          {
+            "sent_idx": 35,
+            "predicate": "light",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 45,
+            "predicate": "loosened",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "me"
+          },
+          {
+            "sent_idx": 71,
+            "predicate": "whither",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "city"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 5,
+            "predicate": "shipwrecked",
+            "agent": "?",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "made",
+            "agent": "shore",
+            "patient": "prisoner",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "carried",
+            "agent": "shore",
+            "patient": "country",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "sent",
+            "agent": "?",
+            "patient": "me",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "resided",
+            "agent": "i",
+            "patient": "myself",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "applied",
+            "agent": "i",
+            "patient": "myself",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "bound",
+            "agent": "i",
+            "patient": "i",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "laid",
+            "agent": "my",
+            "patient": "i",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "105_persuasion_brat",
+        "n_sentences": 45,
+        "n_events_kept": 79,
+        "n_suppressed": 4,
+        "suppressed": [
+          {
+            "sent_idx": 6,
+            "predicate": "handsome",
+            "tense": "PAST_PERFECT",
+            "agent": "?",
+            "patient": "man"
+          },
+          {
+            "sent_idx": 27,
+            "predicate": "handsomer",
+            "tense": "PASSIVE",
+            "agent": "woman",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 34,
+            "predicate": "satisfied",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "baronet-blood"
+          },
+          {
+            "sent_idx": 43,
+            "predicate": "married",
+            "tense": "PASSIVE",
+            "agent": "town",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "took",
+            "agent": "elliot",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "found",
+            "agent": "elliot",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "roused",
+            "agent": "elliot",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "changed",
+            "agent": "elliot",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "turned",
+            "agent": "elliot",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "failed",
+            "agent": "elliot",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "opened",
+            "agent": "?",
+            "patient": "elliot",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "died",
+            "agent": "elliot",
+            "patient": "park",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "113_the_secret_garden_brat",
+        "n_sentences": 109,
+        "n_events_kept": 148,
+        "n_suppressed": 4,
+        "suppressed": [
+          {
+            "sent_idx": 3,
+            "predicate": "ill",
+            "tense": "PAST_PERFECT",
+            "agent": "india",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 16,
+            "predicate": "scared",
+            "tense": "SIMPLE_PAST",
+            "agent": "servants",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 74,
+            "predicate": "tired",
+            "tense": "PAST_PERFECT",
+            "agent": "mary",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 83,
+            "predicate": "frightened",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "room"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "left",
+            "agent": "one",
+            "patient": "lennox",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "sent",
+            "agent": "one",
+            "patient": "manor",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "said",
+            "agent": "one",
+            "patient": "seen",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "born",
+            "agent": "?",
+            "patient": "india",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "held",
+            "agent": "father",
+            "patient": "government",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "cared",
+            "agent": "mother",
+            "patient": "herself",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "wanted",
+            "agent": "?",
+            "patient": "girl",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "born",
+            "agent": "mary",
+            "patient": "possible",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "345_dracula_brat",
+        "n_sentences": 94,
+        "n_events_kept": 99,
+        "n_suppressed": 4,
+        "suppressed": [
+          {
+            "sent_idx": 32,
+            "predicate": "ought",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "china"
+          },
+          {
+            "sent_idx": 49,
+            "predicate": "fashioned",
+            "tense": "PASSIVE",
+            "agent": "dracula",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 79,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "my",
+            "patient": "george"
+          },
+          {
+            "sent_idx": 80,
+            "predicate": "midnight",
+            "tense": "SIMPLE_PAST",
+            "agent": "you",
+            "patient": "world"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "kept",
+            "agent": "harker",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "left",
+            "agent": "?",
+            "patient": "munich",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "got",
+            "agent": "buda-pesth",
+            "patient": "train",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "feared",
+            "agent": "i",
+            "patient": "station",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "arrived",
+            "agent": "i",
+            "patient": "?",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "took",
+            "agent": "i",
+            "patient": "us",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "left",
+            "agent": "we",
+            "patient": "klausenburgh",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "came",
+            "agent": "we",
+            "patient": "klausenburgh",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "36_the_war_of_the_worlds_brat",
+        "n_sentences": 70,
+        "n_events_kept": 62,
+        "n_suppressed": 4,
+        "suppressed": [
+          {
+            "sent_idx": 29,
+            "predicate": "odd",
+            "tense": "PASSIVE",
+            "agent": "schiaparelli",
+            "patient": "mars"
+          },
+          {
+            "sent_idx": 42,
+            "predicate": "i",
+            "tense": "PAST_PERFECT",
+            "agent": "i",
+            "patient": "ogilvy"
+          },
+          {
+            "sent_idx": 43,
+            "predicate": "excited",
+            "tense": "PASSIVE",
+            "agent": "?",
+            "patient": "me"
+          },
+          {
+            "sent_idx": 50,
+            "predicate": "tired",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "watched",
+            "agent": "martians",
+            "patient": "man",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "busied",
+            "agent": "martians",
+            "patient": "themselves",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "scrutinised",
+            "agent": "martians",
+            "patient": "microscope",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "studied",
+            "agent": "martians",
+            "patient": "microscope",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "went",
+            "agent": "men",
+            "patient": "globe",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "gave",
+            "agent": "one",
+            "patient": "space",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 5,
+            "predicate": "fancied",
+            "agent": "men",
+            "patient": "men",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "regarded",
+            "agent": "space",
+            "patient": "earth",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "521_the_life_and_adventures_of_robinson_crusoe_brat",
+        "n_sentences": 28,
+        "n_events_kept": 93,
+        "n_suppressed": 4,
+        "suppressed": [
+          {
+            "sent_idx": 5,
+            "predicate": "satisfied",
+            "tense": "PASSIVE",
+            "agent": "my",
+            "patient": "i"
+          },
+          {
+            "sent_idx": 12,
+            "predicate": "embarrassed",
+            "tense": "SIMPLE_PAST",
+            "agent": "themselves",
+            "patient": "men"
+          },
+          {
+            "sent_idx": 12,
+            "predicate": "s",
+            "tense": "SIMPLE_PAST",
+            "agent": "world",
+            "patient": "world"
+          },
+          {
+            "sent_idx": 22,
+            "predicate": "determined",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "my"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "born",
+            "agent": "i",
+            "patient": "york",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "settled",
+            "agent": "i",
+            "patient": "bremen",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "got",
+            "agent": "?",
+            "patient": "york",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "lived",
+            "agent": "?",
+            "patient": "york",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "married",
+            "agent": "york",
+            "patient": "my",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "named",
+            "agent": "mother",
+            "patient": "robinson",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "called",
+            "agent": "country",
+            "patient": "i",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "called",
+            "agent": "kreutznaer",
+            "patient": "england",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "84_frankenstein_or_the_modern_prometheus_brat",
+        "n_sentences": 79,
+        "n_events_kept": 65,
+        "n_suppressed": 4,
+        "suppressed": [
+          {
+            "sent_idx": 23,
+            "predicate": "acquainted",
+            "tense": "PASSIVE",
+            "agent": "you",
+            "patient": "my"
+          },
+          {
+            "sent_idx": 40,
+            "predicate": "accustomed",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 62,
+            "predicate": "unallied",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "bosoms"
+          },
+          {
+            "sent_idx": 65,
+            "predicate": "unemployed",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "city"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "arrived",
+            "agent": "i",
+            "patient": "here",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 6,
+            "predicate": "persuaded",
+            "agent": "i",
+            "patient": "pole",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "banished",
+            "agent": "there",
+            "patient": "sea",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 8,
+            "predicate": "wafted",
+            "agent": "there",
+            "patient": "we",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 10,
+            "predicate": "expected",
+            "agent": "?",
+            "patient": "light",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 14,
+            "predicate": "effected",
+            "agent": "you",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 15,
+            "predicate": "began",
+            "agent": "i",
+            "patient": "my",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 17,
+            "predicate": "made",
+            "agent": "i",
+            "patient": "ocean",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "1260_jane_eyre_an_autobiography_brat",
+        "n_sentences": 65,
+        "n_events_kept": 91,
+        "n_suppressed": 3,
+        "suppressed": [
+          {
+            "sent_idx": 1,
+            "predicate": "shrubbery",
+            "tense": "SIMPLE_PAST",
+            "agent": "we",
+            "patient": "reed"
+          },
+          {
+            "sent_idx": 17,
+            "predicate": "unnoticed",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "lapland"
+          },
+          {
+            "sent_idx": 44,
+            "predicate": "bleared",
+            "tense": "SIMPLE_PAST",
+            "agent": "himself",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "reed",
+            "agent": "we",
+            "patient": "reed",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "dined",
+            "agent": "we",
+            "patient": "company",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "brought",
+            "agent": "we",
+            "patient": "?",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "said",
+            "agent": "?",
+            "patient": "eliza",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "clustered",
+            "agent": "eliza",
+            "patient": "mama",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "lay",
+            "agent": "eliza",
+            "patient": "darlings",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "looked",
+            "agent": "eliza",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "dispensed",
+            "agent": "me",
+            "patient": "group",
+            "tense": "PAST_PERFECT"
+          }
+        ]
+      },
+      {
+        "passage_id": "174_the_picture_of_dorian_gray_brat",
+        "n_sentences": 109,
+        "n_events_kept": 55,
+        "n_suppressed": 3,
+        "suppressed": [
+          {
+            "sent_idx": 2,
+            "predicate": "round",
+            "tense": "SIMPLE_PAST",
+            "agent": "?",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "basil",
+            "tense": "SIMPLE_PAST",
+            "agent": "your",
+            "patient": "basil"
+          },
+          {
+            "sent_idx": 81,
+            "predicate": "ashamed",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "your"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "filled",
+            "agent": "studio",
+            "patient": "garden",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "stirred",
+            "agent": "studio",
+            "patient": "garden",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "came",
+            "agent": "studio",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "seemed",
+            "agent": "wotton",
+            "patient": "tokyo",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "stretched",
+            "agent": "wotton",
+            "patient": "tokyo",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "faced",
+            "agent": "wotton",
+            "patient": "tokyo",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "seemed",
+            "agent": "?",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 4,
+            "predicate": "clamped",
+            "agent": "room",
+            "patient": "beauty",
+            "tense": "SIMPLE_PAST"
+          }
+        ]
+      },
+      {
+        "passage_id": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat",
+        "n_sentences": 128,
+        "n_events_kept": 84,
+        "n_suppressed": 3,
+        "suppressed": [
+          {
+            "sent_idx": 96,
+            "predicate": "ragged",
+            "tense": "SIMPLE_PAST",
+            "agent": "our",
+            "patient": "boy"
+          },
+          {
+            "sent_idx": 97,
+            "predicate": "unused",
+            "tense": "SIMPLE_PAST",
+            "agent": "i",
+            "patient": "city"
+          },
+          {
+            "sent_idx": 117,
+            "predicate": "sight",
+            "tense": "SIMPLE_PAST",
+            "agent": "boy",
+            "patient": "smoker"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "ragged",
+            "agent": "dick",
+            "patient": "reader",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "introduced",
+            "agent": "dick",
+            "patient": "reader",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "said",
+            "agent": "dick",
+            "patient": "youngster",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "opened",
+            "agent": "dick",
+            "patient": "speaker",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "stared",
+            "agent": "dick",
+            "patient": "speaker",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "said",
+            "agent": "?",
+            "patient": "man",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "called",
+            "agent": "man",
+            "patient": "you",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "made",
+            "agent": "i",
+            "patient": "me",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat",
+        "n_sentences": 117,
+        "n_events_kept": 118,
+        "n_suppressed": 3,
+        "suppressed": [
+          {
+            "sent_idx": 63,
+            "predicate": "eyed",
+            "tense": "SIMPLE_PAST",
+            "agent": "prowess",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 99,
+            "predicate": "scarred",
+            "tense": "SIMPLE_PAST",
+            "agent": "mother",
+            "patient": "?"
+          },
+          {
+            "sent_idx": 116,
+            "predicate": "ll",
+            "tense": "SIMPLE_PAST",
+            "agent": "yeh",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "passed",
+            "agent": "?",
+            "patient": "earth",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "revealed",
+            "agent": "earth",
+            "patient": "hills",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "stretched",
+            "agent": "earth",
+            "patient": "hills",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "changed",
+            "agent": "landscape",
+            "patient": "army",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "awakened",
+            "agent": "landscape",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "began",
+            "agent": "landscape",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "cast",
+            "agent": "?",
+            "patient": "roads",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "become",
+            "agent": "banks",
+            "patient": "blackness",
+            "tense": "PAST_PERFECT"
+          }
+        ]
+      },
+      {
+        "passage_id": "209_the_turn_of_the_screw_brat",
+        "n_sentences": 121,
+        "n_events_kept": 103,
+        "n_suppressed": 2,
+        "suppressed": [
+          {
+            "sent_idx": 0,
+            "predicate": "gruesome",
+            "tense": "PASSIVE",
+            "agent": "us",
+            "patient": "house"
+          },
+          {
+            "sent_idx": 102,
+            "predicate": "bewildered",
+            "tense": "SIMPLE_PAST",
+            "agent": "us",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 0,
+            "predicate": "held",
+            "agent": "?",
+            "patient": "us",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "uttered",
+            "agent": "us",
+            "patient": "i",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "happened",
+            "agent": "us",
+            "patient": "somebody",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "met",
+            "agent": "us",
+            "patient": "child",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 0,
+            "predicate": "fallen",
+            "agent": "us",
+            "patient": "child",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "gathered",
+            "agent": "i",
+            "patient": "us",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "soothe",
+            "agent": "i",
+            "patient": "herself",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "succeeded",
+            "agent": "i",
+            "patient": "herself",
+            "tense": "PAST_PERFECT"
+          }
+        ]
+      },
+      {
+        "passage_id": "1023_bleak_house_brat",
+        "n_sentences": 60,
+        "n_events_kept": 44,
+        "n_suppressed": 1,
+        "suppressed": [
+          {
+            "sent_idx": 22,
+            "predicate": "red",
+            "tense": "SIMPLE_PAST",
+            "agent": "you",
+            "patient": "registrar"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 3,
+            "predicate": "retired",
+            "agent": "streets",
+            "patient": "earth",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "broke",
+            "agent": "passengers",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "broke",
+            "agent": "passengers",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 14,
+            "predicate": "seen",
+            "agent": "streets",
+            "patient": "husbandman",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 15,
+            "predicate": "lighted",
+            "agent": "shops",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 16,
+            "predicate": "headed",
+            "agent": "streets",
+            "patient": "corporation",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 19,
+            "predicate": "round",
+            "agent": "chancellor",
+            "patient": "brief",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 20,
+            "predicate": "engaged",
+            "agent": "bar",
+            "patient": "players",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "2489_moby_dick_brat",
+        "n_sentences": 94,
+        "n_events_kept": 23,
+        "n_suppressed": 1,
+        "suppressed": [
+          {
+            "sent_idx": 64,
+            "predicate": "roasted",
+            "tense": "SIMPLE_PAST",
+            "agent": "egyptians",
+            "patient": "you"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "thought",
+            "agent": "my",
+            "patient": "shore",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 7,
+            "predicate": "knew",
+            "agent": "?",
+            "patient": "degree",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 9,
+            "predicate": "left",
+            "agent": "?",
+            "patient": "streets",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 10,
+            "predicate": "washed",
+            "agent": "mole",
+            "patient": "land",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 36,
+            "predicate": "plunged",
+            "agent": "men",
+            "patient": "man",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 37,
+            "predicate": "supplied",
+            "agent": "you",
+            "patient": "professor",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 38,
+            "predicate": "wedded",
+            "agent": "one",
+            "patient": "?",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 44,
+            "predicate": "fixed",
+            "agent": "shepherd",
+            "patient": "?",
+            "tense": "PASSIVE"
+          }
+        ]
+      },
+      {
+        "passage_id": "2814_dubliners_brat",
+        "n_sentences": 96,
+        "n_events_kept": 130,
+        "n_suppressed": 1,
+        "suppressed": [
+          {
+            "sent_idx": 71,
+            "predicate": "i",
+            "tense": "PASSIVE",
+            "agent": "i",
+            "patient": "?"
+          }
+        ],
+        "kept_events_sample": [
+          {
+            "sent_idx": 1,
+            "predicate": "passed",
+            "agent": "i",
+            "patient": "house",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "studied",
+            "agent": "i",
+            "patient": "i",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "found",
+            "agent": "i",
+            "patient": "i",
+            "tense": "PAST_PERFECT"
+          },
+          {
+            "sent_idx": 1,
+            "predicate": "lighted",
+            "agent": "i",
+            "patient": "?",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "knew",
+            "agent": "i",
+            "patient": "i",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 2,
+            "predicate": "set",
+            "agent": "i",
+            "patient": "corpse",
+            "tense": "PASSIVE"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "said",
+            "agent": "?",
+            "patient": "me",
+            "tense": "SIMPLE_PAST"
+          },
+          {
+            "sent_idx": 3,
+            "predicate": "thought",
+            "agent": "world",
+            "patient": "i",
+            "tense": "PAST_PERFECT"
+          }
+        ]
+      }
+    ]
+  },
+  "bands": {
+    "LIFT_EPS": 0.01,
+    "CITED_GATE_OFF_F1": 0.592,
+    "positive_control_tol": 0.05,
+    "naive_band": [
+      0.05,
+      0.95
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_differ_note": "gate-ON differs from gate-OFF iff any suppression occurred; if 0 McGuffey suppressions the arms are legitimately identical (NULL translation)",
+  "baseline_in_band": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "F1-delta + suppression-count comparison; no Cramer-Rao floor applies",
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "progress_logging": "per-book flush prints in run_litbank_glassbox + section prints",
+  "ts_iso": "2026-07-24T11:50:43.564682+00:00",
+  "notes": "SUPPLY-POS ADOPTION + reader-level gold translation. The gate is a POST-HOC predicate-validity filter (emitted event predicate must be a spaCy VERB), wired opt-in into hdlab/situation_reader.py; it does NOT feed the substrate parser/clf (no OOD). PRIMARY result = McGuffey gold F1 delta gate-ON vs gate-OFF (the real reader-level translation question); the LitBank noise proxy is banked-unfair per 29525 so is NOT re-scored as the discriminator here -- only demonstrated glass-box. Gate applied at the LOW-surface-token level (conservative: a predicate is dropped only if spaCy tags it non-verb at every occurrence in the sentence). CAVEAT: gate-OFF baseline F1 is scored over the FULL_SLICE arm incl. ungolded-sentence tuples, identical to the banked gate1_mcguffey pipeline (CITED 0.592) -> delta is apples-to-apples. A NULL delta is a legitimate honest translation answer, not a failure."
+}

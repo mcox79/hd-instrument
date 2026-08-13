@@ -1,0 +1,280 @@
+{
+  "verdict": "LITE_COLLAPSE_PERSISTS",
+  "verdict_msg": "LITE_COLLAPSE_PERSISTS: primary ARM_CAUSAL_REAL_BARLOW rep_std=0.0078 still BELOW the 0.020 floor even with a real target + Barlow -- the collapse is scale/data at this proxy budget, not the target framing; the fuller build budget is genuinely required. rep_std table: {'ARM_CAUSAL_REAL_BARLOW': 0.0078, 'ARM_CAUSAL_REAL_VICREG': 0.012, 'ARM_CAUSAL_EMA_BARLOW': 0.0186, 'ARM_LPC_CAUSAL': 0.018, 'ARM_LPC_BIDIR': 0.0248, 'ARM_RANDOM': 0.0121}.",
+  "summary": "LITE_COLLAPSE_PERSISTS: primary ARM_CAUSAL_REAL_BARLOW rep_std=0.0078 still BELOW the 0.020 floor even with a real target + Barlow -- the collapse is scale/data at this proxy budget, not the target framing; the fuller build budget is genuinely required. rep_std table: {'ARM_CAUSAL_REAL_BARLOW': 0.0078, 'ARM_CAUSAL_REAL_VICREG': 0.012, 'ARM_CAUSAL_EMA_BARLOW': 0.0186, 'ARM_LPC_CAUSAL': 0.018, 'ARM_LPC_BIDIR': 0.0248, 'ARM_RANDOM': 0.0121}.",
+  "anchor_name": "encoder_latent_pc_arc_v1",
+  "run_mode": "lite",
+  "ts_iso": "2026-08-01T18:31:20.419439+00:00",
+  "device": "cuda",
+  "cuda": true,
+  "co_scaled": false,
+  "n_seeds": 1,
+  "results_summary": {
+    "all_trained": true,
+    "ckpts_saved": true,
+    "primary_arm": "ARM_CAUSAL_REAL_BARLOW",
+    "primary_rep_std": 0.00783806573599577,
+    "clears_collapse_floor": false,
+    "collapse_floor": 0.02,
+    "rep_std_by_arm": {
+      "ARM_CAUSAL_REAL_BARLOW": 0.00783806573599577,
+      "ARM_CAUSAL_REAL_VICREG": 0.012003699317574501,
+      "ARM_CAUSAL_EMA_BARLOW": 0.018614206463098526,
+      "ARM_LPC_CAUSAL": 0.017985813319683075,
+      "ARM_LPC_BIDIR": 0.02478925883769989,
+      "ARM_RANDOM": 0.012096889317035675
+    },
+    "ckpt_paths": {
+      "ARM_CAUSAL_REAL_BARLOW": {
+        "7": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_BARLOW.pt"
+      },
+      "ARM_CAUSAL_REAL_VICREG": {
+        "7": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_VICREG.pt"
+      },
+      "ARM_CAUSAL_EMA_BARLOW": {
+        "7": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_EMA_BARLOW.pt"
+      },
+      "ARM_LPC_CAUSAL": {
+        "7": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_CAUSAL.pt"
+      },
+      "ARM_LPC_BIDIR": {
+        "7": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_BIDIR.pt"
+      },
+      "ARM_RANDOM": {
+        "7": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_RANDOM.pt"
+      }
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "run_mode": "lite",
+      "elapsed_s": 5336.455849099992,
+      "ckpt_paths": {
+        "ARM_CAUSAL_REAL_BARLOW": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_BARLOW.pt",
+        "ARM_CAUSAL_REAL_VICREG": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_VICREG.pt",
+        "ARM_CAUSAL_EMA_BARLOW": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_EMA_BARLOW.pt",
+        "ARM_LPC_CAUSAL": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_CAUSAL.pt",
+        "ARM_LPC_BIDIR": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_BIDIR.pt",
+        "ARM_RANDOM": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_RANDOM.pt"
+      },
+      "arm_collisions": [],
+      "arms": {
+        "ARM_CAUSAL_REAL_BARLOW": {
+          "graded_geometry": 0.18851055264454356,
+          "graded_geometry_nq": 72,
+          "heldout_probe": 0.2222222222222222,
+          "heldout_probe_nq": 144,
+          "relational_auc": 0.5068305555555556,
+          "relational_nq": 75,
+          "rep_std": 0.00783806573599577,
+          "mean_pairwise_cos": 0.9681710600852966,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.42007218149801095,
+            "final_pred_loss": 0.41949456073343755,
+            "min_target_std": 0.9843127727508545,
+            "final_target_std": 0.9983525077005228,
+            "min_train_rep_std": 0.6724194288253784,
+            "final_train_rep_std": 0.9981097737451394,
+            "target_mode": "real_emb",
+            "reg_mode": "barlow",
+            "uses_ema": false,
+            "causal": true,
+            "n_steps": 6000
+          }
+        },
+        "ARM_CAUSAL_REAL_VICREG": {
+          "graded_geometry": 0.1867416032474819,
+          "graded_geometry_nq": 72,
+          "heldout_probe": 0.19444444444444445,
+          "heldout_probe_nq": 144,
+          "relational_auc": 0.5615768518518519,
+          "relational_nq": 75,
+          "rep_std": 0.012003699317574501,
+          "mean_pairwise_cos": 0.9257000684738159,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.43072359554469586,
+            "final_pred_loss": 0.4399372368554274,
+            "min_target_std": 0.9975023865699768,
+            "final_target_std": 1.02632932861646,
+            "min_train_rep_std": 0.6724194288253784,
+            "final_train_rep_std": 1.0462934696674346,
+            "target_mode": "real_emb",
+            "reg_mode": "vicreg",
+            "uses_ema": false,
+            "causal": true,
+            "n_steps": 6000
+          }
+        },
+        "ARM_CAUSAL_EMA_BARLOW": {
+          "graded_geometry": 0.20850379485617404,
+          "graded_geometry_nq": 72,
+          "heldout_probe": 0.24305555555555555,
+          "heldout_probe_nq": 144,
+          "relational_auc": 0.5335888888888889,
+          "relational_nq": 75,
+          "rep_std": 0.018614206463098526,
+          "mean_pairwise_cos": 0.8208090662956238,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.22533414321641126,
+            "final_pred_loss": 0.19937641348689794,
+            "min_target_std": 0.9999991655349731,
+            "final_target_std": 1.0375120945771534,
+            "min_train_rep_std": 0.6724194288253784,
+            "final_train_rep_std": 0.9928370893994967,
+            "target_mode": "ema_latent",
+            "reg_mode": "barlow",
+            "uses_ema": true,
+            "causal": true,
+            "n_steps": 6000
+          }
+        },
+        "ARM_LPC_CAUSAL": {
+          "graded_geometry": 0.21844020951218052,
+          "graded_geometry_nq": 72,
+          "heldout_probe": 0.20833333333333334,
+          "heldout_probe_nq": 144,
+          "relational_auc": 0.5313685185185185,
+          "relational_nq": 75,
+          "rep_std": 0.017985813319683075,
+          "mean_pairwise_cos": 0.832095205783844,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.24184176940470933,
+            "final_pred_loss": 0.10759477510427436,
+            "min_target_std": 0.9857667088508606,
+            "final_target_std": 0.9895735253890355,
+            "mean_tc_loss": null,
+            "init_clause_loss": 0.02406667755683884,
+            "final_clause_loss": 0.050759404441341756,
+            "role_gate_mean_replace_rate": 0.9479452550113201,
+            "causal": true,
+            "var_coef": 2.0,
+            "n_steps": 6000
+          }
+        },
+        "ARM_LPC_BIDIR": {
+          "graded_geometry": 0.24043333342440187,
+          "graded_geometry_nq": 72,
+          "heldout_probe": 0.24305555555555555,
+          "heldout_probe_nq": 144,
+          "relational_auc": 0.6096175925925926,
+          "relational_nq": 75,
+          "rep_std": 0.02478925883769989,
+          "mean_pairwise_cos": 0.6760724782943726,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.214193315928181,
+            "final_pred_loss": 0.08359682678555448,
+            "min_target_std": 0.9854421019554138,
+            "final_target_std": 0.9894630752007166,
+            "mean_tc_loss": null,
+            "init_clause_loss": null,
+            "final_clause_loss": null,
+            "role_gate_mean_replace_rate": null,
+            "causal": false,
+            "var_coef": 1.0,
+            "n_steps": 6000
+          }
+        },
+        "ARM_RANDOM": {
+          "graded_geometry": 0.20541703350697768,
+          "graded_geometry_nq": 72,
+          "heldout_probe": 0.1875,
+          "heldout_probe_nq": 144,
+          "relational_auc": 0.5021666666666667,
+          "relational_nq": 75,
+          "rep_std": 0.012096889317035675,
+          "mean_pairwise_cos": 0.9239922761917114,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "untrained": true
+          }
+        }
+      },
+      "arm_digests": {
+        "ARM_CAUSAL_REAL_BARLOW": "f3e90d332c397d6553908a5a23ee77c6446f9d703da7ae966526b726c858cc55",
+        "ARM_CAUSAL_REAL_VICREG": "cfdb0df430eca5a7d2dde3e18216bb6d7153ba476fedb52e9e01eca86ab972b0",
+        "ARM_CAUSAL_EMA_BARLOW": "9e5ecc91b6ed01d6b40bd15b0499085260e23694f3e14554e18385a28ca562e3",
+        "ARM_LPC_CAUSAL": "8ae67c96d6a70f2c4a6311d955fb11a888158aa7dfdbcdae7e27150bf712e8b4",
+        "ARM_LPC_BIDIR": "17efd2a88db4ce8790fb323ff2b99b21b42bed76faec3fca08448cada69079da",
+        "ARM_RANDOM": "7d45d2083d0bcf1c1312adc0e9210a1147774405ee0d55884106b04e6620fb19"
+      },
+      "matched_budget": {
+        "steps": 6000,
+        "batch": 64,
+        "train_token_budget": 9000000,
+        "d_model": 512,
+        "n_layers": 6,
+        "matched_encoder_params": true,
+        "note": "LPC adds a small predictor + non-trained EMA target; base-encoder architecture/params/steps/tokens matched across arms"
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1785609080.4054375
+    }
+  },
+  "cuda_safety_audit": {
+    "device": "cuda",
+    "cuda_tested": true,
+    "final_pred_loss": 0.46235182881355286,
+    "params_on_device": true,
+    "causal_final_pred_loss": 0.4506063461303711,
+    "causal_final_clause_loss": 0.06901689618825912,
+    "realtarget_final_pred_loss": {
+      "real_emb+barlow": 0.39922618865966797,
+      "real_emb+vicreg": 0.3993755578994751,
+      "ema_latent+barlow": 0.4212742745876312
+    }
+  },
+  "bands": {
+    "hp_gg_over_mlm": 0.1,
+    "hp_gg_over_random": 0.15,
+    "probe_noregress_eps": 0.01,
+    "no_effect_eps": 0.03,
+    "collapse_rep_std_floor": 0.02,
+    "collapse_target_std_floor": 0.05,
+    "min_query": 40
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "data_prep_headroom": null,
+  "mlm_reuse": {
+    "v2_ckpt_dir": "data\\exp_scale_meaning_learn_arc_heldout_v2",
+    "budget_matched_steps": 6000,
+    "note": "ARM_MLM reuses V2 ckpt at FULL (mlm_steps matched to V2 FULL=60000)"
+  },
+  "checkpoint": {
+    "unit_granularity": "(seed, arm)",
+    "helper": "tools/exp_checkpoint.py",
+    "dataprep_bundle_cache": "dataprep_bundle_4a6982f330d29375.pt",
+    "per_arm_ckpts": {
+      "7": {
+        "ARM_CAUSAL_REAL_BARLOW": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_BARLOW.pt",
+        "ARM_CAUSAL_REAL_VICREG": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_VICREG.pt",
+        "ARM_CAUSAL_EMA_BARLOW": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_EMA_BARLOW.pt",
+        "ARM_LPC_CAUSAL": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_CAUSAL.pt",
+        "ARM_LPC_BIDIR": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_BIDIR.pt",
+        "ARM_RANDOM": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_RANDOM.pt"
+      }
+    }
+  },
+  "progress_logging": "print_flush_true",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "elapsed_s": 5336.455849099992,
+  "structured_gate_claims": [
+    {
+      "gate_name": "lite_primary_clears_collapse_floor",
+      "measured": 0.00783806573599577,
+      "threshold": 0.02,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "PRIMARY ARM_CAUSAL_REAL_BARLOW rep_std >= 0.020 (objective-pivot collapse HARD-PASS)"
+    }
+  ]
+}

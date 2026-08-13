@@ -1,0 +1,42 @@
+{
+  "anchor_name": "m_medqa_ingest_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: setrecall@1=0.0200 (rand-ctrl=0.0200, ratio=1.00x, need >=2.0x; floor 0.95) | refuse OOD=1.000 accept=0.880 (>=0.80) | cv=0.000 | n_seeds=1",
+  "summary": "HARD_FAIL: setrecall@1=0.0200 (rand-ctrl=0.0200, ratio=1.00x, need >=2.0x; floor 0.95) | refuse OOD=1.000 accept=0.880 (>=0.80) | cv=0.000 | n_seeds=1",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "m-medqa-ingest-v1: encoder=EleutherAI/pythia-160m + random-proj(D->512) + multi-value-hebbian + refuse-gate + random-key-control-discriminator; M=50 N_OOD=50 N_EVAL=50 V_C=1024; bands sr0.95 ood0.80 acc0.80 disc2.0x",
+  "per_seed": [
+    {
+      "seed": 1,
+      "run_mode": "smoke",
+      "N": 512,
+      "M": 50,
+      "config_version": "m-medqa-ingest-v1: encoder=EleutherAI/pythia-160m + random-proj(D->512) + multi-value-hebbian + refuse-gate + random-key-control-discriminator; M=50 N_OOD=50 N_EVAL=50 V_C=1024; bands sr0.95 ood0.80 acc0.80 disc2.0x",
+      "setrecall_at_1": 0.02,
+      "random_key_control_recall": 0.02,
+      "discriminator_ratio": 1.0,
+      "refuse_gate": {
+        "tau": 0.0964,
+        "inkb_accept": 0.88,
+        "ood_refuse": 1.0,
+        "inkb_conf_mean": 0.096,
+        "ood_conf_mean": 0.0963
+      },
+      "encoder_forward_batches": 10,
+      "inference_phase_llm_calls": 0,
+      "walls": {
+        "encode_s": 22.05,
+        "ingest_s": 0.0,
+        "eval_s": 0.06
+      },
+      "elapsed_s": 22.12
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 10,
+  "corpus_provenance": "medqa_usmle_500_jsonl_local",
+  "allow_synthetic": false,
+  "DESIGN_NOTE": "M MedQA ingest v1; mirrors U1/n8 multi-value Hebbian; pythia-160m encoder INGEST-only (forward calls accumulate during encode; zero LM calls during scoring); self-referential Q->Q+A binding via random projection + Hebbian; refuse-gate calibrated on (in-KB, OOD) split; random-key control = CAN-FAIL discriminator (Fix #16). HONEST SCOPE: this is a memorization + refuse certify, NOT a semantic answer-generation claim.",
+  "elapsed_s": 22.12
+}

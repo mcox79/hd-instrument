@@ -1,0 +1,157 @@
+{
+  "anchor_name": "omp_sparse_coding_cleanup_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: OMP sparse-coding does NOT unlock argmax cleanup; best_omp_lift <= -0.005 at sigma=1.50 (no benefit OR regression). Combined with att1 v1+v2 HARD_FAIL: cleanup-mechanism family REJECTED as a class for substrate regime. Pivot to encoder-side upstream (whitening / N=4096 lift). DISCRIMINATOR @ sigma=1.50: argmax=0.040 | best_omp=OMP_K1 recall=0.020 lift=-0.020 cv=0.000 conv=1.000 | sanity OMP_K1 vs argmax at sigma=0: delta=0.0000 (ok=True)",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "M": 200,
+  "N_EVAL": 50,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARGMAX_BASELINE": {
+        "recall_discriminator_mean": 0.04,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.3,
+          "1.0": 0.04,
+          "1.5": 0.04,
+          "2.0": 0.04
+        }
+      },
+      "OMP_K1": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2,
+          "1.0": 0.0,
+          "1.5": 0.02,
+          "2.0": 0.04
+        }
+      },
+      "OMP_K2": {
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.18,
+          "1.0": 0.06,
+          "1.5": 0.0,
+          "2.0": 0.0
+        }
+      },
+      "OMP_K4": {
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.12,
+          "1.0": 0.06,
+          "1.5": 0.0,
+          "2.0": 0.02
+        }
+      }
+    },
+    "argmax_recall_discriminator": 0.04,
+    "best_omp_arm": "OMP_K1",
+    "best_omp_recall_discriminator": 0.02,
+    "best_omp_lift_over_argmax": -0.02,
+    "best_omp_cv": 0.0,
+    "best_omp_frac_converged": 1.0,
+    "discriminator_sigma": 1.5,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "omp_sparse_coding_cleanup_v1; N_DIM=512 M=200 N_EVAL=50 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 0), ('OMP_K1', 1), ('OMP_K2', 2), ('OMP_K4', 4)] discriminator_sigma=1.50 seeds=[0] mode=smoke",
+    "sanity_omp_k1_vs_argmax_at_sigma0_delta": 0.0,
+    "sanity_omp_k1_vs_argmax_sigma0_ok": true,
+    "honest_scope": "HD-substrate-native OMP sparse-coding cleanup; N_DIM=512, M=200; 4 arms x 5 sigmas x 1 seeds; cleanup-only (no encoder)",
+    "cites": [
+      "notes/research_alternative_cleanup_mechanisms_post_att1_rejection_2026-06-23.md",
+      "Tropp_Gilbert_2007_OMP_under_RIP",
+      "Mallat_Zhang_1993_matching_pursuit",
+      "exp_att1_iterative_attractor_cleanup_v1 (HARD_FAIL predecessor)"
+    ]
+  },
+  "metrics_source": "measured_cpu_omp_sparse_coding_cleanup_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "k_steps": 0,
+          "recall_at_1_discriminator": 0.04,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.3,
+            "1.0": 0.04,
+            "1.5": 0.04,
+            "2.0": 0.04
+          },
+          "wall_s": 0.07
+        },
+        "OMP_K1": {
+          "k_steps": 1,
+          "recall_at_1_discriminator": 0.02,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.2,
+            "1.0": 0.0,
+            "1.5": 0.02,
+            "2.0": 0.04
+          },
+          "wall_s": 0.04
+        },
+        "OMP_K2": {
+          "k_steps": 2,
+          "recall_at_1_discriminator": 0.0,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.18,
+            "1.0": 0.06,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "wall_s": 0.16
+        },
+        "OMP_K4": {
+          "k_steps": 4,
+          "recall_at_1_discriminator": 0.0,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.12,
+            "1.0": 0.06,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "wall_s": 0.19
+        }
+      },
+      "N_DIM": 512,
+      "M": 200,
+      "N_EVAL": 50,
+      "run_mode": "smoke",
+      "config_version": "omp_sparse_coding_cleanup_v1; N_DIM=512 M=200 N_EVAL=50 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 0), ('OMP_K1', 1), ('OMP_K2', 2), ('OMP_K4', 4)] discriminator_sigma=1.50 seeds=[0] mode=smoke",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782196756.9187446
+    }
+  ],
+  "elapsed_s": 0.5086448192596436,
+  "summary": "DISCRIMINATOR HARD_FAIL: OMP sparse-coding does NOT unlock argmax cleanup; best_omp_lift <= -0.005 at sigma=1.50 (no benefit OR regression). Combined with att1 v1+v2 HARD_FAIL: cleanup-mechanism family REJECTED as a class for substrate regime. Pivot to encoder-side upstream (whitening / N=4096 lift). DISCRIMINATOR @ sigma=1.50: argmax=0.040 | best_omp=OMP_K1 recall=0.020 lift=-0.020 cv=0.000 conv=1.000 | sanity OMP_K1 vs argmax at sigma=0: delta=0.0000 (ok=True)",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native OMP cleanup; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

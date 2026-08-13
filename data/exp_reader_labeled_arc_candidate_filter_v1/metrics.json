@@ -1,0 +1,136 @@
+{
+  "anchor_name": "reader_labeled_arc_candidate_filter_v1",
+  "mode": "full",
+  "labeler_provenance": "trained",
+  "labeler_labels": [
+    "acl",
+    "advcl",
+    "advmod",
+    "amod",
+    "appos",
+    "aux",
+    "case",
+    "cc",
+    "ccomp",
+    "compound",
+    "conj",
+    "cop",
+    "csubj",
+    "dep",
+    "det",
+    "discourse",
+    "expl",
+    "fixed",
+    "flat",
+    "goeswith",
+    "iobj",
+    "list",
+    "mark",
+    "nmod",
+    "nsubj",
+    "nsubj:pass",
+    "nummod",
+    "obj",
+    "obl",
+    "obl:agent",
+    "parataxis",
+    "punct",
+    "reparandum",
+    "root",
+    "vocative",
+    "xcomp"
+  ],
+  "train_epochs": 6,
+  "A_label_accuracy_given_gold_arcs": {
+    "dev": 0.9455,
+    "dev_n": 24444,
+    "test": 0.9422,
+    "test_n": 24120
+  },
+  "B_LAS_on_predicted_arcs": {
+    "dev": {
+      "uas": 0.7868,
+      "las": 0.7601,
+      "label_acc_on_correctly_attached": 0.966,
+      "n_arcs": 24444
+    },
+    "test": {
+      "uas": 0.7907,
+      "las": 0.762,
+      "label_acc_on_correctly_attached": 0.9637,
+      "n_arcs": 24120
+    },
+    "uas_ref_persisted_parser": 0.7868
+  },
+  "C_payoff_mcguffey": {
+    "n_gold_pos_pairs": 100,
+    "n_sentences": 75,
+    "aggregate_recall": {
+      "unlabeled": 0.9,
+      "labeled_tight_obj_nsubjpass": 0.75,
+      "labeled_loose": 0.85
+    },
+    "candidate_precision": {
+      "unlabeled": {
+        "precision": 0.1053,
+        "n_candidate_pairs": 874,
+        "mean_candidates_per_sentence": 11.65,
+        "tp": 92
+      },
+      "labeled_tight_obj_nsubjpass": {
+        "precision": 0.2774,
+        "n_candidate_pairs": 274,
+        "mean_candidates_per_sentence": 3.65,
+        "tp": 76
+      },
+      "labeled_loose": {
+        "precision": 0.1614,
+        "n_candidate_pairs": 533,
+        "mean_candidates_per_sentence": 7.11,
+        "tp": 86
+      }
+    },
+    "per_construction": {
+      "coordination": {
+        "n_gold_pairs": 27,
+        "unlabeled_recall": 0.8148,
+        "labeled_tight_recall": 0.5185,
+        "labeled_loose_recall": 0.7407
+      },
+      "relative": {
+        "n_gold_pairs": 3,
+        "unlabeled_recall": 0.6667,
+        "labeled_tight_recall": 0.3333,
+        "labeled_loose_recall": 0.3333
+      },
+      "control_aspect": {
+        "n_gold_pairs": 12,
+        "unlabeled_recall": 1.0,
+        "labeled_tight_recall": 0.9167,
+        "labeled_loose_recall": 1.0
+      },
+      "pronoun_obj": {
+        "n_gold_pairs": 29,
+        "unlabeled_recall": 1.0,
+        "labeled_tight_recall": 0.931,
+        "labeled_loose_recall": 0.9655
+      },
+      "simple": {
+        "n_gold_pairs": 29,
+        "unlabeled_recall": 0.8621,
+        "labeled_tight_recall": 0.7586,
+        "labeled_loose_recall": 0.8276
+      }
+    },
+    "difficulty_on": {
+      "n_hard_construction_pairs": 71,
+      "n_total": 100,
+      "hard_fraction": 0.71
+    }
+  },
+  "unlabeled_precision_ref_CITED": 0.1053,
+  "verdict": "PASS",
+  "verdict_msg": "label_acc_gold=0.945 LAS_dev=0.7601 | payoff: unlab prec=0.105 rec=0.900 (11.7 cps) -> labeled(obj/nsubj:pass) prec=0.277 rec=0.750 (3.6 cps) | PASS",
+  "summary": "label_acc_gold=0.945 LAS_dev=0.7601 | payoff: unlab prec=0.105 rec=0.900 (11.7 cps) -> labeled(obj/nsubj:pass) prec=0.277 rec=0.750 (3.6 cps) | PASS",
+  "elapsed_s": 411.0
+}

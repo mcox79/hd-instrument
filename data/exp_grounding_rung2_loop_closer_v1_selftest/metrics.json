@@ -1,0 +1,31 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS loop-closer: (a) grounded geometry TRANSFERS to relational inference (beats ungrounded + LOW-stratum positive) on the planted degree-contaminated world; (b) ungrounded does not recover; (c) scrambled does not transfer; (d) collapse caught; arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 32.32746170007158,
+  "mechanism_selftest": {
+    "grounded_reach": 0.1675,
+    "ungrounded_reach": 0.0575,
+    "scrambled_reach": 0.025,
+    "pop_reach": 0.0075,
+    "grounded_reach_low": 0.1716,
+    "ungrounded_reach_low": 0.0296,
+    "transfer_margin": 0.11,
+    "scramble_lift": -0.0325,
+    "collapsed_var": 0.0,
+    "grounded_var": 0.2479,
+    "ST_CAPTURE_MIN": 0.05,
+    "ST_TRANSFER_MARGIN": 0.05,
+    "a_grounded_recovers": true,
+    "a_transfers": true,
+    "a_low_positive": true,
+    "c_scramble_no_transfer": true,
+    "a_beats_pop": true,
+    "d_collapse_caught": true,
+    "arms_differ": true,
+    "task_edges": 4023,
+    "noise_edges": 6005,
+    "n_queries": 400
+  }
+}

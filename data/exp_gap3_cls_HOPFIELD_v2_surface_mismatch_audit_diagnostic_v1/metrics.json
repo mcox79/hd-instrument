@@ -1,0 +1,19 @@
+{
+  "anchor_name": "gap3_cls_HOPFIELD_v2_surface_mismatch_audit_diagnostic_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm + shared-readout structure verified",
+  "summary": "SELFTEST_OK: per-arm + shared-readout structure verified",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-27T18:50:33Z",
+  "pid": 36516,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=gap3_cls_HOPFIELD_v2_surface_mismatch_audit_diagnostic_v1,N=256,N_CAT=10,N_TRAIN=10,N_HELDOUT=5,N_REPLAY=100,proto_noise=0.60,alpha=0.0391,seeds=[11],mode=smoke,HP_baseline=[0.50,0.80],HP_arms_diff>=0.05,HF_arms_diff<=0.02,HF_baseline_ceiling=0.95,expected_n=4,hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIRNESS=ALL_ARMS_READ_SAME_SURFACE_W_COSINE",
+  "_hardening_marker": "v1_hopfield_surface_audit",
+  "_phase": "selftest_done",
+  "selftest_arm_accs": {
+    "arm_baseline_hebbian_W": 0.52,
+    "arm_hebbian_slow_W": 0.52,
+    "arm_hopfield_replay_slow_W": 0.52,
+    "arm_hopfield_generative_replay_W": 0.52
+  }
+}

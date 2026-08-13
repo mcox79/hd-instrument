@@ -1,0 +1,10 @@
+{
+  "anchor_name": "hub_spoke_cross_encoder_alignment_smoke_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest passed all unit checks T1-T10",
+  "elapsed_s": 0.0,
+  "summary": "selftest OK",
+  "run_mode": "smoke",
+  "n_seeds": 0,
+  "_selftest_only": true
+}

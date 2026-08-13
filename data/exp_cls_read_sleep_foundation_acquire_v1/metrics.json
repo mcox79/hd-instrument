@@ -1,0 +1,105 @@
+{
+  "anchor_name": "cls_read_sleep_foundation_acquire_v1",
+  "run_mode": "full",
+  "config": {
+    "run_mode": "full",
+    "seed": 20260726,
+    "n_dim": 4096,
+    "n_dim_bundled": 512,
+    "n_ctrl": 300,
+    "n_held": 90,
+    "n_conflict": 20,
+    "k_probe": 8,
+    "replay_cycles": 3,
+    "replay_threshold": 2
+  },
+  "n_control": 300,
+  "n_held": 90,
+  "n_conflict": 20,
+  "arms_sharded_hdfactstore": {
+    "BASE_no_read": {
+      "held_acc": 0.0,
+      "control_acc": 1.0
+    },
+    "READ_NO_SLEEP": {
+      "held_acc_semantic": 0.0,
+      "held_acc_episodic": 1.0
+    },
+    "READ_SLEEP": {
+      "held_acc_ACQUISITION": 1.0,
+      "control_acc_RETENTION": 1.0,
+      "n_consolidated": 110,
+      "resolution_counts": {
+        "CLEAN_STORE": 90,
+        "DROP": 20
+      }
+    },
+    "SCRAMBLED_SLEEP": {
+      "held_acc": 0.0111,
+      "control_acc": 1.0
+    }
+  },
+  "acquisition_gap": 1.0,
+  "retention_drop": 0.0,
+  "retention_protection_frac": 1.0,
+  "trust_live_sentinel": {
+    "resolution": "REPLACE",
+    "high_trust_update_replaced": true
+  },
+  "extraction_genuine": {
+    "n_sentences": 270,
+    "n_extracted": 270,
+    "n_correct": 270,
+    "n_distractor_taken": 0,
+    "extraction_precision": 1.0,
+    "extraction_recall": 1.0,
+    "distractor_reject_rate": 1.0
+  },
+  "extraction_scrambled": {
+    "n_sentences": 270,
+    "n_extracted": 79,
+    "n_correct": 8,
+    "n_distractor_taken": 31,
+    "extraction_precision": 0.1013,
+    "extraction_recall": 0.0296,
+    "distractor_reject_rate": 0.6076
+  },
+  "flag_clarify_gate": {
+    "clarify_tau": 0.35,
+    "refuse_tau": 0.55,
+    "flag_semantics": "non-ACCEPT (REFUSE or CLARIFY)",
+    "flag_rate_on_scrambled_nonextract": 1.0,
+    "accept_rate_on_clean_extractions": 1.0,
+    "gate_fires_on_real_unknowns": true
+  },
+  "bundled_interference_diagnostic": {
+    "n_dim_bundled": 512,
+    "k_probe": 8,
+    "n_control": 300,
+    "n_held": 90,
+    "control_acc_BASE": 0.48,
+    "control_acc_AFTER_consolidate": 0.4467,
+    "held_acc_BASE": 0.1556,
+    "held_acc_AFTER_consolidate": 0.4889,
+    "base_rate_kway": 0.125
+  },
+  "arms_differ": true,
+  "arm_content_digests": {
+    "BASE": "6d696eea3147b56445f406cf38aab2ebedebb6cb19c751d25dec9fe10588f643",
+    "READ_SLEEP": "32acaae0fd255a5ed2f4f06740049333dae2fe6c1a4a5719f5cf3d640e7c0bf4",
+    "SCRAMBLED_SLEEP": "3a119eee0cfaeef46feaf7fd6d0e1d41f5a1892509631bab514d3178b7610136"
+  },
+  "baseline_in_band": true,
+  "bands": {
+    "A_acquisition_ok": true,
+    "B_controls_ok": true,
+    "C_retention_ok": true,
+    "D_protection_ok": true
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "acq=1.0 base=0.0 gap=1.0 | noSleep=0.0 scram=0.0111 | retain=1.0(drop 0.0) prot=1.0 | extract_prec=1.0 distractor_reject=1.0 scram_extract=79 | bundled_ctrl 0.48->0.4467",
+  "CONSTRUCTION_CAVEAT": "text templated from held-out triples; ACQUISITION is PLUMBING-VERIFICATION (closed generate->extract loop), not language understanding. Load-bearing can-fail = controls (no-read/no-sleep/scrambled ~0) + retention-protection (low-trust contradiction DROPPED) + extractor distractor/scramble rejection.",
+  "VET_PENDING": true,
+  "elapsed_s": 8.683,
+  "summary": "HARD_PASS"
+}

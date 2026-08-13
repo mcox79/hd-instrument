@@ -1,0 +1,163 @@
+{
+  "anchor_name": "pivot_rich_knowledge_full_reader_integration_v1",
+  "run_mode": "smoke",
+  "verdict": "PENDING_RICH_TABLE",
+  "verdict_msg": "RICH_TABLE_ABSENT (run --dump-pairs, generate rich_selectional_table.json, re-run --full) | disambig_thin=0.500 | disambig_random=0.333 | F1_thin=0.250@q0.30 | reader_raw_F1=0.250(fp=0.796) | |D|=6 | recall_ceiling=NA",
+  "summary": "RICH_TABLE_ABSENT (run --dump-pairs, generate rich_selectional_table.json, re-run --full) | disambig_thin=0.500 | disambig_random=0.333 | F1_thin=0.250@q0.30 | reader_raw_F1=0.250(fp=0.796) | |D|=6 | recall_ceiling=NA",
+  "elapsed_s": 16.956,
+  "ts_iso": "2026-07-23T11:37:18.054547+00:00",
+  "slice": [
+    "L04",
+    "L05"
+  ],
+  "n_sentences": 46,
+  "n_gold_sentences": 39,
+  "n_candidates": 54,
+  "n_verb_instances": 37,
+  "discriminating_set_size": 6,
+  "headline_operating_point_q": 0.3,
+  "disambig_thin": 0.5,
+  "disambig_rich": null,
+  "disambig_random": 0.3333333333333333,
+  "disambig_rich_scrambled": null,
+  "disambig_gap_rich_minus_thin": null,
+  "F1_thin": 0.25,
+  "F1_rich": null,
+  "F1_random": 0.1613,
+  "F1_rich_scrambled": null,
+  "F1_gap_rich_minus_thin": null,
+  "F1_sweep_thin": {
+    "0.00": {
+      "f1": 0.2254,
+      "precision": 0.2162,
+      "recall": 0.2353,
+      "fp_rate": 0.7838,
+      "n_pred": 37,
+      "thr": -0.09973
+    },
+    "0.30": {
+      "f1": 0.25,
+      "precision": 0.2667,
+      "recall": 0.2353,
+      "fp_rate": 0.7333,
+      "n_pred": 30,
+      "thr": 0.2084
+    },
+    "0.50": {
+      "f1": 0.2182,
+      "precision": 0.2857,
+      "recall": 0.1765,
+      "fp_rate": 0.7143,
+      "n_pred": 21,
+      "thr": 0.30711
+    },
+    "0.70": {
+      "f1": 0.0889,
+      "precision": 0.1818,
+      "recall": 0.0588,
+      "fp_rate": 0.8182,
+      "n_pred": 11,
+      "thr": 0.35187
+    },
+    "0.90": {
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "fp_rate": 1.0,
+      "n_pred": 3,
+      "thr": 0.71793
+    }
+  },
+  "F1_sweep_rich": null,
+  "F1_sweep_random": {
+    "0.00": {
+      "f1": 0.1972,
+      "precision": 0.1892,
+      "recall": 0.2059,
+      "fp_rate": 0.8108,
+      "n_pred": 37,
+      "thr": 0.00542
+    },
+    "0.30": {
+      "f1": 0.1613,
+      "precision": 0.1786,
+      "recall": 0.1471,
+      "fp_rate": 0.8214,
+      "n_pred": 28,
+      "thr": 0.28942
+    },
+    "0.50": {
+      "f1": 0.1455,
+      "precision": 0.1905,
+      "recall": 0.1176,
+      "fp_rate": 0.8095,
+      "n_pred": 21,
+      "thr": 0.4177
+    },
+    "0.70": {
+      "f1": 0.1667,
+      "precision": 0.2857,
+      "recall": 0.1176,
+      "fp_rate": 0.7143,
+      "n_pred": 14,
+      "thr": 0.69809
+    },
+    "0.90": {
+      "f1": 0.1,
+      "precision": 0.3333,
+      "recall": 0.0588,
+      "fp_rate": 0.6667,
+      "n_pred": 6,
+      "thr": 0.95523
+    }
+  },
+  "F1_sweep_rich_scrambled": null,
+  "reader_raw_reference": {
+    "f1": 0.25,
+    "precision": 0.2037,
+    "recall": 0.3235,
+    "fp_rate": 0.7963,
+    "n_pred": 54
+  },
+  "error_decomposition": null,
+  "rich_coverage_on_candidate_pairs": null,
+  "per_instance_pick_digests": {},
+  "arms_differ_verified": null,
+  "baseline_in_band": true,
+  "random_is_chance": true,
+  "discriminator_fires": true,
+  "thin_selectional_stats": {
+    "n_verb_centroids": 4,
+    "glove_terms": 274
+  },
+  "expected_q_points": 5,
+  "cardinality_ok": true,
+  "bands": {
+    "HP_F1_GAP": 0.08,
+    "HP_DISAMBIG_GAP": 0.1,
+    "HP_SCRAMBLE_MARGIN": 0.05,
+    "MAX_DISAMBIG_RANDOM": 0.6,
+    "HF_F1_GAP": 0.03
+  },
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference (build-time LLM only)",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "discrimination-accuracy + patient-F1; no quantitative HD noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "one_variable_note": "All arms share the SAME reader candidate set, split, keep mechanism, and scoring. ONLY the selectional table differs: THIN=GloVe selectional coherence (reader's real teacher), RICH=LLM-built plausibility (build-time), RANDOM/SCRAMBLED=controls.",
+  "leakage_guard": "Gold = independent LCCP argument-structure annotation (NOT LLM ratings). Rich table generated from a shuffled UNLABELED (verb,noun) candidate list; agent never sees which candidate is the gold patient. Rich must ERR (disambig_rich<1.0); RICH_SCRAMBLED must-fail control. HONEST SCOPE: LLM-self-built table (residual leakage-adjacent risk); independent-KB (VerbNet/ConceptNet) replication is the flagged rigor follow-up.",
+  "integrated_reader_ref": "exp_learned_argstruct_parser_lccp_independent_gold_v1 (HARD_PASS C P=0.500 F1=0.405 vs independent gold). Isolated wins: 29471 selectional-2AFC 0.475->0.814; 29472 PP-attach 0.700->0.822.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "disambig_thin",
+    "disambig_rich",
+    "disambig_random",
+    "disambig_rich_scrambled",
+    "F1_thin",
+    "F1_rich",
+    "F1_gap_rich_minus_thin",
+    "error_decomposition",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}

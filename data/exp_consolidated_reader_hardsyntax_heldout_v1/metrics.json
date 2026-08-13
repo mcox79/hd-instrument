@@ -1,0 +1,411 @@
+{
+  "verdict": "CHAIN_GRADE_HARDSYNTAX_EARNED",
+  "verdict_msg": "STRUCTURE GENERALIZES on HELD-OUT HARD SYNTAX: reader recovers 4/24 who-did-what items (acc=0.1667) vs naive 0/24 (acc=0.0); discriminator margin +4 (reader recovers ['opposed_agent', 'opposed_patient', 'revealed_agent', 'revealed_patient'] that ORDER misses). Validity: naive at/near floor on hard syntax. Glass-box OK on a hard-syntax LitBank sentence (replay/tamper/role-flip/bridge). N=24 across 11 novels (small-N held-out probe). per_type={\"passive_agent_by\": {\"n\": 9, \"reader\": 1, \"naive\": 0}, \"passive_patient_preverbal\": {\"n\": 13, \"reader\": 2, \"naive\": 0}, \"passive_agent_by_cleft\": {\"n\": 1, \"reader\": 1, \"naive\": 0}, \"passive_agent_by_distractor\": {\"n\": 1, \"reader\": 0, \"naive\": 0}}. CHAIN-GRADE CANDIDATE -- HYPOTHESIS pending skunkworks landed-VET; NOT banked.",
+  "summary": "CHAIN_GRADE_HARDSYNTAX_EARNED: hard-syntax held-out reader=4/24 (acc=0.1667) vs naive=0 (acc=0.0) margin=+4 validity_ok=True glass_box=True arm_d=True chain_grade=True | N=24 novels=11 | parser_uas=0.7882",
+  "elapsed_s": 47.54,
+  "ts_iso": "2026-07-23T23:48:58.038603+00:00",
+  "anchor_name": "consolidated_reader_hardsyntax_heldout_v1",
+  "run_mode": "full",
+  "seed": 20260723,
+  "n_gold": 24,
+  "n_novels": 11,
+  "n_passages": 13,
+  "naive_acc": 0.0,
+  "reader_acc": 0.1667,
+  "n_reader_correct": 4,
+  "n_naive_correct": 0,
+  "discriminator_margin": 4,
+  "validity_ok": true,
+  "recovered_by_reader_not_naive": [
+    "opposed_agent",
+    "opposed_patient",
+    "revealed_agent",
+    "revealed_patient"
+  ],
+  "lost_by_reader_vs_naive": [],
+  "per_type": {
+    "passive_agent_by": {
+      "n": 9,
+      "reader": 1,
+      "naive": 0
+    },
+    "passive_patient_preverbal": {
+      "n": 13,
+      "reader": 2,
+      "naive": 0
+    },
+    "passive_agent_by_cleft": {
+      "n": 1,
+      "reader": 1,
+      "naive": 0
+    },
+    "passive_agent_by_distractor": {
+      "n": 1,
+      "reader": 0,
+      "naive": 0
+    }
+  },
+  "per_item": [
+    {
+      "qid": "met_agent",
+      "pid": "met",
+      "kind": "agent",
+      "verb": "met",
+      "answer": "parson",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "met_patient",
+      "pid": "met",
+      "kind": "patient",
+      "verb": "met",
+      "answer": "he",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "evinced_patient",
+      "pid": "evinced",
+      "kind": "patient",
+      "verb": "evinced",
+      "answer": "ambition",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "evinced_agent",
+      "pid": "evinced",
+      "kind": "agent",
+      "verb": "evinced",
+      "answer": "impatience",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "supplied_patient",
+      "pid": "supplied",
+      "kind": "patient",
+      "verb": "supplied",
+      "answer": "place",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "supplied_agent",
+      "pid": "supplied",
+      "kind": "agent",
+      "verb": "supplied",
+      "answer": "woman",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "revealed_agent",
+      "pid": "revealed",
+      "kind": "agent",
+      "verb": "revealed",
+      "answer": "painter",
+      "htype": "passive_agent_by_cleft",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "revealed",
+        "painter",
+        "he"
+      ]
+    },
+    {
+      "qid": "revealed_patient",
+      "pid": "revealed",
+      "kind": "patient",
+      "verb": "revealed",
+      "answer": "he",
+      "htype": "passive_patient_preverbal",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "revealed",
+        "painter",
+        "he"
+      ]
+    },
+    {
+      "qid": "washed_patient",
+      "pid": "washed",
+      "kind": "patient",
+      "verb": "washed",
+      "answer": "mole",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "washed_agent",
+      "pid": "washed",
+      "kind": "agent",
+      "verb": "washed",
+      "answer": "waves",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "freed_agent",
+      "pid": "freed",
+      "kind": "agent",
+      "verb": "freed",
+      "answer": "death",
+      "htype": "passive_agent_by_distractor",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "freed_patient",
+      "pid": "freed",
+      "kind": "patient",
+      "verb": "freed",
+      "answer": "i",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "confined_agent",
+      "pid": "confined",
+      "kind": "agent",
+      "verb": "confined",
+      "answer": "gout",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "confined_patient",
+      "pid": "confined",
+      "kind": "patient",
+      "verb": "confined",
+      "answer": "he",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overtaken_agent",
+      "pid": "overtaken",
+      "kind": "agent",
+      "verb": "overtaken",
+      "answer": "judgment",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overtaken_patient",
+      "pid": "overtaken",
+      "kind": "patient",
+      "verb": "overtaken",
+      "answer": "i",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "injured_patient",
+      "pid": "injured",
+      "kind": "patient",
+      "verb": "injured",
+      "answer": "men",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "opposed_agent",
+      "pid": "opposed",
+      "kind": "agent",
+      "verb": "opposed",
+      "answer": "men",
+      "htype": "passive_agent_by",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "opposed",
+        "men",
+        "he"
+      ]
+    },
+    {
+      "qid": "opposed_patient",
+      "pid": "opposed",
+      "kind": "patient",
+      "verb": "opposed",
+      "answer": "he",
+      "htype": "passive_patient_preverbal",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "opposed",
+        "men",
+        "he"
+      ]
+    },
+    {
+      "qid": "assailed_agent",
+      "pid": "assailed",
+      "kind": "agent",
+      "verb": "assailed",
+      "answer": "questions",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "assailed_patient",
+      "pid": "assailed",
+      "kind": "patient",
+      "verb": "assailed",
+      "answer": "he",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "made_patient",
+      "pid": "made",
+      "kind": "patient",
+      "verb": "made",
+      "answer": "book",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overset_patient",
+      "pid": "overset",
+      "kind": "patient",
+      "verb": "overset",
+      "answer": "boat",
+      "htype": "passive_patient_preverbal",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overset_agent",
+      "pid": "overset",
+      "kind": "agent",
+      "verb": "overset",
+      "answer": "flurry",
+      "htype": "passive_agent_by",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    }
+  ],
+  "arm_c_glass_box": {
+    "replay_hash_stable": true,
+    "tamper_detected": true,
+    "causal_role_edit_flipped": true,
+    "bridge_head_edit_reroutes": true,
+    "glass_box_ok": true,
+    "audit_witness": {
+      "sid": "confined",
+      "sentence": "He called me one morning into his chamber, where he was confined by the gout, and expostulated very warmly with me upon this subject.",
+      "audit_hash": "ba8e08693a4460425f4474349884c8e73010374b7b1a390b3e27428af61da87a",
+      "replay_hash": "ba8e08693a4460425f4474349884c8e73010374b7b1a390b3e27428af61da87a",
+      "tamper_hash": "a721ec4f315445302621f590028b23d924aac7a75afa924f2d4a19b494808ced",
+      "emitted": [
+        [
+          "called",
+          "he",
+          "me"
+        ],
+        [
+          "expostulated",
+          "he",
+          "me"
+        ]
+      ]
+    },
+    "causal_witness": {
+      "sid": "evinced",
+      "sentence": "The ambition was evinced by a certain impatience of the duties of a mere copyist, an unwarrantable usurpation of strictly professional affairs, such as the original drawing up of legal documents",
+      "verb": "drawing",
+      "edited_step": "role assignment (AGENT<->PATIENT swap on one logged candidate pair)",
+      "before": [
+        "drawing",
+        "original",
+        "documents"
+      ],
+      "after": [
+        "drawing",
+        "documents",
+        "original"
+      ]
+    },
+    "bridge_witness": {
+      "sid": "confined",
+      "sentence": "He called me one morning into his chamber, where he was confined by the gout",
+      "candidate": "he",
+      "edited_step": "parse head-arc (re-pointed one candidate's head)",
+      "from_predicate": "called",
+      "to_predicate": "confined"
+    }
+  },
+  "arm_d_ok": true,
+  "htype_distribution": {
+    "passive_agent_by": 9,
+    "passive_patient_preverbal": 13,
+    "passive_agent_by_cleft": 1,
+    "passive_agent_by_distractor": 1
+  },
+  "chain_grade_hardsyntax_earned": true,
+  "bars": {
+    "ARM_A_reader_acc": 0.1667,
+    "ARM_B_discriminator_margin": 4,
+    "ARM_B_reader_beats_naive": true,
+    "ARM_C_glass_box_ok": true,
+    "ARM_D_non_ceiling_ok": true
+  },
+  "bands": {
+    "VALIDITY_MAX_NAIVE_ACC": 0.2,
+    "HARD_PASS_MARGIN": 3,
+    "ARMD_MIN_N": 8,
+    "ARMD_MIN_NOVELS": 3
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 44.0,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "one_variable": "ARM A composed reader (held-out general slot-rule config, byte-identical import of exp_consolidated_reader_chaingrade_FULL_v1) vs ARM B naive positional (structure vs order) on a NEW hard-syntax held-out gold where nearest-noun order FAILS by construction. ONE variable: reader-vs-naive on identical passages.",
+  "provenance_note": "Passages reconstructed verbatim from data/corpora/litbank_coref_conll/*.conll at runtime (self-test asserts token-subsequence provenance). Gold hand-authored for THIS cell after BLIND syntax-pattern mining; anti-circular (never saw the reader; no component tuned on LitBank).",
+  "scope_caveat": "Held-out hard-syntax who-did-what gold is SMALL (N=24 across 11 novels): a held-out GENERALIZATION probe, not a large-sample estimate. Passive-dominant (the reliably mineable hard-syntax type); object-relative/OSV were too noisy to gold conservatively. CHAIN-GRADE CANDIDATE, CLAIM-VET-pending; NOT banked."
+}

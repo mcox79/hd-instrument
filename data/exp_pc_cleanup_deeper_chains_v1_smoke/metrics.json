@@ -1,0 +1,137 @@
+{
+  "anchor_name": "pc_cleanup_deeper_chains_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: smoke PC-VAN@d10=+0.000 within +/-0.05. d5:VAN=1.000,PC=1.000,PC_FIN=1.000 d10:VAN=1.000,PC=1.000,PC_FIN=1.000  PC-VAN@d10=+0.000",
+  "summary": "n_seeds=1 N=256 V=320 M_CHAINS=4 depths=(5, 10) mode=smoke p_flip=0.3 sigma=0.5",
+  "elapsed_s": 0.14862322807312012,
+  "config_version": "ANCHOR=pc_cleanup_deeper_chains_v1,N=256,V=320,M_CHAINS=4,L_MAX=16,DEPTHS=(5, 10),SEEDS=7,N_QUERIES=4,PC_BETA=8.0,PC_BLEND=0.3,HOP_NOISE_P_FLIP=0.3,HOP_NOISE_SIGMA=0.5,RUN_MODE=smoke",
+  "N": 256,
+  "V": 320,
+  "M_CHAINS": 4,
+  "L_MAX": 16,
+  "depths_tested": [
+    5,
+    10
+  ],
+  "n_seeds": 1,
+  "n_queries": 4,
+  "pc_blend": 0.3,
+  "pc_beta": 8.0,
+  "hop_noise_p_flip": 0.3,
+  "hop_noise_sigma": 0.5,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.03261852264404297,
+      "arms": [
+        {
+          "arm_name": "ARM_VANILLA_CLEANUP_BASELINE_d5",
+          "depth": 5,
+          "recall": 1.0,
+          "fe_per_hop": [
+            1.7288436629040538,
+            2.5017216672966334,
+            1.2608445074877117,
+            2.0730779048114254,
+            1.6087890267552483
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 1.8346553538510144,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_AT_EACH_HOP_d5",
+          "depth": 5,
+          "recall": 1.0,
+          "fe_per_hop": [
+            1.7288436629040538,
+            2.5017216672966334,
+            1.2608445074877117,
+            2.0730779048114254,
+            1.6087890267552483
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 1.8346553538510144,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_FINAL_ONLY_d5",
+          "depth": 5,
+          "recall": 1.0,
+          "fe_per_hop": [
+            1.7288436629040538,
+            2.5017216672966334,
+            1.2608445074877117,
+            2.0730779048114254,
+            1.6087890267552483
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 1.8346553538510144,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_VANILLA_CLEANUP_BASELINE_d10",
+          "depth": 10,
+          "recall": 1.0,
+          "fe_per_hop": [
+            1.6133442867435641,
+            2.255493367270585,
+            1.2336463924281327,
+            1.7407092129065094,
+            1.6972183995576953,
+            1.6824296237846925,
+            2.0237636548771185,
+            1.8793833818190362,
+            2.188111086249119,
+            1.9578550094040996
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 1.8271954415040554,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_AT_EACH_HOP_d10",
+          "depth": 10,
+          "recall": 1.0,
+          "fe_per_hop": [
+            1.6133442867435641,
+            2.255493367270585,
+            1.2336463924281327,
+            1.7407092129065094,
+            1.6972183995576953,
+            1.6824296237846925,
+            2.0237636548771185,
+            1.8793833818190362,
+            2.188111086249119,
+            1.9578550094040996
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 1.8271954415040554,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_FINAL_ONLY_d10",
+          "depth": 10,
+          "recall": 1.0,
+          "fe_per_hop": [
+            1.6133442867435641,
+            2.255493367270585,
+            1.2336463924281327,
+            1.7407092129065094,
+            1.6972183995576953,
+            1.6824296237846925,
+            2.0237636548771185,
+            1.8793833818190362,
+            2.188111086249119,
+            1.9578550094040996
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 1.8271954415040554,
+          "n_queries": 4
+        }
+      ]
+    }
+  ]
+}

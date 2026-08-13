@@ -1,0 +1,783 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "headline_band",
+    "headline_plan_light",
+    "positive_control_ok",
+    "per_source_table",
+    "results",
+    "extraction",
+    "precision_spot_check"
+  ],
+  "anchor_name": "arc_derivation_rule_supply_science_extract_v1",
+  "bands_preregistered": {
+    "GREEN (unblocks Step 2)": "cov >= 0.35 AND typed_gap >= 0.15 AND typed_gap > untyped_gap",
+    "HONEST_GUARD": "coverage AND selectivity together; precision measured (spot-check sample); NOT tuned to force GREEN; ONE variable = rule table.",
+    "MIDDLE": "otherwise",
+    "PROMISCUOUS (extraction too noisy)": "cov > 0.5 AND (typed_gap < 0.05 OR typed_gap <= untyped_gap)",
+    "RED (extraction recall bottleneck -> broaden source)": "cov < 0.15"
+  },
+  "config": {
+    "arg_max_tok": 6,
+    "corpus": "data\\corpora\\arc\\ARC-V1-Feb2018-2\\ARC_Corpus.txt",
+    "depth": 3,
+    "filler_budget": 1500,
+    "keep_cap": 200000,
+    "licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ],
+    "max_lines": 1000000,
+    "n_sample": 12,
+    "one_variable": "rule_source (worldtree vs science_extract vs union); node-identity/gate/induction/Qs/depth/thresholds IDENTICAL to CSKG rule-supply gate",
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING",
+  "elapsed_s": 210.8,
+  "extraction": {
+    "induction": {
+      "filler_budget": 1500,
+      "n_all_labels": 35671,
+      "n_candidate_nodes": 35671,
+      "n_kept_frontier": 302,
+      "n_kept_nodes": 1500,
+      "n_kept_rows": 160,
+      "n_kept_seeds": 1198,
+      "n_seed_nodes": 19951
+    },
+    "n_induced_rows": 160,
+    "per_relation_induced": {
+      "CAUSE": 60,
+      "COUPLEDRELATIONSHIP": 3,
+      "IFTHEN": 34,
+      "REQUIRES": 54,
+      "USEDFOR": 9
+    },
+    "per_relation_raw_kept": {
+      "CAUSE": 6030,
+      "COUPLEDRELATIONSHIP": 160,
+      "IFTHEN": 7705,
+      "REQUIRES": 3045,
+      "SOURCEOF": 30,
+      "USEDFOR": 1544
+    },
+    "stats": {
+      "keep_cap_hit": false,
+      "n_kept_arc_filtered": 18514,
+      "n_lines_scanned": 1000001,
+      "n_prefilter_pass": 211901,
+      "n_raw_extracted": 71203,
+      "per_relation": {
+        "CAUSE": 6030,
+        "COUPLEDRELATIONSHIP": 160,
+        "IFTHEN": 7705,
+        "REQUIRES": 3045,
+        "SOURCEOF": 30,
+        "USEDFOR": 1544
+      },
+      "scan_s": 15.9
+    }
+  },
+  "headline_band": "MIDDLE_BAND",
+  "headline_plan_light": "MIDDLE",
+  "headline_source": "worldtree_science",
+  "notes": "ONE-VARIABLE ablation: rule SOURCE only (science extraction from ARC_Corpus.txt). Node-identity (NegAwareEncoder + head-gate + polarity merge-gate), gate (build_graph_gated + meet_connected), induction (induce_subgraph), Qs, depth, thresholds ALL imported UNCHANGED from the CSKG rule-supply cell. STRAIGHT report; NOT tuned. plan_light maps rs bands to the plan's GREEN/PROMISCUOUS/RED/MIDDLE.",
+  "parent_ref": {
+    "cleannodes_cell": "arc_derivation_connectivity_gate_cleannodes_v2 (99736f579)",
+    "cskg_cell": "arc_derivation_rule_supply_cskg_v1 (SETTLED wrong supply)",
+    "outcome_lineage": "COVERAGE_BOUND_CONFIRMED -> CSKG wrong supply -> science-precise extraction (this cell)",
+    "worldtree_clean_typed_cov_on_disk": 0.06
+  },
+  "per_source_table": [
+    {
+      "band": "MIDDLE_BAND",
+      "cov": 0.1667,
+      "gap_beats_untyped": true,
+      "max_deg": 83,
+      "n_nodes": 2359,
+      "n_rules": 1868,
+      "plan_light": "MIDDLE",
+      "source": "worldtree",
+      "typed_gap": 0.0524,
+      "untyped_cov": 0.5,
+      "untyped_gap": -0.1286
+    },
+    {
+      "band": "STILL_STARVED",
+      "cov": 0.0,
+      "gap_beats_untyped": true,
+      "max_deg": 11,
+      "n_nodes": 228,
+      "n_rules": 160,
+      "plan_light": "RED",
+      "source": "science_extract",
+      "typed_gap": -0.0286,
+      "untyped_cov": 0.4167,
+      "untyped_gap": -0.069
+    },
+    {
+      "band": "MIDDLE_BAND",
+      "cov": 0.1667,
+      "gap_beats_untyped": true,
+      "max_deg": 83,
+      "n_nodes": 2514,
+      "n_rules": 2028,
+      "plan_light": "MIDDLE",
+      "source": "worldtree_science",
+      "typed_gap": 0.0524,
+      "untyped_cov": 0.5833,
+      "untyped_gap": -0.131
+    }
+  ],
+  "pid": 36356,
+  "positive_control_ok": false,
+  "positive_control_worldtree_cov": 0.1667,
+  "precision_spot_check": {
+    "proxy": {
+      "n_sampled": 66,
+      "n_wellformed_proxy": 66,
+      "note": "wellformed_proxy is a cheap AUTOMATIC lower-bar (args have content words, differ); it is NOT true precision -- true precision = the agent's read of source_sentence.",
+      "wellformed_proxy_frac": 1.0
+    },
+    "sample": [
+      {
+        "arg0": "action of wind water",
+        "arg1": "erosion",
+        "relation": "CAUSE",
+        "source_sentence": "most erosion is caused by the action of wind, water, or ice. water causes the most erosion.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "aerobic respiration",
+        "arg1": "energy",
+        "relation": "CAUSE",
+        "source_sentence": "aerobic respiration results in more energy",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "air resistance",
+        "arg1": "energy",
+        "relation": "CAUSE",
+        "source_sentence": "some air resistance causes energy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "cancer",
+        "arg1": "agents found in the tap water",
+        "relation": "CAUSE",
+        "source_sentence": "the cancer causing agents found in the tap water of many areas in the u.s. add up over the course of a dog's life.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "changes in the length",
+        "arg1": "fall",
+        "relation": "CAUSE",
+        "source_sentence": "but in the fall , because of changes in the length of daylight and changes in temperature , the leaves stop their food - making process .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "chemical into their digestive system",
+        "arg1": "die",
+        "relation": "CAUSE",
+        "source_sentence": "the insect pierces into the leaf and takes up the chemical into their digestive system causing it to die.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "chemical reaction",
+        "arg1": "production",
+        "relation": "CAUSE",
+        "source_sentence": "some chemical reaction results in production.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "friction",
+        "arg1": "heat",
+        "relation": "CAUSE",
+        "source_sentence": "most friction causes heat.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "heat",
+        "arg1": "pressure",
+        "relation": "CAUSE",
+        "source_sentence": "some pressure is caused by heat.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "heat energy",
+        "arg1": "motion",
+        "relation": "CAUSE",
+        "source_sentence": "most heat energy causes motion.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "light",
+        "arg1": "heat",
+        "relation": "CAUSE",
+        "source_sentence": "most light produces heat.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "material or object",
+        "arg1": "magnetic field",
+        "relation": "CAUSE",
+        "source_sentence": "a magnet (from greek \u03bc\u03b1\u03b3\u03bd\u03ae\u03c4\u03b9\u03c2 \u03bb\u03af\u03b8\u03bf\u03c2 magn\u1e17tis l\u00edthos, \" magnesian stone\") is a material or object that produces a magnetic field .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "mutation",
+        "arg1": "cell death",
+        "relation": "CAUSE",
+        "source_sentence": "some mutation causes cell death.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "natural selection",
+        "arg1": "evolutionary change",
+        "relation": "CAUSE",
+        "source_sentence": "***natural selection causes evolutionary change",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "resistance",
+        "arg1": "electrical energy",
+        "relation": "CAUSE",
+        "source_sentence": "resistance causes some of the electrical energy to turn into heat so some electrical energy is lost along the way.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "survival",
+        "arg1": "lower pressure",
+        "relation": "CAUSE",
+        "source_sentence": "most survival results in lower pressure.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "temperature",
+        "arg1": "damage",
+        "relation": "CAUSE",
+        "source_sentence": "most temperature causes damage.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "temperature",
+        "arg1": "health problems",
+        "relation": "CAUSE",
+        "source_sentence": "most temperature causes health problems.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "air",
+        "arg1": "temperature",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "as the air rises, the temperature drops (following the lapse rate ), causing the relative humidity (rh) to rise.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "cells",
+        "arg1": "size",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "as cells increased in size, the increasing volume of cell cytoplasm outpaced the ability of the cell surface (membrane) to be an effective \u201cworkbench\u201d for servicing the metabolic needs of the whole cell.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "temperature",
+        "arg1": "kinetic energy",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "qualitatively, the higher the temperature, the higher the kinetic energy is of the free neutron.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "alive",
+        "arg1": "grow",
+        "relation": "IFTHEN",
+        "source_sentence": "no art of man could improve the appearance of many groups of crystals, and even if these are not alive, they grow.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "area",
+        "arg1": "make",
+        "relation": "IFTHEN",
+        "source_sentence": "this can be very exciting if you are in that area then make the most of it.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "assume",
+        "arg1": "only make an ass",
+        "relation": "IFTHEN",
+        "source_sentence": "[it may be easy to assume that your proposed situation will come to pass, but to quote your round 3, \"we know that if you assume, you only make an as_s out of u and me.\"",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "cup of hot water",
+        "arg1": "within minutes",
+        "relation": "IFTHEN",
+        "source_sentence": "dr. christopher - \"in 35 years of practice, and working with the people and teaching, i have never on house calls lost one heart attack patient and the reason is, whenever i go in--if they are still breathing--i pour dow",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "determine",
+        "arg1": "determine in one way",
+        "relation": "IFTHEN",
+        "source_sentence": "we must either determine or remain unde- cided ; and if we determine, we must determine in one way or in another.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "do water the plant",
+        "arg1": "use a lot of water",
+        "relation": "IFTHEN",
+        "source_sentence": "when you do water the plant, use a lot of water and let it soak deep into the soil.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "done",
+        "arg1": "used in many",
+        "relation": "IFTHEN",
+        "source_sentence": "when this is done , it can be used in many recipes of mediterranean cooking .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "heat",
+        "arg1": "light sound and chemical changes",
+        "relation": "IFTHEN",
+        "source_sentence": "transfer of energy: electrical circuits provide a means of transferring electrical energy when heat, light, sound, and chemical changes are produced.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "ice melts",
+        "arg1": "light water from the ice",
+        "relation": "IFTHEN",
+        "source_sentence": "when ice melts, that light water from the ice sheets is returned to the ocean and makes it lighter.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "increase the temperature of the substance",
+        "arg1": "increase",
+        "relation": "IFTHEN",
+        "source_sentence": "if someone increase the temperature of the substance, they will be an increase in the kinetic energy of its molecules - that is increase in its internal energy .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "lightning strikes",
+        "arg1": "energy is let",
+        "relation": "IFTHEN",
+        "source_sentence": "when lightning strikes , energy is let out .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "object does",
+        "arg1": "living thing",
+        "relation": "IFTHEN",
+        "source_sentence": "if an object does all of these then it is a living thing.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "occur",
+        "arg1": "amount of matter",
+        "relation": "IFTHEN",
+        "source_sentence": "one thing to remember about both types of changes is that when they occur, the amount of matter and the number of atoms you started out with will always stay the same.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "occurs",
+        "arg1": "need to make sure",
+        "relation": "IFTHEN",
+        "source_sentence": "if this occurs, you will need to make sure the tongue remains moist and does not dry out while it heals and that your pet remains warm.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "possible",
+        "arg1": "pet store",
+        "relation": "IFTHEN",
+        "source_sentence": "find your leopard gecko at a certified breeder if possible, or at a pet store with healthy, well-cared for animals.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "produced",
+        "arg1": "decompose organic matter",
+        "relation": "IFTHEN",
+        "source_sentence": "the strands support the fruiting body of the fungus when it is produced, and they decompose organic matter in the lawn.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "read",
+        "arg1": "found",
+        "relation": "IFTHEN",
+        "source_sentence": "isolated studies on the perception of let- ters, partial investigations of the movements of the eye in read- ing, etc., have furnished material, and especially, suggestions, valuable for the general study; but neither a ",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "temperature increases",
+        "arg1": "amplitude of atomic vibrations increase",
+        "relation": "IFTHEN",
+        "source_sentence": "when temperature increases, the amplitude of atomic vibrations increase, leading to larger interatomic spacing.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "action does",
+        "arg1": "think about",
+        "relation": "REQUIRES",
+        "source_sentence": "which action does not require you to think about it in order to make it happen?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "animals",
+        "arg1": "water",
+        "relation": "REQUIRES",
+        "source_sentence": "most animals need water.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "area",
+        "arg1": "dark brown or gray",
+        "relation": "REQUIRES",
+        "source_sentence": "for my area, i need dark brown or gray.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "birds",
+        "arg1": "water",
+        "relation": "REQUIRES",
+        "source_sentence": "most birds require water.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "body",
+        "arg1": "water each day than",
+        "relation": "REQUIRES",
+        "source_sentence": "the body needs more water each day than",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "byproduct of photosynthesis",
+        "arg1": "sun",
+        "relation": "REQUIRES",
+        "source_sentence": "plants add to this water vapor through transpiration, a byproduct of photosynthesis, which also depends on the sun.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "case",
+        "arg1": "change the ac filter",
+        "relation": "REQUIRES",
+        "source_sentence": "if this is the case you may need to change the ac filter, it should be changed once a year anyway.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "chemical substance that an organism",
+        "arg1": "sustain life",
+        "relation": "REQUIRES",
+        "source_sentence": "chemical substance that an organism needs to sustain life",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "compounds",
+        "arg1": "reaction",
+        "relation": "REQUIRES",
+        "source_sentence": "some compounds require reaction.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "hands",
+        "arg1": "use",
+        "relation": "REQUIRES",
+        "source_sentence": "some hands require use.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "let through",
+        "arg1": "energy",
+        "relation": "REQUIRES",
+        "source_sentence": "the most recent thinking is that maxwell\u2019s demon does not violate the 2nd law of thermodynamics because it has to measure the velocity of all the molecules before deciding which to let through and this requires energy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "much sun light",
+        "arg1": "how big",
+        "relation": "REQUIRES",
+        "source_sentence": "im new with this type of flower and i will like to know if that will be to much sun light or it will need more then that, how big it will grow.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "plants",
+        "arg1": "air water space to grow",
+        "relation": "REQUIRES",
+        "source_sentence": "plants need air, water, space to grow, and energy from the sun to make sugars.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "process",
+        "arg1": "no energy atp",
+        "relation": "REQUIRES",
+        "source_sentence": "this process requires no energy (atp)",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "temperature",
+        "arg1": "outside temperature",
+        "relation": "REQUIRES",
+        "source_sentence": "most temperature depends on outside temperature.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "using up the oxygen",
+        "arg1": "survive",
+        "relation": "REQUIRES",
+        "source_sentence": "dirt from erosion, also called sediment, covers up fish habitats and fertilizers can cause too much algae to grow, which also hurts wildlife by using up the oxygen they need to survive.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "water",
+        "arg1": "energy",
+        "relation": "REQUIRES",
+        "source_sentence": "most water requires energy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "what do plants",
+        "arg1": "stay alive",
+        "relation": "REQUIRES",
+        "source_sentence": "what do plants need to stay alive?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "atp",
+        "arg1": "energy is produced",
+        "relation": "USEDFOR",
+        "source_sentence": "most of the atp used for energy is produced in the __.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "compounds found in the pigments",
+        "arg1": "photosynthesis",
+        "relation": "USEDFOR",
+        "source_sentence": "\u2726 they are considered as the group from which the higher plants evolved on the basis of certain characteristics, and the compounds found in the pigments used for photosynthesis.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "data",
+        "arg1": "determine the average tree shape",
+        "relation": "USEDFOR",
+        "source_sentence": "the data used to determine the average tree shape is derived from a tabulation of the largest trees of each of 192 different species in the nts 2009 dataset.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "energy",
+        "arg1": "split water molecules into hydrogen",
+        "relation": "USEDFOR",
+        "source_sentence": "it is this energy that is used to split water molecules into hydrogen and oxygen .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "mass no matter how much energy",
+        "arg1": "increase the speed of an object",
+        "relation": "USEDFOR",
+        "source_sentence": "another consequence is that for objects that have mass , no matter how much energy is used to increase the speed of an object , it will get closer and closer but it will never reach the speed of light .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "organic matter",
+        "arg1": "make energy",
+        "relation": "USEDFOR",
+        "source_sentence": "dead plants, rotting food, wood chips, sawdust, leftover crops, nut shells, and paper products are all examples of biomass, which are natural materials or organic matter that can be used to make energy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "plastics",
+        "arg1": "make lasers",
+        "relation": "USEDFOR",
+        "source_sentence": "plastics used to make lasers",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "snow white",
+        "arg1": "hate",
+        "relation": "USEDFOR",
+        "source_sentence": "snow white : i used to hate her.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "term",
+        "arg1": "describe a physical or chemical change",
+        "relation": "USEDFOR",
+        "source_sentence": "the term used to describe a physical or chemical change in which energy is absorbed",
+        "wellformed_proxy": true
+      }
+    ]
+  },
+  "results": {
+    "science_extract": {
+      "band": "STILL_STARVED",
+      "example_chains": [],
+      "graph": {
+        "max_degree_node_label": "energy",
+        "max_typed_node_degree": 11,
+        "n_fillers": 253,
+        "n_head_blocked": 25,
+        "n_merges": 31,
+        "n_nodes": 228,
+        "n_null_edges": 1597,
+        "n_pol_blocked": 1,
+        "n_typed_edges": 157
+      },
+      "n_licensed_rows": 160,
+      "plan_light": "RED",
+      "source": "science_extract",
+      "typed_correct_coverage": 0.0,
+      "typed_full": {
+        "correct_coverage": 0.0,
+        "mean_wrong_coverage": 0.02857142857142857,
+        "n_correct_connected": 0,
+        "n_questions": 12,
+        "n_wrong_connected": 1,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.02857142857142857
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.0286,
+      "typed_selectivity_gap": -0.0286,
+      "untyped_correct_coverage": 0.4167,
+      "untyped_mean_wrong_coverage": 0.4857,
+      "untyped_null_full": {
+        "correct_coverage": 0.4166666666666667,
+        "mean_wrong_coverage": 0.4857142857142857,
+        "n_correct_connected": 5,
+        "n_questions": 12,
+        "n_wrong_connected": 17,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.06904761904761902
+      },
+      "untyped_selectivity_gap": -0.069
+    },
+    "worldtree": {
+      "band": "MIDDLE_BAND",
+      "example_chains": [
+        {
+          "chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+          "correct_choice": "increase",
+          "qid": "NYSEDREGENTS_2012_8_42",
+          "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+        },
+        {
+          "chain": "[plant] --SOURCEOF--> [photosynthesis]",
+          "correct_choice": "Only plant cells can perform photosynthesis.",
+          "qid": "Mercury_SC_409383",
+          "stem": "How are plant cells different from animal cells?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "something",
+        "max_typed_node_degree": 83,
+        "n_fillers": 3189,
+        "n_head_blocked": 4351,
+        "n_merges": 3728,
+        "n_nodes": 2359,
+        "n_null_edges": 191545,
+        "n_pol_blocked": 760,
+        "n_typed_edges": 1735
+      },
+      "n_licensed_rows": 1868,
+      "plan_light": "MIDDLE",
+      "source": "worldtree",
+      "typed_correct_coverage": 0.1667,
+      "typed_full": {
+        "correct_coverage": 0.16666666666666666,
+        "mean_wrong_coverage": 0.11428571428571428,
+        "n_correct_connected": 2,
+        "n_questions": 12,
+        "n_wrong_connected": 4,
+        "n_wrong_total": 35,
+        "selectivity_gap": 0.052380952380952375
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.1143,
+      "typed_selectivity_gap": 0.0524,
+      "untyped_correct_coverage": 0.5,
+      "untyped_mean_wrong_coverage": 0.6286,
+      "untyped_null_full": {
+        "correct_coverage": 0.5,
+        "mean_wrong_coverage": 0.6285714285714286,
+        "n_correct_connected": 6,
+        "n_questions": 12,
+        "n_wrong_connected": 22,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.12857142857142856
+      },
+      "untyped_selectivity_gap": -0.1286
+    },
+    "worldtree_science": {
+      "band": "MIDDLE_BAND",
+      "example_chains": [
+        {
+          "chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+          "correct_choice": "increase",
+          "qid": "NYSEDREGENTS_2012_8_42",
+          "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+        },
+        {
+          "chain": "[plant] --SOURCEOF--> [photosynthesis]",
+          "correct_choice": "Only plant cells can perform photosynthesis.",
+          "qid": "Mercury_SC_409383",
+          "stem": "How are plant cells different from animal cells?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "something",
+        "max_typed_node_degree": 83,
+        "n_fillers": 3410,
+        "n_head_blocked": 4527,
+        "n_merges": 3900,
+        "n_nodes": 2514,
+        "n_null_edges": 210449,
+        "n_pol_blocked": 782,
+        "n_typed_edges": 1888
+      },
+      "n_licensed_rows": 2028,
+      "plan_light": "MIDDLE",
+      "source": "worldtree_science",
+      "typed_correct_coverage": 0.1667,
+      "typed_full": {
+        "correct_coverage": 0.16666666666666666,
+        "mean_wrong_coverage": 0.11428571428571428,
+        "n_correct_connected": 2,
+        "n_questions": 12,
+        "n_wrong_connected": 4,
+        "n_wrong_total": 35,
+        "selectivity_gap": 0.052380952380952375
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.1143,
+      "typed_selectivity_gap": 0.0524,
+      "untyped_correct_coverage": 0.5833,
+      "untyped_mean_wrong_coverage": 0.7143,
+      "untyped_null_full": {
+        "correct_coverage": 0.5833333333333334,
+        "mean_wrong_coverage": 0.7142857142857143,
+        "n_correct_connected": 7,
+        "n_questions": 12,
+        "n_wrong_connected": 25,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.13095238095238093
+      },
+      "untyped_selectivity_gap": -0.131
+    }
+  },
+  "run_mode": "smoke",
+  "summary": "SCIENCE-EXTRACT rule-supply | headline=MIDDLE(MIDDLE_BAND,worldtree_science) | worldtree cov=0.1667 (control_ok=False) -> science cov=0.0 gap=-0.0286 vs untyped -0.069 | n_extracted_kept=18514 n_induced=160 | wellformed_proxy=1.0",
+  "ts_iso": "2026-07-25T13:33:58.349377+00:00",
+  "verdict": "GATE_MEASURED",
+  "verdict_msg": "MIDDLE (plan): partial coverage with modest selectivity -> no clean GREEN; report straight. Extraction moves the needle but does not clear the GREEN bar.",
+  "worldtree_per_relation": {
+    "CAUSE": 380,
+    "COUPLEDRELATIONSHIP": 251,
+    "IFTHEN": 507,
+    "REQUIRES": 215,
+    "SOURCEOF": 178,
+    "USEDFOR": 337
+  }
+}

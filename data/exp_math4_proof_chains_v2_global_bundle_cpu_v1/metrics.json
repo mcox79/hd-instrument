@@ -1,0 +1,162 @@
+{
+  "anchor_name": "math4_proof_chains_v2_global_bundle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: STORAGE-STRATEGY drives chain-composition survival. (I) SHARDED L=6 NPROP=200 = 1.000 (matched-filter robust); (II) SHARDED-BUNDLED storage gap = 1.000 at L=6 NPROP=200; (III) BUNDLED_L1 - BUNDLED_L=6 chain-degradation = 0.500 at NPROP=200 (single-hop bundle nonzero; multi-hop bundle collapses). matrix={\"BUNDLED\": {\"50\": {\"2\": 0.2333, \"6\": 0.2667}, \"200\": {\"2\": 0.2333, \"6\": 0.0}}, \"BUNDLED_L1\": {\"50\": {\"2\": 0.4333, \"6\": 0.5333}, \"200\": {\"2\": 0.5, \"6\": 0.3333}}, \"SHARDED\": {\"50\": {\"2\": 1.0, \"6\": 1.0}, \"200\": {\"2\": 1.0, \"6\": 1.0}}}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seed": 7,
+  "device": "cpu",
+  "N": 8192,
+  "L_grid": [
+    2,
+    6
+  ],
+  "NPROP_grid": [
+    50,
+    200
+  ],
+  "TR": 30,
+  "arms": [
+    "SHARDED",
+    "BUNDLED",
+    "BUNDLED_L1"
+  ],
+  "expected_n_units": 12,
+  "n_units_observed": 12,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "meta_arm_hashes_by_nprop": {
+    "50": {
+      "sharded_hash": "b22a16bf31500c4b",
+      "bundle_hash": "15fff67d7c2f5847"
+    },
+    "200": {
+      "sharded_hash": "3403152e1b09c6d7",
+      "bundle_hash": "09341f8084d74078"
+    }
+  },
+  "criteria": {
+    "sharded_at_L_max_NPROP_max": 1.0,
+    "L_max": 6,
+    "NPROP_max": 200,
+    "max_storage_gap_at_L_max": 1.0,
+    "max_storage_gap_at_NPROP": 200,
+    "max_chain_degradation_gap": 0.5,
+    "max_chain_degradation_gap_at_NPROP": 200,
+    "crit_I_sharded_matched_filter_robust": true,
+    "crit_II_storage_strategy_gap": true,
+    "crit_III_chain_degradation_signature": true
+  },
+  "per_unit": [
+    {
+      "L": 2,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 2,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 2,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.2333,
+      "TR": 30,
+      "L_eff": 2,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 2,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.4333,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 6,
+      "NPROP": 50,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 6,
+      "elapsed_s": 0.01
+    },
+    {
+      "L": 6,
+      "NPROP": 50,
+      "arm": "BUNDLED",
+      "acc": 0.2667,
+      "TR": 30,
+      "L_eff": 6,
+      "elapsed_s": 0.007
+    },
+    {
+      "L": 6,
+      "NPROP": 50,
+      "arm": "BUNDLED_L1",
+      "acc": 0.5333,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 2,
+      "NPROP": 200,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 2,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 2,
+      "NPROP": 200,
+      "arm": "BUNDLED",
+      "acc": 0.2333,
+      "TR": 30,
+      "L_eff": 2,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 2,
+      "NPROP": 200,
+      "arm": "BUNDLED_L1",
+      "acc": 0.5,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.002
+    },
+    {
+      "L": 6,
+      "NPROP": 200,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 6,
+      "elapsed_s": 0.013
+    },
+    {
+      "L": 6,
+      "NPROP": 200,
+      "arm": "BUNDLED",
+      "acc": 0.0,
+      "TR": 30,
+      "L_eff": 6,
+      "elapsed_s": 0.014
+    },
+    {
+      "L": 6,
+      "NPROP": 200,
+      "arm": "BUNDLED_L1",
+      "acc": 0.3333,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.003
+    }
+  ],
+  "elapsed_s": 0.1204833984375,
+  "summary": "HARD_PASS: STORAGE-STRATEGY drives chain-composition survival. (I) SHARDED L=6 NPROP=200 = 1.000 (matched-filter robust); (II) SHARDED-BUNDLED storage gap = 1.000 at L=6 NPROP=200; (III) BUNDLED_L1 - BUNDLED_L=6 chain-degradation = 0.500 at NPROP=200 (single-hop bundle nonzero; multi-hop bundle collapses). matrix={\"BUNDLED\": {\"50\": {\"2\": 0.2333, \"6\": 0.2667}, \"200\": {\"2\": 0.2333, \"6\": 0.0}}, \"BUNDLED_L1\": {\"50\": {\"2\": 0.4333, \"6\": 0.5333}, \"200\": {\"2\": 0.5, \"6\": 0.3333}}, \"SHARDED\": {\"50\": {\"2\": 1.0, \"6\": 1.0}, \"200\": {\"2\": 1.0, \"6\": 1.0}}}"
+}

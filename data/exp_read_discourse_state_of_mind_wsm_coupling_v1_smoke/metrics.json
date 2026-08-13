@@ -1,0 +1,2692 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | COUPLING delta=1.000 (WITH=1.000 vs WITHOUT=0.000, n=15) | CONTROL WITH=1.000 WITHOUT=1.000 (n=6) | GUARDRAIL wrong_guess_rate=0.000 (n=9) | tier0_fastpath_rate=0.800 (tier0=8 tier1=2) | n_shift=5 transitions={'SHIFT_FOUNDATION': 34, 'CONTINUE': 8, 'SMOOTH_SHIFT': 3, 'NONE_NO_REALIZATION': 9, 'NOVEL_ENTITY_SHIFT': 5} | weakest=['none (coupling delta strong, control preserved, guardrail clean)']",
+  "summary": "HARD_PASS | COUPLING delta=1.000 (WITH=1.000 vs WITHOUT=0.000, n=15) | CONTROL WITH=1.000 WITHOUT=1.000 (n=6) | GUARDRAIL wrong_guess_rate=0.000 (n=9) | tier0_fastpath_rate=0.800 (tier0=8 tier1=2) | n_shift=5 transitions={'SHIFT_FOUNDATION': 34, 'CONTINUE': 8, 'SMOOTH_SHIFT': 3, 'NONE_NO_REALIZATION",
+  "run_mode": "smoke",
+  "elapsed_s": 0.002406600000540493,
+  "anchor_name": "read_discourse_state_of_mind_wsm_coupling_v1",
+  "ts_iso": "2026-07-17T12:27:17.596160+00:00",
+  "expected_n_units": 118,
+  "n_docs": 32,
+  "weakest_interface": [
+    "none (coupling delta strong, control preserved, guardrail clean)"
+  ],
+  "metric_coupling_delta": 1.0,
+  "metric_dependent_resolvable_acc_with": 1.0,
+  "metric_dependent_resolvable_acc_without": 0.0,
+  "metric_dependent_resolvable_coverage_with": 1.0,
+  "metric_dependent_resolvable_precision_with": 1.0,
+  "metric_control_acc_with": 1.0,
+  "metric_control_acc_without": 1.0,
+  "metric_guardrail_wrong_rate_with": 0.0,
+  "metric_guardrail_wrong_rate_without": 0.0,
+  "metric_tier0_fastpath_rate": 0.8,
+  "metric_tier0_bound": 8,
+  "metric_tier1_bound": 2,
+  "metric_n_shift_total": 5,
+  "metric_transition_histogram": {
+    "SHIFT_FOUNDATION": 34,
+    "CONTINUE": 8,
+    "SMOOTH_SHIFT": 3,
+    "NONE_NO_REALIZATION": 9,
+    "NOVEL_ENTITY_SHIFT": 5
+  },
+  "arms": {
+    "WITH_STATE": {
+      "state_on": true,
+      "dependent_resolvable_acc": 1.0,
+      "dependent_resolvable_coverage": 1.0,
+      "dependent_resolvable_precision": 1.0,
+      "n_dependent_resolvable": 15,
+      "guardrail_wrong_rate": 0.0,
+      "n_guardrail_rows": 9,
+      "control_acc": 1.0,
+      "control_coverage": 1.0,
+      "n_control": 6,
+      "coref_dependent": {
+        "n": 10,
+        "acc": 1.0,
+        "coverage": 1.0,
+        "precision": 1.0
+      },
+      "coref_guardrail": {
+        "n": 6,
+        "acc": 1.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "coref_unresolvable": {
+        "n": 1,
+        "acc": 1.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "coref_schema_resolvable": {
+        "n": 2,
+        "acc": 0.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "ellipsis_dependent": {
+        "n": 5,
+        "acc": 1.0,
+        "coverage": 1.0,
+        "precision": 1.0
+      },
+      "ellipsis_guardrail": {
+        "n": 2,
+        "acc": 1.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "n_shift_total": 5,
+      "transition_histogram": {
+        "SHIFT_FOUNDATION": 34,
+        "CONTINUE": 8,
+        "SMOOTH_SHIFT": 3,
+        "NONE_NO_REALIZATION": 9,
+        "NOVEL_ENTITY_SHIFT": 5
+      },
+      "tier0_fastpath_rate": 0.8,
+      "tier0_bound": 8,
+      "tier1_bound": 2,
+      "arm_hash": "b03e8854a86bac181b3a56b4cf0cd47340eadf5462403191decb4f52c31a51cc"
+    },
+    "WITHOUT_STATE": {
+      "state_on": false,
+      "dependent_resolvable_acc": 0.0,
+      "dependent_resolvable_coverage": 0.0,
+      "dependent_resolvable_precision": 0.0,
+      "n_dependent_resolvable": 15,
+      "guardrail_wrong_rate": 0.0,
+      "n_guardrail_rows": 9,
+      "control_acc": 1.0,
+      "control_coverage": 1.0,
+      "n_control": 6,
+      "coref_dependent": {
+        "n": 10,
+        "acc": 0.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "coref_guardrail": {
+        "n": 6,
+        "acc": 1.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "coref_unresolvable": {
+        "n": 1,
+        "acc": 1.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "coref_schema_resolvable": {
+        "n": 2,
+        "acc": 0.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "ellipsis_dependent": {
+        "n": 5,
+        "acc": 0.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "ellipsis_guardrail": {
+        "n": 2,
+        "acc": 1.0,
+        "coverage": 0.0,
+        "precision": 0.0
+      },
+      "n_shift_total": 0,
+      "transition_histogram": {},
+      "tier0_fastpath_rate": 0.0,
+      "tier0_bound": 0,
+      "tier1_bound": 0,
+      "arm_hash": "a3e22db856e0dffb51668d00e430249e38c148500406553ca99cc278ec92e027"
+    }
+  },
+  "records_with_state": [
+    {
+      "sidx": 0,
+      "text": "The bird eats seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the cat.",
+      "role": "coref",
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The frog eats worms.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "frog",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in the pond.",
+      "role": "coref",
+      "emitted": [
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow eats seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in a field.",
+      "role": "coref",
+      "emitted": [
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dogs chase a cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats the seed.",
+      "role": "coref",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "BOUND",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The birds chase a cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in the barn.",
+      "role": "coref",
+      "emitted": [
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "resolution": "BOUND",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owl eats worms.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "owl",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the mouse.",
+      "role": "coref",
+      "emitted": [
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The birds eat a seed.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They chase the cat.",
+      "role": "coref",
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dogs chase a cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They eat bread.",
+      "role": "coref",
+      "emitted": [
+        [
+          "dog",
+          "eats",
+          "bread"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "eats",
+          "bread"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cats eat a worm.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They chase the mouse.",
+      "role": "coref",
+      "emitted": [
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dogs chase cats.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The cat eats seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 2,
+      "text": "It chases the frog.",
+      "role": "coref",
+      "emitted": [
+        [
+          "cat",
+          "chases",
+          "frog"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "chases",
+          "frog"
+        ]
+      ],
+      "resolution": "BOUND_TIER0",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The bird eats a seed.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats the worm.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "GENUINE_TIE",
+      "correct": false,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow eats grass.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the dog.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cow",
+          "chases",
+          "dog"
+        ]
+      ],
+      "resolution": "GENUINE_TIE",
+      "correct": false,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cat and the dog eat grass.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the bird.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "GENUINE_TIE",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dog chases the cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats a seed.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "GENUINE_TIE",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cat chases the bird.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "chases",
+          "bird"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "chases",
+          "bird"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats a worm.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "GENUINE_TIE",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The frog chases the mouse.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "frog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats a seed.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "GENUINE_TIE",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The birds and the cats chase a fish.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "fish"
+        ],
+        [
+          "cat",
+          "chases",
+          "fish"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "fish"
+        ],
+        [
+          "cat",
+          "chases",
+          "fish"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They eat grass.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "GENUINE_TIE",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cows and the frogs eat seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They chase the cat.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "GENUINE_TIE",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The frogs eat seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unresolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in the pond.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "NO_AGREEMENT_CANDIDATE",
+      "correct": true,
+      "group": "coref",
+      "kind": "unresolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The bird eats a seed.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The frog does too.",
+      "role": "target",
+      "emitted": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "BOUND_ELLIPSIS_TIER2",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow chases the cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The dog does as well.",
+      "role": "target",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "BOUND_ELLIPSIS_TIER2",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owl lives in the barn.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "owl",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The frog does the same.",
+      "role": "target",
+      "emitted": [
+        [
+          "frog",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "resolution": "BOUND_ELLIPSIS_TIER2",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The mouse eats the worm.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "mouse",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "mouse",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The bird does too.",
+      "role": "target",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "BOUND_ELLIPSIS_TIER2",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The kitten chases the fish.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "kitten",
+          "chases",
+          "fish"
+        ]
+      ],
+      "gold": [
+        [
+          "kitten",
+          "chases",
+          "fish"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The dog does too.",
+      "role": "target",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "fish"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "fish"
+        ]
+      ],
+      "resolution": "BOUND_ELLIPSIS_TIER2",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owl sleeps in the tree.",
+      "role": "ctx",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The frog does too.",
+      "role": "target",
+      "emitted": [],
+      "gold": [],
+      "resolution": "ELLIPSIS_NO_ANTECEDENT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The mouse runs in the field.",
+      "role": "ctx",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The cat does as well.",
+      "role": "target",
+      "emitted": [],
+      "gold": [],
+      "resolution": "ELLIPSIS_NO_ANTECEDENT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow eats grass.",
+      "role": "target",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dog chases the mouse.",
+      "role": "target",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The fish lives in the pond.",
+      "role": "target",
+      "emitted": [
+        [
+          "fish",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "gold": [
+        [
+          "fish",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owls chase the frogs.",
+      "role": "target",
+      "emitted": [
+        [
+          "owl",
+          "chases",
+          "frog"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "chases",
+          "frog"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The kitten eats bread.",
+      "role": "target",
+      "emitted": [
+        [
+          "kitten",
+          "eats",
+          "bread"
+        ]
+      ],
+      "gold": [
+        [
+          "kitten",
+          "eats",
+          "bread"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The bird lives in the nest.",
+      "role": "target",
+      "emitted": [
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    }
+  ],
+  "records_without_state": [
+    {
+      "sidx": 0,
+      "text": "The bird eats seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the cat.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The frog eats worms.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "frog",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in the pond.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow eats seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in a field.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dogs chase a cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats the seed.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The birds chase a cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in the barn.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owl eats worms.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "owl",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the mouse.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "owl",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The birds eat a seed.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They chase the cat.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dogs chase a cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They eat bread.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "dog",
+          "eats",
+          "bread"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cats eat a worm.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They chase the mouse.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cat",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dogs chase cats.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The cat eats seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 2,
+      "text": "It chases the frog.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cat",
+          "chases",
+          "frog"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The bird eats a seed.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats the worm.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow eats grass.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the dog.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [
+        [
+          "cow",
+          "chases",
+          "dog"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "coref",
+      "kind": "schema_resolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cat and the dog eat grass.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It chases the bird.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dog chases the cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats a seed.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cat chases the bird.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cat",
+          "chases",
+          "bird"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "chases",
+          "bird"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats a worm.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The frog chases the mouse.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "frog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It eats a seed.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The birds and the cats chase a fish.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "chases",
+          "fish"
+        ],
+        [
+          "cat",
+          "chases",
+          "fish"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "chases",
+          "fish"
+        ],
+        [
+          "cat",
+          "chases",
+          "fish"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They eat grass.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cows and the frogs eat seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "They chase the cat.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "ambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The frogs eat seeds.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "coref",
+      "kind": "unresolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "It lives in the pond.",
+      "role": "coref",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "coref",
+      "kind": "unresolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The bird eats a seed.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The frog does too.",
+      "role": "target",
+      "emitted": [],
+      "gold": [
+        [
+          "frog",
+          "eats",
+          "seed"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow chases the cat.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "cow",
+          "chases",
+          "cat"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The dog does as well.",
+      "role": "target",
+      "emitted": [],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "cat"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owl lives in the barn.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "owl",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The frog does the same.",
+      "role": "target",
+      "emitted": [],
+      "gold": [
+        [
+          "frog",
+          "lives_in",
+          "barn"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The mouse eats the worm.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "mouse",
+          "eats",
+          "worm"
+        ]
+      ],
+      "gold": [
+        [
+          "mouse",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The bird does too.",
+      "role": "target",
+      "emitted": [],
+      "gold": [
+        [
+          "bird",
+          "eats",
+          "worm"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The kitten chases the fish.",
+      "role": "ctx",
+      "emitted": [
+        [
+          "kitten",
+          "chases",
+          "fish"
+        ]
+      ],
+      "gold": [
+        [
+          "kitten",
+          "chases",
+          "fish"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The dog does too.",
+      "role": "target",
+      "emitted": [],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "fish"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": false,
+      "group": "ellipsis",
+      "kind": "unambiguous",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owl sleeps in the tree.",
+      "role": "ctx",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The frog does too.",
+      "role": "target",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The mouse runs in the field.",
+      "role": "ctx",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": false
+    },
+    {
+      "sidx": 1,
+      "text": "The cat does as well.",
+      "role": "target",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "correct": true,
+      "group": "ellipsis",
+      "kind": "unresolvable",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The cow eats grass.",
+      "role": "target",
+      "emitted": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "cow",
+          "eats",
+          "grass"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The dog chases the mouse.",
+      "role": "target",
+      "emitted": [
+        [
+          "dog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "gold": [
+        [
+          "dog",
+          "chases",
+          "mouse"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The fish lives in the pond.",
+      "role": "target",
+      "emitted": [
+        [
+          "fish",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "gold": [
+        [
+          "fish",
+          "lives_in",
+          "pond"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The owls chase the frogs.",
+      "role": "target",
+      "emitted": [
+        [
+          "owl",
+          "chases",
+          "frog"
+        ]
+      ],
+      "gold": [
+        [
+          "owl",
+          "chases",
+          "frog"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The kitten eats bread.",
+      "role": "target",
+      "emitted": [
+        [
+          "kitten",
+          "eats",
+          "bread"
+        ]
+      ],
+      "gold": [
+        [
+          "kitten",
+          "eats",
+          "bread"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    },
+    {
+      "sidx": 0,
+      "text": "The bird lives in the nest.",
+      "role": "target",
+      "emitted": [
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "gold": [
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "correct": true,
+      "group": "control",
+      "kind": "control",
+      "is_target": true
+    }
+  ],
+  "prereg": {
+    "hard_pass": "coupling_delta>=0.60 & WITH.dep_acc>=0.80 & WITH.control_acc>=0.95 & WITH.control_acc>=(WITHOUT.control_acc-0.02) & WITH.guardrail_wrong_rate<0.20 & tier0_fastpath_rate>0 & n_shift_total>=1",
+    "hard_fail": "coupling_delta<0.40 | WITH.control_acc<(WITHOUT.control_acc-0.05) | WITH.guardrail_wrong_rate>=0.30",
+    "middle": "otherwise (partial lift or imperfect guardrail -- report dominant class)",
+    "novel_synthesis_P": 0.45,
+    "prediction_1_tier0_P_cited": 0.4,
+    "scope": "Tier0 Cb pointer + Tier1 Cf list (reused) + REDUCED Tier2 single active-event slot; Tier3 consolidation NOT built (discontinuity signal reported, not committed to long-term store); 5-dim Zwaan situation model REDUCED to 1 event slot (this SVO register has no distinct time/space/intentionality axis); dialogue/grounding wrapper (Prediction 4) out of scope",
+    "compute_architecture": "sequential-CPU, fully symbolic, NO RNG/VSA/torch (parse-level diagnostic, compute-proportionality: a fit/capacity question this is not)",
+    "storage_strategy": "no_storage",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": "N/A_no_rng",
+    "real_code_path_exercised": [
+      "ie_extract",
+      "resolve_coref",
+      "_mentions_from_triples",
+      "_find_subject_pronoun",
+      "resolve_pronoun_wsm",
+      "resolve_ellipsis",
+      "update_wsm",
+      "analyze_wsm"
+    ],
+    "crlb_n/a": "no quantitative noise floor; fully symbolic discrete role-assignment, no phasor noise"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SMOKE: cohort_n=16 unf_n=6 construction_fire_rate=0.000 recovery(real/scr)=(0.0/0.0) arms_differ=False",
+  "summary": "HARD_FAIL: SMOKE: cohort_n=16 unf_n=6 construction_fire_rate=0.000 recovery(real/scr)=(0.0/0.0) arms_differ=False",
+  "elapsed_s": 30.656,
+  "run_mode": "smoke",
+  "anchor_name": "desiderative_negation_channel_v1",
+  "n_sample": 80,
+  "cohort_n": 16,
+  "gold_unfulfilled_n": 6,
+  "construction_fire_rate": 0.0,
+  "recovery_real": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 6
+  },
+  "recovery_pairscramble": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 6
+  },
+  "arms_differ_real_vs_pairscramble": false,
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "crlb_n/a": "glass-box lexical/regex/WordNet pipeline, no swept capacity regime"
+}

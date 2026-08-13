@@ -1,0 +1,513 @@
+{
+  "anchor": "interactive_loop_real_gold_mcguffey_v1",
+  "mode": "full",
+  "verdict": "HARD_PASS_INTERACTIVE_RESOLVES_QUOTATIVE_AND_BYAGENT_FLOOR_MARGINAL_POSITION_BASELINE_NOT_LEAK",
+  "verdict_msg": "HARD_PASS_INTERACTIVE_RESOLVES_QUOTATIVE_AND_BYAGENT_FLOOR_MARGINAL_POSITION_BASELINE_NOT_LEAK | OFF quot=0.211 byagent=0.000 | ON quot=0.895 byagent=1.000 | PLACEBO quot=0.368 byagent=0.000 | NO_TD byagent=0.400 | floor_held=False/True | tagger_gold_nominal=0.938",
+  "summary": {
+    "off_quot_hard": 0.21052631578947367,
+    "off_pass_hard": 0.0,
+    "on_quot_hard": 0.8947368421052632,
+    "on_pass_hard": 1.0,
+    "placebo_quot_hard": 0.3684210526315789,
+    "placebo_pass_hard": 1.0,
+    "no_td_quot_hard": 0.42105263157894735,
+    "no_td_pass_hard": 1.0,
+    "on_quot_easy": 1.0,
+    "on_pass_easy": 1.0,
+    "off_quot_easy": 0.0,
+    "off_pass_easy": 0.0,
+    "off_byagent_hard": 0.0,
+    "on_byagent_hard": 1.0,
+    "placebo_byagent_hard": 0.0,
+    "no_td_byagent_hard": 0.4,
+    "byagent_floor_held": true,
+    "byagent_placebo_ok": true,
+    "byagent_pass": true,
+    "n_byagent_hard": 5,
+    "floor_held": false,
+    "placebo_ok_quot": true,
+    "placebo_ok_pass": true,
+    "placebo_collapses": true,
+    "not_a_leak": true,
+    "gold_filler_nominal_rate": 0.9375,
+    "n_quot_hard": 19,
+    "n_pass_hard": 6
+  },
+  "bands": {
+    "FLOOR_QUOT_MAX": 0.15,
+    "FLOOR_PASS_MAX": 0.15,
+    "PASS_QUOT_MIN": 0.6,
+    "PASS_PASS_MIN": 0.55,
+    "PASS_QUOT_MARGIN": 0.4,
+    "PASS_PASS_MARGIN": 0.35
+  },
+  "per_arm": {
+    "OFF": {
+      "quot_hard_acc": 0.21052631578947367,
+      "quot_hard_n": 19,
+      "quot_easy_acc": 0.0,
+      "quot_easy_n": 1,
+      "pass_hard_acc": 0.0,
+      "pass_hard_n": 6,
+      "pass_easy_acc": 0.0,
+      "pass_easy_n": 1,
+      "byagent_hard_acc": 0.0,
+      "byagent_hard_n": 5,
+      "byagent_easy_acc": null,
+      "byagent_easy_n": 0
+    },
+    "ON": {
+      "quot_hard_acc": 0.8947368421052632,
+      "quot_hard_n": 19,
+      "quot_easy_acc": 1.0,
+      "quot_easy_n": 1,
+      "pass_hard_acc": 1.0,
+      "pass_hard_n": 6,
+      "pass_easy_acc": 1.0,
+      "pass_easy_n": 1,
+      "byagent_hard_acc": 1.0,
+      "byagent_hard_n": 5,
+      "byagent_easy_acc": null,
+      "byagent_easy_n": 0
+    },
+    "PLACEBO": {
+      "quot_hard_acc": 0.3684210526315789,
+      "quot_hard_n": 19,
+      "quot_easy_acc": 0.0,
+      "quot_easy_n": 1,
+      "pass_hard_acc": 1.0,
+      "pass_hard_n": 6,
+      "pass_easy_acc": 1.0,
+      "pass_easy_n": 1,
+      "byagent_hard_acc": 0.0,
+      "byagent_hard_n": 5,
+      "byagent_easy_acc": null,
+      "byagent_easy_n": 0
+    },
+    "NO_TD": {
+      "quot_hard_acc": 0.42105263157894735,
+      "quot_hard_n": 19,
+      "quot_easy_acc": 0.0,
+      "quot_easy_n": 1,
+      "pass_hard_acc": 1.0,
+      "pass_hard_n": 6,
+      "pass_easy_acc": 1.0,
+      "pass_easy_n": 1,
+      "byagent_hard_acc": 0.4,
+      "byagent_hard_n": 5,
+      "byagent_easy_acc": null,
+      "byagent_easy_n": 0
+    }
+  },
+  "tagger_diagnostic": {
+    "gold_filler_nominal_rate": 0.9375,
+    "n_gold": 32,
+    "n_missed": 2,
+    "misses": [
+      {
+        "text": "now, how awkward you are!\" said the little fellow.",
+        "gold_token": "fellow",
+        "tagged": "ADJ"
+      },
+      {
+        "text": "\"What shall we do?\" said Fanny to John.",
+        "gold_token": "Fanny",
+        "tagged": "ADJ"
+      }
+    ]
+  },
+  "glass_box_dump": [
+    {
+      "kind": "quotative",
+      "text": "\"Kate, will you play with me?\" said James.",
+      "gold_agent_tok": "James",
+      "first_mention_tok": "Kate",
+      "parser_correct": false,
+      "mentions": [
+        "Kate",
+        "you",
+        "me",
+        "James"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"Willie!\" said mamma.",
+      "gold_agent_tok": "mamma",
+      "first_mention_tok": "Willie",
+      "parser_correct": false,
+      "mentions": [
+        "Willie",
+        "mamma"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"O mamma!\" he cried, joyfully, \"do come quick, and see these little white birds flying down from heaven.\" \"They are not birds, Johnny,\" said mamma, smiling.",
+      "gold_agent_tok": "he",
+      "first_mention_tok": "mamma",
+      "parser_correct": true,
+      "mentions": [
+        "mamma",
+        "he",
+        "birds",
+        "heaven",
+        "They",
+        "birds",
+        "Johnny",
+        "mamma"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"Will you give my kite a lift?\" said my little nephew to his sister, after trying in vain to make it fly by dragging it along the ground.",
+      "gold_agent_tok": "nephew",
+      "first_mention_tok": "you",
+      "parser_correct": false,
+      "mentions": [
+        "you",
+        "my",
+        "kite",
+        "lift",
+        "my",
+        "nephew",
+        "his",
+        "sister",
+        "it",
+        "it",
+        "ground"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"Not now James\" said Kate; \"for I must make my doll's bed.",
+      "gold_agent_tok": "Kate",
+      "first_mention_tok": "James",
+      "parser_correct": false,
+      "mentions": [
+        "James",
+        "Kate",
+        "I",
+        "my",
+        "doll",
+        "bed"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"I'm afraid,\" said Willie.",
+      "gold_agent_tok": "Willie",
+      "first_mention_tok": "I",
+      "parser_correct": false,
+      "mentions": [
+        "I",
+        "Willie"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "now, how awkward you are!\" said the little fellow.",
+      "gold_agent_tok": "fellow",
+      "first_mention_tok": "you",
+      "parser_correct": false,
+      "mentions": [
+        "you",
+        "fellow"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"What shall we do?\" said Fanny to John.",
+      "gold_agent_tok": "Fanny",
+      "first_mention_tok": "What",
+      "parser_correct": false,
+      "mentions": [
+        "What",
+        "we",
+        "Fanny",
+        "John"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"What is the dark?\" asked mamma.",
+      "gold_agent_tok": "mamma",
+      "first_mention_tok": "What",
+      "parser_correct": false,
+      "mentions": [
+        "What",
+        "mamma"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"O pussy!\" cried Herbert, in a voice of anger and dismay, as the blockhouse he was building fell in sudden ruin.",
+      "gold_agent_tok": "Herbert",
+      "first_mention_tok": "Herbert",
+      "parser_correct": false,
+      "mentions": [
+        "Herbert",
+        "voice",
+        "anger",
+        "dismay",
+        "blockhouse",
+        "he",
+        "building",
+        "ruin"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"Well, who is to blame now?\" asked Lucy.",
+      "gold_agent_tok": "Lucy",
+      "first_mention_tok": "who",
+      "parser_correct": false,
+      "mentions": [
+        "who",
+        "Lucy"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"No\" said John; \"I like to play on the grass.",
+      "gold_agent_tok": "John",
+      "first_mention_tok": "John",
+      "parser_correct": false,
+      "mentions": [
+        "John",
+        "I",
+        "grass"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"It is mine,\" said John, \"for I was the first to see it.\"",
+      "gold_agent_tok": "John",
+      "first_mention_tok": "It",
+      "parser_correct": false,
+      "mentions": [
+        "It",
+        "mine",
+        "John",
+        "I",
+        "it"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"No, I am trying to write,\" said little Joe, \"but I know only two words.",
+      "gold_agent_tok": "Joe",
+      "first_mention_tok": "I",
+      "parser_correct": false,
+      "mentions": [
+        "I",
+        "Joe",
+        "I",
+        "words"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"Try again,\" said I.",
+      "gold_agent_tok": "I",
+      "first_mention_tok": "I",
+      "parser_correct": false,
+      "mentions": [
+        "I"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"That will be fine,\" said Fanny.",
+      "gold_agent_tok": "Fanny",
+      "first_mention_tok": "That",
+      "parser_correct": false,
+      "mentions": [
+        "That",
+        "Fanny"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"No, it is mine\" said James, \"for I was the first to pick it up.\"",
+      "gold_agent_tok": "James",
+      "first_mention_tok": "it",
+      "parser_correct": false,
+      "mentions": [
+        "it",
+        "mine",
+        "James",
+        "I",
+        "it"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"There, there!\" exclaimed John, \"that comes of your throwing it all to one side.\" \"As if I could make the wind blow straight,\" said Lucy.",
+      "gold_agent_tok": "John",
+      "first_mention_tok": "There",
+      "parser_correct": false,
+      "mentions": [
+        "There",
+        "John",
+        "that",
+        "your",
+        "it",
+        "side",
+        "I",
+        "wind",
+        "blow",
+        "Lucy"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"Yes,\" said John, \"and we will get mamma to go, too.",
+      "gold_agent_tok": "John",
+      "first_mention_tok": "John",
+      "parser_correct": false,
+      "mentions": [
+        "John",
+        "we",
+        "mamma"
+      ]
+    },
+    {
+      "kind": "quotative",
+      "text": "\"This half of the shell,\" said he, \"belongs to the boy who first saw the nut.",
+      "gold_agent_tok": "he",
+      "first_mention_tok": "half",
+      "parser_correct": false,
+      "mentions": [
+        "half",
+        "shell",
+        "he",
+        "boy",
+        "who",
+        "nut"
+      ]
+    },
+    {
+      "kind": "passive",
+      "text": "He is called Dodger because he jumps about so friskily.",
+      "gold_patient_tok": "He",
+      "subject_tok": "He",
+      "parser_correct": false
+    },
+    {
+      "kind": "passive",
+      "text": "Beavers build themselves most curious huts to live in, and quite frequently a great number of these huts are placed close together, like the buildings in a town.",
+      "gold_patient_tok": "huts",
+      "subject_tok": "Beavers",
+      "parser_correct": true
+    },
+    {
+      "kind": "passive",
+      "text": "We are but minutes; use us well, For how we are used we must one day tell.",
+      "gold_patient_tok": "We",
+      "subject_tok": "We",
+      "parser_correct": false
+    },
+    {
+      "kind": "passive",
+      "text": "Because he can drive off all other birds, he is called the KINGBIRD.",
+      "gold_patient_tok": "he",
+      "subject_tok": "he",
+      "parser_correct": false
+    },
+    {
+      "kind": "passive",
+      "text": "Truth's bands shall be mustered, love's foes shall give way!",
+      "gold_patient_tok": "bands",
+      "subject_tok": "Truth",
+      "parser_correct": false
+    },
+    {
+      "kind": "passive",
+      "text": "This story is arranged from one in a collection named \"Peter Drake's Dream, and Other Stories.\" She died in 1888.",
+      "gold_patient_tok": "story",
+      "subject_tok": "story",
+      "parser_correct": false
+    },
+    {
+      "kind": "passive",
+      "text": "Bees live in a house that is called a hive.",
+      "gold_patient_tok": "house",
+      "subject_tok": "house",
+      "parser_correct": false
+    },
+    {
+      "kind": "passive_byagent",
+      "text": "But the music was made by the shepherd, and the sparkle was all in his eyes.",
+      "gold_agent_byphrase_tok": "shepherd",
+      "surface_subj_tok": "music",
+      "mentions": [
+        "music",
+        "shepherd",
+        "sparkle",
+        "his",
+        "eyes"
+      ]
+    },
+    {
+      "kind": "passive_byagent",
+      "text": "He was snapped up by puss, who took him for a mouse, and immediately prepared to eat him.",
+      "gold_agent_byphrase_tok": "puss",
+      "surface_subj_tok": "He",
+      "mentions": [
+        "He",
+        "puss",
+        "who",
+        "him",
+        "mouse",
+        "him"
+      ]
+    },
+    {
+      "kind": "passive_byagent",
+      "text": "But he was much frightened when the rowdy was struck on the head by a brick, and badly hurt.",
+      "gold_agent_byphrase_tok": "brick",
+      "surface_subj_tok": "he",
+      "mentions": [
+        "he",
+        "rowdy",
+        "head",
+        "brick"
+      ]
+    },
+    {
+      "kind": "passive_byagent",
+      "text": "He was far from home, known by no one.",
+      "gold_agent_byphrase_tok": "one",
+      "surface_subj_tok": "He",
+      "mentions": [
+        "He",
+        "home",
+        "one"
+      ]
+    },
+    {
+      "kind": "passive_byagent",
+      "text": "Fred was wakened by the alarm and the red light streaming into his room.",
+      "gold_agent_byphrase_tok": "alarm",
+      "surface_subj_tok": "Fred",
+      "mentions": [
+        "Fred",
+        "alarm",
+        "light",
+        "his",
+        "room"
+      ]
+    }
+  ],
+  "config": {
+    "L2_LAMBDA": 0.5,
+    "LR": 0.5,
+    "N_ITERS": 800,
+    "n_quot": 20,
+    "n_pass": 7,
+    "n_byagent": 5
+  },
+  "elapsed_s": 5.264517999952659,
+  "ts_iso": "2026-08-02T03:04:40Z"
+}

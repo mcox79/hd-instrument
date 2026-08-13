@@ -1,0 +1,73 @@
+{
+  "anchor_name": "pivot_selectional_knowledge_richness_2afc_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_KNOWLEDGE_POVERTY_WAS_THE_WALL",
+  "verdict_msg": "VERDICT_core acc_rich=0.814 vs acc_thin=0.475 (gap=+0.339) | acc_thin=0.475 | acc_random=0.491 | thin_cov=1.000 | n_items=59 | n_mine=4151 | acc_rich_scrambled=0.466 | cov_curve={'0.00': 0.4746, '0.25': 0.4831, '0.50': 0.5678, '0.75': 0.7203, '1.00': 0.8136} | rich_cov_on_items=1.000",
+  "summary": "VERDICT_core acc_rich=0.814 vs acc_thin=0.475 (gap=+0.339) | acc_thin=0.475 | acc_random=0.491 | thin_cov=1.000 | n_items=59 | n_mine=4151 | acc_rich_scrambled=0.466 | cov_curve={'0.00': 0.4746, '0.25': 0.4831, '0.50': 0.5678, '0.75': 0.7203, '1.00': 0.8136} | rich_cov_on_items=1.000",
+  "elapsed_s": 399.37338199996157,
+  "ts_iso": "2026-07-23T10:42:24.940125+00:00",
+  "n_items": 59,
+  "n_mining_sentences": 4151,
+  "acc_thin": 0.4746,
+  "acc_random": 0.4915,
+  "acc_rich": 0.8136,
+  "acc_rich_scrambled": 0.4661,
+  "gap_rich_minus_thin": 0.339,
+  "coverage_curve": {
+    "0.00": 0.4746,
+    "0.25": 0.4831,
+    "0.50": 0.5678,
+    "0.75": 0.7203,
+    "1.00": 0.8136
+  },
+  "expected_cov_points": 5,
+  "cardinality_ok": true,
+  "thin_coverage_on_gold_patients": 1.0,
+  "rich_coverage_on_item_pairs": 1.0,
+  "strat_acc_thin": {
+    "cross_class": 0.0,
+    "same_class": 0.5
+  },
+  "strat_acc_rich": {
+    "cross_class": 1.0,
+    "same_class": 0.8036
+  },
+  "strat_n": {
+    "cross_class": 3,
+    "same_class": 56
+  },
+  "per_item_score_digests": {
+    "thin": "c04f965e21f63de0",
+    "random": "39c05051bbe534a8",
+    "rich": "5df85d80df03d57b",
+    "rich_scrambled": "40f651136e9b5755"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "random_is_chance": true,
+  "discriminator_fires": true,
+  "thin_gfit_model_stats": {
+    "n_object_classes": 26,
+    "n_verbs_with_own_assoc": 182,
+    "global_typ_mean": 0.3124
+  },
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference (build-time LLM only)",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "2AFC discrimination-accuracy; no quantitative noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "one_variable_note": "All arms share the SAME item set, split, and 2AFC mechanism. ONLY the score table differs: THIN=99k-corpus WordNet-supersense gfit (prior mechanism), RICH=LLM-built plausibility (build-time), RANDOM/SCRAMBLED=controls.",
+  "leakage_guard": "Gold = independent who-did-what annotation (NOT LLM ratings). Rich table generated from a shuffled UNLABELED (verb,noun) list; agent never sees gold-vs-distractor pairing. Negatives sampled mechanically (fixed RNG), preferring same-supersense class (hard regime). LLM rates PLAUSIBILITY, not gold labels.",
+  "mapped_ceiling_ref": "exp_graded_thematic_fit_integrated_reader_gate_v1: HARD_FAIL_P_HELP meandelta=-0.024 (thin gfit fires but does not lift the patient decision).",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "acc_thin",
+    "acc_rich",
+    "acc_random",
+    "acc_rich_scrambled",
+    "coverage_curve",
+    "gap_rich_minus_thin",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}

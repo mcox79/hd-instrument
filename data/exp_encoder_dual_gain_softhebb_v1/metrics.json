@@ -1,0 +1,392 @@
+{
+  "anchor_name": "encoder_dual_gain_softhebb_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DUAL_GAIN HARD_FAIL: ALL 4 arms HARD_FAIL on BOTH cleanup (max recall <= 0.05) AND BPC (min BPC >= 7.864); Shannon-floor META branch #3 CLOSES; META promoted to chain-grade scope-wide; substrate-as-LM structurally dead with current encoder architectures; pivot: descope sigma>=1.5 permanently + char-LSTM backprop infra (~1 week) is only remaining lever. DUAL_GAIN @ sigma=1.50: ARM_CHAR_TRIGRAM=disc0.020(HARD_FAIL)/bpc7.874(HARD_FAIL) | ARM_SOFTHEBB_FORWARD=disc0.020(HARD_FAIL)/bpc7.874(HARD_FAIL) | ARM_FOLDIAK_ANTI_HEBB=disc0.023(HARD_FAIL)/bpc7.866(HARD_FAIL) | ARM_FPE_CONTRASTIVE=disc0.020(HARD_FAIL)/bpc7.874(HARD_FAIL) | sanity_ok=True",
+  "run_mode": "full",
+  "N_DIM": 4096,
+  "M": 200,
+  "N_EVAL": 200,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_CHAR_TRIGRAM": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0082,
+        "recall_discriminator_cv": 0.4082,
+        "bpc_best_calibrated_mean": 7.8741,
+        "bpc_best_calibrated_std": 0.0003,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2617,
+          "1.0": 0.0317,
+          "1.5": 0.02,
+          "2.0": 0.0067
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_FAIL",
+        "dual_gain_HARD_PASS": false
+      },
+      "ARM_SOFTHEBB_FORWARD": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0082,
+        "recall_discriminator_cv": 0.4082,
+        "bpc_best_calibrated_mean": 7.8741,
+        "bpc_best_calibrated_std": 0.0002,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2617,
+          "1.0": 0.0383,
+          "1.5": 0.02,
+          "2.0": 0.0083
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_FAIL",
+        "dual_gain_HARD_PASS": false
+      },
+      "ARM_FOLDIAK_ANTI_HEBB": {
+        "recall_discriminator_mean": 0.0233,
+        "recall_discriminator_std": 0.0103,
+        "recall_discriminator_cv": 0.4403,
+        "bpc_best_calibrated_mean": 7.8657,
+        "bpc_best_calibrated_std": 0.0004,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2583,
+          "1.0": 0.0483,
+          "1.5": 0.0233,
+          "2.0": 0.015
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_FAIL",
+        "dual_gain_HARD_PASS": false
+      },
+      "ARM_FPE_CONTRASTIVE": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0082,
+        "recall_discriminator_cv": 0.4082,
+        "bpc_best_calibrated_mean": 7.8741,
+        "bpc_best_calibrated_std": 0.0003,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.26,
+          "1.0": 0.035,
+          "1.5": 0.02,
+          "2.0": 0.0083
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_FAIL",
+        "dual_gain_HARD_PASS": false
+      }
+    },
+    "any_dual_gain_pass": [],
+    "cleanup_pass_arms": [],
+    "bpc_pass_arms": [],
+    "cleanup_all_fail": true,
+    "bpc_all_fail": true,
+    "sanity_sigma0_ok": true,
+    "sanity_sigma0_failures": [],
+    "discriminator_sigma": 1.5,
+    "unigram_bpc_ref": 7.738,
+    "path_a_current_bpc_ref": 7.864,
+    "cleanup_baseline_recall_ref": 0.022,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "encoder_dual_gain_softhebb_v1; N_DIM=4096 M=200 N_EVAL=200 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE'] seeds=[7, 17, 23] mode=full K_WTA=5 INGEST_CHUNK=8192 lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_recall>=0.20 HF_recall<=0.05 HP_bpc<7.738 HF_bpc>=7.864",
+    "honest_scope": "HD-substrate-native encoder-side dual-gain drill; 4 arms x cleanup-sigma-sweep + Path-A BPC at N_DIM=4096 M=200 N_TRAIN=100000 N_HELD=20000 V=4000 K_WTA=5; 3 seeds; dual-gain HARD_PASS = ANY arm clears BOTH metric A (cleanup recall>=0.20 @ sigma=1.5) AND metric B (BPC<7.738); HARD_FAIL = NO arm clears EITHER metric.",
+    "cites": [
+      "notes/research_5x_deeper_encoder_upgrade_dual_gain_2026-06-23.md (source-of-truth)",
+      "notes/research_encoder_side_cleanup_ceiling_break_2026-06-23.md (parent ENC1 HARD_FAIL)",
+      "experiments/exp_text8_substrate_pseudoLM_v2_temperature_calibrated_v1.py (BPC ref 7.864)",
+      "Moraitis_2107_05747_SoftHebb",
+      "Foldiak_1990_anti_Hebbian_decorrelation",
+      "Hinton_2022_Forward_Forward",
+      "hdlab/char_trigram_encoder.py",
+      "Shannon_floor_META_cert_row_675"
+    ]
+  },
+  "metrics_source": "measured_cpu_encoder_dual_gain_softhebb_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_CHAR_TRIGRAM": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.245,
+            "1.0": 0.025,
+            "1.5": 0.01,
+            "2.0": 0.01
+          },
+          "recall_discriminator": 0.01,
+          "bpc_raw": 11.7241,
+          "bpc_best_calibrated": 7.8743,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3979,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 1.19,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.12
+        },
+        "ARM_SOFTHEBB_FORWARD": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.25,
+            "1.0": 0.035,
+            "1.5": 0.01,
+            "2.0": 0.01
+          },
+          "recall_discriminator": 0.01,
+          "bpc_raw": 11.7233,
+          "bpc_best_calibrated": 7.8742,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3979,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 10.37,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 10.97
+        },
+        "ARM_FOLDIAK_ANTI_HEBB": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.25,
+            "1.0": 0.04,
+            "1.5": 0.01,
+            "2.0": 0.02
+          },
+          "recall_discriminator": 0.01,
+          "bpc_raw": 11.6898,
+          "bpc_best_calibrated": 7.866,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3892,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 1.42,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.56
+        },
+        "ARM_FPE_CONTRASTIVE": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.245,
+            "1.0": 0.035,
+            "1.5": 0.01,
+            "2.0": 0.01
+          },
+          "recall_discriminator": 0.01,
+          "bpc_raw": 11.7236,
+          "bpc_best_calibrated": 7.8742,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3979,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 11.44,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 10.89
+        }
+      },
+      "N": 4096,
+      "N_DIM": 4096,
+      "M": 200,
+      "N_EVAL": 200,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "K_WTA": 5,
+      "run_mode": "full",
+      "config_version": "encoder_dual_gain_softhebb_v1; N_DIM=4096 M=200 N_EVAL=200 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE'] seeds=[7, 17, 23] mode=full K_WTA=5 INGEST_CHUNK=8192 lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_recall>=0.20 HF_recall<=0.05 HP_bpc<7.738 HF_bpc>=7.864",
+      "elapsed_s_seed": 69.33,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782233847.3587873
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_CHAR_TRIGRAM": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.315,
+            "1.0": 0.03,
+            "1.5": 0.03,
+            "2.0": 0.01
+          },
+          "recall_discriminator": 0.03,
+          "bpc_raw": 11.7213,
+          "bpc_best_calibrated": 7.8737,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3972,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 1.34,
+          "wall_cleanup_s": 0.09,
+          "wall_bpc_s": 11.75
+        },
+        "ARM_SOFTHEBB_FORWARD": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.325,
+            "1.0": 0.03,
+            "1.5": 0.03,
+            "2.0": 0.01
+          },
+          "recall_discriminator": 0.03,
+          "bpc_raw": 11.7229,
+          "bpc_best_calibrated": 7.8738,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3972,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 9.79,
+          "wall_cleanup_s": 0.09,
+          "wall_bpc_s": 10.92
+        },
+        "ARM_FOLDIAK_ANTI_HEBB": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.29,
+            "1.0": 0.06,
+            "1.5": 0.025,
+            "2.0": 0.02
+          },
+          "recall_discriminator": 0.025,
+          "bpc_raw": 11.6923,
+          "bpc_best_calibrated": 7.8659,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3894,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 1.33,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.53
+        },
+        "ARM_FPE_CONTRASTIVE": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.325,
+            "1.0": 0.03,
+            "1.5": 0.03,
+            "2.0": 0.015
+          },
+          "recall_discriminator": 0.03,
+          "bpc_raw": 11.7205,
+          "bpc_best_calibrated": 7.8736,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3972,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 11.44,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.19
+        }
+      },
+      "N": 4096,
+      "N_DIM": 4096,
+      "M": 200,
+      "N_EVAL": 200,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "K_WTA": 5,
+      "run_mode": "full",
+      "config_version": "encoder_dual_gain_softhebb_v1; N_DIM=4096 M=200 N_EVAL=200 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE'] seeds=[7, 17, 23] mode=full K_WTA=5 INGEST_CHUNK=8192 lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_recall>=0.20 HF_recall<=0.05 HP_bpc<7.738 HF_bpc>=7.864",
+      "elapsed_s_seed": 69.65,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782233917.0243976
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_CHAR_TRIGRAM": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.225,
+            "1.0": 0.04,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "recall_discriminator": 0.02,
+          "bpc_raw": 11.7323,
+          "bpc_best_calibrated": 7.8744,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3972,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 1.43,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.09
+        },
+        "ARM_SOFTHEBB_FORWARD": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.21,
+            "1.0": 0.05,
+            "1.5": 0.02,
+            "2.0": 0.005
+          },
+          "recall_discriminator": 0.02,
+          "bpc_raw": 11.732,
+          "bpc_best_calibrated": 7.8744,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3972,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 9.75,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.55
+        },
+        "ARM_FOLDIAK_ANTI_HEBB": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.235,
+            "1.0": 0.045,
+            "1.5": 0.035,
+            "2.0": 0.005
+          },
+          "recall_discriminator": 0.035,
+          "bpc_raw": 11.6814,
+          "bpc_best_calibrated": 7.8652,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.389,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 1.37,
+          "wall_cleanup_s": 0.08,
+          "wall_bpc_s": 11.07
+        },
+        "ARM_FPE_CONTRASTIVE": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.21,
+            "1.0": 0.04,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "recall_discriminator": 0.02,
+          "bpc_raw": 11.7318,
+          "bpc_best_calibrated": 7.8744,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.3972,
+          "bpc_n_eval": 7886,
+          "wall_encode_s": 11.79,
+          "wall_cleanup_s": 0.09,
+          "wall_bpc_s": 11.65
+        }
+      },
+      "N": 4096,
+      "N_DIM": 4096,
+      "M": 200,
+      "N_EVAL": 200,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "K_WTA": 5,
+      "run_mode": "full",
+      "config_version": "encoder_dual_gain_softhebb_v1; N_DIM=4096 M=200 N_EVAL=200 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE'] seeds=[7, 17, 23] mode=full K_WTA=5 INGEST_CHUNK=8192 lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_recall>=0.20 HF_recall<=0.05 HP_bpc<7.738 HF_bpc>=7.864",
+      "elapsed_s_seed": 70.08,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782233987.1165552
+    }
+  ],
+  "elapsed_s": 209.10741233825684,
+  "summary": "DUAL_GAIN HARD_FAIL: ALL 4 arms HARD_FAIL on BOTH cleanup (max recall <= 0.05) AND BPC (min BPC >= 7.864); Shannon-floor META branch #3 CLOSES; META promoted to chain-grade scope-wide; substrate-as-LM structurally dead with current encoder architectures; pivot: descope sigma>=1.5 permanently + char-LSTM backprop infra (~1 week) is only remaining lever. DUAL_GAIN @ sigma=1.50: ARM_CHAR_TRIGRAM=disc0.020(HARD_FAIL)/bpc7.874(HARD_FAIL) | ARM_SOFTHEBB_FORWARD=disc0.020(HARD_FAIL)/bpc7.874(HARD_FAIL) | ARM_FOLDIAK_ANTI_HEBB=disc0.023(HARD_FAIL)/bpc7.866(HARD_FAIL) | ARM_FPE_CONTRASTIVE=disc0.020(HARD_FAIL)/bpc7.874(HARD_FAIL) | sanity_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native encoder-side dual-gain; no LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": false
+}

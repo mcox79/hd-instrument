@@ -1,0 +1,758 @@
+{
+  "verdict": "OPERATOR_FIX_CONFIRMED_CONSOLIDATION_INCONCLUSIVE",
+  "verdict_msg": "OPERATOR_FIX confirmed (phase-rotation/SSP off the stage3 floor): oneshot=0.972 discrete=0.001 (margin=0.972 >= 0.20) beats pop=0.000; oracle fires; scramble does not beat oneshot; no freq-manufacture (-0.065). CONSOLIDATION inconclusive (consol_low=False flat=False backdoor=-0.5065) -- FULL landed-VET decides.",
+  "summary": "OPERATOR_FIX confirmed (phase-rotation/SSP off the stage3 floor): oneshot=0.972 discrete=0.001 (margin=0.972 >= 0.20) beats pop=0.000; oracle fires; scramble does not beat oneshot; no freq-manufacture",
+  "run_mode": "full",
+  "elapsed_s": 77.56286910001654,
+  "anchor_name": "course_c_operator_fix_ssp_phase_rotation_replay_v1",
+  "ts_iso": "2026-07-11T03:46:40.641136+00:00",
+  "device": "cuda",
+  "n_seeds": 5,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    31
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17,
+      23,
+      31
+    ],
+    "k": 3,
+    "grid_L": 12,
+    "n_rel": 16,
+    "n_comp": 24,
+    "fpe_dim": 4096,
+    "kge_epochs": 600,
+    "replay_passes": 80
+  },
+  "gates": {
+    "reach": {
+      "DISCRETE_BIND": 0.0007199999999999999,
+      "ONESHOT_ROTATE": 0.97242,
+      "REPLAY_CONSOLIDATED": 0.59428,
+      "SCRAMBLE_REPLAY": 0.00624,
+      "BASELINE_POP": 0.00046,
+      "RANDOM_CODES": 8e-05,
+      "ORACLE_TRANSDUCTIVE": 0.9873799999999999
+    },
+    "strat": {
+      "ONESHOT_ROTATE": {
+        "LOW": 0.9356399999999999,
+        "MID": 0.98858,
+        "HIGH": 0.99712
+      },
+      "REPLAY_CONSOLIDATED": {
+        "LOW": 0.5221199999999999,
+        "MID": 0.61682,
+        "HIGH": 0.6533800000000001
+      },
+      "DISCRETE_BIND": {
+        "LOW": 0.0009999999999999998,
+        "MID": 0.00056,
+        "HIGH": 0.00056
+      },
+      "BASELINE_POP": {
+        "LOW": 0.0,
+        "MID": 0.0,
+        "HIGH": 0.0014399999999999999
+      }
+    },
+    "comp_reach": {
+      "ONESHOT_ROTATE": 0.9800000000000001,
+      "REPLAY_CONSOLIDATED": 0.524,
+      "DISCRETE_BIND": 0.0005
+    },
+    "op_margin": 0.9717,
+    "g_op_margin": true,
+    "g_beats_pop": true,
+    "g_discrete_floor": true,
+    "g_random_null": true,
+    "g_oracle": true,
+    "g_scramble": true,
+    "g_no_manufacture": true,
+    "freq_manufacture_margin": -0.0646,
+    "operator_fix": true,
+    "operator_fix_fails": false,
+    "g_consol_low": false,
+    "g_agg_no_regress": false,
+    "g_flat": false,
+    "flat_gap": 0.1313,
+    "backdoor_r": -0.5065,
+    "g_backdoor": false,
+    "consolidation_helps": false,
+    "achieved_over_ceiling": 0.9724
+  },
+  "mechanism_selftest": {
+    "oneshot_reach": 0.7179,
+    "discrete_reach": 0.0256,
+    "random_reach": 0.0,
+    "pop_reach": 0.0256,
+    "oracle_reach": 1.0,
+    "scramble_reach": 0.0256,
+    "replay_reach": 0.359,
+    "freq_pop_reach": 0.5938,
+    "freq_oneshot_reach": 0.5,
+    "freq_manufacture_margin": -0.0938,
+    "comp_reach": {
+      "ONESHOT_ROTATE": 0.5114,
+      "REPLAY_CONSOLIDATED": 0.2614,
+      "DISCRETE_BIND": 0.3068
+    },
+    "backdoor_r": -0.4374,
+    "oneshot_recovers": true,
+    "discrete_at_chance": true,
+    "random_at_chance": true,
+    "oneshot_beats_discrete": true,
+    "oneshot_beats_pop": true,
+    "oracle_fires": true,
+    "scramble_not_beat": true,
+    "pop_fires_freq": true,
+    "no_manufacture": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 7
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1728,
+      "n_rel": 16,
+      "n_edges": 20547,
+      "n_train": 14383,
+      "n_hold": 6164,
+      "n_comp_edges": 24590,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.0008,
+        "ONESHOT_ROTATE": 0.9713,
+        "REPLAY_CONSOLIDATED": 0.6348,
+        "SCRAMBLE_REPLAY": 0.0062,
+        "BASELINE_POP": 0.0002,
+        "RANDOM_CODES": 0.0,
+        "ORACLE_TRANSDUCTIVE": 0.989
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.0045,
+        "ONESHOT_ROTATE": 0.9771,
+        "REPLAY_CONSOLIDATED": 0.6899,
+        "SCRAMBLE_REPLAY": 0.0378,
+        "BASELINE_POP": 0.0049,
+        "RANDOM_CODES": 0.004,
+        "ORACLE_TRANSDUCTIVE": 0.9916
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "4ef547c2ee464971",
+        "REPLAY_CONSOLIDATED": "6e1453615ad44215",
+        "SCRAMBLE_REPLAY": "80eb45bed83e8770",
+        "RANDOM_CODES": "3c12074ac97c6d3d",
+        "ORACLE_TRANSDUCTIVE": "f4282670a82c8849",
+        "DISCRETE_BIND": "4860ec0a867a45a1",
+        "BASELINE_POP": "bb5f665d39f1b183"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 0.9318,
+            "n": 2274
+          },
+          "MID": {
+            "reach": 0.9904,
+            "n": 2077
+          },
+          "HIGH": {
+            "reach": 0.9989,
+            "n": 1813
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.5563,
+            "n": 2274
+          },
+          "MID": {
+            "reach": 0.6529,
+            "n": 2077
+          },
+          "HIGH": {
+            "reach": 0.7126,
+            "n": 1813
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0013,
+            "n": 2274
+          },
+          "MID": {
+            "reach": 0.0005,
+            "n": 2077
+          },
+          "HIGH": {
+            "reach": 0.0006,
+            "n": 1813
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 2274
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 2077
+          },
+          "HIGH": {
+            "reach": 0.0006,
+            "n": 1813
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 0.98,
+        "REPLAY_CONSOLIDATED": 0.6575,
+        "DISCRETE_BIND": 0.0
+      },
+      "achieved_over_ceiling": 0.9713,
+      "freq_corpus": {
+        "oneshot_reach": 0.1146,
+        "pop_reach": 0.1865,
+        "manufacture_margin": -0.0719
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.5084,
+      "cross_channel_geom_vs_pop_r": 0.2275,
+      "effective_rank": {
+        "oneshot": 3.0,
+        "replay": 3.0,
+        "k": 3
+      },
+      "replay_consolidation": {
+        "n_commit": 64,
+        "n_frozen": 16,
+        "n_rel": 16
+      },
+      "strata_counts": {
+        "LOW": 2274,
+        "MID": 2077,
+        "HIGH": 1813
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    },
+    {
+      "seed": 13,
+      "N": 1728,
+      "n_rel": 16,
+      "n_edges": 19835,
+      "n_train": 13885,
+      "n_hold": 5950,
+      "n_comp_edges": 24482,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.0005,
+        "ONESHOT_ROTATE": 0.9676,
+        "REPLAY_CONSOLIDATED": 0.535,
+        "SCRAMBLE_REPLAY": 0.0087,
+        "BASELINE_POP": 0.0002,
+        "RANDOM_CODES": 0.0,
+        "ORACLE_TRANSDUCTIVE": 0.9845
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.0047,
+        "ONESHOT_ROTATE": 0.9756,
+        "REPLAY_CONSOLIDATED": 0.6114,
+        "SCRAMBLE_REPLAY": 0.0446,
+        "BASELINE_POP": 0.0052,
+        "RANDOM_CODES": 0.0041,
+        "ORACLE_TRANSDUCTIVE": 0.9882
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "62ba1275c565904f",
+        "REPLAY_CONSOLIDATED": "0148964be65db2b4",
+        "SCRAMBLE_REPLAY": "801d46a9767e68dc",
+        "RANDOM_CODES": "74c225528b14f012",
+        "ORACLE_TRANSDUCTIVE": "0e83f576963cd57a",
+        "DISCRETE_BIND": "e4e3fecbe431581f",
+        "BASELINE_POP": "2d0d6edef10b10d6"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 0.9235,
+            "n": 1986
+          },
+          "MID": {
+            "reach": 0.986,
+            "n": 2136
+          },
+          "HIGH": {
+            "reach": 0.994,
+            "n": 1828
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.4663,
+            "n": 1986
+          },
+          "MID": {
+            "reach": 0.5604,
+            "n": 2136
+          },
+          "HIGH": {
+            "reach": 0.5799,
+            "n": 1828
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0005,
+            "n": 1986
+          },
+          "MID": {
+            "reach": 0.0005,
+            "n": 2136
+          },
+          "HIGH": {
+            "reach": 0.0005,
+            "n": 1828
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 1986
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 2136
+          },
+          "HIGH": {
+            "reach": 0.0005,
+            "n": 1828
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 0.975,
+        "REPLAY_CONSOLIDATED": 0.4025,
+        "DISCRETE_BIND": 0.0
+      },
+      "achieved_over_ceiling": 0.9676,
+      "freq_corpus": {
+        "oneshot_reach": 0.1303,
+        "pop_reach": 0.1826,
+        "manufacture_margin": -0.0524
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.5252,
+      "cross_channel_geom_vs_pop_r": 0.1817,
+      "effective_rank": {
+        "oneshot": 3.0,
+        "replay": 2.999,
+        "k": 3
+      },
+      "replay_consolidation": {
+        "n_commit": 113,
+        "n_frozen": 16,
+        "n_rel": 16
+      },
+      "strata_counts": {
+        "LOW": 1986,
+        "MID": 2136,
+        "HIGH": 1828
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    },
+    {
+      "seed": 17,
+      "N": 1728,
+      "n_rel": 16,
+      "n_edges": 21427,
+      "n_train": 14999,
+      "n_hold": 6428,
+      "n_comp_edges": 28431,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.0008,
+        "ONESHOT_ROTATE": 0.9648,
+        "REPLAY_CONSOLIDATED": 0.5366,
+        "SCRAMBLE_REPLAY": 0.01,
+        "BASELINE_POP": 0.0002,
+        "RANDOM_CODES": 0.0002,
+        "ORACLE_TRANSDUCTIVE": 0.9854
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.0053,
+        "ONESHOT_ROTATE": 0.9718,
+        "REPLAY_CONSOLIDATED": 0.6163,
+        "SCRAMBLE_REPLAY": 0.0478,
+        "BASELINE_POP": 0.0045,
+        "RANDOM_CODES": 0.0047,
+        "ORACLE_TRANSDUCTIVE": 0.9891
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "69e471ce8fbabba3",
+        "REPLAY_CONSOLIDATED": "718cb9a4b46abef9",
+        "SCRAMBLE_REPLAY": "0b432fb0cd6e026b",
+        "RANDOM_CODES": "283fb30d172029e4",
+        "ORACLE_TRANSDUCTIVE": "ceb782b536e61d49",
+        "DISCRETE_BIND": "fda9e2824d5af58a",
+        "BASELINE_POP": "3a9a68a1432c0d15"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 0.9195,
+            "n": 2324
+          },
+          "MID": {
+            "reach": 0.9855,
+            "n": 2406
+          },
+          "HIGH": {
+            "reach": 0.9976,
+            "n": 1698
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.4617,
+            "n": 2324
+          },
+          "MID": {
+            "reach": 0.5524,
+            "n": 2406
+          },
+          "HIGH": {
+            "reach": 0.6166,
+            "n": 1698
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0013,
+            "n": 2324
+          },
+          "MID": {
+            "reach": 0.0004,
+            "n": 2406
+          },
+          "HIGH": {
+            "reach": 0.0006,
+            "n": 1698
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 2324
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 2406
+          },
+          "HIGH": {
+            "reach": 0.0006,
+            "n": 1698
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 0.9675,
+        "REPLAY_CONSOLIDATED": 0.515,
+        "DISCRETE_BIND": 0.0
+      },
+      "achieved_over_ceiling": 0.9648,
+      "freq_corpus": {
+        "oneshot_reach": 0.1144,
+        "pop_reach": 0.1836,
+        "manufacture_margin": -0.0693
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.5196,
+      "cross_channel_geom_vs_pop_r": 0.1717,
+      "effective_rank": {
+        "oneshot": 3.0,
+        "replay": 2.995,
+        "k": 3
+      },
+      "replay_consolidation": {
+        "n_commit": 102,
+        "n_frozen": 16,
+        "n_rel": 16
+      },
+      "strata_counts": {
+        "LOW": 2324,
+        "MID": 2406,
+        "HIGH": 1698
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    },
+    {
+      "seed": 23,
+      "N": 1728,
+      "n_rel": 16,
+      "n_edges": 19745,
+      "n_train": 13821,
+      "n_hold": 5924,
+      "n_comp_edges": 27615,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.0008,
+        "ONESHOT_ROTATE": 0.974,
+        "REPLAY_CONSOLIDATED": 0.6357,
+        "SCRAMBLE_REPLAY": 0.0022,
+        "BASELINE_POP": 0.0005,
+        "RANDOM_CODES": 0.0002,
+        "ORACLE_TRANSDUCTIVE": 0.985
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.0051,
+        "ONESHOT_ROTATE": 0.9791,
+        "REPLAY_CONSOLIDATED": 0.699,
+        "SCRAMBLE_REPLAY": 0.0253,
+        "BASELINE_POP": 0.0054,
+        "RANDOM_CODES": 0.0041,
+        "ORACLE_TRANSDUCTIVE": 0.9882
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "2394a6683c5ce168",
+        "REPLAY_CONSOLIDATED": "587bb71b1c35fb45",
+        "SCRAMBLE_REPLAY": "999f53e835868f0c",
+        "RANDOM_CODES": "5a42c46c67101a2c",
+        "ORACLE_TRANSDUCTIVE": "e76506c2ac4b7578",
+        "DISCRETE_BIND": "eab7ad19a50ae670",
+        "BASELINE_POP": "dc4b81074e159872"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 0.9372,
+            "n": 2087
+          },
+          "MID": {
+            "reach": 0.9903,
+            "n": 2058
+          },
+          "HIGH": {
+            "reach": 0.9983,
+            "n": 1779
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.5841,
+            "n": 2087
+          },
+          "MID": {
+            "reach": 0.6618,
+            "n": 2058
+          },
+          "HIGH": {
+            "reach": 0.6661,
+            "n": 1779
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0014,
+            "n": 2087
+          },
+          "MID": {
+            "reach": 0.0005,
+            "n": 2058
+          },
+          "HIGH": {
+            "reach": 0.0006,
+            "n": 1779
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 2087
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 2058
+          },
+          "HIGH": {
+            "reach": 0.0017,
+            "n": 1779
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 0.99,
+        "REPLAY_CONSOLIDATED": 0.6825,
+        "DISCRETE_BIND": 0.0
+      },
+      "achieved_over_ceiling": 0.974,
+      "freq_corpus": {
+        "oneshot_reach": 0.1224,
+        "pop_reach": 0.1856,
+        "manufacture_margin": -0.0632
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.4846,
+      "cross_channel_geom_vs_pop_r": 0.2062,
+      "effective_rank": {
+        "oneshot": 3.0,
+        "replay": 3.0,
+        "k": 3
+      },
+      "replay_consolidation": {
+        "n_commit": 150,
+        "n_frozen": 16,
+        "n_rel": 16
+      },
+      "strata_counts": {
+        "LOW": 2087,
+        "MID": 2058,
+        "HIGH": 1779
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    },
+    {
+      "seed": 31,
+      "N": 1728,
+      "n_rel": 16,
+      "n_edges": 20098,
+      "n_train": 14069,
+      "n_hold": 6029,
+      "n_comp_edges": 23866,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.0007,
+        "ONESHOT_ROTATE": 0.9844,
+        "REPLAY_CONSOLIDATED": 0.6293,
+        "SCRAMBLE_REPLAY": 0.0041,
+        "BASELINE_POP": 0.0012,
+        "RANDOM_CODES": 0.0,
+        "ORACLE_TRANSDUCTIVE": 0.993
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.0047,
+        "ONESHOT_ROTATE": 0.9875,
+        "REPLAY_CONSOLIDATED": 0.6909,
+        "SCRAMBLE_REPLAY": 0.0294,
+        "BASELINE_POP": 0.0052,
+        "RANDOM_CODES": 0.0045,
+        "ORACLE_TRANSDUCTIVE": 0.9947
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "af75cb6277bd375f",
+        "REPLAY_CONSOLIDATED": "19bd81f1efa7b191",
+        "SCRAMBLE_REPLAY": "bae2ec83e30743a7",
+        "RANDOM_CODES": "d2a9643c992964cf",
+        "ORACLE_TRANSDUCTIVE": "0f98c061ef6acd77",
+        "DISCRETE_BIND": "54385bc3f3bc9b55",
+        "BASELINE_POP": "0fbc18f8f06a7538"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 0.9662,
+            "n": 2012
+          },
+          "MID": {
+            "reach": 0.9907,
+            "n": 2152
+          },
+          "HIGH": {
+            "reach": 0.9968,
+            "n": 1865
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.5422,
+            "n": 2012
+          },
+          "MID": {
+            "reach": 0.6566,
+            "n": 2152
+          },
+          "HIGH": {
+            "reach": 0.6917,
+            "n": 1865
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0005,
+            "n": 2012
+          },
+          "MID": {
+            "reach": 0.0009,
+            "n": 2152
+          },
+          "HIGH": {
+            "reach": 0.0005,
+            "n": 1865
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 2012
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 2152
+          },
+          "HIGH": {
+            "reach": 0.0038,
+            "n": 1865
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 0.9875,
+        "REPLAY_CONSOLIDATED": 0.3625,
+        "DISCRETE_BIND": 0.0025
+      },
+      "achieved_over_ceiling": 0.9844,
+      "freq_corpus": {
+        "oneshot_reach": 0.1115,
+        "pop_reach": 0.1778,
+        "manufacture_margin": -0.0664
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.4946,
+      "cross_channel_geom_vs_pop_r": 0.1354,
+      "effective_rank": {
+        "oneshot": 3.0,
+        "replay": 3.0,
+        "k": 3
+      },
+      "replay_consolidation": {
+        "n_commit": 155,
+        "n_frozen": 16,
+        "n_rel": 16
+      },
+      "strata_counts": {
+        "LOW": 2012,
+        "MID": 2152,
+        "HIGH": 1865
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    }
+  ]
+}

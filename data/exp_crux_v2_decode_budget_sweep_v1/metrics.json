@@ -1,0 +1,119 @@
+{
+  "anchor_name": "crux_v2_decode_budget_sweep_v1",
+  "verdict": "DISAMBIG_DECODE_SIDE",
+  "verdict_msg": "BAND=DECODE_SIDE greenlight_v3_shard=False | raw@10 t20=0.1333 t100=0.1333 max(80,100)=0.1333 (delta_hi=0.0000) | gold_surf_raw t20=0.2133 max(80,100)=0.3000 (delta_hi=0.0867) | single_shot=0.2067 ceiling=0.3467 | decode_trig(recall=False surface=True) encode_flat=False",
+  "summary": "BAND=DECODE_SIDE greenlight_v3_shard=False | raw@10 t20=0.1333 t100=0.1333 max(80,100)=0.1333 (delta_hi=0.0000) | gold_surf_raw t20=0.2133 max(80,100)=0.3000 (delta_hi=0.0867) | single_shot=0.2067 cei",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "cuda_avail": false,
+  "elapsed_s": 144.30302810668945,
+  "seed": 7,
+  "N_DIM": 2048,
+  "config": {
+    "N_EVAL": 150,
+    "TOP_K_RELS": 25,
+    "RES_N_RESTART": 8,
+    "RES_TAU": 0.4,
+    "RES_REBIND_K": 2.5,
+    "t_iter_grid": [
+      20,
+      40,
+      60,
+      80,
+      100
+    ]
+  },
+  "repro_gate": {
+    "single_shot_recall@10": 0.20666666666666667,
+    "ceiling": 0.3466666666666667,
+    "n_test_eval": 150
+  },
+  "sweep": [
+    {
+      "t_iter": 20,
+      "raw_recall@10": 0.13333333333333333,
+      "gated_recall@10": 0.06,
+      "raw_recall@1": 0.05333333333333334,
+      "spurious_inflation@10": 0.07333333333333333,
+      "gold_surfaced_raw": 0.21333333333333335,
+      "gold_surfaced_gated": 0.11333333333333333,
+      "gold_surfaced_raw_of_reachable": 0.6153846153846154,
+      "n_reachable": 52,
+      "proposal_rate_raw": 45.653333333333336,
+      "proposal_rate_gated": 30.346666666666668
+    },
+    {
+      "t_iter": 40,
+      "raw_recall@10": 0.13333333333333333,
+      "gated_recall@10": 0.06,
+      "raw_recall@1": 0.05333333333333334,
+      "spurious_inflation@10": 0.07333333333333333,
+      "gold_surfaced_raw": 0.25333333333333335,
+      "gold_surfaced_gated": 0.11333333333333333,
+      "gold_surfaced_raw_of_reachable": 0.7307692307692307,
+      "n_reachable": 52,
+      "proposal_rate_raw": 72.95333333333333,
+      "proposal_rate_gated": 42.32
+    },
+    {
+      "t_iter": 60,
+      "raw_recall@10": 0.13333333333333333,
+      "gated_recall@10": 0.06,
+      "raw_recall@1": 0.05333333333333334,
+      "spurious_inflation@10": 0.07333333333333333,
+      "gold_surfaced_raw": 0.29333333333333333,
+      "gold_surfaced_gated": 0.12666666666666668,
+      "gold_surfaced_raw_of_reachable": 0.8461538461538461,
+      "n_reachable": 52,
+      "proposal_rate_raw": 91.66,
+      "proposal_rate_gated": 46.78
+    },
+    {
+      "t_iter": 80,
+      "raw_recall@10": 0.13333333333333333,
+      "gated_recall@10": 0.06,
+      "raw_recall@1": 0.05333333333333334,
+      "spurious_inflation@10": 0.07333333333333333,
+      "gold_surfaced_raw": 0.29333333333333333,
+      "gold_surfaced_gated": 0.12666666666666668,
+      "gold_surfaced_raw_of_reachable": 0.8461538461538461,
+      "n_reachable": 52,
+      "proposal_rate_raw": 104.18666666666667,
+      "proposal_rate_gated": 48.10666666666667
+    },
+    {
+      "t_iter": 100,
+      "raw_recall@10": 0.13333333333333333,
+      "gated_recall@10": 0.06,
+      "raw_recall@1": 0.05333333333333334,
+      "spurious_inflation@10": 0.07333333333333333,
+      "gold_surfaced_raw": 0.3,
+      "gold_surfaced_gated": 0.12666666666666668,
+      "gold_surfaced_raw_of_reachable": 0.8653846153846154,
+      "n_reachable": 52,
+      "proposal_rate_raw": 110.06,
+      "proposal_rate_gated": 48.4
+    }
+  ],
+  "decision": {
+    "band": "DECODE_SIDE",
+    "greenlight_v3_shard": false,
+    "raw_recall@10_t20": 0.13333333333333333,
+    "raw_recall@10_t100": 0.13333333333333333,
+    "raw_recall@10_max_hi": 0.13333333333333333,
+    "raw_delta_hi_vs_t20": 0.0,
+    "raw_delta_t100_vs_t20": 0.0,
+    "gold_surfaced_raw_t20": 0.21333333333333335,
+    "gold_surfaced_raw_t100": 0.3,
+    "gold_surfaced_raw_max_hi": 0.3,
+    "gold_surfaced_delta_hi_vs_t20": 0.08666666666666664,
+    "proposal_rate_raw_t20": 45.653333333333336,
+    "proposal_rate_raw_t100": 110.06,
+    "single_shot_recall@10": 0.20666666666666667,
+    "ceiling": 0.3466666666666667,
+    "decode_trigger_recall": false,
+    "decode_trigger_surface": true,
+    "encode_flat": false
+  },
+  "ts_iso": "2026-07-10T21:39:37.333144+00:00"
+}

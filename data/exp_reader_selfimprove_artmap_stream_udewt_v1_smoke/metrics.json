@@ -1,0 +1,366 @@
+{
+  "anchor_name": "reader_selfimprove_artmap_stream_udewt_v1",
+  "run_mode": "smoke",
+  "verdict": "READER_LEARNS",
+  "verdict_msg": "READER_LEARNS | UD-EWT dev+test out-of-sample: 1033 patient arcs, 103 errors (labeler_acc=0.9003) | immediate_recall(exact)=1.0 | NEW-ATOMS money decline=0.6667 (rel) | FIRST-PASS arc rise=0.0381 | onset~4.0atoms | transient_regressions=3.0 | END-STATE net_fixed=102.0 net_broken=0.0 (irreducible_collisions=0.0, fixable_broken=0.0, stable=True) | COMPRESSION 3.0x (17.0rules pur=1.0 vig=0.4612) | base_rate_override=0.8809 | SCRAMBLE decline=0.3922 fp=0.0295 (collapse=0.2745, fires=True) | leak_clean=True",
+  "summary": "READER_LEARNS | UD-EWT dev+test out-of-sample: 1033 patient arcs, 103 errors (labeler_acc=0.9003) | immediate_recall(exact)=1.0 | NEW-ATOMS money decline=0.6667 (rel) | FIRST-PASS arc rise=0.0381 | onset~4.0atoms | transient_regressions=3.0 | END-STATE net_fixed=102.0 net_broken=0.0 (irreducible_collisions=0.0, fixable_broken=0.0, stable=True) | COMPRESSION 3.0x (17.0rules pur=1.0 vig=0.4612) | base_rate_override=0.8809 | SCRAMBLE decline=0.3922 fp=0.0295 (collapse=0.2745, fires=True) | leak_clean=True",
+  "elapsed_s": 3.38,
+  "ts_iso": "2026-07-21T15:27:27.143550+00:00",
+  "seeds": [
+    7
+  ],
+  "n_patient_arcs": 1033,
+  "n_errors": 103,
+  "labeler_acc": 0.9003,
+  "IMMEDIATE_RECALL_exact": 1.0,
+  "EXACT_RECALL_hippo": 1.0,
+  "NEW_ATOMS_decline_relative": 0.6667,
+  "FIRST_PASS_arc_rise": 0.0381,
+  "GENERALIZATION_onset_atoms": 4.0,
+  "TRANSIENT_REGRESSIONS_mean": 3.0,
+  "REGRESSIONS_at_zero": false,
+  "ENDSTATE_net_fixed": 102.0,
+  "ENDSTATE_net_broken": 0.0,
+  "ENDSTATE_irreducible_exact_collisions": 0.0,
+  "ENDSTATE_net_broken_fixable": 0.0,
+  "ENDSTATE_stable": true,
+  "COMPRESSION_ratio": 3.0,
+  "RULE_PURITY": 1.0,
+  "SETTLED_vigilance": 0.4612,
+  "n_rules_mean": 17.0,
+  "BASE_RATE_override_arc_acc": 0.8809,
+  "MUSTFAIL_scramble_atoms_decline": 0.3922,
+  "MUSTFAIL_scramble_fp_rise": 0.0295,
+  "MUSTFAIL_decline_collapse": 0.2745,
+  "scramble_collapses": true,
+  "leak_clean": true,
+  "rho0": 0.259443,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "online ARTMAP self-improving reader",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <180s)",
+  "deterministic_seeding": true,
+  "compose_in_cell_no_hdlab_mutation": true,
+  "consolidation_note": "rule prototypes consolidated by continual.replay_cycle (NOT AdditiveKGMap)",
+  "artmap_note": "minimal-faithful ARTMAP: nearest-rule predictive-match + purity-gated new-rule + regression-tuned per-rule vigilance + two-tier exact-atom exceptions (not full fuzzy-ART complement-coding)",
+  "per_seed": [
+    {
+      "seed": 7,
+      "immediate_recall": 1.0,
+      "regressions": 3,
+      "regression_events": [
+        {
+          "stream_pos": 210,
+          "n_atoms": 13,
+          "regressions": 1
+        },
+        {
+          "stream_pos": 650,
+          "n_atoms": 30,
+          "regressions": 2
+        }
+      ],
+      "final_net_broken": 0,
+      "final_net_fixed": 102,
+      "final_exact_collisions": 0,
+      "final_net_broken_fixable": 0,
+      "atoms_decline_rel": 0.6667,
+      "first_pass_arc_rise": 0.0381,
+      "curve": [
+        {
+          "lo": 0,
+          "n_sents": 100,
+          "new_atoms": 12,
+          "n_errors": 13,
+          "prefix_rate": 0.1538,
+          "first_pass_arc_acc": 0.9259
+        },
+        {
+          "lo": 100,
+          "n_sents": 100,
+          "new_atoms": 7,
+          "n_errors": 15,
+          "prefix_rate": 0.6,
+          "first_pass_arc_acc": 0.9507
+        },
+        {
+          "lo": 200,
+          "n_sents": 100,
+          "new_atoms": 9,
+          "n_errors": 18,
+          "prefix_rate": 0.6667,
+          "first_pass_arc_acc": 0.949
+        },
+        {
+          "lo": 300,
+          "n_sents": 100,
+          "new_atoms": 8,
+          "n_errors": 15,
+          "prefix_rate": 0.6667,
+          "first_pass_arc_acc": 0.95
+        },
+        {
+          "lo": 400,
+          "n_sents": 100,
+          "new_atoms": 6,
+          "n_errors": 11,
+          "prefix_rate": 0.6364,
+          "first_pass_arc_acc": 0.9664
+        },
+        {
+          "lo": 500,
+          "n_sents": 100,
+          "new_atoms": 5,
+          "n_errors": 19,
+          "prefix_rate": 0.7895,
+          "first_pass_arc_acc": 0.9671
+        },
+        {
+          "lo": 600,
+          "n_sents": 81,
+          "new_atoms": 4,
+          "n_errors": 12,
+          "prefix_rate": 0.6667,
+          "first_pass_arc_acc": 0.964
+        }
+      ],
+      "compression": {
+        "n_atoms": 51,
+        "n_rules": 17,
+        "n_singletons": 8,
+        "compression_ratio": 3.0,
+        "rule_purity": 1.0,
+        "mean_vigilance": 0.4612
+      },
+      "first_rule_at_atom": 4,
+      "sleep_decisions": {
+        "singleton": 43,
+        "new_rule": 17,
+        "vig_raise": 35,
+        "tighten": 17,
+        "exception": 17,
+        "slot_in": 6
+      },
+      "scramble": {
+        "atoms_decline_rel": 0.3922,
+        "first_pass_arc_rise": 0.0295,
+        "immediate_recall": 0.2179
+      },
+      "decline_collapse": 0.2745,
+      "rules_inspect": [
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2,
+            "ccomp": 1,
+            "obj": 1
+          },
+          "support": 4,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.4551,
+          "member_verbs": [
+            "attached",
+            "contain",
+            "hope",
+            "wear"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "obl": 1,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 4,
+          "vigilance_rho": 0.5113,
+          "member_verbs": [
+            "enriched",
+            "issued",
+            "tossed"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2,
+            "nsubj": 1
+          },
+          "support": 3,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.4763,
+          "member_verbs": [
+            "keeps",
+            "take",
+            "thought"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2,
+            "nsubj:pass": 1
+          },
+          "support": 3,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.5357,
+          "member_verbs": [
+            "addressed",
+            "asked",
+            "interpreted"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 1,
+            "obj": 2
+          },
+          "support": 3,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.2721,
+          "member_verbs": [
+            "looked",
+            "mean",
+            "nominated"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2,
+            "obj": 1
+          },
+          "support": 3,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.3819,
+          "member_verbs": [
+            "mounted",
+            "provided",
+            "shut"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.6646,
+          "member_verbs": [
+            "say"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "nsubj": 1,
+            "obl": 1
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.5026,
+          "member_verbs": [
+            "get",
+            "meeting"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj:pass": 2
+          },
+          "support": 2,
+          "n_exceptions": 1,
+          "vigilance_rho": 0.5443,
+          "member_verbs": [
+            "announced",
+            "attached"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.4277,
+          "member_verbs": [
+            "contaminated",
+            "provided"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "expl": 1,
+            "iobj": 1
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.2594,
+          "member_verbs": [
+            "bring",
+            "take"
+          ]
+        },
+        {
+          "corrects_to": "obj",
+          "from_labeler_preds": {
+            "obl": 2
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.4855,
+          "member_verbs": [
+            "eat",
+            "have"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 2,
+          "vigilance_rho": 0.3872,
+          "member_verbs": [
+            "founded",
+            "located"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj": 2
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.5009,
+          "member_verbs": [
+            "confirmed",
+            "fined"
+          ]
+        },
+        {
+          "corrects_to": "nsubj:pass",
+          "from_labeler_preds": {
+            "nsubj:pass": 1,
+            "obl": 1
+          },
+          "support": 2,
+          "n_exceptions": 0,
+          "vigilance_rho": 0.5568,
+          "member_verbs": [
+            "attached",
+            "based"
+          ]
+        }
+      ]
+    }
+  ]
+}

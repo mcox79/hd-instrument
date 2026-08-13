@@ -1,0 +1,42 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS bind/unbind reuse + 3 discriminators telemetry-sensitive; CN cache built",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.9787257999996655,
+  "discriminator_selftest": {
+    "reuse_ok": true,
+    "sys_bind_heldout_hi": 1.0,
+    "sys_flat_heldout_hi": 0.0,
+    "sys_flat_seen_hi": 1.0,
+    "sys_bind_heldout_lo": 0.58,
+    "sys_fires": true,
+    "sys_telemetry": true,
+    "reach_by_D": {
+      "1": 1,
+      "2": 2,
+      "3": 2,
+      "4": 4
+    },
+    "reach_edge_recall": 1.0,
+    "reach_fires": true,
+    "reach_telemetry": true,
+    "oracle_reach": 3,
+    "oracle_fires": true
+  },
+  "cn_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0
+  },
+  "cn_bin_counts": {
+    "0": 61,
+    "1": 122,
+    "2": 19,
+    "3": 0
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "verdict": "OPERATOR_FIX_CONFIRMED_CONSOLIDATION_INCONCLUSIVE",
+  "verdict_msg": "OPERATOR_FIX confirmed (phase-rotation/SSP off the stage3 floor): oneshot=0.912 discrete=0.007 (margin=0.905 >= 0.20) beats pop=0.010; oracle fires; scramble does not beat oneshot; no freq-manufacture (-0.238). CONSOLIDATION inconclusive (consol_low=False flat=False backdoor=-0.5881) -- FULL landed-VET decides.",
+  "summary": "OPERATOR_FIX confirmed (phase-rotation/SSP off the stage3 floor): oneshot=0.912 discrete=0.007 (margin=0.905 >= 0.20) beats pop=0.010; oracle fires; scramble does not beat oneshot; no freq-manufacture",
+  "run_mode": "smoke",
+  "elapsed_s": 9.885431100032292,
+  "anchor_name": "course_c_operator_fix_ssp_phase_rotation_replay_v1",
+  "ts_iso": "2026-07-11T03:38:41.665828+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "k": 2,
+    "grid_L": 9,
+    "n_rel": 8,
+    "n_comp": 8,
+    "fpe_dim": 1024,
+    "kge_epochs": 300,
+    "replay_passes": 40
+  },
+  "gates": {
+    "reach": {
+      "DISCRETE_BIND": 0.0069,
+      "ONESHOT_ROTATE": 0.91195,
+      "REPLAY_CONSOLIDATED": 0.8347,
+      "SCRAMBLE_REPLAY": 0.04465,
+      "BASELINE_POP": 0.01045,
+      "RANDOM_CODES": 0.0,
+      "ORACLE_TRANSDUCTIVE": 1.0
+    },
+    "strat": {
+      "ONESHOT_ROTATE": {
+        "LOW": 0.8947499999999999,
+        "MID": 0.9151,
+        "HIGH": 0.9375
+      },
+      "REPLAY_CONSOLIDATED": {
+        "LOW": 0.7755,
+        "MID": 0.86875,
+        "HIGH": 0.8914
+      },
+      "DISCRETE_BIND": {
+        "LOW": 0.00845,
+        "MID": 0.0,
+        "HIGH": 0.0156
+      },
+      "BASELINE_POP": {
+        "LOW": 0.0,
+        "MID": 0.0,
+        "HIGH": 0.0429
+      }
+    },
+    "comp_reach": {
+      "ONESHOT_ROTATE": 0.87085,
+      "REPLAY_CONSOLIDATED": 0.8545,
+      "DISCRETE_BIND": 0.10239999999999999
+    },
+    "op_margin": 0.9051,
+    "g_op_margin": true,
+    "g_beats_pop": true,
+    "g_discrete_floor": true,
+    "g_random_null": true,
+    "g_oracle": true,
+    "g_scramble": true,
+    "g_no_manufacture": true,
+    "freq_manufacture_margin": -0.2384,
+    "operator_fix": true,
+    "operator_fix_fails": false,
+    "g_consol_low": false,
+    "g_agg_no_regress": false,
+    "g_flat": false,
+    "flat_gap": 0.1159,
+    "backdoor_r": -0.5881,
+    "g_backdoor": false,
+    "consolidation_helps": false,
+    "achieved_over_ceiling": 0.912
+  },
+  "mechanism_selftest": {
+    "oneshot_reach": 0.7179,
+    "discrete_reach": 0.0256,
+    "random_reach": 0.0,
+    "pop_reach": 0.0256,
+    "oracle_reach": 1.0,
+    "scramble_reach": 0.0256,
+    "replay_reach": 0.359,
+    "freq_pop_reach": 0.5938,
+    "freq_oneshot_reach": 0.5,
+    "freq_manufacture_margin": -0.0938,
+    "comp_reach": {
+      "ONESHOT_ROTATE": 0.5114,
+      "REPLAY_CONSOLIDATED": 0.2614,
+      "DISCRETE_BIND": 0.3068
+    },
+    "backdoor_r": -0.4433,
+    "oneshot_recovers": true,
+    "discrete_at_chance": true,
+    "random_at_chance": true,
+    "oneshot_beats_discrete": true,
+    "oneshot_beats_pop": true,
+    "oracle_fires": true,
+    "scramble_not_beat": true,
+    "pop_fires_freq": true,
+    "no_manufacture": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 7
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 81,
+      "n_rel": 8,
+      "n_edges": 473,
+      "n_train": 331,
+      "n_hold": 142,
+      "n_comp_edges": 391,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.007,
+        "ONESHOT_ROTATE": 0.8239,
+        "REPLAY_CONSOLIDATED": 0.8451,
+        "SCRAMBLE_REPLAY": 0.0352,
+        "BASELINE_POP": 0.0141,
+        "RANDOM_CODES": 0.0,
+        "ORACLE_TRANSDUCTIVE": 1.0
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.0529,
+        "ONESHOT_ROTATE": 0.8404,
+        "REPLAY_CONSOLIDATED": 0.8766,
+        "SCRAMBLE_REPLAY": 0.1268,
+        "BASELINE_POP": 0.0642,
+        "RANDOM_CODES": 0.0447,
+        "ORACLE_TRANSDUCTIVE": 1.0
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "9920288b04ba8272",
+        "REPLAY_CONSOLIDATED": "43a7cd6262a6238b",
+        "SCRAMBLE_REPLAY": "c02dab38ed9c6487",
+        "RANDOM_CODES": "2f1026e923e54ce1",
+        "ORACLE_TRANSDUCTIVE": "12c9e43b217d5853",
+        "DISCRETE_BIND": "e772a0c5f25e369c",
+        "BASELINE_POP": "aa965d0d66124535"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 0.7895,
+            "n": 57
+          },
+          "MID": {
+            "reach": 0.8302,
+            "n": 53
+          },
+          "HIGH": {
+            "reach": 0.875,
+            "n": 32
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.7544,
+            "n": 57
+          },
+          "MID": {
+            "reach": 0.8679,
+            "n": 53
+          },
+          "HIGH": {
+            "reach": 0.9688,
+            "n": 32
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 57
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 53
+          },
+          "HIGH": {
+            "reach": 0.0312,
+            "n": 32
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 57
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 53
+          },
+          "HIGH": {
+            "reach": 0.0625,
+            "n": 32
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 0.7417,
+        "REPLAY_CONSOLIDATED": 0.844,
+        "DISCRETE_BIND": 0.1023
+      },
+      "achieved_over_ceiling": 0.8239,
+      "freq_corpus": {
+        "oneshot_reach": 0.1875,
+        "pop_reach": 0.4375,
+        "manufacture_margin": -0.25
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.5111,
+      "cross_channel_geom_vs_pop_r": 0.1094,
+      "effective_rank": {
+        "oneshot": 1.763,
+        "replay": 1.974,
+        "k": 2
+      },
+      "replay_consolidation": {
+        "n_commit": 8,
+        "n_frozen": 8,
+        "n_rel": 8
+      },
+      "strata_counts": {
+        "LOW": 57,
+        "MID": 53,
+        "HIGH": 32
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    },
+    {
+      "seed": 13,
+      "N": 81,
+      "n_rel": 8,
+      "n_edges": 495,
+      "n_train": 347,
+      "n_hold": 148,
+      "n_comp_edges": 401,
+      "arm_reach": {
+        "DISCRETE_BIND": 0.0068,
+        "ONESHOT_ROTATE": 1.0,
+        "REPLAY_CONSOLIDATED": 0.8243,
+        "SCRAMBLE_REPLAY": 0.0541,
+        "BASELINE_POP": 0.0068,
+        "RANDOM_CODES": 0.0,
+        "ORACLE_TRANSDUCTIVE": 1.0
+      },
+      "arm_mrr": {
+        "DISCRETE_BIND": 0.061,
+        "ONESHOT_ROTATE": 1.0,
+        "REPLAY_CONSOLIDATED": 0.854,
+        "SCRAMBLE_REPLAY": 0.1695,
+        "BASELINE_POP": 0.0631,
+        "RANDOM_CODES": 0.0443,
+        "ORACLE_TRANSDUCTIVE": 1.0
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "e1e53a67ef358d3d",
+        "REPLAY_CONSOLIDATED": "6199fb2adc584880",
+        "SCRAMBLE_REPLAY": "7b439b34e1e3354c",
+        "RANDOM_CODES": "33467373b01e069a",
+        "ORACLE_TRANSDUCTIVE": "48ff1b3b0e5198bd",
+        "DISCRETE_BIND": "e8bad97f5ea0b6ac",
+        "BASELINE_POP": "6527e8e126c1e583"
+      },
+      "strat_reach": {
+        "ONESHOT_ROTATE": {
+          "LOW": {
+            "reach": 1.0,
+            "n": 59
+          },
+          "MID": {
+            "reach": 1.0,
+            "n": 46
+          },
+          "HIGH": {
+            "reach": 1.0,
+            "n": 43
+          }
+        },
+        "REPLAY_CONSOLIDATED": {
+          "LOW": {
+            "reach": 0.7966,
+            "n": 59
+          },
+          "MID": {
+            "reach": 0.8696,
+            "n": 46
+          },
+          "HIGH": {
+            "reach": 0.814,
+            "n": 43
+          }
+        },
+        "DISCRETE_BIND": {
+          "LOW": {
+            "reach": 0.0169,
+            "n": 59
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 46
+          },
+          "HIGH": {
+            "reach": 0.0,
+            "n": 43
+          }
+        },
+        "BASELINE_POP": {
+          "LOW": {
+            "reach": 0.0,
+            "n": 59
+          },
+          "MID": {
+            "reach": 0.0,
+            "n": 46
+          },
+          "HIGH": {
+            "reach": 0.0233,
+            "n": 43
+          }
+        }
+      },
+      "comp_reach": {
+        "ONESHOT_ROTATE": 1.0,
+        "REPLAY_CONSOLIDATED": 0.865,
+        "DISCRETE_BIND": 0.1025
+      },
+      "achieved_over_ceiling": 1.0,
+      "freq_corpus": {
+        "oneshot_reach": 0.1753,
+        "pop_reach": 0.4021,
+        "manufacture_margin": -0.2268
+      },
+      "backdoor_coord_precision_vs_degree_r": -0.6651,
+      "cross_channel_geom_vs_pop_r": 0.1236,
+      "effective_rank": {
+        "oneshot": 1.998,
+        "replay": 1.984,
+        "k": 2
+      },
+      "replay_consolidation": {
+        "n_commit": 17,
+        "n_frozen": 8,
+        "n_rel": 8
+      },
+      "strata_counts": {
+        "LOW": 59,
+        "MID": 46,
+        "HIGH": 43
+      },
+      "leakage_audit": {
+        "no_inverse_duplicate": true,
+        "no_cartesian": true,
+        "note": "synthetic grid: distinct non-inverse integer translations; composites reject primitive-equal deltas"
+      }
+    }
+  ]
+}

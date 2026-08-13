@@ -1,0 +1,131 @@
+{
+  "verdict": "ACCEPTANCE_PASS_ADDITIVE_MAP_REPRODUCES_VET",
+  "verdict_msg": "ACCEPTANCE_PASS_ADDITIVE_MAP_REPRODUCES_VET || mean ANCHOR_COMPOSE MRR=0.12821 vs VET=0.12821 (band [0.10,0.16] in_band=True) | fires_vs_random=True (random=0.00048) | relation_signal_vs_scramble=True (scramble=0.00984) | persist_reload_ok=True | seeds=[7, 13, 17] | fit driven LIVE via hdlab.additive_map.AdditiveKGMap (coord_source=learned_sgd_kge_anchor1)",
+  "summary": "ACCEPTANCE_PASS_ADDITIVE_MAP_REPRODUCES_VET || mean ANCHOR_COMPOSE MRR=0.12821 vs VET=0.12821 (band [0.10,0.16] in_band=True) | fires_vs_random=True (random=0.00048) | relation_signal_vs_scramble=True",
+  "run_mode": "full",
+  "elapsed_s": 2607.317827199935,
+  "anchor_name": "additive_map_acceptance_gate_v1",
+  "ts_iso": "2026-07-14T00:07:21.039331+00:00",
+  "device": "cuda",
+  "vet_anchor_mrr": 0.12821,
+  "mean_anchor_mrr": 0.12820530619816758,
+  "mean_random_mrr": 0.00048477119207157435,
+  "mean_scramble_mrr": 0.009841108711876217,
+  "in_band": true,
+  "fires": true,
+  "relation_signal": true,
+  "persist_ok": true,
+  "accepted": true,
+  "band": [
+    0.1,
+    0.16
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 359692,
+      "n_heldout_entities": 3862,
+      "n_support": 36254,
+      "n_query_total": 36333,
+      "n_query_scored": 3000,
+      "n_cold": 154,
+      "anchor_mrr": 0.11691504594611488,
+      "scramble_mrr": 0.011000934771180108,
+      "random_mrr": 0.0006994271109493469,
+      "anchor_spectrum": {
+        "hits@1": 0.041,
+        "hits@3": 0.10966666666666666,
+        "hits@10": 0.274,
+        "hits@100": 0.798
+      },
+      "persisted_dir": "C:\\dev\\hd-instrument\\data\\exp_additive_map_acceptance_gate_v1\\fitted_map_seed7",
+      "persist_reload_ok": true
+    },
+    {
+      "seed": 13,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 375272,
+      "n_heldout_entities": 3862,
+      "n_support": 28420,
+      "n_query_total": 28532,
+      "n_query_scored": 3000,
+      "n_cold": 180,
+      "anchor_mrr": 0.1379699559158176,
+      "scramble_mrr": 0.006458773957210079,
+      "random_mrr": 0.00031120265381709406,
+      "anchor_spectrum": {
+        "hits@1": 0.060333333333333336,
+        "hits@3": 0.138,
+        "hits@10": 0.2866666666666667,
+        "hits@100": 0.7963333333333333
+      },
+      "persisted_dir": null,
+      "persist_reload_ok": null
+    },
+    {
+      "seed": 17,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 371254,
+      "n_heldout_entities": 3862,
+      "n_support": 31133,
+      "n_query_total": 31232,
+      "n_query_scored": 3000,
+      "n_cold": 155,
+      "anchor_mrr": 0.12973091673257023,
+      "scramble_mrr": 0.012063617407238467,
+      "random_mrr": 0.00044368381144828216,
+      "anchor_spectrum": {
+        "hits@1": 0.055,
+        "hits@3": 0.13,
+        "hits@10": 0.2733333333333333,
+        "hits@100": 0.7693333333333333
+      },
+      "persisted_dir": null,
+      "persist_reload_ok": null
+    }
+  ],
+  "seed_failures": [],
+  "selftest": {
+    "seed": 7,
+    "N": 300,
+    "n_rel": 6,
+    "n_train": 651,
+    "n_heldout_entities": 45,
+    "n_support": 53,
+    "n_query_total": 61,
+    "n_query_scored": 61,
+    "n_cold": 10,
+    "anchor_mrr": 0.40076897792126953,
+    "scramble_mrr": 0.09634678964918665,
+    "random_mrr": 0.007490571893269528,
+    "anchor_spectrum": {
+      "hits@1": 0.2786885245901639,
+      "hits@3": 0.4262295081967213,
+      "hits@10": 0.6721311475409836,
+      "hits@100": 0.7704918032786885
+    },
+    "persisted_dir": "C:\\dev\\hd-instrument\\data\\exp_additive_map_acceptance_gate_v1\\fitted_map_seed7",
+    "persist_reload_ok": true,
+    "selftest_checks": {
+      "anchor_recovers": true,
+      "beats_random": true,
+      "beats_scramble": true,
+      "persist_ok": true
+    }
+  },
+  "fit_kw": {
+    "reciprocal": true,
+    "lr": 0.05,
+    "n_neg": 128,
+    "batch_size": 8192,
+    "neg_chunk": 16
+  },
+  "fit_config": {
+    "k": 24,
+    "epochs": 500
+  }
+}

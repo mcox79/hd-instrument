@@ -1,0 +1,217 @@
+{
+  "anchor_name": "n8_conceptnet_ingest_eval_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop vs 1-hop AND frozen-encoder; OPEN-C unlocked). setrecall@M100000 all=1.000 1to1=1.000 (floor 0.95) | refuse OOD=0.999 accept=0.997 (>=0.80) | infer 2hop=0.426 vs 1hop=0.000 vs frozen-enc=0.012 (ratio=36.50x, need >=2.0x) | scale-curve={5000: 1.0, 10000: 1.0, 25000: 1.0, 50000: 1.0, 100000: 1.0}",
+  "summary": "HARD_PASS: substrate KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop vs 1-hop AND frozen-encoder; OPEN-C unlocked). setrecall@M100000 all=1.000 1to1=1.000 (floor 0.95) | refuse OOD=0.999 accept=0.997 (>=0.80) | infer 2hop=0.426 vs 1hop=0.000 vs frozen-enc=0.012 (ratio=36.50x, need >=2.0x) | scale-curve={5000: 1.0, 10000: 1.0, 25000: 1.0, 50000: 1.0, 100000: 1.0}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "n8-conceptnet-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder; N8192 scale[5000, 10000, 25000, 50000, 100000]; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x",
+  "per_seed": [
+    {
+      "seed": 7,
+      "scale_curve": {
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 7614,
+          "n_rel": 8,
+          "n_keys": 3921,
+          "n_triples": 5000,
+          "ingest_s": 4.6
+        },
+        "M10000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 13513,
+          "n_rel": 8,
+          "n_keys": 7017,
+          "n_triples": 10000,
+          "ingest_s": 8.9
+        },
+        "M25000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 28194,
+          "n_rel": 8,
+          "n_keys": 14736,
+          "n_triples": 25000,
+          "ingest_s": 19.3
+        },
+        "M50000": {
+          "setrecall_all": 0.9997,
+          "setrecall_1to1": 1.0,
+          "n_ent": 48173,
+          "n_rel": 8,
+          "n_keys": 25062,
+          "n_triples": 50000,
+          "ingest_s": 36.0
+        },
+        "M100000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 80181,
+          "n_rel": 8,
+          "n_keys": 42154,
+          "n_triples": 100000,
+          "ingest_s": 68.4
+        }
+      },
+      "config_version": "n8-conceptnet-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder; N8192 scale[5000, 10000, 25000, 50000, 100000]; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x",
+      "run_mode": "full",
+      "N": 8192,
+      "refuse_gate": {
+        "tau": 9.06869609025307e-05,
+        "inkb_accept": 0.9966666666666667,
+        "ood_refuse": 1.0,
+        "inkb_conf_mean": 0.00012694974429905415,
+        "ood_conf_mean": 3.737900988198817e-05
+      },
+      "inference_transfer": {
+        "n": 400,
+        "substrate_2hop": 0.415,
+        "baseline_1hop": 0.0,
+        "baseline_frozen_encoder": 0.01,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 1
+      }
+    },
+    {
+      "seed": 17,
+      "scale_curve": {
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 7634,
+          "n_rel": 8,
+          "n_keys": 3934,
+          "n_triples": 5000,
+          "ingest_s": 5.3
+        },
+        "M10000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 13572,
+          "n_rel": 8,
+          "n_keys": 7060,
+          "n_triples": 10000,
+          "ingest_s": 8.5
+        },
+        "M25000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 28168,
+          "n_rel": 8,
+          "n_keys": 14628,
+          "n_triples": 25000,
+          "ingest_s": 18.8
+        },
+        "M50000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 48119,
+          "n_rel": 8,
+          "n_keys": 25025,
+          "n_triples": 50000,
+          "ingest_s": 35.8
+        },
+        "M100000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 80181,
+          "n_rel": 8,
+          "n_keys": 42154,
+          "n_triples": 100000,
+          "ingest_s": 65.7
+        }
+      },
+      "config_version": "n8-conceptnet-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder; N8192 scale[5000, 10000, 25000, 50000, 100000]; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x",
+      "run_mode": "full",
+      "N": 8192,
+      "refuse_gate": {
+        "tau": 8.247307414421812e-05,
+        "inkb_accept": 1.0,
+        "ood_refuse": 0.9966666666666667,
+        "inkb_conf_mean": 0.00012656120816245675,
+        "ood_conf_mean": 3.722842666320503e-05
+      },
+      "inference_transfer": {
+        "n": 400,
+        "substrate_2hop": 0.425,
+        "baseline_1hop": 0.0,
+        "baseline_frozen_encoder": 0.015,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 6
+      }
+    },
+    {
+      "seed": 23,
+      "scale_curve": {
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 7524,
+          "n_rel": 8,
+          "n_keys": 3911,
+          "n_triples": 5000,
+          "ingest_s": 4.4
+        },
+        "M10000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 13468,
+          "n_rel": 8,
+          "n_keys": 6954,
+          "n_triples": 10000,
+          "ingest_s": 8.2
+        },
+        "M25000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 28133,
+          "n_rel": 8,
+          "n_keys": 14496,
+          "n_triples": 25000,
+          "ingest_s": 19.5
+        },
+        "M50000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 48146,
+          "n_rel": 8,
+          "n_keys": 25041,
+          "n_triples": 50000,
+          "ingest_s": 35.6
+        },
+        "M100000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 80181,
+          "n_rel": 8,
+          "n_keys": 42154,
+          "n_triples": 100000,
+          "ingest_s": 68.7
+        }
+      },
+      "config_version": "n8-conceptnet-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder; N8192 scale[5000, 10000, 25000, 50000, 100000]; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x",
+      "run_mode": "full",
+      "N": 8192,
+      "refuse_gate": {
+        "tau": 0.00010595122876111418,
+        "inkb_accept": 0.9933333333333333,
+        "ood_refuse": 1.0,
+        "inkb_conf_mean": 0.00012704347318504006,
+        "ood_conf_mean": 3.8050096918595955e-05
+      },
+      "inference_transfer": {
+        "n": 400,
+        "substrate_2hop": 0.4375,
+        "baseline_1hop": 0.0,
+        "baseline_frozen_encoder": 0.01,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 10
+      }
+    }
+  ],
+  "elapsed_s": 761.1,
+  "DESIGN_NOTE": "N8 ConceptNet ingest-eval; reuses U1 chain-grade pattern; OPEN-C UNLOCKED via frozen-encoder MiniLM-L6 semantic baseline at ingest-time only (substrate-native gate: encoder is INPUT-stage; scoring is matmul, no forward calls); honest scope: 8 relation types in en-100k vs FB15k-237's ~237; OOD class = (s,p) in-KB no-edge."
+}

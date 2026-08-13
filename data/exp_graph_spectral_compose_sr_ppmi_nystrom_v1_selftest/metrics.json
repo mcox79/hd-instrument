@@ -1,0 +1,72 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS GRAPH_SPECTRAL_COMPOSE_SR_PPMI_NYSTROM: planted SBM -- LAP spectral codebook recovers planted held-out tails + embedding separates blocks; BOTH flat AND degree-weighted compose over TRUE support-neighbors beat their scrambled controls; leak_audit clean (train-only codes, disjoint support/query, held-out tails train-degree 0); REAL KGStore + both OOS compose paths exercised; 7 validity-preflight checks declared (F.1-F.4 ENFORCE)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.08541890000924468,
+  "mechanism_selftest": {
+    "real_code_path_ok": true,
+    "exercised_entrypoints": [
+      "KGStore",
+      "build_adjacency",
+      "build_store_with_codes",
+      "compose_score",
+      "compose_score_wdeg",
+      "ingest_triples",
+      "lap_codes",
+      "native_query_recall"
+    ],
+    "planted": {
+      "RAND_ORACLE": 0.85128,
+      "LAP_ORACLE": 0.53759,
+      "PPMI_ORACLE": 0.52391,
+      "SR_ORACLE": 0.82013,
+      "RAND_COMPOSE": 0.07425,
+      "RAND_COMPOSE_NYS": 0.07393,
+      "LAP_COMPOSE_FLAT": 0.29956,
+      "PPMI_COMPOSE_FLAT": 0.29195,
+      "SR_COMPOSE_FLAT": 0.22429,
+      "LAP_COMPOSE_NYS": 0.29868,
+      "SR_COMPOSE_NYS": 0.1972,
+      "PPMI_COMPOSE_FLAT_SCRAMBLE": 0.13799,
+      "SR_COMPOSE_FLAT_SCRAMBLE": 0.09517,
+      "LAP_COMPOSE_NYS_SCRAMBLE": 0.08709,
+      "SR_COMPOSE_NYS_SCRAMBLE": 0.08388,
+      "RAND_NULL": 0.10274,
+      "BASELINE_POP": 0.01624
+    },
+    "block_purity": 0.4762,
+    "n_distinct_sigs": 17,
+    "lap_recovers": true,
+    "lap_beats_null": true,
+    "embedding_separates": true,
+    "flat_compose_fires": true,
+    "degwt_compose_fires": true,
+    "degwt_sr_compose_fires": true,
+    "compose_scr_fails": true,
+    "arms_differ": true,
+    "finite": true,
+    "leak_free": true,
+    "leak_audit": {
+      "query_support_overlap": 0,
+      "n_query": 26,
+      "n_support": 27,
+      "scored_tail_train_degree": 0,
+      "n_train": 295,
+      "compose_store_n_ingested": 295,
+      "ingest_equals_train": true,
+      "leak_free": true
+    },
+    "selftest_verdict": "INCONCLUSIVE_POSCONTROL_ORACLE_OR_LEAK_FAILED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3",
+      "guard_baseline_valid_F4"
+    ]
+  }
+}

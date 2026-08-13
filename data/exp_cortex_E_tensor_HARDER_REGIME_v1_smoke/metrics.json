@@ -1,0 +1,74 @@
+{
+  "anchor_name": "cortex_E_tensor_HARDER_REGIME_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: E_GATED meets no PASS/MIDDLE band at harder regime. hp_checks=[gap=False,old=True,rec=True,cv=True,cor=False]. E_GATED(rec_old=0.500,rec_rec=1.000,cor=0.760,cv=0.000,n_down=140); RANDOM(rec_old=0.717,rec_rec=0.600,n_down=140); BASELINE_mag(rec_old=0.800,rec_rec=0.700); gap_E_vs_RND=-0.217",
+  "summary": "n_seeds=1 N=256 M_OLD=200 M_RECENT=150 alpha=1.367 J=1000 mode=smoke downscale_scale=0.2 e_threshold=0.2",
+  "elapsed_s": 22.984078407287598,
+  "config_version": "ANCHOR=cortex_E_tensor_HARDER_REGIME_v1,N=256,M_OLD=200,M_RECENT=150,USE_FRAC=0.3,N_PASSES=1000,DOWNSCALE_SCALE=0.2,DOWNSCALE_FRAC=0.3,E_THRESHOLD=0.2,SEEDS=7,N_QUERIES=60,RUN_MODE=smoke",
+  "N": 256,
+  "M_OLD": 200,
+  "M_RECENT": 150,
+  "alpha": 1.3671875,
+  "n_seeds": 1,
+  "n_queries": 60,
+  "n_passes": 1000,
+  "downscale_scale": 0.2,
+  "downscale_frac": 0.3,
+  "e_threshold": 0.2,
+  "use_frac": 0.3,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 22.62371277809143,
+      "arms": [
+        {
+          "arm_name": "ARM_NO_E_BASELINE",
+          "recall_old": 0.8,
+          "recall_recent": 0.7,
+          "W_norm_pre": 4816.584682116572,
+          "W_norm_post": 4119.894367577888,
+          "cor_E_magnitude": -0.061501583532055676,
+          "n_downscaled": 105,
+          "downscale_frac_actual": 0.3,
+          "wall_s": 0.46163249015808105,
+          "E_min": 0.18384771238548175,
+          "E_max": 0.9900891972249745,
+          "E_mean": 0.45755437590704545,
+          "frac_below_E_threshold": 0.4
+        },
+        {
+          "arm_name": "ARM_E_GATED_DOWNSCALE",
+          "recall_old": 0.5,
+          "recall_recent": 1.0,
+          "W_norm_pre": 4816.584682116572,
+          "W_norm_post": 3781.771859856171,
+          "cor_E_magnitude": 0.7601364334081636,
+          "n_downscaled": 140,
+          "downscale_frac_actual": 0.4,
+          "wall_s": 0.28673577308654785,
+          "E_min": 0.18384771238548175,
+          "E_max": 0.9900891972249745,
+          "E_mean": 0.45755437590704545,
+          "frac_below_E_threshold": 0.4
+        },
+        {
+          "arm_name": "ARM_RANDOM_GATED_DOWNSCALE",
+          "recall_old": 0.7166666666666667,
+          "recall_recent": 0.6,
+          "W_norm_pre": 4816.584682116572,
+          "W_norm_post": 3774.19787504577,
+          "cor_E_magnitude": -0.03671207582852669,
+          "n_downscaled": 140,
+          "downscale_frac_actual": 0.4,
+          "wall_s": 0.13167071342468262,
+          "E_min": 0.18384771238548175,
+          "E_max": 0.9900891972249745,
+          "E_mean": 0.45755437590704545,
+          "frac_below_E_threshold": 0.4
+        }
+      ]
+    }
+  ]
+}

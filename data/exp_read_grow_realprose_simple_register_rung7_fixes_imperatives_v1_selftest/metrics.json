@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: META_RULE_AF VIOLATION: BASELINE and FIX1 bit-identical on real data",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_simple_register_rung7_fixes_imperatives_v1.py\", line 1365, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_simple_register_rung7_fixes_imperatives_v1.py\", line 1235, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_simple_register_rung7_fixes_imperatives_v1.py\", line 1216, in self_test\n    assert digests[names[i]] != digests[names[j]], (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: META_RULE_AF VIOLATION: BASELINE and FIX1 bit-identical on real data\n",
+  "ts_iso": "2026-07-17T07:41:43.014407+00:00",
+  "pid": 26552,
+  "anchor_name": "read_grow_realprose_simple_register_rung7_fixes_imperatives_v1"
+}

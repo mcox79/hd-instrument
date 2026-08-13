@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: expected positive PPMI for a dominant class, got 0.0",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_selectional_preference_precision_v1.py\", line 787, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_selectional_preference_precision_v1.py\", line 630, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_selectional_preference_precision_v1.py\", line 574, in self_test\n    assert score_food is not None and score_food > 0.0, f\"expected positive PPMI for a dominant class, got {score_food}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: expected positive PPMI for a dominant class, got 0.0\n",
+  "ts_iso": "2026-07-17T13:46:36.193950+00:00",
+  "pid": 19124,
+  "anchor_name": "read_grow_selectional_preference_precision_v1"
+}

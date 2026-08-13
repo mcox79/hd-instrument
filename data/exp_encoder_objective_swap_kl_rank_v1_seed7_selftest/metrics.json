@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "KeyError: 'delta_ret_agree10'",
+  "summary": "CELL_CRASHED: KeyError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_objective_swap_kl_rank_v1_seed_7.py\", line 62, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_objective_swap_kl_rank_v1_seed_7.py\", line 46, in main\n    return core.run_self_test()\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_objective_swap_kl_rank_v1_core.py\", line 1000, in run_self_test\n    v_pass, m_pass = _verdict_swap(fake_units_base, rec_pass, 15, \"full\")\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_objective_swap_kl_rank_v1_core.py\", line 539, in _verdict_swap\n    f\"delta_ret_agree10={recovery['delta_ret_agree10']:.4f}]\")\n                         ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'delta_ret_agree10'\n",
+  "ts_iso": "2026-07-04T20:28:22.694977+00:00",
+  "pid": 17656,
+  "anchor_name": "encoder_objective_swap_kl_rank_v1"
+}

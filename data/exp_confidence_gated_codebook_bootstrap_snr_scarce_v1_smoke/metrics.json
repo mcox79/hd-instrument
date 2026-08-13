@@ -1,0 +1,204 @@
+{
+  "verdict": "HARD_FAIL_SELF_GENERATED_SNR_BOUND_CONFIRMED",
+  "verdict_msg": "HARD_FAIL_SELF_GENERATED_SNR_BOUND_CONFIRMED | 300000tok: lift=-0.0118(sig=0/1) snr_imp=True corr_bs=0.523 corr_sh=0.474 | ungated_monotone=True",
+  "summary": "HARD_FAIL_SELF_GENERATED_SNR_BOUND_CONFIRMED: HARD_FAIL_SELF_GENERATED_SNR_BOUND_CONFIRMED | 300000tok: lift=-0.0118(sig=0/1) snr_imp=True corr_bs=0.523 corr_sh=0.474 | ungated_monotone=True",
+  "elapsed_s": 51.15835280000465,
+  "anchor_name": "exp_confidence_gated_codebook_bootstrap_snr_scarce_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T10:36:33.718228+00:00",
+  "config": {
+    "scales": [
+      300000
+    ],
+    "vocab_size": 6000,
+    "V": 6000,
+    "N": 1024,
+    "window": 5,
+    "min_count": 5,
+    "seeds": [
+      7
+    ],
+    "B_bootstrap": 8,
+    "n_blocks_target": 40,
+    "n_wordsim_pairs": 185,
+    "n_simlex_pairs": 361,
+    "n_true_pairs": 182,
+    "n_random_pairs": 2000
+  },
+  "per_scale": {
+    "300000": {
+      "scale_n": 300000,
+      "V": 6000,
+      "confidence_diagnostics": {
+        "splithalf": {
+          "mean": 0.06251273979850093,
+          "std": 0.061996902398633515,
+          "degenerate": false,
+          "n_half_a_tokens": 150000,
+          "n_half_b_tokens": 150000
+        },
+        "bootstrap": {
+          "mean": 0.0738268296614908,
+          "std": 0.05822066980461744,
+          "degenerate": false,
+          "B": 8,
+          "n_blocks": 40,
+          "block_size": 7500,
+          "half_blocks": 20,
+          "per_draw_mean": [
+            0.06966477863686137,
+            0.07205321685961835,
+            0.07085787988820051,
+            0.0713988385487064,
+            0.07761792844631733,
+            0.0707660779798033,
+            0.0763288481134835,
+            0.0819270688189357
+          ],
+          "per_draw_std": [
+            0.06653906806207555,
+            0.06903816950455627,
+            0.06760262582275706,
+            0.06773012984136298,
+            0.07350130528750845,
+            0.06772928417367638,
+            0.07877746238710785,
+            0.08236445243827
+          ]
+        }
+      },
+      "corr_splithalf_oracle": 0.4742726249492646,
+      "corr_bootstrap_oracle": 0.5232362685333475,
+      "snr_improved": true,
+      "arm_summary": {
+        "ungated": {
+          "auc_mean": 0.7458873626373627,
+          "auc_std": 0.0,
+          "n_seeds": 1
+        },
+        "gated": {
+          "auc_mean": 0.7340563186813187,
+          "auc_std": 0.0,
+          "n_seeds": 1
+        },
+        "shuffled": {
+          "auc_mean": 0.7082197802197803,
+          "auc_std": 0.0,
+          "n_seeds": 1
+        },
+        "inverted": {
+          "auc_mean": 0.7442857142857143,
+          "auc_std": 0.0,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "auc_mean": 0.7051346153846154,
+          "auc_std": 0.0,
+          "n_seeds": 1
+        }
+      },
+      "per_unit": {
+        "ungated__seed7": {
+          "arm": "ungated",
+          "seed": 7,
+          "auc": 0.7458873626373627,
+          "failure_class": null
+        },
+        "gated__seed7": {
+          "arm": "gated",
+          "seed": 7,
+          "auc": 0.7340563186813187,
+          "failure_class": null
+        },
+        "shuffled__seed7": {
+          "arm": "shuffled",
+          "seed": 7,
+          "auc": 0.7082197802197803,
+          "failure_class": null
+        },
+        "inverted__seed7": {
+          "arm": "inverted",
+          "seed": 7,
+          "auc": 0.7442857142857143,
+          "failure_class": null
+        },
+        "oracle__seed7": {
+          "arm": "oracle",
+          "seed": 7,
+          "auc": 0.7051346153846154,
+          "failure_class": null
+        }
+      },
+      "boot_vs_ungated": {
+        "gated__seed7": {
+          "mean_diff": -0.012121943681318683,
+          "std_diff": 0.01233972007155036,
+          "p_le_zero": 0.84
+        },
+        "shuffled__seed7": {
+          "mean_diff": -0.03766624862637363,
+          "std_diff": 0.019546114202564892,
+          "p_le_zero": 0.973
+        },
+        "inverted__seed7": {
+          "mean_diff": -0.0015214010989010988,
+          "std_diff": 0.0020873172336178317,
+          "p_le_zero": 0.771
+        },
+        "oracle__seed7": {
+          "mean_diff": -0.0418075934065934,
+          "std_diff": 0.021154147612773493,
+          "p_le_zero": 0.9795
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_detail": {
+        "7": true
+      },
+      "cardinality_ok": true,
+      "expected_n_units": 5,
+      "n_units_done": 5,
+      "mean_lift_gated": -0.011831043956043952,
+      "mean_deficit_inverted": 0.0016016483516483326,
+      "mean_shuffled_vs_ungated": -0.03766758241758239,
+      "gated_all_positive": false,
+      "inverted_all_negative_for_ungated": true,
+      "n_gated_sig": 0,
+      "n_inverted_sig": 0,
+      "n_seeds_ran": 1
+    }
+  },
+  "bands": {
+    "HP_LIFT_MIN": 0.008,
+    "HP_DEFICIT_INVERTED_MIN": 0.005,
+    "SHUFFLED_HELP_TOL": 0.005,
+    "BOOT_P_ALPHA": 0.05,
+    "CONF_STD_MIN_FAIL": 0.02
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units_done": 5,
+  "arms_differ_verified": true,
+  "snr_improved_by_scale": {
+    "300000": true
+  },
+  "snr_improved_majority": true,
+  "ungated_auc_monotone_with_scale": true,
+  "hp_scope": {
+    "ungated": [],
+    "gated": [
+      "hard_pass_lift",
+      "hard_fail_no_lift"
+    ],
+    "shuffled": [
+      "must_not_help"
+    ],
+    "inverted": [
+      "must_hurt"
+    ],
+    "oracle": []
+  },
+  "crlb_n/a": "distributional-geometry generalization test; no argmax/capacity noise floor",
+  "self_generated_confidence_note": "both splithalf and bootstrap confidence computed strictly from tokens+w2i+window; never passed wordsim/simlex or any gold label; computed before held-out eval step",
+  "prior_art": "atom-29383 (split-half predecessor, HARD_FAIL, revival_criterion source); Efron&Tibshirani1993 bootstrap; Breiman1996 bagging; Yu&Dayan2005; Kepecs2008/Lak2014; Lisman&Grace2005; McClelland-McNaughton-OReilly1995 CLS"
+}

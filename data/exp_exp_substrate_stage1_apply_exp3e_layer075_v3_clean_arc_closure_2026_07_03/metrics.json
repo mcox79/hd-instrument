@@ -1,0 +1,2337 @@
+{
+  "anchor_name": "substrate_stage1_apply_exp3e_layer075_v3_clean_arc_closure_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_FULL_ARC_CLOSURE_V3_CLEAN: MAIN_V3_CLEAN=0.737 >= 0.90 * ORACLE=0.817 (hp_full=0.735) AND cv=0.082<0.10 AND all seeds >= 0.60 (min=0.680) AND V3_STACKED_S1S2 reproduces Exp 3D MAIN within 0.05 (drift=0.004 vs 0.511). Retrieval-architecture arc CLOSES on hub-concept-bridge scope at FULL scale: uniform PPR + v3 structural KG-slot filter + FHRR composition validated with 3-seed stability. Path a' (structural triple filter) vindicated over path (b) (BGE-augmentation) at both interface AND full-closure tier. S1+S2-subtract diagnosis reproduced (gap=0.230). Next: 170K-atom Director-KB scale re-test. ORACLE=0.817 (drift=0.006 vs 0.822) EXP3_BASE=0.440 (drift=0.029 vs 0.411) S3V1=0.013 (drift=0.002 vs 0.011) S3V2=0.043 (drift=0.010 vs 0.033) V3_STACKED_S1S2=0.507 (drift=0.004 vs 0.511) MAIN_V3_CLEAN=0.737 seeds=[0.71, 0.82, 0.68] cv=0.082 min_seed=0.680 RANDOM=0.030 | hp_full=0.735 hp_measured=0.490 | cardinality_ok=True arms_differ_ok=True cv_ok(<0.10)=True all_seeds_ge_0.60=True | FLAG_V2_HF_DRIFT: STAGE3_V2=0.043 drift=0.010 vs 0.0333",
+  "summary": "HARD_PASS_FULL_ARC_CLOSURE_V3_CLEAN: MAIN_V3_CLEAN=0.737 >= 0.90 * ORACLE=0.817 (hp_full=0.735) AND cv=0.082<0.10 AND all seeds >= 0.60 (min=0.680) AND V3_STACKED_S1S2 reproduces Exp 3D MAIN within 0.05 (drift=0.004 vs 0.511). Retrieval-architecture arc CLOSES on hub-concept-bridge scope at FULL scale: uniform PPR + v3 structural KG-slot filter + FHRR composition validated with 3-seed stability. Path a' (structural triple filter) vindicated over path (b) (BGE-augmentation) at both interface AND full-closure tier. S1+S2-subtract diagnosis reproduced (gap=0.230). Next: 170K-atom Director-KB scale re-test. ORACLE=0.817 (drift=0.006 vs 0.822) EXP3_BASE=0.440 (drift=0.029 vs 0.411) S3V1=0.013 (drift=0.002 vs 0.011) S3V2=0.043 (drift=0.010 vs 0.033) V3_STACKED_S1S2=0.507 (drift=0.004 vs 0.511) MAIN_V3_CLEAN=0.737 seeds=[0.71, 0.82, 0.68] cv=0.082 min_seed=0.680 RANDOM=0.030 | hp_full=0.735 hp_measured=0.490 | cardinality_ok=True arms_differ_ok=True cv_ok(<0.10)=True all_seeds_ge_0.60=True | FLAG_V2_HF_DRIFT: STAGE3_V2=0.043 drift=0.010 vs 0.0333",
+  "run_mode": "full",
+  "n_dim": 8192,
+  "target_queries": 100,
+  "n_seeds": 3,
+  "top_k": 5,
+  "ppr_alpha": 0.15,
+  "ppr_iters": 5,
+  "ppr_top_k": 5,
+  "union_max": 30,
+  "hub_deg_thresh": 8,
+  "hub_dampen_factor": 0.3,
+  "mmr_lambda_v1": 0.3,
+  "k_final": 5,
+  "b_bridges": 5,
+  "w_query_anchor": 1.0,
+  "w_aug": 1.0,
+  "bridge_min_cooccur": 2,
+  "hub_indices": [
+    0,
+    1,
+    2
+  ],
+  "hub_over_sample": 3.0,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_queries": 100,
+      "n_facts": 200,
+      "n_dim": 8192,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_ORACLE_COMPOSITION_SANITY": {
+          "accuracy": 0.82,
+          "n_correct": 82,
+          "n": 100
+        },
+        "ARM_EXP3_BASELINE_REPRODUCTION": {
+          "accuracy": 0.41,
+          "n_correct": 41,
+          "n": 100
+        },
+        "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 100
+        },
+        "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": {
+          "accuracy": 0.04,
+          "n_correct": 4,
+          "n": 100
+        },
+        "ARM_MAIN_V3_CLEAN": {
+          "accuracy": 0.71,
+          "n_correct": 71,
+          "n": 100
+        },
+        "ARM_V3_STACKED_WITH_S1S2": {
+          "accuracy": 0.5,
+          "n_correct": 50,
+          "n": 100
+        },
+        "ARM_RANDOM_CANDIDATES_CONTROL": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 100
+        }
+      },
+      "arm_digests": {
+        "ARM_ORACLE_COMPOSITION_SANITY": "334c375031295a65",
+        "ARM_EXP3_BASELINE_REPRODUCTION": "a82bb2e62e5c8ff0",
+        "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": "55cbc3d0122ff574",
+        "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": "79d2671352faabd7",
+        "ARM_MAIN_V3_CLEAN": "e4fcdee64e282e9c",
+        "ARM_V3_STACKED_WITH_S1S2": "9ffdeff5039c9a6d",
+        "ARM_RANDOM_CANDIDATES_CONTROL": "fa684a40e61fafcd"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted_pairs": [
+        [
+          "ARM_MAIN_V3_CLEAN",
+          "ARM_ORACLE_COMPOSITION_SANITY"
+        ]
+      ],
+      "hub_empirical_top3": [
+        0,
+        1,
+        2
+      ],
+      "hub_set": [
+        0,
+        1,
+        2
+      ],
+      "degrees_max": 18,
+      "n_hubs_by_degree": 16,
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the neighbor of the river of Gulch?",
+          "e0": "Gulch",
+          "r1": "neighbor",
+          "r2": "river",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Larn",
+          "gt_chunks": [
+            32,
+            8
+          ],
+          "bge_top5": [
+            33,
+            32,
+            13,
+            31,
+            147
+          ],
+          "p_oracle": "Larn",
+          "p_exp3_base": "Larn",
+          "p_main_v3_clean": "Larn",
+          "p_v3_stacked_with_s1s2": "Larn",
+          "p_s3v1": "Gulch",
+          "p_s3v2": "Pome",
+          "p_rand": "Quill",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            8,
+            32
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Coral",
+            "Jarl",
+            "Alton",
+            "Riva"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 18,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            8,
+            32
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Coral",
+            "Jarl",
+            "Alton",
+            "Riva"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 18,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the neighbor of Kord?",
+          "e0": "Kord",
+          "r1": "mayor",
+          "r2": "neighbor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Kelm",
+          "gt_chunks": [
+            183,
+            10
+          ],
+          "bge_top5": [
+            180,
+            5,
+            184,
+            183,
+            181
+          ],
+          "p_oracle": "Kelm",
+          "p_exp3_base": "Kelm",
+          "p_main_v3_clean": "Kelm",
+          "p_v3_stacked_with_s1s2": "Kelm",
+          "p_s3v1": "Hara",
+          "p_s3v2": "Kelm",
+          "p_rand": "Gulch",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            10,
+            183
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Coral",
+            "Corv",
+            "Riva",
+            "Juno"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 19,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            10,
+            183
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Coral",
+            "Juno",
+            "Alton",
+            "Gulch"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 18,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 2,
+          "text": "What is the neighbor of the mayor of Alton?",
+          "e0": "Alton",
+          "r1": "neighbor",
+          "r2": "mayor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Larn",
+          "gt_chunks": [
+            0,
+            8
+          ],
+          "bge_top5": [
+            3,
+            53,
+            0,
+            73,
+            40
+          ],
+          "p_oracle": "Larn",
+          "p_exp3_base": "Larn",
+          "p_main_v3_clean": "Larn",
+          "p_v3_stacked_with_s1s2": "Larn",
+          "p_s3v1": "Vail",
+          "p_s3v2": "Zorn",
+          "p_rand": "Ebon",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            0,
+            8
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Kelm",
+            "Iona",
+            "Loam",
+            "Coral"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 9,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            0,
+            8
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Kelm",
+            "Iona",
+            "Loam",
+            "Coral"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 9,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 3,
+          "text": "What is the capital of the mayor of Iona?",
+          "e0": "Iona",
+          "r1": "capital",
+          "r2": "mayor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Quill",
+          "gt_chunks": [
+            40,
+            1
+          ],
+          "bge_top5": [
+            85,
+            40,
+            56,
+            41,
+            169
+          ],
+          "p_oracle": "Quill",
+          "p_exp3_base": "Coral",
+          "p_main_v3_clean": "Quill",
+          "p_v3_stacked_with_s1s2": "Alton",
+          "p_s3v1": "Alton",
+          "p_s3v2": "Gulch",
+          "p_rand": "Kord",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            1,
+            40
+          ],
+          "main_bridges": [
+            "Alton",
+            "Delft",
+            "Riva",
+            "Loam",
+            "Holt"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 13,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            40
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Riva",
+            "Loam",
+            "Alton",
+            "Holt"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 14,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 4,
+          "text": "What is the capital of the neighbor of Mesa?",
+          "e0": "Mesa",
+          "r1": "capital",
+          "r2": "neighbor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Bexley",
+          "gt_chunks": [
+            63,
+            6
+          ],
+          "bge_top5": [
+            63,
+            61,
+            89,
+            64,
+            60
+          ],
+          "p_oracle": "Bexley",
+          "p_exp3_base": "Bexley",
+          "p_main_v3_clean": "Bexley",
+          "p_v3_stacked_with_s1s2": "Bexley",
+          "p_s3v1": "Holt",
+          "p_s3v2": "Nyx",
+          "p_rand": "Pome",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            6,
+            63
+          ],
+          "main_bridges": [
+            "Alton",
+            "Bexley",
+            "Riva",
+            "Coral",
+            "Iona"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 19,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            6,
+            63
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Riva",
+            "Corv",
+            "Glim",
+            "Alton"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 19,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 5,
+          "text": "What is the founder of the river of Riva?",
+          "e0": "Riva",
+          "r1": "founder",
+          "r2": "river",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Coral",
+          "gt_chunks": [
+            87,
+            4
+          ],
+          "bge_top5": [
+            89,
+            85,
+            17,
+            87,
+            86
+          ],
+          "p_oracle": "Coral",
+          "p_exp3_base": "Tern",
+          "p_main_v3_clean": "Coral",
+          "p_v3_stacked_with_s1s2": "Coral",
+          "p_s3v1": "Fjord",
+          "p_s3v2": "Pome",
+          "p_rand": "Quill",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            4,
+            87
+          ],
+          "main_bridges": [
+            "Alton",
+            "Delft",
+            "Iona",
+            "Mesa",
+            "Corv"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 13,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            4,
+            87
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Iona",
+            "Mesa",
+            "Pome",
+            "Delft"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 15,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 6,
+          "text": "What is the neighbor of the neighbor of Riva?",
+          "e0": "Riva",
+          "r1": "neighbor",
+          "r2": "neighbor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Larn",
+          "gt_chunks": [
+            88,
+            8
+          ],
+          "bge_top5": [
+            88,
+            89,
+            85,
+            165,
+            86
+          ],
+          "p_oracle": "Riva",
+          "p_exp3_base": "Riva",
+          "p_main_v3_clean": "Riva",
+          "p_v3_stacked_with_s1s2": "Riva",
+          "p_s3v1": "Riva",
+          "p_s3v2": "Riva",
+          "p_rand": "Riva",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            8,
+            88
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Iona",
+            "Mesa",
+            "Holt",
+            "Alton"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 14,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            8,
+            88
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Iona",
+            "Mesa",
+            "Alton",
+            "Loam"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 12,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 7,
+          "text": "What is the capital of the mayor of Umbra?",
+          "e0": "Umbra",
+          "r1": "capital",
+          "r2": "mayor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Riva",
+          "gt_chunks": [
+            100,
+            11
+          ],
+          "bge_top5": [
+            190,
+            101,
+            100,
+            103,
+            104
+          ],
+          "p_oracle": "Riva",
+          "p_exp3_base": "Mote",
+          "p_main_v3_clean": "Riva",
+          "p_v3_stacked_with_s1s2": "Riva",
+          "p_s3v1": "Osek",
+          "p_s3v2": "Tern",
+          "p_rand": "Juno",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            11,
+            100
+          ],
+          "main_bridges": [
+            "Coral",
+            "Osek",
+            "Jarl",
+            "Corv",
+            "Hara"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 17,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            11,
+            100
+          ],
+          "s1s2_bridges": [
+            "Coral",
+            "Osek",
+            "Jarl",
+            "Hara",
+            "Alton"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 18,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 8,
+          "text": "What is the founder of the mayor of Yara?",
+          "e0": "Yara",
+          "r1": "founder",
+          "r2": "mayor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Coral",
+          "gt_chunks": [
+            120,
+            4
+          ],
+          "bge_top5": [
+            164,
+            94,
+            124,
+            120,
+            36
+          ],
+          "p_oracle": "Coral",
+          "p_exp3_base": "Coral",
+          "p_main_v3_clean": "Coral",
+          "p_v3_stacked_with_s1s2": "Juno",
+          "p_s3v1": "Yara",
+          "p_s3v2": "Juno",
+          "p_rand": "Nyx",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            4,
+            120
+          ],
+          "main_bridges": [
+            "Alton",
+            "Iona",
+            "Hara",
+            "Delft",
+            "Glim"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 14,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            120
+          ],
+          "s1s2_bridges": [
+            "Tern",
+            "Hara",
+            "Solt",
+            "Glim",
+            "Delft"
+          ],
+          "mid_in_s1s2_bridges": false,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 5,
+            "n_distractors": 11,
+            "n_union_pre_cap": 6,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 9,
+          "text": "What is the river of the neighbor of Kelm?",
+          "e0": "Kelm",
+          "r1": "river",
+          "r2": "neighbor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Vail",
+          "gt_chunks": [
+            53,
+            2
+          ],
+          "bge_top5": [
+            52,
+            158,
+            53,
+            111,
+            106
+          ],
+          "p_oracle": "Vail",
+          "p_exp3_base": "Ebon",
+          "p_main_v3_clean": "Vail",
+          "p_v3_stacked_with_s1s2": "Vail",
+          "p_s3v1": "Glim",
+          "p_s3v2": "Solt",
+          "p_rand": "Glim",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            2,
+            53
+          ],
+          "main_bridges": [
+            "Alton",
+            "Vail",
+            "Frey",
+            "Wren",
+            "Nord"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 17,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            2,
+            53
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Vail",
+            "Frey",
+            "Wren",
+            "Nord"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 17,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        }
+      ],
+      "v3_fire_summary": {
+        "v3_clean_slot_fire_count": 100,
+        "v3_clean_fallback_count": 0,
+        "v3_s1s2_slot_fire_count": 100,
+        "v3_s1s2_fallback_count": 0,
+        "n_queries": 100
+      },
+      "elapsed_s": 51.447054199990816
+    },
+    {
+      "seed": 17,
+      "n_queries": 100,
+      "n_facts": 200,
+      "n_dim": 8192,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_ORACLE_COMPOSITION_SANITY": {
+          "accuracy": 0.83,
+          "n_correct": 83,
+          "n": 100
+        },
+        "ARM_EXP3_BASELINE_REPRODUCTION": {
+          "accuracy": 0.52,
+          "n_correct": 52,
+          "n": 100
+        },
+        "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": {
+          "accuracy": 0.04,
+          "n_correct": 4,
+          "n": 100
+        },
+        "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": {
+          "accuracy": 0.05,
+          "n_correct": 5,
+          "n": 100
+        },
+        "ARM_MAIN_V3_CLEAN": {
+          "accuracy": 0.82,
+          "n_correct": 82,
+          "n": 100
+        },
+        "ARM_V3_STACKED_WITH_S1S2": {
+          "accuracy": 0.6,
+          "n_correct": 60,
+          "n": 100
+        },
+        "ARM_RANDOM_CANDIDATES_CONTROL": {
+          "accuracy": 0.06,
+          "n_correct": 6,
+          "n": 100
+        }
+      },
+      "arm_digests": {
+        "ARM_ORACLE_COMPOSITION_SANITY": "cbc4682c64a1c499",
+        "ARM_EXP3_BASELINE_REPRODUCTION": "0d5e28deb06d96d6",
+        "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": "4d9d2d118d46b20f",
+        "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": "f0284703d06c4bdb",
+        "ARM_MAIN_V3_CLEAN": "a3c7188d60bccef3",
+        "ARM_V3_STACKED_WITH_S1S2": "ce09796b3ec9a1a1",
+        "ARM_RANDOM_CANDIDATES_CONTROL": "d3ae6703a9f81311"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted_pairs": [
+        [
+          "ARM_MAIN_V3_CLEAN",
+          "ARM_ORACLE_COMPOSITION_SANITY"
+        ]
+      ],
+      "hub_empirical_top3": [
+        0,
+        2,
+        1
+      ],
+      "hub_set": [
+        0,
+        1,
+        2
+      ],
+      "degrees_max": 16,
+      "n_hubs_by_degree": 19,
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the neighbor of the capital of Umbra?",
+          "e0": "Umbra",
+          "r1": "neighbor",
+          "r2": "capital",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Nyx",
+          "gt_chunks": [
+            101,
+            13
+          ],
+          "bge_top5": [
+            163,
+            103,
+            148,
+            101,
+            16
+          ],
+          "p_oracle": "Nyx",
+          "p_exp3_base": "Nyx",
+          "p_main_v3_clean": "Nyx",
+          "p_v3_stacked_with_s1s2": "Bexley",
+          "p_s3v1": "Corv",
+          "p_s3v2": "Tern",
+          "p_rand": "Solt",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            13,
+            101
+          ],
+          "main_bridges": [
+            "Alton",
+            "Coral",
+            "Delft",
+            "Glim",
+            "Kelm"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 17,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            101
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Delft",
+            "Pome",
+            "Coral",
+            "Glim"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 15,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the capital of Jarl?",
+          "e0": "Jarl",
+          "r1": "mayor",
+          "r2": "capital",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Glim",
+          "gt_chunks": [
+            176,
+            0
+          ],
+          "bge_top5": [
+            179,
+            175,
+            176,
+            145,
+            184
+          ],
+          "p_oracle": "Glim",
+          "p_exp3_base": "Glim",
+          "p_main_v3_clean": "Glim",
+          "p_v3_stacked_with_s1s2": "Glim",
+          "p_s3v1": "Riva",
+          "p_s3v2": "Glim",
+          "p_rand": "Hara",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            0,
+            176
+          ],
+          "main_bridges": [
+            "Alton",
+            "Kelm",
+            "Erie",
+            "Delft",
+            "Kord"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 14,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            0,
+            176
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Kelm",
+            "Erie",
+            "Delft",
+            "Kord"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 15,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 2,
+          "text": "What is the neighbor of the mayor of Tern?",
+          "e0": "Tern",
+          "r1": "neighbor",
+          "r2": "mayor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Nyx",
+          "gt_chunks": [
+            95,
+            13
+          ],
+          "bge_top5": [
+            95,
+            83,
+            98,
+            99,
+            54
+          ],
+          "p_oracle": "Nyx",
+          "p_exp3_base": "Nyx",
+          "p_main_v3_clean": "Nyx",
+          "p_v3_stacked_with_s1s2": "Kelm",
+          "p_s3v1": "Loam",
+          "p_s3v2": "Loam",
+          "p_rand": "Ashe",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            13,
+            95
+          ],
+          "main_bridges": [
+            "Coral",
+            "Kelm",
+            "Quill",
+            "Yara",
+            "Alton"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 15,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            95
+          ],
+          "s1s2_bridges": [
+            "Kelm",
+            "Quill",
+            "Nord",
+            "Yara",
+            "Alton"
+          ],
+          "mid_in_s1s2_bridges": false,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 13,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 3,
+          "text": "What is the neighbor of the founder of Glim?",
+          "e0": "Glim",
+          "r1": "neighbor",
+          "r2": "founder",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Brix",
+          "gt_chunks": [
+            164,
+            8
+          ],
+          "bge_top5": [
+            64,
+            14,
+            164,
+            163,
+            136
+          ],
+          "p_oracle": "Brix",
+          "p_exp3_base": "Glim",
+          "p_main_v3_clean": "Brix",
+          "p_v3_stacked_with_s1s2": "Brix",
+          "p_s3v1": "Glim",
+          "p_s3v2": "Glim",
+          "p_rand": "Yara",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            8,
+            164
+          ],
+          "main_bridges": [
+            "Coral",
+            "Bexley",
+            "Umbra",
+            "Brix",
+            "Alton"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 16,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            8,
+            164
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Umbra",
+            "Mesa",
+            "Coral",
+            "Brix"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 11,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 4,
+          "text": "What is the capital of the capital of Jarl?",
+          "e0": "Jarl",
+          "r1": "capital",
+          "r2": "capital",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Coral",
+          "gt_chunks": [
+            176,
+            1
+          ],
+          "bge_top5": [
+            176,
+            179,
+            177,
+            51,
+            93
+          ],
+          "p_oracle": "Jarl",
+          "p_exp3_base": "Jarl",
+          "p_main_v3_clean": "Jarl",
+          "p_v3_stacked_with_s1s2": "Jarl",
+          "p_s3v1": "Jarl",
+          "p_s3v2": "Jarl",
+          "p_rand": "Jarl",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            1,
+            176
+          ],
+          "main_bridges": [
+            "Alton",
+            "Kelm",
+            "Nord",
+            "Delft",
+            "Quill"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 16,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            1,
+            176
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Kelm",
+            "Quill",
+            "Tern",
+            "Delft"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 19,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 5,
+          "text": "What is the river of the mayor of Holt?",
+          "e0": "Holt",
+          "r1": "river",
+          "r2": "mayor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Bexley",
+          "gt_chunks": [
+            165,
+            12
+          ],
+          "bge_top5": [
+            165,
+            135,
+            90,
+            167,
+            122
+          ],
+          "p_oracle": "Bexley",
+          "p_exp3_base": "Bexley",
+          "p_main_v3_clean": "Bexley",
+          "p_v3_stacked_with_s1s2": "Kelm",
+          "p_s3v1": "Mote",
+          "p_s3v2": "Larn",
+          "p_rand": "Larn",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            12,
+            165
+          ],
+          "main_bridges": [
+            "Coral",
+            "Yara",
+            "Glim",
+            "Brix",
+            "Alton"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 18,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            165
+          ],
+          "s1s2_bridges": [
+            "Yara",
+            "Brix",
+            "Solt",
+            "Glim",
+            "Coral"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 13,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 6,
+          "text": "What is the river of the river of Quill?",
+          "e0": "Quill",
+          "r1": "river",
+          "r2": "river",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Tern",
+          "gt_chunks": [
+            82,
+            2
+          ],
+          "bge_top5": [
+            82,
+            81,
+            51,
+            42,
+            143
+          ],
+          "p_oracle": "Quill",
+          "p_exp3_base": "Quill",
+          "p_main_v3_clean": "Quill",
+          "p_v3_stacked_with_s1s2": "Quill",
+          "p_s3v1": "Quill",
+          "p_s3v2": "Quill",
+          "p_rand": "Tern",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            2,
+            82
+          ],
+          "main_bridges": [
+            "Alton",
+            "Kelm",
+            "Bexley",
+            "Delft",
+            "Loam"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 16,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            2,
+            82
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Kelm",
+            "Iona",
+            "Tern",
+            "Delft"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 15,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 7,
+          "text": "What is the river of the mayor of Riva?",
+          "e0": "Riva",
+          "r1": "river",
+          "r2": "mayor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Wren",
+          "gt_chunks": [
+            85,
+            7
+          ],
+          "bge_top5": [
+            87,
+            55,
+            85,
+            67,
+            115
+          ],
+          "p_oracle": "Wren",
+          "p_exp3_base": "Erie",
+          "p_main_v3_clean": "Wren",
+          "p_v3_stacked_with_s1s2": "Zorn",
+          "p_s3v1": "Brix",
+          "p_s3v2": "Mote",
+          "p_rand": "Fjord",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            7,
+            85
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Nord",
+            "Loam",
+            "Xylo",
+            "Fjord"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 12,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            85
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Nord",
+            "Delft",
+            "Bexley",
+            "Xylo"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 14,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 8,
+          "text": "What is the river of the mayor of Delft?",
+          "e0": "Delft",
+          "r1": "river",
+          "r2": "mayor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Tern",
+          "gt_chunks": [
+            15,
+            2
+          ],
+          "bge_top5": [
+            15,
+            150,
+            17,
+            27,
+            18
+          ],
+          "p_oracle": "Tern",
+          "p_exp3_base": "Tern",
+          "p_main_v3_clean": "Tern",
+          "p_v3_stacked_with_s1s2": "Tern",
+          "p_s3v1": "Corv",
+          "p_s3v2": "Corv",
+          "p_rand": "Tern",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            2,
+            15
+          ],
+          "main_bridges": [
+            "Alton",
+            "Fjord",
+            "Wren",
+            "Coral",
+            "Pome"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 13,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            2,
+            15
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Fjord",
+            "Wren",
+            "Coral",
+            "Pome"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 13,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 9,
+          "text": "What is the founder of the founder of Bexley?",
+          "e0": "Bexley",
+          "r1": "founder",
+          "r2": "founder",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Delft",
+          "gt_chunks": [
+            9,
+            4
+          ],
+          "bge_top5": [
+            9,
+            114,
+            164,
+            131,
+            8
+          ],
+          "p_oracle": "Bexley",
+          "p_exp3_base": "Bexley",
+          "p_main_v3_clean": "Bexley",
+          "p_v3_stacked_with_s1s2": "Bexley",
+          "p_s3v1": "Bexley",
+          "p_s3v2": "Bexley",
+          "p_rand": "Bexley",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            4,
+            9
+          ],
+          "main_bridges": [
+            "Alton",
+            "Wren",
+            "Glim",
+            "Delft",
+            "Ashe"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 16,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            4,
+            9
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Wren",
+            "Glim",
+            "Delft",
+            "Coral"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 16,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        }
+      ],
+      "v3_fire_summary": {
+        "v3_clean_slot_fire_count": 100,
+        "v3_clean_fallback_count": 0,
+        "v3_s1s2_slot_fire_count": 100,
+        "v3_s1s2_fallback_count": 0,
+        "n_queries": 100
+      },
+      "elapsed_s": 51.34909059997881
+    },
+    {
+      "seed": 23,
+      "n_queries": 100,
+      "n_facts": 200,
+      "n_dim": 8192,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_ORACLE_COMPOSITION_SANITY": {
+          "accuracy": 0.8,
+          "n_correct": 80,
+          "n": 100
+        },
+        "ARM_EXP3_BASELINE_REPRODUCTION": {
+          "accuracy": 0.39,
+          "n_correct": 39,
+          "n": 100
+        },
+        "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 100
+        },
+        "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": {
+          "accuracy": 0.04,
+          "n_correct": 4,
+          "n": 100
+        },
+        "ARM_MAIN_V3_CLEAN": {
+          "accuracy": 0.68,
+          "n_correct": 68,
+          "n": 100
+        },
+        "ARM_V3_STACKED_WITH_S1S2": {
+          "accuracy": 0.42,
+          "n_correct": 42,
+          "n": 100
+        },
+        "ARM_RANDOM_CANDIDATES_CONTROL": {
+          "accuracy": 0.03,
+          "n_correct": 3,
+          "n": 100
+        }
+      },
+      "arm_digests": {
+        "ARM_ORACLE_COMPOSITION_SANITY": "1eaaa53823d2b11d",
+        "ARM_EXP3_BASELINE_REPRODUCTION": "d62a6068edd93850",
+        "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": "1a47757632ad504e",
+        "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": "6a64fbba1ce024e6",
+        "ARM_MAIN_V3_CLEAN": "d11ae0168c85dbdd",
+        "ARM_V3_STACKED_WITH_S1S2": "b3f7a56ebd26c59d",
+        "ARM_RANDOM_CANDIDATES_CONTROL": "2d473e246c3768d1"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted_pairs": [
+        [
+          "ARM_MAIN_V3_CLEAN",
+          "ARM_ORACLE_COMPOSITION_SANITY"
+        ]
+      ],
+      "hub_empirical_top3": [
+        2,
+        1,
+        0
+      ],
+      "hub_set": [
+        0,
+        1,
+        2
+      ],
+      "degrees_max": 15,
+      "n_hubs_by_degree": 19,
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the mayor of the mayor of Solt?",
+          "e0": "Solt",
+          "r1": "mayor",
+          "r2": "mayor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Holt",
+          "gt_chunks": [
+            90,
+            5
+          ],
+          "bge_top5": [
+            75,
+            90,
+            94,
+            10,
+            16
+          ],
+          "p_oracle": "Solt",
+          "p_exp3_base": "Solt",
+          "p_main_v3_clean": "Solt",
+          "p_v3_stacked_with_s1s2": "Solt",
+          "p_s3v1": "Solt",
+          "p_s3v2": "Solt",
+          "p_rand": "Solt",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            5,
+            90
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Coral",
+            "Pome",
+            "Nord",
+            "Alton"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 14,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            5,
+            90
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Pome",
+            "Nord",
+            "Delft",
+            "Alton"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 13,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the capital of Corv?",
+          "e0": "Corv",
+          "r1": "mayor",
+          "r2": "capital",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Zorn",
+          "gt_chunks": [
+            141,
+            0
+          ],
+          "bge_top5": [
+            140,
+            144,
+            156,
+            141,
+            142
+          ],
+          "p_oracle": "Zorn",
+          "p_exp3_base": "Yara",
+          "p_main_v3_clean": "Zorn",
+          "p_v3_stacked_with_s1s2": "Mote",
+          "p_s3v1": "Yara",
+          "p_s3v2": "Hara",
+          "p_rand": "Bexley",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            0,
+            141
+          ],
+          "main_bridges": [
+            "Alton",
+            "Zorn",
+            "Frey",
+            "Yara",
+            "Ivor"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 15,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            0,
+            141
+          ],
+          "s1s2_bridges": [
+            "Zorn",
+            "Kelm",
+            "Frey",
+            "Ivor",
+            "Dune"
+          ],
+          "mid_in_s1s2_bridges": false,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 11,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 2,
+          "text": "What is the river of the mayor of Brix?",
+          "e0": "Brix",
+          "r1": "river",
+          "r2": "mayor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Alton",
+          "gt_chunks": [
+            135,
+            12
+          ],
+          "bge_top5": [
+            135,
+            145,
+            45,
+            137,
+            67
+          ],
+          "p_oracle": "Alton",
+          "p_exp3_base": "Alton",
+          "p_main_v3_clean": "Alton",
+          "p_v3_stacked_with_s1s2": "Alton",
+          "p_s3v1": "Umbra",
+          "p_s3v2": "Delft",
+          "p_rand": "Pome",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            12,
+            135
+          ],
+          "main_bridges": [
+            "Coral",
+            "Juno",
+            "Nord",
+            "Dune",
+            "Kelm"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 16,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            12,
+            135
+          ],
+          "s1s2_bridges": [
+            "Coral",
+            "Juno",
+            "Nord",
+            "Dune",
+            "Kelm"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 16,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 3,
+          "text": "What is the mayor of the mayor of Larn?",
+          "e0": "Larn",
+          "r1": "mayor",
+          "r2": "mayor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Nord",
+          "gt_chunks": [
+            185,
+            10
+          ],
+          "bge_top5": [
+            110,
+            185,
+            186,
+            167,
+            31
+          ],
+          "p_oracle": "Larn",
+          "p_exp3_base": "Larn",
+          "p_main_v3_clean": "Larn",
+          "p_v3_stacked_with_s1s2": "Larn",
+          "p_s3v1": "Larn",
+          "p_s3v2": "Larn",
+          "p_rand": "Fjord",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            10,
+            185
+          ],
+          "main_bridges": [
+            "Coral",
+            "Gulch",
+            "Wren",
+            "Ebon",
+            "Osek"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 12,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            185
+          ],
+          "s1s2_bridges": [
+            "Wren",
+            "Ebon",
+            "Gulch",
+            "Holt",
+            "Tern"
+          ],
+          "mid_in_s1s2_bridges": false,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 5,
+            "n_distractors": 12,
+            "n_union_pre_cap": 6,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 4,
+          "text": "What is the river of the neighbor of Ivor?",
+          "e0": "Ivor",
+          "r1": "river",
+          "r2": "neighbor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Alton",
+          "gt_chunks": [
+            173,
+            12
+          ],
+          "bge_top5": [
+            142,
+            172,
+            92,
+            187,
+            173
+          ],
+          "p_oracle": "Alton",
+          "p_exp3_base": "Alton",
+          "p_main_v3_clean": "Alton",
+          "p_v3_stacked_with_s1s2": "Ebon",
+          "p_s3v1": "Glim",
+          "p_s3v2": "Ebon",
+          "p_rand": "Solt",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            12,
+            173
+          ],
+          "main_bridges": [
+            "Coral",
+            "Solt",
+            "Corv",
+            "Larn",
+            "Hara"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 18,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            173
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Juno",
+            "Solt",
+            "Larn",
+            "Erie"
+          ],
+          "mid_in_s1s2_bridges": false,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 5,
+            "n_distractors": 16,
+            "n_union_pre_cap": 6,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 5,
+          "text": "What is the neighbor of the capital of Hara?",
+          "e0": "Hara",
+          "r1": "neighbor",
+          "r2": "capital",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Osek",
+          "gt_chunks": [
+            36,
+            13
+          ],
+          "bge_top5": [
+            36,
+            78,
+            38,
+            39,
+            113
+          ],
+          "p_oracle": "Osek",
+          "p_exp3_base": "Osek",
+          "p_main_v3_clean": "Osek",
+          "p_v3_stacked_with_s1s2": "Osek",
+          "p_s3v1": "Yara",
+          "p_s3v2": "Ebon",
+          "p_rand": "Delft",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            13,
+            36
+          ],
+          "main_bridges": [
+            "Coral",
+            "Osek",
+            "Corv",
+            "Wren",
+            "Nord"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 14,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            13,
+            36
+          ],
+          "s1s2_bridges": [
+            "Osek",
+            "Pome",
+            "Corv",
+            "Wren",
+            "Coral"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 12,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 6,
+          "text": "What is the capital of the mayor of Solt?",
+          "e0": "Solt",
+          "r1": "capital",
+          "r2": "mayor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Delft",
+          "gt_chunks": [
+            90,
+            6
+          ],
+          "bge_top5": [
+            75,
+            90,
+            16,
+            161,
+            91
+          ],
+          "p_oracle": "Delft",
+          "p_exp3_base": "Alton",
+          "p_main_v3_clean": "Delft",
+          "p_v3_stacked_with_s1s2": "Delft",
+          "p_s3v1": "Mote",
+          "p_s3v2": "Mote",
+          "p_rand": "Delft",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            6,
+            90
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Pome",
+            "Delft",
+            "Glim",
+            "Nord"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 14,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            6,
+            90
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Pome",
+            "Delft",
+            "Glim",
+            "Nord"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 14,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 7,
+          "text": "What is the river of the neighbor of Alton?",
+          "e0": "Alton",
+          "r1": "river",
+          "r2": "neighbor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Erie",
+          "gt_chunks": [
+            3,
+            7
+          ],
+          "bge_top5": [
+            2,
+            182,
+            12,
+            102,
+            3
+          ],
+          "p_oracle": "Erie",
+          "p_exp3_base": "Alton",
+          "p_main_v3_clean": "Erie",
+          "p_v3_stacked_with_s1s2": "Erie",
+          "p_s3v1": "Mesa",
+          "p_s3v2": "Alton",
+          "p_rand": "Brix",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            3,
+            7
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Coral",
+            "Nord",
+            "Kord",
+            "Umbra"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 11,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            3,
+            7
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Coral",
+            "Nord",
+            "Kord",
+            "Umbra"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 11,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 8,
+          "text": "What is the river of the neighbor of Ashe?",
+          "e0": "Ashe",
+          "r1": "river",
+          "r2": "neighbor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Alton",
+          "gt_chunks": [
+            133,
+            12
+          ],
+          "bge_top5": [
+            132,
+            8,
+            77,
+            198,
+            133
+          ],
+          "p_oracle": "Alton",
+          "p_exp3_base": "Alton",
+          "p_main_v3_clean": "Alton",
+          "p_v3_stacked_with_s1s2": "Loam",
+          "p_s3v1": "Erie",
+          "p_s3v2": "Tern",
+          "p_rand": "Iona",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            12,
+            133
+          ],
+          "main_bridges": [
+            "Bexley",
+            "Coral",
+            "Pome",
+            "Nord",
+            "Alton"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 15,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            133
+          ],
+          "s1s2_bridges": [
+            "Bexley",
+            "Iona",
+            "Pome",
+            "Nyx",
+            "Alton"
+          ],
+          "mid_in_s1s2_bridges": false,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 15,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 9,
+          "text": "What is the neighbor of the river of Umbra?",
+          "e0": "Umbra",
+          "r1": "neighbor",
+          "r2": "river",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Bexley",
+          "gt_chunks": [
+            102,
+            3
+          ],
+          "bge_top5": [
+            137,
+            102,
+            103,
+            104,
+            101
+          ],
+          "p_oracle": "Bexley",
+          "p_exp3_base": "Wren",
+          "p_main_v3_clean": "Bexley",
+          "p_v3_stacked_with_s1s2": "Bexley",
+          "p_s3v1": "Delft",
+          "p_s3v2": "Vail",
+          "p_rand": "Alton",
+          "main_p1_pool_size": 30,
+          "gt_in_main_p1_pool": [
+            3,
+            102
+          ],
+          "main_bridges": [
+            "Alton",
+            "Hara",
+            "Yara",
+            "Brix",
+            "Coral"
+          ],
+          "mid_in_main_bridges": true,
+          "main_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 14,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_p1_pool_size": 30,
+          "gt_in_s1s2_p1_pool": [
+            3,
+            102
+          ],
+          "s1s2_bridges": [
+            "Alton",
+            "Hara",
+            "Yara",
+            "Brix",
+            "Coral"
+          ],
+          "mid_in_s1s2_bridges": true,
+          "s1s2_v3_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 14,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          }
+        }
+      ],
+      "v3_fire_summary": {
+        "v3_clean_slot_fire_count": 100,
+        "v3_clean_fallback_count": 0,
+        "v3_s1s2_slot_fire_count": 100,
+        "v3_s1s2_fallback_count": 0,
+        "n_queries": 100
+      },
+      "elapsed_s": 51.55097169999499
+    }
+  ],
+  "per_arm_mean_accuracy": {
+    "ARM_ORACLE_COMPOSITION_SANITY": 0.8166666666666668,
+    "ARM_EXP3_BASELINE_REPRODUCTION": 0.43999999999999995,
+    "ARM_STAGE3_V1_QUERY_ONLY_RESCORE": 0.013333333333333334,
+    "ARM_STAGE3_V2_ITERATIVE_QUERY_AUG_ONLY": 0.043333333333333335,
+    "ARM_MAIN_V3_CLEAN": 0.7366666666666667,
+    "ARM_V3_STACKED_WITH_S1S2": 0.5066666666666667,
+    "ARM_RANDOM_CANDIDATES_CONTROL": 0.03
+  },
+  "expected_n_units": 21,
+  "actual_n_units": 21,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.025,
+  "crlb_formula_reference": "sqrt(K_final/N_dim) = sqrt(5/8192) per Plate 1995",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "scope": "hub_concept_bridge_only",
+  "oracle_precedent": 0.8222,
+  "exp3_baseline_precedent": 0.4111,
+  "stage3_v1_precedent": 0.0111,
+  "stage3_v2_precedent": 0.0333,
+  "v3_s1s2_precedent": 0.5111,
+  "elapsed_s": 154.3495680000051,
+  "ts_iso": "2026-07-03T17:11:27.666294+00:00"
+}

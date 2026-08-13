@@ -1,0 +1,322 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | STABILITY_GATE_NULL: 3tier_stab=0.600 vs no_stab=0.600 | base_new=0.650 base_old=0.620 | 2tier_old=0.600 | 3tier_no_stab_old=0.600 | 3tier_stab_new=0.600 3tier_stab_old=0.600 | lift_over_base=-0.020 | drift_ratios fast/slow=21.5 slow/ultra=316.0 | regime={\"N_DIM\": 512, \"N_CAT\": 25, \"N_TRAIN\": 7, \"proto_noise\": 0.6, \"alpha\": 0.048828125, \"baseline_per_seed\": [0.7, 0.6]} | n_seeds=2",
+  "summary": "HARD_FAIL | STABILITY_GATE_NULL: 3tier_stab=0.600 vs no_stab=0.600 | base_new=0.650 base_old=0.620 | 2tier_old=0.600 | 3tier_no_stab_old=0.600 | 3tier_stab_new=0.600 3tier_stab_old=0.600 | lift_over_base=-0.020 | drift_ratios fast/slow=21.5 slow/ultra=316.0 | regime={\"N_DIM\": 512, \"N_CAT\": 25, \"N_TRAIN\": 7, \"proto_noise\": 0.6, \"alpha\": 0.048828125, \"baseline_per_seed\": [0.7, 0.6]} | n_seeds=2",
+  "verdict_reason": "STABILITY_GATE_NULL: 3tier_stab=0.600 vs no_stab=0.600",
+  "per_arm": {
+    "baseline_single_tier_hebbian": {
+      "7": {
+        "new_pattern_acc": 0.7,
+        "old_pattern_acc": 0.6,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": -0.039999999999999925,
+        "drift_fast": 0.0,
+        "drift_slow": 0.0,
+        "drift_ultraslow": 0.0,
+        "transition_fast_to_slow_frac": 0.0,
+        "transition_slow_to_ultraslow_frac": 0.0
+      },
+      "17": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.64,
+        "old_pattern_acc_pre_interference": 0.64,
+        "forgetting_drop": 0.0,
+        "drift_fast": 0.0,
+        "drift_slow": 0.0,
+        "drift_ultraslow": 0.0,
+        "transition_fast_to_slow_frac": 0.0,
+        "transition_slow_to_ultraslow_frac": 0.0
+      }
+    },
+    "two_tier_fast_slow": {
+      "7": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.56,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": 0.0,
+        "drift_fast": 0.006666409969329834,
+        "drift_slow": 0.00030963098542997615,
+        "drift_ultraslow": 0.0,
+        "transition_fast_to_slow_frac": 0.3988780975341797,
+        "transition_slow_to_ultraslow_frac": 0.0
+      },
+      "17": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.64,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": -0.07999999999999996,
+        "drift_fast": 0.0066711497493088245,
+        "drift_slow": 0.0003098996996413916,
+        "drift_ultraslow": 0.0,
+        "transition_fast_to_slow_frac": 0.3977191925048828,
+        "transition_slow_to_ultraslow_frac": 0.0
+      }
+    },
+    "three_tier_no_ultraslow": {
+      "7": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.56,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": 0.0,
+        "drift_fast": 0.006666409969329834,
+        "drift_slow": 0.00030963098542997615,
+        "drift_ultraslow": 1.1496934760657495e-06,
+        "transition_fast_to_slow_frac": 0.3988780975341797,
+        "transition_slow_to_ultraslow_frac": 1.0
+      },
+      "17": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.64,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": -0.07999999999999996,
+        "drift_fast": 0.0066711497493088245,
+        "drift_slow": 0.0003098996996413916,
+        "drift_ultraslow": 1.1433579345521139e-06,
+        "transition_fast_to_slow_frac": 0.3977191925048828,
+        "transition_slow_to_ultraslow_frac": 1.0
+      }
+    },
+    "three_tier_stability_gated": {
+      "7": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.56,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": 0.0,
+        "drift_fast": 0.006666409969329834,
+        "drift_slow": 0.00030963098542997615,
+        "drift_ultraslow": 9.838163748554507e-07,
+        "transition_fast_to_slow_frac": 0.3988780975341797,
+        "transition_slow_to_ultraslow_frac": 0.5479711532592774
+      },
+      "17": {
+        "new_pattern_acc": 0.6,
+        "old_pattern_acc": 0.64,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": -0.07999999999999996,
+        "drift_fast": 0.0066711497493088245,
+        "drift_slow": 0.0003098996996413916,
+        "drift_ultraslow": 9.768832171630493e-07,
+        "transition_fast_to_slow_frac": 0.3977191925048828,
+        "transition_slow_to_ultraslow_frac": 0.5475372314453125
+      }
+    },
+    "diag_tier_transition_fraction": {
+      "7": {
+        "new_pattern_acc": 0.3988780975341797,
+        "old_pattern_acc": 0.5479711532592774,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": 0.0,
+        "drift_fast": 0.006666409969329834,
+        "drift_slow": 0.00030963098542997615,
+        "drift_ultraslow": 9.838163748554507e-07,
+        "transition_fast_to_slow_frac": 0.3988780975341797,
+        "transition_slow_to_ultraslow_frac": 0.5479711532592774
+      },
+      "17": {
+        "new_pattern_acc": 0.3977191925048828,
+        "old_pattern_acc": 0.5475372314453125,
+        "old_pattern_acc_pre_interference": 0.56,
+        "forgetting_drop": -0.07999999999999996,
+        "drift_fast": 0.0066711497493088245,
+        "drift_slow": 0.0003098996996413916,
+        "drift_ultraslow": 9.768832171630493e-07,
+        "transition_fast_to_slow_frac": 0.3977191925048828,
+        "transition_slow_to_ultraslow_frac": 0.5475372314453125
+      }
+    }
+  },
+  "per_arm_summary": {
+    "baseline_single_tier_hebbian": {
+      "mean_new": 0.6499999999999999,
+      "std_new": 0.04999999999999999,
+      "cv_new": 0.07692307692307691,
+      "mean_old": 0.62,
+      "mean_forget": -0.019999999999999962,
+      "mean_drift_fast": 0.0,
+      "mean_drift_slow": 0.0,
+      "mean_drift_ultraslow": 0.0,
+      "n": 2
+    },
+    "two_tier_fast_slow": {
+      "mean_new": 0.6,
+      "std_new": 0.0,
+      "cv_new": 0.0,
+      "mean_old": 0.6000000000000001,
+      "mean_forget": -0.03999999999999998,
+      "mean_drift_fast": 0.006668779859319329,
+      "mean_drift_slow": 0.0003097653425356839,
+      "mean_drift_ultraslow": 0.0,
+      "n": 2
+    },
+    "three_tier_no_ultraslow": {
+      "mean_new": 0.6,
+      "std_new": 0.0,
+      "cv_new": 0.0,
+      "mean_old": 0.6000000000000001,
+      "mean_forget": -0.03999999999999998,
+      "mean_drift_fast": 0.006668779859319329,
+      "mean_drift_slow": 0.0003097653425356839,
+      "mean_drift_ultraslow": 1.1465257053089317e-06,
+      "n": 2
+    },
+    "three_tier_stability_gated": {
+      "mean_new": 0.6,
+      "std_new": 0.0,
+      "cv_new": 0.0,
+      "mean_old": 0.6000000000000001,
+      "mean_forget": -0.03999999999999998,
+      "mean_drift_fast": 0.006668779859319329,
+      "mean_drift_slow": 0.0003097653425356839,
+      "mean_drift_ultraslow": 9.8034979600925e-07,
+      "n": 2
+    },
+    "diag_tier_transition_fraction": {
+      "mean_new": 0.39829864501953127,
+      "std_new": 0.000579452514648443,
+      "cv_new": 0.0014548191963345207,
+      "mean_old": 0.5477541923522949,
+      "mean_forget": -0.03999999999999998,
+      "mean_drift_fast": 0.006668779859319329,
+      "mean_drift_slow": 0.0003097653425356839,
+      "mean_drift_ultraslow": 9.8034979600925e-07,
+      "n": 2
+    }
+  },
+  "found_cfg": {
+    "N_DIM": 512,
+    "N_CAT": 25,
+    "N_TRAIN": 7,
+    "proto_noise": 0.6,
+    "alpha": 0.048828125,
+    "baseline_acc": 0.6499999999999999,
+    "baseline_per_seed": [
+      0.7,
+      0.6
+    ]
+  },
+  "probe_results": [
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 5,
+      "proto_noise": 0.55,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.2,
+      "baseline_per_seed": [
+        0.1,
+        0.3
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 5,
+      "proto_noise": 0.6,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.7,
+      "baseline_per_seed": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 5,
+      "proto_noise": 0.65,
+      "alpha": 0.048828125,
+      "baseline_acc": 1.0,
+      "baseline_per_seed": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 7,
+      "proto_noise": 0.55,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.2,
+      "baseline_per_seed": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 7,
+      "proto_noise": 0.6,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.6499999999999999,
+      "baseline_per_seed": [
+        0.7,
+        0.6
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 7,
+      "proto_noise": 0.65,
+      "alpha": 0.048828125,
+      "baseline_acc": 1.0,
+      "baseline_per_seed": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 10,
+      "proto_noise": 0.55,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.3,
+      "baseline_per_seed": [
+        0.0,
+        0.6
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 10,
+      "proto_noise": 0.6,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.9,
+      "baseline_per_seed": [
+        0.8,
+        1.0
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 10,
+      "proto_noise": 0.65,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.95,
+      "baseline_per_seed": [
+        0.9,
+        1.0
+      ]
+    }
+  ],
+  "baseline_in_band": true,
+  "lift_over_baseline": -0.019999999999999907,
+  "drift_ratio_fast_slow": 21.528489290408945,
+  "drift_ratio_slow_ultra": 315.97430202633626,
+  "n_seeds_complete": 2,
+  "expected_n_units": 11,
+  "completed_units": 11,
+  "cardinality_ok": true,
+  "anchor_name": "hierarchical_3_tier_W_v1",
+  "elapsed_s": 12.1,
+  "ts_iso": "2026-06-27T19:57:57Z",
+  "pid": 9568,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=hierarchical_3_tier_W_v1,probe_N=[512],probe_NCAT=[25],probe_NTRAIN=[5, 7, 10],probe_noise=[0.55, 0.6, 0.65],seeds=[7, 17],mode=smoke,HP_old>=0.50,HP_new>=0.50,HP_baseline_band=[0.40,0.65],HP_forget_drop>=0.30,HP_cv<=0.10,HP_drift_ratio>=3.0,eta_fast=1.000,eta_slow=0.050,eta_ultraslow=0.0010,N_STABILITY=5,stc_tag_frac=0.20,N_NEW_PATTERNS=10,N_PULSES=10,hardening=L1early+L2perseed+L3outertry+L4importsentinel,FAIRNESS=PROBE_BASELINE_IN_BAND_THEN_3TIER_MECHANISM",
+  "_hardening_marker": "v1_hierarchical_3_tier_W"
+}

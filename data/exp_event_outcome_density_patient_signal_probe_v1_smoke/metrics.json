@@ -1,0 +1,129 @@
+{
+  "anchor_name": "event_outcome_density_patient_signal_probe_v1",
+  "cfg": {
+    "min_count": 2,
+    "animate_discount": 0.35,
+    "seed": 7,
+    "n_boot": 200,
+    "xgenre_tok_target": 8000
+  },
+  "tier_density_per_1000tok": {
+    "LOW": 0.0,
+    "MED": 5.120213713268032,
+    "HIGH": 13.44997266265719
+  },
+  "n_eval_instances_total": 57,
+  "n_eval_instances_multi_candidate": 21,
+  "results": {
+    "LOW": {
+      "rate_all": 0.5789473684210527,
+      "n_all": 57,
+      "rate_multi": 0.38095238095238093,
+      "n_multi": 21,
+      "choice_hash": "ruin|castle|blocks|door|hands|heart|blocks|way|head|castle|hetty|build|a|crying|james|sent|time|lessons|plenty|james|boys|grave|parents|fur|places|mew|door|places|huts|banks|them|branches|bark|animals|beavers|play|hour|wheel|teach|teach|name|marks|sign|you|you|day|house|head|copybook|books|mother|man|seeds|beauty|boy|walk|day",
+      "n_bg_tok": 8966,
+      "n_bg_lessons": 82,
+      "density_per_1000tok": 0.0,
+      "n_nouns_with_signal": 0,
+      "n_hits_bg": 0
+    },
+    "MED": {
+      "rate_all": 0.5789473684210527,
+      "n_all": 57,
+      "rate_multi": 0.38095238095238093,
+      "n_multi": 21,
+      "choice_hash": "ruin|castle|blocks|door|hands|heart|blocks|way|head|castle|hetty|build|a|crying|james|sent|time|lessons|plenty|james|boys|grave|parents|fur|places|mew|door|places|huts|banks|them|branches|bark|animals|beavers|play|hour|wheel|teach|teach|name|marks|sign|you|you|day|house|head|copybook|books|mother|man|seeds|beauty|boy|walk|day",
+      "n_bg_tok": 8984,
+      "n_bg_lessons": 22,
+      "density_per_1000tok": 5.120213713268032,
+      "n_nouns_with_signal": 22,
+      "n_hits_bg": 27
+    },
+    "HIGH": {
+      "rate_all": 0.5789473684210527,
+      "n_all": 57,
+      "rate_multi": 0.38095238095238093,
+      "n_multi": 21,
+      "choice_hash": "ruin|castle|blocks|door|hands|heart|blocks|way|head|castle|hetty|build|hands|crying|james|sent|time|lessons|plenty|james|boys|grave|parents|fur|places|mew|door|places|huts|banks|them|branches|bark|animals|beavers|play|hour|wheel|teach|teach|name|marks|sign|you|you|day|house|head|copybook|books|mother|man|seeds|beauty|boy|walk|day",
+      "n_bg_tok": 9145,
+      "n_bg_lessons": 28,
+      "density_per_1000tok": 13.44997266265719,
+      "n_nouns_with_signal": 61,
+      "n_hits_bg": 87
+    },
+    "HIGH_SCRAMBLED": {
+      "rate_all": 0.5789473684210527,
+      "n_all": 57,
+      "rate_multi": 0.38095238095238093,
+      "n_multi": 21,
+      "choice_hash": "ruin|castle|blocks|door|hands|heart|blocks|way|head|castle|hetty|build|hands|crying|james|sent|time|lessons|plenty|james|boys|grave|parents|fur|places|mew|door|places|huts|banks|them|branches|bark|animals|beavers|play|hour|wheel|teach|teach|name|marks|sign|you|you|day|house|head|copybook|books|mother|man|seeds|beauty|boy|walk|day",
+      "n_bg_tok": 9145,
+      "n_hits_bg": 87,
+      "n_nouns_with_signal": 61
+    },
+    "TEXT8_XGENRE": {
+      "rate_all": 0.5789473684210527,
+      "n_all": 57,
+      "rate_multi": 0.38095238095238093,
+      "n_multi": 21,
+      "choice_hash": "ruin|castle|blocks|door|hands|heart|blocks|way|head|castle|hetty|build|a|crying|james|sent|time|lessons|plenty|james|boys|grave|parents|fur|places|mew|door|places|huts|banks|them|branches|bark|animals|beavers|play|hour|wheel|teach|teach|name|marks|sign|you|you|day|house|head|copybook|books|mother|man|seeds|beauty|boy|walk|day",
+      "n_bg_tok": 8000,
+      "n_hits_bg": 12,
+      "n_nouns_with_signal": 12
+    },
+    "LITBANK_XGENRE": {
+      "rate_all": 0.5789473684210527,
+      "n_all": 57,
+      "rate_multi": 0.38095238095238093,
+      "n_multi": 21,
+      "choice_hash": "ruin|castle|blocks|door|hands|heart|blocks|way|head|castle|hetty|build|a|crying|james|sent|time|lessons|plenty|james|boys|grave|parents|fur|places|mew|door|places|huts|banks|them|branches|bark|animals|beavers|play|hour|wheel|teach|teach|name|marks|sign|you|you|day|house|head|copybook|books|mother|man|seeds|beauty|boy|walk|day",
+      "n_bg_tok": 5699,
+      "n_hits_bg": 10,
+      "n_nouns_with_signal": 10
+    }
+  },
+  "animacy_only_rates_by_arm": {
+    "LOW": 0.38095238095238093,
+    "MED": 0.38095238095238093,
+    "HIGH": 0.38095238095238093,
+    "HIGH_SCRAMBLED": 0.38095238095238093,
+    "TEXT8_XGENRE": 0.38095238095238093,
+    "LITBANK_XGENRE": 0.38095238095238093
+  },
+  "animacy_invariant": true,
+  "structural_reference": {
+    "rate_all": 0.6491228070175439,
+    "n_all": 57
+  },
+  "arms_differ_pairs": {
+    "LOW_vs_MED": false,
+    "LOW_vs_HIGH": true,
+    "LOW_vs_HIGH_SCRAMBLED": true,
+    "MED_vs_HIGH": true,
+    "MED_vs_HIGH_SCRAMBLED": true,
+    "HIGH_vs_HIGH_SCRAMBLED": false
+  },
+  "bootstrap_LOW": {
+    "mean": 0.375,
+    "se": 0.115260410489016,
+    "p05": 0.19047619047619047,
+    "p95": 0.5714285714285714
+  },
+  "bootstrap_HIGH": {
+    "mean": 0.3669047619047619,
+    "se": 0.10280952829832117,
+    "p05": 0.23571428571428577,
+    "p95": 0.5261904761904754
+  },
+  "gap_high_minus_low_multi": 0.0,
+  "gap_high_minus_scrambled_multi": 0.0,
+  "monotonic_ok": true,
+  "baseline_in_band": true,
+  "verdict": "HARD_FAIL_DENSITY_NOT_THE_LEVER",
+  "verdict_msg": "HIGH-LOW gap(multi)=0.0000 HIGH-SCRAMBLED gap=0.0000 monotonic=True animacy_invariant=True baseline_in_band=True n_multi=21/57",
+  "summary": "HARD_FAIL_DENSITY_NOT_THE_LEVER: event_outcome_density_patient_signal_probe_v1",
+  "elapsed_s": 14.565932199999224,
+  "ts_iso": "2026-07-20T13:29:25.104310+00:00",
+  "pid": 24620,
+  "run_mode": "smoke"
+}

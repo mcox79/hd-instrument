@@ -1,0 +1,102 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | depth=4 | ORTH=0.433 SHARED=0.411 PART=0.389 | lift_shared=0.022 lift_part=0.044 cv=0.054 | n_seeds=3",
+  "summary": "HARD_FAIL | depth=4 | ORTH=0.433 SHARED=0.411 PART=0.389 | lift_shared=0.022 lift_part=0.044 cv=0.054 | n_seeds=3",
+  "per_arm": {
+    "shared_basis": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      },
+      "4": {
+        "7": 0.35,
+        "17": 0.5,
+        "23": 0.38333333333333336
+      }
+    },
+    "orthogonal_role_basis": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      },
+      "4": {
+        "7": 0.45,
+        "17": 0.45,
+        "23": 0.4
+      }
+    },
+    "partitioned_basis": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      },
+      "4": {
+        "7": 0.4,
+        "17": 0.38333333333333336,
+        "23": 0.38333333333333336
+      }
+    }
+  },
+  "per_arm_summary": {
+    "shared_basis": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      },
+      "4": {
+        "mean": 0.41111111111111115,
+        "std": 0.06431020501550126,
+        "cv": 0.15643022841608414,
+        "n": 3
+      }
+    },
+    "orthogonal_role_basis": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      },
+      "4": {
+        "mean": 0.43333333333333335,
+        "std": 0.02357022603955158,
+        "cv": 0.054392829322042105,
+        "n": 3
+      }
+    },
+    "partitioned_basis": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      },
+      "4": {
+        "mean": 0.3888888888888889,
+        "std": 0.00785674201318386,
+        "cv": 0.02020305089104421,
+        "n": 3
+      }
+    }
+  },
+  "decision_depth": 4,
+  "lift_over_shared": 0.0222222222222222,
+  "lift_over_partitioned": 0.04444444444444445,
+  "orth_cv": 0.054392829322042105,
+  "n_seeds_complete": 3,
+  "expected_n_units": 18,
+  "completed_units": 18,
+  "cardinality_ok": true,
+  "anchor_name": "pfc_controller_orthogonal_role_basis_v1",
+  "elapsed_s": 199.3,
+  "ts_iso": "2026-06-27T22:13:45Z",
+  "pid": 21860,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_controller_orthogonal_role_basis_v1,N=4096,N_OPS=4,V=960,seeds=[7, 17, 23],depths=[3, 4],decision_depth=4,n_train=300,n_test=60,mode=smoke,HP_lift_shared>=0.10,HP_lift_partitioned>=0.03,HP_cv<=0.10,expected_n=18,FAIR=SAME_INIT_DIFFER_ONLY_BY_GRAM_SCHMIDT,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_pfc_orthogonal_role_basis"
+}

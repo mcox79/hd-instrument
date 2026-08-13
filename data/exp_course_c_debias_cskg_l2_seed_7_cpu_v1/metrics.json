@@ -1,0 +1,175 @@
+{
+  "verdict": "SEED_MIDDLE_BAND",
+  "verdict_msg": "SEED_MIDDLE_BAND | pooled_r=0.2806 within_max=0.2466 partial=0.1727 fair_margin=0.0354 dm_margin=0.0379 | split_ok=True pop_ok=True oneshot_faithful=True",
+  "summary": "SEED_MIDDLE_BAND | pooled_r=0.2806 within_max=0.2466 partial=0.1727 fair_margin=0.0354 dm_margin=0.0379 | split_ok=True pop_ok=True oneshot_faithful=True",
+  "run_mode": "full",
+  "elapsed_s": 6105.230588499922,
+  "anchor_name": "course_c_debias_cskg_l2_seed_7_cpu_v1",
+  "ts_iso": "2026-07-13T03:46:46.345263+00:00",
+  "device": "cpu",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "k": 24,
+    "fpe_dim": 4096,
+    "epochs": 250,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "min_support": 10,
+    "min_conf": 0.1,
+    "n_eval": 6000,
+    "min_heldout": 20,
+    "ckpt_every": 25
+  },
+  "mechanism_selftest": {
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ],
+    "validity_checks": {
+      "positive_control_passes": true,
+      "metric_moves": true,
+      "negative_control_fails_with_margin": true,
+      "full_gates_exercised_at_selftest": true
+    },
+    "selftest_detail": {
+      "confound": {
+        "pooled_r": 0.9355,
+        "partial_r": -0.0431,
+        "within_max": 0.5957
+      },
+      "leak": {
+        "partial_r": 0.9445
+      },
+      "metric_moves": {
+        "pop_full": 0.0,
+        "pop_degmatched": 1.0,
+        "oneshot_degmatched": 1.0
+      },
+      "gate_probe": {
+        "synth_pass_verdict": "SEED_HARD_PASS",
+        "synth_fail_verdict": "SEED_HARD_FAIL"
+      }
+    }
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 460048,
+      "n_test": 25558,
+      "l2_genuine": {
+        "n_scanned": 17825,
+        "n_reach_l2": 7468,
+        "n_excl_l1i": 1106,
+        "n_excl_l1f": 362,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 6000
+      },
+      "tert_bounds": [
+        100.0,
+        357.9999999999991
+      ],
+      "strata_counts": {
+        "low": 2009,
+        "mid": 1991,
+        "high": 2000
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.042,
+          "hits@10": 0.1905,
+          "mrr": 0.0921
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0403,
+          "hits@10": 0.1713,
+          "mrr": 0.084
+        }
+      },
+      "arm_sigs_recomputed": {
+        "ONESHOT_ROTATE": "9a76f84d68e1193f",
+        "BASELINE_POP": "611e7fef0f1f65ef"
+      },
+      "fair_unmatched": {
+        "oneshot": 0.0917,
+        "pop": 0.0563,
+        "margin": 0.0354,
+        "n": 4000
+      },
+      "verification": {
+        "split_identity_ok": true,
+        "split_identity_detail": "strata_match=True tert_match=True (repro strata={'low': 2009, 'mid': 1991, 'high': 2000} tert=[100.0, 358.0] vs ref strata={'low': 2009, 'mid': 1991, 'high': 2000} tert=[100.0, 357.9999999999991])",
+        "pop_faithful_ok": true,
+        "pop_sig_exact": true,
+        "oneshot_faithful": true,
+        "oneshot_sig_exact": false,
+        "device": "cpu"
+      },
+      "pooled_backdoor_r": 0.2806,
+      "within_stratum_r": {
+        "low": {
+          "r": 0.2466,
+          "n": 2009
+        },
+        "mid": {
+          "r": 0.2142,
+          "n": 1991
+        },
+        "high": {
+          "r": 0.089,
+          "n": 2000
+        }
+      },
+      "within_max_abs_r": 0.2466,
+      "partial_r_logdeg": 0.1727,
+      "degmatched_fair": {
+        "oneshot": 0.1492,
+        "pop": 0.1113,
+        "margin": 0.0379,
+        "n": 4000,
+        "n_allowed": 25459
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      },
+      "_min_support": 10,
+      "_min_conf": 0.1,
+      "seed_verdict": "SEED_MIDDLE_BAND",
+      "seed_gates": {
+        "p1_pass": false,
+        "p1_fail": false,
+        "p2_pass": true,
+        "p2_fail": false,
+        "within_max_abs_r": 0.2466,
+        "partial_r_logdeg": 0.1727,
+        "degmatched_margin": 0.0379,
+        "R_BACKDOOR": 0.15,
+        "R_LEAK": 0.25,
+        "DEG_MARGIN_PASS": 0.02
+      }
+    }
+  ],
+  "cross_seed_note": "single-seed process-isolated re-score; 3-seed debias headline aggregated downstream over the 3 seed metrics files (mean within_max/partial/dm_margin)."
+}

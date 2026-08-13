@@ -1,0 +1,287 @@
+{
+  "verdict": "HARD_FAIL_DIAGNOSIS_REFUTED",
+  "verdict_tag": "HARD_FAIL_DIAGNOSIS_REFUTED",
+  "verdict_msg": "SELF-AUDIT depth-rule diagnostic | BURIED(subj_pos!=0, n=6425): depth_rule=0.5276 immediate_fwc=0.468 nearest_noun=0.5507 first_noun=0.4305 majority=0.6117 [nearest_depth0(reframe)=0.7589] | depth_rule margin_over_majority=-0.0841 (HARD_FAIL_DIAGNOSIS_REFUTED) | REFRAME nearest_depth0=0.7589 (margin_over_maj=+0.1472) select_acc: depth_leftmost=0.1353 nearest_depth0=0.5466 | learner_with_depth=0.5581 no_depth=0.4756 (uses_depth=+0.0825) | buried_conflict majority=0.7099 depth_rule=0.4456 | easy depth_rule=0.9977",
+  "summary": "HARD_FAIL_DIAGNOSIS_REFUTED | depth_rule_buried=0.5276 vs majority=0.6117 (margin=-0.0841) | reframe nearest_depth0=0.7589",
+  "elapsed_s": 95.01,
+  "run_mode": "full",
+  "anchor_name": "exp_agreement_glassbox_depth_rule_diagnostic_v1",
+  "ts_iso": "2026-07-22T21:38:48.982207+00:00",
+  "full_corpus": {
+    "all": {
+      "n": 14761,
+      "majority": 0.542,
+      "depth_rule": {
+        "acc": 0.7931,
+        "select_acc": 0.6219
+      },
+      "immediate_fwc": {
+        "acc": 0.7682,
+        "select_acc": 0.5848
+      },
+      "nearest_noun": {
+        "acc": 0.444,
+        "select_acc": 0.2096
+      },
+      "first_noun": {
+        "acc": 0.7521,
+        "select_acc": 0.5647
+      },
+      "nearest_depth0": {
+        "acc": 0.8415,
+        "select_acc": 0.7044
+      },
+      "learner_with_depth": {
+        "acc": 0.8065,
+        "select_acc": 0.6332
+      },
+      "learner_no_depth": {
+        "acc": 0.7716,
+        "select_acc": 0.5882
+      }
+    },
+    "buried": {
+      "n": 6425,
+      "majority": 0.6117,
+      "depth_rule": {
+        "acc": 0.5276,
+        "select_acc": 0.1353
+      },
+      "immediate_fwc": {
+        "acc": 0.468,
+        "select_acc": 0.0468
+      },
+      "nearest_noun": {
+        "acc": 0.5507,
+        "select_acc": 0.3354
+      },
+      "first_noun": {
+        "acc": 0.4305,
+        "select_acc": 0.0
+      },
+      "nearest_depth0": {
+        "acc": 0.7589,
+        "select_acc": 0.5466
+      },
+      "learner_with_depth": {
+        "acc": 0.5581,
+        "select_acc": 0.1617
+      },
+      "learner_no_depth": {
+        "acc": 0.4756,
+        "select_acc": 0.0548
+      }
+    },
+    "buried_conflict": {
+      "n": 5474,
+      "majority": 0.7099,
+      "depth_rule": {
+        "acc": 0.4456,
+        "select_acc": 0.1536
+      },
+      "immediate_fwc": {
+        "acc": 0.3756,
+        "select_acc": 0.0532
+      },
+      "nearest_noun": {
+        "acc": 0.4726,
+        "select_acc": 0.2609
+      },
+      "first_noun": {
+        "acc": 0.3316,
+        "select_acc": 0.0
+      },
+      "nearest_depth0": {
+        "acc": 0.717,
+        "select_acc": 0.5153
+      },
+      "learner_with_depth": {
+        "acc": 0.4814,
+        "select_acc": 0.1843
+      },
+      "learner_no_depth": {
+        "acc": 0.3845,
+        "select_acc": 0.0627
+      }
+    },
+    "easy": {
+      "n": 8336,
+      "majority": 0.5118,
+      "depth_rule": {
+        "acc": 0.9977,
+        "select_acc": 0.997
+      },
+      "immediate_fwc": {
+        "acc": 0.9996,
+        "select_acc": 0.9994
+      },
+      "nearest_noun": {
+        "acc": 0.3618,
+        "select_acc": 0.1126
+      },
+      "first_noun": {
+        "acc": 1.0,
+        "select_acc": 1.0
+      },
+      "nearest_depth0": {
+        "acc": 0.9052,
+        "select_acc": 0.8259
+      },
+      "learner_with_depth": {
+        "acc": 0.998,
+        "select_acc": 0.9966
+      },
+      "learner_no_depth": {
+        "acc": 0.9996,
+        "select_acc": 0.9994
+      }
+    }
+  },
+  "heldout_test_split": {
+    "all": {
+      "n": 6212,
+      "majority": 0.5797,
+      "depth_rule": {
+        "acc": 0.7877,
+        "select_acc": 0.626
+      },
+      "immediate_fwc": {
+        "acc": 0.7629,
+        "select_acc": 0.5885
+      },
+      "nearest_noun": {
+        "acc": 0.4261,
+        "select_acc": 0.1954
+      },
+      "first_noun": {
+        "acc": 0.7473,
+        "select_acc": 0.5691
+      },
+      "nearest_depth0": {
+        "acc": 0.839,
+        "select_acc": 0.7081
+      },
+      "learner_with_depth": {
+        "acc": 0.7972,
+        "select_acc": 0.6343
+      },
+      "learner_no_depth": {
+        "acc": 0.7655,
+        "select_acc": 0.5913
+      }
+    },
+    "buried": {
+      "n": 2677,
+      "majority": 0.6279,
+      "depth_rule": {
+        "acc": 0.5099,
+        "select_acc": 0.136
+      },
+      "immediate_fwc": {
+        "acc": 0.4509,
+        "select_acc": 0.0463
+      },
+      "nearest_noun": {
+        "acc": 0.5521,
+        "select_acc": 0.3265
+      },
+      "first_noun": {
+        "acc": 0.4135,
+        "select_acc": 0.0
+      },
+      "nearest_depth0": {
+        "acc": 0.7561,
+        "select_acc": 0.5465
+      },
+      "learner_with_depth": {
+        "acc": 0.5319,
+        "select_acc": 0.1558
+      },
+      "learner_no_depth": {
+        "acc": 0.4569,
+        "select_acc": 0.0527
+      }
+    },
+    "buried_conflict": {
+      "n": 2304,
+      "majority": 0.7222,
+      "depth_rule": {
+        "acc": 0.4306,
+        "select_acc": 0.1532
+      },
+      "immediate_fwc": {
+        "acc": 0.362,
+        "select_acc": 0.0521
+      },
+      "nearest_noun": {
+        "acc": 0.4796,
+        "select_acc": 0.2582
+      },
+      "first_noun": {
+        "acc": 0.3186,
+        "select_acc": 0.0
+      },
+      "nearest_depth0": {
+        "acc": 0.7166,
+        "select_acc": 0.5143
+      },
+      "learner_with_depth": {
+        "acc": 0.4562,
+        "select_acc": 0.1753
+      },
+      "learner_no_depth": {
+        "acc": 0.3689,
+        "select_acc": 0.0595
+      }
+    },
+    "easy": {
+      "n": 3535,
+      "majority": 0.5431,
+      "depth_rule": {
+        "acc": 0.998,
+        "select_acc": 0.9972
+      },
+      "immediate_fwc": {
+        "acc": 0.9992,
+        "select_acc": 0.9992
+      },
+      "nearest_noun": {
+        "acc": 0.3307,
+        "select_acc": 0.0962
+      },
+      "first_noun": {
+        "acc": 1.0,
+        "select_acc": 1.0
+      },
+      "nearest_depth0": {
+        "acc": 0.9018,
+        "select_acc": 0.8306
+      },
+      "learner_with_depth": {
+        "acc": 0.998,
+        "select_acc": 0.9966
+      },
+      "learner_no_depth": {
+        "acc": 0.9992,
+        "select_acc": 0.9992
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "depth_rule": "ef764d6b9e6fd43d81b759f338c81430aed67ec81ccb1fb86549a460e96597a5",
+    "immediate_fwc": "b7550a65ec4b8cb56d191e5f8e7dcf691be77c6c0dce99bca8a7251b65656230",
+    "nearest_noun": "80975e0046f6d53ab6f601ef0fc8db066d1695137b5c0f54d1ed9cdb77315ea1",
+    "first_noun": "260b7a133a083edbcac71ee007fa45a43cfd4832152bc992765f4b5cd7b51b1b",
+    "nearest_depth0": "5176c1a080b90b8c85f5e79617241a2b42c81928b7bf82aa153fe1dd3b3f5c74"
+  },
+  "bands": {
+    "HP_MARGIN_OVER_MAJ": 0.15,
+    "HF_TIE_MAJ": 0.0,
+    "note": "bands apply to arm-1 depth_rule on buried subset"
+  },
+  "n_preps": 43,
+  "n_subord": 18,
+  "learner_uses_depth_buried": 0.0825,
+  "crlb_n_a": "classification accuracy over deterministic rules; no per-decode Gaussian noise floor"
+}

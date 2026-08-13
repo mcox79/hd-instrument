@@ -1,0 +1,92 @@
+{
+  "anchor": "crispr_plasticity_slab_replay_v1",
+  "anchor_name": "crispr_plasticity_slab_replay_v1",
+  "run_mode": "full",
+  "N": 4096,
+  "N_BASE": 4096,
+  "D_slab": 819,
+  "n_seeds": 3,
+  "seeds": [
+    "7",
+    "17",
+    "23"
+  ],
+  "J_phases": 5,
+  "M_per_phase": 100,
+  "R_values": [
+    0,
+    5,
+    20,
+    50
+  ],
+  "EXPECTED_N_UNITS": 12,
+  "total_units": 12,
+  "cardinality_ok": true,
+  "arms": [
+    "ARM_APPEND_ONLY_R0",
+    "ARM_APPEND_ONLY_R5",
+    "ARM_APPEND_ONLY_R20",
+    "ARM_APPEND_ONLY_R50"
+  ],
+  "primary_arm": "ARM_APPEND_ONLY_R20",
+  "config_version": "crispr-slab-replay-v1: N_base=4096 D_slab=819 J=5 M=100 alpha_per_slab=0.1221 R_values=[0, 5, 20, 50] noise_frac=0.2 retrieve_steps=5 run_mode=full",
+  "corpus_provenance": "synthetic_bipolar_persistent_atom_id_encoding",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "metrics_source": "measured_cpu_bipolar_crispr_replay",
+  "per_arm_aggregate": {
+    "ARM_APPEND_ONLY_R0": {
+      "R": 0,
+      "n_seeds": 3,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "cv_transfer_final": 0.0,
+      "mean_forget_p1": 0.0,
+      "mean_phase0_self_recall": 1.0,
+      "mean_transfer_pre_replay": 1.0,
+      "mean_transfer_post_replay": 1.0,
+      "n_unique_slab_hashes": 1
+    },
+    "ARM_APPEND_ONLY_R5": {
+      "R": 5,
+      "n_seeds": 3,
+      "mean_transfer_final": 0.03333333333333333,
+      "std_transfer_final": 0.014433756729740645,
+      "cv_transfer_final": 0.43301270189221935,
+      "mean_forget_p1": 0.0,
+      "mean_phase0_self_recall": 1.0,
+      "mean_transfer_pre_replay": 1.0,
+      "mean_transfer_post_replay": 1.0,
+      "n_unique_slab_hashes": 3
+    },
+    "ARM_APPEND_ONLY_R20": {
+      "R": 20,
+      "n_seeds": 3,
+      "mean_transfer_final": 0.03333333333333333,
+      "std_transfer_final": 0.014433756729740645,
+      "cv_transfer_final": 0.43301270189221935,
+      "mean_forget_p1": 0.0,
+      "mean_phase0_self_recall": 1.0,
+      "mean_transfer_pre_replay": 1.0,
+      "mean_transfer_post_replay": 1.0,
+      "n_unique_slab_hashes": 3
+    },
+    "ARM_APPEND_ONLY_R50": {
+      "R": 50,
+      "n_seeds": 3,
+      "mean_transfer_final": 0.125,
+      "std_transfer_final": 0.049999999999999996,
+      "cv_transfer_final": 0.39999999999999997,
+      "mean_forget_p1": 0.0,
+      "mean_phase0_self_recall": 1.0,
+      "mean_transfer_pre_replay": 1.0,
+      "mean_transfer_post_replay": 0.9700000000000001,
+      "n_unique_slab_hashes": 3
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "CRISPR_REPLAY_PARTIAL: best R=50 transfer_final=0.125 in [0.05, 0.15]; partial rescue. R0[transfer=0.000 phase0=1.000] best_R=50 transfer=0.125 forget=0.000 cv=0.400",
+  "summary": "MIDDLE_BAND: R20_transfer=0.033 R20_forget=0.000 units=12/12",
+  "elapsed_s": 0.0245511531829834
+}

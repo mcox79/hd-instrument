@@ -1,0 +1,9 @@
+{
+  "anchor_name": "coherence_filter_foundation_growth_safety_precheck_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: pearson broken: 0.8944271909999159",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_coherence_filter_foundation_growth_safety_precheck_v1.py\", line 695, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_coherence_filter_foundation_growth_safety_precheck_v1.py\", line 685, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_coherence_filter_foundation_growth_safety_precheck_v1.py\", line 645, in self_test\n    assert pb is not None and abs(pb - 0.8) < 1e-9, f\"pearson broken: {pb}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: pearson broken: 0.8944271909999159\n",
+  "ts_iso": "2026-07-19T12:50:39.019715+00:00"
+}

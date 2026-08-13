@@ -1,0 +1,317 @@
+{
+  "verdict": "HARD_PASS_SLOT_RECOVERY",
+  "verdict_msg": "HARD_PASS_SLOT_RECOVERY: recall_ceiling V4_FULL_REPRO=0.75 -> V5_FULL=0.8; F1 0.5882 -> 0.6084; precision 0.4839 -> 0.4908; n_recovered_vs_v4=5 n_regressed_vs_v4=0; targets_recovered=5/11 (of which out-of-scope excluded: 2); lever_fires={'V5_ACTION_ONLY': True, 'V5_CANDFIX_ONLY': True, 'V5_REFLEXIVE_ONLY': True, 'V5_FISH_ONLY': True}; repro_matches_cited_V4=True; ARCSCRAMBLE F1=0.4249 (control fires). single-lever F1: ACTION=0.5992 CANDFIX=0.5914 REFLEXIVE=0.5938 FISH=0.5891. all HP conds held.",
+  "summary": "HARD_PASS_SLOT_RECOVERY: recall_ceiling repro=0.75 full=0.8 | F1 repro=0.5882 full=0.6084 | precision repro=0.4839 full=0.4908 | n_regressed=0 n_recovered=5 | targets_recovered=5/11 | levers_fire=True | repro_matches_cited=True | parser_uas=0.7882",
+  "elapsed_s": 165.42,
+  "ts_iso": "2026-07-23T22:38:58.696514+00:00",
+  "anchor_name": "multipred_argstruct_enumext_posslot_v5",
+  "run_mode": "full",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_gold_sentences": 114,
+  "one_variable": "candidate/verb enumeration SLOT-recovery: (1) content_verb_indices_ext_v5 -- content verb mistagged as noun recovered via ACTION_HINTS override in the ENUM gate; (2) candidate_indices_slotfix -- object 'her' + demonstrative/quantifier heads + reflexives + grounded-noun-in-JJ-slot recovered by structural checks over the word-identity exclusion lists. Parser / role clf / subcat-gate FORMULA / knowledge-argmax / do-have + ECM ALL byte-identical reuse (V4_FULL_REPRO proves it).",
+  "bands": {
+    "HP_RC_MIN": 0.8,
+    "HP_F1_MIN": 0.6082,
+    "HP_PRECISION_TOLERANCE": 0.03,
+    "HP_TARGETS_RECOVERED_MIN": 5,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HF_RC_MAX": 0.75,
+    "HF_PRECISION_DROP_MAX": 0.05,
+    "HF_ARCSCRAMBLE_MARGIN": 0.01,
+    "CITED_V4_RECALL_CEILING": 0.75,
+    "CITED_V4_F1": 0.5882,
+    "CITED_V4_PRECISION": 0.4839,
+    "CITED_V4_FULL_KEPT_HASH": "be39472568268138"
+  },
+  "arms": {
+    "V4_FULL_REPRO": {
+      "recall_ceiling": 0.75,
+      "n_miss": 25,
+      "n_gold_pos": 100,
+      "precision": 0.4839,
+      "recall": 0.75,
+      "f1": 0.5882,
+      "n_pred": 155,
+      "subcat_fp": 39,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 35,
+      "kept_hash": "be39472568268138"
+    },
+    "V5_ACTION_ONLY": {
+      "recall_ceiling": 0.77,
+      "n_miss": 23,
+      "n_gold_pos": 100,
+      "precision": 0.4904,
+      "recall": 0.77,
+      "f1": 0.5992,
+      "n_pred": 157,
+      "subcat_fp": 39,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 35,
+      "kept_hash": "b1e3d3cafe234413"
+    },
+    "V5_CANDFIX_ONLY": {
+      "recall_ceiling": 0.76,
+      "n_miss": 24,
+      "n_gold_pos": 100,
+      "precision": 0.4841,
+      "recall": 0.76,
+      "f1": 0.5914,
+      "n_pred": 157,
+      "subcat_fp": 40,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 35,
+      "kept_hash": "0556207cc50b4aee"
+    },
+    "V5_REFLEXIVE_ONLY": {
+      "recall_ceiling": 0.76,
+      "n_miss": 24,
+      "n_gold_pos": 100,
+      "precision": 0.4872,
+      "recall": 0.76,
+      "f1": 0.5938,
+      "n_pred": 156,
+      "subcat_fp": 39,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 36,
+      "kept_hash": "8d195495aff48c76"
+    },
+    "V5_FISH_ONLY": {
+      "recall_ceiling": 0.76,
+      "n_miss": 24,
+      "n_gold_pos": 100,
+      "precision": 0.481,
+      "recall": 0.76,
+      "f1": 0.5891,
+      "n_pred": 158,
+      "subcat_fp": 40,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 36,
+      "kept_hash": "e5b399105892ee1f"
+    },
+    "V5_FULL": {
+      "recall_ceiling": 0.8,
+      "n_miss": 20,
+      "n_gold_pos": 100,
+      "precision": 0.4908,
+      "recall": 0.8,
+      "f1": 0.6084,
+      "n_pred": 163,
+      "subcat_fp": 41,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 37,
+      "kept_hash": "480fd92049b3bef3"
+    },
+    "V5_ARCSCRAMBLE": {
+      "recall_ceiling": 0.41,
+      "n_miss": 59,
+      "n_gold_pos": 100,
+      "precision": 0.4409,
+      "recall": 0.41,
+      "f1": 0.4249,
+      "n_pred": 93,
+      "subcat_fp": 19,
+      "within_frame_fp": 10,
+      "spurious_verb_fp": 23,
+      "kept_hash": "2a9e9d6456407c7c"
+    }
+  },
+  "hard_pass_conditions": {
+    "recall_above_bar": true,
+    "f1_above_bar": true,
+    "no_regression": true,
+    "precision_holds": true,
+    "targets_recovered": true,
+    "all_levers_fire": true,
+    "repro_byte_identical": true,
+    "control_arcscramble": true
+  },
+  "hard_fail_reasons": [],
+  "lever_fires": {
+    "V5_ACTION_ONLY": true,
+    "V5_CANDFIX_ONLY": true,
+    "V5_REFLEXIVE_ONLY": true,
+    "V5_FISH_ONLY": true
+  },
+  "repro_matches_cited_v4": true,
+  "repro_kept_hash": "be39472568268138",
+  "n_regressed_vs_v4": 0,
+  "n_recovered_vs_v4": 5,
+  "regressed_vs_v4": [],
+  "recovered_vs_v4": [
+    [
+      "L05_18",
+      "watch",
+      "her"
+    ],
+    [
+      "L09_14",
+      "lay",
+      "it"
+    ],
+    [
+      "L10_01",
+      "teach",
+      "him"
+    ],
+    [
+      "L10_03",
+      "amuse",
+      "himself"
+    ],
+    [
+      "L10_05",
+      "sell",
+      "fish"
+    ]
+  ],
+  "n_targets_recovered": 5,
+  "n_targets_total": 11,
+  "per_target": [
+    {
+      "sid": "L04_05",
+      "verb": "catch",
+      "patient": "her",
+      "in_v4_full_repro": false,
+      "in_v5_full": false,
+      "recovered_by_v5": false,
+      "out_of_scope": false,
+      "recovered_by_single_lever": []
+    },
+    {
+      "sid": "L04_06",
+      "verb": "hurt",
+      "patient": "pussy",
+      "in_v4_full_repro": false,
+      "in_v5_full": false,
+      "recovered_by_v5": false,
+      "out_of_scope": false,
+      "recovered_by_single_lever": []
+    },
+    {
+      "sid": "L05_13",
+      "verb": "knock",
+      "patient": "one",
+      "in_v4_full_repro": false,
+      "in_v5_full": false,
+      "recovered_by_v5": false,
+      "out_of_scope": true,
+      "recovered_by_single_lever": []
+    },
+    {
+      "sid": "L05_15",
+      "verb": "knock",
+      "patient": "that",
+      "in_v4_full_repro": false,
+      "in_v5_full": false,
+      "recovered_by_v5": false,
+      "out_of_scope": false,
+      "recovered_by_single_lever": []
+    },
+    {
+      "sid": "L05_16",
+      "verb": "knock",
+      "patient": "castles",
+      "in_v4_full_repro": false,
+      "in_v5_full": false,
+      "recovered_by_v5": false,
+      "out_of_scope": true,
+      "recovered_by_single_lever": []
+    },
+    {
+      "sid": "L05_18",
+      "verb": "watch",
+      "patient": "her",
+      "in_v4_full_repro": false,
+      "in_v5_full": true,
+      "recovered_by_v5": true,
+      "out_of_scope": false,
+      "recovered_by_single_lever": [
+        "V5_CANDFIX_ONLY"
+      ]
+    },
+    {
+      "sid": "L09_14",
+      "verb": "lay",
+      "patient": "it",
+      "in_v4_full_repro": false,
+      "in_v5_full": true,
+      "recovered_by_v5": true,
+      "out_of_scope": false,
+      "recovered_by_single_lever": [
+        "V5_ACTION_ONLY"
+      ]
+    },
+    {
+      "sid": "L10_01",
+      "verb": "teach",
+      "patient": "him",
+      "in_v4_full_repro": false,
+      "in_v5_full": true,
+      "recovered_by_v5": true,
+      "out_of_scope": false,
+      "recovered_by_single_lever": [
+        "V5_ACTION_ONLY"
+      ]
+    },
+    {
+      "sid": "L10_03",
+      "verb": "amuse",
+      "patient": "himself",
+      "in_v4_full_repro": false,
+      "in_v5_full": true,
+      "recovered_by_v5": true,
+      "out_of_scope": false,
+      "recovered_by_single_lever": [
+        "V5_REFLEXIVE_ONLY"
+      ]
+    },
+    {
+      "sid": "L10_05",
+      "verb": "sell",
+      "patient": "fish",
+      "in_v4_full_repro": false,
+      "in_v5_full": true,
+      "recovered_by_v5": true,
+      "out_of_scope": false,
+      "recovered_by_single_lever": [
+        "V5_FISH_ONLY"
+      ]
+    },
+    {
+      "sid": "L10_14",
+      "verb": "see",
+      "patient": "those",
+      "in_v4_full_repro": false,
+      "in_v5_full": false,
+      "recovered_by_v5": false,
+      "out_of_scope": false,
+      "recovered_by_single_lever": []
+    }
+  ],
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 50.9,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_v4_full": {
+    "source": "data/exp_multipred_argstruct_enumext_v4/metrics.json",
+    "recall_ceiling": 0.75,
+    "f1": 0.5882,
+    "precision": 0.4839,
+    "kept_hash": "be39472568268138",
+    "verdict": "MIDDLE_BAND_PARTIAL_ENUMEXT"
+  },
+  "scope_caveat": "Two of the 11 targets are out-of-clean-scope BY CONSTRUCTION and flagged so: L05_13 knock/one (relative-clause head 'the one pussy knocked down' -- surface-adjacent to a noun so the 'no following noun' head rule correctly declines; needs relative-clause gap analysis) and L05_16 knock/castles (verb AND patient already enumerated in V4 -- the miss is DOWNSTREAM role-assignment, not enumeration). The remaining 9 are newly ENABLED at the enumeration level; emission still depends on the UNCHANGED downstream (role clf / gate / knowledge-argmax / agent carry), so per-target recovery < 9 reflects a downstream bound, not an enumeration bug. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET. Overrides are PLUGGABLE (importable module-level fns); originals untouched."
+}

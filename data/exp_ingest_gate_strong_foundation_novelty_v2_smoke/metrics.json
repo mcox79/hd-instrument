@@ -1,0 +1,139 @@
+{
+  "anchor_name": "ingest_gate_strong_foundation_novelty_v2",
+  "elapsed_s": 34.27,
+  "ts_iso": "2026-07-16T02:57:36.637914+00:00",
+  "n_seeds": 1,
+  "config": {
+    "n_ent": 400,
+    "k_latent": 16,
+    "k_fit": 24,
+    "n_base_rel": 12,
+    "edges_per_rel": 280,
+    "gen_noise": 0.1,
+    "frac_heldout": 0.28,
+    "strong_epochs": 300,
+    "weak_epochs": 45,
+    "seeds": [
+      7
+    ],
+    "calib_frac": 0.5,
+    "thinprov_sources": 1
+  },
+  "bands": {
+    "HP_STRONG_MRR_MIN": 0.5,
+    "HP_KEY_AUC_STRONG_MIN": 0.75,
+    "HP_DOSE_RESPONSE_MIN": 0.2,
+    "HP_DEAD_COLLAPSE_MAX": 0.7,
+    "HP_OOS_SKIP_MIN": 0.6,
+    "HP_OOS_CONS_MIN": 0.6,
+    "HP_HOLD_FIRES_MIN": 0.3,
+    "HP_DISCARD_MIN": 0.95
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "per_candidate_arrays": "per_candidate_arrays.npz",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "mrr dead=0.014 weak=0.347 strong=0.705 | KEY_auc dead=0.541 weak=0.947 strong=0.973 dose=+0.432 | enc_auc dead=0.667 weak=0.981 strong=0.997 | oos skip=0.94 cons=0.92 | hold thin=0.90 rich=0.00 | discard=1.00 interf=0.00e+00 destr=True tele=True arrays_ok=True(d=0.0e+00) -> SEMANTIC_NOVELTY_derivability_dose_dependent_on_foundation_strength",
+  "summary": "HARD_PASS: SEMANTIC_NOVELTY_derivability_dose_dependent_on_foundation_strength",
+  "gates": {
+    "HP_STRONG_IS_STRONG": true,
+    "HP_KEY_AUC_STRONG": true,
+    "HP_DOSE_RESPONSE": true,
+    "HP_DEAD_COLLAPSES": true,
+    "HP_OOS_ROUTING": true,
+    "HP_HOLD_FIRES": true,
+    "HP_DISCARD": true,
+    "HP_INTERFERENCE": true,
+    "HP_TELEMETRY": true,
+    "HP_ARRAYS_DUMPED": true,
+    "baseline_in_band": true
+  },
+  "joint_hard_pass": true,
+  "novelty_verdict": "SEMANTIC_NOVELTY_derivability_dose_dependent_on_foundation_strength",
+  "run_mode": "smoke",
+  "agg": {
+    "dead_infer_mrr": 0.014439178753324755,
+    "weak_infer_mrr": 0.34657667331839626,
+    "strong_infer_mrr": 0.7052538504838306,
+    "key_auc_dead": 0.5408394100099436,
+    "key_auc_weak": 0.9472675671196553,
+    "key_auc_strong": 0.9731583526682135,
+    "key_auc_dose_response": 0.43231894265826987,
+    "enc_auc_dead": 0.6666741071428571,
+    "enc_auc_weak": 0.9808169642857143,
+    "enc_auc_strong": 0.99740625,
+    "oos_skip_infer": 0.9419953596287703,
+    "oos_cons_novel": 0.9214285714285714,
+    "hold_rate_thin": 0.9,
+    "hold_rate_rich": 0.0,
+    "discard_noise": 1.0,
+    "interference_delta": 0.0,
+    "array_recompute_delta": 0.0
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "rstar": 11,
+      "N": 400,
+      "n_train": 2218,
+      "n_infer": 862,
+      "n_novel": 280,
+      "dead": {
+        "infer_mrr": 0.014439178753324755,
+        "train_mrr": 0.02446829826366379,
+        "key_auc": 0.5408394100099436,
+        "enc_auc": 0.6666741071428571
+      },
+      "weak": {
+        "infer_mrr": 0.34657667331839626,
+        "train_mrr": 0.540586775664357,
+        "key_auc": 0.9472675671196553,
+        "enc_auc": 0.9808169642857143
+      },
+      "strong": {
+        "infer_mrr": 0.7052538504838306,
+        "train_mrr": 0.9183333333333333,
+        "key_auc": 0.9731583526682135,
+        "enc_auc": 0.99740625
+      },
+      "skip_thresh": 0.93,
+      "calib_youden_j": 0.8493205170699369,
+      "oos": {
+        "skip_infer_eval": 0.9419953596287703,
+        "cons_novel_eval": 0.9214285714285714,
+        "n_infer_eval": 431,
+        "n_novel_eval": 140
+      },
+      "hold": {
+        "rate_thin": 0.9,
+        "rate_rich": 0.0,
+        "n_thin": 40
+      },
+      "discard_noise": 1.0,
+      "interference": {
+        "delta": 0.0,
+        "mrr_before": 0.7229992795986039,
+        "mrr_after": 0.7229992795986039,
+        "mrr_destructive": 0.6486192393763233,
+        "destructive_regresses": true
+      },
+      "foldin": {
+        "novel_mrr_before": 0.041183173174671205,
+        "novel_mrr_after": 0.059407117623914554,
+        "delta": 0.01822394444924335
+      },
+      "telemetry": {
+        "recurrence_flips": true,
+        "surprise_flips": true,
+        "hold_flips": true,
+        "route_flips": true
+      },
+      "surprise_sha": {
+        "dead": "3340ef84d232d310",
+        "weak": "d769bfb485eec7dd",
+        "strong": "e9393704f397e68d",
+        "novel": "05b7ac3e23a09e73"
+      }
+    }
+  ]
+}

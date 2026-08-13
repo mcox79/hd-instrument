@@ -1,0 +1,145 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS NATIVE_BIND_COMPOSE inductive probe: majority-sign bundle of native Hebbian tail-recall vectors recovers planted held-out tails and clears RANDOM; relation-scramble AND identity-shuffle fail; ORACLE fires; POP at floor; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.08461380004882812,
+  "mechanism_selftest": {
+    "n_grid_entities": 104,
+    "n_heldout_entities": 15,
+    "n_support": 118,
+    "n_query": 112,
+    "n_cold": 0,
+    "n_dim": 256,
+    "heldout_mrr": {
+      "NATIVE_ANCHOR_COMPOSE": 0.26618,
+      "MEMORIZE_FIXEDCODE": 0.03469,
+      "RANDOM_CODES": 0.05078,
+      "NATIVE_SCRAMBLE": 0.09467,
+      "IDENTITY_SHUFFLE": 0.21703,
+      "ORACLE_FOLDIN": 0.76315,
+      "BASELINE_POP": 0.03105
+    },
+    "heldout_hits_at_10": {
+      "NATIVE_ANCHOR_COMPOSE": 0.42857,
+      "MEMORIZE_FIXEDCODE": 0.10714,
+      "RANDOM_CODES": 0.07143,
+      "NATIVE_SCRAMBLE": 0.28571,
+      "IDENTITY_SHUFFLE": 0.44643,
+      "ORACLE_FOLDIN": 0.91964,
+      "BASELINE_POP": 0.07143
+    },
+    "heldout_metric_spectrum": {
+      "NATIVE_ANCHOR_COMPOSE": {
+        "hits@1": 0.19643,
+        "hits@3": 0.27679,
+        "hits@10": 0.42857,
+        "hits@100": 0.99107,
+        "mrr": 0.26618
+      },
+      "MEMORIZE_FIXEDCODE": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.10714,
+        "hits@100": 1.0,
+        "mrr": 0.03469
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.01786,
+        "hits@3": 0.01786,
+        "hits@10": 0.07143,
+        "hits@100": 0.96429,
+        "mrr": 0.05078
+      },
+      "NATIVE_SCRAMBLE": {
+        "hits@1": 0.02679,
+        "hits@3": 0.05357,
+        "hits@10": 0.28571,
+        "hits@100": 0.94643,
+        "mrr": 0.09467
+      },
+      "IDENTITY_SHUFFLE": {
+        "hits@1": 0.125,
+        "hits@3": 0.21429,
+        "hits@10": 0.44643,
+        "hits@100": 0.92857,
+        "mrr": 0.21703
+      },
+      "ORACLE_FOLDIN": {
+        "hits@1": 0.66964,
+        "hits@3": 0.83929,
+        "hits@10": 0.91964,
+        "hits@100": 1.0,
+        "mrr": 0.76315
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.07143,
+        "hits@100": 0.9375,
+        "mrr": 0.03105
+      }
+    },
+    "oracle_fire_by_metric": {
+      "hits@1": {
+        "oracle": 0.66964,
+        "random": 0.01786,
+        "headroom": 0.65178,
+        "fires_ratio": true
+      },
+      "hits@3": {
+        "oracle": 0.83929,
+        "random": 0.01786,
+        "headroom": 0.82143,
+        "fires_ratio": true
+      },
+      "hits@10": {
+        "oracle": 0.91964,
+        "random": 0.07143,
+        "headroom": 0.84821,
+        "fires_ratio": true
+      },
+      "hits@100": {
+        "oracle": 1.0,
+        "random": 0.96429,
+        "headroom": 0.03571,
+        "fires_ratio": false
+      },
+      "mrr": {
+        "oracle": 0.76315,
+        "random": 0.05078,
+        "headroom": 0.71237,
+        "fires_ratio": true
+      }
+    },
+    "n_distinct_sigs": 7,
+    "native_margin": 0.2154,
+    "scramble_margin": 0.17151,
+    "idshuf_margin": 0.04915,
+    "oracle_margin": 0.71237,
+    "oracle_ratio": 15.03,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "native_recovers": true,
+    "native_beats_random": true,
+    "scramble_fails": true,
+    "idshuf_fails": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "MIDDLE_BAND_PARTIAL_NATIVE_TRANSFER",
+    "validity_preflight_ok": true,
+    "support_deg_hist": {
+      "cold": 0,
+      "d1": 0,
+      "d2_3": 22,
+      "d4_7": 0,
+      "d8plus": 90
+    },
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

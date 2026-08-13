@@ -1,0 +1,45 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS RESIDUE_MODULE_CEILING: on a planted residue-recoverable arena the RNS clean joint decode recovers planted held-out tails (fold-in) and clears RANDOM; the clean decode is >= the noisy per-module argmax decode; relation-scramble + scrambled-support compose fail; the REAL KGStore per-module residue path (ingest_triples) is exercised; 7 validity-preflight checks declared (F.1-F.4 ENFORCE)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.20899720001034439,
+  "mechanism_selftest": {
+    "real_code_path_ok": true,
+    "exercised_entrypoints": [
+      "KGStore",
+      "build_residue_module",
+      "ingest_triples",
+      "module_residue_sims"
+    ],
+    "planted_2x2": {
+      "MONO_PC_ORACLE_d1024": 1.0,
+      "MONO_MATCHED_ORACLE": 1.0,
+      "RNS_NOISY_ORACLE": 0.29995,
+      "RNS_CLEAN_ORACLE": 0.69144,
+      "RANDOM_CODES": 0.08399,
+      "RNS_CLEAN_COMPOSE": 0.05068,
+      "RNS_SCRAMBLE_COMPOSE": 0.09731,
+      "BASELINE_POP": 0.01451
+    },
+    "internal_relscramble_mrr": 0.23837,
+    "n_distinct_sigs": 8,
+    "clean_recovers": true,
+    "clean_beats_random": true,
+    "clean_ge_noisy": true,
+    "scramble_fails": true,
+    "arms_differ": true,
+    "mods_finite": true,
+    "selftest_verdict": "INCONCLUSIVE_POSCONTROL_OR_ORACLE_FAILED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3",
+      "guard_baseline_valid_F4"
+    ]
+  }
+}

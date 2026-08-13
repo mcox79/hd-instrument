@@ -1,0 +1,352 @@
+{
+  "anchor_name": "att1_iterative_attractor_v2_low_storage_ratio_krotov_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: Krotov variants do NOT improve over argmax in low-storage regime; mechanism truly rejected (revival exhausted). lift=-0.020. DISCRIMINATOR @ sigma=1.50: argmax=0.093 | best_iter=ITER_KROTOV_POLY recall=0.073 lift=-0.020 cv=0.129 conv=1.00 | M/N=0.098",
+  "run_mode": "full",
+  "N_DIM": 512,
+  "M": 50,
+  "N_EVAL": 200,
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARGMAX_BASELINE": {
+        "recall_gentle_mean": 0.4333,
+        "recall_harder_mean": 0.0933,
+        "recall_harder_std": 0.0249,
+        "recall_harder_cv": 0.2673,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 1.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.4333,
+          "1.0": 0.1133,
+          "1.5": 0.0933,
+          "2.0": 0.0333
+        }
+      },
+      "ITER_KROTOV_QUADRATIC": {
+        "recall_gentle_mean": 0.4267,
+        "recall_harder_mean": 0.0667,
+        "recall_harder_std": 0.0249,
+        "recall_harder_cv": 0.3742,
+        "frac_converged_harder_mean": 0.3333,
+        "mean_iterations_harder_mean": 8.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.4267,
+          "1.0": 0.1733,
+          "1.5": 0.0667,
+          "2.0": 0.0333
+        }
+      },
+      "ITER_KROTOV_POLY": {
+        "recall_gentle_mean": 0.4467,
+        "recall_harder_mean": 0.0733,
+        "recall_harder_std": 0.0094,
+        "recall_harder_cv": 0.1286,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 5.33,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.4467,
+          "1.0": 0.1133,
+          "1.5": 0.0733,
+          "2.0": 0.02
+        }
+      },
+      "ITER_KROTOV_EXP": {
+        "recall_gentle_mean": 0.4133,
+        "recall_harder_mean": 0.06,
+        "recall_harder_std": 0.0163,
+        "recall_harder_cv": 0.2722,
+        "frac_converged_harder_mean": 1.0,
+        "mean_iterations_harder_mean": 3.33,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.4133,
+          "1.0": 0.1,
+          "1.5": 0.06,
+          "2.0": 0.0667
+        }
+      }
+    },
+    "argmax_recall_harder": 0.0933,
+    "best_iter_arm": "ITER_KROTOV_POLY",
+    "best_iter_recall_harder": 0.0733,
+    "best_iter_lift_over_argmax": -0.02,
+    "best_iter_cv": 0.1286,
+    "best_iter_frac_converged": 1.0,
+    "n_seeds": 3,
+    "M_over_N": 0.0977,
+    "CONFIG_VERSION": "att1_v2_krotov_v1; N_DIM=512 M=50 M_over_N=0.098 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 'argmax', None, None, 1), ('ITER_KROTOV_QUADRATIC', 'iter_krotov', 'poly', 2.0, 8), ('ITER_KROTOV_POLY', 'iter_krotov', 'poly', 4.0, 8), ('ITER_KROTOV_EXP', 'iter_krotov', 'exp', 4.0, 8)] noise_gentle=0.500 noise_harder=1.500 tol=0.0010 max_steps=8 seeds=[7, 17, 23] mode=full",
+    "honest_scope": "Krotov-dense REVIVAL of att1 v1 HARD_FAIL. N_DIM=512 M=50 (M/N=0.098 below alpha_c~0.138). 4 arms (argmax + 3 krotov variants) x 3 seeds.",
+    "cites": [
+      "Krotov_Hopfield_2016_NeurIPS",
+      "Ramsauer_2021_ICLR_Modern_Hopfield",
+      "HopfieldFenchelYoung_arxiv_2411.08590",
+      "research_2x_revival_overnight_negatives_2026-06-23"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "krotov_kind": null,
+          "kparam": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.42,
+          "recall_at_1_noise_harder": 0.12,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.42,
+            "1.0": 0.18,
+            "1.5": 0.12,
+            "2.0": 0.02
+          },
+          "wall_s": 0.0
+        },
+        "ITER_KROTOV_QUADRATIC": {
+          "mode": "iter_krotov",
+          "krotov_kind": "poly",
+          "kparam": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.46,
+          "recall_at_1_noise_harder": 0.04,
+          "mean_iterations_harder": 8.0,
+          "frac_converged_harder": 0.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.46,
+            "1.0": 0.14,
+            "1.5": 0.04,
+            "2.0": 0.0
+          },
+          "wall_s": 0.01
+        },
+        "ITER_KROTOV_POLY": {
+          "mode": "iter_krotov",
+          "krotov_kind": "poly",
+          "kparam": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.38,
+          "recall_at_1_noise_harder": 0.08,
+          "mean_iterations_harder": 5.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.38,
+            "1.0": 0.08,
+            "1.5": 0.08,
+            "2.0": 0.04
+          },
+          "wall_s": 0.01
+        },
+        "ITER_KROTOV_EXP": {
+          "mode": "iter_krotov",
+          "krotov_kind": "exp",
+          "kparam": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.38,
+          "recall_at_1_noise_harder": 0.08,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.38,
+            "1.0": 0.1,
+            "1.5": 0.08,
+            "2.0": 0.1
+          },
+          "wall_s": 0.02
+        }
+      },
+      "N_DIM": 512,
+      "M": 50,
+      "M_over_N": 0.0977,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "att1_v2_krotov_v1; N_DIM=512 M=50 M_over_N=0.098 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 'argmax', None, None, 1), ('ITER_KROTOV_QUADRATIC', 'iter_krotov', 'poly', 2.0, 8), ('ITER_KROTOV_POLY', 'iter_krotov', 'poly', 4.0, 8), ('ITER_KROTOV_EXP', 'iter_krotov', 'exp', 4.0, 8)] noise_gentle=0.500 noise_harder=1.500 tol=0.0010 max_steps=8 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782195795.7114484
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "krotov_kind": null,
+          "kparam": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.5,
+          "recall_at_1_noise_harder": 0.06,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.5,
+            "1.0": 0.1,
+            "1.5": 0.06,
+            "2.0": 0.04
+          },
+          "wall_s": 0.01
+        },
+        "ITER_KROTOV_QUADRATIC": {
+          "mode": "iter_krotov",
+          "krotov_kind": "poly",
+          "kparam": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.34,
+          "recall_at_1_noise_harder": 0.06,
+          "mean_iterations_harder": 8.0,
+          "frac_converged_harder": 0.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.34,
+            "1.0": 0.18,
+            "1.5": 0.06,
+            "2.0": 0.02
+          },
+          "wall_s": 0.02
+        },
+        "ITER_KROTOV_POLY": {
+          "mode": "iter_krotov",
+          "krotov_kind": "poly",
+          "kparam": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.42,
+          "recall_at_1_noise_harder": 0.08,
+          "mean_iterations_harder": 6.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.42,
+            "1.0": 0.08,
+            "1.5": 0.08,
+            "2.0": 0.02
+          },
+          "wall_s": 0.01
+        },
+        "ITER_KROTOV_EXP": {
+          "mode": "iter_krotov",
+          "krotov_kind": "exp",
+          "kparam": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.46,
+          "recall_at_1_noise_harder": 0.06,
+          "mean_iterations_harder": 4.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.46,
+            "1.0": 0.06,
+            "1.5": 0.06,
+            "2.0": 0.04
+          },
+          "wall_s": 0.03
+        }
+      },
+      "N_DIM": 512,
+      "M": 50,
+      "M_over_N": 0.0977,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "att1_v2_krotov_v1; N_DIM=512 M=50 M_over_N=0.098 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 'argmax', None, None, 1), ('ITER_KROTOV_QUADRATIC', 'iter_krotov', 'poly', 2.0, 8), ('ITER_KROTOV_POLY', 'iter_krotov', 'poly', 4.0, 8), ('ITER_KROTOV_EXP', 'iter_krotov', 'exp', 4.0, 8)] noise_gentle=0.500 noise_harder=1.500 tol=0.0010 max_steps=8 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782195795.8158312
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "mode": "argmax",
+          "krotov_kind": null,
+          "kparam": null,
+          "max_steps": 1,
+          "recall_at_1_noise_gentle": 0.38,
+          "recall_at_1_noise_harder": 0.1,
+          "mean_iterations_harder": 1.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.38,
+            "1.0": 0.06,
+            "1.5": 0.1,
+            "2.0": 0.04
+          },
+          "wall_s": 0.0
+        },
+        "ITER_KROTOV_QUADRATIC": {
+          "mode": "iter_krotov",
+          "krotov_kind": "poly",
+          "kparam": 2.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.48,
+          "recall_at_1_noise_harder": 0.1,
+          "mean_iterations_harder": 8.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.48,
+            "1.0": 0.2,
+            "1.5": 0.1,
+            "2.0": 0.08
+          },
+          "wall_s": 0.02
+        },
+        "ITER_KROTOV_POLY": {
+          "mode": "iter_krotov",
+          "krotov_kind": "poly",
+          "kparam": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.54,
+          "recall_at_1_noise_harder": 0.06,
+          "mean_iterations_harder": 5.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.54,
+            "1.0": 0.18,
+            "1.5": 0.06,
+            "2.0": 0.0
+          },
+          "wall_s": 0.01
+        },
+        "ITER_KROTOV_EXP": {
+          "mode": "iter_krotov",
+          "krotov_kind": "exp",
+          "kparam": 4.0,
+          "max_steps": 8,
+          "recall_at_1_noise_gentle": 0.4,
+          "recall_at_1_noise_harder": 0.04,
+          "mean_iterations_harder": 3.0,
+          "frac_converged_harder": 1.0,
+          "basin_robustness": {
+            "0.0": 1.0,
+            "0.5": 0.4,
+            "1.0": 0.14,
+            "1.5": 0.04,
+            "2.0": 0.06
+          },
+          "wall_s": 0.03
+        }
+      },
+      "N_DIM": 512,
+      "M": 50,
+      "M_over_N": 0.0977,
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "att1_v2_krotov_v1; N_DIM=512 M=50 M_over_N=0.098 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 'argmax', None, None, 1), ('ITER_KROTOV_QUADRATIC', 'iter_krotov', 'poly', 2.0, 8), ('ITER_KROTOV_POLY', 'iter_krotov', 'poly', 4.0, 8), ('ITER_KROTOV_EXP', 'iter_krotov', 'exp', 4.0, 8)] noise_gentle=0.500 noise_harder=1.500 tol=0.0010 max_steps=8 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782195795.9067228
+    }
+  ],
+  "elapsed_s": 0.29283928871154785,
+  "summary": "HARD_FAIL: Krotov variants do NOT improve over argmax in low-storage regime; mechanism truly rejected (revival exhausted). lift=-0.020. DISCRIMINATOR @ sigma=1.50: argmax=0.093 | best_iter=ITER_KROTOV_POLY recall=0.073 lift=-0.020 cv=0.129 conv=1.00 | M/N=0.098",
+  "substrate_only_decode_gate": "TRUE (HD codebook; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0
+}

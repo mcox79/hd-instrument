@@ -1,0 +1,415 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "PARTIAL climb: comprehension rose as it read but did not clear HARD_PASS (climb=0.096 in (tie=0.02, climb_min=0.05); check monotone=True forgetting=-0.076 guard=False). Report the curve = the extrapolation for the USER's curriculum-scale decision. [CONTINUOUS LOOP hardness=[1, 3, 8] target=8 chance=0.0500] frozen_target=0.388 oracle=0.660 (chance+0.610) profile_decline=0.119. GRADED curve=[0.388, 0.45, 0.475, 0.484] climb=0.096 (min-seed=0.096) monotone=True | forgetting graded=-0.076 noreplay=-0.076 (replay_helps=0.000) | curriculum graded_final=0.484 shuffled_final=0.484 (diff=-0.000) | guard=False. DIAG cause=c_UNDERPOWERED (learn=True wmove=0.2788 loss_desc=0.007 train_loop=0.587 | content=True decline=0.119 | powered=False MDE=0.125).",
+  "summary": "MIDDLE | hardness=[1, 3, 8] target=8 chance=0.0500 | PARTIAL climb: comprehension rose as it read but did not clear HARD_PASS (climb=0.096 in (tie=0.02, climb_min=0.05); check monotone=True forgetting=-0",
+  "run_mode": "lite",
+  "elapsed_s": 311.7819316999521,
+  "ts_iso": "2026-07-31T18:17:08.317747+00:00",
+  "anchor_name": "continuous_curriculum_learn_as_you_go_v1",
+  "chance": 0.05,
+  "bands": {
+    "one_variable": "DATA SCHEDULE (online graded stream + replay) vs the frozen no-learning control; the learner objective/steps/LR/batch is IDENTICAL across online arms. hardness=[1, 3, 8] (n_mods per grade), target=8, chance=0.0500.",
+    "bars": {
+      "climb_min": 0.05,
+      "tie_band": 0.02,
+      "forget_max": 0.1,
+      "profile_decline_min": 0.03,
+      "base_reading_margin": 0.2
+    },
+    "frozen_target_loop": 0.3881578947368421,
+    "oracle_target_loop": 0.6596491228070175,
+    "frozen_graded_profile": {
+      "1": 0.5074561403508772,
+      "3": 0.42324561403508776,
+      "8": 0.3881578947368421
+    },
+    "profile_decline": 0.11929824561403507,
+    "base_reading_ok": true,
+    "chance": 0.05,
+    "wc_frozen": 0.16885099482326568,
+    "arms": {
+      "graded": {
+        "mean_climb": 0.09561403508771937,
+        "min_seed_climb": 0.09561403508771937,
+        "mean_curve": [
+          0.3881578947368421,
+          0.4495614035087719,
+          0.47543859649122805,
+          0.48377192982456146
+        ],
+        "per_seed_curve": [
+          [
+            0.3881578947368421,
+            0.4495614035087719,
+            0.47543859649122805,
+            0.48377192982456146
+          ]
+        ],
+        "final": 0.48377192982456146,
+        "mean_forgetting": -0.0758771929824561,
+        "mean_weight_move": 0.27878262087483285,
+        "mean_loss_descent": 0.007314324378967285,
+        "mean_train_loop": 0.587037037037037,
+        "mean_wc_tuned": 0.17408299113400919,
+        "mean_entcons": 0.7583333333333333,
+        "mean_q_agree": 0.7971014492753623,
+        "monotone_ok": true
+      },
+      "shuffled": {
+        "mean_climb": 0.09605263157894739,
+        "min_seed_climb": 0.09605263157894739,
+        "mean_curve": [
+          0.3881578947368421,
+          0.4495614035087719,
+          0.47543859649122805,
+          0.4842105263157895
+        ],
+        "per_seed_curve": [
+          [
+            0.3881578947368421,
+            0.4495614035087719,
+            0.47543859649122805,
+            0.4842105263157895
+          ]
+        ],
+        "final": 0.4842105263157895,
+        "mean_forgetting": -0.0675438596491228,
+        "mean_weight_move": 0.27870582537491145,
+        "mean_loss_descent": 0.005495727062225342,
+        "mean_train_loop": 0.587037037037037,
+        "mean_wc_tuned": 0.17417589012382184,
+        "mean_entcons": 0.7625,
+        "mean_q_agree": 0.7971014492753623,
+        "monotone_ok": true
+      },
+      "noreplay": {
+        "mean_climb": 0.09561403508771937,
+        "min_seed_climb": 0.09561403508771937,
+        "mean_curve": [
+          0.3881578947368421,
+          0.4495614035087719,
+          0.47543859649122805,
+          0.48377192982456146
+        ],
+        "per_seed_curve": [
+          [
+            0.3881578947368421,
+            0.4495614035087719,
+            0.47543859649122805,
+            0.48377192982456146
+          ]
+        ],
+        "final": 0.48377192982456146,
+        "mean_forgetting": -0.0758771929824561,
+        "mean_weight_move": 0.27872779149976684,
+        "mean_loss_descent": 0.0051476359367370605,
+        "mean_train_loop": 0.587037037037037,
+        "mean_wc_tuned": 0.1739536703994267,
+        "mean_entcons": 0.7583333333333333,
+        "mean_q_agree": 0.7971014492753623,
+        "monotone_ok": true
+      }
+    },
+    "collapse_guard_graded": {
+      "c1_loop_not_cratered": true,
+      "c2_no_drift": true,
+      "wc_drift": 0.005231996310743503,
+      "c3_entcons_ok": false,
+      "c4_q_agree_ok": true,
+      "pass": false
+    },
+    "curriculum_value": {
+      "graded_final": 0.48377192982456146,
+      "shuffled_final": 0.4842105263157895,
+      "graded_minus_shuffled": -0.00043859649122801603
+    },
+    "forgetting": {
+      "graded": -0.0758771929824561,
+      "noreplay": -0.0758771929824561,
+      "replay_helps": 0.0
+    },
+    "flat_diagnosis": {
+      "cause": "c_UNDERPOWERED",
+      "learning_ok": true,
+      "content_ok": true,
+      "powered": false,
+      "mde_climb": 0.1254755984357561,
+      "weight_move": 0.27878262087483285,
+      "loss_descent": 0.007314324378967285,
+      "train_loop": 0.587037037037037,
+      "climb_min_target": 0.05
+    },
+    "non_triviality": {
+      "floors_ok": true,
+      "pooled_reservoir": false
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "n_units_done": 4,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "bases": [
+    {
+      "kind": "base",
+      "seed": 7,
+      "arm": "frozen",
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "chance": 0.05,
+      "frozen_profile": {
+        "1": 0.5074561403508772,
+        "3": 0.42324561403508776,
+        "8": 0.3881578947368421
+      },
+      "frozen_target_loop": 0.3881578947368421,
+      "frozen_easy_loop": 0.5074561403508772,
+      "oracle_target_loop": 0.6596491228070175,
+      "wc_frozen": 0.16885099482326568,
+      "profile_decline": 0.11929824561403507,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.0,
+          "b_competitive_coref": 0.1,
+          "c_overwrite": 0.02631578947368421
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.475,
+          "b_competitive_coref": 0.075,
+          "c_overwrite": 0.2894736842105263
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.1,
+          "b_competitive_coref": 0.075,
+          "c_overwrite": 0.05263157894736842
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.05,
+          "b_competitive_coref": 0.025,
+          "c_overwrite": 0.07894736842105263
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.02631578947368421
+      },
+      "pooled_b": 0.07500000298023224,
+      "pooled_c": 0.05263157933950424
+    }
+  ],
+  "online": [
+    {
+      "kind": "online",
+      "seed": 7,
+      "arm": "graded",
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "grade_order": [
+        1,
+        3,
+        8
+      ],
+      "use_replay": true,
+      "curve_target": [
+        0.3881578947368421,
+        0.4495614035087719,
+        0.47543859649122805,
+        0.48377192982456146
+      ],
+      "curve_meta": [
+        {
+          "entcons": 0.7083333333333334,
+          "q_agree": 0.7246376811594203
+        },
+        {
+          "entcons": 0.7416666666666667,
+          "q_agree": 0.7681159420289855
+        },
+        {
+          "entcons": 0.75,
+          "q_agree": 0.782608695652174
+        },
+        {
+          "entcons": 0.7583333333333333,
+          "q_agree": 0.7971014492753623
+        }
+      ],
+      "climb": 0.09561403508771937,
+      "easy_t1": 0.5421052631578948,
+      "easy_tG": 0.6179824561403509,
+      "forgetting": -0.0758771929824561,
+      "weight_move_rel": 0.27878262087483285,
+      "loss_first": 0.8245571255683899,
+      "loss_last": 0.8172428011894226,
+      "loss_descent": 0.007314324378967285,
+      "train_loop_target": 0.587037037037037,
+      "wc_tuned": 0.17408299113400919,
+      "final_entcons": 0.7583333333333333,
+      "final_q_agree": 0.7971014492753623,
+      "steps_per_grade": 60,
+      "replay_cap": 400
+    },
+    {
+      "kind": "online",
+      "seed": 7,
+      "arm": "shuffled",
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "grade_order": [
+        8,
+        3,
+        1
+      ],
+      "use_replay": true,
+      "curve_target": [
+        0.3881578947368421,
+        0.4495614035087719,
+        0.47543859649122805,
+        0.4842105263157895
+      ],
+      "curve_meta": [
+        {
+          "entcons": 0.7083333333333334,
+          "q_agree": 0.7246376811594203
+        },
+        {
+          "entcons": 0.7458333333333333,
+          "q_agree": 0.7681159420289855
+        },
+        {
+          "entcons": 0.75,
+          "q_agree": 0.782608695652174
+        },
+        {
+          "entcons": 0.7625,
+          "q_agree": 0.7971014492753623
+        }
+      ],
+      "climb": 0.09605263157894739,
+      "easy_t1": 0.5504385964912281,
+      "easy_tG": 0.6179824561403509,
+      "forgetting": -0.0675438596491228,
+      "weight_move_rel": 0.27870582537491145,
+      "loss_first": 0.8233729600906372,
+      "loss_last": 0.8178772330284119,
+      "loss_descent": 0.005495727062225342,
+      "train_loop_target": 0.587037037037037,
+      "wc_tuned": 0.17417589012382184,
+      "final_entcons": 0.7625,
+      "final_q_agree": 0.7971014492753623,
+      "steps_per_grade": 60,
+      "replay_cap": 400
+    },
+    {
+      "kind": "online",
+      "seed": 7,
+      "arm": "noreplay",
+      "hardness": [
+        1,
+        3,
+        8
+      ],
+      "target": 8,
+      "grade_order": [
+        1,
+        3,
+        8
+      ],
+      "use_replay": false,
+      "curve_target": [
+        0.3881578947368421,
+        0.4495614035087719,
+        0.47543859649122805,
+        0.48377192982456146
+      ],
+      "curve_meta": [
+        {
+          "entcons": 0.7083333333333334,
+          "q_agree": 0.7246376811594203
+        },
+        {
+          "entcons": 0.7416666666666667,
+          "q_agree": 0.7681159420289855
+        },
+        {
+          "entcons": 0.75,
+          "q_agree": 0.782608695652174
+        },
+        {
+          "entcons": 0.7583333333333333,
+          "q_agree": 0.7971014492753623
+        }
+      ],
+      "climb": 0.09561403508771937,
+      "easy_t1": 0.5421052631578948,
+      "easy_tG": 0.6179824561403509,
+      "forgetting": -0.0758771929824561,
+      "weight_move_rel": 0.27872779149976684,
+      "loss_first": 0.8245571255683899,
+      "loss_last": 0.8194094896316528,
+      "loss_descent": 0.0051476359367370605,
+      "train_loop_target": 0.587037037037037,
+      "wc_tuned": 0.1739536703994267,
+      "final_entcons": 0.7583333333333333,
+      "final_q_agree": 0.7971014492753623,
+      "steps_per_grade": 60,
+      "replay_cap": 0
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "V_FILL": 20,
+    "DEPTH": 1,
+    "hardness": [
+      1,
+      3,
+      8
+    ],
+    "steps_per_grade": 60,
+    "nctx": 40,
+    "replay_cap": 400,
+    "eval_n": 40,
+    "seeds": [
+      7
+    ],
+    "arms": [
+      "frozen",
+      "graded",
+      "shuffled",
+      "noreplay"
+    ],
+    "LR": 0.0001,
+    "batch": 128
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

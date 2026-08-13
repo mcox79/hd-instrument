@@ -1,0 +1,123 @@
+{
+  "anchor": "conceptnet_semantic_seeded_beam_composition_v1",
+  "anchor_name": "conceptnet_semantic_seeded_beam_composition_v1",
+  "run_mode": "full",
+  "metrics_source": "measured_substrate_cfrpe_beam_plus_bge_simhash_seed",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SEM_BEAM Hits@10=0.227 vs closure=1.000 bge_cached=0.494 bar=0.502 min_lift=-0.773 nontriv_lift=-0.738 auroc=0.703 | RANDOM_K1=0.481 (June19=0.451) SEM_K1=0.227 RANDOM_BEAM=0.502 SCRAM=0.073 | semantic_fires=True gate_d_repro=True scramble_collapses=True arms_differ=True",
+  "summary": "HARD_FAIL: SEM_BEAM 0.227 vs bar 0.502",
+  "elapsed_s": 514.4754919999978,
+  "n_eval_rows": 466,
+  "n_with_path": 233,
+  "n_without_path": 233,
+  "closure_hits10": 1.0,
+  "bge_cached_hits10": 0.49356223175965663,
+  "random_hits10": 0.05150214592274678,
+  "external_bge_bar": 0.5021459227467812,
+  "june19_substrate_bar": 0.45064377682403434,
+  "per_arm": {
+    "RANDOM_K1": {
+      "hits": {
+        "hits@1": 0.13733905579399142,
+        "hits@3": 0.2575107296137339,
+        "hits@10": 0.48068669527896996,
+        "mrr": 0.2413467638632279
+      },
+      "auroc": 0.76172709038756,
+      "trivial_lift_hits10": -0.38888888888888884,
+      "nontrivial_lift_hits10": -0.6728971962616823,
+      "fab_auroc": 0.8210134649744883,
+      "n_trivial": 126,
+      "n_nontrivial": 107
+    },
+    "RANDOM_BEAM": {
+      "hits": {
+        "hits@1": 0.09012875536480687,
+        "hits@3": 0.2017167381974249,
+        "hits@10": 0.5021459227467812,
+        "mrr": 0.205742361884843
+      },
+      "auroc": 0.8521577846313112,
+      "trivial_lift_hits10": -0.3015873015873016,
+      "nontrivial_lift_hits10": -0.7289719626168225,
+      "fab_auroc": 0.9151577667667483,
+      "n_trivial": 126,
+      "n_nontrivial": 107
+    },
+    "SEM_K1": {
+      "hits": {
+        "hits@1": 0.04291845493562232,
+        "hits@3": 0.1072961373390558,
+        "hits@10": 0.22746781115879827,
+        "mrr": 0.10908259068307723
+      },
+      "auroc": 0.7153579054068626,
+      "trivial_lift_hits10": -0.7777777777777778,
+      "nontrivial_lift_hits10": -0.7663551401869159,
+      "fab_auroc": 0.7282506585127743,
+      "n_trivial": 126,
+      "n_nontrivial": 107
+    },
+    "SEM_BEAM": {
+      "hits": {
+        "hits@1": 0.03862660944206009,
+        "hits@3": 0.11587982832618025,
+        "hits@10": 0.22746781115879827,
+        "mrr": 0.10680620999785281
+      },
+      "auroc": 0.7031078137468459,
+      "trivial_lift_hits10": -0.8015873015873016,
+      "nontrivial_lift_hits10": -0.7383177570093458,
+      "fab_auroc": 0.726132365672604,
+      "n_trivial": 126,
+      "n_nontrivial": 107
+    },
+    "SEM_SCRAM_BEAM": {
+      "hits": {
+        "hits@1": 0.012875536480686695,
+        "hits@3": 0.034334763948497854,
+        "hits@10": 0.07296137339055794,
+        "mrr": 0.04527467308553977
+      },
+      "auroc": 0.5461427308214893,
+      "trivial_lift_hits10": -0.9365079365079365,
+      "nontrivial_lift_hits10": -0.9158878504672897,
+      "fab_auroc": 0.4964173221094513,
+      "n_trivial": 126,
+      "n_nontrivial": 107
+    }
+  },
+  "primary_arm": "SEM_BEAM",
+  "primary_hits10": 0.22746781115879827,
+  "lift_vs_closure": -0.7725321888412018,
+  "lift_vs_bge": -0.26609442060085836,
+  "min_lift": -0.7725321888412018,
+  "nontrivial_lift_hits10": -0.7383177570093458,
+  "trivial_lift_hits10": -0.8015873015873016,
+  "fact_fabrication_bound_auroc": 0.726132365672604,
+  "fire_check": {
+    "semantic_fires": true,
+    "mean_edge_cos": {
+      "sem": 0.20448193268908654,
+      "rand": 0.002104614119685721,
+      "scram": 0.05173034630197799,
+      "n_miss": 70
+    },
+    "gate_d_repro_random_k1": true,
+    "scramble_collapses": true,
+    "arms_differ": true,
+    "arm_digests": {
+      "RANDOM_K1": "76041c0c971f",
+      "RANDOM_BEAM": "80d05a315f2d",
+      "SEM_K1": "882ae9b15dea",
+      "SEM_BEAM": "a9452f5218bc",
+      "SEM_SCRAM_BEAM": "ead6507d58f2"
+    }
+  },
+  "bands": {
+    "hard_pass": "SEM_BEAM Hits@10 >= closure+0.05 AND >= max(bge,0.502)+0.05 AND nontriv_lift>=0 AND auroc>=0.7",
+    "middle": "min_lift in [-0.02,0.05) OR nontriv_lift in [-0.30,0.0)",
+    "hard_fail": "SEM_BEAM <= max(closure,bge) AND nontriv_lift <= -0.50"
+  },
+  "prior_work_check": "cosine>0.30 hits generic 'Composition'/'Entity resolution+KG' notes; no prior arc cell for semantic-seed+beam on ConceptNet -> genuinely novel vs June-19 random-code cell"
+}

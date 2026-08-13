@@ -1,0 +1,187 @@
+{
+  "anchor_name": "pp49_hrc_depth_sweep_can_fail_v1_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: depth=8 PASS re-confirmed but NO cliff located through depth=12 (all swept depths all-pass) -> genuine but the envelope exceeds the swept range = LOWER-BOUND (a3f473dd precedent); Skunkworks rules KEEP-with-wide-envelope vs reframe-MM. control(d=8)all_pass=True pass_rates={'d6': 1.0, 'd8': 1.0, 'd10': 1.0, 'd12': 1.0} cf_cos={'d6': 1.0, 'd8': 1.0, 'd10': 1.0, 'd12': 1.0} worst_cv=0.000",
+  "run_mode": "full",
+  "N": 4096,
+  "n_seeds": 3,
+  "detail": {
+    "by_depth": {
+      "d6": {
+        "depth": 6,
+        "cf_cos_mean": 1.0,
+        "ds_cos_mean": 1.0,
+        "pass_rate": 1.0,
+        "cf_cv": 0.0,
+        "all_pass": true
+      },
+      "d8": {
+        "depth": 8,
+        "cf_cos_mean": 1.0,
+        "ds_cos_mean": 1.0,
+        "pass_rate": 1.0,
+        "cf_cv": 0.0,
+        "all_pass": true
+      },
+      "d10": {
+        "depth": 10,
+        "cf_cos_mean": 1.0,
+        "ds_cos_mean": 1.0,
+        "pass_rate": 1.0,
+        "cf_cv": 0.0,
+        "all_pass": true
+      },
+      "d12": {
+        "depth": 12,
+        "cf_cos_mean": 1.0,
+        "ds_cos_mean": 1.0,
+        "pass_rate": 1.0,
+        "cf_cv": 0.0,
+        "all_pass": true
+      }
+    },
+    "control_depth": 8,
+    "control_all_pass": true,
+    "canfail_depth": null,
+    "worst_cv": 0.0,
+    "source_cell": "pp49_hrc_counterfactual_depth_8_v1_n4096",
+    "cites": [
+      "pp49_hrc_counterfactual_depth_8_v1_n4096",
+      "pp48_nkt_depth_cliff_cluster"
+    ]
+  },
+  "metrics_source": "measured_cpu_pp49_hrc_depth_sweep_canfail_port",
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_depth": {
+        "d6": {
+          "depth": 6,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d8": {
+          "depth": 8,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d10": {
+          "depth": 10,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d12": {
+          "depth": 12,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        }
+      },
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782054034.7981074
+    },
+    {
+      "seed": 17,
+      "by_depth": {
+        "d6": {
+          "depth": 6,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d8": {
+          "depth": 8,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d10": {
+          "depth": 10,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d12": {
+          "depth": 12,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        }
+      },
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782054130.1342237
+    },
+    {
+      "seed": 23,
+      "by_depth": {
+        "d6": {
+          "depth": 6,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d8": {
+          "depth": 8,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d10": {
+          "depth": 10,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        },
+        "d12": {
+          "depth": 12,
+          "hp1_cert_rate": 1.0,
+          "cf_cos": 1.0,
+          "hp3_audit_rate": 1.0,
+          "ds_cos": 1.0,
+          "n_hp": 4,
+          "passed_4hp": true
+        }
+      },
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782054195.4429114
+    }
+  ],
+  "elapsed_s": 214.4825882911682,
+  "summary": "MIDDLE_BAND: depth=8 PASS re-confirmed but NO cliff located through depth=12 (all swept depths all-pass) -> genuine but the envelope exceeds the swept range = LOWER-BOUND (a3f473dd precedent); Skunkworks rules KEEP-with-wide-envelope vs reframe-MM. control(d=8)all_pass=True pass_rates={'d6': 1.0, 'd8': 1.0, 'd10': 1.0, 'd12': 1.0} cf_cos={'d6': 1.0, 'd8': 1.0, 'd10': 1.0, 'd12': 1.0} worst_cv=0.000"
+}

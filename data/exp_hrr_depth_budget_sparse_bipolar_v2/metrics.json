@@ -1,0 +1,652 @@
+{
+  "anchor_name": "hrr_depth_budget_sparse_bipolar_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HRR_BUNDLE_SPARSE_v2 HARD_PASS: ARM_SPARSE_f0.02 alpha_c=1.953 vs ARM_DENSE_f1.0 alpha_c=0.037 -> lift=53.4x (>= 20x); substrate-native sparse-bipolar W-free Hopfield delivers Willshaw super-capacity at f=0.02 vs dense; CERT 592 paradigm confirmed at N=4096. Chain-grade-eligible substrate-native compression primitive. alpha_c: dense=0.037 sparse_f0.02=1.953 lift=53.4x | lifts_by_arm={'ARM_DENSE_f1.0': 1.0, 'ARM_SPARSE_f0.1': 13.342, 'ARM_SPARSE_f0.05': 20.011, 'ARM_SPARSE_f0.02': 53.363, 'ARM_SPARSE_f0.01': 186.773} | capped(dense=False, sparse_f0.02=False) | n_seeds=3",
+  "run_mode": "full",
+  "N_DIM": 4096,
+  "F_GRID": [
+    1.0,
+    0.1,
+    0.05,
+    0.02,
+    0.01
+  ],
+  "FLIP": 0.05,
+  "RECALL_THRESH": 0.95,
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_DENSE_f1.0": {
+        "f": 1.0,
+        "alpha_c_mean": 0.0366,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          0.0366,
+          0.0366,
+          0.0366
+        ],
+        "any_capped": false,
+        "all_capped": false
+      },
+      "ARM_SPARSE_f0.1": {
+        "f": 0.1,
+        "alpha_c_mean": 0.4883,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          0.4883,
+          0.4883,
+          0.4883
+        ],
+        "any_capped": false,
+        "all_capped": false
+      },
+      "ARM_SPARSE_f0.05": {
+        "f": 0.05,
+        "alpha_c_mean": 0.7324,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          0.7324,
+          0.7324,
+          0.7324
+        ],
+        "any_capped": false,
+        "all_capped": false
+      },
+      "ARM_SPARSE_f0.02": {
+        "f": 0.02,
+        "alpha_c_mean": 1.9531,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          1.9531,
+          1.9531,
+          1.9531
+        ],
+        "any_capped": false,
+        "all_capped": false
+      },
+      "ARM_SPARSE_f0.01": {
+        "f": 0.01,
+        "alpha_c_mean": 6.8359,
+        "alpha_c_std": 0.0,
+        "alpha_c_cv": 0.0,
+        "alpha_c_per_seed": [
+          6.8359,
+          6.8359,
+          6.8359
+        ],
+        "any_capped": false,
+        "all_capped": false
+      }
+    },
+    "dense_alpha_c": 0.0366,
+    "sparse_f0_02_alpha_c": 1.9531,
+    "lift_ratio_sparse_f0_02_vs_dense": 53.363,
+    "lifts_by_arm_vs_dense": {
+      "ARM_DENSE_f1.0": 1.0,
+      "ARM_SPARSE_f0.1": 13.342,
+      "ARM_SPARSE_f0.05": 20.011,
+      "ARM_SPARSE_f0.02": 53.363,
+      "ARM_SPARSE_f0.01": 186.773
+    },
+    "any_capped_dense": false,
+    "any_capped_sparse_f0_02": false,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "hrr_depth_budget_sparse_bipolar_v2; N_DIM=4096 arms=['ARM_DENSE_f1.0', 'ARM_SPARSE_f0.1', 'ARM_SPARSE_f0.05', 'ARM_SPARSE_f0.02', 'ARM_SPARSE_f0.01'] f_grid=[1.0, 0.1, 0.05, 0.02, 0.01] seeds=[7, 17, 23] FLIP=0.050 recall_thresh=0.95 mode=full; bands HP_lift>=20.0x HF_lift<=2.0x; metric=W-free-Hopfield-cue-FLIP-recall",
+    "honest_scope": "Substrate-native W-free Hopfield recall (single-step; correlation-matrix r = sign((cue @ P.T) @ P - cue * diag)); cue = FLIP=0.05 on nonzero positions; exact-recovery on nonzero positions; recall_thresh=0.95; alpha_c(f) = max M/N where recall>=thresh. HARD_PASS = alpha_c(f=0.02) >= 20x alpha_c(f=1.0); HARD_FAIL = lift <= 2.0x. Corrects v1 bundle/top-M-cleanup metric (wrong paradigm vs CERT 592).",
+    "cites": [
+      "preregs/2026-06-23_hrr_depth_budget_sparse_bipolar_v2.md",
+      "notes/research_drill_sparse_bipolar_depth_enc1_composition_2026-06-23.md",
+      "data/exp_sparse_boundary_v2_cpu_v1/metrics.json (CERT 592 reference paradigm)",
+      "experiments/exp_hrr_depth_budget_sparse_bipolar_v1.py (v1 wrong-metric)"
+    ]
+  },
+  "metrics_source": "measured_cpu_hrr_depth_budget_sparse_bipolar_v2_wfree_hopfield",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_DENSE_f1.0": {
+          "f": 1.0,
+          "alpha_c": 0.0366,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M50": {
+              "M": 50,
+              "alpha": 0.0122,
+              "recall": 1.0,
+              "wall_s": 0.01
+            },
+            "M150": {
+              "M": 150,
+              "alpha": 0.0366,
+              "recall": 1.0,
+              "wall_s": 0.02
+            },
+            "M300": {
+              "M": 300,
+              "alpha": 0.0732,
+              "recall": 0.22,
+              "wall_s": 0.03
+            }
+          },
+          "wall_s": 0.06
+        },
+        "ARM_SPARSE_f0.1": {
+          "f": 0.1,
+          "alpha_c": 0.4883,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M200": {
+              "M": 200,
+              "alpha": 0.0488,
+              "recall": 1.0,
+              "wall_s": 0.04
+            },
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.07
+            },
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.15
+            },
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 0.9855,
+              "wall_s": 0.39
+            },
+            "M4000": {
+              "M": 4000,
+              "alpha": 0.9766,
+              "recall": 0.4333,
+              "wall_s": 1.14
+            }
+          },
+          "wall_s": 1.79
+        },
+        "ARM_SPARSE_f0.05": {
+          "f": 0.05,
+          "alpha_c": 0.7324,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.07
+            },
+            "M1500": {
+              "M": 1500,
+              "alpha": 0.3662,
+              "recall": 1.0,
+              "wall_s": 0.25
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 0.9997,
+              "wall_s": 0.86
+            },
+            "M6000": {
+              "M": 6000,
+              "alpha": 1.4648,
+              "recall": 0.9055,
+              "wall_s": 8.9
+            }
+          },
+          "wall_s": 10.1
+        },
+        "ARM_SPARSE_f0.02": {
+          "f": 0.02,
+          "alpha_c": 1.9531,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.67
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 1.0,
+              "wall_s": 2.76
+            },
+            "M8000": {
+              "M": 8000,
+              "alpha": 1.9531,
+              "recall": 0.9989,
+              "wall_s": 13.47
+            },
+            "M16000": {
+              "M": 16000,
+              "alpha": 3.9062,
+              "recall": 0.9381,
+              "wall_s": 49.69
+            }
+          },
+          "wall_s": 66.65
+        },
+        "ARM_SPARSE_f0.01": {
+          "f": 0.01,
+          "alpha_c": 6.8359,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 1.0,
+              "wall_s": 1.54
+            },
+            "M6000": {
+              "M": 6000,
+              "alpha": 1.4648,
+              "recall": 1.0,
+              "wall_s": 9.09
+            },
+            "M14000": {
+              "M": 14000,
+              "alpha": 3.418,
+              "recall": 0.9998,
+              "wall_s": 42.65
+            },
+            "M28000": {
+              "M": 28000,
+              "alpha": 6.8359,
+              "recall": 0.977,
+              "wall_s": 144.63
+            },
+            "M50000": {
+              "M": 50000,
+              "alpha": 12.207,
+              "recall": 0.7801,
+              "wall_s": 459.15
+            }
+          },
+          "wall_s": 657.26
+        }
+      },
+      "N_DIM": 4096,
+      "FLIP": 0.05,
+      "RECALL_THRESH": 0.95,
+      "run_mode": "full",
+      "config_version": "hrr_depth_budget_sparse_bipolar_v2; N_DIM=4096 arms=['ARM_DENSE_f1.0', 'ARM_SPARSE_f0.1', 'ARM_SPARSE_f0.05', 'ARM_SPARSE_f0.02', 'ARM_SPARSE_f0.01'] f_grid=[1.0, 0.1, 0.05, 0.02, 0.01] seeds=[7, 17, 23] FLIP=0.050 recall_thresh=0.95 mode=full; bands HP_lift>=20.0x HF_lift<=2.0x; metric=W-free-Hopfield-cue-FLIP-recall",
+      "elapsed_s_seed": 735.87,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782259392.9572067
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_DENSE_f1.0": {
+          "f": 1.0,
+          "alpha_c": 0.0366,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M50": {
+              "M": 50,
+              "alpha": 0.0122,
+              "recall": 1.0,
+              "wall_s": 0.05
+            },
+            "M150": {
+              "M": 150,
+              "alpha": 0.0366,
+              "recall": 0.9933,
+              "wall_s": 0.13
+            },
+            "M300": {
+              "M": 300,
+              "alpha": 0.0732,
+              "recall": 0.21,
+              "wall_s": 0.18
+            }
+          },
+          "wall_s": 0.36
+        },
+        "ARM_SPARSE_f0.1": {
+          "f": 0.1,
+          "alpha_c": 0.4883,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M200": {
+              "M": 200,
+              "alpha": 0.0488,
+              "recall": 1.0,
+              "wall_s": 0.12
+            },
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.32
+            },
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.65
+            },
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 0.992,
+              "wall_s": 1.93
+            },
+            "M4000": {
+              "M": 4000,
+              "alpha": 0.9766,
+              "recall": 0.4288,
+              "wall_s": 4.99
+            }
+          },
+          "wall_s": 8.02
+        },
+        "ARM_SPARSE_f0.05": {
+          "f": 0.05,
+          "alpha_c": 0.7324,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.28
+            },
+            "M1500": {
+              "M": 1500,
+              "alpha": 0.3662,
+              "recall": 1.0,
+              "wall_s": 1.03
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 0.9983,
+              "wall_s": 2.77
+            },
+            "M6000": {
+              "M": 6000,
+              "alpha": 1.4648,
+              "recall": 0.8997,
+              "wall_s": 8.52
+            }
+          },
+          "wall_s": 12.62
+        },
+        "ARM_SPARSE_f0.02": {
+          "f": 0.02,
+          "alpha_c": 1.9531,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.54
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 1.0,
+              "wall_s": 2.96
+            },
+            "M8000": {
+              "M": 8000,
+              "alpha": 1.9531,
+              "recall": 0.9991,
+              "wall_s": 13.2
+            },
+            "M16000": {
+              "M": 16000,
+              "alpha": 3.9062,
+              "recall": 0.9365,
+              "wall_s": 47.34
+            }
+          },
+          "wall_s": 64.11
+        },
+        "ARM_SPARSE_f0.01": {
+          "f": 0.01,
+          "alpha_c": 6.8359,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 1.0,
+              "wall_s": 1.44
+            },
+            "M6000": {
+              "M": 6000,
+              "alpha": 1.4648,
+              "recall": 1.0,
+              "wall_s": 8.02
+            },
+            "M14000": {
+              "M": 14000,
+              "alpha": 3.418,
+              "recall": 0.9996,
+              "wall_s": 57.31
+            },
+            "M28000": {
+              "M": 28000,
+              "alpha": 6.8359,
+              "recall": 0.977,
+              "wall_s": 151.03
+            },
+            "M50000": {
+              "M": 50000,
+              "alpha": 12.207,
+              "recall": 0.7816,
+              "wall_s": 437.42
+            }
+          },
+          "wall_s": 655.38
+        }
+      },
+      "N_DIM": 4096,
+      "FLIP": 0.05,
+      "RECALL_THRESH": 0.95,
+      "run_mode": "full",
+      "config_version": "hrr_depth_budget_sparse_bipolar_v2; N_DIM=4096 arms=['ARM_DENSE_f1.0', 'ARM_SPARSE_f0.1', 'ARM_SPARSE_f0.05', 'ARM_SPARSE_f0.02', 'ARM_SPARSE_f0.01'] f_grid=[1.0, 0.1, 0.05, 0.02, 0.01] seeds=[7, 17, 23] FLIP=0.050 recall_thresh=0.95 mode=full; bands HP_lift>=20.0x HF_lift<=2.0x; metric=W-free-Hopfield-cue-FLIP-recall",
+      "elapsed_s_seed": 740.5,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782260133.5168009
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_DENSE_f1.0": {
+          "f": 1.0,
+          "alpha_c": 0.0366,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M50": {
+              "M": 50,
+              "alpha": 0.0122,
+              "recall": 1.0,
+              "wall_s": 0.03
+            },
+            "M150": {
+              "M": 150,
+              "alpha": 0.0366,
+              "recall": 1.0,
+              "wall_s": 0.09
+            },
+            "M300": {
+              "M": 300,
+              "alpha": 0.0732,
+              "recall": 0.2533,
+              "wall_s": 0.17
+            }
+          },
+          "wall_s": 0.29
+        },
+        "ARM_SPARSE_f0.1": {
+          "f": 0.1,
+          "alpha_c": 0.4883,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M200": {
+              "M": 200,
+              "alpha": 0.0488,
+              "recall": 1.0,
+              "wall_s": 0.11
+            },
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.31
+            },
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.68
+            },
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 0.987,
+              "wall_s": 1.65
+            },
+            "M4000": {
+              "M": 4000,
+              "alpha": 0.9766,
+              "recall": 0.4223,
+              "wall_s": 4.59
+            }
+          },
+          "wall_s": 7.35
+        },
+        "ARM_SPARSE_f0.05": {
+          "f": 0.05,
+          "alpha_c": 0.7324,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M500": {
+              "M": 500,
+              "alpha": 0.1221,
+              "recall": 1.0,
+              "wall_s": 0.28
+            },
+            "M1500": {
+              "M": 1500,
+              "alpha": 0.3662,
+              "recall": 1.0,
+              "wall_s": 1.07
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 1.0,
+              "wall_s": 2.77
+            },
+            "M6000": {
+              "M": 6000,
+              "alpha": 1.4648,
+              "recall": 0.8978,
+              "wall_s": 8.31
+            }
+          },
+          "wall_s": 12.46
+        },
+        "ARM_SPARSE_f0.02": {
+          "f": 0.02,
+          "alpha_c": 1.9531,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M1000": {
+              "M": 1000,
+              "alpha": 0.2441,
+              "recall": 1.0,
+              "wall_s": 0.58
+            },
+            "M3000": {
+              "M": 3000,
+              "alpha": 0.7324,
+              "recall": 1.0,
+              "wall_s": 2.58
+            },
+            "M8000": {
+              "M": 8000,
+              "alpha": 1.9531,
+              "recall": 0.9992,
+              "wall_s": 13.73
+            },
+            "M16000": {
+              "M": 16000,
+              "alpha": 3.9062,
+              "recall": 0.9361,
+              "wall_s": 48.92
+            }
+          },
+          "wall_s": 65.87
+        },
+        "ARM_SPARSE_f0.01": {
+          "f": 0.01,
+          "alpha_c": 6.8359,
+          "alpha_c_capped": false,
+          "per_M": {
+            "M2000": {
+              "M": 2000,
+              "alpha": 0.4883,
+              "recall": 1.0,
+              "wall_s": 1.57
+            },
+            "M6000": {
+              "M": 6000,
+              "alpha": 1.4648,
+              "recall": 1.0,
+              "wall_s": 8.46
+            },
+            "M14000": {
+              "M": 14000,
+              "alpha": 3.418,
+              "recall": 0.9996,
+              "wall_s": 38.49
+            },
+            "M28000": {
+              "M": 28000,
+              "alpha": 6.8359,
+              "recall": 0.9772,
+              "wall_s": 158.14
+            },
+            "M50000": {
+              "M": 50000,
+              "alpha": 12.207,
+              "recall": 0.7801,
+              "wall_s": 499.48
+            }
+          },
+          "wall_s": 706.33
+        }
+      },
+      "N_DIM": 4096,
+      "FLIP": 0.05,
+      "RECALL_THRESH": 0.95,
+      "run_mode": "full",
+      "config_version": "hrr_depth_budget_sparse_bipolar_v2; N_DIM=4096 arms=['ARM_DENSE_f1.0', 'ARM_SPARSE_f0.1', 'ARM_SPARSE_f0.05', 'ARM_SPARSE_f0.02', 'ARM_SPARSE_f0.01'] f_grid=[1.0, 0.1, 0.05, 0.02, 0.01] seeds=[7, 17, 23] FLIP=0.050 recall_thresh=0.95 mode=full; bands HP_lift>=20.0x HF_lift<=2.0x; metric=W-free-Hopfield-cue-FLIP-recall",
+      "elapsed_s_seed": 792.31,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782260925.961632
+    }
+  ],
+  "elapsed_s": 2269.04141998291,
+  "summary": "HRR_BUNDLE_SPARSE_v2 HARD_PASS: ARM_SPARSE_f0.02 alpha_c=1.953 vs ARM_DENSE_f1.0 alpha_c=0.037 -> lift=53.4x (>= 20x); substrate-native sparse-bipolar W-free Hopfield delivers Willshaw super-capacity at f=0.02 vs dense; CERT 592 paradigm confirmed at N=4096. Chain-grade-eligible substrate-native compression primitive. alpha_c: dense=0.037 sparse_f0.02=1.953 lift=53.4x | lifts_by_arm={'ARM_DENSE_f1.0': 1.0, 'ARM_SPARSE_f0.1': 13.342, 'ARM_SPARSE_f0.05': 20.011, 'ARM_SPARSE_f0.02': 53.363, 'ARM_SPARSE_f0.01': 186.773} | capped(dense=False, sparse_f0.02=False) | n_seeds=3",
+  "substrate_only_decode_gate": "TRUE (substrate-native sparse-bipolar W-free Hopfield; numpy only; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_name_says_smoke_workaround": false
+}

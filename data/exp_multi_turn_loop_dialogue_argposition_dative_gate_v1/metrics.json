@@ -1,0 +1,1429 @@
+{
+  "anchor_name": "multi_turn_loop_dialogue_argposition_dative_gate_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (arg-position-structural-signal-CATCHES-dialogue-role-misassignment-TRANSFERS-narrative-intact) | FROZEN th=0.490995 NO re-tune | dialogue_dative_role_ambiguity: NO_GATE h=0.550 -> COMPLETE h=0.250 cov=0.350 -> ARG h=0.000 cov=0.100 (caught=5 false-abstain=0) || mcguffey_first_reader: NO_GATE h=0.419 -> COMPLETE h=0.000 cov=0.258 -> ARG h=0.000 cov=0.258 (caught=0 false-abstain=0) || litbank_verbatim_windows: NO_GATE h=0.191 -> COMPLETE h=0.000 cov=0.476 -> ARG h=0.000 cov=0.476 (caught=0 false-abstain=0) || beat_random=0.069 beat_inverted=0.250",
+  "summary": "HARD_PASS (arg-position-structural-signal-CATCHES-dialogue-role-misassignment-TRANSFERS-narrative-intact) | FROZEN th=0.490995 NO re-tune | dialogue_dative_role_ambiguity: NO_GATE h=0.550 -> COMPLETE h=0.250 cov=0.350 -> ARG h=0.000 cov=0.100 (caught=5 false-abstain=0) || mcguffey_first_reader: NO_G",
+  "gate_outcome": "arg-position-structural-signal-CATCHES-dialogue-role-misassignment-TRANSFERS-narrative-intact",
+  "run_mode": "full",
+  "elapsed_s": 19.487,
+  "ts_iso": "2026-07-23T09:18:53.799063+00:00",
+  "n_corpora": 3,
+  "arms": [
+    "NO_GATE",
+    "PRIOR_GATE(29466)",
+    "COMPLETE_GATE(29468-position-blind)",
+    "ARG_GATE(+arg-position-abstention)"
+  ],
+  "anti_cheat_controls": [
+    "RANDOM_ABSTAIN(matched-count)",
+    "INVERTED_POSITION(theme-slot)"
+  ],
+  "threshold_frozen": true,
+  "fixed_threshold": 0.490995,
+  "no_retune": true,
+  "threshold_source": "exp_multi_turn_loop_realtext_confidence_abstain_gate_v3 McGuffey operating_point (inherited via 29468); FROZEN, NO re-tune (only the arg-position abstention added)",
+  "one_variable_vs_complete_gate": "added the STRUCTURAL arg-position/dative-frame UNION abstention (coref-margin OR conflict OR NP-head OR arg-position) to the frozen complete gate; all existing thresholds unchanged",
+  "arg_position_rule": "for a THEME query (svo_patient) whose verb is a DATIVE verb, classify the answer noun's argument SLOT from the surface frame (double-object / prepositional to-for / extracted-theme relative / simple-transitive); ABSTAIN iff the answer sits in the RECIPIENT slot and NOT the theme slot. POS-only; reads no gold; positive detection only (conservative -- never fires on a theme).",
+  "key_question": "does a STRUCTURAL argument-position/dative-frame signal DETECT the dialogue role-misassignment class (29469: recipient grabbed for a theme query) and ABSTAIN, TRANSFER corpus-general, and NOT break narrative -- OR does role-misassignment need SEMANTIC role solving (the mapped-roles ceiling)?",
+  "per_corpus_halluc": {
+    "dialogue_dative_role_ambiguity": {
+      "complete": 0.25,
+      "arg": 0.0
+    },
+    "mcguffey_first_reader": {
+      "complete": 0.0,
+      "arg": 0.0
+    },
+    "litbank_verbatim_windows": {
+      "complete": 0.0,
+      "arg": 0.0
+    }
+  },
+  "dialogue": {
+    "corpus": "dialogue_dative_role_ambiguity",
+    "n_total": 20,
+    "no_gate": {
+      "halluc": 0.55,
+      "coverage": 1.0,
+      "n_answered": 20,
+      "n_correct": 9,
+      "n_wrong": 11
+    },
+    "prior_gate": {
+      "halluc": 0.25,
+      "coverage": 0.35
+    },
+    "complete_gate": {
+      "halluc": 0.25,
+      "coverage": 0.35,
+      "precision_on_answered": 0.2857,
+      "n_answered": 7,
+      "n_wrong_kept": 5
+    },
+    "arg_gate": {
+      "halluc": 0.0,
+      "coverage": 0.1,
+      "precision_on_answered": 1.0,
+      "n_answered": 2,
+      "n_wrong_kept": 0,
+      "n_caught_wrong": 5,
+      "n_false_abstain_correct": 0,
+      "caught_wrong_qids": [
+        "x1",
+        "x2",
+        "x5",
+        "x6",
+        "x9"
+      ],
+      "false_abstain_qids": [],
+      "residual_survives_qids": []
+    },
+    "assessable": true,
+    "per_question": [
+      {
+        "qid": "x1",
+        "p": "x1",
+        "spec": [
+          "svo_patient",
+          "made",
+          "you"
+        ],
+        "gold": "promise",
+        "orig_ans": "mother",
+        "complete_gate_ans": "mother",
+        "complete_gate_correct": 0,
+        "arg_misassigned": true,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "mother"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x2",
+        "p": "x2",
+        "spec": [
+          "svo_patient",
+          "gave",
+          "you"
+        ],
+        "gold": "gift",
+        "orig_ans": "mother",
+        "complete_gate_ans": "mother",
+        "complete_gate_correct": 0,
+        "arg_misassigned": true,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "mother"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x3",
+        "p": "x3",
+        "spec": [
+          "svo_patient",
+          "told",
+          "he"
+        ],
+        "gold": "story",
+        "orig_ans": "king",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "king"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x4",
+        "p": "x4",
+        "spec": [
+          "svo_patient",
+          "sent",
+          "she"
+        ],
+        "gold": "letter",
+        "orig_ans": "father",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "father"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x5",
+        "p": "x5",
+        "spec": [
+          "svo_patient",
+          "brought",
+          "i"
+        ],
+        "gold": "sword",
+        "orig_ans": "captain",
+        "complete_gate_ans": "captain",
+        "complete_gate_correct": 0,
+        "arg_misassigned": true,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "captain"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x6",
+        "p": "x6",
+        "spec": [
+          "svo_patient",
+          "showed",
+          "you"
+        ],
+        "gold": "book",
+        "orig_ans": "teacher",
+        "complete_gate_ans": "teacher",
+        "complete_gate_correct": 0,
+        "arg_misassigned": true,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "teacher"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x7",
+        "p": "x7",
+        "spec": [
+          "svo_patient",
+          "offered",
+          "he"
+        ],
+        "gold": "purse",
+        "orig_ans": "beggar",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "beggar"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x8",
+        "p": "x8",
+        "spec": [
+          "svo_patient",
+          "promised",
+          "they"
+        ],
+        "gold": "crown",
+        "orig_ans": "prince",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "prince"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x9",
+        "p": "x9",
+        "spec": [
+          "svo_patient",
+          "sent",
+          "i"
+        ],
+        "gold": "message",
+        "orig_ans": "queen",
+        "complete_gate_ans": "queen",
+        "complete_gate_correct": 0,
+        "arg_misassigned": true,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "queen"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x10",
+        "p": "x10",
+        "spec": [
+          "svo_patient",
+          "paid",
+          "she"
+        ],
+        "gold": "ring",
+        "orig_ans": "merchant",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "extracted_theme",
+          "recipient": [
+            "merchant"
+          ],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x11",
+        "p": "x11",
+        "spec": [
+          "svo_patient",
+          "gave",
+          "you"
+        ],
+        "gold": "gift",
+        "orig_ans": "gift",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "double_object",
+          "recipient": [
+            "mother"
+          ],
+          "theme": [
+            "gift"
+          ]
+        }
+      },
+      {
+        "qid": "x12",
+        "p": "x12",
+        "spec": [
+          "svo_patient",
+          "told",
+          "he"
+        ],
+        "gold": "story",
+        "orig_ans": "story",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "none",
+          "recipient": [],
+          "theme": []
+        }
+      },
+      {
+        "qid": "x13",
+        "p": "x13",
+        "spec": [
+          "svo_patient",
+          "sent",
+          "she"
+        ],
+        "gold": "letter",
+        "orig_ans": "father",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "double_object",
+          "recipient": [
+            "father"
+          ],
+          "theme": [
+            "letter"
+          ]
+        }
+      },
+      {
+        "qid": "x14",
+        "p": "x14",
+        "spec": [
+          "svo_patient",
+          "promised",
+          "i"
+        ],
+        "gold": "crown",
+        "orig_ans": "crown",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "double_object",
+          "recipient": [
+            "prince"
+          ],
+          "theme": [
+            "crown"
+          ]
+        }
+      },
+      {
+        "qid": "x15",
+        "p": "x15",
+        "spec": [
+          "svo_patient",
+          "gave",
+          "you"
+        ],
+        "gold": "gift",
+        "orig_ans": "gift",
+        "complete_gate_ans": "gift",
+        "complete_gate_correct": 1,
+        "arg_misassigned": false,
+        "arg_gate_ans": "gift",
+        "arg_frame": {
+          "frame": "prepositional",
+          "recipient": [
+            "mother"
+          ],
+          "theme": [
+            "gift"
+          ]
+        }
+      },
+      {
+        "qid": "x16",
+        "p": "x16",
+        "spec": [
+          "svo_patient",
+          "told",
+          "he"
+        ],
+        "gold": "story",
+        "orig_ans": "story",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "prepositional",
+          "recipient": [
+            "king"
+          ],
+          "theme": [
+            "story"
+          ]
+        }
+      },
+      {
+        "qid": "x17",
+        "p": "x17",
+        "spec": [
+          "svo_patient",
+          "read",
+          "she"
+        ],
+        "gold": "letter",
+        "orig_ans": "letter",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "prepositional",
+          "recipient": [
+            "child"
+          ],
+          "theme": [
+            "letter"
+          ]
+        }
+      },
+      {
+        "qid": "x18",
+        "p": "x18",
+        "spec": [
+          "svo_patient",
+          "made",
+          "you"
+        ],
+        "gold": "promise",
+        "orig_ans": "promise",
+        "complete_gate_ans": "promise",
+        "complete_gate_correct": 1,
+        "arg_misassigned": false,
+        "arg_gate_ans": "promise",
+        "arg_frame": {
+          "frame": "simple_transitive",
+          "recipient": [],
+          "theme": [
+            "promise"
+          ]
+        }
+      },
+      {
+        "qid": "x19",
+        "p": "x19",
+        "spec": [
+          "svo_patient",
+          "told",
+          "he"
+        ],
+        "gold": "story",
+        "orig_ans": "story",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "simple_transitive",
+          "recipient": [],
+          "theme": [
+            "story"
+          ]
+        }
+      },
+      {
+        "qid": "x20",
+        "p": "x20",
+        "spec": [
+          "svo_patient",
+          "wrote",
+          "she"
+        ],
+        "gold": "letter",
+        "orig_ans": "letter",
+        "complete_gate_ans": null,
+        "complete_gate_correct": 0,
+        "arg_misassigned": false,
+        "arg_gate_ans": null,
+        "arg_frame": {
+          "frame": "simple_transitive",
+          "recipient": [],
+          "theme": [
+            "letter"
+          ]
+        }
+      }
+    ]
+  },
+  "narratives": [
+    {
+      "corpus": "mcguffey_first_reader",
+      "n_total": 31,
+      "no_gate": {
+        "halluc": 0.4194,
+        "coverage": 0.6774,
+        "n_answered": 21,
+        "n_correct": 8,
+        "n_wrong": 13
+      },
+      "prior_gate": {
+        "halluc": 0.0323,
+        "coverage": 0.2581
+      },
+      "complete_gate": {
+        "halluc": 0.0,
+        "coverage": 0.2581,
+        "precision_on_answered": 1.0,
+        "n_answered": 8,
+        "n_wrong_kept": 0
+      },
+      "arg_gate": {
+        "halluc": 0.0,
+        "coverage": 0.2581,
+        "precision_on_answered": 1.0,
+        "n_answered": 8,
+        "n_wrong_kept": 0,
+        "n_caught_wrong": 0,
+        "n_false_abstain_correct": 0,
+        "caught_wrong_qids": [],
+        "false_abstain_qids": [],
+        "residual_survives_qids": []
+      },
+      "assessable": true,
+      "per_question": [
+        {
+          "qid": "N1",
+          "p": "L5_dogs",
+          "spec": [
+            "has_owner",
+            "dogs"
+          ],
+          "gold": "james",
+          "orig_ans": "james",
+          "complete_gate_ans": "james",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "james"
+        },
+        {
+          "qid": "N2",
+          "p": "L2_cat",
+          "spec": [
+            "loc_ground",
+            "cat"
+          ],
+          "gold": "mat",
+          "orig_ans": "door",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "N3",
+          "p": "L21_bee",
+          "spec": [
+            "loc_ground",
+            "bees"
+          ],
+          "gold": "house",
+          "orig_ans": "house",
+          "complete_gate_ans": "house",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "house"
+        },
+        {
+          "qid": "N4",
+          "p": "L60_geo",
+          "spec": [
+            "has_owner",
+            "dollar"
+          ],
+          "gold": "george",
+          "orig_ans": "george",
+          "complete_gate_ans": "george",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "george"
+        },
+        {
+          "qid": "N5",
+          "p": "L5b_dodger",
+          "spec": [
+            "has_owner",
+            "eyes"
+          ],
+          "gold": "dodger",
+          "orig_ans": "dodger",
+          "complete_gate_ans": "dodger",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "dodger"
+        },
+        {
+          "qid": "N6",
+          "p": "L26_patty",
+          "spec": [
+            "loc_ground",
+            "patty"
+          ],
+          "gold": "house",
+          "orig_ans": "log",
+          "complete_gate_ans": "house",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "house"
+        },
+        {
+          "qid": "N7",
+          "p": "L23_doll",
+          "spec": [
+            "svo_patient",
+            "scolded",
+            "mary"
+          ],
+          "gold": "dash",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "O1",
+          "p": "L14_henry",
+          "spec": [
+            "has_owner",
+            "father"
+          ],
+          "gold": "henry",
+          "orig_ans": "father",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "O2",
+          "p": "L14_henry",
+          "spec": [
+            "has_owner",
+            "mother"
+          ],
+          "gold": "henry",
+          "orig_ans": "mother",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "O3",
+          "p": "L14_henry",
+          "spec": [
+            "has_owner",
+            "sister"
+          ],
+          "gold": "henry",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "CC1",
+          "p": "L5_dogs",
+          "spec": [
+            "has_owner",
+            "wagon"
+          ],
+          "gold": "james",
+          "orig_ans": "sport",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "CC2",
+          "p": "L23_doll",
+          "spec": [
+            "svo_agent",
+            "scolded",
+            "dash"
+          ],
+          "gold": "mary",
+          "orig_ans": "dash",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "CC3",
+          "p": "L60_geo",
+          "spec": [
+            "svo_agent",
+            "broke",
+            "window"
+          ],
+          "gold": "george",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "CC4",
+          "p": "L28_sam",
+          "spec": [
+            "svo_agent",
+            "took",
+            "cents"
+          ],
+          "gold": "harry",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "CC5",
+          "p": "L8_puss",
+          "spec": [
+            "svo_agent",
+            "carried",
+            "kittens"
+          ],
+          "gold": "cat",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M1",
+          "p": "L18_king",
+          "spec": [
+            "loc_of_owned",
+            "kingbird",
+            "nest"
+          ],
+          "gold": "tree",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M2",
+          "p": "L18_king",
+          "spec": [
+            "has_owner",
+            "nest"
+          ],
+          "gold": "kingbird",
+          "orig_ans": "bugs",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M3",
+          "p": "L5_dogs",
+          "spec": [
+            "svo_patient",
+            "uses",
+            "james"
+          ],
+          "gold": "sport",
+          "orig_ans": "sport",
+          "complete_gate_ans": "sport",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "sport"
+        },
+        {
+          "qid": "M4",
+          "p": "L5_dogs",
+          "spec": [
+            "svo_agent",
+            "hitches",
+            "sport"
+          ],
+          "gold": "james",
+          "orig_ans": "sport",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M5",
+          "p": "L57_laura",
+          "spec": [
+            "has_owner",
+            "kitten"
+          ],
+          "gold": "laura",
+          "orig_ans": "more",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M6",
+          "p": "L32_tiger",
+          "spec": [
+            "svo_agent",
+            "caught",
+            "kitten"
+          ],
+          "gold": "tigress",
+          "orig_ans": "tigress",
+          "complete_gate_ans": "tigress",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "tigress"
+        },
+        {
+          "qid": "M7",
+          "p": "L32_tiger",
+          "spec": [
+            "has_owner",
+            "kitten"
+          ],
+          "gold": "tigress",
+          "orig_ans": "kitten",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M8",
+          "p": "L60_geo",
+          "spec": [
+            "svo_patient",
+            "sent",
+            "george"
+          ],
+          "gold": "ball",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M9",
+          "p": "L8_puss",
+          "spec": [
+            "has_owner",
+            "kittens"
+          ],
+          "gold": "puss",
+          "orig_ans": "kittens",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M10",
+          "p": "L35_willie",
+          "spec": [
+            "has_owner",
+            "dog"
+          ],
+          "gold": "willie",
+          "orig_ans": "bounce",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M11",
+          "p": "L35_willie",
+          "spec": [
+            "svo_patient",
+            "taught",
+            "willie"
+          ],
+          "gold": "dog",
+          "orig_ans": "cunning",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M12",
+          "p": "L5b_dodger",
+          "spec": [
+            "has_owner",
+            "terrier"
+          ],
+          "gold": "james",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M13",
+          "p": "L23_doll",
+          "spec": [
+            "has_owner",
+            "dog"
+          ],
+          "gold": "mary",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M14",
+          "p": "L28_sam",
+          "spec": [
+            "has_owner",
+            "hat"
+          ],
+          "gold": "man",
+          "orig_ans": "man",
+          "complete_gate_ans": "man",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "man"
+        },
+        {
+          "qid": "M15",
+          "p": "L28_sam",
+          "spec": [
+            "svo_patient",
+            "gave",
+            "mother"
+          ],
+          "gold": "cents",
+          "orig_ans": "cents",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "M16",
+          "p": "L26_patty",
+          "spec": [
+            "svo_patient",
+            "brought",
+            "patty"
+          ],
+          "gold": "bread",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        }
+      ]
+    },
+    {
+      "corpus": "litbank_verbatim_windows",
+      "n_total": 21,
+      "no_gate": {
+        "halluc": 0.1905,
+        "coverage": 0.8095,
+        "n_answered": 17,
+        "n_correct": 13,
+        "n_wrong": 4
+      },
+      "prior_gate": {
+        "halluc": 0.0952,
+        "coverage": 0.4762
+      },
+      "complete_gate": {
+        "halluc": 0.0,
+        "coverage": 0.4762,
+        "precision_on_answered": 1.0,
+        "n_answered": 10,
+        "n_wrong_kept": 0
+      },
+      "arg_gate": {
+        "halluc": 0.0,
+        "coverage": 0.4762,
+        "precision_on_answered": 1.0,
+        "n_answered": 10,
+        "n_wrong_kept": 0,
+        "n_caught_wrong": 0,
+        "n_false_abstain_correct": 0,
+        "caught_wrong_qids": [],
+        "false_abstain_qids": [],
+        "residual_survives_qids": []
+      },
+      "assessable": true,
+      "per_question": [
+        {
+          "qid": "wall1",
+          "p": "wall",
+          "spec": [
+            "has_owner",
+            "gates"
+          ],
+          "gold": "wall",
+          "orig_ans": "wall",
+          "complete_gate_ans": "wall",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "wall"
+        },
+        {
+          "qid": "prince1",
+          "p": "prince",
+          "spec": [
+            "svo_agent",
+            "provided",
+            "appliances"
+          ],
+          "gold": "prince",
+          "orig_ans": "prince",
+          "complete_gate_ans": "prince",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "prince"
+        },
+        {
+          "qid": "prince2",
+          "p": "prince",
+          "spec": [
+            "svo_patient",
+            "provided",
+            "prince"
+          ],
+          "gold": "appliances",
+          "orig_ans": "appliances",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "court1",
+          "p": "courtier",
+          "spec": [
+            "svo_patient",
+            "brought",
+            "courtiers"
+          ],
+          "gold": "furnaces",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "court2",
+          "p": "courtier",
+          "spec": [
+            "svo_patient",
+            "welded",
+            "courtiers"
+          ],
+          "gold": "bolts",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "duke1",
+          "p": "duke",
+          "spec": [
+            "has_owner",
+            "eye"
+          ],
+          "gold": "duke",
+          "orig_ans": "duke",
+          "complete_gate_ans": "duke",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "duke"
+        },
+        {
+          "qid": "duke2",
+          "p": "duke",
+          "spec": [
+            "has_owner",
+            "plans"
+          ],
+          "gold": "duke",
+          "orig_ans": "duke",
+          "complete_gate_ans": "duke",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "duke"
+        },
+        {
+          "qid": "rd1",
+          "p": "reddeath",
+          "spec": [
+            "svo_patient",
+            "devastated",
+            "red"
+          ],
+          "gold": "country",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "watch1",
+          "p": "watch",
+          "spec": [
+            "has_owner",
+            "watch"
+          ],
+          "gold": "henry",
+          "orig_ans": "henry",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "watch2",
+          "p": "watch",
+          "spec": [
+            "svo_agent",
+            "pulled",
+            "watch"
+          ],
+          "gold": "henry",
+          "orig_ans": "lord",
+          "complete_gate_ans": "henry",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "henry"
+        },
+        {
+          "qid": "paint1",
+          "p": "painter",
+          "spec": [
+            "has_owner",
+            "eyes"
+          ],
+          "gold": "painter",
+          "orig_ans": "painter",
+          "complete_gate_ans": "painter",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "painter"
+        },
+        {
+          "qid": "pants1",
+          "p": "pants",
+          "spec": [
+            "svo_patient",
+            "wore",
+            "he"
+          ],
+          "gold": "pantaloons",
+          "orig_ans": "pantaloons",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "thrust1",
+          "p": "thrust",
+          "spec": [
+            "svo_patient",
+            "made",
+            "he"
+          ],
+          "gold": "thrust",
+          "orig_ans": "thrust",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "nip1",
+          "p": "nippers",
+          "spec": [
+            "svo_patient",
+            "get",
+            "nippers"
+          ],
+          "gold": "table",
+          "orig_ans": "nippers",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "tur1",
+          "p": "turkey",
+          "spec": [
+            "svo_patient",
+            "appreciate",
+            "turkey"
+          ],
+          "gold": "favor",
+          "orig_ans": null,
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "mary1",
+          "p": "maryknew",
+          "spec": [
+            "svo_patient",
+            "knew",
+            "mary"
+          ],
+          "gold": "man",
+          "orig_ans": "fair",
+          "complete_gate_ans": "man",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "man"
+        },
+        {
+          "qid": "mary2",
+          "p": "marytired",
+          "spec": [
+            "has_owner",
+            "nurse"
+          ],
+          "gold": "mary",
+          "orig_ans": "nurse",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "tay1",
+          "p": "taylor",
+          "spec": [
+            "has_owner",
+            "loss"
+          ],
+          "gold": "taylor",
+          "orig_ans": "taylor",
+          "complete_gate_ans": "taylor",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "taylor"
+        },
+        {
+          "qid": "ef1",
+          "p": "emmafath",
+          "spec": [
+            "svo_patient",
+            "loved",
+            "she"
+          ],
+          "gold": "father",
+          "orig_ans": "father",
+          "complete_gate_ans": null,
+          "complete_gate_correct": 0,
+          "arg_misassigned": false,
+          "arg_gate_ans": null
+        },
+        {
+          "qid": "ev1",
+          "p": "event",
+          "spec": [
+            "has_owner",
+            "promise"
+          ],
+          "gold": "event",
+          "orig_ans": "event",
+          "complete_gate_ans": "event",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "event"
+        },
+        {
+          "qid": "ben1",
+          "p": "bennet",
+          "spec": [
+            "svo_patient",
+            "made",
+            "bennet"
+          ],
+          "gold": "answer",
+          "orig_ans": "answer",
+          "complete_gate_ans": "answer",
+          "complete_gate_correct": 1,
+          "arg_misassigned": false,
+          "arg_gate_ans": "answer"
+        }
+      ]
+    }
+  ],
+  "anti_cheat": {
+    "random_abstain_halluc_mean": 0.069,
+    "random_abstain_matched_count": 5,
+    "inverted_position_halluc": 0.25,
+    "inverted_position_kept": 5,
+    "beat_random": 0.069,
+    "beat_inverted": 0.25
+  },
+  "arms_differ_digests": {
+    "NO_GATE": "07186b6727cc9c7bd556e660ade39ba22fdcc3962b9e0e1820a6cc5175ccf76d",
+    "COMPLETE_GATE": "57dc561bfc40fad376c9540575055dce397e51f31e1e2211954b639ad1c2704f",
+    "ARG_GATE": "0e07740f87a50a341021f1f68855893a1c7ce94fda064583ce7b0155399ea4de"
+  },
+  "arms_differ_verified": true,
+  "narrative_reference": {
+    "mcguffey_complete_halluc": 0.0,
+    "litbank_complete_halluc": 0.0,
+    "note": "the 2 narrative testbeds the arg-position signal must NOT break"
+  },
+  "bands": {
+    "HP_dialogue_halluc_max": 0.05,
+    "HP_narrative_halluc_max": 0.0,
+    "canfail_complete_halluc_min": 0.05,
+    "min_assess_attempts": 5,
+    "HP_requires": "DIALOGUE assessable AND COMPLETE-gate dialogue halluc>0.05 (baseline can-fail) AND ARG-gate dialogue halluc<=0.05 AND coverage>0 AND zero false-abstain AND arg-gate beats BOTH random-abstain and inverted-position AND narrative (McGuffey+LitBank) arg halluc stays 0.000 with zero false-abstain",
+    "HF_requires": "ARG-gate dialogue halluc>0.05 despite baseline-fail (needs semantic solving) OR narrative false-abstain>=1 OR narrative new error OR dialogue coverage collapses to 0 OR reduction survives position inversion (artifact)"
+  },
+  "weakest_interface": [
+    "STRUCTURAL arg-position CATCHES the dialogue role-misassignment class: COMPLETE-gate dialogue halluc 0.250 -> ARG-gate 0.000 (caught 5 recipient-grabs ['x1', 'x2', 'x5', 'x6', 'x9'], zero false-abstain), TRANSFERS with FROZEN th=0.490995, beats random-abstain by 0.069 and inverted-position by 0.250; McGuffey + LitBank arg-gate halluc stays 0.000 (zero false-abstain)"
+  ],
+  "gate_threshold_kind": "fixed_interpretable_rule_FROZEN_from_mcguffey_no_retune_plus_structural_flag",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential_cpu_pure_python",
+  "crlb_n_a": "symbolic glass-box; halluc (truthfulness invariant) is the reported quantity",
+  "fairness": {
+    "frozen_thresholds_no_retune": true,
+    "one_variable_arg_position_only": true,
+    "no_answer_leakage": true,
+    "position_blind_baseline_can_fail": true,
+    "correct_answer_controls_present": true,
+    "anti_cheat_random_and_inverted": true,
+    "narrative_controls_frozen_complete_gate_halluc_zero": true,
+    "dialogue_provenance": "1 VERBATIM tinyshakespeare anchor (x1) + 19 realistically-constructed dative-alternation dialogue lines; gold = the linguistically-correct THEME, independent of the pipeline; NOT gate-friendly (includes correct-answer controls the signal must not abstain)"
+  },
+  "reuse_credited": {
+    "complete_gate_29468": "exp_multi_turn_loop_litbank_ood_nphead_gate_v1.py (GN: O, FIXED_TH, SEED, _build, prior/conflict/np predicates) + experiments/_np_head_correct_common.py (CC: correct-to-head, run_correct) -- IMPORTED UNCHANGED",
+    "arg_position_signal": "experiments/_arg_position_signal.py (NEW; POS-only, gold-free dative-frame argument-position detector -- the one new variable)",
+    "narrative_controls": "exp_oracle_mention_upperbound_reader_v1.py (McGuffey TEST_QS) + exp_multi_turn_loop_litbank_ood_fixed_gate_v1.py (LitBank verbatim windows)",
+    "dialogue_anchor": "tinyshakespeare.txt (x1 verbatim)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "per_corpus_halluc",
+    "dialogue",
+    "narratives",
+    "anti_cheat",
+    "arms_differ_digests",
+    "threshold_frozen",
+    "fixed_threshold",
+    "bands"
+  ],
+  "notes": "Structural argument-position / dative-frame DETECTOR for the dialogue role-misassignment error class (29469). Added as a UNION abstention to the frozen complete gate (coref OR conflict OR NP-head OR arg-position); FROZEN thresholds, corpus swapped. Measures whether STRUCTURE detects this role-uncertainty class (transfers, narrative-safe) or it needs SEMANTIC role solving (mapped-roles ceiling). CLAIM-VET-pending."
+}

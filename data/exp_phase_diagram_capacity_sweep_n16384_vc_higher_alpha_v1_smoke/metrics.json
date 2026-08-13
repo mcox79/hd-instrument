@@ -1,0 +1,209 @@
+{
+  "anchor_name": "phase_diagram_capacity_sweep_n16384_vc_higher_alpha_v1",
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE_PASS: mechanism end-to-end OK at smoke regime (production gates DEFERRED to FULL on GPU) | VC=400_M=2048[alphaVC=5.12 alphaN=1.00 mode=unique_sr rec=1.0000 cv=0.0000 n=1] | VC=400_M=4096[alphaVC=10.24 alphaN=2.00 mode=duplicates_allowed rec=0.5786 cv=0.0000 n=1] | VC=800_M=2048[alphaVC=2.56 alphaN=1.00 mode=unique_sr rec=1.0000 cv=0.0000 n=1] | VC=800_M=4096[alphaVC=5.12 alphaN=2.00 mode=unique_sr rec=1.0000 cv=0.0000 n=1] | KNN_sentinel=1.0000 (>=0.90; OK) | n_units=5/expected=5 (OK)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "n_units": 5,
+  "n_units_expected": 5,
+  "cardinality_ok": true,
+  "n_failures": 0,
+  "failures": [],
+  "config_version": "phaseDiagCapacityVCHigherAlpha-v1: N=2048 VC_SWEEP=[400, 800] M_FACTS_SWEEP=[2048, 4096] V_REL=8 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE HP_knn=0.90 CV_max=0.05 HP_disc_rec_min=0.50 HP_monotone_delta=0.10 EXPECTED_N_UNITS=5",
+  "VC_SWEEP": [
+    400,
+    800
+  ],
+  "M_FACTS_SWEEP": [
+    2048,
+    4096
+  ],
+  "V_REL": 8,
+  "seeds": [
+    11
+  ],
+  "per_unit": [
+    {
+      "seed": 11,
+      "V_C": 400,
+      "M_facts": 2048,
+      "arm": "CAPACITY",
+      "recall_at_1": 1.0,
+      "V_R": 8,
+      "N": 2048,
+      "n_queries": 2048,
+      "alpha_M_over_VC": 5.12,
+      "alpha_M_over_N": 1.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 0.23,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 0,
+      "_ckpt_key": "seed11_VC400_M2048_armCAPACITY",
+      "_partial_written_at": 1782536995.317723
+    },
+    {
+      "seed": 11,
+      "V_C": 400,
+      "M_facts": 4096,
+      "arm": "CAPACITY",
+      "recall_at_1": 0.5786,
+      "V_R": 8,
+      "N": 2048,
+      "n_queries": 4096,
+      "alpha_M_over_VC": 10.24,
+      "alpha_M_over_N": 2.0,
+      "keys_unique_mode": "duplicates_allowed",
+      "wall_s": 0.45,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 0,
+      "_ckpt_key": "seed11_VC400_M4096_armCAPACITY",
+      "_partial_written_at": 1782536995.7830741
+    },
+    {
+      "seed": 11,
+      "V_C": 800,
+      "M_facts": 2048,
+      "arm": "CAPACITY",
+      "recall_at_1": 1.0,
+      "V_R": 8,
+      "N": 2048,
+      "n_queries": 2048,
+      "alpha_M_over_VC": 2.56,
+      "alpha_M_over_N": 1.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 0.29,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 0,
+      "_ckpt_key": "seed11_VC800_M2048_armCAPACITY",
+      "_partial_written_at": 1782536996.0852683
+    },
+    {
+      "seed": 11,
+      "V_C": 800,
+      "M_facts": 4096,
+      "arm": "CAPACITY",
+      "recall_at_1": 1.0,
+      "V_R": 8,
+      "N": 2048,
+      "n_queries": 4096,
+      "alpha_M_over_VC": 5.12,
+      "alpha_M_over_N": 2.0,
+      "keys_unique_mode": "unique_sr",
+      "wall_s": 0.5,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 0,
+      "_ckpt_key": "seed11_VC800_M4096_armCAPACITY",
+      "_partial_written_at": 1782536996.6048934
+    },
+    {
+      "seed": 11,
+      "V_C": 800,
+      "M_facts": 0,
+      "arm": "KNN_SENTINEL",
+      "recall_at_1": 1.0,
+      "alpha_M_over_VC": 0.0,
+      "alpha_M_over_N": 0.0,
+      "keys_unique_mode": "n/a_sentinel",
+      "n_queries": 500,
+      "wall_s": 0.04,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "peak_mem_mb": 0,
+      "_ckpt_key": "seed11_VC800_M0_armKNN_SENTINEL",
+      "_partial_written_at": 1782536996.660274
+    }
+  ],
+  "detail": {
+    "surface": {
+      "VC=400_M=2048": {
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "alpha_M_over_VC": 5.12,
+        "alpha_M_over_N": 1.0,
+        "keys_unique_mode": "unique_sr"
+      },
+      "VC=400_M=4096": {
+        "recall_mean": 0.5786,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          0.5786
+        ],
+        "alpha_M_over_VC": 10.24,
+        "alpha_M_over_N": 2.0,
+        "keys_unique_mode": "duplicates_allowed"
+      },
+      "VC=800_M=2048": {
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "alpha_M_over_VC": 2.56,
+        "alpha_M_over_N": 1.0,
+        "keys_unique_mode": "unique_sr"
+      },
+      "VC=800_M=4096": {
+        "recall_mean": 1.0,
+        "recall_cv": 0.0,
+        "n_seeds_observed": 1,
+        "recall_per_seed": [
+          1.0
+        ],
+        "alpha_M_over_VC": 5.12,
+        "alpha_M_over_N": 2.0,
+        "keys_unique_mode": "unique_sr"
+      }
+    },
+    "knn_sentinel_mean": 1.0,
+    "knn_sentinel_ok": true,
+    "monotone_findings": [],
+    "discriminating_passes": [
+      [
+        "VC=400_M=2048",
+        1.0,
+        0.0
+      ],
+      [
+        "VC=400_M=4096",
+        0.5786,
+        0.0
+      ],
+      [
+        "VC=800_M=2048",
+        1.0,
+        0.0
+      ],
+      [
+        "VC=800_M=4096",
+        1.0,
+        0.0
+      ]
+    ],
+    "substrate_only_ok": true,
+    "n_llm_calls": 0,
+    "n_units_observed": 5,
+    "n_units_expected": 5,
+    "cardinality_ok": true,
+    "failures": []
+  },
+  "elapsed_s": 1.7,
+  "summary": "SMOKE_PASS: mechanism end-to-end OK at smoke regime (production gates DEFERRED to FULL on GPU) | VC=400_M=2048[alphaVC=5.12 alphaN=1.00 mode=unique_sr rec=1.0000 cv=0.0000 n=1] | VC=400_M=4096[alphaVC=10.24 alphaN=2.00 mode=duplicates_allowed rec=0.5786 cv=0.0000 n=1] | VC=800_M=2048[alphaVC=2.56 al",
+  "_atexit_synth": false,
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": false,
+  "gpu_name": "cpu_fallback",
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_capacity_higher_alpha",
+  "allow_synthetic": true,
+  "metrics_source": "measured_substrate_bipolar_hebbian_W_capacity_higher_alpha_v1",
+  "DESIGN_NOTE": "HIGHER_ALPHA_CAPACITY_SWEEP: re-test of capacity surface at alpha>=1.0 regime (M_facts >= N), after Skunkworks flag-back #3 noted prior sweep at alpha=0.37 was by-construction-saturated. M_FACTS in {N, 1.5N, 2N}; V_C in {2000, 4000, 8000}; 3 seeds each; 9 phase points + 1 KNN sentinel = 30 total units (META_RULE_H). Discriminator IS the recall surface shape; verdict CHAIN_GRADE_DISCRIMINATING_REGIME if at least 1 phase point clears HP_DISC + 1 clear monotone trend along V_C or M axis. Substrate-native Hebbian W (N x N fp32 = 1.07GB at N=16384); GPU-required."
+}

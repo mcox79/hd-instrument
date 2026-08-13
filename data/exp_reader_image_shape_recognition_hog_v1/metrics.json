@@ -1,0 +1,189 @@
+{
+  "verdict": "GLASSBOX_SHAPE_RECOG_STRONG",
+  "verdict_msg": "GLASS-BOX HOG-shape -> HD keyless recognition on CLEAN images (no McGuffey). PRIMARY olivetti (n=400, 40-class): NN-shared chance=0.026 | raw=0.959 edge=0.930 hog=0.976 (hog_scr=0.034) | hog_lift=0.950(robust=0.947) hog-raw=0.017 scr_collapse=0.943 || LOO acc1: raw=0.794 edge=0.865 hog=0.927 (hog labelscr=0.003) || SECONDARY digits(10-class): NN chance=0.100 raw=0.989 hog=0.991(scr=0.116) hog-raw=0.002 | LOO hog=0.969 raw=0.919 -> GLASSBOX_SHAPE_RECOG_STRONG  [RAW_SATURATED_FLAG]",
+  "summary": "glass-box HOG-shape -> HD keyless recognition on clean images: GLASSBOX_SHAPE_RECOG_STRONG",
+  "elapsed_s": 1015.6502498000045,
+  "anchor_name": "reader_image_shape_recognition_hog_v1",
+  "ts_iso": "2026-07-22T01:30:43.490711+00:00",
+  "run_mode": "full",
+  "config": {
+    "params": {
+      "grid": 16,
+      "edge_scale": 4,
+      "grid_hog": 8,
+      "n_orient": 9,
+      "Q": 17
+    },
+    "N": 8192,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "cell_px": 8,
+    "nn_null_trials": 200,
+    "fronts": [
+      "rung1_raw",
+      "rung2_edge",
+      "rung3_hog"
+    ],
+    "primary_dataset": "sklearn_fetch_olivetti_faces_64x64_40class",
+    "secondary_dataset": "sklearn_load_digits_8x8_upscaled32_10class",
+    "note_mcguffey": "NOT USED (USER course-correction: OOD woodcut confound dropped)"
+  },
+  "primary_olivetti": {
+    "n_img": 400,
+    "n_classes": 40,
+    "chance_nn_shared": 0.025775,
+    "chance_loo_top1_analytic": 0.025,
+    "fronts": {
+      "rung1_raw": {
+        "nn_shared_mean": 0.9585000000000001,
+        "nn_shared_std": 0.0030000000000000174,
+        "nn_shared_scramble_mean": 0.12149999999999998,
+        "loo_acc1_mean": 0.7945,
+        "loo_acc1_std": 0.010416333327999846,
+        "loo_acc3_mean": 0.9065,
+        "loo_acc1_labelscramble_mean": 0.009000000000000001,
+        "n_seeds": 5
+      },
+      "rung2_edge": {
+        "nn_shared_mean": 0.93,
+        "nn_shared_std": 0.0057008771254956755,
+        "nn_shared_scramble_mean": 0.0295,
+        "loo_acc1_mean": 0.865,
+        "loo_acc1_std": 0.012144957801491125,
+        "loo_acc3_mean": 0.9355,
+        "loo_acc1_labelscramble_mean": 0.004,
+        "n_seeds": 5
+      },
+      "rung3_hog": {
+        "nn_shared_mean": 0.976,
+        "nn_shared_std": 0.002999999999999988,
+        "nn_shared_scramble_mean": 0.0335,
+        "loo_acc1_mean": 0.9265000000000001,
+        "loo_acc1_std": 0.008000000000000007,
+        "loo_acc3_mean": 0.9765,
+        "loo_acc1_labelscramble_mean": 0.003,
+        "n_seeds": 5
+      }
+    }
+  },
+  "secondary_digits": {
+    "n_img": 400,
+    "n_classes": 10,
+    "chance_nn_shared": 0.100425,
+    "chance_loo_top1_analytic": 0.1,
+    "fronts": {
+      "rung1_raw": {
+        "nn_shared_mean": 0.9890000000000001,
+        "nn_shared_std": 0.0030000000000000174,
+        "nn_shared_scramble_mean": 0.11499999999999999,
+        "loo_acc1_mean": 0.9189999999999999,
+        "loo_acc1_std": 0.0037416573867739447,
+        "loo_acc3_mean": 0.974,
+        "loo_acc1_labelscramble_mean": 0.096,
+        "n_seeds": 5
+      },
+      "rung2_edge": {
+        "nn_shared_mean": 0.9705,
+        "nn_shared_std": 0.0029154759474226757,
+        "nn_shared_scramble_mean": 0.1155,
+        "loo_acc1_mean": 0.8855000000000001,
+        "loo_acc1_std": 0.007314369419163862,
+        "loo_acc3_mean": 0.9674999999999999,
+        "loo_acc1_labelscramble_mean": 0.09949999999999999,
+        "n_seeds": 5
+      },
+      "rung3_hog": {
+        "nn_shared_mean": 0.9914999999999999,
+        "nn_shared_std": 0.0012247448713916173,
+        "nn_shared_scramble_mean": 0.11600000000000002,
+        "loo_acc1_mean": 0.9685,
+        "loo_acc1_std": 0.004636809247747873,
+        "loo_acc3_mean": 0.9984999999999999,
+        "loo_acc1_labelscramble_mean": 0.1145,
+        "n_seeds": 5
+      }
+    }
+  },
+  "verdict_detail": {
+    "headline_metric": "nn_shared_referent (keyless: nearest content-neighbor shares class)",
+    "olivetti_gates": {
+      "chance_nn": 0.025775,
+      "hog_nn": 0.976,
+      "raw_nn": 0.9585000000000001,
+      "edge_nn": 0.93,
+      "hog_scramble_nn": 0.0335,
+      "hog_lift_over_chance": 0.950225,
+      "hog_lift_robust_mean_minus_std": 0.947225,
+      "hog_over_raw": 0.01749999999999985,
+      "scramble_collapse": 0.9425,
+      "hog_loo_acc1": 0.9265000000000001,
+      "raw_loo_acc1": 0.7945,
+      "edge_loo_acc1": 0.865,
+      "hog_loo_acc1_labelscramble": 0.003,
+      "verdict": "GLASSBOX_SHAPE_RECOG_STRONG",
+      "gate_flags": {
+        "lift_ok": true,
+        "over_raw_ok": false,
+        "scr_ok": true,
+        "strong": true,
+        "raw_saturated": true
+      }
+    },
+    "digits_gates": {
+      "chance_nn": 0.100425,
+      "hog_nn": 0.9914999999999999,
+      "raw_nn": 0.9890000000000001,
+      "edge_nn": 0.9705,
+      "hog_scramble_nn": 0.11600000000000002,
+      "hog_lift_over_chance": 0.891075,
+      "hog_lift_robust_mean_minus_std": 0.8898502551286084,
+      "hog_over_raw": 0.0024999999999998357,
+      "scramble_collapse": 0.8755,
+      "hog_loo_acc1": 0.9685,
+      "raw_loo_acc1": 0.9189999999999999,
+      "edge_loo_acc1": 0.8855000000000001,
+      "hog_loo_acc1_labelscramble": 0.1145,
+      "verdict": "GLASSBOX_SHAPE_RECOG_STRONG",
+      "gate_flags": {
+        "lift_ok": true,
+        "over_raw_ok": false,
+        "scr_ok": true,
+        "strong": true,
+        "raw_saturated": true
+      }
+    },
+    "note": "RECOGNITION (keyless, no label-key). raw-pixel-HD = the baseline (Kanerva position-value record of intensities); HOG = specified oriented-gradient shape front-end (NO learned weights). SHAPE_BEATS_PIXEL_RECORD = HOG robustly > chance AND > raw AND content-scramble collapses = glass-box shape front-end gives real recognition where pixel-record is weaker (pipeline validated on a fair clean testbed). HOG_AT_CHANCE / no-lift-over-raw = glass-box shape does NOT beat pixel-record here -> the fork favors CLIP/resonator. LOO is the harder cross-instance held-out generalization."
+  },
+  "bands": {
+    "CHANCE_EPS": 0.03,
+    "HOG_LIFT_MIN": 0.05,
+    "HOG_OVER_RAW_MIN": 0.05,
+    "SCR_COLLAPSE_MIN": 0.05,
+    "STRONG_RECOG_MIN": 0.3,
+    "RAW_SAT_MAX": 0.95
+  },
+  "must_fail_controls": {
+    "content_scramble": "per-image pixel/level shuffle (spatial + orientation destroyed)",
+    "label_scramble": "class membership shuffled (LOO only)"
+  },
+  "raw_saturated_flag": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "rung1_raw": "3c88cf77124bc88f732f8b0054bc4bb21d24f50a706e453d2989b17c115dbb2e",
+    "rung2_edge": "5a7ec4e2710d7403b94f4685b0ff2cd7bf74a3c00406e4f127211818744f1a11",
+    "rung3_hog": "0da5e809484a0974e5af6999b3a5b1476f1098d8d86c0877be357c4cade89698"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "primitives_reused": [
+    "exp_reader_image_word_grounding_v1 encoder (encode_record / build_position_vectors / build_level_codebook / feat_raw / feat_edge / quantize_global / _resize) VERBATIM",
+    "exp_reader_image_content_recognition_v1 keyless metrics (nn_shared_referent / nn_shared_chance / loo_class_recog) VERBATIM"
+  ],
+  "recipe_adopted": "specified HOG (np.gradient -> unsigned orientation bins -> per-cell contrast-normalized histogram) -> Kanerva record encoder; keyless NN-shared + LOO class prototypes; content + label scramble must-fails; clean local datasets",
+  "local_only": true,
+  "banked": false
+}

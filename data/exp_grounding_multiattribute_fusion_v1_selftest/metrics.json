@@ -1,0 +1,29 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS fusion: (a) independent channels COMPOUND (fused beats single); (b) redundant near-duplicates do NOT beat single + gate prunes; (c) scrambled does not ground; fairness gate passes headroom + blocks unpredictable; (d) collapse caught; arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.421456400072202,
+  "mechanism_selftest": {
+    "a_fused_beats_single": 0.0319,
+    "a_ground_gap": 0.2434,
+    "a_scr_gap": -0.0016,
+    "a_n_selected": 6,
+    "b_redundant_beats_single": -0.0025,
+    "b_n_selected": 1,
+    "c_head_FA": 0.1821,
+    "c_head_C": 0.5227,
+    "c_unpred_FA": -0.1088,
+    "c_unpred_C": -0.0431,
+    "d_healthy_repvar": 0.9973,
+    "a_compound": true,
+    "a_indep_selects": true,
+    "c_scr_no_ground": true,
+    "b_redundant_no_beat": true,
+    "b_gate_prunes": true,
+    "c_headroom_passes": true,
+    "c_commoncause_blocks": true,
+    "d_collapse_caught": true,
+    "arms_differ": true
+  }
+}

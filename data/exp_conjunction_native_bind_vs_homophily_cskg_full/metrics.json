@@ -1,0 +1,1880 @@
+{
+  "verdict": "NATIVE_BIND_COMPOSITION_BEATS_FREQUENCY_ON_CONJUNCTIONS",
+  "verdict_msg": "NATIVE_BIND_COMPOSITION_BEATS_FREQUENCY_ON_CONJUNCTIONS || chance=1/L=0.0078 | CLEAN: NBIND=1.0000 FREQ_NULL=0.0063 diss=0.9937(HP>=0.50=True null<=0.15=True bind>=0.85=True) | NOISY: NBIND=0.6532 FREQ_NULL=0.0080 diss=0.6453(HP>=0.20=True) | ARBITRARY(must-fail): NBIND=0.0081 FREQ_NULL=0.0086 gap=-0.0004(<=0.05=True breach>=0.20=False) | SHUFFLE(must-fail): NBIND=0.0062 POP=0.0132 gap=-0.0071(<=0.05=True breach>=0.20=False) | ORACLE_clean=1.0000 MEMO_clean=0.0063 ceiling_ok=True || F1(tie)=False F2(null-solves)=False F3(integrity)=False",
+  "summary": "NATIVE_BIND_COMPOSITION_BEATS_FREQUENCY_ON_CONJUNCTIONS || chance=1/L=0.0078 | CLEAN: NBIND=1.0000 FREQ_NULL=0.0063 diss=0.9937(HP>=0.50=True null<=0.15=True bind>=0.85=True) | NOISY: NBIND=0.6532 FRE",
+  "run_mode": "full",
+  "elapsed_s": 370.7322056000121,
+  "anchor_name": "conjunction_native_bind_vs_homophily_cskg_v1",
+  "ts_iso": "2026-07-14T22:58:26.550294+00:00",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "mode": "cskg",
+    "n_dim": 1024,
+    "L": 128,
+    "noise_p": 0.35,
+    "m_nn": 25,
+    "query_frac": 0.45,
+    "cskg_max_lines": 0,
+    "k_core": 4,
+    "cskg_max_nodes": 0,
+    "min_query": 200,
+    "min_novel": 40,
+    "seeds": [
+      7,
+      13,
+      17
+    ]
+  },
+  "gates": {
+    "verdict": "NATIVE_BIND_COMPOSITION_BEATS_FREQUENCY_ON_CONJUNCTIONS",
+    "chance": 0.007812,
+    "clean": {
+      "native_bind": 1.0,
+      "freq_null": 0.006309,
+      "dissociation": 0.993691,
+      "oracle": 1.0,
+      "memorize": 0.006309
+    },
+    "noisy": {
+      "native_bind": 0.653224,
+      "freq_null": 0.007957,
+      "dissociation": 0.645267
+    },
+    "arbitrary": {
+      "native_bind": 0.008113,
+      "freq_null": 0.008562,
+      "gap": -0.000449
+    },
+    "shuffle": {
+      "native_bind": 0.006156,
+      "pop": 0.013218,
+      "gap": -0.007062
+    },
+    "hard_pass_gates": {
+      "P1_bind_clean": true,
+      "P2_dissociation": true,
+      "P3_null_fails": true,
+      "P4_noisy_margin": true,
+      "P5_arb_mustfail": true,
+      "P6_shuf_mustfail": true
+    },
+    "hard_fail_gates": {
+      "F1_tie": false,
+      "F2_null_solves": false,
+      "F3_integrity_breach": false
+    },
+    "integrity_breached": false,
+    "ceiling_ok": true,
+    "bands": {
+      "HP_BIND_CLEAN": 0.85,
+      "HP_DISSOCIATION": 0.5,
+      "HP_NULL_FAILS": 0.15,
+      "HP_NOISY_MARGIN": 0.2,
+      "MUSTFAIL_TOL": 0.05,
+      "REFUTE_TOL": 0.05,
+      "REFUTE_NULL_SOLVES": 0.4,
+      "INTEGRITY_BREACH": 0.2
+    }
+  },
+  "mechanism_selftest": {
+    "homomorphism_ok": true,
+    "homomorphism_pred": [
+      8,
+      17,
+      3
+    ],
+    "homomorphism_expect": [
+      8,
+      17,
+      3
+    ],
+    "clean_native_bind_novel": 1.0,
+    "clean_freq_null_novel": 0.02098,
+    "clean_dissociation": 0.97902,
+    "arb_native_bind_novel": 0.01399,
+    "arb_freq_null_novel": 0.04196,
+    "arb_gap": -0.02797,
+    "shuf_native_bind_novel": 0.01399,
+    "shuf_pop_novel": 0.03497,
+    "shuf_gap": -0.02098,
+    "oracle_clean_novel": 1.0,
+    "n_distinct_sigs_clean": 6,
+    "n_novel": 143,
+    "n_seen": 217,
+    "bind_beats": true,
+    "dissociates": true,
+    "null_fails": true,
+    "arb_mustfail": true,
+    "shuf_mustfail": true,
+    "ceiling_ok": true,
+    "arms_differ": true,
+    "novel_seen_ok": true,
+    "decisive_selftest_verdict": "NATIVE_BIND_COMPOSITION_BEATS_FREQUENCY_ON_CONJUNCTIONS",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin",
+      "full_gates_exercised"
+    ]
+  },
+  "unit_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_query": 9582,
+      "n_novel": 2211,
+      "n_seen": 7371,
+      "L": 128,
+      "n_dim": 1024,
+      "n_entities": 21293,
+      "relA": "xattr",
+      "relB": "xreact",
+      "prov": {
+        "relA": "xattr",
+        "relB": "xreact",
+        "dual_coverage": 21293,
+        "n_val_a": 1480,
+        "n_val_b": 1547,
+        "covA": 22172,
+        "covB": 21294,
+        "n_rel": 29
+      },
+      "regimes": {
+        "CLEAN": {
+          "regime": "CLEAN",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.082864,
+                "mrr": 0.159979,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.0,
+                "mrr": 0.010066,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.107719,
+                "mrr": 0.204946,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.116886,
+                "mrr": 0.181772,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.003166,
+                "mrr": 0.030427,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.150997,
+                "mrr": 0.22717,
+                "n": 7371
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.770507,
+                "mrr": 0.7723,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.005427,
+                "mrr": 0.013198,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7371
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7371
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.012941,
+                "mrr": 0.020652,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.005427,
+                "mrr": 0.013198,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.015195,
+                "mrr": 0.022888,
+                "n": 7371
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.00814,
+                "mrr": 0.015889,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006784,
+                "mrr": 0.014544,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.008547,
+                "mrr": 0.016293,
+                "n": 7371
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "627df398e5bbaa4d",
+            "HOMOPHILY": "16ddfab847969441",
+            "HOMOPHILY_JAC": "9e7ba96012aaeba7",
+            "MEMORIZE": "ea86f66932edd75e",
+            "ORACLE": "627df398e5bbaa4d",
+            "POP": "5ab47d9b074fe9ef",
+            "UNIFORM": "9fa19e078ea7de6d"
+          },
+          "pop_label": 76,
+          "n_query": 9582,
+          "n_novel": 2211,
+          "n_seen": 7371
+        },
+        "NOISY": {
+          "regime": "NOISY",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.647568,
+                "mrr": 0.65999,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.65355,
+                "mrr": 0.665112,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.645774,
+                "mrr": 0.658453,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.057295,
+                "mrr": 0.118489,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.002714,
+                "mrr": 0.023774,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.073667,
+                "mrr": 0.1469,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.060739,
+                "mrr": 0.110622,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.007689,
+                "mrr": 0.039885,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.076652,
+                "mrr": 0.13184,
+                "n": 7371
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.428094,
+                "mrr": 0.432562,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008141,
+                "mrr": 0.01589,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.554063,
+                "mrr": 0.557547,
+                "n": 7371
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 0.647568,
+                "mrr": 0.650322,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.65355,
+                "mrr": 0.656257,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.645774,
+                "mrr": 0.648541,
+                "n": 7371
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.011793,
+                "mrr": 0.019513,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008141,
+                "mrr": 0.01589,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.012888,
+                "mrr": 0.0206,
+                "n": 7371
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.008766,
+                "mrr": 0.01651,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.009046,
+                "mrr": 0.016788,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.008683,
+                "mrr": 0.016427,
+                "n": 7371
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "627df398e5bbaa4d",
+            "HOMOPHILY": "ad32612077e3c551",
+            "HOMOPHILY_JAC": "3198234f2c63b848",
+            "MEMORIZE": "9e54c0fd65ee1ca6",
+            "ORACLE": "627df398e5bbaa4d",
+            "POP": "5ab47d9b074fe9ef",
+            "UNIFORM": "9fa19e078ea7de6d"
+          },
+          "pop_label": 76,
+          "n_query": 9582,
+          "n_novel": 2211,
+          "n_seen": 7371
+        },
+        "ARBITRARY": {
+          "regime": "ARBITRARY",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.008036,
+                "mrr": 0.043853,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.007689,
+                "mrr": 0.040342,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.00814,
+                "mrr": 0.044906,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.099979,
+                "mrr": 0.197582,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004523,
+                "mrr": 0.038136,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.128612,
+                "mrr": 0.245409,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.120225,
+                "mrr": 0.188867,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.007237,
+                "mrr": 0.039185,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.154117,
+                "mrr": 0.233766,
+                "n": 7371
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.770403,
+                "mrr": 0.772197,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004975,
+                "mrr": 0.012749,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7371
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7371
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.016072,
+                "mrr": 0.023759,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004975,
+                "mrr": 0.012749,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.0194,
+                "mrr": 0.027061,
+                "n": 7371
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.007097,
+                "mrr": 0.014854,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004975,
+                "mrr": 0.012749,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.007733,
+                "mrr": 0.015485,
+                "n": 7371
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "627df398e5bbaa4d",
+            "HOMOPHILY": "101fbc28d9cc8477",
+            "HOMOPHILY_JAC": "0837e8c2cbdfdc17",
+            "MEMORIZE": "c0db69cf09ed88bf",
+            "ORACLE": "4931daf169f81827",
+            "POP": "1984934756c927e2",
+            "UNIFORM": "9fa19e078ea7de6d"
+          },
+          "pop_label": 84,
+          "n_query": 9582,
+          "n_novel": 2211,
+          "n_seen": 7371
+        },
+        "CLEAN_SHUFFLE": {
+          "regime": "CLEAN_SHUFFLE",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.005949,
+                "mrr": 0.041071,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.003166,
+                "mrr": 0.039713,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.006783,
+                "mrr": 0.041478,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.006575,
+                "mrr": 0.045669,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.001809,
+                "mrr": 0.039662,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.008004,
+                "mrr": 0.04747,
+                "n": 7371
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.008453,
+                "mrr": 0.042491,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008593,
+                "mrr": 0.043129,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.008411,
+                "mrr": 0.042299,
+                "n": 7371
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.00908,
+                "mrr": 0.016821,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.012664,
+                "mrr": 0.020378,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.008004,
+                "mrr": 0.015754,
+                "n": 7371
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 0.005949,
+                "mrr": 0.013715,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.003166,
+                "mrr": 0.010954,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.006783,
+                "mrr": 0.014543,
+                "n": 7371
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.013567,
+                "mrr": 0.021274,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.012664,
+                "mrr": 0.020378,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.013838,
+                "mrr": 0.021542,
+                "n": 7371
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.007932,
+                "mrr": 0.015682,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.010403,
+                "mrr": 0.018134,
+                "n": 2211
+              },
+              "seen": {
+                "acc": 0.00719,
+                "mrr": 0.014947,
+                "n": 7371
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "627df398e5bbaa4d",
+            "HOMOPHILY": "efedc2d2bb1bdcb0",
+            "HOMOPHILY_JAC": "3244bdce9ab3180a",
+            "MEMORIZE": "d8773e74ef094194",
+            "ORACLE": "627df398e5bbaa4d",
+            "POP": "e35a2b924864601a",
+            "UNIFORM": "9fa19e078ea7de6d"
+          },
+          "pop_label": 2,
+          "n_query": 9582,
+          "n_novel": 2211,
+          "n_seen": 7371
+        }
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 4,
+        "n_core_nodes": 56836,
+        "n_core_edges": 732877,
+        "n_core_nodes_in_split": 56836,
+        "core_avgdeg": 25.789182912238722,
+        "n_train": 659591,
+        "n_valid": 36643,
+        "n_test": 36643,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "seed": 13,
+      "n_query": 9582,
+      "n_novel": 2210,
+      "n_seen": 7372,
+      "L": 128,
+      "n_dim": 1024,
+      "n_entities": 21293,
+      "relA": "xattr",
+      "relB": "xreact",
+      "prov": {
+        "relA": "xattr",
+        "relB": "xreact",
+        "dual_coverage": 21293,
+        "n_val_a": 1480,
+        "n_val_b": 1547,
+        "covA": 22172,
+        "covB": 21294,
+        "n_rel": 29
+      },
+      "regimes": {
+        "CLEAN": {
+          "regime": "CLEAN",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.08516,
+                "mrr": 0.163155,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.0,
+                "mrr": 0.010053,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.110689,
+                "mrr": 0.209052,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.115216,
+                "mrr": 0.181915,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.002262,
+                "mrr": 0.031463,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.149078,
+                "mrr": 0.227018,
+                "n": 7372
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.770925,
+                "mrr": 0.772714,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006787,
+                "mrr": 0.014547,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7372
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7372
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.014715,
+                "mrr": 0.022413,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006787,
+                "mrr": 0.014547,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.017092,
+                "mrr": 0.024771,
+                "n": 7372
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.007723,
+                "mrr": 0.015475,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008597,
+                "mrr": 0.016343,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.007461,
+                "mrr": 0.015215,
+                "n": 7372
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "bad2b35311b436fe",
+            "HOMOPHILY": "e646e1a715aeef3f",
+            "HOMOPHILY_JAC": "e1dab772fa4bfdee",
+            "MEMORIZE": "e5a61bc563864d4b",
+            "ORACLE": "bad2b35311b436fe",
+            "POP": "7d62d8e09f06a5eb",
+            "UNIFORM": "ff68e711fe698213"
+          },
+          "pop_label": 116,
+          "n_query": 9582,
+          "n_novel": 2210,
+          "n_seen": 7372
+        },
+        "NOISY": {
+          "regime": "NOISY",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.659883,
+                "mrr": 0.671529,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.661538,
+                "mrr": 0.673675,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.659387,
+                "mrr": 0.670886,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.061574,
+                "mrr": 0.121334,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004525,
+                "mrr": 0.025977,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.078676,
+                "mrr": 0.149921,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.060217,
+                "mrr": 0.110212,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004525,
+                "mrr": 0.035542,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.076913,
+                "mrr": 0.132596,
+                "n": 7372
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.435608,
+                "mrr": 0.440018,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.005882,
+                "mrr": 0.013649,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.564433,
+                "mrr": 0.567836,
+                "n": 7372
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 0.659883,
+                "mrr": 0.66254,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.661538,
+                "mrr": 0.664183,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.659387,
+                "mrr": 0.662048,
+                "n": 7372
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.012002,
+                "mrr": 0.01972,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.005882,
+                "mrr": 0.013649,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.013836,
+                "mrr": 0.021541,
+                "n": 7372
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.008036,
+                "mrr": 0.015786,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008145,
+                "mrr": 0.015894,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.008003,
+                "mrr": 0.015753,
+                "n": 7372
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "bad2b35311b436fe",
+            "HOMOPHILY": "2e3827be28a1e74c",
+            "HOMOPHILY_JAC": "f6e5d99713c02054",
+            "MEMORIZE": "877aec4e1f9a2cb9",
+            "ORACLE": "bad2b35311b436fe",
+            "POP": "7d62d8e09f06a5eb",
+            "UNIFORM": "ff68e711fe698213"
+          },
+          "pop_label": 116,
+          "n_query": 9582,
+          "n_novel": 2210,
+          "n_seen": 7372
+        },
+        "ARBITRARY": {
+          "regime": "ARBITRARY",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.005531,
+                "mrr": 0.042705,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008145,
+                "mrr": 0.047022,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.004748,
+                "mrr": 0.041412,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.097788,
+                "mrr": 0.192797,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.004977,
+                "mrr": 0.039506,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.12561,
+                "mrr": 0.23875,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.12273,
+                "mrr": 0.193465,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006335,
+                "mrr": 0.040269,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.157623,
+                "mrr": 0.239391,
+                "n": 7372
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.771446,
+                "mrr": 0.773232,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00905,
+                "mrr": 0.016792,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7372
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7372
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.014506,
+                "mrr": 0.022206,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00905,
+                "mrr": 0.016792,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.016142,
+                "mrr": 0.023829,
+                "n": 7372
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.007097,
+                "mrr": 0.014854,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006787,
+                "mrr": 0.014547,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.007189,
+                "mrr": 0.014946,
+                "n": 7372
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "bad2b35311b436fe",
+            "HOMOPHILY": "adf08330598de39c",
+            "HOMOPHILY_JAC": "3a09a7581f11f3bf",
+            "MEMORIZE": "fdcdbf9ab9fa70eb",
+            "ORACLE": "9d7edd76d5414d90",
+            "POP": "c8125e3b6c0266a2",
+            "UNIFORM": "ff68e711fe698213"
+          },
+          "pop_label": 103,
+          "n_query": 9582,
+          "n_novel": 2210,
+          "n_seen": 7372
+        },
+        "CLEAN_SHUFFLE": {
+          "regime": "CLEAN_SHUFFLE",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.008766,
+                "mrr": 0.042308,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.007692,
+                "mrr": 0.041629,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.009088,
+                "mrr": 0.042512,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.007723,
+                "mrr": 0.046849,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00724,
+                "mrr": 0.044096,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.007868,
+                "mrr": 0.047674,
+                "n": 7372
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.007305,
+                "mrr": 0.039949,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00724,
+                "mrr": 0.040346,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.007325,
+                "mrr": 0.03983,
+                "n": 7372
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.007618,
+                "mrr": 0.015371,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.012217,
+                "mrr": 0.019934,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.00624,
+                "mrr": 0.014004,
+                "n": 7372
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 0.008766,
+                "mrr": 0.01651,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.007692,
+                "mrr": 0.015445,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.009088,
+                "mrr": 0.01683,
+                "n": 7372
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.014298,
+                "mrr": 0.021998,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.012217,
+                "mrr": 0.019934,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.014921,
+                "mrr": 0.022617,
+                "n": 7372
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.008036,
+                "mrr": 0.015786,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.009955,
+                "mrr": 0.017689,
+                "n": 2210
+              },
+              "seen": {
+                "acc": 0.007461,
+                "mrr": 0.015215,
+                "n": 7372
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "bad2b35311b436fe",
+            "HOMOPHILY": "5ff968a168330ed0",
+            "HOMOPHILY_JAC": "fb5d95712742b147",
+            "MEMORIZE": "85415fc29e971f1d",
+            "ORACLE": "bad2b35311b436fe",
+            "POP": "7d62d8e09f06a5eb",
+            "UNIFORM": "ff68e711fe698213"
+          },
+          "pop_label": 116,
+          "n_query": 9582,
+          "n_novel": 2210,
+          "n_seen": 7372
+        }
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 4,
+        "n_core_nodes": 56836,
+        "n_core_edges": 732877,
+        "n_core_nodes_in_split": 56836,
+        "core_avgdeg": 25.789182912238722,
+        "n_train": 659591,
+        "n_valid": 36643,
+        "n_test": 36643,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "seed": 17,
+      "n_query": 9582,
+      "n_novel": 2234,
+      "n_seen": 7348,
+      "L": 128,
+      "n_dim": 1024,
+      "n_entities": 21293,
+      "relA": "xattr",
+      "relB": "xreact",
+      "prov": {
+        "relA": "xattr",
+        "relB": "xreact",
+        "dual_coverage": 21293,
+        "n_val_a": 1480,
+        "n_val_b": 1547,
+        "covA": 22172,
+        "covB": 21294,
+        "n_rel": 29
+      },
+      "regimes": {
+        "CLEAN": {
+          "regime": "CLEAN",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.064496,
+                "mrr": 0.146585,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.0,
+                "mrr": 0.009971,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.084105,
+                "mrr": 0.188119,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.112503,
+                "mrr": 0.178528,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006267,
+                "mrr": 0.033246,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.144801,
+                "mrr": 0.222698,
+                "n": 7348
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.76842,
+                "mrr": 0.770229,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006714,
+                "mrr": 0.014474,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7348
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7348
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.014193,
+                "mrr": 0.021895,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006714,
+                "mrr": 0.014474,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.016467,
+                "mrr": 0.024151,
+                "n": 7348
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.007618,
+                "mrr": 0.015371,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.011191,
+                "mrr": 0.018916,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.006532,
+                "mrr": 0.014294,
+                "n": 7348
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "e446397ccced6194",
+            "HOMOPHILY": "59020ebe30dbc258",
+            "HOMOPHILY_JAC": "b593768f769a4d91",
+            "MEMORIZE": "40645a588c123b9d",
+            "ORACLE": "e446397ccced6194",
+            "POP": "dd068ac935003333",
+            "UNIFORM": "9fbf365970051e21"
+          },
+          "pop_label": 46,
+          "n_query": 9582,
+          "n_novel": 2234,
+          "n_seen": 7348
+        },
+        "NOISY": {
+          "regime": "NOISY",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.649656,
+                "mrr": 0.661724,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.644584,
+                "mrr": 0.656077,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.651198,
+                "mrr": 0.663441,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.045606,
+                "mrr": 0.109644,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.000448,
+                "mrr": 0.020258,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.059336,
+                "mrr": 0.136821,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.059695,
+                "mrr": 0.109565,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008057,
+                "mrr": 0.037758,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.075395,
+                "mrr": 0.131396,
+                "n": 7348
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.427573,
+                "mrr": 0.432045,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.009848,
+                "mrr": 0.017583,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.554573,
+                "mrr": 0.558053,
+                "n": 7348
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 0.649656,
+                "mrr": 0.652393,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.644584,
+                "mrr": 0.64736,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.651198,
+                "mrr": 0.653923,
+                "n": 7348
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.012315,
+                "mrr": 0.020031,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.009848,
+                "mrr": 0.017583,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.013065,
+                "mrr": 0.020775,
+                "n": 7348
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.006784,
+                "mrr": 0.014543,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.011638,
+                "mrr": 0.01936,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.005308,
+                "mrr": 0.013079,
+                "n": 7348
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "e446397ccced6194",
+            "HOMOPHILY": "bec4e0cf1f5304b4",
+            "HOMOPHILY_JAC": "0b0f65ac39116cd7",
+            "MEMORIZE": "3c5a4472ef1820b1",
+            "ORACLE": "e446397ccced6194",
+            "POP": "dd068ac935003333",
+            "UNIFORM": "9fbf365970051e21"
+          },
+          "pop_label": 46,
+          "n_query": 9582,
+          "n_novel": 2234,
+          "n_seen": 7348
+        },
+        "ARBITRARY": {
+          "regime": "ARBITRARY",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.005427,
+                "mrr": 0.038561,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.008505,
+                "mrr": 0.044341,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.004491,
+                "mrr": 0.036804,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.075871,
+                "mrr": 0.182447,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006267,
+                "mrr": 0.044812,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.097033,
+                "mrr": 0.224292,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.117929,
+                "mrr": 0.187308,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006714,
+                "mrr": 0.039217,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.151742,
+                "mrr": 0.232331,
+                "n": 7348
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.769046,
+                "mrr": 0.77085,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.0094,
+                "mrr": 0.017139,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7348
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 1.0,
+                "mrr": 1.0,
+                "n": 7348
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.013776,
+                "mrr": 0.021481,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.0094,
+                "mrr": 0.017139,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.015106,
+                "mrr": 0.022801,
+                "n": 7348
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.008662,
+                "mrr": 0.016407,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.010295,
+                "mrr": 0.018028,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.008165,
+                "mrr": 0.015914,
+                "n": 7348
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "e446397ccced6194",
+            "HOMOPHILY": "a084158dca1c84a1",
+            "HOMOPHILY_JAC": "beb241b9e43b6518",
+            "MEMORIZE": "ef22d4cc31c36838",
+            "ORACLE": "905a4e49b46b0525",
+            "POP": "c280faa81333874a",
+            "UNIFORM": "9fbf365970051e21"
+          },
+          "pop_label": 111,
+          "n_query": 9582,
+          "n_novel": 2234,
+          "n_seen": 7348
+        },
+        "CLEAN_SHUFFLE": {
+          "regime": "CLEAN_SHUFFLE",
+          "arms": {
+            "NATIVE_BIND": {
+              "all": {
+                "acc": 0.009393,
+                "mrr": 0.043945,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00761,
+                "mrr": 0.04382,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.009935,
+                "mrr": 0.043984,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY": {
+              "all": {
+                "acc": 0.008036,
+                "mrr": 0.047721,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00761,
+                "mrr": 0.043681,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.008165,
+                "mrr": 0.048949,
+                "n": 7348
+              }
+            },
+            "HOMOPHILY_JAC": {
+              "all": {
+                "acc": 0.008766,
+                "mrr": 0.041713,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.006714,
+                "mrr": 0.038984,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.00939,
+                "mrr": 0.042542,
+                "n": 7348
+              }
+            },
+            "MEMORIZE": {
+              "all": {
+                "acc": 0.010019,
+                "mrr": 0.017753,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.014772,
+                "mrr": 0.022469,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.008574,
+                "mrr": 0.016319,
+                "n": 7348
+              }
+            },
+            "ORACLE": {
+              "all": {
+                "acc": 0.009393,
+                "mrr": 0.017132,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.00761,
+                "mrr": 0.015363,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.009935,
+                "mrr": 0.01767,
+                "n": 7348
+              }
+            },
+            "POP": {
+              "all": {
+                "acc": 0.014715,
+                "mrr": 0.022413,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.014772,
+                "mrr": 0.022469,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.014698,
+                "mrr": 0.022396,
+                "n": 7348
+              }
+            },
+            "UNIFORM": {
+              "all": {
+                "acc": 0.007305,
+                "mrr": 0.015061,
+                "n": 9582
+              },
+              "novel": {
+                "acc": 0.005819,
+                "mrr": 0.013586,
+                "n": 2234
+              },
+              "seen": {
+                "acc": 0.007757,
+                "mrr": 0.015509,
+                "n": 7348
+              }
+            }
+          },
+          "sigs": {
+            "NATIVE_BIND": "e446397ccced6194",
+            "HOMOPHILY": "0c8fba3f7caa79a2",
+            "HOMOPHILY_JAC": "02444b1ff35e6c9a",
+            "MEMORIZE": "3e78db7724959be3",
+            "ORACLE": "e446397ccced6194",
+            "POP": "dd068ac935003333",
+            "UNIFORM": "9fbf365970051e21"
+          },
+          "pop_label": 46,
+          "n_query": 9582,
+          "n_novel": 2234,
+          "n_seen": 7348
+        }
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 4,
+        "n_core_nodes": 56836,
+        "n_core_edges": 732877,
+        "n_core_nodes_in_split": 56836,
+        "core_avgdeg": 25.789182912238722,
+        "n_train": 659591,
+        "n_valid": 36643,
+        "n_test": 36643,
+        "n_rel_tokens": 29
+      }
+    }
+  ]
+}

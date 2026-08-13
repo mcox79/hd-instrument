@@ -1,0 +1,299 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "per_config",
+    "verdicts",
+    "coverage_diagnostic",
+    "sr_sanity",
+    "arm_tie_acc",
+    "preregistered_bands",
+    "prereg_thresholds"
+  ],
+  "anchor_name": "arc_reasoner_sr_gated_tiebreak_v1",
+  "arm_tie_acc": {
+    "lemma_syn": {
+      "LEGACY": 0.4,
+      "RANDOM_OCC": 0.32,
+      "SR_GATED": 0.32,
+      "SR_ONLY": 0.28,
+      "SR_SCRAMBLED": 0.24,
+      "SYMBOLIC": 0.4
+    }
+  },
+  "config": {
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "depth_bump": 6,
+    "gamma": 0.85,
+    "lambda_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "link_modes": [
+      "lemma_syn"
+    ],
+    "n_eval": 400,
+    "n_folds": 5,
+    "n_rules": 233,
+    "n_total_test": 1172,
+    "one_variable_across_arms": "tie_break_decision (graph/link/CI/do identical)",
+    "rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "seed": 20260726
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "coverage_diagnostic": {
+    "lemma_syn": {
+      "counts": {
+        "DEPTH_BLOCKED": 6,
+        "LINK_FAILURE": 9,
+        "STRUCTURALLY_ABSENT": 30
+      },
+      "fractions": {
+        "DEPTH_BLOCKED": 0.1333,
+        "LINK_FAILURE": 0.2,
+        "STRUCTURALLY_ABSENT": 0.6667
+      },
+      "n_dist_only": 45
+    }
+  },
+  "elapsed_s": 109.8,
+  "graph": {
+    "max_typed_node_degree": 16,
+    "mean_out_degree": 0.9721,
+    "n_nodes": 215,
+    "n_typed_edges": 209,
+    "per_relation": {
+      "CAUSE": 106,
+      "COUPLEDRELATIONSHIP": 18,
+      "IFTHEN": 5,
+      "REQUIRES": 36,
+      "SOURCEOF": 28,
+      "USEDFOR": 40
+    }
+  },
+  "host": "FrameworkMPC",
+  "per_config": {
+    "lemma_syn": {
+      "arm_tie_acc": {
+        "LEGACY": 0.4,
+        "RANDOM_OCC": 0.32,
+        "SR_GATED": 0.32,
+        "SR_ONLY": 0.28,
+        "SR_SCRAMBLED": 0.24,
+        "SYMBOLIC": 0.4
+      },
+      "buckets": {
+        "dist_only": 45,
+        "gold_only": 7,
+        "not_derived": 323,
+        "tie": 25
+      },
+      "coverage_diagnostic": {
+        "counts": {
+          "DEPTH_BLOCKED": 6,
+          "LINK_FAILURE": 9,
+          "STRUCTURALLY_ABSENT": 30
+        },
+        "fractions": {
+          "DEPTH_BLOCKED": 0.1333,
+          "LINK_FAILURE": 0.2,
+          "STRUCTURALLY_ABSENT": 0.6667
+        },
+        "n_dist_only": 45
+      },
+      "cv": {
+        "random": {
+          "cv_acc": 0.32,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.08,
+          "per_fold_lambda": [
+            0.1,
+            0.1,
+            0.0,
+            0.1,
+            0.1
+          ]
+        },
+        "real": {
+          "cv_acc": 0.32,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.48,
+          "per_fold_lambda": [
+            0.6,
+            0.6,
+            0.6,
+            0.6,
+            0.0
+          ]
+        },
+        "scrambled": {
+          "cv_acc": 0.24,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.18,
+          "per_fold_lambda": [
+            0.1,
+            0.1,
+            0.0,
+            0.1,
+            0.6
+          ]
+        }
+      },
+      "gamma_sweep_cv_tie_acc": {
+        "0.70": 0.32,
+        "0.85": 0.32,
+        "0.95": 0.32
+      },
+      "gold_only_acc": 1.0,
+      "link_mode": "lemma_syn",
+      "n_questions": 400,
+      "n_tie": 25,
+      "sr_sanity": {
+        "SR_DEGEN_STD_MIN": 0.0001,
+        "graph_col_std_mean": 0.08816946189017957,
+        "graph_reach_density": 0.02195,
+        "sr_not_degenerate": true,
+        "tie_occ_allzero_frac": 0.0,
+        "tie_occ_std_mean": 0.09893218030542508
+      },
+      "tie_examples": [
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.85,
+            0.85
+          ],
+          "qid": "MCAS_2006_9_44"
+        },
+        {
+          "n_valid": 4,
+          "occ_raw": [
+            1.85,
+            1.85,
+            1.85,
+            1.85
+          ],
+          "qid": "Mercury_7270393"
+        },
+        {
+          "n_valid": 3,
+          "occ_raw": [
+            0.00796,
+            0.00796,
+            0.23424
+          ],
+          "qid": "Mercury_7116288"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            3.6036,
+            0.28333
+          ],
+          "qid": "Mercury_7174213"
+        },
+        {
+          "n_valid": 3,
+          "occ_raw": [
+            0.28333,
+            0.28333,
+            0.28333
+          ],
+          "qid": "MEA_2014_8_10"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.85,
+            0.85
+          ],
+          "qid": "Mercury_409301"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            1.85,
+            1.85
+          ],
+          "qid": "Mercury_SC_400046"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.34354,
+            0.34755
+          ],
+          "qid": "Mercury_7043820"
+        }
+      ]
+    }
+  },
+  "pid": 9848,
+  "prereg_thresholds": {
+    "gold_only_floor": 0.95,
+    "lambda_leans_min": 0.15,
+    "n_tie_min": 30,
+    "repro_tol": 0.02,
+    "scramble_flat_max": 0.03,
+    "sr_degen_std_min": 0.0001,
+    "tie_abs_pass": 0.42,
+    "tie_rise_pass": 0.1,
+    "tie_rise_stuck": 0.03
+  },
+  "preregistered_bands": {
+    "guardrails_ok": false,
+    "hard_fail": true,
+    "hard_pass": false,
+    "middle_band": false,
+    "scramble_artifact": false
+  },
+  "primary_config": "lemma_syn",
+  "run_mode": "smoke",
+  "sr_sanity": {
+    "lemma_syn": {
+      "SR_DEGEN_STD_MIN": 0.0001,
+      "graph_col_std_mean": 0.08816946189017957,
+      "graph_reach_density": 0.02195,
+      "sr_not_degenerate": true,
+      "tie_occ_allzero_frac": 0.0,
+      "tie_occ_std_mean": 0.09893218030542508
+    }
+  },
+  "summary": "SR-gated ARC tie-break [lemma_syn]: TIE n=25 | LEGACY=0.4000 SYMBOLIC=0.4000 SR_ONLY=0.2800 SR_GATED=0.3200 (rise=-0.0800, lam*=0.4800) SR_SCR=0.2400 RAND=0.3200 | SR non-degen=True (tie_occ_std=0.099) | gold_only>=0.95=True | coverage(dist_only n=45): LINK=9 DEPTH_BLOCKED=6 STRUCT_ABSENT=30 | INCONCLUSIVE_GUARDRAIL",
+  "tier": "VET_PENDING",
+  "ts_iso": "2026-07-26T01:39:32.349857+00:00",
+  "verdict": "INCONCLUSIVE_GUARDRAIL",
+  "verdict_msg": "First honest ARC-facing test of the prior HARD_PASS SR-routing + gated-fusion mechanisms wired to the DerivationReasoner tie-break: does an SR graph-support-strength channel (M[given,candidate] = discounted forward occupancy, gamma=0.85 pre-registered), gated vs the existing cosine combiner by 5-fold CV lambda, resolve the co-derivable ARC ties where symbolic tie-break measured d=0.000? ONE variable = the tie-break decision (graph/link/CI/do identical across arms). Must-fail controls = degree-preserving graph scramble + i.i.d. random occupancy (both must stay flat). SR non-degeneracy reported BEFORE the tie result (mean out-degree<1 -> honest degeneracy risk pre-registered as HARD_FAIL_SR_DEGENERATE, a THIRD meaning-boundedness diagnosis not a hidden failure). Coverage diagnostic (report-only) settles whether a separate DEPTH-bump cell is worth queuing. Held-out ARC-Challenge test; rules NOT derived from test labels. INLINE-LOCAL; VET-PENDING; no bank.",
+  "verdicts": {
+    "lemma_syn": {
+      "bands": {
+        "guardrails_ok": false,
+        "hard_fail": true,
+        "hard_pass": false,
+        "middle_band": false,
+        "scramble_artifact": false
+      },
+      "buckets_match": false,
+      "gold_only_preserved": true,
+      "link_mode": "lemma_syn",
+      "mean_cv_lambda": 0.48,
+      "n_tie": 25,
+      "random_occ_tie_acc": 0.32,
+      "repro_ok": false,
+      "repro_target": 0.3636,
+      "scramble_rise_minus_legacy": -0.16,
+      "sr_not_degenerate": true,
+      "tie_rise_gated_minus_legacy": -0.08,
+      "verdict": "INCONCLUSIVE_GUARDRAIL"
+    }
+  }
+}

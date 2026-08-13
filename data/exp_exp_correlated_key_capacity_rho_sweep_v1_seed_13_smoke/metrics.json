@@ -1,0 +1,140 @@
+{
+  "anchor_name": "correlated_key_capacity_rho_sweep_v1_seed_13",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CORRELATED_KEY_CAPACITY_WALL_CHARACTERIZED: monotone_fired=True, wall_shifts_fired=True, n_wall_gaps_documented=1",
+  "summary": "chunk_seed=13 n_units=3 N=8192 rho=[0.0, 0.1, 0.3, 0.5, 0.7] alpha=[0.05, 0.1, 0.138, 0.15, 0.2] mode=smoke backend=numpy",
+  "elapsed_s": 13.196021556854248,
+  "config_version": "ANCHOR=correlated_key_capacity_rho_sweep_v1_seed_13,N=8192,RHO_VALUES=[0.0, 0.1, 0.3, 0.5, 0.7],ALPHA_VALUES=[0.05, 0.1, 0.138, 0.15, 0.2],SEED=13,RUN_MODE=smoke,backend=numpy,WALL_THRESHOLD=0.5,HP_INDEP_FLOOR=0.9,MONOTONE_SPEARMAN=-0.5",
+  "N": 8192,
+  "rho_values": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7
+  ],
+  "alpha_values": [
+    0.05,
+    0.1,
+    0.138,
+    0.15,
+    0.2
+  ],
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "chunk_seed": 13,
+  "run_mode": "smoke",
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed_M_max": 0.01235415527768502,
+  "crlb_floor_computed_M_alpha_010": 0.017471413945365305,
+  "crlb_formula_reference": "sigma_min = sqrt(0.25/M) binomial-CLT",
+  "discriminator_reachability": true,
+  "calibration_check": "correlated_key_capacity_wall_shift",
+  "discriminator_survives_scale": true,
+  "hp_indep_floor": 0.9,
+  "hp_monotone_spearman_threshold": -0.5,
+  "wall_threshold": 0.5,
+  "crumble_floor": 0.2,
+  "hf_indep_crumble": 0.9,
+  "theory_reference": "Loewe (1998) Ann. Appl. Prob. alpha_c(rho) approx alpha_0 * (1 - rho^2) with alpha_0 = 0.138 (AGS classical Hopfield capacity)",
+  "prior_work_check": "substrate-KB cosine top-1 = 0.27 (wave14h_alpha_sweep_v2 -- different cell; anti-Hebbian erase; not overlapping). Genuinely novel.",
+  "predicted_alpha_c_by_rho": {
+    "0.0": 0.138,
+    "0.1": 0.1366,
+    "0.3": 0.1256,
+    "0.5": 0.1035,
+    "0.7": 0.0704
+  },
+  "headline": {
+    "n_units": 3,
+    "n_units_expected": 3,
+    "monotone_fired": true,
+    "monotone_details": {
+      "smoke_recalls_by_rho": [
+        [
+          0.0,
+          0.1,
+          1.0
+        ],
+        [
+          0.5,
+          0.1,
+          0.22466422466422467
+        ],
+        [
+          0.7,
+          0.2,
+          0.05372405372405373
+        ]
+      ],
+      "any_alpha_below_threshold": true,
+      "drop_across_rho": 0.9462759462759462
+    },
+    "wall_shifts_fired": true,
+    "wall_gap_details": [
+      {
+        "rho": 0.5,
+        "alpha": 0.1,
+        "recall_correlated": 0.22466422466422467,
+        "recall_independent": 1.0,
+        "gap": 0.7753357753357754
+      }
+    ],
+    "hf_no_wall_probe": false,
+    "no_wall_probe_recall": 0.05372405372405373,
+    "af_violations": 0,
+    "emp_rho_breaches": 0,
+    "per_unit_recall": {
+      "rho0.0_alpha0.100": 1.0,
+      "rho0.5_alpha0.100": 0.22466422466422467,
+      "rho0.7_alpha0.200": 0.05372405372405373
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 13,
+      "elapsed_s": 12.97577977180481,
+      "units": [
+        {
+          "seed": 13,
+          "rho_nominal": 0.0,
+          "alpha_nominal": 0.1,
+          "M": 819,
+          "N": 8192,
+          "rho_empirical": -1.928453488145005e-05,
+          "recall": 1.0,
+          "arm_sha256": "d1fe3fba9e0c24d6",
+          "wall_s": 5.1,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 13,
+          "rho_nominal": 0.5,
+          "alpha_nominal": 0.1,
+          "M": 819,
+          "N": 8192,
+          "rho_empirical": 0.4966255054761479,
+          "recall": 0.22466422466422467,
+          "arm_sha256": "6c82606aa8f9d7bb",
+          "wall_s": 2.57,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 13,
+          "rho_nominal": 0.7,
+          "alpha_nominal": 0.2,
+          "M": 1638,
+          "N": 8192,
+          "rho_empirical": 0.7064590607929966,
+          "recall": 0.05372405372405373,
+          "arm_sha256": "4223d15414331ec1",
+          "wall_s": 4.96,
+          "unit_status": "OK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "anchor_name": "isotropy_capacity_pull_up_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "need >=3 encoders (got 2)",
+  "run_mode": "smoke",
+  "encoders": [
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "BAAI/bge-small-en-v1.5",
+    "BAAI/bge-large-en-v1.5",
+    "EleutherAI/pythia-160m"
+  ],
+  "M_MAX": 1500,
+  "grid": [
+    25,
+    50,
+    100,
+    200,
+    400,
+    800,
+    1500
+  ],
+  "n_seeds": 2,
+  "detail": {
+    "per_encoder": {
+      "sentence-transformers/all-MiniLM-L6-v2": {
+        "nominal_D": 384,
+        "isotropy": 0.93525,
+        "capacity": 188.77394614988424,
+        "capacity_cv": 0.23482849693265415,
+        "d_eff_PR": 237.6
+      },
+      "EleutherAI/pythia-160m": {
+        "nominal_D": 768,
+        "isotropy": 0.0033,
+        "capacity": 2.604166663953993,
+        "capacity_cv": 0.0,
+        "d_eff_PR": 349.2
+      }
+    }
+  },
+  "metrics_source": "measured_gpu_isotropy_vs_hebbian_capacity_cross_encoder",
+  "per_unit": [
+    {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "nominal_D": 384,
+      "seed": 1,
+      "isotropy": 0.9365,
+      "capacity": 144.4444441152263,
+      "d_eff_PR": 238.6,
+      "capacity_curve": {
+        "25": 1.0,
+        "50": 1.0,
+        "100": 0.96,
+        "200": 0.825
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "all-MiniLM-L6-v2_s1",
+      "_partial_written_at": 1781929214.1545777
+    },
+    {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "nominal_D": 384,
+      "seed": 2,
+      "isotropy": 0.934,
+      "capacity": 233.10344818454217,
+      "d_eff_PR": 236.6,
+      "capacity_curve": {
+        "25": 1.0,
+        "50": 1.0,
+        "100": 0.99,
+        "200": 0.96,
+        "400": 0.5975
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "all-MiniLM-L6-v2_s2",
+      "_partial_written_at": 1781929222.8682587
+    },
+    {
+      "encoder": "EleutherAI/pythia-160m",
+      "nominal_D": 768,
+      "seed": 1,
+      "isotropy": 0.0033,
+      "capacity": 2.604166663953993,
+      "d_eff_PR": 351.0,
+      "capacity_curve": {
+        "25": 0.04
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "pythia-160m_s1",
+      "_partial_written_at": 1781929791.5407195
+    },
+    {
+      "encoder": "EleutherAI/pythia-160m",
+      "nominal_D": 768,
+      "seed": 2,
+      "isotropy": 0.0033,
+      "capacity": 2.604166663953993,
+      "d_eff_PR": 347.4,
+      "capacity_curve": {
+        "25": 0.04
+      },
+      "run_mode": "smoke",
+      "_ckpt_key": "pythia-160m_s2",
+      "_partial_written_at": 1781929880.6411812
+    }
+  ],
+  "elapsed_s": 682.4684979915619,
+  "summary": "need >=3 encoders (got 2)"
+}

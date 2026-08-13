@@ -1,0 +1,40 @@
+{
+  "anchor_name": "population_coding_3seed_CG_lift_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: N=100 substrate ensemble lifts noisy-recall by >=20pp across ALL 3 seeds [7,13,19] with cv<10% -- sqrt-N population-coding is cross-seed stable; lifts MM->CG for lap3_7_n100_ensemble. min=25.0pp max=30.8pp mean=28.0pp cv=0.085 seeds=[7, 13, 19]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "expected_n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "single": 0.75,
+      "ens10": 1.0,
+      "ens100": 1.0,
+      "gain100_pp": 25.0
+    },
+    {
+      "seed": 13,
+      "single": 0.7166666666666667,
+      "ens10": 1.0,
+      "ens100": 1.0,
+      "gain100_pp": 28.3
+    },
+    {
+      "seed": 19,
+      "single": 0.6916666666666667,
+      "ens10": 1.0,
+      "ens100": 1.0,
+      "gain100_pp": 30.8
+    }
+  ],
+  "cross_seed": {
+    "min_gain_pp": 25.0,
+    "max_gain_pp": 30.8,
+    "mean_gain_pp": 28.03333333333333,
+    "std_gain_pp": 2.375336233509316,
+    "cv_gain": 0.08473256481008264
+  },
+  "elapsed_s": 161.72022342681885,
+  "summary": "HARD_PASS: N=100 substrate ensemble lifts noisy-recall by >=20pp across ALL 3 seeds [7,13,19] with cv<10% -- sqrt-N population-coding is cross-seed stable; lifts MM->CG for lap3_7_n100_ensemble. min=25.0pp max=30.8pp mean=28.0pp cv=0.085 seeds=[7, 13, 19]"
+}

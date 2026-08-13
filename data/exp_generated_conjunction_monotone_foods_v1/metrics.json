@@ -1,0 +1,249 @@
+{
+  "verdict": "MIDDLE_BAND_INCONCLUSIVE",
+  "verdict_msg": "MIDDLE_BAND_INCONCLUSIVE || n=201 truth=0.8955(>=0.85=True) | CONJ: joint_mi=1.802 best_single=0.551 margin=1.251(>=0.30) ratio=0.3058(<=0.55) present=True singles={'water_content': 0.5509, 'acidity': 0.1385, 'preservative_content': 0.1969, 'unsaturated_fat_content': 0.1} | CLEAN novel: MONO_W=0.4198 MONO_T=0.3908 FREQ_NULL=0.3322 diss=0.0876(>=0.10=False) MODULAR=0.2039 mod_gap=-0.1283 mono>mod=True MEMO=0.2994 ORACLE=1.0000 | ARBITRARY(mf) gap=-0.0940 SHUFFLE(mf) gap=-0.1433 (<=0.05) mustfails=True ceiling_ok=True",
+  "summary": "MIDDLE_BAND_INCONCLUSIVE || n=201 truth=0.8955(>=0.85=True) | CONJ: joint_mi=1.802 best_single=0.551 margin=1.251(>=0.30) ratio=0.3058(<=0.55) present=True singles={'water_content': 0.5509, 'acidity':",
+  "run_mode": "local_measure",
+  "elapsed_s": 0.5027374000055715,
+  "anchor_name": "generated_conjunction_monotone_foods_v1",
+  "ts_iso": "2026-07-15T00:43:00.906002+00:00",
+  "n_entities": 201,
+  "truth_rate": 0.8955223880597015,
+  "n_judged": 201,
+  "n_true": 180,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "n_dim": 1024,
+  "L": 5,
+  "conjunction": {
+    "single_mi": {
+      "water_content": 0.5509,
+      "acidity": 0.1385,
+      "preservative_content": 0.1969,
+      "unsaturated_fat_content": 0.1
+    },
+    "best_single_mi": 0.5509,
+    "joint_mi": 1.8016,
+    "mi_margin": 1.2507,
+    "dominance_ratio": 0.3058
+  },
+  "gates": {
+    "conj_present": true,
+    "truth_ok": true,
+    "generalizes": false,
+    "mono_beats_modular": true,
+    "mustfails_fire": true,
+    "ceiling_ok": true,
+    "hard_pass": false,
+    "refute": false
+  },
+  "clean": {
+    "mono_weight": 0.41977,
+    "mono_therm": 0.39079,
+    "modular_bind": 0.20388,
+    "freq_null": 0.33218,
+    "dissociation": 0.08759,
+    "modular_gap": -0.12831,
+    "memorize": 0.29937,
+    "oracle": 1.0
+  },
+  "arbitrary": {
+    "gap": -0.09403,
+    "mono_weight": 0.13084,
+    "freq_null": 0.22487
+  },
+  "shuffle": {
+    "gap": -0.14327,
+    "mono_weight": 0.18953,
+    "freq_null": 0.33279
+  },
+  "bands": {
+    "HP_TRUTH": 0.85,
+    "CONJ_RATIO_CEIL": 0.55,
+    "CONJ_MI_MARGIN": 0.3,
+    "HP_DISSOCIATION": 0.1,
+    "MUSTFAIL_TOL": 0.05,
+    "REFUTE_TOL": 0.03
+  },
+  "per_seed": [
+    {
+      "CLEAN_REAL": {
+        "MONO_THERM": 0.46154,
+        "MONO_WEIGHT": 0.46154,
+        "MODULAR_BIND": 0.15385,
+        "HOMOPHILY_COND": 0.30769,
+        "MEMORIZE": 0.23077,
+        "POP": 0.23077,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.30769,
+        "n": 26
+      },
+      "ARBITRARY": {
+        "MONO_THERM": 0.0,
+        "MONO_WEIGHT": 0.11538,
+        "MODULAR_BIND": 0.15385,
+        "HOMOPHILY_COND": 0.26923,
+        "MEMORIZE": 0.15385,
+        "POP": 0.15385,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.26923,
+        "n": 26
+      },
+      "SHUFFLE": {
+        "MONO_THERM": 0.19231,
+        "MONO_WEIGHT": 0.23077,
+        "MODULAR_BIND": 0.23077,
+        "HOMOPHILY_COND": 0.34615,
+        "MEMORIZE": 0.38462,
+        "POP": 0.38462,
+        "ORACLE": 0.26923,
+        "FREQ_NULL": 0.38462,
+        "n": 26
+      }
+    },
+    {
+      "CLEAN_REAL": {
+        "MONO_THERM": 0.375,
+        "MONO_WEIGHT": 0.33333,
+        "MODULAR_BIND": 0.375,
+        "HOMOPHILY_COND": 0.25,
+        "MEMORIZE": 0.20833,
+        "POP": 0.20833,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.25,
+        "n": 24
+      },
+      "ARBITRARY": {
+        "MONO_THERM": 0.29167,
+        "MONO_WEIGHT": 0.25,
+        "MODULAR_BIND": 0.125,
+        "HOMOPHILY_COND": 0.16667,
+        "MEMORIZE": 0.29167,
+        "POP": 0.29167,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.29167,
+        "n": 24
+      },
+      "SHUFFLE": {
+        "MONO_THERM": 0.04167,
+        "MONO_WEIGHT": 0.16667,
+        "MODULAR_BIND": 0.125,
+        "HOMOPHILY_COND": 0.33333,
+        "MEMORIZE": 0.375,
+        "POP": 0.375,
+        "ORACLE": 0.08333,
+        "FREQ_NULL": 0.375,
+        "n": 24
+      }
+    },
+    {
+      "CLEAN_REAL": {
+        "MONO_THERM": 0.5,
+        "MONO_WEIGHT": 0.53125,
+        "MODULAR_BIND": 0.1875,
+        "HOMOPHILY_COND": 0.25,
+        "MEMORIZE": 0.28125,
+        "POP": 0.28125,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.28125,
+        "n": 32
+      },
+      "ARBITRARY": {
+        "MONO_THERM": 0.09375,
+        "MONO_WEIGHT": 0.15625,
+        "MODULAR_BIND": 0.125,
+        "HOMOPHILY_COND": 0.15625,
+        "MEMORIZE": 0.21875,
+        "POP": 0.21875,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.21875,
+        "n": 32
+      },
+      "SHUFFLE": {
+        "MONO_THERM": 0.125,
+        "MONO_WEIGHT": 0.15625,
+        "MODULAR_BIND": 0.15625,
+        "HOMOPHILY_COND": 0.21875,
+        "MEMORIZE": 0.21875,
+        "POP": 0.21875,
+        "ORACLE": 0.3125,
+        "FREQ_NULL": 0.21875,
+        "n": 32
+      }
+    },
+    {
+      "CLEAN_REAL": {
+        "MONO_THERM": 0.40909,
+        "MONO_WEIGHT": 0.27273,
+        "MODULAR_BIND": 0.13636,
+        "HOMOPHILY_COND": 0.36364,
+        "MEMORIZE": 0.31818,
+        "POP": 0.31818,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.36364,
+        "n": 22
+      },
+      "ARBITRARY": {
+        "MONO_THERM": 0.09091,
+        "MONO_WEIGHT": 0.09091,
+        "MODULAR_BIND": 0.36364,
+        "HOMOPHILY_COND": 0.13636,
+        "MEMORIZE": 0.13636,
+        "POP": 0.13636,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.13636,
+        "n": 22
+      },
+      "SHUFFLE": {
+        "MONO_THERM": 0.22727,
+        "MONO_WEIGHT": 0.22727,
+        "MODULAR_BIND": 0.22727,
+        "HOMOPHILY_COND": 0.22727,
+        "MEMORIZE": 0.22727,
+        "POP": 0.22727,
+        "ORACLE": 0.18182,
+        "FREQ_NULL": 0.22727,
+        "n": 22
+      }
+    },
+    {
+      "CLEAN_REAL": {
+        "MONO_THERM": 0.20833,
+        "MONO_WEIGHT": 0.5,
+        "MODULAR_BIND": 0.16667,
+        "HOMOPHILY_COND": 0.29167,
+        "MEMORIZE": 0.45833,
+        "POP": 0.45833,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.45833,
+        "n": 24
+      },
+      "ARBITRARY": {
+        "MONO_THERM": 0.08333,
+        "MONO_WEIGHT": 0.04167,
+        "MODULAR_BIND": 0.04167,
+        "HOMOPHILY_COND": 0.20833,
+        "MEMORIZE": 0.16667,
+        "POP": 0.16667,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.20833,
+        "n": 24
+      },
+      "SHUFFLE": {
+        "MONO_THERM": 0.33333,
+        "MONO_WEIGHT": 0.16667,
+        "MODULAR_BIND": 0.25,
+        "HOMOPHILY_COND": 0.33333,
+        "MEMORIZE": 0.45833,
+        "POP": 0.45833,
+        "ORACLE": 0.20833,
+        "FREQ_NULL": 0.45833,
+        "n": 24
+      }
+    }
+  ]
+}

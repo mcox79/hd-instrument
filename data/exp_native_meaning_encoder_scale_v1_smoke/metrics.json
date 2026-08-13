@@ -1,0 +1,183 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "native_learned held-out=0.369 (CI [0.3192, 0.4219]) >= 0.31; climbs 0.0952 >= 0.08 over untrained floor 0.2738; CI-lower 0.3192 > untrained -- native error-driven prediction EARNS property-predictive meaning off the thin ~0.21 floor (context_only=0.2321, GloVe ceiling=None)",
+  "summary": "HARD_PASS: native_learned held-out=0.369 (CI [0.3192, 0.4219]) >= 0.31; climbs 0.0952 >= 0.08 over untrained floor 0.2738; CI-lower 0.3192 > untrained -- native error-driven prediction EARNS property-predictive meaning off the thin ~0.21 floor (context_only=0.2321, GloVe ceiling=None)",
+  "run_mode": "smoke",
+  "elapsed_s": 211.19,
+  "ts_iso": "2026-07-25T17:29:52.761307+00:00",
+  "anchor_name": "native_meaning_encoder_scale_v1",
+  "device": "cpu",
+  "seed": 20260725,
+  "one_variable": "native_untrained vs native_learned = error-driven training vs random init (same arch/N_DIM/eval); glove_zerofit = borrowed-vector ceiling reference",
+  "primary_metric": "held-out-BY-CONCEPT property/value discrimination cos-pick accuracy (Wilson CI)",
+  "native_learned_heldout_acc": 0.369,
+  "native_learned_heldout_ci": [
+    0.3192,
+    0.4219
+  ],
+  "native_learned_invocab_acc": 0.9413,
+  "native_context_only_heldout_acc": 0.2321,
+  "native_context_only_invocab_acc": 0.2701,
+  "native_untrained_heldout_acc": 0.2738,
+  "native_untrained_invocab_acc": 0.2436,
+  "glove_zerofit_heldout_acc": null,
+  "glove_zerofit_note": "GloVe ceiling unavailable (ModuleNotFoundError: No module named 'gensim'); CITED atom-29562 ref ~0.554",
+  "chance": 0.1935,
+  "floor_ref_native_0211_CITED": 0.21,
+  "glove_ceiling_ref_0554_CITED": 0.554,
+  "gap_learned_over_untrained": 0.0952,
+  "gap_learned_over_context_only": 0.1369,
+  "bands": {
+    "HP_HELDOUT": 0.31,
+    "HP_GAP_OVER_UNTRAINED": 0.08,
+    "HF_HELDOUT": 0.24,
+    "SMOKE_FIRE_DELTA": 0.02,
+    "MIN_HELDOUT_ITEMS": 60,
+    "SAT": 0.95
+  },
+  "hp_scope": {
+    "native_learned": [
+      "HARD_PASS",
+      "HARD_FAIL",
+      "MIDDLE"
+    ],
+    "native_untrained": [
+      "baseline_in_band floor reference only"
+    ],
+    "native_context_only": [
+      "ablation, no gate"
+    ],
+    "glove_zerofit": [
+      "ceiling reference, no gate"
+    ]
+  },
+  "arms_differ_verified": true,
+  "arm_correctness_hashes": {
+    "native_untrained": "a58e6449a6a11a1c",
+    "native_context_only": "f2493276422bf831",
+    "native_learned": "3b0e73e5f79065aa"
+  },
+  "baseline_in_band": true,
+  "not_saturated": true,
+  "discriminator_fires": true,
+  "coverage": {
+    "n_heldout_items": 336,
+    "n_heldout_fine": 189,
+    "n_train_items": 1396,
+    "n_held_concepts": 227
+  },
+  "env_meta": {
+    "n_triples": 1752,
+    "n_concepts": 1135,
+    "n_held_concepts": 227,
+    "multi_valid_rate": 0.1001,
+    "density": {
+      "mean": 1.356,
+      "frac_ge2": 0.2229
+    },
+    "pool_sizes": {
+      "CONSUMERS-EATING": 28,
+      "CONTAINS": 121,
+      "FORMEDBY": 56,
+      "HABITAT": 30,
+      "KINDOF": 116,
+      "LOCATIONS": 102,
+      "MADEOF": 126,
+      "PARTOF": 135,
+      "PREDATOR-PREY": 3,
+      "PROP-CHEM-ACIDITY": 2,
+      "PROP-CHEM-CHARGE": 4,
+      "PROP-CHEM-REACT": 2,
+      "PROP-CONDUCTIVITY": 2,
+      "PROP-FLEX-RIGIDITY": 1,
+      "PROP-HARDNESS": 2,
+      "PROP-INHERITEDLEARNED": 3,
+      "PROP-MAGNETISM": 3,
+      "PROP-MAT-DURABILITY": 2,
+      "PROP-MAT-OPACITY": 4,
+      "PROP-RECYCLABLE": 1,
+      "PROP-RESOURCES-RENEWABLE": 3,
+      "PROP-SOLUBILITY": 2,
+      "PROP-STATESOFMATTER-TEMPS": 3,
+      "PROP-WARM-COLD-BLOODED": 2,
+      "SOURCEOF": 90,
+      "USEDFOR": 155,
+      "XIVORE": 5
+    }
+  },
+  "data_integrity": {
+    "per_relation_precision_proxy": {
+      "CONSUMERS-EATING": 1.0,
+      "CONTAINS": 0.9821,
+      "FORMEDBY": 0.7872,
+      "HABITAT": 0.9545,
+      "KINDOF": 0.9902,
+      "LOCATIONS": 0.8442,
+      "MADEOF": 0.9273,
+      "PARTOF": 0.9872,
+      "PREDATOR-PREY": 1.0,
+      "PROP-CHEM-ACIDITY": 1.0,
+      "PROP-CHEM-CHARGE": 1.0,
+      "PROP-CHEM-REACT": 0.8571,
+      "PROP-CONDUCTIVITY": 1.0,
+      "PROP-FLEX-RIGIDITY": 1.0,
+      "PROP-HARDNESS": 1.0,
+      "PROP-INHERITEDLEARNED": 0.8605,
+      "PROP-MAGNETISM": 1.0,
+      "PROP-MAT-DURABILITY": 1.0,
+      "PROP-MAT-OPACITY": 1.0,
+      "PROP-RECYCLABLE": 1.0,
+      "PROP-RESOURCES-RENEWABLE": 1.0,
+      "PROP-SOLUBILITY": 1.0,
+      "PROP-STATESOFMATTER-TEMPS": 1.0,
+      "PROP-WARM-COLD-BLOODED": 1.0,
+      "SOURCEOF": 0.882,
+      "USEDFOR": 0.9288,
+      "XIVORE": 1.0
+    },
+    "multi_valid_rate": 0.1001,
+    "density": {
+      "mean": 1.356,
+      "frac_ge2": 0.2229
+    }
+  },
+  "config": {
+    "N_DIM": 300,
+    "NEG_K": 5,
+    "WINDOW": 5,
+    "MIN_COUNT": 5,
+    "MAX_VOCAB": 120000,
+    "LAMBDA_REL": 1.0,
+    "REL_BATCH_FRAC": 0.25,
+    "BASE_LR": 0.0025,
+    "UNIGRAM_POW": 0.75,
+    "vocab_size": 17416,
+    "profile": {
+      "max_sentences": 70000,
+      "steps": 1500,
+      "batch": 512
+    },
+    "n_relations": 27,
+    "n_train_triples_relation_channel": 1413,
+    "n_relation_values": 723
+  },
+  "objective": "context(skipgram+neg-sampling over ARC science sentences) + LAMBDA_REL*relation(masked typed-relation over WorldTree); tied single table E; error-driven; NO borrowed vectors",
+  "reuse": "FRESH native objective; REUSED GPU scaffolding PATTERNS (torch.cuda batched, warmup+cosine LR, chunked loop, error-checking template); NOT the teacher-distillation core (that distills borrowed BGE)",
+  "no_borrowed_vectors": "E is random-init, trained ONLY by native context+relation prediction; GloVe appears ONLY as an eval ceiling reference, never in E",
+  "brain_fidelity_map": {
+    "context_channel": "predictive statistical learning (Rogers-McClelland / word2vec SGNS mechanism run natively over OUR corpus); error-driven predict->correct",
+    "relation_channel": "Rogers-McClelland item->attribute differentiation (predict typed-relation value from concept+relation); error-driven",
+    "tied_table": "cosine-over-one-table geometry = the property structure the eval reads; matches GloVe single-vector cos-pick",
+    "gap": "no curriculum coarse->fine ordering (batch SGNS is order-mixed); flagged, not glossed"
+  },
+  "crlb_n_a": "accuracy discriminator over cos-pick; no closed-form noise floor. Empirical floor = chance ~0.21 = native_untrained (measured). HARD-PASS 0.31 < GloVe ceiling 0.554 and > chance -> reachable.",
+  "final_metrics_atomicity": "tmp_replace",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_torch_manual_seed_sorted_no_builtin_hash",
+  "calibration_check": "default_ok_for_this_regime",
+  "storage": "no_composition_selfcontained_representation_learning",
+  "contract": "SMOKE local foreground; FULL GPU overnight_queue (ARC+WorldTree staged; GloVe ceiling CITED); no push/remote-persist; VET-PENDING"
+}

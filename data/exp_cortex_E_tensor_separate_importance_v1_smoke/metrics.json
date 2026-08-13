@@ -1,0 +1,70 @@
+{
+  "anchor_name": "cortex_E_tensor_separate_importance_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: E_GATED preserves old recall + recent recall + discriminates vs RANDOM + E carries info |W| does not. E_GATED(rec_old=1.000,rec_rec=1.000,cor=-0.026,cv=0.000); RANDOM(rec_old=0.925,rec_rec=0.933); BASELINE_mag(rec_old=1.000,rec_rec=1.000)",
+  "summary": "n_seeds=1 N=256 M_OLD=50 M_RECENT=30 alpha=0.312 mode=smoke downscale_scale=0.2 e_threshold=0.3",
+  "elapsed_s": 0.1418614387512207,
+  "config_version": "ANCHOR=cortex_E_tensor_separate_importance_v1,N=256,M_OLD=50,M_RECENT=30,USE_FRAC=0.3,N_PASSES=2,DOWNSCALE_SCALE=0.2,DOWNSCALE_FRAC=0.4,E_THRESHOLD=0.3,SEEDS=7,N_QUERIES=40,RUN_MODE=smoke",
+  "N": 256,
+  "M_OLD": 50,
+  "M_RECENT": 30,
+  "alpha": 0.3125,
+  "n_seeds": 1,
+  "n_queries": 40,
+  "downscale_scale": 0.2,
+  "downscale_frac": 0.4,
+  "e_threshold": 0.3,
+  "use_frac": 0.3,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.08257031440734863,
+      "arms": [
+        {
+          "arm_name": "ARM_NO_E_BASELINE",
+          "recall_old": 1.0,
+          "recall_recent": 1.0,
+          "W_norm_pre": 2289.3946798225943,
+          "W_norm_post": 1832.2185022534836,
+          "cor_E_magnitude": -0.06084035810891507,
+          "n_downscaled": 104,
+          "downscale_frac_actual": 1.3,
+          "wall_s": 0.011452913284301758,
+          "E_min": 0.5,
+          "E_max": 0.5950000000000001,
+          "E_mean": 0.5178125
+        },
+        {
+          "arm_name": "ARM_E_GATED_DOWNSCALE",
+          "recall_old": 1.0,
+          "recall_recent": 1.0,
+          "W_norm_pre": 2289.3946798225943,
+          "W_norm_post": 2289.3946798225943,
+          "cor_E_magnitude": -0.02562495991701207,
+          "n_downscaled": 0,
+          "downscale_frac_actual": 0.0,
+          "wall_s": 0.03967428207397461,
+          "E_min": 0.5,
+          "E_max": 0.5950000000000001,
+          "E_mean": 0.5178125
+        },
+        {
+          "arm_name": "ARM_RANDOM_GATED_DOWNSCALE",
+          "recall_old": 0.925,
+          "recall_recent": 0.9333333333333333,
+          "W_norm_pre": 2289.3946798225943,
+          "W_norm_post": 1789.2255307814048,
+          "cor_E_magnitude": 0.19104591269076093,
+          "n_downscaled": 32,
+          "downscale_frac_actual": 0.4,
+          "wall_s": 0.030887603759765625,
+          "E_min": 0.5,
+          "E_max": 0.5950000000000001,
+          "E_mean": 0.5178125
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "anchor_name": "ingest_gate_knee_locate_real_regime_v3",
+  "elapsed_s": 38.07,
+  "ts_iso": "2026-07-16T03:27:22.241011+00:00",
+  "n_seeds": 1,
+  "config": {
+    "seeds": [
+      7
+    ],
+    "sweep_epochs": [
+      3,
+      12,
+      40,
+      120,
+      300
+    ],
+    "sweep_n_ent": 300,
+    "real_k_core": 8,
+    "real_max_nodes": 1500,
+    "real_epochs": 120,
+    "posctrl_n_ent": 500,
+    "posctrl_epochs": 200,
+    "rel_scale": 4.0
+  },
+  "bands": {
+    "HP_POSCTRL_KEY_AUC_MIN": 0.75,
+    "HP_SWEEP_RISE_MIN": 0.2,
+    "HP_REAL_ABS_KEY_AUC_MIN": 0.7,
+    "HP_POSCTRL_MRR_MIN": 0.4,
+    "KNEE_BAND_FRAC": 0.05,
+    "BELOW_KNEE_FRAC": 0.2
+  },
+  "expected_n_units": 7,
+  "observed_n_units": 7,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "per_candidate_arrays": "per_candidate_arrays.npz",
+  "verdict": "MIDDLE_BAND_near_knee",
+  "verdict_msg": "KNEE: floor=0.559 ceil=0.986 mid=0.773 knee_mrr=0.1636 | REAL: mrr=0.1232 key_auc=0.774 (STRADDLE knee; mrr below knee_mrr) | POSCTRL: mrr=0.669 key_auc=0.982 | harness_valid=True arrays_ok=True(d=0.0e+00) card=True -> MIDDLE_BAND_near_knee",
+  "summary": "MIDDLE_BAND_near_knee: REAL_STRADDLES_KNEE: real KEY-AUC 0.774 sits between floor 0.559 and knee-mid 0.773 (ambiguous; real ~0.13 is right at the knee)",
+  "finding": "REAL_STRADDLES_KNEE: real KEY-AUC 0.774 sits between floor 0.559 and knee-mid 0.773 (ambiguous; real ~0.13 is right at the knee)",
+  "gates": {
+    "cardinality_ok": true,
+    "HP_POSCTRL_FIRES": true,
+    "HP_POSCTRL_GENERALIZES": true,
+    "HP_SWEEP_RISES": true,
+    "baseline_in_band": true
+  },
+  "run_mode": "smoke",
+  "knee": {
+    "floor": 0.5592618664521319,
+    "ceil": 0.9857569053365514,
+    "mid": 0.7725093858943417,
+    "knee_mrr": 0.16363960261192206,
+    "band": 0.4264950388844194,
+    "above_thresh": 0.7938341378385627,
+    "below_thresh": 0.6445608742290159
+  },
+  "real": {
+    "mrr": 0.12321180658773856,
+    "key_auc": 0.7740530303030303,
+    "knee_side": "STRADDLE",
+    "mrr_side": "below"
+  },
+  "posctrl": {
+    "mrr": 0.6688493046223765,
+    "key_auc": 0.9822405470635559
+  },
+  "agg": {
+    "real_mrr": 0.12321180658773856,
+    "real_key_auc": 0.7740530303030303,
+    "posctrl_mrr": 0.6688493046223765,
+    "posctrl_key_auc": 0.9822405470635559,
+    "knee_mrr": 0.16363960261192206,
+    "knee_floor": 0.5592618664521319,
+    "knee_ceil": 0.9857569053365514,
+    "knee_mid": 0.7725093858943417,
+    "array_recompute_delta": 0.0
+  },
+  "sweep_curve": [
+    {
+      "epochs": 3,
+      "mrr": 0.014797432330529789,
+      "key_auc": 0.56894945025476
+    },
+    {
+      "epochs": 12,
+      "mrr": 0.01571495741134668,
+      "key_auc": 0.5592618664521319
+    },
+    {
+      "epochs": 40,
+      "mrr": 0.2948943568818678,
+      "key_auc": 0.9617256637168141
+    },
+    {
+      "epochs": 120,
+      "mrr": 0.750619556391748,
+      "key_auc": 0.9857569053365514
+    },
+    {
+      "epochs": 300,
+      "mrr": 0.7558383237739081,
+      "key_auc": 0.9850730758916599
+    }
+  ],
+  "sweep_per_seed": [
+    [
+      {
+        "epochs": 3,
+        "mrr": 0.014797432330529789,
+        "key_auc": 0.56894945025476,
+        "n_infer": 678,
+        "n_novel": 220,
+        "surp_infer_sha": "5a5233aa8b2446ec",
+        "surp_novel_sha": "d6e881e809226070"
+      },
+      {
+        "epochs": 12,
+        "mrr": 0.01571495741134668,
+        "key_auc": 0.5592618664521319,
+        "n_infer": 678,
+        "n_novel": 220,
+        "surp_infer_sha": "602e8ad1e53bf61e",
+        "surp_novel_sha": "57a0d4140439ef69"
+      },
+      {
+        "epochs": 40,
+        "mrr": 0.2948943568818678,
+        "key_auc": 0.9617256637168141,
+        "n_infer": 678,
+        "n_novel": 220,
+        "surp_infer_sha": "63365dc055a62763",
+        "surp_novel_sha": "7818ed8b581ca097"
+      },
+      {
+        "epochs": 120,
+        "mrr": 0.750619556391748,
+        "key_auc": 0.9857569053365514,
+        "n_infer": 678,
+        "n_novel": 220,
+        "surp_infer_sha": "096727201b42c671",
+        "surp_novel_sha": "88fdd17dee83527d"
+      },
+      {
+        "epochs": 300,
+        "mrr": 0.7558383237739081,
+        "key_auc": 0.9850730758916599,
+        "n_infer": 678,
+        "n_novel": 220,
+        "surp_infer_sha": "e82c62a0a7b5074a",
+        "surp_novel_sha": "32c55f099e43fd48"
+      }
+    ]
+  ],
+  "real_per_seed": [
+    {
+      "seed": 7,
+      "rstar": "mayhaveproperty",
+      "N": 670,
+      "n_found": 591,
+      "n_rstar": 40,
+      "n_infer": 66,
+      "real_mrr": 0.12321180658773856,
+      "real_key_auc": 0.7740530303030303,
+      "surp_infer_sha": "fc9f8f3fd7489cb0",
+      "surp_novel_sha": "c2426473cf346c35"
+    }
+  ],
+  "posctrl_per_seed": [
+    {
+      "epochs": 200,
+      "mrr": 0.6688493046223765,
+      "key_auc": 0.9822405470635559,
+      "n_infer": 678,
+      "n_novel": 220
+    }
+  ]
+}

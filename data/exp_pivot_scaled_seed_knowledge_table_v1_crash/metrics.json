@@ -1,0 +1,9 @@
+{
+  "anchor_name": "pivot_scaled_seed_knowledge_table_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: 5 per-item score vectors must not be bit-identical (META_RULE_AF)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_pivot_scaled_seed_knowledge_table_v1.py\", line 759, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_pivot_scaled_seed_knowledge_table_v1.py\", line 747, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_pivot_scaled_seed_knowledge_table_v1.py\", line 713, in self_test\n    assert res[\"arms_differ_verified\"], \"5 per-item score vectors must not be bit-identical (META_RULE_AF)\"\n           ~~~^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 5 per-item score vectors must not be bit-identical (META_RULE_AF)\n",
+  "ts_iso": "2026-07-23T14:09:20.674274+00:00"
+}

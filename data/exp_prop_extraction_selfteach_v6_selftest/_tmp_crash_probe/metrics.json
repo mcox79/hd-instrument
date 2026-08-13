@@ -1,0 +1,11 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "RuntimeError: selftest probe",
+  "summary": "CELL_CRASHED: RuntimeError",
+  "elapsed_s": 0.0,
+  "traceback": "NoneType: None\n",
+  "ts_iso": "2026-07-28T01:01:44.665099+00:00",
+  "pid": 10576,
+  "anchor_name": "prop_extraction_selfteach_v6",
+  "failure_class": "RuntimeError"
+}

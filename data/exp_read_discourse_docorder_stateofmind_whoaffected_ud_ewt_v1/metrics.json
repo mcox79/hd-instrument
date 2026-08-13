@@ -1,0 +1,87 @@
+{
+  "verdict": "HARD_FAIL_SELFCONTAINED | COHERENCE_NULL",
+  "verdict_msg": "ACC[HARD_FAIL_SELFCONTAINED] iso_overall=0.6390438247011953 ctx_overall=0.6390438247011953 d_overall=0.0 | iso_amb=0.49033816425120774 ctx_amb=0.49033816425120774 d_amb_true=0.0 d_amb_wrongdoc=0.0024 discourse_specific=-0.0024 | iso_pron=0.712 ctx_pron=0.712 d_pron=0.0 | COH[COHERENCE_NULL] flag_rate=0.0661 p_wrong|flag=0.5904 p_wrong|noflag=0.3447 lift=1.7126 fixed=34 broke=34 | pron_resolution_cov=0.6979 (n=96)",
+  "summary": "HARD_FAIL_SELFCONTAINED | COHERENCE_NULL",
+  "elapsed_s": 32.66,
+  "run_mode": "full",
+  "anchor_name": "read_discourse_docorder_stateofmind_whoaffected_ud_ewt_v1",
+  "ts_iso": "2026-07-21T17:16:51.281311+00:00",
+  "n_docs": 316,
+  "n_sent": 2077,
+  "n_gold_instances": 1255,
+  "n_ambiguous": 414,
+  "n_pronoun_patient": 250,
+  "accuracy": {
+    "isolated_overall": 0.6390438247011953,
+    "incontext_true_overall": 0.6390438247011953,
+    "delta_overall_true": 0.0,
+    "isolated_ambiguous": 0.49033816425120774,
+    "incontext_true_ambiguous": 0.49033816425120774,
+    "delta_ambiguous_true": 0.0,
+    "wrongdoc_delta_ambiguous_per_seed": [
+      0.0048,
+      0.0,
+      0.0024
+    ],
+    "wrongdoc_delta_ambiguous_mean": 0.0024,
+    "discourse_specific_ambiguous": -0.0024,
+    "wrongdoc_delta_overall_per_seed": [
+      0.0016,
+      0.0,
+      0.0008
+    ],
+    "isolated_pronoun": 0.712,
+    "incontext_true_pronoun": 0.712,
+    "delta_pronoun_true": 0.0,
+    "accuracy_verdict": "HARD_FAIL_SELFCONTAINED"
+  },
+  "coherence_signal": {
+    "n_flag": 83,
+    "n_noflag": 1172,
+    "flag_rate": 0.0661,
+    "p_isolated_wrong_given_flag": 0.5904,
+    "p_isolated_wrong_given_noflag": 0.3447,
+    "flag_error_lift_ratio": 1.7126,
+    "n_fixed_by_switch": 34,
+    "n_broken_by_switch": 34,
+    "coherence_verdict": "COHERENCE_NULL"
+  },
+  "pronoun_resolution_coverage": {
+    "n_pronoun_patient_extracted": 96,
+    "n_resolved_to_prior_entity": 67,
+    "resolution_coverage": 0.6979
+  },
+  "smoke_gate": {
+    "n_ambiguous": 414,
+    "n_pronoun_patient": 250,
+    "n_disagreements": 83,
+    "baseline_in_band": true,
+    "arms_differ": true,
+    "fires": true
+  },
+  "design_gate": {
+    "real_baseline": "isolated reader re-derived live",
+    "can_fail": true,
+    "one_variable": "state_of_mind_on_vs_off",
+    "difficulty_on_subsets": [
+      "ambiguous",
+      "pronoun_patient"
+    ],
+    "must_fail_control": "wrongdoc_overlay",
+    "leak_clean": "state from prior sentences only; gold never observed",
+    "baseline_in_band": true,
+    "arms_differ_verified": true
+  },
+  "cell_template": {
+    "final_metrics_atomicity": "tmp_replace",
+    "crlb_n_a": "token-selection; no noise floor",
+    "deterministic_seeding": "fixed ints + default_rng + sorted(set)",
+    "progress_logging": "print_flush_true",
+    "defensive_error_checking": "start_marker+crash_diag; heartbeat exempt (<3min cell)"
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ]
+}

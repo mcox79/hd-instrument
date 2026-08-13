@@ -1,0 +1,201 @@
+{
+  "verdict": "HARD_PASS_PEEL_SIC_TRANSFERS_TO_REAL_CODES",
+  "verdict_msg": "HARD_PASS_PEEL_SIC_TRANSFERS_TO_REAL_CODES | TRANSFER TEST: does the CLEAN-code confidence-ordered peel/SIC readout fix the REAL two-head STORE head collapse? HEADLINE source=twohead_shared deep_J=8: FLAT_ARGMAX=0.204 (collapsed<=0.7:True) -> best_peel=0.940 (FLAT_PEEL_UNIT) lift=+0.736 (HP needs >=+0.2 AND abs>=0.6 AND cv<=0.15; cv=0.034); lift persists @J12=+0.778. ever_lifts=True. cache=bge_large_v2_name_43905_8a40445a.npz. | twohead_shared: AX@J8=0.204 best_peel@J8=0.940 (lift=+0.736) @J12 lift=+0.778 | singlehead_native: AX@J8=0.232 best_peel@J8=0.956 (lift=+0.724) @J12 lift=+0.795 | native_untrained: AX@J8=0.569 best_peel@J8=0.999 (lift=+0.430) @J12 lift=+0.706 INTERPRETATION: confidence-ordered peel/SIC TRANSFERS from clean synthetic codes to REAL correlated encoder store codes -> the two-head superposition-recall wall is a READOUT limit, beatable by matching-pursuit deflation; the store head does NOT need re-training, only a better readout.",
+  "summary": "HARD_PASS_PEEL_SIC_TRANSFERS_TO_REAL_CODES: peel/SIC readout transfer to real two-head store codes (full)",
+  "run_mode": "full",
+  "device": "cuda",
+  "elapsed_s": 2129.454287499946,
+  "ts_iso": "2026-07-08T17:28:40.039927+00:00",
+  "anchor_name": "encoder_peel_sic_readout_realcodes_v1",
+  "cache_source": "bge_large_v2_name_43905_8a40445a.npz",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units": 5,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "classification": {
+    "headline_source": "twohead_shared",
+    "deep_j": 8,
+    "max_j": 12,
+    "argmax_deep": 0.20395833333333332,
+    "peel_best_deep": 0.9404166666666665,
+    "lift_deep": 0.7364583333333331,
+    "lift_max": 0.7776666666666656,
+    "peel_best_arm_deepj": "FLAT_PEEL_UNIT",
+    "cv_deep": 0.03426077986925491,
+    "discriminator_fires": true,
+    "ever_lifts": true,
+    "lifts_per_J": {
+      "3": 0.010666666666666713,
+      "5": 0.24519999999999575,
+      "8": 0.7364583333333331,
+      "12": 0.7776666666666656
+    },
+    "bands": {
+      "ARGMAX_COLLAPSE_HI": 0.7,
+      "PEEL_LIFT_HP": 0.2,
+      "PEEL_ABS_HP": 0.6,
+      "NO_TRANSFER_HI": 0.05,
+      "CV_MAX": 0.15
+    },
+    "verdict": "HARD_PASS_PEEL_SIC_TRANSFERS_TO_REAL_CODES"
+  },
+  "agg": {
+    "n_seeds": 5,
+    "sources": {
+      "twohead_shared": {
+        "arms": {
+          "FLAT_ARGMAX": {
+            "3": 0.9892222222222221,
+            "5": 0.7540666666666709,
+            "8": 0.20395833333333332,
+            "12": 0.04738888888888892
+          },
+          "FLAT_PEEL_UNIT": {
+            "3": 0.9998888888888888,
+            "5": 0.9992666666666666,
+            "8": 0.9404166666666665,
+            "12": 0.8250555555555545
+          },
+          "FLAT_PEEL_PROJ": {
+            "3": 0.9998888888888888,
+            "5": 0.9989999999999999,
+            "8": 0.931875,
+            "12": 0.65125
+          }
+        },
+        "best_peel": {
+          "3": 0.9998888888888888,
+          "5": 0.9992666666666666,
+          "8": 0.9404166666666665,
+          "12": 0.8250555555555545
+        },
+        "best_peel_arm_deepj": "FLAT_PEEL_UNIT",
+        "best_peel_deepj_cv": 0.03426077986925491,
+        "best_peel_deepj_per_seed": [
+          0.9402083333333333,
+          0.9002083333333334,
+          0.975625,
+          0.9089583333333333,
+          0.9770833333333333
+        ]
+      },
+      "singlehead_native": {
+        "arms": {
+          "FLAT_ARGMAX": {
+            "3": 0.9916666666666668,
+            "5": 0.7985333333333374,
+            "8": 0.23195833333333332,
+            "12": 0.05274999999999995
+          },
+          "FLAT_PEEL_UNIT": {
+            "3": 0.9998888888888888,
+            "5": 0.9997333333333331,
+            "8": 0.9549999999999998,
+            "12": 0.8472777777777768
+          },
+          "FLAT_PEEL_PROJ": {
+            "3": 0.9998888888888888,
+            "5": 0.9996666666666666,
+            "8": 0.9560000000000001,
+            "12": 0.7519999999999999
+          }
+        },
+        "best_peel": {
+          "3": 0.9998888888888888,
+          "5": 0.9997333333333331,
+          "8": 0.9560000000000001,
+          "12": 0.8472777777777768
+        },
+        "best_peel_arm_deepj": "FLAT_PEEL_PROJ",
+        "best_peel_deepj_cv": 0.014950395100779886,
+        "best_peel_deepj_per_seed": [
+          0.9522916666666666,
+          0.9302083333333333,
+          0.9670833333333333,
+          0.9702083333333333,
+          0.9602083333333333
+        ]
+      },
+      "native_untrained": {
+        "arms": {
+          "FLAT_ARGMAX": {
+            "3": 0.9836666666666668,
+            "5": 0.8535333333333368,
+            "8": 0.5694166666666666,
+            "12": 0.2686388888888889
+          },
+          "FLAT_PEEL_UNIT": {
+            "3": 0.9998888888888888,
+            "5": 0.9999333333333332,
+            "8": 0.9990833333333333,
+            "12": 0.9750833333333334
+          },
+          "FLAT_PEEL_PROJ": {
+            "3": 0.9998888888888888,
+            "5": 0.9997333333333334,
+            "8": 0.9944166666666666,
+            "12": 0.9413333333333345
+          }
+        },
+        "best_peel": {
+          "3": 0.9998888888888888,
+          "5": 0.9999333333333332,
+          "8": 0.9990833333333333,
+          "12": 0.9750833333333334
+        },
+        "best_peel_arm_deepj": "FLAT_PEEL_UNIT",
+        "best_peel_deepj_cv": 0.00038675529633397057,
+        "best_peel_deepj_per_seed": [
+          0.9991666666666666,
+          0.99875,
+          0.9985416666666667,
+          0.9995833333333334,
+          0.999375
+        ]
+      }
+    }
+  },
+  "regime": {
+    "N": 4096,
+    "H": 512,
+    "V": 40000,
+    "iters": 800,
+    "B": 8192,
+    "lr": 0.001,
+    "nq": 600,
+    "Js": [
+      3,
+      5,
+      8,
+      12
+    ],
+    "deep_j": 8,
+    "max_j": 12
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ],
+  "readout_arms": [
+    "FLAT_ARGMAX",
+    "FLAT_PEEL_UNIT",
+    "FLAT_PEEL_PROJ"
+  ],
+  "sources": [
+    "twohead_shared",
+    "singlehead_native",
+    "native_untrained"
+  ],
+  "headline_source": "twohead_shared",
+  "bands": {
+    "ARGMAX_COLLAPSE_HI": 0.7,
+    "PEEL_LIFT_HP": 0.2,
+    "PEEL_ABS_HP": 0.6,
+    "NO_TRANSFER_HI": 0.05,
+    "CV_MAX": 0.15
+  }
+}

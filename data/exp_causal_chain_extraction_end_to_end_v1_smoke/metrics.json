@@ -1,0 +1,114 @@
+{
+  "anchor_name": "causal_chain_extraction_end_to_end_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: smoke discriminator did NOT survive (A-C=-0.750<0.05 OR A-E=0.000<0.25); do NOT dispatch full. MEASURED@chain-MRR@5=0.000 (A) skeleton-F1=0.889 orient-acc=0.500 | gaps: A-B=-0.167 A-C=-0.750 D-A=0.000 A-E=0.000 | ARM_B=0.167 ARM_C=0.750 ARM_D=0.000 ARM_E=0.000 | cardinality_ok=True arms_differ=True N=2048 N_VARS=5 N_OBS=1000 seeds=1",
+  "summary": "HARD_FAIL: smoke discriminator did NOT survive (A-C=-0.750<0.05 OR A-E=0.000<0.25); do NOT dispatch full. MEASURED@chain-MRR@5=0.000 (A) skeleton-F1=0.889 orient-acc=0.500 | gaps: A-B=-0.167 A-C=-0.750 D-A=0.000 A-E=0.000 | ARM_B=0.167 ARM_C=0.750 ARM_D=0.000 ARM_E=0.000 | cardinality_ok=True arms_differ=True N=2048 N_VARS=5 N_OBS=1000 seeds=1",
+  "N": 2048,
+  "n_vars": 5,
+  "n_obs": 1000,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "elapsed_s": 0.21280407905578613,
+      "arms": {
+        "ARM_A_FULL": {
+          "skeleton_f1": 0.888888888888889,
+          "orientation_acc": 0.5,
+          "chain_mrr_5": 0.0,
+          "n_edges_predicted": 5.0,
+          "n_chains": 4.0
+        },
+        "ARM_B_SKEL_ONLY": {
+          "skeleton_f1": 0.888888888888889,
+          "orientation_acc": 0.0,
+          "chain_mrr_5": 0.16666666666666666,
+          "n_edges_predicted": 5.0,
+          "n_chains": 16.0
+        },
+        "ARM_C_TEMP_ONLY": {
+          "skeleton_f1": 0.5714285714285715,
+          "orientation_acc": 1.0,
+          "chain_mrr_5": 0.75,
+          "n_edges_predicted": 10.0,
+          "n_chains": 10.0
+        },
+        "ARM_D_TRUE_CORR_CEIL": {
+          "skeleton_f1": 0.7272727272727273,
+          "orientation_acc": 0.5,
+          "chain_mrr_5": 0.0,
+          "n_edges_predicted": 7.0,
+          "n_chains": 4.0
+        },
+        "ARM_E_RANDOM": {
+          "skeleton_f1": 0.5,
+          "orientation_acc": 0.5,
+          "chain_mrr_5": 0.0,
+          "n_edges_predicted": 4.0,
+          "n_chains": 1.0
+        }
+      },
+      "arm_hashes": {
+        "ARM_A_FULL": "ebbaff5245dcc373",
+        "ARM_B_SKEL_ONLY": "5e48ff69d0a57256",
+        "ARM_C_TEMP_ONLY": "7ff10f98e617bfa7",
+        "ARM_D_TRUE_CORR_CEIL": "fc7882aa6f080220",
+        "ARM_E_RANDOM": "04c3f4c444a73940"
+      },
+      "unique_arms": 5,
+      "N": 2048,
+      "n_vars": 5,
+      "n_obs": 1000,
+      "run_mode": "smoke"
+    }
+  ],
+  "arms_aggregate": {
+    "ARM_A_FULL": {
+      "chain_mrr_5": 0.0,
+      "chain_mrr_5_std": 0.0,
+      "skeleton_f1": 0.888888888888889,
+      "skeleton_f1_std": 0.0,
+      "orientation_acc": 0.5,
+      "orientation_acc_std": 0.0
+    },
+    "ARM_B_SKEL_ONLY": {
+      "chain_mrr_5": 0.16666666666666666,
+      "chain_mrr_5_std": 0.0,
+      "skeleton_f1": 0.888888888888889,
+      "skeleton_f1_std": 0.0,
+      "orientation_acc": 0.0,
+      "orientation_acc_std": 0.0
+    },
+    "ARM_C_TEMP_ONLY": {
+      "chain_mrr_5": 0.75,
+      "chain_mrr_5_std": 0.0,
+      "skeleton_f1": 0.5714285714285715,
+      "skeleton_f1_std": 0.0,
+      "orientation_acc": 1.0,
+      "orientation_acc_std": 0.0
+    },
+    "ARM_D_TRUE_CORR_CEIL": {
+      "chain_mrr_5": 0.0,
+      "chain_mrr_5_std": 0.0,
+      "skeleton_f1": 0.7272727272727273,
+      "skeleton_f1_std": 0.0,
+      "orientation_acc": 0.5,
+      "orientation_acc_std": 0.0
+    },
+    "ARM_E_RANDOM": {
+      "chain_mrr_5": 0.0,
+      "chain_mrr_5_std": 0.0,
+      "skeleton_f1": 0.5,
+      "skeleton_f1_std": 0.0,
+      "orientation_acc": 0.5,
+      "orientation_acc_std": 0.0
+    }
+  },
+  "elapsed_s": 0.21480298042297363,
+  "parent_atoms": [
+    "data/exp_causal_correlational_disambig_v1/metrics.json",
+    "data/exp_counterfactual_replay_latency_delta_stack_v2_single_intervention/metrics.json",
+    "data/exp_causal_audit_chain_depth_v1/metrics.json"
+  ]
+}

@@ -1,0 +1,702 @@
+{
+  "verdict": "PASSIVE_MECHANISM_CAPABILITY_EARNED",
+  "verdict_msg": "SYSTEMATIC PASSIVE = CAPABILITY: mechanism fires on 12/13 independent held-out passages (up from OFF=2; delta +10), reader recovers 23/24 who-did-what (acc=0.9583) vs naive 0/24 (acc=0.0), margin +23. McGuffey composed F1 non-regression: base=0.5868 -> on=0.5868. P2 ablation (flag OFF) reproduces the banked parse-luck baseline (2 passages). fired_pids=['assailed', 'confined', 'evinced', 'freed', 'made', 'met', 'opposed', 'overset', 'overtaken', 'revealed', 'supplied', 'washed']. Systematic (subject->PATIENT, by-object->AGENT on every detected passive), NOT parse-luck. CHAIN-GRADE CANDIDATE -- HYPOTHESIS pending skunkworks landed-VET; NOT banked.",
+  "summary": "PASSIVE_MECHANISM_CAPABILITY_EARNED: ON_fired=12/13 (OFF=2, delta +10) reader=23/24 (acc=0.9583) vs naive=0 margin=+23 | McGuffey f1 0.5868->0.5868 non_regress=True | capability=True | parser_uas=0.7882",
+  "elapsed_s": 78.96,
+  "ts_iso": "2026-07-24T00:29:16.581404+00:00",
+  "anchor_name": "consolidated_reader_passive_mechanism_heldout_v1",
+  "run_mode": "full",
+  "seed": 20260723,
+  "n_gold": 24,
+  "n_passages": 13,
+  "n_novels": 11,
+  "naive_acc": 0.0,
+  "reader_acc_on": 0.9583,
+  "on_fired": 12,
+  "off_fired": 2,
+  "delta_fired": 10,
+  "on_fired_pids": [
+    "assailed",
+    "confined",
+    "evinced",
+    "freed",
+    "made",
+    "met",
+    "opposed",
+    "overset",
+    "overtaken",
+    "revealed",
+    "supplied",
+    "washed"
+  ],
+  "off_fired_pids": [
+    "opposed",
+    "revealed"
+  ],
+  "recovered_by_mechanism": [
+    "assailed",
+    "confined",
+    "evinced",
+    "freed",
+    "made",
+    "met",
+    "overset",
+    "overtaken",
+    "supplied",
+    "washed"
+  ],
+  "still_failing_pids": [
+    "injured"
+  ],
+  "n_reader_on": 23,
+  "n_reader_off": 4,
+  "n_naive": 0,
+  "reader_margin": 23,
+  "passive_reanalysis_fired": 12,
+  "is_capability": true,
+  "mcguffey": {
+    "base": {
+      "f1": 0.5868,
+      "precision": 0.5,
+      "recall": 0.71,
+      "n_pred": 142,
+      "tp": 71,
+      "n_gold": 100,
+      "arm_hash": "dea862f11084c939"
+    },
+    "on": {
+      "f1": 0.5868,
+      "precision": 0.5,
+      "recall": 0.71,
+      "n_pred": 142,
+      "tp": 71,
+      "n_gold": 100,
+      "arm_hash": "92575d4bc757b8e6"
+    },
+    "non_regression": true,
+    "hard_regress": false,
+    "regress_tol": 0.002
+  },
+  "validity_ok": true,
+  "per_item_on": [
+    {
+      "qid": "met_agent",
+      "pid": "met",
+      "kind": "agent",
+      "verb": "met",
+      "answer": "parson",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "met",
+        "parson",
+        "he"
+      ]
+    },
+    {
+      "qid": "met_patient",
+      "pid": "met",
+      "kind": "patient",
+      "verb": "met",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "met",
+        "parson",
+        "he"
+      ]
+    },
+    {
+      "qid": "evinced_patient",
+      "pid": "evinced",
+      "kind": "patient",
+      "verb": "evinced",
+      "answer": "ambition",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "evinced",
+        "impatience",
+        "ambition"
+      ]
+    },
+    {
+      "qid": "evinced_agent",
+      "pid": "evinced",
+      "kind": "agent",
+      "verb": "evinced",
+      "answer": "impatience",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "evinced",
+        "impatience",
+        "ambition"
+      ]
+    },
+    {
+      "qid": "supplied_patient",
+      "pid": "supplied",
+      "kind": "patient",
+      "verb": "supplied",
+      "answer": "place",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "supplied",
+        "woman",
+        "place"
+      ]
+    },
+    {
+      "qid": "supplied_agent",
+      "pid": "supplied",
+      "kind": "agent",
+      "verb": "supplied",
+      "answer": "woman",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "supplied",
+        "woman",
+        "place"
+      ]
+    },
+    {
+      "qid": "revealed_agent",
+      "pid": "revealed",
+      "kind": "agent",
+      "verb": "revealed",
+      "answer": "painter",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "revealed",
+        "painter",
+        "he"
+      ]
+    },
+    {
+      "qid": "revealed_patient",
+      "pid": "revealed",
+      "kind": "patient",
+      "verb": "revealed",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "revealed",
+        "painter",
+        "he"
+      ]
+    },
+    {
+      "qid": "washed_patient",
+      "pid": "washed",
+      "kind": "patient",
+      "verb": "washed",
+      "answer": "mole",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "washed",
+        "waves",
+        "mole"
+      ]
+    },
+    {
+      "qid": "washed_agent",
+      "pid": "washed",
+      "kind": "agent",
+      "verb": "washed",
+      "answer": "waves",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "washed",
+        "waves",
+        "mole"
+      ]
+    },
+    {
+      "qid": "freed_agent",
+      "pid": "freed",
+      "kind": "agent",
+      "verb": "freed",
+      "answer": "death",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "freed",
+        "death",
+        "i"
+      ]
+    },
+    {
+      "qid": "freed_patient",
+      "pid": "freed",
+      "kind": "patient",
+      "verb": "freed",
+      "answer": "i",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "freed",
+        "death",
+        "i"
+      ]
+    },
+    {
+      "qid": "confined_agent",
+      "pid": "confined",
+      "kind": "agent",
+      "verb": "confined",
+      "answer": "gout",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "confined",
+        "gout",
+        "he"
+      ]
+    },
+    {
+      "qid": "confined_patient",
+      "pid": "confined",
+      "kind": "patient",
+      "verb": "confined",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "confined",
+        "gout",
+        "he"
+      ]
+    },
+    {
+      "qid": "overtaken_agent",
+      "pid": "overtaken",
+      "kind": "agent",
+      "verb": "overtaken",
+      "answer": "judgment",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "overtaken",
+        "judgment",
+        "i"
+      ]
+    },
+    {
+      "qid": "overtaken_patient",
+      "pid": "overtaken",
+      "kind": "patient",
+      "verb": "overtaken",
+      "answer": "i",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "overtaken",
+        "judgment",
+        "i"
+      ]
+    },
+    {
+      "qid": "injured_patient",
+      "pid": "injured",
+      "kind": "patient",
+      "verb": "injured",
+      "answer": "men",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "opposed_agent",
+      "pid": "opposed",
+      "kind": "agent",
+      "verb": "opposed",
+      "answer": "men",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "opposed",
+        "men",
+        "he"
+      ]
+    },
+    {
+      "qid": "opposed_patient",
+      "pid": "opposed",
+      "kind": "patient",
+      "verb": "opposed",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "opposed",
+        "men",
+        "he"
+      ]
+    },
+    {
+      "qid": "assailed_agent",
+      "pid": "assailed",
+      "kind": "agent",
+      "verb": "assailed",
+      "answer": "questions",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "assailed",
+        "questions",
+        "he"
+      ]
+    },
+    {
+      "qid": "assailed_patient",
+      "pid": "assailed",
+      "kind": "patient",
+      "verb": "assailed",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "assailed",
+        "questions",
+        "he"
+      ]
+    },
+    {
+      "qid": "made_patient",
+      "pid": "made",
+      "kind": "patient",
+      "verb": "made",
+      "answer": "book",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "made",
+        "mr",
+        "book"
+      ]
+    },
+    {
+      "qid": "overset_patient",
+      "pid": "overset",
+      "kind": "patient",
+      "verb": "overset",
+      "answer": "boat",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "overset",
+        "flurry",
+        "boat"
+      ]
+    },
+    {
+      "qid": "overset_agent",
+      "pid": "overset",
+      "kind": "agent",
+      "verb": "overset",
+      "answer": "flurry",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "overset",
+        "flurry",
+        "boat"
+      ]
+    }
+  ],
+  "per_item_off": [
+    {
+      "qid": "met_agent",
+      "pid": "met",
+      "kind": "agent",
+      "verb": "met",
+      "answer": "parson",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "met_patient",
+      "pid": "met",
+      "kind": "patient",
+      "verb": "met",
+      "answer": "he",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "evinced_patient",
+      "pid": "evinced",
+      "kind": "patient",
+      "verb": "evinced",
+      "answer": "ambition",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "evinced_agent",
+      "pid": "evinced",
+      "kind": "agent",
+      "verb": "evinced",
+      "answer": "impatience",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "supplied_patient",
+      "pid": "supplied",
+      "kind": "patient",
+      "verb": "supplied",
+      "answer": "place",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "supplied_agent",
+      "pid": "supplied",
+      "kind": "agent",
+      "verb": "supplied",
+      "answer": "woman",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "revealed_agent",
+      "pid": "revealed",
+      "kind": "agent",
+      "verb": "revealed",
+      "answer": "painter",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "revealed",
+        "painter",
+        "he"
+      ]
+    },
+    {
+      "qid": "revealed_patient",
+      "pid": "revealed",
+      "kind": "patient",
+      "verb": "revealed",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "revealed",
+        "painter",
+        "he"
+      ]
+    },
+    {
+      "qid": "washed_patient",
+      "pid": "washed",
+      "kind": "patient",
+      "verb": "washed",
+      "answer": "mole",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "washed_agent",
+      "pid": "washed",
+      "kind": "agent",
+      "verb": "washed",
+      "answer": "waves",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "freed_agent",
+      "pid": "freed",
+      "kind": "agent",
+      "verb": "freed",
+      "answer": "death",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "freed_patient",
+      "pid": "freed",
+      "kind": "patient",
+      "verb": "freed",
+      "answer": "i",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "confined_agent",
+      "pid": "confined",
+      "kind": "agent",
+      "verb": "confined",
+      "answer": "gout",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "confined_patient",
+      "pid": "confined",
+      "kind": "patient",
+      "verb": "confined",
+      "answer": "he",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overtaken_agent",
+      "pid": "overtaken",
+      "kind": "agent",
+      "verb": "overtaken",
+      "answer": "judgment",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overtaken_patient",
+      "pid": "overtaken",
+      "kind": "patient",
+      "verb": "overtaken",
+      "answer": "i",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "injured_patient",
+      "pid": "injured",
+      "kind": "patient",
+      "verb": "injured",
+      "answer": "men",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "opposed_agent",
+      "pid": "opposed",
+      "kind": "agent",
+      "verb": "opposed",
+      "answer": "men",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "opposed",
+        "men",
+        "he"
+      ]
+    },
+    {
+      "qid": "opposed_patient",
+      "pid": "opposed",
+      "kind": "patient",
+      "verb": "opposed",
+      "answer": "he",
+      "reader": true,
+      "naive": false,
+      "reader_emitted": [
+        "opposed",
+        "men",
+        "he"
+      ]
+    },
+    {
+      "qid": "assailed_agent",
+      "pid": "assailed",
+      "kind": "agent",
+      "verb": "assailed",
+      "answer": "questions",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "assailed_patient",
+      "pid": "assailed",
+      "kind": "patient",
+      "verb": "assailed",
+      "answer": "he",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "made_patient",
+      "pid": "made",
+      "kind": "patient",
+      "verb": "made",
+      "answer": "book",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overset_patient",
+      "pid": "overset",
+      "kind": "patient",
+      "verb": "overset",
+      "answer": "boat",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    },
+    {
+      "qid": "overset_agent",
+      "pid": "overset",
+      "kind": "agent",
+      "verb": "overset",
+      "answer": "flurry",
+      "reader": false,
+      "naive": false,
+      "reader_emitted": null
+    }
+  ],
+  "arm_hash_on": "7dad86c2a321dce9",
+  "arm_hash_off": "518bc5fecb270396",
+  "naive_hash": "14f750f94eed5b92",
+  "bars": {
+    "ARM_A_reader_acc_on": 0.9583,
+    "ARM_B_reader_margin": 23,
+    "ARM_B_reader_beats_naive": true,
+    "ARM_C_passages_fired_on": 12,
+    "ARM_D_mcguffey_non_regression": true
+  },
+  "bands": {
+    "VALIDITY_MAX_NAIVE_ACC": 0.2,
+    "HP_MIN_FIRED": 6,
+    "HP_MIN_DELTA_FIRED": 3,
+    "HP_MIN_READER_MARGIN": 3,
+    "MCG_REGRESS_TOL": 0.002,
+    "MCG_HARD_FAIL_TOL": 0.01,
+    "MB_MIN_FIRED": 4
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 52.9,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "one_variable": "the passive_reanalysis flag (systematic thematic reversal ON vs OFF) on ONE composed reader / ONE naive / ONE held-out hard-syntax gold. OFF == banked reader byte-identically (P2 ablation). McGuffey P1 = same full_general config +/- mechanism.",
+  "anti_circular_note": "Hard-syntax gold HELD-OUT + authored blind to any reader (seq 29503). Mechanism is a GENERAL passive rule (POS/preposition/order; word-identity-free), NOT tuned to gold items. Agentless-passive patients (no antecedent) intentionally ABSTAIN (never-confidently-wrong) -- a named residual gap, not a silent miss.",
+  "scope_caveat": "Small held-out probe (N=24 items, 13 passages, 11 novels). CHAIN-GRADE CANDIDATE, CLAIM-VET-pending; NOT banked."
+}

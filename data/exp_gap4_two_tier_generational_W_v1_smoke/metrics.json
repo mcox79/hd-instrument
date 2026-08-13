@@ -1,0 +1,393 @@
+{
+  "anchor": "gap4_two_tier_generational_W_v1",
+  "anchor_name": "gap4_two_tier_generational_W_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_TWO_TIER_DOESNT_HELP: best two-tier arm matches baseline within 0.05. best_arm=ARM_TWO_TIER_PROMOTE_1000 drift_reduction=0.0000. Generational W primitive not effective at this regime. arms: ARM_BASELINE_SINGLE_W=fin_forget=0.0000+/-0.0000 | ARM_TWO_TIER_PROMOTE_500=fin_forget=0.0333+/-0.0000 | ARM_TWO_TIER_PROMOTE_1000=fin_forget=0.0000+/-0.0000 | ARM_TWO_TIER_PROMOTE_2000=fin_forget=0.0000+/-0.0000 | ARM_TWO_TIER_RANDOM_PROMOTE=fin_forget=0.0000+/-0.0000",
+  "headline": "HARD_FAIL_TWO_TIER_DOESNT_HELP: best two-tier arm matches baseline within 0.05. best_arm=ARM_TWO_TIER_PROMOTE_1000 drift_reduction=0.0000. Generational W primitive not effective at this regime. arms: ARM_BASELINE_SINGLE_W=fin_forget=0.0000+/-0.0000 | ARM_TWO_TIER_PROMOTE_500=fin_forget=0.0333+/-0.0000 | ARM_TWO_TIER_PROMOTE_1000=fin_forget=0.0000+/-0.0000 | ARM_TWO_TIER_PROMOTE_2000=fin_forget=0.0000+/-0.0000 | ARM_TWO_TIER_RANDOM_PROMOTE=fin_forget=0.0000+/-0.0000",
+  "n_seeds": 1,
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_cycles": 600,
+  "arms_tested": [
+    "ARM_BASELINE_SINGLE_W",
+    "ARM_TWO_TIER_PROMOTE_500",
+    "ARM_TWO_TIER_PROMOTE_1000",
+    "ARM_TWO_TIER_PROMOTE_2000",
+    "ARM_TWO_TIER_RANDOM_PROMOTE"
+  ],
+  "arms_config": {
+    "ARM_BASELINE_SINGLE_W": {
+      "two_tier": false,
+      "K_promote": null,
+      "tau": null,
+      "gamma": null,
+      "importance": null
+    },
+    "ARM_TWO_TIER_PROMOTE_500": {
+      "two_tier": true,
+      "K_promote": 500,
+      "tau": 0.1,
+      "gamma": 0.9,
+      "importance": "recall"
+    },
+    "ARM_TWO_TIER_PROMOTE_1000": {
+      "two_tier": true,
+      "K_promote": 1000,
+      "tau": 0.1,
+      "gamma": 0.9,
+      "importance": "recall"
+    },
+    "ARM_TWO_TIER_PROMOTE_2000": {
+      "two_tier": true,
+      "K_promote": 2000,
+      "tau": 0.2,
+      "gamma": 0.85,
+      "importance": "recall"
+    },
+    "ARM_TWO_TIER_RANDOM_PROMOTE": {
+      "two_tier": true,
+      "K_promote": 1000,
+      "tau": 0.1,
+      "gamma": 0.9,
+      "importance": "random"
+    }
+  },
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_SINGLE_W": {
+        "mean_final_forget": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      },
+      "ARM_TWO_TIER_PROMOTE_500": {
+        "mean_final_forget": 0.033333333333333326,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.033333333333333326
+        ]
+      },
+      "ARM_TWO_TIER_PROMOTE_1000": {
+        "mean_final_forget": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      },
+      "ARM_TWO_TIER_PROMOTE_2000": {
+        "mean_final_forget": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      },
+      "ARM_TWO_TIER_RANDOM_PROMOTE": {
+        "mean_final_forget": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      }
+    },
+    "best_two_tier_arm": "ARM_TWO_TIER_PROMOTE_1000",
+    "baseline_curve_max_forget": 0.0,
+    "baseline_cliff_cycle": null,
+    "drift_reduction_abs": 0.0,
+    "importance_lift_over_random_promote": 0.0,
+    "W_old_utilization_per_arm": {
+      "ARM_TWO_TIER_PROMOTE_500": 0.22820186821616922,
+      "ARM_TWO_TIER_PROMOTE_1000": 0.0,
+      "ARM_TWO_TIER_PROMOTE_2000": 0.0,
+      "ARM_TWO_TIER_RANDOM_PROMOTE": 0.0
+    },
+    "honest_scope": "TWO_TIER generational W over 600 cycles N=4096; 5 arms: baseline + 3 two-tier configs + 1 random-promote ablation; forget metric on first 30 atoms; combined-read W_old+W_young"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 4096,
+      "run_mode": "smoke",
+      "n_cycles": 600,
+      "arms": {
+        "ARM_BASELINE_SINGLE_W": {
+          "arm": "ARM_BASELINE_SINGLE_W",
+          "arm_cfg": {
+            "two_tier": false,
+            "K_promote": null,
+            "tau": null,
+            "gamma": null,
+            "importance": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 600,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            }
+          ],
+          "promotions_log": [],
+          "final_cycle": 600,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "W_old_norm": 0.0,
+          "W_young_norm": 107410.26450018639,
+          "W_old_utilization": 0.0,
+          "elapsed_s": 58.957834005355835
+        },
+        "ARM_TWO_TIER_PROMOTE_500": {
+          "arm": "ARM_TWO_TIER_PROMOTE_500",
+          "arm_cfg": {
+            "two_tier": true,
+            "K_promote": 500,
+            "tau": 0.1,
+            "gamma": 0.9,
+            "importance": "recall"
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 600,
+              "recall_acc": 0.9666666666666667,
+              "forget": 0.033333333333333326
+            }
+          ],
+          "promotions_log": [
+            {
+              "cycle": 500,
+              "n_promoted": 50,
+              "mean_importance_promoted": 0.9978125,
+              "mean_importance_all": 0.9936377245508982
+            }
+          ],
+          "final_cycle": 600,
+          "final_acc": 0.9666666666666667,
+          "final_forget": 0.033333333333333326,
+          "W_old_norm": 29127.378872806254,
+          "W_young_norm": 98511.27325783584,
+          "W_old_utilization": 0.22820186821616922,
+          "elapsed_s": 86.84460043907166
+        },
+        "ARM_TWO_TIER_PROMOTE_1000": {
+          "arm": "ARM_TWO_TIER_PROMOTE_1000",
+          "arm_cfg": {
+            "two_tier": true,
+            "K_promote": 1000,
+            "tau": 0.1,
+            "gamma": 0.9,
+            "importance": "recall"
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 600,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            }
+          ],
+          "promotions_log": [],
+          "final_cycle": 600,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "W_old_norm": 0.0,
+          "W_young_norm": 107410.26450018639,
+          "W_old_utilization": 0.0,
+          "elapsed_s": 67.79878568649292
+        },
+        "ARM_TWO_TIER_PROMOTE_2000": {
+          "arm": "ARM_TWO_TIER_PROMOTE_2000",
+          "arm_cfg": {
+            "two_tier": true,
+            "K_promote": 2000,
+            "tau": 0.2,
+            "gamma": 0.85,
+            "importance": "recall"
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 600,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            }
+          ],
+          "promotions_log": [],
+          "final_cycle": 600,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "W_old_norm": 0.0,
+          "W_young_norm": 107410.26450018639,
+          "W_old_utilization": 0.0,
+          "elapsed_s": 79.36912512779236
+        },
+        "ARM_TWO_TIER_RANDOM_PROMOTE": {
+          "arm": "ARM_TWO_TIER_RANDOM_PROMOTE",
+          "arm_cfg": {
+            "two_tier": true,
+            "K_promote": 1000,
+            "tau": 0.1,
+            "gamma": 0.9,
+            "importance": "random"
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 600,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            }
+          ],
+          "promotions_log": [],
+          "final_cycle": 600,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "W_old_norm": 0.0,
+          "W_young_norm": 107410.26450018639,
+          "W_old_utilization": 0.0,
+          "elapsed_s": 53.19329905509949
+        }
+      },
+      "elapsed_s": 346.47687458992004,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782453068.9487019
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_two_tier_generational_W_continual_writes",
+  "elapsed_s": 346.64107608795166,
+  "summary": "HARD_FAIL_TWO_TIER_DOESNT_HELP: best two-tier arm matches baseline within 0.05. best_arm=ARM_TWO_TIER_PROMOTE_1000 drift_reduction=0.0000. Generational W primitive not effective at this regime. arms: ",
+  "honest_scope": "TWO_TIER generational W over 600 cycles N=4096; 5 arms: baseline + 3 two-tier configs + 1 random-promote ablation; forget metric on first 30 atoms; combined-read W_old+W_young",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls; numpy + Hopfield sign() only)",
+  "pre_reg_bands": {
+    "HARD_PASS_FORGET_CEILING": 0.05,
+    "HARD_PASS_BASELINE_CLIFF": 0.1,
+    "HARD_PASS_CV_CEILING": 0.07,
+    "HARD_PASS_PARTIAL_DRIFT_REDUCTION": 0.3,
+    "HARD_FAIL_MATCH_TOL": 0.05
+  }
+}

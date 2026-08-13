@@ -1,0 +1,12 @@
+{
+  "anchor_name": "hierarchical_3_tier_W_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: probe + per-arm structure verified",
+  "summary": "SELFTEST_OK: probe + per-arm structure verified",
+  "elapsed_s": 0.5,
+  "ts_iso": "2026-06-27T19:54:08Z",
+  "pid": 21312,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=hierarchical_3_tier_W_v1,probe_N=[256],probe_NCAT=[10],probe_NTRAIN=[5],probe_noise=[0.6],seeds=[7],mode=smoke,HP_old>=0.50,HP_new>=0.50,HP_baseline_band=[0.40,0.65],HP_forget_drop>=0.30,HP_cv<=0.10,HP_drift_ratio>=3.0,eta_fast=1.000,eta_slow=0.050,eta_ultraslow=0.0010,N_STABILITY=5,stc_tag_frac=0.20,N_NEW_PATTERNS=3,N_PULSES=5,hardening=L1early+L2perseed+L3outertry+L4importsentinel,FAIRNESS=PROBE_BASELINE_IN_BAND_THEN_3TIER_MECHANISM",
+  "_hardening_marker": "v1_hierarchical_3_tier_W"
+}

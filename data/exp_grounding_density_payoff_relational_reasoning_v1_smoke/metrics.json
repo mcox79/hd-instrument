@@ -1,0 +1,515 @@
+{
+  "verdict": "HARD_FAIL_DENSITY_ALONE_NOT_THE_ENABLER",
+  "verdict_msg": "HARD_FAIL_DENSITY_ALONE_NOT_THE_ENABLER || SPARSE(deg=5.40 n_ho=477): NO_CLEANUP@2=0.008(collapses=True) MEMORYLESS@1=0.501(in_band=True)@2=0.148 SUPPLIED@2=0.442(fires=True) KNOWN_T@2=0.351 | LEARNED@1=0.372@2=0.127 DEGREE@1=0.534@2=0.069 MEMCTRL@2=0.045 CODEALIAS@2=0.124 | rel_gain=0.058 codes_margin=0.003 || DENSE(k=5 deg=8.50 n_ho=370): LEARNED@1=0.151@2=0.040 DEGREE@1=0.257@2=0.035 MEMCTRL@2=0.018 CODEALIAS@2=0.038 | rel_gain=0.005 codes_margin=0.003 (codes_nec=False rel>deg=False) || PAYOFF: rel_gain_rise(GATE)=-0.053 reach_rise=-0.087 degree_rise=-0.034 codes_margin_rise=-0.001 || HARD_PASS(rel_rise>=0.10 OR codes_cross)=False HARD_FAIL(rel_rise<=0.03 AND codes_rise<=0.02)=True || repro(full=False): mem1=True sup1=True sup2=True knownT2=True || nodes=1152 E=3108 seeds=2 run=smoke",
+  "summary": "HARD_FAIL_DENSITY_ALONE_NOT_THE_ENABLER || SPARSE(deg=5.40 n_ho=477): NO_CLEANUP@2=0.008(collapses=True) MEMORYLESS@1=0.501(in_band=True)@2=0.148 SUPPLIED@2=0.442(fires=True) KNOWN_T@2=0.351 | LEARNED",
+  "run_mode": "smoke",
+  "elapsed_s": 29.173811400018167,
+  "anchor_name": "grounding_density_payoff_relational_reasoning_v1",
+  "ts_iso": "2026-07-10T01:55:42.697863+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "n_nodes": 1400,
+    "epochs": 40,
+    "batch": 256,
+    "code_dim": 384,
+    "feat_dim": 2048,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_bind": 1.0,
+    "n_chains": 1800,
+    "chain_chunk": 256,
+    "min_core": 100
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 1152,
+    "n_edges": 3108,
+    "median_degree": 3.0,
+    "mean_degree": 5.395833333333333,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 3108
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_DENSITY_ALONE_NOT_THE_ENABLER",
+    "sparse": {
+      "learned1": 0.3723064661026001,
+      "learned2": 0.1272062100470066,
+      "memctrl2": 0.044885026291012764,
+      "codealias2": 0.12396911159157753,
+      "degree1": 0.5338175743818283,
+      "degree2": 0.06921621598303318,
+      "ho_mem2": 0.012478720862418413,
+      "ho_knownT2": 0.3333553820848465,
+      "rel_gain": 0.05798999406397343,
+      "codes_margin": 0.003237098455429077,
+      "n_heldout": 477,
+      "mean_degree": 5.395833333333333
+    },
+    "dense": {
+      "learned1": 0.1509399563074112,
+      "learned2": 0.04041460156440735,
+      "memctrl2": 0.017527688294649124,
+      "codealias2": 0.037875255569815636,
+      "degree1": 0.25670722872018814,
+      "degree2": 0.03505537658929825,
+      "ho_mem2": 0.020107111893594265,
+      "ho_knownT2": 0.049883415922522545,
+      "rel_gain": 0.0053592249751091,
+      "codes_margin": 0.002539345994591713,
+      "n_heldout": 370,
+      "mean_degree": 8.504347826086956
+    },
+    "kcore_k": 5,
+    "payoff": {
+      "rel_gain_sparse": 0.05798999406397343,
+      "rel_gain_dense": 0.0053592249751091,
+      "rel_gain_rise_GATE": -0.052630769088864326,
+      "codes_margin_sparse": 0.003237098455429077,
+      "codes_margin_dense": 0.002539345994591713,
+      "codes_margin_rise": -0.0006977524608373642,
+      "reach_rise": -0.08679160848259926,
+      "degree_rise": -0.03416083939373493,
+      "rel_gain_rises": false,
+      "codes_margin_crosses": false,
+      "richer_enables": false,
+      "density_no_help": true,
+      "codes_necessary_dense": false,
+      "relational_over_degree_dense": false
+    },
+    "anti_sat": {
+      "hop1_present": true,
+      "baseline_in_band": true,
+      "baseline_collapses": true,
+      "supplied_fires": true,
+      "enough_heldout": true
+    },
+    "positive_control": {
+      "is_full": false,
+      "repro_mem1": 0.5005555599927902,
+      "repro_sup1": 0.7086111307144165,
+      "repro_sup2": 0.4422222226858139,
+      "repro_knownt2": 0.35111111402511597,
+      "repro_mem1_ok": true,
+      "repro_sup1_ok": true,
+      "repro_sup2_ok": true,
+      "repro_knownt2_ok": true,
+      "repro_ok": true,
+      "anchors": {
+        "mem1": 0.453,
+        "sup1": 0.756,
+        "sup2": 0.5,
+        "knownT2": 0.434,
+        "tol": 0.1
+      }
+    },
+    "bands": {
+      "REL_GAIN_RISE_HP": 0.1,
+      "CODES_MARGIN_RISE_HP": 0.05,
+      "CODES_MARGIN_NEAR_ZERO": 0.05,
+      "REL_GAIN_RISE_FLAT": 0.03,
+      "CODES_MARGIN_RISE_FLAT": 0.02,
+      "NEC_MARGIN": 0.05,
+      "MIN_HELDOUT_CHAINS": 25,
+      "WITHHELD_FRAC": 0.3,
+      "SMOOTH_K": 8,
+      "SMOOTH_TEMP": 0.1,
+      "SR_GAMMA_PRIMARY": 0.85,
+      "SR_BOOST": 1.5
+    }
+  },
+  "mechanism_selftest": {
+    "n_synth": 3510,
+    "n_ho_rel": 130,
+    "n_ho_deg": 130,
+    "rel_learned1": 1.0,
+    "rel_degree1": 0.2077,
+    "deg_learned1": 0.2692,
+    "deg_degree1": 1.0,
+    "rel_gain_rel": 0.7923,
+    "rel_gain_deg": -0.7308,
+    "gap": 1.5231,
+    "nocleanup_ran": true,
+    "learned_recovers_rel": true,
+    "degree_recovers_deg": true,
+    "rel_gain_fires": true,
+    "deg_gain_null": true,
+    "gap_ok": true,
+    "arms_differ": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "sparse": {
+        "level": "SPARSE",
+        "arms": {
+          "NO_CLEANUP": {
+            "reach": {
+              "1": 0.1599999964237213,
+              "2": 0.007777777966111898,
+              "3": 0.002222222276031971,
+              "4": 0.0011111111380159855
+            }
+          },
+          "MEMORYLESS": {
+            "reach": {
+              "1": 0.49888888001441956,
+              "2": 0.1455555558204651,
+              "3": 0.05666666850447655,
+              "4": 0.027222221717238426
+            }
+          },
+          "SUPPLIED_WAYPOINT": {
+            "reach": {
+              "1": 0.7011111378669739,
+              "2": 0.4372222125530243,
+              "3": 0.3544444441795349,
+              "4": 0.16111111640930176
+            }
+          },
+          "KNOWN_T_FULL": {
+            "reach": {
+              "1": 0.5855555534362793,
+              "2": 0.3522222340106964,
+              "3": 0.34611111879348755,
+              "4": 0.6016666889190674
+            }
+          },
+          "LEARNED_HELDOUT": {
+            "reach": {
+              "1": 0.38009050488471985,
+              "2": 0.11990950256586075,
+              "3": 0.1515837162733078,
+              "4": 0.2850678861141205
+            }
+          },
+          "HELDOUT_MEMCTRL": {
+            "reach": {
+              "1": 0.14027149975299835,
+              "2": 0.0429864265024662,
+              "3": 0.08144796639680862,
+              "4": 0.1764705926179886
+            }
+          },
+          "HELDOUT_CODEALIAS": {
+            "reach": {
+              "1": 0.4072398245334625,
+              "2": 0.11538461595773697,
+              "3": 0.1493212729692459,
+              "4": 0.27149322628974915
+            }
+          },
+          "DEGREE_ONLY": {
+            "reach": {
+              "1": 0.48868778347969055,
+              "2": 0.05656108632683754,
+              "3": 0.015837104991078377,
+              "4": 0.0
+            }
+          }
+        },
+        "arm_sigs": {
+          "NO_CLEANUP": "d8fc23168f8df573423f78d06b3964f2e533379ef3f29673a2433912212d3c79",
+          "MEMORYLESS": "eb3e33a1a8665df8be827bad59d3b145380b08daeac5c4f2be09a2e22e86148d",
+          "SUPPLIED_WAYPOINT": "e4b490a00d2a1f8d06ef4012eaeabbb5d4833de19475293c7c1176668f8c32fc",
+          "KNOWN_T_FULL": "f487c1a3a3faff32bf67531e0e16c3778cc98b3f98e6fa463df309e3174891ce",
+          "LEARNED_HELDOUT": "0baa31f8ff2c61b27a36db154b8dbbb465e11fe6bb624e5c90c7635e290d93c7",
+          "HELDOUT_MEMCTRL": "f6567b16402adfe63f5f05fe5c55027827b044ac8e0e935b1529f53879bc1115",
+          "HELDOUT_CODEALIAS": "48f2919e5a547b3a6619216e2aaca814f8c39d2162c8b78d8f70a166b98d83fe",
+          "DEGREE_ONLY": "3faab674992f418487f093fb5612e8aac82042e8807bc4351cd81cd234a8da0e"
+        },
+        "heldout_refs": {
+          "memoryless": {
+            "1": 0.18552036583423615,
+            "2": 0.011312217451632023,
+            "3": 0.006787330377846956,
+            "4": 0.006787330377846956
+          },
+          "known_t_full": {
+            "1": 0.7081447839736938,
+            "2": 0.3665158450603485,
+            "3": 0.3891402781009674,
+            "4": 0.6085972785949707
+          }
+        },
+        "n_withheld": 345,
+        "withheld_frac_actual": 0.2994791666666667,
+        "n_heldout_chains": 442,
+        "n_general": 1800,
+        "mean_degree": 5.395833333333333,
+        "n_nodes": 1152,
+        "n_edges": 3108,
+        "code_dim": 384
+      },
+      "dense": {
+        "level": "DENSE",
+        "arms": {
+          "LEARNED_HELDOUT": {
+            "reach": {
+              "1": 0.16489361226558685,
+              "2": 0.0452127642929554,
+              "3": 0.06914893537759781,
+              "4": 0.3723404109477997
+            }
+          },
+          "HELDOUT_MEMCTRL": {
+            "reach": {
+              "1": 0.010638297535479069,
+              "2": 0.018617020919919014,
+              "3": 0.06382978707551956,
+              "4": 0.4760638177394867
+            }
+          },
+          "HELDOUT_CODEALIAS": {
+            "reach": {
+              "1": 0.15425531566143036,
+              "2": 0.03191489353775978,
+              "3": 0.050531916320323944,
+              "4": 0.3856382966041565
+            }
+          },
+          "DEGREE_ONLY": {
+            "reach": {
+              "1": 0.23670212924480438,
+              "2": 0.03723404183983803,
+              "3": 0.021276595070958138,
+              "4": 0.03989361599087715
+            }
+          }
+        },
+        "arm_sigs": {
+          "LEARNED_HELDOUT": "97b4c14ef6651329dbe2fd25ba2343507e39f65963d2b9de9f0bcf4bf6b8a074",
+          "HELDOUT_MEMCTRL": "4c6b5a8810e52e75d50c3c11d169d0dab2a1749704fe4cdf7ff110decfe1567b",
+          "HELDOUT_CODEALIAS": "20db56a07f1c0e91034f4365339647105add2b793c1d9c27cacd54e84c8df7d2",
+          "DEGREE_ONLY": "d5dacd76d20eb97968346fe4d29b93f42af11fbb55e3716b3d1aacdf5357219c"
+        },
+        "heldout_refs": {
+          "memoryless": {
+            "1": 0.07446808367967606,
+            "2": 0.029255319386720657,
+            "3": 0.03989361599087715,
+            "4": 0.029255319386720657
+          },
+          "known_t_full": {
+            "1": 0.17553190886974335,
+            "2": 0.05319149047136307,
+            "3": 0.0904255285859108,
+            "4": 0.5265957713127136
+          }
+        },
+        "n_withheld": 34,
+        "withheld_frac_actual": 0.2956521739130435,
+        "n_heldout_chains": 376,
+        "n_general": 1800,
+        "mean_degree": 8.504347826086956,
+        "n_nodes": 115,
+        "n_edges": 489,
+        "code_dim": 384,
+        "kcore_k": 5
+      },
+      "kcore_k": 5
+    },
+    {
+      "seed": 13,
+      "sparse": {
+        "level": "SPARSE",
+        "arms": {
+          "NO_CLEANUP": {
+            "reach": {
+              "1": 0.16833333671092987,
+              "2": 0.008888889104127884,
+              "3": 0.0016666667070239782,
+              "4": 0.0005555555690079927
+            }
+          },
+          "MEMORYLESS": {
+            "reach": {
+              "1": 0.5022222399711609,
+              "2": 0.15000000596046448,
+              "3": 0.052222222089767456,
+              "4": 0.021666666492819786
+            }
+          },
+          "SUPPLIED_WAYPOINT": {
+            "reach": {
+              "1": 0.7161111235618591,
+              "2": 0.4472222328186035,
+              "3": 0.3383333384990692,
+              "4": 0.1505555510520935
+            }
+          },
+          "KNOWN_T_FULL": {
+            "reach": {
+              "1": 0.5811111330986023,
+              "2": 0.3499999940395355,
+              "3": 0.33000001311302185,
+              "4": 0.5794444680213928
+            }
+          },
+          "LEARNED_HELDOUT": {
+            "reach": {
+              "1": 0.36452242732048035,
+              "2": 0.13450291752815247,
+              "3": 0.13645224273204803,
+              "4": 0.28265106678009033
+            }
+          },
+          "HELDOUT_MEMCTRL": {
+            "reach": {
+              "1": 0.11500974744558334,
+              "2": 0.046783626079559326,
+              "3": 0.06432748585939407,
+              "4": 0.1949317753314972
+            }
+          },
+          "HELDOUT_CODEALIAS": {
+            "reach": {
+              "1": 0.37231969833374023,
+              "2": 0.1325536072254181,
+              "3": 0.12085770070552826,
+              "4": 0.26900583505630493
+            }
+          },
+          "DEGREE_ONLY": {
+            "reach": {
+              "1": 0.5789473652839661,
+              "2": 0.08187134563922882,
+              "3": 0.011695906519889832,
+              "4": 0.0
+            }
+          }
+        },
+        "arm_sigs": {
+          "NO_CLEANUP": "67d7f47e3c099770bea764c1bebc7fa77902c767cfc353b371062f31b2c5752b",
+          "MEMORYLESS": "1120363c020ba51cc8513b7dc342cc876da89d45ab006b9b27f282a2bdaee673",
+          "SUPPLIED_WAYPOINT": "7dc3189103ad6a74c56257a1105ee031f5d43f393f84442b852966ffa751a23a",
+          "KNOWN_T_FULL": "d8c00218bd2233803e36ae8193489b2030ec5537521528c97c019ba5c760e47a",
+          "LEARNED_HELDOUT": "a0af65b2aa641b03fb30c64f93181406370f4c8cb6bda4023aa60d0a1a08ad81",
+          "HELDOUT_MEMCTRL": "ccf321cd9cdb543712922837c5d292463887139d59298ad46ed10c9bcc3d953d",
+          "HELDOUT_CODEALIAS": "b0e785599abf0a52ed1c0f78c9f8c994c4db4e81703aaaac818a890ff65dbc66",
+          "DEGREE_ONLY": "14725cb906434dec7c20c67a3bcd3eff55bcf73c89ee549c716a23ff1b221566"
+        },
+        "heldout_refs": {
+          "memoryless": {
+            "1": 0.16959063708782196,
+            "2": 0.013645224273204803,
+            "3": 0.013645224273204803,
+            "4": 0.005847953259944916
+          },
+          "known_t_full": {
+            "1": 0.6452241539955139,
+            "2": 0.3001949191093445,
+            "3": 0.3255360722541809,
+            "4": 0.5438596606254578
+          }
+        },
+        "n_withheld": 345,
+        "withheld_frac_actual": 0.2994791666666667,
+        "n_heldout_chains": 513,
+        "n_general": 1800,
+        "mean_degree": 5.395833333333333,
+        "n_nodes": 1152,
+        "n_edges": 3108,
+        "code_dim": 384
+      },
+      "dense": {
+        "level": "DENSE",
+        "arms": {
+          "LEARNED_HELDOUT": {
+            "reach": {
+              "1": 0.13698630034923553,
+              "2": 0.0356164388358593,
+              "3": 0.07397260516881943,
+              "4": 0.4301369786262512
+            }
+          },
+          "HELDOUT_MEMCTRL": {
+            "reach": {
+              "1": 0.008219177834689617,
+              "2": 0.016438355669379234,
+              "3": 0.09315068274736404,
+              "4": 0.4931506812572479
+            }
+          },
+          "HELDOUT_CODEALIAS": {
+            "reach": {
+              "1": 0.13150684535503387,
+              "2": 0.04383561760187149,
+              "3": 0.06301369518041611,
+              "4": 0.40547946095466614
+            }
+          },
+          "DEGREE_ONLY": {
+            "reach": {
+              "1": 0.2767123281955719,
+              "2": 0.03287671133875847,
+              "3": 0.057534247636795044,
+              "4": 0.03835616260766983
+            }
+          }
+        },
+        "arm_sigs": {
+          "LEARNED_HELDOUT": "bb502a437dc8b872fb20d49494a421add787762bfffbb485dc8c271931445696",
+          "HELDOUT_MEMCTRL": "acddf7335a136d6020e1e9833de96f3536ce9097ff26e361ca54ca0442e285d3",
+          "HELDOUT_CODEALIAS": "3f44cac0602239d32ed84f260827f7fe432f17bfd0c376e1f6b73c86d0296b26",
+          "DEGREE_ONLY": "22c4bf0ed40318c8804b3c62e4e5e1068251391078455ab0109e9cce281b86a9"
+        },
+        "heldout_refs": {
+          "memoryless": {
+            "1": 0.04383561760187149,
+            "2": 0.010958904400467873,
+            "3": 0.021917808800935745,
+            "4": 0.030136985704302788
+          },
+          "known_t_full": {
+            "1": 0.20821918547153473,
+            "2": 0.04657534137368202,
+            "3": 0.10958904027938843,
+            "4": 0.5287671089172363
+          }
+        },
+        "n_withheld": 34,
+        "withheld_frac_actual": 0.2956521739130435,
+        "n_heldout_chains": 365,
+        "n_general": 1800,
+        "mean_degree": 8.504347826086956,
+        "n_nodes": 115,
+        "n_edges": 489,
+        "code_dim": 384,
+        "kcore_k": 5
+      },
+      "kcore_k": 5
+    }
+  ]
+}

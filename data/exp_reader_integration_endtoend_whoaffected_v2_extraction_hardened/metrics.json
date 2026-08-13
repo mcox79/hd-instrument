@@ -1,0 +1,860 @@
+{
+  "anchor_name": "reader_integration_endtoend_whoaffected_v2_extraction_hardened",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_EXTRACTION_FIX_HELPS",
+  "verdict_msg": "HARD_PASS_EXTRACTION_FIX_HELPS | slice=L04+L05+L07+L08+L09+L10+L12 gold_pos=100 | END-TO-END who-affected: CRUDE=0.3623 UNLAB=0.7247 V1(baseline)=0.742 naive_HARD=0.7636(gain=+0.021) BACKOFF=0.7622(ceil_bk=0.79) gain_BACKOFF_vs_V1=+0.020(min=0.0) | RESIDUAL PARTITION backoff ext:dec=22:4 (ext_frac=0.8462) | v1 ext:dec=28:0 | unlab ext:dec=6:24 (ext_frac=0.2) | hard_frac=0.81 baseline_in_band=True arms_differ=True below_ceiling=True no_giveaway=True (max_single_cue_gold_sel bk=0.7083)",
+  "summary": "HARD_PASS_EXTRACTION_FIX_HELPS | slice=L04+L05+L07+L08+L09+L10+L12 gold_pos=100 | END-TO-END who-affected: CRUDE=0.3623 UNLAB=0.7247 V1(baseline)=0.742 naive_HARD=0.7636(gain=+0.021) BACKOFF=0.7622(ceil_bk=0.79) gain_BACKOFF_vs_V1=+0.020(min=0.0) | RESIDUAL PARTITION backoff ext:dec=22:4 (ext_frac=0.8462) | v1 ext:dec=28:0 | unlab ext:dec=6:24 (ext_frac=0.2) | hard_frac=0.81 baseline_in_band=True arms_differ=True below_ceiling=True no_giveaway=True (max_single_cue_gold_sel bk=0.7083)",
+  "elapsed_s": 443.54,
+  "ts_iso": "2026-07-21T03:56:34.854147+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_gold_pos_pairs": 100,
+  "hard_frac": 0.81,
+  "PRIMARY_endtoend_backoff_vote": 0.7622,
+  "baseline_endtoend_labeled_v1_vote": 0.742,
+  "diagnostic_endtoend_naive_hardened_vote": 0.7636,
+  "ablation": {
+    "crude_4feat": 0.3623,
+    "unlabeled_plus_vote": 0.7247,
+    "labeled_v1_plus_vote": 0.742,
+    "labeled_naive_hardened_plus_vote": 0.7636,
+    "labeled_backoff_plus_vote": 0.7622
+  },
+  "candidate_recall_ceiling_unlabeled": 0.9,
+  "candidate_recall_ceiling_v1": 0.74,
+  "candidate_recall_ceiling_naive_hardened": 0.81,
+  "candidate_recall_ceiling_backoff": 0.79,
+  "gain_backoff_vs_v1_mean": 0.0202,
+  "gain_backoff_vs_v1_min": 0.0,
+  "gain_naive_hardened_vs_v1_mean": 0.0215,
+  "RESIDUAL_PARTITION_backoff": {
+    "n_total": 110,
+    "correct": 84,
+    "extraction_err": 22,
+    "decision_err": 4,
+    "residual": 26,
+    "extraction_frac_of_residual": 0.8462,
+    "decision_frac_of_residual": 0.1538,
+    "ext_to_dec_ratio": "22:4"
+  },
+  "RESIDUAL_PARTITION_naive_hardened": {
+    "n_total": 110,
+    "correct": 84,
+    "extraction_err": 20,
+    "decision_err": 6,
+    "residual": 26,
+    "extraction_frac_of_residual": 0.7692,
+    "decision_frac_of_residual": 0.2308,
+    "ext_to_dec_ratio": "20:6"
+  },
+  "RESIDUAL_PARTITION_labeled_v1": {
+    "n_total": 110,
+    "correct": 82,
+    "extraction_err": 28,
+    "decision_err": 0,
+    "residual": 28,
+    "extraction_frac_of_residual": 1.0,
+    "decision_frac_of_residual": 0.0,
+    "ext_to_dec_ratio": "28:0"
+  },
+  "RESIDUAL_PARTITION_unlabeled": {
+    "n_total": 110,
+    "correct": 80,
+    "extraction_err": 6,
+    "decision_err": 24,
+    "residual": 30,
+    "extraction_frac_of_residual": 0.2,
+    "decision_frac_of_residual": 0.8,
+    "ext_to_dec_ratio": "6:24"
+  },
+  "per_construction_mean_backoff": {
+    "control": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0,
+      "mean_n": 3.67
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6599,
+      "mean_gold_in_pool": 0.7022,
+      "mean_n": 16.33
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.7361,
+      "mean_gold_in_pool": 0.8889,
+      "mean_n": 4.67
+    },
+    "relative": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0,
+      "mean_n": 3.33
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.8037,
+      "mean_gold_in_pool": 0.8037,
+      "mean_n": 8.33
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0,
+      "mean_n": 1.0
+    }
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "endtoend_below_ceiling": true,
+  "leak_guard_backoff": {
+    "n_usable_pools": 24,
+    "max_single_feature_gold_selection_acc": 0.7083,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.7083,
+      "f_postv": 0.2083,
+      "f_prep": 0.0417,
+      "f_func": 0.0,
+      "f_clause": 0.0833,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.0417,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.5,
+      "f_plaus": 0.5417,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "no_giveaway_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "end-to-end decision-precision measurement",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified: <9min)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_test_pos": 39,
+      "crude_endtoend_acc": 0.359,
+      "crude_precision_ref": 0.56,
+      "unlabeled_vote_endtoend_acc": 0.7179,
+      "labeled_v1_vote_endtoend_acc": 0.7436,
+      "labeled_naive_hardened_vote_endtoend_acc": 0.7436,
+      "labeled_backoff_vote_endtoend_acc": 0.7436,
+      "gain_backoff_vs_v1": 0.0,
+      "gain_naive_hardened_vs_v1": 0.0,
+      "test_ceiling_unlabeled": 0.9744,
+      "test_ceiling_v1": 0.7436,
+      "test_ceiling_naive_hardened": 0.7949,
+      "test_ceiling_backoff": 0.7692,
+      "residual_partition_unlabeled": {
+        "n": 39,
+        "correct": 28,
+        "extraction_err": 1,
+        "decision_err": 10,
+        "residual": 11,
+        "extraction_frac_of_residual": 0.0909,
+        "decision_frac_of_residual": 0.9091,
+        "decision_examples": [
+          {
+            "sid": "L04_03",
+            "v": "take",
+            "gold": "blocks",
+            "picked": "it",
+            "constr": "coordination",
+            "n_cands": 4
+          },
+          {
+            "sid": "L04_07",
+            "v": "cover",
+            "gold": "face",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "L04_19",
+            "v": "show",
+            "gold": "way",
+            "picked": "you",
+            "constr": "coordination",
+            "n_cands": 5
+          },
+          {
+            "sid": "L04_19",
+            "v": "nod",
+            "gold": "head",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 9
+          },
+          {
+            "sid": "L05_17",
+            "v": "knit",
+            "gold": "forehead",
+            "picked": "his",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_06",
+            "v": "say",
+            "gold": "lessons",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 2
+          },
+          {
+            "sid": "L07_09",
+            "v": "meet",
+            "gold": "boys",
+            "picked": "plenty",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "L09_14",
+            "v": "peel",
+            "gold": "bark",
+            "picked": "it",
+            "constr": "coordination",
+            "n_cands": 4
+          },
+          {
+            "sid": "L10_14",
+            "v": "see",
+            "gold": "those",
+            "picked": "sign",
+            "constr": "coordination",
+            "n_cands": 4
+          },
+          {
+            "sid": "L12_09",
+            "v": "show",
+            "gold": "seeds",
+            "picked": "him",
+            "constr": "coordination",
+            "n_cands": 5
+          }
+        ]
+      },
+      "residual_partition_v1": {
+        "n": 39,
+        "correct": 29,
+        "extraction_err": 10,
+        "decision_err": 0,
+        "residual": 10,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_naive_hardened": {
+        "n": 39,
+        "correct": 29,
+        "extraction_err": 8,
+        "decision_err": 2,
+        "residual": 10,
+        "extraction_frac_of_residual": 0.8,
+        "decision_frac_of_residual": 0.2,
+        "decision_examples": [
+          {
+            "sid": "L04_19",
+            "v": "show",
+            "gold": "way",
+            "picked": "you",
+            "constr": "coordination",
+            "n_cands": 3
+          },
+          {
+            "sid": "L12_09",
+            "v": "show",
+            "gold": "seeds",
+            "picked": "him",
+            "constr": "coordination",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_backoff": {
+        "n": 39,
+        "correct": 29,
+        "extraction_err": 9,
+        "decision_err": 1,
+        "residual": 10,
+        "extraction_frac_of_residual": 0.9,
+        "decision_frac_of_residual": 0.1,
+        "decision_examples": [
+          {
+            "sid": "L12_09",
+            "v": "show",
+            "gold": "seeds",
+            "picked": "him",
+            "constr": "coordination",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_backoff": {
+        "control": {
+          "n": 5,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 20,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.65
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 9,
+          "endtoend_acc": 0.7778,
+          "gold_in_pool": 0.7778
+        }
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 5,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 20,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 9,
+          "endtoend_acc": 0.7778,
+          "gold_in_pool": 0.7778
+        }
+      },
+      "abstain_backoff": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.279,
+        "forced_committed_precision": 0.8286,
+        "abstain_committed_precision": 0.9259,
+        "abstain_rate": 0.2286,
+        "n_test_nonempty": 35,
+        "n_abstained": 8,
+        "parser_margin_mean_correct": 17.7344,
+        "parser_margin_mean_wrong": 16.8827,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_backoff": [
+        -3.6539,
+        8.3192,
+        1.9955,
+        0.0079,
+        -2.8109,
+        0.7293,
+        0.0,
+        0.5097,
+        -3.3553,
+        0.0,
+        0.0587,
+        -2.2986,
+        0.0
+      ]
+    },
+    {
+      "seed": 13,
+      "n_test_pos": 33,
+      "crude_endtoend_acc": 0.3333,
+      "crude_precision_ref": 0.6471,
+      "unlabeled_vote_endtoend_acc": 0.6667,
+      "labeled_v1_vote_endtoend_acc": 0.6667,
+      "labeled_naive_hardened_vote_endtoend_acc": 0.7576,
+      "labeled_backoff_vote_endtoend_acc": 0.7273,
+      "gain_backoff_vs_v1": 0.0606,
+      "gain_naive_hardened_vs_v1": 0.0909,
+      "test_ceiling_unlabeled": 0.8788,
+      "test_ceiling_v1": 0.6667,
+      "test_ceiling_naive_hardened": 0.7879,
+      "test_ceiling_backoff": 0.7576,
+      "residual_partition_unlabeled": {
+        "n": 33,
+        "correct": 22,
+        "extraction_err": 4,
+        "decision_err": 7,
+        "residual": 11,
+        "extraction_frac_of_residual": 0.3636,
+        "decision_frac_of_residual": 0.6364,
+        "decision_examples": [
+          {
+            "sid": "L04_07",
+            "v": "cover",
+            "gold": "face",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "L04_14",
+            "v": "hold",
+            "gold": "hands",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 4
+          },
+          {
+            "sid": "L05_06",
+            "v": "knock",
+            "gold": "castle",
+            "picked": "your",
+            "constr": "coordination",
+            "n_cands": 6
+          },
+          {
+            "sid": "L05_16",
+            "v": "knock",
+            "gold": "castles",
+            "picked": "my",
+            "constr": "relative",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 5
+          },
+          {
+            "sid": "L07_09",
+            "v": "meet",
+            "gold": "boys",
+            "picked": "plenty",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "L07_25",
+            "v": "obey",
+            "gold": "parents",
+            "picked": "his",
+            "constr": "control",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_v1": {
+        "n": 33,
+        "correct": 22,
+        "extraction_err": 11,
+        "decision_err": 0,
+        "residual": 11,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_naive_hardened": {
+        "n": 33,
+        "correct": 25,
+        "extraction_err": 7,
+        "decision_err": 1,
+        "residual": 8,
+        "extraction_frac_of_residual": 0.875,
+        "decision_frac_of_residual": 0.125,
+        "decision_examples": [
+          {
+            "sid": "L10_09",
+            "v": "teach",
+            "gold": "him",
+            "picked": "themselves",
+            "constr": "pronoun",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_backoff": {
+        "n": 33,
+        "correct": 24,
+        "extraction_err": 8,
+        "decision_err": 1,
+        "residual": 9,
+        "extraction_frac_of_residual": 0.8889,
+        "decision_frac_of_residual": 0.1111,
+        "decision_examples": [
+          {
+            "sid": "L10_09",
+            "v": "teach",
+            "gold": "him",
+            "picked": "themselves",
+            "constr": "pronoun",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_backoff": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 16,
+          "endtoend_acc": 0.6875,
+          "gold_in_pool": 0.6875
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 0.3333,
+          "gold_in_pool": 0.6667
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 6,
+          "endtoend_acc": 0.8333,
+          "gold_in_pool": 0.8333
+        },
+        "verb_not_found": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 16,
+          "endtoend_acc": 0.6875,
+          "gold_in_pool": 0.6875
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        },
+        "verb_not_found": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "abstain_backoff": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.2257,
+        "forced_committed_precision": 0.8571,
+        "abstain_committed_precision": 0.9167,
+        "abstain_rate": 0.1429,
+        "n_test_nonempty": 28,
+        "n_abstained": 4,
+        "parser_margin_mean_correct": 16.9657,
+        "parser_margin_mean_wrong": 13.1873,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_backoff": [
+        -3.2281,
+        6.6962,
+        1.4628,
+        0.4838,
+        -2.7542,
+        0.2809,
+        0.0,
+        0.1086,
+        -3.0892,
+        0.0,
+        0.3817,
+        -1.484,
+        0.0
+      ]
+    },
+    {
+      "seed": 19,
+      "n_test_pos": 38,
+      "crude_endtoend_acc": 0.3947,
+      "crude_precision_ref": 0.6818,
+      "unlabeled_vote_endtoend_acc": 0.7895,
+      "labeled_v1_vote_endtoend_acc": 0.8158,
+      "labeled_naive_hardened_vote_endtoend_acc": 0.7895,
+      "labeled_backoff_vote_endtoend_acc": 0.8158,
+      "gain_backoff_vs_v1": 0.0,
+      "gain_naive_hardened_vs_v1": -0.0263,
+      "test_ceiling_unlabeled": 0.9737,
+      "test_ceiling_v1": 0.8158,
+      "test_ceiling_naive_hardened": 0.8684,
+      "test_ceiling_backoff": 0.8684,
+      "residual_partition_unlabeled": {
+        "n": 38,
+        "correct": 30,
+        "extraction_err": 1,
+        "decision_err": 7,
+        "residual": 8,
+        "extraction_frac_of_residual": 0.125,
+        "decision_frac_of_residual": 0.875,
+        "decision_examples": [
+          {
+            "sid": "L04_14",
+            "v": "hold",
+            "gold": "hands",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 4
+          },
+          {
+            "sid": "L05_17",
+            "v": "knit",
+            "gold": "forehead",
+            "picked": "his",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "L05_22",
+            "v": "see",
+            "gold": "child",
+            "picked": "room",
+            "constr": "simple",
+            "n_cands": 8
+          },
+          {
+            "sid": "L07_04",
+            "v": "spend",
+            "gold": "time",
+            "picked": "his",
+            "constr": "coordination",
+            "n_cands": 5
+          },
+          {
+            "sid": "L07_09",
+            "v": "meet",
+            "gold": "boys",
+            "picked": "plenty",
+            "constr": "simple",
+            "n_cands": 3
+          },
+          {
+            "sid": "L10_06",
+            "v": "keep",
+            "gold": "wheel",
+            "picked": "her",
+            "constr": "simple",
+            "n_cands": 4
+          },
+          {
+            "sid": "L10_14",
+            "v": "see",
+            "gold": "those",
+            "picked": "sign",
+            "constr": "coordination",
+            "n_cands": 4
+          }
+        ]
+      },
+      "residual_partition_v1": {
+        "n": 38,
+        "correct": 31,
+        "extraction_err": 7,
+        "decision_err": 0,
+        "residual": 7,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_naive_hardened": {
+        "n": 38,
+        "correct": 30,
+        "extraction_err": 5,
+        "decision_err": 3,
+        "residual": 8,
+        "extraction_frac_of_residual": 0.625,
+        "decision_frac_of_residual": 0.375,
+        "decision_examples": [
+          {
+            "sid": "L10_09",
+            "v": "teach",
+            "gold": "him",
+            "picked": "themselves",
+            "constr": "pronoun",
+            "n_cands": 2
+          },
+          {
+            "sid": "L12_07",
+            "v": "brush",
+            "gold": "tops",
+            "picked": "flowers",
+            "constr": "simple",
+            "n_cands": 2
+          },
+          {
+            "sid": "L12_10",
+            "v": "admire",
+            "gold": "beauty",
+            "picked": "flower",
+            "constr": "coordination",
+            "n_cands": 2
+          }
+        ]
+      },
+      "residual_partition_backoff": {
+        "n": 38,
+        "correct": 31,
+        "extraction_err": 5,
+        "decision_err": 2,
+        "residual": 7,
+        "extraction_frac_of_residual": 0.7143,
+        "decision_frac_of_residual": 0.2857,
+        "decision_examples": [
+          {
+            "sid": "L10_09",
+            "v": "teach",
+            "gold": "him",
+            "picked": "themselves",
+            "constr": "pronoun",
+            "n_cands": 2
+          },
+          {
+            "sid": "L12_10",
+            "v": "admire",
+            "gold": "beauty",
+            "picked": "flower",
+            "constr": "coordination",
+            "n_cands": 2
+          }
+        ]
+      },
+      "per_construction_backoff": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 13,
+          "endtoend_acc": 0.6923,
+          "gold_in_pool": 0.7692
+        },
+        "pronoun": {
+          "n": 8,
+          "endtoend_acc": 0.875,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 10,
+          "endtoend_acc": 0.8,
+          "gold_in_pool": 0.8
+        }
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 13,
+          "endtoend_acc": 0.7692,
+          "gold_in_pool": 0.7692
+        },
+        "pronoun": {
+          "n": 8,
+          "endtoend_acc": 0.75,
+          "gold_in_pool": 0.75
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 10,
+          "endtoend_acc": 0.8,
+          "gold_in_pool": 0.8
+        }
+      },
+      "abstain_backoff": {
+        "conformal_alpha": 0.2,
+        "conformal_q": -0.2093,
+        "forced_committed_precision": 0.8611,
+        "abstain_committed_precision": 0.9,
+        "abstain_rate": 0.1667,
+        "n_test_nonempty": 36,
+        "n_abstained": 6,
+        "parser_margin_mean_correct": 17.269,
+        "parser_margin_mean_wrong": 11.4551,
+        "completeness_conf_mean_correct": null,
+        "completeness_conf_mean_wrong": null
+      },
+      "w_backoff": [
+        -3.0014,
+        5.0048,
+        2.4246,
+        -0.757,
+        -2.9931,
+        -0.9633,
+        0.0,
+        1.6206,
+        -2.3776,
+        2.1432,
+        -0.1881,
+        -2.2833,
+        0.0
+      ]
+    }
+  ]
+}

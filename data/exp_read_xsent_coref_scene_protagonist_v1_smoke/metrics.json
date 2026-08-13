@@ -1,0 +1,185 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "NO LIFT: best per-scene/local topical arm topical_perscene_charset sub_acc=0.3647 <= backbone 0.3765 + 0.005 (delta=-0.0118). Whole-doc topical=0.1647 (delta=-0.2118). Autopsy: locality residual misses=57, 57 still >=2 same-gender competitors. Same-gender ceiling for this glass-box resolver; next lever = quoted-speech speaker attribution / verb-argument selectional fit to break same-gender ties recency+mass cannot.",
+  "summary": "read_xsent_coref_scene_protagonist_v1: HARD_FAIL",
+  "elapsed_s": 0.129,
+  "anchor_name": "read_xsent_coref_scene_protagonist_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-24T05:39:14.668035+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 5,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "backbone",
+      "off_faithful",
+      "topical_wholedoc",
+      "topical_perscene_time",
+      "topical_perscene_charset",
+      "ctrl_random_matched",
+      "topical_local_fixed5",
+      "topical_local_freqonly",
+      "topical_local_her_recency"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "p1_arm": "backbone",
+    "faithful_arm": "off_faithful",
+    "mechanism_arm": "topical_perscene_charset",
+    "locality_arm": "topical_local_fixed5",
+    "random_ctrl_arm": "ctrl_random_matched",
+    "local_window": 5,
+    "topical_slot_heads": [
+      "he",
+      "her",
+      "hers",
+      "his",
+      "she"
+    ],
+    "her_recency_heads": [
+      "he",
+      "his",
+      "she"
+    ],
+    "backbone_plateau_cited": 0.2487,
+    "bands": {
+      "validity_gate_max": 0.1,
+      "plateau_repro_eps": 0.01,
+      "hp_margin": 0.03,
+      "hp_sign_stability": 0.9,
+      "no_overall_regress_eps": 0.005,
+      "scene_struct_min": 0.03
+    },
+    "n_bootstrap": 2000,
+    "bootstrap_seed": 20260724,
+    "pass_criterion": "per-scene/local topical beats backbone on same-gender subset by >=0.03 with sign_stability>=0.90 + no overall xsent regression; scene_structure_supported reported separately (detected - random_matched >= 0.03)"
+  },
+  "n_targets_total": 296,
+  "n_xsent": 85,
+  "n_same_gender_subset": 85,
+  "bucket_counts": {
+    "same": 211,
+    "plus1": 80,
+    "plus2": 3,
+    "long": 2
+  },
+  "overall_xsent_acc": {
+    "single_sentence_baseline": 0.0,
+    "backbone": 0.3764705882352941,
+    "off_faithful": 0.3764705882352941,
+    "topical_wholedoc": 0.16470588235294117,
+    "topical_perscene_time": 0.25882352941176473,
+    "topical_perscene_charset": 0.36470588235294116,
+    "ctrl_random_matched": 0.4,
+    "topical_local_fixed5": 0.32941176470588235,
+    "topical_local_freqonly": 0.32941176470588235,
+    "topical_local_her_recency": 0.3176470588235294
+  },
+  "same_gender_subset_acc": {
+    "single_sentence_baseline": 0.0,
+    "backbone": 0.3764705882352941,
+    "off_faithful": 0.3764705882352941,
+    "topical_wholedoc": 0.16470588235294117,
+    "topical_perscene_time": 0.25882352941176473,
+    "topical_perscene_charset": 0.36470588235294116,
+    "ctrl_random_matched": 0.4,
+    "topical_local_fixed5": 0.32941176470588235,
+    "topical_local_freqonly": 0.32941176470588235,
+    "topical_local_her_recency": 0.3176470588235294
+  },
+  "best_persc_arm": "topical_perscene_charset",
+  "best_persc_subset_acc": 0.36470588235294116,
+  "delta_subset_vs_backbone": -0.011764705882352955,
+  "sign_stability": 0.4055,
+  "overall_regress": true,
+  "whole_doc_topical_subset_acc": 0.16470588235294117,
+  "whole_doc_topical_delta": -0.21176470588235294,
+  "scene_structure": {
+    "charset_detected_subset_acc": 0.36470588235294116,
+    "random_matched_subset_acc": 0.4,
+    "fixed5_subset_acc": 0.32941176470588235,
+    "delta_detected_minus_random": -0.035294117647058865,
+    "scene_structure_supported": false,
+    "interpretation": "lever is LOCALITY (window size); scene detection does NOT beat matched-granularity random/fixed windows"
+  },
+  "validity_ok": true,
+  "faithful_ok": true,
+  "plateau_ok": false,
+  "acc_pass": false,
+  "autopsy": {
+    "mechanism_charset_fixed": 19,
+    "mechanism_charset_broke": 20,
+    "locality_fixed": 15,
+    "locality_broke": 19,
+    "locality_residual_miss": 57,
+    "locality_residual_multi_same_gender": 57
+  },
+  "arms_differ_digests": {
+    "single_sentence_baseline": "eb55fe6d9ad2c0e78dee5316e30ed0d7adead532bb591ca3dd9246511846f45b",
+    "backbone": "b2e6c03fe62bedce7c937d44f80c9d1ba821eeee6f275bb96aceb64c51984a8e",
+    "off_faithful": "b2e6c03fe62bedce7c937d44f80c9d1ba821eeee6f275bb96aceb64c51984a8e",
+    "topical_wholedoc": "cd767713a4569f96cb72dddf298c4b566f0a2c7cd374e4f2ac0dcacc2b25d0d6",
+    "topical_perscene_time": "7f429de2d8fd24105747e8b57ed8486b5efa84e5477942f967ef326eb2252743",
+    "topical_perscene_charset": "5c2cd02181a0214fe41a55f95fe008e82f396ea93e0b36661d308c1e29af1794",
+    "ctrl_random_matched": "e9ea5441a0c0967c2da437c34e0fe89083d44cb15194a822ab020f0467fa9e24",
+    "topical_local_fixed5": "1c0ae1d524e90554994e15950cef0fc52aea280e30b8a4cfb858897868b683c8",
+    "topical_local_freqonly": "db9e5a0cf69c9dd8c38e51fa2ab872c23ad34854f266917903a6b09a98a1ddaa",
+    "topical_local_her_recency": "22251271f3fc96ecccfeae35b62c986eecf4cec67ee9f4e7a7435da973146066"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26,
+      "n_scenes_time": 2,
+      "n_scenes_char": 10,
+      "n_sents": 60
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114,
+      "n_scenes_time": 1,
+      "n_scenes_char": 24,
+      "n_sents": 45
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22,
+      "n_scenes_time": 2,
+      "n_scenes_char": 5,
+      "n_sents": 84
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39,
+      "n_scenes_time": 2,
+      "n_scenes_char": 13,
+      "n_sents": 94
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95,
+      "n_scenes_time": 4,
+      "n_scenes_char": 15,
+      "n_sents": 91
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

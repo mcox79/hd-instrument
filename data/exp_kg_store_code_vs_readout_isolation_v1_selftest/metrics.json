@@ -1,0 +1,52 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS CODE_VS_READOUT_ISOLATION: on synthetic, BOTH readout columns respond to code quality (additive readout: learned>>random; native bilinear-Hebbian ORACLE: clean codes>random codes), the LINEAR bridge preserves the additive geometry (BF~=AA), random codes under the additive readout sit at floor (NA~=random), and the native scramble/identity must-fails fire; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 4.061952100018971,
+  "mechanism_selftest": {
+    "native_planted": {
+      "oracle": 0.76315,
+      "native": 0.26618,
+      "random": 0.05078,
+      "scramble": 0.09467,
+      "idshuf": 0.21703
+    },
+    "native_codesens": {
+      "rand_code_oracle": 1.0,
+      "corr_code_oracle": 0.72584
+    },
+    "transe_planted": {
+      "NN_ORACLE_nativecode_nativeread": 0.9918,
+      "AN_ORACLE_addcode_nativeread": 0.16914,
+      "NA_ORACLE_nativecode_addread": 0.01858,
+      "AA_ORACLE_addcode_addread": 0.46496,
+      "BF_ADD_bridgefidelity": 0.48886,
+      "AA_COMPOSE_realized": 0.44217,
+      "NN_COMPOSE_realized": 0.02328,
+      "RANDOM_CODES": 0.01637,
+      "NATIVE_SCRAMBLE": 0.04898,
+      "IDENTITY_SHUFFLE": 0.01595,
+      "BASELINE_POP": 0.00825
+    },
+    "n_distinct_sigs": 11,
+    "native_oracle_fires": true,
+    "native_scramble_fails": true,
+    "native_idshuf_fails": true,
+    "native_codes_matter": true,
+    "add_learned_recovers": true,
+    "add_beats_random": true,
+    "bridge_preserves": true,
+    "na_at_floor": true,
+    "arms_differ": true,
+    "fits_finite": true,
+    "attribution_selftest_verdict": "INCONCLUSIVE_POSCONTROL_OR_BRIDGE_FAILED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

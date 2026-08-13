@@ -1,0 +1,122 @@
+{
+  "anchor_name": "predicate_composition_same_attribute_v1_smoke",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL HF1: SAME+AND 0.4746 <= FREQ_BIAS 0.5424 + (-0.02) (does not beat trivial guessing). n_seeds=3 FB=0.5424 RAW=0.5198 SAME=0.4915 SAME+AND=0.4746 cv=0.0772 lift_over_FB=-0.0678 lift_over_SAME=-0.0169 lift_over_RAW=-0.0452",
+  "summary": "HARD_FAIL HF1: SAME+AND 0.4746 <= FREQ_BIAS 0.5424 + (-0.02) (does not beat trivial guessing). n_seeds=3 FB=0.5424 RAW=0.5198 SAME=0.4915 SAME+AND=0.4746 cv=0.0772 lift_over_FB=-0.0678 lift_over_SAME=-0.0169 lift_over_RAW=-0.0452",
+  "elapsed_s": 152.68844890594482,
+  "N_DIM": 4096,
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "N_QUESTIONS_CAP": 60,
+  "n_qs_loaded": 59,
+  "n_yesno": 59,
+  "form_distribution": {
+    "both_membership": 44,
+    "same_attr": 12,
+    "share": 0,
+    "other": 3
+  },
+  "run_mode": "smoke",
+  "selftest": {
+    "bind_unbind_cos": 0.7202196272140158,
+    "truth_table_ok": true,
+    "sanity_n": 20,
+    "sanity_d": 20
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N_DIM": 4096,
+      "n_qs": 59,
+      "ARM_FREQ_BIAS_em": 0.5423728813559322,
+      "ARM_RAW_W_LOOKUP_em": 0.5254237288135594,
+      "ARM_SAME_ATTRIBUTE_em": 0.5423728813559322,
+      "ARM_SAME_PLUS_AND_EXISTS_em": 0.5254237288135594,
+      "raw_diag": {
+        "fire_rate": 1.0
+      },
+      "same_diag": {
+        "fire_rate_same": 0.9491525423728814,
+        "tau": 0.4,
+        "tau_sim": 0.6
+      },
+      "same_plus_and_diag": {
+        "fire_rate_same": 0.9491525423728814,
+        "fire_rate_and": 0.7457627118644068,
+        "fire_rate_not": 0.01694915254237288,
+        "tau": 0.4,
+        "tau_sim": 0.6
+      },
+      "calibrated_tau": 0.4,
+      "calibrated_tau_sim": 0.6,
+      "elapsed_s": 1.0826029777526855,
+      "run_mode": "smoke",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782261077.6742914
+    },
+    {
+      "seed": 17,
+      "N_DIM": 4096,
+      "n_qs": 59,
+      "ARM_FREQ_BIAS_em": 0.5423728813559322,
+      "ARM_RAW_W_LOOKUP_em": 0.4576271186440678,
+      "ARM_SAME_ATTRIBUTE_em": 0.4745762711864407,
+      "ARM_SAME_PLUS_AND_EXISTS_em": 0.4576271186440678,
+      "raw_diag": {
+        "fire_rate": 1.0
+      },
+      "same_diag": {
+        "fire_rate_same": 0.9491525423728814,
+        "tau": 0.4,
+        "tau_sim": 0.3
+      },
+      "same_plus_and_diag": {
+        "fire_rate_same": 0.9491525423728814,
+        "fire_rate_and": 0.7457627118644068,
+        "fire_rate_not": 0.01694915254237288,
+        "tau": 0.4,
+        "tau_sim": 0.3
+      },
+      "calibrated_tau": 0.4,
+      "calibrated_tau_sim": 0.3,
+      "elapsed_s": 0.8668370246887207,
+      "run_mode": "smoke",
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782261078.5713618
+    },
+    {
+      "seed": 23,
+      "N_DIM": 4096,
+      "n_qs": 59,
+      "ARM_FREQ_BIAS_em": 0.5423728813559322,
+      "ARM_RAW_W_LOOKUP_em": 0.576271186440678,
+      "ARM_SAME_ATTRIBUTE_em": 0.4576271186440678,
+      "ARM_SAME_PLUS_AND_EXISTS_em": 0.4406779661016949,
+      "raw_diag": {
+        "fire_rate": 1.0
+      },
+      "same_diag": {
+        "fire_rate_same": 0.9491525423728814,
+        "tau": 0.1,
+        "tau_sim": 0.4
+      },
+      "same_plus_and_diag": {
+        "fire_rate_same": 0.9491525423728814,
+        "fire_rate_and": 0.7457627118644068,
+        "fire_rate_not": 0.01694915254237288,
+        "tau": 0.1,
+        "tau_sim": 0.4
+      },
+      "calibrated_tau": 0.1,
+      "calibrated_tau_sim": 0.4,
+      "elapsed_s": 0.7836251258850098,
+      "run_mode": "smoke",
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782261079.3799708
+    }
+  ],
+  "preregs": "preregs/2026-06_predicate_composition_same_attribute_v1_smoke.md"
+}

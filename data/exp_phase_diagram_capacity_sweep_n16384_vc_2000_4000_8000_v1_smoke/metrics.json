@@ -1,0 +1,66 @@
+{
+  "anchor_name": "phase_diagram_capacity_sweep_n16384_vc_2000_4000_8000_v1",
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE_PASS: mechanism end-to-end OK at smoke regime (KNN sentinel + cv bands deferred to FULL run) | KNN_SENTINEL=1.0000 (knn_breach=0/1) | VC_200=1.0000 (cv=nan) | VC_400=1.0000 (cv=nan)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "phaseDiagCapacityVC-v1: N=2048 VC_SWEEP=[200, 400] M_FACTS=[150, 300] V_REL=8 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE HP_recall=0.90 HF_recall=0.50 CV_max=0.05 HP_knn=0.90",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_R": 8,
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "VC_SWEEP": [
+        200,
+        400
+      ],
+      "M_FACTS_BY_VC": {
+        "200": 150,
+        "400": 300
+      },
+      "config_version": "phaseDiagCapacityVC-v1: N=2048 VC_SWEEP=[200, 400] M_FACTS=[150, 300] V_REL=8 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE HP_recall=0.90 HF_recall=0.50 CV_max=0.05 HP_knn=0.90",
+      "gpu_avail": false,
+      "gpu_name": "cpu_fallback",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_knn": {
+        "recall_at_1": 1.0,
+        "V_C_used": 400,
+        "elapsed_s_arm": 0.09,
+        "mechanism": "knn_argmax_codebook_sentinel"
+      },
+      "knn_sentinel_ok": true,
+      "arm_vc_200": {
+        "recall_at_1": 1.0,
+        "V_C": 200,
+        "V_R": 8,
+        "M_facts": 150,
+        "N": 2048,
+        "n_queries": 150,
+        "elapsed_s_arm": 0.12,
+        "mechanism": "substrate_native_hebbian_W_argmax_cleanup_gpu"
+      },
+      "arm_vc_400": {
+        "recall_at_1": 1.0,
+        "V_C": 400,
+        "V_R": 8,
+        "M_facts": 300,
+        "N": 2048,
+        "n_queries": 300,
+        "elapsed_s_arm": 0.16,
+        "mechanism": "substrate_native_hebbian_W_argmax_cleanup_gpu"
+      },
+      "gpu_max_mem_alloc_mb": 0.0,
+      "elapsed_s": 0.4,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782527896.0658665
+    }
+  ],
+  "elapsed_s": 0.6,
+  "summary": "SMOKE_PASS: mechanism end-to-end OK at smoke regime (KNN sentinel + cv bands deferred to FULL run) | KNN_SENTINEL=1.0000 (knn_breach=0/1) | VC_200=1.0000 (cv=nan) | VC_400=1.0000 (cv=nan)",
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": false,
+  "gpu_name": "cpu_fallback",
+  "DESIGN_NOTE": "PHASE_DIAGRAM_VC_AXIS_CAPACITY_SWEEP: production-scale (N=16384) capacity sweep along the V_C axis. Stage3-integrated-audit envelope inherits V_C_IN<=2000; this cell maps V_C in {2000, 4000, 8000} to find the ceiling. M_FACTS/V_C ratio held at 0.75 (production-baseline). Substrate-native Hebbian W with codebook E and relation matrix R; recall@1 of associative retrieval via argmax(E @ (W @ (E[s]*R[r]*sq))). KNN sentinel >= 0.90 (Fix #28). Verdict tiers CHAIN_GRADE_VC_CEILING_8000 / PARTIAL_VC_CEILING_4000 / PARTIAL_VC_CEILING_2000 / SANITY_BREACH / MIDDLE_BAND. GPU-required at full per Fix #24."
+}

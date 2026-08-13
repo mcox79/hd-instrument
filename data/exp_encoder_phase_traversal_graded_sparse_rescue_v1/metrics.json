@@ -1,0 +1,376 @@
+{
+  "verdict": "HARD_PASS_GRADED_STATIC_ACHIEVES_BOTH_NO_CONDENSER_NEEDED",
+  "verdict_msg": "HARD_PASS_GRADED_STATIC_ACHIEVES_BOTH_NO_CONDENSER_NEEDED | GRADED-SPARSE RESCUE of the phase-traversal hard sign+top-k negative (v1 structural_gain=-0.348). Sweep magnitude-gradedness gamma (0=hard-WTA sign [neg ctrl], 1=topk_mag) of the STORE code; each gamma judged vs ITS OWN static readout. HEADLINE graded_g1.00 (gamma=1.0): SP@J5=0.941 (hit>=0.83:True) condSC@a1.2=0.643 (hit>=0.9:False) statSC=0.930 structural_gain=-0.287 (>= 0.15:False) revives=False. PER-GAMMA: g0.00(SP0.98/condSC0.49/statSC0.89/dSC-0.40) g0.50(SP0.96/condSC0.60/statSC0.91/dSC-0.31) g1.00(SP0.94/condSC0.64/statSC0.93/dSC-0.29). HARD-CTRL gamma0 (v1 negative): condSC=0.488 statSC=0.887 dSC=-0.398. dense_condense (v1 near-oracle ref) SC=0.988. ORACLE ceiling SP0.98/SC1.00. cache=bge_large_v2_name_177899_54f7cf6a.npz. INTERPRETATION: the GRADED sparse store code alone (raw argmax, NO condenser) achieves BOTH high superposition AND high pointwise -> the strongest rescue: one graded code serves both directly; the hard sign quantization was the entire problem. Two-head not needed.",
+  "summary": "HARD_PASS_GRADED_STATIC_ACHIEVES_BOTH_NO_CONDENSER_NEEDED: graded-sparse rescue of phase-traversal hard-WTA negative (smoke)",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "elapsed_s": 1798.1654382999986,
+  "ts_iso": "2026-07-08T15:05:08.943528+00:00",
+  "anchor_name": "encoder_phase_traversal_graded_sparse_rescue_v1",
+  "cache_source": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "cardinality_ok": true,
+  "seeds_ok": true,
+  "gamma_cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units": 3,
+  "gammas": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "arms_differ_verified": true,
+  "arm_collisions": [],
+  "baseline_in_band": true,
+  "baseline_static_arm": "static_g0.00",
+  "baseline_static_sc": 0.8866666666666667,
+  "classification": {
+    "verdict": "HARD_PASS_GRADED_STATIC_ACHIEVES_BOTH_NO_CONDENSER_NEEDED",
+    "headline": {
+      "arm": "graded_g1.00",
+      "gamma": 1.0,
+      "sp": 0.9406666666666667,
+      "sc_condense": 0.6433333333333333,
+      "sc_static": 0.93,
+      "structural_gain": -0.28666666666666674,
+      "sp_hit": true,
+      "sc_condense_hit": false,
+      "sc_static_hit": true,
+      "struct_ok": false,
+      "revives": false,
+      "static_achieves_both": true
+    },
+    "per_gamma": {
+      "g0.00": {
+        "gamma": 0.0,
+        "sp": 0.977,
+        "sc_condense": 0.48833333333333334,
+        "sc_static": 0.8866666666666667,
+        "structural_gain": -0.3983333333333334,
+        "sp_hit": true,
+        "sc_condense_hit": false,
+        "sc_static_hit": false,
+        "struct_ok": false,
+        "revives": false,
+        "static_achieves_both": false
+      },
+      "g0.50": {
+        "gamma": 0.5,
+        "sp": 0.9631666666666666,
+        "sc_condense": 0.6008333333333332,
+        "sc_static": 0.9108333333333333,
+        "structural_gain": -0.31000000000000005,
+        "sp_hit": true,
+        "sc_condense_hit": false,
+        "sc_static_hit": true,
+        "struct_ok": false,
+        "revives": false,
+        "static_achieves_both": true
+      },
+      "g1.00": {
+        "gamma": 1.0,
+        "sp": 0.9406666666666667,
+        "sc_condense": 0.6433333333333333,
+        "sc_static": 0.93,
+        "structural_gain": -0.28666666666666674,
+        "sp_hit": true,
+        "sc_condense_hit": false,
+        "sc_static_hit": true,
+        "struct_ok": false,
+        "revives": false,
+        "static_achieves_both": true
+      }
+    },
+    "best_graded_gamma": 1.0,
+    "best_graded": {
+      "gamma": 1.0,
+      "sp": 0.9406666666666667,
+      "sc_condense": 0.6433333333333333,
+      "sc_static": 0.93,
+      "structural_gain": -0.28666666666666674,
+      "sp_hit": true,
+      "sc_condense_hit": false,
+      "sc_static_hit": true,
+      "struct_ok": false,
+      "revives": false,
+      "static_achieves_both": true
+    },
+    "dense_condense_sc": 0.9883333333333333,
+    "oracle": {
+      "sp": 0.977,
+      "sc": 1.0
+    },
+    "hard_ctrl": {
+      "gamma": 0.0,
+      "sp": 0.977,
+      "sc_condense": 0.48833333333333334,
+      "sc_static": 0.8866666666666667,
+      "structural_gain": -0.3983333333333334,
+      "sp_hit": true,
+      "sc_condense_hit": false,
+      "sc_static_hit": false,
+      "struct_ok": false,
+      "revives": false,
+      "static_achieves_both": false
+    },
+    "thresholds": {
+      "SP_HI": 0.83,
+      "SC_HI": 0.9,
+      "MIDDLE_TOL": 0.05,
+      "STRUCT_MARGIN": 0.15
+    }
+  },
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2
+  },
+  "bands": {
+    "SP_HI": 0.83,
+    "SC_HI": 0.9,
+    "MIDDLE_TOL": 0.05,
+    "STRUCT_MARGIN": 0.15,
+    "LAMBDA_D": 1.0,
+    "NOISE_AUG_ALPHA": 1.6,
+    "NOISE_AUG_FRAC": 0.5
+  },
+  "regime": {
+    "N": 4096,
+    "Din": 1024,
+    "V": 8000,
+    "iters": 250,
+    "B": 1280,
+    "lr": 0.001,
+    "Js": [
+      1,
+      5
+    ],
+    "alphas": [
+      0.0,
+      1.2
+    ],
+    "nq": 400,
+    "sep_sample": 1500,
+    "gammas": [
+      0.0,
+      0.5,
+      1.0
+    ]
+  },
+  "agg": {
+    "n_seeds": 3,
+    "arms": {
+      "graded_g0.00": {
+        "kind": "condense",
+        "gamma": 0.0,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.48833333333333334
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          0.49,
+          0.4875,
+          0.4875
+        ],
+        "train_loss_mean": 0.0013930093652258317,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.0024133337241861712
+      },
+      "static_g0.00": {
+        "kind": "static",
+        "gamma": 0.0,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.8866666666666667
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          0.9075,
+          0.8825,
+          0.87
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.017582976441606862
+      },
+      "graded_g0.50": {
+        "kind": "condense",
+        "gamma": 0.5,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.9631666666666666
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.6008333333333332
+        },
+        "sep_store_mean": 0.1825382262468338,
+        "sp_op_per_seed": [
+          0.956,
+          0.9615,
+          0.972
+        ],
+        "sc_op_per_seed": [
+          0.59,
+          0.6225,
+          0.59
+        ],
+        "train_loss_mean": 0.001709559738325576,
+        "sp_op_cv": 0.006891264146648168,
+        "sc_op_cv": 0.02549899627025005
+      },
+      "static_g0.50": {
+        "kind": "static",
+        "gamma": 0.5,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.9631666666666666
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9108333333333333
+        },
+        "sep_store_mean": 0.1825382262468338,
+        "sp_op_per_seed": [
+          0.956,
+          0.9615,
+          0.972
+        ],
+        "sc_op_per_seed": [
+          0.93,
+          0.9075,
+          0.895
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.006891264146648168,
+        "sc_op_cv": 0.015899494233287088
+      },
+      "graded_g1.00": {
+        "kind": "condense",
+        "gamma": 1.0,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.9406666666666667
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.6433333333333333
+        },
+        "sep_store_mean": 0.18939576546351114,
+        "sp_op_per_seed": [
+          0.93,
+          0.9440000000000001,
+          0.948
+        ],
+        "sc_op_per_seed": [
+          0.665,
+          0.65,
+          0.615
+        ],
+        "train_loss_mean": 0.0017757721167678635,
+        "sp_op_cv": 0.008203994970085176,
+        "sc_op_cv": 0.03256426189113095
+      },
+      "static_g1.00": {
+        "kind": "static",
+        "gamma": 1.0,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.9406666666666667
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.93
+        },
+        "sep_store_mean": 0.18939576546351114,
+        "sp_op_per_seed": [
+          0.93,
+          0.9440000000000001,
+          0.948
+        ],
+        "sc_op_per_seed": [
+          0.945,
+          0.9325,
+          0.9125
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.008203994970085176,
+        "sc_op_cv": 0.014392812190151434
+      },
+      "dense_condense": {
+        "kind": "dense_condense",
+        "gamma": null,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9883333333333333
+        },
+        "sep_store_mean": null,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          1.0,
+          0.975,
+          0.99
+        ],
+        "train_loss_mean": 0.003169961661721269,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.01039530185998142
+      },
+      "oracle": {
+        "kind": "oracle",
+        "gamma": null,
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.0
+      }
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ]
+}

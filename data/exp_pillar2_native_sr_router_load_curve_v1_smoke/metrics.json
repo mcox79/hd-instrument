@@ -1,0 +1,411 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL_ROUTING_AMBIGUOUS",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_ROUTING_AMBIGUOUS || CURVE acc-vs-M (M=128,384,896,1792): ORACLE=1.000,1.000,1.000,1.000 DENSE=0.930,0.630,0.450,0.370 SR=0.359,0.120,0.416,0.495 DEGREE=0.281,0.227,0.227,0.214 RANDOM=0.086,0.060,0.093,0.072 CEIL=0.992,0.906,0.856,0.795 || M_hi=1792: SR=0.495 DENSE=0.370 DEGREE=0.214 RANDOM=0.072 ORACLE=1.000 CEIL=0.795 chance=0.083 | sep(SR-DENSE)=0.125 deg(SR-DEG)=0.281 SR/ceil=0.623 SR_flat|hi-lo|=0.186 (LOW=0.598 HIGH=0.412) SR_peak=0.495 effrank=32.000 || SHUFFLE M_hi: ORACLE 1.000->0.071 (bites=True) SR 0.495->0.495 (delta=0.000) leaky 1.000->0.071 || DENSE collapse: M_lo=0.930 -> M_hi=0.370 (collapses=True) || GATES enough=True rand_valid=True oracle_fires=True routable(ceil-deg>=0.10)=True dense_collapses=True || HP conj: sep=False degree=True ceil=False flat=False sr_self=True shuffle=True rank=True || seeds=1 P=12 run=smoke",
+  "summary": "MIDDLE_BAND_PARTIAL_ROUTING_AMBIGUOUS || CURVE acc-vs-M (M=128,384,896,1792): ORACLE=1.000,1.000,1.000,1.000 DENSE=0.930,0.630,0.450,0.370 SR=0.359,0.120,0.416,0.495 DEGREE=0.281,0.227,0.227,0.214 RAN",
+  "run_mode": "smoke",
+  "elapsed_s": 1.5097072999924421,
+  "anchor_name": "pillar2_native_sr_router_load_curve_v1",
+  "ts_iso": "2026-07-10T16:04:36.256661+00:00",
+  "device": "cpu",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "seeds": [
+      7
+    ],
+    "n_nodes": 900,
+    "P": 12,
+    "D": 224,
+    "k": 32,
+    "m_grid": [
+      128,
+      384,
+      896,
+      1792
+    ]
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 733,
+    "n_edges": 1939,
+    "median_degree": 3.0,
+    "mean_degree": 5.2905866302864935,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 1939
+  },
+  "gates": {
+    "verdict": "MIDDLE_BAND_PARTIAL_ROUTING_AMBIGUOUS",
+    "curve": {
+      "m_grid": [
+        128,
+        384,
+        896,
+        1792
+      ],
+      "ORACLE": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "DENSE_SUPERPOSITION": [
+        0.9296875,
+        0.6302083333333334,
+        0.4497767857142857,
+        0.37
+      ],
+      "SR_SPECTRAL": [
+        0.359375,
+        0.11979166666666667,
+        0.41629464285714285,
+        0.49533333333333335
+      ],
+      "DEGREE_POPULARITY": [
+        0.28125,
+        0.2265625,
+        0.2265625,
+        0.214
+      ],
+      "RANDOM": [
+        0.0859375,
+        0.059895833333333336,
+        0.09263392857142858,
+        0.072
+      ],
+      "CEILING": [
+        0.9921875,
+        0.90625,
+        0.8560267857142857,
+        0.7946666666666666
+      ]
+    },
+    "m_hi": {
+      "M": 1792,
+      "SR": 0.49533333333333335,
+      "DENSE": 0.37,
+      "DEGREE": 0.214,
+      "RANDOM": 0.072,
+      "ORACLE": 1.0,
+      "ceiling": 0.7946666666666666,
+      "chance": 0.08333333333333333,
+      "sep_sr_dense": 0.12533333333333335,
+      "deg_sr_degree": 0.2813333333333333,
+      "sr_over_ceil": 0.6233221476510068,
+      "sr_flatness": 0.18608193867235767,
+      "sr_low": 0.5977198697068404,
+      "sr_high": 0.41163793103448276,
+      "sr_peak": 0.49533333333333335,
+      "eff_rank": 31.999969482421875
+    },
+    "shuffle": {
+      "oracle_intact": 1.0,
+      "oracle_shuffle": 0.07066666666666667,
+      "shuffle_bites": true,
+      "sr_intact": 0.49533333333333335,
+      "sr_shuffle": 0.49533333333333335,
+      "sr_shuffle_delta": 0.0,
+      "leaky_intact": 1.0,
+      "leaky_shuffle": 0.07066666666666667
+    },
+    "dense_collapse": {
+      "dense_lo": 0.9296875,
+      "dense_hi": 0.37,
+      "collapses": true
+    },
+    "preconditions": {
+      "enough": true,
+      "random_valid": true,
+      "oracle_fires": true,
+      "routable": true,
+      "dense_collapses": true
+    },
+    "hard_pass_conjuncts": {
+      "sep_ok": false,
+      "degree_ok": true,
+      "ceil_ok": false,
+      "flat_ok": false,
+      "sr_self_ok": true,
+      "shuffle_ok": true,
+      "rank_ok": true
+    },
+    "bands": {
+      "SEP_MARGIN": 0.2,
+      "DEGREE_MARGIN": 0.15,
+      "CEIL_FRAC": 0.7,
+      "FLAT_EPS": 0.12,
+      "CONCENTRATE_FAIL": 0.2,
+      "SHUFFLE_EPS": 0.05,
+      "SHUFFLE_FAIL": 0.15,
+      "SR_SELF_DROP_MAX": 0.15,
+      "RANK_FLOOR": 3.0,
+      "TIE_EPS": 0.05,
+      "DENSE_HI_FLOOR": 0.55,
+      "DENSE_DROP_MIN": 0.35,
+      "DENSE_COLLAPSE_CEIL": 0.35,
+      "ORACLE_FIRE_MARGIN": 0.3,
+      "ORACLE_SHUFFLE_CEIL": 0.15,
+      "ROUTABLE_HEADROOM": 0.1,
+      "P": 12,
+      "chance": 0.08333333333333333,
+      "D": 224,
+      "k": 32
+    }
+  },
+  "mechanism_selftest": {
+    "chance": 0.125,
+    "D_small": 48,
+    "lo_M": 32,
+    "hi_M": 1200,
+    "sr_hi": 0.8408,
+    "dense_lo": 0.9688,
+    "dense_hi": 0.2867,
+    "oracle_hi": 1.0,
+    "rand_hi": 0.1467,
+    "eff_rank_hi": 16.0,
+    "leaky_intact": 1.0,
+    "leaky_shuffle": 0.105,
+    "sr_intact": 0.8408,
+    "sr_shuffle": 0.8408,
+    "oracle_shuffle": 0.105,
+    "a_sr_finds_structure": true,
+    "c_dense_collapses": true,
+    "c_sr_survives_load": true,
+    "b_leaky_dies": true,
+    "b_native_invariant": true,
+    "b_oracle_bites": true,
+    "rank_ok": true,
+    "arms_differ": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "points": [
+        {
+          "seed": 7,
+          "M": 128,
+          "store": 128,
+          "probes": 128,
+          "acc": {
+            "ORACLE": 1.0,
+            "DENSE_SUPERPOSITION": 0.9296875,
+            "SR_SPECTRAL": 0.359375,
+            "DEGREE_POPULARITY": 0.28125,
+            "RANDOM": 0.0859375
+          },
+          "sr_strat": {
+            "LOW": {
+              "acc": 0.42528735632183906,
+              "n": 87
+            },
+            "MID": {
+              "acc": NaN,
+              "n": 0
+            },
+            "HIGH": {
+              "acc": 0.21951219512195122,
+              "n": 41
+            }
+          },
+          "ceiling": 0.9921875,
+          "eff_rank": 31.998672485351562,
+          "oracle_shuffle": 0.078125,
+          "sr_intact": 0.359375,
+          "sr_shuffle": 0.359375,
+          "leaky_intact": 1.0,
+          "leaky_shuffle": 0.078125,
+          "deg_tertiles": [
+            1.0,
+            1.0
+          ],
+          "sigs": {
+            "ORACLE": "44b8ab98d72236e9207ce3b9569d638527c8280a84538d374d7fcabb811376e3",
+            "DENSE_SUPERPOSITION": "7a0d99c603f4711c1fb154716d9ba0f93a298611a7bee3485a6f93abc2a05235",
+            "SR_SPECTRAL": "7d3d772c3b25d883c83d54b19a7fe2c12bd57a5addfd6415ffe2e0245cfc5c9d",
+            "DEGREE_POPULARITY": "250d4de7496dcc2febc48f0a8fbf64c22b09ab693150a1b4f7543724b07b1480",
+            "RANDOM": "2bf02f2055aeedf44697a73826891c454909f77c3f04405441458eeaff9092ad"
+          },
+          "failures": [],
+          "P": 12
+        },
+        {
+          "seed": 7,
+          "M": 384,
+          "store": 384,
+          "probes": 384,
+          "acc": {
+            "ORACLE": 1.0,
+            "DENSE_SUPERPOSITION": 0.6302083333333334,
+            "SR_SPECTRAL": 0.11979166666666667,
+            "DEGREE_POPULARITY": 0.2265625,
+            "RANDOM": 0.059895833333333336
+          },
+          "sr_strat": {
+            "LOW": {
+              "acc": 0.2907801418439716,
+              "n": 141
+            },
+            "MID": {
+              "acc": 0.027777777777777776,
+              "n": 144
+            },
+            "HIGH": {
+              "acc": 0.010101010101010102,
+              "n": 99
+            }
+          },
+          "ceiling": 0.90625,
+          "eff_rank": 31.998756408691406,
+          "oracle_shuffle": 0.10416666666666667,
+          "sr_intact": 0.11979166666666667,
+          "sr_shuffle": 0.11979166666666667,
+          "leaky_intact": 1.0,
+          "leaky_shuffle": 0.10416666666666667,
+          "deg_tertiles": [
+            1.0,
+            3.0
+          ],
+          "sigs": {
+            "ORACLE": "f13b54e0fdbc6e6e3fb66c82ea4c5a103e185e32bed1f7e91f9732fbdab23707",
+            "DENSE_SUPERPOSITION": "676bf4582fc1118e16671d84b3d51d834e84fa848a6002079164382c725d7e5a",
+            "SR_SPECTRAL": "5b495ebeb2e8066624e368c867365b873cba97ff2ed818db8e7fd614d1950fac",
+            "DEGREE_POPULARITY": "250d4de7496dcc2febc48f0a8fbf64c22b09ab693150a1b4f7543724b07b1480",
+            "RANDOM": "ce8716a6866d0e67265f679cc346fd5b7aab9bb26e4dc9204f563027834b7e91"
+          },
+          "failures": [],
+          "P": 12
+        },
+        {
+          "seed": 7,
+          "M": 896,
+          "store": 896,
+          "probes": 896,
+          "acc": {
+            "ORACLE": 1.0,
+            "DENSE_SUPERPOSITION": 0.4497767857142857,
+            "SR_SPECTRAL": 0.41629464285714285,
+            "DEGREE_POPULARITY": 0.2265625,
+            "RANDOM": 0.09263392857142858
+          },
+          "sr_strat": {
+            "LOW": {
+              "acc": 0.551622418879056,
+              "n": 339
+            },
+            "MID": {
+              "acc": 0.46402877697841727,
+              "n": 278
+            },
+            "HIGH": {
+              "acc": 0.20430107526881722,
+              "n": 279
+            }
+          },
+          "ceiling": 0.8560267857142857,
+          "eff_rank": 31.884061813354492,
+          "oracle_shuffle": 0.09375,
+          "sr_intact": 0.41629464285714285,
+          "sr_shuffle": 0.41629464285714285,
+          "leaky_intact": 1.0,
+          "leaky_shuffle": 0.09375,
+          "deg_tertiles": [
+            2.0,
+            5.0
+          ],
+          "sigs": {
+            "ORACLE": "bb1946a4e8030b21b0d0108b0e036d1c821b3c563d7a37c810c269f1fb6973c4",
+            "DENSE_SUPERPOSITION": "d80730e60e6b5183b798b7cb6c0c11e799539483b4ae76ac23684c7220baac0e",
+            "SR_SPECTRAL": "4c696ffdd92ca5b301e6f7d0f3a872f1f93e7973cc7973fa904d29cfcb155780",
+            "DEGREE_POPULARITY": "250d4de7496dcc2febc48f0a8fbf64c22b09ab693150a1b4f7543724b07b1480",
+            "RANDOM": "d203a69674fbba0143738427bca2b9d55c9d44a712778d59b7e3b434999c9935"
+          },
+          "failures": [],
+          "P": 12
+        },
+        {
+          "seed": 7,
+          "M": 1792,
+          "store": 1792,
+          "probes": 1500,
+          "acc": {
+            "ORACLE": 1.0,
+            "DENSE_SUPERPOSITION": 0.37,
+            "SR_SPECTRAL": 0.49533333333333335,
+            "DEGREE_POPULARITY": 0.214,
+            "RANDOM": 0.072
+          },
+          "sr_strat": {
+            "LOW": {
+              "acc": 0.5977198697068404,
+              "n": 614
+            },
+            "MID": {
+              "acc": 0.43838862559241704,
+              "n": 422
+            },
+            "HIGH": {
+              "acc": 0.41163793103448276,
+              "n": 464
+            }
+          },
+          "ceiling": 0.7946666666666666,
+          "eff_rank": 31.999969482421875,
+          "oracle_shuffle": 0.07066666666666667,
+          "sr_intact": 0.49533333333333335,
+          "sr_shuffle": 0.49533333333333335,
+          "leaky_intact": 1.0,
+          "leaky_shuffle": 0.07066666666666667,
+          "deg_tertiles": [
+            4.0,
+            9.0
+          ],
+          "sigs": {
+            "ORACLE": "2e726b7ce9c4041c51a7e54fa47427f10c3e7a5c829b76266635477e40175920",
+            "DENSE_SUPERPOSITION": "5baa07e9a2707d66aedca67677ea3e8b3bf3cc1e8b2adb249669531b38fc7a7c",
+            "SR_SPECTRAL": "3b06714e16381fe414e38c02f40f3b2813c893d8d8857024ee287e6b867bd186",
+            "DEGREE_POPULARITY": "250d4de7496dcc2febc48f0a8fbf64c22b09ab693150a1b4f7543724b07b1480",
+            "RANDOM": "cf15e857305d43bb52284fb0980b4494273c7981c73cbbe4130d1a89b5cc7765"
+          },
+          "failures": [],
+          "P": 12
+        }
+      ],
+      "bank_sizes": [
+        82,
+        98,
+        20,
+        89,
+        35,
+        98,
+        45,
+        24,
+        35,
+        98,
+        44,
+        65
+      ]
+    }
+  ]
+}

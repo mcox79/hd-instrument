@@ -1,0 +1,8 @@
+{
+  "anchor": "n1_recover_token_ids_pythia_pertoken_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "npz rewrite failed: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\\\dev\\\\hd-instrument\\\\data\\\\exp_phase05_v1_pythia160m_residual_extract_pertoken_v1\\\\residuals_per_token.recover_tmp.npz' -> 'C:\\\\dev\\\\hd-instrument\\\\data\\\\exp_phase05_v1_pythia160m_residual_extract_pertoken_v1\\\\residuals_per_token.npz'",
+  "elapsed_s": 24.485394716262817,
+  "summary": "npz_write_failure",
+  "exception": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_n1_recover_token_ids_pythia_pertoken_v1.py\", line 570, in main\n    os.replace(str(tmp_path), str(npz_path))\nPermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\\\dev\\\\hd-instrument\\\\data\\\\exp_phase05_v1_pythia160m_residual_extract_pertoken_v1\\\\residuals_per_token.recover_tmp.npz' -> 'C:\\\\dev\\\\hd-instrument\\\\data\\\\exp_phase05_v1_pythia160m_residual_extract_pertoken_v1\\\\residuals_per_token.npz'\n"
+}

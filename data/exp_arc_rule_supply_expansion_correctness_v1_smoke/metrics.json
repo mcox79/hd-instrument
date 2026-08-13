@@ -1,0 +1,788 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "per_config",
+    "verdicts",
+    "attributions",
+    "preregistered_bands",
+    "prereg_thresholds"
+  ],
+  "anchor_name": "arc_rule_supply_expansion_correctness_v1",
+  "attributions": {
+    "lemma_syn": {
+      "attribution_coverage_dist": 1.0,
+      "attribution_coverage_gold": 1.0,
+      "n_dist_attributed": 44,
+      "n_dist_newly_derivable": 44,
+      "n_gold_attributed": 14,
+      "n_gold_newly_derivable": 14,
+      "per_rule": [
+        {
+          "dist_help": 0,
+          "gold_help": 1,
+          "questions_dist": [],
+          "questions_gold": [
+            "Mercury_SC_408366"
+          ],
+          "rule": "survival --REQUIRES--> producer",
+          "rule_index": 0,
+          "targets_qid": [
+            "Mercury_SC_408366"
+          ]
+        },
+        {
+          "dist_help": 13,
+          "gold_help": 3,
+          "questions_dist": [
+            "LEAP_2001_8_10379",
+            "MCAS_2014_8_6",
+            "Mercury_188528",
+            "Mercury_400699",
+            "Mercury_7128923",
+            "Mercury_7164623",
+            "Mercury_7177398",
+            "Mercury_SC_401295",
+            "Mercury_SC_409241",
+            "Mercury_SC_LBS10027",
+            "NYSEDREGENTS_2015_4_11"
+          ],
+          "questions_gold": [
+            "Mercury_7164623",
+            "Mercury_7185343",
+            "Mercury_SC_LBS10027"
+          ],
+          "rule": "energy --COUPLEDRELATIONSHIP--> sunlight",
+          "rule_index": 1,
+          "targets_qid": [
+            "NYSEDREGENTS_2015_4_29",
+            "Mercury_7221043"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 1,
+          "questions_dist": [
+            "NCEOGA_2013_5_17"
+          ],
+          "questions_gold": [
+            "TIMSS_2007_8_pg60"
+          ],
+          "rule": "oxygen --COUPLEDRELATIONSHIP--> fish",
+          "rule_index": 2,
+          "targets_qid": [
+            "Mercury_409647",
+            "Mercury_7168823",
+            "Mercury_7138390"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "decay --COUPLEDRELATIONSHIP--> oxygen",
+          "rule_index": 3,
+          "targets_qid": [
+            "Mercury_7140333"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 0,
+          "questions_dist": [
+            "Mercury_7106628"
+          ],
+          "questions_gold": [],
+          "rule": "reproduction --REQUIRES--> parents",
+          "rule_index": 4,
+          "targets_qid": [
+            "Mercury_406777"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "light --USEDFOR--> prey",
+          "rule_index": 5,
+          "targets_qid": [
+            "Mercury_SC_401277"
+          ]
+        },
+        {
+          "dist_help": 5,
+          "gold_help": 1,
+          "questions_dist": [
+            "MCAS_2001_8_4",
+            "Mercury_7230318",
+            "Mercury_SC_405296",
+            "Mercury_SC_409241"
+          ],
+          "questions_gold": [
+            "Mercury_SC_409241"
+          ],
+          "rule": "oxygen --COUPLEDRELATIONSHIP--> plant",
+          "rule_index": 6,
+          "targets_qid": [
+            "Mercury_7040793"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 0,
+          "questions_dist": [
+            "MCAS_1998_8_24"
+          ],
+          "questions_gold": [],
+          "rule": "volcano --CAUSE--> pollution",
+          "rule_index": 7,
+          "targets_qid": [
+            "MCAS_1998_8_24"
+          ]
+        },
+        {
+          "dist_help": 8,
+          "gold_help": 5,
+          "questions_dist": [
+            "Mercury_7116288",
+            "Mercury_SC_402171",
+            "Mercury_SC_409241",
+            "Mercury_SC_409383",
+            "NAEP_2005_4_S14+3"
+          ],
+          "questions_gold": [
+            "Mercury_7185343",
+            "Mercury_7188195",
+            "Mercury_SC_402171",
+            "Mercury_SC_409383",
+            "NAEP_2005_4_S14+3"
+          ],
+          "rule": "sunlight --COUPLEDRELATIONSHIP--> plant",
+          "rule_index": 8,
+          "targets_qid": [
+            "Mercury_7188195"
+          ]
+        },
+        {
+          "dist_help": 2,
+          "gold_help": 0,
+          "questions_dist": [
+            "MCAS_2014_8_6",
+            "Mercury_188528"
+          ],
+          "questions_gold": [],
+          "rule": "sunlight --COUPLEDRELATIONSHIP--> convection",
+          "rule_index": 9,
+          "targets_qid": [
+            "MCAS_2005_8_7"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "plant --USEDFOR--> protection",
+          "rule_index": 10,
+          "targets_qid": [
+            "CSZ10358"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "magnetism --CAUSE--> force",
+          "rule_index": 11,
+          "targets_qid": [
+            "Mercury_SC_401373"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 0,
+          "questions_dist": [
+            "Mercury_7123078"
+          ],
+          "questions_gold": [],
+          "rule": "electricity --CAUSE--> current",
+          "rule_index": 12,
+          "targets_qid": [
+            "Mercury_SC_401373"
+          ]
+        },
+        {
+          "dist_help": 2,
+          "gold_help": 0,
+          "questions_dist": [
+            "MDSA_2013_8_20",
+            "MSA_2013_5_23"
+          ],
+          "questions_gold": [],
+          "rule": "force --COUPLEDRELATIONSHIP--> friction",
+          "rule_index": 13,
+          "targets_qid": [
+            "Mercury_7042945"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "pull --CAUSE--> falling",
+          "rule_index": 14,
+          "targets_qid": [
+            "Mercury_7098473"
+          ]
+        },
+        {
+          "dist_help": 8,
+          "gold_help": 2,
+          "questions_dist": [
+            "MCAS_2012_8_23651",
+            "Mercury_188528",
+            "Mercury_400699",
+            "Mercury_7164623",
+            "Mercury_7222460",
+            "NYSEDREGENTS_2013_4_1",
+            "NYSEDREGENTS_2015_4_11"
+          ],
+          "questions_gold": [
+            "Mercury_400699",
+            "NYSEDREGENTS_2013_4_1"
+          ],
+          "rule": "energy --COUPLEDRELATIONSHIP--> radiation",
+          "rule_index": 15,
+          "targets_qid": [
+            "Mercury_7015540",
+            "MCAS_2012_8_23640"
+          ]
+        },
+        {
+          "dist_help": 2,
+          "gold_help": 1,
+          "questions_dist": [
+            "Mercury_407539"
+          ],
+          "questions_gold": [
+            "Mercury_407539"
+          ],
+          "rule": "heating --COUPLEDRELATIONSHIP--> conduction",
+          "rule_index": 16,
+          "targets_qid": [
+            "Mercury_LBS10131",
+            "Mercury_SC_LBS10662"
+          ]
+        },
+        {
+          "dist_help": 1,
+          "gold_help": 0,
+          "questions_dist": [
+            "Mercury_7106628"
+          ],
+          "questions_gold": [],
+          "rule": "growth --COUPLEDRELATIONSHIP--> reproduction",
+          "rule_index": 17,
+          "targets_qid": [
+            "Mercury_7093048"
+          ]
+        },
+        {
+          "dist_help": 0,
+          "gold_help": 0,
+          "questions_dist": [],
+          "questions_gold": [],
+          "rule": "prey --COUPLEDRELATIONSHIP--> competition",
+          "rule_index": 18,
+          "targets_qid": [
+            "Mercury_7182210"
+          ]
+        },
+        {
+          "dist_help": 3,
+          "gold_help": 1,
+          "questions_dist": [
+            "Mercury_SC_415762"
+          ],
+          "questions_gold": [
+            "Mercury_SC_415762"
+          ],
+          "rule": "wind --COUPLEDRELATIONSHIP--> force",
+          "rule_index": 19,
+          "targets_qid": [
+            "MCAS_2000_4_34"
+          ]
+        }
+      ]
+    }
+  },
+  "config": {
+    "arms": [
+      "BASE",
+      "EXPANSION",
+      "SCRAMBLE_PAIR",
+      "FLIP_DIR"
+    ],
+    "base_rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "depth_bump": 6,
+    "expansion_rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v2_expansion.json",
+    "link_modes": [
+      "lemma_syn"
+    ],
+    "n_eval": 200,
+    "n_rules": {
+      "BASE": 233,
+      "EXPANSION": 253,
+      "FLIP_DIR": 253,
+      "SCRAMBLE_PAIR": 253
+    },
+    "n_total_test": 1172,
+    "one_variable_across_arms": "rule_set (reasoner/link/CI/do/decision identical)",
+    "seed": 20260726
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "elapsed_s": 106.4,
+  "host": "FrameworkMPC",
+  "per_config": {
+    "lemma_syn": {
+      "arm_results": {
+        "BASE": {
+          "buckets": {
+            "dist_only": 27,
+            "gold_only": 3,
+            "not_derived": 158,
+            "tie": 12
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 5,
+              "LINK_FAILURE": 5,
+              "STRUCTURALLY_ABSENT": 17
+            },
+            "n_dist_only": 27
+          },
+          "covered_subset": {
+            "acc": 0.238095,
+            "n": 42
+          },
+          "distractor_derive_rate": 0.093178,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 56,
+          "n_dist_cand_total": 601,
+          "n_questions": 200,
+          "n_typed_correct": 45,
+          "struct_absent_qids": [
+            "Mercury_7186568",
+            "Mercury_7218820",
+            "FCAT_2008_5_2",
+            "Mercury_SC_408366",
+            "Mercury_7218628",
+            "Mercury_7164623",
+            "Mercury_7222460",
+            "MCAS_1998_8_24",
+            "Mercury_7188195",
+            "Mercury_SC_400032",
+            "NCEOGA_2013_5_17",
+            "Mercury_SC_LBS10027",
+            "Mercury_7081305",
+            "Mercury_7139650",
+            "Mercury_7042945",
+            "MCAS_2000_4_34",
+            "Mercury_SC_408657"
+          ],
+          "typed_acc": 0.225
+        },
+        "EXPANSION": {
+          "buckets": {
+            "dist_only": 35,
+            "gold_only": 4,
+            "not_derived": 136,
+            "tie": 25
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 10,
+              "LINK_FAILURE": 11,
+              "STRUCTURALLY_ABSENT": 14
+            },
+            "n_dist_only": 35
+          },
+          "covered_subset": {
+            "acc": 0.21875,
+            "n": 64
+          },
+          "distractor_derive_rate": 0.166389,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 100,
+          "n_dist_cand_total": 601,
+          "n_questions": 200,
+          "n_typed_correct": 44,
+          "struct_absent_qids": [
+            "Mercury_7218820",
+            "MCAS_2001_8_4",
+            "FCAT_2008_5_2",
+            "Mercury_7218628",
+            "Mercury_7222460",
+            "Mercury_7230318",
+            "NYSEDREGENTS_2015_4_11",
+            "Mercury_SC_400032",
+            "NCEOGA_2013_5_17",
+            "Mercury_7106628",
+            "Mercury_7081305",
+            "Mercury_7123078",
+            "Mercury_7139650",
+            "Mercury_SC_408657"
+          ],
+          "typed_acc": 0.22
+        },
+        "FLIP_DIR": {
+          "buckets": {
+            "dist_only": 29,
+            "gold_only": 3,
+            "not_derived": 156,
+            "tie": 12
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 5,
+              "LINK_FAILURE": 6,
+              "STRUCTURALLY_ABSENT": 18
+            },
+            "n_dist_only": 29
+          },
+          "covered_subset": {
+            "acc": 0.227273,
+            "n": 44
+          },
+          "distractor_derive_rate": 0.096506,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 58,
+          "n_dist_cand_total": 601,
+          "n_questions": 200,
+          "n_typed_correct": 45,
+          "struct_absent_qids": [
+            "Mercury_7186568",
+            "Mercury_7218820",
+            "FCAT_2008_5_2",
+            "Mercury_SC_408366",
+            "Mercury_7218628",
+            "Mercury_7164623",
+            "Mercury_7222460",
+            "VASoL_2009_3_23",
+            "MCAS_1998_8_24",
+            "Mercury_7188195",
+            "Mercury_SC_400032",
+            "NCEOGA_2013_5_17",
+            "Mercury_SC_LBS10027",
+            "Mercury_7081305",
+            "Mercury_7139650",
+            "Mercury_7042945",
+            "MCAS_2000_4_34",
+            "Mercury_SC_408657"
+          ],
+          "typed_acc": 0.225
+        },
+        "SCRAMBLE_PAIR": {
+          "buckets": {
+            "dist_only": 33,
+            "gold_only": 5,
+            "not_derived": 139,
+            "tie": 23
+          },
+          "coverage_diagnostic": {
+            "counts": {
+              "DEPTH_BLOCKED": 7,
+              "LINK_FAILURE": 11,
+              "STRUCTURALLY_ABSENT": 15
+            },
+            "n_dist_only": 33
+          },
+          "covered_subset": {
+            "acc": 0.213115,
+            "n": 61
+          },
+          "distractor_derive_rate": 0.15807,
+          "link_mode": "lemma_syn",
+          "n_dist_cand_derivable": 95,
+          "n_dist_cand_total": 601,
+          "n_questions": 200,
+          "n_typed_correct": 45,
+          "struct_absent_qids": [
+            "Mercury_7186568",
+            "Mercury_7218820",
+            "MCAS_2001_8_4",
+            "FCAT_2008_5_2",
+            "Mercury_7218628",
+            "Mercury_7222460",
+            "NYSEDREGENTS_2015_4_11",
+            "Mercury_SC_400032",
+            "NCEOGA_2013_5_17",
+            "Mercury_7106628",
+            "Mercury_7081305",
+            "Mercury_7123078",
+            "Mercury_7139650",
+            "Mercury_7042945",
+            "Mercury_SC_408657"
+          ],
+          "typed_acc": 0.225
+        }
+      },
+      "comparisons": {
+        "EXPANSION": {
+          "arm_target_acc": 0.058824,
+          "arm_target_correct": 1,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.166389,
+          "distractor_derive_rate_base": 0.093178,
+          "distractor_derive_rate_delta": 0.073211,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 2,
+              "n": 2,
+              "qids": [
+                "TIMSS_2007_8_pg60",
+                "Mercury_7185343"
+              ]
+            },
+            "correct_gained": 4,
+            "tie_conversion": {
+              "correct": 2,
+              "n": 12,
+              "qids": [
+                "Mercury_SC_408366",
+                "Mercury_400699",
+                "Mercury_SC_415762",
+                "Mercury_SC_402171",
+                "Mercury_7164623",
+                "Mercury_7188195",
+                "Mercury_SC_LBS10027",
+                "NAEP_2005_4_S14+3",
+                "Mercury_407539",
+                "Mercury_SC_409241",
+                "Mercury_SC_409383",
+                "NYSEDREGENTS_2013_4_1"
+              ]
+            },
+            "total": 14
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 0,
+              "n": 1,
+              "qids": [
+                "MDSA_2013_8_20"
+              ]
+            },
+            "net_correct_delta_on_promisc_questions": -2,
+            "new_dist_only": {
+              "n": 13,
+              "qids": [
+                "MCAS_2001_8_4",
+                "Mercury_7177398",
+                "Mercury_7128923",
+                "Mercury_SC_401295",
+                "MSA_2013_5_23",
+                "LEAP_2001_8_10379",
+                "Mercury_7230318",
+                "Mercury_SC_405296",
+                "NYSEDREGENTS_2015_4_11",
+                "Mercury_7106628",
+                "Mercury_7123078",
+                "Mercury_188528",
+                "MCAS_2014_8_6"
+              ]
+            }
+          },
+          "target_acc_delta": 0.058824,
+          "target_bucket_n": 17,
+          "targeted_split": {
+            "n_newly_gold": 14,
+            "n_nontargeted": 12,
+            "n_targeted": 2,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": -0.005
+        },
+        "FLIP_DIR": {
+          "arm_target_acc": 0.0,
+          "arm_target_correct": 0,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.096506,
+          "distractor_derive_rate_base": 0.093178,
+          "distractor_derive_rate_delta": 0.003328,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 0,
+              "n": 0,
+              "qids": []
+            },
+            "correct_gained": 0,
+            "tie_conversion": {
+              "correct": 0,
+              "n": 0,
+              "qids": []
+            },
+            "total": 0
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 0,
+              "n": 0,
+              "qids": []
+            },
+            "net_correct_delta_on_promisc_questions": 0,
+            "new_dist_only": {
+              "n": 2,
+              "qids": [
+                "MSA_2013_5_23",
+                "VASoL_2009_3_23"
+              ]
+            }
+          },
+          "target_acc_delta": 0.0,
+          "target_bucket_n": 17,
+          "targeted_split": {
+            "n_newly_gold": 0,
+            "n_nontargeted": 0,
+            "n_targeted": 0,
+            "overfit_signal": "none"
+          },
+          "whole_set_typed_acc_delta": 0.0
+        },
+        "SCRAMBLE_PAIR": {
+          "arm_target_acc": 0.0,
+          "arm_target_correct": 0,
+          "base_target_acc": 0.0,
+          "base_target_correct": 0,
+          "distractor_derive_rate_arm": 0.15807,
+          "distractor_derive_rate_base": 0.093178,
+          "distractor_derive_rate_delta": 0.064892,
+          "newly_gold_derivable": {
+            "clean_win": {
+              "correct": 2,
+              "n": 2,
+              "qids": [
+                "Mercury_7185343",
+                "NYSEDREGENTS_2013_4_1"
+              ]
+            },
+            "correct_gained": 3,
+            "tie_conversion": {
+              "correct": 1,
+              "n": 11,
+              "qids": [
+                "Mercury_SC_408366",
+                "Mercury_400699",
+                "Mercury_SC_415762",
+                "Mercury_SC_402171",
+                "LEAP_2001_8_10379",
+                "Mercury_7164623",
+                "Mercury_7188195",
+                "Mercury_SC_LBS10027",
+                "NAEP_2005_4_S14+3",
+                "Mercury_407539",
+                "Mercury_SC_409241"
+              ]
+            },
+            "total": 13
+          },
+          "promiscuity": {
+            "gold_only_eroded": {
+              "flipped_wrong": 0,
+              "n": 0,
+              "qids": []
+            },
+            "net_correct_delta_on_promisc_questions": -1,
+            "new_dist_only": {
+              "n": 10,
+              "qids": [
+                "MCAS_2001_8_4",
+                "Mercury_7177398",
+                "Mercury_7128923",
+                "MSA_2013_5_23",
+                "NYSEDREGENTS_2015_4_11",
+                "AIMS_2008_8_13",
+                "Mercury_7106628",
+                "Mercury_7123078",
+                "Mercury_SC_405501",
+                "MCAS_2014_8_6"
+              ]
+            }
+          },
+          "target_acc_delta": 0.0,
+          "target_bucket_n": 17,
+          "targeted_split": {
+            "n_newly_gold": 13,
+            "n_nontargeted": 11,
+            "n_targeted": 2,
+            "overfit_signal": "general"
+          },
+          "whole_set_typed_acc_delta": 0.0
+        }
+      },
+      "positive_control_buckets_anchor": {
+        "dist_only": 114,
+        "gold_only": 26,
+        "tie": 66
+      },
+      "target_bucket_n": 17
+    }
+  },
+  "pid": 29432,
+  "prereg_thresholds": {
+    "depth_bump": 6,
+    "lift_min": 0.05,
+    "lift_over_scramble": 0.03,
+    "positive_control_anchor": {
+      "lemma": {
+        "dist_only": 69,
+        "gold_only": 16,
+        "tie": 44
+      },
+      "lemma_syn": {
+        "dist_only": 114,
+        "gold_only": 26,
+        "tie": 66
+      }
+    },
+    "scramble_max": 0.02,
+    "sel_tol": 0.005
+  },
+  "preregistered_bands": {
+    "hard_pass": false,
+    "honest_neg": false,
+    "inconclusive": true,
+    "middle_band": false
+  },
+  "primary_config": "lemma_syn",
+  "run_mode": "smoke",
+  "summary": "RULE-SUPPLY EXPANSION correctness [lemma_syn]: BASE buckets={'gold_only': 3, 'dist_only': 27, 'tie': 12, 'not_derived': 158} (repro_ok=False) EXPANSION buckets={'gold_only': 4, 'dist_only': 35, 'tie': 25, 'not_derived': 136} | target-bucket(STRUCT_ABSENT n=17) acc 0.0000->0.0588 (delta=0.0588) | newly-gold-derivable=14 (clean_win=2[correct=2] tie_conv=12[correct=2]) | promiscuity: new_dist_only=13 gold_only_eroded=1 | dist-derive rate base=0.0932 exp=0.1664 (delta=0.0732) sel_held=False | scramble_pair_lift=0.0000 flip_lift=0.0000 | whole-set typed_acc base=0.2250 exp=0.2200 | INCONCLUSIVE_POSITIVE_CONTROL_DRIFT",
+  "tier": "VET_PENDING",
+  "ts_iso": "2026-07-26T02:37:06.314891+00:00",
+  "verdict": "INCONCLUSIVE_POSITIVE_CONTROL_DRIFT",
+  "verdict_msg": "Rule-supply expansion (233 v1 -> 253 with 20 VETTED general science rules) tested for CORRECTNESS (not just coverage) + SELECTIVITY on ARC-Challenge (1172) via the composed DerivationReasoner. ONE variable = the rule SET (reasoner/link/CI/do/decision identical). PRIMARY = target-bucket (STRUCTURALLY_ABSENT-under-BASE) typed-accuracy delta; newly-gold-derivable split into clean_win (gold_only) vs meaning-bound tie_conversion; promiscuity harm (new dist_only + gold_only erosion) netted out. SELECTIVITY gate = candidate-level distractor-derive rate must stay <= base + 0.005. MUST-FAIL controls: SCRAMBLE_PAIR (arg1 deranged: same vocab/relations/degree, knowledge destroyed) + FLIP_DIR (arg0<->arg1 reversed) -- both target-bucket lifts must collapse. POSITIVE CONTROL: BASE reproduces prior buckets exactly. Held-out ARC test; rules NOT derived from labels (targets_qid is a recording tag). INLINE-LOCAL; VET-PENDING; no bank.",
+  "verdicts": {
+    "lemma_syn": {
+      "distractor_derive_rate_base": 0.093178,
+      "distractor_derive_rate_expansion": 0.166389,
+      "flip_dir_lift": 0.0,
+      "link_mode": "lemma_syn",
+      "max_scramble_lift": 0.0,
+      "real_beats_scramble": true,
+      "real_lift": 0.058824,
+      "real_lift_ok": true,
+      "repro_ok": false,
+      "scramble_collapsed": true,
+      "scramble_pair_lift": 0.0,
+      "selectivity_held": false,
+      "verdict": "INCONCLUSIVE_POSITIVE_CONTROL_DRIFT"
+    }
+  }
+}

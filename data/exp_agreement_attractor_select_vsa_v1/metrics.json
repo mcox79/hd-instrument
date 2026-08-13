@@ -1,0 +1,197 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_tag": "HARD_FAIL",
+  "verdict_msg": "Attractor-settling subject selection in VSA scaffold | novel-lexeme SNF: attractor=0.6398 linear=0.632 vs majority_ref=0.6279 (measured 0.6268) | shuffle_drop=0.0628 (att_shuf=0.5771) | selection_acc(argmax alpha==subj)=0.231 att0(1step)=0.6522 [oracle-select+morph ceiling=0.9925] | attractor selects subj-FIRST=0.75 buried-SNF=0.6398 | build=gradient(W_f,W_r,q_subj,v_num,beta,rho) runtime=glassbox(saliency->settle->number) | n_seeds=3 FULL",
+  "summary": "HARD_FAIL | attractor_snf=0.6398 vs maj=0.6279 (linear=0.632)",
+  "elapsed_s": 126.45,
+  "run_mode": "full",
+  "anchor_name": "agreement_attractor_select_vsa_v1",
+  "ts_iso": "2026-07-22T20:44:49.011511+00:00",
+  "aggregate": {
+    "attractor_snf": 0.6398,
+    "linear_snf": 0.632,
+    "attractor_snf_shuffle": 0.5771,
+    "shuffle_drop": 0.0628,
+    "majority_ref_snf": 0.6279,
+    "attractor_subj_first": 0.75,
+    "oracle_morph_snf": 0.9925,
+    "selection_acc_snf": 0.231,
+    "att0_1step_snf": 0.6522
+  },
+  "measured_majority_snf": 0.6268,
+  "bands": {
+    "MAJORITY_REF_SNF": 0.6279,
+    "HP_MARGIN_OVER_MAJ": 0.1,
+    "HP_MARGIN_OVER_LINEAR": 0.05,
+    "HP_SHUFFLE_DROP": 0.1,
+    "HF_TIE_LINEAR": 0.02,
+    "HF_TIE_MAJ": 0.02,
+    "HF_SHUFFLE_MIN": 0.03
+  },
+  "invariant_note": "gradient at BUILD-time (W_f content-map, W_r role-map, cue q_subj, number readout v_num, attractor scalars beta/rho); runtime path = saliency dot -> iterative competitive softmax settling (self-excitation + divisive-norm inhibition) -> per-slot number readout = inspectable VSA algebra, no gradient at inference; alpha trajectory a^0..a^T inspectable",
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train": 6000,
+      "n_test": 6000,
+      "n_snf": 2586,
+      "baselines": {
+        "majority_snf": 0.6260634184068059,
+        "majority_all": 0.5801666666666667,
+        "oracle_morph_snf": 0.9926527455529776
+      },
+      "arms_differ_digests": {
+        "attractor": "31880aac30599136dbe678abe8db5ad19cae770c27dc91b8993e1d59908d1366",
+        "linear": "c48c511dfeb81f4d4448efec789bea76e53b22993bc21564b3355e7b361fb9a2"
+      },
+      "attractor": {
+        "all_acc": 0.7045,
+        "snf_acc": 0.6554524361948956,
+        "subj_first_acc": 0.7416520210896309,
+        "snf_shuffle_acc": 0.5784996133023975,
+        "selection_acc_snf": 0.29582366589327147,
+        "att0_snf_acc": 0.6670533642691415,
+        "n_snf": 2586,
+        "snf_by_ndiff": {
+          "0": 0.6643632773938796,
+          "1": 0.6112224448897795,
+          "2": 0.6185770750988142,
+          "3": 0.673972602739726,
+          "4": 0.7783251231527094
+        },
+        "best_val_snf": 0.6227
+      },
+      "linear": {
+        "all_acc": 0.727,
+        "snf_acc": 0.6388244392884764,
+        "subj_first_acc": 0.7937902753368483,
+        "snf_shuffle_acc": 0.6129156999226605,
+        "selection_acc_snf": null,
+        "att0_snf_acc": null,
+        "n_snf": 2586,
+        "snf_by_ndiff": {
+          "0": 0.596248766041461,
+          "1": 0.6112224448897795,
+          "2": 0.6403162055335968,
+          "3": 0.7178082191780822,
+          "4": 0.7733990147783252
+        },
+        "best_val_snf": 0.6028
+      }
+    },
+    {
+      "seed": 13,
+      "n_train": 6000,
+      "n_test": 6000,
+      "n_snf": 2589,
+      "baselines": {
+        "majority_snf": 0.6295867130166087,
+        "majority_all": 0.5808333333333333,
+        "oracle_morph_snf": 0.9926612591734261
+      },
+      "arms_differ_digests": {
+        "attractor": "3e80e82468ebeb537aa1dbafc6a1364ff241aad95ab888fa6e4e44dd9c12b8d0",
+        "linear": "f9be5d6641e5f21e5a227f16a8c02002dae95d4d25f4bf5d8611260087601540"
+      },
+      "attractor": {
+        "all_acc": 0.7085,
+        "snf_acc": 0.6469679412900734,
+        "subj_first_acc": 0.7552037525652301,
+        "snf_shuffle_acc": 0.5809192738509077,
+        "selection_acc_snf": 0.22247972190034762,
+        "att0_snf_acc": 0.6635766705291618,
+        "n_snf": 2589,
+        "snf_by_ndiff": {
+          "0": 0.6555446516192346,
+          "1": 0.6347305389221557,
+          "2": 0.588469184890656,
+          "3": 0.6602739726027397,
+          "4": 0.7562189054726368
+        },
+        "best_val_snf": 0.6407
+      },
+      "linear": {
+        "all_acc": 0.7085,
+        "snf_acc": 0.630745461568173,
+        "subj_first_acc": 0.7675168572266198,
+        "snf_shuffle_acc": 0.6075704905368868,
+        "selection_acc_snf": null,
+        "att0_snf_acc": null,
+        "n_snf": 2589,
+        "snf_by_ndiff": {
+          "0": 0.6015701668302257,
+          "1": 0.5888223552894212,
+          "2": 0.614314115308151,
+          "3": 0.7123287671232876,
+          "4": 0.7761194029850746
+        },
+        "best_val_snf": 0.6241
+      }
+    },
+    {
+      "seed": 19,
+      "n_train": 6000,
+      "n_test": 6000,
+      "n_snf": 2583,
+      "baselines": {
+        "majority_snf": 0.6248548199767712,
+        "majority_all": 0.5775,
+        "oracle_morph_snf": 0.9922570654277971
+      },
+      "arms_differ_digests": {
+        "attractor": "e3e7c2489bee815434c584a0894ac35950ea4f9a2215e0b5b24803bdf20ab1ce",
+        "linear": "5e78c070cbaabba7c5c0f799f342f5ac7e62dd735e892b96d2ffeeeabcdde16a"
+      },
+      "attractor": {
+        "all_acc": 0.6945,
+        "snf_acc": 0.6171118854045683,
+        "subj_first_acc": 0.7529997073456248,
+        "snf_shuffle_acc": 0.5718157181571816,
+        "selection_acc_snf": 0.1746031746031746,
+        "att0_snf_acc": 0.6260162601626016,
+        "n_snf": 2583,
+        "snf_by_ndiff": {
+          "0": 0.6328740157480315,
+          "1": 0.5776892430278885,
+          "2": 0.5656565656565656,
+          "3": 0.6512261580381471,
+          "4": 0.6995073891625616
+        },
+        "best_val_snf": 0.6437
+      },
+      "linear": {
+        "all_acc": 0.7036666666666667,
+        "snf_acc": 0.6264034068912118,
+        "subj_first_acc": 0.762071992976295,
+        "snf_shuffle_acc": 0.6035617499032133,
+        "selection_acc_snf": null,
+        "att0_snf_acc": null,
+        "n_snf": 2583,
+        "snf_by_ndiff": {
+          "0": 0.59251968503937,
+          "1": 0.5956175298804781,
+          "2": 0.6202020202020202,
+          "3": 0.6975476839237057,
+          "4": 0.7586206896551724
+        },
+        "best_val_snf": 0.6299
+      }
+    }
+  ],
+  "config": {
+    "N_DIM": 1024,
+    "F_SURF": 256,
+    "N_STRUCT": 10,
+    "MAX_NN": 8,
+    "SETTLE_T": 5,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "train_cap": 6000,
+    "test_cap": 6000,
+    "epochs": 150,
+    "batch_size": 512
+  }
+}

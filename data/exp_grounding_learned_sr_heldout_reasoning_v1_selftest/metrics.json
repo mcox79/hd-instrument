@@ -1,0 +1,75 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS learned-SR held-out machinery: NO_CLEANUP collapses; KNOWN_T_FULL routes held-out chains; LEARNED (code-smoothed visible-T) recovers held-out hop-1 >> MEMCTRL (hole-in-map); CODEALIAS (random codes) collapses toward MEMCTRL (codes necessary); arms differ; subgraph + nbr table + visible/full resolvent + code-smoothing exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.2099280999973416,
+  "mechanism_selftest": {
+    "n_synth": 1540,
+    "n_heldout": 140,
+    "n_withheld": 560,
+    "reach_no_cleanup": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0
+    },
+    "reach_known_full": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "reach_learned": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "reach_memctrl": {
+      "1": 0.2286,
+      "2": 0.2286,
+      "3": 0.2286,
+      "4": 0.2286
+    },
+    "reach_codealias": {
+      "1": 0.2214,
+      "2": 0.2214,
+      "3": 0.2214,
+      "4": 0.2214
+    },
+    "nocleanup_ran": true,
+    "known_recovers": true,
+    "learned_recovers": true,
+    "learned_beats_memctrl": true,
+    "codes_necessary": true,
+    "arms_differ": true,
+    "Dmax": 4
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  }
+}

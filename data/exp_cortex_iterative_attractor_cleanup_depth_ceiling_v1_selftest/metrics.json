@@ -1,0 +1,11 @@
+{
+  "anchor_name": "cortex_iterative_attractor_cleanup_depth_ceiling_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "summary": "selftest rc=0",
+  "elapsed_s": 0.04,
+  "ts_iso": "2026-07-05T19:03:14.469456+00:00",
+  "run_mode": "self_test",
+  "config_version": "ANCHOR=cortex_iterative_attractor_cleanup_depth_ceiling_v1,N_LIST=512,V=48,P=4,D_MAX=6,MOVERN=1.00,NTEST=6-12,BETA_ITER=12.0,T_ITER=6,FLOOR=0.50,V_CHAIN=24,KEY_SLOTS=96,SEEDS=0,RUN_MODE=self_test,store=FACTORED_HEBBIAN,difficulty=NTEST_collision,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+  "n_seeds": 1
+}

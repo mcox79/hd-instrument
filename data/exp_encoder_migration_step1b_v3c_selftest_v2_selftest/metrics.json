@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: selftest: expected HARD_PASS got HARD_FAIL (HARD_FAIL_MISSING_GATE_UNITS)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3c_full_paired_rkd_only_dense_recovery_v1_core.py\", line 1140, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3c_full_paired_rkd_only_dense_recovery_v1_core.py\", line 1132, in main\n    return run_self_test()\n           ^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3c_full_paired_rkd_only_dense_recovery_v1_core.py\", line 1060, in run_self_test\n    assert v_pass == \"HARD_PASS\", f\"selftest: expected HARD_PASS got {v_pass} ({m_pass})\"\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: selftest: expected HARD_PASS got HARD_FAIL (HARD_FAIL_MISSING_GATE_UNITS)\n",
+  "ts_iso": "2026-07-04T18:17:24.461515+00:00",
+  "pid": 6040,
+  "anchor_name": "encoder_migration_step1b_v3c_full_paired_rkd_only_dense_recovery_v1"
+}

@@ -1,0 +1,320 @@
+{
+  "verdict": "POOL_TIGHTNESS_C_FALSIFIED",
+  "verdict_msg": "C FALSIFIED (=> B confirmed; deep reframe justified): at EVERY gold-retaining pool arm the correct answer's support does NOT stand out -- LEARNED TEST Challenge stays ~baseline 0.3786 (chal_lifts={'POOL_100': 0.0, 'POOL_50': -0.0041, 'POOL_20': -0.0082, 'POOL_10': -0.0041, 'POOL_PREC': -0.0123}) AND setmargin_points_correct does not lift (inform_lifts={'POOL_100': 0.0, 'POOL_50': 0.008, 'POOL_20': 0.023, 'POOL_10': 0.0576, 'POOL_PREC': 0.0331}). Any Challenge lift coincides with recall COLLAPSE (best_lift_arm=POOL_50 lift=-0.0041, recall_collapse_false_positive=False) -- NOT a real fix. 'Every choice self-supports' PERSISTS wherever the gold is still retained: the wall is similarity!=entailment / thin meaning, not pool width. RND must-fail ok=True.",
+  "summary": "POOL_TIGHTNESS_C_FALSIFIED: baseline(POOL_100 LEARNED) chal=0.3786 oracle=0.6914 chance=0.2501 | per-arm[LEARNED] POOL_100:chal=0.3786,gold_in_pool=0.9095,setmargin_pc=0.3891; POOL_50:chal=0.3745,gold_in_pool=0.8601,setmargin_pc=0.3971; POOL_20:chal=0.3704,gold_in_pool=0.749,setmargin_pc=0.4121; POOL_10:chal=0.3745,gold_in_pool=0.6173,setmargin_pc=0.4467; POOL_PREC:chal=0.3663,gold_in_pool=0.7407,setmargin_pc=0.4222 | C_verdict=C_FALSIFIED confirm_arms=[] recall_collapse_fp=False RND_ok=True",
+  "elapsed_s": 177.3,
+  "ts_iso": "2026-07-25T08:01:11.538910+00:00",
+  "anchor_name": "arc_selection_pool_tightness_ablation_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260802,
+  "n_questions": 987,
+  "n_easy": 500,
+  "n_challenge": 487,
+  "n_train": 494,
+  "n_test": 493,
+  "n_test_challenge": 243,
+  "chance_theoretical": 0.2501,
+  "store_facts": 9720,
+  "graph_terms": 5403,
+  "n_train_rows": 49400,
+  "n_train_gold_pos": 977,
+  "k_wide": 100,
+  "k_sel": 4,
+  "rr_top_t": 10,
+  "mu_supp": 1.0,
+  "hops": 2,
+  "damp": 0.5,
+  "seed_cos": 0.6,
+  "split_frac_train": 0.5,
+  "pool_arms": [
+    "POOL_100",
+    "POOL_50",
+    "POOL_20",
+    "POOL_10",
+    "POOL_PREC"
+  ],
+  "k_by_arm": {
+    "POOL_100": 100,
+    "POOL_50": 50,
+    "POOL_20": 20,
+    "POOL_10": 10
+  },
+  "frac_of_max_precision": 0.5,
+  "sel_methods": [
+    "LEARNED",
+    "GEO",
+    "RND"
+  ],
+  "primary_method": "LEARNED",
+  "flat_feature_names": [
+    "g_stem",
+    "mean_choice",
+    "max_choice",
+    "g_disc",
+    "coh",
+    "surf_pull",
+    "rr_score",
+    "lure_penalty",
+    "degree",
+    "neg_cue"
+  ],
+  "learned_weights": {
+    "g_stem": 0.73394,
+    "mean_choice": 1.0518,
+    "max_choice": 1.48392,
+    "g_disc": 0.65462,
+    "coh": -1.94759,
+    "surf_pull": 0.7415,
+    "rr_score": 2.84947,
+    "lure_penalty": -0.07767,
+    "degree": -1.32062,
+    "neg_cue": -0.27202
+  },
+  "per_arm_dual_track": {
+    "POOL_100": {
+      "gold_in_pool_frac": 0.9095,
+      "gold_retention_vs_wide": 1.0,
+      "mean_pool_size": 100.0,
+      "n_gold_reachable_tc": 221,
+      "by_method": {
+        "LEARNED": {
+          "test_challenge": 0.3786,
+          "test_easy": 0.556,
+          "setmargin_points_correct": 0.3891,
+          "mean_margin_correct": -0.01239,
+          "mean_margin_correct_when_right": 0.02362,
+          "mean_margin_correct_when_wrong": -0.03268
+        },
+        "GEO": {
+          "test_challenge": 0.3704,
+          "test_easy": 0.5,
+          "setmargin_points_correct": 0.3665,
+          "mean_margin_correct": -0.01365,
+          "mean_margin_correct_when_right": 0.01777,
+          "mean_margin_correct_when_wrong": -0.03142
+        },
+        "RND": {
+          "test_challenge": 0.2593,
+          "test_easy": 0.296,
+          "setmargin_points_correct": 0.2624,
+          "mean_margin_correct": -0.02087,
+          "mean_margin_correct_when_right": 0.01627,
+          "mean_margin_correct_when_wrong": -0.03392
+        }
+      }
+    },
+    "POOL_50": {
+      "gold_in_pool_frac": 0.8601,
+      "gold_retention_vs_wide": 0.8133,
+      "mean_pool_size": 50.0,
+      "n_gold_reachable_tc": 209,
+      "by_method": {
+        "LEARNED": {
+          "test_challenge": 0.3745,
+          "test_easy": 0.552,
+          "setmargin_points_correct": 0.3971,
+          "mean_margin_correct": -0.01223,
+          "mean_margin_correct_when_right": 0.02438,
+          "mean_margin_correct_when_wrong": -0.02835
+        },
+        "GEO": {
+          "test_challenge": 0.3621,
+          "test_easy": 0.488,
+          "setmargin_points_correct": 0.3732,
+          "mean_margin_correct": -0.01417,
+          "mean_margin_correct_when_right": 0.01876,
+          "mean_margin_correct_when_wrong": -0.03099
+        },
+        "RND": {
+          "test_challenge": 0.3251,
+          "test_easy": 0.336,
+          "setmargin_points_correct": 0.3206,
+          "mean_margin_correct": -0.01889,
+          "mean_margin_correct_when_right": 0.01803,
+          "mean_margin_correct_when_wrong": -0.03409
+        }
+      }
+    },
+    "POOL_20": {
+      "gold_in_pool_frac": 0.749,
+      "gold_retention_vs_wide": 0.6069,
+      "mean_pool_size": 20.0,
+      "n_gold_reachable_tc": 182,
+      "by_method": {
+        "LEARNED": {
+          "test_challenge": 0.3704,
+          "test_easy": 0.544,
+          "setmargin_points_correct": 0.4121,
+          "mean_margin_correct": -0.01281,
+          "mean_margin_correct_when_right": 0.02324,
+          "mean_margin_correct_when_wrong": -0.02357
+        },
+        "GEO": {
+          "test_challenge": 0.3704,
+          "test_easy": 0.484,
+          "setmargin_points_correct": 0.3791,
+          "mean_margin_correct": -0.01197,
+          "mean_margin_correct_when_right": 0.01847,
+          "mean_margin_correct_when_wrong": -0.02558
+        },
+        "RND": {
+          "test_challenge": 0.2963,
+          "test_easy": 0.356,
+          "setmargin_points_correct": 0.2857,
+          "mean_margin_correct": -0.01812,
+          "mean_margin_correct_when_right": 0.01937,
+          "mean_margin_correct_when_wrong": -0.02722
+        }
+      }
+    },
+    "POOL_10": {
+      "gold_in_pool_frac": 0.6173,
+      "gold_retention_vs_wide": 0.4565,
+      "mean_pool_size": 10.0,
+      "n_gold_reachable_tc": 150,
+      "by_method": {
+        "LEARNED": {
+          "test_challenge": 0.3745,
+          "test_easy": 0.536,
+          "setmargin_points_correct": 0.4467,
+          "mean_margin_correct": -0.01306,
+          "mean_margin_correct_when_right": 0.02524,
+          "mean_margin_correct_when_wrong": -0.01923
+        },
+        "GEO": {
+          "test_challenge": 0.3786,
+          "test_easy": 0.484,
+          "setmargin_points_correct": 0.4133,
+          "mean_margin_correct": -0.01487,
+          "mean_margin_correct_when_right": 0.0194,
+          "mean_margin_correct_when_wrong": -0.02594
+        },
+        "RND": {
+          "test_challenge": 0.2963,
+          "test_easy": 0.376,
+          "setmargin_points_correct": 0.3333,
+          "mean_margin_correct": -0.01852,
+          "mean_margin_correct_when_right": 0.01958,
+          "mean_margin_correct_when_wrong": -0.02399
+        }
+      }
+    },
+    "POOL_PREC": {
+      "gold_in_pool_frac": 0.7407,
+      "gold_retention_vs_wide": 0.605,
+      "mean_pool_size": 22.82,
+      "n_gold_reachable_tc": 180,
+      "by_method": {
+        "LEARNED": {
+          "test_challenge": 0.3663,
+          "test_easy": 0.536,
+          "setmargin_points_correct": 0.4222,
+          "mean_margin_correct": -0.0128,
+          "mean_margin_correct_when_right": 0.0248,
+          "mean_margin_correct_when_wrong": -0.02116
+        },
+        "GEO": {
+          "test_challenge": 0.3786,
+          "test_easy": 0.512,
+          "setmargin_points_correct": 0.3944,
+          "mean_margin_correct": -0.01427,
+          "mean_margin_correct_when_right": 0.01888,
+          "mean_margin_correct_when_wrong": -0.0273
+        },
+        "RND": {
+          "test_challenge": 0.3128,
+          "test_easy": 0.404,
+          "setmargin_points_correct": 0.3444,
+          "mean_margin_correct": -0.01664,
+          "mean_margin_correct_when_right": 0.0225,
+          "mean_margin_correct_when_wrong": -0.02602
+        }
+      }
+    }
+  },
+  "baseline_pool100_learned_challenge": 0.3786,
+  "oracle_gold_test_challenge": 0.6914,
+  "selection_gap_to_oracle": 0.3128,
+  "c_classification": {
+    "verdict": "C_FALSIFIED",
+    "challenge_lifts": {
+      "POOL_100": 0.0,
+      "POOL_50": -0.0041,
+      "POOL_20": -0.0082,
+      "POOL_10": -0.0041,
+      "POOL_PREC": -0.0123
+    },
+    "informativeness_lifts": {
+      "POOL_100": 0.0,
+      "POOL_50": 0.008,
+      "POOL_20": 0.023,
+      "POOL_10": 0.0576,
+      "POOL_PREC": 0.0331
+    },
+    "retains_gold": {
+      "POOL_100": true,
+      "POOL_50": true,
+      "POOL_20": false,
+      "POOL_10": false,
+      "POOL_PREC": false
+    },
+    "retain_threshold_gold_in_pool": 0.8185,
+    "confirm_arms": [],
+    "middle_arms": [],
+    "best_lift_arm": "POOL_50",
+    "best_challenge_lift": -0.0041,
+    "recall_collapse_false_positive": false
+  },
+  "recall_retain_frac": 0.9,
+  "recall_retain_threshold_gold_in_pool": 0.8185,
+  "tightest_gold_retaining_pool": "POOL_50",
+  "rnd_lift_by_arm": {
+    "POOL_100": -0.1193,
+    "POOL_50": -0.0535,
+    "POOL_20": -0.0823,
+    "POOL_10": -0.0823,
+    "POOL_PREC": -0.0658
+  },
+  "max_rnd_lift": -0.0535,
+  "random_control_ok": true,
+  "arms_differ_verified": true,
+  "n_distinct_pick_vectors": 5,
+  "arm_pick_digests": {
+    "POOL_100": "7e2ceeead5b742be52916da7779e2640b467c15e48748179262ae92ecb5ef192",
+    "POOL_50": "2dd01a27ea1d77cb77a0d81f8806064fa91f86d762481b537a63e93df12b2ca3",
+    "POOL_20": "173a4939f1a8f5c10613aa991d47e511add466191cc7f2bb2dfc24cd32ca44a0",
+    "POOL_10": "7c1e9bc52d1dd1e985a9623d6702cccdb754b57cb72206a84653bdd9a8d6a820",
+    "POOL_PREC": "802f933c7c789f7a4a61f2a083afe42d4519cb0d9cf3e8738e9cfc4f995f7b23"
+  },
+  "recall_spread_100_to_10": 0.2922,
+  "poolsize_shrinks": true,
+  "discriminator_fired": true,
+  "anchor_challenge_regression_ok": true,
+  "anchor_challenge_expected": 0.3663,
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "bands": {
+    "RECALL_RETAIN_FRAC": 0.9,
+    "C_LIFT_HP": 0.05,
+    "MB_LIFT": 0.02,
+    "INFORM_LIFT_HP": 0.08,
+    "INFORM_LIFT_MB": 0.03,
+    "RANDOM_MAX": 0.02,
+    "anchor_chal": 0.3663,
+    "ag_baseline_sat": 0.95
+  },
+  "grade_proxy": {
+    "easy_band": "~grade 4-5",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "wired_vs_stubbed": "WIRED: POOL TIGHTNESS is the ONLY variable. The WIDE re-retrieval pool (RR top-100, mr.reformulate_seeds/_rownorm_scores + ppr IMPORTED UNCHANGED, recall@100=0.69), the bind+bundle combiner (agg.aggregate 'bundle' IMPORTED UNCHANGED), the per-fact top-K A_TOPK selection (LEARNED = 29545's EXACT flat-cosine feature assembly + glass-box learner -> regression-anchor ~0.3663 at POOL_100; GEO = geometric relevance top-K), and the TRAIN/TEST split (learned._split_train_test) are ALL held fixed. The ONLY change: pool_members() restricts WHICH retrieved facts are eligible candidates for selection (top-K by F_RR for K in {100,50,20,10}, plus a precision-filtered pool F_RR >= 0.5*max). The per-fact selection SCORE is precomputed ONCE on the native wide pool (lscore_wide/qrel_wide); only membership varies -> a clean one-variable sweep. DUAL-TRACK per arm: gold-recall-in-pool (Q-level gold_in_pool_frac + fact-level retention) AND informativeness (setmargin_points_correct on gold-reachable Qs + margin_correct + end-to-end TEST Challenge). HONESTY GUARD: classify_c tracks recall + informativeness together; a Challenge lift that coincides with recall collapse is flagged recall_collapse_false_positive and does NOT confirm C. RND per-pool must-fail + ORACLE ceiling anchor floor/ceiling. NO LEAK: TRAIN/TEST disjoint; gold used for LEARNED TRAIN label + ORACLE + eval only, NEVER in selection at test. STUBBED/NOTED-NOT-BUILT: richer/grounded meaning in the fact slots (the B-lever deep reframe, justified only if C FALSIFIED); learned relevance retrained per-pool (deliberately NOT done -- that would change the scoring function and break the one-variable design).",
+  "contract": "INLINE-LOCAL foreground-to-completion; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large; inherits 29544/29545/29546/set_level contract); VET-PENDING; FULL eval slice bounded (limit_easy=500 limit_chal=600, stratified train/test) to fit one foreground call",
+  "compute_architecture": "mixed CPU: batched GloVe encode (store + questions + choices) + scipy sparse batched PPR (2 passes, UNCHANGED) done ONCE; the pool-tightness sweep is cheap index-restriction + UNCHANGED combiner calls (5 pool arms x 3 sel methods x 1 aggregate/Q); wall target < 8min. No GPU speedup needed.",
+  "storage_strategy": "sharded (each fact = own embedding + own graph node)",
+  "progress_logging": "line_buffered_stdout",
+  "crlb_n_a": "geometric/learned selection over a deterministic per-pool candidate set; no learned noise floor; MORE dims = LESS bundle/dot noise (~1/sqrt(N)) so signals SURVIVE scale by construction; smoke runs at FULL n_dim=2048 (only question-limit reduced)",
+  "calibration_check": "default_ok_for_this_regime (all selection scoring inherited UNCHANGED from 29545; pool-tightness knobs {K grid, FRAC_OF_MAX=0.5} + bands set a priori, NOT tuned to force a verdict; RND per-pool must-fail + ORACLE ceiling + honesty guard against recall-collapse false positives)"
+}

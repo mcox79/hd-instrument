@@ -1,0 +1,106 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "LIVE-PATH VERIFY [smoke] HARD_PASS: cn_collision_safe=True (collisions=1, cn_dup=0); live_cache_hit=False (resolves bge_large_v2_name_177872_c1f5fc5d.npz); round_trip recall@1=1.0 recall@10=1.0 correct_id=1.0; twohop=1.0 vs onehop=0.0 vs floor=0.0025 (400.0x); fab_accept=0.0; refuse_sep=0.1276",
+  "summary": "HARD_PASS live-path verify (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 92.22,
+  "ts_iso": "2026-07-05T22:43:03.776942+00:00",
+  "anchor_name": "ingest_knowledge_livepath_verify_v1",
+  "config": {
+    "N_INDEX": 400,
+    "N_PROBE": 30,
+    "N_2HOP": 20,
+    "N_REFUSE": 20,
+    "SEED": 12345
+  },
+  "phase_a_full_store_audit": {
+    "n_atoms": 177872,
+    "n_unique_bare_ids": 177871,
+    "n_collisions": 1,
+    "n_dup_ids": 1,
+    "dup_id_examples": [
+      [
+        "research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10",
+        2
+      ]
+    ],
+    "n_cn_dup_ids": 0,
+    "cn_dup_examples": [],
+    "collision_safe_cn": true,
+    "content_hash": "c1f5fc5d",
+    "live_cache_resolved": "bge_large_v2_name_177872_c1f5fc5d.npz",
+    "live_cache_hit": false,
+    "qualified_caches_present_unwired": [
+      "qualified_bge_large_v2_name_177872_complete.npz",
+      "qualified_bge_large_v2_name_177899.npz"
+    ],
+    "full_scale_bge_caches_on_disk": [
+      "bge_large_v2_name_177899_54f7cf6a.npz",
+      "bge_large_v2_name_20820_e1aa0b31.npz",
+      "bge_large_v2_name_26261_c4e45c9a.npz",
+      "bge_large_v2_name_26300_acc05b3f.npz",
+      "bge_large_v2_name_31274_9b57131f.npz",
+      "bge_large_v2_name_31304_13b79d80.npz",
+      "bge_large_v2_name_41322_5d2ce740.npz",
+      "bge_large_v2_name_41328_6e2d3257.npz",
+      "bge_large_v2_name_41330_ffbbeb2c.npz",
+      "bge_large_v2_name_43899_d9b6fe6f.npz",
+      "bge_large_v2_name_43905_8a40445a.npz"
+    ],
+    "per_partition_counts": {
+      "math": 28926,
+      "concept": 142219,
+      "meta": 321,
+      "school": 13,
+      "methodology": 1,
+      "science": 5147,
+      "research_history": 449,
+      "decision_history": 468,
+      "results_history": 21,
+      "findings_history": 60,
+      "verdict_history": 247
+    }
+  },
+  "phase_a_positive_control": {
+    "injected_cn_dup_detected": 1,
+    "collision_safe_cn": false
+  },
+  "phase_b_livepath": {
+    "index_size": 400,
+    "index_from_cache": false,
+    "index_complete_no_collision_loss": true,
+    "n_probes": 30,
+    "round_trip_recall_at_1": 1.0,
+    "round_trip_recall_at_10": 1.0,
+    "round_trip_correct_id_rate": 1.0,
+    "probe_cover_recall10": 1.0,
+    "refuse_accept_cos_mean": 0.8394,
+    "refuse_fab_cos_mean": 0.7118,
+    "refuse_separation": 0.1276,
+    "n_chains": 20,
+    "twohop_true_recall": 1.0,
+    "onehop_baseline_recall": 0.0,
+    "twohop_seed_addr_recall": 1.0,
+    "twohop_mean_closure_size": 1.0,
+    "twohop_random_floor": 0.0025,
+    "twohop_fabrication_accept": 0.0,
+    "twohop_over_floor_mult": 400.0
+  },
+  "verdict_passes": [
+    "cn_collision_safe=True (n_cn_dup=0, n_collisions_total=1)",
+    "recall@10=1.0 >= HP 0.8",
+    "correct_id_rate=1.0 >= HP 0.95",
+    "twohop=1.0 > onehop=0.0+0.02 and >= 20.0x floor",
+    "fabrication_accept=0.0 <= 0.3"
+  ],
+  "verdict_fails": [],
+  "bands": {
+    "ROUND_TRIP_RECALL10_HP": 0.8,
+    "ROUND_TRIP_RECALL10_HF": 0.4,
+    "CORRECT_ID_RATE_HP": 0.95,
+    "TWOHOP_MARGIN_HP": 0.02,
+    "TWOHOP_FLOOR_MULT_HP": 20.0,
+    "TWOHOP_FAB_ACCEPT_HF": 0.3
+  },
+  "honest_framing": "LIVE-PATH usability of already-held ConceptNet knowledge; NOT new ingest, NOT language capability; live 2-hop = BGE semantic-address + structural edge-compose (SHAPE_DRIFT vs U1 isolated HD-algebra); reproduces U1 QUALITATIVE bar only."
+}

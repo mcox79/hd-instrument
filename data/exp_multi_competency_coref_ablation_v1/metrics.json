@@ -1,0 +1,244 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "COMPOSITIONAL WIRING CONFIRMED (competency #3): supplying the certified role representations (#2) CAUSALLY gates competitive-coref (#3) resolution -- mean Tier-1 ablation delta=0.143 (confirmed), 1/1 seeds positive (>0.05), neutral rand_role control delta=0.143 (comparable -> no fixed-STATE confound). This is the compositional demonstration the additive metric HID. It does NOT claim solved competitive coref: roles_present absolute Tier-1 ~0.500 is ENCODER-DECODE-limited (stage_ENT~0.732), a separate axis. Tier-0 no-regression=True (directional; typically underpowered n). [COREF role-key ablation EVAL-ONLY] fairness_ok=True tier_stats={'role_critical_fraction': 0.9, 'shortcut_tier1_acc': 0.5925925925925926, 'n_tier0': 3.0, 'n_tier1': 14.0, 'n_tier2': 13.0} | TIER1 present=0.500 ablated=0.357 rand=0.357 | delta(present-ablated)=0.143 (min=0.10) delta(present-rand)=0.143 | per_seed_tier1_delta=[0.143] all_seeds>0.05=True | TIER0 present=0.000 ablated=0.000 no_regression(dir)=True | TIER2 delta=0.077 | roles_present_abs=0.500 stage_ENT=0.732 (encoder-decode-limited)",
+  "summary": "HARD_PASS | COMPOSITIONAL WIRING CONFIRMED (competency #3): supplying the certified role representations (#2) CAUSALLY gates competitive-coref (#3) resolution -- ",
+  "run_mode": "smoke",
+  "elapsed_s": 34.60215610009618,
+  "ts_iso": "2026-07-31T23:33:15.645293+00:00",
+  "anchor_name": "multi_competency_coref_ablation_v1",
+  "bands": {
+    "one_variable": "role key supplied at competitive-coref unbind: correct (present) vs fixed-STATE (ablated) vs random (rand). EVAL-ONLY, frozen encoder, no training.",
+    "bars": {
+      "delta_wiring_min": 0.1,
+      "delta_perseed_min": 0.05,
+      "delta_strong": 0.15,
+      "role_critical_fraction_min": 0.55,
+      "shortcut_tier1_acc_max": 0.65,
+      "tier0_tie_band": 0.05
+    },
+    "tier_stats": {
+      "role_critical_fraction": 0.9,
+      "shortcut_tier1_acc": 0.5925925925925926,
+      "n_tier0": 3.0,
+      "n_tier1": 14.0,
+      "n_tier2": 13.0
+    },
+    "fairness_checks": {
+      "1_role_critical_fraction": {
+        "value": 0.9,
+        "bar": 0.55,
+        "ok": true
+      },
+      "2_shortcut_tier1_floor": {
+        "value": 0.5925925925925926,
+        "bar": 0.65,
+        "ok": true
+      },
+      "3_tier1_population": {
+        "n": 14,
+        "min": 6,
+        "ok": true
+      }
+    },
+    "fairness_ok": true,
+    "ablation_by_tier": {
+      "tier0": {
+        "present": 0.0,
+        "ablated": 0.0,
+        "rand": 0.0,
+        "delta_present_ablated": 0.0,
+        "delta_present_rand": 0.0
+      },
+      "tier1": {
+        "present": 0.5,
+        "ablated": 0.35714285714285715,
+        "rand": 0.35714285714285715,
+        "delta_present_ablated": 0.14285714285714285,
+        "delta_present_rand": 0.14285714285714285
+      },
+      "tier2": {
+        "present": 0.3076923076923077,
+        "ablated": 0.23076923076923078,
+        "rand": 0.3076923076923077,
+        "delta_present_ablated": 0.07692307692307693,
+        "delta_present_rand": 0.0
+      }
+    },
+    "tier1_delta_present_ablated": 0.14285714285714285,
+    "tier1_delta_present_rand": 0.14285714285714285,
+    "per_seed_tier1_delta": [
+      0.14285714285714285
+    ],
+    "all_seeds_positive": true,
+    "tier0_no_regression_directional": true,
+    "roles_present_tier1_absolute": 0.5,
+    "stage_ENT_decode": 0.7322239031770046,
+    "encoder_decode_limited_note": "roles_present absolute Tier-1 ~0.500 is ENCODER-DECODE-limited (stage_ENT~0.732); the HEADLINE is the ablation DELTA, not the absolute."
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "n_units_done": 1,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "units": [
+    {
+      "kind": "seed_unit",
+      "seed": 7,
+      "arm": "frozen",
+      "hardness": [
+        1,
+        8
+      ],
+      "target": 8,
+      "chance": 0.05,
+      "frozen_profile": {
+        "1": 0.4942528735632184,
+        "8": 0.39272030651340994
+      },
+      "frozen_target_loop": 0.39272030651340994,
+      "frozen_easy_loop": 0.4942528735632184,
+      "oracle_target_loop": 0.6842911877394636,
+      "wc_frozen": 0.16885099482326568,
+      "profile_decline": 0.10153256704980845,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.0,
+          "b_competitive_coref": 0.06666666666666667,
+          "c_overwrite": 0.034482758620689655
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.4666666666666667,
+          "b_competitive_coref": 0.06666666666666667,
+          "c_overwrite": 0.3448275862068966
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.13333333333333333,
+          "b_competitive_coref": 0.06666666666666667,
+          "c_overwrite": 0.034482758620689655
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.06666666666666667,
+          "b_competitive_coref": 0.03333333333333333,
+          "c_overwrite": 0.034482758620689655
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.034482758620689655
+      },
+      "pooled_b": 0.03333333507180214,
+      "pooled_c": 0.06896551698446274,
+      "frozen_per_type_target": {
+        "a_name_maintenance": 0.4666666666666667,
+        "b_competitive_coref": 0.36666666666666664,
+        "c_overwrite": 0.3448275862068966
+      },
+      "frozen_overall_target": 0.39272030651340994,
+      "fairness": {
+        "role_critical_fraction": 0.8666666666666667,
+        "role_critical_n": 30,
+        "oracle_role": 0.8,
+        "frozen_role": 0.4666666666666667,
+        "role_headroom": 0.33333333333333337,
+        "wrongrole_role": 0.13333333333333333,
+        "shuffled_role": 0.06666666666666667
+      },
+      "tier_stats": {
+        "n_total": 30,
+        "n_valid": 30,
+        "n_tier0": 3,
+        "n_tier1": 14,
+        "n_tier2": 13,
+        "median_distance_role_critical": 8.0,
+        "role_critical_fraction": 0.9,
+        "shortcut_tier1_acc": 0.5925925925925926
+      },
+      "measure": {
+        "tier0": {
+          "present": 0.0,
+          "ablated": 0.0,
+          "rand": 0.0,
+          "n": 3,
+          "n_role_changed_ablated": 2
+        },
+        "tier1": {
+          "present": 0.5,
+          "ablated": 0.35714285714285715,
+          "rand": 0.35714285714285715,
+          "n": 14,
+          "n_role_changed_ablated": 6
+        },
+        "tier2": {
+          "present": 0.3076923076923077,
+          "ablated": 0.23076923076923078,
+          "rand": 0.3076923076923077,
+          "n": 13,
+          "n_role_changed_ablated": 5
+        }
+      },
+      "stage_decode": {
+        "ENT": 0.7322239031770046,
+        "MARK": 0.8397790055248618,
+        "S": 0.9547511312217195,
+        "P": 0.8099547511312217,
+        "ENT_q": 1.0,
+        "MARK_q": 1.0
+      },
+      "coref_fairness_checks": {
+        "1_role_critical_fraction": {
+          "value": 0.9,
+          "bar": 0.55,
+          "ok": true
+        },
+        "2_shortcut_tier1_floor": {
+          "value": 0.5925925925925926,
+          "bar": 0.65,
+          "ok": true
+        },
+        "3_tier1_population": {
+          "n": 14,
+          "min": 6,
+          "ok": true
+        }
+      },
+      "coref_fairness_ok": true
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "V_FILL": 20,
+    "hardness": [
+      1,
+      8
+    ],
+    "eval_n": 30,
+    "seeds": [
+      7
+    ],
+    "measurement": "eval_only_role_key_ablation",
+    "columns": [
+      "present",
+      "ablated",
+      "rand"
+    ]
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

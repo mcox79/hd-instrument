@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: an incompressible (label-uncorrelated) cluster must be BLOCKED under the conjunctive gate despite passing exposure/consistency, got {'newly_retained': 3, 'n_hub_excluded': 0, 'n_prelim_pending_items': 3, 'n_clusters': 1, 'n_clusters_eligible_size': 1, 'n_combined_promoted_total': 3, 'n_combined_promoted_this_pass': 3, 'n_mdl_blocked_this_pass': 0}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_crutch_fade_social_iqa_v2_semantic_cluster_key.py\", line 2504, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_crutch_fade_social_iqa_v2_semantic_cluster_key.py\", line 2467, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_crutch_fade_social_iqa_v2_semantic_cluster_key.py\", line 2401, in self_test\n    assert diag_incompressible_gated[\"n_combined_promoted_total\"] == 0, (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: an incompressible (label-uncorrelated) cluster must be BLOCKED under the conjunctive gate despite passing exposure/consistency, got {'newly_retained': 3, 'n_hub_excluded': 0, 'n_prelim_pending_items': 3, 'n_clusters': 1, 'n_clusters_eligible_size': 1, 'n_combined_promoted_total': 3, 'n_combined_promoted_this_pass': 3, 'n_mdl_blocked_this_pass': 0}\n",
+  "ts_iso": "2026-08-11T17:23:36.573034+00:00",
+  "pid": 12612,
+  "anchor_name": "crutch_fade_social_iqa_v2_semantic_cluster_key"
+}

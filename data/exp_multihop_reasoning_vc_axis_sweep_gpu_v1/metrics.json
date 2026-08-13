@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "RuntimeError: make_deep_chains: only 100/200 at max_depth=30",
+  "summary": "CELL_CRASHED: RuntimeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_multihop_reasoning_vc_axis_sweep_gpu_v1.py\", line 872, in <module>\n    main()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_multihop_reasoning_vc_axis_sweep_gpu_v1.py\", line 820, in main\n    rec = run_seed(s)\n          ^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_multihop_reasoning_vc_axis_sweep_gpu_v1.py\", line 573, in run_seed\n    triples, chains = make_deep_chains(\n                      ^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_multihop_reasoning_vc_axis_sweep_gpu_v1.py\", line 303, in make_deep_chains\n    raise RuntimeError(\"make_deep_chains: only %d/%d at max_depth=%d\"\nRuntimeError: make_deep_chains: only 100/200 at max_depth=30\n",
+  "ts_iso": "2026-07-01T20:03:39.591767+00:00",
+  "pid": 42348,
+  "anchor_name": "multihop_reasoning_vc_axis_sweep_gpu_v1"
+}

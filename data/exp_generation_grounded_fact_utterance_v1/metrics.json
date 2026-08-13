@@ -1,0 +1,1376 @@
+{
+  "anchor_name": "generation_grounded_fact_utterance_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "GROUNDED-FACT RE-EMISSION WORKS END-TO-END: the integrated retrieve->compose->decode loop re-emits REAL held ConceptNet facts as ordered concept-name strings -- grounded_symbolic exact-ordered =1.000 (>= 0.7) with discriminator gap 1.000 (>= 0.4); broken-retrieval collapses to 0.000; emitted strings legible 1.000 (>= 0.8). HONEST FRAMING: re-emits held concept-name strings via the proven loop -- NOT English generation, NOT fluent language, NOT language knowledge. re-emit exact-ordered: symbolic=1.000 cotrained=0.997 posctrl(stored_direct)=1.000 broken=0.000; best=1.000(grounded_symbolic); discrim_gap(best-broken)=1.000; legibility(symbolic)=1.000; chance=1/V=0.00098",
+  "summary": "HARD_PASS: grounded-fact re-emission via integrated retrieve->compose->decode loop (REAL ConceptNet facts; re-emits held concept-name strings, NOT language) (full)",
+  "run_mode": "full",
+  "elapsed_s": 11.13,
+  "n_seeds": 3,
+  "n_units": 12,
+  "expected_n_units": 12,
+  "cardinality_ok": true,
+  "n_reemission_trials_per_seed": 200,
+  "honest_framing": "RE-EMITS held ConceptNet concept-name strings in composed order via the proven retrieve->compose->decode loop. NOT English-language generation, NOT fluent language, NOT language knowledge. Full fluent language is a separate capstone.",
+  "config": {
+    "N_R": 1024,
+    "N_G": 8192,
+    "BGE_DIM": 1024,
+    "GEN_SLOTS": 3,
+    "D_STORE": 2,
+    "n_subj": 100,
+    "V_cleanup": 1024,
+    "n_train": 4096,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "RIDGE_LAMBDA": 1.0,
+    "store_reason_algebra": "HRR_circular_conv_real_BGE_hdlab_binding",
+    "generation_algebra": "bipolar_BSC_elementwise_product_protected_index_positions",
+    "arms": [
+      "grounded_symbolic",
+      "grounded_cotrained",
+      "posctrl_stored_direct",
+      "broken_retrieval"
+    ],
+    "curated_cache": "data\\gen_grounded_fact_cache\\grounded_triples_v1.npz",
+    "cache_meta": {
+      "built_ts": "2026-07-05T23:34:26.944335+00:00",
+      "source_edges": "data\\datasets\\conceptnet5_en_100k.jsonl",
+      "master_table": "bge_large_v2_name_177899_54f7cf6a.npz",
+      "D_STORE": 2,
+      "n_curated_subjects": 128,
+      "n_cur_concepts": 327,
+      "n_pool": 8398,
+      "good_rel": [
+        "AtLocation",
+        "CapableOf",
+        "Causes",
+        "IsA",
+        "UsedFor",
+        "HasProperty",
+        "PartOf",
+        "MadeOf",
+        "HasA",
+        "ReceivesAction"
+      ],
+      "note": "REAL ConceptNet S-R-O edges over hand-curated common legible concepts"
+    }
+  },
+  "arms": {
+    "grounded_symbolic": {
+      "reemit_mean": 1.0,
+      "reemit_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "obj_acc_mean": 1.0
+    },
+    "grounded_cotrained": {
+      "reemit_mean": 0.9967,
+      "reemit_per_seed": [
+        0.99,
+        1.0,
+        1.0
+      ],
+      "obj_acc_mean": 0.9967
+    },
+    "posctrl_stored_direct": {
+      "reemit_mean": 1.0,
+      "reemit_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "obj_acc_mean": 1.0
+    },
+    "broken_retrieval": {
+      "reemit_mean": 0.0,
+      "reemit_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "obj_acc_mean": 0.0
+    }
+  },
+  "legibility": {
+    "grounded_symbolic": 1.0,
+    "grounded_cotrained": 1.0
+  },
+  "controls": {
+    "posctrl_stored_direct_reemit": 1.0,
+    "broken_retrieval_reemit": 0.0,
+    "broken_collapsed": true,
+    "chance_object_acc_THEORETICAL": 0.000977,
+    "correlation_cone": {
+      "7": 0.6353,
+      "13": 0.636,
+      "19": 0.6353
+    }
+  },
+  "grounded_utterances": [
+    {
+      "seed": 7,
+      "stored_fact": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_symbolic": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_cotrained": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_broken": [
+        "accident",
+        "AtLocation",
+        "clean_toilet"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5618
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_symbolic": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_cotrained": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_broken": [
+        "accident",
+        "CapableOf",
+        "pasteur"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5481
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_symbolic": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_cotrained": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_broken": [
+        "accountant",
+        "AtLocation",
+        "cathedral"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.572
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_symbolic": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_cotrained": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_broken": [
+        "accountant",
+        "CapableOf",
+        "cause_headache"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5893
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_symbolic": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_cotrained": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_broken": [
+        "acid",
+        "AtLocation",
+        "stair_well"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5688
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_symbolic": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_cotrained": [
+        "acid",
+        "CapableOf",
+        "burn_hot"
+      ],
+      "emitted_broken": [
+        "acid",
+        "CapableOf",
+        "jigsaw_puzzle"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5329
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_symbolic": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_cotrained": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_broken": [
+        "actor",
+        "AtLocation",
+        "self_doubt"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5554
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_symbolic": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_cotrained": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_broken": [
+        "actor",
+        "CapableOf",
+        "self_doubt"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5594
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_symbolic": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_cotrained": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_broken": [
+        "actors",
+        "AtLocation",
+        "bring_joy"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5554
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_symbolic": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_cotrained": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_broken": [
+        "actors",
+        "CapableOf",
+        "reproducing"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5594
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_symbolic": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_cotrained": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_broken": [
+        "airplane",
+        "AtLocation",
+        "paralysis"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5745
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_symbolic": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_cotrained": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_broken": [
+        "airplane",
+        "CapableOf",
+        "paralysis"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5622
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_symbolic": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_cotrained": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_broken": [
+        "airplanes",
+        "AtLocation",
+        "knuckles"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5621
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_symbolic": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_cotrained": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_broken": [
+        "airplanes",
+        "CapableOf",
+        "name_puppy"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5535
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_symbolic": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_cotrained": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_broken": [
+        "alcohol",
+        "AtLocation",
+        "delaware"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5843
+    },
+    {
+      "seed": 7,
+      "stored_fact": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_symbolic": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_cotrained": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_broken": [
+        "alcohol",
+        "CapableOf",
+        "curtains"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5463
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_symbolic": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_cotrained": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_broken": [
+        "accident",
+        "AtLocation",
+        "mauritius"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5976
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_symbolic": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_cotrained": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_broken": [
+        "accident",
+        "CapableOf",
+        "mauritius"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5729
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_symbolic": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_cotrained": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_broken": [
+        "accountant",
+        "AtLocation",
+        "drink_beer"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5908
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_symbolic": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_cotrained": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_broken": [
+        "accountant",
+        "CapableOf",
+        "buying_car"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5743
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_symbolic": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_cotrained": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_broken": [
+        "acid",
+        "AtLocation",
+        "resentment"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5887
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_symbolic": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_cotrained": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_broken": [
+        "acid",
+        "CapableOf",
+        "being_ill"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5588
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_symbolic": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_cotrained": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_broken": [
+        "actor",
+        "AtLocation",
+        "city"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6006
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_symbolic": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_cotrained": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_broken": [
+        "actor",
+        "CapableOf",
+        "astronaut"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5486
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_symbolic": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_cotrained": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_broken": [
+        "actors",
+        "AtLocation",
+        "climber"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6006
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_symbolic": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_cotrained": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_broken": [
+        "actors",
+        "CapableOf",
+        "medical_center"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5486
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_symbolic": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_cotrained": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_broken": [
+        "airplane",
+        "AtLocation",
+        "antibiotic"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5706
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_symbolic": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_cotrained": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_broken": [
+        "airplane",
+        "CapableOf",
+        "bacteria"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5594
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_symbolic": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_cotrained": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_broken": [
+        "airplanes",
+        "AtLocation",
+        "lay_egg"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.602
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_symbolic": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_cotrained": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_broken": [
+        "airplanes",
+        "CapableOf",
+        "make_honey"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5638
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_symbolic": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_cotrained": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_broken": [
+        "alcohol",
+        "AtLocation",
+        "movie"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6009
+    },
+    {
+      "seed": 13,
+      "stored_fact": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_symbolic": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_cotrained": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_broken": [
+        "alcohol",
+        "CapableOf",
+        "movie"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5713
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_symbolic": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_cotrained": [
+        "accident",
+        "AtLocation",
+        "roadblock"
+      ],
+      "emitted_broken": [
+        "accident",
+        "AtLocation",
+        "cathedral"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6029
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_symbolic": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_cotrained": [
+        "accident",
+        "CapableOf",
+        "cause_injuries"
+      ],
+      "emitted_broken": [
+        "accident",
+        "CapableOf",
+        "amusement_park"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5983
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_symbolic": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_cotrained": [
+        "accountant",
+        "AtLocation",
+        "firm"
+      ],
+      "emitted_broken": [
+        "accountant",
+        "AtLocation",
+        "brain_death"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6054
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_symbolic": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_cotrained": [
+        "accountant",
+        "CapableOf",
+        "cook_books"
+      ],
+      "emitted_broken": [
+        "accountant",
+        "CapableOf",
+        "sense_light"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5778
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_symbolic": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_cotrained": [
+        "acid",
+        "AtLocation",
+        "chemistry_lab"
+      ],
+      "emitted_broken": [
+        "acid",
+        "AtLocation",
+        "becoming_wet"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.599
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_symbolic": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_cotrained": [
+        "acid",
+        "CapableOf",
+        "burn_flesh"
+      ],
+      "emitted_broken": [
+        "acid",
+        "CapableOf",
+        "becoming_wet"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5879
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_symbolic": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_cotrained": [
+        "actor",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_broken": [
+        "actor",
+        "AtLocation",
+        "noise"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5945
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_symbolic": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_cotrained": [
+        "actor",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_broken": [
+        "actor",
+        "CapableOf",
+        "weapons"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5825
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_symbolic": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_cotrained": [
+        "actors",
+        "AtLocation",
+        "movie"
+      ],
+      "emitted_broken": [
+        "actors",
+        "AtLocation",
+        "gas_station"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5945
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_symbolic": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_cotrained": [
+        "actors",
+        "CapableOf",
+        "act_badly"
+      ],
+      "emitted_broken": [
+        "actors",
+        "CapableOf",
+        "gas_station"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5825
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_symbolic": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_cotrained": [
+        "airplane",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_broken": [
+        "airplane",
+        "AtLocation",
+        "gas_line"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5739
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_symbolic": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_cotrained": [
+        "airplane",
+        "CapableOf",
+        "circle_airport"
+      ],
+      "emitted_broken": [
+        "airplane",
+        "CapableOf",
+        "hear_music"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5984
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_symbolic": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_cotrained": [
+        "airplanes",
+        "AtLocation",
+        "air"
+      ],
+      "emitted_broken": [
+        "airplanes",
+        "AtLocation",
+        "humus"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5709
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_symbolic": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_cotrained": [
+        "airplanes",
+        "CapableOf",
+        "accelerate"
+      ],
+      "emitted_broken": [
+        "airplanes",
+        "CapableOf",
+        "mankind"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.5802
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_symbolic": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_cotrained": [
+        "alcohol",
+        "AtLocation",
+        "beer"
+      ],
+      "emitted_broken": [
+        "alcohol",
+        "AtLocation",
+        "breakfast_nook"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6023
+    },
+    {
+      "seed": 19,
+      "stored_fact": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_symbolic": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_cotrained": [
+        "alcohol",
+        "CapableOf",
+        "burn"
+      ],
+      "emitted_broken": [
+        "alcohol",
+        "CapableOf",
+        "breakfast_nook"
+      ],
+      "symbolic_match": 1,
+      "broken_match": 0,
+      "r_hv_cos_true_obj": 0.6013
+    }
+  ],
+  "arms_differ_verified": true,
+  "bands": {
+    "HP_reemit": 0.7,
+    "HP_discrim_gap": 0.4,
+    "HP_legibility": 0.8,
+    "HF_reemit": 0.3,
+    "posctrl_floor": 0.7,
+    "broken_collapse_ceil": 0.1
+  },
+  "ts_iso": "2026-07-05T23:50:51.580471+00:00",
+  "pid": 20148,
+  "host": "Home"
+}

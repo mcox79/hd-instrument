@@ -1,0 +1,279 @@
+{
+  "verdict": "HARD_FAIL_RELGAP_REGRESSION_OR_NO_LIFT",
+  "verdict_msg": "HARD_FAIL: recall_ceiling(V5_RELGAP) 0.6765 <= V4_FULL 0.75 (no lift); F1(V5_RELGAP_ANTESCRAMBLE) 0.5897 >= F1(V5_RELGAP) 0.5897 - 0.001 (must-fail control failed to fail)",
+  "summary": "HARD_FAIL_RELGAP_REGRESSION_OR_NO_LIFT: F1 base=0.2316 v3=0.5556 v4_full=0.5897 v5_relgap=0.5897 antescramble=0.5897 | recall_ceiling v4_full=0.6765 v5_relgap=0.6765 | precision v4_full=0.5227 v5=0.5227 | n_regressed_vs_v4=0 n_recovered_vs_v4=0 wh_gap_recovered=0 | parser_uas=0.7475",
+  "elapsed_s": 21.5,
+  "ts_iso": "2026-07-23T21:40:50.103905+00:00",
+  "anchor_name": "multipred_argstruct_relgap_v5",
+  "run_mode": "smoke",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05"
+  ],
+  "n_sentences": 46,
+  "one_variable": "relative-clause object-gap antecedent-linking (find_relative_gaps + additive tuple emission on top of V4_FULL). Parser / role clf / subcat-gate FORMULA / knowledge-argmax / do-have + ECM enumeration UNCHANGED (byte-identical reuse of 29478/29483/29495).",
+  "bands": {
+    "HP_RC_MIN": 0.76,
+    "HP_F1_MIN": 0.593,
+    "HP_PRECISION_TOLERANCE": 0.01,
+    "HP_WHGAP_MIN": 1,
+    "HP_CONTROL_MARGIN": 0.005,
+    "HF_RC_MAX": 0.75,
+    "HF_F1_MAX": 0.5882,
+    "HF_PRECISION_DROP_MAX": 0.03,
+    "HF_CONTROL_MARGIN": 0.001,
+    "CITED_V3_F1": 0.5738,
+    "CITED_V4_F1": 0.5882,
+    "CITED_V4_RECALL_CEILING": 0.75,
+    "CITED_V4_PRECISION": 0.4839
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.3235,
+      "n_miss": 23,
+      "n_gold_pos": 34,
+      "precision": 0.1803,
+      "recall": 0.3235,
+      "f1": 0.2316,
+      "n_pred": 61,
+      "subcat_fp": 26,
+      "within_frame_fp": 17,
+      "spurious_verb_fp": 7,
+      "kept_hash": "522d3e76993aa5cb"
+    },
+    "V3_INTEGRATED": {
+      "recall_ceiling": 0.5882,
+      "n_miss": 14,
+      "n_gold_pos": 34,
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "f1": 0.5556,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 6,
+      "kept_hash": "78d052df06cdc084"
+    },
+    "V4_FULL": {
+      "recall_ceiling": 0.6765,
+      "n_miss": 11,
+      "n_gold_pos": 34,
+      "precision": 0.5227,
+      "recall": 0.6765,
+      "f1": 0.5897,
+      "n_pred": 44,
+      "subcat_fp": 13,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 5,
+      "kept_hash": "a69ce07860d10c5d"
+    },
+    "V5_RELGAP": {
+      "recall_ceiling": 0.6765,
+      "n_miss": 11,
+      "n_gold_pos": 34,
+      "precision": 0.5227,
+      "recall": 0.6765,
+      "f1": 0.5897,
+      "n_pred": 44,
+      "subcat_fp": 13,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 5,
+      "kept_hash": "a69ce07860d10c5d"
+    },
+    "V5_RELGAP_ANTESCRAMBLE": {
+      "recall_ceiling": 0.6765,
+      "n_miss": 11,
+      "n_gold_pos": 34,
+      "precision": 0.5227,
+      "recall": 0.6765,
+      "f1": 0.5897,
+      "n_pred": 44,
+      "subcat_fp": 13,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 5,
+      "kept_hash": "a69ce07860d10c5d"
+    }
+  },
+  "hard_pass_conditions": {
+    "recall_above_bar": false,
+    "f1_above_bar": false,
+    "precision_holds": true,
+    "wh_gap_recovered": false,
+    "zero_regression": true,
+    "control_fires": false
+  },
+  "hard_fail_reasons": [
+    "recall_ceiling(V5_RELGAP) 0.6765 <= V4_FULL 0.75 (no lift)",
+    "F1(V5_RELGAP_ANTESCRAMBLE) 0.5897 >= F1(V5_RELGAP) 0.5897 - 0.001 (must-fail control failed to fail)"
+  ],
+  "base_reproduction": {
+    "v3_f1": 0.5556,
+    "cited_v3_f1": 0.5738,
+    "v4_f1": 0.5897,
+    "cited_v4_f1": 0.5882,
+    "v3_recall_ceiling": 0.5882,
+    "v4_recall_ceiling": 0.6765,
+    "drift": []
+  },
+  "n_regressed_vs_v4": 0,
+  "n_recovered_vs_v4": 0,
+  "n_wh_gap_recovered": 0,
+  "wh_gap_recovered": [],
+  "recovered_vs_v4": [],
+  "regressed_vs_v4": [],
+  "relgap_fires": [],
+  "relgap_fires_antescramble": [],
+  "v5_relgap_diverges_from_v4": false,
+  "residual_miss_classification": [
+    {
+      "sid": "L04_01",
+      "verb": "build",
+      "patient": "blockhouse",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_05",
+      "verb": "catch",
+      "patient": "her",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_06",
+      "verb": "hurt",
+      "patient": "pussy",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_10",
+      "verb": "build",
+      "patient": "it",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_12",
+      "verb": "rub",
+      "patient": "castle",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_05",
+      "verb": "forget",
+      "patient": "grief",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_13",
+      "verb": "knock",
+      "patient": "one",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_15",
+      "verb": "knock",
+      "patient": "that",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_16",
+      "verb": "knock",
+      "patient": "castles",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_18",
+      "verb": "watch",
+      "patient": "her",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_22",
+      "verb": "see",
+      "patient": "child",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    }
+  ],
+  "n_single_sent_recoverable": 11,
+  "n_cross_sent_bound": 0,
+  "v5_misses_still_missing": [
+    [
+      "L04_01",
+      "build",
+      "blockhouse"
+    ],
+    [
+      "L04_05",
+      "catch",
+      "her"
+    ],
+    [
+      "L04_06",
+      "hurt",
+      "pussy"
+    ],
+    [
+      "L04_10",
+      "build",
+      "it"
+    ],
+    [
+      "L04_12",
+      "rub",
+      "castle"
+    ],
+    [
+      "L05_05",
+      "forget",
+      "grief"
+    ],
+    [
+      "L05_13",
+      "knock",
+      "one"
+    ],
+    [
+      "L05_15",
+      "knock",
+      "that"
+    ],
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L05_18",
+      "watch",
+      "her"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ]
+  ],
+  "parser_info": {
+    "n_train": 1500,
+    "epochs": 2,
+    "elapsed_s": 2.7,
+    "uas_dev": 0.7475,
+    "n_dev": 300
+  },
+  "target_whgap": [
+    [
+      "L07_10",
+      "give",
+      "money"
+    ],
+    [
+      "L08_04",
+      "see",
+      "cat"
+    ]
+  ],
+  "cited_sources": {
+    "v3": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "v4": "data/exp_multipred_argstruct_enumext_v4/metrics.json"
+  },
+  "scope_caveat": "Targets ONLY the 2 WH relative-clause object-gap residuals (L07_10 give money, L08_04 see cat). The 11 ROLE/selection residuals (fronted/OSV, prep-governed, ditransitive, ECM) are OUT OF SCOPE (routing-task scope ceiling ~0.86); the 5 VERB_NEVER_ENUMERATED (POS mis-tag) + 6 CANDIDATE_NEVER_ENUMERATED (POS mis-tag/gating) + 1 ECM-adjacent are single-sentence-recoverable-in-principle (better tagger/parser) but NOT attempted here. L12_06 (saw,nothing) is a structurally-genuine object relative gold did not annotate = 1 honest FP. Parser UD-EWT out-of-domain transfer to McGuffey unchanged from 29478/29483/29495. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}

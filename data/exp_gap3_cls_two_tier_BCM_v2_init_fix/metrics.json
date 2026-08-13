@@ -1,0 +1,50 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_UNIT_EXCEPTION: key=11_ARM_BCM_V2_INIT_ONLY exc_type=RuntimeError exc_msg='value cannot be converted to type float without overflow' (completed 1/12 units before crash)",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "gap3_cls_two_tier_BCM_v2_init_fix",
+    "smoke": false,
+    "config_version": "BCM_v2_init_fix: N_DIM=8192 N_CAT=5 N_TRAIN=20 N_HELDOUT=10 N_REPLAY=5000 N_WARMUP=500 eta_slow=0.0010 eta_warm=0.0100 theta_window=200 W_init_std=0.010 theta_init=0.50 replay_frac=0.20 proto_noise=0.30 seeds=[11, 13, 19] mode=full HP_floor=0.65 HP_lift=0.15 HP_cor=0.30 cv<=0.10 cone=[0.50,0.95] EXPECTED_N=12 min_y_first_200=0.0100",
+    "per_arm_metrics": {
+      "ARM_BASELINE_SINGLE_W": [
+        {
+          "seed": 11,
+          "arm": "ARM_BASELINE_SINGLE_W",
+          "wall_s": 0.07,
+          "run_mode": "full",
+          "config_version": "BCM_v2_init_fix: N_DIM=8192 N_CAT=5 N_TRAIN=20 N_HELDOUT=10 N_REPLAY=5000 N_WARMUP=500 eta_slow=0.0010 eta_warm=0.0100 theta_window=200 W_init_std=0.010 theta_init=0.50 replay_frac=0.20 proto_noise=0.30 seeds=[11, 13, 19] mode=full HP_floor=0.65 HP_lift=0.15 HP_cor=0.30 cv<=0.10 cone=[0.50,0.95] EXPECTED_N=12 min_y_first_200=0.0100",
+          "N": 8192,
+          "N_REPLAY_CYCLES": 5000,
+          "heldout_acc": 1.0,
+          "w_schema_cone_cosine": 1.0,
+          "w_schema_eigenspectrum_entropy_delta": 0.0,
+          "cor_score": 0.0,
+          "max_abs_y_first_200": 0.0,
+          "_ckpt_key": "11_ARM_BASELINE_SINGLE_W",
+          "_partial_written_at": 1782557839.2310996
+        }
+      ],
+      "ARM_BCM_V2_INIT_ONLY": [],
+      "ARM_BCM_V2_WARMUP_ONLY": [],
+      "ARM_BCM_V2_FULL": []
+    },
+    "n_completed_units": 1,
+    "n_expected_units": 12,
+    "n_failures": 1,
+    "failures": [
+      {
+        "key": "11_ARM_BCM_V2_INIT_ONLY",
+        "exc_type": "RuntimeError",
+        "exc_msg": "value cannot be converted to type float without overflow",
+        "exc_traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 730, in main\n    body = run_unit(seed, arm)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 681, in run_unit\n    out = _eval_bcm_variant(seed_offset, init_random, theta_warm, use_warmup, arm)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 367, in _eval_bcm_variant\n    W_schema, theta_M_per_class, max_y = _bcm_loop(\n                                         ^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 337, in _bcm_loop\n    theta_M_per_class[c] = theta_new\n    ~~~~~~~~~~~~~~~~~^^^\nRuntimeError: value cannot be converted to type float without overflow\n"
+      }
+    ],
+    "crash_key": "11_ARM_BCM_V2_INIT_ONLY",
+    "crash_exc_type": "RuntimeError",
+    "crash_exc_msg": "value cannot be converted to type float without overflow",
+    "crash_traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 730, in main\n    body = run_unit(seed, arm)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 681, in run_unit\n    out = _eval_bcm_variant(seed_offset, init_random, theta_warm, use_warmup, arm)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 367, in _eval_bcm_variant\n    W_schema, theta_M_per_class, max_y = _bcm_loop(\n                                         ^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_gap3_cls_two_tier_BCM_v2_init_fix.py\", line 337, in _bcm_loop\n    theta_M_per_class[c] = theta_new\n    ~~~~~~~~~~~~~~~~~^^^\nRuntimeError: value cannot be converted to type float without overflow\n",
+    "corpus_provenance": "synthetic_substrate_bipolar_class_prototypes_BCM_v2_init_fix",
+    "zero_llm_calls_at_inference": true
+  }
+}

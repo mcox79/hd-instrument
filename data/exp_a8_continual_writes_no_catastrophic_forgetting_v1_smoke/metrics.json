@@ -1,0 +1,87 @@
+{
+  "anchor": "a8_continual_writes_no_catastrophic_forgetting_v1",
+  "anchor_name": "a8_continual_writes_no_catastrophic_forgetting_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: degenerate-regime trap -- acc stays >= 0.3 even at alpha=0.300 (2.2x Hopfield capacity); the writes are not genuinely above-capacity (thin/degenerate) so the no-forgetting claim is untested. accs[a0.050=1.000+-0.000 a0.100=1.000+-0.000 a0.200=1.000+-0.000 a0.300=0.950+-0.050] X=0.3 cliff_found=False acc@max(0.3)=0.950 capacity_stress_ok=False region_std=0.050 global_std=0.050",
+  "n_seeds": 2,
+  "N": 256,
+  "run_mode": "smoke",
+  "target_alphas": [
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "detail": {
+    "mean_acc": {
+      "0.050": 1.0,
+      "0.100": 1.0,
+      "0.200": 1.0,
+      "0.300": 0.95
+    },
+    "std_acc": {
+      "0.050": 0.0,
+      "0.100": 0.0,
+      "0.200": 0.0,
+      "0.300": 0.04999999999999999
+    },
+    "no_forget_boundary_X": 0.3,
+    "cliff_found": false,
+    "capacity_stress_ok": false,
+    "acc_max_alpha": 0.95,
+    "max_alpha_tested": 0.3,
+    "region_max_std": 0.04999999999999999,
+    "global_max_std": 0.04999999999999999,
+    "reproduce_scope_note": "seed-reproduce scoped to no-forgetting region [smallest, X] per v2 pre-reg; cliff-edge variance excluded. FLAG for Skunkworks verdict-VET: if cert-owner requires GLOBAL reproduce<=0.05, this drops to MIDDLE_BAND.",
+    "honest_scope": "Hebbian continual-writes no-catastrophic-forgetting up to alpha=0.3 (measured)"
+  },
+  "metrics_source": "measured_cpu_hopfield_continual_writes_cliff_sweep",
+  "elapsed_s": 0.0,
+  "summary": "HARD_FAIL: degenerate-regime trap -- acc stays >= 0.3 even at alpha=0.300 (2.2x Hopfield capacity); the writes are not genuinely above-capacity (thin/degenerate) so the no-forgetting claim is untested",
+  "results": [
+    {
+      "seed": 7,
+      "N": 256,
+      "run_mode": "smoke",
+      "M_MAX": 77,
+      "target_alphas": [
+        0.05,
+        0.1,
+        0.2,
+        0.3
+      ],
+      "acc_curve": {
+        "0.050": 1.0,
+        "0.100": 1.0,
+        "0.200": 1.0,
+        "0.300": 1.0
+      },
+      "acc_max_alpha": 1.0,
+      "elapsed_s": 0.002476930618286133,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1781908855.683746
+    },
+    {
+      "seed": 17,
+      "N": 256,
+      "run_mode": "smoke",
+      "M_MAX": 77,
+      "target_alphas": [
+        0.05,
+        0.1,
+        0.2,
+        0.3
+      ],
+      "acc_curve": {
+        "0.050": 1.0,
+        "0.100": 1.0,
+        "0.200": 1.0,
+        "0.300": 0.9
+      },
+      "acc_max_alpha": 0.9,
+      "elapsed_s": 0.0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1781908855.695366
+    }
+  ]
+}

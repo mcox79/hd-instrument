@@ -1,0 +1,324 @@
+{
+  "verdict": "PARTIAL_MIXED",
+  "verdict_msg": "PARTIAL_MIXED: FULL_heldout=0.635 FULL_train=0.628 RANDOM=0.175 MEMORIZED=0.218 NO_APPRAISAL=0.238 | revenge=0.400 specificity=0.400 bystander=0.000 | earned_restore=0.400 recency_restore=0.277 | coh-rec_readout=0.420",
+  "summary": "FULL_heldout=0.635 FULL_train=0.628 RANDOM=0.175 MEMORIZED=0.218 NO_APPRAISAL=0.238 | revenge=0.400 specificity=0.400 bystander=0.000 | earned_restore=0.400 recency_restore=0.277 | coh-rec_readout=0.420",
+  "n_seeds": 5,
+  "means": {
+    "FULL_heldout_acc": 0.6355,
+    "FULL_train_acc": 0.628,
+    "RANDOM_acc": 0.175,
+    "MEMORIZED_heldout_acc": 0.21800000000000003,
+    "NO_APPRAISAL_heldout_acc": 0.238,
+    "revenge_emergence_rate": 0.4,
+    "targeting_specificity": 0.4,
+    "bystander_harm_rate": 0.0,
+    "earned_restoration": 0.4,
+    "recency_restoration": 0.27702518936920467,
+    "coh_minus_rec_readout": 0.4200715750455856
+  },
+  "bands": {
+    "random_failed": true,
+    "memorized_failed": true,
+    "appraisal_nonvacuous": true,
+    "beats_recency": false,
+    "generalizes": false,
+    "revenge_emerged": false,
+    "construction_determined": false,
+    "cannot_earn": false
+  },
+  "run_mode": "smoke",
+  "elapsed_s": 29.128103599883616,
+  "ts_iso": "2026-08-03T23:14:23.830310+00:00",
+  "anchor_name": "grounded_appraisal_sim_earned_v1",
+  "config": {
+    "N_DIM": 256,
+    "N_CAND": 3,
+    "N_ACTIONS": 8,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_train": 1200,
+    "n_eval": 400
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "FULL_heldout": {
+        "acc": 0.69,
+        "n_bh": 124,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.28225806451612906
+      },
+      "RANDOM_heldout": {
+        "acc": 0.175,
+        "n_bh": 130,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.35384615384615387
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.155,
+        "n_bh": 128,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.34375
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.2275,
+        "n_bh": 128,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3359375
+      },
+      "FULL_train": {
+        "acc": 0.7125,
+        "n_bh": 115,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.34782608695652173
+      },
+      "coh_minus_rec_readout": 0.35431429743766785,
+      "arms_theta_digests": {
+        "FULL": "62d28f138900a0e1",
+        "RANDOM": "65be7418828bc64c",
+        "MEMORIZED": "f4d7dc19f1c057ad",
+        "NO_APPRAISAL": "cb9fe36dd3cb185d"
+      }
+    },
+    "1": {
+      "seed": 1,
+      "FULL_heldout": {
+        "acc": 0.7725,
+        "n_bh": 130,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3230769230769231
+      },
+      "RANDOM_heldout": {
+        "acc": 0.105,
+        "n_bh": 106,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.24528301886792453
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.28,
+        "n_bh": 117,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.26495726495726496
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.31,
+        "n_bh": 114,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.34210526315789475
+      },
+      "FULL_train": {
+        "acc": 0.7475,
+        "n_bh": 118,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3220338983050847
+      },
+      "coh_minus_rec_readout": 0.5818625390529633,
+      "arms_theta_digests": {
+        "FULL": "4f2fcbf5a10e6cd3",
+        "RANDOM": "8e5e24967f0da90e",
+        "MEMORIZED": "3731df6cfd6f9a95",
+        "NO_APPRAISAL": "0b304cd3a22a62fd"
+      }
+    },
+    "2": {
+      "seed": 2,
+      "FULL_heldout": {
+        "acc": 0.5,
+        "n_bh": 124,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.28225806451612906
+      },
+      "RANDOM_heldout": {
+        "acc": 0.115,
+        "n_bh": 138,
+        "revenge_emergence_rate": 0.3333333333333333,
+        "targeting_specificity": 0.3333333333333333,
+        "bystander_harm_rate": 0.6666666666666666,
+        "earned_restoration": 0.3333333333333333,
+        "recency_restoration": 0.3333333333333333
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.2325,
+        "n_bh": 135,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3925925925925926
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.24,
+        "n_bh": 119,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3445378151260504
+      },
+      "FULL_train": {
+        "acc": 0.48,
+        "n_bh": 119,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.226890756302521
+      },
+      "coh_minus_rec_readout": 0.3951268494129181,
+      "arms_theta_digests": {
+        "FULL": "4cd33d99573228c5",
+        "RANDOM": "34a58d55116ead3e",
+        "MEMORIZED": "641453a908fe8c76",
+        "NO_APPRAISAL": "f40217404065c53a"
+      }
+    },
+    "3": {
+      "seed": 3,
+      "FULL_heldout": {
+        "acc": 0.7775,
+        "n_bh": 114,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.2631578947368421
+      },
+      "RANDOM_heldout": {
+        "acc": 0.2775,
+        "n_bh": 128,
+        "revenge_emergence_rate": 0.6171875,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.6171875,
+        "recency_restoration": 0.3828125
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.2575,
+        "n_bh": 97,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.28865979381443296
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.185,
+        "n_bh": 117,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.39316239316239315
+      },
+      "FULL_train": {
+        "acc": 0.7325,
+        "n_bh": 116,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.39655172413793105
+      },
+      "coh_minus_rec_readout": 0.4377003014087677,
+      "arms_theta_digests": {
+        "FULL": "70abeab4b3aa5eb0",
+        "RANDOM": "8471ac088a610579",
+        "MEMORIZED": "f0f0452322241da1",
+        "NO_APPRAISAL": "f8b5f4fa2640e751"
+      }
+    },
+    "4": {
+      "seed": 4,
+      "FULL_heldout": {
+        "acc": 0.4375,
+        "n_bh": 128,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.234375
+      },
+      "RANDOM_heldout": {
+        "acc": 0.2025,
+        "n_bh": 115,
+        "revenge_emergence_rate": 0.7043478260869566,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.7043478260869566,
+        "recency_restoration": 0.2956521739130435
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.165,
+        "n_bh": 126,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.35714285714285715
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.2275,
+        "n_bh": 123,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3089430894308943
+      },
+      "FULL_train": {
+        "acc": 0.4675,
+        "n_bh": 114,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3508771929824561
+      },
+      "coh_minus_rec_readout": 0.33135388791561127,
+      "arms_theta_digests": {
+        "FULL": "5ff8af5184e261b2",
+        "RANDOM": "b6c6eefbcd42e28c",
+        "MEMORIZED": "143a88f8fb4f87d6",
+        "NO_APPRAISAL": "d4663cb14ca6cb2d"
+      }
+    }
+  }
+}

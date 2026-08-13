@@ -1,0 +1,75 @@
+{
+  "anchor_name": "multihop_reverse_replay_backward_sweep_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_REVERSE_REPLAY: A_baseline=0.6555 B_reverse_only=0.1111 C_with_reverse=0.7111 D_bidir=0.8111 E_reward_gated=0.6667 F_random_reverse=0.6667 | D-A_lift=+0.1556 C-F_temporal_order=+0.0444",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "multihopReverseReplayBackwardSweepV1: N=2048 V_C=80 n_chains=30 seeds=[7] depths=[2, 3, 5] mode=smoke HP_D_lift>=0.20 HP_C_over_F>=0.10 MID_lift>=0.10 HF_no_help<=0.05 tau_quantile=0.75 EXPECTED_N_UNITS=18",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 80,
+      "n_chains": 30,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "config_version": "multihopReverseReplayBackwardSweepV1: N=2048 V_C=80 n_chains=30 seeds=[7] depths=[2, 3, 5] mode=smoke HP_D_lift>=0.20 HP_C_over_F>=0.10 MID_lift>=0.10 HF_no_help<=0.05 tau_quantile=0.75 EXPECTED_N_UNITS=18",
+      "expected_n_units_per_seed": 18,
+      "_llm_forward_calls_at_inference": 0,
+      "build_time_s": 2.54,
+      "reward_gate_tau": 4257984.0,
+      "per_depth": [
+        {
+          "depth": 2,
+          "n_queries": 30,
+          "A_baseline_forward_only_top1": 0.8,
+          "B_reverse_only_top1": 0.1333,
+          "C_with_reverse_replay_top1": 0.9,
+          "D_bidirectional_both_top1": 0.8667,
+          "E_reward_gated_reverse_top1": 0.8333,
+          "F_random_reverse_discriminator_top1": 0.7667,
+          "elapsed_s_depth": 2.45
+        },
+        {
+          "depth": 3,
+          "n_queries": 30,
+          "A_baseline_forward_only_top1": 0.6333,
+          "B_reverse_only_top1": 0.1,
+          "C_with_reverse_replay_top1": 0.7,
+          "D_bidirectional_both_top1": 0.8333,
+          "E_reward_gated_reverse_top1": 0.6667,
+          "F_random_reverse_discriminator_top1": 0.7,
+          "elapsed_s_depth": 4.87
+        },
+        {
+          "depth": 5,
+          "n_queries": 30,
+          "A_baseline_forward_only_top1": 0.5333,
+          "B_reverse_only_top1": 0.1,
+          "C_with_reverse_replay_top1": 0.5333,
+          "D_bidirectional_both_top1": 0.7333,
+          "E_reward_gated_reverse_top1": 0.5,
+          "F_random_reverse_discriminator_top1": 0.5333,
+          "elapsed_s_depth": 8.17
+        }
+      ],
+      "arm_A_baseline_forward_only_mean_top1": 0.6555,
+      "arm_B_reverse_only_mean_top1": 0.1111,
+      "arm_C_with_reverse_replay_mean_top1": 0.7111,
+      "arm_D_bidirectional_both_mean_top1": 0.8111,
+      "arm_E_reward_gated_reverse_mean_top1": 0.6667,
+      "arm_F_random_reverse_discriminator_mean_top1": 0.6667,
+      "elapsed_s": 18.2,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782557497.2239482
+    }
+  ],
+  "elapsed_s": 18.3,
+  "summary": "MIDDLE_BAND_PARTIAL_REVERSE_REPLAY: A_baseline=0.6555 B_reverse_only=0.1111 C_with_reverse=0.7111 D_bidir=0.8111 E_reward_gated=0.6667 F_random_reverse=0.6667 | D-A_lift=+0.1556 C-F_temporal_order=+0.0444",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "M5 brain-mechanism cell: reverse-replay / backward sweep. Tests whether SEPARATE reverse-temporal-order store (S_back) lifts substrate multi-hop accuracy over forward-only baseline (arm A). Includes M3 bidirectional meet-in-middle composition (arm D), reward-gated reverse-replay (arm E; Ambrose-Pfeiffer-Foster 2016), and a CRITICAL discriminator (arm F: shuffled-temporal-order reverse-replay) that tests whether temporal order is load-bearing \u2014 distinguishing 'reverse-replay helps because of TEMPORAL ORDER' (HARD_PASS) vs 'any extra replay helps regardless of order' (HARD_FAIL or MIDDLE). Companion to META_M7 bidirectional cell (which uses W.T; this cell uses separate S_back so forward and reverse can be selectively gated)."
+}

@@ -1,0 +1,112 @@
+{
+  "verdict": "HARD_PASS_GENERATIVE_GOAL_TYPING_RECOVERS_ACTION_IMPLIED",
+  "verdict_msg": "HARD_PASS_GENERATIVE_GOAL_TYPING_RECOVERS_ACTION_IMPLIED: ACTION_IMPLIED divergent: lexical_only=0.0 (N_div=10) -> generative=0.8 (N_div=10, scrambled=0.0). EXPLICIT_PSYCH divergent (no-regression check): lexical_only=1.0 -> generative=1.0. positional_baseline(recency_floor) all-conditions-zero=True. GATES: {'lift_ge_0p5': True, 'baseline_was_zero': True, 'no_regression_explicit': True, 'positional_baseline_zero': True, 'scramble_collapses': True, 'verb_disjoint': True, 'rule_induced': True, 'frame_feature_used': True}.",
+  "summary": "ACTION_IMPLIED divergent: lexical_only=0.0 (N_div=10) -> generative=0.8 (N_div=10, scrambled=0.0). EXPLICIT_PSYCH divergent (no-regression check): lexical_only=1.0 -> generative=1.0. positional_baseline(recency_floor) all-conditions-zero=True. GATES: {'lift_ge_0p5': True, 'baseline_was_zero': True, 'no_regression_explicit': True, 'positional_baseline_zero': True, 'scramble_collapses': True, 'verb_disjoint': True, 'rule_induced': True, 'frame_feature_used': True}.",
+  "per_condition": {
+    "lexical_only": {
+      "action_implied": {
+        "n": 10,
+        "n_divergent": 10,
+        "recency_floor_divergent": 0.0,
+        "system_accuracy_divergent": 0.0,
+        "system_scrambled_accuracy_divergent": 0.0,
+        "n_typing_miss_goal": 10
+      },
+      "explicit_psych": {
+        "n": 18,
+        "n_divergent": 18,
+        "recency_floor_divergent": 0.0,
+        "system_accuracy_divergent": 1.0,
+        "system_scrambled_accuracy_divergent": 0.0,
+        "n_typing_miss_goal": 0
+      }
+    },
+    "generative": {
+      "action_implied": {
+        "n": 10,
+        "n_divergent": 10,
+        "recency_floor_divergent": 0.0,
+        "system_accuracy_divergent": 0.8,
+        "system_scrambled_accuracy_divergent": 0.0,
+        "n_typing_miss_goal": 0
+      },
+      "explicit_psych": {
+        "n": 18,
+        "n_divergent": 18,
+        "recency_floor_divergent": 0.0,
+        "system_accuracy_divergent": 1.0,
+        "system_scrambled_accuracy_divergent": 0.0,
+        "n_typing_miss_goal": 0
+      }
+    }
+  },
+  "gates": {
+    "lift_ge_0p5": true,
+    "baseline_was_zero": true,
+    "no_regression_explicit": true,
+    "positional_baseline_zero": true,
+    "scramble_collapses": true,
+    "verb_disjoint": true,
+    "rule_induced": true,
+    "frame_feature_used": true
+  },
+  "induction": {
+    "chosen_name": "ruleind",
+    "compression_ratio": 16.0,
+    "n_rules": 2,
+    "hypothesis": {
+      "kind": "rules_residual",
+      "rules": [
+        {
+          "conjunct": [
+            "purpose_to_no_det"
+          ],
+          "majority_class": "GOAL",
+          "coverage": 8,
+          "precision": 1.0,
+          "bits_rule": 1.0,
+          "bits_exceptions": 0.0,
+          "bits_null": 8.0
+        },
+        {
+          "conjunct": [],
+          "majority_class": "NOT_GOAL",
+          "coverage": 8,
+          "precision": 1.0,
+          "bits_rule": 0.0,
+          "bits_exceptions": 0.0,
+          "bits_null": 0.0,
+          "is_default": true
+        }
+      ],
+      "residual_lookup": {},
+      "n_classes": 2
+    },
+    "uses_purpose_feature": true
+  },
+  "run_mode": "full",
+  "elapsed_s": 1.3155333000031533,
+  "ts_iso": "2026-08-05T22:29:19.448309+00:00",
+  "anchor_name": "c5_generative_goal_typing_action_frame_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "conditions": [
+      "lexical_only",
+      "generative"
+    ],
+    "cardinality_ok": true
+  },
+  "prereg": "preregs/2026-08-05_c5_generative_goal_typing_action_frame_v1.md",
+  "cites": [
+    "notes/drill_brain_goal_owner_flow.md",
+    "notes/DRILL_SYNTHESIS_goal_owner_brain_and_fairness.md",
+    "experiments/exp_c5_fair_goal_owner_v1.py (reused bit-identical harness)",
+    "hdlab/learner/ (config-only MDL plugin registry, ruleind plugin)",
+    "hdlab/goal_owner_select.py; hdlab/self_improving_loop.py"
+  ],
+  "dispatch": "LOCAL-ONLY, in-process foreground, not queue-dispatched (per task brief)"
+}

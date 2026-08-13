@@ -1,0 +1,122 @@
+{
+  "anchor_name": "ingest_knowledge_integration_verify_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hardened per-seed gate-D holds on the name-similar pool (max D_hard 0.0167 < 0.15, EVERY seed), firing control collapses to chance, and the A-D gap WIDENS on the harder pool (worst-seed A-D=0.983). Substrate INTEGRATES + QUERIES ingested ConceptNet via the live structural path; the ~2% name-shortcut bound is TIGHTER than v1. A=1.000 B=0.002 C=0.001 C2=0.000 L=0.000 R=1.000 | D_hard per-seed=['0.0167', '0.0100', '0.0067'] max=0.0167 mean=0.0111 | D_random max=0.1400 mean=0.1311 | firing(scrambled-src) mean=0.0011 max=0.0033 (<=0.020:True) | gap_real-vs-scrambled=0.999(>=0.50:True) gap_firing=0.998/B<=0.15(True) noingest<=0.05(True) recall>=0.98(True) notlookup L<=0.05/A>=0.90(True) | A-D_hard(worst)=0.983 | v1_ref_max_D_random=0.1567 leak_grew=False | completeness(atoms 142219/142219 rel 189763/189654+109)=True consist=True",
+  "summary": "HARD_PASS: hardened per-seed gate-D holds on the name-similar pool (max D_hard 0.0167 < 0.15, EVERY seed), firing control collapses to chance, and the A-D gap WIDENS on the harder pool (worst-seed A-D=0.983). Substrate INTEGRATES + QUERIES ingested ConceptNet via the live structural path; the ~2% name-shortcut bound is TIGHTER than v1. A=1.000 B=0.002 C=0.001 C2=0.000 L=0.000 R=1.000 | D_hard per-seed=['0.0167', '0.0100', '0.0067'] max=0.0167 mean=0.0111 | D_random max=0.1400 mean=0.1311 | firing(scrambled-src) mean=0.0011 max=0.0033 (<=0.020:True) | gap_real-vs-scrambled=0.999(>=0.50:True) gap_firing=0.998/B<=0.15(True) noingest<=0.05(True) recall>=0.98(True) notlookup L<=0.05/A>=0.90(True) | A-D_hard(worst)=0.983 | v1_ref_max_D_random=0.1567 leak_grew=False | completeness(atoms 142219/142219 rel 189763/189654+109)=True consist=True",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "ingest-integration-verify-v2 gate-D HARDENED: per-seed-max gate + name-similar (lexical-NN) distractor pool + shuffled-source firing-control; structural arms A/B/C/C2/R/L unchanged; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4:maxD<0.15/failD>=0.17/fire<=0.020 D5>=0.98 D6:L<=0.05/A>=0.90]",
+  "elapsed_s": 39.1,
+  "arms_differ_verified": true,
+  "disk_completeness": {
+    "disk_atoms": 142219,
+    "disk_distinct_triples": 189654,
+    "disk_derived": 109,
+    "disk_uses": 109,
+    "loaded_atoms": 142219,
+    "loaded_relations": 189763,
+    "n_dangling_edge_only_nodes": 93,
+    "dangling_edge_only_sample": [
+      "math::T1/bayes_rule",
+      "math::T1/category",
+      "math::T1/chinese_remainder_theorem",
+      "math::T1/cross_entropy",
+      "math::T1/dot_product",
+      "math::T1/graph_general",
+      "math::T1/kronecker_product",
+      "math::T1/kullback_leibler_divergence",
+      "math::T1/markov_chain",
+      "math::T1/metric_space"
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_chains": 300,
+      "A_ingest_2hop": 1.0,
+      "B_shuffled_2ndhop": 0.0,
+      "C_scrambled_kb": 0.0033333333333333335,
+      "C2_no_ingest": 0.0,
+      "D_hard_lexNN": 0.016666666666666666,
+      "D_random_pool": 0.13666666666666666,
+      "D_hard_scrambled_src": 0.0033333333333333335,
+      "L_one_hop_direct": 0.0,
+      "R_known_item_1hop_recall": 1.0,
+      "mean_lex_neighbors_available": 199.0,
+      "known_item_probes": 2576,
+      "adjacency_matches_live_out_neighbors": true,
+      "arm_hashes": {
+        "A": "893c172baa019a7b",
+        "B": "d13d4a8b3b8add19",
+        "C": "e4be76ccdf0048bd",
+        "Dhard": "faa02bf1b5ef2160",
+        "Drand": "2a65666dcf3abd43",
+        "Dscr": "c073756f53e0b597"
+      },
+      "config_version": "ingest-integration-verify-v2 gate-D HARDENED: per-seed-max gate + name-similar (lexical-NN) distractor pool + shuffled-source firing-control; structural arms A/B/C/C2/R/L unchanged; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4:maxD<0.15/failD>=0.17/fire<=0.020 D5>=0.98 D6:L<=0.05/A>=0.90]",
+      "run_mode": "full"
+    },
+    {
+      "seed": 13,
+      "n_chains": 300,
+      "A_ingest_2hop": 1.0,
+      "B_shuffled_2ndhop": 0.0033333333333333335,
+      "C_scrambled_kb": 0.0,
+      "C2_no_ingest": 0.0,
+      "D_hard_lexNN": 0.01,
+      "D_random_pool": 0.14,
+      "D_hard_scrambled_src": 0.0,
+      "L_one_hop_direct": 0.0,
+      "R_known_item_1hop_recall": 1.0,
+      "mean_lex_neighbors_available": 199.0,
+      "known_item_probes": 2623,
+      "adjacency_matches_live_out_neighbors": true,
+      "arm_hashes": {
+        "A": "893c172baa019a7b",
+        "B": "346fb2e9f577f0f5",
+        "C": "d13d4a8b3b8add19",
+        "Dhard": "ae924ad5de560ea1",
+        "Drand": "3cf1274f3247bd8a",
+        "Dscr": "d13d4a8b3b8add19"
+      },
+      "config_version": "ingest-integration-verify-v2 gate-D HARDENED: per-seed-max gate + name-similar (lexical-NN) distractor pool + shuffled-source firing-control; structural arms A/B/C/C2/R/L unchanged; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4:maxD<0.15/failD>=0.17/fire<=0.020 D5>=0.98 D6:L<=0.05/A>=0.90]",
+      "run_mode": "full"
+    },
+    {
+      "seed": 23,
+      "n_chains": 300,
+      "A_ingest_2hop": 1.0,
+      "B_shuffled_2ndhop": 0.0033333333333333335,
+      "C_scrambled_kb": 0.0,
+      "C2_no_ingest": 0.0,
+      "D_hard_lexNN": 0.006666666666666667,
+      "D_random_pool": 0.11666666666666667,
+      "D_hard_scrambled_src": 0.0,
+      "L_one_hop_direct": 0.0,
+      "R_known_item_1hop_recall": 1.0,
+      "mean_lex_neighbors_available": 199.0,
+      "known_item_probes": 2714,
+      "adjacency_matches_live_out_neighbors": true,
+      "arm_hashes": {
+        "A": "893c172baa019a7b",
+        "B": "e328fd4bd97d3c4d",
+        "C": "d13d4a8b3b8add19",
+        "Dhard": "cce1b268771b8e80",
+        "Drand": "090200174db7748c",
+        "Dscr": "d13d4a8b3b8add19"
+      },
+      "config_version": "ingest-integration-verify-v2 gate-D HARDENED: per-seed-max gate + name-similar (lexical-NN) distractor pool + shuffled-source firing-control; structural arms A/B/C/C2/R/L unchanged; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4:maxD<0.15/failD>=0.17/fire<=0.020 D5>=0.98 D6:L<=0.05/A>=0.90]",
+      "run_mode": "full"
+    }
+  ],
+  "gate_d_hardening": {
+    "fix1_per_seed_max_gate": true,
+    "fix2_lexical_neighbor_pool": true,
+    "leak_ceil": 0.15,
+    "leak_hard_fail": 0.17,
+    "firing_ceil": 0.02,
+    "current_full_max_d_random_ref": 0.1567,
+    "d_hard_max_over_seeds": 0.016666666666666666
+  },
+  "DESIGN_NOTE": "v2 gate-D hardening (ingest INTEGRITY gate before 970K scale): Fix1 per-seed max gate (no mean masking); Fix2 name-similar lexical-neighbor distractor pool + shuffled-source firing control; structural arms A/B/C/C2/R/L UNCHANGED from v1. PROOF is the A-D gap on the HARDER pool."
+}

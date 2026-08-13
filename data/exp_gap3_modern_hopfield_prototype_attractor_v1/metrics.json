@@ -1,0 +1,148 @@
+{
+  "anchor": "gap3_modern_hopfield_prototype_attractor_v1",
+  "anchor_name": "gap3_modern_hopfield_prototype_attractor_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_MH_BELOW_FLOOR: best_MH_arm=ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200 below MIDDLE_BAND lower bound 0.5 but distinguishable from HRR_BUNDLE. arms: ARM_BASELINE_NO_SCHEMA=0.3733+/-0.0660 | ARM_HRR_BUNDLE_PROTOTYPE=0.4733+/-0.0772 | ARM_LINEAR_MEAN_PROTOTYPE=0.2933+/-0.0929 | ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200+/-0.0327 | ARM_MODERN_HOPFIELD_CONTINUOUS=0.2067+/-0.0411",
+  "headline": "MIDDLE_BAND_MH_BELOW_FLOOR: best_MH_arm=ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200 below MIDDLE_BAND lower bound 0.5 but distinguishable from HRR_BUNDLE. arms: ARM_BASELINE_NO_SCHEMA=0.3733+/-0.0660 | ARM_HRR_BUNDLE_PROTOTYPE=0.4733+/-0.0772 | ARM_LINEAR_MEAN_PROTOTYPE=0.2933+/-0.0929 | ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200+/-0.0327 | ARM_MODERN_HOPFIELD_CONTINUOUS=0.2067+/-0.0411",
+  "n_seeds": 3,
+  "N": 8192,
+  "run_mode": "full",
+  "n_categories": 5,
+  "instances_per_category": 20,
+  "heldout_per_category": 10,
+  "chance": 0.2,
+  "arms_tested": [
+    "ARM_BASELINE_NO_SCHEMA",
+    "ARM_HRR_BUNDLE_PROTOTYPE",
+    "ARM_LINEAR_MEAN_PROTOTYPE",
+    "ARM_MODERN_HOPFIELD_PROTOTYPE",
+    "ARM_MODERN_HOPFIELD_CONTINUOUS"
+  ],
+  "beta_prototype": 2.0,
+  "beta_continuous": 2.0,
+  "cell1_feature_reference": 0.4733,
+  "cross_cell_rail_tol": 0.03,
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_SCHEMA": {
+        "mean_heldout_top1": 0.3733333333333333,
+        "std": 0.06599663291074441,
+        "cv": 0.17677669529663684,
+        "per_seed": [
+          0.42,
+          0.28,
+          0.42
+        ]
+      },
+      "ARM_HRR_BUNDLE_PROTOTYPE": {
+        "mean_heldout_top1": 0.47333333333333333,
+        "std": 0.07717224601860148,
+        "cv": 0.16303995637732707,
+        "per_seed": [
+          0.58,
+          0.4,
+          0.44
+        ]
+      },
+      "ARM_LINEAR_MEAN_PROTOTYPE": {
+        "mean_heldout_top1": 0.2933333333333333,
+        "std": 0.09285592184789412,
+        "cv": 0.31655427902691186,
+        "per_seed": [
+          0.42,
+          0.26,
+          0.2
+        ]
+      },
+      "ARM_MODERN_HOPFIELD_PROTOTYPE": {
+        "mean_heldout_top1": 0.21999999999999997,
+        "std": 0.03265986323710905,
+        "cv": 0.14845392380504116,
+        "per_seed": [
+          0.22,
+          0.26,
+          0.18
+        ]
+      },
+      "ARM_MODERN_HOPFIELD_CONTINUOUS": {
+        "mean_heldout_top1": 0.2066666666666667,
+        "std": 0.041096093353126514,
+        "cv": 0.19885206461190247,
+        "per_seed": [
+          0.26,
+          0.16,
+          0.2
+        ]
+      }
+    },
+    "best_mh_arm": "ARM_MODERN_HOPFIELD_PROTOTYPE",
+    "best_mh_score": 0.21999999999999997,
+    "cross_cell_drift_vs_cell1": 3.333333333332966e-05,
+    "cell1_feature_reference": 0.4733,
+    "saturation_flags": [],
+    "chance": 0.2,
+    "beta_prototype": 2.0,
+    "beta_continuous": 2.0,
+    "honest_scope": "Modern-Hopfield prototype attractor for compositional gen; N=8192 5 cats x 20 train + 10 heldout; chance=0.2000; cell1_anchor_rail=ARM_HRR_BUNDLE_PROTOTYPE vs Cell 1 ARM_FEATURE_BASED_SCHEMA 0.4733 (rail_drift=0.0000)"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.42,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.58,
+        "ARM_LINEAR_MEAN_PROTOTYPE": 0.42,
+        "ARM_MODERN_HOPFIELD_PROTOTYPE": 0.22,
+        "ARM_MODERN_HOPFIELD_CONTINUOUS": 0.26
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.15375900268554688,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782500238.9375966
+    },
+    {
+      "seed": 13,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.28,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.4,
+        "ARM_LINEAR_MEAN_PROTOTYPE": 0.26,
+        "ARM_MODERN_HOPFIELD_PROTOTYPE": 0.26,
+        "ARM_MODERN_HOPFIELD_CONTINUOUS": 0.16
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.1560962200164795,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782500239.099693
+    },
+    {
+      "seed": 19,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.42,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.44,
+        "ARM_LINEAR_MEAN_PROTOTYPE": 0.2,
+        "ARM_MODERN_HOPFIELD_PROTOTYPE": 0.18,
+        "ARM_MODERN_HOPFIELD_CONTINUOUS": 0.2
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.16541671752929688,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782500239.27211
+    }
+  ],
+  "metrics_source": "measured_cpu_gap3_modern_hopfield_prototype_4arm",
+  "elapsed_s": 0.5151922702789307,
+  "summary": "MIDDLE_BAND_MH_BELOW_FLOOR: best_MH_arm=ARM_MODERN_HOPFIELD_PROTOTYPE=0.2200 below MIDDLE_BAND lower bound 0.5 but distinguishable from HRR_BUNDLE. arms: ARM_BASELINE_NO_SCHEMA=0.3733+/-0.0660 | ARM_H",
+  "honest_scope": "Modern-Hopfield prototype attractor for compositional gen; N=8192 5 cats x 20 train + 10 heldout; chance=0.2000; cell1_anchor_rail=ARM_HRR_BUNDLE_PROTOTYPE vs Cell 1 ARM_FEATURE_BASED_SCHEMA 0.4733 (rail_drift=0.0000)",
+  "substrate_only_decode_gate": "N/A (compositional-gen primitive cell; zero LLM forward calls)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0
+}

@@ -1,0 +1,45 @@
+{
+  "anchor_name": "n8_conceptnet_ingest_eval_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop vs 1-hop AND frozen-encoder; OPEN-C unlocked). setrecall@M5000 all=1.000 1to1=1.000 (floor 0.95) | refuse OOD=1.000 accept=0.973 (>=0.80) | infer 2hop=0.750 vs 1hop=0.000 vs frozen-enc=0.010 (ratio=75.00x, need >=2.0x) | scale-curve={5000: 1.0}",
+  "summary": "HARD_PASS: substrate KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop vs 1-hop AND frozen-encoder; OPEN-C unlocked). setrecall@M5000 all=1.000 1to1=1.000 (floor 0.95) | refuse OOD=1.000 accept=0.973 (>=0.80) | infer 2hop=0.750 vs 1hop=0.000 vs frozen-enc=0.010 (ratio=75.00x, need >=2.0x) | scale-curve={5000: 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "n8-conceptnet-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder; N2048 scale[5000]; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x",
+  "per_seed": [
+    {
+      "seed": 1,
+      "scale_curve": {
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 7585,
+          "n_rel": 8,
+          "n_keys": 3926,
+          "n_triples": 5000,
+          "ingest_s": 1.4
+        }
+      },
+      "config_version": "n8-conceptnet-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder; N2048 scale[5000]; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x",
+      "run_mode": "smoke",
+      "N": 2048,
+      "refuse_gate": {
+        "tau": 0.00044957641512155533,
+        "inkb_accept": 0.9733333333333334,
+        "ood_refuse": 1.0,
+        "inkb_conf_mean": 0.0004938168567605317,
+        "ood_conf_mean": 8.25710449134931e-05
+      },
+      "inference_transfer": {
+        "n": 100,
+        "substrate_2hop": 0.75,
+        "baseline_1hop": 0.0,
+        "baseline_frozen_encoder": 0.01,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 1
+      }
+    }
+  ],
+  "elapsed_s": 150.4,
+  "DESIGN_NOTE": "N8 ConceptNet ingest-eval; reuses U1 chain-grade pattern; OPEN-C UNLOCKED via frozen-encoder MiniLM-L6 semantic baseline at ingest-time only (substrate-native gate: encoder is INPUT-stage; scoring is matmul, no forward calls); honest scope: 8 relation types in en-100k vs FB15k-237's ~237; OOD class = (s,p) in-KB no-edge."
+}

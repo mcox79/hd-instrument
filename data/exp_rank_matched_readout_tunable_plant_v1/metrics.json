@@ -1,0 +1,480 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL_RECOVERY_LEVER_WORKS_UNDER_SATURATED",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_RECOVERY_LEVER_WORKS_UNDER_SATURATED || rank1 curve (by R_plant [1, 2, 4, 8]): {1: '0.9993', 2: '0.7659', 4: '0.6673', 8: '0.6139'} (span=0.3855 solves_r1=True degrades=True mono_down=True) | lever_works=True (matched>>rank1 {1: True, 2: True, 4: True, 8: True}) full_saturation=True (matched-to-ceil {1: True, 2: True, 4: True, 8: True}, ceil=0.9984) | monotone_in_R={1: True, 2: True, 4: True, 8: True} overrank_ok={1: True, 2: False, 4: True, 8: True} | ORACLE[min=0.9977] SCRAMBLE[max=0.5014] ADD[max=0.4908] controls=True | card_ok=True",
+  "summary": "MIDDLE_BAND_PARTIAL_RECOVERY_LEVER_WORKS_UNDER_SATURATED || rank1 curve (by R_plant [1, 2, 4, 8]): {1: '0.9993', 2: '0.7659', 4: '0.6673', 8: '0.6139'} (span=0.3855 solves_r1=True degrades=True mono_d",
+  "run_mode": "full",
+  "elapsed_s": 496.71,
+  "anchor_name": "rank_matched_readout_tunable_plant_v1",
+  "ts_iso": "2026-07-16T02:08:01.578029+00:00",
+  "config": {
+    "m_dim": 64,
+    "l_vocab": 128,
+    "r_plant_grid": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "readout_r_grid": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "seeds": [
+      7,
+      13,
+      17,
+      23,
+      29
+    ],
+    "query_frac": 0.35,
+    "nclass": 2,
+    "epochs": 400,
+    "lr": 0.03,
+    "wd": 0.001,
+    "equal_singular_values": true
+  },
+  "acc_table_novel": {
+    "1": {
+      "LEARN_RANK_1": 0.99934,
+      "LEARN_RANK_2": 0.99934,
+      "LEARN_RANK_4": 0.98385,
+      "LEARN_RANK_8": 0.99916,
+      "LEARN_RANK_16": 0.99895,
+      "LEARN_BIND_DIAG": 0.54301,
+      "LEARN_ADD": 0.49076,
+      "ORACLE": 0.99896,
+      "SCRAMBLE": 0.5014,
+      "FREQ": 0.49742,
+      "POP": 0.49742
+    },
+    "2": {
+      "LEARN_RANK_1": 0.76585,
+      "LEARN_RANK_2": 0.97524,
+      "LEARN_RANK_4": 0.97572,
+      "LEARN_RANK_8": 0.96889,
+      "LEARN_RANK_16": 0.91517,
+      "LEARN_BIND_DIAG": 0.54416,
+      "LEARN_ADD": 0.48556,
+      "ORACLE": 0.99773,
+      "SCRAMBLE": 0.49575,
+      "FREQ": 0.49655,
+      "POP": 0.49655
+    },
+    "4": {
+      "LEARN_RANK_1": 0.66732,
+      "LEARN_RANK_2": 0.77091,
+      "LEARN_RANK_4": 0.97231,
+      "LEARN_RANK_8": 0.95525,
+      "LEARN_RANK_16": 0.92996,
+      "LEARN_BIND_DIAG": 0.54419,
+      "LEARN_ADD": 0.47917,
+      "ORACLE": 0.99878,
+      "SCRAMBLE": 0.4993,
+      "FREQ": 0.49798,
+      "POP": 0.49798
+    },
+    "8": {
+      "LEARN_RANK_1": 0.61388,
+      "LEARN_RANK_2": 0.67851,
+      "LEARN_RANK_4": 0.77021,
+      "LEARN_RANK_8": 0.95853,
+      "LEARN_RANK_16": 0.92776,
+      "LEARN_BIND_DIAG": 0.55228,
+      "LEARN_ADD": 0.48029,
+      "ORACLE": 0.99805,
+      "SCRAMBLE": 0.49969,
+      "FREQ": 0.49616,
+      "POP": 0.49616
+    }
+  },
+  "rank_curve_novel": {
+    "1": {
+      "1": 0.99934,
+      "2": 0.99934,
+      "4": 0.98385,
+      "8": 0.99916,
+      "16": 0.99895
+    },
+    "2": {
+      "1": 0.76585,
+      "2": 0.97524,
+      "4": 0.97572,
+      "8": 0.96889,
+      "16": 0.91517
+    },
+    "4": {
+      "1": 0.66732,
+      "2": 0.77091,
+      "4": 0.97231,
+      "8": 0.95525,
+      "16": 0.92996
+    },
+    "8": {
+      "1": 0.61388,
+      "2": 0.67851,
+      "4": 0.77021,
+      "8": 0.95853,
+      "16": 0.92776
+    }
+  },
+  "oracle_ceil": 0.99838,
+  "gates": {
+    "cardinality_ok": true,
+    "controls_ok": true,
+    "degradation_ok": true,
+    "recovery_ok": true,
+    "lever_works": true,
+    "full_saturation": true,
+    "lever_flags": {
+      "1": true,
+      "2": true,
+      "4": true,
+      "8": true
+    },
+    "sat_flags": {
+      "1": true,
+      "2": true,
+      "4": true,
+      "8": true
+    },
+    "monotone_ok": false,
+    "rank1_by_plant": {
+      "1": 0.99934,
+      "2": 0.76585,
+      "4": 0.66732,
+      "8": 0.61388
+    },
+    "rank1_span": 0.38546,
+    "rank1_solves_r1": true,
+    "rank1_degrades": true,
+    "rank1_monotone_down": true,
+    "recovery_flags": {
+      "1": true,
+      "2": true,
+      "4": true,
+      "8": true
+    },
+    "mono_flags": {
+      "1": true,
+      "2": true,
+      "4": true,
+      "8": true
+    },
+    "overrank_flags": {
+      "1": true,
+      "2": false,
+      "4": true,
+      "8": true
+    },
+    "oracle_min": 0.99773,
+    "scramble_max": 0.5014,
+    "add_max": 0.49076
+  },
+  "bands": {
+    "CHANCE": 0.5,
+    "RECOVERY_TO_CEIL": 0.1,
+    "RECOVERY_OVER_RANK1": 0.15,
+    "RANK1_SOLVES_R1": 0.9,
+    "RANK1_DEGRADE": 0.15,
+    "RANK1_ABOVE_CHANCE": 0.55,
+    "MONO_TOL": 0.03,
+    "OVER_RANK_TOL": 0.05,
+    "ORACLE_CEIL_MIN": 0.9,
+    "SCRAMBLE_MAX": 0.55,
+    "ADD_FLOOR_MAX": 0.6,
+    "EXPECTED_N_UNITS_PER_SEED": 4
+  },
+  "per_seed_novel": {
+    "1": [
+      {
+        "LEARN_RANK_1": 0.9993,
+        "LEARN_RANK_2": 0.99913,
+        "LEARN_RANK_4": 0.99913,
+        "LEARN_RANK_8": 0.99913,
+        "LEARN_RANK_16": 0.99878,
+        "LEARN_BIND_DIAG": 0.53715,
+        "LEARN_ADD": 0.49686,
+        "ORACLE": 0.99721,
+        "SCRAMBLE": 0.48919,
+        "POP": 0.49215,
+        "FREQ": 0.49215,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.99948,
+        "LEARN_RANK_2": 0.99948,
+        "LEARN_RANK_4": 0.99948,
+        "LEARN_RANK_8": 0.99948,
+        "LEARN_RANK_16": 0.99948,
+        "LEARN_BIND_DIAG": 0.54063,
+        "LEARN_ADD": 0.48727,
+        "ORACLE": 0.99791,
+        "SCRAMBLE": 0.49512,
+        "POP": 0.49651,
+        "FREQ": 0.49651,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 1.0,
+        "LEARN_RANK_2": 1.0,
+        "LEARN_RANK_4": 1.0,
+        "LEARN_RANK_8": 1.0,
+        "LEARN_RANK_16": 1.0,
+        "LEARN_BIND_DIAG": 0.5511,
+        "LEARN_ADD": 0.45099,
+        "ORACLE": 0.99983,
+        "SCRAMBLE": 0.49738,
+        "POP": 0.49878,
+        "FREQ": 0.49878,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.99913,
+        "LEARN_RANK_2": 0.99878,
+        "LEARN_RANK_4": 0.9986,
+        "LEARN_RANK_8": 0.99843,
+        "LEARN_RANK_16": 0.9986,
+        "LEARN_BIND_DIAG": 0.53994,
+        "LEARN_ADD": 0.50209,
+        "ORACLE": 1.0,
+        "SCRAMBLE": 0.51343,
+        "POP": 0.5,
+        "FREQ": 0.5,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.99878,
+        "LEARN_RANK_2": 0.9993,
+        "LEARN_RANK_4": 0.92204,
+        "LEARN_RANK_8": 0.99878,
+        "LEARN_RANK_16": 0.99791,
+        "LEARN_BIND_DIAG": 0.54622,
+        "LEARN_ADD": 0.51657,
+        "ORACLE": 0.99983,
+        "SCRAMBLE": 0.51186,
+        "POP": 0.49965,
+        "FREQ": 0.49965,
+        "n": 5734
+      }
+    ],
+    "2": [
+      {
+        "LEARN_RANK_1": 0.75323,
+        "LEARN_RANK_2": 0.97489,
+        "LEARN_RANK_4": 0.97855,
+        "LEARN_RANK_8": 0.97436,
+        "LEARN_RANK_16": 0.96024,
+        "LEARN_BIND_DIAG": 0.53872,
+        "LEARN_ADD": 0.48936,
+        "ORACLE": 0.99599,
+        "SCRAMBLE": 0.47925,
+        "POP": 0.4939,
+        "FREQ": 0.4939,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.77346,
+        "LEARN_RANK_2": 0.97837,
+        "LEARN_RANK_4": 0.97698,
+        "LEARN_RANK_8": 0.97018,
+        "LEARN_RANK_16": 0.91001,
+        "LEARN_BIND_DIAG": 0.55197,
+        "LEARN_ADD": 0.50959,
+        "ORACLE": 0.9986,
+        "SCRAMBLE": 0.49791,
+        "POP": 0.49721,
+        "FREQ": 0.49721,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.76613,
+        "LEARN_RANK_2": 0.97018,
+        "LEARN_RANK_4": 0.97558,
+        "LEARN_RANK_8": 0.96861,
+        "LEARN_RANK_16": 0.84147,
+        "LEARN_BIND_DIAG": 0.53994,
+        "LEARN_ADD": 0.4632,
+        "ORACLE": 0.99983,
+        "SCRAMBLE": 0.50052,
+        "POP": 0.49913,
+        "FREQ": 0.49913,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.77607,
+        "LEARN_RANK_2": 0.97698,
+        "LEARN_RANK_4": 0.9775,
+        "LEARN_RANK_8": 0.97663,
+        "LEARN_RANK_16": 0.97035,
+        "LEARN_BIND_DIAG": 0.55145,
+        "LEARN_ADD": 0.48936,
+        "ORACLE": 0.99791,
+        "SCRAMBLE": 0.50576,
+        "POP": 0.49616,
+        "FREQ": 0.49616,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.76038,
+        "LEARN_RANK_2": 0.97576,
+        "LEARN_RANK_4": 0.97,
+        "LEARN_RANK_8": 0.95466,
+        "LEARN_RANK_16": 0.89379,
+        "LEARN_BIND_DIAG": 0.53872,
+        "LEARN_ADD": 0.47628,
+        "ORACLE": 0.99634,
+        "SCRAMBLE": 0.49529,
+        "POP": 0.49634,
+        "FREQ": 0.49634,
+        "n": 5734
+      }
+    ],
+    "4": [
+      {
+        "LEARN_RANK_1": 0.66446,
+        "LEARN_RANK_2": 0.76439,
+        "LEARN_RANK_4": 0.97157,
+        "LEARN_RANK_8": 0.95675,
+        "LEARN_RANK_16": 0.94349,
+        "LEARN_BIND_DIAG": 0.54604,
+        "LEARN_ADD": 0.48378,
+        "ORACLE": 0.99983,
+        "SCRAMBLE": 0.50052,
+        "POP": 0.49983,
+        "FREQ": 0.49983,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.65992,
+        "LEARN_RANK_2": 0.77328,
+        "LEARN_RANK_4": 0.97489,
+        "LEARN_RANK_8": 0.95692,
+        "LEARN_RANK_16": 0.94576,
+        "LEARN_BIND_DIAG": 0.55563,
+        "LEARN_ADD": 0.4625,
+        "ORACLE": 1.0,
+        "SCRAMBLE": 0.50872,
+        "POP": 0.5,
+        "FREQ": 0.5,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.6798,
+        "LEARN_RANK_2": 0.78357,
+        "LEARN_RANK_4": 0.97262,
+        "LEARN_RANK_8": 0.95535,
+        "LEARN_RANK_16": 0.93233,
+        "LEARN_BIND_DIAG": 0.54063,
+        "LEARN_ADD": 0.47837,
+        "ORACLE": 0.99791,
+        "SCRAMBLE": 0.50052,
+        "POP": 0.49599,
+        "FREQ": 0.49599,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.67248,
+        "LEARN_RANK_2": 0.76631,
+        "LEARN_RANK_4": 0.97,
+        "LEARN_RANK_8": 0.95396,
+        "LEARN_RANK_16": 0.94454,
+        "LEARN_BIND_DIAG": 0.54517,
+        "LEARN_ADD": 0.50279,
+        "ORACLE": 0.99983,
+        "SCRAMBLE": 0.4993,
+        "POP": 0.49965,
+        "FREQ": 0.49965,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.65992,
+        "LEARN_RANK_2": 0.767,
+        "LEARN_RANK_4": 0.97245,
+        "LEARN_RANK_8": 0.95326,
+        "LEARN_RANK_16": 0.88368,
+        "LEARN_BIND_DIAG": 0.53348,
+        "LEARN_ADD": 0.46843,
+        "ORACLE": 0.99634,
+        "SCRAMBLE": 0.48744,
+        "POP": 0.49442,
+        "FREQ": 0.49442,
+        "n": 5734
+      }
+    ],
+    "8": [
+      {
+        "LEARN_RANK_1": 0.61807,
+        "LEARN_RANK_2": 0.67963,
+        "LEARN_RANK_4": 0.77433,
+        "LEARN_RANK_8": 0.96059,
+        "LEARN_RANK_16": 0.93757,
+        "LEARN_BIND_DIAG": 0.54133,
+        "LEARN_ADD": 0.47803,
+        "ORACLE": 1.0,
+        "SCRAMBLE": 0.50576,
+        "POP": 0.49983,
+        "FREQ": 0.49983,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.62138,
+        "LEARN_RANK_2": 0.68451,
+        "LEARN_RANK_4": 0.77485,
+        "LEARN_RANK_8": 0.95553,
+        "LEARN_RANK_16": 0.92396,
+        "LEARN_BIND_DIAG": 0.55825,
+        "LEARN_ADD": 0.4864,
+        "ORACLE": 0.99895,
+        "SCRAMBLE": 0.48378,
+        "POP": 0.4986,
+        "FREQ": 0.4986,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.6172,
+        "LEARN_RANK_2": 0.67963,
+        "LEARN_RANK_4": 0.76543,
+        "LEARN_RANK_8": 0.95814,
+        "LEARN_RANK_16": 0.92483,
+        "LEARN_BIND_DIAG": 0.55511,
+        "LEARN_ADD": 0.48657,
+        "ORACLE": 0.99773,
+        "SCRAMBLE": 0.49983,
+        "POP": 0.49302,
+        "FREQ": 0.49302,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.61772,
+        "LEARN_RANK_2": 0.68539,
+        "LEARN_RANK_4": 0.77886,
+        "LEARN_RANK_8": 0.95884,
+        "LEARN_RANK_16": 0.92815,
+        "LEARN_BIND_DIAG": 0.54813,
+        "LEARN_ADD": 0.47314,
+        "ORACLE": 0.99878,
+        "SCRAMBLE": 0.50227,
+        "POP": 0.49738,
+        "FREQ": 0.49738,
+        "n": 5734
+      },
+      {
+        "LEARN_RANK_1": 0.59505,
+        "LEARN_RANK_2": 0.66341,
+        "LEARN_RANK_4": 0.75759,
+        "LEARN_RANK_8": 0.95954,
+        "LEARN_RANK_16": 0.92431,
+        "LEARN_BIND_DIAG": 0.5586,
+        "LEARN_ADD": 0.47733,
+        "ORACLE": 0.99477,
+        "SCRAMBLE": 0.5068,
+        "POP": 0.49198,
+        "FREQ": 0.49198,
+        "n": 5734
+      }
+    ]
+  }
+}

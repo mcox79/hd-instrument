@@ -1,0 +1,89 @@
+{
+  "anchor_name": "isotropy_capacity_v2_gpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "need >=3 encoders (got 2)",
+  "run_mode": "smoke",
+  "encoders": [
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "BAAI/bge-small-en-v1.5",
+    "BAAI/bge-large-en-v1.5",
+    "EleutherAI/pythia-160m"
+  ],
+  "M_keys": 1500,
+  "n_seeds": 2,
+  "detail": {
+    "per_encoder": {
+      "sentence-transformers/all-MiniLM-L6-v2": {
+        "isoscore": 0.90825,
+        "d_eff": 237.6,
+        "m_crit": 188.76999999999998,
+        "m_crit_cv": 0.23483604386165793,
+        "c": 2.7925
+      },
+      "EleutherAI/pythia-160m": {
+        "isoscore": 0.86095,
+        "d_eff": 349.2,
+        "m_crit": 2.6,
+        "m_crit_cv": 0.0,
+        "c": 2.587
+      }
+    }
+  },
+  "metrics_source": "measured_gpu_isotropy_isoscore_vs_hebbian_capacity_cross_encoder",
+  "per_unit": [
+    {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "nominal_D": 384,
+      "seed": 1,
+      "isoscore": 0.9093,
+      "d_eff": 238.6,
+      "m_crit": 144.44,
+      "c_cleanup_boost": 2.067,
+      "e_sq": 0.014311,
+      "run_mode": "smoke",
+      "_ckpt_key": "all-MiniLM-L6-v2_s1",
+      "_partial_written_at": 1781952664.6540995
+    },
+    {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "nominal_D": 384,
+      "seed": 2,
+      "isoscore": 0.9072,
+      "d_eff": 236.6,
+      "m_crit": 233.1,
+      "c_cleanup_boost": 3.518,
+      "e_sq": 0.015093,
+      "run_mode": "smoke",
+      "_ckpt_key": "all-MiniLM-L6-v2_s2",
+      "_partial_written_at": 1781952669.9822023
+    },
+    {
+      "encoder": "EleutherAI/pythia-160m",
+      "nominal_D": 768,
+      "seed": 1,
+      "isoscore": 0.8618,
+      "d_eff": 351.0,
+      "m_crit": 2.6,
+      "c_cleanup_boost": 2.587,
+      "e_sq": 0.99338,
+      "run_mode": "smoke",
+      "_ckpt_key": "pythia-160m_s1",
+      "_partial_written_at": 1781952961.8798075
+    },
+    {
+      "encoder": "EleutherAI/pythia-160m",
+      "nominal_D": 768,
+      "seed": 2,
+      "isoscore": 0.8601,
+      "d_eff": 347.4,
+      "m_crit": 2.6,
+      "c_cleanup_boost": 2.587,
+      "e_sq": 0.993324,
+      "run_mode": "smoke",
+      "_ckpt_key": "pythia-160m_s2",
+      "_partial_written_at": 1781953006.6315618
+    }
+  ],
+  "elapsed_s": 348.0261912345886,
+  "summary": "need >=3 encoders (got 2)"
+}

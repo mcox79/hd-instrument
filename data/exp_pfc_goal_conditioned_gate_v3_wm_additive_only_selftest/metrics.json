@@ -1,0 +1,24 @@
+{
+  "anchor_name": "pfc_goal_conditioned_gate_v3_wm_additive_only",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm structure + AF verified",
+  "summary": "SELFTEST_OK: per-arm structure + AF verified",
+  "elapsed_s": 0.2,
+  "ts_iso": "2026-07-05T15:11:10Z",
+  "pid": 12040,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_goal_conditioned_gate_v3_wm_additive_only,N=512,N_OPS=4,V=200,seeds=[7],depths=[3],n_train=30,n_test=10,mode=smoke,alphas=[0.1, 0.2, 0.7, 1.0, 2.0],HP_lift>=0.10,cv<0.10,oracle>=0.40,expected_n=9,hardening=L1ascii+L2perarm+L3outertry+L4importsentinel+AEabspath+AFnotwins",
+  "_hardening_marker": "v3_wm_additive_only_pfc_goal_gate",
+  "_phase": "selftest_done",
+  "expected_arms": [
+    "v1_no_goal",
+    "wm_goal_slot",
+    "combined_wm_plus_additive",
+    "oracle",
+    "additive_a01",
+    "additive_a02",
+    "additive_a07",
+    "additive_a10",
+    "additive_a20"
+  ]
+}

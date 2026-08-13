@@ -1,0 +1,245 @@
+{
+  "verdict": "NO_GATING_UNIT_THIS_RUN_MODE",
+  "verdict_msg": "gating unit RELOBJ_v3_seed_13 not included in this run_mode's unit list",
+  "summary": "gating unit RELOBJ_v3_seed_13 not included in this run_mode's unit list",
+  "anchor_name": "entity_state_replication_vet_cross_boundary_v1",
+  "run_mode": "selftest",
+  "ts_iso": "2026-07-29T11:24:56.478627+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_units": 1,
+  "per_unit": {
+    "RELOBJ_v3_seed_7": {
+      "unit_key": "RELOBJ_v3_seed_7",
+      "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+      "ckpt_meta": {
+        "seed": 7,
+        "run_mode": "full",
+        "anchor": "scale_meaning_learn_arc_heldout_v3_relobj",
+        "w_star_semantic": 0.8,
+        "selected_arm_semantic": "ARM_FUSE_WTUNED",
+        "model_cfg": {
+          "vocab": 16000,
+          "max_len": 128,
+          "d_model": 512,
+          "n_layers": 6,
+          "n_heads": 8,
+          "ffn_mult": 4,
+          "pad_id": 0
+        }
+      },
+      "mean_pool": {
+        "name": "MEAN_POOL",
+        "decoder_final_loss": 0.2102457731962204,
+        "train_sanity": {
+          "train_balanced_acc": 0.975,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.575,
+        "coherent_balanced_acc": 0.575,
+        "scrambled_acc": 0.6,
+        "scrambled_balanced_acc": 0.6,
+        "margin": -0.025000000000000022,
+        "z_stat": -0.22711148374248105,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "clause_split_concat": {
+        "name": "CLAUSE_SPLIT_CONCAT",
+        "decoder_final_loss": 0.1563684046268463,
+        "train_sanity": {
+          "train_balanced_acc": 1.0,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.625,
+        "coherent_balanced_acc": 0.625,
+        "scrambled_acc": 0.4,
+        "scrambled_balanced_acc": 0.4,
+        "margin": 0.22499999999999998,
+        "z_stat": 2.013090368816223,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "random_init_encoder": {
+        "name": "RANDOM_INIT_ENCODER",
+        "decoder_final_loss": 0.2882065773010254,
+        "train_sanity": {
+          "train_balanced_acc": 1.0,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.425,
+        "coherent_balanced_acc": 0.42500000000000004,
+        "scrambled_acc": 0.35,
+        "scrambled_balanced_acc": 0.35000000000000003,
+        "margin": 0.07500000000000001,
+        "z_stat": 0.6884737104878563,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "structure_alone": true,
+      "arms_differ_digests": {
+        "MEAN_POOL": "d7607ff1ae1ea1f36dae21c41f0f3582d914648d9a7f6000623468ec0205aa99",
+        "CLAUSE_SPLIT_CONCAT": "5972803b583eed0764a54402256d26807759c2b653e98439a8f1dd01378263d8",
+        "RANDOM_INIT_ENCODER": "8651ef0568b5fccebd22c4c6835227b31ec939357bd79c59762fcd5eb0303bc4"
+      },
+      "failure_class": null,
+      "elapsed_s": 12.027505100006238,
+      "seed": "RELOBJ_v3_seed_7",
+      "_ckpt_key": "RELOBJ_v3_seed_7",
+      "_partial_written_at": 1785324296.330393
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "got_n_units": 1,
+  "calibration": {
+    "per_model": {
+      "MiniLM": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.15479275584220886,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.425,
+          "coherent_balanced_acc": 0.425,
+          "scrambled_acc": 0.425,
+          "scrambled_balanced_acc": 0.425,
+          "margin": 0.0,
+          "z_stat": 0.0,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.2697628140449524,
+          "train_sanity": {
+            "train_balanced_acc": 0.95,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.525,
+          "coherent_balanced_acc": 0.5249999999999999,
+          "scrambled_acc": 0.45,
+          "scrambled_balanced_acc": 0.44999999999999996,
+          "margin": 0.07500000000000001,
+          "z_stat": 0.6710301229387412,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.18505044281482697,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.475,
+          "coherent_balanced_acc": 0.475,
+          "scrambled_acc": 0.425,
+          "scrambled_balanced_acc": 0.42500000000000004,
+          "margin": 0.04999999999999999,
+          "z_stat": 0.4494665749754946,
+          "n_eval": 40,
+          "comprehension_specific": false
+        }
+      },
+      "BGE_SMALL": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.19836975634098053,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.4,
+          "coherent_balanced_acc": 0.4,
+          "scrambled_acc": 0.425,
+          "scrambled_balanced_acc": 0.425,
+          "margin": -0.024999999999999967,
+          "z_stat": -0.22711148374248055,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.21797923743724823,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.4,
+          "coherent_balanced_acc": 0.4,
+          "scrambled_acc": 0.4,
+          "scrambled_balanced_acc": 0.4,
+          "margin": 0.0,
+          "z_stat": 0.0,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.21797975897789001,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.4,
+          "coherent_balanced_acc": 0.4,
+          "scrambled_acc": 0.4,
+          "scrambled_balanced_acc": 0.4,
+          "margin": 0.0,
+          "z_stat": 0.0,
+          "n_eval": 40,
+          "comprehension_specific": false
+        }
+      }
+    },
+    "calibration_pass": false
+  },
+  "calibration_enforced": false,
+  "bands": {
+    "replicates_thresh": 0.15,
+    "fails_floor": 0.05,
+    "fails_ratio": 0.5,
+    "random_gate_eps": 0.02,
+    "margin_thresh": 0.15,
+    "coherent_floor": 0.65
+  },
+  "hp_scope": {
+    "applies_to": [
+      "RELOBJ_v3_seed_13"
+    ],
+    "informational_only": [
+      "RELOBJ_v3_seed_7",
+      "BASELINE_v2_seed_7",
+      "clause_split_concat (all units)"
+    ]
+  },
+  "cfg": {
+    "run_mode": "selftest",
+    "train_target": 40,
+    "eval_target_per_label": 20,
+    "units": [
+      "RELOBJ_v3_seed_7"
+    ],
+    "enforce_calibration": false
+  },
+  "elapsed_s_total": 332.62951990007423,
+  "construction_meta": {
+    "n_train": 40,
+    "n_eval": 40,
+    "n_train_groups": 133,
+    "n_eval_groups": 57
+  },
+  "elapsed_s": 12.027505100006238
+}

@@ -1,0 +1,49 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "comprehension QA 'who did [verb]?' PARTIAL: n_qa=22 reader_acc=0.6818(band[.30,.65]=False) validity_gate(single_sentence_acc=0.0000==0)=True recency_acc=0.3636(no_regression=True) pronoun_chain_frac=0.682 [COREF-BOUND query-interface demonstration; NOT a new capability]",
+  "summary": "PARTIAL: 4/5 gates",
+  "elapsed_s": 17.45,
+  "anchor_name": "read_comprehension_qa_whodidverb_v1",
+  "mode": "smoke",
+  "ts_iso": "2026-07-24T08:12:27.582399+00:00",
+  "n_books": 3,
+  "gates": {
+    "QA_RUNS": true,
+    "VALIDITY_GATE_FIRES": true,
+    "READER_COREF_BOUND": false,
+    "NO_REGRESSION_RECENCY": true,
+    "GLASS_BOX": true
+  },
+  "arms_differ_verified": true,
+  "qa": {
+    "n_qa_items": 22,
+    "reader_acc": 0.6818,
+    "reader_attempted": 22,
+    "single_sentence_acc": 0.0,
+    "single_sentence_attempted": 0,
+    "recency_acc": 0.3636,
+    "reader_minus_recency": 0.3182,
+    "bucket_acc": {
+      "plus1": 0.6667,
+      "long": 1.0
+    },
+    "bucket_n": {
+      "plus1": 21,
+      "long": 1
+    },
+    "acc_nominal_antecedent": 0.4286,
+    "acc_pronoun_chain_antecedent": 0.8
+  },
+  "autopsy": {
+    "n_miss": 7,
+    "miss_abstain": 0,
+    "miss_wrong_entity": 7,
+    "miss_pronoun_chain": 3,
+    "miss_pronoun_chain_frac": 0.4286,
+    "all_pronoun_chain": 15,
+    "all_pronoun_chain_frac": 0.6818,
+    "note": "misses tested against the coref arc's triangulated wall: same-gender centering + pronoun-chain propagation (29513-29517)"
+  },
+  "validity_gate_note": "single-sentence overlay is EMPTY at a SUBJECT pronoun (clause-initial) -> structurally 0.0 on the xsent-subject QA set (29506)",
+  "honest_frame": "COREF-BOUND read->answer QUERY INTERFACE demonstration (the conversation precursor: ask -> justified entity answer + glass-box trace); adds NO accuracy beyond the banked coref (~0.45). Reader IS recency-centrality; no-regression-vs-recency confirms it reproduces the banked mechanism."
+}

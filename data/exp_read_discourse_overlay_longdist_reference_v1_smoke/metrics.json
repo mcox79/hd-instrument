@@ -1,0 +1,233 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "maintained overlay beats recency at distance: delta_ld=0.2727 (overlay=0.3636 vs recency=0.0909), sign_stability=0.964, overlay_prec=0.3636>=recency_prec-eps=0.0409, n_ld=11",
+  "summary": "read_discourse_overlay_longdist_reference_v1: HARD_PASS",
+  "elapsed_s": 0.115,
+  "anchor_name": "read_discourse_overlay_longdist_reference_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-17T23:28:13.716985+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "n_books_requested": 5,
+    "n_books_usable": 5,
+    "fetched_this_run": [],
+    "failed": []
+  },
+  "config": {
+    "window_K_primary": 5,
+    "window_K_sweep": [
+      3,
+      5,
+      8
+    ],
+    "overlay_beta": 0.5,
+    "overlay_tiebreak_lambda": 0.1,
+    "target_pronouns": [
+      "he",
+      "her",
+      "hers",
+      "him",
+      "his",
+      "she"
+    ],
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260717
+  },
+  "primary_K5": {
+    "K": 5,
+    "n_targets": 361,
+    "n_ld": 11,
+    "n_sd": 350,
+    "per_arm": {
+      "recency_window": {
+        "ld_acc": 0.0,
+        "ld_prec": 0.0,
+        "ld_attempt_rate": 0.9090909090909091,
+        "sd_acc": 0.6142857142857143,
+        "all_acc": 0.5955678670360111
+      },
+      "recency_unbounded": {
+        "ld_acc": 0.09090909090909091,
+        "ld_prec": 0.09090909090909091,
+        "ld_attempt_rate": 1.0,
+        "sd_acc": 0.6142857142857143,
+        "all_acc": 0.5983379501385041
+      },
+      "maintained_overlay": {
+        "ld_acc": 0.36363636363636365,
+        "ld_prec": 0.36363636363636365,
+        "ld_attempt_rate": 1.0,
+        "sd_acc": 0.44285714285714284,
+        "all_acc": 0.4404432132963989
+      },
+      "freq_only": {
+        "ld_acc": 0.5454545454545454,
+        "ld_prec": 0.5454545454545454,
+        "ld_attempt_rate": 1.0,
+        "sd_acc": 0.42,
+        "all_acc": 0.42382271468144045
+      }
+    },
+    "delta_ld": 0.2727272727272727,
+    "delta_ld_vs_window": 0.36363636363636365,
+    "delta_ld_vs_freq": -0.18181818181818177
+  },
+  "sweep_over_K": {
+    "3": {
+      "K": 3,
+      "n_targets": 361,
+      "n_ld": 42,
+      "n_sd": 319,
+      "per_arm": {
+        "recency_window": {
+          "ld_acc": 0.047619047619047616,
+          "ld_prec": 0.04878048780487805,
+          "ld_attempt_rate": 0.9761904761904762,
+          "sd_acc": 0.6677115987460815,
+          "all_acc": 0.5955678670360111
+        },
+        "recency_unbounded": {
+          "ld_acc": 0.07142857142857142,
+          "ld_prec": 0.07142857142857142,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.6677115987460815,
+          "all_acc": 0.5983379501385041
+        },
+        "maintained_overlay": {
+          "ld_acc": 0.23809523809523808,
+          "ld_prec": 0.23809523809523808,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.4670846394984326,
+          "all_acc": 0.4404432132963989
+        },
+        "freq_only": {
+          "ld_acc": 0.30952380952380953,
+          "ld_prec": 0.30952380952380953,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.438871473354232,
+          "all_acc": 0.42382271468144045
+        }
+      },
+      "delta_ld": 0.16666666666666666,
+      "delta_ld_vs_window": 0.19047619047619047,
+      "delta_ld_vs_freq": -0.07142857142857145
+    },
+    "5": {
+      "K": 5,
+      "n_targets": 361,
+      "n_ld": 11,
+      "n_sd": 350,
+      "per_arm": {
+        "recency_window": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 0.9090909090909091,
+          "sd_acc": 0.6142857142857143,
+          "all_acc": 0.5955678670360111
+        },
+        "recency_unbounded": {
+          "ld_acc": 0.09090909090909091,
+          "ld_prec": 0.09090909090909091,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.6142857142857143,
+          "all_acc": 0.5983379501385041
+        },
+        "maintained_overlay": {
+          "ld_acc": 0.36363636363636365,
+          "ld_prec": 0.36363636363636365,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.44285714285714284,
+          "all_acc": 0.4404432132963989
+        },
+        "freq_only": {
+          "ld_acc": 0.5454545454545454,
+          "ld_prec": 0.5454545454545454,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.42,
+          "all_acc": 0.42382271468144045
+        }
+      },
+      "delta_ld": 0.2727272727272727,
+      "delta_ld_vs_window": 0.36363636363636365,
+      "delta_ld_vs_freq": -0.18181818181818177
+    },
+    "8": {
+      "K": 8,
+      "n_targets": 361,
+      "n_ld": 1,
+      "n_sd": 360,
+      "per_arm": {
+        "recency_window": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.5972222222222222,
+          "all_acc": 0.5955678670360111
+        },
+        "recency_unbounded": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.6,
+          "all_acc": 0.5983379501385041
+        },
+        "maintained_overlay": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.44166666666666665,
+          "all_acc": 0.4404432132963989
+        },
+        "freq_only": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.425,
+          "all_acc": 0.42382271468144045
+        }
+      },
+      "delta_ld": 0.0,
+      "delta_ld_vs_window": 0.0,
+      "delta_ld_vs_freq": 0.0
+    }
+  },
+  "delta_ld": 0.2727272727272727,
+  "bootstrap_sign_stability": 0.964,
+  "per_book_delta_K5": [
+    {
+      "book": "345_dracula_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "105_persuasion_brat.conll",
+      "n_ld": 6,
+      "delta_ld": 0.33333333333333337
+    },
+    {
+      "book": "113_the_secret_garden_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.5
+    },
+    {
+      "book": "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "n_ld": 1,
+      "delta_ld": 0.0
+    }
+  ],
+  "n_books_delta_positive": 2,
+  "n_books_delta_evaluated": 4,
+  "ld_true_is_top_freq_rate": 0.5454545454545454,
+  "guard_precision_ok": true,
+  "arms_differ_digests": {
+    "recency_window": "8a729458bdc876beadda66ed8f57c443370ee33a610d8932ee685a070add4ad9",
+    "recency_unbounded": "6a1e53d141cbeaa94488942525eeb6fa3dd81ba8cbb56812cd228a26354dd225",
+    "maintained_overlay": "f98e562f7ae8d6f03610accc704934c719348511da86200d4facaa9ef3b10c35",
+    "freq_only": "4fc6860603a14ca5285351e84678631e18dd4023f12e7ce0b39ca14488e53368"
+  },
+  "arms_differ_verified": true,
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

@@ -1,0 +1,294 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "merging helps but sub-threshold: xsent_merged acc=0.3294 (backbone=0.3059 delta=0.0235, single=0.0000 delta=0.3294), frag 3.3714->3.4857, merge_prec=0.8378, merging_fires=True, p1_ok=True, sign_stability=0.8740, n_xsent=85.",
+  "summary": "read_xsent_coref_entity_merge_v1: MIDDLE_BAND",
+  "elapsed_s": 0.045,
+  "anchor_name": "read_xsent_coref_entity_merge_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-24T02:01:05.568288+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 5,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll"
+    ]
+  },
+  "gazetteer": {
+    "path": "data\\lexicons\\name_gender_gazetteer.tsv",
+    "source": "NLTK 'names' (Kantrowitz/Ross), unambiguous-only",
+    "n_entries": 7210,
+    "general_not_from_litbank": true
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "xsent_backbone_step1b",
+      "xsent_merged"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "backbone_arm": "xsent_backbone_step1b",
+    "mechanism_arm": "xsent_merged",
+    "validity_gate_max": 0.1,
+    "hp_abs": 0.3,
+    "hp_delta_backbone": 0.05,
+    "hp_delta_single": 0.15,
+    "hp_sign_stability": 0.9,
+    "hp_merge_precision": 0.8,
+    "hf_merge_precision": 0.5,
+    "p1_regression_eps": 0.05,
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260724,
+    "step1b_backbone_levers": {
+      "reset_per_sentence": false,
+      "adaptive": true,
+      "chain_pronouns": true,
+      "use_gazetteer": true
+    }
+  },
+  "n_targets_total": 296,
+  "n_xsent": 85,
+  "n_same": 211,
+  "bucket_counts": {
+    "same": 211,
+    "plus1": 80,
+    "plus2": 3,
+    "long": 2
+  },
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.1411764705882353,
+      "n": 85
+    },
+    "xsent_backbone_step1b": {
+      "acc": 0.3058823529411765,
+      "prec": 0.3058823529411765,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "xsent_merged": {
+      "acc": 0.32941176470588235,
+      "prec": 0.32941176470588235,
+      "attempt_rate": 1.0,
+      "n": 85
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.27488151658767773,
+      "prec": 0.3515151515151515,
+      "attempt_rate": 0.7819905213270142,
+      "n": 211
+    },
+    "xsent_backbone_step1b": {
+      "acc": 0.35545023696682465,
+      "prec": 0.35545023696682465,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "xsent_merged": {
+      "acc": 0.3696682464454976,
+      "prec": 0.3696682464454976,
+      "attempt_rate": 1.0,
+      "n": 211
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.19594594594594594,
+      "prec": 0.327683615819209,
+      "attempt_rate": 0.597972972972973,
+      "n": 296
+    },
+    "xsent_backbone_step1b": {
+      "acc": 0.34121621621621623,
+      "prec": 0.34121621621621623,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "xsent_merged": {
+      "acc": 0.3581081081081081,
+      "prec": 0.3581081081081081,
+      "attempt_rate": 1.0,
+      "n": 296
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.27488151658767773,
+        "prec": 0.3515151515151515,
+        "attempt_rate": 0.7819905213270142,
+        "n": 211
+      },
+      "xsent_backbone_step1b": {
+        "acc": 0.35545023696682465,
+        "prec": 0.35545023696682465,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "xsent_merged": {
+        "acc": 0.3696682464454976,
+        "prec": 0.3696682464454976,
+        "attempt_rate": 1.0,
+        "n": 211
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.1375,
+        "n": 80
+      },
+      "xsent_backbone_step1b": {
+        "acc": 0.3125,
+        "prec": 0.3125,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "xsent_merged": {
+        "acc": 0.325,
+        "prec": 0.325,
+        "attempt_rate": 1.0,
+        "n": 80
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": null,
+        "attempt_rate": 0.0,
+        "n": 3
+      },
+      "xsent_backbone_step1b": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "xsent_merged": {
+        "acc": 0.6666666666666666,
+        "prec": 0.6666666666666666,
+        "attempt_rate": 1.0,
+        "n": 3
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.5,
+        "n": 2
+      },
+      "xsent_backbone_step1b": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "xsent_merged": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      }
+    }
+  },
+  "per_distance_winner": {
+    "same": {
+      "arm": "xsent_merged",
+      "acc": 0.3696682464454976
+    },
+    "plus1": {
+      "arm": "xsent_merged",
+      "acc": 0.325
+    },
+    "plus2": {
+      "arm": "xsent_merged",
+      "acc": 0.6666666666666666
+    },
+    "long": {
+      "arm": "xsent_backbone_step1b",
+      "acc": 0.0
+    }
+  },
+  "baseline_xsent_acc": 0.0,
+  "backbone_xsent_acc": 0.3058823529411765,
+  "mech_xsent_acc": 0.32941176470588235,
+  "delta_vs_backbone": 0.023529411764705854,
+  "delta_vs_single_sentence": 0.32941176470588235,
+  "validity_gate_ok": true,
+  "p1_no_regression_ok": true,
+  "p1_same_bucket": {
+    "baseline": 0.27488151658767773,
+    "xsent_merged": 0.3696682464454976
+  },
+  "bootstrap_sign_stability": 0.874,
+  "fragmentation": {
+    "distinct_heads_per_targeted_cluster": 3.3714285714285714,
+    "entities_per_targeted_cluster_before": 3.3714285714285714,
+    "entities_per_targeted_cluster_after": 3.4857142857142858,
+    "n_targeted_clusters_scored": 35,
+    "heads_per_canon_after_merge": 1.0533333333333332,
+    "n_multihead_canons": 4,
+    "n_canons": 75,
+    "name_head_slots": 28,
+    "nonname_head_slots": 90,
+    "frac_fragmentation_from_names": 0.23728813559322035,
+    "autopsy": "proper-name aliasing can only unify the NAME fraction of the per-cluster distinct heads; the majority are NON-name common-noun appositives (father/daughter/widow/friend) + reflexives, which require APPOSITIVE / nominal coref, not surface-name matching."
+  },
+  "over_merge": {
+    "merge_precision": 0.8378378378378378,
+    "cross_head_pairs": 37,
+    "cross_head_correct": 31,
+    "n_cross_merge_decisions": 23,
+    "n_exact_attach": 92,
+    "n_abstain_new": 1,
+    "n_name_mentions": 190
+  },
+  "merging_fires": true,
+  "arms_differ_digests": {
+    "single_sentence_baseline": "eb55fe6d9ad2c0e78dee5316e30ed0d7adead532bb591ca3dd9246511846f45b",
+    "xsent_backbone_step1b": "b8f99b9117104610ff1117c8eaedaf72b9ab8066b2c14077fe7061719cb3b860",
+    "xsent_merged": "59fa145e1838ff187385613ceff93edf803a73b56759bd29abfe719f7414d646"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

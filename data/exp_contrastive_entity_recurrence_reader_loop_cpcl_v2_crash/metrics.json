@@ -1,0 +1,9 @@
+{
+  "anchor_name": "contrastive_entity_recurrence_reader_loop_cpcl_v2",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: shuffle must derange at least one continuation",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_contrastive_entity_recurrence_reader_loop_cpcl_v2.py\", line 934, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_contrastive_entity_recurrence_reader_loop_cpcl_v2.py\", line 924, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_contrastive_entity_recurrence_reader_loop_cpcl_v2.py\", line 907, in self_test\n    assert n_diff >= 1, \"shuffle must derange at least one continuation\"\n           ^^^^^^^^^^^\nAssertionError: shuffle must derange at least one continuation\n",
+  "ts_iso": "2026-07-20T02:54:47.156265+00:00"
+}

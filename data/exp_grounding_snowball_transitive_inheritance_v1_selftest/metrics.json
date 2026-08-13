@@ -1,0 +1,47 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator telemetry-sensitive + subgraph/attribute pipeline exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.6497927000164054,
+  "discriminator_selftest": {
+    "near_acc": 0.6878466969238527,
+    "far_acc": 0.4989944695827049,
+    "decay": 0.18885222734114782,
+    "shuffled_near": 0.5136157337367625,
+    "genuine_margin": 0.1742309631870902,
+    "acc_smooth_by_bin": {
+      "0": 0.6878466969238527,
+      "1": 0.6996457489878543,
+      "2": 0.571716662465339,
+      "3": 0.4989944695827049
+    },
+    "acc_shuffled_by_bin": {
+      "0": 0.5136157337367625,
+      "1": 0.46558704453441296,
+      "2": 0.46861608268212757,
+      "3": 0.47988939165409755
+    }
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0
+  },
+  "attr_meta": {
+    "assort_smooth": 0.8260885757331407,
+    "assort_shuffled": -0.07636136971512199,
+    "n_ground_seeds": 20,
+    "n_unreachable": 0,
+    "bin_counts": {
+      "0": 61,
+      "1": 122,
+      "2": 19,
+      "3": 0
+    }
+  }
+}

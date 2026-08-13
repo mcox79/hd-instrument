@@ -1,0 +1,11 @@
+{
+  "anchor_name": "pfc_gate_cerebellum_sr_rollout_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST1 (cfrpe-TD shrink), ST3 (Go/NoGo argmax), ST_ROLLOUT (mechanism-fires), ST_ANTI_TAUTOLOGY, ST_PIPELINE (regime+arms), ST_BINOM, ST_CLOSURE_FORMULA, ST_GAP_RECOVERY_FORMULA, ST_VERDICT_WIRING (3 cases)",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 2.3,
+  "ts_iso": "2026-07-07T18:11:56.812807+00:00",
+  "pid": 3304,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=pfc_gate_cerebellum_sr_rollout_v1,N=256,n_ops_set=[4],seeds=[7],gamma=0.85,k_rollout=2,regimes=['op4_V40_d4', 'op4_V40_d6'],density=0.210,sr_steps=120,sr_batch=32,rollout_per_V=20,lr=0.50,lr_decay_end=0.20,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],n_train_chains=12,n_test_chains=8,mode=selftest,device=cpu,expected_n=14,HP_recovered_frac>=0.40,anticipatory_beats_reactive>=0.10,cv<0.15"
+}

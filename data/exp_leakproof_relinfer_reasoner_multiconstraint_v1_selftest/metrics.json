@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "ValueError: not enough values to unpack (expected 4, got 3)",
+  "summary": "CELL_CRASHED: ValueError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_leakproof_relinfer_reasoner_multiconstraint_v1.py\", line 702, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_leakproof_relinfer_reasoner_multiconstraint_v1.py\", line 633, in main\n    pm = run_seed(cfg[\"seeds\"][0], split, base_feats, landmarks, target_geo, ev_ctx, cfg, levels)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_leakproof_relinfer_reasoner_multiconstraint_v1.py\", line 365, in run_seed\n    smh_auc, _nq, smh_leak, _ = eval_struct_multihop(split, ev_ctx)\n    ^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: not enough values to unpack (expected 4, got 3)\n",
+  "ts_iso": "2026-07-27T05:04:01.211716+00:00",
+  "pid": 30192,
+  "anchor_name": "leakproof_relinfer_reasoner_multiconstraint_v1"
+}

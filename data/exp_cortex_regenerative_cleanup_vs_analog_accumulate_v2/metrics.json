@@ -1,0 +1,2377 @@
+{
+  "anchor_name": "cortex_regenerative_cleanup_vs_analog_accumulate_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (regen beats analog at a FAIR operating point where single-hop d1 clears the sanity floor; analog collapses, regen graceful, joint gates hold): n_seeds=5 units=75/75 | per-N tiers: N8192:HARD_PASS,N16384:HARD_PASS,N32768:HARD_PASS | N-trend@FIXED_M/N=1.10 regen_d5[N8192=0.690 N16384=0.740 N32768=0.740] gap[N8192=0.580 N16384=0.725 N32768=0.735] d1[N8192=0.945 N16384=0.935 N32768=0.960] | rises_with_N: regen_d5=True d1=False | dynamic disc_M/N[N8192=1.460 N16384=1.190 N32768=0.666] | V1_REPRO(N_TEST=150) d1=0.792 regen_d5=0.2933 (v1refs 0.75/0.263 within_tol=True) | COLLISION d1@40=0.945 vs d1@150=0.792",
+  "summary": "HARD_PASS (regen beats analog at a FAIR operating point where single-hop d1 clears the sanity floor; analog collapses, regen graceful, joint gates hold): n_seeds=5 units=75/75 | per-N tiers: N8192:HARD_PASS,N16384:HARD_PASS,N32768:HARD_PASS | N-trend@FIXED_M/N=1.10 regen_d5[N8192=0.690 N16384=0.740 N32768=0.740] gap[N8192=0.580 N16384=0.725 N32768=0.735] d1[N8192=0.945 N16384=0.935 N32768=0.960] | rises_with_N: regen_d5=True d1=False | dynamic disc_M/N[N8192=1.460 N16384=1.190 N32768=0.666] | V1_REPRO(N_TEST=150) d1=0.792 regen_d5=0.2933 (v1refs 0.75/0.263 within_tol=True) | COLLISION d1@40=0.945 vs d1@150=0.792",
+  "elapsed_s": 4512.65,
+  "ts_iso": "2026-07-05T13:31:40.217188+00:00",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    41
+  ],
+  "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=8192-16384-32768,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=40,MOVERN=0.37-0.74-1.10-1.55-2.00,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17-23-31-41,RUN_MODE=full,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+  "N_LIST": [
+    8192,
+    16384,
+    32768
+  ],
+  "V": 512,
+  "P": 8,
+  "D_MAX": 7,
+  "DEPTHS": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "MOVERN_TARGETS": [
+    0.37,
+    0.74,
+    1.1,
+    1.55,
+    2.0
+  ],
+  "N_TEST": 40,
+  "REFUSE_DEPTH": 5,
+  "expected_n_units": 75,
+  "cardinality_ok": true,
+  "extra": {
+    "cardinality_ok": true,
+    "n_units": 75,
+    "expected_n_units": 75,
+    "n_seeds": 5,
+    "N_LIST": [
+      8192,
+      16384,
+      32768
+    ],
+    "MOVERN_TARGETS": [
+      0.37,
+      0.74,
+      1.1,
+      1.55,
+      2.0
+    ],
+    "per_N_summary": [
+      {
+        "N": 8192,
+        "n_tier_majority": "HARD_PASS",
+        "seed_tiers": [
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS"
+        ],
+        "n_pass": 5,
+        "n_fail": 0,
+        "n_false_joint": 0,
+        "n_artifact": 0,
+        "n_middle": 0,
+        "mean_disc_m_over_n": 1.46,
+        "mean_regen_d5_at_disc": 0.68,
+        "mean_analog_d5_at_disc": 0.06,
+        "mean_gap_d5_at_disc": 0.62,
+        "mean_graceful_at_disc": 0.44,
+        "mean_regen_faith_at_disc": 1.0,
+        "mean_control_d5_at_disc": 0.0,
+        "mean_regen_d1_at_disc": 0.94,
+        "mean_analog_d1_at_disc": 0.94,
+        "n_crossover_confirmed": 5,
+        "n_gap_widens": 5
+      },
+      {
+        "N": 16384,
+        "n_tier_majority": "HARD_PASS",
+        "seed_tiers": [
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS"
+        ],
+        "n_pass": 5,
+        "n_fail": 0,
+        "n_false_joint": 0,
+        "n_artifact": 0,
+        "n_middle": 0,
+        "mean_disc_m_over_n": 1.19,
+        "mean_regen_d5_at_disc": 0.76,
+        "mean_analog_d5_at_disc": 0.005,
+        "mean_gap_d5_at_disc": 0.755,
+        "mean_graceful_at_disc": 0.415,
+        "mean_regen_faith_at_disc": 1.0,
+        "mean_control_d5_at_disc": 0.0,
+        "mean_regen_d1_at_disc": 0.94,
+        "mean_analog_d1_at_disc": 0.94,
+        "n_crossover_confirmed": 5,
+        "n_gap_widens": 5
+      },
+      {
+        "N": 32768,
+        "n_tier_majority": "HARD_PASS",
+        "seed_tiers": [
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS",
+          "HARD_PASS"
+        ],
+        "n_pass": 5,
+        "n_fail": 0,
+        "n_false_joint": 0,
+        "n_artifact": 0,
+        "n_middle": 0,
+        "mean_disc_m_over_n": 0.666,
+        "mean_regen_d5_at_disc": 0.755,
+        "mean_analog_d5_at_disc": 0.04,
+        "mean_gap_d5_at_disc": 0.715,
+        "mean_graceful_at_disc": 0.53,
+        "mean_regen_faith_at_disc": 1.0,
+        "mean_control_d5_at_disc": 0.0,
+        "mean_regen_d1_at_disc": 0.94,
+        "mean_analog_d1_at_disc": 0.94,
+        "n_crossover_confirmed": 0,
+        "n_gap_widens": 4
+      }
+    ],
+    "n_trend": {
+      "regen_d5_at_disc_by_N": [
+        [
+          8192,
+          0.68
+        ],
+        [
+          16384,
+          0.76
+        ],
+        [
+          32768,
+          0.755
+        ]
+      ],
+      "gap_d5_at_disc_by_N": [
+        [
+          8192,
+          0.62
+        ],
+        [
+          16384,
+          0.755
+        ],
+        [
+          32768,
+          0.715
+        ]
+      ],
+      "regen_d1_at_disc_by_N": [
+        [
+          8192,
+          0.94
+        ],
+        [
+          16384,
+          0.94
+        ],
+        [
+          32768,
+          0.94
+        ]
+      ],
+      "disc_m_over_n_by_N": [
+        [
+          8192,
+          1.46
+        ],
+        [
+          16384,
+          1.19
+        ],
+        [
+          32768,
+          0.666
+        ]
+      ],
+      "regen_d5_at_fixed_DISC1.10_by_N": [
+        [
+          8192,
+          0.69
+        ],
+        [
+          16384,
+          0.74
+        ],
+        [
+          32768,
+          0.74
+        ]
+      ],
+      "gap_at_fixed_DISC1.10_by_N": [
+        [
+          8192,
+          0.58
+        ],
+        [
+          16384,
+          0.725
+        ],
+        [
+          32768,
+          0.735
+        ]
+      ],
+      "d1_at_fixed_DISC1.10_by_N": [
+        [
+          8192,
+          0.945
+        ],
+        [
+          16384,
+          0.935
+        ],
+        [
+          32768,
+          0.96
+        ]
+      ],
+      "regen_d5_rises_with_N": true,
+      "d1_rises_with_N": false,
+      "d1_clears_sanity_at_high_N": true
+    },
+    "headline_N": 32768,
+    "headline_regen_d5": 0.755,
+    "headline_gap_d5": 0.715,
+    "positive_control_v1_reproduce": {
+      "N": 8192,
+      "n_test": 150,
+      "target": 1.1,
+      "regen_d5_v2": 0.2933,
+      "regen_d5_v1_ref": 0.263,
+      "gap_d5_v2": 0.2133,
+      "gap_d5_v1_ref": 0.176,
+      "regen_d1_v2": 0.792,
+      "regen_d5_within_tol": true,
+      "gap_within_tol": true,
+      "tol": 0.1
+    },
+    "collision_finding": {
+      "same_N": 8192,
+      "same_M_over_N": 1.1,
+      "d1_at_N_TEST_40": 0.945,
+      "d1_at_N_TEST_150": 0.792,
+      "interpretation": "v1 SANITY breach was chain-key COLLISION (N_TEST=150), N-independent -- NOT M/N-crosstalk; N_TEST=40 restores d1"
+    },
+    "chance_floor": 0.00195
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 32768,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 7,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.55 regen_d5=0.725 gap=0.675 analog_d5=0.050 graceful=0.400 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.55,
+            "disc_target": 1.55,
+            "regen_d5": 0.725,
+            "analog_d5": 0.05,
+            "gap_d5": 0.675,
+            "graceful_margin": 0.4,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.95,
+            "analog_d1": 0.95,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.25,
+            "gap_curve": [
+              [
+                0.37,
+                -0.25
+              ],
+              [
+                0.74,
+                0.175
+              ],
+              [
+                1.1,
+                0.6
+              ],
+              [
+                1.55,
+                0.675
+              ],
+              [
+                2.0,
+                0.7
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.25,
+              "regen_d5": 0.675,
+              "analog_d5": 0.925,
+              "regen_d1": 0.875,
+              "analog_d1": 0.875,
+              "d1_valid": true,
+              "graceful_margin": -0.25,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.175,
+              "regen_d5": 0.675,
+              "analog_d5": 0.5,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.325,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.6,
+              "regen_d5": 0.7,
+              "analog_d5": 0.1,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.75,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.725,
+              "analog_d5": 0.05,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.4,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.7,
+              "analog_d5": 0.0,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 16384,
+          "seed": 7,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.10 regen_d5=0.725 gap=0.725 analog_d5=0.000 graceful=0.525 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=1.0 fr=0.05"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.1,
+            "disc_target": 1.1,
+            "regen_d5": 0.725,
+            "analog_d5": 0.0,
+            "gap_d5": 0.725,
+            "graceful_margin": 0.525,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.9,
+            "analog_d1": 0.9,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.15,
+            "gap_curve": [
+              [
+                0.37,
+                -0.15
+              ],
+              [
+                0.74,
+                0.625
+              ],
+              [
+                1.1,
+                0.725
+              ],
+              [
+                1.55,
+                0.55
+              ],
+              [
+                2.0,
+                0.875
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": 1.0,
+            "false_refuse": 0.05,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.15,
+              "regen_d5": 0.825,
+              "analog_d5": 0.975,
+              "regen_d1": 1.0,
+              "analog_d1": 1.0,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.625,
+              "regen_d5": 0.7,
+              "analog_d5": 0.075,
+              "regen_d1": 0.875,
+              "analog_d1": 0.875,
+              "d1_valid": true,
+              "graceful_margin": 0.775,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.725,
+              "analog_d5": 0.0,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.525,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.55,
+              "regen_d5": 0.575,
+              "analog_d5": 0.025,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.875,
+              "regen_d5": 0.875,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.125,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 32768,
+          "seed": 7,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=0.74 regen_d5=0.750 gap=0.750 analog_d5=0.000 graceful=0.625 faith=1.000 control=0.0000 crossover=False | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 0.74,
+            "disc_target": 0.74,
+            "regen_d5": 0.75,
+            "analog_d5": 0.0,
+            "gap_d5": 0.75,
+            "graceful_margin": 0.625,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.9,
+            "analog_d1": 0.9,
+            "isolation_clean": true,
+            "crossover_confirmed": false,
+            "low_gap_d5": 0.5,
+            "gap_curve": [
+              [
+                0.37,
+                0.5
+              ],
+              [
+                0.74,
+                0.75
+              ],
+              [
+                1.1,
+                0.8
+              ],
+              [
+                1.55,
+                0.725
+              ],
+              [
+                2.0,
+                0.925
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.5,
+              "regen_d5": 0.65,
+              "analog_d5": 0.15,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.65,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.75,
+              "regen_d5": 0.75,
+              "analog_d5": 0.0,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.625,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.8,
+              "regen_d5": 0.8,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.025,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.725,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": -0.15,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.925,
+              "regen_d5": 0.925,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": -0.05,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        }
+      ],
+      "v1_repro": {
+        "N": 8192,
+        "n_test": 150,
+        "target": 1.1,
+        "m_over_n": 1.1,
+        "regen_d1": 0.8133,
+        "analog_d1": 0.8133,
+        "regen_d5": 0.3533,
+        "analog_d5": 0.08,
+        "gap_d5": 0.2733,
+        "d1_valid": false
+      },
+      "elapsed_s": 904.79,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=8192-16384-32768,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=40,MOVERN=0.37-0.74-1.10-1.55-2.00,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17-23-31-41,RUN_MODE=full,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783254692.3580325
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 32768,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 17,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.55 regen_d5=0.575 gap=0.525 analog_d5=0.050 graceful=0.250 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.55,
+            "disc_target": 1.55,
+            "regen_d5": 0.575,
+            "analog_d5": 0.05,
+            "gap_d5": 0.525,
+            "graceful_margin": 0.25,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.9,
+            "analog_d1": 0.9,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.2,
+            "gap_curve": [
+              [
+                0.37,
+                -0.2
+              ],
+              [
+                0.74,
+                0.025
+              ],
+              [
+                1.1,
+                0.475
+              ],
+              [
+                1.55,
+                0.525
+              ],
+              [
+                2.0,
+                0.675
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.2,
+              "regen_d5": 0.75,
+              "analog_d5": 0.95,
+              "regen_d1": 0.875,
+              "analog_d1": 0.875,
+              "d1_valid": true,
+              "graceful_margin": -0.15,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "TIE",
+              "gap_d5": 0.025,
+              "regen_d5": 0.65,
+              "analog_d5": 0.625,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.125,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.475,
+              "regen_d5": 0.575,
+              "analog_d5": 0.1,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.625,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.525,
+              "regen_d5": 0.575,
+              "analog_d5": 0.05,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.25,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.725,
+              "analog_d5": 0.05,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.125,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 16384,
+          "seed": 17,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.10 regen_d5=0.825 gap=0.825 analog_d5=0.000 graceful=0.550 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=0.45 fr=0.3"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.1,
+            "disc_target": 1.1,
+            "regen_d5": 0.825,
+            "analog_d5": 0.0,
+            "gap_d5": 0.825,
+            "graceful_margin": 0.55,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.975,
+            "analog_d1": 0.975,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.225,
+            "gap_curve": [
+              [
+                0.37,
+                -0.225
+              ],
+              [
+                0.74,
+                0.65
+              ],
+              [
+                1.1,
+                0.825
+              ],
+              [
+                1.55,
+                0.675
+              ],
+              [
+                2.0,
+                0.575
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": 0.45,
+            "false_refuse": 0.3,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.225,
+              "regen_d5": 0.65,
+              "analog_d5": 0.875,
+              "regen_d1": 0.85,
+              "analog_d1": 0.85,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.65,
+              "regen_d5": 0.7,
+              "analog_d5": 0.05,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.75,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.825,
+              "regen_d5": 0.825,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.55,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.675,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": -0.025,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.575,
+              "regen_d5": 0.575,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 32768,
+          "seed": 17,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=0.74 regen_d5=0.800 gap=0.800 analog_d5=0.000 graceful=0.475 faith=1.000 control=0.0000 crossover=False | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 0.74,
+            "disc_target": 0.74,
+            "regen_d5": 0.8,
+            "analog_d5": 0.0,
+            "gap_d5": 0.8,
+            "graceful_margin": 0.475,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.975,
+            "analog_d1": 0.975,
+            "isolation_clean": true,
+            "crossover_confirmed": false,
+            "low_gap_d5": 0.375,
+            "gap_curve": [
+              [
+                0.37,
+                0.375
+              ],
+              [
+                0.74,
+                0.8
+              ],
+              [
+                1.1,
+                0.725
+              ],
+              [
+                1.55,
+                0.725
+              ],
+              [
+                2.0,
+                0.7
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.375,
+              "regen_d5": 0.675,
+              "analog_d5": 0.3,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.475,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.8,
+              "regen_d5": 0.8,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.475,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.725,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.025,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.725,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.1,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.7,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": -0.0,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        }
+      ],
+      "v1_repro": {
+        "N": 8192,
+        "n_test": 150,
+        "target": 1.1,
+        "m_over_n": 1.1,
+        "regen_d1": 0.74,
+        "analog_d1": 0.74,
+        "regen_d5": 0.28,
+        "analog_d5": 0.1133,
+        "gap_d5": 0.1667,
+        "d1_valid": false
+      },
+      "elapsed_s": 904.77,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=8192-16384-32768,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=40,MOVERN=0.37-0.74-1.10-1.55-2.00,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17-23-31-41,RUN_MODE=full,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "17",
+      "_partial_written_at": 1783255597.1378002
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 32768,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 23,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.10 regen_d5=0.775 gap=0.725 analog_d5=0.050 graceful=0.775 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=0.9 fr=0.05"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.1,
+            "disc_target": 1.1,
+            "regen_d5": 0.775,
+            "analog_d5": 0.05,
+            "gap_d5": 0.725,
+            "graceful_margin": 0.775,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 1.0,
+            "analog_d1": 1.0,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.225,
+            "gap_curve": [
+              [
+                0.37,
+                -0.225
+              ],
+              [
+                0.74,
+                0.375
+              ],
+              [
+                1.1,
+                0.725
+              ],
+              [
+                1.55,
+                0.675
+              ],
+              [
+                2.0,
+                0.775
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": 0.9,
+            "false_refuse": 0.05,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.225,
+              "regen_d5": 0.7,
+              "analog_d5": 0.925,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": -0.15,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.375,
+              "regen_d5": 0.75,
+              "analog_d5": 0.375,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.525,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.775,
+              "analog_d5": 0.05,
+              "regen_d1": 1.0,
+              "analog_d1": 1.0,
+              "d1_valid": true,
+              "graceful_margin": 0.775,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.675,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.325,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.775,
+              "regen_d5": 0.775,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.125,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 16384,
+          "seed": 23,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.10 regen_d5=0.825 gap=0.825 analog_d5=0.000 graceful=0.525 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=0.8 fr=0.15"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.1,
+            "disc_target": 1.1,
+            "regen_d5": 0.825,
+            "analog_d5": 0.0,
+            "gap_d5": 0.825,
+            "graceful_margin": 0.525,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 1.0,
+            "analog_d1": 1.0,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.3,
+            "gap_curve": [
+              [
+                0.37,
+                -0.3
+              ],
+              [
+                0.74,
+                0.7
+              ],
+              [
+                1.1,
+                0.825
+              ],
+              [
+                1.55,
+                0.625
+              ],
+              [
+                2.0,
+                0.6
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": 0.8,
+            "false_refuse": 0.15,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.3,
+              "regen_d5": 0.575,
+              "analog_d5": 0.875,
+              "regen_d1": 0.85,
+              "analog_d1": 0.85,
+              "d1_valid": true,
+              "graceful_margin": -0.175,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.775,
+              "analog_d5": 0.075,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.725,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.825,
+              "regen_d5": 0.825,
+              "analog_d5": 0.0,
+              "regen_d1": 1.0,
+              "analog_d1": 1.0,
+              "d1_valid": true,
+              "graceful_margin": 0.525,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.625,
+              "regen_d5": 0.625,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.6,
+              "regen_d5": 0.6,
+              "analog_d5": 0.0,
+              "regen_d1": 0.875,
+              "analog_d1": 0.875,
+              "d1_valid": true,
+              "graceful_margin": 0.0,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 32768,
+          "seed": 23,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=0.74 regen_d5=0.800 gap=0.800 analog_d5=0.000 graceful=0.450 faith=1.000 control=0.0000 crossover=False | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 0.74,
+            "disc_target": 0.74,
+            "regen_d5": 0.8,
+            "analog_d5": 0.0,
+            "gap_d5": 0.8,
+            "graceful_margin": 0.45,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.95,
+            "analog_d1": 0.95,
+            "isolation_clean": true,
+            "crossover_confirmed": false,
+            "low_gap_d5": 0.525,
+            "gap_curve": [
+              [
+                0.37,
+                0.525
+              ],
+              [
+                0.74,
+                0.8
+              ],
+              [
+                1.1,
+                0.775
+              ],
+              [
+                1.55,
+                0.7
+              ],
+              [
+                2.0,
+                0.725
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.525,
+              "regen_d5": 0.675,
+              "analog_d5": 0.15,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.625,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.8,
+              "regen_d5": 0.8,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.45,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.775,
+              "regen_d5": 0.775,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.1,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.7,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.0,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.725,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": -0.1,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        }
+      ],
+      "v1_repro": {
+        "N": 8192,
+        "n_test": 150,
+        "target": 1.1,
+        "m_over_n": 1.1,
+        "regen_d1": 0.7867,
+        "analog_d1": 0.7867,
+        "regen_d5": 0.28,
+        "analog_d5": 0.04,
+        "gap_d5": 0.24,
+        "d1_valid": false
+      },
+      "elapsed_s": 904.41,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=8192-16384-32768,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=40,MOVERN=0.37-0.74-1.10-1.55-2.00,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17-23-31-41,RUN_MODE=full,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "23",
+      "_partial_written_at": 1783256501.5483253
+    },
+    {
+      "seed": 31,
+      "run_mode": "full",
+      "N": 32768,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 31,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=2.00 regen_d5=0.600 gap=0.600 analog_d5=0.000 graceful=0.250 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 2.0,
+            "disc_target": 2.0,
+            "regen_d5": 0.6,
+            "analog_d5": 0.0,
+            "gap_d5": 0.6,
+            "graceful_margin": 0.25,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.875,
+            "analog_d1": 0.875,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.1,
+            "gap_curve": [
+              [
+                0.37,
+                -0.1
+              ],
+              [
+                0.74,
+                0.1
+              ],
+              [
+                1.1,
+                0.525
+              ],
+              [
+                1.55,
+                0.6
+              ],
+              [
+                2.0,
+                0.6
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "TIE",
+              "gap_d5": -0.1,
+              "regen_d5": 0.75,
+              "analog_d5": 0.85,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "TIE",
+              "gap_d5": 0.1,
+              "regen_d5": 0.8,
+              "analog_d5": 0.7,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.225,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.525,
+              "regen_d5": 0.675,
+              "analog_d5": 0.15,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.5,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.6,
+              "regen_d5": 0.6,
+              "analog_d5": 0.0,
+              "regen_d1": 0.775,
+              "analog_d1": 0.775,
+              "d1_valid": false,
+              "graceful_margin": 0.5,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.6,
+              "regen_d5": 0.6,
+              "analog_d5": 0.0,
+              "regen_d1": 0.875,
+              "analog_d1": 0.875,
+              "d1_valid": true,
+              "graceful_margin": 0.25,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 16384,
+          "seed": 31,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.10 regen_d5=0.750 gap=0.725 analog_d5=0.025 graceful=0.300 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=0.65 fr=0.2"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.1,
+            "disc_target": 1.1,
+            "regen_d5": 0.75,
+            "analog_d5": 0.025,
+            "gap_d5": 0.725,
+            "graceful_margin": 0.3,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.9,
+            "analog_d1": 0.9,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.2,
+            "gap_curve": [
+              [
+                0.37,
+                -0.2
+              ],
+              [
+                0.74,
+                0.7
+              ],
+              [
+                1.1,
+                0.725
+              ],
+              [
+                1.55,
+                0.7
+              ],
+              [
+                2.0,
+                0.75
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": 0.65,
+            "false_refuse": 0.2,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.2,
+              "regen_d5": 0.7,
+              "analog_d5": 0.9,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.025,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.775,
+              "analog_d5": 0.075,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.775,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.025,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.725,
+              "regen_d5": 0.75,
+              "analog_d5": 0.025,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.3,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.7,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.025,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.75,
+              "regen_d5": 0.75,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": -0.025,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 32768,
+          "seed": 31,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=0.74 regen_d5=0.675 gap=0.675 analog_d5=0.000 graceful=0.475 faith=1.000 control=0.0000 crossover=False | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 0.74,
+            "disc_target": 0.74,
+            "regen_d5": 0.675,
+            "analog_d5": 0.0,
+            "gap_d5": 0.675,
+            "graceful_margin": 0.475,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.95,
+            "analog_d1": 0.95,
+            "isolation_clean": true,
+            "crossover_confirmed": false,
+            "low_gap_d5": 0.5,
+            "gap_curve": [
+              [
+                0.37,
+                0.5
+              ],
+              [
+                0.74,
+                0.675
+              ],
+              [
+                1.1,
+                0.7
+              ],
+              [
+                1.55,
+                0.65
+              ],
+              [
+                2.0,
+                0.8
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.5,
+              "regen_d5": 0.75,
+              "analog_d5": 0.25,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.6,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.675,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.475,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.7,
+              "analog_d5": 0.0,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": 0.025,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.65,
+              "regen_d5": 0.65,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.15,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.8,
+              "regen_d5": 0.8,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": -0.1,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        }
+      ],
+      "v1_repro": {
+        "N": 8192,
+        "n_test": 150,
+        "target": 1.1,
+        "m_over_n": 1.1,
+        "regen_d1": 0.8,
+        "analog_d1": 0.8,
+        "regen_d5": 0.2733,
+        "analog_d5": 0.0667,
+        "gap_d5": 0.2066,
+        "d1_valid": false
+      },
+      "elapsed_s": 901.23,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=8192-16384-32768,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=40,MOVERN=0.37-0.74-1.10-1.55-2.00,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17-23-31-41,RUN_MODE=full,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "31",
+      "_partial_written_at": 1783257402.7838051
+    },
+    {
+      "seed": 41,
+      "run_mode": "full",
+      "N": 32768,
+      "n_llm_calls": 0,
+      "per_N": [
+        {
+          "N": 8192,
+          "seed": 41,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.10 regen_d5=0.725 gap=0.575 analog_d5=0.150 graceful=0.525 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=0.7 fr=0.15"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.1,
+            "disc_target": 1.1,
+            "regen_d5": 0.725,
+            "analog_d5": 0.15,
+            "gap_d5": 0.575,
+            "graceful_margin": 0.525,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.975,
+            "analog_d1": 0.975,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.325,
+            "gap_curve": [
+              [
+                0.37,
+                -0.325
+              ],
+              [
+                0.74,
+                0.225
+              ],
+              [
+                1.1,
+                0.575
+              ],
+              [
+                1.55,
+                0.575
+              ],
+              [
+                2.0,
+                0.675
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": 0.7,
+            "false_refuse": 0.15,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.325,
+              "regen_d5": 0.65,
+              "analog_d5": 0.975,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": -0.175,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.225,
+              "regen_d5": 0.725,
+              "analog_d5": 0.5,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.35,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.575,
+              "regen_d5": 0.725,
+              "analog_d5": 0.15,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.525,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.575,
+              "regen_d5": 0.575,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.225,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.675,
+              "analog_d5": 0.0,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.1,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 16384,
+          "seed": 41,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=1.55 regen_d5=0.675 gap=0.675 analog_d5=0.000 graceful=0.175 faith=1.000 control=0.0000 crossover=True | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 1.55,
+            "disc_target": 1.55,
+            "regen_d5": 0.675,
+            "analog_d5": 0.0,
+            "gap_d5": 0.675,
+            "graceful_margin": 0.175,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.925,
+            "analog_d1": 0.925,
+            "isolation_clean": true,
+            "crossover_confirmed": true,
+            "low_gap_d5": -0.175,
+            "gap_curve": [
+              [
+                0.37,
+                -0.175
+              ],
+              [
+                0.74,
+                0.65
+              ],
+              [
+                1.1,
+                0.525
+              ],
+              [
+                1.55,
+                0.675
+              ],
+              [
+                2.0,
+                0.7
+              ]
+            ],
+            "gap_widens": true,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "ANALOG_WINS",
+              "gap_d5": -0.175,
+              "regen_d5": 0.725,
+              "analog_d5": 0.9,
+              "regen_d1": 0.95,
+              "analog_d1": 0.95,
+              "d1_valid": true,
+              "graceful_margin": -0.1,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.65,
+              "regen_d5": 0.75,
+              "analog_d5": 0.1,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.7,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.525,
+              "regen_d5": 0.575,
+              "analog_d5": 0.05,
+              "regen_d1": 0.9,
+              "analog_d1": 0.9,
+              "d1_valid": true,
+              "graceful_margin": 0.275,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.025,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.675,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.175,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.7,
+              "regen_d5": 0.7,
+              "analog_d5": 0.0,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": -0.05,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        },
+        {
+          "N": 32768,
+          "seed": 41,
+          "n_tier": "HARD_PASS",
+          "n_tier_reasons": [
+            "HARD_PASS @M/N=0.37 regen_d5=0.750 gap=0.550 analog_d5=0.200 graceful=0.625 faith=1.000 control=0.0000 crossover=False | refuse(reported) fa=None fr=None"
+          ],
+          "disc_summary": {
+            "disc_m_over_n": 0.37,
+            "disc_target": 0.37,
+            "regen_d5": 0.75,
+            "analog_d5": 0.2,
+            "gap_d5": 0.55,
+            "graceful_margin": 0.625,
+            "regen_faith_d5": 1.0,
+            "control_d5": 0.0,
+            "regen_d1": 0.925,
+            "analog_d1": 0.925,
+            "isolation_clean": true,
+            "crossover_confirmed": false,
+            "low_gap_d5": 0.55,
+            "gap_curve": [
+              [
+                0.37,
+                0.55
+              ],
+              [
+                0.74,
+                0.55
+              ],
+              [
+                1.1,
+                0.675
+              ],
+              [
+                1.55,
+                0.75
+              ],
+              [
+                2.0,
+                0.75
+              ]
+            ],
+            "gap_widens": null,
+            "false_accept": null,
+            "false_refuse": null,
+            "regen_d5_above_soft_floor": true
+          },
+          "phase_map": [
+            {
+              "target": 0.37,
+              "m_over_n": 0.37,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.55,
+              "regen_d5": 0.75,
+              "analog_d5": 0.2,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": 0.625,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 0.74,
+              "m_over_n": 0.74,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.55,
+              "regen_d5": 0.55,
+              "analog_d5": 0.0,
+              "regen_d1": 0.875,
+              "analog_d1": 0.875,
+              "d1_valid": true,
+              "graceful_margin": 0.375,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.1,
+              "m_over_n": 1.1,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.675,
+              "regen_d5": 0.7,
+              "analog_d5": 0.025,
+              "regen_d1": 0.975,
+              "analog_d1": 0.975,
+              "d1_valid": true,
+              "graceful_margin": 0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 1.55,
+              "m_over_n": 1.55,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.75,
+              "regen_d5": 0.75,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.05,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            },
+            {
+              "target": 2.0,
+              "m_over_n": 2.0,
+              "row_label": "REGEN_WINS",
+              "gap_d5": 0.75,
+              "regen_d5": 0.75,
+              "analog_d5": 0.0,
+              "regen_d1": 0.925,
+              "analog_d1": 0.925,
+              "d1_valid": true,
+              "graceful_margin": -0.075,
+              "regen_faith_d5": 1.0,
+              "control_d5": 0.0,
+              "isolation_clean": true,
+              "arms_differ": true
+            }
+          ]
+        }
+      ],
+      "v1_repro": {
+        "N": 8192,
+        "n_test": 150,
+        "target": 1.1,
+        "m_over_n": 1.1,
+        "regen_d1": 0.82,
+        "analog_d1": 0.82,
+        "regen_d5": 0.28,
+        "analog_d5": 0.1,
+        "gap_d5": 0.18,
+        "d1_valid": false
+      },
+      "elapsed_s": 897.39,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=8192-16384-32768,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=40,MOVERN=0.37-0.74-1.10-1.55-2.00,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17-23-31-41,RUN_MODE=full,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+      "_ckpt_key": "41",
+      "_partial_written_at": 1783258300.177745
+    }
+  ],
+  "n_llm_forward_calls": 0,
+  "LOW_TARGET": 0.37,
+  "DISC_TARGET": 1.1,
+  "bands": {
+    "HP_GAP_MIN": 0.15,
+    "HP_ANALOG_COLLAPSE_MAX": 0.3,
+    "HP_GRACEFUL_MARGIN": 0.15,
+    "HP_FAITHFULNESS_MIN": 0.95,
+    "HP_CONTROL_D5_MAX": 0.05,
+    "SANITY_D1_MIN": 0.85,
+    "CROSSOVER_GAP_MAX": 0.05,
+    "REGEN_D5_SOFT_FLOOR": 0.22,
+    "HF_REGEN_D5_MAX": 0.15,
+    "HF_GAP_MIN": 0.05,
+    "HF_CONTROL_D5_MAX": 0.1
+  }
+}

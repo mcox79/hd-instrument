@@ -1,0 +1,120 @@
+{
+  "anchor_name": "lang_assembly_4layer_svo_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "FIRST 4-LAYER LANGUAGE ASSEMBLY round-trips: four independently-proven glass-box primitives (lexicon + FHRR morphology + block-local syntax + function-word grammar) chain via a DISCRETE SYMBOL bridge to recover a KNOWN structured proposition -- exact_ordered_slot_match=1.000 (>=0.9), cross-layer identity_consistency=1.000 (>=0.95, chance 0.125), surface_string_exact=1.000 (>=0.9). All 4 controls collapse. Glass-box STRUCTURED composition of a known proposition over a curated gloss set -- NOT generation, NOT understanding, NOT a language model; English words are HUMAN GLOSSES on real GSBC concepts. structured_joint: exact_ordered=1.000 identity=1.000 surface=1.000 | CONTROLS flat_bag.exact=0.000 scrambled.exact=0.000 naive.allo=0.333 naive.surface=0.273 identity_scrambled.identity=0.061 (chance 0.125); bag_blind=True",
+  "summary": "HARD_PASS: first 4-layer (lexicon+morphology+syntax+grammar) structured assembly (full)",
+  "run_mode": "full",
+  "elapsed_s": 2.28,
+  "n_seeds": 3,
+  "n_sent": 22,
+  "n_units": 66,
+  "expected_n_units": 66,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms": {
+    "structured_joint": {
+      "exact_ordered_slot_match": 1.0,
+      "identity_consistency": 1.0,
+      "surface_string_exact": 1.0
+    },
+    "flat_bag": {
+      "exact_ordered_slot_match": 0.0,
+      "identity_consistency": 0.4697,
+      "surface_string_exact": 0.0
+    },
+    "scrambled_roles": {
+      "exact_ordered_slot_match": 0.0,
+      "identity_consistency": 0.3788,
+      "surface_string_exact": 0.0
+    },
+    "naive_morphology": {
+      "exact_ordered_slot_match": 1.0,
+      "identity_consistency": 1.0,
+      "surface_string_exact": 0.2727,
+      "allomorph_selection_acc": 0.3333
+    },
+    "identity_scrambled": {
+      "exact_ordered_slot_match": 1.0,
+      "identity_consistency": 0.0606,
+      "surface_string_exact": 1.0
+    }
+  },
+  "structural_audit": {
+    "flat_bag_invariant_under_attach_swap": true,
+    "structured_differs_under_attach_swap": true,
+    "partition_exact_disjoint": true,
+    "bag_blind_to_structure": true,
+    "attachment_chance": 0.5
+  },
+  "demo": [
+    "  gold='the cat walked a ants'            assembled='the cat walked a ants'            [MATCH]",
+    "  gold='a hawk chewed the dog'            assembled='a hawk chewed the dog'            [MATCH]",
+    "  gold='the duck hunted a bird'           assembled='the duck hunted a bird'           [MATCH]",
+    "  gold='a ant went the bears'             assembled='a ant went the bears'             [MATCH]",
+    "  gold='the dog followed a crow'          assembled='the dog followed a crow'          [MATCH]",
+    "  gold='a bird guarded the fox'           assembled='a bird guarded the fox'           [MATCH]"
+  ],
+  "config": {
+    "N": 8192,
+    "LEVELS": 1,
+    "V_CONTENT": 64,
+    "K_DISTRACT": 5,
+    "arms": [
+      "structured_joint",
+      "flat_bag",
+      "scrambled_roles",
+      "naive_morphology",
+      "identity_scrambled"
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_sent": 22,
+    "bridge": "concept_id_to_two_reps: gsbc_blocklocal (syntax) + fhrr_stem_for_id (morphology)",
+    "morphology_scope": "past_ed allomorphy (3 classes) + plural_s allomorphy (3 classes) + irregular dual-route",
+    "lexicon_source": "REAL native GSBC pool (technical ontology); English words are HUMAN GLOSSES",
+    "storage_strategy": "sharded_block_disjoint_per_slot (inherited from grammar)"
+  },
+  "bands": {
+    "HP_EXACT": 0.9,
+    "HP_IDENTITY": 0.95,
+    "HP_SURFACE": 0.9,
+    "HF_EXACT": 0.5,
+    "HF_IDENTITY": 0.5,
+    "CTRL_EXACT_MAX": 0.3,
+    "CTRL_ALLO_MAX": 0.55,
+    "CTRL_IDENTITY_MAX": 0.3,
+    "IDENTITY_CHANCE": 0.125
+  },
+  "hp_scope": {
+    "structured_joint": [
+      "HP_EXACT",
+      "HP_IDENTITY",
+      "HP_SURFACE"
+    ],
+    "flat_bag": [
+      "CTRL_EXACT_MAX_collapse_only"
+    ],
+    "scrambled_roles": [
+      "CTRL_EXACT_MAX_collapse_only"
+    ],
+    "naive_morphology": [
+      "CTRL_ALLO_MAX_collapse_only"
+    ],
+    "identity_scrambled": [
+      "CTRL_IDENTITY_MAX_collapse_only"
+    ]
+  },
+  "framing": "glass-box STRUCTURED (lemma-level) composition of a KNOWN proposition; NOT generation, NOT understanding, NOT a language model; English words are HUMAN GLOSSES on real GSBC concepts; Stage-3",
+  "cited_sources": {
+    "lexicon_syntax": "data/exp_generation_decoder_gsbc_native_blocklocal_v1 (HARD_PASS FULL)",
+    "grammar": "data/exp_grammar_recursive_function_word_blocklocal_v1 (HARD_PASS FULL)",
+    "morphology": "data/exp_morph_ruleset_wug_v2_cpu (HARD_PASS FULL)",
+    "scoping": "notes/research_language_assembly_composition_scoping_2026-07-05.md"
+  },
+  "ts_iso": "2026-07-06T01:28:04.040665+00:00",
+  "pid": 24588,
+  "host": "Home"
+}

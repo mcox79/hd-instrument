@@ -1,0 +1,67 @@
+{
+  "anchor_name": "cortex_hippo_handoff_FULL_seed_17_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: acc(FULL)>=0.50 AND gap>=0.40 AND ratio>=0.70.seed=17 FULL=1.000 NO_REPLAY=0.003 DIRECT=1.000 gap_FULL_vs_NO=+0.998 ratio_FULL_to_DIRECT=1.000",
+  "summary": "chunk_seed=17 n_seeds=1 N_h=512 N_c=1024 sparsity=0.1 M=400 N_replay=5 mode=smoke",
+  "elapsed_s": 31.79183292388916,
+  "config_version": "ANCHOR=cortex_hippo_handoff_FULL_seed_17_v1,N_h=512,N_c=1024,sparsity=0.1,M=400,N_replay=5,eta_c=0.005,SEEDS=17,RUN_MODE=smoke,chunk_seed=17,hardening=L1early+L2perarm+L4importsentinel+METARULE_AF+METARULE_AH",
+  "N_h": 512,
+  "N_c": 1024,
+  "M": 400,
+  "N_replay": 5,
+  "eta_c": 0.005,
+  "hippo_sparsity": 0.1,
+  "n_seeds": 1,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "chunk_seed": 17,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 17,
+      "elapsed_s": 31.739654302597046,
+      "arms": [
+        {
+          "arm_name": "ARM_FULL_HANDOFF",
+          "recall_cortex": 1.0,
+          "n_items": 400,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.49912077111137765,
+          "N_h": 512,
+          "N_c": 1024,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 5,
+          "wall_s": 15.861888647079468,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_REPLAY",
+          "recall_cortex": 0.0025,
+          "n_items": 400,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.0,
+          "N_h": 512,
+          "N_c": 1024,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 5,
+          "wall_s": 0.5339734554290771,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_DIRECT_CORTEX",
+          "recall_cortex": 1.0,
+          "n_items": 400,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.49912077111137765,
+          "N_h": 512,
+          "N_c": 1024,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 5,
+          "wall_s": 15.324275970458984,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

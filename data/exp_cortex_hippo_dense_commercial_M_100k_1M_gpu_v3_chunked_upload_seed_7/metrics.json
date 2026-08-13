@@ -1,0 +1,162 @@
+{
+  "anchor_name": "cortex_hippo_dense_commercial_M_100k_1M_gpu_v3_chunked_upload_seed_7",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_HARD_PASS: min_repl=1.000 max_std=0.317 gap=0.683 n_arms=2 max_gpu_mb=13.6",
+  "summary": "chunk_seed=7 N_c=1024 V=128 M_LIST=[10000] beta_base=13.0 chunk=512 upload_batch=512 mode=smoke backend=torch.cuda int8_keys=False v3_streaming",
+  "elapsed_s": 12.571768999099731,
+  "config_version": "ANCHOR=cortex_hippo_dense_commercial_M_100k_1M_gpu_v3_chunked_upload_seed_7,N_c=1024,V=128,M_LIST=[10000],beta_base=13.0,M_ref=100000,chunk=512,upload_batch=512,n_queries=50,int8_keys=False,SEED=7,RUN_MODE=smoke,backend=torch.cuda,discipline=v3_streaming_cpu_resident_keys_M_independent_gpu_footprint",
+  "N_c": 1024,
+  "V_DIM": 128,
+  "M_LIST": [
+    10000
+  ],
+  "beta_base": 13.0,
+  "M_REF": 100000,
+  "chunk_size": 512,
+  "upload_batch": 512,
+  "n_queries": 50,
+  "int8_keys": false,
+  "backend": "torch.cuda",
+  "torch_available": true,
+  "cuda_available": true,
+  "n_seeds": 1,
+  "expected_n_units": 2,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "discriminator_reachability": true,
+  "crlb_formula_reference": "logit_gap = beta * (1 - sqrt(2*log(M)/N)); p_win = 1 / (1 + M * exp(-logit_gap))",
+  "crlb_p_win_predicted_M10000": 0.9598133835247478,
+  "adaptive_beta_M10000": 13.0,
+  "primitive_reference_streaming": "hdlab/streaming_attention.py",
+  "primitive_reference_chunked": "hdlab/chunked_attention.py",
+  "primitive_reference_int8_pareto": "hdlab/int8_dense.py",
+  "v3_fix_applied": "cpu_resident_keys_vals_gpu_streaming_per_chunk",
+  "v2_root_cause": "chunked UPLOAD but full M*N keys persistent on GPU = 8.2 GB at M=500k FP16; v2 correctly aborted via PRE_UPLOAD_MEMORY_ABORT gate",
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "chunk_seed": 7,
+  "run_mode": "smoke",
+  "headline": {
+    "hp_repl_m100k": null,
+    "hp_repl_m500k": null,
+    "hp_repl_m1m": null,
+    "std_vals": [
+      0.3172508478164673
+    ],
+    "gap_per_M": {
+      "10000": 0.6827491521835327
+    },
+    "max_gpu_mb": 13.630976,
+    "n_arm_outcomes": 2,
+    "expected_arm_count": 2,
+    "hp_flags": [
+      "HP_STD_BEATEN_min_gap=0.683"
+    ],
+    "hf_flags": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 12.554793119430542,
+      "per_M": {
+        "10000": [
+          {
+            "arm_name": "ARM_STD",
+            "seed": 7,
+            "M": 10000,
+            "N": 1024,
+            "V": 128,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 512,
+            "upload_batch": 512,
+            "recall_cosine_mean": 0.3172508478164673,
+            "recall_cosine_std": 0.07191883772611618,
+            "arm_hash": "95f3dae44b7f55f7",
+            "backend": "torch.cuda",
+            "int8_keys": false,
+            "upload_strategy": "cpu_resident_fp16_streamed_per_chunk",
+            "estimated_streaming_peak_mb": 3.216784,
+            "wall_s": 0.08661007881164551,
+            "gpu_mem_peak_mb": 12.304896,
+            "p_win_predicted": 0.8855491240348625
+          },
+          {
+            "arm_name": "ARM_REPL",
+            "seed": 7,
+            "M": 10000,
+            "N": 1024,
+            "V": 128,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 512,
+            "upload_batch": 512,
+            "recall_cosine_mean": 1.0,
+            "recall_cosine_std": 7.836427329266371e-08,
+            "arm_hash": "08482dfd0ad8c4b7",
+            "backend": "torch.cuda",
+            "int8_keys": false,
+            "upload_strategy": "cpu_resident_fp16_streamed_per_chunk",
+            "estimated_streaming_peak_mb": 2.692496,
+            "wall_s": 0.07730650901794434,
+            "gpu_mem_peak_mb": 13.630976,
+            "p_win_predicted": 0.8855491240348625
+          }
+        ]
+      },
+      "preview_arm": {
+        "M": 100000,
+        "arms": [
+          {
+            "arm_name": "ARM_STD",
+            "seed": 7,
+            "M": 100000,
+            "N": 8192,
+            "V": 256,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 1024,
+            "upload_batch": 1024,
+            "recall_cosine_mean": 0.2874992787837982,
+            "recall_cosine_std": 0.050568945705890656,
+            "arm_hash": "15a1b18bffb70f0e",
+            "backend": "torch.cuda",
+            "int8_keys": false,
+            "upload_strategy": "cpu_resident_fp16_streamed_per_chunk",
+            "estimated_streaming_peak_mb": 43.657616,
+            "wall_s": 4.552650451660156,
+            "gpu_mem_peak_mb": 68.084736,
+            "p_win_predicted": 0.6895159178443061
+          },
+          {
+            "arm_name": "ARM_REPL",
+            "seed": 7,
+            "M": 100000,
+            "N": 8192,
+            "V": 256,
+            "n_queries": 50,
+            "beta": 13.0,
+            "chunk_size": 1024,
+            "upload_batch": 1024,
+            "recall_cosine_mean": 0.9999997615814209,
+            "recall_cosine_std": 6.411580244503057e-08,
+            "arm_hash": "042e56a9340c0982",
+            "backend": "torch.cuda",
+            "int8_keys": true,
+            "upload_strategy": "cpu_resident_int8_streamed_per_chunk",
+            "estimated_streaming_peak_mb": 35.269008,
+            "wall_s": 7.768788576126099,
+            "gpu_mem_peak_mb": 88.982528,
+            "p_win_predicted": 0.6895159178443061
+          }
+        ]
+      }
+    }
+  ]
+}

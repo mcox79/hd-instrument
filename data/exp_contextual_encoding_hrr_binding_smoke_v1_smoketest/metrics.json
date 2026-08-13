@@ -1,0 +1,242 @@
+{
+  "anchor_name": "contextual_encoding_hrr_binding_smoke_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HRR_BIND_WSD HARD_PASS: arm ARM_BIND_SENTENCE clears WSD acc=1.000 (>=0.70) AND lift +0.800 over static (>=0.25) AND cv=0.000 (<=0.30); substrate-native context-conditional encoding via HRR binding disambiguates polysemy; hippocampus-CA3-analog primitive validated; chain-grade-eligible polysemy substrate-only product enabler. winners=3. HRR_BIND_WSD: ARM_STATIC_WORD2VEC=0.200(baseline) | ARM_BIND_RECENT_5=0.993(HARD_PASS,lift=+0.793) | ARM_BIND_SENTENCE=1.000(HARD_PASS,lift=+0.800) | ARM_BIND_WEIGHTED_PHASE=0.987(HARD_PASS,lift=+0.787)",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "PRETRAIN_DIM": 300,
+  "n_seeds": 1,
+  "n_words": 30,
+  "n_pairs": 150,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_STATIC_WORD2VEC": {
+        "wsd_acc_mean": 0.2,
+        "wsd_acc_std": 0.0,
+        "wsd_acc_cv": 0.0,
+        "wsd_acc_per_seed": [
+          0.2
+        ]
+      },
+      "ARM_BIND_RECENT_5": {
+        "wsd_acc_mean": 0.9933,
+        "wsd_acc_std": 0.0,
+        "wsd_acc_cv": 0.0,
+        "wsd_acc_per_seed": [
+          0.9933
+        ]
+      },
+      "ARM_BIND_SENTENCE": {
+        "wsd_acc_mean": 1.0,
+        "wsd_acc_std": 0.0,
+        "wsd_acc_cv": 0.0,
+        "wsd_acc_per_seed": [
+          1.0
+        ]
+      },
+      "ARM_BIND_WEIGHTED_PHASE": {
+        "wsd_acc_mean": 0.9867,
+        "wsd_acc_std": 0.0,
+        "wsd_acc_cv": 0.0,
+        "wsd_acc_per_seed": [
+          0.9867
+        ]
+      }
+    },
+    "static_mean": 0.2,
+    "lifts_over_static": {
+      "ARM_BIND_RECENT_5": 0.7933,
+      "ARM_BIND_SENTENCE": 0.8,
+      "ARM_BIND_WEIGHTED_PHASE": 0.7867
+    },
+    "arm_classifications": {
+      "ARM_BIND_RECENT_5": "HARD_PASS",
+      "ARM_BIND_SENTENCE": "HARD_PASS",
+      "ARM_BIND_WEIGHTED_PHASE": "HARD_PASS"
+    },
+    "any_hard_pass_arms": [
+      "ARM_BIND_RECENT_5",
+      "ARM_BIND_SENTENCE",
+      "ARM_BIND_WEIGHTED_PHASE"
+    ],
+    "all_hard_fail": false,
+    "n_seeds": 1,
+    "n_words": 30,
+    "n_pairs": 150,
+    "CONFIG_VERSION": "contextual_encoding_hrr_binding_smoke_v1; N_DIM=4096 PRETRAIN_DIM=300 arms=['ARM_STATIC_WORD2VEC', 'ARM_BIND_RECENT_5', 'ARM_BIND_SENTENCE', 'ARM_BIND_WEIGHTED_PHASE'] seeds=[7] mode=smoke PHASE_K=7; bands HP_acc>=0.70 HP_lift>=0.25 HP_cv<=0.30 HF_lift<=0.05",
+    "honest_scope": "Substrate-native HRR-binding for polysemy: 4 arms (1 static word2vec + 3 context-bind variants) on synthetic 30-polysemous-word x 5-sense-context WSD dataset (150 pairs); N_DIM=4096 seeds=1; HARD_PASS = ANY bind arm clears WSD acc>=0.70 AND lift>=0.25 over static AND cv<=0.30; HARD_FAIL = ALL bind arms within 0.05 of static (binding adds noise not signal).",
+    "cites": [
+      "preregs/2026-06-22_contextual_encoding_hrr_binding_smoke_v1.md",
+      "experiments/exp_encoder_word2vec_substrate_bind_v1.py (loader pattern)",
+      "experiments/exp_polysemy_context_bound_cpu_v1.py (concept-bind precedent)",
+      "USER_2026-06-22_hippocampus_CA3_substrate_native_polysemy"
+    ]
+  },
+  "metrics_source": "measured_cpu_contextual_encoding_hrr_binding_smoke_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_STATIC_WORD2VEC": {
+          "wsd_acc": 0.2,
+          "per_word_acc": {
+            "apple": 0.2,
+            "bank": 0.2,
+            "bark": 0.2,
+            "bass": 0.2,
+            "bat": 0.2,
+            "bow": 0.2,
+            "case": 0.2,
+            "club": 0.2,
+            "court": 0.2,
+            "crane": 0.2,
+            "date": 0.2,
+            "fair": 0.2,
+            "fly": 0.2,
+            "kind": 0.2,
+            "lead": 0.2,
+            "left": 0.2,
+            "light": 0.2,
+            "match": 0.2,
+            "mean": 0.2,
+            "miss": 0.2,
+            "nail": 0.2,
+            "park": 0.2,
+            "pen": 0.2,
+            "pitch": 0.2,
+            "ring": 0.2,
+            "rock": 0.2,
+            "run": 0.2,
+            "scale": 0.2,
+            "sole": 0.2,
+            "spring": 0.2
+          },
+          "wall_s": 3.36
+        },
+        "ARM_BIND_RECENT_5": {
+          "wsd_acc": 0.9933,
+          "per_word_acc": {
+            "apple": 1.0,
+            "bank": 1.0,
+            "bark": 1.0,
+            "bass": 0.8,
+            "bat": 1.0,
+            "bow": 1.0,
+            "case": 1.0,
+            "club": 1.0,
+            "court": 1.0,
+            "crane": 1.0,
+            "date": 1.0,
+            "fair": 1.0,
+            "fly": 1.0,
+            "kind": 1.0,
+            "lead": 1.0,
+            "left": 1.0,
+            "light": 1.0,
+            "match": 1.0,
+            "mean": 1.0,
+            "miss": 1.0,
+            "nail": 1.0,
+            "park": 1.0,
+            "pen": 1.0,
+            "pitch": 1.0,
+            "ring": 1.0,
+            "rock": 1.0,
+            "run": 1.0,
+            "scale": 1.0,
+            "sole": 1.0,
+            "spring": 1.0
+          },
+          "wall_s": 3.37
+        },
+        "ARM_BIND_SENTENCE": {
+          "wsd_acc": 1.0,
+          "per_word_acc": {
+            "apple": 1.0,
+            "bank": 1.0,
+            "bark": 1.0,
+            "bass": 1.0,
+            "bat": 1.0,
+            "bow": 1.0,
+            "case": 1.0,
+            "club": 1.0,
+            "court": 1.0,
+            "crane": 1.0,
+            "date": 1.0,
+            "fair": 1.0,
+            "fly": 1.0,
+            "kind": 1.0,
+            "lead": 1.0,
+            "left": 1.0,
+            "light": 1.0,
+            "match": 1.0,
+            "mean": 1.0,
+            "miss": 1.0,
+            "nail": 1.0,
+            "park": 1.0,
+            "pen": 1.0,
+            "pitch": 1.0,
+            "ring": 1.0,
+            "rock": 1.0,
+            "run": 1.0,
+            "scale": 1.0,
+            "sole": 1.0,
+            "spring": 1.0
+          },
+          "wall_s": 3.42
+        },
+        "ARM_BIND_WEIGHTED_PHASE": {
+          "wsd_acc": 0.9867,
+          "per_word_acc": {
+            "apple": 1.0,
+            "bank": 1.0,
+            "bark": 1.0,
+            "bass": 0.8,
+            "bat": 1.0,
+            "bow": 1.0,
+            "case": 1.0,
+            "club": 1.0,
+            "court": 1.0,
+            "crane": 1.0,
+            "date": 1.0,
+            "fair": 1.0,
+            "fly": 1.0,
+            "kind": 1.0,
+            "lead": 1.0,
+            "left": 1.0,
+            "light": 1.0,
+            "match": 1.0,
+            "mean": 1.0,
+            "miss": 1.0,
+            "nail": 1.0,
+            "park": 1.0,
+            "pen": 1.0,
+            "pitch": 1.0,
+            "ring": 1.0,
+            "rock": 1.0,
+            "run": 0.8,
+            "scale": 1.0,
+            "sole": 1.0,
+            "spring": 1.0
+          },
+          "wall_s": 3.3
+        }
+      },
+      "N_DIM": 4096,
+      "PRETRAIN_DIM": 300,
+      "n_words": 30,
+      "n_pairs": 150,
+      "run_mode": "smoke",
+      "config_version": "contextual_encoding_hrr_binding_smoke_v1; N_DIM=4096 PRETRAIN_DIM=300 arms=['ARM_STATIC_WORD2VEC', 'ARM_BIND_RECENT_5', 'ARM_BIND_SENTENCE', 'ARM_BIND_WEIGHTED_PHASE'] seeds=[7] mode=smoke PHASE_K=7; bands HP_acc>=0.70 HP_lift>=0.25 HP_cv<=0.30 HF_lift<=0.05",
+      "elapsed_s_seed": 165.0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782246997.757333
+    }
+  ],
+  "elapsed_s": 165.0965220928192,
+  "summary": "HRR_BIND_WSD HARD_PASS: arm ARM_BIND_SENTENCE clears WSD acc=1.000 (>=0.70) AND lift +0.800 over static (>=0.25) AND cv=0.000 (<=0.30); substrate-native context-conditional encoding via HRR binding disambiguates polysemy; hippocampus-CA3-analog primitive validated; chain-grade-eligible polysemy substrate-only product enabler. winners=3. HRR_BIND_WSD: ARM_STATIC_WORD2VEC=0.200(baseline) | ARM_BIND_RECENT_5=0.993(HARD_PASS,lift=+0.793) | ARM_BIND_SENTENCE=1.000(HARD_PASS,lift=+0.800) | ARM_BIND_WEIGHTED_PHASE=0.987(HARD_PASS,lift=+0.787)",
+  "substrate_only_decode_gate": "TRUE (substrate-native HRR bind on pretrained word2vec; numpy + open-weight gensim cache; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

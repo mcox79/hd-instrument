@@ -1,0 +1,211 @@
+{
+  "verdict": "FRONTIER_FIT_PLATEAU_REPRESENTATION_WALL",
+  "verdict_msg": "PLATEAU / REPRESENTATION WALL: across a 1x coordinate-capacity jump (k=32 -> k=64) at RotatE-comparable epochs + fixed LR + n_neg up to 256, the transductive DIRECT-readout oracle ASYMPTOTES at oracle_direct h@10=0.594 (best G1_k64_ep300) << 0.90 -- the top frontier rung did NOT improve on the prior best by >= 0.03. Core is dense (avgdeg=39.7 -> 'not enough data' ruled out). Un-confounded by the FPE readout (the fire gate is the WORKING direct readout, not the broken FPE). This is a genuine FIT / REPRESENTATION wall: the additive/translational TransE functional form may be a poor fit for CSKG's SYNONYM/IS_A relation mix, or a genuine k-dim coord-capacity ceiling at N=25752. ESCALATE TO STRATEGY (change the FUNCTIONAL FORM, not the recipe) -- do NOT keep cranking capacity.",
+  "summary": "PLATEAU / REPRESENTATION WALL: across a 1x coordinate-capacity jump (k=32 -> k=64) at RotatE-comparable epochs + fixed LR + n_neg up to 256, the transductive DIRECT-readout oracle ASYMPTOTES at oracle",
+  "run_mode": "full",
+  "elapsed_s": 1096.9479504000628,
+  "anchor_name": "course_c_frontier_fit_capacity_ceiling_v1",
+  "ts_iso": "2026-07-11T23:42:50.598619+00:00",
+  "device": "cuda",
+  "seed": 7,
+  "N": 25752,
+  "n_rel": 29,
+  "oracle_fire_threshold": 0.9,
+  "cskg_provenance": {
+    "n_xcut_edges_streamed": 1244862,
+    "k_core": 12,
+    "n_core_nodes": 25752,
+    "n_core_edges": 511164,
+    "n_core_nodes_in_split": 25752,
+    "core_avgdeg": 39.69897483690587,
+    "n_train": 460048,
+    "n_valid": 25558,
+    "n_test": 25558,
+    "n_rel_tokens": 29
+  },
+  "core_avgdeg": 39.69897483690587,
+  "core_dense": true,
+  "ladder": [
+    {
+      "label": "G0_repro_L5",
+      "fit_kind": "anchor1",
+      "k": 32,
+      "fpe_dim": 8192,
+      "epochs": 150,
+      "lr": 0.05,
+      "n_neg": 64,
+      "batch": 8192,
+      "n_coord_params": 824064,
+      "oracle_direct_h10": 0.418,
+      "oracle_direct_h1": 0.08,
+      "oracle_direct_mrr": 0.1859,
+      "oracle_direct_strat": {
+        "low": {
+          "hits": 0.3293,
+          "n": 167
+        },
+        "mid": {
+          "hits": 0.3653,
+          "n": 167
+        },
+        "high": {
+          "hits": 0.5602,
+          "n": 166
+        }
+      },
+      "oracle_fpe_h10": 0.0,
+      "oracle_fpe_h1": 0.0,
+      "oracle_fpe_mrr": 0.0002,
+      "oracle_fpe_medht_h10": 0.418,
+      "oracle_fpe_medht_mrr": 0.1846,
+      "ell_prereg": 0.55,
+      "ell_medht": 7.8774,
+      "fpe_prereg_health": {
+        "finite": true,
+        "std": 0.00781412,
+        "rng": 0.08350094
+      },
+      "fpe_medht_health": {
+        "finite": true,
+        "std": 0.06842643,
+        "rng": 0.66801584
+      },
+      "fires_direct": false,
+      "fires_fpe": false,
+      "fires_fpe_medht": false,
+      "elapsed_s": 186.6
+    },
+    {
+      "label": "G1_k64_ep300",
+      "fit_kind": "anchor1",
+      "k": 64,
+      "fpe_dim": 8192,
+      "epochs": 300,
+      "lr": 0.005,
+      "n_neg": 128,
+      "batch": 8192,
+      "n_coord_params": 1648128,
+      "oracle_direct_h10": 0.594,
+      "oracle_direct_h1": 0.058,
+      "oracle_direct_mrr": 0.2333,
+      "oracle_direct_strat": {
+        "low": {
+          "hits": 0.5389,
+          "n": 167
+        },
+        "mid": {
+          "hits": 0.5329,
+          "n": 167
+        },
+        "high": {
+          "hits": 0.7108,
+          "n": 166
+        }
+      },
+      "oracle_fpe_h10": 0.002,
+      "oracle_fpe_h1": 0.0,
+      "oracle_fpe_mrr": 0.0008,
+      "oracle_fpe_medht_h10": 0.58,
+      "oracle_fpe_medht_mrr": 0.2303,
+      "ell_prereg": 0.55,
+      "ell_medht": 11.1456,
+      "fpe_prereg_health": {
+        "finite": true,
+        "std": 0.00781264,
+        "rng": 0.0839795
+      },
+      "fpe_medht_health": {
+        "finite": true,
+        "std": 0.05704838,
+        "rng": 0.63492119
+      },
+      "fires_direct": false,
+      "fires_fpe": false,
+      "fires_fpe_medht": false,
+      "elapsed_s": 883.8
+    }
+  ],
+  "skipped_rungs": [],
+  "n_rungs_completed": 2,
+  "n_rungs_planned": 5,
+  "capacity_curve": [
+    {
+      "label": "G0_repro_L5",
+      "k": 32,
+      "n_coord_params": 824064,
+      "oracle_direct_h10": 0.418
+    },
+    {
+      "label": "G1_k64_ep300",
+      "k": 64,
+      "n_coord_params": 1648128,
+      "oracle_direct_h10": 0.594
+    }
+  ],
+  "random_control": {
+    "oracle_direct_h10": 0.0,
+    "oracle_direct_mrr": 0.0003,
+    "max_allowed": 0.05,
+    "control_ok": true
+  },
+  "gate_d": {
+    "l5_direct_ref": 0.424,
+    "g0_direct": 0.418,
+    "tol": 0.1,
+    "gate_d_ok": true
+  },
+  "firing_config": null,
+  "best_config": {
+    "label": "G1_k64_ep300",
+    "fit_kind": "anchor1",
+    "k": 64,
+    "fpe_dim": 8192,
+    "epochs": 300,
+    "lr": 0.005,
+    "n_neg": 128,
+    "batch": 8192,
+    "n_coord_params": 1648128,
+    "oracle_direct_h10": 0.594,
+    "oracle_direct_h1": 0.058,
+    "oracle_direct_mrr": 0.2333,
+    "oracle_direct_strat": {
+      "low": {
+        "hits": 0.5389,
+        "n": 167
+      },
+      "mid": {
+        "hits": 0.5329,
+        "n": 167
+      },
+      "high": {
+        "hits": 0.7108,
+        "n": 166
+      }
+    },
+    "oracle_fpe_h10": 0.002,
+    "oracle_fpe_h1": 0.0,
+    "oracle_fpe_mrr": 0.0008,
+    "oracle_fpe_medht_h10": 0.58,
+    "oracle_fpe_medht_mrr": 0.2303,
+    "ell_prereg": 0.55,
+    "ell_medht": 11.1456,
+    "fpe_prereg_health": {
+      "finite": true,
+      "std": 0.00781264,
+      "rng": 0.0839795
+    },
+    "fpe_medht_health": {
+      "finite": true,
+      "std": 0.05704838,
+      "rng": 0.63492119
+    },
+    "fires_direct": false,
+    "fires_fpe": false,
+    "fires_fpe_medht": false,
+    "elapsed_s": 883.8
+  },
+  "climbing": false,
+  "neg_tensor_budget_bytes": 1000000000.0,
+  "internal_total_budget_s": 13000.0,
+  "verdict_provisional": true
+}

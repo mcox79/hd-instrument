@@ -1,0 +1,266 @@
+{
+  "anchor_name": "contrastive_entity_recurrence_reader_loop_cpcl_v2",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_P1_LOOP_ADDS_NOTHING|MIDDLE_P2_SHUFFLED_PARTIAL|HARD_FAIL_P3_FLAT_OR_DECREASING",
+  "verdict_msg": "P1=HARD_FAIL_P1_LOOP_ADDS_NOTHING P2=MIDDLE_P2_SHUFFLED_PARTIAL P3=HARD_FAIL_P3_FLAT_OR_DECREASING | FROZEN_P=0.429 CONTRAST_P=0.429 ABSOLUTE_P=0.342 SHUFFLED_P=0.429 | meandelta(C-F)=+0.000 (min=+0.000) shufdelta=+0.000 | curveC=[0.4286, 0.4286] | coverage=0.812(ok=True) | disc: C_gap=0.0209 C_pairs=19 S_gap=0.0162 relmargin=0.2249 | oracle_P=1.000(CONSTRUCTION_DETERMINED_ORACLE_TRIVIAL) | base_in_band=True contrast_fires=True arms_differ=True",
+  "summary": "P1=HARD_FAIL_P1_LOOP_ADDS_NOTHING P2=MIDDLE_P2_SHUFFLED_PARTIAL P3=HARD_FAIL_P3_FLAT_OR_DECREASING | FROZEN_P=0.429 CONTRAST_P=0.429 ABSOLUTE_P=0.342 SHUFFLED_P=0.429 | meandelta(C-F)=+0.000 (min=+0.000) shufdelta=+0.000 | curveC=[0.4286, 0.4286] | coverage=0.812(ok=True) | disc: C_gap=0.0209 C_pairs=19 S_gap=0.0162 relmargin=0.2249 | oracle_P=1.000(CONSTRUCTION_DETERMINED_ORACLE_TRIVIAL) | base_in_band=True contrast_fires=True arms_differ=True",
+  "elapsed_s": 121.48622990000877,
+  "ts_iso": "2026-07-20T02:58:12.755689+00:00",
+  "config": {
+    "mode": "smoke",
+    "gold_slice": [
+      "L04",
+      "L05",
+      "L07"
+    ],
+    "mining_files": [
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_primer.clean.txt",
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_first_reader.clean.txt"
+    ],
+    "mining_max_sents": 500,
+    "N": 1024,
+    "n_next": 2,
+    "gate_threshold": 0.3,
+    "min_err_gap": 0.02,
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "coh_lr": 0.1,
+    "coh_margin": 0.3,
+    "oja_eta": 0.002,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "fractions": [
+      0.5,
+      1.0
+    ],
+    "simhash_seed": 404,
+    "role_seed": 202,
+    "oov_seed": 101,
+    "shuffle_seed": 303
+  },
+  "codebook_cfg": {
+    "n_tokens": 8000000,
+    "vocab_size": 10000,
+    "N": 1024,
+    "window": 5,
+    "min_count": 5,
+    "ri_sparsity": 10,
+    "arm": "ppmi_svd",
+    "seed": 7
+  },
+  "coverage_gate": {
+    "content_occurrence_coverage": 0.8125,
+    "content_occurrences": 4273,
+    "patient_type_coverage": 0.7077,
+    "n_patient_types": 260,
+    "codebook_vocab_size": 10000
+  },
+  "coverage_bands": {
+    "HP": 0.6,
+    "HF": 0.4
+  },
+  "coverage_ok": true,
+  "learning_curve_precision": {
+    "CONTRAST": {
+      "0.50": 0.4286,
+      "1.00": 0.4286
+    },
+    "ABSOLUTE": {
+      "0.50": 0.347,
+      "1.00": 0.3422
+    },
+    "SHUFFLED": {
+      "0.50": 0.4286,
+      "1.00": 0.4286
+    },
+    "FROZEN": {
+      "0.50": 0.4444,
+      "1.00": 0.4286
+    }
+  },
+  "p1_mechanism": {
+    "verdict": "HARD_FAIL_P1_LOOP_ADDS_NOTHING",
+    "mean_delta_contrast_minus_frozen": 0.0,
+    "min_delta": 0.0,
+    "per_seed_delta": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "P_frozen": 0.4286,
+    "P_contrast": 0.4286,
+    "P_absolute": 0.3422,
+    "P_shuffled": 0.4286
+  },
+  "p2_mustfail_control": {
+    "verdict": "MIDDLE_P2_SHUFFLED_PARTIAL",
+    "shuffled_delta_vs_frozen": 0.0,
+    "interpretation": "shuffled continuation must NOT train (real-data ingredient)"
+  },
+  "p3_learning_curve": {
+    "verdict": "HARD_FAIL_P3_FLAT_OR_DECREASING",
+    "contrast_curve": [
+      0.4286,
+      0.4286
+    ],
+    "fractions": [
+      0.5,
+      1.0
+    ],
+    "interpretation": "held-out precision must MOVE with more REAL mining data"
+  },
+  "oracle_ceiling_guard": {
+    "oracle_precision": 1.0,
+    "flag": "CONSTRUCTION_DETERMINED_ORACLE_TRIVIAL",
+    "note": "handed-gold winner; must NOT trivially hit ~1.000; ceiling < 1.000"
+  },
+  "discriminator": {
+    "contrast_mean_err_gap": 0.0209,
+    "contrast_n_informative_pairs": 19,
+    "shuffled_mean_err_gap": 0.0162,
+    "shuffled_n_informative_pairs": 21,
+    "n_multi_candidate_instances": 100,
+    "real_vs_shuffled_relative_gap_margin": 0.2249
+  },
+  "per_fraction_detail": {
+    "0.50": {
+      "n_mining_sents": 250,
+      "W_real_written": 27,
+      "W_real_skipped": 184,
+      "W_shuf_written": 32,
+      "W_shuf_skipped": 179,
+      "contrast_pair_stats_real": {
+        "n_multi_candidate_instances": 41,
+        "n_informative_pairs": 12,
+        "mean_err_gap": 0.0234,
+        "max_err_gap": 0.1787
+      },
+      "contrast_pair_stats_shuffled": {
+        "n_multi_candidate_instances": 41,
+        "n_informative_pairs": 10,
+        "mean_err_gap": 0.016,
+        "max_err_gap": 0.0742
+      },
+      "n_abs_targets": 211,
+      "per_arm_precision_by_seed": {
+        "CONTRAST": [
+          0.4286,
+          0.4286,
+          0.4286
+        ],
+        "ABSOLUTE": [
+          0.4,
+          0.3333,
+          0.3077
+        ],
+        "SHUFFLED": [
+          0.4286,
+          0.4286,
+          0.4286
+        ],
+        "FROZEN": [
+          0.4444,
+          0.4444,
+          0.4444
+        ]
+      }
+    },
+    "1.00": {
+      "n_mining_sents": 500,
+      "W_real_written": 45,
+      "W_real_skipped": 396,
+      "W_shuf_written": 59,
+      "W_shuf_skipped": 382,
+      "contrast_pair_stats_real": {
+        "n_multi_candidate_instances": 100,
+        "n_informative_pairs": 19,
+        "mean_err_gap": 0.0209,
+        "max_err_gap": 0.2344
+      },
+      "contrast_pair_stats_shuffled": {
+        "n_multi_candidate_instances": 100,
+        "n_informative_pairs": 21,
+        "mean_err_gap": 0.0162,
+        "max_err_gap": 0.1787
+      },
+      "n_abs_targets": 450,
+      "per_arm_precision_by_seed": {
+        "CONTRAST": [
+          0.4286,
+          0.4286,
+          0.4286
+        ],
+        "ABSOLUTE": [
+          0.3333,
+          0.36,
+          0.3333
+        ],
+        "SHUFFLED": [
+          0.4286,
+          0.4286,
+          0.4286
+        ],
+        "FROZEN": [
+          0.4286,
+          0.4286,
+          0.4286
+        ]
+      }
+    }
+  },
+  "w_hashes_full_fraction_seed0": {
+    "FROZEN": "823c93c63ae58133",
+    "CONTRAST": "f15a60cc31183b6e",
+    "ABSOLUTE": "15e914f25508233d",
+    "SHUFFLED": "1012dd67d610bca8"
+  },
+  "gates": {
+    "baseline_in_band": true,
+    "contrast_fires": true,
+    "arms_differ": true,
+    "coverage_ok": true,
+    "cardinality_ok": true
+  },
+  "baseline_in_band": true,
+  "contrast_fires": true,
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "n_units_done": 6,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n/a": "extraction-precision metric; no quantitative noise floor (relative rival prediction err)",
+  "error_signal_is_real_exogenous": true,
+  "content_codes": "learned text8 ppmi_svd codebook (STEP-1 HARD_PASS AUC=0.927), SimHash-bipolarized",
+  "entity_recurrence_target": "entity-grid persistence (Barzilay-Lapata / Centering): continuation bundle weighted by idf(t)*presence(t), presence = #_next_sentences containing t (IDENTITY, not cosine). False-recurrence guard: recurrence never uses code cosine.",
+  "coherence_gameability_guard": "arXiv 2110.07198: SHUFFLED arm = the shuffle test; if it trains -> surface confound (P2 VETO). discriminator-fires requires real-vs-shuffled rel gap margin >= 0.20.",
+  "claim_ceiling": "SELF-SUPERVISED w.r.t. parse-labels AND the scoring signal (real corpus continuation; no curated oracle). Content codes carry LEARNED distributional similarity (text8 codebook) so the forward model generalizes rather than memorizing (the v1 fix). GloVe enters ONLY the shared base teacher (identical across arms). Ceiling < 1.000. NOT a claim of learned world-knowledge -- a claim that a rival-vs-real-data entity-recurrence CONTRAST with learned codes is a genuine learning signal where random-code v1 was null.",
+  "excluded_from_mining": "data/corpora/graded_readers_graded/cleaned/mcguffey_third_reader.clean.txt (GOLD source)",
+  "gold_meta_independence": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "coverage_gate",
+    "learning_curve_precision",
+    "p1_mechanism",
+    "p2_mustfail_control",
+    "p3_learning_curve",
+    "oracle_ceiling_guard",
+    "discriminator",
+    "error_signal_is_real_exogenous",
+    "gates"
+  ]
+}

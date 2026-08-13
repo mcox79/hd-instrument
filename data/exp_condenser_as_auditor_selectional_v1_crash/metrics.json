@@ -1,0 +1,10 @@
+{
+  "anchor_name": "condenser_as_auditor_selectional_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "ValueError: could not convert string to float: 'AGREE_CONDENSER_SAYS_YES'",
+  "summary": "CELL_CRASHED: ValueError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_condenser_as_auditor_selectional_v1.py\", line 635, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_condenser_as_auditor_selectional_v1.py\", line 623, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_condenser_as_auditor_selectional_v1.py\", line 601, in self_test\n    ok = run_validity_preflight([\n         ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\_validity_preflight.py\", line 909, in run_validity_preflight\n    ok &= assert_metric_moves(run_mode=run_mode, mode=mode, **args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\_validity_preflight.py\", line 309, in assert_metric_moves\n    b = float(before)\n        ^^^^^^^^^^^^^\nValueError: could not convert string to float: 'AGREE_CONDENSER_SAYS_YES'\n",
+  "ts_iso": "2026-07-23T14:43:07.472448+00:00",
+  "pid": 33180
+}

@@ -1,0 +1,311 @@
+{
+  "anchor": "c2_cascade_stc_swr_continual_v2",
+  "anchor_name": "c2_cascade_stc_swr_continual_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: C2 (1.000) does NOT beat C1 (1.000) at k=6. Mechanism adds nothing. C2@k6=1.000 C1@k6=1.000 gap=0.000 | C2@k_final12=1.000 C1@k_final12=1.000 | cv_C2@k6=0.000 llm=0 substrate_only=True",
+  "n_seeds": 3,
+  "N": 2048,
+  "N_DIM": 2048,
+  "J_tasks": 12,
+  "M_per_task": 512,
+  "alpha": 3.0,
+  "arms": [
+    "C1_BASELINE",
+    "CASCADE_STC_SWR"
+  ],
+  "K_evals": [
+    3,
+    6,
+    12
+  ],
+  "D_max": 3,
+  "theta_tag": 0.5,
+  "tag_function": "sigmoid_margin",
+  "replay_schedule_mode_C2": "expanding",
+  "replay_schedule_mode_C1": "uniform_1to1",
+  "run_mode": "full",
+  "config_version": "c2-cascade-stc-swr-v2-A+C: J=12 N_DIM=2048 M=512 alpha=3.00 arms=C1_BASELINE,CASCADE_STC_SWR D_max=3 theta_tag=0.50 beta=4.0 decay=0.020 K_EVALS=[3, 6, 12] schedule_C2=expanding schedule_C1=uniform_1to1 tag_fn=sigmoid_margin run_mode=full",
+  "corpus_provenance": "synthetic_bipolar_keys",
+  "v2_change_set": "N_DIM=4096->2048 + drop NO_REPLAY arm (Director Option A+C post-mortem)",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "k_evals": [
+      3,
+      6,
+      12
+    ],
+    "k_load_bearing": 6,
+    "k_final": 12,
+    "by_arm_means": {
+      "C1_BASELINE": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0
+      },
+      "CASCADE_STC_SWR": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0
+      }
+    },
+    "by_arm_stds": {
+      "C1_BASELINE": {
+        "3": 0.0,
+        "6": 0.0,
+        "12": 0.0
+      },
+      "CASCADE_STC_SWR": {
+        "3": 0.0,
+        "6": 0.0,
+        "12": 0.0
+      }
+    },
+    "by_arm_cv": {
+      "C1_BASELINE": {
+        "3": 0.0,
+        "6": 0.0,
+        "12": 0.0
+      },
+      "CASCADE_STC_SWR": {
+        "3": 0.0,
+        "6": 0.0,
+        "12": 0.0
+      }
+    },
+    "per_arm": {
+      "C1_BASELINE": {
+        "retention_at_k_load_bearing": 1.0,
+        "retention_at_k_final": 1.0,
+        "cv_at_k_load_bearing": 0.0
+      },
+      "CASCADE_STC_SWR": {
+        "retention_at_k_load_bearing": 1.0,
+        "retention_at_k_final": 1.0,
+        "cv_at_k_load_bearing": 0.0
+      }
+    },
+    "c2_retention_k_load_bearing": 1.0,
+    "c1_retention_k_load_bearing": 1.0,
+    "c2_minus_c1_at_k_load_bearing": 0.0,
+    "c2_retention_k_final": 1.0,
+    "c1_retention_k_final": 1.0,
+    "cv_c2_k_load_bearing": 0.0,
+    "substrate_only_ok": true,
+    "n_llm_calls_total": 0,
+    "zero_llm_calls_at_inference": true,
+    "consolidation_arms_tested": [
+      "C1_BASELINE",
+      "CASCADE_STC_SWR"
+    ],
+    "D_max": 3,
+    "theta_tag": 0.5,
+    "tag_function": "sigmoid_margin",
+    "replay_schedule_mode_C2": "expanding",
+    "replay_schedule_mode_C1": "uniform_1to1",
+    "alpha": 3.0,
+    "v2_change_set": "N_DIM=4096->2048 + drop NO_REPLAY arm (Director Option A+C post-mortem)",
+    "honest_scope": "Nested-timescale CLS continual ingest v2 (cascade + STC + SWR-gated expanding-interval replay) on synthetic-bipolar (k, v) at N_DIM=2048, J=12, alpha=3.00. Substrate-only-decode gate enforced (n_llm=0). v2 = Director Option A+C (N_DIM 4096->2048 + drop NO_REPLAY)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M": 512,
+      "run_mode": "full",
+      "config_version": "c2-cascade-stc-swr-v2-A+C: J=12 N_DIM=2048 M=512 alpha=3.00 arms=C1_BASELINE,CASCADE_STC_SWR D_max=3 theta_tag=0.50 beta=4.0 decay=0.020 K_EVALS=[3, 6, 12] schedule_C2=expanding schedule_C1=uniform_1to1 tag_fn=sigmoid_margin run_mode=full",
+      "elapsed_s": 2520.357663631439,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782203361.8174415,
+      "per_unit": [
+        {
+          "arm": "C1_BASELINE",
+          "alpha": 3.0,
+          "seed": 7,
+          "j_tasks": 12,
+          "m_per_task": 512,
+          "n_dim": 2048,
+          "retention_curve": [
+            [
+              3,
+              1.0
+            ],
+            [
+              6,
+              1.0
+            ],
+            [
+              12,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 12,
+          "wall_s": 548.9735674858093,
+          "n_probe": 60
+        },
+        {
+          "arm": "CASCADE_STC_SWR",
+          "alpha": 3.0,
+          "seed": 7,
+          "j_tasks": 12,
+          "m_per_task": 512,
+          "n_dim": 2048,
+          "retention_curve": [
+            [
+              3,
+              1.0
+            ],
+            [
+              6,
+              1.0
+            ],
+            [
+              12,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 12,
+          "wall_s": 1970.7728943824768,
+          "n_probe": 60
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M": 512,
+      "run_mode": "full",
+      "config_version": "c2-cascade-stc-swr-v2-A+C: J=12 N_DIM=2048 M=512 alpha=3.00 arms=C1_BASELINE,CASCADE_STC_SWR D_max=3 theta_tag=0.50 beta=4.0 decay=0.020 K_EVALS=[3, 6, 12] schedule_C2=expanding schedule_C1=uniform_1to1 tag_fn=sigmoid_margin run_mode=full",
+      "elapsed_s": 1926.0236856937408,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782205287.8461323,
+      "per_unit": [
+        {
+          "arm": "C1_BASELINE",
+          "alpha": 3.0,
+          "seed": 17,
+          "j_tasks": 12,
+          "m_per_task": 512,
+          "n_dim": 2048,
+          "retention_curve": [
+            [
+              3,
+              1.0
+            ],
+            [
+              6,
+              1.0
+            ],
+            [
+              12,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 12,
+          "wall_s": 473.2348301410675,
+          "n_probe": 60
+        },
+        {
+          "arm": "CASCADE_STC_SWR",
+          "alpha": 3.0,
+          "seed": 17,
+          "j_tasks": 12,
+          "m_per_task": 512,
+          "n_dim": 2048,
+          "retention_curve": [
+            [
+              3,
+              1.0
+            ],
+            [
+              6,
+              1.0
+            ],
+            [
+              12,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 12,
+          "wall_s": 1452.1342959403992,
+          "n_probe": 60
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 2048,
+      "M": 512,
+      "run_mode": "full",
+      "config_version": "c2-cascade-stc-swr-v2-A+C: J=12 N_DIM=2048 M=512 alpha=3.00 arms=C1_BASELINE,CASCADE_STC_SWR D_max=3 theta_tag=0.50 beta=4.0 decay=0.020 K_EVALS=[3, 6, 12] schedule_C2=expanding schedule_C1=uniform_1to1 tag_fn=sigmoid_margin run_mode=full",
+      "elapsed_s": 1540.0007116794586,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782206827.8538444,
+      "per_unit": [
+        {
+          "arm": "C1_BASELINE",
+          "alpha": 3.0,
+          "seed": 23,
+          "j_tasks": 12,
+          "m_per_task": 512,
+          "n_dim": 2048,
+          "retention_curve": [
+            [
+              3,
+              1.0
+            ],
+            [
+              6,
+              1.0
+            ],
+            [
+              12,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 12,
+          "wall_s": 318.92304134368896,
+          "n_probe": 60
+        },
+        {
+          "arm": "CASCADE_STC_SWR",
+          "alpha": 3.0,
+          "seed": 23,
+          "j_tasks": 12,
+          "m_per_task": 512,
+          "n_dim": 2048,
+          "retention_curve": [
+            [
+              3,
+              1.0
+            ],
+            [
+              6,
+              1.0
+            ],
+            [
+              12,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 12,
+          "wall_s": 1220.639246225357,
+          "n_probe": 60
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_cpu_synthetic_bipolar_cascade_stc_swr_continual_v2",
+  "elapsed_s": 5986.4250638484955,
+  "summary": "HARD_FAIL: C2 (1.000) does NOT beat C1 (1.000) at k=6. Mechanism adds nothing. C2@k6=1.000 C1@k6=1.000 gap=0.000 | C2@k_final12=1.000 C1@k_final12=1.000 | cv_C2@k6=0.000 llm=0 substrate_only=True"
+}

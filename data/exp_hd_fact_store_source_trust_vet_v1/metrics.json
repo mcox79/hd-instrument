@@ -1,0 +1,126 @@
+{
+  "verdict": "PASS",
+  "verdict_msg": "detect P/R=1.000/1.000 res_acc=1.000 clean_false_flag=0.000 (auditor=0.53) roundtrip=1.000 determ=True",
+  "summary": "HD fact store source-trust vet: PASS",
+  "elapsed_s": 0.9331356999464333,
+  "ts_iso": "2026-07-24T15:13:22.034359+00:00",
+  "anchor_name": "hd_fact_store_source_trust_vet_v1",
+  "n_dim": 8192,
+  "deterministic": true,
+  "beats_condenser_auditor": true,
+  "auditor_false_flag_reference": 0.53,
+  "selftest": {
+    "roles": [
+      "REL",
+      "ARG0",
+      "ARG1",
+      "SOURCE",
+      "TRUST"
+    ],
+    "trust_levels": {
+      "TRUST_HIGH": 1.0,
+      "TRUST_MID": 0.6,
+      "TRUST_LOW": 0.3
+    },
+    "reuse": "EventBundleCodec / RoleSlotSummarizer bipolar primitives",
+    "sublinear_index": "content-hash sr-signature (O(1)); byte-equivalent to O(n)"
+  },
+  "metrics": {
+    "n_trials": 160,
+    "confusion": {
+      "tp": 40,
+      "fp": 0,
+      "tn": 120,
+      "fn": 0
+    },
+    "detection_precision": 1.0,
+    "detection_recall": 1.0,
+    "resolution_accuracy": 1.0,
+    "resolution_correct": 40,
+    "resolution_total": 40,
+    "clean_total": 120,
+    "clean_flagged": 0,
+    "clean_false_flag_rate": 0.0,
+    "glassbox_roundtrip_acc": 1.0,
+    "worked_examples": [
+      {
+        "resolution": "REPLACE",
+        "new_fact": "(elem0, atomic_number, right0)",
+        "new_source": "chem_textbook",
+        "new_trust": "TRUST_HIGH",
+        "new_trust_level": 1.0,
+        "stored_trust_level": 0.6,
+        "conflict_recovered_objs": [
+          "wrong0"
+        ],
+        "recovered_provenance": {
+          "source": "chem_textbook",
+          "trust": "TRUST_HIGH"
+        },
+        "note": "new is higher-trust -> override old"
+      },
+      {
+        "resolution": "DROP",
+        "new_fact": "(star0, born_in, rumor0)",
+        "new_source": "random_blog",
+        "new_trust": "TRUST_LOW",
+        "new_trust_level": 0.3,
+        "stored_trust_level": 1.0,
+        "conflict_recovered_objs": [
+          "real0"
+        ],
+        "recovered_provenance": {
+          "source": "random_blog",
+          "trust": "TRUST_LOW"
+        },
+        "note": "new is lower-trust -> dropped"
+      },
+      {
+        "resolution": "FLAG",
+        "new_fact": "(town0, capital_of, claimB0)",
+        "new_source": "article_B",
+        "new_trust": "TRUST_MID",
+        "new_trust_level": 0.6,
+        "stored_trust_level": 0.6,
+        "conflict_recovered_objs": [
+          "claimA0"
+        ],
+        "recovered_provenance": {
+          "source": "article_B",
+          "trust": "TRUST_MID"
+        },
+        "note": "equal-trust + functional relation -> contradiction, keep both UNRESOLVED"
+      },
+      {
+        "resolution": "COMBINE",
+        "new_fact": "(poly0, speaks, langB0)",
+        "new_source": "survey_B",
+        "new_trust": "TRUST_MID",
+        "new_trust_level": 0.6,
+        "stored_trust_level": 0.6,
+        "conflict_recovered_objs": [
+          "langA0"
+        ],
+        "recovered_provenance": {
+          "source": "survey_B",
+          "trust": "TRUST_MID"
+        },
+        "note": "equal-trust + multivalued relation -> merge (both valid)"
+      }
+    ],
+    "n_live_facts": 140
+  },
+  "trust_ladder": {
+    "TRUST_HIGH": 1.0,
+    "TRUST_MID": 0.6,
+    "TRUST_LOW": 0.3
+  },
+  "relation_cardinality": {
+    "capital_of": "FUNCTIONAL",
+    "born_in": "FUNCTIONAL",
+    "atomic_number": "FUNCTIONAL",
+    "speaks": "MULTIVALUED",
+    "member_of": "MULTIVALUED"
+  },
+  "honest_frame": "SOURCE-TRUST vetting: trusts curated sources + resolves conflicts by trust rank; does NOT verify factual truth (student-model trade)."
+}

@@ -1,0 +1,64 @@
+{
+  "anchor_name": "cortex_hippo_handoff_sparse_DG_dense_cortex_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: acc(FULL)>=0.50 AND gap>=0.40 AND ratio>=0.70.FULL=1.000 (cv=0.000) NO_REPLAY=0.003 DIRECT=1.000 gap_FULL_vs_NO=+0.998 ratio_FULL_to_DIRECT=1.000",
+  "summary": "n_seeds=1 N_h=512 N_c=1024 sparsity=0.1 M=400 N_replay=5 mode=smoke",
+  "elapsed_s": 49.61074471473694,
+  "config_version": "ANCHOR=cortex_hippo_handoff_sparse_DG_dense_cortex_v1,N_h=512,N_c=1024,sparsity=0.1,M=400,N_replay=5,eta_c=0.005,SEEDS=7,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel",
+  "N_h": 512,
+  "N_c": 1024,
+  "M": 400,
+  "N_replay": 5,
+  "eta_c": 0.005,
+  "hippo_sparsity": 0.1,
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 49.552205085754395,
+      "arms": [
+        {
+          "arm_name": "ARM_FULL_HANDOFF",
+          "recall_cortex": 1.0,
+          "n_items": 400,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.4992330726155675,
+          "N_h": 512,
+          "N_c": 1024,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 5,
+          "wall_s": 21.35073161125183,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_REPLAY",
+          "recall_cortex": 0.0025,
+          "n_items": 400,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.0,
+          "N_h": 512,
+          "N_c": 1024,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 5,
+          "wall_s": 1.6021652221679688,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_DIRECT_CORTEX",
+          "recall_cortex": 1.0,
+          "n_items": 400,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.4992330726155675,
+          "N_h": 512,
+          "N_c": 1024,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 5,
+          "wall_s": 26.579704523086548,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

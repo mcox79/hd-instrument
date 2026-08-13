@@ -1,0 +1,310 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_HARD_PASS: spearman=0.645 gap=0.278 keyed@J5=1.000 [capacity_preview mlp_rkd=0.0612 lin_rkd=0.0794 ratio=0.770] [bundle@J5 diag 0.420 vs dense 0.148; naive_keyed@J20 diag 0.980] shuffled_ok pos_ctrl_ok",
+  "summary": "SMOKE_HARD_PASS: spearman=0.645 gap=0.278 keyed@J5=1.000 [capacity_preview mlp_rkd=0.0612 lin_rkd=0.0794 ratio=0.770] [bundle@J5 diag 0.420 vs dense 0.148; naive_keyed@J20 diag 0.980] shuffled_ok pos_ctrl_ok",
+  "elapsed_s": 931.4630961000221,
+  "run_mode": "smoke",
+  "anchor_name": "encoder_migration_step1b_v2_mlp_distill_concept_encoder_v1_smoke",
+  "seed": 7,
+  "device": "cpu",
+  "N": 4096,
+  "student_arch": "mlp",
+  "mlp_hidden": 2048,
+  "warmup_steps": 30,
+  "k_blocks_list": [
+    128
+  ],
+  "k_blocks_primary": 128,
+  "sparsity_primary": 0.03125,
+  "teacher_cache": "bge_large_v2_name_43905_8a40445a.npz",
+  "teacher_cache_bytes": 334512907,
+  "teacher_n_concepts": 43905,
+  "n_train": 3000,
+  "n_held": 800,
+  "steps": 150,
+  "batch": 192,
+  "j_grid": [
+    5,
+    20
+  ],
+  "n_trials": 50,
+  "semi_hard_coverage": 1.0,
+  "train_diag": {
+    "BLOCK_K128": {
+      "loss_first": 1.2263929843902588,
+      "loss_last": 0.6641903519630432,
+      "rkd_last": 0.06119261682033539,
+      "nce_last": 1.2059954404830933,
+      "lr_last": 1.7133751222137007e-07,
+      "arch": "mlp"
+    },
+    "TOPK_NAIVE": {
+      "loss_first": 1.1651676893234253,
+      "loss_last": 0.5434062480926514,
+      "rkd_last": 0.08297326415777206,
+      "nce_last": 0.9208660125732422,
+      "lr_last": 1.7133751222137007e-07,
+      "arch": "mlp"
+    }
+  },
+  "capacity_preview": {
+    "mlp_rkd_last": 0.06119261682033539,
+    "linear_rkd_last": 0.07944545894861221,
+    "rkd_ratio": 0.7702468791818129,
+    "rkd_max_ratio_gate": 0.9,
+    "mlp_breaks_linear_rkd": true,
+    "mlp_spearman_smoke": 0.6446082233740871,
+    "linear_spearman_smoke": 0.7615572559141301,
+    "linear_ret_agree10": 0.4974999999999997,
+    "note": "smoke 3000-subset is easy so linear also scores high on spearman; the geometry-loss (rkd) gap is the capacity discriminator that survives to full 178K scale. The 0.64->0.85 semantic break itself is a FULL-GPU question."
+  },
+  "per_unit": [
+    {
+      "unit": "semantic::BLOCK_K128",
+      "arm": "BLOCK_K128",
+      "kind": "semantic",
+      "spearman_all": 0.6446082233740871,
+      "pearson_all": 0.734369594809362,
+      "hi80_cos": 0.7376850843429565,
+      "hi80_n": 1173,
+      "hi80_teacher_mean": 0.8439477682113647,
+      "hi80_calib_err": 0.1062626838684082,
+      "ret_agree10": 0.3767499999999999,
+      "n_pairs_sampled": 249701
+    },
+    {
+      "unit": "semantic::TOPK_NAIVE",
+      "arm": "TOPK_NAIVE",
+      "kind": "semantic",
+      "spearman_all": 0.6273315677201685,
+      "pearson_all": 0.7190364153098883,
+      "hi80_cos": 0.6546847820281982,
+      "hi80_n": 1173,
+      "hi80_teacher_mean": 0.8439477682113647,
+      "hi80_calib_err": 0.1892629861831665,
+      "ret_agree10": 0.47475000000000045,
+      "n_pairs_sampled": 249701
+    },
+    {
+      "unit": "semantic::RANDOM_BLOCK",
+      "arm": "RANDOM_BLOCK",
+      "kind": "semantic",
+      "spearman_all": 0.0012332632210177647,
+      "pearson_all": -0.0018452793026537675,
+      "hi80_cos": -0.0007126491982489824,
+      "hi80_n": 1173,
+      "hi80_teacher_mean": 0.8439477682113647,
+      "hi80_calib_err": 0.8446604174096137,
+      "ret_agree10": 0.0016250000000000001,
+      "n_pairs_sampled": 249701
+    },
+    {
+      "unit": "semantic::DENSE_SIGN",
+      "arm": "DENSE_SIGN",
+      "kind": "semantic",
+      "spearman_all": 0.8251118650456254,
+      "pearson_all": 0.8495968865707815,
+      "hi80_cos": 0.947256863117218,
+      "hi80_n": 1173,
+      "hi80_teacher_mean": 0.8439477682113647,
+      "hi80_calib_err": 0.10330909490585327,
+      "ret_agree10": 0.38537500000000025,
+      "n_pairs_sampled": 249701
+    },
+    {
+      "unit": "semantic::CHARPOS",
+      "arm": "CHARPOS",
+      "kind": "semantic",
+      "spearman_all": 0.5395923189733518,
+      "pearson_all": 0.6401391570426539,
+      "hi80_cos": 0.6058050990104675,
+      "hi80_n": 1173,
+      "hi80_teacher_mean": 0.8439477682113647,
+      "hi80_calib_err": 0.23814266920089722,
+      "ret_agree10": 0.09825000000000005,
+      "n_pairs_sampled": 249701
+    },
+    {
+      "unit": "keyed::BLOCK_K128::J5",
+      "arm": "BLOCK_K128",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.07025270909070969,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::BLOCK_K128::J20",
+      "arm": "BLOCK_K128",
+      "kind": "keyed",
+      "J": 20,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.02993832528591156,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::TOPK_NAIVE::J5",
+      "arm": "TOPK_NAIVE",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "fhrr",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.09128785133361816,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::TOPK_NAIVE::J20",
+      "arm": "TOPK_NAIVE",
+      "kind": "keyed",
+      "J": 20,
+      "algebra": "fhrr",
+      "acc_at1": 0.9800000190734863,
+      "hit_any_member": 0.98,
+      "snr_margin_mean": 0.0357670821249485,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::RANDOM_BLOCK::J5",
+      "arm": "RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.3893181085586548,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::RANDOM_BLOCK::J20",
+      "arm": "RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 20,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.16440868377685547,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::DENSE_SIGN::J5",
+      "arm": "DENSE_SIGN",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "fhrr",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.014863338321447372,
+      "n_trials": 50
+    },
+    {
+      "unit": "keyed::DENSE_SIGN::J20",
+      "arm": "DENSE_SIGN",
+      "kind": "keyed",
+      "J": 20,
+      "algebra": "fhrr",
+      "acc_at1": 0.9800000190734863,
+      "hit_any_member": 0.98,
+      "snr_margin_mean": 0.005554056726396084,
+      "n_trials": 50
+    },
+    {
+      "unit": "shuffled_key::BLOCK_K128::J5",
+      "arm": "BLOCK_K128",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0023069896269589663,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::BLOCK_K128::J5",
+      "arm": "BLOCK_K128",
+      "kind": "bundle",
+      "J": 5,
+      "recall_at_J": 0.41999999999999993,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::BLOCK_K128::J20",
+      "arm": "BLOCK_K128",
+      "kind": "bundle",
+      "J": 20,
+      "recall_at_J": 0.081,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::TOPK_NAIVE::J5",
+      "arm": "TOPK_NAIVE",
+      "kind": "bundle",
+      "J": 5,
+      "recall_at_J": 0.4919999999999999,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::TOPK_NAIVE::J20",
+      "arm": "TOPK_NAIVE",
+      "kind": "bundle",
+      "J": 20,
+      "recall_at_J": 0.08,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::RANDOM_BLOCK::J5",
+      "arm": "RANDOM_BLOCK",
+      "kind": "bundle",
+      "J": 5,
+      "recall_at_J": 1.0,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::RANDOM_BLOCK::J20",
+      "arm": "RANDOM_BLOCK",
+      "kind": "bundle",
+      "J": 20,
+      "recall_at_J": 0.9960000000000001,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::DENSE_SIGN::J5",
+      "arm": "DENSE_SIGN",
+      "kind": "bundle",
+      "J": 5,
+      "recall_at_J": 0.14800000000000008,
+      "n_trials": 50
+    },
+    {
+      "unit": "bundle::DENSE_SIGN::J20",
+      "arm": "DENSE_SIGN",
+      "kind": "bundle",
+      "J": 20,
+      "recall_at_J": 0.017,
+      "n_trials": 50
+    }
+  ],
+  "unit_failures": [],
+  "n_units": 22,
+  "expected_n_units": 22,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "BLOCK_K128": "1298ea3a0f5e1c42846f0ba524a601b5aef2e8ab09f941e2732c81b045dd4a13",
+    "DENSE_SIGN": "61c5d8f5cccfd4e5fea3ffc1131b6223a2264191ca2077c1cbe1fc2a8825033c",
+    "TOPK_NAIVE": "c88326f284e8c79c07e31c3199c069129869b1562d9c09f119b67f7c8c09060d",
+    "RANDOM_BLOCK": "65b148b3237c71c0b46e7a1060d5f74dd13dbc197b3995eac4c2fd05984fc0f0",
+    "CHARPOS": "eeba8baa958b06615a9897031cab72b578bcb05bf2eb98958fce13af05e91f66"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "baseline_in_band": true,
+  "composition_algebra": "SBC_block_local_circular_convolution",
+  "dual_gate": "semantic_spearman + keyed_roundtrip (bundle=diagnostic)",
+  "progress_logging": "print_flush_true",
+  "primary_spearman": 0.6446082233740871,
+  "ts_iso": "2026-07-04T11:41:01.644282+00:00"
+}

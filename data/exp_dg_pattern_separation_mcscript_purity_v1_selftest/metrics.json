@@ -1,0 +1,79 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: real code path exercised.",
+  "summary": "self_test",
+  "elapsed_s": 0.306,
+  "run_mode": "self_test",
+  "self_test_result": {
+    "dg_module_selftest": {
+      "deterministic": true,
+      "sparsity_exact": {
+        "expected": 51,
+        "measured": 51
+      },
+      "self_cosine": 1.0,
+      "decorrelation": {
+        "raw_cos": 0.8047,
+        "dg_cos": 0.4409
+      },
+      "tag_sensitivity_ok": true,
+      "precomputed_W_matches_ok": true,
+      "zero_input_safe_ok": true
+    },
+    "bow_key_deterministic_and_distinct": true,
+    "dg_key_deterministic_and_distinct_from_bow": true,
+    "match_or_spawn_with_dg_key_ok": true,
+    "match_or_spawn_stats": {
+      "arm": "selftest",
+      "n_items_total": 2,
+      "n_singletons": 0,
+      "singleton_frac": 0.0,
+      "n_items_multi": 2,
+      "mean_purity_multi": 1.0,
+      "trace_weighted_purity_multi": 1.0,
+      "n_pure_items": 2,
+      "pure_frac": 1.0,
+      "n_items_grounded_would_be": 0,
+      "mean_purity_grounded_would_be": 0.0,
+      "item_size_stats": {
+        "min": 2,
+        "median": 2.0,
+        "max": 2
+      },
+      "item_purity_sample": {
+        "SITEM_0000": {
+          "n_traces": 2,
+          "majority_scenario": "omelette",
+          "majority_frac": 1.0
+        },
+        "SITEM_0001": {
+          "n_traces": 2,
+          "majority_scenario": "dog_walk",
+          "majority_frac": 1.0
+        }
+      }
+    },
+    "calibrate_arm_ok": true,
+    "calib_bow_sample": {
+      "novelty_thresh": 0.2395,
+      "matched_mean": 0.543,
+      "wrong_mean": -0.0352,
+      "gap": 0.5781,
+      "auc": 1.0,
+      "realistic_discriminates": true,
+      "n_matched_pairs": 2,
+      "n_wrong_pairs": 4,
+      "n_sample_instances": 4
+    },
+    "run_arm_ok": true,
+    "run_arm_stats_n_items": 2,
+    "real_code_path_exercised": [
+      "dg_separate",
+      "ScriptLibrary.match_or_spawn",
+      "calibrate_novelty_threshold",
+      "parse_mcscript_xml",
+      "run_arm",
+      "context_vector"
+    ]
+  }
+}

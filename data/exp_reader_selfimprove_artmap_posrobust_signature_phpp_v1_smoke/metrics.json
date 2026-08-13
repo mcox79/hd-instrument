@@ -1,0 +1,329 @@
+{
+  "anchor_name": "reader_selfimprove_artmap_posrobust_signature_phpp_v1",
+  "run_mode": "smoke",
+  "verdict": "UNKNOWN_BASELINE_PHENOMENON_NOT_REPRODUCED",
+  "verdict_msg": "UNKNOWN_BASELINE_PHENOMENON_NOT_REPRODUCED | SIGNATURE-PROBE 1flip cos brittle=0.9362 robust=0.9673 (robust_degrades_less=True) | PH(clean) min_rise brittle=0.2778(collapse=-0.0555) robust=-0.2778(collapse=-0.7778) d_kept=False | PHPP(deploy) min_rise brittle=0.7778(collapse=0.7778) robust=-0.3889(collapse=-0.8889) recovered=False recovery_ratio=1.3999 | PHPP ee_delta brittle=+0.0978 robust=+0.0956 who_off=0.7672 ceiling=0.8673 | phenomenon_reproduces=False (brittle_ph_survives=False brittle_phpp_collapses=False) | PHPP robust nbf=0.0 reg=41.0 rules=19.0 attach_frac=0.9669 | leak_clean=True arms_differ=True baseline_in_band=True cardinality_ok=True",
+  "summary": "UNKNOWN_BASELINE_PHENOMENON_NOT_REPRODUCED | SIGNATURE-PROBE 1flip cos brittle=0.9362 robust=0.9673 (robust_degrades_less=True) | PH(clean) min_rise brittle=0.2778(collapse=-0.0555) robust=-0.2778(collapse=-0.7778) d_kept=False | PHPP(deploy) min_rise brittle=0.7778(collapse=0.7778) robust=-0.3889(collapse=-0.8889) recovered=False recovery_ratio=1.3999 | PHPP ee_delta brittle=+0.0978 robust=+0.0956 who_off=0.7672 ceiling=0.8673 | phenomenon_reproduces=False (brittle_ph_survives=False brittle_phpp_collapses=False) | PHPP robust nbf=0.0 reg=41.0 rules=19.0 attach_frac=0.9669 | leak_clean=True arms_differ=True baseline_in_band=True cardinality_ok=True",
+  "elapsed_s": 31.71,
+  "ts_iso": "2026-07-21T17:04:32.399990+00:00",
+  "seeds": [
+    7
+  ],
+  "regimes": [
+    "PH",
+    "PHPP"
+  ],
+  "signatures": [
+    "brittle",
+    "robust"
+  ],
+  "EXPECTED_N_UNITS": 4,
+  "n_units": 4,
+  "signature_probe_1flip": {
+    "n": 300,
+    "brittle_cos_under_1flip": 0.9362,
+    "robust_cos_under_1flip": 0.9673
+  },
+  "robust_degrades_less_under_1pos_flip": true,
+  "PHENOMENON_reproduces": false,
+  "brittle_ph_survives": false,
+  "brittle_phpp_collapses": false,
+  "DISCRIMINATION_kept_clean_regime": false,
+  "DEPLOYMENT_recovered": false,
+  "RECOVERY_ratio_robustPHPP_over_robustPH": 1.3999,
+  "PH_min_rise_brittle": 0.2778,
+  "PH_min_rise_robust": -0.2778,
+  "PH_collapse_brittle": -0.0555,
+  "PH_collapse_robust": -0.7778,
+  "PHPP_min_rise_brittle": 0.7778,
+  "PHPP_min_rise_robust": -0.3889,
+  "PHPP_collapse_brittle": 0.7778,
+  "PHPP_collapse_robust": -0.8889,
+  "PHPP_ee_delta_brittle": 0.0978,
+  "PHPP_ee_delta_robust": 0.0956,
+  "PHPP_ceiling_attach_ok_rate": 0.8673,
+  "PHPP_residual_attach_frac_robust": 0.9669,
+  "REGIME_SIG_results": {
+    "PH": {
+      "brittle": {
+        "regime": "PH",
+        "signature": "brittle",
+        "loop_off_who_affected": 0.8347,
+        "ceiling_who_affected_attach_ok_rate": 0.909,
+        "minority_prefix_rise_mean": 0.2778,
+        "minority_prefix_rise_scramble_mean": 0.3333,
+        "minority_rise_collapse_mean": -0.0555,
+        "minority_err_n_mean": 42.0,
+        "first_pass_arc_rise_mean": 0.0002,
+        "atoms_decline_rel_mean": 0.7619,
+        "endstate_who_affected_mean": 0.9075,
+        "ee_delta_loop_on_off_mean": 0.0728,
+        "net_broken_fixable_mean": 0.0,
+        "regressions_mean": 3.0,
+        "n_rules_mean": 16.0,
+        "rule_purity_mean": 1.0,
+        "minority_endstate_acc_mean": 1.0,
+        "residual_attach_frac_mean": 0.9836,
+        "immediate_recall_mean": 1.0,
+        "elapsed_s": 1.58,
+        "per_seed": [
+          {
+            "seed": 7,
+            "immediate_recall": 1.0,
+            "regressions": 3,
+            "minority_prefix_rise": 0.2778,
+            "minority_prefix_rise_scramble": 0.3333,
+            "minority_rise_collapse": -0.0555,
+            "minority_err_n": 42,
+            "first_pass_arc_rise": 0.0002,
+            "atoms_decline_rel": 0.7619,
+            "endstate_who_affected": 0.9075,
+            "ee_delta_loop_on_off": 0.0728,
+            "final_net_broken": 0,
+            "final_net_fixed": 96,
+            "final_exact_collisions": 0,
+            "net_broken_fixable": 0,
+            "minority_endstate_acc": 1.0,
+            "n_rules": 16,
+            "rule_purity": 1.0,
+            "compression_ratio": 2.625,
+            "residual_miss_total": 122,
+            "residual_miss_attach_err": 120,
+            "residual_miss_labeler": 2,
+            "residual_attach_frac": 0.9836
+          }
+        ]
+      },
+      "robust": {
+        "regime": "PH",
+        "signature": "robust",
+        "loop_off_who_affected": 0.8347,
+        "ceiling_who_affected_attach_ok_rate": 0.909,
+        "minority_prefix_rise_mean": -0.2778,
+        "minority_prefix_rise_scramble_mean": 0.5,
+        "minority_rise_collapse_mean": -0.7778,
+        "minority_err_n_mean": 42.0,
+        "first_pass_arc_rise_mean": -0.0379,
+        "atoms_decline_rel_mean": 0.5,
+        "endstate_who_affected_mean": 0.906,
+        "ee_delta_loop_on_off_mean": 0.0713,
+        "net_broken_fixable_mean": 0.0,
+        "regressions_mean": 25.0,
+        "n_rules_mean": 18.0,
+        "rule_purity_mean": 1.0,
+        "minority_endstate_acc_mean": 0.9903,
+        "residual_attach_frac_mean": 0.9677,
+        "immediate_recall_mean": 1.0,
+        "elapsed_s": 0.88,
+        "per_seed": [
+          {
+            "seed": 7,
+            "immediate_recall": 1.0,
+            "regressions": 25,
+            "minority_prefix_rise": -0.2778,
+            "minority_prefix_rise_scramble": 0.5,
+            "minority_rise_collapse": -0.7778,
+            "minority_err_n": 42,
+            "first_pass_arc_rise": -0.0379,
+            "atoms_decline_rel": 0.5,
+            "endstate_who_affected": 0.906,
+            "ee_delta_loop_on_off": 0.0713,
+            "final_net_broken": 0,
+            "final_net_fixed": 94,
+            "final_exact_collisions": 0,
+            "net_broken_fixable": 0,
+            "minority_endstate_acc": 0.9903,
+            "n_rules": 18,
+            "rule_purity": 1.0,
+            "compression_ratio": 2.389,
+            "residual_miss_total": 124,
+            "residual_miss_attach_err": 120,
+            "residual_miss_labeler": 4,
+            "residual_attach_frac": 0.9677
+          }
+        ]
+      }
+    },
+    "PHPP": {
+      "brittle": {
+        "regime": "PHPP",
+        "signature": "brittle",
+        "loop_off_who_affected": 0.7672,
+        "ceiling_who_affected_attach_ok_rate": 0.8673,
+        "minority_prefix_rise_mean": 0.7778,
+        "minority_prefix_rise_scramble_mean": 0.0,
+        "minority_rise_collapse_mean": 0.7778,
+        "minority_err_n_mean": 46.0,
+        "first_pass_arc_rise_mean": 0.0306,
+        "atoms_decline_rel_mean": 0.92,
+        "endstate_who_affected_mean": 0.865,
+        "ee_delta_loop_on_off_mean": 0.0978,
+        "net_broken_fixable_mean": 0.0,
+        "regressions_mean": 7.0,
+        "n_rules_mean": 19.0,
+        "rule_purity_mean": 1.0,
+        "minority_endstate_acc_mean": 0.9902,
+        "residual_attach_frac_mean": 0.9831,
+        "immediate_recall_mean": 1.0,
+        "elapsed_s": 1.8,
+        "per_seed": [
+          {
+            "seed": 7,
+            "immediate_recall": 1.0,
+            "regressions": 7,
+            "minority_prefix_rise": 0.7778,
+            "minority_prefix_rise_scramble": 0.0,
+            "minority_rise_collapse": 0.7778,
+            "minority_err_n": 46,
+            "first_pass_arc_rise": 0.0306,
+            "atoms_decline_rel": 0.92,
+            "endstate_who_affected": 0.865,
+            "ee_delta_loop_on_off": 0.0978,
+            "final_net_broken": 0,
+            "final_net_fixed": 129,
+            "final_exact_collisions": 0,
+            "net_broken_fixable": 0,
+            "minority_endstate_acc": 0.9902,
+            "n_rules": 19,
+            "rule_purity": 1.0,
+            "compression_ratio": 2.842,
+            "residual_miss_total": 178,
+            "residual_miss_attach_err": 175,
+            "residual_miss_labeler": 3,
+            "residual_attach_frac": 0.9831
+          }
+        ]
+      },
+      "robust": {
+        "regime": "PHPP",
+        "signature": "robust",
+        "loop_off_who_affected": 0.7672,
+        "ceiling_who_affected_attach_ok_rate": 0.8673,
+        "minority_prefix_rise_mean": -0.3889,
+        "minority_prefix_rise_scramble_mean": 0.5,
+        "minority_rise_collapse_mean": -0.8889,
+        "minority_err_n_mean": 46.0,
+        "first_pass_arc_rise_mean": -0.0004,
+        "atoms_decline_rel_mean": 0.875,
+        "endstate_who_affected_mean": 0.8628,
+        "ee_delta_loop_on_off_mean": 0.0956,
+        "net_broken_fixable_mean": 0.0,
+        "regressions_mean": 41.0,
+        "n_rules_mean": 19.0,
+        "rule_purity_mean": 1.0,
+        "minority_endstate_acc_mean": 0.9706,
+        "residual_attach_frac_mean": 0.9669,
+        "immediate_recall_mean": 1.0,
+        "elapsed_s": 1.65,
+        "per_seed": [
+          {
+            "seed": 7,
+            "immediate_recall": 1.0,
+            "regressions": 41,
+            "minority_prefix_rise": -0.3889,
+            "minority_prefix_rise_scramble": 0.5,
+            "minority_rise_collapse": -0.8889,
+            "minority_err_n": 46,
+            "first_pass_arc_rise": -0.0004,
+            "atoms_decline_rel": 0.875,
+            "endstate_who_affected": 0.8628,
+            "ee_delta_loop_on_off": 0.0956,
+            "final_net_broken": 0,
+            "final_net_fixed": 126,
+            "final_exact_collisions": 0,
+            "net_broken_fixable": 0,
+            "minority_endstate_acc": 0.9706,
+            "n_rules": 19,
+            "rule_purity": 1.0,
+            "compression_ratio": 2.316,
+            "residual_miss_total": 181,
+            "residual_miss_attach_err": 175,
+            "residual_miss_labeler": 6,
+            "residual_attach_frac": 0.9669
+          }
+        ]
+      }
+    }
+  },
+  "per_regime_stats": {
+    "PH": {
+      "n_patient": 1319,
+      "n_attach_ok": 1199,
+      "n_attach_err": 120,
+      "attach_ok_rate": 0.909,
+      "n_labeler_err_on_attach_ok": 98,
+      "minority_labeler_err": 42,
+      "role_patient": {
+        "obj": 1171,
+        "nsubj:pass": 148
+      },
+      "role_labeler_err": {
+        "nsubj:pass": 42,
+        "obj": 56
+      },
+      "role_attach_err": {
+        "obj": 75,
+        "nsubj:pass": 45
+      }
+    },
+    "PHPP": {
+      "n_patient": 1319,
+      "n_attach_ok": 1144,
+      "n_attach_err": 175,
+      "attach_ok_rate": 0.8673,
+      "n_labeler_err_on_attach_ok": 132,
+      "minority_labeler_err": 46,
+      "role_patient": {
+        "obj": 1171,
+        "nsubj:pass": 148
+      },
+      "role_labeler_err": {
+        "nsubj:pass": 46,
+        "obj": 86
+      },
+      "role_attach_err": {
+        "obj": 129,
+        "nsubj:pass": 46
+      }
+    }
+  },
+  "leak_clean": true,
+  "leak_mutation_probe": {
+    "leak_clean": true,
+    "n": 200
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "cardinality_ok": true,
+  "one_variable": "the signature (brittle vs robust); loop/ARTMAP/vigilance identical; regime is a controlled axis",
+  "robust_signature_design": {
+    "levers": "coarse-POS backoff + POS-free form anchors + downweighted fine-POS",
+    "weights": {
+      "form": 2,
+      "coarse": 2,
+      "fine": 1
+    },
+    "coarse_classes": [
+      "ADP",
+      "BND",
+      "CNJ",
+      "DET",
+      "MOD",
+      "NOM",
+      "PRT",
+      "PUN",
+      "ROOT",
+      "VRB",
+      "X"
+    ]
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "online ARTMAP who-affected recall; no quantitative noise floor",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <13min)",
+  "deterministic_seeding": true,
+  "storage": "no_storage_production_hdlab_untouched",
+  "loop_reused_from": "exp_reader_selfimprove_artmap_stream_udewt_v1 + _predicted_head_endtoend_v1 (verbatim)",
+  "brain_check_flag": "KNOWLEDGE-BASED (web-blocked): cue-redundancy/interactive-activation; web-verify if load-bearing",
+  "interpretation_note": "HELD-OUT coherent-gen = minority_prefix_rise + scramble collapse (VET ad659ee6, base-rate-free). Recovery = robust-PHPP restores what brittle-PHPP lost (atom 29409) WITHOUT losing brittle-PH's clean-regime discrimination."
+}

@@ -1,0 +1,141 @@
+{
+  "anchor_name": "ingest_learn_sleep_loop_cycle3_ppattach_v1",
+  "run_mode": "smoke",
+  "verdict": "FLAT_HONEST_COVERAGE_OR_MECHANISM",
+  "verdict_msg": "VERDICT rise=-0.0045 (acc_ingest_full=0.6592 vs acc_structure=0.6637) | curve={'0.00': 0.6637, '0.25': 0.6637, '0.50': 0.6614, '0.75': 0.6614, '1.00': 0.6592} | acc_scrambled=0.6637 acc_majority=0.6457 acc_random=0.4888 | coverage_frac=0.036 n_active=16 active_acc=0.625 struct_on_active=0.75 active_lift=-0.125 | n_nonneg=2/4 scramble_ok=True diagnosis=MECHANISM_GAP_covered_but_associations_do_not_discriminate_this_decision",
+  "summary": "VERDICT rise=-0.0045 (acc_ingest_full=0.6592 vs acc_structure=0.6637) | curve={'0.00': 0.6637, '0.25': 0.6637, '0.50': 0.6614, '0.75': 0.6614, '1.00': 0.6592} | acc_scrambled=0.6637 acc_majority=0.6457 acc_random=0.4888 | coverage_frac=0.036 n_active=16 active_acc=0.625 struct_on_active=0.75 active_lift=-0.125 | n_nonneg=2/4 scramble_ok=True diagnosis=MECHANISM_GAP_covered_but_associations_do_not_discriminate_this_decision",
+  "elapsed_s": 8.31,
+  "ts_iso": "2026-07-24T13:33:45.801744+00:00",
+  "n_test_items": 446,
+  "gold_strata_n": {
+    "N": 288,
+    "V": 158
+  },
+  "decision": "PP-attachment (V=verb-attach vs N=noun-attach); Hindle&Rooth lexical association",
+  "gold_source": "HUMAN UD-English-EWT dependency annotation (obl->VERB=V, nmod->NOUN=N); NON-CIRCULAR -- spaCy NEVER parses the test sentences; independent of the reading front-end",
+  "acc_structure": 0.6637,
+  "acc_majority": 0.6457,
+  "acc_random": 0.4888,
+  "acc_ingest_full": 0.6592,
+  "acc_ingest_scrambled": 0.6637,
+  "rise_full_minus_structure": -0.0045,
+  "learning_curve_acc": {
+    "0.00": 0.6637,
+    "0.25": 0.6637,
+    "0.50": 0.6614,
+    "0.75": 0.6614,
+    "1.00": 0.6592
+  },
+  "learning_curve_detail": {
+    "0.00": {
+      "k_units": 0,
+      "n_obs": 0,
+      "acc": 0.6637,
+      "n_active": 0,
+      "coverage_frac": 0.0,
+      "active_acc": null,
+      "struct_on_active_acc": null
+    },
+    "0.25": {
+      "k_units": 2,
+      "n_obs": 217,
+      "acc": 0.6637,
+      "n_active": 4,
+      "coverage_frac": 0.009,
+      "active_acc": 0.5,
+      "struct_on_active_acc": 0.5
+    },
+    "0.50": {
+      "k_units": 4,
+      "n_obs": 509,
+      "acc": 0.6614,
+      "n_active": 7,
+      "coverage_frac": 0.0157,
+      "active_acc": 0.4286,
+      "struct_on_active_acc": 0.5714
+    },
+    "0.75": {
+      "k_units": 6,
+      "n_obs": 762,
+      "acc": 0.6614,
+      "n_active": 11,
+      "coverage_frac": 0.0247,
+      "active_acc": 0.5455,
+      "struct_on_active_acc": 0.6364
+    },
+    "1.00": {
+      "k_units": 8,
+      "n_obs": 1062,
+      "acc": 0.6592,
+      "n_active": 16,
+      "coverage_frac": 0.0359,
+      "active_acc": 0.625,
+      "struct_on_active_acc": 0.75
+    }
+  },
+  "expected_cov_points": 5,
+  "cardinality_ok": true,
+  "curve_steps": [
+    0.0,
+    -0.0023,
+    0.0,
+    -0.0022
+  ],
+  "n_nonneg_steps": 2,
+  "zero_knowledge_matches_structure_selfcheck": true,
+  "coverage_frac_full": 0.0359,
+  "n_active_full": 16,
+  "active_acc_full": 0.625,
+  "struct_on_active_acc_full": 0.75,
+  "active_lift_full": -0.125,
+  "coverage_mechanism_diagnosis": "MECHANISM_GAP_covered_but_associations_do_not_discriminate_this_decision",
+  "scramble_ok": true,
+  "per_pred_digests": {
+    "structure": "328bf2a589b851c2",
+    "majority": "2ba56bf427759df0",
+    "random": "b2a18db5fe1649a7",
+    "ingest_full": "047ed3d49133f677",
+    "ingest_scrambled": "328bf2a589b851c2"
+  },
+  "arms_differ_verified": false,
+  "baseline_in_band": true,
+  "random_is_chance": true,
+  "discriminator_fires": true,
+  "n_ingest_units": 8,
+  "ingest_levels": [
+    "ele",
+    "int",
+    "adv"
+  ],
+  "n_ingest_obs_full": 1062,
+  "n_heads_learned": 366,
+  "syntactic_model_stats": {
+    "glob_pV": 0.3558,
+    "maj_class": "N",
+    "n_train_items": 3966,
+    "n_preps": 53
+  },
+  "runtime_invariant": "glass-box dict lookup ONLY at inference; NO LLM/network/autograd. spaCy is the READING front-end at INGEST time only; test = pre-parsed HUMAN UD gold.",
+  "one_variable_note": "All arms share the SAME UD human-gold test items, split, and binary attach mechanism. ONLY the decision source differs: STRUCTURE=prep-preference (Collins&Brooks, UD-train), INGEST=OneStop-READ lexical association (Hindle&Rooth), SCRAMBLED/MAJORITY/RANDOM=controls.",
+  "non_circular_note": "Cycle-2 was circular (gold=spaCy-dobj on the SAME sentences the spaCy reader scored). Here gold=HUMAN UD annotation; the reading knowledge is aggregate OneStop lexical statistics (a DIFFERENT corpus); spaCy never sees the test sentences -> non-circular. The ingested associations are spaCy-derived SILVER, so the ceiling reflects how well OneStop-read PP knowledge transfers to human-gold web text (the standard Hindle&Rooth parser-priors + human-gold-test setup).",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "binary attachment-accuracy; no quantitative noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "VET_PENDING": true,
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "acc_structure",
+    "acc_ingest_full",
+    "acc_ingest_scrambled",
+    "acc_majority",
+    "acc_random",
+    "learning_curve_acc",
+    "rise_full_minus_structure",
+    "coverage_frac_full",
+    "active_lift_full",
+    "coverage_mechanism_diagnosis",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "non_circular_note"
+  ]
+}

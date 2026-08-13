@@ -1,0 +1,138 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_FULL_3seeds_N4096_K10_M100_name_leak_0.887_pm_0.026_stripped_0.890_pm_0.022_feat_0.940_pm_0.024_w2v_0.960_pm_0.008_lift_w2v_over_stripped_+0.070_lift_w2v_over_name_+0.073_lift_feat_over_stripped_+0.050_planted_1.000_n_llm_calls_0_cv_w2v_0.0085_elapsed_9.3s",
+  "elapsed_s": 9.344350814819336,
+  "summary": {
+    "anchor": "atom_feature_encoder_PRODUCTION_stripped_v1",
+    "config_version": "atom_feature_encoder_PRODUCTION_stripped_v1: 4 arms (CHAR_TRIGRAM_NAME_LEAK / CHAR_TRIGRAM_STRIPPED / ATOM_FEATURE / ATOM_FEATURE_PLUS_WORD2VEC_DESC); k-means K=10 on N=100 sampled chain-grade atoms; mechanism_family_purity discriminator; HP word2vec_purity >= 0.75 AND lift_over_STRIPPED >= 0.20 AND lift_over_NAME_LEAK >= 0.05; HF lift_over_STRIPPED <= 0.05",
+    "run_mode": "full",
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "N_DIM": 4096,
+    "K_CLUSTERS": 10,
+    "N_ATOMS_SAMPLE": 100,
+    "arms": [
+      "ARM_CHAR_TRIGRAM_NAME_LEAK",
+      "ARM_CHAR_TRIGRAM_STRIPPED",
+      "ARM_ATOM_FEATURE",
+      "ARM_ATOM_FEATURE_PLUS_WORD2VEC_DESC"
+    ],
+    "arm_char_trigram_name_leak_purity_mean": 0.8866666666666667,
+    "arm_char_trigram_name_leak_purity_std": 0.026246692913372727,
+    "arm_char_trigram_stripped_purity_mean": 0.89,
+    "arm_char_trigram_stripped_purity_std": 0.021602468994692887,
+    "arm_atom_feature_purity_mean": 0.94,
+    "arm_atom_feature_purity_std": 0.024494897427831758,
+    "arm_atom_feature_plus_word2vec_desc_purity_mean": 0.96,
+    "arm_atom_feature_plus_word2vec_desc_purity_std": 0.008164965809277268,
+    "arm_atom_feature_plus_word2vec_desc_purity_cv": 0.008505172629401606,
+    "lift_w2v_over_stripped_mean": 0.06999999999999995,
+    "lift_w2v_over_stripped_std": 0.029439202887759516,
+    "lift_w2v_over_name_mean": 0.07333333333333329,
+    "lift_feat_over_stripped_mean": 0.04999999999999997,
+    "planted_block_purity_mean": 1.0,
+    "n_llm_calls": 0,
+    "n_chain_grade_atoms_pool": 451,
+    "hp_thresholds": {
+      "w2v_purity_floor": 0.75,
+      "lift_over_stripped_floor": 0.2,
+      "lift_over_name_leak_floor": 0.05,
+      "planted_purity_required": 1.0
+    },
+    "hp_gates": {
+      "w2v_purity_ok": true,
+      "lift_over_stripped_ok": false,
+      "lift_over_name_leak_ok": true,
+      "planted_ok": true,
+      "no_llm": true
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_char_trigram_name_leak_purity": 0.85,
+      "arm_char_trigram_stripped_purity": 0.86,
+      "arm_atom_feature_purity": 0.97,
+      "arm_atom_feature_plus_word2vec_desc_purity": 0.97,
+      "lift_w2v_over_stripped": 0.10999999999999999,
+      "lift_w2v_over_name_leak": 0.12,
+      "lift_feat_over_stripped": 0.10999999999999999,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "elapsed_s": 3.439451217651367,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "generation": 1,
+        "trigram": 1,
+        "other": 85,
+        "capacity": 8,
+        "storage": 2,
+        "binding": 1,
+        "whitening": 2
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782258243.734006
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_char_trigram_name_leak_purity": 0.91,
+      "arm_char_trigram_stripped_purity": 0.91,
+      "arm_atom_feature_purity": 0.91,
+      "arm_atom_feature_plus_word2vec_desc_purity": 0.95,
+      "lift_w2v_over_stripped": 0.039999999999999925,
+      "lift_w2v_over_name_leak": 0.039999999999999925,
+      "lift_feat_over_stripped": 0.0,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "elapsed_s": 2.9190046787261963,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "trigram": 1,
+        "other": 91,
+        "capacity": 5,
+        "binding": 1,
+        "whitening": 2
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782258246.6660798
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "M": 100,
+      "run_mode": "full",
+      "arm_char_trigram_name_leak_purity": 0.9,
+      "arm_char_trigram_stripped_purity": 0.9,
+      "arm_atom_feature_purity": 0.94,
+      "arm_atom_feature_plus_word2vec_desc_purity": 0.96,
+      "lift_w2v_over_stripped": 0.05999999999999994,
+      "lift_w2v_over_name_leak": 0.05999999999999994,
+      "lift_feat_over_stripped": 0.039999999999999925,
+      "planted_block_purity": 1.0,
+      "n_atoms_sampled": 100,
+      "k_clusters": 10,
+      "elapsed_s": 2.9858949184417725,
+      "n_llm_calls": 0,
+      "family_distribution": {
+        "generation": 1,
+        "other": 90,
+        "capacity": 5,
+        "storage": 2,
+        "whitening": 2
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782258249.6794257
+    }
+  }
+}

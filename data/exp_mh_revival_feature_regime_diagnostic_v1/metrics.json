@@ -1,0 +1,175 @@
+{
+  "anchor": "mh_revival_feature_regime_diagnostic_v1",
+  "anchor_name": "mh_revival_feature_regime_diagnostic_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_FLOOR_MET_INSUFFICIENT_LIFT: ARM_HOPFIELD_N2=0.6067 >= 0.5 but lift over softmax control = +0.1267 < +0.15. Regime distinction present but not chain-grade margin; queue follow-up or beta-sweep on softmax arm. arms: ARM_BASELINE_NO_SCHEMA=0.3733+/-0.0660 | ARM_HRR_BUNDLE_PROTOTYPE=0.4733+/-0.0772 | ARM_HOPFIELD_N2=0.6067+/-0.0249 | ARM_HOPFIELD_N4=0.4800+/-0.0283 | ARM_HOPFIELD_N10=0.3600+/-0.0566 | ARM_HOPFIELD_N20_SOFTMAX=0.4800+/-0.0000",
+  "headline": "MIDDLE_BAND_FLOOR_MET_INSUFFICIENT_LIFT: ARM_HOPFIELD_N2=0.6067 >= 0.5 but lift over softmax control = +0.1267 < +0.15. Regime distinction present but not chain-grade margin; queue follow-up or beta-sweep on softmax arm. arms: ARM_BASELINE_NO_SCHEMA=0.3733+/-0.0660 | ARM_HRR_BUNDLE_PROTOTYPE=0.4733+/-0.0772 | ARM_HOPFIELD_N2=0.6067+/-0.0249 | ARM_HOPFIELD_N4=0.4800+/-0.0283 | ARM_HOPFIELD_N10=0.3600+/-0.0566 | ARM_HOPFIELD_N20_SOFTMAX=0.4800+/-0.0000",
+  "n_seeds": 3,
+  "N": 8192,
+  "run_mode": "full",
+  "n_categories": 5,
+  "instances_per_category": 20,
+  "heldout_per_category": 10,
+  "chance": 0.2,
+  "arms_tested": [
+    "ARM_BASELINE_NO_SCHEMA",
+    "ARM_HRR_BUNDLE_PROTOTYPE",
+    "ARM_HOPFIELD_N2",
+    "ARM_HOPFIELD_N4",
+    "ARM_HOPFIELD_N10",
+    "ARM_HOPFIELD_N20_SOFTMAX"
+  ],
+  "hopfield_polynomial_n_grid": [
+    2,
+    4,
+    10
+  ],
+  "hopfield_softmax_beta": 2.0,
+  "cell1_feature_reference": 0.4733,
+  "cross_cell_rail_tol": 0.03,
+  "prior_mh_softmax_reference": 0.22,
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_SCHEMA": {
+        "mean_heldout_top1": 0.3733333333333333,
+        "std": 0.06599663291074441,
+        "cv": 0.17677669529663684,
+        "per_seed": [
+          0.42,
+          0.28,
+          0.42
+        ]
+      },
+      "ARM_HRR_BUNDLE_PROTOTYPE": {
+        "mean_heldout_top1": 0.47333333333333333,
+        "std": 0.07717224601860148,
+        "cv": 0.16303995637732707,
+        "per_seed": [
+          0.58,
+          0.4,
+          0.44
+        ]
+      },
+      "ARM_HOPFIELD_N2": {
+        "mean_heldout_top1": 0.6066666666666666,
+        "std": 0.024944382578492966,
+        "cv": 0.04111711414037303,
+        "per_seed": [
+          0.58,
+          0.6,
+          0.64
+        ]
+      },
+      "ARM_HOPFIELD_N4": {
+        "mean_heldout_top1": 0.48,
+        "std": 0.0282842712474619,
+        "cv": 0.05892556509887897,
+        "per_seed": [
+          0.5,
+          0.44,
+          0.5
+        ]
+      },
+      "ARM_HOPFIELD_N10": {
+        "mean_heldout_top1": 0.36000000000000004,
+        "std": 0.0565685424949238,
+        "cv": 0.15713484026367722,
+        "per_seed": [
+          0.4,
+          0.28,
+          0.4
+        ]
+      },
+      "ARM_HOPFIELD_N20_SOFTMAX": {
+        "mean_heldout_top1": 0.48,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.48,
+          0.48,
+          0.48
+        ]
+      }
+    },
+    "n2_lift_over_softmax": 0.1266666666666666,
+    "cross_cell_drift_vs_cell1": 3.333333333332966e-05,
+    "cell1_feature_reference": 0.4733,
+    "prior_mh_softmax_reference": 0.22,
+    "saturation_flags": [],
+    "chance": 0.2,
+    "hopfield_polynomial_n_grid": [
+      2,
+      4,
+      10
+    ],
+    "hopfield_softmax_beta_raw": 2.0,
+    "honest_scope": "Modern-Hopfield feature-regime n-sweep diagnostic; N=8192; 5 cats x 20 train + 10 heldout; chance=0.2000; rail=HRR_BUNDLE vs Cell 1 ref 0.4733 (drift=0.0000); regime ARM_HOPFIELD_N2=0.6067 vs ARM_HOPFIELD_N20_SOFTMAX=0.4800 (lift=+0.1267)"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.42,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.58,
+        "ARM_HOPFIELD_N2": 0.58,
+        "ARM_HOPFIELD_N4": 0.5,
+        "ARM_HOPFIELD_N10": 0.4,
+        "ARM_HOPFIELD_N20_SOFTMAX": 0.48
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.133148193359375,
+      "n_llm_calls": 0,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782516447.172732
+    },
+    {
+      "seed": 13,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.28,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.4,
+        "ARM_HOPFIELD_N2": 0.6,
+        "ARM_HOPFIELD_N4": 0.44,
+        "ARM_HOPFIELD_N10": 0.28,
+        "ARM_HOPFIELD_N20_SOFTMAX": 0.48
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.13011884689331055,
+      "n_llm_calls": 0,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782516447.3088496
+    },
+    {
+      "seed": 19,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_BASELINE_NO_SCHEMA": 0.42,
+        "ARM_HRR_BUNDLE_PROTOTYPE": 0.44,
+        "ARM_HOPFIELD_N2": 0.64,
+        "ARM_HOPFIELD_N4": 0.5,
+        "ARM_HOPFIELD_N10": 0.4,
+        "ARM_HOPFIELD_N20_SOFTMAX": 0.48
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.13099884986877441,
+      "n_llm_calls": 0,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782516447.4468553
+    }
+  ],
+  "encoder_provenance": "SUBSTRATE_NATIVE",
+  "metrics_source": "measured_cpu_mh_revival_feature_regime_6arm",
+  "elapsed_s": 0.43126535415649414,
+  "summary": "MIDDLE_BAND_FLOOR_MET_INSUFFICIENT_LIFT: ARM_HOPFIELD_N2=0.6067 >= 0.5 but lift over softmax control = +0.1267 < +0.15. Regime distinction present but not chain-grade margin; queue follow-up or beta-s",
+  "honest_scope": "Modern-Hopfield feature-regime n-sweep diagnostic; N=8192; 5 cats x 20 train + 10 heldout; chance=0.2000; rail=HRR_BUNDLE vs Cell 1 ref 0.4733 (drift=0.0000); regime ARM_HOPFIELD_N2=0.6067 vs ARM_HOPFIELD_N20_SOFTMAX=0.4800 (lift=+0.1267)",
+  "substrate_only_decode_gate": "N/A (compositional-gen primitive cell; zero LLM forward calls)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0
+}

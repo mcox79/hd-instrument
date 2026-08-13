@@ -1,0 +1,886 @@
+{
+  "verdict": "HARD_FAIL_FUSION_NOT_ROBUST",
+  "verdict_msg": "HARD_FAIL_FUSION_NOT_ROBUST || SPEARMAN: F_triv=0.000 F_A=0.520 single=0.561 FUSED=0.581 redundant=0.562 scrambled=0.520 C=0.689 || fused_gap(FUSED-F_A)=0.061 cv=0.429 loso_min=0.035 | fusion_beats_single=0.020 redundant_gap=0.001 scrambled_gap=-0.000 || STRATA fused_gap[n]: LOW=0.073[168] MID=0.066[157] HIGH=0.065[156] || selected=concreteness,visual,haptic,aoa,interoceptive,olfactory (n=6) || fairness F_triv<F_A<C ok=True | collapse eff_rank=31.8 rep_var=0.969 collapsed=False || GATES material(>=0.05)=True cv(<0.15)=False loso(>=0.05)=False high_nonneg=True beats_single(>=0.02)=True redundant_ok(<=0.02)=True scramble_ok(<=0.02)=True || PROMOTION=False || coverage_conc=75.4% n=1609 edges=9642 seeds=2 run=smoke",
+  "summary": "HARD_FAIL_FUSION_NOT_ROBUST || SPEARMAN: F_triv=0.000 F_A=0.520 single=0.561 FUSED=0.581 redundant=0.562 scrambled=0.520 C=0.689 || fused_gap(FUSED-F_A)=0.061 cv=0.429 loso_min=0.035 | fusion_beats_si",
+  "run_mode": "smoke",
+  "elapsed_s": 4.157809299998917,
+  "anchor_name": "grounding_multiattribute_fusion_v1",
+  "ts_iso": "2026-07-10T16:21:44.691201+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "n_nodes": 2500,
+    "dim": 64
+  },
+  "subgraph_meta": {
+    "n_subgraph": 2143,
+    "n_covered_concreteness": 1616,
+    "coverage_frac_concreteness": 0.754083061129258,
+    "n_covered_connected": 1609,
+    "n_edges": 9642,
+    "deg_min": 1.0,
+    "deg_med": 4.0,
+    "deg_max": 228.0,
+    "attr_coverage": {
+      "concreteness": 1.0,
+      "valence": 0.8185208203853325,
+      "arousal": 0.8185208203853325,
+      "dominance": 0.8185208203853325,
+      "visual": 1.0,
+      "haptic": 1.0,
+      "auditory": 1.0,
+      "gustatory": 1.0,
+      "olfactory": 1.0,
+      "interoceptive": 1.0,
+      "aoa": 0.9390926041019266
+    },
+    "subgraph_meta": {
+      "n_lines": 189654,
+      "n_cn_edges": 178979,
+      "n_nodes": 2143,
+      "n_edges": 6240,
+      "median_degree": 3.0,
+      "mean_degree": 5.823611759216052,
+      "frac_deg_ge_2": 1.0,
+      "n_relation_types": 16,
+      "relation_types": [
+        "CN_ANTONYM",
+        "CN_AT_LOCATION",
+        "CN_CAPABLE_OF",
+        "CN_CAUSES",
+        "CN_DERIVED_FROM",
+        "CN_HAS_A",
+        "CN_HAS_PROPERTY",
+        "CN_MADE_OF",
+        "CN_MANNER_OF",
+        "CN_MOTIVATED_BY_GOAL",
+        "CN_RECEIVES_ACTION",
+        "CN_RELATED_TO",
+        "CN_SYNONYM",
+        "CN_USED_FOR",
+        "IS_A",
+        "PART_OF"
+      ],
+      "n_typed_edges": 6240
+    }
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_FUSION_NOT_ROBUST",
+    "scores": {
+      "F_triv": 0.0,
+      "F_A": 0.5199620045371445,
+      "single": 0.560868209614376,
+      "fused": 0.581028169698565,
+      "redundant": 0.5619570856807011,
+      "scrambled": 0.5197585569225477,
+      "C": 0.6889027711686924
+    },
+    "ground_gap": 0.06106616516142052,
+    "cv": 0.428985825154976,
+    "loso_means": [
+      0.08726268441224255,
+      0.03486964591059849
+    ],
+    "loso_min": 0.03486964591059849,
+    "fusion_beats_single": 0.020159960084188966,
+    "redundant_gap": 0.0010888760663251285,
+    "scrambled_gap": -0.00020344761459678562,
+    "strata": {
+      "LOW": {
+        "fa": 0.38375874759809914,
+        "af": 0.4570718408955329,
+        "gap": 0.07331309329743374,
+        "n": 168
+      },
+      "MID": {
+        "fa": 0.5653104021068244,
+        "af": 0.6312384448624492,
+        "gap": 0.0659280427556248,
+        "n": 157
+      },
+      "HIGH": {
+        "fa": 0.527480254848979,
+        "af": 0.5927664001759847,
+        "gap": 0.06528614532700572,
+        "n": 156
+      }
+    },
+    "high_gap": 0.06528614532700572,
+    "per_seed_gaps": [
+      0.03486964591059849,
+      0.08726268441224255
+    ],
+    "fairness": {
+      "F_triv": 0.0,
+      "F_A": 0.5470732611270228,
+      "C": 0.6889027711686924,
+      "fairness_ok": true
+    },
+    "collapse": {
+      "cons_eff_rank": 31.793585777282715,
+      "cons_rep_var": 0.9694994986057281,
+      "collapsed": false
+    },
+    "independence": {
+      "corr_matrix": [
+        [
+          1.0,
+          -0.014,
+          -0.173,
+          -0.09,
+          0.623,
+          0.512,
+          -0.162,
+          0.078,
+          0.236,
+          -0.401,
+          -0.417
+        ],
+        [
+          -0.014,
+          1.0,
+          -0.103,
+          0.647,
+          0.124,
+          0.139,
+          0.098,
+          0.128,
+          0.142,
+          0.033,
+          -0.217
+        ],
+        [
+          -0.173,
+          -0.103,
+          1.0,
+          -0.115,
+          -0.066,
+          -0.128,
+          0.231,
+          0.028,
+          0.013,
+          0.348,
+          0.063
+        ],
+        [
+          -0.09,
+          0.647,
+          -0.115,
+          1.0,
+          0.021,
+          0.091,
+          0.032,
+          0.052,
+          0.003,
+          -0.007,
+          -0.118
+        ],
+        [
+          0.623,
+          0.124,
+          -0.066,
+          0.021,
+          1.0,
+          0.478,
+          0.007,
+          0.071,
+          0.258,
+          -0.332,
+          -0.388
+        ],
+        [
+          0.512,
+          0.139,
+          -0.128,
+          0.091,
+          0.478,
+          1.0,
+          -0.26,
+          0.231,
+          0.342,
+          0.007,
+          -0.43
+        ],
+        [
+          -0.162,
+          0.098,
+          0.231,
+          0.032,
+          0.007,
+          -0.26,
+          1.0,
+          -0.058,
+          0.068,
+          0.095,
+          -0.03
+        ],
+        [
+          0.078,
+          0.128,
+          0.028,
+          0.052,
+          0.071,
+          0.231,
+          -0.058,
+          1.0,
+          0.687,
+          0.187,
+          -0.112
+        ],
+        [
+          0.236,
+          0.142,
+          0.013,
+          0.003,
+          0.258,
+          0.342,
+          0.068,
+          0.687,
+          1.0,
+          0.121,
+          -0.218
+        ],
+        [
+          -0.401,
+          0.033,
+          0.348,
+          -0.007,
+          -0.332,
+          0.007,
+          0.095,
+          0.187,
+          0.121,
+          1.0,
+          -0.055
+        ],
+        [
+          -0.417,
+          -0.217,
+          0.063,
+          -0.118,
+          -0.388,
+          -0.43,
+          -0.03,
+          -0.112,
+          -0.218,
+          -0.055,
+          1.0
+        ]
+      ],
+      "attr_names": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "r_target": {
+        "concreteness": 1.0,
+        "valence": -0.014,
+        "arousal": -0.173,
+        "dominance": -0.09,
+        "visual": 0.623,
+        "haptic": 0.512,
+        "auditory": -0.162,
+        "gustatory": 0.078,
+        "olfactory": 0.236,
+        "interoceptive": -0.401,
+        "aoa": -0.417
+      },
+      "selection_audit": [
+        {
+          "attr": "visual",
+          "r_target": 0.623,
+          "max_r_selected": 0.623,
+          "incr_r2": 0.3883,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "haptic",
+          "r_target": 0.512,
+          "max_r_selected": 0.512,
+          "incr_r2": 0.0594,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "aoa",
+          "r_target": -0.417,
+          "max_r_selected": 0.43,
+          "incr_r2": 0.0148,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "interoceptive",
+          "r_target": -0.401,
+          "max_r_selected": 0.401,
+          "incr_r2": 0.0793,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "olfactory",
+          "r_target": 0.236,
+          "max_r_selected": 0.342,
+          "incr_r2": 0.0035,
+          "target_ok": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "arousal",
+          "r_target": -0.173,
+          "max_r_selected": 0.348,
+          "incr_r2": 0.0,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "auditory",
+          "r_target": -0.162,
+          "max_r_selected": 0.26,
+          "incr_r2": 0.0062,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "dominance",
+          "r_target": -0.09,
+          "max_r_selected": 0.118,
+          "incr_r2": 0.0172,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "gustatory",
+          "r_target": 0.078,
+          "max_r_selected": 0.687,
+          "incr_r2": 0.0002,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        },
+        {
+          "attr": "valence",
+          "r_target": -0.014,
+          "max_r_selected": 0.217,
+          "incr_r2": 0.0133,
+          "target_ok": false,
+          "redundant": false,
+          "selected": false
+        }
+      ],
+      "selected": [
+        "concreteness",
+        "visual",
+        "haptic",
+        "aoa",
+        "interoceptive",
+        "olfactory"
+      ],
+      "n_selected": 6,
+      "redundant_r": 0.7
+    },
+    "subgates": {
+      "material": true,
+      "cv_ok": false,
+      "loso_ok": false,
+      "high_nonneg": true,
+      "beats_single": true,
+      "redundant_ok": true,
+      "scramble_ok": true,
+      "promotion": false,
+      "ties_single": false,
+      "fragile": true,
+      "high_washes": false,
+      "redundancy_cheat": false,
+      "scramble_grounds": false
+    },
+    "bands": {
+      "GROUND_MARGIN": 0.05,
+      "CV_MAX": 0.15,
+      "CV_FAIL": 0.3,
+      "HIGH_NONNEG": 0.0,
+      "FUSION_BEAT": 0.02,
+      "REDUNDANT_MAX": 0.02,
+      "SCRAMBLE_MAX": 0.02,
+      "FAIR_FLOOR_GAP": 0.05,
+      "FAIR_HEADROOM": 0.05,
+      "MIN_STRAT_Q": 40,
+      "REDUNDANT_R": 0.7,
+      "MIN_TARGET_R": 0.2
+    }
+  },
+  "fairness": {
+    "F_triv": 0.0,
+    "F_A": 0.5470732611270228,
+    "C": 0.6889027711686924,
+    "fair_floor_ok": true,
+    "fair_headroom_ok": true,
+    "fairness_ok": true,
+    "channel_preflight": {
+      "cross_sim_r": 0.0549356320492195,
+      "struct_deg_r": -0.07012453016417647,
+      "attr_deg_r": 0.05829894559052295
+    }
+  },
+  "independence": {
+    "corr_matrix": [
+      [
+        1.0,
+        -0.014,
+        -0.173,
+        -0.09,
+        0.623,
+        0.512,
+        -0.162,
+        0.078,
+        0.236,
+        -0.401,
+        -0.417
+      ],
+      [
+        -0.014,
+        1.0,
+        -0.103,
+        0.647,
+        0.124,
+        0.139,
+        0.098,
+        0.128,
+        0.142,
+        0.033,
+        -0.217
+      ],
+      [
+        -0.173,
+        -0.103,
+        1.0,
+        -0.115,
+        -0.066,
+        -0.128,
+        0.231,
+        0.028,
+        0.013,
+        0.348,
+        0.063
+      ],
+      [
+        -0.09,
+        0.647,
+        -0.115,
+        1.0,
+        0.021,
+        0.091,
+        0.032,
+        0.052,
+        0.003,
+        -0.007,
+        -0.118
+      ],
+      [
+        0.623,
+        0.124,
+        -0.066,
+        0.021,
+        1.0,
+        0.478,
+        0.007,
+        0.071,
+        0.258,
+        -0.332,
+        -0.388
+      ],
+      [
+        0.512,
+        0.139,
+        -0.128,
+        0.091,
+        0.478,
+        1.0,
+        -0.26,
+        0.231,
+        0.342,
+        0.007,
+        -0.43
+      ],
+      [
+        -0.162,
+        0.098,
+        0.231,
+        0.032,
+        0.007,
+        -0.26,
+        1.0,
+        -0.058,
+        0.068,
+        0.095,
+        -0.03
+      ],
+      [
+        0.078,
+        0.128,
+        0.028,
+        0.052,
+        0.071,
+        0.231,
+        -0.058,
+        1.0,
+        0.687,
+        0.187,
+        -0.112
+      ],
+      [
+        0.236,
+        0.142,
+        0.013,
+        0.003,
+        0.258,
+        0.342,
+        0.068,
+        0.687,
+        1.0,
+        0.121,
+        -0.218
+      ],
+      [
+        -0.401,
+        0.033,
+        0.348,
+        -0.007,
+        -0.332,
+        0.007,
+        0.095,
+        0.187,
+        0.121,
+        1.0,
+        -0.055
+      ],
+      [
+        -0.417,
+        -0.217,
+        0.063,
+        -0.118,
+        -0.388,
+        -0.43,
+        -0.03,
+        -0.112,
+        -0.218,
+        -0.055,
+        1.0
+      ]
+    ],
+    "attr_names": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa"
+    ],
+    "r_target": {
+      "concreteness": 1.0,
+      "valence": -0.014,
+      "arousal": -0.173,
+      "dominance": -0.09,
+      "visual": 0.623,
+      "haptic": 0.512,
+      "auditory": -0.162,
+      "gustatory": 0.078,
+      "olfactory": 0.236,
+      "interoceptive": -0.401,
+      "aoa": -0.417
+    },
+    "selection_audit": [
+      {
+        "attr": "visual",
+        "r_target": 0.623,
+        "max_r_selected": 0.623,
+        "incr_r2": 0.3883,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "haptic",
+        "r_target": 0.512,
+        "max_r_selected": 0.512,
+        "incr_r2": 0.0594,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "aoa",
+        "r_target": -0.417,
+        "max_r_selected": 0.43,
+        "incr_r2": 0.0148,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "interoceptive",
+        "r_target": -0.401,
+        "max_r_selected": 0.401,
+        "incr_r2": 0.0793,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "olfactory",
+        "r_target": 0.236,
+        "max_r_selected": 0.342,
+        "incr_r2": 0.0035,
+        "target_ok": true,
+        "redundant": false,
+        "selected": true
+      },
+      {
+        "attr": "arousal",
+        "r_target": -0.173,
+        "max_r_selected": 0.348,
+        "incr_r2": 0.0,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "auditory",
+        "r_target": -0.162,
+        "max_r_selected": 0.26,
+        "incr_r2": 0.0062,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "dominance",
+        "r_target": -0.09,
+        "max_r_selected": 0.118,
+        "incr_r2": 0.0172,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "gustatory",
+        "r_target": 0.078,
+        "max_r_selected": 0.687,
+        "incr_r2": 0.0002,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      },
+      {
+        "attr": "valence",
+        "r_target": -0.014,
+        "max_r_selected": 0.217,
+        "incr_r2": 0.0133,
+        "target_ok": false,
+        "redundant": false,
+        "selected": false
+      }
+    ],
+    "selected": [
+      "concreteness",
+      "visual",
+      "haptic",
+      "aoa",
+      "interoceptive",
+      "olfactory"
+    ],
+    "n_selected": 6,
+    "redundant_r": 0.7
+  },
+  "coverage_density": {
+    "mean_lift": 0.010747820134019323,
+    "frac_helped": 0.5,
+    "spearman_lift_vs_degree": -0.05172242403272778,
+    "spearman_lift_vs_visible_neighbours": -0.04113111311191397,
+    "mean_lift_low_degree": 0.027682217072617345,
+    "mean_lift_high_degree": -0.01262582897382338,
+    "delta_hi_lo": -0.040308046046440726,
+    "interpretation": "channel_limited_low_mid_ceiling_limited_high"
+  },
+  "mechanism_selftest": {
+    "a_fused_beats_single": 0.0319,
+    "a_ground_gap": 0.2434,
+    "a_scr_gap": -0.0016,
+    "a_n_selected": 6,
+    "b_redundant_beats_single": -0.0025,
+    "b_n_selected": 1,
+    "c_head_FA": 0.1821,
+    "c_head_C": 0.5227,
+    "c_unpred_FA": -0.1088,
+    "c_unpred_C": -0.0431,
+    "d_healthy_repvar": 0.9973,
+    "a_compound": true,
+    "a_indep_selects": true,
+    "c_scr_no_ground": true,
+    "b_redundant_no_beat": true,
+    "b_gate_prunes": true,
+    "c_headroom_passes": true,
+    "c_commoncause_blocks": true,
+    "d_collapse_caught": true,
+    "arms_differ": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "scores": {
+        "F_TRIV": 0.0,
+        "F_A_RELATIONAL": 0.5405101600302756,
+        "A_PLUS_B_SINGLE": 0.5340736711835395,
+        "A_PLUS_FUSED": 0.5753798059408741,
+        "A_PLUS_FUSED_REDUNDANT": 0.5363133631219507,
+        "A_PLUS_FUSED_SCRAMBLED": 0.5407558831697387,
+        "C_CEILING": 0.7170973313856231
+      },
+      "strat": {
+        "F_A_RELATIONAL": {
+          "LOW": {
+            "spear": 0.3870482060312569,
+            "n": 176
+          },
+          "MID": {
+            "spear": 0.6003383713061132,
+            "n": 155
+          },
+          "HIGH": {
+            "spear": 0.5400766817706517,
+            "n": 151
+          }
+        },
+        "A_PLUS_FUSED": {
+          "LOW": {
+            "spear": 0.434769975786925,
+            "n": 176
+          },
+          "MID": {
+            "spear": 0.6375237665560246,
+            "n": 155
+          },
+          "HIGH": {
+            "spear": 0.5782432903450679,
+            "n": 151
+          }
+        }
+      },
+      "arm_sigs": {
+        "F_A_RELATIONAL": "e82752b6e567d5fe1495465638ad71b80b2a7e8cc7f8115e0f862ecaa0fd754a",
+        "A_PLUS_B_SINGLE": "d94eaa4f3d819f2b599ac6e5e7d662151e8106af3a59ade80970dafae6fbcfe0",
+        "A_PLUS_FUSED": "147611873e45d2122262b09375ba4927e794503f4fbc35ed72c01441555452b0",
+        "A_PLUS_FUSED_REDUNDANT": "fdd96c042890f69d11dbbb993c928e2b773943bb43fc191d1074ab3ec3c015c9",
+        "A_PLUS_FUSED_SCRAMBLED": "283f36d4efce28c94bab3ec6845124017a676d856b8bab0474dde250fc73ebf3",
+        "C_CEILING": "14f5097c4f125128fced8306590ce1b74b76a66871495cc55bedc90c4cb7009d"
+      },
+      "ground_gap": 0.03486964591059849,
+      "weights": [
+        0.15033771702485715,
+        0.20655218781035717,
+        0.18609472572542987,
+        0.19077257239013076,
+        0.10702262394518416,
+        0.1592201731040408
+      ],
+      "cons_eff_rank": 31.662437438964844,
+      "cons_rep_var": 0.9724225401878357,
+      "n": 1609,
+      "n_hold": 482
+    },
+    {
+      "seed": 13,
+      "scores": {
+        "F_TRIV": 0.0,
+        "F_A_RELATIONAL": 0.49941384904401326,
+        "A_PLUS_B_SINGLE": 0.5876627480452126,
+        "A_PLUS_FUSED": 0.5866765334562558,
+        "A_PLUS_FUSED_REDUNDANT": 0.5876008082394516,
+        "A_PLUS_FUSED_SCRAMBLED": 0.4987612306753567,
+        "C_CEILING": 0.6607082109517615
+      },
+      "strat": {
+        "F_A_RELATIONAL": {
+          "LOW": {
+            "spear": 0.38046928916494144,
+            "n": 161
+          },
+          "MID": {
+            "spear": 0.5302824329075355,
+            "n": 160
+          },
+          "HIGH": {
+            "spear": 0.5148838279273064,
+            "n": 161
+          }
+        },
+        "A_PLUS_FUSED": {
+          "LOW": {
+            "spear": 0.4793737060041408,
+            "n": 161
+          },
+          "MID": {
+            "spear": 0.6249531231688737,
+            "n": 160
+          },
+          "HIGH": {
+            "spear": 0.6072895100069015,
+            "n": 161
+          }
+        }
+      },
+      "arm_sigs": {
+        "F_A_RELATIONAL": "ce890b799ed60588816d824b81be026f53bd7f403d2fb5c22feaa2640b7b5aa9",
+        "A_PLUS_B_SINGLE": "44112bf23a642e9ddc30cfb6ec19a976b2e7662a51e6f003b87cfc32e0302a26",
+        "A_PLUS_FUSED": "c4b07ae1204215c12c779da38c8eaaaa900255f193b084c8354b78e6b3ec0d54",
+        "A_PLUS_FUSED_REDUNDANT": "71a55355c25821c19e684e3f309d349d1dcd8164f651eee882a24d56f37a797d",
+        "A_PLUS_FUSED_SCRAMBLED": "196fa30b66af54d0184750892dd16c34b894d3b92f2799399a71553fc92afdd3",
+        "C_CEILING": "de8cae4b52d7c21bdcc1048d622bb75af3e19437c366096e418f7a1409ceffe2"
+      },
+      "ground_gap": 0.08726268441224255,
+      "weights": [
+        0.18426212467389957,
+        0.14227126272026572,
+        0.18065729355585228,
+        0.16016188481618276,
+        0.1630583079018627,
+        0.169589126331937
+      ],
+      "cons_eff_rank": 31.924734115600586,
+      "cons_rep_var": 0.9665764570236206,
+      "n": 1609,
+      "n_hold": 482
+    }
+  ]
+}

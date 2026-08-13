@@ -1,0 +1,645 @@
+{
+  "verdict": "CHAIN_GRADE_HELDOUT_PARTIAL",
+  "verdict_msg": "HELD-OUT PARTIAL: bars held=['ARM_C_glass_box_ok', 'ARM_D_non_ceiling_reported'] short=['ARM_A_transfer', 'ARM_B_discriminator_fires']. Composed LitBank who-did-what 10/13 (acc=0.7692) vs naive 11; ARM_B fires=False; glass_box_ok=True; ARM_D ok=True. STEP1 McGuffey composed f1=0.6423 (STEP1_HARD_PASS). Report which component wins TRANSFER vs attenuate; held-out generalization CAN attenuate -- reported honestly.",
+  "summary": "CHAIN_GRADE_HELDOUT_PARTIAL: STEP1 mcg composed f1=0.6423 (base=0.592 dohave_ref=0.592 v3_ref=0.5738; STEP1_HARD_PASS; marginal={'slotfix': 0.0228, 'relabel': -0.0064, 'gate': 0.0253, 'whgap': 0.0086}) | STEP2 litbank who-did-what composed=10/13 naive=11 ARM_B_fires=False glass_box=True ARM_D=True chain_grade_heldout=False | parser_uas=0.7882",
+  "elapsed_s": 62.06,
+  "ts_iso": "2026-07-23T23:24:24.716163+00:00",
+  "anchor_name": "consolidated_reader_chaingrade_FULL_v1",
+  "run_mode": "full",
+  "seed": 20260723,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "step1_mcguffey": {
+    "order_n": 163,
+    "gold_n": 114,
+    "cumulative": {
+      "C0_BASE": {
+        "f1": 0.592,
+        "precision": 0.4933,
+        "recall": 0.74,
+        "recall_ceiling": 0.74,
+        "n_pred": 150,
+        "tp": 74,
+        "n_gold": 100,
+        "spurious_verb_fp": 35,
+        "subcat_fp": 35,
+        "kept_hash": "1de528e0a501662f",
+        "supp": {}
+      },
+      "C1_SLOTFIX": {
+        "f1": 0.6148,
+        "precision": 0.5032,
+        "recall": 0.79,
+        "recall_ceiling": 0.79,
+        "n_pred": 157,
+        "tp": 79,
+        "n_gold": 100,
+        "spurious_verb_fp": 37,
+        "subcat_fp": 36,
+        "kept_hash": "580c554e242c6de0",
+        "supp": {}
+      },
+      "C2_RELABEL": {
+        "f1": 0.6084,
+        "precision": 0.4908,
+        "recall": 0.8,
+        "recall_ceiling": 0.8,
+        "n_pred": 163,
+        "tp": 80,
+        "n_gold": 100,
+        "spurious_verb_fp": 40,
+        "subcat_fp": 37,
+        "kept_hash": "616a8067a6ce5af2",
+        "supp": {}
+      },
+      "C3_GATE": {
+        "f1": 0.6337,
+        "precision": 0.5385,
+        "recall": 0.77,
+        "recall_ceiling": 0.77,
+        "n_pred": 143,
+        "tp": 77,
+        "n_gold": 100,
+        "spurious_verb_fp": 37,
+        "subcat_fp": 23,
+        "kept_hash": "1881fd5c5f0c9f0d",
+        "supp": {
+          "g4_patient_excluded": 35,
+          "g1_pred_dropped": 2,
+          "g2_emissions_suppressed": 6,
+          "g3_selfloops_dropped": 1
+        }
+      },
+      "C4_FULL": {
+        "f1": 0.6423,
+        "precision": 0.5411,
+        "recall": 0.79,
+        "recall_ceiling": 0.79,
+        "n_pred": 146,
+        "tp": 79,
+        "n_gold": 100,
+        "spurious_verb_fp": 38,
+        "subcat_fp": 23,
+        "kept_hash": "dc5ca232b62a881c",
+        "supp": {
+          "g4_patient_excluded": 35,
+          "g1_pred_dropped": 2,
+          "g2_emissions_suppressed": 6,
+          "g3_selfloops_dropped": 1
+        }
+      }
+    },
+    "alone": {
+      "A_SLOTFIX": {
+        "f1": 0.6148,
+        "precision": 0.5032,
+        "recall": 0.79,
+        "recall_ceiling": 0.79,
+        "n_pred": 157,
+        "tp": 79,
+        "n_gold": 100,
+        "spurious_verb_fp": 37,
+        "subcat_fp": 36,
+        "kept_hash": "580c554e242c6de0",
+        "supp": {}
+      },
+      "A_RELABEL": {
+        "f1": 0.6016,
+        "precision": 0.4936,
+        "recall": 0.77,
+        "recall_ceiling": 0.77,
+        "n_pred": 156,
+        "tp": 77,
+        "n_gold": 100,
+        "spurious_verb_fp": 38,
+        "subcat_fp": 36,
+        "kept_hash": "31a3c8a3e1934563",
+        "supp": {}
+      },
+      "A_GATE": {
+        "f1": 0.6261,
+        "precision": 0.5538,
+        "recall": 0.72,
+        "recall_ceiling": 0.72,
+        "n_pred": 130,
+        "tp": 72,
+        "n_gold": 100,
+        "spurious_verb_fp": 32,
+        "subcat_fp": 21,
+        "kept_hash": "706233701b040da1",
+        "supp": {
+          "g4_patient_excluded": 34,
+          "g1_pred_dropped": 2,
+          "g2_emissions_suppressed": 6,
+          "g3_selfloops_dropped": 1
+        }
+      },
+      "A_WHGAP": {
+        "f1": 0.6008,
+        "precision": 0.4967,
+        "recall": 0.76,
+        "recall_ceiling": 0.76,
+        "n_pred": 153,
+        "tp": 76,
+        "n_gold": 100,
+        "spurious_verb_fp": 36,
+        "subcat_fp": 35,
+        "kept_hash": "d9fdb854bb0b5f49",
+        "supp": {}
+      },
+      "A_ENUMGENERAL": {
+        "f1": 0.5447,
+        "precision": 0.4589,
+        "recall": 0.67,
+        "recall_ceiling": 0.67,
+        "n_pred": 146,
+        "tp": 67,
+        "n_gold": 100,
+        "spurious_verb_fp": 38,
+        "subcat_fp": 31,
+        "kept_hash": "896da1b10311faae",
+        "supp": {}
+      }
+    },
+    "full_general": {
+      "f1": 0.5868,
+      "precision": 0.5,
+      "recall": 0.71,
+      "recall_ceiling": 0.71,
+      "n_pred": 142,
+      "tp": 71,
+      "n_gold": 100,
+      "spurious_verb_fp": 38,
+      "subcat_fp": 23,
+      "kept_hash": "dea862f11084c939",
+      "supp": {
+        "g4_patient_excluded": 32,
+        "g1_pred_dropped": 2,
+        "g2_emissions_suppressed": 5,
+        "g3_selfloops_dropped": 1
+      }
+    },
+    "marginal_cumulative": {
+      "slotfix": 0.0228,
+      "relabel": -0.0064,
+      "gate": 0.0253,
+      "whgap": 0.0086
+    },
+    "marginal_alone": {
+      "A_SLOTFIX": 0.0228,
+      "A_RELABEL": 0.0096,
+      "A_GATE": 0.0341,
+      "A_WHGAP": 0.0088,
+      "A_ENUMGENERAL": -0.0473
+    },
+    "base_f1": 0.592,
+    "full_f1": 0.6423,
+    "base_rc": 0.74,
+    "full_rc": 0.79,
+    "v3_ref": 0.5738,
+    "dohave_ref": 0.592,
+    "p1_base_reproduction_ok": true,
+    "no_net_regression": true,
+    "recall_ceiling_ok": true,
+    "step1_verdict": "STEP1_HARD_PASS",
+    "arms_hashes": {
+      "C0_BASE": "1de528e0a501662f",
+      "C1_SLOTFIX": "580c554e242c6de0",
+      "C2_RELABEL": "616a8067a6ce5af2",
+      "C3_GATE": "1881fd5c5f0c9f0d",
+      "C4_FULL": "dc5ca232b62a881c"
+    }
+  },
+  "step2_litbank": {
+    "n_gold": 13,
+    "n_novels": 6,
+    "n_passages": 17,
+    "arm_a": {
+      "n_correct": 10,
+      "accuracy": 0.7692,
+      "per_item": [
+        {
+          "qid": "prince1",
+          "pid": "prince",
+          "kind": "agent",
+          "verb": "provided",
+          "answer": "prince",
+          "correct": true,
+          "matched": [
+            "provided",
+            "prince",
+            "appliances"
+          ]
+        },
+        {
+          "qid": "prince2",
+          "pid": "prince",
+          "kind": "patient",
+          "verb": "provided",
+          "answer": "appliances",
+          "correct": true,
+          "matched": [
+            "provided",
+            "prince",
+            "appliances"
+          ]
+        },
+        {
+          "qid": "court1",
+          "pid": "courtier",
+          "kind": "patient",
+          "verb": "brought",
+          "answer": "furnaces",
+          "correct": false,
+          "matched": null
+        },
+        {
+          "qid": "court2",
+          "pid": "courtier",
+          "kind": "patient",
+          "verb": "welded",
+          "answer": "bolts",
+          "correct": true,
+          "matched": [
+            "welded",
+            "courtiers",
+            "bolts"
+          ]
+        },
+        {
+          "qid": "rd1",
+          "pid": "reddeath",
+          "kind": "patient",
+          "verb": "devastated",
+          "answer": "country",
+          "correct": true,
+          "matched": [
+            "devastated",
+            "death",
+            "country"
+          ]
+        },
+        {
+          "qid": "watch2",
+          "pid": "watch",
+          "kind": "agent",
+          "verb": "pulled",
+          "answer": "henry",
+          "correct": false,
+          "matched": null
+        },
+        {
+          "qid": "pants1",
+          "pid": "pants",
+          "kind": "patient",
+          "verb": "wore",
+          "answer": "pantaloons",
+          "correct": true,
+          "matched": [
+            "wore",
+            "he",
+            "pantaloons"
+          ]
+        },
+        {
+          "qid": "thrust1",
+          "pid": "thrust",
+          "kind": "patient",
+          "verb": "made",
+          "answer": "thrust",
+          "correct": true,
+          "matched": [
+            "made",
+            "he",
+            "thrust"
+          ]
+        },
+        {
+          "qid": "nip1",
+          "pid": "nippers",
+          "kind": "patient",
+          "verb": "get",
+          "answer": "table",
+          "correct": true,
+          "matched": [
+            "get",
+            "turn",
+            "table"
+          ]
+        },
+        {
+          "qid": "tur1",
+          "pid": "turkey",
+          "kind": "patient",
+          "verb": "appreciate",
+          "answer": "favor",
+          "correct": true,
+          "matched": [
+            "appreciate",
+            "turkey",
+            "favor"
+          ]
+        },
+        {
+          "qid": "mary1",
+          "pid": "maryknew",
+          "kind": "patient",
+          "verb": "knew",
+          "answer": "man",
+          "correct": false,
+          "matched": null
+        },
+        {
+          "qid": "ef1",
+          "pid": "emmafath",
+          "kind": "patient",
+          "verb": "loved",
+          "answer": "father",
+          "correct": true,
+          "matched": [
+            "loved",
+            "she",
+            "father"
+          ]
+        },
+        {
+          "qid": "ben1",
+          "pid": "bennet",
+          "kind": "patient",
+          "verb": "made",
+          "answer": "answer",
+          "correct": true,
+          "matched": [
+            "made",
+            "bennet",
+            "answer"
+          ]
+        }
+      ],
+      "arm_hash": "3123e6b386ceb920",
+      "supp": {
+        "g4_patient_excluded": 2,
+        "g2_emissions_suppressed": 1
+      }
+    },
+    "arm_b_naive": {
+      "n_correct": 11,
+      "accuracy": 0.8462,
+      "per_item": [
+        {
+          "qid": "prince1",
+          "pid": "prince",
+          "kind": "agent",
+          "verb": "provided",
+          "answer": "prince",
+          "correct": true,
+          "matched": [
+            "provided",
+            "prince",
+            "appliances"
+          ]
+        },
+        {
+          "qid": "prince2",
+          "pid": "prince",
+          "kind": "patient",
+          "verb": "provided",
+          "answer": "appliances",
+          "correct": true,
+          "matched": [
+            "provided",
+            "prince",
+            "appliances"
+          ]
+        },
+        {
+          "qid": "court1",
+          "pid": "courtier",
+          "kind": "patient",
+          "verb": "brought",
+          "answer": "furnaces",
+          "correct": false,
+          "matched": null
+        },
+        {
+          "qid": "court2",
+          "pid": "courtier",
+          "kind": "patient",
+          "verb": "welded",
+          "answer": "bolts",
+          "correct": true,
+          "matched": [
+            "welded",
+            "hammers",
+            "bolts"
+          ]
+        },
+        {
+          "qid": "rd1",
+          "pid": "reddeath",
+          "kind": "patient",
+          "verb": "devastated",
+          "answer": "country",
+          "correct": true,
+          "matched": [
+            "devastated",
+            "death",
+            "country"
+          ]
+        },
+        {
+          "qid": "watch2",
+          "pid": "watch",
+          "kind": "agent",
+          "verb": "pulled",
+          "answer": "henry",
+          "correct": true,
+          "matched": [
+            "pulled",
+            "henry",
+            "out"
+          ]
+        },
+        {
+          "qid": "pants1",
+          "pid": "pants",
+          "kind": "patient",
+          "verb": "wore",
+          "answer": "pantaloons",
+          "correct": true,
+          "matched": [
+            "wore",
+            "he",
+            "pantaloons"
+          ]
+        },
+        {
+          "qid": "thrust1",
+          "pid": "thrust",
+          "kind": "patient",
+          "verb": "made",
+          "answer": "thrust",
+          "correct": true,
+          "matched": [
+            "made",
+            "he",
+            "thrust"
+          ]
+        },
+        {
+          "qid": "nip1",
+          "pid": "nippers",
+          "kind": "patient",
+          "verb": "get",
+          "answer": "table",
+          "correct": true,
+          "matched": [
+            "get",
+            "nippers",
+            "table"
+          ]
+        },
+        {
+          "qid": "tur1",
+          "pid": "turkey",
+          "kind": "patient",
+          "verb": "appreciate",
+          "answer": "favor",
+          "correct": true,
+          "matched": [
+            "appreciate",
+            "turkey",
+            "favor"
+          ]
+        },
+        {
+          "qid": "mary1",
+          "pid": "maryknew",
+          "kind": "patient",
+          "verb": "knew",
+          "answer": "man",
+          "correct": false,
+          "matched": null
+        },
+        {
+          "qid": "ef1",
+          "pid": "emmafath",
+          "kind": "patient",
+          "verb": "loved",
+          "answer": "father",
+          "correct": true,
+          "matched": [
+            "loved",
+            "she",
+            "father"
+          ]
+        },
+        {
+          "qid": "ben1",
+          "pid": "bennet",
+          "kind": "patient",
+          "verb": "made",
+          "answer": "answer",
+          "correct": true,
+          "matched": [
+            "made",
+            "bennet",
+            "answer"
+          ]
+        }
+      ],
+      "arm_hash": "ba4df62f719db1dd",
+      "fires": false,
+      "recovered_by_composed_not_naive": []
+    },
+    "arm_c_glass_box": {
+      "replay_hash_stable": true,
+      "tamper_detected": true,
+      "causal_role_edit_flipped": true,
+      "bridge_head_edit_reroutes": true,
+      "glass_box_ok": true,
+      "audit_witness": {
+        "sid": "bennet",
+        "sentence": "Mr. Bennet made no answer.",
+        "audit_hash": "55f5b739ea806c401b5282ba389c652b4a7af4609f6046a73c542d787e5613c7",
+        "replay_hash": "55f5b739ea806c401b5282ba389c652b4a7af4609f6046a73c542d787e5613c7",
+        "tamper_hash": "82deeb144e0fcbf80b26e5f28b420444dfd739924cb6eb7da60ea6ac6487476c",
+        "emitted": [
+          [
+            "made",
+            "bennet",
+            "answer"
+          ]
+        ]
+      },
+      "causal_witness": {
+        "sid": "event",
+        "sentence": "The event had every promise of happiness for her friend",
+        "verb": "had",
+        "edited_step": "role assignment (AGENT<->PATIENT swap on one logged candidate pair)",
+        "before": [
+          "had",
+          "event",
+          "promise"
+        ],
+        "after": [
+          "had",
+          "promise",
+          "event"
+        ]
+      },
+      "bridge_witness": {
+        "sid": "courtier",
+        "sentence": "The courtiers, having entered, brought furnaces and massy hammers and welded the bolts",
+        "candidate": "courtiers",
+        "edited_step": "parse head-arc (re-pointed one candidate's head)",
+        "from_predicate": "having",
+        "to_predicate": "entered"
+      }
+    },
+    "arm_d": {
+      "n_gold": 13,
+      "n_novels": 6,
+      "min_n": 8,
+      "min_novels": 3,
+      "ok": true,
+      "small_n_caveat": "Held-out who-did-what gold is SMALL (N=13 svo items across 6 novels): this is a held-out GENERALIZATION probe, not a large-sample accuracy estimate. LitBank is the OOD generalization set; no component was tuned on it (no train-on-test). A larger held-out who-did-what gold would tighten the estimate (flagged follow-up)."
+    },
+    "arm_a_positive_transfer": false,
+    "chain_grade_heldout_earned": false,
+    "bars": {
+      "ARM_A_transfer": false,
+      "ARM_B_discriminator_fires": false,
+      "ARM_C_glass_box_ok": true,
+      "ARM_D_non_ceiling_reported": true
+    }
+  },
+  "chain_grade_heldout_earned": false,
+  "one_variable": "STEP1: cumulative + each-alone component ablation over the DOHAVE base (one component per arm). STEP2: ARM A composed reader (held-out general slot-rule config) vs ARM B naive positional (structure vs order); ARM C one edited logged intermediate vs unedited; ARM D which held-out sample. All components byte-identical IMPORT of banked cells.",
+  "bands": {
+    "P1_BASE_LO": 0.575,
+    "P1_BASE_HI": 0.605,
+    "STEP1_HP_F1": 0.6,
+    "STEP1_RC_TOL": 0.02,
+    "ARMD_MIN_N": 8,
+    "ARMD_MIN_NOVELS": 3,
+    "CITED_V3_F1": 0.5738,
+    "CITED_DOHAVE_F1": 0.592
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 44.6,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "transfer_summary": "Component transfer to held-out LitBank (VET hypotheses): G4-RP = held-out insurance; POS-Lever1 word-list DEV-SPECIFIC -> general syntactic-slot rule used on LitBank; WH-gap needs object-relatives present; ROLES-relabel structural -> should transfer. Which persist is MEASURED in step2_litbank.arm_b_naive.recovered_by_composed_not_naive + per_item.",
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web) via from-scratch arc-eager at a foreground budget; OOD transfer to McGuffey narrative AND LitBank adult-literary prose is the SAME untested transfer V3/E flagged. STEP2 held-out who-did-what gold is SMALL (verbatim-provenance, hand-authored for a DIFFERENT cell; anti-circular; NO train-on-test) -- a held-out GENERALIZATION probe, not a large-sample estimate. This is a CHAIN-GRADE CANDIDATE (composed reader wiring), CLAIM-VET-pending; strategic read = HYPOTHESIS pending skunkworks landed-VET. NOT banked."
+}

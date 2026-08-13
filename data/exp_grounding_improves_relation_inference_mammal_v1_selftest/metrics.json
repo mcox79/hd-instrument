@@ -1,0 +1,39 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS grounding-improves-relation-inference: planted FUSED beats RELATIONAL and SCRAMBLE on held-out-relation MRR; ORACLE fires; grounding carries info; arms distinct",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0,
+  "mechanism_selftest": {
+    "N": 230,
+    "n_heldout": 60,
+    "n_support": 60,
+    "n_query": 120,
+    "n_cold": 0,
+    "n_dropped": 0,
+    "heldout_mrr": {
+      "RELATIONAL_ONLY": 0.09752,
+      "GROUNDED_FUSED": 0.12318,
+      "GROUNDED_ONLY": 0.6331,
+      "SCRAMBLE_FUSED": 0.09478,
+      "RANDOM_CODES": 0.0241,
+      "ORACLE_ADDITIVE": 0.95694,
+      "BASELINE_POP": 0.46782
+    },
+    "gain": 0.02566,
+    "scramble_margin": 0.0284,
+    "grounded_info": 0.609,
+    "oracle_margin": 0.93284,
+    "oracle_ratio": 39.7,
+    "n_distinct_sigs": 7,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "fused_beats_rel": true,
+    "fused_beats_scr": true,
+    "ground_carries": true,
+    "rel_above_random": true,
+    "arms_differ": true,
+    "selftest_verdict": "MIDDLE_BAND_GROUNDING_REDUNDANT_FOR_REASONING",
+    "validity_preflight_ok": true
+  }
+}

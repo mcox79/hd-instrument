@@ -1,0 +1,307 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | RANDOM_BEATS_ENGRAM: engram_cor=0.145 <= random_cor=0.186 | base_acc=0.480 base_cor=0.248 | rand_cor=0.186 | engram_cor=0.144 dropin_cor=0.145 lift_over_rand=-0.041 | mask_density end=0.369 mid=0.366 | regime={\"N_DIM\": 512, \"N_CAT\": 25, \"N_TRAIN\": 5, \"proto_noise\": 0.6, \"alpha\": 0.048828125, \"baseline_per_seed\": [0.48, 0.52]} | n_seeds=2",
+  "summary": "HARD_FAIL | RANDOM_BEATS_ENGRAM: engram_cor=0.145 <= random_cor=0.186 | base_acc=0.480 base_cor=0.248 | rand_cor=0.186 | engram_cor=0.144 dropin_cor=0.145 lift_over_rand=-0.041 | mask_density end=0.369 mid=0.366 | regime={\"N_DIM\": 512, \"N_CAT\": 25, \"N_TRAIN\": 5, \"proto_noise\": 0.6, \"alpha\": 0.048828125, \"baseline_per_seed\": [0.48, 0.52]} | n_seeds=2",
+  "verdict_reason": "RANDOM_BEATS_ENGRAM: engram_cor=0.145 <= random_cor=0.186",
+  "per_arm": {
+    "baseline_no_mask": {
+      "7": {
+        "new_pattern_acc": 0.48,
+        "heldout_acc": 0.48,
+        "cor_score": 0.24988148331642152,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 1.0,
+        "mask_density_end": 1.0,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 1.0
+      },
+      "17": {
+        "new_pattern_acc": 0.48,
+        "heldout_acc": 0.48,
+        "cor_score": 0.24543612360954284,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 1.0,
+        "mask_density_end": 1.0,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 1.0
+      }
+    },
+    "random_mask_k20": {
+      "7": {
+        "new_pattern_acc": 0.52,
+        "heldout_acc": 0.52,
+        "cor_score": 0.18610956847667695,
+        "mask_density_start": 0.4964843690395355,
+        "mask_density_mid": 0.4964843690395355,
+        "mask_density_end": 0.4964843690395355,
+        "dim_overlap_start": 0.25674688816070557,
+        "dim_overlap_end": 0.25674688816070557
+      },
+      "17": {
+        "new_pattern_acc": 0.52,
+        "heldout_acc": 0.52,
+        "cor_score": 0.1865688681602478,
+        "mask_density_start": 0.5049999952316284,
+        "mask_density_mid": 0.5049999952316284,
+        "mask_density_end": 0.5049999952316284,
+        "dim_overlap_start": 0.26403748989105225,
+        "dim_overlap_end": 0.26403748989105225
+      }
+    },
+    "engram_dropout": {
+      "7": {
+        "new_pattern_acc": 0.24,
+        "heldout_acc": 0.24,
+        "cor_score": 0.1114437997341156,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 0.3597812354564667,
+        "mask_density_end": 0.3597812354564667,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 0.13818754255771637
+      },
+      "17": {
+        "new_pattern_acc": 0.44,
+        "heldout_acc": 0.44,
+        "cor_score": 0.1757124388217926,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 0.3573281168937683,
+        "mask_density_end": 0.3573281168937683,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 0.13681411743164062
+      }
+    },
+    "engram_dropout_plus_dropin": {
+      "7": {
+        "new_pattern_acc": 0.24,
+        "heldout_acc": 0.24,
+        "cor_score": 0.11259902119636536,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 0.36659371852874756,
+        "mask_density_end": 0.3702999949455261,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 0.14594657719135284
+      },
+      "17": {
+        "new_pattern_acc": 0.44,
+        "heldout_acc": 0.44,
+        "cor_score": 0.17723434269428254,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 0.3648921847343445,
+        "mask_density_end": 0.3685702979564667,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 0.14515802264213562
+      }
+    },
+    "diag_mask_size_over_cycles": {
+      "7": {
+        "new_pattern_acc": 0.37036406993865967,
+        "heldout_acc": 0.3666015565395355,
+        "cor_score": 0.11264393806457519,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 0.3666015565395355,
+        "mask_density_end": 0.37036406993865967,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 0.1459941416978836
+      },
+      "17": {
+        "new_pattern_acc": 0.3686046600341797,
+        "heldout_acc": 0.36485153436660767,
+        "cor_score": 0.17734364330768584,
+        "mask_density_start": 1.0,
+        "mask_density_mid": 0.36485153436660767,
+        "mask_density_end": 0.3686046600341797,
+        "dim_overlap_start": 1.0,
+        "dim_overlap_end": 0.14500920474529266
+      }
+    }
+  },
+  "per_arm_summary": {
+    "baseline_no_mask": {
+      "mean_acc": 0.48,
+      "std_acc": 0.0,
+      "cv_acc": 0.0,
+      "mean_cor": 0.2476588034629822,
+      "mean_mask_density_end": 1.0,
+      "mean_mask_density_mid": 1.0,
+      "mean_dim_overlap_end": 1.0,
+      "n": 2
+    },
+    "random_mask_k20": {
+      "mean_acc": 0.52,
+      "std_acc": 0.0,
+      "cv_acc": 0.0,
+      "mean_cor": 0.1863392183184624,
+      "mean_mask_density_end": 0.500742182135582,
+      "mean_mask_density_mid": 0.500742182135582,
+      "mean_dim_overlap_end": 0.2603921890258789,
+      "n": 2
+    },
+    "engram_dropout": {
+      "mean_acc": 0.33999999999999997,
+      "std_acc": 0.1,
+      "cv_acc": 0.2941176470588236,
+      "mean_cor": 0.1435781192779541,
+      "mean_mask_density_end": 0.3585546761751175,
+      "mean_mask_density_mid": 0.3585546761751175,
+      "mean_dim_overlap_end": 0.1375008299946785,
+      "n": 2
+    },
+    "engram_dropout_plus_dropin": {
+      "mean_acc": 0.33999999999999997,
+      "std_acc": 0.1,
+      "cv_acc": 0.2941176470588236,
+      "mean_cor": 0.14491668194532395,
+      "mean_mask_density_end": 0.3694351464509964,
+      "mean_mask_density_mid": 0.365742951631546,
+      "mean_dim_overlap_end": 0.14555229991674423,
+      "n": 2
+    },
+    "diag_mask_size_over_cycles": {
+      "mean_acc": 0.3694843649864197,
+      "std_acc": 0.0008797049522399902,
+      "cv_acc": 0.0023808989922275156,
+      "mean_cor": 0.14499379068613052,
+      "mean_mask_density_end": 0.3694843649864197,
+      "mean_mask_density_mid": 0.3657265454530716,
+      "mean_dim_overlap_end": 0.14550167322158813,
+      "n": 2
+    }
+  },
+  "found_cfg": {
+    "N_DIM": 512,
+    "N_CAT": 25,
+    "N_TRAIN": 5,
+    "proto_noise": 0.6,
+    "alpha": 0.048828125,
+    "baseline_acc": 0.5,
+    "baseline_per_seed": [
+      0.48,
+      0.52
+    ]
+  },
+  "probe_results": [
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 5,
+      "proto_noise": 0.55,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.1,
+      "baseline_per_seed": [
+        0.12,
+        0.08
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 5,
+      "proto_noise": 0.6,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.5,
+      "baseline_per_seed": [
+        0.48,
+        0.52
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 5,
+      "proto_noise": 0.65,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.98,
+      "baseline_per_seed": [
+        0.96,
+        1.0
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 7,
+      "proto_noise": 0.55,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.04,
+      "baseline_per_seed": [
+        0.04,
+        0.04
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 7,
+      "proto_noise": 0.6,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.5800000000000001,
+      "baseline_per_seed": [
+        0.6,
+        0.56
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 7,
+      "proto_noise": 0.65,
+      "alpha": 0.048828125,
+      "baseline_acc": 1.0,
+      "baseline_per_seed": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 10,
+      "proto_noise": 0.55,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.16,
+      "baseline_per_seed": [
+        0.16,
+        0.16
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 10,
+      "proto_noise": 0.6,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.6799999999999999,
+      "baseline_per_seed": [
+        0.72,
+        0.64
+      ]
+    },
+    {
+      "N_DIM": 512,
+      "N_CAT": 25,
+      "N_TRAIN": 10,
+      "proto_noise": 0.65,
+      "alpha": 0.048828125,
+      "baseline_acc": 0.98,
+      "baseline_per_seed": [
+        1.0,
+        0.96
+      ]
+    }
+  ],
+  "baseline_in_band": true,
+  "engram_dropin_cor": 0.14491668194532395,
+  "cor_lift_over_random": -0.04142253637313845,
+  "mask_density_end": 0.3694351464509964,
+  "n_seeds_complete": 2,
+  "expected_n_units": 11,
+  "completed_units": 11,
+  "cardinality_ok": true,
+  "anchor_name": "engram_dropout_inhibitory_plasticity_v1",
+  "elapsed_s": 55.4,
+  "ts_iso": "2026-06-27T19:56:54Z",
+  "pid": 32640,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=engram_dropout_inhibitory_plasticity_v1,probe_N=[512],probe_NCAT=[25],probe_NTRAIN=[5, 7, 10],probe_noise=[0.55, 0.6, 0.65],seeds=[7, 17],mode=smoke,HP_cor>=0.50,HP_lift_over_random>=0.20,HP_mask_density=[0.10,0.30],HP_baseline_band=[0.40,0.65],HP_cv<=0.10,HF_mask_collapse<0.05,HF_mask_null>0.80,delta_dropout=0.100,delta_dropin=0.020,recruit_p=0.050,N_CYCLES=50,hardening=L1early+L2perseed+L3outertry+L4importsentinel,FAIRNESS=PROBE_BASELINE_IN_BAND_THEN_ENGRAM_MECHANISM",
+  "_hardening_marker": "v1_engram_dropout_inhibitory"
+}

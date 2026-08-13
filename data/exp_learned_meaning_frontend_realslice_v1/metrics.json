@@ -1,0 +1,526 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "converged learned-linear in-vocab fine lift=0.1497 (in [0.05,0.15)) with controls holding (sep=0.4251, CI-lower-above-frozen=True); real+improving but modest; glass frac_fixed=0.3299; the learnable front-end MOVES the real wall but not to the HARD_PASS bar -> partial scaling; deeper grounding still indicated for the rest",
+  "summary": "MIDDLE: converged learned-linear in-vocab fine lift=0.1497 (in [0.05,0.15)) with controls holding (sep=0.4251, CI-lower-above-frozen=True); real+improving but modest; glass frac_fixed=0.3299; the learnable front-end MOVES the real wall but not to the HARD_PASS bar -> partial scaling; deeper grounding still indicated for the rest",
+  "run_mode": "full",
+  "elapsed_s": 383.65,
+  "ts_iso": "2026-07-25T13:53:58.492820+00:00",
+  "anchor_name": "learned_meaning_frontend_realslice_v1",
+  "seed": 20260725,
+  "one_variable": "concept->comparison transform (FROZEN vs LEARNED-LINEAR vs LEARNED-MLP); identical eval/candidates/targets",
+  "primary_metric": "in-vocab FINE-tier discrimination learning curve (learned-linear vs frozen) on REAL WorldTree content, Wilson CI",
+  "n_triples_parsed": 1826,
+  "n_triples_invocab": 1821,
+  "dropped_oov": 5,
+  "n_items": 1821,
+  "n_eval_fine_invocab": 915,
+  "n_eval_coarse_invocab": 607,
+  "n_heldout_items": 299,
+  "n_heldout_concepts": 198,
+  "pool_sizes": {
+    "CONTAINS": 122,
+    "HABITAT": 30,
+    "KINDOF": 266,
+    "MADEOF": 134,
+    "PARTOF": 155,
+    "PROP-RESOURCES-RENEWABLE": 3,
+    "SOURCEOF": 91,
+    "USEDFOR": 172
+  },
+  "K_distract": 5,
+  "chance_fine": 0.171,
+  "mean_distractor_cosine": 0.6084,
+  "exposures": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "learned_linear_fine_invocab_curve_GD": [
+    0.1563,
+    0.0514,
+    0.0612,
+    0.0514,
+    0.0546,
+    0.0601,
+    0.0743,
+    0.1005,
+    0.1366,
+    0.188,
+    0.2557,
+    0.3497
+  ],
+  "learned_linear_coarse_invocab_curve_GD": [
+    0.1647,
+    0.0395,
+    0.0824,
+    0.0939,
+    0.1071,
+    0.1186,
+    0.1549,
+    0.2142,
+    0.2768,
+    0.3674,
+    0.4629,
+    0.5387
+  ],
+  "learned_mlp_fine_invocab_curve_GD": [
+    0.1607,
+    0.0809,
+    0.1301,
+    0.082,
+    0.0732,
+    0.0765,
+    0.0699,
+    0.0601,
+    0.0514,
+    0.0546,
+    0.0623,
+    0.0798
+  ],
+  "shuffled_fine_invocab_curve_GD": [
+    0.1563,
+    0.0514,
+    0.0568,
+    0.0481,
+    0.0481,
+    0.0448,
+    0.0492,
+    0.0448,
+    0.0415,
+    0.0437,
+    0.0514,
+    0.0492
+  ],
+  "frozen_fine_invocab": 0.329,
+  "frozen_fine_invocab_ci": [
+    0.2993,
+    0.3601
+  ],
+  "frozen_coarse_invocab": 0.3344,
+  "converged_linear_fine_invocab": 0.4787,
+  "converged_linear_fine_invocab_ci": [
+    0.4465,
+    0.5111
+  ],
+  "converged_linear_coarse_invocab": 0.6557,
+  "converged_shuffled_fine_invocab": 0.0536,
+  "in_vocab_fine_lift_over_frozen_converged": 0.1497,
+  "in_vocab_true_vs_shuffled_sep_converged": 0.4251,
+  "note_converged_vs_GD": "converged = closed-form ridge (exact GD optimum); GD curve is under-trained at real scale (shared linear map fits ~1500 pairs, converges slowly) -> verdict lift/sep use CONVERGED; GD curve shows learnability/improvement with exposure",
+  "learned_linear_fine_heldout_curve_GD": [
+    0.1619,
+    0.0524,
+    0.0619,
+    0.0571,
+    0.0524,
+    0.0619,
+    0.0571,
+    0.0619,
+    0.0714,
+    0.0857,
+    0.0952,
+    0.1143
+  ],
+  "learned_mlp_fine_heldout_curve_GD": [
+    0.1714,
+    0.0571,
+    0.1762,
+    0.1238,
+    0.0524,
+    0.0429,
+    0.0429,
+    0.0429,
+    0.0286,
+    0.0333,
+    0.0286,
+    0.0381
+  ],
+  "shuffled_fine_heldout_curve_GD": [
+    0.1619,
+    0.0524,
+    0.0571,
+    0.0571,
+    0.0476,
+    0.0524,
+    0.0429,
+    0.0381,
+    0.0429,
+    0.0333,
+    0.0333,
+    0.0333
+  ],
+  "converged_linear_fine_heldout": 0.119,
+  "frozen_fine_heldout": 0.3238,
+  "heldout_fine_lift_over_frozen_GD": -0.2095,
+  "heldout_fine_lift_over_frozen_converged": -0.2048,
+  "heldout_note": "distinctive/item-specific properties expected to need per-concept ingestion (curriculum coverage); held-out near base-rate is the coverage story, NOT a front-end failure",
+  "controls_hold": true,
+  "shuffled_did_not_rise": true,
+  "iv_curve_rises": true,
+  "iv_fine_ci_lower_above_frozen": true,
+  "glassbox_energy": {
+    "n_energy_cases": 157,
+    "frozen_missed": 97,
+    "learned_fixed_of_missed": 32,
+    "frac_missed_now_fixed": 0.3299,
+    "cases": [
+      {
+        "concept": "atmosphere",
+        "relation": "CONTAINS",
+        "gold": "gases",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "ball",
+        "relation": "CONTAINS",
+        "gold": "gas",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "balloon",
+        "relation": "CONTAINS",
+        "gold": "gas",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "biomass",
+        "relation": "CONTAINS",
+        "gold": "organic matter",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "bonds",
+        "relation": "CONTAINS",
+        "gold": "chemical energy",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "bubble",
+        "relation": "CONTAINS",
+        "gold": "gas",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "car",
+        "relation": "CONTAINS",
+        "gold": "electric motor",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "compounds",
+        "relation": "CONTAINS",
+        "gold": "chemical bonds",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "compounds",
+        "relation": "CONTAINS",
+        "gold": "hydrogen",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "fertilizer",
+        "relation": "CONTAINS",
+        "gold": "chemicals",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": false
+      },
+      {
+        "concept": "field",
+        "relation": "CONTAINS",
+        "gold": "soil",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "fuel",
+        "relation": "CONTAINS",
+        "gold": "chemical energy",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "ground",
+        "relation": "CONTAINS",
+        "gold": "soil",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "hydrogen",
+        "relation": "CONTAINS",
+        "gold": "chemical energy",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "metamorphic rocks",
+        "relation": "CONTAINS",
+        "gold": "fossils",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": false
+      },
+      {
+        "concept": "noble gases family",
+        "relation": "CONTAINS",
+        "gold": "helium",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "ocean",
+        "relation": "CONTAINS",
+        "gold": "waves",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "refrigerators",
+        "relation": "CONTAINS",
+        "gold": "harmful chemicals",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "runoff",
+        "relation": "CONTAINS",
+        "gold": "chemicals",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "solar system",
+        "relation": "CONTAINS",
+        "gold": "asteroids",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "solar system",
+        "relation": "CONTAINS",
+        "gold": "planets",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "substances",
+        "relation": "CONTAINS",
+        "gold": "chemical bond energy",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "tennis ball",
+        "relation": "CONTAINS",
+        "gold": "gas",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "top layer of soil",
+        "relation": "CONTAINS",
+        "gold": "nutrients",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "troposphere",
+        "relation": "CONTAINS",
+        "gold": "the gases",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "waves",
+        "relation": "CONTAINS",
+        "gold": "mechanical energy",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "acoustic signal",
+        "relation": "KINDOF",
+        "gold": "sound wave",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "biofuel",
+        "relation": "KINDOF",
+        "gold": "fuel",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "boiling",
+        "relation": "KINDOF",
+        "gold": "phase change",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "boiling point",
+        "relation": "KINDOF",
+        "gold": "property",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "brachiopod fossils",
+        "relation": "KINDOF",
+        "gold": "index fossil",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "burning coal",
+        "relation": "KINDOF",
+        "gold": "exothermic reaction",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "cellular energy",
+        "relation": "KINDOF",
+        "gold": "chemical energy",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": false
+      },
+      {
+        "concept": "chemical change",
+        "relation": "KINDOF",
+        "gold": "chemical reaction",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "chemical composition",
+        "relation": "KINDOF",
+        "gold": "property",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      },
+      {
+        "concept": "chemical compound",
+        "relation": "KINDOF",
+        "gold": "compound",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": false
+      },
+      {
+        "concept": "chemical property",
+        "relation": "KINDOF",
+        "gold": "property",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "chemical weathering",
+        "relation": "KINDOF",
+        "gold": "weathering",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": false
+      },
+      {
+        "concept": "coal",
+        "relation": "KINDOF",
+        "gold": "fossil fuel",
+        "n_cand": 6,
+        "frozen_correct": true,
+        "learned_correct": true
+      },
+      {
+        "concept": "coal",
+        "relation": "KINDOF",
+        "gold": "fuel",
+        "n_cand": 6,
+        "frozen_correct": false,
+        "learned_correct": true
+      }
+    ]
+  },
+  "glass_moves_wall": false,
+  "coarse_before_fine": {
+    "coarse_cross": 512,
+    "fine_cross": 1024,
+    "coarse_before_fine": true
+  },
+  "bands": {
+    "LIFT_HP": 0.15,
+    "LIFT_HF": 0.05,
+    "SHUFFLE_SEP": 0.1,
+    "SHUFFLE_FLAT": 0.12,
+    "FROZEN_SAT": 0.85,
+    "GLASS_MIN": 0.34,
+    "MIN_EVAL_FINE": 60
+  },
+  "hub_config": {
+    "K_DISTRACT": 5,
+    "LR_LIN": 0.5,
+    "LR_MLP": 0.1,
+    "H_BOTTLENECK": 64,
+    "WEIGHT_DECAY": 0.0001
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_sorted_no_builtin_hash",
+  "storage": "no_composition_selfcontained_differentiation",
+  "difficulty_on": "nearest-frozen hard distractors; mean_distractor_cos=0.6084; frozen fine below ceiling",
+  "contract": "INLINE-LOCAL foreground-to-completion; no push/remote-persist; VET-PENDING"
+}

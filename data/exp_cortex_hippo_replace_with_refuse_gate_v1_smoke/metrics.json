@@ -1,0 +1,12 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: META_RULE_AF VIOLATION: STANDARD and DENSE_REPLACE identical at IN_KB seed 7; arm-implementation bug",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "run_mode": "smoke",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_cortex_hippo_replace_with_refuse_gate_v1.py\", line 750, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_cortex_hippo_replace_with_refuse_gate_v1.py\", line 696, in main\n    digests = _selftest_arms_must_differ(units)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_cortex_hippo_replace_with_refuse_gate_v1.py\", line 489, in _selftest_arms_must_differ\n    assert digests[std_k] != digests[dr_k], (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: META_RULE_AF VIOLATION: STANDARD and DENSE_REPLACE identical at IN_KB seed 7; arm-implementation bug\n",
+  "ts_iso": "2026-07-01T14:56:20.397641+00:00",
+  "pid": 24100,
+  "anchor_name": "cortex_hippo_replace_with_refuse_gate_v1",
+  "config_version": "ANCHOR=cortex_hippo_replace_with_refuse_gate_v1,N_c=1024,M=50,V_REL=64,beta=2.0,sigma_in=0.05,N_OOD=50,SEEDS=7,RUN_MODE=smoke"
+}

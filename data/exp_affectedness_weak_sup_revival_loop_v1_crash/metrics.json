@@ -1,0 +1,9 @@
+{
+  "anchor_name": "affectedness_weak_sup_revival_loop_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "KeyError: 'feat'",
+  "summary": "CELL_CRASHED: KeyError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_affectedness_weak_sup_revival_loop_v1.py\", line 723, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_affectedness_weak_sup_revival_loop_v1.py\", line 715, in main\n    run_mode(\"smoke\"); return\n    ^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_affectedness_weak_sup_revival_loop_v1.py\", line 466, in run_mode\n    sel_fn, _vc, _gc = L.build_semantic_teacher(mine_cands_base, glove)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_learned_argstruct_parser_lccp_independent_gold_v1.py\", line 376, in build_semantic_teacher\n    f = c[\"feat\"]\n        ~^^^^^^^^\nKeyError: 'feat'\n",
+  "ts_iso": "2026-07-20T04:29:17.757297+00:00"
+}

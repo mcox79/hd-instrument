@@ -1,0 +1,11 @@
+{
+  "anchor_name": "cortex_regenerative_cleanup_vs_analog_accumulate_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "summary": "selftest rc=0",
+  "elapsed_s": 0.02,
+  "ts_iso": "2026-07-05T12:16:22.805881+00:00",
+  "run_mode": "self_test",
+  "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v2,N_LIST=512,V=48,P=4,D_MAX=5,DEPTHS=1-2-3-4-5,N_TEST=12,MOVERN=0.37-1.10,V_CHAIN=24,REFUSE_DEPTH=5,N_CALIB=16,N_REFUSE=16,tau_pctile=12.0,SEEDS=0,RUN_MODE=self_test,store=FACTORED,hardening=startmarker+crashdiag+heartbeat+AF+AH+AG",
+  "n_seeds": 1
+}

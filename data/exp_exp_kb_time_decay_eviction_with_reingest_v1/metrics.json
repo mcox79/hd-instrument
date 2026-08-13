@@ -1,0 +1,117 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "eviction_fraction=0.515 >= 0.20; reingest_rate=1.000 >= 0.90 (30/30); user_directive_retention=1.0000; recent_retention=1.0000; AUDIT_ONLY mode",
+  "elapsed_s": 2.22,
+  "summary": {
+    "anchor": "kb_time_decay_eviction_with_reingest_v1",
+    "smoke": false,
+    "mode": "AUDIT_ONLY",
+    "kb_version": "v1",
+    "n_atoms_sample": 200,
+    "n_days_simulated": 90,
+    "eviction_age_days": 90,
+    "arms": [
+      {
+        "arm": "ARM_NO_EVICTION_BASELINE",
+        "ok": true,
+        "n_atoms": 200,
+        "n_days": 90,
+        "capacity_used_start": 200,
+        "capacity_used_end": 200,
+        "capacity_drop_fraction": 0.0
+      },
+      {
+        "arm": "ARM_TIME_DECAY_EVICTION",
+        "ok": true,
+        "mode": "AUDIT_ONLY",
+        "n_atoms": 200,
+        "n_days": 90,
+        "eviction_age_days": 90,
+        "recent_protection_days": 30,
+        "n_marked_for_eviction": 103,
+        "eviction_fraction": 0.515,
+        "n_user_directive_protected": 0,
+        "user_directive_eviction_violations": 0,
+        "user_directive_retention": 1.0,
+        "n_recent_atoms": 55,
+        "n_recent_evicted": 0,
+        "recent_retention": 1.0,
+        "audit_events_emitted": 50,
+        "elapsed_s": 0.726
+      },
+      {
+        "arm": "ARM_REINGEST_ON_DEMAND",
+        "ok": true,
+        "n_attempts": 30,
+        "n_success": 30,
+        "reingest_success_rate": 1.0,
+        "sample_per_attempt": [
+          {
+            "atom_idx": 1,
+            "success": true,
+            "n_paths_tried": 2,
+            "elapsed_s": 0.0013
+          },
+          {
+            "atom_idx": 2,
+            "success": true,
+            "n_paths_tried": 2,
+            "elapsed_s": 0.0005
+          },
+          {
+            "atom_idx": 3,
+            "success": true,
+            "n_paths_tried": 3,
+            "elapsed_s": 0.0004
+          },
+          {
+            "atom_idx": 9,
+            "success": true,
+            "n_paths_tried": 3,
+            "elapsed_s": 0.0006
+          },
+          {
+            "atom_idx": 12,
+            "success": true,
+            "n_paths_tried": 1,
+            "elapsed_s": 0.0046
+          },
+          {
+            "atom_idx": 15,
+            "success": true,
+            "n_paths_tried": 1,
+            "elapsed_s": 0.0004
+          },
+          {
+            "atom_idx": 16,
+            "success": true,
+            "n_paths_tried": 1,
+            "elapsed_s": 0.0003
+          },
+          {
+            "atom_idx": 17,
+            "success": true,
+            "n_paths_tried": 1,
+            "elapsed_s": 0.0003
+          },
+          {
+            "atom_idx": 20,
+            "success": true,
+            "n_paths_tried": 1,
+            "elapsed_s": 0.0021
+          },
+          {
+            "atom_idx": 21,
+            "success": true,
+            "n_paths_tried": 1,
+            "elapsed_s": 0.0007
+          }
+        ],
+        "elapsed_s": 0.03
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "eviction_fraction=0.515 >= 0.20; reingest_rate=1.000 >= 0.90 (30/30); user_directive_retention=1.0000; recent_retention=1.0000; AUDIT_ONLY mode",
+    "elapsed_s": 2.22
+  }
+}

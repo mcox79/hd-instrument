@@ -1,0 +1,113 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: delta=0.00e+00 <= 0.05; composed_min=1.0000 >= 0.95; ablated_max=0.0341 <= 0.2 (uniform floor 1/sqrt(M=1024)=0.0312)",
+  "summary": "HARD_PASS: delta_ci=0.00e+00, composed=1.0000, ablated=0.0322",
+  "cardinality_ok": true,
+  "n_units": 9,
+  "expected_n_units": 9,
+  "max_delta_composed_individual": 0.0,
+  "per_seed_delta": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "composed_mean": 1.0000000325838725,
+  "composed_min": 1.0000000095367432,
+  "individual_mean": 1.0000000325838725,
+  "ablated_mean": 0.03215434276935412,
+  "ablated_max": 0.03407357711344958,
+  "uniform_floor_theoretical": 0.03125,
+  "m_tape": 1024,
+  "elapsed_s": 4.699751600041054,
+  "run_mode": "full",
+  "anchor_name": "exp_cortex_integration_m16_attention_router_v1",
+  "ts_iso": "2026-07-02T19:33:53.854319+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "q_queries": 25,
+  "arm_code_path_fingerprints": {
+    "composed": "0ec5d229be52ebe0",
+    "individual": "796b59f761dbc404",
+    "ablated": "8f33a750383240a6"
+  },
+  "arms_differ_verified": true,
+  "storage_strategy": "SHARDED_M_distinct_keys_vals_single_hop",
+  "compute_architecture": "mixed_cpu_torch_sequential_forward",
+  "per_seed": {
+    "7": {
+      "composed": 1.0000000381469727,
+      "individual": 1.0000000381469727,
+      "ablated": 0.03407357711344958
+    },
+    "13": {
+      "composed": 1.0000000500679016,
+      "individual": 1.0000000500679016,
+      "ablated": 0.03068429458886385
+    },
+    "19": {
+      "composed": 1.0000000095367432,
+      "individual": 1.0000000095367432,
+      "ablated": 0.03170515660574893
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm": "composed",
+      "metric": 1.0000000381469727,
+      "failure_class": null
+    },
+    {
+      "seed": 7,
+      "arm": "individual",
+      "metric": 1.0000000381469727,
+      "failure_class": null
+    },
+    {
+      "seed": 7,
+      "arm": "ablated",
+      "metric": 0.03407357711344958,
+      "failure_class": null
+    },
+    {
+      "seed": 13,
+      "arm": "composed",
+      "metric": 1.0000000500679016,
+      "failure_class": null
+    },
+    {
+      "seed": 13,
+      "arm": "individual",
+      "metric": 1.0000000500679016,
+      "failure_class": null
+    },
+    {
+      "seed": 13,
+      "arm": "ablated",
+      "metric": 0.03068429458886385,
+      "failure_class": null
+    },
+    {
+      "seed": 19,
+      "arm": "composed",
+      "metric": 1.0000000095367432,
+      "failure_class": null
+    },
+    {
+      "seed": 19,
+      "arm": "individual",
+      "metric": 1.0000000095367432,
+      "failure_class": null
+    },
+    {
+      "seed": 19,
+      "arm": "ablated",
+      "metric": 0.03170515660574893,
+      "failure_class": null
+    }
+  ],
+  "primitive_tested": "m16_chunked_attention_readout_via_cortex_forward"
+}

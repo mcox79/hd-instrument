@@ -1,0 +1,138 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "cardinality_breach: n_chunks=0 not in [1500, 4000] OR arms missing",
+  "elapsed_s": 66.83,
+  "summary": {
+    "anchor": "n8_proofwiki_smoke_ingest_chunk_kb_v2_retry",
+    "smoke": false,
+    "N_DIM": 2048,
+    "seed": 17,
+    "config_version": "proofwiki_v2_retry: N_DIM=2048 SEED=17 MAX_PAGES=500 mode=full HP_top1>=0.85 HP_contam<0.50 n_probes=5 n_contam=3 chunks_band=[1500,4000] N_FULL=35000 retry=[1s,5s,25s] cache_seed=10",
+    "schema_version": "v2",
+    "schema_hash": "0e58a20e69b5f4a97c312905ee8a3611c96c1847eb359a7dc0e81e50e44fc49d",
+    "per_arm_metrics": {
+      "ARM_BASELINE_FILENAME_QUERY": {
+        "arm": "ARM_BASELINE_FILENAME_QUERY",
+        "kb_dir": "C:\\dev\\hd-instrument\\data\\substrate_director_kb_v1",
+        "kb_v1_present": false,
+        "per_probe": [],
+        "wall_s": 0.0,
+        "errors": [],
+        "ok": true,
+        "note": "v1 KB not present; baseline informational"
+      },
+      "ARM_SMOKE_INGEST_500": {
+        "arm": "ARM_SMOKE_INGEST_500",
+        "max_pages": 500,
+        "per_probe": [],
+        "wall_s": 66.832,
+        "errors": [
+          "no_files_materialized_after_retry_and_fallback"
+        ],
+        "fetch_errors": [
+          "chunk_0: attempt 1/4: HTTPError: HTTP Error 403: Forbidden",
+          "chunk_0: attempt 2/4: HTTPError: HTTP Error 403: Forbidden",
+          "chunk_0: attempt 3/4: HTTPError: HTTP Error 403: Forbidden",
+          "chunk_0: attempt 4/4: HTTPError: HTTP Error 403: Forbidden",
+          "all_chunks_failed_after_retries",
+          "no_local_cache_fallback_available"
+        ],
+        "fallback_used": false,
+        "prepopulate_result": {
+          "ok": false,
+          "elapsed_s": 33.427,
+          "n_files": 0,
+          "out_dir": "C:\\dev\\hd-instrument\\data\\math_kb_cache\\proofwiki",
+          "errors": [
+            "chunk_0: attempt 1/4: HTTPError: HTTP Error 403: Forbidden",
+            "chunk_0: attempt 2/4: HTTPError: HTTP Error 403: Forbidden",
+            "chunk_0: attempt 3/4: HTTPError: HTTP Error 403: Forbidden",
+            "chunk_0: attempt 4/4: HTTPError: HTTP Error 403: Forbidden",
+            "all_chunks_failed_after_retries",
+            "no_local_cache_fallback_available"
+          ],
+          "fallback_used": false
+        },
+        "prepopulate_wall_s": 33.427,
+        "fetch_result": {
+          "ok": false,
+          "elapsed_s": 33.405,
+          "n_files": 0,
+          "out_dir": "C:\\dev\\hd-instrument\\data\\math_kb_cache\\proofwiki",
+          "errors": [
+            "chunk_0: attempt 1/4: HTTPError: HTTP Error 403: Forbidden",
+            "chunk_0: attempt 2/4: HTTPError: HTTP Error 403: Forbidden",
+            "chunk_0: attempt 3/4: HTTPError: HTTP Error 403: Forbidden",
+            "chunk_0: attempt 4/4: HTTPError: HTTP Error 403: Forbidden",
+            "all_chunks_failed_after_retries",
+            "no_local_cache_fallback_available"
+          ],
+          "fallback_used": false
+        },
+        "n_files_materialized": 0,
+        "fetch_wall_s": 33.405,
+        "ok": false
+      },
+      "ARM_FULL_N_PREVIEW_DISCRIMINATOR": {
+        "arm": "ARM_FULL_N_PREVIEW_DISCRIMINATOR",
+        "n_full_projection": 35000,
+        "per_probe": [],
+        "analytical_scaling_passes": false,
+        "wall_s": 0.0,
+        "errors": [
+          "n_chunks_observed=0; cannot project to full"
+        ],
+        "n_chunks_observed": 0,
+        "ok": false
+      },
+      "ARM_CONTAMINATION_CONTROL": {
+        "arm": "ARM_CONTAMINATION_CONTROL",
+        "per_probe": [],
+        "contamination_max_cosine": 0.0,
+        "wall_s": 0.0,
+        "errors": [
+          "KB dir from smoke arm missing"
+        ],
+        "ok": false
+      }
+    },
+    "detail": {
+      "cardinality_ok": false,
+      "n_chunks_observed": 0,
+      "chunks_in_band": false,
+      "chunks_band": [
+        1500,
+        4000
+      ],
+      "smoke_top1_cosine_min": 0.0,
+      "smoke_top1_cosine_mean": 0.0,
+      "smoke_content_all_match": false,
+      "analytical_scaling_passes": false,
+      "contamination_max_cosine": 0.0,
+      "fetch_errors": [
+        "chunk_0: attempt 1/4: HTTPError: HTTP Error 403: Forbidden",
+        "chunk_0: attempt 2/4: HTTPError: HTTP Error 403: Forbidden",
+        "chunk_0: attempt 3/4: HTTPError: HTTP Error 403: Forbidden",
+        "chunk_0: attempt 4/4: HTTPError: HTTP Error 403: Forbidden",
+        "all_chunks_failed_after_retries",
+        "no_local_cache_fallback_available"
+      ],
+      "fallback_used": false,
+      "suspect_1000_with_content_mismatch": false,
+      "config_version": "proofwiki_v2_retry: N_DIM=2048 SEED=17 MAX_PAGES=500 mode=full HP_top1>=0.85 HP_contam<0.50 n_probes=5 n_contam=3 chunks_band=[1500,4000] N_FULL=35000 retry=[1s,5s,25s] cache_seed=10",
+      "HP_top1_cosine_min": 0.85,
+      "HP_contamination_max": 0.5,
+      "per_arm_brief": {
+        "baseline_ok": true,
+        "smoke_ok": false,
+        "preview_ok": false,
+        "contam_ok": false
+      }
+    },
+    "corpus_provenance": "proofwiki_featured_pages_cc_by_sa_3_0_chunk_ingest_v2_retry",
+    "license_tag": "CC-BY-SA-3.0",
+    "attribution": "ProofWiki contributors",
+    "zero_llm_calls_at_inference": true,
+    "v2_retry_active": true
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "verdict": "CLIMB_PASS",
+  "verdict_msg": "ingest RAISED ARC-Easy 0.254->0.373 (+0.119); survives scramble (+0.136); Challenge 0.247->0.246",
+  "summary": "CLIMB_PASS: baseline=0.252 full=0.331 scramble=0.243 random_ingest=0.28241262683201807",
+  "elapsed_s": 141.9,
+  "ts_iso": "2026-07-24T14:09:09.408483+00:00",
+  "anchor_name": "arc_knowledge_scale_ingest_climb_v1",
+  "mode": "full",
+  "n_dim": 2048,
+  "n_questions": 3548,
+  "n_easy": 2376,
+  "n_challenge": 1172,
+  "store_relevant_size": 25349,
+  "store_random_size": 60000,
+  "index_vocab_size": 6925,
+  "questions_covered": 3384,
+  "corpus_lines_scanned": 2500001,
+  "unique_trigrams": 52663,
+  "control_random_pick": 0.2525,
+  "control_majority": 0.2658,
+  "majority_modal_index": 2,
+  "chance_theoretical": 0.2502,
+  "climb_curve": {
+    "0.00": {
+      "store_cols": 0,
+      "acc": 0.2519729425028185,
+      "acc_easy": 0.2542087542087542,
+      "acc_challenge": 0.24744027303754265,
+      "n": 3548,
+      "n_easy": 2376,
+      "n_challenge": 1172
+    },
+    "0.25": {
+      "store_cols": 6337,
+      "acc": 0.31200676437429536,
+      "acc_easy": 0.343013468013468,
+      "acc_challenge": 0.24914675767918087,
+      "n": 3548,
+      "n_easy": 2376,
+      "n_challenge": 1172
+    },
+    "0.50": {
+      "store_cols": 12674,
+      "acc": 0.32102593010146563,
+      "acc_easy": 0.359006734006734,
+      "acc_challenge": 0.2440273037542662,
+      "n": 3548,
+      "n_easy": 2376,
+      "n_challenge": 1172
+    },
+    "0.75": {
+      "store_cols": 19012,
+      "acc": 0.32356257046223225,
+      "acc_easy": 0.3632154882154882,
+      "acc_challenge": 0.2431740614334471,
+      "n": 3548,
+      "n_easy": 2376,
+      "n_challenge": 1172
+    },
+    "1.00": {
+      "store_cols": 25349,
+      "acc": 0.33117249154453215,
+      "acc_easy": 0.3733164983164983,
+      "acc_challenge": 0.24573378839590443,
+      "n": 3548,
+      "n_easy": 2376,
+      "n_challenge": 1172
+    }
+  },
+  "baseline_empty_acc": 0.252,
+  "full_ingest_acc": 0.3312,
+  "full_ingest_acc_easy": 0.3733,
+  "full_ingest_acc_challenge": 0.2457,
+  "scramble_acc": 0.243,
+  "random_ingest_acc": 0.2824,
+  "random_ingest_acc_easy": 0.2971,
+  "baseline_in_band": true,
+  "baseline_empty_acc_easy": 0.2542,
+  "climb_easy_abs": 0.1191,
+  "climb_easy_vs_scramble": 0.1355,
+  "scramble_acc_easy": 0.2378,
+  "challenge_base_acc": 0.2474,
+  "climb_abs_aggregate": 0.0792,
+  "climb_vs_scramble_aggregate": 0.0882,
+  "leak_flag": false,
+  "climb_pass": true,
+  "discriminator_fires_frac_matched_gt_0.10": 1.0,
+  "arms_differ_verified": true,
+  "arm_store_hashes": {
+    "relevant": "5b76db39d035823b34939dcaed9df88002efd9a6fd44e78022a66d9e2a40525c",
+    "scramble": "6cc202f8b9ae9359519be4a11b0e53d829a623f5409bcd164ba9572927ece071",
+    "random": "be981e1acdf6dd6491f7c732b76a3cc7cb508e30e41e573923f70fd2e2010345"
+  },
+  "grade_proxy": {
+    "easy_band": "emerging (~grade 2-3, above chance)",
+    "challenge_band": "below grade 3 (~chance; no science knowledge)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "human_scale_statement": "Substrate science-knowledge baseline = 0.252 (~chance) = bottom of the human scale (no science knowledge). Ingesting 25349 ARC_Corpus science sentences moved ARC-Easy to 0.373 (proxy: emerging (~grade 2-3, above chance)), ARC-Challenge to 0.246 (proxy: below grade 3 (~chance; no science knowledge)).",
+  "glassbox_examples": [
+    {
+      "qid": "ACTAAP_2007_7_13",
+      "source": "ARC-Easy-Test.jsonl",
+      "stem": "When a bottle of strong perfume is opened at the front of a classroom, the smell gradually spreads throughout the entire room. Which process explains this occurrence?",
+      "choices": [
+        "osmosis",
+        "diffusion",
+        "cell activity",
+        "cell transport"
+      ],
+      "picked_index": 3,
+      "correct_index": 1,
+      "correct": false,
+      "pick_cosine": 0.3584,
+      "supporting_sentence": "the transparent tissue on the front of the eyeball that covers the iris and pupil, through which light passes to the interior."
+    },
+    {
+      "qid": "ACTAAP_2007_7_14",
+      "source": "ARC-Easy-Test.jsonl",
+      "stem": "What is the function of the nucleus in a cell?",
+      "choices": [
+        "provides energy",
+        "provides nutrients",
+        "controls activity",
+        "controls movement"
+      ],
+      "picked_index": 2,
+      "correct_index": 2,
+      "correct": true,
+      "pick_cosine": 0.4658,
+      "supporting_sentence": "The nucleus controls many of the cell's activities."
+    },
+    {
+      "qid": "ACTAAP_2007_7_15",
+      "source": "ARC-Easy-Test.jsonl",
+      "stem": "Solids, liquids, and gases are all different states of which of the following?",
+      "choices": [
+        "mass",
+        "matter",
+        "weight",
+        "volume"
+      ],
+      "picked_index": 1,
+      "correct_index": 1,
+      "correct": true,
+      "pick_cosine": 0.4365,
+      "supporting_sentence": "Examples of Gas to Solid There are three states of matter: solids, liquids and gases."
+    },
+    {
+      "qid": "ACTAAP_2007_7_17",
+      "source": "ARC-Easy-Test.jsonl",
+      "stem": "All living organisms have certain needs in order to stay alive. Which is most necessary for both plants and animals?",
+      "choices": [
+        "food",
+        "water",
+        "chlorophyll",
+        "carbon dioxide"
+      ],
+      "picked_index": 2,
+      "correct_index": 1,
+      "correct": false,
+      "pick_cosine": 0.3516,
+      "supporting_sentence": "Basic Needs: Things a living organism needs in order stay alive."
+    },
+    {
+      "qid": "ACTAAP_2007_7_18",
+      "source": "ARC-Easy-Test.jsonl",
+      "stem": "Which elements are found to the right of the zigzag line in the periodic table?",
+      "choices": [
+        "liquids",
+        "metals",
+        "metals and gases",
+        "nonmetals and gases"
+      ],
+      "picked_index": 1,
+      "correct_index": 3,
+      "correct": false,
+      "pick_cosine": 0.4365,
+      "supporting_sentence": "As shown on the periodic table of the elements below, the majority of the chemical elements in pure form are classified as metals."
+    },
+    {
+      "qid": "ACTAAP_2007_7_2",
+      "source": "ARC-Easy-Test.jsonl",
+      "stem": "Which article might appear in a scientific magazine?",
+      "choices": [
+        "\"The Religions of South America\"",
+        "\"The Money Systems of South America\"",
+        "\"The Flora and Fauna of South America\"",
+        "\"The Political Systems of South America\""
+      ],
+      "picked_index": 2,
+      "correct_index": 2,
+      "correct": true,
+      "pick_cosine": 0.2871,
+      "supporting_sentence": "Science n s 41:65-9 F '15 Africa and South America; relationships be- tween the African and South American fauna and flora."
+    }
+  ]
+}

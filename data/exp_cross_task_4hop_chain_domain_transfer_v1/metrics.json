@@ -1,0 +1,14 @@
+{
+  "anchor_name": "cross_task_4hop_chain_domain_transfer_v1",
+  "verdict": "RUNNING",
+  "verdict_msg": "RUNNING: seed=7 (1/2)",
+  "summary": "RUNNING: seed=7 (1/2)",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-27T22:19:53Z",
+  "pid": 38700,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cross_task_4hop_chain_domain_transfer_v1,N=8192,REL=6,ENT=80,TRAIN_X=200,TRAIN_Y=200,TEST=30,DEPTH=4,seeds=[7, 17],mode=smoke,HP_5shot>=0.50,HP_lift5>=0.30,expected_n=240,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_cross_task_4hop_chain_domain_transfer",
+  "_phase": "seed_running",
+  "_current_seed": 7
+}

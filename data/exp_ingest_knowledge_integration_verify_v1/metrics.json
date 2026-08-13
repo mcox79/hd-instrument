@@ -1,0 +1,85 @@
+{
+  "anchor_name": "ingest_knowledge_integration_verify_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate INTEGRATES + QUERIES ingested ConceptNet via the live structural path; every anti-vacuousness control fires (scrambled-KB, no-ingest, shuffled-hop collapse; no encoder leak; addressability + completeness). A_ingest=1.000 B_shuffled=0.003 C_scrambled=0.000 C2_noingest=0.000 D_encoderNN=0.148 L_1hop=0.000 R_recall=1.000 | gap_real-vs-scrambled=1.000 (>=0.50:True) gap_firing=0.997/B<=0.15 (True) noingest<=0.05(True) leak<=0.15(True) recall>=0.98(True) notlookup L<=0.05/A>=0.90(True) completeness(atoms 142219/142219 rel 189763/189654+109)=True consistency=True",
+  "summary": "HARD_PASS: substrate INTEGRATES + QUERIES ingested ConceptNet via the live structural path; every anti-vacuousness control fires (scrambled-KB, no-ingest, shuffled-hop collapse; no encoder leak; addressability + completeness). A_ingest=1.000 B_shuffled=0.003 C_scrambled=0.000 C2_noingest=0.000 D_encoderNN=0.148 L_1hop=0.000 R_recall=1.000 | gap_real-vs-scrambled=1.000 (>=0.50:True) gap_firing=0.997/B<=0.15 (True) noingest<=0.05(True) leak<=0.15(True) recall>=0.98(True) notlookup L<=0.05/A>=0.90(True) completeness(atoms 142219/142219 rel 189763/189654+109)=True consistency=True",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "ingest-integration-verify: live-structural-2hop + shuffled-2nd-hop + scrambled-kb-null + no-ingest + encoder-name-NN-leak + known-item-1hop-recall + completeness; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4<=0.15 D5>=0.98 D6:L<=0.05/A>=0.90]",
+  "elapsed_s": 20.1,
+  "arms_differ_verified": true,
+  "disk_completeness": {
+    "disk_atoms": 142219,
+    "disk_distinct_triples": 189654,
+    "disk_derived": 109,
+    "disk_uses": 109,
+    "loaded_atoms": 142219,
+    "loaded_relations": 189763
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_chains": 300,
+      "A_ingest_2hop": 1.0,
+      "B_shuffled_2ndhop": 0.006666666666666667,
+      "C_scrambled_kb": 0.0,
+      "C2_no_ingest": 0.0,
+      "D_encoder_only_nameNN": 0.13,
+      "L_one_hop_direct": 0.0,
+      "R_known_item_1hop_recall": 1.0,
+      "known_item_probes": 2637,
+      "adjacency_matches_live_out_neighbors": true,
+      "arm_hashes": {
+        "A": "893c172baa019a7b",
+        "B": "cd91912cb708d2a3",
+        "C": "d13d4a8b3b8add19",
+        "D": "fdaec401c3d2f93e"
+      },
+      "config_version": "ingest-integration-verify: live-structural-2hop + shuffled-2nd-hop + scrambled-kb-null + no-ingest + encoder-name-NN-leak + known-item-1hop-recall + completeness; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4<=0.15 D5>=0.98 D6:L<=0.05/A>=0.90]",
+      "run_mode": "full"
+    },
+    {
+      "seed": 13,
+      "n_chains": 300,
+      "A_ingest_2hop": 1.0,
+      "B_shuffled_2ndhop": 0.0033333333333333335,
+      "C_scrambled_kb": 0.0,
+      "C2_no_ingest": 0.0,
+      "D_encoder_only_nameNN": 0.15666666666666668,
+      "L_one_hop_direct": 0.0,
+      "R_known_item_1hop_recall": 1.0,
+      "known_item_probes": 2660,
+      "adjacency_matches_live_out_neighbors": true,
+      "arm_hashes": {
+        "A": "893c172baa019a7b",
+        "B": "740639e0a53e34ea",
+        "C": "d13d4a8b3b8add19",
+        "D": "b4642f7711f93628"
+      },
+      "config_version": "ingest-integration-verify: live-structural-2hop + shuffled-2nd-hop + scrambled-kb-null + no-ingest + encoder-name-NN-leak + known-item-1hop-recall + completeness; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4<=0.15 D5>=0.98 D6:L<=0.05/A>=0.90]",
+      "run_mode": "full"
+    },
+    {
+      "seed": 23,
+      "n_chains": 300,
+      "A_ingest_2hop": 1.0,
+      "B_shuffled_2ndhop": 0.0,
+      "C_scrambled_kb": 0.0,
+      "C2_no_ingest": 0.0,
+      "D_encoder_only_nameNN": 0.15666666666666668,
+      "L_one_hop_direct": 0.0,
+      "R_known_item_1hop_recall": 1.0,
+      "known_item_probes": 2643,
+      "adjacency_matches_live_out_neighbors": true,
+      "arm_hashes": {
+        "A": "893c172baa019a7b",
+        "B": "d13d4a8b3b8add19",
+        "C": "d13d4a8b3b8add19",
+        "D": "f2bde848e9d0e6cf"
+      },
+      "config_version": "ingest-integration-verify: live-structural-2hop + shuffled-2nd-hop + scrambled-kb-null + no-ingest + encoder-name-NN-leak + known-item-1hop-recall + completeness; mode=full chains=300 known=2000 pool=200 bands[D1>=0.50 D2>=0.50/B<=0.15 D3<=0.05 D4<=0.15 D5>=0.98 D6:L<=0.05/A>=0.90]",
+      "run_mode": "full"
+    }
+  ],
+  "DESIGN_NOTE": "Stage-0 ingest plumbing verification via LIVE structural path; NO BGE re-encode; anti-vacuousness battery (scrambled-KB null, no-ingest, shuffled-2nd-hop, encoder-only name-NN leak-check); PROOF is the GAP not the absolute ingest-arm score."
+}

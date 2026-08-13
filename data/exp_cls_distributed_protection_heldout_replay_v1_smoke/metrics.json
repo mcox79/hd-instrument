@@ -1,0 +1,260 @@
+{
+  "anchor_name": "cls_distributed_protection_heldout_replay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_DISTRIBUTED_PROTECTION: at the structured/related-memory end (P_FLIP=0.20) replaying a 80-item subsample (20% of old) protects the 320 NEVER-REPLAYED old memories above the no_replay floor (margin>=0.20 abs>=0.55, 1/1 seeds) -- distributed protection is REAL (the scalable thing). Structure-dependence confirms the mechanism: arbitrary-end collapse=True (subsample->floor when memories lack shared structure). CLAIM-VET-pending, NOT self-declared chain-grade. HELD-OUT never-replayed old-recall curve (no_replay floor / subsample / replay_all ceiling): P=0.20[no=0.384 sub=0.959 all=1.000 hp=1/1 diff=Y] P=0.30[no=0.041 sub=0.581 all=1.000 hp=1/1 diff=Y] P=0.38[no=0.003 sub=0.150 all=1.000 hp=0/1 diff=Y] | replayed-subset(structured)=1.000 n_never_replayed=320 n_replayed=80 | arms_differ=True units=3/3",
+  "run_mode": "smoke",
+  "n_units": 3,
+  "expected_n_units": 3,
+  "arms_differ": true,
+  "n_never_replayed": 320,
+  "n_replayed_subsample": 80,
+  "points": [
+    {
+      "p_flip": 0.2,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.384,
+          "replayed": 0.362,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.959,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 1,
+      "n_seeds": 1,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "p_flip": 0.3,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.041,
+          "replayed": 0.075,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.581,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 1,
+      "n_seeds": 1,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "p_flip": 0.38,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.003,
+          "replayed": 0.025,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.15,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 0.887,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 0,
+      "n_seeds": 1,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    }
+  ],
+  "per_unit": [
+    {
+      "p_flip": 0.2,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.384,
+        "replayed": 0.362,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.959,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "8221ee18f9157ca36a72fa822ba19eb0a0a662c3dfbf398ad9ce188ad84afef1",
+        "subsample_replay": "bbcfdf9197b3975069ef6ffc47c3b551cd428dba9cf7e7c0bd144a1c14f146d7",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.3,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.041,
+        "replayed": 0.075,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.581,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "970822a9c6cc273e8080bd8e26ec9a468ebee37eca3f591d32ec6639b32c828a",
+        "subsample_replay": "e376bb045867af10300ac5cbb24a496c9312ac1805b213a618408b64d565a30d",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.38,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.003,
+        "replayed": 0.025,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.15,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.887,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "7d267dfb3ce3a5e5e43f5dfec190d754c7ec578622a154cbbecce2b1fee75d94",
+        "subsample_replay": "c6b46ec884815ee00b02a99fdd589d3827995e93ca6c5e483a631ad540603994",
+        "replay_all": "064ae3c6d6c0e5d36c74039f8028d2627d39b1a3e9fc859d4712aa0a5143043b"
+      }
+    }
+  ],
+  "config": {
+    "N": 128,
+    "H": 24,
+    "V": 60,
+    "OLD_CLASSES": 20,
+    "OLD_EXEMPLARS": 20,
+    "ELIG_PER_CLASS": 4,
+    "K_INTERFERE": 10,
+    "NEW_CPB": 4,
+    "NEW_EXEMPLARS": 20,
+    "E_OLD": 150,
+    "E_NEW": 120,
+    "LR": 0.3,
+    "P_FLIP_GRID": [
+      0.2,
+      0.3,
+      0.38
+    ],
+    "STRUCTURED_PFLIP": 0.2,
+    "seeds": [
+      7
+    ]
+  },
+  "elapsed_s": 4.599049091339111,
+  "summary": "HARD_PASS_DISTRIBUTED_PROTECTION: at the structured/related-memory end (P_FLIP=0.20) replaying a 80-item subsample (20% of old) protects the 320 NEVER-REPLAYED old memories above the no_replay floor (margin>=0.20 abs>=0.55, 1/1 seeds) -- distributed protection is REAL (the scalable thing). Structure-dependence confirms the mechanism: arbitrary-end collapse=True (subsample->floor when memories lack shared structure). CLAIM-VET-pending, NOT self-declared chain-grade. HELD-OUT never-replayed old-recall curve (no_replay floor / subsample / replay_all ceiling): P=0.20[no=0.384 sub=0.959 all=1.000 hp=1/1 diff=Y] P=0.30[no=0.041 sub=0.581 all=1.000 hp=1/1 diff=Y] P=0.38[no=0.003 sub=0.150 all=1.000 hp=0/1 diff=Y] | replayed-subset(structured)=1.000 n_never_replayed=320 n_replayed=80 | arms_differ=True units=3/3",
+  "structured_gate_claims": [
+    {
+      "gate_name": "struct_subsample_heldout_recall",
+      "measured": 0.959,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "distributed protection of never-replayed old at structured end (LOAD-BEARING)"
+    },
+    {
+      "gate_name": "struct_subsample_heldout_margin",
+      "measured": 0.575,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "subsample protects held-out above the no-replay floor (structured end)"
+    },
+    {
+      "gate_name": "struct_difficulty_no_replay",
+      "measured": 0.384,
+      "threshold": 0.45,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "catastrophic forgetting of held-out old is real (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_difficulty_replay_all_ceiling",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "held-out IS protectable if rehearsed (ceiling / not saturated-low)"
+    },
+    {
+      "gate_name": "struct_difficulty_initial",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "net learned held-out old initially (forgetting not inability)"
+    },
+    {
+      "gate_name": "struct_hp_seeds",
+      "measured": 1,
+      "threshold": 1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "seeds where subsample protects held-out above bar (structured end)"
+    },
+    {
+      "gate_name": "cardinality",
+      "measured": 3,
+      "threshold": 3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "all sweep x seed units completed (META_RULE_H)"
+    }
+  ]
+}

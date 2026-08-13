@@ -1,0 +1,3319 @@
+{
+  "verdict": "SCALING_HOLDS",
+  "verdict_msg": "SCALING_HOLDS || base_reproduced=True (base_anchor_margin=0.1269 vs confirmed v1 0.1277) || r0_base[k_core=12 sf=0.50 N=25752.0 nsup=32337.0]: verdict=HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE anchor_mrr=0.1275 margin=0.1269 retention=1.0 class=BASE | r1_halfsupport[k_core=12 sf=0.25 N=25752.0 nsup=16226.5]: verdict=HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE anchor_mrr=0.1284 margin=0.1277 retention=1.006 class=HOLDS | r2_sparsecore_bigN[k_core=8 sf=0.50 N=38772.0 nsup=41328.5]: verdict=HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE anchor_mrr=0.1198 margin=0.1192 retention=0.9386 class=HOLDS | ",
+  "summary": "SCALING_HOLDS || base_reproduced=True (base_anchor_margin=0.1269 vs confirmed v1 0.1277) || r0_base[k_core=12 sf=0.50 N=25752.0 nsup=32337.0]: verdict=HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE anchor_mrr=0.1",
+  "run_mode": "full",
+  "elapsed_s": 17086.703776699957,
+  "anchor_name": "anchor_compose_scaling_ladder_cskg_v3",
+  "ts_iso": "2026-07-13T14:10:42.141357+00:00",
+  "device": "cuda",
+  "seeds": [
+    7,
+    13
+  ],
+  "rungs": [
+    "r0_base",
+    "r1_halfsupport",
+    "r2_sparsecore_bigN"
+  ],
+  "base_config": {
+    "k": 24,
+    "epochs": 500,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "ckpt_every": 20,
+    "heldout_entity_frac": 0.15,
+    "support_frac": 0.5,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "n_heldout_eval": 3000,
+    "min_heldout": 20,
+    "seeds": [
+      7,
+      13
+    ]
+  },
+  "scaling_summary": {
+    "overall": "SCALING_HOLDS",
+    "base_reproduced": true,
+    "base_anchor_margin": 0.126945,
+    "confirmed_v1_anchor_margin": 0.127727,
+    "rung_class": {
+      "r0_base": "BASE",
+      "r1_halfsupport": "HOLDS",
+      "r2_sparsecore_bigN": "HOLDS"
+    },
+    "rungs": {
+      "r0_base": {
+        "k_core": 12,
+        "support_frac": 0.5,
+        "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+        "anchor_mrr": 0.12745,
+        "anchor_margin": 0.126945,
+        "oracle_headroom": 0.13689,
+        "oracle_fires": true,
+        "scramble_margin": 0.008225,
+        "retention_vs_base": 1.0,
+        "N_mean": 25752.0,
+        "n_support_mean": 32337.0,
+        "n_query_mean": 3000.0,
+        "anchor_mrr_by_support_degree": {
+          "cold": {
+            "anchor_mrr": 4.1e-05,
+            "additive_mrr": 4.1e-05,
+            "random_mrr": 0.000524,
+            "oracle_mrr": 0.650751,
+            "n_mean": 17.5
+          },
+          "d1": {
+            "anchor_mrr": 0.059252,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.000148,
+            "oracle_mrr": 0.391866,
+            "n_mean": 8.0
+          },
+          "d2_3": {
+            "anchor_mrr": 0.078897,
+            "additive_mrr": 4.3e-05,
+            "random_mrr": 0.000138,
+            "oracle_mrr": 0.123391,
+            "n_mean": 52.5
+          },
+          "d4_7": {
+            "anchor_mrr": 0.151421,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.000215,
+            "oracle_mrr": 0.114233,
+            "n_mean": 226.0
+          },
+          "d8plus": {
+            "anchor_mrr": 0.127724,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.000535,
+            "oracle_mrr": 0.135649,
+            "n_mean": 2696.0
+          }
+        }
+      },
+      "r1_halfsupport": {
+        "k_core": 12,
+        "support_frac": 0.25,
+        "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+        "anchor_mrr": 0.12836,
+        "anchor_margin": 0.12771,
+        "oracle_headroom": 0.11823,
+        "oracle_fires": true,
+        "scramble_margin": 0.008975,
+        "retention_vs_base": 1.006,
+        "N_mean": 25752.0,
+        "n_support_mean": 16226.5,
+        "n_query_mean": 3000.0,
+        "anchor_mrr_by_support_degree": {
+          "cold": {
+            "anchor_mrr": 4.1e-05,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.001224,
+            "oracle_mrr": 0.647374,
+            "n_mean": 9.0
+          },
+          "d1": {
+            "anchor_mrr": 0.036754,
+            "additive_mrr": 4.3e-05,
+            "random_mrr": 0.000157,
+            "oracle_mrr": 0.20153,
+            "n_mean": 46.0
+          },
+          "d2_3": {
+            "anchor_mrr": 0.10304,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.000223,
+            "oracle_mrr": 0.129062,
+            "n_mean": 207.5
+          },
+          "d4_7": {
+            "anchor_mrr": 0.141516,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.000306,
+            "oracle_mrr": 0.111608,
+            "n_mean": 418.0
+          },
+          "d8plus": {
+            "anchor_mrr": 0.130747,
+            "additive_mrr": 4.2e-05,
+            "random_mrr": 0.000739,
+            "oracle_mrr": 0.115142,
+            "n_mean": 2319.5
+          }
+        }
+      },
+      "r2_sparsecore_bigN": {
+        "k_core": 8,
+        "support_frac": 0.5,
+        "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+        "anchor_mrr": 0.1198,
+        "anchor_margin": 0.119155,
+        "oracle_headroom": 0.16241,
+        "oracle_fires": true,
+        "scramble_margin": 0.00579,
+        "retention_vs_base": 0.9386,
+        "N_mean": 38772.0,
+        "n_support_mean": 41328.5,
+        "n_query_mean": 3000.0,
+        "anchor_mrr_by_support_degree": {
+          "cold": {
+            "anchor_mrr": 2.7e-05,
+            "additive_mrr": 2.8e-05,
+            "random_mrr": 0.000176,
+            "oracle_mrr": 0.640765,
+            "n_mean": 23.0
+          },
+          "d1": {
+            "anchor_mrr": 0.04799,
+            "additive_mrr": 2.8e-05,
+            "random_mrr": 0.000262,
+            "oracle_mrr": 0.26845,
+            "n_mean": 9.5
+          },
+          "d2_3": {
+            "anchor_mrr": 0.074796,
+            "additive_mrr": 2.8e-05,
+            "random_mrr": 8.5e-05,
+            "oracle_mrr": 0.12345,
+            "n_mean": 71.5
+          },
+          "d4_7": {
+            "anchor_mrr": 0.117852,
+            "additive_mrr": 2.8e-05,
+            "random_mrr": 0.000171,
+            "oracle_mrr": 0.142979,
+            "n_mean": 341.0
+          },
+          "d8plus": {
+            "anchor_mrr": 0.122621,
+            "additive_mrr": 2.8e-05,
+            "random_mrr": 0.000734,
+            "oracle_mrr": 0.162303,
+            "n_mean": 2555.0
+          }
+        }
+      }
+    },
+    "bands": {
+      "RUNG_HOLD_FRAC": 0.4,
+      "RUNG_COLLAPSE_FRAC": 0.15,
+      "BASE_REPRO_FRAC": 0.5
+    }
+  },
+  "mechanism_selftest": {
+    "n_grid_entities": 300,
+    "n_heldout_entities": 45,
+    "n_support": 53,
+    "n_query": 61,
+    "n_cold": 10,
+    "heldout_mrr": {
+      "ANCHOR_COMPOSE": 0.40467,
+      "ADDITIVE_TRANSE": 0.00472,
+      "ONESHOT_ROTATE": 0.01821,
+      "RANDOM_CODES": 0.01338,
+      "ANCHOR_SCRAMBLE": 0.13595,
+      "ORACLE_ADDITIVE": 0.93169,
+      "BASELINE_POP": 0.00825
+    },
+    "heldout_hits_at_10": {
+      "ANCHOR_COMPOSE": 0.65574,
+      "ADDITIVE_TRANSE": 0.0,
+      "ONESHOT_ROTATE": 0.03279,
+      "RANDOM_CODES": 0.0,
+      "ANCHOR_SCRAMBLE": 0.2623,
+      "ORACLE_ADDITIVE": 1.0,
+      "BASELINE_POP": 0.0
+    },
+    "heldout_metric_spectrum": {
+      "ANCHOR_COMPOSE": {
+        "hits@1": 0.27869,
+        "hits@3": 0.47541,
+        "hits@10": 0.65574,
+        "hits@100": 0.77049,
+        "mrr": 0.40467
+      },
+      "ADDITIVE_TRANSE": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.04918,
+        "mrr": 0.00472
+      },
+      "ONESHOT_ROTATE": {
+        "hits@1": 0.0,
+        "hits@3": 0.01639,
+        "hits@10": 0.03279,
+        "hits@100": 0.31148,
+        "mrr": 0.01821
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.31148,
+        "mrr": 0.01338
+      },
+      "ANCHOR_SCRAMBLE": {
+        "hits@1": 0.06557,
+        "hits@3": 0.18033,
+        "hits@10": 0.2623,
+        "hits@100": 0.4918,
+        "mrr": 0.13595
+      },
+      "ORACLE_ADDITIVE": {
+        "hits@1": 0.86885,
+        "hits@3": 1.0,
+        "hits@10": 1.0,
+        "hits@100": 1.0,
+        "mrr": 0.93169
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.19672,
+        "mrr": 0.00825
+      }
+    },
+    "oracle_fire_by_metric": {
+      "hits@1": {
+        "oracle": 0.86885,
+        "random": 0.0,
+        "headroom": 0.86885,
+        "fires_ratio": true
+      },
+      "hits@3": {
+        "oracle": 1.0,
+        "random": 0.0,
+        "headroom": 1.0,
+        "fires_ratio": true
+      },
+      "hits@10": {
+        "oracle": 1.0,
+        "random": 0.0,
+        "headroom": 1.0,
+        "fires_ratio": true
+      },
+      "hits@100": {
+        "oracle": 1.0,
+        "random": 0.31148,
+        "headroom": 0.68852,
+        "fires_ratio": true
+      },
+      "mrr": {
+        "oracle": 0.93169,
+        "random": 0.01338,
+        "headroom": 0.91831,
+        "fires_ratio": true
+      }
+    },
+    "n_distinct_sigs": 7,
+    "anchor_margin": 0.39129,
+    "scramble_margin": 0.26872,
+    "oracle_margin": 0.91831,
+    "oracle_ratio": 69.63,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "scramble_fails": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "MIDDLE_BAND_PARTIAL_ANCHOR_TRANSFER",
+    "validity_preflight_ok": true,
+    "support_deg_hist": {
+      "cold": 10,
+      "d1": 5,
+      "d2_3": 30,
+      "d4_7": 16,
+      "d8plus": 0
+    },
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  },
+  "per_rung": [
+    {
+      "rung": "r0_base",
+      "k_core": 12,
+      "support_frac": 0.5,
+      "n_seeds_ok": 2,
+      "seed_failures": [],
+      "per_seed": [
+        {
+          "corpus": "CSKG_CORE_HELDOUT_ENTITY_r0_base",
+          "seed": 7,
+          "N": 25752,
+          "n_rel": 29,
+          "n_train": 359692,
+          "n_heldout_entities": 3862,
+          "n_support": 36254,
+          "n_query_total": 36333,
+          "n_query_scored": 3000,
+          "n_cold": 154,
+          "heldout_entity_frac": 0.15,
+          "support_frac": 0.5,
+          "arm_hits": {
+            "ANCHOR_COMPOSE": {
+              "hits@1": 0.041,
+              "hits@3": 0.10967,
+              "hits@10": 0.274,
+              "hits@100": 0.798,
+              "mrr": 0.11693
+            },
+            "ADDITIVE_TRANSE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 4e-05
+            },
+            "ONESHOT_ROTATE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 6e-05
+            },
+            "RANDOM_CODES": {
+              "hits@1": 0.00033,
+              "hits@3": 0.00033,
+              "hits@10": 0.00067,
+              "hits@100": 0.005,
+              "mrr": 0.0007
+            },
+            "ANCHOR_SCRAMBLE": {
+              "hits@1": 0.00067,
+              "hits@3": 0.005,
+              "hits@10": 0.01933,
+              "hits@100": 0.18667,
+              "mrr": 0.011
+            },
+            "ORACLE_ADDITIVE": {
+              "hits@1": 0.06367,
+              "hits@3": 0.16933,
+              "hits@10": 0.34067,
+              "hits@100": 0.76333,
+              "mrr": 0.15442
+            },
+            "BASELINE_POP": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 0.00012
+            }
+          },
+          "arm_n": {
+            "ANCHOR_COMPOSE": 3000,
+            "ADDITIVE_TRANSE": 3000,
+            "ONESHOT_ROTATE": 3000,
+            "RANDOM_CODES": 3000,
+            "ANCHOR_SCRAMBLE": 3000,
+            "ORACLE_ADDITIVE": 3000,
+            "BASELINE_POP": 3000
+          },
+          "arm_sigs": {
+            "ANCHOR_COMPOSE": "70231d2256067134",
+            "ADDITIVE_TRANSE": "f3306389145b5c1a",
+            "ONESHOT_ROTATE": "4892304fed68bcbc",
+            "ANCHOR_SCRAMBLE": "4c37b097cb3382e2",
+            "ORACLE_ADDITIVE": "a75ca29c8167b4b6",
+            "RANDOM_CODES": "bd246a3a47808803",
+            "BASELINE_POP": "f8b6da2d4305c360"
+          },
+          "localization": {
+            "by_support_degree": {
+              "cold": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 4.1e-05,
+                  "n": 15
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 15
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000916,
+                  "n": 15
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.86667,
+                  "mrr": 0.637813,
+                  "n": 15
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000103,
+                  "n": 15
+                }
+              },
+              "d1": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 0.003792,
+                  "n": 4
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 4
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 5.3e-05,
+                  "n": 4
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.75,
+                  "mrr": 0.500667,
+                  "n": 4
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.00012,
+                  "n": 4
+                }
+              },
+              "d2_3": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.16667,
+                  "mrr": 0.074739,
+                  "n": 48
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.3e-05,
+                  "n": 48
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000105,
+                  "n": 48
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.375,
+                  "mrr": 0.173856,
+                  "n": 48
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.00012,
+                  "n": 48
+                }
+              },
+              "d4_7": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.29949,
+                  "mrr": 0.170522,
+                  "n": 197
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 197
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000232,
+                  "n": 197
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.32487,
+                  "mrr": 0.128044,
+                  "n": 197
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.00013,
+                  "n": 197
+                }
+              },
+              "d8plus": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.27595,
+                  "mrr": 0.114613,
+                  "n": 2736
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 2736
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00073,
+                  "mrr": 0.000743,
+                  "n": 2736
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.33772,
+                  "mrr": 0.152824,
+                  "n": 2736
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.00012,
+                  "n": 2736
+                }
+              }
+            },
+            "by_global_degree_tertile": {
+              "low": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.274,
+                  "mrr": 0.116926,
+                  "n": 3000
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 3000
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00067,
+                  "mrr": 0.000699,
+                  "n": 3000
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.34067,
+                  "mrr": 0.154422,
+                  "n": 3000
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000118,
+                  "n": 3000
+                }
+              },
+              "mid": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              },
+              "high": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              }
+            },
+            "fair_low_mid": {
+              "ANCHOR_COMPOSE": {
+                "hits": 0.274,
+                "mrr": 0.116926,
+                "n": 3000
+              },
+              "ADDITIVE_TRANSE": {
+                "hits": 0.0,
+                "mrr": 4.2e-05,
+                "n": 3000
+              },
+              "RANDOM_CODES": {
+                "hits": 0.00067,
+                "mrr": 0.000699,
+                "n": 3000
+              },
+              "ORACLE_ADDITIVE": {
+                "hits": 0.34067,
+                "mrr": 0.154422,
+                "n": 3000
+              },
+              "BASELINE_POP": {
+                "hits": 0.0,
+                "mrr": 0.000118,
+                "n": 3000
+              }
+            },
+            "by_relation_tertile": {
+              "hardest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.21665,
+                  "mrr": 0.091565,
+                  "n": 1874
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1874
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000315,
+                  "n": 1874
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.26094,
+                  "mrr": 0.121615,
+                  "n": 1874
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000114,
+                  "n": 1874
+                }
+              },
+              "rest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.36945,
+                  "mrr": 0.159135,
+                  "n": 1126
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1126
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00178,
+                  "mrr": 0.00134,
+                  "n": 1126
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.47336,
+                  "mrr": 0.209023,
+                  "n": 1126
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000131,
+                  "n": 1126
+                }
+              }
+            },
+            "global_degree_tertile_bounds": [
+              0.0,
+              0.0
+            ],
+            "support_deg_hist": {
+              "cold": 15,
+              "d1": 4,
+              "d2_3": 48,
+              "d4_7": 197,
+              "d8plus": 2736
+            }
+          },
+          "cskg_provenance": {
+            "n_xcut_edges_streamed": 1244862,
+            "k_core": 12,
+            "n_core_nodes": 25752,
+            "n_core_edges": 511164,
+            "n_core_nodes_in_split": 25752,
+            "core_avgdeg": 39.69897483690587,
+            "n_train": 460048,
+            "n_valid": 25558,
+            "n_test": 25558,
+            "n_rel_tokens": 29
+          },
+          "rung": "r0_base"
+        },
+        {
+          "corpus": "CSKG_CORE_HELDOUT_ENTITY_r0_base",
+          "seed": 13,
+          "N": 25752,
+          "n_rel": 29,
+          "n_train": 375272,
+          "n_heldout_entities": 3862,
+          "n_support": 28420,
+          "n_query_total": 28532,
+          "n_query_scored": 3000,
+          "n_cold": 180,
+          "heldout_entity_frac": 0.15,
+          "support_frac": 0.5,
+          "arm_hits": {
+            "ANCHOR_COMPOSE": {
+              "hits@1": 0.06033,
+              "hits@3": 0.138,
+              "hits@10": 0.28667,
+              "hits@100": 0.79633,
+              "mrr": 0.13797
+            },
+            "ADDITIVE_TRANSE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 4e-05
+            },
+            "ONESHOT_ROTATE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 6e-05
+            },
+            "RANDOM_CODES": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.00333,
+              "mrr": 0.00031
+            },
+            "ANCHOR_SCRAMBLE": {
+              "hits@1": 0.00033,
+              "hits@3": 0.004,
+              "hits@10": 0.01133,
+              "hits@100": 0.07167,
+              "mrr": 0.00646
+            },
+            "ORACLE_ADDITIVE": {
+              "hits@1": 0.042,
+              "hits@3": 0.125,
+              "hits@10": 0.28633,
+              "hits@100": 0.735,
+              "mrr": 0.12037
+            },
+            "BASELINE_POP": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 0.00012
+            }
+          },
+          "arm_n": {
+            "ANCHOR_COMPOSE": 3000,
+            "ADDITIVE_TRANSE": 3000,
+            "ONESHOT_ROTATE": 3000,
+            "RANDOM_CODES": 3000,
+            "ANCHOR_SCRAMBLE": 3000,
+            "ORACLE_ADDITIVE": 3000,
+            "BASELINE_POP": 3000
+          },
+          "arm_sigs": {
+            "ANCHOR_COMPOSE": "113ad2126fdc38ed",
+            "ADDITIVE_TRANSE": "8d16e2c0005933c7",
+            "ONESHOT_ROTATE": "429b16a3318cd860",
+            "ANCHOR_SCRAMBLE": "023dc80296301571",
+            "ORACLE_ADDITIVE": "606a84206b87dfda",
+            "RANDOM_CODES": "aaf0901800378ec2",
+            "BASELINE_POP": "736cac7d8d56c9b4"
+          },
+          "localization": {
+            "by_support_degree": {
+              "cold": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 4e-05,
+                  "n": 20
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.1e-05,
+                  "n": 20
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000132,
+                  "n": 20
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.9,
+                  "mrr": 0.663688,
+                  "n": 20
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000104,
+                  "n": 20
+                }
+              },
+              "d1": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.16667,
+                  "mrr": 0.114713,
+                  "n": 12
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 12
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000242,
+                  "n": 12
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.5,
+                  "mrr": 0.283065,
+                  "n": 12
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 9.9e-05,
+                  "n": 12
+                }
+              },
+              "d2_3": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.14035,
+                  "mrr": 0.083055,
+                  "n": 57
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 57
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000171,
+                  "n": 57
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.19298,
+                  "mrr": 0.072925,
+                  "n": 57
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.0001,
+                  "n": 57
+                }
+              },
+              "d4_7": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.22353,
+                  "mrr": 0.132319,
+                  "n": 255
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 255
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000198,
+                  "n": 255
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.25882,
+                  "mrr": 0.100422,
+                  "n": 255
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000125,
+                  "n": 255
+                }
+              },
+              "d8plus": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.29857,
+                  "mrr": 0.140835,
+                  "n": 2656
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 2656
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000327,
+                  "n": 2656
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.28539,
+                  "mrr": 0.118475,
+                  "n": 2656
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000118,
+                  "n": 2656
+                }
+              }
+            },
+            "by_global_degree_tertile": {
+              "low": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.28667,
+                  "mrr": 0.13797,
+                  "n": 3000
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 3000
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000311,
+                  "n": 3000
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.28633,
+                  "mrr": 0.120369,
+                  "n": 3000
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000117,
+                  "n": 3000
+                }
+              },
+              "mid": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              },
+              "high": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              }
+            },
+            "fair_low_mid": {
+              "ANCHOR_COMPOSE": {
+                "hits": 0.28667,
+                "mrr": 0.13797,
+                "n": 3000
+              },
+              "ADDITIVE_TRANSE": {
+                "hits": 0.0,
+                "mrr": 4.2e-05,
+                "n": 3000
+              },
+              "RANDOM_CODES": {
+                "hits": 0.0,
+                "mrr": 0.000311,
+                "n": 3000
+              },
+              "ORACLE_ADDITIVE": {
+                "hits": 0.28633,
+                "mrr": 0.120369,
+                "n": 3000
+              },
+              "BASELINE_POP": {
+                "hits": 0.0,
+                "mrr": 0.000117,
+                "n": 3000
+              }
+            },
+            "by_relation_tertile": {
+              "hardest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.2247,
+                  "mrr": 0.108452,
+                  "n": 1976
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1976
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000344,
+                  "n": 1976
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.21862,
+                  "mrr": 0.090435,
+                  "n": 1976
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000112,
+                  "n": 1976
+                }
+              },
+              "rest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.40625,
+                  "mrr": 0.194929,
+                  "n": 1024
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1024
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000248,
+                  "n": 1024
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.41699,
+                  "mrr": 0.178131,
+                  "n": 1024
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000133,
+                  "n": 1024
+                }
+              }
+            },
+            "global_degree_tertile_bounds": [
+              0.0,
+              0.0
+            ],
+            "support_deg_hist": {
+              "cold": 20,
+              "d1": 12,
+              "d2_3": 57,
+              "d4_7": 255,
+              "d8plus": 2656
+            }
+          },
+          "cskg_provenance": {
+            "n_xcut_edges_streamed": 1244862,
+            "k_core": 12,
+            "n_core_nodes": 25752,
+            "n_core_edges": 511164,
+            "n_core_nodes_in_split": 25752,
+            "core_avgdeg": 39.69897483690587,
+            "n_train": 460048,
+            "n_valid": 25558,
+            "n_test": 25558,
+            "n_rel_tokens": 29
+          },
+          "rung": "r0_base"
+        }
+      ],
+      "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+      "verdict_msg": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE || HELD-OUT MRR [nq=3000]: ANCHOR=0.1275 | ADDITIVE=0.0000 ONESHOT=0.0001 | RANDOM=0.0005 SCRAMBLE=0.0087 | ORACLE=0.1374 POP=0.0001 || CEILING H(oracle-random)=0.1369 ratio=272.0693x (fires>=3.0x&>=0.003=True) | anchor_margin=0.1269 vs HARD_PASS>=0.0684 (=0.50*H|min0.002) HARD_FAIL<0.0274 (=0.20*H) | form_margin=0.1274 (>=0.0137) | fair_lowmid_margin=0.1269 (>0) | scramble_margin=0.0082 (<=0.0342) | broken=False | legacy_hits10_gate_fires=True | frac=0.15 support_frac=0.50 seeds=2",
+      "gates": {
+        "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+        "ceil_metric": "mrr",
+        "heldout_metric_spectrum": {
+          "ANCHOR_COMPOSE": {
+            "hits@1": 0.050665,
+            "hits@3": 0.123835,
+            "hits@10": 0.280335,
+            "hits@100": 0.797165,
+            "mrr": 0.12745
+          },
+          "ADDITIVE_TRANSE": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 4e-05
+          },
+          "ONESHOT_ROTATE": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 6e-05
+          },
+          "RANDOM_CODES": {
+            "hits@1": 0.000165,
+            "hits@3": 0.000165,
+            "hits@10": 0.000335,
+            "hits@100": 0.004165,
+            "mrr": 0.000505
+          },
+          "ANCHOR_SCRAMBLE": {
+            "hits@1": 0.0005,
+            "hits@3": 0.0045,
+            "hits@10": 0.01533,
+            "hits@100": 0.12917,
+            "mrr": 0.00873
+          },
+          "ORACLE_ADDITIVE": {
+            "hits@1": 0.052835,
+            "hits@3": 0.147165,
+            "hits@10": 0.3135,
+            "hits@100": 0.749165,
+            "mrr": 0.137395
+          },
+          "BASELINE_POP": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 0.00012
+          }
+        },
+        "heldout_mrr": {
+          "ANCHOR_COMPOSE": 0.12745,
+          "ADDITIVE_TRANSE": 4e-05,
+          "ONESHOT_ROTATE": 6e-05,
+          "RANDOM_CODES": 0.000505,
+          "ANCHOR_SCRAMBLE": 0.00873,
+          "ORACLE_ADDITIVE": 0.137395,
+          "BASELINE_POP": 0.00012
+        },
+        "heldout_hits_at_10": {
+          "ANCHOR_COMPOSE": 0.28034,
+          "ADDITIVE_TRANSE": 0.0,
+          "ONESHOT_ROTATE": 0.0,
+          "RANDOM_CODES": 0.00034,
+          "ANCHOR_SCRAMBLE": 0.01533,
+          "ORACLE_ADDITIVE": 0.3135,
+          "BASELINE_POP": 0.0
+        },
+        "fair_lowmid_mrr": {
+          "ANCHOR_COMPOSE": 0.127448,
+          "ADDITIVE_TRANSE": 4.2e-05,
+          "ONESHOT_ROTATE": null,
+          "RANDOM_CODES": 0.000505,
+          "ORACLE_ADDITIVE": 0.137396,
+          "BASELINE_POP": 0.000117
+        },
+        "primary_k": 10,
+        "anchor_margin_vs_random": 0.126945,
+        "form_margin_vs_memorize": 0.12739,
+        "fair_lowmid_anchor_margin": 0.126943,
+        "scramble_margin_vs_random": 0.008225,
+        "oracle_headroom": 0.13689,
+        "oracle_ratio": 272.07,
+        "oracle_fire_by_metric": {
+          "hits@1": {
+            "oracle": 0.052835,
+            "random": 0.000165,
+            "headroom": 0.05267,
+            "ratio": 320.21,
+            "fires_ratio": true
+          },
+          "hits@3": {
+            "oracle": 0.147165,
+            "random": 0.000165,
+            "headroom": 0.147,
+            "ratio": 891.91,
+            "fires_ratio": true
+          },
+          "hits@10": {
+            "oracle": 0.3135,
+            "random": 0.000335,
+            "headroom": 0.313165,
+            "ratio": 935.82,
+            "fires_ratio": true
+          },
+          "hits@100": {
+            "oracle": 0.749165,
+            "random": 0.004165,
+            "headroom": 0.745,
+            "ratio": 179.87,
+            "fires_ratio": true
+          },
+          "mrr": {
+            "oracle": 0.137395,
+            "random": 0.000505,
+            "headroom": 0.13689,
+            "ratio": 272.07,
+            "fires_ratio": true
+          }
+        },
+        "legacy_hits10_gate_fires": true,
+        "legacy_hits10_headroom": 0.31317,
+        "resolved_thresholds": {
+          "hard_pass_anchor": 0.068445,
+          "hard_pass_form": 0.013689,
+          "hard_fail_anchor": 0.027378,
+          "scramble_ceiling": 0.034222,
+          "broken_margin": 0.034222
+        },
+        "n_query_scored": 3000,
+        "bands": {
+          "CEIL_METRIC": "mrr",
+          "ORACLE_FIRE_RATIO": 3.0,
+          "ORACLE_FIRE_ABS": 0.003,
+          "HP_CEIL_FRAC": 0.5,
+          "FORM_CEIL_FRAC": 0.1,
+          "HF_CEIL_FRAC": 0.2,
+          "SCRAMBLE_CEIL_FRAC": 0.25,
+          "MIN_SIG_MRR": 0.002,
+          "MIN_HELDOUT": 20,
+          "HELDOUT_ENTITY_FRAC": 0.15,
+          "SUPPORT_FRAC": 0.5
+        },
+        "enough_heldout": true,
+        "oracle_fires": true,
+        "scramble_controlled": true,
+        "broken": false,
+        "fair_holds": true,
+        "hard_pass": true,
+        "hard_fail": false,
+        "middle": false
+      }
+    },
+    {
+      "rung": "r1_halfsupport",
+      "k_core": 12,
+      "support_frac": 0.25,
+      "n_seeds_ok": 2,
+      "seed_failures": [],
+      "per_seed": [
+        {
+          "corpus": "CSKG_CORE_HELDOUT_ENTITY_r1_halfsupport",
+          "seed": 7,
+          "N": 25752,
+          "n_rel": 29,
+          "n_train": 359692,
+          "n_heldout_entities": 3862,
+          "n_support": 18197,
+          "n_query_total": 54390,
+          "n_query_scored": 3000,
+          "n_cold": 154,
+          "heldout_entity_frac": 0.15,
+          "support_frac": 0.25,
+          "arm_hits": {
+            "ANCHOR_COMPOSE": {
+              "hits@1": 0.04367,
+              "hits@3": 0.11967,
+              "hits@10": 0.29933,
+              "hits@100": 0.80333,
+              "mrr": 0.12342
+            },
+            "ADDITIVE_TRANSE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 4e-05
+            },
+            "ONESHOT_ROTATE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 6e-05
+            },
+            "RANDOM_CODES": {
+              "hits@1": 0.00033,
+              "hits@3": 0.001,
+              "hits@10": 0.00133,
+              "hits@100": 0.005,
+              "mrr": 0.00095
+            },
+            "ANCHOR_SCRAMBLE": {
+              "hits@1": 0.00167,
+              "hits@3": 0.00567,
+              "hits@10": 0.02267,
+              "hits@100": 0.19,
+              "mrr": 0.01231
+            },
+            "ORACLE_ADDITIVE": {
+              "hits@1": 0.045,
+              "hits@3": 0.123,
+              "hits@10": 0.30167,
+              "hits@100": 0.73533,
+              "mrr": 0.12655
+            },
+            "BASELINE_POP": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 0.00012
+            }
+          },
+          "arm_n": {
+            "ANCHOR_COMPOSE": 3000,
+            "ADDITIVE_TRANSE": 3000,
+            "ONESHOT_ROTATE": 3000,
+            "RANDOM_CODES": 3000,
+            "ANCHOR_SCRAMBLE": 3000,
+            "ORACLE_ADDITIVE": 3000,
+            "BASELINE_POP": 3000
+          },
+          "arm_sigs": {
+            "ANCHOR_COMPOSE": "1bc8103d3ca12d09",
+            "ADDITIVE_TRANSE": "643472760573149d",
+            "ONESHOT_ROTATE": "4e65c15b3bda2c0e",
+            "ANCHOR_SCRAMBLE": "4afe858608958d62",
+            "ORACLE_ADDITIVE": "f2efdbd74f4ec65b",
+            "RANDOM_CODES": "23c00ae857c061f2",
+            "BASELINE_POP": "a1f376fc8b131682"
+          },
+          "localization": {
+            "by_support_degree": {
+              "cold": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 4.1e-05,
+                  "n": 9
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 9
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.002261,
+                  "n": 9
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.88889,
+                  "mrr": 0.713267,
+                  "n": 9
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000104,
+                  "n": 9
+                }
+              },
+              "d1": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.05405,
+                  "mrr": 0.015401,
+                  "n": 37
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 37
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000129,
+                  "n": 37
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.43243,
+                  "mrr": 0.202131,
+                  "n": 37
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.0001,
+                  "n": 37
+                }
+              },
+              "d2_3": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.2071,
+                  "mrr": 0.095758,
+                  "n": 169
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 169
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000274,
+                  "n": 169
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.26036,
+                  "mrr": 0.100926,
+                  "n": 169
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000123,
+                  "n": 169
+                }
+              },
+              "d4_7": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.28346,
+                  "mrr": 0.148969,
+                  "n": 381
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 381
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000229,
+                  "n": 381
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.32021,
+                  "mrr": 0.132848,
+                  "n": 381
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000122,
+                  "n": 381
+                }
+              },
+              "d8plus": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.31323,
+                  "mrr": 0.123439,
+                  "n": 2404
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 2404
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00166,
+                  "mrr": 0.001116,
+                  "n": 2404
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.29742,
+                  "mrr": 0.123988,
+                  "n": 2404
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.00012,
+                  "n": 2404
+                }
+              }
+            },
+            "by_global_degree_tertile": {
+              "low": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.29933,
+                  "mrr": 0.123419,
+                  "n": 3000
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 3000
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00133,
+                  "mrr": 0.000947,
+                  "n": 3000
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.30167,
+                  "mrr": 0.126545,
+                  "n": 3000
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000118,
+                  "n": 3000
+                }
+              },
+              "mid": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              },
+              "high": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              }
+            },
+            "fair_low_mid": {
+              "ANCHOR_COMPOSE": {
+                "hits": 0.29933,
+                "mrr": 0.123419,
+                "n": 3000
+              },
+              "ADDITIVE_TRANSE": {
+                "hits": 0.0,
+                "mrr": 4.2e-05,
+                "n": 3000
+              },
+              "RANDOM_CODES": {
+                "hits": 0.00133,
+                "mrr": 0.000947,
+                "n": 3000
+              },
+              "ORACLE_ADDITIVE": {
+                "hits": 0.30167,
+                "mrr": 0.126545,
+                "n": 3000
+              },
+              "BASELINE_POP": {
+                "hits": 0.0,
+                "mrr": 0.000118,
+                "n": 3000
+              }
+            },
+            "by_relation_tertile": {
+              "hardest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.24284,
+                  "mrr": 0.100267,
+                  "n": 1886
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1886
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00053,
+                  "mrr": 0.000349,
+                  "n": 1886
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.21792,
+                  "mrr": 0.092351,
+                  "n": 1886
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000112,
+                  "n": 1886
+                }
+              },
+              "rest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.39497,
+                  "mrr": 0.162616,
+                  "n": 1114
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1114
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00269,
+                  "mrr": 0.001959,
+                  "n": 1114
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.44345,
+                  "mrr": 0.184437,
+                  "n": 1114
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000133,
+                  "n": 1114
+                }
+              }
+            },
+            "global_degree_tertile_bounds": [
+              0.0,
+              0.0
+            ],
+            "support_deg_hist": {
+              "cold": 9,
+              "d1": 37,
+              "d2_3": 169,
+              "d4_7": 381,
+              "d8plus": 2404
+            }
+          },
+          "cskg_provenance": {
+            "n_xcut_edges_streamed": 1244862,
+            "k_core": 12,
+            "n_core_nodes": 25752,
+            "n_core_edges": 511164,
+            "n_core_nodes_in_split": 25752,
+            "core_avgdeg": 39.69897483690587,
+            "n_train": 460048,
+            "n_valid": 25558,
+            "n_test": 25558,
+            "n_rel_tokens": 29
+          },
+          "rung": "r1_halfsupport"
+        },
+        {
+          "corpus": "CSKG_CORE_HELDOUT_ENTITY_r1_halfsupport",
+          "seed": 13,
+          "N": 25752,
+          "n_rel": 29,
+          "n_train": 375272,
+          "n_heldout_entities": 3862,
+          "n_support": 14256,
+          "n_query_total": 42696,
+          "n_query_scored": 3000,
+          "n_cold": 180,
+          "heldout_entity_frac": 0.15,
+          "support_frac": 0.25,
+          "arm_hits": {
+            "ANCHOR_COMPOSE": {
+              "hits@1": 0.05267,
+              "hits@3": 0.12567,
+              "hits@10": 0.30467,
+              "hits@100": 0.78633,
+              "mrr": 0.1333
+            },
+            "ADDITIVE_TRANSE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 4e-05
+            },
+            "ONESHOT_ROTATE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 6e-05
+            },
+            "RANDOM_CODES": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.00033,
+              "hits@100": 0.00367,
+              "mrr": 0.00035
+            },
+            "ANCHOR_SCRAMBLE": {
+              "hits@1": 0.001,
+              "hits@3": 0.004,
+              "hits@10": 0.01333,
+              "hits@100": 0.06867,
+              "mrr": 0.00694
+            },
+            "ORACLE_ADDITIVE": {
+              "hits@1": 0.04067,
+              "hits@3": 0.10633,
+              "hits@10": 0.26033,
+              "hits@100": 0.695,
+              "mrr": 0.11121
+            },
+            "BASELINE_POP": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 0.00012
+            }
+          },
+          "arm_n": {
+            "ANCHOR_COMPOSE": 3000,
+            "ADDITIVE_TRANSE": 3000,
+            "ONESHOT_ROTATE": 3000,
+            "RANDOM_CODES": 3000,
+            "ANCHOR_SCRAMBLE": 3000,
+            "ORACLE_ADDITIVE": 3000,
+            "BASELINE_POP": 3000
+          },
+          "arm_sigs": {
+            "ANCHOR_COMPOSE": "fb9c68198d56b841",
+            "ADDITIVE_TRANSE": "e197f73d57b6e0e6",
+            "ONESHOT_ROTATE": "a1e397de87b098c4",
+            "ANCHOR_SCRAMBLE": "251f216af1d5501e",
+            "ORACLE_ADDITIVE": "2f97c43935cb3fad",
+            "RANDOM_CODES": "89fb6a46f3aacf51",
+            "BASELINE_POP": "68eb469d046d855e"
+          },
+          "localization": {
+            "by_support_degree": {
+              "cold": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 4.1e-05,
+                  "n": 9
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 9
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000187,
+                  "n": 9
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.88889,
+                  "mrr": 0.581481,
+                  "n": 9
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.00012,
+                  "n": 9
+                }
+              },
+              "d1": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.10909,
+                  "mrr": 0.058106,
+                  "n": 55
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.3e-05,
+                  "n": 55
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000186,
+                  "n": 55
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.4,
+                  "mrr": 0.200928,
+                  "n": 55
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000124,
+                  "n": 55
+                }
+              },
+              "d2_3": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.20732,
+                  "mrr": 0.110321,
+                  "n": 246
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 246
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000172,
+                  "n": 246
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.33333,
+                  "mrr": 0.157198,
+                  "n": 246
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000129,
+                  "n": 246
+                }
+              },
+              "d4_7": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.28352,
+                  "mrr": 0.134064,
+                  "n": 455
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 455
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000383,
+                  "n": 455
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.26154,
+                  "mrr": 0.090369,
+                  "n": 455
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000122,
+                  "n": 455
+                }
+              },
+              "d8plus": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.32573,
+                  "mrr": 0.138055,
+                  "n": 2235
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 2235
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00045,
+                  "mrr": 0.000362,
+                  "n": 2235
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.24609,
+                  "mrr": 0.106296,
+                  "n": 2235
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000118,
+                  "n": 2235
+                }
+              }
+            },
+            "by_global_degree_tertile": {
+              "low": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.30467,
+                  "mrr": 0.133296,
+                  "n": 3000
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 3000
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00033,
+                  "mrr": 0.000346,
+                  "n": 3000
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.26033,
+                  "mrr": 0.111215,
+                  "n": 3000
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000118,
+                  "n": 3000
+                }
+              },
+              "mid": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              },
+              "high": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              }
+            },
+            "fair_low_mid": {
+              "ANCHOR_COMPOSE": {
+                "hits": 0.30467,
+                "mrr": 0.133296,
+                "n": 3000
+              },
+              "ADDITIVE_TRANSE": {
+                "hits": 0.0,
+                "mrr": 4.2e-05,
+                "n": 3000
+              },
+              "RANDOM_CODES": {
+                "hits": 0.00033,
+                "mrr": 0.000346,
+                "n": 3000
+              },
+              "ORACLE_ADDITIVE": {
+                "hits": 0.26033,
+                "mrr": 0.111215,
+                "n": 3000
+              },
+              "BASELINE_POP": {
+                "hits": 0.0,
+                "mrr": 0.000118,
+                "n": 3000
+              }
+            },
+            "by_relation_tertile": {
+              "hardest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.23959,
+                  "mrr": 0.096939,
+                  "n": 1945
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1945
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00051,
+                  "mrr": 0.000385,
+                  "n": 1945
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.16812,
+                  "mrr": 0.070576,
+                  "n": 1945
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000113,
+                  "n": 1945
+                }
+              },
+              "rest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.42464,
+                  "mrr": 0.200323,
+                  "n": 1055
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 4.2e-05,
+                  "n": 1055
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000273,
+                  "n": 1055
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.43033,
+                  "mrr": 0.186136,
+                  "n": 1055
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 0.000133,
+                  "n": 1055
+                }
+              }
+            },
+            "global_degree_tertile_bounds": [
+              0.0,
+              0.0
+            ],
+            "support_deg_hist": {
+              "cold": 9,
+              "d1": 55,
+              "d2_3": 246,
+              "d4_7": 455,
+              "d8plus": 2235
+            }
+          },
+          "cskg_provenance": {
+            "n_xcut_edges_streamed": 1244862,
+            "k_core": 12,
+            "n_core_nodes": 25752,
+            "n_core_edges": 511164,
+            "n_core_nodes_in_split": 25752,
+            "core_avgdeg": 39.69897483690587,
+            "n_train": 460048,
+            "n_valid": 25558,
+            "n_test": 25558,
+            "n_rel_tokens": 29
+          },
+          "rung": "r1_halfsupport"
+        }
+      ],
+      "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+      "verdict_msg": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE || HELD-OUT MRR [nq=3000]: ANCHOR=0.1284 | ADDITIVE=0.0000 ONESHOT=0.0001 | RANDOM=0.0006 SCRAMBLE=0.0096 | ORACLE=0.1189 POP=0.0001 || CEILING H(oracle-random)=0.1182 ratio=182.8923x (fires>=3.0x&>=0.003=True) | anchor_margin=0.1277 vs HARD_PASS>=0.0591 (=0.50*H|min0.002) HARD_FAIL<0.0236 (=0.20*H) | form_margin=0.1283 (>=0.0118) | fair_lowmid_margin=0.1277 (>0) | scramble_margin=0.0090 (<=0.0296) | broken=False | legacy_hits10_gate_fires=True | frac=0.15 support_frac=0.25 seeds=2",
+      "gates": {
+        "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+        "ceil_metric": "mrr",
+        "heldout_metric_spectrum": {
+          "ANCHOR_COMPOSE": {
+            "hits@1": 0.04817,
+            "hits@3": 0.12267,
+            "hits@10": 0.302,
+            "hits@100": 0.79483,
+            "mrr": 0.12836
+          },
+          "ADDITIVE_TRANSE": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 4e-05
+          },
+          "ONESHOT_ROTATE": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 6e-05
+          },
+          "RANDOM_CODES": {
+            "hits@1": 0.000165,
+            "hits@3": 0.0005,
+            "hits@10": 0.00083,
+            "hits@100": 0.004335,
+            "mrr": 0.00065
+          },
+          "ANCHOR_SCRAMBLE": {
+            "hits@1": 0.001335,
+            "hits@3": 0.004835,
+            "hits@10": 0.018,
+            "hits@100": 0.129335,
+            "mrr": 0.009625
+          },
+          "ORACLE_ADDITIVE": {
+            "hits@1": 0.042835,
+            "hits@3": 0.114665,
+            "hits@10": 0.281,
+            "hits@100": 0.715165,
+            "mrr": 0.11888
+          },
+          "BASELINE_POP": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 0.00012
+          }
+        },
+        "heldout_mrr": {
+          "ANCHOR_COMPOSE": 0.12836,
+          "ADDITIVE_TRANSE": 4e-05,
+          "ONESHOT_ROTATE": 6e-05,
+          "RANDOM_CODES": 0.00065,
+          "ANCHOR_SCRAMBLE": 0.009625,
+          "ORACLE_ADDITIVE": 0.11888,
+          "BASELINE_POP": 0.00012
+        },
+        "heldout_hits_at_10": {
+          "ANCHOR_COMPOSE": 0.302,
+          "ADDITIVE_TRANSE": 0.0,
+          "ONESHOT_ROTATE": 0.0,
+          "RANDOM_CODES": 0.00083,
+          "ANCHOR_SCRAMBLE": 0.018,
+          "ORACLE_ADDITIVE": 0.281,
+          "BASELINE_POP": 0.0
+        },
+        "fair_lowmid_mrr": {
+          "ANCHOR_COMPOSE": 0.128358,
+          "ADDITIVE_TRANSE": 4.2e-05,
+          "ONESHOT_ROTATE": null,
+          "RANDOM_CODES": 0.000647,
+          "ORACLE_ADDITIVE": 0.11888,
+          "BASELINE_POP": 0.000118
+        },
+        "primary_k": 10,
+        "anchor_margin_vs_random": 0.12771,
+        "form_margin_vs_memorize": 0.1283,
+        "fair_lowmid_anchor_margin": 0.127711,
+        "scramble_margin_vs_random": 0.008975,
+        "oracle_headroom": 0.11823,
+        "oracle_ratio": 182.89,
+        "oracle_fire_by_metric": {
+          "hits@1": {
+            "oracle": 0.042835,
+            "random": 0.000165,
+            "headroom": 0.04267,
+            "ratio": 259.61,
+            "fires_ratio": true
+          },
+          "hits@3": {
+            "oracle": 0.114665,
+            "random": 0.0005,
+            "headroom": 0.114165,
+            "ratio": 229.33,
+            "fires_ratio": true
+          },
+          "hits@10": {
+            "oracle": 0.281,
+            "random": 0.00083,
+            "headroom": 0.28017,
+            "ratio": 338.55,
+            "fires_ratio": true
+          },
+          "hits@100": {
+            "oracle": 0.715165,
+            "random": 0.004335,
+            "headroom": 0.71083,
+            "ratio": 164.97,
+            "fires_ratio": true
+          },
+          "mrr": {
+            "oracle": 0.11888,
+            "random": 0.00065,
+            "headroom": 0.11823,
+            "ratio": 182.89,
+            "fires_ratio": true
+          }
+        },
+        "legacy_hits10_gate_fires": true,
+        "legacy_hits10_headroom": 0.28017,
+        "resolved_thresholds": {
+          "hard_pass_anchor": 0.059115,
+          "hard_pass_form": 0.011823,
+          "hard_fail_anchor": 0.023646,
+          "scramble_ceiling": 0.029558,
+          "broken_margin": 0.029558
+        },
+        "n_query_scored": 3000,
+        "bands": {
+          "CEIL_METRIC": "mrr",
+          "ORACLE_FIRE_RATIO": 3.0,
+          "ORACLE_FIRE_ABS": 0.003,
+          "HP_CEIL_FRAC": 0.5,
+          "FORM_CEIL_FRAC": 0.1,
+          "HF_CEIL_FRAC": 0.2,
+          "SCRAMBLE_CEIL_FRAC": 0.25,
+          "MIN_SIG_MRR": 0.002,
+          "MIN_HELDOUT": 20,
+          "HELDOUT_ENTITY_FRAC": 0.15,
+          "SUPPORT_FRAC": 0.5
+        },
+        "enough_heldout": true,
+        "oracle_fires": true,
+        "scramble_controlled": true,
+        "broken": false,
+        "fair_holds": true,
+        "hard_pass": true,
+        "hard_fail": false,
+        "middle": false
+      }
+    },
+    {
+      "rung": "r2_sparsecore_bigN",
+      "k_core": 8,
+      "support_frac": 0.5,
+      "n_seeds_ok": 2,
+      "seed_failures": [],
+      "per_seed": [
+        {
+          "corpus": "CSKG_CORE_HELDOUT_ENTITY_r2_sparsecore_bigN",
+          "seed": 7,
+          "N": 38772,
+          "n_rel": 29,
+          "n_train": 457248,
+          "n_heldout_entities": 5815,
+          "n_support": 42934,
+          "n_query_total": 43111,
+          "n_query_scored": 3000,
+          "n_cold": 274,
+          "heldout_entity_frac": 0.15,
+          "support_frac": 0.5,
+          "arm_hits": {
+            "ANCHOR_COMPOSE": {
+              "hits@1": 0.036,
+              "hits@3": 0.113,
+              "hits@10": 0.27233,
+              "hits@100": 0.75867,
+              "mrr": 0.11407
+            },
+            "ADDITIVE_TRANSE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 3e-05
+            },
+            "ONESHOT_ROTATE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 4e-05
+            },
+            "RANDOM_CODES": {
+              "hits@1": 0.00067,
+              "hits@3": 0.00067,
+              "hits@10": 0.001,
+              "hits@100": 0.00867,
+              "mrr": 0.00112
+            },
+            "ANCHOR_SCRAMBLE": {
+              "hits@1": 0.00033,
+              "hits@3": 0.00133,
+              "hits@10": 0.00633,
+              "hits@100": 0.08667,
+              "mrr": 0.00495
+            },
+            "ORACLE_ADDITIVE": {
+              "hits@1": 0.07267,
+              "hits@3": 0.17933,
+              "hits@10": 0.36667,
+              "hits@100": 0.77467,
+              "mrr": 0.16732
+            },
+            "BASELINE_POP": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 8e-05
+            }
+          },
+          "arm_n": {
+            "ANCHOR_COMPOSE": 3000,
+            "ADDITIVE_TRANSE": 3000,
+            "ONESHOT_ROTATE": 3000,
+            "RANDOM_CODES": 3000,
+            "ANCHOR_SCRAMBLE": 3000,
+            "ORACLE_ADDITIVE": 3000,
+            "BASELINE_POP": 3000
+          },
+          "arm_sigs": {
+            "ANCHOR_COMPOSE": "292f7fd70a61dfb7",
+            "ADDITIVE_TRANSE": "6308e06615900d2f",
+            "ONESHOT_ROTATE": "cb10de1f8d3b23de",
+            "ANCHOR_SCRAMBLE": "fe8732544eadb59d",
+            "ORACLE_ADDITIVE": "d915e94a3705c971",
+            "RANDOM_CODES": "c00e0ff4a47e9dee",
+            "BASELINE_POP": "aaeda98c98b480ec"
+          },
+          "localization": {
+            "by_support_degree": {
+              "cold": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 2.7e-05,
+                  "n": 22
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 22
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000297,
+                  "n": 22
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.81818,
+                  "mrr": 0.699687,
+                  "n": 22
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 5.8e-05,
+                  "n": 22
+                }
+              },
+              "d1": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.07692,
+                  "mrr": 0.079618,
+                  "n": 13
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 13
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000376,
+                  "n": 13
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.38462,
+                  "mrr": 0.187424,
+                  "n": 13
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 7.8e-05,
+                  "n": 13
+                }
+              },
+              "d2_3": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.14493,
+                  "mrr": 0.086943,
+                  "n": 69
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 69
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 7.7e-05,
+                  "n": 69
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.26087,
+                  "mrr": 0.148091,
+                  "n": 69
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 9.5e-05,
+                  "n": 69
+                }
+              },
+              "d4_7": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.20354,
+                  "mrr": 0.101603,
+                  "n": 339
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 339
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000195,
+                  "n": 339
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.32743,
+                  "mrr": 0.140205,
+                  "n": 339
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 7.8e-05,
+                  "n": 339
+                }
+              },
+              "d8plus": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.28823,
+                  "mrr": 0.117606,
+                  "n": 2557
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 2557
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00117,
+                  "mrr": 0.001287,
+                  "n": 2557
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.37075,
+                  "mrr": 0.166756,
+                  "n": 2557
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8.1e-05,
+                  "n": 2557
+                }
+              }
+            },
+            "by_global_degree_tertile": {
+              "low": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.27233,
+                  "mrr": 0.114066,
+                  "n": 3000
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 3000
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.001,
+                  "mrr": 0.001124,
+                  "n": 3000
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.36667,
+                  "mrr": 0.167324,
+                  "n": 3000
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8.2e-05,
+                  "n": 3000
+                }
+              },
+              "mid": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              },
+              "high": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              }
+            },
+            "fair_low_mid": {
+              "ANCHOR_COMPOSE": {
+                "hits": 0.27233,
+                "mrr": 0.114066,
+                "n": 3000
+              },
+              "ADDITIVE_TRANSE": {
+                "hits": 0.0,
+                "mrr": 2.8e-05,
+                "n": 3000
+              },
+              "RANDOM_CODES": {
+                "hits": 0.001,
+                "mrr": 0.001124,
+                "n": 3000
+              },
+              "ORACLE_ADDITIVE": {
+                "hits": 0.36667,
+                "mrr": 0.167324,
+                "n": 3000
+              },
+              "BASELINE_POP": {
+                "hits": 0.0,
+                "mrr": 8.2e-05,
+                "n": 3000
+              }
+            },
+            "by_relation_tertile": {
+              "hardest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.23308,
+                  "mrr": 0.103074,
+                  "n": 1729
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 1729
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000251,
+                  "n": 1729
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.28629,
+                  "mrr": 0.132445,
+                  "n": 1729
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 7.5e-05,
+                  "n": 1729
+                }
+              },
+              "rest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.32573,
+                  "mrr": 0.129018,
+                  "n": 1271
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 1271
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.00236,
+                  "mrr": 0.002313,
+                  "n": 1271
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.476,
+                  "mrr": 0.214772,
+                  "n": 1271
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8.8e-05,
+                  "n": 1271
+                }
+              }
+            },
+            "global_degree_tertile_bounds": [
+              0.0,
+              0.0
+            ],
+            "support_deg_hist": {
+              "cold": 22,
+              "d1": 13,
+              "d2_3": 69,
+              "d4_7": 339,
+              "d8plus": 2557
+            }
+          },
+          "cskg_provenance": {
+            "n_xcut_edges_streamed": 1244862,
+            "k_core": 8,
+            "n_core_nodes": 38772,
+            "n_core_edges": 639337,
+            "n_core_nodes_in_split": 38772,
+            "core_avgdeg": 32.979314969565664,
+            "n_train": 575405,
+            "n_valid": 31966,
+            "n_test": 31966,
+            "n_rel_tokens": 29
+          },
+          "rung": "r2_sparsecore_bigN"
+        },
+        {
+          "corpus": "CSKG_CORE_HELDOUT_ENTITY_r2_sparsecore_bigN",
+          "seed": 13,
+          "N": 38772,
+          "n_rel": 29,
+          "n_train": 464017,
+          "n_heldout_entities": 5815,
+          "n_support": 39723,
+          "n_query_total": 39955,
+          "n_query_scored": 3000,
+          "n_cold": 263,
+          "heldout_entity_frac": 0.15,
+          "support_frac": 0.5,
+          "arm_hits": {
+            "ANCHOR_COMPOSE": {
+              "hits@1": 0.05067,
+              "hits@3": 0.12267,
+              "hits@10": 0.281,
+              "hits@100": 0.75167,
+              "mrr": 0.12553
+            },
+            "ADDITIVE_TRANSE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 3e-05
+            },
+            "ONESHOT_ROTATE": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 4e-05
+            },
+            "RANDOM_CODES": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.002,
+              "mrr": 0.00017
+            },
+            "ANCHOR_SCRAMBLE": {
+              "hits@1": 0.002,
+              "hits@3": 0.005,
+              "hits@10": 0.015,
+              "hits@100": 0.082,
+              "mrr": 0.00792
+            },
+            "ORACLE_ADDITIVE": {
+              "hits@1": 0.06733,
+              "hits@3": 0.17067,
+              "hits@10": 0.34933,
+              "hits@100": 0.76133,
+              "mrr": 0.15879
+            },
+            "BASELINE_POP": {
+              "hits@1": 0.0,
+              "hits@3": 0.0,
+              "hits@10": 0.0,
+              "hits@100": 0.0,
+              "mrr": 8e-05
+            }
+          },
+          "arm_n": {
+            "ANCHOR_COMPOSE": 3000,
+            "ADDITIVE_TRANSE": 3000,
+            "ONESHOT_ROTATE": 3000,
+            "RANDOM_CODES": 3000,
+            "ANCHOR_SCRAMBLE": 3000,
+            "ORACLE_ADDITIVE": 3000,
+            "BASELINE_POP": 3000
+          },
+          "arm_sigs": {
+            "ANCHOR_COMPOSE": "e77a3adb8050c19d",
+            "ADDITIVE_TRANSE": "5e35b394d0ea2b18",
+            "ONESHOT_ROTATE": "cde4968d3c98b31d",
+            "ANCHOR_SCRAMBLE": "b37591d9e1ced164",
+            "ORACLE_ADDITIVE": "e997290296b00aa5",
+            "RANDOM_CODES": "777360999560ef08",
+            "BASELINE_POP": "bb7a318e64077334"
+          },
+          "localization": {
+            "by_support_degree": {
+              "cold": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 2.7e-05,
+                  "n": 24
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 24
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 5.5e-05,
+                  "n": 24
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.75,
+                  "mrr": 0.581843,
+                  "n": 24
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 5.8e-05,
+                  "n": 24
+                }
+              },
+              "d1": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.0,
+                  "mrr": 0.016363,
+                  "n": 6
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 6
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000148,
+                  "n": 6
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.66667,
+                  "mrr": 0.349475,
+                  "n": 6
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 7.5e-05,
+                  "n": 6
+                }
+              },
+              "d2_3": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.10811,
+                  "mrr": 0.062649,
+                  "n": 74
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 74
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 9.3e-05,
+                  "n": 74
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.24324,
+                  "mrr": 0.098808,
+                  "n": 74
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 7.8e-05,
+                  "n": 74
+                }
+              },
+              "d4_7": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.2449,
+                  "mrr": 0.134102,
+                  "n": 343
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 343
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000147,
+                  "n": 343
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.33819,
+                  "mrr": 0.145753,
+                  "n": 343
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8e-05,
+                  "n": 343
+                }
+              },
+              "d8plus": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.29416,
+                  "mrr": 0.127636,
+                  "n": 2553
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 2553
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000181,
+                  "n": 2553
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.34939,
+                  "mrr": 0.15785,
+                  "n": 2553
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8.2e-05,
+                  "n": 2553
+                }
+              }
+            },
+            "by_global_degree_tertile": {
+              "low": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.281,
+                  "mrr": 0.125529,
+                  "n": 3000
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 3000
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000174,
+                  "n": 3000
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.34933,
+                  "mrr": 0.158786,
+                  "n": 3000
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8.2e-05,
+                  "n": 3000
+                }
+              },
+              "mid": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              },
+              "high": {
+                "ANCHOR_COMPOSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "RANDOM_CODES": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                },
+                "BASELINE_POP": {
+                  "hits": NaN,
+                  "mrr": NaN,
+                  "n": 0
+                }
+              }
+            },
+            "fair_low_mid": {
+              "ANCHOR_COMPOSE": {
+                "hits": 0.281,
+                "mrr": 0.125529,
+                "n": 3000
+              },
+              "ADDITIVE_TRANSE": {
+                "hits": 0.0,
+                "mrr": 2.8e-05,
+                "n": 3000
+              },
+              "RANDOM_CODES": {
+                "hits": 0.0,
+                "mrr": 0.000174,
+                "n": 3000
+              },
+              "ORACLE_ADDITIVE": {
+                "hits": 0.34933,
+                "mrr": 0.158786,
+                "n": 3000
+              },
+              "BASELINE_POP": {
+                "hits": 0.0,
+                "mrr": 8.2e-05,
+                "n": 3000
+              }
+            },
+            "by_relation_tertile": {
+              "hardest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.22367,
+                  "mrr": 0.105486,
+                  "n": 1766
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 1766
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000178,
+                  "n": 1766
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.25595,
+                  "mrr": 0.11408,
+                  "n": 1766
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 7.6e-05,
+                  "n": 1766
+                }
+              },
+              "rest": {
+                "ANCHOR_COMPOSE": {
+                  "hits": 0.36305,
+                  "mrr": 0.154213,
+                  "n": 1234
+                },
+                "ADDITIVE_TRANSE": {
+                  "hits": 0.0,
+                  "mrr": 2.8e-05,
+                  "n": 1234
+                },
+                "RANDOM_CODES": {
+                  "hits": 0.0,
+                  "mrr": 0.000167,
+                  "n": 1234
+                },
+                "ORACLE_ADDITIVE": {
+                  "hits": 0.48298,
+                  "mrr": 0.222765,
+                  "n": 1234
+                },
+                "BASELINE_POP": {
+                  "hits": 0.0,
+                  "mrr": 8.8e-05,
+                  "n": 1234
+                }
+              }
+            },
+            "global_degree_tertile_bounds": [
+              0.0,
+              0.0
+            ],
+            "support_deg_hist": {
+              "cold": 24,
+              "d1": 6,
+              "d2_3": 74,
+              "d4_7": 343,
+              "d8plus": 2553
+            }
+          },
+          "cskg_provenance": {
+            "n_xcut_edges_streamed": 1244862,
+            "k_core": 8,
+            "n_core_nodes": 38772,
+            "n_core_edges": 639337,
+            "n_core_nodes_in_split": 38772,
+            "core_avgdeg": 32.979314969565664,
+            "n_train": 575405,
+            "n_valid": 31966,
+            "n_test": 31966,
+            "n_rel_tokens": 29
+          },
+          "rung": "r2_sparsecore_bigN"
+        }
+      ],
+      "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+      "verdict_msg": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE || HELD-OUT MRR [nq=3000]: ANCHOR=0.1198 | ADDITIVE=0.0000 ONESHOT=0.0000 | RANDOM=0.0006 SCRAMBLE=0.0064 | ORACLE=0.1631 POP=0.0001 || CEILING H(oracle-random)=0.1624 ratio=252.7984x (fires>=3.0x&>=0.003=True) | anchor_margin=0.1192 vs HARD_PASS>=0.0812 (=0.50*H|min0.002) HARD_FAIL<0.0325 (=0.20*H) | form_margin=0.1198 (>=0.0162) | fair_lowmid_margin=0.1191 (>0) | scramble_margin=0.0058 (<=0.0406) | broken=False | legacy_hits10_gate_fires=True | frac=0.15 support_frac=0.50 seeds=2",
+      "gates": {
+        "verdict": "HARD_PASS_INDUCTIVE_ANCHOR_COMPOSE",
+        "ceil_metric": "mrr",
+        "heldout_metric_spectrum": {
+          "ANCHOR_COMPOSE": {
+            "hits@1": 0.043335,
+            "hits@3": 0.117835,
+            "hits@10": 0.276665,
+            "hits@100": 0.75517,
+            "mrr": 0.1198
+          },
+          "ADDITIVE_TRANSE": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 3e-05
+          },
+          "ONESHOT_ROTATE": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 4e-05
+          },
+          "RANDOM_CODES": {
+            "hits@1": 0.000335,
+            "hits@3": 0.000335,
+            "hits@10": 0.0005,
+            "hits@100": 0.005335,
+            "mrr": 0.000645
+          },
+          "ANCHOR_SCRAMBLE": {
+            "hits@1": 0.001165,
+            "hits@3": 0.003165,
+            "hits@10": 0.010665,
+            "hits@100": 0.084335,
+            "mrr": 0.006435
+          },
+          "ORACLE_ADDITIVE": {
+            "hits@1": 0.07,
+            "hits@3": 0.175,
+            "hits@10": 0.358,
+            "hits@100": 0.768,
+            "mrr": 0.163055
+          },
+          "BASELINE_POP": {
+            "hits@1": 0.0,
+            "hits@3": 0.0,
+            "hits@10": 0.0,
+            "hits@100": 0.0,
+            "mrr": 8e-05
+          }
+        },
+        "heldout_mrr": {
+          "ANCHOR_COMPOSE": 0.1198,
+          "ADDITIVE_TRANSE": 3e-05,
+          "ONESHOT_ROTATE": 4e-05,
+          "RANDOM_CODES": 0.000645,
+          "ANCHOR_SCRAMBLE": 0.006435,
+          "ORACLE_ADDITIVE": 0.163055,
+          "BASELINE_POP": 8e-05
+        },
+        "heldout_hits_at_10": {
+          "ANCHOR_COMPOSE": 0.27667,
+          "ADDITIVE_TRANSE": 0.0,
+          "ONESHOT_ROTATE": 0.0,
+          "RANDOM_CODES": 0.0005,
+          "ANCHOR_SCRAMBLE": 0.01066,
+          "ORACLE_ADDITIVE": 0.358,
+          "BASELINE_POP": 0.0
+        },
+        "fair_lowmid_mrr": {
+          "ANCHOR_COMPOSE": 0.119798,
+          "ADDITIVE_TRANSE": 2.8e-05,
+          "ONESHOT_ROTATE": null,
+          "RANDOM_CODES": 0.000649,
+          "ORACLE_ADDITIVE": 0.163055,
+          "BASELINE_POP": 8.2e-05
+        },
+        "primary_k": 10,
+        "anchor_margin_vs_random": 0.119155,
+        "form_margin_vs_memorize": 0.11976,
+        "fair_lowmid_anchor_margin": 0.119149,
+        "scramble_margin_vs_random": 0.00579,
+        "oracle_headroom": 0.16241,
+        "oracle_ratio": 252.8,
+        "oracle_fire_by_metric": {
+          "hits@1": {
+            "oracle": 0.07,
+            "random": 0.000335,
+            "headroom": 0.069665,
+            "ratio": 208.96,
+            "fires_ratio": true
+          },
+          "hits@3": {
+            "oracle": 0.175,
+            "random": 0.000335,
+            "headroom": 0.174665,
+            "ratio": 522.39,
+            "fires_ratio": true
+          },
+          "hits@10": {
+            "oracle": 0.358,
+            "random": 0.0005,
+            "headroom": 0.3575,
+            "ratio": 716.0,
+            "fires_ratio": true
+          },
+          "hits@100": {
+            "oracle": 0.768,
+            "random": 0.005335,
+            "headroom": 0.762665,
+            "ratio": 143.96,
+            "fires_ratio": true
+          },
+          "mrr": {
+            "oracle": 0.163055,
+            "random": 0.000645,
+            "headroom": 0.16241,
+            "ratio": 252.8,
+            "fires_ratio": true
+          }
+        },
+        "legacy_hits10_gate_fires": true,
+        "legacy_hits10_headroom": 0.3575,
+        "resolved_thresholds": {
+          "hard_pass_anchor": 0.081205,
+          "hard_pass_form": 0.016241,
+          "hard_fail_anchor": 0.032482,
+          "scramble_ceiling": 0.040602,
+          "broken_margin": 0.040602
+        },
+        "n_query_scored": 3000,
+        "bands": {
+          "CEIL_METRIC": "mrr",
+          "ORACLE_FIRE_RATIO": 3.0,
+          "ORACLE_FIRE_ABS": 0.003,
+          "HP_CEIL_FRAC": 0.5,
+          "FORM_CEIL_FRAC": 0.1,
+          "HF_CEIL_FRAC": 0.2,
+          "SCRAMBLE_CEIL_FRAC": 0.25,
+          "MIN_SIG_MRR": 0.002,
+          "MIN_HELDOUT": 20,
+          "HELDOUT_ENTITY_FRAC": 0.15,
+          "SUPPORT_FRAC": 0.5
+        },
+        "enough_heldout": true,
+        "oracle_fires": true,
+        "scramble_controlled": true,
+        "broken": false,
+        "fair_holds": true,
+        "hard_pass": true,
+        "hard_fail": false,
+        "middle": false
+      }
+    }
+  ]
+}

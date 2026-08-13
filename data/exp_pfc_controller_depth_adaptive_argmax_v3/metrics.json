@@ -1,0 +1,20 @@
+{
+  "anchor_name": "pfc_controller_depth_adaptive_argmax_v3",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm structure verified; 5 arms",
+  "summary": "SELFTEST_OK: per-arm structure verified; 5 arms",
+  "elapsed_s": 0.8,
+  "ts_iso": "2026-06-27T22:38:41Z",
+  "pid": 22816,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_controller_depth_adaptive_argmax_v3,N=512,N_OPS=4,V=240,seeds=[7],depths=[6],decision_depth=12,n_train=30,n_test=10,mode=smoke,softmax_T_fixed=0.30,T_base=0.30,T_ref_depth=6,abstain_margin=0.10,HP_lift_softmax>=0.05,HP_cv<=0.20,expected_n=5,hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIR_BASELINE=SINGLE_FIXED_OP_0_NOT_MEAN_OF_OPS,DISCRIMINATOR_FIRES_AT_DEPTH_12_IN_SMOKE",
+  "_hardening_marker": "v3_pfc_depth_adaptive_argmax",
+  "_phase": "selftest_done",
+  "_arms_verified": [
+    "softmax_v2_regression",
+    "argmax_pure",
+    "depth_adaptive_T",
+    "single_fixed_baseline",
+    "diag_abstain_margin_gated"
+  ]
+}

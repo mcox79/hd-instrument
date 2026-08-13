@@ -1,0 +1,2587 @@
+{
+  "anchor_name": "grammar_recursive_function_word_blocklocal_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "RECURSIVE CONSTITUENCY + FUNCTION-WORD OPERATORS ROUND-TRIP through the substrate's block/SBC algebra: at the anchor (LEVELS=2 = one embedded clause, V=256) the structured encoding recovers the FULL bracketed tree tree_exact=1.000 (>= 0.8), attachment host attachment_acc=1.000 (>= 0.9, chance 0.50), terminals terminal_perslot=1.000, function words function_perslot=1.000, embed-detection 1.000. A flat bag AND a scrambled-role control provably CANNOT (attachment gap=0.492 >= 0.35; tree gap=1.000 >= 0.6; both controls at chance). Envelope holds to recursion depth 8 at V>=256. NARROW glass-box structure primitive -- NOT a language model, NOT fluent English. ENVELOPE: max_recursion_depth@V>=256=8, cells_hold=8/13; ANCHOR L2V256(bs=512): structured tree_exact=1.000 attach=1.000 term=1.000 func=1.000 embed=1.000 | flat_bag tree_exact=0.000 attach=0.508 | scrambled tree_exact=0.000 attach=0.475; EASY L2V64(bs=512): structured tree_exact=1.000 attach=1.000 term=1.000 func=1.000 embed=1.000 | flat_bag tree_exact=0.000 attach=0.475 | scrambled tree_exact=0.000 attach=0.492",
+  "summary": "HARD_PASS: recursive constituency + function-word operators via block-local SBC (full)",
+  "run_mode": "full",
+  "elapsed_s": 7.31,
+  "n_seeds": 3,
+  "n_units": 39,
+  "expected_n_units": 39,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "envelope": {
+    "holds_surface": {
+      "L1_V64": false,
+      "L1_V256": false,
+      "L1_V1024": false,
+      "L2_V64": true,
+      "L2_V256": true,
+      "L2_V1024": true,
+      "L3_V64": true,
+      "L3_V256": true,
+      "L3_V1024": true,
+      "L4_V256": true,
+      "L8_V256": true,
+      "L12_V256": false,
+      "L16_V256": false
+    },
+    "max_recursion_depth_at_Vge256": 8,
+    "n_cells_hold": 8,
+    "n_cells_total": 13,
+    "anchor_holds": true
+  },
+  "config": {
+    "N": 8192,
+    "S_SLOTS": 8,
+    "F_SPARSE": 0.02,
+    "V_FUNC": 8,
+    "levels_grid": [
+      1,
+      2,
+      3
+    ],
+    "V_grid": [
+      64,
+      256,
+      1024
+    ],
+    "boundary": [
+      [
+        4,
+        256
+      ],
+      [
+        8,
+        256
+      ],
+      [
+        12,
+        256
+      ],
+      [
+        16,
+        256
+      ]
+    ],
+    "trials": 80,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "content_slots": [
+      2,
+      4,
+      7
+    ],
+    "func_slots": [
+      0,
+      1,
+      3,
+      5,
+      6
+    ],
+    "func_types": [
+      "COMP",
+      "DET",
+      "AUX",
+      "PREP",
+      "CONJ"
+    ],
+    "host_slots": [
+      2,
+      7
+    ],
+    "recursion_axis": "LEVELS_banded_blocks_bs=N/(LEVELS*S_SLOTS)",
+    "vocab_axis": "V_content_per_clause",
+    "algebra": "block_local_sparse_superposition_disjoint_bands",
+    "position_binding": "disjoint_band_index_per_level_and_slot",
+    "attachment_binding": "EMBED_HOOK_superposed_in_host_block",
+    "function_word_treatment": "closed_class_type_partitioned_selectional_restriction_COMP_gates_recursion",
+    "storage_strategy": "sharded_block_disjoint_per_slot"
+  },
+  "arms": {
+    "structured": {
+      "tree_exact_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L1_V1024": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L2_V1024": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0,
+        "L3_V1024": 1.0,
+        "L4_V256": 1.0,
+        "L8_V256": 0.975,
+        "L12_V256": 0.6083,
+        "L16_V256": 0.0542
+      },
+      "attachment_acc_by_cell": {
+        "L1_V64": NaN,
+        "L1_V256": NaN,
+        "L1_V1024": NaN,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L2_V1024": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0,
+        "L3_V1024": 1.0,
+        "L4_V256": 1.0,
+        "L8_V256": 1.0,
+        "L12_V256": 0.9985,
+        "L16_V256": 0.9967
+      },
+      "terminal_perslot_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L1_V1024": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L2_V1024": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0,
+        "L3_V1024": 1.0,
+        "L4_V256": 1.0,
+        "L8_V256": 0.9993,
+        "L12_V256": 0.973,
+        "L16_V256": 0.7392
+      },
+      "function_perslot_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L1_V1024": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L2_V1024": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0,
+        "L3_V1024": 1.0,
+        "L4_V256": 1.0,
+        "L8_V256": 1.0,
+        "L12_V256": 1.0,
+        "L16_V256": 0.9665
+      },
+      "embed_detection_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L1_V1024": 1.0,
+        "L2_V64": 1.0,
+        "L2_V256": 1.0,
+        "L2_V1024": 1.0,
+        "L3_V64": 1.0,
+        "L3_V256": 1.0,
+        "L3_V1024": 1.0,
+        "L4_V256": 1.0,
+        "L8_V256": 1.0,
+        "L12_V256": 1.0,
+        "L16_V256": 1.0
+      },
+      "anchor_tree_exact": 1.0,
+      "anchor_attachment_acc": 1.0,
+      "anchor_tree_exact_cv": 0.0
+    },
+    "flat_bag": {
+      "tree_exact_by_cell": {
+        "L1_V64": 0.0,
+        "L1_V256": 0.0,
+        "L1_V1024": 0.0,
+        "L2_V64": 0.0,
+        "L2_V256": 0.0,
+        "L2_V1024": 0.0,
+        "L3_V64": 0.0,
+        "L3_V256": 0.0,
+        "L3_V1024": 0.0,
+        "L4_V256": 0.0,
+        "L8_V256": 0.0,
+        "L12_V256": 0.0,
+        "L16_V256": 0.0
+      },
+      "attachment_acc_by_cell": {
+        "L1_V64": NaN,
+        "L1_V256": NaN,
+        "L1_V1024": NaN,
+        "L2_V64": 0.475,
+        "L2_V256": 0.5083,
+        "L2_V1024": 0.4833,
+        "L3_V64": 0.4792,
+        "L3_V256": 0.4833,
+        "L3_V1024": 0.4833,
+        "L4_V256": 0.4806,
+        "L8_V256": 0.4917,
+        "L12_V256": 0.5159,
+        "L16_V256": 0.49
+      },
+      "terminal_perslot_by_cell": {
+        "L1_V64": 0.5923,
+        "L1_V256": 0.5863,
+        "L1_V1024": 0.5881,
+        "L2_V64": 0.4727,
+        "L2_V256": 0.4606,
+        "L2_V1024": 0.4557,
+        "L3_V64": 0.3856,
+        "L3_V256": 0.3719,
+        "L3_V1024": 0.3678,
+        "L4_V256": 0.3208,
+        "L8_V256": 0.217,
+        "L12_V256": 0.1596,
+        "L16_V256": 0.1477
+      },
+      "function_perslot_by_cell": {
+        "L1_V64": 0.774,
+        "L1_V256": 0.776,
+        "L1_V1024": 0.7781,
+        "L2_V64": 0.6256,
+        "L2_V256": 0.6186,
+        "L2_V1024": 0.616,
+        "L3_V64": 0.5111,
+        "L3_V256": 0.5009,
+        "L3_V1024": 0.5019,
+        "L4_V256": 0.4471,
+        "L8_V256": 0.3198,
+        "L12_V256": 0.2434,
+        "L16_V256": 0.2329
+      },
+      "embed_detection_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L1_V1024": 1.0,
+        "L2_V64": 0.5,
+        "L2_V256": 0.5,
+        "L2_V1024": 0.5,
+        "L3_V64": 0.5,
+        "L3_V256": 0.5,
+        "L3_V1024": 0.5,
+        "L4_V256": 0.5,
+        "L8_V256": 0.5,
+        "L12_V256": 0.5,
+        "L16_V256": 0.5
+      },
+      "anchor_tree_exact": 0.0,
+      "anchor_attachment_acc": 0.5083,
+      "attachment_chance": 0.5
+    },
+    "scrambled_roles": {
+      "tree_exact_by_cell": {
+        "L1_V64": 0.0,
+        "L1_V256": 0.0,
+        "L1_V1024": 0.0,
+        "L2_V64": 0.0,
+        "L2_V256": 0.0,
+        "L2_V1024": 0.0,
+        "L3_V64": 0.0,
+        "L3_V256": 0.0,
+        "L3_V1024": 0.0,
+        "L4_V256": 0.0,
+        "L8_V256": 0.0,
+        "L12_V256": 0.0,
+        "L16_V256": 0.0
+      },
+      "attachment_acc_by_cell": {
+        "L1_V64": NaN,
+        "L1_V256": NaN,
+        "L1_V1024": NaN,
+        "L2_V64": 0.4917,
+        "L2_V256": 0.475,
+        "L2_V1024": 0.4417,
+        "L3_V64": 0.4792,
+        "L3_V256": 0.4417,
+        "L3_V1024": 0.4958,
+        "L4_V256": 0.4333,
+        "L8_V256": 0.4833,
+        "L12_V256": 0.4902,
+        "L16_V256": 0.4883
+      },
+      "terminal_perslot_by_cell": {
+        "L1_V64": 0.0804,
+        "L1_V256": 0.0667,
+        "L1_V1024": 0.0696,
+        "L2_V64": 0.0792,
+        "L2_V256": 0.078,
+        "L2_V1024": 0.0727,
+        "L3_V64": 0.0706,
+        "L3_V256": 0.0767,
+        "L3_V1024": 0.0667,
+        "L4_V256": 0.0732,
+        "L8_V256": 0.0776,
+        "L12_V256": 0.0786,
+        "L16_V256": 0.0765
+      },
+      "function_perslot_by_cell": {
+        "L1_V64": 0.1302,
+        "L1_V256": 0.1156,
+        "L1_V1024": 0.1208,
+        "L2_V64": 0.1269,
+        "L2_V256": 0.1276,
+        "L2_V1024": 0.1224,
+        "L3_V64": 0.1106,
+        "L3_V256": 0.1264,
+        "L3_V1024": 0.1111,
+        "L4_V256": 0.1188,
+        "L8_V256": 0.1244,
+        "L12_V256": 0.1247,
+        "L16_V256": 0.1215
+      },
+      "embed_detection_by_cell": {
+        "L1_V64": 1.0,
+        "L1_V256": 1.0,
+        "L1_V1024": 1.0,
+        "L2_V64": 0.8333,
+        "L2_V256": 0.8333,
+        "L2_V1024": 0.8333,
+        "L3_V64": 0.6667,
+        "L3_V256": 0.6667,
+        "L3_V1024": 0.6667,
+        "L4_V256": 0.6667,
+        "L8_V256": 0.5,
+        "L12_V256": 0.6667,
+        "L16_V256": 0.6625
+      },
+      "anchor_tree_exact": 0.0,
+      "anchor_attachment_acc": 0.475,
+      "attachment_chance": 0.5
+    }
+  },
+  "grid": {
+    "L1_V64": {
+      "levels": 1,
+      "V": 64,
+      "n_seeds": 3,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.5923,
+        "function_perslot_mean": 0.774,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0804,
+        "function_perslot_mean": 0.1302,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L1_V256": {
+      "levels": 1,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.5863,
+        "function_perslot_mean": 0.776,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0667,
+        "function_perslot_mean": 0.1156,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L1_V1024": {
+      "levels": 1,
+      "V": 1024,
+      "n_seeds": 3,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.5881,
+        "function_perslot_mean": 0.7781,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0696,
+        "function_perslot_mean": 0.1208,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": NaN,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L2_V64": {
+      "levels": 2,
+      "V": 64,
+      "n_seeds": 3,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.4727,
+        "function_perslot_mean": 0.6256,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.475,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0792,
+        "function_perslot_mean": 0.1269,
+        "embed_detection_acc_mean": 0.8333,
+        "attachment_acc_mean": 0.4917,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L2_V256": {
+      "levels": 2,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.4606,
+        "function_perslot_mean": 0.6186,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.5083,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.078,
+        "function_perslot_mean": 0.1276,
+        "embed_detection_acc_mean": 0.8333,
+        "attachment_acc_mean": 0.475,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L2_V1024": {
+      "levels": 2,
+      "V": 1024,
+      "n_seeds": 3,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.4557,
+        "function_perslot_mean": 0.616,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4833,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0727,
+        "function_perslot_mean": 0.1224,
+        "embed_detection_acc_mean": 0.8333,
+        "attachment_acc_mean": 0.4417,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L3_V64": {
+      "levels": 3,
+      "V": 64,
+      "n_seeds": 3,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.3856,
+        "function_perslot_mean": 0.5111,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4792,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0706,
+        "function_perslot_mean": 0.1106,
+        "embed_detection_acc_mean": 0.6667,
+        "attachment_acc_mean": 0.4792,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L3_V256": {
+      "levels": 3,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.3719,
+        "function_perslot_mean": 0.5009,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4833,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0767,
+        "function_perslot_mean": 0.1264,
+        "embed_detection_acc_mean": 0.6667,
+        "attachment_acc_mean": 0.4417,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L3_V1024": {
+      "levels": 3,
+      "V": 1024,
+      "n_seeds": 3,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.3678,
+        "function_perslot_mean": 0.5019,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4833,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0667,
+        "function_perslot_mean": 0.1111,
+        "embed_detection_acc_mean": 0.6667,
+        "attachment_acc_mean": 0.4958,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L4_V256": {
+      "levels": 4,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 256,
+      "k": 5,
+      "n_blocks": 32,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 1.0,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 1.0,
+        "tree_exact_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tree_exact_cv": 0.0
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.3208,
+        "function_perslot_mean": 0.4471,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4806,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0732,
+        "function_perslot_mean": 0.1188,
+        "embed_detection_acc_mean": 0.6667,
+        "attachment_acc_mean": 0.4333,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L8_V256": {
+      "levels": 8,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 128,
+      "k": 3,
+      "n_blocks": 64,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 0.9993,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 1.0,
+        "tree_exact_mean": 0.975,
+        "tree_exact_per_seed": [
+          0.9875,
+          1.0,
+          0.9375
+        ],
+        "tree_exact_cv": 0.0277
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.217,
+        "function_perslot_mean": 0.3198,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4917,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0776,
+        "function_perslot_mean": 0.1244,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.4833,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L12_V256": {
+      "levels": 12,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 85,
+      "k": 2,
+      "n_blocks": 96,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 0.973,
+        "function_perslot_mean": 1.0,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 0.9985,
+        "tree_exact_mean": 0.6083,
+        "tree_exact_per_seed": [
+          0.5,
+          0.6625,
+          0.6625
+        ],
+        "tree_exact_cv": 0.1259
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.1596,
+        "function_perslot_mean": 0.2434,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.5159,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0786,
+        "function_perslot_mean": 0.1247,
+        "embed_detection_acc_mean": 0.6667,
+        "attachment_acc_mean": 0.4902,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    },
+    "L16_V256": {
+      "levels": 16,
+      "V": 256,
+      "n_seeds": 3,
+      "bs": 64,
+      "k": 1,
+      "n_blocks": 128,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot_mean": 0.7392,
+        "function_perslot_mean": 0.9665,
+        "embed_detection_acc_mean": 1.0,
+        "attachment_acc_mean": 0.9967,
+        "tree_exact_mean": 0.0542,
+        "tree_exact_per_seed": [
+          0.05,
+          0.0375,
+          0.075
+        ],
+        "tree_exact_cv": 0.2878
+      },
+      "flat_bag": {
+        "terminal_perslot_mean": 0.1477,
+        "function_perslot_mean": 0.2329,
+        "embed_detection_acc_mean": 0.5,
+        "attachment_acc_mean": 0.49,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      },
+      "scrambled_roles": {
+        "terminal_perslot_mean": 0.0765,
+        "function_perslot_mean": 0.1215,
+        "embed_detection_acc_mean": 0.6625,
+        "attachment_acc_mean": 0.4883,
+        "tree_exact_mean": 0.0,
+        "tree_exact_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tree_exact_cv": Infinity
+      }
+    }
+  },
+  "per_unit": [
+    {
+      "levels": 1,
+      "V": 64,
+      "seed": 7,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "68707a75a9edd4ee2a7818051371202b1cf3502b342266ca8c3931c6af3206fe",
+      "structured_rec_digest": "dfa0e2da602e6d7b4206ff27d486f9ea1aaac347f4ed2757d11ace85bef42f81",
+      "flat_bag": {
+        "terminal_perslot": 0.5982142857142857,
+        "function_perslot": 0.78125,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "ec691b83c6047b90bef866d83bc1cb6550ae5c031d5ef45683b967780b033f46",
+      "flat_bag_rec_digest": "9c7ece5db53c84a2f8a6ae594f6e5df1491e015074c86d596eec6b942ce049de",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08214285714285714,
+        "function_perslot": 0.13125,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "fed199787effdd1987a09c19b0f6ab1062babe3c186b93bdcb3b6e1b7cbf6fcf",
+      "scrambled_roles_rec_digest": "00510760386f246a6c9d8a76d966a5305ffa5fb8ddecd0fc9e49911ca0b93c96"
+    },
+    {
+      "levels": 1,
+      "V": 256,
+      "seed": 7,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "d2bc7ff3495889f4e32e832e983256a5550b8cbee737eab265bc068dfc2c7f23",
+      "structured_rec_digest": "73b67005cbc38156574485c60db1156c10d5500c99c5372a2c74ef86bc5f3ec7",
+      "flat_bag": {
+        "terminal_perslot": 0.5857142857142857,
+        "function_perslot": 0.775,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "efbaaaec41ff053c115a6e119acbdc7f98107e9a739a285344962028365eff6d",
+      "flat_bag_rec_digest": "e329eff242a0aa6cbdff22de6f3e8ec995fef4419bb7f06ccb1ebcd837ec69e1",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06785714285714285,
+        "function_perslot": 0.11875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "c01f24f80fb1914c57b692b34ac7030942a72959aa8283fd723ccccba1c23da6",
+      "scrambled_roles_rec_digest": "044aa25e64ada58e04c063071cfa1c61ae74f4a9c9019ff72d7c5919ff849967"
+    },
+    {
+      "levels": 1,
+      "V": 1024,
+      "seed": 7,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "819af47a7e33bf6c6faea4f72a39b4a7d30e4decb270795bd2352c46dc0285f8",
+      "structured_rec_digest": "3edb2901d1bdad88456de4f2dc61a1d5a53cc9456c288f53d94f4d64aaab6c35",
+      "flat_bag": {
+        "terminal_perslot": 0.5857142857142857,
+        "function_perslot": 0.775,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "1dd1126a14fb63698e0c110f7197162f9035730e682c2d6a80d6d2665ed61f9b",
+      "flat_bag_rec_digest": "017d6e22045727196ae1abea141ce2d4f255eed5d61b37471fa681be264526b7",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07857142857142857,
+        "function_perslot": 0.1375,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "ed27b2d1f0e7d9188386be0e7d17f03fa33b1bddabf4a24ffe7be47b9b908ec1",
+      "scrambled_roles_rec_digest": "8a7a88f87de614c4edd21d168fc5c65ffabe9bee75177d1eb2c89b562b1386bc"
+    },
+    {
+      "levels": 2,
+      "V": 64,
+      "seed": 7,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "ac7c255b9ad36683ffa809e96aa7f22bc100ffebad7f77cd9a7f2cc2c7dc35cc",
+      "structured_rec_digest": "6bd80fd4e7f35bbb6d6f7f1f8500f93762b97e77d333f879b76cd01359211824",
+      "flat_bag": {
+        "terminal_perslot": 0.47954545454545455,
+        "function_perslot": 0.6307692307692307,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "e0db80decc647e4cb60689e05959b23885346f321bc64e8cabcea9535cc75732",
+      "flat_bag_rec_digest": "266041d96d36a5f3f715827ddea67542b3890cb9c2cb0e54fd4847935a6e0e2b",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08068181818181819,
+        "function_perslot": 0.12307692307692308,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "b7e004ad04cfec050539a5e96956a0251145271f63cb9b6abef3d87f0cd87274",
+      "scrambled_roles_rec_digest": "08cb4eb7ca81091d4f89865571481199104480846657c4c82a1299d7c136f5d7"
+    },
+    {
+      "levels": 2,
+      "V": 256,
+      "seed": 7,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "6344e10feb63ae51aa139affab99d7983a523c7ea6ce4b16853dbd4e2ab114b2",
+      "structured_rec_digest": "1a5dd435ea130d85c4a6f0c278cda1389e9e5469b3926dbc03d94ea59590c0a4",
+      "flat_bag": {
+        "terminal_perslot": 0.45340909090909093,
+        "function_perslot": 0.6076923076923076,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "9bda7583063c9a753b96c91831e106c387b774e84c64b34d35bd04ac01781ef6",
+      "flat_bag_rec_digest": "7d088702424cc450b07ef2051b38438988e03491fd788da64108d90588f5c85a",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08863636363636364,
+        "function_perslot": 0.14615384615384616,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "04ffa963efd3ddd53945e9af6fcbd36626d40b4dee6c0c3d9a4998cd0a128bd9",
+      "scrambled_roles_rec_digest": "ae93914fb8b70bee5176babed0caf85e2a39356910c43e929960c86ff4d43985"
+    },
+    {
+      "levels": 2,
+      "V": 1024,
+      "seed": 7,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "38bf71bb530f6af5c2edb75c101e6aaf37131543b2ba88d4a16c47172a8cc67e",
+      "structured_rec_digest": "d59ea0b3d2e0507f55dc6536a6f3a56ecc60f0f41666f1d8fe51caaa56288114",
+      "flat_bag": {
+        "terminal_perslot": 0.45681818181818185,
+        "function_perslot": 0.6173076923076923,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "832cc5926958a9fcdc46e74977257cbaf2a474f8d8223d4fc75e713befa0c98e",
+      "flat_bag_rec_digest": "4cffe4d4455055cf0af7c52057f2b17e6ae8731a140915eba63b96f65ac5165f",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08409090909090909,
+        "function_perslot": 0.14038461538461539,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "03b0f62ee4dd366ed5c331c92a99e0b07e24d138f3a8b3a62040b75d2f64b178",
+      "scrambled_roles_rec_digest": "409f30194ed051f67162afc71d3d0a14292783f79bc6f27bf27a27bfb9ae77e0"
+    },
+    {
+      "levels": 3,
+      "V": 64,
+      "seed": 7,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "4ea6c8784d6f6aecfb5e11b60e3ffabf57be24537003a5d195b3ee5858cdbff5",
+      "structured_rec_digest": "77376194cb9b91d6b6b4c07f5e8ef5317f414a0d5348a3584d20505097e2ae90",
+      "flat_bag": {
+        "terminal_perslot": 0.3825,
+        "function_perslot": 0.5097222222222222,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5125,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "c105e4df987a4acc6bfa00eb386cf3a4650073c845b58ba7d0b443ccf82e7db3",
+      "flat_bag_rec_digest": "f126d30f0c7be4dbb10c9976b904cc4ea7e042ddff553046700db611011bdad6",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07666666666666666,
+        "function_perslot": 0.12083333333333333,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "4918de37e168eafd5a1bf5fba9016c185b53a5f8ee8fd50b3fd088f69ce155e1",
+      "scrambled_roles_rec_digest": "8dac87851f453c6e206225fd8ccbc6f3de87a86f52d8cfcfb167aba2761f4d5f"
+    },
+    {
+      "levels": 3,
+      "V": 256,
+      "seed": 7,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "4c200672d8ec2f5bb35b8ea199bda8c5c209bc1af49f7bbee74e9daa80aa47fb",
+      "structured_rec_digest": "cb39e49a816af0ad238a1bc23b0c41d7416662e787fd44628b847eb926afb6a2",
+      "flat_bag": {
+        "terminal_perslot": 0.37166666666666665,
+        "function_perslot": 0.5041666666666667,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "f985d1f4815d63be22fe719888bba56b0ca8795afccd0528bfa39f56720a7201",
+      "flat_bag_rec_digest": "832da2f6901243f5f5c8ef322a99c4282bb4f35a0d3114c0ce8934ef30597c0c",
+      "scrambled_roles": {
+        "terminal_perslot": 0.0675,
+        "function_perslot": 0.1125,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4375,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "2d4fabd5d745163a82637474d1c392b517a372d78e99cd7c39b71839412cdef3",
+      "scrambled_roles_rec_digest": "a11d8a6d118feacb7142068bb3e7510f300f2daeb0402d3782b447466a989262"
+    },
+    {
+      "levels": 3,
+      "V": 1024,
+      "seed": 7,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "d427d77e5f3b49106bd375bf4f3edabd6182abe841fd8deb8f83798b521cb33a",
+      "structured_rec_digest": "7c90c76fe64e5cd5dd996f89b2fc36434741ddae2c0158fb7a6018cbce2c8943",
+      "flat_bag": {
+        "terminal_perslot": 0.36333333333333334,
+        "function_perslot": 0.49722222222222223,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "164cff05e583fb2a93705fca43d75e4c40d9db78112d6af4d48fa1e9c0c11d72",
+      "flat_bag_rec_digest": "4f5091fdf4d7f3607d68c4adf23279d0e7b85819a599c359a299b5dcf5f256f6",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06333333333333334,
+        "function_perslot": 0.10555555555555556,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "1d9c0e49c513dbe17155d90a3785193265e2e5535958df3c587b3bf8c6c2186a",
+      "scrambled_roles_rec_digest": "aeede79517165e66dcbc1fddc3bdd6c8bd0d23cb4dda1942f51a5f556471fba1"
+    },
+    {
+      "levels": 4,
+      "V": 256,
+      "seed": 7,
+      "bs": 256,
+      "k": 5,
+      "n_blocks": 32,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 120
+      },
+      "structured_comp_digest": "86e1f6f4126c19a676268222f11acf2e190a7f3d51f6d8ed8213380a59b83615",
+      "structured_rec_digest": "ab26bf417eee2aff2f307ff8d40b5e027db24a439abcf76e2bd5cae7a20bedde",
+      "flat_bag": {
+        "terminal_perslot": 0.3243421052631579,
+        "function_perslot": 0.4532608695652174,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5083333333333333,
+        "tree_exact": 0.0,
+        "n_attach_total": 120
+      },
+      "flat_bag_comp_digest": "a52b214974c3db2e385019cc68d7620add6a6f9434b3296dab6bed91a9567ca3",
+      "flat_bag_rec_digest": "e357778e65553058f1cfc1e2013c57920cab4d8a2e126bbb20222a863ccd085e",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08157894736842106,
+        "function_perslot": 0.13152173913043477,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5166666666666667,
+        "tree_exact": 0.0,
+        "n_attach_total": 120
+      },
+      "scrambled_roles_comp_digest": "42c69a28c24f4a6b0aed1313c65a5b24cf73a9c22f9dddf18c8868bb12d374c3",
+      "scrambled_roles_rec_digest": "44369215876f4832c81ec8945b04e792845581aed276981e798bdcf83452d4ab"
+    },
+    {
+      "levels": 8,
+      "V": 256,
+      "seed": 7,
+      "bs": 128,
+      "k": 3,
+      "n_blocks": 64,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.9996428571428572,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 0.9875,
+        "n_attach_total": 280
+      },
+      "structured_comp_digest": "e9d31b4a05bbbd50d3f45d537e053bdf0876275b697dfdb0edd77deb2f0c3a72",
+      "structured_rec_digest": "9442253553cae60d32ac887e6b29f4158b6cb89b1791641d8c496c5dce56e490",
+      "flat_bag": {
+        "terminal_perslot": 0.21,
+        "function_perslot": 0.3075581395348837,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.44642857142857145,
+        "tree_exact": 0.0,
+        "n_attach_total": 280
+      },
+      "flat_bag_comp_digest": "b13fc1b6840c32353cf037e8cadfa7e00d84a63cac625e35899a63f2c9fcbd44",
+      "flat_bag_rec_digest": "76866c3bc6988f00e1b1b4e0f19821ed5404ede65db605bf4b105ad7cf6e2d9b",
+      "scrambled_roles": {
+        "terminal_perslot": 0.0725,
+        "function_perslot": 0.11627906976744186,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4035714285714286,
+        "tree_exact": 0.0,
+        "n_attach_total": 280
+      },
+      "scrambled_roles_comp_digest": "dbc24c366e296a3fdc257a3b36da79eaaa0a05eb55871650a9dd3ebb03625db0",
+      "scrambled_roles_rec_digest": "ab1e2727baa7a775f704e94073b50b5d809827b194bafe0cd52ac28b3957e38d"
+    },
+    {
+      "levels": 12,
+      "V": 256,
+      "seed": 7,
+      "bs": 85,
+      "k": 2,
+      "n_blocks": 96,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.9399509803921569,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.9977272727272727,
+        "tree_exact": 0.5,
+        "n_attach_total": 440
+      },
+      "structured_comp_digest": "db279f67f68572c466b3272fd37ea8e66526f0fb6311bf3f47f151e41bec3dfc",
+      "structured_rec_digest": "a49121f4564eca9f9e7106548c8ea0a51597635ba3912aeed8c5b7ecb9ffd0ba",
+      "flat_bag": {
+        "terminal_perslot": 0.13872549019607844,
+        "function_perslot": 0.2130952380952381,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 440
+      },
+      "flat_bag_comp_digest": "2eb2c11284a212e1e690100e95cd894cfae28948d0945f3d00e7bce22b9e5a4a",
+      "flat_bag_rec_digest": "4c7e065c809f7a2ab0aa880bcf940bb425f8168ebd864fd1cedfcf410cb1dfe6",
+      "scrambled_roles": {
+        "terminal_perslot": 0.0821078431372549,
+        "function_perslot": 0.13055555555555556,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4772727272727273,
+        "tree_exact": 0.0,
+        "n_attach_total": 440
+      },
+      "scrambled_roles_comp_digest": "04bbf4f2385fd1c13ac4bca3b32d769190b3474b33983b67461e700ca8357960",
+      "scrambled_roles_rec_digest": "2db9b5097c1bd072c99a7e52e8d96d2df02fd93698faca71508c422c3f4d61b9"
+    },
+    {
+      "levels": 16,
+      "V": 256,
+      "seed": 7,
+      "bs": 64,
+      "k": 1,
+      "n_blocks": 128,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.7236940298507463,
+        "function_perslot": 0.9765060240963855,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.9966666666666667,
+        "tree_exact": 0.05,
+        "n_attach_total": 600
+      },
+      "structured_comp_digest": "78749937222ce91965f5c5ff0d46ad263d399020118d7009128f98e2b01a59b8",
+      "structured_rec_digest": "004125d6cdf72acaae13f54d90f57c7c98853d48e151ec4bd933464bca0a3eda",
+      "flat_bag": {
+        "terminal_perslot": 0.15223880597014924,
+        "function_perslot": 0.24126506024096386,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.49333333333333335,
+        "tree_exact": 0.0,
+        "n_attach_total": 600
+      },
+      "flat_bag_comp_digest": "d47325bca0811fd17325eb90ba6ba57b34cb1f2e22dce04f9c17f50cbd563466",
+      "flat_bag_rec_digest": "468dc2c2241f496646d0a95e6d162b6d879c62d8f7b5ec46d17fc7540e8fda63",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07779850746268657,
+        "function_perslot": 0.12439759036144578,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.49833333333333335,
+        "tree_exact": 0.0,
+        "n_attach_total": 600
+      },
+      "scrambled_roles_comp_digest": "6cba61dc4ffe0870c7fc972fdb3bd34f14a37b1a3177b8dc42e737a21a4f6205",
+      "scrambled_roles_rec_digest": "0145827413f4efc7da595125829cc8a1cd368f409c0950ec563e63aeb679baf8"
+    },
+    {
+      "levels": 1,
+      "V": 64,
+      "seed": 13,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "35021f7714ec5a62332d7a711e79191c22b52fc2802b186ca0eded1e4cf71888",
+      "structured_rec_digest": "1d1688c6742e02c151100c30c4064179373517c50208f5a2c1a5f8a8171d1d59",
+      "flat_bag": {
+        "terminal_perslot": 0.5910714285714286,
+        "function_perslot": 0.76875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "da96cfca1937d5f38ef60531b54424d6dce5ba928b9843179f586df18d299090",
+      "flat_bag_rec_digest": "7896eda34bd9a2e3011da18f466f29c49238bcc4708ca263760df6860b930d4d",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06964285714285715,
+        "function_perslot": 0.115625,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "3ea7a3692edb7691eeca00148d4a2c43a46325f45a0b7524c589474c2039b9c3",
+      "scrambled_roles_rec_digest": "bb1f0ad93b8366d55b0bfdadf78b049169147cd322acefe924723a6f7205069c"
+    },
+    {
+      "levels": 1,
+      "V": 256,
+      "seed": 13,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "82740d51de2517cae61435e51ea671403b87f9bdc13876c4685b88e91d0cb40d",
+      "structured_rec_digest": "f383e96342a706dbef7d8b15c7a9af0c82165495e5b114ef58b39e275968a05a",
+      "flat_bag": {
+        "terminal_perslot": 0.5857142857142857,
+        "function_perslot": 0.775,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "55536bcd09f6bb569d8944e8b98e8e4285429315a964c55e9d5217a880a33c3a",
+      "flat_bag_rec_digest": "cfa756255d7bbe0520842523a8e5a1a4148b0da466c624c283ef824488a32b18",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07321428571428572,
+        "function_perslot": 0.125,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "875e0e637bc06b6c77015c907ba0daba73115de55d24f36e5a4d8fe3ab9f7103",
+      "scrambled_roles_rec_digest": "1484695053b613222258c400047ac3994236f16a3f9629b0cfca6fa361cc7f77"
+    },
+    {
+      "levels": 1,
+      "V": 1024,
+      "seed": 13,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "a8cc7705f54c2a68538d2b804527dd8a6651f935850e0470725c43aab6cbed27",
+      "structured_rec_digest": "8388497710066822ce4203ed276e189e8ad9afc01aa58bf112ef74dec2bb209e",
+      "flat_bag": {
+        "terminal_perslot": 0.5946428571428571,
+        "function_perslot": 0.7875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "2d4ea8459b9382411983ae52055ec46b30e4944868ac247520ab758d0576cefa",
+      "flat_bag_rec_digest": "36395b020b6c3b791e32b57fbfe1eda0ef5bec5d5ce31d14d137480ef616708b",
+      "scrambled_roles": {
+        "terminal_perslot": 0.075,
+        "function_perslot": 0.128125,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "63ebde1c33adea4498dbc26e73849d535f58ae3e5a89cb6326702fe2a11594bb",
+      "scrambled_roles_rec_digest": "5c59750785bc2e78662d1e31f0505353465217f42e18e2067ba489bde2621479"
+    },
+    {
+      "levels": 2,
+      "V": 64,
+      "seed": 13,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "6c90cd3a80c3326bd50978df4506215d0d75233af65c0b60db93f37eb07b0125",
+      "structured_rec_digest": "cb25393776e368cd3fc39ada60afe5d9eff3449a1291ab3e2a5eeb1fb29c6ad9",
+      "flat_bag": {
+        "terminal_perslot": 0.47954545454545455,
+        "function_perslot": 0.6269230769230769,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "113603899b9374f55ca147b545f8aa4cff2bb799f9b0ce1b51ea4209e123cccd",
+      "flat_bag_rec_digest": "f5ecf64bf6b0919ef1e9f60b5bb484d0e3611734aadb5025c7ddeec848e10769",
+      "scrambled_roles": {
+        "terminal_perslot": 0.075,
+        "function_perslot": 0.12115384615384615,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.6,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "1319b86cc7a57de0ead767b9348d4eff21fdb40e38abc6f1c8990f78ac753a5f",
+      "scrambled_roles_rec_digest": "75b8528eb7192bcc428ee29d519925305f85eb7538d7d3c0ee4576c61b6964ac"
+    },
+    {
+      "levels": 2,
+      "V": 256,
+      "seed": 13,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "57cbc07cc74074149d331fa000c8e2b72b21fc9e7cca91ea89736c9ecccc9061",
+      "structured_rec_digest": "451c4c9aeacec582d120f50583ba7224a6a1d3dfe7bce3bec01fb70a545d3813",
+      "flat_bag": {
+        "terminal_perslot": 0.4693181818181818,
+        "function_perslot": 0.6307692307692307,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "1a0be3d361828f1bc4145209c0712666b339100d1774af301d8602604da43d8c",
+      "flat_bag_rec_digest": "80d459d70061b8abadf206b4f772722bcc5a1ded271bc7db15ca0e7925c3859a",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08181818181818182,
+        "function_perslot": 0.1326923076923077,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "90050a04be3c5a2dfef41512ac8f39572da19eaed74d28585b855977b6396344",
+      "scrambled_roles_rec_digest": "5a6d48fd2e200a25fbbead06dfb409b13861b79b61bbf6e2194dc643a42d40df"
+    },
+    {
+      "levels": 2,
+      "V": 1024,
+      "seed": 13,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "8a27ccfe8a583640de7b0607e22ecb96a77f0bc256448b5dc458bb3bbcce0664",
+      "structured_rec_digest": "d54836ff9d0fb37c487b3b5b4f7ba4068dc8344b0b7af3ccc9eea24c8f58ad92",
+      "flat_bag": {
+        "terminal_perslot": 0.44431818181818183,
+        "function_perslot": 0.5961538461538461,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "1968c6936842f3c48f9054ecbf708f95ba875c4469d5e857e77286129b7255c5",
+      "flat_bag_rec_digest": "b1be45e8b09c2be9dc503aa9fed207eecfca43ad0e4aab8e51bd75a2255c1632",
+      "scrambled_roles": {
+        "terminal_perslot": 0.0659090909090909,
+        "function_perslot": 0.11153846153846154,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "33ef5f1d625110d2a04c492793f65f6d11ae018613aadfce4a50bd66dc5b0b11",
+      "scrambled_roles_rec_digest": "40a5317e6892baa4c46ec1ca069a197f5920cf1b35bb8cabdd45b7c0626ed1a6"
+    },
+    {
+      "levels": 3,
+      "V": 64,
+      "seed": 13,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "d8cfd21463e076a2f62c885a8998e0d44fa484ef353e9d66315a469f229d80b1",
+      "structured_rec_digest": "ede1103c7407435749c0085ff7956e1e5cc88a897dbcefe4fca583ebece46912",
+      "flat_bag": {
+        "terminal_perslot": 0.39,
+        "function_perslot": 0.5152777777777777,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "47767898e5afe64fca68a7611097e756084c6003aad76e04a4b8b2a8a495ed43",
+      "flat_bag_rec_digest": "2a92feb42f6a67f843e55d81fe2f99446329389067a9eebcc32a192b63ef3e7c",
+      "scrambled_roles": {
+        "terminal_perslot": 0.059166666666666666,
+        "function_perslot": 0.09583333333333334,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4875,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "01d1eb47ab6e39a1c5f7318a42e24df1ce4c605b982286c3d80a0eff3d89ba15",
+      "scrambled_roles_rec_digest": "9b7d4e445aa0880aa779c0dc82690b730a9510e5e996e0cdc019be1521bc70a7"
+    },
+    {
+      "levels": 3,
+      "V": 256,
+      "seed": 13,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "bac54c8a9e21bc13a78cf06f7c541dfc3cdba6423a964db2576301ea16083d64",
+      "structured_rec_digest": "46474c71e3595f5b45f7bdafbab5d3189cf49f7f0a9281b3d219aba1c3df57bd",
+      "flat_bag": {
+        "terminal_perslot": 0.37083333333333335,
+        "function_perslot": 0.49444444444444446,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "9474f39bb018d1ff0b0da809b98e090b965658b1d7035e6eb7998e61b3888240",
+      "flat_bag_rec_digest": "7d69d4eedfcb8944bd81d93ffd696ce6027a1a768e56b012d28e156fe57acb48",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07833333333333334,
+        "function_perslot": 0.12638888888888888,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.45,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "f29b2fd838503e05f0f908c4bf7b54a6b9745634accb98b876753adf7648fe1f",
+      "scrambled_roles_rec_digest": "c2d2c0ce636ad958b3b674784b9344d2d5dde8b9993c6a248cb88bb0d5f94298"
+    },
+    {
+      "levels": 3,
+      "V": 1024,
+      "seed": 13,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "8a82caf10363f68b46df99b139bd6fd777b48403460b11a0f856f6ca50e57d7a",
+      "structured_rec_digest": "86de767a25b9ca7b417cd1c5c663fa54d3de69cfccecac7f3511b96f73b978da",
+      "flat_bag": {
+        "terminal_perslot": 0.37333333333333335,
+        "function_perslot": 0.5111111111111111,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4375,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "ef0f52bf1352885fb8d07d2c1f7a9cdf208e67d8afcc65e5ff1ee4e12dc6aaea",
+      "flat_bag_rec_digest": "db187ad7b6a97de997f7c74aa336e1cb8300320d59bbeb293399ce560570e660",
+      "scrambled_roles": {
+        "terminal_perslot": 0.075,
+        "function_perslot": 0.125,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4125,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "a16dccb9f350515a56243f8a973083722f08681474b65964a3d34fde27b495fd",
+      "scrambled_roles_rec_digest": "be44e0214ab805561f93124ec83bdff0a68dfaab7f43f566e8671d1c44c74c0d"
+    },
+    {
+      "levels": 4,
+      "V": 256,
+      "seed": 13,
+      "bs": 256,
+      "k": 5,
+      "n_blocks": 32,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 120
+      },
+      "structured_comp_digest": "196cb2770d3d7822927a62290543fcd228da8a58e6db08bd582c78c495f7062b",
+      "structured_rec_digest": "a2651572e297ac4ba19e7dc323743c3d58b5d29987c82b92490c01d3ba6d21d4",
+      "flat_bag": {
+        "terminal_perslot": 0.3111842105263158,
+        "function_perslot": 0.4391304347826087,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4083333333333333,
+        "tree_exact": 0.0,
+        "n_attach_total": 120
+      },
+      "flat_bag_comp_digest": "98d70fc1a951f473259bc24424bee725cebbb6a05e5985fdbacc07f187105dc4",
+      "flat_bag_rec_digest": "66b6b6bd5cceaf37686248cd7f74a3c9970dec07bb6ca9addd8cdc3df34c7d1d",
+      "scrambled_roles": {
+        "terminal_perslot": 0.053289473684210525,
+        "function_perslot": 0.08695652173913043,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.2833333333333333,
+        "tree_exact": 0.0,
+        "n_attach_total": 120
+      },
+      "scrambled_roles_comp_digest": "a33085a5c909de6746675b121ec97d04b9a7d3e5e5932e09efe1e446fb89b2d6",
+      "scrambled_roles_rec_digest": "6b4dd3ff3c49d973bac02f13b6953df9016b571f533926b0a03484830db8e2e4"
+    },
+    {
+      "levels": 8,
+      "V": 256,
+      "seed": 13,
+      "bs": 128,
+      "k": 3,
+      "n_blocks": 64,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 280
+      },
+      "structured_comp_digest": "1e3ab5ebdc2aec585aed8c8343d5ae6765addf3283b07112666370adbf30df5d",
+      "structured_rec_digest": "3ff425ee33b4c523a0c119d39d6a07c386a5d0e2242ecdaa7436d00c57f02bc5",
+      "flat_bag": {
+        "terminal_perslot": 0.2225,
+        "function_perslot": 0.32965116279069767,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5357142857142857,
+        "tree_exact": 0.0,
+        "n_attach_total": 280
+      },
+      "flat_bag_comp_digest": "37099553a37e262fe85ded87a2e0311db68b7f34329ff2f261a3a4f4385b5332",
+      "flat_bag_rec_digest": "ad8aadcedaf55f61f0761e7b9bc3566e54655b3005e8423ff8ab053da4ad8ad5",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08464285714285714,
+        "function_perslot": 0.13662790697674418,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5392857142857143,
+        "tree_exact": 0.0,
+        "n_attach_total": 280
+      },
+      "scrambled_roles_comp_digest": "6f5cc338488d91b3bd090cc95f058f6e869cb5e339b20ec8216d925e1b3b73a4",
+      "scrambled_roles_rec_digest": "1153fe5375e71b7a01f7e53705efe367ab9523df8a615eea56aa72101a929b74"
+    },
+    {
+      "levels": 12,
+      "V": 256,
+      "seed": 13,
+      "bs": 85,
+      "k": 2,
+      "n_blocks": 96,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.9879901960784314,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.9977272727272727,
+        "tree_exact": 0.6625,
+        "n_attach_total": 440
+      },
+      "structured_comp_digest": "66414ab974c9fcebdd62b5c9e546363b3149d0eff37806d04695212a6b591d06",
+      "structured_rec_digest": "2a07fc0788f907b17cf36b2fda93cdca024707d53e2ab515048e1eb0fc8aca5c",
+      "flat_bag": {
+        "terminal_perslot": 0.16838235294117648,
+        "function_perslot": 0.25595238095238093,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 440
+      },
+      "flat_bag_comp_digest": "38fd343f24321d8621b24213d86db07def2cf978ea24c093863570489cb42958",
+      "flat_bag_rec_digest": "ec59c1dafd5302718d8515bd484c16fa17bf587bb40ee88b6c824d1109678535",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07794117647058824,
+        "function_perslot": 0.12301587301587301,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.5295454545454545,
+        "tree_exact": 0.0,
+        "n_attach_total": 440
+      },
+      "scrambled_roles_comp_digest": "69f80214e146a7b9873510b0990ab1aec2653d302b4b31d4d6d4f63159518ebd",
+      "scrambled_roles_rec_digest": "6062177d2795bc01baeab659a1589b80225589384787e08a4a273d2c782cf0c2"
+    },
+    {
+      "levels": 16,
+      "V": 256,
+      "seed": 13,
+      "bs": 64,
+      "k": 1,
+      "n_blocks": 128,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.7208955223880597,
+        "function_perslot": 0.9228915662650602,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.9966666666666667,
+        "tree_exact": 0.0375,
+        "n_attach_total": 600
+      },
+      "structured_comp_digest": "47124d0b848f05e96457c90856e79ae6e3cae6b98d8dd7e489db8b6942c10f63",
+      "structured_rec_digest": "9753fce1faaa75d52d5e160f3651dd5209ba6dbd6d0977f9c1dffbb19347ba4b",
+      "flat_bag": {
+        "terminal_perslot": 0.13805970149253732,
+        "function_perslot": 0.21867469879518073,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.49,
+        "tree_exact": 0.0,
+        "n_attach_total": 600
+      },
+      "flat_bag_comp_digest": "986e5dce5fc5f61385acfe96698ac795a1722fd45778323b80c3088f267f7b1f",
+      "flat_bag_rec_digest": "da5cf7b2a8aa5f17bd93bd0491e60e64474f47770384e64c05e76f38c8425bdd",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07518656716417911,
+        "function_perslot": 0.11867469879518072,
+        "embed_detection_acc": 0.4875,
+        "attachment_acc": 0.49,
+        "tree_exact": 0.0,
+        "n_attach_total": 600
+      },
+      "scrambled_roles_comp_digest": "9abe343d1e30292c616d5ba9c2673e351a37dfc72d7a9df40f8e2c54a3076f92",
+      "scrambled_roles_rec_digest": "5a7d212d2b14246365d66d20f2dfb0e2515af179bb34624fc9d8bbe58b77583b"
+    },
+    {
+      "levels": 1,
+      "V": 64,
+      "seed": 19,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "61354c7f9018309b61d7b3b60bafd9f31310bb0857529830a2485eea7701aeab",
+      "structured_rec_digest": "3a0ca988994884f64545ff12e0c486dc18c9f6921dd244bf329137d3ef8e98f1",
+      "flat_bag": {
+        "terminal_perslot": 0.5875,
+        "function_perslot": 0.771875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "35faf9205b1eb394e64add1db63d76f04386468960e8033c38e1081ee0ee7450",
+      "flat_bag_rec_digest": "db1ffb8c21e6e388037d026f4b1ae3cd53511baef3aca5d5937f9b66ea4a8ee5",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08928571428571429,
+        "function_perslot": 0.14375,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "03746d610641fd3e72c7099b0ed177ad6269a02912f16b70a8a9af6ce6fb217c",
+      "scrambled_roles_rec_digest": "3812f7a65cd06ca60eb63b70e8dbf8dc3b5b43e9b76bfde0b8d7bd4c241cad0d"
+    },
+    {
+      "levels": 1,
+      "V": 256,
+      "seed": 19,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "1384f40ec7bf8dbfbdd789658a7120bccacaad0d60ccb32cca6c5ffc1d8b74d7",
+      "structured_rec_digest": "01fc017537489ea256986487d9d9b00bd480dda57d705ce94a3df9ea550df5ad",
+      "flat_bag": {
+        "terminal_perslot": 0.5875,
+        "function_perslot": 0.778125,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "aca53ebde3bbd20953556811586af38fef74e8a85d3f166fb750167058622733",
+      "flat_bag_rec_digest": "d96395ffe7a19ca5679cf01a4ce94ddd4206eace8185495b43b8590649537f3e",
+      "scrambled_roles": {
+        "terminal_perslot": 0.05892857142857143,
+        "function_perslot": 0.103125,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "bb1cd9f592a39e7512b133b75f89f612d88a07695b575945e4e152167e62270b",
+      "scrambled_roles_rec_digest": "eeebbea35e951a2a0412ad19409b98a44aa8b299fc8fc4b7cc19cb16871a078d"
+    },
+    {
+      "levels": 1,
+      "V": 1024,
+      "seed": 19,
+      "bs": 1024,
+      "k": 20,
+      "n_blocks": 8,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 1.0,
+        "n_attach_total": 0
+      },
+      "structured_comp_digest": "fba1c8a373dbaac51c94c40362da276cb31b0bb9f9d80b3eeb91c4a1c68b142e",
+      "structured_rec_digest": "9919dd6b11f5b24a9c106900e85bed61cec027c16b96a628e932e35f3aa8ec82",
+      "flat_bag": {
+        "terminal_perslot": 0.5839285714285715,
+        "function_perslot": 0.771875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "flat_bag_comp_digest": "6e01ba3ea265fcd754386d29493bec4a1028763d9486b1a996b91ec9ec08fd90",
+      "flat_bag_rec_digest": "3cb59121ae0f98fd46f8f5574a33e122767e7e77bf956c8164d95c151df3cf7e",
+      "scrambled_roles": {
+        "terminal_perslot": 0.055357142857142855,
+        "function_perslot": 0.096875,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": NaN,
+        "tree_exact": 0.0,
+        "n_attach_total": 0
+      },
+      "scrambled_roles_comp_digest": "4ea449164f5b548ff4edb58220a544c9d34576f4a8ab69b13b74f7c7ba508032",
+      "scrambled_roles_rec_digest": "33eb4baa374b2a33af8bdd1b4d8f14c6021a317148a6a49bd92e43506f4e2392"
+    },
+    {
+      "levels": 2,
+      "V": 64,
+      "seed": 19,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "99784e47ecabfbbb14df1546efdc7a5722a499fbfebb8759b12d36f3e465643c",
+      "structured_rec_digest": "d60949fab4945f7e846796f9a6fbed16db64653b604f564e41a130b49207b057",
+      "flat_bag": {
+        "terminal_perslot": 0.4590909090909091,
+        "function_perslot": 0.6192307692307693,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.425,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "8e813983ef57102e559c92247e4f5d36bc32d2a78bd5d828a142463b75ff1203",
+      "flat_bag_rec_digest": "841b67aa2b2f4915e4612462ca94561274c6ac4af7fa90afdcd1b177ca8cd1bb",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08181818181818182,
+        "function_perslot": 0.13653846153846153,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.4,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "974d4a54658ed9c569f988d7e67c5ce4c1791c78dfb3ffa3db1d5398d0024e81",
+      "scrambled_roles_rec_digest": "552d4906c59396a10183ba09b77d816730261f41d8e6b285c9b367253a5b7f13"
+    },
+    {
+      "levels": 2,
+      "V": 256,
+      "seed": 19,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "d450cc8d2cf16bfead3281de573d30c52208e3254e46e416aa5e655696d8364c",
+      "structured_rec_digest": "8c4021027f26a0a61c0398842598c1b397a86e37d53ba611fd34f265154c30a2",
+      "flat_bag": {
+        "terminal_perslot": 0.4590909090909091,
+        "function_perslot": 0.6173076923076923,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "b0e34a9e6f7ebb60ecd18a45051b01e99067695ec5977f41aac2c095d3921f64",
+      "flat_bag_rec_digest": "4a18567f1305b855e4a8d4a25fcec0aec79598bda7503d5b0bfd30ee22becfea",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06363636363636363,
+        "function_perslot": 0.10384615384615385,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.45,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "af42d2ddad1bc5422b7ce39ce2252090c63ad05673823f1c34a65a59b3fbf8bb",
+      "scrambled_roles_rec_digest": "03217220b9f85fe90e31f8b49c8c10ac98ce341af3ad62b84cf2982e2bd04595"
+    },
+    {
+      "levels": 2,
+      "V": 1024,
+      "seed": 19,
+      "bs": 512,
+      "k": 10,
+      "n_blocks": 16,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 40
+      },
+      "structured_comp_digest": "3e67554448f6c50d5f82cda9b1e4e6c81e4611665a37c4f6dd013d337f2d4b8f",
+      "structured_rec_digest": "63d1f52af169df0ce0f810e2c67741804495501aca288553add0ce35993a464f",
+      "flat_bag": {
+        "terminal_perslot": 0.4659090909090909,
+        "function_perslot": 0.6346153846153846,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.475,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "flat_bag_comp_digest": "ff363c0d47e3c1ccf83bee91468ef10a16c95d8768beef0d2141b8560108a167",
+      "flat_bag_rec_digest": "8582a158c9e442b4ce1bd25dd3cdd262a7d83e556099017719aef2f3fa645a30",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06818181818181818,
+        "function_perslot": 0.11538461538461539,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.3,
+        "tree_exact": 0.0,
+        "n_attach_total": 40
+      },
+      "scrambled_roles_comp_digest": "fcc2de65030fdf7fd0d6d1b1cb76d29673f24feb1dfcf288eb7636774d98eabc",
+      "scrambled_roles_rec_digest": "49fdee3943ae8d9376c860df14a772d0bf0798d26477dba3ff27099f496370df"
+    },
+    {
+      "levels": 3,
+      "V": 64,
+      "seed": 19,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "6d76a22a911cef6a3f0622fc9acca9d08a645d07ce3de89325f67070ed40996c",
+      "structured_rec_digest": "2ffb5d8b38626608ec26ef57ab415c31979047db4350fcc040487d80ae8f74f7",
+      "flat_bag": {
+        "terminal_perslot": 0.38416666666666666,
+        "function_perslot": 0.5083333333333333,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.425,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "c21a084310d753e0062643b9ed66ff12987680eb860f8ebe583c2e9e553ae04a",
+      "flat_bag_rec_digest": "af08b64003891e1cc3aebf9a14cd9937664880153cdac572a65df05bc480066f",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07583333333333334,
+        "function_perslot": 0.11527777777777778,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.425,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "e925593b10b828d17149f1919f2369d507d93102ef6672f2e3277b2d0586d98a",
+      "scrambled_roles_rec_digest": "b0ac2e3424b3257d0f2fb9612f19e7b9d7506ce161a557582e8901b6f7af2bd7"
+    },
+    {
+      "levels": 3,
+      "V": 256,
+      "seed": 19,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "37ab646a1a0c0a245418ce76e4c1a9abcaadbb3f4088c40d5a79e0cee0cca6a9",
+      "structured_rec_digest": "76fedbc360a7284ae234751d2e573703e6cf9907b1a534b55f9bb579e0524e44",
+      "flat_bag": {
+        "terminal_perslot": 0.37333333333333335,
+        "function_perslot": 0.5041666666666667,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.45,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "e6441b77a07b39586fa3100131fd71f9ada07d09aa86809d98679657a59ada6e",
+      "flat_bag_rec_digest": "5a1df6b7846f96f2a3f671ae5f13d3642423ea442d45d71ffc9c6a5f3597a024",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08416666666666667,
+        "function_perslot": 0.14027777777777778,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.4375,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "fe1a2fdef40cbd3fda22543824c627a94949bf5850a34d5e2c174dc62be428ce",
+      "scrambled_roles_rec_digest": "ec48202285a95cb9b5d4d56b95bcbc4ba4b8bed9f95abfa09df79dc135707338"
+    },
+    {
+      "levels": 3,
+      "V": 1024,
+      "seed": 19,
+      "bs": 341,
+      "k": 7,
+      "n_blocks": 24,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 80
+      },
+      "structured_comp_digest": "d18b4d65641f42e7242153aaf658ebba9d24b292c406851bb7c802cd95a0e39e",
+      "structured_rec_digest": "2025814fb418e74d64935b201820687da87fe5321bce9a2ec02bd67aa871dda0",
+      "flat_bag": {
+        "terminal_perslot": 0.36666666666666664,
+        "function_perslot": 0.49722222222222223,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5375,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "flat_bag_comp_digest": "670903bb5c34431c11a40d9d9e8e0eab719a68209579dc75901d0fb3c13bc792",
+      "flat_bag_rec_digest": "ed3da54322b07f683600f88b7ea3b13316c7e0d53d6a8c1a5af62fee2ef79020",
+      "scrambled_roles": {
+        "terminal_perslot": 0.06166666666666667,
+        "function_perslot": 0.10277777777777777,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.6,
+        "tree_exact": 0.0,
+        "n_attach_total": 80
+      },
+      "scrambled_roles_comp_digest": "1a3396b9ac6c87b9a66646ed06c161f71a2979b8ef2b1becc0f67fb63e89abd1",
+      "scrambled_roles_rec_digest": "81836e0360b705b1c1df0c48ea8c0abfdd643e1f9534c1eed03bbcdc4cc95de8"
+    },
+    {
+      "levels": 4,
+      "V": 256,
+      "seed": 19,
+      "bs": 256,
+      "k": 5,
+      "n_blocks": 32,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 1.0,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 1.0,
+        "n_attach_total": 120
+      },
+      "structured_comp_digest": "ac530eb1d4beb57a91683065672f6d5888cd806f8be6b331118588ae5cf9ad67",
+      "structured_rec_digest": "68c696a518b546cf6f781f2c01404ec4624baa0a59f902bcd939a39c41ab550e",
+      "flat_bag": {
+        "terminal_perslot": 0.3269736842105263,
+        "function_perslot": 0.4489130434782609,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.525,
+        "tree_exact": 0.0,
+        "n_attach_total": 120
+      },
+      "flat_bag_comp_digest": "944655b19d72e73962b7ea3bd80d72ba40474f6d8f07ee381e5a503aececcf8c",
+      "flat_bag_rec_digest": "3606688604ab931de71b6245ec1f6579f8e6ec9880fbeeee427b471313290055",
+      "scrambled_roles": {
+        "terminal_perslot": 0.08486842105263158,
+        "function_perslot": 0.13804347826086957,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.5,
+        "tree_exact": 0.0,
+        "n_attach_total": 120
+      },
+      "scrambled_roles_comp_digest": "721e1727723e10d8f794a773164e8def532d547d7c0e40e4b60827a295d748b1",
+      "scrambled_roles_rec_digest": "3a5806082795c2505f569aa173b1a84730ea9ed6c7e919dcc7ce56e0d94a80a9"
+    },
+    {
+      "levels": 8,
+      "V": 256,
+      "seed": 19,
+      "bs": 128,
+      "k": 3,
+      "n_blocks": 64,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.9982142857142857,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 0.9375,
+        "n_attach_total": 280
+      },
+      "structured_comp_digest": "0948b21b8e9db5fdf8655ef92174a3c04cb966c34d1f0cef8b86d1e8794038a0",
+      "structured_rec_digest": "4e63c3ac0b025dac7f6ad5c7950942e3657c641f7673b0ebe241c057e46130b3",
+      "flat_bag": {
+        "terminal_perslot": 0.21857142857142858,
+        "function_perslot": 0.32209302325581396,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4928571428571429,
+        "tree_exact": 0.0,
+        "n_attach_total": 280
+      },
+      "flat_bag_comp_digest": "13b2bf317f2763a53c424f01b5cabc15d57172d24f908a30db2d998cc6abc642",
+      "flat_bag_rec_digest": "2633423127f536ec6982ea10440559e9f58fd39d394d6420eb1d28699662cb65",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07571428571428572,
+        "function_perslot": 0.12034883720930233,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5071428571428571,
+        "tree_exact": 0.0,
+        "n_attach_total": 280
+      },
+      "scrambled_roles_comp_digest": "3555901e29b95925849f6378700079f6030c5161574a3ad7871d13c6d0ee6a3b",
+      "scrambled_roles_rec_digest": "073c867af1cfdaaf82243fed1572de38d35ee370dd2e1fcc86c2bfddc528bb5c"
+    },
+    {
+      "levels": 12,
+      "V": 256,
+      "seed": 19,
+      "bs": 85,
+      "k": 2,
+      "n_blocks": 96,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.9909313725490196,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 1.0,
+        "tree_exact": 0.6625,
+        "n_attach_total": 440
+      },
+      "structured_comp_digest": "0e7579303f7c900914db002d25314e652b4176c058bce9779d6f9a0359bef7c2",
+      "structured_rec_digest": "10436335a1a1c6e0a946b29174badb6db77412ade9db4b6f71eaf853a9eecec0",
+      "flat_bag": {
+        "terminal_perslot": 0.17181372549019608,
+        "function_perslot": 0.2611111111111111,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.5227272727272727,
+        "tree_exact": 0.0,
+        "n_attach_total": 440
+      },
+      "flat_bag_comp_digest": "36dd288792fe49ca8b4fc5b1ae0717ae0b3596f8b4930d67733546c094f35c18",
+      "flat_bag_rec_digest": "20c3f3ba7f6e97f25dbbc539165af2ee4ed7bbfda08b7ebb0130e96e3067a560",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07573529411764705,
+        "function_perslot": 0.12063492063492064,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4636363636363636,
+        "tree_exact": 0.0,
+        "n_attach_total": 440
+      },
+      "scrambled_roles_comp_digest": "24c062446c588aa8b55cd075fdb477c723881e0ff1fbd8a8fd5180e932c81a93",
+      "scrambled_roles_rec_digest": "df47a479bac8c8ecefbcd324395b5aef3b243e9c6f37e5694fcf546482466b27"
+    },
+    {
+      "levels": 16,
+      "V": 256,
+      "seed": 19,
+      "bs": 64,
+      "k": 1,
+      "n_blocks": 128,
+      "n_trials": 80,
+      "attachment_chance": 0.5,
+      "structured": {
+        "terminal_perslot": 0.7729477611940299,
+        "function_perslot": 1.0,
+        "embed_detection_acc": 1.0,
+        "attachment_acc": 0.9966666666666667,
+        "tree_exact": 0.075,
+        "n_attach_total": 600
+      },
+      "structured_comp_digest": "2e42492073e956f3f58375a16cbf17df771e4e8c6265aa970bb85fe8f1628277",
+      "structured_rec_digest": "98daa735b1f766399052b2520a47433bc965be33c1f7acc02debf1033a05133f",
+      "flat_bag": {
+        "terminal_perslot": 0.15279850746268656,
+        "function_perslot": 0.23885542168674698,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4866666666666667,
+        "tree_exact": 0.0,
+        "n_attach_total": 600
+      },
+      "flat_bag_comp_digest": "aa7e261c765d88681e1e7f05cabce2e90c27183e603b622e8966d2cdf546254b",
+      "flat_bag_rec_digest": "6e79a407e97e427cdcfbfdd030f4c866e617002c0986f414621f74bde77cc7d8",
+      "scrambled_roles": {
+        "terminal_perslot": 0.07649253731343283,
+        "function_perslot": 0.1213855421686747,
+        "embed_detection_acc": 0.5,
+        "attachment_acc": 0.4766666666666667,
+        "tree_exact": 0.0,
+        "n_attach_total": 600
+      },
+      "scrambled_roles_comp_digest": "baf40e7f0dc8d3be4bba9e89cecd96518ed057a6cd8ecfd242f942d54ae5d624",
+      "scrambled_roles_rec_digest": "2fcefac72e1b07efc09df949682e12f7719900c5c05222f0d8d5c97842ff2557"
+    }
+  ],
+  "structural_audit": {
+    "flat_bag_invariant_under_attach_swap": true,
+    "structured_differs_under_attach_swap": true,
+    "partition_exact_disjoint": true,
+    "bag_blind_to_structure": true,
+    "attachment_chance": 0.5
+  },
+  "bands": {
+    "FLOOR_TREE": 0.8,
+    "FLOOR_ATTACH": 0.9,
+    "FLOOR_TERM": 0.9,
+    "GAP_MIN": 0.35,
+    "TREE_GAP_MIN": 0.6,
+    "CTRL_LO": 0.35,
+    "CTRL_HI": 0.65,
+    "CV_MAX": 0.15,
+    "HF_TREE": 0.3,
+    "HF_GAP": 0.15,
+    "ANCHOR": [
+      2,
+      256
+    ],
+    "EASY": [
+      2,
+      64
+    ]
+  },
+  "hp_scope": {
+    "structured": [
+      "FLOOR_TREE",
+      "FLOOR_ATTACH",
+      "FLOOR_TERM",
+      "GAP_MIN",
+      "TREE_GAP_MIN",
+      "CV_MAX",
+      "envelope_reaches_ANCHOR"
+    ],
+    "flat_bag": [
+      "attachment_near_chance_BIAS_gate_only"
+    ],
+    "scrambled_roles": [
+      "attachment_near_chance_BIAS_gate_only"
+    ]
+  },
+  "cited_baselines": {
+    "blocklocal_decoder": "data/exp_generation_decoder_gsbc_native_blocklocal_v1 (blocklocal exact_ordered=1.000 to D<=26 at V<=1024; block-local Stage A/B/C)",
+    "comprehension_role_typing": "data/exp_comprehension_envelope_superposition_vocab_v1 (role-typed partition-restricted decode; superposition load L)"
+  },
+  "kb_referent_declared": false,
+  "framing": "NARROW structured glass-box grammar-structure primitive; NOT a language model, NOT fluent English, NOT raw-text prediction; synthetic clean sparse-bipolar codes; Stage-3 not Stage-4",
+  "ts_iso": "2026-07-06T00:44:41.637222+00:00",
+  "pid": 28568,
+  "host": "Home"
+}

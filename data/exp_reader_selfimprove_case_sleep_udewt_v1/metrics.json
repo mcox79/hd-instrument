@@ -1,0 +1,385 @@
+{
+  "anchor_name": "reader_selfimprove_case_sleep_udewt_v1",
+  "run_mode": "full",
+  "verdict": "REAL_IMPROVING_PROPERTY",
+  "verdict_msg": "REAL_IMPROVING_PROPERTY | out-of-sample UD-EWT dev+test census: 2536 patient arcs, 239 mislabels (labeler_acc=0.9058); held-out generalization: COHERENT fix_rate=0.5632 (base_rate=0.6129, net_gain=0.0471, rescue_prec=0.8598) vs SCRAMBLE fix=0.1817 (collapse=0.3815) vs ORDER fix=0.5654 (collapse=-0.0022) | fast_seen_recall=0.9658 | leak_clean=True baseline_in_band=True (base_acc=0.8994) | scramble_collapses=True improves_over_base=False",
+  "summary": "REAL_IMPROVING_PROPERTY | out-of-sample UD-EWT dev+test census: 2536 patient arcs, 239 mislabels (labeler_acc=0.9058); held-out generalization: COHERENT fix_rate=0.5632 (base_rate=0.6129, net_gain=0.0471, rescue_prec=0.8598) vs SCRAMBLE fix=0.1817 (collapse=0.3815) vs ORDER fix=0.5654 (collapse=-0.0022) | fast_seen_recall=0.9658 | leak_clean=True baseline_in_band=True (base_acc=0.8994) | scramble_collapses=True improves_over_base=False",
+  "elapsed_s": 6.4,
+  "ts_iso": "2026-07-21T14:58:58.796119+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "scaled_census": {
+    "n_patient_arcs": 2536,
+    "n_mislabels": 239,
+    "labeler_acc": 0.9058,
+    "top_clusters": [
+      {
+        "rule": "obj->obl",
+        "n": 97,
+        "distinct_verbs": 84
+      },
+      {
+        "rule": "nsubj:pass->nsubj",
+        "n": 86,
+        "distinct_verbs": 73
+      },
+      {
+        "rule": "obj->nsubj",
+        "n": 12,
+        "distinct_verbs": 8
+      },
+      {
+        "rule": "obj->xcomp",
+        "n": 11,
+        "distinct_verbs": 9
+      },
+      {
+        "rule": "nsubj:pass->obl",
+        "n": 7,
+        "distinct_verbs": 7
+      },
+      {
+        "rule": "obj->iobj",
+        "n": 7,
+        "distinct_verbs": 6
+      },
+      {
+        "rule": "obj->ccomp",
+        "n": 6,
+        "distinct_verbs": 6
+      },
+      {
+        "rule": "obj->advcl",
+        "n": 3,
+        "distinct_verbs": 2
+      }
+    ]
+  },
+  "PRIMARY_heldout_fix_rate_coherent": 0.5632,
+  "base_rate_majority": 0.6129,
+  "heldout_net_gain_coherent": 0.0471,
+  "rescue_precision_coherent": 0.8598,
+  "MUSTFAIL_scramble_fix_rate": 0.1817,
+  "MUSTFAIL_scramble_gain_collapse": 0.3815,
+  "MUSTFAIL_order_fix_rate": 0.5654,
+  "MUSTFAIL_order_gain_collapse": -0.0022,
+  "fast_seen_recall_mean": 0.9658,
+  "leak_clean": true,
+  "baseline_in_band": true,
+  "baseline_heldout_acc": 0.8994,
+  "scramble_collapses_gain": true,
+  "improves_over_base_rate_diagnostic": false,
+  "all_seeds_net_gain_positive": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "generalization fix-rate measurement",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <60s)",
+  "deterministic_seeding": true,
+  "compose_in_cell_no_hdlab_mutation": true,
+  "additive_store_note": "Hebbian superposition consolidated by continual.replay_cycle (NOT AdditiveKGMap KGE-SGD)",
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_seen_verbs": 508,
+      "n_seen_fail": 148,
+      "n_heldout_fail": 91,
+      "base_rate_majority": 0.5495,
+      "tau": 0.009389,
+      "fast_seen_recall": 0.9595,
+      "schema": {
+        "n_schemas": 30,
+        "mean_role_purity": 0.9286,
+        "compression": 4.93
+      },
+      "coherent": {
+        "n_heldout": 929,
+        "n_heldout_fail": 91,
+        "n_heldout_correct": 838,
+        "base_acc": 0.902,
+        "loop_acc": 0.9429,
+        "net_gain": 0.0409,
+        "fixes": 48,
+        "breaks": 10,
+        "overrides": 66,
+        "heldout_fix_rate": 0.5275,
+        "collateral_rate": 0.0119,
+        "rescue_precision": 0.8276
+      },
+      "scramble": {
+        "n_heldout": 929,
+        "n_heldout_fail": 91,
+        "n_heldout_correct": 838,
+        "base_acc": 0.902,
+        "loop_acc": 0.8816,
+        "net_gain": -0.0205,
+        "fixes": 46,
+        "breaks": 65,
+        "overrides": 150,
+        "heldout_fix_rate": 0.5055,
+        "collateral_rate": 0.0776,
+        "rescue_precision": 0.4144
+      },
+      "order_scramble": {
+        "n_heldout": 929,
+        "n_heldout_fail": 91,
+        "n_heldout_correct": 838,
+        "base_acc": 0.902,
+        "loop_acc": 0.9591,
+        "net_gain": 0.0571,
+        "fixes": 54,
+        "breaks": 1,
+        "overrides": 57,
+        "heldout_fix_rate": 0.5934,
+        "collateral_rate": 0.0012,
+        "rescue_precision": 0.9818
+      },
+      "gain_collapse_scramble": 0.022,
+      "gain_collapse_order": -0.0659,
+      "learning_curve": [
+        {
+          "frac": 0.1,
+          "n_cases": 9,
+          "n_seen_verbs": 51,
+          "heldout_fix_rate": 0.4725,
+          "net_gain": 0.0215,
+          "rescue_precision": 0.6515
+        },
+        {
+          "frac": 0.25,
+          "n_cases": 34,
+          "n_seen_verbs": 127,
+          "heldout_fix_rate": 0.6374,
+          "net_gain": 0.056,
+          "rescue_precision": 0.9062
+        },
+        {
+          "frac": 0.5,
+          "n_cases": 75,
+          "n_seen_verbs": 254,
+          "heldout_fix_rate": 0.5385,
+          "net_gain": 0.0334,
+          "rescue_precision": 0.7313
+        },
+        {
+          "frac": 0.75,
+          "n_cases": 111,
+          "n_seen_verbs": 381,
+          "heldout_fix_rate": 0.5495,
+          "net_gain": 0.0366,
+          "rescue_precision": 0.7576
+        },
+        {
+          "frac": 1.0,
+          "n_cases": 148,
+          "n_seen_verbs": 508,
+          "heldout_fix_rate": 0.5275,
+          "net_gain": 0.0409,
+          "rescue_precision": 0.8276
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "n_seen_verbs": 508,
+      "n_seen_fail": 149,
+      "n_heldout_fail": 90,
+      "base_rate_majority": 0.6556,
+      "tau": 0.014783,
+      "fast_seen_recall": 0.9597,
+      "schema": {
+        "n_schemas": 30,
+        "mean_role_purity": 0.9499,
+        "compression": 4.97
+      },
+      "coherent": {
+        "n_heldout": 815,
+        "n_heldout_fail": 90,
+        "n_heldout_correct": 725,
+        "base_acc": 0.8896,
+        "loop_acc": 0.9362,
+        "net_gain": 0.0466,
+        "fixes": 44,
+        "breaks": 6,
+        "overrides": 55,
+        "heldout_fix_rate": 0.4889,
+        "collateral_rate": 0.0083,
+        "rescue_precision": 0.88
+      },
+      "scramble": {
+        "n_heldout": 815,
+        "n_heldout_fail": 90,
+        "n_heldout_correct": 725,
+        "base_acc": 0.8896,
+        "loop_acc": 0.8896,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "order_scramble": {
+        "n_heldout": 815,
+        "n_heldout_fail": 90,
+        "n_heldout_correct": 725,
+        "base_acc": 0.8896,
+        "loop_acc": 0.9387,
+        "net_gain": 0.0491,
+        "fixes": 44,
+        "breaks": 4,
+        "overrides": 50,
+        "heldout_fix_rate": 0.4889,
+        "collateral_rate": 0.0055,
+        "rescue_precision": 0.9167
+      },
+      "gain_collapse_scramble": 0.4889,
+      "gain_collapse_order": 0.0,
+      "learning_curve": [
+        {
+          "frac": 0.1,
+          "n_cases": 18,
+          "n_seen_verbs": 51,
+          "heldout_fix_rate": 0.3444,
+          "net_gain": -0.0577,
+          "rescue_precision": 0.2844
+        },
+        {
+          "frac": 0.25,
+          "n_cases": 42,
+          "n_seen_verbs": 127,
+          "heldout_fix_rate": 0.3333,
+          "net_gain": 0.0135,
+          "rescue_precision": 0.6122
+        },
+        {
+          "frac": 0.5,
+          "n_cases": 85,
+          "n_seen_verbs": 254,
+          "heldout_fix_rate": 0.5111,
+          "net_gain": 0.0491,
+          "rescue_precision": 0.8846
+        },
+        {
+          "frac": 0.75,
+          "n_cases": 113,
+          "n_seen_verbs": 381,
+          "heldout_fix_rate": 0.4,
+          "net_gain": 0.0344,
+          "rescue_precision": 0.8182
+        },
+        {
+          "frac": 1.0,
+          "n_cases": 149,
+          "n_seen_verbs": 508,
+          "heldout_fix_rate": 0.4889,
+          "net_gain": 0.0466,
+          "rescue_precision": 0.88
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "n_seen_verbs": 508,
+      "n_seen_fail": 138,
+      "n_heldout_fail": 101,
+      "base_rate_majority": 0.6337,
+      "tau": 0.010693,
+      "fast_seen_recall": 0.9783,
+      "schema": {
+        "n_schemas": 28,
+        "mean_role_purity": 0.8963,
+        "compression": 4.93
+      },
+      "coherent": {
+        "n_heldout": 1081,
+        "n_heldout_fail": 101,
+        "n_heldout_correct": 980,
+        "base_acc": 0.9066,
+        "loop_acc": 0.9602,
+        "net_gain": 0.0537,
+        "fixes": 68,
+        "breaks": 10,
+        "overrides": 81,
+        "heldout_fix_rate": 0.6733,
+        "collateral_rate": 0.0102,
+        "rescue_precision": 0.8718
+      },
+      "scramble": {
+        "n_heldout": 1081,
+        "n_heldout_fail": 101,
+        "n_heldout_correct": 980,
+        "base_acc": 0.9066,
+        "loop_acc": 0.9084,
+        "net_gain": 0.0019,
+        "fixes": 4,
+        "breaks": 2,
+        "overrides": 9,
+        "heldout_fix_rate": 0.0396,
+        "collateral_rate": 0.002,
+        "rescue_precision": 0.6667
+      },
+      "order_scramble": {
+        "n_heldout": 1081,
+        "n_heldout_fail": 101,
+        "n_heldout_correct": 980,
+        "base_acc": 0.9066,
+        "loop_acc": 0.9639,
+        "net_gain": 0.0574,
+        "fixes": 62,
+        "breaks": 0,
+        "overrides": 62,
+        "heldout_fix_rate": 0.6139,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "gain_collapse_scramble": 0.6337,
+      "gain_collapse_order": 0.0594,
+      "learning_curve": [
+        {
+          "frac": 0.1,
+          "n_cases": 13,
+          "n_seen_verbs": 51,
+          "heldout_fix_rate": 0.3663,
+          "net_gain": -0.8187,
+          "rescue_precision": 0.0386
+        },
+        {
+          "frac": 0.25,
+          "n_cases": 25,
+          "n_seen_verbs": 127,
+          "heldout_fix_rate": 0.3663,
+          "net_gain": -0.6735,
+          "rescue_precision": 0.0461
+        },
+        {
+          "frac": 0.5,
+          "n_cases": 64,
+          "n_seen_verbs": 254,
+          "heldout_fix_rate": 0.6139,
+          "net_gain": 0.0444,
+          "rescue_precision": 0.8158
+        },
+        {
+          "frac": 0.75,
+          "n_cases": 98,
+          "n_seen_verbs": 381,
+          "heldout_fix_rate": 0.6238,
+          "net_gain": 0.0472,
+          "rescue_precision": 0.84
+        },
+        {
+          "frac": 1.0,
+          "n_cases": 138,
+          "n_seen_verbs": 508,
+          "heldout_fix_rate": 0.6733,
+          "net_gain": 0.0537,
+          "rescue_precision": 0.8718
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "anchor_name": "parser_uas_ladder_richfeat_v1",
+  "run_mode": "full",
+  "verdict": "RICHFEAT_LIFT_REAL",
+  "verdict_msg": "RICHFEAT_LIFT_REAL | CANON=0.7868 BASE_REFIT=0.7868 RICH=0.7925 | delta RICH-ref=+0.0057 (ref=max(canon,base_refit)) RICH-base_refit=+0.0057 RICH-canon=+0.0057 | OOV-dep base=0.6970 rich=0.6929 (delta=-0.0041 n=1716) | giveaway_max_uniq=0.735 | arms_differ=True baseline_in_band=True",
+  "summary": "RICHFEAT_LIFT_REAL | CANON=0.7868 BASE_REFIT=0.7868 RICH=0.7925 | delta RICH-ref=+0.0057 (ref=max(canon,base_refit)) RICH-base_refit=+0.0057 RICH-canon=+0.0057 | OOV-dep base=0.6970 rich=0.6929 (delta=-0.0041 n=1716) | giveaway_max_uniq=0.735 | arms_differ=True baseline_in_band=True",
+  "elapsed_s": 259.85,
+  "ts_iso": "2026-07-21T10:46:01.819623+00:00",
+  "n_train": 12329,
+  "n_dev": 1989,
+  "n_train_vocab": 16045,
+  "epochs": 10,
+  "canon_uas": 0.7868,
+  "base_refit_uas": 0.7868,
+  "rich_uas": 0.7925,
+  "delta_rich_vs_ref": 0.0057,
+  "delta_rich_vs_base_refit": 0.0057,
+  "delta_rich_vs_canon": 0.0057,
+  "ref_uas": 0.7868,
+  "oov_dep_uas": {
+    "base_refit": 0.697,
+    "rich": 0.6929,
+    "delta": -0.0041,
+    "n_oov_arcs": 1716
+  },
+  "iv_dep_uas": {
+    "base_refit": 0.7936,
+    "rich": 0.8,
+    "delta": 0.0065,
+    "n_iv_arcs": 22728
+  },
+  "giveaway_audit": {
+    "max_gold_unique_feature_frac": 0.7353,
+    "worst_arc": {
+      "sid_len": 2,
+      "dep": "Perlingiere",
+      "gold_head": 1,
+      "uniq_frac": 0.735
+    },
+    "note": "surface features (dist/dir/head-side) legitimately vary by head; frac<1 => no perfect single-feature gold separator (structural, expected)."
+  },
+  "canon_baseline_uas_cited": 0.7868,
+  "brown_clusters": "DEFERRED_no_asset (declared not-cheap-this-cell per drill Lever D)",
+  "rich_feature_families": [
+    "char_prefix_3_4",
+    "char_suffix_2_4_standalone",
+    "word_shape",
+    "affix_x_POSpair",
+    "affix_x_affix",
+    "shape_x_POSpair",
+    "affix_dir_dist"
+  ],
+  "persisted_rich_parser_path": "D:\\AI\\hd-instrument\\data\\frontend_assets\\arc_parser_richfeat_ud_ewt.npz",
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "compute_architecture": "sequential-CPU (justified)",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "one_variable": "feature_fn"
+}

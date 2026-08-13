@@ -1,0 +1,1615 @@
+{
+  "anchor_name": "generation_decoder_gsbc_native_blocklocal_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "NATIVE GSBC round-trip WORKS with the GSBC-native (block-local sparse) factorizer: exact-ordered=1.000 (>= 0.85) AND per_token=1.000 (>= 0.9) at V1024 D3 N=8192, matching the synth ceiling (1.000). The dense bipolar-BSC positions-unknown resonator COLLAPSES on the same native fillers (dense_gsbc_fullreso=0.000 vs iid dense_synth_fullreso=1.000) -> block-local is the right GSBC-native architecture; dense multiply-bind is the encoding mismatch. anchor(V1024D3) blocklocal_gsbc exact=1.000 perterm=1.000 pertok=1.000; synth_ceiling perterm=1.000; noorder exact=0.000 (must collapse); CONTRAST dense_gsbc_rolesknown=1.000 dense_gsbc_fullreso=0.000(mismatch) dense_synth_fullreso=1.000(iid ceiling); boundary_map[V4096D6=1.00 V8192D6=1.00 V1024D12=1.00 V1024D26=0.99 V8192D26=0.86]",
+  "summary": "HARD_PASS: native GSBC generation round-trip via block-local sparse resonator (full)",
+  "run_mode": "full",
+  "elapsed_s": 26.47,
+  "n_seeds": 3,
+  "n_units": 90,
+  "expected_n_units": 90,
+  "cardinality_ok": true,
+  "config": {
+    "N": 8192,
+    "GSBC_DIM": 8192,
+    "K_ACTIVE": 192,
+    "F_SPARSE": 0.02,
+    "grid": [
+      [
+        256,
+        3,
+        "direct"
+      ],
+      [
+        1024,
+        3,
+        "direct"
+      ],
+      [
+        256,
+        6,
+        "direct"
+      ],
+      [
+        1024,
+        6,
+        "direct"
+      ],
+      [
+        4096,
+        6,
+        "boundary"
+      ],
+      [
+        8192,
+        6,
+        "boundary"
+      ],
+      [
+        1024,
+        12,
+        "boundary"
+      ],
+      [
+        1024,
+        26,
+        "boundary"
+      ],
+      [
+        8192,
+        26,
+        "boundary"
+      ]
+    ],
+    "anchor": [
+      1024,
+      3
+    ],
+    "trials": 30,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "RESTARTS": 16,
+    "MAX_ITER": 40,
+    "n_iters": 6,
+    "stageA": "block_local_sparse_resonator",
+    "algebra": "block_superposition_sum",
+    "position_binding": "disjoint_block_index",
+    "native_filler": "GSBC_EXPAND2X_seed7_FULL_projected_sparse_bipolar",
+    "pool_meta": {
+      "encoder": "GSBC_EXPAND2X_seed7_FULL",
+      "ckpt": "data\\substrate_concept_encoder_v12_gwta_seed7\\_ckpt_best_GSBC_EXPAND2X.pt",
+      "K_active": 192,
+      "gsbc_dim": 8192,
+      "pool_n": 10000,
+      "sample_seed": 20260705,
+      "bge_cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+      "note": "BOUNDED probe: 10000 of 177899 concepts (5.6pct); native GSBC_EXPAND2X codes, sparse"
+    }
+  },
+  "arms": {
+    "blocklocal_gsbc@V256D3": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V256D3": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V256D3": {
+      "per_term_mean": 0.1111,
+      "per_term_per_seed": [
+        0.1333,
+        0.1111,
+        0.0889
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.3333,
+      "per_token_per_seed": [
+        0.3333,
+        0.3333,
+        0.3333
+      ]
+    },
+    "blocklocal_gsbc@V1024D3": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V1024D3": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V1024D3": {
+      "per_term_mean": 0.1111,
+      "per_term_per_seed": [
+        0.1556,
+        0.1111,
+        0.0667
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.3333,
+      "per_token_per_seed": [
+        0.3333,
+        0.3333,
+        0.3333
+      ]
+    },
+    "blocklocal_gsbc@V256D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V256D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V256D6": {
+      "per_term_mean": 0.0278,
+      "per_term_per_seed": [
+        0.0389,
+        0.0333,
+        0.0111
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.1648,
+      "per_token_per_seed": [
+        0.1667,
+        0.1611,
+        0.1667
+      ]
+    },
+    "blocklocal_gsbc@V1024D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V1024D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V1024D6": {
+      "per_term_mean": 0.0278,
+      "per_term_per_seed": [
+        0.0278,
+        0.0278,
+        0.0278
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.1667,
+      "per_token_per_seed": [
+        0.1667,
+        0.1667,
+        0.1667
+      ]
+    },
+    "blocklocal_gsbc@V4096D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V4096D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V4096D6": {
+      "per_term_mean": 0.0222,
+      "per_term_per_seed": [
+        0.0333,
+        0.0278,
+        0.0056
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.163,
+      "per_token_per_seed": [
+        0.1611,
+        0.1611,
+        0.1667
+      ]
+    },
+    "blocklocal_gsbc@V8192D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V8192D6": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V8192D6": {
+      "per_term_mean": 0.0389,
+      "per_term_per_seed": [
+        0.0556,
+        0.0278,
+        0.0333
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.1611,
+      "per_token_per_seed": [
+        0.1667,
+        0.15,
+        0.1667
+      ]
+    },
+    "blocklocal_gsbc@V1024D12": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V1024D12": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V1024D12": {
+      "per_term_mean": 0.0009,
+      "per_term_per_seed": [
+        0.0,
+        0.0028,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.0333,
+      "per_token_per_seed": [
+        0.025,
+        0.0333,
+        0.0417
+      ]
+    },
+    "blocklocal_gsbc@V1024D26": {
+      "per_term_mean": 0.9996,
+      "per_term_per_seed": [
+        1.0,
+        0.9987,
+        1.0
+      ],
+      "exact_ordered_mean": 0.9889,
+      "exact_ordered_per_seed": [
+        1.0,
+        0.9667,
+        1.0
+      ],
+      "per_token_mean": 0.9996,
+      "per_token_per_seed": [
+        1.0,
+        0.9987,
+        1.0
+      ]
+    },
+    "blocklocal_synth@V1024D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V1024D26": {
+      "per_term_mean": 0.0004,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0013
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.0047,
+      "per_token_per_seed": [
+        0.0051,
+        0.0026,
+        0.0064
+      ]
+    },
+    "blocklocal_gsbc@V8192D26": {
+      "per_term_mean": 0.9945,
+      "per_term_per_seed": [
+        0.9885,
+        0.9987,
+        0.9962
+      ],
+      "exact_ordered_mean": 0.8556,
+      "exact_ordered_per_seed": [
+        0.7,
+        0.9667,
+        0.9
+      ],
+      "per_token_mean": 0.9945,
+      "per_token_per_seed": [
+        0.9885,
+        0.9987,
+        0.9962
+      ]
+    },
+    "blocklocal_synth@V8192D26": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "noorder_ctrl@V8192D26": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.0004,
+      "per_token_per_seed": [
+        0.0,
+        0.0013,
+        0.0
+      ]
+    },
+    "dense_gsbc_rolesknown@V1024D3": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "dense_gsbc_fullreso@V1024D3": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "per_token_mean": 0.0,
+      "per_token_per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "dense_synth_fullreso@V1024D3": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "per_unit": [
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.1333,
+      "exact_ordered": 0.0,
+      "per_token": 0.3333
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.1556,
+      "exact_ordered": 0.0,
+      "per_token": 0.3333
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0389,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0278,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0333,
+      "exact_ordered": 0.0,
+      "per_token": 0.1611
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0556,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.025
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0051
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "blocklocal_gsbc",
+      "per_term": 0.9885,
+      "exact_ordered": 0.7,
+      "per_token": 0.9885
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 7,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 7,
+      "arm": "dense_gsbc_rolesknown",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 7,
+      "arm": "dense_gsbc_fullreso",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 7,
+      "arm": "dense_synth_fullreso",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.1111,
+      "exact_ordered": 0.0,
+      "per_token": 0.3333
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.1111,
+      "exact_ordered": 0.0,
+      "per_token": 0.3333
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0333,
+      "exact_ordered": 0.0,
+      "per_token": 0.1611
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0278,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0278,
+      "exact_ordered": 0.0,
+      "per_token": 0.1611
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0278,
+      "exact_ordered": 0.0,
+      "per_token": 0.15
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0028,
+      "exact_ordered": 0.0,
+      "per_token": 0.0333
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 0.9987,
+      "exact_ordered": 0.9667,
+      "per_token": 0.9987
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0026
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "blocklocal_gsbc",
+      "per_term": 0.9987,
+      "exact_ordered": 0.9667,
+      "per_token": 0.9987
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 13,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0013
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 13,
+      "arm": "dense_gsbc_rolesknown",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 13,
+      "arm": "dense_gsbc_fullreso",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 13,
+      "arm": "dense_synth_fullreso",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 3,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0889,
+      "exact_ordered": 0.0,
+      "per_token": 0.3333
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 3,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0667,
+      "exact_ordered": 0.0,
+      "per_token": 0.3333
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 256,
+      "D": 6,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0111,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "direct",
+      "V": 1024,
+      "D": 6,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0278,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 4096,
+      "D": 6,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0056,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 6,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0333,
+      "exact_ordered": 0.0,
+      "per_token": 0.1667
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 12,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0417
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 1024,
+      "D": 26,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0013,
+      "exact_ordered": 0.0,
+      "per_token": 0.0064
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "blocklocal_gsbc",
+      "per_term": 0.9962,
+      "exact_ordered": 0.9,
+      "per_token": 0.9962
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "blocklocal_synth",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "boundary",
+      "V": 8192,
+      "D": 26,
+      "seed": 19,
+      "arm": "noorder_ctrl",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 19,
+      "arm": "dense_gsbc_rolesknown",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 19,
+      "arm": "dense_gsbc_fullreso",
+      "per_term": 0.0,
+      "exact_ordered": 0.0,
+      "per_token": 0.0
+    },
+    {
+      "region": "anchor_contrast",
+      "V": 1024,
+      "D": 3,
+      "seed": 19,
+      "arm": "dense_synth_fullreso",
+      "per_term": 1.0,
+      "exact_ordered": 1.0,
+      "per_token": 1.0
+    }
+  ],
+  "controls": {
+    "noorder_collapsed": true,
+    "dense_bipolar_cone": {
+      "7": 0.3521,
+      "13": 0.3518,
+      "19": 0.3531
+    }
+  },
+  "arms_differ_verified": true,
+  "bands": {
+    "HP_exact_ordered": 0.85,
+    "HP_per_token": 0.9,
+    "HF_exact_ordered": 0.5,
+    "synth_ceiling_floor": 0.9,
+    "noorder_collapse_gap": 0.5
+  },
+  "ts_iso": "2026-07-05T13:32:09.572525+00:00",
+  "pid": 17076,
+  "host": "Home"
+}

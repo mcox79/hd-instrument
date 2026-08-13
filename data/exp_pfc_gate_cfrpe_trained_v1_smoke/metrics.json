@@ -1,0 +1,163 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | dec_depth=4 | V1=0.042 ADD(a=0.37)=0.115 CTRL=0.042 GONOGO(wr=1.0/0.5/1.0)=0.479 ORACLE=0.969 | gonogo_lift=0.365 dynamics_lift=0.438 additive_lift=0.073 headroom=0.927 | reach_tcos_corr=-0.086(corr_ok=True) cv=0.187 sign_p=0.0000 (go_only=40 add_only=5) reach_rank_test=0.576 mech_fires=True rails_ok=True add_rail_in_band=True arms_differ=True(exempt=False) n_seeds=3",
+  "summary": "MIDDLE_BAND | dec_depth=4 | V1=0.042 ADD(a=0.37)=0.115 CTRL=0.042 GONOGO(wr=1.0/0.5/1.0)=0.479 ORACLE=0.969 | gonogo_lift=0.365 dynamics_lift=0.438 additive_lift=0.073 headroom=0.927 | reach_tcos_corr=-0.086(corr_ok=True) cv=0.187 sign_p=0.0000 (go_only=40 add_only=5) reach_rank_test=0.576 mech_fires=True rails_ok=True add_rail_in_band=True arms_differ=True(exempt=False) n_seeds=3",
+  "per_arm_summary": {
+    "v1_no_goal": {
+      "3": {
+        "mean": 0.11458333333333333,
+        "std": 0.02946278254943948,
+        "cv": 0.25712973861329,
+        "n": 3,
+        "per_seed": {
+          "7": 0.09375,
+          "17": 0.09375,
+          "23": 0.15625
+        }
+      },
+      "4": {
+        "mean": 0.041666666666666664,
+        "std": 0.05892556509887896,
+        "cv": 1.4142135623730951,
+        "n": 3,
+        "per_seed": {
+          "7": 0.125,
+          "17": 0.0,
+          "23": 0.0
+        }
+      }
+    },
+    "additive_baseline": {
+      "3": {
+        "mean": 0.28125,
+        "std": 0.04419417382415922,
+        "cv": 0.15713484026367724,
+        "n": 3,
+        "per_seed": {
+          "7": 0.21875,
+          "17": 0.3125,
+          "23": 0.3125
+        }
+      },
+      "4": {
+        "mean": 0.11458333333333333,
+        "std": 0.03897559777889522,
+        "cv": 0.34015067152490375,
+        "n": 3,
+        "per_seed": {
+          "7": 0.125,
+          "17": 0.0625,
+          "23": 0.15625
+        }
+      }
+    },
+    "cfrpe_control_identity": {
+      "3": {
+        "mean": 0.2916666666666667,
+        "std": 0.02946278254943948,
+        "cv": 0.10101525445522107,
+        "n": 3,
+        "per_seed": {
+          "7": 0.25,
+          "17": 0.3125,
+          "23": 0.3125
+        }
+      },
+      "4": {
+        "mean": 0.041666666666666664,
+        "std": 0.01473139127471974,
+        "cv": 0.3535533905932738,
+        "n": 3,
+        "per_seed": {
+          "7": 0.03125,
+          "17": 0.0625,
+          "23": 0.03125
+        }
+      }
+    },
+    "cfrpe_trained_gonogo": {
+      "3": {
+        "mean": 0.8020833333333334,
+        "std": 0.03897559777889522,
+        "cv": 0.04859295307498625,
+        "n": 3,
+        "per_seed": {
+          "7": 0.75,
+          "17": 0.84375,
+          "23": 0.8125
+        }
+      },
+      "4": {
+        "mean": 0.4791666666666667,
+        "std": 0.08960755486502736,
+        "cv": 0.18700707102266578,
+        "n": 3,
+        "per_seed": {
+          "7": 0.59375,
+          "17": 0.46875,
+          "23": 0.375
+        }
+      }
+    },
+    "oracle": {
+      "3": {
+        "mean": 0.9791666666666666,
+        "std": 0.02946278254943948,
+        "cv": 0.030089650263257342,
+        "n": 3,
+        "per_seed": {
+          "7": 0.9375,
+          "17": 1.0,
+          "23": 1.0
+        }
+      },
+      "4": {
+        "mean": 0.96875,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3,
+        "per_seed": {
+          "7": 0.96875,
+          "17": 0.96875,
+          "23": 0.96875
+        }
+      }
+    }
+  },
+  "decision_depth": 4,
+  "gonogo_lift": 0.36458333333333337,
+  "dynamics_lift": 0.4375,
+  "additive_lift": 0.07291666666666666,
+  "oracle_headroom": 0.9270833333333334,
+  "reach_tcos_corr_test": -0.08611432405750308,
+  "corr_ok": true,
+  "dynamics_attributable": true,
+  "gonogo_cv": 0.18700707102266578,
+  "sign_test_p": 7.878384167270269e-08,
+  "n_gonogo_only": 40,
+  "n_additive_only": 5,
+  "reach_rank_test": 0.5755208333333334,
+  "reach_rank_train": 0.5833333333333334,
+  "best_w_reach_per_seed": {
+    "7": 1.0,
+    "17": 0.5,
+    "23": 1.0
+  },
+  "all_w_reach_zero": false,
+  "additive_rail_in_band": true,
+  "mechanism_fires": true,
+  "rails_ok": true,
+  "arms_differ_ok": true,
+  "arms_differ_exempted": false,
+  "expected_n_units": 30,
+  "completed_units": 30,
+  "cardinality_ok": true,
+  "n_seeds_complete": 3,
+  "anchor_name": "pfc_gate_cfrpe_trained_v1",
+  "elapsed_s": 23.7,
+  "ts_iso": "2026-07-05T16:56:27.625003+00:00",
+  "pid": 27200,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_gate_cfrpe_trained_v1,N=2048,V=200,N_OPS=4,seeds=[7, 17, 23],depths=[3, 4],dec_depth=6,n_train_triples=42,n_train_chains=40,n_test_chains=32,sr_steps=400,sr_batch=64,gamma=0.85,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],mode=smoke,device=cpu,expected_n=30,HP_lift>=0.155,cv<0.10,sign_p<0.05,reach_rank>0.30",
+  "device": "cpu"
+}

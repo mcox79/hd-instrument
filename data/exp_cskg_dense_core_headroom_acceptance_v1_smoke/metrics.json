@@ -1,0 +1,179 @@
+{
+  "anchor_name": "cskg_dense_core_headroom_acceptance_v1",
+  "verdict": "ACCEPT",
+  "verdict_msg": "CSKG headroom LOW=0.077 MID=0.200 HIGH=0.156 ALL=0.129 | FB15k-237 HIGH=n/a | control[SYN_COMP=0.860 SYN_FREQ=0.000 fires=True] || material_cross_strata=True fb_collapse=True :: ACCEPT",
+  "summary": "CSKG headroom LOW=0.077 MID=0.200 HIGH=0.156 ALL=0.129 | FB15k-237 HIGH=n/a | control[SYN_COMP=0.860 SYN_FREQ=0.000 fires=True] || material_cross_strata=True fb_collapse=True :: ACCEPT",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "elapsed_s": 0.4898812770843506,
+  "gates": {
+    "cskg_headroom_low": 0.07692307692307693,
+    "cskg_headroom_mid": 0.2,
+    "cskg_headroom_high": 0.15555555555555556,
+    "cskg_headroom_all": 0.12857142857142856,
+    "cskg_headroom_min": 0.07692307692307693,
+    "syn_compositional_headroom": 0.86,
+    "syn_freq_guessable_headroom": 0.0,
+    "control_fires": true,
+    "fb15k237_high_headroom": null,
+    "fb_reproduces_collapse": true,
+    "material_cross_strata": true
+  },
+  "arms_differ_verified": true,
+  "table_digests": {
+    "CSKG": "efd84e14b91aca1239997ee61adb2f36817c8c72ce17fe0f513a458355141501",
+    "SYN_COMPOSITIONAL": "2b504dbd44f203bb4e0a15463a9ff5c3aa4eff188744d9bea11a86afc8175b04",
+    "SYN_FREQ_GUESSABLE": "b9214157569bc11bf33d8756325c1f55cdeab2ec1ee472c6dbccad562d045aa5"
+  },
+  "cskg_mean_strata": {
+    "low": {
+      "reach_ceiling": 0.07692307692307693,
+      "pop_relfreq_h10": 0.015384615384615385,
+      "headroom": 0.07692307692307693,
+      "n": 65.0
+    },
+    "mid": {
+      "reach_ceiling": 0.2,
+      "pop_relfreq_h10": 0.0,
+      "headroom": 0.2,
+      "n": 30.0
+    },
+    "high": {
+      "reach_ceiling": 0.4222222222222222,
+      "pop_relfreq_h10": 0.5111111111111111,
+      "headroom": 0.15555555555555556,
+      "n": 45.0
+    },
+    "all": {
+      "reach_ceiling": 0.21428571428571427,
+      "pop_relfreq_h10": 0.17142857142857143,
+      "headroom": 0.12857142857142856,
+      "n": 140.0
+    }
+  },
+  "cskg_per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "n_test_eval": 140,
+      "n_ent": 1146,
+      "n_rel": 18,
+      "tert_q1": 2,
+      "tert_q2": 5,
+      "strata": {
+        "low": {
+          "n": 65,
+          "reach_ceiling": 0.07692307692307693,
+          "pop_relfreq_h10": 0.015384615384615385,
+          "headroom": 0.07692307692307693
+        },
+        "mid": {
+          "n": 30,
+          "reach_ceiling": 0.2,
+          "pop_relfreq_h10": 0.0,
+          "headroom": 0.2
+        },
+        "high": {
+          "n": 45,
+          "reach_ceiling": 0.4222222222222222,
+          "pop_relfreq_h10": 0.5111111111111111,
+          "headroom": 0.15555555555555556
+        },
+        "all": {
+          "n": 140,
+          "reach_ceiling": 0.21428571428571427,
+          "pop_relfreq_h10": 0.17142857142857143,
+          "headroom": 0.12857142857142856
+        }
+      }
+    }
+  ],
+  "cskg_provenance": {
+    "n_xcut_edges_streamed": 11139,
+    "k_core": 2,
+    "n_core_nodes": 1200,
+    "n_core_edges": 2809,
+    "n_core_nodes_in_split": 1146,
+    "core_avgdeg": 4.902268760907504,
+    "n_train": 2529,
+    "n_valid": 140,
+    "n_test": 140,
+    "n_rel_tokens": 18
+  },
+  "fb15k237_mean_strata": null,
+  "fb15k237_per_seed": [],
+  "syn_compositional": {
+    "corpus": "SYN_COMPOSITIONAL",
+    "n_test_eval": 200,
+    "n_ent": 520,
+    "n_rel": 4,
+    "tert_q1": 3,
+    "tert_q2": 5,
+    "strata": {
+      "low": {
+        "n": 80,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 1.0
+      },
+      "mid": {
+        "n": 83,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 1.0
+      },
+      "high": {
+        "n": 37,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.7567567567567568,
+        "headroom": 0.24324324324324326
+      },
+      "all": {
+        "n": 200,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 0.14,
+        "headroom": 0.86
+      }
+    }
+  },
+  "syn_freq_guessable": {
+    "corpus": "SYN_FREQ_GUESSABLE",
+    "n_test_eval": 200,
+    "n_ent": 402,
+    "n_rel": 3,
+    "tert_q1": 201,
+    "tert_q2": 201,
+    "strata": {
+      "low": {
+        "n": 200,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 1.0,
+        "headroom": 0.0
+      },
+      "mid": {
+        "n": 0,
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 0.0
+      },
+      "high": {
+        "n": 0,
+        "reach_ceiling": 0.0,
+        "pop_relfreq_h10": 0.0,
+        "headroom": 0.0
+      },
+      "all": {
+        "n": 200,
+        "reach_ceiling": 1.0,
+        "pop_relfreq_h10": 1.0,
+        "headroom": 0.0
+      }
+    }
+  },
+  "reference_fb_vet_table": {
+    "low": 0.32,
+    "mid": 0.299,
+    "high": 0.027,
+    "all": 0.011,
+    "source": "CITED@notes VET aa7f151f (FB15k-237 headroom)"
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS fixed-support N-scaling pipeline (AdditiveKGMap fit/compose/score + cap + SEEN normalizer + retention verdict) fires all discriminators on the planted mini-ladder",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 312.11061029997654,
+  "selftest": {
+    "ok": true,
+    "verdict": "MIDDLE_BAND_PARTIAL_RETENTION",
+    "verdict_msg": "MIDDLE_BAND_PARTIAL_RETENTION || N-ladder [500, 1400] (2.8x base->top) | ANCHOR_K3 mrr base=0.45581 top=0.39989 | SEEN base=0.56475 top=0.48735 | R_norm(candidate-growth-normalized)=1.01661 (SCALES>=0.70 DEGRADES<0.40) R_raw=0.87730 | top fires=True relation_signal=True local_degree(K6>K3m)=True | all_eligible=True all_seen_valid=True base_fires=True top_is_10x=False (2.8x) | K_SUP primary=3 high=6",
+    "checks": {
+      "planted500_anchor_beats_random": true,
+      "planted500_anchor_beats_scramble": true,
+      "planted500_local_degree": true,
+      "planted500_seen_above_random": true,
+      "planted500_arms_differ": true,
+      "planted1400_anchor_beats_random": true,
+      "planted1400_anchor_beats_scramble": true,
+      "planted1400_local_degree": true,
+      "planted1400_seen_above_random": true,
+      "planted1400_arms_differ": true,
+      "not_inconclusive": true
+    },
+    "preflight_ok": true,
+    "exercised": [
+      "AdditiveKGMap",
+      "AdditiveKGMap.compose_into_table",
+      "AdditiveKGMap.fit",
+      "AdditiveKGMap.score_edges",
+      "additive_direct_scores",
+      "fit_kge_anchor1"
+    ],
+    "per_unit": [
+      {
+        "rung_kind": "planted",
+        "rung_val": 500,
+        "seed": 7,
+        "N": 500,
+        "n_rel": 20,
+        "n_train": 5395,
+        "n_heldout_entities": 75,
+        "n_cold": 4,
+        "eligible_k3": 54,
+        "eligible_k6": 39,
+        "n_q3": 531,
+        "n_q6": 469,
+        "n_seen": 283,
+        "arm_mrr": {
+          "ANCHOR_K3": 0.4558146730611711,
+          "SCRAMBLE_K3": 0.04093955072311416,
+          "RANDOM": 0.010862776353449344,
+          "ANCHOR_K6": 0.5822370312200488,
+          "ANCHOR_K3m": 0.48164054326429295,
+          "SEEN": 0.5647460560307478
+        },
+        "arm_spectrum": {
+          "ANCHOR_K3": {
+            "hits@1": 0.3239171374764595,
+            "hits@3": 0.519774011299435,
+            "hits@10": 0.7419962335216572,
+            "hits@100": 0.9792843691148776
+          },
+          "SCRAMBLE_K3": {
+            "hits@1": 0.013182674199623353,
+            "hits@3": 0.02071563088512241,
+            "hits@10": 0.07721280602636535,
+            "hits@100": 0.5329566854990584
+          },
+          "RANDOM": {
+            "hits@1": 0.0,
+            "hits@3": 0.0018832391713747645,
+            "hits@10": 0.015065913370998116,
+            "hits@100": 0.2015065913370998
+          },
+          "ANCHOR_K6": {
+            "hits@1": 0.44349680170575695,
+            "hits@3": 0.6567164179104478,
+            "hits@10": 0.8507462686567164,
+            "hits@100": 1.0
+          },
+          "ANCHOR_K3m": {
+            "hits@1": 0.34754797441364604,
+            "hits@3": 0.5479744136460555,
+            "hits@10": 0.7611940298507462,
+            "hits@100": 0.9744136460554371
+          },
+          "SEEN": {
+            "hits@1": 0.3568904593639576,
+            "hits@3": 0.734982332155477,
+            "hits@10": 0.950530035335689,
+            "hits@100": 1.0
+          }
+        },
+        "arm_sigs": {
+          "ANCHOR_K3": "35277999bb93e25a",
+          "SCRAMBLE_K3": "5c08a034a676ee5a",
+          "RANDOM": "aef58eafce878070",
+          "ANCHOR_K6": "63b4e808ab1b7d46",
+          "ANCHOR_K3m": "abca57cfb5451504",
+          "SEEN": "7e3a2fbd244376b1"
+        }
+      },
+      {
+        "rung_kind": "planted",
+        "rung_val": 1400,
+        "seed": 7,
+        "N": 1400,
+        "n_rel": 20,
+        "n_train": 15165,
+        "n_heldout_entities": 210,
+        "n_cold": 9,
+        "eligible_k3": 163,
+        "eligible_k6": 111,
+        "n_q3": 1466,
+        "n_q6": 1263,
+        "n_seen": 798,
+        "arm_mrr": {
+          "ANCHOR_K3": 0.3998850754269486,
+          "SCRAMBLE_K3": 0.11925902497250479,
+          "RANDOM": 0.004996844080273886,
+          "ANCHOR_K6": 0.5431597170607907,
+          "ANCHOR_K3m": 0.4112521249417551,
+          "SEEN": 0.4873540949232764
+        },
+        "arm_spectrum": {
+          "ANCHOR_K3": {
+            "hits@1": 0.2557980900409277,
+            "hits@3": 0.4597544338335607,
+            "hits@10": 0.7066848567530696,
+            "hits@100": 0.9699863574351978
+          },
+          "SCRAMBLE_K3": {
+            "hits@1": 0.05252387448840382,
+            "hits@3": 0.12141882673942701,
+            "hits@10": 0.2489768076398363,
+            "hits@100": 0.6384720327421555
+          },
+          "RANDOM": {
+            "hits@1": 0.0,
+            "hits@3": 0.002728512960436562,
+            "hits@10": 0.007503410641200546,
+            "hits@100": 0.06412005457025921
+          },
+          "ANCHOR_K6": {
+            "hits@1": 0.38163103721298497,
+            "hits@3": 0.6500395882818686,
+            "hits@10": 0.8551068883610451,
+            "hits@100": 0.9897070467141726
+          },
+          "ANCHOR_K3m": {
+            "hits@1": 0.26286619160728425,
+            "hits@3": 0.47743467933491684,
+            "hits@10": 0.718923198733175,
+            "hits@100": 0.9683293745051464
+          },
+          "SEEN": {
+            "hits@1": 0.2568922305764411,
+            "hits@3": 0.656641604010025,
+            "hits@10": 0.9135338345864662,
+            "hits@100": 0.9962406015037594
+          }
+        },
+        "arm_sigs": {
+          "ANCHOR_K3": "0305c43fd81d1278",
+          "SCRAMBLE_K3": "47c81165c4a291a4",
+          "RANDOM": "bb8f235c1002c048",
+          "ANCHOR_K6": "00a197594ff66878",
+          "ANCHOR_K3m": "4976c80b48aca3aa",
+          "SEEN": "f5c02349de4afa61"
+        }
+      }
+    ],
+    "gates": {
+      "verdict": "MIDDLE_BAND_PARTIAL_RETENTION",
+      "n_multiple_top_over_base": 2.8,
+      "r_norm": 1.0166,
+      "r_raw": 0.8773,
+      "rungs": [
+        {
+          "rung_kind": "planted",
+          "rung_val": 500,
+          "n_seeds": 1,
+          "N": 500,
+          "eligible_k3": 54,
+          "eligible_k6": 39,
+          "anchor_k3": 0.4558146730611711,
+          "scramble_k3": 0.04093955072311416,
+          "random": 0.010862776353449344,
+          "anchor_k6": 0.5822370312200488,
+          "anchor_k3m": 0.48164054326429295,
+          "seen": 0.5647460560307478,
+          "fires": true,
+          "relation_signal": true,
+          "local_degree_holds": true,
+          "seen_above_floor": true,
+          "eligible_ok": true,
+          "anchor_over_seen": 0.8071143980443383
+        },
+        {
+          "rung_kind": "planted",
+          "rung_val": 1400,
+          "n_seeds": 1,
+          "N": 1400,
+          "eligible_k3": 163,
+          "eligible_k6": 111,
+          "anchor_k3": 0.3998850754269486,
+          "scramble_k3": 0.11925902497250479,
+          "random": 0.004996844080273886,
+          "anchor_k6": 0.5431597170607907,
+          "anchor_k3m": 0.4112521249417551,
+          "seen": 0.4873540949232764,
+          "fires": true,
+          "relation_signal": true,
+          "local_degree_holds": true,
+          "seen_above_floor": true,
+          "eligible_ok": true,
+          "anchor_over_seen": 0.8205226540466477
+        }
+      ],
+      "base_N": 500,
+      "top_N": 1400,
+      "base_fires": true,
+      "all_eligible": true,
+      "all_seen_valid": true,
+      "top_is_10x": false,
+      "scales": false,
+      "degrades": false,
+      "middle": true,
+      "bands": {
+        "RNORM_SCALES": 0.7,
+        "RNORM_DEGRADES": 0.4,
+        "FIRE_RATIO": 3.0,
+        "FIRE_ABS": 0.003,
+        "REL_SIGNAL_ABS": 0.003,
+        "SEEN_FLOOR_EPS": 0.002,
+        "TENX": 10.0,
+        "K_SUP_PRIMARY": 3,
+        "K_SUP_HIGH": 6,
+        "MIN_FIXED": 10
+      }
+    }
+  }
+}

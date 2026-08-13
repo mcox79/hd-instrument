@@ -1,0 +1,262 @@
+{
+  "anchor_name": "interference_avoidance_conjunctive_vs_additive_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "INTERFERENCE_AVOIDANCE_HEDGE_HOLDS: at M_HI=256 orth=1.000 add=0.268 freq_oracle=0.672 gap_orth_add=0.732 gap_orth_freq=0.328 add<freq=True gap_control=0.000 crossover_M=64 seeds_all4=2/2. Conjunctive/orthogonal storage beats additive AND frequency for a single-driver-dominated attribute; must-fail control clean.",
+  "summary": "n_units=8 N=4096 P=48 k=8 V=8 p_drv=0.6 mode=smoke seeds=[7, 13]",
+  "elapsed_s": 1.1295926570892334,
+  "config_version": "ANCHOR=interference_avoidance_conjunctive_vs_additive_v1,N=4096,P=48,k=8,V=8,p_drv=0.6,shared_M=[8, 64, 256],control_M=[256],SEEDS=[7, 13],RUN_MODE=smoke,M_HI=256,HP_GAP_ORTH_ADD=0.3,HP_GAP_ORTH_FREQ=0.15,HP_CONTROL_MAX=0.1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "P_pool": 48,
+  "k_feat": 8,
+  "V_attr": 8,
+  "p_drv": 0.6,
+  "shared_M": [
+    8,
+    64,
+    256
+  ],
+  "control_M": [
+    256
+  ],
+  "seeds": [
+    7,
+    13
+  ],
+  "n_seeds": 2,
+  "expected_n_units": 8,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "single-cell multi-seed with _seed_checkpoint write_partial + resumable_seeds; total wall <5min at N=4096 numpy; runner death resumes from last seed",
+  "discriminator_survives_scale": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n/a": "argmax over V=8 codewords; orth clean recall 1.0 measured, gap ~0.65 >> HP 0.30",
+  "discriminator_reachability": true,
+  "hp_orth_floor": 0.9,
+  "hp_gap_orth_add": 0.3,
+  "hp_gap_orth_freq": 0.15,
+  "hp_control_max": 0.1,
+  "hf_gap_orth_add_max": 0.1,
+  "hf_gap_orth_freq_max": 0.05,
+  "hf_control_confound": 0.25,
+  "theory_reference": "hippocampal DG/CA3 pattern separation (Leutgeb 2007; Trends Cogn Sci 2025 conjunctive coding); Loewe 1998 correlated-pattern capacity wall; operationalizes reference_correlation_hurts_associative_store_capacity_2026-07-08",
+  "prior_work_check": "substrate-KB cosine top-1=0.3057 'proactive interference' (wordnet, not arc); prior arc (cortex_hippo 0.277, correlation-hurts 0.270) all <0.30. Genuine new operationalization.",
+  "headline": {
+    "n_units": 8,
+    "expected_n_units": 8,
+    "M_HI": 256,
+    "M_LO": 8,
+    "orth_hi": 1.0,
+    "add_hi": 0.267578125,
+    "freq_oracle_hi": 0.671875,
+    "freq_marginal_hi": 0.19921875,
+    "gap_orth_add_hi": 0.732421875,
+    "gap_orth_freq_hi": 0.328125,
+    "add_below_freq_hi": true,
+    "gap_control_hi": 0.0,
+    "ctrl_orth_hi": 1.0,
+    "ctrl_add_hi": 1.0,
+    "max_gap_orth_add": 0.732421875,
+    "max_gap_orth_freq": 0.375,
+    "crossover_M": 64,
+    "n_seeds_all4": 2,
+    "n_seeds_total": 2,
+    "gap_orth_add_by_M": {
+      "8": 0.0,
+      "64": 0.515625,
+      "256": 0.732421875
+    },
+    "gap_orth_freq_by_M": {
+      "8": 0.375,
+      "64": 0.3125,
+      "256": 0.328125
+    },
+    "per_seed_conditions": {
+      "7": {
+        "present": true,
+        "orth_hi": 1.0,
+        "add_hi": 0.26953125,
+        "freq_hi": 0.65234375,
+        "c1_orth_floor": true,
+        "c2_gap_orth_add": true,
+        "c3_gap_orth_freq": true,
+        "c4_add_below_freq": true,
+        "all4": true
+      },
+      "13": {
+        "present": true,
+        "orth_hi": 1.0,
+        "add_hi": 0.265625,
+        "freq_hi": 0.69140625,
+        "c1_orth_floor": true,
+        "c2_gap_orth_add": true,
+        "c3_gap_orth_freq": true,
+        "c4_add_below_freq": true,
+        "all4": true
+      }
+    },
+    "orth_acc_by_M": {
+      "8": 1.0,
+      "64": 1.0,
+      "256": 1.0
+    },
+    "add_acc_by_M": {
+      "8": 1.0,
+      "64": 0.484375,
+      "256": 0.267578125
+    },
+    "freq_oracle_by_M": {
+      "8": 0.625,
+      "64": 0.6875,
+      "256": 0.671875
+    },
+    "af_violations": 0
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.4720449447631836,
+      "units": [
+        {
+          "seed": 7,
+          "regime": "shared",
+          "M": 8,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 1.0,
+          "freq_oracle_acc": 0.5,
+          "freq_marginal_acc": 0.25,
+          "rho_add": 0.16264441236793425,
+          "rho_conj": 0.003923688616071429,
+          "add_sha": "5bef719f9a270ff9",
+          "orth_sha": "e09a5170dc6a0ab8",
+          "wall_s": 0.01,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 7,
+          "regime": "shared",
+          "M": 64,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 0.453125,
+          "freq_oracle_acc": 0.65625,
+          "freq_marginal_acc": 0.234375,
+          "rho_add": 0.17447248298064508,
+          "rho_conj": -0.0002828931051587302,
+          "add_sha": "1ce3fe4be84b6f10",
+          "orth_sha": "c0fd28fb6a283e33",
+          "wall_s": 0.03,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 7,
+          "regime": "shared",
+          "M": 256,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 0.26953125,
+          "freq_oracle_acc": 0.65234375,
+          "freq_marginal_acc": 0.18359375,
+          "rho_add": 0.16962156032218467,
+          "rho_conj": -3.1086042815563723e-05,
+          "add_sha": "a0d903be14a50abe",
+          "orth_sha": "7de931dcf6817de5",
+          "wall_s": 0.09,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 7,
+          "regime": "disjoint_control",
+          "M": 256,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 1.0,
+          "freq_oracle_acc": 0.6484375,
+          "freq_marginal_acc": 0.14453125,
+          "rho_add": 7.203168552232947e-05,
+          "rho_conj": -0.00011328902899050246,
+          "add_sha": "32f32fd3a8b0406a",
+          "orth_sha": "2ec4093f9ef35f6c",
+          "wall_s": 0.28,
+          "unit_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "elapsed_s": 0.5289843082427979,
+      "units": [
+        {
+          "seed": 13,
+          "regime": "shared",
+          "M": 8,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 1.0,
+          "freq_oracle_acc": 0.75,
+          "freq_marginal_acc": 0.375,
+          "rho_add": 0.19690058576726463,
+          "rho_conj": 0.0029471261160714285,
+          "add_sha": "dfa5ce7b01c34e67",
+          "orth_sha": "8ec46c66b97c7a67",
+          "wall_s": 0.01,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 13,
+          "regime": "shared",
+          "M": 64,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 0.515625,
+          "freq_oracle_acc": 0.71875,
+          "freq_marginal_acc": 0.234375,
+          "rho_add": 0.1640395839606556,
+          "rho_conj": 0.0003884936135912698,
+          "add_sha": "3956cdb046a64d71",
+          "orth_sha": "20f6eeaa378cab48",
+          "wall_s": 0.03,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 13,
+          "regime": "shared",
+          "M": 256,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 0.265625,
+          "freq_oracle_acc": 0.69140625,
+          "freq_marginal_acc": 0.21484375,
+          "rho_add": 0.17159630729824107,
+          "rho_conj": 5.829754997702206e-05,
+          "add_sha": "36834437d97c47c6",
+          "orth_sha": "72127e405f93eab3",
+          "wall_s": 0.16,
+          "unit_status": "OK"
+        },
+        {
+          "seed": 13,
+          "regime": "disjoint_control",
+          "M": 256,
+          "N": 4096,
+          "orth_acc": 1.0,
+          "add_acc": 1.0,
+          "freq_oracle_acc": 0.59765625,
+          "freq_marginal_acc": 0.140625,
+          "rho_add": 0.00011803296465555235,
+          "rho_conj": -5.915024701286765e-05,
+          "add_sha": "9e2cf437d999c86b",
+          "orth_sha": "08bc195e200b3b24",
+          "wall_s": 0.26,
+          "unit_status": "OK"
+        }
+      ]
+    }
+  ]
+}

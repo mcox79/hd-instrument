@@ -1,0 +1,192 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "baseline_partition",
+    "per_config",
+    "tie_transitions",
+    "prereg_thresholds",
+    "reported_config",
+    "traces"
+  ],
+  "anchor_name": "arc_reasoner_link_precision_tie_prune_v1",
+  "baseline_partition": {
+    "derived_acc": 0.2427,
+    "dist_only_n": 114,
+    "gold_only_acc": 1.0,
+    "gold_only_n": 26,
+    "link_mode": "lemma_syn",
+    "n_derived": 206,
+    "n_gold_cov": 92,
+    "tie_acc": 0.3636,
+    "tie_n": 66
+  },
+  "config": {
+    "base_mode": "lemma_syn",
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "link_modes": [
+      "lemma_syn",
+      "lemma",
+      "glove"
+    ],
+    "n_eval": 1172,
+    "n_rules": 233,
+    "n_total_test": 1172,
+    "one_variable_across_arms": "link_mode (entity-link precision; graph/search/CI/decision identical)",
+    "rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "seed": 20260725,
+    "tiebreak_mode": "legacy"
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "elapsed_s": 104.7,
+  "graph": {
+    "n_nodes": 215,
+    "n_rules": 233,
+    "n_typed_edges": 209,
+    "per_relation": {
+      "CAUSE": 106,
+      "COUPLEDRELATIONSHIP": 18,
+      "IFTHEN": 5,
+      "REQUIRES": 36,
+      "SOURCEOF": 28,
+      "USEDFOR": 40
+    }
+  },
+  "n_ties_baseline": 66,
+  "n_traces": 1,
+  "per_config": {
+    "glove": {
+      "derived_acc": 0.2203,
+      "dist_only": {
+        "acc": 0.0,
+        "n": 64
+      },
+      "fixed_chance": 0.2496,
+      "gold_only": {
+        "acc": 1.0,
+        "n": 12
+      },
+      "link_mode": "glove",
+      "n_derived": 118,
+      "n_gold_cov": 54,
+      "n_questions": 1172,
+      "tie": {
+        "acc": 0.3333,
+        "n": 42
+      }
+    },
+    "lemma": {
+      "derived_acc": 0.2403,
+      "dist_only": {
+        "acc": 0.0,
+        "n": 69
+      },
+      "fixed_chance": 0.2496,
+      "gold_only": {
+        "acc": 1.0,
+        "n": 16
+      },
+      "link_mode": "lemma",
+      "n_derived": 129,
+      "n_gold_cov": 60,
+      "n_questions": 1172,
+      "tie": {
+        "acc": 0.3409,
+        "n": 44
+      }
+    },
+    "lemma_syn": {
+      "derived_acc": 0.2427,
+      "dist_only": {
+        "acc": 0.0,
+        "n": 114
+      },
+      "fixed_chance": 0.2498,
+      "gold_only": {
+        "acc": 1.0,
+        "n": 26
+      },
+      "link_mode": "lemma_syn",
+      "n_derived": 206,
+      "n_gold_cov": 92,
+      "n_questions": 1172,
+      "tie": {
+        "acc": 0.3636,
+        "n": 66
+      }
+    }
+  },
+  "pid": 39124,
+  "prereg_thresholds": {
+    "broke_max_ratio": 0.5,
+    "chance": 0.25,
+    "conv_pass": 10,
+    "conv_stuck": 5,
+    "derived_acc_rise": 0.05,
+    "gold_cov_floor": 0.9,
+    "gold_only_floor": 0.95
+  },
+  "reported_config": "lemma",
+  "run_mode": "full",
+  "summary": "link precision [lemma_syn->lemma]: of 66 ties -> 1 spurious(converted) / 44 genuine / 21 broke-gold (BG=3,BB=18) | gold-coverage 92->60 (ratio=0.652) | gold_only preserved=0.654 | derived-acc 0.243->0.240 (d=-0.002) vs chance 0.25 | verdict=HONEST-NEG-ties-genuine-meaning-bound",
+  "tie_transitions": {
+    "glove": {
+      "broke_clean": false,
+      "counts": {
+        "BROKE": 23,
+        "BROKE_BOTH": 20,
+        "BROKE_GOLD": 3,
+        "CONVERTED": 1,
+        "GENUINE": 42
+      },
+      "derived_acc": 0.2203,
+      "derived_acc_rise": -0.0224,
+      "gold_cov_ratio": 0.587,
+      "gold_only_preserved": 0.5769,
+      "guardrail_cov_ok": false,
+      "guardrail_gold_only_ok": false,
+      "n_gold_cov": 54
+    },
+    "lemma": {
+      "broke_clean": false,
+      "counts": {
+        "BROKE": 21,
+        "BROKE_BOTH": 18,
+        "BROKE_GOLD": 3,
+        "CONVERTED": 1,
+        "GENUINE": 44
+      },
+      "derived_acc": 0.2403,
+      "derived_acc_rise": -0.0024,
+      "gold_cov_ratio": 0.6522,
+      "gold_only_preserved": 0.6538,
+      "guardrail_cov_ok": false,
+      "guardrail_gold_only_ok": false,
+      "n_gold_cov": 60
+    }
+  },
+  "tier": "HONEST_NEG",
+  "traces": [
+    {
+      "chosen_after": "endothermic.",
+      "correct_after": true,
+      "gold_chain_after": "[reaction] --CAUSE--> [endothermic]",
+      "gold_choice": "endothermic.",
+      "gold_term_rel_after": "CAUSE",
+      "pruned_spurious_distractors": [
+        {
+          "baseline_chain": "[reaction] --CAUSE--> [heat] ; [heat] --CAUSE--> [evaporation]",
+          "baseline_term_rel": "CAUSE",
+          "choice": "vaporization.",
+          "note": "derived at lemma_syn, PRUNED under tightening (spurious link)"
+        }
+      ],
+      "qid": "Mercury_7043820",
+      "stem": "When cold temperatures are produced in a chemical reaction, the reaction is known as",
+      "tight_mode": "lemma"
+    }
+  ],
+  "ts_iso": "2026-07-25T21:57:38.470890+00:00",
+  "verdict": "HONEST-NEG-ties-genuine-meaning-bound",
+  "verdict_msg": "Entity-link PRECISION sweep on the composed DerivationReasoner: does tightening link_mode (loose lemma_syn -> lemma [drop WordNet synonyms] -> glove [drop the whole lemma bridge]) prune SPURIOUS distractor co-derivations PRE-tie, converting TIE -> gold_only (clean gold win) WITHOUT collapsing gold-coverage? ONE variable across the sweep = link precision (graph/search/CI/decision identical; tiebreak_mode=legacy fixed). Per-tie cross-tab classifies each baseline-tie qid's new subset: CONVERTED(->gold_only, spurious pruned + gold kept) | GENUINE(->tie) | BROKE_GOLD(->dist_only) | BROKE_BOTH(->not_derived). GUARDRAIL = gold_only@1.00 preserved (>=0.95) AND gold-coverage ratio >=0.90 (over-tightening that prunes GOLD = trading coverage for false precision = NOT a win). Held-out ARC-Challenge test; science rules NOT derived from test labels. CAN-FAIL pre-registered: few convert / most genuine / gain requires breaking gold-coverage -> ties MEANING-BOUND (grounded meaning is the lever), both structural doors measured shut. Emits traces of spurious ties pruned to clean wins."
+}

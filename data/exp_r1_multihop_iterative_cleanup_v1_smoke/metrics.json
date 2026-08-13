@@ -1,0 +1,80 @@
+{
+  "anchor_name": "r1_multihop_iterative_cleanup_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cleanup does not rescue K=3 to PASS or MIDDLE bands. by-K: {\"2\": {\"naive\": 0.7667, \"iter\": 0.7167, \"rand\": 0.0833, \"ratio\": 0.935, \"ood_refuse\": 0.9333, \"inkb_accept\": 0.9667, \"cv_iter\": 0.0}, \"3\": {\"naive\": 0.5667, \"iter\": 0.8333, \"rand\": 0.0167, \"ratio\": 1.471, \"ood_refuse\": 0.7667, \"inkb_accept\": 0.9333, \"cv_iter\": 0.0}} | anchor K=2 ITER=0.717 (anchor-check skipped: M=5000 < 25000 or run_mode=smoke) | K=3 ITER=0.833 NAIVE=0.567 RAND=0.017 ratio=1.47x cv=0.000 | K=4 ITER=0.000 | OOD-refuse min=0.767",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "r1-multihop-iterative-cleanup: U1-style multi-value Hebbian; NAIVE chain-in-vec-space vs ITERATIVE_CLEANUP bundle-of-topk (Modern-Hopfield beta=2048) vs RANDOM_CLEANUP shuffle-ctrl; N2048 M5000 K_hops=[2, 3] K_set=8 K_inner=1 buffer=4; bands K3>=0.20 ratio>=3.0x K4>=0.10 OOD-refuse>=0.90 cv<=0.07",
+  "per_seed": [
+    {
+      "seed": 1,
+      "config_version": "r1-multihop-iterative-cleanup: U1-style multi-value Hebbian; NAIVE chain-in-vec-space vs ITERATIVE_CLEANUP bundle-of-topk (Modern-Hopfield beta=2048) vs RANDOM_CLEANUP shuffle-ctrl; N2048 M5000 K_hops=[2, 3] K_set=8 K_inner=1 buffer=4; bands K3>=0.20 ratio>=3.0x K4>=0.10 OOD-refuse>=0.90 cv<=0.07",
+      "per_unit": [
+        {
+          "seed": 1,
+          "K_hops": 2,
+          "n_chains_actual": 60,
+          "leak_skipped": 1,
+          "n_ood_chains": 60,
+          "naive_acc": 0.7667,
+          "iterative_cleanup_acc": 0.7167,
+          "random_cleanup_ctrl_acc": 0.0833,
+          "iter_over_naive_ratio": 0.935,
+          "iter_over_random_ratio": 8.6,
+          "refuse_ood_rate": 0.9333,
+          "refuse_inkb_accept_rate": 0.9667,
+          "tau_terminate_per_K": 0.0002789426362141967,
+          "in_kg_conf_mean": 0.0003435996186453849,
+          "ood_conf_mean": 0.00014255920541472733,
+          "mean_final_hop_conf": 0.000344,
+          "naive_wall_s": 0.35,
+          "iter_wall_s": 0.75,
+          "rand_wall_s": 0.81
+        },
+        {
+          "seed": 1,
+          "K_hops": 3,
+          "n_chains_actual": 60,
+          "leak_skipped": 3,
+          "n_ood_chains": 60,
+          "naive_acc": 0.5667,
+          "iterative_cleanup_acc": 0.8333,
+          "random_cleanup_ctrl_acc": 0.0167,
+          "iter_over_naive_ratio": 1.471,
+          "iter_over_random_ratio": 50.0,
+          "refuse_ood_rate": 0.7667,
+          "refuse_inkb_accept_rate": 0.9333,
+          "tau_terminate_per_K": 0.00016812593094073236,
+          "in_kg_conf_mean": 0.0002481730771251023,
+          "ood_conf_mean": 0.00013614416820928454,
+          "mean_final_hop_conf": 0.000248,
+          "naive_wall_s": 0.44,
+          "iter_wall_s": 1.03,
+          "rand_wall_s": 1.06
+        }
+      ],
+      "tau_terminate": 0.00034968784893862903,
+      "ingest_s": 0.7
+    }
+  ],
+  "elapsed_s": 8.2,
+  "cv_by_K": {
+    "2": 0.0,
+    "3": 0.0
+  },
+  "max_cv_across_K": 0.0,
+  "K_hops_list": [
+    2,
+    3
+  ],
+  "K_set": 8,
+  "K_inner": 1,
+  "buffer_size": 4,
+  "N_DIM": 2048,
+  "M_TRIPLES": 5000,
+  "zero_llm_calls_at_inference": true,
+  "llm_forward_calls_at_inference": 0,
+  "substrate_native": true,
+  "substrate_role": "native_inference",
+  "DESIGN_NOTE": "r1 brain-drill #3 cell. NAIVE = chain-in-HD-vec-space (no per-hop projection). ITERATIVE_CLEANUP = bundle-of-topK_set Modern-Hopfield projection per hop. RANDOM_CLEANUP_CTRL = shuffle top-K indices (discriminator). K=2 anchor uses ITERATIVE_CLEANUP arm to reproduce U1 substrate_2hop=0.381 (U1's per-hop argmax pattern is closest to ITERATIVE_CLEANUP K_inner=1). Refuse-gate: tau calibrated per-seed via held-split balanced(accept,refuse); OOD K-hop chain = random (s, p_chain) where (s,p1) not in keyobjs."
+}

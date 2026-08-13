@@ -1,0 +1,88 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS local-chain-index machinery: NO_CLEANUP collapses at reach>=2 (must-fail control fires), LOCAL cleanup beats GLOBAL at reach-2 (count-tax lever separates), arms differ, D_f recompute collapses global->local dim_needed; typed subgraph + nbr table + encoder exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.4478705000365153,
+  "mechanism_selftest": {
+    "reach_no_cleanup": {
+      "1": 0.91,
+      "2": 0.045,
+      "3": 0.005,
+      "4": 0.005
+    },
+    "reach_global": {
+      "1": 0.91,
+      "2": 0.79,
+      "3": 0.69,
+      "4": 0.58
+    },
+    "reach_local": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "reach_local_decorr": {
+      "1": 0.995,
+      "2": 0.995,
+      "3": 0.995,
+      "4": 0.995
+    },
+    "hop1_high": true,
+    "baseline_fails": true,
+    "local_beats_global2": true,
+    "arms_differ": true,
+    "df_collapses": true,
+    "df": {
+      "global_dim_needed": 53571.4,
+      "local_dim_needed_1hop": 80.18,
+      "collapse_factor": 668.1,
+      "mean_out_degree": 4.49
+    },
+    "Dmax": 6
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  },
+  "df_recompute": {
+    "scoring_scope_baseline": "GLOBAL",
+    "global_D_f": 222.0,
+    "global_dim_needed": 3964.285714285714,
+    "local_D_f_1hop": 3.891891891891892,
+    "local_dim_needed_1hop": 69.4980694980695,
+    "local_D_f_2hop": 15.14682249817385,
+    "local_dim_needed_2hop": 270.4789731816759,
+    "local_D_f_3hop": 58.949795668568505,
+    "local_dim_needed_3hop": 1052.674922653009,
+    "mean_out_degree": 3.891891891891892,
+    "mean_local_cset_size": NaN,
+    "dim": 128,
+    "local_load_per_hop": 0.030405405405405407,
+    "collapse_factor": 57.041666666666664,
+    "resonator_thresh": 0.056
+  }
+}

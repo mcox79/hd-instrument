@@ -1,0 +1,178 @@
+{
+  "anchor_name": "lock_in_position_encoding_smoke_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate-native phase-roll position encoding NULL. PHASE_ROLL lift over BIND_POSITION_TAG = +0.0000 pp <= HF threshold 0.05. Permutation-as-position no better than random position tags at L=5. ARM_PHASE_ROLL=1.0000 ARM_BIND_POSITION_TAG=1.0000 ARM_BUNDLE_NO_ORDER=0.2080 ARM_PHASE_ROLL_WEIGHTED=1.0000; lift(PHASE_ROLL - BIND_POSITION_TAG) = +0.0000 pp; per_position: PHASE_ROLL=[1.0, 1.0, 1.0, 1.0, 1.0], BIND_POSITION_TAG=[1.0, 1.0, 1.0, 1.0, 1.0]",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config": {
+    "N_DIM": 4096,
+    "V": 200,
+    "L": 5,
+    "N_SEQS": 50,
+    "K_SIGNAL": 31,
+    "HP_PHASE_ROLL_RECALL": 0.8,
+    "HP_PHASE_ROLL_LIFT_PP": 0.2,
+    "HF_LIFT_PP": 0.05
+  },
+  "summary": {
+    "ARM_BUNDLE_NO_ORDER": {
+      "mean_position_recall_across_seeds": 0.20800000000000002,
+      "per_position_recall_mean": [
+        0.24000000000000002,
+        0.19,
+        0.24,
+        0.2,
+        0.16999999999999998
+      ],
+      "n_seeds": 2
+    },
+    "ARM_BIND_POSITION_TAG": {
+      "mean_position_recall_across_seeds": 1.0,
+      "per_position_recall_mean": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 2
+    },
+    "ARM_PHASE_ROLL": {
+      "mean_position_recall_across_seeds": 1.0,
+      "per_position_recall_mean": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 2
+    },
+    "ARM_PHASE_ROLL_WEIGHTED": {
+      "mean_position_recall_across_seeds": 1.0,
+      "per_position_recall_mean": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 2
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.4315035343170166,
+      "run_mode": "smoke",
+      "L": 5,
+      "V": 200,
+      "N_DIM": 4096,
+      "N_SEQS": 50,
+      "K_SIGNAL": 31,
+      "ARM_BUNDLE_NO_ORDER": {
+        "per_position_recall": [
+          0.2,
+          0.2,
+          0.26,
+          0.28,
+          0.12
+        ],
+        "mean_position_recall": 0.21200000000000002,
+        "n_sequences": 50
+      },
+      "ARM_BIND_POSITION_TAG": {
+        "per_position_recall": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_position_recall": 1.0,
+        "n_sequences": 50
+      },
+      "ARM_PHASE_ROLL": {
+        "per_position_recall": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_position_recall": 1.0,
+        "n_sequences": 50
+      },
+      "ARM_PHASE_ROLL_WEIGHTED": {
+        "per_position_recall": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_position_recall": 1.0,
+        "n_sequences": 50
+      }
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 0.4061563014984131,
+      "run_mode": "smoke",
+      "L": 5,
+      "V": 200,
+      "N_DIM": 4096,
+      "N_SEQS": 50,
+      "K_SIGNAL": 31,
+      "ARM_BUNDLE_NO_ORDER": {
+        "per_position_recall": [
+          0.28,
+          0.18,
+          0.22,
+          0.12,
+          0.22
+        ],
+        "mean_position_recall": 0.20400000000000001,
+        "n_sequences": 50
+      },
+      "ARM_BIND_POSITION_TAG": {
+        "per_position_recall": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_position_recall": 1.0,
+        "n_sequences": 50
+      },
+      "ARM_PHASE_ROLL": {
+        "per_position_recall": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_position_recall": 1.0,
+        "n_sequences": 50
+      },
+      "ARM_PHASE_ROLL_WEIGHTED": {
+        "per_position_recall": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_position_recall": 1.0,
+        "n_sequences": 50
+      }
+    }
+  ],
+  "elapsed_s": 0.8529422283172607
+}

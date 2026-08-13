@@ -1,0 +1,167 @@
+{
+  "anchor_name": "community_bounded_retrieval_scale_invariance_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: TREATMENT flat (rd=0.000<= 0.1, abs@Vmax=1.000) WHILE CONTROL collapses (rd=0.971>= 0.3); route@Vmax=1.000; modQ_min=0.951. Community-bounded two-stage retrieval decouples effective-V from total-V.",
+  "summary": "community-bounded-retrieval V-sweep [580, 2900] N=8192 mode=smoke: ctrl_rd=0.971 treat_rd=0.000 route@Vmax=1.000 modQ_min=0.951",
+  "elapsed_s": 2.8153762817382812,
+  "config_version": "ANCHOR=community_bounded_retrieval_scale_invariance_v1,N=8192,Q=128,route_noise=0.6,V_GRID=[580, 2900],seeds=[7, 17],mode=smoke",
+  "run_mode": "smoke",
+  "N": 8192,
+  "V_grid": [
+    580,
+    2900
+  ],
+  "n_seeds": 2,
+  "arms": [
+    "CONTROL",
+    "TREATMENT"
+  ],
+  "expected_n_units": 8,
+  "cardinality_ok": true,
+  "stats": {
+    "V_min": 580,
+    "V_max": 2900,
+    "ctrl_fid_Vmin": 0.796875,
+    "ctrl_fid_Vmax": 0.0234375,
+    "ctrl_rel_deg": 0.9705882352941176,
+    "treat_fid_Vmin": 1.0,
+    "treat_fid_Vmax": 1.0,
+    "treat_rel_deg": 0.0,
+    "route_acc_Vmax": 1.0,
+    "modularity_Q_min": 0.9509473598127172,
+    "treat_cv_across_seeds": 0.0,
+    "observed_units": 8,
+    "expected_n_units": 8,
+    "cardinality_ok": true,
+    "curve": {
+      "580": {
+        "ctrl_fid": 0.796875,
+        "treat_fid": 1.0,
+        "route_acc": 1.0,
+        "modularity_Q": 0.9509473598127172
+      },
+      "2900": {
+        "ctrl_fid": 0.0234375,
+        "treat_fid": 1.0,
+        "route_acc": 1.0,
+        "modularity_Q": 0.9809633566649409
+      }
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 1.3747649192810059,
+      "per_V": {
+        "580": {
+          "V": 580,
+          "comm_size": 24,
+          "n_comm": 25,
+          "ctrl_fid": 0.8125,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9509276175985528,
+          "modularity_edges": 3584,
+          "decouple_abs_cos": 0.008342742919921875,
+          "ctrl_pred_hash": "0fa3f4137a530811e8b0a785feb3dc0929631f10eb09267aff9ffef7ad4336c4",
+          "treat_pred_hash": "dd7c52771b629bdc2aa948e000151b7573b02de37dfcaf48827a07467c6e85f7"
+        },
+        "2900": {
+          "V": 2900,
+          "comm_size": 54,
+          "n_comm": 54,
+          "ctrl_fid": 0.0234375,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9809539936197217,
+          "modularity_edges": 9452,
+          "decouple_abs_cos": 0.009220123291015625,
+          "ctrl_pred_hash": "44192712d649fffbffb3b495c2e625c752dfd133e2cbd6aa810f14cc66f49327",
+          "treat_pred_hash": "6f938be62bf01b0100c2d7cefc69d52da83d6fb89888c56cc33e1e53040e4d00"
+        }
+      },
+      "arms": [
+        "CONTROL",
+        "TREATMENT"
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 1.2507171630859375,
+      "per_V": {
+        "580": {
+          "V": 580,
+          "comm_size": 24,
+          "n_comm": 25,
+          "ctrl_fid": 0.78125,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9509671020268815,
+          "modularity_edges": 3616,
+          "decouple_abs_cos": 0.008360862731933594,
+          "ctrl_pred_hash": "d1ffb068bb93bbb25da0eb7ae5aa2d7c89057cdcbce47df2ff8ac5fed424d1a7",
+          "treat_pred_hash": "0eae0a3c3dd705b85f03590a81cdc4a8557ba4d69593d6c7a2bafb1b8e124f94"
+        },
+        "2900": {
+          "V": 2900,
+          "comm_size": 54,
+          "n_comm": 54,
+          "ctrl_fid": 0.0234375,
+          "treat_fid": 1.0,
+          "route_acc": 1.0,
+          "modularity_Q": 0.9809727197101603,
+          "modularity_edges": 9513,
+          "decouple_abs_cos": 0.00811767578125,
+          "ctrl_pred_hash": "0e79cad88eed7b325aea40cabe63d55c8a0ef6c503720c1542611917288e70d5",
+          "treat_pred_hash": "18eb38ea2233a94b99976bc61281f19d22d611a6891124d447ec60d2463b7088"
+        }
+      },
+      "arms": [
+        "CONTROL",
+        "TREATMENT"
+      ]
+    }
+  ],
+  "structured_gate_claims": [
+    {
+      "gate_name": "treat_flat_rd",
+      "measured": 0.0,
+      "threshold": 0.1,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "treatment relative degradation V_min->V_max"
+    },
+    {
+      "gate_name": "control_collapse_rd",
+      "measured": 0.9705882352941176,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "control relative degradation (discriminator must fire)"
+    },
+    {
+      "gate_name": "treat_abs_at_Vmax",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "treatment absolute fidelity at V_max (holds)"
+    },
+    {
+      "gate_name": "route_acc_at_Vmax",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "coarse-route accuracy at V_max (not leaking)"
+    },
+    {
+      "gate_name": "modularity_min",
+      "measured": 0.9509473598127172,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "min Newman Q across V (real community structure)"
+    }
+  ]
+}

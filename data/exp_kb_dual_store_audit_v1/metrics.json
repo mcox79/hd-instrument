@@ -1,0 +1,9 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "KB_REFERENT_MISSING: KB dir not found: C:\\dev\\hd-instrument\\data\\exp_substrate_director_kb_ingest_v1\\_arm_full\\kb",
+  "elapsed_s": 0.0,
+  "summary": {
+    "anchor": "kb_dual_store_audit_v1",
+    "error": "KB dir not found: C:\\dev\\hd-instrument\\data\\exp_substrate_director_kb_ingest_v1\\_arm_full\\kb"
+  }
+}

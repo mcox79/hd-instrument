@@ -1,0 +1,92 @@
+{
+  "verdict": "ORGAN_FAILS_NO_VOICE_INVARIANT_ROLE",
+  "secondary_verdict": "COLLAPSE_FIXED_BUT_XVOICE_STILL_AT_OR_BELOW_CHANCE",
+  "verdict_msg": "PRIMARY[ORGAN_FAILS_NO_VOICE_INVARIANT_ROLE]: DEPHEAD linear-probe xvoice held ap=0.417 pa=0.073 (PASS>=0.70) vs centroid xvoice held={'active_to_passive': 0.396, 'passive_to_active': 0.083} (wall<0.55); probe floors FWDPRED_max=0.198 RANDOM_max=0.417 (<= 0.60 = floored). SECONDARY[COLLAPSE_FIXED_BUT_XVOICE_STILL_AT_OR_BELOW_CHANCE]: {\"ARM_CONTRASTIVE_SEP0.0\": {\"sep_coef\": 0.0, \"centroid_xvoice_held\": {\"active_to_passive\": 0.5625, \"passive_to_active\": 0.25}, \"within_held\": 0.792}, \"ARM_CONTRASTIVE_SEP2.0\": {\"sep_coef\": 2.0, \"centroid_xvoice_held\": {\"active_to_passive\": 0.5, \"passive_to_active\": 0.1875}, \"within_held\": 0.854}}",
+  "summary": "ORGAN_FAILS_NO_VOICE_INVARIANT_ROLE | COLLAPSE_FIXED_BUT_XVOICE_STILL_AT_OR_BELOW_CHANCE | PRIMARY[ORGAN_FAILS_NO_VOICE_INVARIANT_ROLE]: DEPHEAD linear-probe xvoice held ap=0.417 pa=0.073 (PASS>=0.70) vs centroid xvoice held={'active_to_passive': 0.39",
+  "run_mode": "selftest",
+  "elapsed_s": 1.6309609001036733,
+  "ts_iso": "2026-07-31T01:46:14.567849+00:00",
+  "anchor_name": "encoder_role_headlevel_readout_probe_v1",
+  "chance": 0.5,
+  "primary": {
+    "ARM_DEPHEAD": {
+      "centroid_xvoice_held": {
+        "active_to_passive": 0.3958333333333333,
+        "passive_to_active": 0.08333333333333333
+      },
+      "within_held": 0.8645833333333333,
+      "linear_probe_xvoice_held": {
+        "active_to_passive": 0.4166666666666667,
+        "passive_to_active": 0.07291666666666667,
+        "within_probe_sanity": 1.0
+      },
+      "rel_head_held_per_voice": {
+        "active": 0.6145833134651184,
+        "passive": 0.21875
+      },
+      "rel_head_trained_per_voice": {
+        "active": 0.65625,
+        "passive": 0.3125
+      }
+    },
+    "ARM_FWDPRED": {
+      "linear_probe_xvoice_held": {
+        "active_to_passive": 0.19791666666666666,
+        "passive_to_active": 0.0,
+        "within_probe_sanity": 1.0
+      }
+    },
+    "ARM_RANDOM": {
+      "linear_probe_xvoice_held": {
+        "active_to_passive": 0.4166666666666667,
+        "passive_to_active": 0.0625,
+        "within_probe_sanity": 1.0
+      }
+    }
+  },
+  "secondary": {
+    "ARM_CONTRASTIVE_SEP0.0": {
+      "sep_coef": 0.0,
+      "centroid_xvoice_held": {
+        "active_to_passive": 0.5625,
+        "passive_to_active": 0.25
+      },
+      "within_held": 0.7916666666666666,
+      "centroid_xvoice_trained": {
+        "active_to_passive": 0.2708333333333333,
+        "passive_to_active": 0.3541666666666667
+      }
+    },
+    "ARM_CONTRASTIVE_SEP2.0": {
+      "sep_coef": 2.0,
+      "centroid_xvoice_held": {
+        "active_to_passive": 0.5,
+        "passive_to_active": 0.1875
+      },
+      "within_held": 0.8541666666666666,
+      "centroid_xvoice_trained": {
+        "active_to_passive": 0.22916666666666666,
+        "passive_to_active": 0.2708333333333333
+      }
+    }
+  },
+  "bands": {
+    "xvoice_pass_min": 0.7,
+    "xvoice_fail_max": 0.55,
+    "centroid_wall_max": 0.55,
+    "floor_max": 0.6,
+    "within_anticollapse_min": 0.85
+  },
+  "params": {
+    "seed": 7,
+    "sep_coefs": [
+      0.0,
+      2.0
+    ],
+    "d_model": 32,
+    "steps": 8
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime: fixed hypothesized thresholds; chance=0.50 exact."
+}

@@ -1,0 +1,36 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS graph-inductive-ceiling: ladder fires on SBM (best>=0.85), null on ER classic (<=0.65), gap>=0.20, arms differ; classic predictors + GCN + AUC + Hits + k-core exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 3.018891999963671,
+  "mechanism_selftest": {
+    "sbm_best": 0.9353244108435769,
+    "sbm_cn": 0.9003511852502195,
+    "sbm_methods": {
+      "CN": 0.9003511852502195,
+      "AA": 0.9003511852502195,
+      "RA": 0.9003511852502195,
+      "JC": 0.9003511852502195,
+      "PA": 0.512972502564901,
+      "GCN": 0.9353244108435769
+    },
+    "er_best_classic": 0.6070175438596491,
+    "er_methods": {
+      "CN": 0.6070175438596491,
+      "AA": 0.6070175438596491,
+      "RA": 0.6070175438596491,
+      "JC": 0.6070175438596491,
+      "PA": 0.5317640043090182,
+      "GCN": 0.5172630040012312
+    },
+    "sbm_n": 480,
+    "sbm_edges": 3798,
+    "er_n": 480,
+    "er_edges": 3800,
+    "signal_detected": true,
+    "null_when_absent": true,
+    "gap_ok": true,
+    "arms_differ": true
+  }
+}

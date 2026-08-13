@@ -1,0 +1,93 @@
+{
+  "verdict": "HARD_FAIL_CARRYFWD_RARE",
+  "verdict_msg": "carry-forward test terms too rare (n=0 < 15); loop untestable at this scale",
+  "summary": "HARD_FAIL_CARRYFWD_RARE: carryfwd fnd=0.000 cold=0.000 freq=0.000 hand=0.000 | overall fnd=0.886 cold=0.877 | n_cf=0",
+  "elapsed_s": 6.02,
+  "ts_iso": "2026-07-18T11:43:20.400300+00:00",
+  "anchor_name": "read_grow_foundation_conditioned_comprehension_v1",
+  "run_mode": "full",
+  "bands": {
+    "hp_carryfwd_lift_over_cold": 0.1,
+    "hp_carryfwd_lift_over_freq": 0.1,
+    "hp_overall_lift_over_cold": 0.03,
+    "hp_min_carryforward_test": 15,
+    "hf_carryfwd_lift_max": 0.02,
+    "hf_min_carryforward_test": 15
+  },
+  "diag": {
+    "n_gold_terms": 793,
+    "n_train_terms": 476,
+    "n_test_terms": 317,
+    "n_carryforward_test": 0,
+    "carryforward_frac_of_test": 0.0,
+    "foundation_overall_acc": 0.88644,
+    "cold_overall_acc": 0.87697,
+    "handrules_overall_acc": 0.13565,
+    "freq_overall_acc": 0.08202,
+    "foundation_carryfwd_acc": 0.0,
+    "cold_carryfwd_acc": 0.0,
+    "handrules_carryfwd_acc": 0.0,
+    "freq_carryfwd_acc": 0.0,
+    "freq_majority_genus": "process",
+    "arms_differ": true,
+    "foundation_coefs": {
+      "local_count": -0.4413903806994669,
+      "local_cop": -0.4118463000502029,
+      "local_suchas": -0.029544080649263893,
+      "found_count": -1.3318920190872765,
+      "found_cop": -1.6086888229953802,
+      "found_suchas": 0.2767968039080978,
+      "found_typecheck": 1.150441472824378,
+      "global_freq_norm": -6.5795656146575405,
+      "is_list_only": -0.7396159647039018,
+      "cand_is_wn_noun": -0.044123283880986054,
+      "bias": 0.29742842457356944
+    },
+    "cold_coefs": {
+      "local_count": -0.343577984237632,
+      "local_cop": -0.457597493047344,
+      "local_suchas": 0.11401950880971183,
+      "global_freq_norm": -6.471541090821118,
+      "is_list_only": -0.9457221370033103,
+      "cand_is_wn_noun": 0.0708233169627156,
+      "bias": -0.022934299765680732
+    },
+    "coherence_gate": {
+      "n_handrule_listneighbor_errors": 1,
+      "foundation_corrects_frac": 1.0,
+      "cold_corrects_frac": 1.0,
+      "foundation_avoids_wrong_frac": 1.0
+    },
+    "corpus_structure_audit": {
+      "n_gold_terms": 793,
+      "gold_extractable_anywhere": 143,
+      "extraction_coverage_frac": 0.18033,
+      "gold_local_at_home": 124,
+      "gold_causal_carryforward_earlier": 3,
+      "gold_later_section_only": 16,
+      "gold_never_extracted": 650
+    },
+    "overall_metric_caveat": "overall_acc is INFLATED by candidate-set construction: gold genus is always injected as a candidate and distractors are the top-frequency genera, so the learned arm's high negative global_freq_norm weight recovers gold by 'avoid the frequent candidate' rather than by genuine comprehension. Treat overall_acc as NON-EVIDENTIAL for comprehension; the load-bearing signal is carry-forward mass (n_carryforward_test) + extraction_coverage_frac."
+  },
+  "gate": {
+    "design_gate_checks": {
+      "cold_overall_acc_in_band": true,
+      "freq_overall_acc_in_band": true,
+      "handrules_overall_acc_in_band": true,
+      "arms_differ": true,
+      "carryforward_present": false,
+      "real_freq_baseline": true,
+      "one_variable_foundation_cols": true
+    },
+    "difficulty_on": "held-out test terms (features carry no term-identity); carry-forward = gold genus locally ABSENT, foundation-present",
+    "one_variable": "foundation-conditioning cols ['found_cop', 'found_count', 'found_suchas', 'found_typecheck'] zeroed in cold arm; identical candidate set + classifier",
+    "real_baselines": {
+      "cold_learned": 0.87697,
+      "hand_rules": 0.13565,
+      "frequency": 0.08202,
+      "freq_majority_genus": "process"
+    },
+    "frequency_guard": "foundation carryfwd 0.000 vs freq carryfwd 0.000"
+  },
+  "seed": 20260718
+}

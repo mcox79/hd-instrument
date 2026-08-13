@@ -1,0 +1,152 @@
+{
+  "anchor_name": "parser_uas_headroom_leakhunt_v1",
+  "run_mode": "full",
+  "verdict": "SATURATED_29402_HOLDS",
+  "verdict_msg": "SATURATED_29402_HOLDS | canon_all=0.7868 (nopunct=0.8120) | epoch_best=0.7900 data_best=0.7804 pos_best=0.8062(combo@ep10) | overall_best=0.8062 lift=+0.0194 | pos_best_nopunct=0.8213 canon_nopunct=0.8120 | lit_target=0.86-0.89",
+  "summary": "SATURATED_29402_HOLDS | canon_all=0.7868 (nopunct=0.8120) | epoch_best=0.7900 data_best=0.7804 pos_best=0.8062(combo@ep10) | overall_best=0.8062 lift=+0.0194 | pos_best_nopunct=0.8213 canon_nopunct=0.8120 | lit_target=0.86-0.89",
+  "elapsed_s": 1129.55,
+  "ts_iso": "2026-07-21T11:51:09.970120+00:00",
+  "phase_A_baselines": {
+    "canon_greedy": {
+      "uas_all": 0.7868,
+      "uas_nopunct": 0.812,
+      "n_arcs_all": 24444,
+      "n_arcs_nopunct": 21443
+    },
+    "mst_retrain_under_GREEDY_decode_apples_to_oranges": {
+      "uas_all": 0.7359,
+      "uas_nopunct": 0.7522,
+      "n_arcs_all": 24444,
+      "n_arcs_nopunct": 21443
+    },
+    "canon_cited": 0.7868,
+    "mst_cited_CLE_decode": 0.7965,
+    "baseline_reproduces": true
+  },
+  "phase_B_epoch_curve": {
+    "n_train": 12329,
+    "curve": {
+      "5": {
+        "uas_all": 0.79,
+        "uas_nopunct": 0.8143,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      },
+      "10": {
+        "uas_all": 0.7868,
+        "uas_nopunct": 0.812,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      },
+      "20": {
+        "uas_all": 0.7804,
+        "uas_nopunct": 0.8053,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      },
+      "40": {
+        "uas_all": 0.7743,
+        "uas_nopunct": 0.8004,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      }
+    }
+  },
+  "phase_C_data_curve": {
+    "data_ep": 20,
+    "curve": {
+      "3000": {
+        "uas_all": 0.7556,
+        "uas_nopunct": 0.7842,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      },
+      "6000": {
+        "uas_all": 0.7707,
+        "uas_nopunct": 0.7971,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      },
+      "12329": {
+        "uas_all": 0.7804,
+        "uas_nopunct": 0.8053,
+        "n_arcs_all": 24444,
+        "n_arcs_nopunct": 21443
+      }
+    }
+  },
+  "phase_D_pos_granularity": {
+    "arms": {
+      "upos": {
+        "n_train": 12329,
+        "curve": {
+          "10": {
+            "uas_all": 0.7868,
+            "uas_nopunct": 0.812,
+            "n_arcs_all": 24444,
+            "n_arcs_nopunct": 21443
+          },
+          "20": {
+            "uas_all": 0.7804,
+            "uas_nopunct": 0.8053,
+            "n_arcs_all": 24444,
+            "n_arcs_nopunct": 21443
+          }
+        }
+      },
+      "xpos": {
+        "n_train": 12329,
+        "curve": {
+          "10": {
+            "uas_all": 0.7893,
+            "uas_nopunct": 0.8033,
+            "n_arcs_all": 24444,
+            "n_arcs_nopunct": 21443
+          },
+          "20": {
+            "uas_all": 0.7842,
+            "uas_nopunct": 0.798,
+            "n_arcs_all": 24444,
+            "n_arcs_nopunct": 21443
+          }
+        }
+      },
+      "combo": {
+        "n_train": 12329,
+        "curve": {
+          "10": {
+            "uas_all": 0.8062,
+            "uas_nopunct": 0.8213,
+            "n_arcs_all": 24444,
+            "n_arcs_nopunct": 21443
+          },
+          "20": {
+            "uas_all": 0.7993,
+            "uas_nopunct": 0.8146,
+            "n_arcs_all": 24444,
+            "n_arcs_nopunct": 21443
+          }
+        }
+      }
+    },
+    "note": "IDENTICAL _arc_ids feature fn; only POS-column content differs. between-VERB/PUNCT features (literal UPOS strings in _arc_ids) are inert for xpos/combo => conservative for those arms."
+  },
+  "overall_best_uas_all": 0.8062,
+  "lift_vs_canon": 0.0194,
+  "pos_best_nopunct": 0.8213,
+  "canon_nopunct": 0.812,
+  "lit_target": [
+    0.86,
+    0.89
+  ],
+  "canon_cited": 0.7868,
+  "mst_cited": 0.7965,
+  "compute_architecture": "sequential-CPU (justified)",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "leak_hunt": {
+    "L1_pos_granularity": "phase_D",
+    "L2_punct_convention": "uas_nopunct fields"
+  }
+}

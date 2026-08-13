@@ -1,0 +1,12 @@
+{
+  "anchor_name": "multihop_router_crt_residue_addressed_v1",
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (module self-test; NOT a deliverable run). crt_addr=True oracle_route=1.000 oracle_e2e=1.000 scram_e2e=0.000 random_route=0.050",
+  "summary": "SELFTEST_PASS: machinery self-test (n_chains=12, seed 7); deliverable bands NOT applied",
+  "run_mode": "self_test",
+  "elapsed_s": 2.22,
+  "n_units": 6,
+  "ts_iso": "2026-07-06T00:52:42.704776+00:00",
+  "pid": 17244,
+  "host": "FrameworkMPC"
+}

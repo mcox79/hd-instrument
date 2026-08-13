@@ -1,0 +1,353 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "per_mode",
+    "upgrade_vs_glove",
+    "preregistered_bands",
+    "traces",
+    "prereg_thresholds"
+  ],
+  "anchor_name": "arc_reasoner_entity_linking_upgrade_v1",
+  "bands_definition": {
+    "coverage_rises_ge_0.05": "coverage(upgrade) - coverage(glove) >= 0.05 absolute",
+    "derived_acc_ge_baseline_and_gt_chance": "derived-subset acc >= similarity baseline on same subset AND > chance",
+    "gold_reachability_rises_ge_0.03": "gold-derive-rate(upgrade) - gold-derive-rate(glove) >= 0.03",
+    "selectivity_preserved_le_0.13": "upgrade distractor-derive-rate <= 0.13 (~2x the 0.063 baseline)"
+  },
+  "config": {
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "link_modes": [
+      "glove",
+      "lemma",
+      "lemma_syn"
+    ],
+    "n_eval": 60,
+    "n_rules": 233,
+    "n_total_test": 1172,
+    "one_variable_across_arms": "entity-link mode (graph/search/decision identical)",
+    "rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "seed": 20260725,
+    "selectivity_preserved": true,
+    "upgrade_mode_selected": "lemma_syn"
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "elapsed_s": 91.6,
+  "graph": {
+    "max_typed_node_degree": 16,
+    "n_merges": 10,
+    "n_node_lemma_keys": 227,
+    "n_nodes": 215,
+    "n_rules": 233,
+    "n_typed_edges": 209,
+    "per_relation": {
+      "CAUSE": 106,
+      "COUPLEDRELATIONSHIP": 18,
+      "IFTHEN": 5,
+      "REQUIRES": 36,
+      "SOURCEOF": 28,
+      "USEDFOR": 40
+    }
+  },
+  "n_bands_pass": 3,
+  "n_traces": 7,
+  "per_mode": {
+    "glove": {
+      "chance": 0.3333,
+      "coverage_fraction": 0.15,
+      "covered_baseline_acc": 0.2222,
+      "covered_shuffle_acc": 0.2222,
+      "covered_typed_acc": 0.2222,
+      "covered_untyped_null_acc": 0.2222,
+      "derived_subset_acc": 0.2222,
+      "derived_subset_baseline_acc": 0.2222,
+      "distractor_derive_rate": 0.073,
+      "gold_derivable_acc": 0.2857,
+      "gold_derive_rate": 0.1167,
+      "n_covered": 9,
+      "n_derived": 9,
+      "n_distractors": 178,
+      "n_distractors_derivable": 13,
+      "n_gold_derivable": 7,
+      "n_questions": 60,
+      "whole_baseline_acc": 0.3,
+      "whole_typed_acc": 0.2833
+    },
+    "lemma": {
+      "chance": 0.3333,
+      "coverage_fraction": 0.15,
+      "covered_baseline_acc": 0.2222,
+      "covered_shuffle_acc": 0.2222,
+      "covered_typed_acc": 0.2222,
+      "covered_untyped_null_acc": 0.2222,
+      "derived_subset_acc": 0.2222,
+      "derived_subset_baseline_acc": 0.2222,
+      "distractor_derive_rate": 0.073,
+      "gold_derivable_acc": 0.2857,
+      "gold_derive_rate": 0.1167,
+      "n_covered": 9,
+      "n_derived": 9,
+      "n_distractors": 178,
+      "n_distractors_derivable": 13,
+      "n_gold_derivable": 7,
+      "n_questions": 60,
+      "whole_baseline_acc": 0.2833,
+      "whole_typed_acc": 0.2667
+    },
+    "lemma_syn": {
+      "chance": 0.3333,
+      "coverage_fraction": 0.2333,
+      "covered_baseline_acc": 0.2143,
+      "covered_shuffle_acc": 0.3571,
+      "covered_typed_acc": 0.2857,
+      "covered_untyped_null_acc": 0.2143,
+      "derived_subset_acc": 0.3077,
+      "derived_subset_baseline_acc": 0.2308,
+      "distractor_derive_rate": 0.1067,
+      "gold_derivable_acc": 0.4444,
+      "gold_derive_rate": 0.15,
+      "n_covered": 14,
+      "n_derived": 13,
+      "n_distractors": 178,
+      "n_distractors_derivable": 19,
+      "n_gold_derivable": 9,
+      "n_questions": 60,
+      "whole_baseline_acc": 0.3167,
+      "whole_typed_acc": 0.35
+    }
+  },
+  "pid": 16776,
+  "prereg_thresholds": {
+    "baseline_distractor_rate": 0.063,
+    "coverage_rise_pass": 0.05,
+    "coverage_rise_stuck": 0.03,
+    "gold_rise_pass": 0.03,
+    "selectivity_ceil": 0.13
+  },
+  "preregistered_bands": {
+    "coverage_rises_ge_0.05": true,
+    "derived_acc_ge_baseline_and_gt_chance": false,
+    "gold_reachability_rises_ge_0.03": true,
+    "selectivity_preserved_le_0.13": true
+  },
+  "run_mode": "smoke",
+  "summary": "entity-linking upgrade [0.150 glove -> 0.233 lemma_syn] d_cov=+0.083 | selectivity distractor-rate 0.073->0.107 (ceil 0.13) | gold-derive 0.117->0.150 (d=+0.033) | derived-acc 0.308 vs baseline 0.231 (n_derived=13, chance=0.333) | 3/4 bands -> MIDDLE",
+  "tier": "MIDDLE_BAND",
+  "traces": [
+    {
+      "chain_len": 0,
+      "chosen_choice": "ozone",
+      "chosen_correct": false,
+      "correct_choice": "water vapor",
+      "decision_mode": "abstain_index0",
+      "derivation_chain": null,
+      "do_calculus": [],
+      "givens_covered": 0.0,
+      "kind": "INCORRECT_OR_UNCOVERED",
+      "qid": "Mercury_7212993",
+      "stem": "Which of these gases is the most abundant greenhouse gas in the lower atmosphere of Earth?",
+      "why_others_not_chosen": [
+        {
+          "choice": "methane",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "water vapor",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "carbon dioxide",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    },
+    {
+      "chain_len": 1,
+      "chosen_choice": "Water carries a rock downstream.",
+      "chosen_correct": false,
+      "correct_choice": "A tree removes a gas from the air.",
+      "decision_mode": "derivation",
+      "derivation_chain": "[life] --REQUIRES--> [water]",
+      "do_calculus": [],
+      "givens_covered": 0.25,
+      "kind": "INCORRECT_OR_UNCOVERED",
+      "qid": "AKDE&ED_2008_4_26",
+      "stem": "Which example shows a relationship between a living thing and a nonliving thing?",
+      "why_others_not_chosen": [
+        {
+          "choice": "An insect is food for a salmon.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "A tree removes a gas from the air.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "A flower makes food for a butterfly.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    },
+    {
+      "chain_len": 0,
+      "chosen_choice": "4",
+      "chosen_correct": true,
+      "correct_choice": "4",
+      "decision_mode": "abstain_index0",
+      "derivation_chain": null,
+      "do_calculus": [],
+      "givens_covered": 0.0,
+      "kind": "INCORRECT_OR_UNCOVERED",
+      "qid": "Mercury_415303",
+      "stem": "Garden plants on Earth require four resources to stay alive: soil, air, water, and sunlight. How many of these resources are necessary for life to exist on the moon or another planet?",
+      "why_others_not_chosen": [
+        {
+          "choice": "3",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "2",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "1",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    },
+    {
+      "chain_len": 1,
+      "chosen_choice": "endothermic.",
+      "chosen_correct": true,
+      "correct_choice": "endothermic.",
+      "decision_mode": "derivation",
+      "derivation_chain": "[reaction] --CAUSE--> [endothermic]",
+      "do_calculus": [],
+      "givens_covered": 1.0,
+      "kind": "CORRECT_DERIVATION",
+      "qid": "Mercury_7043820",
+      "stem": "When cold temperatures are produced in a chemical reaction, the reaction is known as",
+      "why_others_not_chosen": [
+        {
+          "choice": "exothermic.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "suspension.",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "vaporization.",
+          "reason": "derivable but not selected (givens_covered=1.0, chain_len=2, combiner=0.5603)"
+        }
+      ]
+    },
+    {
+      "chain_len": 2,
+      "chosen_choice": "the effect of warmed water on aquatic life",
+      "chosen_correct": true,
+      "correct_choice": "the effect of warmed water on aquatic life",
+      "decision_mode": "derivation",
+      "derivation_chain": "[force] --COUPLEDRELATIONSHIP--> [acceleration] ; [acceleration] --REQUIRES--> [force]",
+      "do_calculus": [
+        {
+          "audit_sha256_12": "73205d00c04a",
+          "dst": "acceleration",
+          "intervention": "do(force increases)",
+          "propagated": "acceleration increases",
+          "src": "force"
+        }
+      ],
+      "givens_covered": 0.25,
+      "kind": "CORRECT_DERIVATION",
+      "qid": "Mercury_7212328",
+      "stem": "The development of a nuclear power plant at an ocean site is expected to produce an enormous amount of electric power for a large population. Ocean water will be used to cool the plant and then returned to the ocean. What unintended consequence should be analyzed before starting ",
+      "why_others_not_chosen": [
+        {
+          "choice": "number of kilowatts produced per home",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "the impact of other energy-producing resources",
+          "reason": "derivable but not selected (givens_covered=0.125, chain_len=1, combiner=0.483)"
+        },
+        {
+          "choice": "energy use per person",
+          "reason": "derivable but not selected (givens_covered=0.25, chain_len=2, combiner=0.6224)"
+        }
+      ]
+    },
+    {
+      "chain_len": 2,
+      "chosen_choice": "a car being driven up a hill and being parked",
+      "chosen_correct": true,
+      "correct_choice": "a car being driven up a hill and being parked",
+      "decision_mode": "derivation",
+      "derivation_chain": "[force] --COUPLEDRELATIONSHIP--> [acceleration] ; [acceleration] --REQUIRES--> [force]",
+      "do_calculus": [
+        {
+          "audit_sha256_12": "73205d00c04a",
+          "dst": "acceleration",
+          "intervention": "do(force increases)",
+          "propagated": "acceleration increases",
+          "src": "force"
+        }
+      ],
+      "givens_covered": 0.1,
+      "kind": "CORRECT_DERIVATION",
+      "qid": "MDSA_2013_8_20",
+      "stem": "Energy changes form or is transferred through the action of forces. An example of kinetic energy changing to potential energy is",
+      "why_others_not_chosen": [
+        {
+          "choice": "a boulder sitting on a cliff",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "a person running around a track",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "a rubber band being stretched and being broken",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    },
+    {
+      "chain_len": 3,
+      "chosen_choice": "sedimentary rock",
+      "chosen_correct": true,
+      "correct_choice": "sedimentary rock",
+      "decision_mode": "derivation",
+      "derivation_chain": "[weathering] --CAUSE--> [erosion] ; [erosion] --CAUSE--> [sediment] ; [sediment] --CAUSE--> [sedimentary]",
+      "do_calculus": [],
+      "givens_covered": 0.5,
+      "kind": "CORRECT_DERIVATION",
+      "qid": "Mercury_SC_400233",
+      "stem": "Which type of rock forms by weathering?",
+      "why_others_not_chosen": [
+        {
+          "choice": "igneous rock",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "extrusive rock",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        },
+        {
+          "choice": "metamorphic rock",
+          "reason": "NO derivation chain found (givens do not reach this candidate)"
+        }
+      ]
+    }
+  ],
+  "ts_iso": "2026-07-25T20:52:09.806668+00:00",
+  "upgrade_vs_glove": {
+    "correctness_ok": false,
+    "d_coverage": 0.0833,
+    "d_gold_derive": 0.0333,
+    "selectivity_preserved": true,
+    "upgrade_mode": "lemma_syn"
+  },
+  "verdict": "MIDDLE",
+  "verdict_msg": "Front-end entity-linking upgrade for the composed DerivationReasoner: question-word->rule-entity bridging via TIGHT morphy-lemma exact match (lemma) + WordNet same-synset single-token synonyms (lemma_syn), on top of the strict GloVe cos>=tau_unify baseline (glove). One variable across arms = the LINK MODE (rules/graph/search/decision identical). GUARDRAIL = distractor-derive-rate (selectivity). Upgrade arm chosen GUARDRAIL-FIRST: higher-coverage of {lemma,lemma_syn} that keeps distractor-derive-rate <= 0.13. Bands reported STRAIGHT, NOT tuned. Held-out ARC-Challenge test; rules are science facts not derived from test labels; selectivity is the anti-leak check. CAN-FAIL pre-registered: coverage stuck OR bought by losing selectivity = meaning-bound HONEST-NEG (reasoning-coverage is meaning-bound -> the #1 grounded-meaning wall, isolated cleanly)."
+}

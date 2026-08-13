@@ -1,0 +1,211 @@
+{
+  "verdict": "PASS",
+  "verdict_msg": "recog_acc=0.902(ceiling) | smallK loc->concept=1.000 concept->loc=1.000 xmodal_symbol=1.000 (chance 0.100/0.028) | scramble=0.124 wrongkey=0.091 delta=0.876 collapsed=True | capacity K1->K36 loc->concept 1.000->0.648 degrade=0.352 fired=True | resonator setacc K1->K36 0.800->0.312 degrade=0.488 | N-lever@K28 {'N96': 0.634, 'N128': 0.693, 'N192': 0.835, 'N256': 0.915} | PASS",
+  "summary": "pixels->scene-vector->query->symbol-grounding on load_digits: PASS",
+  "elapsed_s": 8.763840999978129,
+  "anchor_name": "perception_bridge_scene_vector_digits_v1",
+  "ts_iso": "2026-07-21T16:12:25.769212+00:00",
+  "run_mode": "full",
+  "config": {
+    "N_perc": 4000,
+    "N_scene": 128,
+    "grid": [
+      6,
+      6
+    ],
+    "G": 36,
+    "n_concept": 10,
+    "K_list": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      36
+    ],
+    "n_scenes": 150,
+    "n_train": 1257,
+    "n_test": 540
+  },
+  "perception": {
+    "recognition_accuracy_ceiling": 0.9018518518518519
+  },
+  "small_K": {
+    "loc2concept_vs_recog": 1.0,
+    "concept2loc": 1.0,
+    "xmodal_symbol": 1.0,
+    "scramble": 0.12407407407407407,
+    "wrongkey": 0.0911111111111111
+  },
+  "capacity_curve_by_K": {
+    "1": {
+      "loc2concept_vs_recog": 1.0,
+      "loc2concept_vs_true": 0.92,
+      "concept2loc": 1.0,
+      "xmodal_symbol": 1.0,
+      "scramble": 0.14666666666666667,
+      "wrongkey": 0.09333333333333334,
+      "resonator_setacc": 0.8
+    },
+    "2": {
+      "loc2concept_vs_recog": 1.0,
+      "loc2concept_vs_true": 0.9066666666666666,
+      "concept2loc": 1.0,
+      "xmodal_symbol": 1.0,
+      "scramble": 0.12333333333333334,
+      "wrongkey": 0.08,
+      "resonator_setacc": 0.7625
+    },
+    "3": {
+      "loc2concept_vs_recog": 1.0,
+      "loc2concept_vs_true": 0.8955555555555554,
+      "concept2loc": 1.0,
+      "xmodal_symbol": 1.0,
+      "scramble": 0.10222222222222221,
+      "wrongkey": 0.1,
+      "resonator_setacc": 0.7833333333333333
+    },
+    "4": {
+      "loc2concept_vs_recog": 1.0,
+      "loc2concept_vs_true": 0.9083333333333333,
+      "concept2loc": 1.0,
+      "xmodal_symbol": 1.0,
+      "scramble": 0.11666666666666667,
+      "wrongkey": 0.08833333333333333,
+      "resonator_setacc": 0.61875
+    },
+    "6": {
+      "loc2concept_vs_recog": 0.9977777777777779,
+      "loc2concept_vs_true": 0.8944444444444444,
+      "concept2loc": 0.9988888888888887,
+      "xmodal_symbol": 0.9988888888888887,
+      "scramble": 0.1,
+      "wrongkey": 0.08333333333333331,
+      "resonator_setacc": 0.5583333333333333
+    },
+    "8": {
+      "loc2concept_vs_recog": 0.985,
+      "loc2concept_vs_true": 0.9008333333333334,
+      "concept2loc": 0.9875,
+      "xmodal_symbol": 0.9875,
+      "scramble": 0.11083333333333334,
+      "wrongkey": 0.09833333333333333,
+      "resonator_setacc": 0.434375
+    },
+    "12": {
+      "loc2concept_vs_recog": 0.9516666666666667,
+      "loc2concept_vs_true": 0.8538888888888889,
+      "concept2loc": 0.9422222222222221,
+      "xmodal_symbol": 0.9422222222222221,
+      "scramble": 0.095,
+      "wrongkey": 0.08555555555555555,
+      "resonator_setacc": 0.38958333333333334
+    },
+    "16": {
+      "loc2concept_vs_recog": 0.88375,
+      "loc2concept_vs_true": 0.79,
+      "concept2loc": 0.9054166666666666,
+      "xmodal_symbol": 0.9054166666666666,
+      "scramble": 0.09416666666666666,
+      "wrongkey": 0.09708333333333333,
+      "resonator_setacc": 0.3671875
+    },
+    "20": {
+      "loc2concept_vs_recog": 0.8306666666666667,
+      "loc2concept_vs_true": 0.7466666666666667,
+      "concept2loc": 0.874,
+      "xmodal_symbol": 0.874,
+      "scramble": 0.11200000000000003,
+      "wrongkey": 0.10566666666666667,
+      "resonator_setacc": 0.30375
+    },
+    "24": {
+      "loc2concept_vs_recog": 0.7791666666666667,
+      "loc2concept_vs_true": 0.7102777777777777,
+      "concept2loc": 0.8788888888888887,
+      "xmodal_symbol": 0.8788888888888887,
+      "scramble": 0.10666666666666665,
+      "wrongkey": 0.10222222222222221,
+      "resonator_setacc": 0.3177083333333333
+    },
+    "28": {
+      "loc2concept_vs_recog": 0.7311904761904762,
+      "loc2concept_vs_true": 0.656904761904762,
+      "concept2loc": 0.8673809523809524,
+      "xmodal_symbol": 0.8673809523809524,
+      "scramble": 0.10142857142857144,
+      "wrongkey": 0.09761904761904759,
+      "resonator_setacc": 0.2875
+    },
+    "32": {
+      "loc2concept_vs_recog": 0.6747916666666667,
+      "loc2concept_vs_true": 0.6160416666666667,
+      "concept2loc": 0.8570833333333333,
+      "xmodal_symbol": 0.8570833333333333,
+      "scramble": 0.10229166666666667,
+      "wrongkey": 0.09958333333333333,
+      "resonator_setacc": 0.32109375
+    },
+    "36": {
+      "loc2concept_vs_recog": 0.6475925925925925,
+      "loc2concept_vs_true": 0.5922222222222222,
+      "concept2loc": 0.84,
+      "xmodal_symbol": 0.84,
+      "scramble": 0.10351851851851852,
+      "wrongkey": 0.10037037037037036,
+      "resonator_setacc": 0.31180555555555556
+    }
+  },
+  "n_lever_loc2concept": {
+    "N96": 0.6339285714285714,
+    "N128": 0.6928571428571431,
+    "N192": 0.8345238095238094,
+    "N256": 0.9154761904761907
+  },
+  "baselines": {
+    "chance_concept": 0.1,
+    "chance_loc": 0.027777777777777776
+  },
+  "discriminator": {
+    "scramble_delta": 0.8759259259259259,
+    "scramble_collapsed": true,
+    "capacity_degrade_loc2concept": 0.3524074074074075,
+    "capacity_fired": true,
+    "resonator_degrade": 0.4881944444444445,
+    "mech_ok": true
+  },
+  "bands": {
+    "PASS_LOC2CON_SMALLK": 0.85,
+    "PASS_CON2LOC_SMALLK": 0.7,
+    "PASS_XMODAL_SMALLK": 0.7,
+    "SCRAMBLE_COLLAPSE_MAX": 0.25,
+    "SCRAMBLE_DELTA_MIN": 0.3,
+    "CAPACITY_DEGRADE_MIN": 0.15
+  },
+  "example_scene_npz": "D:\\AI\\hd-instrument\\data\\exp_perception_bridge_scene_vector_digits_v1\\example_scene.npz",
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "clean_query": "228a612f5e5ed76bb3fab6864a60f27926f9e69fcaee842f1f07ae879febb833",
+    "scramble_query": "1031950a3fc92edc227a1c950ff999af86dfe2b55dcf83d4c43cf20bc42de210",
+    "wrongkey_query": "2fd45d02bc648a29a2f84551fe55a7f12ed47090317c9fa2827fcdab320db690"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "primitives_reused": [
+    "hdlab.binding.bsc_bind",
+    "hdlab.binding.bsc_bundle",
+    "hdlab.binding.bsc_unbind",
+    "hdlab.iterative_attractor.argmax_cleanup"
+  ],
+  "recipe_adopted": "Kanerva record encoding (perception) + real-valued superposition scene bundle + Frady/Kent resonator explain-away (joint factorization)",
+  "prior_art_credit": [
+    "exp_image_hd_encoder_digits_v1 (perception seed, atom 29407)",
+    "exp_pp406_visual_scene_factor_separation_cpu_v1 (resonator explain-away)"
+  ]
+}

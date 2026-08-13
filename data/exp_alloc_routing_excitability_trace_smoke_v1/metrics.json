@@ -1,0 +1,288 @@
+{
+  "anchor_name": "alloc_routing_excitability_trace_smoke_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "ALLOC_ROUTING MIDDLE_BAND: partial benefit from EXCITABILITY_TRACE -- recall-lift=0.000 cap-ratio=1.00x purity-lift=0.235; not all three HP thresholds met but not all three HF thresholds tripped either; characterize via ablation (alpha/beta/decay sweep). ALLOC_ROUTING @ sigma=1.0: RANDOM=disc1.000/cap1500/pur0.138 | EXC=disc1.000/cap1500/pur0.373 | KWTA=disc1.000/cap1500/pur0.900 | lift_recall=0.000 cap_ratio=1.00x lift_pur=0.235 | sanity_ok=True",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "M": 1000,
+  "K_SPARSE": 100,
+  "N_EVAL_RECALL": 60,
+  "N_FAMILIES": 20,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_RANDOM_SPARSE": {
+        "recall_discriminator_mean": 1.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "capacity_largest_M_passing_mean": 1500.0,
+        "capacity_largest_M_passing_std": 0.0,
+        "clustering_purity_mean": 0.138,
+        "clustering_purity_std": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 1.0,
+          "1.0": 1.0,
+          "1.5": 1.0
+        },
+        "sanity_M10_sigma0_min": 1.0
+      },
+      "ARM_EXCITABILITY_TRACE": {
+        "recall_discriminator_mean": 1.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "capacity_largest_M_passing_mean": 1500.0,
+        "capacity_largest_M_passing_std": 0.0,
+        "clustering_purity_mean": 0.373,
+        "clustering_purity_std": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 1.0,
+          "1.0": 1.0,
+          "1.5": 1.0
+        },
+        "sanity_M10_sigma0_min": 1.0
+      },
+      "ARM_KWTA_HEBBIAN": {
+        "recall_discriminator_mean": 1.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "capacity_largest_M_passing_mean": 1500.0,
+        "capacity_largest_M_passing_std": 0.0,
+        "clustering_purity_mean": 0.9,
+        "clustering_purity_std": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 1.0,
+          "1.0": 1.0,
+          "1.5": 0.9833
+        },
+        "sanity_M10_sigma0_min": 1.0
+      }
+    },
+    "discriminator_sigma": 1.0,
+    "recall_lift_exc_vs_random": 0.0,
+    "capacity_ratio_exc_vs_random": 1.0,
+    "purity_lift_exc_vs_random": 0.235,
+    "hp_recall_ok": true,
+    "hp_cap_ok": false,
+    "hp_pur_ok": true,
+    "hf_recall_dead": true,
+    "hf_cap_dead": true,
+    "hf_pur_dead": false,
+    "sanity_sigma0_M10_ok": true,
+    "sanity_sigma0_M10_failures": [],
+    "n_seeds": 1,
+    "CONFIG_VERSION": "alloc_routing_excitability_trace_smoke_v1; N_DIM=4096 M=1000 K_SPARSE=100 sigmas=[0.0, 0.5, 1.0, 1.5] arms=['ARM_RANDOM_SPARSE', 'ARM_EXCITABILITY_TRACE', 'ARM_KWTA_HEBBIAN'] seeds=[0] mode=smoke EXC(beta=2.00,alpha=0.10,decay=0.99) KWTA(eta=0.010) N_FAMILIES=20 N_EVAL=60 capM=[200, 500, 1000, 1500] capThresh=0.80 capSigma=1.00",
+    "honest_scope": "HD-substrate-native forward-only learned-sparse-allocation drill; 3 arms (RANDOM_SPARSE / EXCITABILITY_TRACE / KWTA_HEBBIAN) at N_DIM=4096 M=1000 K=100; discriminator = ARM_EXCITABILITY_TRACE vs ARM_RANDOM_SPARSE on clean synthetic family-prototype atoms; HARD_PASS requires recall@sigma=1.0 >= 0.50 AND capacity-ratio >= 1.50x AND purity-lift >= 0.05.",
+    "cites": [
+      "notes/research_drill_sparse_allocation_routing_learning_2026-06-23.md",
+      "notes/exp_dev_handoff_research_drill_sparse_allocation_routing_learning_2026-06-23.md",
+      "Tonegawa_CREB_engram_allocation_2007_2014_2016",
+      "Marr_1969_Albus_1971_cerebellar_k_WTA",
+      "Lin_eLife_2014_Drosophila_APL_sparse"
+    ]
+  },
+  "metrics_source": "measured_cpu_alloc_routing_excitability_trace_smoke_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_RANDOM_SPARSE": {
+          "cleanup_recall": {
+            "0.0": 1.0,
+            "0.5": 1.0,
+            "1.0": 1.0,
+            "1.5": 1.0
+          },
+          "recall_discriminator": 1.0,
+          "capacity": {
+            "m_grid": [
+              200,
+              500,
+              1000,
+              1500
+            ],
+            "results": [
+              {
+                "M": 200,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 500,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 1000,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 1500,
+                "recall_at_sigma": 1.0
+              }
+            ],
+            "largest_M_passing": 1500,
+            "recall_thresh": 0.8,
+            "sigma": 1.0
+          },
+          "capacity_largest_M_passing": 1500,
+          "clustering_purity": 0.138,
+          "position_reuse": {
+            "n_total": 4096,
+            "n_nonzero": 4096,
+            "fraction_used": 1.0,
+            "mean": 24.4140625,
+            "std": 4.854165968124056,
+            "min": 10.0,
+            "max": 45.0,
+            "p10": 18.0,
+            "p50": 24.0,
+            "p90": 31.0,
+            "p99": 36.0,
+            "cv": 0.19882663805436132
+          },
+          "sanity_M10_sigma0_recall": 1.0,
+          "wall_alloc_s": 0.02,
+          "wall_cleanup_s": 0.03,
+          "wall_capacity_s": 0.1,
+          "wall_purity_s": 0.75
+        },
+        "ARM_EXCITABILITY_TRACE": {
+          "cleanup_recall": {
+            "0.0": 1.0,
+            "0.5": 1.0,
+            "1.0": 1.0,
+            "1.5": 1.0
+          },
+          "recall_discriminator": 1.0,
+          "capacity": {
+            "m_grid": [
+              200,
+              500,
+              1000,
+              1500
+            ],
+            "results": [
+              {
+                "M": 200,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 500,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 1000,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 1500,
+                "recall_at_sigma": 1.0
+              }
+            ],
+            "largest_M_passing": 1500,
+            "recall_thresh": 0.8,
+            "sigma": 1.0
+          },
+          "capacity_largest_M_passing": 1500,
+          "clustering_purity": 0.373,
+          "position_reuse": {
+            "n_total": 4096,
+            "n_nonzero": 4096,
+            "fraction_used": 1.0,
+            "mean": 0.24173243000375066,
+            "std": 0.8102346993503118,
+            "min": 0.00025863206246867776,
+            "max": 9.898907661437988,
+            "p10": 0.046622538939118385,
+            "p50": 0.15316133946180344,
+            "p90": 0.3352451026439667,
+            "p99": 0.6531797975301769,
+            "cv": 3.3517832064888453
+          },
+          "sanity_M10_sigma0_recall": 1.0,
+          "wall_alloc_s": 0.06,
+          "wall_cleanup_s": 0.04,
+          "wall_capacity_s": 0.21,
+          "wall_purity_s": 7.22
+        },
+        "ARM_KWTA_HEBBIAN": {
+          "cleanup_recall": {
+            "0.0": 1.0,
+            "0.5": 1.0,
+            "1.0": 1.0,
+            "1.5": 0.9833
+          },
+          "recall_discriminator": 1.0,
+          "capacity": {
+            "m_grid": [
+              200,
+              500,
+              1000,
+              1500
+            ],
+            "results": [
+              {
+                "M": 200,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 500,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 1000,
+                "recall_at_sigma": 1.0
+              },
+              {
+                "M": 1500,
+                "recall_at_sigma": 1.0
+              }
+            ],
+            "largest_M_passing": 1500,
+            "recall_thresh": 0.8,
+            "sigma": 1.0
+          },
+          "capacity_largest_M_passing": 1500,
+          "clustering_purity": 0.9,
+          "position_reuse": {
+            "n_total": 4096,
+            "n_nonzero": 100,
+            "fraction_used": 0.0244140625,
+            "mean": 24.4140625,
+            "std": 154.3308655203038,
+            "min": 0.0,
+            "max": 1000.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p99": 1000.0,
+            "cv": 6.321392251711644
+          },
+          "sanity_M10_sigma0_recall": 1.0,
+          "wall_alloc_s": 18.53,
+          "wall_cleanup_s": 0.21,
+          "wall_capacity_s": 62.87,
+          "wall_purity_s": 3.88
+        }
+      },
+      "N": 4096,
+      "N_DIM": 4096,
+      "M": 1000,
+      "K_SPARSE": 100,
+      "N_EVAL_RECALL": 60,
+      "N_FAMILIES": 20,
+      "run_mode": "smoke",
+      "config_version": "alloc_routing_excitability_trace_smoke_v1; N_DIM=4096 M=1000 K_SPARSE=100 sigmas=[0.0, 0.5, 1.0, 1.5] arms=['ARM_RANDOM_SPARSE', 'ARM_EXCITABILITY_TRACE', 'ARM_KWTA_HEBBIAN'] seeds=[0] mode=smoke EXC(beta=2.00,alpha=0.10,decay=0.99) KWTA(eta=0.010) N_FAMILIES=20 N_EVAL=60 capM=[200, 500, 1000, 1500] capThresh=0.80 capSigma=1.00",
+      "elapsed_s_seed": 94.89,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782254408.5384476
+    }
+  ],
+  "elapsed_s": 94.99899435043335,
+  "summary": "ALLOC_ROUTING MIDDLE_BAND: partial benefit from EXCITABILITY_TRACE -- recall-lift=0.000 cap-ratio=1.00x purity-lift=0.235; not all three HP thresholds met but not all three HF thresholds tripped either; characterize via ablation (alpha/beta/decay sweep). ALLOC_ROUTING @ sigma=1.0: RANDOM=disc1.000/cap1500/pur0.138 | EXC=disc1.000/cap1500/pur0.373 | KWTA=disc1.000/cap1500/pur0.900 | lift_recall=0.000 cap_ratio=1.00x lift_pur=0.235 | sanity_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native; forward-only; no LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

@@ -1,0 +1,171 @@
+{
+  "verdict": "RECALL_MIDDLE_BAND",
+  "verdict_msg": "NECESSARY-NOT-SUFFICIENT: recall DID rise (reachability ceiling 1.0, lift +0.6070 >= 0.1) but end-to-end lags (E_wide_gate 0.3306 vs E_narrow_raw 0.3121, lift +0.0185 < 0.08). The gate+combiner cannot yet convert the wider high-recall pool into answers. K-BOUND: recall climbs with K (SC @10=0.393 -> @100=0.6911, +0.2981) and the reachability ceiling 1.0 sits 0.3089 above recall@100 -- the gold facts ARE reachable; raising K (+ the gate to clean) is the lever, not the graph. E_wide_raw (no gate) 0.2752 (wide pool drowns without the gate); E_narrow_gate 0.3368. oracle-gold ceiling 0.7125.",
+  "summary": "RECALL_MIDDLE_BAND: recall SC @10=0.393 @25=0.511 @50=0.6007 @100=0.6911 reach=1.0 | RR reach=1.0 (rr_lift=+0.0000, gold_recovered=1432) | ceiling=1.0 lift=+0.6070 | e2e Chal wide_gate=0.3306 narrow_raw=0.3121 lift=+0.0185 oracle=0.7125 | chance=0.2501",
+  "elapsed_s": 107.8,
+  "ts_iso": "2026-07-25T01:57:31.835841+00:00",
+  "anchor_name": "arc_retrieval_max_recall_ksweep_reretrieval_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260725,
+  "n_questions": 987,
+  "n_easy": 500,
+  "n_challenge": 487,
+  "n_chal_lure": 77,
+  "chance_theoretical": 0.2501,
+  "store_facts": 9720,
+  "graph_terms": 5403,
+  "hops": 2,
+  "damp": 0.5,
+  "seed_cos": 0.6,
+  "k_sweep": [
+    10,
+    25,
+    50,
+    100
+  ],
+  "k_wide": 100,
+  "k_narrow": 20,
+  "k_sel": 4,
+  "rr_top_t": 10,
+  "recall_curve": {
+    "SC": {
+      "at10": 0.393,
+      "at25": 0.511,
+      "at50": 0.6007,
+      "at100": 0.6911
+    },
+    "ST": {
+      "at10": 0.3111,
+      "at25": 0.4189,
+      "at50": 0.499,
+      "at100": 0.585
+    },
+    "RR": {
+      "at10": 0.3775,
+      "at25": 0.4899,
+      "at50": 0.577,
+      "at100": 0.6666
+    },
+    "SH": {
+      "at10": 0.0012,
+      "at25": 0.0025,
+      "at50": 0.0045,
+      "at100": 0.0156
+    },
+    "RND": {
+      "at10": 0.0018,
+      "at25": 0.0033,
+      "at50": 0.0051,
+      "at100": 0.0107
+    }
+  },
+  "reachability": {
+    "SC": 1.0,
+    "ST": 1.0,
+    "RR": 1.0,
+    "SH": 0.9996,
+    "reach_pool_size": {
+      "SC": 9712.5,
+      "ST": 9704.9,
+      "RR": 9713.5,
+      "SH": 9712.7
+    }
+  },
+  "reach_ceiling_best": 1.0,
+  "recall_lift_ceiling_minus_baseline10": 0.607,
+  "baseline_recall_at10_SC": 0.393,
+  "k_bound_signal_at100_minus_at10": 0.2981,
+  "reach_gap_ceiling_minus_at100": 0.3089,
+  "reretrieval_reach_lift_RR_minus_SC": 0.0,
+  "gold_recovered_by_reretrieval": 1432,
+  "attribution": "K-BOUND: recall climbs with K (SC @10=0.393 -> @100=0.6911, +0.2981) and the reachability ceiling 1.0 sits 0.3089 above recall@100 -- the gold facts ARE reachable; raising K (+ the gate to clean) is the lever, not the graph.",
+  "end_to_end": {
+    "E_narrow_raw": {
+      "easy": 0.366,
+      "challenge": 0.3121,
+      "chal_lure": 0.4545,
+      "chal_correct": 152,
+      "chal_n": 487
+    },
+    "E_wide_raw": {
+      "easy": 0.312,
+      "challenge": 0.2752,
+      "chal_lure": 0.4416,
+      "chal_correct": 134,
+      "chal_n": 487
+    },
+    "E_narrow_gate": {
+      "easy": 0.486,
+      "challenge": 0.3368,
+      "chal_lure": 0.4675,
+      "chal_correct": 164,
+      "chal_n": 487
+    },
+    "E_wide_gate": {
+      "easy": 0.448,
+      "challenge": 0.3306,
+      "chal_lure": 0.4675,
+      "chal_correct": 161,
+      "chal_n": 487
+    },
+    "E_oracle": {
+      "easy": 0.82,
+      "challenge": 0.7125,
+      "chal_lure": 0.7403,
+      "chal_correct": 347,
+      "chal_n": 487
+    }
+  },
+  "e2e_lift_wide_gate_minus_narrow_raw": 0.0185,
+  "e2e_wide_gate_challenge_ci95": [
+    0.2888,
+    0.3724
+  ],
+  "oracle_gold_challenge": 0.7125,
+  "structural_collapse_SH_minus_RND": 0.0049,
+  "structural_ok": true,
+  "random_recall_at100": 0.0107,
+  "random_ok": true,
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "unreachable": false,
+  "reachable_high": true,
+  "arms_differ_verified": true,
+  "arm_pick_digests": {
+    "E_narrow_raw": "e46f6fcefcc9e5c4bf3ccfab26ee0ffe87066c9436fb550a2b903426775bb793",
+    "E_wide_raw": "3a1279e0ff5a6e021ae596690b6ac7bd9d651b2dd68831235c57d3172d4fed8c",
+    "E_narrow_gate": "b6c446ab88575c17e96ce4c0c12fcb48bf69754f66015fe2b13a33d5350e154e",
+    "E_wide_gate": "4efabed547bc6ce0043e634a35cf326a034779e58914b195f32f3639e7e05e8f",
+    "E_oracle": "a8e2b177303d2f2f066d942cb0ffa2e1cac525f3ac55c89c4a565ec5fdddca06"
+  },
+  "recall_topk_digests": {
+    "SC": "93658cc9d4f8fd142d5de6005b351bdb40b989192eaed4d4adb29b29168e0d03",
+    "ST": "27d2c5712fa11b97271a6898e894ad63c19bb90d10eaa17fa20bd917f0c0dec8",
+    "RR": "91591ce8efda3f7efc365fd76c9661d9eb5c47cb558b0f6a48becfa42db3c496",
+    "SH": "bbc743985299db987f4503df2ea2e1edb436917dc4367f509089d58f0cbdc3ce",
+    "RND": "04d6b5e6826c5cc989c17f710929327c0be40cd78e2519741dceb44abdc30c46"
+  },
+  "bands": {
+    "HP_e2e_lift": 0.08,
+    "HP_e2e_abs": 0.45,
+    "MB_recall_lift": 0.1,
+    "unreach_margin": 0.05,
+    "reach_ceiling_high": 0.6,
+    "struct_collapse": 0.05,
+    "rnd_max": 0.1,
+    "ag_baseline_sat": 0.95
+  },
+  "grade_proxy": {
+    "easy_band": "~grade 3-4",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "wired_vs_stubbed": "WIRED: three recall levers over the REAL WorldTree fact-graph (retrieval is the ONLY variable; the 29541 SELECTION GATE gate.gate_scores/_topk_idx AND the agg.aggregate bind+settle combiner are IMPORTED UNCHANGED). LEVER 1 K-SWEEP: recall@{10,25,50,100} + reachability ceiling (recall over every nonzero-activation fact) per config, attributing the wall K-bound / reachability / graph-bound. LEVER 2 RE-RETRIEVAL: IRCoT 2nd PPR pass seeded from choices + pass-1 top facts' terms, unioned; measures reachability lift + gold-facts recovered that pass-1 top-K missed. LEVER 3 SEEDING: stem+choices (SC) vs stem-only (ST). PAYOFF: the WIDE (K=100) high-recall RR pool -> UNCHANGED gate top-4 -> UNCHANGED combiner, vs the narrow raw baseline; does end-to-end Challenge move toward the 0.696 gold ceiling. CONTROLS: shuffled-graph (must collapse to random) + random-rank (must stay tiny) + E_wide_raw (wide pool WITHOUT gate, must drown). STUBBED/NOTED-NOT-BUILT: triggered (confidence-gated) re-retrieval -- this cell measures UNCONDITIONAL union (cleanest 'does the 2nd pass reach gold pass-1 missed'); attractor cleanup + fuzzy conflict left to their own threads.",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large); VET-PENDING; FULL eval slice bounded (limit_easy=500 limit_chal=600) to fit one foreground call",
+  "compute_architecture": "mixed CPU: batched GloVe encode + scipy.sparse batched PPR (2 passes) + cheap per-question recall + UNCHANGED gate + UNCHANGED combiner; wall target < 10min",
+  "storage_strategy": "sharded (each fact = own embedding + own graph node; no superposition)",
+  "progress_logging": "line_buffered_stdout",
+  "calibration_check": "default_ok_for_this_regime (retrieval hyperparams author-set a priori; gate+combiner UNCHANGED; NOT tuned to force a win)"
+}

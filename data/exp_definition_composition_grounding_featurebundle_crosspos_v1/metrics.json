@@ -1,0 +1,1761 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "Fire-rate rises (fresh=0.5417, downstream=16/30) but the HARD-PASS bar is not cleared (acc_when_fires=1.0 fresh / 0.625 downstream, must-fail floors ok=True) -- coverage gain without decisive correctness, or a partial/mixed result.",
+  "ts_iso": "2026-08-08T09:30:34.528969+00:00",
+  "anchor_name": "definition_composition_grounding_featurebundle_crosspos_v1",
+  "gate_detail": {
+    "hard_pass_coverage": true,
+    "hard_pass_scramble": false,
+    "hard_pass_downstream": false,
+    "must_fail_floors_ok": true,
+    "after_fire_rate_30": 16
+  },
+  "fresh_nounadj_measurement": {
+    "words": [
+      "dapper",
+      "disgusting",
+      "disheveled",
+      "elegant",
+      "filthy",
+      "frumpy",
+      "glorious",
+      "gourmet",
+      "grimy",
+      "immaculate",
+      "magnificent",
+      "medal",
+      "prestigious",
+      "pristine",
+      "revolting",
+      "shabby",
+      "slovenly",
+      "splendid",
+      "squalid",
+      "stylish",
+      "tattered",
+      "trophy",
+      "unkempt",
+      "wretched"
+    ],
+    "gold": {
+      "frumpy": "NEG",
+      "shabby": "NEG",
+      "disheveled": "NEG",
+      "grimy": "NEG",
+      "wretched": "NEG",
+      "squalid": "NEG",
+      "filthy": "NEG",
+      "tattered": "NEG",
+      "disgusting": "NEG",
+      "revolting": "NEG",
+      "slovenly": "NEG",
+      "unkempt": "NEG",
+      "medal": "POS",
+      "trophy": "POS",
+      "elegant": "POS",
+      "prestigious": "POS",
+      "splendid": "POS",
+      "magnificent": "POS",
+      "glorious": "POS",
+      "dapper": "POS",
+      "stylish": "POS",
+      "gourmet": "POS",
+      "pristine": "POS",
+      "immaculate": "POS"
+    },
+    "n_banned_pool": 232,
+    "REAL": {
+      "n": 24,
+      "coverage": 15,
+      "coverage_pct": 0.625,
+      "fires": 13,
+      "fires_pct": 0.5417,
+      "acc_when_fires": 1.0,
+      "acc_overall": 0.5417
+    },
+    "SCRAMBLE_polarity": {
+      "n": 24,
+      "coverage": 15,
+      "coverage_pct": 0.625,
+      "fires": 13,
+      "fires_pct": 0.5417,
+      "acc_when_fires": 0.4615,
+      "acc_overall": 0.25
+    },
+    "scramble_collapse_delta_acc_overall": 0.2917,
+    "scramble_collapse_delta_acc_when_fires": 0.5385,
+    "MUST_FAIL_random_gloss": {
+      "n": 24,
+      "coverage": 19,
+      "coverage_pct": 0.7917,
+      "fires": 15,
+      "fires_pct": 0.625,
+      "acc_when_fires": 0.6,
+      "acc_overall": 0.375
+    },
+    "MUST_FAIL_random_gloss_underperforms_real": true,
+    "MUST_FAIL_scrambled_feature": {
+      "n": 24,
+      "coverage": 17,
+      "coverage_pct": 0.7083,
+      "fires": 12,
+      "fires_pct": 0.5,
+      "acc_when_fires": 0.5,
+      "acc_overall": 0.25
+    },
+    "MUST_FAIL_scrambled_feature_underperforms_real": true,
+    "glass_box": {
+      "dapper": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "marked by up-to-dateness in dress and manners a dapper young man a jaunty red hat",
+        "content_words": [
+          "marked",
+          "dateness",
+          "dress",
+          "manners",
+          "young",
+          "man",
+          "jaunty",
+          "red",
+          "hat"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "disgusting": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "highly offensive; arousing aversion or disgust a disgusting smell distasteful language a loathsome disease the idea of eating meat is repellent to me revolting food a wicked stench",
+        "content_words": [
+          "highly",
+          "offensive",
+          "arousing",
+          "aversion",
+          "disgust",
+          "smell",
+          "distasteful",
+          "language",
+          "loathsome",
+          "disease",
+          "idea",
+          "eating",
+          "meat",
+          "repellent",
+          "revolting",
+          "food",
+          "wicked",
+          "stench"
+        ],
+        "hits": [
+          {
+            "word": "offensive",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "repellent",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "disheveled": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "in disarray; extremely disorderly; ; ; ; ; - Al Spiers her clothing was disheveled powder-smeared and frowzled a rumpled unmade bed a bed with tousled sheets his brown hair was tousled, thick, and curly",
+        "content_words": [
+          "disarray",
+          "extremely",
+          "disorderly",
+          "spiers",
+          "clothing",
+          "powder",
+          "smeared",
+          "frowzled",
+          "rumpled",
+          "unmade",
+          "bed",
+          "bed",
+          "tousled",
+          "sheets",
+          "brown",
+          "hair",
+          "tousled",
+          "thick",
+          "curly"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "elegant": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "refined and tasteful in appearance or behavior or style elegant handwriting an elegant dark suit she was elegant to her fingertips small churches with elegant white spires an elegant mathematical solution--simple and precise and lucid",
+        "content_words": [
+          "refined",
+          "tasteful",
+          "appearance",
+          "behavior",
+          "style",
+          "handwriting",
+          "dark",
+          "suit",
+          "fingertips",
+          "small",
+          "churches",
+          "white",
+          "spires",
+          "mathematical",
+          "solution",
+          "simple",
+          "precise",
+          "lucid"
+        ],
+        "hits": [
+          {
+            "word": "small",
+            "tags": [
+              "MAGNITUDE_DOM",
+              "PHYSICAL_DIMENSION",
+              "SMALL_SIZE"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "white",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION",
+          "POS_VALENCE",
+          "SMALL_SIZE"
+        ],
+        "prediction": "POS",
+        "correct": true
+      },
+      "filthy": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "disgustingly dirty; filled or smeared with offensive matter as filthy as a pigsty a foul pond a nasty pigsty of a room",
+        "content_words": [
+          "disgustingly",
+          "dirty",
+          "filled",
+          "smeared",
+          "offensive",
+          "matter",
+          "pigsty",
+          "foul",
+          "pond",
+          "nasty",
+          "pigsty",
+          "room"
+        ],
+        "hits": [
+          {
+            "word": "dirty",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "offensive",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "foul",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "nasty",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "frumpy": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "primly out of date nothing so frumpish as last year's gambling game",
+        "content_words": [
+          "primly",
+          "date",
+          "nothing",
+          "frumpish",
+          "last",
+          "year",
+          "gambling",
+          "game"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "glorious": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "having or deserving or conferring glory a long and glorious career our glorious literature",
+        "content_words": [
+          "deserving",
+          "conferring",
+          "glory",
+          "long",
+          "career",
+          "literature"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "gourmet": {
+        "gold": "POS",
+        "pos_used": "n",
+        "gloss": "a person devoted to refined sensuous enjoyment (especially good food and drink) ",
+        "content_words": [
+          "person",
+          "devoted",
+          "refined",
+          "sensuous",
+          "enjoyment",
+          "especially",
+          "good",
+          "food",
+          "drink"
+        ],
+        "hits": [
+          {
+            "word": "good",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "POS_VALENCE"
+        ],
+        "prediction": "POS",
+        "correct": true
+      },
+      "grimy": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "thickly covered with ingrained dirt or soot a miner's begrimed face dingy linen grimy hands grubby little fingers a grungy kitchen",
+        "content_words": [
+          "thickly",
+          "covered",
+          "ingrained",
+          "dirt",
+          "soot",
+          "miner",
+          "begrimed",
+          "face",
+          "dingy",
+          "linen",
+          "hands",
+          "grubby",
+          "little",
+          "fingers",
+          "grungy",
+          "kitchen"
+        ],
+        "hits": [
+          {
+            "word": "begrimed",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "dingy",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "grubby",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "grungy",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "immaculate": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "completely neat and clean the apartment was immaculate in her immaculate white uniform a spick-and-span kitchen their spic red-visored caps",
+        "content_words": [
+          "completely",
+          "neat",
+          "clean",
+          "apartment",
+          "white",
+          "uniform",
+          "spick",
+          "span",
+          "kitchen",
+          "spic",
+          "red",
+          "visored",
+          "caps"
+        ],
+        "hits": [
+          {
+            "word": "neat",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "clean",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "white",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "spick",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "spic",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "POS_VALENCE"
+        ],
+        "prediction": "POS",
+        "correct": true
+      },
+      "magnificent": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "characterized by grandeur the brilliant court life at Versailles a glorious work of art magnificent cathedrals the splendid coronation ceremony",
+        "content_words": [
+          "characterized",
+          "grandeur",
+          "brilliant",
+          "court",
+          "life",
+          "versailles",
+          "glorious",
+          "work",
+          "art",
+          "cathedrals",
+          "splendid",
+          "coronation",
+          "ceremony"
+        ],
+        "hits": [
+          {
+            "word": "brilliant",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "glorious",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "art",
+            "tags": [
+              "ART_DOM",
+              "CREATIVE",
+              "EXPRESSIVE"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "splendid",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "ART_DOM",
+          "CREATIVE",
+          "EVALUATIVE_POSITIVE",
+          "EXPRESSIVE",
+          "POS_VALENCE"
+        ],
+        "prediction": "POS",
+        "correct": true
+      },
+      "medal": {
+        "gold": "POS",
+        "pos_used": "n",
+        "gloss": "an award for winning a championship or commemorating some other event ",
+        "content_words": [
+          "award",
+          "winning",
+          "championship",
+          "commemorating",
+          "event"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "prestigious": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "having an illustrious reputation; respected our esteemed leader a prestigious author",
+        "content_words": [
+          "illustrious",
+          "reputation",
+          "respected",
+          "esteemed",
+          "leader",
+          "author"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "pristine": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "completely free from dirt or contamination pristine mountain snow",
+        "content_words": [
+          "completely",
+          "free",
+          "dirt",
+          "contamination",
+          "mountain",
+          "snow"
+        ],
+        "hits": [
+          {
+            "word": "mountain",
+            "tags": [
+              "ELEVATED",
+              "GEO_DOM",
+              "LANDFORM"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "ELEVATED",
+          "GEO_DOM",
+          "LANDFORM"
+        ],
+        "prediction": null,
+        "correct": false
+      },
+      "revolting": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "highly offensive; arousing aversion or disgust a disgusting smell distasteful language a loathsome disease the idea of eating meat is repellent to me revolting food a wicked stench",
+        "content_words": [
+          "highly",
+          "offensive",
+          "arousing",
+          "aversion",
+          "disgust",
+          "disgusting",
+          "smell",
+          "distasteful",
+          "language",
+          "loathsome",
+          "disease",
+          "idea",
+          "eating",
+          "meat",
+          "repellent",
+          "food",
+          "wicked",
+          "stench"
+        ],
+        "hits": [
+          {
+            "word": "offensive",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "repellent",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "shabby": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "showing signs of wear and tear a ratty old overcoat shabby furniture an old house with dirty windows and tatty curtains",
+        "content_words": [
+          "showing",
+          "signs",
+          "wear",
+          "tear",
+          "ratty",
+          "old",
+          "overcoat",
+          "furniture",
+          "old",
+          "house",
+          "dirty",
+          "windows",
+          "tatty",
+          "curtains"
+        ],
+        "hits": [
+          {
+            "word": "ratty",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "dirty",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "slovenly": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "negligent of neatness especially in dress and person; habitually dirty and unkempt filled the door with her frowzy bulk frowzy white hair slovenly appearance",
+        "content_words": [
+          "negligent",
+          "neatness",
+          "especially",
+          "dress",
+          "person",
+          "habitually",
+          "dirty",
+          "unkempt",
+          "filled",
+          "door",
+          "frowzy",
+          "bulk",
+          "frowzy",
+          "white",
+          "hair",
+          "appearance"
+        ],
+        "hits": [
+          {
+            "word": "dirty",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "white",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "NEG_VALENCE",
+          "POS_VALENCE"
+        ],
+        "prediction": null,
+        "correct": false
+      },
+      "splendid": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "having great beauty and splendor a glorious spring morning a glorious sunset splendid costumes a kind of splendiferous native simplicity",
+        "content_words": [
+          "great",
+          "beauty",
+          "splendor",
+          "glorious",
+          "spring",
+          "morning",
+          "glorious",
+          "sunset",
+          "costumes",
+          "kind",
+          "splendiferous",
+          "native",
+          "simplicity"
+        ],
+        "hits": [
+          {
+            "word": "great",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "glorious",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "glorious",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "kind",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "splendiferous",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          },
+          {
+            "word": "native",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "POS_VALENCE"
+        ],
+        "prediction": "POS",
+        "correct": true
+      },
+      "squalid": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "morally degraded; ; ; ; - Seattle Weekly; - James Joyce a seedy district the seamy side of life sleazy characters hanging around casinos sleazy storefronts with...dirt on the walls the sordid details of his orgies stank under his very nostrils the squalid atmosphere of intrigue and betrayal",
+        "content_words": [
+          "morally",
+          "degraded",
+          "seattle",
+          "weekly",
+          "james",
+          "joyce",
+          "seedy",
+          "district",
+          "seamy",
+          "side",
+          "life",
+          "sleazy",
+          "characters",
+          "hanging",
+          "around",
+          "casinos",
+          "sleazy",
+          "storefronts",
+          "dirt",
+          "walls",
+          "sordid",
+          "details",
+          "orgies",
+          "stank",
+          "nostrils",
+          "atmosphere",
+          "intrigue",
+          "betrayal"
+        ],
+        "hits": [
+          {
+            "word": "sordid",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "stylish": {
+        "gold": "POS",
+        "pos_used": "a",
+        "gloss": "having elegance or taste or refinement in manners or dress a little less posh but every bit as stylish as Lord Peter Wimsey the stylish resort of Gstadd",
+        "content_words": [
+          "elegance",
+          "taste",
+          "refinement",
+          "manners",
+          "dress",
+          "little",
+          "less",
+          "posh",
+          "every",
+          "bit",
+          "lord",
+          "peter",
+          "wimsey",
+          "resort",
+          "gstadd"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "tattered": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "worn to shreds; or wearing torn or ragged clothing a man in a tattered shirt the tattered flag tied up in tattered brown paper a tattered barefoot boy a tatterdemalion prince",
+        "content_words": [
+          "worn",
+          "shreds",
+          "wearing",
+          "torn",
+          "ragged",
+          "clothing",
+          "man",
+          "shirt",
+          "flag",
+          "tied",
+          "brown",
+          "paper",
+          "barefoot",
+          "boy",
+          "tatterdemalion",
+          "prince"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "trophy": {
+        "gold": "POS",
+        "pos_used": "n",
+        "gloss": "an award for success in war or hunting ",
+        "content_words": [
+          "award",
+          "success",
+          "war",
+          "hunting"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "prediction": null,
+        "correct": false
+      },
+      "unkempt": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "not neatly combed wild unkempt hair",
+        "content_words": [
+          "neatly",
+          "combed",
+          "wild",
+          "hair"
+        ],
+        "hits": [
+          {
+            "word": "wild",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      },
+      "wretched": {
+        "gold": "NEG",
+        "pos_used": "a",
+        "gloss": "of very poor quality or condition deplorable housing conditions in the inner city woeful treatment of the accused woeful errors of judgment",
+        "content_words": [
+          "poor",
+          "quality",
+          "condition",
+          "deplorable",
+          "housing",
+          "conditions",
+          "inner",
+          "city",
+          "woeful",
+          "treatment",
+          "accused",
+          "woeful",
+          "errors",
+          "judgment"
+        ],
+        "hits": [
+          {
+            "word": "poor",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "antonym_hop"
+          },
+          {
+            "word": "deplorable",
+            "tags": [
+              "NEG_VALENCE"
+            ],
+            "polarity": "NEG",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "NEG_VALENCE"
+        ],
+        "prediction": "NEG",
+        "correct": true
+      }
+    }
+  },
+  "downstream_narrative_measurement": {
+    "n_train": 30,
+    "majority_class": "MET",
+    "oov_referents_n": 28,
+    "oov_verbs_n": 147,
+    "oov_referents": [
+      "able",
+      "anyway",
+      "attempting",
+      "baseball",
+      "bike",
+      "club",
+      "cookout",
+      "donuts",
+      "dress",
+      "fun",
+      "haircut",
+      "home",
+      "ignacio",
+      "it",
+      "nails",
+      "officer",
+      "peter",
+      "really",
+      "restaurant",
+      "riley",
+      "rose",
+      "special",
+      "sport",
+      "the",
+      "them",
+      "tim",
+      "to",
+      "up"
+    ],
+    "oov_verbs": [
+      "after",
+      "agre",
+      "airplane",
+      "amber",
+      "attempt",
+      "back",
+      "bak",
+      "basketball",
+      "be",
+      "bead",
+      "because",
+      "beer",
+      "believ",
+      "bernice",
+      "bet",
+      "bike",
+      "birthday",
+      "buy",
+      "cancel",
+      "colin",
+      "contest",
+      "cook",
+      "couldn't",
+      "customize",
+      "date",
+      "dave",
+      "decid",
+      "disappoint",
+      "do",
+      "double",
+      "dress",
+      "drink",
+      "dumb",
+      "dunk",
+      "dylan",
+      "easily",
+      "eat",
+      "education",
+      "ellen",
+      "end",
+      "enough",
+      "enter",
+      "europe",
+      "eva",
+      "every",
+      "expensive",
+      "favorite",
+      "feel",
+      "find",
+      "fr",
+      "friend",
+      "gas",
+      "get",
+      "gift",
+      "give",
+      "gloria",
+      "go",
+      "got",
+      "grow",
+      "hair",
+      "happily",
+      "happy",
+      "have",
+      "home",
+      "hurry",
+      "hype",
+      "ignacio",
+      "impress",
+      "instantly",
+      "jill",
+      "job",
+      "join",
+      "joy",
+      "justin",
+      "kid",
+      "land",
+      "leave",
+      "list",
+      "long",
+      "look",
+      "lov",
+      "lovely",
+      "make",
+      "mary",
+      "meat",
+      "medal",
+      "mom'",
+      "month",
+      "nail",
+      "necklace",
+      "never",
+      "new",
+      "night",
+      "now",
+      "ocean",
+      "patti",
+      "paul",
+      "peter",
+      "pink",
+      "plane",
+      "play",
+      "prefer",
+      "pretty",
+      "priya",
+      "prize",
+      "prom",
+      "push",
+      "raw",
+      "realiz",
+      "recruit",
+      "refund",
+      "reserve",
+      "return",
+      "rig",
+      "riley",
+      "room",
+      "ruin",
+      "ryan",
+      "sad",
+      "sail",
+      "sally",
+      "sarah",
+      "shoot",
+      "show",
+      "silver",
+      "start",
+      "station",
+      "take",
+      "team",
+      "test",
+      "ti",
+      "ticket",
+      "tim",
+      "time",
+      "tony",
+      "tonya",
+      "travel",
+      "trip",
+      "try",
+      "upset",
+      "vow",
+      "voyag",
+      "wait",
+      "way",
+      "work",
+      "wrong",
+      "yourself"
+    ],
+    "referent_coverage_fire_rate": 0.25,
+    "verb_coverage_fire_rate": 0.3197,
+    "referent_composed_examples": {
+      "able": {
+        "pos_used": "a",
+        "gloss": "(usually followed by `to') having the necessary means or skill or know-how or authority to do something able to swim she was able to program her computer we were at last able to buy a car able to get a grant for the project",
+        "content_words": [
+          "usually",
+          "followed",
+          "necessary",
+          "means",
+          "skill",
+          "know",
+          "authority",
+          "something",
+          "swim",
+          "program",
+          "computer",
+          "last",
+          "buy",
+          "car",
+          "get",
+          "grant",
+          "project"
+        ],
+        "hits": [
+          {
+            "word": "buy",
+            "tags": [
+              "FINANCE_DOM",
+              "TRANSACTION_ACTION"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "car",
+            "tags": [
+              "CARRIES_PEOPLE",
+              "LAND_VEHICLE",
+              "MOTORIZED",
+              "VEHICLE_DOM"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "CARRIES_PEOPLE",
+          "FINANCE_DOM",
+          "LAND_VEHICLE",
+          "MOTORIZED",
+          "TRANSACTION_ACTION",
+          "VEHICLE_DOM"
+        ],
+        "score": 0.0,
+        "prediction": null
+      },
+      "anyway": {
+        "pos_used": "None",
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "composed_tags": null,
+        "score": 0.0,
+        "prediction": null
+      },
+      "attempting": {
+        "pos_used": "v",
+        "gloss": "make an effort or attempt He tried to shake off his fears The infant had essayed a few wobbly steps The police attempted to stop the thief He sought to improve himself She always seeks to do good in the world",
+        "content_words": [
+          "make",
+          "effort",
+          "attempt",
+          "tried",
+          "shake",
+          "fears",
+          "infant",
+          "essayed",
+          "few",
+          "wobbly",
+          "steps",
+          "police",
+          "attempted",
+          "stop",
+          "thief",
+          "sought",
+          "improve",
+          "himself",
+          "always",
+          "seeks",
+          "good",
+          "world"
+        ],
+        "hits": [
+          {
+            "word": "good",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "POS_VALENCE"
+        ],
+        "score": 1.0,
+        "prediction": "POS"
+      },
+      "baseball": {
+        "pos_used": "n",
+        "gloss": "a ball game played with a bat and ball between two teams of nine players; teams take turns at bat trying to score runs he played baseball in high school there was a baseball game on every empty lot there was a desire for National League ball in the area play ball!",
+        "content_words": [
+          "ball",
+          "game",
+          "played",
+          "bat",
+          "ball",
+          "between",
+          "teams",
+          "nine",
+          "players",
+          "teams",
+          "take",
+          "turns",
+          "bat",
+          "trying",
+          "score",
+          "runs",
+          "played",
+          "high",
+          "school",
+          "game",
+          "every",
+          "empty",
+          "lot",
+          "desire",
+          "national",
+          "league",
+          "ball",
+          "area",
+          "play",
+          "ball"
+        ],
+        "hits": [
+          {
+            "word": "empty",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "similar_to_hop"
+          }
+        ],
+        "composed_tags": [
+          "EVALUATIVE_POSITIVE",
+          "POS_VALENCE"
+        ],
+        "score": 1.0,
+        "prediction": "POS"
+      },
+      "bike": {
+        "pos_used": "n",
+        "gloss": "a motor vehicle with two wheels and a strong frame ",
+        "content_words": [
+          "motor",
+          "vehicle",
+          "wheels",
+          "strong",
+          "frame"
+        ],
+        "hits": [
+          {
+            "word": "vehicle",
+            "tags": [
+              "CARRIES_PEOPLE",
+              "LAND_VEHICLE",
+              "MOTORIZED",
+              "VEHICLE_DOM"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          },
+          {
+            "word": "strong",
+            "tags": [
+              "EVALUATIVE_POSITIVE",
+              "POS_VALENCE"
+            ],
+            "polarity": "POS",
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "CARRIES_PEOPLE",
+          "EVALUATIVE_POSITIVE",
+          "LAND_VEHICLE",
+          "MOTORIZED",
+          "POS_VALENCE",
+          "VEHICLE_DOM"
+        ],
+        "score": 1.0,
+        "prediction": "POS"
+      },
+      "club": {
+        "pos_used": "n",
+        "gloss": "a team of professional baseball players who play and travel together each club played six home games with teams in its own division",
+        "content_words": [
+          "team",
+          "professional",
+          "baseball",
+          "players",
+          "play",
+          "travel",
+          "together",
+          "played",
+          "six",
+          "home",
+          "games",
+          "teams",
+          "division"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "score": 0.0,
+        "prediction": null
+      },
+      "cookout": {
+        "pos_used": "n",
+        "gloss": "an informal meal cooked and eaten outdoors ",
+        "content_words": [
+          "informal",
+          "meal",
+          "cooked",
+          "eaten",
+          "outdoors"
+        ],
+        "hits": [],
+        "composed_tags": null,
+        "score": 0.0,
+        "prediction": null
+      },
+      "donuts": {
+        "pos_used": "n",
+        "gloss": "a small ring-shaped friedcake ",
+        "content_words": [
+          "small",
+          "ring",
+          "shaped",
+          "friedcake"
+        ],
+        "hits": [
+          {
+            "word": "small",
+            "tags": [
+              "MAGNITUDE_DOM",
+              "PHYSICAL_DIMENSION",
+              "SMALL_SIZE"
+            ],
+            "polarity": null,
+            "source": "lexicon_direct"
+          }
+        ],
+        "composed_tags": [
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION",
+          "SMALL_SIZE"
+        ],
+        "score": 0.0,
+        "prediction": null
+      }
+    },
+    "verb_composed_examples": {
+      "after": {
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      },
+      "agre": {
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      },
+      "airplane": {
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      },
+      "amber": {
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      },
+      "attempt": {
+        "gloss": "make an effort or attempt He tried to shake off his fears The infant had essayed a few wobbly steps The police attempted to stop the thief He sought to improve himself She always seeks to do good in the world",
+        "content_words": [
+          "make",
+          "effort",
+          "tried",
+          "shake",
+          "fears",
+          "infant",
+          "essayed",
+          "few",
+          "wobbly",
+          "steps",
+          "police",
+          "attempted",
+          "stop",
+          "thief",
+          "sought",
+          "improve",
+          "himself",
+          "always",
+          "seeks",
+          "good",
+          "world"
+        ],
+        "hits": [
+          {
+            "word": "make",
+            "polarity": "POS",
+            "depth": 1,
+            "weight": 1.0,
+            "source": "wordnet_anchor_hop"
+          },
+          {
+            "word": "improve",
+            "polarity": "POS",
+            "depth": 1,
+            "weight": 1.0,
+            "source": "wordnet_anchor_hop"
+          }
+        ],
+        "score": 2.0,
+        "prediction": "POS"
+      },
+      "back": {
+        "gloss": "be behind; approve of He plumped for the Labor Party I backed Kennedy in 1960",
+        "content_words": [
+          "behind",
+          "approve",
+          "plumped",
+          "labor",
+          "party",
+          "backed",
+          "kennedy"
+        ],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      },
+      "bak": {
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      },
+      "basketball": {
+        "gloss": null,
+        "content_words": [],
+        "hits": [],
+        "score": 0.0,
+        "prediction": null
+      }
+    },
+    "n_referents_registered": 7,
+    "n_verbs_registered": 46,
+    "BEFORE": {
+      "channel_fires": {
+        "n": 30,
+        "class_relation_fires": 1,
+        "verb_sim_bucket_fires": 0,
+        "referent_sim_bucket_fires": 0,
+        "referent_recur_verdict_fires": 6
+      },
+      "grounded_acc": 0.5,
+      "grounded_fire_rate": 0.2333,
+      "grounded_acc_when_fired": 0.7143
+    },
+    "AFTER": {
+      "channel_fires": {
+        "n": 30,
+        "class_relation_fires": 15,
+        "verb_sim_bucket_fires": 14,
+        "referent_sim_bucket_fires": 0,
+        "referent_recur_verdict_fires": 6
+      },
+      "grounded_acc": 0.5333333333333333,
+      "grounded_fire_rate": 0.5333,
+      "grounded_acc_when_fired": 0.625
+    },
+    "delta_grounded_fire_rate": 0.3,
+    "delta_class_relation_fires": 14,
+    "delta_verb_sim_fires": 14,
+    "delta_referent_sim_fires": 0,
+    "after_glass_box_sample": {
+      "rocs_ellen_rose_prize_met": {
+        "gold": "MET",
+        "class_relation": "none",
+        "verb_sim_bucket": "oov",
+        "referent_sim_bucket": "oov",
+        "referent_recur_verdict": "NA",
+        "grounded_pred": "MET"
+      },
+      "rocs2_robert_police_officer_met": {
+        "gold": "MET",
+        "class_relation": "same",
+        "verb_sim_bucket": "high",
+        "referent_sim_bucket": "oov",
+        "referent_recur_verdict": "NA",
+        "grounded_pred": "MET"
+      },
+      "rocs2_dylan_weather_lady_met": {
+        "gold": "MET",
+        "class_relation": "none",
+        "verb_sim_bucket": "oov",
+        "referent_sim_bucket": "oov",
+        "referent_recur_verdict": "NA",
+        "grounded_pred": "MET"
+      },
+      "rocs2_peg_knot_tying_ship_met": {
+        "gold": "MET",
+        "class_relation": "none",
+        "verb_sim_bucket": "oov",
+        "referent_sim_bucket": "oov",
+        "referent_recur_verdict": "NA",
+        "grounded_pred": "MET"
+      },
+      "rocs2_eva_nails_prom_dress_met": {
+        "gold": "MET",
+        "class_relation": "same",
+        "verb_sim_bucket": "high",
+        "referent_sim_bucket": "oov",
+        "referent_recur_verdict": "MET",
+        "grounded_pred": "MET"
+      },
+      "rocs_ryan_bike_led_met": {
+        "gold": "MET",
+        "class_relation": "none",
+        "verb_sim_bucket": "oov",
+        "referent_sim_bucket": "oov",
+        "referent_recur_verdict": "MET",
+        "grounded_pred": "MET"
+      }
+    },
+    "surface_plateau_citation": 0.6
+  },
+  "self_test": {
+    "n_fresh_nounadj": 24,
+    "any_covered": true,
+    "scramble_machinery_changed_a_label": true,
+    "feature_scramble_machinery_changed_a_tag": true,
+    "registration_round_trip_clean": true
+  },
+  "reused_organ_self_tests": {
+    "lexsim": {
+      "sim_vessel_ferry": 0.634,
+      "sim_vessel_dock": 0.2789,
+      "sim_sister_rival": 0.3977,
+      "sim_vessel_ferry_scrambled": 0.0134,
+      "threshold": 0.5,
+      "n_concepts": 89,
+      "n_feature_tags": 79
+    },
+    "verblex": {
+      "n_outcome_words": 99,
+      "n_goal_words": 73,
+      "sim_praise_pos": 0.696,
+      "sim_praise_neg": 0.1606,
+      "sim_accept_pos": 0.696,
+      "sim_accept_neg": 0.1606,
+      "sim_crave_desid": 1.0,
+      "sim_crave_asp": 0.0104,
+      "sim_commence_desid": 0.0104,
+      "sim_commence_asp": 1.0,
+      "real_gap_praise": 0.5354,
+      "scrambled_gap_praise": -0.0201
+    },
+    "v1": {
+      "n_held_out": 16,
+      "n_dropped_seed_members": 4,
+      "any_covered": true,
+      "scramble_machinery_changed_a_label": true,
+      "atl_hub_direct_smoke_ok": true
+    },
+    "retest": {
+      "n_fresh": 28,
+      "n_banned_pool": 100,
+      "any_covered_ARM_A": true,
+      "any_covered_ARM_B": true,
+      "scramble_machinery_changed_a_label_ARM_B": true,
+      "arm_c_adjective_smoke_ok": true
+    }
+  }
+}

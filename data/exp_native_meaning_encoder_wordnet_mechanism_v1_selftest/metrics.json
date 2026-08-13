@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: kWTA own-recovery (0.3469) not >= GSBC (0.7175)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_native_meaning_encoder_wordnet_mechanism_v1.py\", line 920, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_native_meaning_encoder_wordnet_mechanism_v1.py\", line 906, in main\n    ok = self_test()\n         ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_native_meaning_encoder_wordnet_mechanism_v1.py\", line 883, in self_test\n    assert kct[\"own\"] >= sct[\"own\"] - 0.05, f\"kWTA own-recovery ({kct['own']}) not >= GSBC ({sct['own']})\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: kWTA own-recovery (0.3469) not >= GSBC (0.7175)\n",
+  "ts_iso": "2026-07-25T18:48:28.150762+00:00",
+  "pid": 10852,
+  "anchor_name": "native_meaning_encoder_wordnet_mechanism_v1"
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1_s19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=217 SMOKE=7; 3 mechanisms distinct at F=2: ['a0ff23c079dd0156', '059887c4c409d2b2', '5c81b9bd9077c0e9']; SHARDED PC easy: acc=1.000; F-axis fires (F1 vs F16): F1_hash=ff8e0f0e6cd04f88 F16_hash=512b3a4a0a68fc70; N-axis fires: props.shape[-1] 2048 vs 8192",
+  "summary": "cardinality FULL=217 SMOKE=7; 3 mechanisms distinct at F=2: ['a0ff23c079dd0156', '059887c4c409d2b2', '5c81b9bd9077c0e9']; SHARDED PC easy: acc=1.000; F-axis fires (F1 vs F16): F1_hash=ff8e0f0e6cd04f88 F16_hash=512b3a4a0a68fc70; N-axis fires: props.shape[-1] 2048 vs 8192",
+  "elapsed_s": 0.09,
+  "ts_iso": "2026-07-03T21:56:09Z",
+  "pid": 22068,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1_s19,regime=sharded_FHRR_chain_composition_NON_SATURATED_probe_3_revival,cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],F=[1,4,8,16],M=[800,3200,6400],N=[512,2048],L=2(fixed),corr=[0.70,0.85,0.90],SEED=19,mode=selftest,SATURATION_PC_regime=fixed_SHARDED_F1_M800_N2048_L2_corr0.20_iterative_cosine,non_saturated_band=[0.30,0.95],beta=8.0,alpha_soft=0.5,expected_n_full=217,expected_n_smoke=7,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "stage1_regime_probe_6_non_saturated_v1_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

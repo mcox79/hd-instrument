@@ -1,0 +1,382 @@
+{
+  "verdict": "HARD_FAIL_STRUCTURE_NO_SELECTION_HEADROOM",
+  "verdict_msg": "self-learned is-a hierarchy structure does NOT beat the raw-frequency baseline, and the mechanism is LOCALIZED: is-a genus is overwhelmingly extraction-determined -- only ~6% of answered gold terms even have is-a structure available among their candidate genera (fire_fracs=[0.02427, 0.02871, 0.04975]), so a matched-coverage SELECTION rule (frequency OR structure) has almost no ambiguity to resolve; on the FAIR subset where structure CAN act, ISA-minus-FREQ=-0.02778 (structure ties/loses, does not help even where actionable); Q1 margins [0.0, 0.0, 0.0], Q2 margins [-0.00486, -0.00957, -0.01493], Q3 margins [0.04762, 0.0, 0.0] (Q3 cov [0.12139, 0.07101, 0.07947] underpowered). Brain-check: humans use hierarchical schema at COMPREHENSION/EXTRACTION time (to generate+infer candidates, incl. transitive is-a), not merely to SELECT among already-extracted candidates -> the next mechanism is structure-guided EXTRACTION/coverage-extension, not selection",
+  "summary": "HARD_FAIL_STRUCTURE_NO_SELECTION_HEADROOM: freq_prec=[0.36408, 0.4067, 0.39303] hier_prec=[0.36408, 0.4067, 0.39303] isa=[0.36408, 0.4067, 0.38806] frame=[0.36893, 0.4067, 0.39801] | fire=[0.02427, 0.02871, 0.04975] | Q1m=[0.0, 0.0, 0.0] Q2m=[-0.00486, -0.00957, -0.01493] Q3m=[0.04762, 0.0, 0.0]",
+  "elapsed_s": 11.09,
+  "ts_iso": "2026-07-18T04:15:57.070946+00:00",
+  "anchor_name": "read_grow_schema_hierarchy_vs_frequency_v1",
+  "run_mode": "full",
+  "bands": {
+    "q1_hp_margin": 0.03,
+    "q1_min_fire_frac": 0.05,
+    "q2_hp_reread_gain": 0.01,
+    "q3_hp_margin": 0.03,
+    "q3_min_coverage": 0.15,
+    "seed_majority": 2,
+    "fail_eps": 0.0
+  },
+  "diag": {
+    "n_seeds": 3,
+    "seed_majority": 2,
+    "fires_ok_seeds": 0,
+    "subset_isa_minus_freq_mean": -0.02778,
+    "frac_isa_structure_available": [
+      0.06796,
+      0.05263,
+      0.0597
+    ],
+    "structure_helps_where_actionable": false,
+    "q1_pass_seeds": 0,
+    "q2_pass_seeds": 0,
+    "q3_pass_seeds": 0,
+    "q1_margins": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "q2_margins": [
+      -0.00486,
+      -0.00957,
+      -0.01493
+    ],
+    "q2_hier_reread_gains": [
+      0.00971,
+      0.0,
+      -0.01493
+    ],
+    "q2_freq_reread_gains": [
+      0.01457,
+      0.00957,
+      0.0
+    ],
+    "q3_margins": [
+      0.04762,
+      0.0,
+      0.0
+    ],
+    "q3_covs": [
+      0.12139,
+      0.07101,
+      0.07947
+    ],
+    "fire_fracs": [
+      0.02427,
+      0.02871,
+      0.04975
+    ],
+    "freq_prec": [
+      0.36408,
+      0.4067,
+      0.39303
+    ],
+    "hier_prec": [
+      0.36408,
+      0.4067,
+      0.39303
+    ],
+    "isa_prec": [
+      0.36408,
+      0.4067,
+      0.38806
+    ],
+    "frame_prec": [
+      0.36893,
+      0.4067,
+      0.39801
+    ],
+    "discriminator_vacuous": true,
+    "axes_passed": {
+      "Q1_structure_beats_freq": false,
+      "Q2_reread_compounds": false,
+      "Q3_generalizes_heldout": false
+    }
+  },
+  "gate": {
+    "real_baseline": "FREQ = raw-frequency-genus popularity selection on SAME imported candidates (the rule that tied flat vocab ~0.390 in the bootstrapping VET)",
+    "one_variable": "selection rule (structure vs frequency); identical candidates/gold/coverage",
+    "difficulty_on": "Q3 held-out prose NEVER read; Q2 genuine causal (incomplete-hierarchy) first read",
+    "no_leak": "H/C/slot-frame + selection from READ prose only; held-out glossary genus unseen",
+    "matched_coverage": true,
+    "discriminator_fires_fracs": [
+      0.02427,
+      0.02871,
+      0.04975
+    ],
+    "baseline_in_band": true,
+    "arms_differ_verified": true,
+    "seed_curated_facts": 0,
+    "seed_note": "is-a hierarchy + recognized classes + slot-frame entirely self-learned from reading (0 curated seed); prior knowledge = NLTK POS tagger; WordNet lenient-EVAL only",
+    "min_support": 3,
+    "reach_cap": 6,
+    "run_at_full_corpus": true
+  },
+  "seed_results": [
+    {
+      "offset": 0,
+      "n_gold_all": 793,
+      "n_gold_heldout": 173,
+      "n_gold_readpool": 627,
+      "n_terms_domain": 872,
+      "n_recognized_classes": 99,
+      "n_candidates": 1170,
+      "headroom": {
+        "n_answered_gold": 206,
+        "frac_multi_candidate": 0.32039,
+        "n_multi_candidate": 66,
+        "frac_isa_structure_available": 0.06796,
+        "n_isa_structure_available": 14,
+        "subset_freq_precision": 0.21429,
+        "subset_isa_precision": 0.21429,
+        "subset_isa_minus_freq": 0.0
+      },
+      "q1": {
+        "freq": {
+          "precision": 0.36408,
+          "denom": 206,
+          "hits": 75
+        },
+        "isa": {
+          "precision": 0.36408,
+          "denom": 206,
+          "hits": 75
+        },
+        "frame": {
+          "precision": 0.36893,
+          "denom": 206,
+          "hits": 76
+        },
+        "hier": {
+          "precision": 0.36408,
+          "denom": 206,
+          "hits": 75
+        },
+        "freq_lenient": {
+          "precision": 0.47087,
+          "denom": 206,
+          "hits": 97
+        },
+        "hier_lenient": {
+          "precision": 0.47573,
+          "denom": 206,
+          "hits": 98
+        }
+      },
+      "q1_margin": 0.0,
+      "fire_frac": 0.02427,
+      "n_diff": 5,
+      "n_answered": 206,
+      "hier_fires": {
+        "freq": 850,
+        "isa": 20,
+        "frame": 2
+      },
+      "q2": {
+        "hier_causal": 0.35437,
+        "hier_full": 0.36408,
+        "freq_causal": 0.34951,
+        "freq_full": 0.36408,
+        "hier_reread_gain": 0.00971,
+        "freq_reread_gain": 0.01457
+      },
+      "q2_margin": -0.00486,
+      "q3": {
+        "freq": {
+          "precision": 0.14286,
+          "denom": 21,
+          "hits": 3
+        },
+        "hier": {
+          "precision": 0.19048,
+          "denom": 21,
+          "hits": 4
+        }
+      },
+      "q3_cov": 0.12139,
+      "q3_margin": 0.04762,
+      "foundations_digest": {
+        "freq": "4249b01c580d138769019fe5f35091645ad030f4a6b3f9ae7a0dd6b18968e53a",
+        "hier": "b843465246387175773769a0037488ee05b5497fb3dd64bbc9a94280bb95f32b"
+      }
+    },
+    {
+      "offset": 1,
+      "n_gold_all": 793,
+      "n_gold_heldout": 169,
+      "n_gold_readpool": 629,
+      "n_terms_domain": 881,
+      "n_recognized_classes": 112,
+      "n_candidates": 1206,
+      "headroom": {
+        "n_answered_gold": 209,
+        "frac_multi_candidate": 0.29665,
+        "n_multi_candidate": 62,
+        "frac_isa_structure_available": 0.05263,
+        "n_isa_structure_available": 11,
+        "subset_freq_precision": 0.18182,
+        "subset_isa_precision": 0.18182,
+        "subset_isa_minus_freq": 0.0
+      },
+      "q1": {
+        "freq": {
+          "precision": 0.4067,
+          "denom": 209,
+          "hits": 85
+        },
+        "isa": {
+          "precision": 0.4067,
+          "denom": 209,
+          "hits": 85
+        },
+        "frame": {
+          "precision": 0.4067,
+          "denom": 209,
+          "hits": 85
+        },
+        "hier": {
+          "precision": 0.4067,
+          "denom": 209,
+          "hits": 85
+        },
+        "freq_lenient": {
+          "precision": 0.51196,
+          "denom": 209,
+          "hits": 107
+        },
+        "hier_lenient": {
+          "precision": 0.51675,
+          "denom": 209,
+          "hits": 108
+        }
+      },
+      "q1_margin": 0.0,
+      "fire_frac": 0.02871,
+      "n_diff": 6,
+      "n_answered": 209,
+      "hier_fires": {
+        "freq": 859,
+        "isa": 19,
+        "frame": 3
+      },
+      "q2": {
+        "hier_causal": 0.4067,
+        "hier_full": 0.4067,
+        "freq_causal": 0.39713,
+        "freq_full": 0.4067,
+        "hier_reread_gain": 0.0,
+        "freq_reread_gain": 0.00957
+      },
+      "q2_margin": -0.00957,
+      "q3": {
+        "freq": {
+          "precision": 0.25,
+          "denom": 12,
+          "hits": 3
+        },
+        "hier": {
+          "precision": 0.25,
+          "denom": 12,
+          "hits": 3
+        }
+      },
+      "q3_cov": 0.07101,
+      "q3_margin": 0.0,
+      "foundations_digest": {
+        "freq": "e0f50b91688582de331b92739b9f6a51bbc384aa62107ffdaeb2625493474d54",
+        "hier": "1a72fa8a8bc7cbb18e3bd78a6d623a8626970b91761709b74be8df6142af9824"
+      }
+    },
+    {
+      "offset": 2,
+      "n_gold_all": 793,
+      "n_gold_heldout": 151,
+      "n_gold_readpool": 648,
+      "n_terms_domain": 870,
+      "n_recognized_classes": 100,
+      "n_candidates": 1200,
+      "headroom": {
+        "n_answered_gold": 201,
+        "frac_multi_candidate": 0.29353,
+        "n_multi_candidate": 59,
+        "frac_isa_structure_available": 0.0597,
+        "n_isa_structure_available": 12,
+        "subset_freq_precision": 0.16667,
+        "subset_isa_precision": 0.08333,
+        "subset_isa_minus_freq": -0.08333
+      },
+      "q1": {
+        "freq": {
+          "precision": 0.39303,
+          "denom": 201,
+          "hits": 79
+        },
+        "isa": {
+          "precision": 0.38806,
+          "denom": 201,
+          "hits": 78
+        },
+        "frame": {
+          "precision": 0.39801,
+          "denom": 201,
+          "hits": 80
+        },
+        "hier": {
+          "precision": 0.39303,
+          "denom": 201,
+          "hits": 79
+        },
+        "freq_lenient": {
+          "precision": 0.50746,
+          "denom": 201,
+          "hits": 102
+        },
+        "hier_lenient": {
+          "precision": 0.51244,
+          "denom": 201,
+          "hits": 103
+        }
+      },
+      "q1_margin": 0.0,
+      "fire_frac": 0.04975,
+      "n_diff": 10,
+      "n_answered": 201,
+      "hier_fires": {
+        "freq": 843,
+        "isa": 24,
+        "frame": 3
+      },
+      "q2": {
+        "hier_causal": 0.40796,
+        "hier_full": 0.39303,
+        "freq_causal": 0.39303,
+        "freq_full": 0.39303,
+        "hier_reread_gain": -0.01493,
+        "freq_reread_gain": 0.0
+      },
+      "q2_margin": -0.01493,
+      "q3": {
+        "freq": {
+          "precision": 0.33333,
+          "denom": 12,
+          "hits": 4
+        },
+        "hier": {
+          "precision": 0.33333,
+          "denom": 12,
+          "hits": 4
+        }
+      },
+      "q3_cov": 0.07947,
+      "q3_margin": 0.0,
+      "foundations_digest": {
+        "freq": "961f23a61693ba4b9720654d7e6f2694489d4777ee8658eae792fe9d1d9913cb",
+        "hier": "5d31be7005de22d7aec46b6660b3e2a8b897e08848de82f648d2a068b500bc86"
+      }
+    }
+  ],
+  "n_sections": 107,
+  "seed_offsets": [
+    0,
+    1,
+    2
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "anchor_name": "depparse_v2_mst_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: global-MST decode does NOT beat local-argmax on buried subject-id AND agreement pathway does not clear majority -- the parse route is harder than the lit suggests. dev-UAS local=0.7086 mst=0.7112 (ref 0.7875) | sid_buried local=0.3000 mst=0.3000 (d=+0.0000, n=25) sid_easy local=0.9172 mst=0.9205 | agree_buried local=0.3462 mst=0.3462 maj=0.6154 (n=13) | agree_all mst=0.9308 maj=0.7138",
+  "summary": "HARD_FAIL: global-MST decode does NOT beat local-argmax on buried subject-id AND agreement pathway does not clear majority -- the parse route is harder than the lit suggests. dev-UAS local=0.7086 mst=0.7112 (ref 0.7875) | sid_buried local=0.3000 mst=0.3000 (d=+0.0000, n=25) sid_easy local=0.9172 mst=0.9205 | agree_buried local=0.3462 mst=0.3462 maj=0.6154 (n=13) | agree_all mst=0.9308 maj=0.7138",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "n_seeds": 2,
+      "n_train": 300,
+      "n_dev": 120,
+      "n_pool": 800,
+      "n_buried_subjid": 25,
+      "n_easy_subjid": 308,
+      "n_buried_agree": 13,
+      "n_all_agree": 325,
+      "majority_buried": 0.6154,
+      "majority_all": 0.7138,
+      "arms_differ": true,
+      "local": {
+        "uas": 0.7086,
+        "sid_b": 0.3,
+        "sid_e": 0.9172,
+        "sid_a": 0.8407,
+        "ag_b": 0.3462,
+        "ag_e": 0.9426,
+        "ag_a": 0.9292
+      },
+      "local_vals_sid_b": [
+        0.24,
+        0.36
+      ],
+      "local_vals_ag_b": [
+        0.3077,
+        0.3846
+      ],
+      "mst": {
+        "uas": 0.7112,
+        "sid_b": 0.3,
+        "sid_e": 0.9205,
+        "sid_a": 0.8433,
+        "ag_b": 0.3462,
+        "ag_e": 0.9426,
+        "ag_a": 0.9308
+      },
+      "mst_vals_sid_b": [
+        0.28,
+        0.32
+      ],
+      "mst_vals_ag_b": [
+        0.3077,
+        0.3846
+      ],
+      "uas": 0.7112
+    }
+  ],
+  "elapsed_s": 10.082844734191895,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "discrete parse accuracy, no noise floor",
+  "fairness_no_agreement_cue_in_subjid": true
+}

@@ -1,0 +1,9 @@
+{
+  "anchor_name": "np_head_finder_grounding_gate_break050_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: grounding(then)=0.15 expected 0 (no noun sense)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_np_head_finder_grounding_gate_break050_v1.py\", line 786, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_np_head_finder_grounding_gate_break050_v1.py\", line 776, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_np_head_finder_grounding_gate_break050_v1.py\", line 740, in self_test\n    assert g_then == 0.0, f\"grounding(then)={g_then} expected 0 (no noun sense)\"\n           ^^^^^^^^^^^^^\nAssertionError: grounding(then)=0.15 expected 0 (no noun sense)\n",
+  "ts_iso": "2026-07-19T10:26:19.791735+00:00"
+}

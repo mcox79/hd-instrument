@@ -1,0 +1,412 @@
+{
+  "anchor": "phase_diagram_wm_multibank_K_ceiling_sweep_32768_v3",
+  "anchor_name": "phase_diagram_wm_multibank_K_ceiling_sweep_32768_v3",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_UNIT_EXCEPTION: 1 units raised exceptions (silent-drop path now surfaced) | K=4096 best_rand=MULTI_64x[rec=1.0000 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=1.0000 cv=0.0000] | K=8192 best_rand=MULTI_128x[rec=1.0000 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=1.0000 cv=0.0000] | K=16384 best_rand=MULTI_256x[rec=1.0000 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=0.9999 cv=0.0000] | [Q-DISCIPLINE: saturated={4096: {'RANDOM': ['MULTI_64x', 'ARM_KNN_BASELINE'], 'ADVERSARIAL': ['MULTI_64x']}, 8192: {'RANDOM': ['MULTI_128x'], 'ADVERSARIAL': ['MULTI_128x']}, 16384: {'RANDOM': ['MULTI_256x'], 'ADVERSARIAL': ['MULTI_256x']}}] | rail_K4096_obs=1.0000 (min=0.9500; OK) | knn_sentinel=1.0000 (>=0.90; OK) | n_units=7/expected=27 (BREACH_META_RULE_H) | failures=1 [seed11_K32768_regimeRANDOM_armMULTI_512x:HP_VRAM_PROBE_BREACH]",
+  "run_mode": "full",
+  "n_units": 7,
+  "n_units_expected": 27,
+  "cardinality_ok": false,
+  "n_failures": 1,
+  "failures": [
+    {
+      "key": "seed11_K32768_regimeRANDOM_armMULTI_512x",
+      "seed": 11,
+      "k_total": 32768,
+      "regime": "RANDOM",
+      "arm_label": "MULTI_512x",
+      "exc_type": "HP_VRAM_PROBE_BREACH",
+      "exc_msg": "est_peak=5.51GB budget=4.88GB (free=5.74GB * 0.85)",
+      "traceback": "",
+      "est_peak_mb": 5640,
+      "free_mb": 5877
+    }
+  ],
+  "n_seeds": 3,
+  "K_SWEEP": [
+    4096,
+    8192,
+    16384,
+    32768
+  ],
+  "arrangements_by_K": {
+    "4096": [
+      [
+        "MULTI_64x",
+        64,
+        64
+      ]
+    ],
+    "8192": [
+      [
+        "MULTI_128x",
+        128,
+        64
+      ]
+    ],
+    "16384": [
+      [
+        "MULTI_256x",
+        256,
+        64
+      ]
+    ],
+    "32768": [
+      [
+        "MULTI_512x",
+        512,
+        64
+      ]
+    ]
+  },
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_multibank_routing",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "device": "cuda:0",
+  "cuda_ok": true,
+  "store_dtype": "torch.float16",
+  "codebook_chunk": 4096,
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "gpu_total_mb": 8187,
+  "gpu_free_mb": 5877,
+  "gpu_max_mem_alloc_mb": 4494,
+  "gpu_util_mean": 55.15384615384615,
+  "gpu_util_p50": 58.0,
+  "gpu_util_max": 93.0,
+  "gpu_util_n_samples": 13,
+  "per_unit": [
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "regime": "RANDOM",
+      "arm_label": "MULTI_64x",
+      "n_banks": 64,
+      "k_per_bank": 64,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 0.68,
+      "peak_mem_mb": 1898,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096_regimeRANDOM_armMULTI_64x",
+      "_partial_written_at": 1782532978.8596904
+    },
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "regime": "ADVERSARIAL",
+      "arm_label": "MULTI_64x",
+      "n_banks": 64,
+      "k_per_bank": 64,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 0.51,
+      "peak_mem_mb": 1898,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096_regimeADVERSARIAL_armMULTI_64x",
+      "_partial_written_at": 1782532979.3774433
+    },
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "regime": "RANDOM",
+      "arm_label": "ARM_KNN_BASELINE",
+      "n_banks": 1,
+      "k_per_bank": 4096,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 0.12,
+      "peak_mem_mb": 1104,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096_regimeRANDOM_armARM_KNN_BASELINE",
+      "_partial_written_at": 1782532979.5000036
+    },
+    {
+      "seed": 11,
+      "k_total": 8192,
+      "regime": "RANDOM",
+      "arm_label": "MULTI_128x",
+      "n_banks": 128,
+      "k_per_bank": 64,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 0.75,
+      "peak_mem_mb": 2763,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K8192_regimeRANDOM_armMULTI_128x",
+      "_partial_written_at": 1782532980.2535105
+    },
+    {
+      "seed": 11,
+      "k_total": 8192,
+      "regime": "ADVERSARIAL",
+      "arm_label": "MULTI_128x",
+      "n_banks": 128,
+      "k_per_bank": 64,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 0.77,
+      "peak_mem_mb": 2763,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K8192_regimeADVERSARIAL_armMULTI_128x",
+      "_partial_written_at": 1782532981.0350966
+    },
+    {
+      "seed": 11,
+      "k_total": 16384,
+      "regime": "RANDOM",
+      "arm_label": "MULTI_256x",
+      "n_banks": 256,
+      "k_per_bank": 64,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 1.46,
+      "peak_mem_mb": 4494,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K16384_regimeRANDOM_armMULTI_256x",
+      "_partial_written_at": 1782532982.4979613
+    },
+    {
+      "seed": 11,
+      "k_total": 16384,
+      "regime": "ADVERSARIAL",
+      "arm_label": "MULTI_256x",
+      "n_banks": 256,
+      "k_per_bank": 64,
+      "recall": 0.9999,
+      "route_acc": 1.0,
+      "wall_s": 1.52,
+      "peak_mem_mb": 4494,
+      "N": 8192,
+      "CODEBOOK_SIZE": 65536,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "M": 32768,
+      "run_mode": "full",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=8192 CODEBOOK_SIZE=65536 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[4096, 8192, 16384, 32768] arrangements=[4096, 8192, 16384, 32768] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=27 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K16384_regimeADVERSARIAL_armMULTI_256x",
+      "_partial_written_at": 1782532984.0253747
+    }
+  ],
+  "detail": {
+    "arm_stats": {
+      "4096": {
+        "RANDOM": {
+          "MULTI_64x": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              1.0
+            ]
+          },
+          "ARM_KNN_BASELINE": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "recall_per_seed": [
+              1.0
+            ]
+          }
+        },
+        "ADVERSARIAL": {
+          "MULTI_64x": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              1.0
+            ]
+          }
+        }
+      },
+      "8192": {
+        "RANDOM": {
+          "MULTI_128x": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 128,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              1.0
+            ]
+          }
+        },
+        "ADVERSARIAL": {
+          "MULTI_128x": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 128,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              1.0
+            ]
+          }
+        }
+      },
+      "16384": {
+        "RANDOM": {
+          "MULTI_256x": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 256,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              1.0
+            ]
+          }
+        },
+        "ADVERSARIAL": {
+          "MULTI_256x": {
+            "recall_mean": 0.9999,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 256,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              0.9999
+            ]
+          }
+        }
+      }
+    },
+    "chain_grade_at_K": {
+      "4096": "MULTI_64x",
+      "8192": "MULTI_128x",
+      "16384": "MULTI_256x"
+    },
+    "adv_break_at_K": {},
+    "cv_fail_at_K": {},
+    "q_suspect_saturation": {
+      "4096": {
+        "RANDOM": [
+          "MULTI_64x",
+          "ARM_KNN_BASELINE"
+        ],
+        "ADVERSARIAL": [
+          "MULTI_64x"
+        ]
+      },
+      "8192": {
+        "RANDOM": [
+          "MULTI_128x"
+        ],
+        "ADVERSARIAL": [
+          "MULTI_128x"
+        ]
+      },
+      "16384": {
+        "RANDOM": [
+          "MULTI_256x"
+        ],
+        "ADVERSARIAL": [
+          "MULTI_256x"
+        ]
+      }
+    },
+    "rail_K4096_observed": 1.0,
+    "rail_K4096_target": 1.0,
+    "rail_K4096_tol": 0.05,
+    "rail_drift": false,
+    "knn_sentinel_observed": 1.0,
+    "knn_sentinel_min": 0.9,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "n_units_observed": 7,
+    "n_units_expected": 27,
+    "cardinality_ok": false,
+    "failures": [
+      {
+        "key": "seed11_K32768_regimeRANDOM_armMULTI_512x",
+        "seed": 11,
+        "k_total": 32768,
+        "regime": "RANDOM",
+        "arm_label": "MULTI_512x",
+        "exc_type": "HP_VRAM_PROBE_BREACH",
+        "exc_msg": "est_peak=5.51GB budget=4.88GB (free=5.74GB * 0.85)",
+        "traceback": "",
+        "est_peak_mb": 5640,
+        "free_mb": 5877
+      }
+    ]
+  },
+  "elapsed_s": 6.0,
+  "summary": "HARD_FAIL_UNIT_EXCEPTION: 1 units raised exceptions (silent-drop path now surfaced) | K=4096 best_rand=MULTI_64x[rec=1.0000 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=1.0000 cv=0.0000] | K=8192 best_rand=MULTI_128x[rec=1.0000 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=1.0000 cv=0.0000] | K=16384 best_",
+  "_atexit_synth": false,
+  "metrics_source": "measured_gpu_substrate_bipolar_multibank_K_ceiling_sweep_v3_chunked_failtrack",
+  "DESIGN_NOTE": "V3 re-dispatch. v2 still silently dropped K>=16384 because main-loop except branched into print-and-continue for non-OOM exceptions. v3 removes silent-continue entirely: any unit exception (OOM or non-OOM) is recorded in failures[] with full traceback, halting the loop. META_RULE_H cardinality guard retained from v2. v3 also: (a) reduced CODEBOOK_CHUNK 8192->4096 (halves cleanup peak); (b) chunks _write_bank_batched over banks (1GB bound at K=32768 -> ~256MB peak); (c) frees ws_selected after del; (d) drops r2 fp32 intermediate; (e) frees per-regime codebooks between regimes; (f) per-K pre-flight VRAM probe with HP_VRAM_PROBE_FRACTION=0.85; (g) per-unit peak_mem_mb. DISCRIMINATOR: phase-diagram MAP cell -- cliff occurrence IS the discriminator; Option B analytical justification per discriminator-must-survive-scale 2026-06-26."
+}

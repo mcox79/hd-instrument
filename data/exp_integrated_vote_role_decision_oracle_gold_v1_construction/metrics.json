@@ -1,0 +1,532 @@
+{
+  "anchor_name": "integrated_vote_role_decision_oracle_gold_v1_construction",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_GRAMMAR_CUES_RESCUE_PASSIVES",
+  "verdict_msg": "HARD_PASS_GRAMMAR_CUES_RESCUE_PASSIVES | construction-hard-gold(UD-EWT) test=41 train=90 amb=5 | TEST selection-acc: full=0.4309 wo_vote=0.2439 single_wo=0.2195 gain_full_vs_wo_vote=0.187 | PASSIVE(n=5): single_wo=0.0 wo_vote=0.0 full=0.4 gain_full_vs_single=0.4 | learned w[passive_flip]=-2.2438 w[passive_subject]=2.9468 w[prep_patient]=2.231 w[gfit]=-0.0272 w[plaus]=0.4998 | canary_all_pass=True n_test_errors=23",
+  "summary": "HARD_PASS_GRAMMAR_CUES_RESCUE_PASSIVES | construction-hard-gold(UD-EWT) test=41 train=90 amb=5 | TEST selection-acc: full=0.4309 wo_vote=0.2439 single_wo=0.2195 gain_full_vs_wo_vote=0.187 | PASSIVE(n=5): single_wo=0.0 wo_vote=0.0 full=0.4 gain_full_vs_single=0.4 | learned w[passive_flip]=-2.2438 w[passive_subject]=2.9468 w[prep_patient]=2.231 w[gfit]=-0.0272 w[plaus]=0.4998 | canary_all_pass=True n_test_errors=23",
+  "elapsed_s": 8.402654799981974,
+  "ts_iso": "2026-07-21T02:02:09.424322+00:00",
+  "config": {
+    "mode": "full",
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "mining_files": [
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_primer.clean.txt",
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_first_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_second_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_fourth_reader.clean.txt"
+    ],
+    "mining_max_sents": null,
+    "epochs": 60,
+    "lr": 0.2,
+    "keep_thr": 0.45,
+    "alpha": 0.2,
+    "curve_fracs": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "feature_names": [
+    "bias",
+    "f_adj",
+    "f_postv",
+    "f_prep",
+    "f_func",
+    "f_clause",
+    "f_passive_flip",
+    "f_prep_patient_sense",
+    "f_prep_nonpatient_sense",
+    "f_alternation",
+    "f_gfit",
+    "f_plaus",
+    "f_passive_subject"
+  ],
+  "gold_source": "D:\\AI\\hd-instrument\\data\\gold_construction_argstruct_ewt_v1\\gold_construction_argstruct_ewt_v1.json",
+  "gold_meta_register_caveat": "UD-EWT is MODERN WEB TEXT (blogs, reviews, email, newsgroups), NOT children's narrative. This set tests CONSTRUCTION handling, NOT register transfer to McGuffey-style narrative. Register difference is a real confound for any cross-corpus generalization claim; state it.",
+  "split_respected": {
+    "train": 90,
+    "test": 41,
+    "ambiguity": 5,
+    "note": "vote weights trained on split==train ONLY; evaluated on split==test; ambiguity items are ABSTAIN TARGETS, not scored as hard failures."
+  },
+  "primary_metric": "forced-choice patient-selection accuracy on the gold's held-out TEST split.",
+  "mean_test_full_vote_accuracy": 0.4309,
+  "mean_test_wordorder_vote_accuracy": 0.2439,
+  "mean_test_single_wordorder_accuracy": 0.2195,
+  "mean_gain_full_minus_wordorder_vote": 0.187,
+  "per_construction_accuracy": {
+    "control_xcomp": {
+      "n": 5,
+      "single_wordorder_postv": 0.0,
+      "wordorder_vote": 0.4,
+      "full_vote": 0.6
+    },
+    "coordination_shared_subj": {
+      "n": 5,
+      "single_wordorder_postv": 0.4,
+      "wordorder_vote": 0.4,
+      "full_vote": 0.4
+    },
+    "cue_conflict_animate": {
+      "n": 5,
+      "single_wordorder_postv": 0.4,
+      "wordorder_vote": 0.8,
+      "full_vote": 0.8
+    },
+    "locative_alternation": {
+      "n": 6,
+      "single_wordorder_postv": 0.3333,
+      "wordorder_vote": 0.0,
+      "full_vote": 0.3333
+    },
+    "passive_by_agent": {
+      "n": 5,
+      "single_wordorder_postv": 0.0,
+      "wordorder_vote": 0.0,
+      "full_vote": 0.4
+    },
+    "prep_governed_patient": {
+      "n": 5,
+      "single_wordorder_postv": 0.0,
+      "wordorder_vote": 0.0,
+      "full_vote": 0.3333
+    },
+    "relative_clause_patient": {
+      "n": 5,
+      "single_wordorder_postv": 0.0,
+      "wordorder_vote": 0.2,
+      "full_vote": 0.2
+    },
+    "simple_svo": {
+      "n": 5,
+      "single_wordorder_postv": 0.6,
+      "wordorder_vote": 0.2,
+      "full_vote": 0.4
+    }
+  },
+  "PASSIVE_SUBTEST": {
+    "n_test_passives": 5,
+    "single_wordorder_alone": 0.0,
+    "wordorder_vote": 0.0,
+    "full_integrated_vote": 0.4,
+    "gain_full_minus_single_wordorder": 0.4,
+    "gain_full_minus_wordorder_vote": 0.4,
+    "passive_cue_weights_nonzero": true
+  },
+  "mean_learned_weights": {
+    "bias": -4.4569,
+    "f_adj": 6.4331,
+    "f_postv": 1.4924,
+    "f_prep": -2.1516,
+    "f_func": -2.1714,
+    "f_clause": -1.393,
+    "f_passive_flip": -2.2438,
+    "f_prep_patient_sense": 2.231,
+    "f_prep_nonpatient_sense": 0.8726,
+    "f_alternation": 0.6611,
+    "f_gfit": -0.0272,
+    "f_plaus": 0.4998,
+    "f_passive_subject": 2.9468
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "test_full_vote": 0.439,
+      "test_wordorder_vote": 0.2439,
+      "test_structural_vote": 0.2927,
+      "test_single_wordorder_postv": 0.2195,
+      "gain_full_minus_wordorder_vote": 0.1951,
+      "gain_full_minus_single_wordorder": 0.2195,
+      "per_construction": {
+        "control_xcomp": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.4,
+          "full_vote": 0.6
+        },
+        "coordination_shared_subj": {
+          "n": 5,
+          "single_wordorder_postv": 0.4,
+          "wordorder_vote": 0.4,
+          "full_vote": 0.4
+        },
+        "cue_conflict_animate": {
+          "n": 5,
+          "single_wordorder_postv": 0.4,
+          "wordorder_vote": 0.8,
+          "full_vote": 0.8
+        },
+        "locative_alternation": {
+          "n": 6,
+          "single_wordorder_postv": 0.3333,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.3333
+        },
+        "passive_by_agent": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.4
+        },
+        "prep_governed_patient": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.4
+        },
+        "relative_clause_patient": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.2,
+          "full_vote": 0.2
+        },
+        "simple_svo": {
+          "n": 5,
+          "single_wordorder_postv": 0.6,
+          "wordorder_vote": 0.2,
+          "full_vote": 0.4
+        }
+      },
+      "w_full": {
+        "bias": -4.2082,
+        "f_adj": 6.5088,
+        "f_postv": 1.5946,
+        "f_prep": -2.1229,
+        "f_func": -2.1805,
+        "f_clause": -1.4487,
+        "f_passive_flip": -2.2278,
+        "f_prep_patient_sense": 2.3042,
+        "f_prep_nonpatient_sense": 0.8844,
+        "f_alternation": 0.6592,
+        "f_gfit": 0.0944,
+        "f_plaus": 0.5343,
+        "f_passive_subject": 2.8912
+      },
+      "ambiguity_margins": [
+        0.2722,
+        0.7091,
+        0.0486,
+        0.7091,
+        0.2233
+      ]
+    },
+    {
+      "seed": 13,
+      "test_full_vote": 0.439,
+      "test_wordorder_vote": 0.2439,
+      "test_structural_vote": 0.3415,
+      "test_single_wordorder_postv": 0.2195,
+      "gain_full_minus_wordorder_vote": 0.1951,
+      "gain_full_minus_single_wordorder": 0.2195,
+      "per_construction": {
+        "control_xcomp": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.4,
+          "full_vote": 0.6
+        },
+        "coordination_shared_subj": {
+          "n": 5,
+          "single_wordorder_postv": 0.4,
+          "wordorder_vote": 0.4,
+          "full_vote": 0.4
+        },
+        "cue_conflict_animate": {
+          "n": 5,
+          "single_wordorder_postv": 0.4,
+          "wordorder_vote": 0.8,
+          "full_vote": 0.8
+        },
+        "locative_alternation": {
+          "n": 6,
+          "single_wordorder_postv": 0.3333,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.3333
+        },
+        "passive_by_agent": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.4
+        },
+        "prep_governed_patient": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.4
+        },
+        "relative_clause_patient": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.2,
+          "full_vote": 0.2
+        },
+        "simple_svo": {
+          "n": 5,
+          "single_wordorder_postv": 0.6,
+          "wordorder_vote": 0.2,
+          "full_vote": 0.4
+        }
+      },
+      "w_full": {
+        "bias": -4.5517,
+        "f_adj": 6.416,
+        "f_postv": 1.6723,
+        "f_prep": -2.0631,
+        "f_func": -2.2427,
+        "f_clause": -1.429,
+        "f_passive_flip": -2.2842,
+        "f_prep_patient_sense": 2.297,
+        "f_prep_nonpatient_sense": 0.8529,
+        "f_alternation": 0.6137,
+        "f_gfit": -0.0915,
+        "f_plaus": 0.4981,
+        "f_passive_subject": 2.9161
+      },
+      "ambiguity_margins": [
+        0.2428,
+        0.6673,
+        0.0384,
+        0.6673,
+        0.2139
+      ]
+    },
+    {
+      "seed": 19,
+      "test_full_vote": 0.4146,
+      "test_wordorder_vote": 0.2439,
+      "test_structural_vote": 0.3659,
+      "test_single_wordorder_postv": 0.2195,
+      "gain_full_minus_wordorder_vote": 0.1707,
+      "gain_full_minus_single_wordorder": 0.1951,
+      "per_construction": {
+        "control_xcomp": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.4,
+          "full_vote": 0.6
+        },
+        "coordination_shared_subj": {
+          "n": 5,
+          "single_wordorder_postv": 0.4,
+          "wordorder_vote": 0.4,
+          "full_vote": 0.4
+        },
+        "cue_conflict_animate": {
+          "n": 5,
+          "single_wordorder_postv": 0.4,
+          "wordorder_vote": 0.8,
+          "full_vote": 0.8
+        },
+        "locative_alternation": {
+          "n": 6,
+          "single_wordorder_postv": 0.3333,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.3333
+        },
+        "passive_by_agent": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.4
+        },
+        "prep_governed_patient": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.0,
+          "full_vote": 0.2
+        },
+        "relative_clause_patient": {
+          "n": 5,
+          "single_wordorder_postv": 0.0,
+          "wordorder_vote": 0.2,
+          "full_vote": 0.2
+        },
+        "simple_svo": {
+          "n": 5,
+          "single_wordorder_postv": 0.6,
+          "wordorder_vote": 0.2,
+          "full_vote": 0.4
+        }
+      },
+      "w_full": {
+        "bias": -4.6108,
+        "f_adj": 6.3745,
+        "f_postv": 1.2103,
+        "f_prep": -2.2689,
+        "f_func": -2.0909,
+        "f_clause": -1.3013,
+        "f_passive_flip": -2.2194,
+        "f_prep_patient_sense": 2.0917,
+        "f_prep_nonpatient_sense": 0.8805,
+        "f_alternation": 0.7103,
+        "f_gfit": -0.0845,
+        "f_plaus": 0.4669,
+        "f_passive_subject": 3.0332
+      },
+      "ambiguity_margins": [
+        0.1838,
+        0.5933,
+        0.0136,
+        0.5933,
+        0.1929
+      ]
+    }
+  ],
+  "constructions_tested": [
+    "control_xcomp",
+    "coordination_shared_subj",
+    "cue_conflict_animate",
+    "locative_alternation",
+    "passive_by_agent",
+    "prep_governed_patient",
+    "relative_clause_patient",
+    "simple_svo"
+  ],
+  "canary_grammar_fires": {
+    "all_pass": true,
+    "checks": [
+      {
+        "name": "passive_flip_fires",
+        "pass": true
+      },
+      {
+        "name": "passive_subject_fires",
+        "pass": true
+      },
+      {
+        "name": "active_subject_no_passive_signal",
+        "pass": true
+      },
+      {
+        "name": "by_location_no_flip",
+        "pass": true
+      },
+      {
+        "name": "prep_nonpatient_sense_fires",
+        "pass": true
+      },
+      {
+        "name": "alternation_fires",
+        "pass": true
+      }
+    ]
+  },
+  "ambiguity_abstain_targets": [
+    {
+      "sid": "LOCA_017",
+      "construction": "locative_alternation"
+    },
+    {
+      "sid": "LOCA_018",
+      "construction": "locative_alternation"
+    },
+    {
+      "sid": "LOCA_019",
+      "construction": "locative_alternation"
+    },
+    {
+      "sid": "LOCA_020",
+      "construction": "locative_alternation"
+    },
+    {
+      "sid": "LOCA_021",
+      "construction": "locative_alternation"
+    }
+  ],
+  "n_test_decision_errors": 23,
+  "pure_decision_errors_path": "D:\\AI\\hd-instrument\\data\\exp_integrated_vote_role_decision_oracle_gold_v1_construction\\pure_decision_errors.jsonl",
+  "gfit_model_stats": {
+    "n_object_classes": 26,
+    "max_class_count": 406,
+    "class_obj_counts": {
+      "noun.Tops": 26,
+      "noun.act": 250,
+      "noun.animal": 142,
+      "noun.artifact": 406,
+      "noun.attribute": 187,
+      "noun.body": 149,
+      "noun.cognition": 144,
+      "noun.communication": 233,
+      "noun.event": 108,
+      "noun.feeling": 38,
+      "noun.food": 66,
+      "noun.group": 168,
+      "noun.location": 149,
+      "noun.motive": 5,
+      "noun.object": 135,
+      "noun.person": 351,
+      "noun.phenomenon": 62,
+      "noun.plant": 107,
+      "noun.possession": 87,
+      "noun.process": 2,
+      "noun.quantity": 88,
+      "noun.relation": 17,
+      "noun.shape": 9,
+      "noun.state": 114,
+      "noun.substance": 61,
+      "noun.time": 194
+    },
+    "typ_class": {
+      "noun.Tops": 0.064,
+      "noun.act": 0.6158,
+      "noun.animal": 0.3498,
+      "noun.artifact": 1.0,
+      "noun.attribute": 0.4606,
+      "noun.body": 0.367,
+      "noun.cognition": 0.3547,
+      "noun.communication": 0.5739,
+      "noun.event": 0.266,
+      "noun.feeling": 0.0936,
+      "noun.food": 0.1626,
+      "noun.group": 0.4138,
+      "noun.location": 0.367,
+      "noun.motive": 0.0123,
+      "noun.object": 0.3325,
+      "noun.person": 0.8645,
+      "noun.phenomenon": 0.1527,
+      "noun.plant": 0.2635,
+      "noun.possession": 0.2143,
+      "noun.process": 0.0049,
+      "noun.quantity": 0.2167,
+      "noun.relation": 0.0419,
+      "noun.shape": 0.0222,
+      "noun.state": 0.2808,
+      "noun.substance": 0.1502,
+      "noun.time": 0.4778
+    },
+    "n_verbs_with_own_assoc": 182,
+    "global_typ_mean": 0.3124
+  },
+  "n_mining_sentences": 4151,
+  "training_protocol": "SUPERVISED logistic on the construction gold's OWN split==train (oracle pairs, target=is-gold-patient); evaluated on split==test; ambiguity=abstain targets. gfit+plaus built on the MINING corpus (no gold leak). ORACLE candidate pools (gold patient guaranteed present) -> parser-independent.",
+  "register_caveat": "UD-EWT is MODERN WEB TEXT (blogs/reviews/email), NOT narrative -- this arm tests CONSTRUCTION handling (real passives etc.), NOT register transfer to McGuffey. Small per-construction N (test has ~41 items across 8 constructions); treat per-construction numbers as smoke-not-fact.",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng; gold-provided split (not random)",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "mean_test_full_vote_accuracy",
+    "mean_test_wordorder_vote_accuracy",
+    "per_construction_accuracy",
+    "PASSIVE_SUBTEST",
+    "mean_learned_weights",
+    "register_caveat",
+    "training_protocol",
+    "split_respected"
+  ]
+}

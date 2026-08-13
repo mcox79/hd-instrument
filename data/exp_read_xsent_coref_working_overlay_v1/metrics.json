@@ -1,0 +1,420 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "cross-sentence memory helps but sub-threshold: xsent_maintained acc=0.1853 (baseline=0.0000, delta=0.1853), best xsent=xsent_recency acc=0.2020, p1_ok=True, sign_stability=1.0000, n_xsent=599.",
+  "summary": "read_xsent_coref_working_overlay_v1: MIDDLE_BAND",
+  "elapsed_s": 0.18,
+  "anchor_name": "read_xsent_coref_working_overlay_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-24T01:11:28.662773+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 25,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll",
+      "113_the_secret_garden_brat.conll",
+      "1260_jane_eyre_an_autobiography_brat.conll",
+      "1342_pride_and_prejudice_brat.conll",
+      "1400_great_expectations_brat.conll",
+      "158_emma_brat.conll",
+      "174_the_picture_of_dorian_gray_brat.conll",
+      "209_the_turn_of_the_screw_brat.conll",
+      "2489_moby_dick_brat.conll",
+      "2814_dubliners_brat.conll",
+      "2852_the_hound_of_the_baskervilles_brat.conll",
+      "345_dracula_brat.conll",
+      "36_the_war_of_the_worlds_brat.conll",
+      "514_little_women_brat.conll",
+      "521_the_life_and_adventures_of_robinson_crusoe_brat.conll",
+      "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+      "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+      "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+      "76_adventures_of_huckleberry_finn_brat.conll",
+      "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll",
+      "84_frankenstein_or_the_modern_prometheus_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "xsent_recency",
+      "xsent_maintained",
+      "xsent_freq"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "mechanism_arm": "xsent_maintained",
+    "xsent_arms": [
+      "xsent_recency",
+      "xsent_maintained",
+      "xsent_freq"
+    ],
+    "validity_gate_max": 0.1,
+    "hp_abs": 0.3,
+    "hp_delta": 0.15,
+    "hp_sign_stability": 0.9,
+    "p1_regression_eps": 0.05,
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260724
+  },
+  "n_targets_total": 1690,
+  "n_xsent": 599,
+  "n_same": 1091,
+  "bucket_counts": {
+    "same": 1091,
+    "plus1": 486,
+    "plus2": 66,
+    "long": 47
+  },
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.2637729549248748,
+      "n": 599
+    },
+    "xsent_recency": {
+      "acc": 0.2020033388981636,
+      "prec": 0.2020033388981636,
+      "attempt_rate": 1.0,
+      "n": 599
+    },
+    "xsent_maintained": {
+      "acc": 0.18530884808013356,
+      "prec": 0.18530884808013356,
+      "attempt_rate": 1.0,
+      "n": 599
+    },
+    "xsent_freq": {
+      "acc": 0.18196994991652754,
+      "prec": 0.18196994991652754,
+      "attempt_rate": 1.0,
+      "n": 599
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.2758936755270394,
+      "prec": 0.34717416378316035,
+      "attempt_rate": 0.7946837763519706,
+      "n": 1091
+    },
+    "xsent_recency": {
+      "acc": 0.34555453712190654,
+      "prec": 0.34555453712190654,
+      "attempt_rate": 1.0,
+      "n": 1091
+    },
+    "xsent_maintained": {
+      "acc": 0.22823098075160403,
+      "prec": 0.22823098075160403,
+      "attempt_rate": 1.0,
+      "n": 1091
+    },
+    "xsent_freq": {
+      "acc": 0.20073327222731438,
+      "prec": 0.20073327222731438,
+      "attempt_rate": 1.0,
+      "n": 1091
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.17810650887573964,
+      "prec": 0.29365853658536584,
+      "attempt_rate": 0.606508875739645,
+      "n": 1690
+    },
+    "xsent_recency": {
+      "acc": 0.29467455621301775,
+      "prec": 0.29467455621301775,
+      "attempt_rate": 1.0,
+      "n": 1690
+    },
+    "xsent_maintained": {
+      "acc": 0.21301775147928995,
+      "prec": 0.21301775147928995,
+      "attempt_rate": 1.0,
+      "n": 1690
+    },
+    "xsent_freq": {
+      "acc": 0.1940828402366864,
+      "prec": 0.1940828402366864,
+      "attempt_rate": 1.0,
+      "n": 1690
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.2758936755270394,
+        "prec": 0.34717416378316035,
+        "attempt_rate": 0.7946837763519706,
+        "n": 1091
+      },
+      "xsent_recency": {
+        "acc": 0.34555453712190654,
+        "prec": 0.34555453712190654,
+        "attempt_rate": 1.0,
+        "n": 1091
+      },
+      "xsent_maintained": {
+        "acc": 0.22823098075160403,
+        "prec": 0.22823098075160403,
+        "attempt_rate": 1.0,
+        "n": 1091
+      },
+      "xsent_freq": {
+        "acc": 0.20073327222731438,
+        "prec": 0.20073327222731438,
+        "attempt_rate": 1.0,
+        "n": 1091
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.2551440329218107,
+        "n": 486
+      },
+      "xsent_recency": {
+        "acc": 0.22633744855967078,
+        "prec": 0.22633744855967078,
+        "attempt_rate": 1.0,
+        "n": 486
+      },
+      "xsent_maintained": {
+        "acc": 0.19547325102880658,
+        "prec": 0.19547325102880658,
+        "attempt_rate": 1.0,
+        "n": 486
+      },
+      "xsent_freq": {
+        "acc": 0.19135802469135801,
+        "prec": 0.19135802469135801,
+        "attempt_rate": 1.0,
+        "n": 486
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.25757575757575757,
+        "n": 66
+      },
+      "xsent_recency": {
+        "acc": 0.15151515151515152,
+        "prec": 0.15151515151515152,
+        "attempt_rate": 1.0,
+        "n": 66
+      },
+      "xsent_maintained": {
+        "acc": 0.21212121212121213,
+        "prec": 0.21212121212121213,
+        "attempt_rate": 1.0,
+        "n": 66
+      },
+      "xsent_freq": {
+        "acc": 0.21212121212121213,
+        "prec": 0.21212121212121213,
+        "attempt_rate": 1.0,
+        "n": 66
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.3617021276595745,
+        "n": 47
+      },
+      "xsent_recency": {
+        "acc": 0.02127659574468085,
+        "prec": 0.02127659574468085,
+        "attempt_rate": 1.0,
+        "n": 47
+      },
+      "xsent_maintained": {
+        "acc": 0.0425531914893617,
+        "prec": 0.0425531914893617,
+        "attempt_rate": 1.0,
+        "n": 47
+      },
+      "xsent_freq": {
+        "acc": 0.0425531914893617,
+        "prec": 0.0425531914893617,
+        "attempt_rate": 1.0,
+        "n": 47
+      }
+    }
+  },
+  "per_distance_winner": {
+    "same": {
+      "arm": "xsent_recency",
+      "acc": 0.34555453712190654
+    },
+    "plus1": {
+      "arm": "xsent_recency",
+      "acc": 0.22633744855967078
+    },
+    "plus2": {
+      "arm": "xsent_maintained",
+      "acc": 0.21212121212121213
+    },
+    "long": {
+      "arm": "xsent_maintained",
+      "acc": 0.0425531914893617
+    }
+  },
+  "baseline_xsent_acc": 0.0,
+  "mech_xsent_acc": 0.18530884808013356,
+  "delta_xsent": 0.18530884808013356,
+  "best_xsent_arm": "xsent_recency",
+  "best_xsent_acc": 0.2020033388981636,
+  "validity_gate_ok": true,
+  "p1_no_regression_ok": true,
+  "bootstrap_sign_stability": 1.0,
+  "arms_differ_digests": {
+    "single_sentence_baseline": "d61ab8885b099c60cd39fa46c5a74dfa2209bbc801e929cd24ec245fd24fd7c3",
+    "xsent_recency": "54ae6809b35570cf10ee0bb6f32fe681cad01836840d2eb4c6aa134b96b7dee8",
+    "xsent_maintained": "36785ad50debee3068813441dfc1edb91ccfa75ec9719ff49492e94cd60cd5f0",
+    "xsent_freq": "407868367735e03ff5d5fe19a7f6e2f15ad1a136728bb197a702c921659376d3"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    },
+    "113_the_secret_garden_brat.conll": {
+      "n_mentions": 329,
+      "n_sentences": 109,
+      "n_targets": 139
+    },
+    "1260_jane_eyre_an_autobiography_brat.conll": {
+      "n_mentions": 295,
+      "n_sentences": 65,
+      "n_targets": 65
+    },
+    "1342_pride_and_prejudice_brat.conll": {
+      "n_mentions": 370,
+      "n_sentences": 111,
+      "n_targets": 82
+    },
+    "1400_great_expectations_brat.conll": {
+      "n_mentions": 354,
+      "n_sentences": 103,
+      "n_targets": 63
+    },
+    "158_emma_brat.conll": {
+      "n_mentions": 319,
+      "n_sentences": 77,
+      "n_targets": 108
+    },
+    "174_the_picture_of_dorian_gray_brat.conll": {
+      "n_mentions": 284,
+      "n_sentences": 109,
+      "n_targets": 44
+    },
+    "209_the_turn_of_the_screw_brat.conll": {
+      "n_mentions": 269,
+      "n_sentences": 121,
+      "n_targets": 100
+    },
+    "2489_moby_dick_brat.conll": {
+      "n_mentions": 300,
+      "n_sentences": 94,
+      "n_targets": 21
+    },
+    "2814_dubliners_brat.conll": {
+      "n_mentions": 333,
+      "n_sentences": 96,
+      "n_targets": 83
+    },
+    "2852_the_hound_of_the_baskervilles_brat.conll": {
+      "n_mentions": 290,
+      "n_sentences": 111,
+      "n_targets": 59
+    },
+    "345_dracula_brat.conll": {
+      "n_mentions": 340,
+      "n_sentences": 94,
+      "n_targets": 43
+    },
+    "36_the_war_of_the_worlds_brat.conll": {
+      "n_mentions": 218,
+      "n_sentences": 70,
+      "n_targets": 12
+    },
+    "514_little_women_brat.conll": {
+      "n_mentions": 288,
+      "n_sentences": 85,
+      "n_targets": 41
+    },
+    "521_the_life_and_adventures_of_robinson_crusoe_brat.conll": {
+      "n_mentions": 352,
+      "n_sentences": 28,
+      "n_targets": 61
+    },
+    "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll": {
+      "n_mentions": 320,
+      "n_sentences": 128,
+      "n_targets": 80
+    },
+    "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll": {
+      "n_mentions": 353,
+      "n_sentences": 59,
+      "n_targets": 137
+    },
+    "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll": {
+      "n_mentions": 271,
+      "n_sentences": 117,
+      "n_targets": 108
+    },
+    "76_adventures_of_huckleberry_finn_brat.conll": {
+      "n_mentions": 294,
+      "n_sentences": 99,
+      "n_targets": 59
+    },
+    "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll": {
+      "n_mentions": 501,
+      "n_sentences": 81,
+      "n_targets": 36
+    },
+    "84_frankenstein_or_the_modern_prometheus_brat.conll": {
+      "n_mentions": 381,
+      "n_sentences": 79,
+      "n_targets": 53
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 25,
+  "cardinality_ok": true
+}

@@ -1,0 +1,179 @@
+{
+  "anchor": "c2_cascade_stc_swr_continual_v2",
+  "anchor_name": "c2_cascade_stc_swr_continual_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial mechanism. C2=1.000 C1=0.850 gap=0.150 at k=3. cv_C2=0.000. HP conditions: c2_above=True gap_ok=False cv_ok=True. C2@k3=1.000 C1@k3=0.850 gap=0.150 | C2@k_final3=1.000 C1@k_final3=0.850 | cv_C2@k3=0.000 llm=0 substrate_only=True",
+  "n_seeds": 1,
+  "N": 512,
+  "N_DIM": 512,
+  "J_tasks": 4,
+  "M_per_task": 128,
+  "alpha": 1.0,
+  "arms": [
+    "C1_BASELINE",
+    "CASCADE_STC_SWR"
+  ],
+  "K_evals": [
+    2,
+    3
+  ],
+  "D_max": 3,
+  "theta_tag": 0.5,
+  "tag_function": "sigmoid_margin",
+  "replay_schedule_mode_C2": "expanding",
+  "replay_schedule_mode_C1": "uniform_1to1",
+  "run_mode": "smoke",
+  "config_version": "c2-cascade-stc-swr-v2-A+C: J=4 N_DIM=512 M=128 alpha=1.00 arms=C1_BASELINE,CASCADE_STC_SWR D_max=3 theta_tag=0.50 beta=4.0 decay=0.020 K_EVALS=[2, 3] schedule_C2=expanding schedule_C1=uniform_1to1 tag_fn=sigmoid_margin run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_keys",
+  "v2_change_set": "N_DIM=4096->2048 + drop NO_REPLAY arm (Director Option A+C post-mortem)",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "k_evals": [
+      2,
+      3
+    ],
+    "k_load_bearing": 3,
+    "k_final": 3,
+    "by_arm_means": {
+      "C1_BASELINE": {
+        "2": 0.95,
+        "3": 0.85,
+        "4": 0.95
+      },
+      "CASCADE_STC_SWR": {
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0
+      }
+    },
+    "by_arm_stds": {
+      "C1_BASELINE": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "CASCADE_STC_SWR": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      }
+    },
+    "by_arm_cv": {
+      "C1_BASELINE": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "CASCADE_STC_SWR": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      }
+    },
+    "per_arm": {
+      "C1_BASELINE": {
+        "retention_at_k_load_bearing": 0.85,
+        "retention_at_k_final": 0.85,
+        "cv_at_k_load_bearing": 0.0
+      },
+      "CASCADE_STC_SWR": {
+        "retention_at_k_load_bearing": 1.0,
+        "retention_at_k_final": 1.0,
+        "cv_at_k_load_bearing": 0.0
+      }
+    },
+    "c2_retention_k_load_bearing": 1.0,
+    "c1_retention_k_load_bearing": 0.85,
+    "c2_minus_c1_at_k_load_bearing": 0.15000000000000002,
+    "c2_retention_k_final": 1.0,
+    "c1_retention_k_final": 0.85,
+    "cv_c2_k_load_bearing": 0.0,
+    "substrate_only_ok": true,
+    "n_llm_calls_total": 0,
+    "zero_llm_calls_at_inference": true,
+    "consolidation_arms_tested": [
+      "C1_BASELINE",
+      "CASCADE_STC_SWR"
+    ],
+    "D_max": 3,
+    "theta_tag": 0.5,
+    "tag_function": "sigmoid_margin",
+    "replay_schedule_mode_C2": "expanding",
+    "replay_schedule_mode_C1": "uniform_1to1",
+    "alpha": 1.0,
+    "v2_change_set": "N_DIM=4096->2048 + drop NO_REPLAY arm (Director Option A+C post-mortem)",
+    "honest_scope": "Nested-timescale CLS continual ingest v2 (cascade + STC + SWR-gated expanding-interval replay) on synthetic-bipolar (k, v) at N_DIM=512, J=4, alpha=1.00. Substrate-only-decode gate enforced (n_llm=0). v2 = Director Option A+C (N_DIM 4096->2048 + drop NO_REPLAY)."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "M": 128,
+      "run_mode": "smoke",
+      "config_version": "c2-cascade-stc-swr-v2-A+C: J=4 N_DIM=512 M=128 alpha=1.00 arms=C1_BASELINE,CASCADE_STC_SWR D_max=3 theta_tag=0.50 beta=4.0 decay=0.020 K_EVALS=[2, 3] schedule_C2=expanding schedule_C1=uniform_1to1 tag_fn=sigmoid_margin run_mode=smoke",
+      "elapsed_s": 5.882196426391602,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782180630.8949473,
+      "per_unit": [
+        {
+          "arm": "C1_BASELINE",
+          "alpha": 1.0,
+          "seed": 1,
+          "j_tasks": 4,
+          "m_per_task": 128,
+          "n_dim": 512,
+          "retention_curve": [
+            [
+              2,
+              0.95
+            ],
+            [
+              3,
+              0.85
+            ],
+            [
+              4,
+              0.95
+            ]
+          ],
+          "retention_final": 0.95,
+          "k_final": 4,
+          "wall_s": 1.265869379043579,
+          "n_probe": 20
+        },
+        {
+          "arm": "CASCADE_STC_SWR",
+          "alpha": 1.0,
+          "seed": 1,
+          "j_tasks": 4,
+          "m_per_task": 128,
+          "n_dim": 512,
+          "retention_curve": [
+            [
+              2,
+              1.0
+            ],
+            [
+              3,
+              1.0
+            ],
+            [
+              4,
+              1.0
+            ]
+          ],
+          "retention_final": 1.0,
+          "k_final": 4,
+          "wall_s": 4.590289831161499,
+          "n_probe": 20
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_cpu_synthetic_bipolar_cascade_stc_swr_continual_v2",
+  "elapsed_s": 5.965861797332764,
+  "summary": "MIDDLE_BAND: partial mechanism. C2=1.000 C1=0.850 gap=0.150 at k=3. cv_C2=0.000. HP conditions: c2_above=True gap_ok=False cv_ok=True. C2@k3=1.000 C1@k3=0.850 gap=0.150 | C2@k_final3=1.000 C1@k_final3"
+}

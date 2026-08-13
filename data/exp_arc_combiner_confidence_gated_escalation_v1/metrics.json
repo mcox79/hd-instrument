@@ -1,0 +1,239 @@
+{
+  "verdict": "ESCALATION_MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: Challenge G-A=+0.0217 = 0.0714 of gap 0.3041 (in [0.05, 0.2) OR a guard/replication unmet: replicated=False bridge_guard=True (C=0.3688 F=0.3642) discount_guard=True (D_cw=0.3781 E_cw=0.4027 D=0.3951 E=0.3951). Escalation helps but not decisively. O ceiling=0.6744.",
+  "summary": "ESCALATION_MIDDLE_BAND: [Chal TEST] A=0.3703 G=0.392 O=0.6744 gap=0.3041 G-A=0.0217 (0.0714 of gap) | bridge C=0.3688 F=0.3642 | gapfill D=0.3951 E=0.3951 cw(D/E)=0.3781/0.4027 | abstain B acc_ans=0.4209 cov=0.6096 | replicated=False bridge_guard=True discount_guard=True",
+  "elapsed_s": 140.8,
+  "ts_iso": "2026-07-25T01:34:15.503335+00:00",
+  "anchor_name": "arc_combiner_confidence_gated_escalation_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_seeds": 2,
+  "chal_A_baseline": 0.3703,
+  "chal_G_combined": 0.392,
+  "chal_O_oracle_gold": 0.6744,
+  "chal_C_bridge": 0.3688,
+  "chal_F_bridge_random": 0.3642,
+  "chal_D_gapfill_disc": 0.3951,
+  "chal_E_gapfill_undisc": 0.3951,
+  "in_cell_gap_O_minus_A": 0.3041,
+  "G_minus_A": 0.0217,
+  "gap_fraction_closed": 0.0714,
+  "per_seed_hp_replicated": false,
+  "per_seed_hp_flags": [
+    false,
+    false
+  ],
+  "bridge_guard_ok": true,
+  "discount_guard_ok": true,
+  "confident_wrong_D_disc": 0.3781,
+  "confident_wrong_E_undisc": 0.4027,
+  "abstain_acc_when_answered_chal": 0.4209,
+  "abstain_coverage_chal": 0.6096,
+  "escalation_fired": true,
+  "n_low_conf_total": 860,
+  "bridge_fires_C_total": 240,
+  "path_counts_seed0": {
+    "committed": 996,
+    "bridged": 131,
+    "gap_filled": 537,
+    "abstained": 668,
+    "guess_lowconf": 0
+  },
+  "bridge_fire_seed0": {
+    "C": 131,
+    "F": 668,
+    "G_bridge": 131
+  },
+  "audit_roots_seed0": [
+    "87d9bbc7358b58874e357793b0aa7ab4de4182dbf7e19903370bb23d0deb6ec6",
+    "698c0dd260d5a0d6c91fc0fcc1b157612b4a9e0ffcc5a799d4ed6850d314eb3a",
+    "94417ae13face161573e48b5fae9dc105fe47cc81bc0ece8bb322d235e6cde72",
+    "41bd571ba5d6cd861bd2198098b6a05f7b81cde15cfff5af05aea6a829cf5226",
+    "9ae5a6ecb3c669cb80b09448900788aa4125209ca694d1c86bf93be1ee96b3a3",
+    "07ce8f76aa8a356292ba61715dfe62dd81f9e96dc5430d4135a0764c271c056e",
+    "0b2d210ed36b3ca4036659a5823e015d253cbffec3e6a8b17694b4244a268674",
+    "e8f4bd06db9cf3facc9cf9359bca2da35383b0cc9b857d74db4825b2a88dfe88"
+  ],
+  "tau_per_seed": [
+    0.00704,
+    0.00653
+  ],
+  "bands": {
+    "GAP_FRAC_HP": 0.2,
+    "GAP_FRAC_MB": 0.05,
+    "ABS_G_MIN": 0.02,
+    "DISCOUNT_CW_MARGIN": 0.01,
+    "DISCOUNT_ACC_EPS": 0.005,
+    "BRIDGE_RANDOM_MAX": 0.02,
+    "GAP_MIN_HEADROOM": 0.03,
+    "AG_BASELINE_SAT": 0.95,
+    "ALPHA_GATE": 0.3,
+    "GAPFILL_DISCOUNT": 0.3,
+    "K_SEL": 4,
+    "K_POOL": 20
+  },
+  "per_seed": [
+    {
+      "seed": 20260724,
+      "n_test_chal": 324,
+      "tau": 0.00704,
+      "n_low_conf": 448,
+      "gap": 0.2716,
+      "acc": {
+        "A": {
+          "easy": 0.4796,
+          "challenge": 0.3796,
+          "acc_answered_chal": 0.3796,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3302
+        },
+        "B": {
+          "easy": 0.3342,
+          "challenge": 0.2593,
+          "acc_answered_chal": 0.4398,
+          "coverage_chal": 0.5895,
+          "conf_wrong_chal": 0.5602
+        },
+        "C": {
+          "easy": 0.4911,
+          "challenge": 0.3765,
+          "acc_answered_chal": 0.3765,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3611
+        },
+        "D": {
+          "easy": 0.4745,
+          "challenge": 0.3981,
+          "acc_answered_chal": 0.3981,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3519
+        },
+        "E": {
+          "easy": 0.4745,
+          "challenge": 0.3981,
+          "acc_answered_chal": 0.3981,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3765
+        },
+        "F": {
+          "easy": 0.4847,
+          "challenge": 0.3704,
+          "acc_answered_chal": 0.3704,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3673
+        },
+        "G": {
+          "easy": 0.4872,
+          "challenge": 0.392,
+          "acc_answered_chal": 0.392,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3796
+        },
+        "O": {
+          "easy": 0.662,
+          "challenge": 0.6512,
+          "acc_answered_chal": 0.6512,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.1728
+        }
+      },
+      "picks_digest": {
+        "A": "1478048e1c47716f",
+        "B": "5acd0b4fd4a857ed",
+        "C": "276e6cbe3959e129",
+        "D": "aba5d0067af5da9e",
+        "E": "aba5d0067af5da9e",
+        "F": "71cd1114c9c86ef3",
+        "G": "3bc574276d69e3c8",
+        "O": "739ad93af93ce98e"
+      }
+    },
+    {
+      "seed": 20260725,
+      "n_test_chal": 324,
+      "tau": 0.00653,
+      "n_low_conf": 412,
+      "gap": 0.3364,
+      "acc": {
+        "A": {
+          "easy": 0.4668,
+          "challenge": 0.3611,
+          "acc_answered_chal": 0.3611,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3765
+        },
+        "B": {
+          "easy": 0.3342,
+          "challenge": 0.2531,
+          "acc_answered_chal": 0.402,
+          "coverage_chal": 0.6296,
+          "conf_wrong_chal": 0.598
+        },
+        "C": {
+          "easy": 0.4719,
+          "challenge": 0.3611,
+          "acc_answered_chal": 0.3611,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.3951
+        },
+        "D": {
+          "easy": 0.4617,
+          "challenge": 0.392,
+          "acc_answered_chal": 0.392,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.4043
+        },
+        "E": {
+          "easy": 0.4617,
+          "challenge": 0.392,
+          "acc_answered_chal": 0.392,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.429
+        },
+        "F": {
+          "easy": 0.4503,
+          "challenge": 0.358,
+          "acc_answered_chal": 0.358,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.4012
+        },
+        "G": {
+          "easy": 0.4681,
+          "challenge": 0.392,
+          "acc_answered_chal": 0.392,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.4136
+        },
+        "O": {
+          "easy": 0.6531,
+          "challenge": 0.6975,
+          "acc_answered_chal": 0.6975,
+          "coverage_chal": 1.0,
+          "conf_wrong_chal": 0.1667
+        }
+      },
+      "picks_digest": {
+        "A": "41d942a393deab44",
+        "B": "d279c6cf3a77ca1f",
+        "C": "2a9eecc9dda977c4",
+        "D": "a3bf878e43f867a4",
+        "E": "a3bf878e43f867a4",
+        "F": "442f14d59b4c3407",
+        "G": "807cad65f31bac1a",
+        "O": "7759d0404b666084"
+      }
+    }
+  ],
+  "grade_proxy": {
+    "easy_band": "~grade 3-4",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "hyperparams_note": "author-set a priori: ALPHA_GATE=0.30 conformal, GAPFILL_DISCOUNT=0.30, BRIDGE_HOPS=2, ESCALATION_BUDGET=1, K_SEL=4, K_POOL=20; NOT tuned to force a win",
+  "wired_vs_stubbed": "WIRED: confidence-gated bounded ESCALATION LOOP around the UNCHANGED CI bind+settle (agg.aggregate mode='settle') over the UNCHANGED PPR pool + UNCHANGED selection gate (sel.gate_scores B_gate). CONFIDENCE GATE = conformal_tau (refuse-gate v8 core) on the settle choice-margin, calibrated on correct CALIBRATION-split questions. BRIDGE = substrate.khop.traverse over a per-question FHRR mini-KG (_pool_to_mini_kg adapter; Merkle AuditChain roots logged). DISCOUNTED gap-fill = inject the top ANSWER-AGNOSTIC goal-relevant store fact NOT in the pool at 0.30x natural weight; UNDISCOUNTED = full weight (must-fail). Arms A/B/C/D/E/F/G/O; PRIMARY = end-to-end Challenge accuracy on the held-out TEST split; gap measured IN-CELL (O gold ceiling - A selected-pool baseline). STUBBED/NOTED-NOT-BUILT: controlled RE-RETRIEVAL (query reformulation) -- deferred; principled discount MAGNITUDE (default-logic defeasibility) -- author-set 0.30, a follow-up drill sharpens it if D-vs-E lands.",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree); VET-PENDING",
+  "compute_architecture": "mixed CPU: batched GloVe encode + scipy.sparse PPR (imported) + cheap per-question CI settle + escalation re-settles on low-conf subset + tiny per-question khop mini-KG; sequential-CPU (settle IS the primitive)",
+  "storage_strategy": "sharded (each fact = own embedding; each mini-KG concept = own FHRR vector)",
+  "progress_logging": "line_buffered_stdout",
+  "calibration_check": "adaptive_with_discriminator_gate: conformal tau on held-out CAL correct margins (NOT hand-set); discriminator-fires = escalation fired on 860 low-conf TEST items across seeds (logged)"
+}

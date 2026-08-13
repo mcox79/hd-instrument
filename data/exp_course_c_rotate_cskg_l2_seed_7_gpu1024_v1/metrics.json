@@ -1,0 +1,382 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL",
+  "verdict_msg": "MIDDLE_BAND: win_pop=True win_form=False form_oracle=True g_discrete=True g_scramble=True g_seed_cv=True g_backdoor=False syn_comp=True syn_freq=True oracle_fires=True | oneshot_fair=0.0917 POP_fair=0.0563 additive_fair=0.1092",
+  "summary": "MIDDLE_BAND: win_pop=True win_form=False form_oracle=True g_discrete=True g_scramble=True g_seed_cv=True g_backdoor=False syn_comp=True syn_freq=True oracle_fires=True | oneshot_fair=0.0917 POP_fair=0",
+  "run_mode": "full",
+  "elapsed_s": 3128.1587684999686,
+  "anchor_name": "course_c_rotate_cskg_l2_seed_7_gpu1024_v1",
+  "ts_iso": "2026-07-12T15:30:59.164449+00:00",
+  "device": "cuda",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "k": 24,
+    "fpe_dim": 1024,
+    "epochs": 250,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "min_support": 10,
+    "min_conf": 0.1,
+    "n_eval": 6000,
+    "min_heldout": 20,
+    "ckpt_every": 25
+  },
+  "gates": {
+    "fair_hits_at_k": {
+      "ONESHOT_ROTATE": 0.0917,
+      "ADDITIVE_TRANSE": 0.1092,
+      "BASELINE_POP": 0.0563,
+      "DISCRETE_BIND": 0.0008,
+      "SCRAMBLE_ROTATE": 0.0253,
+      "RANDOM_CODES": 0.0003,
+      "ORACLE_TRANSDUCTIVE": 0.1308
+    },
+    "agg_hits_at_k": {
+      "ONESHOT_ROTATE": 0.1905,
+      "ADDITIVE_TRANSE": 0.1702,
+      "BASELINE_POP": 0.1713,
+      "SCRAMBLE_ROTATE": 0.0525,
+      "RANDOM_CODES": 0.0002,
+      "ORACLE_TRANSDUCTIVE": 0.2385,
+      "DISCRETE_BIND": 0.0005
+    },
+    "primary_k": 10,
+    "margin_oneshot_vs_pop_fair": 0.0354,
+    "margin_oneshot_vs_additive_fair": -0.0175,
+    "oracle_direct": 0.2385,
+    "random_direct": 0.0002,
+    "additive_oracle": 0.1702,
+    "oracle_fires": true,
+    "oracle_fire_margin": 0.15,
+    "oracle_fpe_median": 0.001,
+    "oneshot_fpe_median": 0.0012,
+    "realized_vs_ceiling_ratio": 0.7987,
+    "win_pop": true,
+    "win_form": false,
+    "form_oracle": true,
+    "g_discrete": true,
+    "g_scramble": true,
+    "seed_cv": 0.0,
+    "g_seed_cv": true,
+    "backdoor_r": 0.2806,
+    "g_backdoor": false,
+    "syn_comp_ok": true,
+    "syn_freq_ok": true,
+    "broken": false,
+    "fails": false,
+    "wins": false,
+    "mine_params": {
+      "MAX_RULES_PER_HEAD": 50,
+      "HUB_CAP": 60000,
+      "min_support": 10,
+      "min_conf": 0.1
+    },
+    "reference_vet": {
+      "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+      "l2_only_all": 0.276,
+      "l2_only_high": 0.226,
+      "pop_high": 0.412
+    }
+  },
+  "mechanism_selftest": {
+    "comp_l2_genuine": 61,
+    "freq_l2_genuine": 150,
+    "geometry_fires": true,
+    "metric_k": 10,
+    "oracle_recovers": true,
+    "oracle_fires_gate": true,
+    "arms_differ": true,
+    "oracle_direct": 0.4098,
+    "random_direct": 0.0492,
+    "comp_oneshot": 0.1311,
+    "comp_additive": 0.0328,
+    "comp_pop": 0.0,
+    "comp_discrete": 0.0492,
+    "comp_scramble": 0.0164,
+    "comp_random": 0.0492,
+    "freq_geo": 0.6333,
+    "freq_pop": 1.0,
+    "rot_beats_pop": true,
+    "rot_beats_additive": true,
+    "rot_beats_discrete": true,
+    "scramble_not_beat": true,
+    "random_at_chance": true,
+    "no_manufacture": true,
+    "pop_fires_freq": true,
+    "n_distinct_sigs": 7,
+    "selftest_verdict": "BROKEN_TEST_CONTROL_BEATS_POP",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ],
+    "resume_equiv_rotate_maxdev": 0.0,
+    "resume_equiv_additive_maxdev": 0.0,
+    "resume_equiv_max_dev": 0.0,
+    "resume_equiv_tol": 1e-05,
+    "resume_equiv_ok": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_XCUT_CORE",
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 460048,
+      "n_test": 25558,
+      "l2_genuine": {
+        "n_scanned": 17825,
+        "n_reach_l2": 7468,
+        "n_excl_l1i": 1106,
+        "n_excl_l1f": 362,
+        "n_excl_filt": 0,
+        "n_l2_genuine": 6000
+      },
+      "tert_bounds": [
+        100.0,
+        357.9999999999991
+      ],
+      "strata_counts": {
+        "low": 2009,
+        "mid": 1991,
+        "high": 2000
+      },
+      "arm_hits": {
+        "ONESHOT_ROTATE": {
+          "hits@1": 0.042,
+          "hits@10": 0.1905,
+          "mrr": 0.0921
+        },
+        "ADDITIVE_TRANSE": {
+          "hits@1": 0.0245,
+          "hits@10": 0.1702,
+          "mrr": 0.0752
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0403,
+          "hits@10": 0.1713,
+          "mrr": 0.084
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits@1": 0.0108,
+          "hits@10": 0.0525,
+          "mrr": 0.0277
+        },
+        "RANDOM_CODES": {
+          "hits@1": 0.0,
+          "hits@10": 0.0002,
+          "mrr": 0.0004
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits@1": 0.0602,
+          "hits@10": 0.2385,
+          "mrr": 0.12
+        },
+        "DISCRETE_BIND": {
+          "hits@1": 0.0,
+          "hits@10": 0.0005,
+          "mrr": 0.0004
+        }
+      },
+      "arm_n": {
+        "ONESHOT_ROTATE": 6000,
+        "ADDITIVE_TRANSE": 6000,
+        "BASELINE_POP": 6000,
+        "SCRAMBLE_ROTATE": 6000,
+        "RANDOM_CODES": 6000,
+        "ORACLE_TRANSDUCTIVE": 6000,
+        "DISCRETE_BIND": 6000
+      },
+      "arm_sigs": {
+        "ONESHOT_ROTATE": "1ac33ca75946958d",
+        "SCRAMBLE_ROTATE": "54f0ffd075077324",
+        "ORACLE_TRANSDUCTIVE": "35492adc97af0e90",
+        "RANDOM_CODES": "6883b8b85de53763",
+        "ADDITIVE_TRANSE": "f8c2f39895205716",
+        "DISCRETE_BIND": "0cfa6e14abc12e49",
+        "BASELINE_POP": "611e7fef0f1f65ef"
+      },
+      "strat_hits": {
+        "ONESHOT_ROTATE": {
+          "low": {
+            "hits": 0.0443,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.1396,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.388,
+            "n": 2000
+          }
+        },
+        "ADDITIVE_TRANSE": {
+          "low": {
+            "hits": 0.0717,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.1472,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.292,
+            "n": 2000
+          }
+        },
+        "DISCRETE_BIND": {
+          "low": {
+            "hits": 0.001,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.0005,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 2000
+          }
+        },
+        "SCRAMBLE_ROTATE": {
+          "low": {
+            "hits": 0.007,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.0437,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.107,
+            "n": 2000
+          }
+        },
+        "RANDOM_CODES": {
+          "low": {
+            "hits": 0.0,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.0005,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.0,
+            "n": 2000
+          }
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "low": {
+            "hits": 0.0757,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.1863,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.454,
+            "n": 2000
+          }
+        },
+        "BASELINE_POP": {
+          "low": {
+            "hits": 0.0154,
+            "n": 2009
+          },
+          "mid": {
+            "hits": 0.0964,
+            "n": 1991
+          },
+          "high": {
+            "hits": 0.4015,
+            "n": 2000
+          }
+        }
+      },
+      "fair_hits": {
+        "ONESHOT_ROTATE": {
+          "hits": 0.0917,
+          "n": 4000
+        },
+        "ADDITIVE_TRANSE": {
+          "hits": 0.1092,
+          "n": 4000
+        },
+        "BASELINE_POP": {
+          "hits": 0.0563,
+          "n": 4000
+        },
+        "DISCRETE_BIND": {
+          "hits": 0.0008,
+          "n": 4000
+        },
+        "SCRAMBLE_ROTATE": {
+          "hits": 0.0253,
+          "n": 4000
+        },
+        "RANDOM_CODES": {
+          "hits": 0.0003,
+          "n": 4000
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "hits": 0.1308,
+          "n": 4000
+        }
+      },
+      "fpe_median": {
+        "ONESHOT_ROTATE": {
+          "metric": {
+            "hits@1": 0.00016666666666666666,
+            "hits@10": 0.0011666666666666668,
+            "mrr": 0.0009203035010912567,
+            "n": 6000
+          },
+          "ell": 19.86599
+        },
+        "ORACLE_TRANSDUCTIVE": {
+          "metric": {
+            "hits@1": 0.0003333333333333333,
+            "hits@10": 0.001,
+            "mrr": 0.0009719159288692015,
+            "n": 6000
+          },
+          "ell": 19.83765
+        }
+      },
+      "cross_channel_geom_vs_poprank_r": 0.2806,
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      },
+      "_min_support": 10,
+      "_min_conf": 0.1
+    }
+  ],
+  "reference_vet": {
+    "source": "CITED@notes VET a46eadfa (CSKG L2-only headroom)",
+    "l2_only_all": 0.276,
+    "l2_only_high": 0.226,
+    "pop_high": 0.412
+  },
+  "cross_seed_note": "single-seed process-isolated FULL; 3-seed cv gate is computed downstream over the 3 seed metrics files (seed_cv here spans only this process's seed list)"
+}

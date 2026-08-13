@@ -1,0 +1,271 @@
+{
+  "run_mode": "full",
+  "anchor_name": "paralog_crispr_sl_detection_auc_v1",
+  "ts_iso": "2026-07-15T22:52:28.473075+00:00",
+  "elapsed_s": 76.76,
+  "provenance": {
+    "dataset": "Dede2020_enCas12a_paralog_SL",
+    "paper": "Dede et al. 2020, Genome Biology 21:262 (PMC7558751)",
+    "source": "static-content.springer.com ESM (DOI 10.1186/s13059-020-02173-2)",
+    "counts_url_used": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13059-020-02173-2/MediaObjects/13059_2020_2173_MOESM4_ESM.txt",
+    "zdlfc_url_used": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13059-020-02173-2/MediaObjects/13059_2020_2173_MOESM3_ESM.txt",
+    "urls_tried": {
+      "MOESM4_rawcounts_springer_https": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13059-020-02173-2/MediaObjects/13059_2020_2173_MOESM4_ESM.txt",
+      "MOESM3_zdlfc_springer_https": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13059-020-02173-2/MediaObjects/13059_2020_2173_MOESM3_ESM.txt"
+    },
+    "retrieval_ts": "2026-07-15T22:52:28.453784+00:00",
+    "interaction_definition": "DMF = double-mutant fitness = mean log2FC (endpoint reads vs plasmid T0) of dual-gene constructs; SMF = single-mutant fitness = mean log2FC of single-KO-vs-control constructs; interaction = DMF beyond additive-of-SMFs. zdLFC (MOESM3) = z-normalized (observed dLFC minus expected-from-SMF-sum), cross-check only.",
+    "counts_bytes": 1490304,
+    "zdlfc_bytes": 13033,
+    "acquire_errors": {},
+    "target": "DMF (double-mutant fitness log2FC); NOT the zdLFC GI-score (that would make SYM-vs-additive vacuous)",
+    "slice_controls": {
+      "TOP_ORF": 800,
+      "MAX_PAIRS": 12000,
+      "MIN_PAIRS": 60
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29,
+    31,
+    37,
+    41
+  ],
+  "bands": {
+    "Z_SL": 3.0,
+    "MIN_POCKET": 50,
+    "MIN_DEG": 2,
+    "MIN_LEARNABLE": 40,
+    "MIN_POS_NOVEL": 8.0,
+    "AUC_HP": 0.65,
+    "MARGIN_OVER_DEGREE": 0.1,
+    "AUC_NULL_CEIL": 0.55,
+    "DEGREE_MATCHED_CEIL": 0.58,
+    "POS_CTRL_AUC": 0.9,
+    "SCRAMBLE_AUC_LO": 0.4,
+    "SCRAMBLE_AUC_HI": 0.6,
+    "MIN_JOIN_FRAC": 0.5,
+    "K_TOPK": 10,
+    "QFRAC": 0.4
+  },
+  "controls": {
+    "pos_best_auc_matched": 0.9746,
+    "pos_ok": true,
+    "scramble_mean_constituent_auc_matched": 0.51014,
+    "scramble_ok": true,
+    "degconfound_degree_auc_raw": 0.81211,
+    "degconfound_degree_auc_matched": 0.56702,
+    "degmatch_ok": true,
+    "controls_ok": true,
+    "pos_detail": {
+      "tag": "POS_CTRL",
+      "n_valid": 3,
+      "per_seed_valid": 3,
+      "auc_raw": {
+        "LEARN_SYM": 0.97895,
+        "LEARN_ADD": 0.76351,
+        "ADD_RIDGE": 0.76371,
+        "LEARN_ROLE": 0.93207,
+        "DEGREE": 0.53649,
+        "CHANCE": 0.52194,
+        "MEMORIZE": 0.5
+      },
+      "auc_matched": {
+        "LEARN_SYM": 0.9746,
+        "LEARN_ADD": 0.75771,
+        "ADD_RIDGE": 0.75805,
+        "LEARN_ROLE": 0.92844,
+        "DEGREE": 0.50332,
+        "CHANCE": 0.52118,
+        "MEMORIZE": 0.5
+      },
+      "ap_raw": {
+        "LEARN_SYM": 0.94889,
+        "LEARN_ADD": 0.41907,
+        "ADD_RIDGE": 0.41882,
+        "LEARN_ROLE": 0.88252,
+        "DEGREE": 0.30691,
+        "CHANCE": 0.26113,
+        "MEMORIZE": 0.29654
+      },
+      "pak_raw": {
+        "LEARN_SYM": 1.0,
+        "LEARN_ADD": 0.46667,
+        "ADD_RIDGE": 0.46667,
+        "LEARN_ROLE": 1.0,
+        "DEGREE": 0.43333,
+        "CHANCE": 0.26667,
+        "MEMORIZE": 0.43333
+      },
+      "mean_n_scor": 449.0,
+      "mean_n_pos": 112.0,
+      "mean_base_rate": 0.2494,
+      "best_constituent_arm": "LEARN_SYM",
+      "best_constituent_auc_matched": 0.9746,
+      "best_constituent_auc_raw": 0.85956,
+      "mean_constituent_auc_matched": 0.8547,
+      "sym_auc_matched": 0.9746,
+      "degree_auc_matched": 0.50332,
+      "degree_auc_raw": 0.53649,
+      "chance_auc_matched": 0.52118
+    },
+    "scramble_detail": {
+      "tag": "SCRAMBLE_CTRL",
+      "n_valid": 3,
+      "per_seed_valid": 3,
+      "auc_raw": {
+        "LEARN_SYM": 0.49157,
+        "LEARN_ADD": 0.48702,
+        "ADD_RIDGE": 0.48681,
+        "LEARN_ROLE": 0.49278,
+        "DEGREE": 0.50125,
+        "CHANCE": 0.49466,
+        "MEMORIZE": 0.5
+      },
+      "auc_matched": {
+        "LEARN_SYM": 0.5025,
+        "LEARN_ADD": 0.51632,
+        "ADD_RIDGE": 0.51608,
+        "LEARN_ROLE": 0.50569,
+        "DEGREE": 0.50158,
+        "CHANCE": 0.503,
+        "MEMORIZE": 0.5
+      },
+      "ap_raw": {
+        "LEARN_SYM": 0.25502,
+        "LEARN_ADD": 0.24984,
+        "ADD_RIDGE": 0.24985,
+        "LEARN_ROLE": 0.24788,
+        "DEGREE": 0.26323,
+        "CHANCE": 0.2564,
+        "MEMORIZE": 0.24753
+      },
+      "pak_raw": {
+        "LEARN_SYM": 0.23333,
+        "LEARN_ADD": 0.26667,
+        "ADD_RIDGE": 0.3,
+        "LEARN_ROLE": 0.2,
+        "DEGREE": 0.23333,
+        "CHANCE": 0.2,
+        "MEMORIZE": 0.2
+      },
+      "mean_n_scor": 449.0,
+      "mean_n_pos": 112.0,
+      "mean_base_rate": 0.2494,
+      "best_constituent_arm": "LEARN_ADD",
+      "best_constituent_auc_matched": 0.51632,
+      "best_constituent_auc_raw": 0.48954,
+      "mean_constituent_auc_matched": 0.51014,
+      "sym_auc_matched": 0.5025,
+      "degree_auc_matched": 0.50158,
+      "degree_auc_raw": 0.50125,
+      "chance_auc_matched": 0.503
+    },
+    "degmatch_detail": {
+      "tag": "DEGREE_MATCH_CTRL",
+      "n_valid": 3,
+      "per_seed_valid": 3,
+      "auc_raw": {
+        "LEARN_SYM": 0.66742,
+        "LEARN_ADD": 0.77551,
+        "ADD_RIDGE": 0.77106,
+        "LEARN_ROLE": 0.68997,
+        "DEGREE": 0.81211,
+        "CHANCE": 0.54673,
+        "MEMORIZE": 0.5
+      },
+      "auc_matched": {
+        "LEARN_SYM": 0.52535,
+        "LEARN_ADD": 0.56324,
+        "ADD_RIDGE": 0.5603,
+        "LEARN_ROLE": 0.51581,
+        "DEGREE": 0.56702,
+        "CHANCE": 0.52585,
+        "MEMORIZE": 0.5
+      },
+      "ap_raw": {
+        "LEARN_SYM": 0.42689,
+        "LEARN_ADD": 0.51499,
+        "ADD_RIDGE": 0.51031,
+        "LEARN_ROLE": 0.41166,
+        "DEGREE": 0.56483,
+        "CHANCE": 0.30431,
+        "MEMORIZE": 0.15999
+      },
+      "pak_raw": {
+        "LEARN_SYM": 0.53333,
+        "LEARN_ADD": 0.5,
+        "ADD_RIDGE": 0.5,
+        "LEARN_ROLE": 0.46667,
+        "DEGREE": 0.66667,
+        "CHANCE": 0.33333,
+        "MEMORIZE": 0.0
+      },
+      "mean_n_scor": 212.67,
+      "mean_n_pos": 53.0,
+      "mean_base_rate": 0.2492,
+      "best_constituent_arm": "LEARN_ADD",
+      "best_constituent_auc_matched": 0.56324,
+      "best_constituent_auc_raw": 0.72599,
+      "mean_constituent_auc_matched": 0.54117,
+      "sym_auc_matched": 0.52535,
+      "degree_auc_matched": 0.56702,
+      "degree_auc_raw": 0.81211,
+      "chance_auc_matched": 0.52585
+    }
+  },
+  "label_info": {
+    "label_source": "zdlfc_moesm3",
+    "smf_units": "log2fc",
+    "smf_band": [
+      -0.5,
+      0.5
+    ],
+    "n_pocket": 360,
+    "pocket_join_frac": 1.0,
+    "zdlfc_pairs_available": 403,
+    "Z_SL": 3.0,
+    "n_detect": 360,
+    "n_pos_primary": 15,
+    "base_rate_primary": 0.0417,
+    "n_pos_quantile_secondary": 54
+  },
+  "zdlfc_parse_diag": {
+    "mode": "single_pair_col",
+    "pair_col": 0,
+    "pair_hits": 119,
+    "num_cols": [
+      1,
+      2,
+      3
+    ],
+    "header": [
+      "",
+      "A549",
+      "HT29",
+      "OVCAR8"
+    ],
+    "n_pairs_parsed": 403
+  },
+  "structure": {
+    "n_detect": 360,
+    "n_tok_detect": 704,
+    "n_pos": 15,
+    "base_rate": 0.0417,
+    "avg_gene_degree": 1.0227,
+    "n_learnable_subpocket": 0,
+    "MIN_DEG": 2,
+    "MIN_LEARNABLE": 40
+  },
+  "verdict": "STRUCTURAL_UNDERPOWER_GENES_DONT_RECUR",
+  "verdict_msg": "STRUCTURAL_UNDERPOWER_GENES_DONT_RECUR || learnable sub-pocket=0 (< MIN_LEARNABLE=40) / n_pos=15 ; avg gene pocket-degree=1.023 -- a near-matching: constituent-identity readouts cannot generalize to NOVEL pairs (genes do not recur). NOT a genuine-null, NOT a harness-mismatch: the reframe is UNTESTABLE on this pocket. HAND-OFF: escalate to a COMBINATORIAL screen where each gene is crossed against many partners (Horlbeck GSE / Perturb-seq all-by-all / harmonized compendium) so gene-level SL-propensity is learnable. controls_ok=True",
+  "summary": "STRUCTURAL_UNDERPOWER_GENES_DONT_RECUR || learnable sub-pocket=0 (< MIN_LEARNABLE=40) / n_pos=15 ; avg gene pocket-degree=1.023 -- a near-matching: constituent-identity readouts cannot generalize to N",
+  "escalate": true,
+  "path": "A",
+  "n_pairs": 403,
+  "n_tok": 789
+}

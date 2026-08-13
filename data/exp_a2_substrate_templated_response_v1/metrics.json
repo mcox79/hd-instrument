@@ -1,0 +1,1010 @@
+{
+  "anchor": "a2_substrate_templated_response_v1",
+  "anchor_name": "a2_substrate_templated_response_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: templated_gram=0.557 gram_lift=0.547 fact_delta=0.020; bands not crossed. templated_fact=0.067 templated_gram=0.557 raw_fact=0.047 raw_gram=0.010 noretrieval_fact=0.040 noretrieval_gram=0.160 gram_lift=0.547 fact_delta=0.020 n_llm=0",
+  "n_seeds": 3,
+  "N": 2048,
+  "N_DIM": 2048,
+  "N_Q": 100,
+  "TOP_K": 5,
+  "arms": [
+    "TEMPLATED_RESPONSE",
+    "RAW_ENTITY_SEQUENCE",
+    "NO_RETRIEVAL_TEMPLATE_ONLY"
+  ],
+  "run_mode": "full",
+  "device": "cpu",
+  "config_version": "a2-substrate-templated-response-v1: N_DIM=2048 N_Q=100 TOP_K=5 arms=TEMPLATED_RESPONSE,RAW_ENTITY_SEQUENCE,NO_RETRIEVAL_TEMPLATE_ONLY run_mode=full device=cpu; bands HP_gram>=0.80 HP_gram_lift>=0.50 HF_gram<0.50 HF_factual_degrade=0.05",
+  "corpus_provenance": "hotpotqa_distractor_dev_1k_jsonl",
+  "allow_synthetic": false,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_factual_ratio": {
+      "TEMPLATED_RESPONSE": 0.06666666666666667,
+      "RAW_ENTITY_SEQUENCE": 0.04666666666666667,
+      "NO_RETRIEVAL_TEMPLATE_ONLY": 0.04
+    },
+    "mean_gram_ratio": {
+      "TEMPLATED_RESPONSE": 0.5566666666666666,
+      "RAW_ENTITY_SEQUENCE": 0.01,
+      "NO_RETRIEVAL_TEMPLATE_ONLY": 0.16
+    },
+    "cv_factual": {
+      "TEMPLATED_RESPONSE": 0.18708286933869706,
+      "RAW_ENTITY_SEQUENCE": 0.26726124191242434,
+      "NO_RETRIEVAL_TEMPLATE_ONLY": 0.0
+    },
+    "mean_per_category": {
+      "TEMPLATED_RESPONSE": {
+        "COMPARE_X_Y": {
+          "factual_ratio": 0.15384615384615385,
+          "gram_ratio": 0.5384615384615384,
+          "n_seeds": 3
+        },
+        "FALLBACK": {
+          "factual_ratio": 0.005208333333333333,
+          "gram_ratio": 0.4739583333333333,
+          "n_seeds": 3
+        },
+        "LIST_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        },
+        "WHAT_IS_X": {
+          "factual_ratio": 0.1818181818181818,
+          "gram_ratio": 0.5757575757575757,
+          "n_seeds": 3
+        },
+        "WHEN_DID_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        },
+        "WHERE_IS_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        },
+        "WHO_DID_X": {
+          "factual_ratio": 0.3333333333333333,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        }
+      },
+      "RAW_ENTITY_SEQUENCE": {
+        "COMPARE_X_Y": {
+          "factual_ratio": 0.20512820512820515,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        },
+        "FALLBACK": {
+          "factual_ratio": 0.015625,
+          "gram_ratio": 0.005208333333333333,
+          "n_seeds": 3
+        },
+        "LIST_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        },
+        "WHAT_IS_X": {
+          "factual_ratio": 0.030303030303030304,
+          "gram_ratio": 0.06060606060606061,
+          "n_seeds": 3
+        },
+        "WHEN_DID_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        },
+        "WHERE_IS_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        },
+        "WHO_DID_X": {
+          "factual_ratio": 0.09523809523809523,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        }
+      },
+      "NO_RETRIEVAL_TEMPLATE_ONLY": {
+        "COMPARE_X_Y": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        },
+        "FALLBACK": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 0.0,
+          "n_seeds": 3
+        },
+        "LIST_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        },
+        "WHAT_IS_X": {
+          "factual_ratio": 0.1818181818181818,
+          "gram_ratio": 0.3636363636363636,
+          "n_seeds": 3
+        },
+        "WHEN_DID_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        },
+        "WHERE_IS_X": {
+          "factual_ratio": 0.0,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        },
+        "WHO_DID_X": {
+          "factual_ratio": 0.2857142857142857,
+          "gram_ratio": 1.0,
+          "n_seeds": 3
+        }
+      }
+    },
+    "templated_factual": 0.06666666666666667,
+    "templated_gram": 0.5566666666666666,
+    "raw_factual": 0.04666666666666667,
+    "raw_gram": 0.01,
+    "noretrieval_factual": 0.04,
+    "noretrieval_gram": 0.16,
+    "gram_lift_templated_vs_raw": 0.5466666666666666,
+    "fact_delta_templated_vs_raw": 0.019999999999999997,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Substrate-templated response on HotpotQA-distractor-dev (N_Q=100 subsample), N_DIM=2048, TOP_K=5. 3-arm discriminator (Fix #16): TEMPLATED_RESPONSE vs RAW_ENTITY_SEQUENCE vs NO_RETRIEVAL_TEMPLATE_ONLY. Substrate-only-decode gate enforced (n_llm=0). Encoder: char-trigram. Templates: 7 static categories + FALLBACK; substrate fills entity slot via KG top-1. Bands CALIBRATED via 2026-06-22 smoke + v1 retrieval-ceiling evidence: load-bearing metric is gram_lift (rendering machinery test); factual is secondary (gated by KG retrieval quality which is independently weak at this scale per v1 retrieval_only EM=0.010 N_DIM=8192 N_Q=1000)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M": 100,
+      "run_mode": "full",
+      "config_version": "a2-substrate-templated-response-v1: N_DIM=2048 N_Q=100 TOP_K=5 arms=TEMPLATED_RESPONSE,RAW_ENTITY_SEQUENCE,NO_RETRIEVAL_TEMPLATE_ONLY run_mode=full device=cpu; bands HP_gram>=0.80 HP_gram_lift>=0.50 HF_gram<0.50 HF_factual_degrade=0.05",
+      "elapsed_s": 0.18829059600830078,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782217188.3671925,
+      "per_unit": [
+        {
+          "arm": "TEMPLATED_RESPONSE",
+          "seed": 7,
+          "n_q": 100,
+          "factual_ratio": 0.05,
+          "gram_ratio": 0.58,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.7692307692307693
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.015625,
+              "gram_ratio": 0.453125
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.18181818181818182,
+              "gram_ratio": 0.6363636363636364
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.2857142857142857,
+              "gram_ratio": 1.0
+            }
+          },
+          "arm_wall_s": 0.011998653411865234,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is Chris Menges.",
+              "gold": "yes",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "The answer is Jim Cummings.",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "The answer is Robert Erskine Childers DSC.",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is Mondelez International, Inc..",
+              "gold": "no",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "The answer is no.",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        },
+        {
+          "arm": "RAW_ENTITY_SEQUENCE",
+          "seed": 7,
+          "n_q": 100,
+          "factual_ratio": 0.05,
+          "gram_ratio": 0.02,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.07692307692307693,
+              "gram_ratio": 0.0
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.046875,
+              "gram_ratio": 0.0
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.18181818181818182
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.14285714285714285,
+              "gram_ratio": 0.0
+            }
+          },
+          "arm_wall_s": 0.012003421783447266,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "Chris Menges -> London Review of Books -> no -> yes -> Peter Schmeichel",
+              "gold": "yes",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "Jim Cummings -> George V -> Silene -> EFL Cup -> World War II",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "Robert Erskine Childers DSC -> Tata Consultancy Services -> 3,677 seated -> keyboard function keys -> the North Atlantic Conference",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "Mondelez International, Inc. -> Robert Erskine Childers DSC -> Carrefour -> Strasbourg -> Russian Civil War",
+              "gold": "no",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "no -> Charles Eug\u00e8ne -> Columbia University -> Mondelez International, Inc. -> Levni Yilmaz",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        },
+        {
+          "arm": "NO_RETRIEVAL_TEMPLATE_ONLY",
+          "seed": 7,
+          "n_q": 100,
+          "factual_ratio": 0.04,
+          "gram_ratio": 0.16,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.18181818181818182,
+              "gram_ratio": 0.36363636363636365
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.2857142857142857,
+              "gram_ratio": 1.0
+            }
+          },
+          "arm_wall_s": 0.0019996166229248047,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is nationality.",
+              "gold": "yes",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "The answer is government.",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "The answer is companion.",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is neighborhood.",
+              "gold": "no",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "The answer is director.",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M": 100,
+      "run_mode": "full",
+      "config_version": "a2-substrate-templated-response-v1: N_DIM=2048 N_Q=100 TOP_K=5 arms=TEMPLATED_RESPONSE,RAW_ENTITY_SEQUENCE,NO_RETRIEVAL_TEMPLATE_ONLY run_mode=full device=cpu; bands HP_gram>=0.80 HP_gram_lift>=0.50 HF_gram<0.50 HF_factual_degrade=0.05",
+      "elapsed_s": 0.1904282569885254,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782217188.5730267,
+      "per_unit": [
+        {
+          "arm": "TEMPLATED_RESPONSE",
+          "seed": 17,
+          "n_q": 100,
+          "factual_ratio": 0.07,
+          "gram_ratio": 0.46,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.23076923076923078,
+              "gram_ratio": 0.5384615384615384
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.34375
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.18181818181818182,
+              "gram_ratio": 0.45454545454545453
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.2857142857142857,
+              "gram_ratio": 1.0
+            }
+          },
+          "arm_wall_s": 0.006016969680786133,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is Chris Menges.",
+              "gold": "yes",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "The answer is yes.",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "The answer is Poison (American band).",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is no.",
+              "gold": "no",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "The answer is yes.",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        },
+        {
+          "arm": "RAW_ENTITY_SEQUENCE",
+          "seed": 17,
+          "n_q": 100,
+          "factual_ratio": 0.03,
+          "gram_ratio": 0.0,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.23076923076923078,
+              "gram_ratio": 0.0
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            }
+          },
+          "arm_wall_s": 0.008808374404907227,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "Chris Menges -> Charmed -> orange -> Indigenous peoples of Florida -> Organizations could come together to address global issues",
+              "gold": "yes",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "yes -> Drifting (motorsport) -> Peter Schmeichel -> Mumbai -> Conscription",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "Poison (American band) -> Bill Clinton -> Rose McGowan -> Pamela B. Green -> Winner (band)",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "no -> Strasbourg -> Ann -> Indigenous peoples of Florida -> Drifting (motorsport)",
+              "gold": "no",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "yes -> World War II -> For Against -> Organizations could come together to address global issues -> Levni Yilmaz",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        },
+        {
+          "arm": "NO_RETRIEVAL_TEMPLATE_ONLY",
+          "seed": 17,
+          "n_q": 100,
+          "factual_ratio": 0.04,
+          "gram_ratio": 0.16,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.18181818181818182,
+              "gram_ratio": 0.36363636363636365
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.2857142857142857,
+              "gram_ratio": 1.0
+            }
+          },
+          "arm_wall_s": 0.0020804405212402344,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is nationality.",
+              "gold": "yes",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "The answer is government.",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "The answer is companion.",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is neighborhood.",
+              "gold": "no",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "The answer is director.",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 2048,
+      "M": 100,
+      "run_mode": "full",
+      "config_version": "a2-substrate-templated-response-v1: N_DIM=2048 N_Q=100 TOP_K=5 arms=TEMPLATED_RESPONSE,RAW_ENTITY_SEQUENCE,NO_RETRIEVAL_TEMPLATE_ONLY run_mode=full device=cpu; bands HP_gram>=0.80 HP_gram_lift>=0.50 HF_gram<0.50 HF_factual_degrade=0.05",
+      "elapsed_s": 0.17808103561401367,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782217188.763924,
+      "per_unit": [
+        {
+          "arm": "TEMPLATED_RESPONSE",
+          "seed": 23,
+          "n_q": 100,
+          "factual_ratio": 0.08,
+          "gram_ratio": 0.63,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.23076923076923078,
+              "gram_ratio": 0.3076923076923077
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.625
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.18181818181818182,
+              "gram_ratio": 0.6363636363636364
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.42857142857142855,
+              "gram_ratio": 1.0
+            }
+          },
+          "arm_wall_s": 0.007001638412475586,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is yes.",
+              "gold": "yes",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "The answer is Carabao Cup.",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 1
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "The answer is 1866.",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is no.",
+              "gold": "no",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "The answer is 1866.",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        },
+        {
+          "arm": "RAW_ENTITY_SEQUENCE",
+          "seed": 23,
+          "n_q": 100,
+          "factual_ratio": 0.06,
+          "gram_ratio": 0.01,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.3076923076923077,
+              "gram_ratio": 0.0
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.015625
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.09090909090909091,
+              "gram_ratio": 0.0
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.14285714285714285,
+              "gram_ratio": 0.0
+            }
+          },
+          "arm_wall_s": 0.007997989654541016,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "yes -> Brown County, Kansas -> no -> World's Best Goalkeeper -> Edmund Leach",
+              "gold": "yes",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "Carabao Cup -> International Boxing Hall of Fame -> World's Best Goalkeeper -> Beijing -> Halliburton",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "1866 -> British -> Rabat -> Sela Ward -> Beijing",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "no -> Drifting -> Peter Schmeichel -> from 1986 to 2013 -> Jim Cummings",
+              "gold": "no",
+              "factual_hit": 1,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "1866 -> Roald Dahl -> Sela Ward -> Edmund Leach -> Huernia",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        },
+        {
+          "arm": "NO_RETRIEVAL_TEMPLATE_ONLY",
+          "seed": 23,
+          "n_q": 100,
+          "factual_ratio": 0.04,
+          "gram_ratio": 0.16,
+          "per_category": {
+            "COMPARE_X_Y": {
+              "n": 13,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "FALLBACK": {
+              "n": 64,
+              "factual_ratio": 0.0,
+              "gram_ratio": 0.0
+            },
+            "LIST_X": {
+              "n": 1,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHAT_IS_X": {
+              "n": 11,
+              "factual_ratio": 0.18181818181818182,
+              "gram_ratio": 0.36363636363636365
+            },
+            "WHEN_DID_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHERE_IS_X": {
+              "n": 2,
+              "factual_ratio": 0.0,
+              "gram_ratio": 1.0
+            },
+            "WHO_DID_X": {
+              "n": 7,
+              "factual_ratio": 0.2857142857142857,
+              "gram_ratio": 1.0
+            }
+          },
+          "arm_wall_s": 0.0020012855529785156,
+          "n_dim": 2048,
+          "top_k": 5,
+          "sample_responses": [
+            {
+              "q": "Were Scott Derrickson and Ed Wood of the same nationality?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is nationality.",
+              "gold": "yes",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+              "cat": "FALLBACK",
+              "response": "The answer is government.",
+              "gold": "Chief of Protocol",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of ens",
+              "cat": "FALLBACK",
+              "response": "The answer is companion.",
+              "gold": "Animorphs",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+              "cat": "COMPARE_X_Y",
+              "response": "The answer is neighborhood.",
+              "gold": "no",
+              "factual_hit": 0,
+              "gram_hit": 0
+            },
+            {
+              "q": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+              "cat": "FALLBACK",
+              "response": "The answer is director.",
+              "gold": "Greenwich Village, New York City",
+              "factual_hit": 0,
+              "gram_hit": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_a2_templated_response_3arm",
+  "elapsed_s": 0.6292376518249512,
+  "summary": "MIDDLE_BAND: templated_gram=0.557 gram_lift=0.547 fact_delta=0.020; bands not crossed. templated_fact=0.067 templated_gram=0.557 raw_fact=0.047 raw_gram=0.010 noretrieval_fact=0.040 noretrieval_gram=0"
+}

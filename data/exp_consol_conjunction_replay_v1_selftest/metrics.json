@@ -1,0 +1,45 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS consol conjunction-replay: INTERLEAVED product-lens beats CONTINUAL + FREQ_NULL on the real parity arena; SHUFFLE flat; ORACLE fires; FREQ at chance; compute-matched; 5 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 3.7673580000409856,
+  "mechanism_selftest": {
+    "chance": 0.51818,
+    "n_novel": 99,
+    "INTERLEAVED": 1.0,
+    "CONTINUAL": 1.0,
+    "SHUFFLE": 0.57576,
+    "FREQ_NULL": 0.44444,
+    "ORACLE": 1.0,
+    "beat_freq": 0.55556,
+    "schedule_gap_inter_minus_cont": 0.0,
+    "inter_minus_shuffle": 0.42424,
+    "inter_probe": 1.0,
+    "cont_probe": 1.0,
+    "n_distinct_sigs": 2,
+    "step_mismatch": 0.0,
+    "compute_matched": true,
+    "nonadditivity": {
+      "best_single_mi": 0.0031,
+      "joint_mi": 0.999,
+      "mi_margin": 0.9959
+    },
+    "inter_solves": true,
+    "inter_beats_freq": true,
+    "inter_beats_shuffle": true,
+    "freq_at_chance": true,
+    "shuffle_flat": true,
+    "oracle_fires": true,
+    "baseline_in_band": true,
+    "arms_differ": true,
+    "enough_novel": true,
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "metric_moves",
+      "negative_control_fails_with_margin"
+    ]
+  }
+}

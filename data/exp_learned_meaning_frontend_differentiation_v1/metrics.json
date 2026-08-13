@@ -1,0 +1,201 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "in-vocab learning real+improving (fine lift=0.339, sep=0.4746; coarse-first 4/4) BUT held-out does not generalize (ho_lift=0.0 < 0.1) -> memorization-leaning; genuine compositional differentiation belongs to the SEPARATE native-bind component",
+  "summary": "MIDDLE: in-vocab learning real+improving (fine lift=0.339, sep=0.4746; coarse-first 4/4) BUT held-out does not generalize (ho_lift=0.0 < 0.1) -> memorization-leaning; genuine compositional differentiation belongs to the SEPARATE native-bind component",
+  "run_mode": "full",
+  "elapsed_s": 89.37,
+  "ts_iso": "2026-07-25T11:29:08.917311+00:00",
+  "anchor_name": "learned_meaning_frontend_differentiation_v1",
+  "seed": 20260725,
+  "one_variable": "LEARNED item+relation->property hub vs FROZEN GloVe (eval question + property targets identical)",
+  "primary_metric": "in-vocab fine-tier discrimination learning curve (flexible/improving); HARD_PASS also requires held-out generalization",
+  "n_domains": 4,
+  "domains": [
+    "animal",
+    "energy",
+    "metal",
+    "planet"
+  ],
+  "dropped_oov": [],
+  "chance_fine": 0.1667,
+  "exposures": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512
+  ],
+  "learned_fine_invocab_curve": [
+    0.1356,
+    0.1356,
+    0.1356,
+    0.1525,
+    0.1186,
+    0.1356,
+    0.322,
+    0.4407,
+    0.678,
+    0.7458,
+    0.7119
+  ],
+  "learned_fine_heldout_curve": [
+    0.1538,
+    0.2308,
+    0.3077,
+    0.2308,
+    0.2308,
+    0.1538,
+    0.0769,
+    0.0769,
+    0.1538,
+    0.0769,
+    0.0769
+  ],
+  "learned_coarse_curve": [
+    0.7917,
+    0.7917,
+    0.7917,
+    0.7917,
+    0.7917,
+    0.7917,
+    0.9167,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "frozen_fine_invocab": 0.3729,
+  "frozen_fine_heldout": 0.0769,
+  "frozen_coarse": 0.7917,
+  "frozen_fine_per_domain": {
+    "animal": 0.4375,
+    "energy": 0.4667,
+    "metal": 0.3333,
+    "planet": 0.2308
+  },
+  "shuffled_fine_invocab_curve": [
+    0.1356,
+    0.1356,
+    0.1356,
+    0.1356,
+    0.1186,
+    0.0847,
+    0.1186,
+    0.1356,
+    0.1525,
+    0.2034,
+    0.2373
+  ],
+  "shuffled_fine_heldout_curve": [
+    0.1538,
+    0.2308,
+    0.3077,
+    0.2308,
+    0.2308,
+    0.1538,
+    0.0769,
+    0.0769,
+    0.0,
+    0.0769,
+    0.0
+  ],
+  "in_vocab_fine_lift_over_frozen": 0.339,
+  "in_vocab_true_vs_shuffled_sep": 0.4746,
+  "heldout_fine_lift_over_frozen": 0.0,
+  "heldout_true_vs_shuffled_sep": 0.0769,
+  "controls_hold": true,
+  "heldout_n": 13,
+  "coarse_before_fine_domains": 4,
+  "coarse_before_fine_ordering": {
+    "animal": {
+      "coarse_cross": 32,
+      "fine_cross": 128,
+      "coarse_before_fine": true
+    },
+    "energy": {
+      "coarse_cross": 64,
+      "fine_cross": 128,
+      "coarse_before_fine": true
+    },
+    "metal": {
+      "coarse_cross": 0,
+      "fine_cross": 128,
+      "coarse_before_fine": true
+    },
+    "planet": {
+      "coarse_cross": 0,
+      "fine_cross": 128,
+      "coarse_before_fine": true
+    }
+  },
+  "near_degenerate_cosine_per_domain": {
+    "animal": 0.278,
+    "energy": 0.3474,
+    "metal": 0.4959,
+    "planet": 0.3704
+  },
+  "max_near_degenerate_cosine": 0.4959,
+  "sigmoid_vs_linear_aic": {
+    "aic_linear": -46.625,
+    "aic_sigmoid": -70.224,
+    "aic_delta": -23.598,
+    "logistic_x0_k": [
+      4.056179299361,
+      2.0999999999999996
+    ]
+  },
+  "glassbox_bottleneck_separation": {
+    "animal": {
+      "frozen_mean_pairwise_dist": 0.722,
+      "learned_bottleneck_mean_pairwise_dist": 0.1947,
+      "concepts": [
+        "eagle",
+        "penguin",
+        "salmon",
+        "shark",
+        "sparrow",
+        "tuna"
+      ]
+    },
+    "energy": {
+      "frozen_mean_pairwise_dist": 0.6526,
+      "learned_bottleneck_mean_pairwise_dist": 0.2708,
+      "concepts": [
+        "coal",
+        "geothermal",
+        "hydroelectric",
+        "nuclear",
+        "solar",
+        "wind"
+      ]
+    }
+  },
+  "bands": {
+    "REL_LIFT_HP": 0.25,
+    "REL_LIFT_HF": 0.1,
+    "SHUFFLE_SEP": 0.15,
+    "SHUFFLE_FLAT": 0.12,
+    "FROZEN_SAT": 0.85,
+    "DEGEN_COS": 0.9,
+    "COARSE_FIRST_MIN_DOMAINS": 3
+  },
+  "hub_config": {
+    "H_BOTTLENECK": 32,
+    "LR": 0.1,
+    "WEIGHT_DECAY": 0.0001,
+    "GRAD_CLIP": 1.0,
+    "in_dim": 310,
+    "out_dim": 300
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_sorted_no_builtin_hash",
+  "storage": "no_composition_selfcontained_differentiation",
+  "contract": "INLINE-LOCAL foreground-to-completion; no push/remote-persist; VET-PENDING"
+}

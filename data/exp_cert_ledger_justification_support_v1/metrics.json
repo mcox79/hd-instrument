@@ -1,0 +1,330 @@
+{
+  "anchor_name": "cert_ledger_justification_support_v1",
+  "verdict": "DISCRIMINATOR_DID_NOT_FIRE",
+  "verdict_msg": "insufficient assemblable cert claims: 8 < 25 (too few machine-parseable gating referents in this corpus). n_cert_claims=986 n_assemblable=8 support_recall=1.0000 assembly_coverage=0.0127 adversarial_band_support_max=0.0000 deranged_collapse_min=0.5000 op_agreement_min=1.0000 scram_residue_max=0.9000 genuine_unsupported=0",
+  "summary": "DISCRIMINATOR_DID_NOT_FIRE: justification-retrieval support-check re-derives cert verdicts from own evidence (full)",
+  "run_mode": "full",
+  "elapsed_s": 2.3,
+  "n_seeds": 5,
+  "n_units": 20,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "n_cert_claims": 986,
+  "n_assemblable": 8,
+  "config": {
+    "regime": "large",
+    "moduli": [
+      40,
+      41,
+      43
+    ],
+    "M": 70520,
+    "N": 8192,
+    "SB": 2730,
+    "SCALE": 1000,
+    "OFFSET": 20000,
+    "RES": 0.002,
+    "seeds": [
+      7,
+      13,
+      19,
+      23,
+      29
+    ],
+    "ledger_path": "data/substrate_index/meta/cert_ledger.jsonl",
+    "assembly_paths": "structured_gate_claims (declared gates) + verdict_msg cited NUM op NUM resolved source-direct",
+    "comparison_leg": "decode_then_compare_two_CRT_decodes_from_exp_math_rns_subtract_compare_v1 (reused)",
+    "resolution_leg": "source_direct precision_aware_leaf_lookup (reused from exp_cert_ledger_source_direct_entailment_v1)",
+    "firing_control": "adversarial_band_flip (primary) + real_band_derangement (secondary)",
+    "storage_strategy": "no_storage_algebraic (comparator CRT; ledger + source lookups are direct file reads)"
+  },
+  "cert_ledger_stats": {
+    "n_ledger_lines": 1336,
+    "n_claims_with_metrics_referent": 986,
+    "n_no_referent": 350,
+    "ledger_parse_failures": {
+      "json_decode": 0
+    }
+  },
+  "arms": {
+    "7": {
+      "seed": 7,
+      "n_cert_claims": 986,
+      "n_metrics_exist": 629,
+      "n_assemblable": 8,
+      "n_checks": 10,
+      "check_sources": {
+        "sgc": 0,
+        "cited": 10
+      },
+      "support_recall": 1.0,
+      "assembly_coverage": 0.0127,
+      "adversarial_band_support": 0.0,
+      "deranged_band_support": 0.25,
+      "deranged_band_collapse": 0.75,
+      "op_agreement_guard": 1.0,
+      "scram_residue_agreement": 0.9,
+      "ledger_metrics_verdict_consistency": 0.9634,
+      "assembly_buckets": {
+        "metrics_missing": 357,
+        "parse_error": 0,
+        "no_verdict_msg": 0,
+        "prose_only_no_machine_band": 621,
+        "cited_unresolved_or_prose": 0,
+        "assemblable": 8
+      },
+      "n_genuine_unsupported_pass_family": 0
+    },
+    "13": {
+      "seed": 13,
+      "n_cert_claims": 986,
+      "n_metrics_exist": 629,
+      "n_assemblable": 8,
+      "n_checks": 10,
+      "check_sources": {
+        "sgc": 0,
+        "cited": 10
+      },
+      "support_recall": 1.0,
+      "assembly_coverage": 0.0127,
+      "adversarial_band_support": 0.0,
+      "deranged_band_support": 0.5,
+      "deranged_band_collapse": 0.5,
+      "op_agreement_guard": 1.0,
+      "scram_residue_agreement": 0.9,
+      "ledger_metrics_verdict_consistency": 0.9634,
+      "assembly_buckets": {
+        "metrics_missing": 357,
+        "parse_error": 0,
+        "no_verdict_msg": 0,
+        "prose_only_no_machine_band": 621,
+        "cited_unresolved_or_prose": 0,
+        "assemblable": 8
+      },
+      "n_genuine_unsupported_pass_family": 0
+    },
+    "19": {
+      "seed": 19,
+      "n_cert_claims": 986,
+      "n_metrics_exist": 629,
+      "n_assemblable": 8,
+      "n_checks": 10,
+      "check_sources": {
+        "sgc": 0,
+        "cited": 10
+      },
+      "support_recall": 1.0,
+      "assembly_coverage": 0.0127,
+      "adversarial_band_support": 0.0,
+      "deranged_band_support": 0.0,
+      "deranged_band_collapse": 1.0,
+      "op_agreement_guard": 1.0,
+      "scram_residue_agreement": 0.9,
+      "ledger_metrics_verdict_consistency": 0.9634,
+      "assembly_buckets": {
+        "metrics_missing": 357,
+        "parse_error": 0,
+        "no_verdict_msg": 0,
+        "prose_only_no_machine_band": 621,
+        "cited_unresolved_or_prose": 0,
+        "assemblable": 8
+      },
+      "n_genuine_unsupported_pass_family": 0
+    },
+    "23": {
+      "seed": 23,
+      "n_cert_claims": 986,
+      "n_metrics_exist": 629,
+      "n_assemblable": 8,
+      "n_checks": 10,
+      "check_sources": {
+        "sgc": 0,
+        "cited": 10
+      },
+      "support_recall": 1.0,
+      "assembly_coverage": 0.0127,
+      "adversarial_band_support": 0.0,
+      "deranged_band_support": 0.5,
+      "deranged_band_collapse": 0.5,
+      "op_agreement_guard": 1.0,
+      "scram_residue_agreement": 0.9,
+      "ledger_metrics_verdict_consistency": 0.9634,
+      "assembly_buckets": {
+        "metrics_missing": 357,
+        "parse_error": 0,
+        "no_verdict_msg": 0,
+        "prose_only_no_machine_band": 621,
+        "cited_unresolved_or_prose": 0,
+        "assemblable": 8
+      },
+      "n_genuine_unsupported_pass_family": 0
+    },
+    "29": {
+      "seed": 29,
+      "n_cert_claims": 986,
+      "n_metrics_exist": 629,
+      "n_assemblable": 8,
+      "n_checks": 10,
+      "check_sources": {
+        "sgc": 0,
+        "cited": 10
+      },
+      "support_recall": 1.0,
+      "assembly_coverage": 0.0127,
+      "adversarial_band_support": 0.0,
+      "deranged_band_support": 0.375,
+      "deranged_band_collapse": 0.625,
+      "op_agreement_guard": 1.0,
+      "scram_residue_agreement": 0.9,
+      "ledger_metrics_verdict_consistency": 0.9634,
+      "assembly_buckets": {
+        "metrics_missing": 357,
+        "parse_error": 0,
+        "no_verdict_msg": 0,
+        "prose_only_no_machine_band": 621,
+        "cited_unresolved_or_prose": 0,
+        "assemblable": 8
+      },
+      "n_genuine_unsupported_pass_family": 0
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm": "support_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 7,
+      "arm": "adversarial_band_support",
+      "value": 0.0
+    },
+    {
+      "seed": 7,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 7,
+      "arm": "deranged_band_support",
+      "value": 0.25
+    },
+    {
+      "seed": 13,
+      "arm": "support_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 13,
+      "arm": "adversarial_band_support",
+      "value": 0.0
+    },
+    {
+      "seed": 13,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 13,
+      "arm": "deranged_band_support",
+      "value": 0.5
+    },
+    {
+      "seed": 19,
+      "arm": "support_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 19,
+      "arm": "adversarial_band_support",
+      "value": 0.0
+    },
+    {
+      "seed": 19,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 19,
+      "arm": "deranged_band_support",
+      "value": 0.0
+    },
+    {
+      "seed": 23,
+      "arm": "support_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 23,
+      "arm": "adversarial_band_support",
+      "value": 0.0
+    },
+    {
+      "seed": 23,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 23,
+      "arm": "deranged_band_support",
+      "value": 0.5
+    },
+    {
+      "seed": 29,
+      "arm": "support_recall",
+      "value": 1.0
+    },
+    {
+      "seed": 29,
+      "arm": "adversarial_band_support",
+      "value": 0.0
+    },
+    {
+      "seed": 29,
+      "arm": "op_agreement_guard",
+      "value": 1.0
+    },
+    {
+      "seed": 29,
+      "arm": "deranged_band_support",
+      "value": 0.375
+    }
+  ],
+  "arms_differ_verified": true,
+  "controls": {
+    "controls_collapsed": false
+  },
+  "prereg_residual_probe": {
+    "n_non_assemblable_examined": 621,
+    "n_with_mappable_prereg": 256,
+    "n_prereg_with_parseable_clause": 4,
+    "n_naive_prereg_conflict_FALSE_POSITIVES": 0,
+    "note": "REPORTED-ONLY. n_naive_prereg_conflict is the count of cert claims where a NAIVE single-clause prereg re-derivation would FALSELY read as unsupported (a PASS-family verdict whose per-file leaf fails a top-level PASS band-clause). These are FALSE POSITIVES caused by multi-clause boolean bands + 3-seed-aggregation rules + name-match ambiguity -- proof that prereg-band re-derivation is LOSSY, hence EXCLUDED from the clean support-check and reported as the un-machine-parseable residual (the coverage gap the scoping note asked to measure)."
+  },
+  "audit_candidates": {
+    "genuine_unsupported": [],
+    "n_genuine_unsupported_total": 0,
+    "note": "genuine_unsupported = a PASS-family cert claim whose OWN machine-clean assembled evidence (declared gate or cited-as-true inequality resolved against its own metrics.json) does NOT hold when re-evaluated via the VET'd comparator -- an UNSUPPORTED certification candidate for VET. Expected ~zero (source-direct found records self-consistent); zero IS the meaningful positive that certifications are backed by their evidence."
+  },
+  "bands": {
+    "HP_support_recall": 0.95,
+    "HF_support_recall": 0.7,
+    "max_adversarial_band_support": 0.1,
+    "min_deranged_collapse": 0.4,
+    "HP_op_agree": 0.99,
+    "HF_op_agree": 0.9,
+    "max_scram_residue": 0.72,
+    "min_cert_claims": 300,
+    "min_assemblable": 25
+  },
+  "composition": {
+    "predecessor_source_direct": "exp_cert_ledger_source_direct_entailment_v1 (leaf resolution + comparator reused verbatim)",
+    "predecessor_numeric": "exp_cert_ledger_numeric_entailment_v1 (Tier-2 numeric entailment)",
+    "comparator_cell": "exp_math_rns_subtract_compare_v1 (MEASURED_MECHANISM; decode_then_compare)",
+    "rung": "justification-retrieval: joins the cert_ledger to each claim's referent metrics.json, ASSEMBLES the claim's machine-clean gating evidence, and RE-DERIVES whether the recorded verdict is SUPPORTED. One level above source-direct (which resolves individual cited numbers); this aggregates per CERT CLAIM and checks the VERDICT is entailed by its own evidence."
+  },
+  "scope_guardrail": "NARROW glass-box MONITOR: the audit READS the ledger + cell metrics + verdicts and RE-DERIVES entailment. It NEVER edits the ledger, never re-labels a cert_status, never edits code, never triggers a re-encode. Not fluent-language, not self-improvement.",
+  "ts_iso": "2026-07-06T17:01:05.520626+00:00",
+  "pid": 10668,
+  "host": "Home"
+}

@@ -1,0 +1,14 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (5 formula selftests ran successfully)",
+  "summary": "SELFTEST_PASS 5/5",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "anchor_name": "exp_cortex_integration_m16_attention_router_v1",
+  "ts_iso": "2026-07-02T19:33:44.531369+00:00",
+  "selftest_result": {
+    "selftests_passed": 5,
+    "arms_differ_verified": true,
+    "cell_source": "exp_cortex_integration_m16_attention_router_v1"
+  }
+}

@@ -1,0 +1,485 @@
+{
+  "anchor_name": "agreement_word_sparse_ca3_predictive_hierarchy_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_(b)_NOT_STRUCTURE_INDUCTION",
+  "verdict_msg": "HARD_FAIL_(b)_NOT_STRUCTURE_INDUCTION | brain-faithful sparse CA3 CLEARED Stage-0 on real words (in-vocab lift=0.0284 at E=4,f=0.20,center,win=1 -- the crosstalk fix WORKED) but the prediction-residual head selector did NOT induce head-tracking on the novel-lexeme SNF subset: tgph_snf(annealed)=0.5136 vs majority 0.6269 (need >=0.7269), structure-shuffle SNF=0.5097 drop=0.0039 (need >=0.10), annealed - fixed=0.0 (need >0). EARNED negative: the subject/head signal is NOT in the lexical prediction error -- b2 (chunking) + dense + sparse prediction all exhausted; a real CG needs a different mechanism. glass-box-non-gradient confirmed.",
+  "summary": "HARD_FAIL_(b)_NOT_STRUCTURE_INDUCTION | brain-faithful sparse CA3 CLEARED Stage-0 on real words (in-vocab lift=0.0284 at E=4,f=0.20,center,win=1 -- the crosstalk fix WORKED) but the prediction-residual head selector did NOT induce head-tracking on the novel-lexeme SNF subset: tgph_snf(annealed)=0.5136 vs majority 0.6269 (need >=0.7269), structure-shuffle SNF=0.5097 drop=0.0039 (need >=0.10), annealed - fixed=0.0 (need >0). EARNED negative: the subject/head signal is NOT in the lexical prediction error -- b2 (chunking) + dense + sparse prediction all exhausted; a real CG needs a different mechanism. glass-box-non-gradient confirmed.",
+  "elapsed_s": 1044.05,
+  "ts_iso": "2026-07-22T19:20:00.844642+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "n_seed_rows": 3,
+  "expected_n_seed_rows": 3,
+  "cardinality_ok": true,
+  "N_DIM": 1024,
+  "VOCAB_CAP": 2000,
+  "best_cfg": {
+    "E": 4,
+    "f": 0.2,
+    "method": "center",
+    "window": 1
+  },
+  "sweep_axes": {
+    "E": [
+      1,
+      4
+    ],
+    "f": [
+      0.1,
+      0.15,
+      0.2
+    ],
+    "method": [
+      "rand",
+      "center"
+    ],
+    "window": [
+      1
+    ]
+  },
+  "anneal_pctiles": [
+    80,
+    68,
+    56,
+    44,
+    32,
+    20
+  ],
+  "fixed_pctile": 20,
+  "n_checkpoints": 6,
+  "bands": {
+    "MAJORITY_BAR": 0.6269,
+    "ABL_FLOOR": 0.4889,
+    "HEADTRACK_MARGIN": 0.1,
+    "SHUFFLE_DROP_MIN": 0.1,
+    "STAGE0_MARGIN": 0.02
+  },
+  "summary_metrics": {
+    "stage0_pass": true,
+    "stage0_invocab_lift": 0.0284,
+    "stage0_invocab_ca3": 0.1138,
+    "stage0_invocab_unigram": 0.0854,
+    "best_cfg": "E=4,f=0.20,center,win=1",
+    "novel_lexeme_disjoint": true,
+    "snf_tgph_annealed": 0.5136,
+    "snf_tgph_fixed": 0.5136,
+    "snf_structshuffle": 0.5097,
+    "snf_first": 0.4149,
+    "snf_bagcount": 0.4905,
+    "snf_majority_local": 0.6269,
+    "majority_bar_cited": 0.6269,
+    "abl_floor_cited": 0.4889,
+    "shuffle_drop": 0.0039,
+    "annealed_minus_fixed": 0.0,
+    "beats_majority_by_margin": false,
+    "structure_used": false,
+    "curriculum_helps": false,
+    "arms_differ_all": true,
+    "verdict_band": "HARD_FAIL_b"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train": 4000,
+      "n_test": 6000,
+      "novel_lexeme_disjoint": true,
+      "n_train_subj_lex": 1452,
+      "n_test_subj_lex": 1358,
+      "vocab_size": 2001,
+      "n_snf": 2586,
+      "stage0_sweep": [
+        {
+          "E": 1,
+          "f": 0.1,
+          "method": "rand",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0277,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0578
+        },
+        {
+          "E": 1,
+          "f": 0.15,
+          "method": "rand",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0277,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0578
+        },
+        {
+          "E": 1,
+          "f": 0.2,
+          "method": "rand",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0277,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0579
+        },
+        {
+          "E": 4,
+          "f": 0.1,
+          "method": "rand",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.044,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0415
+        },
+        {
+          "E": 4,
+          "f": 0.15,
+          "method": "rand",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0476,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0379
+        },
+        {
+          "E": 4,
+          "f": 0.2,
+          "method": "rand",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0475,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0381
+        },
+        {
+          "E": 1,
+          "f": 0.1,
+          "method": "center",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0708,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0147
+        },
+        {
+          "E": 1,
+          "f": 0.15,
+          "method": "center",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0708,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0147
+        },
+        {
+          "E": 1,
+          "f": 0.2,
+          "method": "center",
+          "window": 1,
+          "D": 1024,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0709,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": -0.0147
+        },
+        {
+          "E": 4,
+          "f": 0.1,
+          "method": "center",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.0938,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": 0.0083
+        },
+        {
+          "E": 4,
+          "f": 0.15,
+          "method": "center",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.1114,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": 0.0258
+        },
+        {
+          "E": 4,
+          "f": 0.2,
+          "method": "center",
+          "window": 1,
+          "D": 4096,
+          "unk_rate": 0.2686,
+          "invocab_ca3": 0.1132,
+          "invocab_unigram": 0.0855,
+          "invocab_lift": 0.0277
+        }
+      ],
+      "stage0_best_cfg": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1,
+        "D": 4096
+      },
+      "stage0_invocab_lift": 0.0277,
+      "stage0_invocab_ca3": 0.1132,
+      "stage0_invocab_unigram": 0.0855,
+      "stage0_unk_rate": 0.2686,
+      "stage0_cfg": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1
+      },
+      "stage0_pass": true,
+      "snf_tgph_annealed": 0.522,
+      "snf_tgph_fixed": 0.522,
+      "snf_structshuffle": 0.5131,
+      "snf_first": 0.4138,
+      "snf_bagcount": 0.4892,
+      "snf_majority_local": 0.6261,
+      "shuffle_drop": 0.0089,
+      "annealed_minus_fixed": 0.0,
+      "fire_frac_annealed_per_ckpt": [
+        0.587,
+        0.748,
+        0.853,
+        0.917,
+        0.954,
+        0.981
+      ],
+      "resid_std": 0.0361,
+      "resid_mean": 0.4799,
+      "anneal_thetas": [
+        0.5061,
+        0.5016,
+        0.4985,
+        0.4938,
+        0.4851,
+        0.4427
+      ],
+      "learning_curve": [
+        {
+          "theta": 0.5061,
+          "snf": 0.522
+        },
+        {
+          "theta": 0.5016,
+          "snf": 0.522
+        },
+        {
+          "theta": 0.4985,
+          "snf": 0.522
+        },
+        {
+          "theta": 0.4938,
+          "snf": 0.522
+        },
+        {
+          "theta": 0.4851,
+          "snf": 0.522
+        },
+        {
+          "theta": 0.4427,
+          "snf": 0.522
+        }
+      ],
+      "head_slot_var_snf": 5.388,
+      "arms_differ": true,
+      "stage1_skipped": false
+    },
+    {
+      "seed": 13,
+      "n_train": 4000,
+      "n_test": 6000,
+      "novel_lexeme_disjoint": true,
+      "n_train_subj_lex": 1410,
+      "n_test_subj_lex": 1362,
+      "vocab_size": 2001,
+      "n_snf": 2589,
+      "stage0_winner_result": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1,
+        "D": 4096,
+        "unk_rate": 0.267,
+        "invocab_ca3": 0.1163,
+        "invocab_unigram": 0.085,
+        "invocab_lift": 0.0313
+      },
+      "stage0_invocab_lift": 0.0313,
+      "stage0_invocab_ca3": 0.1163,
+      "stage0_invocab_unigram": 0.085,
+      "stage0_unk_rate": 0.267,
+      "stage0_cfg": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1
+      },
+      "stage0_pass": true,
+      "snf_tgph_annealed": 0.5052,
+      "snf_tgph_fixed": 0.5052,
+      "snf_structshuffle": 0.5041,
+      "snf_first": 0.4148,
+      "snf_bagcount": 0.4909,
+      "snf_majority_local": 0.6296,
+      "shuffle_drop": 0.0012,
+      "annealed_minus_fixed": 0.0,
+      "fire_frac_annealed_per_ckpt": [
+        0.611,
+        0.771,
+        0.869,
+        0.921,
+        0.955,
+        0.983
+      ],
+      "resid_std": 0.0371,
+      "resid_mean": 0.4799,
+      "anneal_thetas": [
+        0.5076,
+        0.5023,
+        0.4984,
+        0.4935,
+        0.4833,
+        0.4329
+      ],
+      "learning_curve": [
+        {
+          "theta": 0.5076,
+          "snf": 0.5052
+        },
+        {
+          "theta": 0.5023,
+          "snf": 0.5052
+        },
+        {
+          "theta": 0.4984,
+          "snf": 0.5052
+        },
+        {
+          "theta": 0.4935,
+          "snf": 0.5052
+        },
+        {
+          "theta": 0.4833,
+          "snf": 0.5052
+        },
+        {
+          "theta": 0.4329,
+          "snf": 0.5052
+        }
+      ],
+      "head_slot_var_snf": 5.4912,
+      "arms_differ": true,
+      "stage1_skipped": false
+    },
+    {
+      "seed": 19,
+      "n_train": 4000,
+      "n_test": 6000,
+      "novel_lexeme_disjoint": true,
+      "n_train_subj_lex": 1452,
+      "n_test_subj_lex": 1366,
+      "vocab_size": 2001,
+      "n_snf": 2583,
+      "stage0_winner_result": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1,
+        "D": 4096,
+        "unk_rate": 0.2683,
+        "invocab_ca3": 0.1118,
+        "invocab_unigram": 0.0856,
+        "invocab_lift": 0.0261
+      },
+      "stage0_invocab_lift": 0.0261,
+      "stage0_invocab_ca3": 0.1118,
+      "stage0_invocab_unigram": 0.0856,
+      "stage0_unk_rate": 0.2683,
+      "stage0_cfg": {
+        "E": 4,
+        "f": 0.2,
+        "method": "center",
+        "window": 1
+      },
+      "stage0_pass": true,
+      "snf_tgph_annealed": 0.5137,
+      "snf_tgph_fixed": 0.5137,
+      "snf_structshuffle": 0.5118,
+      "snf_first": 0.4162,
+      "snf_bagcount": 0.4913,
+      "snf_majority_local": 0.6249,
+      "shuffle_drop": 0.0019,
+      "annealed_minus_fixed": 0.0,
+      "fire_frac_annealed_per_ckpt": [
+        0.613,
+        0.776,
+        0.869,
+        0.921,
+        0.953,
+        0.982
+      ],
+      "resid_std": 0.0386,
+      "resid_mean": 0.4793,
+      "anneal_thetas": [
+        0.5081,
+        0.5031,
+        0.4995,
+        0.495,
+        0.4873,
+        0.4284
+      ],
+      "learning_curve": [
+        {
+          "theta": 0.5081,
+          "snf": 0.5137
+        },
+        {
+          "theta": 0.5031,
+          "snf": 0.5137
+        },
+        {
+          "theta": 0.4995,
+          "snf": 0.5137
+        },
+        {
+          "theta": 0.495,
+          "snf": 0.5137
+        },
+        {
+          "theta": 0.4873,
+          "snf": 0.5137
+        },
+        {
+          "theta": 0.4284,
+          "snf": 0.5137
+        }
+      ],
+      "head_slot_var_snf": 5.0993,
+      "arms_differ": true,
+      "stage1_skipped": false
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "chunked_numpy_softshard_sparse_bind_store_foreground_no_composition",
+  "crlb_n/a": "real-word agreement head-tracking; floor is crosstalk, reported as Stage-0 sparse next-word in-vocab lift and Stage-1 head-promotion SNF, not an argmax CRLB",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "glass_box_non_gradient": true,
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "mechanism_note": "SPARSE CA3 = 29444 soft-shard (random expand E*N + kWTA active-fraction f + LEARNED train-mean centering, unsupervised, keyless); bind store M=sum value_code*sparse_key; retrieve q=M*key argmax cosine. ONE change vs the dense fair cell; same real-word cache + novel-lexeme held-out + structure-shuffle + bars.",
+  "no_store_write_no_push_no_atom_bank": true
+}

@@ -1,0 +1,330 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all_arms_ok; routing_acc=1.0000 >= 0.95; capacity_regression=0; user_directive_retention=1.0000; baseline_resolved=1.0",
+  "elapsed_s": 12.53,
+  "summary": {
+    "anchor": "kb_partition_by_source_class_v1",
+    "smoke": true,
+    "kb_version": "v1",
+    "schema_version": "v1",
+    "encoder": "char_trigram_v1",
+    "arms": [
+      {
+        "arm": "ARM_SINGLE_W_BASELINE",
+        "ok": true,
+        "n_queries": 10,
+        "n_resolved": 10,
+        "ratio_resolved": 1.0,
+        "elapsed_s": 5.011,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "resolved": true,
+            "confidence": 0.7803,
+            "n_top": 8
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "resolved": true,
+            "confidence": 0.4453,
+            "n_top": 8
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "resolved": true,
+            "confidence": 0.4609,
+            "n_top": 8
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "resolved": true,
+            "confidence": 0.5586,
+            "n_top": 8
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "resolved": true,
+            "confidence": 0.4316,
+            "n_top": 8
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "resolved": true,
+            "confidence": 0.4512,
+            "n_top": 8
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "resolved": true,
+            "confidence": 0.4717,
+            "n_top": 8
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "resolved": true,
+            "confidence": 1.0,
+            "n_top": 8
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "resolved": true,
+            "confidence": 0.6406,
+            "n_top": 8
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "resolved": true,
+            "confidence": 0.5127,
+            "n_top": 8
+          }
+        ]
+      },
+      {
+        "arm": "ARM_PARTITIONED_W_EQUAL_CAPACITY",
+        "ok": true,
+        "n_queries": 10,
+        "n_resolved": 10,
+        "ratio_resolved": 1.0,
+        "n_routed_correctly": 10,
+        "n_with_topk": 10,
+        "routing_accuracy": 1.0,
+        "cross_partition_leak_rate": 0.0,
+        "n_capacity_regression": 0,
+        "elapsed_s": 3.931,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note",
+              "prereg"
+            ]
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note"
+            ]
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note"
+            ]
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note"
+            ]
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note",
+              "wordnet"
+            ]
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note",
+              "prereg"
+            ]
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note"
+            ]
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "expected_classes": [
+              "note"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "note"
+            ]
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "expected_classes": [
+              "prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "prereg"
+            ]
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "expected_classes": [
+              "prereg"
+            ],
+            "resolved": true,
+            "target_hits": 8,
+            "leak_hits": 0,
+            "n_top": 8,
+            "top1_classes": [
+              "prereg"
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "ARM_PARTITIONED_W_MEMORY_OVERSIZED",
+        "ok": true,
+        "n_user_directive_total": 0,
+        "n_user_directive_resolved": 0,
+        "user_directive_retention": 1.0,
+        "n_non_ud_total": 10,
+        "n_non_ud_resolved": 10,
+        "non_ud_resolved_ratio": 1.0,
+        "memory_k": 32,
+        "default_k": 8,
+        "elapsed_s": 3.586,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.5234
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3184
+          },
+          {
+            "q": "fleet waiting on tracker",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.4609
+          },
+          {
+            "q": "anisotropy rescue 4 arm",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.5586
+          },
+          {
+            "q": "eff rank diagnostic shakespeare",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3867
+          },
+          {
+            "q": "phase diagram capacity sweep",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.3691
+          },
+          {
+            "q": "ultrametric clustering chain grade",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.4424
+          },
+          {
+            "q": "standstill ack inflight inventory",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 1.0
+          },
+          {
+            "q": "substrate director kb ingest pre reg",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.4854
+          },
+          {
+            "q": "kb dual store audit pre reg",
+            "is_ud": false,
+            "k": 8,
+            "resolved": true,
+            "n_top": 8,
+            "confidence": 0.4707
+          }
+        ]
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "all_arms_ok; routing_acc=1.0000 >= 0.95; capacity_regression=0; user_directive_retention=1.0000; baseline_resolved=1.0",
+    "elapsed_s": 12.53
+  }
+}

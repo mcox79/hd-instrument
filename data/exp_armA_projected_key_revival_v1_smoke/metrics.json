@@ -1,0 +1,72 @@
+{
+  "anchor_name": "armA_projected_key_revival_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: ARM A on projected keys recall<0.20 (max clean=0.025) at M=1000; sparse-superpos doesn't work even with CERT591-style projection; tag-retrieval CLASS is the only storage path. M=1000 clean(sig in 0,0.1) armA_proj max=0.025 worst=0.025 | armA_raw_max=0.013 | shuffled_max=0.009 (chance=0.0039) | cv_max=0.000",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 256,
+  "M_SWEEP": [
+    1000
+  ],
+  "SIGMA_SWEEP": [
+    0.0
+  ],
+  "n_seeds": 1,
+  "train_M": 600,
+  "train_steps": 150,
+  "detail": {
+    "by_cell_agg": {
+      "M1000_sig0.00": {
+        "M": 1000,
+        "sigma": 0.0,
+        "armA_proj_mean": 0.025,
+        "armA_proj_std": 0.0,
+        "armA_proj_cv": 0.0,
+        "armA_raw_mean": 0.0125,
+        "armA_shuffled_mean": 0.0088,
+        "lift_proj_over_raw": 0.0125
+      }
+    },
+    "M_top": 1000,
+    "max_armA_proj_clean": 0.025,
+    "worst_armA_proj_clean": 0.025,
+    "armA_raw_at_top_max": 0.0125,
+    "shuffled_proj_ctrl_max": 0.0088,
+    "max_cv_clean": 0.0,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "armA_projected_revival_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 M=[1000] sigma=[0.0] seeds=[0] train_M=600 steps=150",
+    "honest_scope": "encoder=EleutherAI/pythia-160m; CPU-only; raw control = ARM A on UNPROJECTED pythia residuals; shuffled = CAN-FAIL ctrl (projection trained on broken alignment)",
+    "cites": [
+      "dense_KV_learned_key_MM_anisotropy",
+      "Litwin-Kumar2017_cerebellar",
+      "CERT591_kv_learned_projection_v1",
+      "Research_route_negatives_angle4_2026-06-21"
+    ]
+  },
+  "metrics_source": "measured_cpu_armA_projected_key_revival",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.025,
+          "recall_armA_raw_control": 0.0125,
+          "recall_armA_shuffled_proj_ctrl": 0.0088,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        }
+      },
+      "proj_recall_sanity": 0.045,
+      "raw_recall_sanity": 0.035,
+      "run_mode": "smoke",
+      "config_version": "armA_projected_revival_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 M=[1000] sigma=[0.0] seeds=[0] train_M=600 steps=150",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782097139.870234
+    }
+  ],
+  "elapsed_s": 34.59746980667114,
+  "summary": "DISCRIMINATOR HARD_FAIL: ARM A on projected keys recall<0.20 (max clean=0.025) at M=1000; sparse-superpos doesn't work even with CERT591-style projection; tag-retrieval CLASS is the only storage path. M=1000 clean(sig in 0,0.1) armA_proj max=0.025 worst=0.025 | armA_raw_max=0.013 | shuffled_max=0.009 (chance=0.0039) | cv_max=0.000",
+  "substrate_only_decode_gate": "N/A (KV-storage cell, not LM cell; per Path C ARM A discriminator framing)"
+}

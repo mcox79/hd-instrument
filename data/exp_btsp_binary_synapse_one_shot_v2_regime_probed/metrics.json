@@ -1,0 +1,24 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "REGIME_INFEASIBLE: no probe cfg gave baseline in [0.40, 0.65]",
+  "summary": "REGIME_INFEASIBLE: no probe cfg gave baseline in [0.40, 0.65]",
+  "probe_results": [
+    {
+      "N_DIM": 2048,
+      "N_CAT": 100,
+      "N_TRAIN": 10,
+      "proto_noise": 0.85,
+      "alpha": 0.048828125,
+      "baseline_acc": 1.0
+    }
+  ],
+  "found_cfg": null,
+  "verdict_reason": "REGIME_INFEASIBLE",
+  "anchor_name": "btsp_binary_synapse_one_shot_v2_regime_probed",
+  "elapsed_s": 23.7,
+  "ts_iso": "2026-06-27T21:09:56Z",
+  "pid": 10656,
+  "run_mode": "full",
+  "config_version": "ANCHOR=btsp_binary_synapse_one_shot_v2_regime_probed,probe_N=[2048],probe_NCAT=[100],probe_NTRAIN=[10],probe_noise=[0.85],seeds=[7, 17, 23, 31, 41],mode=full,HP_new>=0.50,HP_baseline_band=[0.40,0.65],HP_cv<=0.10,HF_new<0.30,elig_decay=0.70,gate_p=0.50,tag_frac=0.050,hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIRNESS=REGIME_PROBE_FINDS_BASELINE_IN_BAND_BEFORE_MECHANISM_TEST",
+  "_hardening_marker": "v2_btsp_regime_probed"
+}

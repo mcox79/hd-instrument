@@ -1,0 +1,108 @@
+{
+  "anchor_name": "gap1_multihop_ldpc_rts_bidirectional_v1",
+  "verdict": "SANITY_BREACH",
+  "verdict_msg": "SANITY_BREACH_BASELINE_OUT_OF_BAND: SANITY_BREACH=1/1 seeds; baseline_mean=0.8250 outside [0.125,0.165] | BASELINE=0.8250 SOFT_FWD=1.0000 BACKWARD=0.8500 LDPC=1.0000 (sd=nan) RTS=1.0000 (sd=nan) | Anchor1_LDPC=HARD_FAIL | Anchor2_RTS=HARD_PASS | max_dir=0.8500",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=2048 V_C=200 V_P=10 K_SET=20 n_chains=40 depth=5 seeds=[7] mode=smoke ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 40,
+      "depth": 5,
+      "ldpc_sweeps": 3,
+      "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=2048 V_C=200 V_P=10 K_SET=20 n_chains=40 depth=5 seeds=[7] mode=smoke ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+      "_llm_forward_calls_at_inference": 0,
+      "setup_s": 0.06,
+      "arm_baseline_pointer_chain_v2": {
+        "top1": 0.825,
+        "per_step_acc": [
+          0.925,
+          0.875,
+          0.85,
+          0.825,
+          0.825
+        ],
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "baseline_pointer_chain_v2_hard_argmax",
+        "elapsed_s_arm": 0.48
+      },
+      "sanity_baseline_ok": false,
+      "arm_soft_fwd": {
+        "top1": 1.0,
+        "per_step_acc": [
+          0.925,
+          0.925,
+          0.975,
+          0.975,
+          1.0
+        ],
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "soft_forward_only_softmax_belief",
+        "temperature": 1.0,
+        "elapsed_s_arm": 0.58
+      },
+      "arm_backward_only": {
+        "top1": 0.85,
+        "per_step_acc_backward": [
+          1.0,
+          1.0,
+          0.925,
+          0.925,
+          0.925
+        ],
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "backward_only_reverse_chain_soft_propagation_then_forward_rederive",
+        "temperature": 1.0,
+        "elapsed_s_arm": 0.7
+      },
+      "arm_ldpc_bidir": {
+        "top1": 1.0,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 40,
+        "depth": 5,
+        "n_sweeps_max": 3,
+        "mean_sweeps_to_converge": 2.0,
+        "mechanism": "ldpc_bidirectional_sum_product_chain_factor_graph",
+        "temperature": 1.0,
+        "elapsed_s_arm": 2.33
+      },
+      "arm_rts_smooth": {
+        "top1": 1.0,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "rts_smoother_forward_x_backward_softmax_product",
+        "temperature": 1.0,
+        "elapsed_s_arm": 1.22
+      },
+      "elapsed_s": 5.4,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782452946.6113667
+    }
+  ],
+  "elapsed_s": 5.5,
+  "summary": "SANITY_BREACH_BASELINE_OUT_OF_BAND: SANITY_BREACH=1/1 seeds; baseline_mean=0.8250 outside [0.125,0.165] | BASELINE=0.8250 SOFT_FWD=1.0000 BACKWARD=0.8500 LDPC=1.0000 (sd=nan) RTS=1.0000 (sd=nan) | Anchor1_LDPC=HARD_FAIL | Anchor2_RTS=HARD_PASS | max_dir=0.8500",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Gap-1 multi-hop bundled Anchors 1+2 per research drill 2026-06-26: LDPC bidirectional sum-product (3 sweep iterations forward+backward) and RTS smoother (forward x backward Gaussian-mixture product) target the FORWARD-ONLY HARD-DECISION CHAINING pathology shared by 5 refuted multi-hop attempts. ARM_BASELINE_pointer_chain_v2 is SACRED sanity rail reproducing 0.145 +/- 0.02 anchor at depth-5. ARM_SOFT_FWD and ARM_BACKWARD_ONLY isolate the 'soft' and 'backward' components respectively; LDPC bidirectional and RTS smoother test super-additivity. Bands LOCKED at module init via assert chain."
+}

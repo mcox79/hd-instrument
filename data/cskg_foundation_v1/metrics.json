@@ -1,0 +1,172 @@
+{
+  "verdict": "HARD_PASS",
+  "run_mode": "full",
+  "verdict_msg": "CSKG foundation full: 482588 spine nodes / 1238686 typed edges; dense-core(k>=12)=24336 @ deg 39.18; gate=HARD_PASS (real=0.6961 shuf=0.2368 base=0.2591)",
+  "summary": "CSKG_FOUNDATION full HARD_PASS",
+  "elapsed_s": 139.9,
+  "ts_iso": "2026-07-26T14:03:58.088035+00:00",
+  "anchor_name": "cskg_foundation_v1",
+  "pid": 32148,
+  "n_rows_streamed": 6001531,
+  "n_selfloop_dropped": 1962,
+  "spine_directed_edges": 1244136,
+  "spine_typed_edges": 1238686,
+  "duplicate_typed_edges": 5450,
+  "duplicate_rate": 0.0044,
+  "spine_nodes": 482588,
+  "spine_simple_edges": 1174080,
+  "distinct_raw_cskg_ids": 500955,
+  "concept_identity_collisions": 18367,
+  "collision_rate": 0.0367,
+  "relation_distribution": {
+    "/r/AtLocation": 27783,
+    "/r/CapableOf": 42323,
+    "/r/Causes": 17249,
+    "/r/CausesDesire": 4688,
+    "/r/CreatedBy": 446,
+    "/r/Desires": 3170,
+    "/r/Entails": 397,
+    "/r/HasA": 16973,
+    "/r/HasFirstSubevent": 3347,
+    "/r/HasLastSubevent": 2872,
+    "/r/HasPrerequisite": 24955,
+    "/r/HasProperty": 9410,
+    "/r/HasSubevent": 25369,
+    "/r/LocatedNear": 152205,
+    "/r/MadeOf": 2632,
+    "/r/MannerOf": 12511,
+    "/r/MotivatedByGoal": 9474,
+    "/r/NotCapableOf": 329,
+    "/r/NotDesires": 2886,
+    "/r/NotHasProperty": 327,
+    "/r/PartOf": 30745,
+    "/r/ReceivesAction": 6037,
+    "/r/UsedFor": 42522,
+    "at:oEffect": 35344,
+    "at:oReact": 31497,
+    "at:oWant": 53909,
+    "at:xAttr": 133266,
+    "at:xEffect": 100303,
+    "at:xIntent": 57685,
+    "at:xNeed": 96103,
+    "at:xReact": 74153,
+    "at:xWant": 129168,
+    "mw:MayHaveProperty": 94058
+  },
+  "n_relation_types": 33,
+  "source_distribution": {
+    "CN": 219637,
+    "CN|WN": 8413,
+    "VG": 265865,
+    "WN": 12198,
+    "WD": 14241,
+    "AT": 711428,
+    "FN": 12354
+  },
+  "kcore_band": {
+    "5": {
+      "nodes": 48897,
+      "avg_deg": 27.57
+    },
+    "8": {
+      "nodes": 38830,
+      "avg_deg": 31.7
+    },
+    "10": {
+      "nodes": 32628,
+      "avg_deg": 34.51
+    },
+    "11": {
+      "nodes": 28896,
+      "avg_deg": 36.42
+    },
+    "12": {
+      "nodes": 24336,
+      "avg_deg": 39.18
+    },
+    "13": {
+      "nodes": 19396,
+      "avg_deg": 43.15
+    },
+    "14": {
+      "nodes": 13500,
+      "avg_deg": 50.89
+    },
+    "15": {
+      "nodes": 6659,
+      "avg_deg": 75.07
+    },
+    "16": {
+      "nodes": 4067,
+      "avg_deg": 105.25
+    },
+    "20": {
+      "nodes": 3141,
+      "avg_deg": 126.39
+    }
+  },
+  "dense_core_k": 12,
+  "dense_core_nodes": 24336,
+  "dense_core_avg_deg": 39.18,
+  "gate_density_floor_ok": true,
+  "blueprint_ok": true,
+  "blueprint_delta": {
+    "spine_nodes": [
+      482588,
+      501391
+    ],
+    "spine_simple_edges": [
+      1174080,
+      1184796
+    ],
+    "core12_nodes": [
+      24336,
+      23632
+    ],
+    "core13_nodes": [
+      19396,
+      17793
+    ]
+  },
+  "grounding_coverage": {
+    "lancaster": 0.0388,
+    "concreteness": 0.0389,
+    "vad": 0.0223,
+    "aoa": 0.0462
+  },
+  "grounding_coverage_counts": {
+    "lancaster": 18727,
+    "concreteness": 18761,
+    "vad": 10771,
+    "aoa": 22307
+  },
+  "nodes_with_any_grounding": 25312,
+  "frac_any_grounding": 0.0525,
+  "single_token_nodes": 41239,
+  "mean_concreteness_matched": 3.359,
+  "gate": {
+    "gate_verdict": "HARD_PASS",
+    "n_heldout": 24774,
+    "n_eval": 10640,
+    "base_rate": 0.2591,
+    "mode_relation": "/r/LocatedNear",
+    "real_acc": 0.6961,
+    "shuffled_acc": 0.2368,
+    "real_minus_shuffle": 0.4592,
+    "real_minus_base": 0.4369,
+    "bands": {
+      "hard_pass": "real>=base+0.10 AND real-shuf>=0.10 AND shuf<=base+0.03",
+      "hard_fail": "real<base+0.03 OR shuf>base+0.10"
+    }
+  },
+  "heldout_frac": 0.02,
+  "artifact_dir": "D:\\AI\\hd-instrument\\data\\cskg_foundation_v1",
+  "artifact": {
+    "nodes_written": 482588,
+    "edges_written": 1213912,
+    "heldout_written": 24774,
+    "n_shards": 16
+  },
+  "prereg": "D:\\AI\\hd-instrument\\preregs\\2026-07-26_cskg_foundation_v1.md",
+  "canonicalization": "normalized-label (lower; non-alnum-run->_; strip); surface-collision merge; sense deferred to learned encoder"
+}

@@ -1,0 +1,64 @@
+{
+  "anchor_name": "dim_r_failure_taxonomy_reprocess_v1",
+  "buckets": {
+    "HALLUCINATION_FAIL": 0,
+    "HP_CORRECT": 2149,
+    "LOUD_FAIL": 938,
+    "REFUSE_FAIL": 489,
+    "SILENT_FAIL": 6,
+    "UNCATEGORIZED": 1637
+  },
+  "config_version": "ANCHOR=dim_r_failure_taxonomy_reprocess_v1,mode=reprocess,SILENT_RECALL_MAX=0.10,HALLUC_RECALL_MAX=0.30,HALLUC_NONTARGET_MIN=0.60,HP_RECALL_MIN=0.70",
+  "elapsed_s": 35.59,
+  "failures_total": 944,
+  "hp_conditions": {
+    "HF_SILENT_FAILURE_HIGH_threshold": 0.3,
+    "HP_LOUD_FAILURE_DOMINANT_threshold": 0.1
+  },
+  "jsonl_path": "d:/AI/hd-instrument/data/exp_dim_r_failure_taxonomy_reprocess_v1/failure_taxonomy_2026-07-02.jsonl",
+  "n_nontarget_extracted": 0,
+  "n_recall_extracted": 399,
+  "n_scanned": 5219,
+  "n_unreadable": 0,
+  "nontarget_extraction_coverage": 0.0,
+  "recall_extraction_coverage": 0.0765,
+  "run_mode": "reprocess",
+  "ts_iso": "2026-07-02T01:21:27Z",
+  "verdict": "UNCATEGORIZED",
+  "verdict_msg": "UNCATEGORIZED_EXTRACTION_LIMITED | recall extracted in only 7.6% of 5219 cells; SILENT_FAIL/HALLUC bucket counts NOT credible. Verdict-string buckets ARE credible: HP_CORRECT=2149 LOUD_FAIL=938 REFUSE_FAIL=489 UNCATEG=1637",
+  "worst_case_anchors_count": 6,
+  "worst_case_anchors_sample": [
+    {
+      "anchor_dir": "exp_att1_iterative_attractor_cleanup_v1",
+      "bucket": "SILENT_FAIL",
+      "rationale": "recall=0.007<0.1, no HF verdict (verdict=MIDDLE_BAND)"
+    },
+    {
+      "anchor_dir": "exp_kv_projection_presmoke_v1",
+      "bucket": "SILENT_FAIL",
+      "rationale": "recall=0.019<0.1, no HF verdict (verdict=DECROWD_OK_RECALL_NEEDS_CONTRASTIVE)"
+    },
+    {
+      "anchor_dir": "exp_kv_projection_presmoke_v1_smoke",
+      "bucket": "SILENT_FAIL",
+      "rationale": "recall=0.064<0.1, no HF verdict (verdict=DECROWD_OK_RECALL_NEEDS_CONTRASTIVE)"
+    },
+    {
+      "anchor_dir": "exp_att1_iterative_attractor_v2_low_storage_ratio_krotov_v1_smoke",
+      "bucket": "SILENT_FAIL",
+      "rationale": "recall=0.080<0.1, no HF verdict (verdict=MIDDLE_BAND)"
+    },
+    {
+      "anchor_dir": "exp_multi_bump_can_ensemble_cleanup_v1_smoke",
+      "bucket": "SILENT_FAIL",
+      "rationale": "recall=0.040<0.1, no HF verdict (verdict=MIDDLE_BAND)"
+    },
+    {
+      "anchor_dir": "exp_multi_bump_can_ensemble_cleanup_v1",
+      "bucket": "SILENT_FAIL",
+      "rationale": "recall=0.028<0.1, no HF verdict (verdict=MIDDLE_BAND)"
+    }
+  ],
+  "worst_case_fraction": 0.0064,
+  "worst_case_total": 6
+}

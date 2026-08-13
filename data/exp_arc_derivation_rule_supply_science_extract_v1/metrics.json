@@ -1,0 +1,938 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "headline_band",
+    "headline_plan_light",
+    "positive_control_ok",
+    "per_source_table",
+    "results",
+    "extraction",
+    "precision_spot_check"
+  ],
+  "anchor_name": "arc_derivation_rule_supply_science_extract_v1",
+  "bands_preregistered": {
+    "GREEN (unblocks Step 2)": "cov >= 0.35 AND typed_gap >= 0.15 AND typed_gap > untyped_gap",
+    "HONEST_GUARD": "coverage AND selectivity together; precision measured (spot-check sample); NOT tuned to force GREEN; ONE variable = rule table.",
+    "MIDDLE": "otherwise",
+    "PROMISCUOUS (extraction too noisy)": "cov > 0.5 AND (typed_gap < 0.05 OR typed_gap <= untyped_gap)",
+    "RED (extraction recall bottleneck -> broaden source)": "cov < 0.15"
+  },
+  "config": {
+    "arg_max_tok": 6,
+    "corpus": "data\\corpora\\arc\\ARC-V1-Feb2018-2\\ARC_Corpus.txt",
+    "depth": 3,
+    "filler_budget": 6000,
+    "keep_cap": 500000,
+    "licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ],
+    "max_lines": 0,
+    "n_sample": 100,
+    "one_variable": "rule_source (worldtree vs science_extract vs union); node-identity/gate/induction/Qs/depth/thresholds IDENTICAL to CSKG rule-supply gate",
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING",
+  "elapsed_s": 311.7,
+  "extraction": {
+    "induction": {
+      "filler_budget": 6000,
+      "n_all_labels": 899086,
+      "n_candidate_nodes": 899086,
+      "n_kept_frontier": 2867,
+      "n_kept_nodes": 6000,
+      "n_kept_rows": 5028,
+      "n_kept_seeds": 3133,
+      "n_seed_nodes": 643842
+    },
+    "n_induced_rows": 5028,
+    "per_relation_induced": {
+      "CAUSE": 2279,
+      "COUPLEDRELATIONSHIP": 77,
+      "IFTHEN": 705,
+      "REQUIRES": 1858,
+      "SOURCEOF": 6,
+      "USEDFOR": 103
+    },
+    "per_relation_raw_kept": {
+      "CAUSE": 162892,
+      "COUPLEDRELATIONSHIP": 3586,
+      "IFTHEN": 210647,
+      "REQUIRES": 81613,
+      "SOURCEOF": 592,
+      "USEDFOR": 40670
+    },
+    "stats": {
+      "keep_cap_hit": true,
+      "n_kept_arc_filtered": 500000,
+      "n_lines_scanned": 9153968,
+      "n_prefilter_pass": 1936620,
+      "n_raw_extracted": 648556,
+      "per_relation": {
+        "CAUSE": 162892,
+        "COUPLEDRELATIONSHIP": 3586,
+        "IFTHEN": 210647,
+        "REQUIRES": 81613,
+        "SOURCEOF": 592,
+        "USEDFOR": 40670
+      },
+      "scan_s": 148.1
+    }
+  },
+  "headline_band": "PROMISCUOUS_FAIL",
+  "headline_plan_light": "PROMISCUOUS",
+  "headline_source": "worldtree_science",
+  "notes": "ONE-VARIABLE ablation: rule SOURCE only (science extraction from ARC_Corpus.txt). Node-identity (NegAwareEncoder + head-gate + polarity merge-gate), gate (build_graph_gated + meet_connected), induction (induce_subgraph), Qs, depth, thresholds ALL imported UNCHANGED from the CSKG rule-supply cell. STRAIGHT report; NOT tuned. plan_light maps rs bands to the plan's GREEN/PROMISCUOUS/RED/MIDDLE.",
+  "parent_ref": {
+    "cleannodes_cell": "arc_derivation_connectivity_gate_cleannodes_v2 (99736f579)",
+    "cskg_cell": "arc_derivation_rule_supply_cskg_v1 (SETTLED wrong supply)",
+    "outcome_lineage": "COVERAGE_BOUND_CONFIRMED -> CSKG wrong supply -> science-precise extraction (this cell)",
+    "worldtree_clean_typed_cov_on_disk": 0.06
+  },
+  "per_source_table": [
+    {
+      "band": "STILL_STARVED",
+      "cov": 0.07,
+      "gap_beats_untyped": true,
+      "max_deg": 83,
+      "n_nodes": 2359,
+      "n_rules": 1868,
+      "plan_light": "RED",
+      "source": "worldtree",
+      "typed_gap": -0.0041,
+      "untyped_cov": 0.51,
+      "untyped_gap": -0.0287
+    },
+    {
+      "band": "MIDDLE_BAND",
+      "cov": 0.5,
+      "gap_beats_untyped": false,
+      "max_deg": 138,
+      "n_nodes": 2183,
+      "n_rules": 5028,
+      "plan_light": "MIDDLE",
+      "source": "science_extract",
+      "typed_gap": -0.0589,
+      "untyped_cov": 0.71,
+      "untyped_gap": -0.0004
+    },
+    {
+      "band": "PROMISCUOUS_FAIL",
+      "cov": 0.56,
+      "gap_beats_untyped": false,
+      "max_deg": 160,
+      "n_nodes": 4188,
+      "n_rules": 6896,
+      "plan_light": "PROMISCUOUS",
+      "source": "worldtree_science",
+      "typed_gap": -0.0494,
+      "untyped_cov": 0.84,
+      "untyped_gap": 0.0117
+    }
+  ],
+  "pid": 32468,
+  "positive_control_ok": true,
+  "positive_control_worldtree_cov": 0.07,
+  "precision_spot_check": {
+    "proxy": {
+      "n_sampled": 81,
+      "n_wellformed_proxy": 81,
+      "note": "wellformed_proxy is a cheap AUTOMATIC lower-bar (args have content words, differ); it is NOT true precision -- true precision = the agent's read of source_sentence.",
+      "wellformed_proxy_frac": 1.0
+    },
+    "sample": [
+      {
+        "arg0": "evaporation",
+        "arg1": "gases",
+        "relation": "CAUSE",
+        "source_sentence": "most gases are produced by evaporation.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "evaporation",
+        "arg1": "water",
+        "relation": "CAUSE",
+        "source_sentence": "some evaporation causes water.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "example",
+        "arg1": "death of the host",
+        "relation": "CAUSE",
+        "source_sentence": "kleptoparasitism occurs in many other forms among vertebrates ( see here for example ), but for it to lead to the death of the host is not so common, and this would seem to disqualify it from the category of parasitoidy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "exposure",
+        "arg1": "skin reaction",
+        "relation": "CAUSE",
+        "source_sentence": "most skin reaction is caused by exposure.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "gases",
+        "arg1": "symptoms",
+        "relation": "CAUSE",
+        "source_sentence": "some gases lead to symptoms.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "growth",
+        "arg1": "dioxide",
+        "relation": "CAUSE",
+        "source_sentence": "some dioxide is produced by growth.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "human immunodeficiency virus hiv",
+        "arg1": "sexually transmitted infection",
+        "relation": "CAUSE",
+        "source_sentence": "a sexually transmitted infection, caused by the human immunodeficiency virus (hiv) that destroys the body's immune system",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "inherited",
+        "arg1": "variation",
+        "relation": "CAUSE",
+        "source_sentence": "inherited causes of variation",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "last a long time",
+        "arg1": "popular",
+        "relation": "CAUSE",
+        "source_sentence": "they were very popular because they last a long time and are not fragile , but they were normally not sweet enough to be called cookies today .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "marijuana",
+        "arg1": "effects",
+        "relation": "CAUSE",
+        "source_sentence": "most marijuana produces effects.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "mutation",
+        "arg1": "diseases",
+        "relation": "CAUSE",
+        "source_sentence": "most diseases are caused by mutation.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "parasites",
+        "arg1": "death",
+        "relation": "CAUSE",
+        "source_sentence": "some parasites lead to death.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "thunderstorms",
+        "arg1": "rain",
+        "relation": "CAUSE",
+        "source_sentence": "most rain is produced by thunderstorms.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "toxic heavy metal",
+        "arg1": "health problems",
+        "relation": "CAUSE",
+        "source_sentence": "some toxic heavy metal causes health problems.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "what he has done",
+        "arg1": "angry",
+        "relation": "CAUSE",
+        "source_sentence": "he is angry, but not because of what he has done.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "air",
+        "arg1": "height",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "thus, as air cools the height lowers since the air is becoming more dense.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "altitude",
+        "arg1": "gets",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "* the higher the altitude, the colder it gets",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "know",
+        "arg1": "understand",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "\"i promised to you that we will find out, but the more we know, the less i understand.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "know",
+        "arg1": "want to know",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "or maybe it\u2019s that dog noses are just so amazing, and the more we know, the more we want to know.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "leaf",
+        "arg1": "fruit",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "q: citrus problems such as leaf drop, fruit drop, non-blooming or fruit split.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "population",
+        "arg1": "force",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "d. its strength is proportional to the size of a population: the larger the population, the greater the force",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "population",
+        "arg1": "group size",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "this represents a serious threat to the largest wild population of golden lion tamarins as the population is decreasing, group size is decreasing, infant survival to weaning is decreasing, and tamarin density within the ",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "population density",
+        "arg1": "mortality",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "as population density increases, mortality increases and birth rate decreases, as is what happens when k is exceeded.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "puppy",
+        "arg1": "start",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "as your puppy grows, start increasing the amounts gradually, so that by the age of 16 weeks he is eating about twice as much.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "region",
+        "arg1": "rainfall",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "rainfall increases with elevation; the higher the region, the greater the rainfall.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "result",
+        "arg1": "buoyancy",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "[25] according to a study by the british antarctic survey , glaciers on the peninsula are not only retreating but also increasing their flow rate as a result of increased buoyancy in the lower parts of the glaciers.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "specific",
+        "arg1": "similar",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "the more specific, the more similar.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "tree",
+        "arg1": "bigger",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "organic fertilizer and beneficial microorganisms increase soil nutrient year after year as the tree also grow bigger and increase their productivity.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "water temperature",
+        "arg1": "dissolved",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "- the co2 in the atmosphere is partially dissolved in the ocean water, and the lower the water temperature, the more is dissolved.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "well",
+        "arg1": "planted",
+        "relation": "COUPLEDRELATIONSHIP",
+        "source_sentence": "you can technically plant them in the early fall, as well, but roses planted in the fall may not be as strong the following season.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "anything",
+        "arg1": "increased",
+        "relation": "IFTHEN",
+        "source_sentence": "in the 16 years since the second edition of this book appeared, interest in this subject has, if anything, increased.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "choose",
+        "arg1": "able",
+        "relation": "IFTHEN",
+        "source_sentence": "when she is ready to be bred again (if you choose to, and she is able), she will probably be a great mom the second time around despite her first litter.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "cooked",
+        "arg1": "nature",
+        "relation": "IFTHEN",
+        "source_sentence": "they turn red when cooked, but in nature they can be green or yellow or even bright blue.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "dont",
+        "arg1": "youre not going to be able",
+        "relation": "IFTHEN",
+        "source_sentence": "intensize xl extreme cheapskates \"if you don't, you're not going to be able to score.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "fall",
+        "arg1": "hands",
+        "relation": "IFTHEN",
+        "source_sentence": "the result will deliver me up, if you fall, into the hands of",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "feel threatened",
+        "arg1": "aggressive",
+        "relation": "IFTHEN",
+        "source_sentence": "when they feel threatened , they are very aggressive .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "find",
+        "arg1": "wont",
+        "relation": "IFTHEN",
+        "source_sentence": "they'll probably incinerate you when they find you, and i won't be here to help.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "first",
+        "arg1": "take him",
+        "relation": "IFTHEN",
+        "source_sentence": "one of the first things you should do with your new cat, if not the very first, is take him in for an exam.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "happened",
+        "arg1": "less",
+        "relation": "IFTHEN",
+        "source_sentence": "how old would he have been when this happened, more or less?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "have more questions",
+        "arg1": "let us know",
+        "relation": "IFTHEN",
+        "source_sentence": "again, if you have more questions, let us know.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "occurs",
+        "arg1": "separated",
+        "relation": "IFTHEN",
+        "source_sentence": "when this occurs, the separated",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "smoke",
+        "arg1": "try to stop",
+        "relation": "IFTHEN",
+        "source_sentence": "if you smoke, try to stop .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "swallowed",
+        "arg1": "find their way",
+        "relation": "IFTHEN",
+        "source_sentence": "these eggs, if swallowed, may find their way to any part of the body \u2014 muscles, eyes, brain, and even heart, and there become cysticerci.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "treated",
+        "arg1": "possible",
+        "relation": "IFTHEN",
+        "source_sentence": "if the world\u0092s religions can ordain that the natural world is sacred and must be treated as such, it is possible that we could see a dramatic transformation of our current patriarchal domination over nature - forests inc",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "try",
+        "arg1": "please let me know",
+        "relation": "IFTHEN",
+        "source_sentence": "if you try it, please let me know.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "animals",
+        "arg1": "protection",
+        "relation": "REQUIRES",
+        "source_sentence": "some animals need protection.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "babies",
+        "arg1": "food",
+        "relation": "REQUIRES",
+        "source_sentence": "most babies require food.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "birds",
+        "arg1": "shelter",
+        "relation": "REQUIRES",
+        "source_sentence": "most birds need shelter.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "caterpillars",
+        "arg1": "food",
+        "relation": "REQUIRES",
+        "source_sentence": "most caterpillars require food.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "chemicals",
+        "arg1": "photosynthesis",
+        "relation": "REQUIRES",
+        "source_sentence": "some chemicals require for photosynthesis.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "essential nutrients",
+        "arg1": "life",
+        "relation": "REQUIRES",
+        "source_sentence": "most essential nutrients need for life.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "how long do",
+        "arg1": "rest",
+        "relation": "REQUIRES",
+        "source_sentence": "how long do you need to rest?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "levels",
+        "arg1": "consideration",
+        "relation": "REQUIRES",
+        "source_sentence": "some levels require consideration.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "lice",
+        "arg1": "blood",
+        "relation": "REQUIRES",
+        "source_sentence": "most lice require blood.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "lions",
+        "arg1": "water",
+        "relation": "REQUIRES",
+        "source_sentence": "most lions require water.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "operations",
+        "arg1": "energy",
+        "relation": "REQUIRES",
+        "source_sentence": "some operations require energy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "plants",
+        "arg1": "sunlight",
+        "relation": "REQUIRES",
+        "source_sentence": "\u2022 plants need sunlight.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "problems",
+        "arg1": "students",
+        "relation": "REQUIRES",
+        "source_sentence": "some problems require students.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "trees",
+        "arg1": "soil moisture",
+        "relation": "REQUIRES",
+        "source_sentence": "most trees depend on soil moisture.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "world",
+        "arg1": "change",
+        "relation": "REQUIRES",
+        "source_sentence": "the world needs to change.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "batteries",
+        "arg1": "energy",
+        "relation": "SOURCEOF",
+        "source_sentence": "batteries are a source of energy",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "cell",
+        "arg1": "electric current",
+        "relation": "SOURCEOF",
+        "source_sentence": "the cell is a source of electric current.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "sexual reproduction",
+        "arg1": "genetic variation",
+        "relation": "SOURCEOF",
+        "source_sentence": "sexual reproduction is a source of genetic variation.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "solar energy",
+        "arg1": "energy",
+        "relation": "SOURCEOF",
+        "source_sentence": "solar energy is the source of all energy.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "something",
+        "arg1": "electric current",
+        "relation": "SOURCEOF",
+        "source_sentence": "something that is the source of an electric current, such as a battery.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "sun",
+        "arg1": "energy",
+        "relation": "SOURCEOF",
+        "source_sentence": "the sun is the source of energy, but it is not a source of food for the plant.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "animals",
+        "arg1": "experimentation",
+        "relation": "USEDFOR",
+        "source_sentence": "should animals be used for experimentation?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "area",
+        "arg1": "produce electricity",
+        "relation": "USEDFOR",
+        "source_sentence": "let's say that there is a small dam in your area that is not used to produce electricity.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "articles",
+        "arg1": "informational purposes only",
+        "relation": "USEDFOR",
+        "source_sentence": "*articles to be used for informational purposes only.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "compost",
+        "arg1": "grow plants",
+        "relation": "USEDFOR",
+        "source_sentence": "this compost can then be used to grow plants.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "forms",
+        "arg1": "millions of years",
+        "relation": "USEDFOR",
+        "source_sentence": "photosynthetic machinery transforms light energy into other forms _ so that it can be used for millions of years.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "high",
+        "arg1": "nesting",
+        "relation": "USEDFOR",
+        "source_sentence": "high is used for nesting.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "leaves",
+        "arg1": "medicinal purposes",
+        "relation": "USEDFOR",
+        "source_sentence": "the leaves are used for medicinal purposes.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "object",
+        "arg1": "writing",
+        "relation": "USEDFOR",
+        "source_sentence": "can this object be used for writing?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "oil",
+        "arg1": "animals",
+        "relation": "USEDFOR",
+        "source_sentence": "can this oil be used for animals?",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "plant",
+        "arg1": "various purposes",
+        "relation": "USEDFOR",
+        "source_sentence": "this plant can be used for various purposes.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "plant has",
+        "arg1": "bedding",
+        "relation": "USEDFOR",
+        "source_sentence": "the plant has also been used for bedding.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "resources",
+        "arg1": "good",
+        "relation": "USEDFOR",
+        "source_sentence": "our resources must be used for the good of all and not for the profit of the few.",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "tools",
+        "arg1": "classify organisms",
+        "relation": "USEDFOR",
+        "source_sentence": "tools used to classify organisms",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "warm",
+        "arg1": "flying",
+        "relation": "USEDFOR",
+        "source_sentence": "young birds have small feathers , called ` down ' , which keep them warm , but can not be used for flying .",
+        "wellformed_proxy": true
+      },
+      {
+        "arg0": "what term",
+        "arg1": "species",
+        "relation": "USEDFOR",
+        "source_sentence": "what term could be used for this species?",
+        "wellformed_proxy": true
+      }
+    ]
+  },
+  "results": {
+    "science_extract": {
+      "band": "MIDDLE_BAND",
+      "example_chains": [
+        {
+          "chain": "[use] --CAUSE--> [effects] ; [effects] --REQUIRES--> [size]",
+          "correct_choice": "size differences",
+          "qid": "Mercury_7250058",
+          "stem": "According to cell classification, prokaryotic cells are separated from eukaryotic cells. Which feature is often used to distinguish prokaryotic cells from eukar"
+        },
+        {
+          "chain": "[earth] --USEDFOR--> [plant] ; [plant] --REQUIRES--> [water to grow]",
+          "correct_choice": "water vapor",
+          "qid": "Mercury_7212993",
+          "stem": "Which of these gases is the most abundant greenhouse gas in the lower atmosphere of Earth?"
+        },
+        {
+          "chain": "[bears] --REQUIRES--> [habitat] ; [habitat] --REQUIRES--> [determined] ; [determined] --IFTHEN--> [environment]",
+          "correct_choice": "responding to its environment",
+          "qid": "NYSEDREGENTS_2015_4_26",
+          "stem": "In the spring and early summer, bears often scratch their backs against trees to remove winter fur. This is an example of an animal"
+        },
+        {
+          "chain": "[plant] --REQUIRES--> [animal] ; [animal] --REQUIRES--> [tree] ; [tree] --CAUSE--> [seed]",
+          "correct_choice": "They will always produce round seeds.",
+          "qid": "LEAP_2007_8_10417",
+          "stem": "In pea plants, the trait for round seeds is dominant over the trait for wrinkled seeds. If a pure dominant plant with round seeds is crossed with a plant with w"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "water",
+        "max_typed_node_degree": 138,
+        "n_fillers": 2864,
+        "n_head_blocked": 1176,
+        "n_merges": 1221,
+        "n_nodes": 2183,
+        "n_null_edges": 25177,
+        "n_pol_blocked": 118,
+        "n_typed_edges": 4595
+      },
+      "n_licensed_rows": 5028,
+      "plan_light": "MIDDLE",
+      "source": "science_extract",
+      "typed_correct_coverage": 0.5,
+      "typed_full": {
+        "correct_coverage": 0.5,
+        "mean_wrong_coverage": 0.5589225589225589,
+        "n_correct_connected": 50,
+        "n_questions": 100,
+        "n_wrong_connected": 166,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.05892255892255893
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.5589,
+      "typed_selectivity_gap": -0.0589,
+      "untyped_correct_coverage": 0.71,
+      "untyped_mean_wrong_coverage": 0.7104,
+      "untyped_null_full": {
+        "correct_coverage": 0.71,
+        "mean_wrong_coverage": 0.7104377104377104,
+        "n_correct_connected": 71,
+        "n_questions": 100,
+        "n_wrong_connected": 211,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.00043771043771045903
+      },
+      "untyped_selectivity_gap": -0.0004
+    },
+    "worldtree": {
+      "band": "STILL_STARVED",
+      "example_chains": [
+        {
+          "chain": "[plant] --SOURCEOF--> [acid] ; [acid] --CAUSE--> [chemical reaction]",
+          "correct_choice": "chemical energy to electrical energy.",
+          "qid": "Mercury_7064575",
+          "stem": "Coal-powered plants are designed specifically to convert"
+        },
+        {
+          "chain": "[star] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [come from the same source]",
+          "correct_choice": "use its fuel source much more quickly.",
+          "qid": "Mercury_188335",
+          "stem": "A star with twice the mass as the Sun would"
+        },
+        {
+          "chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+          "correct_choice": "increase",
+          "qid": "NYSEDREGENTS_2012_8_42",
+          "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+        },
+        {
+          "chain": "[energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [something] ; [something] --IFTHEN--> [solar energy]",
+          "correct_choice": "Clouds reflect the energy into space.",
+          "qid": "Mercury_7161315",
+          "stem": "Some part of Earth is being heated by the Sun at all times. If Earth absorbed all of the energy it received from the Sun, environmental conditions would change "
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "something",
+        "max_typed_node_degree": 83,
+        "n_fillers": 3189,
+        "n_head_blocked": 4351,
+        "n_merges": 3728,
+        "n_nodes": 2359,
+        "n_null_edges": 191545,
+        "n_pol_blocked": 760,
+        "n_typed_edges": 1735
+      },
+      "n_licensed_rows": 1868,
+      "plan_light": "RED",
+      "source": "worldtree",
+      "typed_correct_coverage": 0.07,
+      "typed_full": {
+        "correct_coverage": 0.07,
+        "mean_wrong_coverage": 0.07407407407407407,
+        "n_correct_connected": 7,
+        "n_questions": 100,
+        "n_wrong_connected": 22,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.004074074074074063
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.0741,
+      "typed_selectivity_gap": -0.0041,
+      "untyped_correct_coverage": 0.51,
+      "untyped_mean_wrong_coverage": 0.5387,
+      "untyped_null_full": {
+        "correct_coverage": 0.51,
+        "mean_wrong_coverage": 0.5387205387205387,
+        "n_correct_connected": 51,
+        "n_questions": 100,
+        "n_wrong_connected": 160,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.028720538720538702
+      },
+      "untyped_selectivity_gap": -0.0287
+    },
+    "worldtree_science": {
+      "band": "PROMISCUOUS_FAIL",
+      "example_chains": [
+        {
+          "chain": "[use] --CAUSE--> [death] ; [death] --REQUIRES--> [size]",
+          "correct_choice": "size differences",
+          "qid": "Mercury_7250058",
+          "stem": "According to cell classification, prokaryotic cells are separated from eukaryotic cells. Which feature is often used to distinguish prokaryotic cells from eukar"
+        },
+        {
+          "chain": "[gases] --REQUIRES--> [pressure] ; [pressure] --CAUSE--> [water]",
+          "correct_choice": "water vapor",
+          "qid": "Mercury_7212993",
+          "stem": "Which of these gases is the most abundant greenhouse gas in the lower atmosphere of Earth?"
+        },
+        {
+          "chain": "[animal] --REQUIRES--> [conditions] ; [conditions] --CAUSE--> [disasters] ; [disasters] --CAUSE--> [change in the environment]",
+          "correct_choice": "responding to its environment",
+          "qid": "NYSEDREGENTS_2015_4_26",
+          "stem": "In the spring and early summer, bears often scratch their backs against trees to remove winter fur. This is an example of an animal"
+        },
+        {
+          "chain": "[plant] --REQUIRES--> [energy] ; [energy] --CAUSE--> [seed]",
+          "correct_choice": "They will always produce round seeds.",
+          "qid": "LEAP_2007_8_10417",
+          "stem": "In pea plants, the trait for round seeds is dominant over the trait for wrinkled seeds. If a pure dominant plant with round seeds is crossed with a plant with w"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "water",
+        "max_typed_node_degree": 160,
+        "n_fillers": 5863,
+        "n_head_blocked": 6594,
+        "n_merges": 5467,
+        "n_nodes": 4188,
+        "n_null_edges": 268714,
+        "n_pol_blocked": 924,
+        "n_typed_edges": 6292
+      },
+      "n_licensed_rows": 6896,
+      "plan_light": "PROMISCUOUS",
+      "source": "worldtree_science",
+      "typed_correct_coverage": 0.56,
+      "typed_full": {
+        "correct_coverage": 0.56,
+        "mean_wrong_coverage": 0.6094276094276094,
+        "n_correct_connected": 56,
+        "n_questions": 100,
+        "n_wrong_connected": 181,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.049427609427609376
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.6094,
+      "typed_selectivity_gap": -0.0494,
+      "untyped_correct_coverage": 0.84,
+      "untyped_mean_wrong_coverage": 0.8283,
+      "untyped_null_full": {
+        "correct_coverage": 0.84,
+        "mean_wrong_coverage": 0.8282828282828283,
+        "n_correct_connected": 84,
+        "n_questions": 100,
+        "n_wrong_connected": 246,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.011717171717171682
+      },
+      "untyped_selectivity_gap": 0.0117
+    }
+  },
+  "run_mode": "full",
+  "summary": "SCIENCE-EXTRACT rule-supply | headline=PROMISCUOUS(PROMISCUOUS_FAIL,worldtree_science) | worldtree cov=0.07 (control_ok=True) -> science cov=0.5 gap=-0.0589 vs untyped -0.0004 | n_extracted_kept=500000 n_induced=5028 | wellformed_proxy=1.0",
+  "ts_iso": "2026-07-25T13:40:03.096138+00:00",
+  "verdict": "GATE_MEASURED",
+  "verdict_msg": "PROMISCUOUS (plan): coverage rose but selectivity ~ untyped-null (typed gap <0.05 or <= untyped) -> the extraction is TOO NOISY; it connects everything equally like a generic KB. Report the precision failure; tighten patterns or escalate before reasoner investment.",
+  "worldtree_per_relation": {
+    "CAUSE": 380,
+    "COUPLEDRELATIONSHIP": 251,
+    "IFTHEN": 507,
+    "REQUIRES": 215,
+    "SOURCEOF": 178,
+    "USEDFOR": 337
+  }
+}

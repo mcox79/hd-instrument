@@ -1,0 +1,178 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_label": "BELOW_TRACE",
+  "verdict_msg": "HARD_FAIL [BELOW_TRACE] | EqFusion=-0.154 (cv=0.652, cor=0.381) Learned=-0.308 Best=0.559 Trace=0.122 | floor_ok=False lift_trace=False lift_best=False cor_ok=False cv_ok=False major_win=False | n_seeds=2",
+  "summary": "HARD_FAIL [BELOW_TRACE] | EqFusion=-0.154 (cv=0.652, cor=0.381) Learned=-0.308 Best=0.559 Trace=0.122 | floor_ok=False lift_trace=False lift_best=False cor_ok=False cv_ok=False major_win=False | n_seeds=2",
+  "per_arm": {
+    "trace_alone": {
+      "7": {
+        "sel_unretr": 0.158502386145595,
+        "cor_with_W": 0.45100152492523193
+      },
+      "17": {
+        "sel_unretr": 0.0856147946493482,
+        "cor_with_W": 0.33499035239219666
+      }
+    },
+    "best_single_channel": {
+      "7": {
+        "sel_unretr": 0.5920707807861948,
+        "cor_with_W": 0.8381454944610596,
+        "best_channel": "effort"
+      },
+      "17": {
+        "sel_unretr": 0.5261951227511984,
+        "cor_with_W": 0.8462350964546204,
+        "best_channel": "effort"
+      }
+    },
+    "equal_weight_fusion": {
+      "7": {
+        "sel_unretr": -0.22568728099665872,
+        "cor_with_W": 0.38112562894821167
+      },
+      "17": {
+        "sel_unretr": -0.08324067544593271,
+        "cor_with_W": 0.3815620243549347
+      }
+    },
+    "learned_weight_fusion": {
+      "7": {
+        "sel_unretr": -0.4662277563093141,
+        "cor_with_W": 0.42273059487342834,
+        "learned_weights": {
+          "novelty": -0.009910634718835354,
+          "attention": 0.025201039388775826,
+          "coreness": -0.0345655120909214,
+          "success": 0.004556473344564438,
+          "consensus": 0.04765762388706207,
+          "effort": 0.09786457568407059
+        }
+      },
+      "17": {
+        "sel_unretr": -0.1487852872329885,
+        "cor_with_W": 0.6621162295341492,
+        "learned_weights": {
+          "novelty": -0.01416446641087532,
+          "attention": 0.026966892182826996,
+          "coreness": -0.016384189948439598,
+          "success": 0.0007538218051195145,
+          "consensus": 0.1478673219680786,
+          "effort": 0.019050773233175278
+        }
+      }
+    },
+    "diag_per_channel": {
+      "7": {
+        "sel_unretr": 0.02378492437039089,
+        "cor_with_W": 0.009079978801310062,
+        "per_channel_detail": {
+          "novelty_sel": -0.044477972568891855,
+          "novelty_cor": -0.07072001695632935,
+          "attention_sel": 0.158502386145595,
+          "attention_cor": 0.45100152492523193,
+          "coreness_sel": -0.017824753595617922,
+          "coreness_cor": 0.013540700078010559,
+          "success_sel": 0.06958744007303262,
+          "success_cor": 0.08567871153354645,
+          "consensus_sel": 0.34577846291771025,
+          "consensus_cor": 0.7801558375358582,
+          "effort_sel": 0.5920707807861948,
+          "effort_cor": 0.8381454944610596,
+          "fisher_fusion_sel": 0.02378492437039089,
+          "fisher_fusion_cor": 0.009079978801310062
+        }
+      },
+      "17": {
+        "sel_unretr": -0.0371899787351513,
+        "cor_with_W": 0.03164850175380707,
+        "per_channel_detail": {
+          "novelty_sel": -0.03190656586363147,
+          "novelty_cor": -0.011423254385590553,
+          "attention_sel": 0.0856147946493482,
+          "attention_cor": 0.33499035239219666,
+          "coreness_sel": 0.05179657903799765,
+          "coreness_cor": 0.05885770544409752,
+          "success_sel": 0.02392213457533155,
+          "success_cor": -0.03517990559339523,
+          "consensus_sel": 0.23913661435185812,
+          "consensus_cor": 0.8214511275291443,
+          "effort_sel": 0.5261951227511984,
+          "effort_cor": 0.8462350964546204,
+          "fisher_fusion_sel": -0.0371899787351513,
+          "fisher_fusion_cor": 0.03164850175380707
+        }
+      }
+    }
+  },
+  "per_arm_summary": {
+    "trace_alone": {
+      "mean_sel": 0.1220585903974716,
+      "std_sel": 0.05153931021135105,
+      "sem": 0.0364437957481234,
+      "cv_sel": 0.4222505769034235,
+      "mean_cor": 0.3929959386587143,
+      "n": 2,
+      "mean_minus_1p96sem": 0.05062875073114975
+    },
+    "best_single_channel": {
+      "mean_sel": 0.5591329517686966,
+      "std_sel": 0.046581124511672026,
+      "sem": 0.03293782901749819,
+      "cv_sel": 0.08330956772324485,
+      "mean_cor": 0.84219029545784,
+      "n": 2,
+      "mean_minus_1p96sem": 0.49457480689440014
+    },
+    "equal_weight_fusion": {
+      "mean_sel": -0.1544639782212957,
+      "std_sel": 0.10072496074192366,
+      "sem": 0.071223302775363,
+      "cv_sel": 0.6520935295193431,
+      "mean_cor": 0.3813438266515732,
+      "n": 2,
+      "mean_minus_1p96sem": -0.2940616516610072
+    },
+    "learned_weight_fusion": {
+      "mean_sel": -0.30750652177115134,
+      "std_sel": 0.22446572252047076,
+      "sem": 0.1587212345381628,
+      "cv_sel": 0.7299543477244357,
+      "mean_cor": 0.5424234122037888,
+      "n": 2,
+      "mean_minus_1p96sem": -0.6186001414659504
+    },
+    "diag_per_channel": {
+      "mean_sel": -0.0067025271823802045,
+      "std_sel": 0.04311576746812156,
+      "sem": 0.030487451552771095,
+      "cv_sel": 6.432762791543095,
+      "mean_cor": 0.020364240277558565,
+      "n": 2,
+      "mean_minus_1p96sem": -0.06645793222581155
+    }
+  },
+  "eq_fusion_mean_sel": -0.1544639782212957,
+  "eq_fusion_cv": 0.6520935295193431,
+  "eq_fusion_cor": 0.3813438266515732,
+  "learned_fusion_mean_sel": -0.30750652177115134,
+  "trace_mean_sel": 0.1220585903974716,
+  "best_single_mean_sel": 0.5591329517686966,
+  "fusion_floor_ok": false,
+  "lift_over_trace_ok": false,
+  "lift_over_best_ok": false,
+  "cor_fairness_ok": false,
+  "cv_resolved_ok": false,
+  "major_win_qualified": false,
+  "n_seeds_complete": 2,
+  "expected_n_units": 10,
+  "completed_units": 10,
+  "cardinality_ok": true,
+  "anchor_name": "importance_6channel_brain_analog_v1",
+  "elapsed_s": 1.5,
+  "ts_iso": "2026-06-27T21:16:14Z",
+  "pid": 22660,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=importance_6channel_brain_analog_v1,N=4096,M=400,seeds=[7, 17],n_consensus=4,mode=smoke,HP_fusion>=0.15,HP_lift_trace>=0.05,HP_lift_best>=0.03,HP_cor<=0.30,HP_cv<=0.20,MW_learned>=0.20,HF_cor>=0.50,HF_cv>=0.30,trace_smoke_sanity>=0.20,expected_n=10,n_channels=6,hardening=L1early+L2perarm+L3outertry+L4importsentinel,fairness=META_RULE_AA+same_atom_set+clean_split+trace_sanity",
+  "_hardening_marker": "v1_6channel_brain_analog"
+}

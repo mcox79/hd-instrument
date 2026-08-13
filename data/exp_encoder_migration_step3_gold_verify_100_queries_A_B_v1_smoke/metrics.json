@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "FileNotFoundError: concept E_concept.pt not found: D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v1\\E_concept.pt",
+  "summary": "CELL_CRASHED: FileNotFoundError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 1001, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 995, in main\n    return run_experiment(args.run_mode, args.seed)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 839, in run_experiment\n    concept_E = _load_concept_E(concept_pt_path)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step3_gold_verify_100_queries_A_B_v1_core.py\", line 354, in _load_concept_E\n    raise FileNotFoundError(f\"concept E_concept.pt not found: {pt_path}\")\nFileNotFoundError: concept E_concept.pt not found: D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v1\\E_concept.pt\n",
+  "ts_iso": "2026-07-04T11:58:35.918142+00:00",
+  "pid": 28644,
+  "anchor_name": "encoder_migration_step3_gold_verify_100_queries_A_B_v1"
+}

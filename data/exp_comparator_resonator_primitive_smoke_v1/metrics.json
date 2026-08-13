@@ -1,0 +1,79 @@
+{
+  "anchor_name": "comparator_resonator_primitive_smoke_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL HF1: comparator <= raw_lookup + 0.05 (adds nothing over raw). n_seeds=3 COMP_mean=0.8556 COMP_min=0.8500 RAW_mean=0.8944 FREQ_mean=0.5778 lift_over_RAW=-0.0389 lift_over_FREQ=+0.2778",
+  "N_DIM": 4096,
+  "M": 50,
+  "ATTRS": [
+    "born_year",
+    "height_cm",
+    "founded_year",
+    "salary_usd",
+    "population"
+  ],
+  "N_BINARY_Q": 30,
+  "N_TRIPLE_Q": 30,
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "run_mode": "full",
+  "elapsed_s": 114.58521771430969,
+  "selftest": {
+    "bind_unbind_cos": 0.7202196272140158,
+    "fpe_close": 0.9959930112159711,
+    "fpe_far": 0.5163512353020796,
+    "proj_sign": 5,
+    "sanity_n": 5,
+    "sanity_d": 5
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N_DIM": 4096,
+      "M": 50,
+      "n_attrs": 5,
+      "n_binary_q": 30,
+      "n_triple_q": 30,
+      "raw_acc": 0.9,
+      "comp_acc": 0.85,
+      "comp_acc_binary": 0.9666666666666667,
+      "comp_acc_triple": 0.7333333333333333,
+      "freq_bias_acc": 0.6166666666666667,
+      "elapsed_s": 36.676077365875244,
+      "run_mode": "full"
+    },
+    {
+      "seed": 17,
+      "N_DIM": 4096,
+      "M": 50,
+      "n_attrs": 5,
+      "n_binary_q": 30,
+      "n_triple_q": 30,
+      "raw_acc": 0.95,
+      "comp_acc": 0.8666666666666667,
+      "comp_acc_binary": 0.9333333333333333,
+      "comp_acc_triple": 0.8,
+      "freq_bias_acc": 0.55,
+      "elapsed_s": 37.69427418708801,
+      "run_mode": "full"
+    },
+    {
+      "seed": 23,
+      "N_DIM": 4096,
+      "M": 50,
+      "n_attrs": 5,
+      "n_binary_q": 30,
+      "n_triple_q": 30,
+      "raw_acc": 0.8333333333333334,
+      "comp_acc": 0.85,
+      "comp_acc_binary": 0.8666666666666667,
+      "comp_acc_triple": 0.8333333333333334,
+      "freq_bias_acc": 0.5666666666666667,
+      "elapsed_s": 40.17209529876709,
+      "run_mode": "full"
+    }
+  ],
+  "summary": "HARD_FAIL HF1: comparator <= raw_lookup + 0.05 (adds nothing over raw). n_seeds=3 COMP_mean=0.8556 COMP_min=0.8500 RAW_mean=0.8944 FREQ_mean=0.5778 lift_over_RAW=-0.0389 lift_over_FREQ=+0.2778"
+}

@@ -1,0 +1,86 @@
+{
+  "anchor_name": "planted_csp_viability_can_fail_at_harder_alpha_v1_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (still saturated through alpha=0.20, NO cliff located): recall stays >= 0.95 across the entire swept range -> reframe original to MM 'viability is a LOWER-BOUND (>= alpha=0.20); cliff beyond the swept range' (a3f473dd LOWER-BOUND precedent). control(a=0.02)recall=1.000 canfail_alpha=None recall_curve={'a0.02': 1.0, 'a0.10': 1.0, 'a0.20': 1.0} worst_cv=0.000",
+  "run_mode": "smoke",
+  "N": 1024,
+  "n_seeds": 2,
+  "detail": {
+    "by_alpha": {
+      "a0.02": {
+        "alpha": 0.02,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      },
+      "a0.10": {
+        "alpha": 0.1,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      },
+      "a0.20": {
+        "alpha": 0.2,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      }
+    },
+    "control_recall_a0.02": 1.0,
+    "canfail_alpha": null,
+    "gate_alpha": 0.2,
+    "worst_cv": 0.0,
+    "source_cell": "planted_csp_viability_v1",
+    "cites": [
+      "planted_csp_viability_v1",
+      "csp_first_ship_CERT590"
+    ],
+    "recall_at_gate_alpha": 1.0
+  },
+  "metrics_source": "measured_cpu_planted_csp_alpha_sweep_canfail",
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_alpha": {
+        "a0.02": {
+          "alpha": 0.02,
+          "M_data": 20,
+          "recall": 1.0
+        },
+        "a0.10": {
+          "alpha": 0.1,
+          "M_data": 102,
+          "recall": 1.0
+        },
+        "a0.20": {
+          "alpha": 0.2,
+          "M_data": 204,
+          "recall": 1.0
+        }
+      },
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782024942.444558
+    },
+    {
+      "seed": 17,
+      "by_alpha": {
+        "a0.02": {
+          "alpha": 0.02,
+          "M_data": 20,
+          "recall": 1.0
+        },
+        "a0.10": {
+          "alpha": 0.1,
+          "M_data": 102,
+          "recall": 1.0
+        },
+        "a0.20": {
+          "alpha": 0.2,
+          "M_data": 204,
+          "recall": 1.0
+        }
+      },
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782024942.768999
+    }
+  ],
+  "elapsed_s": 0.6117727756500244,
+  "summary": "HARD_FAIL (still saturated through alpha=0.20, NO cliff located): recall stays >= 0.95 across the entire swept range -> reframe original to MM 'viability is a LOWER-BOUND (>= alpha=0.20); cliff beyond the swept range' (a3f473dd LOWER-BOUND precedent). control(a=0.02)recall=1.000 canfail_alpha=None recall_curve={'a0.02': 1.0, 'a0.10': 1.0, 'a0.20': 1.0} worst_cv=0.000"
+}

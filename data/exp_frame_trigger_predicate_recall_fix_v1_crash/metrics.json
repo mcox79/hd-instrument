@@ -1,0 +1,9 @@
+{
+  "anchor_name": "frame_trigger_predicate_recall_fix_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: self-test: expected BOTH take and throw in frame_verbs, got ['took', 'throw']",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_frame_trigger_predicate_recall_fix_v1.py\", line 324, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_frame_trigger_predicate_recall_fix_v1.py\", line 309, in main\n    assert \"take\" in lemmas and \"throw\" in lemmas, (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: self-test: expected BOTH take and throw in frame_verbs, got ['took', 'throw']\n",
+  "ts_iso": "2026-08-05T22:47:32.981190+00:00"
+}

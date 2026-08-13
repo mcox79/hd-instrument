@@ -1,0 +1,786 @@
+{
+  "anchor_name": "cortex_regenerative_cleanup_vs_analog_accumulate_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (regenerative hard-cleanup beats analog soft-carry ABOVE the M/N~1 crosstalk threshold: analog collapses, regen degrades gracefully; joint gates hold): n_seeds=2 pass=2 fail=0 false_joint=0 mid=0 | @DISC(M_BG=8000): mean gap=+0.500 regen_d5=0.604 analog_d5=0.104 graceful=0.615 faith=1.000 control_d5=0.0104 | LOW(M_BG=2000) mean_gap=-0.250 crossover=2/2 | arms_differ=True iso=True",
+  "summary": "HARD_PASS (regenerative hard-cleanup beats analog soft-carry ABOVE the M/N~1 crosstalk threshold: analog collapses, regen degrades gracefully; joint gates hold): n_seeds=2 pass=2 fail=0 false_joint=0 mid=0 | @DISC(M_BG=8000): mean gap=+0.500 regen_d5=0.604 analog_d5=0.104 graceful=0.615 faith=1.000 control_d5=0.0104 | LOW(M_BG=2000) mean_gap=-0.250 crossover=2/2 | arms_differ=True iso=True",
+  "elapsed_s": 168.95,
+  "ts_iso": "2026-07-05T07:08:31.714257+00:00",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+  "N": 8192,
+  "V": 512,
+  "P": 8,
+  "D_MAX": 7,
+  "DEPTHS": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "M_BG_LIST": [
+    2000,
+    8000,
+    16000
+  ],
+  "REFUSE_DEPTH": 5,
+  "expected_n_units": 42,
+  "cardinality_ok": true,
+  "extra": {
+    "cardinality_ok": true,
+    "n_seeds": 2,
+    "disc_m_bg": 8000,
+    "low_m_bg": 2000,
+    "n_hard_pass": 2,
+    "n_hard_fail": 0,
+    "n_false_pass_joint": 0,
+    "n_middle": 0,
+    "seed_tiers": [
+      "HARD_PASS",
+      "HARD_PASS"
+    ],
+    "mean_gap_d5_at_disc": 0.5,
+    "std_gap_d5_at_disc": 0.0625,
+    "mean_regen_d5_at_disc": 0.6042,
+    "mean_analog_d5_at_disc": 0.1042,
+    "mean_graceful_margin_at_disc": 0.6146,
+    "mean_regen_faith_d5_at_disc": 1.0,
+    "mean_control_d5_at_disc": 0.0104,
+    "mean_low_gap_d5": -0.25,
+    "n_crossover_confirmed": 2,
+    "refuse_gate_reported_not_gated": true,
+    "mean_false_accept_reported": 0.7,
+    "mean_false_refuse_reported": 0.1,
+    "n_refuse_calibrated_reported": 0,
+    "arms_differ_all": true,
+    "isolation_clean_all": true,
+    "chance_floor": 0.00195
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "n_llm_calls": 0,
+      "mbg_results": [
+        {
+          "seed": 7,
+          "m_bg": 2000,
+          "m_total": 2336,
+          "m_over_n": 0.2852,
+          "N": 8192,
+          "V": 512,
+          "P": 8,
+          "run_mode": "smoke",
+          "analog_curve": {
+            "1": 0.9167,
+            "2": 0.9375,
+            "3": 0.875,
+            "4": 0.9167,
+            "5": 0.9167,
+            "6": 0.9167,
+            "7": 0.8958
+          },
+          "regen_curve": {
+            "1": 0.9167,
+            "2": 0.8333,
+            "3": 0.75,
+            "4": 0.75,
+            "5": 0.6667,
+            "6": 0.6042,
+            "7": 0.5833
+          },
+          "control_curve": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_faith_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0
+          },
+          "analog_faith_curve": {
+            "1": 1.0,
+            "2": 0.8542,
+            "3": 0.7917,
+            "4": 0.7292,
+            "5": 0.7083,
+            "6": 0.6458,
+            "7": 0.5833
+          },
+          "per_hop_regen_at_d5": [
+            0.9167,
+            0.8333,
+            0.75,
+            0.75,
+            0.6667
+          ],
+          "per_hop_analog_at_d5": [
+            0.9167,
+            0.9375,
+            0.875,
+            0.9167,
+            0.9167
+          ],
+          "regen_d1": 0.9167,
+          "analog_d1": 0.9167,
+          "regen_d3": 0.75,
+          "regen_d5": 0.6667,
+          "analog_d3": 0.875,
+          "analog_d5": 0.9167,
+          "control_d5": 0.0,
+          "flatness_regen_d3_minus_d5": 0.0833,
+          "analog_decay_d3_minus_d5": -0.0417,
+          "graceful_margin": -0.125,
+          "gap_regen_minus_analog_d5": -0.25,
+          "regen_faithfulness_d5": 1.0,
+          "analog_faithfulness_d5": 0.7083,
+          "isolation_clean": true,
+          "arms_sha_at_d5": {
+            "analog": "ad5992500251db64",
+            "regen": "c317c69b1edd0dfd",
+            "control": "b976b9dc4ddef086"
+          },
+          "arms_differ": true,
+          "refuse": null,
+          "elapsed_s": 21.55,
+          "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+          "row_label": "ANALOG_WINS"
+        },
+        {
+          "seed": 7,
+          "m_bg": 8000,
+          "m_total": 8336,
+          "m_over_n": 1.0176,
+          "N": 8192,
+          "V": 512,
+          "P": 8,
+          "run_mode": "smoke",
+          "analog_curve": {
+            "1": 0.9167,
+            "2": 0.9583,
+            "3": 0.8542,
+            "4": 0.3542,
+            "5": 0.1042,
+            "6": 0.0208,
+            "7": 0.0625
+          },
+          "regen_curve": {
+            "1": 0.9167,
+            "2": 0.875,
+            "3": 0.8125,
+            "4": 0.7083,
+            "5": 0.6667,
+            "6": 0.5833,
+            "7": 0.5625
+          },
+          "control_curve": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_faith_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0
+          },
+          "analog_faith_curve": {
+            "1": 1.0,
+            "2": 0.9167,
+            "3": 0.8125,
+            "4": 0.3333,
+            "5": 0.1042,
+            "6": 0.0208,
+            "7": 0.0625
+          },
+          "per_hop_regen_at_d5": [
+            0.9167,
+            0.875,
+            0.8125,
+            0.7083,
+            0.6667
+          ],
+          "per_hop_analog_at_d5": [
+            0.9167,
+            0.9583,
+            0.8542,
+            0.3542,
+            0.1042
+          ],
+          "regen_d1": 0.9167,
+          "analog_d1": 0.9167,
+          "regen_d3": 0.8125,
+          "regen_d5": 0.6667,
+          "analog_d3": 0.8542,
+          "analog_d5": 0.1042,
+          "control_d5": 0.0,
+          "flatness_regen_d3_minus_d5": 0.1458,
+          "analog_decay_d3_minus_d5": 0.75,
+          "graceful_margin": 0.6042,
+          "gap_regen_minus_analog_d5": 0.5625,
+          "regen_faithfulness_d5": 1.0,
+          "analog_faithfulness_d5": 0.1042,
+          "isolation_clean": true,
+          "arms_sha_at_d5": {
+            "analog": "d6ccfd9cab2bc245",
+            "regen": "ccb94d17d1ea4ebb",
+            "control": "0b67083a68f963ba"
+          },
+          "arms_differ": true,
+          "refuse": {
+            "refuse_calibrated": false,
+            "tau": 0.4014,
+            "false_accept": 0.5,
+            "false_refuse": 0.15,
+            "conf_sep_sup_minus_brk": 0.2239,
+            "supported_final_acc": 0.6,
+            "n_calib": 20,
+            "n_test_sup": 20,
+            "n_test_broken": 20
+          },
+          "elapsed_s": 29.49,
+          "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+          "row_label": "REGEN_WINS"
+        },
+        {
+          "seed": 7,
+          "m_bg": 16000,
+          "m_total": 16336,
+          "m_over_n": 1.9941,
+          "N": 8192,
+          "V": 512,
+          "P": 8,
+          "run_mode": "smoke",
+          "analog_curve": {
+            "1": 0.9375,
+            "2": 0.9167,
+            "3": 0.1458,
+            "4": 0.0417,
+            "5": 0.0,
+            "6": 0.0208,
+            "7": 0.0
+          },
+          "regen_curve": {
+            "1": 0.9375,
+            "2": 0.8958,
+            "3": 0.8333,
+            "4": 0.75,
+            "5": 0.6042,
+            "6": 0.5833,
+            "7": 0.5208
+          },
+          "control_curve": {
+            "1": 0.0,
+            "2": 0.0208,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_faith_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0
+          },
+          "analog_faith_curve": {
+            "1": 1.0,
+            "2": 0.9375,
+            "3": 0.125,
+            "4": 0.0208,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "per_hop_regen_at_d5": [
+            0.9375,
+            0.8958,
+            0.8333,
+            0.75,
+            0.6042
+          ],
+          "per_hop_analog_at_d5": [
+            0.9375,
+            0.9167,
+            0.1458,
+            0.0417,
+            0.0
+          ],
+          "regen_d1": 0.9375,
+          "analog_d1": 0.9375,
+          "regen_d3": 0.8333,
+          "regen_d5": 0.6042,
+          "analog_d3": 0.1458,
+          "analog_d5": 0.0,
+          "control_d5": 0.0,
+          "flatness_regen_d3_minus_d5": 0.2291,
+          "analog_decay_d3_minus_d5": 0.1458,
+          "graceful_margin": -0.0833,
+          "gap_regen_minus_analog_d5": 0.6042,
+          "regen_faithfulness_d5": 1.0,
+          "analog_faithfulness_d5": 0.0,
+          "isolation_clean": true,
+          "arms_sha_at_d5": {
+            "analog": "609e82c4414cf26f",
+            "regen": "d5221a1eea7380b0",
+            "control": "28969137fc449085"
+          },
+          "arms_differ": true,
+          "refuse": null,
+          "elapsed_s": 32.55,
+          "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+          "row_label": "REGEN_WINS"
+        }
+      ],
+      "seed_tier": "HARD_PASS",
+      "seed_tier_reasons": [
+        "HARD_PASS regen_d5=0.667 gap=0.562 analog_d5=0.104 graceful=0.604 faith=1.000 crossover=True | refuse(reported) fa=0.5 fr=0.15 calibrated=False"
+      ],
+      "disc_summary": {
+        "disc_m_bg": 8000,
+        "disc_m_over_n": 1.0176,
+        "regen_d5": 0.6667,
+        "analog_d5": 0.1042,
+        "gap_d5": 0.5625,
+        "graceful_margin": 0.6042,
+        "regen_faith_d5": 1.0,
+        "false_accept": 0.5,
+        "false_refuse": 0.15,
+        "refuse_calibrated_reported": false,
+        "control_d5": 0.0,
+        "isolation_clean": true,
+        "low_m_bg": 2000,
+        "low_gap_d5": -0.25,
+        "crossover_confirmed": true
+      },
+      "phase_map": [
+        {
+          "m_bg": 2000,
+          "m_over_n": 0.2852,
+          "row_label": "ANALOG_WINS",
+          "gap_d5": -0.25,
+          "regen_d5": 0.6667,
+          "analog_d5": 0.9167
+        },
+        {
+          "m_bg": 8000,
+          "m_over_n": 1.0176,
+          "row_label": "REGEN_WINS",
+          "gap_d5": 0.5625,
+          "regen_d5": 0.6667,
+          "analog_d5": 0.1042
+        },
+        {
+          "m_bg": 16000,
+          "m_over_n": 1.9941,
+          "row_label": "REGEN_WINS",
+          "gap_d5": 0.6042,
+          "regen_d5": 0.6042,
+          "analog_d5": 0.0
+        }
+      ],
+      "arms_differ_disc": true,
+      "isolation_clean_disc": true,
+      "elapsed_s": 83.7,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+      "N": 8192,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783235226.538924
+    },
+    {
+      "seed": 17,
+      "run_mode": "smoke",
+      "n_llm_calls": 0,
+      "mbg_results": [
+        {
+          "seed": 17,
+          "m_bg": 2000,
+          "m_total": 2336,
+          "m_over_n": 0.2852,
+          "N": 8192,
+          "V": 512,
+          "P": 8,
+          "run_mode": "smoke",
+          "analog_curve": {
+            "1": 0.9375,
+            "2": 0.9375,
+            "3": 0.8958,
+            "4": 0.9375,
+            "5": 0.9167,
+            "6": 0.8958,
+            "7": 0.9167
+          },
+          "regen_curve": {
+            "1": 0.9375,
+            "2": 0.8542,
+            "3": 0.7708,
+            "4": 0.7083,
+            "5": 0.6667,
+            "6": 0.625,
+            "7": 0.5833
+          },
+          "control_curve": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_faith_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0
+          },
+          "analog_faith_curve": {
+            "1": 1.0,
+            "2": 0.875,
+            "3": 0.7917,
+            "4": 0.7708,
+            "5": 0.7083,
+            "6": 0.625,
+            "7": 0.6042
+          },
+          "per_hop_regen_at_d5": [
+            0.9375,
+            0.8542,
+            0.7708,
+            0.7083,
+            0.6667
+          ],
+          "per_hop_analog_at_d5": [
+            0.9375,
+            0.9375,
+            0.8958,
+            0.9375,
+            0.9167
+          ],
+          "regen_d1": 0.9375,
+          "analog_d1": 0.9375,
+          "regen_d3": 0.7708,
+          "regen_d5": 0.6667,
+          "analog_d3": 0.8958,
+          "analog_d5": 0.9167,
+          "control_d5": 0.0,
+          "flatness_regen_d3_minus_d5": 0.1041,
+          "analog_decay_d3_minus_d5": -0.0209,
+          "graceful_margin": -0.125,
+          "gap_regen_minus_analog_d5": -0.25,
+          "regen_faithfulness_d5": 1.0,
+          "analog_faithfulness_d5": 0.7083,
+          "isolation_clean": true,
+          "arms_sha_at_d5": {
+            "analog": "95d7157cae85634d",
+            "regen": "14a664abab9ef216",
+            "control": "7cd670a34925ada6"
+          },
+          "arms_differ": true,
+          "refuse": null,
+          "elapsed_s": 15.25,
+          "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+          "row_label": "ANALOG_WINS"
+        },
+        {
+          "seed": 17,
+          "m_bg": 8000,
+          "m_total": 8336,
+          "m_over_n": 1.0176,
+          "N": 8192,
+          "V": 512,
+          "P": 8,
+          "run_mode": "smoke",
+          "analog_curve": {
+            "1": 0.9583,
+            "2": 0.8958,
+            "3": 0.8542,
+            "4": 0.5,
+            "5": 0.1042,
+            "6": 0.0208,
+            "7": 0.0
+          },
+          "regen_curve": {
+            "1": 0.9583,
+            "2": 0.7917,
+            "3": 0.6667,
+            "4": 0.5625,
+            "5": 0.5417,
+            "6": 0.5,
+            "7": 0.5
+          },
+          "control_curve": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0208,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_faith_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0
+          },
+          "analog_faith_curve": {
+            "1": 1.0,
+            "2": 0.8958,
+            "3": 0.75,
+            "4": 0.375,
+            "5": 0.0625,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "per_hop_regen_at_d5": [
+            0.9583,
+            0.7917,
+            0.6667,
+            0.5625,
+            0.5417
+          ],
+          "per_hop_analog_at_d5": [
+            0.9583,
+            0.8958,
+            0.8542,
+            0.5,
+            0.1042
+          ],
+          "regen_d1": 0.9583,
+          "analog_d1": 0.9583,
+          "regen_d3": 0.6667,
+          "regen_d5": 0.5417,
+          "analog_d3": 0.8542,
+          "analog_d5": 0.1042,
+          "control_d5": 0.0208,
+          "flatness_regen_d3_minus_d5": 0.125,
+          "analog_decay_d3_minus_d5": 0.75,
+          "graceful_margin": 0.625,
+          "gap_regen_minus_analog_d5": 0.4375,
+          "regen_faithfulness_d5": 1.0,
+          "analog_faithfulness_d5": 0.0625,
+          "isolation_clean": true,
+          "arms_sha_at_d5": {
+            "analog": "9537145a510f28d0",
+            "regen": "56b2af8fb245ffca",
+            "control": "8d383ab3641e6f98"
+          },
+          "arms_differ": true,
+          "refuse": {
+            "refuse_calibrated": false,
+            "tau": 0.1634,
+            "false_accept": 0.9,
+            "false_refuse": 0.05,
+            "conf_sep_sup_minus_brk": 0.2044,
+            "supported_final_acc": 0.65,
+            "n_calib": 20,
+            "n_test_sup": 20,
+            "n_test_broken": 20
+          },
+          "elapsed_s": 28.73,
+          "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+          "row_label": "REGEN_WINS"
+        },
+        {
+          "seed": 17,
+          "m_bg": 16000,
+          "m_total": 16336,
+          "m_over_n": 1.9941,
+          "N": 8192,
+          "V": 512,
+          "P": 8,
+          "run_mode": "smoke",
+          "analog_curve": {
+            "1": 0.9583,
+            "2": 0.875,
+            "3": 0.125,
+            "4": 0.0208,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_curve": {
+            "1": 0.9583,
+            "2": 0.8958,
+            "3": 0.875,
+            "4": 0.8542,
+            "5": 0.75,
+            "6": 0.7083,
+            "7": 0.5833
+          },
+          "control_curve": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "regen_faith_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0
+          },
+          "analog_faith_curve": {
+            "1": 1.0,
+            "2": 0.8125,
+            "3": 0.125,
+            "4": 0.0208,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0
+          },
+          "per_hop_regen_at_d5": [
+            0.9583,
+            0.8958,
+            0.875,
+            0.8542,
+            0.75
+          ],
+          "per_hop_analog_at_d5": [
+            0.9583,
+            0.875,
+            0.125,
+            0.0208,
+            0.0
+          ],
+          "regen_d1": 0.9583,
+          "analog_d1": 0.9583,
+          "regen_d3": 0.875,
+          "regen_d5": 0.75,
+          "analog_d3": 0.125,
+          "analog_d5": 0.0,
+          "control_d5": 0.0,
+          "flatness_regen_d3_minus_d5": 0.125,
+          "analog_decay_d3_minus_d5": 0.125,
+          "graceful_margin": 0.0,
+          "gap_regen_minus_analog_d5": 0.75,
+          "regen_faithfulness_d5": 1.0,
+          "analog_faithfulness_d5": 0.0,
+          "isolation_clean": true,
+          "arms_sha_at_d5": {
+            "analog": "51ef247cbc8c248a",
+            "regen": "8d429315dfd97ac8",
+            "control": "59591bd9c84be7ee"
+          },
+          "arms_differ": true,
+          "refuse": null,
+          "elapsed_s": 41.01,
+          "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+          "row_label": "REGEN_WINS"
+        }
+      ],
+      "seed_tier": "HARD_PASS",
+      "seed_tier_reasons": [
+        "HARD_PASS regen_d5=0.542 gap=0.438 analog_d5=0.104 graceful=0.625 faith=1.000 crossover=True | refuse(reported) fa=0.9 fr=0.05 calibrated=False"
+      ],
+      "disc_summary": {
+        "disc_m_bg": 8000,
+        "disc_m_over_n": 1.0176,
+        "regen_d5": 0.5417,
+        "analog_d5": 0.1042,
+        "gap_d5": 0.4375,
+        "graceful_margin": 0.625,
+        "regen_faith_d5": 1.0,
+        "false_accept": 0.9,
+        "false_refuse": 0.05,
+        "refuse_calibrated_reported": false,
+        "control_d5": 0.0208,
+        "isolation_clean": true,
+        "low_m_bg": 2000,
+        "low_gap_d5": -0.25,
+        "crossover_confirmed": true
+      },
+      "phase_map": [
+        {
+          "m_bg": 2000,
+          "m_over_n": 0.2852,
+          "row_label": "ANALOG_WINS",
+          "gap_d5": -0.25,
+          "regen_d5": 0.6667,
+          "analog_d5": 0.9167
+        },
+        {
+          "m_bg": 8000,
+          "m_over_n": 1.0176,
+          "row_label": "REGEN_WINS",
+          "gap_d5": 0.4375,
+          "regen_d5": 0.5417,
+          "analog_d5": 0.1042
+        },
+        {
+          "m_bg": 16000,
+          "m_over_n": 1.9941,
+          "row_label": "REGEN_WINS",
+          "gap_d5": 0.75,
+          "regen_d5": 0.75,
+          "analog_d5": 0.0
+        }
+      ],
+      "arms_differ_disc": true,
+      "isolation_clean_disc": true,
+      "elapsed_s": 85.08,
+      "config_version": "ANCHOR=cortex_regenerative_cleanup_vs_analog_accumulate_v1,N=8192,V=512,P=8,D_MAX=7,DEPTHS=1-2-3-4-5-6-7,N_TEST=48,M_BG=2000-8000-16000,V_CHAIN=256,REFUSE_DEPTH=5,N_CALIB=40,N_REFUSE=40,tau_pctile=12.0,SEEDS=7-17,RUN_MODE=smoke,hardening=startmarker+crashdiag+heartbeat+METARULE_AF+AH+AG",
+      "N": 8192,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1783235311.6340342
+    }
+  ],
+  "n_llm_forward_calls": 0,
+  "DISC_MBG": 8000,
+  "LOW_MBG": 2000,
+  "bands": {
+    "HP_REGEN_D5_MIN": 0.45,
+    "HP_GAP_MIN": 0.15,
+    "HP_ANALOG_COLLAPSE_MAX": 0.3,
+    "HP_GRACEFUL_MARGIN": 0.15,
+    "HP_FAITHFULNESS_MIN": 0.95,
+    "HP_FALSE_ACCEPT_MAX": 0.1,
+    "HP_FALSE_REFUSE_MAX": 0.15,
+    "HP_CONTROL_D5_MAX": 0.05,
+    "SANITY_D1_MIN": 0.85,
+    "CROSSOVER_GAP_MAX": 0.05,
+    "HF_REGEN_D5_MAX": 0.2,
+    "HF_GAP_MIN": 0.05,
+    "HF_CONTROL_D5_MAX": 0.1
+  }
+}

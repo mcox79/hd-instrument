@@ -1,0 +1,50 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | BASE=0.026 CONST=0.040 CYC1=0.030 CYCLONG=0.026 BEST_CYC=0.030 | lift=-0.010 entropy(cyc-const)=-0.015 diag_frob_ratio=12.63 old_min=0.954 cv_best=0.000 | alpha=0.0488 snr=4.53 gates=OK | n_seeds=1 | reasons=BASELINE_OUT_OF_DISCRIMINATING_BAND baseline=0.026 not in [0.20,0.70]",
+  "summary": "MIDDLE_BAND | BASE=0.026 CONST=0.040 CYC1=0.030 CYCLONG=0.026 BEST_CYC=0.030 | lift=-0.010 entropy(cyc-const)=-0.015 diag_frob_ratio=12.63 old_min=0.954 cv_best=0.000 | alpha=0.0488 snr=4.53 gates=OK | n_seeds=1 | reasons=BASELINE_OUT_OF_DISCRIMINATING_BAND baseline=0.026 not in [0.20,0.70]",
+  "per_arm_summary": {
+    "baseline_hebbian": {
+      "mean": 0.026,
+      "cv": 0.0
+    },
+    "constant_eta_replay": {
+      "mean": 0.04,
+      "cv": 0.0,
+      "entropy": 3.8678488731384277
+    },
+    "cyclic_eta_high_low": {
+      "mean": 0.03,
+      "cv": 0.0,
+      "entropy": 3.852506637573242,
+      "old_acc": 0.954
+    },
+    "cyclic_eta_high_low_long": {
+      "mean": 0.026,
+      "cv": 0.0,
+      "old_acc": 0.962
+    },
+    "diag_basin_restructure": {
+      "frob_ratio": 12.630317111732897
+    }
+  },
+  "lift_best_cyclic_over_constant": -0.010000000000000002,
+  "entropy_delta_best_cyc_over_const": -0.015342235565185547,
+  "diag_frob_ratio_high_over_low": 12.630317111732897,
+  "old_pattern_floor_min": 0.954,
+  "old_pattern_floor_ref": 0.026,
+  "n_seeds_complete": 1,
+  "alpha": 0.048828125,
+  "snr_hebbian": 4.525483399593904,
+  "pre_dispatch_gates_msg": "OK",
+  "pre_dispatch_gates_ok": true,
+  "expected_n_units": 5,
+  "completed_units": 5,
+  "cardinality_ok": true,
+  "anchor_name": "cyclic_sws_rem_eta_schedule_v1",
+  "elapsed_s": 1.3,
+  "ts_iso": "2026-06-27T22:16:41Z",
+  "pid": 29132,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cyclic_sws_rem_eta_schedule_v1,N=1024,N_CAT=50,N_TRAIN=10,N_HELDOUT=10,N_PULSES=20,seeds=[11],mode=smoke,eta_high=1.00,eta_low=0.10,eta_const=0.50,proto_noise=0.85,replay_frac=0.20,alpha=0.0488,snr=4.53,period_long=5,HP_lift>=0.10,HP_frob_ratio>=3.0,HP_cv<=0.10,expected_n=5,FAIR=ETA_CYCLED_AROUND_CONSTANT_REPLAY_FRAC_FIXED,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_cyclic_sws_rem_eta_schedule_replay_cycle_compose"
+}

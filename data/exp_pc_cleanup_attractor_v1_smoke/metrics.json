@@ -1,0 +1,114 @@
+{
+  "anchor_name": "pc_cleanup_attractor_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PC_AT_EACH_HOP preserves recall + monotone FE + low cv. VAN_d3=1.000(fe=0.030),VAN_d5=1.000; PC_d3=1.000(cv=0.000,fe=0.030,fe_no_worse=True),PC_d5=1.000; PC_FINAL_d3=1.000",
+  "summary": "n_seeds=1 N=256 V=64 M_CHAINS=4 depths=(3, 5) mode=smoke pc_blend=0.3",
+  "elapsed_s": 0.06518411636352539,
+  "config_version": "ANCHOR=pc_cleanup_attractor_v1,N=256,V=64,M_CHAINS=4,L_MAX=8,DEPTHS=(3, 5),SEEDS=7,N_QUERIES=40,PC_BETA=8.0,PC_BLEND=0.3,RUN_MODE=smoke",
+  "N": 256,
+  "V": 64,
+  "M_CHAINS": 4,
+  "L_MAX": 8,
+  "depths_tested": [
+    3,
+    5
+  ],
+  "n_seeds": 1,
+  "n_queries": 40,
+  "pc_blend": 0.3,
+  "pc_beta": 8.0,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.0,
+      "arms": [
+        {
+          "arm_name": "ARM_VANILLA_CLEANUP_BASELINE_d3",
+          "depth": 3,
+          "recall": 1.0,
+          "fe_per_hop": [
+            0.03103076569613345,
+            0.032978969094107705,
+            0.026255555890440326
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 0.030088430226893826,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_AT_EACH_HOP_d3",
+          "depth": 3,
+          "recall": 1.0,
+          "fe_per_hop": [
+            0.03103076569613345,
+            0.032978969094107705,
+            0.026255555890440326
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 0.030088430226893826,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_FINAL_ONLY_d3",
+          "depth": 3,
+          "recall": 1.0,
+          "fe_per_hop": [
+            0.03103076569613345,
+            0.032978969094107705,
+            0.026255555890440326
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 0.030088430226893826,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_VANILLA_CLEANUP_BASELINE_d5",
+          "depth": 5,
+          "recall": 1.0,
+          "fe_per_hop": [
+            0.030148785750325913,
+            0.031535661071506293,
+            0.028582068957908026,
+            0.028166282982673277,
+            0.02849653950961073
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 0.029385867654404853,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_AT_EACH_HOP_d5",
+          "depth": 5,
+          "recall": 1.0,
+          "fe_per_hop": [
+            0.030148785750325913,
+            0.031535661071506293,
+            0.028582068957908026,
+            0.028166282982673277,
+            0.02849653950961073
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 0.029385867654404853,
+          "n_queries": 4
+        },
+        {
+          "arm_name": "ARM_PC_CLEANUP_FINAL_ONLY_d5",
+          "depth": 5,
+          "recall": 1.0,
+          "fe_per_hop": [
+            0.030148785750325913,
+            0.031535661071506293,
+            0.028582068957908026,
+            0.028166282982673277,
+            0.02849653950961073
+          ],
+          "fe_monotone_non_increasing": false,
+          "fe_mean": 0.029385867654404853,
+          "n_queries": 4
+        }
+      ]
+    }
+  ]
+}

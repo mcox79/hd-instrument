@@ -1,0 +1,92 @@
+{
+  "anchor_name": "cortex_schema_tonegawa_sparse_ensemble_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: FAIRNESS REGIME SATURATION -- baseline NO_SCHEMA r@k=1.000 >= 0.95; regime too easy. TONEGAWA_K20(r@k=0.870,cv=0.000,cap@95=6.0); TONEGAWA_K10(r@k=0.628); PROTOTYPE(r@k=1.000); NO_SCHEMA(r@k=1.000); DIAG_RANDOM(r@k=0.048); lift_T20_vs_PROTO=-0.130; lift_T20_vs_NO=-0.130; fa_T20=0.000",
+  "summary": "n_seeds=1 N=1024 NSCH=1024 K=100 NPC=8 kSP=20 bcc=0.45 mode=smoke",
+  "elapsed_s": 44.241219997406006,
+  "config_version": "ANCHOR=cortex_schema_tonegawa_sparse_ensemble_v2,N=1024,NSCH=1024,K=100,NPC=8,KSP=20,KSPS=10,BCC=0.45,WCN=0.7,TOPK=5,PERTURB=0.5,DRIFT=0.45,SEEDS=7,NQPC=10,NOOD=30,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK",
+  "N": 1024,
+  "N_schema_cells": 1024,
+  "K_clusters": 100,
+  "n_per_cluster": 8,
+  "k_sparse": 20,
+  "k_sparse_small": 10,
+  "between_cluster_cosine_target": 0.45,
+  "within_cluster_noise": 0.7,
+  "drift_to_neighbor_alpha": 0.45,
+  "top_k": 5,
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "n_arms_expected": 5,
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 44.15697360038757,
+      "between_cluster_cosine_measured": 0.44966794221090245,
+      "n_arms_observed": 5,
+      "arms": [
+        {
+          "arm_name": "ARM_NO_SCHEMA",
+          "recall_at_k": 1.0,
+          "false_reject_rate": 0.0,
+          "false_accept_rate": 0.0,
+          "capacity_at_95": 100,
+          "n_queries": 1000,
+          "n_ood_queries": 30,
+          "schema_bank_size": 800,
+          "wall_s": 35.847381353378296,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_PROTOTYPE_CENTROID",
+          "recall_at_k": 1.0,
+          "false_reject_rate": 0.0,
+          "false_accept_rate": 0.0,
+          "capacity_at_95": 100,
+          "n_queries": 1000,
+          "n_ood_queries": 30,
+          "schema_bank_size": 100,
+          "wall_s": 4.894317150115967,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_TONEGAWA_SPARSE_K20",
+          "recall_at_k": 0.87,
+          "false_reject_rate": 0.13,
+          "false_accept_rate": 0.0,
+          "capacity_at_95": 6,
+          "n_queries": 1000,
+          "n_ood_queries": 30,
+          "schema_bank_size": 100,
+          "wall_s": 1.1835665702819824,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_TONEGAWA_SPARSE_K10",
+          "recall_at_k": 0.628,
+          "false_reject_rate": 0.372,
+          "false_accept_rate": 0.0,
+          "capacity_at_95": 1,
+          "n_queries": 1000,
+          "n_ood_queries": 30,
+          "schema_bank_size": 100,
+          "wall_s": 1.139012336730957,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_DIAG_RANDOM_SPARSE_K20",
+          "recall_at_k": 0.048,
+          "false_reject_rate": 0.952,
+          "false_accept_rate": 0.0,
+          "capacity_at_95": 1,
+          "n_queries": 1000,
+          "n_ood_queries": 30,
+          "schema_bank_size": 100,
+          "wall_s": 0.9713053703308105,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4077 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "v2 cue=0.9393939393939394 scope=0.933 lift=0.8788 reg=0.0303",
+  "summary": "negation gate v2 (labeled conj-only): v2 cue=0.9393939393939394 scope=0.933 lift=0.8788 reg=0.0303",
+  "run_mode": "full",
+  "elapsed_s": 2.363,
+  "ts_iso": "2026-07-21T04:04:05.357921+00:00",
+  "anchor_name": "negation_factuality_gate_v2",
+  "n_items_all": 132,
+  "n_items_test": 41,
+  "align_fail": 0,
+  "labeler_predicted_on_persisted_parse": true,
+  "labeler_items_labeled": 132,
+  "discriminator_fires_v2_flipped_count": 60,
+  "arms_differ_v1_vs_v2": true,
+  "n_items_v1_v2_differ": 7,
+  "v1_v2_differ_item_ids": [
+    "AFD_069",
+    "AFD_076",
+    "AFD_077",
+    "AFD_078",
+    "AFD_079",
+    "AFD_085",
+    "NEG_017"
+  ],
+  "baseline_in_band": true,
+  "difficulty_on": true,
+  "positive_control_v1_reproduced": true,
+  "positive_control_checks": {
+    "scope_attachment_accuracy_DIRECT": {
+      "got": 0.9333,
+      "ref": 0.9333333333333333,
+      "delta": 0.0,
+      "ok": true
+    },
+    "cue_detection_recall_on_negated": {
+      "got": 0.9394,
+      "ref": 0.9393939393939394,
+      "delta": 0.0,
+      "ok": true
+    },
+    "scope_attachment_accuracy_CONJ_flagged": {
+      "got": 0.8095,
+      "ref": 0.8095238095238095,
+      "delta": 0.0,
+      "ok": true
+    },
+    "over_negation_rate_distractor": {
+      "got": 0.3077,
+      "ref": 0.3076923076923077,
+      "delta": 0.0,
+      "ok": true
+    },
+    "lift_negated_subset": {
+      "got": 0.8939,
+      "ref": 0.8939,
+      "delta": 0.0,
+      "ok": true
+    },
+    "affirmative_regression": {
+      "got": 0.1212,
+      "ref": 0.1212,
+      "delta": 0.0,
+      "ok": true
+    }
+  },
+  "deltas_v2_minus_v1": {
+    "over_negation_rate_distractor_v2_minus_v1": -0.2308,
+    "over_negation_rate_all_affirmatives_v2_minus_v1": -0.0909,
+    "affirmative_regression_v2_minus_v1": -0.0909,
+    "scope_attachment_accuracy_CONJ_v2_minus_v1": -0.0476,
+    "negation_recall_all_v2_minus_v1": -0.0152,
+    "net_whoaffected_acc_v2_minus_v1": 0.0379
+  },
+  "conj_negations_lost_v2_vs_v1_ids": [
+    "NEG_017"
+  ],
+  "n_conj_negations_lost": 1,
+  "over_negations_remaining_v2_ids": [
+    "AFD_068",
+    "AFD_092"
+  ],
+  "over_negations_remaining_v2_diag": {
+    "AFD_068": {
+      "tv_label": "conj",
+      "aff_type": "distractor",
+      "mode_v2": "conj"
+    },
+    "AFD_092": {
+      "tv_label": "conj",
+      "aff_type": "distractor",
+      "mode_v2": "conj"
+    }
+  },
+  "scramble_control": {
+    "scrambled_scope_accuracy_DIRECT_mustfail_control": 0.6444444444444445,
+    "single_verb_fraction": 0.2803030303030303
+  },
+  "summary_by_arm_ALL": {
+    "gate_off": {
+      "n_negated": 66,
+      "n_affirmative": 66,
+      "n_aff_clean": 40,
+      "n_aff_distractor": 26,
+      "n_direct_neg": 45,
+      "n_conj_neg": 21,
+      "cue_detection_recall_on_negated": 0.9393939393939394,
+      "scope_attachment_accuracy_DIRECT": 0.0,
+      "scope_attachment_accuracy_CONJ_flagged": 0.0,
+      "negation_recall_all": 0.0,
+      "over_negation_rate_all_affirmatives": 0.0,
+      "over_negation_rate_clean": 0.0,
+      "over_negation_rate_distractor": 0.0,
+      "net_whoaffected_acc": 0.5,
+      "acc_negated_subset": 0.0,
+      "acc_affirmative_subset": 1.0,
+      "lift_negated_subset": 0.0,
+      "affirmative_regression": 0.0,
+      "n_miss_real_negation": 66,
+      "n_over_negated_affirmative": 0,
+      "miss_real_negation_ids": [
+        "NEG_001",
+        "NEG_002",
+        "NEG_003",
+        "NEG_004",
+        "NEG_005",
+        "NEG_006",
+        "NEG_007",
+        "NEG_008",
+        "NEG_009",
+        "NEG_010",
+        "NEG_011",
+        "NEG_012",
+        "NEG_013",
+        "NEG_014",
+        "NEG_015",
+        "NEG_016",
+        "NEG_017",
+        "NEG_018",
+        "NEG_019",
+        "NEG_020",
+        "NEG_021",
+        "NEG_022",
+        "NEG_023",
+        "NEG_024",
+        "NEG_025",
+        "NEG_026",
+        "NEG_027",
+        "NEG_028",
+        "NEG_029",
+        "NEG_030",
+        "NEG_031",
+        "NEG_032",
+        "NEG_033",
+        "NEG_034",
+        "NEG_035",
+        "NEG_036",
+        "NEG_037",
+        "NEG_038",
+        "NEG_039",
+        "NEG_040",
+        "NEG_041",
+        "NEG_042",
+        "NEG_043",
+        "NEG_044",
+        "NEG_045",
+        "NEG_046",
+        "NEG_047",
+        "NEG_048",
+        "NEG_049",
+        "NEG_050",
+        "NEG_051",
+        "NEG_052",
+        "NEG_053",
+        "NEG_054",
+        "NEG_055",
+        "NEG_056",
+        "NEG_057",
+        "NEG_058",
+        "NEG_059",
+        "NEG_060",
+        "NEG_061",
+        "NEG_062",
+        "NEG_063",
+        "NEG_064",
+        "NEG_065",
+        "NEG_066"
+      ],
+      "over_negated_affirmative_ids": []
+    },
+    "v1_unlabeled": {
+      "n_negated": 66,
+      "n_affirmative": 66,
+      "n_aff_clean": 40,
+      "n_aff_distractor": 26,
+      "n_direct_neg": 45,
+      "n_conj_neg": 21,
+      "cue_detection_recall_on_negated": 0.9393939393939394,
+      "scope_attachment_accuracy_DIRECT": 0.9333333333333333,
+      "scope_attachment_accuracy_CONJ_flagged": 0.8095238095238095,
+      "negation_recall_all": 0.8939393939393939,
+      "over_negation_rate_all_affirmatives": 0.12121212121212122,
+      "over_negation_rate_clean": 0.0,
+      "over_negation_rate_distractor": 0.3076923076923077,
+      "net_whoaffected_acc": 0.8863636363636364,
+      "acc_negated_subset": 0.8939393939393939,
+      "acc_affirmative_subset": 0.8787878787878788,
+      "lift_negated_subset": 0.8939,
+      "affirmative_regression": 0.1212,
+      "n_miss_real_negation": 7,
+      "n_over_negated_affirmative": 8,
+      "miss_real_negation_ids": [
+        "NEG_003",
+        "NEG_015",
+        "NEG_019",
+        "NEG_021",
+        "NEG_050",
+        "NEG_060",
+        "NEG_066"
+      ],
+      "over_negated_affirmative_ids": [
+        "AFD_068",
+        "AFD_069",
+        "AFD_076",
+        "AFD_077",
+        "AFD_078",
+        "AFD_079",
+        "AFD_085",
+        "AFD_092"
+      ]
+    },
+    "v2_labeled_conj": {
+      "n_negated": 66,
+      "n_affirmative": 66,
+      "n_aff_clean": 40,
+      "n_aff_distractor": 26,
+      "n_direct_neg": 45,
+      "n_conj_neg": 21,
+      "cue_detection_recall_on_negated": 0.9393939393939394,
+      "scope_attachment_accuracy_DIRECT": 0.9333333333333333,
+      "scope_attachment_accuracy_CONJ_flagged": 0.7619047619047619,
+      "negation_recall_all": 0.8787878787878788,
+      "over_negation_rate_all_affirmatives": 0.030303030303030304,
+      "over_negation_rate_clean": 0.0,
+      "over_negation_rate_distractor": 0.07692307692307693,
+      "net_whoaffected_acc": 0.9242424242424242,
+      "acc_negated_subset": 0.8787878787878788,
+      "acc_affirmative_subset": 0.9696969696969697,
+      "lift_negated_subset": 0.8788,
+      "affirmative_regression": 0.0303,
+      "n_miss_real_negation": 8,
+      "n_over_negated_affirmative": 2,
+      "miss_real_negation_ids": [
+        "NEG_003",
+        "NEG_015",
+        "NEG_017",
+        "NEG_019",
+        "NEG_021",
+        "NEG_050",
+        "NEG_060",
+        "NEG_066"
+      ],
+      "over_negated_affirmative_ids": [
+        "AFD_068",
+        "AFD_092"
+      ]
+    }
+  },
+  "summary_by_arm_TEST": {
+    "gate_off": {
+      "n_negated": 20,
+      "n_affirmative": 21,
+      "n_aff_clean": 12,
+      "n_aff_distractor": 9,
+      "n_direct_neg": 14,
+      "n_conj_neg": 6,
+      "cue_detection_recall_on_negated": 0.9,
+      "scope_attachment_accuracy_DIRECT": 0.0,
+      "scope_attachment_accuracy_CONJ_flagged": 0.0,
+      "negation_recall_all": 0.0,
+      "over_negation_rate_all_affirmatives": 0.0,
+      "over_negation_rate_clean": 0.0,
+      "over_negation_rate_distractor": 0.0,
+      "net_whoaffected_acc": 0.5121951219512195,
+      "acc_negated_subset": 0.0,
+      "acc_affirmative_subset": 1.0,
+      "lift_negated_subset": 0.0,
+      "affirmative_regression": 0.0,
+      "n_miss_real_negation": 20,
+      "n_over_negated_affirmative": 0,
+      "miss_real_negation_ids": [
+        "NEG_003",
+        "NEG_006",
+        "NEG_014",
+        "NEG_017",
+        "NEG_018",
+        "NEG_021",
+        "NEG_022",
+        "NEG_025",
+        "NEG_026",
+        "NEG_027",
+        "NEG_028",
+        "NEG_038",
+        "NEG_040",
+        "NEG_042",
+        "NEG_044",
+        "NEG_050",
+        "NEG_052",
+        "NEG_058",
+        "NEG_059",
+        "NEG_060"
+      ],
+      "over_negated_affirmative_ids": []
+    },
+    "v1_unlabeled": {
+      "n_negated": 20,
+      "n_affirmative": 21,
+      "n_aff_clean": 12,
+      "n_aff_distractor": 9,
+      "n_direct_neg": 14,
+      "n_conj_neg": 6,
+      "cue_detection_recall_on_negated": 0.9,
+      "scope_attachment_accuracy_DIRECT": 0.8571428571428571,
+      "scope_attachment_accuracy_CONJ_flagged": 0.6666666666666666,
+      "negation_recall_all": 0.8,
+      "over_negation_rate_all_affirmatives": 0.14285714285714285,
+      "over_negation_rate_clean": 0.0,
+      "over_negation_rate_distractor": 0.3333333333333333,
+      "net_whoaffected_acc": 0.8292682926829268,
+      "acc_negated_subset": 0.8,
+      "acc_affirmative_subset": 0.8571428571428571,
+      "lift_negated_subset": 0.8,
+      "affirmative_regression": 0.1429,
+      "n_miss_real_negation": 4,
+      "n_over_negated_affirmative": 3,
+      "miss_real_negation_ids": [
+        "NEG_003",
+        "NEG_021",
+        "NEG_050",
+        "NEG_060"
+      ],
+      "over_negated_affirmative_ids": [
+        "AFD_069",
+        "AFD_078",
+        "AFD_085"
+      ]
+    },
+    "v2_labeled_conj": {
+      "n_negated": 20,
+      "n_affirmative": 21,
+      "n_aff_clean": 12,
+      "n_aff_distractor": 9,
+      "n_direct_neg": 14,
+      "n_conj_neg": 6,
+      "cue_detection_recall_on_negated": 0.9,
+      "scope_attachment_accuracy_DIRECT": 0.8571428571428571,
+      "scope_attachment_accuracy_CONJ_flagged": 0.5,
+      "negation_recall_all": 0.75,
+      "over_negation_rate_all_affirmatives": 0.0,
+      "over_negation_rate_clean": 0.0,
+      "over_negation_rate_distractor": 0.0,
+      "net_whoaffected_acc": 0.8780487804878049,
+      "acc_negated_subset": 0.75,
+      "acc_affirmative_subset": 1.0,
+      "lift_negated_subset": 0.75,
+      "affirmative_regression": 0.0,
+      "n_miss_real_negation": 5,
+      "n_over_negated_affirmative": 0,
+      "miss_real_negation_ids": [
+        "NEG_003",
+        "NEG_017",
+        "NEG_021",
+        "NEG_050",
+        "NEG_060"
+      ],
+      "over_negated_affirmative_ids": []
+    }
+  },
+  "per_item": {
+    "NEG_001": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 25,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_002": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 28,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_003": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 4,
+      "n_tokens_persisted": 20,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_004": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 5,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_005": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 2,
+      "n_tokens_persisted": 16,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_006": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 2,
+      "n_tokens_persisted": 19,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_007": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 10,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_008": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 17,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_009": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 5,
+      "n_tokens_persisted": 30,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_010": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 19,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_011": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 26,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_012": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 21,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_013": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 5,
+      "n_tokens_persisted": 29,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_014": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 5,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_015": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 2,
+      "n_tokens_persisted": 13,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "xcomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_016": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 4,
+      "n_tokens_persisted": 17,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_017": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 4,
+      "n_tokens_persisted": 19,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_018": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 10,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_019": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 3,
+      "n_tokens_persisted": 19,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": true,
+      "tv_label": "advmod",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_020": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 2,
+      "n_tokens_persisted": 19,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_021": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "hard_conjprop",
+      "n_verbs": 4,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_022": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 12,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_023": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 14,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_024": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 10,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_025": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 18,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_026": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 7,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_027": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 9,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_028": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 10,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_029": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 8,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_030": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 10,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_031": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 7,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_032": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 15,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_033": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 6,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_034": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 6,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_035": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 8,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_036": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 9,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_037": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 8,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_038": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 13,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_039": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 8,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_040": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 9,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_041": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 14,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_042": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 7,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_043": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "easy_singleverb",
+      "n_verbs": 1,
+      "n_tokens_persisted": 16,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_044": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 4,
+      "n_tokens_persisted": 24,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_045": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 15,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_046": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 15,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_047": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 12,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_048": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 13,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_049": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 28,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_050": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 5,
+      "n_tokens_persisted": 17,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_051": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 26,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_052": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_053": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 20,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_054": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 26,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_055": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 27,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_056": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 15,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_057": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 21,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_058": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 12,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_059": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 13,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_060": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 4,
+      "n_tokens_persisted": 25,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": true,
+      "tv_label": "case",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "NEG_061": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 6,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "ccomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_062": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 18,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_063": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 26,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_064": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 3,
+      "n_tokens_persisted": 29,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_065": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 16,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "direct",
+        "v2_labeled_conj": "direct"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "NEG_066": {
+      "gold_factuality": "NEGATED",
+      "aff_type": null,
+      "band": "medium_multiverb",
+      "n_verbs": 2,
+      "n_tokens_persisted": 15,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "AFD_067": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 27,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_068": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 29,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "AFD_069": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 14,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "ccomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_070": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 18,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_071": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_072": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 12,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_073": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 20,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_074": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 6,
+      "n_tokens_persisted": 26,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_075": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 28,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_076": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 25,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_077": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 24,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_078": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 12,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "ccomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_079": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 19,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "ccomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_080": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 15,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_081": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 20,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_082": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 12,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_083": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 22,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_084": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 16,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_085": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 21,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "xcomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_086": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_087": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 22,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": true,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_088": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 29,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "ccomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_089": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 5,
+      "n_tokens_persisted": 23,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_090": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 17,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_091": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 19,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "xcomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFD_092": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "distractor",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 17,
+      "cue_detected": true,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "conj",
+        "v2_labeled_conj": "conj"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      }
+    },
+    "AFC_093": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 21,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_094": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 22,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_095": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 5,
+      "n_tokens_persisted": 26,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_096": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 6,
+      "n_tokens_persisted": 15,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_097": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 14,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_098": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 25,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "xcomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_099": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 6,
+      "n_tokens_persisted": 22,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "xcomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_100": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 25,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "advcl",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_101": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 10,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_102": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 8,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": true,
+      "tv_label": "compound",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_103": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 17,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_104": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 18,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_105": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 20,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_106": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 30,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_107": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 16,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_108": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 17,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_109": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 4,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_110": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 13,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_111": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 11,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "ccomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_112": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 13,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_113": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 20,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_114": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 7,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_115": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 17,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_116": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 8,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_117": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 11,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_118": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 14,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_119": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 13,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_120": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 18,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_121": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 5,
+      "n_tokens_persisted": 27,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_122": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 5,
+      "n_tokens_persisted": 27,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_123": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 7,
+      "n_tokens_persisted": 30,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_124": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 24,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_125": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 2,
+      "n_tokens_persisted": 17,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "xcomp",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_126": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 25,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_127": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 4,
+      "n_tokens_persisted": 18,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "acl",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_128": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 7,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_129": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 25,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_130": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 9,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_131": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 1,
+      "n_tokens_persisted": 5,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "root",
+      "tv_head_is_verb": false,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    },
+    "AFC_132": {
+      "gold_factuality": "REALIZED",
+      "aff_type": "clean",
+      "band": "affirmative",
+      "n_verbs": 3,
+      "n_tokens_persisted": 21,
+      "cue_detected": false,
+      "verb_aligned": true,
+      "verb_mistag": false,
+      "tv_label": "conj",
+      "tv_head_is_verb": true,
+      "pred": {
+        "gate_off": false,
+        "v1_unlabeled": false,
+        "v2_labeled_conj": false
+      },
+      "mode": {
+        "gate_off": "none",
+        "v1_unlabeled": "none",
+        "v2_labeled_conj": "none"
+      },
+      "pred_v2_scrambled": false,
+      "correct": {
+        "gate_off": true,
+        "v1_unlabeled": true,
+        "v2_labeled_conj": true
+      }
+    }
+  }
+}

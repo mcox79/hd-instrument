@@ -1,0 +1,72 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS DBCA-CG machinery: B=1 reproduces greedy (isolation); beam beats greedy (lookahead-trap); correct-role traversal recovers while scrambled collapses (content-dep); DBCA split has atom_div~0 + compound_div(div1)~1; FLAT_NN collapses on held-out compound while REPLAY_TRAVERSAL holds (systematicity); no [n,n] T-matrix; arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 2.5079832000192255,
+  "mechanism_selftest": {
+    "trap_greedy": {
+      "1": 0.0,
+      "2": 0.0
+    },
+    "trap_beam_B1": {
+      "1": 0.0,
+      "2": 0.0
+    },
+    "trap_beam_B": {
+      "1": 1.0,
+      "2": 1.0
+    },
+    "reless_traversal": {
+      "1": 1.0,
+      "2": 1.0
+    },
+    "reless_scrambled": {
+      "1": 0.2857,
+      "2": 0.2857
+    },
+    "isolation_ok": true,
+    "greedy_trapped": true,
+    "beam_recovers": true,
+    "traversal_relational": true,
+    "scramble_collapses": true,
+    "dbca_split_ok": true,
+    "dbca_atom_div_ok": true,
+    "dbca_compound_div_ok": true,
+    "dbca_traversal_holds": true,
+    "dbca_flat_beaten_heldout": true,
+    "dbca_fnn_held": 0.0,
+    "no_T_matrix": true,
+    "arms_differ": true,
+    "Dmax_trap": 2,
+    "Dmax_reless": 41,
+    "Dmax_bigraph": 3
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  },
+  "no_global_T_matrix": true
+}

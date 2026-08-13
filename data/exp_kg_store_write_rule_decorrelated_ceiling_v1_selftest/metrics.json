@@ -1,0 +1,88 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS DECORRELATED_WRITE_RULE_CEILING: the closed-form pseudo-inverse write rule measurably raises heteroassociative recoverable signal above the Hebbian cliff on synthetic; on the planted arena pinv raises ORACLE recoverable signal and the relation-scramble + identity-shuffle must-fails STILL fire; W-hash differs across rules; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.22224019991699606,
+  "mechanism_selftest": {
+    "writerule_discriminator": {
+      "n": 256,
+      "load_hi": 0.8,
+      "M_hi": 204,
+      "load_lo": 0.05,
+      "M_lo": 12,
+      "hi_pinv_cos": 0.9979,
+      "hi_hebb_cos": 0.746,
+      "margin_cos": 0.2519,
+      "lo_pinv_cos": 1.0,
+      "lo_hebb_cos": 0.9776,
+      "pinv_clears": true,
+      "margin_clears": true,
+      "lowload_ok": true,
+      "stable": true,
+      "ok": true
+    },
+    "compose_harness": {
+      "n_grid_entities": 104,
+      "n_heldout_entities": 15,
+      "n_support": 118,
+      "n_query": 112,
+      "n_cold": 0,
+      "n_dim": 256,
+      "planted_oracle_mrr": {
+        "hebbian": 0.76315,
+        "pinv": 0.88682
+      },
+      "planted_native_mrr": {
+        "hebbian": 0.26618,
+        "pinv": 0.36318
+      },
+      "planted_random_mrr": {
+        "hebbian": 0.05078,
+        "pinv": 0.05078
+      },
+      "n_distinct_sigs": {
+        "hebbian": 7,
+        "pinv": 7
+      },
+      "w_train_hash": {
+        "hebbian": "ebe353d649bbe001",
+        "pinv": "9aff04d98da2b917"
+      },
+      "pinv_write_diag_train": {
+        "write_rule": "pinv",
+        "matrix_norm": 1.7555,
+        "ridge": 4008.96,
+        "gram_mean_diag": 400896.0,
+        "n_triples": 1566,
+        "finite": true
+      },
+      "pinv_write_diag_oracle": {
+        "write_rule": "pinv",
+        "matrix_norm": 1.8224,
+        "ridge": 4597.76,
+        "gram_mean_diag": 459776.0,
+        "n_triples": 1796,
+        "finite": true
+      },
+      "pinv_native_margin": 0.3124,
+      "pinv_scramble_margin": 0.25402,
+      "pinv_idshuf_margin": 0.26464,
+      "pinv_raises_oracle": true,
+      "pinv_native_beats_random": true,
+      "pinv_scramble_fails": true,
+      "pinv_idshuf_fails": true,
+      "arms_differ": true,
+      "pinv_finite": true,
+      "ceiling_rise_selftest_verdict": "INCONCLUSIVE_HEBB_ARM_DID_NOT_REPRODUCE_LANDED",
+      "validity_preflight_ok": true,
+      "validity_preflight_declared": [
+        "positive_control_passes",
+        "metric_moves",
+        "negative_control_fails_with_margin",
+        "full_gates_exercised_at_selftest"
+      ]
+    },
+    "ok": true
+  }
+}

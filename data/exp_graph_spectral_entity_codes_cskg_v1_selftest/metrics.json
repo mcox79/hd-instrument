@@ -1,0 +1,48 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS GRAPH_SPECTRAL_ENTITY_CODES: on a planted SBM the closed-form Laplacian spectral codebook recovers planted held-out tails above chance, the embedding separates the planted blocks, compose over scrambled neighbors fails, the REAL KGStore spectral-code path (ingest_triples) is exercised; 7 validity-preflight checks declared (F.1-F.4 ENFORCE)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.05527700006496161,
+  "mechanism_selftest": {
+    "real_code_path_ok": true,
+    "exercised_entrypoints": [
+      "KGStore",
+      "build_adjacency",
+      "build_store_with_codes",
+      "ingest_triples",
+      "lap_codes",
+      "native_query_recall"
+    ],
+    "planted": {
+      "RAND_ORACLE": 0.85128,
+      "LAP_ORACLE": 0.53759,
+      "PPMI_ORACLE": 0.52391,
+      "SR_ORACLE": 0.82013,
+      "LAP_COMPOSE": 0.29956,
+      "RAND_COMPOSE": 0.07425,
+      "LAP_COMPOSE_SCRAMBLE": 0.15723,
+      "RAND_NULL": 0.10274,
+      "BASELINE_POP": 0.01624
+    },
+    "block_purity": 0.4762,
+    "n_distinct_sigs": 9,
+    "lap_recovers": true,
+    "lap_beats_null": true,
+    "embedding_separates": true,
+    "compose_scr_fails": true,
+    "arms_differ": true,
+    "finite": true,
+    "selftest_verdict": "INCONCLUSIVE_POSCONTROL_OR_ORACLE_FAILED",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3",
+      "guard_baseline_valid_F4"
+    ]
+  }
+}

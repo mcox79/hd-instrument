@@ -1,0 +1,299 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "checker_acc=0.824 naive_acc=0.891 lift=-0.067 | frag_recall=0.917 imp_not_frag=95/129 | McGuffey_false_frag=0.247 | canary(imp,frag2)=True",
+  "summary": "completeness checker vs naive-verb baseline (DEV UD-EWT held-out)",
+  "elapsed_s": 11.0,
+  "ts_iso": "2026-07-21T01:14:55.981783+00:00",
+  "anchor_name": "completeness_checker_smoke_v1",
+  "crlb_n/a": "deterministic rule classifier; no noise floor",
+  "baseline_in_band": true,
+  "arms": {
+    "our_checker": {
+      "binary_acc": 0.8237
+    },
+    "naive_verb_baseline": {
+      "binary_acc": 0.8906
+    }
+  },
+  "lift": -0.0669,
+  "dev": {
+    "n": 1957,
+    "checker_binary_acc": 0.8237,
+    "naive_binary_acc": 0.8906,
+    "per_gold_type": {
+      "COMPLETE_CLAUSE": {
+        "n": 1090,
+        "checker_correct": 840,
+        "recall": 0.7706422018348624,
+        "pred_dist": {
+          "COMPLETE_CLAUSE": 835,
+          "FRAGMENT": 250,
+          "IMPERATIVE": 5
+        }
+      },
+      "IMPERATIVE": {
+        "n": 129,
+        "checker_correct": 95,
+        "recall": 0.7364341085271318,
+        "pred_dist": {
+          "FRAGMENT": 34,
+          "COMPLETE_CLAUSE": 19,
+          "IMPERATIVE": 76
+        }
+      },
+      "FRAGMENT": {
+        "n": 738,
+        "checker_correct": 677,
+        "recall": 0.9173441734417345,
+        "pred_dist": {
+          "FRAGMENT": 677,
+          "COMPLETE_CLAUSE": 28,
+          "IMPERATIVE": 33
+        }
+      }
+    },
+    "naive_confusion": {
+      "COMPLETE_CLAUSE": {
+        "COMPLETE": 1081,
+        "FRAGMENT": 9
+      },
+      "FRAGMENT": {
+        "FRAGMENT": 538,
+        "COMPLETE": 200
+      },
+      "IMPERATIVE": {
+        "COMPLETE": 124,
+        "FRAGMENT": 5
+      }
+    },
+    "error_directions": {
+      "overflag_fragment_on_complete": 284,
+      "overflag_denominator": 1219,
+      "overflag_rate": 0.233,
+      "underflag_complete_on_fragment": 61,
+      "underflag_denominator": 738,
+      "underflag_rate": 0.0827
+    },
+    "copular": {
+      "n": 342,
+      "handled_complete": 215,
+      "rate": 0.6287
+    },
+    "imperative_not_flagged_fragment": {
+      "n": 129,
+      "not_flagged": 95
+    }
+  },
+  "margin_signal": {
+    "margin_floor_p20_complete": 2.1395,
+    "frag_root_margin_mean": 11.9798,
+    "complete_root_margin_mean": 10.1137,
+    "fragments_below_floor_rate": 0.2886,
+    "corroborates_fragment_flag": false
+  },
+  "construction_gold": {
+    "n": 136,
+    "false_fragment": 16,
+    "false_fragment_rate": 0.1176,
+    "per_construction": {
+      "control_xcomp": {
+        "n": 16,
+        "false_fragment": 0,
+        "false_fragment_rate": 0.0
+      },
+      "coordination_shared_subj": {
+        "n": 16,
+        "false_fragment": 1,
+        "false_fragment_rate": 0.062
+      },
+      "cue_conflict_animate": {
+        "n": 16,
+        "false_fragment": 2,
+        "false_fragment_rate": 0.125
+      },
+      "locative_alternation": {
+        "n": 24,
+        "false_fragment": 2,
+        "false_fragment_rate": 0.083
+      },
+      "passive_by_agent": {
+        "n": 16,
+        "false_fragment": 3,
+        "false_fragment_rate": 0.188
+      },
+      "prep_governed_patient": {
+        "n": 16,
+        "false_fragment": 0,
+        "false_fragment_rate": 0.0
+      },
+      "relative_clause_patient": {
+        "n": 16,
+        "false_fragment": 6,
+        "false_fragment_rate": 0.375
+      },
+      "simple_svo": {
+        "n": 16,
+        "false_fragment": 2,
+        "false_fragment_rate": 0.125
+      }
+    },
+    "examples_flagged": [
+      {
+        "construction": "passive_by_agent",
+        "text": "The draft you received has been approved by Dan.",
+        "type": "FRAGMENT",
+        "conf": 0.85
+      },
+      {
+        "construction": "passive_by_agent",
+        "text": "Alike...both were fought for securities reasons by the US (no matter what the li",
+        "type": "FRAGMENT",
+        "conf": 0.55
+      },
+      {
+        "construction": "passive_by_agent",
+        "text": "Its natural for some babies to be eaten by adults and if all of them survived yo",
+        "type": "FRAGMENT",
+        "conf": 0.7
+      },
+      {
+        "construction": "locative_alternation",
+        "text": "So don't pack your bags ,yet.",
+        "type": "FRAGMENT",
+        "conf": 0.55
+      },
+      {
+        "construction": "locative_alternation",
+        "text": "Aplo. lineatus are wide-spread over southern India.",
+        "type": "FRAGMENT",
+        "conf": 0.85
+      },
+      {
+        "construction": "coordination_shared_subj",
+        "text": "With going outside, put the leash on and just take him for a walk.",
+        "type": "FRAGMENT",
+        "conf": 0.55
+      },
+      {
+        "construction": "relative_clause_patient",
+        "text": "I was in two weeks ago and had the worst pedicure that I have had in my life.",
+        "type": "FRAGMENT",
+        "conf": 0.6
+      },
+      {
+        "construction": "relative_clause_patient",
+        "text": "$300m - Amount cut from the federal programme that provides subsidies to poor fa",
+        "type": "FRAGMENT",
+        "conf": 0.7
+      }
+    ]
+  },
+  "mcguffey": {
+    "n": 150,
+    "false_fragment": 37,
+    "false_fragment_rate": 0.2467,
+    "examples_flagged": [
+      {
+        "text": "And it was n't in Fairyland either , But a house in the midst of the town , Wher",
+        "type": "FRAGMENT",
+        "conf": 0.6,
+        "reason": "low parse margin (1.399 < 2.139) corroborates weak structure"
+      },
+      {
+        "text": "For his pasture was only a table , With its cover so flowery fair , And his broo",
+        "type": "FRAGMENT",
+        "conf": 0.6,
+        "reason": "low parse margin (0.287 < 2.139) corroborates weak structure"
+      },
+      {
+        "text": "do tell me what it is ; is it sugar ?",
+        "type": "FRAGMENT",
+        "conf": 0.55,
+        "reason": "finite predicate but NO subject (subordinate/elliptical -> graded fragment)"
+      },
+      {
+        "text": "Let me taste it , \" said Johnny .",
+        "type": "FRAGMENT",
+        "conf": 0.55,
+        "reason": "finite predicate but NO subject (subordinate/elliptical -> graded fragment)"
+      },
+      {
+        "text": "\" What is snow , mother ? \" \" The snowflakes , Johnny , are little drops of wate",
+        "type": "FRAGMENT",
+        "conf": 0.85,
+        "reason": "no parse root (head-0) found"
+      },
+      {
+        "text": "Oh dear , dear , dear !",
+        "type": "FRAGMENT",
+        "conf": 0.9,
+        "reason": "no finite predicate at root (no verb at all)"
+      },
+      {
+        "text": "how dull it is !",
+        "type": "FRAGMENT",
+        "conf": 0.7,
+        "reason": "no finite predicate at root"
+      },
+      {
+        "text": "Why , father , what a question !",
+        "type": "FRAGMENT",
+        "conf": 0.9,
+        "reason": "no finite predicate at root (no verb at all)"
+      }
+    ]
+  },
+  "canaries": [
+    {
+      "name": "CAN_FRAG_1",
+      "expect": "FRAGMENT",
+      "type": "IMPERATIVE",
+      "got": "COMPLETE",
+      "conf": 0.45,
+      "match": false,
+      "root": "Feel",
+      "root_pos": "VERB",
+      "has_subject": false,
+      "reasons": [
+        "root 'Feel'/VERB finiteness=base_form (finite=False)",
+        "imperative: initial base-form verb, no overt subject",
+        "competing finite clause present -> possible fragment/garble (ambiguous)"
+      ]
+    },
+    {
+      "name": "CAN_FRAG_2",
+      "expect": "FRAGMENT",
+      "type": "FRAGMENT",
+      "got": "FRAGMENT",
+      "conf": 0.7,
+      "match": true,
+      "root": "$",
+      "root_pos": "SYM",
+      "has_subject": false,
+      "reasons": [
+        "root '$'/SYM finiteness=nonverbal_no_cop (finite=False)",
+        "no finite predicate at root"
+      ]
+    },
+    {
+      "name": "CAN_IMP",
+      "expect": "COMPLETE",
+      "type": "IMPERATIVE",
+      "got": "COMPLETE",
+      "conf": 0.75,
+      "match": true,
+      "root": "fill",
+      "root_pos": "VERB",
+      "has_subject": false,
+      "reasons": [
+        "root 'fill'/VERB finiteness=base_form (finite=False)",
+        "imperative: initial base-form verb, no overt subject"
+      ]
+    }
+  ],
+  "notes": {
+    "known_divergence": "CAN_FRAG_1 ('Feel you're...') roots on an initial base-form verb -> structurally IMPERATIVE; USER labels it FRAGMENT. A structural glass-box checker cannot resolve this without semantics; reported, not gated.",
+    "subject_inference": "unlabeled parser -> subject = pre-root nominal dep of root; heuristic (main risk).",
+    "register_caveat": "DEV+construction gold = modern web text; McGuffey = children's narrative. Cross-corpus register differs."
+  }
+}

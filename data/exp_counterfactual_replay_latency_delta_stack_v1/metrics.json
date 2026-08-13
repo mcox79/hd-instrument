@@ -1,0 +1,179 @@
+{
+  "anchor_name": "counterfactual_replay_latency_delta_stack_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial latency win with accuracy preserved (not chain-grade). BASELINE setup=13.628ms acc=1.000 | DELTA_SHORT setup=10.999ms query=2.344ms acc=0.985 | DELTA_DEEP query=2.710ms acc=0.740 | RANDOM acc=0.000 | speedup=1.24x arms_distinct=True cardinality_ok=True",
+  "summary": "MIDDLE_BAND: partial latency win with accuracy preserved (not chain-grade). BASELINE setup=13.628ms acc=1.000 | DELTA_SHORT setup=10.999ms query=2.344ms acc=0.985 | DELTA_DEEP query=2.710ms acc=0.740 | RANDOM acc=0.000 | speedup=1.24x arms_distinct=True cardinality_ok=True",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_arms": 5,
+  "n_cycles": 100,
+  "expected_n_units": 1000,
+  "observed_n_units": 1000,
+  "cardinality_ok": true,
+  "arms": [
+    "ARM_BASELINE_FULL_REWRITE",
+    "ARM_DELTA_STACK_SHORT",
+    "ARM_DELTA_STACK_DEEP",
+    "ARM_DIRECT_LOOKUP_ORACLE",
+    "ARM_RANDOM_DELTAS"
+  ],
+  "arm_aggregates": {
+    "ARM_BASELINE_FULL_REWRITE": {
+      "arm": "ARM_BASELINE_FULL_REWRITE",
+      "n_seeds": 2,
+      "accuracy_mean": 1.0,
+      "setup_latency_ms_mean": 13.627559000160545,
+      "query_latency_ms_mean": 2.5017659974400885,
+      "setup_latency_ms_median": 13.353974994970486,
+      "query_latency_ms_median": 2.4727499985601753
+    },
+    "ARM_DELTA_STACK_SHORT": {
+      "arm": "ARM_DELTA_STACK_SHORT",
+      "n_seeds": 2,
+      "accuracy_mean": 0.985,
+      "setup_latency_ms_mean": 10.999309998587705,
+      "query_latency_ms_mean": 2.3436420000507496,
+      "setup_latency_ms_median": 10.74787498509977,
+      "query_latency_ms_median": 2.292274992214516
+    },
+    "ARM_DELTA_STACK_DEEP": {
+      "arm": "ARM_DELTA_STACK_DEEP",
+      "n_seeds": 2,
+      "accuracy_mean": 0.74,
+      "setup_latency_ms_mean": 109.48592299740994,
+      "query_latency_ms_mean": 2.710474501072895,
+      "setup_latency_ms_median": 108.73612501018215,
+      "query_latency_ms_median": 2.680325007531792
+    },
+    "ARM_DIRECT_LOOKUP_ORACLE": {
+      "arm": "ARM_DIRECT_LOOKUP_ORACLE",
+      "n_seeds": 2,
+      "accuracy_mean": 1.0,
+      "setup_latency_ms_mean": 0.008562499424442649,
+      "query_latency_ms_mean": 0.0021505006588995457,
+      "setup_latency_ms_median": 0.006749993190169334,
+      "query_latency_ms_median": 0.001925000105984509
+    },
+    "ARM_RANDOM_DELTAS": {
+      "arm": "ARM_RANDOM_DELTAS",
+      "n_seeds": 2,
+      "accuracy_mean": 0.0,
+      "setup_latency_ms_mean": 11.870620001282077,
+      "query_latency_ms_mean": 2.5400175020331517,
+      "setup_latency_ms_median": 11.409925005864352,
+      "query_latency_ms_median": 2.4642999924253672
+    }
+  },
+  "per_arm_seed_rows": [
+    {
+      "arm": "ARM_BASELINE_FULL_REWRITE",
+      "seed": 1,
+      "n_cycles": 100,
+      "accuracy": 1.0,
+      "setup_latency_ms": 13.881671999697573,
+      "query_latency_ms": 2.5394469988532364,
+      "setup_latency_ms_median": 13.47005000570789,
+      "query_latency_ms_median": 2.4905999889597297
+    },
+    {
+      "arm": "ARM_BASELINE_FULL_REWRITE",
+      "seed": 2,
+      "n_cycles": 100,
+      "accuracy": 1.0,
+      "setup_latency_ms": 13.373446000623517,
+      "query_latency_ms": 2.4640849960269406,
+      "setup_latency_ms_median": 13.237899984233081,
+      "query_latency_ms_median": 2.454900008160621
+    },
+    {
+      "arm": "ARM_DELTA_STACK_SHORT",
+      "seed": 1,
+      "n_cycles": 100,
+      "stack_size": 5,
+      "accuracy": 0.98,
+      "setup_latency_ms": 11.181568997562863,
+      "query_latency_ms": 2.359669000725262,
+      "setup_latency_ms_median": 10.718299978179857,
+      "query_latency_ms_median": 2.2957000182941556
+    },
+    {
+      "arm": "ARM_DELTA_STACK_SHORT",
+      "seed": 2,
+      "n_cycles": 100,
+      "stack_size": 5,
+      "accuracy": 0.99,
+      "setup_latency_ms": 10.817050999612547,
+      "query_latency_ms": 2.3276149993762374,
+      "setup_latency_ms_median": 10.777449992019683,
+      "query_latency_ms_median": 2.288849966134876
+    },
+    {
+      "arm": "ARM_DELTA_STACK_DEEP",
+      "seed": 1,
+      "n_cycles": 100,
+      "stack_size": 50,
+      "accuracy": 0.71,
+      "setup_latency_ms": 107.08531399897765,
+      "query_latency_ms": 2.6553419983247295,
+      "setup_latency_ms_median": 105.52059998735785,
+      "query_latency_ms_median": 2.649550006026402
+    },
+    {
+      "arm": "ARM_DELTA_STACK_DEEP",
+      "seed": 2,
+      "n_cycles": 100,
+      "stack_size": 50,
+      "accuracy": 0.77,
+      "setup_latency_ms": 111.88653199584223,
+      "query_latency_ms": 2.76560700382106,
+      "setup_latency_ms_median": 111.95165003300644,
+      "query_latency_ms_median": 2.7111000090371817
+    },
+    {
+      "arm": "ARM_DIRECT_LOOKUP_ORACLE",
+      "seed": 1,
+      "n_cycles": 100,
+      "accuracy": 1.0,
+      "setup_latency_ms": 0.009890999062918127,
+      "query_latency_ms": 0.002249997924081981,
+      "setup_latency_ms_median": 0.006999995093792677,
+      "query_latency_ms_median": 0.002049986505880952
+    },
+    {
+      "arm": "ARM_DIRECT_LOOKUP_ORACLE",
+      "seed": 2,
+      "n_cycles": 100,
+      "accuracy": 1.0,
+      "setup_latency_ms": 0.007233999785967171,
+      "query_latency_ms": 0.00205100339371711,
+      "setup_latency_ms_median": 0.006499991286545992,
+      "query_latency_ms_median": 0.001800013706088066
+    },
+    {
+      "arm": "ARM_RANDOM_DELTAS",
+      "seed": 1,
+      "n_cycles": 100,
+      "stack_size": 5,
+      "accuracy": 0.0,
+      "setup_latency_ms": 11.163227001670748,
+      "query_latency_ms": 2.423648001276888,
+      "setup_latency_ms_median": 10.77794999582693,
+      "query_latency_ms_median": 2.3376999888569117
+    },
+    {
+      "arm": "ARM_RANDOM_DELTAS",
+      "seed": 2,
+      "n_cycles": 100,
+      "stack_size": 5,
+      "accuracy": 0.0,
+      "setup_latency_ms": 12.578013000893407,
+      "query_latency_ms": 2.6563870027894154,
+      "setup_latency_ms_median": 12.041900015901774,
+      "query_latency_ms_median": 2.590899995993823
+    }
+  ],
+  "parent_baseline_path": "data/exp_causal_counterfactual_replay_v1/metrics.json",
+  "parent_baseline_intervention_ms": 16.864,
+  "elapsed_s": 51.72813129425049
+}

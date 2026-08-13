@@ -1,0 +1,469 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "bounded bundle-focus is VALID + NO-runaway but does not clear the plateau by a real margin (the honest expectation): bundle_focus_chain acc=0.2706 (plateau=0.3059 delta=-0.0353), chain_delta_bundle=0.0118 (flat runaway=-0.2353 => the bounded focus TAMED chaining), max_share bundle=0.4941<=flat_runaway=0.8471, fixed=11 broke=14 both_wrong=48. Autopsy: the memory format addressed SALIENCE but the remaining cross-sentence misses are dominated by common-noun APPOSITIVE bridging (step-1c), NOT salience/fragmentation. n_xsent=85.",
+  "summary": "read_xsent_coref_bundle_focus_v1: MIDDLE_BAND",
+  "elapsed_s": 0.078,
+  "anchor_name": "read_xsent_coref_bundle_focus_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-24T04:15:21.304429+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 5,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "flat_maintained_nochain",
+      "flat_chain_runaway",
+      "flat_overlay_backbone",
+      "bundle_focus_nochain",
+      "bundle_focus_chain"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "flat_nochain_arm": "flat_maintained_nochain",
+    "flat_runaway_arm": "flat_chain_runaway",
+    "plateau_arm": "flat_overlay_backbone",
+    "bundle_nochain_arm": "bundle_focus_nochain",
+    "mechanism_arm": "bundle_focus_chain",
+    "cowan_capacity": 4,
+    "cowan_fanout": 2,
+    "validity_gate_max": 0.1,
+    "plateau_target": 0.2053,
+    "gate_d_tol": 0.02,
+    "hp_abs": 0.3,
+    "hp_delta_plateau": 0.05,
+    "hp_delta_single": 0.15,
+    "hp_sign_stability": 0.9,
+    "p1_regression_eps": 0.05,
+    "runaway_chain_delta_min": -0.05,
+    "norunaway_chain_delta_ok": -0.02,
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260724,
+    "flat_backbone_levers": {
+      "reset_per_sentence": false,
+      "adaptive": true,
+      "chain_pronouns": true,
+      "use_gazetteer": true
+    }
+  },
+  "n_targets_total": 296,
+  "n_xsent": 85,
+  "n_same": 211,
+  "bucket_counts": {
+    "same": 211,
+    "plus1": 80,
+    "plus2": 3,
+    "long": 2
+  },
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.1411764705882353,
+      "n": 85
+    },
+    "flat_maintained_nochain": {
+      "acc": 0.24705882352941178,
+      "prec": 0.24705882352941178,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "flat_chain_runaway": {
+      "acc": 0.011764705882352941,
+      "prec": 0.011764705882352941,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "flat_overlay_backbone": {
+      "acc": 0.3058823529411765,
+      "prec": 0.3058823529411765,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "bundle_focus_nochain": {
+      "acc": 0.25882352941176473,
+      "prec": 0.25882352941176473,
+      "attempt_rate": 1.0,
+      "n": 85
+    },
+    "bundle_focus_chain": {
+      "acc": 0.27058823529411763,
+      "prec": 0.27058823529411763,
+      "attempt_rate": 1.0,
+      "n": 85
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.27488151658767773,
+      "prec": 0.3515151515151515,
+      "attempt_rate": 0.7819905213270142,
+      "n": 211
+    },
+    "flat_maintained_nochain": {
+      "acc": 0.3127962085308057,
+      "prec": 0.3127962085308057,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "flat_chain_runaway": {
+      "acc": 0.014218009478672985,
+      "prec": 0.014218009478672985,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "flat_overlay_backbone": {
+      "acc": 0.35545023696682465,
+      "prec": 0.35545023696682465,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "bundle_focus_nochain": {
+      "acc": 0.2890995260663507,
+      "prec": 0.2890995260663507,
+      "attempt_rate": 1.0,
+      "n": 211
+    },
+    "bundle_focus_chain": {
+      "acc": 0.27488151658767773,
+      "prec": 0.27488151658767773,
+      "attempt_rate": 1.0,
+      "n": 211
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.19594594594594594,
+      "prec": 0.327683615819209,
+      "attempt_rate": 0.597972972972973,
+      "n": 296
+    },
+    "flat_maintained_nochain": {
+      "acc": 0.2939189189189189,
+      "prec": 0.2939189189189189,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "flat_chain_runaway": {
+      "acc": 0.013513513513513514,
+      "prec": 0.013513513513513514,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "flat_overlay_backbone": {
+      "acc": 0.34121621621621623,
+      "prec": 0.34121621621621623,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "bundle_focus_nochain": {
+      "acc": 0.28040540540540543,
+      "prec": 0.28040540540540543,
+      "attempt_rate": 1.0,
+      "n": 296
+    },
+    "bundle_focus_chain": {
+      "acc": 0.27364864864864863,
+      "prec": 0.27364864864864863,
+      "attempt_rate": 1.0,
+      "n": 296
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.27488151658767773,
+        "prec": 0.3515151515151515,
+        "attempt_rate": 0.7819905213270142,
+        "n": 211
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.3127962085308057,
+        "prec": 0.3127962085308057,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "flat_chain_runaway": {
+        "acc": 0.014218009478672985,
+        "prec": 0.014218009478672985,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.35545023696682465,
+        "prec": 0.35545023696682465,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.2890995260663507,
+        "prec": 0.2890995260663507,
+        "attempt_rate": 1.0,
+        "n": 211
+      },
+      "bundle_focus_chain": {
+        "acc": 0.27488151658767773,
+        "prec": 0.27488151658767773,
+        "attempt_rate": 1.0,
+        "n": 211
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.1375,
+        "n": 80
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.2625,
+        "prec": 0.2625,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "flat_chain_runaway": {
+        "acc": 0.0125,
+        "prec": 0.0125,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.3125,
+        "prec": 0.3125,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.275,
+        "prec": 0.275,
+        "attempt_rate": 1.0,
+        "n": 80
+      },
+      "bundle_focus_chain": {
+        "acc": 0.275,
+        "prec": 0.275,
+        "attempt_rate": 1.0,
+        "n": 80
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": null,
+        "attempt_rate": 0.0,
+        "n": 3
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "flat_chain_runaway": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 3
+      },
+      "bundle_focus_chain": {
+        "acc": 0.3333333333333333,
+        "prec": 0.3333333333333333,
+        "attempt_rate": 1.0,
+        "n": 3
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.5,
+        "n": 2
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "flat_chain_runaway": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      },
+      "bundle_focus_chain": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 1.0,
+        "n": 2
+      }
+    }
+  },
+  "per_distance_winner": {
+    "same": {
+      "arm": "flat_overlay_backbone",
+      "acc": 0.35545023696682465
+    },
+    "plus1": {
+      "arm": "flat_overlay_backbone",
+      "acc": 0.3125
+    },
+    "plus2": {
+      "arm": "flat_overlay_backbone",
+      "acc": 0.3333333333333333
+    },
+    "long": {
+      "arm": "flat_maintained_nochain",
+      "acc": 0.0
+    }
+  },
+  "baseline_xsent_acc": 0.0,
+  "flat_maintained_nochain_xsent_acc": 0.24705882352941178,
+  "flat_chain_runaway_xsent_acc": 0.011764705882352941,
+  "plateau_xsent_acc": 0.3058823529411765,
+  "bundle_nochain_xsent_acc": 0.25882352941176473,
+  "mech_xsent_acc": 0.27058823529411763,
+  "delta_vs_plateau": -0.035294117647058865,
+  "delta_vs_single_sentence": 0.27058823529411763,
+  "no_runaway": {
+    "chain_delta_flat": -0.23529411764705882,
+    "chain_delta_bundle": 0.0117647058823529,
+    "max_entity_share_pooled": {
+      "single_sentence_baseline": 0.5,
+      "flat_maintained_nochain": 0.7411764705882353,
+      "flat_chain_runaway": 0.8470588235294118,
+      "flat_overlay_backbone": 0.2235294117647059,
+      "bundle_focus_nochain": 0.25882352941176473,
+      "bundle_focus_chain": 0.49411764705882355
+    },
+    "max_entity_share_per_book_mean": {
+      "single_sentence_baseline": {
+        "mean": 0.6904761904761905,
+        "n_books": 4
+      },
+      "flat_maintained_nochain": {
+        "mean": 0.6471428571428571,
+        "n_books": 5
+      },
+      "flat_chain_runaway": {
+        "mean": 0.9071428571428571,
+        "n_books": 5
+      },
+      "flat_overlay_backbone": {
+        "mean": 0.27714285714285714,
+        "n_books": 5
+      },
+      "bundle_focus_nochain": {
+        "mean": 0.29428571428571426,
+        "n_books": 5
+      },
+      "bundle_focus_chain": {
+        "mean": 0.5214285714285715,
+        "n_books": 5
+      }
+    },
+    "share_ok_bundle_le_flat_runaway": true,
+    "chain_delta_ok": true,
+    "no_runaway_ok": true,
+    "runaway_detected": false
+  },
+  "validity_gate_ok": true,
+  "gate_d_ok": false,
+  "p1_no_regression_ok": true,
+  "p1_same_bucket": {
+    "baseline": 0.27488151658767773,
+    "bundle_focus_chain": 0.27488151658767773
+  },
+  "bootstrap_sign_stability": 0.252,
+  "autopsy": {
+    "fixed_vs_plateau": 11,
+    "broke_vs_plateau": 14,
+    "both_wrong": 48,
+    "remaining_miss_by_bucket": {
+      "same": 0,
+      "plus1": 58,
+      "plus2": 2,
+      "long": 2
+    },
+    "note": "fixed = plateau-wrong -> bundle-right (salience cases the bounded focus recovers); remaining misses dominated by common-noun APPOSITIVE bridging per step-1c (father/daughter/widow/friend), which needs nominal/appositive coref, NOT a memory-format / salience fix. next lever = appositive bridging."
+  },
+  "hd_witness": {
+    "ran": true,
+    "book": "1023_bleak_house_brat.conll",
+    "records_identical_hd_on_vs_off": true,
+    "n_records": 26,
+    "n_dim": 512
+  },
+  "arms_differ_digests": {
+    "single_sentence_baseline": "eb55fe6d9ad2c0e78dee5316e30ed0d7adead532bb591ca3dd9246511846f45b",
+    "flat_maintained_nochain": "d4a0765f91773b1c82c6bd74c9f957a4034c23c6a2c053b376aa26d17da8374e",
+    "flat_chain_runaway": "f9efe37c48f8fa4906891e9cbfba3774d252215c910688aeed5160c63486d557",
+    "flat_overlay_backbone": "b8f99b9117104610ff1117c8eaedaf72b9ab8066b2c14077fe7061719cb3b860",
+    "bundle_focus_nochain": "f53af1cbf6dbaa5aaaf0ca916bcb15601ec5bba3c372978ba3af43d832b5e743",
+    "bundle_focus_chain": "2e556aa2cecd629a8715055ea1d2fb60cff37f8cd983c15055a302404541d7d1"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

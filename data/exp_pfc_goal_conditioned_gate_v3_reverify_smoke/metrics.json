@@ -1,0 +1,244 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | depth=6 | V1=0.340 WM=0.390 ADD(best=0.7)=0.390 COMBINED=0.400 ORACLE=1.000 | combined_lift=0.060 wm_lift=0.050 add_lift=0.050 headroom=0.660 cv=0.150 af_coll=0 n_seeds=2",
+  "summary": "MIDDLE_BAND | depth=6 | V1=0.340 WM=0.390 ADD(best=0.7)=0.390 COMBINED=0.400 ORACLE=1.000 | combined_lift=0.060 wm_lift=0.050 add_lift=0.050 headroom=0.660 cv=0.150 af_coll=0 n_seeds=2",
+  "per_arm": {
+    "v1_no_goal": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "6": {
+        "7": 0.38,
+        "17": 0.3
+      }
+    },
+    "wm_goal_slot": {
+      "3": {
+        "7": 0.02,
+        "17": 0.0
+      },
+      "6": {
+        "7": 0.46,
+        "17": 0.32
+      }
+    },
+    "combined_wm_plus_additive": {
+      "3": {
+        "7": 0.02,
+        "17": 0.0
+      },
+      "6": {
+        "7": 0.46,
+        "17": 0.34
+      }
+    },
+    "oracle": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "6": {
+        "7": 1.0,
+        "17": 1.0
+      }
+    },
+    "additive_a01": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "6": {
+        "7": 0.44,
+        "17": 0.28
+      }
+    },
+    "additive_a02": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0
+      },
+      "6": {
+        "7": 0.44,
+        "17": 0.28
+      }
+    },
+    "additive_a07": {
+      "3": {
+        "7": 0.02,
+        "17": 0.0
+      },
+      "6": {
+        "7": 0.42,
+        "17": 0.36
+      }
+    },
+    "additive_a10": {
+      "3": {
+        "7": 0.02,
+        "17": 0.02
+      },
+      "6": {
+        "7": 0.0,
+        "17": 0.0
+      }
+    },
+    "additive_a20": {
+      "3": {
+        "7": 0.02,
+        "17": 0.02
+      },
+      "6": {
+        "7": 0.0,
+        "17": 0.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "v1_no_goal": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.33999999999999997,
+        "std": 0.04000000000000001,
+        "cv": 0.11764705882352945,
+        "n": 2
+      }
+    },
+    "wm_goal_slot": {
+      "3": {
+        "mean": 0.01,
+        "std": 0.01,
+        "cv": 1.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.39,
+        "std": 0.07,
+        "cv": 0.1794871794871795,
+        "n": 2
+      }
+    },
+    "combined_wm_plus_additive": {
+      "3": {
+        "mean": 0.01,
+        "std": 0.01,
+        "cv": 1.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.4,
+        "std": 0.06,
+        "cv": 0.15,
+        "n": 2
+      }
+    },
+    "oracle": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 1.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      }
+    },
+    "additive_a01": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.36,
+        "std": 0.07999999999999999,
+        "cv": 0.2222222222222222,
+        "n": 2
+      }
+    },
+    "additive_a02": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.36,
+        "std": 0.07999999999999999,
+        "cv": 0.2222222222222222,
+        "n": 2
+      }
+    },
+    "additive_a07": {
+      "3": {
+        "mean": 0.01,
+        "std": 0.01,
+        "cv": 1.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.39,
+        "std": 0.03,
+        "cv": 0.07692307692307691,
+        "n": 2
+      }
+    },
+    "additive_a10": {
+      "3": {
+        "mean": 0.02,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      }
+    },
+    "additive_a20": {
+      "3": {
+        "mean": 0.02,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      },
+      "6": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2
+      }
+    }
+  },
+  "decision_depth": 6,
+  "best_alpha": 0.7,
+  "combined_lift": 0.06000000000000005,
+  "wm_lift": 0.050000000000000044,
+  "additive_lift_best": 0.050000000000000044,
+  "oracle_headroom": 0.66,
+  "combined_cv": 0.15,
+  "n_seeds_complete": 2,
+  "expected_n_units": 36,
+  "completed_units": 36,
+  "cardinality_ok": true,
+  "af_trace_collisions": [],
+  "anchor_name": "pfc_goal_conditioned_gate_v3_wm_additive_only",
+  "elapsed_s": 863.4,
+  "ts_iso": "2026-07-05T15:08:09Z",
+  "pid": 31284,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_goal_conditioned_gate_v3_wm_additive_only,N=8192,N_OPS=4,V=1200,seeds=[7, 17],depths=[3, 6],n_train=200,n_test=50,mode=smoke,alphas=[0.1, 0.2, 0.7, 1.0, 2.0],HP_lift>=0.10,cv<0.10,oracle>=0.40,expected_n=36,hardening=L1ascii+L2perarm+L3outertry+L4importsentinel+AEabspath+AFnotwins",
+  "_hardening_marker": "v3_wm_additive_only_pfc_goal_gate"
+}

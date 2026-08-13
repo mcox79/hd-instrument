@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: resolve-then-extract did not recover the grounded triple: set()",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_overlay_context_precision_reopen_v1.py\", line 672, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_overlay_context_precision_reopen_v1.py\", line 567, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_overlay_context_precision_reopen_v1.py\", line 530, in self_test\n    assert (\"table\", \"eats\", \"worm\") in rec, f\"resolve-then-extract did not recover the grounded triple: {rec}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: resolve-then-extract did not recover the grounded triple: set()\n",
+  "ts_iso": "2026-07-17T23:05:43.325752+00:00",
+  "pid": 24000,
+  "anchor_name": "read_discourse_overlay_context_precision_reopen_v1"
+}

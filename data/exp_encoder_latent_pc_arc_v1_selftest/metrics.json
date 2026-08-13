@@ -1,0 +1,288 @@
+{
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE run_mode=selftest gg[CAUSAL=0.1197 BIDIR=0.1485 TC=0.1475 MLM=0.1485 RAND=0.1206] probe[CAUSAL=0.0833 MLM=0.1000] rel[CAUSAL=0.5873 MLM=0.5972] rep_std[CAUSAL=0.0448 RAND=0.0762] min_tgt_std_CAUSAL=1.0004 tc_delta=-0.0011 causal_vs_bidir=-0.0289 gg_nq_min=9",
+  "summary": "SMOKE run_mode=selftest gg[CAUSAL=0.1197 BIDIR=0.1485 TC=0.1475 MLM=0.1485 RAND=0.1206] probe[CAUSAL=0.0833 MLM=0.1000] rel[CAUSAL=0.5873 MLM=0.5972] rep_std[CAUSAL=0.0448 RAND=0.0762] min_tgt_std_CAUSAL=1.0004 tc_delta=-0.0011 causal_vs_bidir=-0.0289 gg_nq_min=9",
+  "anchor_name": "encoder_latent_pc_arc_v1",
+  "run_mode": "selftest",
+  "ts_iso": "2026-08-01T19:13:20.918836+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "co_scaled": false,
+  "n_seeds": 1,
+  "results_summary": {
+    "graded_geometry": {
+      "ARM_LPC_CAUSAL": 0.11965976781053143,
+      "ARM_LPC_BIDIR": 0.14854821615140726,
+      "ARM_LPC_TC": 0.1474564770354897,
+      "ARM_MLM": 0.1484717672002425,
+      "ARM_RANDOM": 0.12059077133374389
+    },
+    "heldout_probe": {
+      "ARM_LPC_CAUSAL": 0.08333333333333333,
+      "ARM_LPC_BIDIR": 0.08333333333333333,
+      "ARM_LPC_TC": 0.08333333333333333,
+      "ARM_MLM": 0.1,
+      "ARM_RANDOM": 0.15
+    },
+    "relational_auc": {
+      "ARM_LPC_CAUSAL": 0.5873263888888889,
+      "ARM_LPC_BIDIR": 0.5967013888888889,
+      "ARM_LPC_TC": 0.571875,
+      "ARM_MLM": 0.5972222222222222,
+      "ARM_RANDOM": 0.6871527777777777
+    },
+    "rep_std": {
+      "ARM_LPC_CAUSAL": 0.044786274433135986,
+      "ARM_LPC_BIDIR": 0.04701748490333557,
+      "ARM_LPC_TC": 0.03652504086494446,
+      "ARM_MLM": 0.028690965846180916,
+      "ARM_RANDOM": 0.0762343481183052
+    },
+    "min_target_std_causal": 1.0003879070281982,
+    "min_target_std_lpc_tc": 1.0003879070281982,
+    "lpc_gg_minus_mlm": -0.02881199938971106,
+    "lpc_gg_minus_random": -0.0009310035232124592,
+    "tc_ablation_delta": -0.0010917391159175616,
+    "causal_vs_bidir_delta": -0.028888448340875825,
+    "per_seed_d_mlm": [
+      -0.02881199938971106
+    ],
+    "per_seed_d_rand": [
+      -0.0009310035232124592
+    ],
+    "collapsed": false,
+    "no_effect": true,
+    "min_gg_query": 9,
+    "note": "HARD_PASS/FAIL bands above are the rep-quality (graded_geometry) bonus criterion; the DECISIVE causal-encoder claim is the separate syntax-role cross-voice probe cell."
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "run_mode": "selftest",
+      "elapsed_s": 0.02429959992878139,
+      "ckpt_paths": {
+        "ARM_LPC_CAUSAL": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_LPC_CAUSAL.pt",
+        "ARM_LPC_BIDIR": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_LPC_BIDIR.pt",
+        "ARM_LPC_TC": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_LPC_TC.pt",
+        "ARM_MLM": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_MLM.pt",
+        "ARM_RANDOM": null
+      },
+      "arm_collisions": [],
+      "arms": {
+        "ARM_LPC_CAUSAL": {
+          "graded_geometry": 0.11965976781053143,
+          "graded_geometry_nq": 9,
+          "heldout_probe": 0.08333333333333333,
+          "heldout_probe_nq": 60,
+          "relational_auc": 0.5873263888888889,
+          "relational_nq": 10,
+          "rep_std": 0.044786274433135986,
+          "mean_pairwise_cos": 0.9326745867729187,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.4367016330361366,
+            "final_pred_loss": 0.43173328042030334,
+            "min_target_std": 1.0003879070281982,
+            "final_target_std": 1.0054695457220078,
+            "mean_tc_loss": null,
+            "init_clause_loss": 0.039388023084029555,
+            "final_clause_loss": 0.016154705081135035,
+            "role_gate_mean_replace_rate": 0.9592873230576515,
+            "causal": true,
+            "n_steps": 40
+          }
+        },
+        "ARM_LPC_BIDIR": {
+          "graded_geometry": 0.14854821615140726,
+          "graded_geometry_nq": 9,
+          "heldout_probe": 0.08333333333333333,
+          "heldout_probe_nq": 60,
+          "relational_auc": 0.5967013888888889,
+          "relational_nq": 10,
+          "rep_std": 0.04701748490333557,
+          "mean_pairwise_cos": 0.9259145855903625,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.4377019964158535,
+            "final_pred_loss": 0.426417488604784,
+            "min_target_std": 1.000388264656067,
+            "final_target_std": 1.0056890845298767,
+            "mean_tc_loss": null,
+            "init_clause_loss": null,
+            "final_clause_loss": null,
+            "role_gate_mean_replace_rate": null,
+            "causal": false,
+            "n_steps": 40
+          }
+        },
+        "ARM_LPC_TC": {
+          "graded_geometry": 0.1474564770354897,
+          "graded_geometry_nq": 9,
+          "heldout_probe": 0.08333333333333333,
+          "heldout_probe_nq": 60,
+          "relational_auc": 0.571875,
+          "relational_nq": 10,
+          "rep_std": 0.03652504086494446,
+          "mean_pairwise_cos": 0.9553259015083313,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "init_pred_loss": 0.4395660348236561,
+            "final_pred_loss": 0.42902326583862305,
+            "min_target_std": 1.0003879070281982,
+            "final_target_std": 1.0059719234704971,
+            "mean_tc_loss": 0.004610783781390637,
+            "n_steps": 40
+          }
+        },
+        "ARM_MLM": {
+          "graded_geometry": 0.1484717672002425,
+          "graded_geometry_nq": 9,
+          "heldout_probe": 0.1,
+          "heldout_probe_nq": 60,
+          "relational_auc": 0.5972222222222222,
+          "relational_nq": 10,
+          "rep_std": 0.028690965846180916,
+          "mean_pairwise_cos": 0.9720299243927002,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "final_mlm_loss": 8.736218452453613,
+            "reused_v2_ckpt": false
+          }
+        },
+        "ARM_RANDOM": {
+          "graded_geometry": 0.12059077133374389,
+          "graded_geometry_nq": 9,
+          "heldout_probe": 0.15,
+          "heldout_probe_nq": 60,
+          "relational_auc": 0.6871527777777777,
+          "relational_nq": 10,
+          "rep_std": 0.0762343481183052,
+          "mean_pairwise_cos": 0.8016254901885986,
+          "mention_rep_coverage": 1.0,
+          "train_diag": {
+            "untrained": true
+          }
+        }
+      },
+      "arm_digests": {
+        "ARM_LPC_CAUSAL": "582e937f1ae11af63d7484eed16aeb1b662d06f5e011ed3eb81607c0fea35e64",
+        "ARM_LPC_BIDIR": "30379c07218864863a9cfb7d6e53cace0aaee537593742375e397ab0d6eb87d2",
+        "ARM_LPC_TC": "af4270d5a6c72bf8f7ae119ebbc3e4266cd207a276f647a02ffd13b26c4d7477",
+        "ARM_MLM": "bf6470085e00f78479f2da27216180281559759296e4d8abfdf948c1aeeb01c0",
+        "ARM_RANDOM": "98d7811609c9b7fd2a3d54155ae56392036a158c47bd5180ccd74d23e02fef98"
+      },
+      "matched_budget": {
+        "steps": 40,
+        "batch": 8,
+        "train_token_budget": 600000,
+        "d_model": 32,
+        "n_layers": 1,
+        "matched_encoder_params": true,
+        "note": "LPC adds a small predictor + non-trained EMA target; base-encoder architecture/params/steps/tokens matched across arms"
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1785611600.903191
+    }
+  },
+  "cuda_safety_audit": {
+    "device": "cpu",
+    "cuda_tested": false,
+    "final_pred_loss": 0.4589223265647888,
+    "params_on_device": true,
+    "causal_final_pred_loss": 0.46052563190460205,
+    "causal_final_clause_loss": 0.07150639593601227,
+    "realtarget_final_pred_loss": {
+      "sampled_softmax+barlow": 4.648067474365234,
+      "sampled_softmax+vicreg": 4.6485066413879395,
+      "ema_latent+barlow": 0.43307411670684814,
+      "sampled_softmax+barlow+topk4": 4.648068904876709
+    }
+  },
+  "bands": {
+    "hp_gg_over_mlm": 0.1,
+    "hp_gg_over_random": 0.15,
+    "probe_noregress_eps": 0.01,
+    "no_effect_eps": 0.03,
+    "collapse_rep_std_floor": 0.02,
+    "collapse_target_std_floor": 0.05,
+    "min_query": 40
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "data_prep_headroom": null,
+  "mlm_reuse": {
+    "v2_ckpt_dir": "data\\exp_scale_meaning_learn_arc_heldout_v2",
+    "budget_matched_steps": 40,
+    "note": "ARM_MLM reuses V2 ckpt at FULL (mlm_steps matched to V2 FULL=60000)"
+  },
+  "checkpoint": {
+    "unit_granularity": "(seed, arm)",
+    "helper": "tools/exp_checkpoint.py",
+    "dataprep_bundle_cache": "dataprep_bundle_dbdf63f6b124cf26.pt",
+    "per_arm_ckpts": {
+      "7": {
+        "ARM_LPC_CAUSAL": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_LPC_CAUSAL.pt",
+        "ARM_LPC_BIDIR": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_LPC_BIDIR.pt",
+        "ARM_LPC_TC": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_LPC_TC.pt",
+        "ARM_MLM": "data\\exp_encoder_latent_pc_arc_v1_selftest\\ckpt_seed_7_ARM_MLM.pt",
+        "ARM_RANDOM": null
+      }
+    }
+  },
+  "progress_logging": "print_flush_true",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "elapsed_s": 0.02429959992878139,
+  "structured_gate_claims": [
+    {
+      "gate_name": "lpc_causal_gg_over_mlm",
+      "measured": -0.02881199938971106,
+      "threshold": 0.1,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "ARM_LPC_CAUSAL-ARM_MLM graded geometry (mean)"
+    },
+    {
+      "gate_name": "lpc_causal_gg_over_random",
+      "measured": -0.0009310035232124592,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "ARM_LPC_CAUSAL-ARM_RANDOM graded geometry (mean)"
+    },
+    {
+      "gate_name": "probe_no_regress",
+      "measured": 0.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": false,
+      "note": "held-out probe >= MLM - 0.01"
+    },
+    {
+      "gate_name": "no_collapse_reps",
+      "measured": 0.044786274433135986,
+      "threshold": 0.02,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "frozen rep per-dim std floor"
+    },
+    {
+      "gate_name": "no_collapse_train",
+      "measured": 1.0003879070281982,
+      "threshold": 0.05,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "training min target-embedding std floor"
+    },
+    {
+      "gate_name": "power_min_gg_query",
+      "measured": 9.0,
+      "threshold": 40.0,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "graded-geometry query power floor"
+    }
+  ]
+}

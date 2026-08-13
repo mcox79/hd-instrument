@@ -1,0 +1,661 @@
+{
+  "anchor_name": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2",
+  "anchor": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "PATH_C MIDDLE_BAND: substrate-owned PC encoder beats unigram on some metric but does not clear PC_HARD_PASS (any-of-3 + beats w2v_sp on >=1 metric). pc_beats_w2v_sp metric_wins=1 pc_any_hp=False. Partial Path C signal; characterize the gap. PATH_C_FAIR uni=bpc7.738|top10.2171|mrr0.2761 | ARM_WORD2VEC_DENSE=bpc7.720|top10.2171|mrr0.2792|rawT111.696|bestT0.0233|bestL0.03 | ARM_WORD2VEC_SPARSE_BIPOLAR=bpc7.306|top10.2134|mrr0.2917|rawT111.608|bestT0.0500|bestL0.30 | ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR=bpc7.618|top10.2171|mrr0.2776|rawT111.728|bestT0.0500|bestL0.10 | reproduce_w2v_sp=OK | n_llm=0",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "PC_ALPHA": 0.05,
+  "PC_BETA": 2.0,
+  "PC_N_LAYERS": 3,
+  "PC_N_PASSES": 1,
+  "PC_TRAINING_TOKENS": 100000,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_WORD2VEC_DENSE",
+    "ARM_WORD2VEC_SPARSE_BIPOLAR",
+    "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0,
+        "top1_mean": 0.2171,
+        "top1_std": 0.0,
+        "mrr_mean": 0.2761,
+        "mrr_std": 0.0
+      },
+      "ARM_WORD2VEC_DENSE": {
+        "bpc_best_mean": 7.7199,
+        "bpc_best_std": 0.0253,
+        "bpc_best_cv": 0.0033,
+        "top1_acc_mean": 0.2171,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2792,
+        "mrr_at_10_std": 0.0018,
+        "raw_bpc_at_T1_L1_mean": 11.6964,
+        "best_T_for_bpc_mean": 0.0233,
+        "best_lambda_for_bpc_mean": 0.0333,
+        "best_T_for_top1_mean": 0.01,
+        "best_lambda_for_top1_mean": 0.0,
+        "best_T_for_mrr_mean": 0.2333,
+        "best_lambda_for_mrr_mean": 0.1667,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "wordsim_pre_sparsify_mean": NaN,
+        "wordsim_post_sparsify_mean": -0.0857
+      },
+      "ARM_WORD2VEC_SPARSE_BIPOLAR": {
+        "bpc_best_mean": 7.3065,
+        "bpc_best_std": 0.0132,
+        "bpc_best_cv": 0.0018,
+        "top1_acc_mean": 0.2134,
+        "top1_acc_std": 0.0063,
+        "mrr_at_10_mean": 0.2917,
+        "mrr_at_10_std": 0.0062,
+        "raw_bpc_at_T1_L1_mean": 11.6085,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.3,
+        "best_T_for_top1_mean": 0.2067,
+        "best_lambda_for_top1_mean": 0.3,
+        "best_T_for_mrr_mean": 0.3733,
+        "best_lambda_for_mrr_mean": 0.3667,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "wordsim_pre_sparsify_mean": NaN,
+        "wordsim_post_sparsify_mean": -0.1047
+      },
+      "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR": {
+        "bpc_best_mean": 7.6184,
+        "bpc_best_std": 0.0131,
+        "bpc_best_cv": 0.0017,
+        "top1_acc_mean": 0.2171,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2776,
+        "mrr_at_10_std": 0.0006,
+        "raw_bpc_at_T1_L1_mean": 11.7283,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "best_T_for_top1_mean": 0.67,
+        "best_lambda_for_top1_mean": 0.2,
+        "best_T_for_mrr_mean": 0.7333,
+        "best_lambda_for_mrr_mean": 0.2333,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "wordsim_pre_sparsify_mean": 0.0286,
+        "wordsim_post_sparsify_mean": -0.181
+      }
+    },
+    "hp_per_arm": {
+      "ARM_WORD2VEC_DENSE": {
+        "bpc_ok": false,
+        "top1_ok": false,
+        "mrr_ok": false,
+        "any_hp": false,
+        "bpc_bar": 7.4378,
+        "top1_bar": 0.2171,
+        "mrr_bar": 0.2961
+      },
+      "ARM_WORD2VEC_SPARSE_BIPOLAR": {
+        "bpc_ok": true,
+        "top1_ok": false,
+        "mrr_ok": false,
+        "any_hp": true,
+        "bpc_bar": 7.4378,
+        "top1_bar": 0.2171,
+        "mrr_bar": 0.2961
+      },
+      "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR": {
+        "bpc_ok": false,
+        "top1_ok": false,
+        "mrr_ok": false,
+        "any_hp": false,
+        "bpc_bar": 7.4378,
+        "top1_bar": 0.2171,
+        "mrr_bar": 0.2961
+      }
+    },
+    "pc_arm": "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR",
+    "pc_any_hp": false,
+    "pc_beats_w2v_sp_per_metric": {
+      "bpc": false,
+      "top1": true,
+      "mrr": false
+    },
+    "pc_beats_w2v_sp_metric_wins": 1,
+    "pc_beats_w2v_sp_any": true,
+    "pc_hard_pass": false,
+    "pc_hard_fail": false,
+    "degen_arms": [
+      "ARM_WORD2VEC_DENSE",
+      "ARM_WORD2VEC_SPARSE_BIPOLAR",
+      "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR"
+    ],
+    "vocab_entropy_uniform_bits": 11.9658,
+    "any_substrate_clears_unigram_some_metric": true,
+    "reproduce_w2v_sparse_bipolar_check": {
+      "w2v_sp_bpc_mean": 7.3065,
+      "target": 7.31,
+      "abs_delta": 0.0035,
+      "tol": 0.1,
+      "within_tol": true
+    },
+    "n_seeds": 3,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "unigram_top1_ref": 0.2171,
+    "w2v_sparse_bipolar_bpc_target": 7.31,
+    "hp_bpc_margin": 0.3,
+    "hp_top1_nsigma": 2.0,
+    "hp_mrr_margin": 0.02,
+    "degen_tol": 0.5,
+    "hp_wordsim_spearman_min": 0.15,
+    "CONFIG_VERSION": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_WORD2VEC_DENSE', 'ARM_WORD2VEC_SPARSE_BIPOLAR', 'ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_TOP1_nsigma>=2.00 HP_MRR_margin>=0.020 DEGEN_tol=0.50 cv_max=0.10 wordsim_min=0.15 reproduce_tol=0.10",
+    "honest_scope": "Path C substrate-owned PC encoder under FAIR HARNESS (joint T/lambda sweep + extended TEMP_GRID + 3 metrics). PC encoder = 3-layer Hebbian-PC (Rao-Ballard local update, NO backprop) + variance-scaled init + Tonegawa write-time competitive allocation at L3. Sparse-bipolar f=0.050 applied after encoder. HP_PC = (PC arm clears ANY metric of BPC/top1/MRR) AND (PC beats WORD2VEC_SPARSE_BIPOLAR on >=1 metric). HF_PC = PC loses to WORD2VEC_SPARSE_BIPOLAR on ALL 3 metrics. N_DIM=8192 N_TRAIN=100000 N_HELD=20000 V=4000.",
+    "cites": [
+      "preregs/2026-06-23_path_c_substrate_owned_encoder_FAIR_HARNESS_v2.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "experiments/exp_substrate_owned_predictive_coding_encoder_v1.py",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json",
+      "META_HARNESS_RIGGED atom (Skunkworks 2026-06-23)",
+      "USER_2026-06-23_Path_C_substrate_owned_encoder_is_the_answer",
+      "USER_2026-06-22_Fix24_GPU_must_use_GPU"
+    ]
+  },
+  "metrics_source": "measured_gpu_path_c_substrate_owned_encoder_FAIR_HARNESS_v2",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_WORD2VEC_DENSE": {
+          "bpc_best": 7.6842,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3138,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2801,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6929,
+          "raw_top1_at_T1_L1": 0.0766,
+          "raw_mrr_at_T1_L1": 0.1182,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 59.33,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.37,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "wordsim_pre_sparsify": {},
+          "wordsim_post_sparsify": {
+            "spearman": -0.0857,
+            "n_pairs": 6
+          }
+        },
+        "ARM_WORD2VEC_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3187,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.144,
+          "top1_acc": 0.2045,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2888,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.607,
+          "raw_top1_at_T1_L1": 0.1759,
+          "raw_mrr_at_T1_L1": 0.2637,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 57.46,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.16,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "wordsim_pre_sparsify": {},
+          "wordsim_post_sparsify": {
+            "spearman": -0.0857,
+            "n_pairs": 6
+          }
+        },
+        "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6048,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2611,
+          "top1_acc": 0.2172,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2778,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7163,
+          "raw_top1_at_T1_L1": 0.1959,
+          "raw_mrr_at_T1_L1": 0.2463,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 82.1,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.1,
+          "wall_recall_s": 0.05,
+          "pc_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.2761
+              ],
+              "L2": [
+                92.3102
+              ],
+              "L3": [
+                92.3776
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.56,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 12.93
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6234,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true,
+            "S4_wordsim_spearman_pre": 0.7143,
+            "S4_wordsim_passed": true
+          },
+          "wordsim_pre_sparsify": {
+            "spearman": 0.7143,
+            "n_pairs": 6
+          },
+          "wordsim_post_sparsify": {
+            "spearman": 0.0857,
+            "n_pairs": 6
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_WORD2VEC_DENSE', 'ARM_WORD2VEC_SPARSE_BIPOLAR', 'ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_TOP1_nsigma>=2.00 HP_MRR_margin>=0.020 DEGEN_tol=0.50 cv_max=0.10 wordsim_min=0.15 reproduce_tol=0.10",
+      "elapsed_s_seed": 239.32,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782263195.3756318
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_WORD2VEC_DENSE": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 8.314,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2808,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6986,
+          "raw_top1_at_T1_L1": 0.0763,
+          "raw_mrr_at_T1_L1": 0.1191,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 59.27,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.46,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "wordsim_pre_sparsify": {},
+          "wordsim_post_sparsify": {
+            "spearman": -0.0857,
+            "n_pairs": 6
+          }
+        },
+        "ARM_WORD2VEC_SPARSE_BIPOLAR": {
+          "bpc_best": 7.2882,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1166,
+          "top1_acc": 0.2172,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3003,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6085,
+          "raw_top1_at_T1_L1": 0.1756,
+          "raw_mrr_at_T1_L1": 0.2678,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 60.24,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.14,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "wordsim_pre_sparsify": {},
+          "wordsim_post_sparsify": {
+            "spearman": -0.2571,
+            "n_pairs": 6
+          }
+        },
+        "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6142,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2708,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2768,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.726,
+          "raw_top1_at_T1_L1": 0.1905,
+          "raw_mrr_at_T1_L1": 0.2441,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 85.36,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.1,
+          "wall_recall_s": 0.07,
+          "pc_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.3256
+              ],
+              "L2": [
+                92.3457
+              ],
+              "L3": [
+                92.3262
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.66,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 13.3
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6237,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true,
+            "S4_wordsim_spearman_pre": -0.0286,
+            "S4_wordsim_passed": false
+          },
+          "wordsim_pre_sparsify": {
+            "spearman": -0.0286,
+            "n_pairs": 6
+          },
+          "wordsim_post_sparsify": {
+            "spearman": -0.0286,
+            "n_pairs": 6
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_WORD2VEC_DENSE', 'ARM_WORD2VEC_SPARSE_BIPOLAR', 'ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_TOP1_nsigma>=2.00 HP_MRR_margin>=0.020 DEGEN_tol=0.50 cv_max=0.10 wordsim_min=0.15 reproduce_tol=0.10",
+      "elapsed_s_seed": 205.56,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782263400.989988
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_WORD2VEC_DENSE": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 8.314,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2767,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.6978,
+          "raw_top1_at_T1_L1": 0.0772,
+          "raw_mrr_at_T1_L1": 0.1205,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 59.52,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.39,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "wordsim_pre_sparsify": {},
+          "wordsim_post_sparsify": {
+            "spearman": -0.0857,
+            "n_pairs": 6
+          }
+        },
+        "ARM_WORD2VEC_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3126,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1482,
+          "top1_acc": 0.2186,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2861,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6099,
+          "raw_top1_at_T1_L1": 0.1697,
+          "raw_mrr_at_T1_L1": 0.2621,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 58.43,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.21,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "wordsim_pre_sparsify": {},
+          "wordsim_post_sparsify": {
+            "spearman": 0.0286,
+            "n_pairs": 6
+          }
+        },
+        "ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6361,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2578,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2781,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.7426,
+          "raw_top1_at_T1_L1": 0.1798,
+          "raw_mrr_at_T1_L1": 0.2334,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 85.34,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.11,
+          "wall_recall_s": 0.06,
+          "pc_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.0683
+              ],
+              "L2": [
+                92.2445
+              ],
+              "L3": [
+                92.3052
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.55,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 13.06
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6242,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true,
+            "S4_wordsim_spearman_pre": -0.6,
+            "S4_wordsim_passed": false
+          },
+          "wordsim_pre_sparsify": {
+            "spearman": -0.6,
+            "n_pairs": 6
+          },
+          "wordsim_post_sparsify": {
+            "spearman": -0.6,
+            "n_pairs": 6
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "full",
+      "config_version": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_WORD2VEC_DENSE', 'ARM_WORD2VEC_SPARSE_BIPOLAR', 'ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_TOP1_nsigma>=2.00 HP_MRR_margin>=0.020 DEGEN_tol=0.50 cv_max=0.10 wordsim_min=0.15 reproduce_tol=0.10",
+      "elapsed_s_seed": 203.95,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782263605.0023053
+    }
+  ],
+  "elapsed_s": 649.0020067691803,
+  "summary": "PATH_C MIDDLE_BAND: substrate-owned PC encoder beats unigram on some metric but does not clear PC_HARD_PASS (any-of-3 + beats w2v_sp on >=1 metric). pc_beats_w2v_sp metric_wins=1 pc_any_hp=False. Partial Path C signal; characterize the gap.",
+  "substrate_only_decode_gate": "TRUE (substrate cosine logits; word2vec is static open-weight lookup; PC encoder trained on substrate; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "path_c_substrate_owned_encoder_FAIR_HARNESS_v2; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_WORD2VEC_DENSE', 'ARM_WORD2VEC_SPARSE_BIPOLAR', 'ARM_SUBSTRATE_OWNED_PC_ENCODER_SPARSE_BIPOLAR'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_TOP1_nsigma>=2.00 HP_MRR_margin>=0.020 DEGEN_tol=0.50 cv_max=0.10 wordsim_min=0.15 reproduce_tol=0.10",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

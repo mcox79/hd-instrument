@@ -1,0 +1,67 @@
+{
+  "anchor_name": "cortex_hippo_handoff_FULL_seed_17_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: acc(FULL)>=0.50 AND gap>=0.40 AND ratio>=0.70. CAPACITY_WARN: alpha=0.024 < 0.05 -- consider raising M for chain-grade. seed=17 FULL=1.000 NO_REPLAY=0.005 DIRECT=1.000 gap_FULL_vs_NO=+0.995 ratio_FULL_to_DIRECT=1.000",
+  "summary": "chunk_seed=17 n_seeds=1 N_h=512 N_c=8192 sparsity=0.1 M=200 N_replay=50 mode=full",
+  "elapsed_s": 8112.047957897186,
+  "config_version": "ANCHOR=cortex_hippo_handoff_FULL_seed_17_v1,N_h=512,N_c=8192,sparsity=0.1,M=200,N_replay=50,eta_c=0.01,SEEDS=17,RUN_MODE=full,chunk_seed=17,hardening=L1early+L2perarm+L4importsentinel+METARULE_AF+METARULE_AH",
+  "N_h": 512,
+  "N_c": 8192,
+  "M": 200,
+  "N_replay": 50,
+  "eta_c": 0.01,
+  "hippo_sparsity": 0.1,
+  "n_seeds": 1,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "chunk_seed": 17,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 17,
+      "elapsed_s": 8112.026024103165,
+      "arms": [
+        {
+          "arm_name": "ARM_FULL_HANDOFF",
+          "recall_cortex": 1.0,
+          "n_items": 200,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 7.096731020374119,
+          "N_h": 512,
+          "N_c": 8192,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 50,
+          "wall_s": 4350.2888560295105,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_REPLAY",
+          "recall_cortex": 0.005,
+          "n_items": 200,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.0,
+          "N_h": 512,
+          "N_c": 8192,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 50,
+          "wall_s": 4.473422288894653,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_DIRECT_CORTEX",
+          "recall_cortex": 1.0,
+          "n_items": 200,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 7.096731020374119,
+          "N_h": 512,
+          "N_c": 8192,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 50,
+          "wall_s": 3757.0582506656647,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

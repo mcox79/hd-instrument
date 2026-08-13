@@ -1,0 +1,12 @@
+{
+  "anchor_name": "engram_dropout_inhibitory_plasticity_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: probe + per-arm structure verified",
+  "summary": "SELFTEST_OK: probe + per-arm structure verified",
+  "elapsed_s": 0.5,
+  "ts_iso": "2026-06-27T19:54:12Z",
+  "pid": 33708,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=engram_dropout_inhibitory_plasticity_v1,probe_N=[256],probe_NCAT=[10],probe_NTRAIN=[5],probe_noise=[0.6],seeds=[7],mode=smoke,HP_cor>=0.50,HP_lift_over_random>=0.20,HP_mask_density=[0.10,0.30],HP_baseline_band=[0.40,0.65],HP_cv<=0.10,HF_mask_collapse<0.05,HF_mask_null>0.80,delta_dropout=0.100,delta_dropin=0.020,recruit_p=0.050,N_CYCLES=10,hardening=L1early+L2perseed+L3outertry+L4importsentinel,FAIRNESS=PROBE_BASELINE_IN_BAND_THEN_ENGRAM_MECHANISM",
+  "_hardening_marker": "v1_engram_dropout_inhibitory"
+}

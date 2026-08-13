@@ -1,0 +1,315 @@
+{
+  "anchor_name": "capacity_sweet_spot_v2_cpu_v1",
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "MEASURED_MECHANISM (data-decides, honest): the per-load OPTIMAL sparsity MOVES with load (oracle_opt_moves=True), and the cost mechanism (crosstalk-vs-error-correction balance under cue-noise) is real -- BUT the recall surface is BROAD: a single fixed sparsity ['f0.010'] stays within BEAT of the ORACLE optimum at EVERY load (worst-load gap 0.019), so even a best-possible selector's gain is marginal. The adaptivity does NOT clear a chain-grade 'beats every fixed-f' bar. Genuine bankable knowledge = the moving-optimum + the cue-robustness cost mechanism (readout-SNR was refuted). Chain-grade path: a calibrated robustness-aware selector IF the marginal gain is deemed worth it. oracle_opt_moves=True earns_keep=False | adaptive_sel=True near_opt_all=False seed_stable=False | sel_f_by_load={0.1: 0.1, 0.5: 0.05, 1.0: 0.02, 2.0: 0.01} | best_fixed=f0.010(worst_gap=0.019) within_BEAT_of_oracle_everywhere=['f0.010']",
+  "run_mode": "full",
+  "N": 4096,
+  "loads": [
+    0.1,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "F_sweep": [
+    0.1,
+    0.05,
+    0.02,
+    0.01,
+    0.002
+  ],
+  "flip_cue": 0.3,
+  "n_seeds": 3,
+  "detail": {
+    "per_load": {
+      "alpha0.1": {
+        "selector_f": 0.1,
+        "selector_recall": 0.962,
+        "recalls": {
+          "f0.100": 0.962,
+          "f0.050": 0.994,
+          "f0.020": 0.998,
+          "f0.010": 0.979,
+          "f0.002": 0.762
+        },
+        "best_fixed_f": "f0.020",
+        "best_fixed_recall": 0.998,
+        "selector_near_optimal": false,
+        "selector_f_seed_stable": true,
+        "seed_cv": 0.0291
+      },
+      "alpha0.5": {
+        "selector_f": 0.05,
+        "selector_recall": 0.553,
+        "recalls": {
+          "f0.100": 0.286,
+          "f0.050": 0.553,
+          "f0.020": 0.932,
+          "f0.010": 0.941,
+          "f0.002": 0.775
+        },
+        "best_fixed_f": "f0.010",
+        "best_fixed_recall": 0.941,
+        "selector_near_optimal": false,
+        "selector_f_seed_stable": true,
+        "seed_cv": 0.5582
+      },
+      "alpha1.0": {
+        "selector_f": 0.02,
+        "selector_recall": 0.767,
+        "recalls": {
+          "f0.100": 0.092,
+          "f0.050": 0.308,
+          "f0.020": 0.767,
+          "f0.010": 0.896,
+          "f0.002": 0.751
+        },
+        "best_fixed_f": "f0.010",
+        "best_fixed_recall": 0.896,
+        "selector_near_optimal": false,
+        "selector_f_seed_stable": true,
+        "seed_cv": 0.1907
+      },
+      "alpha2.0": {
+        "selector_f": 0.01,
+        "selector_recall": 0.775,
+        "recalls": {
+          "f0.100": 0.002,
+          "f0.050": 0.153,
+          "f0.020": 0.482,
+          "f0.010": 0.775,
+          "f0.002": 0.721
+        },
+        "best_fixed_f": "f0.010",
+        "best_fixed_recall": 0.775,
+        "selector_near_optimal": true,
+        "selector_f_seed_stable": true,
+        "seed_cv": 0.1416
+      }
+    },
+    "selector_f_by_load": {
+      "alpha0.1": 0.1,
+      "alpha0.5": 0.05,
+      "alpha1.0": 0.02,
+      "alpha2.0": 0.01
+    },
+    "oracle_optimum_f_moves_with_load": true,
+    "best_single_fixed_f": "f0.010",
+    "best_single_fixed_f_worst_load_gap": 0.019,
+    "adaptive_selector_varies_f": true,
+    "earns_keep_no_fixed_f_within_BEAT_of_oracle_everywhere": false,
+    "fixed_fs_within_BEAT_of_oracle_everywhere": [
+      "f0.010"
+    ],
+    "selector_near_optimal_all_loads": false,
+    "seed_stable": false,
+    "too_dense_capacity_fail_loads": [
+      "alpha0.5",
+      "alpha1.0",
+      "alpha2.0"
+    ],
+    "too_sparse_robustness_fail_loads": [
+      "alpha0.1",
+      "alpha2.0"
+    ],
+    "flip_cue": 0.3,
+    "N": 4096,
+    "honest_claim": "Load-adaptive sparsity selector (largest-viable-f meeting 2x capacity margin + K_MIN=8 bits) under cue-noise flip=0.3: selector picks f={0.1: 0.1, 0.5: 0.05, 1.0: 0.02, 2.0: 0.01} across loads [0.1, 0.5, 1.0, 2.0] (ADAPTIVE=True); no single fixed-f >= selector at every load (earns_keep=False; never-beaten=['f0.010']); too-dense f=0.100 fails capacity at loads ['alpha0.5', 'alpha1.0', 'alpha2.0']; too-sparse f=0.002 fails cue-robustness at loads ['alpha0.1', 'alpha2.0']. Genuine sweet-spot selection (NOT a3f473dd constant-f re-expression: the optimal f VARIES with load)."
+  },
+  "metrics_source": "measured_cpu_capacity_sweet_spot_cuenoise_adaptive_selector",
+  "per_unit": [
+    {
+      "load": 0.1,
+      "seed": 1,
+      "recalls": {
+        "f0.100": 1.0,
+        "f0.050": 1.0,
+        "f0.020": 1.0,
+        "f0.010": 0.9803921568627451,
+        "f0.002": 0.6862745098039216
+      },
+      "selector_f": 0.1,
+      "selector_status": "OK",
+      "selector_recall": 1.0,
+      "_ckpt_key": "a0p1_s1",
+      "_partial_written_at": 1781994710.789694
+    },
+    {
+      "load": 0.1,
+      "seed": 2,
+      "recalls": {
+        "f0.100": 0.9511002444987775,
+        "f0.050": 0.9902200488997555,
+        "f0.020": 0.9975550122249389,
+        "f0.010": 0.9682151589242054,
+        "f0.002": 0.8117359413202934
+      },
+      "selector_f": 0.1,
+      "selector_status": "OK",
+      "selector_recall": 0.9511002444987775,
+      "_ckpt_key": "a0p1_s2",
+      "_partial_written_at": 1781995583.8420234
+    },
+    {
+      "load": 0.1,
+      "seed": 3,
+      "recalls": {
+        "f0.100": 0.9339853300733496,
+        "f0.050": 0.9926650366748166,
+        "f0.020": 0.9975550122249389,
+        "f0.010": 0.9877750611246944,
+        "f0.002": 0.7872860635696821
+      },
+      "selector_f": 0.1,
+      "selector_status": "OK",
+      "selector_recall": 0.9339853300733496,
+      "_ckpt_key": "a0p1_s3",
+      "_partial_written_at": 1781995584.6591103
+    },
+    {
+      "load": 0.5,
+      "seed": 1,
+      "recalls": {
+        "f0.100": 0.857421875,
+        "f0.050": 0.990234375,
+        "f0.020": 0.994140625,
+        "f0.010": 0.962890625,
+        "f0.002": 0.7421875
+      },
+      "selector_f": 0.05,
+      "selector_status": "OK",
+      "selector_recall": 0.990234375,
+      "_ckpt_key": "a0p5_s1",
+      "_partial_written_at": 1781994711.0224006
+    },
+    {
+      "load": 0.5,
+      "seed": 2,
+      "recalls": {
+        "f0.100": 0.00048828125,
+        "f0.050": 0.33154296875,
+        "f0.020": 0.89599609375,
+        "f0.010": 0.92626953125,
+        "f0.002": 0.7822265625
+      },
+      "selector_f": 0.05,
+      "selector_status": "OK",
+      "selector_recall": 0.33154296875,
+      "_ckpt_key": "a0p5_s2",
+      "_partial_written_at": 1781995589.8257096
+    },
+    {
+      "load": 0.5,
+      "seed": 3,
+      "recalls": {
+        "f0.100": 0.0,
+        "f0.050": 0.33837890625,
+        "f0.020": 0.90478515625,
+        "f0.010": 0.9345703125,
+        "f0.002": 0.79931640625
+      },
+      "selector_f": 0.05,
+      "selector_status": "OK",
+      "selector_recall": 0.33837890625,
+      "_ckpt_key": "a0p5_s3",
+      "_partial_written_at": 1781995595.5117936
+    },
+    {
+      "load": 1.0,
+      "seed": 1,
+      "recalls": {
+        "f0.100": 0.2763671875,
+        "f0.050": 0.8994140625,
+        "f0.020": 0.9736328125,
+        "f0.010": 0.9521484375,
+        "f0.002": 0.7255859375
+      },
+      "selector_f": 0.02,
+      "selector_status": "OK",
+      "selector_recall": 0.9736328125,
+      "_ckpt_key": "a1p0_s1",
+      "_partial_written_at": 1781994711.7278748
+    },
+    {
+      "load": 1.0,
+      "seed": 2,
+      "recalls": {
+        "f0.100": 0.0,
+        "f0.050": 0.01416015625,
+        "f0.020": 0.6552734375,
+        "f0.010": 0.866455078125,
+        "f0.002": 0.75927734375
+      },
+      "selector_f": 0.02,
+      "selector_status": "OK",
+      "selector_recall": 0.6552734375,
+      "_ckpt_key": "a1p0_s2",
+      "_partial_written_at": 1781995611.3350415
+    },
+    {
+      "load": 1.0,
+      "seed": 3,
+      "recalls": {
+        "f0.100": 0.0,
+        "f0.050": 0.010986328125,
+        "f0.020": 0.672119140625,
+        "f0.010": 0.86865234375,
+        "f0.002": 0.76806640625
+      },
+      "selector_f": 0.02,
+      "selector_status": "OK",
+      "selector_recall": 0.672119140625,
+      "_ckpt_key": "a1p0_s3",
+      "_partial_written_at": 1781995626.31393
+    },
+    {
+      "load": 2.0,
+      "seed": 1,
+      "recalls": {
+        "f0.100": 0.005859375,
+        "f0.050": 0.45849609375,
+        "f0.020": 0.931640625,
+        "f0.010": 0.93017578125,
+        "f0.002": 0.69287109375
+      },
+      "selector_f": 0.01,
+      "selector_status": "OK",
+      "selector_recall": 0.93017578125,
+      "_ckpt_key": "a2p0_s1",
+      "_partial_written_at": 1781994713.0307066
+    },
+    {
+      "load": 2.0,
+      "seed": 2,
+      "recalls": {
+        "f0.100": 0.0,
+        "f0.050": 0.0,
+        "f0.020": 0.258544921875,
+        "f0.010": 0.6944580078125,
+        "f0.002": 0.737548828125
+      },
+      "selector_f": 0.01,
+      "selector_status": "OK",
+      "selector_recall": 0.6944580078125,
+      "_ckpt_key": "a2p0_s2",
+      "_partial_written_at": 1781995675.309876
+    },
+    {
+      "load": 2.0,
+      "seed": 3,
+      "recalls": {
+        "f0.100": 0.0,
+        "f0.050": 0.0,
+        "f0.020": 0.2568359375,
+        "f0.010": 0.700439453125,
+        "f0.002": 0.731689453125
+      },
+      "selector_f": 0.01,
+      "selector_status": "OK",
+      "selector_recall": 0.700439453125,
+      "_ckpt_key": "a2p0_s3",
+      "_partial_written_at": 1781995723.2166288
+    }
+  ],
+  "elapsed_s": 140.15126824378967,
+  "summary": "MEASURED_MECHANISM (data-decides, honest): the per-load OPTIMAL sparsity MOVES with load (oracle_opt_moves=True), and the cost mechanism (crosstalk-vs-error-correction balance under cue-noise) is real -- BUT the recall surface is BROAD: a single fixed sparsity ['f0.010'] stays within BEAT of the ORACLE optimum at EVERY load (worst-load gap 0.019), so even a best-possible selector's gain is marginal. The adaptivity does NOT clear a chain-grade 'beats every fixed-f' bar. Genuine bankable knowledge = the moving-optimum + the cue-robustness cost mechanism (readout-SNR was refuted). Chain-grade path: a calibrated robustness-aware selector IF the marginal gain is deemed worth it. oracle_opt_moves=True earns_keep=False | adaptive_sel=True near_opt_all=False seed_stable=False | sel_f_by_load={0.1: 0.1, 0.5: 0.05, 1.0: 0.02, 2.0: 0.01} | best_fixed=f0.010(worst_gap=0.019) within_BEAT_of_oracle_everywhere=['f0.010']"
+}

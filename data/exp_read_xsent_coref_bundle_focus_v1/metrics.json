@@ -1,0 +1,589 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "bounded bundle-focus is VALID + NO-runaway but does not clear the plateau by a real margin (the honest expectation): bundle_focus_chain acc=0.1870 (plateau=0.2053 delta=-0.0184), chain_delta_bundle=-0.0100 (flat runaway=-0.0801 => the bounded focus TAMED chaining), max_share bundle=0.4274<=flat_runaway=0.9199, fixed=55 broke=66 both_wrong=421. Autopsy: the memory format addressed SALIENCE but the remaining cross-sentence misses are dominated by common-noun APPOSITIVE bridging (step-1c), NOT salience/fragmentation. n_xsent=599.",
+  "summary": "read_xsent_coref_bundle_focus_v1: MIDDLE_BAND",
+  "elapsed_s": 0.243,
+  "anchor_name": "read_xsent_coref_bundle_focus_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-24T04:15:36.506291+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 25,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll",
+      "113_the_secret_garden_brat.conll",
+      "1260_jane_eyre_an_autobiography_brat.conll",
+      "1342_pride_and_prejudice_brat.conll",
+      "1400_great_expectations_brat.conll",
+      "158_emma_brat.conll",
+      "174_the_picture_of_dorian_gray_brat.conll",
+      "209_the_turn_of_the_screw_brat.conll",
+      "2489_moby_dick_brat.conll",
+      "2814_dubliners_brat.conll",
+      "2852_the_hound_of_the_baskervilles_brat.conll",
+      "345_dracula_brat.conll",
+      "36_the_war_of_the_worlds_brat.conll",
+      "514_little_women_brat.conll",
+      "521_the_life_and_adventures_of_robinson_crusoe_brat.conll",
+      "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+      "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+      "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+      "76_adventures_of_huckleberry_finn_brat.conll",
+      "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll",
+      "84_frankenstein_or_the_modern_prometheus_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "flat_maintained_nochain",
+      "flat_chain_runaway",
+      "flat_overlay_backbone",
+      "bundle_focus_nochain",
+      "bundle_focus_chain"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "flat_nochain_arm": "flat_maintained_nochain",
+    "flat_runaway_arm": "flat_chain_runaway",
+    "plateau_arm": "flat_overlay_backbone",
+    "bundle_nochain_arm": "bundle_focus_nochain",
+    "mechanism_arm": "bundle_focus_chain",
+    "cowan_capacity": 4,
+    "cowan_fanout": 2,
+    "validity_gate_max": 0.1,
+    "plateau_target": 0.2053,
+    "gate_d_tol": 0.02,
+    "hp_abs": 0.3,
+    "hp_delta_plateau": 0.05,
+    "hp_delta_single": 0.15,
+    "hp_sign_stability": 0.9,
+    "p1_regression_eps": 0.05,
+    "runaway_chain_delta_min": -0.05,
+    "norunaway_chain_delta_ok": -0.02,
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260724,
+    "flat_backbone_levers": {
+      "reset_per_sentence": false,
+      "adaptive": true,
+      "chain_pronouns": true,
+      "use_gazetteer": true
+    }
+  },
+  "n_targets_total": 1690,
+  "n_xsent": 599,
+  "n_same": 1091,
+  "bucket_counts": {
+    "same": 1091,
+    "plus1": 486,
+    "plus2": 66,
+    "long": 47
+  },
+  "cross_sentence_subset_table": {
+    "single_sentence_baseline": {
+      "acc": 0.0,
+      "prec": 0.0,
+      "attempt_rate": 0.2637729549248748,
+      "n": 599
+    },
+    "flat_maintained_nochain": {
+      "acc": 0.18530884808013356,
+      "prec": 0.18530884808013356,
+      "attempt_rate": 1.0,
+      "n": 599
+    },
+    "flat_chain_runaway": {
+      "acc": 0.10517529215358931,
+      "prec": 0.10517529215358931,
+      "attempt_rate": 1.0,
+      "n": 599
+    },
+    "flat_overlay_backbone": {
+      "acc": 0.20534223706176963,
+      "prec": 0.20534223706176963,
+      "attempt_rate": 1.0,
+      "n": 599
+    },
+    "bundle_focus_nochain": {
+      "acc": 0.19699499165275458,
+      "prec": 0.19699499165275458,
+      "attempt_rate": 1.0,
+      "n": 599
+    },
+    "bundle_focus_chain": {
+      "acc": 0.18697829716193656,
+      "prec": 0.18697829716193656,
+      "attempt_rate": 1.0,
+      "n": 599
+    }
+  },
+  "within_sentence_same_table": {
+    "single_sentence_baseline": {
+      "acc": 0.2758936755270394,
+      "prec": 0.34717416378316035,
+      "attempt_rate": 0.7946837763519706,
+      "n": 1091
+    },
+    "flat_maintained_nochain": {
+      "acc": 0.22823098075160403,
+      "prec": 0.22823098075160403,
+      "attempt_rate": 1.0,
+      "n": 1091
+    },
+    "flat_chain_runaway": {
+      "acc": 0.13748854262144822,
+      "prec": 0.13748854262144822,
+      "attempt_rate": 1.0,
+      "n": 1091
+    },
+    "flat_overlay_backbone": {
+      "acc": 0.3437213565536205,
+      "prec": 0.3437213565536205,
+      "attempt_rate": 1.0,
+      "n": 1091
+    },
+    "bundle_focus_nochain": {
+      "acc": 0.26397800183318054,
+      "prec": 0.26397800183318054,
+      "attempt_rate": 1.0,
+      "n": 1091
+    },
+    "bundle_focus_chain": {
+      "acc": 0.24381301558203483,
+      "prec": 0.24381301558203483,
+      "attempt_rate": 1.0,
+      "n": 1091
+    }
+  },
+  "overall_table": {
+    "single_sentence_baseline": {
+      "acc": 0.17810650887573964,
+      "prec": 0.29365853658536584,
+      "attempt_rate": 0.606508875739645,
+      "n": 1690
+    },
+    "flat_maintained_nochain": {
+      "acc": 0.21301775147928995,
+      "prec": 0.21301775147928995,
+      "attempt_rate": 1.0,
+      "n": 1690
+    },
+    "flat_chain_runaway": {
+      "acc": 0.12603550295857988,
+      "prec": 0.12603550295857988,
+      "attempt_rate": 1.0,
+      "n": 1690
+    },
+    "flat_overlay_backbone": {
+      "acc": 0.29467455621301775,
+      "prec": 0.29467455621301775,
+      "attempt_rate": 1.0,
+      "n": 1690
+    },
+    "bundle_focus_nochain": {
+      "acc": 0.24023668639053256,
+      "prec": 0.24023668639053256,
+      "attempt_rate": 1.0,
+      "n": 1690
+    },
+    "bundle_focus_chain": {
+      "acc": 0.22366863905325443,
+      "prec": 0.22366863905325443,
+      "attempt_rate": 1.0,
+      "n": 1690
+    }
+  },
+  "per_bucket_table": {
+    "same": {
+      "single_sentence_baseline": {
+        "acc": 0.2758936755270394,
+        "prec": 0.34717416378316035,
+        "attempt_rate": 0.7946837763519706,
+        "n": 1091
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.22823098075160403,
+        "prec": 0.22823098075160403,
+        "attempt_rate": 1.0,
+        "n": 1091
+      },
+      "flat_chain_runaway": {
+        "acc": 0.13748854262144822,
+        "prec": 0.13748854262144822,
+        "attempt_rate": 1.0,
+        "n": 1091
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.3437213565536205,
+        "prec": 0.3437213565536205,
+        "attempt_rate": 1.0,
+        "n": 1091
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.26397800183318054,
+        "prec": 0.26397800183318054,
+        "attempt_rate": 1.0,
+        "n": 1091
+      },
+      "bundle_focus_chain": {
+        "acc": 0.24381301558203483,
+        "prec": 0.24381301558203483,
+        "attempt_rate": 1.0,
+        "n": 1091
+      }
+    },
+    "plus1": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.2551440329218107,
+        "n": 486
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.19547325102880658,
+        "prec": 0.19547325102880658,
+        "attempt_rate": 1.0,
+        "n": 486
+      },
+      "flat_chain_runaway": {
+        "acc": 0.10699588477366255,
+        "prec": 0.10699588477366255,
+        "attempt_rate": 1.0,
+        "n": 486
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.22633744855967078,
+        "prec": 0.22633744855967078,
+        "attempt_rate": 1.0,
+        "n": 486
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.21193415637860083,
+        "prec": 0.21193415637860083,
+        "attempt_rate": 1.0,
+        "n": 486
+      },
+      "bundle_focus_chain": {
+        "acc": 0.19547325102880658,
+        "prec": 0.19547325102880658,
+        "attempt_rate": 1.0,
+        "n": 486
+      }
+    },
+    "plus2": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.25757575757575757,
+        "n": 66
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.21212121212121213,
+        "prec": 0.21212121212121213,
+        "attempt_rate": 1.0,
+        "n": 66
+      },
+      "flat_chain_runaway": {
+        "acc": 0.12121212121212122,
+        "prec": 0.12121212121212122,
+        "attempt_rate": 1.0,
+        "n": 66
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.18181818181818182,
+        "prec": 0.18181818181818182,
+        "attempt_rate": 1.0,
+        "n": 66
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.18181818181818182,
+        "prec": 0.18181818181818182,
+        "attempt_rate": 1.0,
+        "n": 66
+      },
+      "bundle_focus_chain": {
+        "acc": 0.16666666666666666,
+        "prec": 0.16666666666666666,
+        "attempt_rate": 1.0,
+        "n": 66
+      }
+    },
+    "long": {
+      "single_sentence_baseline": {
+        "acc": 0.0,
+        "prec": 0.0,
+        "attempt_rate": 0.3617021276595745,
+        "n": 47
+      },
+      "flat_maintained_nochain": {
+        "acc": 0.0425531914893617,
+        "prec": 0.0425531914893617,
+        "attempt_rate": 1.0,
+        "n": 47
+      },
+      "flat_chain_runaway": {
+        "acc": 0.06382978723404255,
+        "prec": 0.06382978723404255,
+        "attempt_rate": 1.0,
+        "n": 47
+      },
+      "flat_overlay_backbone": {
+        "acc": 0.02127659574468085,
+        "prec": 0.02127659574468085,
+        "attempt_rate": 1.0,
+        "n": 47
+      },
+      "bundle_focus_nochain": {
+        "acc": 0.06382978723404255,
+        "prec": 0.06382978723404255,
+        "attempt_rate": 1.0,
+        "n": 47
+      },
+      "bundle_focus_chain": {
+        "acc": 0.1276595744680851,
+        "prec": 0.1276595744680851,
+        "attempt_rate": 1.0,
+        "n": 47
+      }
+    }
+  },
+  "per_distance_winner": {
+    "same": {
+      "arm": "flat_overlay_backbone",
+      "acc": 0.3437213565536205
+    },
+    "plus1": {
+      "arm": "flat_overlay_backbone",
+      "acc": 0.22633744855967078
+    },
+    "plus2": {
+      "arm": "flat_maintained_nochain",
+      "acc": 0.21212121212121213
+    },
+    "long": {
+      "arm": "bundle_focus_chain",
+      "acc": 0.1276595744680851
+    }
+  },
+  "baseline_xsent_acc": 0.0,
+  "flat_maintained_nochain_xsent_acc": 0.18530884808013356,
+  "flat_chain_runaway_xsent_acc": 0.10517529215358931,
+  "plateau_xsent_acc": 0.20534223706176963,
+  "bundle_nochain_xsent_acc": 0.19699499165275458,
+  "mech_xsent_acc": 0.18697829716193656,
+  "delta_vs_plateau": -0.018363939899833065,
+  "delta_vs_single_sentence": 0.18697829716193656,
+  "no_runaway": {
+    "chain_delta_flat": -0.08013355592654425,
+    "chain_delta_bundle": -0.010016694490818018,
+    "max_entity_share_pooled": {
+      "single_sentence_baseline": 0.4810126582278481,
+      "flat_maintained_nochain": 0.7796327212020033,
+      "flat_chain_runaway": 0.9198664440734557,
+      "flat_overlay_backbone": 0.27378964941569284,
+      "bundle_focus_nochain": 0.3555926544240401,
+      "bundle_focus_chain": 0.4273789649415693
+    },
+    "max_entity_share_per_book_mean": {
+      "single_sentence_baseline": {
+        "mean": 0.5972054905878434,
+        "n_books": 22
+      },
+      "flat_maintained_nochain": {
+        "mean": 0.7538458740958741,
+        "n_books": 25
+      },
+      "flat_chain_runaway": {
+        "mean": 0.8958138528138528,
+        "n_books": 25
+      },
+      "flat_overlay_backbone": {
+        "mean": 0.29956504416504415,
+        "n_books": 25
+      },
+      "bundle_focus_nochain": {
+        "mean": 0.3643772346272346,
+        "n_books": 25
+      },
+      "bundle_focus_chain": {
+        "mean": 0.4575029877029877,
+        "n_books": 25
+      }
+    },
+    "share_ok_bundle_le_flat_runaway": true,
+    "chain_delta_ok": true,
+    "no_runaway_ok": true,
+    "runaway_detected": false
+  },
+  "validity_gate_ok": true,
+  "gate_d_ok": true,
+  "p1_no_regression_ok": true,
+  "p1_same_bucket": {
+    "baseline": 0.2758936755270394,
+    "bundle_focus_chain": 0.24381301558203483
+  },
+  "bootstrap_sign_stability": 0.15,
+  "autopsy": {
+    "fixed_vs_plateau": 55,
+    "broke_vs_plateau": 66,
+    "both_wrong": 421,
+    "remaining_miss_by_bucket": {
+      "same": 0,
+      "plus1": 391,
+      "plus2": 55,
+      "long": 41
+    },
+    "note": "fixed = plateau-wrong -> bundle-right (salience cases the bounded focus recovers); remaining misses dominated by common-noun APPOSITIVE bridging per step-1c (father/daughter/widow/friend), which needs nominal/appositive coref, NOT a memory-format / salience fix. next lever = appositive bridging."
+  },
+  "hd_witness": {
+    "ran": true,
+    "book": "1023_bleak_house_brat.conll",
+    "records_identical_hd_on_vs_off": true,
+    "n_records": 26,
+    "n_dim": 512
+  },
+  "arms_differ_digests": {
+    "single_sentence_baseline": "d61ab8885b099c60cd39fa46c5a74dfa2209bbc801e929cd24ec245fd24fd7c3",
+    "flat_maintained_nochain": "36785ad50debee3068813441dfc1edb91ccfa75ec9719ff49492e94cd60cd5f0",
+    "flat_chain_runaway": "0ef90214fe0d42b1cbe6247b7d157085bcd7ce3e577f52fe41d2304f98fdc0cd",
+    "flat_overlay_backbone": "bfa28e80d766c3fec0cc6ae4efa2c8aa17225a1dbd1edb1e959b8be5ed96d78b",
+    "bundle_focus_nochain": "41bc29d9660efbbdcb24aa85c7628113385380a7145cd966a715dc9374359dc7",
+    "bundle_focus_chain": "06f06e81e074d1df950e27f790d493edf55df0d89c31e029c45e022479f8be26"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95
+    },
+    "113_the_secret_garden_brat.conll": {
+      "n_mentions": 329,
+      "n_sentences": 109,
+      "n_targets": 139
+    },
+    "1260_jane_eyre_an_autobiography_brat.conll": {
+      "n_mentions": 295,
+      "n_sentences": 65,
+      "n_targets": 65
+    },
+    "1342_pride_and_prejudice_brat.conll": {
+      "n_mentions": 370,
+      "n_sentences": 111,
+      "n_targets": 82
+    },
+    "1400_great_expectations_brat.conll": {
+      "n_mentions": 354,
+      "n_sentences": 103,
+      "n_targets": 63
+    },
+    "158_emma_brat.conll": {
+      "n_mentions": 319,
+      "n_sentences": 77,
+      "n_targets": 108
+    },
+    "174_the_picture_of_dorian_gray_brat.conll": {
+      "n_mentions": 284,
+      "n_sentences": 109,
+      "n_targets": 44
+    },
+    "209_the_turn_of_the_screw_brat.conll": {
+      "n_mentions": 269,
+      "n_sentences": 121,
+      "n_targets": 100
+    },
+    "2489_moby_dick_brat.conll": {
+      "n_mentions": 300,
+      "n_sentences": 94,
+      "n_targets": 21
+    },
+    "2814_dubliners_brat.conll": {
+      "n_mentions": 333,
+      "n_sentences": 96,
+      "n_targets": 83
+    },
+    "2852_the_hound_of_the_baskervilles_brat.conll": {
+      "n_mentions": 290,
+      "n_sentences": 111,
+      "n_targets": 59
+    },
+    "345_dracula_brat.conll": {
+      "n_mentions": 340,
+      "n_sentences": 94,
+      "n_targets": 43
+    },
+    "36_the_war_of_the_worlds_brat.conll": {
+      "n_mentions": 218,
+      "n_sentences": 70,
+      "n_targets": 12
+    },
+    "514_little_women_brat.conll": {
+      "n_mentions": 288,
+      "n_sentences": 85,
+      "n_targets": 41
+    },
+    "521_the_life_and_adventures_of_robinson_crusoe_brat.conll": {
+      "n_mentions": 352,
+      "n_sentences": 28,
+      "n_targets": 61
+    },
+    "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll": {
+      "n_mentions": 320,
+      "n_sentences": 128,
+      "n_targets": 80
+    },
+    "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll": {
+      "n_mentions": 353,
+      "n_sentences": 59,
+      "n_targets": 137
+    },
+    "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll": {
+      "n_mentions": 271,
+      "n_sentences": 117,
+      "n_targets": 108
+    },
+    "76_adventures_of_huckleberry_finn_brat.conll": {
+      "n_mentions": 294,
+      "n_sentences": 99,
+      "n_targets": 59
+    },
+    "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll": {
+      "n_mentions": 501,
+      "n_sentences": 81,
+      "n_targets": 36
+    },
+    "84_frankenstein_or_the_modern_prometheus_brat.conll": {
+      "n_mentions": 381,
+      "n_sentences": 79,
+      "n_targets": 53
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 25,
+  "cardinality_ok": true
+}

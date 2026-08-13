@@ -1,0 +1,32 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_tag": "SELFTEST_PASS",
+  "verdict_msg": "self-test PASS: real load/train/eval + gen_multi_entity_state + SlotAttentionWM + random-init cached-feature control exercised at N~4-16; trained(A) loss=0.7717 acc=0.5000; control acc=0.6250; steps-band OK (e64=35 e512=4)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 16.29709369991906,
+  "ts_iso": "2026-07-29T17:34:28.175886+00:00",
+  "pid": 20688,
+  "anchor_name": "diag_stateful_core_gen_curve_v1",
+  "run_mode": "selftest",
+  "exercised_entrypoints": [
+    "SlotAttentionWM_step",
+    "build_random_init_encoder",
+    "extract_feats_frozen",
+    "fit_random_init_control",
+    "gen_multi_entity_state",
+    "train_and_eval_arm"
+  ],
+  "trained_arm": {
+    "train_loss": 0.7716643810272217,
+    "eval_acc": 0.5
+  },
+  "random_init_control": {
+    "eval_acc": 0.625
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}

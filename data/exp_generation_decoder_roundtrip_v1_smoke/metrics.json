@@ -1,0 +1,141 @@
+{
+  "anchor_name": "generation_decoder_roundtrip_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "generation round-trip WORKS on real correlated fillers: exact-ordered=1.000 (>= 0.7) AND per_term=1.000 (>= ceiling 1.0-0.1). NOTE full-resonator(positions-unknown) collapses on correlated fillers (real perterm=0.000 vs synth 1.000) -> known-position decode is the right architecture; positions-unknown factorization is v2 (sparse-block resonator). roles-known: synth_ceiling_perterm=1.000; real exact=1.000 perterm=1.000; real single-shot exact=1.000; noorder exact=0.000 (must collapse) | full-resonator perterm synth=1.000 real=0.000",
+  "summary": "HARD_PASS: substrate-native generation decoder round-trip (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 4.1,
+  "n_seeds": 1,
+  "config": {
+    "N": 8192,
+    "V": 256,
+    "D": 3,
+    "F": 2,
+    "trials": 5,
+    "seeds": [
+      7
+    ],
+    "RESTARTS": 16,
+    "RESTARTS_LO": 1,
+    "MAX_ITER": 40,
+    "n_iters": 5,
+    "algebra": "bipolar_BSC_elementwise_product",
+    "position_binding": "protected_index_roll_E3",
+    "real_lexicon": "BGE_concept_randproj_sign_bipolar"
+  },
+  "arms": {
+    "synth_rolesknown": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0
+      ]
+    },
+    "real_rolesknown_hi": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0
+      ]
+    },
+    "real_rolesknown_lo": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0
+      ]
+    },
+    "noorder_ctrl": {
+      "per_term_mean": 0.1333,
+      "per_term_per_seed": [
+        0.1333
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0
+      ],
+      "per_token_mean": 0.3333,
+      "per_token_per_seed": [
+        0.3333
+      ]
+    },
+    "synth_fullreso_hi": {
+      "per_term_mean": 1.0,
+      "per_term_per_seed": [
+        1.0
+      ],
+      "exact_ordered_mean": 1.0,
+      "exact_ordered_per_seed": [
+        1.0
+      ],
+      "per_token_mean": 1.0,
+      "per_token_per_seed": [
+        1.0
+      ]
+    },
+    "real_fullreso_hi": {
+      "per_term_mean": 0.0,
+      "per_term_per_seed": [
+        0.0
+      ],
+      "exact_ordered_mean": 0.0,
+      "exact_ordered_per_seed": [
+        0.0
+      ],
+      "per_token_mean": 0.0,
+      "per_token_per_seed": [
+        0.0
+      ]
+    }
+  },
+  "controls": {
+    "noorder_collapsed": true,
+    "envelope_ceiling_GEN_svo_1k": 1.0
+  },
+  "correlation_cone": {
+    "7": {
+      "real_mean_pair_cos": 0.3454,
+      "synth_mean_pair_cos": 0.0
+    }
+  },
+  "arms_differ_verified": true,
+  "recovered_digests": {
+    "7": {
+      "synth_rolesknown": "20d1e4323f98e2a21d1baffdea3b0628535e319baf840fdc85129574728cef9b",
+      "real_rolesknown_hi": "20d1e4323f98e2a21d1baffdea3b0628535e319baf840fdc85129574728cef9b",
+      "real_rolesknown_lo": "20d1e4323f98e2a21d1baffdea3b0628535e319baf840fdc85129574728cef9b",
+      "noorder_ctrl": "6f13c58edd089a43e1e6b6d58e15c06cce8f5e6631b5f209bf87a569f9e616d3",
+      "synth_fullreso_hi": "f36f4fe23e80602567ff3d42f2f11c3c6f8a0564dc1f58b12da13b49e08e8e21",
+      "real_fullreso_hi": "d1f65b432eeeac6edf3eee233ea55022dcfaf8e158ce4de7c56af37ea0f1240f"
+    }
+  },
+  "bands": {
+    "HP_exact_ordered": 0.7,
+    "HP_perterm_within": 0.1,
+    "HF_exact_ordered": 0.3
+  },
+  "ts_iso": "2026-07-05T07:14:56.939721+00:00",
+  "pid": 26520,
+  "host": "FrameworkMPC"
+}

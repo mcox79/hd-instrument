@@ -1,0 +1,158 @@
+{
+  "anchor_name": "agreement_glassbox_abl_adios_structure_induction_b2_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_GLASSBOX_INDUCTION_CORROBORATES_CLOSURE",
+  "verdict_msg": "HARD_FAIL_GLASSBOX_INDUCTION_CORROBORATES_CLOSURE | INDUCER(POS best-regime): SNF=0.5027 all=0.5373 conflict=0.4363 coverage_snf=0.9175 content_delta=-0.008 n_rules=100.0 | INDUCER(WORD fragility-regime): SNF=0.4432 coverage_snf=0.0826 content_delta=0.0086 | BAR-TO-BEAT SNF: majority=0.5232 linear_learned=0.6277 first_noun=0.4292 nearest=0.5709 bag=0.4974 | atom29443 refs: HRR-linear-SNF=0.58 majority-SNF=0.627 | POS_SNF-vs-bar delta=-0.125 (HP floor 0.68, margin 0.05) | non_gradient=True arms_differ=True baseline_in_band=True | CORROBORATES-BUT-DOES-NOT-PROVE the structural closure: this strong glass-box candidate (ADIOS/ABL discrete pattern distillation) did NOT induce usable head structure beyond linear position on real Linzen text (SNF acc 0.5027 vs bar 0.6277, delta=-0.125; coverage_snf(POS)=0.9175; content-dependence(POS)=-0.008). ABL/ADIOS is ONE candidate and fragile at natural-text scale, so this CANNOT conclude NO glass-box mechanism works -- only that this candidate did not, which matches the literature's pre-registered fragility prediction.",
+  "summary": "HARD_FAIL_GLASSBOX_INDUCTION_CORROBORATES_CLOSURE | INDUCER(POS best-regime): SNF=0.5027 all=0.5373 conflict=0.4363 coverage_snf=0.9175 content_delta=-0.008 n_rules=100.0 | INDUCER(WORD fragility-regime): SNF=0.4432 coverage_snf=0.0826 content_delta=0.0086 | BAR-TO-BEAT SNF: majority=0.5232 linear_learned=0.6277 first_noun=0.4292 nearest=0.5709 bag=0.4974 | atom29443 refs: HRR-linear-SNF=0.58 majority-SNF=0.627 | POS_SNF-vs-bar delta=-0.125 (HP floor 0.68, margin 0.05) | non_gradient=True arms_differ=True baseline_in_band=True | CORROBORATES-BUT-DOES-NOT-PROVE the structural closure: this strong glass-box candidate (ADIOS/ABL discrete pattern distillation) did NOT induce usable head structure beyond linear position on real Linzen text (SNF acc 0.5027 vs bar 0.6277, delta=-0.125; coverage_snf(POS)=0.9175; content-dependence(POS)=-0.008). ABL/ADIOS is ONE candidate and fragile at natural-text scale, so this CANNOT conclude NO glass-box mechanism works -- only that this candidate did not, which matches the literature's pre-registered fragility prediction.",
+  "elapsed_s": 15.78,
+  "ts_iso": "2026-07-22T16:51:39.355070+00:00",
+  "seeds": [
+    7,
+    13
+  ],
+  "n_seed_rows": 2,
+  "expected_n_seed_rows": 2,
+  "cardinality_ok": true,
+  "train_cap": 1500,
+  "test_cap": 1500,
+  "bands": {
+    "HP_SNF_FLOOR": 0.68,
+    "HP_MARGIN_OVER_BASE": 0.05,
+    "HP_CONTENT_DELTA": 0.05,
+    "HP_COVERAGE": 0.6,
+    "HF_TIE_EPS": 0.02,
+    "HF_COVERAGE": 0.4,
+    "HF_CONTENT_DELTA": 0.02,
+    "LINEAR_REF_SNF": 0.58,
+    "MAJORITY_REF_SNF": 0.627
+  },
+  "summary_metrics": {
+    "inducer_pos_snf": 0.5027,
+    "inducer_pos_all": 0.5373,
+    "inducer_pos_conflict": 0.4363,
+    "inducer_pos_coverage_snf": 0.9175,
+    "inducer_pos_content_delta": -0.008,
+    "inducer_pos_n_rules": 100.0,
+    "inducer_word_snf": 0.4432,
+    "inducer_word_coverage_snf": 0.0826,
+    "inducer_word_content_delta": 0.0086,
+    "bar_to_beat_snf": 0.6277,
+    "snf_vs_bar_delta": -0.125,
+    "baseline_majority_snf": 0.5232,
+    "baseline_linear_learned_snf": 0.6277,
+    "baseline_first_noun_snf": 0.4292,
+    "baseline_nearest_snf": 0.5709,
+    "baseline_bag_snf": 0.4974,
+    "atom29443_hrr_linear_snf_ref": 0.58,
+    "atom29443_majority_snf_ref": 0.627,
+    "non_gradient_confirmed": true,
+    "arms_differ_all": true,
+    "baseline_in_band": true,
+    "hard_pass": false,
+    "hard_fail": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train": 1500,
+      "n_test": 1500,
+      "n_snf": 628,
+      "baselines_snf": {
+        "first_noun": 0.4395,
+        "majority": 0.4045,
+        "nearest": 0.5637,
+        "bagcount": 0.5016,
+        "linear_learned": 0.6226
+      },
+      "baselines_all": {
+        "first_noun": 0.7653,
+        "majority": 0.434,
+        "nearest": 0.4167,
+        "linear_learned": 0.8147
+      },
+      "inducer_pos_arm": {
+        "n_rules": 98,
+        "alpha_size": 41,
+        "all_acc": 0.502,
+        "snf_acc": 0.4697,
+        "n_snf": 628,
+        "conflict_acc": 0.3931,
+        "n_conflict": 875,
+        "coverage": 0.8293,
+        "coverage_snf": 0.9108,
+        "snf_shuffled_depth_acc": 0.5191,
+        "content_dependence_delta": -0.0494
+      },
+      "inducer_word_arm": {
+        "n_rules": 26,
+        "alpha_size": 3658,
+        "all_acc": 0.7673,
+        "snf_acc": 0.457,
+        "n_snf": 628,
+        "conflict_acc": 0.808,
+        "n_conflict": 875,
+        "coverage": 0.0613,
+        "coverage_snf": 0.0939,
+        "snf_shuffled_depth_acc": 0.4459,
+        "content_dependence_delta": 0.0111
+      },
+      "arms_differ": true,
+      "uses_gradient_in_inducer": false
+    },
+    {
+      "seed": 13,
+      "n_train": 1500,
+      "n_test": 1500,
+      "n_snf": 659,
+      "baselines_snf": {
+        "first_noun": 0.4188,
+        "majority": 0.6419,
+        "nearest": 0.5781,
+        "bagcount": 0.4932,
+        "linear_learned": 0.6328
+      },
+      "baselines_all": {
+        "first_noun": 0.7447,
+        "majority": 0.59,
+        "nearest": 0.4327,
+        "linear_learned": 0.8073
+      },
+      "inducer_pos_arm": {
+        "n_rules": 102,
+        "alpha_size": 41,
+        "all_acc": 0.5727,
+        "snf_acc": 0.5357,
+        "n_snf": 659,
+        "conflict_acc": 0.4794,
+        "n_conflict": 851,
+        "coverage": 0.864,
+        "coverage_snf": 0.9241,
+        "snf_shuffled_depth_acc": 0.5023,
+        "content_dependence_delta": 0.0334
+      },
+      "inducer_word_arm": {
+        "n_rules": 32,
+        "alpha_size": 3627,
+        "all_acc": 0.7427,
+        "snf_acc": 0.4294,
+        "n_snf": 659,
+        "conflict_acc": 0.7885,
+        "n_conflict": 851,
+        "coverage": 0.056,
+        "coverage_snf": 0.0713,
+        "snf_shuffled_depth_acc": 0.4234,
+        "content_dependence_delta": 0.0061
+      },
+      "arms_differ": true,
+      "uses_gradient_in_inducer": false
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "sequential_cpu_discrete_pattern_induction_no_matmul_primitive_no_gradient_in_inducer_wall_minutes_local_foreground_only_reads_local_only_raw_corpus",
+  "crlb_n/a": "real-text agreement head discrimination via discrete significance-gated pattern distillation; no argmax-capacity CRLB applies -- the floor is the linear positional baseline (majority/first-noun/linear-learned) on the SNF subset",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "glassbox_non_gradient_inducer": true,
+  "no_store_write_no_push_no_atom_bank": true,
+  "honest_scope": "b2 falsification: a HARD_FAIL CORROBORATES-BUT-DOES-NOT-PROVE the structural closure (ADIOS/ABL is ONE fragile candidate; cannot conclude NO glass-box mechanism works). A HARD_PASS REFUTES the closure (a glass-box non-gradient inducer beat the linear positional baseline on real text). Same Linzen data + novel-lexeme SNF split as atom 29443 (Gate D split-identity verified via deterministic first-noun/majority SNF baselines)."
+}

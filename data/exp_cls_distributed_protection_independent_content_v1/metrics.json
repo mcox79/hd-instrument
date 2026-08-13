@@ -1,0 +1,503 @@
+{
+  "anchor_name": "cls_distributed_protection_independent_content_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL: subsample beats the confounds/floor at the structured end but below the >=0.15-margin / >=0.40-abs bar on >=2 seeds -- partial distributed consolidation. HELD-OUT independent-content retrieval (chance=0.0069) curve [no_replay/subsample/replay_all/1-NN/fresh-net]: SF=0.75[no=0.096 sub=0.247 all=1.000 1nn=0.000 fresh=0.000 hp=0/3 diff=Y] SF=0.55[no=0.259 sub=0.343 all=1.000 1nn=0.000 fresh=0.000 hp=0/3 diff=Y] SF=0.35[no=0.407 sub=0.392 all=1.000 1nn=0.000 fresh=0.000 hp=0/3 diff=N] | n_never_replayed=108 n_replayed=36 arms_differ=True units=9/9",
+  "run_mode": "full",
+  "n_units": 9,
+  "expected_n_units": 9,
+  "arms_differ": true,
+  "n_never_replayed": 108,
+  "n_replayed_subsample": 36,
+  "chance": 0.00694,
+  "points": [
+    {
+      "shared_frac": 0.75,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.096,
+          "heldout_initial": 1.0,
+          "replayed": 0.13
+        },
+        "subsample_replay": {
+          "heldout": 0.247,
+          "heldout_initial": 1.0,
+          "replayed": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "heldout_initial": 1.0,
+          "replayed": 1.0
+        },
+        "one_nn_proximity": {
+          "heldout": 0.0
+        },
+        "fresh_net_subsample": {
+          "heldout": 0.0
+        }
+      },
+      "hp_seeds": 0,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "shared_frac": 0.55,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.259,
+          "heldout_initial": 1.0,
+          "replayed": 0.241
+        },
+        "subsample_replay": {
+          "heldout": 0.343,
+          "heldout_initial": 1.0,
+          "replayed": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "heldout_initial": 1.0,
+          "replayed": 1.0
+        },
+        "one_nn_proximity": {
+          "heldout": 0.0
+        },
+        "fresh_net_subsample": {
+          "heldout": 0.0
+        }
+      },
+      "hp_seeds": 0,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "shared_frac": 0.35,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.407,
+          "heldout_initial": 1.0,
+          "replayed": 0.454
+        },
+        "subsample_replay": {
+          "heldout": 0.392,
+          "heldout_initial": 1.0,
+          "replayed": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "heldout_initial": 1.0,
+          "replayed": 1.0
+        },
+        "one_nn_proximity": {
+          "heldout": 0.0
+        },
+        "fresh_net_subsample": {
+          "heldout": 0.0
+        }
+      },
+      "hp_seeds": 0,
+      "n_seeds": 3,
+      "difficulty_ok": false,
+      "difficulty_msg": "FAILS:no_replay_forgets_heldout"
+    }
+  ],
+  "per_unit": [
+    {
+      "shared_frac": 0.75,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.083,
+        "heldout_initial": 1.0,
+        "replayed": 0.056
+      },
+      "subsample_replay": {
+        "heldout": 0.231,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "45a24fab0b01eda792185c2c98957611e3afcd099779aa911b54ae5816733b3c",
+        "subsample_replay": "26d0fd93158004f8fac0df71b7c3e6cc7760d77e67172177afc2c9bd811fff8c",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "676ccd5255d57be94ea773c1675e28b58cad945588762f3fd9c3cad667a8dd9d",
+        "fresh_net_subsample": "dad5d9a658cbc7591f790e80fc40a7e1ea54fa4172a64b7688cd8e726c9591c9"
+      }
+    },
+    {
+      "shared_frac": 0.75,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.074,
+        "heldout_initial": 1.0,
+        "replayed": 0.139
+      },
+      "subsample_replay": {
+        "heldout": 0.241,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "a431c24ef61b9be1d62157774c84e7145dd63dbcf75ca8239c4107bcc6f217ea",
+        "subsample_replay": "c8e0483c447fcef671bb8a667a9c84a37518e38c32bc93ec6f03bae85ab1c118",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "b9ddf4526a370753531cb23742e7ad365ca9253bf8e638d107f1f43b3fc4171e",
+        "fresh_net_subsample": "032400df93cb3225cc735559089b34052be087069a6136067cc7d6d8586c2829"
+      }
+    },
+    {
+      "shared_frac": 0.75,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.13,
+        "heldout_initial": 1.0,
+        "replayed": 0.194
+      },
+      "subsample_replay": {
+        "heldout": 0.269,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "d78a06f01d76e01a5c4517e325363c89bab5b7d535c7a66fa3928b6e1b50d03c",
+        "subsample_replay": "ef6c8d7934f121b2b6560fcc63be2066ce7b42630f012d25180adae0ae118f11",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "bc95dcf8ea6729d3ca4da2cc53fef37e02ab6cfb77d168166d84e2a8fa2d8b1d",
+        "fresh_net_subsample": "0fac6a81038a1ac985b469e3db09505e478f082a14e2140f3b392dcdf1a925fe"
+      }
+    },
+    {
+      "shared_frac": 0.55,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.185,
+        "heldout_initial": 1.0,
+        "replayed": 0.25
+      },
+      "subsample_replay": {
+        "heldout": 0.306,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "a231dcfdecfc4d8802bd28c27d25d97e0a7e088197888db818e102964c594644",
+        "subsample_replay": "77382a5624b398537d85ed82eae271d3756484005b99968853c79a7860a9b790",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "73ef726f8187d7299a19d323b95c8bcccd85dd63b3cadb809434667ca3951977",
+        "fresh_net_subsample": "5e546ab50c050bf143921d0b74a8e3db8f896bf09afd5d90edcd1b3a38f43d99"
+      }
+    },
+    {
+      "shared_frac": 0.55,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.278,
+        "heldout_initial": 1.0,
+        "replayed": 0.222
+      },
+      "subsample_replay": {
+        "heldout": 0.333,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "1d2e3fb4417ee5561ad5957b4baaba60a652200c570e6239c4291c4205b746ab",
+        "subsample_replay": "79e3593611a4b8c908eb370c974393d5d781d34cc7ffea9be72081e4dcb62e96",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "50c676c55a8bb8d602089f0c5f4e98db088ede740a2d445ae7b9224720f5f7c3",
+        "fresh_net_subsample": "db0452bad271e83d88ae0a20f21b2f357811b745d38fbc63b5eb0090eadc2c5d"
+      }
+    },
+    {
+      "shared_frac": 0.55,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.315,
+        "heldout_initial": 1.0,
+        "replayed": 0.25
+      },
+      "subsample_replay": {
+        "heldout": 0.389,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "84775820560a2186401ba70be7f817d128393dc6add0133d8f08287d9bb49833",
+        "subsample_replay": "6e891da8ad2e416a36071a8c68ddf99090b1a28ad8d62396dbd86e5178f23d56",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "0027441a7235757d1e5d756b719cc629e591ad9c34136f674d9db70dc5a052d5",
+        "fresh_net_subsample": "4cee4e5f8d76da017ae17e3677ed6b67be9ad84a83c582062b30767df4127417"
+      }
+    },
+    {
+      "shared_frac": 0.35,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.389,
+        "heldout_initial": 1.0,
+        "replayed": 0.417
+      },
+      "subsample_replay": {
+        "heldout": 0.278,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "7d7db88f084af153bc29391cbaebf7fe5a037c4db8c1ca92511e30bb2c53960c",
+        "subsample_replay": "ca965cbe99db28336606a9bf3560b52f6582709e8a5d4b8a8af8a9965137952a",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "749ef37d83cf864b324eaa4d4655eb967e768ede69046822560e9fcc52c3abcc",
+        "fresh_net_subsample": "814fd7256c8f9a4a65ae98cf47baf66188588236d60a80a7f276bca2322bb9e6"
+      }
+    },
+    {
+      "shared_frac": 0.35,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.426,
+        "heldout_initial": 1.0,
+        "replayed": 0.5
+      },
+      "subsample_replay": {
+        "heldout": 0.417,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "648e6f4cd10ac2d7695ad86b5a6940d658f0cc68b0811c0a2115fcdef8b620de",
+        "subsample_replay": "1f59bf54d86586686050bc2a6aa23a0ea7a5a7461dfc8b1109ae3b538b366f9b",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "7fdf21d43dfe80fdb9d9ec63296c67375e6190a3da0062b47de3186c6cbe1c47",
+        "fresh_net_subsample": "c521d2d2931f718336aa9244b98fd7e4d63fe2bdac271a9ea1a7ed5c47a8e337"
+      }
+    },
+    {
+      "shared_frac": 0.35,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.407,
+        "heldout_initial": 1.0,
+        "replayed": 0.444
+      },
+      "subsample_replay": {
+        "heldout": 0.481,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "heldout_initial": 1.0,
+        "replayed": 1.0
+      },
+      "one_nn_proximity": {
+        "heldout": 0.0
+      },
+      "fresh_net_subsample": {
+        "heldout": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "733fb142d92a467b07b77478ce6f090bc184b68ac1bdbd75759ce82da2c4581b",
+        "subsample_replay": "9178c18a806e1fb2b73a15a684281b4b5554fd9b49ce7fae587bbc7bca724e55",
+        "replay_all": "db6ea02c8617b43be396790a6c9e1651b480a6e0bb13956231e4cc0c14c33646",
+        "one_nn_proximity": "910368e6f3d9998146b07f558a67a1b9e8afb3673302c7b45d4f08bcd7819874",
+        "fresh_net_subsample": "be44cda4d81825b50454345a790ffc0bae080ab998260b2b41b94eef9309a641"
+      }
+    }
+  ],
+  "config": {
+    "N": 256,
+    "D_T": 64,
+    "H": 160,
+    "OLD_CLASSES": 12,
+    "OLD_EXEMPLARS": 12,
+    "ELIG_PER_CLASS": 3,
+    "K_INTERFERE": 8,
+    "NEW_CPB": 3,
+    "NEW_EXEMPLARS": 12,
+    "E_OLD": 400,
+    "E_NEW": 200,
+    "LR": 0.04,
+    "SHARED_FRAC_GRID": [
+      0.75,
+      0.55,
+      0.35
+    ],
+    "STRUCTURED_FRAC": 0.75,
+    "seeds": [
+      7,
+      17,
+      23
+    ]
+  },
+  "elapsed_s": 100.22303438186646,
+  "summary": "MIDDLE_BAND_PARTIAL: subsample beats the confounds/floor at the structured end but below the >=0.15-margin / >=0.40-abs bar on >=2 seeds -- partial distributed consolidation. HELD-OUT independent-content retrieval (chance=0.0069) curve [no_replay/subsample/replay_all/1-NN/fresh-net]: SF=0.75[no=0.096 sub=0.247 all=1.000 1nn=0.000 fresh=0.000 hp=0/3 diff=Y] SF=0.55[no=0.259 sub=0.343 all=1.000 1nn=0.000 fresh=0.000 hp=0/3 diff=Y] SF=0.35[no=0.407 sub=0.392 all=1.000 1nn=0.000 fresh=0.000 hp=0/3 diff=N] | n_never_replayed=108 n_replayed=36 arms_differ=True units=9/9",
+  "structured_gate_claims": [
+    {
+      "gate_name": "struct_subsample_heldout",
+      "measured": 0.247,
+      "threshold": 0.4,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "distributed consolidation of independent held-out content (LOAD-BEARING)"
+    },
+    {
+      "gate_name": "struct_subsample_over_confounds",
+      "measured": 0.247,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "subsample beats max(1-NN, fresh-net) -- consolidation not generalization (LOAD-BEARING)"
+    },
+    {
+      "gate_name": "struct_subsample_over_floor",
+      "measured": 0.151,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "subsample beats the no_replay floor (structured end)"
+    },
+    {
+      "gate_name": "struct_diff_no_replay",
+      "measured": 0.096,
+      "threshold": 0.3,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "catastrophic forgetting of held-out content is real (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_diff_ceiling",
+      "measured": 1.0,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "independent content IS protectable if rehearsed (ceiling)"
+    },
+    {
+      "gate_name": "struct_diff_initial",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "net learned independent held-out targets initially (forgetting not inability)"
+    },
+    {
+      "gate_name": "struct_diff_one_nn_fails",
+      "measured": 0.25,
+      "threshold": 0.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "1-NN proximity FAILS on held-out -> content is independent (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_diff_fresh_net_fails",
+      "measured": 0.25,
+      "threshold": 0.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "fresh-net-on-subsample FAILS on held-out -> content is independent (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_hp_seeds",
+      "measured": 0,
+      "threshold": 2,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "seeds where subsample beats both confounds+floor above bar (structured end)"
+    },
+    {
+      "gate_name": "cardinality",
+      "measured": 9,
+      "threshold": 9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "all sweep x seed units completed (META_RULE_H)"
+    }
+  ]
+}

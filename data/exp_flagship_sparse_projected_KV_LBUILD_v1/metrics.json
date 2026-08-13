@@ -1,0 +1,328 @@
+{
+  "anchor_name": "flagship_sparse_projected_KV_LBUILD_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: seed-unstable (cv>0.05). f=0.020 | capacity_M(rec>=0.80): A=0 B=0 arm3_dense=0 arm2_raw=0 arm4_analytic=0 | best_arm1=arm1_A_naive(cap=0, maxrec=0.536) | C2: float32_dense=0.8281 bf16_dense=0.961 (bf16_depresses=False) | worst_cv=0.707",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-2.8b",
+  "N": 8192,
+  "M_SCAN": [
+    1000,
+    10000,
+    100000
+  ],
+  "f": 0.02,
+  "n_seeds": 3,
+  "detail": {
+    "f": 0.02,
+    "cap_thresh": 0.8,
+    "recall_by_arm": {
+      "arm1_A_naive": {
+        "M1000": 0.536,
+        "M10000": 0.333,
+        "M100000": 0.1425
+      },
+      "arm1_B_shrinkage": {
+        "M1000": 0.411,
+        "M10000": 0.315,
+        "M100000": 0.174
+      },
+      "arm2_noproj_sparse_raw": {
+        "M1000": 0.007,
+        "M10000": 0.001,
+        "M100000": 0.0
+      },
+      "arm3_nosparse_dense_proj": {
+        "M1000": 0.589,
+        "M10000": 0.408,
+        "M100000": 0.195
+      },
+      "arm4_noLearned_analytic": {
+        "M1000": 0.02,
+        "M10000": 0.0035,
+        "M100000": 0.0005
+      }
+    },
+    "capacity_M": {
+      "arm1_A_naive": 0,
+      "arm1_B_shrinkage": 0,
+      "arm2_noproj_sparse_raw": 0,
+      "arm3_nosparse_dense_proj": 0,
+      "arm4_noLearned_analytic": 0
+    },
+    "best_arm1": "arm1_A_naive",
+    "best_arm1_capacity": 0,
+    "arm3_dense_capacity": 0,
+    "best_arm1_max_recall": 0.536,
+    "worst_cv": 0.7071,
+    "C2_float32_dense": 0.8281,
+    "C2_bf16_dense_same_subset": 0.9609,
+    "C2_bf16_depresses_recall": false,
+    "CONFIG_VERSION": "imports-probe-funcs(bf16+shrinkage) + C1:A+B-capacity-scan + C2:float32-cpu-check + C3:recall>=0.80-genuine + rho-apples; f=0.020",
+    "cites": [
+      "flagship_PROBE_whiten_before_topk_v1",
+      "CERT591_kv_learned_projection_v1",
+      "a3f473dd_sparse_super_capacity"
+    ]
+  },
+  "conditions": "C1-AB-capacity / C2-float32-check / C3-recall>=0.80-genuine / C4-4layer",
+  "metrics_source": "measured_flagship_lbuild_AB_capacity_scan",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "arm1_A_naive": {
+          "M1000": {
+            "recall": 0.525,
+            "rho": 0.0845
+          },
+          "M10000": {
+            "recall": 0.315,
+            "rho": 0.0802
+          },
+          "M100000": {
+            "recall": 0.13,
+            "rho": 0.1014
+          }
+        },
+        "arm1_B_shrinkage": {
+          "M1000": {
+            "recall": 0.411,
+            "rho": 0.0351
+          },
+          "M10000": {
+            "recall": 0.315,
+            "rho": 0.0364
+          },
+          "M100000": {
+            "recall": 0.174,
+            "rho": 0.0382
+          }
+        },
+        "arm2_noproj_sparse_raw": {
+          "M1000": {
+            "recall": 0.007,
+            "rho": 0.6974
+          },
+          "M10000": {
+            "recall": 0.001,
+            "rho": 0.6995
+          },
+          "M100000": {
+            "recall": 0.0,
+            "rho": 0.6983
+          }
+        },
+        "arm3_nosparse_dense_proj": {
+          "M1000": {
+            "recall": 0.571,
+            "rho": 0.2003
+          },
+          "M10000": {
+            "recall": 0.3905,
+            "rho": 0.1918
+          },
+          "M100000": {
+            "recall": 0.1845,
+            "rho": 0.2237
+          }
+        },
+        "arm4_noLearned_analytic": {
+          "M1000": {
+            "recall": 0.02,
+            "rho": 0.4801
+          },
+          "M10000": {
+            "recall": 0.0035,
+            "rho": 0.4812
+          },
+          "M100000": {
+            "recall": 0.0,
+            "rho": 0.4843
+          }
+        }
+      },
+      "dense_bf16_by_M": {
+        "M1000": 0.571,
+        "M10000": 0.3905,
+        "M100000": 0.1845
+      },
+      "f32_dense_check": 0.8281,
+      "bf16_dense_check": 0.9531,
+      "f": 0.02,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782035829.2626803
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "arm1_A_naive": {
+          "M1000": {
+            "recall": 0.558,
+            "rho": 0.0824
+          },
+          "M10000": {
+            "recall": 0.3535,
+            "rho": 0.0784
+          },
+          "M100000": {
+            "recall": 0.1425,
+            "rho": 0.0967
+          }
+        },
+        "arm1_B_shrinkage": {
+          "M1000": {
+            "recall": 0.435,
+            "rho": 0.0351
+          },
+          "M10000": {
+            "recall": 0.337,
+            "rho": 0.036
+          },
+          "M100000": {
+            "recall": 0.19,
+            "rho": 0.038
+          }
+        },
+        "arm2_noproj_sparse_raw": {
+          "M1000": {
+            "recall": 0.007,
+            "rho": 0.6981
+          },
+          "M10000": {
+            "recall": 0.0,
+            "rho": 0.698
+          },
+          "M100000": {
+            "recall": 0.0,
+            "rho": 0.697
+          }
+        },
+        "arm3_nosparse_dense_proj": {
+          "M1000": {
+            "recall": 0.592,
+            "rho": 0.2162
+          },
+          "M10000": {
+            "recall": 0.4085,
+            "rho": 0.1972
+          },
+          "M100000": {
+            "recall": 0.199,
+            "rho": 0.2346
+          }
+        },
+        "arm4_noLearned_analytic": {
+          "M1000": {
+            "recall": 0.019,
+            "rho": 0.4712
+          },
+          "M10000": {
+            "recall": 0.004,
+            "rho": 0.4733
+          },
+          "M100000": {
+            "recall": 0.0005,
+            "rho": 0.4744
+          }
+        }
+      },
+      "dense_bf16_by_M": {
+        "M1000": 0.592,
+        "M10000": 0.4085,
+        "M100000": 0.199
+      },
+      "f32_dense_check": null,
+      "bf16_dense_check": 0.9609,
+      "f": 0.02,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782036329.3595126
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "arm1_A_naive": {
+          "M1000": {
+            "recall": 0.536,
+            "rho": 0.087
+          },
+          "M10000": {
+            "recall": 0.333,
+            "rho": 0.0802
+          },
+          "M100000": {
+            "recall": 0.1445,
+            "rho": 0.0999
+          }
+        },
+        "arm1_B_shrinkage": {
+          "M1000": {
+            "recall": 0.385,
+            "rho": 0.0356
+          },
+          "M10000": {
+            "recall": 0.305,
+            "rho": 0.0363
+          },
+          "M100000": {
+            "recall": 0.174,
+            "rho": 0.0377
+          }
+        },
+        "arm2_noproj_sparse_raw": {
+          "M1000": {
+            "recall": 0.007,
+            "rho": 0.6974
+          },
+          "M10000": {
+            "recall": 0.001,
+            "rho": 0.6994
+          },
+          "M100000": {
+            "recall": 0.0,
+            "rho": 0.7007
+          }
+        },
+        "arm3_nosparse_dense_proj": {
+          "M1000": {
+            "recall": 0.589,
+            "rho": 0.2146
+          },
+          "M10000": {
+            "recall": 0.408,
+            "rho": 0.1938
+          },
+          "M100000": {
+            "recall": 0.195,
+            "rho": 0.216
+          }
+        },
+        "arm4_noLearned_analytic": {
+          "M1000": {
+            "recall": 0.021,
+            "rho": 0.4823
+          },
+          "M10000": {
+            "recall": 0.001,
+            "rho": 0.485
+          },
+          "M100000": {
+            "recall": 0.0005,
+            "rho": 0.4859
+          }
+        }
+      },
+      "dense_bf16_by_M": {
+        "M1000": 0.589,
+        "M10000": 0.408,
+        "M100000": 0.195
+      },
+      "f32_dense_check": null,
+      "bf16_dense_check": 0.9688,
+      "f": 0.02,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782036814.531375
+    }
+  ],
+  "elapsed_s": 2038.571401834488,
+  "summary": "MIDDLE_BAND: seed-unstable (cv>0.05). f=0.020 | capacity_M(rec>=0.80): A=0 B=0 arm3_dense=0 arm2_raw=0 arm4_analytic=0 | best_arm1=arm1_A_naive(cap=0, maxrec=0.536) | C2: float32_dense=0.8281 bf16_dense=0.961 (bf16_depresses=False) | worst_cv=0.707"
+}

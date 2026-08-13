@@ -1,0 +1,41 @@
+{
+  "verdict": "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H",
+  "run_mode": "full",
+  "verdict_msg": "expected 3 seeds, got 0 (failures=[{'seed': 7, 'failure_class': 'RuntimeError', 'msg': \"SPLIT_IDENTITY_BREACH seed=7: recomputed POP sig=c9613b929ffd2e40 vs landed=89363e68373bf8ef ; N 25752/25752 n_rel 29/29 n_l2gen 6000/6000 -- the comparator split is NOT the glass-box's.\"}, {'seed': 17, 'failure_class': 'RuntimeError', 'msg': \"SPLIT_IDENTITY_BREACH seed=17: recomputed POP sig=5ad78d22c6a9e3c3 vs landed=696a9f6742a03617 ; N 25752/25752 n_rel 29/29 n_l2gen 6000/6000 -- the comparator split is NOT the glass-box's.\"}, {'seed': 23, 'failure_class': 'RuntimeError', 'msg': \"SPLIT_IDENTITY_BREACH seed=23: recomputed POP sig=ab6011064cd8f14d vs landed=61b10be89d742aa1 ; N 25752/25752 n_rel 29/29 n_l2gen 6000/6000 -- the comparator split is NOT the glass-box's.\"}])",
+  "summary": "cardinality breach",
+  "elapsed_s": 206.51287299999967,
+  "seed_failures": [
+    {
+      "seed": 7,
+      "failure_class": "RuntimeError",
+      "msg": "SPLIT_IDENTITY_BREACH seed=7: recomputed POP sig=c9613b929ffd2e40 vs landed=89363e68373bf8ef ; N 25752/25752 n_rel 29/29 n_l2gen 6000/6000 -- the comparator split is NOT the glass-box's."
+    },
+    {
+      "seed": 17,
+      "failure_class": "RuntimeError",
+      "msg": "SPLIT_IDENTITY_BREACH seed=17: recomputed POP sig=5ad78d22c6a9e3c3 vs landed=696a9f6742a03617 ; N 25752/25752 n_rel 29/29 n_l2gen 6000/6000 -- the comparator split is NOT the glass-box's."
+    },
+    {
+      "seed": 23,
+      "failure_class": "RuntimeError",
+      "msg": "SPLIT_IDENTITY_BREACH seed=23: recomputed POP sig=ab6011064cd8f14d vs landed=61b10be89d742aa1 ; N 25752/25752 n_rel 29/29 n_l2gen 6000/6000 -- the comparator split is NOT the glass-box's."
+    }
+  ],
+  "selftest": {
+    "l2_genuine": 200,
+    "N": 570,
+    "n_rel": 4,
+    "trained_hits": 0.225,
+    "untrained_hits": 0.005,
+    "pop_hits": 0.14,
+    "train_lift": 0.22,
+    "trained_mrr": 0.0416,
+    "loss_first": 6.3487,
+    "loss_last": 0.0,
+    "lift_ok": true,
+    "converged": true,
+    "arms_differ": true,
+    "trained_meets_report": true,
+    "n_distinct_sigs": 2
+  }
+}

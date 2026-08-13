@@ -1,0 +1,154 @@
+{
+  "verdict": "RETRIEVAL_MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: recall lift +0.0998 (best B 0.3796 vs A 0.2798) in [0.05,0.15) OR structure/hub gate unmet (D-A=-0.2791 want<=0.03, C-E=+0.0046 want>0). Spreading helps but not decisively; end-to-end Chal C=0.3203. seed_recall 0.365.",
+  "summary": "RETRIEVAL_MIDDLE_BAND: recall@10 A=0.2798 B=0.3796 C=0.1953 D=0.0007 E=0.1907 | lift=+0.0998 D-A=-0.2791 C-E=+0.0046 | seed_recall=0.365 | e2e Chal C(bundle)=0.3203 chance=0.250",
+  "elapsed_s": 108.5,
+  "ts_iso": "2026-07-24T21:48:54.228206+00:00",
+  "anchor_name": "arc_retrieval_multicue_ppr_discriminative_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260724,
+  "n_questions": 1664,
+  "n_easy": 1177,
+  "n_challenge": 487,
+  "chance_theoretical": 0.2502,
+  "store_facts": 9720,
+  "graph_terms": 5403,
+  "incidence_nnz": 44307,
+  "hops": 2,
+  "damp": 0.5,
+  "seed_cos": 0.6,
+  "top_k": 10,
+  "rerank_m": 40,
+  "ppr_mass_moved": 0.77221,
+  "seed_recall": 0.365,
+  "seed_precision": 0.342,
+  "n_empty_seed_q": 0,
+  "seed_quality_floor": 0.5,
+  "seed_ok": false,
+  "recall_at10": {
+    "A": 0.2798,
+    "B": 0.3796,
+    "C": 0.1953,
+    "D": 0.0007,
+    "E": 0.1907
+  },
+  "recall_at20": {
+    "A": 0.3517,
+    "B": 0.4625,
+    "C": 0.3367,
+    "D": 0.0017,
+    "E": 0.312
+  },
+  "recall_lift_bestmech_minus_A": 0.0998,
+  "recall_best_mech_arm": "B",
+  "recall_D_minus_A": -0.2791,
+  "recall_C_minus_E": 0.0046,
+  "end_to_end": {
+    "A": {
+      "bundle": {
+        "easy": 0.3653,
+        "challenge": 0.3101,
+        "chal_correct": 151,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.5064,
+        "challenge": 0.384,
+        "chal_correct": 187,
+        "chal_n": 487
+      }
+    },
+    "B": {
+      "bundle": {
+        "easy": 0.3755,
+        "challenge": 0.3429,
+        "chal_correct": 167,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.548,
+        "challenge": 0.4148,
+        "chal_correct": 202,
+        "chal_n": 487
+      }
+    },
+    "C": {
+      "bundle": {
+        "easy": 0.3135,
+        "challenge": 0.3203,
+        "chal_correct": 156,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.4647,
+        "challenge": 0.3758,
+        "chal_correct": 183,
+        "chal_n": 487
+      }
+    },
+    "D": {
+      "bundle": {
+        "easy": 0.1937,
+        "challenge": 0.2936,
+        "chal_correct": 143,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.2184,
+        "challenge": 0.2834,
+        "chal_correct": 138,
+        "chal_n": 487
+      }
+    },
+    "E": {
+      "bundle": {
+        "easy": 0.3314,
+        "challenge": 0.2977,
+        "chal_correct": 145,
+        "chal_n": 487
+      },
+      "single": {
+        "easy": 0.4817,
+        "challenge": 0.386,
+        "chal_correct": 188,
+        "chal_n": 487
+      }
+    }
+  },
+  "challenge_C_bundle_ci95": [
+    0.2789,
+    0.3618
+  ],
+  "challenge_C_above_chance": true,
+  "arms_differ_verified": true,
+  "arm_topk_digests": {
+    "A": "fb885eb9b0e484210352d1173608bf3939fe0d41df20e9a681255bb796d3b05c",
+    "B": "35f72f1a56bbe868f1293c041cd51b4fe3dea3ed597f4061e24ae920cf0a10f3",
+    "C": "4657fbfabab3e59975ba83e3b2b8f53bcc37fbb3a365702d64c2b5aa4e7f9589",
+    "D": "624e54dbd55cbcb61a2d18e51a477669048cfc36a09cb62dc508017c08809749",
+    "E": "df90acb9d43becbbe9de26b3d0801368b1c519b26dacc8d4ae95a136e836443b"
+  },
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "structural_collapse_ok": true,
+  "hub_downweight_load_bearing": true,
+  "mechanism_hardpass": false,
+  "bands": {
+    "HP_recall_lift": 0.15,
+    "HP_D_collapse": 0.03,
+    "MB_recall_lift": 0.05,
+    "seed_quality_floor": 0.5,
+    "AG_baseline_sat": 0.95
+  },
+  "grade_proxy": {
+    "easy_band": "emerging (~grade 2-3, above chance)",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "wired_vs_stubbed": "WIRED: REAL WorldTree tablestore (9720 typed facts, 82 relation tables) as a bipartite fact-term graph, SHARDED (each fact = own node + own embedding; NO superposition -- fixes the prior PPR confound). Multi-cue semantic seed-linking (SemanticHDEncoder meaning-match + exact vocab) from stem + ALL choices. Batched scipy.sparse PPR (term->fact->term, idf hub-downweight, 2 fact-hops). Discriminative re-rank (max-2nd-max choice-cos). ALL retrieved pools fed through the UNCHANGED agg.aggregate combiner (imported; retrieval is the ONE variable). Shuffled-graph control (degree-preserving) + hub-dilution ablation. recall@K vs WorldTree gold central facts + end-to-end ARC Easy/Challenge + seed-quality sub-check. STORE COMPOSITION: full tablestore incl. gold (recall@K of gold requires them present; gold facts are general curriculum sentences, NOT answer labels -> closed-book-over-curriculum, not answer-leak). STUBBED/NOTED-NOT-BUILT: khop Merkle audit-chain (glassbox_sample gives the seed->fact trace instead); attractor cleanup (exact-key, orthogonal here); iterative multi-hop re-seeding (depth capped at 2 per WorldTree task-shape).",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large); VET-PENDING",
+  "compute_architecture": "mixed CPU: batched GloVe encode + scipy.sparse batched PPR + per-question discriminative re-rank; wall target < 10min",
+  "storage_strategy": "sharded (each fact = own embedding + own graph node; no superposition)"
+}

@@ -1,0 +1,120 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | regime_never_broken: additive>=0.95 at ALL N_PAIRS in [50, 200, 1000] | curve=[(50, 1.0), (200, 0.995), (1000, 0.974)]",
+  "summary": "HARD_FAIL | regime_never_broken: additive>=0.95 at ALL N_PAIRS in [50, 200, 1000] | curve=[(50, 1.0), (200, 0.995), (1000, 0.974)]",
+  "summary_by_npairs": {
+    "50": {
+      "additive_hebbian": {
+        "mean": 1.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "random_tag_50pct": {
+        "mean": 1.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "context_bank_lookup": {
+        "mean": -0.01,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "diag_interference_fraction": {
+        "mean": 0.0052424367351243464,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      }
+    },
+    "200": {
+      "additive_hebbian": {
+        "mean": 0.995,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "random_tag_50pct": {
+        "mean": 0.995,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "context_bank_lookup": {
+        "mean": -0.0025,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "diag_interference_fraction": {
+        "mean": 0.004816806304944814,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      }
+    },
+    "1000": {
+      "additive_hebbian": {
+        "mean": 0.974,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "random_tag_50pct": {
+        "mean": 0.974,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "context_bank_lookup": {
+        "mean": 0.0005,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      },
+      "diag_interference_fraction": {
+        "mean": 0.005223739871934245,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 1
+      }
+    }
+  },
+  "additive_curve": [
+    [
+      50,
+      1.0
+    ],
+    [
+      200,
+      0.995
+    ],
+    [
+      1000,
+      0.974
+    ]
+  ],
+  "cliff_50_at_n_pairs": null,
+  "cliff_20_at_n_pairs": null,
+  "max_cv_in_band": 0.0,
+  "cv_violations": [],
+  "n_seeds": 1,
+  "gpu_summary": {
+    "gpu_util_p50": 0.0,
+    "gpu_util_max": 0.0,
+    "gpu_util_mean": 0.0,
+    "n_samples": 1
+  },
+  "expected_n_units": 12,
+  "completed_units": 12,
+  "cardinality_ok": true,
+  "anchor_name": "additive_hebbian_sequence_binding_capacity_cliff_sweep_v1",
+  "elapsed_s": 1.6,
+  "ts_iso": "2026-06-27T22:29:22Z",
+  "pid": 31664,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=additive_hebbian_sequence_binding_capacity_cliff_sweep_v1,N=2048,V=200,sweep=[50, 200, 1000],seeds=[1],mode=smoke,cliff50=0.50,cliff20=0.20,sat_th=0.95,cv_hp=0.10,cv_mb=0.20,expected_n=12,SHARED_W=True,RECALL_VS_ALL=True,GPU=cuda,hardening=L1early+L2perarm+L3outertry+L4importsentinel+GPU_UTIL_SAMPLER",
+  "_hardening_marker": "v1_additive_hebbian_capacity_cliff_sweep_gpu"
+}

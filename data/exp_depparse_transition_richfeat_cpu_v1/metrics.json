@@ -1,0 +1,136 @@
+{
+  "anchor_name": "depparse_transition_richfeat_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: rich features lift UAS above base (2SE-clean) but below the +0.03 crown bar (rich 2SE-lo - base mean = +0.0009). UAS base=0.8109 rich=0.8128 (2SE-lo=0.8118, base_vals=[0.8103, 0.8104, 0.8119] rich_vals=[0.8135, 0.8132, 0.8116]) | d=+0.0019 | ablation +morph=0.8103(0.0) +clust=0.8142(0.0039) | buried-sid base=0.2303 rich=0.2727 (n=55) | LC rise=+0.0435 | clusters=32",
+  "summary": "MIDDLE_BAND: rich features lift UAS above base (2SE-clean) but below the +0.03 crown bar (rich 2SE-lo - base mean = +0.0009). UAS base=0.8109 rich=0.8128 (2SE-lo=0.8118, base_vals=[0.8103, 0.8104, 0.8119] rich_vals=[0.8135, 0.8132, 0.8116]) | d=+0.0019 | ablation +morph=0.8103(0.0) +clust=0.8142(0.0039) | buried-sid base=0.2303 rich=0.2727 (n=55) | LC rise=+0.0435 | clusters=32",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "n_seeds": 3,
+      "n_train": 12329,
+      "n_dev": 1989,
+      "n_pool": 4050,
+      "n_buried": 55,
+      "n_easy": 1286,
+      "n_clusters": 32,
+      "cluster_vocab": 2000,
+      "cluster_method": "distributional_kmeans_leftright_coarsePOS_proxy_NOT_full_brown",
+      "batch_local_uas_cited": 0.7864,
+      "base_dynamic_uas_cited": 0.8109,
+      "base_uas_mean": 0.8109,
+      "base_uas_vals": [
+        0.8103,
+        0.8104,
+        0.8119
+      ],
+      "rich_uas_mean": 0.8128,
+      "rich_uas_vals": [
+        0.8135,
+        0.8132,
+        0.8116
+      ],
+      "rich_uas_se": 0.0005,
+      "rich_uas_mean_minus_2se": 0.8118,
+      "rich_minus_base": 0.0019,
+      "rich_2se_lo_minus_base_mean": 0.0009,
+      "base_buried_sid_mean": 0.2303,
+      "rich_buried_sid_mean": 0.2727,
+      "ablation": {
+        "base_plus_morph_uas": 0.8103,
+        "base_plus_clust_uas": 0.8142,
+        "morph_lift_over_base_seed1": 0.0,
+        "clust_lift_over_base_seed1": 0.0039
+      },
+      "learning_curve": {
+        "0.10": {
+          "n_train": 1233,
+          "uas": 0.7692
+        },
+        "0.25": {
+          "n_train": 3082,
+          "uas": 0.7876
+        },
+        "0.50": {
+          "n_train": 6164,
+          "uas": 0.803
+        },
+        "1.00": {
+          "n_train": 12329,
+          "uas": 0.8127
+        }
+      },
+      "lc_lo_uas": 0.7692,
+      "lc_hi_uas": 0.8127,
+      "lc_rise": 0.0435,
+      "lc_points": 4,
+      "lc_expected_points": 4,
+      "arms_differ_base_vs_rich": true,
+      "gate_d_base_reproduces_prior": true
+    }
+  ],
+  "elapsed_s": 1847.9950232505798,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "discrete parse accuracy, no noise floor",
+  "cardinality_ok": true,
+  "n_train": 12329,
+  "n_dev": 1989,
+  "n_pool": 4050,
+  "n_buried": 55,
+  "n_easy": 1286,
+  "n_clusters": 32,
+  "cluster_vocab": 2000,
+  "cluster_method": "distributional_kmeans_leftright_coarsePOS_proxy_NOT_full_brown",
+  "batch_local_uas_cited": 0.7864,
+  "base_dynamic_uas_cited": 0.8109,
+  "base_uas_mean": 0.8109,
+  "base_uas_vals": [
+    0.8103,
+    0.8104,
+    0.8119
+  ],
+  "rich_uas_mean": 0.8128,
+  "rich_uas_vals": [
+    0.8135,
+    0.8132,
+    0.8116
+  ],
+  "rich_uas_se": 0.0005,
+  "rich_uas_mean_minus_2se": 0.8118,
+  "rich_minus_base": 0.0019,
+  "rich_2se_lo_minus_base_mean": 0.0009,
+  "base_buried_sid_mean": 0.2303,
+  "rich_buried_sid_mean": 0.2727,
+  "ablation": {
+    "base_plus_morph_uas": 0.8103,
+    "base_plus_clust_uas": 0.8142,
+    "morph_lift_over_base_seed1": 0.0,
+    "clust_lift_over_base_seed1": 0.0039
+  },
+  "learning_curve": {
+    "0.10": {
+      "n_train": 1233,
+      "uas": 0.7692
+    },
+    "0.25": {
+      "n_train": 3082,
+      "uas": 0.7876
+    },
+    "0.50": {
+      "n_train": 6164,
+      "uas": 0.803
+    },
+    "1.00": {
+      "n_train": 12329,
+      "uas": 0.8127
+    }
+  },
+  "lc_lo_uas": 0.7692,
+  "lc_hi_uas": 0.8127,
+  "lc_rise": 0.0435,
+  "lc_points": 4,
+  "lc_expected_points": 4,
+  "arms_differ_base_vs_rich": true,
+  "gate_d_base_reproduces_prior": true
+}

@@ -1,0 +1,484 @@
+{
+  "anchor_name": "gap1_multihop_ldpc_rts_bidirectional_v1",
+  "verdict": "SANITY_BREACH",
+  "verdict_msg": "SANITY_BREACH_BASELINE_OUT_OF_BAND: SANITY_BREACH=5/5 seeds; baseline_mean=0.3320 outside [0.125,0.165] | BASELINE=0.3320 SOFT_FWD=0.6090 BACKWARD=0.3350 LDPC=0.6090 (sd=0.030) RTS=0.6090 (sd=0.030) | Anchor1_LDPC=HARD_FAIL | Anchor2_RTS=HARD_PASS | max_dir=0.3350",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=200 depth=5 seeds=[7, 17, 23, 31, 41] mode=full ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "depth": 5,
+      "ldpc_sweeps": 3,
+      "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=200 depth=5 seeds=[7, 17, 23, 31, 41] mode=full ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+      "_llm_forward_calls_at_inference": 0,
+      "setup_s": 0.75,
+      "arm_baseline_pointer_chain_v2": {
+        "top1": 0.325,
+        "per_step_acc": [
+          0.855,
+          0.69,
+          0.545,
+          0.4,
+          0.325
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_pointer_chain_v2_hard_argmax",
+        "elapsed_s_arm": 10.21
+      },
+      "sanity_baseline_ok": false,
+      "arm_soft_fwd": {
+        "top1": 0.59,
+        "per_step_acc": [
+          0.855,
+          0.75,
+          0.69,
+          0.63,
+          0.59
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "soft_forward_only_softmax_belief",
+        "temperature": 1.0,
+        "elapsed_s_arm": 10.89
+      },
+      "arm_backward_only": {
+        "top1": 0.325,
+        "per_step_acc_backward": [
+          0.82,
+          0.75,
+          0.69,
+          0.69,
+          0.655
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "backward_only_reverse_chain_soft_propagation_then_forward_rederive",
+        "temperature": 1.0,
+        "elapsed_s_arm": 24.75
+      },
+      "arm_ldpc_bidir": {
+        "top1": 0.59,
+        "per_step_acc": [
+          0.97,
+          0.945,
+          0.885,
+          0.76,
+          0.59
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_sweeps_max": 3,
+        "mean_sweeps_to_converge": 2.0,
+        "mechanism": "ldpc_bidirectional_sum_product_chain_factor_graph",
+        "temperature": 1.0,
+        "elapsed_s_arm": 50.64
+      },
+      "arm_rts_smooth": {
+        "top1": 0.59,
+        "per_step_acc": [
+          0.97,
+          0.945,
+          0.885,
+          0.76,
+          0.59
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "rts_smoother_forward_x_backward_softmax_product",
+        "temperature": 1.0,
+        "elapsed_s_arm": 25.92
+      },
+      "elapsed_s": 123.2,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782530028.3705153
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "depth": 5,
+      "ldpc_sweeps": 3,
+      "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=200 depth=5 seeds=[7, 17, 23, 31, 41] mode=full ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+      "_llm_forward_calls_at_inference": 0,
+      "setup_s": 0.74,
+      "arm_baseline_pointer_chain_v2": {
+        "top1": 0.28,
+        "per_step_acc": [
+          0.81,
+          0.66,
+          0.51,
+          0.37,
+          0.28
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_pointer_chain_v2_hard_argmax",
+        "elapsed_s_arm": 10.72
+      },
+      "sanity_baseline_ok": false,
+      "arm_soft_fwd": {
+        "top1": 0.635,
+        "per_step_acc": [
+          0.81,
+          0.725,
+          0.68,
+          0.63,
+          0.635
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "soft_forward_only_softmax_belief",
+        "temperature": 1.0,
+        "elapsed_s_arm": 11.32
+      },
+      "arm_backward_only": {
+        "top1": 0.32,
+        "per_step_acc_backward": [
+          0.79,
+          0.725,
+          0.62,
+          0.595,
+          0.64
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "backward_only_reverse_chain_soft_propagation_then_forward_rederive",
+        "temperature": 1.0,
+        "elapsed_s_arm": 24.93
+      },
+      "arm_ldpc_bidir": {
+        "top1": 0.635,
+        "per_step_acc": [
+          0.89,
+          0.89,
+          0.855,
+          0.765,
+          0.635
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_sweeps_max": 3,
+        "mean_sweeps_to_converge": 2.0,
+        "mechanism": "ldpc_bidirectional_sum_product_chain_factor_graph",
+        "temperature": 1.0,
+        "elapsed_s_arm": 52.71
+      },
+      "arm_rts_smooth": {
+        "top1": 0.635,
+        "per_step_acc": [
+          0.89,
+          0.89,
+          0.855,
+          0.765,
+          0.635
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "rts_smoother_forward_x_backward_softmax_product",
+        "temperature": 1.0,
+        "elapsed_s_arm": 26.68
+      },
+      "elapsed_s": 127.1,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782530155.526334
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "depth": 5,
+      "ldpc_sweeps": 3,
+      "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=200 depth=5 seeds=[7, 17, 23, 31, 41] mode=full ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+      "_llm_forward_calls_at_inference": 0,
+      "setup_s": 0.72,
+      "arm_baseline_pointer_chain_v2": {
+        "top1": 0.34,
+        "per_step_acc": [
+          0.82,
+          0.7,
+          0.505,
+          0.41,
+          0.34
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_pointer_chain_v2_hard_argmax",
+        "elapsed_s_arm": 10.5
+      },
+      "sanity_baseline_ok": false,
+      "arm_soft_fwd": {
+        "top1": 0.635,
+        "per_step_acc": [
+          0.82,
+          0.81,
+          0.645,
+          0.64,
+          0.635
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "soft_forward_only_softmax_belief",
+        "temperature": 1.0,
+        "elapsed_s_arm": 10.63
+      },
+      "arm_backward_only": {
+        "top1": 0.305,
+        "per_step_acc_backward": [
+          0.815,
+          0.665,
+          0.675,
+          0.64,
+          0.59
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "backward_only_reverse_chain_soft_propagation_then_forward_rederive",
+        "temperature": 1.0,
+        "elapsed_s_arm": 25.22
+      },
+      "arm_ldpc_bidir": {
+        "top1": 0.635,
+        "per_step_acc": [
+          0.92,
+          0.905,
+          0.865,
+          0.785,
+          0.635
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_sweeps_max": 3,
+        "mean_sweeps_to_converge": 2.0,
+        "mechanism": "ldpc_bidirectional_sum_product_chain_factor_graph",
+        "temperature": 1.0,
+        "elapsed_s_arm": 52.08
+      },
+      "arm_rts_smooth": {
+        "top1": 0.635,
+        "per_step_acc": [
+          0.92,
+          0.905,
+          0.865,
+          0.785,
+          0.635
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "rts_smoother_forward_x_backward_softmax_product",
+        "temperature": 1.0,
+        "elapsed_s_arm": 27.06
+      },
+      "elapsed_s": 126.3,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782530281.7993534
+    },
+    {
+      "seed": 31,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "depth": 5,
+      "ldpc_sweeps": 3,
+      "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=200 depth=5 seeds=[7, 17, 23, 31, 41] mode=full ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+      "_llm_forward_calls_at_inference": 0,
+      "setup_s": 0.83,
+      "arm_baseline_pointer_chain_v2": {
+        "top1": 0.345,
+        "per_step_acc": [
+          0.88,
+          0.645,
+          0.54,
+          0.445,
+          0.345
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_pointer_chain_v2_hard_argmax",
+        "elapsed_s_arm": 10.43
+      },
+      "sanity_baseline_ok": false,
+      "arm_soft_fwd": {
+        "top1": 0.56,
+        "per_step_acc": [
+          0.88,
+          0.695,
+          0.7,
+          0.645,
+          0.56
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "soft_forward_only_softmax_belief",
+        "temperature": 1.0,
+        "elapsed_s_arm": 11.54
+      },
+      "arm_backward_only": {
+        "top1": 0.36,
+        "per_step_acc_backward": [
+          0.815,
+          0.675,
+          0.645,
+          0.625,
+          0.595
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "backward_only_reverse_chain_soft_propagation_then_forward_rederive",
+        "temperature": 1.0,
+        "elapsed_s_arm": 26.13
+      },
+      "arm_ldpc_bidir": {
+        "top1": 0.56,
+        "per_step_acc": [
+          0.92,
+          0.895,
+          0.86,
+          0.75,
+          0.56
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_sweeps_max": 3,
+        "mean_sweeps_to_converge": 2.0,
+        "mechanism": "ldpc_bidirectional_sum_product_chain_factor_graph",
+        "temperature": 1.0,
+        "elapsed_s_arm": 51.78
+      },
+      "arm_rts_smooth": {
+        "top1": 0.56,
+        "per_step_acc": [
+          0.92,
+          0.895,
+          0.86,
+          0.75,
+          0.56
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "rts_smoother_forward_x_backward_softmax_product",
+        "temperature": 1.0,
+        "elapsed_s_arm": 25.03
+      },
+      "elapsed_s": 125.8,
+      "_ckpt_key": "31",
+      "_partial_written_at": 1782530407.5689075
+    },
+    {
+      "seed": 41,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "depth": 5,
+      "ldpc_sweeps": 3,
+      "config_version": "gap1MultihopLdpcRtsBidirectional-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=200 depth=5 seeds=[7, 17, 23, 31, 41] mode=full ldpc_sweeps=3 SANITY_BASELINE=[0.125,0.165] HP_LDPC: top1>=0.50 over_soft_fwd>=0.10 sd<=0.06 HF_LDPC: top1<=0.25 over_soft_fwd<=0.03 HP_RTS: top1>=0.50 super_add>=0.10 sd<=0.06 HF_RTS: top1<=0.25 ratio_over_max_dir<=1.05",
+      "_llm_forward_calls_at_inference": 0,
+      "setup_s": 0.64,
+      "arm_baseline_pointer_chain_v2": {
+        "top1": 0.37,
+        "per_step_acc": [
+          0.815,
+          0.645,
+          0.56,
+          0.445,
+          0.37
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_pointer_chain_v2_hard_argmax",
+        "elapsed_s_arm": 11.31
+      },
+      "sanity_baseline_ok": false,
+      "arm_soft_fwd": {
+        "top1": 0.625,
+        "per_step_acc": [
+          0.815,
+          0.73,
+          0.755,
+          0.68,
+          0.625
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "soft_forward_only_softmax_belief",
+        "temperature": 1.0,
+        "elapsed_s_arm": 11.58
+      },
+      "arm_backward_only": {
+        "top1": 0.365,
+        "per_step_acc_backward": [
+          0.835,
+          0.7,
+          0.7,
+          0.635,
+          0.64
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "backward_only_reverse_chain_soft_propagation_then_forward_rederive",
+        "temperature": 1.0,
+        "elapsed_s_arm": 26.14
+      },
+      "arm_ldpc_bidir": {
+        "top1": 0.625,
+        "per_step_acc": [
+          0.93,
+          0.93,
+          0.885,
+          0.79,
+          0.625
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_sweeps_max": 3,
+        "mean_sweeps_to_converge": 2.0,
+        "mechanism": "ldpc_bidirectional_sum_product_chain_factor_graph",
+        "temperature": 1.0,
+        "elapsed_s_arm": 50.05
+      },
+      "arm_rts_smooth": {
+        "top1": 0.625,
+        "per_step_acc": [
+          0.93,
+          0.93,
+          0.885,
+          0.79,
+          0.625
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "rts_smoother_forward_x_backward_softmax_product",
+        "temperature": 1.0,
+        "elapsed_s_arm": 26.64
+      },
+      "elapsed_s": 126.4,
+      "_ckpt_key": "41",
+      "_partial_written_at": 1782530533.977479
+    }
+  ],
+  "elapsed_s": 628.8,
+  "summary": "SANITY_BREACH_BASELINE_OUT_OF_BAND: SANITY_BREACH=5/5 seeds; baseline_mean=0.3320 outside [0.125,0.165] | BASELINE=0.3320 SOFT_FWD=0.6090 BACKWARD=0.3350 LDPC=0.6090 (sd=0.030) RTS=0.6090 (sd=0.030) | Anchor1_LDPC=HARD_FAIL | Anchor2_RTS=HARD_PASS | max_dir=0.3350",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Gap-1 multi-hop bundled Anchors 1+2 per research drill 2026-06-26: LDPC bidirectional sum-product (3 sweep iterations forward+backward) and RTS smoother (forward x backward Gaussian-mixture product) target the FORWARD-ONLY HARD-DECISION CHAINING pathology shared by 5 refuted multi-hop attempts. ARM_BASELINE_pointer_chain_v2 is SACRED sanity rail reproducing 0.145 +/- 0.02 anchor at depth-5. ARM_SOFT_FWD and ARM_BACKWARD_ONLY isolate the 'soft' and 'backward' components respectively; LDPC bidirectional and RTS smoother test super-additivity. Bands LOCKED at module init via assert chain."
+}

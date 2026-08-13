@@ -1,0 +1,218 @@
+{
+  "anchor_name": "pythia_substrate_kv_pull_up_v2_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (de-saturated genuine capacity): recall>=0.80 to the tested boundary AND the test is DISCRIMINATING (CAN-fail located and/or NN-margin shrinks toward the boundary; not a saturated/trivial test). recall(hi,clean)=1.0 drop=0.0 recall(hi,s0.10)=1.0 | DESAT: canfail_min_recall=0.470 sigma0.5_min=0.47 margin_shrink=1.1343390804597702 pythia-random_margin=-0.38528000000000007 discriminating=True max_std=0.000",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "sizes": [
+    500,
+    1000
+  ],
+  "sigmas": [
+    0.05,
+    0.1,
+    0.2,
+    0.5
+  ],
+  "n_seeds": 2,
+  "detail": {
+    "recall_primary_s0.05": {
+      "500": 1.0,
+      "1000": 1.0
+    },
+    "recall_s0.10": {
+      "500": 1.0,
+      "1000": 1.0
+    },
+    "recall_s0.50_stress": {
+      "500": 0.526,
+      "1000": 0.47
+    },
+    "margin_primary_s0.05": {
+      "500": 0.48719999999999997,
+      "1000": 0.55265
+    },
+    "rand_recall_s0.05": {
+      "500": 1.0,
+      "1000": 1.0
+    },
+    "rand_margin_s0.05": {
+      "500": 0.64734,
+      "1000": 0.93793
+    },
+    "recall_lo_clean": 1.0,
+    "recall_hi_clean": 1.0,
+    "drop_lo_to_hi": 0.0,
+    "recall_hi_noise0.10": 1.0,
+    "max_seed_std": 0.0,
+    "DESAT_canfail_min_recall": 0.47,
+    "DESAT_sigma0.5_min_recall": 0.47,
+    "DESAT_margin_shrink_hi_over_lo": 1.1343,
+    "DESAT_pythia_minus_random_margin": -0.38528,
+    "DESAT_canfail_located": true,
+    "DESAT_margin_shrinks": false,
+    "DESAT_discriminating": true,
+    "sizes_tested": [
+      500,
+      1000
+    ],
+    "honest_scope": "Pythia substrate-KV capacity; clean-capacity claim requires a DISCRIMINATING test (margin shrinks or CAN-fail located). recall=1.0+flat-margin+==random = lower-bound only. NOT a 1.4B claim."
+  },
+  "metrics_source": "measured_gpu_pythia2p8b_substrate_kv_sweep_noise",
+  "per_unit": [
+    {
+      "size": 500,
+      "seed": 7,
+      "model": "EleutherAI/pythia-160m",
+      "run_mode": "smoke",
+      "recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 0.998,
+        "0.50": 0.518
+      },
+      "margin_by_sigma": {
+        "0.05": 0.48513,
+        "0.10": 0.25046,
+        "0.20": 0.0981,
+        "0.50": 0.01258
+      },
+      "p10margin_by_sigma": {
+        "0.05": 0.43476,
+        "0.10": 0.21492,
+        "0.20": 0.06694,
+        "0.50": 0.00144
+      },
+      "rand_recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 1.0
+      },
+      "rand_margin_by_sigma": {
+        "0.05": 0.64698,
+        "0.10": 0.38986,
+        "0.20": 0.20279,
+        "0.50": 0.07814
+      },
+      "_ckpt_key": "size500_s7",
+      "_partial_written_at": 1781997247.4634993
+    },
+    {
+      "size": 500,
+      "seed": 17,
+      "model": "EleutherAI/pythia-160m",
+      "run_mode": "smoke",
+      "recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 0.534
+      },
+      "margin_by_sigma": {
+        "0.05": 0.48927,
+        "0.10": 0.2507,
+        "0.20": 0.09783,
+        "0.50": 0.01241
+      },
+      "p10margin_by_sigma": {
+        "0.05": 0.44392,
+        "0.10": 0.21465,
+        "0.20": 0.06662,
+        "0.50": 0.00105
+      },
+      "rand_recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 1.0
+      },
+      "rand_margin_by_sigma": {
+        "0.05": 0.6477,
+        "0.10": 0.38845,
+        "0.20": 0.20237,
+        "0.50": 0.07819
+      },
+      "_ckpt_key": "size500_s17",
+      "_partial_written_at": 1781997290.0984666
+    },
+    {
+      "size": 1000,
+      "seed": 7,
+      "model": "EleutherAI/pythia-160m",
+      "run_mode": "smoke",
+      "recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 0.468
+      },
+      "margin_by_sigma": {
+        "0.05": 0.55248,
+        "0.10": 0.32296,
+        "0.20": 0.13579,
+        "0.50": 0.01661
+      },
+      "p10margin_by_sigma": {
+        "0.05": 0.46536,
+        "0.10": 0.25368,
+        "0.20": 0.08939,
+        "0.50": 0.00175
+      },
+      "rand_recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 1.0
+      },
+      "rand_margin_by_sigma": {
+        "0.05": 0.93805,
+        "0.10": 0.91988,
+        "0.20": 0.85605,
+        "0.50": 0.60293
+      },
+      "_ckpt_key": "size1000_s7",
+      "_partial_written_at": 1781997376.1533468
+    },
+    {
+      "size": 1000,
+      "seed": 17,
+      "model": "EleutherAI/pythia-160m",
+      "run_mode": "smoke",
+      "recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 0.472
+      },
+      "margin_by_sigma": {
+        "0.05": 0.55282,
+        "0.10": 0.32499,
+        "0.20": 0.13376,
+        "0.50": 0.01658
+      },
+      "p10margin_by_sigma": {
+        "0.05": 0.46773,
+        "0.10": 0.2556,
+        "0.20": 0.08151,
+        "0.50": 0.00158
+      },
+      "rand_recall_by_sigma": {
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.20": 1.0,
+        "0.50": 1.0
+      },
+      "rand_margin_by_sigma": {
+        "0.05": 0.93781,
+        "0.10": 0.92004,
+        "0.20": 0.85679,
+        "0.50": 0.60396
+      },
+      "_ckpt_key": "size1000_s17",
+      "_partial_written_at": 1781997464.0126038
+    }
+  ],
+  "elapsed_s": 3.0094165802001953,
+  "summary": "HARD_PASS (de-saturated genuine capacity): recall>=0.80 to the tested boundary AND the test is DISCRIMINATING (CAN-fail located and/or NN-margin shrinks toward the boundary; not a saturated/trivial test). recall(hi,clean)=1.0 drop=0.0 recall(hi,s0.10)=1.0 | DESAT: canfail_min_recall=0.470 sigma0.5_min=0.47 margin_shrink=1.1343390804597702 pythia-random_margin=-0.38528000000000007 discriminating=True max_std=0.000"
+}

@@ -1,0 +1,273 @@
+{
+  "anchor_name": "coref_candidate_pool_phi_hygiene_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "phi-hygiene: base=0.4523 nd=0.4690 (dAcc=+0.0168 fixed=10 broke=0 net=+10); recleaned_plateau=0.4746 on n=590 (removed 7 polluted of 597); wrongtype misses=94/327 (28.7%) recovered deixis=9/35 number=0/59",
+  "summary": "phi-hygiene: base=0.4523 nd=0.4690 (dAcc=+0.0168 fixed=10 broke=0 net=+10); recleaned_plateau=0.4746 on n=590 (removed 7 polluted of 597); wrongtype misses=94/327 (28.7%) recovered deixis=9/35 number=",
+  "elapsed_s": 2.6,
+  "ts_iso": "2026-07-24T07:28:56.784344+00:00",
+  "n_books": 25,
+  "n_subset": 597,
+  "baseline_recency_acc": 0.45226130653266333,
+  "baseline_control_target_270_of_597": {
+    "n_correct": 270,
+    "n_subset": 597,
+    "reproduces_banked_0.4523": true
+  },
+  "metric1_net_accuracy_fixed_subset": {
+    "raw": {
+      "acc": 0.45226130653266333,
+      "n_correct": 270,
+      "fixed_vs_raw": 0,
+      "broke_vs_raw": 0,
+      "net_targets": 0
+    },
+    "number": {
+      "acc": 0.4539363484087102,
+      "n_correct": 271,
+      "fixed_vs_raw": 1,
+      "broke_vs_raw": 0,
+      "net_targets": 1
+    },
+    "deixis": {
+      "acc": 0.46733668341708545,
+      "n_correct": 279,
+      "fixed_vs_raw": 9,
+      "broke_vs_raw": 0,
+      "net_targets": 9
+    },
+    "number_deixis": {
+      "acc": 0.46901172529313234,
+      "n_correct": 280,
+      "fixed_vs_raw": 10,
+      "broke_vs_raw": 0,
+      "net_targets": 10
+    }
+  },
+  "metric2_recleaned_person_plateau": {
+    "plateau_number_deixis": 0.4745762711864407,
+    "n_recleaned": 590,
+    "n_removed_pollution": 7,
+    "removed_raw_acc": 0.0,
+    "delta_vs_polluted_baseline": 0.02231496465377736
+  },
+  "wrong_type_recovery": {
+    "by_type": {
+      "deixis": {
+        "n": 35,
+        "recovered": 9
+      },
+      "number_plural": {
+        "n": 59,
+        "recovered": 0
+      },
+      "other": {
+        "n": 233,
+        "recovered": 1
+      },
+      "abstain": {
+        "n": 0,
+        "recovered": 0
+      }
+    },
+    "n_raw_misses": 327,
+    "wrongtype_frac_of_misses": 0.2874617737003058
+  },
+  "filter_firings": {
+    "counts": {
+      "deixis": 2569,
+      "number": 430
+    },
+    "top_deixis_heads": [
+      [
+        "i",
+        1056
+      ],
+      [
+        "my",
+        454
+      ],
+      [
+        "you",
+        364
+      ],
+      [
+        "me",
+        317
+      ],
+      [
+        "we",
+        121
+      ],
+      [
+        "your",
+        102
+      ],
+      [
+        "us",
+        52
+      ],
+      [
+        "our",
+        50
+      ],
+      [
+        "myself",
+        33
+      ],
+      [
+        "yourself",
+        7
+      ]
+    ],
+    "top_number_heads": [
+      [
+        "people",
+        29
+      ],
+      [
+        "men",
+        24
+      ],
+      [
+        "children",
+        18
+      ],
+      [
+        "themselves",
+        15
+      ],
+      [
+        "girls",
+        14
+      ],
+      [
+        "friends",
+        11
+      ],
+      [
+        "chambers",
+        10
+      ],
+      [
+        "servants",
+        9
+      ],
+      [
+        "streets",
+        8
+      ],
+      [
+        "daughters",
+        8
+      ]
+    ]
+  },
+  "place_leak_investigation": {
+    "hall": 14,
+    "family": 22,
+    "banks": 1,
+    "the_hall_subject": 1
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "raw": "4a6fcdb46601cc5c50eeb58d8a69547d2057d3b82c53a3a5255bb4febc9cb402",
+    "number_deixis": "98c17ddfcd801fe98b9145806e48b2323a8231010cbf3f09a57d8788273560f9"
+  },
+  "glass_box_fixed_examples": [
+    {
+      "book": "113_the_secret_garden_brat.conll",
+      "pronoun": "her",
+      "gold_cluster": 2,
+      "raw_pick": "woman",
+      "raw_pick_type": "other",
+      "nd_pick": "mary"
+    },
+    {
+      "book": "1342_pride_and_prejudice_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 5,
+      "raw_pick": "you",
+      "raw_pick_type": "deixis",
+      "nd_pick": "bennet"
+    },
+    {
+      "book": "1400_great_expectations_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 19,
+      "raw_pick": "i",
+      "raw_pick_type": "deixis",
+      "nd_pick": "sir"
+    },
+    {
+      "book": "1400_great_expectations_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 19,
+      "raw_pick": "my",
+      "raw_pick_type": "deixis",
+      "nd_pick": "sir"
+    },
+    {
+      "book": "209_the_turn_of_the_screw_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 8,
+      "raw_pick": "i",
+      "raw_pick_type": "deixis",
+      "nd_pick": "douglas"
+    },
+    {
+      "book": "209_the_turn_of_the_screw_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 8,
+      "raw_pick": "i",
+      "raw_pick_type": "deixis",
+      "nd_pick": "douglas"
+    },
+    {
+      "book": "2814_dubliners_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 8,
+      "raw_pick": "we",
+      "raw_pick_type": "deixis",
+      "nd_pick": "fool"
+    },
+    {
+      "book": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 0,
+      "raw_pick": "my",
+      "raw_pick_type": "deixis",
+      "nd_pick": "dick"
+    },
+    {
+      "book": "76_adventures_of_huckleberry_finn_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 3,
+      "raw_pick": "i",
+      "raw_pick_type": "deixis",
+      "nd_pick": "sawyer"
+    },
+    {
+      "book": "84_frankenstein_or_the_modern_prometheus_brat.conll",
+      "pronoun": "him",
+      "gold_cluster": 67,
+      "raw_pick": "i",
+      "raw_pick_type": "deixis",
+      "nd_pick": "master"
+    }
+  ],
+  "glass_box_broke_examples": [],
+  "selftest": {
+    "irregular_plural_n": 36,
+    "reuse": [
+      "EventCentralityReader",
+      "SuppressReader",
+      "deixis_person"
+    ]
+  },
+  "prereg_bands": {
+    "HARD_PASS_acc": "net dAcc>=+0.020 and net_targets>0",
+    "HARD_PASS_fairness": "|recleaned-base|>=0.030 and pollution>=30",
+    "HARD_FAIL": "net dAcc<-0.020 (valid-person suppressed)",
+    "MIDDLE_BAND": "dAcc within +/-0.020 and pollution<30"
+  }
+}

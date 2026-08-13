@@ -1,0 +1,148 @@
+{
+  "anchor": "contextual_stream_wm_sor_allocate_v1",
+  "mode": "full",
+  "verdict": "HARD_FAIL_ALLOCATE_FIX_NO_LIFT_OVER_BASELINE",
+  "verdict_msg": "HARD_FAIL_ALLOCATE_FIX_NO_LIFT_OVER_BASELINE | OFF=0.062 BASE=0.324 ALLOC=0.254(clean=0.254) RAND=0.371 placebo=0.078 | spike_WR=1.33 route=0.52 alloc_rate=0.56(was 0.167) alloc_sel=1.78 | floor=True brain_ok=False randctrl_failed=True",
+  "summary": {
+    "off_recall": 0.0625,
+    "position_only": 0.140625,
+    "on_base_recall": 0.32421875,
+    "on_alloc_recall": 0.25390625,
+    "on_alloc_recall_cleanup": 0.25390625,
+    "on_alloc_placebo": 0.078125,
+    "on_alloc_rand_ctrl_recall": 0.37109375,
+    "spike_ratio_WR": 1.3338241235980062,
+    "route_consistency": 0.5244034701554232,
+    "allocate_rate": 0.556640625,
+    "allocate_rate_prior_probe1": 0.16666666666666666,
+    "allocate_selectivity": 1.7761246281253946,
+    "off_per_seed": [
+      0.046875,
+      0.078125
+    ],
+    "base_per_seed": [
+      0.296875,
+      0.3515625
+    ],
+    "alloc_per_seed": [
+      0.1171875,
+      0.390625
+    ],
+    "rand_ctrl_per_seed": [
+      0.359375,
+      0.3828125
+    ],
+    "floor_max": 0.2,
+    "pass_min": 0.75,
+    "chance": 0.05,
+    "floor_held": true,
+    "position_failed": true,
+    "placebo_failed": true,
+    "brain_metric_ok": false,
+    "allocate_selectivity_ok": true,
+    "allocate_rate_ok": true,
+    "randctrl_failed": true
+  },
+  "bands": {
+    "FLOOR_MAX": 0.2,
+    "PASS_MIN": 0.75,
+    "PASS_LIFT_MIN": 0.5,
+    "ALLOC_LIFT_MIN": 0.05,
+    "RANDCTRL_MAX_LIFT": 0.1,
+    "ALLOCATE_RATE_MIN": 0.4,
+    "ALLOC_SELECTIVITY_MIN": 1.5,
+    "SPIKE_RATIO_MIN": 2.0,
+    "ROUTE_CONSIST_MIN": 0.8
+  },
+  "task": {
+    "D_MODEL": 32,
+    "N_SLOTS": 8,
+    "N_QUERY": 6,
+    "N_FILLERS": 20,
+    "T_OVERWRITE": 4,
+    "N_RECALL": 8,
+    "N_DISTRACT": 30,
+    "DG_EXPANSION": 8,
+    "DG_SPARSITY": 0.08,
+    "ALLOC_GAIN": 3.0,
+    "chance": 0.05
+  },
+  "per_unit": {
+    "OFF|0": {
+      "seed": 0,
+      "arm": "OFF",
+      "recall_acc": 0.046875,
+      "position_only_acc": 0.0859375
+    },
+    "ON_BASE|0": {
+      "seed": 0,
+      "arm": "ON_BASE",
+      "recall_acc": 0.296875
+    },
+    "ON_ALLOC|0": {
+      "seed": 0,
+      "arm": "ON_ALLOC",
+      "recall_acc": 0.1171875,
+      "recall_acc_cleanup": 0.125,
+      "placebo_acc": 0.0859375,
+      "placebo_acc_cleanup": 0.0859375,
+      "spike_ratio_WR": 1.2408917921526095,
+      "route_consistency": 0.49197151951058204,
+      "allocate_rate": 0.61328125,
+      "mean_novelty_first_touch": 0.4687657312024385,
+      "mean_novelty_repeat_touch": 0.21509012057839966,
+      "allocate_selectivity": 2.179392200543097
+    },
+    "ON_ALLOC_RAND|0": {
+      "seed": 0,
+      "arm": "ON_ALLOC_RAND",
+      "recall_acc": 0.359375,
+      "recall_acc_cleanup": 0.359375,
+      "spike_ratio_WR": 1.1667946487267034,
+      "route_consistency": 0.48339895419973544,
+      "allocate_rate": 0.7200520833333334,
+      "mean_novelty_first_touch": 0.4666057253489271,
+      "mean_novelty_repeat_touch": 0.20476406142831996,
+      "allocate_selectivity": 2.278748146008365
+    },
+    "OFF|1": {
+      "seed": 1,
+      "arm": "OFF",
+      "recall_acc": 0.078125,
+      "position_only_acc": 0.1953125
+    },
+    "ON_BASE|1": {
+      "seed": 1,
+      "arm": "ON_BASE",
+      "recall_acc": 0.3515625
+    },
+    "ON_ALLOC|1": {
+      "seed": 1,
+      "arm": "ON_ALLOC",
+      "recall_acc": 0.390625,
+      "recall_acc_cleanup": 0.3828125,
+      "placebo_acc": 0.0703125,
+      "placebo_acc_cleanup": 0.0703125,
+      "spike_ratio_WR": 1.4267564550434029,
+      "route_consistency": 0.5568354208002645,
+      "allocate_rate": 0.5,
+      "mean_novelty_first_touch": 0.49251233879476786,
+      "mean_novelty_repeat_touch": 0.35874990535040313,
+      "allocate_selectivity": 1.3728570557076927
+    },
+    "ON_ALLOC_RAND|1": {
+      "seed": 1,
+      "arm": "ON_ALLOC_RAND",
+      "recall_acc": 0.3828125,
+      "recall_acc_cleanup": 0.390625,
+      "spike_ratio_WR": 1.1656824493184124,
+      "route_consistency": 0.47560350529100526,
+      "allocate_rate": 0.765625,
+      "mean_novelty_first_touch": 0.4702395760687068,
+      "mean_novelty_repeat_touch": 0.2180054621018756,
+      "allocate_selectivity": 2.157008230596352
+    }
+  },
+  "elapsed_s": 1951.4008014998399,
+  "ts_iso": "2026-08-02T08:28:02Z"
+}

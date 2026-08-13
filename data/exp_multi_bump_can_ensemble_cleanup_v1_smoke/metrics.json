@@ -1,0 +1,253 @@
+{
+  "anchor_name": "multi_bump_can_ensemble_cleanup_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: multi-bump CAN partial mechanism; best K>=4 lift=+0.040 at sigma=1.50 (-0.005 < lift < +0.05); MEASURED_MECHANISM; characterize. DISCRIMINATOR @ sigma=1.50: argmax=0.000 | best_K>=4_mb=MULTI_BUMP_K4_SIGINIT_0.3 recall=0.040 lift=+0.040 cv=0.000 conv=1.000 | K=1 sanity recall=0.000",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "M": 200,
+  "N_EVAL": 50,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARGMAX_BASELINE": {
+        "K_bump": 0,
+        "sigma_init": 0.0,
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.04,
+          "1.5": 0.0,
+          "2.0": 0.02
+        }
+      },
+      "MULTI_BUMP_K1_SIGINIT_0.1": {
+        "K_bump": 1,
+        "sigma_init": 0.1,
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.0,
+          "1.5": 0.0,
+          "2.0": 0.0
+        }
+      },
+      "MULTI_BUMP_K4_SIGINIT_0.1": {
+        "K_bump": 4,
+        "sigma_init": 0.1,
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.02,
+          "1.5": 0.0,
+          "2.0": 0.0
+        }
+      },
+      "MULTI_BUMP_K4_SIGINIT_0.3": {
+        "K_bump": 4,
+        "sigma_init": 0.3,
+        "recall_discriminator_mean": 0.04,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.02,
+          "1.5": 0.04,
+          "2.0": 0.0
+        }
+      },
+      "MULTI_BUMP_K4_SIGINIT_0.5": {
+        "K_bump": 4,
+        "sigma_init": 0.5,
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.02,
+          "1.5": 0.02,
+          "2.0": 0.0
+        }
+      },
+      "MULTI_BUMP_K8_SIGINIT_0.1": {
+        "K_bump": 8,
+        "sigma_init": 0.1,
+        "recall_discriminator_mean": 0.04,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.06,
+          "1.5": 0.04,
+          "2.0": 0.02
+        }
+      },
+      "MULTI_BUMP_K8_SIGINIT_0.3": {
+        "K_bump": 8,
+        "sigma_init": 0.3,
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.06,
+          "1.5": 0.0,
+          "2.0": 0.0
+        }
+      },
+      "MULTI_BUMP_K8_SIGINIT_0.5": {
+        "K_bump": 8,
+        "sigma_init": 0.5,
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "frac_converged_mean": 1.0,
+        "basin_robustness_mean": {
+          "1.0": 0.04,
+          "1.5": 0.02,
+          "2.0": 0.0
+        }
+      }
+    },
+    "argmax_recall_discriminator": 0.0,
+    "k1_sanity_recall_discriminator": 0.0,
+    "best_mb_arm": "MULTI_BUMP_K4_SIGINIT_0.3",
+    "best_mb_recall_discriminator": 0.04,
+    "best_mb_lift_over_argmax": 0.04,
+    "best_mb_cv": 0.0,
+    "best_mb_frac_converged": 1.0,
+    "discriminator_sigma": 1.5,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "multi_bump_can_ensemble_cleanup_v1; N_DIM=512 M=200 N_EVAL=50 sigmas=[1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 0, 0.0), ('MULTI_BUMP_K1_SIGINIT_0.1', 1, 0.1), ('MULTI_BUMP_K4_SIGINIT_0.1', 4, 0.1), ('MULTI_BUMP_K4_SIGINIT_0.3', 4, 0.3), ('MULTI_BUMP_K4_SIGINIT_0.5', 4, 0.5), ('MULTI_BUMP_K8_SIGINIT_0.1', 8, 0.1), ('MULTI_BUMP_K8_SIGINIT_0.3', 8, 0.3), ('MULTI_BUMP_K8_SIGINIT_0.5', 8, 0.5)] temp=4.00 max_steps=4 discriminator_sigma=1.50 seeds=[0] mode=smoke",
+    "honest_scope": "HD-substrate-native multi-bump CAN ensemble cleanup; N_DIM=512, M=200; 8 arms x 3 sigmas x 1 seeds; cleanup-only (no encoder)",
+    "cites": [
+      "notes/research_alternative_cleanup_mechanisms_post_att1_rejection_2026-06-23.md",
+      "Faugeras_2022_PLOS_Comp_Bio_1010547_multi_bump_CAN",
+      "Frontiers_2025_population_coding_ring_attractor",
+      "hdlab.iterative_attractor (att1 primitive)",
+      "exp_att1_iterative_attractor_cleanup_v1 (HARD_FAIL predecessor)"
+    ]
+  },
+  "metrics_source": "measured_cpu_multi_bump_can_ensemble_cleanup_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARGMAX_BASELINE": {
+          "K_bump": 0,
+          "sigma_init": 0.0,
+          "recall_at_1_discriminator": 0.0,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.04,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "wall_s": 0.04
+        },
+        "MULTI_BUMP_K1_SIGINIT_0.1": {
+          "K_bump": 1,
+          "sigma_init": 0.1,
+          "recall_at_1_discriminator": 0.0,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.0,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "wall_s": 0.13
+        },
+        "MULTI_BUMP_K4_SIGINIT_0.1": {
+          "K_bump": 4,
+          "sigma_init": 0.1,
+          "recall_at_1_discriminator": 0.0,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.02,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "wall_s": 0.21
+        },
+        "MULTI_BUMP_K4_SIGINIT_0.3": {
+          "K_bump": 4,
+          "sigma_init": 0.3,
+          "recall_at_1_discriminator": 0.04,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.02,
+            "1.5": 0.04,
+            "2.0": 0.0
+          },
+          "wall_s": 0.22
+        },
+        "MULTI_BUMP_K4_SIGINIT_0.5": {
+          "K_bump": 4,
+          "sigma_init": 0.5,
+          "recall_at_1_discriminator": 0.02,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.02,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "wall_s": 0.23
+        },
+        "MULTI_BUMP_K8_SIGINIT_0.1": {
+          "K_bump": 8,
+          "sigma_init": 0.1,
+          "recall_at_1_discriminator": 0.04,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.06,
+            "1.5": 0.04,
+            "2.0": 0.02
+          },
+          "wall_s": 0.35
+        },
+        "MULTI_BUMP_K8_SIGINIT_0.3": {
+          "K_bump": 8,
+          "sigma_init": 0.3,
+          "recall_at_1_discriminator": 0.0,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.06,
+            "1.5": 0.0,
+            "2.0": 0.0
+          },
+          "wall_s": 0.33
+        },
+        "MULTI_BUMP_K8_SIGINIT_0.5": {
+          "K_bump": 8,
+          "sigma_init": 0.5,
+          "recall_at_1_discriminator": 0.02,
+          "frac_converged_discriminator": 1.0,
+          "basin_robustness": {
+            "1.0": 0.04,
+            "1.5": 0.02,
+            "2.0": 0.0
+          },
+          "wall_s": 0.31
+        }
+      },
+      "N_DIM": 512,
+      "M": 200,
+      "N_EVAL": 50,
+      "run_mode": "smoke",
+      "config_version": "multi_bump_can_ensemble_cleanup_v1; N_DIM=512 M=200 N_EVAL=50 sigmas=[1.0, 1.5, 2.0] arms=[('ARGMAX_BASELINE', 0, 0.0), ('MULTI_BUMP_K1_SIGINIT_0.1', 1, 0.1), ('MULTI_BUMP_K4_SIGINIT_0.1', 4, 0.1), ('MULTI_BUMP_K4_SIGINIT_0.3', 4, 0.3), ('MULTI_BUMP_K4_SIGINIT_0.5', 4, 0.5), ('MULTI_BUMP_K8_SIGINIT_0.1', 8, 0.1), ('MULTI_BUMP_K8_SIGINIT_0.3', 8, 0.3), ('MULTI_BUMP_K8_SIGINIT_0.5', 8, 0.5)] temp=4.00 max_steps=4 discriminator_sigma=1.50 seeds=[0] mode=smoke",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782196937.3574755
+    }
+  ],
+  "elapsed_s": 1.872446060180664,
+  "summary": "MIDDLE_BAND: multi-bump CAN partial mechanism; best K>=4 lift=+0.040 at sigma=1.50 (-0.005 < lift < +0.05); MEASURED_MECHANISM; characterize. DISCRIMINATOR @ sigma=1.50: argmax=0.000 | best_K>=4_mb=MULTI_BUMP_K4_SIGINIT_0.3 recall=0.040 lift=+0.040 cv=0.000 conv=1.000 | K=1 sanity recall=0.000",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native multi-bump cleanup; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

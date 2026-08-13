@@ -1,0 +1,439 @@
+{
+  "anchor_name": "reader_parser_swap_mst_endtoend_v1",
+  "run_mode": "full",
+  "verdict": "READER_LIFTED_BY_PARSER",
+  "verdict_msg": "READER_LIFTED_BY_PARSER | slice=L04+L05+L07+L08+L09+L10+L12 gold_pos=100 | BACKOFF base=0.7622 mst=0.7896 (delta=+0.0274 min_seed=+0.0256) | V1 base=0.742 mst=0.7607 (delta=+0.0187) | ceiling(backoff) base=0.79 mst=0.8 | ATTACH-RECOVERY backoff: recovered=1 lost=0 net=1 (unlab: rec=1 lost=0 net=1) | favorable_coupling=True | negation/flip majority_flips=1 | parser_UAS base=0.7868 mst=0.7965 (+0.0097) | arms_differ=True baseline_in_band=True",
+  "summary": "READER_LIFTED_BY_PARSER | slice=L04+L05+L07+L08+L09+L10+L12 gold_pos=100 | BACKOFF base=0.7622 mst=0.7896 (delta=+0.0274 min_seed=+0.0256) | V1 base=0.742 mst=0.7607 (delta=+0.0187) | ceiling(backoff) base=0.79 mst=0.8 | ATTACH-RECOVERY backoff: recovered=1 lost=0 net=1 (unlab: rec=1 lost=0 net=1) | favorable_coupling=True | negation/flip majority_flips=1 | parser_UAS base=0.7868 mst=0.7965 (+0.0097) | arms_differ=True baseline_in_band=True",
+  "elapsed_s": 399.07,
+  "ts_iso": "2026-07-21T05:29:21.365829+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_gold_pos_pairs": 100,
+  "parser_uas": {
+    "baseline_greedy": 0.7868,
+    "mst_retrain": 0.7965,
+    "delta": 0.0097,
+    "source": "MEASURED@data/exp_parser_uas_ladder_mst_retrain_v1/metrics.json"
+  },
+  "reader_baseline_parser": {
+    "means": {
+      "crude": 0.3623,
+      "unlabeled": 0.7247,
+      "v1": 0.742,
+      "hardened": 0.7636,
+      "backoff": 0.7622
+    },
+    "ceiling": {
+      "unlabeled": 0.9,
+      "v1": 0.74,
+      "hardened": 0.81,
+      "backoff": 0.79
+    },
+    "per_construction": {
+      "control": {
+        "mean_endtoend_acc": 1.0,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 3.67
+      },
+      "coordination": {
+        "mean_endtoend_acc": 0.6599,
+        "mean_gold_in_pool": 0.7022,
+        "mean_n": 16.33
+      },
+      "pronoun": {
+        "mean_endtoend_acc": 0.7361,
+        "mean_gold_in_pool": 0.8889,
+        "mean_n": 4.67
+      },
+      "relative": {
+        "mean_endtoend_acc": 1.0,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 3.33
+      },
+      "simple": {
+        "mean_endtoend_acc": 0.8037,
+        "mean_gold_in_pool": 0.8037,
+        "mean_n": 8.33
+      },
+      "verb_not_found": {
+        "mean_endtoend_acc": 0.0,
+        "mean_gold_in_pool": 0.0,
+        "mean_n": 1.0
+      }
+    },
+    "per_seed": [
+      {
+        "seed": 7,
+        "n_test_pos": 39,
+        "crude": 0.359,
+        "unlabeled": 0.7179,
+        "v1": 0.7436,
+        "hardened": 0.7436,
+        "backoff": 0.7436,
+        "test_ceiling_backoff": 0.7692,
+        "per_construction_backoff": {
+          "control": {
+            "n": 5,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 20,
+            "endtoend_acc": 0.6,
+            "gold_in_pool": 0.65
+          },
+          "pronoun": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "relative": {
+            "n": 2,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 9,
+            "endtoend_acc": 0.7778,
+            "gold_in_pool": 0.7778
+          }
+        }
+      },
+      {
+        "seed": 13,
+        "n_test_pos": 33,
+        "crude": 0.3333,
+        "unlabeled": 0.6667,
+        "v1": 0.6667,
+        "hardened": 0.7576,
+        "backoff": 0.7273,
+        "test_ceiling_backoff": 0.7576,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 16,
+            "endtoend_acc": 0.6875,
+            "gold_in_pool": 0.6875
+          },
+          "pronoun": {
+            "n": 3,
+            "endtoend_acc": 0.3333,
+            "gold_in_pool": 0.6667
+          },
+          "relative": {
+            "n": 4,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 6,
+            "endtoend_acc": 0.8333,
+            "gold_in_pool": 0.8333
+          },
+          "verb_not_found": {
+            "n": 1,
+            "endtoend_acc": 0.0,
+            "gold_in_pool": 0.0
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "n_test_pos": 38,
+        "crude": 0.3947,
+        "unlabeled": 0.7895,
+        "v1": 0.8158,
+        "hardened": 0.7895,
+        "backoff": 0.8158,
+        "test_ceiling_backoff": 0.8684,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 13,
+            "endtoend_acc": 0.6923,
+            "gold_in_pool": 0.7692
+          },
+          "pronoun": {
+            "n": 8,
+            "endtoend_acc": 0.875,
+            "gold_in_pool": 1.0
+          },
+          "relative": {
+            "n": 4,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 10,
+            "endtoend_acc": 0.8,
+            "gold_in_pool": 0.8
+          }
+        }
+      }
+    ]
+  },
+  "reader_mst_parser": {
+    "means": {
+      "crude": 0.3623,
+      "unlabeled": 0.7521,
+      "v1": 0.7607,
+      "hardened": 0.8011,
+      "backoff": 0.7896
+    },
+    "ceiling": {
+      "unlabeled": 0.91,
+      "v1": 0.75,
+      "hardened": 0.82,
+      "backoff": 0.8
+    },
+    "per_construction": {
+      "control": {
+        "mean_endtoend_acc": 1.0,
+        "mean_gold_in_pool": 1.0,
+        "mean_n": 3.67
+      },
+      "coordination": {
+        "mean_endtoend_acc": 0.7557,
+        "mean_gold_in_pool": 0.7732,
+        "mean_n": 15.67
+      },
+      "pronoun": {
+        "mean_endtoend_acc": 0.7361,
+        "mean_gold_in_pool": 0.8889,
+        "mean_n": 4.67
+      },
+      "relative": {
+        "mean_endtoend_acc": 0.7667,
+        "mean_gold_in_pool": 0.7667,
+        "mean_n": 3.33
+      },
+      "simple": {
+        "mean_endtoend_acc": 0.8172,
+        "mean_gold_in_pool": 0.8172,
+        "mean_n": 9.0
+      },
+      "verb_not_found": {
+        "mean_endtoend_acc": 0.0,
+        "mean_gold_in_pool": 0.0,
+        "mean_n": 1.0
+      }
+    },
+    "per_seed": [
+      {
+        "seed": 7,
+        "n_test_pos": 39,
+        "crude": 0.359,
+        "unlabeled": 0.7436,
+        "v1": 0.7692,
+        "hardened": 0.7692,
+        "backoff": 0.7692,
+        "test_ceiling_backoff": 0.7949,
+        "per_construction_backoff": {
+          "control": {
+            "n": 5,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 19,
+            "endtoend_acc": 0.6842,
+            "gold_in_pool": 0.7368
+          },
+          "pronoun": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "relative": {
+            "n": 2,
+            "endtoend_acc": 0.5,
+            "gold_in_pool": 0.5
+          },
+          "simple": {
+            "n": 10,
+            "endtoend_acc": 0.8,
+            "gold_in_pool": 0.8
+          }
+        }
+      },
+      {
+        "seed": 13,
+        "n_test_pos": 33,
+        "crude": 0.3333,
+        "unlabeled": 0.697,
+        "v1": 0.697,
+        "hardened": 0.8182,
+        "backoff": 0.7576,
+        "test_ceiling_backoff": 0.7879,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 17,
+            "endtoend_acc": 0.7647,
+            "gold_in_pool": 0.7647
+          },
+          "pronoun": {
+            "n": 3,
+            "endtoend_acc": 0.3333,
+            "gold_in_pool": 0.6667
+          },
+          "relative": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "simple": {
+            "n": 6,
+            "endtoend_acc": 0.8333,
+            "gold_in_pool": 0.8333
+          },
+          "verb_not_found": {
+            "n": 1,
+            "endtoend_acc": 0.0,
+            "gold_in_pool": 0.0
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "n_test_pos": 38,
+        "crude": 0.3947,
+        "unlabeled": 0.8158,
+        "v1": 0.8158,
+        "hardened": 0.8158,
+        "backoff": 0.8421,
+        "test_ceiling_backoff": 0.8684,
+        "per_construction_backoff": {
+          "control": {
+            "n": 3,
+            "endtoend_acc": 1.0,
+            "gold_in_pool": 1.0
+          },
+          "coordination": {
+            "n": 11,
+            "endtoend_acc": 0.8182,
+            "gold_in_pool": 0.8182
+          },
+          "pronoun": {
+            "n": 8,
+            "endtoend_acc": 0.875,
+            "gold_in_pool": 1.0
+          },
+          "relative": {
+            "n": 5,
+            "endtoend_acc": 0.8,
+            "gold_in_pool": 0.8
+          },
+          "simple": {
+            "n": 11,
+            "endtoend_acc": 0.8182,
+            "gold_in_pool": 0.8182
+          }
+        }
+      }
+    ]
+  },
+  "delta_backoff": 0.0274,
+  "delta_backoff_min_seed": 0.0256,
+  "delta_v1": 0.0187,
+  "attach_recovery_backoff": {
+    "n_aligned_pos": 100,
+    "base_ceiling": 0.79,
+    "mst_ceiling": 0.8,
+    "n_recovered": 1,
+    "n_lost": 0,
+    "net_recovered": 1,
+    "both_hit": 79,
+    "both_miss": 20,
+    "recovered": [
+      {
+        "sid": "L10_11",
+        "v": "find",
+        "gold": "boy",
+        "constr": "coordination",
+        "mst_pool": [
+          "boy"
+        ]
+      }
+    ],
+    "lost": []
+  },
+  "attach_recovery_unlabeled": {
+    "n_aligned_pos": 100,
+    "base_ceiling": 0.9,
+    "mst_ceiling": 0.91,
+    "n_recovered": 1,
+    "n_lost": 0,
+    "net_recovered": 1,
+    "both_hit": 90,
+    "both_miss": 9,
+    "recovered": [
+      {
+        "sid": "L10_11",
+        "v": "find",
+        "gold": "boy",
+        "constr": "coordination",
+        "mst_pool": [
+          "he",
+          "boy",
+          "joe",
+          "table"
+        ]
+      }
+    ],
+    "lost": []
+  },
+  "favorable_coupling": true,
+  "net_recovered_backoff": 1,
+  "negation_flip_spotcheck": {
+    "n_majority_flips": 1,
+    "flips": [
+      {
+        "sid": "L10_11",
+        "v": "find",
+        "base_correct_frac": 0.0,
+        "mst_correct_frac": 1.0,
+        "direction": "RESOLVED"
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  }
+}

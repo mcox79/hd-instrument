@@ -1,0 +1,402 @@
+{
+  "verdict": "STRICT_TRADEOFF_STRUCTURAL_DECOUPLING_NEEDED",
+  "verdict_msg": "STRICT_TRADEOFF_STRUCTURAL_DECOUPLING_NEEDED | RECONCILED Q: can one scalar-anchor arm get BOTH high superposition (WTA SP@J5>=0.75) AND high pointwise (SC@alpha1.2>=0.9)? both_arms=[]. Per-arm[SP/SC hi=+]: hybrid_d1.0(SP0.67-,SC0.81-) hybrid_d0.3(SP0.91+,SC0.84-) hybrid_d0.1(SP0.97+,SC0.87-) native_trained(SP0.90+,SC0.84-) distill_only(SP0.65-,SC0.50-) native_untrained(SP0.85+,SC0.56-). DECOUPLED-ORACLE (store=hybrid_d0.1 WTA SP=0.972 + teacher retrieval SC=0.996) achieves_both=True -> decoupling resolves the tradeoff. | PRIMARY superposition@J5(WTA block-code,V=40000): distill_only=0.655 best=hybrid_d0.1=0.972. REF native_untrained(WTA)=0.852 teacher_bge(dense-BGE)=0.171. ANCHOR->SP knee: hybrid_d1.0=0.671 hybrid_d0.3=0.914 hybrid_d0.1=0.972 native_trained=0.905. FIDELITY SC@alpha1.2: distill_only=0.499 native_trained=0.844 teacher=0.996. SEPARATION off-target mean-cos: teacher=+0.5205 winners=['hybrid_d1.0', 'hybrid_d0.3', 'hybrid_d0.1', 'native_trained'] separation_won=True. geometry_subverdict=GEOM_HARD_PASS (note's Rank-1 bands). cache=bge_large_v2_name_43905_8a40445a.npz. INTERPRETATION: no single anchor arm gets both (the scalar knob is a strict, and perverse, tradeoff -- more BGE anchor DEGRADES block-code pointwise fidelity); but decoupling the decorrelated store code from the BGE-anchored retrieval code achieves both -> build a structural two-head encoder (VICReg-cov on store head, RKD on retrieval head). This is the certified decouple-store-from-retrieval law at the encoder.",
+  "summary": "STRICT_TRADEOFF_STRUCTURAL_DECOUPLING_NEEDED: BGE-anchor sweep x VICReg decorrelation (full)",
+  "run_mode": "full",
+  "device": "cuda",
+  "elapsed_s": 4276.195510299993,
+  "ts_iso": "2026-07-08T15:43:21.724214+00:00",
+  "anchor_name": "encoder_distill_anchor_sweep_vicreg_decorr_v1",
+  "cache_source": "bge_large_v2_name_43905_8a40445a.npz",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units": 5,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "classification": {
+    "verdict": "STRICT_TRADEOFF_STRUCTURAL_DECOUPLING_NEEDED",
+    "geometry_subverdict": "GEOM_HARD_PASS",
+    "best_arm": "hybrid_d0.1",
+    "best_sp": 0.9715333333333334,
+    "distill_sp": 0.6548666666666667,
+    "distill_sc": 0.49866666666666665,
+    "teacher_sep": 0.5205200552940369,
+    "sp_won": true,
+    "separation_won": true,
+    "sep_winners": [
+      "hybrid_d1.0",
+      "hybrid_d0.3",
+      "hybrid_d0.1",
+      "native_trained"
+    ],
+    "hp_arms": [
+      "hybrid_d0.3",
+      "hybrid_d0.1",
+      "native_trained"
+    ],
+    "anchor_sp_knee": {
+      "hybrid_d1.0": 0.6708666666666666,
+      "hybrid_d0.3": 0.9141999999999999,
+      "hybrid_d0.1": 0.9715333333333334,
+      "native_trained": 0.9048666666666666
+    },
+    "per_arm_both": {
+      "hybrid_d1.0": {
+        "sp": 0.6708666666666666,
+        "sc": 0.8119999999999999,
+        "sp_hi": false,
+        "sc_hi": false
+      },
+      "hybrid_d0.3": {
+        "sp": 0.9141999999999999,
+        "sc": 0.845,
+        "sp_hi": true,
+        "sc_hi": false
+      },
+      "hybrid_d0.1": {
+        "sp": 0.9715333333333334,
+        "sc": 0.8686666666666667,
+        "sp_hi": true,
+        "sc_hi": false
+      },
+      "native_trained": {
+        "sp": 0.9048666666666666,
+        "sc": 0.844,
+        "sp_hi": true,
+        "sc_hi": false
+      },
+      "distill_only": {
+        "sp": 0.6548666666666667,
+        "sc": 0.49866666666666665,
+        "sp_hi": false,
+        "sc_hi": false
+      },
+      "native_untrained": {
+        "sp": 0.8524666666666665,
+        "sc": 0.5556666666666668,
+        "sp_hi": true,
+        "sc_hi": false
+      }
+    },
+    "both_arms": [],
+    "decoupled_oracle": {
+      "store_arm": "hybrid_d0.1",
+      "sp": 0.9715333333333334,
+      "sc": 0.9956666666666667,
+      "achieves_both": true
+    },
+    "sp_hi_thresh": 0.75,
+    "sc_hi_thresh": 0.9
+  },
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2
+  },
+  "bands": {
+    "SP_MARGIN": 0.05,
+    "SEP_MARGIN": 0.03,
+    "SC_TOL": 0.05,
+    "GAMMA_VAR": 1.0,
+    "MU_VIC": 1.0,
+    "NU_VIC": 1.0
+  },
+  "arms_config": [
+    {
+      "name": "distill_only",
+      "kind": "trained",
+      "lambda_d": 1.0,
+      "mu": 0.0,
+      "nu": 0.0
+    },
+    {
+      "name": "hybrid_d1.0",
+      "kind": "trained",
+      "lambda_d": 1.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "hybrid_d0.3",
+      "kind": "trained",
+      "lambda_d": 0.3,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "hybrid_d0.1",
+      "kind": "trained",
+      "lambda_d": 0.1,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "native_trained",
+      "kind": "trained",
+      "lambda_d": 0.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "native_untrained",
+      "kind": "untrained"
+    },
+    {
+      "name": "teacher_bge",
+      "kind": "teacher"
+    }
+  ],
+  "regime": {
+    "N": 4096,
+    "V": 40000,
+    "iters": 800,
+    "B": 8192,
+    "lr": 0.001,
+    "Js": [
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "alphas": [
+      0.0,
+      0.8,
+      1.2,
+      1.6
+    ],
+    "nq": 600,
+    "sep_sample": 1500
+  },
+  "agg": {
+    "n_seeds": 5,
+    "arms": {
+      "distill_only": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9574999999999999,
+          "3": 0.5603333333333332,
+          "5": 0.1662,
+          "8": 0.035125
+        },
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9215555555555557,
+          "5": 0.6548666666666667,
+          "8": 0.2942916666666667
+        },
+        "sep_dense_mean": 0.5205714583396912,
+        "sep_wta_mean": 0.2979869693517685,
+        "sp_dense_op_per_seed": [
+          0.16599999999999998,
+          0.17333333333333334,
+          0.17033333333333334,
+          0.15433333333333332,
+          0.16699999999999998
+        ],
+        "sp_dense_op_cv": 0.03894407914968306
+      },
+      "hybrid_d1.0": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.885,
+          "3": 0.4155555555555555,
+          "5": 0.0974,
+          "8": 0.020208333333333335
+        },
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9735555555555555,
+          "5": 0.6708666666666666,
+          "8": 0.3434583333333333
+        },
+        "sep_dense_mean": 0.5203196287155152,
+        "sep_wta_mean": 0.32957683205604554,
+        "sp_dense_op_per_seed": [
+          0.09866666666666667,
+          0.11,
+          0.08066666666666668,
+          0.07900000000000001,
+          0.11866666666666667
+        ],
+        "sp_dense_op_cv": 0.16110920119862854
+      },
+      "hybrid_d0.3": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9556666666666667,
+          "3": 0.6068888888888889,
+          "5": 0.13966666666666666,
+          "8": 0.021416666666666667
+        },
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9959999999999999,
+          "5": 0.9141999999999999,
+          "8": 0.45041666666666663
+        },
+        "sep_dense_mean": 0.5210077643394471,
+        "sep_wta_mean": 0.24071073830127715,
+        "sp_dense_op_per_seed": [
+          0.13833333333333334,
+          0.15100000000000002,
+          0.13366666666666666,
+          0.11966666666666666,
+          0.15566666666666665
+        ],
+        "sp_dense_op_cv": 0.09181567571203508
+      },
+      "hybrid_d0.1": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9731666666666667,
+          "3": 0.6616666666666667,
+          "5": 0.11139999999999999,
+          "8": 0.011041666666666667
+        },
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9972222222222221,
+          "5": 0.9715333333333334,
+          "8": 0.802375
+        },
+        "sep_dense_mean": 0.5220787525177002,
+        "sep_wta_mean": 0.13890282213687896,
+        "sp_dense_op_per_seed": [
+          0.09933333333333333,
+          0.10566666666666667,
+          0.12699999999999997,
+          0.11699999999999998,
+          0.108
+        ],
+        "sp_dense_op_cv": 0.08654502385073622
+      },
+      "native_trained": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9730000000000001,
+          "3": 0.6057777777777777,
+          "5": 0.07360000000000001,
+          "8": 0.0075
+        },
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9936666666666666,
+          "5": 0.9048666666666666,
+          "8": 0.43425
+        },
+        "sep_dense_mean": 0.5561860084533692,
+        "sep_wta_mean": 0.19302494823932648,
+        "sp_dense_op_per_seed": [
+          0.06533333333333334,
+          0.07200000000000001,
+          0.077,
+          0.07033333333333334,
+          0.08333333333333333
+        ],
+        "sp_dense_op_cv": 0.08328409068096074
+      },
+      "native_untrained": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9588333333333334,
+          "3": 0.5531111111111111,
+          "5": 0.16293333333333332,
+          "8": 0.035125
+        },
+        "sp_wta_mean": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 0.9834444444444446,
+          "5": 0.8524666666666665,
+          "8": 0.5692083333333333
+        },
+        "sep_dense_mean": 0.5196667790412903,
+        "sep_wta_mean": 0.1737512767314911,
+        "sp_dense_op_per_seed": [
+          0.165,
+          0.16799999999999998,
+          0.16033333333333333,
+          0.15466666666666665,
+          0.16666666666666666
+        ],
+        "sp_dense_op_cv": 0.029939047675821163
+      },
+      "teacher_bge": {
+        "sp_dense_mean": {
+          "1": 1.0,
+          "2": 0.9618333333333334,
+          "3": 0.5674444444444445,
+          "5": 0.1714,
+          "8": 0.036250000000000004
+        },
+        "sp_wta_mean": null,
+        "sep_dense_mean": 0.5205200552940369,
+        "sep_wta_mean": null,
+        "sp_dense_op_per_seed": [
+          0.17099999999999999,
+          0.17766666666666667,
+          0.17866666666666667,
+          0.16133333333333333,
+          0.16833333333333333
+        ],
+        "sp_dense_op_cv": 0.03717306978442744
+      }
+    },
+    "sc": {
+      "distill_only": {
+        "0.0": 1.0,
+        "0.8": 0.8066666666666666,
+        "1.2": 0.49866666666666665,
+        "1.6": 0.24333333333333332
+      },
+      "hybrid_d1.0": {
+        "0.0": 1.0,
+        "0.8": 0.9413333333333334,
+        "1.2": 0.8119999999999999,
+        "1.6": 0.5886666666666667
+      },
+      "hybrid_d0.3": {
+        "0.0": 1.0,
+        "0.8": 0.954,
+        "1.2": 0.845,
+        "1.6": 0.6460000000000001
+      },
+      "hybrid_d0.1": {
+        "0.0": 1.0,
+        "0.8": 0.96,
+        "1.2": 0.8686666666666667,
+        "1.6": 0.6806666666666668
+      },
+      "native_trained": {
+        "0.0": 1.0,
+        "0.8": 0.953,
+        "1.2": 0.844,
+        "1.6": 0.6626666666666667
+      },
+      "native_untrained": {
+        "0.0": 1.0,
+        "0.8": 0.8453333333333333,
+        "1.2": 0.5556666666666668,
+        "1.6": 0.2803333333333334
+      },
+      "teacher_bge": {
+        "0.0": 1.0,
+        "0.8": 0.999,
+        "1.2": 0.9956666666666667,
+        "1.6": 0.985
+      }
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator + end-to-end held-out WordNet-neighbourhood eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 4.373040599981323,
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.5159291666666667,
+    "auc_label_shuffle": 0.49755667277929666,
+    "prec_struct": 1.0,
+    "base_rate": 0.1666666666666666,
+    "n_query": 60
+  },
+  "data_meta": {
+    "n_grounded_total": 24938,
+    "n_induced_pairs_total": 188720,
+    "n_kept_concepts": 400,
+    "n_kept_pairs": 38837,
+    "min_deg": 2,
+    "cap_nodes": 400,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/PartOf",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/HasProperty"
+    ],
+    "n_rel_slots": 9,
+    "n_lexnames": 33
+  },
+  "split_meta": {
+    "n_train": 308,
+    "n_heldout": 92,
+    "mean_train_ctx_neigh": 161.72727272727272,
+    "mean_held_ctx_neigh": 160.69565217391303,
+    "n_rel_slots": 9
+  },
+  "learned_same_lex_auc": 0.6507866130848404,
+  "raw_grounding_same_lex_auc": 0.6497456453770105,
+  "collapse_shuffle_same_lex_auc": 0.5003041445201032
+}

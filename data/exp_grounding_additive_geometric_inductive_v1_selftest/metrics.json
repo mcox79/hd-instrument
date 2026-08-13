@@ -1,0 +1,20 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS additive-geometric-inference: TransE recovers additive held-out (>=0.55), random fails (<=0.15), TransE null on non-additive (<=0.25), gap>=0.35, arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 5.846607099985704,
+  "mechanism_selftest": {
+    "add_transe_hits1": 0.3067,
+    "add_random_hits1": 0.01,
+    "nonadd_transe_hits1": 0.0067,
+    "nonadd_random_hits1": 0.01,
+    "transe_recovers_additive": true,
+    "random_fails_additive": true,
+    "transe_null_nonadditive": true,
+    "gap_ok": true,
+    "arms_differ": true,
+    "additive_edges": 1300,
+    "nonadditive_edges": 1315
+  }
+}

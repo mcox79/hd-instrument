@@ -1,0 +1,120 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | focus=K6 valid_K=['K4', 'K6'] | ORACLE_GOAL=0.708 V8=0.700 RAW=0.500 SCR=0.375 V8_ADD=0.158 ORC_ACT=0.967 | att_lift=0.200 composition_tax=0.008 scramble_gap=0.325 closure=0.960 value_actor_lift=0.542 | goal_cos[V8=0.994 RAW=0.410 SCR=0.431] reach_rank=0.658 sign_p=0.0000 (v8_only=28 raw_only=4) | nav_rail=True oracle_repro=True att_pressure=True af_collision=False n_seeds=2",
+  "summary": "HARD_PASS | focus=K6 valid_K=['K4', 'K6'] | ORACLE_GOAL=0.708 V8=0.700 RAW=0.500 SCR=0.375 V8_ADD=0.158 ORC_ACT=0.967 | att_lift=0.200 composition_tax=0.008 scramble_gap=0.325 closure=0.960 value_actor_lift=0.542 | goal_cos[V8=0.994 RAW=0.410 SCR=0.431] reach_rank=0.658 sign_p=0.0000 (v8_only=28 raw_only=4) | nav_rail=True oracle_repro=True att_pressure=True af_collision=False n_seeds=2",
+  "per_K": {
+    "K4": {
+      "K": 4,
+      "n_seeds": 2,
+      "arm_means": {
+        "ORACLE_GOAL_GONOGO": 0.7083333333333333,
+        "V8_GATE_GONOGO": 0.6916666666666667,
+        "RAW_UNIFORM_GONOGO": 0.525,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.33333333333333337,
+        "V8_GATE_ADDITIVE": 0.14166666666666666,
+        "ORACLE_ACTION": 0.9666666666666667
+      },
+      "arm_stds": {
+        "ORACLE_GOAL_GONOGO": 0.024999999999999967,
+        "V8_GATE_GONOGO": 0.025000000000000022,
+        "RAW_UNIFORM_GONOGO": 0.025000000000000022,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.05000000000000002,
+        "V8_GATE_ADDITIVE": 0.07500000000000001,
+        "ORACLE_ACTION": 0.0
+      },
+      "oracle_goal": 0.7083333333333333,
+      "v8_gate": 0.6916666666666667,
+      "raw_uniform": 0.525,
+      "scrambled": 0.33333333333333337,
+      "v8_additive": 0.14166666666666666,
+      "oracle_action": 0.9666666666666667,
+      "att_lift": 0.16666666666666663,
+      "composition_tax": 0.016666666666666607,
+      "scramble_gap": 0.3583333333333333,
+      "value_actor_lift": 0.55,
+      "closure": 0.9090909090909094,
+      "headroom_att": 0.18333333333333324,
+      "reach_rank_test": 0.6583333333333333,
+      "goal_cos": {
+        "V8": 0.985224187374115,
+        "RAW": 0.5000465214252472,
+        "SCRAMBLED": 0.3815283179283142
+      },
+      "sign_test_p": 0.00017999112606048584,
+      "n_v8_only": 24,
+      "n_raw_only": 4,
+      "af_collision": false,
+      "nav_rail_ok": true,
+      "oracle_repro_ok": true,
+      "att_pressure_ok": true,
+      "reach_fires_ok": true
+    },
+    "K6": {
+      "K": 6,
+      "n_seeds": 2,
+      "arm_means": {
+        "ORACLE_GOAL_GONOGO": 0.7083333333333333,
+        "V8_GATE_GONOGO": 0.7,
+        "RAW_UNIFORM_GONOGO": 0.5,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.375,
+        "V8_GATE_ADDITIVE": 0.15833333333333333,
+        "ORACLE_ACTION": 0.9666666666666667
+      },
+      "arm_stds": {
+        "ORACLE_GOAL_GONOGO": 0.024999999999999967,
+        "V8_GATE_GONOGO": 0.016666666666666663,
+        "RAW_UNIFORM_GONOGO": 0.08333333333333334,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.10833333333333334,
+        "V8_GATE_ADDITIVE": 0.058333333333333334,
+        "ORACLE_ACTION": 0.0
+      },
+      "oracle_goal": 0.7083333333333333,
+      "v8_gate": 0.7,
+      "raw_uniform": 0.5,
+      "scrambled": 0.375,
+      "v8_additive": 0.15833333333333333,
+      "oracle_action": 0.9666666666666667,
+      "att_lift": 0.19999999999999996,
+      "composition_tax": 0.008333333333333304,
+      "scramble_gap": 0.32499999999999996,
+      "value_actor_lift": 0.5416666666666666,
+      "closure": 0.9600000000000001,
+      "headroom_att": 0.20833333333333326,
+      "reach_rank_test": 0.6583333333333333,
+      "goal_cos": {
+        "V8": 0.9941301643848419,
+        "RAW": 0.41005250811576843,
+        "SCRAMBLED": 0.43106892704963684
+      },
+      "sign_test_p": 1.9301194697618484e-05,
+      "n_v8_only": 28,
+      "n_raw_only": 4,
+      "af_collision": false,
+      "nav_rail_ok": true,
+      "oracle_repro_ok": true,
+      "att_pressure_ok": true,
+      "reach_fires_ok": true
+    }
+  },
+  "focus_K": "K6",
+  "valid_K": [
+    "K4",
+    "K6"
+  ],
+  "focus_att_lift": 0.19999999999999996,
+  "focus_composition_tax": 0.008333333333333304,
+  "focus_scramble_gap": 0.32499999999999996,
+  "focus_closure": 0.9600000000000001,
+  "focus_value_actor_lift": 0.5416666666666666,
+  "expected_n_units": 24,
+  "completed_units": 24,
+  "cardinality_ok": true,
+  "n_seeds_complete": 2,
+  "anchor_name": "pfc_bg_composed_attention_value_gate_v1",
+  "elapsed_s": 54.0,
+  "ts_iso": "2026-07-08T09:19:31.589574+00:00",
+  "pid": 29984,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_bg_composed_attention_value_gate_v1,N=2048,V=300,n_ops=4,dd=4,K_grid=[4, 6],seeds=[7, 17],density=0.210,sr_steps=1500,sr_batch=96,rollout_per_V=20,gamma=0.85,lr=0.50,gate_tau=0.050,recency_gap=3.00,cue_q=0.250,arb_q*=0.150,n_train_chains=60,n_test_chains=60,mode=smoke,device=cpu,expected_n=24,HP_closure>=0.25,att_lift>=0.15,scramble>=0.30,tax<=0.20,nav_rail>=0.90",
+  "device": "cpu"
+}

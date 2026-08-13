@@ -1,0 +1,140 @@
+{
+  "anchor_name": "cleanup_floor_learned_encoder_v1",
+  "verdict": "META_BRANCH3_CHAIN_GRADE_ELIGIBLE",
+  "verdict_msg": "META_BRANCH3_CHAIN_GRADE_ELIGIBLE: Shannon-floor applies across RANDOM + LEARNED + STRUCTURED codebook types at sigma=1.50. recall_random=0.0000 recall_char_trigram=0.0250 recall_hub_spoke=0.0000 (ALL < 0.10). Branches #1+#2+#3 closed; META robust across N-DIM (512-16384), M (25-400), codebook type (3 families). RECOMMENDATION: Skunkworks tier-up parent META to chain-grade. BRANCH3 DECISION @ sigma=1.50: recall_random=0.0000 recall_char_trigram=0.0250 recall_hub_spoke=0.0000 max_structured=0.0250 max_cv=0.000 sigma_0_sanity=PASS N=2048 M=200 seeds=1",
+  "run_mode": "smoke",
+  "N_DIM": 2048,
+  "M": 200,
+  "n_seeds": 1,
+  "detail": {
+    "agg": {
+      "ARM_RANDOM_BIPOLAR": {
+        "1.0": {
+          "mean": 0.1,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.1
+          ]
+        },
+        "1.5": {
+          "mean": 0.0,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.0
+          ]
+        }
+      },
+      "ARM_CHAR_TRIGRAM_LEARNED": {
+        "1.0": {
+          "mean": 0.025,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.025
+          ]
+        },
+        "1.5": {
+          "mean": 0.025,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.025
+          ]
+        }
+      },
+      "ARM_HUB_SPOKE_STRUCTURED": {
+        "1.0": {
+          "mean": 0.05,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.05
+          ]
+        },
+        "1.5": {
+          "mean": 0.0,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.0
+          ]
+        }
+      }
+    },
+    "n_seeds": 1,
+    "N_DIM": 2048,
+    "M": 200,
+    "sigma_sweep": [
+      1.0,
+      1.5
+    ],
+    "arms": [
+      "ARM_RANDOM_BIPOLAR",
+      "ARM_CHAR_TRIGRAM_LEARNED",
+      "ARM_HUB_SPOKE_STRUCTURED"
+    ],
+    "discriminator_sigma": 1.5,
+    "recall_random_disc": 0.0,
+    "recall_char_trigram_disc": 0.025,
+    "recall_hub_spoke_disc": 0.0,
+    "max_structured_recall_disc": 0.025,
+    "max_cv_across_cells": 0.0,
+    "sanity_violations": [],
+    "CONFIG_VERSION": "cleanup_floor_learned_encoder_v1; N=2048 M=200 N_EVAL=40 sigma_sweep=[1.0, 1.5] seeds=[0] arms=['ARM_RANDOM_BIPOLAR', 'ARM_CHAR_TRIGRAM_LEARNED', 'ARM_HUB_SPOKE_STRUCTURED'] mode=smoke",
+    "honest_scope": "META-INFORMER for Shannon-floor cleanup-ceiling atom (cert row 675). Branch #3 of 3 (LEARNED + STRUCTURED encoder keys). N=2048 M=200 sigma_sweep=[1.0, 1.5] N_EVAL=40 seeds=[0] arms=['ARM_RANDOM_BIPOLAR', 'ARM_CHAR_TRIGRAM_LEARNED', 'ARM_HUB_SPOKE_STRUCTURED']. Pure numpy; ARM_CHAR_TRIGRAM_LEARNED uses hdlab.char_trigram_encoder (deterministic per-trigram bipolar; bag-of-trigrams sum-then-sign); ARM_HUB_SPOKE_STRUCTURED uses 20-hub 10-spoke composition. All codebooks L2-normalized to unit norm. Not a chain-grade candidate on own merits; META-tiering informer only. Branches #1 (N-DIM-scan) and #2 (M-scan) closed at SYNTHETIC RANDOM BIPOLAR; this cell extends to LEARNED + STRUCTURED.",
+    "cites": [
+      "cert_ledger_row_675_meta_cleanup_ceiling_shannon_floor_2026-06-23",
+      "skunkworks_tiering_measured_mechanism_2026-06-23",
+      "cleanup_floor_M_scan_v1_META_DECISION_M_INDEPENDENT_branch2_closed",
+      "cleanup_floor_N_DIM_scan_v1_branch1",
+      "hdlab_char_trigram_encoder_substrate_native_text_to_hd"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 0,
+      "grid": {
+        "ARM_RANDOM_BIPOLAR": {
+          "1.0": 0.1,
+          "1.5": 0.0
+        },
+        "ARM_CHAR_TRIGRAM_LEARNED": {
+          "1.0": 0.025,
+          "1.5": 0.025
+        },
+        "ARM_HUB_SPOKE_STRUCTURED": {
+          "1.0": 0.05,
+          "1.5": 0.0
+        }
+      },
+      "sanity_sigma_0": {
+        "ARM_RANDOM_BIPOLAR": 1.0,
+        "ARM_CHAR_TRIGRAM_LEARNED": 1.0,
+        "ARM_HUB_SPOKE_STRUCTURED": 1.0
+      },
+      "N_DIM": 2048,
+      "M": 200,
+      "sigma_sweep": [
+        1.0,
+        1.5
+      ],
+      "N_EVAL": 40,
+      "arms": [
+        "ARM_RANDOM_BIPOLAR",
+        "ARM_CHAR_TRIGRAM_LEARNED",
+        "ARM_HUB_SPOKE_STRUCTURED"
+      ],
+      "run_mode": "smoke",
+      "config_version": "cleanup_floor_learned_encoder_v1; N=2048 M=200 N_EVAL=40 sigma_sweep=[1.0, 1.5] seeds=[0] arms=['ARM_RANDOM_BIPOLAR', 'ARM_CHAR_TRIGRAM_LEARNED', 'ARM_HUB_SPOKE_STRUCTURED'] mode=smoke",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782230783.6858876
+    }
+  ],
+  "elapsed_s": 0.7658023834228516,
+  "summary": "META_BRANCH3_CHAIN_GRADE_ELIGIBLE: Shannon-floor applies across RANDOM + LEARNED + STRUCTURED codebook types at sigma=1.50. recall_random=0.0000 recall_char_trigram=0.0250 recall_hub_spoke=0.0000 (ALL < 0.10). Branches #1+#2+#3 closed; META robust across N-DIM (512-16384), M (25-400), codebook type (3 families). RECOMMENDATION: Skunkworks tier-up parent META to chain-grade. BRANCH3 DECISION @ sigma=1.50: recall_random=0.0000 recall_char_trigram=0.0250 recall_hub_spoke=0.0000 max_structured=0.0250 max_cv=0.000 sigma_0_sanity=PASS N=2048 M=200 seeds=1",
+  "substrate_only_decode_gate": "TRUE (HD codebook + char_trigram_encoder; no external LM)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0
+}

@@ -1,0 +1,180 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "2/3 units complete; re-run to resume",
+  "summary": "PARTIAL 2/3",
+  "run_mode": "lite",
+  "elapsed_s": 894.1631873999722,
+  "ts_iso": "2026-08-01T02:11:25.930723+00:00",
+  "anchor_name": "encoder_skill_stack_placement_train_v1",
+  "n_units_done": 2,
+  "expected_n_units": 3,
+  "cardinality_ok": false,
+  "units": [
+    {
+      "seed": 7,
+      "target": 8,
+      "stages": {
+        "P": {
+          "frozen": 0.8085585585585585,
+          "frozen2": 0.8085585585585585,
+          "tuned": 0.9245495495495496,
+          "lift": 0.11599099099099108,
+          "drift": 0.0
+        },
+        "ENT": {
+          "frozen": 0.7256027554535017,
+          "frozen2": 0.7256027554535017,
+          "tuned": 0.8760045924225028,
+          "lift": 0.1504018369690011,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8329979879275654,
+          "frozen2": 0.8329979879275654,
+          "tuned": 0.9094567404426559,
+          "lift": 0.07645875251509049,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.7083333333333334,
+          "frozen2": 0.7083333333333334,
+          "tuned": 0.8333333333333334,
+          "lift": 0.125,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.475,
+          "tuned": 0.7,
+          "lift": 0.22499999999999998
+        },
+        "b_competitive_coref": {
+          "frozen": 0.4,
+          "tuned": 0.625,
+          "lift": 0.22499999999999998
+        },
+        "c_overwrite": {
+          "frozen": 0.2894736842105263,
+          "tuned": 0.6842105263157895,
+          "lift": 0.39473684210526316
+        }
+      },
+      "loop_frozen": 0.3881578947368421,
+      "loop_frozen2": 0.3881578947368421,
+      "loop_tuned": 0.6697368421052632,
+      "ft": {
+        "n_train_reps": 400,
+        "steps": 220,
+        "n_trainable_params": 3153408,
+        "n_layers": 6,
+        "n_unfreeze_top": 1,
+        "final": {
+          "loss": 0.6481966972351074,
+          "l_align": 0.212119922041893,
+          "l_push": 0.4182102680206299
+        },
+        "ft_seconds": 328.61906749987975
+      }
+    },
+    {
+      "seed": 13,
+      "target": 8,
+      "stages": {
+        "P": {
+          "frozen": 0.8006718924972005,
+          "frozen2": 0.8006718924972005,
+          "tuned": 0.9126539753639418,
+          "lift": 0.11198208286674127,
+          "drift": 0.0
+        },
+        "ENT": {
+          "frozen": 0.7312775330396476,
+          "frozen2": 0.7312775330396476,
+          "tuned": 0.8733480176211453,
+          "lift": 0.14207048458149774,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8129032258064516,
+          "frozen2": 0.8129032258064516,
+          "tuned": 0.9204301075268817,
+          "lift": 0.10752688172043012,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.6583333333333333,
+          "frozen2": 0.6583333333333333,
+          "tuned": 0.8125,
+          "lift": 0.15416666666666667,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.425,
+          "tuned": 0.8,
+          "lift": 0.37500000000000006
+        },
+        "b_competitive_coref": {
+          "frozen": 0.525,
+          "tuned": 0.725,
+          "lift": 0.19999999999999996
+        },
+        "c_overwrite": {
+          "frozen": 0.4473684210526316,
+          "tuned": 0.7631578947368421,
+          "lift": 0.31578947368421056
+        }
+      },
+      "loop_frozen": 0.46578947368421053,
+      "loop_frozen2": 0.46578947368421053,
+      "loop_tuned": 0.762719298245614,
+      "ft": {
+        "n_train_reps": 400,
+        "steps": 220,
+        "n_trainable_params": 3153408,
+        "n_layers": 6,
+        "n_unfreeze_top": 1,
+        "final": {
+          "loss": 0.6826050281524658,
+          "l_align": 0.19818079471588135,
+          "l_push": 0.4654603898525238
+        },
+        "ft_seconds": 473.75926179997623
+      }
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true"
+}

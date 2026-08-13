@@ -1,0 +1,354 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "MEASURED_MECHANISM: GATE1 HARD_PASS (reader 0.592 >> naive 0.341); GATE2 MIDDLE_BAND (rel_reduction=0.120). LitBank noise rate light 0.148 -> real 0.130 (rel +0.120), 25 books.",
+  "summary": "GATE1 HARD_PASS (reader 0.592 >> naive 0.341); GATE2 MIDDLE_BAND (rel_reduction=0.120)",
+  "elapsed_s": 77.06544529995881,
+  "anchor_name": "read_events_fix_role_reader_litbank_v1",
+  "run_mode": "full",
+  "seed": 20260724,
+  "parser_uas_dev": 0.7882,
+  "gate1_mcguffey": {
+    "reader_f1": 0.592,
+    "reader_prec": 0.4933,
+    "reader_rec": 0.74,
+    "naive_f1": 0.3407,
+    "naive_prec": 0.2348,
+    "margin": 0.25129999999999997,
+    "naive_in_band": true,
+    "hard_pass": true,
+    "hard_fail": false
+  },
+  "gate2_litbank": {
+    "n_books": 25,
+    "lightweight": {
+      "n_events": 2228,
+      "n_nonverb_pred": 77,
+      "n_inanimate_agent": 261,
+      "n_obviously_wrong": 329,
+      "n_agent_unfilled": 622,
+      "obviously_wrong_rate": 0.14766606822262118
+    },
+    "real_reader": {
+      "n_events": 2601,
+      "n_nonverb_pred": 160,
+      "n_inanimate_agent": 196,
+      "n_obviously_wrong": 338,
+      "n_agent_unfilled": 0,
+      "obviously_wrong_rate": 0.12995001922337562
+    },
+    "rel_reduction": 0.11997373000096993,
+    "discriminator_fires": true,
+    "verdict_gate2": "MIDDLE_BAND",
+    "arms_differ": true,
+    "glass_box": [
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 3,
+        "text": "as much mud in the streets as if the waters had but newly retired from the face of the earth , and it would not be wonderful to meet a megalosaurus , forty feet long or so , waddling like an elephantine lizard up holborn",
+        "lightweight": [
+          [
+            "retired",
+            "streets",
+            "earth"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "retired",
+            "streets",
+            "earth",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [
+          [
+            "retired",
+            "waters",
+            "face"
+          ],
+          [
+            "meet",
+            "waters",
+            "megalosaurus"
+          ],
+          [
+            "waddling",
+            "waters",
+            "elephantine"
+          ]
+        ],
+        "real_flagged_n": 0
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 14,
+        "text": "gas looming through the fog in divers places in the streets , much as the sun may , from the spongey fields , be seen to loom by husbandman and ploughboy .",
+        "lightweight": [
+          [
+            "seen",
+            "streets",
+            "husbandman"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "seen",
+            "streets",
+            "husbandman",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [
+          [
+            "looming",
+            "gas",
+            "fog"
+          ]
+        ],
+        "real_flagged_n": 1
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 15,
+        "text": "most of the shops lighted two hours before their time -- as the gas seems to know , for it has a haggard and unwilling look .",
+        "lightweight": [
+          [
+            "lighted",
+            "shops",
+            "?"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "lighted",
+            "shops",
+            "?",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [
+          [
+            "lighted",
+            "shops",
+            "hours"
+          ]
+        ],
+        "real_flagged_n": 1
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 16,
+        "text": "the raw afternoon is rawest , and the dense fog is densest , and the muddy streets are muddiest near that leaden-headed old obstruction , appropriate ornament for the threshold of a leaden-headed old corporation , temple",
+        "lightweight": [
+          [
+            "headed",
+            "streets",
+            "corporation"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "headed",
+            "streets",
+            "corporation",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [],
+        "real_flagged_n": 0
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 20,
+        "text": "on such an afternoon some score of members of the high court of chancery bar ought to be -- as here they are -- mistily engaged in one of the ten thousand stages of an endless cause , tripping one another up on slippery ",
+        "lightweight": [
+          [
+            "engaged",
+            "bar",
+            "players"
+          ],
+          [
+            "warded",
+            "bar",
+            "players"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "engaged",
+            "bar",
+            "players",
+            "",
+            "inanimate_agent"
+          ],
+          [
+            "warded",
+            "bar",
+            "players",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [],
+        "real_flagged_n": 0
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 22,
+        "text": "-- ranged in a line , in a long matted well ( but you might look in vain for truth at the bottom of it ) between the registrar 's red table and the silk gowns , with bills , cross-bills , answers , rejoinders , injunctio",
+        "lightweight": [
+          [
+            "red",
+            "you",
+            "registrar"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "red",
+            "you",
+            "registrar",
+            "nonverb",
+            ""
+          ]
+        ],
+        "real_reader": [
+          [
+            "red",
+            "you",
+            "silk"
+          ],
+          [
+            "cross",
+            "you",
+            "bills"
+          ],
+          [
+            "reports",
+            "you",
+            "mountains"
+          ],
+          [
+            "piled",
+            "you",
+            "them"
+          ]
+        ],
+        "real_flagged_n": 1
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 23,
+        "text": "well may the court be dim , with wasting candles here and there ; well may the fog hang heavy in it , as if it would never get out ; well may the stained-glass windows lose their colour and admit no light of day into the",
+        "lightweight": [
+          [
+            "dim",
+            "court",
+            "place"
+          ],
+          [
+            "deterred",
+            "court",
+            "chancellor"
+          ],
+          [
+            "stuck",
+            "court",
+            "?"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "dim",
+            "court",
+            "place",
+            "",
+            "inanimate_agent"
+          ],
+          [
+            "deterred",
+            "court",
+            "chancellor",
+            "",
+            "inanimate_agent"
+          ],
+          [
+            "stuck",
+            "court",
+            "?",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [
+          [
+            "get",
+            "it",
+            "out"
+          ],
+          [
+            "lose",
+            "it",
+            "colour"
+          ],
+          [
+            "deterred",
+            "it",
+            "entrance"
+          ],
+          [
+            "echoing",
+            "it",
+            "roof"
+          ],
+          [
+            "stuck",
+            "lord",
+            "bank"
+          ]
+        ],
+        "real_flagged_n": 0
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 30,
+        "text": "standing on a seat at the side of the hall , the better to peer into the curtained sanctuary , is a little mad old woman in a squeezed bonnet who is always in court , from its sitting to its rising , and always expecting",
+        "lightweight": [
+          [
+            "given",
+            "hall",
+            "?"
+          ]
+        ],
+        "lightweight_flagged": [
+          [
+            "given",
+            "hall",
+            "?",
+            "",
+            "inanimate_agent"
+          ]
+        ],
+        "real_reader": [],
+        "real_flagged_n": 0
+      }
+    ]
+  },
+  "bands": {
+    "HP_G1_F1_MIN": 0.55,
+    "HP_G1_MARGIN_MIN": 0.12,
+    "HP_G2_REL_REDUCTION": 0.2,
+    "CLEAN_NEG_G2_REL": -0.2
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "proxy obviously-wrong count comparison; no Cramer-Rao floor applies",
+  "calibration_check": "default_ok_for_this_regime",
+  "ts_iso": "2026-07-24T08:41:57.296936+00:00",
+  "notes": "WIRING/INTEGRATION cell (knowledge-supply throughline). Real reader = banked 29502 (V4_DOHAVE_ONLY config, F1 reproduces CITED_DOHAVE_F1=0.592). Lightweight = hdlab/situation_reader deployed extractor. Noise proxy (no LitBank role gold): non-verb predicate (WordNet verb synset) + inanimate agent (WordNet animacy hypernym). Place-specific NER unavailable in-env; animacy proxy substitutes. Lightweight is gold-mention-AIDED, real reader is self-contained -> conservative."
+}

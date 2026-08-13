@@ -1,0 +1,820 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SUPPLY-GRAMMAR VALIDATED: spaCy POS cuts nonverb_pred noise 160->70 (rel +0.562 >= 0.25); events bottleneck WAS upstream POS. L1 pure-POS nonverb 606->266 (rel +0.561); abs obviously-wrong-rate 0.130->0.099; spaCy introduced 33 own nonverb-preds; 25 books.",
+  "summary": "SUPPLY-GRAMMAR VALIDATED: spaCy POS cuts nonverb_pred noise 160->70 (rel +0.562 >= 0.25); events bottleneck WAS upstream POS",
+  "elapsed_s": 98.87210629996844,
+  "anchor_name": "read_events_supply_grammar_spacy_pos_litbank_v1",
+  "run_mode": "full",
+  "seed": 20260724,
+  "parser_uas_dev": 0.7882,
+  "gate": {
+    "n_books": 25,
+    "level1_pure_pos": {
+      "nltk_n_pred": 6174,
+      "nltk_n_nonverb": 606,
+      "spacy_n_pred": 6034,
+      "spacy_n_nonverb": 266,
+      "nonverb_rel_reduction": 0.5610561056105611
+    },
+    "level2_full_extractor": {
+      "nltk": {
+        "n_events": 2601,
+        "n_nonverb_pred": 160,
+        "n_inanimate_agent": 196,
+        "n_obviously_wrong": 338,
+        "n_agent_unfilled": 0,
+        "obviously_wrong_rate": 0.12995001922337562
+      },
+      "spacy": {
+        "n_events": 2640,
+        "n_nonverb_pred": 70,
+        "n_inanimate_agent": 195,
+        "n_obviously_wrong": 262,
+        "n_agent_unfilled": 0,
+        "obviously_wrong_rate": 0.09924242424242424
+      },
+      "nonverb_rel_reduction": 0.5625,
+      "obviously_wrong_rate_rel_reduction": 0.2363031199569661,
+      "inanimate_agent_rel_reduction": 0.00510204081632653,
+      "net_event_count_delta": 39
+    },
+    "positive_control_vs_29520": {
+      "cited_nonverb": 160,
+      "measured_nltk_nonverb": 160,
+      "cited_n_events": 2601,
+      "measured_nltk_n_events": 2601,
+      "nonverb_reproduced": true,
+      "n_events_reproduced": true
+    },
+    "discriminator_fires": true,
+    "arms_differ": true,
+    "verdict_gate": "HARD_PASS",
+    "spacy_own_error_modes": {
+      "n_spacy_introduced_nonverb_preds": 33,
+      "examples": [
+        {
+          "book": "1023_bleak_house_brat",
+          "sent_idx": 23,
+          "spacy_event": [
+            "uninitiated",
+            "it",
+            "streets"
+          ],
+          "spacy_pred_pos": "VBN",
+          "nltk_pred_pos": "JJ",
+          "text": "well may the court be dim , with wasting candles here and there ; well may the fog hang heavy in it , as if it would never get out ; well may the stained-glass windows lose their c"
+        },
+        {
+          "book": "1023_bleak_house_brat",
+          "sent_idx": 52,
+          "spacy_event": [
+            "blowers",
+            "we",
+            "pleasantry"
+          ],
+          "spacy_pred_pos": "NNS",
+          "nltk_pred_pos": "NNS",
+          "text": "the last lord chancellor handled it neatly , when , correcting mr. blowers , the eminent silk gown who said that such a thing might happen when the sky rained potatoes , he observe"
+        },
+        {
+          "book": "1064_the_masque_of_the_red_death_brat",
+          "sent_idx": 7,
+          "spacy_event": [
+            "castellated",
+            "he",
+            "abbeys"
+          ],
+          "spacy_pred_pos": "VBN",
+          "nltk_pred_pos": "JJ",
+          "text": "when his dominions were half depopulated , he summoned to his presence a thousand hale and light-hearted friends from among the knights and dames of his court , and with these reti"
+        },
+        {
+          "book": "1064_the_masque_of_the_red_death_brat",
+          "sent_idx": 11,
+          "spacy_event": [
+            "massy",
+            "courtiers",
+            "hammers"
+          ],
+          "spacy_pred_pos": "VB",
+          "nltk_pred_pos": "JJ",
+          "text": "the courtiers , having entered , brought furnaces and massy hammers and welded the bolts ."
+        },
+        {
+          "book": "1064_the_masque_of_the_red_death_brat",
+          "sent_idx": 44,
+          "spacy_event": [
+            "fro",
+            "pendulum",
+            "clang"
+          ],
+          "spacy_pred_pos": "VB",
+          "nltk_pred_pos": "VB",
+          "text": "its pendulum swung to and fro with a dull , heavy , monotonous clang ; and when the minute-hand made the circuit of the face , and the hour was to be stricken , there came from the"
+        },
+        {
+          "book": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+          "sent_idx": 76,
+          "spacy_event": [
+            "m",
+            "i",
+            "race"
+          ],
+          "spacy_pred_pos": "VBP",
+          "nltk_pred_pos": "NN",
+          "text": "now obey my orders , and take the message i 'm going to charge ' ee wi ' ... well , fred , i do n't mind telling you that the secret is that i 'm one of a noble race -- it has been"
+        },
+        {
+          "book": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+          "sent_idx": 78,
+          "spacy_event": [
+            "s",
+            "sir",
+            "i"
+          ],
+          "spacy_pred_pos": "VBZ",
+          "nltk_pred_pos": "NN",
+          "text": "\" sir john d'urberville -- that 's who i am , \" continued the prostrate man ."
+        },
+        {
+          "book": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+          "sent_idx": 84,
+          "spacy_event": [
+            "leastwise",
+            "i",
+            "twaddn"
+          ],
+          "spacy_pred_pos": "VB",
+          "nltk_pred_pos": "NN",
+          "text": "\" well , under the church of that city there lie -- \" \" 't is n't a city , the place i mean ; leastwise ' twaddn ' when i was there -- 't was a little one-eyed , blinking sort o ' "
+        },
+        {
+          "book": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+          "sent_idx": 85,
+          "spacy_event": [
+            "s",
+            "you",
+            "question"
+          ],
+          "spacy_pred_pos": "VBZ",
+          "nltk_pred_pos": "NN",
+          "text": "\" never you mind the place , boy , that 's not the question before us ."
+        },
+        {
+          "book": "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat",
+          "sent_idx": 11,
+          "spacy_event": [
+            "turbulence",
+            "i",
+            "nothing"
+          ],
+          "spacy_pred_pos": "VB",
+          "nltk_pred_pos": "NN",
+          "text": "hence , though i belong to a profession proverbially energetic and nervous , even to turbulence , at times , yet nothing of that sort have i ever suffered to invade my peace ."
+        },
+        {
+          "book": "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat",
+          "sent_idx": 34,
+          "spacy_event": [
+            "undiminished",
+            "i",
+            "glory"
+          ],
+          "spacy_pred_pos": "VBD",
+          "nltk_pred_pos": "JJ",
+          "text": "in the morning , one might say , his face was of a fine florid hue , but after twelve o'clock , meridian -- his dinner hour -- it blazed like a grate full of christmas coals ; and "
+        },
+        {
+          "book": "1400_great_expectations_brat",
+          "sent_idx": 0,
+          "spacy_event": [
+            "philip",
+            "name",
+            "infant"
+          ],
+          "spacy_pred_pos": "VBD",
+          "nltk_pred_pos": "NN",
+          "text": "chapter i my father 's family name being pirrip , and my christian name philip , my infant tongue could make of both names nothing longer or more explicit than pip ."
+        }
+      ]
+    },
+    "glass_box": [
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 22,
+        "text": "-- ranged in a line , in a long matted well ( but you might look in vain for truth at the bottom of it ) between the registrar 's red table and the silk gowns , with bills , cross-bills , answers , rejoinders , injunctio",
+        "nltk_events": [
+          [
+            "red",
+            "you",
+            "silk"
+          ],
+          [
+            "cross",
+            "you",
+            "bills"
+          ],
+          [
+            "reports",
+            "you",
+            "mountains"
+          ],
+          [
+            "piled",
+            "you",
+            "them"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "cross",
+            "you",
+            "bills"
+          ],
+          [
+            "answers",
+            "you",
+            "rejoinders"
+          ],
+          [
+            "issues",
+            "you",
+            "references"
+          ],
+          [
+            "reports",
+            "you",
+            "mountains"
+          ],
+          [
+            "piled",
+            "you",
+            "them"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "red",
+              "you",
+              "silk"
+            ],
+            "nltk_pred_pos": "VBD",
+            "spacy_pred_pos": "JJ",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 25,
+        "text": "who happen to be in the lord chancellor 's court this murky afternoon besides the lord chancellor , the counsel in the cause , two or three counsel who are never in any cause , and the well of solicitors before mentioned",
+        "nltk_events": [
+          [
+            "happen",
+            "lord",
+            "court"
+          ],
+          [
+            "chancellor",
+            "lord",
+            "counsel"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "happen",
+            "lord",
+            "s"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "chancellor",
+              "lord",
+              "counsel"
+            ],
+            "nltk_pred_pos": "NN",
+            "spacy_pred_pos": "NNP",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "1023_bleak_house_brat",
+        "sent_idx": 54,
+        "text": "from the master upon whose impaling files reams of dusty warrants in jarndyce and jarndyce have grimly writhed into many shapes , down to the copying-clerk in the six clerks ' office who has copied his tens of thousands ",
+        "nltk_events": [
+          [
+            "impaling",
+            "master",
+            "files"
+          ],
+          [
+            "writhed",
+            "master",
+            "shapes"
+          ],
+          [
+            "copied",
+            "master",
+            "tens"
+          ],
+          [
+            "s",
+            "man",
+            "nature"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "impaling",
+            "master",
+            "files"
+          ],
+          [
+            "writhed",
+            "master",
+            "shapes"
+          ],
+          [
+            "copied",
+            "master",
+            "tens"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "s",
+              "man",
+              "nature"
+            ],
+            "nltk_pred_pos": "VBZ",
+            "spacy_pred_pos": "POS",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 2,
+        "text": "\" walter elliot , born march 1 , 1760 , married , july 15 , 1784 , elizabeth , daughter of james stevenson , esq. of south park , in the county of gloucester , by which lady ( who died 1800 ) he has issue elizabeth , bor",
+        "nltk_events": [
+          [
+            "married",
+            "march",
+            "july"
+          ],
+          [
+            "elizabeth",
+            "he",
+            "june"
+          ],
+          [
+            "born",
+            "anne",
+            "august"
+          ],
+          [
+            "born",
+            "anne",
+            "son"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "married",
+            "march",
+            "july"
+          ],
+          [
+            "born",
+            "he",
+            "june"
+          ],
+          [
+            "born",
+            "anne",
+            "august"
+          ],
+          [
+            "born",
+            "anne",
+            "son"
+          ],
+          [
+            "born",
+            "mary",
+            "november"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "elizabeth",
+              "he",
+              "june"
+            ],
+            "nltk_pred_pos": "JJ",
+            "spacy_pred_pos": "NNP",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 3,
+        "text": "precisely such had the paragraph originally stood from the printer 's hands ; but sir walter had improved it by adding , for the information of himself and his family , these words , after the date of mary 's birth -- \" ",
+        "nltk_events": [
+          [
+            "improved",
+            "sir",
+            "it"
+          ],
+          [
+            "married",
+            "sir",
+            "charles"
+          ],
+          [
+            "musgrove",
+            "sir",
+            "esq"
+          ],
+          [
+            "inserting",
+            "sir",
+            "day"
+          ],
+          [
+            "lost",
+            "he",
+            "wife"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "improved",
+            "sir",
+            "it"
+          ],
+          [
+            "married",
+            "mary",
+            "december"
+          ],
+          [
+            "inserting",
+            "mary",
+            "day"
+          ],
+          [
+            "lost",
+            "mary",
+            "wife"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "musgrove",
+              "sir",
+              "esq"
+            ],
+            "nltk_pred_pos": "VBP",
+            "spacy_pred_pos": "NNP",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 28,
+        "text": "it was so with elizabeth , still the same handsome miss elliot that she had begun to be thirteen years ago , and sir walter might be excused , therefore , in forgetting her age , or , at least , be deemed only half a foo",
+        "nltk_events": [
+          [
+            "begun",
+            "it",
+            "years"
+          ],
+          [
+            "excused",
+            "it",
+            "sir"
+          ],
+          [
+            "forgetting",
+            "it",
+            "age"
+          ],
+          [
+            "deemed",
+            "it",
+            "half"
+          ],
+          [
+            "elizabeth",
+            "it",
+            "blooming"
+          ],
+          [
+            "see",
+            "he",
+            "rest"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "begun",
+            "it",
+            "years"
+          ],
+          [
+            "excused",
+            "it",
+            "sir"
+          ],
+          [
+            "forgetting",
+            "it",
+            "age"
+          ],
+          [
+            "deemed",
+            "it",
+            "half"
+          ],
+          [
+            "blooming",
+            "it",
+            "wreck"
+          ],
+          [
+            "see",
+            "he",
+            "rest"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "elizabeth",
+              "it",
+              "blooming"
+            ],
+            "nltk_pred_pos": "NNS",
+            "spacy_pred_pos": "NNP",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 32,
+        "text": "for thirteen years had she been doing the honours , and laying down the domestic law at home , and leading the way to the chaise and four , and walking immediately after lady russell out of all the drawing-rooms and dini",
+        "nltk_events": [
+          [
+            "had",
+            "years",
+            "she"
+          ],
+          [
+            "doing",
+            "years",
+            "honours"
+          ],
+          [
+            "laying",
+            "years",
+            "down"
+          ],
+          [
+            "leading",
+            "years",
+            "way"
+          ],
+          [
+            "walking",
+            "years",
+            "lady"
+          ],
+          [
+            "russell",
+            "years",
+            "drawing"
+          ],
+          [
+            "dining",
+            "years",
+            "rooms"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "had",
+            "years",
+            "she"
+          ],
+          [
+            "doing",
+            "years",
+            "honours"
+          ],
+          [
+            "laying",
+            "years",
+            "down"
+          ],
+          [
+            "leading",
+            "years",
+            "way"
+          ],
+          [
+            "walking",
+            "years",
+            "lady"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "russell",
+              "years",
+              "drawing"
+            ],
+            "nltk_pred_pos": "VBP",
+            "spacy_pred_pos": "NNP",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 33,
+        "text": "thirteen winters ' revolving frosts had seen her opening every ball of credit which a scanty neighbourhood afforded , and thirteen springs shewn their blossoms , as she travelled up to london with her father , for a few ",
+        "nltk_events": [
+          [
+            "revolving",
+            "winters",
+            "frosts"
+          ],
+          [
+            "seen",
+            "winters",
+            "opening"
+          ],
+          [
+            "shewn",
+            "springs",
+            "blossoms"
+          ],
+          [
+            "london",
+            "she",
+            "father"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "revolving",
+            "winters",
+            "frosts"
+          ],
+          [
+            "opening",
+            "winters",
+            "ball"
+          ],
+          [
+            "shewn",
+            "springs",
+            "blossoms"
+          ],
+          [
+            "travelled",
+            "she",
+            "london"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "london",
+              "she",
+              "father"
+            ],
+            "nltk_pred_pos": "VB",
+            "spacy_pred_pos": "NNP",
+            "still_pred_in_spacy": false
+          }
+        ]
+      },
+      {
+        "book": "105_persuasion_brat",
+        "sent_idx": 38,
+        "text": "the heir presumptive , the very william walter elliot , esq. , whose rights had been so generously supported by her father , had disappointed her .",
+        "nltk_events": [
+          [
+            "presumptive",
+            "heir",
+            "elliot"
+          ],
+          [
+            "supported",
+            "heir",
+            "father"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "presumptive",
+            "heir",
+            "william"
+          ],
+          [
+            "supported",
+            "heir",
+            "father"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "presumptive",
+              "heir",
+              "elliot"
+            ],
+            "nltk_pred_pos": "VBP",
+            "spacy_pred_pos": "VBP",
+            "still_pred_in_spacy": true
+          }
+        ]
+      },
+      {
+        "book": "1064_the_masque_of_the_red_death_brat",
+        "sent_idx": 7,
+        "text": "when his dominions were half depopulated , he summoned to his presence a thousand hale and light-hearted friends from among the knights and dames of his court , and with these retired to the deep seclusion of one of his ",
+        "nltk_events": [
+          [
+            "summoned",
+            "he",
+            "presence"
+          ],
+          [
+            "hearted",
+            "he",
+            "friends"
+          ],
+          [
+            "retired",
+            "he",
+            "deep"
+          ]
+        ],
+        "spacy_events": [
+          [
+            "summoned",
+            "he",
+            "presence"
+          ],
+          [
+            "castellated",
+            "he",
+            "abbeys"
+          ]
+        ],
+        "nonverb_preds": [
+          {
+            "nltk_event": [
+              "hearted",
+              "he",
+              "friends"
+            ],
+            "nltk_pred_pos": "VBN",
+            "spacy_pred_pos": "JJ",
+            "still_pred_in_spacy": false
+          }
+        ]
+      }
+    ]
+  },
+  "bands": {
+    "HP_NONVERB_REL_REDUCTION": 0.25,
+    "CLEAN_NEG_NONVERB_REL": 0.0,
+    "positive_control_tol": 0.15
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": "n/a_noise_count_metric; discriminator_fires + positive_control used",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "proxy obviously-wrong count comparison; no Cramer-Rao floor applies",
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "progress_logging": "per-book flush prints in run_gate",
+  "ts_iso": "2026-07-24T10:06:44.546153+00:00",
+  "notes": "SUPPLY-GRAMMAR cell. ONE variable = POS source (NLTK PerceptronTagger vs spaCy en_core_web_sm), same D.ORC.tokenize tokenization, same trained parser W + role clf + admissibility gate + selectional sel_fn (built once, shared both arms), same 25 LitBank books. spaCy POS = SUPPLIED preprocessing (fixed input), NOT a black-box LLM in the glass-box reasoning. L1 = pure-POS predicate selection (confound-free, no parser); L2 = full extractor (29520 obviously-wrong metric). CAVEAT: parser W + clf were fit on NLTK-tagged McGuffey; feeding spaCy tags is a mild train/test tag-distribution shift (both Penn Treebank) -> L1 is the confound-free evidence, L2 corroborates including the shift. spaCy own-error modes reported (no free lunch)."
+}

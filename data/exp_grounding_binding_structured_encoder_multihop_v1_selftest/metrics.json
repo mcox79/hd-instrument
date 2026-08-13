@@ -1,0 +1,58 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS HRR reuse + unitary roles + recovery + reach probe telemetry-sensitive; typed subgraph + attribute pipeline exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.0760121999774128,
+  "discriminator_selftest": {
+    "reuse_ok": true,
+    "unitary_norm_ratio": 0.9999999999371351,
+    "unitary_ok": true,
+    "recall_role": 1.0,
+    "recall_cos": 0.0,
+    "recovery_fires": true,
+    "reach_role": 4,
+    "reach_cos": -1,
+    "reach_fires": true,
+    "recall_perm": 0.01002004008016032,
+    "telemetry_sensitive": true
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 222,
+    "n_edges": 432,
+    "median_degree": 2.0,
+    "mean_degree": 3.891891891891892,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 13,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 432
+  },
+  "attr_meta": {
+    "assort_smooth": 0.8260885757331407,
+    "assort_shuffled": -0.07636136971512199,
+    "n_ground_seeds": 20,
+    "n_unreachable": 0,
+    "bin_counts": {
+      "0": 61,
+      "1": 122,
+      "2": 19,
+      "3": 0
+    }
+  }
+}

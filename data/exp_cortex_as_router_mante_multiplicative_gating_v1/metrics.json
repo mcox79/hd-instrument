@@ -1,0 +1,85 @@
+{
+  "anchor_name": "cortex_as_router_mante_multiplicative_gating_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: DEPENDS_ON pfc_controller_per_step_operator_select_v1 not yet HARD_PASS (status=SELFTEST_ONLY); deferring chain-grade classification until upstream lands. CORTEX_AS_OPS(acc=0.000,H=3.44bits,dist=12); SEP_BANK(acc=1.000,dist=4); HYBRID(acc=1.000); LEARNED(acc=0.000,H=3.48); PARAM_MATCHED(acc=1.000,dist=4); lift_CORTEX_vs_SEP=-1.000; lift_CORTEX_vs_PARAM_MATCHED=-1.000; pfc_status=SELFTEST_ONLY",
+  "summary": "n_seeds=1 N=1024 K=4 N_cortex=16 N_hops=3 mode=smoke",
+  "elapsed_s": 0.1047968864440918,
+  "config_version": "ANCHOR=cortex_as_router_mante_multiplicative_gating_v1,N=1024,K=4,N_cortex=16,N_hops=3,N_test=12,SEEDS=7,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel",
+  "N": 1024,
+  "K": 4,
+  "N_cortex": 16,
+  "N_hops": 3,
+  "N_test_chains": 12,
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "pfc_controller_status": "SELFTEST_ONLY",
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.05932903289794922,
+      "arms": [
+        {
+          "arm_name": "ARM_SEPARATE_BANK",
+          "accuracy": 1.0,
+          "routing_entropy_bits": 1.9910760598382222,
+          "n_test_chains": 12,
+          "n_hops": 3,
+          "n_selections": 36,
+          "n_distinct_ops_picked": 4,
+          "param_count": 4096,
+          "wall_s": 0.0,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_CORTEX_SCHEMAS_AS_OPS",
+          "accuracy": 0.0,
+          "routing_entropy_bits": 3.438294545119052,
+          "n_test_chains": 12,
+          "n_hops": 3,
+          "n_selections": 36,
+          "n_distinct_ops_picked": 12,
+          "param_count": 16384,
+          "wall_s": 0.0,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HYBRID",
+          "accuracy": 1.0,
+          "routing_entropy_bits": 1.9910760598382222,
+          "n_test_chains": 12,
+          "n_hops": 3,
+          "n_selections": 36,
+          "n_distinct_ops_picked": 4,
+          "param_count": 20480,
+          "wall_s": 0.028232812881469727,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_LEARNED_GATING",
+          "accuracy": 0.0,
+          "routing_entropy_bits": 3.4830067805200744,
+          "n_test_chains": 12,
+          "n_hops": 3,
+          "n_selections": 36,
+          "n_distinct_ops_picked": 13,
+          "param_count": 16384,
+          "wall_s": 0.0118408203125,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_PARAM_COUNT_MATCHED",
+          "accuracy": 1.0,
+          "routing_entropy_bits": 1.9910760598382222,
+          "n_test_chains": 12,
+          "n_hops": 3,
+          "n_selections": 36,
+          "n_distinct_ops_picked": 4,
+          "param_count": 16384,
+          "wall_s": 0.018252134323120117,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

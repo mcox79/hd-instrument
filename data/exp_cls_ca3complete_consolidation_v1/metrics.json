@@ -1,0 +1,187 @@
+{
+  "anchor_name": "cls_ca3complete_consolidation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Buzsaki two-stage CLS consolidation retains OLD (0.933 >= 0.80) AND acquires NEW (0.893 >= 0.70) while no-consolidation forgets OLD (0.020 <= 0.55); gap=0.913 >= 0.25; discrete fixed-budget phase respected. Continual-learning-without-forgetting demonstrated. CONSOLIDATE_FULL old=0.933 new=0.893 | NAIVE old=0.020 new=0.960 | NO_CLEANUP old=0.880 new=0.833 | gap(full-naive old)=0.913 ca3_lift=0.053 budget_ok=True",
+  "run_mode": "full",
+  "D": 1024,
+  "T": 600,
+  "E": 12,
+  "V": 64,
+  "n_seeds": 3,
+  "detail": {
+    "CONSOLIDATE_FULL": {
+      "old_retention": 0.9333,
+      "new_acquisition": 0.8933,
+      "old_retention_cv": 0.0202
+    },
+    "NAIVE_NO_CONSOLIDATION": {
+      "old_retention": 0.02,
+      "new_acquisition": 0.96
+    },
+    "CONSOLIDATE_NO_CLEANUP": {
+      "old_retention": 0.88,
+      "new_acquisition": 0.8333
+    },
+    "gap_full_minus_naive_old": 0.9133,
+    "ca3_cleanup_lift_full_minus_nocleanup_old": 0.0533,
+    "budget_respected": true,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7, 17, 23] mode=full",
+    "cites": [
+      "notes/research_hippocampal_biology_consolidation_loop_brain_first_2026-07-08.md (RANK 1 + RANK 2)",
+      "research_drill_cls_2substrate_rescue_2x_2026-06-11 (RESCUE-4 diagnosis, cycle-228 HF)",
+      "hdlab.iterative_attractor.iterative_cleanup (certified CA3-completion primitive)"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.0,
+          "new_acquisition": 0.94
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.96,
+          "new_acquisition": 0.9
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.86
+        }
+      },
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "55740555c2586d25d822f4dbd535947b685f8beccd771102fbace64fcd1eed41",
+        "CONSOLIDATE_FULL": "fc69f626f9efe7d25857cc1113856a49e461dcce325996686e9ba08a6c3a3399",
+        "CONSOLIDATE_NO_CLEANUP": "1800f82ee56fe9a356aa8b6026ed1348748e0841a2e1e989d1f3a561a769792e"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "full",
+      "config_version": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1783526009.1321886
+    },
+    {
+      "seed": 17,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.06,
+          "new_acquisition": 0.96
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.92,
+          "new_acquisition": 0.92
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.88
+        }
+      },
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "6a2f4c8c61f9fcebcba650f926e18a5b054bc0e62e1252715c9fd1436cb561f4",
+        "CONSOLIDATE_FULL": "2505cc4d8543f7503ef1725542e4272144d5f281e587323e652b7e4dd83d2c5c",
+        "CONSOLIDATE_NO_CLEANUP": "fd6d3a48632e78b0ec02bb452cbe407d17acb2468f53fddd241dabc96e05c598"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "full",
+      "config_version": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1783526011.7169096
+    },
+    {
+      "seed": 23,
+      "per_arm": {
+        "NAIVE_NO_CONSOLIDATION": {
+          "old_retention": 0.0,
+          "new_acquisition": 0.98
+        },
+        "CONSOLIDATE_FULL": {
+          "old_retention": 0.92,
+          "new_acquisition": 0.86
+        },
+        "CONSOLIDATE_NO_CLEANUP": {
+          "old_retention": 0.88,
+          "new_acquisition": 0.76
+        }
+      },
+      "budget_respected": true,
+      "n_consolidate_phases": 12,
+      "per_cycle_counts": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "arm_digests": {
+        "NAIVE_NO_CONSOLIDATION": "2d24b79d8e44ee1f0fe3b993223c130af53ef6e0e8f9cd80342e90c990e8911f",
+        "CONSOLIDATE_FULL": "c98b198d69e9ab46bb53d69c5e579829a34ab807525bfe968cd91904b9c6192f",
+        "CONSOLIDATE_NO_CLEANUP": "808431108cf69966b09cd5aac5e08966ab215e14291240a40ffc013e956f909b"
+      },
+      "D": 1024,
+      "T": 600,
+      "E": 12,
+      "V": 64,
+      "DECAY": 0.94,
+      "CUE_RHO": 0.7,
+      "run_mode": "full",
+      "config_version": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1783526014.336266
+    }
+  ],
+  "metrics_source": "measured_cpu_cls_ca3complete_consolidation_v1",
+  "elapsed_s": 7.798743963241577,
+  "summary": "HARD_PASS: Buzsaki two-stage CLS consolidation retains OLD (0.933 >= 0.80) AND acquires NEW (0.893 >= 0.70) while no-consolidation forgets OLD (0.020 <= 0.55); gap=0.913 >= 0.25; discrete fixed-budget phase respected. Continual-learning-without-forgetting demonstrated. CONSOLIDATE_FULL old=0.933 new=0.893 | NAIVE old=0.020 new=0.960 | NO_CLEANUP old=0.880 new=0.833 | gap(full-naive old)=0.913 ca3_lift=0.053 budget_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native store + cleanup; no encoder)",
+  "config_version": "cls_ca3complete_consolidation_v1; D=1024 T=600 E=12 DECAY=0.94 V=64 BUDGET_B=50 CUE_RHO=0.70 ca3_temp=4.0 ca3_alpha=0.50 ca3_steps=6 seeds=[7, 17, 23] mode=full"
+}

@@ -1,0 +1,27 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS degree-control-retest: grid-additive TransE recovers + beats popularity (degree-independent geometry), popularity baseline fires on the popularity graph and TransE does not beat it, TransE null on non-additive, gap>=0.20, arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 8.255348399979994,
+  "mechanism_selftest": {
+    "grid_transe_hits1": 0.4167,
+    "grid_random_hits1": 0.0033,
+    "grid_pop_hits1": 0.0,
+    "grid_transe_low_stratum": 0.4375,
+    "pop_pop_hits1": 0.2275,
+    "pop_transe_hits1": 0.1043,
+    "nonadd_transe_hits1": 0.0067,
+    "grid_transe_recovers": true,
+    "grid_random_fails": true,
+    "grid_geom_beats_pop": true,
+    "pop_baseline_fires": true,
+    "transe_no_edge_over_pop": true,
+    "transe_null_nonadditive": true,
+    "gap_ok": true,
+    "arms_differ": true,
+    "grid_edges": 1409,
+    "pop_edges": 740,
+    "nonadd_edges": 1315
+  }
+}

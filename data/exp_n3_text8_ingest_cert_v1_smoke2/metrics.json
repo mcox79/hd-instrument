@@ -1,0 +1,98 @@
+{
+  "anchor_name": "n3_text8_ingest_cert_v1",
+  "config_version": "N=512,LAYERS=2,ALPHA=0.100,STEPS=2,V_CHAR=27,CORPUS=text8,CORPUS_VER=matt_mahoney_2006,TRAIN=10000,TEST=1000,SEEDS=7,SYNTH=False,BANDS=HP<=1.90/MB<=3.00",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate_bpc_mean=4.751 > 3.00 (worse than text8 bigram baseline). substrate_bpc_mean=4.751 cv=0.000 n_seeds=1 | bigram_baseline=3.465 bigram_ceiling=3.253 | gain_vs_ceiling=-1.498 gain_vs_baseline=-1.286 | uniform=4.755",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N_DIM": 512,
+  "N_LAYERS": 2,
+  "ALPHA_MAX": 0.1,
+  "N_STEPS_PER_LAYER": 2,
+  "MAX_CHARS_TRAIN": 10000,
+  "MAX_CHARS_TEST": 1000,
+  "corpus_name": "text8",
+  "corpus_version": "matt_mahoney_2006",
+  "allow_synthetic": false,
+  "corpus_provenance_real": true,
+  "zero_llm_calls_at_inference": true,
+  "total_llm_forward_calls_observed": 0,
+  "substrate_bpc_mean": 4.751307567292787,
+  "substrate_bpc_cv": 0.0,
+  "bigram_baseline_bpc_mean": 3.465013969943716,
+  "bigram_ceiling_bpc_mean": 3.252852522373513,
+  "uniform_bpc": 4.754887502163468,
+  "HARD_PASS_BPC": 1.9,
+  "MIDDLE_BAND_UPPER_BPC": 3.0,
+  "CV_MAX_HP": 0.05,
+  "by_construction_guards": {
+    "vq_floor_methodology": "char-LM analog: bigram_ceiling_bpc = bigram-MLE FIT ON TEST itself (the irreducible bigram-context entropy on held-out). substrate < bigram_ceiling by >=0.05 required for HARD_PASS (else by-construction-saturated demote).",
+    "real_data_asserted": true,
+    "allow_synthetic": false,
+    "zero_llm_call_at_inference": true,
+    "split_disjointness": "deterministic 90/5/5 char-position split of single-file text8 (per testbed.substrate_lm.data.shakespeare/text8_char_corpus contract); train + test ranges non-overlapping by construction.",
+    "substrate_only_code_trace": "this cell imports NO transformers/torch; SubstrateCharLM imports no transformers; _LLM_CALL_COUNTER asserted == 0 before metrics write."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "per_unit": [
+        {
+          "seed": 7,
+          "substrate_bpc": 4.751307567292787,
+          "bigram_baseline_bpc": 3.465013969943716,
+          "bigram_ceiling_bpc": 3.252852522373513,
+          "uniform_bpc": 4.754887502163468,
+          "gain_above_bigram_ceiling": -1.4984550449192735,
+          "gain_above_bigram_baseline": -1.2862935973490708,
+          "n_scored": 999,
+          "n_train_chars": 10000,
+          "n_test_chars": 1000,
+          "vocab_size": 27,
+          "corpus_provenance_real": true,
+          "max_alpha_final": 0.1015625,
+          "any_primitive_collapse": false,
+          "llm_forward_calls_at_inference": 0,
+          "train_wall_s": 0.44893646240234375,
+          "score_wall_s": 0.586977481842041,
+          "bigram_wall_s": 0.002986907958984375,
+          "wall_s": 1.3858401775360107,
+          "N": 512,
+          "run_mode": "smoke",
+          "health_summary": {
+            "n_layers": 2,
+            "N": 512,
+            "alpha_max_observed": 0.1016,
+            "alpha_max_threshold": 0.1,
+            "alpha_c_hopfield": 0.138,
+            "any_primitive_collapse": false,
+            "per_layer": [
+              {
+                "layer": 0,
+                "alpha": 0.1015625,
+                "writes": 52,
+                "fro_norm": 10.700398445129395,
+                "max_abs_eig": 6.117799330709623,
+                "collapsed": false
+              },
+              {
+                "layer": 1,
+                "alpha": 0.1015625,
+                "writes": 52,
+                "fro_norm": 16.85070037841797,
+                "max_abs_eig": 8.128635519205574,
+                "collapsed": false
+              }
+            ]
+          }
+        }
+      ],
+      "elapsed_s": 1.3858401775360107,
+      "llm_forward_calls_at_inference": 0,
+      "N": 512,
+      "run_mode": "smoke"
+    }
+  ],
+  "elapsed_s": 1.3926382064819336,
+  "summary": "HARD_FAIL: substrate_bpc_mean=4.751 > 3.00 (worse than text8 bigram baseline). substrate_bpc_mean=4.751 cv=0.000 n_seeds=1 | bigram_baseline=3.465 bigram_ceiling=3.253 | gain_vs_ceiling=-1.498 gain_vs_baseline=-1.286 | uniform=4.755"
+}

@@ -1,0 +1,155 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | depth=6 | SOFTMAX=0.383 SINGLE=0.006 RANDOM=0.000 ARGMAX=0.344 ABSTAIN=0.133 | lift_single=0.378 lift_random=0.383 lift_argmax=0.039 cv=0.061 | n_seeds=3",
+  "summary": "HARD_PASS | depth=6 | SOFTMAX=0.383 SINGLE=0.006 RANDOM=0.000 ARGMAX=0.344 ABSTAIN=0.133 | lift_single=0.378 lift_random=0.383 lift_argmax=0.039 cv=0.061 | n_seeds=3",
+  "per_arm": {
+    "single_fixed_baseline": {
+      "3": {
+        "7": 0.016666666666666666,
+        "17": 0.0,
+        "23": 0.016666666666666666
+      },
+      "6": {
+        "7": 0.016666666666666666,
+        "17": 0.0,
+        "23": 0.0
+      }
+    },
+    "random_router": {
+      "3": {
+        "7": 0.03333333333333333,
+        "17": 0.0,
+        "23": 0.0
+      },
+      "6": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      }
+    },
+    "cosine_argmax": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      },
+      "6": {
+        "7": 0.35,
+        "17": 0.38333333333333336,
+        "23": 0.3
+      }
+    },
+    "softmax_temp_top_2": {
+      "3": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      },
+      "6": {
+        "7": 0.36666666666666664,
+        "17": 0.4166666666666667,
+        "23": 0.36666666666666664
+      }
+    },
+    "with_abstain": {
+      "3": {
+        "7": 0.0,
+        "17": 0.016666666666666666,
+        "23": 0.016666666666666666
+      },
+      "6": {
+        "7": 0.08333333333333333,
+        "17": 0.18333333333333332,
+        "23": 0.13333333333333333
+      }
+    }
+  },
+  "per_arm_summary": {
+    "single_fixed_baseline": {
+      "3": {
+        "mean": 0.011111111111111112,
+        "std": 0.007856742013183862,
+        "cv": 0.7071067811865476,
+        "n": 3
+      },
+      "6": {
+        "mean": 0.005555555555555556,
+        "std": 0.00785674201318386,
+        "cv": 1.4142135623730947,
+        "n": 3
+      }
+    },
+    "random_router": {
+      "3": {
+        "mean": 0.011111111111111112,
+        "std": 0.01571348402636772,
+        "cv": 1.4142135623730947,
+        "n": 3
+      },
+      "6": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      }
+    },
+    "cosine_argmax": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      },
+      "6": {
+        "mean": 0.3444444444444445,
+        "std": 0.034246744460938776,
+        "cv": 0.09942603230595128,
+        "n": 3
+      }
+    },
+    "softmax_temp_top_2": {
+      "3": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      },
+      "6": {
+        "mean": 0.3833333333333333,
+        "std": 0.023570226039551605,
+        "cv": 0.06148754619013463,
+        "n": 3
+      }
+    },
+    "with_abstain": {
+      "3": {
+        "mean": 0.011111111111111112,
+        "std": 0.007856742013183862,
+        "cv": 0.7071067811865476,
+        "n": 3
+      },
+      "6": {
+        "mean": 0.13333333333333333,
+        "std": 0.0408248290463863,
+        "cv": 0.30618621784789724,
+        "n": 3
+      }
+    }
+  },
+  "decision_depth": 6,
+  "lift_over_single": 0.37777777777777777,
+  "lift_over_random": 0.3833333333333333,
+  "lift_over_argmax": 0.038888888888888806,
+  "softmax_cv": 0.06148754619013463,
+  "n_seeds_complete": 3,
+  "expected_n_units": 30,
+  "completed_units": 30,
+  "cardinality_ok": true,
+  "anchor_name": "pfc_controller_softmax_margin_abstain_v2",
+  "elapsed_s": 157.0,
+  "ts_iso": "2026-06-27T18:55:43Z",
+  "pid": 36468,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_controller_softmax_margin_abstain_v2,N=4096,N_OPS=4,V=1440,seeds=[7, 17, 23],depths=[3, 6],decision_depth=6,n_train=300,n_test=60,mode=smoke,softmax_T=0.30,abstain_margin=0.10,HP_lift_single>=0.10,HP_lift_random>=0.10,HP_lift_argmax>=0.03,HP_cv<=0.10,expected_n=30,hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIR_BASELINE=SINGLE_FIXED_OP_0_NOT_MEAN_OF_OPS",
+  "_hardening_marker": "v2_pfc_softmax_margin_abstain"
+}

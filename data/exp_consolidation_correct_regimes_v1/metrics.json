@@ -1,0 +1,975 @@
+{
+  "verdict": "HARD_PASS",
+  "summary": "HARD_PASS",
+  "verdict_msg": "profile=full seeds=12 | VERDICT=HARD_PASS | valid_regimes=3/3 | R1 interference[HOLD_TIES]: hold=0.682 flat=0.682 m=+0.000 z=0.00 | R2 capacity[HOLD_WINS]: hold=0.605 keep=0.561 apw_h=0.0010 apw_k=0.0006 m=+0.044 z=28.15 | R3 order[HOLD_WINS]: traj=1.000 flat_raw=0.493 m=+0.490 z=85.85 | CALL: hold_earns_keep_in:capacity_STC,order_trajectory_single_stream_null_was_wrong_regime",
+  "elapsed_s": 8.20671399999992,
+  "ts_iso": "2026-07-16T18:42:14.157234+00:00",
+  "anchor_name": "consolidation_correct_regimes_v1",
+  "profile": "full",
+  "seeds": [
+    11,
+    23,
+    37,
+    53,
+    71,
+    89,
+    101,
+    113,
+    127,
+    139,
+    151,
+    163
+  ],
+  "run_mode": "full",
+  "primary_metric": "marginal_heldout_balanced_accuracy",
+  "crlb_n/a": "classification balanced-acc bands, no Cramer-Rao noise floor applies",
+  "bands": {
+    "TIE_EPS": 0.01,
+    "X_BAND": 0.03,
+    "SIGMA_K": 2.0
+  },
+  "call": "hold_earns_keep_in:capacity_STC,order_trajectory_single_stream_null_was_wrong_regime",
+  "regimes": {
+    "interference_CLS": {
+      "name": "interference_CLS",
+      "acc": {
+        "flat_accumulation": 0.6818914423788276,
+        "keep_everything": 0.7116262644334221,
+        "selective_hold": 0.6818914423788276
+      },
+      "strong_flat_key": "flat_accumulation",
+      "margin_hold_vs_flat": 0.0,
+      "se": 0.0,
+      "z": 0.0,
+      "cert_fired": true,
+      "controls_fired": true,
+      "valid": true,
+      "baseline_in_band": true,
+      "win": false,
+      "outcome": "HOLD_TIES",
+      "arms_differ": true,
+      "cert_detail": [
+        {
+          "acc_small": 0.7393513785797887,
+          "acc_full": 0.6802578245908424,
+          "degradation": 0.059093553988946335,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7380698005698005,
+          "acc_full": 0.6780101696514091,
+          "degradation": 0.06005963091839139,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7294455775090247,
+          "acc_full": 0.6794743186189693,
+          "degradation": 0.04997125889005538,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7294036308488335,
+          "acc_full": 0.6816386606741349,
+          "degradation": 0.04776497017469861,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7416480958992782,
+          "acc_full": 0.6784270951944631,
+          "degradation": 0.06322100070481507,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7366960335018964,
+          "acc_full": 0.6875946546937248,
+          "degradation": 0.04910137880817156,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7286070094289272,
+          "acc_full": 0.6790124072674896,
+          "degradation": 0.04959460216143763,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7366156527422254,
+          "acc_full": 0.6829123132010833,
+          "degradation": 0.05370333954114215,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7230654761904762,
+          "acc_full": 0.6826681447103236,
+          "degradation": 0.040397331480152676,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7446428571428572,
+          "acc_full": 0.6800568445086752,
+          "degradation": 0.06458601263418196,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7363065630695822,
+          "acc_full": 0.68111815557058,
+          "degradation": 0.05518840749900222,
+          "fired": true
+        },
+        {
+          "acc_small": 0.7480731225296442,
+          "acc_full": 0.6784052492571431,
+          "degradation": 0.06966787327250112,
+          "fired": true
+        }
+      ],
+      "commit_frac": 1.0,
+      "keep_everything": 0.7116262644334221
+    },
+    "capacity_STC": {
+      "name": "capacity_STC",
+      "acc": {
+        "keep_everything": 0.5609256155018199,
+        "selective_hold": 0.6047597555580263
+      },
+      "strong_flat_key": "keep_everything",
+      "margin_hold_vs_flat": 0.043834140056206526,
+      "se": 0.0015572477176232257,
+      "z": 28.148469610929393,
+      "cert_fired": true,
+      "controls_fired": true,
+      "valid": true,
+      "baseline_in_band": true,
+      "win": true,
+      "outcome": "HOLD_WINS",
+      "arms_differ": true,
+      "cert_detail": [
+        {
+          "acc_unlimited": 0.749694390113798,
+          "acc_fifo": 0.5814144736842105,
+          "scarcity_gap": 0.1682799164295875,
+          "tag_validity": 0.22196503962216055,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7396362819375795,
+          "acc_fifo": 0.5612662591787226,
+          "scarcity_gap": 0.17837002275885683,
+          "tag_validity": 0.21705727816188494,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7459237536656892,
+          "acc_fifo": 0.5592505702183121,
+          "scarcity_gap": 0.18667318344737704,
+          "tag_validity": 0.2043071227395932,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7477180098180919,
+          "acc_fifo": 0.5595049285779392,
+          "scarcity_gap": 0.18821308124015268,
+          "tag_validity": 0.2107094482722751,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.740297090329356,
+          "acc_fifo": 0.5508530470230985,
+          "scarcity_gap": 0.18944404330625753,
+          "tag_validity": 0.21237411565231418,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7527235907019769,
+          "acc_fifo": 0.5607263325228711,
+          "scarcity_gap": 0.19199725817910585,
+          "tag_validity": 0.20180909133656727,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7554175293305728,
+          "acc_fifo": 0.5604958527025796,
+          "scarcity_gap": 0.1949216766279932,
+          "tag_validity": 0.21003637072325787,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7358462393221752,
+          "acc_fifo": 0.5637683172442531,
+          "scarcity_gap": 0.17207792207792205,
+          "tag_validity": 0.22902003519299852,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7425014325154973,
+          "acc_fifo": 0.5633302078449758,
+          "scarcity_gap": 0.1791712246705215,
+          "tag_validity": 0.22149597469356747,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7407248069250839,
+          "acc_fifo": 0.5602615139504495,
+          "scarcity_gap": 0.18046329297463437,
+          "tag_validity": 0.1914335807247963,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.7409513234983491,
+          "acc_fifo": 0.5649527242609865,
+          "scarcity_gap": 0.1759985992373626,
+          "tag_validity": 0.21501358713532231,
+          "fired": true
+        },
+        {
+          "acc_unlimited": 0.747917742922757,
+          "acc_fifo": 0.5643209710398479,
+          "scarcity_gap": 0.18359677188290913,
+          "tag_validity": 0.1944421078400629,
+          "fired": true
+        }
+      ],
+      "acc_per_write_hold": 0.0010475975555802632,
+      "acc_per_write_keep": 0.0006092561550181978
+    },
+    "order_trajectory": {
+      "name": "order_trajectory",
+      "acc": {
+        "flat_raw_linear": 0.4929955806512017,
+        "flat_suffstats": 0.5061369728395845,
+        "trajectory_hold": 1.0
+      },
+      "strong_flat_key": "flat_raw_linear",
+      "margin_hold_vs_flat": 0.49033630122779237,
+      "se": 0.005711489297233771,
+      "z": 85.85086580925146,
+      "cert_fired": true,
+      "controls_fired": true,
+      "valid": true,
+      "baseline_in_band": true,
+      "win": true,
+      "outcome": "HOLD_WINS",
+      "arms_differ": true,
+      "cert_detail": [
+        {
+          "strong_flat": 0.4956999880555224,
+          "trajectory": 1.0,
+          "gap": 0.5043000119444776,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.5070428019893413,
+          "trajectory": 1.0,
+          "gap": 0.49295719801065874,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.49963313359495726,
+          "trajectory": 1.0,
+          "gap": 0.5003668664050427,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.49736986731569444,
+          "trajectory": 1.0,
+          "gap": 0.5026301326843056,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.5310720475365189,
+          "trajectory": 1.0,
+          "gap": 0.46892795246348107,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.5218086956521739,
+          "trajectory": 1.0,
+          "gap": 0.4781913043478261,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.494707943503233,
+          "trajectory": 1.0,
+          "gap": 0.505292056496767,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.5350948343870487,
+          "trajectory": 1.0,
+          "gap": 0.46490516561295125,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.506832374086724,
+          "trajectory": 1.0,
+          "gap": 0.493167625913276,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.46996784601660224,
+          "trajectory": 1.0,
+          "gap": 0.5300321539833978,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.5215589737316901,
+          "trajectory": 1.0,
+          "gap": 0.47844102626830987,
+          "fired": true
+        },
+        {
+          "strong_flat": 0.535175879396985,
+          "trajectory": 1.0,
+          "gap": 0.46482412060301503,
+          "fired": true
+        }
+      ],
+      "flat_suffstats": 0.5061369728395845
+    }
+  },
+  "controls": {
+    "R1_positive_control": [
+      {
+        "flat": 0.6820823111798245,
+        "oracle": 0.7429790832338323,
+        "gap": 0.060896772054007786,
+        "fired": true
+      },
+      {
+        "flat": 0.6810991035680118,
+        "oracle": 0.7366545016475924,
+        "gap": 0.05555539807958054,
+        "fired": true
+      },
+      {
+        "flat": 0.6743227473239568,
+        "oracle": 0.7292838314387038,
+        "gap": 0.05496108411474698,
+        "fired": true
+      },
+      {
+        "flat": 0.6751192721866508,
+        "oracle": 0.7397219145304301,
+        "gap": 0.06460264234377933,
+        "fired": true
+      },
+      {
+        "flat": 0.6808481593259135,
+        "oracle": 0.7442666227350002,
+        "gap": 0.06341846340908674,
+        "fired": true
+      },
+      {
+        "flat": 0.688963541006418,
+        "oracle": 0.7435673305683299,
+        "gap": 0.05460378956191192,
+        "fired": true
+      },
+      {
+        "flat": 0.6874883072265592,
+        "oracle": 0.7485390411075394,
+        "gap": 0.06105073388098026,
+        "fired": true
+      },
+      {
+        "flat": 0.6864041633184097,
+        "oracle": 0.7462403857192056,
+        "gap": 0.05983622240079589,
+        "fired": true
+      },
+      {
+        "flat": 0.6715621304277843,
+        "oracle": 0.7378543889084523,
+        "gap": 0.066292258480668,
+        "fired": true
+      },
+      {
+        "flat": 0.6742555310827539,
+        "oracle": 0.732980135874219,
+        "gap": 0.05872460479146502,
+        "fired": true
+      },
+      {
+        "flat": 0.6826767333538776,
+        "oracle": 0.7415544045327984,
+        "gap": 0.05887767117892084,
+        "fired": true
+      },
+      {
+        "flat": 0.6863515887906132,
+        "oracle": 0.7422049495220227,
+        "gap": 0.05585336073140945,
+        "fired": true
+      }
+    ],
+    "R1_null_guard": [
+      {
+        "degradation": 0.00045257184259872574,
+        "passes": true
+      },
+      {
+        "degradation": 0.014958420706721931,
+        "passes": true
+      },
+      {
+        "degradation": 0.015405511077296818,
+        "passes": true
+      },
+      {
+        "degradation": 0.008912491377340626,
+        "passes": true
+      },
+      {
+        "degradation": 0.021605802237821492,
+        "passes": true
+      },
+      {
+        "degradation": 0.018824521205358158,
+        "passes": true
+      },
+      {
+        "degradation": -0.0028674344872408053,
+        "passes": true
+      },
+      {
+        "degradation": 0.008067236720642246,
+        "passes": true
+      },
+      {
+        "degradation": 0.01613116859945407,
+        "passes": true
+      },
+      {
+        "degradation": 0.012633071875382762,
+        "passes": true
+      },
+      {
+        "degradation": 0.013279093882509807,
+        "passes": true
+      },
+      {
+        "degradation": 0.015056704284369005,
+        "passes": true
+      }
+    ],
+    "R1_certificate": [
+      {
+        "acc_small": 0.7393513785797887,
+        "acc_full": 0.6802578245908424,
+        "degradation": 0.059093553988946335,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7380698005698005,
+        "acc_full": 0.6780101696514091,
+        "degradation": 0.06005963091839139,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7294455775090247,
+        "acc_full": 0.6794743186189693,
+        "degradation": 0.04997125889005538,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7294036308488335,
+        "acc_full": 0.6816386606741349,
+        "degradation": 0.04776497017469861,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7416480958992782,
+        "acc_full": 0.6784270951944631,
+        "degradation": 0.06322100070481507,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7366960335018964,
+        "acc_full": 0.6875946546937248,
+        "degradation": 0.04910137880817156,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7286070094289272,
+        "acc_full": 0.6790124072674896,
+        "degradation": 0.04959460216143763,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7366156527422254,
+        "acc_full": 0.6829123132010833,
+        "degradation": 0.05370333954114215,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7230654761904762,
+        "acc_full": 0.6826681447103236,
+        "degradation": 0.040397331480152676,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7446428571428572,
+        "acc_full": 0.6800568445086752,
+        "degradation": 0.06458601263418196,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7363065630695822,
+        "acc_full": 0.68111815557058,
+        "degradation": 0.05518840749900222,
+        "fired": true
+      },
+      {
+        "acc_small": 0.7480731225296442,
+        "acc_full": 0.6784052492571431,
+        "degradation": 0.06966787327250112,
+        "fired": true
+      }
+    ],
+    "R2_positive_control": [
+      {
+        "oracle": 0.6276148540898341,
+        "fifo": 0.5705436505405783,
+        "gap": 0.05707120354925577,
+        "fired": true
+      },
+      {
+        "oracle": 0.6234915158182485,
+        "fifo": 0.5587392072540587,
+        "gap": 0.06475230856418979,
+        "fired": true
+      },
+      {
+        "oracle": 0.6292168875644903,
+        "fifo": 0.5623387742394592,
+        "gap": 0.06687811332503113,
+        "fired": true
+      },
+      {
+        "oracle": 0.6164615805304894,
+        "fifo": 0.5553237756683204,
+        "gap": 0.06113780486216902,
+        "fired": true
+      },
+      {
+        "oracle": 0.6201863379917831,
+        "fifo": 0.5648818303790928,
+        "gap": 0.055304507612690346,
+        "fired": true
+      },
+      {
+        "oracle": 0.6273098876281207,
+        "fifo": 0.5620106170279405,
+        "gap": 0.06529927060018015,
+        "fired": true
+      },
+      {
+        "oracle": 0.6203887817389679,
+        "fifo": 0.5596792262425243,
+        "gap": 0.060709555496443635,
+        "fired": true
+      },
+      {
+        "oracle": 0.6305073268977013,
+        "fifo": 0.5655583721091741,
+        "gap": 0.06494895478852714,
+        "fired": true
+      },
+      {
+        "oracle": 0.6337358122618448,
+        "fifo": 0.5729602150412552,
+        "gap": 0.06077559722058967,
+        "fired": true
+      },
+      {
+        "oracle": 0.637987467617328,
+        "fifo": 0.5722423749127332,
+        "gap": 0.06574509270459483,
+        "fired": true
+      },
+      {
+        "oracle": 0.6206761025404471,
+        "fifo": 0.5578129048796399,
+        "gap": 0.06286319766080728,
+        "fired": true
+      },
+      {
+        "oracle": 0.6295310464611377,
+        "fifo": 0.5613677811550152,
+        "gap": 0.06816326530612249,
+        "fired": true
+      }
+    ],
+    "R2_null_guard": [
+      {
+        "acc_hold": 0.5513663798852875,
+        "acc_keep": 0.5481275843670801,
+        "advantage": 0.0032387955182073824,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5549425118070455,
+        "acc_keep": 0.5511010212076124,
+        "advantage": 0.0038414905994330617,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5693336730063616,
+        "acc_keep": 0.5626160137077864,
+        "advantage": 0.0067176592985752626,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5686881755377218,
+        "acc_keep": 0.5695006958507296,
+        "advantage": -0.0008125203130078251,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5541429781498226,
+        "acc_keep": 0.5547658081190638,
+        "advantage": -0.0006228299692412342,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5502175096670964,
+        "acc_keep": 0.5433685941597405,
+        "advantage": 0.0068489155073558905,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5561227758591023,
+        "acc_keep": 0.5551309312955999,
+        "advantage": 0.0009918445635024309,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.570914998165668,
+        "acc_keep": 0.5631204767039832,
+        "advantage": 0.0077945214616848,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5609299921351968,
+        "acc_keep": 0.5662046905352791,
+        "advantage": -0.005274698400082323,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.550435165006105,
+        "acc_keep": 0.5560637250110634,
+        "advantage": -0.005628560004958372,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5622838464105151,
+        "acc_keep": 0.5582808525893964,
+        "advantage": 0.004002993821118683,
+        "passes": true
+      },
+      {
+        "acc_hold": 0.5617654493484704,
+        "acc_keep": 0.562157117103103,
+        "advantage": -0.0003916677546326186,
+        "passes": true
+      }
+    ],
+    "R2_certificate": [
+      {
+        "acc_unlimited": 0.749694390113798,
+        "acc_fifo": 0.5814144736842105,
+        "scarcity_gap": 0.1682799164295875,
+        "tag_validity": 0.22196503962216055,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7396362819375795,
+        "acc_fifo": 0.5612662591787226,
+        "scarcity_gap": 0.17837002275885683,
+        "tag_validity": 0.21705727816188494,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7459237536656892,
+        "acc_fifo": 0.5592505702183121,
+        "scarcity_gap": 0.18667318344737704,
+        "tag_validity": 0.2043071227395932,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7477180098180919,
+        "acc_fifo": 0.5595049285779392,
+        "scarcity_gap": 0.18821308124015268,
+        "tag_validity": 0.2107094482722751,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.740297090329356,
+        "acc_fifo": 0.5508530470230985,
+        "scarcity_gap": 0.18944404330625753,
+        "tag_validity": 0.21237411565231418,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7527235907019769,
+        "acc_fifo": 0.5607263325228711,
+        "scarcity_gap": 0.19199725817910585,
+        "tag_validity": 0.20180909133656727,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7554175293305728,
+        "acc_fifo": 0.5604958527025796,
+        "scarcity_gap": 0.1949216766279932,
+        "tag_validity": 0.21003637072325787,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7358462393221752,
+        "acc_fifo": 0.5637683172442531,
+        "scarcity_gap": 0.17207792207792205,
+        "tag_validity": 0.22902003519299852,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7425014325154973,
+        "acc_fifo": 0.5633302078449758,
+        "scarcity_gap": 0.1791712246705215,
+        "tag_validity": 0.22149597469356747,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7407248069250839,
+        "acc_fifo": 0.5602615139504495,
+        "scarcity_gap": 0.18046329297463437,
+        "tag_validity": 0.1914335807247963,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.7409513234983491,
+        "acc_fifo": 0.5649527242609865,
+        "scarcity_gap": 0.1759985992373626,
+        "tag_validity": 0.21501358713532231,
+        "fired": true
+      },
+      {
+        "acc_unlimited": 0.747917742922757,
+        "acc_fifo": 0.5643209710398479,
+        "scarcity_gap": 0.18359677188290913,
+        "tag_validity": 0.1944421078400629,
+        "fired": true
+      }
+    ],
+    "R3_positive_control": [
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      },
+      {
+        "traj_on_order": 1.0,
+        "flat_on_sum": 1.0,
+        "fired": true
+      }
+    ],
+    "R3_null_guard": [
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      },
+      {
+        "strong_flat": 1.0,
+        "trajectory": 1.0,
+        "gap": 0.0,
+        "passes": true
+      }
+    ],
+    "R3_certificate": [
+      {
+        "strong_flat": 0.4956999880555224,
+        "trajectory": 1.0,
+        "gap": 0.5043000119444776,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.5070428019893413,
+        "trajectory": 1.0,
+        "gap": 0.49295719801065874,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.49963313359495726,
+        "trajectory": 1.0,
+        "gap": 0.5003668664050427,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.49736986731569444,
+        "trajectory": 1.0,
+        "gap": 0.5026301326843056,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.5310720475365189,
+        "trajectory": 1.0,
+        "gap": 0.46892795246348107,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.5218086956521739,
+        "trajectory": 1.0,
+        "gap": 0.4781913043478261,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.494707943503233,
+        "trajectory": 1.0,
+        "gap": 0.505292056496767,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.5350948343870487,
+        "trajectory": 1.0,
+        "gap": 0.46490516561295125,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.506832374086724,
+        "trajectory": 1.0,
+        "gap": 0.493167625913276,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.46996784601660224,
+        "trajectory": 1.0,
+        "gap": 0.5300321539833978,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.5215589737316901,
+        "trajectory": 1.0,
+        "gap": 0.47844102626830987,
+        "fired": true
+      },
+      {
+        "strong_flat": 0.535175879396985,
+        "trajectory": 1.0,
+        "gap": 0.46482412060301503,
+        "fired": true
+      }
+    ]
+  },
+  "n_valid_regimes": 3,
+  "arms_differ_verified": true
+}

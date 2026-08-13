@@ -1,0 +1,305 @@
+{
+  "verdict": "REASONER_TIES_SINGLESHOT",
+  "verdict_msg": "REASONER_TIES_SINGLESHOT | THE-NUMBER L_lift = learned(ALL) - learned(n0) = 0.5873 - 0.6035 = -0.0161 (min=-0.0161, need>=0.02) | ANTI-CAUTION diff_lift = L_lift - G_lift = -0.0161 - +0.0478 = -0.0640 (min=-0.0640, need>=0.02) | learned dose-response [(0, 0.6035), (1, 0.5885), (2, 0.5783), (3, 0.5754), (5, 0.5718), ('ALL', 0.5873)] | grounding dose-response [(0, 0.4993), (1, 0.5094), (2, 0.5188), (3, 0.5197), (5, 0.515), ('ALL', 0.5472)] | anchor_shuffle [(0, 0.5131), (1, 0.5058), (2, 0.5139), (3, 0.5168), (5, 0.5196), ('ALL', 0.5047)] | randinit(ALL)=0.5236 | learned(ALL)=0.5873 struct_multihop=0.5345 (beats=True) grounding(n0)=0.4993 (beats=True) | Gate-D n0_learned=0.6035 ok=True(delta=-0.0579 vs 0.6614, applicable=False) | VALIDITY power=True(n_q=172) anchor_shuffle_collapses=True(=0.5047) pop_ok=True(=0.5343) | mean_anchors@ALL=70.63 | leak-proof witness: context-INT-predict overlap=0/12137 (MUST be 0) | corpus K=800 train=628 heldout=172 eval_queries=172 pairs=75622 rels=17",
+  "summary": "REASONER_TIES_SINGLESHOT | THE-NUMBER L_lift = learned(ALL) - learned(n0) = 0.5873 - 0.6035 = -0.0161 (min=-0.0161, need>=0.02) | ANTI-CAUTION diff_lift = L_lift - G_lift = -0.0161 - +0.0478 = -0.0640",
+  "run_mode": "smoke",
+  "elapsed_s": 7.79197840008419,
+  "anchor_name": "leakproof_relinfer_reasoner_multiconstraint_v1",
+  "ts_iso": "2026-07-27T05:05:06.994259+00:00",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "n_constraint_levels": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    "ALL"
+  ],
+  "expected_total_units": 1,
+  "total_units_run": 1,
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "seeds": [
+      7
+    ],
+    "heldout_frac": 0.2,
+    "top_rel": 16,
+    "predict_frac": 0.5,
+    "epochs": 80,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 192,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "w_geo": 1.0,
+    "w_rel": 0.5,
+    "w_ema": 0.5,
+    "ema_momentum": 0.99,
+    "infonce_tau": 0.2,
+    "feat_dropout": 0.1,
+    "n_deg_bins": 5,
+    "n_constraint_levels": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      100000
+    ]
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 800,
+    "n_kept_pairs": 75622,
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/PartOf",
+      "/r/UsedFor",
+      "/r/HasProperty",
+      "/r/HasA",
+      "/r/Desires",
+      "/r/MadeOf",
+      "/r/NotHasProperty",
+      "/r/NotDesires",
+      "/r/ReceivesAction",
+      "/r/Entails",
+      "/r/CausesDesire"
+    ],
+    "n_rel_slots": 17
+  },
+  "split_meta": {
+    "n_train": 628,
+    "n_heldout": 172,
+    "n_eval_queries": 172,
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 12137,
+    "mean_held_context_size": 70.62790697674419,
+    "n_rel_slots": 17,
+    "predict_frac": 0.5,
+    "max_context": null
+  },
+  "gates": {
+    "reasoner_learned_n0": 0.6034657622739018,
+    "reasoner_learned_all": 0.5873261197243755,
+    "reasoner_grounding_n0": 0.4993177576801608,
+    "reasoner_grounding_all": 0.5471535852713179,
+    "reasoner_randinit_all": 0.523638207005455,
+    "anchor_shuffle_all": 0.504733347688774,
+    "struct_multihop": 0.534516490812518,
+    "popularity": 0.5342766652311225,
+    "L_lift": -0.016139642549526267,
+    "L_lift_min": -0.016139642549526267,
+    "G_lift": 0.047835827591157065,
+    "diff_lift": -0.06397547014068333,
+    "diff_lift_min": -0.06397547014068333,
+    "l_lift_ok": false,
+    "diff_lift_ok": false,
+    "beats_struct_multihop": true,
+    "beats_grounding": true,
+    "margin_over_struct_multihop": 0.05280962891185759,
+    "margin_over_grounding_n0": 0.08800836204421475,
+    "gate_d_ok": true,
+    "gate_d_delta": -0.05793423772609818,
+    "gate_d_applicable": false,
+    "power_ok": true,
+    "n_query": 172,
+    "anchor_shuffle_collapses": true,
+    "pop_ok": true,
+    "validity_ok": true,
+    "mean_anchors_at_all": 70.62790697674419,
+    "curve_learned": [
+      [
+        0,
+        0.6035
+      ],
+      [
+        1,
+        0.5885
+      ],
+      [
+        2,
+        0.5783
+      ],
+      [
+        3,
+        0.5754
+      ],
+      [
+        5,
+        0.5718
+      ],
+      [
+        "ALL",
+        0.5873
+      ]
+    ],
+    "curve_grounding": [
+      [
+        0,
+        0.4993
+      ],
+      [
+        1,
+        0.5094
+      ],
+      [
+        2,
+        0.5188
+      ],
+      [
+        3,
+        0.5197
+      ],
+      [
+        5,
+        0.515
+      ],
+      [
+        "ALL",
+        0.5472
+      ]
+    ],
+    "curve_randinit": [
+      [
+        0,
+        0.4803
+      ],
+      [
+        1,
+        0.4976
+      ],
+      [
+        2,
+        0.504
+      ],
+      [
+        3,
+        0.5088
+      ],
+      [
+        5,
+        0.5071
+      ],
+      [
+        "ALL",
+        0.5236
+      ]
+    ],
+    "curve_anchorshuf": [
+      [
+        0,
+        0.5131
+      ],
+      [
+        1,
+        0.5058
+      ],
+      [
+        2,
+        0.5139
+      ],
+      [
+        3,
+        0.5168
+      ],
+      [
+        5,
+        0.5196
+      ],
+      [
+        "ALL",
+        0.5047
+      ]
+    ],
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 12137,
+    "anchor_shuffle_band": [
+      0.44,
+      0.56
+    ],
+    "pop_band": [
+      0.44,
+      0.56
+    ],
+    "hp_l_lift": 0.02,
+    "hp_diff_lift": 0.02,
+    "hp_over_struct_multihop": 0.03,
+    "hp_over_grounding": 0.03,
+    "min_query_tasks": 20
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "per_n": {
+        "0": {
+          "ARM_REASONER_LEARNED": 0.6034657622739018,
+          "ARM_REASONER_GROUNDING": 0.4993177576801608,
+          "ARM_REASONER_RANDINIT": 0.4803395061728395,
+          "ARM_ANCHOR_SHUFFLE": 0.5131183606086707
+        },
+        "1": {
+          "ARM_REASONER_LEARNED": 0.5885468705139246,
+          "ARM_REASONER_GROUNDING": 0.5093799346827448,
+          "ARM_REASONER_RANDINIT": 0.4975965403387883,
+          "ARM_ANCHOR_SHUFFLE": 0.5058423054837783
+        },
+        "2": {
+          "ARM_REASONER_LEARNED": 0.5783315389032444,
+          "ARM_REASONER_GROUNDING": 0.5188114592305484,
+          "ARM_REASONER_RANDINIT": 0.5039741243181165,
+          "ARM_ANCHOR_SHUFFLE": 0.5138989376973873
+        },
+        "3": {
+          "ARM_REASONER_LEARNED": 0.5753588860178007,
+          "ARM_REASONER_GROUNDING": 0.5196819372667241,
+          "ARM_REASONER_RANDINIT": 0.5087887596899225,
+          "ARM_ANCHOR_SHUFFLE": 0.5167852784955499
+        },
+        "5": {
+          "ARM_REASONER_LEARNED": 0.5718087855297157,
+          "ARM_REASONER_GROUNDING": 0.514983042635659,
+          "ARM_REASONER_RANDINIT": 0.5071377045650302,
+          "ARM_ANCHOR_SHUFFLE": 0.5196102497846684
+        },
+        "ALL": {
+          "ARM_REASONER_LEARNED": 0.5873261197243755,
+          "ARM_REASONER_GROUNDING": 0.5471535852713179,
+          "ARM_REASONER_RANDINIT": 0.523638207005455,
+          "ARM_ANCHOR_SHUFFLE": 0.504733347688774
+        }
+      },
+      "struct_multihop": 0.534516490812518,
+      "popularity": 0.5342766652311225,
+      "n_query": 172,
+      "mean_anchor_all": 70.62790697674419
+    }
+  ],
+  "reasoner_selftest": {
+    "base_singleshot_auc": 0.490576,
+    "reasoner_n0_auc": 0.490576,
+    "same_singleshot": true,
+    "reasoner_all_auc": 0.5197,
+    "mechanism_fires": true,
+    "mean_anchors_all": 12.709,
+    "anchor_shuffle_auc": 0.5199,
+    "anchor_shuffle_ran": true,
+    "deranged": true,
+    "no_leak": true,
+    "n_query": 55,
+    "overlap": 0
+  },
+  "seed_failures": []
+}

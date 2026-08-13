@@ -1,0 +1,476 @@
+{
+  "verdict": "PASS",
+  "verdict_msg": "index_byte_equiv=True gateD_control_ok=True determ=True disc_fired=True wall@8192=None (max_V=1000000, rec@maxV=1.000) insertC_speedup@max=32.2x",
+  "summary": "HD fact store capacity + sub-linear index: PASS",
+  "elapsed_s": 219.06,
+  "ts_iso": "2026-07-24T15:10:32.258579+00:00",
+  "anchor_name": "hd_fact_store_capacity_and_index_v1",
+  "recovery_wall_threshold": 0.95,
+  "deterministic": true,
+  "discriminator_fired": true,
+  "partA_real_store": [
+    {
+      "n_dim": 128,
+      "n_facts": 1000,
+      "vocab_subject": 1060,
+      "vocab_object": 1120,
+      "n_sample": 150,
+      "roundtrip_all5": 0.7066666666666667,
+      "obj_acc": 0.8733333333333333,
+      "subj_acc": 0.84,
+      "detection_precision": 1.0,
+      "detection_recall": 0.9333333333333333,
+      "resolution_replace_acc": 0.9333333333333333,
+      "confusion": {
+        "tp": 56,
+        "fp": 0,
+        "tn": 60,
+        "fn": 4
+      },
+      "elapsed_s": 0.23
+    },
+    {
+      "n_dim": 128,
+      "n_facts": 10000,
+      "vocab_subject": 10060,
+      "vocab_object": 10120,
+      "n_sample": 150,
+      "roundtrip_all5": 0.47333333333333333,
+      "obj_acc": 0.7,
+      "subj_acc": 0.7666666666666667,
+      "detection_precision": 1.0,
+      "detection_recall": 0.8,
+      "resolution_replace_acc": 0.8,
+      "confusion": {
+        "tp": 48,
+        "fp": 0,
+        "tn": 60,
+        "fn": 12
+      },
+      "elapsed_s": 2.15
+    },
+    {
+      "n_dim": 256,
+      "n_facts": 1000,
+      "vocab_subject": 1060,
+      "vocab_object": 1120,
+      "n_sample": 150,
+      "roundtrip_all5": 0.9933333333333333,
+      "obj_acc": 1.0,
+      "subj_acc": 0.9933333333333333,
+      "detection_precision": 1.0,
+      "detection_recall": 1.0,
+      "resolution_replace_acc": 1.0,
+      "confusion": {
+        "tp": 60,
+        "fp": 0,
+        "tn": 60,
+        "fn": 0
+      },
+      "elapsed_s": 0.56
+    },
+    {
+      "n_dim": 256,
+      "n_facts": 10000,
+      "vocab_subject": 10060,
+      "vocab_object": 10120,
+      "n_sample": 150,
+      "roundtrip_all5": 0.9866666666666667,
+      "obj_acc": 0.9933333333333333,
+      "subj_acc": 0.9933333333333333,
+      "detection_precision": 1.0,
+      "detection_recall": 0.9833333333333333,
+      "resolution_replace_acc": 0.9833333333333333,
+      "confusion": {
+        "tp": 59,
+        "fp": 0,
+        "tn": 60,
+        "fn": 1
+      },
+      "elapsed_s": 4.16
+    },
+    {
+      "n_dim": 1024,
+      "n_facts": 1000,
+      "vocab_subject": 1060,
+      "vocab_object": 1120,
+      "n_sample": 150,
+      "roundtrip_all5": 1.0,
+      "obj_acc": 1.0,
+      "subj_acc": 1.0,
+      "detection_precision": 1.0,
+      "detection_recall": 1.0,
+      "resolution_replace_acc": 1.0,
+      "confusion": {
+        "tp": 60,
+        "fp": 0,
+        "tn": 60,
+        "fn": 0
+      },
+      "elapsed_s": 0.6
+    },
+    {
+      "n_dim": 1024,
+      "n_facts": 10000,
+      "vocab_subject": 10060,
+      "vocab_object": 10120,
+      "n_sample": 150,
+      "roundtrip_all5": 1.0,
+      "obj_acc": 1.0,
+      "subj_acc": 1.0,
+      "detection_precision": 1.0,
+      "detection_recall": 1.0,
+      "resolution_replace_acc": 1.0,
+      "confusion": {
+        "tp": 60,
+        "fp": 0,
+        "tn": 60,
+        "fn": 0
+      },
+      "elapsed_s": 5.29
+    },
+    {
+      "n_dim": 8192,
+      "n_facts": 1000,
+      "vocab_subject": 1060,
+      "vocab_object": 1120,
+      "n_sample": 150,
+      "roundtrip_all5": 1.0,
+      "obj_acc": 1.0,
+      "subj_acc": 1.0,
+      "detection_precision": 1.0,
+      "detection_recall": 1.0,
+      "resolution_replace_acc": 1.0,
+      "confusion": {
+        "tp": 60,
+        "fp": 0,
+        "tn": 60,
+        "fn": 0
+      },
+      "elapsed_s": 2.81
+    },
+    {
+      "n_dim": 8192,
+      "n_facts": 10000,
+      "vocab_subject": 10060,
+      "vocab_object": 10120,
+      "n_sample": 150,
+      "roundtrip_all5": 1.0,
+      "obj_acc": 1.0,
+      "subj_acc": 1.0,
+      "detection_precision": 1.0,
+      "detection_recall": 1.0,
+      "resolution_replace_acc": 1.0,
+      "confusion": {
+        "tp": 60,
+        "fp": 0,
+        "tn": 60,
+        "fn": 0
+      },
+      "elapsed_s": 24.13
+    }
+  ],
+  "index_equivalence": {
+    "total_ops": 3960,
+    "n_mismatches": 0,
+    "mismatches": [],
+    "byte_equivalent": true
+  },
+  "partB_crosstalk_wall": [
+    {
+      "n_dim": 64,
+      "V": 10000,
+      "obj_recovery": 0.275,
+      "below_wall": true,
+      "elapsed_s": 0.01
+    },
+    {
+      "n_dim": 64,
+      "V": 100000,
+      "obj_recovery": 0.10833333333333334,
+      "below_wall": true,
+      "elapsed_s": 0.09
+    },
+    {
+      "n_dim": 64,
+      "V": 1000000,
+      "obj_recovery": 0.058333333333333334,
+      "below_wall": true,
+      "elapsed_s": 0.69
+    },
+    {
+      "n_dim": 96,
+      "V": 10000,
+      "obj_recovery": 0.5166666666666667,
+      "below_wall": true,
+      "elapsed_s": 0.01
+    },
+    {
+      "n_dim": 96,
+      "V": 100000,
+      "obj_recovery": 0.325,
+      "below_wall": true,
+      "elapsed_s": 0.1
+    },
+    {
+      "n_dim": 96,
+      "V": 1000000,
+      "obj_recovery": 0.18333333333333332,
+      "below_wall": true,
+      "elapsed_s": 0.92
+    },
+    {
+      "n_dim": 128,
+      "V": 10000,
+      "obj_recovery": 0.6583333333333333,
+      "below_wall": true,
+      "elapsed_s": 0.02
+    },
+    {
+      "n_dim": 128,
+      "V": 100000,
+      "obj_recovery": 0.4583333333333333,
+      "below_wall": true,
+      "elapsed_s": 0.14
+    },
+    {
+      "n_dim": 128,
+      "V": 1000000,
+      "obj_recovery": 0.25,
+      "below_wall": true,
+      "elapsed_s": 1.35
+    },
+    {
+      "n_dim": 192,
+      "V": 10000,
+      "obj_recovery": 0.9083333333333333,
+      "below_wall": true,
+      "elapsed_s": 0.02
+    },
+    {
+      "n_dim": 192,
+      "V": 100000,
+      "obj_recovery": 0.8416666666666667,
+      "below_wall": true,
+      "elapsed_s": 0.22
+    },
+    {
+      "n_dim": 192,
+      "V": 1000000,
+      "obj_recovery": 0.6833333333333333,
+      "below_wall": true,
+      "elapsed_s": 1.95
+    },
+    {
+      "n_dim": 256,
+      "V": 10000,
+      "obj_recovery": 0.9583333333333334,
+      "below_wall": false,
+      "elapsed_s": 0.03
+    },
+    {
+      "n_dim": 256,
+      "V": 100000,
+      "obj_recovery": 0.9166666666666666,
+      "below_wall": true,
+      "elapsed_s": 0.26
+    },
+    {
+      "n_dim": 256,
+      "V": 1000000,
+      "obj_recovery": 0.875,
+      "below_wall": true,
+      "elapsed_s": 2.58
+    },
+    {
+      "n_dim": 512,
+      "V": 10000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 0.08
+    },
+    {
+      "n_dim": 512,
+      "V": 100000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 0.55
+    },
+    {
+      "n_dim": 512,
+      "V": 1000000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 4.78
+    },
+    {
+      "n_dim": 1024,
+      "V": 10000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 0.12
+    },
+    {
+      "n_dim": 1024,
+      "V": 100000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 1.23
+    },
+    {
+      "n_dim": 1024,
+      "V": 1000000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 9.62
+    },
+    {
+      "n_dim": 2048,
+      "V": 10000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 0.21
+    },
+    {
+      "n_dim": 2048,
+      "V": 100000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 1.92
+    },
+    {
+      "n_dim": 2048,
+      "V": 1000000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 19.05
+    },
+    {
+      "n_dim": 8192,
+      "V": 10000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 0.8
+    },
+    {
+      "n_dim": 8192,
+      "V": 100000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 7.87
+    },
+    {
+      "n_dim": 8192,
+      "V": 1000000,
+      "obj_recovery": 1.0,
+      "below_wall": false,
+      "elapsed_s": 71.04
+    }
+  ],
+  "wall_per_n_dim": {
+    "128": {
+      "wall_V": 10000,
+      "max_V_tested": 1000000,
+      "recovery_at_max_V": 0.25
+    },
+    "256": {
+      "wall_V": 100000,
+      "max_V_tested": 1000000,
+      "recovery_at_max_V": 0.875
+    },
+    "1024": {
+      "wall_V": null,
+      "max_V_tested": 1000000,
+      "recovery_at_max_V": 1.0
+    },
+    "8192": {
+      "wall_V": null,
+      "max_V_tested": 1000000,
+      "recovery_at_max_V": 1.0
+    }
+  },
+  "gateD_positive_control": {
+    "points": [
+      {
+        "n_dim": 128,
+        "probe_obj_recovery": 0.6583333333333333,
+        "real_obj_acc": 0.7,
+        "abs_delta": 0.0417,
+        "within_0.05": true
+      },
+      {
+        "n_dim": 256,
+        "probe_obj_recovery": 0.9583333333333334,
+        "real_obj_acc": 0.9933333333333333,
+        "abs_delta": 0.035,
+        "within_0.05": true
+      },
+      {
+        "n_dim": 1024,
+        "probe_obj_recovery": 1.0,
+        "real_obj_acc": 1.0,
+        "abs_delta": 0.0,
+        "within_0.05": true
+      },
+      {
+        "n_dim": 8192,
+        "probe_obj_recovery": 1.0,
+        "real_obj_acc": 1.0,
+        "abs_delta": 0.0,
+        "within_0.05": true
+      }
+    ],
+    "control_ok": true
+  },
+  "foundation_ready_at_8192_to_1M": true,
+  "selftest": {
+    "roles": [
+      "REL",
+      "ARG0",
+      "ARG1",
+      "SOURCE",
+      "TRUST"
+    ],
+    "trust_levels": {
+      "TRUST_HIGH": 1.0,
+      "TRUST_MID": 0.6,
+      "TRUST_LOW": 0.3
+    },
+    "reuse": "EventBundleCodec / RoleSlotSummarizer bipolar primitives",
+    "sublinear_index": "content-hash sr-signature (O(1)); byte-equivalent to O(n)"
+  },
+  "trust_ladder": {
+    "TRUST_HIGH": 1.0,
+    "TRUST_MID": 0.6,
+    "TRUST_LOW": 0.3
+  },
+  "honest_frame": "SHARDED store: single-fact recovery is independent of n_facts; the wall is cleanup-codebook (vocabulary) crosstalk, exponential in n_dim. Sub-linear index = content-hash of the deterministic (s,r) signature (exact-match, O(1), byte-equivalent to the O(n) cosine scan).",
+  "partC_insert_scaling": {
+    "n_dim": 2048,
+    "sizes": [
+      100,
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "linear_s": {
+      "100": 0.1105,
+      "500": 1.6099,
+      "1000": 6.3833,
+      "2000": 23.0641,
+      "4000": 61.9717
+    },
+    "indexed_s": {
+      "100": 0.0625,
+      "500": 0.2696,
+      "1000": 0.6221,
+      "2000": 0.8105,
+      "4000": 1.9234
+    },
+    "size_ratio": 40.0,
+    "linear_time_growth": 560.83,
+    "indexed_time_growth": 30.77,
+    "speedup_at_max": 32.2
+  }
+}

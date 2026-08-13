@@ -1,0 +1,84 @@
+{
+  "anchor_name": "phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_UNIT_EXCEPTION: 1 units raised exceptions (META_RULE_J) | MULTI_BANK_K4_alpha4.0_h10x: rec=nan cv=0.0000 n=0 per_seed=[] peak_mem_mb=0 | n_units=0/expected=3 (BREACH_META_RULE_H) | failures=1 [seed11_armMULTI_BANK_K4_alpha4p0_headroom10x:OutOfMemoryError]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_units": 0,
+  "n_units_expected": 3,
+  "cardinality_ok": false,
+  "n_failures": 1,
+  "failures": [
+    {
+      "key": "seed11_armMULTI_BANK_K4_alpha4p0_headroom10x",
+      "exc_type": "OutOfMemoryError",
+      "exc_msg": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 5.38 GiB is allocated by PyTorch, and 974.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 653, in <module>\n    rec = run_unit(parsed)\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 426, in run_unit\n    rec = eval_recall_multibank_K4(V_C, V_R, M, N_DIM, K_banks=K_banks, g=g)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 240, in eval_recall_multibank_K4\n    W_k = ingest_hebbian_one_bank(shards[k], E, R, sq, n_dim)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 210, in ingest_hebbian_one_bank\n    W = W + (V_.T @ K) / n_dim\n            ~~~~~~~~~~~^~~~~~~\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 5.38 GiB is allocated by PyTorch, and 974.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+    }
+  ],
+  "config_version": "phaseDiagCapMultiBankK4-v2b-gpu: N=16384 V_R=32 seeds=[11, 13, 19] mode=full encoder=SUBSTRATE_NATIVE K_banks=4 alpha=4.0 headroom=10x HP_mb_rec_min=0.95 CV_max=0.05 EXPECTED_N_UNITS=3 GPU=True",
+  "N_DIM": 16384,
+  "V_R": 32,
+  "MULTI_BANK_K": 4,
+  "ALPHA_N_TARGET": 4.0,
+  "HEADROOM_LABEL": "10x",
+  "HEADROOM_VAL": 10.0,
+  "HP_MB_REC_MIN": 0.95,
+  "HP_MB_CV_MAX": 0.05,
+  "MB_MB_REC_MIN": 0.75,
+  "CV_MAX": 0.05,
+  "HP_SCOPE": {
+    "MULTI_BANK_K4": [
+      "HP_MB_REC_MIN>=0.95 at alpha=4.0 h=10x; CV<=0.05"
+    ],
+    "MECH": [
+      "EXEMPT_in_cell_B_routed_to_Cell_A"
+    ],
+    "KNN_SENTINEL": [
+      "EXEMPT_in_cell_B_routed_to_Cell_A"
+    ],
+    "BARE_E_R": [
+      "EXEMPT_in_cell_B_routed_to_Cell_A"
+    ]
+  },
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "per_unit": [],
+  "detail": {
+    "multi_bank_K": 4,
+    "alpha_N_target": 4.0,
+    "headroom_label": "10x",
+    "headroom_val": 10.0,
+    "multi_bank_recall_mean": NaN,
+    "multi_bank_recall_cv": 0.0,
+    "multi_bank_recall_per_seed": [],
+    "peak_mem_mb_max": 0,
+    "substrate_only_ok": true,
+    "n_llm_calls": 0,
+    "n_units_observed": 0,
+    "n_units_expected": 3,
+    "cardinality_ok": false,
+    "failures": [
+      {
+        "key": "seed11_armMULTI_BANK_K4_alpha4p0_headroom10x",
+        "exc_type": "OutOfMemoryError",
+        "exc_msg": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 5.38 GiB is allocated by PyTorch, and 974.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 653, in <module>\n    rec = run_unit(parsed)\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 426, in run_unit\n    rec = eval_recall_multibank_K4(V_C, V_R, M, N_DIM, K_banks=K_banks, g=g)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 240, in eval_recall_multibank_K4\n    W_k = ingest_hebbian_one_bank(shards[k], E, R, sq, n_dim)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu.py\", line 210, in ingest_hebbian_one_bank\n    W = W + (V_.T @ K) / n_dim\n            ~~~~~~~~~~~^~~~~~~\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 5.38 GiB is allocated by PyTorch, and 974.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+      }
+    ]
+  },
+  "elapsed_s": 127.9,
+  "summary": "HARD_FAIL_UNIT_EXCEPTION: 1 units raised exceptions (META_RULE_J) | MULTI_BANK_K4_alpha4.0_h10x: rec=nan cv=0.0000 n=0 per_seed=[] peak_mem_mb=0 | n_units=0/expected=3 (BREACH_META_RULE_H) | failures=1 [seed11_armMULTI_BANK_K4_alpha4p0_headroom10x:OutOfMemoryError]",
+  "_atexit_synth": false,
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "gpu_max_mem_gb": 8.585216,
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_capacity_v2b_multibank_K4_alone",
+  "allow_synthetic": true,
+  "metrics_source": "measured_substrate_bipolar_hebbian_W_multi_bank_K4_v2b_gpu",
+  "DESIGN_NOTE": "CAPACITY_V2B_MULTI_BANK_K4_GPU_ALONE: Rescue Cell B split from v1 per Skunkworks batch 8 (MULTI_BANK arm OOM'd at K=4 N=16384). Targets ONE phase point alpha_N=4.0 headroom=10x; 3 seeds; K_banks=4 sequential build + empty_cache + expandable_segments. GPU mandate (Fix #24): cuda asserted at full. HARD_PASS rec>=0.95 cv<=0.05 across 3 seeds. Mech / KNN / BARE arms EXEMPT (covered by Cell A). Routes overnight_queue per USER NO_LOCAL 2026-06-27."
+}

@@ -1,0 +1,228 @@
+{
+  "anchor_name": "planted_csp_viability_can_fail_at_harder_alpha_v1_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: seed-unstable (cv>0.05). control(a=0.02)recall=1.000 canfail_alpha=0.3 recall_curve={'a0.02': 1.0, 'a0.05': 1.0, 'a0.10': 1.0, 'a0.15': 1.0, 'a0.20': 0.9833, 'a0.30': 0.8333, 'a0.40': 0.2667, 'a0.50': 0.3, 'a0.60': 0.25} worst_cv=1.131",
+  "run_mode": "full",
+  "N": 1024,
+  "n_seeds": 3,
+  "detail": {
+    "by_alpha": {
+      "a0.02": {
+        "alpha": 0.02,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      },
+      "a0.05": {
+        "alpha": 0.05,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      },
+      "a0.10": {
+        "alpha": 0.1,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      },
+      "a0.15": {
+        "alpha": 0.15,
+        "recall_mean": 1.0,
+        "recall_cv": 0.0
+      },
+      "a0.20": {
+        "alpha": 0.2,
+        "recall_mean": 0.9833,
+        "recall_cv": 0.024
+      },
+      "a0.30": {
+        "alpha": 0.3,
+        "recall_mean": 0.8333,
+        "recall_cv": 0.1575
+      },
+      "a0.40": {
+        "alpha": 0.4,
+        "recall_mean": 0.2667,
+        "recall_cv": 1.0421
+      },
+      "a0.50": {
+        "alpha": 0.5,
+        "recall_mean": 0.3,
+        "recall_cv": 0.6236
+      },
+      "a0.60": {
+        "alpha": 0.6,
+        "recall_mean": 0.25,
+        "recall_cv": 1.1314
+      }
+    },
+    "control_recall_a0.02": 1.0,
+    "canfail_alpha": 0.3,
+    "gate_alpha": 0.2,
+    "worst_cv": 1.1314,
+    "source_cell": "planted_csp_viability_v1",
+    "cites": [
+      "planted_csp_viability_v1",
+      "csp_first_ship_CERT590"
+    ],
+    "recall_at_gate_alpha": 0.9833
+  },
+  "metrics_source": "measured_cpu_planted_csp_alpha_sweep_canfail",
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_alpha": {
+        "a0.02": {
+          "alpha": 0.02,
+          "M_data": 20,
+          "recall": 1.0
+        },
+        "a0.05": {
+          "alpha": 0.05,
+          "M_data": 51,
+          "recall": 1.0
+        },
+        "a0.10": {
+          "alpha": 0.1,
+          "M_data": 102,
+          "recall": 1.0
+        },
+        "a0.15": {
+          "alpha": 0.15,
+          "M_data": 153,
+          "recall": 1.0
+        },
+        "a0.20": {
+          "alpha": 0.2,
+          "M_data": 204,
+          "recall": 1.0
+        },
+        "a0.30": {
+          "alpha": 0.3,
+          "M_data": 307,
+          "recall": 0.9
+        },
+        "a0.40": {
+          "alpha": 0.4,
+          "M_data": 409,
+          "recall": 0.15
+        },
+        "a0.50": {
+          "alpha": 0.5,
+          "M_data": 512,
+          "recall": 0.05
+        },
+        "a0.60": {
+          "alpha": 0.6,
+          "M_data": 614,
+          "recall": 0.65
+        }
+      },
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782053975.7602105
+    },
+    {
+      "seed": 17,
+      "by_alpha": {
+        "a0.02": {
+          "alpha": 0.02,
+          "M_data": 20,
+          "recall": 1.0
+        },
+        "a0.05": {
+          "alpha": 0.05,
+          "M_data": 51,
+          "recall": 1.0
+        },
+        "a0.10": {
+          "alpha": 0.1,
+          "M_data": 102,
+          "recall": 1.0
+        },
+        "a0.15": {
+          "alpha": 0.15,
+          "M_data": 153,
+          "recall": 1.0
+        },
+        "a0.20": {
+          "alpha": 0.2,
+          "M_data": 204,
+          "recall": 1.0
+        },
+        "a0.30": {
+          "alpha": 0.3,
+          "M_data": 307,
+          "recall": 0.65
+        },
+        "a0.40": {
+          "alpha": 0.4,
+          "M_data": 409,
+          "recall": 0.0
+        },
+        "a0.50": {
+          "alpha": 0.5,
+          "M_data": 512,
+          "recall": 0.35
+        },
+        "a0.60": {
+          "alpha": 0.6,
+          "M_data": 614,
+          "recall": 0.05
+        }
+      },
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782053976.9873927
+    },
+    {
+      "seed": 23,
+      "by_alpha": {
+        "a0.02": {
+          "alpha": 0.02,
+          "M_data": 20,
+          "recall": 1.0
+        },
+        "a0.05": {
+          "alpha": 0.05,
+          "M_data": 51,
+          "recall": 1.0
+        },
+        "a0.10": {
+          "alpha": 0.1,
+          "M_data": 102,
+          "recall": 1.0
+        },
+        "a0.15": {
+          "alpha": 0.15,
+          "M_data": 153,
+          "recall": 1.0
+        },
+        "a0.20": {
+          "alpha": 0.2,
+          "M_data": 204,
+          "recall": 0.95
+        },
+        "a0.30": {
+          "alpha": 0.3,
+          "M_data": 307,
+          "recall": 0.95
+        },
+        "a0.40": {
+          "alpha": 0.4,
+          "M_data": 409,
+          "recall": 0.65
+        },
+        "a0.50": {
+          "alpha": 0.5,
+          "M_data": 512,
+          "recall": 0.5
+        },
+        "a0.60": {
+          "alpha": 0.6,
+          "M_data": 614,
+          "recall": 0.05
+        }
+      },
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782053978.4853733
+    }
+  ],
+  "elapsed_s": 4.451914072036743,
+  "summary": "MIDDLE_BAND: seed-unstable (cv>0.05). control(a=0.02)recall=1.000 canfail_alpha=0.3 recall_curve={'a0.02': 1.0, 'a0.05': 1.0, 'a0.10': 1.0, 'a0.15': 1.0, 'a0.20': 0.9833, 'a0.30': 0.8333, 'a0.40': 0.2667, 'a0.50': 0.3, 'a0.60': 0.25} worst_cv=1.131"
+}

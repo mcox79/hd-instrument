@@ -1,0 +1,9 @@
+{
+  "anchor_name": "lccp_fullnopat_densified_pdo_frame_teacher_stack_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: pdo_override must change the treatment kept set (one-variable injection is live)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_lccp_fullnopat_densified_pdo_frame_teacher_stack_v1.py\", line 643, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_lccp_fullnopat_densified_pdo_frame_teacher_stack_v1.py\", line 633, in main\n    self_test(); return\n    ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_lccp_fullnopat_densified_pdo_frame_teacher_stack_v1.py\", line 607, in self_test\n    assert h_slice != h_low, \"pdo_override must change the treatment kept set (one-variable injection is live)\"\n           ^^^^^^^^^^^^^^^^\nAssertionError: pdo_override must change the treatment kept set (one-variable injection is live)\n",
+  "ts_iso": "2026-07-19T21:07:35.634697+00:00"
+}

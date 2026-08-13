@@ -1,0 +1,402 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HYPOTHESIS_REFUTED_NO_TRANSFER (all 5 fairness gates PASS, incl. verified-optimized training + positive control + non-floor metric): hard-state lift=+0.033 < 0.05 even under DIRECT, VERIFIED-optimizing training on an independent-with-headroom target -- this is a REAL intrinsic limit, not lack-of-training. HARDSTATE: fz=0.704 tn=0.737 lift=+0.033 (min=0.05) | worst entity metric=ENT_q lift=+0.000 (floor=-0.05) | loop fz=0.462 tn=0.574",
+  "summary": "HARD_FAIL | HYPOTHESIS_REFUTED_NO_TRANSFER (all 5 fairness gates PASS, incl. verified-optimized training + positive control + non-floor metric): hard-state lift=+",
+  "run_mode": "lite",
+  "elapsed_s": 824.6638923999853,
+  "ts_iso": "2026-08-01T03:52:11.355846+00:00",
+  "anchor_name": "encoder_skill_stack_hardstate_train_v1",
+  "bands": {
+    "bars": {
+      "target_lift_min": 0.05,
+      "no_interfere_max_drop": 0.05,
+      "drift_max": 0.01
+    },
+    "fairness_gates": {
+      "G1_independence_by_construction": true,
+      "G2_headroom_in_band": true,
+      "G3_training_optimized": true,
+      "G4_positive_control_lifts": true,
+      "G5_metric_can_move": true
+    },
+    "stage_mean": {
+      "ENT": {
+        "frozen": 0.7247489724413411,
+        "tuned": 0.7796334215799802,
+        "lift": 0.0548844491386391
+      },
+      "MARK": {
+        "frozen": 0.827641115510266,
+        "tuned": 0.8612434463411293,
+        "lift": 0.033602330830863315
+      },
+      "ENT_q": {
+        "frozen": 1.0,
+        "tuned": 1.0,
+        "lift": 0.0
+      },
+      "MARK_q": {
+        "frozen": 1.0,
+        "tuned": 1.0,
+        "lift": 0.0
+      },
+      "entity_consistency": {
+        "frozen": 0.6833333333333332,
+        "tuned": 0.7333333333333334,
+        "lift": 0.04999999999999997
+      }
+    },
+    "per_type_mean": {
+      "a_name_maintenance": {
+        "frozen": 0.49166666666666664,
+        "tuned": 0.5750000000000001,
+        "lift": 0.08333333333333337
+      },
+      "b_competitive_coref": {
+        "frozen": 0.4916666666666667,
+        "tuned": 0.5833333333333334,
+        "lift": 0.09166666666666666
+      },
+      "c_overwrite": {
+        "frozen": 0.4030214424951268,
+        "tuned": 0.5628654970760234,
+        "lift": 0.1598440545808967
+      }
+    },
+    "hardstate_frozen": 0.7044444444444444,
+    "hardstate_tuned": 0.7372222222222221,
+    "hardstate_lift": 0.03277777777777772,
+    "loop_frozen": 0.4621182586094867,
+    "loop_tuned": 0.5737329434697857,
+    "max_drift": 0.0,
+    "max_drift_hardstate": 0.0,
+    "entity_lifts": {
+      "ENT": 0.0548844491386391,
+      "MARK": 0.033602330830863315,
+      "ENT_q": 0.0,
+      "MARK_q": 0.0,
+      "entity_consistency": 0.04999999999999997,
+      "loop_a_name_maintenance": 0.08333333333333337,
+      "loop_b_competitive_coref": 0.09166666666666666,
+      "loop_c_overwrite": 0.1598440545808967
+    },
+    "worst_entity_metric": "ENT_q",
+    "worst_entity_lift": 0.0,
+    "interference": false,
+    "target_clears": false,
+    "positive_control": {
+      "seed": 7,
+      "weight_move": 0.01510840654373169,
+      "ent_lift": 0.14925373134328357,
+      "loop_lift": 0.10263157894736841,
+      "loop_frozen": 0.3881578947368421,
+      "loop_tuned": 0.4907894736842105,
+      "hardstate_lift_under_entity_training": -0.10499999999999998
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "units": [
+    {
+      "seed": 7,
+      "target": 8,
+      "stages": {
+        "ENT": {
+          "frozen": 0.7256027554535017,
+          "frozen2": 0.7256027554535017,
+          "tuned": 0.7772675086107922,
+          "lift": 0.051664753157290466,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8329979879275654,
+          "frozen2": 0.8329979879275654,
+          "tuned": 0.869215291750503,
+          "lift": 0.03621730382293764,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.7083333333333334,
+          "frozen2": 0.7083333333333334,
+          "tuned": 0.75,
+          "lift": 0.04166666666666663,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.475,
+          "tuned": 0.45,
+          "lift": -0.024999999999999967
+        },
+        "b_competitive_coref": {
+          "frozen": 0.4,
+          "tuned": 0.45,
+          "lift": 0.04999999999999999
+        },
+        "c_overwrite": {
+          "frozen": 0.2894736842105263,
+          "tuned": 0.5263157894736842,
+          "lift": 0.23684210526315785
+        }
+      },
+      "hardstate": {
+        "frozen": 0.7033333333333334,
+        "frozen2": 0.7033333333333334,
+        "tuned": 0.7333333333333333,
+        "lift": 0.029999999999999916,
+        "drift": 0.0,
+        "floor_frozen": 0.085,
+        "floor_tuned": 0.08666666666666667,
+        "n": 600,
+        "baseline_in_band": true
+      },
+      "loop_frozen": 0.3881578947368421,
+      "loop_frozen2": 0.3881578947368421,
+      "loop_tuned": 0.47543859649122805,
+      "ft": {
+        "n_train_reps": 400,
+        "steps": 120,
+        "n_trainable_params": 3153408,
+        "n_layers": 6,
+        "n_unfreeze_top": 1,
+        "loss_start": 0.8280689358711243,
+        "loss_end": 0.8232743501663208,
+        "loss_descent": 0.004794585704803511,
+        "weight_move": 0.01408398151397705,
+        "ft_seconds": 99.79768129996955
+      }
+    },
+    {
+      "seed": 13,
+      "target": 8,
+      "stages": {
+        "ENT": {
+          "frozen": 0.7312775330396476,
+          "frozen2": 0.7312775330396476,
+          "tuned": 0.7852422907488987,
+          "lift": 0.05396475770925113,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8129032258064516,
+          "frozen2": 0.8129032258064516,
+          "tuned": 0.8473118279569892,
+          "lift": 0.03440860215053765,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.6583333333333333,
+          "frozen2": 0.6583333333333333,
+          "tuned": 0.7166666666666667,
+          "lift": 0.05833333333333335,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.425,
+          "tuned": 0.675,
+          "lift": 0.25000000000000006
+        },
+        "b_competitive_coref": {
+          "frozen": 0.525,
+          "tuned": 0.65,
+          "lift": 0.125
+        },
+        "c_overwrite": {
+          "frozen": 0.4473684210526316,
+          "tuned": 0.5789473684210527,
+          "lift": 0.13157894736842107
+        }
+      },
+      "hardstate": {
+        "frozen": 0.7016666666666667,
+        "frozen2": 0.7016666666666667,
+        "tuned": 0.735,
+        "lift": 0.033333333333333326,
+        "drift": 0.0,
+        "floor_frozen": 0.09333333333333334,
+        "floor_tuned": 0.09333333333333334,
+        "n": 600,
+        "baseline_in_band": true
+      },
+      "loop_frozen": 0.46578947368421053,
+      "loop_frozen2": 0.46578947368421053,
+      "loop_tuned": 0.6346491228070176,
+      "ft": {
+        "n_train_reps": 400,
+        "steps": 120,
+        "n_trainable_params": 3153408,
+        "n_layers": 6,
+        "n_unfreeze_top": 1,
+        "loss_start": 0.8273158669471741,
+        "loss_end": 0.8218950152397155,
+        "loss_descent": 0.0054208517074585405,
+        "weight_move": 0.01449042558670044,
+        "ft_seconds": 97.10700799990445
+      }
+    },
+    {
+      "seed": 19,
+      "target": 8,
+      "stages": {
+        "ENT": {
+          "frozen": 0.717366628830874,
+          "frozen2": 0.717366628830874,
+          "tuned": 0.7763904653802497,
+          "lift": 0.05902383654937571,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8370221327967807,
+          "frozen2": 0.8370221327967807,
+          "tuned": 0.8672032193158954,
+          "lift": 0.030181086519114664,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.6833333333333333,
+          "frozen2": 0.6833333333333333,
+          "tuned": 0.7333333333333333,
+          "lift": 0.04999999999999993,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.575,
+          "tuned": 0.6,
+          "lift": 0.025000000000000022
+        },
+        "b_competitive_coref": {
+          "frozen": 0.55,
+          "tuned": 0.65,
+          "lift": 0.09999999999999998
+        },
+        "c_overwrite": {
+          "frozen": 0.4722222222222222,
+          "tuned": 0.5833333333333334,
+          "lift": 0.11111111111111116
+        }
+      },
+      "hardstate": {
+        "frozen": 0.7083333333333334,
+        "frozen2": 0.7083333333333334,
+        "tuned": 0.7433333333333333,
+        "lift": 0.03499999999999992,
+        "drift": 0.0,
+        "floor_frozen": 0.07833333333333334,
+        "floor_tuned": 0.07833333333333334,
+        "n": 600,
+        "baseline_in_band": true
+      },
+      "loop_frozen": 0.5324074074074074,
+      "loop_frozen2": 0.5324074074074074,
+      "loop_tuned": 0.6111111111111112,
+      "ft": {
+        "n_train_reps": 400,
+        "steps": 120,
+        "n_trainable_params": 3153408,
+        "n_layers": 6,
+        "n_unfreeze_top": 1,
+        "loss_start": 0.8278697490692138,
+        "loss_end": 0.8220564603805542,
+        "loss_descent": 0.005813288688659601,
+        "weight_move": 0.014051318168640137,
+        "ft_seconds": 488.75068109994754
+      }
+    }
+  ],
+  "positive_control": {
+    "seed": 7,
+    "weight_move": 0.01510840654373169,
+    "ent_lift": 0.14925373134328357,
+    "loop_lift": 0.10263157894736841,
+    "loop_frozen": 0.3881578947368421,
+    "loop_tuned": 0.4907894736842105,
+    "hardstate_lift_under_entity_training": -0.10499999999999998
+  },
+  "params": {
+    "hardness": [
+      1,
+      3,
+      8
+    ],
+    "eval_n": 40,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "steps": 120,
+    "nctx": 40,
+    "depth": 1,
+    "hardstate_eval_n": 60,
+    "n_mods_hard": 8,
+    "measurement": "frozen_vs_hardstate_trained_target_lift_and_entity_no_interference"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

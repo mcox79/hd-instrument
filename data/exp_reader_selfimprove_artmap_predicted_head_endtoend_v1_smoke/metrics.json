@@ -1,0 +1,189 @@
+{
+  "anchor_name": "reader_selfimprove_artmap_predicted_head_endtoend_v1",
+  "run_mode": "smoke",
+  "verdict": "IMPROVING_SURVIVES_PREDICTED",
+  "verdict_msg": "IMPROVING_SURVIVES_PREDICTED | GH(control) reproduces=True (decline=0.7895 fp_rise=0.0265 min_rise=0.131 rules=18.0) | PH(load-bearing) loop_off_who=0.8228 endstate_who=0.9022 EE_DELTA=+0.0794 ceiling(attach_ok)=0.9042 | PH minority_prefix_rise=0.4 (scramble_collapse=0.4 fires=True) survival_ratio=3.0534 | PH residual attach_err=99.0 labeler=2.0 (attach_frac=0.9802) net_broken_fixable=0.0 reg=10.0 | leak_clean=True arms_differ=True baseline_in_band=True cardinality_ok=True",
+  "summary": "IMPROVING_SURVIVES_PREDICTED | GH(control) reproduces=True (decline=0.7895 fp_rise=0.0265 min_rise=0.131 rules=18.0) | PH(load-bearing) loop_off_who=0.8228 endstate_who=0.9022 EE_DELTA=+0.0794 ceiling(attach_ok)=0.9042 | PH minority_prefix_rise=0.4 (scramble_collapse=0.4 fires=True) survival_ratio=3.0534 | PH residual attach_err=99.0 labeler=2.0 (attach_frac=0.9802) net_broken_fixable=0.0 reg=10.0 | leak_clean=True arms_differ=True baseline_in_band=True cardinality_ok=True",
+  "elapsed_s": 10.6,
+  "ts_iso": "2026-07-21T16:15:36.432030+00:00",
+  "seeds": [
+    7
+  ],
+  "regimes": [
+    "GH",
+    "PH"
+  ],
+  "EXPECTED_N_UNITS": 2,
+  "n_units": 2,
+  "GATE_D_gold_head_reproduces": true,
+  "SURVIVAL_ratio_ph_over_gh": 3.0534,
+  "PH_ee_delta_loop_on_off": 0.0794,
+  "PH_loop_off_who_affected": 0.8228,
+  "PH_endstate_who_affected": 0.9022,
+  "PH_ceiling_attach_ok_rate": 0.9042,
+  "PH_minority_prefix_rise": 0.4,
+  "PH_minority_rise_collapse": 0.4,
+  "PH_residual_attach_frac": 0.9802,
+  "PH_net_broken_fixable": 0.0,
+  "PH_regressions": 10.0,
+  "REGIME_results": {
+    "GH": {
+      "regime": "GH",
+      "stats": {
+        "n_patient": 1033,
+        "n_attach_ok": 1033,
+        "n_attach_err": 0,
+        "attach_ok_rate": 1.0,
+        "n_labeler_err_on_attach_ok": 103,
+        "minority_labeler_err": 48,
+        "role_patient": {
+          "obj": 910,
+          "nsubj:pass": 123
+        },
+        "role_attach_err": {},
+        "role_labeler_err": {
+          "nsubj:pass": 48,
+          "obj": 55
+        }
+      },
+      "loop_off_who_affected": 0.9003,
+      "ceiling_who_affected_attach_ok_rate": 1.0,
+      "endstate_who_affected_mean": 0.999,
+      "ee_delta_loop_on_off_mean": 0.0987,
+      "first_pass_arc_rise_mean": 0.0265,
+      "minority_prefix_rise_mean": 0.131,
+      "minority_rise_collapse_mean": -0.1547,
+      "minority_endstate_acc_mean": 1.0,
+      "atoms_decline_rel_mean": 0.7895,
+      "decline_collapse_mean": 0.1386,
+      "regressions_mean": 3.0,
+      "net_broken_fixable_mean": 0.0,
+      "n_rules_mean": 18.0,
+      "rule_purity_mean": 1.0,
+      "residual_attach_frac_mean": 0.0,
+      "residual_miss_attach_err_mean": 0.0,
+      "residual_miss_labeler_mean": 1.0,
+      "elapsed_s": 1.1,
+      "per_seed": [
+        {
+          "seed": 7,
+          "immediate_recall": 1.0,
+          "regressions": 3,
+          "atoms_decline_rel": 0.7895,
+          "first_pass_arc_rise": 0.0265,
+          "minority_prefix_rise": 0.131,
+          "endstate_who_affected": 0.999,
+          "ee_delta_loop_on_off": 0.0987,
+          "final_net_broken": 0,
+          "final_net_fixed": 102,
+          "final_exact_collisions": 0,
+          "net_broken_fixable": 0,
+          "minority_endstate_acc": 1.0,
+          "n_rules": 18,
+          "rule_purity": 1.0,
+          "compression_ratio": 2.778,
+          "first_rule_at_atom": 4,
+          "residual_miss_total": 1,
+          "residual_miss_attach_err": 0,
+          "residual_miss_labeler": 1,
+          "residual_attach_frac": 0.0,
+          "scramble": {
+            "atoms_decline_rel": 0.6509,
+            "minority_prefix_rise": 0.2857
+          },
+          "minority_rise_collapse": -0.1547,
+          "decline_collapse": 0.1386
+        }
+      ]
+    },
+    "PH": {
+      "regime": "PH",
+      "stats": {
+        "n_patient": 1033,
+        "n_attach_ok": 934,
+        "n_attach_err": 99,
+        "attach_ok_rate": 0.9042,
+        "n_labeler_err_on_attach_ok": 84,
+        "minority_labeler_err": 37,
+        "role_patient": {
+          "obj": 910,
+          "nsubj:pass": 123
+        },
+        "role_attach_err": {
+          "obj": 61,
+          "nsubj:pass": 38
+        },
+        "role_labeler_err": {
+          "nsubj:pass": 37,
+          "obj": 47
+        }
+      },
+      "loop_off_who_affected": 0.8228,
+      "ceiling_who_affected_attach_ok_rate": 0.9042,
+      "endstate_who_affected_mean": 0.9022,
+      "ee_delta_loop_on_off_mean": 0.0794,
+      "first_pass_arc_rise_mean": 0.0151,
+      "minority_prefix_rise_mean": 0.4,
+      "minority_rise_collapse_mean": 0.4,
+      "minority_endstate_acc_mean": 1.0,
+      "atoms_decline_rel_mean": 0.8667,
+      "decline_collapse_mean": 0.0702,
+      "regressions_mean": 10.0,
+      "net_broken_fixable_mean": 0.0,
+      "n_rules_mean": 14.0,
+      "rule_purity_mean": 1.0,
+      "residual_attach_frac_mean": 0.9802,
+      "residual_miss_attach_err_mean": 99.0,
+      "residual_miss_labeler_mean": 2.0,
+      "elapsed_s": 8.83,
+      "per_seed": [
+        {
+          "seed": 7,
+          "immediate_recall": 1.0,
+          "regressions": 10,
+          "atoms_decline_rel": 0.8667,
+          "first_pass_arc_rise": 0.0151,
+          "minority_prefix_rise": 0.4,
+          "endstate_who_affected": 0.9022,
+          "ee_delta_loop_on_off": 0.0794,
+          "final_net_broken": 0,
+          "final_net_fixed": 82,
+          "final_exact_collisions": 0,
+          "net_broken_fixable": 0,
+          "minority_endstate_acc": 1.0,
+          "n_rules": 14,
+          "rule_purity": 1.0,
+          "compression_ratio": 2.857,
+          "first_rule_at_atom": 4,
+          "residual_miss_total": 101,
+          "residual_miss_attach_err": 99,
+          "residual_miss_labeler": 2,
+          "residual_attach_frac": 0.9802,
+          "scramble": {
+            "atoms_decline_rel": 0.7965,
+            "minority_prefix_rise": 0.0
+          },
+          "minority_rise_collapse": 0.4,
+          "decline_collapse": 0.0702
+        }
+      ]
+    }
+  },
+  "leak_clean": true,
+  "leak_mutation_probe": {
+    "leak_clean": true,
+    "n": 200
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "cardinality_ok": true,
+  "one_variable": "the loop (on/off) within a regime; head/POS source is a controlled regime axis",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "online ARTMAP who-affected recall; no quantitative noise floor",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <8min)",
+  "deterministic_seeding": true,
+  "storage": "no_storage_production_hdlab_untouched",
+  "loop_reused_from": "exp_reader_selfimprove_artmap_stream_udewt_v1 (ArtmapReader/signature verbatim)",
+  "interpretation_note": "HELD-OUT generalization = minority_prefix_rise + scramble collapse (VET-correct, base-rate-free). END-STATE ee_delta = in-sample ceiling via exact-atom memorization (= attach_ok_rate); residual_attach_frac shows the wall has shifted from LABELER to PARSER-ATTACH under predicted heads."
+}

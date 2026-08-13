@@ -1,0 +1,394 @@
+{
+  "verdict": "HARD_PASS_BORDERLINE_SWEET_SPOT_FOUND_W_0.9",
+  "verdict_msg": "window: loc=0.850 art=1.000 wordsim=0.8694 | dependency(w=0.0): loc=0.400 art=0.850 | PARETO CURVE: w=1.0: loc=0.850 art=1.000 wordsim=0.8694 | w=0.9: loc=0.850 art=1.000 wordsim=0.8697 | w=0.8: loc=0.833 art=1.000 wordsim=0.8657 | w=0.7: loc=0.800 art=0.950 wordsim=0.8385 | w=0.6: loc=0.800 art=0.950 wordsim=0.7917 | w=0.5: loc=0.550 art=0.950 wordsim=0.7515 | sweet_spot_weights=[0.9] best_sweet_spot_w=0.9 joint_fix_weights=[0.9] | random_auc=0.4250 random_must_fail_ok=True | n_test_artifact=20 n_test_location=20 | cardinality_ok=True (1080/1080)",
+  "summary": "HARD_PASS_BORDERLINE_SWEET_SPOT_FOUND_W_0.9: window: loc=0.850 art=1.000 wordsim=0.8694 | dependency(w=0.0): loc=0.400 art=0.850 | PARETO CURVE: w=1.0: loc=0.850 art=1.000 wordsim=0.8694 | w=0.9: loc=0.850 art=1.000 wordsim=0.8697 | w=0.8: loc=0.833 art=1.000 words",
+  "elapsed_s": 106.12725800002227,
+  "anchor_name": "dependency_context_codebook_weight_sweep_location_artifact_v2",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T17:11:05.910053+00:00",
+  "config": {
+    "n_tokens": 1500000,
+    "vocab_size": 10000,
+    "window": 5,
+    "min_count": 5,
+    "N_TARGET": 512,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "weight_grid": [
+      1.0,
+      0.9,
+      0.8,
+      0.7,
+      0.6,
+      0.5
+    ],
+    "n_test_artifact": 20,
+    "n_test_location": 20,
+    "exemplar_artifact": [
+      "church",
+      "museum",
+      "library",
+      "temple",
+      "academy",
+      "stadium"
+    ],
+    "test_artifact": [
+      "tower",
+      "prison",
+      "monastery",
+      "abbey",
+      "chamber",
+      "palace",
+      "hotel",
+      "theatre",
+      "cathedral",
+      "castle",
+      "hospital",
+      "factory",
+      "theater",
+      "monument",
+      "cinema",
+      "gallery",
+      "mosque",
+      "fortress",
+      "pyramid",
+      "chapel"
+    ],
+    "exemplar_location": [
+      "island",
+      "coast",
+      "mountain",
+      "bay",
+      "gulf"
+    ],
+    "test_location": [
+      "desert",
+      "hill",
+      "cape",
+      "peninsula",
+      "plateau",
+      "plain",
+      "forest",
+      "basin",
+      "archipelago",
+      "delta",
+      "strait",
+      "cave",
+      "shore",
+      "ridge",
+      "coastline",
+      "crater",
+      "harbor",
+      "prairie",
+      "reef",
+      "summit"
+    ],
+    "dep_col_names": [
+      "pobj_of:in",
+      "pobj_of:at",
+      "pobj_of:near",
+      "pobj_of:on",
+      "dobj_of:build",
+      "nsubj_of:build",
+      "dobj_of:make",
+      "nsubj_of:make",
+      "dobj_of:use",
+      "nsubj_of:use",
+      "dobj_of:create",
+      "nsubj_of:create"
+    ],
+    "V": 10000
+  },
+  "dep_trigger_hits": {
+    "pobj_of:in": 29916,
+    "pobj_of:at": 4151,
+    "pobj_of:near": 283,
+    "pobj_of:on": 7091,
+    "dobj_of:build": 599,
+    "nsubj_of:build": 589,
+    "dobj_of:make": 1756,
+    "nsubj_of:make": 1769,
+    "dobj_of:use": 3503,
+    "nsubj_of:use": 3525,
+    "dobj_of:create": 447,
+    "nsubj_of:create": 465
+  },
+  "dep_misses": 6368,
+  "dep_zero_row_frac_by_seed": {
+    "7": 0.05,
+    "13": 0.05,
+    "19": 0.05
+  },
+  "fixed_arm_summary": {
+    "window": {
+      "acc_overall_mean": 0.9250000000000002,
+      "acc_overall_std": 1.1102230246251565e-16,
+      "acc_artifact_mean": 1.0,
+      "acc_location_mean": 0.85,
+      "auc_mean": 0.9950000000000001,
+      "auc_std": 0.002041241452319317,
+      "auc_per_seed": {
+        "7": 0.9975,
+        "13": 0.9925,
+        "19": 0.995
+      },
+      "wordsim_auc_mean": 0.8694484953703704,
+      "wordsim_auc_std": 0.0011690765912903717
+    },
+    "dependency": {
+      "acc_overall_mean": 0.625,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 0.85,
+      "acc_location_mean": 0.4000000000000001,
+      "auc_mean": 0.6625,
+      "auc_std": 0.0,
+      "auc_per_seed": {
+        "7": 0.6625,
+        "13": 0.6625,
+        "19": 0.6625
+      },
+      "wordsim_auc_mean": 0.5373654513888888,
+      "wordsim_auc_std": 0.0002667921359799261
+    },
+    "random_context": {
+      "acc_overall_mean": 0.4416666666666667,
+      "acc_overall_std": 0.05892556509887896,
+      "acc_artifact_mean": 0.6333333333333333,
+      "acc_location_mean": 0.25,
+      "auc_mean": 0.425,
+      "auc_std": 0.03984344362627306,
+      "auc_per_seed": {
+        "7": 0.475,
+        "13": 0.4225,
+        "19": 0.3775
+      },
+      "wordsim_auc_mean": 0.5489351851851852,
+      "wordsim_auc_std": 0.0043606702265693775
+    }
+  },
+  "sweep_summary": {
+    "1.0": {
+      "acc_overall_mean": 0.9250000000000002,
+      "acc_overall_std": 1.1102230246251565e-16,
+      "acc_artifact_mean": 1.0,
+      "acc_location_mean": 0.85,
+      "auc_mean": 0.9950000000000001,
+      "auc_std": 0.002041241452319317,
+      "auc_per_seed": {
+        "7": 0.9975,
+        "13": 0.9925,
+        "19": 0.995
+      },
+      "wordsim_auc_mean": 0.8694484953703704,
+      "wordsim_auc_std": 0.0011690765912903717
+    },
+    "0.9": {
+      "acc_overall_mean": 0.9250000000000002,
+      "acc_overall_std": 1.1102230246251565e-16,
+      "acc_artifact_mean": 1.0,
+      "acc_location_mean": 0.85,
+      "auc_mean": 0.9950000000000001,
+      "auc_std": 0.0035355339059327667,
+      "auc_per_seed": {
+        "7": 0.9975,
+        "13": 0.99,
+        "19": 0.9975
+      },
+      "wordsim_auc_mean": 0.8697291666666667,
+      "wordsim_auc_std": 0.0010248850761755111
+    },
+    "0.8": {
+      "acc_overall_mean": 0.9166666666666666,
+      "acc_overall_std": 0.011785113019775802,
+      "acc_artifact_mean": 1.0,
+      "acc_location_mean": 0.8333333333333334,
+      "auc_mean": 0.9933333333333333,
+      "auc_std": 0.001178511301977554,
+      "auc_per_seed": {
+        "7": 0.995,
+        "13": 0.9925,
+        "19": 0.9925
+      },
+      "wordsim_auc_mean": 0.8656892361111111,
+      "wordsim_auc_std": 0.0010113141537204846
+    },
+    "0.7": {
+      "acc_overall_mean": 0.875,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 0.9499999999999998,
+      "acc_location_mean": 0.8000000000000002,
+      "auc_mean": 0.9875000000000002,
+      "auc_std": 1.1102230246251565e-16,
+      "auc_per_seed": {
+        "7": 0.9875,
+        "13": 0.9875,
+        "19": 0.9875
+      },
+      "wordsim_auc_mean": 0.8385017361111111,
+      "wordsim_auc_std": 0.000894298902999618
+    },
+    "0.6": {
+      "acc_overall_mean": 0.875,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 0.9499999999999998,
+      "acc_location_mean": 0.8000000000000002,
+      "auc_mean": 0.965,
+      "auc_std": 0.002041241452319317,
+      "auc_per_seed": {
+        "7": 0.9675,
+        "13": 0.9625,
+        "19": 0.965
+      },
+      "wordsim_auc_mean": 0.791652199074074,
+      "wordsim_auc_std": 0.0011321559651458657
+    },
+    "0.5": {
+      "acc_overall_mean": 0.75,
+      "acc_overall_std": 0.0,
+      "acc_artifact_mean": 0.9499999999999998,
+      "acc_location_mean": 0.55,
+      "auc_mean": 0.9333333333333335,
+      "auc_std": 0.0023570226039551605,
+      "auc_per_seed": {
+        "7": 0.935,
+        "13": 0.93,
+        "19": 0.935
+      },
+      "wordsim_auc_mean": 0.751515625,
+      "wordsim_auc_std": 0.0009987584322511433
+    }
+  },
+  "per_weight_gate": {
+    "1.0": {
+      "loc_ok": true,
+      "art_ok": true,
+      "wordsim_ok": true,
+      "joint_fix": true,
+      "clean_sweet_spot": true,
+      "borderline": true,
+      "margin_loc": 0.0,
+      "margin_art": 0.0,
+      "margin_wordsim": 0.0
+    },
+    "0.9": {
+      "loc_ok": true,
+      "art_ok": true,
+      "wordsim_ok": true,
+      "joint_fix": true,
+      "clean_sweet_spot": true,
+      "borderline": true,
+      "margin_loc": 0.0,
+      "margin_art": 0.0,
+      "margin_wordsim": 0.0002806712962962754
+    },
+    "0.8": {
+      "loc_ok": false,
+      "art_ok": true,
+      "wordsim_ok": false,
+      "joint_fix": false,
+      "clean_sweet_spot": false,
+      "borderline": false,
+      "margin_loc": -0.016666666666666607,
+      "margin_art": 0.0,
+      "margin_wordsim": -0.00375925925925924
+    },
+    "0.7": {
+      "loc_ok": false,
+      "art_ok": false,
+      "wordsim_ok": false,
+      "joint_fix": false,
+      "clean_sweet_spot": false,
+      "borderline": false,
+      "margin_loc": -0.04999999999999982,
+      "margin_art": -0.050000000000000155,
+      "margin_wordsim": -0.03094675925925927
+    },
+    "0.6": {
+      "loc_ok": false,
+      "art_ok": false,
+      "wordsim_ok": false,
+      "joint_fix": false,
+      "clean_sweet_spot": false,
+      "borderline": false,
+      "margin_loc": -0.04999999999999982,
+      "margin_art": -0.050000000000000155,
+      "margin_wordsim": -0.07779629629629636
+    },
+    "0.5": {
+      "loc_ok": false,
+      "art_ok": false,
+      "wordsim_ok": false,
+      "joint_fix": false,
+      "clean_sweet_spot": false,
+      "borderline": false,
+      "margin_loc": -0.29999999999999993,
+      "margin_art": -0.050000000000000155,
+      "margin_wordsim": -0.11793287037037037
+    }
+  },
+  "sweet_spot_weights": [
+    0.9
+  ],
+  "best_sweet_spot_w": 0.9,
+  "joint_fix_weights": [
+    0.9
+  ],
+  "combined_w1_equals_window_by_seed": {
+    "7": true,
+    "13": true,
+    "19": true
+  },
+  "naive_location_acc": 0.9,
+  "naive_artifact_acc": 0.95,
+  "random_must_fail_ok": true,
+  "random_must_fail_vs_window": true,
+  "random_must_fail_by_weight": {
+    "1.0": true,
+    "0.9": true,
+    "0.8": true,
+    "0.7": true,
+    "0.6": true,
+    "0.5": true
+  },
+  "baseline_in_band": true,
+  "cardinality_ok": true,
+  "expected_n_units": 1080,
+  "n_units_done": 1080,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "window_vs_dependency": true,
+    "window_vs_random_context": true,
+    "window_vs_combined_w0.5": true,
+    "dependency_vs_random_context": true,
+    "dependency_vs_combined_w0.5": true,
+    "random_context_vs_combined_w0.5": true
+  },
+  "arms_differ_exempted": [],
+  "bands": {
+    "SWEET_SPOT_BORDERLINE_EPS": 0.02,
+    "CHANCE_AUC": 0.5
+  },
+  "crlb_n/a": "binary typing-accuracy + rank-sum AUC over discrete ARTIFACT/LOCATION test items; closed-form chance floor = 0.50 (THEORETICAL); not a CRLB regime",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "combine_method": "concat(w*L2norm(window), (1-w)*L2norm(dep))_then_L2_renormalize",
+  "parser_staging_status": "SAME as v1: no_spacy_in_venv; text8_has_zero_punctuation_sentence_boundaries; rule_based_POS_free_preposition_verb_slot_approximation_used (see prereg)",
+  "integration_of": [
+    "exp_dependency_context_codebook_location_artifact_v1 (this cell's direct predecessor; dep-cooc/PPMI-SVD/classifier pipeline reused unmodified)",
+    "exp_learned_codebook_generalization_gate_v1 (atom 29368, window-PPMI-SVD mechanism + wordsim/simlex eval, reused unmodified)",
+    "exp_derived_filler_typing_single_edge_grounding_v1 (atom 29391, STORED_SENTENCE_NOUNS reused unmodified; ARTIFACT/LOCATION pools EXPANDED this cell)"
+  ],
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "fixed_arm_summary",
+    "sweep_summary",
+    "cardinality_ok",
+    "arms_differ_verified",
+    "baseline_in_band",
+    "sweet_spot_weights"
+  ]
+}

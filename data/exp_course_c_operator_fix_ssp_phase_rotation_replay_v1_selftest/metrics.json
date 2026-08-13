@@ -1,0 +1,36 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS course-C operator-fix: ONESHOT phase-rotation/SSP recovers held-out + beats DISCRETE (stage3 floor) + POP; oracle fires; scramble does not beat oneshot; POP fires on freq-star + no manufacture; arms differ",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 4.167795100016519,
+  "mechanism_selftest": {
+    "oneshot_reach": 0.7179,
+    "discrete_reach": 0.0256,
+    "random_reach": 0.0,
+    "pop_reach": 0.0256,
+    "oracle_reach": 1.0,
+    "scramble_reach": 0.0256,
+    "replay_reach": 0.359,
+    "freq_pop_reach": 0.5938,
+    "freq_oneshot_reach": 0.5,
+    "freq_manufacture_margin": -0.0938,
+    "comp_reach": {
+      "ONESHOT_ROTATE": 0.5114,
+      "REPLAY_CONSOLIDATED": 0.2614,
+      "DISCRETE_BIND": 0.3068
+    },
+    "backdoor_r": -0.4374,
+    "oneshot_recovers": true,
+    "discrete_at_chance": true,
+    "random_at_chance": true,
+    "oneshot_beats_discrete": true,
+    "oneshot_beats_pop": true,
+    "oracle_fires": true,
+    "scramble_not_beat": true,
+    "pop_fires_freq": true,
+    "no_manufacture": true,
+    "arms_differ": true,
+    "n_distinct_sigs": 7
+  }
+}

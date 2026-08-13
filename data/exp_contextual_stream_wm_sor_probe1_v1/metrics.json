@@ -1,0 +1,89 @@
+{
+  "anchor": "contextual_stream_wm_sor_probe1_v1",
+  "mode": "full",
+  "verdict": "MIDDLE_PARTIAL_SIGNAL",
+  "verdict_msg": "MIDDLE_PARTIAL_SIGNAL | OFF=0.094 ON=0.336 placebo=0.060 pos_only=0.130 | spike_WR=2.61 route=1.00 alloc=0.17 | floor_held=True brain_ok=True",
+  "summary": {
+    "off_recall": 0.09375,
+    "on_recall": 0.3359375,
+    "placebo_recall": 0.05989583395421505,
+    "position_only": 0.13020833333333331,
+    "spike_ratio_WR": 2.6073160524820294,
+    "route_consistency": 1.0,
+    "allocate_rate": 0.16666666666666666,
+    "off_per_seed": [
+      0.109375,
+      0.078125
+    ],
+    "on_per_seed": [
+      0.296875,
+      0.375
+    ],
+    "floor_max": 0.2,
+    "pass_min": 0.75,
+    "chance": 0.05,
+    "floor_held": true,
+    "placebo_failed": true,
+    "position_failed": true,
+    "brain_metric_ok": true
+  },
+  "bands": {
+    "FLOOR_MAX": 0.2,
+    "PASS_MIN": 0.75,
+    "PASS_LIFT_MIN": 0.5,
+    "SPIKE_RATIO_MIN": 2.0,
+    "ROUTE_CONSIST_MIN": 0.8
+  },
+  "task": {
+    "D_MODEL": 32,
+    "N_SLOTS": 8,
+    "N_QUERY": 6,
+    "N_FILLERS": 20,
+    "T_OVERWRITE": 4,
+    "N_RECALL": 8,
+    "N_DISTRACT": 30,
+    "chance": 0.05
+  },
+  "per_unit": {
+    "OFF|0": {
+      "seed": 0,
+      "arm": "OFF",
+      "recall_acc": 0.109375,
+      "position_only_acc": 0.0625
+    },
+    "ON|0": {
+      "seed": 0,
+      "arm": "ON",
+      "recall_acc": 0.296875,
+      "placebo_acc": 0.078125,
+      "mean_write_W": 0.4969133734703064,
+      "mean_write_R": 0.17974698543548584,
+      "mean_write_D": 0.5028136968612671,
+      "spike_ratio_WR": 2.7645157567811163,
+      "spike_ratio_WD": 0.9882653884971859,
+      "route_consistency": 1.0,
+      "allocate_rate": 0.16666666666666666
+    },
+    "OFF|1": {
+      "seed": 1,
+      "arm": "OFF",
+      "recall_acc": 0.078125,
+      "position_only_acc": 0.19791666666666666
+    },
+    "ON|1": {
+      "seed": 1,
+      "arm": "ON",
+      "recall_acc": 0.375,
+      "placebo_acc": 0.0416666679084301,
+      "mean_write_W": 0.7008630633354187,
+      "mean_write_R": 0.28605297207832336,
+      "mean_write_D": 0.7091063261032104,
+      "spike_ratio_WR": 2.450116348182942,
+      "spike_ratio_WD": 0.9883751385873379,
+      "route_consistency": 1.0,
+      "allocate_rate": 0.16666666666666666
+    }
+  },
+  "elapsed_s": 1585.6237387999427,
+  "ts_iso": "2026-08-02T04:49:25Z"
+}

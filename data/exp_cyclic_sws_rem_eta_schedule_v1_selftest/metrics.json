@@ -1,0 +1,15 @@
+{
+  "anchor_name": "cyclic_sws_rem_eta_schedule_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm + diag-ratio + replay_cycle compose verified",
+  "summary": "SELFTEST_OK: per-arm + diag-ratio + replay_cycle compose verified",
+  "elapsed_s": 0.6,
+  "ts_iso": "2026-06-27T22:10:04Z",
+  "pid": 37936,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cyclic_sws_rem_eta_schedule_v1,N=256,N_CAT=20,N_TRAIN=5,N_HELDOUT=5,N_PULSES=10,seeds=[11],mode=smoke,eta_high=1.00,eta_low=0.10,eta_const=0.50,proto_noise=0.85,replay_frac=0.20,alpha=0.0781,snr=3.58,period_long=3,HP_lift>=0.10,HP_frob_ratio>=3.0,HP_cv<=0.10,expected_n=5,FAIR=ETA_CYCLED_AROUND_CONSTANT_REPLAY_FRAC_FIXED,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_cyclic_sws_rem_eta_schedule_replay_cycle_compose",
+  "_phase": "selftest_done",
+  "diag_ratio_at_selftest": 13.466856128903615,
+  "first_arm_acc": 0.11
+}

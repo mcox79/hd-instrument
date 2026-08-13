@@ -1,0 +1,231 @@
+{
+  "anchor_name": "parser_uas_feateng_struct_v1",
+  "run_mode": "full",
+  "verdict": "PARTIAL_HEADROOM",
+  "verdict_msg": "PARTIAL_HEADROOM | canon all=0.7868 nopunct=0.8120 | struct_upos best=0.8269(+0.0401) | full_upos best=0.8258(+0.0390) nopunct=0.8444 | full_combo(oracle-POS) best=0.8362 nopunct=0.8491 | lit=0.86-0.89 | live_lever=False",
+  "summary": "PARTIAL_HEADROOM | canon all=0.7868 nopunct=0.8120 | struct_upos best=0.8269(+0.0401) | full_upos best=0.8258(+0.0390) nopunct=0.8444 | full_combo(oracle-POS) best=0.8362 nopunct=0.8491 | lit=0.86-0.89 | live_lever=False",
+  "elapsed_s": 911.76,
+  "ts_iso": "2026-07-21T13:20:08.198712+00:00",
+  "phase_A_baseline": {
+    "canon_greedy": {
+      "uas_all": 0.7868,
+      "uas_nopunct": 0.812,
+      "n_arcs_all": 24444,
+      "n_arcs_nopunct": 21443
+    },
+    "canon_cited": 0.7868,
+    "baseline_reproduces": true
+  },
+  "leak_hunt": {
+    "leak_clean": true,
+    "n_arcs_checked": 25106
+  },
+  "arms": {
+    "base_upos": {
+      "pos_kind": "upos",
+      "curve": {
+        "2": {
+          "uas_all": 0.7897,
+          "uas_nopunct": 0.8148,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "3": {
+          "uas_all": 0.7894,
+          "uas_nopunct": 0.8139,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "4": {
+          "uas_all": 0.7897,
+          "uas_nopunct": 0.8142,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "5": {
+          "uas_all": 0.79,
+          "uas_nopunct": 0.8143,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "6": {
+          "uas_all": 0.7891,
+          "uas_nopunct": 0.8137,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "8": {
+          "uas_all": 0.7887,
+          "uas_nopunct": 0.8132,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        }
+      },
+      "best_ep_uas_all": 5,
+      "best_uas_all": 0.79,
+      "best_ep_nopunct": 2,
+      "best_uas_nopunct": 0.8148
+    },
+    "struct_upos": {
+      "pos_kind": "upos",
+      "curve": {
+        "2": {
+          "uas_all": 0.8233,
+          "uas_nopunct": 0.8415,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "3": {
+          "uas_all": 0.8254,
+          "uas_nopunct": 0.8432,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "4": {
+          "uas_all": 0.8254,
+          "uas_nopunct": 0.8431,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "5": {
+          "uas_all": 0.8267,
+          "uas_nopunct": 0.8441,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "6": {
+          "uas_all": 0.8269,
+          "uas_nopunct": 0.8441,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "8": {
+          "uas_all": 0.8261,
+          "uas_nopunct": 0.844,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        }
+      },
+      "best_ep_uas_all": 6,
+      "best_uas_all": 0.8269,
+      "best_ep_nopunct": 5,
+      "best_uas_nopunct": 0.8441
+    },
+    "full_upos": {
+      "pos_kind": "upos",
+      "curve": {
+        "2": {
+          "uas_all": 0.8245,
+          "uas_nopunct": 0.8424,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "3": {
+          "uas_all": 0.8258,
+          "uas_nopunct": 0.8434,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "4": {
+          "uas_all": 0.8252,
+          "uas_nopunct": 0.8434,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "5": {
+          "uas_all": 0.8256,
+          "uas_nopunct": 0.8436,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "6": {
+          "uas_all": 0.8255,
+          "uas_nopunct": 0.8438,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "8": {
+          "uas_all": 0.8255,
+          "uas_nopunct": 0.8444,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        }
+      },
+      "best_ep_uas_all": 3,
+      "best_uas_all": 0.8258,
+      "best_ep_nopunct": 8,
+      "best_uas_nopunct": 0.8444
+    },
+    "full_combo": {
+      "pos_kind": "combo",
+      "curve": {
+        "2": {
+          "uas_all": 0.8321,
+          "uas_nopunct": 0.8454,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "3": {
+          "uas_all": 0.8351,
+          "uas_nopunct": 0.8482,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "4": {
+          "uas_all": 0.8362,
+          "uas_nopunct": 0.8491,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "5": {
+          "uas_all": 0.8349,
+          "uas_nopunct": 0.8485,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "6": {
+          "uas_all": 0.8353,
+          "uas_nopunct": 0.8491,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        },
+        "8": {
+          "uas_all": 0.8348,
+          "uas_nopunct": 0.8485,
+          "n_arcs_all": 24444,
+          "n_arcs_nopunct": 21443
+        }
+      },
+      "best_ep_uas_all": 4,
+      "best_uas_all": 0.8362,
+      "best_ep_nopunct": 4,
+      "best_uas_nopunct": 0.8491
+    }
+  },
+  "deployable_lever_full_upos_best_uas_all": 0.8258,
+  "deployable_lever_full_upos_best_uas_nopunct": 0.8444,
+  "struct_only_best_uas_all": 0.8269,
+  "oracle_upper_bound_full_combo_best_uas_all": 0.8362,
+  "oracle_upper_bound_full_combo_best_uas_nopunct": 0.8491,
+  "lift_full_upos_vs_canon": 0.039,
+  "lift_struct_vs_canon": 0.0401,
+  "live_lever": false,
+  "canon_cited": 0.7868,
+  "oov_rich_ep10_cited": 0.7925,
+  "lit_target": [
+    0.86,
+    0.89
+  ],
+  "arm_feature_digests": {
+    "base_upos": "043857c9898cf19d019597a5f3d6a9bd3e395da7472cbebaadd77354eca7bb23",
+    "struct_upos": "57c749c9a9659504b531065501466a1928b6b53392cb22af24bf5517c7f28ac4",
+    "full_upos": "34ac9dc95d6a60f7536ece52084b19a472546219422da27fa2e467d9a46b5baf",
+    "full_combo": "4fce47d81685e8f871705c96d6ae55895f578aeee92e4dae3c7f76f57807a1d2"
+  },
+  "compute_architecture": "sequential-CPU (justified)",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "one_variable_per_comparison": "feature_fn (base/struct/full) at fixed UPOS+greedy; POS-column for combo",
+  "scope_note": "first-order McDonald structural family only; grandchild/sibling/valency OUT OF SCOPE (need partial tree = decoder rebuild or gold-structure leak)."
+}

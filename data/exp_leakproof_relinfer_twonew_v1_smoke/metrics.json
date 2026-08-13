@@ -1,0 +1,193 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | THE-NUMBER learned - raw_grounding = 0.5942 - 0.5225 = +0.0717 (min=+0.0717, need>=0.03) | LEARNED=0.5942 (min=0.5942) RAW_GROUNDING=0.5225 RANDOM_INIT=0.4778 STRUCT_2HOP=0.5932 POPULARITY=0.5551 COLLAPSE=0.4905 | VALIDITY power_ok=True(n_q=172) can_fail=True(collapse~0.5) pop_ok=True(pop~0.5) | leak-proof witness: context-INT-predict overlap=0/5956 predict-targets (MUST be 0) | corpus: K=800 train=628 heldout=172 eval_queries=172 mean_ctx=141.19 pairs=75622 rels=17",
+  "summary": "HARD_PASS | THE-NUMBER learned - raw_grounding = 0.5942 - 0.5225 = +0.0717 (min=+0.0717, need>=0.03) | LEARNED=0.5942 (min=0.5942) RAW_GROUNDING=0.5225 RANDOM_INIT=0.4778 STRUCT_2HOP=0.5932 POPULARITY",
+  "run_mode": "smoke",
+  "elapsed_s": 7.990707300021313,
+  "anchor_name": "leakproof_relinfer_twonew_v1",
+  "ts_iso": "2026-07-26T20:50:38.791901+00:00",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "seeds": [
+      7
+    ],
+    "heldout_frac": 0.2,
+    "top_rel": 16,
+    "predict_frac": 0.5,
+    "epochs": 80,
+    "code_dim": 128,
+    "hidden": 256,
+    "lr": 0.003,
+    "n_landmarks": 192,
+    "n_land_batch": 128,
+    "n_anchor_batch": 256,
+    "lambda_var": 1.0,
+    "w_geo": 1.0,
+    "w_rel": 0.5,
+    "w_ema": 0.5,
+    "ema_momentum": 0.99,
+    "infonce_tau": 0.2,
+    "feat_dropout": 0.1,
+    "n_deg_bins": 5
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_pairs_total": 188987,
+    "n_kept_concepts": 800,
+    "n_kept_pairs": 75622,
+    "min_deg": 2,
+    "cap_nodes": 800,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/MannerOf",
+      "/r/PartOf",
+      "/r/UsedFor",
+      "/r/HasProperty",
+      "/r/HasA",
+      "/r/Desires",
+      "/r/MadeOf",
+      "/r/NotHasProperty",
+      "/r/NotDesires",
+      "/r/ReceivesAction",
+      "/r/Entails",
+      "/r/CausesDesire"
+    ],
+    "n_rel_slots": 17
+  },
+  "split_meta": {
+    "n_train": 628,
+    "n_heldout": 172,
+    "n_eval_queries": 172,
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 5956,
+    "mean_held_context_size": 141.1918604651163,
+    "mean_predict_deg": 34.627906976744185,
+    "n_rel_slots": 17,
+    "mode": "two_new_concept"
+  },
+  "gates": {
+    "learned_rel_infer_auc": 0.5942234196363656,
+    "learned_rel_infer_auc_min": 0.5942234196363656,
+    "raw_grounding_rel_infer_auc": 0.5225055208058401,
+    "random_init_rel_infer_auc": 0.47780588765845117,
+    "struct_2hop_rel_infer_auc": 0.593232717622295,
+    "popularity_rel_infer_auc": 0.5550927808329285,
+    "collapse_shuffle_rel_infer_auc": 0.4904882187413274,
+    "margin_over_raw_grounding": 0.07171789883052548,
+    "margin_over_raw_grounding_min": 0.07171789883052548,
+    "margin_over_random_init": 0.11641753197791443,
+    "margin_over_struct_2hop": 0.000990702014070588,
+    "real_margin": true,
+    "is_tie": false,
+    "power_ok": true,
+    "n_query": 172,
+    "can_fail_fired": true,
+    "pop_ok": true,
+    "validity_ok": true,
+    "no_overlap_witness_overlap": 0,
+    "no_overlap_witness_predict_targets": 5956,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "pop_band": [
+      0.44,
+      0.56
+    ],
+    "hp_margin_over_raw": 0.03,
+    "tie_eps": 0.03,
+    "hp_learned_floor": 0.53,
+    "min_query_tasks": 100
+  },
+  "arms_aggregate": {
+    "ARM_RAW_GROUNDING": {
+      "rel_infer_auc_mean": 0.5225055208058401,
+      "rel_infer_auc_min": 0.5225055208058401,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_LEARNED": {
+      "rel_infer_auc_mean": 0.5942234196363656,
+      "rel_infer_auc_min": 0.5942234196363656,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_RANDOM_INIT": {
+      "rel_infer_auc_mean": 0.47780588765845117,
+      "rel_infer_auc_min": 0.47780588765845117,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_STRUCT_2HOP": {
+      "rel_infer_auc_mean": 0.593232717622295,
+      "rel_infer_auc_min": 0.593232717622295,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_POPULARITY": {
+      "rel_infer_auc_mean": 0.5550927808329285,
+      "rel_infer_auc_min": 0.5550927808329285,
+      "n_query": 172,
+      "n_seeds": 1
+    },
+    "ARM_COLLAPSE_SHUFFLE": {
+      "rel_infer_auc_mean": 0.4904882187413274,
+      "rel_infer_auc_min": 0.4904882187413274,
+      "n_query": 172,
+      "n_seeds": 1
+    }
+  },
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.328
+  },
+  "leakproof_split_selftest": {
+    "overlap": 0,
+    "viols": 0,
+    "n_eval_queries": 52,
+    "mean_predict_deg": 12.461538461538462
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "ARM_RAW_GROUNDING": {
+        "rel_infer_auc": 0.5225055208058401,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_LEARNED": {
+        "rel_infer_auc": 0.5942234196363656,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_RANDOM_INIT": {
+        "rel_infer_auc": 0.47780588765845117,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_STRUCT_2HOP": {
+        "rel_infer_auc": 0.593232717622295,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_POPULARITY": {
+        "rel_infer_auc": 0.5550927808329285,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      },
+      "ARM_COLLAPSE_SHUFFLE": {
+        "rel_infer_auc": 0.4904882187413274,
+        "n_query": 172,
+        "neg_in_exclude": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST synthetic functional graph N=120: oracle_direct h@10=0.850 (>=0.50 required), oracle_fpe h@10=0.075; anchor1 fit + FPE/direct readout code path runs; ok=True",
+  "summary": "SELFTEST synthetic functional graph N=120: oracle_direct h@10=0.850 (>=0.50 required), oracle_fpe h@10=0.075; anchor1 fit + FPE/direct readout code path runs; ok=True",
+  "run_mode": "self_test",
+  "elapsed_s": 3.6134045000653714,
+  "anchor_name": "course_c_oracle_capacity_ladder_v1",
+  "ts_iso": "2026-07-11T17:12:46.788245+00:00",
+  "device": "cuda",
+  "selftest": {
+    "oracle_fpe_h10": 0.075,
+    "oracle_direct_h10": 0.85,
+    "finite": true,
+    "fires": true
+  }
+}

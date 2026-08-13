@@ -1,0 +1,162 @@
+{
+  "run_mode": "full",
+  "anchor_name": "crossmodule_interface_hub_identity_bind_costanzo_biogrid_v1",
+  "ts_iso": "2026-07-15T22:19:52.116506+00:00",
+  "elapsed_s": 73.11,
+  "provenance": {
+    "module_P": {
+      "dataset": "BioGRID_yeast_TAB3",
+      "source": "downloads.thebiogrid.org/BioGRID/Latest-Release",
+      "relation": "physical_interaction",
+      "url": "https://downloads.thebiogrid.org/Download/BioGRID/Release-Archive/BIOGRID-5.0.259/BIOGRID-ORGANISM-5.0.259.tab3.zip",
+      "bytes": 186580917,
+      "ok": true
+    },
+    "module_G": {
+      "dataset": "Costanzo2016_yeast_SGA",
+      "source": "thecellmap.org/yeast/costanzo2016",
+      "relation": "genetic_interaction_epsilon",
+      "kind": "pairwise",
+      "bytes": 521571629,
+      "ok": true,
+      "urls_tried": {
+        "S1_pairwise_thecellmap_https": "https://thecellmap.org/costanzo2016/data_files/Raw%20genetic%20interaction%20datasets:%20Pair-wise%20interaction%20format.zip",
+        "S2_matrix_thecellmap_https": "https://thecellmap.org/costanzo2016/data_files/Raw%20genetic%20interaction%20datasets:%20Matrix%20format.zip"
+      }
+    },
+    "join_key": "SGD_systematic_ORF_name_exact_string_equality_no_crosswalk",
+    "retrieval_ts": "2026-07-15T22:19:52.115498+00:00",
+    "acquire_errors": {},
+    "filter": "|epsilon| > 0.080 AND p < 0.050 (Costanzo pairwise); |epsilon| > 0.080 (matrix); BioGRID Experimental System Type == physical"
+  },
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "bands": {
+    "JOIN_PRECISION_MIN": 0.9,
+    "FUZZY_GAIN_MAX": 0.05,
+    "REL_JACCARD_MAX": 0.5,
+    "HP_HUB_ABS": 0.3,
+    "HP_MARGIN_ABS": 0.15,
+    "HP_MARGIN_REL": 1.5,
+    "MUSTFAIL_SCRAMBLE_TOL": 0.03,
+    "MUSTFAIL_NOHUB_TOL": 0.05,
+    "MUSTFAIL_CEIL_TOL": 0.05,
+    "MIN_SHARED": 60,
+    "MIN_QUERIES": 30,
+    "N_DIM": 16384,
+    "TOP_V": 400
+  },
+  "join": {
+    "join_precision": 0.98915,
+    "n_shared_orfs": 5356,
+    "fuzzy_extra": 0,
+    "fuzzy_gain_frac": 0.0,
+    "n_phys_edges": 190430,
+    "n_gen_edges": 837667,
+    "n_phys_orfs": 5808,
+    "n_gen_orfs": 5848,
+    "edge_jaccard": 0.02188,
+    "join_ok": true,
+    "distinct_ok": true
+  },
+  "verdict": "HARD_PASS_INTERFACE_HUB_IDENTITY_BIND_COMPOSES_CROSS_MODULE",
+  "verdict_msg": "HARD_PASS_INTERFACE_HUB_IDENTITY_BIND_COMPOSES_CROSS_MODULE || JOIN precision=0.9892(>=0.90 ok=True) n_shared=5356 fuzzy_gain=0.0000(<=0.05) | edge_jaccard=0.0219(<=0.50 distinct=True) | MAP HUB=0.8300(>=0.30 above_chance=True) MERGED=0.4372 NO_HUB=0.0876 SCRAMBLE=0.0877 RANDOM=0.0193 PHYS_ONLY=0.2187 GEN_ONLY=0.2543 single_ceiling=0.2543 | margin_abs=0.3928(>=0.15) rel(hub>=1.5xmerged)=True margin_ok=True hub_beats_single(>=0.15)=True | mustfail(<=ceil+0.05 AND hub-arm>=0.15) scram=True nohub=True | n_queries=598 arms_differ=True determ=True",
+  "summary": "HARD_PASS_INTERFACE_HUB_IDENTITY_BIND_COMPOSES_CROSS_MODULE || JOIN precision=0.9892(>=0.90 ok=True) n_shared=5356 fuzzy_gain=0.0000(<=0.05) | edge_jaccard=0.0219(<=0.50 distinct=True) | MAP HUB=0.830",
+  "n_queries": 598,
+  "n_v": 400,
+  "n_phys_edges_in": 3176,
+  "n_gen_edges_in": 2843,
+  "maps": {
+    "HUB": 0.83,
+    "MERGED": 0.43716,
+    "NO_HUB": 0.08759,
+    "SCRAMBLE": 0.0877,
+    "RANDOM": 0.01933,
+    "PHYS_ONLY": 0.21872,
+    "GEN_ONLY": 0.25426,
+    "single_ceiling": 0.25426,
+    "strong_baseline": 0.43716,
+    "margin_abs": 0.39284
+  },
+  "gates": {
+    "join_ok": true,
+    "distinct_ok": true,
+    "hub_above_chance": true,
+    "margin_ok": true,
+    "rel_ok": true,
+    "hub_beats_single": true,
+    "scram_mustfail": true,
+    "nohub_mustfail": true,
+    "power_ok": true,
+    "arms_differ": true,
+    "determinism_ok": true,
+    "hard_pass": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "maps": {
+        "HUB": 0.8122,
+        "MERGED": 0.43249,
+        "NO_HUB": 0.07694,
+        "SCRAMBLE": 0.07753,
+        "RANDOM": 0.01939,
+        "PHYS_ONLY": 0.21429,
+        "GEN_ONLY": 0.24434
+      }
+    },
+    {
+      "seed": 13,
+      "maps": {
+        "HUB": 0.82932,
+        "MERGED": 0.45192,
+        "NO_HUB": 0.09152,
+        "SCRAMBLE": 0.08814,
+        "RANDOM": 0.0188,
+        "PHYS_ONLY": 0.21559,
+        "GEN_ONLY": 0.25973
+      }
+    },
+    {
+      "seed": 17,
+      "maps": {
+        "HUB": 0.81663,
+        "MERGED": 0.41733,
+        "NO_HUB": 0.07724,
+        "SCRAMBLE": 0.09391,
+        "RANDOM": 0.02203,
+        "PHYS_ONLY": 0.20718,
+        "GEN_ONLY": 0.25595
+      }
+    },
+    {
+      "seed": 23,
+      "maps": {
+        "HUB": 0.85538,
+        "MERGED": 0.44203,
+        "NO_HUB": 0.10437,
+        "SCRAMBLE": 0.09916,
+        "RANDOM": 0.01514,
+        "PHYS_ONLY": 0.23275,
+        "GEN_ONLY": 0.26099
+      }
+    },
+    {
+      "seed": 29,
+      "maps": {
+        "HUB": 0.83646,
+        "MERGED": 0.44202,
+        "NO_HUB": 0.0879,
+        "SCRAMBLE": 0.07976,
+        "RANDOM": 0.02131,
+        "PHYS_ONLY": 0.22378,
+        "GEN_ONLY": 0.2503
+      }
+    }
+  ]
+}

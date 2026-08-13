@@ -1,0 +1,106 @@
+{
+  "anchor": "a1_substrate_intent_classifier_v1",
+  "anchor_name": "a1_substrate_intent_classifier_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate_acc=0.673 maj_mult=5.50 rand_mult=4.12 p95=0.06ms; bands not all crossed (acc>=0.65=True maj>=2.0=True rand>=5.0=False p95<10.0=True). substrate_acc=0.673 random_acc=0.163 majority_acc=0.122 maj_mult=5.50 rand_mult=4.12 p95_ms=0.06 n_llm=0",
+  "n_seeds": 1,
+  "N": 512,
+  "N_DIM": 512,
+  "N_TRAIN": 200,
+  "N_TEST": 50,
+  "categories": [
+    "LOOKUP",
+    "COMPARISON",
+    "MULTI_HOP",
+    "LIST",
+    "CHAIN",
+    "COUNT",
+    "DEFINITION"
+  ],
+  "arms": [
+    "SUBSTRATE_INTENT",
+    "RANDOM_BASELINE",
+    "MAJORITY_BASELINE"
+  ],
+  "run_mode": "smoke",
+  "config_version": "a1-substrate-intent-classifier-v1: N_DIM=512 N_TRAIN=200 N_TEST=50 arms=SUBSTRATE_INTENT,RANDOM_BASELINE,MAJORITY_BASELINE run_mode=smoke; bands HP_acc=0.65 HP_majority_mult=2.0 HP_random_mult=5.0 HP_p95_ms=10.0 HF_p95_ms=50.0",
+  "corpus_provenance": "hotpotqa_dev_1k + nq_open_val_1k + conceptnet5_en_100k_templates",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_accuracy": {
+      "SUBSTRATE_INTENT": 0.673469387755102,
+      "RANDOM_BASELINE": 0.16326530612244897,
+      "MAJORITY_BASELINE": 0.12244897959183673
+    },
+    "cv_accuracy": {
+      "SUBSTRATE_INTENT": 0.0,
+      "RANDOM_BASELINE": 0.0,
+      "MAJORITY_BASELINE": 0.0
+    },
+    "substrate_acc": 0.673469387755102,
+    "random_acc": 0.16326530612244897,
+    "majority_acc": 0.12244897959183673,
+    "majority_multiplier": 5.5,
+    "random_multiplier": 4.125,
+    "mean_p95_latency_ms": 0.05873986519873142,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Substrate-native intent classifier; 7 categories; LOOKUP,COMPARISON,MULTI_HOP,LIST,CHAIN,COUNT,DEFINITION; N_DIM=512 N_TRAIN=200 N_TEST=50. 3-arm discriminator (Fix #16): SUBSTRATE_INTENT vs RANDOM_BASELINE vs MAJORITY_BASELINE. Substrate-only-decode gate enforced (n_llm=0). Encoder: char-trigram (no MiniLM, no LLM teacher). Labels synthesized procedurally from HotpotQA type field + NQ-open keyword-classifier + ConceptNet templates."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "M": 242,
+      "run_mode": "smoke",
+      "config_version": "a1-substrate-intent-classifier-v1: N_DIM=512 N_TRAIN=200 N_TEST=50 arms=SUBSTRATE_INTENT,RANDOM_BASELINE,MAJORITY_BASELINE run_mode=smoke; bands HP_acc=0.65 HP_majority_mult=2.0 HP_random_mult=5.0 HP_p95_ms=10.0 HF_p95_ms=50.0",
+      "elapsed_s": 0.40468883514404297,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782185996.3132179,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_INTENT",
+          "seed": 1,
+          "n_train": 193,
+          "n_test": 49,
+          "accuracy": 0.673469387755102,
+          "per_category_accuracy": {
+            "LOOKUP": 0.0,
+            "COMPARISON": 0.42857142857142855,
+            "MULTI_HOP": 0.8333333333333334,
+            "LIST": 0.8888888888888888,
+            "CHAIN": 0.8571428571428571,
+            "COUNT": 0.8,
+            "DEFINITION": 1.0
+          },
+          "train_wall_s": 0.0031506000086665154,
+          "p95_latency_ms": 0.05873986519873142,
+          "n_dim": 512
+        },
+        {
+          "arm": "RANDOM_BASELINE",
+          "seed": 1,
+          "n_train": 193,
+          "n_test": 49,
+          "accuracy": 0.16326530612244897,
+          "n_dim": 512
+        },
+        {
+          "arm": "MAJORITY_BASELINE",
+          "seed": 1,
+          "n_train": 193,
+          "n_test": 49,
+          "accuracy": 0.12244897959183673,
+          "n_dim": 512
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_substrate_intent_classifier_3arm",
+  "elapsed_s": 0.45960187911987305,
+  "summary": "MIDDLE_BAND: substrate_acc=0.673 maj_mult=5.50 rand_mult=4.12 p95=0.06ms; bands not all crossed (acc>=0.65=True maj>=2.0=True rand>=5.0=False p95<10.0=True). substrate_acc=0.673 random_acc=0.163 major"
+}

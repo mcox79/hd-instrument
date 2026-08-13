@@ -1,0 +1,15 @@
+{
+  "anchor_name": "cyclic_sws_rem_eta_schedule_v2_associative_recall",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-arm + assoc_recall_topk + replay_cycle verified",
+  "summary": "SELFTEST_OK: per-arm + assoc_recall_topk + replay_cycle verified",
+  "elapsed_s": 0.2,
+  "ts_iso": "2026-06-27T23:33:24Z",
+  "pid": 25712,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cyclic_sws_rem_eta_schedule_v2_associative_recall,N=256,M_PAIRS=64,N_PULSES=6,seeds=[11],mode=smoke,eta_high=1.00,eta_low=0.10,eta_const=0.50,proto_noise=0.85,replay_frac=0.20,alpha=0.2500,snr=2.00,period_long=3,HP_baseline=[0.30,0.70],HP_lift>=0.10,HP_frob>=3.0,HP_top5_lift>=0.05,HP_entropy_lift>=0.05,HP_cv<=0.10,expected_n=4,READOUT=ASSOC_RECALL_KEY_CUED_NOISY_PROBE,FAIR=ETA_CYCLED_REPLAY_FRAC_FIXED,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v2_assoc_recall_readout_replay_cycle_compose",
+  "_phase": "selftest_done",
+  "diag_ratio_at_selftest": 29.10821007177872,
+  "constant_top1_at_selftest": 0.75
+}

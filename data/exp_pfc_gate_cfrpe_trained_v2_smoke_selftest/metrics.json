@@ -1,0 +1,11 @@
+{
+  "anchor_name": "pfc_gate_cfrpe_trained_v2",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST1-ST8 (cfrpe-TD shrink, adaptive LR, LR decay monotone, Go/NoGo argmax, mechanism-fires reach, anti-tautology control, regime-sweep pipeline, binom, closure formula)",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 1.6,
+  "ts_iso": "2026-07-05T19:06:50.589820+00:00",
+  "pid": 18412,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=pfc_gate_cfrpe_trained_v2,N=256,N_OPS=4,seeds=[7],regimes=['V40_d4'],density=0.210,sr_steps=120,sr_batch=32,rollout_per_V=20,gamma=0.85,lr=0.50,lr_decay_end=0.20,alphas=[0.1, 0.2, 0.5],w_reach=[0.0, 0.5, 1.0, 2.0],n_train_chains=12,n_test_chains=8,mode=smoke,device=cpu,expected_n=5,HP_closure>=0.25,cv<0.10,corr<0.85,sign_p<0.05,reach_rank>0.30"
+}

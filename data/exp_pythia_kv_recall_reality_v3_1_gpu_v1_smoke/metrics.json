@@ -1,0 +1,103 @@
+{
+  "anchor_name": "pythia_kv_recall_reality_v3_1_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: value-cue does NOT retrieve (recall<0.5) OR zero-variance (re-saturated). value_recall worst=0.050 | noise worst=0.034 | seed-std [0.0000,0.0000] | cos(value,own)=0.359 | key_sep(max-cos-other)=0.786 | paraphrase=0.835 diffrel=0.235 (REPORTED) | cliff_M=200",
+  "run_mode": "smoke",
+  "encoder": "EleutherAI/pythia-160m",
+  "M_sweep": [
+    200,
+    500
+  ],
+  "n_seeds": 2,
+  "detail": {
+    "by_M": {
+      "200": {
+        "value_mean": 0.12,
+        "value_std": 0.0,
+        "value_noise_mean": 0.08,
+        "cos_value_own_key": 0.3589,
+        "key_max_cos_other": 0.7575,
+        "paraphrase_mean": 0.835,
+        "diffrel_mean": 0.235
+      },
+      "500": {
+        "value_mean": 0.05,
+        "value_std": 0.0,
+        "value_noise_mean": 0.034,
+        "cos_value_own_key": 0.3517,
+        "key_max_cos_other": 0.7865,
+        "paraphrase_mean": 0.678,
+        "diffrel_mean": 0.28
+      }
+    },
+    "worst_value_recall": 0.05,
+    "worst_noise_recall": 0.034,
+    "max_seed_std": 0.0,
+    "min_seed_std": 0.0,
+    "max_cos_value_own_key": 0.3589,
+    "worst_key_separability_max_cos_other": 0.7865,
+    "value_recall_cliff_M": 200,
+    "honest_scope": "RECALL-REALITY: value-cue (omits entity) retrieves the right fact via MEAN-CENTERED cosine over Pythia-2.8B keys at recall>=0.80 up to M in {2k,10k}; NOT a capacity cliff (cosine has no crosstalk). Mean-centering required (LM anisotropy). paraphrase/diffrel REPORTED."
+  },
+  "metrics_source": "measured_gpu_pythia2p8b_kv_recall_reality_value_cue_centered",
+  "per_unit": [
+    {
+      "M": 200,
+      "seed": 0,
+      "recall_value": 0.12,
+      "recall_value_noise": 0.085,
+      "cos_value_own_key": 0.3589,
+      "key_max_cos_other": 0.7575,
+      "recall_paraphrase": 0.835,
+      "recall_diffrel": 0.235,
+      "nn_dist": 0.2425,
+      "run_mode": "smoke",
+      "_ckpt_key": "M200_s0",
+      "_partial_written_at": 1781932293.07734
+    },
+    {
+      "M": 200,
+      "seed": 1,
+      "recall_value": 0.12,
+      "recall_value_noise": 0.075,
+      "cos_value_own_key": 0.3589,
+      "key_max_cos_other": 0.7575,
+      "recall_paraphrase": 0.835,
+      "recall_diffrel": 0.235,
+      "nn_dist": 0.2425,
+      "run_mode": "smoke",
+      "_ckpt_key": "M200_s1",
+      "_partial_written_at": 1781932305.3138397
+    },
+    {
+      "M": 500,
+      "seed": 0,
+      "recall_value": 0.05,
+      "recall_value_noise": 0.038,
+      "cos_value_own_key": 0.3517,
+      "key_max_cos_other": 0.7865,
+      "recall_paraphrase": 0.678,
+      "recall_diffrel": 0.28,
+      "nn_dist": 0.2135,
+      "run_mode": "smoke",
+      "_ckpt_key": "M500_s0",
+      "_partial_written_at": 1781932328.9941876
+    },
+    {
+      "M": 500,
+      "seed": 1,
+      "recall_value": 0.05,
+      "recall_value_noise": 0.03,
+      "cos_value_own_key": 0.3517,
+      "key_max_cos_other": 0.7865,
+      "recall_paraphrase": 0.678,
+      "recall_diffrel": 0.28,
+      "nn_dist": 0.2135,
+      "run_mode": "smoke",
+      "_ckpt_key": "M500_s1",
+      "_partial_written_at": 1781932351.1265104
+    }
+  ],
+  "elapsed_s": 68.56007385253906,
+  "summary": "HARD_FAIL: value-cue does NOT retrieve (recall<0.5) OR zero-variance (re-saturated). value_recall worst=0.050 | noise worst=0.034 | seed-std [0.0000,0.0000] | cos(value,own)=0.359 | key_sep(max-cos-other)=0.786 | paraphrase=0.835 diffrel=0.235 (REPORTED) | cliff_M=200"
+}

@@ -1,0 +1,24 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS GNN comparator apparatus: SYN_COMPOSITIONAL L2-genuine non-empty, trained NBFNet-lite beats its untrained control + converged, arms differ.",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 33.43915290001314,
+  "selftest": {
+    "l2_genuine": 200,
+    "N": 570,
+    "n_rel": 4,
+    "trained_hits": 0.14,
+    "untrained_hits": 0.0,
+    "pop_hits": 0.14,
+    "train_lift": 0.14,
+    "trained_mrr": 0.0281,
+    "loss_first": 6.3499,
+    "loss_last": 0.0,
+    "lift_ok": true,
+    "converged": true,
+    "arms_differ": true,
+    "trained_meets_report": false,
+    "n_distinct_sigs": 2
+  }
+}

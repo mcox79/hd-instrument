@@ -1,0 +1,194 @@
+{
+  "verdict": "NEITHER_STRUCTURAL_OBJECTIVE_FIXED_VOICE_INVARIANCE",
+  "verdict_msg": "Floors valid (both floored). CO-PRIMARY side-by-side -- ARM_CONTRASTIVE[HARD_FAIL]: held_xvoice={'active_to_passive': 0.562, 'passive_to_active': 0.25} within=0.792 trained_xvoice={'active_to_passive': 0.271, 'passive_to_active': 0.354} band=HARD_FAIL || ARM_DEPHEAD[HARD_FAIL]: held_xvoice={'active_to_passive': 0.396, 'passive_to_active': 0.146} within=0.844 trained_xvoice={'active_to_passive': 0.167, 'passive_to_active': 0.229} band=HARD_FAIL. Run verdict = best-passing route (HARD_FAIL). ARM_FWDPRED(wall) held_xvoice={'active_to_passive': 0.292, 'passive_to_active': 0.083}. ARM_RANDOM(floor) held_xvoice={'active_to_passive': 0.396, 'passive_to_active': 0.104}.",
+  "summary": "NEITHER_STRUCTURAL_OBJECTIVE_FIXED_VOICE_INVARIANCE | chance=0.50 | Floors valid (both floored). CO-PRIMARY side-by-side -- ARM_CONTRASTIVE[HARD_FAIL]: held_xvoice={'active_to_passive': 0.562, 'passive_to_active': 0.25} within=0",
+  "run_mode": "selftest",
+  "elapsed_s": 1.255206200061366,
+  "ts_iso": "2026-07-31T01:30:32.103526+00:00",
+  "anchor_name": "encoder_role_contrastive_voice_invariance_v1",
+  "chance": 0.5,
+  "per_arm": {
+    "ARM_CONTRASTIVE": {
+      "7": {
+        "arm": "ARM_CONTRASTIVE",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_CONTRASTIVE",
+          "trained": true,
+          "steps": 8,
+          "final_loss": 15.130077362060547,
+          "final_extra": 2.4659852981567383
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.5625,
+          "passive_to_active": 0.25
+        },
+        "within_held": 0.7916666666666666,
+        "xvoice_trained": {
+          "active_to_passive": 0.2708333333333333,
+          "passive_to_active": 0.3541666666666667
+        },
+        "digest": "d64cd336945d102b60fe6e71fab68ba0e4cb2d929fce7f6535842c47009cc1df"
+      }
+    },
+    "ARM_DEPHEAD": {
+      "7": {
+        "arm": "ARM_DEPHEAD",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_DEPHEAD",
+          "trained": true,
+          "steps": 8,
+          "final_loss": 17.060989379882812,
+          "final_extra": 4.690026760101318
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.3958333333333333,
+          "passive_to_active": 0.14583333333333334
+        },
+        "within_held": 0.84375,
+        "xvoice_trained": {
+          "active_to_passive": 0.16666666666666666,
+          "passive_to_active": 0.22916666666666666
+        },
+        "digest": "a31e954f3a26ae8418525c6360cc1a865a9f868a9b82eab6a8d360aacd2d9bed"
+      }
+    },
+    "ARM_FWDPRED": {
+      "7": {
+        "arm": "ARM_FWDPRED",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_FWDPRED",
+          "trained": true,
+          "steps": 8,
+          "final_loss": 7.3571977615356445,
+          "final_extra": 0.0
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.2916666666666667,
+          "passive_to_active": 0.08333333333333333
+        },
+        "within_held": 0.9166666666666667,
+        "xvoice_trained": {
+          "active_to_passive": 0.08333333333333333,
+          "passive_to_active": 0.14583333333333334
+        },
+        "digest": "0429c145f4fd377555bd824ca058cc6afbc371f3248f7a3a998ec47bb0c7f29a"
+      }
+    },
+    "ARM_RANDOM": {
+      "7": {
+        "arm": "ARM_RANDOM",
+        "seed": 7,
+        "train": {
+          "arm": "ARM_RANDOM",
+          "trained": false,
+          "steps": 0
+        },
+        "xvoice_held": {
+          "active_to_passive": 0.3958333333333333,
+          "passive_to_active": 0.10416666666666667
+        },
+        "within_held": 0.8645833333333333,
+        "xvoice_trained": {
+          "active_to_passive": 0.16666666666666666,
+          "passive_to_active": 0.2708333333333333
+        },
+        "digest": "f42a100db69f0260eb7fd47ccdb107902485cdfc071a1fbcb21d0d45b3d1f4f1"
+      }
+    }
+  },
+  "smoke_discriminator_fires": null,
+  "bands": {
+    "xvoice_pass_min": 0.7,
+    "xvoice_fail_max": 0.55,
+    "within_pass_min": 0.85,
+    "within_fail_max": 0.65,
+    "floor_max": 0.6
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "ARM_CONTRASTIVE|7": "d64cd336945d102b60fe6e71fab68ba0e4cb2d929fce7f6535842c47009cc1df",
+    "ARM_DEPHEAD|7": "a31e954f3a26ae8418525c6360cc1a865a9f868a9b82eab6a8d360aacd2d9bed",
+    "ARM_FWDPRED|7": "0429c145f4fd377555bd824ca058cc6afbc371f3248f7a3a998ec47bb0c7f29a",
+    "ARM_RANDOM|7": "f42a100db69f0260eb7fd47ccdb107902485cdfc071a1fbcb21d0d45b3d1f4f1"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "n_units_done": 4,
+  "params": {
+    "arms": [
+      "ARM_CONTRASTIVE",
+      "ARM_DEPHEAD",
+      "ARM_FWDPRED",
+      "ARM_RANDOM"
+    ],
+    "seeds": [
+      7
+    ],
+    "vocab_size": 54,
+    "max_len": 12,
+    "train_nouns": [
+      "dog",
+      "cat",
+      "bird",
+      "fish",
+      "horse",
+      "cow",
+      "sheep",
+      "goat",
+      "lion",
+      "tiger",
+      "bear",
+      "wolf",
+      "fox",
+      "deer",
+      "mouse",
+      "frog"
+    ],
+    "heldout_nouns": [
+      "duck",
+      "hawk",
+      "seal",
+      "crab",
+      "whale",
+      "shark",
+      "snake",
+      "owl"
+    ],
+    "train_verbs": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed",
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "heldout_verbs": [
+      "pushed",
+      "pulled",
+      "carried",
+      "called",
+      "touched",
+      "kicked",
+      "licked",
+      "hugged"
+    ],
+    "d_model": 32,
+    "n_layers": 1,
+    "steps": 8,
+    "batch": 8,
+    "tau_c": 0.1
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "closed-form nearest-centroid; discriminator = pre-registered bands (decide_verdict)",
+  "calibration_check": "default_ok_for_this_regime: bands are fixed HYPOTHESIZED thresholds set before running; chance=0.50 exact-by-construction."
+}

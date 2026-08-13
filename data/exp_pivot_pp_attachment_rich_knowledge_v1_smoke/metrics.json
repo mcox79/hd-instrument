@@ -1,0 +1,159 @@
+{
+  "anchor_name": "pivot_pp_attachment_rich_knowledge_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "VERDICT_core acc_rich=0.750 vs acc_syntactic=0.719 (gap=+0.031) | acc_syntactic=0.719 | acc_majority=0.625 | acc_random=0.531 | n_items=32 | gold_strata_n={'N': 20, 'V': 12} | acc_rich_scrambled=0.438 | cov_curve={'0.00': 0.7188, '0.25': 0.7188, '0.50': 0.7188, '0.75': 0.6875, '1.00': 0.75} | rich_cov_on_items=1.000 | n_ties=1 | n_divergent=8",
+  "summary": "VERDICT_core acc_rich=0.750 vs acc_syntactic=0.719 (gap=+0.031) | acc_syntactic=0.719 | acc_majority=0.625 | acc_random=0.531 | n_items=32 | gold_strata_n={'N': 20, 'V': 12} | acc_rich_scrambled=0.438 | cov_curve={'0.00': 0.7188, '0.25': 0.7188, '0.50': 0.7188, '0.75': 0.6875, '1.00': 0.75} | rich_cov_on_items=1.000 | n_ties=1 | n_divergent=8",
+  "elapsed_s": 0.41768340003909543,
+  "ts_iso": "2026-07-23T11:13:03.871954+00:00",
+  "n_items": 32,
+  "acc_syntactic": 0.7188,
+  "acc_majority": 0.625,
+  "acc_random": 0.5312,
+  "acc_rich": 0.75,
+  "acc_rich_scrambled": 0.4375,
+  "gap_rich_minus_syntactic": 0.0312,
+  "coverage_curve": {
+    "0.00": 0.7188,
+    "0.25": 0.7188,
+    "0.50": 0.7188,
+    "0.75": 0.6875,
+    "1.00": 0.75
+  },
+  "expected_cov_points": 5,
+  "cardinality_ok": true,
+  "rich_coverage_on_item_triples": 1.0,
+  "n_ties": 1,
+  "strat_acc_syntactic": {
+    "N": 0.7,
+    "V": 0.75
+  },
+  "strat_acc_rich": {
+    "N": 0.8,
+    "V": 0.6667
+  },
+  "strat_n_by_gold": {
+    "N": 20,
+    "V": 12
+  },
+  "per_pred_digests": {
+    "syntactic": "fd03bf4474110624",
+    "majority": "84e0c0eafaa95a34",
+    "random": "c77d61715bc81eca",
+    "rich": "a99b9306bdbe2c40",
+    "rich_scrambled": "ed25f25b64b9331d"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "random_is_chance": true,
+  "discriminator_fires": true,
+  "syntactic_model_stats": {
+    "glob_pV": 0.3558,
+    "maj_class": "N",
+    "n_train_items": 3966,
+    "n_preps": 53
+  },
+  "leakage_fingerprint_divergent_items": [
+    {
+      "v": "be",
+      "n1": "client",
+      "prep": "in",
+      "n2": "facility",
+      "gold": "N",
+      "rich_pred": "V",
+      "score_v": 0.7,
+      "score_n": 0.6
+    },
+    {
+      "v": "be",
+      "n1": "place",
+      "prep": "in",
+      "n2": "area",
+      "gold": "N",
+      "rich_pred": "V",
+      "score_v": 0.7,
+      "score_n": 0.65
+    },
+    {
+      "v": "be",
+      "n1": "talent",
+      "prep": "on",
+      "n2": "market",
+      "gold": "N",
+      "rich_pred": "V",
+      "score_v": 0.7,
+      "score_n": 0.6
+    },
+    {
+      "v": "dip",
+      "n1": "reserve",
+      "prep": "on",
+      "n2": "basis",
+      "gold": "V",
+      "rich_pred": "N",
+      "score_v": 0.25,
+      "score_n": 0.35
+    },
+    {
+      "v": "fax",
+      "n1": "comment",
+      "prep": "on",
+      "n2": "dash",
+      "gold": "V",
+      "rich_pred": "N",
+      "score_v": 0.25,
+      "score_n": 0.4
+    },
+    {
+      "v": "fill",
+      "n1": "bowl",
+      "prep": "from",
+      "n2": "ingredient",
+      "gold": "V",
+      "rich_pred": "N",
+      "score_v": 0.3,
+      "score_n": 0.3
+    },
+    {
+      "v": "get",
+      "n1": "answer",
+      "prep": "in",
+      "n2": "section",
+      "gold": "V",
+      "rich_pred": "N",
+      "score_v": 0.35,
+      "score_n": 0.6
+    },
+    {
+      "v": "go",
+      "n1": "trip",
+      "prep": "to",
+      "n2": "europe",
+      "gold": "N",
+      "rich_pred": "V",
+      "score_v": 0.9,
+      "score_n": 0.85
+    }
+  ],
+  "n_divergent_items": 8,
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference (build-time LLM only)",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "binary attachment-accuracy; no quantitative noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "one_variable_note": "All arms share the SAME test items, split, and binary attach mechanism. ONLY the decision source differs: SYNTACTIC=prep-preference (Collins&Brooks, train-fit), RICH=LLM-built triple plausibility (Hindle&Rooth lexical association, build-time), MAJORITY/RANDOM/SCRAMBLED=controls.",
+  "leakage_guard": "Gold = INDEPENDENT UD dependency annotation (NOT LLM ratings). Rich table generated from a shuffled UNLABELED (head,prep,n2) triple list; agent never sees which head is the gold attachment. LLM rates GENERAL plausibility, so it MUST err on general-vs-corpus divergences (logged as leakage_fingerprint_divergent_items) -> acc_rich < 1.0.",
+  "mapped_ceiling_ref": "PP-attachment = parser's biggest error class (CITED 18.5% of dep-parser errors). Prior lever exp_pivot_selectional_knowledge_richness_2afc_v1 HARD_PASS (thin 0.475 -> rich 0.814); this cell tests generalization to a 2nd ceiling.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "acc_syntactic",
+    "acc_rich",
+    "acc_majority",
+    "acc_random",
+    "acc_rich_scrambled",
+    "coverage_curve",
+    "gap_rich_minus_syntactic",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}

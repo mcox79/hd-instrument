@@ -1,0 +1,161 @@
+{
+  "verdict": "HARD_FAIL_FLAT",
+  "verdict_msg": "re-reading does NOT compound: best-guided cov 0.0647 vs cold 0.0647 (gain 0.0000 < 0.0050)",
+  "summary": "HARD_FAIL_FLAT: cold=0.065 best_guided=0.065(p2) naive=0.065 freq=0.029 kg_ho_rel=42",
+  "elapsed_s": 5.21,
+  "ts_iso": "2026-07-18T11:02:56.204898+00:00",
+  "anchor_name": "read_grow_reread_compounding_kgguided_v1",
+  "run_mode": "full",
+  "bands": {
+    "hp_gain_over_cold": 0.02,
+    "hp_gain_over_naive": 0.02,
+    "hp_gain_over_freq": 0.02,
+    "hp_precision_tolerance": 0.05,
+    "hp_min_kg_heldout_rel": 5,
+    "flat_gain_max": 0.005,
+    "freq_equiv_margin": 0.005
+  },
+  "diag": {
+    "cold_pass1_cov_lenient": 0.06471,
+    "cold_pass1_prec_lenient": 0.42975,
+    "best_guided_pass": 2,
+    "best_guided_cov_lenient": 0.06471,
+    "best_guided_prec_lenient": 0.4075,
+    "naive_reread_cov_lenient": 0.06471,
+    "freq_only_cov_lenient": 0.02941,
+    "gain_over_cold": 0.0,
+    "gain_over_naive": 0.0,
+    "gain_over_freq": 0.0353,
+    "precision_delta_guided_vs_cold": -0.02225,
+    "n_kg_edges_total": 744,
+    "n_kg_heldout_relevant_total": 42,
+    "naive_equals_cold_by_construction": true
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "kg_edges_total": 744,
+    "kg_heldout_relevant_total": 42,
+    "coverage_moved_guided_vs_cold": 0.0,
+    "real_baselines": {
+      "cold_pass1": true,
+      "naive_reread": true,
+      "freq_only": true,
+      "freq_genus": "process"
+    },
+    "difficulty_on": "held-out sections' prose NEVER read; gold = held-out glossary genus; fair WN genus-match",
+    "one_variable": "re-read / knowledge-guidance schedule (cold pass1 | guided pass2/3 | naive pass2)",
+    "arms_differ_exempted": [
+      [
+        "pass2_naive",
+        "cold_pass1"
+      ]
+    ],
+    "arms_differ_exempt_rationale": "naive re-read == cold pass-1 BY CONSTRUCTION is the deterministic-flat null the USER asked to demonstrate; guided-vs-naive equality would be HARD_FAIL_FLAT (handled in verdict), not an arm-bug."
+  },
+  "pass_records": [
+    {
+      "n_foundation_terms": 905,
+      "n_edges_total": 1246,
+      "heldout_correct_cov_strict": 0.02353,
+      "heldout_correct_cov_lenient": 0.06471,
+      "heldout_any_cov": 0.10588,
+      "heldout_n_correct_lenient": 11,
+      "extraction_precision_strict": 0.32507,
+      "extraction_precision_lenient": 0.42975,
+      "extraction_precision_denom": 363,
+      "foundation_digest": "a8f19250bb9258c3d329a5e68e79e975859a2a592723c19b7b638b6db86d77b7",
+      "pass": 1,
+      "mode": "cold",
+      "kg_edges_added_this_pass": 0,
+      "kg_heldout_relevant_this_pass": 0
+    },
+    {
+      "n_foundation_terms": 1083,
+      "n_edges_total": 2864,
+      "heldout_correct_cov_strict": 0.02353,
+      "heldout_correct_cov_lenient": 0.06471,
+      "heldout_any_cov": 0.14118,
+      "heldout_n_correct_lenient": 11,
+      "extraction_precision_strict": 0.30125,
+      "extraction_precision_lenient": 0.4075,
+      "extraction_precision_denom": 800,
+      "foundation_digest": "1e23b012ce96dbad8745f5183d797dec5dfc046368b743a4b5066623df06c7cc",
+      "pass": 2,
+      "mode": "guided",
+      "kg_edges_added_this_pass": 372,
+      "kg_heldout_relevant_this_pass": 21
+    },
+    {
+      "n_foundation_terms": 1083,
+      "n_edges_total": 4482,
+      "heldout_correct_cov_strict": 0.02353,
+      "heldout_correct_cov_lenient": 0.06471,
+      "heldout_any_cov": 0.14118,
+      "heldout_n_correct_lenient": 11,
+      "extraction_precision_strict": 0.29426,
+      "extraction_precision_lenient": 0.40097,
+      "extraction_precision_denom": 1237,
+      "foundation_digest": "5b21bfa0bc6bed5090c47afddefa1b440f7d9a956c6a2eff0c37b3760ee13167",
+      "pass": 3,
+      "mode": "guided",
+      "kg_edges_added_this_pass": 372,
+      "kg_heldout_relevant_this_pass": 21
+    }
+  ],
+  "naive_records": [
+    {
+      "n_foundation_terms": 905,
+      "n_edges_total": 1246,
+      "heldout_correct_cov_strict": 0.02353,
+      "heldout_correct_cov_lenient": 0.06471,
+      "heldout_any_cov": 0.10588,
+      "heldout_n_correct_lenient": 11,
+      "extraction_precision_strict": 0.32507,
+      "extraction_precision_lenient": 0.42975,
+      "extraction_precision_denom": 363,
+      "foundation_digest": "a8f19250bb9258c3d329a5e68e79e975859a2a592723c19b7b638b6db86d77b7",
+      "pass": 1,
+      "mode": "naive_reread"
+    },
+    {
+      "n_foundation_terms": 905,
+      "n_edges_total": 2492,
+      "heldout_correct_cov_strict": 0.02353,
+      "heldout_correct_cov_lenient": 0.06471,
+      "heldout_any_cov": 0.10588,
+      "heldout_n_correct_lenient": 11,
+      "extraction_precision_strict": 0.32507,
+      "extraction_precision_lenient": 0.42975,
+      "extraction_precision_denom": 726,
+      "foundation_digest": "a8f19250bb9258c3d329a5e68e79e975859a2a592723c19b7b638b6db86d77b7",
+      "pass": 2,
+      "mode": "naive_reread"
+    }
+  ],
+  "kg_edges_per_pass": [
+    0,
+    372,
+    372
+  ],
+  "kg_heldout_relevant_per_pass": [
+    0,
+    21,
+    21
+  ],
+  "n_kg_edges_total": 744,
+  "n_kg_heldout_relevant_total": 42,
+  "freq_baseline_genus": "process",
+  "freq_baseline_cc_strict": 0.02353,
+  "freq_baseline_cc_lenient": 0.02941,
+  "n_sections": 107,
+  "n_read_pool_sections": 91,
+  "n_heldout_sections": 16,
+  "n_gold_all": 793,
+  "n_gold_heldout": 170,
+  "params": {
+    "n_passes": 3,
+    "genus_vocab_min": 2,
+    "coref_window": 6,
+    "heldout_every": 5
+  }
+}

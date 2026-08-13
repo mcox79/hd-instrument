@@ -1,0 +1,113 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "all_arms_ok; match_rate=0.9000 in [0.90, 0.95); user_directive_retention=1.0000; audit_only_mode_recommended_review_mismatches",
+  "elapsed_s": 155.3,
+  "summary": {
+    "anchor": "kb_dual_store_audit_v1",
+    "smoke": true,
+    "kb_version": "v1",
+    "schema_version": "v1",
+    "encoder": "char_trigram_v1",
+    "arms": [
+      {
+        "arm": "ARM_DUAL_STORE_MATCH",
+        "ok": true,
+        "n_queries": 10,
+        "n_match": 9,
+        "match_rate": 0.9,
+        "n_user_directive_total": 0,
+        "n_user_directive_match": 0,
+        "user_directive_retention": 1.0,
+        "mismatch_reasons": {
+          "no_overlap_no_expected_hit": 1
+        },
+        "capacity": {
+          "n_entities": 578104,
+          "n_atoms": 1031163,
+          "kb_version": "v1",
+          "schema_version": "v1",
+          "encoder": "char_trigram_v1"
+        },
+        "elapsed_s": 155.27,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "char trigram encoder",
+            "match": true,
+            "reason": "path_overlap",
+            "is_ud": false
+          },
+          {
+            "q": "fleet waiting on",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "director plan",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "cert ledger",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "substrate index atoms",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "ANCHOR_FOR",
+            "match": false,
+            "reason": "no_overlap_no_expected_hit",
+            "is_ud": false
+          },
+          {
+            "q": "HARD_PASS verdict",
+            "match": true,
+            "reason": "substrate_has_expected",
+            "is_ud": false
+          },
+          {
+            "q": "kg traversal",
+            "match": true,
+            "reason": "path_overlap",
+            "is_ud": false
+          }
+        ],
+        "audit_log_path": "data/director_kb_audit_log.jsonl"
+      },
+      {
+        "arm": "ARM_AUDIT_LOG_INTEGRITY",
+        "ok": true,
+        "n_lines": 20,
+        "n_parseable": 20,
+        "n_with_required_fields": 20,
+        "parseable_rate": 1.0,
+        "parse_errors_sample": [],
+        "concurrent_stress_run": false,
+        "concurrent_writes_total": 0,
+        "elapsed_s": 0.041
+      }
+    ],
+    "verdict": "MIDDLE_BAND",
+    "verdict_msg": "all_arms_ok; match_rate=0.9000 in [0.90, 0.95); user_directive_retention=1.0000; audit_only_mode_recommended_review_mismatches",
+    "elapsed_s": 155.3
+  }
+}

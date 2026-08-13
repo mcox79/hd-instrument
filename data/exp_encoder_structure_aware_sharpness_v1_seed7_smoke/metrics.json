@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AttributeError: 'str' object has no attribute 'mkdir'",
+  "summary": "CELL_CRASHED: AttributeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_structure_aware_sharpness_v1_core.py\", line 748, in main\n    return run(\"smoke\", seed, device_arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_structure_aware_sharpness_v1_core.py\", line 725, in run\n    write_metrics(out_dir, metrics, results=per_size)\n  File \"D:\\AI\\hd-instrument\\experiments\\_seed_checkpoint.py\", line 716, in write_metrics\n    out_dir.mkdir(parents=True, exist_ok=True)\n    ^^^^^^^^^^^^^\nAttributeError: 'str' object has no attribute 'mkdir'\n",
+  "ts_iso": "2026-07-10T00:52:55.474739+00:00",
+  "pid": 18356,
+  "anchor_name": "exp_encoder_structure_aware_sharpness_v1"
+}

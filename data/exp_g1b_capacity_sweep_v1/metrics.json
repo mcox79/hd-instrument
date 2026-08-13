@@ -1,0 +1,3362 @@
+{
+  "anchor": "g1b_capacity_sweep_v1",
+  "anchor_name": "g1b_capacity_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: chain-grade evidence above by-construction-saturation. n_points_at_bar=6/6; headroom_pt=6403 pairs; graceful=True; spread_preserved=True. coh_arm4@T8 by n_pairs=[209:1.00 418:1.00 817:1.00 1615:1.00 3211:1.00 6403:0.94]; nov/cap=[209:441/440 418:881/880 817:1721/1720 1615:3401/3400 3211:6761/6760 6403:12676/13480]; n_pts_at_bar(>=0.60)=6/6; headroom_pt=6403; cliff=False; spread_viol=False; graceful=True; substrate_only=True W_unchanged=True llm=0",
+  "n_seeds": 3,
+  "N": 4096,
+  "N_DIM": 4096,
+  "K_SEQ": 20,
+  "N_SEQ_LIST": [
+    11,
+    22,
+    43,
+    85,
+    169,
+    337
+  ],
+  "N_PAIRS_LIST": [
+    209,
+    418,
+    817,
+    1615,
+    3211,
+    6403
+  ],
+  "T_GENS": [
+    1,
+    4,
+    8
+  ],
+  "arms": [
+    "NONE",
+    "S_ONLY",
+    "S_LANGEVIN",
+    "S_LANGEVIN_CLEANUP"
+  ],
+  "run_mode": "full",
+  "config_version": "g1b-capacity-sweep-v1: N_DIM=4096 K_SEQ=20 arms=NONE,S_ONLY,S_LANGEVIN,S_LANGEVIN_CLEANUP T_gens=[1, 4, 8] N_SEQ_scan=[11, 22, 43, 85, 169, 337] N_PAIRS_scan=[209, 418, 817, 1615, 3211, 6403] sigma_scale=0.100 refuse_tau=0.100 bands HP_coh=0.60 n_pts_at_bar=3 HF_cliff=0.10@N<=400 run_mode=full",
+  "corpus_provenance": "synthetic_bipolar_keys_sequences_capacity_sweep",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "T_primary": "8",
+    "scan_summary": [
+      {
+        "n_seq": 11,
+        "n_pairs": 209,
+        "density": 0.051025390625,
+        "coh_arm4": 1.0,
+        "coh_arm3": 0.13194444444444445,
+        "coh_arm2": 0.375,
+        "coh_arm1": 0.009722222222222222,
+        "delta_4_minus_1": 0.9902777777777778,
+        "novelty_arm4": 441.0,
+        "analytic_cap_arm4": 440.0,
+        "saturated_arm4": true,
+        "cv_arm4": 0.0,
+        "spread_preserved": true
+      },
+      {
+        "n_seq": 22,
+        "n_pairs": 418,
+        "density": 0.10205078125,
+        "coh_arm4": 1.0,
+        "coh_arm3": 0.125,
+        "coh_arm2": 0.375,
+        "coh_arm1": 0.002777777777777778,
+        "delta_4_minus_1": 0.9972222222222222,
+        "novelty_arm4": 881.0000000000001,
+        "analytic_cap_arm4": 880.0,
+        "saturated_arm4": true,
+        "cv_arm4": 0.0,
+        "spread_preserved": true
+      },
+      {
+        "n_seq": 43,
+        "n_pairs": 817,
+        "density": 0.199462890625,
+        "coh_arm4": 1.0,
+        "coh_arm3": 0.125,
+        "coh_arm2": 0.375,
+        "coh_arm1": 0.0,
+        "delta_4_minus_1": 1.0,
+        "novelty_arm4": 1721.0,
+        "analytic_cap_arm4": 1720.0,
+        "saturated_arm4": true,
+        "cv_arm4": 0.0,
+        "spread_preserved": true
+      },
+      {
+        "n_seq": 85,
+        "n_pairs": 1615,
+        "density": 0.394287109375,
+        "coh_arm4": 1.0,
+        "coh_arm3": 0.125,
+        "coh_arm2": 0.375,
+        "coh_arm1": 0.001388888888888889,
+        "delta_4_minus_1": 0.9986111111111111,
+        "novelty_arm4": 3401.0,
+        "analytic_cap_arm4": 3400.0000000000005,
+        "saturated_arm4": true,
+        "cv_arm4": 0.0,
+        "spread_preserved": true
+      },
+      {
+        "n_seq": 169,
+        "n_pairs": 3211,
+        "density": 0.783935546875,
+        "coh_arm4": 1.0,
+        "coh_arm3": 0.125,
+        "coh_arm2": 0.375,
+        "coh_arm1": 0.001388888888888889,
+        "delta_4_minus_1": 0.9986111111111111,
+        "novelty_arm4": 6761.0,
+        "analytic_cap_arm4": 6760.0,
+        "saturated_arm4": true,
+        "cv_arm4": 0.0,
+        "spread_preserved": true
+      },
+      {
+        "n_seq": 337,
+        "n_pairs": 6403,
+        "density": 1.563232421875,
+        "coh_arm4": 0.9402777777777778,
+        "coh_arm3": 0.125,
+        "coh_arm2": 0.375,
+        "coh_arm1": 0.0,
+        "delta_4_minus_1": 0.9402777777777778,
+        "novelty_arm4": 12675.944444444445,
+        "analytic_cap_arm4": 13480.0,
+        "saturated_arm4": true,
+        "cv_arm4": 0.03514143944865675,
+        "spread_preserved": true
+      }
+    ],
+    "n_points_at_hard_pass_bar": 6,
+    "headroom_to_fail_point_n_pairs": 6403,
+    "headroom_to_fail_point_coh": 0.9402777777777778,
+    "cliff_violation": false,
+    "cliff_point_n_pairs": null,
+    "spread_violation": false,
+    "spread_violation_n_pairs": null,
+    "graceful_degradation_ok": true,
+    "substrate_only_ok": true,
+    "W_unchanged_by_generation_all_arms": true,
+    "zero_llm_calls_at_inference": true,
+    "honest_scope": "Capacity-floor sweep for substrate-native autoregressive generation: N_PAIRS scan at fixed N_DIM=4096 K_SEQ=20. N_SEQ_scan=[11, 22, 43, 85, 169, 337] -> N_PAIRS=[209, 418, 817, 1615, 3211, 6403]. Locates the chain-grade-evidence regime ABOVE by-construction-saturation (g1 baseline was below Hebbian capacity floor ~327 + novelty saturated at 100% of analytic_cap). Substrate-only-decode gate enforced (n_llm=0). W matrix unchanged by generation (per-arm assertion)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "M": -1,
+      "run_mode": "full",
+      "config_version": "g1b-capacity-sweep-v1: N_DIM=4096 K_SEQ=20 arms=NONE,S_ONLY,S_LANGEVIN,S_LANGEVIN_CLEANUP T_gens=[1, 4, 8] N_SEQ_scan=[11, 22, 43, 85, 169, 337] N_PAIRS_scan=[209, 418, 817, 1615, 3211, 6403] sigma_scale=0.100 refuse_tau=0.100 bands HP_coh=0.60 n_pts_at_bar=3 HF_cliff=0.10@N<=400 run_mode=full",
+      "elapsed_s": 408.31075048446655,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782151782.504968,
+      "per_unit": [
+        {
+          "arm": "NONE",
+          "seed": 7,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.003530011363988671,
+          "W_norm_before_generation": 0.003717109953042547,
+          "W_norm_after_generation": 0.003717109953042547,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.008333333333333333,
+            "8": 0.004166666666666667
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 0.5875,
+            "8": 0.648936170212766
+          },
+          "n_distinct_visited": {
+            "1": 26,
+            "4": 92,
+            "8": 137
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 3.4678750038146973,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 7,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035281574253459803,
+          "W_norm_before_generation": 0.003716054017870524,
+          "W_norm_after_generation": 0.003716054017870524,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 331.00000000000006,
+            "8": 166.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 73,
+            "8": 71
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 16.641411542892456,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 7,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035279799542381864,
+          "W_norm_before_generation": 0.0037163443534740503,
+          "W_norm_after_generation": 0.0037163443534740503,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4026604341659497e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.14166666666666666
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 23.78571428571429,
+            "8": 6.499999999999998
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 96,
+            "8": 147
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 23.132384300231934,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 7,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.003529280579014715,
+          "W_norm_before_generation": 0.003717353044068523,
+          "W_norm_after_generation": 0.003717353044068523,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4050110220543652e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 441.0,
+            "8": 441.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 92,
+            "8": 151
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 12.854515314102173,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 7,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004991070499501231,
+          "W_norm_before_generation": 0.005390523006947393,
+          "W_norm_after_generation": 0.005390523006947393,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 8.333333333333334,
+            "8": 1.2340425531914894
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 106,
+            "8": 189
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 2.330307722091675,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 7,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.0049911090198770805,
+          "W_norm_before_generation": 0.0053893305945822674,
+          "W_norm_after_generation": 0.0053893305945822674,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 661.0,
+            "8": 331.00000000000006
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 88,
+            "8": 85
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 18.16304612159729,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 7,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004990411860137881,
+          "W_norm_before_generation": 0.005388325705590431,
+          "W_norm_after_generation": 0.005388325705590431,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4725738631912874e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 14.106382978723405,
+            "8": 10.166666666666666
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 109,
+            "8": 192
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.780680656433105,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 7,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004992985555145312,
+          "W_norm_before_generation": 0.005386801201516293,
+          "W_norm_after_generation": 0.005386801201516293,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.474056045770644e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 881.0000000000001,
+            "8": 881.0000000000001
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 111,
+            "8": 176
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.06479811668396,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 7,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.0069785482714703655,
+          "W_norm_before_generation": 0.007874002447924074,
+          "W_norm_after_generation": 0.007874002447924074,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 3.6326530612244903
+          },
+          "n_distinct_visited": {
+            "1": 29,
+            "4": 113,
+            "8": 211
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 2.516033411026001,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 7,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006979063653777429,
+          "W_norm_before_generation": 0.007876006346947911,
+          "W_norm_after_generation": 0.007876006346947911,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 1291.0,
+            "8": 646.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 88,
+            "8": 83
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 10.790161371231079,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 7,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006976405116707378,
+          "W_norm_before_generation": 0.007876144634415981,
+          "W_norm_after_generation": 0.007876144634415981,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.5937597906422e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 431.0,
+            "8": 29.08163265306123
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 113,
+            "8": 212
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 12.881113529205322,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 7,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006976519606725199,
+          "W_norm_before_generation": 0.007872422724751384,
+          "W_norm_after_generation": 0.007872422724751384,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.5926235114257956e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 1721.0,
+            "8": 1721.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 113,
+            "8": 212
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 13.761640071868896,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 7,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009812989789585292,
+          "W_norm_before_generation": 0.011974654015846478,
+          "W_norm_after_generation": 0.011974654015846478,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 15.166666666666666
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 116,
+            "8": 223
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 4.934244871139526,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 7,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009810455717795676,
+          "W_norm_before_generation": 0.011973044754571196,
+          "W_norm_after_generation": 0.011973044754571196,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 2551.0,
+            "8": 1276.0000000000002
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 90,
+            "8": 91
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.579511404037476,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 7,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009811500026051478,
+          "W_norm_before_generation": 0.011974451270700844,
+          "W_norm_after_generation": 0.011974451270700844,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.8156159948023758e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 29.977272727272734,
+            "8": 440.1666666666668
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 118,
+            "8": 226
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.914955377578735,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 7,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009812163033478186,
+          "W_norm_before_generation": 0.011971449245139718,
+          "W_norm_after_generation": 0.011971449245139718,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.815187575889396e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 3401.0,
+            "8": 3401.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 117,
+            "8": 233
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 18.36688780784607,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 7,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013831624448179343,
+          "W_norm_before_generation": 0.019174663000159457,
+          "W_norm_after_generation": 0.019174663000159457,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 116,
+            "8": 224
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 6.627023696899414,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 7,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013836608750977699,
+          "W_norm_before_generation": 0.019177005997998417,
+          "W_norm_after_generation": 0.019177005997998417,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 5071.0,
+            "8": 2536.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 90,
+            "8": 89
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 20.104231357574463,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 7,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013836732220025684,
+          "W_norm_before_generation": 0.01917507106388409,
+          "W_norm_after_generation": 0.01917507106388409,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.2065411334331124e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 1691.0,
+            "8": 846.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 117,
+            "8": 232
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 20.77188777923584,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 7,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013837606691931145,
+          "W_norm_before_generation": 0.019174493667524446,
+          "W_norm_after_generation": 0.019174493667524446,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.2066929512348236e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 6761.0,
+            "8": 6761.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 115,
+            "8": 230
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 20.53621220588684,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 7,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019534602712158632,
+          "W_norm_before_generation": 0.032601482942138604,
+          "W_norm_after_generation": 0.032601482942138604,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.01749271137026239
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 119,
+            "8": 234
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 12.126325607299805,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 7,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.01954004676905067,
+          "W_norm_before_generation": 0.032599859919847984,
+          "W_norm_after_generation": 0.032599859919847984,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 10111.0,
+            "8": 5056.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 89
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 26.37427043914795,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 7,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.01953767085101742,
+          "W_norm_before_generation": 0.03260267555303122,
+          "W_norm_after_generation": 0.03260267555303122,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.866721011710819e-05,
+          "trajectory_coherence": {
+            "1": 0.9666666666666667,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 13031.666666666668,
+            "4": 3371.0,
+            "8": 1686.0000000000002
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 239
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 47.51313066482544,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 7,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.01953606464768887,
+          "W_norm_before_generation": 0.03260103894943876,
+          "W_norm_after_generation": 0.03260103894943876,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.865945143009401e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.9916666666666667,
+            "8": 0.975
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 13368.666666666668,
+            "8": 13144.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 119,
+            "8": 235
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 42.74691367149353,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "M": -1,
+      "run_mode": "full",
+      "config_version": "g1b-capacity-sweep-v1: N_DIM=4096 K_SEQ=20 arms=NONE,S_ONLY,S_LANGEVIN,S_LANGEVIN_CLEANUP T_gens=[1, 4, 8] N_SEQ_scan=[11, 22, 43, 85, 169, 337] N_PAIRS_scan=[209, 418, 817, 1615, 3211, 6403] sigma_scale=0.100 refuse_tau=0.100 bands HP_coh=0.60 n_pts_at_bar=3 HF_cliff=0.10@N<=400 run_mode=full",
+      "elapsed_s": 408.6629228591919,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782152191.2087827,
+      "per_unit": [
+        {
+          "arm": "NONE",
+          "seed": 17,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.003529835189844247,
+          "W_norm_before_generation": 0.0037185189084469757,
+          "W_norm_after_generation": 0.0037185189084469757,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.008333333333333333,
+            "8": 0.0125
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.7951807228915664
+          },
+          "n_distinct_visited": {
+            "1": 27,
+            "4": 95,
+            "8": 145
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 1.4241352081298828,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 17,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035290381960291937,
+          "W_norm_before_generation": 0.003716694004081302,
+          "W_norm_after_generation": 0.003716694004081302,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 331.00000000000006,
+            "8": 166.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 80,
+            "8": 78
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 9.054803609848022,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 17,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035301468028796235,
+          "W_norm_before_generation": 0.0037158738793896993,
+          "W_norm_after_generation": 0.0037158738793896993,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4054140242976558e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25833333333333336,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 9.555555555555555,
+            "8": 4.159574468085106
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 146
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 10.15649127960205,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 17,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035296316371904416,
+          "W_norm_before_generation": 0.0037164548160768056,
+          "W_norm_after_generation": 0.0037164548160768056,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4050797345889525e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 441.0,
+            "8": 441.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 92,
+            "8": 125
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 10.380713701248169,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 17,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004991487721783267,
+          "W_norm_before_generation": 0.00538815661506511,
+          "W_norm_after_generation": 0.00538815661506511,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 0.12,
+            "8": 0.7582417582417583
+          },
+          "n_distinct_visited": {
+            "1": 27,
+            "4": 101,
+            "8": 184
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 1.8083350658416748,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 17,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004990239509951899,
+          "W_norm_before_generation": 0.005388667863406328,
+          "W_norm_after_generation": 0.005388667863406328,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 661.0,
+            "8": 331.00000000000006
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 86,
+            "8": 83
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 9.770601987838745,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 17,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004991509729182846,
+          "W_norm_before_generation": 0.005388867778583607,
+          "W_norm_after_generation": 0.005388867778583607,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4736819305422082e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 235.66666666666669,
+            "8": 7.553191489361701
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 104,
+            "8": 189
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 11.6187424659729,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 17,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004991580465375622,
+          "W_norm_before_generation": 0.005388506392098195,
+          "W_norm_after_generation": 0.005388506392098195,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4738667497546364e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 881.0000000000001,
+            "8": 881.0000000000001
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 106,
+            "8": 194
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 11.008232593536377,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 17,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006979640466465302,
+          "W_norm_before_generation": 0.007875352193367536,
+          "W_norm_after_generation": 0.007875352193367536,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.008333333333333333,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.9347826086956523,
+            "8": 0.532608695652174
+          },
+          "n_distinct_visited": {
+            "1": 29,
+            "4": 112,
+            "8": 210
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 2.2923097610473633,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 17,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006976849058043761,
+          "W_norm_before_generation": 0.007875489333871088,
+          "W_norm_after_generation": 0.007875489333871088,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 1291.0,
+            "8": 646.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 88
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 11.133052349090576,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 17,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.0069794795092273446,
+          "W_norm_before_generation": 0.00787535816436404,
+          "W_norm_after_generation": 0.00787535816436404,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.595235524479438e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 431.0,
+            "8": 9.91851851851852
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 111,
+            "8": 212
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 12.681551456451416,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 17,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006977555372249598,
+          "W_norm_before_generation": 0.007873764835817695,
+          "W_norm_after_generation": 0.007873764835817695,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.5935676414969424e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 1721.0,
+            "8": 1721.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 118,
+            "8": 209
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 13.06521987915039,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 17,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009810766711883488,
+          "W_norm_before_generation": 0.011971323705532893,
+          "W_norm_after_generation": 0.011971323705532893,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.004166666666666667
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 15.166666666666666
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 112,
+            "8": 230
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 3.6484787464141846,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 17,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009809917323509198,
+          "W_norm_before_generation": 0.011973591624716822,
+          "W_norm_after_generation": 0.011973591624716822,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 2551.0,
+            "8": 1276.0000000000002
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 91
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 14.369880676269531,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 17,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009809023063336714,
+          "W_norm_before_generation": 0.011973072646782714,
+          "W_norm_after_generation": 0.011973072646782714,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.8136322925100048e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 29.01136363636364,
+            "8": 29.02197802197803
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 116,
+            "8": 223
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.38994860649109,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 17,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009808468393895035,
+          "W_norm_before_generation": 0.011974429729717453,
+          "W_norm_after_generation": 0.011974429729717453,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.814006460460028e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 3401.0,
+            "8": 3401.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 114,
+            "8": 204
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 15.511064052581787,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 17,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013837012045093768,
+          "W_norm_before_generation": 0.019179785547658968,
+          "W_norm_after_generation": 0.019179785547658968,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.004166666666666667
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 0.01744186046511628,
+            "8": 29.166666666666668
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 119,
+            "8": 233
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 5.227750539779663,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 17,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013834098883425598,
+          "W_norm_before_generation": 0.019169360792869926,
+          "W_norm_after_generation": 0.019169360792869926,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 5071.0,
+            "8": 2536.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 89
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 16.689412593841553,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 17,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.01383151993372676,
+          "W_norm_before_generation": 0.01917019364240281,
+          "W_norm_after_generation": 0.01917019364240281,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.203586424621771e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 1691.0,
+            "8": 846.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 118,
+            "8": 232
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 35.5471556186676,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 17,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013836209915973967,
+          "W_norm_before_generation": 0.019172089350944648,
+          "W_norm_after_generation": 0.019172089350944648,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.205622480135297e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.975,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 6592.0,
+            "8": 6761.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 232
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 32.99108910560608,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 17,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.01953391133414672,
+          "W_norm_before_generation": 0.032596021742723566,
+          "W_norm_after_generation": 0.032596021742723566,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 113.33333333333334,
+            "8": 0.01749271137026239
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 236
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 12.691276788711548,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 17,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019536351526262756,
+          "W_norm_before_generation": 0.03260006315623415,
+          "W_norm_after_generation": 0.03260006315623415,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 10111.0,
+            "8": 5056.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 90
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 65.09074187278748,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 17,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019532845461390582,
+          "W_norm_before_generation": 0.03259971041020913,
+          "W_norm_after_generation": 0.03259971041020913,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.864696727553098e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 3371.0,
+            "8": 1686.0000000000002
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 233
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 42.5169575214386,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 17,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019532689890222384,
+          "W_norm_before_generation": 0.032599819711213965,
+          "W_norm_after_generation": 0.032599819711213965,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.864913021857125e-05,
+          "trajectory_coherence": {
+            "1": 0.9666666666666667,
+            "4": 0.9833333333333333,
+            "8": 0.8958333333333334
+          },
+          "novelty_ratio": {
+            "1": 13031.666666666668,
+            "4": 13256.333333333334,
+            "8": 12076.833333333334
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 118,
+            "8": 239
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 41.397249937057495,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "M": -1,
+      "run_mode": "full",
+      "config_version": "g1b-capacity-sweep-v1: N_DIM=4096 K_SEQ=20 arms=NONE,S_ONLY,S_LANGEVIN,S_LANGEVIN_CLEANUP T_gens=[1, 4, 8] N_SEQ_scan=[11, 22, 43, 85, 169, 337] N_PAIRS_scan=[209, 418, 817, 1615, 3211, 6403] sigma_scale=0.100 refuse_tau=0.100 bands HP_coh=0.60 n_pts_at_bar=3 HF_cliff=0.10@N<=400 run_mode=full",
+      "elapsed_s": 552.2681798934937,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782152743.610346,
+      "per_unit": [
+        {
+          "arm": "NONE",
+          "seed": 23,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.003529600599401819,
+          "W_norm_before_generation": 0.003717074627501152,
+          "W_norm_after_generation": 0.003717074627501152,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0125
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.8829787234042553
+          },
+          "n_distinct_visited": {
+            "1": 27,
+            "4": 95,
+            "8": 151
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 1.374112844467163,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 23,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035290565261347565,
+          "W_norm_before_generation": 0.0037169420046234774,
+          "W_norm_after_generation": 0.0037169420046234774,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 331.00000000000006,
+            "8": 166.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 69,
+            "8": 70
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 8.754058599472046,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 23,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.003529231933826227,
+          "W_norm_before_generation": 0.003717539108618579,
+          "W_norm_after_generation": 0.003717539108618579,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4054601184080013e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.12916666666666668
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 13.319999999999999,
+            "8": 5.108433734939759
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 96,
+            "8": 150
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 10.247074365615845,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 23,
+          "n_seq": 11,
+          "n_pairs": 209,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.051025390625,
+          "sequence_matrix_norm": 0.0035300359006967806,
+          "W_norm_before_generation": 0.0037166333204963244,
+          "W_norm_after_generation": 0.0037166333204963244,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.406024150779932e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 441.0,
+            "4": 441.0,
+            "8": 441.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 93,
+            "8": 130
+          },
+          "analytic_cap": {
+            "1": 440.0,
+            "4": 440.0,
+            "8": 440.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 14.124680757522583,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 23,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.0049886725169247985,
+          "W_norm_before_generation": 0.005387025326158109,
+          "W_norm_after_generation": 0.005387025326158109,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.008333333333333333
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 15.666666666666668,
+            "8": 1.611111111111111
+          },
+          "n_distinct_visited": {
+            "1": 29,
+            "4": 108,
+            "8": 179
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 2.019657611846924,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 23,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004992099263616729,
+          "W_norm_before_generation": 0.005387226961514858,
+          "W_norm_after_generation": 0.005387226961514858,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 661.0,
+            "8": 331.00000000000006
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 82,
+            "8": 87
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 9.486907005310059,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 23,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.004991334105723546,
+          "W_norm_before_generation": 0.0053888256379419,
+          "W_norm_after_generation": 0.0053888256379419,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4735288359531212e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 221.00000000000003,
+            "8": 6.120689655172414
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 105,
+            "8": 183
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 13.621300220489502,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 23,
+          "n_seq": 22,
+          "n_pairs": 418,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.10205078125,
+          "sequence_matrix_norm": 0.0049897753966607365,
+          "W_norm_before_generation": 0.005386692825139769,
+          "W_norm_after_generation": 0.005386692825139769,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.4711904481154752e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 881.0000000000001,
+            "4": 881.0000000000001,
+            "8": 881.0000000000001
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 105,
+            "8": 193
+          },
+          "analytic_cap": {
+            "1": 880.0,
+            "4": 880.0,
+            "8": 880.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 26.796732902526855,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 23,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006979777010380863,
+          "W_norm_before_generation": 0.00787429743756001,
+          "W_norm_after_generation": 0.00787429743756001,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 0.06521739130434782,
+            "8": 0.6814814814814815
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 113,
+            "8": 200
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 1.8892030715942383,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 23,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.00697825471751802,
+          "W_norm_before_generation": 0.007873621840967758,
+          "W_norm_after_generation": 0.007873621840967758,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 1291.0,
+            "8": 646.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 88,
+            "8": 86
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 10.364006042480469,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 23,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.006977748546053283,
+          "W_norm_before_generation": 0.00787380868599254,
+          "W_norm_after_generation": 0.00787380868599254,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.5938968524738912e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 445.3333333333334,
+            "8": 244.66666666666669
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 108,
+            "8": 200
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 11.505116701126099,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 23,
+          "n_seq": 43,
+          "n_pairs": 817,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.199462890625,
+          "sequence_matrix_norm": 0.00697772320464335,
+          "W_norm_before_generation": 0.007873209424856326,
+          "W_norm_after_generation": 0.007873209424856326,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.5933230718462273e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 1721.0,
+            "4": 1721.0,
+            "8": 1721.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 118,
+            "8": 184
+          },
+          "analytic_cap": {
+            "1": 1720.0,
+            "4": 1720.0,
+            "8": 1720.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 11.77434778213501,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 23,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.00981303865353769,
+          "W_norm_before_generation": 0.011969643596878162,
+          "W_norm_after_generation": 0.011969643596878162,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.965909090909091,
+            "8": 1.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 116,
+            "8": 222
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 3.2232933044433594,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 23,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009808512363048518,
+          "W_norm_before_generation": 0.01196943670049232,
+          "W_norm_after_generation": 0.01196943670049232,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 2551.0,
+            "8": 1276.0000000000002
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 87,
+            "8": 90
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 12.091351985931396,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 23,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009811815581177713,
+          "W_norm_before_generation": 0.011972692304175282,
+          "W_norm_after_generation": 0.011972692304175282,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.8149411327071664e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 879.3333333333335,
+            "8": 8.1242774566474
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 117,
+            "8": 224
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 15.78439474105835,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 23,
+          "n_seq": 85,
+          "n_pairs": 1615,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.394287109375,
+          "sequence_matrix_norm": 0.009807495509282785,
+          "W_norm_before_generation": 0.011972844484210475,
+          "W_norm_after_generation": 0.011972844484210475,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 2.8130744820104694e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 3401.0,
+            "4": 3401.0,
+            "8": 3401.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 117,
+            "8": 215
+          },
+          "analytic_cap": {
+            "1": 3400.0000000000005,
+            "4": 3400.0000000000005,
+            "8": 3400.0000000000005
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.74863338470459,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 23,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013829511791883934,
+          "W_norm_before_generation": 0.019175918987946093,
+          "W_norm_after_generation": 0.019175918987946093,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 57.333333333333336,
+            "8": 1.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 119,
+            "8": 229
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 6.612661361694336,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 23,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013833900009521958,
+          "W_norm_before_generation": 0.019172708970446692,
+          "W_norm_after_generation": 0.019172708970446692,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 5071.0,
+            "8": 2536.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 89,
+            "8": 86
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 17.569807767868042,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 23,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013831067385510177,
+          "W_norm_before_generation": 0.019174270717784353,
+          "W_norm_after_generation": 0.019174270717784353,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.2043411880430666e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 30.476744186046513,
+            "8": 846.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 234
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 30.738293886184692,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 23,
+          "n_seq": 169,
+          "n_pairs": 3211,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 0.783935546875,
+          "sequence_matrix_norm": 0.013834301451431342,
+          "W_norm_before_generation": 0.019173271807443135,
+          "W_norm_after_generation": 0.019173271807443135,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.20491219339785e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0
+          },
+          "novelty_ratio": {
+            "1": 6761.0,
+            "4": 6761.0,
+            "8": 6761.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 236
+          },
+          "analytic_cap": {
+            "1": 6760.0,
+            "4": 6760.0,
+            "8": 6760.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 46.42082595825195,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "NONE",
+          "seed": 23,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019533481683005387,
+          "W_norm_before_generation": 0.03259664254619202,
+          "W_norm_after_generation": 0.03259664254619202,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0
+          },
+          "novelty_ratio": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.01749271137026239
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 117,
+            "8": 235
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": false,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 0.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 20.544116020202637,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_ONLY",
+          "seed": 23,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019539303074432832,
+          "W_norm_before_generation": 0.03259123298309293,
+          "W_norm_after_generation": 0.03259123298309293,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 0.0,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.75,
+            "8": 0.375
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 10111.0,
+            "8": 5056.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 91,
+            "8": 87
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 51.96255350112915,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN",
+          "seed": 23,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.019538955818108578,
+          "W_norm_before_generation": 0.03260261793269345,
+          "W_norm_after_generation": 0.03260261793269345,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.866262518653979e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.25,
+            "8": 0.125
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 3371.0,
+            "8": 14.876470588235295
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 117,
+            "8": 238
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": false,
+            "8": false
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 111.42862629890442,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        },
+        {
+          "arm": "S_LANGEVIN_CLEANUP",
+          "seed": 23,
+          "n_seq": 337,
+          "n_pairs": 6403,
+          "n_dim": 4096,
+          "k_seq": 20,
+          "density": 1.563232421875,
+          "sequence_matrix_norm": 0.0195343239615136,
+          "W_norm_before_generation": 0.03259317408338116,
+          "W_norm_after_generation": 0.03259317408338116,
+          "W_unchanged_by_generation": true,
+          "sigma_langevin": 3.863813567153511e-05,
+          "trajectory_coherence": {
+            "1": 1.0,
+            "4": 0.9666666666666667,
+            "8": 0.95
+          },
+          "novelty_ratio": {
+            "1": 13480.999999999998,
+            "4": 13031.666666666668,
+            "8": 12807.0
+          },
+          "n_distinct_visited": {
+            "1": 30,
+            "4": 120,
+            "8": 223
+          },
+          "analytic_cap": {
+            "1": 13480.0,
+            "4": 13480.0,
+            "8": 13480.0
+          },
+          "saturated_regime": {
+            "1": true,
+            "4": true,
+            "8": true
+          },
+          "refuse_OOD": 1.0,
+          "refuse_check_T": 4,
+          "arm_wall_s": 92.6108911037445,
+          "n_probes_per_T": 30,
+          "n_ood_probes": 30
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_cpu_synthetic_bipolar_substrate_native_generation_capacity_sweep",
+  "elapsed_s": 1370.288828611374,
+  "summary": "HARD_PASS: chain-grade evidence above by-construction-saturation. n_points_at_bar=6/6; headroom_pt=6403 pairs; graceful=True; spread_preserved=True. coh_arm4@T8 by n_pairs=[209:1.00 418:1.00 817:1.00 "
+}

@@ -1,0 +1,605 @@
+{
+  "verdict": "MEASURED",
+  "verdict_msg": "m7_can_fail=True disc_fires=True correlation_hurts_in_range=False whitening=N/A_no_wall structure_destroyed=False foundation_raw=READY :: FOUNDATION_READY_RAW: semantic-raw recovery holds >=0.95 across the tested V at n_dim=8192",
+  "summary": "semantic-rep fact-store capacity + whitening: READY / whitening=N/A_no_wall",
+  "elapsed_s": 359.2,
+  "ts_iso": "2026-07-24T16:29:41.471999+00:00",
+  "anchor_name": "hd_fact_store_semantic_capacity_whitening_v1",
+  "mode": "full",
+  "seed": 20260724,
+  "glove_model": "glove-wiki-gigaword-300",
+  "v_pool": 100000,
+  "n_probe": 200,
+  "recovery_wall": 0.95,
+  "sweep": {
+    "512": [
+      10000,
+      100000
+    ],
+    "2048": [
+      10000,
+      100000
+    ],
+    "8192": [
+      10000,
+      50000
+    ]
+  },
+  "deterministic": true,
+  "M1_anisotropy": {
+    "512": {
+      "random": 0.0,
+      "semantic_raw": 0.0152,
+      "semantic_whitened": -0.0
+    },
+    "2048": {
+      "random": -0.0,
+      "semantic_raw": 0.0151,
+      "semantic_whitened": 0.0
+    },
+    "8192": {
+      "random": 0.0,
+      "semantic_raw": 0.0062,
+      "semantic_whitened": 0.0018
+    }
+  },
+  "M2_isolated_cleanup_recovery": {
+    "512": {
+      "random": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_raw": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_whitened": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ]
+    },
+    "2048": {
+      "random": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_raw": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_whitened": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ]
+    },
+    "8192": {
+      "random": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 50000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_raw": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 50000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_whitened": [
+        {
+          "V": 10000,
+          "recovery": 1.0,
+          "below_wall": false
+        },
+        {
+          "V": 50000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ]
+    }
+  },
+  "M3_fullfact_roundtrip_recovery": {
+    "512": {
+      "random": [
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_raw": [
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_whitened": [
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ]
+    },
+    "2048": {
+      "random": [
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_raw": [
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_whitened": [
+        {
+          "V": 100000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ]
+    },
+    "8192": {
+      "random": [
+        {
+          "V": 50000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_raw": [
+        {
+          "V": 50000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ],
+      "semantic_whitened": [
+        {
+          "V": 50000,
+          "recovery": 1.0,
+          "below_wall": false
+        }
+      ]
+    }
+  },
+  "M4_sr_key_false_conflict": {
+    "512": {
+      "random": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.0,
+        "max_offdiag_cos": 0.66796875,
+        "mean_offdiag_cos": 0.49413642287254333,
+        "sr_threshold": 0.75
+      },
+      "semantic_raw": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.001289155662264906,
+        "max_offdiag_cos": 0.96484375,
+        "mean_offdiag_cos": 0.5603334307670593,
+        "sr_threshold": 0.75
+      },
+      "semantic_whitened": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.00035758303321328533,
+        "max_offdiag_cos": 0.9375,
+        "mean_offdiag_cos": 0.517170786857605,
+        "sr_threshold": 0.75
+      }
+    },
+    "2048": {
+      "random": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.0,
+        "max_offdiag_cos": 0.5595703125,
+        "mean_offdiag_cos": 0.4804707169532776,
+        "sr_threshold": 0.75
+      },
+      "semantic_raw": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.000827531012404962,
+        "max_offdiag_cos": 0.9482421875,
+        "mean_offdiag_cos": 0.5503765344619751,
+        "sr_threshold": 0.75
+      },
+      "semantic_whitened": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.00027851140456182475,
+        "max_offdiag_cos": 0.9443359375,
+        "mean_offdiag_cos": 0.5044011473655701,
+        "sr_threshold": 0.75
+      }
+    },
+    "8192": {
+      "random": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.0,
+        "max_offdiag_cos": 0.541748046875,
+        "mean_offdiag_cos": 0.5037877559661865,
+        "sr_threshold": 0.75
+      },
+      "semantic_raw": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.0009414965986394558,
+        "max_offdiag_cos": 0.95849609375,
+        "mean_offdiag_cos": 0.5677110552787781,
+        "sr_threshold": 0.75
+      },
+      "semantic_whitened": {
+        "n_pairs": 2500,
+        "false_conflict_rate": 0.00032172869147659063,
+        "max_offdiag_cos": 0.9375,
+        "mean_offdiag_cos": 0.5256157517433167,
+        "sr_threshold": 0.75
+      }
+    }
+  },
+  "M5_structure_survives_whitening": {
+    "random": {
+      "arm": "random",
+      "n_pairs": 22,
+      "mean_meaning_pair_cos": 0.0,
+      "mean_random_pair_cos": -0.0017,
+      "separation": 0.0018
+    },
+    "semantic_raw": {
+      "arm": "semantic_raw",
+      "n_pairs": 22,
+      "mean_meaning_pair_cos": 0.4313,
+      "mean_random_pair_cos": 0.0044,
+      "separation": 0.4269
+    },
+    "semantic_whitened": {
+      "arm": "semantic_whitened",
+      "n_pairs": 22,
+      "mean_meaning_pair_cos": 0.382,
+      "mean_random_pair_cos": -0.0099,
+      "separation": 0.3919
+    }
+  },
+  "M6_synthetic_matched_1M_probe": {
+    "target_anisotropy": 0.0151,
+    "alpha_matched": 0.154,
+    "achieved_anisotropy": 0.0151,
+    "n_dim": 2048,
+    "n_probe": 100,
+    "matched_semantic": [
+      {
+        "V": 100000,
+        "recovery": 1.0,
+        "below_wall": false
+      },
+      {
+        "V": 1000000,
+        "recovery": 1.0,
+        "below_wall": false
+      }
+    ],
+    "random_ctrl": [
+      {
+        "V": 100000,
+        "recovery": 1.0,
+        "below_wall": false
+      },
+      {
+        "V": 1000000,
+        "recovery": 1.0,
+        "below_wall": false
+      }
+    ]
+  },
+  "M7_anisotropy_capacity_threshold": {
+    "V": 100000,
+    "n_probe": 150,
+    "curves": {
+      "64": [
+        {
+          "target_anisotropy": 0.0,
+          "achieved_anisotropy": 0.0,
+          "alpha": 0.0,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.1133,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.1,
+          "achieved_anisotropy": 0.1026,
+          "alpha": 0.4097,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.1067,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.2,
+          "achieved_anisotropy": 0.2048,
+          "alpha": 0.5971,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.0533,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.35,
+          "achieved_anisotropy": 0.3553,
+          "alpha": 0.8294,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.0667,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.5,
+          "achieved_anisotropy": 0.5051,
+          "alpha": 1.0517,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.02,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.7,
+          "achieved_anisotropy": 0.6991,
+          "alpha": 1.3836,
+          "isolated_recovery": 0.9933,
+          "fullfact_recovery": 0.0,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        }
+      ],
+      "128": [
+        {
+          "target_anisotropy": 0.0,
+          "achieved_anisotropy": 0.0,
+          "alpha": 0.0,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.42,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.1,
+          "achieved_anisotropy": 0.0997,
+          "alpha": 0.4084,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.4,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.2,
+          "achieved_anisotropy": 0.2029,
+          "alpha": 0.5968,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.2933,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.35,
+          "achieved_anisotropy": 0.3514,
+          "alpha": 0.8297,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.1733,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.5,
+          "achieved_anisotropy": 0.5032,
+          "alpha": 1.0565,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.12,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.7,
+          "achieved_anisotropy": 0.6996,
+          "alpha": 1.3932,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.0733,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        }
+      ],
+      "512": [
+        {
+          "target_anisotropy": 0.0,
+          "achieved_anisotropy": -0.0,
+          "alpha": 0.0,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 1.0,
+          "fullfact_below_wall": false,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.1,
+          "achieved_anisotropy": 0.1006,
+          "alpha": 0.4094,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 1.0,
+          "fullfact_below_wall": false,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.2,
+          "achieved_anisotropy": 0.1998,
+          "alpha": 0.5948,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 1.0,
+          "fullfact_below_wall": false,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.35,
+          "achieved_anisotropy": 0.3484,
+          "alpha": 0.8264,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 1.0,
+          "fullfact_below_wall": false,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.5,
+          "achieved_anisotropy": 0.4993,
+          "alpha": 1.0523,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.9667,
+          "fullfact_below_wall": false,
+          "isolated_below_wall": false
+        },
+        {
+          "target_anisotropy": 0.7,
+          "achieved_anisotropy": 0.6989,
+          "alpha": 1.3925,
+          "isolated_recovery": 1.0,
+          "fullfact_recovery": 0.6733,
+          "fullfact_below_wall": true,
+          "isolated_below_wall": false
+        }
+      ]
+    },
+    "fullfact_wall_anisotropy": {
+      "64": 0.0,
+      "128": 0.0,
+      "512": 0.6989
+    },
+    "isolated_wall_anisotropy": {
+      "64": null,
+      "128": null,
+      "512": null
+    },
+    "real_rep_anisotropy": {
+      "512": 0.0152,
+      "2048": 0.0151
+    }
+  },
+  "M7_can_fail_discriminator": true,
+  "M7_real_rep_vs_wall": {
+    "64": {
+      "real_semantic_raw_anisotropy": null,
+      "fullfact_wall_anisotropy": 0.0,
+      "note": "wall located"
+    },
+    "128": {
+      "real_semantic_raw_anisotropy": null,
+      "fullfact_wall_anisotropy": 0.0,
+      "note": "wall located"
+    },
+    "512": {
+      "real_semantic_raw_anisotropy": 0.0152,
+      "fullfact_wall_anisotropy": 0.6989,
+      "note": "wall located"
+    }
+  },
+  "discriminator_fires": true,
+  "correlation_hurts_in_tested_range": false,
+  "correlation_hurt_points": [],
+  "whitening_verdict": "N/A_no_wall",
+  "whitening_detail": {
+    "n_dim": 512,
+    "V": 10000,
+    "semantic_raw": 1.0,
+    "semantic_whitened": 1.0,
+    "random": 1.0
+  },
+  "worst_semantic_raw_point": {
+    "n_dim": 512,
+    "V": 10000,
+    "recovery": 1.0
+  },
+  "structure_destroyed_by_whitening": false,
+  "hybrid_needed": false,
+  "foundation_raw": "READY",
+  "foundation_verdict": "FOUNDATION_READY_RAW: semantic-raw recovery holds >=0.95 across the tested V at n_dim=8192",
+  "arm_hashes_head": {
+    "512:random": "bb08770bdb286f8f",
+    "512:semantic_raw": "0b52f88d374baede",
+    "512:semantic_whitened": "36a62f4f30a7c50e",
+    "2048:random": "008a22d2f44f9b45",
+    "2048:semantic_raw": "7d19995f6607ff89",
+    "2048:semantic_whitened": "9085c96806ac4f7e",
+    "8192:random": "6ce99d5c36ccdc88",
+    "8192:semantic_raw": "1cebcee86458d0eb",
+    "8192:semantic_whitened": "d1bbc47ccccd0f6d"
+  },
+  "bands": {
+    "ANISO_DISC_MARGIN": 0.05,
+    "WHITEN_RESTORE_TOL": 0.05,
+    "WHITEN_PARTIAL_LIFT": 0.1,
+    "STRUCT_MIN_SEP": 0.05
+  },
+  "honest_frame": "SHARDED store: single-fact recovery is independent of n_facts; the wall is cleanup-codebook crosstalk. KEY FINDING: the fact store is BIPOLAR, and sign() of GloVe->JL codes washes out almost all of the continuous encoder's anisotropy (0.588 continuous -> ~0.015 bipolar over a broad 100k-word codebook). At that tiny anisotropy, M2/M3 recovery stays at 1.0 to V=100k at every n_dim AND the anisotropy-matched synthetic probe holds 1.0 to V=1M -- so the 29532 foundation-scale claim SURVIVES on the real bipolar semantic rep. M7 proves the harness is NOT saturated-by-construction: driving synthetic anisotropy up DOES break cleanup (locates the wall), and the real rep sits far below it (see M7_real_rep_vs_wall). M5: ZCA whitening is orientation-preserving -- it removes the (already tiny) common-mode WITHOUT destroying the synonym/related neighbourhood (raw sep ~0.43 vs whitened sep ~0.39), so no capacity/retrieval trade-off is forced here. The banked correlation-hurts-capacity principle was measured on the CONTINUOUS associative store (Hebbian superposition, mean-cos 0.2-0.6); it does NOT bind the SHARDED bipolar cleanup codebook at the anisotropy the real bipolar rep actually carries.",
+  "wired_vs_stubbed": "WIRED: real HDFactStore self-test + byte-identical bipolar primitives; real GloVe semantic + ZCA-whitened codebooks (canonical WhiteningTransform); M1 anisotropy, M2 isolated cleanup, M3 full-fact round-trip, M4 sr_key false-conflict, M5 structure-survives-whitening, M6 synthetic anisotropy-matched 1M analytical probe. STUBBED/NOT-BUILT: ANN/LSH sub-linear fuzzy retrieval (the hybrid's semantic-retrieval half); real-store ingest at V=1M (memory-bounded; 29532 covers random-code 1M; here the 1M point is the synthetic-matched analytical probe).",
+  "contract": "INLINE-LOCAL; store LOCAL-ONLY + UNCOMMITTED; no push/remote-persist; VET-PENDING",
+  "prior_work_credit": "build-on of reference_correlation_hurts_associative_store_capacity_decouple_from_retrieval_2026-07-08 (KB cosine 0.40) + 29532 capacity/index + 29533 SemanticHDEncoder + hdlab/whitening.py ZCA."
+}

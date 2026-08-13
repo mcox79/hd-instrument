@@ -1,0 +1,106 @@
+{
+  "verdict": "GATE_MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: Challenge-LURE lift +0.0909 in [0.03,0.08) OR a gate unmet -- McNemar p=0.19043026382552036 (sig=False), selective=True (nonlure 0.0391), suppression B-S=0.0649 (ok=True), random R-A=0.0 (ok=True). Selection helps but not decisively. B_gate Chal=0.3409 vs A_noisy 0.2936.",
+  "summary": "GATE_MIDDLE_BAND: [Chal-LURE n=77] A=0.4156 B=0.5065 S=0.4416 R=0.4156 O=0.7403 | lift(B-A)=0.0909 McNemar_p=0.19043026382552036 | nonlure_move=0.0391 | supp(B-S)=0.0649 rand(R-A)=0.0 | [Chal-all] A=0.2936 B=0.3409 | chance=0.2502",
+  "elapsed_s": 98.2,
+  "ts_iso": "2026-07-25T00:30:44.007644+00:00",
+  "anchor_name": "arc_retrieval_selection_gate_suppression_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260724,
+  "n_questions": 1664,
+  "n_easy": 1177,
+  "n_challenge": 487,
+  "n_chal_lure": 77,
+  "n_chal_nonlure": 410,
+  "chance_theoretical": 0.2502,
+  "k_pool": 20,
+  "k_sel": 4,
+  "lambda_disc": 1.0,
+  "mu_supp": 1.0,
+  "hops": 2,
+  "damp": 0.5,
+  "seed_cos": 0.6,
+  "acc_by_arm": {
+    "A": {
+      "easy": 0.3551,
+      "challenge": 0.2936,
+      "chal_lure": 0.4156,
+      "chal_nonlure": 0.2707
+    },
+    "B": {
+      "easy": 0.4851,
+      "challenge": 0.3409,
+      "chal_lure": 0.5065,
+      "chal_nonlure": 0.3098
+    },
+    "S": {
+      "easy": 0.4885,
+      "challenge": 0.3368,
+      "chal_lure": 0.4416,
+      "chal_nonlure": 0.3171
+    },
+    "R": {
+      "easy": 0.3347,
+      "challenge": 0.3142,
+      "chal_lure": 0.4156,
+      "chal_nonlure": 0.2951
+    },
+    "O": {
+      "easy": 0.774,
+      "challenge": 0.6899,
+      "chal_lure": 0.7403,
+      "chal_nonlure": 0.6805
+    }
+  },
+  "lure_lift_B_minus_A": 0.0909,
+  "mcnemar_lure": {
+    "b_A_right_B_wrong": 7,
+    "c_A_wrong_B_right": 14,
+    "stat": 1.7143,
+    "p_value": 0.19043,
+    "significant": false
+  },
+  "nonlure_move_B_minus_A": 0.0391,
+  "selective_to_lure": true,
+  "suppression_lift_B_minus_S": 0.0649,
+  "suppression_load_bearing": true,
+  "random_lift_R_minus_A": 0.0,
+  "random_control_ok": true,
+  "suppression_fire_on_correct": 123,
+  "suppression_fire_on_wrong": 430,
+  "suppression_precise": true,
+  "suppression_fired_on_lure_subset": true,
+  "n_supp_removed_total": 140,
+  "n_lure_facts_in_pool_total": 553,
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "arms_differ_verified": true,
+  "arm_pick_digests": {
+    "A": "109fc28c7c8597c1bc68f03e43a4c14242865421de8b413b6a35c16afe9e8d51",
+    "B": "878f71a0607f1ff92a40624f6510ca074ad180acf23a8874d008daec854943be",
+    "S": "b68d14cdc351a480ec8371d69f6469fd7d306dedaa5f2a8afe087c1386e4ac55",
+    "R": "6d241ace9de36cb3bb0e7d44e1b1040050f33154c5e2aa149ba66c0cbcc1ffb1"
+  },
+  "bands": {
+    "HP_lure_lift": 0.08,
+    "MB_lure_lift": 0.03,
+    "HP_supp": 0.02,
+    "random_max": 0.03,
+    "sel_nonlure_eps": 0.05,
+    "mcnemar_alpha": 0.05,
+    "ag_baseline_sat": 0.95
+  },
+  "grade_proxy": {
+    "easy_band": "~grade 3-4",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "wired_vs_stubbed": "WIRED: the STAGE-5 RETRIEVAL SELECTION GATE inserted BEFORE the UNCHANGED bind+settle combiner (agg.aggregate 'bundle', imported) over the UNCHANGED PPR spreading pool (arm B, imported). gate_score = goal_score (relu cos-to-STEM + choice-separating margin) - MU * lure_penalty (fact-stem Jaccard * fact-supports-the-standout-surface-lure). Arms A_noisy (whole pool), B_gate (goal-bias+suppression), S_nosupp (goal-bias only = suppression-off ablation), R_random (must-fail), oracle-gold ceiling. PRIMARY = end-to-end ARC accuracy, Easy+Challenge, ESPECIALLY the Challenge-LURE subset (distractor out-overlaps correct); McNemar A-vs-B on LURE; NON-LURE selectivity; suppression-precision (fires on WRONG not CORRECT choice). GATE IS ANSWER-AGNOSTIC (never uses gold); the LURE-subset partition and the precision counters use gold for EVALUATION only. STUBBED/NOTED-NOT-BUILT: controlled RE-RETRIEVAL (query reformulation + second PPR pass) -- this cell tests suppression+selection first, the cheaper half of the notes' two-part probe; if HARD_PASS, re-retrieval is the follow-up. Signed contradiction detector left to the combiner cell (orthogonal).",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large); VET-PENDING",
+  "compute_architecture": "mixed CPU: batched GloVe encode + scipy.sparse batched PPR (imported) + cheap per-question gate + UNCHANGED combiner; wall target < 5min",
+  "storage_strategy": "sharded (each fact = own embedding + own graph node; no superposition)",
+  "progress_logging": "line_buffered_stdout",
+  "calibration_check": "default_ok_for_this_regime (gate hyperparams author-set a priori; NOT tuned to force a win)"
+}

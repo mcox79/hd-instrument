@@ -1,0 +1,1558 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND || n=132 chance=0.470 | SEEN(primary): SYM=0.5931 STRONG_ADD=0.5530(LADD=0.5530 MULTI=0.5299 LS=0.2901) FREQ=0.5045 ROLE=0.5891 (SYM-ADD=0.0401>=0.10 SYM-FREQ=0.0887>=0.10 SYM-chance=0.1234>=0.15 algebra_ok=True) | NOVEL(stretch): SYM=0.3927 STRONG_ADD=0.5099 (SYM-ADD=-0.1173>=0.08 gen=False) [n_novel~10.9] | CONJ margin=0.631 ratio=0.5160 joint=1.304 | MUSTFAIL shuf_all=-0.1264 arb_novel=-0.1621(<=0.12) leak_ok=True oracle=1.0000",
+  "summary": "MIDDLE_BAND || n=132 chance=0.470 | SEEN(primary): SYM=0.5931 STRONG_ADD=0.5530(LADD=0.5530 MULTI=0.5299 LS=0.2901) FREQ=0.5045 ROLE=0.5891 (SYM-ADD=0.0401>=0.10 SYM-FREQ=0.0887>=0.10 SYM-chance=0.123",
+  "run_mode": "full",
+  "elapsed_s": 31.54,
+  "anchor_name": "epistasis_bind_readout_integration_v1",
+  "ts_iso": "2026-07-15T12:39:55.916390+00:00",
+  "n_entities": 132,
+  "truth_rate": 0.7457627118644068,
+  "generator": "claude-opus-4-5",
+  "chance": 0.4697,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29,
+    31,
+    37,
+    41,
+    43,
+    47
+  ],
+  "emb_d": 32,
+  "epochs": 500,
+  "lr": 0.05,
+  "query_frac": 0.4,
+  "conjunction": {
+    "best_single_mi": 0.6726,
+    "joint_mi": 1.3035,
+    "mi_margin": 0.6308,
+    "dominance_ratio": 0.516
+  },
+  "clean": {
+    "sym_seen": 0.59312,
+    "strong_add_seen": 0.55301,
+    "ladd_seen": 0.55301,
+    "multi_seen": 0.52985,
+    "ls_seen": 0.29013,
+    "freq_seen": 0.50445,
+    "role_seen": 0.58912,
+    "memo_seen": 0.59341,
+    "pop_seen": 0.45566,
+    "sym_novel": 0.39266,
+    "strong_add_novel": 0.50993,
+    "freq_novel": 0.47741,
+    "role_novel": 0.3588,
+    "sym_all": 0.5566,
+    "freq_all": 0.50755,
+    "oracle_all": 1.0
+  },
+  "gaps": {
+    "seen_sym_add": 0.04011,
+    "seen_sym_freq": 0.08867,
+    "seen_sym_chance": 0.12342,
+    "novel_sym_add": -0.11727,
+    "seen_sym_role": 0.004,
+    "shuf_gap": -0.12642,
+    "arb_gap": -0.16212
+  },
+  "gates": {
+    "primary": false,
+    "algebra_ok": true,
+    "mustfails_ok": true,
+    "oracle_ok": true,
+    "novel_generalizes": false,
+    "refute": false,
+    "leak_ok": true
+  },
+  "bands": {
+    "HP_SEEN_SYM_ADD": 0.1,
+    "HP_SEEN_SYM_FREQ": 0.1,
+    "HP_SEEN_SYM_CHANCE": 0.15,
+    "HP_ALGEBRA_EPS": 0.05,
+    "HP_NOVEL_SYM_ADD": 0.08,
+    "MUSTFAIL_TOL": 0.12,
+    "REFUTE_GAP": 0.03
+  },
+  "per_seed_regime": {
+    "CLEAN_REAL": [
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.58537,
+            "LEARN_ADD": 0.53659,
+            "LEARN_ROLE": 0.58537,
+            "ADD_LSTSQ": 0.19512,
+            "ADD_MULTINOM": 0.53659,
+            "HOMOPHILY": 0.5122,
+            "MEMORIZE": 0.58537,
+            "POP": 0.60976,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.60976,
+            "STRONG_ADD": 0.53659,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.66667,
+            "LEARN_ADD": 0.58333,
+            "LEARN_ROLE": 0.58333,
+            "ADD_LSTSQ": 0.58333,
+            "ADD_MULTINOM": 0.58333,
+            "HOMOPHILY": 0.58333,
+            "MEMORIZE": 0.66667,
+            "POP": 0.66667,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.66667,
+            "STRONG_ADD": 0.58333,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.60377,
+            "LEARN_ADD": 0.54717,
+            "LEARN_ROLE": 0.58491,
+            "ADD_LSTSQ": 0.28302,
+            "ADD_MULTINOM": 0.54717,
+            "HOMOPHILY": 0.5283,
+            "MEMORIZE": 0.60377,
+            "POP": 0.62264,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.62264,
+            "STRONG_ADD": 0.54717,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.625,
+            "LEARN_ADD": 0.64583,
+            "LEARN_ROLE": 0.64583,
+            "ADD_LSTSQ": 0.4375,
+            "ADD_MULTINOM": 0.58333,
+            "HOMOPHILY": 0.5625,
+            "MEMORIZE": 0.64583,
+            "POP": 0.52083,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5625,
+            "STRONG_ADD": 0.64583,
+            "n": 48
+          },
+          "novel": {
+            "LEARN_SYM": 0.0,
+            "LEARN_ADD": 0.0,
+            "LEARN_ROLE": 0.0,
+            "ADD_LSTSQ": 0.4,
+            "ADD_MULTINOM": 0.0,
+            "HOMOPHILY": 0.2,
+            "MEMORIZE": 0.2,
+            "POP": 0.2,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.2,
+            "STRONG_ADD": 0.4,
+            "n": 5
+          },
+          "all": {
+            "LEARN_SYM": 0.56604,
+            "LEARN_ADD": 0.58491,
+            "LEARN_ROLE": 0.58491,
+            "ADD_LSTSQ": 0.43396,
+            "ADD_MULTINOM": 0.5283,
+            "HOMOPHILY": 0.5283,
+            "MEMORIZE": 0.60377,
+            "POP": 0.49057,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5283,
+            "STRONG_ADD": 0.58491,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 48,
+        "n_novel": 5
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.65957,
+            "LEARN_ADD": 0.57447,
+            "LEARN_ROLE": 0.61702,
+            "ADD_LSTSQ": 0.31915,
+            "ADD_MULTINOM": 0.55319,
+            "HOMOPHILY": 0.55319,
+            "MEMORIZE": 0.68085,
+            "POP": 0.44681,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.55319,
+            "STRONG_ADD": 0.57447,
+            "n": 47
+          },
+          "novel": {
+            "LEARN_SYM": 0.5,
+            "LEARN_ADD": 0.66667,
+            "LEARN_ROLE": 0.33333,
+            "ADD_LSTSQ": 0.16667,
+            "ADD_MULTINOM": 0.66667,
+            "HOMOPHILY": 0.5,
+            "MEMORIZE": 0.5,
+            "POP": 0.5,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5,
+            "STRONG_ADD": 0.66667,
+            "n": 6
+          },
+          "all": {
+            "LEARN_SYM": 0.64151,
+            "LEARN_ADD": 0.58491,
+            "LEARN_ROLE": 0.58491,
+            "ADD_LSTSQ": 0.30189,
+            "ADD_MULTINOM": 0.56604,
+            "HOMOPHILY": 0.54717,
+            "MEMORIZE": 0.66038,
+            "POP": 0.45283,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.54717,
+            "STRONG_ADD": 0.58491,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 47,
+        "n_novel": 6
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.57143,
+            "LEARN_ADD": 0.5,
+            "LEARN_ROLE": 0.57143,
+            "ADD_LSTSQ": 0.21429,
+            "ADD_MULTINOM": 0.47619,
+            "HOMOPHILY": 0.45238,
+            "MEMORIZE": 0.59524,
+            "POP": 0.42857,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.45238,
+            "STRONG_ADD": 0.5,
+            "n": 42
+          },
+          "novel": {
+            "LEARN_SYM": 0.63636,
+            "LEARN_ADD": 0.72727,
+            "LEARN_ROLE": 0.54545,
+            "ADD_LSTSQ": 0.09091,
+            "ADD_MULTINOM": 0.81818,
+            "HOMOPHILY": 0.63636,
+            "MEMORIZE": 0.63636,
+            "POP": 0.63636,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.63636,
+            "STRONG_ADD": 0.81818,
+            "n": 11
+          },
+          "all": {
+            "LEARN_SYM": 0.58491,
+            "LEARN_ADD": 0.54717,
+            "LEARN_ROLE": 0.56604,
+            "ADD_LSTSQ": 0.18868,
+            "ADD_MULTINOM": 0.54717,
+            "HOMOPHILY": 0.49057,
+            "MEMORIZE": 0.60377,
+            "POP": 0.4717,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.49057,
+            "STRONG_ADD": 0.54717,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 42,
+        "n_novel": 11
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.54762,
+            "LEARN_ADD": 0.5,
+            "LEARN_ROLE": 0.54762,
+            "ADD_LSTSQ": 0.2381,
+            "ADD_MULTINOM": 0.5,
+            "HOMOPHILY": 0.42857,
+            "MEMORIZE": 0.5,
+            "POP": 0.38095,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.42857,
+            "STRONG_ADD": 0.5,
+            "n": 42
+          },
+          "novel": {
+            "LEARN_SYM": 0.36364,
+            "LEARN_ADD": 0.27273,
+            "LEARN_ROLE": 0.27273,
+            "ADD_LSTSQ": 0.45455,
+            "ADD_MULTINOM": 0.27273,
+            "HOMOPHILY": 0.18182,
+            "MEMORIZE": 0.18182,
+            "POP": 0.18182,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.18182,
+            "STRONG_ADD": 0.45455,
+            "n": 11
+          },
+          "all": {
+            "LEARN_SYM": 0.50943,
+            "LEARN_ADD": 0.45283,
+            "LEARN_ROLE": 0.49057,
+            "ADD_LSTSQ": 0.28302,
+            "ADD_MULTINOM": 0.45283,
+            "HOMOPHILY": 0.37736,
+            "MEMORIZE": 0.43396,
+            "POP": 0.33962,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.37736,
+            "STRONG_ADD": 0.45283,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 42,
+        "n_novel": 11
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.53659,
+            "LEARN_ADD": 0.56098,
+            "LEARN_ROLE": 0.56098,
+            "ADD_LSTSQ": 0.41463,
+            "ADD_MULTINOM": 0.5122,
+            "HOMOPHILY": 0.43902,
+            "MEMORIZE": 0.58537,
+            "POP": 0.36585,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.43902,
+            "STRONG_ADD": 0.56098,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.5,
+            "LEARN_ADD": 0.58333,
+            "LEARN_ROLE": 0.58333,
+            "ADD_LSTSQ": 0.33333,
+            "ADD_MULTINOM": 0.58333,
+            "HOMOPHILY": 0.58333,
+            "MEMORIZE": 0.58333,
+            "POP": 0.58333,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.58333,
+            "STRONG_ADD": 0.58333,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.5283,
+            "LEARN_ADD": 0.56604,
+            "LEARN_ROLE": 0.56604,
+            "ADD_LSTSQ": 0.39623,
+            "ADD_MULTINOM": 0.5283,
+            "HOMOPHILY": 0.4717,
+            "MEMORIZE": 0.58491,
+            "POP": 0.41509,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.4717,
+            "STRONG_ADD": 0.56604,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.54286,
+            "LEARN_ADD": 0.45714,
+            "LEARN_ROLE": 0.51429,
+            "ADD_LSTSQ": 0.31429,
+            "ADD_MULTINOM": 0.42857,
+            "HOMOPHILY": 0.34286,
+            "MEMORIZE": 0.54286,
+            "POP": 0.31429,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.34286,
+            "STRONG_ADD": 0.45714,
+            "n": 35
+          },
+          "novel": {
+            "LEARN_SYM": 0.27778,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.38889,
+            "ADD_LSTSQ": 0.38889,
+            "ADD_MULTINOM": 0.61111,
+            "HOMOPHILY": 0.66667,
+            "MEMORIZE": 0.66667,
+            "POP": 0.66667,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.66667,
+            "STRONG_ADD": 0.61111,
+            "n": 18
+          },
+          "all": {
+            "LEARN_SYM": 0.45283,
+            "LEARN_ADD": 0.41509,
+            "LEARN_ROLE": 0.4717,
+            "ADD_LSTSQ": 0.33962,
+            "ADD_MULTINOM": 0.49057,
+            "HOMOPHILY": 0.45283,
+            "MEMORIZE": 0.58491,
+            "POP": 0.43396,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.45283,
+            "STRONG_ADD": 0.49057,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 35,
+        "n_novel": 18
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.60976,
+            "LEARN_ADD": 0.60976,
+            "LEARN_ROLE": 0.58537,
+            "ADD_LSTSQ": 0.21951,
+            "ADD_MULTINOM": 0.58537,
+            "HOMOPHILY": 0.53659,
+            "MEMORIZE": 0.56098,
+            "POP": 0.4878,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.53659,
+            "STRONG_ADD": 0.60976,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.25,
+            "LEARN_ADD": 0.08333,
+            "LEARN_ROLE": 0.41667,
+            "ADD_LSTSQ": 0.25,
+            "ADD_MULTINOM": 0.25,
+            "HOMOPHILY": 0.75,
+            "MEMORIZE": 0.66667,
+            "POP": 0.66667,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.75,
+            "STRONG_ADD": 0.25,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.5283,
+            "LEARN_ADD": 0.49057,
+            "LEARN_ROLE": 0.54717,
+            "ADD_LSTSQ": 0.22642,
+            "ADD_MULTINOM": 0.50943,
+            "HOMOPHILY": 0.58491,
+            "MEMORIZE": 0.58491,
+            "POP": 0.5283,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.58491,
+            "STRONG_ADD": 0.50943,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.5641,
+            "LEARN_ADD": 0.58974,
+            "LEARN_ROLE": 0.64103,
+            "ADD_LSTSQ": 0.28205,
+            "ADD_MULTINOM": 0.58974,
+            "HOMOPHILY": 0.5641,
+            "MEMORIZE": 0.61538,
+            "POP": 0.51282,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5641,
+            "STRONG_ADD": 0.58974,
+            "n": 39
+          },
+          "novel": {
+            "LEARN_SYM": 0.35714,
+            "LEARN_ADD": 0.28571,
+            "LEARN_ROLE": 0.21429,
+            "ADD_LSTSQ": 0.35714,
+            "ADD_MULTINOM": 0.28571,
+            "HOMOPHILY": 0.21429,
+            "MEMORIZE": 0.21429,
+            "POP": 0.21429,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.21429,
+            "STRONG_ADD": 0.35714,
+            "n": 14
+          },
+          "all": {
+            "LEARN_SYM": 0.50943,
+            "LEARN_ADD": 0.50943,
+            "LEARN_ROLE": 0.5283,
+            "ADD_LSTSQ": 0.30189,
+            "ADD_MULTINOM": 0.50943,
+            "HOMOPHILY": 0.4717,
+            "MEMORIZE": 0.50943,
+            "POP": 0.43396,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.4717,
+            "STRONG_ADD": 0.50943,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 39,
+        "n_novel": 14
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.68889,
+            "LEARN_ADD": 0.55556,
+            "LEARN_ROLE": 0.62222,
+            "ADD_LSTSQ": 0.26667,
+            "ADD_MULTINOM": 0.53333,
+            "HOMOPHILY": 0.55556,
+            "MEMORIZE": 0.62222,
+            "POP": 0.48889,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.55556,
+            "STRONG_ADD": 0.55556,
+            "n": 45
+          },
+          "novel": {
+            "LEARN_SYM": 0.375,
+            "LEARN_ADD": 0.375,
+            "LEARN_ROLE": 0.25,
+            "ADD_LSTSQ": 0.25,
+            "ADD_MULTINOM": 0.375,
+            "HOMOPHILY": 0.375,
+            "MEMORIZE": 0.375,
+            "POP": 0.375,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.375,
+            "STRONG_ADD": 0.375,
+            "n": 8
+          },
+          "all": {
+            "LEARN_SYM": 0.64151,
+            "LEARN_ADD": 0.5283,
+            "LEARN_ROLE": 0.56604,
+            "ADD_LSTSQ": 0.26415,
+            "ADD_MULTINOM": 0.50943,
+            "HOMOPHILY": 0.5283,
+            "MEMORIZE": 0.58491,
+            "POP": 0.4717,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5283,
+            "STRONG_ADD": 0.5283,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 45,
+        "n_novel": 8
+      }
+    ],
+    "ARBITRARY": [
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.7561,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.2439,
+            "ADD_MULTINOM": 0.53659,
+            "HOMOPHILY": 0.4878,
+            "MEMORIZE": 1.0,
+            "POP": 0.19512,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.4878,
+            "STRONG_ADD": 0.7561,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.25,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.33333,
+            "ADD_LSTSQ": 0.16667,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.08333,
+            "MEMORIZE": 0.16667,
+            "POP": 0.16667,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.16667,
+            "STRONG_ADD": 0.33333,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.83019,
+            "LEARN_ADD": 0.66038,
+            "LEARN_ROLE": 0.84906,
+            "ADD_LSTSQ": 0.22642,
+            "ADD_MULTINOM": 0.49057,
+            "HOMOPHILY": 0.39623,
+            "MEMORIZE": 0.81132,
+            "POP": 0.18868,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.39623,
+            "STRONG_ADD": 0.66038,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.625,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.5,
+            "ADD_MULTINOM": 0.58333,
+            "HOMOPHILY": 0.54167,
+            "MEMORIZE": 1.0,
+            "POP": 0.33333,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.54167,
+            "STRONG_ADD": 0.625,
+            "n": 48
+          },
+          "novel": {
+            "LEARN_SYM": 0.4,
+            "LEARN_ADD": 0.2,
+            "LEARN_ROLE": 0.6,
+            "ADD_LSTSQ": 0.0,
+            "ADD_MULTINOM": 0.4,
+            "HOMOPHILY": 0.4,
+            "MEMORIZE": 0.4,
+            "POP": 0.4,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.4,
+            "STRONG_ADD": 0.4,
+            "n": 5
+          },
+          "all": {
+            "LEARN_SYM": 0.9434,
+            "LEARN_ADD": 0.58491,
+            "LEARN_ROLE": 0.96226,
+            "ADD_LSTSQ": 0.45283,
+            "ADD_MULTINOM": 0.56604,
+            "HOMOPHILY": 0.5283,
+            "MEMORIZE": 0.9434,
+            "POP": 0.33962,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5283,
+            "STRONG_ADD": 0.58491,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 48,
+        "n_novel": 5
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.65957,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.2766,
+            "ADD_MULTINOM": 0.65957,
+            "HOMOPHILY": 0.6383,
+            "MEMORIZE": 1.0,
+            "POP": 0.19149,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.6383,
+            "STRONG_ADD": 0.65957,
+            "n": 47
+          },
+          "novel": {
+            "LEARN_SYM": 0.0,
+            "LEARN_ADD": 0.0,
+            "LEARN_ROLE": 0.33333,
+            "ADD_LSTSQ": 0.16667,
+            "ADD_MULTINOM": 0.0,
+            "HOMOPHILY": 0.33333,
+            "MEMORIZE": 0.33333,
+            "POP": 0.33333,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.33333,
+            "STRONG_ADD": 0.16667,
+            "n": 6
+          },
+          "all": {
+            "LEARN_SYM": 0.88679,
+            "LEARN_ADD": 0.58491,
+            "LEARN_ROLE": 0.92453,
+            "ADD_LSTSQ": 0.26415,
+            "ADD_MULTINOM": 0.58491,
+            "HOMOPHILY": 0.60377,
+            "MEMORIZE": 0.92453,
+            "POP": 0.20755,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.60377,
+            "STRONG_ADD": 0.58491,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 47,
+        "n_novel": 6
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.64286,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.54762,
+            "ADD_MULTINOM": 0.64286,
+            "HOMOPHILY": 0.54762,
+            "MEMORIZE": 1.0,
+            "POP": 0.35714,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.54762,
+            "STRONG_ADD": 0.64286,
+            "n": 42
+          },
+          "novel": {
+            "LEARN_SYM": 0.0,
+            "LEARN_ADD": 0.0,
+            "LEARN_ROLE": 0.0,
+            "ADD_LSTSQ": 0.0,
+            "ADD_MULTINOM": 0.0,
+            "HOMOPHILY": 0.09091,
+            "MEMORIZE": 0.0,
+            "POP": 0.0,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.09091,
+            "STRONG_ADD": 0.0,
+            "n": 11
+          },
+          "all": {
+            "LEARN_SYM": 0.79245,
+            "LEARN_ADD": 0.50943,
+            "LEARN_ROLE": 0.79245,
+            "ADD_LSTSQ": 0.43396,
+            "ADD_MULTINOM": 0.50943,
+            "HOMOPHILY": 0.45283,
+            "MEMORIZE": 0.79245,
+            "POP": 0.28302,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.45283,
+            "STRONG_ADD": 0.50943,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 42,
+        "n_novel": 11
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.54762,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.33333,
+            "ADD_MULTINOM": 0.52381,
+            "HOMOPHILY": 0.61905,
+            "MEMORIZE": 1.0,
+            "POP": 0.2619,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.61905,
+            "STRONG_ADD": 0.54762,
+            "n": 42
+          },
+          "novel": {
+            "LEARN_SYM": 0.18182,
+            "LEARN_ADD": 0.09091,
+            "LEARN_ROLE": 0.09091,
+            "ADD_LSTSQ": 0.18182,
+            "ADD_MULTINOM": 0.09091,
+            "HOMOPHILY": 0.09091,
+            "MEMORIZE": 0.54545,
+            "POP": 0.54545,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.54545,
+            "STRONG_ADD": 0.18182,
+            "n": 11
+          },
+          "all": {
+            "LEARN_SYM": 0.83019,
+            "LEARN_ADD": 0.45283,
+            "LEARN_ROLE": 0.81132,
+            "ADD_LSTSQ": 0.30189,
+            "ADD_MULTINOM": 0.43396,
+            "HOMOPHILY": 0.50943,
+            "MEMORIZE": 0.90566,
+            "POP": 0.32075,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.50943,
+            "STRONG_ADD": 0.45283,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 42,
+        "n_novel": 11
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.56098,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.29268,
+            "ADD_MULTINOM": 0.65854,
+            "HOMOPHILY": 0.7561,
+            "MEMORIZE": 1.0,
+            "POP": 0.17073,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.7561,
+            "STRONG_ADD": 0.65854,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.33333,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.33333,
+            "ADD_LSTSQ": 0.16667,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.41667,
+            "MEMORIZE": 0.08333,
+            "POP": 0.08333,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.41667,
+            "STRONG_ADD": 0.33333,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.84906,
+            "LEARN_ADD": 0.50943,
+            "LEARN_ROLE": 0.84906,
+            "ADD_LSTSQ": 0.26415,
+            "ADD_MULTINOM": 0.58491,
+            "HOMOPHILY": 0.67925,
+            "MEMORIZE": 0.79245,
+            "POP": 0.15094,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.67925,
+            "STRONG_ADD": 0.58491,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.74286,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.37143,
+            "ADD_MULTINOM": 0.74286,
+            "HOMOPHILY": 0.51429,
+            "MEMORIZE": 1.0,
+            "POP": 0.2,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.51429,
+            "STRONG_ADD": 0.74286,
+            "n": 35
+          },
+          "novel": {
+            "LEARN_SYM": 0.33333,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.22222,
+            "ADD_LSTSQ": 0.27778,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.5,
+            "MEMORIZE": 0.27778,
+            "POP": 0.27778,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5,
+            "STRONG_ADD": 0.33333,
+            "n": 18
+          },
+          "all": {
+            "LEARN_SYM": 0.77358,
+            "LEARN_ADD": 0.60377,
+            "LEARN_ROLE": 0.73585,
+            "ADD_LSTSQ": 0.33962,
+            "ADD_MULTINOM": 0.60377,
+            "HOMOPHILY": 0.50943,
+            "MEMORIZE": 0.75472,
+            "POP": 0.22642,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.50943,
+            "STRONG_ADD": 0.60377,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 35,
+        "n_novel": 18
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.65854,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.29268,
+            "ADD_MULTINOM": 0.65854,
+            "HOMOPHILY": 0.63415,
+            "MEMORIZE": 1.0,
+            "POP": 0.29268,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.63415,
+            "STRONG_ADD": 0.65854,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.33333,
+            "LEARN_ADD": 0.16667,
+            "LEARN_ROLE": 0.25,
+            "ADD_LSTSQ": 0.5,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.25,
+            "MEMORIZE": 0.08333,
+            "POP": 0.08333,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.25,
+            "STRONG_ADD": 0.5,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.84906,
+            "LEARN_ADD": 0.54717,
+            "LEARN_ROLE": 0.83019,
+            "ADD_LSTSQ": 0.33962,
+            "ADD_MULTINOM": 0.58491,
+            "HOMOPHILY": 0.54717,
+            "MEMORIZE": 0.79245,
+            "POP": 0.24528,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.54717,
+            "STRONG_ADD": 0.58491,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.76923,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.33333,
+            "ADD_MULTINOM": 0.71795,
+            "HOMOPHILY": 0.5641,
+            "MEMORIZE": 1.0,
+            "POP": 0.20513,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5641,
+            "STRONG_ADD": 0.76923,
+            "n": 39
+          },
+          "novel": {
+            "LEARN_SYM": 0.07143,
+            "LEARN_ADD": 0.14286,
+            "LEARN_ROLE": 0.0,
+            "ADD_LSTSQ": 0.0,
+            "ADD_MULTINOM": 0.14286,
+            "HOMOPHILY": 0.07143,
+            "MEMORIZE": 0.0,
+            "POP": 0.0,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.07143,
+            "STRONG_ADD": 0.14286,
+            "n": 14
+          },
+          "all": {
+            "LEARN_SYM": 0.75472,
+            "LEARN_ADD": 0.60377,
+            "LEARN_ROLE": 0.73585,
+            "ADD_LSTSQ": 0.24528,
+            "ADD_MULTINOM": 0.56604,
+            "HOMOPHILY": 0.43396,
+            "MEMORIZE": 0.73585,
+            "POP": 0.15094,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.43396,
+            "STRONG_ADD": 0.60377,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 39,
+        "n_novel": 14
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 1.0,
+            "LEARN_ADD": 0.55556,
+            "LEARN_ROLE": 1.0,
+            "ADD_LSTSQ": 0.55556,
+            "ADD_MULTINOM": 0.55556,
+            "HOMOPHILY": 0.62222,
+            "MEMORIZE": 1.0,
+            "POP": 0.28889,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.62222,
+            "STRONG_ADD": 0.55556,
+            "n": 45
+          },
+          "novel": {
+            "LEARN_SYM": 0.0,
+            "LEARN_ADD": 0.0,
+            "LEARN_ROLE": 0.0,
+            "ADD_LSTSQ": 0.125,
+            "ADD_MULTINOM": 0.0,
+            "HOMOPHILY": 0.0,
+            "MEMORIZE": 0.75,
+            "POP": 0.75,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.75,
+            "STRONG_ADD": 0.125,
+            "n": 8
+          },
+          "all": {
+            "LEARN_SYM": 0.84906,
+            "LEARN_ADD": 0.4717,
+            "LEARN_ROLE": 0.84906,
+            "ADD_LSTSQ": 0.49057,
+            "ADD_MULTINOM": 0.4717,
+            "HOMOPHILY": 0.5283,
+            "MEMORIZE": 0.96226,
+            "POP": 0.35849,
+            "ORACLE": 1.0,
+            "FREQ_NULL": 0.5283,
+            "STRONG_ADD": 0.49057,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 45,
+        "n_novel": 8
+      }
+    ],
+    "SHUFFLE": [
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.36585,
+            "LEARN_ADD": 0.29268,
+            "LEARN_ROLE": 0.21951,
+            "ADD_LSTSQ": 0.07317,
+            "ADD_MULTINOM": 0.31707,
+            "HOMOPHILY": 0.36585,
+            "MEMORIZE": 0.2439,
+            "POP": 0.5122,
+            "ORACLE": 0.4878,
+            "FREQ_NULL": 0.5122,
+            "STRONG_ADD": 0.31707,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.16667,
+            "LEARN_ADD": 0.41667,
+            "LEARN_ROLE": 0.33333,
+            "ADD_LSTSQ": 0.16667,
+            "ADD_MULTINOM": 0.5,
+            "HOMOPHILY": 0.58333,
+            "MEMORIZE": 0.58333,
+            "POP": 0.58333,
+            "ORACLE": 0.5,
+            "FREQ_NULL": 0.58333,
+            "STRONG_ADD": 0.5,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.32075,
+            "LEARN_ADD": 0.32075,
+            "LEARN_ROLE": 0.24528,
+            "ADD_LSTSQ": 0.09434,
+            "ADD_MULTINOM": 0.35849,
+            "HOMOPHILY": 0.41509,
+            "MEMORIZE": 0.32075,
+            "POP": 0.5283,
+            "ORACLE": 0.49057,
+            "FREQ_NULL": 0.5283,
+            "STRONG_ADD": 0.35849,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.35417,
+            "LEARN_ADD": 0.25,
+            "LEARN_ROLE": 0.35417,
+            "ADD_LSTSQ": 0.10417,
+            "ADD_MULTINOM": 0.25,
+            "HOMOPHILY": 0.41667,
+            "MEMORIZE": 0.35417,
+            "POP": 0.4375,
+            "ORACLE": 0.25,
+            "FREQ_NULL": 0.4375,
+            "STRONG_ADD": 0.25,
+            "n": 48
+          },
+          "novel": {
+            "LEARN_SYM": 0.2,
+            "LEARN_ADD": 0.2,
+            "LEARN_ROLE": 0.2,
+            "ADD_LSTSQ": 0.2,
+            "ADD_MULTINOM": 0.2,
+            "HOMOPHILY": 0.4,
+            "MEMORIZE": 0.4,
+            "POP": 0.4,
+            "ORACLE": 0.0,
+            "FREQ_NULL": 0.4,
+            "STRONG_ADD": 0.2,
+            "n": 5
+          },
+          "all": {
+            "LEARN_SYM": 0.33962,
+            "LEARN_ADD": 0.24528,
+            "LEARN_ROLE": 0.33962,
+            "ADD_LSTSQ": 0.11321,
+            "ADD_MULTINOM": 0.24528,
+            "HOMOPHILY": 0.41509,
+            "MEMORIZE": 0.35849,
+            "POP": 0.43396,
+            "ORACLE": 0.22642,
+            "FREQ_NULL": 0.43396,
+            "STRONG_ADD": 0.24528,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 48,
+        "n_novel": 5
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.29787,
+            "LEARN_ADD": 0.3617,
+            "LEARN_ROLE": 0.2766,
+            "ADD_LSTSQ": 0.29787,
+            "ADD_MULTINOM": 0.3617,
+            "HOMOPHILY": 0.40426,
+            "MEMORIZE": 0.29787,
+            "POP": 0.40426,
+            "ORACLE": 0.29787,
+            "FREQ_NULL": 0.40426,
+            "STRONG_ADD": 0.3617,
+            "n": 47
+          },
+          "novel": {
+            "LEARN_SYM": 0.5,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.5,
+            "ADD_LSTSQ": 0.16667,
+            "ADD_MULTINOM": 0.16667,
+            "HOMOPHILY": 0.16667,
+            "MEMORIZE": 0.33333,
+            "POP": 0.33333,
+            "ORACLE": 0.5,
+            "FREQ_NULL": 0.33333,
+            "STRONG_ADD": 0.33333,
+            "n": 6
+          },
+          "all": {
+            "LEARN_SYM": 0.32075,
+            "LEARN_ADD": 0.35849,
+            "LEARN_ROLE": 0.30189,
+            "ADD_LSTSQ": 0.28302,
+            "ADD_MULTINOM": 0.33962,
+            "HOMOPHILY": 0.37736,
+            "MEMORIZE": 0.30189,
+            "POP": 0.39623,
+            "ORACLE": 0.32075,
+            "FREQ_NULL": 0.39623,
+            "STRONG_ADD": 0.35849,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 47,
+        "n_novel": 6
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.40476,
+            "LEARN_ADD": 0.40476,
+            "LEARN_ROLE": 0.35714,
+            "ADD_LSTSQ": 0.11905,
+            "ADD_MULTINOM": 0.42857,
+            "HOMOPHILY": 0.45238,
+            "MEMORIZE": 0.35714,
+            "POP": 0.52381,
+            "ORACLE": 0.2619,
+            "FREQ_NULL": 0.52381,
+            "STRONG_ADD": 0.42857,
+            "n": 42
+          },
+          "novel": {
+            "LEARN_SYM": 0.18182,
+            "LEARN_ADD": 0.18182,
+            "LEARN_ROLE": 0.36364,
+            "ADD_LSTSQ": 0.18182,
+            "ADD_MULTINOM": 0.18182,
+            "HOMOPHILY": 0.27273,
+            "MEMORIZE": 0.36364,
+            "POP": 0.36364,
+            "ORACLE": 0.45455,
+            "FREQ_NULL": 0.36364,
+            "STRONG_ADD": 0.18182,
+            "n": 11
+          },
+          "all": {
+            "LEARN_SYM": 0.35849,
+            "LEARN_ADD": 0.35849,
+            "LEARN_ROLE": 0.35849,
+            "ADD_LSTSQ": 0.13208,
+            "ADD_MULTINOM": 0.37736,
+            "HOMOPHILY": 0.41509,
+            "MEMORIZE": 0.35849,
+            "POP": 0.49057,
+            "ORACLE": 0.30189,
+            "FREQ_NULL": 0.49057,
+            "STRONG_ADD": 0.37736,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 42,
+        "n_novel": 11
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.40476,
+            "LEARN_ADD": 0.35714,
+            "LEARN_ROLE": 0.38095,
+            "ADD_LSTSQ": 0.09524,
+            "ADD_MULTINOM": 0.35714,
+            "HOMOPHILY": 0.42857,
+            "MEMORIZE": 0.33333,
+            "POP": 0.42857,
+            "ORACLE": 0.33333,
+            "FREQ_NULL": 0.42857,
+            "STRONG_ADD": 0.35714,
+            "n": 42
+          },
+          "novel": {
+            "LEARN_SYM": 0.27273,
+            "LEARN_ADD": 0.45455,
+            "LEARN_ROLE": 0.27273,
+            "ADD_LSTSQ": 0.18182,
+            "ADD_MULTINOM": 0.54545,
+            "HOMOPHILY": 0.54545,
+            "MEMORIZE": 0.63636,
+            "POP": 0.63636,
+            "ORACLE": 0.18182,
+            "FREQ_NULL": 0.63636,
+            "STRONG_ADD": 0.54545,
+            "n": 11
+          },
+          "all": {
+            "LEARN_SYM": 0.37736,
+            "LEARN_ADD": 0.37736,
+            "LEARN_ROLE": 0.35849,
+            "ADD_LSTSQ": 0.11321,
+            "ADD_MULTINOM": 0.39623,
+            "HOMOPHILY": 0.45283,
+            "MEMORIZE": 0.39623,
+            "POP": 0.4717,
+            "ORACLE": 0.30189,
+            "FREQ_NULL": 0.4717,
+            "STRONG_ADD": 0.39623,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 42,
+        "n_novel": 11
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.31707,
+            "LEARN_ADD": 0.29268,
+            "LEARN_ROLE": 0.31707,
+            "ADD_LSTSQ": 0.04878,
+            "ADD_MULTINOM": 0.29268,
+            "HOMOPHILY": 0.34146,
+            "MEMORIZE": 0.31707,
+            "POP": 0.39024,
+            "ORACLE": 0.26829,
+            "FREQ_NULL": 0.39024,
+            "STRONG_ADD": 0.29268,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.08333,
+            "LEARN_ADD": 0.16667,
+            "LEARN_ROLE": 0.08333,
+            "ADD_LSTSQ": 0.08333,
+            "ADD_MULTINOM": 0.0,
+            "HOMOPHILY": 0.16667,
+            "MEMORIZE": 0.33333,
+            "POP": 0.33333,
+            "ORACLE": 0.5,
+            "FREQ_NULL": 0.33333,
+            "STRONG_ADD": 0.16667,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.26415,
+            "LEARN_ADD": 0.26415,
+            "LEARN_ROLE": 0.26415,
+            "ADD_LSTSQ": 0.0566,
+            "ADD_MULTINOM": 0.22642,
+            "HOMOPHILY": 0.30189,
+            "MEMORIZE": 0.32075,
+            "POP": 0.37736,
+            "ORACLE": 0.32075,
+            "FREQ_NULL": 0.37736,
+            "STRONG_ADD": 0.26415,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.31429,
+            "LEARN_ADD": 0.42857,
+            "LEARN_ROLE": 0.4,
+            "ADD_LSTSQ": 0.2,
+            "ADD_MULTINOM": 0.42857,
+            "HOMOPHILY": 0.42857,
+            "MEMORIZE": 0.31429,
+            "POP": 0.37143,
+            "ORACLE": 0.4,
+            "FREQ_NULL": 0.42857,
+            "STRONG_ADD": 0.42857,
+            "n": 35
+          },
+          "novel": {
+            "LEARN_SYM": 0.05556,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.22222,
+            "ADD_LSTSQ": 0.27778,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.44444,
+            "MEMORIZE": 0.44444,
+            "POP": 0.44444,
+            "ORACLE": 0.33333,
+            "FREQ_NULL": 0.44444,
+            "STRONG_ADD": 0.33333,
+            "n": 18
+          },
+          "all": {
+            "LEARN_SYM": 0.22642,
+            "LEARN_ADD": 0.39623,
+            "LEARN_ROLE": 0.33962,
+            "ADD_LSTSQ": 0.22642,
+            "ADD_MULTINOM": 0.39623,
+            "HOMOPHILY": 0.43396,
+            "MEMORIZE": 0.35849,
+            "POP": 0.39623,
+            "ORACLE": 0.37736,
+            "FREQ_NULL": 0.43396,
+            "STRONG_ADD": 0.39623,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 35,
+        "n_novel": 18
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.39024,
+            "LEARN_ADD": 0.39024,
+            "LEARN_ROLE": 0.31707,
+            "ADD_LSTSQ": 0.17073,
+            "ADD_MULTINOM": 0.36585,
+            "HOMOPHILY": 0.46341,
+            "MEMORIZE": 0.36585,
+            "POP": 0.4878,
+            "ORACLE": 0.43902,
+            "FREQ_NULL": 0.4878,
+            "STRONG_ADD": 0.39024,
+            "n": 41
+          },
+          "novel": {
+            "LEARN_SYM": 0.41667,
+            "LEARN_ADD": 0.33333,
+            "LEARN_ROLE": 0.25,
+            "ADD_LSTSQ": 0.41667,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.33333,
+            "MEMORIZE": 0.33333,
+            "POP": 0.33333,
+            "ORACLE": 0.16667,
+            "FREQ_NULL": 0.33333,
+            "STRONG_ADD": 0.41667,
+            "n": 12
+          },
+          "all": {
+            "LEARN_SYM": 0.39623,
+            "LEARN_ADD": 0.37736,
+            "LEARN_ROLE": 0.30189,
+            "ADD_LSTSQ": 0.22642,
+            "ADD_MULTINOM": 0.35849,
+            "HOMOPHILY": 0.43396,
+            "MEMORIZE": 0.35849,
+            "POP": 0.45283,
+            "ORACLE": 0.37736,
+            "FREQ_NULL": 0.45283,
+            "STRONG_ADD": 0.37736,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 41,
+        "n_novel": 12
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.28205,
+            "LEARN_ADD": 0.30769,
+            "LEARN_ROLE": 0.25641,
+            "ADD_LSTSQ": 0.20513,
+            "ADD_MULTINOM": 0.33333,
+            "HOMOPHILY": 0.38462,
+            "MEMORIZE": 0.25641,
+            "POP": 0.38462,
+            "ORACLE": 0.33333,
+            "FREQ_NULL": 0.38462,
+            "STRONG_ADD": 0.33333,
+            "n": 39
+          },
+          "novel": {
+            "LEARN_SYM": 0.14286,
+            "LEARN_ADD": 0.35714,
+            "LEARN_ROLE": 0.07143,
+            "ADD_LSTSQ": 0.07143,
+            "ADD_MULTINOM": 0.35714,
+            "HOMOPHILY": 0.57143,
+            "MEMORIZE": 0.57143,
+            "POP": 0.57143,
+            "ORACLE": 0.14286,
+            "FREQ_NULL": 0.57143,
+            "STRONG_ADD": 0.35714,
+            "n": 14
+          },
+          "all": {
+            "LEARN_SYM": 0.24528,
+            "LEARN_ADD": 0.32075,
+            "LEARN_ROLE": 0.20755,
+            "ADD_LSTSQ": 0.16981,
+            "ADD_MULTINOM": 0.33962,
+            "HOMOPHILY": 0.43396,
+            "MEMORIZE": 0.33962,
+            "POP": 0.43396,
+            "ORACLE": 0.28302,
+            "FREQ_NULL": 0.43396,
+            "STRONG_ADD": 0.33962,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 39,
+        "n_novel": 14
+      },
+      {
+        "strata": {
+          "seen": {
+            "LEARN_SYM": 0.42222,
+            "LEARN_ADD": 0.42222,
+            "LEARN_ROLE": 0.44444,
+            "ADD_LSTSQ": 0.2,
+            "ADD_MULTINOM": 0.37778,
+            "HOMOPHILY": 0.48889,
+            "MEMORIZE": 0.4,
+            "POP": 0.53333,
+            "ORACLE": 0.22222,
+            "FREQ_NULL": 0.53333,
+            "STRONG_ADD": 0.42222,
+            "n": 45
+          },
+          "novel": {
+            "LEARN_SYM": 0.25,
+            "LEARN_ADD": 0.25,
+            "LEARN_ROLE": 0.25,
+            "ADD_LSTSQ": 0.25,
+            "ADD_MULTINOM": 0.25,
+            "HOMOPHILY": 0.25,
+            "MEMORIZE": 0.25,
+            "POP": 0.25,
+            "ORACLE": 0.25,
+            "FREQ_NULL": 0.25,
+            "STRONG_ADD": 0.25,
+            "n": 8
+          },
+          "all": {
+            "LEARN_SYM": 0.39623,
+            "LEARN_ADD": 0.39623,
+            "LEARN_ROLE": 0.41509,
+            "ADD_LSTSQ": 0.20755,
+            "ADD_MULTINOM": 0.35849,
+            "HOMOPHILY": 0.45283,
+            "MEMORIZE": 0.37736,
+            "POP": 0.49057,
+            "ORACLE": 0.22642,
+            "FREQ_NULL": 0.49057,
+            "STRONG_ADD": 0.39623,
+            "n": 53
+          }
+        },
+        "leak_ok": true,
+        "n_seen": 45,
+        "n_novel": 8
+      }
+    ]
+  }
+}

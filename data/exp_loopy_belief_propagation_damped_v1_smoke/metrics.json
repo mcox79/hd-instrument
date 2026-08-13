@@ -1,0 +1,84 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | cycle=4 | D0=0.989 D2_damp=0.006 D5_damp=0.006 D5_undamp=0.000 | lift_d2=-0.983 lift_d5d=-0.983 damping_help=+0.006 cv_d2=1.414 cv_d5d=1.414 | n_seeds=3",
+  "summary": "HARD_FAIL | cycle=4 | D0=0.989 D2_damp=0.006 D5_damp=0.006 D5_undamp=0.000 | lift_d2=-0.983 lift_d5d=-0.983 damping_help=+0.006 cv_d2=1.414 cv_d5d=1.414 | n_seeds=3",
+  "per_arm": {
+    "d0_baseline": {
+      "4": {
+        "7": 1.0,
+        "17": 0.9833333333333333,
+        "23": 0.9833333333333333
+      }
+    },
+    "d2_damped": {
+      "4": {
+        "7": 0.0,
+        "17": 0.016666666666666666,
+        "23": 0.0
+      }
+    },
+    "d5_damped": {
+      "4": {
+        "7": 0.0,
+        "17": 0.016666666666666666,
+        "23": 0.0
+      }
+    },
+    "d5_undamped": {
+      "4": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "d0_baseline": {
+      "4": {
+        "mean": 0.9888888888888889,
+        "std": 0.007856742013183886,
+        "cv": 0.00794502001333202,
+        "n": 3
+      }
+    },
+    "d2_damped": {
+      "4": {
+        "mean": 0.005555555555555556,
+        "std": 0.00785674201318386,
+        "cv": 1.4142135623730947,
+        "n": 3
+      }
+    },
+    "d5_damped": {
+      "4": {
+        "mean": 0.005555555555555556,
+        "std": 0.00785674201318386,
+        "cv": 1.4142135623730947,
+        "n": 3
+      }
+    },
+    "d5_undamped": {
+      "4": {
+        "mean": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 3
+      }
+    }
+  },
+  "decision_cycle": 4,
+  "lift_d2_over_d0": -0.9833333333333334,
+  "lift_d5d_over_d0": -0.9833333333333334,
+  "damping_help": 0.005555555555555556,
+  "n_seeds_complete": 3,
+  "expected_n_units": 12,
+  "completed_units": 12,
+  "cardinality_ok": true,
+  "anchor_name": "loopy_belief_propagation_damped_v1",
+  "elapsed_s": 137.2,
+  "ts_iso": "2026-06-27T22:16:06Z",
+  "pid": 30440,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=loopy_belief_propagation_damped_v1,N=4096,N_OPS=4,V=960,seeds=[7, 17, 23],cycle_sizes=[4],n_train=300,n_test=60,mode=smoke,damping_alpha=0.30,HP_d2_lift>=0.08,HP_d5_lift>=0.08,HP_cv<=0.10,expected_n=12,FAIR=SAME_FACTORS_SAME_READOUT_DIFFER_ONLY_MP_ITERS,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_loopy_bp_damped"
+}

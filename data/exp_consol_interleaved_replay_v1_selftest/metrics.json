@@ -1,0 +1,37 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS consol interleaved-replay: INTERLEAVED beats CONTINUAL+POP on planted hierarchical arena via REAL AdditiveKGMap readout; SHUFFLE/CONTINUAL-early controls below; 5 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.0528429999249056,
+  "mechanism_selftest": {
+    "inter_mrr": 0.86538,
+    "cont_mrr": 0.73397,
+    "shuf_mrr": 0.61218,
+    "pop": 0.57051,
+    "oracle_ceiling": 0.94231,
+    "beat_gap": 0.13141,
+    "dose_lift": 0.23077,
+    "cont_early": 0.60833,
+    "shuf_lift": -0.02564,
+    "half_super": 4.0,
+    "half_sub": 4.0,
+    "sig_dose": true,
+    "sig_staging": false,
+    "sig_beat": false,
+    "sig_shuffle": false,
+    "n_sigs": 1,
+    "beats_cont": true,
+    "beats_pop": true,
+    "baseline_in_band": true,
+    "arms_differ": true,
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "guard_baseline_valid"
+    ]
+  }
+}

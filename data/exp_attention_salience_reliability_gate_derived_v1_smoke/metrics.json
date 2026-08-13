@@ -1,0 +1,99 @@
+{
+  "verdict": "HARD_FAIL_INERT_OR_HARMFUL",
+  "verdict_msg": "HARD_FAIL: DERIVED signal is IN-BAND and non-injected (auc_unrel=0.7476, auc_pooled=0.8759) but does NOT translate into a usable gate: mean_delta_hard_unrel=0.0000 mean_delta_mult_unrel=-0.0600 both <= 0.02 (ties/loses ungated baseline). shuffled-control deltas hard=[-0.06000000000000005] mult=[-0.20000000000000007]. Per pre-registered mechanism hypothesis: with R_UNRELIABLE=0.25 and n_obs in [4,6], most unreliable items carry 0-1 true observations; a singleton true draw has no reinforcing partner and is statistically indistinguishable from a corrupt draw under this cross-consistency score, so gating on it is a wash-to-negative even though the AGGREGATE auc_unrel looks decent (driven by the minority of items with >=2 true draws, which the ungated baseline already handles well). Genuine negative: derived cross-observation consistency does not close the reliability-estimation gap here.",
+  "summary": "HARD_FAIL: DERIVED signal is IN-BAND and non-injected (auc_unrel=0.7476, auc_pooled=0.8759) but does NOT translate into a usable gate: mean_delta_hard_unrel=0.0000 mean_delta_mult_unrel=-0.0600 both <= 0.02 (ties/loses ungated baseline). shuffled-control deltas hard=[-0.06000000000000005] mult=[-0.20000000000000007]. Per pre-registered mechanism hypothesis: with R_UNRELIABLE=0.25 and n_obs in [4,6], most unreliable items carry 0-1 true observations; a singleton true draw has no reinforcing partner and is statistically indistinguishable from a corrupt draw under this cross-consistency score, so gating on it is a wash-to-negative even though the AGGREGATE auc_unrel looks decent (driven by the minority of items with >=2 true draws, which the ungated baseline already handles well). Genuine negative: derived cross-observation consistency does not close the reliability-estimation gap here.",
+  "per_seed": [
+    {
+      "seed": 7,
+      "ungated_all": 0.69,
+      "ungated_unrel": 0.56,
+      "ungated_rel": 0.82,
+      "hard_gate_all": 0.66,
+      "hard_gate_unrel": 0.56,
+      "hard_gate_rel": 0.76,
+      "soft_multiplier_all": 0.63,
+      "soft_multiplier_unrel": 0.5,
+      "soft_multiplier_rel": 0.76,
+      "shuffled_hard_gate_all": 0.63,
+      "shuffled_hard_gate_unrel": 0.5,
+      "shuffled_hard_gate_rel": 0.76,
+      "shuffled_multiplier_all": 0.54,
+      "shuffled_multiplier_unrel": 0.36,
+      "shuffled_multiplier_rel": 0.72,
+      "oracle_all": 0.86,
+      "oracle_unrel": 0.82,
+      "oracle_rel": 0.9,
+      "auc_pooled": 0.8758543780128066,
+      "auc_unrel": 0.7476035449448363,
+      "_arm_digests_short": {
+        "ungated": "3ee603f897287acd",
+        "hard_gate": "1129755ea39969c7",
+        "soft_multiplier": "ea5ae53d08ceede9",
+        "shuffled_hard_gate": "7d1c0e1db5a03e02",
+        "shuffled_multiplier": "4ebe343e06d3f3f6",
+        "oracle": "3e8e0f39594e5647"
+      }
+    }
+  ],
+  "auc_unrel_mean": 0.7476035449448363,
+  "auc_pooled_mean": 0.8758543780128066,
+  "auc_unrel_per_seed": [
+    0.7476035449448363
+  ],
+  "auc_pooled_per_seed": [
+    0.8758543780128066
+  ],
+  "auc_in_band": true,
+  "mean_delta_hard_unrel": 0.0,
+  "mean_delta_mult_unrel": -0.06000000000000005,
+  "mean_delta_hard_rel": -0.05999999999999994,
+  "mean_delta_mult_rel": -0.05999999999999994,
+  "delta_hard_unrel_per_seed": [
+    0.0
+  ],
+  "delta_mult_unrel_per_seed": [
+    -0.06000000000000005
+  ],
+  "delta_shuffled_hard_unrel_per_seed": [
+    -0.06000000000000005
+  ],
+  "delta_shuffled_mult_unrel_per_seed": [
+    -0.20000000000000007
+  ],
+  "delta_oracle_unrel_per_seed": [
+    0.2599999999999999
+  ],
+  "baseline_unrel_per_seed": [
+    0.56
+  ],
+  "baseline_rel_per_seed": [
+    0.82
+  ],
+  "baseline_in_band": true,
+  "baseline_rel_non_ceiling": true,
+  "n_pos_hard": 0,
+  "n_pos_mult": 0,
+  "hp_scope_note": "oracle + shuffled_hard_gate + shuffled_multiplier are diagnostic/control arms, explicitly OUT of HARD_PASS/HARD_FAIL decision scope (HP_SCOPE per pre-reg).",
+  "revival_of": "data/exp_attention_salience_reliability_gate_v1/metrics.json (v1, MEASURED_MECHANISM construction-proof per atoms.jsonl)",
+  "elapsed_s": 0.021581800014246255,
+  "run_mode": "smoke",
+  "anchor_name": "attention_salience_reliability_gate_derived_v1",
+  "ts_iso": "2026-07-20T04:10:30.770218+00:00",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "config": {
+    "V": 100,
+    "N": 64,
+    "N_RELIABLE": 50,
+    "N_UNRELIABLE": 50,
+    "R_RELIABLE": 0.45,
+    "R_UNRELIABLE": 0.25,
+    "N_OBS_MIN": 4,
+    "N_OBS_MAX": 6,
+    "TAU": 0.0,
+    "SEEDS": [
+      7
+    ],
+    "signal": "leave_one_out_cross_observation_cosine_consistency_NO_INJECTION"
+  }
+}

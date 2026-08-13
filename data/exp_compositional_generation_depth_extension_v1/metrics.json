@@ -1,0 +1,19 @@
+{
+  "anchor_name": "compositional_generation_depth_extension_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_PASS: discriminator fires at depth=5, lift=+0.700 >= +0.30. Ready for full sweep.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_arm_rows": [
+    {
+      "depth": 5,
+      "seed": 7,
+      "real": 1.0,
+      "ctrl": 0.3,
+      "lift": 0.7,
+      "n": 90
+    }
+  ],
+  "elapsed_s": 0.3575160503387451,
+  "summary": "SMOKE_PASS: discriminator fires at depth=5, lift=+0.700 >= +0.30. Ready for full sweep."
+}

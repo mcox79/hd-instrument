@@ -1,0 +1,127 @@
+{
+  "anchor": "conceptnet_rerank_parity_multiseed_v1",
+  "anchor_name": "conceptnet_rerank_parity_multiseed_v1",
+  "run_mode": "smoke",
+  "metrics_source": "measured_decorrelated_cfrpe_beam_multiseed_plus_bge_rerank",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "[B parity_tier=CG_PARITY] RANDOM_BEAM=0.469+/-0.003 vs BGE=0.460 diff=+0.009 McNemar(pooled b=77 c=74 p=0.871) determinism_ok=True | [A WIN] best=SEM_RERANK_RRF mean=0.556 lift=+0.087 pos_seeds=2/2 (HARD=0.494 RRF=0.556) rerank_headroom=+0.227 fires=True | closure=1.000 S=2/2 cardinality_ok=True arms_differ(RB!=BGE)=True",
+  "summary": "A:WIN (best SEM_RERANK_RRF lift +0.087) | B:CG_PARITY (RB 0.469+/-0.003 vs BGE 0.460)",
+  "elapsed_s": 990.1612905999937,
+  "n_seeds": 2,
+  "expected_seeds": 2,
+  "cardinality_ok": true,
+  "seeds": [
+    20260619,
+    20260620
+  ],
+  "meta": {
+    "n_ent": 2110,
+    "n_rel": 5,
+    "n_store_edges": 3239,
+    "store_digest_edges": "3498a7eb66cf"
+  },
+  "deliverable_A_rerank": {
+    "verdict": "WIN",
+    "primary_arm": "SEM_RERANK_RRF",
+    "best_mean_hits10": 0.5559006211180124,
+    "lift_vs_random_beam": 0.08695652173913043,
+    "pos_seeds": 2,
+    "need_pos": 2,
+    "SEM_RERANK_HARD_mean": 0.4937888198757764,
+    "SEM_RERANK_RRF_mean": 0.5559006211180124,
+    "RANDOM_BEAM_mean": 0.468944099378882,
+    "rerank_headroom_mean": 0.22670807453416147,
+    "rerank_fires": true,
+    "rerank_identity": false,
+    "rerank_k": 25,
+    "bands": {
+      "WIN": "best-rerank >= RANDOM_BEAM+0.03 AND pos in >=ceil(0.8*S) seeds",
+      "TIE": "|lift|<0.03 AND best >= RANDOM_BEAM-0.02",
+      "COLLAPSE": "best-rerank <= RANDOM_BEAM-0.05"
+    }
+  },
+  "deliverable_B_parity": {
+    "parity_tier": "CG_PARITY",
+    "RANDOM_BEAM_mean": 0.468944099378882,
+    "RANDOM_BEAM_std": 0.003105590062111807,
+    "BGE_ALONE_mean": 0.45962732919254656,
+    "diff_rb_minus_bge": 0.009316770186335421,
+    "mcnemar_pooled_b": 77,
+    "mcnemar_pooled_c": 74,
+    "mcnemar_pooled_stat": 0.026490066225165563,
+    "mcnemar_pooled_p": 0.8707092210836658,
+    "determinism_ok": true,
+    "w_digest_seed0": "87376fe6c807e9edbd39c0584afa39e7d7d82303ae51f30235a0bf800ae757b7",
+    "june19_rb_bar": 0.502,
+    "june19_bge_bar": 0.494,
+    "bands": {
+      "CG_PARITY": "|diff|<=0.02 AND std<=0.03 AND pooled_p>0.05 AND determinism_ok",
+      "MM_PARITY": "near-parity but not tight OR high seed variance OR p in (0.01,0.05]",
+      "SUBSTRATE_WINS": "diff>0.05 AND p<=0.05",
+      "SUBSTRATE_LOSES": "diff<-0.05 AND p<=0.05"
+    }
+  },
+  "per_seed": {
+    "20260619": {
+      "seed": 20260619,
+      "N": 8192,
+      "run_mode": "smoke",
+      "elapsed_s": 662.8711459999904,
+      "n_with": 161,
+      "n_eval": 322,
+      "RANDOM_BEAM_hits10": 0.4720496894409938,
+      "SEM_RERANK_HARD_hits10": 0.4968944099378882,
+      "SEM_RERANK_RRF_hits10": 0.5652173913043478,
+      "BGE_ALONE_hits10": 0.45962732919254656,
+      "closure_hits10": 1.0,
+      "random_floor_hits10": 0.055900621118012424,
+      "mcnemar_b_rb_only": 39,
+      "mcnemar_c_bge_only": 37,
+      "mcnemar_stat": 0.013157894736842105,
+      "mcnemar_p": 0.9086766781799486,
+      "rerank_headroom": 0.22981366459627328,
+      "w_digest": "87376fe6c807e9edbd39c0584afa39e7d7d82303ae51f30235a0bf800ae757b7",
+      "rank_digests": {
+        "RANDOM_BEAM": "15bfab88c74d",
+        "SEM_RERANK_HARD": "be842d462dd5",
+        "SEM_RERANK_RRF": "77aa582f828f",
+        "BGE_ALONE": "404ac70f3c2b"
+      },
+      "config_version": "ANCHOR=conceptnet_rerank_parity_multiseed_v1,N=8192,run_mode=smoke,split_seed=20260619",
+      "_ckpt_key": "20260619",
+      "_partial_written_at": 1783481411.917033
+    },
+    "20260620": {
+      "seed": 20260620,
+      "N": 8192,
+      "run_mode": "smoke",
+      "elapsed_s": 989.0761578999955,
+      "n_with": 161,
+      "n_eval": 322,
+      "RANDOM_BEAM_hits10": 0.4658385093167702,
+      "SEM_RERANK_HARD_hits10": 0.4906832298136646,
+      "SEM_RERANK_RRF_hits10": 0.546583850931677,
+      "BGE_ALONE_hits10": 0.45962732919254656,
+      "closure_hits10": 1.0,
+      "random_floor_hits10": 0.055900621118012424,
+      "mcnemar_b_rb_only": 38,
+      "mcnemar_c_bge_only": 37,
+      "mcnemar_stat": 0.0,
+      "mcnemar_p": 1.0,
+      "rerank_headroom": 0.2236024844720497,
+      "w_digest": "efc6a2050a55db2380a0867eff326afb891a7b9443a349e84b7869cbbcacdd45",
+      "rank_digests": {
+        "RANDOM_BEAM": "2b6118d181b7",
+        "SEM_RERANK_HARD": "4c85fdc245d2",
+        "SEM_RERANK_RRF": "cedd3b415391",
+        "BGE_ALONE": "404ac70f3c2b"
+      },
+      "config_version": "ANCHOR=conceptnet_rerank_parity_multiseed_v1,N=8192,run_mode=smoke,split_seed=20260619",
+      "_ckpt_key": "20260620",
+      "_partial_written_at": 1783481738.0295062
+    }
+  },
+  "arms_differ_rb_vs_bge": true,
+  "closure_hits10_mean": 1.0,
+  "prior_work_check": "substrate-KB concept-query top hit cosine=0.330 (generic 'associative relation'/'Multiplicative composition' notes); NO prior arc cell for POST-HOC BGE-rerank over a decorrelated substrate beam -> genuinely novel (v1 SEM_BEAM injected semantics INTO the store and HARD_FAILed; this keeps the store decorrelated and reranks post-hoc)."
+}

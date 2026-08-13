@@ -1,0 +1,735 @@
+{
+  "verdict": "HARD_PASS_IMPROVING_EXPOSURE_CURVE",
+  "verdict_msg": "HARD_PASS_IMPROVING_EXPOSURE_CURVE || EXPOSURE-CURVE ATTN illusory-2AFC @M=4 (e=[1, 2, 4, 8, 16, 32])=[0.633, 0.688, 0.731, 0.785, 0.821, 0.854] rise(e1->e32)=0.221 mono=True (HP: rise>=0.06 & mono) || color-of-shape curve=[0.397, 0.48, 0.562, 0.633, 0.699, 0.725] rise=0.328 mono=True || BINDING-WIN @M=4,e_max: ATTN=0.833 FLAT=0.521 SCRAM=0.429 margin=0.312 (win=True) || LABEL-SHUFFLE ATTN illusory=0.505 cos=0.169 (collapse<=0.66) || FRONT-END@e_max(color=0.844 shape=0.880 floor=0.75 ok=True) || flat_in_band=True scramble_collapsed=True || SCALE(ATTN illusory by M)={3: 0.837, 4: 0.833, 6: 0.824} || FREE-BY-CONSTRUCTION novel-conj=1.000 (un-gated)",
+  "summary": "HARD_PASS_IMPROVING_EXPOSURE_CURVE || EXPOSURE-CURVE ATTN illusory-2AFC @M=4 (e=[1, 2, 4, 8, 16, 32])=[0.633, 0.688, 0.731, 0.785, 0.821, 0.854] rise(e1->e32)=0.221 mono=True (HP: rise>=0.06 & mono) |",
+  "run_mode": "full",
+  "elapsed_s": 31.606448400008958,
+  "anchor_name": "grounding_attn_bind_incremental_curve_v1",
+  "ts_iso": "2026-07-23T03:21:28.613341+00:00",
+  "n_seeds": 5,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17,
+      23,
+      29
+    ],
+    "N": 1024,
+    "M_list": [
+      3,
+      4,
+      6
+    ],
+    "M_primary": 4,
+    "expo_curve": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "n_scenes": 300,
+    "n_query": 4
+  },
+  "gates": {
+    "attn_illusory_2afc": 0.8333333333333334,
+    "flat_illusory_2afc": 0.5211733252720789,
+    "scram_illusory_2afc": 0.4286462303720214,
+    "illusory_margin": 0.31216000806125443,
+    "attn_color_of_shape": 0.7276937521090563,
+    "flat_color_of_shape": 0.3054760265104485,
+    "exposure_grid": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "ill_curve": [
+      0.6330900900900901,
+      0.6884193711501333,
+      0.7305838926174496,
+      0.7849748042609126,
+      0.8206143358123225,
+      0.8541294145809966
+    ],
+    "cos_curve": [
+      0.39709312561937266,
+      0.47980085944869516,
+      0.5618607380105768,
+      0.6332190866890491,
+      0.6987230596632885,
+      0.724933357920178
+    ],
+    "ill_curve_rise": 0.22103932449090646,
+    "cos_curve_rise": 0.32784023230080533,
+    "ill_curve_mono": true,
+    "cos_curve_mono": true,
+    "curve_ok": true,
+    "binding_win": true,
+    "front_color_acc": 0.8444444444444444,
+    "front_shape_acc": 0.8800000000000001,
+    "front_end_ok": true,
+    "label_shuffle_illusory": 0.5046171775802649,
+    "label_shuffle_cos": 0.16925173874393207,
+    "label_shuffle_collapsed": true,
+    "flat_in_band": true,
+    "scramble_collapsed": true,
+    "free_novel_conjunction": 1.0,
+    "scale": {
+      "3": {
+        "attn_ill": 0.8370597804381085,
+        "flat_ill": 0.5301323295023525,
+        "attn_cos": 0.7200640814333663
+      },
+      "4": {
+        "attn_ill": 0.8333333333333334,
+        "flat_ill": 0.5211733252720789,
+        "attn_cos": 0.7276937521090563
+      },
+      "6": {
+        "attn_ill": 0.8238589743589744,
+        "flat_ill": 0.5118428093645484,
+        "attn_cos": 0.6987389447658131
+      }
+    },
+    "bands": {
+      "ILL_HP": 0.78,
+      "ILL_FLAT_MAX": 0.62,
+      "ILL_MARGIN_HP": 0.18,
+      "ILL_SCRAMBLE_MAX": 0.66,
+      "CURVE_RISE_HP": 0.06,
+      "CURVE_MONO_TOL": 0.02,
+      "LABEL_SHUFFLE_MAX": 0.66,
+      "FRONT_ACC_MIN": 0.75,
+      "ILL_HF": 0.62
+    }
+  },
+  "discriminator_selftest": {
+    "reuse_ok": true,
+    "front_learns": true,
+    "fa_c1": 0.65,
+    "fa_s1": 0.5333333333333333,
+    "fa_c16": 0.8833333333333333,
+    "fa_s16": 0.8166666666666667,
+    "cos1": 0.39893617021276595,
+    "cos16": 0.6894736842105263,
+    "attn_ill1": 0.6556122448979592,
+    "attn_ill16": 0.8131313131313131,
+    "flat_ill16": 0.5277777777777778,
+    "scram_ill16": 0.42676767676767674,
+    "label_shuffle_ill": 0.535,
+    "fires": true,
+    "telemetry": true,
+    "label_shuffle_collapses": true,
+    "scramble_collapses": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.6097972972972973,
+        "2": 0.6300675675675675,
+        "4": 0.77,
+        "8": 0.761986301369863,
+        "16": 0.8087248322147651,
+        "32": 0.8816666666666667
+      },
+      "curve_color_of_shape": {
+        "1": 0.4397163120567376,
+        "2": 0.4583333333333333,
+        "4": 0.6348920863309353,
+        "8": 0.5514705882352942,
+        "16": 0.6866197183098591,
+        "32": 0.7212230215827338
+      },
+      "front_acc_by_e": {
+        "1": [
+          0.5611111111111111,
+          0.5888888888888889
+        ],
+        "2": [
+          0.7222222222222222,
+          0.6555555555555556
+        ],
+        "4": [
+          0.7555555555555555,
+          0.7833333333333333
+        ],
+        "8": [
+          0.75,
+          0.8611111111111112
+        ],
+        "16": [
+          0.7555555555555555,
+          0.8222222222222222
+        ],
+        "32": [
+          0.8388888888888889,
+          0.8888888888888888
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.4815436241610738,
+        "color_of_shape": 0.18198529411764705
+      },
+      "by_M": {
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.8211805555555556,
+            "illusory_n": 1152,
+            "color_of_shape": 0.7125850340136054,
+            "color_of_shape_n": 1176
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5616319444444444,
+            "illusory_n": 1152,
+            "color_of_shape": 0.358843537414966,
+            "color_of_shape_n": 1176
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.3793402777777778,
+            "illusory_n": 1152,
+            "color_of_shape": 0.22874149659863946,
+            "color_of_shape_n": 1176
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8481543624161074,
+            "illusory_n": 1192,
+            "color_of_shape": 0.7206405693950177,
+            "color_of_shape_n": 1124
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5394295302013423,
+            "illusory_n": 1192,
+            "color_of_shape": 0.3193950177935943,
+            "color_of_shape_n": 1124
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4463087248322148,
+            "illusory_n": 1192,
+            "color_of_shape": 0.18327402135231316,
+            "color_of_shape_n": 1124
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.8275,
+            "illusory_n": 1200,
+            "color_of_shape": 0.7017543859649122,
+            "color_of_shape_n": 1140
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5191666666666667,
+            "illusory_n": 1200,
+            "color_of_shape": 0.22631578947368422,
+            "color_of_shape_n": 1140
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.495,
+            "illusory_n": 1200,
+            "color_of_shape": 0.17017543859649123,
+            "color_of_shape_n": 1140
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "c8ddd193e6bc86a3adc46dc140999767627d6f85fbdbbcb9c42d2bcbdca7ad97",
+        "FLAT": "e5be84265a0a9eca20a20d5fc5d62600780d38db0ebbe9a44c49723ba2b3cf44",
+        "SCRAM": "5e23574757bf8f16f8347eeef7da280d22f6a93b25f8f44586e3c3a395535926"
+      }
+    },
+    {
+      "seed": 13,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.6351351351351351,
+        "2": 0.6866438356164384,
+        "4": 0.7231543624161074,
+        "8": 0.8104026845637584,
+        "16": 0.8283333333333334,
+        "32": 0.8226351351351351
+      },
+      "curve_color_of_shape": {
+        "1": 0.35431654676258995,
+        "2": 0.4375,
+        "4": 0.5107142857142857,
+        "8": 0.6928571428571428,
+        "16": 0.7356115107913669,
+        "32": 0.7003676470588235
+      },
+      "front_acc_by_e": {
+        "1": [
+          0.5833333333333334,
+          0.5111111111111111
+        ],
+        "2": [
+          0.7388888888888889,
+          0.6444444444444445
+        ],
+        "4": [
+          0.7333333333333333,
+          0.6277777777777778
+        ],
+        "8": [
+          0.7833333333333333,
+          0.8222222222222222
+        ],
+        "16": [
+          0.8722222222222222,
+          0.85
+        ],
+        "32": [
+          0.8555555555555555,
+          0.9
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.5234899328859061,
+        "color_of_shape": 0.18309859154929578
+      },
+      "by_M": {
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.846551724137931,
+            "illusory_n": 1160,
+            "color_of_shape": 0.7212837837837838,
+            "color_of_shape_n": 1184
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5405172413793103,
+            "illusory_n": 1160,
+            "color_of_shape": 0.38682432432432434,
+            "color_of_shape_n": 1184
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.36637931034482757,
+            "illusory_n": 1160,
+            "color_of_shape": 0.21368243243243243,
+            "color_of_shape_n": 1184
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8333333333333334,
+            "illusory_n": 1188,
+            "color_of_shape": 0.7244718309859155,
+            "color_of_shape_n": 1136
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5210437710437711,
+            "illusory_n": 1188,
+            "color_of_shape": 0.30545774647887325,
+            "color_of_shape_n": 1136
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4107744107744108,
+            "illusory_n": 1188,
+            "color_of_shape": 0.19718309859154928,
+            "color_of_shape_n": 1136
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.7884615384615384,
+            "illusory_n": 1196,
+            "color_of_shape": 0.7152777777777778,
+            "color_of_shape_n": 1152
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5142140468227425,
+            "illusory_n": 1196,
+            "color_of_shape": 0.2378472222222222,
+            "color_of_shape_n": 1152
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4690635451505017,
+            "illusory_n": 1196,
+            "color_of_shape": 0.1753472222222222,
+            "color_of_shape_n": 1152
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "f84ff62f48e6743298c387441123bf4b5a84622d52840e22a8aee0cef1047aee",
+        "FLAT": "3ed50b031ede59dd392252bdb47f62056d42255970d8b5a7cc92b0d2f16cd90d",
+        "SCRAM": "af4e95d7f946c299707a4586da6155803bf02533808a4da7f0275be8993628c6"
+      }
+    },
+    {
+      "seed": 17,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.6841216216216216,
+        "2": 0.6879194630872483,
+        "4": 0.7667785234899329,
+        "8": 0.7567114093959731,
+        "16": 0.7983333333333333,
+        "32": 0.839527027027027
+      },
+      "curve_color_of_shape": {
+        "1": 0.4982394366197183,
+        "2": 0.5172413793103449,
+        "4": 0.5875,
+        "8": 0.6303571428571428,
+        "16": 0.7048611111111112,
+        "32": 0.6946428571428571
+      },
+      "front_acc_by_e": {
+        "1": [
+          0.7722222222222223,
+          0.6777777777777778
+        ],
+        "2": [
+          0.7,
+          0.6833333333333333
+        ],
+        "4": [
+          0.7888888888888889,
+          0.7555555555555555
+        ],
+        "8": [
+          0.8333333333333334,
+          0.8166666666666667
+        ],
+        "16": [
+          0.8277777777777777,
+          0.8777777777777778
+        ],
+        "32": [
+          0.8944444444444445,
+          0.85
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.4847972972972973,
+        "color_of_shape": 0.14388489208633093
+      },
+      "by_M": {
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.8118374558303887,
+            "illusory_n": 1132,
+            "color_of_shape": 0.7491408934707904,
+            "color_of_shape_n": 1164
+          },
+          "FLAT": {
+            "illusory_2afc": 0.508833922261484,
+            "illusory_n": 1132,
+            "color_of_shape": 0.3848797250859107,
+            "color_of_shape_n": 1164
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.37720848056537104,
+            "illusory_n": 1132,
+            "color_of_shape": 0.23711340206185566,
+            "color_of_shape_n": 1164
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8221476510067114,
+            "illusory_n": 1192,
+            "color_of_shape": 0.7553003533568905,
+            "color_of_shape_n": 1132
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5218120805369127,
+            "illusory_n": 1192,
+            "color_of_shape": 0.303886925795053,
+            "color_of_shape_n": 1132
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4312080536912752,
+            "illusory_n": 1192,
+            "color_of_shape": 0.20141342756183744,
+            "color_of_shape_n": 1132
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.8341666666666666,
+            "illusory_n": 1200,
+            "color_of_shape": 0.7024221453287197,
+            "color_of_shape_n": 1156
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5166666666666667,
+            "illusory_n": 1200,
+            "color_of_shape": 0.23183391003460208,
+            "color_of_shape_n": 1156
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.48583333333333334,
+            "illusory_n": 1200,
+            "color_of_shape": 0.1903114186851211,
+            "color_of_shape_n": 1156
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "a2c2fdbfe05e405628253fe08f039f69512394723d83ff10e7fe9997d1966382",
+        "FLAT": "ea87e203daa5d19859ff6a042625dc09bae1008b1d824fa6ae98a3d6a337a842",
+        "SCRAM": "4725c74905543314415ed252442328617a426c9747445ca25982a93c3cdf38a4"
+      }
+    },
+    {
+      "seed": 23,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.6047297297297297,
+        "2": 0.7550335570469798,
+        "4": 0.697986577181208,
+        "8": 0.7702702702702703,
+        "16": 0.8416666666666667,
+        "32": 0.8979591836734694
+      },
+      "curve_color_of_shape": {
+        "1": 0.38204225352112675,
+        "2": 0.5160714285714286,
+        "4": 0.5275862068965518,
+        "8": 0.6099290780141844,
+        "16": 0.7176258992805755,
+        "32": 0.8102189781021898
+      },
+      "front_acc_by_e": {
+        "1": [
+          0.6611111111111111,
+          0.5277777777777778
+        ],
+        "2": [
+          0.7111111111111111,
+          0.7111111111111111
+        ],
+        "4": [
+          0.7777777777777778,
+          0.7444444444444445
+        ],
+        "8": [
+          0.7666666666666667,
+          0.7888888888888889
+        ],
+        "16": [
+          0.8555555555555555,
+          0.8166666666666667
+        ],
+        "32": [
+          0.7777777777777778,
+          0.9
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.545,
+        "color_of_shape": 0.15714285714285714
+      },
+      "by_M": {
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.8723958333333334,
+            "illusory_n": 1152,
+            "color_of_shape": 0.7389830508474576,
+            "color_of_shape_n": 1180
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5199652777777778,
+            "illusory_n": 1152,
+            "color_of_shape": 0.38813559322033897,
+            "color_of_shape_n": 1180
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.4131944444444444,
+            "illusory_n": 1152,
+            "color_of_shape": 0.23220338983050848,
+            "color_of_shape_n": 1180
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8333333333333334,
+            "illusory_n": 1176,
+            "color_of_shape": 0.7176258992805755,
+            "color_of_shape_n": 1112
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5068027210884354,
+            "illusory_n": 1176,
+            "color_of_shape": 0.27068345323741005,
+            "color_of_shape_n": 1112
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.44302721088435376,
+            "illusory_n": 1176,
+            "color_of_shape": 0.2077338129496403,
+            "color_of_shape_n": 1112
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.8441666666666666,
+            "illusory_n": 1200,
+            "color_of_shape": 0.6949300699300699,
+            "color_of_shape_n": 1144
+          },
+          "FLAT": {
+            "illusory_2afc": 0.49666666666666665,
+            "illusory_n": 1200,
+            "color_of_shape": 0.25961538461538464,
+            "color_of_shape_n": 1144
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.5016666666666667,
+            "illusory_n": 1200,
+            "color_of_shape": 0.22115384615384615,
+            "color_of_shape_n": 1144
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "02b374d3b583f74887216a2582daf331b7e86b802887164ec8f56e7c2018baa3",
+        "FLAT": "dcb7c85e3173dc166be40cea2be72d78e5a56bcb106b872567f5474e2a4cbf4f",
+        "SCRAM": "b9ffb1745383ef70f2cdd01a2b04978a0223e0fc19d19ed817e4f4c9fc3e3e66"
+      }
+    },
+    {
+      "seed": 29,
+      "N": 1024,
+      "M_primary": 4,
+      "curve_illusory": {
+        "1": 0.6316666666666667,
+        "2": 0.6824324324324325,
+        "4": 0.695,
+        "8": 0.825503355704698,
+        "16": 0.8260135135135135,
+        "32": 0.8288590604026845
+      },
+      "curve_color_of_shape": {
+        "1": 0.31115107913669066,
+        "2": 0.4698581560283688,
+        "4": 0.5486111111111112,
+        "8": 0.6814814814814815,
+        "16": 0.6488970588235294,
+        "32": 0.6982142857142857
+      },
+      "front_acc_by_e": {
+        "1": [
+          0.6055555555555555,
+          0.5111111111111111
+        ],
+        "2": [
+          0.7333333333333333,
+          0.5777777777777777
+        ],
+        "4": [
+          0.8555555555555555,
+          0.7777777777777778
+        ],
+        "8": [
+          0.8166666666666667,
+          0.8722222222222222
+        ],
+        "16": [
+          0.8611111111111112,
+          0.8333333333333334
+        ],
+        "32": [
+          0.8555555555555555,
+          0.8611111111111112
+        ]
+      },
+      "label_shuffle": {
+        "illusory_2afc": 0.48825503355704697,
+        "color_of_shape": 0.1801470588235294
+      },
+      "by_M": {
+        "3": {
+          "ATTN": {
+            "illusory_2afc": 0.8333333333333334,
+            "illusory_n": 1116,
+            "color_of_shape": 0.6783276450511946,
+            "color_of_shape_n": 1172
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5197132616487455,
+            "illusory_n": 1116,
+            "color_of_shape": 0.3651877133105802,
+            "color_of_shape_n": 1172
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.39874551971326166,
+            "illusory_n": 1116,
+            "color_of_shape": 0.2627986348122867,
+            "color_of_shape_n": 1172
+          }
+        },
+        "4": {
+          "ATTN": {
+            "illusory_2afc": 0.8296979865771812,
+            "illusory_n": 1192,
+            "color_of_shape": 0.7204301075268817,
+            "color_of_shape_n": 1116
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5167785234899329,
+            "illusory_n": 1192,
+            "color_of_shape": 0.3279569892473118,
+            "color_of_shape_n": 1116
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.41191275167785235,
+            "illusory_n": 1192,
+            "color_of_shape": 0.17652329749103943,
+            "color_of_shape_n": 1116
+          }
+        },
+        "6": {
+          "ATTN": {
+            "illusory_2afc": 0.825,
+            "illusory_n": 1200,
+            "color_of_shape": 0.6793103448275862,
+            "color_of_shape_n": 1160
+          },
+          "FLAT": {
+            "illusory_2afc": 0.5125,
+            "illusory_n": 1200,
+            "color_of_shape": 0.2189655172413793,
+            "color_of_shape_n": 1160
+          },
+          "SCRAM": {
+            "illusory_2afc": 0.45,
+            "illusory_n": 1200,
+            "color_of_shape": 0.17586206896551723,
+            "color_of_shape_n": 1160
+          }
+        }
+      },
+      "free_novel_conjunction": 1.0,
+      "rep_digests": {
+        "ATTN": "629fb8b48ba3c20e82c8a930eae671c85f7d2813b5ed4b3827746f7ec2d62cff",
+        "FLAT": "22886c5631d675916dfaf654eedf57170d02661e84329c2928e5d2622dd25b11",
+        "SCRAM": "5a22c5a37830bbe66c77aeb58dcc94acbb33bc4d89044359e3a9d1ca29a8c81a"
+      }
+    }
+  ]
+}

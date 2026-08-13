@@ -1,0 +1,220 @@
+{
+  "anchor": "cert_ledger_self_query_v1",
+  "anchor_name": "cert_ledger_self_query_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "TaskA[currency]=HARD_PASS acc=1.000 multihop=1.000 gap=0.750 scrambled=0.250 naive_self=0.250 | TaskB[conflict]=HARD_PASS precision=1.000 recall=1.000 scrambled_recall=0.000 real_flags=0 | posctrl_singlehop=1.000 | n_seeds=1",
+  "n_seeds": 1,
+  "seeds": [
+    1
+  ],
+  "N": 2048,
+  "N_DIM": 2048,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "config_version": "cert-ledger-self-query-v1: N_DIM=2048 depths=[1, 2, 3, 4, 5] n_chain/depth=2 n_conflict/type=4 real_max=40 run_mode=smoke; HP_A acc>=0.90 mh>=0.90 gap>=0.50 | HP_B prec==1.00 rec>=0.90",
+  "expected_n_queries": 40,
+  "expected_n_subjects": 20,
+  "arms": [
+    "taskA_substrate",
+    "taskA_scrambled",
+    "taskA_naive_self",
+    "taskB_substrate",
+    "taskB_scrambled",
+    "posctrl_singlehop"
+  ],
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "real_load_skips": [],
+  "detail": {
+    "taskA_tier": "HARD_PASS",
+    "taskB_tier": "HARD_PASS",
+    "taskA": {
+      "acc": 1.0,
+      "acc_multihop": 1.0,
+      "scrambled": 0.25,
+      "gap": 0.75,
+      "naive_self": 0.25
+    },
+    "taskB": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "scrambled_recall": 0.0,
+      "real_flags": 0
+    },
+    "posctrl_singlehop_recall": 1.0,
+    "bands": {
+      "HP_A_ACC": 0.9,
+      "HP_A_MULTIHOP_ACC": 0.9,
+      "HP_A_GAP": 0.5,
+      "HF_A_ACC": 0.6,
+      "HP_B_PRECISION": 1.0,
+      "HP_B_RECALL": 0.9
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "n_records": 120,
+      "n_ent": 175,
+      "n_queries": 40,
+      "n_subjects_labeled": 20,
+      "tau": 2249955.797979798,
+      "tau_calib": {
+        "tau": 2249955.797979798,
+        "mean_edge_conf": 4205187.111111111,
+        "mean_sink_conf": 294724.48484848486,
+        "separation": 3910462.626262626,
+        "n_edge": 54,
+        "n_sink": 66
+      },
+      "tau_member": 2287422.245238095,
+      "posctrl_recall": 1.0,
+      "posctrl_total": 54,
+      "taskA": {
+        "substrate": {
+          "acc": 1.0,
+          "acc_multihop": 1.0,
+          "n": 40,
+          "n_multihop": 12,
+          "preds": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "scrambled": {
+          "acc": 0.25,
+          "acc_multihop": 0.0,
+          "n": 40,
+          "n_multihop": 12,
+          "preds": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        "naive_self": 0.25,
+        "gap": 0.75
+      },
+      "taskB": {
+        "substrate": {
+          "tp": 4,
+          "fp": 0,
+          "tn": 16,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "flagged": [
+            "syn::conf::true_0",
+            "syn::conf::true_1",
+            "syn::conf::true_2",
+            "syn::conf::true_3"
+          ]
+        },
+        "scrambled": {
+          "tp": 0,
+          "fp": 2,
+          "tn": 14,
+          "fn": 4,
+          "precision": 0.0,
+          "recall": 0.0,
+          "flagged": [
+            "syn::conf::resolved_1",
+            "syn::conf::dup_1"
+          ]
+        }
+      },
+      "real": {
+        "n_real_subjects": 20,
+        "flagged": [],
+        "n_flagged": 0
+      },
+      "arm_digests": {
+        "taskA_substrate": "36444054e23161b66106ad771ae586284ef7ef00679d21e21fe3adcf21b81c81",
+        "taskA_scrambled": "291c441465271631c1b5037fc31442078d790e55a6dd255b0981a08159e0f2b2",
+        "taskB_substrate": "5d78de8b4bdfaba41606decc3a98e5ed201191c1cade98006a07251f0cb7cc99",
+        "taskB_scrambled": "321b5085a179e3771a7e79cb1f23f644f192c978f84b21aec6fe09f7c3fb25d6"
+      },
+      "elapsed_s": 1.1289707000250928
+    }
+  ],
+  "metrics_source": "measured_cert_ledger_self_query_2task",
+  "elapsed_s": 1.1323139667510986,
+  "summary": "TaskA[currency]=HARD_PASS acc=1.000 multihop=1.000 gap=0.750 scrambled=0.250 naive_self=0.250 | TaskB[conflict]=HARD_PASS precision=1.000 recall=1.000 scrambled_recall=0.000 real_flags=0 | posctrl_sin"
+}

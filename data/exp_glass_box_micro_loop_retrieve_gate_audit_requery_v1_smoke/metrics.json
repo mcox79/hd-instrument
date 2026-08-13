@@ -1,0 +1,296 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: gated WM-mediated re-query resolves the weak-first regime a single shot cannot (resolve_lift=0.500, beats always-requery by 0.500, p=0.0000), self-audit is telemetry-sensitive (gate_sep=0.784, scramble_gap=0.500), and the glass-box hand-edit changes downstream recompute (causal_flip=1.000) while firing the tamper flag (tamper=1.000) -- inspectable + hand-editable self-auditing multi-hop reasoning. accA=0.500 accB=1.000 accAlways=0.500 accScr=0.500 accOracle=1.000 | resolve_lift=0.500 route_margin=0.500 scramble_gap=0.500 gate_sep=0.784 routing=1.000 hop1=1.000 | det=1.000 verify=1.000 tamper=1.000 causal_flip=1.000 causal_tamper=1.000 sign_p=0.0000 (seeds=3)",
+  "summary": "HARD_PASS: gated WM-mediated re-query resolves the weak-first regime a single shot cannot (resolve_lift=0.500, beats always-requery by 0.500, p=0.0000), self-audit is telemetry-sensitive (gate_sep=0.784, scramble_gap=0.500), and the glass-box hand-edit changes downstream recompute (causal_flip=1.000",
+  "run_mode": "smoke",
+  "anchor_name": "glass_box_micro_loop_retrieve_gate_audit_requery_v1",
+  "config_version": "ANCHOR=glass_box_micro_loop_retrieve_gate_audit_requery_v1,N=4096,V=256,M=20,n_trials=40,frac_easy=0.50,tau_gate=0.30,seeds=[7, 17, 23],mode=smoke,expected_n=3,HP_resolve>=0.25,HP_route>=0.25,HP_gatesep>=0.10,HP_scramble>=0.25,HP_causal>=0.80",
+  "n_seeds": 3,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "arms_differ": true,
+  "sign_p": 9.084503982403902e-13,
+  "means": {
+    "accA": 0.5,
+    "accB": 1.0,
+    "accScramble": 0.5,
+    "accAlways": 0.5,
+    "accOracle": 1.0,
+    "resolve_lift": 0.5,
+    "gate_route_margin": 0.5,
+    "scramble_gap": 0.5,
+    "gate_separation": 0.7843587239583334,
+    "gate_routing_acc": 1.0,
+    "hop1_retrieve_acc": 1.0,
+    "deterministic_replay": 1.0,
+    "merkle_verify": 1.0,
+    "tamper_detect": 1.0,
+    "causal_edit_flip": 1.0,
+    "causal_edit_tamper": 1.0,
+    "margin_easy_mean": 0.8112630208333332,
+    "margin_hard_mean": 0.026904296875
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "V": 256,
+      "M": 20,
+      "n_trials": 40,
+      "run_mode": "smoke",
+      "anchor_name": "glass_box_micro_loop_retrieve_gate_audit_requery_v1",
+      "config_version": "ANCHOR=glass_box_micro_loop_retrieve_gate_audit_requery_v1,N=4096,V=256,M=20,n_trials=40,frac_easy=0.50,tau_gate=0.30,seeds=[7, 17, 23],mode=smoke,expected_n=3,HP_resolve>=0.25,HP_route>=0.25,HP_gatesep>=0.10,HP_scramble>=0.25,HP_causal>=0.80",
+      "frac_easy": 0.5,
+      "tau_gate": 0.3,
+      "accs": {
+        "ARM_A_SINGLE_SHOT": 0.5,
+        "ARM_B_WM_REQUERY": 1.0,
+        "ARM_B_SCRAMBLE": 0.5,
+        "ARM_ALWAYS_REQUERY": 0.5,
+        "ARM_ORACLE_BRIDGE": 0.5
+      },
+      "accA": 0.5,
+      "accB": 1.0,
+      "accScramble": 0.5,
+      "accAlways": 0.5,
+      "accOracle": 1.0,
+      "resolve_lift": 0.5,
+      "gate_route_margin": 0.5,
+      "scramble_gap": 0.5,
+      "gate_separation": 0.7599121093750001,
+      "gate_routing_acc": 1.0,
+      "hop1_retrieve_acc": 1.0,
+      "deterministic_replay": 1.0,
+      "merkle_verify": 1.0,
+      "tamper_detect": 1.0,
+      "causal_edit_flip": 1.0,
+      "causal_edit_tamper": 1.0,
+      "n_causal_trials": 20,
+      "sign_p": 1.9073486328125e-06,
+      "n_b_only": 20,
+      "n_a_only": 0,
+      "requery_count": 20,
+      "margin_easy_mean": 0.790234375,
+      "margin_hard_mean": 0.030322265625,
+      "arm_digests": {
+        "ARM_A_SINGLE_SHOT": "ea959652e360e8c9",
+        "ARM_B_WM_REQUERY": "39546a505d56abda",
+        "ARM_B_SCRAMBLE": "41c9effe93398ded",
+        "ARM_ALWAYS_REQUERY": "10280380845d3d3f",
+        "ARM_ORACLE_BRIDGE": "10280380845d3d3f"
+      },
+      "arms_differ": true,
+      "arms_differ_exempted": [
+        [
+          "ARM_ALWAYS_REQUERY",
+          "ARM_ORACLE_BRIDGE"
+        ]
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "V": 256,
+      "M": 20,
+      "n_trials": 40,
+      "run_mode": "smoke",
+      "anchor_name": "glass_box_micro_loop_retrieve_gate_audit_requery_v1",
+      "config_version": "ANCHOR=glass_box_micro_loop_retrieve_gate_audit_requery_v1,N=4096,V=256,M=20,n_trials=40,frac_easy=0.50,tau_gate=0.30,seeds=[7, 17, 23],mode=smoke,expected_n=3,HP_resolve>=0.25,HP_route>=0.25,HP_gatesep>=0.10,HP_scramble>=0.25,HP_causal>=0.80",
+      "frac_easy": 0.5,
+      "tau_gate": 0.3,
+      "accs": {
+        "ARM_A_SINGLE_SHOT": 0.5,
+        "ARM_B_WM_REQUERY": 1.0,
+        "ARM_B_SCRAMBLE": 0.5,
+        "ARM_ALWAYS_REQUERY": 0.5,
+        "ARM_ORACLE_BRIDGE": 0.5
+      },
+      "accA": 0.5,
+      "accB": 1.0,
+      "accScramble": 0.5,
+      "accAlways": 0.5,
+      "accOracle": 1.0,
+      "resolve_lift": 0.5,
+      "gate_route_margin": 0.5,
+      "scramble_gap": 0.5,
+      "gate_separation": 0.81376953125,
+      "gate_routing_acc": 1.0,
+      "hop1_retrieve_acc": 1.0,
+      "deterministic_replay": 1.0,
+      "merkle_verify": 1.0,
+      "tamper_detect": 1.0,
+      "causal_edit_flip": 1.0,
+      "causal_edit_tamper": 1.0,
+      "n_causal_trials": 20,
+      "sign_p": 1.9073486328125e-06,
+      "n_b_only": 20,
+      "n_a_only": 0,
+      "requery_count": 20,
+      "margin_easy_mean": 0.836083984375,
+      "margin_hard_mean": 0.022314453125,
+      "arm_digests": {
+        "ARM_A_SINGLE_SHOT": "36828df8bd5a6ddc",
+        "ARM_B_WM_REQUERY": "9da92ff5a007ec17",
+        "ARM_B_SCRAMBLE": "6b75b4cf3228e463",
+        "ARM_ALWAYS_REQUERY": "197056d4e741e077",
+        "ARM_ORACLE_BRIDGE": "197056d4e741e077"
+      },
+      "arms_differ": true,
+      "arms_differ_exempted": [
+        [
+          "ARM_ALWAYS_REQUERY",
+          "ARM_ORACLE_BRIDGE"
+        ]
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "V": 256,
+      "M": 20,
+      "n_trials": 40,
+      "run_mode": "smoke",
+      "anchor_name": "glass_box_micro_loop_retrieve_gate_audit_requery_v1",
+      "config_version": "ANCHOR=glass_box_micro_loop_retrieve_gate_audit_requery_v1,N=4096,V=256,M=20,n_trials=40,frac_easy=0.50,tau_gate=0.30,seeds=[7, 17, 23],mode=smoke,expected_n=3,HP_resolve>=0.25,HP_route>=0.25,HP_gatesep>=0.10,HP_scramble>=0.25,HP_causal>=0.80",
+      "frac_easy": 0.5,
+      "tau_gate": 0.3,
+      "accs": {
+        "ARM_A_SINGLE_SHOT": 0.5,
+        "ARM_B_WM_REQUERY": 1.0,
+        "ARM_B_SCRAMBLE": 0.5,
+        "ARM_ALWAYS_REQUERY": 0.5,
+        "ARM_ORACLE_BRIDGE": 0.5
+      },
+      "accA": 0.5,
+      "accB": 1.0,
+      "accScramble": 0.5,
+      "accAlways": 0.5,
+      "accOracle": 1.0,
+      "resolve_lift": 0.5,
+      "gate_route_margin": 0.5,
+      "scramble_gap": 0.5,
+      "gate_separation": 0.77939453125,
+      "gate_routing_acc": 1.0,
+      "hop1_retrieve_acc": 1.0,
+      "deterministic_replay": 1.0,
+      "merkle_verify": 1.0,
+      "tamper_detect": 1.0,
+      "causal_edit_flip": 1.0,
+      "causal_edit_tamper": 1.0,
+      "n_causal_trials": 20,
+      "sign_p": 1.9073486328125e-06,
+      "n_b_only": 20,
+      "n_a_only": 0,
+      "requery_count": 20,
+      "margin_easy_mean": 0.807470703125,
+      "margin_hard_mean": 0.028076171875,
+      "arm_digests": {
+        "ARM_A_SINGLE_SHOT": "5b26b5ece3ff8995",
+        "ARM_B_WM_REQUERY": "c14c45ab64bcb85a",
+        "ARM_B_SCRAMBLE": "b23f6b3ad59cdc63",
+        "ARM_ALWAYS_REQUERY": "17c8cc4ed3f9b5f0",
+        "ARM_ORACLE_BRIDGE": "17c8cc4ed3f9b5f0"
+      },
+      "arms_differ": true,
+      "arms_differ_exempted": [
+        [
+          "ARM_ALWAYS_REQUERY",
+          "ARM_ORACLE_BRIDGE"
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 1.62,
+  "structured_gate_claims": [
+    {
+      "gate_name": "resolve_lift",
+      "measured": 0.5,
+      "threshold": 0.25,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "accB - accA"
+    },
+    {
+      "gate_name": "gate_route_margin",
+      "measured": 0.5,
+      "threshold": 0.25,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "accB - accALWAYS"
+    },
+    {
+      "gate_name": "gate_separation",
+      "measured": 0.7843587239583334,
+      "threshold": 0.1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "margin(easy)-margin(hard)"
+    },
+    {
+      "gate_name": "gate_routing_acc",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "scramble_gap",
+      "measured": 0.5,
+      "threshold": 0.25,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "telemetry-sensitivity"
+    },
+    {
+      "gate_name": "oracle_bridge_acc",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "positive control"
+    },
+    {
+      "gate_name": "hop1_retrieve_acc",
+      "measured": 1.0,
+      "threshold": 0.9,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "deterministic_replay",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "merkle_verify",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "tamper_detect",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "causal_edit_flip",
+      "measured": 1.0,
+      "threshold": 0.8,
+      "op": ">=",
+      "gate_verdict": true
+    },
+    {
+      "gate_name": "sign_p",
+      "measured": 9.084503982403902e-13,
+      "threshold": 0.05,
+      "op": "<",
+      "gate_verdict": true,
+      "note": "paired B vs A"
+    }
+  ]
+}

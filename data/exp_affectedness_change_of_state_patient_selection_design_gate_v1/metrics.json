@@ -1,0 +1,210 @@
+{
+  "anchor_name": "affectedness_change_of_state_patient_selection_design_gate_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_DESIGN_GATE",
+  "verdict_msg": "gate_verdict=HARD_PASS_DESIGN_GATE | sanity_ok=True (oracle_corr=1.0000 random_corr=0.0162) | per_signal={'SIG_PROTO_PATIENT_ONTOLOGY': ('HARD_FAIL', 0.0755, 0.3818), 'SIG_PLACE_GAZETTEER_EXCLUSION': ('MIDDLE', 0.1041, 0.4406), 'SIG_COS_VERB_GATED_ONTOLOGY': ('HARD_PASS', 0.3561, 0.4406), 'SIG_VERBNET_COS_GATED_ONTOLOGY': ('HARD_PASS', 0.2213, 0.4406), 'SIG_ALTERNATION_TEXT_INTERNAL': ('HARD_FAIL', 0.0443, 0.1924), 'SIG_ALTERNATION_ANIMACY_GATED': ('HARD_FAIL', 0.0201, 0.1924)} | best=SIG_COS_VERB_GATED_ONTOLOGY(0.3561) | n_cands=225 n_gold_correct=44 n_multi_rival_groups=50",
+  "summary": "gate_verdict=HARD_PASS_DESIGN_GATE | sanity_ok=True (oracle_corr=1.0000 random_corr=0.0162) | per_signal={'SIG_PROTO_PATIENT_ONTOLOGY': ('HARD_FAIL', 0.0755, 0.3818), 'SIG_PLACE_GAZETTEER_EXCLUSION': ('MIDDLE', 0.1041, 0.4406), 'SIG_COS_VERB_GATED_ONTOLOGY': ('HARD_PASS', 0.3561, 0.4406), 'SIG_VERBNET_COS_GATED_ONTOLOGY': ('HARD_PASS', 0.2213, 0.4406), 'SIG_ALTERNATION_TEXT_INTERNAL': ('HARD_FAIL', 0.0443, 0.1924), 'SIG_ALTERNATION_ANIMACY_GATED': ('HARD_FAIL', 0.0201, 0.1924)} | best=SIG_COS_VERB_GATED_ONTOLOGY(0.3561) | n_cands=225 n_gold_correct=44 n_multi_rival_groups=50",
+  "elapsed_s": 8.561432099988451,
+  "ts_iso": "2026-07-20T03:55:55.409439+00:00",
+  "gold_slice": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_cands": 225,
+  "n_gold_correct": 44,
+  "n_multi_rival_groups": 50,
+  "sanity_gate": {
+    "ok": true,
+    "oracle_corr": 1.0,
+    "random_corr": 0.0162,
+    "oracle_floor": 0.999,
+    "random_ceiling": 0.15
+  },
+  "bands": {
+    "HP_CORR": 0.2,
+    "HP_SEL_MARGIN": 0.1,
+    "MB_CORR": 0.1,
+    "MB_SEL_MARGIN": 0.05
+  },
+  "per_signal_verdict": {
+    "SIG_PROTO_PATIENT_ONTOLOGY": "HARD_FAIL",
+    "SIG_PLACE_GAZETTEER_EXCLUSION": "MIDDLE",
+    "SIG_COS_VERB_GATED_ONTOLOGY": "HARD_PASS",
+    "SIG_VERBNET_COS_GATED_ONTOLOGY": "HARD_PASS",
+    "SIG_ALTERNATION_TEXT_INTERNAL": "HARD_FAIL",
+    "SIG_ALTERNATION_ANIMACY_GATED": "HARD_FAIL"
+  },
+  "signals": {
+    "SIG_PROTO_PATIENT_ONTOLOGY": {
+      "coverage": 0.4444,
+      "n_none_scored": 125,
+      "n_scored": 100,
+      "corr_all": 0.0755,
+      "corr_content_subset": 0.0755,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 2,
+      "selection_rate_vs_chance": 0.7647,
+      "chance_rate": 0.3829,
+      "selection_margin": 0.3818,
+      "low_coverage_caveat": false
+    },
+    "SIG_PLACE_GAZETTEER_EXCLUSION": {
+      "coverage": 0.4444,
+      "n_none_scored": 125,
+      "n_scored": 100,
+      "corr_all": 0.1041,
+      "corr_content_subset": 0.1041,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 2,
+      "selection_rate_vs_chance": 0.8235,
+      "chance_rate": 0.3829,
+      "selection_margin": 0.4406,
+      "low_coverage_caveat": false
+    },
+    "SIG_COS_VERB_GATED_ONTOLOGY": {
+      "coverage": 0.4444,
+      "n_none_scored": 125,
+      "n_scored": 100,
+      "corr_all": 0.3561,
+      "corr_content_subset": 0.3561,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 2,
+      "selection_rate_vs_chance": 0.8235,
+      "chance_rate": 0.3829,
+      "selection_margin": 0.4406,
+      "low_coverage_caveat": false
+    },
+    "SIG_VERBNET_COS_GATED_ONTOLOGY": {
+      "coverage": 0.4444,
+      "n_none_scored": 125,
+      "n_scored": 100,
+      "corr_all": 0.2213,
+      "corr_content_subset": 0.2213,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 2,
+      "selection_rate_vs_chance": 0.8235,
+      "chance_rate": 0.3829,
+      "selection_margin": 0.4406,
+      "low_coverage_caveat": false
+    },
+    "SIG_ALTERNATION_TEXT_INTERNAL": {
+      "coverage": 0.8667,
+      "n_none_scored": 30,
+      "n_scored": 195,
+      "corr_all": 0.0443,
+      "corr_content_subset": 0.0443,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 0,
+      "selection_rate_vs_chance": 0.5789,
+      "chance_rate": 0.3865,
+      "selection_margin": 0.1924,
+      "low_coverage_caveat": false,
+      "alternation_scan_nonvacuous": true
+    },
+    "SIG_ALTERNATION_ANIMACY_GATED": {
+      "coverage": 0.8667,
+      "n_none_scored": 30,
+      "n_scored": 195,
+      "corr_all": 0.0201,
+      "corr_content_subset": 0.0201,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 0,
+      "selection_rate_vs_chance": 0.5789,
+      "chance_rate": 0.3865,
+      "selection_margin": 0.1924,
+      "low_coverage_caveat": false,
+      "alternation_scan_nonvacuous": true
+    }
+  },
+  "controls": {
+    "SIG_ORACLE_LABEL": {
+      "coverage": 1.0,
+      "n_none_scored": 0,
+      "n_scored": 225,
+      "corr_all": 1.0,
+      "corr_content_subset": 1.0,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 0,
+      "selection_rate_vs_chance": 1.0,
+      "chance_rate": 0.3865,
+      "selection_margin": 0.6135,
+      "low_coverage_caveat": false
+    },
+    "SIG_RANDOM_CONTROL": {
+      "coverage": 1.0,
+      "n_none_scored": 0,
+      "n_scored": 225,
+      "corr_all": -0.0162,
+      "corr_content_subset": -0.0162,
+      "corr_content_degenerate": false,
+      "n_multi_rival_groups_with_gold": 19,
+      "n_groups_no_signal_dropped": 0,
+      "selection_rate_vs_chance": 0.5263,
+      "chance_rate": 0.3865,
+      "selection_margin": 0.1398,
+      "low_coverage_caveat": false
+    }
+  },
+  "best_signal": "SIG_COS_VERB_GATED_ONTOLOGY",
+  "best_corr": 0.3561,
+  "verbnet_available": true,
+  "alternation_scan": {
+    "n_verbs_scanned": 77,
+    "n_verbs_with_evidence": 70,
+    "n_intrans_hits": 1532,
+    "n_passive_hits": 207,
+    "nonvacuous": true,
+    "mining_files": [
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_primer.clean.txt",
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_first_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_second_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_fourth_reader.clean.txt"
+    ]
+  },
+  "explicitly_not_retried": [
+    "plain ANIMACY standalone (already failed; ontology score's animate bucket is a component, not a standalone re-test)",
+    "distributional THEMATIC-FIT / GloVe verb-centroid selectional cosine (already failed)",
+    "ENTITY-RECURRENCE (already failed; this cell's direct parent forensic)",
+    "COREFERENCE (already failed)",
+    "SCENE-COHERENCE (already failed)",
+    "raw cosine/distributional-similarity (already failed)",
+    "object-typicality / selectional-coherence (closed: af19aa9d graded-fit HARD_FAIL; a5f2c3d0 SCV null-trainer even at gold-perfect oracle=0.000)"
+  ],
+  "cardinality_ok": true,
+  "expected_n_signals": 8,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "categorical-lookup correlation-gate metric; no quantitative noise-floor formula applies",
+  "gold_meta_independence": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "claim_ceiling": "DESIGN-GATE measurement only. Not a loop; not a claim these are the only possible grounded/weak-sup signals. HARD_FAIL here narrows curated-lookup-ontology specifically, distinct from the 6 already-failed self-supervised text signals.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "sanity_gate",
+    "per_signal_verdict",
+    "signals",
+    "controls",
+    "best_signal",
+    "cardinality_ok",
+    "alternation_scan",
+    "verbnet_available"
+  ]
+}

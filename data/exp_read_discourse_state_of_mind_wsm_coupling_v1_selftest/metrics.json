@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: Tier-0 fast path failed: [] / {'reason': 'GENUINE_TIE', 'pron': 'it', 'pnum': 'singular', 'tied': ['bird', 'seed'], 'schema_tiebreak_used': False}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_v1.py\", line 707, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_v1.py\", line 622, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_v1.py\", line 574, in self_test\n    assert set(tr3) == {(\"bird\", \"chases\", \"cat\")} and info3[\"reason\"] == \"BOUND_TIER0\", \\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Tier-0 fast path failed: [] / {'reason': 'GENUINE_TIE', 'pron': 'it', 'pnum': 'singular', 'tied': ['bird', 'seed'], 'schema_tiebreak_used': False}\n",
+  "ts_iso": "2026-07-17T12:26:03.631600+00:00",
+  "pid": 4156,
+  "anchor_name": "read_discourse_state_of_mind_wsm_coupling_v1"
+}

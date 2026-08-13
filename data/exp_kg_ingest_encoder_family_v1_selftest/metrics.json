@@ -1,0 +1,13 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: preflight=preflight_distinct(dim=128): {'binary_bipolar': '1b9d82a3797c4e36', 'hrr_real': '2eb2566f8c7c3865', 'fhrr': 'eab8d7d6698b9019', 'sparse_bipolar': '4f8c10db8a1b27d2', 'sparse_real': '4a74cf84a78977a7'}; per_enc={'binary_bipolar': [0.9444444444444444, 0.6445497630331753], 'hrr_real': [0.9444444444444444, 0.5829383886255924], 'fhrr': [0.9222222222222223, 0.6113744075829384], 'sparse_bipolar': [0.24444444444444444, 0.2037914691943128], 'sparse_real': [0.4888888888888889, 0.3981042654028436]}",
+  "elapsed_s": 0.0,
+  "summary": {
+    "mode": "selftest"
+  },
+  "per_encoder_cliff_M": {},
+  "cliff_M_ratio_matrix": {},
+  "mechanism_hashes": {},
+  "cardinality_observed": 0,
+  "cardinality_expected": 0
+}

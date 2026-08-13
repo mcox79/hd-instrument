@@ -1,0 +1,26 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS density-payoff: relational gain (LEARNED minus DEGREE) FIRES on the relational-signal family and is NULL on the pure-degree family (gap>=0.15); NO_CLEANUP collapses; held-out reachability arms differ; k-core + held-out split + code-smoothing + degree confound control exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.7220212999964133,
+  "mechanism_selftest": {
+    "n_synth": 3510,
+    "n_ho_rel": 130,
+    "n_ho_deg": 130,
+    "rel_learned1": 1.0,
+    "rel_degree1": 0.2077,
+    "deg_learned1": 0.2692,
+    "deg_degree1": 1.0,
+    "rel_gain_rel": 0.7923,
+    "rel_gain_deg": -0.7308,
+    "gap": 1.5231,
+    "nocleanup_ran": true,
+    "learned_recovers_rel": true,
+    "degree_recovers_deg": true,
+    "rel_gain_fires": true,
+    "deg_gain_null": true,
+    "gap_ok": true,
+    "arms_differ": true
+  }
+}

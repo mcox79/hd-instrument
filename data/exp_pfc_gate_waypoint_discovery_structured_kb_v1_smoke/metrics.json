@@ -1,0 +1,12 @@
+{
+  "anchor_name": "pfc_gate_waypoint_discovery_structured_kb_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "VacuousSmokeError: VACUOUS SMOKE: no discriminating regime (rails not met at any regime). Remedy: raise smoke V/N or fix the SBM generator so flat collapses AND hier_oracle succeeds.",
+  "summary": "CELL_CRASHED: VacuousSmokeError",
+  "elapsed_s": 65.4,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_pfc_gate_waypoint_discovery_structured_kb_v1.py\", line 1242, in <module>\n    rc = main()\n         ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_pfc_gate_waypoint_discovery_structured_kb_v1.py\", line 1219, in main\n    _smoke_discriminator_gate(final)\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_pfc_gate_waypoint_discovery_structured_kb_v1.py\", line 962, in _smoke_discriminator_gate\n    raise VacuousSmokeError(\nexperiments._seed_checkpoint.VacuousSmokeError: VACUOUS SMOKE: no discriminating regime (rails not met at any regime). Remedy: raise smoke V/N or fix the SBM generator so flat collapses AND hier_oracle succeeds.\n",
+  "ts_iso": "2026-07-08T19:13:47.345939+00:00",
+  "pid": 26516,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=pfc_gate_waypoint_discovery_structured_kb_v1,N=2048,seeds=[7, 17, 23],gamma=0.85,seg_len=2,cand_frac=0.10,regimes=['op4_V300_K4_d6', 'op4_V300_K4_d8'],density=0.210,p_within=0.90,door_per_room=3,n_cross=2,sr_steps=400,sr_batch=64,rollout_per_V=12,lr=0.50,n_train=64,n_test=64,mode=smoke,device=cpu,expected_n=54,HP_signflip>=0.05,sign_p<0.05,HP_recov>=0.20,lift_flat>0.05,lift_rand>0.10,Q_min>=0.20,ratio_min>=5.0"
+}

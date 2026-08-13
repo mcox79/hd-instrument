@@ -1,0 +1,228 @@
+{
+  "verdict": "SMOKE_MACHINERY_OK",
+  "verdict_msg": "both phases ran; relock RAISED keyed materially over the nce=0 phase (direction fires, +0.233); joint verdict is a FULL-only question [p1 dense=0.807 keyed=0.733 | relock dense=0.069 keyed=1.000 | cross@20 cross_dense=0.098 stable=True snap=crossing best_keyed=1.000 dir_delta=+0.233]",
+  "summary": "both phases ran; relock RAISED keyed materially over the nce=0 phase (direction fires, +0.233); joint verdict is a FULL-only question [p1 dense=0.807 keyed=0.733 | relock dense=0.069 keyed=1.000 | cross@20 cross_dense=0.098 stable=True snap=crossing best_keyed=1.000 dir_delta=+0.233]",
+  "elapsed_s": 57.37610069999937,
+  "run_mode": "smoke",
+  "anchor_name": "encoder_nce_curriculum_relock_v1_seed7_smoke",
+  "run_tag": "seed7",
+  "seed": 7,
+  "device": "cpu",
+  "N": 4096,
+  "objective_arm": "global",
+  "student_arch": "mlp",
+  "mlp_hidden": 2048,
+  "warmup_steps": 12,
+  "phase1_steps": 60,
+  "phase1_nce_weight": 0.0,
+  "relock_max_steps": 120,
+  "relock_eval_every": 20,
+  "relock_nce_weight": 0.5,
+  "relock_lr": 0.0002,
+  "relock_short_cross_by": 60,
+  "relock_stability_steps": 40,
+  "keyed_J": 5,
+  "batch": 128,
+  "n_landmarks": 512,
+  "refresh_every": 15,
+  "teacher_cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "teacher_cache_bytes": 1355319709,
+  "teacher_n_concepts": 177899,
+  "n_train": 3000,
+  "n_held": 800,
+  "semi_hard_coverage": 1.0,
+  "phase1_dense_spearman": 0.8069734280227353,
+  "phase1_keyed_acc1": 0.7333333492279053,
+  "relock_dense_spearman": 0.06905892975425369,
+  "relock_keyed_acc1": 1.0,
+  "shuffled_key_acc1": 0.0,
+  "random_block_posc_acc1": 1.0,
+  "direction_delta_keyed": 0.23333334922790527,
+  "relock_info": {
+    "cross_step": 20,
+    "cross_dense": 0.0978701326138524,
+    "cross_keyed": 1.0,
+    "best_keyed": 1.0,
+    "best_keyed_step": 20,
+    "best_keyed_dense": 0.0978701326138524,
+    "stable": true,
+    "official_snapshot": "crossing",
+    "n_relock_evals": 4,
+    "relock_steps_run": 60
+  },
+  "relock_traj": [
+    {
+      "step": 0,
+      "keyed_acc1": 0.7666666507720947,
+      "dense_quick": 0.8121534462640526,
+      "snr_margin": 0.005104033276438713
+    },
+    {
+      "step": 20,
+      "keyed_acc1": 1.0,
+      "dense_quick": 0.0978701326138524,
+      "snr_margin": 0.05274464190006256
+    },
+    {
+      "step": 40,
+      "keyed_acc1": 1.0,
+      "dense_quick": 0.020345804710351613,
+      "snr_margin": 0.08208432048559189
+    },
+    {
+      "step": 60,
+      "keyed_acc1": 1.0,
+      "dense_quick": 0.05377682637369381,
+      "snr_margin": 0.04955533519387245
+    }
+  ],
+  "phase1_diag": {
+    "loss_first": 0.040360815823078156,
+    "loss_last": 0.02238081395626068,
+    "rkd_last": 0.02238081395626068,
+    "nce_last": 4.570207118988037,
+    "lr_last": 1.0705383806982606e-06,
+    "nce_weight": 0.0,
+    "arm": "P1_GLOBAL",
+    "objective": "global",
+    "batch": 128,
+    "best_dense_full": 0.8071005069511216,
+    "best_step": 15,
+    "best_ckpt_fallback_to_final": false,
+    "alltime_best_dense_full": 0.9404690960293891,
+    "alltime_best_step": 0
+  },
+  "phase1_dense_traj": [
+    {
+      "step": 0,
+      "dense_full": 0.9404690960293891,
+      "dense_quick": 0.9429356890653517,
+      "rkd": 0.040360815823078156,
+      "final": false
+    },
+    {
+      "step": 15,
+      "dense_full": 0.8071005069511216,
+      "dense_quick": 0.8121534462640526,
+      "rkd": 0.1953427791595459,
+      "final": false
+    },
+    {
+      "step": 30,
+      "dense_full": 0.7453980258381724,
+      "dense_quick": 0.7763143744112838,
+      "rkd": 0.23457090556621552,
+      "final": false
+    },
+    {
+      "step": 45,
+      "dense_full": 0.7325843900926453,
+      "dense_quick": 0.774339973081284,
+      "rkd": 0.21760812401771545,
+      "final": false
+    },
+    {
+      "step": 60,
+      "dense_full": 0.6672247014985447,
+      "dense_quick": 0.708752751031742,
+      "rkd": 0.02238081395626068,
+      "final": true
+    }
+  ],
+  "per_unit": [
+    {
+      "unit": "semantic::GLOBAL_DENSE_P1",
+      "arm": "GLOBAL_DENSE_P1",
+      "kind": "semantic",
+      "spearman_all": 0.8069734280227353,
+      "pearson_all": 0.7971201057323507,
+      "hi80_cos": 0.9861537218093872,
+      "hi80_n": 14,
+      "hi80_teacher_mean": 0.8363779187202454,
+      "hi80_calib_err": 0.14977580308914185,
+      "ret_agree10": 0.2303749999999994,
+      "n_pairs_sampled": 29955
+    },
+    {
+      "unit": "keyed::GLOBAL_BLOCK_P1::J5",
+      "arm": "GLOBAL_BLOCK_P1",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.7333333492279053,
+      "hit_any_member": 0.7333333333333333,
+      "snr_margin_mean": 0.0038311153184622526,
+      "n_trials": 30
+    },
+    {
+      "unit": "semantic::GLOBAL_DENSE_RELOCK",
+      "arm": "GLOBAL_DENSE_RELOCK",
+      "kind": "semantic",
+      "spearman_all": 0.06905892975425369,
+      "pearson_all": 0.08308227244319873,
+      "hi80_cos": 0.9999651312828064,
+      "hi80_n": 14,
+      "hi80_teacher_mean": 0.8363779187202454,
+      "hi80_calib_err": 0.16358721256256104,
+      "ret_agree10": 0.01574999999999997,
+      "n_pairs_sampled": 29955
+    },
+    {
+      "unit": "keyed::GLOBAL_BLOCK_RELOCK::J5",
+      "arm": "GLOBAL_BLOCK_RELOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.04989228770136833,
+      "n_trials": 30
+    },
+    {
+      "unit": "shuffled_key::GLOBAL_BLOCK_RELOCK::J5",
+      "arm": "GLOBAL_BLOCK_RELOCK",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0019797070417553186,
+      "n_trials": 30
+    },
+    {
+      "unit": "keyed::RANDOM_BLOCK::J5",
+      "arm": "RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.3950484097003937,
+      "n_trials": 30
+    }
+  ],
+  "n_units": 6,
+  "expected_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "P1_DENSE": "246000d9c1b8b1bb9492e92095d2196b4dc19c5cb90a10ffd28203adefeafdfb",
+    "RELOCK_DENSE": "a0098abeeef47960758f2222302295b1633621325e4895fc919ca2e24119c687"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "composition_algebra": "SBC_block_local_circular_convolution",
+  "objective": "curriculum: PHASE1 nce=0 geometry (reproduces v3c) then SHORT terminal nce-relock (nce_w=0.5, reduced lr=0.0002, RKD kept ON), monitored keyed+dense, early-stop at keyed>=0.90",
+  "progress_logging": "print_flush_true",
+  "primary_spearman": 0.06905892975425369,
+  "crlb_floor_computed": 0.901,
+  "crlb_formula_reference": "r_max = sigma_teacher / sqrt(sigma_teacher^2 + 0.25/K), K=128 -> 0.901 (dense, unchanged from v2/v3/v3b); keyed 0.90 reachable iff code is valid SBC (RANDOM_BLOCK posctrl acc_at1 ~1.0)",
+  "discriminator_reachability": true,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "baseline_in_band": true,
+  "ts_iso": "2026-07-06T17:41:24.872740+00:00"
+}

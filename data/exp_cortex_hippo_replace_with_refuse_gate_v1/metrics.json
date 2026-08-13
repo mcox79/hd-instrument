@@ -1,0 +1,9 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (primitives self-test)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.061081647872924805,
+  "run_mode": "self_test",
+  "anchor_name": "cortex_hippo_replace_with_refuse_gate_v1",
+  "config_version": "ANCHOR=cortex_hippo_replace_with_refuse_gate_v1,N_c=256,M=10,V_REL=16,beta=2.0,sigma_in=0.05,N_OOD=10,SEEDS=7,RUN_MODE=self_test"
+}

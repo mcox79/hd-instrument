@@ -1,0 +1,180 @@
+{
+  "anchor_name": "depparse_transition_arceager_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: transition beats batch and dynamic beats static, but below the full crown bar (2SE-lo<0.82 or buried-sid margin<0.05 or lc-rise<0.03). UAS batch_local=0.7864 batch_mst=0.7895 | static=0.8051 dynamic=0.8109 (2SE-lo=0.8101, vals=[0.8103, 0.8104, 0.8119]) | dyn-static=+0.0058 | buried-sid batch=0.2727 dynamic=0.2303 (d=-0.0424, n=55) | learning-curve 0.7740->0.8108 rise=+0.0368 | beam=0.7528",
+  "summary": "MIDDLE_BAND: transition beats batch and dynamic beats static, but below the full crown bar (2SE-lo<0.82 or buried-sid margin<0.05 or lc-rise<0.03). UAS batch_local=0.7864 batch_mst=0.7895 | static=0.8051 dynamic=0.8109 (2SE-lo=0.8101, vals=[0.8103, 0.8104, 0.8119]) | dyn-static=+0.0058 | buried-sid batch=0.2727 dynamic=0.2303 (d=-0.0424, n=55) | learning-curve 0.7740->0.8108 rise=+0.0368 | beam=0.7528",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "n_seeds": 3,
+      "n_train": 12329,
+      "n_dev": 1989,
+      "n_pool": 4050,
+      "n_buried": 55,
+      "n_easy": 1286,
+      "batch_local_uas": 0.7864,
+      "batch_mst_uas_cited": 0.7895,
+      "batch_buried_sid": 0.2727,
+      "batch_easy_sid": 0.9425,
+      "batch_all_sid": 0.8799,
+      "static_uas_mean": 0.8051,
+      "static_uas_vals": [
+        0.8074,
+        0.8037,
+        0.8042
+      ],
+      "dynamic_uas_mean": 0.8109,
+      "dynamic_uas_vals": [
+        0.8103,
+        0.8104,
+        0.8119
+      ],
+      "dynamic_uas_se": 0.0004,
+      "dynamic_uas_mean_minus_2se": 0.8101,
+      "dynamic_buried_sid_mean": 0.2303,
+      "dynamic_buried_sid_vals": [
+        0.2182,
+        0.2545,
+        0.2182
+      ],
+      "dynamic_easy_sid_mean": 0.9347,
+      "dynamic_all_sid_mean": 0.8909,
+      "learning_curve": {
+        "0.10": {
+          "n_train": 1233,
+          "uas": 0.774
+        },
+        "0.25": {
+          "n_train": 3082,
+          "uas": 0.7929
+        },
+        "0.50": {
+          "n_train": 6164,
+          "uas": 0.8013
+        },
+        "1.00": {
+          "n_train": 12329,
+          "uas": 0.8108
+        }
+      },
+      "lc_lo_uas": 0.774,
+      "lc_hi_uas": 0.8108,
+      "lc_rise": 0.0368,
+      "lc_points": 4,
+      "lc_expected_points": 4,
+      "beam_uas": 0.7528,
+      "beam_width": 4,
+      "dyn_minus_static": 0.0058,
+      "arms_differ_batch_vs_transition": true,
+      "arms_differ_static_vs_dynamic": true,
+      "stack_depth_readout_sample": {
+        "sentence_tokens": [
+          "From",
+          "the",
+          "AP",
+          "comes",
+          "this",
+          "story",
+          ":"
+        ],
+        "per_token_stack_depth": {
+          "1": 2,
+          "2": 3,
+          "3": 2,
+          "4": 2,
+          "5": 3,
+          "6": 3,
+          "7": 3
+        },
+        "note": "depth[k] = stack size when token k first pushed; inspectable per-token embedding depth"
+      }
+    }
+  ],
+  "elapsed_s": 789.1953203678131,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "discrete parse accuracy, no noise floor",
+  "cardinality_ok": true,
+  "n_train": 12329,
+  "n_dev": 1989,
+  "n_pool": 4050,
+  "n_buried": 55,
+  "n_easy": 1286,
+  "batch_local_uas": 0.7864,
+  "batch_mst_uas_cited": 0.7895,
+  "batch_buried_sid": 0.2727,
+  "batch_easy_sid": 0.9425,
+  "batch_all_sid": 0.8799,
+  "static_uas_mean": 0.8051,
+  "static_uas_vals": [
+    0.8074,
+    0.8037,
+    0.8042
+  ],
+  "dynamic_uas_mean": 0.8109,
+  "dynamic_uas_vals": [
+    0.8103,
+    0.8104,
+    0.8119
+  ],
+  "dynamic_uas_se": 0.0004,
+  "dynamic_uas_mean_minus_2se": 0.8101,
+  "dynamic_buried_sid_mean": 0.2303,
+  "dynamic_buried_sid_vals": [
+    0.2182,
+    0.2545,
+    0.2182
+  ],
+  "dynamic_easy_sid_mean": 0.9347,
+  "dynamic_all_sid_mean": 0.8909,
+  "learning_curve": {
+    "0.10": {
+      "n_train": 1233,
+      "uas": 0.774
+    },
+    "0.25": {
+      "n_train": 3082,
+      "uas": 0.7929
+    },
+    "0.50": {
+      "n_train": 6164,
+      "uas": 0.8013
+    },
+    "1.00": {
+      "n_train": 12329,
+      "uas": 0.8108
+    }
+  },
+  "lc_lo_uas": 0.774,
+  "lc_hi_uas": 0.8108,
+  "lc_rise": 0.0368,
+  "lc_points": 4,
+  "lc_expected_points": 4,
+  "beam_uas": 0.7528,
+  "beam_width": 4,
+  "dyn_minus_static": 0.0058,
+  "arms_differ_batch_vs_transition": true,
+  "arms_differ_static_vs_dynamic": true,
+  "stack_depth_readout_sample": {
+    "sentence_tokens": [
+      "From",
+      "the",
+      "AP",
+      "comes",
+      "this",
+      "story",
+      ":"
+    ],
+    "per_token_stack_depth": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 3
+    },
+    "note": "depth[k] = stack size when token k first pushed; inspectable per-token embedding depth"
+  }
+}

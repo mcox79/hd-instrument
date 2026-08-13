@@ -1,0 +1,478 @@
+{
+  "verdict": "HARD_FAIL_CG_MEMORIZED_SEARCH",
+  "verdict_msg": "HARD_FAIL_CG_MEMORIZED_SEARCH || NO_CLEANUP @1=0.092 @2=0.012(collapses=True) || MEMORYLESS @1=0.463(in_band=True) @2=0.124 || SUPPLIED @1=0.744 @2=0.494(fires=True) || KNOWN_T_FULL @1=0.630 @2=0.438(SEARCH-baseline) || HELD-OUT[n=1021]: LEARNED @1=0.362 @2=0.115 | MEMCTRL @2=0.042 | CODEALIAS @2=0.104 | ho_mem @2=0.017 | ho_knownT @2=0.462 || CG: ratio(learned/ho_knownT)=0.248 d(learned-memctrl)=0.072 d(learned-codealias)=0.011 d(learned-ho_mem)=0.098 codes_necessary=False smoothing_necessary=True || HARD_PASS(learned2>=0.32 AND beats both ctrls)=False HARD_FAIL(learned2<=0.20 OR codes_do_nothing OR learned<=memctrl)=True || repro(full=True): mem1=True sup1=True sup2=True knownT2=True || withheld=30.0% nodes=4440 E=14767 seeds=3 run=full",
+  "summary": "HARD_FAIL_CG_MEMORIZED_SEARCH || NO_CLEANUP @1=0.092 @2=0.012(collapses=True) || MEMORYLESS @1=0.463(in_band=True) @2=0.124 || SUPPLIED @1=0.744 @2=0.494(fires=True) || KNOWN_T_FULL @1=0.630 @2=0.438(",
+  "run_mode": "full",
+  "elapsed_s": 35.29407150001498,
+  "anchor_name": "grounding_learned_sr_heldout_reasoning_v1",
+  "ts_iso": "2026-07-10T00:40:00.847820+00:00",
+  "device": "cuda",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "n_nodes": 5000,
+    "epochs": 140,
+    "batch": 512,
+    "code_dim": 2048,
+    "feat_dim": 8192,
+    "temp": 0.1,
+    "lr": 0.008,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_bind": 1.0,
+    "n_chains": 4000,
+    "chain_chunk": 256
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 4440,
+    "n_edges": 14767,
+    "median_degree": 4.0,
+    "mean_degree": 6.651801801801802,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 14767
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_CG_MEMORIZED_SEARCH",
+    "reach": {
+      "NO_CLEANUP": {
+        "1": 0.0923333391547203,
+        "2": 0.011500000643233458,
+        "3": 0.001250000069073091,
+        "4": 0.0005000000237487257
+      },
+      "MEMORYLESS": {
+        "1": 0.46275002757708233,
+        "2": 0.12400000542402267,
+        "3": 0.04216666892170906,
+        "4": 0.01600000075995922
+      },
+      "SUPPLIED_WAYPOINT": {
+        "1": 0.7441667119661967,
+        "2": 0.4938333531220754,
+        "3": 0.37041669090588886,
+        "4": 0.1431666761636734
+      },
+      "KNOWN_T_FULL": {
+        "1": 0.6296666860580444,
+        "2": 0.43808335065841675,
+        "3": 0.42275001605351764,
+        "4": 0.6389166911443075
+      },
+      "LEARNED_HELDOUT": {
+        "1": 0.3616621494293213,
+        "2": 0.11475750803947449,
+        "3": 0.11482144892215729,
+        "4": 0.23885025084018707
+      },
+      "HELDOUT_MEMCTRL": {
+        "1": 0.13326807816823324,
+        "2": 0.04244950910409292,
+        "3": 0.04775939881801605,
+        "4": 0.13918546587228775
+      },
+      "HELDOUT_CODEALIAS": {
+        "1": 0.3321857849756877,
+        "2": 0.10401340325673421,
+        "3": 0.09505583345890045,
+        "4": 0.20192724963029227
+      }
+    },
+    "cg": {
+      "learned_heldout_reach1": 0.3616621494293213,
+      "learned_heldout_reach2": 0.11475750803947449,
+      "memctrl_reach2": 0.04244950910409292,
+      "codealias_reach2": 0.10401340325673421,
+      "heldout_memoryless_reach2": 0.01719527008632819,
+      "heldout_known_t_full_reach2": 0.4618086020151774,
+      "known_t_full_reach2_general": 0.43808335065841675,
+      "ratio_vs_knownT_heldout": 0.24849582172941628,
+      "delta_vs_memctrl": 0.07230799893538156,
+      "delta_vs_codealias": 0.01074410478274028,
+      "delta_vs_heldout_mem": 0.0975622379531463,
+      "codes_necessary": false,
+      "smoothing_necessary": true,
+      "cg_hard_pass": false,
+      "cg_hard_fail": true,
+      "n_heldout_chains": 1021
+    },
+    "anti_sat": {
+      "hop1_present": true,
+      "baseline_in_band": true,
+      "baseline_collapses": true,
+      "supplied_fires": true,
+      "enough_heldout": true
+    },
+    "positive_control": {
+      "is_full": true,
+      "repro_mem1": 0.46275002757708233,
+      "repro_sup1": 0.7441667119661967,
+      "repro_sup2": 0.4938333531220754,
+      "repro_knownt2": 0.43808335065841675,
+      "repro_mem1_ok": true,
+      "repro_sup1_ok": true,
+      "repro_sup2_ok": true,
+      "repro_knownt2_ok": true,
+      "repro_ok": true,
+      "anchors": {
+        "mem1": 0.453,
+        "sup1": 0.756,
+        "sup2": 0.5,
+        "knownT2": 0.434,
+        "tol": 0.1
+      }
+    },
+    "bands": {
+      "CG_HARD_PASS": 0.32,
+      "CG_HARD_FAIL": 0.2,
+      "NEC_MARGIN": 0.05,
+      "WITHHELD_FRAC": 0.3,
+      "SMOOTH_K": 8,
+      "SMOOTH_TEMP": 0.1,
+      "SR_GAMMA_PRIMARY": 0.85,
+      "SR_BOOST": 1.5,
+      "MIN_HELDOUT_CHAINS": 40
+    }
+  },
+  "mechanism_selftest": {
+    "n_synth": 1540,
+    "n_heldout": 140,
+    "n_withheld": 560,
+    "reach_no_cleanup": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0
+    },
+    "reach_known_full": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "reach_learned": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "reach_memctrl": {
+      "1": 0.2286,
+      "2": 0.2286,
+      "3": 0.2286,
+      "4": 0.2286
+    },
+    "reach_codealias": {
+      "1": 0.2214,
+      "2": 0.2214,
+      "3": 0.2214,
+      "4": 0.2214
+    },
+    "nocleanup_ran": true,
+    "known_recovers": true,
+    "learned_recovers": true,
+    "learned_beats_memctrl": true,
+    "codes_necessary": true,
+    "arms_differ": true,
+    "Dmax": 4
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "arms": {
+        "NO_CLEANUP": {
+          "reach": {
+            "1": 0.09200000762939453,
+            "2": 0.01100000087171793,
+            "3": 0.0012500000884756446,
+            "4": 0.0010000000474974513
+          }
+        },
+        "MEMORYLESS": {
+          "reach": {
+            "1": 0.4635000228881836,
+            "2": 0.12075000256299973,
+            "3": 0.03825000301003456,
+            "4": 0.011250000447034836
+          }
+        },
+        "SUPPLIED_WAYPOINT": {
+          "reach": {
+            "1": 0.7442500591278076,
+            "2": 0.492000013589859,
+            "3": 0.3800000250339508,
+            "4": 0.1392500102519989
+          }
+        },
+        "KNOWN_T_FULL": {
+          "reach": {
+            "1": 0.6292500495910645,
+            "2": 0.4335000216960907,
+            "3": 0.421750009059906,
+            "4": 0.6335000395774841
+          }
+        },
+        "LEARNED_HELDOUT": {
+          "reach": {
+            "1": 0.3864207863807678,
+            "2": 0.11399832367897034,
+            "3": 0.1173512190580368,
+            "4": 0.283319354057312
+          }
+        },
+        "HELDOUT_MEMCTRL": {
+          "reach": {
+            "1": 0.13495390117168427,
+            "2": 0.04107292741537094,
+            "3": 0.049455154687166214,
+            "4": 0.18860016763210297
+          }
+        },
+        "HELDOUT_CODEALIAS": {
+          "reach": {
+            "1": 0.32439228892326355,
+            "2": 0.09471919387578964,
+            "3": 0.08885163813829422,
+            "4": 0.24056999385356903
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "f6fbc2e4c2264eccbb6f4601d433ded19d8697aec3ae251ba1d7b2b25fa023bd",
+        "MEMORYLESS": "c625044282fc8c50d40c4e6304419a228319fce06fd31fd9b40e57c4931d3930",
+        "SUPPLIED_WAYPOINT": "8c29e268e0878470277618b6f4e28ffffc6c08e0abfefa74668097d615a72b49",
+        "KNOWN_T_FULL": "e298cee68e422aee872b7db9438529402a4321b58751ff225170a973f69a8104",
+        "LEARNED_HELDOUT": "c14caf26b9e908872897c090f9a3aac2905eb452d02ce3c5d202e0c273c69f75",
+        "HELDOUT_MEMCTRL": "d5e077d8a47493ccb9ecddeeec1d6bea33879714794776fdc818d36c9af17159",
+        "HELDOUT_CODEALIAS": "884cc4130e86ac0c9bf2a2504684113fab34ef792a2e831744b3a4beaa4713f9"
+      },
+      "heldout_refs": {
+        "memoryless": {
+          "1": 0.1751886010169983,
+          "2": 0.018440905958414078,
+          "3": 0.005867560859769583,
+          "4": 0.0033528918866068125
+        },
+        "known_t_full": {
+          "1": 0.6974015235900879,
+          "2": 0.45096394419670105,
+          "3": 0.46521374583244324,
+          "4": 0.6445934772491455
+        }
+      },
+      "n_withheld": 1332,
+      "withheld_frac_actual": 0.3,
+      "n_heldout_chains": 1193,
+      "n_general": 4000,
+      "code_dim": 2048
+    },
+    {
+      "seed": 13,
+      "arms": {
+        "NO_CLEANUP": {
+          "reach": {
+            "1": 0.07875000685453415,
+            "2": 0.01075000036507845,
+            "3": 0.0020000000949949026,
+            "4": 0.0
+          }
+        },
+        "MEMORYLESS": {
+          "reach": {
+            "1": 0.445000022649765,
+            "2": 0.12350000441074371,
+            "3": 0.04475000128149986,
+            "4": 0.01925000175833702
+          }
+        },
+        "SUPPLIED_WAYPOINT": {
+          "reach": {
+            "1": 0.7427500486373901,
+            "2": 0.49500003457069397,
+            "3": 0.3615000247955322,
+            "4": 0.14525000751018524
+          }
+        },
+        "KNOWN_T_FULL": {
+          "reach": {
+            "1": 0.6347500085830688,
+            "2": 0.44475001096725464,
+            "3": 0.42350003123283386,
+            "4": 0.6387500166893005
+          }
+        },
+        "LEARNED_HELDOUT": {
+          "reach": {
+            "1": 0.3254770040512085,
+            "2": 0.10998877882957458,
+            "3": 0.10886644572019577,
+            "4": 0.222222238779068
+          }
+        },
+        "HELDOUT_MEMCTRL": {
+          "reach": {
+            "1": 0.13131313025951385,
+            "2": 0.04040404409170151,
+            "3": 0.044893380254507065,
+            "4": 0.11784512549638748
+          }
+        },
+        "HELDOUT_CODEALIAS": {
+          "reach": {
+            "1": 0.3265993297100067,
+            "2": 0.10213243961334229,
+            "3": 0.0953984335064888,
+            "4": 0.191919207572937
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "17bc29ea2f53c2d8baba97dfab472f19712abae910b0b77b2510c9bcf12e8608",
+        "MEMORYLESS": "92a2a1b0b88746002a381b1d2720acab47327b678fc65b8274e01be6d314ae65",
+        "SUPPLIED_WAYPOINT": "2b34ff2e908b579d4b29d0f70fae100e70d4e26aa5268bab643c4eed70da2017",
+        "KNOWN_T_FULL": "be90aef413b8d3cc7cf7c2b1b69ca82fcc1b4287b443a39c708357deda8294ad",
+        "LEARNED_HELDOUT": "1c90232df7105e7510eecc16080745e3dd291847788911d167c74eb394b05941",
+        "HELDOUT_MEMCTRL": "11ab0724f0ffa94fb2dce994b95075959be6605b283a032ba7d9cd34805a0edd",
+        "HELDOUT_CODEALIAS": "b24db6e87acc32dea4f42ec1b2494e99cc2c09d498cd4d419856f0daeac574f8"
+      },
+      "heldout_refs": {
+        "memoryless": {
+          "1": 0.1672278344631195,
+          "2": 0.016835017129778862,
+          "3": 0.005611672531813383,
+          "4": 0.0044893380254507065
+        },
+        "known_t_full": {
+          "1": 0.6632996797561646,
+          "2": 0.4523008167743683,
+          "3": 0.4702581465244293,
+          "4": 0.6644220352172852
+        }
+      },
+      "n_withheld": 1332,
+      "withheld_frac_actual": 0.3,
+      "n_heldout_chains": 891,
+      "n_general": 4000,
+      "code_dim": 2048
+    },
+    {
+      "seed": 17,
+      "arms": {
+        "NO_CLEANUP": {
+          "reach": {
+            "1": 0.10625000298023224,
+            "2": 0.012750000692903996,
+            "3": 0.0005000000237487257,
+            "4": 0.0005000000237487257
+          }
+        },
+        "MEMORYLESS": {
+          "reach": {
+            "1": 0.47975003719329834,
+            "2": 0.12775000929832458,
+            "3": 0.04350000247359276,
+            "4": 0.017500000074505806
+          }
+        },
+        "SUPPLIED_WAYPOINT": {
+          "reach": {
+            "1": 0.7455000281333923,
+            "2": 0.4945000112056732,
+            "3": 0.3697500228881836,
+            "4": 0.14500001072883606
+          }
+        },
+        "KNOWN_T_FULL": {
+          "reach": {
+            "1": 0.625,
+            "2": 0.4360000193119049,
+            "3": 0.4230000078678131,
+            "4": 0.6445000171661377
+          }
+        },
+        "LEARNED_HELDOUT": {
+          "reach": {
+            "1": 0.37308865785598755,
+            "2": 0.12028542160987854,
+            "3": 0.11824668198823929,
+            "4": 0.2110091596841812
+          }
+        },
+        "HELDOUT_MEMCTRL": {
+          "reach": {
+            "1": 0.1335372030735016,
+            "2": 0.0458715558052063,
+            "3": 0.04892966151237488,
+            "4": 0.1111111044883728
+          }
+        },
+        "HELDOUT_CODEALIAS": {
+          "reach": {
+            "1": 0.3455657362937927,
+            "2": 0.11518857628107071,
+            "3": 0.10091742873191833,
+            "4": 0.17329254746437073
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "5834d9a7af7d05ed911882dd3fc652e61b25aa78f478c23610231941189ccae5",
+        "MEMORYLESS": "66a827f9b60c4fa9001ed8868473e279e6788ec2bd274f20091cfe2867f088aa",
+        "SUPPLIED_WAYPOINT": "1b6ff31f2776028572453f0bca0c7d01caabdd1b63982121c8565bc6ff03b774",
+        "KNOWN_T_FULL": "f8b249842fafbe55fc2e7493effd42e122451046f94cf543956bedebdf600353",
+        "LEARNED_HELDOUT": "fc0128b9b3ce6aad37e06b06495a9fca29715ab824a7235ccf8e1ce4815beb9a",
+        "HELDOUT_MEMCTRL": "de75695f6ee937255b6e26387c921eaace74271b73890516eae7c1d8eb6b2baf",
+        "HELDOUT_CODEALIAS": "fe3ce3d31fd1f94845b3604334498407acd4c44f58977d99366c4f5f762c4909"
+      },
+      "heldout_refs": {
+        "memoryless": {
+          "1": 0.17533129453659058,
+          "2": 0.016309887170791626,
+          "3": 0.008154943585395813,
+          "4": 0.0040774717926979065
+        },
+        "known_t_full": {
+          "1": 0.6758409738540649,
+          "2": 0.4821610450744629,
+          "3": 0.4943934679031372,
+          "4": 0.6738021969795227
+        }
+      },
+      "n_withheld": 1332,
+      "withheld_frac_actual": 0.3,
+      "n_heldout_chains": 981,
+      "n_general": 4000,
+      "code_dim": 2048
+    }
+  ]
+}

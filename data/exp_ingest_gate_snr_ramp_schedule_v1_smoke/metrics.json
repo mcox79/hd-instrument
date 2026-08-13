@@ -1,0 +1,382 @@
+{
+  "anchor_name": "ingest_gate_snr_ramp_schedule_v1",
+  "elapsed_s": 0.12,
+  "ts_iso": "2026-07-16T19:07:42.273585+00:00",
+  "n_seeds": 1,
+  "config": {
+    "M": 8,
+    "core_size": 7,
+    "sat_size": 2,
+    "n_outlier": 20,
+    "n_distractor": 22,
+    "noise_low": 0.05,
+    "noise_high": 0.35,
+    "seeds": [
+      7
+    ],
+    "fixed_grid": [
+      0.0,
+      0.1,
+      0.25,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ]
+  },
+  "params": {
+    "RECURRENCE_MIN": 3,
+    "STRICT_THR": 0.6,
+    "PERMISSIVE_THR": 0.0,
+    "SR_BAR": 0.4,
+    "SR_LO": 0.15,
+    "SR_HI": 0.6,
+    "SR_WINDOW": 50
+  },
+  "bands": {
+    "HP_MARGIN_FIXED": 0.05,
+    "HP_MARGIN_TIME": 0.03,
+    "HP_BOOTSTRAP_DELTA": 0.2,
+    "HP_NULL_TOL": 0.04,
+    "HP_SHIFT_MIN_FRAC": 0.06
+  },
+  "telemetry": {
+    "base": "ADMIT",
+    "flip_recurrence": "DISCARD",
+    "flip_schema": "SKIP",
+    "recurrence_flips": true,
+    "schema_flips": true,
+    "threshold_responds": true
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "verdict": "HARD_FAIL_snr_trigger_refuted_schedule_concept_validated_by_time_clock",
+  "verdict_msg": "HIGH: snr_ba=0.732 bestfixed_ba=0.714 (thr=0.0) time_ba=1.000 | d_fixed=+0.018 d_time=-0.268 | boot: snr_ph=0.44 strictfixed_ph=0.00 d=+0.44 | NULL: snr=0.986 fixed=1.000 d=0.014 | trigger: tf_low=0.32 tf_high=0.39 shift=+0.08 (peaksucc 0.303/0.380) | LOW: snr=0.761 fixed=0.714 time=1.000 | tele=True arms_differ=True",
+  "summary": "HARD_FAIL_snr_trigger_refuted_schedule_concept_validated_by_time_clock | SCHEDULE(time)-vs-fixed=+0.286 | snr-vs-fixed=+0.018 snr-vs-time=-0.268 bootstrap_delta=+0.44",
+  "gates": {
+    "HP_SNR_BEATS_FIXED": false,
+    "HP_SNR_BEATS_TIME": false,
+    "HP_BOOTSTRAP": true,
+    "HP_NULL_GUARD": true,
+    "HP_SNR_NOT_TIME": true,
+    "HP_BASE_IN_BAND": true,
+    "HP_ARMS_DIFFER": true,
+    "HP_TELEMETRY": true,
+    "SCHEDULE_TIME_BEATS_FIXED": true
+  },
+  "joint_hard_pass": false,
+  "run_mode": "smoke",
+  "agg": {
+    "snr_ba_high": 0.7321428571428572,
+    "best_fixed_ba_high": 0.7142857142857143,
+    "time_ba_high": 1.0,
+    "snr_ba_low": 0.7607142857142857,
+    "best_fixed_ba_low": 0.7142857142857143,
+    "time_ba_low": 1.0,
+    "snr_ba_null": 0.9857142857142858,
+    "best_fixed_ba_null": 1.0,
+    "snr_placeholder_high": 0.4375,
+    "strict_fixed_placeholder_high": 0.0,
+    "bootstrap_delta": 0.4375,
+    "schedule_time_vs_fixed_high": 0.2857142857142857,
+    "peak_success_low": 0.30303030303030304,
+    "peak_success_high": 0.38,
+    "snr_tighten_frac_low": 0.31868131868131866,
+    "snr_tighten_frac_high": 0.3939393939393939,
+    "tighten_shift": 0.07525807525807526,
+    "d_fixed_high": 0.017857142857142905,
+    "d_time_high": -0.2678571428571428
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "time_window": [
+        0.65,
+        0.85
+      ],
+      "time_ba_low_calibration": 1.0,
+      "snr_sr_hi": 0.4,
+      "snr_ba_low_calibration": 0.7607142857142857,
+      "low": {
+        "scenario": "structured",
+        "noise_frac": 0.05,
+        "N": 92,
+        "stream_len": 91,
+        "n_true": 86,
+        "n_noise": 5,
+        "time_window": [
+          0.65,
+          0.85
+        ],
+        "snr": {
+          "ba": 0.7607142857142857,
+          "tpr": 0.5214285714285715,
+          "tnr": 1.0,
+          "f1": 0.6666666666666666,
+          "counts": {
+            "backbone": {
+              "admit": 24,
+              "total": 48
+            },
+            "placeholder": {
+              "admit": 8,
+              "total": 16
+            },
+            "distractor": {
+              "admit": 0,
+              "total": 22
+            },
+            "noise": {
+              "admit": 0,
+              "total": 5
+            }
+          },
+          "placeholder_rate": 0.5,
+          "peak_success": 0.30303030303030304,
+          "tighten_frac": 0.31868131868131866
+        },
+        "best_fixed": {
+          "thr": 0.0,
+          "ba": 0.7142857142857143,
+          "f1": 0.8533333333333333,
+          "placeholder_rate": 1.0
+        },
+        "strict_fixed": {
+          "thr": 1.0,
+          "ba": 0.5,
+          "placeholder_rate": 0.0
+        },
+        "fixed_sweep": [
+          {
+            "thr": 0.0,
+            "ba": 0.7142857142857143,
+            "f1": 0.8533333333333333
+          },
+          {
+            "thr": 0.1,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.25,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.4,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.6,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.8,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 1.0,
+            "ba": 0.5,
+            "f1": 0.0
+          }
+        ],
+        "time": {
+          "ba": 1.0,
+          "f1": 1.0,
+          "placeholder_rate": 1.0,
+          "tighten_frac": 0.7582417582417582
+        }
+      },
+      "high": {
+        "scenario": "structured",
+        "noise_frac": 0.35,
+        "N": 92,
+        "stream_len": 132,
+        "n_true": 86,
+        "n_noise": 46,
+        "time_window": [
+          0.65,
+          0.85
+        ],
+        "snr": {
+          "ba": 0.7321428571428572,
+          "tpr": 0.4642857142857143,
+          "tnr": 1.0,
+          "f1": 0.6526315789473685,
+          "counts": {
+            "backbone": {
+              "admit": 24,
+              "total": 48
+            },
+            "placeholder": {
+              "admit": 7,
+              "total": 16
+            },
+            "distractor": {
+              "admit": 0,
+              "total": 22
+            },
+            "noise": {
+              "admit": 0,
+              "total": 46
+            }
+          },
+          "placeholder_rate": 0.4375,
+          "peak_success": 0.38,
+          "tighten_frac": 0.3939393939393939
+        },
+        "best_fixed": {
+          "thr": 0.0,
+          "ba": 0.7142857142857143,
+          "f1": 0.8533333333333333,
+          "placeholder_rate": 1.0
+        },
+        "strict_fixed": {
+          "thr": 1.0,
+          "ba": 0.5,
+          "placeholder_rate": 0.0
+        },
+        "fixed_sweep": [
+          {
+            "thr": 0.0,
+            "ba": 0.7142857142857143,
+            "f1": 0.8533333333333333
+          },
+          {
+            "thr": 0.1,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.25,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.4,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.6,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.8,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 1.0,
+            "ba": 0.5,
+            "f1": 0.0
+          }
+        ],
+        "time": {
+          "ba": 1.0,
+          "f1": 1.0,
+          "placeholder_rate": 1.0,
+          "tighten_frac": 0.75
+        }
+      },
+      "null": {
+        "scenario": "null",
+        "noise_frac": 0.35,
+        "N": 76,
+        "stream_len": 74,
+        "n_true": 48,
+        "n_noise": 26,
+        "time_window": [
+          0.65,
+          0.85
+        ],
+        "snr": {
+          "ba": 0.9857142857142858,
+          "tpr": 0.9714285714285714,
+          "tnr": 1.0,
+          "f1": 0.9787234042553191,
+          "counts": {
+            "backbone": {
+              "admit": 46,
+              "total": 48
+            },
+            "placeholder": {
+              "admit": 0,
+              "total": 0
+            },
+            "distractor": {
+              "admit": 0,
+              "total": 0
+            },
+            "noise": {
+              "admit": 0,
+              "total": 26
+            }
+          },
+          "placeholder_rate": 0.0,
+          "peak_success": 0.34,
+          "tighten_frac": 0.9054054054054054
+        },
+        "best_fixed": {
+          "thr": 0.0,
+          "ba": 1.0,
+          "f1": 1.0,
+          "placeholder_rate": 0.0
+        },
+        "strict_fixed": {
+          "thr": 1.0,
+          "ba": 0.5,
+          "placeholder_rate": 0.0
+        },
+        "fixed_sweep": [
+          {
+            "thr": 0.0,
+            "ba": 1.0,
+            "f1": 1.0
+          },
+          {
+            "thr": 0.1,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.25,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.4,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.6,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 0.8,
+            "ba": 0.5,
+            "f1": 0.0
+          },
+          {
+            "thr": 1.0,
+            "ba": 0.5,
+            "f1": 0.0
+          }
+        ],
+        "time": {
+          "ba": 0.85,
+          "f1": 0.8837209302325582,
+          "placeholder_rate": 0.0,
+          "tighten_frac": 0.7567567567567568
+        }
+      },
+      "arms_differ": true
+    }
+  ]
+}

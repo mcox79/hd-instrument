@@ -1,0 +1,103 @@
+{
+  "anchor_name": "agreement_word_prediction_rep_number_probe_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_PREDICTION_REP_DOES_NOT_ENCODE_NUMBER",
+  "verdict_msg": "HARD_FAIL_PREDICTION_REP_DOES_NOT_ENCODE_NUMBER | LITERAL Elman test (structure in the REPRESENTATION, not the residual) | the prediction-induced rep does NOT carry the subject's number recoverable by an inspectable probe: winner-probe pred-rep SNF=0.6258 vs majority 0.6269 (need >=0.7269), margin vs raw-bind=-0.0048 (need >=0.05; raw SNF=0.6306), word-order-shuffle drop=-0.0334 (need >=0.10). AIRTIGHT induction-arc conclusion: glass-box prediction WORKS (stage0 in-vocab lift=-0.0004) but does NOT shape its representation to encode induced structure -- b2 (chunking) + dense + sparse-residual + this (representation) all exhausted; the representation-shaping step is gradient-dependent (the precisely-localized b2 wall). A real CG needs a different mechanism. probes: pred_proto=0.5908 pred_lin=0.6258 raw_proto=0.5844 raw_lin=0.6306 | E=4,f=0.20,center,win=10,D=4096 subj-in-window=0.7277 | glass-box closed-form probe (no gradient).",
+  "summary": "HARD_FAIL_PREDICTION_REP_DOES_NOT_ENCODE_NUMBER | LITERAL Elman test (structure in the REPRESENTATION, not the residual) | the prediction-induced rep does NOT carry the subject's number recoverable by an inspectable probe: winner-probe pred-rep SNF=0.6258 vs majority 0.6269 (need >=0.7269), margin vs raw-bind=-0.0048 (need >=0.05; raw SNF=0.6306), word-order-shuffle drop=-0.0334 (need >=0.10). AIRTIGHT induction-arc conclusion: glass-box prediction WORKS (stage0 in-vocab lift=-0.0004) but does NOT shape its representation to encode induced structure -- b2 (chunking) + dense + sparse-residual + this (representation) all exhausted; the representation-shaping step is gradient-dependent (the precisely-localized b2 wall). A real CG needs a different mechanism. probes: pred_proto=0.5908 pred_lin=0.6258 raw_proto=0.5844 raw_lin=0.6306 | E=4,f=0.20,center,win=10,D=4096 subj-in-window=0.7277 | glass-box closed-form probe (no gradient).",
+  "elapsed_s": 141.16,
+  "ts_iso": "2026-07-22T19:40:10.283402+00:00",
+  "seeds": [
+    7
+  ],
+  "n_seed_rows": 1,
+  "expected_n_seed_rows": 1,
+  "cardinality_ok": true,
+  "N_DIM": 1024,
+  "VOCAB_CAP": 2000,
+  "cfg": {
+    "E": 4,
+    "f": 0.2,
+    "method": "center",
+    "window": 10
+  },
+  "ridge_lam": 1.0,
+  "bands": {
+    "MAJORITY_BAR": 0.6269,
+    "HEADTRACK_MARGIN": 0.1,
+    "RAW_MARGIN": 0.05,
+    "SHUFFLE_DROP_MIN": 0.1,
+    "NARROW_SHUFFLE_LO": 0.05
+  },
+  "summary_metrics": {
+    "pred_rep_snf": 0.6258,
+    "raw_bind_snf": 0.6306,
+    "shuffle_snf": 0.6592,
+    "snf_pred_proto": 0.5908,
+    "snf_pred_linear": 0.6258,
+    "snf_raw_proto": 0.5844,
+    "snf_raw_linear": 0.6306,
+    "majority_bar_cited": 0.6269,
+    "abl_floor_cited": 0.4889,
+    "snf_majority_local": 0.5955,
+    "margin_vs_raw": -0.0048,
+    "shuffle_drop": -0.0334,
+    "stage0_invocab_lift": -0.0004,
+    "subj_in_window_frac": 0.7277,
+    "winners_per_seed": [
+      "ridge_linear"
+    ],
+    "arms_differ_all": true,
+    "raw_margin_required": 0.05,
+    "shuffle_drop_min": 0.1,
+    "verdict_band": "HARD_FAIL"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_train": 4000,
+      "n_test": 1500,
+      "n_snf": 628,
+      "novel_lexeme_disjoint": true,
+      "n_train_subj_lex": 1452,
+      "n_test_subj_lex": 651,
+      "vocab_size": 2001,
+      "subj_in_window_frac": 0.7277,
+      "snf_majority_local": 0.5955,
+      "stage0_invocab_lift": -0.0004,
+      "stage0_invocab_ca3": 0.0827,
+      "stage0_invocab_unigram": 0.0831,
+      "stage0_unk_rate": 0.264,
+      "rep_dim": 4096,
+      "snf_pred_proto": 0.5908,
+      "snf_raw_proto": 0.5844,
+      "snf_pred_linear": 0.6258,
+      "snf_raw_linear": 0.6306,
+      "snf_shuffle_pred_proto": 0.6465,
+      "snf_shuffle_pred_linear": 0.6592,
+      "all_pred_proto": 0.6013,
+      "all_raw_proto": 0.5953,
+      "winner_probe": "ridge_linear",
+      "pred_snf": 0.6258,
+      "raw_snf": 0.6306,
+      "shuffle_snf": 0.6592,
+      "margin_vs_raw": -0.0048,
+      "shuffle_drop": -0.0334,
+      "arms_differ": true,
+      "arm_hashes": {
+        "pred_proto": "6191274d75b7",
+        "raw_proto": "d09aeab86fb1",
+        "pred_lin": "337862ee1fba",
+        "raw_lin": "f520a09d38b5"
+      }
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "chunked_numpy_softshard_sparse_bind_store_plus_closedform_probe_foreground",
+  "crlb_n/a": "real-word agreement representation probe; floor is majority 0.6269 (cited) + the raw-bind baseline probe, not an argmax CRLB",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "glass_box_non_gradient": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "mechanism_note": "LITERAL Elman test: prediction-INDUCED rep (q=M*sparse_key at verb position) vs RAW-BIND rep (sparse_key, no store) -- ONE variable = store applied. Both L2-normalized. Inspectable closed-form probes: prototype (cosine) + ridge-linear ((X^T X + lam I)^-1 X^T y). Discriminator = pred beats SAME probe on raw by >=0.05. Structure-shuffle = word-order permutation (bag preserved, syntax destroyed) drop >=0.1. Novel-lexeme held-out (subjects disjoint; random per-token atoms).",
+  "no_store_write_no_push_no_atom_bank": true
+}

@@ -1,0 +1,32 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator + end-to-end held-out eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 14.00422709994018,
+  "discriminator_selftest": {
+    "auc_struct": 0.9434867527173912,
+    "auc_rand": 0.5285326086956522,
+    "auc_lookup_fill": 0.5061141304347826
+  },
+  "data_meta": {
+    "n_grounded_total": 25312,
+    "n_induced_edges_total": 188987,
+    "n_kept_concepts": 500,
+    "n_kept_edges": 49445,
+    "min_deg": 2,
+    "cap_nodes": 500
+  },
+  "split_meta": {
+    "n_train": 399,
+    "n_heldout": 101,
+    "n_eval_heldout": 101,
+    "n_train_anchors": 399,
+    "mean_test_neighbors": 161.8019801980198,
+    "n_train_train_edges": 30920
+  },
+  "encoder_auc": 0.5005682387135167,
+  "shuffle_auc": 0.5070824479665618,
+  "lookup_auc": 0.5031674907925239,
+  "raw_auc": 0.5066321774088923
+}

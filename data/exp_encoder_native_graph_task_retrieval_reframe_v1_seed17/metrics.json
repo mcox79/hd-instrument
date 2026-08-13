@@ -1,0 +1,143 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: native beats the char default (0.1452 vs 0.1199) and/or wins the divergence set (NATIVE_div=0.0543 vs BGE_div=0.0000) but is not cleanly competitive-or-better than BGE overall (NATIVE=0.1452 vs BGE=0.2331). Real graph-relational signal, partial reframe. [OVERALL hits10 NATIVE=0.1452 BGE=0.2331 CHAR=0.1199 GRADED=0.1267 | DIVERGENCE(frac=0.471) hits10 NATIVE=0.0543 BGE=0.0000 CHAR=0.0299 | MRR NATIVE=0.1155 BGE=0.1992 CHAR=0.1135 | n_queries=6186 modz(NATIVE)=691.8 align_frac=1.000]",
+  "summary": "MIDDLE_BAND: native beats the char default (0.1452 vs 0.1199) and/or wins the divergence set (NATIVE_div=0.0543 vs BGE_div=0.0000) but is not cleanly competitive-or-better than BGE overall (NATIVE=0.1",
+  "elapsed_s": 842.4229482000228,
+  "run_mode": "full",
+  "anchor_name": "encoder_native_graph_task_retrieval_reframe_v1_seed17",
+  "seed": 17,
+  "device": "cpu",
+  "N": 4096,
+  "geometry": {
+    "code_dim": 4096,
+    "kb": 32,
+    "blk_l": 128,
+    "m_graded": 5
+  },
+  "task": {
+    "kind": "held_out_link_prediction_retrieval",
+    "ground_truth": "conceptnet_graph",
+    "train_frac": 0.8,
+    "k_hits": 10,
+    "k_div": 50,
+    "n_train_edges": 27727,
+    "n_test_edges": 6932
+  },
+  "comparator": {
+    "source": "BGE_large_v2_name_177899",
+    "role": "eval_comparator_never_ingested",
+    "dim": 1024,
+    "aligned": 10577,
+    "n_nodes": 10577,
+    "align_frac": 1.0
+  },
+  "hits10": {
+    "NATIVE_DENSE": 0.14521286209677123,
+    "NATIVE_GRADED": 0.12668858299298147,
+    "BGE": 0.23311630665823532,
+    "CHAR": 0.11990975554770607
+  },
+  "hits10_divergence": {
+    "NATIVE_DENSE": 0.05434232110339216,
+    "NATIVE_GRADED": 0.042593810050040745,
+    "BGE": 0.0,
+    "CHAR": 0.029869617356744028
+  },
+  "mrr": {
+    "NATIVE_DENSE": 0.11554988428795009,
+    "NATIVE_GRADED": 0.10417489857747442,
+    "BGE": 0.19915694989369237,
+    "CHAR": 0.11347836936003719
+  },
+  "divergence_frac": 0.47090203685742,
+  "n_queries": 6186,
+  "native_minus_bge_overall": -0.0879034445614641,
+  "native_minus_bge_divergence": 0.05434232110339216,
+  "native_minus_char_overall": 0.02530310654906516,
+  "bge_minus_char_overall": 0.11320655111052925,
+  "modularity_z_native_train": 691.8138277301131,
+  "chance_floor": 0.0009455370650529501,
+  "bands": {
+    "train_frac": 0.8,
+    "k_hits": 10,
+    "k_div": 50,
+    "div_min": 0.1,
+    "compete_eps": 0.02,
+    "beat_eps": 0.02,
+    "div_eps": 0.02
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 10577,
+    "n_edges": 34659,
+    "median_degree": 3.0,
+    "mean_degree": 6.553654155242508,
+    "frac_deg_ge_2": 1.0
+  },
+  "config": {
+    "n_nodes": 12000,
+    "epochs": 800,
+    "batch": 512,
+    "k_rewire": 150,
+    "code_dim": 4096,
+    "feat_dim": 8192,
+    "temp": 0.1,
+    "lr": 0.008,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "simgrace_sigma": 0.05
+  },
+  "objective": "native teacher-free relational encoder measured ON THE GRAPH TASK (held-out filtered Hits@10/MRR of TEST graph neighbors) vs BGE (distributional) and char-trigram (lexical default); divergence-set discriminator where graph-relational != BGE-distributional. Reframe: is ret_agree10-vs-BGE the wrong yardstick?",
+  "per_encoder": {
+    "NATIVE_DENSE": {
+      "hits10": 0.14521286209677123,
+      "mrr": 0.11554988428795009,
+      "hits10_div": 0.05434232110339216
+    },
+    "NATIVE_GRADED": {
+      "hits10": 0.12668858299298147,
+      "mrr": 0.10417489857747442,
+      "hits10_div": 0.042593810050040745
+    },
+    "BGE": {
+      "hits10": 0.23311630665823532,
+      "mrr": 0.19915694989369237,
+      "hits10_div": 0.0
+    },
+    "CHAR": {
+      "hits10": 0.11990975554770607,
+      "mrr": 0.11347836936003719,
+      "hits10_div": 0.029869617356744028
+    }
+  },
+  "unit_failures": [],
+  "n_units": 4,
+  "expected_n_units": 4,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "NATIVE_DENSE": "d4c179110b7bdbb100e1fbbcc33c9e6bc3202221a49eb9d5d614eaa1a376378f",
+    "NATIVE_GRADED": "03821fcf85d023149575f4d9d819d62ecf8d215623e6d468d643491ee281dd17",
+    "BGE": "08aa7b2689117f82073a776e73b6064a360335d5ef02c56f3e83bc512c816fb3",
+    "CHAR": "a55def0346ccd3b770cdd80f187213aa841ee5c6ba3f74502981158159ceea2d"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "no closed-form noise floor; discriminator is Hits@10 AGREEMENT with the GRAPH ground truth; chance floor = K_HITS/(Na-1)",
+  "discriminator_reachability": true,
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "hp_scope": {
+    "NATIVE_DENSE": [
+      "reframe_confirmed_gate"
+    ]
+  },
+  "held_out_methodology": "native encoder trains ONLY on TRAIN edges; Hits@10 scored on TEST edges never seen in training (filtered by TRAIN neighbors + self)",
+  "baseline_in_band_note": "AG saturate-high (baseline>0.95) cannot occur for filtered Hits@10 over ~10577 candidates; live risk is char being TOO strong (graph task lexically solvable), caught by the discriminator-fires gate",
+  "ts_iso": "2026-07-09T02:36:21.314046+00:00"
+}

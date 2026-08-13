@@ -1,0 +1,882 @@
+{
+  "anchor_name": "cortex_attention_binding_router_v2_seed_7",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: CM>=0.85 AND lift_null>=0.3 AND per_class_prec>=0.7 AND lift_iso>=0.15. seed=7 CM=1.000 NR=0.250 ISO=0.671 lift_null=+0.750 lift_iso=+0.329 min_class_prec[REFUSE]=1.000 n_rows=21/21 mode=full",
+  "summary": "chunk_seed=7 n_seeds=1 N_DIM=8192 V_CB=1024 regimes=['dialogue_pronoun', 'ood_novel_bind', 'chain_multihop'] N_train_per_class=10 N_test_per_class=20 mode=full backend=numpy",
+  "elapsed_s": 0.8016700744628906,
+  "config_version": "ANCHOR=cortex_attention_binding_router_v2_seed_7,N_DIM=8192,V_CB=1024,N_CLASSES=4,regimes=['dialogue_pronoun', 'ood_novel_bind', 'chain_multihop'],N_train_per_class=10,N_test_per_class=20,expected_n_units=21,mode=full,chunk_seed=7,backend=numpy,chance_floor=0.2500,bernoulli_sigma_p05=0.0559,HP_route_acc=0.85,HP_lift_null=0.3,HP_per_class_prec=0.7,HP_lift_iso=0.15,HF_mech=0.65,HF_collapse=0.3,hardening=v2_surgical_n_test_20_plus_chain_signal_class_hv_composition",
+  "N_DIM": 8192,
+  "V_CB": 1024,
+  "N_CLASSES": 4,
+  "regimes": [
+    "dialogue_pronoun",
+    "ood_novel_bind",
+    "chain_multihop"
+  ],
+  "N_train_per_class": 10,
+  "N_test_per_class": 20,
+  "HP_route_accuracy": 0.85,
+  "HP_lift_over_null": 0.3,
+  "HP_per_class_precision": 0.7,
+  "HP_lift_over_isolated": 0.15,
+  "HF_mechanism_floor": 0.65,
+  "HF_class_collapse_floor": 0.3,
+  "HP_saturation_flag": 0.9995,
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 21,
+  "cardinality_ok": true,
+  "chunk_seed": 7,
+  "run_mode": "full",
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.25,
+  "crlb_formula_reference": "chance_floor = 1/N_CLASSES; bernoulli_sigma at p=0.5 = sqrt(0.25/N_TEST_PER_REGIME)",
+  "discriminator_reachability": true,
+  "calibration_check": "4-class-argmax over class-HV; chance=0.25 fixed by construction (not adaptively tuned)",
+  "composition_parents_cg": [
+    "m14_conformal_moderate_refuse_gate_v8_atom_15",
+    "m15_twotier_context_retention_v2_atom_18_commit_adaab6b7",
+    "wm_multibank_codebook_cleanup_commit_6e2ff698",
+    "multihop_partition_oracle_d20_40_atom_6",
+    "cortex_hippo_dense_layer_M8192_v2_READ_REPLACE_commit_863e14b5"
+  ],
+  "milestone": "M1.6_surgical_v2_n_test_20_plus_chain_signal_after_atom_27_MM",
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.7700204849243164,
+      "n_arm_rows": 21,
+      "arms": [
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "f35f9e62860e940fe12b7cd38e779edcedff1e84f63ab3f7d673a318293f48a0",
+          "arm_name": "ARM_TRUE_REFUSE",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.009501934051513672,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "8a87a75821ed75984761be3f6ff8739d423e9e1a15fb41d123a123e7fbdc4160",
+          "arm_name": "ARM_TRUE_RETRIEVE",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.02127361297607422,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "598cad4dcf90f0ea30bb6635113dceb504a8a4a8fb4a98fe5d36bf0d55cad97d",
+          "arm_name": "ARM_TRUE_BIND",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.010000467300415039,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "f0036390c4712d56ae78a2d3af98ce87af42cd9b777da39d55428e2277bf3250",
+          "arm_name": "ARM_TRUE_MULTI_HOP",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.01151728630065918,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "7df0a023c9ff82edf84ebac7b7b85b1e87e350e479f9e6cf877cd0cb3996aad4",
+          "arm_name": "ARM_ROUTE_CONFUSION_MATRIX",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.025999069213867188,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.25,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            },
+            "RETRIEVE": {
+              "precision": 0.25,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 60,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            }
+          },
+          "pred_digest_sha256": "66c01246b72ea013632eecfacb04e9334166fd7ccc159fe1f1fe87f5abee53c3",
+          "arm_name": "ARM_NO_ROUTER",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.007001399993896484,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.6625,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.5555555555555556,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 16,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.4666666666666667,
+              "recall": 0.35,
+              "tp": 7,
+              "fp": 8,
+              "fn": 13
+            },
+            "MULTI_HOP": {
+              "precision": 0.6666666666666666,
+              "recall": 0.3,
+              "tp": 6,
+              "fp": 3,
+              "fn": 14
+            }
+          },
+          "pred_digest_sha256": "9740529374e3fb3592673a51f273bbfa48614e206a6cc85b6a9ba61b361b5fc4",
+          "isolated_variant_selected": "M1.4_only",
+          "m14_only_top1": 0.6625,
+          "m15_only_top1": 0.575,
+          "arm_name": "ARM_M14_M15_ISOLATED",
+          "regime": "dialogue_pronoun",
+          "wall_s": 0.04300332069396973,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "f35f9e62860e940fe12b7cd38e779edcedff1e84f63ab3f7d673a318293f48a0",
+          "arm_name": "ARM_TRUE_REFUSE",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.05399942398071289,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "8a87a75821ed75984761be3f6ff8739d423e9e1a15fb41d123a123e7fbdc4160",
+          "arm_name": "ARM_TRUE_RETRIEVE",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.04851841926574707,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "598cad4dcf90f0ea30bb6635113dceb504a8a4a8fb4a98fe5d36bf0d55cad97d",
+          "arm_name": "ARM_TRUE_BIND",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.04100179672241211,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "f0036390c4712d56ae78a2d3af98ce87af42cd9b777da39d55428e2277bf3250",
+          "arm_name": "ARM_TRUE_MULTI_HOP",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.05451011657714844,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "7df0a023c9ff82edf84ebac7b7b85b1e87e350e479f9e6cf877cd0cb3996aad4",
+          "arm_name": "ARM_ROUTE_CONFUSION_MATRIX",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.06252074241638184,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.25,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            },
+            "RETRIEVE": {
+              "precision": 0.25,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 60,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            }
+          },
+          "pred_digest_sha256": "66c01246b72ea013632eecfacb04e9334166fd7ccc159fe1f1fe87f5abee53c3",
+          "arm_name": "ARM_NO_ROUTER",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.009000062942504883,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.6125,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.625,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 12,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.3125,
+              "recall": 0.25,
+              "tp": 5,
+              "fp": 11,
+              "fn": 15
+            },
+            "MULTI_HOP": {
+              "precision": 0.3333333333333333,
+              "recall": 0.2,
+              "tp": 4,
+              "fp": 8,
+              "fn": 16
+            }
+          },
+          "pred_digest_sha256": "93b66f1152db18f470266a7934c7f4f69ee4f4767bff52545e0a1eba0fbb471d",
+          "isolated_variant_selected": "M1.4_only",
+          "m14_only_top1": 0.6125,
+          "m15_only_top1": 0.6,
+          "arm_name": "ARM_M14_M15_ISOLATED",
+          "regime": "ood_novel_bind",
+          "wall_s": 0.04452371597290039,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "f35f9e62860e940fe12b7cd38e779edcedff1e84f63ab3f7d673a318293f48a0",
+          "arm_name": "ARM_TRUE_REFUSE",
+          "regime": "chain_multihop",
+          "wall_s": 0.011001348495483398,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "8a87a75821ed75984761be3f6ff8739d423e9e1a15fb41d123a123e7fbdc4160",
+          "arm_name": "ARM_TRUE_RETRIEVE",
+          "regime": "chain_multihop",
+          "wall_s": 0.010999202728271484,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "598cad4dcf90f0ea30bb6635113dceb504a8a4a8fb4a98fe5d36bf0d55cad97d",
+          "arm_name": "ARM_TRUE_BIND",
+          "regime": "chain_multihop",
+          "wall_s": 0.010001182556152344,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 20,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "f0036390c4712d56ae78a2d3af98ce87af42cd9b777da39d55428e2277bf3250",
+          "arm_name": "ARM_TRUE_MULTI_HOP",
+          "regime": "chain_multihop",
+          "wall_s": 0.010001897811889648,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 1.0,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "7df0a023c9ff82edf84ebac7b7b85b1e87e350e479f9e6cf877cd0cb3996aad4",
+          "arm_name": "ARM_ROUTE_CONFUSION_MATRIX",
+          "regime": "chain_multihop",
+          "wall_s": 0.09439492225646973,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.25,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            },
+            "RETRIEVE": {
+              "precision": 0.25,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 60,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            },
+            "MULTI_HOP": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 20
+            }
+          },
+          "pred_digest_sha256": "66c01246b72ea013632eecfacb04e9334166fd7ccc159fe1f1fe87f5abee53c3",
+          "arm_name": "ARM_NO_ROUTER",
+          "regime": "chain_multihop",
+          "wall_s": 0.02991342544555664,
+          "arm_status": "OK"
+        },
+        {
+          "top1_mean": 0.7375,
+          "n_test_items": 80,
+          "per_class": {
+            "REFUSE": {
+              "precision": 0.4782608695652174,
+              "recall": 0.55,
+              "tp": 11,
+              "fp": 12,
+              "fn": 9
+            },
+            "RETRIEVE": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            },
+            "BIND": {
+              "precision": 0.47058823529411764,
+              "recall": 0.4,
+              "tp": 8,
+              "fp": 9,
+              "fn": 12
+            },
+            "MULTI_HOP": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 20,
+              "fp": 0,
+              "fn": 0
+            }
+          },
+          "pred_digest_sha256": "a748a0bf7baa4f24e11c6f551de4992ef21cad82b817764a85a950befe094d28",
+          "isolated_variant_selected": "M1.5_only",
+          "m14_only_top1": 0.6125,
+          "m15_only_top1": 0.7375,
+          "arm_name": "ARM_M14_M15_ISOLATED",
+          "regime": "chain_multihop",
+          "wall_s": 0.09230494499206543,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

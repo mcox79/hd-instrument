@@ -1,0 +1,429 @@
+{
+  "anchor_name": "cleanup_floor_N_DIM_scan_v1",
+  "verdict": "META_DECISION_N_INDEPENDENT",
+  "verdict_msg": "META_DECISION_N_INDEPENDENT: Shannon-floor is N-INDEPENDENT at sigma=1.5. recall(N=16384)=0.0217 (< 0.10). Combined with branch #2 (M-INDEPENDENT), only branch #3 (learned-encoder keys) remains untested. RECOMMENDATION: strengthen META toward chain-grade tier (2 of 3 branches closed). N-SCAN DECISION @ sigma=1.50: recall(N=8192)=0.0233 recall(N=16384)=0.0217 knee_N_at_0p20=None max_cv=0.440 sigma_0_sanity=PASS M=200 seeds=3",
+  "run_mode": "full",
+  "M": 200,
+  "n_seeds": 3,
+  "detail": {
+    "agg": {
+      "512": {
+        "1.0": {
+          "mean": 0.055,
+          "std": 0.0041,
+          "cv": 0.0742,
+          "per_seed": [
+            0.05,
+            0.06,
+            0.055
+          ]
+        },
+        "1.5": {
+          "mean": 0.0217,
+          "std": 0.0047,
+          "cv": 0.2176,
+          "per_seed": [
+            0.015,
+            0.025,
+            0.025
+          ]
+        },
+        "2.0": {
+          "mean": 0.0217,
+          "std": 0.0085,
+          "cv": 0.3922,
+          "per_seed": [
+            0.01,
+            0.03,
+            0.025
+          ]
+        }
+      },
+      "1024": {
+        "1.0": {
+          "mean": 0.045,
+          "std": 0.0108,
+          "cv": 0.24,
+          "per_seed": [
+            0.035,
+            0.06,
+            0.04
+          ]
+        },
+        "1.5": {
+          "mean": 0.035,
+          "std": 0.0041,
+          "cv": 0.1166,
+          "per_seed": [
+            0.04,
+            0.035,
+            0.03
+          ]
+        },
+        "2.0": {
+          "mean": 0.015,
+          "std": 0.0041,
+          "cv": 0.2722,
+          "per_seed": [
+            0.01,
+            0.02,
+            0.015
+          ]
+        }
+      },
+      "2048": {
+        "1.0": {
+          "mean": 0.0533,
+          "std": 0.0024,
+          "cv": 0.0442,
+          "per_seed": [
+            0.055,
+            0.05,
+            0.055
+          ]
+        },
+        "1.5": {
+          "mean": 0.0283,
+          "std": 0.0103,
+          "cv": 0.3626,
+          "per_seed": [
+            0.04,
+            0.015,
+            0.03
+          ]
+        },
+        "2.0": {
+          "mean": 0.02,
+          "std": 0.0,
+          "cv": 0.0,
+          "per_seed": [
+            0.02,
+            0.02,
+            0.02
+          ]
+        }
+      },
+      "4096": {
+        "1.0": {
+          "mean": 0.0567,
+          "std": 0.0189,
+          "cv": 0.3328,
+          "per_seed": [
+            0.07,
+            0.07,
+            0.03
+          ]
+        },
+        "1.5": {
+          "mean": 0.0233,
+          "std": 0.0085,
+          "cv": 0.3642,
+          "per_seed": [
+            0.035,
+            0.02,
+            0.015
+          ]
+        },
+        "2.0": {
+          "mean": 0.0133,
+          "std": 0.0024,
+          "cv": 0.1768,
+          "per_seed": [
+            0.01,
+            0.015,
+            0.015
+          ]
+        }
+      },
+      "8192": {
+        "1.0": {
+          "mean": 0.0583,
+          "std": 0.0165,
+          "cv": 0.2828,
+          "per_seed": [
+            0.055,
+            0.08,
+            0.04
+          ]
+        },
+        "1.5": {
+          "mean": 0.0233,
+          "std": 0.0103,
+          "cv": 0.4403,
+          "per_seed": [
+            0.025,
+            0.01,
+            0.035
+          ]
+        },
+        "2.0": {
+          "mean": 0.0183,
+          "std": 0.0062,
+          "cv": 0.3402,
+          "per_seed": [
+            0.025,
+            0.01,
+            0.02
+          ]
+        }
+      },
+      "16384": {
+        "1.0": {
+          "mean": 0.0417,
+          "std": 0.0062,
+          "cv": 0.1497,
+          "per_seed": [
+            0.035,
+            0.05,
+            0.04
+          ]
+        },
+        "1.5": {
+          "mean": 0.0217,
+          "std": 0.0062,
+          "cv": 0.2878,
+          "per_seed": [
+            0.015,
+            0.02,
+            0.03
+          ]
+        },
+        "2.0": {
+          "mean": 0.0183,
+          "std": 0.0047,
+          "cv": 0.2571,
+          "per_seed": [
+            0.015,
+            0.025,
+            0.015
+          ]
+        }
+      }
+    },
+    "n_seeds": 3,
+    "M": 200,
+    "N_DIM_sweep": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "sigma_sweep": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "discriminator_sigma": 1.5,
+    "N_DIM_high_a": 8192,
+    "N_DIM_high_b": 16384,
+    "recall_at_N_high_a_disc": 0.0233,
+    "recall_at_N_high_b_disc": 0.0217,
+    "knee_N_at_recall_0p20": null,
+    "knee_recall_at_knee_N": null,
+    "max_cv_across_cells": 0.4403,
+    "sanity_violations": [],
+    "CONFIG_VERSION": "cleanup_floor_N_DIM_scan_v1; M=200 N_EVAL=200 N_DIM_sweep=[512, 1024, 2048, 4096, 8192, 16384] sigma_sweep=[1.0, 1.5, 2.0] seeds=[7, 17, 23] mode=full",
+    "honest_scope": "META-INFORMER for Shannon-floor cleanup-ceiling atom (cert row 675). M=200 N_DIM_sweep=[512, 1024, 2048, 4096, 8192, 16384] sigma_sweep=[1.0, 1.5, 2.0] N_EVAL=200 seeds=[7, 17, 23]. Random bipolar codebook L2-normalized. ARGMAX_BASELINE arm only (noise-floor characterization, not mechanism comparison). Not a chain-grade candidate; informs META-tiering only. Branch #1 of 3 (N_DIM-scan); branch #2 (M-scan) just closed META_DECISION_M_INDEPENDENT; branch #3 (learned-encoder keys) remains.",
+    "cites": [
+      "cert_ledger_row_675_meta_cleanup_ceiling_shannon_floor_2026-06-23",
+      "skunkworks_tiering_measured_mechanism_2026-06-23",
+      "cleanup_floor_M_scan_v1_META_DECISION_M_INDEPENDENT_branch2_closed",
+      "ENC1_N4096_M200_argmax_0p027_prior_data_point"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "grid": {
+        "512": {
+          "1.0": 0.05,
+          "1.5": 0.015,
+          "2.0": 0.01
+        },
+        "1024": {
+          "1.0": 0.035,
+          "1.5": 0.04,
+          "2.0": 0.01
+        },
+        "2048": {
+          "1.0": 0.055,
+          "1.5": 0.04,
+          "2.0": 0.02
+        },
+        "4096": {
+          "1.0": 0.07,
+          "1.5": 0.035,
+          "2.0": 0.01
+        },
+        "8192": {
+          "1.0": 0.055,
+          "1.5": 0.025,
+          "2.0": 0.025
+        },
+        "16384": {
+          "1.0": 0.035,
+          "1.5": 0.015,
+          "2.0": 0.015
+        }
+      },
+      "sanity_sigma_0": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 1.0,
+        "4096": 1.0,
+        "8192": 1.0,
+        "16384": 1.0
+      },
+      "M": 200,
+      "N_DIM_sweep": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "sigma_sweep": [
+        1.0,
+        1.5,
+        2.0
+      ],
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "cleanup_floor_N_DIM_scan_v1; M=200 N_EVAL=200 N_DIM_sweep=[512, 1024, 2048, 4096, 8192, 16384] sigma_sweep=[1.0, 1.5, 2.0] seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782199713.5579424
+    },
+    {
+      "seed": 17,
+      "grid": {
+        "512": {
+          "1.0": 0.06,
+          "1.5": 0.025,
+          "2.0": 0.03
+        },
+        "1024": {
+          "1.0": 0.06,
+          "1.5": 0.035,
+          "2.0": 0.02
+        },
+        "2048": {
+          "1.0": 0.05,
+          "1.5": 0.015,
+          "2.0": 0.02
+        },
+        "4096": {
+          "1.0": 0.07,
+          "1.5": 0.02,
+          "2.0": 0.015
+        },
+        "8192": {
+          "1.0": 0.08,
+          "1.5": 0.01,
+          "2.0": 0.01
+        },
+        "16384": {
+          "1.0": 0.05,
+          "1.5": 0.02,
+          "2.0": 0.025
+        }
+      },
+      "sanity_sigma_0": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 1.0,
+        "4096": 1.0,
+        "8192": 1.0,
+        "16384": 1.0
+      },
+      "M": 200,
+      "N_DIM_sweep": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "sigma_sweep": [
+        1.0,
+        1.5,
+        2.0
+      ],
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "cleanup_floor_N_DIM_scan_v1; M=200 N_EVAL=200 N_DIM_sweep=[512, 1024, 2048, 4096, 8192, 16384] sigma_sweep=[1.0, 1.5, 2.0] seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782199714.375129
+    },
+    {
+      "seed": 23,
+      "grid": {
+        "512": {
+          "1.0": 0.055,
+          "1.5": 0.025,
+          "2.0": 0.025
+        },
+        "1024": {
+          "1.0": 0.04,
+          "1.5": 0.03,
+          "2.0": 0.015
+        },
+        "2048": {
+          "1.0": 0.055,
+          "1.5": 0.03,
+          "2.0": 0.02
+        },
+        "4096": {
+          "1.0": 0.03,
+          "1.5": 0.015,
+          "2.0": 0.015
+        },
+        "8192": {
+          "1.0": 0.04,
+          "1.5": 0.035,
+          "2.0": 0.02
+        },
+        "16384": {
+          "1.0": 0.04,
+          "1.5": 0.03,
+          "2.0": 0.015
+        }
+      },
+      "sanity_sigma_0": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 1.0,
+        "4096": 1.0,
+        "8192": 1.0,
+        "16384": 1.0
+      },
+      "M": 200,
+      "N_DIM_sweep": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "sigma_sweep": [
+        1.0,
+        1.5,
+        2.0
+      ],
+      "N_EVAL": 200,
+      "run_mode": "full",
+      "config_version": "cleanup_floor_N_DIM_scan_v1; M=200 N_EVAL=200 N_DIM_sweep=[512, 1024, 2048, 4096, 8192, 16384] sigma_sweep=[1.0, 1.5, 2.0] seeds=[7, 17, 23] mode=full",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782199715.138135
+    }
+  ],
+  "elapsed_s": 2.439279794692993,
+  "summary": "META_DECISION_N_INDEPENDENT: Shannon-floor is N-INDEPENDENT at sigma=1.5. recall(N=16384)=0.0217 (< 0.10). Combined with branch #2 (M-INDEPENDENT), only branch #3 (learned-encoder keys) remains untested. RECOMMENDATION: strengthen META toward chain-grade tier (2 of 3 branches closed). N-SCAN DECISION @ sigma=1.50: recall(N=8192)=0.0233 recall(N=16384)=0.0217 knee_N_at_0p20=None max_cv=0.440 sigma_0_sanity=PASS M=200 seeds=3",
+  "substrate_only_decode_gate": "TRUE (HD codebook; no encoder)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0
+}

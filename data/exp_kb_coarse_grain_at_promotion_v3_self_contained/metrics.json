@@ -1,0 +1,124 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "n_ud_in_sample=0 < 10 (RC-1 invariant: test would be vacuously satisfied like v1)",
+  "elapsed_s": 4.27,
+  "summary": {
+    "anchor": "kb_coarse_grain_at_promotion_v3_self_contained",
+    "smoke": false,
+    "kb_version": "v1",
+    "inline_kb_manifest": {
+      "kb_version": "v1",
+      "schema_version": "v2",
+      "schema_hash": "0e58a20e69b5f4a97c312905ee8a3611c96c1847eb359a7dc0e81e50e44fc49d",
+      "encoder": "char_trigram_v1",
+      "chunk_ingest_version": "v1",
+      "n_dim": 2048,
+      "seed": 17,
+      "n_entities": 4735,
+      "n_relations": 75,
+      "n_triples": 6594,
+      "n_chunks": 2199,
+      "n_discovered": 400,
+      "n_skipped": 1,
+      "coverage_ratio": 0.9975,
+      "avg_chunks_per_file": 5.51,
+      "per_class": {
+        "memory": {
+          "n_files": 0,
+          "n_chunks": 0,
+          "n_files_zero_chunks": 0
+        },
+        "note": {
+          "n_files": 200,
+          "n_chunks": 1138,
+          "n_files_zero_chunks": 0
+        },
+        "prereg": {
+          "n_files": 200,
+          "n_chunks": 1061,
+          "n_files_zero_chunks": 1
+        }
+      },
+      "elapsed_s": 3.933,
+      "redact_timestamps_in_atoms": false,
+      "chunk_min_chars": 200,
+      "chunk_target_chars": 800,
+      "chunk_hard_max_chars": 1600,
+      "chunks_per_file_cap": 200,
+      "content_tag_max_chars": 600,
+      "_build_elapsed_s": 3.975,
+      "_n_files_discovered": 400,
+      "_smoke": false
+    },
+    "inline_kb_dir": "C:\\dev\\hd-instrument\\data\\exp_kb_coarse_grain_at_promotion_v3_self_contained\\_inline_kb",
+    "n_inline_entities": 4735,
+    "n_atoms_per_seed": 4735,
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "cosine_thresh": 0.85,
+    "min_cluster_size": 5,
+    "ud_source_class": "chunk_memory",
+    "n_ud_in_sample_per_seed": [],
+    "n_ud_in_sample_min": 0,
+    "seed_results": [
+      {
+        "seed": 17,
+        "error": "RuntimeError: USER_DIRECTIVE_REFERENT_MISSING: zero chunk_memory atoms in inline KB (n_ent=4735); cannot satisfy v3 cardinality_ok bar (n_UD >= 10). Check chunk_ingest succeeded over memory/.",
+        "ultra": {
+          "user_directive_mixing_violations": 0,
+          "capacity_drop_fraction": 0.0,
+          "recall_clustered": 0.0,
+          "recall_unclustered": 0.0
+        },
+        "random": {
+          "recall_clustered": 0.0
+        }
+      },
+      {
+        "seed": 23,
+        "error": "RuntimeError: USER_DIRECTIVE_REFERENT_MISSING: zero chunk_memory atoms in inline KB (n_ent=4735); cannot satisfy v3 cardinality_ok bar (n_UD >= 10). Check chunk_ingest succeeded over memory/.",
+        "ultra": {
+          "user_directive_mixing_violations": 0,
+          "capacity_drop_fraction": 0.0,
+          "recall_clustered": 0.0,
+          "recall_unclustered": 0.0
+        },
+        "random": {
+          "recall_clustered": 0.0
+        }
+      },
+      {
+        "seed": 31,
+        "error": "RuntimeError: USER_DIRECTIVE_REFERENT_MISSING: zero chunk_memory atoms in inline KB (n_ent=4735); cannot satisfy v3 cardinality_ok bar (n_UD >= 10). Check chunk_ingest succeeded over memory/.",
+        "ultra": {
+          "user_directive_mixing_violations": 0,
+          "capacity_drop_fraction": 0.0,
+          "recall_clustered": 0.0,
+          "recall_unclustered": 0.0
+        },
+        "random": {
+          "recall_clustered": 0.0
+        }
+      }
+    ],
+    "full_n_preview": null,
+    "verdict": "HARD_FAIL",
+    "verdict_msg": "n_ud_in_sample=0 < 10 (RC-1 invariant: test would be vacuously satisfied like v1)",
+    "elapsed_s": 4.27,
+    "cardinality_ok": false,
+    "hp_min_n_ud_in_sample": 10,
+    "hp_min_n_atoms_full": 10000,
+    "hp_min_capacity_drop": 0.2,
+    "hp_min_gap_vs_random": 0.3,
+    "hp_max_cv": 0.05,
+    "hp_max_rec_unclustered_nonsat": 0.999,
+    "chunk_classes_ingested": [
+      "note",
+      "memory",
+      "prereg"
+    ]
+  }
+}

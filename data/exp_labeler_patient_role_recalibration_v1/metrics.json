@@ -1,0 +1,872 @@
+{
+  "anchor_name": "labeler_patient_role_recalibration_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | slice=L04+L05+L07+L08+L09+L10+L12 gold_pos=100 hard_frac=0.81 | PHASE1 domain_shift=False (in-domain obj-recall=0.9302 McGuffey patient-role-recall=0.8571; obj_confusion={'obj->obj': 0.9302, 'obj->obl': 0.0465, 'obj->nsubj': 0.0045, 'obj->iobj': 0.0054, 'obj->ccomp': 0.0027, 'obj->dep': 0.0}) | PHASE3 END-TO-END UNLAB=0.7247 V1(baseline)=0.742 BACKOFF=0.7622(g=+0.020) RECAL=0.742(g=+0.000,min=0.0) ROBUST=0.7506(g=+0.009,min=0.0) | best_fix=robust recall 0.74->0.76 pool 1.1->1.09 coupling_broken=False recall_up=True precision_ok=True | IN-DOMAIN label-acc orig=0.9422 recal=0.9422(drop=0.0) robust=0.9432(drop=-0.001) | RESIDUAL v1 ext:dec=28:0 best ext:dec=27:0 | recal_b_obj=0.0 recal_fires=False robust_fires=True baseline_in_band=True arms_differ=True leak_clean=True asset_untouched=True",
+  "summary": "MIDDLE_BAND | slice=L04+L05+L07+L08+L09+L10+L12 gold_pos=100 hard_frac=0.81 | PHASE1 domain_shift=False (in-domain obj-recall=0.9302 McGuffey patient-role-recall=0.8571; obj_confusion={'obj->obj': 0.9302, 'obj->obl': 0.0465, 'obj->nsubj': 0.0045, 'obj->iobj': 0.0054, 'obj->ccomp': 0.0027, 'obj->dep': 0.0}) | PHASE3 END-TO-END UNLAB=0.7247 V1(baseline)=0.742 BACKOFF=0.7622(g=+0.020) RECAL=0.742(g=+0.000,min=0.0) ROBUST=0.7506(g=+0.009,min=0.0) | best_fix=robust recall 0.74->0.76 pool 1.1->1.09 coupling_broken=False recall_up=True precision_ok=True | IN-DOMAIN label-acc orig=0.9422 recal=0.9422(drop=0.0) robust=0.9432(drop=-0.001) | RESIDUAL v1 ext:dec=28:0 best ext:dec=27:0 | recal_b_obj=0.0 recal_fires=False robust_fires=True baseline_in_band=True arms_differ=True leak_clean=True asset_untouched=True",
+  "elapsed_s": 774.34,
+  "ts_iso": "2026-07-21T04:47:13.822988+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_gold_pos_pairs": 100,
+  "hard_frac": 0.81,
+  "PHASE1_domain_shift": false,
+  "PHASE1_in_domain_obj_recall": 0.9302,
+  "PHASE1_mcguffey_patient_role_recall": 0.8571,
+  "PHASE1_confusion_in_domain_orig": {
+    "obj": {
+      "n": 1118,
+      "dist": {
+        "obj": 1040,
+        "obl": 52,
+        "iobj": 6,
+        "xcomp": 6,
+        "nsubj": 5,
+        "ccomp": 3,
+        "advmod": 2,
+        "advcl": 2,
+        "expl": 1,
+        "conj": 1
+      },
+      "recall_as_self": 0.9302
+    },
+    "nsubj:pass": {
+      "n": 102,
+      "dist": {
+        "nsubj:pass": 63,
+        "nsubj": 37,
+        "obl": 1,
+        "obj": 1
+      },
+      "recall_as_self": 0.6176
+    },
+    "iobj": {
+      "n": 68,
+      "dist": {
+        "iobj": 51,
+        "obj": 17
+      },
+      "recall_as_self": 0.75
+    },
+    "obj_confusion_summary": {
+      "obj->obj": 0.9302,
+      "obj->obl": 0.0465,
+      "obj->nsubj": 0.0045,
+      "obj->iobj": 0.0054,
+      "obj->ccomp": 0.0027,
+      "obj->dep": 0.0
+    }
+  },
+  "PHASE1_confusion_in_domain_recal": {
+    "obj": {
+      "n": 1118,
+      "dist": {
+        "obj": 1040,
+        "obl": 52,
+        "iobj": 6,
+        "xcomp": 6,
+        "nsubj": 5,
+        "ccomp": 3,
+        "advmod": 2,
+        "advcl": 2,
+        "expl": 1,
+        "conj": 1
+      },
+      "recall_as_self": 0.9302
+    },
+    "nsubj:pass": {
+      "n": 102,
+      "dist": {
+        "nsubj:pass": 63,
+        "nsubj": 37,
+        "obl": 1,
+        "obj": 1
+      },
+      "recall_as_self": 0.6176
+    },
+    "iobj": {
+      "n": 68,
+      "dist": {
+        "iobj": 51,
+        "obj": 17
+      },
+      "recall_as_self": 0.75
+    },
+    "obj_confusion_summary": {
+      "obj->obj": 0.9302,
+      "obj->obl": 0.0465,
+      "obj->nsubj": 0.0045,
+      "obj->iobj": 0.0054,
+      "obj->ccomp": 0.0027,
+      "obj->dep": 0.0
+    }
+  },
+  "PHASE1_confusion_in_domain_robust": {
+    "obj": {
+      "n": 1118,
+      "dist": {
+        "obj": 1041,
+        "obl": 52,
+        "iobj": 8,
+        "xcomp": 6,
+        "nsubj": 4,
+        "advmod": 2,
+        "advcl": 2,
+        "ccomp": 2,
+        "expl": 1
+      },
+      "recall_as_self": 0.9311
+    },
+    "nsubj:pass": {
+      "n": 102,
+      "dist": {
+        "nsubj:pass": 58,
+        "nsubj": 41,
+        "obj": 2,
+        "obl": 1
+      },
+      "recall_as_self": 0.5686
+    },
+    "iobj": {
+      "n": 68,
+      "dist": {
+        "iobj": 50,
+        "obj": 18
+      },
+      "recall_as_self": 0.7353
+    },
+    "obj_confusion_summary": {
+      "obj->obj": 0.9311,
+      "obj->obl": 0.0465,
+      "obj->nsubj": 0.0036,
+      "obj->iobj": 0.0072,
+      "obj->ccomp": 0.0018,
+      "obj->dep": 0.0
+    }
+  },
+  "PHASE1_confusion_mcguffey_orig": {
+    "n_patient_arcs_correctly_attached": 84,
+    "n_parser_attach_miss": 13,
+    "n_token_not_found": 0,
+    "predicted_label_dist": {
+      "obj": 72,
+      "obl": 7,
+      "iobj": 2,
+      "nsubj": 1,
+      "advcl": 1,
+      "ccomp": 1
+    },
+    "patient_tagged_obj_or_pass": 72,
+    "patient_role_recall": 0.8571
+  },
+  "PHASE1_confusion_mcguffey_recal": {
+    "n_patient_arcs_correctly_attached": 84,
+    "n_parser_attach_miss": 13,
+    "n_token_not_found": 0,
+    "predicted_label_dist": {
+      "obj": 72,
+      "obl": 7,
+      "iobj": 2,
+      "nsubj": 1,
+      "advcl": 1,
+      "ccomp": 1
+    },
+    "patient_tagged_obj_or_pass": 72,
+    "patient_role_recall": 0.8571
+  },
+  "PHASE1_confusion_mcguffey_robust": {
+    "n_patient_arcs_correctly_attached": 84,
+    "n_parser_attach_miss": 13,
+    "n_token_not_found": 0,
+    "predicted_label_dist": {
+      "obj": 74,
+      "obl": 5,
+      "iobj": 2,
+      "nsubj": 1,
+      "advcl": 1,
+      "ccomp": 1
+    },
+    "patient_tagged_obj_or_pass": 74,
+    "patient_role_recall": 0.881
+  },
+  "PHASE2_recal_b_obj": 0.0,
+  "PHASE2_recal_dev_base_acc": 0.9455,
+  "PHASE2_recal_curve": [
+    {
+      "b_obj": 0.0,
+      "obj_precision": 0.9097,
+      "obj_recall": 0.9438,
+      "obj_f1": 0.9264,
+      "label_acc": 0.9455,
+      "acc_drop": 0.0
+    },
+    {
+      "b_obj": 0.5,
+      "obj_precision": 0.9053,
+      "obj_recall": 0.9446,
+      "obj_f1": 0.9246,
+      "label_acc": 0.9453,
+      "acc_drop": 0.0002
+    },
+    {
+      "b_obj": 1.0,
+      "obj_precision": 0.9017,
+      "obj_recall": 0.9455,
+      "obj_f1": 0.9231,
+      "label_acc": 0.9451,
+      "acc_drop": 0.0004
+    },
+    {
+      "b_obj": 2.0,
+      "obj_precision": 0.8955,
+      "obj_recall": 0.9489,
+      "obj_f1": 0.9214,
+      "label_acc": 0.945,
+      "acc_drop": 0.0005
+    },
+    {
+      "b_obj": 4.0,
+      "obj_precision": 0.8849,
+      "obj_recall": 0.9557,
+      "obj_f1": 0.9189,
+      "label_acc": 0.9447,
+      "acc_drop": 0.0008
+    },
+    {
+      "b_obj": 8.0,
+      "obj_precision": 0.849,
+      "obj_recall": 0.9625,
+      "obj_f1": 0.9022,
+      "label_acc": 0.9433,
+      "acc_drop": 0.0022
+    },
+    {
+      "b_obj": 16.0,
+      "obj_precision": 0.7748,
+      "obj_recall": 0.9787,
+      "obj_f1": 0.8649,
+      "label_acc": 0.9397,
+      "acc_drop": 0.0058
+    },
+    {
+      "b_obj": 32.0,
+      "obj_precision": 0.4883,
+      "obj_recall": 0.9923,
+      "obj_f1": 0.6545,
+      "label_acc": 0.9132,
+      "acc_drop": 0.0323
+    }
+  ],
+  "PHASE2_robust_train_sents": 12544,
+  "PHASE2_robust_epochs": 8,
+  "PHASE3_endtoend_mean": {
+    "unlabeled_endtoend": 0.7247,
+    "v1_endtoend": 0.742,
+    "backoff_endtoend": 0.7622,
+    "recal_endtoend": 0.742,
+    "robust_endtoend": 0.7506,
+    "gain_recal_vs_v1": 0.0,
+    "gain_robust_vs_v1": 0.0085,
+    "gain_backoff_vs_v1": 0.0202
+  },
+  "PHASE3_gain_recal_vs_v1_min": 0.0,
+  "PHASE3_gain_robust_vs_v1_min": 0.0,
+  "candidate_recall_ceiling": {
+    "unlabeled": 0.9,
+    "v1": 0.74,
+    "backoff": 0.79,
+    "recal": 0.74,
+    "robust": 0.76
+  },
+  "mean_pool_size": {
+    "v1": 1.1,
+    "backoff": 1.2,
+    "recal": 1.1,
+    "robust": 1.09
+  },
+  "IN_DOMAIN_label_acc": {
+    "orig": 0.9422,
+    "recal": 0.9422,
+    "robust": 0.9432,
+    "recal_drop": 0.0,
+    "robust_drop": -0.001
+  },
+  "best_fix": "robust",
+  "coupling_broken": false,
+  "recall_up": true,
+  "precision_ok": true,
+  "RESIDUAL_PARTITION_v1": {
+    "correct": 82,
+    "extraction_err": 28,
+    "decision_err": 0,
+    "residual": 28,
+    "ext_to_dec_ratio": "28:0",
+    "extraction_frac_of_residual": 1.0
+  },
+  "RESIDUAL_PARTITION_recal": {
+    "correct": 82,
+    "extraction_err": 28,
+    "decision_err": 0,
+    "residual": 28,
+    "ext_to_dec_ratio": "28:0",
+    "extraction_frac_of_residual": 1.0
+  },
+  "RESIDUAL_PARTITION_robust": {
+    "correct": 83,
+    "extraction_err": 27,
+    "decision_err": 0,
+    "residual": 27,
+    "ext_to_dec_ratio": "27:0",
+    "extraction_frac_of_residual": 1.0
+  },
+  "per_construction_v1": {
+    "control": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6856,
+      "mean_gold_in_pool": 0.6856
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.5833,
+      "mean_gold_in_pool": 0.5833
+    },
+    "relative": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.7482,
+      "mean_gold_in_pool": 0.7482
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0
+    }
+  },
+  "per_construction_recal": {
+    "control": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6856,
+      "mean_gold_in_pool": 0.6856
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.5833,
+      "mean_gold_in_pool": 0.5833
+    },
+    "relative": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.7482,
+      "mean_gold_in_pool": 0.7482
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0
+    }
+  },
+  "per_construction_robust": {
+    "control": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0
+    },
+    "coordination": {
+      "mean_endtoend_acc": 0.6752,
+      "mean_gold_in_pool": 0.6752
+    },
+    "pronoun": {
+      "mean_endtoend_acc": 0.6759,
+      "mean_gold_in_pool": 0.6759
+    },
+    "relative": {
+      "mean_endtoend_acc": 1.0,
+      "mean_gold_in_pool": 1.0
+    },
+    "simple": {
+      "mean_endtoend_acc": 0.7616,
+      "mean_gold_in_pool": 0.7616
+    },
+    "verb_not_found": {
+      "mean_endtoend_acc": 0.0,
+      "mean_gold_in_pool": 0.0
+    }
+  },
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "recal_fires": false,
+  "robust_fires": true,
+  "leak_guard_recal": {
+    "n_usable_pools": 21,
+    "max_single_feature_gold_selection_acc": 0.7619,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.7619,
+      "f_postv": 0.2381,
+      "f_prep": 0.0476,
+      "f_func": 0.0,
+      "f_clause": 0.0952,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.0476,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.5714,
+      "f_plaus": 0.5714,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "leak_guard_robust": {
+    "n_usable_pools": 17,
+    "max_single_feature_gold_selection_acc": 0.6471,
+    "max_single_feature": "f_adj",
+    "per_feature": {
+      "bias": 0.0,
+      "f_adj": 0.6471,
+      "f_postv": 0.2941,
+      "f_prep": 0.0588,
+      "f_func": 0.0,
+      "f_clause": 0.1176,
+      "f_passive_flip": 0.0,
+      "f_prep_patient_sense": 0.0588,
+      "f_prep_nonpatient_sense": 0.0,
+      "f_alternation": 0.0,
+      "f_gfit": 0.5294,
+      "f_plaus": 0.5882,
+      "f_passive_subject": 0.0
+    },
+    "leak": false
+  },
+  "leak_clean_best": true,
+  "labeler_asset_hash_before": "4b0b892dcee23940",
+  "labeler_asset_hash_after": "4b0b892dcee23940",
+  "labeler_asset_untouched": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "end-to-end + label-accuracy measurement",
+  "calibration_check": "adaptive_with_discriminator_gate: RECAL b_obj tuned on UD-EWT DEV by obj-F1, guarded by overall-label-acc non-regression; ROBUST features register-invariant",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified)",
+  "deterministic_seeding": true,
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_test_pos": 39,
+      "unlabeled_endtoend": 0.7179,
+      "v1_endtoend": 0.7436,
+      "backoff_endtoend": 0.7436,
+      "recal_endtoend": 0.7436,
+      "robust_endtoend": 0.7692,
+      "gain_recal_vs_v1": 0.0,
+      "gain_robust_vs_v1": 0.0256,
+      "gain_backoff_vs_v1": 0.0,
+      "test_ceiling_v1": 0.7436,
+      "test_ceiling_recal": 0.7436,
+      "test_ceiling_robust": 0.7692,
+      "residual_partition_v1": {
+        "n": 39,
+        "correct": 29,
+        "extraction_err": 10,
+        "decision_err": 0,
+        "residual": 10,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_recal": {
+        "n": 39,
+        "correct": 29,
+        "extraction_err": 10,
+        "decision_err": 0,
+        "residual": 10,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_robust": {
+        "n": 39,
+        "correct": 30,
+        "extraction_err": 9,
+        "decision_err": 0,
+        "residual": 9,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 5,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 20,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 9,
+          "endtoend_acc": 0.7778,
+          "gold_in_pool": 0.7778
+        }
+      },
+      "per_construction_recal": {
+        "control": {
+          "n": 5,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 20,
+          "endtoend_acc": 0.6,
+          "gold_in_pool": 0.6
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 9,
+          "endtoend_acc": 0.7778,
+          "gold_in_pool": 0.7778
+        }
+      },
+      "per_construction_robust": {
+        "control": {
+          "n": 5,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 19,
+          "endtoend_acc": 0.6316,
+          "gold_in_pool": 0.6316
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "relative": {
+          "n": 2,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 10,
+          "endtoend_acc": 0.8,
+          "gold_in_pool": 0.8
+        }
+      }
+    },
+    {
+      "seed": 13,
+      "n_test_pos": 33,
+      "unlabeled_endtoend": 0.6667,
+      "v1_endtoend": 0.6667,
+      "backoff_endtoend": 0.7273,
+      "recal_endtoend": 0.6667,
+      "robust_endtoend": 0.6667,
+      "gain_recal_vs_v1": 0.0,
+      "gain_robust_vs_v1": 0.0,
+      "gain_backoff_vs_v1": 0.0606,
+      "test_ceiling_v1": 0.6667,
+      "test_ceiling_recal": 0.6667,
+      "test_ceiling_robust": 0.6667,
+      "residual_partition_v1": {
+        "n": 33,
+        "correct": 22,
+        "extraction_err": 11,
+        "decision_err": 0,
+        "residual": 11,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_recal": {
+        "n": 33,
+        "correct": 22,
+        "extraction_err": 11,
+        "decision_err": 0,
+        "residual": 11,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_robust": {
+        "n": 33,
+        "correct": 22,
+        "extraction_err": 11,
+        "decision_err": 0,
+        "residual": 11,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 16,
+          "endtoend_acc": 0.6875,
+          "gold_in_pool": 0.6875
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        },
+        "verb_not_found": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "per_construction_recal": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 16,
+          "endtoend_acc": 0.6875,
+          "gold_in_pool": 0.6875
+        },
+        "pronoun": {
+          "n": 3,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        },
+        "verb_not_found": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      },
+      "per_construction_robust": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 15,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        },
+        "pronoun": {
+          "n": 4,
+          "endtoend_acc": 0.25,
+          "gold_in_pool": 0.25
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 6,
+          "endtoend_acc": 0.6667,
+          "gold_in_pool": 0.6667
+        },
+        "verb_not_found": {
+          "n": 1,
+          "endtoend_acc": 0.0,
+          "gold_in_pool": 0.0
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "n_test_pos": 38,
+      "unlabeled_endtoend": 0.7895,
+      "v1_endtoend": 0.8158,
+      "backoff_endtoend": 0.8158,
+      "recal_endtoend": 0.8158,
+      "robust_endtoend": 0.8158,
+      "gain_recal_vs_v1": 0.0,
+      "gain_robust_vs_v1": 0.0,
+      "gain_backoff_vs_v1": 0.0,
+      "test_ceiling_v1": 0.8158,
+      "test_ceiling_recal": 0.8158,
+      "test_ceiling_robust": 0.8158,
+      "residual_partition_v1": {
+        "n": 38,
+        "correct": 31,
+        "extraction_err": 7,
+        "decision_err": 0,
+        "residual": 7,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_recal": {
+        "n": 38,
+        "correct": 31,
+        "extraction_err": 7,
+        "decision_err": 0,
+        "residual": 7,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "residual_partition_robust": {
+        "n": 38,
+        "correct": 31,
+        "extraction_err": 7,
+        "decision_err": 0,
+        "residual": 7,
+        "extraction_frac_of_residual": 1.0,
+        "decision_frac_of_residual": 0.0,
+        "decision_examples": []
+      },
+      "per_construction_v1": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 13,
+          "endtoend_acc": 0.7692,
+          "gold_in_pool": 0.7692
+        },
+        "pronoun": {
+          "n": 8,
+          "endtoend_acc": 0.75,
+          "gold_in_pool": 0.75
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 10,
+          "endtoend_acc": 0.8,
+          "gold_in_pool": 0.8
+        }
+      },
+      "per_construction_recal": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 13,
+          "endtoend_acc": 0.7692,
+          "gold_in_pool": 0.7692
+        },
+        "pronoun": {
+          "n": 8,
+          "endtoend_acc": 0.75,
+          "gold_in_pool": 0.75
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 10,
+          "endtoend_acc": 0.8,
+          "gold_in_pool": 0.8
+        }
+      },
+      "per_construction_robust": {
+        "control": {
+          "n": 3,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "coordination": {
+          "n": 11,
+          "endtoend_acc": 0.7273,
+          "gold_in_pool": 0.7273
+        },
+        "pronoun": {
+          "n": 9,
+          "endtoend_acc": 0.7778,
+          "gold_in_pool": 0.7778
+        },
+        "relative": {
+          "n": 4,
+          "endtoend_acc": 1.0,
+          "gold_in_pool": 1.0
+        },
+        "simple": {
+          "n": 11,
+          "endtoend_acc": 0.8182,
+          "gold_in_pool": 0.8182
+        }
+      }
+    }
+  ]
+}

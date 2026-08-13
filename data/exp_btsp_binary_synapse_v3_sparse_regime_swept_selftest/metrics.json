@@ -1,0 +1,12 @@
+{
+  "anchor_name": "btsp_binary_synapse_v3_sparse_regime_swept",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: 2x2 grid + per-fp baseline + cont structured",
+  "summary": "SELFTEST_OK: 2x2 grid + per-fp baseline + cont structured",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-27T19:32:47Z",
+  "pid": 33212,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=btsp_binary_synapse_v3_sparse_regime_swept,N=256,NCAT=10,NTRAIN=5,proto_noise=0.85,alpha=0.0391,fp_grid=[0.005, 0.05],fq_grid=[0.0025, 0.05],seeds=[11],mode=smoke,elig=0.70,HP_new>=0.40,HP_lift>=0.10,HF_null<0.05,HP_fp_max=0.05,HP_fq_max=0.10,hardening=L1early+L2pergrid+L3outertry+L4importsentinel,FAIRNESS=TOP_FP_THRESHOLD+MATCHED_SPARSITY_BASELINE+ALPHA_IN_BAND+SMOKE_FIRES_DISCRIMINATOR",
+  "_hardening_marker": "v3_btsp_sparse_swept"
+}

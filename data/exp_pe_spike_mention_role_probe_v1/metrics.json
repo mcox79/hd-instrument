@@ -1,0 +1,930 @@
+{
+  "verdict": "HARNESS_FLOOR_BROKEN",
+  "verdict_msg": "Floor (untrained ARM_RANDOM) beat a naive baseline by more than FLOOR_MARGIN=0.05: 16-subset recall margin=0.0625, quotative linpos margin=-0.0500, passive linpos margin=0.0000. The harness itself needs investigation before any candidate-ckpt claim is trusted.",
+  "summary": "HARNESS_FLOOR_BROKEN | Floor (untrained ARM_RANDOM) beat a naive baseline by more than FLOOR_MARGIN=0.05: 16-subset recall margin=0.0625, quotative linpos margin=-0.0500, passive linp",
+  "run_mode": "full",
+  "elapsed_s": 1.2678775999229401,
+  "ts_iso": "2026-08-01T19:35:23.990102+00:00",
+  "anchor_name": "pe_spike_mention_role_probe_v1",
+  "bands": {
+    "floor_margin": 0.05,
+    "tolerance_window": 1,
+    "linear_position_frac": 0.85,
+    "hard_pass_2b_lift": 0.1,
+    "hard_pass_2b_recall16_min": 0.3,
+    "floor_2b": {
+      "pe_spike": {
+        "precision": 0.13333333333333333,
+        "recall": 0.1,
+        "f1": 0.1142857142857143,
+        "recall_16_subset": 0.0625,
+        "n_predicted": 15,
+        "threshold": 292.11235594169824
+      },
+      "baseline_lexical": {
+        "precision": 0.6666666666666666,
+        "recall": 0.1,
+        "f1": 0.1739130434782609,
+        "recall_16_subset": 0.0,
+        "n_predicted": 3
+      },
+      "baseline_chance": {
+        "analytic_precision": 0.2222222222222222,
+        "analytic_spike_rate": 0.16666666666666666,
+        "analytic_f1_at_matched_rate": 0.1904761904761905
+      },
+      "n_positions": 90,
+      "n_gold_all": 20,
+      "n_gold_16_subset": 16,
+      "digest": "74c21e70fefac694c89c69988972b7cb4161e85bd63eddcfde473c499298a838"
+    },
+    "floor_2c_quotative": {
+      "pe_spike_hit_rate": 0.4,
+      "baseline_linear_position_hit_rate": 0.45,
+      "baseline_chance_hit_rate_analytic": 0.40757287157287153,
+      "n_examples": 20,
+      "per_example": [
+        {
+          "grade": "g1",
+          "n_words": 8,
+          "gold_idx": 7,
+          "pred_idx": 6,
+          "linpos_idx": 6,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 3,
+          "gold_idx": 2,
+          "pred_idx": 1,
+          "linpos_idx": 2,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 26,
+          "gold_idx": 2,
+          "pred_idx": 16,
+          "linpos_idx": 21,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 28,
+          "gold_idx": 10,
+          "pred_idx": 17,
+          "linpos_idx": 23,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g1",
+          "n_words": 12,
+          "gold_idx": 4,
+          "pred_idx": 9,
+          "linpos_idx": 9,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 4,
+          "gold_idx": 3,
+          "pred_idx": 2,
+          "linpos_idx": 3,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g4",
+          "n_words": 9,
+          "gold_idx": 8,
+          "pred_idx": 7,
+          "linpos_idx": 7,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 8,
+          "gold_idx": 5,
+          "pred_idx": 7,
+          "linpos_idx": 6,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 6,
+          "gold_idx": 5,
+          "pred_idx": 5,
+          "linpos_idx": 4,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 21,
+          "gold_idx": 3,
+          "pred_idx": 20,
+          "linpos_idx": 17,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 8,
+          "gold_idx": 7,
+          "pred_idx": 3,
+          "linpos_idx": 6,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 10,
+          "gold_idx": 2,
+          "pred_idx": 1,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 13,
+          "gold_idx": 4,
+          "pred_idx": 12,
+          "linpos_idx": 10,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 15,
+          "gold_idx": 8,
+          "pred_idx": 6,
+          "linpos_idx": 12,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 4,
+          "gold_idx": 3,
+          "pred_idx": 2,
+          "linpos_idx": 3,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 6,
+          "gold_idx": 5,
+          "pred_idx": 4,
+          "linpos_idx": 4,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 15,
+          "gold_idx": 5,
+          "pred_idx": 13,
+          "linpos_idx": 12,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 25,
+          "gold_idx": 3,
+          "pred_idx": 22,
+          "linpos_idx": 20,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g1",
+          "n_words": 11,
+          "gold_idx": 2,
+          "pred_idx": 7,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 16,
+          "gold_idx": 6,
+          "pred_idx": 10,
+          "linpos_idx": 13,
+          "hit": false,
+          "linpos_hit": false
+        }
+      ],
+      "digest": "a9c12d0a226944dd78766288fbdcf3447ebd476457854ceab2c9677d035bab70"
+    },
+    "floor_2c_passive": {
+      "pe_spike_hit_rate": 0.2857142857142857,
+      "baseline_linear_position_hit_rate": 0.2857142857142857,
+      "baseline_chance_hit_rate_analytic": 0.24503968253968253,
+      "n_examples": 7,
+      "per_example": [
+        {
+          "grade": "g2",
+          "n_words": 10,
+          "gold_idx": 2,
+          "pred_idx": 9,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 28,
+          "gold_idx": 19,
+          "pred_idx": 27,
+          "linpos_idx": 23,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 17,
+          "gold_idx": 11,
+          "pred_idx": 6,
+          "linpos_idx": 14,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 13,
+          "gold_idx": 10,
+          "pred_idx": 7,
+          "linpos_idx": 10,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 10,
+          "gold_idx": 4,
+          "pred_idx": 4,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 19,
+          "gold_idx": 3,
+          "pred_idx": 11,
+          "linpos_idx": 15,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 10,
+          "gold_idx": 7,
+          "pred_idx": 7,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": true
+        }
+      ],
+      "digest": "35b13fb8b683d263cb45cb4b8dd99e8d6a13d5ed6c67fccebd35745a0fa9b130"
+    },
+    "floor_beats_lexical_16_margin": 0.0625,
+    "floor_beats_linpos_quot_margin": -0.04999999999999999,
+    "floor_beats_linpos_pass_margin": 0.0,
+    "floor_ok": false
+  },
+  "floor_out": {
+    "arm": "ARM_RANDOM",
+    "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_RANDOM.pt",
+    "model_cfg": {
+      "vocab": 16000,
+      "max_len": 128,
+      "d_model": 512,
+      "n_layers": 6,
+      "n_heads": 8,
+      "ffn_mult": 4,
+      "pad_id": 0
+    },
+    "probe_2b": {
+      "pe_spike": {
+        "precision": 0.13333333333333333,
+        "recall": 0.1,
+        "f1": 0.1142857142857143,
+        "recall_16_subset": 0.0625,
+        "n_predicted": 15,
+        "threshold": 292.11235594169824
+      },
+      "baseline_lexical": {
+        "precision": 0.6666666666666666,
+        "recall": 0.1,
+        "f1": 0.1739130434782609,
+        "recall_16_subset": 0.0,
+        "n_predicted": 3
+      },
+      "baseline_chance": {
+        "analytic_precision": 0.2222222222222222,
+        "analytic_spike_rate": 0.16666666666666666,
+        "analytic_f1_at_matched_rate": 0.1904761904761905
+      },
+      "n_positions": 90,
+      "n_gold_all": 20,
+      "n_gold_16_subset": 16,
+      "digest": "74c21e70fefac694c89c69988972b7cb4161e85bd63eddcfde473c499298a838"
+    },
+    "probe_2c_quotative": {
+      "pe_spike_hit_rate": 0.4,
+      "baseline_linear_position_hit_rate": 0.45,
+      "baseline_chance_hit_rate_analytic": 0.40757287157287153,
+      "n_examples": 20,
+      "per_example": [
+        {
+          "grade": "g1",
+          "n_words": 8,
+          "gold_idx": 7,
+          "pred_idx": 6,
+          "linpos_idx": 6,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 3,
+          "gold_idx": 2,
+          "pred_idx": 1,
+          "linpos_idx": 2,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 26,
+          "gold_idx": 2,
+          "pred_idx": 16,
+          "linpos_idx": 21,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 28,
+          "gold_idx": 10,
+          "pred_idx": 17,
+          "linpos_idx": 23,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g1",
+          "n_words": 12,
+          "gold_idx": 4,
+          "pred_idx": 9,
+          "linpos_idx": 9,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 4,
+          "gold_idx": 3,
+          "pred_idx": 2,
+          "linpos_idx": 3,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g4",
+          "n_words": 9,
+          "gold_idx": 8,
+          "pred_idx": 7,
+          "linpos_idx": 7,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 8,
+          "gold_idx": 5,
+          "pred_idx": 7,
+          "linpos_idx": 6,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 6,
+          "gold_idx": 5,
+          "pred_idx": 5,
+          "linpos_idx": 4,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 21,
+          "gold_idx": 3,
+          "pred_idx": 20,
+          "linpos_idx": 17,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 8,
+          "gold_idx": 7,
+          "pred_idx": 3,
+          "linpos_idx": 6,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 10,
+          "gold_idx": 2,
+          "pred_idx": 1,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 13,
+          "gold_idx": 4,
+          "pred_idx": 12,
+          "linpos_idx": 10,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 15,
+          "gold_idx": 8,
+          "pred_idx": 6,
+          "linpos_idx": 12,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 4,
+          "gold_idx": 3,
+          "pred_idx": 2,
+          "linpos_idx": 3,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 6,
+          "gold_idx": 5,
+          "pred_idx": 4,
+          "linpos_idx": 4,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 15,
+          "gold_idx": 5,
+          "pred_idx": 13,
+          "linpos_idx": 12,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 25,
+          "gold_idx": 3,
+          "pred_idx": 22,
+          "linpos_idx": 20,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g1",
+          "n_words": 11,
+          "gold_idx": 2,
+          "pred_idx": 7,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 16,
+          "gold_idx": 6,
+          "pred_idx": 10,
+          "linpos_idx": 13,
+          "hit": false,
+          "linpos_hit": false
+        }
+      ],
+      "digest": "a9c12d0a226944dd78766288fbdcf3447ebd476457854ceab2c9677d035bab70"
+    },
+    "probe_2c_passive": {
+      "pe_spike_hit_rate": 0.2857142857142857,
+      "baseline_linear_position_hit_rate": 0.2857142857142857,
+      "baseline_chance_hit_rate_analytic": 0.24503968253968253,
+      "n_examples": 7,
+      "per_example": [
+        {
+          "grade": "g2",
+          "n_words": 10,
+          "gold_idx": 2,
+          "pred_idx": 9,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 28,
+          "gold_idx": 19,
+          "pred_idx": 27,
+          "linpos_idx": 23,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 17,
+          "gold_idx": 11,
+          "pred_idx": 6,
+          "linpos_idx": 14,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 13,
+          "gold_idx": 10,
+          "pred_idx": 7,
+          "linpos_idx": 10,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 10,
+          "gold_idx": 4,
+          "pred_idx": 4,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 19,
+          "gold_idx": 3,
+          "pred_idx": 11,
+          "linpos_idx": 15,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 10,
+          "gold_idx": 7,
+          "pred_idx": 7,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": true
+        }
+      ],
+      "digest": "35b13fb8b683d263cb45cb4b8dd99e8d6a13d5ed6c67fccebd35745a0fa9b130"
+    }
+  },
+  "candidate_out": {
+    "arm": "ARM_CAUSAL_REAL_BARLOW",
+    "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_BARLOW.pt",
+    "model_cfg": {
+      "vocab": 16000,
+      "max_len": 128,
+      "d_model": 512,
+      "n_layers": 6,
+      "n_heads": 8,
+      "ffn_mult": 4,
+      "pad_id": 0
+    },
+    "probe_2b": {
+      "pe_spike": {
+        "precision": 0.2777777777777778,
+        "recall": 0.25,
+        "f1": 0.2631578947368421,
+        "recall_16_subset": 0.25,
+        "n_predicted": 18,
+        "threshold": 290.413832731439
+      },
+      "baseline_lexical": {
+        "precision": 0.6666666666666666,
+        "recall": 0.1,
+        "f1": 0.1739130434782609,
+        "recall_16_subset": 0.0,
+        "n_predicted": 3
+      },
+      "baseline_chance": {
+        "analytic_precision": 0.2222222222222222,
+        "analytic_spike_rate": 0.2,
+        "analytic_f1_at_matched_rate": 0.2105263157894737
+      },
+      "n_positions": 90,
+      "n_gold_all": 20,
+      "n_gold_16_subset": 16,
+      "digest": "0491d6e08082c705252fb20395f28964aaa581d10fa22156e147f7391dfd47fd"
+    },
+    "probe_2c_quotative": {
+      "pe_spike_hit_rate": 0.45,
+      "baseline_linear_position_hit_rate": 0.45,
+      "baseline_chance_hit_rate_analytic": 0.40757287157287153,
+      "n_examples": 20,
+      "per_example": [
+        {
+          "grade": "g1",
+          "n_words": 8,
+          "gold_idx": 7,
+          "pred_idx": 7,
+          "linpos_idx": 6,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 3,
+          "gold_idx": 2,
+          "pred_idx": 2,
+          "linpos_idx": 2,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 26,
+          "gold_idx": 2,
+          "pred_idx": 13,
+          "linpos_idx": 21,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 28,
+          "gold_idx": 10,
+          "pred_idx": 8,
+          "linpos_idx": 23,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g1",
+          "n_words": 12,
+          "gold_idx": 4,
+          "pred_idx": 2,
+          "linpos_idx": 9,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 4,
+          "gold_idx": 3,
+          "pred_idx": 3,
+          "linpos_idx": 3,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g4",
+          "n_words": 9,
+          "gold_idx": 8,
+          "pred_idx": 6,
+          "linpos_idx": 7,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 8,
+          "gold_idx": 5,
+          "pred_idx": 5,
+          "linpos_idx": 6,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 6,
+          "gold_idx": 5,
+          "pred_idx": 1,
+          "linpos_idx": 4,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 21,
+          "gold_idx": 3,
+          "pred_idx": 14,
+          "linpos_idx": 17,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 8,
+          "gold_idx": 7,
+          "pred_idx": 7,
+          "linpos_idx": 6,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 10,
+          "gold_idx": 2,
+          "pred_idx": 2,
+          "linpos_idx": 8,
+          "hit": true,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 13,
+          "gold_idx": 4,
+          "pred_idx": 10,
+          "linpos_idx": 10,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 15,
+          "gold_idx": 8,
+          "pred_idx": 10,
+          "linpos_idx": 12,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 4,
+          "gold_idx": 3,
+          "pred_idx": 3,
+          "linpos_idx": 3,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g1",
+          "n_words": 6,
+          "gold_idx": 5,
+          "pred_idx": 5,
+          "linpos_idx": 4,
+          "hit": true,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g2",
+          "n_words": 15,
+          "gold_idx": 5,
+          "pred_idx": 11,
+          "linpos_idx": 12,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 25,
+          "gold_idx": 3,
+          "pred_idx": 2,
+          "linpos_idx": 20,
+          "hit": true,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g1",
+          "n_words": 11,
+          "gold_idx": 2,
+          "pred_idx": 7,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 16,
+          "gold_idx": 6,
+          "pred_idx": 13,
+          "linpos_idx": 13,
+          "hit": false,
+          "linpos_hit": false
+        }
+      ],
+      "digest": "3deb22621f8a8bac256052e6967e75d167a5ad43ee57b2c81ae74f680854e97f"
+    },
+    "probe_2c_passive": {
+      "pe_spike_hit_rate": 0.0,
+      "baseline_linear_position_hit_rate": 0.2857142857142857,
+      "baseline_chance_hit_rate_analytic": 0.24503968253968253,
+      "n_examples": 7,
+      "per_example": [
+        {
+          "grade": "g2",
+          "n_words": 10,
+          "gold_idx": 2,
+          "pred_idx": 5,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 28,
+          "gold_idx": 19,
+          "pred_idx": 23,
+          "linpos_idx": 23,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g3",
+          "n_words": 17,
+          "gold_idx": 11,
+          "pred_idx": 8,
+          "linpos_idx": 14,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 13,
+          "gold_idx": 10,
+          "pred_idx": 7,
+          "linpos_idx": 10,
+          "hit": false,
+          "linpos_hit": true
+        },
+        {
+          "grade": "g3",
+          "n_words": 10,
+          "gold_idx": 4,
+          "pred_idx": 7,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g4",
+          "n_words": 19,
+          "gold_idx": 3,
+          "pred_idx": 15,
+          "linpos_idx": 15,
+          "hit": false,
+          "linpos_hit": false
+        },
+        {
+          "grade": "g2",
+          "n_words": 10,
+          "gold_idx": 7,
+          "pred_idx": 1,
+          "linpos_idx": 8,
+          "hit": false,
+          "linpos_hit": true
+        }
+      ],
+      "digest": "d2737dadb3b571e2f2cfe36c0607a688f6de4cd4d648a0ac5569d878332378d7"
+    }
+  },
+  "arms_differ_verified": true,
+  "identical_units": [],
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "n_units_done": 6,
+  "params": {
+    "floor_ckpt": "D:\\AI\\hd-instrument\\data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_RANDOM.pt",
+    "candidate_ckpt": "D:\\AI\\hd-instrument\\data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_CAUSAL_REAL_BARLOW.pt",
+    "floor_margin": 0.05,
+    "tolerance_window": 1,
+    "linear_position_frac": 0.85,
+    "hard_pass_2b_lift": 0.1,
+    "hard_pass_2b_recall16_min": 0.3,
+    "pe_definition": "causal next-token cross-entropy, tied head, per prereg"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "n_a_short_runtime",
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered FLOOR_OK/HARD_PASS_2b/HARD_FAIL_2b/MIDDLE_2b decision rule (see decide_verdict)",
+  "calibration_check": "default_ok_for_this_regime: PE-spike threshold (mean+1*std), tolerance window, FLOOR_MARGIN, LINEAR_POSITION_FRAC are fixed HYPOTHESIZED thresholds set before running (not tuned post-hoc)."
+}

@@ -1,0 +1,8 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "anchor_name": "grounding_bridge_criticality_cskg_v2",
+  "verdict_msg": "SELFTEST_PASS: positive-control clears P2+bridge bars (achievable); form-without-content shuffle FAILS both with margin; reach moves 0->grounded; cardinality+arms_differ exercised; validity-preflight all 4 declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0
+}

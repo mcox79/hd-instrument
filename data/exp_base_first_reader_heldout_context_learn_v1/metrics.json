@@ -1,0 +1,608 @@
+{
+  "anchor_name": "base_first_reader_heldout_context_learn_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: context helps weakly (a=0.234 gap=0.064 p=0.1954, CI=[-0.064,0.191]) but below significance/approach-lookup bar; far below dict-lookup ceiling 0.979",
+  "summary": "MIDDLE_BAND | a_wnsup=0.234 b=0.170 d=0.979 gap=0.064 p=0.1954 n=47 cov_base=0.9959 cov_surround=0.9968",
+  "run_mode": "full",
+  "elapsed_s": 0.224,
+  "ts_iso": "2026-07-18T12:24:01.222146+00:00",
+  "seed": 12345,
+  "window": 4,
+  "min_occ": 2,
+  "prereg_bands": {
+    "coverage_gate": 0.98,
+    "hp_gap": 0.15,
+    "hp_acc": 0.45,
+    "hp_alpha": 0.05,
+    "mb_gap": 0.05,
+    "primary_variant": "wnsup"
+  },
+  "coverage": {
+    "full_base_gate": 0.9959,
+    "full_base_frac": [
+      8178,
+      8212
+    ],
+    "understood_surround_gate": 0.9968,
+    "surround_frac": [
+      2184,
+      2191
+    ],
+    "reduced_base_info_only": 0.9526,
+    "gate_passed": true
+  },
+  "arms": {
+    "a_identity": 0.1915,
+    "a_handcat": 0.2553,
+    "a_wnsup_PRIMARY": 0.234,
+    "b_nocontext": 0.1702,
+    "c_frequency": 0.1702,
+    "d_dictlookup_CEILING": 0.9787
+  },
+  "primary_gap_a_minus_b": 0.0638,
+  "bootstrap": {
+    "ci95_lo": -0.0638,
+    "ci95_hi": 0.1915,
+    "p_gap_le_0": 0.1954,
+    "n_boot": 5000
+  },
+  "n_heldout_present": 47,
+  "n_known_present": 39,
+  "heldout_gold_distribution": {
+    "BODY": 7,
+    "ARTIFACT": 9,
+    "PLACE": 6,
+    "ANIMAL": 8,
+    "FOOD": 5,
+    "PLANT": 6,
+    "SUBSTANCE": 6
+  },
+  "train_majority_category": "ANIMAL",
+  "baseline_in_band": true,
+  "degenerate_categories": [],
+  "dropped_heldout_low_occ": [
+    "apple",
+    "river",
+    "willow"
+  ],
+  "dropped_known_absent": [
+    "cake",
+    "drum",
+    "foot"
+  ],
+  "n_detected_names_excluded": 11,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "a_wnsup": "c465db0a746b304f54574a32b245e0bf681f5b2b500fcde795463c9db0502b08",
+    "b_nocontext": "6dc75a550c6727e68c55135ec2078beb3767a26147319f82c1caf20486af05ec",
+    "d_dictlookup": "c18de68d00418f20da2ec9eb7fb500b4e934765623bf7b4eb63f4e832a6b674e"
+  },
+  "arms_differ_exempted": [
+    [
+      "b_nocontext",
+      "c_frequency"
+    ]
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_class": "sequential_cpu_wall_lt_10s_no_hd_primitive",
+  "anti_circularity": "gold hand-authored; inference never looks up held-out word; wn used only to ground context + as (d) lookup ceiling",
+  "per_word": [
+    {
+      "word": "arm",
+      "gold": "BODY",
+      "occ": 6,
+      "a_identity": "PLACE",
+      "a_handcat": "SUBSTANCE",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "basket",
+      "gold": "ARTIFACT",
+      "occ": 9,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "FOOD",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "beach",
+      "gold": "PLACE",
+      "occ": 5,
+      "a_identity": "PLANT",
+      "a_handcat": "PLANT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLACE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "bee",
+      "gold": "ANIMAL",
+      "occ": 5,
+      "a_identity": "BODY",
+      "a_handcat": "BODY",
+      "a_wnsup": "BODY",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "bell",
+      "gold": "ARTIFACT",
+      "occ": 8,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "PLACE",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "bread",
+      "gold": "FOOD",
+      "occ": 7,
+      "a_identity": "FOOD",
+      "a_handcat": "FOOD",
+      "a_wnsup": "FOOD",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "FOOD",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "brook",
+      "gold": "PLACE",
+      "occ": 8,
+      "a_identity": "PLANT",
+      "a_handcat": "PLANT",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLACE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "bush",
+      "gold": "PLANT",
+      "occ": 3,
+      "a_identity": "SUBSTANCE",
+      "a_handcat": "SUBSTANCE",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLANT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "cage",
+      "gold": "ARTIFACT",
+      "occ": 8,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "cart",
+      "gold": "ARTIFACT",
+      "occ": 9,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "chick",
+      "gold": "ANIMAL",
+      "occ": 5,
+      "a_identity": "BODY",
+      "a_handcat": "BODY",
+      "a_wnsup": "BODY",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "corn",
+      "gold": "PLANT",
+      "occ": 3,
+      "a_identity": "FOOD",
+      "a_handcat": "FOOD",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLANT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "cracker",
+      "gold": "FOOD",
+      "occ": 2,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "PLACE",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "FOOD",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "doll",
+      "gold": "ARTIFACT",
+      "occ": 26,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "duck",
+      "gold": "ANIMAL",
+      "occ": 12,
+      "a_identity": "PLACE",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "fan",
+      "gold": "ARTIFACT",
+      "occ": 9,
+      "a_identity": "ARTIFACT",
+      "a_handcat": "ARTIFACT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "flag",
+      "gold": "ARTIFACT",
+      "occ": 8,
+      "a_identity": "PLANT",
+      "a_handcat": "PLANT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "fox",
+      "gold": "ANIMAL",
+      "occ": 5,
+      "a_identity": "ARTIFACT",
+      "a_handcat": "ARTIFACT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "frog",
+      "gold": "ANIMAL",
+      "occ": 10,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "fur",
+      "gold": "SUBSTANCE",
+      "occ": 2,
+      "a_identity": "FOOD",
+      "a_handcat": "FOOD",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "SUBSTANCE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "grass",
+      "gold": "PLANT",
+      "occ": 15,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLANT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "hair",
+      "gold": "BODY",
+      "occ": 4,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "hand",
+      "gold": "BODY",
+      "occ": 19,
+      "a_identity": "ARTIFACT",
+      "a_handcat": "ARTIFACT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "head",
+      "gold": "BODY",
+      "occ": 5,
+      "a_identity": "ARTIFACT",
+      "a_handcat": "ARTIFACT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "hen",
+      "gold": "ANIMAL",
+      "occ": 30,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "hill",
+      "gold": "PLACE",
+      "occ": 5,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLACE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "honey",
+      "gold": "FOOD",
+      "occ": 3,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "FOOD",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "ice",
+      "gold": "SUBSTANCE",
+      "occ": 11,
+      "a_identity": "PLANT",
+      "a_handcat": "PLANT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "SUBSTANCE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "lap",
+      "gold": "BODY",
+      "occ": 3,
+      "a_identity": "BODY",
+      "a_handcat": "BODY",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "log",
+      "gold": "SUBSTANCE",
+      "occ": 12,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "SUBSTANCE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "meat",
+      "gold": "FOOD",
+      "occ": 3,
+      "a_identity": "FOOD",
+      "a_handcat": "FOOD",
+      "a_wnsup": "FOOD",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "FOOD",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "milk",
+      "gold": "FOOD",
+      "occ": 2,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "FOOD",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "mill",
+      "gold": "ARTIFACT",
+      "occ": 7,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "PLACE",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "mouth",
+      "gold": "BODY",
+      "occ": 7,
+      "a_identity": "PLANT",
+      "a_handcat": "PLANT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "neck",
+      "gold": "BODY",
+      "occ": 4,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "BODY",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "nut",
+      "gold": "PLANT",
+      "occ": 3,
+      "a_identity": "SUBSTANCE",
+      "a_handcat": "SUBSTANCE",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLANT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "owl",
+      "gold": "ANIMAL",
+      "occ": 7,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "pond",
+      "gold": "PLACE",
+      "occ": 25,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLACE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "rat",
+      "gold": "ANIMAL",
+      "occ": 23,
+      "a_identity": "ARTIFACT",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ANIMAL",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "rose",
+      "gold": "PLANT",
+      "occ": 10,
+      "a_identity": "PLACE",
+      "a_handcat": "PLANT",
+      "a_wnsup": "PLACE",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLANT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "sand",
+      "gold": "SUBSTANCE",
+      "occ": 6,
+      "a_identity": "BODY",
+      "a_handcat": "BODY",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "SUBSTANCE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "sea",
+      "gold": "PLACE",
+      "occ": 8,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLACE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "shore",
+      "gold": "PLACE",
+      "occ": 3,
+      "a_identity": "ARTIFACT",
+      "a_handcat": "ARTIFACT",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLACE",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "skate",
+      "gold": "ARTIFACT",
+      "occ": 15,
+      "a_identity": "FOOD",
+      "a_handcat": "FOOD",
+      "a_wnsup": "ARTIFACT",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "ARTIFACT",
+      "a_wnsup_correct": true
+    },
+    {
+      "word": "snow",
+      "gold": "SUBSTANCE",
+      "occ": 6,
+      "a_identity": "ANIMAL",
+      "a_handcat": "ANIMAL",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": null,
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "vine",
+      "gold": "PLANT",
+      "occ": 2,
+      "a_identity": "FOOD",
+      "a_handcat": "FOOD",
+      "a_wnsup": "ANIMAL",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "PLANT",
+      "a_wnsup_correct": false
+    },
+    {
+      "word": "wood",
+      "gold": "SUBSTANCE",
+      "occ": 13,
+      "a_identity": "PLACE",
+      "a_handcat": "PLACE",
+      "a_wnsup": "PLACE",
+      "b_nocontext": "ANIMAL",
+      "d_dictlookup": "SUBSTANCE",
+      "a_wnsup_correct": false
+    }
+  ]
+}

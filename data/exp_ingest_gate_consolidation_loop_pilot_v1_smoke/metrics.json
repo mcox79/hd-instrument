@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "TypeError: dict() got multiple values for keyword argument 'run_mode'",
+  "summary": "CELL_CRASHED: TypeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_ingest_gate_consolidation_loop_pilot_v1.py\", line 688, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_ingest_gate_consolidation_loop_pilot_v1.py\", line 672, in main\n    metrics = dict(anchor_name=ANCHOR_NAME, run_mode=run_mode, elapsed_s=round(elapsed, 2),\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: dict() got multiple values for keyword argument 'run_mode'\n",
+  "ts_iso": "2026-07-16T01:50:30.103370+00:00",
+  "pid": 25772,
+  "anchor_name": "ingest_gate_consolidation_loop_pilot_v1"
+}

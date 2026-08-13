@@ -1,0 +1,183 @@
+{
+  "anchor_name": "lexicon_grounding_loop_realvec_v1",
+  "verdict": "MIDDLE",
+  "verdict_msg": "REAL-VECTOR grounding geometry [REAL_GEOMETRY_MOSTLY_BENIGN_VALIDITY_AXIS_LIFT_LIMITED]: raw fitted k=24 concept vectors d_eff/D=0.761 (d_eff=18.27). LOOP on real geometry -- RANDOM(ideal): bound=1.000 negrej=1.000 AUC=1.000 PR=1020; REAL_FPE: bound=0.983 negrej=0.721 AUC=0.899 PR=32.3 coh_exc=0.888 (bound_gap=+0.017 negrej_gap=+0.279); attribution: retrieval_degraded=False validity_degraded=True. SPARSEFIX: bound=0.992 negrej=0.634 AUC=0.885 PR=7.1 (recovery negrej_delta=-0.087 bound_delta=+0.009, recovers=False). WHITEN(ctrl): bound=0.898 negrej=0.476 AUC=0.842. Two anchors: ideal PR~1353/coh~0.06, synthetic-stressor PR~5/coh~1.0.",
+  "summary": "MIDDLE [REAL_GEOMETRY_MOSTLY_BENIGN_VALIDITY_AXIS_LIFT_LIMITED]: real CoDEx concept-vector geometry vs FHRR grounding loop (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 133.89,
+  "N": 1024,
+  "k_dim": 24,
+  "fit_epochs": 60,
+  "n_seeds": 3,
+  "fit_cached": false,
+  "real_codebook_geometry": {
+    "raw_X_d_eff": 18.265701908884438,
+    "raw_X_d_eff_over_D": 0.7610709128701849,
+    "k_dim": 24,
+    "raw_degree_cosine_spearman": 0.17070671204173757,
+    "fpe_bandwidth_sigma_selected": 1.414170112603956,
+    "fpe_target_median_coherence_achieved": 0.14602317848942276,
+    "fpe_bandwidth_sigma_median_heuristic": 0.7079131501135348,
+    "median_pairwise_dist": 1.4126026615547689,
+    "fpe_bandwidth_sweep": [
+      {
+        "sigma_mult_of_median_heur": 1,
+        "sigma": 0.7079131501135348,
+        "bound": 0.9201342281879195,
+        "auc": 0.8402890015066429,
+        "neg_reject": 0.4564983888292159
+      },
+      {
+        "sigma_mult_of_median_heur": 2,
+        "sigma": 1.4158263002270697,
+        "bound": 0.9845637583892617,
+        "auc": 0.8987121446953914,
+        "neg_reject": 0.7158968850698174
+      },
+      {
+        "sigma_mult_of_median_heur": 4,
+        "sigma": 2.8316526004541394,
+        "bound": 1.0,
+        "auc": 0.9940721891017092,
+        "neg_reject": 0.9844253490870032
+      },
+      {
+        "sigma_mult_of_median_heur": 8,
+        "sigma": 5.663305200908279,
+        "bound": 1.0,
+        "auc": 1.0,
+        "neg_reject": 1.0
+      }
+    ],
+    "REAL_FPE_diagnostics": {
+      "coherence_mu": 0.9104503577315196,
+      "welch_floor": 0.022026323796543134,
+      "coherence_excess": 0.8884240339349766,
+      "participation_ratio": 32.25685145770934,
+      "effrank_ratio": 0.031500831501669276,
+      "degree_centroid_spearman": 0.2306863320553364
+    },
+    "RANDOM_diagnostics": {
+      "coherence_mu": 0.12016255199155472,
+      "welch_floor": 0.022026323796543134,
+      "coherence_excess": 0.09813622819501157,
+      "participation_ratio": 1020.2896008514308,
+      "effrank_ratio": 0.9963765633314754,
+      "degree_centroid_spearman": -0.012714732960761978
+    },
+    "SPARSEFIX_diagnostics": {
+      "coherence_mu": 0.8548569730580953,
+      "welch_floor": 0.022026323796543134,
+      "coherence_excess": 0.8328306492615521,
+      "participation_ratio": 7.06363492851973,
+      "effrank_ratio": 0.006898080984882549,
+      "degree_centroid_spearman": 0.15944916744815754
+    },
+    "WHITEN_diagnostics": {
+      "coherence_mu": 0.9780085291422224,
+      "welch_floor": 0.022026323796543134,
+      "coherence_excess": 0.9559822053456792,
+      "participation_ratio": 2.6654734487800624,
+      "effrank_ratio": 0.0026030014148242797,
+      "degree_centroid_spearman": 0.0009023360807419422
+    }
+  },
+  "arms": {
+    "RANDOM": {
+      "bound_real_any": 1.0,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 1.0,
+      "random_key_any": 0.05369127516778524,
+      "auc_pos_vs_neg": 1.0,
+      "neg_reject_at_90recall": 1.0,
+      "pos_score_mean": 0.9976439124536274,
+      "neg_score_mean": 0.00020659555048694925,
+      "neg_reject_std": 0.0,
+      "per_seed_auc": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "REAL_FPE": {
+      "bound_real_any": 0.9834451901565995,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 0.9833333333333334,
+      "random_key_any": 0.016778523489932886,
+      "auc_pos_vs_neg": 0.8987138267528841,
+      "neg_reject_at_90recall": 0.7209094163981383,
+      "pos_score_mean": 3.890299273040801,
+      "neg_score_mean": 1.2404128571614166,
+      "neg_reject_std": 0.010921624806781001,
+      "per_seed_auc": [
+        0.8985250758728076,
+        0.8978362733295366,
+        0.899780131056308
+      ]
+    },
+    "REAL_SPARSEFIX": {
+      "bound_real_any": 0.9923937360178972,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 0.995,
+      "random_key_any": 0.04429530201342282,
+      "auc_pos_vs_neg": 0.8853811181837624,
+      "neg_reject_at_90recall": 0.6342642320085929,
+      "pos_score_mean": 4.320828214952836,
+      "neg_score_mean": 1.3865257895280763,
+      "neg_reject_std": 0.013783298642978977,
+      "per_seed_auc": [
+        0.8838295402936872,
+        0.884649903762282,
+        0.8876639104953179
+      ]
+    },
+    "REAL_WHITEN": {
+      "bound_real_any": 0.8984340044742729,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 0.9120833333333334,
+      "random_key_any": 0.017225950782997764,
+      "auc_pos_vs_neg": 0.8417374933018067,
+      "neg_reject_at_90recall": 0.4760114572144647,
+      "pos_score_mean": 6.389026814392261,
+      "neg_score_mean": 2.326627117254295,
+      "neg_reject_std": 0.011130892629222915,
+      "per_seed_auc": [
+        0.8499744086967178,
+        0.8500328001211082,
+        0.8252052710875943
+      ]
+    }
+  },
+  "headline": "REAL_GEOMETRY_MOSTLY_BENIGN_VALIDITY_AXIS_LIFT_LIMITED",
+  "attribution": {
+    "fpe_bound_gap_vs_random": 0.01655480984340052,
+    "fpe_negrej_gap_vs_random": 0.2790905836018617,
+    "retrieval_degraded": false,
+    "validity_degraded": true,
+    "raw_rank_healthy": true,
+    "validity_is_bandwidth_sensitive": true,
+    "negrej_bandwidth_range": 0.5435016111707841,
+    "is_representational_wall": false,
+    "real_benign": false,
+    "real_adverse": true,
+    "fix_recovers": false,
+    "fix_improves": false,
+    "fix_delta_negrej": -0.08664518438954538,
+    "fix_delta_bound": 0.008948545861297674,
+    "auc_measured": true
+  },
+  "sparsefix_config": {
+    "m_mult": 16,
+    "kwta_frac": 0.1,
+    "k_fanin": 6
+  },
+  "honest_read": "Retrieval (argmax over a small object-range) and claim-validity (resonance AUC / neg-reject over the whole codebook) are SEPARATE axes. If real geometry is benign, that is a POSITIVE (no fix needed). If only the validity axis degrades, the fix must recover neg-rejection specifically. Whitening is a low-value control (rotation cannot add rank -- note-flagged).",
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "real_codebook_geometry",
+    "arms"
+  ],
+  "human_readable_labels": "DEFERRED: Q-ids/P-ids glass-box-legal; no label files on disk."
+}

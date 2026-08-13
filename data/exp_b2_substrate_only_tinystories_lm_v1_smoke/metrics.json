@@ -1,0 +1,32 @@
+{
+  "anchor_name": "b2_substrate_only_tinystories_lm_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate-only LM fails to beat unigram floor; mechanism broken. ppl SUB=512.37 UNI=220.16 BIGRAM=381.17 | acc SUB=0.1590 UNI=0.1959 BIGRAM=0.1908 (n_seeds=1, V_DIM=1024, N_TRAIN=12000, N_HELD=1000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config": {
+    "V_DIM": 1024,
+    "N_TRAIN": 12000,
+    "N_HELD": 1000,
+    "VOCAB_CAP": 2000
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "V": 2000,
+      "V_DIM": 1024,
+      "N_TRAIN": 12000,
+      "N_HELD": 1000,
+      "n_eval": 786,
+      "ppl_substrate": 512.3707275390625,
+      "ppl_unigram": 220.15556527972564,
+      "ppl_bigram": 381.16949587887314,
+      "acc_substrate": 0.15903307888040713,
+      "acc_unigram": 0.19592875318066158,
+      "acc_bigram": 0.19083969465648856,
+      "elapsed_s": 1.215320348739624
+    }
+  ],
+  "elapsed_s": 1.2324950695037842,
+  "summary": "HARD_FAIL: substrate-only LM fails to beat unigram floor; mechanism broken. ppl SUB=512.37 UNI=220.16 BIGRAM=381.17 | acc SUB=0.1590 UNI=0.1959 BIGRAM=0.1908 (n_seeds=1, V_DIM=1024, N_TRAIN=12000, N_HELD=1000)"
+}

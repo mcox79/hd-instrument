@@ -1,0 +1,148 @@
+{
+  "verdict": "SELECTION_HARD_FAIL",
+  "verdict_msg": "HONEST WALL: NO selection signal beats the current gate on the answer (best arm REL Challenge 0.3142 vs A_gate 0.3409, lift -0.0267 < 0.02). Selection-precision from a contains-gold pool (recall@100=0.69, oracle 0.7248) is ITSELF the hard wall. Per-arm lifts {'REL': -0.0267, 'COH': -0.076, 'DISC': -0.0555, 'COMB': -0.037}; random R-A_gate=-0.0534. Redirect: the lever is DEEPER meaning/grounding for relevance (the relocated hypothesis), NOT more retrieval or a re-tuned surface gate. sel_gold_precision best_arm=0.1109 A_gate=0.1196 oracle=0.9692.",
+  "summary": "SELECTION_HARD_FAIL: [Chal] A_gate=0.3409 REL=0.3142 COH=0.2649 DISC=0.2854 COMB=0.3039 RND=0.2875 ORACLE=0.7248 | best=REL lift=-0.0267 gap_frac=-0.0695 McNemar_p=0.1485617748918646 rand_lift=-0.0534 | chance=0.2501",
+  "elapsed_s": 101.0,
+  "ts_iso": "2026-07-25T02:24:51.422745+00:00",
+  "anchor_name": "arc_selection_precision_coherence_subset_v1",
+  "mode": "full",
+  "run_mode": "full",
+  "n_dim": 2048,
+  "seed": 20260726,
+  "n_questions": 987,
+  "n_easy": 500,
+  "n_challenge": 487,
+  "n_chal_lure": 77,
+  "chance_theoretical": 0.2501,
+  "store_facts": 9720,
+  "graph_terms": 5403,
+  "k_wide": 100,
+  "k_sel": 4,
+  "rr_top_t": 10,
+  "mu_supp": 1.0,
+  "settle_t": 50,
+  "settle_eps": 0.001,
+  "hops": 2,
+  "damp": 0.5,
+  "seed_cos": 0.6,
+  "acc_by_arm": {
+    "A_gate": {
+      "easy": 0.43,
+      "challenge": 0.3409,
+      "chal_lure": 0.4416,
+      "chal_correct": 166,
+      "chal_n": 487,
+      "sel_gold_precision": 0.1196
+    },
+    "REL": {
+      "easy": 0.43,
+      "challenge": 0.3142,
+      "chal_lure": 0.3247,
+      "chal_correct": 153,
+      "chal_n": 487,
+      "sel_gold_precision": 0.1109
+    },
+    "COH": {
+      "easy": 0.35,
+      "challenge": 0.2649,
+      "chal_lure": 0.3636,
+      "chal_correct": 129,
+      "chal_n": 487,
+      "sel_gold_precision": 0.0498
+    },
+    "DISC": {
+      "easy": 0.336,
+      "challenge": 0.2854,
+      "chal_lure": 0.4156,
+      "chal_correct": 139,
+      "chal_n": 487,
+      "sel_gold_precision": 0.0498
+    },
+    "COMB": {
+      "easy": 0.418,
+      "challenge": 0.3039,
+      "chal_lure": 0.4416,
+      "chal_correct": 148,
+      "chal_n": 487,
+      "sel_gold_precision": 0.0883
+    },
+    "RND": {
+      "easy": 0.328,
+      "challenge": 0.2875,
+      "chal_lure": 0.3896,
+      "chal_correct": 140,
+      "chal_n": 487,
+      "sel_gold_precision": 0.0205
+    },
+    "ORACLE": {
+      "easy": 0.806,
+      "challenge": 0.7248,
+      "chal_lure": 0.7662,
+      "chal_correct": 353,
+      "chal_n": 487,
+      "sel_gold_precision": 0.9692
+    }
+  },
+  "A_gate_challenge": 0.3409,
+  "oracle_gold_challenge": 0.7248,
+  "selection_gap": 0.3839,
+  "arm_lift_challenge": {
+    "REL": -0.0267,
+    "COH": -0.076,
+    "DISC": -0.0555,
+    "COMB": -0.037
+  },
+  "best_arm": "REL",
+  "best_lift_challenge": -0.0267,
+  "gap_fraction_closed": -0.0695,
+  "random_lift_challenge": -0.0534,
+  "random_control_ok": true,
+  "mcnemar_challenge": {
+    "arm": "REL",
+    "b_A_right_arm_wrong": 41,
+    "c_A_wrong_arm_right": 28,
+    "stat": 2.087,
+    "p_value": 0.14856,
+    "significant": false
+  },
+  "sel_gold_precision_by_arm": {
+    "A_gate": 0.1196,
+    "REL": 0.1109,
+    "COH": 0.0498,
+    "DISC": 0.0498,
+    "COMB": 0.0883,
+    "RND": 0.0205,
+    "ORACLE": 0.9692
+  },
+  "baseline_in_band": true,
+  "ag_saturated": false,
+  "arms_differ_verified": true,
+  "n_distinct_pick_vectors": 6,
+  "arm_pick_digests": {
+    "A_gate": "71ebf6e7942e7522eeddfc744e171a735c178d37d8dd677f1380ba0bccf2a82c",
+    "REL": "1639277d77532fde97e597c4319db01bdd04192266b6d9f4d2e6bfbc22c42b68",
+    "COH": "4408aabbbde3756478fa50b9a47b6c4e4e632ab4bb245642140a8495f8090bf2",
+    "DISC": "c2e71ac2185746856cee071fb3af422c4469fdbfa7f5d75b7e40a452debb28dd",
+    "COMB": "aad302991f768e50b1ee1bf77820564430f3c3639ecc230cce2b540d144b401d",
+    "RND": "41465a018c14e3470361a9634a8fbe79dac5bb55de4714787294aba255082c2d",
+    "ORACLE": "246c190299de9328448738c0bb7f4387250ff236752ab0c4ad79f9b6239b1b15"
+  },
+  "bands": {
+    "HP_chal_lift": 0.05,
+    "MB_chal_lift": 0.02,
+    "random_max": 0.02,
+    "mcnemar_alpha": 0.05,
+    "ag_baseline_sat": 0.95
+  },
+  "grade_proxy": {
+    "easy_band": "~grade 3-4",
+    "challenge_band": "emerging (~grade 2-3, above chance)",
+    "note": "COARSE heuristic proxy: ARC-Easy targets grade 3-5, Challenge grade 6-9 (dataset design). Bands are an anchor, NOT a measured comparison to real student score distributions (none available). Chance ~0.25 = bottom of scale."
+  },
+  "wired_vs_stubbed": "WIRED: SELECTION is the ONLY variable. The WIDE re-retrieval pool (RR top-100, max-recall cell mr.reformulate_seeds/_rownorm_scores, IMPORTED UNCHANGED) and the bind+bundle combiner (agg.aggregate 'bundle', IMPORTED UNCHANGED) are held fixed; the ONE new piece is the selection signal that picks K_SEL=4 facts from the pool. Arms: A_gate (current gate gate.gate_scores baseline = E_wide_gate analog), REL (goal-biased answer-SET relevance), COH (COHERENCE-SUBSET: agg._relax Kintsch/ECHO settle over the signed fact-fact coherence matrix seeded by relevance, select highest settled activation = the coherent subset), DISC (choice-separating margin, answer-agnostic), COMB (min-max normed REL+COH+DISC - MU*RIF suppression), RND (random-select MUST-FAIL), ORACLE (gold->combiner ceiling ~0.71). ALL selection signals ANSWER-AGNOSTIC (never see correct index or gold uids). PRIMARY = end-to-end ARC Challenge accuracy judged on the ANSWER; McNemar best-arm vs A_gate; RANDOM must-fail. SECONDARY = selection-precision vs gold (diagnostic). Gold used ONLY for the ORACLE arm + evaluation. STUBBED/NOTED-NOT-BUILT: triggered/confidence-gated re-selection and learned relevance weighting (this cell tests fixed brain-faithful selection signals first); if HARD_FAIL, the redirect is deeper meaning/grounding for relevance, NOT a re-tuned surface gate.",
+  "contract": "INLINE-LOCAL; no push/remote-persist; NOT remote-portable (GloVe+WorldTree git-ignored/large); VET-PENDING; FULL eval slice bounded (limit_easy=500 limit_chal=600) to fit one foreground call",
+  "compute_architecture": "mixed CPU: batched GloVe encode + scipy.sparse batched PPR (2 passes, UNCHANGED) + per-question selection signals (cheap KxK coherence settle at K=100) + UNCHANGED combiner; wall target < 10min",
+  "storage_strategy": "sharded (each fact = own embedding + own graph node; no superposition)",
+  "progress_logging": "line_buffered_stdout",
+  "calibration_check": "default_ok_for_this_regime (selection hyperparams author-set a priori; wide pool + combiner UNCHANGED; NOT tuned to force a win; random-select present as must-fail)"
+}

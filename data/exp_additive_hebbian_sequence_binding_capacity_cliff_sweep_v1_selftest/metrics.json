@@ -1,0 +1,14 @@
+{
+  "anchor_name": "additive_hebbian_sequence_binding_capacity_cliff_sweep_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: per-N_PAIRS x per-arm structure verified",
+  "summary": "SELFTEST_OK: per-N_PAIRS x per-arm structure verified",
+  "elapsed_s": 73.0,
+  "ts_iso": "2026-06-27T22:09:06Z",
+  "pid": 24208,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=additive_hebbian_sequence_binding_capacity_cliff_sweep_v1,N=512,V=50,sweep=[10, 50],seeds=[1],mode=smoke,cliff50=0.50,cliff20=0.20,sat_th=0.95,cv_hp=0.10,cv_mb=0.20,expected_n=8,SHARED_W=True,RECALL_VS_ALL=True,GPU=cuda,hardening=L1early+L2perarm+L3outertry+L4importsentinel+GPU_UTIL_SAMPLER",
+  "_hardening_marker": "v1_additive_hebbian_capacity_cliff_sweep_gpu",
+  "_phase": "selftest_done",
+  "first_seed_sample": "{'additive_hebbian': {'recall_correct': 1.0, 'cross_order_confusion': 0.0, 'order_discrimination': 1.0, 'n_queries': 20}, 'random_tag_50pct': {'recall_correct': 1.0, 'cross_order_confusion': 0.0, 'order_discrimination': 1.0, 'n_queries': 20}, 'context_bank_lookup': {'recall_correct': 0.05, 'cross_or"
+}

@@ -1,0 +1,272 @@
+{
+  "anchor": "phase_diagram_wm_multibank_K_ceiling_sweep_32768_v3",
+  "anchor_name": "phase_diagram_wm_multibank_K_ceiling_sweep_32768_v3",
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE_PASS: mechanism end-to-end OK at smoke regime | K=1024 best_rand=MULTI_32x[rec=0.9932 cv=0.0000 ra=1.0000 kpb=32] adv_same=[rec=0.9902 cv=0.0000] | K=4096 best_rand=MULTI_64x[rec=0.7986 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=0.7305 cv=0.0000] | [Q-DISCIPLINE: saturated={4096: {'RANDOM': ['ARM_KNN_BASELINE']}}] | rail_K4096_obs=0.7986 (min=0.9500; DRIFT) | knn_sentinel=1.0000 (>=0.90; OK) | n_units=5/expected=5 (OK)",
+  "run_mode": "smoke",
+  "n_units": 5,
+  "n_units_expected": 5,
+  "cardinality_ok": true,
+  "n_failures": 0,
+  "failures": [],
+  "n_seeds": 1,
+  "K_SWEEP": [
+    1024,
+    4096
+  ],
+  "arrangements_by_K": {
+    "1024": [
+      [
+        "MULTI_32x",
+        32,
+        32
+      ]
+    ],
+    "4096": [
+      [
+        "MULTI_64x",
+        64,
+        64
+      ]
+    ]
+  },
+  "seeds": [
+    11
+  ],
+  "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=2048 CODEBOOK_SIZE=4096 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 4096] arrangements=[1024, 4096] N_ITEMS_PER_K=80 seeds=[11] mode=smoke HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=5 VRAM_PROBE=0.85",
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_multibank_routing",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "device": "cpu",
+  "cuda_ok": false,
+  "store_dtype": "torch.float32",
+  "codebook_chunk": 4096,
+  "gpu_avail": false,
+  "gpu_name": "cpu",
+  "gpu_total_mb": 0,
+  "gpu_free_mb": 0,
+  "gpu_max_mem_alloc_mb": 0,
+  "gpu_util_mean": NaN,
+  "gpu_util_p50": NaN,
+  "gpu_util_max": NaN,
+  "gpu_util_n_samples": 0,
+  "per_unit": [
+    {
+      "seed": 11,
+      "k_total": 1024,
+      "regime": "RANDOM",
+      "arm_label": "MULTI_32x",
+      "n_banks": 32,
+      "k_per_bank": 32,
+      "recall": 0.9932,
+      "route_acc": 1.0,
+      "wall_s": 0.27,
+      "peak_mem_mb": 0,
+      "N": 2048,
+      "CODEBOOK_SIZE": 4096,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 80,
+      "M": 4096,
+      "run_mode": "smoke",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=2048 CODEBOOK_SIZE=4096 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 4096] arrangements=[1024, 4096] N_ITEMS_PER_K=80 seeds=[11] mode=smoke HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=5 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K1024_regimeRANDOM_armMULTI_32x",
+      "_partial_written_at": 1782532739.0455172
+    },
+    {
+      "seed": 11,
+      "k_total": 1024,
+      "regime": "ADVERSARIAL",
+      "arm_label": "MULTI_32x",
+      "n_banks": 32,
+      "k_per_bank": 32,
+      "recall": 0.9902,
+      "route_acc": 1.0,
+      "wall_s": 0.27,
+      "peak_mem_mb": 0,
+      "N": 2048,
+      "CODEBOOK_SIZE": 4096,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 80,
+      "M": 4096,
+      "run_mode": "smoke",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=2048 CODEBOOK_SIZE=4096 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 4096] arrangements=[1024, 4096] N_ITEMS_PER_K=80 seeds=[11] mode=smoke HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=5 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K1024_regimeADVERSARIAL_armMULTI_32x",
+      "_partial_written_at": 1782532739.4964998
+    },
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "regime": "RANDOM",
+      "arm_label": "MULTI_64x",
+      "n_banks": 64,
+      "k_per_bank": 64,
+      "recall": 0.7986,
+      "route_acc": 1.0,
+      "wall_s": 1.15,
+      "peak_mem_mb": 0,
+      "N": 2048,
+      "CODEBOOK_SIZE": 4096,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 80,
+      "M": 4096,
+      "run_mode": "smoke",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=2048 CODEBOOK_SIZE=4096 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 4096] arrangements=[1024, 4096] N_ITEMS_PER_K=80 seeds=[11] mode=smoke HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=5 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096_regimeRANDOM_armMULTI_64x",
+      "_partial_written_at": 1782532740.853228
+    },
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "regime": "ADVERSARIAL",
+      "arm_label": "MULTI_64x",
+      "n_banks": 64,
+      "k_per_bank": 64,
+      "recall": 0.7305,
+      "route_acc": 1.0,
+      "wall_s": 0.89,
+      "peak_mem_mb": 0,
+      "N": 2048,
+      "CODEBOOK_SIZE": 4096,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 80,
+      "M": 4096,
+      "run_mode": "smoke",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=2048 CODEBOOK_SIZE=4096 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 4096] arrangements=[1024, 4096] N_ITEMS_PER_K=80 seeds=[11] mode=smoke HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=5 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096_regimeADVERSARIAL_armMULTI_64x",
+      "_partial_written_at": 1782532741.9007697
+    },
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "regime": "RANDOM",
+      "arm_label": "ARM_KNN_BASELINE",
+      "n_banks": 1,
+      "k_per_bank": 4096,
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "wall_s": 0.03,
+      "peak_mem_mb": 0,
+      "N": 2048,
+      "CODEBOOK_SIZE": 4096,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 80,
+      "M": 4096,
+      "run_mode": "smoke",
+      "config_version": "phaseDiagWmMBKCeil32768-v3: N_DIM=2048 CODEBOOK_SIZE=4096 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 4096] arrangements=[1024, 4096] N_ITEMS_PER_K=80 seeds=[11] mode=smoke HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_rail_K4096=1.0000+/-0.050 kPerBankMax=64 CODEBOOK_CHUNK=4096 EXPECTED_N_UNITS=5 VRAM_PROBE=0.85",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096_regimeRANDOM_armARM_KNN_BASELINE",
+      "_partial_written_at": 1782532742.080846
+    }
+  ],
+  "detail": {
+    "arm_stats": {
+      "1024": {
+        "RANDOM": {
+          "MULTI_32x": {
+            "recall_mean": 0.9932,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "recall_per_seed": [
+              0.9932
+            ]
+          }
+        },
+        "ADVERSARIAL": {
+          "MULTI_32x": {
+            "recall_mean": 0.9902,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "recall_per_seed": [
+              0.9902
+            ]
+          }
+        }
+      },
+      "4096": {
+        "RANDOM": {
+          "MULTI_64x": {
+            "recall_mean": 0.7986,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              0.7986
+            ]
+          },
+          "ARM_KNN_BASELINE": {
+            "recall_mean": 1.0,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "recall_per_seed": [
+              1.0
+            ]
+          }
+        },
+        "ADVERSARIAL": {
+          "MULTI_64x": {
+            "recall_mean": 0.7305,
+            "recall_cv": 0.0,
+            "route_acc_mean": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "recall_per_seed": [
+              0.7305
+            ]
+          }
+        }
+      }
+    },
+    "chain_grade_at_K": {
+      "1024": "MULTI_32x"
+    },
+    "adv_break_at_K": {},
+    "cv_fail_at_K": {},
+    "q_suspect_saturation": {
+      "4096": {
+        "RANDOM": [
+          "ARM_KNN_BASELINE"
+        ]
+      }
+    },
+    "rail_K4096_observed": 0.7986,
+    "rail_K4096_target": 1.0,
+    "rail_K4096_tol": 0.05,
+    "rail_drift": true,
+    "knn_sentinel_observed": 1.0,
+    "knn_sentinel_min": 0.9,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "n_units_observed": 5,
+    "n_units_expected": 5,
+    "cardinality_ok": true,
+    "failures": []
+  },
+  "elapsed_s": 3.6,
+  "summary": "SMOKE_PASS: mechanism end-to-end OK at smoke regime | K=1024 best_rand=MULTI_32x[rec=0.9932 cv=0.0000 ra=1.0000 kpb=32] adv_same=[rec=0.9902 cv=0.0000] | K=4096 best_rand=MULTI_64x[rec=0.7986 cv=0.0000 ra=1.0000 kpb=64] adv_same=[rec=0.7305 cv=0.0000] | [Q-DISCIPLINE: saturated={4096: {'RANDOM': ['A",
+  "_atexit_synth": false,
+  "metrics_source": "measured_gpu_substrate_bipolar_multibank_K_ceiling_sweep_v3_chunked_failtrack",
+  "DESIGN_NOTE": "V3 re-dispatch. v2 still silently dropped K>=16384 because main-loop except branched into print-and-continue for non-OOM exceptions. v3 removes silent-continue entirely: any unit exception (OOM or non-OOM) is recorded in failures[] with full traceback, halting the loop. META_RULE_H cardinality guard retained from v2. v3 also: (a) reduced CODEBOOK_CHUNK 8192->4096 (halves cleanup peak); (b) chunks _write_bank_batched over banks (1GB bound at K=32768 -> ~256MB peak); (c) frees ws_selected after del; (d) drops r2 fp32 intermediate; (e) frees per-regime codebooks between regimes; (f) per-K pre-flight VRAM probe with HP_VRAM_PROBE_FRACTION=0.85; (g) per-unit peak_mem_mb. DISCRIMINATOR: phase-diagram MAP cell -- cliff occurrence IS the discriminator; Option B analytical justification per discriminator-must-survive-scale 2026-06-26."
+}

@@ -1,0 +1,257 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ALREADY_JOINT_SOLVED_VIA_INBATCH: the INBATCH-RKD-only (nce_weight=0) arm's ALREADY-LANDED best-checkpoint jointly clears dense>=0.82, keyed>=0.9, and the previously-missing shuffled-key control confirms no leak (<=0.1) -- the semantic-vs-algebra trade-off this dispatch targets is ALREADY RESOLVED by data landed 2026-07-04, masked only by the v3c cell's own verdict short-circuit on GLOBAL_BLOCK. No new training was required to reach this verdict (Phase 1 = pure eval on an existing checkpoint). [REVERIFY INBATCH_BLOCK: dense=0.8865 keyed@J5=1.0000 shuffled@J5=0.0000] RELOCK secondary finding on the separately-failing GLOBAL arm: RECOVERED [RELOCK GLOBAL_BLOCK: crossing_step=25 crossing_dense=0.7114209806940691 crossing_keyed=1.0 stable=True final_dense=0.5260 final_keyed=1.0000 shuffled_final=0.0000]",
+  "summary": "ALREADY_JOINT_SOLVED_VIA_INBATCH: the INBATCH-RKD-only (nce_weight=0) arm's ALREADY-LANDED best-checkpoint jointly clears dense>=0.82, keyed>=0.9, and the previously-missing shuffled-key control confirms no leak (<=0.1) -- the semantic-vs-algebra trade-off this dispatch targets is ALREADY RESOLVED by data landed 2026-07-04, masked only by the v3c cell's own verdict short-circuit on GLOBAL_BLOCK. No new training was required to reach this verdict (Phase 1 = pure eval on an existing checkpoint). [REVERIFY INBATCH_BLOCK: dense=0.8865 keyed@J5=1.0000 shuffled@J5=0.0000] RELOCK secondary finding on the separately-failing GLOBAL arm: RECOVERED [RELOCK GLOBAL_BLOCK: crossing_step=25 crossing_dense=0.7114209806940691 crossing_keyed=1.0 stable=True final_dense=0.5260 final_keyed=1.0000 shuffled_final=0.0000]",
+  "elapsed_s": 79.59228600002825,
+  "run_mode": "full",
+  "anchor_name": "encoder_migration_step1b_v4_joint_reverify_relock_v1_seed13",
+  "run_tag": "seed13",
+  "seed": 13,
+  "device": "cuda",
+  "N": 4096,
+  "relock_nce_weight": 0.5,
+  "relock_lr": 0.0002,
+  "relock_steps": 450,
+  "relock_eval_every": 25,
+  "relock_warmup_steps": 45,
+  "relock_traj": [
+    {
+      "step": 0,
+      "dense_full": 0.8209895958794288,
+      "keyed_acc1": 0.36666667461395264
+    },
+    {
+      "step": 25,
+      "dense_full": 0.7114209806940691,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 50,
+      "dense_full": 0.7534362734731905,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 75,
+      "dense_full": 0.780870908012849,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 100,
+      "dense_full": 0.7920262595190266,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 125,
+      "dense_full": 0.7835838539123988,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 150,
+      "dense_full": 0.7747801483544987,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 175,
+      "dense_full": 0.7759798449980365,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 200,
+      "dense_full": 0.7663249420624455,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 225,
+      "dense_full": 0.7538770598685959,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 250,
+      "dense_full": 0.7421959468112622,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 275,
+      "dense_full": 0.7048970507385395,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 300,
+      "dense_full": 0.6889370963384548,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 325,
+      "dense_full": 0.6376635397712728,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 350,
+      "dense_full": 0.6343156929501229,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 375,
+      "dense_full": 0.6264739807051068,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 400,
+      "dense_full": 0.5783989100937191,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 425,
+      "dense_full": 0.5638870271512577,
+      "keyed_acc1": 1.0
+    },
+    {
+      "step": 450,
+      "dense_full": 0.5259796412994063,
+      "keyed_acc1": 1.0
+    }
+  ],
+  "relock_analysis": {
+    "crossing_step": 25,
+    "crossing_dense": 0.7114209806940691,
+    "crossing_keyed": 1.0,
+    "post_crossing_stable": true,
+    "max_keyed_acc1": 1.0,
+    "final_dense": 0.5259796412994063,
+    "final_keyed_acc1": 1.0,
+    "traj_len": 19
+  },
+  "per_unit": [
+    {
+      "unit": "semantic::INBATCH_BLOCK_REVERIFY",
+      "arm": "INBATCH_BLOCK_REVERIFY",
+      "kind": "semantic",
+      "spearman_all": 0.8865111936070639,
+      "pearson_all": 0.8840989973870916,
+      "hi80_cos": 0.786156952381134,
+      "hi80_n": 242,
+      "hi80_teacher_mean": 0.8393181562423706,
+      "hi80_calib_err": 0.05316120386123657,
+      "ret_agree10": 0.2658909499718906,
+      "n_pairs_sampled": 399963
+    },
+    {
+      "unit": "keyed::INBATCH_BLOCK_REVERIFY::J5",
+      "arm": "INBATCH_BLOCK_REVERIFY",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.08911704272031784,
+      "n_trials": 60
+    },
+    {
+      "unit": "shuffled_key::INBATCH_BLOCK_REVERIFY::J5",
+      "arm": "INBATCH_BLOCK_REVERIFY",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0021020695567131042,
+      "n_trials": 60
+    },
+    {
+      "unit": "semantic::GLOBAL_BLOCK_START",
+      "arm": "GLOBAL_BLOCK_START",
+      "kind": "semantic",
+      "spearman_all": 0.7822815218449098,
+      "pearson_all": 0.7616602334994931,
+      "hi80_cos": 0.9615508317947388,
+      "hi80_n": 242,
+      "hi80_teacher_mean": 0.8393181562423706,
+      "hi80_calib_err": 0.12223267555236816,
+      "ret_agree10": 0.026194491287240888,
+      "n_pairs_sampled": 399963
+    },
+    {
+      "unit": "keyed::GLOBAL_BLOCK_START::J5",
+      "arm": "GLOBAL_BLOCK_START",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.4333333373069763,
+      "hit_any_member": 0.43333333333333335,
+      "snr_margin_mean": 0.0011058116797357798,
+      "n_trials": 60
+    },
+    {
+      "unit": "semantic::GLOBAL_BLOCK_RELOCKED",
+      "arm": "GLOBAL_BLOCK_RELOCKED",
+      "kind": "semantic",
+      "spearman_all": 0.7055105819224203,
+      "pearson_all": 0.7062770125441442,
+      "hi80_cos": 0.6643852591514587,
+      "hi80_n": 242,
+      "hi80_teacher_mean": 0.8393181562423706,
+      "hi80_calib_err": 0.17493289709091187,
+      "ret_agree10": 0.2894828555368173,
+      "n_pairs_sampled": 399963
+    },
+    {
+      "unit": "keyed::GLOBAL_BLOCK_RELOCKED::J5",
+      "arm": "GLOBAL_BLOCK_RELOCKED",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.1154179573059082,
+      "n_trials": 60
+    },
+    {
+      "unit": "shuffled_key::GLOBAL_BLOCK_RELOCKED::J5",
+      "arm": "GLOBAL_BLOCK_RELOCKED",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0023863648530095816,
+      "n_trials": 60
+    },
+    {
+      "unit": "keyed::RANDOM_BLOCK::J5",
+      "arm": "RANDOM_BLOCK",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "sbc",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.38372668623924255,
+      "n_trials": 60
+    }
+  ],
+  "unit_failures": [],
+  "n_units": 9,
+  "expected_n_units": 9,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "INBATCH_BLOCK_REVERIFY": "33fec3db6e348088625c5a999f7a05895d3be6c5e0f6989e8b04dd494f4e4319",
+    "GLOBAL_BLOCK_START": "e3d008a6489ce6d2e1546e7bb0dee2b9991708f635a2d59b8ac52d0cd7c4ebea",
+    "GLOBAL_BLOCK_RELOCKED": "817f554f3fd4bf33341019e460cd02dff3bc8fb1cfb736d9c87ac78695a4648c",
+    "RANDOM_BLOCK": "a9299e726304eb060ec0dcab62ff1b2ded57fa47112124b10e69600cbe9231fa"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "composition_algebra": "SBC_block_local_circular_convolution",
+  "objective": "PHASE1=pure-eval reverify of existing INBATCH-RKD-only nce=0 best-checkpoint (adds missing shuffled-key control); PHASE2=short terminal NCE-relock (nce_weight=0.5, lr=0.0002, steps=450) fine-tune of existing GLOBAL-RKD-only nce=0 best-checkpoint",
+  "progress_logging": "print_flush_true",
+  "baseline_in_band": true,
+  "crlb_floor_computed": 0.901,
+  "crlb_formula_reference": "r_max = sigma_teacher / sqrt(sigma_teacher^2 + 0.25/K), K=128 -> 0.901 (unchanged from v2/v3/v3b/v3c)",
+  "discriminator_reachability": true,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "ts_iso": "2026-07-07T18:43:53.351866+00:00"
+}

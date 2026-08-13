@@ -1,0 +1,465 @@
+{
+  "verdict": "HARD_FAIL_CG_LANDMARK_VACUOUS",
+  "verdict_msg": "HARD_FAIL_CG_LANDMARK_VACUOUS || NO_CLEANUP @1=0.164 @2=0.014(collapses=True) || MEMORYLESS @1=0.499(in_band=True) @2=0.151 @3=0.055 || SUPPLIED_WAYPOINT @1=0.744 @2=0.499 @3=0.377 (fires=True) || AUTONOMOUS_GREEDY @1=0.480 @2=0.167 @3=0.126 || LANDMARK_SEEDED @1=0.425 @2=0.111 @3=0.077 || LANDMARK_GOAL_ONLY @2=0.154 (d_vs_mid=0.044) || CG: ratio@2(lm/sup)=0.222 ratio@3=0.205 delta@2(lm-greedy)=-0.056 delta@2(lm-mem)=-0.041 aim_L1_frac=0.360 K=100 || HARD_PASS=(lm2>=0.40 AND lm2>greedy2)=False HARD_FAIL=(lm2<=0.20)=True || repro(full=False): mem1=True sup1=True sup2=True auto2=True || gamma=1.50 n_gen=700 nodes=1525 E=4262 rel=16 seeds=2 run=smoke",
+  "summary": "HARD_FAIL_CG_LANDMARK_VACUOUS || NO_CLEANUP @1=0.164 @2=0.014(collapses=True) || MEMORYLESS @1=0.499(in_band=True) @2=0.151 @3=0.055 || SUPPLIED_WAYPOINT @1=0.744 @2=0.499 @3=0.377 (fires=True) || AUT",
+  "run_mode": "smoke",
+  "elapsed_s": 13.087856700003613,
+  "anchor_name": "grounding_multihop_landmark_routing_v1",
+  "ts_iso": "2026-07-09T23:03:59.589473+00:00",
+  "device": "cpu",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "seeds": [
+      7,
+      13
+    ],
+    "n_nodes": 1800,
+    "epochs": 60,
+    "batch": 256,
+    "code_dim": 512,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_bind": 1.0,
+    "n_chains": 700,
+    "chain_chunk": 256,
+    "n_landmarks": 100
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 1525,
+    "n_edges": 4262,
+    "median_degree": 3.0,
+    "mean_degree": 5.589508196721312,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 4262
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_CG_LANDMARK_VACUOUS",
+    "reach": {
+      "NO_CLEANUP": {
+        "1": 0.16428571194410324,
+        "2": 0.014285714132711291,
+        "3": 0.0014285714132711291,
+        "4": 0.0007142857066355646
+      },
+      "MEMORYLESS": {
+        "1": 0.4985714256763458,
+        "2": 0.15142856538295746,
+        "3": 0.054999999701976776,
+        "4": 0.021428571082651615
+      },
+      "SUPPLIED_WAYPOINT": {
+        "1": 0.7435714304447174,
+        "2": 0.4992857128381729,
+        "3": 0.37714286148548126,
+        "4": 0.1550000011920929
+      },
+      "AUTONOMOUS_GREEDY": {
+        "1": 0.48000000417232513,
+        "2": 0.167142853140831,
+        "3": 0.1257142871618271,
+        "4": 0.290714293718338
+      },
+      "LANDMARK_SEEDED": {
+        "1": 0.42499999701976776,
+        "2": 0.11071428656578064,
+        "3": 0.0771428570151329,
+        "4": 0.22214286029338837
+      },
+      "LANDMARK_GOAL_ONLY": {
+        "1": 0.4642857164144516,
+        "2": 0.1542857140302658,
+        "3": 0.11142857000231743,
+        "4": 0.261428564786911
+      }
+    },
+    "cg": {
+      "memoryless_reach2": 0.15142856538295746,
+      "supplied_reach2": 0.4992857128381729,
+      "autonomous_greedy_reach2": 0.167142853140831,
+      "landmark_seeded_reach2": 0.11071428656578064,
+      "landmark_goal_only_reach2": 0.1542857140302658,
+      "landmark_seeded_reach1": 0.42499999701976776,
+      "landmark_seeded_reach3": 0.0771428570151329,
+      "ratio2": 0.22174535284903105,
+      "ratio3": 0.2045454518515463,
+      "delta2_vs_greedy": -0.056428566575050354,
+      "delta2_vs_mem": -0.04071427881717682,
+      "goalonly_delta2": 0.04357142746448517,
+      "lm_hard_pass": false,
+      "lm_hard_fail": true,
+      "landmark_stats": {
+        "n_aim_L1": 1007,
+        "n_aim_G": 1793,
+        "n_total": 2800,
+        "aim_L1_frac": 0.35964285714285715,
+        "n_landmarks": 100,
+        "selection": "midpoint"
+      }
+    },
+    "anti_sat": {
+      "hop1_present": true,
+      "baseline_in_band": true,
+      "baseline_collapses": true,
+      "supplied_fires": true
+    },
+    "positive_control": {
+      "is_full": false,
+      "repro_mem1": 0.4985714256763458,
+      "repro_sup1": 0.7435714304447174,
+      "repro_sup2": 0.4992857128381729,
+      "repro_auto2": 0.167142853140831,
+      "repro_mem1_ok": true,
+      "repro_sup1_ok": true,
+      "repro_sup2_ok": true,
+      "repro_auto2_ok": true,
+      "repro_ok": true,
+      "anchors": {
+        "mem1": 0.453,
+        "sup1": 0.756,
+        "sup2": 0.5,
+        "auto2": 0.181,
+        "tol": 0.1
+      }
+    },
+    "bands": {
+      "LM_HARD_PASS": 0.4,
+      "LM_HARD_FAIL": 0.2,
+      "SUPPLIED_FIRES_MIN": 0.1,
+      "BASE_COLLAPSE_ABS": 0.1,
+      "HOP1_PRESENT": 0.08,
+      "GAMMA": 1.5,
+      "n_landmarks": 100
+    }
+  },
+  "mechanism_selftest": {
+    "reach_no_cleanup": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0
+    },
+    "reach_memoryless": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0
+    },
+    "reach_supplied": {
+      "1": 0.6889,
+      "2": 0.5444,
+      "3": 0.4222,
+      "4": 0.0
+    },
+    "reach_autonomous_greedy": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0
+    },
+    "reach_landmark_seeded": {
+      "1": 0.9333,
+      "2": 0.9333,
+      "3": 0.9333,
+      "4": 0.9333
+    },
+    "landmark_stats": {
+      "n_aim_L1": 175,
+      "n_aim_G": 167,
+      "n_total": 342,
+      "aim_L1_frac": 0.5116959064327485,
+      "n_landmarks": 106,
+      "selection": "midpoint"
+    },
+    "hubs_captured": 1.0,
+    "n_hubs": 90,
+    "nocleanup_ran": true,
+    "memoryless_aliased": true,
+    "supplied_reaches": true,
+    "greedy_fails": true,
+    "hubs_are_landmarks": true,
+    "landmark_recovers": true,
+    "landmark_beats_greedy": true,
+    "arms_differ": true,
+    "Dmax": 33,
+    "n_synth": 3870
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "arms": {
+        "NO_CLEANUP": {
+          "reach": {
+            "1": 0.16857142746448517,
+            "2": 0.0057142856530845165,
+            "3": 0.0,
+            "4": 0.0014285714132711291
+          },
+          "hit10": {
+            "1": 0.6228571534156799,
+            "2": 0.10857142508029938,
+            "3": 0.015714285895228386,
+            "4": 0.009999999776482582
+          }
+        },
+        "MEMORYLESS": {
+          "reach": {
+            "1": 0.48428571224212646,
+            "2": 0.15142856538295746,
+            "3": 0.05000000074505806,
+            "4": 0.022857142612338066
+          },
+          "hit10": {
+            "1": 0.9714285731315613,
+            "2": 0.4357142746448517,
+            "3": 0.16285714507102966,
+            "4": 0.0771428570151329
+          }
+        },
+        "SUPPLIED_WAYPOINT": {
+          "reach": {
+            "1": 0.7400000095367432,
+            "2": 0.488571435213089,
+            "3": 0.3742857277393341,
+            "4": 0.1428571492433548
+          },
+          "hit10": {
+            "1": 0.9885714054107666,
+            "2": 0.7371428608894348,
+            "3": 0.5285714268684387,
+            "4": 0.3871428668498993
+          }
+        },
+        "AUTONOMOUS_GREEDY": {
+          "reach": {
+            "1": 0.48428571224212646,
+            "2": 0.16857142746448517,
+            "3": 0.1257142871618271,
+            "4": 0.29571428894996643
+          },
+          "hit10": {
+            "1": 0.9742857217788696,
+            "2": 0.44857141375541687,
+            "3": 0.2857142984867096,
+            "4": 0.29571428894996643
+          },
+          "greedy_stats": {
+            "n_improve": 0,
+            "n_fallback": 0,
+            "n_scored": 0,
+            "fallback_frac": NaN
+          }
+        },
+        "LANDMARK_SEEDED": {
+          "reach": {
+            "1": 0.41428571939468384,
+            "2": 0.10000000149011612,
+            "3": 0.07428571581840515,
+            "4": 0.2142857164144516
+          },
+          "hit10": {
+            "1": 0.9728571176528931,
+            "2": 0.37142857909202576,
+            "3": 0.19857142865657806,
+            "4": 0.2257142812013626
+          },
+          "landmark_stats": {
+            "n_aim_L1": 1007,
+            "n_aim_G": 1793,
+            "n_total": 2800,
+            "aim_L1_frac": 0.35964285714285715,
+            "n_landmarks": 100,
+            "selection": "midpoint"
+          }
+        },
+        "LANDMARK_GOAL_ONLY": {
+          "reach": {
+            "1": 0.45428571105003357,
+            "2": 0.14428570866584778,
+            "3": 0.10571428388357162,
+            "4": 0.26428571343421936
+          },
+          "hit10": {
+            "1": 0.9742857217788696,
+            "2": 0.41857144236564636,
+            "3": 0.25857141613960266,
+            "4": 0.27714285254478455
+          },
+          "landmark_stats": {
+            "n_aim_L1": 772,
+            "n_aim_G": 2028,
+            "n_total": 2800,
+            "aim_L1_frac": 0.2757142857142857,
+            "n_landmarks": 100,
+            "selection": "goal"
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "3cb7c2a3d1f5df42e38d5e14a0f64e37f9ab8767d66c16281e3847fbbf010141",
+        "MEMORYLESS": "8f62941f6b754c2a7d7723f7bfa54d17622868f95f3fb20a56f0c82e3aff6f4f",
+        "SUPPLIED_WAYPOINT": "0ae8b69ae9aedaa5137d96d519e376176558e4cd16f126d917e0c54bd2d4e574",
+        "AUTONOMOUS_GREEDY": "74086e9d2ae6a7ec3b6b7268c50708fd630024eafe4a909d7142a86cf24f53df",
+        "LANDMARK_SEEDED": "f4ab261abbd38038e14582daf4cc7a878ce2d8bdabf5cd19e4a3cb13c02836a3",
+        "LANDMARK_GOAL_ONLY": "066e5539402b4c33464ce4ca4ee05648f57253bd8af6d892ab63cdb8ec0ba900"
+      },
+      "encoder_digest": "5d8f38ea5e389bf2bff7271a2858b9497926d249e8642e5d2a55422753f7f104",
+      "n_general": 700,
+      "code_dim": 512,
+      "mean_out_deg": 5.589508196721312,
+      "n_landmarks": 100
+    },
+    {
+      "seed": 13,
+      "arms": {
+        "NO_CLEANUP": {
+          "reach": {
+            "1": 0.1599999964237213,
+            "2": 0.022857142612338066,
+            "3": 0.0028571428265422583,
+            "4": 0.0
+          },
+          "hit10": {
+            "1": 0.5985714197158813,
+            "2": 0.09857142716646194,
+            "3": 0.012857142835855484,
+            "4": 0.008571428246796131
+          }
+        },
+        "MEMORYLESS": {
+          "reach": {
+            "1": 0.5128571391105652,
+            "2": 0.15142856538295746,
+            "3": 0.05999999865889549,
+            "4": 0.019999999552965164
+          },
+          "hit10": {
+            "1": 0.9800000190734863,
+            "2": 0.4699999988079071,
+            "3": 0.1614285707473755,
+            "4": 0.07428571581840515
+          }
+        },
+        "SUPPLIED_WAYPOINT": {
+          "reach": {
+            "1": 0.7471428513526917,
+            "2": 0.5099999904632568,
+            "3": 0.3799999952316284,
+            "4": 0.167142853140831
+          },
+          "hit10": {
+            "1": 0.9942857027053833,
+            "2": 0.7471428513526917,
+            "3": 0.5557143092155457,
+            "4": 0.40857142210006714
+          }
+        },
+        "AUTONOMOUS_GREEDY": {
+          "reach": {
+            "1": 0.4757142961025238,
+            "2": 0.16571427881717682,
+            "3": 0.1257142871618271,
+            "4": 0.2857142984867096
+          },
+          "hit10": {
+            "1": 0.9828571677207947,
+            "2": 0.46857142448425293,
+            "3": 0.2857142984867096,
+            "4": 0.2857142984867096
+          },
+          "greedy_stats": {
+            "n_improve": 0,
+            "n_fallback": 0,
+            "n_scored": 0,
+            "fallback_frac": NaN
+          }
+        },
+        "LANDMARK_SEEDED": {
+          "reach": {
+            "1": 0.4357142746448517,
+            "2": 0.12142857164144516,
+            "3": 0.07999999821186066,
+            "4": 0.23000000417232513
+          },
+          "hit10": {
+            "1": 0.9800000190734863,
+            "2": 0.4214285612106323,
+            "3": 0.2328571379184723,
+            "4": 0.23428571224212646
+          },
+          "landmark_stats": {
+            "n_aim_L1": 1100,
+            "n_aim_G": 1700,
+            "n_total": 2800,
+            "aim_L1_frac": 0.39285714285714285,
+            "n_landmarks": 100,
+            "selection": "midpoint"
+          }
+        },
+        "LANDMARK_GOAL_ONLY": {
+          "reach": {
+            "1": 0.47428572177886963,
+            "2": 0.16428571939468384,
+            "3": 0.11714285612106323,
+            "4": 0.25857141613960266
+          },
+          "hit10": {
+            "1": 0.9828571677207947,
+            "2": 0.4571428596973419,
+            "3": 0.2785714268684387,
+            "4": 0.2671428620815277
+          },
+          "landmark_stats": {
+            "n_aim_L1": 856,
+            "n_aim_G": 1944,
+            "n_total": 2800,
+            "aim_L1_frac": 0.3057142857142857,
+            "n_landmarks": 100,
+            "selection": "goal"
+          }
+        }
+      },
+      "arm_sigs": {
+        "NO_CLEANUP": "3694aa45dac6bc88e03adb6c9e9f6b4b30d56859b4657a7e429acd565f93e736",
+        "MEMORYLESS": "3901715e8d9dff1223cfdc440361c3e3e2a0408549bb0d938a90b24cad608e32",
+        "SUPPLIED_WAYPOINT": "88158cb40ac1579243733bb386b91d2f3817bbfbe5316f616e9c7f03b2e68f03",
+        "AUTONOMOUS_GREEDY": "da9b81fc718ae801397d046bb875ec9dca2d41e047030b7c681ba8021e1d2ef2",
+        "LANDMARK_SEEDED": "d988ae68c7b66b1be8c15b712bb6b0bf80d254a4e35abe2fd68c59414a364448",
+        "LANDMARK_GOAL_ONLY": "5a3cdcfc1f997978ed1128f270e44475578fd1955dd42cac0f1e634c921033d6"
+      },
+      "encoder_digest": "414ca2091621f84643251abb643f3d55908382f084f0319462b181d8cc37a5b9",
+      "n_general": 700,
+      "code_dim": 512,
+      "mean_out_deg": 5.589508196721312,
+      "n_landmarks": 100
+    }
+  ]
+}

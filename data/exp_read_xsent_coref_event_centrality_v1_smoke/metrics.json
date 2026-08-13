@@ -1,0 +1,1064 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "HONEST NEGATIVE on the integration thesis, DURABLE WIN on the memory wiring: the memory IS DECISION-DRIVING (decision-change event=0.5294 recency=0.4824; the 29512 write-only-witness gap is FIXED -- the query genuinely drives resolve()), BUT EVENT STRUCTURE does NOT beat recency: event_centrality subset=0.3529 vs recency_centrality=0.3529 (crux delta=+0.0000, sign_stability=0.3335, needs >=+0.02). => the lift collapses to the recency/locality lever (banked 29514 local_window 0.3294) / the +0.036 protagonist secondary; event-role adds no separable signal on this gold. Net vs local_window: fixed=6 broke=4 (net +2). HD round-trip fidelity=1.0000. Integration thesis WEAKER than hoped (Frontier-2 honest).",
+  "summary": "read_xsent_coref_event_centrality_v1: MIDDLE_BAND",
+  "elapsed_s": 0.252,
+  "anchor_name": "read_xsent_coref_event_centrality_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-24T06:58:31.187252+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 5,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "backbone",
+      "local_window",
+      "off_faithful",
+      "recency_centrality",
+      "event_centrality"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "local_window_arm": "local_window",
+    "faithful_arm": "off_faithful",
+    "recency_arm": "recency_centrality",
+    "mechanism_arm": "event_centrality",
+    "local_window": 5,
+    "n_dim": 4096,
+    "agent_w": 2.0,
+    "patient_w": 1.0,
+    "mem_seed": 7,
+    "local_window_plateau_cited": 0.40704,
+    "backbone_plateau_cited": 0.24623,
+    "bands": {
+      "validity_gate_max": 0.1,
+      "plateau_repro_eps": 0.03,
+      "crux_margin": 0.02,
+      "hp_sign_stability": 0.9,
+      "no_regress_eps": 0.01
+    },
+    "n_bootstrap": 2000,
+    "bootstrap_seed": 20260724,
+    "pass_criterion": "memory decision-driving (decision-change>0) AND event_centrality >= recency_centrality + 0.02 (sign_stability>=0.90) AND event >= local_window - 0.01"
+  },
+  "n_targets_total": 296,
+  "n_xsent": 85,
+  "n_same_gender_subset": 85,
+  "bucket_counts": {
+    "same": 211,
+    "plus1": 80,
+    "plus2": 3,
+    "long": 2
+  },
+  "overall_xsent_acc": {
+    "single_sentence_baseline": 0.0,
+    "backbone": 0.3764705882352941,
+    "local_window": 0.32941176470588235,
+    "off_faithful": 0.32941176470588235,
+    "recency_centrality": 0.35294117647058826,
+    "event_centrality": 0.35294117647058826
+  },
+  "same_gender_subset_acc": {
+    "single_sentence_baseline": 0.0,
+    "backbone": 0.3764705882352941,
+    "local_window": 0.32941176470588235,
+    "off_faithful": 0.32941176470588235,
+    "recency_centrality": 0.35294117647058826,
+    "event_centrality": 0.35294117647058826
+  },
+  "crux_delta_event_minus_recency": 0.0,
+  "sign_stability_event_vs_recency": 0.3335,
+  "regress_vs_local_window": false,
+  "decision_change_event_vs_off": 0.5294117647058824,
+  "decision_change_recency_vs_off": 0.4823529411764706,
+  "mem_changed_rate_event": 0.15294117647058825,
+  "hd_roundtrip_fidelity_infocus": 1.0,
+  "hd_roundtrip_ok": 49,
+  "hd_roundtrip_total": 49,
+  "autopsy": {
+    "event_vs_localwindow_fixed": 6,
+    "event_vs_localwindow_broke": 4,
+    "event_vs_recency_fixed": 1,
+    "event_vs_recency_broke": 1,
+    "event_net_vs_localwindow": 2,
+    "event_net_vs_recency": 0,
+    "n_breaks_vs_localwindow": 4
+  },
+  "glass_box_examples": [
+    {
+      "target_midx": 33,
+      "pronoun": "his",
+      "gold_cluster": 26,
+      "pool_heads": [
+        "chancellor",
+        "hall",
+        "hill",
+        "skipper"
+      ],
+      "centrality": {
+        "skipper": 0.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "hall": 1.0
+      },
+      "base_pick": "skipper",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 0,
+          "sent_idx": 1,
+          "agent_gold": "chancellor",
+          "patient_gold": "hall",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1504.0
+            },
+            "PATIENT": {
+              "cleaned": "hall",
+              "score": 1512.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 35,
+      "pronoun": "his",
+      "gold_cluster": 26,
+      "pool_heads": [
+        "cabin",
+        "chancellor",
+        "hall",
+        "hill",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 1.0,
+        "skipper": 0.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "skipper",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 0,
+          "sent_idx": 1,
+          "agent_gold": "chancellor",
+          "patient_gold": "hall",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1504.0
+            },
+            "PATIENT": {
+              "cleaned": "hall",
+              "score": 1512.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 56,
+      "pronoun": "his",
+      "gold_cluster": 2,
+      "pool_heads": [
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "hall",
+        "hill",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 1.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "bar": 0.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "bar",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 0,
+          "sent_idx": 1,
+          "agent_gold": "chancellor",
+          "patient_gold": "hall",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1504.0
+            },
+            "PATIENT": {
+              "cleaned": "hall",
+              "score": 1512.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 103,
+      "pronoun": "his",
+      "gold_cluster": 59,
+      "pool_heads": [
+        "!",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "dress",
+        "hall",
+        "hill",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "!": 0.0,
+        "bar": 2.0,
+        "dress": 0.0,
+        "hill": 0.0,
+        "chancellor": 4.0,
+        "cabin": 0.0
+      },
+      "base_pick": "bar",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 0,
+          "sent_idx": 1,
+          "agent_gold": "chancellor",
+          "patient_gold": "hall",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1504.0
+            },
+            "PATIENT": {
+              "cleaned": "hall",
+              "score": 1512.0
+            }
+          }
+        },
+        {
+          "gidx": 1,
+          "sent_idx": 17,
+          "agent_gold": "bar",
+          "patient_gold": "hall",
+          "roles": {
+            "AGENT": {
+              "cleaned": "bar",
+              "score": 1512.0
+            },
+            "PATIENT": {
+              "cleaned": "hall",
+              "score": 1532.0
+            }
+          }
+        },
+        {
+          "gidx": 2,
+          "sent_idx": 19,
+          "agent_gold": "chancellor",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1528.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1596.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 150,
+      "pronoun": "his",
+      "gold_cluster": 83,
+      "pool_heads": [
+        "!",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "man",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "himself": 0.0,
+        "court": 1.0,
+        "bar": 0.0,
+        "!": 2.0,
+        "man": 0.0,
+        "dress": 1.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "hall",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 3,
+          "sent_idx": 24,
+          "agent_gold": "!",
+          "patient_gold": "dress",
+          "roles": {
+            "AGENT": {
+              "cleaned": "!",
+              "score": 1478.0
+            },
+            "PATIENT": {
+              "cleaned": "dress",
+              "score": 1590.0
+            }
+          }
+        },
+        {
+          "gidx": 4,
+          "sent_idx": 25,
+          "agent_gold": "chancellor",
+          "patient_gold": "court",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1514.0
+            },
+            "PATIENT": {
+              "cleaned": "court",
+              "score": 1554.0
+            }
+          }
+        },
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 152,
+      "pronoun": "he",
+      "gold_cluster": 83,
+      "pool_heads": [
+        "!",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "man",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "himself": 0.0,
+        "court": 1.0,
+        "bar": 0.0,
+        "!": 2.0,
+        "man": 0.0,
+        "dress": 1.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "hall",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 3,
+          "sent_idx": 24,
+          "agent_gold": "!",
+          "patient_gold": "dress",
+          "roles": {
+            "AGENT": {
+              "cleaned": "!",
+              "score": 1478.0
+            },
+            "PATIENT": {
+              "cleaned": "dress",
+              "score": 1590.0
+            }
+          }
+        },
+        {
+          "gidx": 4,
+          "sent_idx": 25,
+          "agent_gold": "chancellor",
+          "patient_gold": "court",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1514.0
+            },
+            "PATIENT": {
+              "cleaned": "court",
+              "score": 1554.0
+            }
+          }
+        },
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 153,
+      "pronoun": "he",
+      "gold_cluster": 83,
+      "pool_heads": [
+        "!",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "man",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "himself": 0.0,
+        "court": 1.0,
+        "bar": 0.0,
+        "!": 2.0,
+        "man": 0.0,
+        "dress": 1.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "hall",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 3,
+          "sent_idx": 24,
+          "agent_gold": "!",
+          "patient_gold": "dress",
+          "roles": {
+            "AGENT": {
+              "cleaned": "!",
+              "score": 1478.0
+            },
+            "PATIENT": {
+              "cleaned": "dress",
+              "score": 1590.0
+            }
+          }
+        },
+        {
+          "gidx": 4,
+          "sent_idx": 25,
+          "agent_gold": "chancellor",
+          "patient_gold": "court",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1514.0
+            },
+            "PATIENT": {
+              "cleaned": "court",
+              "score": 1554.0
+            }
+          }
+        },
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 154,
+      "pronoun": "his",
+      "gold_cluster": 83,
+      "pool_heads": [
+        "!",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "man",
+        "skipper"
+      ],
+      "centrality": {
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "himself": 0.0,
+        "court": 1.0,
+        "bar": 0.0,
+        "!": 2.0,
+        "man": 0.0,
+        "dress": 1.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "hall",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 3,
+          "sent_idx": 24,
+          "agent_gold": "!",
+          "patient_gold": "dress",
+          "roles": {
+            "AGENT": {
+              "cleaned": "!",
+              "score": 1478.0
+            },
+            "PATIENT": {
+              "cleaned": "dress",
+              "score": 1590.0
+            }
+          }
+        },
+        {
+          "gidx": 4,
+          "sent_idx": 25,
+          "agent_gold": "chancellor",
+          "patient_gold": "court",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1514.0
+            },
+            "PATIENT": {
+              "cleaned": "court",
+              "score": 1554.0
+            }
+          }
+        },
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 194,
+      "pronoun": "his",
+      "gold_cluster": 103,
+      "pool_heads": [
+        "!",
+        "alive",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "jarndyce",
+        "man",
+        "skipper"
+      ],
+      "centrality": {
+        "jarndyce": 0.0,
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "himself": 0.0,
+        "court": 1.0,
+        "bar": 0.0,
+        "!": 0.0,
+        "man": 0.0,
+        "dress": 0.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "alive": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "jarndyce",
+      "mem_pick": "chancellor",
+      "active_events": [
+        {
+          "gidx": 4,
+          "sent_idx": 25,
+          "agent_gold": "chancellor",
+          "patient_gold": "court",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1514.0
+            },
+            "PATIENT": {
+              "cleaned": "court",
+              "score": 1554.0
+            }
+          }
+        },
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        },
+        {
+          "gidx": 6,
+          "sent_idx": 39,
+          "agent_gold": "alive",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "alive",
+              "score": 1440.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1562.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 206,
+      "pronoun": "he",
+      "gold_cluster": 107,
+      "pool_heads": [
+        "!",
+        "alive",
+        "bar",
+        "boy",
+        "cabin",
+        "chancellor",
+        "chancery",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "jarndyce",
+        "man",
+        "skipper"
+      ],
+      "centrality": {
+        "jarndyce": 0.0,
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "himself": 0.0,
+        "court": 0.0,
+        "bar": 0.0,
+        "!": 0.0,
+        "man": 0.0,
+        "chancery": 2.0,
+        "dress": 0.0,
+        "hill": 0.0,
+        "chancellor": 0.0,
+        "alive": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "jarndyce",
+      "mem_pick": "chancery",
+      "active_events": [
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        },
+        {
+          "gidx": 6,
+          "sent_idx": 39,
+          "agent_gold": "alive",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "alive",
+              "score": 1440.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1562.0
+            }
+          }
+        },
+        {
+          "gidx": 7,
+          "sent_idx": 48,
+          "agent_gold": "chancery",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancery",
+              "score": 1486.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1590.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 215,
+      "pronoun": "he",
+      "gold_cluster": 112,
+      "pool_heads": [
+        "!",
+        "alive",
+        "bar",
+        "blowers",
+        "boy",
+        "cabin",
+        "chancellor",
+        "chancery",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "jarndyce",
+        "man",
+        "potatoes",
+        "skipper"
+      ],
+      "centrality": {
+        "jarndyce": 0.0,
+        "potatoes": 0.0,
+        "hall": 2.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "blowers": 0.0,
+        "himself": 0.0,
+        "court": 0.0,
+        "bar": 0.0,
+        "!": 0.0,
+        "man": 0.0,
+        "chancery": 2.0,
+        "dress": 0.0,
+        "hill": 0.0,
+        "chancellor": 0.0,
+        "alive": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "chancellor",
+      "mem_pick": "chancery",
+      "active_events": [
+        {
+          "gidx": 5,
+          "sent_idx": 30,
+          "agent_gold": "hall",
+          "patient_gold": "bonnet",
+          "roles": {
+            "AGENT": {
+              "cleaned": "hall",
+              "score": 1488.0
+            },
+            "PATIENT": {
+              "cleaned": "bonnet",
+              "score": 1546.0
+            }
+          }
+        },
+        {
+          "gidx": 6,
+          "sent_idx": 39,
+          "agent_gold": "alive",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "alive",
+              "score": 1440.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1562.0
+            }
+          }
+        },
+        {
+          "gidx": 7,
+          "sent_idx": 48,
+          "agent_gold": "chancery",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancery",
+              "score": 1486.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1590.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "target_midx": 231,
+      "pronoun": "his",
+      "gold_cluster": 120,
+      "pool_heads": [
+        "!",
+        "alive",
+        "bar",
+        "blowers",
+        "boy",
+        "cabin",
+        "chancellor",
+        "chancery",
+        "court",
+        "dress",
+        "hall",
+        "hill",
+        "himself",
+        "jarndyce",
+        "man",
+        "master",
+        "potatoes",
+        "skipper"
+      ],
+      "centrality": {
+        "jarndyce": 0.0,
+        "potatoes": 0.0,
+        "hall": 0.0,
+        "skipper": 0.0,
+        "boy": 0.0,
+        "blowers": 1.0,
+        "himself": 0.0,
+        "master": 0.0,
+        "court": 0.0,
+        "bar": 0.0,
+        "!": 0.0,
+        "man": 0.0,
+        "chancery": 2.0,
+        "dress": 0.0,
+        "hill": 0.0,
+        "chancellor": 2.0,
+        "alive": 2.0,
+        "cabin": 0.0
+      },
+      "base_pick": "jarndyce",
+      "mem_pick": "chancery",
+      "active_events": [
+        {
+          "gidx": 6,
+          "sent_idx": 39,
+          "agent_gold": "alive",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "alive",
+              "score": 1440.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1562.0
+            }
+          }
+        },
+        {
+          "gidx": 7,
+          "sent_idx": 48,
+          "agent_gold": "chancery",
+          "patient_gold": null,
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancery",
+              "score": 1486.0
+            },
+            "PATIENT": {
+              "cleaned": "NONE",
+              "score": 1590.0
+            }
+          }
+        },
+        {
+          "gidx": 8,
+          "sent_idx": 52,
+          "agent_gold": "chancellor",
+          "patient_gold": "blowers",
+          "roles": {
+            "AGENT": {
+              "cleaned": "chancellor",
+              "score": 1564.0
+            },
+            "PATIENT": {
+              "cleaned": "blowers",
+              "score": 1500.0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "validity_ok": true,
+  "faithful_ok": true,
+  "decision_driving": true,
+  "local_window_plateau_ok": false,
+  "backbone_plateau_ok": false,
+  "crux_pass": false,
+  "arms_differ_digests": {
+    "single_sentence_baseline": "eb55fe6d9ad2c0e78dee5316e30ed0d7adead532bb591ca3dd9246511846f45b",
+    "backbone": "b2e6c03fe62bedce7c937d44f80c9d1ba821eeee6f275bb96aceb64c51984a8e",
+    "local_window": "1c0ae1d524e90554994e15950cef0fc52aea280e30b8a4cfb858897868b683c8",
+    "off_faithful": "1c0ae1d524e90554994e15950cef0fc52aea280e30b8a4cfb858897868b683c8",
+    "recency_centrality": "b018b0c338e5bfa3d3445d1edebcfb1e4c4aa5f2ed08819dfe77114a30af38ee",
+    "event_centrality": "2e14ef30d6b60edbf2a1883077454b2da0567fd042c9714e48332fa12e9501ac"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26,
+      "rt_ok": 11,
+      "rt_total": 11
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114,
+      "rt_ok": 20,
+      "rt_total": 20
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22,
+      "rt_ok": 4,
+      "rt_total": 4
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39,
+      "rt_ok": 10,
+      "rt_total": 10
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95,
+      "rt_ok": 4,
+      "rt_total": 4
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 5,
+  "cardinality_ok": true
+}

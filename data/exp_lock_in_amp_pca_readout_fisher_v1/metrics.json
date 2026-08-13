@@ -1,0 +1,12 @@
+{
+  "anchor_name": "lock_in_amp_pca_readout_fisher_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: formula self-tests T1-T5 all PASS at import time",
+  "summary": "SELFTEST_OK: formula self-tests T1-T5 all PASS at import time",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-27T18:55:52Z",
+  "pid": 37616,
+  "run_mode": "full",
+  "config_version": "ANCHOR=lock_in_amp_pca_readout_fisher_v1,N=512,M=60,seeds=[7],K_max=8,mode=full,lockin_P=4,lockin_cycles=16,HP_sel>=0.15,HP_cv<=0.30,HP_cor<=0.30,HP_gpu_p50>=30,expected_n=5,hardening=L1early+L2perarm+L3outertry+L4importsentinel,GPU_MANDATE=torch.cuda_batched_matmul",
+  "_hardening_marker": "v1_lock_in_amp_pca_readout_fisher"
+}

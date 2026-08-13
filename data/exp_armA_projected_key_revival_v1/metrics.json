@@ -1,0 +1,412 @@
+{
+  "anchor_name": "armA_projected_key_revival_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: ARM A on projected keys recall<0.20 (max clean=0.008) at M=10000; sparse-superpos doesn't work even with CERT591-style projection; tag-retrieval CLASS is the only storage path. M=10000 clean(sig in 0,0.1) armA_proj max=0.008 worst=0.007 | armA_raw_max=0.006 | shuffled_max=0.008 (chance=0.0039) | cv_max=0.148",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 256,
+  "M_SWEEP": [
+    1000,
+    5000,
+    10000
+  ],
+  "SIGMA_SWEEP": [
+    0.0,
+    0.1,
+    0.3
+  ],
+  "n_seeds": 3,
+  "train_M": 2500,
+  "train_steps": 600,
+  "detail": {
+    "by_cell_agg": {
+      "M10000_sig0.00": {
+        "M": 10000,
+        "sigma": 0.0,
+        "armA_proj_mean": 0.0075,
+        "armA_proj_std": 0.001,
+        "armA_proj_cv": 0.1355,
+        "armA_raw_mean": 0.0058,
+        "armA_shuffled_mean": 0.005,
+        "lift_proj_over_raw": 0.0017
+      },
+      "M10000_sig0.10": {
+        "M": 10000,
+        "sigma": 0.1,
+        "armA_proj_mean": 0.008,
+        "armA_proj_std": 0.0012,
+        "armA_proj_cv": 0.1479,
+        "armA_raw_mean": 0.0058,
+        "armA_shuffled_mean": 0.005,
+        "lift_proj_over_raw": 0.0021
+      },
+      "M10000_sig0.30": {
+        "M": 10000,
+        "sigma": 0.3,
+        "armA_proj_mean": 0.008,
+        "armA_proj_std": 0.0012,
+        "armA_proj_cv": 0.1479,
+        "armA_raw_mean": 0.0058,
+        "armA_shuffled_mean": 0.005,
+        "lift_proj_over_raw": 0.0021
+      },
+      "M1000_sig0.00": {
+        "M": 1000,
+        "sigma": 0.0,
+        "armA_proj_mean": 0.0367,
+        "armA_proj_std": 0.0026,
+        "armA_proj_cv": 0.0696,
+        "armA_raw_mean": 0.0088,
+        "armA_shuffled_mean": 0.0084,
+        "lift_proj_over_raw": 0.0279
+      },
+      "M1000_sig0.10": {
+        "M": 1000,
+        "sigma": 0.1,
+        "armA_proj_mean": 0.0367,
+        "armA_proj_std": 0.0021,
+        "armA_proj_cv": 0.0569,
+        "armA_raw_mean": 0.0088,
+        "armA_shuffled_mean": 0.0084,
+        "lift_proj_over_raw": 0.0279
+      },
+      "M1000_sig0.30": {
+        "M": 1000,
+        "sigma": 0.3,
+        "armA_proj_mean": 0.0358,
+        "armA_proj_std": 0.0006,
+        "armA_proj_cv": 0.0158,
+        "armA_raw_mean": 0.0088,
+        "armA_shuffled_mean": 0.0084,
+        "lift_proj_over_raw": 0.027
+      },
+      "M5000_sig0.00": {
+        "M": 5000,
+        "sigma": 0.0,
+        "armA_proj_mean": 0.0234,
+        "armA_proj_std": 0.0006,
+        "armA_proj_cv": 0.0262,
+        "armA_raw_mean": 0.0038,
+        "armA_shuffled_mean": 0.0084,
+        "lift_proj_over_raw": 0.0196
+      },
+      "M5000_sig0.10": {
+        "M": 5000,
+        "sigma": 0.1,
+        "armA_proj_mean": 0.0234,
+        "armA_proj_std": 0.0006,
+        "armA_proj_cv": 0.0262,
+        "armA_raw_mean": 0.0038,
+        "armA_shuffled_mean": 0.0084,
+        "lift_proj_over_raw": 0.0196
+      },
+      "M5000_sig0.30": {
+        "M": 5000,
+        "sigma": 0.3,
+        "armA_proj_mean": 0.0229,
+        "armA_proj_std": 0.0015,
+        "armA_proj_cv": 0.0672,
+        "armA_raw_mean": 0.0038,
+        "armA_shuffled_mean": 0.0084,
+        "lift_proj_over_raw": 0.0192
+      }
+    },
+    "M_top": 10000,
+    "max_armA_proj_clean": 0.008,
+    "worst_armA_proj_clean": 0.0075,
+    "armA_raw_at_top_max": 0.0058,
+    "shuffled_proj_ctrl_max": 0.0084,
+    "max_cv_clean": 0.1479,
+    "n_seeds": 3,
+    "CONFIG_VERSION": "armA_projected_revival_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+    "honest_scope": "encoder=EleutherAI/pythia-160m; CPU-only; raw control = ARM A on UNPROJECTED pythia residuals; shuffled = CAN-FAIL ctrl (projection trained on broken alignment)",
+    "cites": [
+      "dense_KV_learned_key_MM_anisotropy",
+      "Litwin-Kumar2017_cerebellar",
+      "CERT591_kv_learned_projection_v1",
+      "Research_route_negatives_angle4_2026-06-21"
+    ]
+  },
+  "metrics_source": "measured_cpu_armA_projected_key_revival",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0338,
+          "recall_armA_raw_control": 0.0063,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M1000_sig0.10": {
+          "M": 1000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0338,
+          "recall_armA_raw_control": 0.0063,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M1000_sig0.30": {
+          "M": 1000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.035,
+          "recall_armA_raw_control": 0.0063,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M5000_sig0.00": {
+          "M": 5000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0238,
+          "recall_armA_raw_control": 0.0063,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M5000_sig0.10": {
+          "M": 5000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0238,
+          "recall_armA_raw_control": 0.0063,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M5000_sig0.30": {
+          "M": 5000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0225,
+          "recall_armA_raw_control": 0.0063,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M10000_sig0.00": {
+          "M": 10000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0063,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        },
+        "M10000_sig0.10": {
+          "M": 10000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0063,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        },
+        "M10000_sig0.30": {
+          "M": 10000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0063,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        }
+      },
+      "proj_recall_sanity": 0.01,
+      "raw_recall_sanity": 0.02,
+      "run_mode": "full",
+      "config_version": "armA_projected_revival_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782098096.7691753
+    },
+    {
+      "seed": 17,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0362,
+          "recall_armA_raw_control": 0.0075,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M1000_sig0.10": {
+          "M": 1000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0375,
+          "recall_armA_raw_control": 0.0075,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M1000_sig0.30": {
+          "M": 1000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0362,
+          "recall_armA_raw_control": 0.0075,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M5000_sig0.00": {
+          "M": 5000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0238,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0125,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M5000_sig0.10": {
+          "M": 5000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0225,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0125,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M5000_sig0.30": {
+          "M": 5000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.025,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0125,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M10000_sig0.00": {
+          "M": 10000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0088,
+          "recall_armA_raw_control": 0.0075,
+          "recall_armA_shuffled_proj_ctrl": 0.005,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        },
+        "M10000_sig0.10": {
+          "M": 10000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0088,
+          "recall_armA_raw_control": 0.0075,
+          "recall_armA_shuffled_proj_ctrl": 0.005,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        },
+        "M10000_sig0.30": {
+          "M": 10000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0088,
+          "recall_armA_raw_control": 0.0075,
+          "recall_armA_shuffled_proj_ctrl": 0.005,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        }
+      },
+      "proj_recall_sanity": 0.01,
+      "raw_recall_sanity": 0.01,
+      "run_mode": "full",
+      "config_version": "armA_projected_revival_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782099020.3325994
+    },
+    {
+      "seed": 23,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.04,
+          "recall_armA_raw_control": 0.0125,
+          "recall_armA_shuffled_proj_ctrl": 0.0125,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M1000_sig0.10": {
+          "M": 1000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0387,
+          "recall_armA_raw_control": 0.0125,
+          "recall_armA_shuffled_proj_ctrl": 0.0125,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M1000_sig0.30": {
+          "M": 1000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0362,
+          "recall_armA_raw_control": 0.0125,
+          "recall_armA_shuffled_proj_ctrl": 0.0125,
+          "B_storage_bits_per_mem_proj": 52428.8,
+          "B_storage_bits_per_mem_raw": 471859.2
+        },
+        "M5000_sig0.00": {
+          "M": 5000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0225,
+          "recall_armA_raw_control": 0.0,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M5000_sig0.10": {
+          "M": 5000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0238,
+          "recall_armA_raw_control": 0.0,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M5000_sig0.30": {
+          "M": 5000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0213,
+          "recall_armA_raw_control": 0.0,
+          "recall_armA_shuffled_proj_ctrl": 0.0063,
+          "B_storage_bits_per_mem_proj": 10485.8,
+          "B_storage_bits_per_mem_raw": 94371.8
+        },
+        "M10000_sig0.00": {
+          "M": 10000,
+          "sigma": 0.0,
+          "recall_armA_projected": 0.0075,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0037,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        },
+        "M10000_sig0.10": {
+          "M": 10000,
+          "sigma": 0.1,
+          "recall_armA_projected": 0.0088,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0037,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        },
+        "M10000_sig0.30": {
+          "M": 10000,
+          "sigma": 0.3,
+          "recall_armA_projected": 0.0088,
+          "recall_armA_raw_control": 0.005,
+          "recall_armA_shuffled_proj_ctrl": 0.0037,
+          "B_storage_bits_per_mem_proj": 5242.9,
+          "B_storage_bits_per_mem_raw": 47185.9
+        }
+      },
+      "proj_recall_sanity": 0.005,
+      "raw_recall_sanity": 0.015,
+      "run_mode": "full",
+      "config_version": "armA_projected_revival_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782099939.502026
+    }
+  ],
+  "elapsed_s": 2797.998586177826,
+  "summary": "DISCRIMINATOR HARD_FAIL: ARM A on projected keys recall<0.20 (max clean=0.008) at M=10000; sparse-superpos doesn't work even with CERT591-style projection; tag-retrieval CLASS is the only storage path. M=10000 clean(sig in 0,0.1) armA_proj max=0.008 worst=0.007 | armA_raw_max=0.006 | shuffled_max=0.008 (chance=0.0039) | cv_max=0.148",
+  "substrate_only_decode_gate": "N/A (KV-storage cell, not LM cell; per Path C ARM A discriminator framing)"
+}

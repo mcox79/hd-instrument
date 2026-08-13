@@ -1,0 +1,266 @@
+{
+  "verdict": "ANCHOR1_HARD_FAIL__ANCHOR2_HARD_PASS",
+  "verdict_msg": "[animals] ANCHOR1(encoding log-vs-uniform)=HARD_FAIL log_delta=0.0063 (power=-0.0061 quantile=-0.0125) | base_uniform=0.5725 log=0.5788 freq_null=0.5108 oracle=1.0000 | ANCHOR2(reliability)=HARD_PASS closed_frac=0.3284 (closed=22/67 new_fail=11) global_delta=0.0708 | mustfails_fire=True repro_ok=True",
+  "summary": "[animals] ANCHOR1(encoding log-vs-uniform)=HARD_FAIL log_delta=0.0063 (power=-0.0061 quantile=-0.0125) | base_uniform=0.5725 log=0.5788 freq_null=0.5108 oracle=1.0000 | ANCHOR2(reliability)=HARD_PASS ",
+  "run_mode": "smoke",
+  "elapsed_s": 0.979437300004065,
+  "anchor_name": "ordinal_magnitude_encoding_vs_combination_v1",
+  "ts_iso": "2026-07-15T01:09:07.387047+00:00",
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "L": 5,
+  "bands": {
+    "A1_HARD_PASS": 0.05,
+    "A1_MIDDLE": 0.02,
+    "A2_CLOSE_FRAC": 0.3,
+    "A2_MIDDLE_GLOBAL": 0.02,
+    "A2_OVERLAP_FAIL": 0.1,
+    "MUSTFAIL_TOL": 0.05,
+    "REPRO_TARGET_ANIMALS": 0.573,
+    "REPRO_TOL": 0.06
+  },
+  "clusters": {
+    "animals": {
+      "name": "animals",
+      "n_entities": 191,
+      "truth_rate": 0.900523560209424,
+      "constituents": [
+        "body_size",
+        "habitat_temperature",
+        "activity_level",
+        "diet_richness"
+      ],
+      "conjunction": {
+        "single_mi": [
+          0.1758,
+          0.1386,
+          1.1109,
+          0.1114
+        ],
+        "best_single_mi": 1.1109,
+        "joint_mi": 1.8842,
+        "mi_margin": 0.7733,
+        "dominance_ratio": 0.5896
+      },
+      "clean_novel": {
+        "mono_weight_uniform": 0.5725,
+        "mono_therm_uniform": 0.39466,
+        "freq_null": 0.51077,
+        "oracle": 1.0,
+        "memorize": 0.39663,
+        "reliability": 0.64334,
+        "enc_novel": {
+          "uniform": 0.5725,
+          "log": 0.57879,
+          "power": 0.56644,
+          "quantile": 0.56004
+        },
+        "enc_delta": {
+          "uniform": 0.0,
+          "log": 0.00629,
+          "power": -0.00606,
+          "quantile": -0.01246
+        }
+      },
+      "anchor1": {
+        "verdict": "HARD_FAIL",
+        "log_delta": 0.00629,
+        "power_delta": -0.00606,
+        "quantile_delta": -0.01246
+      },
+      "anchor2": {
+        "verdict": "HARD_PASS",
+        "reliability_novel": 0.64334,
+        "global_delta": 0.07084,
+        "n_pool": 157,
+        "n_base_fail": 67,
+        "closed": 22,
+        "new_fail": 11,
+        "closed_frac": 0.32836
+      },
+      "mustfails": {
+        "fire": true,
+        "arb_gaps": {
+          "MONO_WEIGHT_uniform": -0.02504,
+          "MONO_WEIGHT_log": -0.05121,
+          "RELIABILITY": -0.05232
+        },
+        "shuf_gaps": {
+          "MONO_WEIGHT_uniform": -0.06393,
+          "MONO_WEIGHT_log": -0.08848,
+          "RELIABILITY": -0.12924
+        }
+      },
+      "ceiling_ok": true,
+      "reproduction": {
+        "target": 0.573,
+        "measured": 0.5725,
+        "delta": -0.0005,
+        "ok": true
+      },
+      "weights_clean_seed0": {
+        "uniform": [
+          0.2172,
+          6.8028,
+          47.8676,
+          14.6753
+        ],
+        "log": [
+          0.2053,
+          8.3519,
+          42.1868,
+          12.1237
+        ],
+        "power": [
+          0.2071,
+          8.4643,
+          39.4744,
+          10.6768
+        ],
+        "quantile": [
+          0.2183,
+          6.9071,
+          50.9635,
+          16.3574
+        ]
+      },
+      "per_seed_novel": [
+        {
+          "CLEAN_REAL": {
+            "FREQ_NULL": 0.58491,
+            "HOMOPHILY_COND": 0.58491,
+            "POP": 0.41509,
+            "MEMORIZE": 0.41509,
+            "ORACLE": 1.0,
+            "n": 53,
+            "MONO_WEIGHT_uniform": 0.58491,
+            "MONO_WEIGHT_log": 0.60377,
+            "MONO_WEIGHT_power": 0.60377,
+            "MONO_WEIGHT_quantile": 0.56604,
+            "MONO_THERM_uniform": 0.41509,
+            "RELIABILITY": 0.66038
+          },
+          "ARBITRARY": {
+            "FREQ_NULL": 0.30189,
+            "HOMOPHILY_COND": 0.30189,
+            "POP": 0.28302,
+            "MEMORIZE": 0.28302,
+            "ORACLE": 1.0,
+            "n": 53,
+            "MONO_WEIGHT_uniform": 0.24528,
+            "MONO_WEIGHT_log": 0.24528,
+            "MONO_WEIGHT_power": 0.24528,
+            "MONO_WEIGHT_quantile": 0.22642,
+            "MONO_THERM_uniform": 0.26415,
+            "RELIABILITY": 0.22642
+          },
+          "SHUFFLE": {
+            "FREQ_NULL": 0.26415,
+            "HOMOPHILY_COND": 0.24528,
+            "POP": 0.26415,
+            "MEMORIZE": 0.26415,
+            "ORACLE": 0.26415,
+            "n": 53,
+            "MONO_WEIGHT_uniform": 0.22642,
+            "MONO_WEIGHT_log": 0.16981,
+            "MONO_WEIGHT_power": 0.16981,
+            "MONO_WEIGHT_quantile": 0.24528,
+            "MONO_THERM_uniform": 0.26415,
+            "RELIABILITY": 0.20755
+          }
+        },
+        {
+          "CLEAN_REAL": {
+            "FREQ_NULL": 0.54,
+            "HOMOPHILY_COND": 0.54,
+            "POP": 0.46,
+            "MEMORIZE": 0.46,
+            "ORACLE": 1.0,
+            "n": 50,
+            "MONO_WEIGHT_uniform": 0.54,
+            "MONO_WEIGHT_log": 0.54,
+            "MONO_WEIGHT_power": 0.54,
+            "MONO_WEIGHT_quantile": 0.54,
+            "MONO_THERM_uniform": 0.38,
+            "RELIABILITY": 0.64
+          },
+          "ARBITRARY": {
+            "FREQ_NULL": 0.22,
+            "HOMOPHILY_COND": 0.22,
+            "POP": 0.08,
+            "MEMORIZE": 0.08,
+            "ORACLE": 1.0,
+            "n": 50,
+            "MONO_WEIGHT_uniform": 0.22,
+            "MONO_WEIGHT_log": 0.16,
+            "MONO_WEIGHT_power": 0.16,
+            "MONO_WEIGHT_quantile": 0.2,
+            "MONO_THERM_uniform": 0.14,
+            "RELIABILITY": 0.12
+          },
+          "SHUFFLE": {
+            "FREQ_NULL": 0.38,
+            "HOMOPHILY_COND": 0.22,
+            "POP": 0.38,
+            "MEMORIZE": 0.38,
+            "ORACLE": 0.3,
+            "n": 50,
+            "MONO_WEIGHT_uniform": 0.3,
+            "MONO_WEIGHT_log": 0.32,
+            "MONO_WEIGHT_power": 0.32,
+            "MONO_WEIGHT_quantile": 0.28,
+            "MONO_THERM_uniform": 0.36,
+            "RELIABILITY": 0.16
+          }
+        },
+        {
+          "CLEAN_REAL": {
+            "FREQ_NULL": 0.40741,
+            "HOMOPHILY_COND": 0.40741,
+            "POP": 0.31481,
+            "MEMORIZE": 0.31481,
+            "ORACLE": 1.0,
+            "n": 54,
+            "MONO_WEIGHT_uniform": 0.59259,
+            "MONO_WEIGHT_log": 0.59259,
+            "MONO_WEIGHT_power": 0.55556,
+            "MONO_WEIGHT_quantile": 0.57407,
+            "MONO_THERM_uniform": 0.38889,
+            "RELIABILITY": 0.62963
+          },
+          "ARBITRARY": {
+            "FREQ_NULL": 0.2037,
+            "HOMOPHILY_COND": 0.18519,
+            "POP": 0.2037,
+            "MEMORIZE": 0.2037,
+            "ORACLE": 1.0,
+            "n": 54,
+            "MONO_WEIGHT_uniform": 0.18519,
+            "MONO_WEIGHT_log": 0.16667,
+            "MONO_WEIGHT_power": 0.16667,
+            "MONO_WEIGHT_quantile": 0.18519,
+            "MONO_THERM_uniform": 0.2037,
+            "RELIABILITY": 0.22222
+          },
+          "SHUFFLE": {
+            "FREQ_NULL": 0.37037,
+            "HOMOPHILY_COND": 0.33333,
+            "POP": 0.37037,
+            "MEMORIZE": 0.37037,
+            "ORACLE": 0.24074,
+            "n": 54,
+            "MONO_WEIGHT_uniform": 0.2963,
+            "MONO_WEIGHT_log": 0.25926,
+            "MONO_WEIGHT_power": 0.22222,
+            "MONO_WEIGHT_quantile": 0.2963,
+            "MONO_THERM_uniform": 0.22222,
+            "RELIABILITY": 0.25926
+          }
+        }
+      ]
+    }
+  }
+}

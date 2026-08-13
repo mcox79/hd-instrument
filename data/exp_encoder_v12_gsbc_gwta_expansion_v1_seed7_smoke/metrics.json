@@ -1,0 +1,788 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_MACHINERY_OK: all 3 arms (block + 2 global-WTA levers) train end-to-end with differing codes; global-WTA occupancy VARIES (mechanism fires); per-arm RANDOM/shuffled-key + full J-sweep keyed units run (gsbc circular-conv algebra fires at every J); cardinality holds [GSBC_RKD_BLOCK(baseline) ret=0.4326 hi80=0.8264 calib=0.0242 alg=1.000] [GSBC_GWTA ret=0.4920 (lift+0.0594) hi80=0.8205 calib=0.0302 alg=1.000] [GSBC_EXPAND2X ret=0.5608 (lift+0.1281) hi80=0.8199 calib=0.0307 alg=1.000] sign_ceiling=0.4295 compdepth[GSBC_RKD_BLOCK:depth<=64 GSBC_GWTA:depth<=32 GSBC_EXPAND2X:depth<=64] (the ret-LIFT discriminator is FULL-only; smoke's tiny V_train cannot reproduce it -- REMOTE-QUEUE OFFICIAL LANDING is canonical)",
+  "summary": "SMOKE_MACHINERY_OK: all 3 arms (block + 2 global-WTA levers) train end-to-end with differing codes; global-WTA occupancy VARIES (mechanism fires); per-arm RANDOM/shuffled-key + full J-sweep keyed units run (gsbc circular-conv algebra fires at every J); cardinality holds [GSBC_RKD_BLOCK(baseline) ret=0.4326 hi80=0.8264 calib=0.0242 alg=1.000] [GSBC_GWTA ret=0.4920 (lift+0.0594) hi80=0.8205 calib=0.0302 alg=1.000] [GSBC_EXPAND2X ret=0.5608 (lift+0.1281) hi80=0.8199 calib=0.0307 alg=1.000] sign_ceiling=0.4295 compdepth[GSBC_RKD_BLOCK:depth<=64 GSBC_GWTA:depth<=32 GSBC_EXPAND2X:depth<=64] (the ret-LIFT discriminator is FULL-only; smoke's tiny V_train cannot reproduce it -- REMOTE-QUEUE OFFICIAL LANDING is canonical)",
+  "elapsed_s": 11.705852899991442,
+  "run_mode": "smoke",
+  "anchor_name": "encoder_v12_gsbc_gwta_expansion_v1_seed7_smoke",
+  "run_tag": "seed7",
+  "seed": 7,
+  "device": "cpu",
+  "N": 4096,
+  "student_arch": "mlp",
+  "ste_arms": {
+    "GSBC_RKD_BLOCK": [
+      "block",
+      4096,
+      32,
+      128,
+      3,
+      256
+    ],
+    "GSBC_GWTA": [
+      "gwta",
+      4096,
+      32,
+      128,
+      96,
+      256
+    ],
+    "GSBC_EXPAND2X": [
+      "gwta",
+      8192,
+      64,
+      128,
+      192,
+      256
+    ]
+  },
+  "control_arm": "GSBC_RKD_BLOCK",
+  "primary_arm": "GSBC_GWTA",
+  "secondary_arm": "GSBC_EXPAND2X",
+  "select_tau": 1.0,
+  "warmup_steps": 40,
+  "steps": 200,
+  "batch": 32,
+  "nce_weight": 0.0,
+  "objective": "in_batch",
+  "lr_schedule": "cosine_8000",
+  "min_step_for_best": 10,
+  "dense_eval_every": 40,
+  "j_sweep": [
+    1,
+    2,
+    5,
+    8,
+    16,
+    32,
+    64
+  ],
+  "j_cogate": 5,
+  "keyed_codebook_M": 800,
+  "random_keyed_M": 800,
+  "composition_depth_vet_scale": "held_pool_M800",
+  "teacher_cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "teacher_cache_bytes": 1355319709,
+  "teacher_n_concepts": 177899,
+  "n_train": 3000,
+  "n_held_pool": 800,
+  "recovery": {
+    "GSBC_RKD_BLOCK": {
+      "code_mode": "block",
+      "out_dim": 4096,
+      "kb": 32,
+      "blk_l": 128,
+      "sparsity": 3,
+      "mlp_hidden": 256,
+      "recipe": "rkd_only",
+      "active_frac": 0.0234375,
+      "block_occupancy_std": 0.0,
+      "final": {
+        "spearman_all": 0.9078466825419944,
+        "ret_agree10": 0.43262500000000054,
+        "hi80_cos": 0.8263978958129883,
+        "hi80_calib_err": 0.02424907684326172
+      },
+      "final_dense": {
+        "spearman_all": 0.9527541940960925,
+        "ret_agree10": 0.6111250000000006,
+        "hi80_cos": 0.82666015625,
+        "hi80_calib_err": 0.02398681640625
+      },
+      "rkd_last": -1.0,
+      "activefrac_last": -1.0,
+      "train_loss_floored": true,
+      "train_loss_descent_frac_by_half": 0.974263531246459,
+      "rkd_traj": [
+        {
+          "step": 0,
+          "rkd": 0.026232026517391205,
+          "dense_full": 0.8675332751207027
+        },
+        {
+          "step": 40,
+          "rkd": 0.002241781447082758,
+          "dense_full": 0.9438922152779622
+        },
+        {
+          "step": 80,
+          "rkd": 0.0024559544399380684,
+          "dense_full": 0.9493910551767215
+        },
+        {
+          "step": 120,
+          "rkd": 0.002785784425213933,
+          "dense_full": 0.9525140877248599
+        },
+        {
+          "step": 160,
+          "rkd": 0.0018278778297826648,
+          "dense_full": 0.9537368786916914
+        },
+        {
+          "step": 200,
+          "rkd": NaN,
+          "dense_full": 0.9534147830072713
+        }
+      ],
+      "best_step": 160,
+      "best_ckpt_fallback_to_final": false,
+      "depth_envelope": {
+        "max_J_at_floor": 64,
+        "curve": {
+          "1": 1.0,
+          "2": 1.0,
+          "5": 1.0,
+          "8": 1.0,
+          "16": 1.0,
+          "32": 1.0,
+          "64": 1.0
+        }
+      }
+    },
+    "GSBC_GWTA": {
+      "code_mode": "gwta",
+      "out_dim": 4096,
+      "kb": 32,
+      "blk_l": 128,
+      "sparsity": 96,
+      "mlp_hidden": 256,
+      "recipe": "rkd_only",
+      "active_frac": 0.0234375,
+      "block_occupancy_std": 1.8458877801895142,
+      "final": {
+        "spearman_all": 0.9284281685576414,
+        "ret_agree10": 0.4920000000000001,
+        "hi80_cos": 0.8204811811447144,
+        "hi80_calib_err": 0.030165791511535645
+      },
+      "final_dense": {
+        "spearman_all": 0.9603395170739178,
+        "ret_agree10": 0.6228749999999994,
+        "hi80_cos": 0.797607421875,
+        "hi80_calib_err": 0.05303955078125
+      },
+      "rkd_last": -1.0,
+      "activefrac_last": -1.0,
+      "train_loss_floored": false,
+      "train_loss_descent_frac_by_half": 0.9950691975327988,
+      "rkd_traj": [
+        {
+          "step": 0,
+          "rkd": 0.018688343465328217,
+          "dense_full": 0.8693555035511996
+        },
+        {
+          "step": 40,
+          "rkd": 0.0024448083713650703,
+          "dense_full": 0.9496804193742775
+        },
+        {
+          "step": 80,
+          "rkd": 0.0020329344552010298,
+          "dense_full": 0.9555017104065673
+        },
+        {
+          "step": 120,
+          "rkd": 0.0029679718427360058,
+          "dense_full": 0.9579215716906239
+        },
+        {
+          "step": 160,
+          "rkd": 0.0019504029769450426,
+          "dense_full": 0.9606765545732946
+        },
+        {
+          "step": 200,
+          "rkd": NaN,
+          "dense_full": 0.9603598103512178
+        }
+      ],
+      "best_step": 160,
+      "best_ckpt_fallback_to_final": false,
+      "depth_envelope": {
+        "max_J_at_floor": 32,
+        "curve": {
+          "1": 1.0,
+          "2": 1.0,
+          "5": 1.0,
+          "8": 1.0,
+          "16": 1.0,
+          "32": 1.0,
+          "64": 0.800000011920929
+        }
+      }
+    },
+    "GSBC_EXPAND2X": {
+      "code_mode": "gwta",
+      "out_dim": 8192,
+      "kb": 64,
+      "blk_l": 128,
+      "sparsity": 192,
+      "mlp_hidden": 256,
+      "recipe": "rkd_only",
+      "active_frac": 0.0234375,
+      "block_occupancy_std": 1.604393482208252,
+      "final": {
+        "spearman_all": 0.9495810798320907,
+        "ret_agree10": 0.5607500000000004,
+        "hi80_cos": 0.8199108242988586,
+        "hi80_calib_err": 0.030736148357391357
+      },
+      "final_dense": {
+        "spearman_all": 0.9645862221665557,
+        "ret_agree10": 0.6570000000000006,
+        "hi80_cos": 0.7799682021141052,
+        "hi80_calib_err": 0.07067877054214478
+      },
+      "rkd_last": -1.0,
+      "activefrac_last": -1.0,
+      "train_loss_floored": true,
+      "train_loss_descent_frac_by_half": 0.9913497110663864,
+      "rkd_traj": [
+        {
+          "step": 0,
+          "rkd": 0.015033922158181667,
+          "dense_full": 0.877122371010737
+        },
+        {
+          "step": 40,
+          "rkd": 0.0025984386447817087,
+          "dense_full": 0.9566426098047911
+        },
+        {
+          "step": 80,
+          "rkd": 0.0012262010714039207,
+          "dense_full": 0.9597744137075853
+        },
+        {
+          "step": 120,
+          "rkd": 0.001177924801595509,
+          "dense_full": 0.9608231665982959
+        },
+        {
+          "step": 160,
+          "rkd": 0.001105718081817031,
+          "dense_full": 0.9640350912059844
+        },
+        {
+          "step": 200,
+          "rkd": NaN,
+          "dense_full": 0.9645748857399817
+        }
+      ],
+      "best_step": 200,
+      "best_ckpt_fallback_to_final": false,
+      "depth_envelope": {
+        "max_J_at_floor": 64,
+        "curve": {
+          "1": 1.0,
+          "2": 1.0,
+          "5": 1.0,
+          "8": 1.0,
+          "16": 1.0,
+          "32": 1.0,
+          "64": 1.0
+        }
+      }
+    }
+  },
+  "capacity_hypothesis_diagnostic": "train_loss_floored_while_ret_below_ceiling->capacity_NOT_bottleneck",
+  "best_joint_arm": {
+    "arm": "GSBC_EXPAND2X",
+    "ret_agree10": 0.5607500000000004,
+    "keyed_at_cogate": 1.0,
+    "hi80_cos": 0.8199108242988586,
+    "calib_err": 0.030736148357391357,
+    "joint_ok": true
+  },
+  "code_ceiling_ret_agree10_k128_signonly": 0.4295278,
+  "code_ceiling_source": "MEASURED@data/exp_encoder_teacher_sparsifier_bypass_v1/metrics.json:/recovery/ortho_k128_ret_agree10 (SIGN-only); GSBC ceiling ~0.7-0.9 CITED@arXiv:2303.13957_Frady_Kleyko",
+  "bands": {
+    "algebra_floor": 0.95,
+    "lift_hard_pass": 0.03,
+    "hi80_collapse_floor": 0.3,
+    "calib_ceil": 0.1,
+    "baseline_ret_lo": 0.38,
+    "baseline_ret_hi": 0.55
+  },
+  "v11_baseline_ref": {
+    "gsbc_rkd_ret_seed7": 0.4446767847105089,
+    "gsbc_rkd_ret_seed13": 0.46636874648679005,
+    "source": "MEASURED@data/exp_encoder_v11_gsbc_graded_sparse_v1_seed{7,13}/metrics.json:/recovery/GSBC_RKD/final/ret_agree10",
+    "note": "GSBC_RKD_BLOCK arm must reproduce this (Gate-D)."
+  },
+  "determinism": {
+    "torch_version": "2.12.0+cpu",
+    "cuda_available": false,
+    "num_threads_requested": 8,
+    "deterministic_algorithms_set": true,
+    "deterministic_algorithms_error": "",
+    "cublas_workspace_config": ":4096:8"
+  },
+  "canonical_source": "remote_queue_official_landing_only; local_smoke_is_gate_only",
+  "per_unit": [
+    {
+      "unit": "semantic::GSBC_RKD_BLOCK_CODE_LAST",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9078466825419944,
+      "pearson_all": 0.9053041191579839,
+      "hi80_cos": 0.8263978958129883,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.02424907684326172,
+      "ret_agree10": 0.43262500000000054,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_RKD_BLOCK_DENSE_LAST",
+      "arm": "GSBC_RKD_BLOCK_DENSE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9527541940960925,
+      "pearson_all": 0.9470759378903753,
+      "hi80_cos": 0.82666015625,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.02398681640625,
+      "ret_agree10": 0.6111250000000006,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_RKD_BLOCK_RANDOM",
+      "arm": "GSBC_RKD_BLOCK_RANDOM",
+      "kind": "semantic",
+      "spearman_all": 0.008536636917386617,
+      "pearson_all": 0.01309678543256074,
+      "hi80_cos": 0.02279975637793541,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.8278472162783146,
+      "ret_agree10": 0.012624999999999975,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_GWTA_CODE_LAST",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9284281685576414,
+      "pearson_all": 0.9257786458967298,
+      "hi80_cos": 0.8204811811447144,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.030165791511535645,
+      "ret_agree10": 0.4920000000000001,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_GWTA_DENSE_LAST",
+      "arm": "GSBC_GWTA_DENSE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9603395170739178,
+      "pearson_all": 0.9573839937941798,
+      "hi80_cos": 0.797607421875,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.05303955078125,
+      "ret_agree10": 0.6228749999999994,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_GWTA_RANDOM",
+      "arm": "GSBC_GWTA_RANDOM",
+      "kind": "semantic",
+      "spearman_all": 0.01788051057019787,
+      "pearson_all": 0.017390296551118956,
+      "hi80_cos": 0.029141779989004135,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.8215051926672459,
+      "ret_agree10": 0.010749999999999987,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_EXPAND2X_CODE_LAST",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9495810798320907,
+      "pearson_all": 0.9481475016763977,
+      "hi80_cos": 0.8199108242988586,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.030736148357391357,
+      "ret_agree10": 0.5607500000000004,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_EXPAND2X_DENSE_LAST",
+      "arm": "GSBC_EXPAND2X_DENSE_LAST",
+      "kind": "semantic",
+      "spearman_all": 0.9645862221665557,
+      "pearson_all": 0.9629037186471237,
+      "hi80_cos": 0.7799682021141052,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.07067877054214478,
+      "ret_agree10": 0.6570000000000006,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::GSBC_EXPAND2X_RANDOM",
+      "arm": "GSBC_EXPAND2X_RANDOM",
+      "kind": "semantic",
+      "spearman_all": -0.0009571016800956083,
+      "pearson_all": -0.002744637735661576,
+      "hi80_cos": 0.02317131869494915,
+      "hi80_n": 8,
+      "hi80_teacher_mean": 0.85064697265625,
+      "hi80_calib_err": 0.8274756539613008,
+      "ret_agree10": 0.01187499999999998,
+      "n_pairs_sampled": 7999
+    },
+    {
+      "unit": "semantic::CHARPOS",
+      "arm": "CHARPOS",
+      "kind": "semantic",
+      "spearman_all": 0.6450325763301191,
+      "pearson_all": 0.6290253922465964,
+      "hi80_cos": 0.5752840638160706,
+      "hi80_n": 11,
+      "hi80_teacher_mean": 0.8477577567100525,
+      "hi80_calib_err": 0.27247369289398193,
+      "ret_agree10": 0.17200000000000037,
+      "n_pairs_sampled": 7977
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J1",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 1,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.23671650886535645,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J2",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 2,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.1631004810333252,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J5",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.09145963191986084,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J8",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 8,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.07346007227897644,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J16",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 16,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.0450952872633934,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J32",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 32,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.024853253737092018,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_CODE_LAST::J64",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "keyed",
+      "J": 64,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.01236715354025364,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_RKD_BLOCK_RANDOM::J5",
+      "arm": "GSBC_RKD_BLOCK_RANDOM",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.36571115255355835,
+      "n_trials": 20
+    },
+    {
+      "unit": "shuffled_key::GSBC_RKD_BLOCK_CODE_LAST::J5",
+      "arm": "GSBC_RKD_BLOCK_CODE_LAST",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0023494851775467396,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J1",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 1,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.24059870839118958,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J2",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 2,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.15758469700813293,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J5",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.09469164907932281,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J8",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 8,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.07352986931800842,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J16",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 16,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.04667895287275314,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J32",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 32,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.021219685673713684,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_CODE_LAST::J64",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "keyed",
+      "J": 64,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 0.800000011920929,
+      "hit_any_member": 0.8,
+      "snr_margin_mean": 0.008957126177847385,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_GWTA_RANDOM::J5",
+      "arm": "GSBC_GWTA_RANDOM",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.35852280259132385,
+      "n_trials": 20
+    },
+    {
+      "unit": "shuffled_key::GSBC_GWTA_CODE_LAST::J5",
+      "arm": "GSBC_GWTA_CODE_LAST",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.05,
+      "snr_margin_mean": 0.003406765405088663,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J1",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 1,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.2478700578212738,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J2",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 2,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.17402978241443634,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J5",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.0985107272863388,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J8",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 8,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.07953079044818878,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J16",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 16,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.05475206300616264,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J32",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 32,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.02955353632569313,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_CODE_LAST::J64",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "keyed",
+      "J": 64,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.013728955760598183,
+      "n_trials": 20
+    },
+    {
+      "unit": "keyed::GSBC_EXPAND2X_RANDOM::J5",
+      "arm": "GSBC_EXPAND2X_RANDOM",
+      "kind": "keyed",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 1.0,
+      "hit_any_member": 1.0,
+      "snr_margin_mean": 0.3835023045539856,
+      "n_trials": 20
+    },
+    {
+      "unit": "shuffled_key::GSBC_EXPAND2X_CODE_LAST::J5",
+      "arm": "GSBC_EXPAND2X_CODE_LAST",
+      "kind": "shuffled_key",
+      "J": 5,
+      "algebra": "gsbc_circconv",
+      "acc_at1": 0.0,
+      "hit_any_member": 0.0,
+      "snr_margin_mean": 0.0021456251852214336,
+      "n_trials": 20
+    }
+  ],
+  "unit_failures": [],
+  "n_units": 37,
+  "expected_n_units": 37,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_code_sha256": {
+    "GSBC_RKD_BLOCK_CODE_LAST": "d2994826fea2cd75433f09ef48a6f2d014ddecc95d06c43fc7ad1354a0dade82",
+    "GSBC_RKD_BLOCK_DENSE_LAST": "e4936f6b936d72decae5a1843d4b9c0a345aa1c8ed49149d09a30fbdffa3a85a",
+    "GSBC_RKD_BLOCK_RANDOM": "4a08530ea9090705c94f3418ec90e974c032cfe32cb35aa662b4096ced39a391",
+    "GSBC_GWTA_CODE_LAST": "940185b273f00b9db106f6906a114f53bed6657c80b1636ea05cd9aa16680276",
+    "GSBC_GWTA_DENSE_LAST": "ebf3d4321ddb5850671ccaec4a769bbb9e6ba26e5bad8def35903fdfcde871c2",
+    "GSBC_GWTA_RANDOM": "274305a16d196dd3a096fdc3e7e3e9a9a5c1fb612f6d7ae3779401e6e89c27f8",
+    "GSBC_EXPAND2X_CODE_LAST": "7ed2b67229296ae2bb63f5cb16ad1a616fa6fe1ea24b4cfc0aff51c4cb2749a2",
+    "GSBC_EXPAND2X_DENSE_LAST": "c9ca0da5a7a7903c0f343bb778522db5b64f9f6bf2cc810f58136d370e7aafad",
+    "GSBC_EXPAND2X_RANDOM": "a3a31b95fc2b2d5d3eff470c8503747aa813edc13c6a0f75b39a698236b023e8",
+    "CHARPOS": "d4ef4c10e6b7ab06daab04fb5344c621a7ef2cf0231e70c833a9e0113bc56f40"
+  },
+  "arms_differ_exempted": [],
+  "final_metrics_atomicity": "tmp_replace",
+  "composition_algebra": "gsbc_block_circular_conv_pos_L1 (all arms); block: per-block top-m; gwta/expand: global top-K",
+  "methodology": "PAIRED at recipe=rkd_only (the v11 GSBC_RKD winner base); ONLY the CODE GEOMETRY differs: GSBC_RKD_BLOCK (per-block top-m=3, Gate-D reproduce v11 ~0.44) -> GSBC_GWTA (global top-96, strict superset) PRIMARY -> GSBC_EXPAND2X (2x-wide student + global top-192) SECONDARY. All 2.34% active. FINAL-step deployed-code ret_agree10 is the gated number; keyed@J5 >= 0.95 is a HARD co-gate; a J-sweep {1,2,5,8,16,32,64} maps each code's composition-depth envelope. Retrieval eval is PAIRED (same seed+3 pair-sampling, same held pool) across arms.",
+  "sequenced_next_cell": "IF a lever HARD_PASS: density dial + full-M=177899 composition VET on the winning code + 3rd seed. IF ALGEBRA_DEGRADES: global-WTA empty-block tension is real, add per-block min-occupancy constraint. IF NO_LIFT: block allocation is optimal at 2.34%; route to density dial K256.",
+  "storage_strategy": "no_composition for retrieval (single-hop agreement); the keyed J-sweep is a bounded-bundle composition-depth VET (J items bound then unbound, cleanup@1 vs held pool)",
+  "compute_architecture": "batched-GPU: student fwd/bwd + graded top-m/global top-K + block circular-conv (FFT) batched on cuda; eval pairs batched; keyed loops J per trial (cheap)",
+  "progress_logging": "print_flush_true",
+  "baseline_in_band": true,
+  "crlb_n_a": "ret_agree10 has no closed-form sigma CRLB; reachability via the SIGN K128 ceiling 0.4295 (MEASURED@bypass) + global-WTA being a strict superset of block-top-m (ceiling can only rise) + GSBC dense ceiling 1.0",
+  "discriminator_reachability": true,
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "calibration_check": "default_ok_for_this_regime",
+  "ts_iso": "2026-07-05T01:14:56.615831+00:00"
+}

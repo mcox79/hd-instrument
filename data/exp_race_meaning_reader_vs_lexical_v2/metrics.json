@@ -1,0 +1,122 @@
+{
+  "verdict": "PARTIAL_MEANING_LIFT",
+  "verdict_msg": "best arm semantic lifts RACE-high +0.024 / aggregate +0.015 over char-trigram but below HARD-PASS bands (need high>=+0.03, agg>=+0.02, genuine collapse >=+0.03) -- partial, not a clean break of the lexical ceiling.",
+  "summary": "PARTIAL_MEANING_LIFT: char[mid=0.402 high=0.314 agg=0.358] semantic[mid=0.408 high=0.338 agg=0.373] event_sem[high=0.254 agg=0.291]",
+  "elapsed_s": 424.0,
+  "ts_iso": "2026-07-24T18:25:54.086979+00:00",
+  "anchor_name": "race_meaning_reader_vs_lexical_v2",
+  "run_mode": "full",
+  "mode": "full",
+  "sem_n_dim": 2048,
+  "event_n_dim": 4096,
+  "seed": 20260724,
+  "glove_limit": 120000,
+  "glove_vocab_loaded": 120000,
+  "n_questions": 1000,
+  "n_middle": 500,
+  "n_high": 500,
+  "chance_theoretical": 0.25,
+  "control_random_pick": 0.243,
+  "control_majority": 0.272,
+  "majority_modal_index": 2,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "char_trigram_acc_agg": 0.358,
+  "char_trigram_acc_middle": 0.402,
+  "char_trigram_acc_high": 0.314,
+  "lexical_overlap_acc_agg": 0.351,
+  "lexical_overlap_acc_middle": 0.394,
+  "lexical_overlap_acc_high": 0.308,
+  "banked_char_floor_29535_ref": {
+    "middle": 0.395,
+    "high": 0.317,
+    "agg": 0.356,
+    "note": "banked full 1000/1000; recomputed here in-regime on this slice"
+  },
+  "semantic_acc_agg": 0.373,
+  "semantic_acc_middle": 0.408,
+  "semantic_acc_high": 0.338,
+  "semantic_mismatched_acc_agg": 0.304,
+  "arm_b_status": "OK",
+  "arm_b": {
+    "status": "OK",
+    "event_semantic": {
+      "acc": 0.291,
+      "n": 1000,
+      "n_no_signal": 2,
+      "acc_by_source": {
+        "high": 0.254,
+        "middle": 0.328
+      }
+    },
+    "event_semantic_mismatched": {
+      "acc": 0.269,
+      "n": 1000,
+      "n_no_signal": 2,
+      "acc_by_source": {
+        "high": 0.26,
+        "middle": 0.278
+      }
+    },
+    "event_native": {
+      "acc": 0.269,
+      "n": 1000,
+      "n_no_signal": 2,
+      "acc_by_source": {
+        "high": 0.274,
+        "middle": 0.264
+      }
+    },
+    "n_articles": 289,
+    "total_passage_events": 12314,
+    "mean_events_per_article": 42.61,
+    "semantic_vs_native_store_differ": true,
+    "meaning_roles": [
+      "PRED",
+      "AGENT",
+      "PATIENT"
+    ]
+  },
+  "per_treatment_vs_char": {
+    "semantic": {
+      "agg": 0.373,
+      "high": 0.338,
+      "mid": 0.408,
+      "lift_high_vs_char": 0.024,
+      "lift_agg_vs_char": 0.015,
+      "mismatched_collapse": 0.069
+    },
+    "event_semantic": {
+      "agg": 0.291,
+      "high": 0.254,
+      "mid": 0.328,
+      "lift_high_vs_char": -0.06,
+      "lift_agg_vs_char": -0.067,
+      "mismatched_collapse": 0.022
+    }
+  },
+  "best_treatment": "semantic",
+  "best_treatment_high_lift": 0.024,
+  "max_treatment_lift": {
+    "max_high_lift": 0.024,
+    "max_agg_lift": 0.015
+  },
+  "bands": {
+    "HP_HIGH_LIFT": 0.03,
+    "HP_AGG_LIFT": 0.02,
+    "HP_MISMATCH_COLLAPSE": 0.03,
+    "HF_LIFT": 0.01
+  },
+  "hard_pass": false,
+  "hard_fail": false,
+  "grade_proxy": {
+    "char_middle_band": "emerging lexical retrieval, far below a real middle school (gr 6-8) student",
+    "char_high_band": "emerging lexical retrieval, far below a real high school (gr 9-12) student",
+    "semantic_middle_band": "emerging lexical retrieval, far below a real middle school (gr 6-8) student",
+    "semantic_high_band": "emerging lexical retrieval, far below a real high school (gr 9-12) student",
+    "note": "COARSE heuristic proxy (NOT calibrated to real student scores). A real middle/high-school student scores ~0.85+ (Turkers 0.855, ceiling 0.945; CITED Lai et al. 2017). Even the best arm here is a shallow retriever, far below a real student."
+  },
+  "human_scale_note": "RACE-middle ~ middle school, RACE-high ~ high school. Human ceiling 0.945, Turkers 0.855 (CITED Lai et al. 2017). Chance 0.25.",
+  "contract": "INLINE-LOCAL foreground-to-completion; RACE cache LOCAL-ONLY + UNCOMMITTED; no push/remote-persist; VET-PENDING",
+  "VET_PENDING": true
+}

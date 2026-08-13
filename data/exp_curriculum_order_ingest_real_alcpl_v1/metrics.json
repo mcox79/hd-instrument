@@ -1,0 +1,192 @@
+{
+  "anchor_name": "curriculum_order_ingest_real_alcpl_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | domain=precalculus margin_cur_rand(mean grid)=0.148 (max=0.246, min=-0.076, frac>=hp=0.75) margin_cur_freq=-0.007 cur_margin_deg=-0.237 scramble=0.344 info_ceiling=0.098 rev_q=0.500 rev_prem=0.555 rev_craters=True tau0_inv=True",
+  "summary": "MIDDLE_BAND",
+  "elapsed_s": 0.3940620422363281,
+  "ts_iso": "2026-07-16T22:28:55.822113+00:00",
+  "domain": "precalculus",
+  "run_mode": "full",
+  "config": {
+    "tau": 0.5,
+    "k_ground": 1,
+    "test_frac": 0.3,
+    "split_rng": 2024,
+    "rand_seeds": [
+      11,
+      23,
+      37,
+      41,
+      53
+    ],
+    "scramble_seeds": [
+      101,
+      202,
+      303,
+      404,
+      505
+    ],
+    "katz_beta": 0.5,
+    "katz_L": 6,
+    "budget_grid_base": [
+      40,
+      80,
+      120
+    ],
+    "bands": {
+      "margin_cur_rand_hp": 0.03,
+      "margin_cur_freq_hp": 0.01,
+      "margin_over_deg_hp": 0.02,
+      "scramble_hp": 0.55,
+      "scramble_hf": 0.6,
+      "hold_recovery_hp": 0.5,
+      "margin_cur_rand_hf": 0.005,
+      "info_ceiling_min": 0.03,
+      "rev_quality_chance": 0.55,
+      "rev_premature_min": 0.3
+    }
+  },
+  "verdict_detail": {
+    "verdict": "MIDDLE_BAND",
+    "margin_cur_rand_mean_grid": 0.14790498472485403,
+    "margin_cur_rand_max_grid": 0.24636261684871458,
+    "margin_cur_rand_min_grid": -0.07583784790946704,
+    "margin_cur_freq_mean_grid": -0.006611905824945773,
+    "frac_budgets_cur_rand_ge_hp": 0.75,
+    "robust_cur_rand_majority": true,
+    "curriculum_margin_over_degree_mean_grid": -0.23664611230835755,
+    "scramble_auroc": 0.3442782361688738,
+    "info_ceiling_cur_full_minus_scramble": 0.09812444410069998,
+    "metric_near_vacuous": false,
+    "reverse_premature_rate": 0.5551020408163265,
+    "random_premature_rate": 0.25510204081632654,
+    "reverse_q_full_orth": 0.5,
+    "reverse_craters": true,
+    "hold_recovery_fraction": 1.0,
+    "q_cur_full": 0.4424026802695738,
+    "q_rand_full": 0.3268206251384255,
+    "q_hold_full": 0.4424026802695738,
+    "q_cur_full_orth_rev": 0.4004029211785444,
+    "q_rand_full_orth_rev": 0.29075341681738054,
+    "tau0_order_invariant": true,
+    "arms_differ": true
+  },
+  "results": {
+    "seed_entities_n": 12,
+    "budget_grid": [
+      40,
+      80,
+      120,
+      331
+    ],
+    "budget_sweep": {
+      "B_40": {
+        "q_cur_orth": 0.5,
+        "q_cur_margin_deg": -0.07949931270631994,
+        "q_cur_orth_rev": 0.5,
+        "q_freq_orth": 0.5,
+        "q_rand_orth_mean": 0.3234281013468144,
+        "q_rand_orth_std": 0.09073342305751511,
+        "q_rev_orth": 0.5,
+        "margin_cur_rand": 0.17657189865318562,
+        "margin_cur_freq": 0.0
+      },
+      "B_80": {
+        "q_cur_orth": 0.5,
+        "q_cur_margin_deg": -0.07949931270631994,
+        "q_cur_orth_rev": 0.5,
+        "q_freq_orth": 0.5,
+        "q_rand_orth_mean": 0.255476728693017,
+        "q_rand_orth_std": 0.019474132216107748,
+        "q_rev_orth": 0.5,
+        "margin_cur_rand": 0.24452327130698298,
+        "margin_cur_freq": 0.0
+      },
+      "B_120": {
+        "q_cur_orth": 0.5,
+        "q_cur_margin_deg": -0.14960854142570368,
+        "q_cur_orth_rev": 0.5,
+        "q_freq_orth": 0.5,
+        "q_rand_orth_mean": 0.2536373831512854,
+        "q_rand_orth_std": 0.013156089359888925,
+        "q_rev_orth": 0.5,
+        "margin_cur_rand": 0.24636261684871458,
+        "margin_cur_freq": 0.0
+      },
+      "B_331": {
+        "q_cur_orth": 0.24109418560093374,
+        "q_cur_margin_deg": -0.6379772823950867,
+        "q_cur_orth_rev": 0.20014422746731989,
+        "q_freq_orth": 0.2675418089007168,
+        "q_rand_orth_mean": 0.3169320335104008,
+        "q_rand_orth_std": 0.030106227982341416,
+        "q_rev_orth": null,
+        "margin_cur_rand": -0.07583784790946704,
+        "margin_cur_freq": -0.02644762329978309
+      }
+    },
+    "margin_cur_rand_mean_over_grid": 0.14790498472485403,
+    "margin_cur_rand_min_over_grid": -0.07583784790946704,
+    "margin_cur_rand_max_over_grid": 0.24636261684871458,
+    "margin_cur_freq_mean_over_grid": -0.006611905824945773,
+    "cur_margin_over_degree_mean_over_grid": -0.23664611230835755,
+    "frac_budgets_cur_rand_ge_hp": 0.75,
+    "frac_budgets_cur_freq_ge_hp": 0.0,
+    "n_budgets": 4,
+    "arms": {
+      "curriculum": {
+        "admit": 490,
+        "admit_rate": 1.0,
+        "premature_rate": 0.0,
+        "q_full_orth": 0.4424026802695738,
+        "q_full_raw": 0.715311004784689,
+        "q_full_orth_rev": 0.4004029211785444,
+        "q_full_margin_deg": -0.48608010574830635,
+        "degree_auroc_full": 0.9284827860178801
+      },
+      "frequency": {
+        "admit": 489,
+        "admit_rate": 0.9979591836734694,
+        "premature_rate": 0.0020408163265306124,
+        "q_full_orth": 0.43820860681528145,
+        "q_full_orth_rev": 0.39574414505162425
+      },
+      "reverse": {
+        "admit": 197,
+        "admit_rate": 0.4020408163265306,
+        "premature_rate": 0.5551020408163265,
+        "q_full_orth": 0.5,
+        "q_full_orth_rev": 0.5
+      },
+      "random": {
+        "admit_mean": 359.2,
+        "admit_rate_mean": 0.7330612244897959,
+        "premature_rate_mean": 0.25510204081632654,
+        "premature_rate_std": 0.04180436776838978,
+        "q_full_orth_mean": 0.3268206251384255,
+        "q_full_orth_std": 0.02286804672216201,
+        "q_full_orth_rev_mean": 0.29075341681738054
+      },
+      "random_hold": {
+        "admit_mean": 490.0,
+        "admit_rate_mean": 1.0,
+        "q_full_orth_mean": 0.4424026802695738,
+        "passes_mean": 2.0,
+        "passes_max": 2,
+        "phase1_hold_mean": 130.8,
+        "final_hold_mean": 0.0,
+        "buffer_monotone_all": true
+      }
+    },
+    "scramble_auroc": 0.3442782361688738
+  },
+  "tau0_null": {
+    "identical_admit_sets": true,
+    "quality_spread": 0.0,
+    "q_by_order": {
+      "curriculum": 0.4424026802695738,
+      "frequency": 0.4424026802695738,
+      "random": 0.4424026802695738
+    }
+  }
+}

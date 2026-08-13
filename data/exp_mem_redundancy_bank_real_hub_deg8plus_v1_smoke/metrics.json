@@ -1,0 +1,182 @@
+{
+  "anchor_name": "mem_redundancy_bank_real_hub_deg8plus_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_REAL_DEG8PLUS_REDUNDANCY_CLOSES_ENVELOPE",
+  "verdict_msg": "REDUNDANCY LEVER GENERALIZES TO REAL heterogeneous deg8+: best R8 recall 0.990 >= 0.65 (past the 0.466 residual) via raw redundancy alone; raw R1=0.396->R8=0.990 (+0.595); mc R1=0.397->R8=0.989 (+0.591); best R4=0.9212054545454544; sub-bin spread 0.013; synth ctrl R8=1.000; degenerate R8==R1 (population averaging genuine, not free). Memory envelope CLOSED: deg8+ residual is a COMPUTE COST, not a wall, on REAL data. cost = R banks = 8x dimension/storage for the deg8+ tail (1836/118799 = 1.5%% of sources); real COMPUTE COST either way",
+  "summary": "HARD_PASS_REAL_DEG8PLUS_REDUNDANCY_CLOSES_ENVELOPE: redundancy-bank lever on REAL heterogeneous deg8+ hubs (smoke, N=1024)",
+  "elapsed_s": 24.29,
+  "ts_iso": "2026-07-05T14:26:33.819265+00:00",
+  "pid": 27748,
+  "host": "FrameworkMPC",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "seeds": [
+      7
+    ],
+    "deg_bins": [
+      "5",
+      "8to12",
+      "20plus"
+    ],
+    "hub_per_bin": 30,
+    "codebook_M": 8000,
+    "R_list": [
+      1,
+      4,
+      8
+    ],
+    "synth_cap": 15
+  },
+  "expected_n_units": 9,
+  "n_units_counted": 9,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_note": "ok",
+  "gate_diagnostics": {
+    "deg8plus_pooled": {
+      "raw": {
+        "R1": 0.3957,
+        "R4": 0.9212,
+        "R8": 0.9905
+      },
+      "mc": {
+        "R1": 0.3974,
+        "R4": 0.9143,
+        "R8": 0.9887
+      },
+      "synth_raw_R8": 1.0
+    },
+    "lift_raw_R1_to_R8": 0.5948,
+    "lift_mc_R1_to_R8": 0.5914,
+    "best_R4": 0.9212,
+    "best_R8": 0.9905,
+    "redundancy_contributes_ge_0.10": true,
+    "subbin_best_recall_at_R8": {
+      "8to12": 1.0,
+      "13to19": NaN,
+      "20plus": 0.9872
+    },
+    "subbin_spread_at_R8": 0.0128,
+    "memory_cost_ratio_R8": 8,
+    "degenerate_r8_equals_r1": true,
+    "degenerate_r8_recall": [
+      1.0,
+      0.3793
+    ],
+    "GateD_positive_control_r1_raw": 0.3957,
+    "GateD_ref": 0.4662,
+    "GateD_ok": true,
+    "research_note_strict_gates": {
+      "r4_raw_ge_0.65": true,
+      "r8_raw_ge_0.75": true,
+      "spread_le_0.20": true
+    },
+    "discriminator_fired_baseline_in_band": true
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 1024,
+      "run_mode": "smoke",
+      "bins": {
+        "5": {
+          "bin": "5",
+          "n_sources": 30,
+          "n_edges": 150,
+          "n_edges_synth": 75,
+          "per_R": {
+            "1": {
+              "raw_recall": 0.9867,
+              "mc_recall": 0.9867,
+              "synth_raw_recall": 1.0
+            },
+            "4": {
+              "raw_recall": 1.0,
+              "mc_recall": 1.0,
+              "synth_raw_recall": 1.0
+            },
+            "8": {
+              "raw_recall": 1.0,
+              "mc_recall": 1.0,
+              "synth_raw_recall": 1.0
+            }
+          },
+          "degenerate_r8": {
+            "checked": true,
+            "equals_r1": true,
+            "recall": 0.8
+          },
+          "_r1_digest": "d167251ba0ec99d795936af873ec917947dee0494d7df3e4c358074f7ea603d5",
+          "_r8_digest": "f179c95d24bf642c8c81533b62ce01ddced81836bd8e7830a6a61f90e3698215"
+        },
+        "8to12": {
+          "bin": "8to12",
+          "n_sources": 30,
+          "n_edges": 294,
+          "n_edges_synth": 144,
+          "per_R": {
+            "1": {
+              "raw_recall": 0.8673,
+              "mc_recall": 0.8571,
+              "synth_raw_recall": 1.0
+            },
+            "4": {
+              "raw_recall": 1.0,
+              "mc_recall": 1.0,
+              "synth_raw_recall": 1.0
+            },
+            "8": {
+              "raw_recall": 1.0,
+              "mc_recall": 1.0,
+              "synth_raw_recall": 1.0
+            }
+          },
+          "degenerate_r8": {
+            "checked": true,
+            "equals_r1": true,
+            "recall": 1.0
+          },
+          "_r1_digest": "e346eceb1ced5a8caf605b368b16b8cb762c2f2db3c636afa003c96780407cb4",
+          "_r8_digest": "d75892e30641aebee0eb596b2dcbeeffa4f537c09e3e264f8740d96c39906e11"
+        },
+        "20plus": {
+          "bin": "20plus",
+          "n_sources": 30,
+          "n_edges": 861,
+          "n_edges_synth": 430,
+          "per_R": {
+            "1": {
+              "raw_recall": 0.2346,
+              "mc_recall": 0.2404,
+              "synth_raw_recall": 0.8674
+            },
+            "4": {
+              "raw_recall": 0.8943,
+              "mc_recall": 0.885,
+              "synth_raw_recall": 1.0
+            },
+            "8": {
+              "raw_recall": 0.9872,
+              "mc_recall": 0.9849,
+              "synth_raw_recall": 1.0
+            }
+          },
+          "degenerate_r8": {
+            "checked": true,
+            "equals_r1": true,
+            "recall": 0.3793
+          },
+          "_r1_digest": "7e3ea60ca5798820fd0e324d341e04bb4a14b56a156fd082292637374e31d03e",
+          "_r8_digest": "c6f793cc7ee7dea21705732c48470b6c0a9c790169c2a0775b29671699384be0"
+        }
+      },
+      "config_version": "ANCHOR=mem_redundancy_bank_real_hub_deg8plus_v1,N=1024,run_mode=smoke",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783261593.7925868
+    }
+  },
+  "notes": "REAL atom vectors = BGE semantic (LOCAL-ONLY cache). REAL edges = concept partition. Redundancy-bank = R independent per-(bank,slot) unitary roll shifts, mean-before-cleanup. R1 raw == predecessor idx_bind (positive control). Read-only; NO substrate mutation; NO LLM."
+}

@@ -1,0 +1,341 @@
+{
+  "verdict": "INVALID",
+  "verdict_msg": "ARM_SHUFFLED_ORACLE did not fail (fail_max=0.150): held=[0.647, 0.232] -- a stable-but-WRONG address also produces non-trivial recall, so the metric cannot discriminate correct addressing from merely-stable addressing. Any ORACLE win is untrustworthy until this is fixed (e.g. larger K, longer TAIL_MIN, or a construction change).",
+  "summary": "INVALID | chance_recall=0.0500 | ARM_SHUFFLED_ORACLE did not fail (fail_max=0.150): held=[0.647, 0.232] -- a stable-but-WRONG address also produces non-trivial recall, so the metric cannot disc",
+  "run_mode": "full",
+  "elapsed_s": 208.87393100000918,
+  "ts_iso": "2026-07-30T18:24:08.605157+00:00",
+  "anchor_name": "oracle_context_invariant_address_wm_v1",
+  "chance_recall": 0.05,
+  "oracle_ceiling_ref": 1.0,
+  "bands": {
+    "chance_recall": 0.05,
+    "fail_max": 0.15000000000000002,
+    "oracle_min": 0.5,
+    "shuffled_margin": 0.3,
+    "oracle_ceiling": 1.0,
+    "ctx_fails": true,
+    "shf_fails": false,
+    "context_held": [
+      0.03921568766236305,
+      0.0892857164144516
+    ],
+    "oracle_held": [
+      0.5686274766921997,
+      0.8928571343421936
+    ],
+    "shuffled_held": [
+      0.6470588445663452,
+      0.2321428507566452
+    ],
+    "onehot_held": [
+      0.4117647111415863,
+      0.4642857015132904
+    ],
+    "gaps_oracle_vs_shuffled": [
+      -0.07843136787414551,
+      0.6607142835855484
+    ]
+  },
+  "table_diag": {
+    "n_ctx_per_role": [
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101,
+      101
+    ],
+    "shuffle_perm": [
+      13,
+      2,
+      11,
+      10,
+      6,
+      14,
+      9,
+      3,
+      4,
+      7,
+      1,
+      0,
+      8,
+      5,
+      12
+    ],
+    "onehot_mean_norm_scale": 3.1861634254455566
+  },
+  "invariance_construction_check": {
+    "context_varies_across_sentences": true,
+    "oracle_invariant_across_sentences": true,
+    "shuffled_table_is_genuine_derangement": true
+  },
+  "arm_results": {
+    "context": [
+      {
+        "eval_acc": 0.052000001072883606,
+        "train_acc": 0.9975000023841858,
+        "recall_train_acc": 0.055276382714509964,
+        "recall_heldout_acc": 0.03921568766236305,
+        "loss_curve": [
+          [
+            0,
+            2.993698835372925
+          ],
+          [
+            40,
+            0.697928249835968
+          ],
+          [
+            81,
+            0.19436809420585632
+          ]
+        ],
+        "steps_run": 112,
+        "first_loss": 2.993698835372925,
+        "last_loss": 0.19436809420585632,
+        "ev_logits_sha256": "97a62dc1d23daa75bad65018319d1a53191319a479fcacec3d1d9009a33a4197"
+      },
+      {
+        "eval_acc": 0.05999999865889549,
+        "train_acc": 0.9975000023841858,
+        "recall_train_acc": 0.05154639109969139,
+        "recall_heldout_acc": 0.0892857164144516,
+        "loss_curve": [
+          [
+            0,
+            3.0029940605163574
+          ],
+          [
+            40,
+            0.49639859795570374
+          ],
+          [
+            81,
+            0.1690099984407425
+          ],
+          [
+            122,
+            0.17220371961593628
+          ],
+          [
+            163,
+            0.025425812229514122
+          ]
+        ],
+        "steps_run": 195,
+        "first_loss": 3.0029940605163574,
+        "last_loss": 0.025425812229514122,
+        "ev_logits_sha256": "15be45f5e4830e0fe430fc06ecca0fc97e58621b15a32c768a833aac1c4aa7e9"
+      }
+    ],
+    "oracle": [
+      {
+        "eval_acc": 0.5680000185966492,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.5678392052650452,
+        "recall_heldout_acc": 0.5686274766921997,
+        "loss_curve": [
+          [
+            0,
+            2.993363618850708
+          ],
+          [
+            40,
+            0.15256541967391968
+          ],
+          [
+            81,
+            0.03449496999382973
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.993363618850708,
+        "last_loss": 0.03449496999382973,
+        "ev_logits_sha256": "3a394d6e61000b7b5d3c8007b250658b6f931ae02bdaaa8f020a97d77e311162"
+      },
+      {
+        "eval_acc": 0.6679999828338623,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.6030927896499634,
+        "recall_heldout_acc": 0.8928571343421936,
+        "loss_curve": [
+          [
+            0,
+            3.0036537647247314
+          ],
+          [
+            40,
+            0.20414923131465912
+          ],
+          [
+            81,
+            0.0025572439190000296
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 3.0036537647247314,
+        "last_loss": 0.0025572439190000296,
+        "ev_logits_sha256": "ce713cd683300f58b3775b519b8d40138bb56214985e529c477068472e22c77d"
+      }
+    ],
+    "shuffled": [
+      {
+        "eval_acc": 0.5600000023841858,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.5376884341239929,
+        "recall_heldout_acc": 0.6470588445663452,
+        "loss_curve": [
+          [
+            0,
+            2.993077039718628
+          ],
+          [
+            40,
+            0.08999458700418472
+          ],
+          [
+            81,
+            0.0031522540375590324
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.993077039718628,
+        "last_loss": 0.0031522540375590324,
+        "ev_logits_sha256": "924f1ed2aae938825ad8746cd2af88ae0101d5331d66cd51b8eb823c733bc33d"
+      },
+      {
+        "eval_acc": 0.41200000047683716,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.4639175236225128,
+        "recall_heldout_acc": 0.2321428507566452,
+        "loss_curve": [
+          [
+            0,
+            3.0060343742370605
+          ],
+          [
+            40,
+            0.1513073593378067
+          ],
+          [
+            81,
+            0.02347296103835106
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 3.0060343742370605,
+        "last_loss": 0.02347296103835106,
+        "ev_logits_sha256": "b0a9fc57b2ee79beac4065ca785c9ddfb4918e19ec2dfc8ecb887da65384d09b"
+      }
+    ],
+    "onehot": [
+      {
+        "eval_acc": 0.3919999897480011,
+        "train_acc": 1.0,
+        "recall_train_acc": 0.38693466782569885,
+        "recall_heldout_acc": 0.4117647111415863,
+        "loss_curve": [
+          [
+            0,
+            2.994084119796753
+          ],
+          [
+            40,
+            0.15494252741336823
+          ],
+          [
+            81,
+            0.0061662765219807625
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 2.994084119796753,
+        "last_loss": 0.0061662765219807625,
+        "ev_logits_sha256": "b3cea01990a74f4c286350990ab8ddb56a69f3649463f7fb826f90c4215175b5"
+      },
+      {
+        "eval_acc": 0.41200000047683716,
+        "train_acc": 0.9975000023841858,
+        "recall_train_acc": 0.3969072103500366,
+        "recall_heldout_acc": 0.4642857015132904,
+        "loss_curve": [
+          [
+            0,
+            3.003629446029663
+          ],
+          [
+            40,
+            0.19880065321922302
+          ],
+          [
+            81,
+            0.02288184128701687
+          ]
+        ],
+        "steps_run": 101,
+        "first_loss": 3.003629446029663,
+        "last_loss": 0.02288184128701687,
+        "ev_logits_sha256": "7bea1284c56e3845726b921c035aeeac11858ed3f617225ecdcce5ff6f307ee3"
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 8,
+  "n_units_done": 8,
+  "params": {
+    "S_TARGET_TOTAL": 15,
+    "K_SLOTS": 15,
+    "D_MEM": 64,
+    "HIDDEN": 64,
+    "ADDR_TEMP": 0.3,
+    "STEPS_WM": 250,
+    "LR": 0.01,
+    "train_n": 400,
+    "eval_n": 250,
+    "seeds": [
+      7,
+      13
+    ],
+    "train_roles": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14
+    ],
+    "held_out_roles": [
+      6,
+      11,
+      13
+    ],
+    "n_cached_sentences": 3015,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "oracle_probe_seed": 20260730,
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 15
+}

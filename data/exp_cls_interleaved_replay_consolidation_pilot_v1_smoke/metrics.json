@@ -1,0 +1,128 @@
+{
+  "anchor_name": "cls_interleaved_replay_consolidation_pilot_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_FULL_CLS_LOOP: separation + interleaved-replay + fast/slow routing beats BOTH single-store (McCloskey) AND naive-dual-W on old-recall (margin>=0.20) while retaining recent (>=0.70), 1/1 seeds. Interleaved replay is the load-bearing half (replay_only old=0.850 ~ full_cls; fast tier adds recent-exactness). full_cls(old=0.825,recent=1.000) naive_dual_w(old=0.125,recent=1.000) single_seq(old=0.125,recent=1.000) replay_only(old=0.850,recent=1.000) | hp_seeds=1/1 arms_differ=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "agg": {
+    "single_seq": {
+      "old": 0.125,
+      "recent": 1.0
+    },
+    "naive_dual_w": {
+      "old": 0.125,
+      "recent": 1.0
+    },
+    "replay_only": {
+      "old": 0.85,
+      "recent": 1.0
+    },
+    "full_cls": {
+      "old": 0.825,
+      "recent": 1.0
+    }
+  },
+  "hp_seeds": 1,
+  "arms_differ": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "single_seq": {
+        "old": 0.125,
+        "recent": 1.0
+      },
+      "naive_dual_w": {
+        "old": 0.125,
+        "recent": 1.0
+      },
+      "replay_only": {
+        "old": 0.85,
+        "recent": 1.0
+      },
+      "full_cls": {
+        "old": 0.825,
+        "recent": 1.0
+      },
+      "arm_digests": {
+        "single_seq": "3847fc437fe6c5296d6fdce3f4ccbc060f96509765178fd4fbcbce03395cc404",
+        "naive_dual_w": "3847fc437fe6c5296d6fdce3f4ccbc060f96509765178fd4fbcbce03395cc404",
+        "replay_only": "9b9ce5001c619cc99aac77243fcf25cbf2b3205ce80aa620aa2801aed0283a43",
+        "full_cls": "1ae2789ea082a74b5153a10f602318dee4a035be0e20cc0c9acc286bb6e36c4c"
+      }
+    }
+  ],
+  "config": {
+    "N": 128,
+    "H": 64,
+    "V": 40,
+    "T": 400,
+    "K_BLOCKS": 10,
+    "CPB": 4,
+    "IPC": 10,
+    "E_EPOCHS": 120,
+    "LR": 0.3,
+    "seeds": [
+      7
+    ]
+  },
+  "elapsed_s": 0.6431179046630859,
+  "summary": "HARD_PASS_FULL_CLS_LOOP: separation + interleaved-replay + fast/slow routing beats BOTH single-store (McCloskey) AND naive-dual-W on old-recall (margin>=0.20) while retaining recent (>=0.70), 1/1 seeds. Interleaved replay is the load-bearing half (replay_only old=0.850 ~ full_cls; fast tier adds recent-exactness). full_cls(old=0.825,recent=1.000) naive_dual_w(old=0.125,recent=1.000) single_seq(old=0.125,recent=1.000) replay_only(old=0.850,recent=1.000) | hp_seeds=1/1 arms_differ=True",
+  "structured_gate_claims": [
+    {
+      "gate_name": "full_cls_old_recall",
+      "measured": 0.825,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "old-item retention after full stream"
+    },
+    {
+      "gate_name": "full_cls_recent_recall",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "recent-item recall guard"
+    },
+    {
+      "gate_name": "old_margin_vs_naive",
+      "measured": 0.7,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "interleaved-replay half effect (the ONE variable)"
+    },
+    {
+      "gate_name": "old_margin_vs_single",
+      "measured": 0.7,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "full CLS loop vs McCloskey single-store"
+    },
+    {
+      "gate_name": "difficulty_single_seq_old",
+      "measured": 0.125,
+      "threshold": 0.4,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "catastrophic forgetting is real (difficulty ON)"
+    },
+    {
+      "gate_name": "difficulty_single_seq_recent",
+      "measured": 1.0,
+      "threshold": 0.6,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "single_seq CAN learn recent (forgetting not inability)"
+    },
+    {
+      "gate_name": "hp_seeds",
+      "measured": 1,
+      "threshold": 1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "seeds where full_cls beats BOTH baselines"
+    }
+  ]
+}

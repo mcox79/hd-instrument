@@ -1,0 +1,300 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "headline_band",
+    "cskg_band",
+    "union_band",
+    "per_source_table",
+    "results",
+    "cskg_load"
+  ],
+  "anchor_name": "arc_derivation_rule_supply_cskg_v1",
+  "bands_preregistered": {
+    "GREEN": "cov >= 0.35 AND typed_gap >= 0.15 AND typed_gap > untyped_gap",
+    "HONEST_GUARD": "coverage AND selectivity tracked together; mega-hub watch = max typed degree",
+    "MIDDLE_BAND": "otherwise",
+    "PROMISCUOUS_FAIL": "cov > 0.5 AND (typed_gap < 0.05 OR typed_gap <= untyped_gap)",
+    "STILL_STARVED": "cov < 0.15"
+  },
+  "config": {
+    "cskg_licensed_map": {
+      "/r/CapableOf": "USEDFOR",
+      "/r/Causes": "CAUSE",
+      "/r/CausesDesire": "CAUSE",
+      "/r/Desires": "CAUSE",
+      "/r/HasFirstSubevent": "IFTHEN",
+      "/r/HasLastSubevent": "IFTHEN",
+      "/r/HasPrerequisite": "REQUIRES",
+      "/r/HasSubevent": "IFTHEN",
+      "/r/MadeOf": "SOURCEOF",
+      "/r/MotivatedByGoal": "CAUSE",
+      "/r/NotDesires": "CAUSE",
+      "/r/ReceivesAction": "USEDFOR",
+      "/r/UsedFor": "USEDFOR"
+    },
+    "cskg_max_deg_induce": 64,
+    "cskg_max_lines": 400000,
+    "depth": 3,
+    "filler_budget": 1500,
+    "n_sample": 12,
+    "one_variable": "rule_source (worldtree vs cskg vs union); node-identity/gate/Qs/depth/thresholds IDENTICAL to clean-node gate cleannodes_v2",
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85,
+    "worldtree_licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ]
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING",
+  "cskg_band": "STILL_STARVED",
+  "cskg_load": {
+    "induction": {
+      "filler_budget": 1500,
+      "n_all_labels": 10807,
+      "n_frontier": 879,
+      "n_kept_nodes": 1500,
+      "n_kept_rows": 1268,
+      "n_seed_nodes": 841
+    },
+    "induction_caveat": "CSKG is query-conditioned subgraph-induced around the sampled ARC vocab -> its coverage is an UPPER BOUND (generous). STILL_STARVED under it is decisive; GREEN is caveated. WorldTree used whole = fair anchor.",
+    "n_licensed_rows": 11220,
+    "n_scanned": 400001,
+    "path": "data\\grounding_testbed\\cskg.tsv.gz",
+    "per_rel": {
+      "/r/CapableOf": 4228,
+      "/r/Causes": 700,
+      "/r/CausesDesire": 626,
+      "/r/Desires": 50,
+      "/r/HasFirstSubevent": 151,
+      "/r/HasLastSubevent": 93,
+      "/r/HasPrerequisite": 901,
+      "/r/HasSubevent": 967,
+      "/r/MadeOf": 111,
+      "/r/MotivatedByGoal": 331,
+      "/r/NotDesires": 34,
+      "/r/ReceivesAction": 451,
+      "/r/UsedFor": 2577
+    }
+  },
+  "elapsed_s": 92.1,
+  "headline_band": "MIDDLE_BAND",
+  "headline_source": "worldtree_cskg",
+  "notes": "ONE-VARIABLE ablation: rule SOURCE only. Node-identity (NegAwareEncoder + head-gate + polarity merge-gate), gate (build_graph_gated + meet_connected), Qs, depth, thresholds ALL imported UNCHANGED from cleannodes_v2. CSKG licensed = causal/conditional/functional /r/ relations only (structural + dbpedia excluded; ATOMIC social relations excluded). STRAIGHT report; NOT tuned to force GREEN.",
+  "parent_ref": {
+    "cell": "arc_derivation_connectivity_gate_cleannodes_v2 (99736f579)",
+    "outcome": "COVERAGE_BOUND_CONFIRMED -> rule-supply mandated (this cell)",
+    "worldtree_clean_typed_cov_on_disk": 0.06
+  },
+  "per_source_table": [
+    {
+      "band": "MIDDLE_BAND",
+      "cov": 0.1667,
+      "gap_beats_untyped": true,
+      "max_deg": 83,
+      "n_nodes": 2359,
+      "n_rules": 1868,
+      "source": "worldtree",
+      "typed_gap": 0.0524,
+      "untyped_cov": 0.5,
+      "untyped_gap": -0.1286
+    },
+    {
+      "band": "STILL_STARVED",
+      "cov": 0.0,
+      "gap_beats_untyped": false,
+      "max_deg": 45,
+      "n_nodes": 1262,
+      "n_rules": 1268,
+      "source": "cskg",
+      "typed_gap": -0.0571,
+      "untyped_cov": 0.5833,
+      "untyped_gap": 0.0976
+    },
+    {
+      "band": "MIDDLE_BAND",
+      "cov": 0.1667,
+      "gap_beats_untyped": true,
+      "max_deg": 83,
+      "n_nodes": 3537,
+      "n_rules": 3136,
+      "source": "worldtree_cskg",
+      "typed_gap": -0.0048,
+      "untyped_cov": 0.75,
+      "untyped_gap": -0.0786
+    }
+  ],
+  "pid": 21884,
+  "results": {
+    "cskg": {
+      "band": "STILL_STARVED",
+      "example_chains": [],
+      "graph": {
+        "max_degree_node_label": "animal",
+        "max_typed_node_degree": 45,
+        "n_fillers": 1464,
+        "n_head_blocked": 311,
+        "n_merges": 268,
+        "n_nodes": 1262,
+        "n_null_edges": 25907,
+        "n_pol_blocked": 9,
+        "n_typed_edges": 1164
+      },
+      "n_licensed_rows": 1268,
+      "source": "cskg",
+      "typed_correct_coverage": 0.0,
+      "typed_full": {
+        "correct_coverage": 0.0,
+        "mean_wrong_coverage": 0.05714285714285714,
+        "n_correct_connected": 0,
+        "n_questions": 12,
+        "n_wrong_connected": 2,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.05714285714285714
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.0571,
+      "typed_selectivity_gap": -0.0571,
+      "untyped_correct_coverage": 0.5833,
+      "untyped_mean_wrong_coverage": 0.4857,
+      "untyped_null_full": {
+        "correct_coverage": 0.5833333333333334,
+        "mean_wrong_coverage": 0.4857142857142857,
+        "n_correct_connected": 7,
+        "n_questions": 12,
+        "n_wrong_connected": 17,
+        "n_wrong_total": 35,
+        "selectivity_gap": 0.09761904761904766
+      },
+      "untyped_selectivity_gap": 0.0976
+    },
+    "worldtree": {
+      "band": "MIDDLE_BAND",
+      "example_chains": [
+        {
+          "chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+          "correct_choice": "increase",
+          "qid": "NYSEDREGENTS_2012_8_42",
+          "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+        },
+        {
+          "chain": "[plant] --SOURCEOF--> [photosynthesis]",
+          "correct_choice": "Only plant cells can perform photosynthesis.",
+          "qid": "Mercury_SC_409383",
+          "stem": "How are plant cells different from animal cells?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "something",
+        "max_typed_node_degree": 83,
+        "n_fillers": 3189,
+        "n_head_blocked": 4351,
+        "n_merges": 3728,
+        "n_nodes": 2359,
+        "n_null_edges": 191545,
+        "n_pol_blocked": 760,
+        "n_typed_edges": 1735
+      },
+      "n_licensed_rows": 1868,
+      "source": "worldtree",
+      "typed_correct_coverage": 0.1667,
+      "typed_full": {
+        "correct_coverage": 0.16666666666666666,
+        "mean_wrong_coverage": 0.11428571428571428,
+        "n_correct_connected": 2,
+        "n_questions": 12,
+        "n_wrong_connected": 4,
+        "n_wrong_total": 35,
+        "selectivity_gap": 0.052380952380952375
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.1143,
+      "typed_selectivity_gap": 0.0524,
+      "untyped_correct_coverage": 0.5,
+      "untyped_mean_wrong_coverage": 0.6286,
+      "untyped_null_full": {
+        "correct_coverage": 0.5,
+        "mean_wrong_coverage": 0.6285714285714286,
+        "n_correct_connected": 6,
+        "n_questions": 12,
+        "n_wrong_connected": 22,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.12857142857142856
+      },
+      "untyped_selectivity_gap": -0.1286
+    },
+    "worldtree_cskg": {
+      "band": "MIDDLE_BAND",
+      "example_chains": [
+        {
+          "chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+          "correct_choice": "increase",
+          "qid": "NYSEDREGENTS_2012_8_42",
+          "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+        },
+        {
+          "chain": "[plant] --SOURCEOF--> [photosynthesis]",
+          "correct_choice": "Only plant cells can perform photosynthesis.",
+          "qid": "Mercury_SC_409383",
+          "stem": "How are plant cells different from animal cells?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "something",
+        "max_typed_node_degree": 83,
+        "n_fillers": 4632,
+        "n_head_blocked": 5029,
+        "n_merges": 4161,
+        "n_nodes": 3537,
+        "n_null_edges": 283440,
+        "n_pol_blocked": 806,
+        "n_typed_edges": 2893
+      },
+      "n_licensed_rows": 3136,
+      "source": "worldtree_cskg",
+      "typed_correct_coverage": 0.1667,
+      "typed_full": {
+        "correct_coverage": 0.16666666666666666,
+        "mean_wrong_coverage": 0.17142857142857143,
+        "n_correct_connected": 2,
+        "n_questions": 12,
+        "n_wrong_connected": 6,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.004761904761904773
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.1714,
+      "typed_selectivity_gap": -0.0048,
+      "untyped_correct_coverage": 0.75,
+      "untyped_mean_wrong_coverage": 0.8286,
+      "untyped_null_full": {
+        "correct_coverage": 0.75,
+        "mean_wrong_coverage": 0.8285714285714286,
+        "n_correct_connected": 9,
+        "n_questions": 12,
+        "n_wrong_connected": 29,
+        "n_wrong_total": 35,
+        "selectivity_gap": -0.07857142857142863
+      },
+      "untyped_selectivity_gap": -0.0786
+    }
+  },
+  "run_mode": "smoke",
+  "summary": "RULE-SUPPLY probe | headline=MIDDLE_BAND(worldtree_cskg) | worldtree cov=0.1667 (anchor) -> cskg cov=0.0 band=STILL_STARVED | union band=MIDDLE_BAND",
+  "ts_iso": "2026-07-25T09:29:53.357885+00:00",
+  "union_band": "MIDDLE_BAND",
+  "verdict": "GATE_MEASURED",
+  "verdict_msg": "MIDDLE_BAND: partial coverage with modest selectivity -> no clean win; report straight. Rule-supply moves the needle but does not clear the GREEN bar.",
+  "worldtree_per_relation": {
+    "CAUSE": 380,
+    "COUPLEDRELATIONSHIP": 251,
+    "IFTHEN": 507,
+    "REQUIRES": 215,
+    "SOURCEOF": 178,
+    "USEDFOR": 337
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS ANCHOR_COMPOSE inductive probe: zero-training bundle recovers planted held-out tails and clears RANDOM; relation-scramble fails; ORACLE fires; POP at floor; 4 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 8.204621099983342,
+  "mechanism_selftest": {
+    "n_grid_entities": 300,
+    "n_heldout_entities": 45,
+    "n_support": 53,
+    "n_query": 61,
+    "n_cold": 10,
+    "heldout_mrr": {
+      "ANCHOR_COMPOSE": 0.40467,
+      "ADDITIVE_TRANSE": 0.00472,
+      "ONESHOT_ROTATE": 0.01821,
+      "RANDOM_CODES": 0.01338,
+      "ANCHOR_SCRAMBLE": 0.13595,
+      "IDENTITY_SHUFFLE": 0.01703,
+      "ORACLE_ADDITIVE": 0.93169,
+      "BASELINE_POP": 0.00825
+    },
+    "heldout_hits_at_10": {
+      "ANCHOR_COMPOSE": 0.65574,
+      "ADDITIVE_TRANSE": 0.0,
+      "ONESHOT_ROTATE": 0.03279,
+      "RANDOM_CODES": 0.0,
+      "ANCHOR_SCRAMBLE": 0.2623,
+      "IDENTITY_SHUFFLE": 0.03279,
+      "ORACLE_ADDITIVE": 1.0,
+      "BASELINE_POP": 0.0
+    },
+    "heldout_metric_spectrum": {
+      "ANCHOR_COMPOSE": {
+        "hits@1": 0.27869,
+        "hits@3": 0.47541,
+        "hits@10": 0.65574,
+        "hits@100": 0.77049,
+        "mrr": 0.40467
+      },
+      "ADDITIVE_TRANSE": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.04918,
+        "mrr": 0.00472
+      },
+      "ONESHOT_ROTATE": {
+        "hits@1": 0.0,
+        "hits@3": 0.01639,
+        "hits@10": 0.03279,
+        "hits@100": 0.31148,
+        "mrr": 0.01821
+      },
+      "RANDOM_CODES": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.31148,
+        "mrr": 0.01338
+      },
+      "ANCHOR_SCRAMBLE": {
+        "hits@1": 0.06557,
+        "hits@3": 0.18033,
+        "hits@10": 0.2623,
+        "hits@100": 0.4918,
+        "mrr": 0.13595
+      },
+      "IDENTITY_SHUFFLE": {
+        "hits@1": 0.0,
+        "hits@3": 0.01639,
+        "hits@10": 0.03279,
+        "hits@100": 0.29508,
+        "mrr": 0.01703
+      },
+      "ORACLE_ADDITIVE": {
+        "hits@1": 0.86885,
+        "hits@3": 1.0,
+        "hits@10": 1.0,
+        "hits@100": 1.0,
+        "mrr": 0.93169
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.19672,
+        "mrr": 0.00825
+      }
+    },
+    "oracle_fire_by_metric": {
+      "hits@1": {
+        "oracle": 0.86885,
+        "random": 0.0,
+        "headroom": 0.86885,
+        "fires_ratio": true
+      },
+      "hits@3": {
+        "oracle": 1.0,
+        "random": 0.0,
+        "headroom": 1.0,
+        "fires_ratio": true
+      },
+      "hits@10": {
+        "oracle": 1.0,
+        "random": 0.0,
+        "headroom": 1.0,
+        "fires_ratio": true
+      },
+      "hits@100": {
+        "oracle": 1.0,
+        "random": 0.31148,
+        "headroom": 0.68852,
+        "fires_ratio": true
+      },
+      "mrr": {
+        "oracle": 0.93169,
+        "random": 0.01338,
+        "headroom": 0.91831,
+        "fires_ratio": true
+      }
+    },
+    "n_distinct_sigs": 8,
+    "anchor_margin": 0.39129,
+    "scramble_margin": 0.26872,
+    "idshuf_margin": 0.00365,
+    "idshuf_collapse_ratio": 0.0093,
+    "identity_collapses": true,
+    "oracle_margin": 0.91831,
+    "oracle_ratio": 69.63,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "scramble_fails": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "MIDDLE_BAND_PARTIAL_ANCHOR_TRANSFER",
+    "validity_preflight_ok": true,
+    "support_deg_hist": {
+      "cold": 10,
+      "d1": 5,
+      "d2_3": 30,
+      "d4_7": 16,
+      "d8plus": 0
+    },
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest"
+    ]
+  }
+}

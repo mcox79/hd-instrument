@@ -1,0 +1,231 @@
+{
+  "anchor_name": "ingest_gate_compositional_surprise_deconf_v1",
+  "elapsed_s": 28.3,
+  "ts_iso": "2026-07-16T13:49:36.067263+00:00",
+  "n_seeds": 3,
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "n_ent": 300,
+    "edges_per_rel": 180,
+    "n_rstar": 180,
+    "train_frac_rstar": 0.5,
+    "frac_heldout_base": 0.28,
+    "epochs": 140,
+    "reach_k": 2,
+    "rel_scale": 4.0,
+    "comp_path_topM": 5,
+    "TAU": 3.0
+  },
+  "bands": {
+    "HP_DECONF_MIN": 0.65,
+    "HF_DECONF_MAX": 0.58,
+    "DECISIVE_MARGIN": 0.1,
+    "CONVERGE_EPS": 0.07,
+    "FLAT_REPRO_MAX": 0.6,
+    "SCHEMAFIT_GAP_MIN": 0.08
+  },
+  "expected_n_units": 3,
+  "observed_n_units": 3,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "single_seed_loop_short_cell_no_heartbeat",
+  "per_candidate_arrays": "per_candidate_arrays.npz",
+  "verdict": "MIDDLE_BAND_partial",
+  "verdict_msg": "DECONF_AUC add_flat=0.493 schemafit=0.673 comp_op=0.580 comp_path=0.488 recur=0.431 | comp_beats_flat=False converges_sf=False | cos(Dr*,Dr0+Dr1)=0.482 corr(comp,flat)=0.460 corr(comp,sf)=0.442 | CONF=0.980 POSCTRL=0.997 RAND=0.508 infer_mrr=0.715 rstar_mrr=0.949 bal=0.38 | GATE_D[flat_inert=True sf_carries=True] harness=True arrays_ok=True(d=0.0e+00) card=True -> MIDDLE_BAND_partial",
+  "summary": "MIDDLE_BAND_partial: MIDDLE_BAND: compositional surprise straddles chance..pass (comp_op=0.580 comp_path=0.488 between 0.58 and 0.65) vs additive-flat=0.493 schemafit=0.673 recur=0.431 -- partial/ambiguous. comp_beats_flat=False. cos(D[r*],D[r0]+D[r1])=0.482.",
+  "finding": "MIDDLE_BAND: compositional surprise straddles chance..pass (comp_op=0.580 comp_path=0.488 between 0.58 and 0.65) vs additive-flat=0.493 schemafit=0.673 recur=0.431 -- partial/ambiguous. comp_beats_flat=False. cos(D[r*],D[r0]+D[r1])=0.482.",
+  "gates": {
+    "cardinality_ok": true,
+    "all_seeds_ok": true,
+    "HP_POSCTRL_FIRES": true,
+    "HP_CONF_REPRODUCES": true,
+    "HP_RANDLABEL_CHANCE": true,
+    "HP_RSTAR_TRAINED": true,
+    "HP_FOUNDATION_STRONG": true,
+    "baseline_in_band": true,
+    "class_balance_ok": true,
+    "GATE_D_FLAT_INERT": true,
+    "GATE_D_SCHEMAFIT_CARRIES": true
+  },
+  "harness_valid": true,
+  "run_mode": "smoke",
+  "agg": {
+    "deconf": {
+      "add_flat": 0.49292328042328043,
+      "schemafit": 0.6731481481481482,
+      "comp_op": 0.5804232804232804,
+      "comp_path": 0.48809523809523814,
+      "recur": 0.43121693121693117
+    },
+    "deconf_exact": {
+      "add_flat": 0.7159090909090909,
+      "schemafit": 0.6477272727272727,
+      "comp_op": 0.6477272727272727,
+      "comp_path": 0.5113636363636364,
+      "recur": 0.20454545454545456
+    },
+    "conf_auc": 0.9801270278543006,
+    "posctrl_auc": 0.9974279835390947,
+    "randlabel_auc": 0.5078042328042328,
+    "infer_mrr": 0.7150054201370146,
+    "rstar_train_mrr": 0.9490740740740741,
+    "cos_dstar_dcomp": 0.4820297658443451,
+    "corr_comp_flat": 0.46028184388958093,
+    "corr_comp_schemafit": 0.4423788958176688,
+    "min_class": 5,
+    "min_class_frac": 0.3846153846153846,
+    "array_recompute_delta": 0.0,
+    "head_to_head": {
+      "comp_op_works": false,
+      "comp_path_works": false,
+      "comp_beats_flat": false,
+      "both_comp_chance": false,
+      "converges_schemafit": false,
+      "best_comp": 0.5804232804232804,
+      "best_comp_name": "comp_op"
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "status": "OK",
+      "N": 300,
+      "n_deriv": 8,
+      "n_underiv": 5,
+      "deriv_frac": 0.6153846153846154,
+      "deconf": {
+        "add_flat": 0.3875,
+        "schemafit": 0.725,
+        "comp_op": 0.525,
+        "comp_path": 0.5,
+        "recur": 0.4
+      },
+      "deconf_exact": {
+        "add_flat": 0.8181818181818182,
+        "schemafit": 0.4090909090909091,
+        "comp_op": 0.7272727272727273,
+        "comp_path": 0.5,
+        "recur": 0.4090909090909091
+      },
+      "conf_auc": 0.979504132231405,
+      "posctrl_auc": 1.0,
+      "randlabel_auc": 0.55,
+      "infer_mrr": 0.7230996595421385,
+      "rstar_train_mrr": 0.95,
+      "schemafit_deriv_mean": 0.7625418060200668,
+      "schemafit_underiv_mean": 0.6317725752508361,
+      "recur_deriv_mean": 0.6531114718614719,
+      "recur_underiv_mean": 0.6384615384615385,
+      "comp_op_deriv_mean": 0.5446428571428572,
+      "comp_op_underiv_mean": 0.5166666666666667,
+      "cos_dstar_dcomp": 0.6327934265136719,
+      "corr_comp_flat": 0.6392261339547483,
+      "corr_comp_schemafit": 0.42389113798566586,
+      "recurrence_form": "graded_deg_over_deg_plus_tau_TAU_3.0",
+      "arm_score_sha": {
+        "add_flat": "b3a51e8ffd8126d5",
+        "schemafit": "c305f7bb8d6dfe23",
+        "comp_op": "9845c123b3cfc7f3",
+        "comp_path": "39f37f8d1931b3bd",
+        "recur": "9fa6c3402f306638"
+      }
+    },
+    {
+      "seed": 13,
+      "status": "OK",
+      "N": 300,
+      "n_deriv": 14,
+      "n_underiv": 9,
+      "deriv_frac": 0.6086956521739131,
+      "deconf": {
+        "add_flat": 0.5912698412698413,
+        "schemafit": 0.6944444444444444,
+        "comp_op": 0.5912698412698413,
+        "comp_path": 0.4642857142857143,
+        "recur": 0.5436507936507936
+      },
+      "deconf_exact": {
+        "add_flat": 0.6136363636363636,
+        "schemafit": 0.8863636363636364,
+        "comp_op": 0.5681818181818182,
+        "comp_path": 0.5227272727272727,
+        "recur": 0.0
+      },
+      "conf_auc": 0.9884802571166208,
+      "posctrl_auc": 0.9924691358024691,
+      "randlabel_auc": 0.44841269841269843,
+      "infer_mrr": 0.6764749677630633,
+      "rstar_train_mrr": 0.9111111111111111,
+      "schemafit_deriv_mean": 0.679945054945055,
+      "schemafit_underiv_mean": 0.580267558528428,
+      "recur_deriv_mean": 0.6373547678258925,
+      "recur_underiv_mean": 0.5862330198537095,
+      "comp_op_deriv_mean": 0.7136904761904763,
+      "comp_op_underiv_mean": 0.6997354497354498,
+      "cos_dstar_dcomp": 0.4001074433326721,
+      "corr_comp_flat": 0.28133755382441356,
+      "corr_comp_schemafit": 0.25551917814260117,
+      "recurrence_form": "graded_deg_over_deg_plus_tau_TAU_3.0",
+      "arm_score_sha": {
+        "add_flat": "dba6c1747c3c5757",
+        "schemafit": "4943375f07e54cfa",
+        "comp_op": "1de6f19257ad4660",
+        "comp_path": "5ee46b20bc0b2511",
+        "recur": "22fcdc9dcc80d211"
+      }
+    },
+    {
+      "seed": 17,
+      "status": "OK",
+      "N": 300,
+      "n_deriv": 8,
+      "n_underiv": 5,
+      "deriv_frac": 0.6153846153846154,
+      "deconf": {
+        "add_flat": 0.5,
+        "schemafit": 0.6,
+        "comp_op": 0.625,
+        "comp_path": 0.5,
+        "recur": 0.35
+      },
+      "deconf_exact": {
+        "add_flat": NaN,
+        "schemafit": NaN,
+        "comp_op": NaN,
+        "comp_path": NaN,
+        "recur": NaN
+      },
+      "conf_auc": 0.9723966942148761,
+      "posctrl_auc": 0.9998148148148148,
+      "randlabel_auc": 0.525,
+      "infer_mrr": 0.7454416331058421,
+      "rstar_train_mrr": 0.9861111111111112,
+      "schemafit_deriv_mean": 0.7216764214046822,
+      "schemafit_underiv_mean": 0.6779264214046823,
+      "recur_deriv_mean": 0.6853971450490438,
+      "recur_underiv_mean": 0.5984972677595628,
+      "comp_op_deriv_mean": 0.7041666666666666,
+      "comp_op_underiv_mean": 0.6533333333333333,
+      "cos_dstar_dcomp": 0.4131884276866913,
+      "corr_comp_flat": NaN,
+      "corr_comp_schemafit": 0.6477263713247394,
+      "recurrence_form": "graded_deg_over_deg_plus_tau_TAU_3.0",
+      "arm_score_sha": {
+        "add_flat": "39f37f8d1931b3bd",
+        "schemafit": "f186019b1b945ef1",
+        "comp_op": "c3c1002935961465",
+        "comp_path": "39f37f8d1931b3bd",
+        "recur": "ec8b808051f7f4cf"
+      }
+    }
+  ]
+}

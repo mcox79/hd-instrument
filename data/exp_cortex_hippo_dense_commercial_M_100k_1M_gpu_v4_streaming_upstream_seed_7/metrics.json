@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: HALT_v4_SELFTEST: M=100k REPL gpu_util_mean_pct=3.2 < 30.0 \u2014 GPU still starved",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v4_streaming_upstream_seed_7.py\", line 347, in <module>\n    main()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v4_streaming_upstream_seed_7.py\", line 338, in main\n    _main()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v4_streaming_upstream_seed_7.py\", line 174, in _main\n    _instrumentation_selftest()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_cortex_hippo_dense_commercial_M_100k_1M_gpu_v4_streaming_upstream_seed_7.py\", line 125, in _instrumentation_selftest\n    run_all_selftests(SEED_THIS_CHUNK, ANCHOR_NAME)\n  File \"C:\\dev\\hd-instrument\\experiments\\_substrate_cortex_hippo_dense_commercial_M_100k_1M_gpu_v4_streaming_upstream_core.py\", line 660, in run_all_selftests\n    assert util >= SELFTEST_M100K_UTIL_PCT_MIN, (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: HALT_v4_SELFTEST: M=100k REPL gpu_util_mean_pct=3.2 < 30.0 \u2014 GPU still starved\n",
+  "ts_iso": "2026-07-02T01:10:53.412269+00:00",
+  "pid": 37180,
+  "anchor_name": "cortex_hippo_dense_commercial_M_100k_1M_gpu_v4_streaming_upstream_seed_7"
+}

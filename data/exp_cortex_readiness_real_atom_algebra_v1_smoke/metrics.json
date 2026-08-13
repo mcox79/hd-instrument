@@ -1,0 +1,316 @@
+{
+  "anchor_name": "cortex_readiness_real_atom_algebra_v1",
+  "run_mode": "smoke",
+  "verdict": "GOOD_SHALLOW_MEDIOCRE_HUBS",
+  "verdict_msg": "single/typical GOOD (deg1=1.000 src_uniform=0.918 edge_uniform=0.733) but hub collapse deg5+ exact 0.212<0.40 (hubs need top-5/candidate-set)",
+  "summary": "GOOD_SHALLOW_MEDIOCRE_HUBS: substrate algebra relational recovery over REAL atoms (smoke)",
+  "elapsed_s": 22.34,
+  "ts_iso": "2026-07-05T02:43:56.625431+00:00",
+  "pid": 30500,
+  "host": "FrameworkMPC",
+  "n_seeds": 1,
+  "config": {
+    "seeds": [
+      7
+    ],
+    "sources_per_bin": 120,
+    "codebook_M": 5000,
+    "depths": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "depth_trials": 40,
+    "neighbor_sources": 400,
+    "codebook_sizes": [
+      5000
+    ]
+  },
+  "expected_n_units": 17,
+  "n_units_counted": 17,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "7": {
+      "real_graph": "8d8f2ddb006fce2f60bb416dacf1e53663aab78e1670942216b4617d4dd09da4",
+      "synth_real_filler": "2215072697602e25fbf7bf1de0562c4356f891f46163d7a3de101c10a7c55035",
+      "synth_synth_filler": "b845b098928517c99733608d6b6e5ef2cde2d97b9471ec7243a3341c42b9eeec"
+    }
+  },
+  "cross_seed_source_uniform_top1": {
+    "values": [
+      0.9176
+    ],
+    "mean": 0.9176,
+    "std": 0.0
+  },
+  "cross_seed_edge_uniform_top1": {
+    "values": [
+      0.7327
+    ],
+    "mean": 0.7327,
+    "std": 0.0
+  },
+  "cross_seed_deg1_top1": {
+    "values": [
+      1.0
+    ],
+    "mean": 1.0
+  },
+  "per_seed": {
+    "7": {
+      "real_graph": {
+        "codebook_M": 5000,
+        "chance_top1": 0.0002,
+        "by_degree": {
+          "1": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 120
+          },
+          "2": {
+            "top1": 0.7625,
+            "top5": 1.0,
+            "n": 240
+          },
+          "3": {
+            "top1": 0.6055555555555555,
+            "top5": 0.9805555555555555,
+            "n": 360
+          },
+          "4": {
+            "top1": 0.5541666666666667,
+            "top5": 0.9458333333333333,
+            "n": 480
+          },
+          "5": {
+            "top1": 0.2115987460815047,
+            "top5": 0.4772727272727273,
+            "n": 1276
+          }
+        },
+        "by_relation_type": {
+          "CN_ANTONYM": {
+            "top1": 0.9090909090909091,
+            "top5": 0.9090909090909091,
+            "n": 11
+          },
+          "CN_AT_LOCATION": {
+            "top1": 0.2966101694915254,
+            "top5": 0.5508474576271186,
+            "n": 118
+          },
+          "CN_CAPABLE_OF": {
+            "top1": 0.0594059405940594,
+            "top5": 0.12376237623762376,
+            "n": 202
+          },
+          "CN_CAUSES": {
+            "top1": 0.24074074074074073,
+            "top5": 0.5555555555555556,
+            "n": 54
+          },
+          "CN_DERIVED_FROM": {
+            "top1": 0.875,
+            "top5": 1.0,
+            "n": 8
+          },
+          "CN_HAS_A": {
+            "top1": 0.21052631578947367,
+            "top5": 0.21052631578947367,
+            "n": 19
+          },
+          "CN_HAS_PROPERTY": {
+            "top1": 0.2777777777777778,
+            "top5": 0.3888888888888889,
+            "n": 18
+          },
+          "CN_MADE_OF": {
+            "top1": 0.6666666666666666,
+            "top5": 0.6666666666666666,
+            "n": 3
+          },
+          "CN_MANNER_OF": {
+            "top1": 0.425531914893617,
+            "top5": 0.7021276595744681,
+            "n": 188
+          },
+          "CN_MOTIVATED_BY_GOAL": {
+            "top1": 0.29411764705882354,
+            "top5": 0.7058823529411765,
+            "n": 17
+          },
+          "CN_RECEIVES_ACTION": {
+            "top1": 0.375,
+            "top5": 0.625,
+            "n": 8
+          },
+          "CN_RELATED_TO": {
+            "top1": 0.359375,
+            "top5": 0.63671875,
+            "n": 256
+          },
+          "CN_SYNONYM": {
+            "top1": 0.512779552715655,
+            "top5": 0.8450479233226837,
+            "n": 626
+          },
+          "CN_USED_FOR": {
+            "top1": 0.26785714285714285,
+            "top5": 0.6696428571428571,
+            "n": 112
+          },
+          "FRAME_INCHOATIVE_OF": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 1
+          },
+          "FRAME_INHERITS": {
+            "top1": 0.8571428571428571,
+            "top5": 1.0,
+            "n": 7
+          },
+          "FRAME_PERSPECTIVE_ON": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 1
+          },
+          "FRAME_REFRAMING_MAPPING": {
+            "top1": 0.75,
+            "top5": 1.0,
+            "n": 4
+          },
+          "FRAME_SEE_ALSO": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 1
+          },
+          "FRAME_USES": {
+            "top1": 0.8333333333333334,
+            "top5": 1.0,
+            "n": 6
+          },
+          "HYPERNYM": {
+            "top1": 0.782608695652174,
+            "top5": 1.0,
+            "n": 23
+          },
+          "IS_A": {
+            "top1": 0.4954954954954955,
+            "top5": 0.8288288288288288,
+            "n": 666
+          },
+          "PART_OF": {
+            "top1": 0.5748031496062992,
+            "top5": 0.8976377952755905,
+            "n": 127
+          }
+        },
+        "equal_bin_overall": {
+          "top1": 0.42689822294022617,
+          "top5": 0.7172859450726979,
+          "n": 2476,
+          "note": "equal-bin sample (degree-balanced); NOT realistic weighting"
+        },
+        "realistic_weighted_overall": {
+          "source_uniform": {
+            "top1": 0.9175540724065274,
+            "top5": 0.9787143163722509
+          },
+          "edge_uniform": {
+            "top1": 0.7326829248257705,
+            "top5": 0.8771514614258847
+          },
+          "weights_used": {
+            "source_uniform": {
+              "5": 0.03719728280541082,
+              "2": 0.11940336198116146,
+              "1": 0.7831379052012223,
+              "3": 0.040968358319514474,
+              "4": 0.019293091692691017
+            },
+            "edge_uniform": {
+              "5": 0.22706484296385426,
+              "2": 0.1510464639580882,
+              "1": 0.49533869653876256,
+              "3": 0.0777380831953488,
+              "4": 0.04881191334394616
+            }
+          }
+        },
+        "shuffled_role_null": {
+          "hit_any_slot": 0.0,
+          "n": 600,
+          "chance_ref": 0.0002
+        }
+      },
+      "synth_depth_sweep": {
+        "real_filler": {
+          "1": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 40
+          },
+          "2": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 80
+          },
+          "4": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 160
+          },
+          "8": {
+            "top1": 0.990625,
+            "top5": 1.0,
+            "n": 320
+          },
+          "16": {
+            "top1": 0.8421875,
+            "top5": 0.9484375,
+            "n": 640
+          }
+        },
+        "synth_filler": {
+          "1": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 40
+          },
+          "2": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 80
+          },
+          "4": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 160
+          },
+          "8": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 320
+          },
+          "16": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 640
+          }
+        },
+        "chance_top1": 0.0002,
+        "codebook_M": 5000
+      },
+      "neighbor_correlation": {
+        "real_neighbor_mean_cos": 0.6483404259803757,
+        "n_neighbor_pairs": 21780,
+        "random_pair_mean_cos": 0.583979070186615,
+        "codebook_mean_abs_cos": 0.583979070186615
+      }
+    }
+  },
+  "notes": "REAL atom vectors = BGE semantic (current encoding; re-encode-independent). REAL edges = concept partition. Algebra = hdlab.binding(circular-conv HRR) + bundling + argmax cleanup. Read-only; NO substrate mutation."
+}

@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "StopIteration: ",
+  "summary": "CELL_CRASHED: StopIteration",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_v11_gsbc_graded_sparse_v1_seed_7.py\", line 56, in main\n    return core.run_self_test()\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_v11_gsbc_graded_sparse_v1_core.py\", line 1200, in run_self_test\n    enc = _encode_gsbc(fake, Xz, 8, 16, 3)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\.venv\\Lib\\site-packages\\torch\\utils\\_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_v11_gsbc_graded_sparse_v1_core.py\", line 331, in _encode_gsbc\n    dev = v3._student_device(student)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core.py\", line 413, in _student_device\n    return next(student.parameters()).device\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nStopIteration\n",
+  "ts_iso": "2026-07-05T00:06:48.347369+00:00",
+  "pid": 30044,
+  "anchor_name": "encoder_v11_gsbc_graded_sparse_v1"
+}

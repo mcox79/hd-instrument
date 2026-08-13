@@ -1,0 +1,689 @@
+{
+  "anchor_name": "affectedness_typelevel_lookup_verbnet_selrestrs_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_COVERAGE_BLOCKED_STEP1",
+  "verdict_msg": "verdict=HARD_FAIL_COVERAGE_BLOCKED_STEP1 | DECISIVE(7-lesson,225cand): instance_coverage=6/30=0.200 (threshold=0.5) verb_coverage=4/17=0.235 | step1_coverage_ok=False",
+  "summary": "verdict=HARD_FAIL_COVERAGE_BLOCKED_STEP1 | DECISIVE(7-lesson,225cand): instance_coverage=6/30=0.200 (threshold=0.5) verb_coverage=4/17=0.235 | step1_coverage_ok=False",
+  "elapsed_s": 10.931801700033247,
+  "ts_iso": "2026-07-20T17:08:14.277182+00:00",
+  "n_dim": 1024,
+  "seed": 20260720,
+  "margin_thresh": 0.1,
+  "coverage_threshold": 0.5,
+  "type_discrim_min_fraction": 0.15,
+  "hp_lift_min": 0.05,
+  "hf_lift_max": 0.02,
+  "verbnet_available": true,
+  "wordnet_available": true,
+  "known_features": [
+    "animate",
+    "body_part",
+    "communication",
+    "concrete",
+    "organization"
+  ],
+  "unmapped_features_documented": [
+    "elongated",
+    "machine",
+    "plural",
+    "refl",
+    "region",
+    "currency",
+    "comestible",
+    "solid",
+    "human"
+  ],
+  "results_by_slice": {
+    "preview_2lesson": {
+      "gold_slice": [
+        "L04",
+        "L05"
+      ],
+      "n_eval_cands": 61,
+      "coverage": {
+        "n_distinct_verbs": 7,
+        "n_verbs_covered": 3,
+        "verb_coverage_frac": 0.4286,
+        "n_instances": 8,
+        "n_instances_covered": 4,
+        "instance_coverage_frac": 0.5
+      },
+      "per_verb_coverage": {
+        "build": {
+          "n_classids": 1,
+          "classids": [
+            "build-26.1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "hear": {
+          "n_classids": 2,
+          "classids": [
+            "discover-84-1-1",
+            "see-30.1-1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "hold": {
+          "n_classids": 3,
+          "classids": [
+            "conjecture-29.5-1",
+            "fit-54.3",
+            "hold-15.1-1"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "hold-15.1-1",
+              "Theme",
+              [
+                [
+                  "+",
+                  "body_part"
+                ]
+              ]
+            ]
+          ]
+        },
+        "leave": {
+          "n_classids": 5,
+          "classids": [
+            "escape-51.1-1",
+            "fulfilling-13.4.1",
+            "future_having-13.3",
+            "keep-15.2",
+            "leave-51.2-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "see": {
+          "n_classids": 3,
+          "classids": [
+            "characterize-29.2-1",
+            "consider-29.9-1-1",
+            "see-30.1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "show": {
+          "n_classids": 5,
+          "classids": [
+            "conjecture-29.5-2",
+            "crane-40.3.2",
+            "indicate-78-1-1",
+            "reflexive_appearance-48.1.2",
+            "transfer_mesg-37.1.1-1-1"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "crane-40.3.2",
+              "Patient",
+              [
+                [
+                  "+",
+                  "body_part"
+                ]
+              ]
+            ],
+            [
+              "crane-40.3.2",
+              "Theme",
+              [
+                [
+                  "+",
+                  "communication"
+                ]
+              ]
+            ]
+          ]
+        },
+        "take": {
+          "n_classids": 7,
+          "classids": [
+            "bring-11.3",
+            "characterize-29.2",
+            "convert-26.6.2",
+            "cost-54.2",
+            "fit-54.3",
+            "performance-26.7-2",
+            "steal-10.5"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "bring-11.3",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ]
+              ]
+            ],
+            [
+              "characterize-29.2",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ],
+                [
+                  "+",
+                  "organization"
+                ]
+              ]
+            ],
+            [
+              "convert-26.6.2",
+              "Patient",
+              [
+                [
+                  "+",
+                  "animate"
+                ]
+              ]
+            ],
+            [
+              "cost-54.2",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ]
+              ]
+            ]
+          ]
+        }
+      },
+      "covered_keys_hash": "d51fabe761dbcaae",
+      "step1_coverage_ok": true,
+      "step2": {
+        "rows": [
+          {
+            "sid": "L04_03",
+            "v": "take",
+            "candidates": [
+              "blocks",
+              "one"
+            ],
+            "gold_patients": [
+              "blocks"
+            ],
+            "discriminable": true,
+            "required_features": [
+              "concrete"
+            ],
+            "pred_closed_baseline": "blocks",
+            "correct_closed_baseline": true,
+            "pred_type_lookup": "blocks",
+            "correct_type_lookup": true,
+            "pred_combined": "blocks",
+            "correct_combined": true,
+            "pred_random_control": "blocks",
+            "correct_random_control": true,
+            "scores_closed_baseline": [
+              0.0,
+              0.0
+            ],
+            "scores_type_lookup": [
+              1.0,
+              0.0005
+            ]
+          },
+          {
+            "sid": "L04_14",
+            "v": "hold",
+            "candidates": [
+              "hands",
+              "out"
+            ],
+            "gold_patients": [
+              "hands"
+            ],
+            "discriminable": false,
+            "required_features": [
+              "body_part"
+            ],
+            "pred_closed_baseline": "hands",
+            "correct_closed_baseline": true,
+            "pred_type_lookup": "hands",
+            "correct_type_lookup": true,
+            "pred_combined": "hands",
+            "correct_combined": true,
+            "pred_random_control": "hands",
+            "correct_random_control": true,
+            "scores_closed_baseline": [
+              0.0,
+              0.0
+            ],
+            "scores_type_lookup": [
+              -0.0022,
+              -0.0022
+            ]
+          },
+          {
+            "sid": "L04_17",
+            "v": "take",
+            "candidates": [
+              "heart",
+              "way"
+            ],
+            "gold_patients": [
+              "way"
+            ],
+            "discriminable": false,
+            "required_features": [
+              "concrete"
+            ],
+            "pred_closed_baseline": "heart",
+            "correct_closed_baseline": false,
+            "pred_type_lookup": "heart",
+            "correct_type_lookup": false,
+            "pred_combined": "heart",
+            "correct_combined": false,
+            "pred_random_control": "heart",
+            "correct_random_control": false,
+            "scores_closed_baseline": [
+              0.0,
+              0.0
+            ],
+            "scores_type_lookup": [
+              0.0005,
+              0.0005
+            ]
+          },
+          {
+            "sid": "L04_19",
+            "v": "show",
+            "candidates": [
+              "way",
+              "you"
+            ],
+            "gold_patients": [
+              "way"
+            ],
+            "discriminable": false,
+            "required_features": [
+              "body_part"
+            ],
+            "pred_closed_baseline": "way",
+            "correct_closed_baseline": true,
+            "pred_type_lookup": "way",
+            "correct_type_lookup": true,
+            "pred_combined": "way",
+            "correct_combined": true,
+            "pred_random_control": "way",
+            "correct_random_control": true,
+            "scores_closed_baseline": [
+              0.0,
+              0.0
+            ],
+            "scores_type_lookup": [
+              -0.0022,
+              -0.0022
+            ]
+          }
+        ],
+        "summary": {
+          "n_items": 4,
+          "n_discriminable": 1,
+          "n_ambiguous": 3,
+          "discriminable_fraction": 0.25,
+          "acc_closed_baseline_discriminable": 1.0,
+          "acc_closed_baseline_ambiguous": 0.6666666666666666,
+          "acc_closed_baseline_all": 0.75,
+          "acc_type_lookup_discriminable": 1.0,
+          "acc_type_lookup_ambiguous": 0.6666666666666666,
+          "acc_type_lookup_all": 0.75,
+          "acc_combined_discriminable": 1.0,
+          "acc_combined_ambiguous": 0.6666666666666666,
+          "acc_combined_all": 0.75,
+          "acc_random_control_discriminable": 1.0,
+          "acc_random_control_ambiguous": 0.6666666666666666,
+          "acc_random_control_all": 0.75
+        },
+        "verdict": "HARD_FAIL_RANDOM_CONTROL_LEAKAGE",
+        "gate": {
+          "discriminable_fraction_ok": true,
+          "lift_on_discriminable": 0.0,
+          "amb_regression": false,
+          "random_control_must_fail_ok": false
+        },
+        "arms_differ_verified": false,
+        "arms_differ_detail": {
+          "pred_closed_baseline_vs_pred_type_lookup": {
+            "identical_everywhere": true,
+            "n_same": 4,
+            "n_rows": 4
+          },
+          "pred_closed_baseline_vs_pred_combined": {
+            "identical_everywhere": true,
+            "n_same": 4,
+            "n_rows": 4
+          },
+          "pred_closed_baseline_vs_pred_random_control": {
+            "identical_everywhere": true,
+            "n_same": 4,
+            "n_rows": 4
+          },
+          "pred_type_lookup_vs_pred_combined": {
+            "identical_everywhere": true,
+            "n_same": 4,
+            "n_rows": 4
+          },
+          "pred_type_lookup_vs_pred_random_control": {
+            "identical_everywhere": true,
+            "n_same": 4,
+            "n_rows": 4
+          },
+          "pred_combined_vs_pred_random_control": {
+            "identical_everywhere": true,
+            "n_same": 4,
+            "n_rows": 4
+          }
+        }
+      },
+      "verdict": "HARD_FAIL_RANDOM_CONTROL_LEAKAGE"
+    },
+    "decisive_7lesson": {
+      "gold_slice": [
+        "L04",
+        "L05",
+        "L07",
+        "L08",
+        "L09",
+        "L10",
+        "L12"
+      ],
+      "n_eval_cands": 225,
+      "coverage": {
+        "n_distinct_verbs": 17,
+        "n_verbs_covered": 4,
+        "verb_coverage_frac": 0.2353,
+        "n_instances": 30,
+        "n_instances_covered": 6,
+        "instance_coverage_frac": 0.2
+      },
+      "per_verb_coverage": {
+        "admire": {
+          "n_classids": 1,
+          "classids": [
+            "admire-31.2"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "build": {
+          "n_classids": 1,
+          "classids": [
+            "build-26.1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "find": {
+          "n_classids": 2,
+          "classids": [
+            "declare-29.4-1-1-2",
+            "get-13.5.1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "give": {
+          "n_classids": 1,
+          "classids": [
+            "give-13.1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "hear": {
+          "n_classids": 2,
+          "classids": [
+            "discover-84-1-1",
+            "see-30.1-1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "hold": {
+          "n_classids": 3,
+          "classids": [
+            "conjecture-29.5-1",
+            "fit-54.3",
+            "hold-15.1-1"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "hold-15.1-1",
+              "Theme",
+              [
+                [
+                  "+",
+                  "body_part"
+                ]
+              ]
+            ]
+          ]
+        },
+        "leave": {
+          "n_classids": 5,
+          "classids": [
+            "escape-51.1-1",
+            "fulfilling-13.4.1",
+            "future_having-13.3",
+            "keep-15.2",
+            "leave-51.2-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "meet": {
+          "n_classids": 2,
+          "classids": [
+            "contiguous_location-47.8-1",
+            "meet-36.3-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "obtain": {
+          "n_classids": 1,
+          "classids": [
+            "obtain-13.5.2-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "reach": {
+          "n_classids": 2,
+          "classids": [
+            "get-13.5.1",
+            "reach-51.8"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "rule": {
+          "n_classids": 1,
+          "classids": [
+            "dub-29.3"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "dub-29.3",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ],
+                [
+                  "+",
+                  "organization"
+                ]
+              ]
+            ]
+          ]
+        },
+        "say": {
+          "n_classids": 2,
+          "classids": [
+            "indicate-78-1",
+            "say-37.7-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "see": {
+          "n_classids": 3,
+          "classids": [
+            "characterize-29.2-1",
+            "consider-29.9-1-1",
+            "see-30.1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "show": {
+          "n_classids": 5,
+          "classids": [
+            "conjecture-29.5-2",
+            "crane-40.3.2",
+            "indicate-78-1-1",
+            "reflexive_appearance-48.1.2",
+            "transfer_mesg-37.1.1-1-1"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "crane-40.3.2",
+              "Patient",
+              [
+                [
+                  "+",
+                  "body_part"
+                ]
+              ]
+            ],
+            [
+              "crane-40.3.2",
+              "Theme",
+              [
+                [
+                  "+",
+                  "communication"
+                ]
+              ]
+            ]
+          ]
+        },
+        "spend": {
+          "n_classids": 2,
+          "classids": [
+            "consume-66-1",
+            "pay-68"
+          ],
+          "usable": false,
+          "usable_hits": []
+        },
+        "take": {
+          "n_classids": 7,
+          "classids": [
+            "bring-11.3",
+            "characterize-29.2",
+            "convert-26.6.2",
+            "cost-54.2",
+            "fit-54.3",
+            "performance-26.7-2",
+            "steal-10.5"
+          ],
+          "usable": true,
+          "usable_hits": [
+            [
+              "bring-11.3",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ]
+              ]
+            ],
+            [
+              "characterize-29.2",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ],
+                [
+                  "+",
+                  "organization"
+                ]
+              ]
+            ],
+            [
+              "convert-26.6.2",
+              "Patient",
+              [
+                [
+                  "+",
+                  "animate"
+                ]
+              ]
+            ],
+            [
+              "cost-54.2",
+              "Theme",
+              [
+                [
+                  "+",
+                  "concrete"
+                ]
+              ]
+            ]
+          ]
+        },
+        "tell": {
+          "n_classids": 2,
+          "classids": [
+            "tell-37.2",
+            "transfer_mesg-37.1.1-1-1"
+          ],
+          "usable": false,
+          "usable_hits": []
+        }
+      },
+      "covered_keys_hash": "f29ff931f3ea52a5",
+      "step1_coverage_ok": false,
+      "verdict": "HARD_FAIL_COVERAGE_BLOCKED_STEP1",
+      "step2": null
+    }
+  },
+  "cardinality_ok": true,
+  "arms_differ_verified": {
+    "preview_2lesson": false,
+    "decisive_7lesson": "N/A_STEP2_DID_NOT_RUN"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "categorical resolved/not-resolved argmax-accuracy metric over a coverage-gated lookup edge; no CRLB formula applies (this is not a bundle-capacity sweep); the applicable closed-form is FHRR exact single-fact unbind recovery, per exp_single_edge_grounding_hd_binding_verbnet_v1's THEORETICAL section, reused here.",
+  "claim_ceiling": "STEP 1 (coverage audit) is the decisive, honestly-reportable measurement on the real 29375-adjacent item set regardless of outcome. STEP 2 (type-lookup vs closed-baseline comparison) only executes when coverage clears the pre-registered 0.50 instance-fraction floor; if it does not, this is NOT a mechanism failure -- it is a resource-availability finding (VerbNet SELRESTRS is too sparse on this verb population), separate from whether the type/instance decomposition itself is real (the brain + resource evidence in the research note stands on its own).",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "results_by_slice",
+    "cardinality_ok",
+    "arms_differ_verified"
+  ]
+}

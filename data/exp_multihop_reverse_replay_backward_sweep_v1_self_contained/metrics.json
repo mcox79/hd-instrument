@@ -1,0 +1,197 @@
+{
+  "anchor_name": "multihop_reverse_replay_backward_sweep_v1_self_contained",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_REVERSE_REPLAY: A_baseline=0.5061 B_reverse_only=0.0161 C_with_reverse=0.5067 D_bidir=0.6905 E_reward_gated=0.5089 F_random_reverse=0.4572 | D-A_lift=+0.1844 C-F_temporal_order=+0.0495",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "multihopReverseReplayBackwardSweepV1SelfContained: N=8192 V_C=200 n_chains=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full HP_D_lift>=0.20 HP_C_over_F>=0.10 MID_lift>=0.10 HF_no_help<=0.05 tau_quantile=0.75 EXPECTED_N_UNITS=54 variant=self_contained_inline_primitives_no_hdlab_overwrite_required",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_chains": 200,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "config_version": "multihopReverseReplayBackwardSweepV1SelfContained: N=8192 V_C=200 n_chains=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full HP_D_lift>=0.20 HP_C_over_F>=0.10 MID_lift>=0.10 HF_no_help<=0.05 tau_quantile=0.75 EXPECTED_N_UNITS=54 variant=self_contained_inline_primitives_no_hdlab_overwrite_required",
+      "expected_n_units_per_seed": 18,
+      "_llm_forward_calls_at_inference": 0,
+      "build_time_s": 211.2,
+      "reward_gate_tau": 68297344.0,
+      "per_depth": [
+        {
+          "depth": 2,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.69,
+          "B_reverse_only_top1": 0.02,
+          "C_with_reverse_replay_top1": 0.66,
+          "D_bidirectional_both_top1": 0.71,
+          "E_reward_gated_reverse_top1": 0.685,
+          "F_random_reverse_discriminator_top1": 0.625,
+          "elapsed_s_depth": 594.28
+        },
+        {
+          "depth": 3,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.545,
+          "B_reverse_only_top1": 0.01,
+          "C_with_reverse_replay_top1": 0.49,
+          "D_bidirectional_both_top1": 0.67,
+          "E_reward_gated_reverse_top1": 0.525,
+          "F_random_reverse_discriminator_top1": 0.455,
+          "elapsed_s_depth": 1123.71
+        },
+        {
+          "depth": 5,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.325,
+          "B_reverse_only_top1": 0.005,
+          "C_with_reverse_replay_top1": 0.3,
+          "D_bidirectional_both_top1": 0.66,
+          "E_reward_gated_reverse_top1": 0.33,
+          "F_random_reverse_discriminator_top1": 0.25,
+          "elapsed_s_depth": 2369.3
+        }
+      ],
+      "arm_A_baseline_forward_only_mean_top1": 0.52,
+      "arm_B_reverse_only_mean_top1": 0.0117,
+      "arm_C_with_reverse_replay_mean_top1": 0.4833,
+      "arm_D_bidirectional_both_mean_top1": 0.68,
+      "arm_E_reward_gated_reverse_mean_top1": 0.5133,
+      "arm_F_random_reverse_discriminator_mean_top1": 0.4433,
+      "elapsed_s": 4302.3,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782566265.4685857
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_chains": 200,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "config_version": "multihopReverseReplayBackwardSweepV1SelfContained: N=8192 V_C=200 n_chains=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full HP_D_lift>=0.20 HP_C_over_F>=0.10 MID_lift>=0.10 HF_no_help<=0.05 tau_quantile=0.75 EXPECTED_N_UNITS=54 variant=self_contained_inline_primitives_no_hdlab_overwrite_required",
+      "expected_n_units_per_seed": 18,
+      "_llm_forward_calls_at_inference": 0,
+      "build_time_s": 343.22,
+      "reward_gate_tau": 68253738.0,
+      "per_depth": [
+        {
+          "depth": 2,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.66,
+          "B_reverse_only_top1": 0.04,
+          "C_with_reverse_replay_top1": 0.695,
+          "D_bidirectional_both_top1": 0.735,
+          "E_reward_gated_reverse_top1": 0.67,
+          "F_random_reverse_discriminator_top1": 0.64,
+          "elapsed_s_depth": 835.74
+        },
+        {
+          "depth": 3,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.51,
+          "B_reverse_only_top1": 0.015,
+          "C_with_reverse_replay_top1": 0.54,
+          "D_bidirectional_both_top1": 0.715,
+          "E_reward_gated_reverse_top1": 0.52,
+          "F_random_reverse_discriminator_top1": 0.455,
+          "elapsed_s_depth": 1561.25
+        },
+        {
+          "depth": 5,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.28,
+          "B_reverse_only_top1": 0.0,
+          "C_with_reverse_replay_top1": 0.34,
+          "D_bidirectional_both_top1": 0.63,
+          "E_reward_gated_reverse_top1": 0.295,
+          "F_random_reverse_discriminator_top1": 0.25,
+          "elapsed_s_depth": 2213.35
+        }
+      ],
+      "arm_A_baseline_forward_only_mean_top1": 0.4833,
+      "arm_B_reverse_only_mean_top1": 0.0183,
+      "arm_C_with_reverse_replay_mean_top1": 0.525,
+      "arm_D_bidirectional_both_mean_top1": 0.6933,
+      "arm_E_reward_gated_reverse_mean_top1": 0.495,
+      "arm_F_random_reverse_discriminator_mean_top1": 0.4483,
+      "elapsed_s": 4958.6,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782571224.1697483
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_chains": 200,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "config_version": "multihopReverseReplayBackwardSweepV1SelfContained: N=8192 V_C=200 n_chains=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full HP_D_lift>=0.20 HP_C_over_F>=0.10 MID_lift>=0.10 HF_no_help<=0.05 tau_quantile=0.75 EXPECTED_N_UNITS=54 variant=self_contained_inline_primitives_no_hdlab_overwrite_required",
+      "expected_n_units_per_seed": 18,
+      "_llm_forward_calls_at_inference": 0,
+      "build_time_s": 240.58,
+      "reward_gate_tau": 68525564.0,
+      "per_depth": [
+        {
+          "depth": 2,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.7,
+          "B_reverse_only_top1": 0.04,
+          "C_with_reverse_replay_top1": 0.7,
+          "D_bidirectional_both_top1": 0.76,
+          "E_reward_gated_reverse_top1": 0.715,
+          "F_random_reverse_discriminator_top1": 0.66,
+          "elapsed_s_depth": 661.51
+        },
+        {
+          "depth": 3,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.505,
+          "B_reverse_only_top1": 0.01,
+          "C_with_reverse_replay_top1": 0.52,
+          "D_bidirectional_both_top1": 0.68,
+          "E_reward_gated_reverse_top1": 0.51,
+          "F_random_reverse_discriminator_top1": 0.5,
+          "elapsed_s_depth": 1260.22
+        },
+        {
+          "depth": 5,
+          "n_queries": 200,
+          "A_baseline_forward_only_top1": 0.34,
+          "B_reverse_only_top1": 0.005,
+          "C_with_reverse_replay_top1": 0.315,
+          "D_bidirectional_both_top1": 0.655,
+          "E_reward_gated_reverse_top1": 0.33,
+          "F_random_reverse_discriminator_top1": 0.28,
+          "elapsed_s_depth": 2241.94
+        }
+      ],
+      "arm_A_baseline_forward_only_mean_top1": 0.515,
+      "arm_B_reverse_only_mean_top1": 0.0183,
+      "arm_C_with_reverse_replay_mean_top1": 0.5117,
+      "arm_D_bidirectional_both_mean_top1": 0.6983,
+      "arm_E_reward_gated_reverse_mean_top1": 0.5183,
+      "arm_F_random_reverse_discriminator_mean_top1": 0.48,
+      "elapsed_s": 4408.2,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782575632.5511436
+    }
+  ],
+  "elapsed_s": 13669.6,
+  "summary": "MIDDLE_BAND_PARTIAL_REVERSE_REPLAY: A_baseline=0.5061 B_reverse_only=0.0161 C_with_reverse=0.5067 D_bidir=0.6905 E_reward_gated=0.5089 F_random_reverse=0.4572 | D-A_lift=+0.1844 C-F_temporal_order=+0.0495",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "M5 brain-mechanism cell SELF-CONTAINED variant: reverse-replay / backward sweep. Same scientific arms as sibling cell exp_multihop_reverse_replay_backward_sweep_v1, but with inline primitive shims (bind_pair_reverse, predict_prev, bidirectional_chain, replay_cycle reverse-direction) so cell runs on a remote that does NOT have the un-shipped hdlab/ overwrites. Math is bit-equivalent to the hdlab/ torch versions for the load-bearing Hebbian outer-sum + matrix-vector retrieval paths used here."
+}

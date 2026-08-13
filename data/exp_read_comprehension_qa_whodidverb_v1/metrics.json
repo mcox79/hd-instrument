@@ -1,0 +1,51 @@
+{
+  "verdict": "DEMONSTRATED",
+  "verdict_msg": "comprehension QA 'who did [verb]?' DEMONSTRATED: n_qa=231 reader_acc=0.5022(band[.30,.75]=True) validity_gate(single_sentence_acc=0.0000==0)=True recency_acc=0.4329(no_regression=True) pronoun_chain_frac=0.688 [COREF-BOUND query-interface demonstration; NOT a new capability]",
+  "summary": "DEMONSTRATED: 5/5 gates",
+  "elapsed_s": 6.01,
+  "anchor_name": "read_comprehension_qa_whodidverb_v1",
+  "mode": "full",
+  "ts_iso": "2026-07-24T08:14:00.832078+00:00",
+  "n_books": 25,
+  "gates": {
+    "QA_RUNS": true,
+    "VALIDITY_GATE_FIRES": true,
+    "READER_COREF_BOUND": true,
+    "NO_REGRESSION_RECENCY": true,
+    "GLASS_BOX": true
+  },
+  "arms_differ_verified": true,
+  "qa": {
+    "n_qa_items": 231,
+    "reader_acc": 0.5022,
+    "reader_attempted": 231,
+    "single_sentence_acc": 0.0,
+    "single_sentence_attempted": 0,
+    "recency_acc": 0.4329,
+    "reader_minus_recency": 0.0693,
+    "bucket_acc": {
+      "plus1": 0.4973,
+      "plus2": 0.5161,
+      "long": 0.5385
+    },
+    "bucket_n": {
+      "plus1": 187,
+      "plus2": 31,
+      "long": 13
+    },
+    "acc_nominal_antecedent": 0.6111,
+    "acc_pronoun_chain_antecedent": 0.4528
+  },
+  "autopsy": {
+    "n_miss": 115,
+    "miss_abstain": 0,
+    "miss_wrong_entity": 115,
+    "miss_pronoun_chain": 87,
+    "miss_pronoun_chain_frac": 0.7565,
+    "all_pronoun_chain": 159,
+    "all_pronoun_chain_frac": 0.6883,
+    "note": "misses tested against the coref arc's triangulated wall: same-gender centering + pronoun-chain propagation (29513-29517)"
+  },
+  "validity_gate_note": "single-sentence overlay is EMPTY at a SUBJECT pronoun (clause-initial) -> structurally 0.0 on the xsent-subject QA set (29506)",
+  "honest_frame": "COREF-BOUND read->answer QUERY INTERFACE demonstration (the conversation precursor: ask -> justified entity answer + glass-box trace); adds NO accuracy beyond the banked coref (~0.45). Reader IS recency-centrality; no-regression-vs-recency confirms it reproduces the banked mechanism."
+}

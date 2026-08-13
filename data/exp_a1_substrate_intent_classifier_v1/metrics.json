@@ -1,0 +1,202 @@
+{
+  "anchor": "a1_substrate_intent_classifier_v1",
+  "anchor_name": "a1_substrate_intent_classifier_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-native intent classifier. acc=0.754 >= 0.65 AND maj_mult=4.62 >= 2.0 AND rand_mult=5.19 >= 5.0 AND p95=0.54ms < 10.0ms AND n_llm=0. substrate_acc=0.754 random_acc=0.145 majority_acc=0.163 maj_mult=4.62 rand_mult=5.19 p95_ms=0.54 n_llm=0",
+  "n_seeds": 3,
+  "N": 2048,
+  "N_DIM": 2048,
+  "N_TRAIN": 5000,
+  "N_TEST": 500,
+  "categories": [
+    "LOOKUP",
+    "COMPARISON",
+    "MULTI_HOP",
+    "LIST",
+    "CHAIN",
+    "COUNT",
+    "DEFINITION"
+  ],
+  "arms": [
+    "SUBSTRATE_INTENT",
+    "RANDOM_BASELINE",
+    "MAJORITY_BASELINE"
+  ],
+  "run_mode": "full",
+  "config_version": "a1-substrate-intent-classifier-v1: N_DIM=2048 N_TRAIN=5000 N_TEST=500 arms=SUBSTRATE_INTENT,RANDOM_BASELINE,MAJORITY_BASELINE run_mode=full; bands HP_acc=0.65 HP_majority_mult=2.0 HP_random_mult=5.0 HP_p95_ms=10.0 HF_p95_ms=50.0",
+  "corpus_provenance": "hotpotqa_dev_1k + nq_open_val_1k + conceptnet5_en_100k_templates",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_accuracy": {
+      "SUBSTRATE_INTENT": 0.754426481909161,
+      "RANDOM_BASELINE": 0.14549653579676675,
+      "MAJORITY_BASELINE": 0.16320246343341033
+    },
+    "cv_accuracy": {
+      "SUBSTRATE_INTENT": 0.041998195157666646,
+      "RANDOM_BASELINE": 0.10608432622097046,
+      "MAJORITY_BASELINE": 0.024051978837701844
+    },
+    "substrate_acc": 0.754426481909161,
+    "random_acc": 0.14549653579676675,
+    "majority_acc": 0.16320246343341033,
+    "majority_multiplier": 4.622641509433962,
+    "random_multiplier": 5.185185185185185,
+    "mean_p95_latency_ms": 0.539440040787061,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Substrate-native intent classifier; 7 categories; LOOKUP,COMPARISON,MULTI_HOP,LIST,CHAIN,COUNT,DEFINITION; N_DIM=2048 N_TRAIN=5000 N_TEST=500. 3-arm discriminator (Fix #16): SUBSTRATE_INTENT vs RANDOM_BASELINE vs MAJORITY_BASELINE. Substrate-only-decode gate enforced (n_llm=0). Encoder: char-trigram (no MiniLM, no LLM teacher). Labels synthesized procedurally from HotpotQA type field + NQ-open keyword-classifier + ConceptNet templates."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M": 4763,
+      "run_mode": "full",
+      "config_version": "a1-substrate-intent-classifier-v1: N_DIM=2048 N_TRAIN=5000 N_TEST=500 arms=SUBSTRATE_INTENT,RANDOM_BASELINE,MAJORITY_BASELINE run_mode=full; bands HP_acc=0.65 HP_majority_mult=2.0 HP_random_mult=5.0 HP_p95_ms=10.0 HF_p95_ms=50.0",
+      "elapsed_s": 1.1619954109191895,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782217182.4249942,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_INTENT",
+          "seed": 7,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.7967667436489607,
+          "per_category_accuracy": {
+            "LOOKUP": 0.4782608695652174,
+            "COMPARISON": 0.0,
+            "MULTI_HOP": 0.7558139534883721,
+            "LIST": 1.0,
+            "CHAIN": 0.9571428571428572,
+            "COUNT": 0.9848484848484849,
+            "DEFINITION": 0.8
+          },
+          "train_wall_s": 0.1407605999847874,
+          "p95_latency_ms": 0.4687400301918387,
+          "n_dim": 2048
+        },
+        {
+          "arm": "RANDOM_BASELINE",
+          "seed": 7,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.15011547344110854,
+          "n_dim": 2048
+        },
+        {
+          "arm": "MAJORITY_BASELINE",
+          "seed": 7,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.15935334872979215,
+          "n_dim": 2048
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M": 4763,
+      "run_mode": "full",
+      "config_version": "a1-substrate-intent-classifier-v1: N_DIM=2048 N_TRAIN=5000 N_TEST=500 arms=SUBSTRATE_INTENT,RANDOM_BASELINE,MAJORITY_BASELINE run_mode=full; bands HP_acc=0.65 HP_majority_mult=2.0 HP_random_mult=5.0 HP_p95_ms=10.0 HF_p95_ms=50.0",
+      "elapsed_s": 1.1134068965911865,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782217183.5548892,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_INTENT",
+          "seed": 17,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.7205542725173211,
+          "per_category_accuracy": {
+            "LOOKUP": 0.44285714285714284,
+            "COMPARISON": 0.0,
+            "MULTI_HOP": 0.5443037974683544,
+            "LIST": 0.9855072463768116,
+            "CHAIN": 1.0,
+            "COUNT": 0.9850746268656716,
+            "DEFINITION": 0.6363636363636364
+          },
+          "train_wall_s": 0.12970579997636378,
+          "p95_latency_ms": 0.4719200544059276,
+          "n_dim": 2048
+        },
+        {
+          "arm": "RANDOM_BASELINE",
+          "seed": 17,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.12471131639722864,
+          "n_dim": 2048
+        },
+        {
+          "arm": "MAJORITY_BASELINE",
+          "seed": 17,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.16166281755196305,
+          "n_dim": 2048
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 2048,
+      "M": 4763,
+      "run_mode": "full",
+      "config_version": "a1-substrate-intent-classifier-v1: N_DIM=2048 N_TRAIN=5000 N_TEST=500 arms=SUBSTRATE_INTENT,RANDOM_BASELINE,MAJORITY_BASELINE run_mode=full; bands HP_acc=0.65 HP_majority_mult=2.0 HP_random_mult=5.0 HP_p95_ms=10.0 HF_p95_ms=50.0",
+      "elapsed_s": 1.2678370475769043,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782217184.8401134,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_INTENT",
+          "seed": 23,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.745958429561201,
+          "per_category_accuracy": {
+            "LOOKUP": 0.3287671232876712,
+            "COMPARISON": 0.0,
+            "MULTI_HOP": 0.6582278481012658,
+            "LIST": 0.9830508474576272,
+            "CHAIN": 1.0,
+            "COUNT": 0.9714285714285714,
+            "DEFINITION": 0.75
+          },
+          "train_wall_s": 0.15344020002521574,
+          "p95_latency_ms": 0.6776600377634167,
+          "n_dim": 2048
+        },
+        {
+          "arm": "RANDOM_BASELINE",
+          "seed": 23,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.16166281755196305,
+          "n_dim": 2048
+        },
+        {
+          "arm": "MAJORITY_BASELINE",
+          "seed": 23,
+          "n_train": 4330,
+          "n_test": 433,
+          "accuracy": 0.16859122401847576,
+          "n_dim": 2048
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_substrate_intent_classifier_3arm",
+  "elapsed_s": 3.6209311485290527,
+  "summary": "HARD_PASS: substrate-native intent classifier. acc=0.754 >= 0.65 AND maj_mult=4.62 >= 2.0 AND rand_mult=5.19 >= 5.0 AND p95=0.54ms < 10.0ms AND n_llm=0. substrate_acc=0.754 random_acc=0.145 majority_a"
+}

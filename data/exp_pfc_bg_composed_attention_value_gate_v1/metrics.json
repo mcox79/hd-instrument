@@ -1,0 +1,120 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | focus=K6 valid_K=['K4', 'K6'] | ORACLE_GOAL=0.830 V8=0.829 RAW=0.637 SCR=0.417 V8_ADD=0.096 ORC_ACT=0.961 | att_lift=0.193 composition_tax=0.001 scramble_gap=0.412 closure=0.996 value_actor_lift=0.733 | goal_cos[V8=0.994 RAW=0.408 SCR=0.381] reach_rank=0.742 sign_p=0.0000 (v8_only=275 raw_only=44) | nav_rail=True oracle_repro=True att_pressure=True af_collision=False n_seeds=5",
+  "summary": "HARD_PASS | focus=K6 valid_K=['K4', 'K6'] | ORACLE_GOAL=0.830 V8=0.829 RAW=0.637 SCR=0.417 V8_ADD=0.096 ORC_ACT=0.961 | att_lift=0.193 composition_tax=0.001 scramble_gap=0.412 closure=0.996 value_actor_lift=0.733 | goal_cos[V8=0.994 RAW=0.408 SCR=0.381] reach_rank=0.742 sign_p=0.0000 (v8_only=275 raw_only=44) | nav_rail=True oracle_repro=True att_pressure=True af_collision=False n_seeds=5",
+  "per_K": {
+    "K4": {
+      "K": 4,
+      "n_seeds": 5,
+      "arm_means": {
+        "ORACLE_GOAL_GONOGO": 0.8300000000000001,
+        "V8_GATE_GONOGO": 0.8275,
+        "RAW_UNIFORM_GONOGO": 0.6866666666666668,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.4325,
+        "V8_GATE_ADDITIVE": 0.10583333333333333,
+        "ORACLE_ACTION": 0.9608333333333332
+      },
+      "arm_stds": {
+        "ORACLE_GOAL_GONOGO": 0.03188521078284832,
+        "V8_GATE_GONOGO": 0.02758824226207807,
+        "RAW_UNIFORM_GONOGO": 0.03664772237882673,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.044519034630643606,
+        "V8_GATE_ADDITIVE": 0.005651941652604389,
+        "ORACLE_ACTION": 0.01307032261779842
+      },
+      "oracle_goal": 0.8300000000000001,
+      "v8_gate": 0.8275,
+      "raw_uniform": 0.6866666666666668,
+      "scrambled": 0.4325,
+      "v8_additive": 0.10583333333333333,
+      "oracle_action": 0.9608333333333332,
+      "att_lift": 0.14083333333333325,
+      "composition_tax": 0.0025000000000000577,
+      "scramble_gap": 0.395,
+      "value_actor_lift": 0.7216666666666667,
+      "closure": 0.9825581395348834,
+      "headroom_att": 0.1433333333333333,
+      "reach_rank_test": 0.7420833333333334,
+      "goal_cos": {
+        "V8": 0.9949839353561402,
+        "RAW": 0.5003839254379272,
+        "SCRAMBLED": 0.3724092781543732
+      },
+      "sign_test_p": 2.4565484010564687e-29,
+      "n_v8_only": 207,
+      "n_raw_only": 38,
+      "af_collision": false,
+      "nav_rail_ok": true,
+      "oracle_repro_ok": true,
+      "att_pressure_ok": true,
+      "reach_fires_ok": true
+    },
+    "K6": {
+      "K": 6,
+      "n_seeds": 5,
+      "arm_means": {
+        "ORACLE_GOAL_GONOGO": 0.8300000000000001,
+        "V8_GATE_GONOGO": 0.8291666666666666,
+        "RAW_UNIFORM_GONOGO": 0.6366666666666666,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.4175,
+        "V8_GATE_ADDITIVE": 0.09583333333333333,
+        "ORACLE_ACTION": 0.9608333333333332
+      },
+      "arm_stds": {
+        "ORACLE_GOAL_GONOGO": 0.03188521078284832,
+        "V8_GATE_GONOGO": 0.03301935459359822,
+        "RAW_UNIFORM_GONOGO": 0.020649186155606455,
+        "V8_GATE_SCRAMBLED_GONOGO": 0.047022453265552946,
+        "V8_GATE_ADDITIVE": 0.007905694150420953,
+        "ORACLE_ACTION": 0.01307032261779842
+      },
+      "oracle_goal": 0.8300000000000001,
+      "v8_gate": 0.8291666666666666,
+      "raw_uniform": 0.6366666666666666,
+      "scrambled": 0.4175,
+      "v8_additive": 0.09583333333333333,
+      "oracle_action": 0.9608333333333332,
+      "att_lift": 0.1925,
+      "composition_tax": 0.0008333333333334636,
+      "scramble_gap": 0.4116666666666666,
+      "value_actor_lift": 0.7333333333333333,
+      "closure": 0.9956896551724131,
+      "headroom_att": 0.19333333333333347,
+      "reach_rank_test": 0.7420833333333334,
+      "goal_cos": {
+        "V8": 0.9940537571907043,
+        "RAW": 0.40846742391586305,
+        "SCRAMBLED": 0.38141645193099977
+      },
+      "sign_test_p": 5.481118502294932e-42,
+      "n_v8_only": 275,
+      "n_raw_only": 44,
+      "af_collision": false,
+      "nav_rail_ok": true,
+      "oracle_repro_ok": true,
+      "att_pressure_ok": true,
+      "reach_fires_ok": true
+    }
+  },
+  "focus_K": "K6",
+  "valid_K": [
+    "K4",
+    "K6"
+  ],
+  "focus_att_lift": 0.1925,
+  "focus_composition_tax": 0.0008333333333334636,
+  "focus_scramble_gap": 0.4116666666666666,
+  "focus_closure": 0.9956896551724131,
+  "focus_value_actor_lift": 0.7333333333333333,
+  "expected_n_units": 60,
+  "completed_units": 60,
+  "cardinality_ok": true,
+  "n_seeds_complete": 5,
+  "anchor_name": "pfc_bg_composed_attention_value_gate_v1",
+  "elapsed_s": 554.1,
+  "ts_iso": "2026-07-08T09:33:15.576988+00:00",
+  "pid": 35740,
+  "run_mode": "full",
+  "config_version": "ANCHOR=pfc_bg_composed_attention_value_gate_v1,N=8192,V=1200,n_ops=4,dd=4,K_grid=[4, 6],seeds=[7, 17, 23, 31, 41],density=0.210,sr_steps=8000,sr_batch=256,rollout_per_V=50,gamma=0.85,lr=0.50,gate_tau=0.050,recency_gap=3.00,cue_q=0.250,arb_q*=0.150,n_train_chains=300,n_test_chains=240,mode=full,device=cuda,expected_n=60,HP_closure>=0.25,att_lift>=0.15,scramble>=0.30,tax<=0.20,nav_rail>=0.90",
+  "device": "cuda"
+}

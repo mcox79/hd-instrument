@@ -1,0 +1,650 @@
+{
+  "verdict": "REFUTE_CONSOLIDATION_NO_SCHEDULE_ADVANTAGE_CONJUNCTION_IS_READOUT_EFFECT",
+  "verdict_msg": "REFUTE_CONSOLIDATION_NO_SCHEDULE_ADVANTAGE_CONJUNCTION_IS_READOUT_EFFECT || PARITY conjunction novel[nq=99 chance=0.5118]: INTERLEAVED=1.0000 CONTINUAL=1.0000 SHUFFLE=0.5192 | FREQ_NULL=0.4768 (HOM=0.4323 POP=0.4768) MEMO=0.4768 ORACLE=1.0000 || H=0.4882 | PRIMARY schedule-gap INTER-CONT=0.0000 (HP>=0.0488=False, REFUTE<=0.0100) votes=0/3 | readout_works INTER-FREQ=0.5232(>=0.1000=True) recover=0.4882 | freq_at_chance=0.4768(<=0.5918) shuffle_flat=True(<=0.1220) compute_matched=True(mism=0.0000) | under-trained probe(P=3): INTER=1.0000 CONT=0.9980 gap=0.0020 (null off-ceiling=True) | seeds=5 || AND2_ctx(freq-gets-signal): {\"chance\": 0.76, \"INTERLEAVED\": 0.74141, \"CONTINUAL\": 0.66061, \"FREQ_NULL\": 0.72929, \"ORACLE\": 1.0}",
+  "summary": "REFUTE_CONSOLIDATION_NO_SCHEDULE_ADVANTAGE_CONJUNCTION_IS_READOUT_EFFECT || PARITY conjunction novel[nq=99 chance=0.5118]: INTERLEAVED=1.0000 CONTINUAL=1.0000 SHUFFLE=0.5192 | FREQ_NULL=0.4768 (HOM=0.",
+  "run_mode": "full",
+  "elapsed_s": 34.322005000081845,
+  "anchor_name": "consol_conjunction_replay_v1",
+  "ts_iso": "2026-07-15T12:40:33.534424+00:00",
+  "device": "cpu",
+  "n_seeds": 5,
+  "seeds": [
+    101,
+    103,
+    107,
+    109,
+    113
+  ],
+  "config": {
+    "P_max": 60,
+    "batch": 8,
+    "lr": 0.05,
+    "block_by": 1,
+    "emb_d": 48,
+    "p_probe": 3,
+    "seeds": [
+      101,
+      103,
+      107,
+      109,
+      113
+    ],
+    "step_match_tol": 0.02
+  },
+  "gates": {
+    "verdict": "REFUTE_CONSOLIDATION_NO_SCHEDULE_ADVANTAGE_CONJUNCTION_IS_READOUT_EFFECT",
+    "chance": 0.511818,
+    "novel_acc": {
+      "INTERLEAVED": 1.0,
+      "CONTINUAL": 1.0,
+      "SHUFFLE": 0.519192,
+      "FREQ_NULL": 0.476768,
+      "HOMOPHILY": 0.432323,
+      "POP": 0.476768,
+      "MEMORIZE": 0.476768,
+      "ORACLE": 1.0
+    },
+    "oracle_headroom": 0.488182,
+    "primary_schedule_gap_inter_minus_cont": 0.0,
+    "readout_beats_freq": 0.523232,
+    "recover_over_chance": 0.488182,
+    "shuffle_over_chance": 0.007374,
+    "under_trained_probe": {
+      "p_probe": 3,
+      "inter": 1.0,
+      "cont": 0.99798,
+      "gap": 0.00202
+    },
+    "resolved_thresholds": {
+      "beat_cont": 0.048818,
+      "readout_beats_freq": 0.1,
+      "recover": 0.146455,
+      "flat": 0.122045,
+      "freq_chance_ceiling": 0.591818,
+      "refute_eps": 0.01
+    },
+    "seed_votes": {
+      "beat_cont": 0,
+      "need": 3
+    },
+    "n_novel": 99,
+    "enough_novel": true,
+    "oracle_fires": true,
+    "freq_at_chance": true,
+    "freq_not_broken": true,
+    "readout_works": true,
+    "arena_valid": true,
+    "compute_matched": true,
+    "shuffle_flat": true,
+    "recovers": true,
+    "beats_cont": false,
+    "hard_pass": false,
+    "refute": true,
+    "step_counts": {
+      "interleaved": 908,
+      "continual": 908
+    },
+    "and2_context": {
+      "chance": 0.76,
+      "INTERLEAVED": 0.74141,
+      "CONTINUAL": 0.66061,
+      "FREQ_NULL": 0.72929,
+      "ORACLE": 1.0
+    },
+    "bands": {
+      "ORACLE_FIRE_MARGIN": 0.3,
+      "FREQ_CHANCE_TOL": 0.08,
+      "READOUT_BEATS_FREQ_FRAC": 0.1,
+      "READOUT_BEATS_FREQ_ABS": 0.1,
+      "BEAT_CONT_FRAC": 0.1,
+      "BEAT_CONT_ABS": 0.03,
+      "RECOVER_FRAC": 0.3,
+      "FLAT_FRAC": 0.25,
+      "REFUTE_EPS": 0.01,
+      "MIN_NOVEL": 20
+    }
+  },
+  "mechanism_selftest": {
+    "chance": 0.51818,
+    "n_novel": 99,
+    "INTERLEAVED": 1.0,
+    "CONTINUAL": 1.0,
+    "SHUFFLE": 0.57576,
+    "FREQ_NULL": 0.44444,
+    "ORACLE": 1.0,
+    "beat_freq": 0.55556,
+    "schedule_gap_inter_minus_cont": 0.0,
+    "inter_minus_shuffle": 0.42424,
+    "inter_probe": 1.0,
+    "cont_probe": 1.0,
+    "n_distinct_sigs": 2,
+    "step_mismatch": 0.0,
+    "compute_matched": true,
+    "nonadditivity": {
+      "best_single_mi": 0.0031,
+      "joint_mi": 0.999,
+      "mi_margin": 0.9959
+    },
+    "inter_solves": true,
+    "inter_beats_freq": true,
+    "inter_beats_shuffle": true,
+    "freq_at_chance": true,
+    "shuffle_flat": true,
+    "oracle_fires": true,
+    "baseline_in_band": true,
+    "arms_differ": true,
+    "enough_novel": true,
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "metric_moves",
+      "negative_control_fails_with_margin"
+    ]
+  },
+  "seed_failures": [],
+  "per_seed_parity": [
+    {
+      "family": "PARITY",
+      "seed": 101,
+      "chance": 0.513636,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 1.0,
+      "cont_probe": 1.0,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.515152,
+          "HOMOPHILY": 0.424242,
+          "POP": 0.515152,
+          "MEMORIZE": 0.515152,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.515152,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.515152,
+          "HOMOPHILY": 0.424242,
+          "POP": 0.515152,
+          "MEMORIZE": 0.515152,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.515152,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "717fd21a3b4e63b7",
+        "CONTINUAL": "717fd21a3b4e63b7",
+        "SHUFFLE": "34aa945dcb6fd918"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.0027,
+        "joint_mi": 0.9995,
+        "mi_margin": 0.9968
+      }
+    },
+    {
+      "family": "PARITY",
+      "seed": 103,
+      "chance": 0.513636,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 1.0,
+      "cont_probe": 1.0,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.646465,
+          "HOMOPHILY": 0.393939,
+          "POP": 0.414141,
+          "MEMORIZE": 0.414141,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.414141,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.646465,
+          "HOMOPHILY": 0.393939,
+          "POP": 0.414141,
+          "MEMORIZE": 0.414141,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.414141,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "e07eb7ba5ec253c6",
+        "CONTINUAL": "e07eb7ba5ec253c6",
+        "SHUFFLE": "d97f4fe3766d9821"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.002,
+        "joint_mi": 0.9995,
+        "mi_margin": 0.9975
+      }
+    },
+    {
+      "family": "PARITY",
+      "seed": 107,
+      "chance": 0.527273,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 1.0,
+      "cont_probe": 1.0,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.515152,
+          "HOMOPHILY": 0.484848,
+          "POP": 0.494949,
+          "MEMORIZE": 0.494949,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.494949,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.515152,
+          "HOMOPHILY": 0.484848,
+          "POP": 0.494949,
+          "MEMORIZE": 0.494949,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.494949,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "93e5e7eb1d553121",
+        "CONTINUAL": "93e5e7eb1d553121",
+        "SHUFFLE": "4094bfcca3e7dca3"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.0057,
+        "joint_mi": 0.9979,
+        "mi_margin": 0.9922
+      }
+    },
+    {
+      "family": "PARITY",
+      "seed": 109,
+      "chance": 0.504545,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 1.0,
+      "cont_probe": 0.989899,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.424242,
+          "HOMOPHILY": 0.444444,
+          "POP": 0.505051,
+          "MEMORIZE": 0.505051,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.505051,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.424242,
+          "HOMOPHILY": 0.444444,
+          "POP": 0.505051,
+          "MEMORIZE": 0.505051,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.505051,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "40d045bb0d999849",
+        "CONTINUAL": "40d045bb0d999849",
+        "SHUFFLE": "ce3948b2c5d2a236"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.0061,
+        "joint_mi": 0.9999,
+        "mi_margin": 0.9938
+      }
+    },
+    {
+      "family": "PARITY",
+      "seed": 113,
+      "chance": 0.5,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 1.0,
+      "cont_probe": 1.0,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.494949,
+          "HOMOPHILY": 0.414141,
+          "POP": 0.454545,
+          "MEMORIZE": 0.454545,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.454545,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 1.0,
+          "CONTINUAL": 1.0,
+          "SHUFFLE": 0.494949,
+          "HOMOPHILY": 0.414141,
+          "POP": 0.454545,
+          "MEMORIZE": 0.454545,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.454545,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "b7f13e3d40f0ebc7",
+        "CONTINUAL": "b7f13e3d40f0ebc7",
+        "SHUFFLE": "4a99307476e29338"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.0011,
+        "joint_mi": 1.0,
+        "mi_margin": 0.9989
+      }
+    }
+  ],
+  "per_seed_and2": [
+    {
+      "family": "AND2",
+      "seed": 101,
+      "chance": 0.745455,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 0.727273,
+      "cont_probe": 0.525253,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 0.777778,
+          "CONTINUAL": 0.414141,
+          "SHUFFLE": 0.727273,
+          "HOMOPHILY": 0.767677,
+          "POP": 0.767677,
+          "MEMORIZE": 0.767677,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.767677,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 0.777778,
+          "CONTINUAL": 0.414141,
+          "SHUFFLE": 0.727273,
+          "HOMOPHILY": 0.767677,
+          "POP": 0.767677,
+          "MEMORIZE": 0.767677,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.767677,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "3e2950d2ee4fabcb",
+        "CONTINUAL": "b8b6d1050885e04e",
+        "SHUFFLE": "34a92bb8335dd48e"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.3248,
+        "joint_mi": 0.8184,
+        "mi_margin": 0.4936
+      }
+    },
+    {
+      "family": "AND2",
+      "seed": 103,
+      "chance": 0.75,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 0.727273,
+      "cont_probe": 0.707071,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 0.69697,
+          "CONTINUAL": 0.717172,
+          "SHUFFLE": 0.717172,
+          "HOMOPHILY": 0.717172,
+          "POP": 0.717172,
+          "MEMORIZE": 0.717172,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.717172,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 0.69697,
+          "CONTINUAL": 0.717172,
+          "SHUFFLE": 0.717172,
+          "HOMOPHILY": 0.717172,
+          "POP": 0.717172,
+          "MEMORIZE": 0.717172,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.717172,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "a16ac3d7781c5846",
+        "CONTINUAL": "240e4d8ea7603b6a",
+        "SHUFFLE": "21303f433500f808"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.3216,
+        "joint_mi": 0.8113,
+        "mi_margin": 0.4897
+      }
+    },
+    {
+      "family": "AND2",
+      "seed": 107,
+      "chance": 0.75,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 0.676768,
+      "cont_probe": 0.69697,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 0.666667,
+          "CONTINUAL": 0.676768,
+          "SHUFFLE": 0.616162,
+          "HOMOPHILY": 0.636364,
+          "POP": 0.636364,
+          "MEMORIZE": 0.636364,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.636364,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 0.666667,
+          "CONTINUAL": 0.676768,
+          "SHUFFLE": 0.616162,
+          "HOMOPHILY": 0.636364,
+          "POP": 0.636364,
+          "MEMORIZE": 0.636364,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.636364,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "55e4c345ec9a8bb2",
+        "CONTINUAL": "8e8ef8380883a6bb",
+        "SHUFFLE": "ede93471c5f9ee1b"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.3348,
+        "joint_mi": 0.8113,
+        "mi_margin": 0.4765
+      }
+    },
+    {
+      "family": "AND2",
+      "seed": 109,
+      "chance": 0.768182,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 0.757576,
+      "cont_probe": 0.626263,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 0.808081,
+          "CONTINUAL": 0.69697,
+          "SHUFFLE": 0.616162,
+          "HOMOPHILY": 0.757576,
+          "POP": 0.757576,
+          "MEMORIZE": 0.757576,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.757576,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 0.808081,
+          "CONTINUAL": 0.69697,
+          "SHUFFLE": 0.616162,
+          "HOMOPHILY": 0.757576,
+          "POP": 0.757576,
+          "MEMORIZE": 0.757576,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.757576,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "52b9b3b52113cf91",
+        "CONTINUAL": "c1ddce3460754e2f",
+        "SHUFFLE": "1d5b8ed56819e05c"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.2956,
+        "joint_mi": 0.7812,
+        "mi_margin": 0.4856
+      }
+    },
+    {
+      "family": "AND2",
+      "seed": 113,
+      "chance": 0.786364,
+      "nclass": 2,
+      "n_query": 99,
+      "n_novel": 99,
+      "steps_interleaved": 908,
+      "steps_continual": 908,
+      "steps_shuffle": 908,
+      "step_mismatch": 0.0,
+      "compute_matched": true,
+      "inter_probe": 0.828283,
+      "cont_probe": 0.676768,
+      "p_probe": 3,
+      "strata": {
+        "novel": {
+          "INTERLEAVED": 0.757576,
+          "CONTINUAL": 0.79798,
+          "SHUFFLE": 0.69697,
+          "HOMOPHILY": 0.767677,
+          "POP": 0.767677,
+          "MEMORIZE": 0.767677,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.767677,
+          "n": 99
+        },
+        "all": {
+          "INTERLEAVED": 0.757576,
+          "CONTINUAL": 0.79798,
+          "SHUFFLE": 0.69697,
+          "HOMOPHILY": 0.767677,
+          "POP": 0.767677,
+          "MEMORIZE": 0.767677,
+          "ORACLE": 1.0,
+          "FREQ_NULL": 0.767677,
+          "n": 99
+        }
+      },
+      "sigs": {
+        "INTERLEAVED": "d079952f04d7e987",
+        "CONTINUAL": "ae3e6146f188019a",
+        "SHUFFLE": "836103891eef911c"
+      },
+      "nonadditivity": {
+        "best_single_mi": 0.2874,
+        "joint_mi": 0.7484,
+        "mi_margin": 0.461
+      }
+    }
+  ]
+}

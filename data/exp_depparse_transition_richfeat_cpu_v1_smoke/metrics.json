@@ -1,0 +1,132 @@
+{
+  "anchor_name": "depparse_transition_richfeat_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: rich UAS (0.7012) <= base UAS (0.7286) -- rich features do not help. UAS base=0.7286 rich=0.7012 (2SE-lo=0.6972, base_vals=[0.7259, 0.7312] rich_vals=[0.6984, 0.704]) | d=-0.0274 | ablation +morph=0.72(-0.0059) +clust=0.7079(-0.018) | buried-sid base=0.2917 rich=0.1875 (n=24) | LC rise=+0.1024 | clusters=32",
+  "summary": "HARD_FAIL: rich UAS (0.7012) <= base UAS (0.7286) -- rich features do not help. UAS base=0.7286 rich=0.7012 (2SE-lo=0.6972, base_vals=[0.7259, 0.7312] rich_vals=[0.6984, 0.704]) | d=-0.0274 | ablation +morph=0.72(-0.0059) +clust=0.7079(-0.018) | buried-sid base=0.2917 rich=0.1875 (n=24) | LC rise=+0.1024 | clusters=32",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "n_seeds": 2,
+      "n_train": 400,
+      "n_dev": 150,
+      "n_pool": 600,
+      "n_buried": 24,
+      "n_easy": 248,
+      "n_clusters": 32,
+      "cluster_vocab": 2000,
+      "cluster_method": "distributional_kmeans_leftright_coarsePOS_proxy_NOT_full_brown",
+      "batch_local_uas_cited": 0.7864,
+      "base_dynamic_uas_cited": 0.8109,
+      "base_uas_mean": 0.7286,
+      "base_uas_vals": [
+        0.7259,
+        0.7312
+      ],
+      "rich_uas_mean": 0.7012,
+      "rich_uas_vals": [
+        0.6984,
+        0.704
+      ],
+      "rich_uas_se": 0.002,
+      "rich_uas_mean_minus_2se": 0.6972,
+      "rich_minus_base": -0.0274,
+      "rich_2se_lo_minus_base_mean": -0.0314,
+      "base_buried_sid_mean": 0.2917,
+      "rich_buried_sid_mean": 0.1875,
+      "ablation": {
+        "base_plus_morph_uas": 0.72,
+        "base_plus_clust_uas": 0.7079,
+        "morph_lift_over_base_seed1": -0.0059,
+        "clust_lift_over_base_seed1": -0.018
+      },
+      "learning_curve": {
+        "0.10": {
+          "n_train": 40,
+          "uas": 0.6176
+        },
+        "0.25": {
+          "n_train": 100,
+          "uas": 0.6591
+        },
+        "0.50": {
+          "n_train": 200,
+          "uas": 0.6834
+        },
+        "1.00": {
+          "n_train": 400,
+          "uas": 0.72
+        }
+      },
+      "lc_lo_uas": 0.6176,
+      "lc_hi_uas": 0.72,
+      "lc_rise": 0.1024,
+      "lc_points": 4,
+      "lc_expected_points": 4,
+      "arms_differ_base_vs_rich": true,
+      "gate_d_base_reproduces_prior": null
+    }
+  ],
+  "elapsed_s": 17.98932647705078,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "discrete parse accuracy, no noise floor",
+  "cardinality_ok": true,
+  "n_train": 400,
+  "n_dev": 150,
+  "n_pool": 600,
+  "n_buried": 24,
+  "n_easy": 248,
+  "n_clusters": 32,
+  "cluster_vocab": 2000,
+  "cluster_method": "distributional_kmeans_leftright_coarsePOS_proxy_NOT_full_brown",
+  "batch_local_uas_cited": 0.7864,
+  "base_dynamic_uas_cited": 0.8109,
+  "base_uas_mean": 0.7286,
+  "base_uas_vals": [
+    0.7259,
+    0.7312
+  ],
+  "rich_uas_mean": 0.7012,
+  "rich_uas_vals": [
+    0.6984,
+    0.704
+  ],
+  "rich_uas_se": 0.002,
+  "rich_uas_mean_minus_2se": 0.6972,
+  "rich_minus_base": -0.0274,
+  "rich_2se_lo_minus_base_mean": -0.0314,
+  "base_buried_sid_mean": 0.2917,
+  "rich_buried_sid_mean": 0.1875,
+  "ablation": {
+    "base_plus_morph_uas": 0.72,
+    "base_plus_clust_uas": 0.7079,
+    "morph_lift_over_base_seed1": -0.0059,
+    "clust_lift_over_base_seed1": -0.018
+  },
+  "learning_curve": {
+    "0.10": {
+      "n_train": 40,
+      "uas": 0.6176
+    },
+    "0.25": {
+      "n_train": 100,
+      "uas": 0.6591
+    },
+    "0.50": {
+      "n_train": 200,
+      "uas": 0.6834
+    },
+    "1.00": {
+      "n_train": 400,
+      "uas": 0.72
+    }
+  },
+  "lc_lo_uas": 0.6176,
+  "lc_hi_uas": 0.72,
+  "lc_rise": 0.1024,
+  "lc_points": 4,
+  "lc_expected_points": 4,
+  "arms_differ_base_vs_rich": true,
+  "gate_d_base_reproduces_prior": null
+}
