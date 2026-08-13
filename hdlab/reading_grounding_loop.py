@@ -646,6 +646,30 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
         return canonicalize_fast(item.lemma, tr.context_vec, sp, thresh=informative_min,
                                  eligible_mask=_eligible_mask(sp, mask_cache), readout=readout)
 
+    def release_episodes(lemmas) -> int:
+        """Drop the frozen field held for each of `lemmas`. Returns how many were actually held.
+
+        WHY THIS IS NEEDED, and it is a real leak in the ORIGINAL per-episode code too: `_release`
+        only fires when a lemma STARTS A NEW EPISODE. A lemma that goes TERMINAL (grounded, or
+        escalated) never proposes again, so its entry -- and, with interning, its whole epoch's
+        snapshot -- is pinned for the rest of the pass. MEASURED consequence at the interned
+        granularity this cell runs at: live snapshots would converge on the number of DISTINCT
+        EPOCHS EVER SEEN (228 chunks over the 34169-sentence corpus) rather than on the number of
+        LIVE episodes, i.e. ~3.4 GB at 900 anchors x 2048 float64 -- the O(live epochs) bound the
+        interning was built to deliver would not actually hold.
+
+        Callers pass the lemmas that just went terminal (a consolidation checkpoint knows exactly
+        which those are). Calling it is OPTIONAL and calling it with a lemma that holds nothing is
+        a no-op, so no existing caller changes behavior. Releasing a lemma that later proposes
+        again is also safe: `_space_for` simply mints it a fresh snapshot at that point, which is
+        the correct semantics for a NEW episode anyway."""
+        n = 0
+        for lemma in lemmas:
+            if lemma in episodes:
+                _release(lemma)
+                n += 1
+        return n
+
     def freeze_stats() -> dict:
         out = dict(stats)
         out["live_snapshots_now"] = len(_live_snapshots())
@@ -669,8 +693,10 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
             return None                       # UNINFORMATIVE -- no verdict, no strength change
         return obj == item.hypothesis.obj
 
-    propose_fn.freeze_stats = freeze_stats      # type: ignore[attr-defined]
-    verify_fn.freeze_stats = freeze_stats       # type: ignore[attr-defined]
+    propose_fn.freeze_stats = freeze_stats                  # type: ignore[attr-defined]
+    verify_fn.freeze_stats = freeze_stats                   # type: ignore[attr-defined]
+    propose_fn.release_episodes = release_episodes          # type: ignore[attr-defined]
+    verify_fn.release_episodes = release_episodes           # type: ignore[attr-defined]
     return propose_fn, verify_fn
 
 
@@ -1556,6 +1582,59 @@ def _selftest_freeze_epoch_interning_bounds_memory_and_preserves_semantics() -> 
         "the vacated epoch's snapshot must be refcount-released, not leaked: %r" % s2)
 
 
+def _selftest_terminal_episode_release_bounds_live_epochs() -> None:
+    """A lemma that goes TERMINAL pins its epoch's snapshot forever unless the caller releases it.
+    FAILABLE BY CONSTRUCTION: the same walk over N epochs is run twice, releasing in one and not in
+    the other, and the un-released run MUST accumulate N live snapshots while the released run
+    holds 1. If `release_episodes` did nothing, the two would be equal and this test fails."""
+    n_epochs = 6
+    epoch = {"e": 0}
+    # A DIFFERENT novel word per epoch. This is the case that actually leaks: `_space_for` only
+    # releases a lemma when THAT LEMMA starts a new episode, so a word that is never encountered
+    # again never reaches the release path at all. Re-using one word (as an earlier draft of this
+    # test did) hides the leak, because its own next encounter frees the previous epoch.
+    novel = ["zibbo", "quorbex", "fentle", "murbash", "drovick", "haplon"][:n_epochs]
+
+    def walk(release: bool) -> dict:
+        state, engine_sentences, _ = _pbv_fixture(seed=918)
+        fns = make_pbv_fns(state, freeze_episode=True, freeze_epoch_fn=lambda: epoch["e"])
+        for e in range(n_epochs):
+            epoch["e"] = e
+            before = set(state.library.items)
+            for j, s in enumerate(engine_sentences):
+                process_sentence(state, s.replace("zibbo", novel[e]), f"e{e}_{j}",
+                                 pass_idx=1, pbv_fns=fns)
+            # everything first seen this epoch goes TERMINAL and is never encountered again
+            terminal = sorted(set(state.library.items) - before)
+            for lem in terminal:
+                state.library.items[lem].hypothesis = None
+            if release:
+                fns[0].release_episodes(terminal)
+        return fns[0].freeze_stats()
+
+    held = walk(release=False)
+    freed = walk(release=True)
+    assert held["n_snapshots_created"] == freed["n_snapshots_created"] == n_epochs, (held, freed)
+    assert held["live_snapshots_now"] == n_epochs, (
+        "without release, EVERY epoch's snapshot stays pinned by a terminal lemma -- this is the "
+        "O(epochs seen) leak the hook exists to close: %r" % held)
+    # The bound the hook actually promises is O(LIVE EPISODES), not 1: a still-live episode
+    # legitimately pins the epoch it was frozen against, which is F3's whole semantics. What must
+    # be gone is every epoch held ONLY by a terminal lemma.
+    assert freed["live_snapshots_now"] < held["live_snapshots_now"], (freed, held)
+    assert freed["live_snapshots_now"] <= 2, (
+        "after release only the current epoch plus epochs held by still-LIVE episodes may "
+        "survive: %r" % freed)
+    assert freed["peak_live_snapshot_bytes"] <= held["peak_live_snapshot_bytes"], (freed, held)
+    # releasing something that holds nothing is a no-op, so no existing caller changes behavior
+    state, _es, _ = _pbv_fixture(seed=919)
+    fns = make_pbv_fns(state, freeze_episode=True, freeze_epoch_fn=lambda: 0)
+    assert fns[0].release_episodes(["never_seen"]) == 0
+    # and the hook exists even when F3 is OFF, where it is simply inert
+    off = make_pbv_fns(state)
+    assert off[0].release_episodes(["anything"]) == 0
+
+
 def _run_all_selftests() -> dict:
     _selftest_no_leak_masking()
     _selftest_gap_gate_known_vs_novel()
@@ -1572,6 +1651,7 @@ def _run_all_selftests() -> dict:
     _selftest_no_partial_credit_to_alternatives()
     _selftest_operating_readout_is_F1_only_and_off_by_default()
     _selftest_freeze_epoch_interning_bounds_memory_and_preserves_semantics()
+    _selftest_terminal_episode_release_bounds_live_epochs()
     return {
         "no_leak_masking_ok": True,
         "gap_gate_known_vs_novel_ok": True,
@@ -1589,6 +1669,7 @@ def _run_all_selftests() -> dict:
         "no_partial_credit_to_alternatives_ok": True,
         "operating_readout_F1_only_and_default_off_ok": True,
         "freeze_epoch_interning_bounds_memory_ok": True,
+        "terminal_episode_release_bounds_live_epochs_ok": True,
         "operating_config": {"name": OPERATING_READOUT_NAME, "F1_margin_stat": OPERATING_MARGIN_STAT,
                              "F1_margin_z_min": OPERATING_MARGIN_Z_MIN,
                              "F1_margin_z_min_source": OPERATING_MARGIN_Z_MIN_SOURCE,
