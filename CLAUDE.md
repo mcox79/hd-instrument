@@ -61,6 +61,19 @@ If any answer is no: do it in main thread, defer, or serialize behind an in-flig
 
 **Spot-check, don't re-do:** when a sub-agent returns, verify by reading 1-2 specific metrics or hash-checking a cited result. If wrong, escalate via SendMessage with the delta — don't restart with a fuller prompt.
 
+**YIELD AFTER DISPATCH (2026-08-13, measured).** When you spawn a subagent with
+`run_in_background`, END YOUR TURN. Do not keep working on the same turn while it runs.
+
+Return: one line naming what was dispatched, and nothing else. No summary of what you expect it
+to find, no adjacent work, no next steps, no tables. The point of backgrounding is to return
+control to the USER, and that only happens when your turn ends.
+
+Why this is written down: session-transcript forensics (notes/director_delegation_audit_2026-08-12.md)
+showed the subagents were NOT the blocker — all spawns set `run_in_background: true` and returned
+an agentId immediately. The USER's input was queuing behind the DIRECTOR's own continued
+generation, not behind any agent. Generation is serial: every additional paragraph after the
+dispatch is time the USER spends locked out. This cost hours across 2026-08-12.
+
 **Violation tripwire:** if you see yourself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the moment — STOP and spawn `hdi_exp_dev` instead.
 
 ## Notes directory (single-session model)
@@ -140,6 +153,24 @@ problems it was tested against -- main-thread blocking, scheduling, and per-agen
 control -- it offered nothing. Separately measured: agent-definition frontmatter keys
 `model` and `tools` are real and take effect; `background` and `isolation` are NOT real
 keys -- `background: true` was added to an agent definition as a test and had no effect.
+
+## Agent-teams / frontmatter findings (2026-08-12 night)
+
+- `background:` in agent frontmatter is INVALID -- not merely ignored: it makes the whole
+  agent definition FAIL TO LOAD. All five `hdi_*` agents vanished from the available types
+  the moment it was added to one definition, and returned when it was removed. This corrects
+  the "no effect" claim in the superpowers note above -- the effect is total load failure, not
+  a no-op. Do not add it.
+- `model` and `tools` ARE valid, working frontmatter keys.
+- The `hdi_*` fleet only resolves with client env var `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+  (`~/.claude/settings.json` `env` block). Without it, only the plain-named set resolves:
+  `exp_dev, research, verdict_handler, strategy_scribe, memory_curator, meta_audit,
+  routing_handler`.
+- Effort level is driven by env var `CLAUDE_CODE_EFFORT_LEVEL` (currently `high`), which
+  overrides the `effortLevel` key in settings.json (reads `xhigh`, inactive) -- don't "fix"
+  that key expecting a behavior change.
+- Backgrounding subagents was never the main-thread-blocking cause -- see
+  `notes/director_delegation_audit_2026-08-12.md`.
 
 ## SessionStart hook (enforcement, not advice)
 

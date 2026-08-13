@@ -100,11 +100,33 @@ compaction.
   dispatch (instrumented probe: 3000/34169 sentences -> 5.35GB, extrapolates past 50GB
   unfixed). Optional, no-op for callers that don't use it.
 
+- af6a844c9 -- testbed: compaction-prep refresh of STATUS.md + ledger_grounding_quality
+  (routine refresh, no new experimental result).
+- 46c32d960 -- docs: record superpowers plugin evaluation outcome (removed 2026-08-12); this
+  commit also carries the first "background/isolation ignored" claim later corrected below.
+- (uncommitted, this pass) CLAUDE.md "Agent-teams / frontmatter findings" section --
+  `background:` frontmatter key is INVALID, fails the WHOLE agent definition to load (not
+  merely ignored as 46c32d960 claimed); all 5 `hdi_*` agents vanished when it was added to one
+  definition and returned when removed. `model`/`tools` confirmed valid. `hdi_*` fleet
+  confirmed gated on client env `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`.
+- (outside repo, not committed) `C:/Users/marsh/.claude/settings.json` `env` block --
+  `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1"` restored (was removed earlier tonight to test a
+  main-thread-blocking hypothesis that forensics in
+  `notes/director_delegation_audit_2026-08-12.md` refuted). Requires a client restart to take
+  effect; `hdi_*` fleet unresolvable until then.
+- (evidence only, no commit) 4th detached `claude -p` attempt at
+  `experiments/exp_grounding_quality_readout_v1.py` left `data/cli_agent_quality.log` (4433B)
+  + `.err` (0B), produced no cell file. Root cause this time (1st of 4 attempts diagnosed): no
+  settings file grants Write/Edit (`.claude/settings.local.json` has zero such rules) and the
+  run was headless, so every write silently failed before the first byte landed.
+
 ## NEXT STEP FOR THIS ARC (see notes/STATUS.md for the live pointer)
-`experiments/exp_grounding_quality_readout_v1.py` (prereg filed, 192521a7f) has been
-**dispatched three times and never completed** -- as of this pass the cell file does not exist
-on disk, no output dir, no live process. Must be authored + detach-dispatched (prereg sec 11:
-`Start-Process -WindowStyle Hidden`, timeout_s 21600) before the arc can move. It produces two
-UNSCORED 50-row samples (PBV_BASE, PBV_F1F3); director then hand-scores both against the same
-rubric as the 64% v5 baseline (v5's 64% is a ceiling reference only, real comparator is v2
-DIST's 8%). Growth stays PAUSED regardless of outcome.
+`experiments/exp_grounding_quality_readout_v1.py` (prereg filed, 192521a7f) has now been
+**dispatched four times and never completed** -- cell file still does not exist on disk, no
+output dir, no live process. The 4th attempt's own log names the blocker: no Write/Edit grant
+in any settings file for a headless session. **Granting Write/Edit is now a precondition**,
+then author + detach-dispatch (prereg sec 11: `Start-Process -WindowStyle Hidden`,
+timeout_s 21600) before the arc can move. It produces two UNSCORED 50-row samples (PBV_BASE,
+PBV_F1F3); director then hand-scores both against the same rubric as the 64% v5 baseline
+(v5's 64% is a ceiling reference only, real comparator is v2 DIST's 8%). Growth stays PAUSED
+regardless of outcome.
