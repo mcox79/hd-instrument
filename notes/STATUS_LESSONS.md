@@ -2,8 +2,9 @@
 
 Companion to `notes/STATUS.md`, governed by `notes/STATUS_SPEC.md` sec 7.
 
-**Why this file exists.** `STATUS.md` is hard-capped at 6144 B so a cold session can read it in
-one pass. The never-trim material -- eliminated routes, refuted hypotheses, revival criteria,
+**Why this file exists.** `STATUS.md` is hard-capped (6144 B when this file was split off;
+8192 B since, per `STATUS_SPEC.md` sec 7) so a cold session can read it in one pass. The
+never-trim material -- eliminated routes, refuted hypotheses, revival criteria,
 and disciplines bought with failed experiments -- grows monotonically and by nature is never
 retired, so it will breach any fixed cap eventually. It breached 6144 on 2026-08-13. Rather
 than trim it (the failure this whole spec exists to prevent), it lives here, uncapped.
@@ -108,6 +109,60 @@ Each entry: the route, why it is closed, and the evidence that closed it.
     `background:` is worse than ignored -- it fails the WHOLE agent definition to load (all five
     `hdi_*` agents vanished, and returned when it was removed). Full detail in `CLAUDE.md`,
     "Agent-teams / frontmatter findings (2026-08-12 night)".
+
+20. **Wiring the voting mechanism.** It scores **0.0248**, below the blind union at **0.0413**
+    AND below **its own scramble floor at 0.0496** -- i.e. it is beneath the level its own null
+    control reaches, so there is nothing to wire. Compounding this: **no correctness measure
+    exists in its cells at all**, so even the 0.0248 is not a quality number. Ranked and rejected
+    in `notes/opportunity_map_2026-08-13.md`. Reopens only with (i) a correctness measure defined
+    in-cell and (ii) a score clearing its own scramble floor.
+
+21. **Hand-scoring any MEANINGFUL delta while the generator sits at 1-3%** -- and specifically
+    the blind sample sitting in `data/exp_anchor_pool_expansion_v1/blind_sample.json`, which the
+    cell itself labels `QUALITY_CLAIM: NONE`. This is STANDING DISCIPLINE 1 applied to a live
+    artifact: the sample is present, scoreable, and tempting, and scoring it would buy a third
+    underpowered-by-floor result. The cell's verdict is read off the RELATION-MATCHED
+    known-answer key, never off that sample. Do not score it until the generator clears ~10% M.
+
+22. **The 2-hop bridges.** Ceiling is approximately the scramble floor -- the mechanism's best
+    case is indistinguishable from its own null. Ranked and rejected in
+    `notes/opportunity_map_2026-08-13.md`.
+
+---
+
+## CORRECTIONS TO PRIOR CLAIMS
+
+A correction is a refutation of something this project asserted, so it is never-trim under
+`STATUS_SPEC.md` sec 4.3: deleted, the wrong claim becomes attractive again within one session.
+
+**C1. "Availability binds first" is WRONG.** The reading taken from the e2e trace -- that the
+candidate set is the binding constraint -- was refuted by the pre-registered
+`exp_anchor_pool_expansion_v1`, verdict **`COMPARATOR_IS_BINDING`**. One variable, anchor pool
+size. Availability rose **0.199 -> 0.953** (4.8x) and recall@1 moved only **0.0081 -> 0.0333**,
+BELOW the pre-declared +0.03 floor. Decisively, **availability-conditioned recall@1 is -0.0060**:
+conditioned on the candidate being available, the comparator got slightly WORSE, so the extra
+candidates bought nothing the comparator could use. Co-occurrence agreement ROSE **0.075 ->
+0.102**, i.e. the larger pool moved the read-out TOWARD the co-occurrence baseline, not away.
+**Candidate supply is eliminated as the explanation.** The 386 -> 600 fact count that motivated
+the original reading is VOLUME, not CORRECTNESS -- more facts at the same badness. The binding
+constraint is the COMPARATOR, and routes that feed it better candidates do not act on it.
+
+**C2. CLIP visual grounding is NOT a glass-box violation.** The invariant bars an external LLM
+from OPERATIONAL INFERENCE at runtime. It does not bar external tools from BUILDING the
+seed/foundation -- that is exactly the sanctioned FOUNDATION path (MEMORY.md PIVOT: "FOUNDATION =
+any external tool, FULL + VETTED; RUNTIME REASONING = glass-box, NO external LLM at inference").
+A prohibition asserted here would have closed a legitimate channel for free.
+
+**C3. The 94% predicate score has NO RECORDED FLOOR.** No null/scramble/random-baseline arm was
+run against it. It licenses exactly "the parser hands the store a correct fact about 94% of the
+time on this arm, blind single-judge, n=50 of 221" and NOTHING comparative -- it is not a
+read-out score, and it is not evidence of a margin over chance, because chance was never measured
+for it. Do not quote it as a head-to-head number.
+
+**C4. `DGProjection` does NOT fix equidistance.** It fixes INTERFERENCE. The two are routinely
+conflated and the conflation makes an already-owned module look like a solution to an open
+problem. Removing equidistance requires a channel that is INDEPENDENT IN KIND from the one that
+produced the basis (opportunity #2, `notes/opportunity_map_2026-08-13.md`).
 
 ---
 
