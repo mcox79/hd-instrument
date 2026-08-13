@@ -242,6 +242,34 @@ Pure-CPU, single foreground run. Two 30 s CSKG streaming passes (cached after th
 runs FOREGROUND-TO-COMPLETION with an explicit 600 s Bash timeout per the INLINE-LOCAL mandate.
 No detached launch, no queue dispatch.
 
+## 13b. AMENDMENTS -- filed after the SMOKE, BEFORE the FULL run
+
+Recorded here rather than silently applied. **Neither amendment touches a band in sec 8, and
+neither can convert a FAIL into a PASS**: the smoke verdict was HARD_FAIL_SHAPE before and after
+both.
+
+**A1 -- CSKG concept population is keyed to CANONICAL nodes.** Sec 5 sized the population as
+"word-like node1" (635,313 labels / 103,356 features). The cell instead restricts to node1
+matching exactly `/c/en/<lowercase-word>`, giving **276,365 concepts / 79,815 features over the
+SimLex vocabulary, still 1028/1028 SimLex words covered**. REASON: label -> node is then 1:1, so
+"one document per concept" holds EXACTLY and the organ's PMI reduction (sec 3) is exact rather
+than approximate. Under the looser keying a word spanning several sense-suffixed nodes would have
+`df[concept] > 1` and the reduction would not hold. This is a fidelity fix to the measure, chosen
+before any arm ran, and it does not change which pairs are evaluated.
+
+**A2 -- the smoke's discriminator-fires assertion is scoped to supplies that carry signal.** As
+first written the cell asserted SCRAMBLE_ASSIGN collapses on SUPPLY C specifically, and it RAISED
+`VACUOUS SMOKE` at 480 pairs (SCRAMBLE_ASSIGN 0.0751 vs WEIGHTED 0.0838). The assertion was
+mis-specified, not the cell: supply C's own treatment sits AT the scramble floor, so there is no
+observed signal for the control to falsify. Amended: the assertion now runs on every supply whose
+`rho_WEIGHTED >= 0.20`, at least one supply must clear that floor or the whole smoke is declared
+vacuous, and a supply below it is logged `NO_SIGNAL_TO_FALSIFY`. Post-amendment the discriminator
+fires on A and B at both smoke scales; C is logged as no-signal, which is itself a finding.
+
+**A3 -- walk-back gate.** The smoke effect size is null-to-negative, which would normally mandate
+doubling the FULL sample. SimLex-999 is a fixed 999-pair benchmark, so the FULL already uses the
+maximum available n. No doubling is possible; this is recorded rather than skipped.
+
 ## 14. Discriminator
 
 The negative control that MUST fail is SCRAMBLE_ASSIGN. The smoke asserts it fails the headline
