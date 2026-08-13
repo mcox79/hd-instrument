@@ -1008,7 +1008,8 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
                      scramble_rng: Optional[np.random.Generator] = None,
                      pbv_fns: Optional[Tuple[Callable, Callable]] = None,
                      revive_terminal: bool = False,
-                     encoder: Optional["StructuralEncoder"] = None) -> int:
+                     encoder: Optional["StructuralEncoder"] = None,
+                     anchor_pool: Optional[frozenset] = None) -> int:
     """FLAG every content-word lemma in `sentence` that is (a) not a seed-known word, (b) not
     already a foundation gap-negative (GapDetector says known), and (c) not a terminal Library
     item (GROUNDED/ESCALATED -- Library.flag() itself no-ops on those, this is just a cheap
@@ -1024,7 +1025,17 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
     pair from `make_pbv_fns`, threaded into Library.flag so the PROPOSE/VERIFY/ABANDON-AND-
     RE-PROPOSE cycle runs ONLINE at each encounter. revive_terminal likewise threads through: an
     ESCALATED word re-encountered in new material re-opens (bounded), because escalation is
-    "inconclusive so far", not "proven wrong"."""
+    "inconclusive so far", not "proven wrong".
+
+    anchor_pool (2026-08-13, ADDITIVE, DEFAULT None = prior behaviour byte-for-byte): an extra set
+    of lemmas whose distributional profile is accumulated into state.space when they occur, so they
+    become AVAILABLE AS ANCHORS for canonicalize's argmax. It does NOT change what is KNOWN: a
+    pool lemma that is not in state.known_seed is still a gap, still flagged, still a grounding
+    TARGET, and is still excluded from its own argmax by canonicalize's self-exclusion. This exists
+    because anchors otherwise enter at only two sites (seed vocabulary, and lemmas this same loop
+    already grounded), which pins the read-out's whole expressible range near the seed vocabulary
+    (notes/downstream_bottleneck_trace_2026-08-13.md). DEFAULT-OFF: only
+    experiments/exp_anchor_pool_expansion_v1.py passes it."""
     state.n_occurrences_seen += 1
     n_flagged = 0
     propose_fn, verify_fn = pbv_fns if pbv_fns is not None else (None, None)
@@ -1043,6 +1054,13 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             if np.any(ctx != 0.0):
                 state.space.observe(lemma, ctx)
             continue
+        if anchor_pool is not None and lemma in anchor_pool:
+            # ANCHOR-POOL EXPANSION (default-OFF). Accumulate this lemma's profile so it can be
+            # NAMED by some other lemma's read-out. It deliberately falls THROUGH to the target
+            # path below: being available as an anchor is not being known.
+            actx = _encode(sentence, lemma)
+            if np.any(actx != 0.0):
+                state.space.observe(lemma, actx)
         it = state.library.items.get(lemma)
         if it is not None and it.status != "PENDING":
             if not (revive_terminal and it.status == "ESCALATED" and it.n_revivals < PBV_MAX_REVIVALS):
@@ -1881,9 +1899,54 @@ def _selftest_structured_encoder_is_off_by_default() -> None:
     assert _np.array_equal(got, want), "encoder=None changed the default encoding path"
 
 
+def _selftest_anchor_pool_is_off_by_default() -> None:
+    """process_sentence(anchor_pool=None) must be the shipped path byte-for-byte, and passing a
+    pool must (a) add exactly those lemmas as anchors, (b) leave known_seed / the flagged-target
+    set untouched."""
+    import numpy as _np
+
+    sent = "The zibbo flickered by the lantern in the storm."
+
+    def _run(pool):
+        store = HDFactStore(n_dim=512, seed=11,
+                            relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
+                                                  MEANING_RELATION: "FUNCTIONAL"}, use_index=True)
+        st = ReadingLoopState(store=store)
+        seed_known_words(st, ["lantern", "storm", "fire"], source="t")
+        n = process_sentence(st, sent, "e0", pass_idx=0, anchor_pool=pool)
+        return st, n
+
+    st_off, n_off = _run(None)
+    st_ref, n_ref = _run(None)
+    assert n_off == n_ref
+    anchors_off = st_off.space.anchors()
+    # (1) DEFAULT PATH UNCHANGED: only seed words that occurred are anchors.
+    assert anchors_off == sorted(set(["lantern", "storm"])), \
+        "anchor_pool=None changed the default anchor population: %r" % (anchors_off,)
+    for a in anchors_off:
+        assert _np.array_equal(st_off.space.bundle(a), st_ref.space.bundle(a))
+
+    st_on, n_on = _run(frozenset(["zibbo", "flicker"]))
+    # (2) same targets flagged, same known_seed -- the pool is NOT knowledge
+    assert n_on == n_off, "anchor_pool changed how many lemmas were flagged (%d vs %d)" % (n_on, n_off)
+    assert st_on.known_seed == st_off.known_seed
+    assert "zibbo" in st_on.library.items, "a pool lemma stopped being a grounding target"
+    # (3) the pool lemma is now an anchor, with exactly the masked bag-of-words profile
+    assert "zibbo" in st_on.space, "anchor_pool did not add the lemma as an anchor"
+    want = _np.sign(context_vector_masked(sent, "zibbo"))
+    want[want == 0] = 1.0
+    assert _np.array_equal(st_on.space.bundle("zibbo"), want), \
+        "pool anchor profile is not the masked context vector"
+    # (4) seed anchors are bit-identical with the pool on
+    for a in anchors_off:
+        assert _np.array_equal(st_on.space.bundle(a), st_off.space.bundle(a)), \
+            "anchor_pool perturbed an existing seed anchor's profile"
+
+
 def _run_all_selftests() -> dict:
     _selftest_structural_unbound_matches_context_vector()
     _selftest_structured_encoder_is_off_by_default()
+    _selftest_anchor_pool_is_off_by_default()
     _selftest_no_leak_masking()
     _selftest_gap_gate_known_vs_novel()
     _selftest_grounding_needs_coherent_repeated_exposure()
@@ -1901,6 +1964,7 @@ def _run_all_selftests() -> dict:
     _selftest_freeze_epoch_interning_bounds_memory_and_preserves_semantics()
     _selftest_terminal_episode_release_bounds_live_epochs()
     return {
+        "anchor_pool_off_by_default_ok": True,
         "no_leak_masking_ok": True,
         "gap_gate_known_vs_novel_ok": True,
         "coherent_vs_incoherent_grounding_ok": True,
