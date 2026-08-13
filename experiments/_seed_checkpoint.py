@@ -785,8 +785,70 @@ def write_metrics(out_dir: Path, metrics: Dict[str, Any],
     if validated_gate_claims is not None:
         metrics["structured_gate_claims"] = validated_gate_claims
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    # Atomic write (tmp + os.replace): a concurrent metrics-sync tar / verify_landing
+    # read can otherwise catch a half-written metrics.json (partial JSON -> the
+    # orchestrator frames a landed FULL as unreadable/incomplete). os.replace is
+    # atomic within a filesystem on POSIX and overwrites atomically on Windows.
+    final = out_dir / "metrics.json"
+    tmp = final.with_suffix(final.suffix + ".tmp")
+    tmp.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    os.replace(tmp, final)
     return metrics
+
+
+# --- Vacuous-smoke discriminator-fires guard (added 2026-07-08, Testbed) ------
+# Highest-leverage cell-template gate: prevents a green-but-vacuous smoke from
+# passing silently. Root cause it closes: at small smoke V/N the frontier /
+# negative CONTROL arm (the arm that MUST fail for the experiment to be
+# discriminating) also passes -> the smoke tests NOTHING -> the FULL then
+# HARD_FAILs. Hit twoband (all arms both=True incl frontier control at V=1500)
+# and twohead (achieves-both at smoke, HARD_FAIL at V=40000), 2026-07-08.
+# Enforces DISCRIMINATOR-MUST-SURVIVE-SCALE at the smoke's OWN gate.
+
+class VacuousSmokeError(AssertionError):
+    """A smoke/self-test's negative control PASSED the headline gate.
+
+    Means the discriminator does not fire at this V/N (every arm passes, incl.
+    the one that must fail) -> the smoke is vacuous and a green verdict is
+    meaningless. The cell must raise V (and/or N) before any FULL dispatch.
+    """
+
+
+def assert_discriminator_fires(control_passed_headline_gate: bool, *,
+                               control_name: str,
+                               headline_name: str = "headline",
+                               run_mode: str = "smoke",
+                               remedy: str = "raise smoke V (and/or N) until the "
+                                             "control fails, or route the smoke "
+                                             "remote if it cannot be both fast "
+                                             "and discriminating",
+                               extra: str = "") -> bool:
+    """MANDATORY smoke gate: the negative/frontier CONTROL must FAIL the headline.
+
+    Call this in self_test()/smoke AFTER computing arm metrics at the smoke V.
+    `control_passed_headline_gate` is a single bool: did the arm that MUST fail
+    (the frontier / negative control) actually MEET the headline pass gate at
+    this smoke's V/N? If True, the discriminator is doing no work here, so this
+    raises VacuousSmokeError and the smoke HARD-fails loudly instead of passing
+    on a meaningless green.
+
+    No-op pass-through for FULL runs (run_mode not in smoke/self_test): the FULL
+    result IS the science, not a gate self-check.
+
+    Returns True when the guard passes (control correctly failed), so callers can
+    fold it into a boolean self-test chain: ok &= assert_discriminator_fires(...).
+    """
+    if str(run_mode).lower().replace("-", "_") not in (
+            "smoke", "self_test", "selftest"):
+        return True
+    if control_passed_headline_gate:
+        raise VacuousSmokeError(
+            f"VACUOUS SMOKE: negative/frontier control {control_name!r} PASSED "
+            f"the {headline_name!r} gate at run_mode={run_mode} -- the "
+            f"discriminator does not fire at this V/N (the arm that MUST fail "
+            f"passed). The smoke tests NOTHING; a green verdict is meaningless. "
+            f"Remedy: {remedy}." + (f" {extra}" if extra else ""))
+    return True
 
 
 def _selftest_get_output_dir() -> None:
@@ -894,6 +956,8 @@ __all__ = [
     "isolate_selftest_output_dir",
     "write_metrics",
     "record_gate",
+    "assert_discriminator_fires",
+    "VacuousSmokeError",
 ]
 
 
@@ -1039,5 +1103,42 @@ if __name__ == "__main__":
         assert "seed99" in keys_b, "matching ANCHOR via config_version rejected"
         print("[selftest] T8 PASS: ANCHOR= regex parses config_version field")
 
-    print("[selftest] ALL 8 TESTS PASS -- PROT-021 + META_RULE_H_ANCHOR "
-          "loader guard operational")
+        # --- Test 9: assert_discriminator_fires (vacuous-smoke guard) ---------
+        # Control that FAILS the headline (passed=False) -> guard passes (True).
+        assert assert_discriminator_fires(
+            False, control_name="frontier", run_mode="smoke") is True, \
+            "T9a FAIL: guard should pass when control fails headline"
+        # Control that PASSES the headline at smoke -> VacuousSmokeError.
+        try:
+            assert_discriminator_fires(
+                True, control_name="frontier", run_mode="smoke")
+            raise AssertionError("T9b FAIL: expected VacuousSmokeError")
+        except VacuousSmokeError:
+            pass
+        # FULL run -> no-op pass-through even when control 'passes'.
+        assert assert_discriminator_fires(
+            True, control_name="frontier", run_mode="full") is True, \
+            "T9c FAIL: FULL must be a no-op pass-through"
+        # self_test / self-test aliases behave like smoke.
+        for _m in ("self_test", "self-test", "selftest"):
+            try:
+                assert_discriminator_fires(True, control_name="c", run_mode=_m)
+                raise AssertionError(f"T9d FAIL: {_m} should gate like smoke")
+            except VacuousSmokeError:
+                pass
+        print("[selftest] T9 PASS: assert_discriminator_fires gates vacuous "
+              "smoke; no-ops on FULL")
+
+        # --- Test 10: write_metrics atomicity + required-field injection ------
+        wm_dir = td / "wm_atomic"
+        m = write_metrics(wm_dir, {"verdict": "HARD_PASS", "verdict_msg": "ok"},
+                          results=[{"elapsed_s": 1.5}, {"elapsed_s": 2.5}])
+        assert (wm_dir / "metrics.json").exists(), "T10a FAIL: metrics.json absent"
+        assert not (wm_dir / "metrics.json.tmp").exists(), \
+            "T10b FAIL: .tmp residue left after atomic write"
+        assert m["elapsed_s"] == 4.0, f"T10c FAIL: elapsed_s={m['elapsed_s']}"
+        assert m["summary"], "T10d FAIL: summary not injected"
+        print("[selftest] T10 PASS: write_metrics atomic (tmp+replace, no residue)")
+
+    print("[selftest] ALL 10 TESTS PASS -- PROT-021 + META_RULE_H_ANCHOR "
+          "loader guard + vacuous-smoke guard + atomic write operational")
