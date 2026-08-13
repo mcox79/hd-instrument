@@ -88,22 +88,68 @@ import safe_queue as sq  # noqa: E402 -- reuse the cross-platform (portalocker/m
 
 REGISTRY_LOCK_PATH = REGISTRY.with_suffix(".jsonl.lock")
 
-# Composed-entry files whose source TEXT we grep for a capability's basename/id --
-# a capability mentioned here is reachable from the substrate's designated entry
-# point even if the import-graph regexes (which only catch `import`/`from` statements)
-# miss it (e.g. dynamic dispatch, string-keyed registry lookups).
-COMPOSED_ENTRY_PATHS = [
-    ROOT / "hdlab" / "reasoner.py",
-    ROOT / "hdlab" / "cortex.py",
-    ROOT / "hdlab" / "substrate.py",
-    ROOT / "hdlab" / "pipeline.py",
-    # CLAUDE.md documents CLI-invoked tools/ capabilities (e.g. "PRIMARY monitor =
-    # `python tools/inflight_monitor.py`") that the hdlab/experiments import-graph
-    # can never see (they are run directly, never imported). Treating a CLAUDE.md
-    # mention as a wired-by-documented-convention signal avoids false ISLAND on
-    # tools/*.py capabilities that are genuinely load-bearing but CLI-only.
-    ROOT / "CLAUDE.md",
+# ---------------------------------------------------------------------------
+# COMPOSED ENTRY POINTS -- rewritten 2026-08-13 for defects D1 + D2
+# (notes/registry_tighten_audit_2026-08-13.md).
+#
+# D2 (the critical one): this list used to be grepped as raw TEXT -- a row was
+# marked WIRED if its module stem appeared ANYWHERE in one of these files, via
+# `if base in src`. That is a bare substring match with a SHORT-CIRCUIT to WIRED
+# ahead of every other test, so it could only ever INFLATE the WIRED count. Stems
+# like `memory`, `store`, `atoms`, `metrics`, `multi_hop` matched prose, comments,
+# unrelated identifiers (`memory` inside `working_memory`) and even the word
+# "store" in a docstring, with no import anywhere. REPLACED by a real
+# import-reachability closure: a path counts only if it is transitively reachable
+# from one of these entry points through actual `import X` / `from X import`
+# statements (and, per D3, only statements in real CODE -- strings and comments
+# are blanked before matching). There is deliberately NO name-similarity fallback:
+# if reachability cannot be established, the honest answer is "not reachable".
+#
+# D1: `hdlab/substrate.py` and `hdlab/pipeline.py` were declared here and DO NOT
+# EXIST -- `git log --all --diff-filter=ADR -- <path>` returns EMPTY for both, i.e.
+# they were never created, added, renamed or deleted in the history of this repo.
+# They were copied from integration_health.py's COMPOSED_ENTRY_CANDIDATES tuple
+# ("reasoner.py", "substrate.py", "pipeline.py"), which is a list of CANDIDATE
+# names that script probes with os.path.exists() and reports "ABSENT" for -- it
+# never asserted they exist. Rooting the graph at two files that have never
+# existed silently shortened the closure. Replacements (evidence per entry below)
+# are the entry points that DO exist and are independently documented as what
+# actually runs. Missing entries now FAIL LOUD (see validate_entry_paths()).
+# ---------------------------------------------------------------------------
+COMPOSED_ENTRY_PATHS_REL = [
+    # -- surviving originals (exist on disk, unchanged) --
+    "hdlab/reasoner.py",
+    "hdlab/cortex.py",
+    # -- replacements for the two phantom entries --
+    # Evidence: these five are the repo's ONLY independently-declared "code that
+    # actually runs" root set (ACTIVE_PIPELINE_ENTRY_POINTS below, mirrored from
+    # notes/integration_audit_built_vs_wired_vs_used_2026-08-02.md); all five are
+    # verified present on disk, unlike substrate.py/pipeline.py which have no git
+    # history at all. Using them as composed roots keeps the closure rooted at real
+    # production entry points instead of at names that were only ever aspirational.
+    "tools/read_anne_glassbox_v2_honest_ledger.py",
+    "hdlab/coreference_resolver.py",
+    "hdlab/situation_model_accumulate.py",
+    "hdlab/self_improving_loop.py",
+    "hdlab/state_of_mind.py",
 ]
+
+# CLAUDE.md is NOT an entry point and is NO LONGER a WIRED signal (D2). A prose
+# mention is a name-similarity match, which is exactly the defect being removed.
+# It is still read, but only to report `documented_cli_only` as INFORMATION beside
+# the honest reachability verdict -- it never changes integration_status.
+DOC_MENTION_PATHS_REL = ["CLAUDE.md"]
+
+
+def validate_entry_paths() -> list[str]:
+    """Return the repo-relative entry paths that are declared but missing on disk.
+
+    D1: a missing entry path used to be skipped silently by _composed_entry_sources()
+    (`if p.exists()`), so the import graph could be rooted at a file that does not
+    exist and nothing said so. Callers MUST fail loudly on a non-empty return.
+    """
+    return [p for p in COMPOSED_ENTRY_PATHS_REL + DOC_MENTION_PATHS_REL
+            if not (ROOT / p).exists()]
 
 # ---------------------------------------------------------------------------
 # THIRD INTEGRATION STATE (2026-08-02/03, notes/integration_audit_built_vs_wired_
@@ -154,21 +200,27 @@ def _parse_import_names(chunk: str) -> list[str]:
 
 
 def compute_pipeline_reachable_modules(entry_points: list[str] | None = None) -> set[str]:
-    """BFS import closure from ACTIVE_PIPELINE_ENTRY_POINTS, restricted to real
-    `import`/`from` statements resolving to files under hdlab/ or tools/ (mirrors
-    integration_health.py's regex approach but seeded from explicit production
-    entry points instead of scanning every file in the repo -- answers "is X
-    reachable from what actually runs" not "is X imported by *something*").
+    """BFS import closure from ACTIVE_PIPELINE_ENTRY_POINTS -- "is X reachable from
+    what actually RUNS", not "is X imported by *something*".
 
-    No dynamic-import handling: grepped `importlib|__import__` across the entry
-    points (2026-08-02 audit) with zero hits, so this closure is exact for the
-    current pipeline, not an approximation.
+    D4 (2026-08-13): the hand-rolled regex set this used to carry (hdlab-absolute +
+    hdlab-relative + same-directory bare) could not see a package-qualified import into
+    any other directory (`from tools.X import`, `from verification.X import`), could not
+    see hdlab SUBPACKAGE relative imports (`from .plugins import x` inside hdlab/learner/
+    resolved to the wrong file or to nothing), and could not follow a re-export through a
+    package `__init__.py`. It now delegates to the ONE shared resolver in
+    integration_health (ih.file_import_edges + ih.build_module_index), so this closure and
+    the consumer graph can no longer disagree about what an import statement means.
 
-    Returns a set of repo-relative paths (both hdlab/ and tools/ members of the
-    closure); callers filtering for the registry check should keep only the
-    'hdlab/' subset.
+    Dynamic imports: string-literal `importlib.import_module("pkg.mod")` IS followed;
+    non-literal ones are unresolvable and are surfaced by ih as
+    `undetectable_dynamic_imports` rather than silently skipped.
+
+    Returns a set of repo-relative paths across the scanned dirs; callers filtering for
+    the registry check should keep only the 'hdlab/' subset.
     """
     entries = entry_points or ACTIVE_PIPELINE_ENTRY_POINTS
+    index, _files = ih.build_module_index(str(ROOT))
     seen: set[str] = set()
     queue: list[str] = list(entries)
     while queue:
@@ -179,33 +231,14 @@ def compute_pipeline_reachable_modules(entry_points: list[str] | None = None) ->
         if not full.exists():
             continue
         seen.add(rel)
-        src = ih._read(full)
-        cur_dir = str(Path(rel).parent).replace("\\", "/")
-        found: set[str] = set()
-        for m in _RE_FROM_HDLAB.finditer(src):
-            found.add(f"hdlab/{m.group(1)}.py")
-        for m in _RE_FROM_HDLAB_BARE.finditer(src):
-            for n in _parse_import_names(m.group(1)):
-                found.add(f"hdlab/{n}.py")
-        if cur_dir == "hdlab":
-            for m in _RE_REL.finditer(src):
-                found.add(f"hdlab/{m.group(1)}.py")
-            for m in _RE_REL_BARE.finditer(src):
-                for n in _parse_import_names(m.group(1)):
-                    found.add(f"hdlab/{n}.py")
-        # local-directory bare imports (e.g. tools/read_anne_glassbox_v2 importing
-        # tools/read_anne_glassbox_v1 as a sibling module, not a package import)
-        for m in _RE_LOCAL_FROM.finditer(src):
-            cand = f"{cur_dir}/{m.group(1)}.py"
-            if (ROOT / cand).exists():
-                found.add(cand)
-        for m in _RE_LOCAL_IMPORT.finditer(src):
-            cand = f"{cur_dir}/{m.group(1)}.py"
-            if (ROOT / cand).exists():
-                found.add(cand)
-        for f in found:
-            if f not in seen:
-                queue.append(f)
+        raw = ih._read(full)
+        code, ok = ih.strip_strings_and_comments(raw)   # D3: real code only
+        if not ok:
+            ih.CODE_ONLY_PARSE_FAILURES.append(str(full).replace("\\", "/"))
+        edges, _dyn = ih.file_import_edges(rel, code, raw, index)
+        for target, _lineno in edges:
+            if target not in seen:
+                queue.append(target)
     return seen
 
 
@@ -686,11 +719,32 @@ def append_rows(new_rows: list[dict], max_wait_s: float = 30.0) -> int:
         return len(txn.rows)
 
 
-def _composed_entry_sources() -> dict[str, str]:
+def compute_composed_reachable(entry_points: list[str] | None = None) -> set[str]:
+    """D2: real import-reachability closure from the composed entry points.
+
+    Replaces the old `_composed_entry_sources()` + `if base in src` substring grep.
+    A path is in this set only if it is an entry point itself (depth 0 -- the root
+    of what runs) or is transitively imported from one via a genuine import
+    statement. No name matching, no prose, no fallback.
+    """
+    missing = validate_entry_paths()
+    if missing:
+        raise FileNotFoundError(
+            "COMPOSED/DOC entry path(s) declared but MISSING on disk: "
+            + ", ".join(sorted(missing))
+            + " -- the import graph would be rooted at a nonexistent file. "
+              "Fix COMPOSED_ENTRY_PATHS_REL before trusting any WIRED verdict.")
+    return compute_pipeline_reachable_modules(entry_points or COMPOSED_ENTRY_PATHS_REL)
+
+
+def _doc_mention_sources() -> dict[str, str]:
+    """CLAUDE.md text, for the INFORMATIONAL `documented_cli_only` flag only.
+    Never feeds integration_status (D2)."""
     out = {}
-    for p in COMPOSED_ENTRY_PATHS:
+    for rel in DOC_MENTION_PATHS_REL:
+        p = ROOT / rel
         if p.exists():
-            out[_rel(p)] = ih._read(p)
+            out[rel] = ih._read(p)
     return out
 
 
@@ -715,8 +769,12 @@ def _grep_symbol_files(symbol: str) -> list[str]:
     return hits
 
 
-def compute_integration_status(row: dict, graph, composed_sources: dict[str, str]) -> tuple[str, list[str]]:
-    """Return (integration_status, used_by_sample) for one registry row."""
+def compute_integration_status(row: dict, graph, composed_reachable: set[str]) -> tuple[str, list[str]]:
+    """Return (integration_status, used_by_sample) for one registry row.
+
+    D2 (2026-08-13): `composed_reachable` is now a SET of repo-relative paths from a
+    real import closure (compute_composed_reachable()), not a {path: source_text} map
+    grepped with `base in src`."""
     exp_module_consumers, hdlab_consumers, bypass_cells, exp_files, hdlab_files, hdlab_mods = graph
 
     if row.get("gate_decision") in ("SHELVE",) and not row.get("path") and not row.get("grep_symbol"):
@@ -740,6 +798,14 @@ def compute_integration_status(row: dict, graph, composed_sources: dict[str, str
     if len(missing) == len(paths):
         return "UNKNOWN", []
 
+    # D4 (2026-08-13): path-keyed consumer edges from the WIDENED import graph
+    # (tools/->tools/, verification/->anything, backend/, scripts/, hdlab subpackages).
+    # The two stem-keyed lookups below can only ever answer for a top-level experiments/
+    # or hdlab/ module, so before this a row whose only importer lived in tools/ or
+    # verification/ read as a FALSE ISLAND -- the dangerous direction, because it makes
+    # us re-wire what is already wired or shelve live capability.
+    path_consumers = getattr(graph, "path_consumers", None) or {}
+
     consumers: set[str] = set()
     composed_hits: set[str] = set()
     for p in paths:
@@ -751,16 +817,23 @@ def compute_integration_status(row: dict, graph, composed_sources: dict[str, str
             consumers |= {_rel(Path(c)) for c in hdlab_consumers.get(base, set())}
         else:
             consumers |= {_rel(Path(c)) for c in exp_module_consumers.get(base, set())}
-        # composed-entry text mention (dynamic-dispatch catch-all)
-        for entry_name, src in composed_sources.items():
-            if entry_name == p:
-                continue
-            if base in src:
-                composed_hits.add(entry_name)
+        consumers |= {c for c in path_consumers.get(p, set()) if c != p}
+        # D2: real import-reachability from a composed entry point, not a text grep.
+        if p in composed_reachable:
+            composed_hits.add(f"composed-reachable:{p}")
+
+    # D4b: TRAPPED_SHARED means "reused, but ONLY by experiment cells -- never reaches the
+    # library/CLI/certification layer" (that is the whole point of the state: islanded-but-
+    # reused). An importer in hdlab/, tools/, verification/, backend/ or scripts/ is NOT
+    # that case -- it is the library layer, i.e. WIRED. Before the D4 widening this rule
+    # was unreachable in practice because no non-hdlab library importer was ever visible.
+    library_consumers = sorted(c for c in consumers if not c.startswith("experiments/"))
 
     if composed_hits:
         return "WIRED", sorted(composed_hits | consumers)[:GREP_SAMPLE_CAP]
     if row.get("kind") == "hdlab-module" and consumers:
+        return "WIRED", sorted(consumers)[:GREP_SAMPLE_CAP]
+    if library_consumers:
         return "WIRED", sorted(consumers)[:GREP_SAMPLE_CAP]
     if consumers:
         return "TRAPPED_SHARED", sorted(consumers)[:GREP_SAMPLE_CAP]
@@ -831,8 +904,15 @@ def check_stale_decisions(rows: list[dict], stale_days: int, now: datetime) -> l
 
 def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False) -> dict:
     now = datetime.now(timezone.utc)
+    # D1: fail LOUD, before any scanning, if an entry path is declared but missing.
+    missing_entries = validate_entry_paths()
+    if missing_entries:
+        raise FileNotFoundError(
+            "AUDIT ABORTED -- declared entry path(s) missing on disk: "
+            + ", ".join(sorted(missing_entries)))
     graph = ih.compute_import_graph()
-    composed_sources = _composed_entry_sources()
+    composed_reachable = compute_composed_reachable()
+    doc_sources = _doc_mention_sources()
     pipeline_reachable = compute_pipeline_reachable_modules()
     pipeline_reachable_hdlab = sorted(p for p in pipeline_reachable if p.startswith("hdlab/"))
 
@@ -849,11 +929,23 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False)
         n_wired = n_trapped = n_island = n_na = n_unknown = 0
         n_pipeline_used = n_wired_not_pipeline = 0
         path_missing_flags = []
+        doc_only_rows = []
         for r in rows:
-            status, used_by = compute_integration_status(r, graph, composed_sources)
+            status, used_by = compute_integration_status(r, graph, composed_reachable)
             r["integration_status"] = status
             r["used_by"] = used_by
             r["last_audit_utc"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+            # INFORMATIONAL ONLY (D2): a CLAUDE.md prose mention no longer makes a row
+            # WIRED. Reported separately so a genuinely CLI-only tool row is still
+            # visible as documented rather than being lost among the ISLANDs.
+            if status in ("ISLAND", "UNKNOWN"):
+                for p in (r.get("path") or []):
+                    stem = Path(p).stem
+                    if any(stem in src for src in doc_sources.values()):
+                        doc_only_rows.append({"id": r.get("id"), "path": p,
+                                              "note": "named in CLAUDE.md prose only; NOT import-reachable"})
+                        break
 
             # THIRD STATE: only meaningful for hdlab-module rows the old check already
             # calls WIRED -- refines "some consumer exists" into "reachable from what
@@ -906,6 +998,23 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False)
             "WIRED_BUT_NOT_PIPELINE_REACHABLE": n_wired_not_pipeline,
         },
         "pipeline_reachable_hdlab_modules": pipeline_reachable_hdlab,
+        "composed_entry_points": list(COMPOSED_ENTRY_PATHS_REL),
+        "composed_reachable_paths": sorted(composed_reachable),
+        # D4: what the import graph could actually SEE this run. Before 2026-08-13 this
+        # was ["experiments", "hdlab"] non-recursive and everything else was invisible.
+        "import_graph_scan": {
+            "wide": getattr(graph, "wide", False),
+            "scanned_dirs": getattr(graph, "scanned_dirs", []),
+            "n_scanned_files": len(getattr(graph, "scanned_files", [])),
+            "n_path_edges": sum(len(v) for v in (getattr(graph, "path_consumers", {}) or {}).values()),
+        },
+        # Statically UNRESOLVABLE dynamic imports (importlib/__import__ on a non-literal).
+        # Recorded, not silently dropped: any module reachable only this way can still
+        # read as an ISLAND and no static graph can prove otherwise.
+        "undetectable_dynamic_imports": getattr(graph, "undetectable_dynamic_imports", [])[:200],
+        "n_undetectable_dynamic_imports": len(getattr(graph, "undetectable_dynamic_imports", [])),
+        "documented_cli_only_rows": doc_only_rows,
+        "code_only_parse_failures": sorted(set(ih.CODE_ONLY_PARSE_FAILURES)),
         "unregistered_hdlab_modules": unregistered_hdlab,
         "path_missing_flags": path_missing_flags,
         "undecided_validated_capabilities": undecided,
@@ -939,6 +1048,10 @@ def print_report(summary: dict) -> None:
     print(f"[status] rows={summary['n_rows']}  WIRED={c['WIRED']}  "
           f"TRAPPED_SHARED={c['TRAPPED_SHARED']}  ISLAND={c['ISLAND']}  "
           f"N_A_SHELVED={c['N_A_SHELVED']}  UNKNOWN={c['UNKNOWN']}")
+    ig = summary.get("import_graph_scan", {})
+    print(f"[graph] wide={ig.get('wide')}  dirs={','.join(ig.get('scanned_dirs', []))}  "
+          f"files={ig.get('n_scanned_files', 0)}  edges={ig.get('n_path_edges', 0)}  "
+          f"unresolvable-dynamic-imports={summary.get('n_undetectable_dynamic_imports', 0)}")
     pc = summary.get("pipeline_status_counts", {})
     print(f"[pipeline] of the {c['WIRED']} WIRED hdlab-module rows: "
           f"WIRED_AND_PIPELINE_USED={pc.get('WIRED_AND_PIPELINE_USED', 0)}  "

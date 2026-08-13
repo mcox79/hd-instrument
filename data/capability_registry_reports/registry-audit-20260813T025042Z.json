@@ -1,0 +1,1041 @@
+{
+  "audit_utc": "2026-08-13T02:49:58Z",
+  "n_rows": 123,
+  "integration_status_counts": {
+    "WIRED": 62,
+    "TRAPPED_SHARED": 28,
+    "ISLAND": 31,
+    "N_A_SHELVED": 2,
+    "UNKNOWN": 0
+  },
+  "pipeline_status_counts": {
+    "WIRED_AND_PIPELINE_USED": 10,
+    "WIRED_BUT_NOT_PIPELINE_REACHABLE": 52
+  },
+  "pipeline_reachable_hdlab_modules": [
+    "hdlab/binding.py",
+    "hdlab/bundling.py",
+    "hdlab/coreference_resolver.py",
+    "hdlab/modulators.py",
+    "hdlab/self_improving_loop.py",
+    "hdlab/situation_model_accumulate.py",
+    "hdlab/situation_model_multibank.py",
+    "hdlab/state_of_mind.py",
+    "hdlab/tracing.py",
+    "hdlab/working_memory.py"
+  ],
+  "composed_entry_points": [
+    "hdlab/reasoner.py",
+    "hdlab/cortex.py",
+    "tools/read_anne_glassbox_v2_honest_ledger.py",
+    "hdlab/coreference_resolver.py",
+    "hdlab/situation_model_accumulate.py",
+    "hdlab/self_improving_loop.py",
+    "hdlab/state_of_mind.py"
+  ],
+  "composed_reachable_paths": [
+    "hdlab/atom_consultation.py",
+    "hdlab/binding.py",
+    "hdlab/bundling.py",
+    "hdlab/char_trigram_encoder.py",
+    "hdlab/chunked_attention.py",
+    "hdlab/clarify_gate.py",
+    "hdlab/cleanup_family.py",
+    "hdlab/context_retention.py",
+    "hdlab/coreference_resolver.py",
+    "hdlab/cortex.py",
+    "hdlab/iterative_attractor.py",
+    "hdlab/modulators.py",
+    "hdlab/noise_channel.py",
+    "hdlab/reasoner.py",
+    "hdlab/refuse_gate.py",
+    "hdlab/role_slot_summarizer.py",
+    "hdlab/self_improving_loop.py",
+    "hdlab/situation_model_accumulate.py",
+    "hdlab/situation_model_multibank.py",
+    "hdlab/state_of_mind.py",
+    "hdlab/tracing.py",
+    "hdlab/typed_rule_parser.py",
+    "hdlab/working_memory.py",
+    "tools/read_anne_glassbox_v1.py",
+    "tools/read_anne_glassbox_v2_honest_ledger.py"
+  ],
+  "documented_cli_only_rows": [
+    {
+      "id": "inflight_monitor",
+      "path": "tools/inflight_monitor.py",
+      "note": "named in CLAUDE.md prose only; NOT import-reachable"
+    }
+  ],
+  "code_only_parse_failures": [
+    "D:/AI/hd-instrument/experiments/exp_m2_capacity.py"
+  ],
+  "unregistered_hdlab_modules": [
+    "hdlab/ablation.py",
+    "hdlab/additive_map.py",
+    "hdlab/arc_labeler.py",
+    "hdlab/arc_parser.py",
+    "hdlab/atom_consultation.py",
+    "hdlab/atoms.py",
+    "hdlab/bayesian_inference.py",
+    "hdlab/bigram_gap_measurement.py",
+    "hdlab/candidate_generator.py",
+    "hdlab/char_positional_encoder.py",
+    "hdlab/chunked_attention.py",
+    "hdlab/clarify_gate.py",
+    "hdlab/conformal.py",
+    "hdlab/consequence_learning_loop.py",
+    "hdlab/context_retention.py",
+    "hdlab/coref_distractor_suppress.py",
+    "hdlab/dg_pattern_separation.py",
+    "hdlab/director_kb.py",
+    "hdlab/director_kb_bio_sources.py",
+    "hdlab/director_kb_chunk_ingest.py",
+    "hdlab/director_kb_math_sources.py",
+    "hdlab/event_centrality_coref.py",
+    "hdlab/experiment.py",
+    "hdlab/glass_box_loop.py",
+    "hdlab/goal_outcome_relation_grounded.py",
+    "hdlab/gpu_generated_streaming_attention.py",
+    "hdlab/gpu_memory_budget.py",
+    "hdlab/grounding_acquisition_loop.py",
+    "hdlab/gsbc_graded_encoder.py",
+    "hdlab/int8_dense.py",
+    "hdlab/late_combine.py",
+    "hdlab/layer_075_structural_slot_filter.py",
+    "hdlab/learning.py",
+    "hdlab/lm_eval_harness.py",
+    "hdlab/mcscript_extraction.py",
+    "hdlab/memory.py",
+    "hdlab/metrics.py",
+    "hdlab/modern_hopfield_readout.py",
+    "hdlab/modulators.py",
+    "hdlab/multi_hop.py",
+    "hdlab/noise_channel.py",
+    "hdlab/outcome_event_extraction.py",
+    "hdlab/per_item_log.py",
+    "hdlab/perceptron.py",
+    "hdlab/pos_tagger.py",
+    "hdlab/refuse_gate.py",
+    "hdlab/role_slot_summarizer.py",
+    "hdlab/scene_segment.py",
+    "hdlab/script_grain_acquisition_loop.py",
+    "hdlab/semantic_parser.py",
+    "hdlab/session_log.py",
+    "hdlab/situation_model_multibank.py",
+    "hdlab/snapshots.py",
+    "hdlab/store.py",
+    "hdlab/streaming_attention.py",
+    "hdlab/temporal_trace.py",
+    "hdlab/token_vocab.py",
+    "hdlab/tracing.py",
+    "hdlab/whitening.py",
+    "hdlab/word_learning_tool.py",
+    "hdlab/wordnet_polarity_propagation.py"
+  ],
+  "path_missing_flags": [],
+  "undecided_validated_capabilities": [],
+  "stale_vet_pending": [
+    {
+      "id": "cls_discrete_budget_consolidate_v6_replay",
+      "age_days": 15.4
+    }
+  ],
+  "invisible_island_candidates_HIGH": [
+    {
+      "anchor": "exp_appraisal_structure_extraction",
+      "verdict": "FIX_HELPS_NARROW_BOTTLENECK_REMAINS",
+      "verdict_msg": "FIX_HELPS_NARROW_BOTTLENECK_REMAINS: correct_diff 0.000->0.250 (random 0.150); any_diff 0.250->0.500 (n=20->20); det_correct_diff_items base=0 fix=1 random=0 | downstream_arm_b_acc 0.450->0.500 vs arm",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_appraisal_structure_extraction_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:appraisal"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_coherence_role_compat_score_selector",
+      "verdict": "HARD_PASS_ROLE_COMPAT_SCORE_MECHANISM_CAPACITY_EXISTENCE_PROOF_N1",
+      "verdict_msg": "HARD_PASS_ROLE_COMPAT_SCORE_MECHANISM_CAPACITY_EXISTENCE_PROOF_N1: SCOPE=[MECHANISM-CAPACITY proof over SUPPLIED role-structure: the substrate can USE a supplied symbolic role-compatibility table to d",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_coherence_role_compat_score_selector_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:coherence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_coherence_selector_insim",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "COHERENCE_REVERSE_REPLAY EVAL(novel-entity) acc=1.0000 beats RECENCY=0.0000 (+1.0000) RANDOM=0.5067 (+0.4933) NO_REPLAY_LOCAL=0.4600 (+0.5400); glassbox margin positive in every seed (min=0.0501); ORA",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_coherence_selector_insim_v2"
+      ],
+      "high_signal_markers": [
+        "keyword:coherence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_consolidation_ledger",
+      "verdict": "BROKEN_OR_UNDER_INSTRUMENTED",
+      "verdict_msg": "[BROKEN_OR_UNDER_INSTRUMENTED] n_passages=36 n_flagged_items=59 outcomes={'CONSOLIDATED': 2, 'NOT_CONSOLIDATED': 57}. FALSE-CONSOLIDATION rate=0.5 (1/2 consolidated items wrong vs gold) [band <= 0.2].",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_consolidation_ledger_v1"
+      ],
+      "high_signal_markers": [
+        "map:core-in-map"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_cortex_schema_MACFAC_two_stage_retrieval",
+      "verdict": "SELFTEST_OK",
+      "verdict_msg": "SELFTEST_OK: arms differ, oracle=0.800 base=0.217 exemplar=0.758 primary=0.783",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_cortex_schema_MACFAC_two_stage_retrieval_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "cortex"
+    },
+    {
+      "anchor": "exp_cortex_schema_exemplar_bayes_importance_sample",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | EXEMPLAR_BAYES_SUPPORTED: primary=0.714 (>=0.50) | lift_over_base=+0.443 (>=0.30) | lift_over_rand=+0.470 (>=0.30) | primary[ARM_K_NEAREST_K20]=0.714 base=0.271 rand=0.244 oracle=0.801 K5=",
+      "n_dirs": 3,
+      "sample_dirs": [
+        "exp_cortex_schema_exemplar_bayes_importance_sample_v1",
+        "exp_cortex_schema_exemplar_bayes_importance_sample_v1_selftest",
+        "exp_cortex_schema_exemplar_bayes_importance_sample_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "cortex"
+    },
+    {
+      "anchor": "exp_cortex_schema_instantiation_context_prior",
+      "verdict": "SELFTEST_OK",
+      "verdict_msg": "SELFTEST_OK: arms differ, oracle=0.800 primary=0.792 hybrid=0.783 exemplar=0.758",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_cortex_schema_instantiation_context_prior_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "cortex"
+    },
+    {
+      "anchor": "exp_cross_span_causal_binding",
+      "verdict": "CROSS_SPAN_BINDING_LIFTS_RECALL_AND_SELECTION",
+      "verdict_msg": "CROSS_SPAN_BINDING_LIFTS_RECALL_AND_SELECTION: RECALL_TRUE det_items within=0 cross=3 random=0 | RECALL_DISTR rate within=0.000 cross=0.750 random=0.000 | END_TO_END det_items within=0 cross=1 random=",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_cross_span_causal_binding_v1"
+      ],
+      "high_signal_markers": [
+        "map:core-in-map"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "binding"
+    },
+    {
+      "anchor": "exp_curriculum_order_ingest_schema_fit",
+      "verdict": "HARD_PASS_ORDER_MATTERS_CURRICULUM_RESCUES_SCHEMA_FIT",
+      "verdict_msg": "HARD_PASS_ORDER_MATTERS_CURRICULUM_RESCUES_SCHEMA_FIT | gap(curr-rev)=1.000 rescue=0.909 hier_spread=1.000 flat_spread=0.0000",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_curriculum_order_ingest_schema_fit_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_goal_congruence_outcome_valence",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "delta_acc=0.333 (detector=0.750 vs baseline=0.417); detector_acc_lexicon_miss=1.000 (baseline_acc_lexicon_miss=0.143); scramble_acc_mean=0.500 scramble_sanity_ok=True; coverage_gain_full=14/24 coverag",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_goal_congruence_outcome_valence_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:valence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_grounded_appraisal_richer_eval",
+      "verdict": "RANKING=RANKING_RUNS_BUT_EQUALS_RECENCY_FALSIFIED | VALENCE=VALENCE_PARTIAL_SINGLE_RETALIATION_FLIP",
+      "verdict_msg": "MULTI(n=4): faithful_acc=0.000 steelman_acc=0.000 recency_acc=0.000 ranking_ran_steel=4/4 ranking_ran_faithful=0/4 -> RANKING_RUNS_BUT_EQUALS_RECENCY_FALSIFIED. IRONY(n=3): surface=0.000 intent_raw=0.",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_grounded_appraisal_richer_eval_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:appraisal"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_grounded_appraisal_transfer_to_text",
+      "verdict": "EXTRACTION_BOTTLENECK",
+      "verdict_msg": "EXTRACTION_BOTTLENECK: CAUSAL(n=7): arm_a=1.000 arm_b=0.629 arm_c=0.514 recency=0.143 chance=0.500 gap_closure=-0.308 | IRONY(n=10): arm_a=0.600 arm_b=0.500 arm_c=0.700 surface=0.500 chance=0.500 | BE",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_grounded_appraisal_transfer_to_text_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:appraisal"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_grounded_coherence_selector",
+      "verdict": "GROUNDED_PARTIAL_LEXICAL_PROXY",
+      "verdict_msg": "GROUNDED_PARTIAL_LEXICAL_PROXY: SIM: FULL=1.000 RANDOM=0.291(chance=0.333) NO_EFF=0.500 NO_VAL=0.506 SHUFFLED=0.302 recency=0.337 | TEXT(n=7): full=0.714 valence_only=0.514 eff_only=0.657 vs gold_rece",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_grounded_coherence_selector_v1",
+        "exp_grounded_coherence_selector_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:coherence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_grounded_valence_read_from_text",
+      "verdict": "ROUTES_TO_GROUNDED_HARM_KNOWLEDGE",
+      "verdict_msg": "ROUTES_TO_GROUNDED_HARM_KNOWLEDGE: valence_only selection acc (n=7): FROZEN_LEXICON=0.1429 (baseline 0.5143) EARNED_GROUNDED=0.2857 EARNED_NO_GUARD=0.1429 EARNED_NO_KNOWLEDGE=0.0000 | floors RANDOM=0.",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_grounded_valence_read_from_text_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:valence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_image_schema_codebook_cpu",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: substrate grounds abstract concepts in image-schemas (retrieval>=0.85) AND concepts sharing a schema cluster across domains (purity>=0.70) -- embodied grounding of abstract cognition via La",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_image_schema_codebook_cpu_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_intent_valence_via_mentalizing",
+      "verdict": "INTENT_VALENCE_WORKS",
+      "verdict_msg": "INTENT_VALENCE_WORKS: 007 surface=False intent=True ablated=False (source=TOM_RETALIATION_REGISTER) | 011 surface=True (tied=True) intent=True (tied=False) ablated=True (source=BENEFICIARY_ORACLE_DECL",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_intent_valence_via_mentalizing_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:valence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_lap3_9_schema_production_cpu",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: substrate extracts >=150 category schemas at >=0.95 coverage (production scale) -- common-sense schema compression holds at scale; closes the substrate-vs-LLM scale gap on common-sense. cov",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_lap3_9_schema_production_cpu_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_lap4_6_schema_1000_cpu",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: 1000 cross-domain schemas at >=0.90 coverage + >=0.70 in-domain coherence -- common-sense schema compression scales to 1000 across domains. coverage=1.000 cross-domain=1.000 (1000 schemas)",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_lap4_6_schema_1000_cpu_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_lap4_tom_depth3_cpu",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: substrate represents depth-3 nested belief (A believes B believes C believes X) recall>=0.75 -- recursive theory-of-mind via nested binding; agent-belief composition holds 3 deep. depth3-To",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_lap4_tom_depth3_cpu_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:tom"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_lap5_schema_layer_cpu",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: substrate extracts >=50 category schemas at >=0.95 coverage (precision>=0.8) -- instances compress into prototypes; shared common-sense schema recovered from a bundle. coverage=1.000 precis",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_lap5_schema_layer_cpu_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_maintained_affect_narrative_irony_probe",
+      "verdict": "NULL_FALSE_POSITIVES",
+      "verdict_msg": "NULL_FALSE_POSITIVES: narrative_missed_recovered=1/3 (['grapp_irony_002']) | sincere_fp=2/5 | local_cue_maintained_acc=1.0 | arm_c_local_narrative_missed_acc=0.0 | maintained_narrative_missed_acc=0.33",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_maintained_affect_narrative_irony_probe_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:narrative"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_narrative_goal_outcome_achievement_comparison_learnable_grounded",
+      "verdict": "PARTIAL",
+      "verdict_msg": "ARM-LEARN held-out acc=0.6000 beats majority=0.5000 but does NOT clear SURFACE_PLATEAU=0.60 (or scramble/episodic gate failed: learn_non_episodic=True scramble_collapses=True) -- partial relational si",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_narrative_goal_outcome_achievement_comparison_learnable_grounded_v1",
+        "exp_narrative_goal_outcome_achievement_comparison_learnable_grounded_v1_selftest"
+      ],
+      "high_signal_markers": [
+        "keyword:narrative"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_narrative_goal_outcome_role_sharded_generality",
+      "verdict": "PARTIAL_TIE",
+      "verdict_msg": "role_shard_weighted mean_acc=0.6000 ties naive_flat=0.6100/attention_flat=0.6000 (within TIE_BAND=0.02) -- sharding not decisively additive on this construction/scale; simplest sufficient baseline win",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_narrative_goal_outcome_role_sharded_generality_v1",
+        "exp_narrative_goal_outcome_role_sharded_generality_v1_selftest"
+      ],
+      "high_signal_markers": [
+        "keyword:narrative"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_narrative_referent_recurrence_structural",
+      "verdict": "PARTIAL",
+      "verdict_msg": "HAND-RULE held-out forced_acc=0.6000 (vs SURFACE_PLATEAU=0.60, majority=0.5000); HAND-RULE fires on 3/20 test items (fire_rate=0.150) at acc_when_fired=1.0000; full-50 diagnosis: literal-crackable(cor",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_narrative_referent_recurrence_structural_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:narrative"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_pfc_gate_cfrpe_trained",
+      "verdict": "SELFTEST_OK",
+      "verdict_msg": "SELFTEST_OK: ST1-ST7 (cfrpe-TD shrink, adaptive LR, Go/NoGo argmax, mechanism-fires reach ranking, pipeline, binom, anti-tautology control uninformative)",
+      "n_dirs": 6,
+      "sample_dirs": [
+        "exp_pfc_gate_cfrpe_trained_v1_selftest",
+        "exp_pfc_gate_cfrpe_trained_v2",
+        "exp_pfc_gate_cfrpe_trained_v2_selftest",
+        "exp_pfc_gate_cfrpe_trained_v2_smoke",
+        "exp_pfc_gate_cfrpe_trained_v2_smoke_selftest"
+      ],
+      "high_signal_markers": [
+        "map:core-in-map"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_propara_schema_learned_grounded_binder",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "SELFTEST_PASS",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_propara_schema_learned_grounded_binder_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_pun_coherence_alarm_viability_probe",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | incoh dom_WRONG=0.9849 cor=0.0 ctl=0.0 | sep(dom-cor)=0.9849 sep(dom-ctl)=0.9849 frac=1.0 p=3.81e-06 | scramble_sep=-0.0073 xfeat_sep=-0.166 | GREEN-LIGHT: selectional-fit coherence alarm ",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_pun_coherence_alarm_viability_probe_v1",
+        "exp_pun_coherence_alarm_viability_probe_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:coherence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_schema_bundle_structural_transfer",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS_SCHEMA_TRANSFER: bundle-schema generalizes to novel same-relation entities above random. real_gain(M200)=+0.590 cv=0.069 shuf_gain=+0.003 real-cind=+0.590 real_gain(M10)=+0.112 | curve real=",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_schema_bundle_structural_transfer_v1",
+        "exp_schema_bundle_structural_transfer_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_schema_relation_TEM_scorer_scaleup_envelope",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS_ENVELOPE_INDUCTIVE_TRANSFER: scaling reaches useful magnitude (real_minus_shuf(ind) >= 0.2075) on a trustworthy family ([('SCORER', 'V100', 'CausesDesire', 'bge_semantic')]); headline family",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_schema_relation_TEM_scorer_scaleup_envelope_v2"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_schema_reorg_distractor_detection_cost",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | detector under distractors: naive_prec=0.33 (rec=1.00) -> gated(H=2,K=4) prec=1.00 rec=1.00 | best_prec@recall>=.9=1.00 | sustain-run sep: wobbler<=3 vs genuine>=6 (gap=3) | detection/writ",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_schema_reorg_distractor_detection_cost_v1",
+        "exp_schema_reorg_distractor_detection_cost_v1_selftest"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_schema_reorg_targeted_reindex",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | staleness_drop=0.600 (stable_ctrl=1.000 vs noreorg_shifted=0.400) | flat_scan_shifted=1.000 (no staleness) | recovery_frac=1.000 (targ_shifted=1.000, full_shifted=1.000, oracle_shifted=1.0",
+      "n_dirs": 3,
+      "sample_dirs": [
+        "exp_schema_reorg_targeted_reindex_v1",
+        "exp_schema_reorg_targeted_reindex_v1_selftest",
+        "exp_schema_reorg_targeted_reindex_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_schema_retrieval_rt1_cpu",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: substrate Tier-2 schema retrieval >=0.90 over a representative ~20-schema inventory -- fine-grained schema cleanup works (Phase-2 schema layer viable). retrieval-acc=0.967 (20 schemas, 30 q",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_schema_retrieval_rt1_cpu_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situated_goal_structure_valence",
+      "verdict": "STRUCTURE_INSUFFICIENT",
+      "verdict_msg": "STRUCTURE_INSUFFICIENT: confused_4 situated_acc=0.500 (2/4) bundle_category_acc=0.000 target_only_acc=0.500 lexical_acc=0.250 | full_12 situated_acc=0.333 target_resolver_acc=0.583",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situated_goal_structure_valence_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:valence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_bias_prod_wire_discourse_decisive",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: wired_acc=1.000 none_arg_acc=0.500 scr_acc=0.500 arms_differ_all=True animacy_axis_ok=True",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_bias_prod_wire_discourse_decisive_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_assembly_encoder_backed",
+      "verdict": "SELFTEST_PASS",
+      "verdict_msg": "SELFTEST_PASS (clean loop reuse + real v2 encoder extraction ladder + arms-differ)",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_assembly_encoder_backed_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_assembly_encoder_retrain_role",
+      "verdict": "MIDDLE",
+      "verdict_msg": "Direction moved but no bar cleared. Worst-of-4 (role,order) decode 0.681->0.738 (lift_ok=False abs_ok=False); order-sensitivity 0.066->0.050 (improved=True); LOOP gap_closed=0.489 oracle 0.737->0.855 ",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_assembly_encoder_retrain_role_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_assembly_entity_file",
+      "verdict": "DEEPER_WALL",
+      "verdict_msg": "Even the ORACLE stable address does NOT recover to >= 0.85 on all types (oracle={'a_name_maintenance': 0.73875, 'b_competitive_coref': 0.7375, 'c_overwrite': 0.7316061298789265}; REF_SPAN ceiling={'a_",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_assembly_entity_file_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_assembly_learned_identity_head",
+      "verdict": "SELFTEST_PASS",
+      "verdict_msg": "SELFTEST_PASS (drift-guard vs ef + learned head + anti-collapse teeth + arms-differ)",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_assembly_learned_identity_head_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_event_bundle_focus",
+      "verdict": "PARTIAL",
+      "verdict_msg": "PARTIAL: no hard-fail trigger but not all gates passed (failing: ['CHUNK_recovery']). P1=1.000 bundle=1.000 thin=0.000 scramble=0.187 flat_drop=0.773 recovery=0.313.",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_situation_model_event_bundle_focus_v1",
+        "exp_situation_model_event_bundle_focus_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "event_bundle"
+    },
+    {
+      "anchor": "exp_situation_model_harder_construction_generalization",
+      "verdict": "SELFTEST_PASS",
+      "verdict_msg": "SELFTEST_PASS (hard-renders + token-copy-proof + drift-guard + tiny-seed + arms-differ)",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_harder_construction_generalization_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_multibank_capacity",
+      "verdict": "MEASURED_MECHANISM",
+      "verdict_msg": "CAPACITY_FIXED_MEASURED_MECHANISM: flat degrades to 0.6547 at n_events=256 (below 0.85) while multibank(n_banks=16) holds 1.0000 (above 0.95). NOT chain-grade (see REGIME-DISCRIMINATING-REGIME HONESTY",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_multibank_capacity_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation",
+        "map:core-in-map"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "situation_model_multibank"
+    },
+    {
+      "anchor": "exp_situation_model_naturalistic_firstcut",
+      "verdict": "MIDDLE",
+      "verdict_msg": "Direction moved but did not clear HARD_PASS on the naturalistic construction. [NATURALISTIC-WITHIN-ENCODER-VOCAB, not open-domain] PROOF-OF-HARDNESS frozen loop 0.479(easy)->0.259(nat) degrade=0.221, ",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_situation_model_naturalistic_firstcut_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_situation_model_relation_ablation",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "TIER0[HARD_PASS]: TIER0_HARD_PASS: recovery=5/5 fp=0 coverage=1.0 floor=0.8276 || TIER1[HARD_PASS]: TIER1_HARD_PASS: held_g=1.0 held_b=1.0 mem_b=0.6364 scr_g=0.6364 scr_b=0.6364 (tol=0.05) scramble_co",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_situation_model_relation_ablation_v1",
+        "exp_situation_model_relation_ablation_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "ablation"
+    },
+    {
+      "anchor": "exp_situation_reader_multisent_demo",
+      "verdict": "DEMONSTRATED",
+      "verdict_msg": "multi-sentence situation reader DEMONSTRATED: composes=True coref=0.402(band[.30,.60]=True) validity_gate(ss_xsent=0.000==0)=True TIME margin=+0.474(MECH 0.895 vs TEXT 0.421) CAUSE margin=+0.636(NET 1",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_situation_reader_multisent_demo_v1",
+        "exp_situation_reader_multisent_demo_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "situation_reader"
+    },
+    {
+      "anchor": "exp_stateful_core_situation_model",
+      "verdict": "SELFTEST_PASS",
+      "verdict_msg": "self-test PASS: real TinyTransformer+SlotAttentionWM+gen_multi_entity_state+gen_knowledge_dependent+gen_kb_prior code paths exercised at N~8-16; arm losses finite (A=0.7199 B=0.8226); arms differ (has",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_stateful_core_situation_model_v1_selftest"
+      ],
+      "high_signal_markers": [
+        "keyword:situation",
+        "map:core-in-map"
+      ],
+      "has_real_cell": false,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_substrate_higher_order_tom_recursive_v2_reframed",
+      "verdict": "SELFTEST_OK",
+      "verdict_msg": "SELFTEST_OK: cells=8 max_tom=1.000 arms_distinct_cells=7",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_substrate_higher_order_tom_recursive_v2_reframed"
+      ],
+      "high_signal_markers": [
+        "keyword:tom"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_substrate_higher_order_tom_recursive_v5_d5_isolated",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | D5_ISOLATED_DEPTH_DYNAMICS_CHAIN_GRADE: HRR_v5_pass=False (dv=0.0361 SE=0.0000 vs BOW=0.0016) TENSOR_v5_pass=True (dv=0.0529 SE=0.0000 vs BOW=0.0016) pos_control=OK monotonic_decay=HRR:0.3",
+      "n_dirs": 4,
+      "sample_dirs": [
+        "exp_substrate_higher_order_tom_recursive_v5_d5_isolated_seed_13",
+        "exp_substrate_higher_order_tom_recursive_v5_d5_isolated_seed_7",
+        "exp_substrate_higher_order_tom_recursive_v5_d5_isolated_selftest",
+        "exp_substrate_higher_order_tom_recursive_v5_d5_isolated_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:tom"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_substrate_narrative_q2_coref_lappin_leass_drill2",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS_DRILL2_LAPPIN_LEASS_Q2: ARM_LAPPIN_LEASS_FULL Q2=0.875 >=0.80 AND lift_over_naive=0.750 >=0.15 (operational baseline = NAIVE_MAGNITUDE 0.125; scene_focus=1.000 is oracle-class by corpus cons",
+      "n_dirs": 5,
+      "sample_dirs": [
+        "exp_substrate_narrative_q2_coref_lappin_leass_drill2_v1_seed_13",
+        "exp_substrate_narrative_q2_coref_lappin_leass_drill2_v1_seed_13_smoke",
+        "exp_substrate_narrative_q2_coref_lappin_leass_drill2_v1_seed_7",
+        "exp_substrate_narrative_q2_coref_lappin_leass_drill2_v1_seed_7_smoke",
+        "exp_substrate_narrative_q2_coref_lappin_leass_drill2_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:narrative"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "coref"
+    },
+    {
+      "anchor": "exp_substrate_schema_exemplar_bayes_capacity_stress",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | lift_pts=60/64 | avg_bayes_minus_nn=0.531 | low_load_sat=True | cliff_observable=True (n_cliff_pts=13) | capacity_scaling_met=True (delta=0.070) | all_saturated=False | arms_identical=Fals",
+      "n_dirs": 11,
+      "sample_dirs": [
+        "exp_substrate_schema_exemplar_bayes_capacity_stress_v2_seed_7",
+        "exp_substrate_schema_exemplar_bayes_capacity_stress_v3_seed_13_selftest",
+        "exp_substrate_schema_exemplar_bayes_capacity_stress_v3_seed_19_selftest",
+        "exp_substrate_schema_exemplar_bayes_capacity_stress_v3_seed_23_selftest",
+        "exp_substrate_schema_exemplar_bayes_capacity_stress_v3_seed_29_selftest"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "schema_exemplar_bayes"
+    },
+    {
+      "anchor": "exp_substrate_schema_family_phase_diagram",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS | discriminating_frac=0.729 (35/48) | family_pair_differs=6/6 | sat=13 floor=0 | pos_ctrl=0.9 (pass=True) | random_arm_pathology=False",
+      "n_dirs": 7,
+      "sample_dirs": [
+        "exp_substrate_schema_family_phase_diagram_v1_seed_13",
+        "exp_substrate_schema_family_phase_diagram_v1_seed_13_smoke",
+        "exp_substrate_schema_family_phase_diagram_v1_seed_19",
+        "exp_substrate_schema_family_phase_diagram_v1_seed_19_smoke",
+        "exp_substrate_schema_family_phase_diagram_v1_seed_7"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_supplied_schema_ceiling",
+      "verdict": "MEASURED_MECHANISM",
+      "verdict_msg": "Q1_UNSTATED_GOAL: recall=0.6666666666666666 (n_inferred=3) precision_goal_trigger=0.5789473684210527 fp_rate_goal_trigger=0.25 (n_negatives=32). Q2_PAIRING_GOAL_MEDIATED: recall=0.5555555555555556 (n=",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_supplied_schema_ceiling_v1",
+        "exp_supplied_schema_ceiling_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:schema"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_three_tier_loop_concept_coherence",
+      "verdict": "HARD_PASS_concept_coherence_unblocks_cross_source_paraphrase",
+      "verdict_msg": "OWNED graded concept_similarity aligns genuinely-same facts worded differently across sources: 21/21 (100.0%) of the previously-blocked real 2+-source gaps NOW retain end-to-end (W_concept final n_mid",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_three_tier_loop_concept_coherence_v1",
+        "exp_three_tier_loop_concept_coherence_v1_selftest"
+      ],
+      "high_signal_markers": [
+        "keyword:coherence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "three_tier_loop"
+    },
+    {
+      "anchor": "exp_visual_grounding_coherence",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "perceptual grounding recovers words (T1=0.635>chance 0.050, shuf 0.074), coheres with WordNet (T2a rho=0.353, null95=0.117, p=0.000), and ADDS confusable-discrimination dictionary-only lacks (T2b=0.88",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_visual_grounding_coherence_v1",
+        "exp_visual_grounding_coherence_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:coherence"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wave14_bbmd_vamp_correspondence_sweep",
+      "verdict": "BBMD_VAMP_CORRESPONDENCE_PASS",
+      "verdict_msg": "BBMD survives: rho(AMP-error, sum|delta_kappa_n|) = 0.900 > 0.8 across 5 alpha cells; max VAMP-rel-err = 0.0357 < 0.05. Anchor 1 of BBMD-regime promotion lands positive. AMP-error growth is monotonica",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_wave14_bbmd_vamp_correspondence_sweep_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:vamp"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wave14_cap8_vamp_iterates_rm_1_m",
+      "verdict": "CAP8_RM_ITERATES_GENERATED",
+      "verdict_msg": "All 15 RM(1,m) VAMP iterate-trace files written successfully with >=3 iterates each.  Audit-trail v5 can now compute Spearman rho on RM(1,m) with REAL iterate data (no spectrum-only fallback) -- v4's ",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_wave14_cap8_vamp_iterates_rm_1_m_v1",
+        "exp_wave14_cap8_vamp_iterates_rm_1_m_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:vamp"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wave14_cap8_vamp_iterates_srht_hadamard",
+      "verdict": "CAP8_ITERATES_GENERATED",
+      "verdict_msg": "All 1 VAMP iterate-trace files written successfully with >=10 iterates each.  Composition A audit v2 can now compute Spearman rho on SRHT + Hadamard.",
+      "n_dirs": 4,
+      "sample_dirs": [
+        "exp_wave14_cap8_vamp_iterates_srht_hadamard_v1_smoke",
+        "exp_wave14_cap8_vamp_iterates_srht_hadamard_v1b_smoke",
+        "exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c",
+        "exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:vamp"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wave14_lane_D_end_to_end_N65536_vamp",
+      "verdict": "LANE_D_E2E_N65K_PASS",
+      "verdict_msg": "Lane D Demo 1 at N=65536 with VAMP-on-chain: composed_acc=1.000 (>=0.50). Stages: S=1.000, T=1.000, X=1.000. Substrate-product Demo 1 viable.",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_wave14_lane_D_end_to_end_N65536_vamp_v1",
+        "exp_wave14_lane_D_end_to_end_N65536_vamp_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:vamp"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wave14_multihop_vamp_chain_N65536",
+      "verdict": "VAMPCHAIN_RESTORES",
+      "verdict_msg": "VAMP-on-chain restores deep composition: acc_50hop=1.000 (>=0.5) vs argmax 0.250. Tree-exact forward-backward EP succeeds where Resonator failed.",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_wave14_multihop_vamp_chain_N65536_v1",
+        "exp_wave14_multihop_vamp_chain_N65536_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:vamp"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wave14_vamp_vs_smoother_head_to_head",
+      "verdict": "HEADTOHEAD_EQUIVALENT",
+      "verdict_msg": "both >=0.95: smoother=1.000, vamp=1.000.",
+      "n_dirs": 2,
+      "sample_dirs": [
+        "exp_wave14_vamp_vs_smoother_head_to_head_v1",
+        "exp_wave14_vamp_vs_smoother_head_to_head_v1_smoke"
+      ],
+      "high_signal_markers": [
+        "keyword:vamp"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": null
+    },
+    {
+      "anchor": "exp_wire_coref_accumulate_situation_model",
+      "verdict": "BOTTLENECK_QUANTIFIED",
+      "verdict_msg": "BOTTLENECK_QUANTIFIED on the IDENTITY-DEMANDING subset: best real arm strict_cb=0.7193 beats both floors (recency=0.5614, singleton=0.3860) but stays below the milestone band vs oracle=0.9298. earned=",
+      "n_dirs": 1,
+      "sample_dirs": [
+        "exp_wire_coref_accumulate_situation_model_v1"
+      ],
+      "high_signal_markers": [
+        "keyword:situation"
+      ],
+      "has_real_cell": true,
+      "related_hdlab_module": "coref"
+    }
+  ],
+  "invisible_island_candidates_ALL_count": 3126,
+  "invisible_island_scan_stats": {
+    "n_candidates_high": 60,
+    "n_candidates_all": 3126,
+    "n_dirs_scanned_fresh": 2,
+    "n_dirs_cached": 7483,
+    "n_base_anchors_pass_shaped": 3192,
+    "cache_path": "data/capability_registry_reports/hard_pass_anchor_index.json"
+  },
+  "dry_run": true,
+  "registry_path": "data/capability_registry.jsonl"
+}
