@@ -47,6 +47,19 @@ Also FLAGS (does not silently pass):
   (b) capability_registry.jsonl rows with gate_decision in {VET_PENDING} whose
       last_decision_utc is older than --stale-days (default 7).
   (c) rows whose declared path(s) don't exist on disk.
+  (d) NEW 2026-08-13, REPORT-ONLY (never changes a row): the evidence a row CITES.
+      witness_missing        -- row cites a verify_*/witness_* file not on disk at all
+      witness_not_collected  -- row cites a witness pytest does not collect under the
+                                current pyproject config (outside testpaths, or the
+                                filename doesn't match python_files, or it matches but
+                                exposes ZERO pytest items because its work sits behind
+                                `if __name__ == "__main__":`)
+      witness_failing        -- row cites a witness that exits non-zero
+      witness_status_unknown -- cited witness has no exit-status evidence yet
+      Exit status is read from the results the collected driver
+      verification/test_all_witnesses_exit_clean.py persists to
+      data/witness_exit_status/ (running ~27 witnesses inline would add ~8 min to a
+      session-start audit); pass --run-witnesses to execute them live instead.
 
 Never mutates gate_decision / gate_decision_target / revival_criteria / supersedes /
 provenance -- those are human/Director judgment fields. Only integration_status,
@@ -902,7 +915,240 @@ def check_stale_decisions(rows: list[dict], stale_days: int, now: datetime) -> l
     return stale
 
 
-def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False) -> dict:
+# ---------------------------------------------------------------------------
+# WITNESS-CITATION CHECK (2026-08-13, notes/uncollected_witness_audit_2026-08-13.md)
+#
+# THE HOLE: this audit computes integration_status from the import graph, but it never
+# asked the other half of the WIRE gate -- "is the EVIDENCE this row cites real?" A row
+# could be marked WIRED, name a witness in its provenance, and that witness could be
+# absent from disk, never collected by pytest, or failing right now, and nothing here
+# would say so. Measured off disk 2026-08-13: one row cites a witness that is not in
+# verification/ at all; two rows are WIRED on the strength of a witness that FAILS; one
+# of those two carries the literal status string "..._pytest_certified" for a file
+# pytest has never collected (pyproject's python_files = ["test_*.py"] excludes every
+# verify_*/witness_* file, and has since the 2026-05-16 scaffold).
+#
+# REPORT-ONLY BY CONSTRUCTION. These three fields never mutate gate_decision,
+# integration_status, or any other row field -- evidence quality is a Director judgment
+# call, and silently downgrading a row on a red witness would just move the lie. The
+# thing that actually FAILS on a broken witness is the collected driver
+# verification/test_all_witnesses_exit_clean.py; this section makes the registry say
+# WHICH rows are standing on that broken evidence.
+# ---------------------------------------------------------------------------
+
+WITNESS_DRIVER_REL = "verification/test_all_witnesses_exit_clean.py"
+WITNESS_RESULTS_DIR = DATA / "witness_exit_status"
+
+# Matches a witness filename anywhere in a row's JSON text, with or without a leading
+# directory (rows cite them both ways: inside `path` as "experiments/verify_x_v1.py",
+# and in free-text provenance as a bare "verify_x.py").
+_RE_WITNESS_CITATION = re.compile(
+    r"((?:[A-Za-z0-9_.\-]+/)*(?:verify|witness)_[A-Za-z0-9_]+\.py)")
+
+# verification/ modules that are NOT witnesses (kept in sync with the driver's
+# NON_WITNESS_SUPPORT_MODULES); none of them match the regex above, listed for clarity.
+_WITNESS_SUPPORT_MODULES = frozenset({"__init__.py", "run_certification.py",
+                                      "oracle.py", "theory.py"})
+
+
+def _pytest_collection_config() -> tuple[list[str], list[str]]:
+    """Read testpaths + python_files out of pyproject.toml [tool.pytest.ini_options].
+
+    Read from the config rather than hardcoded, so that if someone widens the glob this
+    check follows them instead of reporting a stale answer.
+    """
+    testpaths, python_files = ["verification"], ["test_*.py"]
+    pp = ROOT / "pyproject.toml"
+    try:
+        import tomllib  # py3.11 stdlib
+        cfg = tomllib.loads(pp.read_text(encoding="utf-8"))
+        ini = cfg.get("tool", {}).get("pytest", {}).get("ini_options", {})
+        tp = ini.get("testpaths")
+        pf = ini.get("python_files")
+        if isinstance(tp, str):
+            tp = tp.split()
+        if isinstance(pf, str):
+            pf = pf.split()
+        if tp:
+            testpaths = list(tp)
+        if pf:
+            python_files = list(pf)
+    except (OSError, ImportError, ValueError):
+        pass
+    return testpaths, python_files
+
+
+def _file_exposes_pytest_items(path: Path) -> bool:
+    """AST: does this file define a top-level `test*` function or a `Test*` class with a
+    `test*` method? (pytest's default python_functions/python_classes; neither is
+    overridden in pyproject.) Work behind `if __name__ == "__main__":` is NOT an item --
+    that is exactly the 18-file trap the driver exists to close."""
+    import ast
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8", errors="ignore"))
+    except (OSError, SyntaxError, ValueError):
+        return False
+    for node in tree.body:
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test"):
+            return True
+        if isinstance(node, ast.ClassDef) and node.name.startswith("Test"):
+            for sub in node.body:
+                if isinstance(sub, (ast.FunctionDef, ast.AsyncFunctionDef)) and sub.name.startswith("test"):
+                    return True
+    return False
+
+
+def _resolve_witness(citation: str) -> str | None:
+    """Map a cited witness string to a repo-relative path that exists, or None."""
+    import fnmatch as _fn  # noqa: F401 -- (kept local; see _witness_is_collected)
+    cand = citation.replace("\\", "/")
+    if "/" in cand and (ROOT / cand).is_file():
+        return cand
+    base = Path(cand).name
+    for d in ("verification", "experiments", "tools", "hdlab", "scripts", "backend"):
+        if (ROOT / d / base).is_file():
+            return f"{d}/{base}"
+    hits = sorted(p for p in ROOT.glob(f"**/{base}")
+                  if p.is_file() and ".venv" not in p.parts and "__pycache__" not in p.parts)
+    return _rel(hits[0]) if hits else None
+
+
+def _witness_is_collected(rel_path: str, testpaths: list[str], python_files: list[str]) -> tuple[bool, str]:
+    """(collected, reason). Collected == inside a testpaths dir AND filename matches a
+    python_files glob AND the file actually exposes >=1 pytest item."""
+    import fnmatch
+    p = Path(rel_path)
+    if not any(rel_path == tp or rel_path.startswith(tp.rstrip("/") + "/") for tp in testpaths):
+        return False, f"outside pytest testpaths {testpaths} (lives in {p.parent.as_posix()}/)"
+    if not any(fnmatch.fnmatch(p.name, g) for g in python_files):
+        return False, f"filename does not match python_files {python_files}"
+    if not _file_exposes_pytest_items(ROOT / rel_path):
+        return False, "matches the glob but exposes ZERO pytest items (work is behind __main__)"
+    return True, "collected"
+
+
+def _load_driver_results() -> dict:
+    """Newest per-witness exit statuses persisted by the collected driver
+    (data/witness_exit_status/<stem>.json, written by WITNESS_DRIVER_REL)."""
+    out: dict[str, dict] = {}
+    if not WITNESS_RESULTS_DIR.is_dir():
+        return out
+    for f in sorted(WITNESS_RESULTS_DIR.glob("*.json")):
+        try:
+            j = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        name = j.get("witness") or (f.stem + ".py")
+        out[name] = j
+    return out
+
+
+def _run_witness(rel_path: str, timeout_s: int = 600) -> dict:
+    """Execute one witness as a subprocess (same contract as the driver). Only used with
+    --run-witnesses; the default path reads the driver's persisted results instead."""
+    import subprocess
+    py = ROOT / ".venv" / "Scripts" / "python.exe"
+    env = dict(os.environ)
+    env["OMP_NUM_THREADS"] = "1"
+    env["OPENBLAS_NUM_THREADS"] = "1"
+    cmd = [str(py) if py.exists() else sys.executable, str(ROOT / rel_path)]
+    try:
+        pr = subprocess.run(cmd, cwd=str(ROOT), env=env, capture_output=True, text=True,
+                            encoding="utf-8", errors="replace", timeout=timeout_s)
+        return {"witness": Path(rel_path).name, "returncode": pr.returncode,
+                "timed_out": False, "passed": pr.returncode == 0,
+                "run_utc": _utc_now_iso(), "source": "live"}
+    except subprocess.TimeoutExpired:
+        return {"witness": Path(rel_path).name, "returncode": None, "timed_out": True,
+                "passed": False, "run_utc": _utc_now_iso(), "source": "live"}
+
+
+def check_registry_witnesses(rows: list[dict], run_witnesses: bool = False) -> dict:
+    """Cross-check every witness a registry row cites: does it EXIST, is it COLLECTED by
+    pytest under the current config, and does it EXIT 0?
+
+    Returns report-only lists. Nothing here mutates a row.
+    """
+    testpaths, python_files = _pytest_collection_config()
+    driver_results = _load_driver_results()
+
+    # row_index is 1-based to match the JSONL line numbers used in the audit notes.
+    citations: dict[str, list[dict]] = {}   # citation string -> [{row_index, id}]
+    for i, r in enumerate(rows, start=1):
+        blob = json.dumps(r, ensure_ascii=False)
+        seen_in_row: set[str] = set()
+        for m in _RE_WITNESS_CITATION.finditer(blob):
+            cit = m.group(1).replace("\\", "/")
+            if Path(cit).name in _WITNESS_SUPPORT_MODULES:
+                continue
+            if cit in seen_in_row:
+                continue
+            seen_in_row.add(cit)
+            citations.setdefault(cit, []).append({"row_index": i, "id": r.get("id")})
+
+    missing, not_collected, failing, unknown_status = [], [], [], []
+    resolved: dict[str, str] = {}
+    for cit in sorted(citations):
+        rel = _resolve_witness(cit)
+        if rel is None:
+            for owner in citations[cit]:
+                missing.append({**owner, "cited_witness": cit,
+                                "reason": "no such file anywhere in the repo"})
+            continue
+        resolved[cit] = rel
+        collected, reason = _witness_is_collected(rel, testpaths, python_files)
+        if not collected:
+            for owner in citations[cit]:
+                not_collected.append({**owner, "cited_witness": cit,
+                                      "resolved_path": rel, "reason": reason})
+
+    # exit-status pass: one execution/lookup per distinct resolved witness.
+    status_cache: dict[str, dict] = {}
+    for cit, rel in resolved.items():
+        if rel in status_cache:
+            continue
+        name = Path(rel).name
+        if run_witnesses:
+            status_cache[rel] = _run_witness(rel)
+        elif name in driver_results:
+            status_cache[rel] = {**driver_results[name], "source": "driver_results"}
+        else:
+            status_cache[rel] = {"passed": None, "source": "no_result_on_disk"}
+
+    for cit, rel in sorted(resolved.items()):
+        st = status_cache.get(rel, {})
+        for owner in citations[cit]:
+            entry = {**owner, "cited_witness": cit, "resolved_path": rel,
+                     "returncode": st.get("returncode"), "timed_out": st.get("timed_out"),
+                     "evidence_source": st.get("source"), "run_utc": st.get("run_utc")}
+            if st.get("passed") is False:
+                failing.append(entry)
+            elif st.get("passed") is None:
+                unknown_status.append({**entry, "reason":
+                                       f"no persisted result; run `pytest {WITNESS_DRIVER_REL}` "
+                                       "or pass --run-witnesses"})
+
+    return {
+        "witness_missing": missing,
+        "witness_not_collected": not_collected,
+        "witness_failing": failing,
+        "witness_status_unknown": unknown_status,
+        "witness_check_stats": {
+            "n_rows_scanned": len(rows),
+            "n_distinct_citations": len(citations),
+            "n_resolved": len(resolved),
+            "pytest_testpaths": testpaths,
+            "pytest_python_files": python_files,
+            "exit_status_source": ("live subprocess runs (--run-witnesses)" if run_witnesses
+                                   else f"persisted driver results in {_rel(WITNESS_RESULTS_DIR)} "
+                                        f"({len(driver_results)} file(s)) written by {WITNESS_DRIVER_REL}"),
+            "report_only": True,
+        },
+    }
+
+
+def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False,
+              run_witnesses: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     # D1: fail LOUD, before any scanning, if an entry path is declared but missing.
     missing_entries = validate_entry_paths()
@@ -977,6 +1223,9 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False)
 
         undecided = check_undecided_validated(rows)
         stale = check_stale_decisions(rows, stale_days, now)
+        # REPORT-ONLY (2026-08-13): does the evidence each row cites exist / get collected /
+        # pass? Never mutates a row -- see check_registry_witnesses() docstring.
+        witness_report = check_registry_witnesses(rows, run_witnesses=run_witnesses)
         unregistered_hdlab = scan_unregistered_hdlab_modules(rows)
         if skip_hard_pass_scan:
             island_scan = {"candidates_high": [], "skipped": True}
@@ -1027,6 +1276,7 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False)
         "dry_run": dry_run,
         "registry_path": _rel(REGISTRY),
     }
+    summary.update(witness_report)
     return summary
 
 
@@ -1103,6 +1353,27 @@ def print_report(summary: dict) -> None:
                 print(f"    {c['anchor']}  verdict={c['verdict']}  ({mk}){hdlab_note}")
         else:
             print("[ok] no HIGH-signal invisible-island candidates")
+
+    # --- witness-citation check (report-only; never changes a row's status) ---
+    ws = summary.get("witness_check_stats", {})
+    if ws:
+        print(f"\n[witness] {ws.get('n_distinct_citations', 0)} distinct witness citation(s) "
+              f"across {ws.get('n_rows_scanned', 0)} rows; pytest testpaths="
+              f"{ws.get('pytest_testpaths')} python_files={ws.get('pytest_python_files')}")
+        print(f"[witness] exit-status evidence: {ws.get('exit_status_source')}")
+    for field, label in (("witness_missing", "cited witness FILE NOT ON DISK"),
+                         ("witness_not_collected", "cited witness NOT COLLECTED by pytest"),
+                         ("witness_failing", "cited witness EXITS NON-ZERO"),
+                         ("witness_status_unknown", "cited witness exit status UNKNOWN")):
+        items = summary.get(field, [])
+        if items:
+            print(f"\n[FLAG] {len(items)} row-citation(s): {label}  ({field}, report-only)")
+            for it in items[:30]:
+                print(f"    row {it.get('row_index')} {it.get('id')} -> {it.get('cited_witness')}"
+                      + (f"  [{it.get('reason')}]" if it.get("reason") else "")
+                      + (f"  rc={it.get('returncode')}" if it.get("returncode") is not None else ""))
+        else:
+            print(f"[ok] no rows with: {label}")
     print("-" * 72)
 
 
@@ -1243,7 +1514,43 @@ def self_test() -> int:
     finally:
         REGISTRY, REGISTRY_LOCK_PATH = _orig_registry, _orig_lock
 
-    ok_all = ok and ok2 and ok3 and ok4 and ok5
+    # witness-citation logic (2026-08-13). Pure/synthetic except _witness_is_collected's
+    # AST step, which is exercised against real files in verification/ (read-only).
+    ok6 = True
+    cit_cases = [
+        ('{"path": ["experiments/verify_encoder_retrain_persist_loader_v1.py"]}',
+         ["experiments/verify_encoder_retrain_persist_loader_v1.py"]),
+        ('{"provenance": "see verify_goal_typing.py and witness_did_it_happen_occurrence_gate_v1.py"}',
+         ["verify_goal_typing.py", "witness_did_it_happen_occurrence_gate_v1.py"]),
+        ('{"provenance": "no witness cited here, just test_foo.py"}', []),
+    ]
+    for blob, expected in cit_cases:
+        got = [m.group(1) for m in _RE_WITNESS_CITATION.finditer(blob)]
+        if got != expected:
+            ok6 = False
+            print(f"[selftest] witness-citation regex on {blob[:50]!r} -> {got}, expected {expected}")
+    # a verify_* file inside testpaths is NOT collected under the default glob
+    coll, why = _witness_is_collected("verification/verify_goal_typing.py",
+                                      ["verification"], ["test_*.py"])
+    if coll or "python_files" not in why:
+        ok6 = False
+        print(f"[selftest] _witness_is_collected(default glob) -> ({coll}, {why!r}); expected not-collected")
+    # even under a WIDENED glob it stays uncollected, because it exposes zero pytest items
+    coll2, why2 = _witness_is_collected("verification/verify_goal_typing.py",
+                                        ["verification"], ["test_*.py", "verify_*.py"])
+    if coll2 or "ZERO pytest items" not in why2:
+        ok6 = False
+        print(f"[selftest] _witness_is_collected(widened glob) -> ({coll2}, {why2!r}); "
+              "expected not-collected/zero-items")
+    # a witness living outside testpaths is never collectable regardless of glob
+    coll3, why3 = _witness_is_collected("experiments/verify_encoder_retrain_persist_loader_v1.py",
+                                        ["verification"], ["test_*.py", "verify_*.py"])
+    if coll3 or "testpaths" not in why3:
+        ok6 = False
+        print(f"[selftest] _witness_is_collected(outside testpaths) -> ({coll3}, {why3!r})")
+    print(f"[selftest] witness-citation check logic: {'OK' if ok6 else 'FAIL'}")
+
+    ok_all = ok and ok2 and ok3 and ok4 and ok5 and ok6
     print(f"[selftest] invisible-island classify+match logic: {'OK' if ok2 and ok3 else 'FAIL'}")
     print(f"[selftest] high-signal precision-tier logic: {'OK' if ok4 else 'FAIL'}")
     print(f"[selftest] registry concurrency (RegistryLock/registry_transaction/append_rows): "
@@ -1260,6 +1567,10 @@ def main() -> int:
     ap.add_argument("--skip-hard-pass-scan", action="store_true",
                      help="skip the invisible-island (data/exp_*/metrics.json) scan; "
                           "keeps the rest of the audit on its fast path")
+    ap.add_argument("--run-witnesses", action="store_true",
+                     help="execute every registry-cited witness live (slow, ~minutes) instead "
+                          "of reading the persisted results written by "
+                          "verification/test_all_witnesses_exit_clean.py")
     ap.add_argument("--append-json", type=Path,
                      help="path to a JSON file holding a list of new registry rows; "
                           "appends them via the locked append_rows() transaction "
@@ -1290,7 +1601,8 @@ def main() -> int:
         return 0
 
     summary = run_audit(stale_days=args.stale_days, dry_run=args.dry_run,
-                         skip_hard_pass_scan=args.skip_hard_pass_scan)
+                         skip_hard_pass_scan=args.skip_hard_pass_scan,
+                         run_witnesses=args.run_witnesses)
     report_path = write_report(summary)
     summary["report_path"] = report_path
     if args.json:
