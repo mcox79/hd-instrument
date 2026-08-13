@@ -128,6 +128,29 @@ Each entry: the route, why it is closed, and the evidence that closed it.
     case is indistinguishable from its own null. Ranked and rejected in
     `notes/opportunity_map_2026-08-13.md`.
 
+23. **Wiring definitional extraction as a DIRECT-BANK (opportunity #1).** CLOSED by its own
+    pre-registered control. `data/exp_wire_definitional_v1/metrics.json`, `run_mode: full`,
+    written 2026-08-13T19:23:33Z, band **`MASS_NOT_CONTENT`**. On held-out B (n=661) the ON arm
+    clears its bar -- recall@1 **0.037821** vs OFF **0.007564**, delta **+0.030257** against a
+    +0.03 floor -- **but the SHUFFLE arm is IDENTICAL to ON to six decimal places on every
+    held-out metric**: availability 0.751891, recall@1 0.037821, recall@5 0.104387,
+    availability-conditioned recall@1 0.050302. FREQMATCH delta is **+0.0015** (nothing).
+    Band definition, from the cell: "delta >= +0.03 but ON does not beat BOTH controls by >= 0.02".
+    **This is a valid control, not a smoke failure**: the manipulation demonstrably worked -- the
+    injected-A circularity witness shows ON `live_banked` **394/394 correct** vs SHUFFLE
+    **0/394** at identical banked counts, and the OFF regression check passed exactly
+    (`observed_n_grounded` 386 == `expected` 386, reference
+    `data/exp_anchor_pool_expansion_v1/units.jsonl arm_done|SMALL`).
+    **INTERPRETATION: the gain is fact MASS, not fact CONTENT.** Banking 394 definitional facts
+    raises availability by +0.53 and drags recall along with it, and banking 394 facts whose
+    subject-object pairings have been SHUFFLED does exactly the same thing to six decimals. Nothing
+    the definitions actually SAY is being used. This closes the one route that promised to go
+    AROUND the comparator by supplying pre-formed facts. **Reopens only if** a mechanism is shown
+    that consumes fact CONTENT (a measurable ON-vs-SHUFFLE separation), not fact count. Prereg:
+    `preregs/2026-08-13_wire_definitional.md`. The cell makes no quality claim: its own
+    `NO_QUALITY_CLAIM` field records that no hand-scoring was performed (correctly -- STANDING
+    DISCIPLINE 1).
+
 ---
 
 ## CORRECTIONS TO PRIOR CLAIMS
@@ -163,6 +186,63 @@ for it. Do not quote it as a head-to-head number.
 conflated and the conflation makes an already-owned module look like a solution to an open
 problem. Removing equidistance requires a channel that is INDEPENDENT IN KIND from the one that
 produced the basis (opportunity #2, `notes/opportunity_map_2026-08-13.md`).
+
+**C5. "No final landed encoder exists -- the line was abandoned, not won" is WRONG.** Full
+evidence: `notes/encoder_landed_correction_2026-08-13.md`. `hdlab/encoder_retrain_persist.py`
+landed at `367a42729` (2026-07-31), is clean at HEAD, and carries registry `gate_decision: WIRE` /
+`integration_status: WIRED`; its assets `data/exp_encoder_retrain_persist_v1/ckpt_seed_{7,13,19}.pt`
+(3 x ~109 MB, untracked BY DESIGN) all load at runtime and
+`experiments/verify_encoder_retrain_persist_loader_v1.py` returns OVERALL PASS. It is the v2
+TinyTransformer plus a **minimal top-1-layer unfreeze** (3,153,408 trainable params, 220 steps);
+14 of 76 state-dict tensors differ from v2, `tok_emb` byte-identical. It **HAS floors**, contrary
+to the prior claim: `exp_encoder_alltype_transfer_v1` (HARD_PASS 08-01, 3/3 types, +0.192 /
++0.150 / +0.320, shortcut controls `global_last` 0.007-0.011 and `most_frequent` 0.057-0.070);
+`exp_encoder_alltype_transfer_stress_v1` (HARD_PASS 08-01, +0.050 to +0.231, includes an
+INDEPENDENT entity-file harness); `exp_coref_encoder_transfer_v1` (HARD_PASS 08-01, `stage_ENT`
+0.724 -> 0.858, all 3 seeds); and the recipe cert
+`exp_situation_model_assembly_encoder_retrain_scale_v1` (CLEAN_PASS 07-31, chance 0.05, frozen wall
+0.47-0.52 -> 0.830, must-fail full-unfreeze control craters to 0.2916).
+**SCOPE CAVEAT THAT TRAVELS WITH EVERY CITATION:** the base is real ARC text but the DELTA and all
+transfer evals are the **SYNTHETIC situation-model harness**; naturalistic validation is PENDING;
+coref absolute is **0.652 (< 0.70)**. A proven LEVER for entity-addressed comprehension, NOT solved
+comprehension. It is **OPT-IN BY DESIGN, not an island**: its docstring states it does not change
+any cell's default encoder and callers use `load_improved_encoder()`; the live plug point already
+exists at `hdlab/reading_grounding_loop.py` `process_sentence(..., encoder=None)` (def `:1006`,
+param `:1011`, default-off selftest `:1945`). The "40 hdlab modules, 0 encoders" runtime trace was
+CORRECT about the DEFAULT path and was wrongly reported as measuring EXISTENCE.
+Relatedly: **`exp_scale_meaning_learn_arc_heldout_v2` is NOT superseded by `v3_relobj`.** v3's own
+prereg (`preregs/2026-07-27_..._v3_relobj.md:76-83`) states the one variable is the training
+OBJECTIVE (`L_rel` added to `L_mlm`) and that v2's checkpoint is RELOADED, never retrained, as the
+baseline -- so v3's HARD_FAIL means the added objective did not beat v2. **v2 stands:** semantic
+AUC 0.6356 vs raw 0.5968, random-init 0.5322, collapse-shuffle 0.4964, popularity 0.4968.
+
+**C6. The synonym-vs-sibling "wall" has NO evidence behind it.** Two independent defects, both in
+`notes/encoder_landed_correction_2026-08-13.md`.
+(i) **WRONG ARM.** `experiments/exp_diag_learned_encoder_synonym_sibling_deep_wall_v1.py:104-105`
+hardcodes `CKPT_PATH` to `data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt` --
+the `HARD_FAIL_ARCHITECTURE_BOUND` weights. Distinctness proven, not assumed: sha256 differs from
+v2 and **all 76 of 76 tensors differ**, max |delta| 0.539. So "trained 0.7064 vs random-init
+0.7452" tested neither the v2 HARD_PASS encoder nor the landed asset.
+(ii) **SUPERSEDED ANYWAY.** `exp_diag_synonym_sibling_confound_removed_v1` (2026-08-12T03:54Z, 43
+minutes after the cell it supersedes) balances concreteness (`conc_z_gap` 1.6022 -> 0.0406) and
+reports, at n_syn=26 / n_sib=26: `main_trained` **0.5888**, `main_randinit` **0.4615**,
+`main_scramble` **0.5074**. The trained model DOES beat its random-init twin (+0.127). The 0.71-0.75
+separation was the concreteness confound the first cell had itself flagged.
+Therefore the **"the pooling interface separates synonyms from siblings" framing does not
+survive**, and any statement that the successor encoder "learns but loses its edge to a random-init
+twin" is WRONG. Honest residual: that cell's headline verdict is
+`MIDDLE_BAND_HELDOUT_UNDERPOWERED` -- its DECISIVE (balanced AND held-out) set is n=5/5 against a
+declared floor of 8 and does not gate (it runs the same direction: 0.72 / 0.60 / 0.64). So
+synonym-vs-sibling is **OPEN and unmeasured at power**, not WALLED. Do not restate it as a wall.
+
+**C7. Two opportunity-map items rest on WRONG NUMBERS** (`notes/opportunity_map_2026-08-13.md`).
+Item **#5** (wire `dg_pattern_separation` into `script_grain_acquisition_loop`) quotes the numbers
+of the DEFECT it is meant to fix; the fix's own cell **on that task**,
+`exp_dg_pattern_separation_mcscript_purity_v1`, is **HARD_FAIL** -- mean purity **0.1013** against
+a ~**0.1999** baseline, i.e. below the baseline it was supposed to beat. Item **#6**
+(`cls_discrete_budget_consolidate`) is `VET_PENDING` / ISLAND with a **HARD_FAIL wiring smoke, gap
+0.000**; it also carries two mutually contradictory registry rows (`VET_PENDING` vs
+`ALREADY_WIRED`). Neither is a ranked opportunity as written; re-rank before acting on that map.
 
 ---
 
@@ -213,8 +293,39 @@ shared a naming blind spot. **Consistency is not evidence.** Practices P1-P6 in
 
 ### 4. Establish the final landed version before evaluating any subsystem
 
-**3 audits in one day (08-13)**, all inside `notes/encoder_lineage_final_2026-08-13.md`, judged
-a superseded or wrong artifact instead of the final one:
+**SIX instances now, not three** -- and instances 4-6 (2026-08-13, evidence in
+`notes/encoder_landed_correction_2026-08-13.md`) are the most expensive to date, because they did
+not merely misrate a subsystem: they wrote "this line was abandoned" into the steering docs about a
+capability that had LANDED, WIRED, with four HARD_PASS/CLEAN_PASS floors.
+
+**4. An audit declared a whole capability line "abandoned, not won" without ever enumerating the
+2026-08-01 cells.** Grep `notes/encoder_lineage_final_2026-08-13.md` for `alltype`,
+`coref_encoder_transfer` or `load_improved_encoder`: **zero matches, all three.** The landed module
+`hdlab/encoder_retrain_persist.py` (`367a42729`, registry WIRE/WIRED) is OPT-IN by design, so the
+audit's runtime `sys.modules` trace -- correct as a measurement of the DEFAULT path -- was reported
+as a measurement of EXISTENCE.
+**5. A diagnostic measured a checkpoint from a different, FAILED cell.**
+`exp_diag_learned_encoder_synonym_sibling_deep_wall_v1.py:104-105` hardcodes the
+`v3_relobj` HARD_FAIL weights (76/76 tensors differ from v2), and its result was carried into
+STATUS.md as a "wall".
+**6. That same diagnostic had already been superseded 43 minutes later** by
+`exp_diag_synonym_sibling_confound_removed_v1`, which reverses the sign (trained 0.5888 vs
+random-init 0.4615). Nobody checked for a successor before citing it.
+
+**NEW SUB-RULE, because it is the generative cause of all three: AN ABSENCE CLAIM REQUIRES AN
+ENUMERATION, NOT A SEARCH.** "I looked and did not find it" is not evidence of absence when the
+naming convention is unknown. Every miss above, and every asset in the FLOORED ASSETS section
+below, was invisible to a reasonable search: a `_fulldev` directory suffix, 105 MB `.pt` assets
+untracked by design, an opt-in module absent from a default-path trace, an implementation filed in
+the registry under a different module's name. **Before writing that something does not exist, state
+HOW you enumerated and what naming variants that enumeration would have caught** -- `os.walk` over
+`data/` and `hdlab/` and assign every entry, per `CLAUDE.md` Evidence discipline sec 2
+(enumerate from the filesystem, then reconcile to the registry, never the reverse) and sec 6
+(`Glob` returns empty SILENTLY on a bad path -- never trust an empty result).
+
+**The original 3 audits in one day (08-13)**, all inside
+`notes/encoder_lineage_final_2026-08-13.md`, judged a superseded or wrong artifact instead of the
+final one:
 
 - The S8 brain-fidelity audit dissected `hdlab/concept_encoder.py` (1 commit, 2026-07-02, zero
   hdlab importers, not in the runtime closure) and generalised its inert `learning_rate` to "the
@@ -245,9 +356,18 @@ wrong target.
 Full investigation: `notes/encoder_lineage_final_2026-08-13.md` (read-only, no code changed).
 Stubbed from `STATUS.md` "ENCODER PATH" and STANDING DISCIPLINE 4 above.
 
-**No final landed encoder exists -- the line was abandoned, not won.** Runtime `sys.modules`
-trace of `hdlab.reading_grounding_loop` + `hdlab.grounding_acquisition_loop` loads 40 hdlab
-modules, of which zero are encoders (no vwfa, ppmi, composed_v3, concept_encoder,
+> **REFUTED IN PART, 2026-08-13 (later same day) -- see CORRECTIONS C5 and C6 above and
+> `notes/encoder_landed_correction_2026-08-13.md`.** A final landed encoder DOES exist
+> (`hdlab/encoder_retrain_persist.py`, `367a42729`, WIRE/WIRED, four floors), and the
+> synonym-vs-sibling "wall" measured the wrong checkpoint and was superseded 43 min later. The two
+> paragraphs below are kept for the record of what was believed and why; do not cite them as
+> current. What still stands in them: the DEFAULT live path really does serve similarity from
+> `lexical_similarity` + `grounded_similarity` (no learned encoder is wired ON by default), the S8
+> severity verdict, and the CLIP finding.
+
+**[REFUTED -- see C5] "No final landed encoder exists -- the line was abandoned, not won."**
+Runtime `sys.modules` trace of `hdlab.reading_grounding_loop` +
+`hdlab.grounding_acquisition_loop` loads 40 hdlab modules, of which zero are encoders (no vwfa, ppmi, composed_v3, concept_encoder,
 encoder_retrain_persist, random_indexing, hippocampal_encoder). Live concept similarity is
 served by `hdlab/lexical_similarity.py::concept_similarity()` (hand-typed lexicon) with
 `hdlab/grounded_similarity.py` (Lancaster sensorimotor + Brysbaert concreteness, hard-capped
@@ -262,14 +382,13 @@ to that dead module (1 commit, 2026-07-02, zero importers). "Nothing is learned"
 the successor: TinyTransformer v2 (from-scratch 6-layer/d512/8-head TransformerEncoder,
 from-scratch 16k BPE, 121,082,196 real ARC tokens/seed) clears its own random-init
 same-architecture floor by +0.1034 (text AUC 0.6356 vs random_init 0.5322, shuffle-collapse
-0.4964). But on the distinction the project actually needs, a BETTER control than S8 used
-overturns it anyway: `exp_diag_learned_encoder_synonym_sibling_deep_wall_v1` (2026-08-12) finds
-trained encoder_AUC 0.7064 while the untrained same-arch random-init twin, using the identical
-corpus-mention-pooling interface, scores 0.7452 -- the trained model does not beat its own
-random-init twin on synonym-vs-sibling. Net: S8's severity (ARCHITECTURAL-FAULT) and wire
-verdict (NO) hold, on stronger and more recent evidence than the audit itself cited; its
-headline reason should be rewritten to name the pooling-interface finding, not the inert
-`learning_rate`.
+0.4964). **[REFUTED -- see C6]** the passage that followed here cited
+`exp_diag_learned_encoder_synonym_sibling_deep_wall_v1` (trained 0.7064 vs random-init 0.7452) as
+a better control overturning it. That cell loaded the `v3_relobj` HARD_FAIL checkpoint and was
+superseded by `exp_diag_synonym_sibling_confound_removed_v1` (trained 0.5888 vs random-init
+0.4615, concreteness balanced). Net as of the correction: S8's severity (ARCHITECTURAL-FAULT) and
+wire verdict (NO) still stand **for `hdlab/concept_encoder.py`, the module S8 examined**; they do
+not transfer to the successor line, and the "pooling interface" headline reason is withdrawn.
 
 **Correction, enriching C2: CLIP visual grounding was ruled out in error.**
 `data/exp_visual_grounding_coherence_v1/metrics.json` (2026-07-18) is `HARD_PASS`, all gates
@@ -310,3 +429,46 @@ a plain softmax control scores 0.461 (MIDDLE_BAND); `ppmi_sparse_encoder`'s smok
 (+0.052 over trigram) sign-flips at 20x scale (-0.0239 below trigram); five encoders in active
 use (`char_positional_encoder`, `token_vocab`, `late_combine`, `whitening`,
 `gsbc_graded_encoder`) have no registry row at all.
+
+---
+
+## FLOORED ASSETS MISSING FROM THE STEERING DOCS (2026-08-13)
+
+Five HARD_PASS results with real control floors that were absent from `STATUS.md` entirely. Each
+was invisible to a reasonable search, which is why they are the worked examples for STANDING
+DISCIPLINE 4's sub-rule (an absence claim requires an ENUMERATION, not a search). Verdicts and
+numbers below are read off each cell's own `metrics.json` at HEAD.
+
+1. **MAVEN-ERE causal + subevent, both HARD-PASS on the FULL DEV split** -- hidden by a `_fulldev`
+   directory suffix that no search for the base anchor name would match.
+   `data/exp_maven_ere_convergence_gated_causal_v2_fulldev`: floor 5.93 -> `full_v2` **14.78**,
+   scramble 3.48, `best_base` 0.73, climbs=True, levers load-bearing, scramble collapses.
+   `data/exp_maven_ere_convergence_gated_subevent_v1_fulldev`: floor 2.86 -> **13.63**, scramble
+   2.78, bag-majority **0.03**, transferred=True.
+2. **Multi-bank working memory** -- `exp_substrate_working_memory_multi_bank_K_extension_adversarial_v1`
+   HARD_PASS (chain-grade K=4096): recall **0.9927** random / **0.9801** adversarial against a naive
+   control of **0.0172 / 0.0045**. **Registry defect:** the row
+   `working_memory_multibank_K_capacity` points at `hdlab/working_memory.py` (116 lines, contains
+   no working memory); the real implementation is `hdlab/situation_model_multibank.py` (148 lines),
+   which has **no registry row of its own** -- it appears only inside that row's `used_by` and
+   `gate_decision_target` prose. A registry-first search finds the wrong file; a filesystem
+   enumeration finds both.
+3. **DG pattern separation at WRITE time** --
+   `exp_substrate_anisotropy_dg_pattern_separation_prewrite_v1` HARD_PASS: `dg_full` **0.942** vs
+   `no_presep` **0.083** (and whiten 0.103), effective-rank lift **10.08x**, std 0.004, knn
+   sentinel 1.000 at M=10000, off-diagonal mass 0.179 -> 0.012. Note the scope boundary against
+   CORRECTION C7: this is pre-write separation on real Pythia keys, NOT the MCScript purity task,
+   where the same mechanism HARD_FAILs.
+4. **CLIP visual grounding** -- `exp_visual_grounding_coherence_v1` HARD_PASS: T1 picture->word
+   top-1 **0.635** vs shuffled 0.074 vs chance 0.050; T2a WordNet-coherence rho **0.353** vs null
+   p95 **0.117** (p=0.000); T2b confusable 2-way **0.882** vs dictionary-only 0.500; T3 scene
+   recovery **1.000** vs shuffled 0.045. **It has NO registry row at all** (0 of 123 rows mention
+   it), so the WIRE-or-SHELVE gate has never seen it -- the gate cannot fire on what was never
+   enumerated. Per CORRECTION C2, CLIP at INGEST is NOT a glass-box violation: the rule bars
+   external LLMs from RUNTIME INFERENCE, not from building the seed. Its own
+   `CLAIM-VET-pending` tag is still open, and its scope is 20 words / K=20 / QuickDraw line
+   drawings.
+5. **Teacher-free relational encoder on a ConceptNet subgraph** --
+   `exp_teacher_free_relational_encoder_cn_subgraph_v1` (2026-07-08, full, 5 seeds) HARD_PASS:
+   `ARM_GRAPH_REPULSION` Z **497.90** (per-seed min 453.21) against random-init floor **148.97** and
+   control **21.42**; ablation collapses; subgraph n=10,577, E=34,659.

@@ -1,5 +1,31 @@
 # Encoder lineage + S8 verdict re-check (2026-08-13)
 
+> **SUPERSEDED IN PART -- 2026-08-13 (later same day) by
+> `notes/encoder_landed_correction_2026-08-13.md`. Read that first.** Two load-bearing claims below
+> are REFUTED and must not be cited from this file:
+> 1. **"No final landed encoder exists -- the line was abandoned, not won" is FALSE.**
+>    `hdlab/encoder_retrain_persist.py` landed at `367a42729` (2026-07-31), clean at HEAD, registry
+>    `gate_decision: WIRE` / `integration_status: WIRED`, assets
+>    `data/exp_encoder_retrain_persist_v1/ckpt_seed_{7,13,19}.pt` (untracked by design, all 3 load,
+>    loader verifier OVERALL PASS). It is OPT-IN by design, so the "40 modules, 0 encoders" runtime
+>    trace here measured the DEFAULT path and was wrongly reported as measuring EXISTENCE. It also
+>    HAS accuracy floors, contrary to sec 0/3 below: `exp_encoder_alltype_transfer_v1`,
+>    `..._stress_v1`, `exp_coref_encoder_transfer_v1` (all HARD_PASS 2026-08-01) and the
+>    `exp_situation_model_assembly_encoder_retrain_scale_v1` CLEAN_PASS recipe cert. This note
+>    never enumerated the 2026-08-01 cells -- grep it for `alltype`, `coref_encoder_transfer` or
+>    `load_improved_encoder`: zero matches.
+> 2. **The synonym-vs-sibling "0.7064 trained vs 0.7452 random-init" wall has NO evidence behind
+>    it.** `exp_diag_learned_encoder_synonym_sibling_deep_wall_v1.py:104-105` hardcodes the
+>    `exp_scale_meaning_learn_arc_heldout_v3_relobj` HARD_FAIL checkpoint (all 76/76 tensors differ
+>    from v2), so it measured neither the v2 HARD_PASS encoder nor the landed asset; and it was
+>    superseded 43 min later by `exp_diag_synonym_sibling_confound_removed_v1`
+>    (main_trained 0.5888 vs main_randinit 0.4615 vs main_scramble 0.5074, n=26/26,
+>    concreteness balanced). The "pooling interface separates them" framing does NOT survive.
+>
+> Also note: `exp_scale_meaning_learn_arc_heldout_v2` is NOT superseded by `v3_relobj` -- v3
+> changed the training OBJECTIVE and RELOADS v2 as its baseline. Everything else in this note
+> (the 18 pass-vs-conflicting-data cases, the CLIP correction, the registry mismatches) stands.
+
 READ-ONLY investigation. No code changed, no commits. Repo HEAD at read time `48a9900c1`,
 branch `dataprep/mcguffey-graded-corpus`. Trigger: `notes/STATUS.md:67` "(e) Encoder lineage
 under review -- the S8 fault verdict may be on a SUPERSEDED version."
