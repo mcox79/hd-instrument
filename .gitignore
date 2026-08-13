@@ -74,6 +74,10 @@ _strategy_v*_append.md
 _visibility_v*_append.md
 _tmp_*.json
 
+# Throwaway probes / one-off analysis scripts / temp output (see scratch/README.md).
+# Cleared with: python tools/clear_scratch.py --yes
+scratch/
+
 # Local CPU runner launchers (machine-specific paths, not portable)
 cpu_runner_local_launcher.bat
 cpu_runner_local_launcher_hidden.vbs
