@@ -857,8 +857,14 @@ def finalize(res: dict, backward_compat: dict) -> dict:
         regime = "GROWING" if fix == "F3" else "FIXED"
         alone = D.get(f"{regime}|{alone_key}_vs_BASE")
         loo = D.get(f"{regime}|{loo_key}")
+        # KEY NAME FIX (2026-08-12, landed-VET sec 6): this block was emitted as
+        # `leave_one_out_GROWING` for EVERY fix, but F1/F2 are attributed in FIXED (see `regime`
+        # above), so the name misattributed the regime for 2 of the 3 fixes. The VALUES were always
+        # correct and `regime_for_attribution` always disambiguated -- this is a mislabel, not a
+        # mis-value -- but any consumer keying on the name would read FIXED numbers as GROWING.
+        # The key is now regime-neutral; the regime is read from `regime_for_attribution`.
         rec: Dict[str, object] = {"regime_for_attribution": regime,
-                                  "alone_vs_BASE": alone, "leave_one_out_GROWING": loo}
+                                  "alone_vs_BASE": alone, "leave_one_out": loo}
         alone_eff = -(alone["delta_point"]) if alone else None       # positive = flip went DOWN
         loo_eff = (loo["delta_point"]) if loo else None              # positive = removing it hurt
         rec["alone_effect_flip_reduction"] = round(alone_eff, 6) if alone_eff is not None else None

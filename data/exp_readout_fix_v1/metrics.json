@@ -21,7 +21,7 @@
         ],
         "frac_above_zero": 0.0005
       },
-      "leave_one_out_GROWING": {
+      "leave_one_out": {
         "delta_point": 0.004357,
         "delta_ci95": [
           -0.025894,
@@ -43,7 +43,7 @@
         ],
         "frac_above_zero": 0.0
       },
-      "leave_one_out_GROWING": {
+      "leave_one_out": {
         "delta_point": 0.083422,
         "delta_ci95": [
           0.056123,
@@ -65,7 +65,7 @@
         ],
         "frac_above_zero": 0.0
       },
-      "leave_one_out_GROWING": {
+      "leave_one_out": {
         "delta_point": 0.165034,
         "delta_ci95": [
           0.129288,
@@ -2775,5 +2775,14 @@
     "upstream_selftest_encounters": 18,
     "selftest_ok": true
   },
-  "wire_status": "VET_PENDING"
+  "wire_status": "VET_PENDING",
+  "_key_migrations": [
+    {
+      "date": "2026-08-12",
+      "from": "leave_one_out_GROWING",
+      "to": "leave_one_out",
+      "reason": "regime mislabel; F1/F2 are attributed in FIXED. Values unchanged; regime is read from the sibling regime_for_attribution.",
+      "authority": "notes/landed_vet_readout_fix_v1_2026-08-12.md sec 6"
+    }
+  ]
 }
