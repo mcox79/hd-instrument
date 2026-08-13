@@ -255,7 +255,7 @@ def _ordered_tokens(sentence: str) -> List[str]:
 
 
 # ============================================================================ SIGNAL 1: EXPERIENCER-frame (c3)
-def c3_has_desire(sentence: str) -> bool:
+def c3_has_desire(sentence: str, exclude_idxs=None) -> bool:
     """True iff ANY token in `sentence` lemmatizes (hdlab.thematic_role_labeler.lemma_verb) to a
     verb that frame_primary_role (Component-3, production config: chosen_name=None, hypothesis=None
     -- identical to the conservative wire in hdlab/situation_reader.py) labels subj=EXPERIENCER,
@@ -264,9 +264,18 @@ def c3_has_desire(sentence: str) -> bool:
     extended 2026-08-06 with the same do-support/modal/"never" negation-scope guard the construction
     path uses (_verb_negated_before), so a NEGATED desire state ("he did NOT like to VP") is not
     read as an active desire (that source cell keeps its own copy untouched as its historical
-    source-of-truth). A non-negated EXPERIENCER fire ("he was WANTING attention") is unchanged."""
+    source-of-truth). A non-negated EXPERIENCER fire ("he was WANTING attention") is unchanged.
+
+    `exclude_idxs` (ordered-token indices, default None) are skipped -- type_sentence_events_c3
+    passes the indices of tokens already CONSUMED as OUTCOME evidence here, so an outcome word is
+    not ALSO read as a desire state (2026-08-13 self-satisfying-GOAL fix,
+    _outcome_evidence_token_indices). None -> byte-identical to the pre-fix scan, so every other
+    caller is unchanged. Exact mirror of _tier2_outcome_polarity_scan's own `exclude_idxs`
+    parameter, which the 2026-08-06 bystander mis-bind fix added for the opposite direction."""
     toks = _ordered_tokens(sentence)
     for k, tok in enumerate(toks):
+        if exclude_idxs is not None and k in exclude_idxs:
+            continue
         lemma = lemma_verb(tok)
         role = frame_primary_role(lemma, [], 0, None, "subj")
         if role == "EXPERIENCER" and not _verb_negated_before(toks, k):
@@ -286,10 +295,16 @@ def type_sentence_events_c3(sentence: str, subject) -> List[Tuple[object, str]]:
     (find_desired_state's desired-state verb), never an achieved outcome, so its token is excluded
     from OUTCOME typing in BOTH tiers (Tier-2 skips the index; Tier-1 subtracts the surface form only
     when it occurs SOLELY at goal-complement positions -- a later recurrence elsewhere stays typed).
-    GOAL typing (has_desire) is untouched. See _goal_complement_verb_indices below."""
+    See _goal_complement_verb_indices below.
+
+    OUTCOME-EVIDENCE GOAL EXCLUSION (2026-08-13 self-satisfying-GOAL fix): the exact MIRROR of the
+    above -- a token already CONSUMED as OUTCOME evidence must not ALSO mint GOAL evidence for the
+    same clause, so those token indices are excluded from the EXPERIENCER (has_desire) scan. See
+    _outcome_evidence_token_indices below."""
     events: List[Tuple[object, str]] = []
-    has_desire = c3_has_desire(sentence)
     excl = _goal_complement_verb_indices(sentence)
+    has_desire = c3_has_desire(
+        sentence, exclude_idxs=_outcome_evidence_token_indices(sentence, excl))
     has_unmet_t2, has_met_t2 = _tier2_outcome_polarity_scan(sentence, exclude_idxs=excl)
     t = _tokset(sentence) - _goal_complement_only_outcome_surface(sentence, excl)
     has_unmet = bool(t & V2_OUTCOME_UNMET) or has_unmet_t2
@@ -472,6 +487,49 @@ def _goal_complement_only_outcome_surface(sentence: str, excl: set) -> set:
     excluded_surface = {ordered[i] for i in excl if i < len(ordered)}
     return {s for s in (excluded_surface - non_excluded)
             if s in V2_OUTCOME_UNMET or s in V2_OUTCOME_MET}
+
+
+# ============================================================================ OUTCOME-EVIDENCE
+# GOAL-TYPING EXCLUSION (2026-08-13 self-satisfying-GOAL fix). The exact MIRROR IMAGE of the
+# 2026-08-06 goal-complement guard directly above: that guard stops a GOAL clause's own complement
+# verb from being read as an OUTCOME; this one stops an OUTCOME clause's own verb from being read as
+# a GOAL. BUG: `miss`/`enjoy` sit in BOTH the EXPERIENCER psych frame (hdlab.thematic_role_labeler.
+# PSYCH_VERBS -> frame_primary_role subj=EXPERIENCER) AND the outcome lexicon (V2_OUTCOME_UNMET /
+# V2_OUTCOME_MET, and their Tier-2 similarity pools), so ONE token was consumed simultaneously as
+# OUTCOME evidence and as GOAL evidence for the same clause. In the owner-selection path that
+# fabricated GOAL is bound to whatever entity the CALLER hypothesizes for the outcome sentence, so
+# hdlab.goal_owner_select.directed_goal_outcome_score's "does the outcome-slot entity also carry a
+# GOAL" test is satisfied BY CONSTRUCTION for EVERY candidate (all score 1.0, delta 0.0, the
+# adoption gate abstains and silently keeps the recency baseline). A discriminator whose evidence
+# the candidate under test can mint is not a discriminator. FIX (strict SUBTRACT, never adds an
+# event, symmetric in shape to _goal_complement_verb_indices): collect the ordered-token indices
+# consumed as OUTCOME evidence and skip exactly those indices in the EXPERIENCER scan
+# (c3_has_desire's `exclude_idxs`, the mirror of _tier2_outcome_polarity_scan's `exclude_idxs`).
+# PRECISION GUARD (load-bearing, do NOT over-exclude), mirroring the goal-complement guard's
+# "a later recurrence elsewhere stays typed": exclusion is BY INDEX, so a DIFFERENT, non-outcome
+# EXPERIENCER token in the same clause ("she LOVED the fair, but she MISSED her turn") still mints
+# GOAL normally -- only the dual-consumed token itself is silenced. NOT a lexicon edit: `miss` and
+# `enjoy` stay in PSYCH_VERBS (they genuinely are psych verbs in their other sense); the rule is
+# structural and fires for any current or future dual-listed token, Tier-1 or Tier-2.
+def _outcome_evidence_token_indices(sentence: str, goal_complement_excl: set) -> set:
+    """Ordered-token indices (_ordered_tokens) of the tokens CONSUMED as OUTCOME evidence by
+    type_sentence_events_c3's has_unmet/has_met computation -- Tier-1 literal V2_OUTCOME_UNMET/_MET
+    membership, plus Tier-2 open-vocab polarity (_outcome_polarity_tier2) for tokens OOV of Tier-1,
+    exactly the two scans has_unmet/has_met are built from. `goal_complement_excl`
+    (_goal_complement_verb_indices) is subtracted FIRST, in the same precedence the outcome scans
+    themselves use: a goal clause's own complement verb is NOT outcome evidence there, so it must
+    not be silenced as goal evidence here either (the two guards compose, they do not fight)."""
+    toks = _ordered_tokens(sentence)
+    idxs: set = set()
+    for i, tok in enumerate(toks):
+        if i in goal_complement_excl:
+            continue
+        if tok in V2_OUTCOME_UNMET or tok in V2_OUTCOME_MET:
+            idxs.add(i)
+            continue
+        if _outcome_polarity_tier2(lemma_verb(tok)) is not None:
+            idxs.add(i)
+    return idxs
 
 
 # TIER-2 (2026-08-06): open-vocab control-verb classification for action_frame_feats's PARTITIONED
