@@ -112,6 +112,7 @@ import exp_situation_model_assembly_encoder_backed_v1 as eb  # noqa: E402 (encod
 import exp_situation_model_assembly_entity_file_v1 as ef      # noqa: E402 (addr arms + q_agree + calib)
 import exp_situation_model_assembly_learned_identity_head_v1 as ih  # noqa: E402 (held-out split + gen)
 import exp_checkpoint as ckpt                                  # noqa: E402 (per-unit checkpoint/resume)
+import _seed_checkpoint as _sc                                 # noqa: E402 (SH-6 self-test output isolation)
 
 clean = eb.clean
 QUERY_TYPES = eb.QUERY_TYPES
@@ -128,6 +129,11 @@ V2_CKPT = eb.V2_CKPT
 
 ANCHOR_NAME = "situation_model_assembly_encoder_retrain_lite_v1"
 OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
+# SH-6: rebound by main() once run_mode is resolved, so a self-test (including
+# the no-flag default) can never write over a lite/full metrics.json. See
+# _seed_checkpoint.isolate_selftest_output_dir and
+# notes/metrics_overwrite_forensics_2026-08-13.md.
+ACTIVE_OUTPUT_DIR = OUTPUT_DIR
 
 # ---- pre-registered bars (fixed BEFORE running; from the Director spawn) ----
 Q_AGREE_HARD_PASS = 0.60      # held-out cross_frame_query_agreement (tuned) HARD_PASS floor (up from ~0.31)
@@ -745,8 +751,11 @@ def main():
     else:
         seeds, train_n, eval_n = SEEDS_SMOKE, 1, 1
 
+    global ACTIVE_OUTPUT_DIR
+    ACTIVE_OUTPUT_DIR = _sc.isolate_selftest_output_dir(OUTPUT_DIR, run_mode)
+
     expected_units = 1 if run_mode == "self_test" else len(seeds)
-    _write_start_marker(OUTPUT_DIR, run_mode, expected_units)
+    _write_start_marker(ACTIVE_OUTPUT_DIR, run_mode, expected_units)
     t0 = time.perf_counter()
 
     if run_mode == "self_test":
@@ -758,8 +767,8 @@ def main():
                    "anchor_name": ANCHOR_NAME, "chance": CHANCE, "selftest": st,
                    "start_marker_written": True, "crash_diagnostic_present": True,
                    "final_metrics_atomicity": "tmp_replace"}
-        _atomic_write_metrics(OUTPUT_DIR, metrics)
-        _log("DONE self-test in %.1fs" % (time.perf_counter() - t0))
+        _atomic_write_metrics(ACTIVE_OUTPUT_DIR, metrics)
+        _log("DONE self-test in %.1fs -> %s" % (time.perf_counter() - t0, ACTIVE_OUTPUT_DIR))
         return
 
     _log("%s: seeds=%s train_n=%d eval_n=%d chance=%.4f" % (run_mode.upper(), seeds, train_n, eval_n, CHANCE))
@@ -822,7 +831,7 @@ def main():
                "crash_diagnostic_present": True, "final_metrics_atomicity": "tmp_replace",
                "defensive_error_checking": "passed_all_4_patterns",
                "progress_logging": "print_flush_true"}
-    _atomic_write_metrics(OUTPUT_DIR, metrics)
+    _atomic_write_metrics(ACTIVE_OUTPUT_DIR, metrics)  # SH-6: identity for lite/full/smoke
     _log("VERDICT: %s" % verdict)
     _log("  %s" % msg)
     _log("DONE %s in %.1fs" % (run_mode, elapsed))
@@ -836,5 +845,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         raise
     except Exception as e:  # NOT BaseException
-        _write_crash_metrics(OUTPUT_DIR, e)
+        _write_crash_metrics(ACTIVE_OUTPUT_DIR, e)
         raise

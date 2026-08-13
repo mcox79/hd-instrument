@@ -183,6 +183,7 @@ import exp_selective_overwrite_recall_nl_calib_v1 as calib  # noqa: E402  (COLOR
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO_ROOT, "tools"))
 import exp_checkpoint as ckpt  # noqa: E402  -- per-unit checkpoint/resume (MANDATORY, CLAUDE.md)
+import _seed_checkpoint as _sc  # noqa: E402  -- SH-6 self-test output isolation
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _cell_heartbeat import CellHeartbeat  # noqa: E402
@@ -847,6 +848,10 @@ def main():
     if args.ckpt_path:
         tag = os.path.splitext(os.path.basename(args.ckpt_path))[0]
         out_dir = OUTPUT_DIR + "__" + tag
+    # SH-6: a self-test (including the no-flag default run_mode) must never share
+    # an output path with the FULL run. See _seed_checkpoint.isolate_selftest_output_dir
+    # and notes/metrics_overwrite_forensics_2026-08-13.md.
+    out_dir = _sc.isolate_selftest_output_dir(out_dir, run_mode)
     _write_start_marker(out_dir, run_mode, EXPECTED_N_UNITS)
     t0 = time.perf_counter()
 
@@ -859,7 +864,7 @@ def main():
                            "real full pipeline + arms-differ)",
             "summary": "SELFTEST_PASS", "run_mode": "self_test", "elapsed_s": elapsed,
             "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME, "chance": CHANCE, "selftest": st})
-        _log("DONE self-test in %.1fs" % elapsed)
+        _log("DONE self-test in %.1fs -> %s" % (elapsed, out_dir))
         return
 
     _log("FULL: directions=%s chance=%.4f n_context_sentences=%d n_bare_words=%d ckpt=%s"
@@ -941,10 +946,13 @@ def _resolve_out_dir_from_argv(argv):
             ckpt_arg = argv[i + 1]
         elif a.startswith("--ckpt-path="):
             ckpt_arg = a.split("=", 1)[1]
+    # SH-6: mirror main()'s run_mode resolution too, so a CRASHED self-test writes its
+    # CELL_CRASHED diagnostic to the _selftest dir rather than over the full run's metrics.json.
+    run_mode = "full" if ("--full" in argv and "--self-test" not in argv) else "self_test"
     if not ckpt_arg:
-        return OUTPUT_DIR
+        return _sc.isolate_selftest_output_dir(OUTPUT_DIR, run_mode)
     tag = os.path.splitext(os.path.basename(ckpt_arg))[0]
-    return OUTPUT_DIR + "__" + tag
+    return _sc.isolate_selftest_output_dir(OUTPUT_DIR + "__" + tag, run_mode)
 
 
 if __name__ == "__main__":

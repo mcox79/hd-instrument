@@ -516,10 +516,36 @@ def node_relation_edges(node, out_adj, in_adj, excluded_edges):
 # Population construction.
 # ---------------------------------------------------------------------------
 
+class MissingProvenanceError(RuntimeError):
+    """Raised when the required gloss/provenance snapshot is absent or empty."""
+
+
 def load_provenance_glosses(path):
-    """Reuse the SAME cached, network-free WordNet gloss snapshot as exp_grounded_ingest_text_spoke_v1."""
+    """Reuse the SAME cached, network-free WordNet gloss snapshot as exp_grounded_ingest_text_spoke_v1.
+
+    FAILS LOUDLY on a missing/empty input (2026-08-13). This function used to
+    `return {}, []` when the file was absent. That is a REQUIRED input, not an
+    optional one: with an empty `provenance_order`, `_prioritized_sample()` falls
+    back entirely to `rng.choice` over the unprioritised pool, silently sampling a
+    different, gloss-free population. On 2026-07-14 that produced a fully
+    degenerate run -- 35 metrics NaN, 7 stratum counts collapsed to 0,
+    `pred2` flipping MIDDLE_BAND_PARTIAL_GLOSS_LIFT ->
+    INCONCLUSIVE_TOO_FEW_GLOSS_SOURCED -- which then overwrote the valid result on
+    disk with no warning and no verdict change.
+    Evidence: notes/metrics_overwrite_forensics_2026-08-13.md sec 4 (DEGENERATE).
+    A missing load-bearing input must raise, never quietly empty the population.
+    """
     if not os.path.exists(path):
-        return {}, []
+        raise MissingProvenanceError(
+            "REQUIRED gloss provenance snapshot not found: %s\n"
+            "This is a load-bearing input, not an optional one. Without it the "
+            "population is sampled gloss-free and every gloss-sourced stratum "
+            "degenerates to n=0/NaN while the cell still reports a verdict. "
+            "Ship data/exp_grounded_ingest_text_spoke_v1/provenance.json alongside "
+            "this cell (note that PROVENANCE_PATH resolves relative to the cell's "
+            "own location, so a copy staged outside the repo tree will not find it), "
+            "or re-run exp_grounded_ingest_text_spoke_v1 to regenerate it." % path
+        )
     with open(path, encoding="utf-8") as f:
         d = json.load(f)
     glosses = {}
@@ -528,6 +554,13 @@ def load_provenance_glosses(path):
         if g:
             glosses[eid] = g
     order = list(d.get("sample_order", []))
+    if not order:
+        raise MissingProvenanceError(
+            "gloss provenance snapshot %s has an EMPTY 'sample_order' (%d glosses). "
+            "Same failure mode as an absent file: the prioritised sample degrades to "
+            "an unprioritised rng.choice and every gloss-sourced stratum goes n=0/NaN. "
+            "Refusing to run on it." % (path, len(glosses))
+        )
     return glosses, order
 
 

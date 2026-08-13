@@ -514,6 +514,77 @@ def get_output_dir(anchor_name: str) -> Path:
     return _REPO / "data" / f"exp_{name}"
 
 
+# --- SH-6 resolved-run-mode output isolation (added 2026-08-13) --------------
+# Incident: notes/metrics_overwrite_forensics_2026-08-13.md. Four cells had a
+# real lite/full result overwritten on disk by a later SELF-TEST run, turning
+# three genuine negatives (HARD_FAIL / LOCALIZED_WALL / MIDDLE) into
+# SELFTEST_PASS:
+#   exp_situation_model_assembly_learned_identity_head_v1   (-457 leaf keys)
+#   exp_situation_model_assembly_encoder_backed_v1          (-238)
+#   exp_situation_model_assembly_encoder_retrain_lite_v1    (-198)
+#   exp_syntactic_role_agent_patient_voice_probe_v1         (-81)
+#
+# Why SH-5 above did NOT catch it, two independent reasons:
+#   1. Those cells never call get_output_dir(); they hold a bare module-level
+#      OUTPUT_DIR = data/exp_<ANCHOR_NAME> and pass it to every writer.
+#   2. SH-5 keys off the STRING "--self-test" in sys.argv. All four cells
+#      DEFAULT to self-test when no mode flag is given
+#      (`run_mode = "self_test" if args.self_test or not args.full else ...`),
+#      so a bare `python exp_foo.py` resolves to self_test with an argv that
+#      contains no flag at all -- SH-5 is structurally blind to it.
+#
+# SH-6 therefore keys off the RESOLVED run_mode the cell actually computed,
+# not off argv, and is applied to the bare OUTPUT_DIR constant.
+
+_SELFTEST_RUN_MODES = frozenset({"self_test", "selftest", "self-test"})
+_SELFTEST_DIR_SUFFIX = "_selftest"
+
+
+def isolate_selftest_output_dir(base_output_dir: Any, run_mode: str) -> Any:
+    """Return an output dir that a self-test run can never use to clobber a full run.
+
+    SH-6. Keys off the RESOLVED run_mode, not sys.argv (see block comment above).
+
+    self_test -> `<base>_selftest`; every other run_mode -> `<base>` unchanged.
+    Idempotent: a base already ending in `_selftest` is returned as-is.
+    Preserves the input type (str in -> str out, Path in -> Path out) so it can
+    be dropped into cells that use either.
+
+        isolate_selftest_output_dir("d/data/exp_foo", "self_test")
+            -> "d/data/exp_foo_selftest"
+        isolate_selftest_output_dir("d/data/exp_foo", "lite")
+            -> "d/data/exp_foo"
+        isolate_selftest_output_dir("d/data/exp_foo_selftest", "self_test")
+            -> "d/data/exp_foo_selftest"   (no double-append)
+    """
+    if run_mode not in _SELFTEST_RUN_MODES:
+        return base_output_dir
+    was_path = isinstance(base_output_dir, Path)
+    text = str(base_output_dir)
+    if not text.endswith(_SELFTEST_DIR_SUFFIX):
+        text = text + _SELFTEST_DIR_SUFFIX
+    return Path(text) if was_path else text
+
+
+def _selftest_isolate_selftest_output_dir() -> None:
+    """Verify SH-6 isolation; runs at module import."""
+    base = "/tmp/data/exp_zzz_v1"
+    got = isolate_selftest_output_dir(base, "self_test")
+    assert got == base + "_selftest", f"SH-6 T1 FAIL: {got}"
+    assert got != base, "SH-6 T1 FAIL: self-test dir must differ from full dir"
+    for mode in ("full", "lite", "smoke"):
+        assert isolate_selftest_output_dir(base, mode) == base, f"SH-6 T2 FAIL: {mode}"
+    assert isolate_selftest_output_dir(base + "_selftest", "self_test") == base + "_selftest", (
+        "SH-6 T3 FAIL: double-append"
+    )
+    p = isolate_selftest_output_dir(Path(base), "self_test")
+    assert isinstance(p, Path) and p.name == "exp_zzz_v1_selftest", f"SH-6 T4 FAIL: {p}"
+    assert isinstance(isolate_selftest_output_dir(base, "full"), str), "SH-6 T4 FAIL: str type"
+
+
+_selftest_isolate_selftest_output_dir()
+
+
 # --- OPT-IN structured gate claims (added 2026-07-05, Testbed) --------------
 # Machine-clean self-documentation of a cell's HARD-PASS/HARD-FAIL bands so the
 # Tier-2 self-audit can read each gate as an exact JSON field instead of
@@ -820,6 +891,7 @@ __all__ = [
     "clear_partials",
     "_check_run_config",
     "get_output_dir",
+    "isolate_selftest_output_dir",
     "write_metrics",
     "record_gate",
 ]
