@@ -31,8 +31,17 @@ WHAT THIS CHECKS:
 
 HONEST SCOPE (reported, not hidden): of the 3 pre-VET targets, 2 recover
 (ts_tom_sugar_theft via "rap", agg_anne_picnic_wish_ch14 via "punish", both correct UNMET, zero
-regression) -- a MEASURED +2 net full-44 polarity gain (15->17), which is the PARTIAL band per the
-pre-reg gate (>=+2 zero-regression = bankable), not the full +3 HARD-PASS band. The third target,
+regression) -- a MEASURED +2 net full-44 polarity gain (15->17 AT THIS BUILD), which is the PARTIAL
+band per the pre-reg gate (>=+2 zero-regression = bankable), not the full +3 HARD-PASS band.
+
+PIN REFRESH 2026-08-13 (Director): the full-44 AFTER pin moved 17 -> 18 and the OOV-36 AFTER pin
+13 -> 14. This is DRIFT FROM LATER LANDED TIERS, NOT a regression and NOT a re-scoring of this
+build: the before-vs-after sweep now shows 3 gains and 0 regressions, and the 3rd gain
+(ts_tom_wish_free_potter) is typed by the LEVIN last-resort backoff (commit 276674abb,
+levin_last_resort_backoff_applied=True), which landed after this witness was written. This build's
+own claim is unchanged: still exactly the 2 items above, still via reason=grounded_result_class.
+The AFTER assertions are now FLOORS (>=) rather than equalities, so the next landed improvement
+does not manufacture a false failure here -- see the PIN POLICY block below. The third target,
 agg_anne_liniment_cake_ch21, does NOT recover: its text contains NO literal spoil/ruin/damage/harm/
 wreck/rap/punish/scold token at all (the disaster is conveyed entirely through "a most peculiar
 expression crossed her face" / "what on earth did you put into that cake" / "flavored that cake with
@@ -67,13 +76,32 @@ TARGET_IDS = ["agg_anne_liniment_cake_ch21", "ts_tom_sugar_theft", "agg_anne_pic
 NOT_TARGETED = "agg_anne_hair_dye_green_ch27"
 
 # Recovered set (MEASURED@this build): items that flip NONE -> correct via reason=grounded_result_class.
+# These 2 remain a REQUIRED SUBSET of the gain set (not the whole of it -- see PIN POLICY below).
 EXPECTED_RECOVERED = sorted(["ts_tom_sugar_theft", "agg_anne_picnic_wish_ch14"])
-EXPECTED_FULL44_BEFORE = 15
-EXPECTED_FULL44_AFTER = 17
-EXPECTED_OOV36_BEFORE = 12
-EXPECTED_OOV36_AFTER = 13
-EXPECTED_SUB15_BEFORE = 10
-EXPECTED_SUB15_AFTER = 10
+
+# ---------------------------------------------------------------- PIN POLICY (2026-08-13, Director)
+# BEFORE pins stay `==`: they are a FROZEN historical replay (the two prior tiers + bare lexicon).
+# They are not the production number; if one of them moves, the recorded delta claim itself is no
+# longer the claim that was measured, and this witness SHOULD fail loudly so it gets re-examined.
+# AFTER pins became FLOORS (`>=`): they are the LIVE production accuracy on an accumulating quality
+# metric where more-is-better. Pinning those with `==` guarantees a false failure every time an
+# unrelated tier lands (which is exactly what happened here), and an equality assert cannot tell an
+# improvement from a regression anyway. Regression protection is carried by `assert not regressions`
+# + the required-subset gain check, both of which stay exact.
+#
+# PIN UPDATE 2026-08-13: full-44 AFTER 17 -> 18, OOV-36 AFTER 13 -> 14. VERIFIED gains-with-zero-
+# regressions: the before-vs-after sweep now shows 3 gains (ts_tom_sugar_theft,
+# agg_anne_picnic_wish_ch14, ts_tom_wish_free_potter) and 0 regressions; BEFORE pins (15/12/10) all
+# still reproduce exactly. The 3rd gain, ts_tom_wish_free_potter, is NOT this build's -- it is typed
+# by the LEVIN last-resort backoff (commit 276674abb, `levin_last_resort_backoff_applied=True`),
+# a tier that landed AFTER this witness was written and that _before_verdict deliberately does not
+# replay. Drift, not regression.
+EXPECTED_FULL44_BEFORE = 15          # frozen replay, exact
+EXPECTED_FULL44_AFTER_FLOOR = 18     # was pinned ==17 (2026-08-07); now >=18 (2026-08-13)
+EXPECTED_OOV36_BEFORE = 12           # frozen replay, exact
+EXPECTED_OOV36_AFTER_FLOOR = 14      # was pinned ==13 (2026-08-07); now >=14 (2026-08-13)
+EXPECTED_SUB15_BEFORE = 10           # frozen replay, exact
+EXPECTED_SUB15_AFTER_FLOOR = 10      # unchanged value; converted ==10 -> >=10 (accumulating metric)
 
 SUBSET15 = [
     "lw_meg_currant_jelly", "lw_laurie_flower_table_amy",
@@ -195,20 +223,27 @@ def check_full_eval_and_zero_regression():
     sub15_before = sum(before[d[i]["id"]] == _gold(d[i]) for i in SUBSET15)
     sub15_after = sum(after[d[i]["id"]] == _gold(d[i]) for i in SUBSET15)
 
+    # BEFORE = frozen replay -> exact (a move here invalidates the recorded delta; fail loudly).
     assert full44_before == EXPECTED_FULL44_BEFORE, (full44_before, EXPECTED_FULL44_BEFORE)
-    assert full44_after == EXPECTED_FULL44_AFTER, (full44_after, EXPECTED_FULL44_AFTER)
     assert oov36_before == EXPECTED_OOV36_BEFORE, (oov36_before, EXPECTED_OOV36_BEFORE)
-    assert oov36_after == EXPECTED_OOV36_AFTER, (oov36_after, EXPECTED_OOV36_AFTER)
     assert sub15_before == EXPECTED_SUB15_BEFORE, (sub15_before, EXPECTED_SUB15_BEFORE)
-    assert sub15_after == EXPECTED_SUB15_AFTER, (sub15_after, EXPECTED_SUB15_AFTER)
+    # AFTER = live production accuracy, accumulating, more-is-better -> FLOOR (see PIN POLICY).
+    assert full44_after >= EXPECTED_FULL44_AFTER_FLOOR, (full44_after, EXPECTED_FULL44_AFTER_FLOOR)
+    assert oov36_after >= EXPECTED_OOV36_AFTER_FLOOR, (oov36_after, EXPECTED_OOV36_AFTER_FLOOR)
+    assert sub15_after >= EXPECTED_SUB15_AFTER_FLOOR, (sub15_after, EXPECTED_SUB15_AFTER_FLOOR)
 
     changed = [r["id"] for r in rows if before[r["id"]] != after[r["id"]]]
     gains = [rid for rid in changed if after[rid] == _gold(d[rid]) and before[rid] != _gold(d[rid])]
     regressions = [rid for rid in changed if before[rid] == _gold(d[rid]) and after[rid] != _gold(d[rid])]
     other_changed = [rid for rid in changed if rid not in gains and rid not in regressions]
 
+    # EXACT, deliberately NOT loosened: zero regressions is the invariant this witness exists for.
     assert not regressions, f"REGRESSION: {regressions} were correct before, wrong after"
-    assert sorted(gains) == EXPECTED_RECOVERED, (sorted(gains), EXPECTED_RECOVERED)
+    # Required-SUBSET (was `sorted(gains) == EXPECTED_RECOVERED`): the gain SET accumulates as other
+    # tiers land, but THIS build's 2 recovered items must never drop out of it. Equality here would
+    # fail on somebody else's improvement while proving nothing extra -- the "no free lunch" side is
+    # already covered exactly by `assert not regressions` above.
+    assert set(EXPECTED_RECOVERED) <= set(gains), (sorted(gains), EXPECTED_RECOVERED)
 
     print(f"[CHECK full_eval_and_zero_regression] full44={full44_before}->{full44_after}/44, "
           f"oov36={oov36_before}->{oov36_after}/36, sub15={sub15_before}->{sub15_after}/15, "
@@ -316,10 +351,12 @@ def run():
     r_noise = check_noise_anti_drift()
     r_adv = check_adversarial_overfire()
     r_self = check_self_test_green()
-    print("[ALL CHECKS PASS] GROUNDED RESULT-CLASS tier: full44 %d->%d/44 (net +%d), recovered=%s "
-          "(both correct owner + polarity), ZERO regressions, fair instruments 48/48+12/12 "
-          "unchanged, NOISE 0 leaks, adversarial over-fire 0/%d, self_test green. PARTIAL "
-          "(net +2, below the +3 HARD-PASS band; bankable per pre-reg gate)." % (
+    print("[ALL CHECKS PASS] GROUNDED RESULT-CLASS tier: full44 %d->%d/44 (net +%d), gains=%s "
+          "(this build's own 2 recovered items are a required subset; any extras are later-landed "
+          "tiers, e.g. the Levin last-resort backoff), ZERO regressions, fair instruments "
+          "48/48+12/12 unchanged, NOISE 0 leaks, adversarial over-fire 0/%d, self_test green. This "
+          "build's banded verdict is unchanged: PARTIAL (its own net +2, below the +3 HARD-PASS "
+          "band; bankable per pre-reg gate)." % (
               r_full["full44_before"], r_full["full44_after"],
               r_full["full44_after"] - r_full["full44_before"], r_full["gains"],
               len(ADVERSARIAL)))

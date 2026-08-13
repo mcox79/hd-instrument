@@ -35,6 +35,17 @@ MEASURED VERDICT AFTER THE REFERENT REPAIR (this witness reproduces it):
     cert 220/3 green, fair_v1 48/48, real_text owner 6/10, goal_typing.self_test byte-identical,
     NOISE 0 leaks, numeric-threshold traps not false-MET.
 
+PIN REFRESH 2026-08-13 (Director). `prod_sub` is a LIVE ACCUMULATING production number and was pinned
+with `==`, so it was guaranteed to go stale on every real improvement -- it did. Measured today:
+prod_sub 7 -> 10, net_new +1 -> +4, GAP-1 recovered 1/5 -> 2/5, full-44 gains 2 -> 9. VERIFIED as
+gains-with-zero-regressions: 9 gains, 0 regressions across the full 44, and the FROZEN
+_baseline_nonwindowed reference still reproduces EXACTLY 6 on both the 15-subset and the OOV-36, so
+every bit of the movement is on the production side. Cause = tiers that landed after this witness
+(referent-recurrence, grounded result-class, request-response, Levin last-resort backoff), NOT a
+re-scoring of this build. All production-side numbers are now FLOORS (>=); all baseline-side numbers
+and all invariants (NOISE==0, no-regression, this build's own attributed recovery) stay exact. See
+PIN POLICY below.
+
 HONEST BAND READ (do not overclaim): net-new +1 on the 15-subset is ABOVE the luck baseline and ABOVE
 the pre-reg Check-1 HARD-FAIL bar (net==0) but BELOW its +2 HARD-PASS bar -> a PARTIAL/MIDDLE result, not
 a HARD-PASS. Check-4 recovered only 1 of the 5 GAP-1 items (onestop_limal_dating). The other 4 have
@@ -66,6 +77,34 @@ SUBSET15 = [
 ]
 GAP1_ITEMS = ["lw_laurie_flower_table_amy", "agg_anne_mrs_barry_forgiveness_currant_wine_ch16_17",
               "woz_dorothy_kansas_wish", "race_davey_wiffle", "onestop_limal_dating"]
+
+# ---------------------------------------------------------------- PIN POLICY (2026-08-13, Director)
+# THIS witness was the clearest instance of the design flaw: `prod_sub` is a LIVE ACCUMULATING
+# production number (congruence_with_lexicon_fallback scored on the 15-subset), and it was pinned
+# with `==`. That is guaranteed to go stale on every genuine improvement to the substrate, and an
+# equality assert cannot distinguish an improvement from a regression -- it just fails either way.
+# CONVERTED TO FLOORS (`>=`): prod_sub, net_new (prod_sub - base_sub), the GAP-1 recovered count,
+# and the check-4 gain set (now a required-SUBSET).
+# LEFT AS `==` ON PURPOSE: everything on the BASELINE side. `_baseline_nonwindowed` is the FROZEN
+# pre-fix reference (full-36 == 6, 15-subset == 6, congruence-native-correct == 0, base_sub == 6);
+# if a baseline number moves, the measured delta is no longer the delta that was recorded and this
+# witness SHOULD fail loudly instead of silently re-baselining. Also left exact: the NOISE leak count
+# (== 0), the light-verb recurrence block, the numeric-threshold no-false-MET traps, the strict-ADD
+# checks, and `assert not regressions` -- those are invariants, not accumulating quality scores.
+#
+# PIN UPDATE 2026-08-13: prod_sub 7 -> 10 (net_new +1 -> +4); check-4 GAP-1 recovered 1 -> 2
+# (woz_dorothy_kansas_wish now also recovers); check-4 full-44 gain set 2 -> 9 members.
+# VERIFIED gains-with-zero-regressions: 9 gains, 0 regressions across the full 44, and the frozen
+# baseline still reproduces EXACTLY 6 on both the 15-subset and the OOV-36 (so the movement is on the
+# production side only). Cause is later-landed tiers this witness predates -- referent-recurrence
+# (2026-08-07), grounded result-class (2026-08-07), request-response (2026-08-07), Levin last-resort
+# backoff (276674abb). Drift, not regression; this build's own +1 claim is unchanged and still
+# attributed to onestop_limal_dating via same_class_same_referent (asserted exactly, below).
+EXPECTED_PROD_SUB15_FLOOR = 10   # was pinned ==7 (2026-08-06); now >=10 (2026-08-13)
+EXPECTED_NET_NEW_FLOOR = 4       # was pinned ==1 (2026-08-06); now >=4 (2026-08-13)
+EXPECTED_GAP1_RECOVERED_FLOOR = 2  # was pinned == ["onestop_limal_dating"] exactly; now >=2 members
+BASELINE_SUB15 = 6               # FROZEN baseline, exact -- deliberately NOT a floor
+BASELINE_OOV36 = 6               # FROZEN baseline, exact -- deliberately NOT a floor
 NOISE = [("walked", "He walked to the well and carried the pail home"),
          ("sat", "She sat by the fire in the evening"),
          ("spoke", "She turned and spoke to her brother"),
@@ -110,8 +149,10 @@ def check_step0_baseline():
         pred, det = _baseline_nonwindowed(d[i]["text"])
         if pred == _gold(d[i]) and det.get("reason") != "abstain_fallback_to_lexicon":
             native_correct += 1
-    assert full == 6, f"Step-0 full-36 must be 6 (empty-overlay floor), got {full}"
-    assert sub == 6, f"Step-0 15-subset must be 6, got {sub}"
+    # ALL EXACT (`==`) ON PURPOSE -- frozen baseline, not an accumulating production score. See PIN
+    # POLICY: a moving baseline invalidates every recorded delta and must fail loudly.
+    assert full == BASELINE_OOV36, f"Step-0 full-36 must be 6 (empty-overlay floor), got {full}"
+    assert sub == BASELINE_SUB15, f"Step-0 15-subset must be 6, got {sub}"
     assert native_correct == 0, f"Step-0 congruence-native-correct on subset must be 0, got {native_correct}"
     print("[CHECK step0] FROZEN baseline (non-windowed): full-36=6/36=0.1667 | 15-subset=6/15=0.40 | "
           "congruence-native-correct=0 (all 6 are lexicon-fallback luck)")
@@ -185,13 +226,22 @@ def check1_occurrence_gate_and_recurrence():
     # numeric-threshold: must NOT be flipped to a false MET
     for i in ["race_chen_situps", "onestop_carle_madeinfrance"]:
         assert G.congruence_with_lexicon_fallback(d[i]["text"])[0] != "MET", i
-    assert base_sub == 6 and prod_sub == 7, (base_sub, prod_sub)
-    assert net_new == 1, f"MEASURED Check-1 net-new-correct on 15-subset = {net_new} (expected +1)"
-    assert leaks == 0, f"NOISE anti-drift leaks = {leaks} (HARD-FAIL if > 0)"
+    # base_sub EXACT (frozen baseline); prod_sub / net_new FLOORS (live accumulating). See PIN POLICY.
+    assert base_sub == BASELINE_SUB15, f"FROZEN baseline moved: base_sub={base_sub} (must be 6)"
+    assert prod_sub >= EXPECTED_PROD_SUB15_FLOOR, (
+        f"LIVE prod 15-subset = {prod_sub}, floor {EXPECTED_PROD_SUB15_FLOOR} (7 at this build)")
+    assert net_new >= EXPECTED_NET_NEW_FLOOR, (
+        f"Check-1 net-new-correct on 15-subset = {net_new}, floor +{EXPECTED_NET_NEW_FLOOR} "
+        f"(+1 at this build)")
+    assert leaks == 0, f"NOISE anti-drift leaks = {leaks} (HARD-FAIL if > 0)"   # EXACT invariant
+    # EXACT: this build's OWN attributed recovery must still be present and still earned by the same
+    # mechanism -- a floor here would let the one item this build actually earned silently drop out.
     assert ("onestop_limal_dating", "same_class_same_referent") in newly, newly
-    print(f"[CHECK check1] MEASURED net-new-correct = +1/15 (6->7; onestop_limal_dating, "
-          f"same_class_same_referent); ABOVE luck baseline + HARD-FAIL(0) bar, BELOW +2 HARD-PASS "
-          f"(PARTIAL); NOISE leaks=0; light-verb recurrence blocked; numeric-threshold no false MET")
+    print(f"[CHECK check1] LIVE net-new-correct = +{net_new}/15 ({base_sub}->{prod_sub}, floor "
+          f"+{EXPECTED_NET_NEW_FLOOR}); THIS BUILD's own claim unchanged: +1 (6->7; "
+          f"onestop_limal_dating, same_class_same_referent), ABOVE luck baseline + HARD-FAIL(0) bar, "
+          f"BELOW its +2 HARD-PASS bar (PARTIAL); newly_earned={newly}; NOISE leaks=0; light-verb "
+          f"recurrence blocked; numeric-threshold no false MET")
     return {"net_new": net_new, "noise_leaks": leaks, "newly_earned": newly}
 
 
@@ -213,15 +263,29 @@ def check4_window_widening():
             gains.append(r["id"])
         elif bc and not pc:
             regressions.append((r["id"], base, prod))
-    assert recovered == ["onestop_limal_dating"], f"GAP-1 recovered = {recovered} (expected exactly 1)"
+    # FLOOR + required-member (was `recovered == ["onestop_limal_dating"]`): GAP-1 recovery is an
+    # accumulating count -- more of the 5 recovering is strictly better. This build's own recovered
+    # item stays a REQUIRED member (exact), so its loss is still a hard failure.
+    assert "onestop_limal_dating" in recovered, f"GAP-1: this build's own recovery lost: {recovered}"
+    assert len(recovered) >= EXPECTED_GAP1_RECOVERED_FLOOR, (
+        f"GAP-1 recovered = {sorted(recovered)} ({len(recovered)}/5), floor "
+        f"{EXPECTED_GAP1_RECOVERED_FLOOR} (1/5 at this build)")
+    # EXACT, deliberately NOT loosened: zero regressions is the invariant this check exists for.
     assert not regressions, f"FULL-44 REGRESSIONS: {regressions}"
-    assert sorted(gains) == ["lw_aunt_march_opposition", "onestop_limal_dating"], gains
-    print(f"[CHECK check4] MEASURED GAP-1 recovered={len(recovered)}/5 (onestop_limal_dating, via "
-          f"window-widening + GAP-B object theme + recurrence object candidate); FULL-44: 2 verdicts "
-          f"move, BOTH gains ({sorted(gains)}), ZERO regressions. Remaining 4 GAP-1 items have DEEPER "
-          f"blockers (out of GAP-B/GAP-C scope): lw_laurie=no_desiderative_goal_found; "
-          f"agg_anne_mrs_barry=OOV verb 'intercede' with no object referent; woz_dorothy=ECM copula "
-          f"referent 'is'; race_davey=distractor clause 'balls failed', goal 'play' never recurs")
+    # Required-SUBSET (was `==`): the gain set accumulates as later tiers land; this build's own 2
+    # must never drop out. The "nothing gets worse" side is guarded exactly, one line above.
+    assert {"lw_aunt_march_opposition", "onestop_limal_dating"} <= set(gains), sorted(gains)
+    print(f"[CHECK check4] LIVE GAP-1 recovered={len(recovered)}/5 ({sorted(recovered)}; floor "
+          f"{EXPECTED_GAP1_RECOVERED_FLOOR}/5); THIS BUILD's own claim unchanged: 1/5 "
+          f"(onestop_limal_dating, via window-widening + GAP-B object theme + recurrence object "
+          f"candidate). FULL-44: {len(gains)} verdicts move, ALL gains ({sorted(gains)}), ZERO "
+          f"regressions. Per-item GAP-1 blockers AS DIAGNOSED AT THIS BUILD (out of GAP-B/GAP-C "
+          f"scope): lw_laurie=no_desiderative_goal_found; agg_anne_mrs_barry=OOV verb 'intercede' "
+          f"with no object referent; woz_dorothy=ECM copula referent 'is'; race_davey=distractor "
+          f"clause 'balls failed', goal 'play' never recurs. NOTE 2026-08-13: woz_dorothy's ECM-copula "
+          f"blocker was CLOSED by the later A3 referent-extraction repair (see "
+          f"verify_referent_recurrence_did_it_happen.py) -- it now recovers, which is why the GAP-1 "
+          f"count is a floor rather than a fixed list.")
     return {"recovered": recovered, "gains": gains, "regressions": regressions}
 
 
@@ -246,11 +310,14 @@ def run():
     r1 = check1_occurrence_gate_and_recurrence()
     r4 = check4_window_widening()
     rs = check_strict_add()
-    print("[ALL CHECKS PASS] did-it-happen occurrence-gate REFERENT REPAIR (GAP-B/GAP-C) MEASURED: "
-          "15-subset 6->7 (net-new +1), full-36 6->8 (net-new +2), GAP-C repro flips to MET, "
-          "onestop_limal_dating recovered via window-widening; ZERO regressions (cert 220/3, fair 48/48, "
-          "real 6/10, self_test byte-identical, NOISE 0 leaks, numeric-threshold not false-MET). "
-          "PARTIAL vs the +2/3-of-5 HARD-PASS bars -- honest; 4 remaining GAP-1 items need deeper fixes.")
+    print("[ALL CHECKS PASS] did-it-happen occurrence-gate REFERENT REPAIR (GAP-B/GAP-C). THIS "
+          "BUILD's measured claim unchanged: 15-subset 6->7 (net-new +1), full-36 6->8 (net-new +2), "
+          "GAP-C repro flips to MET, onestop_limal_dating recovered via window-widening; PARTIAL vs "
+          "the +2/3-of-5 HARD-PASS bars -- honest. LIVE TODAY (floors; includes later-landed tiers, "
+          f"not this build's credit): 15-subset {r1['net_new'] + 6} (net-new +{r1['net_new']}), "
+          f"GAP-1 recovered {len(r4['recovered'])}/5, full-44 gains {len(r4['gains'])}. FROZEN "
+          "baseline still exactly 6/6. ZERO regressions (cert per run_certification.py, fair 48/48, "
+          "self_test byte-identical, NOISE 0 leaks, numeric-threshold not false-MET).")
     return {"step0": r0, "mechanism": rm, "check1": r1, "check4": r4, "strict_add": rs}
 
 

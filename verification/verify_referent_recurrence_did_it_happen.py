@@ -55,6 +55,16 @@ _baseline_nonwindowed convention elsewhere):
   - numeric-threshold guard: race_chen_situps / onestop_carle_madeinfrance remain non-MET.
   - goal_typing.self_test() green (byte-identical decisive-case assertions).
 
+PIN REFRESH 2026-08-13 (Director). The three aggregate pins above were LIVE production counts pinned
+with `==`, so they went stale the moment later tiers landed. Measured today: full-44 15 -> 18,
+OOV-36 12 -> 14, 15-subset 10 -> 10. VERIFIED as gains-with-zero-regressions, NOT a regression and
+NOT a re-scoring of this build: all 11 MUST_STAY_CORRECT items are still correct (11/11), and the
+referent-recurrence-ATTRIBUTED gain set is still exactly the same 4 items this build earned. The
+extra correct items come from tiers that landed after this witness (grounded result-class 2026-08-07;
+Levin last-resort backoff 276674abb). The three aggregates are now FLOORS (>=) so the next landed
+improvement cannot manufacture a false failure; the two things that are genuinely exact -- the
+MUST_STAY_CORRECT sweep and the reason-filtered gain set -- stay `==`. See PIN POLICY below.
+
 HONESTY (regressions found + fixed during THIS build, not hidden): the first working version of the
 referent-recurrence channel (TRANSFER_CLASS + _QUOTE_BOUNDARY alone, no _PREVERBAL_AUX/
 _DEICTIC_NON_NOMINAL guards) introduced 2 real regressions on items previously correct via lexicon-
@@ -93,6 +103,25 @@ SUBSET15 = [
 # _baseline_nonwindowed's own frozen-baseline convention in the sibling did-it-happen witness.
 GAINS_EXPECTED = sorted(["woz_tin_woodman_heart", "woz_dorothy_kansas_wish",
                           "woz_lion_courage_granted", "onestop_hunt_crowdfunding"])
+
+# ---------------------------------------------------------------- PIN POLICY (2026-08-13, Director)
+# The full-44 / OOV-36 / 15-subset numbers below are LIVE production accuracy counts read straight
+# off congruence_with_lexicon_fallback -- they ACCUMULATE as later tiers land, and more is better.
+# Pinned with `==` they are guaranteed to go stale on every improvement, and an equality assert
+# cannot tell an improvement from a regression. They are now FLOORS (`>=`).
+# NOT converted (deliberately): the MUST_STAY_CORRECT sweep below stays an EXACT per-item equality --
+# it is a frozen zero-regression invariant, and a floor there would hide exactly what it exists to
+# catch. check_gate_items' per-item verdict+reason equality likewise stays exact.
+#
+# PIN UPDATE 2026-08-13: full-44 15 -> 18, OOV-36 12 -> 14, 15-subset 10 -> 10 (unchanged value,
+# still converted to a floor). VERIFIED gains-with-zero-regressions: all 11 MUST_STAY_CORRECT items
+# still correct (11/11), and the referent-recurrence gain set is still EXACTLY GAINS_EXPECTED (this
+# build's own 4 items, unchanged). The +3 on full-44 / +2 on OOV-36 come from tiers that landed
+# AFTER this witness (grounded result-class, 2026-08-07; Levin last-resort backoff, 276674abb), not
+# from any re-scoring of this build. Drift, not regression.
+EXPECTED_FULL44_FLOOR = 18   # was pinned ==15 (2026-08-07); now >=18 (2026-08-13)
+EXPECTED_OOV36_FLOOR = 14    # was pinned ==12 (2026-08-07); now >=14 (2026-08-13)
+EXPECTED_SUB15_FLOOR = 10    # unchanged value; converted ==10 -> >=10 (accumulating metric)
 MUST_STAY_CORRECT = ["agg_anne_pudding_sauce_mouse_ch16", "agg_gilbert_pond_rescue_friendship_plea_ch28",
                       "alice_beautiful_garden", "lw_aunt_march_opposition", "lw_jo_story_prize",
                       "onestop_limal_dating", "race_german_dog", "race_tim_rescue",
@@ -176,23 +205,35 @@ def check_full_eval_and_zero_regression():
     oov36 = sum(G.congruence_with_lexicon_fallback(r["text"])[0] == _gold(r) for r in oov)
     sub15 = sum(G.congruence_with_lexicon_fallback(d[i]["text"])[0] == _gold(d[i]) for i in SUBSET15)
 
-    assert full44 == 15, f"full-44 must be 15 (was 11 pre-build), got {full44}"
-    assert oov36 == 12, f"OOV-36 must be 12 (was 8 pre-build), got {oov36}"
-    assert sub15 == 10, f"15-subset must be 10 (was 7 pre-build), got {sub15}"
+    # FLOORS (accumulating live production accuracy; see PIN POLICY). Pre-build reference: 11/8/7.
+    assert full44 >= EXPECTED_FULL44_FLOOR, (
+        f"full-44 must be >= {EXPECTED_FULL44_FLOOR} (11 pre-build, 15 at this build), got {full44}")
+    assert oov36 >= EXPECTED_OOV36_FLOOR, (
+        f"OOV-36 must be >= {EXPECTED_OOV36_FLOOR} (8 pre-build, 12 at this build), got {oov36}")
+    assert sub15 >= EXPECTED_SUB15_FLOOR, (
+        f"15-subset must be >= {EXPECTED_SUB15_FLOOR} (7 pre-build), got {sub15}")
 
     gains = []
     for r in rows:
         v, det = G.congruence_with_lexicon_fallback(r["text"])
         if v == _gold(r) and r["id"] not in MUST_STAY_CORRECT and det.get("reason") == "referent_recurrence":
             gains.append(r["id"])
+    # EXACT, deliberately NOT loosened: this set is filtered to reason=="referent_recurrence", i.e. it
+    # is THIS build's own attribution, not a global accuracy count. It does not accumulate when other
+    # tiers land, so equality is the right assertion -- an extra member here would mean this tier
+    # started firing somewhere new and must be re-VETted, and a missing member is a real loss.
     assert sorted(gains) == GAINS_EXPECTED, (sorted(gains), GAINS_EXPECTED)
 
+    # EXACT, deliberately NOT loosened: frozen zero-regression invariant (11/11).
     for i in MUST_STAY_CORRECT:
         v, _det = G.congruence_with_lexicon_fallback(d[i]["text"])
         assert v == _gold(d[i]), f"REGRESSION: {i} was correct pre-build, now {v} (gold {_gold(d[i])})"
 
-    print(f"[CHECK full_eval_and_zero_regression] full44=15/44 (was 11), oov36=12/36 (was 8), "
-          f"sub15=10/15 (was 7); recovered={sorted(gains)}; all {len(MUST_STAY_CORRECT)} "
+    print(f"[CHECK full_eval_and_zero_regression] full44={full44}/44 (floor "
+          f"{EXPECTED_FULL44_FLOOR}; 11 pre-build, 15 at this build), oov36={oov36}/36 (floor "
+          f"{EXPECTED_OOV36_FLOOR}; 8 pre-build, 12 at this build), sub15={sub15}/15 (floor "
+          f"{EXPECTED_SUB15_FLOOR}; 7 pre-build); referent_recurrence-attributed gains="
+          f"{sorted(gains)} (exact); all {len(MUST_STAY_CORRECT)} "
           f"previously-correct items still correct (zero regression)")
     return {"full44": full44, "oov36": oov36, "sub15": sub15, "gains": sorted(gains)}
 
@@ -241,8 +282,11 @@ def run():
     r_noise = check_noise_and_numeric_guard()
     r_self = check_strict_add_and_self_test()
     print("[ALL CHECKS PASS] A3 referent-extraction repair + referent-recurrence did-it-happen "
-          "channel MEASURED: full44 11->15 (+4), oov36 8->12 (+4), 15-subset 7->10 (+3); recovered="
-          f"{r_full['gains']}; gate items (woz_tin_woodman_heart + onestop_hunt_crowdfunding) both "
+          "channel: THIS BUILD's measured claim unchanged (full44 11->15 (+4), oov36 8->12 (+4), "
+          "15-subset 7->10 (+3)); LIVE today (floors, later tiers included) full44="
+          f"{r_full['full44']} oov36={r_full['oov36']} sub15={r_full['sub15']}; "
+          f"referent_recurrence-attributed gains={r_full['gains']} (exact); "
+          "gate items (woz_tin_woodman_heart + onestop_hunt_crowdfunding) both "
           "PASS; ZERO regressions on 11 previously-correct items; cert 220/3 (run separately, see "
           "docstring); NOISE 0 leaks; numeric-threshold guards hold; self_test green.")
     return {"extraction": r_extract, "guards": r_guards, "gate": r_gate, "full": r_full,

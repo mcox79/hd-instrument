@@ -36,6 +36,13 @@ Checks:
       item lives in this bank, so no gain is expected here -- this check is a pure non-regression
       gate on the DIALOGUE_REQUEST_PATTERNS-gated reordering, which must be a no-op for every
       non-dialogue-request antecedent).
+      PIN REFRESH 2026-08-13 (Director): the full-44 AFTER pin moved 17 -> 18 and the check's
+      "nothing moves at all" form was narrowed to "nothing ALREADY-TYPED moves" (strict-ADD no-flip).
+      Reason: exactly one full-44 verdict now moves, ts_tom_wish_free_potter NONE -> MET (gold MET,
+      a gain), and it is typed by the LEVIN last-resort backoff (commit 276674abb) -- a tier that
+      landed AFTER this witness and that _before_verdict does not replay -- not by this build's
+      request-response tier or its reordering. 1 gain, 0 regressions, verified. The reordering
+      property this check exists for is unchanged and still asserted exactly.
   (4) FAIR INSTRUMENTS byte-identical: verification/test_goal_owner_select.py's 48/48 full instrument
       + 12/12 multigoal, reproduced via its own run() (imported, not reimplemented).
   (5) ZERO OVER-FIRE: congruence_request_response itself must abstain (NA) on:
@@ -73,10 +80,25 @@ EVAL44_REL = "experiments/data/goal_bearing_modern_eval_v1.jsonl"
 REALTEXT_REL = "experiments/data/real_text_goal_owner_diagnostic_v1.jsonl"
 
 TARGET_IDS = ["mg3_boy_at_garden_gate", "mg3_frank_garden_invited"]
-EXPECTED_REALTEXT_BEFORE = 4
-EXPECTED_REALTEXT_AFTER = 6
-EXPECTED_FULL44_BEFORE = 17
-EXPECTED_FULL44_AFTER = 17
+
+# ---------------------------------------------------------------- PIN POLICY (2026-08-13, Director)
+# BEFORE pins stay `==`: _before_verdict is a FROZEN 3-tier replay of this build's parent. It is not
+# the live production number; if it moves, the recorded delta is no longer the delta that was
+# measured and this witness SHOULD fail loudly rather than silently re-baseline.
+# AFTER pins became FLOORS (`>=`): they are LIVE production accuracy counts on an accumulating
+# more-is-better metric. `==` there guarantees a false failure the moment any unrelated tier lands,
+# and cannot distinguish improvement from regression. Regression protection stays exact below
+# (`assert not regressions`, the strict-ADD no-flip check, and the required-subset gain check).
+#
+# PIN UPDATE 2026-08-13: full-44 AFTER 17 -> 18. VERIFIED gains-with-zero-regressions: exactly ONE
+# full-44 verdict moves (ts_tom_wish_free_potter, NONE -> MET, and MET is gold), 0 regressions;
+# full-44 BEFORE still reproduces exactly 17. That item is NOT typed by this build's tier -- it is
+# the LEVIN last-resort backoff (commit 276674abb, levin_last_resort_backoff_applied=True), which
+# landed after this witness was written and which _before_verdict deliberately does not replay.
+EXPECTED_REALTEXT_BEFORE = 4         # frozen replay, exact
+EXPECTED_REALTEXT_AFTER_FLOOR = 6    # unchanged value; converted ==6 -> >=6 (accumulating metric)
+EXPECTED_FULL44_BEFORE = 17          # frozen replay, exact
+EXPECTED_FULL44_AFTER_FLOOR = 18     # was pinned ==17 (2026-08-07); now >=18 (2026-08-13)
 
 # ADVERSARIAL DIALOGUES (constructed for this build's over-fire probe, per spawn-prompt mandate).
 ADVERSARIAL_DIALOGUES = [
@@ -163,14 +185,27 @@ def check_full_eval_and_zero_regression():
     regressions = [rid for rid in changed
                    if before[rid] == _gold({**_d[rid]}) and after[rid] != _gold(_d[rid])]
     assert b44 == EXPECTED_FULL44_BEFORE, (b44, EXPECTED_FULL44_BEFORE)
-    assert a44 == EXPECTED_FULL44_AFTER, (a44, EXPECTED_FULL44_AFTER)
+    assert a44 >= EXPECTED_FULL44_AFTER_FLOOR, (a44, EXPECTED_FULL44_AFTER_FLOOR)
     assert not regressions, f"REGRESSION on full-44: {regressions}"
-    assert not changed, (
-        f"full-44 verdicts changed but should be a pure no-op (no target item lives in this bank): "
-        f"{changed}")
-    print(f"[CHECK full44_zero_regression] full44={b44}->{a44}/44 (must be equal; no target item "
-          f"in this bank), changed={changed} (must be empty), regressions={regressions} "
-          "(must be empty)")
+    # STRICT-ADD NO-FLIP -- kept as an EXACT (non-floor) invariant. This replaces the old
+    # `assert not changed` (2026-08-07, "pure no-op"). What that assert was actually guarding is that
+    # the DIALOGUE_REQUEST_PATTERNS-gated REORDERING never touches a passage whose antecedent is not
+    # a dialogue-request construction -- i.e. no ALREADY-TYPED verdict may flip. It was written as
+    # "nothing moves at all", which was true on 2026-08-07 but is not a property of THIS build: a
+    # later tier (Levin last-resort backoff, 276674abb) legitimately types an item that every tier
+    # replayed by _before_verdict abstained on. Narrowed, not loosened -- every moved item must have
+    # been an ABSTAIN before AND be correct after; an already-typed verdict changing is still a hard
+    # failure, which is strictly what the reordering could break.
+    illegal_moves = [(rid, before[rid], after[rid]) for rid in changed
+                     if before[rid].upper() not in ("NA", "NONE", "AMBIGUOUS")
+                     or after[rid] != _gold(_d[rid])]
+    assert not illegal_moves, (
+        f"STRICT-ADD VIOLATION on full-44: an already-typed verdict moved (or a moved verdict is not "
+        f"correct): {illegal_moves}")
+    print(f"[CHECK full44_zero_regression] full44={b44}->{a44}/44 (before exact, after >= "
+          f"{EXPECTED_FULL44_AFTER_FLOOR} floor; no target item in this bank), changed={changed} "
+          f"(each must be abstain->correct), illegal_moves={illegal_moves} (must be empty), "
+          f"regressions={regressions} (must be empty)")
     return {"full44_before": b44, "full44_after": a44, "changed": changed}
 
 
@@ -185,10 +220,12 @@ def check_real_text_set():
     for r in rows:
         print(f"[CHECK real_text] {r['id']}: gold={_gold(r)} before={before[r['id']]} "
               f"after={after[r['id']]}")
-    assert b == EXPECTED_REALTEXT_BEFORE, (b, EXPECTED_REALTEXT_BEFORE)
-    assert a == EXPECTED_REALTEXT_AFTER, (a, EXPECTED_REALTEXT_AFTER)
-    assert not regressions, f"REGRESSION on real_text set: {regressions}"
-    assert sorted(gains) == sorted(TARGET_IDS), (sorted(gains), sorted(TARGET_IDS))
+    assert b == EXPECTED_REALTEXT_BEFORE, (b, EXPECTED_REALTEXT_BEFORE)   # frozen replay, exact
+    assert a >= EXPECTED_REALTEXT_AFTER_FLOOR, (a, EXPECTED_REALTEXT_AFTER_FLOOR)  # live, floor
+    assert not regressions, f"REGRESSION on real_text set: {regressions}"  # EXACT, not loosened
+    # Required-SUBSET (was `==`): the gain set accumulates; this build's 2 pre-reg targets must never
+    # drop out of it. Zero-regression is guarded exactly, one line above.
+    assert set(TARGET_IDS) <= set(gains), (sorted(gains), sorted(TARGET_IDS))
     print(f"[CHECK real_text] real_text={b}->{a}/10, gains={sorted(gains)}, "
           f"regressions={regressions} (must be empty)")
     return {"real_text_before": b, "real_text_after": a, "gains": sorted(gains)}
@@ -274,7 +311,8 @@ def run():
     r_self = check_self_test_green()
     print("[ALL CHECKS PASS] REQUEST-RESPONSE outcome-typing tier: real_text %d->%d/10 (net +%d, "
           "both pre-reg targets recovered via the request-response tier with correct owner), "
-          "full44 %d->%d/44 (pure no-op, zero regression), fair instruments 48/48+12/12 unchanged, "
+          "full44 %d->%d/44 (strict-ADD: only abstain->correct moves, zero regression), fair "
+          "instruments 48/48+12/12 unchanged, "
           "adversarial over-fire 0/%d, precision+non-goal banks 0 fires, NOISE 0 leaks, self_test "
           "green. HARD-PASS." % (
               r_real["real_text_before"], r_real["real_text_after"],
