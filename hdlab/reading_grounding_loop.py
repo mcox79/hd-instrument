@@ -124,6 +124,63 @@ PBV_COMMIT_STRENGTH = 0.6   # HYPOTHESIZED. Minimum standing-hypothesis strength
                             # later informative encounter (Horst & Samuelson 2008: fast mapping
                             # yields a fragile hypothesis that needs re-exposure to become durable).
 
+# ---- OPERATING READ-OUT CONFIG (2026-08-12; DEFAULT OFF -- nothing below is applied unless a
+# ---- caller explicitly asks for it by calling operating_readout() / passing freeze_episode=True) --
+#
+# Disposition source: notes/landed_vet_readout_fix_v1_2026-08-12.md (hdi_skunkworks, AUDIT-ONLY,
+# full independent recompute off data/exp_context_vector_signal_v1/_pass_cache.npz). That audit
+# OVERTURNS parts of the cell's own note (notes/readout_fix_v1_2026-08-12.md):
+#   F3 (episode freeze)      CONFIRMED, and stronger than the cell claimed. Survives matched
+#                            retention (-0.168), survives retention pushed ABOVE baseline (-0.137
+#                            while retaining MORE encounters), moves flip_all (a selection effect
+#                            provably cannot), and survives the undisclosed field-SIZE control.
+#   F2 (anchor_center/scale) REFUTED. Its credited leave-one-out was a RETENTION ARTIFACT; at
+#                            matched retention F2 buys -0.004 (FIXED) and +0.032 -- it HURTS -- in
+#                            GROWING. SHELVED. `ReadoutConfig.anchor_background` stays in the code
+#                            but the operating config MUST leave it None. Revival criterion: a
+#                            retention-matched F2 arm with >= 0.05 residual and a paired CI
+#                            excluding 0.
+#   F1 (field-relative gate) KEEP AS A STABILITY SELECTOR ONLY. Worth -0.048 over raw cosine at
+#                            EQUAL retention. Its refutation as a LEMMA-SPECIFICITY / informative-
+#                            ness gate is chain-grade (AUC 0.5067, real-vs-scramble enrichment
+#                            1.0000x) and is NOT undone by keeping it: F1 predicts whether the
+#                            argmax REPEATS, never whether it is RIGHT.
+#
+# OPERATING_MARGIN_Z_MIN is NOT a guessed constant.
+# MEASURED@d:/AI/hd-instrument/data/exp_readout_fix_v1/metrics.json:fix1.thresholds["grow_epi|f2=0|
+# z_top"].g_match = 3.542496 -- the z_top threshold RETENTION-MATCHED to the legacy `cos >= 0.30`
+# gate in the regime this config is for (grow_epi = growing anchor space WITH episode freeze, F2
+# off). Retention-matched is the deliberate choice: it is the only operating point at which a later
+# quality comparison is not silently confounded with admitting fewer encounters -- the exact defect
+# that made F2 look load-bearing. The retention this threshold was matched at was 0.403405
+# MEASURED@ the same jsonpath (.legacy_retention_here); a caller on a DIFFERENT corpus must MEASURE
+# its own admission rate and report the drift rather than assume the match transfers.
+OPERATING_READOUT_NAME = "readout_op_v1_F1F3"
+OPERATING_MARGIN_Z_MIN = 3.542496
+OPERATING_MARGIN_STAT = "z_top"
+OPERATING_MARGIN_Z_MIN_SOURCE = (
+    "data/exp_readout_fix_v1/metrics.json:fix1.thresholds['grow_epi|f2=0|z_top'].g_match")
+OPERATING_MARGIN_Z_MIN_MATCHED_RETENTION = 0.403405
+
+
+def operating_readout(margin_z_min: float = OPERATING_MARGIN_Z_MIN,
+                      margin_stat: str = OPERATING_MARGIN_STAT) -> "ReadoutConfig":
+    """The F1+F3 operating config's F1 half: a field-relative z_top gate with F2 OFF.
+
+    NOT a default. Every existing caller passes `readout=None` and keeps the pre-existing code path
+    byte-for-byte; this factory exists so that a caller that WANTS the vetted operating point cannot
+    accidentally re-enable the SHELVED F2 while doing so (`anchor_background` is hard-wired None
+    here and there is no parameter to set it).
+
+    F3 is not expressible as a ReadoutConfig field -- it is the anchor-field freeze. Pair this with
+    `make_pbv_fns(..., readout=operating_readout(), freeze_episode=True, freeze_epoch_fn=...)`.
+    """
+    if margin_z_min is None:
+        raise ValueError("operating_readout requires a margin_z_min: F1 with no gate is not a "
+                         "config, it is the legacy path (pass readout=None for that).")
+    return ReadoutConfig(anchor_background=None, margin_z_min=float(margin_z_min),
+                         margin_stat=margin_stat)
+
 
 def normalize_lemma(surface: str) -> str:
     """Glass-box surface->lemma via the reused normalizer thematic_role_labeler.lemma_word.
@@ -466,7 +523,8 @@ def _eligible_mask(space: ConceptSpace, cache: Dict[str, object]) -> np.ndarray:
 
 
 def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFORMATIVE_MIN,
-                 readout: Optional[ReadoutConfig] = None, freeze_episode: bool = False):
+                 readout: Optional[ReadoutConfig] = None, freeze_episode: bool = False,
+                 freeze_epoch_fn: Optional[Callable[[], object]] = None):
     """Build the PBV (propose_fn, verify_fn) pair for `state`. THIS is the propose-then-verify
     wiring; hdlab.grounding_acquisition_loop.Library.flag owns the control flow.
 
@@ -495,9 +553,69 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
     `freeze_episode` (FIX 3): snapshot the anchor field when a hypothesis is PROPOSED and compare
     every encounter of THAT episode against the snapshot, releasing it when the hypothesis is
     abandoned -- so a hypothesis is verified against a stable field rather than one that grew under
-    it. MEASURED: growth alone adds ~+0.074 flip (see ConceptSpace.freeze)."""
+    it. MEASURED: growth alone adds ~+0.074 flip (see ConceptSpace.freeze).
+
+    `freeze_epoch_fn` (2026-08-12, ADDITIVE; None = the per-episode behavior above, unchanged
+    byte-for-byte). WHY IT EXISTS -- a MEASURED blocker, not a preference. The landed-VET recorded
+    that `freeze_episode=True` was self-tested but NEVER EXERCISED IN A LIVE READING PASS. It was
+    exercised here and it does not fit in memory: one live pass over the v5 line-aware corpus,
+    instrumented, held 1110 / 1768 / 2381 / 3228 / 3829 / 4518 SIMULTANEOUS FrozenAnchorSpace
+    snapshots at 500/1000/1500/2000/2500/3000 sentences -- every one a distinct matrix (0 sharing,
+    because ConceptSpace._version bumps on EVERY observed seed-word occurrence, so no two episodes
+    are ever proposed at the same version) -- for 0.65 / 1.39 / 2.19 / 3.40 / 4.29 / 5.35 GB. That
+    is 3000 of 34169 sentences and it grows linearly in episodes: the full pass extrapolates past
+    50 GB. Per-episode freeze at true per-encounter granularity is not runnable as written.
+
+    THE FIX, and it is a DECLARED COARSENING, not a free lunch: when `freeze_epoch_fn` is given, it
+    is called at freeze time for a hashable EPOCH id, and every episode proposed within one epoch
+    SHARES that epoch's single snapshot (reference-counted; an epoch's snapshot is dropped as soon
+    as no live episode holds it). Live memory becomes O(live epochs) instead of O(live episodes).
+    The cost is that an episode proposed mid-epoch is frozen against the field as it stood at the
+    START of its epoch rather than at its own proposing encounter. This is COARSER than true
+    per-episode freeze and MUST be reported as such -- but it is strictly FINER than the granularity
+    at which F3's effect was actually measured and confirmed (the landed-VET's -0.168 at matched
+    retention was measured at 5-SNAPSHOT, i.e. per-SEGMENT, granularity), so a per-chunk epoch is
+    an interpolation between the measured point and the unrunnable ideal, not an extrapolation past
+    either. Callers should pass the smallest epoch their memory budget allows and report
+    `freeze_stats()`.
+
+    `freeze_stats()` is attached as an attribute to BOTH returned functions and reports snapshot
+    counts / peak live snapshots / peak live snapshot bytes, so the memory claim above is telemetry
+    in the metrics rather than a comment."""
     cache: Dict[str, object] = {}
-    episodes: Dict[str, FrozenAnchorSpace] = {}
+    # lemma -> FrozenAnchorSpace  (freeze_epoch_fn is None)  |  lemma -> epoch key (otherwise)
+    episodes: Dict[str, object] = {}
+    snapshots: Dict[object, FrozenAnchorSpace] = {}     # epoch key -> shared snapshot
+    refs: Dict[object, int] = {}                        # epoch key -> live episode count
+    stats: Dict[str, object] = {
+        "freeze_episode": bool(freeze_episode),
+        "epoch_interned": freeze_epoch_fn is not None,
+        "n_freezes_requested": 0, "n_snapshots_created": 0,
+        "peak_live_snapshots": 0, "peak_live_snapshot_bytes": 0, "peak_live_episodes": 0,
+    }
+
+    def _live_snapshots() -> List[FrozenAnchorSpace]:
+        if freeze_epoch_fn is None:
+            return [v for v in episodes.values() if isinstance(v, FrozenAnchorSpace)]
+        return list(snapshots.values())
+
+    def _note_peak() -> None:
+        live = _live_snapshots()
+        stats["peak_live_snapshots"] = max(int(stats["peak_live_snapshots"]), len(live))
+        stats["peak_live_snapshot_bytes"] = max(int(stats["peak_live_snapshot_bytes"]),
+                                                sum(int(s._mat.nbytes) for s in live))
+        stats["peak_live_episodes"] = max(int(stats["peak_live_episodes"]), len(episodes))
+
+    def _release(lemma: str) -> None:
+        key = episodes.pop(lemma, None)
+        if key is None or freeze_epoch_fn is None:
+            return                                  # un-interned snapshots are freed by refcount/GC
+        n = refs.get(key, 0) - 1
+        if n <= 0:
+            refs.pop(key, None)
+            snapshots.pop(key, None)
+        else:
+            refs[key] = n
 
     def _space_for(item):
         """Live space unless FIX 3 is on. A new episode begins exactly where `Library.flag` starts
@@ -505,14 +623,39 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
         if not freeze_episode:
             return state.space
         if item.hypothesis is None or item.lemma not in episodes:
-            episodes[item.lemma] = state.space.freeze()
-        return episodes[item.lemma]
+            _release(item.lemma)
+            stats["n_freezes_requested"] = int(stats["n_freezes_requested"]) + 1
+            if freeze_epoch_fn is None:
+                episodes[item.lemma] = state.space.freeze()
+                stats["n_snapshots_created"] = int(stats["n_snapshots_created"]) + 1
+            else:
+                key = freeze_epoch_fn()
+                if key not in snapshots:
+                    snapshots[key] = state.space.freeze()
+                    refs[key] = 0
+                    stats["n_snapshots_created"] = int(stats["n_snapshots_created"]) + 1
+                refs[key] = refs.get(key, 0) + 1
+                episodes[item.lemma] = key
+            _note_peak()
+        held = episodes[item.lemma]
+        return held if freeze_epoch_fn is None else snapshots[held]
 
     def _encounter_best(item, tr) -> Tuple[str, float]:
         sp = _space_for(item)
         mask_cache = cache if sp is state.space else sp._elig_cache
         return canonicalize_fast(item.lemma, tr.context_vec, sp, thresh=informative_min,
                                  eligible_mask=_eligible_mask(sp, mask_cache), readout=readout)
+
+    def freeze_stats() -> dict:
+        out = dict(stats)
+        out["live_snapshots_now"] = len(_live_snapshots())
+        out["live_episodes_now"] = len(episodes)
+        out["readout_active"] = bool(readout is not None and readout.active)
+        out["readout_margin_z_min"] = None if readout is None else readout.margin_z_min
+        out["readout_margin_stat"] = None if readout is None else readout.margin_stat
+        out["readout_f2_anchor_background_on"] = bool(
+            readout is not None and readout.anchor_background is not None)
+        return out
 
     def propose_fn(item, tr):
         obj, cos = _encounter_best(item, tr)
@@ -526,6 +669,8 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
             return None                       # UNINFORMATIVE -- no verdict, no strength change
         return obj == item.hypothesis.obj
 
+    propose_fn.freeze_stats = freeze_stats      # type: ignore[attr-defined]
+    verify_fn.freeze_stats = freeze_stats       # type: ignore[attr-defined]
     return propose_fn, verify_fn
 
 
@@ -1334,6 +1479,83 @@ def _selftest_no_partial_credit_to_alternatives() -> None:
         "rejected alternatives must be bare identifiers, never (candidate, score) pairs")
 
 
+def _selftest_operating_readout_is_F1_only_and_off_by_default() -> None:
+    """The operating config turns F1 ON and leaves the SHELVED F2 OFF, and NOTHING turns on unless
+    a caller asks. Guards the specific regression the landed-VET's disposition forbids: silently
+    re-enabling `anchor_background` (F2) inside a config named 'operating'."""
+    cfg = operating_readout()
+    assert cfg.anchor_background is None, "F2 is SHELVED; the operating config must not set it"
+    assert cfg.margin_z_min == OPERATING_MARGIN_Z_MIN and cfg.margin_stat == "z_top"
+    assert cfg.active, "the operating config must actually be active"
+    assert ReadoutConfig().active is False, "a bare ReadoutConfig must stay inert"
+    try:
+        operating_readout(margin_z_min=None)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("operating_readout(None) must refuse, not silently degrade to legacy")
+    # DEFAULT-OFF invariant on the live call path: the same encounter through the default signature
+    # and through an explicit readout=None must be bit-identical.
+    state, engine_sentences, _ = _pbv_fixture(seed=915)
+    for i, s in enumerate(engine_sentences[:3]):
+        process_sentence(state, s, f"d{i}", pass_idx=1, pbv_fns=make_pbv_fns(state))
+    space = state.space
+    q = np.sum([t.context_vec for t in state.library.items["zibbo"].traces], axis=0)
+    cache: Dict[str, object] = {}
+    a = canonicalize_fast("zibbo", q, space, thresh=PBV_INFORMATIVE_MIN,
+                          eligible_mask=_eligible_mask(space, cache))
+    b = canonicalize_fast("zibbo", q, space, thresh=PBV_INFORMATIVE_MIN,
+                          eligible_mask=_eligible_mask(space, cache), readout=None)
+    assert a == b, f"readout=None must be the legacy path byte-for-byte: {a} vs {b}"
+
+
+def _selftest_freeze_epoch_interning_bounds_memory_and_preserves_semantics() -> None:
+    """FIX 3 in a LIVE pass. Three things, all failable:
+    (1) with `freeze_epoch_fn`, episodes proposed in one epoch SHARE one snapshot object (this is
+        the whole memory fix -- without it every episode holds its own matrix);
+    (2) the snapshot is RELEASED once no live episode references its epoch (refcount, not a leak);
+    (3) `freeze_epoch_fn=None` still gives one snapshot PER episode, i.e. the coarsening is opt-in
+        and the prior semantics are reachable unchanged."""
+    epoch = {"e": 0}
+
+    def run(epoch_fn):
+        state, engine_sentences, _ = _pbv_fixture(seed=916)
+        fns = make_pbv_fns(state, freeze_episode=True, freeze_epoch_fn=epoch_fn)
+        for i, s in enumerate(engine_sentences):
+            process_sentence(state, s, f"f{i}", pass_idx=1, pbv_fns=fns)
+        return state, fns[0].freeze_stats()
+
+    epoch["e"] = 0
+    _st_shared, shared = run(lambda: epoch["e"])
+    _st_per, per = run(None)
+    assert shared["epoch_interned"] is True and per["epoch_interned"] is False
+    assert shared["n_freezes_requested"] >= 1, shared
+    assert shared["n_snapshots_created"] == 1, (
+        "all episodes in ONE epoch must share ONE snapshot, got %r" % shared)
+    assert shared["peak_live_snapshots"] == 1, shared
+    assert per["n_snapshots_created"] == per["n_freezes_requested"], (
+        "with no epoch fn every freeze must mint its own snapshot (prior semantics): %r" % per)
+    assert shared["peak_live_snapshot_bytes"] <= per["peak_live_snapshot_bytes"], (
+        "interning must never cost MORE memory: %r vs %r" % (shared, per))
+
+    # (2) release: two epochs, one episode, re-proposed after ABANDON -> old epoch must be dropped.
+    state, engine_sentences, _ = _pbv_fixture(seed=917)
+    epoch["e"] = 0
+    fns = make_pbv_fns(state, freeze_episode=True, freeze_epoch_fn=lambda: epoch["e"])
+    process_sentence(state, engine_sentences[0], "r0", pass_idx=1, pbv_fns=fns)
+    s1 = fns[0].freeze_stats()
+    assert s1["live_snapshots_now"] == 1 and s1["live_episodes_now"] >= 1, s1
+    for it in state.library.items.values():
+        it.hypothesis = None                # post-ABANDON shape for EVERY live episode
+    epoch["e"] = 1
+    process_sentence(state, engine_sentences[0], "r1", pass_idx=1, pbv_fns=fns)
+    s2 = fns[0].freeze_stats()
+    assert s2["n_snapshots_created"] == 2, s2
+    assert s2["live_episodes_now"] == s1["live_episodes_now"], s2
+    assert s2["live_snapshots_now"] == 1, (
+        "the vacated epoch's snapshot must be refcount-released, not leaked: %r" % s2)
+
+
 def _run_all_selftests() -> dict:
     _selftest_no_leak_masking()
     _selftest_gap_gate_known_vs_novel()
@@ -1348,6 +1570,8 @@ def _run_all_selftests() -> dict:
     _selftest_injected_wrong_hypothesis_is_abandoned()
     _selftest_escalated_word_reopens_on_new_evidence()
     _selftest_no_partial_credit_to_alternatives()
+    _selftest_operating_readout_is_F1_only_and_off_by_default()
+    _selftest_freeze_epoch_interning_bounds_memory_and_preserves_semantics()
     return {
         "no_leak_masking_ok": True,
         "gap_gate_known_vs_novel_ok": True,
@@ -1363,6 +1587,13 @@ def _run_all_selftests() -> dict:
         "right_hypothesis_control_not_abandoned_ok": True,
         "escalated_reopens_on_new_evidence_ok": True,
         "no_partial_credit_to_alternatives_ok": True,
+        "operating_readout_F1_only_and_default_off_ok": True,
+        "freeze_epoch_interning_bounds_memory_ok": True,
+        "operating_config": {"name": OPERATING_READOUT_NAME, "F1_margin_stat": OPERATING_MARGIN_STAT,
+                             "F1_margin_z_min": OPERATING_MARGIN_Z_MIN,
+                             "F1_margin_z_min_source": OPERATING_MARGIN_Z_MIN_SOURCE,
+                             "F2_anchor_background": "SHELVED_OFF", "F3": "freeze_episode=True",
+                             "default": "OFF (every existing caller passes readout=None)"},
         "reuse": ["hdlab.grounding_acquisition_loop", "hdlab.hd_fact_store.HDFactStore",
                   "hdlab.gap_detector.GapDetector", "hdlab.thematic_role_labeler.lemma_verb"],
     }
