@@ -75,8 +75,36 @@ compaction.
   the remaining 71 unregistered modules (5 true islands -> SHELVE candidate;
   `lexical_similarity.py`, 23 consumers, flagged as a real unclosed gap).
 
+- dd58dcf69 -- context-conditioned sense selection v2 landed: HARD_FAIL both indexes (subject
+  0.4809 vs floor 0.4634, head_lemma 0.4449 vs floor 0.4401).
+- a28cf3b45 -- landed-VET exp_pbv_hypothesis_v1: HARD_FAIL settled (P1 abandon-on-wrong 0.286
+  vs >=0.60 needed, P3 separation 0.071 vs >=0.30 needed; abandonment is arithmetic on
+  encounter count, not hypothesis correctness).
+- 3340df8d5 (foundation-validation arc, separate but same session) -- landed-VET
+  notes/landed_vet_foundation_validation_2026-08-12.md: OVERSTATED, 65.7% self-tautologies;
+  docs corrected.
+- 8de3a9a20 -- landed-VET readout_fix_v1: OVERSTATED. F3 (frozen anchor space) CONFIRMED
+  stronger than claimed (-0.168 at matched retention, moves flip_all -0.0603, field-size
+  confound refuted); F2 (frequency-corrected pool) REFUTED as a retention artifact (+0.032
+  HURTS at matched retention in GROWING) -> SHELVE; F1 (z-gate) kept as stability selector
+  only, never an informativeness gate (AUC 0.5067). Best measured config F1+F3, F2 off,
+  GROWING flip_gated 0.3602. No quality claim licensed -- flip stability only.
+- 192521a7f -- grounding_quality_readout_v1 step1+2: prereg (preregs/2026-08-12_grounding_
+  quality_readout_v1.md, bands incl. live-acceptable NULL) + F1/F3 operating read-out wired
+  default-OFF into hdlab/reading_grounding_loop.py (`operating_readout()`, `make_pbv_fns
+  (freeze_epoch_fn=)`), additive, every existing caller keeps the prior path byte-for-byte.
+- 8e6c574c5 -- fix(readout_fix_v1): metrics key `leave_one_out_GROWING` -> `leave_one_out`
+  (mislabelled regime for 2 of 3 fixes; values were always correct, key only).
+- 7a708eff3 -- reading_grounding_loop: `release_episodes()` closes an O(epochs-seen) F3
+  snapshot memory leak, found while sizing the quality-readout run against its 4GB cap before
+  dispatch (instrumented probe: 3000/34169 sentences -> 5.35GB, extrapolates past 50GB
+  unfixed). Optional, no-op for callers that don't use it.
+
 ## NEXT STEP FOR THIS ARC (see notes/STATUS.md for the live pointer)
-Context-conditioned sense-selection experiment is in flight (concurrent session), scoring
-against the measured 0.4316 random floor on the 288 multi-sense words. Then persist the v3
-DEF/DIST_LOWINFO hand-scores to disk and update the cell verdict off
-STRUCTURAL_PASS_PENDING_B3.
+`experiments/exp_grounding_quality_readout_v1.py` (prereg filed, 192521a7f) has been
+**dispatched three times and never completed** -- as of this pass the cell file does not exist
+on disk, no output dir, no live process. Must be authored + detach-dispatched (prereg sec 11:
+`Start-Process -WindowStyle Hidden`, timeout_s 21600) before the arc can move. It produces two
+UNSCORED 50-row samples (PBV_BASE, PBV_F1F3); director then hand-scores both against the same
+rubric as the 64% v5 baseline (v5's 64% is a ceiling reference only, real comparator is v2
+DIST's 8%). Growth stays PAUSED regardless of outcome.
