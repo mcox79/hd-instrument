@@ -1,0 +1,273 @@
+{
+  "anchor_name": "grounding_quality_readout_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-13T02:44:07.927123+00:00",
+  "prereg": "preregs/2026-08-12_grounding_quality_readout_v1.md",
+  "wire_status": "VET_PENDING",
+  "verdict": "STRUCTURAL_PASS_PENDING_B3",
+  "verdict_msg": "structural gates pass; 100 blind rows written for the director's hand-score. THIS CELL MAKES NO QUALITY CLAIM. S5_confirm_calibrated=True (BASE 0.066779 vs cited 0.100561); selectivity n_F1F3/n_BASE=0.960938 (cap band (0.5, 2.0), ok=True); S8 admission 0.165153 drift -0.238252 (retention-match holds=False).",
+  "QUALITY_CLAIM": "NONE -- this cell emits no quality tier. The primary discriminator is a BLIND HUMAN HAND-SCORE the director performs on blind_sample.json. Read-out stability and meaning quality may be fully decoupled; the NULL outcome is pre-registered as LIVE and ACCEPTABLE (prereg sec 3.1).",
+  "quality_bands_recorded_not_evaluated": {
+    "discriminator": "MEANINGFUL(PBV_F1F3) - MEANINGFUL(PBV_BASE), two blind 50-row hand-scores",
+    "HARD_PASS": "delta >= +0.20 AND F1F3 MEANINGFUL >= 0.25",
+    "MIDDLE_BAND": "delta in [+0.08, +0.20) -- under-powered at n=50; licenses a re-score only",
+    "NULL": "|delta| < 0.08 -- a stabler read-out does NOT produce better meanings (LIVE outcome)",
+    "HARD_FAIL_HURTS": "delta <= -0.08 -- F1+F3 makes meanings WORSE",
+    "selectivity_cap": "n_facts(F1F3)/n_facts(BASE) outside [0.5, 2.0] -> capped at MIDDLE_BAND",
+    "power": "SE(delta) ~ sqrt(2*0.25/50) = 0.10; deltas below ~0.20 are UNRESOLVABLE at 2 SE",
+    "reference_points": {
+      "v2_DIST_readout_handscore": 0.08,
+      "v5_DEF_parser_handscore": 0.64,
+      "note": "0.64 is a CEILING REFERENCE from a DIFFERENT MECHANISM (a hand-written appositive/copula parser), NOT the comparator. The read-out's own prior quality number is the 0.08."
+    }
+  },
+  "structural_gates": {
+    "S1_cardinality": {
+      "ok": true,
+      "expected_n_units": 10,
+      "n_present": 10,
+      "missing_units": [],
+      "missing_arms": []
+    },
+    "S2_integrity": {
+      "ok": true,
+      "per_arm": {
+        "PBV_BASE": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        },
+        "PBV_F1F3": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        }
+      }
+    },
+    "S3_arms_differ": {
+      "ok": true,
+      "digests": {
+        "PBV_BASE": "836571fa99d5765d600147ce7fed0a4df9b3eb3d9a10034d005b0e582f150a5f",
+        "PBV_F1F3": "1eb05b549cbfb86e8f4bad9949030181776b5ecf73cb67acf34c4ca4ebada084"
+      }
+    },
+    "S4_backward_compat": {
+      "checked": [
+        {
+          "name": "reading_grounding_v1",
+          "n_live_facts": 7966,
+          "n_anchors": 4322
+        },
+        {
+          "name": "reading_grounding_v2_qualityfix",
+          "n_live_facts": 2146,
+          "n_anchors": 1415
+        }
+      ],
+      "errors": [],
+      "ok": true
+    },
+    "S5_confirm_rate_calibration": {
+      "ok": true,
+      "confirm_rate_calibrated": true,
+      "cited_pbv_confirm_rate": 0.100561,
+      "cited_source": "data/exp_pbv_hypothesis_v1_smoke/metrics.json:arms.B_PBV.trajectory (788 / (788+7048))",
+      "tolerance": 0.05,
+      "PBV_BASE_confirm_rate": 0.066779,
+      "PBV_F1F3_confirm_rate": 0.129654,
+      "note": "If not calibrated, every confirm-rate number here is WITHIN_CELL_RELATIVE_ONLY and NO claim is made against the 0.101 gate. A confirm-rate RISE under F1F3 is expected on STABILITY grounds alone and is NOT evidence of better meanings (prereg sec 5)."
+    },
+    "S6_yield_floor": {
+      "ok": true,
+      "floor": 50,
+      "per_arm": {
+        "PBV_BASE": 384,
+        "PBV_F1F3": 369
+      }
+    },
+    "S7_f3_memory": {
+      "ok": true,
+      "peak_live_snapshot_bytes": 433805312,
+      "cap_bytes": 4294967296,
+      "freeze_stats": {
+        "freeze_episode": true,
+        "epoch_interned": true,
+        "n_freezes_requested": 55799,
+        "n_snapshots_created": 231,
+        "peak_live_snapshots": 228,
+        "peak_live_snapshot_bytes": 433805312,
+        "peak_live_episodes": 14169,
+        "live_snapshots_now": 228,
+        "live_episodes_now": 14151,
+        "readout_active": true,
+        "readout_margin_z_min": 3.542496,
+        "readout_margin_stat": "z_top",
+        "readout_f2_anchor_background_on": false
+      }
+    },
+    "S8_f1_admission_drift": {
+      "reported_only": true,
+      "matched_retention_cited": 0.403405,
+      "PBV_F1F3_admission_rate": 0.165153,
+      "PBV_BASE_admission_rate": 0.317547,
+      "drift": -0.238252,
+      "retention_ratio_F1F3_over_BASE": 0.52009,
+      "retention_match_holds": false,
+      "note": "drift > 0.10 voids the 'retention-matched' claim; the sec 3.2 cap then applies to any later quality delta."
+    }
+  },
+  "selectivity_cap": {
+    "n_facts_PBV_BASE": 384,
+    "n_facts_PBV_F1F3": 369,
+    "ratio_F1F3_over_BASE": 0.960938,
+    "band": [
+      0.5,
+      2.0
+    ],
+    "within_band": true,
+    "n_lemmas_grounded_by_both": 72,
+    "n_agree_on_object": 48,
+    "object_agreement_rate": 0.666667,
+    "note": "OUTSIDE the band, any later quality delta is CONFOUNDED WITH SELECTIVITY and the verdict is CAPPED AT MIDDLE_BAND regardless of its size (prereg 3.2)."
+  },
+  "objective_metrics": {
+    "PBV_BASE": {
+      "n_sentences": 34169,
+      "n_chunks": 228,
+      "n_grounded": 384,
+      "n_meaning_facts": 384,
+      "n_refusals": 24949,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 247,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21240,
+        "NO_STANDING_HYPOTHESIS": 3462
+      },
+      "confirm_rate": 0.066779,
+      "n_verdict_bearing": 16652,
+      "admission_rate": 0.317547,
+      "trajectory": {
+        "n_items": 15990,
+        "n_items_with_hypothesis": 10450,
+        "n_items_revised": 3358,
+        "revision_rate": 0.32134,
+        "n_encounters": 83723,
+        "n_informative_encounters": 26586,
+        "informative_encounter_rate": 0.317547,
+        "n_confirm": 1112,
+        "n_disconfirm": 15540,
+        "n_abandon": 5972,
+        "n_repropose": 5972,
+        "n_revive": 10122
+      },
+      "freeze_stats": {
+        "freeze_episode": false,
+        "epoch_interned": false,
+        "n_freezes_requested": 0,
+        "n_snapshots_created": 0,
+        "peak_live_snapshots": 0,
+        "peak_live_snapshot_bytes": 0,
+        "peak_live_episodes": 0,
+        "live_snapshots_now": 0,
+        "live_episodes_now": 0,
+        "readout_active": false,
+        "readout_margin_z_min": null,
+        "readout_margin_stat": null,
+        "readout_f2_anchor_background_on": false
+      },
+      "pairs_digest": "836571fa99d5765d600147ce7fed0a4df9b3eb3d9a10034d005b0e582f150a5f",
+      "segments_seen": {
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952,
+        "adv_new": 7408,
+        "bio_new": 12546
+      },
+      "elapsed_s": 824.18
+    },
+    "PBV_F1F3": {
+      "n_sentences": 34169,
+      "n_chunks": 228,
+      "n_grounded": 369,
+      "n_meaning_facts": 369,
+      "n_refusals": 25142,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 247,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 15447,
+        "NO_STANDING_HYPOTHESIS": 9448
+      },
+      "confirm_rate": 0.129654,
+      "n_verdict_bearing": 6016,
+      "admission_rate": 0.165153,
+      "trajectory": {
+        "n_items": 15990,
+        "n_items_with_hypothesis": 9302,
+        "n_items_revised": 1137,
+        "revision_rate": 0.122232,
+        "n_encounters": 83807,
+        "n_informative_encounters": 13841,
+        "informative_encounter_rate": 0.165153,
+        "n_confirm": 780,
+        "n_disconfirm": 5236,
+        "n_abandon": 1626,
+        "n_repropose": 1472,
+        "n_revive": 10186
+      },
+      "freeze_stats": {
+        "freeze_episode": true,
+        "epoch_interned": true,
+        "n_freezes_requested": 55799,
+        "n_snapshots_created": 231,
+        "peak_live_snapshots": 228,
+        "peak_live_snapshot_bytes": 433805312,
+        "peak_live_episodes": 14169,
+        "live_snapshots_now": 228,
+        "live_episodes_now": 14151,
+        "readout_active": true,
+        "readout_margin_z_min": 3.542496,
+        "readout_margin_stat": "z_top",
+        "readout_f2_anchor_background_on": false
+      },
+      "pairs_digest": "1eb05b549cbfb86e8f4bad9949030181776b5ecf73cb67acf34c4ca4ebada084",
+      "segments_seen": {
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952,
+        "adv_new": 7408,
+        "bio_new": 12546
+      },
+      "elapsed_s": 764.25
+    }
+  },
+  "config": {
+    "N_DIM": 2048,
+    "CHUNK_SIZE": 150,
+    "ARM_SEED": 4201,
+    "SCHEMA_THRESH_FULL": 0.25,
+    "PBV_INFORMATIVE_MIN": 0.3,
+    "PBV_COMMIT_STRENGTH": 0.6,
+    "F1_margin_z_min": 3.542496,
+    "F1_margin_stat": "z_top",
+    "F1_source": "data/exp_readout_fix_v1/metrics.json:fix1.thresholds['grow_epi|f2=0|z_top'].g_match",
+    "F2_anchor_background": "SHELVED_OFF",
+    "F3_epoch_granularity": "one snapshot per 150-sentence chunk",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "corpus": "experiments.exp_definitional_grounding_v5.load_corpus_v5(None, lineaware=True)"
+  },
+  "deliverable": {
+    "per_arm_files": {
+      "PBV_BASE": "b3_audit_sample_READOUT_BASE.json",
+      "PBV_F1F3": "b3_audit_sample_READOUT_F1F3.json"
+    },
+    "blind_file": "blind_sample.json",
+    "key_file": "arm_key.json",
+    "n_blind_rows": 100
+  },
+  "limitations": [
+    "THIS CELL MEASURES NO QUALITY. Everything it emits is structural or a stability/selectivity control. The quality question is answered ONLY by the blind hand-score.",
+    "F3 is run at EPOCH (per-150-sentence-chunk) granularity, a DECLARED COARSENING (prereg sec 6): true per-episode freeze extrapolates past 50 GB on this corpus and is not runnable. It is coarser than per-episode and strictly FINER than the 5-snapshot granularity at which F3's confirmed -0.168 was measured.",
+    "F1 is a stability selector only. The landed-VET refuted it as an informativeness / lemma-specificity gate (AUC 0.5067, real-vs-scramble enrichment 1.0000x). Nothing in F1 or F3 supplies REFERENCE.",
+    "the proposer's metric is still distributional relatedness, not reference -- if the hand-score comes back NULL, the pre-registered reading is that the read-out was never the binding constraint (prereg sec 3.1).",
+    "n=50 per arm: SE(delta) ~ 0.10. Deltas below ~0.20 are pre-declared unresolvable."
+  ]
+}

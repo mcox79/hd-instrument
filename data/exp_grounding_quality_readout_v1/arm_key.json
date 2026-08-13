@@ -1,0 +1,706 @@
+{
+  "warning": "DO NOT OPEN UNTIL blind_sample.json IS FULLY SCORED",
+  "shuffle_seed": 42,
+  "rows": [
+    {
+      "blind_id": 0,
+      "arm": "PBV_BASE",
+      "subject": "baffin",
+      "object": "isolate",
+      "fid": 1253
+    },
+    {
+      "blind_id": 1,
+      "arm": "PBV_BASE",
+      "subject": "tesco",
+      "object": "situation",
+      "fid": 985
+    },
+    {
+      "blind_id": 2,
+      "arm": "PBV_F1F3",
+      "subject": "hitting",
+      "object": "beat",
+      "fid": 1239
+    },
+    {
+      "blind_id": 3,
+      "arm": "PBV_BASE",
+      "subject": "remote",
+      "object": "boat",
+      "fid": 991
+    },
+    {
+      "blind_id": 4,
+      "arm": "PBV_F1F3",
+      "subject": "abdullah",
+      "object": "totally",
+      "fid": 981
+    },
+    {
+      "blind_id": 5,
+      "arm": "PBV_F1F3",
+      "subject": "metaphase",
+      "object": "homologous",
+      "fid": 1541
+    },
+    {
+      "blind_id": 6,
+      "arm": "PBV_BASE",
+      "subject": "publisher",
+      "object": "head",
+      "fid": 1001
+    },
+    {
+      "blind_id": 7,
+      "arm": "PBV_F1F3",
+      "subject": "parachute",
+      "object": "ride",
+      "fid": 913
+    },
+    {
+      "blind_id": 8,
+      "arm": "PBV_BASE",
+      "subject": "sky",
+      "object": "bag",
+      "fid": 919
+    },
+    {
+      "blind_id": 9,
+      "arm": "PBV_F1F3",
+      "subject": "scanner",
+      "object": "talk",
+      "fid": 1345
+    },
+    {
+      "blind_id": 10,
+      "arm": "PBV_F1F3",
+      "subject": "aphotic",
+      "object": "marry",
+      "fid": 1619
+    },
+    {
+      "blind_id": 11,
+      "arm": "PBV_BASE",
+      "subject": "macromolecule",
+      "object": "big",
+      "fid": 1579
+    },
+    {
+      "blind_id": 12,
+      "arm": "PBV_F1F3",
+      "subject": "meritocratic",
+      "object": "excavation",
+      "fid": 1115
+    },
+    {
+      "blind_id": 13,
+      "arm": "PBV_F1F3",
+      "subject": "drumming",
+      "object": "ray",
+      "fid": 1029
+    },
+    {
+      "blind_id": 14,
+      "arm": "PBV_F1F3",
+      "subject": "confidence",
+      "object": "talking",
+      "fid": 1089
+    },
+    {
+      "blind_id": 15,
+      "arm": "PBV_BASE",
+      "subject": "whisky",
+      "object": "wedding",
+      "fid": 1157
+    },
+    {
+      "blind_id": 16,
+      "arm": "PBV_BASE",
+      "subject": "infamous",
+      "object": "alive",
+      "fid": 1357
+    },
+    {
+      "blind_id": 17,
+      "arm": "PBV_F1F3",
+      "subject": "synthase",
+      "object": "plasma",
+      "fid": 1505
+    },
+    {
+      "blind_id": 18,
+      "arm": "PBV_F1F3",
+      "subject": "blatter",
+      "object": "fault",
+      "fid": 1315
+    },
+    {
+      "blind_id": 19,
+      "arm": "PBV_BASE",
+      "subject": "mowat",
+      "object": "cute",
+      "fid": 1045
+    },
+    {
+      "blind_id": 20,
+      "arm": "PBV_BASE",
+      "subject": "checklist",
+      "object": "joe",
+      "fid": 1345
+    },
+    {
+      "blind_id": 21,
+      "arm": "PBV_BASE",
+      "subject": "ingabire",
+      "object": "men",
+      "fid": 1503
+    },
+    {
+      "blind_id": 22,
+      "arm": "PBV_BASE",
+      "subject": "spots",
+      "object": "husband",
+      "fid": 1171
+    },
+    {
+      "blind_id": 23,
+      "arm": "PBV_F1F3",
+      "subject": "collaboration",
+      "object": "goodbye",
+      "fid": 1435
+    },
+    {
+      "blind_id": 24,
+      "arm": "PBV_F1F3",
+      "subject": "clinic",
+      "object": "bet",
+      "fid": 1171
+    },
+    {
+      "blind_id": 25,
+      "arm": "PBV_BASE",
+      "subject": "tennis",
+      "object": "frank",
+      "fid": 1435
+    },
+    {
+      "blind_id": 26,
+      "arm": "PBV_F1F3",
+      "subject": "lymphatic",
+      "object": "interstitial",
+      "fid": 1601
+    },
+    {
+      "blind_id": 27,
+      "arm": "PBV_BASE",
+      "subject": "des",
+      "object": "ray",
+      "fid": 1551
+    },
+    {
+      "blind_id": 28,
+      "arm": "PBV_F1F3",
+      "subject": "injera",
+      "object": "mama",
+      "fid": 1231
+    },
+    {
+      "blind_id": 29,
+      "arm": "PBV_BASE",
+      "subject": "farm",
+      "object": "absolutely",
+      "fid": 893
+    },
+    {
+      "blind_id": 30,
+      "arm": "PBV_BASE",
+      "subject": "uninfected",
+      "object": "stem",
+      "fid": 1641
+    },
+    {
+      "blind_id": 31,
+      "arm": "PBV_BASE",
+      "subject": "glucagon",
+      "object": "stem",
+      "fid": 1633
+    },
+    {
+      "blind_id": 32,
+      "arm": "PBV_F1F3",
+      "subject": "soup",
+      "object": "sure",
+      "fid": 1445
+    },
+    {
+      "blind_id": 33,
+      "arm": "PBV_F1F3",
+      "subject": "crop",
+      "object": "oh",
+      "fid": 919
+    },
+    {
+      "blind_id": 34,
+      "arm": "PBV_F1F3",
+      "subject": "skip",
+      "object": "terror",
+      "fid": 1551
+    },
+    {
+      "blind_id": 35,
+      "arm": "PBV_BASE",
+      "subject": "ninian",
+      "object": "school",
+      "fid": 1505
+    },
+    {
+      "blind_id": 36,
+      "arm": "PBV_F1F3",
+      "subject": "charter",
+      "object": "peter",
+      "fid": 1273
+    },
+    {
+      "blind_id": 37,
+      "arm": "PBV_F1F3",
+      "subject": "morris",
+      "object": "plane",
+      "fid": 911
+    },
+    {
+      "blind_id": 38,
+      "arm": "PBV_F1F3",
+      "subject": "shed",
+      "object": "flatbread",
+      "fid": 1045
+    },
+    {
+      "blind_id": 39,
+      "arm": "PBV_BASE",
+      "subject": "session",
+      "object": "answer",
+      "fid": 975
+    },
+    {
+      "blind_id": 40,
+      "arm": "PBV_BASE",
+      "subject": "colin",
+      "object": "company",
+      "fid": 1235
+    },
+    {
+      "blind_id": 41,
+      "arm": "PBV_BASE",
+      "subject": "pipe",
+      "object": "floor",
+      "fid": 1461
+    },
+    {
+      "blind_id": 42,
+      "arm": "PBV_BASE",
+      "subject": "consultant",
+      "object": "boyfriend",
+      "fid": 1231
+    },
+    {
+      "blind_id": 43,
+      "arm": "PBV_BASE",
+      "subject": "acquire",
+      "object": "years",
+      "fid": 1275
+    },
+    {
+      "blind_id": 44,
+      "arm": "PBV_BASE",
+      "subject": "inject",
+      "object": "fat",
+      "fid": 1109
+    },
+    {
+      "blind_id": 45,
+      "arm": "PBV_F1F3",
+      "subject": "contributor",
+      "object": "ray",
+      "fid": 1109
+    },
+    {
+      "blind_id": 46,
+      "arm": "PBV_F1F3",
+      "subject": "plasma",
+      "object": "bilayer",
+      "fid": 1491
+    },
+    {
+      "blind_id": 47,
+      "arm": "PBV_F1F3",
+      "subject": "cathy",
+      "object": "york",
+      "fid": 975
+    },
+    {
+      "blind_id": 48,
+      "arm": "PBV_BASE",
+      "subject": "neighbourhood",
+      "object": "bed",
+      "fid": 1029
+    },
+    {
+      "blind_id": 49,
+      "arm": "PBV_BASE",
+      "subject": "thin",
+      "object": "ice",
+      "fid": 1049
+    },
+    {
+      "blind_id": 50,
+      "arm": "PBV_F1F3",
+      "subject": "nunavut",
+      "object": "town",
+      "fid": 967
+    },
+    {
+      "blind_id": 51,
+      "arm": "PBV_BASE",
+      "subject": "speed",
+      "object": "colonel",
+      "fid": 931
+    },
+    {
+      "blind_id": 52,
+      "arm": "PBV_BASE",
+      "subject": "dioxide",
+      "object": "break",
+      "fid": 911
+    },
+    {
+      "blind_id": 53,
+      "arm": "PBV_F1F3",
+      "subject": "lewis",
+      "object": "talking",
+      "fid": 1001
+    },
+    {
+      "blind_id": 54,
+      "arm": "PBV_BASE",
+      "subject": "reward",
+      "object": "drink",
+      "fid": 917
+    },
+    {
+      "blind_id": 55,
+      "arm": "PBV_BASE",
+      "subject": "recruit",
+      "object": "act",
+      "fid": 1107
+    },
+    {
+      "blind_id": 56,
+      "arm": "PBV_F1F3",
+      "subject": "abrs",
+      "object": "kakali",
+      "fid": 1579
+    },
+    {
+      "blind_id": 57,
+      "arm": "PBV_F1F3",
+      "subject": "luke",
+      "object": "parachute",
+      "fid": 1403
+    },
+    {
+      "blind_id": 58,
+      "arm": "PBV_BASE",
+      "subject": "balloon",
+      "object": "bag",
+      "fid": 913
+    },
+    {
+      "blind_id": 59,
+      "arm": "PBV_F1F3",
+      "subject": "hayatou",
+      "object": "fault",
+      "fid": 1319
+    },
+    {
+      "blind_id": 60,
+      "arm": "PBV_BASE",
+      "subject": "efficient",
+      "object": "bill",
+      "fid": 1089
+    },
+    {
+      "blind_id": 61,
+      "arm": "PBV_BASE",
+      "subject": "terrorism",
+      "object": "officer",
+      "fid": 1137
+    },
+    {
+      "blind_id": 62,
+      "arm": "PBV_BASE",
+      "subject": "lied",
+      "object": "talk",
+      "fid": 1115
+    },
+    {
+      "blind_id": 63,
+      "arm": "PBV_F1F3",
+      "subject": "gill",
+      "object": "pleasure",
+      "fid": 1125
+    },
+    {
+      "blind_id": 64,
+      "arm": "PBV_F1F3",
+      "subject": "isolate",
+      "object": "funny",
+      "fid": 1049
+    },
+    {
+      "blind_id": 65,
+      "arm": "PBV_BASE",
+      "subject": "rocket",
+      "object": "plane",
+      "fid": 1125
+    },
+    {
+      "blind_id": 66,
+      "arm": "PBV_F1F3",
+      "subject": "exterior",
+      "object": "bilayer",
+      "fid": 1489
+    },
+    {
+      "blind_id": 67,
+      "arm": "PBV_BASE",
+      "subject": "saint",
+      "object": "peter",
+      "fid": 1239
+    },
+    {
+      "blind_id": 68,
+      "arm": "PBV_F1F3",
+      "subject": "manageable",
+      "object": "talk",
+      "fid": 1253
+    },
+    {
+      "blind_id": 69,
+      "arm": "PBV_BASE",
+      "subject": "excellent",
+      "object": "fall",
+      "fid": 1403
+    },
+    {
+      "blind_id": 70,
+      "arm": "PBV_BASE",
+      "subject": "operator",
+      "object": "talk",
+      "fid": 1541
+    },
+    {
+      "blind_id": 71,
+      "arm": "PBV_F1F3",
+      "subject": "justin",
+      "object": "spend",
+      "fid": 1357
+    },
+    {
+      "blind_id": 72,
+      "arm": "PBV_F1F3",
+      "subject": "bergsland",
+      "object": "yes",
+      "fid": 991
+    },
+    {
+      "blind_id": 73,
+      "arm": "PBV_F1F3",
+      "subject": "duty",
+      "object": "past",
+      "fid": 1157
+    },
+    {
+      "blind_id": 74,
+      "arm": "PBV_F1F3",
+      "subject": "sight",
+      "object": "pain",
+      "fid": 1167
+    },
+    {
+      "blind_id": 75,
+      "arm": "PBV_F1F3",
+      "subject": "sanctuary",
+      "object": "mean",
+      "fid": 985
+    },
+    {
+      "blind_id": 76,
+      "arm": "PBV_BASE",
+      "subject": "seedless",
+      "object": "nonvascular",
+      "fid": 1619
+    },
+    {
+      "blind_id": 77,
+      "arm": "PBV_F1F3",
+      "subject": "tim",
+      "object": "frank",
+      "fid": 1461
+    },
+    {
+      "blind_id": 78,
+      "arm": "PBV_F1F3",
+      "subject": "courage",
+      "object": "remember",
+      "fid": 1235
+    },
+    {
+      "blind_id": 79,
+      "arm": "PBV_F1F3",
+      "subject": "disastrous",
+      "object": "renewable",
+      "fid": 1111
+    },
+    {
+      "blind_id": 80,
+      "arm": "PBV_F1F3",
+      "subject": "youtube",
+      "object": "ahead",
+      "fid": 917
+    },
+    {
+      "blind_id": 81,
+      "arm": "PBV_BASE",
+      "subject": "propaganda",
+      "object": "hands",
+      "fid": 1111
+    },
+    {
+      "blind_id": 82,
+      "arm": "PBV_BASE",
+      "subject": "mitochondrial",
+      "object": "new",
+      "fid": 1605
+    },
+    {
+      "blind_id": 83,
+      "arm": "PBV_F1F3",
+      "subject": "drifting",
+      "object": "boat",
+      "fid": 1275
+    },
+    {
+      "blind_id": 84,
+      "arm": "PBV_F1F3",
+      "subject": "ifpi",
+      "object": "followers",
+      "fid": 1013
+    },
+    {
+      "blind_id": 85,
+      "arm": "PBV_BASE",
+      "subject": "banana",
+      "object": "people",
+      "fid": 1167
+    },
+    {
+      "blind_id": 86,
+      "arm": "PBV_F1F3",
+      "subject": "tonagawa",
+      "object": "congratulations",
+      "fid": 1137
+    },
+    {
+      "blind_id": 87,
+      "arm": "PBV_F1F3",
+      "subject": "sertoli",
+      "object": "daughter",
+      "fid": 1605
+    },
+    {
+      "blind_id": 88,
+      "arm": "PBV_BASE",
+      "subject": "cerf",
+      "object": "talking",
+      "fid": 1445
+    },
+    {
+      "blind_id": 89,
+      "arm": "PBV_F1F3",
+      "subject": "fructose",
+      "object": "uniform",
+      "fid": 1503
+    },
+    {
+      "blind_id": 90,
+      "arm": "PBV_F1F3",
+      "subject": "cardiovascular",
+      "object": "max",
+      "fid": 1107
+    },
+    {
+      "blind_id": 91,
+      "arm": "PBV_BASE",
+      "subject": "semantics",
+      "object": "jack",
+      "fid": 1491
+    },
+    {
+      "blind_id": 92,
+      "arm": "PBV_BASE",
+      "subject": "pool",
+      "object": "apartment",
+      "fid": 981
+    },
+    {
+      "blind_id": 93,
+      "arm": "PBV_BASE",
+      "subject": "pulse",
+      "object": "lying",
+      "fid": 1315
+    },
+    {
+      "blind_id": 94,
+      "arm": "PBV_BASE",
+      "subject": "residential",
+      "object": "quiet",
+      "fid": 1489
+    },
+    {
+      "blind_id": 95,
+      "arm": "PBV_BASE",
+      "subject": "nucleic",
+      "object": "carbonic",
+      "fid": 1601
+    },
+    {
+      "blind_id": 96,
+      "arm": "PBV_F1F3",
+      "subject": "pizzi",
+      "object": "school",
+      "fid": 931
+    },
+    {
+      "blind_id": 97,
+      "arm": "PBV_BASE",
+      "subject": "autotroph",
+      "object": "dioxide",
+      "fid": 1645
+    },
+    {
+      "blind_id": 98,
+      "arm": "PBV_BASE",
+      "subject": "reception",
+      "object": "bet",
+      "fid": 1319
+    },
+    {
+      "blind_id": 99,
+      "arm": "PBV_F1F3",
+      "subject": "fuel",
+      "object": "handle",
+      "fid": 893
+    }
+  ]
+}
