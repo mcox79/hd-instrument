@@ -210,3 +210,103 @@ version of the system -- `notes/measurement_layer_drift_2026-08-13.md` sec.8.
 shared one stemmer; certification and the code shared one bug; the test suite and the witnesses
 shared a naming blind spot. **Consistency is not evidence.** Practices P1-P6 in
 `notes/shared_flaw_invisibility_2026-08-13.md`.
+
+### 4. Establish the final landed version before evaluating any subsystem
+
+**3 audits in one day (08-13)**, all inside `notes/encoder_lineage_final_2026-08-13.md`, judged
+a superseded or wrong artifact instead of the final one:
+
+- The S8 brain-fidelity audit dissected `hdlab/concept_encoder.py` (1 commit, 2026-07-02, zero
+  hdlab importers, not in the runtime closure) and generalised its inert `learning_rate` to "the
+  encoders" as a class. The actual successor, TinyTransformer v2, does learn
+  (+0.1034 held-out semantic AUC over a random-init same-architecture twin).
+- The capability registry's `scale_win_tinytransformer_encoder` row carries `status:
+  validated_chain_grade_best_encoder` / `gate_decision: WIRE`, with its `current_best_for`
+  numbers taken from `exp_scale_meaning_learn_arc_heldout_v2.py` (2026-07-27, HARD_PASS) -- but
+  its `path` field points at `exp_scale_meaning_learn_arc_heldout_v3_relobj.py`, whose own
+  `metrics.json` is `HARD_FAIL_ARCHITECTURE_BOUND` (2026-07-28). The row's status was measured on
+  one cell, its path names a different, failed one.
+- `hippocampal_encoder` is rated FAITHFUL / `ALREADY_WIRED` (~20 consumers) in the registry, and
+  quoted that way without its own retrieval verdict:
+  `exp_substrate_spoke3_hippocampal_encoder_smoke_2026-07-03` is `HARD_FAIL_MECHANISM_LOSES`,
+  r@5 0.1460 against a char-trigram reference of 0.854 (bar 0.8240) -- it lost to a trivial
+  trigram bag by 0.71.
+
+**Rule:** before evaluating any subsystem (fidelity, quality, wire-readiness), first establish
+which artifact on disk is the *final landed* one for that subsystem -- check the registry's
+`path` against its own `status`/numbers, check the cited cell's own `metrics.json` verdict, and
+check for a successor. A rating attached to the wrong version is not wrong reasoning, it is a
+wrong target.
+
+---
+
+## ENCODER LINEAGE (2026-08-13)
+
+Full investigation: `notes/encoder_lineage_final_2026-08-13.md` (read-only, no code changed).
+Stubbed from `STATUS.md` "ENCODER PATH" and STANDING DISCIPLINE 4 above.
+
+**No final landed encoder exists -- the line was abandoned, not won.** Runtime `sys.modules`
+trace of `hdlab.reading_grounding_loop` + `hdlab.grounding_acquisition_loop` loads 40 hdlab
+modules, of which zero are encoders (no vwfa, ppmi, composed_v3, concept_encoder,
+encoder_retrain_persist, random_indexing, hippocampal_encoder). Live concept similarity is
+served by `hdlab/lexical_similarity.py::concept_similarity()` (hand-typed lexicon) with
+`hdlab/grounded_similarity.py` (Lancaster sensorimotor + Brysbaert concreteness, hard-capped
+0.45) as the OOV fallback -- neither is a learned encoder. `grounded_similarity.py`'s own
+docstring (`:19-20`) records that the from-scratch learned encoder
+(`scale_win_tinytransformer_encoder`) was "evaluated ahead of ... as the primary asset to wire"
+and passed over on 2026-08-11.
+
+**The S8 architectural-fault verdict SURVIVES, its stated reason was wrong.** "`learning_rate`
+provably cancels" is mechanically correct at `hdlab/concept_encoder.py:495-505` but applies only
+to that dead module (1 commit, 2026-07-02, zero importers). "Nothing is learned" is FALSE for
+the successor: TinyTransformer v2 (from-scratch 6-layer/d512/8-head TransformerEncoder,
+from-scratch 16k BPE, 121,082,196 real ARC tokens/seed) clears its own random-init
+same-architecture floor by +0.1034 (text AUC 0.6356 vs random_init 0.5322, shuffle-collapse
+0.4964). But on the distinction the project actually needs, a BETTER control than S8 used
+overturns it anyway: `exp_diag_learned_encoder_synonym_sibling_deep_wall_v1` (2026-08-12) finds
+trained encoder_AUC 0.7064 while the untrained same-arch random-init twin, using the identical
+corpus-mention-pooling interface, scores 0.7452 -- the trained model does not beat its own
+random-init twin on synonym-vs-sibling. Net: S8's severity (ARCHITECTURAL-FAULT) and wire
+verdict (NO) hold, on stronger and more recent evidence than the audit itself cited; its
+headline reason should be rewritten to name the pooling-interface finding, not the inert
+`learning_rate`.
+
+**Correction, enriching C2: CLIP visual grounding was ruled out in error.**
+`data/exp_visual_grounding_coherence_v1/metrics.json` (2026-07-18) is `HARD_PASS`, all gates
+true, and its `glass_box_note` states CLIP+WordNet+QuickDraw are used at INGEST only -- all
+recovery runs on FHRR phasors with numpy bind/unbind/cleanup, no torch/transformers at runtime.
+This is permitted by the glass-box rule (external tools may build the seed, may not run at
+inference) and is the **best-floored positive result in the encoder-adjacent corpus**: T1
+picture->word top-1 0.635 vs shuffled 0.074 vs chance 0.050; T1 image-to-image anchor 0.756; T2a
+WordNet-coherence rho 0.3532 vs null p95 0.1173 (z=5.03, empirical p=0.000); T2b confusable
+2-way 0.8817 vs dictionary-only 0.500 (+0.382); T3 scene recovery 1.000 vs shuffled 0.045.
+Caveat that must travel with every citation: 20 words, K=20, QuickDraw line drawings only; the
+`CLAIM-VET-pending` tag in the cell's own verdict message is still open. Given the synonym-vs-
+sibling wall finding above and `grounded_similarity`'s measured inability to separate synonyms
+from siblings, this is the strongest un-cashed asset on disk and should be re-ranked, not left
+aside.
+
+**18 pass-vs-conflicting-data cases found**, full list in
+`notes/encoder_lineage_final_2026-08-13.md` sec.5, ordered by load-bearing. Beyond the two named
+in STANDING DISCIPLINE 4 (`scale_win_tinytransformer_encoder` path/status mismatch,
+`hippocampal_encoder` FAITHFUL-vs-HARD_FAIL): the `composition` registry row is 2/3 true
+(binding+bundling live, `concept_encoder.py` is not and has zero importers); census confirms 3
+false `WIRED_AND_PIPELINE_USED` claims and, worse, 19 rows falsely claim
+`WIRED_BUT_NOT_PIPELINE_REACHABLE` while measurably live (including the pipeline entry point
+itself) with 62 of 141 modules unregistered; S5 goal-achievement registry wording claims "WIRED
+into production" while its own `pipeline_status` says otherwise and its own coverage caveat
+records a HARD_FAIL; `working_memory_multibank_K_capacity`'s registry row is filed against
+`hdlab/working_memory.py` (116 lines, no working memory in it) instead of the real
+implementation `hdlab/situation_model_multibank.py` (no registry row at all);
+`cls_discrete_budget_consolidate` has two registry rows that contradict each other
+(`VET_PENDING` vs `ALREADY_WIRED`); the definitional-extraction "clearest wire case" (64% vs 8%)
+is anchored to an uncommitted `reading_grounding_loop.py`, 2 module versions behind the registry
+row it is compared against; G5 "MDL gate never invoked" is stale and was already false the day
+it was written, and is still repeated uncorrected in a second note the same day; two "landed"
+gated-fusion text-grounding numbers (seed7 +0.0030/+0.0239, seed13 +0.0055/+0.0282) exist only
+as registry prose, with no `metrics.json` on disk and no chance/scramble floor quoted at all;
+`concept_encoder`'s HARD_PASS (cat/kitten cos 0.492) is overturned by its own stress test, where
+a plain softmax control scores 0.461 (MIDDLE_BAND); `ppmi_sparse_encoder`'s smoke-scale win
+(+0.052 over trigram) sign-flips at 20x scale (-0.0239 below trigram); five encoders in active
+use (`char_positional_encoder`, `token_vocab`, `late_combine`, `whitening`,
+`gsbc_graded_encoder`) have no registry row at all.
