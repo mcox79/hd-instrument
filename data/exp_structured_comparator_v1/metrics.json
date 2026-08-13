@@ -1,0 +1,317 @@
+{
+  "anchor_name": "structured_comparator_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-13T05:42:45.293667+00:00",
+  "prereg": "preregs/2026-08-13_structured_comparator_ablation.md",
+  "wire_status": "VET_PENDING -- structured comparator is DEFAULT-OFF; nothing wired ON",
+  "verdict": "STRUCTURAL_PASS_PENDING_HANDSCORE",
+  "QUALITY_CLAIM": "NONE -- this cell emits no quality tier. The primary discriminator is a BLIND HUMAN HAND-SCORE the Director performs on blind_sample.json.",
+  "noncircularity_witness": {
+    "question": "Can the STRUCTURED comparator DISAGREE with the CONTROL _cos() argmax, or does it secretly reduce to it?",
+    "witness_1_argmax_disagreement": {
+      "probe": "data/exp_structured_comparator_v1/_probe_disagree.json",
+      "method": "both encoders run over the same 3992-sentence corpus slice, two ConceptSpaces built, argmax taken for every lemma present in both",
+      "n_common_lemmas": 6283,
+      "n_disagree": 6145,
+      "disagreement_rate": 0.978036
+    },
+    "witness_2_worked_example": {
+      "probe": "data/exp_structured_comparator_v1/_probe_witness.json",
+      "target": "whisky",
+      "documented_control_failure": "whisky -> wedding (hand-score row 016)",
+      "finding": "'wedding' is in the CONTROL bag in ALL THREE corpus sentences where it co-occurs with 'whisky', and in the STRUCTURED feature set in NONE of them. STRUCTURED cannot produce whisky->wedding from this corpus; CONTROL demonstrably did.",
+      "rows": [
+        {
+          "sentence": "One buyer ordered nine cases of Japanese whisky costing over $750 a bottle for a wedding reception",
+          "control_bag": [
+            "bottle",
+            "buyer",
+            "case",
+            "costing",
+            "japanese",
+            "nine",
+            "order",
+            "reception",
+            "wedding"
+          ],
+          "structured_features": [
+            [
+              "^mark",
+              "costing"
+            ],
+            [
+              "~mark:obl",
+              "bottle"
+            ],
+            [
+              "~mark:obl",
+              "reception"
+            ]
+          ]
+        },
+        {
+          "sentence": "One super-rich person bought nine boxes of Japanese whisky that cost more than over $750 a bottle for a wedding party",
+          "control_bag": [
+            "bottle",
+            "box",
+            "buy",
+            "cost",
+            "japanese",
+            "more",
+            "nine",
+            "party",
+            "person",
+            "rich",
+            "super",
+            "wedding"
+          ],
+          "structured_features": [
+            [
+              "^nmod",
+              "box"
+            ],
+            [
+              "acl",
+              "cost"
+            ],
+            [
+              "amod",
+              "japanese"
+            ],
+            [
+              "~nmod:nummod",
+              "nine"
+            ]
+          ]
+        },
+        {
+          "sentence": "The attraction of the imported whisky was that no one who came to the wedding would be able to find the same drink in India",
+          "control_bag": [
+            "able",
+            "attraction",
+            "come",
+            "drink",
+            "find",
+            "india",
+            "same",
+            "wedding"
+          ],
+          "structured_features": [
+            [
+              "^obj",
+              "import"
+            ],
+            [
+              "~obj:conj",
+              "come"
+            ]
+          ]
+        }
+      ],
+      "corroborating": {
+        "checklist": "documented failure checklist->joe; 'joe' and 'kittinger' are in the bag and excluded by structure in both corpus sentences",
+        "banana": "structure isolates ('^nsubj','fruit') -- the correct hypernym -- from a 12-word bag also containing adult, apple, ate, week, orange"
+      }
+    },
+    "still_a_dot_product": "Yes, and the audit explicitly permitted this: 'the point is WHAT is being compared, not whether a dot product is involved'. What changed is the feature alphabet (role-bound dependency pairs, 1-hop only) and it is asserted byte-identical in symbol codebook to CONTROL by hdlab.reading_grounding_loop._selftest_structural_unbound_matches_context_vector."
+  },
+  "quality_bands_recorded_not_evaluated": {
+    "discriminator": "MEANINGFUL(STRUCTURED) - MEANINGFUL(CONTROL), two blind 50-row hand-scores",
+    "STRUCTURAL_FIX_WORKS": "MEANINGFUL(STRUCTURED) >= 0.15 AND delta >= +0.10",
+    "PARTIAL": "delta in [+0.05, +0.10) -- BELOW the 2-SE resolution at n=50; licenses a re-score at larger n and nothing else",
+    "NULL": "abs(delta) < 0.05 -- pre-declared acceptable and genuinely possible",
+    "HURTS": "delta <= -0.05",
+    "power": "at p1=0.03, p2=0.15, n=50/arm: SE(delta)=0.056, delta=0.12=2.14 SE, two-sided power ~0.57. MINIMUM DETECTABLE DELTA AT 2 SE = +0.11. Resolving delta=+0.075 needs n~88/arm at 2 SE, or n~172/arm for 80% power.",
+    "why_a_positive_is_reachable_here": "the 2026-08-12 read-out cell was FLOOR-LIMITED (both arms pinned at 2-4%, max attainable delta 0.06, inside its own NULL band -- it could not have returned a non-NULL verdict). Here only CONTROL is pinned; STRUCTURED is unconstrained upward, so 8/50 against 1-2/50 clears the band.",
+    "secondary_mechanistic": "cooc_agreement_top5(STRUCTURED) >= cooc_agreement_top5(CONTROL) - 0.05  =>  THE COMPARATOR DID NOT BIND; that is the headline REGARDLESS of the hand-score."
+  },
+  "structural_gates": {
+    "S1_cardinality": {
+      "ok": true,
+      "expected_n_units": 10,
+      "n_present": 12,
+      "missing_units": [],
+      "missing_arms": []
+    },
+    "S2_integrity": {
+      "ok": true,
+      "per_arm": {
+        "CONTROL": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        },
+        "STRUCTURED": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        }
+      }
+    },
+    "S3_arms_differ": {
+      "ok": true,
+      "digests": {
+        "CONTROL": "836571fa99d5765d600147ce7fed0a4df9b3eb3d9a10034d005b0e582f150a5f",
+        "STRUCTURED": "1ce97a59c1b613d238f70fc60aaf947be47f714fd9d0de9eaee82f625e1dca15"
+      }
+    },
+    "S4_control_regression": {
+      "reference": "data/exp_grounding_quality_readout_v1/metrics.json",
+      "expected_n_facts": 384,
+      "expected_digest16": "836571fa99d5765d",
+      "observed_n_facts": 384,
+      "observed_digest16": "836571fa99d5765d",
+      "control_reproduces_reference": true
+    },
+    "S5_yield_floor": {
+      "CONTROL": {
+        "n_meaning_facts": 384,
+        "meets_yield_floor_50": true
+      },
+      "STRUCTURED": {
+        "n_meaning_facts": 374,
+        "meets_yield_floor_50": true
+      }
+    }
+  },
+  "secondary_cooccurrence_agreement": {
+    "what": "agreement between each arm's banked (subject -> object) facts and a PLAIN sentence-level co-occurrence baseline over the same 34169-sentence corpus. Hand-score independent.",
+    "per_arm": {
+      "CONTROL": {
+        "n_scored": 384,
+        "n_subject_absent_from_baseline": 0,
+        "cooc_agreement_top1": 0.075521,
+        "cooc_agreement_top5": 0.255208
+      },
+      "STRUCTURED": {
+        "n_scored": 374,
+        "n_subject_absent_from_baseline": 0,
+        "cooc_agreement_top1": 0.024064,
+        "cooc_agreement_top5": 0.074866
+      }
+    },
+    "binding_check": "DIVERGED",
+    "binding_rule": "cooc_agreement_top5(STRUCTURED) >= cooc_agreement_top5(CONTROL) - 0.05  =>  THE COMPARATOR DID NOT BIND; that is the headline REGARDLESS of the hand-score."
+  },
+  "objective_metrics": {
+    "CONTROL": {
+      "arm": "CONTROL",
+      "encoder": "context_vector_masked",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 34169,
+      "n_chunks": 228,
+      "segments_seen": {
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952,
+        "adv_new": 7408,
+        "bio_new": 12546
+      },
+      "n_grounded": 384,
+      "n_meaning_facts": 384,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 24949,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 247,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21240,
+        "NO_STANDING_HYPOTHESIS": 3462
+      },
+      "trajectory": {
+        "n_items": 15990,
+        "n_items_with_hypothesis": 10450,
+        "n_items_revised": 3358,
+        "revision_rate": 0.32134,
+        "n_encounters": 83723,
+        "n_informative_encounters": 26586,
+        "informative_encounter_rate": 0.317547,
+        "n_confirm": 1112,
+        "n_disconfirm": 15540,
+        "n_abandon": 5972,
+        "n_repropose": 5972,
+        "n_revive": 10122
+      },
+      "confirm_rate": 0.066779,
+      "n_verdict_bearing": 16652,
+      "admission_rate": 0.317547,
+      "encoder_stats": null,
+      "pairs_digest": "836571fa99d5765d600147ce7fed0a4df9b3eb3d9a10034d005b0e582f150a5f",
+      "elapsed_s": 864.0
+    },
+    "STRUCTURED": {
+      "arm": "STRUCTURED",
+      "encoder": "structural_vector_masked",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 34169,
+      "n_chunks": 228,
+      "segments_seen": {
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952,
+        "adv_new": 7408,
+        "bio_new": 12546
+      },
+      "n_grounded": 374,
+      "n_meaning_facts": 374,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 27402,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 413,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 25643,
+        "NO_STANDING_HYPOTHESIS": 1346
+      },
+      "trajectory": {
+        "n_items": 15797,
+        "n_items_with_hypothesis": 12404,
+        "n_items_revised": 5380,
+        "revision_rate": 0.433731,
+        "n_encounters": 81450,
+        "n_informative_encounters": 39006,
+        "informative_encounter_rate": 0.478895,
+        "n_confirm": 1363,
+        "n_disconfirm": 25354,
+        "n_abandon": 10248,
+        "n_repropose": 10248,
+        "n_revive": 9901
+      },
+      "confirm_rate": 0.051016,
+      "n_verdict_bearing": 26717,
+      "admission_rate": 0.478895,
+      "encoder_stats": {
+        "n_parsed": 31290,
+        "n_skipped_long_or_empty": 124,
+        "n_encodings": 207138,
+        "mean_features_per_encoding": 2.725729,
+        "max_tokens": 60,
+        "assets": [
+          "pos_tagger_ud_ewt_upos.json",
+          "arc_parser_richfeat_ud_ewt.npz",
+          "arc_labeler_hashed_ud_ewt.json"
+        ]
+      },
+      "pairs_digest": "1ce97a59c1b613d238f70fc60aaf947be47f714fd9d0de9eaee82f625e1dca15",
+      "elapsed_s": 1385.09
+    }
+  },
+  "deliverable": {
+    "per_arm_files": {
+      "CONTROL": "b3_audit_sample_CONTROL.json",
+      "STRUCTURED": "b3_audit_sample_STRUCTURED.json"
+    },
+    "blind_file": "blind_sample.json",
+    "key_file": "arm_key.json",
+    "sheet": "SCORING_SHEET.txt",
+    "n_blind_rows": 100
+  },
+  "limitations": [
+    "STRUCTURED sees ~4x fewer features per encounter than CONTROL (2.86 vs 11.33, prereg sec 3.1). Filtering IS the mechanism, so this is not corrected for; it is the leading alternative explanation for a NULL ('structure was starved').",
+    "The UD front-end is trained on UD EWT (web text) and used out-of-domain on news + OpenStax biology; parse noise degrades STRUCTURED only, so it biases AGAINST H1.",
+    "Single judge, one sitting, n=50/arm. The PARTIAL band is below the 2-SE resolution.",
+    "No cross-comparison to the 64% v5 definitional-extraction number: different pipeline (a parser SUPPLYING facts vs a read-out ACQUIRING one)."
+  ]
+}

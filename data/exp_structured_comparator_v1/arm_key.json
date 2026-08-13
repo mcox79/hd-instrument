@@ -1,0 +1,706 @@
+{
+  "warning": "DO NOT OPEN UNTIL blind_sample.json IS FULLY SCORED",
+  "shuffle_seed": 42,
+  "rows": [
+    {
+      "blind_id": 0,
+      "arm": "CONTROL",
+      "subject": "baffin",
+      "object": "isolate",
+      "fid": 1253
+    },
+    {
+      "blind_id": 1,
+      "arm": "CONTROL",
+      "subject": "tesco",
+      "object": "situation",
+      "fid": 985
+    },
+    {
+      "blind_id": 2,
+      "arm": "STRUCTURED",
+      "subject": "lindstedt",
+      "object": "guide",
+      "fid": 1239
+    },
+    {
+      "blind_id": 3,
+      "arm": "CONTROL",
+      "subject": "remote",
+      "object": "boat",
+      "fid": 991
+    },
+    {
+      "blind_id": 4,
+      "arm": "STRUCTURED",
+      "subject": "baumgartner",
+      "object": "people",
+      "fid": 981
+    },
+    {
+      "blind_id": 5,
+      "arm": "STRUCTURED",
+      "subject": "mitochondrial",
+      "object": "ask",
+      "fid": 1541
+    },
+    {
+      "blind_id": 6,
+      "arm": "CONTROL",
+      "subject": "publisher",
+      "object": "head",
+      "fid": 1001
+    },
+    {
+      "blind_id": 7,
+      "arm": "STRUCTURED",
+      "subject": "tourist",
+      "object": "people",
+      "fid": 913
+    },
+    {
+      "blind_id": 8,
+      "arm": "CONTROL",
+      "subject": "sky",
+      "object": "bag",
+      "fid": 919
+    },
+    {
+      "blind_id": 9,
+      "arm": "STRUCTURED",
+      "subject": "spotlight",
+      "object": "coin",
+      "fid": 1345
+    },
+    {
+      "blind_id": 10,
+      "arm": "STRUCTURED",
+      "subject": "earth's",
+      "object": "hydra",
+      "fid": 1619
+    },
+    {
+      "blind_id": 11,
+      "arm": "CONTROL",
+      "subject": "macromolecule",
+      "object": "big",
+      "fid": 1579
+    },
+    {
+      "blind_id": 12,
+      "arm": "STRUCTURED",
+      "subject": "uncomfortable",
+      "object": "welcome",
+      "fid": 1115
+    },
+    {
+      "blind_id": 13,
+      "arm": "STRUCTURED",
+      "subject": "metadata",
+      "object": "people",
+      "fid": 1029
+    },
+    {
+      "blind_id": 14,
+      "arm": "STRUCTURED",
+      "subject": "educate",
+      "object": "nice",
+      "fid": 1089
+    },
+    {
+      "blind_id": 15,
+      "arm": "CONTROL",
+      "subject": "whisky",
+      "object": "wedding",
+      "fid": 1157
+    },
+    {
+      "blind_id": 16,
+      "arm": "CONTROL",
+      "subject": "infamous",
+      "object": "alive",
+      "fid": 1357
+    },
+    {
+      "blind_id": 17,
+      "arm": "STRUCTURED",
+      "subject": "breast",
+      "object": "trust",
+      "fid": 1505
+    },
+    {
+      "blind_id": 18,
+      "arm": "STRUCTURED",
+      "subject": "gill",
+      "object": "cameron",
+      "fid": 1315
+    },
+    {
+      "blind_id": 19,
+      "arm": "CONTROL",
+      "subject": "mowat",
+      "object": "cute",
+      "fid": 1045
+    },
+    {
+      "blind_id": 20,
+      "arm": "CONTROL",
+      "subject": "checklist",
+      "object": "joe",
+      "fid": 1345
+    },
+    {
+      "blind_id": 21,
+      "arm": "CONTROL",
+      "subject": "ingabire",
+      "object": "men",
+      "fid": 1503
+    },
+    {
+      "blind_id": 22,
+      "arm": "CONTROL",
+      "subject": "spots",
+      "object": "husband",
+      "fid": 1171
+    },
+    {
+      "blind_id": 23,
+      "arm": "STRUCTURED",
+      "subject": "bombing",
+      "object": "death",
+      "fid": 1357
+    },
+    {
+      "blind_id": 24,
+      "arm": "STRUCTURED",
+      "subject": "ryan",
+      "object": "guide",
+      "fid": 1171
+    },
+    {
+      "blind_id": 25,
+      "arm": "CONTROL",
+      "subject": "tennis",
+      "object": "frank",
+      "fid": 1435
+    },
+    {
+      "blind_id": 26,
+      "arm": "STRUCTURED",
+      "subject": "nucleate",
+      "object": "prokaryotic",
+      "fid": 1601
+    },
+    {
+      "blind_id": 27,
+      "arm": "CONTROL",
+      "subject": "des",
+      "object": "ray",
+      "fid": 1551
+    },
+    {
+      "blind_id": 28,
+      "arm": "STRUCTURED",
+      "subject": "mushroom",
+      "object": "fire",
+      "fid": 1231
+    },
+    {
+      "blind_id": 29,
+      "arm": "CONTROL",
+      "subject": "farm",
+      "object": "absolutely",
+      "fid": 893
+    },
+    {
+      "blind_id": 30,
+      "arm": "CONTROL",
+      "subject": "uninfected",
+      "object": "stem",
+      "fid": 1641
+    },
+    {
+      "blind_id": 31,
+      "arm": "CONTROL",
+      "subject": "glucagon",
+      "object": "stem",
+      "fid": 1633
+    },
+    {
+      "blind_id": 32,
+      "arm": "STRUCTURED",
+      "subject": "highway",
+      "object": "york",
+      "fid": 1445
+    },
+    {
+      "blind_id": 33,
+      "arm": "STRUCTURED",
+      "subject": "kashmir",
+      "object": "people",
+      "fid": 919
+    },
+    {
+      "blind_id": 34,
+      "arm": "STRUCTURED",
+      "subject": "endoderm",
+      "object": "order",
+      "fid": 1551
+    },
+    {
+      "blind_id": 35,
+      "arm": "CONTROL",
+      "subject": "ninian",
+      "object": "school",
+      "fid": 1505
+    },
+    {
+      "blind_id": 36,
+      "arm": "STRUCTURED",
+      "subject": "valuable",
+      "object": "people",
+      "fid": 1013
+    },
+    {
+      "blind_id": 37,
+      "arm": "STRUCTURED",
+      "subject": "photo",
+      "object": "people",
+      "fid": 911
+    },
+    {
+      "blind_id": 38,
+      "arm": "STRUCTURED",
+      "subject": "clermont",
+      "object": "know",
+      "fid": 1045
+    },
+    {
+      "blind_id": 39,
+      "arm": "CONTROL",
+      "subject": "session",
+      "object": "answer",
+      "fid": 975
+    },
+    {
+      "blind_id": 40,
+      "arm": "CONTROL",
+      "subject": "colin",
+      "object": "company",
+      "fid": 1235
+    },
+    {
+      "blind_id": 41,
+      "arm": "CONTROL",
+      "subject": "pipe",
+      "object": "floor",
+      "fid": 1461
+    },
+    {
+      "blind_id": 42,
+      "arm": "CONTROL",
+      "subject": "consultant",
+      "object": "boyfriend",
+      "fid": 1231
+    },
+    {
+      "blind_id": 43,
+      "arm": "CONTROL",
+      "subject": "acquire",
+      "object": "years",
+      "fid": 1275
+    },
+    {
+      "blind_id": 44,
+      "arm": "CONTROL",
+      "subject": "inject",
+      "object": "fat",
+      "fid": 1109
+    },
+    {
+      "blind_id": 45,
+      "arm": "STRUCTURED",
+      "subject": "reserves",
+      "object": "person",
+      "fid": 1109
+    },
+    {
+      "blind_id": 46,
+      "arm": "STRUCTURED",
+      "subject": "lactic",
+      "object": "brain",
+      "fid": 1491
+    },
+    {
+      "blind_id": 47,
+      "arm": "STRUCTURED",
+      "subject": "speed",
+      "object": "people",
+      "fid": 975
+    },
+    {
+      "blind_id": 48,
+      "arm": "CONTROL",
+      "subject": "neighbourhood",
+      "object": "bed",
+      "fid": 1029
+    },
+    {
+      "blind_id": 49,
+      "arm": "CONTROL",
+      "subject": "thin",
+      "object": "ice",
+      "fid": 1049
+    },
+    {
+      "blind_id": 50,
+      "arm": "STRUCTURED",
+      "subject": "wetland",
+      "object": "greek",
+      "fid": 1273
+    },
+    {
+      "blind_id": 51,
+      "arm": "CONTROL",
+      "subject": "speed",
+      "object": "colonel",
+      "fid": 931
+    },
+    {
+      "blind_id": 52,
+      "arm": "CONTROL",
+      "subject": "dioxide",
+      "object": "break",
+      "fid": 911
+    },
+    {
+      "blind_id": 53,
+      "arm": "STRUCTURED",
+      "subject": "intermediate",
+      "object": "people",
+      "fid": 1001
+    },
+    {
+      "blind_id": 54,
+      "arm": "CONTROL",
+      "subject": "reward",
+      "object": "drink",
+      "fid": 917
+    },
+    {
+      "blind_id": 55,
+      "arm": "CONTROL",
+      "subject": "recruit",
+      "object": "act",
+      "fid": 1107
+    },
+    {
+      "blind_id": 56,
+      "arm": "STRUCTURED",
+      "subject": "salivary",
+      "object": "probably",
+      "fid": 1579
+    },
+    {
+      "blind_id": 57,
+      "arm": "STRUCTURED",
+      "subject": "shanhui",
+      "object": "follow",
+      "fid": 1403
+    },
+    {
+      "blind_id": 58,
+      "arm": "CONTROL",
+      "subject": "balloon",
+      "object": "bag",
+      "fid": 913
+    },
+    {
+      "blind_id": 59,
+      "arm": "STRUCTURED",
+      "subject": "shine",
+      "object": "new",
+      "fid": 1319
+    },
+    {
+      "blind_id": 60,
+      "arm": "CONTROL",
+      "subject": "efficient",
+      "object": "bill",
+      "fid": 1089
+    },
+    {
+      "blind_id": 61,
+      "arm": "CONTROL",
+      "subject": "terrorism",
+      "object": "officer",
+      "fid": 1137
+    },
+    {
+      "blind_id": 62,
+      "arm": "CONTROL",
+      "subject": "lied",
+      "object": "talk",
+      "fid": 1115
+    },
+    {
+      "blind_id": 63,
+      "arm": "STRUCTURED",
+      "subject": "fourth",
+      "object": "house",
+      "fid": 1125
+    },
+    {
+      "blind_id": 64,
+      "arm": "STRUCTURED",
+      "subject": "coal",
+      "object": "child",
+      "fid": 1049
+    },
+    {
+      "blind_id": 65,
+      "arm": "CONTROL",
+      "subject": "rocket",
+      "object": "plane",
+      "fid": 1125
+    },
+    {
+      "blind_id": 66,
+      "arm": "STRUCTURED",
+      "subject": "citric",
+      "object": "best",
+      "fid": 1489
+    },
+    {
+      "blind_id": 67,
+      "arm": "CONTROL",
+      "subject": "saint",
+      "object": "peter",
+      "fid": 1239
+    },
+    {
+      "blind_id": 68,
+      "arm": "STRUCTURED",
+      "subject": "overnight",
+      "object": "story",
+      "fid": 1253
+    },
+    {
+      "blind_id": 69,
+      "arm": "CONTROL",
+      "subject": "excellent",
+      "object": "fall",
+      "fid": 1403
+    },
+    {
+      "blind_id": 70,
+      "arm": "CONTROL",
+      "subject": "operator",
+      "object": "talk",
+      "fid": 1541
+    },
+    {
+      "blind_id": 71,
+      "arm": "STRUCTURED",
+      "subject": "princeton",
+      "object": "air",
+      "fid": 1633
+    },
+    {
+      "blind_id": 72,
+      "arm": "STRUCTURED",
+      "subject": "tax",
+      "object": "people",
+      "fid": 991
+    },
+    {
+      "blind_id": 73,
+      "arm": "STRUCTURED",
+      "subject": "teixeira",
+      "object": "time",
+      "fid": 1157
+    },
+    {
+      "blind_id": 74,
+      "arm": "STRUCTURED",
+      "subject": "goer",
+      "object": "pay",
+      "fid": 1167
+    },
+    {
+      "blind_id": 75,
+      "arm": "STRUCTURED",
+      "subject": "damage",
+      "object": "people",
+      "fid": 985
+    },
+    {
+      "blind_id": 76,
+      "arm": "CONTROL",
+      "subject": "seedless",
+      "object": "nonvascular",
+      "fid": 1619
+    },
+    {
+      "blind_id": 77,
+      "arm": "STRUCTURED",
+      "subject": "openly",
+      "object": "power",
+      "fid": 1461
+    },
+    {
+      "blind_id": 78,
+      "arm": "STRUCTURED",
+      "subject": "gupta",
+      "object": "guide",
+      "fid": 1235
+    },
+    {
+      "blind_id": 79,
+      "arm": "STRUCTURED",
+      "subject": "structural",
+      "object": "important",
+      "fid": 1111
+    },
+    {
+      "blind_id": 80,
+      "arm": "STRUCTURED",
+      "subject": "difficult",
+      "object": "people",
+      "fid": 917
+    },
+    {
+      "blind_id": 81,
+      "arm": "CONTROL",
+      "subject": "propaganda",
+      "object": "hands",
+      "fid": 1111
+    },
+    {
+      "blind_id": 82,
+      "arm": "CONTROL",
+      "subject": "mitochondrial",
+      "object": "new",
+      "fid": 1605
+    },
+    {
+      "blind_id": 83,
+      "arm": "STRUCTURED",
+      "subject": "johannesburg",
+      "object": "idea",
+      "fid": 1275
+    },
+    {
+      "blind_id": 84,
+      "arm": "STRUCTURED",
+      "subject": "scott",
+      "object": "happy",
+      "fid": 1435
+    },
+    {
+      "blind_id": 85,
+      "arm": "CONTROL",
+      "subject": "banana",
+      "object": "people",
+      "fid": 1167
+    },
+    {
+      "blind_id": 86,
+      "arm": "STRUCTURED",
+      "subject": "transportation",
+      "object": "hospital",
+      "fid": 1137
+    },
+    {
+      "blind_id": 87,
+      "arm": "STRUCTURED",
+      "subject": "mast",
+      "object": "prokaryotic",
+      "fid": 1605
+    },
+    {
+      "blind_id": 88,
+      "arm": "CONTROL",
+      "subject": "cerf",
+      "object": "talking",
+      "fid": 1445
+    },
+    {
+      "blind_id": 89,
+      "arm": "STRUCTURED",
+      "subject": "furrow",
+      "object": "making",
+      "fid": 1503
+    },
+    {
+      "blind_id": 90,
+      "arm": "STRUCTURED",
+      "subject": "guide",
+      "object": "brabon",
+      "fid": 1107
+    },
+    {
+      "blind_id": 91,
+      "arm": "CONTROL",
+      "subject": "semantics",
+      "object": "jack",
+      "fid": 1491
+    },
+    {
+      "blind_id": 92,
+      "arm": "CONTROL",
+      "subject": "pool",
+      "object": "apartment",
+      "fid": 981
+    },
+    {
+      "blind_id": 93,
+      "arm": "CONTROL",
+      "subject": "pulse",
+      "object": "lying",
+      "fid": 1315
+    },
+    {
+      "blind_id": 94,
+      "arm": "CONTROL",
+      "subject": "residential",
+      "object": "quiet",
+      "fid": 1489
+    },
+    {
+      "blind_id": 95,
+      "arm": "CONTROL",
+      "subject": "nucleic",
+      "object": "carbonic",
+      "fid": 1601
+    },
+    {
+      "blind_id": 96,
+      "arm": "STRUCTURED",
+      "subject": "minister",
+      "object": "use",
+      "fid": 931
+    },
+    {
+      "blind_id": 97,
+      "arm": "CONTROL",
+      "subject": "autotroph",
+      "object": "dioxide",
+      "fid": 1645
+    },
+    {
+      "blind_id": 98,
+      "arm": "CONTROL",
+      "subject": "reception",
+      "object": "bet",
+      "fid": 1319
+    },
+    {
+      "blind_id": 99,
+      "arm": "STRUCTURED",
+      "subject": "everest",
+      "object": "people",
+      "fid": 893
+    }
+  ]
+}

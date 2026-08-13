@@ -76,6 +76,7 @@ compliant.
 """
 from __future__ import annotations
 
+import hashlib
 import re
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional, Sequence, Tuple
@@ -207,6 +208,198 @@ def context_vector_masked(sentence: str, target_lemma: str, d: int = CTX_D) -> n
     to context_vector, so it inherits that function's exact bundling math unmodified."""
     words = [w for w in content_words(sentence) if normalize_lemma(w) != target_lemma]
     return context_vector(" ".join(words), d=d)
+
+
+# =================================================================================================
+# STRUCTURED COMPARATOR (2026-08-13, ADDITIVE, DEFAULT-OFF).
+#
+# WHY: notes/brain_fidelity_audit_readout_2026-08-13.md found the meaning read-out's decision
+# variable is cosine between two BAGS OF NEARBY CONTENT WORDS -- propose, informativeness-gate and
+# verify all route through canonicalize_fast, so a systematic co-occurrence bias cannot be
+# self-corrected. The Director's blind hand-score measured 3 MEANINGFUL / 19 RELATED / 78 NOISE,
+# the failures being topical neighbours (whisky->wedding, banana->people, checklist->joe).
+#
+# WHAT CHANGES: only the function that builds the vector a lemma is profiled and compared by.
+# The feature alphabet stops being "a content word occurred nearby" and becomes "a content word
+# occurred in THIS DEPENDENCY RELATION to the target". Everything downstream -- ConceptSpace,
+# canonicalize_fast, the PBV wiring, the consolidation gate, HDFactStore -- is untouched.
+#
+# NOTHING BELOW RUNS unless a caller explicitly builds a StructuralEncoder and passes it to
+# process_sentence(encoder=...). Default None = prior behaviour byte-for-byte.
+#
+# REUSE, not a parallel build: the UD front-end assets already on disk (hdlab.pos_tagger,
+# hdlab.arc_parser, hdlab.arc_labeler, trained on UD EWT, persisted under data/frontend_assets/),
+# the substrate's own bipolar bind (elementwise multiply, cf. hdlab/event_bundle.py:146 and
+# hdlab/gap_detector.py:85-88), and context_vector's own hashlib symbol-vector convention
+# (grounding_acquisition_loop.py:129-131), which _selftest_structural_unbound_matches_context_vector
+# asserts is reproduced BYTE-FOR-BYTE -- that assertion is what makes this a feature-space SWAP
+# rather than a second, incomparable vector space.
+#
+# NOTE (verified on disk 2026-08-13): hdlab.thematic_role_labeler exposes role labelling only via
+# role_feats + a perceptron that must be TRAINED (no persisted artifact exists), and this module
+# imports only its lemma_word normalizer. Thematic roles are therefore NOT already available on
+# this path; the UD front-end is the organ that is.
+# =================================================================================================
+
+_FRONTEND_DIR = "data/frontend_assets"
+_POS_ASSET = "pos_tagger_ud_ewt_upos.json"
+_PARSER_ASSET = "arc_parser_richfeat_ud_ewt.npz"
+_LABELER_ASSET = "arc_labeler_hashed_ud_ewt.json"
+
+STRUCT_TOKEN_RE = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)?|[0-9]+|[^\sA-Za-z0-9]")
+STRUCT_MAX_TOKENS = 60      # parse cost is O(n^2) in tokens; longer sentences are skipped, counted
+
+_SYM_VEC_CACHE: Dict[Tuple[str, int], np.ndarray] = {}
+
+
+def symbol_vector(sym: str, d: int = CTX_D) -> np.ndarray:
+    """Hashlib-seeded bipolar draw for an arbitrary symbol.
+
+    BYTE-IDENTICAL to the per-word draw inlined in grounding_acquisition_loop.context_vector
+    (`sha256(w)[:8] -> seed -> default_rng(seed).choice([-1,1], d)`), so a CONTROL bag and a
+    STRUCTURED role-bound bundle are built over the SAME underlying symbol codebook and differ
+    only in which symbols enter and whether they are bound to a relation."""
+    key = (sym, d)
+    v = _SYM_VEC_CACHE.get(key)
+    if v is None:
+        seed = int.from_bytes(hashlib.sha256(sym.encode("utf-8")).digest()[:8], "big") % (2 ** 32)
+        v = np.random.default_rng(seed).choice([-1.0, 1.0], size=d)
+        _SYM_VEC_CACHE[key] = v
+    return v
+
+
+def _bipolar_bind(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Bipolar XOR bind = elementwise multiply (the substrate's own binding op)."""
+    return a * b
+
+
+class StructuralEncoder:
+    """Sentence -> per-lemma ROLE-BOUND context vector, via the persisted UD front-end.
+
+    Lazily loads the three front-end assets once. `parse(sentence)` is memoized on the sentence
+    string, so the two-pass reading loop parses the corpus once. Deterministic: the front-end is
+    a set of fixed averaged-perceptron weights with Viterbi/MST decoding and no RNG."""
+
+    def __init__(self, repo_root: str, d: int = CTX_D,
+                 max_tokens: int = STRUCT_MAX_TOKENS) -> None:
+        self.repo_root = repo_root
+        self.d = d
+        self.max_tokens = int(max_tokens)
+        self._tagger = None
+        self._parser = None
+        self._labeler = None
+        self._cache: Dict[str, Optional[tuple]] = {}
+        self.n_parsed = 0
+        self.n_skipped_long = 0
+        self.n_feature_counts = 0
+        self.n_features_total = 0
+
+    def _load(self) -> None:
+        if self._tagger is not None:
+            return
+        import os as _os
+        from hdlab.pos_tagger import PosTagger
+        from hdlab.arc_parser import ArcParser
+        from hdlab.arc_labeler import ArcLabeler
+        fa = _os.path.join(self.repo_root, _FRONTEND_DIR)
+        self._tagger = PosTagger.load(_os.path.join(fa, _POS_ASSET))
+        self._parser = ArcParser.load(_os.path.join(fa, _PARSER_ASSET))
+        self._labeler = ArcLabeler.load(_os.path.join(fa, _LABELER_ASSET))
+
+    def parse(self, sentence: str) -> Optional[tuple]:
+        """(tokens, lemmas, heads, labels, content_ok) or None if unparseable/too long."""
+        hit = self._cache.get(sentence)
+        if hit is not None or sentence in self._cache:
+            return hit
+        self._load()
+        toks = STRUCT_TOKEN_RE.findall(sentence)
+        if not toks or len(toks) > self.max_tokens:
+            self.n_skipped_long += 1
+            self._cache[sentence] = None
+            return None
+        lemmas = [normalize_lemma(t) for t in toks]
+        cw = set(content_words(sentence))
+        ok = frozenset(lm for t, lm in zip(toks, lemmas) if t.lower() in cw and lm)
+        pos = self._tagger.tag(toks)
+        pr = self._parser.parse(toks, pos)
+        labs = self._labeler.label(toks, pos, pr.heads)
+        out = (toks, lemmas, pr.heads, labs, ok)
+        self._cache[sentence] = out
+        self.n_parsed += 1
+        return out
+
+    def features(self, sentence: str, target_lemma: str) -> List[Tuple[str, str]]:
+        """Deterministic sorted set of (relation, filler_lemma) for `target_lemma`.
+
+        Three feature families, all 1-hop in the dependency tree:
+          ("^" + rel_of_target,        lemma(head))       -- the relation the target BEARS
+          (rel_of_dependent,           lemma(dependent))  -- the relations the target GOVERNS
+          ("~" + rel_target + ":" + rel_other, lemma(other)) -- co-arguments of a shared head,
+              i.e. the predicate-mediated link that separates two fillers of DIFFERENT slots of
+              the same verb (a bag cannot: it records only that both words occurred).
+
+        The target's own lemma is never a filler (no-leak, same invariant as
+        context_vector_masked). Fillers are restricted to content lemmas."""
+        p = self.parse(sentence)
+        if p is None:
+            return []
+        toks, lemmas, heads, labs, ok = p
+        n = len(toks)
+        feats: List[Tuple[str, str]] = []
+
+        def usable(j: int) -> bool:
+            lm = lemmas[j - 1]
+            return bool(lm) and lm != target_lemma and lm in ok
+
+        for i in range(1, n + 1):
+            if lemmas[i - 1] != target_lemma:
+                continue
+            h = heads.get(i, 0)
+            if h and 1 <= h <= n and usable(h):
+                feats.append(("^" + labs[i], lemmas[h - 1]))
+            for j in range(1, n + 1):
+                if heads.get(j, 0) == i and usable(j):
+                    feats.append((labs[j], lemmas[j - 1]))
+            if h and 1 <= h <= n:
+                for j in range(1, n + 1):
+                    if j != i and heads.get(j, 0) == h and usable(j):
+                        feats.append(("~" + labs[i] + ":" + labs[j], lemmas[j - 1]))
+        return sorted(set(feats))
+
+    def vector(self, sentence: str, target_lemma: str) -> np.ndarray:
+        """sign(sum over features of bind(rel_vec, filler_vec)). All-zero when no feature fires
+        (the caller's existing `if not np.any(ctx != 0)` guard then skips the occurrence, exactly
+        as it already does for an all-stopword window)."""
+        feats = self.features(sentence, target_lemma)
+        self.n_feature_counts += 1
+        self.n_features_total += len(feats)
+        if not feats:
+            return np.zeros(self.d, dtype=np.float64)
+        acc = np.zeros(self.d, dtype=np.float64)
+        for rel, filler in feats:
+            acc += _bipolar_bind(symbol_vector("REL:" + rel, self.d),
+                                 symbol_vector(filler, self.d))
+        out = np.sign(acc)
+        out[out == 0] = 1.0
+        return out
+
+    def stats(self) -> dict:
+        return {
+            "n_parsed": self.n_parsed,
+            "n_skipped_long_or_empty": self.n_skipped_long,
+            "n_encodings": self.n_feature_counts,
+            "mean_features_per_encoding": (round(self.n_features_total / self.n_feature_counts, 6)
+                                           if self.n_feature_counts else None),
+            "max_tokens": self.max_tokens,
+            "assets": [_POS_ASSET, _PARSER_ASSET, _LABELER_ASSET],
+        }
+
+
+def structural_vector_masked(sentence: str, target_lemma: str,
+                             encoder: StructuralEncoder) -> np.ndarray:
+    """STRUCTURED-arm drop-in for context_vector_masked. Masking is intrinsic: the target's own
+    lemma is never admitted as a filler, so there is no separate removal step to get wrong."""
+    return encoder.vector(sentence, target_lemma)
 
 
 class ConceptSpace:
@@ -814,7 +1007,8 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
                      *, scramble_context_source: Optional[Sequence[str]] = None,
                      scramble_rng: Optional[np.random.Generator] = None,
                      pbv_fns: Optional[Tuple[Callable, Callable]] = None,
-                     revive_terminal: bool = False) -> int:
+                     revive_terminal: bool = False,
+                     encoder: Optional["StructuralEncoder"] = None) -> int:
     """FLAG every content-word lemma in `sentence` that is (a) not a seed-known word, (b) not
     already a foundation gap-negative (GapDetector says known), and (c) not a terminal Library
     item (GROUNDED/ESCALATED -- Library.flag() itself no-ops on those, this is just a cheap
@@ -834,10 +1028,18 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
     state.n_occurrences_seen += 1
     n_flagged = 0
     propose_fn, verify_fn = pbv_fns if pbv_fns is not None else (None, None)
+
+    def _encode(sent: str, lemma: str) -> np.ndarray:
+        """THE ONE VARIABLE (2026-08-13). encoder=None -> the shipped bag-of-content-words path,
+        byte-for-byte unchanged; an encoder -> the role-bound structural vector."""
+        if encoder is None:
+            return context_vector_masked(sent, lemma)
+        return structural_vector_masked(sent, lemma, encoder)
+
     for lemma in content_lemmas(sentence):
         if lemma in state.known_seed:
             # still track its distributional profile (comparison pool for canonicalize)
-            ctx = context_vector_masked(sentence, lemma)
+            ctx = _encode(sentence, lemma)
             if np.any(ctx != 0.0):
                 state.space.observe(lemma, ctx)
             continue
@@ -849,10 +1051,10 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             continue  # foundation already knows this word (e.g. grounded earlier this run)
         if scramble_context_source is not None:
             src_sent = scramble_context_source[int(scramble_rng.integers(0, len(scramble_context_source)))]
-            ctx = context_vector_masked(src_sent, lemma)
+            ctx = _encode(src_sent, lemma)
         else:
             src_sent = sentence
-            ctx = context_vector_masked(sentence, lemma)
+            ctx = _encode(sentence, lemma)
         if not np.any(ctx != 0.0):
             continue  # empty window (all-stopword context); nothing to learn from this occurrence
         flagged = state.library.flag(lemma, episode_id, "POS", ctx, pass_idx,
@@ -1635,7 +1837,53 @@ def _selftest_terminal_episode_release_bounds_live_epochs() -> None:
     assert off[0].release_episodes(["anything"]) == 0
 
 
+def _selftest_structural_unbound_matches_context_vector() -> None:
+    """THE LICENSING ASSERTION for the structured comparator being a FEATURE-SPACE SWAP rather
+    than a second, incomparable vector space: summing `symbol_vector` over a sentence's content
+    words, UNBOUND, must reproduce `context_vector` BYTE-FOR-BYTE. If this drifts, the two arms
+    no longer share a symbol codebook and their cosines are not on one scale."""
+    for sent in ("The lantern flickered in the storm.",
+                 "A particle enveloped in membrane fuses with the plasma membrane",
+                 "One buyer ordered nine cases of Japanese whisky for a wedding reception"):
+        words = content_words(sent)
+        acc = np.zeros(CTX_D, dtype=np.float64)
+        for w in words:
+            acc += symbol_vector(w, CTX_D)
+        out = np.sign(acc)
+        out[out == 0] = 1.0
+        assert np.array_equal(out, context_vector(sent)), (
+            "symbol_vector drifted from context_vector's own per-word draw on %r" % sent)
+    # binding must DESTROY the bare-filler resemblance: a role-bound feature is near-orthogonal
+    # to its own filler, which is exactly why role+filler are jointly necessary for a match.
+    f = symbol_vector("wedding")
+    b = _bipolar_bind(symbol_vector("REL:^nmod"), f)
+    assert abs(_cos(b, f)) < 0.15, "bind did not decorrelate filler from bound feature"
+    # and two DIFFERENT roles over the SAME filler must not match each other
+    b2 = _bipolar_bind(symbol_vector("REL:^obj"), f)
+    assert abs(_cos(b, b2)) < 0.15, "two roles over one filler failed to separate"
+
+
+def _selftest_structured_encoder_is_off_by_default() -> None:
+    """process_sentence(encoder=None) must be the shipped path byte-for-byte."""
+    import numpy as _np
+    store = HDFactStore(n_dim=512, seed=11,
+                        relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
+                                              MEANING_RELATION: "FUNCTIONAL"}, use_index=True)
+    st = ReadingLoopState(store=store)
+    seed_known_words(st, ["lantern", "storm", "fire"], source="t")
+    n = process_sentence(st, "The zibbo flickered by the lantern in the storm.", "e0", pass_idx=0)
+    assert n >= 0
+    # the seed word's accumulated profile must be exactly the masked bag-of-words vector
+    got = st.space.bundle("lantern")
+    want = _np.sign(context_vector_masked("The zibbo flickered by the lantern in the storm.",
+                                          "lantern"))
+    want[want == 0] = 1.0
+    assert _np.array_equal(got, want), "encoder=None changed the default encoding path"
+
+
 def _run_all_selftests() -> dict:
+    _selftest_structural_unbound_matches_context_vector()
+    _selftest_structured_encoder_is_off_by_default()
     _selftest_no_leak_masking()
     _selftest_gap_gate_known_vs_novel()
     _selftest_grounding_needs_coherent_repeated_exposure()

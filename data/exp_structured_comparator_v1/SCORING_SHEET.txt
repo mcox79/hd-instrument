@@ -1,0 +1,308 @@
+GROUNDED_MEANING BLIND SCORING SHEET  (exp_structured_comparator_v1)
+100 rows, file order preserved. Rubric: MEANINGFUL / RELATED / NOISE.
+Line 1: [idx] subject -> assigned grounded meaning.  Line 2: one context sentence (<=160 chars).
+Write your verdict at the end of line 1 for each row.
+====================================================================================================
+
+[001] baffin  ->  isolate
+      "Helped by an Inuit mapping expert, and followed around by curious locals, the team spent four days collecting the images and information that will give the i..."
+
+[002] tesco  ->  situation
+      "But she said the atmosphere in Tesco scared her this time"
+
+[003] lindstedt  ->  guide
+      "Its a terrible choice, says Krister Lindstedt of White, the Swedish architects company that is managing the biblical task"
+
+[004] remote  ->  boat
+      "When two people on a remote Pacific island saw a small boat washed up on the beach, they decided to take a closer look"
+
+[005] baumgartner  ->  people
+      "As he reached the correct height, Baumgartner went through a checklist of 40 things with his mentor Joe Kittinger"
+
+[006] mitochondrial  ->  ask
+      "In this transmission electron micrograph of mitochondria in a mammalian lung cell, the cristae, infoldings of the mitochondrial inner membrane, can be seen i..."
+
+[007] publisher  ->  head
+      "Independent UK publisher Michael O'Mara has sold around 340,000 adult colouring books"
+
+[008] tourist  ->  people
+      "1995 was the last time foreign tourists were murdered in Kashmir, when an Islamist group kidnapped six westerners and killed five of them"
+
+[009] sky  ->  bag
+      "Baumgartner went up into clear skies in an enormous balloon - it was 30 million square cubic feet and its skin was one-tenth the thickness of a sandwich bag"
+
+[010] spotlight  ->  coin
+      "He spoke about the frustrations of being a royal who wishes for a life out of the spotlight"
+
+[011] earth's  ->  hydra
+      "8 percent of Earth's surface"
+
+[012] macromolecule  ->  big
+      "Additionally, enzymes within plant vacuoles can break down macromolecules"
+
+[013] uncomfortable  ->  welcome
+      "All-body suits are expensive - they cost about ?30,000 - and they can be uncomfortable, so Anderson and his colleagues are now looking at cheaper alternatives"
+
+[014] metadata  ->  people
+      "For the final part of the study, the researchers looked even deeper, to see what private information they could find out from telephone metadata"
+
+[015] educate  ->  nice
+      "And almost all of those had a first degree or had been educated to degree level, he says"
+
+[016] whisky  ->  wedding
+      "One buyer ordered nine cases of Japanese whisky costing over $750 a bottle for a wedding reception"
+
+[017] infamous  ->  alive
+      "As a newly qualified doctor in the late 1990s, I learnt about Methicillin Resistant Staphylococcus Aureus  the infamous MRSA  a bacterial species resistant t..."
+
+[018] breast  ->  trust
+      "Radiotherapy for breast cancer involves directing radiation, very precisely, at the tumour"
+
+[019] gill  ->  cameron
+      "David Gill, the outgoing chief executive, said: "I've had the tremendous pleasure of working very closely with Alex for 16 unforgettable years - through the ..."
+
+[020] mowat  ->  cute
+      "But, for Mowat, the worst part of the job is not the eels - he believes baby eels are "as cute as pandas": "The worst thing about the job is seeing how much ..."
+
+[021] checklist  ->  joe
+      "As he reached the correct height, Baumgartner went through a checklist of 40 things with his mentor Joe Kittinger"
+
+[022] ingabire  ->  men
+      "Historically, says Ingabire, Rwandan women were forbidden to drum and many people considered the drums too heavy for women to carry"
+
+[023] spots  ->  husband
+      "After two years of successful ads with cuddly animals  a bear and hare, then a penguin  this time, the store is tugging at the heartstrings with a story of a..."
+
+[024] bombing  ->  death
+      "Security measures have intensified since the devastating bombing of the national security crisis cell in July 2012, when four of Assad's most senior aides we..."
+
+[025] ryan  ->  guide
+      "I prepare and research as much technical and practical information as possible on every single product beforehand, says Shaun Ryan, presenter for Ideal World TV"
+
+[026] tennis  ->  frank
+      "From there, the former table-tennis coach began to set up a confusing web of accounts, payments and transfers"
+
+[027] nucleate  ->  prokaryotic
+      "A white blood cell is larger than a red blood cell, is nucleated, and is typically able to move using amoeboid locomotion"
+
+[028] des  ->  ray
+      "Almost 60 years after Ray Kroc opened his first restaurant in Des Plaines, Illinois, consumers are losing their appetite for a Big Mac and fries"
+
+[029] mushroom  ->  fire
+      "Cities are mushrooming, the middle class population growing, opportunities have increased many times over and the political environment has improved greatly ..."
+
+[030] farm  ->  absolutely
+      "24 farm workers, who were without weapons, were killed by British troops - their families are now fighting for a public inquiry"
+
+[031] uninfected  ->  stem
+      "In addition to being released from white blood cells after pathogen recognition, cytokines are also released by the infected cells and bind to nearby uninfec..."
+
+[032] glucagon  ->  stem
+      "Alpha cells release glucagon as blood-glucose levels decline"
+
+[033] highway  ->  york
+      "And, so we don't forget it, advertisers wallpaper our cities and highways with banks of billboards"
+
+[034] kashmir  ->  people
+      "1995 was the last time foreign tourists were murdered in Kashmir, when an Islamist group kidnapped six westerners and killed five of them"
+
+[035] endoderm  ->  order
+      "A third group of triploblasts has a body cavity that is derived partly from mesoderm and partly from endoderm tissue"
+
+[036] ninian  ->  school
+      "At St Ninian's, teachers take their pupils out of lessons on to a specially built circuit around the school's playing field for their daily mile whenever it ..."
+
+[037] valuable  ->  people
+      "In 2012, the FAO published a list of 1,909 edible species of insect and plans a major international conference on "this valuable food source" in 2013"
+
+[038] photo  ->  people
+      "A French magazine was told to stop selling or reusing photos of the royal couple"
+
+[039] clermont  ->  know
+      "A statement on Clermont Foot 63s website said Costas appointment would allow the club to enter a new era"
+
+[040] session  ->  answer
+      ""You've never had better tools to make a difference," he told the students at the question-and-answer session"
+
+[041] colin  ->  company
+      "Im sure one of the reasons Western Australia Premier, Colin Barnett, did it was because he was thinking it would encourage tourism"
+
+[042] pipe  ->  floor
+      "Another possible escape route could have involved Inky squeezing into an open pipe at the top of his tank, which led under the floor to the drain"
+
+[043] consultant  ->  boyfriend
+      "A competitive breakfast menu, improved coffee and free wi-  have given McDonalds a broad appeal in the UK, said consultant Peter Martin, adding that 56% of B..."
+
+[044] acquire  ->  years
+      "Alternative social networks such as Instagram, the photo-sharing site that won 30m users in 18 months before Facebook acquired the business, have seen surges..."
+
+[045] inject  ->  fat
+      "Shisha can be sniffed or injected and it can be made in home laboratories  you dont need any specialized knowledge"
+
+[046] reserves  ->  person
+      "Most live outside nature reserves - this shows that changing attitudes and conservation methods are protecting these species very well"
+
+[047] lactic  ->  brain
+      "In muscles, lactic acid produced by fermentation must be removed by the blood circulation and brought to the liver for further metabolism"
+
+[048] speed  ->  people
+      "He had reached speeds of up to 725 miles per hour, and broken three world records, including becoming the worlds first supersonic skydiver by breaking the so..."
+
+[049] neighbourhood  ->  bed
+      "But, it is not always easy to get enough sleep; you have to go to bed in the right neighbourhood and in the right body"
+
+[050] thin  ->  ice
+      "Scientists believe the mountains on Pluto are made from water ice with just a thin cover of methane and nitrogen"
+
+[051] wetland  ->  greek
+      "Intermediate 
+The view from the visitors centre at the southern edge of Donana National Park in southern Spain is an ornithologists dream: 200,000 hectare..."
+
+[052] speed  ->  colonel
+      "Because the temperature and pressure change with altitude in the atmosphere, speed will vary as well."
+
+[053] dioxide  ->  break
+      "Also, carbon dioxide is now in the lungs, where it can be breathed out."
+
+[054] intermediate  ->  people
+      "Intermediate 
+An extraordinary press conference at Leicester University has revealed the identity of the man in the car park with the twisted spine"
+
+[055] reward  ->  drink
+      "If the rat that received the information failed the task, the first rat did not get the reward of a drink"
+
+[056] recruit  ->  act
+      "120 companies have joined our Think, Act, Report scheme, which encourages companies to improve the way they recruit, promote and pay women"
+
+[057] salivary  ->  probably
+      "(b) Food is masticated by teeth and moistened by saliva secreted from the salivary glands"
+
+[058] shanhui  ->  follow
+      "Shanhui Fan says the mirrors costs between $20 and $70 per square metre"
+
+[059] balloon  ->  bag
+      "At the bottom of the balloon was a capsule, where Baumgartner sat in his suit"
+
+[060] shine  ->  new
+      "At the same time, the researchers shone light into the mouse brains to activate their memories of the first chamber"
+
+[061] efficient  ->  bill
+      "It is the first time that getting money has been fast, efficient and meritocratic, because it is not about How do I get access to the decision makers in that..."
+
+[062] terrorism  ->  officer
+      "Intermediate 
+The Chief Medical Officer for England has compared the problem of antibiotic resistance to the risks of international terrorism"
+
+[063] lied  ->  talk
+      "Others hid it and lied about it"
+
+[064] fourth  ->  house
+      "In the UK, Richard Merritts Art Therapy Colouring Book is in fourth place on Amazons bestseller lists, Millie Marottas Animal Kingdom  detailed pictures of a..."
+
+[065] coal  ->  child
+      "Fuels can be wood, tinder, coal, oil, or any other substance that will easily oxidize."
+
+[066] rocket  ->  plane
+      "To return, they would need a fully built rocket with enough fuel for the return journey, which is able to escape the gravitational field of Mars, and has on-..."
+
+[067] citric  ->  best
+      "Cholesterol synthesis starts with acetyl CoA, and the components of triglycerides are picked up by acetyl CoA and enter the citric acid cycle"
+
+[068] saint  ->  peter
+      "00 hours, he told a group of cardinals in the Vatican, the see of Rome, the see of Saint Peter, will be vacant and a new pope will have to be elected"
+
+[069] overnight  ->  story
+      "I didnt persuade him to put away his gun  but my reputation as a reporter rose overnight"
+
+[070] excellent  ->  fall
+      "It was an excellent collection that met with only moderate success but that all changed with The Rise and Fall of Ziggy Stardust and the Spiders from Mars la..."
+
+[071] operator  ->  talk
+      "Not only that, but a significant number of those subscribers come from bundled deals with mobile phone operators so it is debatable just how "active" its use..."
+
+[072] princeton  ->  air
+      ", The Theory of Island Biogeography (Princeton, N"
+
+[073] tax  ->  people
+      "6m in corporation tax since launching in the UK in 1998, despite cumulative sales of 3bn"
+
+[074] teixeira  ->  time
+      "Teixeira, the former son-in-law of the FIFA ex-president Joo Havelange, was charged alongside Del Nero and his predecessor Jos Maria Marin, who was charged i..."
+
+[075] goer  ->  pay
+      "Glastonbury festival-goers are also being asked to travel to the site on public transport or to try car-sharing with friends"
+
+[076] damage  ->  people
+      "In Sabaa Bahrat Square, in what was supposed to be the safest part of Damascus, a car bomb exploded, leaving the front of a building black, its windows broke..."
+
+[077] seedless  ->  nonvascular
+      "A third adaptation marks seedless vascular plants"
+
+[078] openly  ->  power
+      "Because our books are openly licensed, you are free to use the entire book or select only the sections that are most relevant to the needs of your course"
+
+[079] gupta  ->  guide
+      "Abhay Gupta, the CEO of brand consultancy Luxury Connect, said the market for luxury goods and experiences would only get bigger"
+
+[080] structural  ->  important
+      "The owner of one Dhaka factory, Softex Cotton, said he will take legal action against the Accord because his factory was closed down as a result of structura..."
+
+[081] difficult  ->  people
+      "She became famous after she wrote a blog for the BBC Urdu service - in the blog, she described her difficult experiences of trying to get an education under ..."
+
+[082] propaganda  ->  hands
+      "For Philippa Langley of the Richard III Society, Richard was the true king, the last king of the north, a brave leader who became a victim of some of the mos..."
+
+[083] mitochondrial  ->  new
+      "Another feature that makes studying the mitochondrial genome interesting is that in most multicellular organisms, the mitochondrial DNA is passed on from the..."
+
+[084] johannesburg  ->  idea
+      "Both mothers gave birth at the Tambo Memorial Hospital in Boksburg, east of Johannesburg, on the same day in 2010"
+
+[085] scott  ->  happy
+      ""The main concern relating to this is that even a slight increase in sound may make echolocation more difficult for whales," said Scott Veirs of Beamreach, w..."
+
+[086] banana  ->  people
+      "Bananas have been the most popular fruit in the UK since 1996 - adults ate 221g per adult per week in 2014, much more than apples (131g) and oranges (48g)"
+
+[087] transportation  ->  hospital
+      "According to research by the International Council on Clean Transportation in 2014, actual nitrogen oxide emissions from cars are seven times higher than the..."
+
+[088] mast  ->  prokaryotic
+      "Cells involved in the innate immune response include mast cells, natural killer cells, and white blood cells, such as monocytes, macrophages and neutrophils"
+
+[089] cerf  ->  talking
+      "Cerf called for the development of "digital vellum" to preserve old software and hardware so that out-of-date files could be recovered no matter how old they..."
+
+[090] furrow  ->  making
+      "In part (a), a cleavage furrow forms at the former metaphase plate in the animal cell"
+
+[091] guide  ->  brabon
+      "Allergies and food intolerances are increasing very quickly but people do not understand the difference between an allergy and a food intolerance - this is c..."
+
+[092] semantics  ->  jack
+      "Our goal was to build a giant atlas that shows how one speci c aspect of language is represented in the brain, in this case semantics (the meanings of words)..."
+
+[093] pool  ->  apartment
+      "He has decided to rebuild one of the most expensive sites on the avenue as a collection of 20 apartments with a concierge, maid service, 25-metre pool, spa a..."
+
+[094] pulse  ->  lying
+      "After a gentle warm-up and a few pulse-raising numbers, the 93-year-old great-grandmother lets her charges rehydrate with a cup of tea and a quick sit down"
+
+[095] residential  ->  quiet
+      "But it has also led to a problematic rise in cars moving through residential neighbourhoods"
+
+[096] nucleic  ->  carbonic
+      "Now let's consider the structure of the two types of nucleic acids, deoxyribonucleic acid (DNA) and ribonucleic acid (RNA)"
+
+[097] minister  ->  use
+      "His article comes after music industry leaders met British Prime Minister David Cameron in Downing Street to discuss the issue of web piracy"
+
+[098] autotroph  ->  dioxide
+      "A good example of this connection is the exchange of carbon between heterotrophs and autotrophs within and between ecosystems by way of atmospheric carbon di..."
+
+[099] reception  ->  bet
+      "One buyer ordered nine cases of Japanese whisky costing over $750 a bottle for a wedding reception"
+
+[100] everest  ->  people
+      "At the moment, they use helicopters to rescue both climbers and trekkers who walk to Everest base camp"
