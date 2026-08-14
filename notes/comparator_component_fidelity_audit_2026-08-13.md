@@ -300,6 +300,23 @@ function, applied only to the other dtype.
    per-DIMENSION to be gain in the brain's sense. DEFERRED behind C1/C2: a gain applied to a
    binarised code has nothing graded to act on, which is why this must not be built first.
 
+> **TESTED AND CLOSED, 2026-08-14 — `HARD_FAIL_GAIN_HURTS`** (`data/exp_task_local_normalisation_pool_v1`,
+> prereg `e07d8ffb3` + AMENDMENT A1 `0b445b3bf`, n=4000). Both baselines reproduced EXACTLY
+> (`R_LIVE` 0.6395, `R_BASE` 0.6997), so the read is licensed. Multiplicative per-dimension control
+> gain `g = |a_t - a_d|` scored **0.6777, d = -0.0220 CI [-0.0340,-0.0097]** — significantly WORSE.
+> The demoted pool-inverse form scored 0.6883, also below baseline, exactly as the amendment
+> predicted in advance.
+>
+> **MECHANISM OF THE NEGATIVE, and it unifies this whole program:** the gain does not privilege
+> DISTINCTIVE dimensions, it privileges NOISY ones. With 70 observations per concept in a 256-dim
+> random projection, the dimensions with the largest anchor-difference are disproportionately the
+> worst-estimated. Every per-dimension REWEIGHTING this program has tried is null or harmful —
+> log-IDF (`dbac1ae9c`, null), global-field z-scoring (+0.0018, null), pool-inverse (-0.011),
+> contrast gain (-0.0220) — while the only thing that helped was removing a per-dimension
+> DESTRUCTION. **Per-dimension statistics estimated from 70 samples in a 256-dimensional random
+> projection are too noisy to weight by.** That is an estimation-noise statement, and it points at
+> C7, not at C4.
+
 ### C5 — SETTLING / STABILISATION   **[EXPLICIT NEGATIVE RECOMMENDATION]**
 
 1. **BRAIN OPERATION.** Recurrent attractor settling to a fixed point; hippocampal CA3 completion
@@ -360,6 +377,17 @@ function, applied only to the other dtype.
 5. **REPLACEMENT.** Graded real at the same d (free — the sums are already float64). A dimensionality
    change is NOT proposed: it is confounded with the format change and must not ride along in the
    same cell.
+
+> **PROMOTED FROM LAST TO FIRST, 2026-08-14.** Declining to vary `d` was right for ISOLATION and
+> wrong for INTERPRETATION: without a d-sweep, a capacity effect reads as a quantisation effect,
+> and that is exactly what happened (see the header and
+> `notes/landed_vet_graded_comparator_mechanism_refuted_2026-08-14.md`). Measured crosstalk between
+> unrelated codes falls exactly as 1/sqrt(d): **0.0498 at d=256, 0.0249 at d=1024, 0.0125 at
+> d=4096** (`experiments/exp_capacity_ceiling_near_far_v1.py` self-test S4), and the substrate holds
+> 2,377 concepts at d=256. Every negative in rows C1 and C4 is consistent with the substrate running
+> where crosstalk and estimation noise bind. The cell that tests this — and the sharper question of
+> whether the NEAR/FAR gap survives 16x the capacity — is
+> `preregs/2026-08-14_capacity_ceiling_and_the_near_far_gap.md`.
 
 ---
 
