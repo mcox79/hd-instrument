@@ -111,16 +111,56 @@ rows. Rows are ordered by (predicts a known failure) x (we already own the organ
      degrades monotonically as pairs tighten, 0.276 pooled -> 0.304 FAR -> 0.125 NEAR (CI includes
      0). A prototype operator is exactly a mechanism that keeps category-level (FAR) information and
      loses within-category (NEAR) information.
-   - *Distinctiveness weighting null* (`data/exp_distinctiveness_weighted_composition_v1`,
-     `dbac1ae9c`, HARD_FAIL_SHAPE 18/18 units): log-IDF weights were applied to feature vectors and
-     then handed to `bundle()`, whose per-component renormalisation is precisely the operation that
-     discards injected amplitude. **The weighting was erased by the very next line of code.** A
-     weighting scheme cannot work upstream of a per-component magnitude reset. (Independent
-     numerical confirmation of this specific mechanism dispatched; see addendum.)
    - *Differentia supply at chance despite coverage 2.9% -> 35.0%* (`9825510bf`): supplying more
      distinctive features cannot help when composition annihilates minority components. Supply and
      shape were confounded; this row separates them and predicts supply was never the binding
-     constraint.
+     constraint. (Consistent-with, not proven-by.)
+   - *Distinctiveness weighting null* — **I PREDICTED THIS ROW WOULD EXPLAIN IT AND IT DOES NOT.
+     SEE THE CORRECTION BELOW.**
+
+**CORRECTION, same session, before this note was used for anything.** I hypothesised that the
+log-IDF distinctiveness-weighting null (`data/exp_distinctiveness_weighted_composition_v1`,
+`dbac1ae9c`) was caused by `bundle()`'s per-component renormalisation erasing the injected weights
+one line later. **An adversarial numerical recompute REFUTES that hypothesis in both of its
+mechanistic claims**, and I record the refutation rather than the prediction:
+
+- Near-cancellation is 4.3x RARER under weighting, not commoner (0.68% vs 2.94% of components below
+  10% of the concept's median |s_j|): unequal weights make exact destructive interference LESS
+  likely. The "weights cause more noise amplification" claim is refuted by SIGN.
+- The per-component step TRANSMITS more of the weighting perturbation than whole-vector L2 does
+  (cos(weighted, unweighted) 0.9448 per-component vs 0.9897 under L2), the opposite of the
+  prediction.
+- Weighting hurts under BOTH normalisers (d' gain -0.682 per-component, -0.771 under L2), so the
+  normaliser cannot be what killed it.
+- The actual cause is visible in the cell's own file: `analytic_weighted_rho` vs
+  `analytic_uniform_rho` (A 0.7254 vs 0.7406; B 0.6545 vs 0.6443; C 0.0826 vs 0.0790) is the EXACT
+  weighted cosine in feature-incidence space — no `bundle()`, no normalisation of any kind — and it
+  already misses the +0.03 band. With mean k=2.91 features per concept and a weight range spanning
+  only 2.34x, log-IDF simply does not carry enough discriminative signal to restructure the cosine.
+  Refuting the renormalisation does not revive the route.
+- Verbatim verdict, for accuracy: `HARD_FAIL_SHAPE`, `B(CSKG) rho_w=0.536 d_uni=-0.018`,
+  `C(CSKG no-lexrel, STRICTEST) rho_w=0.080 d_uni=-0.000`; arm A is VOID at 3.5% coverage.
+  Reproduction check: the recompute bit-matched `_concept_vector_from` on 359/359 concepts and
+  reproduced metrics.json's UNIFORM/WEIGHTED SimLex values 0.6762 / 0.7001 exactly.
+
+**THE SAME RECOMPUTE PRODUCED INDEPENDENT SUPPORT FOR THIS ROW'S CORE CLAIM, on a different module
+and a different number system.** Holding the weighting fixed and changing ONLY the normaliser —
+`bundle()`'s per-component `s/|s|` versus whole-vector L2 `s/‖s‖`, which is Carandini-Heeger's
+POOL-SHARED denominator — the near-vs-random separation on the FHRR lexical path is:
+
+| normaliser | d' near/random | d' near/disjoint-random |
+|---|---|---|
+| per-component `s/|s|` (live `bundling.py:37-39`) | 4.843 | 6.070 |
+| whole-vector L2 `s/‖s‖` (pool-shared denominator) | **6.030** | **8.959** |
+
+**The per-component step costs 20-32% of d' by itself, with nothing else changed.** Two independent
+paths — the real-valued context path (geometry table above) and the complex FHRR lexical path
+(here) — show the same defect in the same direction. Scope, stated honestly: these pairs come from
+the hand-authored `CONCEPT_FEATURES` lexicon, so this is a claim about what the OPERATION does to
+whatever near/far structure exists, NOT a capability claim; the SimLex-999 arm at n=35
+(se_rho ~ 0.177) is inside noise and licenses nothing. Note also that `bundling.py:41-42` ALREADY
+uses whole-vector L2 for real-valued input — the brain-faithful form is present in the same
+function, applied only to the other dtype.
 5. **BRAIN-FAITHFUL REPLACEMENT.** Delete the terminal `sign()`; keep the graded sum; apply divisive
    normalisation with the ACTIVE POPULATION as the normalisation pool. **Do we own the organ?**
    Partly and wrongly wired: `hdlab/grounded_similarity.py:143-151` already computes exactly the
@@ -275,7 +315,7 @@ rows. Rows are ordered by (predicts a known failure) x (we already own the organ
 
 | # | constituent | brain | ours | verdict | predicts |
 |---|---|---|---|---|---|
-| 1 | per-occurrence combination | divisive norm, POOL-shared denominator, ratios preserved | `sign()` / `s/|s|` per component, ratios destroyed | WRONG OP (the inverse) | near/far collapse; IDF-weighting null; differentia-supply null |
+| 1 | per-occurrence combination | divisive norm, POOL-shared denominator, ratios preserved | `sign()` / `s/|s|` per component, ratios destroyed | WRONG OP (the inverse) | near/far collapse; +20-32% d' measured by swapping ONLY this normaliser. Does NOT explain the IDF-weighting null (predicted it would; refuted, see correction) |
 | 2 | across-occurrence accumulation | graded frequency-weighted consolidation | graded sum COMPUTED then `sign()`ed away at read | RIGHT OP, WRONG PLACE | shared component 0.58 of norm; pairwise cos 0.34; floor-hugging 0.6395 |
 | 3 | comparison | recurrent nonlinear settling on a normalised graded code | cosine of two ±1 vectors = Hamming/256 | WRONG METRIC on a corrupted code | thin margin (mean winning cos 0.1476) |
 | 4 | context modulation | MULTIPLICATIVE per-dimension gain (IFG->spoke) | context added as another VECTOR | RIGHT IDEA, WRONG ALGEBRA | explains the +0.1005 success; blocked behind 1-2 |
