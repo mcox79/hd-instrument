@@ -1,0 +1,1495 @@
+{
+  "anchor_name": "exp_meaning_supply_separation_v1",
+  "run_mode": "smoke",
+  "prereg": "preregs/2026-08-14_meaning_supply_separation_v1.md",
+  "ts_iso": "2026-08-14T18:46:53.895855+00:00",
+  "wire_status": "EXPERIMENT_LOCAL_NOT_WIRED",
+  "graded_comparator": true,
+  "ctx_d": 256,
+  "w_grid": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "w_headline": 0.5,
+  "baselines_quoted": {
+    "c3_hit_at_1": 0.048,
+    "c3_scramble": 0.008,
+    "crowding_live": 0.4637,
+    "crowding_null": 0.2264,
+    "twoafc_live_d256_graded_on": 0.698
+  },
+  "item_construction": {
+    "n_anchors": 716,
+    "n_items_before_cap": 609,
+    "n_items": 300,
+    "removals": {
+      "foil_direction_fallback": 24,
+      "removed_L_not_in_wordnet": 39,
+      "removed_no_gold_anchor": 68
+    },
+    "n_items_with_heldout_sentence": 300
+  },
+  "n_items": 300,
+  "n_anchors": 716,
+  "coverage_of_these_anchors": {
+    "hand_lexicon": {
+      "n": 51,
+      "frac": 0.0712290502793296
+    },
+    "grounded_norms": {
+      "n": 650,
+      "frac": 0.9078212290502793
+    },
+    "hand_lexicon_size": 359,
+    "grounded_norms_size": 36810,
+    "encoder_nonzero": {
+      "n": 716,
+      "frac": 1.0
+    }
+  },
+  "encoder": {
+    "seed": 7,
+    "d_model": 512,
+    "class": "EncoderExtractor",
+    "tokenizer_vocab_size": 16000,
+    "load_s": 0.77,
+    "USE_IS_OUT_OF_DISTRIBUTION": true,
+    "note": "encoder trained on a SYNTHETIC templated slot harness (cues: ['ENT', 'MARK', 'P', 'S']); it exposes no word-embedding API, so this cell mean-pools its contextual token reps.",
+    "anchors_whole_token_in_vocab": {
+      "n": 629,
+      "frac": 0.8784916201117319
+    },
+    "encoded_nonzero": {
+      "n": 716,
+      "frac": 1.0
+    },
+    "elapsed_s": 1.83
+  },
+  "per_w": {
+    "w_0.25": {
+      "bootstrap": {
+        "n_boot": 5000,
+        "seed": 20260819,
+        "n_items": 300,
+        "arm_acc_ci": {
+          "A1_BASE": {
+            "acc": 0.05333333333333334,
+            "ci_lo": 0.03,
+            "ci_hi": 0.08,
+            "sd": 0.012990628673522053
+          },
+          "A2_NORMS": {
+            "acc": 0.056666666666666664,
+            "ci_lo": 0.03333333333333333,
+            "ci_hi": 0.08333333333333333,
+            "sd": 0.013491691451490515
+          },
+          "A3_ENCODER": {
+            "acc": 0.05333333333333334,
+            "ci_lo": 0.03,
+            "ci_hi": 0.08,
+            "sd": 0.013180563400536244
+          },
+          "A4_BOTH": {
+            "acc": 0.06333333333333334,
+            "ci_lo": 0.03666666666666667,
+            "ci_hi": 0.09333333333333334,
+            "sd": 0.014246454826065012
+          },
+          "A5_STRINGCTRL": {
+            "acc": 0.05,
+            "ci_lo": 0.02666666666666667,
+            "ci_hi": 0.07666666666666666,
+            "sd": 0.01271228724939423
+          },
+          "F_FREQUENCY": {
+            "acc": 0.043333333333333335,
+            "ci_lo": 0.023333333333333334,
+            "ci_hi": 0.06666666666666667,
+            "sd": 0.011691047115920228
+          },
+          "F_SCRAMBLE": {
+            "acc": 0.03333333333333333,
+            "ci_lo": 0.013333333333333334,
+            "ci_hi": 0.05333333333333334,
+            "sd": 0.010268817415414062
+          }
+        },
+        "deltas": {
+          "d_A2_NORMS_minus_BASE": {
+            "delta": 0.003333333333333327,
+            "ci_lo": -0.01666666666666667,
+            "ci_hi": 0.026666666666666665,
+            "sd": 0.011133009097075038,
+            "ci_excludes_zero": false
+          },
+          "d_A3_ENCODER_minus_BASE": {
+            "delta": 0.0,
+            "ci_lo": -0.020000000000000004,
+            "ci_hi": 0.020000000000000004,
+            "sd": 0.01060657471152262,
+            "ci_excludes_zero": false
+          },
+          "d_A4_BOTH_minus_BASE": {
+            "delta": 0.010000000000000002,
+            "ci_lo": -0.013333333333333336,
+            "ci_hi": 0.03666666666666666,
+            "sd": 0.012805724483821897,
+            "ci_excludes_zero": false
+          },
+          "d_A5_STRINGCTRL_minus_BASE": {
+            "delta": -0.003333333333333334,
+            "ci_lo": -0.026666666666666665,
+            "ci_hi": 0.019999999999999997,
+            "sd": 0.011094149629421806,
+            "ci_excludes_zero": false
+          },
+          "d_A1_BASE_minus_F_SCRAMBLE": {
+            "delta": 0.020000000000000004,
+            "ci_lo": -0.010000000000000002,
+            "ci_hi": 0.05333333333333333,
+            "sd": 0.016404106531936174,
+            "ci_excludes_zero": false
+          }
+        }
+      },
+      "per_arm": {
+        "A1_BASE": {
+          "hit_at_1": 0.05333333333333334,
+          "median_rank": 19.0,
+          "mean_rank": 67.93666666666667,
+          "frac_gold_in_top50": 0.7266666666666667,
+          "separation_margin_z": {
+            "mean": -2.638338115587776,
+            "median": -2.3918545010359606,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 0,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 0,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.5061055915110686,
+            "median_nn_random_null": 0.1953125,
+            "ratio_to_null": 2.5912606285366713,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "hear"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        },
+        "A2_NORMS": {
+          "hit_at_1": 0.056666666666666664,
+          "median_rank": 16.0,
+          "mean_rank": 59.85666666666667,
+          "frac_gold_in_top50": 0.77,
+          "separation_margin_z": {
+            "mean": -2.5318975109974953,
+            "median": -2.2503727641564515,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 6,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 5,
+            "net": 1
+          },
+          "crowding": {
+            "median_nn": 0.48448505792170465,
+            "median_nn_random_null": 0.19706019534202057,
+            "ratio_to_null": 2.458563775808835,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "revolution"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "private"
+            }
+          ]
+        },
+        "A3_ENCODER": {
+          "hit_at_1": 0.05333333333333334,
+          "median_rank": 16.0,
+          "mean_rank": 58.98,
+          "frac_gold_in_top50": 0.75,
+          "separation_margin_z": {
+            "mean": -2.540766456769752,
+            "median": -2.2354497443038843,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 5,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 5,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.5048368303939332,
+            "median_nn_random_null": 0.20832045781335634,
+            "ratio_to_null": 2.4233665559924953,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "clear"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "lead"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "claim"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        },
+        "A4_BOTH": {
+          "hit_at_1": 0.06333333333333334,
+          "median_rank": 13.5,
+          "mean_rank": 52.60666666666667,
+          "frac_gold_in_top50": 0.7833333333333333,
+          "separation_margin_z": {
+            "mean": -2.440695931377688,
+            "median": -2.1637064908691217,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 9,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 6,
+            "net": 3
+          },
+          "crowding": {
+            "median_nn": 0.4812978428639796,
+            "median_nn_random_null": 0.2091026814285638,
+            "ratio_to_null": 2.301729655381805,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "revolution"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "private"
+            }
+          ]
+        },
+        "A5_STRINGCTRL": {
+          "hit_at_1": 0.05,
+          "median_rank": 19.0,
+          "mean_rank": 66.20333333333333,
+          "frac_gold_in_top50": 0.7366666666666667,
+          "separation_margin_z": {
+            "mean": -2.6803067073602223,
+            "median": -2.407702059967149,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 5,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 6,
+            "net": -1
+          },
+          "crowding": {
+            "median_nn": 0.481339825868514,
+            "median_nn_random_null": 0.18382352941176472,
+            "ratio_to_null": 2.6184886527247158,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "use"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "pay"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "minister"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        }
+      },
+      "floors": {
+        "F_SCRAMBLE": 0.03333333333333333,
+        "F_FREQUENCY": 0.043333333333333335
+      }
+    },
+    "w_0.50": {
+      "bootstrap": {
+        "n_boot": 5000,
+        "seed": 20260819,
+        "n_items": 300,
+        "arm_acc_ci": {
+          "A1_BASE": {
+            "acc": 0.05333333333333334,
+            "ci_lo": 0.03,
+            "ci_hi": 0.08,
+            "sd": 0.012990628673522053
+          },
+          "A2_NORMS": {
+            "acc": 0.07,
+            "ci_lo": 0.043333333333333335,
+            "ci_hi": 0.1,
+            "sd": 0.01488520195809695
+          },
+          "A3_ENCODER": {
+            "acc": 0.06666666666666667,
+            "ci_lo": 0.04,
+            "ci_hi": 0.09666666666666666,
+            "sd": 0.014490226959345162
+          },
+          "A4_BOTH": {
+            "acc": 0.09,
+            "ci_lo": 0.06,
+            "ci_hi": 0.12333333333333334,
+            "sd": 0.0167044680117493
+          },
+          "A5_STRINGCTRL": {
+            "acc": 0.056666666666666664,
+            "ci_lo": 0.03,
+            "ci_hi": 0.08333333333333333,
+            "sd": 0.013448584411255581
+          },
+          "F_FREQUENCY": {
+            "acc": 0.043333333333333335,
+            "ci_lo": 0.023333333333333334,
+            "ci_hi": 0.06666666666666667,
+            "sd": 0.011691047115920228
+          },
+          "F_SCRAMBLE": {
+            "acc": 0.03333333333333333,
+            "ci_lo": 0.013333333333333334,
+            "ci_hi": 0.05333333333333334,
+            "sd": 0.010268817415414062
+          }
+        },
+        "deltas": {
+          "d_A2_NORMS_minus_BASE": {
+            "delta": 0.01666666666666667,
+            "ci_lo": -0.009999999999999995,
+            "ci_hi": 0.043333333333333335,
+            "sd": 0.013764096919158917,
+            "ci_excludes_zero": false
+          },
+          "d_A3_ENCODER_minus_BASE": {
+            "delta": 0.013333333333333329,
+            "ci_lo": -0.013333333333333329,
+            "ci_hi": 0.039999999999999994,
+            "sd": 0.013267213372320001,
+            "ci_excludes_zero": false
+          },
+          "d_A4_BOTH_minus_BASE": {
+            "delta": 0.03666666666666666,
+            "ci_lo": 0.006666666666666668,
+            "ci_hi": 0.06999999999999999,
+            "sd": 0.015843959535980195,
+            "ci_excludes_zero": true
+          },
+          "d_A5_STRINGCTRL_minus_BASE": {
+            "delta": 0.003333333333333327,
+            "ci_lo": -0.026666666666666672,
+            "ci_hi": 0.03666666666666666,
+            "sd": 0.016152690260964785,
+            "ci_excludes_zero": false
+          },
+          "d_A1_BASE_minus_F_SCRAMBLE": {
+            "delta": 0.020000000000000004,
+            "ci_lo": -0.010000000000000002,
+            "ci_hi": 0.05333333333333333,
+            "sd": 0.016404106531936174,
+            "ci_excludes_zero": false
+          }
+        }
+      },
+      "per_arm": {
+        "A1_BASE": {
+          "hit_at_1": 0.05333333333333334,
+          "median_rank": 19.0,
+          "mean_rank": 67.93666666666667,
+          "frac_gold_in_top50": 0.7266666666666667,
+          "separation_margin_z": {
+            "mean": -2.638338115587776,
+            "median": -2.3918545010359606,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 0,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 0,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.5061055915110686,
+            "median_nn_random_null": 0.1953125,
+            "ratio_to_null": 2.5912606285366713,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "hear"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        },
+        "A2_NORMS": {
+          "hit_at_1": 0.07,
+          "median_rank": 14.0,
+          "mean_rank": 55.41,
+          "frac_gold_in_top50": 0.7966666666666666,
+          "separation_margin_z": {
+            "mean": -2.4783318064146043,
+            "median": -2.2056154740156364,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 11,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 6,
+            "net": 5
+          },
+          "crowding": {
+            "median_nn": 0.4783847092443544,
+            "median_nn_random_null": 0.259653519223105,
+            "ratio_to_null": 1.8423964006946756,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "also"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "internet"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "revolution"
+            },
+            {
+              "L": "agree",
+              "pick": "inequality"
+            },
+            {
+              "L": "allow",
+              "pick": "private"
+            }
+          ]
+        },
+        "A3_ENCODER": {
+          "hit_at_1": 0.06666666666666667,
+          "median_rank": 13.0,
+          "mean_rank": 52.723333333333336,
+          "frac_gold_in_top50": 0.7666666666666667,
+          "separation_margin_z": {
+            "mean": -2.477449202424608,
+            "median": -2.20298979213288,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 10,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 6,
+            "net": 4
+          },
+          "crowding": {
+            "median_nn": 0.4979216723706232,
+            "median_nn_random_null": 0.2574110672504259,
+            "ratio_to_null": 1.9343444619116288,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "clear"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "lead"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "claim"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        },
+        "A4_BOTH": {
+          "hit_at_1": 0.09,
+          "median_rank": 10.0,
+          "mean_rank": 45.09,
+          "frac_gold_in_top50": 0.82,
+          "separation_margin_z": {
+            "mean": -2.3154303558196356,
+            "median": -2.014566082359324,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 17,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 6,
+            "net": 11
+          },
+          "crowding": {
+            "median_nn": 0.48449739763960353,
+            "median_nn_random_null": 0.29531936787745733,
+            "ratio_to_null": 1.6405879543960205,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "clear"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "revolution"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "private"
+            }
+          ]
+        },
+        "A5_STRINGCTRL": {
+          "hit_at_1": 0.056666666666666664,
+          "median_rank": 19.0,
+          "mean_rank": 65.53666666666666,
+          "frac_gold_in_top50": 0.74,
+          "separation_margin_z": {
+            "mean": -3.000006874005359,
+            "median": -2.7952506323914035,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 12,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 11,
+            "net": 1
+          },
+          "crowding": {
+            "median_nn": 0.41406164104251075,
+            "median_nn_random_null": 0.16875000000000004,
+            "ratio_to_null": 2.4536986135852485,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "charity"
+            },
+            {
+              "L": "about",
+              "pick": "use"
+            },
+            {
+              "L": "above",
+              "pick": "during"
+            },
+            {
+              "L": "accord",
+              "pick": "record"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "todd"
+            },
+            {
+              "L": "affect",
+              "pick": "pay"
+            },
+            {
+              "L": "african",
+              "pick": "africa"
+            },
+            {
+              "L": "after",
+              "pick": "minister"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        }
+      },
+      "floors": {
+        "F_SCRAMBLE": 0.03333333333333333,
+        "F_FREQUENCY": 0.043333333333333335
+      }
+    },
+    "w_1.00": {
+      "bootstrap": {
+        "n_boot": 5000,
+        "seed": 20260819,
+        "n_items": 300,
+        "arm_acc_ci": {
+          "A1_BASE": {
+            "acc": 0.05333333333333334,
+            "ci_lo": 0.03,
+            "ci_hi": 0.08,
+            "sd": 0.012990628673522053
+          },
+          "A2_NORMS": {
+            "acc": 0.08333333333333333,
+            "ci_lo": 0.05333333333333334,
+            "ci_hi": 0.11666666666666667,
+            "sd": 0.01593003251722984
+          },
+          "A3_ENCODER": {
+            "acc": 0.06333333333333334,
+            "ci_lo": 0.03666666666666667,
+            "ci_hi": 0.09333333333333334,
+            "sd": 0.014218701284654032
+          },
+          "A4_BOTH": {
+            "acc": 0.15666666666666668,
+            "ci_lo": 0.11666666666666667,
+            "ci_hi": 0.2,
+            "sd": 0.020892009105024926
+          },
+          "A5_STRINGCTRL": {
+            "acc": 0.06,
+            "ci_lo": 0.03333333333333333,
+            "ci_hi": 0.09,
+            "sd": 0.0138665560893027
+          },
+          "F_FREQUENCY": {
+            "acc": 0.043333333333333335,
+            "ci_lo": 0.023333333333333334,
+            "ci_hi": 0.06666666666666667,
+            "sd": 0.011691047115920228
+          },
+          "F_SCRAMBLE": {
+            "acc": 0.03333333333333333,
+            "ci_lo": 0.013333333333333334,
+            "ci_hi": 0.05333333333333334,
+            "sd": 0.010268817415414062
+          }
+        },
+        "deltas": {
+          "d_A2_NORMS_minus_BASE": {
+            "delta": 0.029999999999999992,
+            "ci_lo": 0.0,
+            "ci_hi": 0.06,
+            "sd": 0.015152105112271804,
+            "ci_excludes_zero": false
+          },
+          "d_A3_ENCODER_minus_BASE": {
+            "delta": 0.010000000000000002,
+            "ci_lo": -0.016666666666666663,
+            "ci_hi": 0.03666666666666667,
+            "sd": 0.013657096877122571,
+            "ci_excludes_zero": false
+          },
+          "d_A4_BOTH_minus_BASE": {
+            "delta": 0.10333333333333333,
+            "ci_lo": 0.06333333333333332,
+            "ci_hi": 0.14666666666666667,
+            "sd": 0.02131083996467525,
+            "ci_excludes_zero": true
+          },
+          "d_A5_STRINGCTRL_minus_BASE": {
+            "delta": 0.006666666666666661,
+            "ci_lo": -0.029999999999999992,
+            "ci_hi": 0.043333333333333335,
+            "sd": 0.018621323201582045,
+            "ci_excludes_zero": false
+          },
+          "d_A1_BASE_minus_F_SCRAMBLE": {
+            "delta": 0.020000000000000004,
+            "ci_lo": -0.010000000000000002,
+            "ci_hi": 0.05333333333333333,
+            "sd": 0.016404106531936174,
+            "ci_excludes_zero": false
+          }
+        }
+      },
+      "per_arm": {
+        "A1_BASE": {
+          "hit_at_1": 0.05333333333333334,
+          "median_rank": 19.0,
+          "mean_rank": 67.93666666666667,
+          "frac_gold_in_top50": 0.7266666666666667,
+          "separation_margin_z": {
+            "mean": -2.638338115587776,
+            "median": -2.3918545010359606,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 0,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 0,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.5061055915110686,
+            "median_nn_random_null": 0.1953125,
+            "ratio_to_null": 2.5912606285366713,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "situation"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "hear"
+            },
+            {
+              "L": "agree",
+              "pick": "reduce"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        },
+        "A2_NORMS": {
+          "hit_at_1": 0.08333333333333333,
+          "median_rank": 11.0,
+          "mean_rank": 51.64666666666667,
+          "frac_gold_in_top50": 0.8066666666666666,
+          "separation_margin_z": {
+            "mean": -2.438745821177467,
+            "median": -2.1819386908950467,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 15,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 6,
+            "net": 9
+          },
+          "crowding": {
+            "median_nn": 0.5534111223219944,
+            "median_nn_random_null": 0.476377196520771,
+            "ratio_to_null": 1.1617078364872249,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "survive"
+            },
+            {
+              "L": "about",
+              "pick": "also"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "likely"
+            },
+            {
+              "L": "action",
+              "pick": "please"
+            },
+            {
+              "L": "address",
+              "pick": "internet"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "descent"
+            },
+            {
+              "L": "after",
+              "pick": "along"
+            },
+            {
+              "L": "agree",
+              "pick": "inequality"
+            },
+            {
+              "L": "allow",
+              "pick": "private"
+            }
+          ]
+        },
+        "A3_ENCODER": {
+          "hit_at_1": 0.06333333333333334,
+          "median_rank": 11.0,
+          "mean_rank": 47.66,
+          "frac_gold_in_top50": 0.7933333333333333,
+          "separation_margin_z": {
+            "mean": -2.449705482944506,
+            "median": -2.0869739350543064,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 10,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 7,
+            "net": 3
+          },
+          "crowding": {
+            "median_nn": 0.5440964891868968,
+            "median_nn_random_null": 0.41881180169559534,
+            "ratio_to_null": 1.2991431640275553,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "poverty"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "clear"
+            },
+            {
+              "L": "action",
+              "pick": "warning"
+            },
+            {
+              "L": "address",
+              "pick": "post"
+            },
+            {
+              "L": "add",
+              "pick": "lead"
+            },
+            {
+              "L": "affect",
+              "pick": "size"
+            },
+            {
+              "L": "african",
+              "pick": "africa"
+            },
+            {
+              "L": "after",
+              "pick": "claim"
+            },
+            {
+              "L": "agree",
+              "pick": "leaders"
+            },
+            {
+              "L": "allow",
+              "pick": "science"
+            }
+          ]
+        },
+        "A4_BOTH": {
+          "hit_at_1": 0.15666666666666668,
+          "median_rank": 8.0,
+          "mean_rank": 40.48,
+          "frac_gold_in_top50": 0.8333333333333334,
+          "separation_margin_z": {
+            "mean": -2.310180438960033,
+            "median": -2.060149744442966,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 38,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 7,
+            "net": 31
+          },
+          "crowding": {
+            "median_nn": 0.5686360419509278,
+            "median_nn_random_null": 0.49389225578113616,
+            "ratio_to_null": 1.1513362181627598,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "improve"
+            },
+            {
+              "L": "about",
+              "pick": "think"
+            },
+            {
+              "L": "above",
+              "pick": "jump"
+            },
+            {
+              "L": "accord",
+              "pick": "clear"
+            },
+            {
+              "L": "action",
+              "pick": "warning"
+            },
+            {
+              "L": "address",
+              "pick": "argue"
+            },
+            {
+              "L": "add",
+              "pick": "trade"
+            },
+            {
+              "L": "affect",
+              "pick": "job"
+            },
+            {
+              "L": "african",
+              "pick": "africa"
+            },
+            {
+              "L": "after",
+              "pick": "despite"
+            },
+            {
+              "L": "agree",
+              "pick": "call"
+            },
+            {
+              "L": "allow",
+              "pick": "private"
+            }
+          ]
+        },
+        "A5_STRINGCTRL": {
+          "hit_at_1": 0.06,
+          "median_rank": 17.0,
+          "mean_rank": 65.27,
+          "frac_gold_in_top50": 0.72,
+          "separation_margin_z": {
+            "mean": -4.784883102404271,
+            "median": -4.780836409471647,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 16,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 14,
+            "net": 2
+          },
+          "crowding": {
+            "median_nn": 0.3399100054263894,
+            "median_nn_random_null": 0.2587987749431379,
+            "ratio_to_null": 1.3134142752455953,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "ability",
+              "pick": "charity"
+            },
+            {
+              "L": "about",
+              "pick": "use"
+            },
+            {
+              "L": "above",
+              "pick": "burn"
+            },
+            {
+              "L": "accord",
+              "pick": "record"
+            },
+            {
+              "L": "action",
+              "pick": "auction"
+            },
+            {
+              "L": "address",
+              "pick": "add"
+            },
+            {
+              "L": "add",
+              "pick": "address"
+            },
+            {
+              "L": "affect",
+              "pick": "pay"
+            },
+            {
+              "L": "african",
+              "pick": "africa"
+            },
+            {
+              "L": "after",
+              "pick": "minister"
+            },
+            {
+              "L": "agree",
+              "pick": "free"
+            },
+            {
+              "L": "allow",
+              "pick": "low"
+            }
+          ]
+        }
+      },
+      "floors": {
+        "F_SCRAMBLE": 0.03333333333333333,
+        "F_FREQUENCY": 0.043333333333333335
+      }
+    }
+  },
+  "floors": {
+    "F_SCRAMBLE": 0.03333333333333333,
+    "F_FREQUENCY": 0.043333333333333335,
+    "F_PROJDRAW": {
+      "draws": [
+        0.06333333333333334,
+        0.04,
+        0.05333333333333334
+      ],
+      "mean": 0.052222222222222225,
+      "sd": 0.00955813918560292,
+      "n_draws": 3,
+      "note": "independent salted draws of the random projection; a hit@1 delta smaller than this sd is noise whatever its bootstrap CI says"
+    }
+  },
+  "headline_w": "w_0.50",
+  "max_over_w_is_an_optimistic_upper_bound": true,
+  "string_shortcut_control": {
+    "d_A3_ENCODER": 0.013333333333333329,
+    "d_A5_STRINGCTRL": 0.003333333333333327,
+    "encoder_gain_exceeds_string_control": true,
+    "encoder_gain_attributable_to_string_similarity": false,
+    "note": "if the string control reproduces the encoder's gain, A3 is a subword morphology shortcut, not encoder MEANING"
+  },
+  "verdict": "MIDDLE_BAND_REAL_BUT_SHORT",
+  "verdict_msg": "MIDDLE_BAND_REAL_BUT_SHORT (real separation gain, gate still open) | arms clearing: A4_BOTH | base hit@1=0.0533 med_rank=19.0 crowd=0.5061 | floors scramble=0.0333 freq=0.0433 projdraw_sd=0.0096 | A2_NORMS d=+0.0167 CI=[-0.0100,+0.0433] med_rank 19.0->14.0 crowd 0.5061->0.4784 || A3_ENCODER d=+0.0133 CI=[-0.0133,+0.0400] med_rank 19.0->13.0 crowd 0.5061->0.4979 || A4_BOTH d=+0.0367 CI=[+0.0067,+0.0700] med_rank 19.0->10.0 crowd 0.5061->0.4845 || A5_STRINGCTRL d=+0.0033 CI=[-0.0267,+0.0367] med_rank 19.0->19.0 crowd 0.5061->0.4141 || STRINGCTRL d=+0.0033 vs ENCODER d=+0.0133 -> ENCODER EXCEEDS CONTROL",
+  "elapsed_s": 12.28,
+  "self_test": {
+    "self_test": "PASS",
+    "ctx_d": 256,
+    "graded": true
+  }
+}

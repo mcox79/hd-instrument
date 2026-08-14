@@ -1,0 +1,1495 @@
+{
+  "anchor_name": "exp_meaning_supply_separation_v1",
+  "run_mode": "full",
+  "prereg": "preregs/2026-08-14_meaning_supply_separation_v1.md",
+  "ts_iso": "2026-08-14T18:48:21.422012+00:00",
+  "wire_status": "EXPERIMENT_LOCAL_NOT_WIRED",
+  "graded_comparator": true,
+  "ctx_d": 256,
+  "w_grid": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "w_headline": 0.5,
+  "baselines_quoted": {
+    "c3_hit_at_1": 0.048,
+    "c3_scramble": 0.008,
+    "crowding_live": 0.4637,
+    "crowding_null": 0.2264,
+    "twoafc_live_d256_graded_on": 0.698
+  },
+  "item_construction": {
+    "n_anchors": 5491,
+    "n_items_before_cap": 4603,
+    "n_items": 4000,
+    "removals": {
+      "foil_direction_fallback": 53,
+      "removed_L_not_in_wordnet": 404,
+      "removed_no_gold_anchor": 484
+    },
+    "n_items_with_heldout_sentence": 4000
+  },
+  "n_items": 4000,
+  "n_anchors": 5491,
+  "coverage_of_these_anchors": {
+    "hand_lexicon": {
+      "n": 260,
+      "frac": 0.04735020943361865
+    },
+    "grounded_norms": {
+      "n": 4422,
+      "frac": 0.8053177927517756
+    },
+    "hand_lexicon_size": 359,
+    "grounded_norms_size": 36810,
+    "encoder_nonzero": {
+      "n": 5491,
+      "frac": 1.0
+    }
+  },
+  "encoder": {
+    "seed": 7,
+    "d_model": 512,
+    "class": "EncoderExtractor",
+    "tokenizer_vocab_size": 16000,
+    "load_s": 2.55,
+    "USE_IS_OUT_OF_DISTRIBUTION": true,
+    "note": "encoder trained on a SYNTHETIC templated slot harness (cues: ['ENT', 'MARK', 'P', 'S']); it exposes no word-embedding API, so this cell mean-pools its contextual token reps.",
+    "anchors_whole_token_in_vocab": {
+      "n": 3682,
+      "frac": 0.6705518120560918
+    },
+    "encoded_nonzero": {
+      "n": 5491,
+      "frac": 1.0
+    },
+    "elapsed_s": 13.29
+  },
+  "per_w": {
+    "w_0.25": {
+      "bootstrap": {
+        "n_boot": 5000,
+        "seed": 20260819,
+        "n_items": 4000,
+        "arm_acc_ci": {
+          "A1_BASE": {
+            "acc": 0.048,
+            "ci_lo": 0.04125,
+            "ci_hi": 0.05475,
+            "sd": 0.003414134660129855
+          },
+          "A2_NORMS": {
+            "acc": 0.062,
+            "ci_lo": 0.0545,
+            "ci_hi": 0.0695,
+            "sd": 0.003900235074966637
+          },
+          "A3_ENCODER": {
+            "acc": 0.065,
+            "ci_lo": 0.0575,
+            "ci_hi": 0.07275,
+            "sd": 0.003942518476494436
+          },
+          "A4_BOTH": {
+            "acc": 0.07525,
+            "ci_lo": 0.06675,
+            "ci_hi": 0.0835,
+            "sd": 0.004259331705502637
+          },
+          "A5_STRINGCTRL": {
+            "acc": 0.06925,
+            "ci_lo": 0.06125,
+            "ci_hi": 0.0775,
+            "sd": 0.004064107049525146
+          },
+          "F_FREQUENCY": {
+            "acc": 0.0185,
+            "ci_lo": 0.0145,
+            "ci_hi": 0.02275,
+            "sd": 0.002085815188361615
+          },
+          "F_SCRAMBLE": {
+            "acc": 0.008,
+            "ci_lo": 0.00525,
+            "ci_hi": 0.011,
+            "sd": 0.001430965936002671
+          }
+        },
+        "deltas": {
+          "d_A2_NORMS_minus_BASE": {
+            "delta": 0.013999999999999999,
+            "ci_lo": 0.009000000000000001,
+            "ci_hi": 0.019250000000000003,
+            "sd": 0.0026533058507265993,
+            "ci_excludes_zero": true
+          },
+          "d_A3_ENCODER_minus_BASE": {
+            "delta": 0.017,
+            "ci_lo": 0.012000000000000004,
+            "ci_hi": 0.022250000000000006,
+            "sd": 0.002615393544000597,
+            "ci_excludes_zero": true
+          },
+          "d_A4_BOTH_minus_BASE": {
+            "delta": 0.027249999999999996,
+            "ci_lo": 0.020999999999999998,
+            "ci_hi": 0.03375,
+            "sd": 0.003268773945992595,
+            "ci_excludes_zero": true
+          },
+          "d_A5_STRINGCTRL_minus_BASE": {
+            "delta": 0.021250000000000005,
+            "ci_lo": 0.014250000000000006,
+            "ci_hi": 0.028499999999999998,
+            "sd": 0.0036612310876944104,
+            "ci_excludes_zero": true
+          },
+          "d_A1_BASE_minus_F_SCRAMBLE": {
+            "delta": 0.04,
+            "ci_lo": 0.033,
+            "ci_hi": 0.047,
+            "sd": 0.0036426260715999932,
+            "ci_excludes_zero": true
+          }
+        }
+      },
+      "per_arm": {
+        "A1_BASE": {
+          "hit_at_1": 0.048,
+          "median_rank": 37.0,
+          "mean_rank": 253.542,
+          "frac_gold_in_top50": 0.5565,
+          "separation_margin_z": {
+            "mean": -2.5422609616204763,
+            "median": -2.109065504625289,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 0,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 0,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.4553125634953684,
+            "median_nn_random_null": 0.2265625,
+            "ratio_to_null": 2.0096554526692123,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "might"
+            },
+            {
+              "L": "abnormality",
+              "pick": "chromosomal"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A2_NORMS": {
+          "hit_at_1": 0.062,
+          "median_rank": 27.0,
+          "mean_rank": 215.07425,
+          "frac_gold_in_top50": 0.6125,
+          "separation_margin_z": {
+            "mean": -2.4509829472631464,
+            "median": -2.0170979484691776,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 85,
+            "of_which_base_pick_was_a_wordnet_sister": 1,
+            "regressed_base_right_to_arm_wrong": 29,
+            "net": 56
+          },
+          "crowding": {
+            "median_nn": 0.4484354396095785,
+            "median_nn_random_null": 0.2265625,
+            "ratio_to_null": 1.9793012506905534,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "likewise"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "enough"
+            },
+            {
+              "L": "abnormality",
+              "pick": "chromosomal"
+            },
+            {
+              "L": "about",
+              "pick": "other"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A3_ENCODER": {
+          "hit_at_1": 0.065,
+          "median_rank": 31.0,
+          "mean_rank": 221.1825,
+          "frac_gold_in_top50": 0.598,
+          "separation_margin_z": {
+            "mean": -2.4777534641783934,
+            "median": -2.024479005539262,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 89,
+            "of_which_base_pick_was_a_wordnet_sister": 3,
+            "regressed_base_right_to_arm_wrong": 21,
+            "net": 68
+          },
+          "crowding": {
+            "median_nn": 0.4552679722046308,
+            "median_nn_random_null": 0.23848154468362193,
+            "ratio_to_null": 1.9090281086891039,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "make"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A4_BOTH": {
+          "hit_at_1": 0.07525,
+          "median_rank": 24.0,
+          "mean_rank": 190.05875,
+          "frac_gold_in_top50": 0.64625,
+          "separation_margin_z": {
+            "mean": -2.392400702229952,
+            "median": -1.9541751242562024,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 141,
+            "of_which_base_pick_was_a_wordnet_sister": 1,
+            "regressed_base_right_to_arm_wrong": 32,
+            "net": 109
+          },
+          "crowding": {
+            "median_nn": 0.4493300915613156,
+            "median_nn_random_null": 0.23676883334906723,
+            "ratio_to_null": 1.8977586078606479,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "enough"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "other"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A5_STRINGCTRL": {
+          "hit_at_1": 0.06925,
+          "median_rank": 28.0,
+          "mean_rank": 223.9175,
+          "frac_gold_in_top50": 0.60675,
+          "separation_margin_z": {
+            "mean": -2.6188082242942263,
+            "median": -2.2775869896253935,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 154,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 69,
+            "net": 85
+          },
+          "crowding": {
+            "median_nn": 0.4301383527655736,
+            "median_nn_random_null": 0.2144231209838249,
+            "ratio_to_null": 2.0060259863395107,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "city"
+            },
+            {
+              "L": "able",
+              "pick": "control"
+            },
+            {
+              "L": "abnormality",
+              "pick": "chromosomal"
+            },
+            {
+              "L": "about",
+              "pick": "use"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "chlorophyll"
+            }
+          ]
+        }
+      },
+      "floors": {
+        "F_SCRAMBLE": 0.008,
+        "F_FREQUENCY": 0.0185
+      }
+    },
+    "w_0.50": {
+      "bootstrap": {
+        "n_boot": 5000,
+        "seed": 20260819,
+        "n_items": 4000,
+        "arm_acc_ci": {
+          "A1_BASE": {
+            "acc": 0.048,
+            "ci_lo": 0.04125,
+            "ci_hi": 0.05475,
+            "sd": 0.003414134660129855
+          },
+          "A2_NORMS": {
+            "acc": 0.07125,
+            "ci_lo": 0.06325,
+            "ci_hi": 0.07925,
+            "sd": 0.00411772987336469
+          },
+          "A3_ENCODER": {
+            "acc": 0.075,
+            "ci_lo": 0.06675,
+            "ci_hi": 0.08325,
+            "sd": 0.004225887362140643
+          },
+          "A4_BOTH": {
+            "acc": 0.094,
+            "ci_lo": 0.085,
+            "ci_hi": 0.10325,
+            "sd": 0.0046658504774049515
+          },
+          "A5_STRINGCTRL": {
+            "acc": 0.0905,
+            "ci_lo": 0.08175,
+            "ci_hi": 0.09975,
+            "sd": 0.00454625889908395
+          },
+          "F_FREQUENCY": {
+            "acc": 0.0185,
+            "ci_lo": 0.0145,
+            "ci_hi": 0.02275,
+            "sd": 0.002085815188361615
+          },
+          "F_SCRAMBLE": {
+            "acc": 0.008,
+            "ci_lo": 0.00525,
+            "ci_hi": 0.011,
+            "sd": 0.001430965936002671
+          }
+        },
+        "deltas": {
+          "d_A2_NORMS_minus_BASE": {
+            "delta": 0.023249999999999993,
+            "ci_lo": 0.016750000000000008,
+            "ci_hi": 0.03,
+            "sd": 0.0033635889905724204,
+            "ci_excludes_zero": true
+          },
+          "d_A3_ENCODER_minus_BASE": {
+            "delta": 0.026999999999999996,
+            "ci_lo": 0.020500000000000004,
+            "ci_hi": 0.033749999999999995,
+            "sd": 0.003385794440009612,
+            "ci_excludes_zero": true
+          },
+          "d_A4_BOTH_minus_BASE": {
+            "delta": 0.046,
+            "ci_lo": 0.03774374999999999,
+            "ci_hi": 0.05425000000000001,
+            "sd": 0.004253588874115599,
+            "ci_excludes_zero": true
+          },
+          "d_A5_STRINGCTRL_minus_BASE": {
+            "delta": 0.042499999999999996,
+            "ci_lo": 0.033,
+            "ci_hi": 0.052250000000000005,
+            "sd": 0.004925902836029148,
+            "ci_excludes_zero": true
+          },
+          "d_A1_BASE_minus_F_SCRAMBLE": {
+            "delta": 0.04,
+            "ci_lo": 0.033,
+            "ci_hi": 0.047,
+            "sd": 0.0036426260715999932,
+            "ci_excludes_zero": true
+          }
+        }
+      },
+      "per_arm": {
+        "A1_BASE": {
+          "hit_at_1": 0.048,
+          "median_rank": 37.0,
+          "mean_rank": 253.542,
+          "frac_gold_in_top50": 0.5565,
+          "separation_margin_z": {
+            "mean": -2.5422609616204763,
+            "median": -2.109065504625289,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 0,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 0,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.4553125634953684,
+            "median_nn_random_null": 0.2265625,
+            "ratio_to_null": 2.0096554526692123,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "might"
+            },
+            {
+              "L": "abnormality",
+              "pick": "chromosomal"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A2_NORMS": {
+          "hit_at_1": 0.07125,
+          "median_rank": 23.5,
+          "mean_rank": 193.26125,
+          "frac_gold_in_top50": 0.642,
+          "separation_margin_z": {
+            "mean": -2.3902936110188104,
+            "median": -1.9671027824675555,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 140,
+            "of_which_base_pick_was_a_wordnet_sister": 1,
+            "regressed_base_right_to_arm_wrong": 47,
+            "net": 93
+          },
+          "crowding": {
+            "median_nn": 0.4602385030254492,
+            "median_nn_random_null": 0.28650335447009,
+            "ratio_to_null": 1.6063983050973198,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "likewise"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "enough"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "other"
+            },
+            {
+              "L": "above",
+              "pick": "mountain"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A3_ENCODER": {
+          "hit_at_1": 0.075,
+          "median_rank": 25.5,
+          "mean_rank": 205.8715,
+          "frac_gold_in_top50": 0.6185,
+          "separation_margin_z": {
+            "mean": -2.4527725576492223,
+            "median": -2.007691993916123,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 147,
+            "of_which_base_pick_was_a_wordnet_sister": 3,
+            "regressed_base_right_to_arm_wrong": 39,
+            "net": 108
+          },
+          "crowding": {
+            "median_nn": 0.46681832862036987,
+            "median_nn_random_null": 0.28270897163042036,
+            "ratio_to_null": 1.651232806402168,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "make"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "francisco"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A4_BOTH": {
+          "hit_at_1": 0.094,
+          "median_rank": 18.0,
+          "mean_rank": 164.88375,
+          "frac_gold_in_top50": 0.68225,
+          "separation_margin_z": {
+            "mean": -2.324784757478062,
+            "median": -1.886006260339821,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 241,
+            "of_which_base_pick_was_a_wordnet_sister": 1,
+            "regressed_base_right_to_arm_wrong": 57,
+            "net": 184
+          },
+          "crowding": {
+            "median_nn": 0.4697400611786837,
+            "median_nn_random_null": 0.3167133873214605,
+            "ratio_to_null": 1.4831708414709446,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "likewise"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "strength"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "other"
+            },
+            {
+              "L": "above",
+              "pick": "square"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A5_STRINGCTRL": {
+          "hit_at_1": 0.0905,
+          "median_rank": 25.0,
+          "mean_rank": 223.1165,
+          "frac_gold_in_top50": 0.61175,
+          "separation_margin_z": {
+            "mean": -3.204454579114735,
+            "median": -3.1780235019411784,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 284,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 114,
+            "net": 170
+          },
+          "crowding": {
+            "median_nn": 0.3880194444063408,
+            "median_nn_random_null": 0.20000000000000004,
+            "ratio_to_null": 1.9400972220317036,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "facility"
+            },
+            {
+              "L": "able",
+              "pick": "unable"
+            },
+            {
+              "L": "abnormality",
+              "pick": "abnormal"
+            },
+            {
+              "L": "about",
+              "pick": "raise"
+            },
+            {
+              "L": "above",
+              "pick": "move"
+            },
+            {
+              "L": "abroad",
+              "pick": "broad"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "chlorophyll"
+            }
+          ]
+        }
+      },
+      "floors": {
+        "F_SCRAMBLE": 0.008,
+        "F_FREQUENCY": 0.0185
+      }
+    },
+    "w_1.00": {
+      "bootstrap": {
+        "n_boot": 5000,
+        "seed": 20260819,
+        "n_items": 4000,
+        "arm_acc_ci": {
+          "A1_BASE": {
+            "acc": 0.048,
+            "ci_lo": 0.04125,
+            "ci_hi": 0.05475,
+            "sd": 0.003414134660129855
+          },
+          "A2_NORMS": {
+            "acc": 0.0885,
+            "ci_lo": 0.07975,
+            "ci_hi": 0.0975,
+            "sd": 0.004557352715941569
+          },
+          "A3_ENCODER": {
+            "acc": 0.088,
+            "ci_lo": 0.07925,
+            "ci_hi": 0.097,
+            "sd": 0.004574717518874798
+          },
+          "A4_BOTH": {
+            "acc": 0.119,
+            "ci_lo": 0.109,
+            "ci_hi": 0.129,
+            "sd": 0.005146187753813496
+          },
+          "A5_STRINGCTRL": {
+            "acc": 0.10275,
+            "ci_lo": 0.0935,
+            "ci_hi": 0.11225,
+            "sd": 0.004853485216831302
+          },
+          "F_FREQUENCY": {
+            "acc": 0.0185,
+            "ci_lo": 0.0145,
+            "ci_hi": 0.02275,
+            "sd": 0.002085815188361615
+          },
+          "F_SCRAMBLE": {
+            "acc": 0.008,
+            "ci_lo": 0.00525,
+            "ci_hi": 0.011,
+            "sd": 0.001430965936002671
+          }
+        },
+        "deltas": {
+          "d_A2_NORMS_minus_BASE": {
+            "delta": 0.040499999999999994,
+            "ci_lo": 0.03200000000000001,
+            "ci_hi": 0.04875,
+            "sd": 0.004227381902549141,
+            "ci_excludes_zero": true
+          },
+          "d_A3_ENCODER_minus_BASE": {
+            "delta": 0.039999999999999994,
+            "ci_lo": 0.03225,
+            "ci_hi": 0.048,
+            "sd": 0.004110478196025372,
+            "ci_excludes_zero": true
+          },
+          "d_A4_BOTH_minus_BASE": {
+            "delta": 0.071,
+            "ci_lo": 0.06125,
+            "ci_hi": 0.08099999999999999,
+            "sd": 0.005093167206169457,
+            "ci_excludes_zero": true
+          },
+          "d_A5_STRINGCTRL_minus_BASE": {
+            "delta": 0.05474999999999999,
+            "ci_lo": 0.043750000000000004,
+            "ci_hi": 0.066,
+            "sd": 0.005606857451148549,
+            "ci_excludes_zero": true
+          },
+          "d_A1_BASE_minus_F_SCRAMBLE": {
+            "delta": 0.04,
+            "ci_lo": 0.033,
+            "ci_hi": 0.047,
+            "sd": 0.0036426260715999932,
+            "ci_excludes_zero": true
+          }
+        }
+      },
+      "per_arm": {
+        "A1_BASE": {
+          "hit_at_1": 0.048,
+          "median_rank": 37.0,
+          "mean_rank": 253.542,
+          "frac_gold_in_top50": 0.5565,
+          "separation_margin_z": {
+            "mean": -2.5422609616204763,
+            "median": -2.109065504625289,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 0,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 0,
+            "net": 0
+          },
+          "crowding": {
+            "median_nn": 0.4553125634953684,
+            "median_nn_random_null": 0.2265625,
+            "ratio_to_null": 2.0096554526692123,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "might"
+            },
+            {
+              "L": "abnormality",
+              "pick": "chromosomal"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "metre"
+            },
+            {
+              "L": "abroad",
+              "pick": "gain"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A2_NORMS": {
+          "hit_at_1": 0.0885,
+          "median_rank": 19.0,
+          "mean_rank": 177.2275,
+          "frac_gold_in_top50": 0.668,
+          "separation_margin_z": {
+            "mean": -2.3424253824339645,
+            "median": -1.9204035466059617,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 226,
+            "of_which_base_pick_was_a_wordnet_sister": 2,
+            "regressed_base_right_to_arm_wrong": 64,
+            "net": 162
+          },
+          "crowding": {
+            "median_nn": 0.5739097145023102,
+            "median_nn_random_null": 0.4946982416035922,
+            "ratio_to_null": 1.1601207892753966,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "likewise"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "work"
+            },
+            {
+              "L": "able",
+              "pick": "enough"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "other"
+            },
+            {
+              "L": "above",
+              "pick": "solar"
+            },
+            {
+              "L": "abroad",
+              "pick": "survive"
+            },
+            {
+              "L": "absence",
+              "pick": "negative"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A3_ENCODER": {
+          "hit_at_1": 0.088,
+          "median_rank": 21.0,
+          "mean_rank": 204.01275,
+          "frac_gold_in_top50": 0.6475,
+          "separation_margin_z": {
+            "mean": -2.4785998398751707,
+            "median": -1.987116331338524,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 216,
+            "of_which_base_pick_was_a_wordnet_sister": 1,
+            "regressed_base_right_to_arm_wrong": 56,
+            "net": 160
+          },
+          "crowding": {
+            "median_nn": 0.5348414551425588,
+            "median_nn_random_null": 0.43896211794380474,
+            "ratio_to_null": 1.218422805247692,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "palm"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "increase"
+            },
+            {
+              "L": "able",
+              "pick": "extra"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "more"
+            },
+            {
+              "L": "above",
+              "pick": "point"
+            },
+            {
+              "L": "abroad",
+              "pick": "sweden"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "limitation"
+            },
+            {
+              "L": "absolutely",
+              "pick": "farm"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A4_BOTH": {
+          "hit_at_1": 0.119,
+          "median_rank": 13.0,
+          "mean_rank": 158.675,
+          "frac_gold_in_top50": 0.704,
+          "separation_margin_z": {
+            "mean": -2.3670214335543847,
+            "median": -1.9048996799599118,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 359,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 75,
+            "net": 284
+          },
+          "crowding": {
+            "median_nn": 0.578367396489768,
+            "median_nn_random_null": 0.5105949898118807,
+            "ratio_to_null": 1.1327322203119479,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "likewise"
+            },
+            {
+              "L": "abbey",
+              "pick": "highclere"
+            },
+            {
+              "L": "ability",
+              "pick": "increase"
+            },
+            {
+              "L": "able",
+              "pick": "strength"
+            },
+            {
+              "L": "abnormality",
+              "pick": "duplication"
+            },
+            {
+              "L": "about",
+              "pick": "only"
+            },
+            {
+              "L": "above",
+              "pick": "across"
+            },
+            {
+              "L": "abroad",
+              "pick": "tour"
+            },
+            {
+              "L": "absence",
+              "pick": "negative"
+            },
+            {
+              "L": "absent",
+              "pick": "sophisticate"
+            },
+            {
+              "L": "absolutely",
+              "pick": "today"
+            },
+            {
+              "L": "absorb",
+              "pick": "pigment"
+            }
+          ]
+        },
+        "A5_STRINGCTRL": {
+          "hit_at_1": 0.10275,
+          "median_rank": 31.0,
+          "mean_rank": 241.10125,
+          "frac_gold_in_top50": 0.58675,
+          "separation_margin_z": {
+            "mean": -5.473060945852469,
+            "median": -5.537455636602275,
+            "note": "best-gold minus best-non-gold score, in sd units of the item's candidate pool; HIGHER = better within-neighbourhood separation"
+          },
+          "sister_error_conversions": {
+            "converted_base_wrong_to_arm_right": 363,
+            "of_which_base_pick_was_a_wordnet_sister": 0,
+            "regressed_base_right_to_arm_wrong": 144,
+            "net": 219
+          },
+          "crowding": {
+            "median_nn": 0.3967447761182803,
+            "median_nn_random_null": 0.3191742224921348,
+            "ratio_to_null": 1.2430351455718107,
+            "n_sample": 400,
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); null = random bipolar profiles + row-permuted aux"
+          },
+          "example_picks": [
+            {
+              "L": "abandon",
+              "pick": "don"
+            },
+            {
+              "L": "abbey",
+              "pick": "able"
+            },
+            {
+              "L": "ability",
+              "pick": "capability"
+            },
+            {
+              "L": "able",
+              "pick": "capable"
+            },
+            {
+              "L": "abnormality",
+              "pick": "abnormal"
+            },
+            {
+              "L": "about",
+              "pick": "raise"
+            },
+            {
+              "L": "above",
+              "pick": "move"
+            },
+            {
+              "L": "abroad",
+              "pick": "broad"
+            },
+            {
+              "L": "absence",
+              "pick": "presence"
+            },
+            {
+              "L": "absent",
+              "pick": "absence"
+            },
+            {
+              "L": "absolutely",
+              "pick": "solute"
+            },
+            {
+              "L": "absorb",
+              "pick": "absorption"
+            }
+          ]
+        }
+      },
+      "floors": {
+        "F_SCRAMBLE": 0.008,
+        "F_FREQUENCY": 0.0185
+      }
+    }
+  },
+  "floors": {
+    "F_SCRAMBLE": 0.008,
+    "F_FREQUENCY": 0.0185,
+    "F_PROJDRAW": {
+      "draws": [
+        0.0515,
+        0.0525,
+        0.05025
+      ],
+      "mean": 0.051416666666666666,
+      "sd": 0.0009204467514322696,
+      "n_draws": 3,
+      "note": "independent salted draws of the random projection; a hit@1 delta smaller than this sd is noise whatever its bootstrap CI says"
+    }
+  },
+  "headline_w": "w_0.50",
+  "max_over_w_is_an_optimistic_upper_bound": true,
+  "string_shortcut_control": {
+    "d_A3_ENCODER": 0.026999999999999996,
+    "d_A5_STRINGCTRL": 0.042499999999999996,
+    "encoder_gain_exceeds_string_control": false,
+    "encoder_gain_attributable_to_string_similarity": true,
+    "note": "if the string control reproduces the encoder's gain, A3 is a subword morphology shortcut, not encoder MEANING"
+  },
+  "verdict": "MIDDLE_BAND_ARGMAX_ONLY_SUSPECT",
+  "verdict_msg": "MIDDLE_BAND_ARGMAX_ONLY_SUSPECT (argmax moved without rank/crowding -- NOT a separation gain) | arms clearing: A2_NORMS,A3_ENCODER,A4_BOTH | base hit@1=0.0480 med_rank=37.0 crowd=0.4553 | floors scramble=0.0080 freq=0.0185 projdraw_sd=0.0009 | A2_NORMS d=+0.0232 CI=[+0.0168,+0.0300] med_rank 37.0->23.5 crowd 0.4553->0.4602 || A3_ENCODER d=+0.0270 CI=[+0.0205,+0.0337] med_rank 37.0->25.5 crowd 0.4553->0.4668 || A4_BOTH d=+0.0460 CI=[+0.0377,+0.0543] med_rank 37.0->18.0 crowd 0.4553->0.4697 || A5_STRINGCTRL d=+0.0425 CI=[+0.0330,+0.0523] med_rank 37.0->25.0 crowd 0.4553->0.3880 || STRINGCTRL d=+0.0425 vs ENCODER d=+0.0270 -> CONTROL MATCHES/EXCEEDS ENCODER (shortcut suspected)",
+  "elapsed_s": 293.18,
+  "self_test": {
+    "self_test": "PASS",
+    "ctx_d": 256,
+    "graded": true
+  }
+}
