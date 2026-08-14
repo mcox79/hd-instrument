@@ -1,0 +1,1092 @@
+{
+  "verdict": "HARD_FAIL_NO_EFFECT",
+  "verdict_msg": "n=600 d=256 | COMMON MODE graded organ_map_def=0.3677 energy=0.1542 pair_cos=0.1428 (sign field 0.3010/0.0987) | P0=0.7083 P1=0.7167 d_P1=0.0083 CI=[-0.0050,0.0233] | RANDOM-DIR CONTROL mu=0.0052 sd=0.0049 (K=20) MATCHED mu=0.0087 sd=0.0099 | P4_topPC=0.7183 P5_mean=0.6833 | FLOORS scramble P0=0.4500 P1=0.4450 freq=0.5000 chance=0.50 | self_retrieval=0.9067 | SISTER exact P0=0.0983 P1=0.0967 sib-err P0=0.0367 P1=0.0350 conv=0.0 | d_P1=0.0083 CI=[-0.0050,0.0233] INCLUDES 0",
+  "summary": "rank-1 COMMON-MODE removal on the near-neighbour 2AFC read-out, against a random-rank-1-direction control and a matched-magnitude subtraction control",
+  "elapsed_s": 20.081,
+  "run_mode": "smoke",
+  "anchor_name": "exp_rank1_common_mode_removal_v1",
+  "prereg": "preregs/2026-08-14_rank1_common_mode_removal_near_neighbour.md",
+  "prereg_commit": "32ca72e9c",
+  "testbed_repair_commit": "df149251f",
+  "ts_iso": "2026-08-14T08:01:05.800242+00:00",
+  "hdlab_modified": false,
+  "graded_comparator_switch": true,
+  "n_items": 600,
+  "d": 256,
+  "n_anchors": 647,
+  "chance": 0.5,
+  "brain_fidelity_scope": {
+    "claim_class": "operation-class-compatible ENGINEERING fix",
+    "NOT_claimed": "that the anterior temporal semantic hub performs decorrelation",
+    "decorrelation_in_cortex": "UNPINNED; NOT-LICENSED for the semantic hub",
+    "real_decorrelating_organs_cited_as_operation_class_only": [
+      "olfactory-bulb whitening via structured granule-cell inhibition",
+      "V1 adaptation equalising response across neurons",
+      "cortex cancelling shared input to near-zero correlation"
+    ],
+    "not_the_carandini_heeger_error": "a shared ADDITIVE component is not a pool-shared SCALAR denominator; cosine is invariant to the latter but NOT to the former whenever the two candidate anchors' norms or their projections on the shared direction differ",
+    "top_pc_caution": "cortex's top PCs are MEANINGFUL (Huth 2012 Neuron 76:1210 -- PC1 mobility/animacy, PC2 social). TOP-PC REMOVAL IS NOT BRAIN-LICENSED; arm P4_TOP_PC_NOT_BRAIN_LICENSED carries NO verdict weight.",
+    "engineering_precedent_credited": [
+      "Mu & Viswanath 2018, All-but-the-Top, ICLR",
+      "Timkey & van Schijndel 2021, All Bark and No Bite, EMNLP",
+      "Kovaleva et al. 2021, BERT Busters, ACL Findings"
+    ],
+    "full_covariance_whitening": "PARKED-BY-SAMPLE-SIZE at O(d^2) = 65k-16M samples. NOT attempted here and NOT to be queued off this cell's result in either direction."
+  },
+  "common_mode_measured": {
+    "graded_field_LIVE": {
+      "n_anchors": 647,
+      "d": 256,
+      "organ_map_definition_mean_norm_over_anchor_norm": 0.367651,
+      "norm_of_mean_of_unit_vectors": 0.379615,
+      "shared_direction_energy_fraction": 0.154212,
+      "mean_projection_on_shared_direction": 0.379615,
+      "mean_pairwise_cosine": 0.142783,
+      "definitions": {
+        "organ_map_definition_mean_norm_over_anchor_norm": "||mean_i a_i|| / mean_i ||a_i|| -- the ORGAN_MAP B3 definition (0.5841 SIGN / 0.3545 GRADED). Like-for-like with the 58% figure.",
+        "norm_of_mean_of_unit_vectors": "||mean_i (a_i/||a_i||)|| -- the quantity P1 actually removes the direction of, and the norm P3/P5 subtract.",
+        "shared_direction_energy_fraction": "mean_i (a_i_hat . u_hat)^2 -- fraction of unit-vector energy in the ONE shared direction. This is the 'more than half the variance is one direction' claim.",
+        "mean_pairwise_cosine": "mean_{i!=j} cos(a_i,a_j) over the whole field, computed as (||sum a_hat||^2 - n)/(n(n-1))"
+      }
+    },
+    "sign_field": {
+      "n_anchors": 647,
+      "d": 256,
+      "organ_map_definition_mean_norm_over_anchor_norm": 0.300956,
+      "norm_of_mean_of_unit_vectors": 0.301008,
+      "shared_direction_energy_fraction": 0.098729,
+      "mean_projection_on_shared_direction": 0.301008,
+      "mean_pairwise_cosine": 0.089198,
+      "definitions": {
+        "organ_map_definition_mean_norm_over_anchor_norm": "||mean_i a_i|| / mean_i ||a_i|| -- the ORGAN_MAP B3 definition (0.5841 SIGN / 0.3545 GRADED). Like-for-like with the 58% figure.",
+        "norm_of_mean_of_unit_vectors": "||mean_i (a_i/||a_i||)|| -- the quantity P1 actually removes the direction of, and the norm P3/P5 subtract.",
+        "shared_direction_energy_fraction": "mean_i (a_i_hat . u_hat)^2 -- fraction of unit-vector energy in the ONE shared direction. This is the 'more than half the variance is one direction' claim.",
+        "mean_pairwise_cosine": "mean_{i!=j} cos(a_i,a_j) over the whole field, computed as (||sum a_hat||^2 - n)/(n(n-1))"
+      }
+    },
+    "query_field": {
+      "n_anchors": 600,
+      "d": 256,
+      "organ_map_definition_mean_norm_over_anchor_norm": 0.073746,
+      "norm_of_mean_of_unit_vectors": 0.069628,
+      "shared_direction_energy_fraction": 0.009878,
+      "mean_projection_on_shared_direction": 0.069628,
+      "mean_pairwise_cosine": 0.003187,
+      "definitions": {
+        "organ_map_definition_mean_norm_over_anchor_norm": "||mean_i a_i|| / mean_i ||a_i|| -- the ORGAN_MAP B3 definition (0.5841 SIGN / 0.3545 GRADED). Like-for-like with the 58% figure.",
+        "norm_of_mean_of_unit_vectors": "||mean_i (a_i/||a_i||)|| -- the quantity P1 actually removes the direction of, and the norm P3/P5 subtract.",
+        "shared_direction_energy_fraction": "mean_i (a_i_hat . u_hat)^2 -- fraction of unit-vector energy in the ONE shared direction. This is the 'more than half the variance is one direction' claim.",
+        "mean_pairwise_cosine": "mean_{i!=j} cos(a_i,a_j) over the whole field, computed as (||sum a_hat||^2 - n)/(n(n-1))"
+      }
+    },
+    "organ_map_reference": {
+      "sign": 0.5841,
+      "graded": 0.3545,
+      "mean_pairwise_cosine_sign": 0.3397,
+      "mean_pairwise_cosine_graded": 0.1319,
+      "source": "notes/ORGAN_MAP.md B3 / experiments/diag_anchor_field_geometry_v1.py, 400 concepts x 70 held-out sentences"
+    },
+    "prereg_prediction": "under the graded default this should be NEARER 0.35 than 0.58",
+    "projection_meta": {
+      "common_mode_direction_norm": 0.379615,
+      "pc1_variance_fraction_of_centred_field": 0.037965,
+      "pc1_dot_common_mode": 0.338512,
+      "k_random_draws": 20,
+      "random_seed": 20260814,
+      "estimation_set": "FULL anchor population (held-out profile sentences, no item labels); unsupervised, so no answer leak; in-sample wrt the anchor set, disclosed"
+    }
+  },
+  "arm_accuracy": {
+    "P0_BASELINE": 0.708333,
+    "P1_COMMON_MODE": 0.716667,
+    "P2_RANDOM_DIR_d00": 0.705,
+    "P2_RANDOM_DIR_d01": 0.711667,
+    "P2_RANDOM_DIR_d02": 0.713333,
+    "P2_RANDOM_DIR_d03": 0.716667,
+    "P2_RANDOM_DIR_d04": 0.718333,
+    "P2_RANDOM_DIR_d05": 0.71,
+    "P2_RANDOM_DIR_d06": 0.713333,
+    "P2_RANDOM_DIR_d07": 0.716667,
+    "P2_RANDOM_DIR_d08": 0.723333,
+    "P2_RANDOM_DIR_d09": 0.715,
+    "P2_RANDOM_DIR_d10": 0.718333,
+    "P2_RANDOM_DIR_d11": 0.71,
+    "P2_RANDOM_DIR_d12": 0.711667,
+    "P2_RANDOM_DIR_d13": 0.713333,
+    "P2_RANDOM_DIR_d14": 0.706667,
+    "P2_RANDOM_DIR_d15": 0.718333,
+    "P2_RANDOM_DIR_d16": 0.711667,
+    "P2_RANDOM_DIR_d17": 0.72,
+    "P2_RANDOM_DIR_d18": 0.705,
+    "P2_RANDOM_DIR_d19": 0.711667,
+    "P3_RANDOM_MATCHED_d00": 0.706667,
+    "P3_RANDOM_MATCHED_d01": 0.72,
+    "P3_RANDOM_MATCHED_d02": 0.71,
+    "P3_RANDOM_MATCHED_d03": 0.711667,
+    "P3_RANDOM_MATCHED_d04": 0.728333,
+    "P3_RANDOM_MATCHED_d05": 0.738333,
+    "P3_RANDOM_MATCHED_d06": 0.706667,
+    "P3_RANDOM_MATCHED_d07": 0.706667,
+    "P3_RANDOM_MATCHED_d08": 0.731667,
+    "P3_RANDOM_MATCHED_d09": 0.715,
+    "P3_RANDOM_MATCHED_d10": 0.713333,
+    "P3_RANDOM_MATCHED_d11": 0.72,
+    "P3_RANDOM_MATCHED_d12": 0.723333,
+    "P3_RANDOM_MATCHED_d13": 0.715,
+    "P3_RANDOM_MATCHED_d14": 0.703333,
+    "P3_RANDOM_MATCHED_d15": 0.725,
+    "P3_RANDOM_MATCHED_d16": 0.703333,
+    "P3_RANDOM_MATCHED_d17": 0.728333,
+    "P3_RANDOM_MATCHED_d18": 0.715,
+    "P3_RANDOM_MATCHED_d19": 0.72,
+    "P4_TOP_PC_NOT_BRAIN_LICENSED": 0.718333,
+    "P5_MEAN_SUBTRACT": 0.683333
+  },
+  "arm_diagnostics": {
+    "P0_BASELINE": {
+      "family": "baseline",
+      "verdict_weight": true,
+      "n_ties": 0,
+      "mean_margin": 0.108644,
+      "mean_target_cos": 0.117234,
+      "acc": 0.708333,
+      "scramble_floor": 0.45,
+      "residual_common_mode_energy_fraction": 0.154212,
+      "residual_mean_pairwise_cosine": 0.142783
+    },
+    "P1_COMMON_MODE": {
+      "family": "primary",
+      "verdict_weight": true,
+      "n_ties": 0,
+      "mean_margin": 0.117076,
+      "mean_target_cos": 0.101218,
+      "acc": 0.716667,
+      "scramble_floor": 0.445,
+      "residual_common_mode_energy_fraction": 0.028128,
+      "residual_mean_pairwise_cosine": -0.001528
+    },
+    "P2_RANDOM_DIR_d00": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.109045,
+      "mean_target_cos": 0.117462,
+      "acc": 0.705,
+      "scramble_floor": 0.453333,
+      "residual_common_mode_energy_fraction": 0.154256,
+      "residual_mean_pairwise_cosine": 0.142866
+    },
+    "P2_RANDOM_DIR_d01": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108708,
+      "mean_target_cos": 0.117306,
+      "acc": 0.711667,
+      "scramble_floor": 0.448333,
+      "residual_common_mode_energy_fraction": 0.154586,
+      "residual_mean_pairwise_cosine": 0.143143
+    },
+    "P2_RANDOM_DIR_d02": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108897,
+      "mean_target_cos": 0.117314,
+      "acc": 0.713333,
+      "scramble_floor": 0.45,
+      "residual_common_mode_energy_fraction": 0.154691,
+      "residual_mean_pairwise_cosine": 0.143232
+    },
+    "P2_RANDOM_DIR_d03": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108879,
+      "mean_target_cos": 0.117603,
+      "acc": 0.716667,
+      "scramble_floor": 0.45,
+      "residual_common_mode_energy_fraction": 0.154444,
+      "residual_mean_pairwise_cosine": 0.143032
+    },
+    "P2_RANDOM_DIR_d04": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.10879,
+      "mean_target_cos": 0.117372,
+      "acc": 0.718333,
+      "scramble_floor": 0.448333,
+      "residual_common_mode_energy_fraction": 0.154723,
+      "residual_mean_pairwise_cosine": 0.143269
+    },
+    "P2_RANDOM_DIR_d05": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108563,
+      "mean_target_cos": 0.117523,
+      "acc": 0.71,
+      "scramble_floor": 0.451667,
+      "residual_common_mode_energy_fraction": 0.154669,
+      "residual_mean_pairwise_cosine": 0.143218
+    },
+    "P2_RANDOM_DIR_d06": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108677,
+      "mean_target_cos": 0.117084,
+      "acc": 0.713333,
+      "scramble_floor": 0.45,
+      "residual_common_mode_energy_fraction": 0.153205,
+      "residual_mean_pairwise_cosine": 0.141797
+    },
+    "P2_RANDOM_DIR_d07": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108473,
+      "mean_target_cos": 0.117513,
+      "acc": 0.716667,
+      "scramble_floor": 0.448333,
+      "residual_common_mode_energy_fraction": 0.154785,
+      "residual_mean_pairwise_cosine": 0.143336
+    },
+    "P2_RANDOM_DIR_d08": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108581,
+      "mean_target_cos": 0.117392,
+      "acc": 0.723333,
+      "scramble_floor": 0.456667,
+      "residual_common_mode_energy_fraction": 0.15438,
+      "residual_mean_pairwise_cosine": 0.142939
+    },
+    "P2_RANDOM_DIR_d09": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108946,
+      "mean_target_cos": 0.117103,
+      "acc": 0.715,
+      "scramble_floor": 0.451667,
+      "residual_common_mode_energy_fraction": 0.154608,
+      "residual_mean_pairwise_cosine": 0.143107
+    },
+    "P2_RANDOM_DIR_d10": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108681,
+      "mean_target_cos": 0.117331,
+      "acc": 0.718333,
+      "scramble_floor": 0.455,
+      "residual_common_mode_energy_fraction": 0.154667,
+      "residual_mean_pairwise_cosine": 0.143198
+    },
+    "P2_RANDOM_DIR_d11": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.109062,
+      "mean_target_cos": 0.11727,
+      "acc": 0.71,
+      "scramble_floor": 0.45,
+      "residual_common_mode_energy_fraction": 0.153848,
+      "residual_mean_pairwise_cosine": 0.142427
+    },
+    "P2_RANDOM_DIR_d12": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108486,
+      "mean_target_cos": 0.117036,
+      "acc": 0.711667,
+      "scramble_floor": 0.453333,
+      "residual_common_mode_energy_fraction": 0.154354,
+      "residual_mean_pairwise_cosine": 0.142788
+    },
+    "P2_RANDOM_DIR_d13": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108836,
+      "mean_target_cos": 0.116997,
+      "acc": 0.713333,
+      "scramble_floor": 0.451667,
+      "residual_common_mode_energy_fraction": 0.154601,
+      "residual_mean_pairwise_cosine": 0.143154
+    },
+    "P2_RANDOM_DIR_d14": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108489,
+      "mean_target_cos": 0.117301,
+      "acc": 0.706667,
+      "scramble_floor": 0.458333,
+      "residual_common_mode_energy_fraction": 0.154756,
+      "residual_mean_pairwise_cosine": 0.143313
+    },
+    "P2_RANDOM_DIR_d15": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108672,
+      "mean_target_cos": 0.11721,
+      "acc": 0.718333,
+      "scramble_floor": 0.456667,
+      "residual_common_mode_energy_fraction": 0.153649,
+      "residual_mean_pairwise_cosine": 0.142187
+    },
+    "P2_RANDOM_DIR_d16": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108488,
+      "mean_target_cos": 0.11749,
+      "acc": 0.711667,
+      "scramble_floor": 0.448333,
+      "residual_common_mode_energy_fraction": 0.154672,
+      "residual_mean_pairwise_cosine": 0.143213
+    },
+    "P2_RANDOM_DIR_d17": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108691,
+      "mean_target_cos": 0.117304,
+      "acc": 0.72,
+      "scramble_floor": 0.446667,
+      "residual_common_mode_energy_fraction": 0.15454,
+      "residual_mean_pairwise_cosine": 0.143092
+    },
+    "P2_RANDOM_DIR_d18": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108643,
+      "mean_target_cos": 0.117348,
+      "acc": 0.705,
+      "scramble_floor": 0.455,
+      "residual_common_mode_energy_fraction": 0.153992,
+      "residual_mean_pairwise_cosine": 0.142603
+    },
+    "P2_RANDOM_DIR_d19": {
+      "family": "random_dir_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.108716,
+      "mean_target_cos": 0.117001,
+      "acc": 0.711667,
+      "scramble_floor": 0.445,
+      "residual_common_mode_energy_fraction": 0.153981,
+      "residual_mean_pairwise_cosine": 0.1425
+    },
+    "P3_RANDOM_MATCHED_d00": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096351,
+      "mean_target_cos": 0.231981,
+      "acc": 0.706667,
+      "scramble_floor": 0.446667,
+      "residual_common_mode_energy_fraction": 0.26428,
+      "residual_mean_pairwise_cosine": 0.257238
+    },
+    "P3_RANDOM_MATCHED_d01": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.094586,
+      "mean_target_cos": 0.238102,
+      "acc": 0.72,
+      "scramble_floor": 0.456667,
+      "residual_common_mode_energy_fraction": 0.276422,
+      "residual_mean_pairwise_cosine": 0.270033
+    },
+    "P3_RANDOM_MATCHED_d02": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096354,
+      "mean_target_cos": 0.221495,
+      "acc": 0.71,
+      "scramble_floor": 0.456667,
+      "residual_common_mode_energy_fraction": 0.247768,
+      "residual_mean_pairwise_cosine": 0.240768
+    },
+    "P3_RANDOM_MATCHED_d03": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.098021,
+      "mean_target_cos": 0.214061,
+      "acc": 0.711667,
+      "scramble_floor": 0.451667,
+      "residual_common_mode_energy_fraction": 0.233428,
+      "residual_mean_pairwise_cosine": 0.227455
+    },
+    "P3_RANDOM_MATCHED_d04": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.097623,
+      "mean_target_cos": 0.23072,
+      "acc": 0.728333,
+      "scramble_floor": 0.488333,
+      "residual_common_mode_energy_fraction": 0.259066,
+      "residual_mean_pairwise_cosine": 0.253142
+    },
+    "P3_RANDOM_MATCHED_d05": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.095531,
+      "mean_target_cos": 0.242067,
+      "acc": 0.738333,
+      "scramble_floor": 0.476667,
+      "residual_common_mode_energy_fraction": 0.275545,
+      "residual_mean_pairwise_cosine": 0.269532
+    },
+    "P3_RANDOM_MATCHED_d06": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.095446,
+      "mean_target_cos": 0.237684,
+      "acc": 0.706667,
+      "scramble_floor": 0.443333,
+      "residual_common_mode_energy_fraction": 0.270716,
+      "residual_mean_pairwise_cosine": 0.264771
+    },
+    "P3_RANDOM_MATCHED_d07": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.095726,
+      "mean_target_cos": 0.230227,
+      "acc": 0.706667,
+      "scramble_floor": 0.468333,
+      "residual_common_mode_energy_fraction": 0.260979,
+      "residual_mean_pairwise_cosine": 0.254768
+    },
+    "P3_RANDOM_MATCHED_d08": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.097699,
+      "mean_target_cos": 0.224465,
+      "acc": 0.731667,
+      "scramble_floor": 0.471667,
+      "residual_common_mode_energy_fraction": 0.247132,
+      "residual_mean_pairwise_cosine": 0.240854
+    },
+    "P3_RANDOM_MATCHED_d09": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.095579,
+      "mean_target_cos": 0.23254,
+      "acc": 0.715,
+      "scramble_floor": 0.446667,
+      "residual_common_mode_energy_fraction": 0.26603,
+      "residual_mean_pairwise_cosine": 0.259285
+    },
+    "P3_RANDOM_MATCHED_d10": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096305,
+      "mean_target_cos": 0.232676,
+      "acc": 0.713333,
+      "scramble_floor": 0.456667,
+      "residual_common_mode_energy_fraction": 0.263621,
+      "residual_mean_pairwise_cosine": 0.257621
+    },
+    "P3_RANDOM_MATCHED_d11": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.098037,
+      "mean_target_cos": 0.216845,
+      "acc": 0.72,
+      "scramble_floor": 0.451667,
+      "residual_common_mode_energy_fraction": 0.240039,
+      "residual_mean_pairwise_cosine": 0.23264
+    },
+    "P3_RANDOM_MATCHED_d12": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096274,
+      "mean_target_cos": 0.224684,
+      "acc": 0.723333,
+      "scramble_floor": 0.45,
+      "residual_common_mode_energy_fraction": 0.253363,
+      "residual_mean_pairwise_cosine": 0.246723
+    },
+    "P3_RANDOM_MATCHED_d13": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.095108,
+      "mean_target_cos": 0.23438,
+      "acc": 0.715,
+      "scramble_floor": 0.481667,
+      "residual_common_mode_energy_fraction": 0.266636,
+      "residual_mean_pairwise_cosine": 0.26055
+    },
+    "P3_RANDOM_MATCHED_d14": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.098799,
+      "mean_target_cos": 0.217191,
+      "acc": 0.703333,
+      "scramble_floor": 0.448333,
+      "residual_common_mode_energy_fraction": 0.243474,
+      "residual_mean_pairwise_cosine": 0.236081
+    },
+    "P3_RANDOM_MATCHED_d15": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.098408,
+      "mean_target_cos": 0.224831,
+      "acc": 0.725,
+      "scramble_floor": 0.473333,
+      "residual_common_mode_energy_fraction": 0.252723,
+      "residual_mean_pairwise_cosine": 0.246607
+    },
+    "P3_RANDOM_MATCHED_d16": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096515,
+      "mean_target_cos": 0.2299,
+      "acc": 0.703333,
+      "scramble_floor": 0.471667,
+      "residual_common_mode_energy_fraction": 0.258494,
+      "residual_mean_pairwise_cosine": 0.252382
+    },
+    "P3_RANDOM_MATCHED_d17": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.097191,
+      "mean_target_cos": 0.229964,
+      "acc": 0.728333,
+      "scramble_floor": 0.456667,
+      "residual_common_mode_energy_fraction": 0.25886,
+      "residual_mean_pairwise_cosine": 0.252564
+    },
+    "P3_RANDOM_MATCHED_d18": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096798,
+      "mean_target_cos": 0.228436,
+      "acc": 0.715,
+      "scramble_floor": 0.46,
+      "residual_common_mode_energy_fraction": 0.257758,
+      "residual_mean_pairwise_cosine": 0.251302
+    },
+    "P3_RANDOM_MATCHED_d19": {
+      "family": "random_matched_control",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.096879,
+      "mean_target_cos": 0.236176,
+      "acc": 0.72,
+      "scramble_floor": 0.475,
+      "residual_common_mode_energy_fraction": 0.266166,
+      "residual_mean_pairwise_cosine": 0.260215
+    },
+    "P4_TOP_PC_NOT_BRAIN_LICENSED": {
+      "family": "non_brain",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.107834,
+      "mean_target_cos": 0.113114,
+      "acc": 0.718333,
+      "scramble_floor": 0.461667,
+      "residual_common_mode_energy_fraction": 0.14234,
+      "residual_mean_pairwise_cosine": 0.133259
+    },
+    "P5_MEAN_SUBTRACT": {
+      "family": "centering",
+      "verdict_weight": false,
+      "n_ties": 0,
+      "mean_margin": 0.121423,
+      "mean_target_cos": 0.098258,
+      "acc": 0.683333,
+      "scramble_floor": 0.495,
+      "residual_common_mode_energy_fraction": 0.029676,
+      "residual_mean_pairwise_cosine": -0.001506
+    }
+  },
+  "arm_labels": {
+    "P0_BASELINE": "identity -- the unchanged live read-out",
+    "P1_COMMON_MODE": "remove (x.u)u, u = unit-normalised mean of the L2-normalised anchors; applied to BOTH anchors and query -- PRIMARY",
+    "P2_RANDOM_DIR_dNN": "remove (x.v)v for a RANDOM unit v -- THE CONTROL THAT MATTERS: if this helps as much, the gain is perturbation not decorrelation",
+    "P3_RANDOM_MATCHED_dNN": "subtract a FIXED random vector of the SAME NORM as the mean P5 subtracts -- matched-magnitude control",
+    "P4_TOP_PC_NOT_BRAIN_LICENSED": "remove PC1 of the mean-centred field -- NOT brain-licensed, NO verdict weight",
+    "P5_MEAN_SUBTRACT": "x - mean(unit anchors) (Mu & Viswanath step 1)"
+  },
+  "HP_SCOPE": {
+    "P1_COMMON_MODE": [
+      "d_P1",
+      "beats_random_control",
+      "scramble_ceiling"
+    ],
+    "P0_BASELINE": [],
+    "P2_RANDOM_DIR_dNN": [],
+    "P3_RANDOM_MATCHED_dNN": [],
+    "P4_TOP_PC_NOT_BRAIN_LICENSED": [],
+    "P5_MEAN_SUBTRACT": []
+  },
+  "random_direction_control": {
+    "k_draws": 20,
+    "per_draw_acc": [
+      0.705,
+      0.711667,
+      0.713333,
+      0.716667,
+      0.718333,
+      0.71,
+      0.713333,
+      0.716667,
+      0.723333,
+      0.715,
+      0.718333,
+      0.71,
+      0.711667,
+      0.713333,
+      0.706667,
+      0.718333,
+      0.711667,
+      0.72,
+      0.705,
+      0.711667
+    ],
+    "mean_delta_vs_P0": 0.005167,
+    "between_projection_draw_sd": 0.004923,
+    "threshold_P1_must_beat": 0.015013,
+    "P1_beats_it": false,
+    "definition": "removal of a RANDOM rank-1 direction, K independent draws. A gain smaller than the variation BETWEEN random draws is not a gain."
+  },
+  "matched_magnitude_control": {
+    "k_draws": 20,
+    "per_draw_acc": [
+      0.706667,
+      0.72,
+      0.71,
+      0.711667,
+      0.728333,
+      0.738333,
+      0.706667,
+      0.706667,
+      0.731667,
+      0.715,
+      0.713333,
+      0.72,
+      0.723333,
+      0.715,
+      0.703333,
+      0.725,
+      0.703333,
+      0.728333,
+      0.715,
+      0.72
+    ],
+    "mean_delta_vs_P0": 0.00875,
+    "between_projection_draw_sd": 0.00988,
+    "definition": "subtract a FIXED random vector whose norm equals the true mean's; tests whether ANY shared offset of that size helps"
+  },
+  "floors": {
+    "chance": 0.5,
+    "frequency_baseline": 0.5,
+    "scramble_per_arm": {
+      "P0_BASELINE": 0.45,
+      "P1_COMMON_MODE": 0.445,
+      "P2_RANDOM_DIR_d00": 0.453333,
+      "P2_RANDOM_DIR_d01": 0.448333,
+      "P2_RANDOM_DIR_d02": 0.45,
+      "P2_RANDOM_DIR_d03": 0.45,
+      "P2_RANDOM_DIR_d04": 0.448333,
+      "P2_RANDOM_DIR_d05": 0.451667,
+      "P2_RANDOM_DIR_d06": 0.45,
+      "P2_RANDOM_DIR_d07": 0.448333,
+      "P2_RANDOM_DIR_d08": 0.456667,
+      "P2_RANDOM_DIR_d09": 0.451667,
+      "P2_RANDOM_DIR_d10": 0.455,
+      "P2_RANDOM_DIR_d11": 0.45,
+      "P2_RANDOM_DIR_d12": 0.453333,
+      "P2_RANDOM_DIR_d13": 0.451667,
+      "P2_RANDOM_DIR_d14": 0.458333,
+      "P2_RANDOM_DIR_d15": 0.456667,
+      "P2_RANDOM_DIR_d16": 0.448333,
+      "P2_RANDOM_DIR_d17": 0.446667,
+      "P2_RANDOM_DIR_d18": 0.455,
+      "P2_RANDOM_DIR_d19": 0.445,
+      "P3_RANDOM_MATCHED_d00": 0.446667,
+      "P3_RANDOM_MATCHED_d01": 0.456667,
+      "P3_RANDOM_MATCHED_d02": 0.456667,
+      "P3_RANDOM_MATCHED_d03": 0.451667,
+      "P3_RANDOM_MATCHED_d04": 0.488333,
+      "P3_RANDOM_MATCHED_d05": 0.476667,
+      "P3_RANDOM_MATCHED_d06": 0.443333,
+      "P3_RANDOM_MATCHED_d07": 0.468333,
+      "P3_RANDOM_MATCHED_d08": 0.471667,
+      "P3_RANDOM_MATCHED_d09": 0.446667,
+      "P3_RANDOM_MATCHED_d10": 0.456667,
+      "P3_RANDOM_MATCHED_d11": 0.451667,
+      "P3_RANDOM_MATCHED_d12": 0.45,
+      "P3_RANDOM_MATCHED_d13": 0.481667,
+      "P3_RANDOM_MATCHED_d14": 0.448333,
+      "P3_RANDOM_MATCHED_d15": 0.473333,
+      "P3_RANDOM_MATCHED_d16": 0.471667,
+      "P3_RANDOM_MATCHED_d17": 0.456667,
+      "P3_RANDOM_MATCHED_d18": 0.46,
+      "P3_RANDOM_MATCHED_d19": 0.475,
+      "P4_TOP_PC_NOT_BRAIN_LICENSED": 0.461667,
+      "P5_MEAN_SUBTRACT": 0.495
+    },
+    "between_projection_draw_sd_random_dir": 0.004923,
+    "note": "all floors are SAME-corpus, SAME-metric, SAME-run as the arms above"
+  },
+  "bootstrap": {
+    "n_boot": 1000,
+    "seed": 20260814,
+    "arm_acc_ci": {
+      "P0_BASELINE": {
+        "acc": 0.708333,
+        "ci_lo": 0.671667,
+        "ci_hi": 0.745042,
+        "sd": 0.019461
+      },
+      "P1_COMMON_MODE": {
+        "acc": 0.716667,
+        "ci_lo": 0.681625,
+        "ci_hi": 0.753333,
+        "sd": 0.019173
+      },
+      "P4_TOP_PC_NOT_BRAIN_LICENSED": {
+        "acc": 0.718333,
+        "ci_lo": 0.681667,
+        "ci_hi": 0.756667,
+        "sd": 0.019191
+      },
+      "P5_MEAN_SUBTRACT": {
+        "acc": 0.683333,
+        "ci_lo": 0.648292,
+        "ci_hi": 0.721667,
+        "sd": 0.019144
+      },
+      "P2_RANDOM_DIR_d00": {
+        "acc": 0.705,
+        "ci_lo": 0.666667,
+        "ci_hi": 0.743333,
+        "sd": 0.019566
+      },
+      "P3_RANDOM_MATCHED_d00": {
+        "acc": 0.706667,
+        "ci_lo": 0.668333,
+        "ci_hi": 0.741667,
+        "sd": 0.01873
+      }
+    },
+    "deltas": {
+      "d_P1_COMMON_MODE_minus_P0": {
+        "delta": 0.008333,
+        "ci_lo": -0.005,
+        "ci_hi": 0.023333,
+        "sd": 0.007096,
+        "mde_95": 0.013907,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.849
+      },
+      "d_P4_TOP_PC_NOT_BRAIN_LICENSED_minus_P0": {
+        "delta": 0.01,
+        "ci_lo": -0.005,
+        "ci_hi": 0.026667,
+        "sd": 0.008119,
+        "mde_95": 0.015913,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.876
+      },
+      "d_P5_MEAN_SUBTRACT_minus_P0": {
+        "delta": -0.025,
+        "ci_lo": -0.05,
+        "ci_hi": 0.001667,
+        "sd": 0.013431,
+        "mde_95": 0.026325,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.03
+      },
+      "d_P2_RANDOM_DIR_d00_minus_P0": {
+        "delta": -0.003333,
+        "ci_lo": -0.011667,
+        "ci_hi": 0.005,
+        "sd": 0.004576,
+        "mde_95": 0.008969,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.183
+      },
+      "d_P3_RANDOM_MATCHED_d00_minus_P0": {
+        "delta": -0.001667,
+        "ci_lo": -0.025,
+        "ci_hi": 0.021667,
+        "sd": 0.011891,
+        "mde_95": 0.023307,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.412
+      }
+    }
+  },
+  "primary_delta": {
+    "delta": 0.008333,
+    "ci_lo": -0.005,
+    "ci_hi": 0.023333,
+    "sd": 0.007096,
+    "mde_95": 0.013907,
+    "ci_excludes_zero": false,
+    "frac_boot_above_zero": 0.849
+  },
+  "verdict_notes": [
+    "d_P1=0.0083 CI=[-0.0050,0.0233] INCLUDES 0"
+  ],
+  "bands": {
+    "HARD_PASS_delta": 0.03,
+    "REAL_BUT_SMALL_delta": 0.01,
+    "random_sd_multiple": 2.0,
+    "scramble_ceiling": 0.55,
+    "strict_margin_frac": 0.05,
+    "HARD_FAIL_PERTURBATION_ARTIFACT": "mu_rand >= d_P1 (evaluated FIRST)",
+    "HARD_FAIL_NO_EFFECT": "CI of d_P1 includes 0",
+    "declared_in": "preregs/2026-08-14_rank1_common_mode_removal_near_neighbour.md",
+    "declared_at_commit": "32ca72e9c"
+  },
+  "positive_control_identity_projection_equivalence": {
+    "n_mismatch": 0,
+    "n_items": 600,
+    "bit_identical": true,
+    "sha256_vectorised": "fe8d81a438c87241483df1efaa471431d99864f24ad1342242f055e2f74bea74",
+    "sha256_canonicalize_fast": "fe8d81a438c87241483df1efaa471431d99864f24ad1342242f055e2f74bea74",
+    "acc_vectorised": 0.708333,
+    "acc_canonicalize_fast": 0.708333,
+    "definition": "P0's per-item boolean vector vs hdlab.canonicalize_fast over the SAME items and the SAME 2-anchor eligible_mask; anything but bit-identity means the vectorised scorer has FORKED the live read-out"
+  },
+  "positive_control_self_retrieval": {
+    "value": 0.9067,
+    "floor": 0.7,
+    "n": 300
+  },
+  "sister_term_diagnostic": {
+    "prereg_status": "PRE-DECLARED SECONDARY (pre-reg sec 7), NO VERDICT WEIGHT",
+    "by_arm": {
+      "P0_BASELINE": {
+        "top1_exact": 0.098333,
+        "top1_sibling_not_target": 0.036667,
+        "neighbourhood_hit_at_1": 0.135,
+        "top1_unrelated": 0.865,
+        "sister_conversion_from_P0_sibling_errors": 0.0,
+        "n_P0_sibling_errors": 22
+      },
+      "P1_COMMON_MODE": {
+        "top1_exact": 0.096667,
+        "top1_sibling_not_target": 0.035,
+        "neighbourhood_hit_at_1": 0.131667,
+        "top1_unrelated": 0.868333,
+        "sister_conversion_from_P0_sibling_errors": 0.0,
+        "n_P0_sibling_errors": 22
+      },
+      "P4_TOP_PC_NOT_BRAIN_LICENSED": {
+        "top1_exact": 0.098333,
+        "top1_sibling_not_target": 0.03,
+        "neighbourhood_hit_at_1": 0.128333,
+        "top1_unrelated": 0.871667,
+        "sister_conversion_from_P0_sibling_errors": 0.0,
+        "n_P0_sibling_errors": 22
+      },
+      "P5_MEAN_SUBTRACT": {
+        "top1_exact": 0.095,
+        "top1_sibling_not_target": 0.026667,
+        "neighbourhood_hit_at_1": 0.121667,
+        "top1_unrelated": 0.878333,
+        "sister_conversion_from_P0_sibling_errors": 0.0,
+        "n_P0_sibling_errors": 22
+      },
+      "P2_RANDOM_DIR_d00": {
+        "top1_exact": 0.1,
+        "top1_sibling_not_target": 0.036667,
+        "neighbourhood_hit_at_1": 0.136667,
+        "top1_unrelated": 0.863333,
+        "sister_conversion_from_P0_sibling_errors": 0.0,
+        "n_P0_sibling_errors": 22
+      },
+      "P3_RANDOM_MATCHED_d00": {
+        "top1_exact": 0.098333,
+        "top1_sibling_not_target": 0.02,
+        "neighbourhood_hit_at_1": 0.118333,
+        "top1_unrelated": 0.881667,
+        "sister_conversion_from_P0_sibling_errors": 0.045455,
+        "n_P0_sibling_errors": 22
+      }
+    },
+    "definition": "open-vocabulary argmax over ALL anchors on the same held-out eval sentences. sister_conversion = among items where P0's top-1 was a WordNet loose-criterion sibling of the target but not the target, the fraction this arm gets exactly right -- the operational form of 'separates members within a neighbourhood'"
+  },
+  "anchors_only_diagnostic": {
+    "prereg_status": "LABELLED SECONDARY, NO VERDICT WEIGHT",
+    "acc": {
+      "P0_BASELINE": 0.708333,
+      "P1_COMMON_MODE": 0.716667,
+      "P4_TOP_PC_NOT_BRAIN_LICENSED": 0.718333,
+      "P5_MEAN_SUBTRACT": 0.711667
+    },
+    "definition": "projection applied to the anchor rows ONLY, query left alone"
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "P0_BASELINE": "fe8d81a438c87241483df1efaa471431d99864f24ad1342242f055e2f74bea74",
+    "P1_COMMON_MODE": "1272b599e38da8c4492a5c9f619cf9e5d4ac526582dbe0cb62136a7da5ca32fe",
+    "P2_RANDOM_DIR_d00": "eb43cbbb8d7791f2cd09de0e387f9fadc7aaee027da2354dd99601d7c33b99a8",
+    "P2_RANDOM_DIR_d01": "3a820028820dad30e4183d8d89d05247e298a1d46f945274edfa1e559a230440",
+    "P2_RANDOM_DIR_d02": "f4895de1a8d78cfe77b3a687f85cf913bebfbe62ebb870253836b4b883972bc2",
+    "P2_RANDOM_DIR_d03": "b547271b4a512f79caae7c3e5d57d7e5d70c2d82c900d80e2a02676e0957e533",
+    "P2_RANDOM_DIR_d04": "19e6f9142e2186d1fa5e70462ed889b3842652e746ec58a3c3179432bc30c95c",
+    "P2_RANDOM_DIR_d05": "5b7bbef49c4a629bfe6bb479463eef4161d552dfd4a6ab227de002fdc763ad83",
+    "P2_RANDOM_DIR_d06": "ccc0bdc6e10254300029abbf3170f8d83c6efe1ef8944928a37c84e02be4594a",
+    "P2_RANDOM_DIR_d07": "225a18306f4fb26f11552f2f009619b659b703e6cd6dc310cca5b9a4d252047b",
+    "P2_RANDOM_DIR_d08": "cbd4c5200270e56bbb7a2f72054b8c6190f8ccd13929d5d4ee987d4fe0e5723a",
+    "P2_RANDOM_DIR_d09": "edbf6eea9ebc0fc01fe8261117e264fef95eeefe28468c6b4fa984edc2a22b7e",
+    "P2_RANDOM_DIR_d10": "8afef61e6d0a9502928c01e7867d1aea7bb9d8bc53452e06d47c001ec5e57d64",
+    "P2_RANDOM_DIR_d11": "a904e206b7ab43b4fba4a9af644d9616129a63458deed9cfd5e066fb6855d49f",
+    "P2_RANDOM_DIR_d12": "ae62b381e16091a09442fbee2ecbfe31c291e7306486bdc76f6ad0482fc30527",
+    "P2_RANDOM_DIR_d13": "c3744f411c6856bf22651d9e68e3dd7875193adaf1b469215efd7274e2573645",
+    "P2_RANDOM_DIR_d14": "f1931fb6d339af0873cd8bc95c0299c772e77b697777d0b2dcc11cbdbeadf2fd",
+    "P2_RANDOM_DIR_d15": "9012e023e19694ffc1ef2b77770ea2ee2cb6624bd121cac6e976bf7c1212ff59",
+    "P2_RANDOM_DIR_d16": "277e827b90ab7d4737767fa55a1f7299bd8d3d8ed84d23ac5ade486c5529dd1b",
+    "P2_RANDOM_DIR_d17": "9b25e2d0ea169672751881046083b21b2e723084a47f620ef7ce4475139f9232",
+    "P2_RANDOM_DIR_d18": "c8aefea1d393defb270e12ae41b7fbde9e5e313064b29df01d1e320c532a791a",
+    "P2_RANDOM_DIR_d19": "51aa369265fca09d648d239c741b9b251347b12c6b1062486b1359ea701aa11e",
+    "P3_RANDOM_MATCHED_d00": "b9031066d4f03b394ec83ddc69d638b2ae4f50fe448d62da1690b0ac7702a193",
+    "P3_RANDOM_MATCHED_d01": "044a807f69adb87a721faed3ae1ceebb6ff5f78ca67f5f5bb75d7bfc777f5ca4",
+    "P3_RANDOM_MATCHED_d02": "c2b404b508012e5c6dccd2ee626d36ac25bf8c388a559e122f5ad3b52eeb1161",
+    "P3_RANDOM_MATCHED_d03": "d73e85ba08e3104a74accf59fafe3f0e813209295f75ba60725fda6e7a6ebf6d",
+    "P3_RANDOM_MATCHED_d04": "6ccd572650fe3617ba84f03781ade6a352ebba48b954a8801cfa9b972c4ba375",
+    "P3_RANDOM_MATCHED_d05": "52df29847bda99ee241f35201eb9d6112008f6b9355907c832b8284f2785fd11",
+    "P3_RANDOM_MATCHED_d06": "34bb3eed0dc1a01d480d6de9f24acc5f3bafd30c33d6bfafbeb4fe6a93d73af3",
+    "P3_RANDOM_MATCHED_d07": "5bb2e672742324a716e166756021eaf793dda0da507cb177cf0a80b6b5c0690f",
+    "P3_RANDOM_MATCHED_d08": "52773668b2293a7065e795d3596263d8347a9cf8c7a0b44bdb523fa90df43bbf",
+    "P3_RANDOM_MATCHED_d09": "b88c53a66f00bdf417657f3a70d5e2f1df4a545af3341904eaa43f4877b76e0c",
+    "P3_RANDOM_MATCHED_d10": "f8c225a3aa59a080c6423b702718dfc194a8acb137faf57c9f63c770ceb807bc",
+    "P3_RANDOM_MATCHED_d11": "95d23eea2987c93f039d0a90a5501d4adca1d8c16a25074f01210767916eb1ca",
+    "P3_RANDOM_MATCHED_d12": "e5ea176ef02f37e0745cbcaf63692f10d2ee9031519f087fd695ba4de406db79",
+    "P3_RANDOM_MATCHED_d13": "792f55a758b311ae5c78f504951be87bb316a0873fcb25dc3332f0d24f376327",
+    "P3_RANDOM_MATCHED_d14": "f7fac7b60bdfae160dc2fae0229c3a91adc9aa3de5b29e0b9574477694b85c87",
+    "P3_RANDOM_MATCHED_d15": "96e8cc394160a90705319af9b21f467c79b296d28426f4ee36079b1bb96c84cf",
+    "P3_RANDOM_MATCHED_d16": "7f4c1ebf5f4ffb6073b0346e64bb192e9d126d8c04bbc0fd5456eb7964059ca3",
+    "P3_RANDOM_MATCHED_d17": "6e85e18be7b9328434357a40722233231795b80f3f622aaf9f2142e5d7cfc956",
+    "P3_RANDOM_MATCHED_d18": "5b2d44d16862a0cc69fe6184800001825dbee42aaaa327e9928543cebb442454",
+    "P3_RANDOM_MATCHED_d19": "8f34b01de5288a9f42df47b776cdd0bbe63f0657ad8582a655a74a9f37b8fc41",
+    "P4_TOP_PC_NOT_BRAIN_LICENSED": "38c2c2c462b09110a523e756381ce7016f3945c9cff7ac875c701ca32c08b3b0",
+    "P5_MEAN_SUBTRACT": "8216ee5647a240d52db69f90385f190a46aaa4303d74516a87fd63f04f1fe01e"
+  },
+  "baseline_in_band": true,
+  "baseline_arm": "P0_BASELINE",
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 600,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 213,
+    "max_items_per_word": 4
+  },
+  "held_out": {
+    "k_sentences_per_word": 100,
+    "n_profile": 70,
+    "disjoint": "profile and eval pools disjoint by construction (C1 testbed); no sentence that builds an anchor is ever scored"
+  },
+  "corpus": {
+    "path": "data/corpora/simplewiki/simplewiki_clean_v1.txt",
+    "n_lines": 2779032,
+    "vocab_size": 5011,
+    "n_pairs_strict": 7880
+  },
+  "wordnet_version": "3.0",
+  "organs_reused": {
+    "context_encoder": "hdlab.reading_grounding_loop.context_vector_masked (via the C1 testbed's _ctx_masked_multi)",
+    "anchor_accumulator": "hdlab.reading_grounding_loop.ConceptSpace(.observe)",
+    "read_out": "hdlab.reading_grounding_loop.canonicalize_fast (equivalence-controlled)",
+    "testbed": "experiments/exp_context_conditioned_near_neighbour_v1.py imported whole; items, leak controls, splits and derangement REUSED, not re-implemented",
+    "only_new_mechanism": "the rank-1 linear maps in build_projections/apply_projection"
+  },
+  "n_units": 44,
+  "expected_n_units": 44,
+  "cardinality_ok": true,
+  "crlb": {
+    "crlb_formula_reference": "paired-binomial se(delta) = sqrt(p_disc/n)",
+    "crlb_floor_computed": 0.025303,
+    "discriminator_reachability": true,
+    "note": "p_disc=0.10 conservative; reported mde_95 per delta is 1.96*bootstrap sd"
+  },
+  "compute_architecture": "sequential-CPU; thread pins set before numpy import",
+  "storage_strategy": "sharded (one anchor vector per word); no_composition (single-hop)",
+  "selftest": {
+    "c1_testbed_selftest_ran_on_import": true,
+    "graded_comparator_switch": true,
+    "projection_algebra": {
+      "orthogonal_after_removal": true,
+      "idempotent": true,
+      "scale_free": true
+    },
+    "common_mode_meter": {
+      "planted_energy_frac": 0.693705,
+      "isotropic_energy_frac": 0.01905,
+      "planted_after_P1": 0.019355
+    },
+    "scorer_matches_reference_loop": true,
+    "control_separation": {
+      "energy_on_true_common_mode": 0.693705,
+      "energy_on_a_random_direction": 0.015237
+    },
+    "bootstrap_selftest": {
+      "real_delta": 0.1125,
+      "null_false_positives": 0,
+      "null_replicates": 6
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_NO_EFFECT",
+      "HARD_FAIL_PERTURBATION_ARTIFACT",
+      "HARD_PASS",
+      "MIDDLE_BAND",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "MIDDLE_BAND_REAL_BUT_SMALL"
+    ],
+    "perturbation_branch_dominates": true,
+    "substrate_signature_checked": [
+      "canonicalize_fast"
+    ],
+    "testbed_functions_bound": [
+      "_ctx_masked_multi",
+      "_is_variant",
+      "assign_donors",
+      "build_corpus_assets",
+      "build_items",
+      "build_space",
+      "split_pools"
+    ],
+    "selftest_elapsed_s": 0.086
+  }
+}
