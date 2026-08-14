@@ -167,7 +167,13 @@ enumerated anywhere.
 
 ---
 
-## 2. THE CHAIN_GRADE TIER — 32 CELLS, 31 INVISIBLE
+## 2. THE CHAIN_GRADE TIER AS `metrics.json` SEES IT — 32 CELLS, 31 INVISIBLE
+
+> **SUPERSEDED IN SCOPE BY §7.** The 32 below are the cells whose `metrics.json` VERDICT STRING
+> contains `CHAIN_GRADE`. The real chain-graded population is **506 cells**, recorded as a
+> `cert_status` field in `data/substrate_index/meta/cert_ledger.jsonl`. This section is correct
+> about the 32 it names and is **6% of the tier**. It is kept because the three cells in §2a were
+> hand-verified and remain the most live-relevant of any chain-graded result found.
 
 `CHAIN_GRADE` is the project's highest historical verdict tier (a full rubric: discriminator fires,
 glass-box replay/tamper/causal-edit, non-ceiling, held-out). Enumerated by scanning every verdict
@@ -1001,3 +1007,32 @@ files are ~2.2 GB of mostly-mechanical tool output.
 3. Whether the ACC/EVC and SWR smokes (§4 V4, V9) were deliberately parked or simply dropped.
 4. Whether `exp_consolidated_reader_passive_mechanism_heldout_v1` (§6a) was ever discussed as a
    construction-competency win, or landed silently.
+
+### 9b. ADDENDUM to §9 — the NOT-DONE items created by §7 (written after §9)
+
+§9 was written before the cert ledger was found. These are the larger gaps and they outrank
+everything in §9:
+
+8. **RECONCILIATION OF THE TWO INDEXES — the single highest-value follow-up.** No join was computed
+   between the cert ledger's **506 chain-graded cells** and the 7,649 `metrics.json` on disk. The
+   join key exists (`referent_pointer.metrics_path`, populated on 1,192 rows) and the 2026-06-25
+   sweep already wrote the joiner (`data/_archaeology_synthesize.py`). Until that join is run, we
+   do not know how many of the 506 still have a metrics file, a floor, or a FULL run.
+9. **The 493 invisible chain-graded cells were NOT individually verified.** Not one was opened. They
+   carry a `cert_status` field only. **Do not treat 493 as 493 good results** — the ledger's own
+   vocabulary includes `under_classified` (149) and `cert_ruling_test_design_failure` (17), so the
+   pipeline demonstrably certified things it later doubted.
+10. **The 1,282 ledger rows with no parseable date** were not dated. Same problem as §3f, second index.
+11. **The `supersedes` graph (1,249 rows) was not traversed.** It is the mechanism that would answer
+    "was this superseded?" for the whole corpus at once — the question §9.2 leaves open cell-by-cell.
+    This is probably the cheapest large win available.
+12. **`data/_archaeology_inventory_enriched.jsonl` (2.4 MB, 3,269 experiments enriched with cert
+    join and capability tags) was NOT read.** It is a ready-made answer to much of this note's
+    question, seven weeks stale but structurally intact.
+13. **Why the ledger stopped at 2026-08-03 was not investigated.** It may have been superseded by
+    `capability_registry.jsonl` deliberately — but the registry has 127 rows to the ledger's 2,031,
+    so if that was a migration it lost 94% of the content, and no doc records the decision.
+14. **The 2026-06-25 sweep's headline numbers are QUOTED, NOT RECOMPUTED.** §7f reproduces that
+    note's own figures (3,269 full experiments, 1,402 HARD_PASS, 718 ledger rows, the 65% drop-out).
+    Only the ledger's CURRENT state (2,031 rows) was measured by me today. The 06-25 figures are a
+    citation of a seven-week-old measurement and should be re-derived before being leaned on.
