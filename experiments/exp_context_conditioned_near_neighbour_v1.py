@@ -80,8 +80,8 @@ from nltk.corpus import wordnet as wn                                        # n
 
 # ---- THE ORGANS BEING REUSED (pre-reg 3.1). Imported, never modified. ------------------------
 from hdlab.reading_grounding_loop import (                                   # noqa: E402
-    CTX_D, ConceptSpace, canonicalize_fast, content_lemmas, context_vector_masked,
-    normalize_lemma,
+    CTX_D, GRADED_COMPARATOR, ConceptSpace, canonicalize_fast, content_lemmas,
+    context_vector_masked, normalize_lemma,
 )
 from hdlab.grounding_acquisition_loop import content_words, context_vector   # noqa: E402
 from hdlab.lexical_similarity import concept_similarity                      # noqa: E402
@@ -189,13 +189,24 @@ def _seed_for(key: str) -> int:
 # Needed because the query must be SYMMETRIC in the two candidates: masking only the true target
 # would leak the answer. Self-test S4 asserts byte-identity with hdlab's own single-lemma version.
 # ---------------------------------------------------------------------------------------------
-def _ctx_masked_multi(sentence: str, lemmas: Sequence[str], d: int = CTX_D) -> np.ndarray:
+def _ctx_masked_multi(sentence: str, lemmas: Sequence[str], d: int = CTX_D, *,
+                      graded: Optional[bool] = None) -> np.ndarray:
     """Exactly hdlab.reading_grounding_loop.context_vector_masked, with `!= target_lemma`
     generalised to `not in lemmas`. Same content_words filter, same context_vector bundling math,
-    both called from hdlab -- nothing is re-implemented here."""
+    both called from hdlab -- nothing is re-implemented here.
+
+    REPAIR 2026-08-14: `context_vector_masked` gained a `graded` kwarg defaulting to the module
+    switch `GRADED_COMPARATOR` (ON) on the same day, and this function did not follow it. That
+    silently FORKED the two, and self-test S4 -- whose entire job is to assert byte-identity --
+    caught it and made this module unimportable at HEAD. Following the switch here restores S4.
+    This changes what a FRESH run of this cell measures (the query is now graded, matching the
+    live read-out); the LANDED metrics.json under data/exp_context_conditioned_near_neighbour_v1/
+    is the pre-flip signed run and has NOT been overwritten."""
+    if graded is None:
+        graded = GRADED_COMPARATOR
     drop = set(lemmas)
     words = [w for w in content_words(sentence) if normalize_lemma(w) not in drop]
-    return context_vector(" ".join(words), d=d)
+    return context_vector(" ".join(words), d=d, graded=graded)
 
 
 def _is_variant(tok: str, word: str) -> bool:
@@ -448,8 +459,11 @@ def arm_context(items: List[dict], space: ConceptSpace, queries: List[np.ndarray
             n_zero_query += 1
         mask = _mask_for(space, anchors, pos, it["target"], it["distractor"])
         pick, cos = canonicalize_fast("__slot__", q, space, thresh=-1.0, eligible_mask=mask)
-        # tie diagnostic: recompute both cosines explicitly (cheap, 2 rows)
-        nb = np.sign(q)
+        # tie diagnostic: recompute both cosines explicitly (cheap, 2 rows).
+        # REPAIR 2026-08-14: must follow the same graded switch canonicalize_fast follows, or this
+        # diagnostic counts ties in a DIFFERENT space from the one that made the decision. Affects
+        # the reported n_ties only; `correct[i]` comes from canonicalize_fast either way.
+        nb = np.asarray(q, dtype=np.float64) if GRADED_COMPARATOR else np.sign(q)
         nn = float(np.linalg.norm(nb))
         if nn >= 1e-9:
             ct, cd = [], []
@@ -678,7 +692,8 @@ def _instrumentation_selftest() -> dict:
     v2 = _ctx_masked_multi(s, ["poet", "novelist"])
     assert np.array_equal(v2, context_vector(" ".join(
         [w for w in content_words(s)
-         if normalize_lemma(w) not in {"poet", "novelist"}]))), "multi-mask math drifted"
+         if normalize_lemma(w) not in {"poet", "novelist"}]),
+        graded=GRADED_COMPARATOR)), "multi-mask math drifted"
 
     # S5 -- REAL CODE PATH (gate F.1): build the ACTUAL ConceptSpace + read-out at tiny scale and
     #       assert the read-out MOVES with the query (a read-out that cannot move is not a read-out).
