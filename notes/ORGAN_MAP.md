@@ -89,7 +89,10 @@ notice what it does not know. Separately, 54% of the code is unreachable from an
 ### The evidence base, measured
 
 **7,625** `metrics.json` files exist under `data/` + `experiments/`. A prioritised set of **946**
-cells was read. **HAS_FLOOR 594 / NO_FLOOR 359.** Of the no-floor set, **134 carry a PASS-flavoured
+cells was read. **HAS_FLOOR 594 / NO_FLOOR 359.** *(⚠️ arithmetic slip, flagged 2026-08-14 and left
+uncorrected because the underlying scan has not been re-run: 594 + 359 = **953**, not 946. One of the
+three numbers is off by 7. Do not quote the pair as exhaustive until the scan is redone.)*
+Of the no-floor set, **134 carry a PASS-flavoured
 verdict** — those are headline claims with nothing behind them. Caveat on the method: floor detection
 is key-name based, so NO_FLOOR means *"no floor found by name — verify before citing"*, not proof of
 absence (several real floors are named `OFF`, `fz`, `brute`, `naive_dual_w`). The reverse error does
@@ -157,7 +160,7 @@ brain's equation" is a well-posed instruction today.
 | D1 MTL sparse coding level | ~0.2% of MTL neurons per percept; ~50-150 concepts per neuron |
 | D3 hippocampal fast write | one-shot Hebbian outer product on a sparse code |
 | **D7 successor representation** | **`M(s,s') = E[Σ_k γ^k 1{s_k=s'}]`, i.e. `M = (I − γP)⁻¹`; grid cells = eigenvectors of M** |
-| **D8 cascade synapse** | **`p(write | d) = 2^-d` → power-law forgetting `t^-α`, capacity ~N not ~√N; Benna-Fusi: geometric τ chain, `SNR(t) ~ N/(√K·t^0.5)`** |
+| **D8 cascade synapse** | **TWO transition families, both `~2^-d` (plastic one RESETS depth to 1 in the opposite cascade) → power-law forgetting `t^-α`, α=1 (α=3/4 in Fusi 2005 as published); cascade capacity ~√N. `~N` is Benna-Fusi 2016, a DIFFERENT model: `SNR(t) ~ √N·e^(-t/T)/(√t·√(log T))`, `T = 2^(2m+1)`** |
 | **D9 synaptic tag & capture** | **consolidate iff `tag × PRP > θ`; ~5 h co-allocation window** |
 | E1' relational binding (TEM) | conjunctive code `p = g ⊗ x` (structural × sensory) |
 | E5 theta-gamma buffer | ~7 gamma sub-cycles (~17 ms) per theta cycle (~125 ms), one item per slot |
@@ -493,15 +496,52 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 
 **D4 — Consolidation: replay scheduling**
 - **BRAIN'S MATH:** partly pinned, and the pinned parts are damning for what we do.
-  ~5-10 sharp-wave ripples/sec during SWS, ~10-30k events over 8 h sleep, **each waking experience
-  replayed only 1-3 times**, and reactivation is specific to the subset of **LARGE** SWRs (Liu 2024
-  PMC11068097; *Neuron* 2025). SWRs phase-locked to the up-state of the 0.5-4 Hz slow oscillation,
-  ~5-10 SWRs per ~1 s up-state (Helfrich 2021 *PNAS* 118 e2012075118). **Only REVERSE replays scale
-  with reward magnitude; forward replays are reward-invariant** (Foster & Wilson 2006 *Nature*
-  440:680). Optimal rehearsal = **expanding intervals, approximately doubling** (Landauer & Bjork
-  1978). Consolidation timing pinned: lexical competition absent immediately, present after a 12-h
-  interval **containing sleep**; meta-analysis ~1,396 participants **g=0.50** (Dumay & Gaskell 2007;
-  2021 meta-analysis). **THE SELECTION FUNCTION — which traces get replayed — is UNPINNED.**
+  ~5-10 sharp-wave ripples/sec during SWS, ~10-30k events over 8 h sleep, and reactivation is specific
+  to the subset of **LARGE** SWRs (Liu 2024 PMC11068097; *Neuron* 2025).
+  **⚠️ UNSOURCED, CORRECTED:** this line previously said *"each waking experience replayed only 1-3
+  times"* and cited PMC11068097. **That source contains no per-experience replay count, and the drill
+  found no source anywhere that pins one.** Treat replay count as a **free parameter to sweep, not a
+  constant**. The only quantitative claim PMC11068097 supports is *"during postexperience sleep,
+  SPW-Rs continued to replay those trial blocks that were reactivated most frequently during waking
+  SPW-Rs."* The stronger, better-sourced statement that replaces it: replay is **selective at the
+  EVENT level** — only a subset of large-amplitude SWRs carries reactivation, their rate selectively
+  rises in post-learning sleep, correlates with performance, and closed-loop optogenetic boosting of
+  them causally improves retrieval (Robinson, Todorova, Fernandez-Ruiz et al., *Neuron* 2025/2026,
+  doi 10.1016/j.neuron.2025.10.003).
+  SWRs phase-locked to the up-state of the 0.5-4 Hz slow oscillation, ~5-10 SWRs per ~1 s up-state
+  (**⚠️ UNVERIFIED CITATION** — "Helfrich 2021 *PNAS* 118 e2012075118" could not be confirmed; searches
+  return Helfrich 2018/2019 *Nat Commun* / *Neuron* on SO-spindle-ripple coupling, not a 2021 *PNAS*
+  carrying this number. Flagged, not re-cited; confidence LOW = absence of confirmation).
+  **Only REVERSE replays scale with reward magnitude; forward replays are reward-invariant** —
+  *"the number of reverse-ordered, but not forwards-ordered, replays was significantly correlated to
+  reward level"* — **Ambrose, Pfeiffer & Foster 2016** *Neuron* 91(5):1124-1136. **⚠️ CORRECTED
+  CITATION:** this was attributed to Foster & Wilson 2006 *Nature* 440:680, which **discovered reverse
+  replay but never showed reward modulation**. Both papers are needed; only the 2016 one supports the
+  claim as stated.
+  Optimal rehearsal — **⚠️ CORRECTED AND DOWNGRADED.** Landauer & Bjork 1978's expanding schedules are
+  **`0,3,10` and `1,4,10`** (ratios ~4× then ~2.5×), **not "approximately doubling"**; the uniform
+  comparators were `(0,0,0)/(1,1,1)`, `(4,4,4)/(5,5,5)`, `~(10,10,10)`. The win is scoped to
+  **TEST-type practice** (retrieval attempts) — the paper's own words are that *"uniform spacing was
+  slightly better if the information was repeated"* (study-type). And the general superiority of
+  expanding is **CONTESTED**: Karpicke & Roediger 2007 and Storm, Bjork & Storm 2010 find equal-interval
+  spacing matches or beats expanding at long retention intervals, expanding winning mainly at short
+  delays. **So: expanding intervals are PINNED as a real 1978 effect for test-type practice at short
+  delay, and UNPINNED as a general optimum. Do not build "expanding, doubling" in as a fixed law.**
+  Consolidation timing pinned: lexical competition absent immediately, present after a 12-h interval
+  **containing sleep** (Dumay & Gaskell 2007 *Psych Sci* 18:35 — this half was correct and stands).
+  **⚠️ OVER-CLAIM CORRECTED:** the meta-analysis is **Schimke, Angwin, Cheng & Copland 2021**
+  *Psychon Bull Rev* 28:1811 (25 studies, k=29, n=1,396), and its **`g=0.50` is the OMNIBUS
+  sleep-vs-WAKE effect on novel word learning — an interval-CONTENT contrast, not "consolidation vs
+  none"**. Its breakdown: recall `g=0.57`, recognition `g=0.52`, **lexical INTEGRATION "a small
+  effect"**. The integration measures are the ones that actually index the CLS claim, and they are the
+  **WEAKEST** in the analysis. Quoting `g=0.50` as an integration effect over-claims. Honest headline:
+  *sleep reliably helps novel-word memory at a moderate effect size, and helps integration measurably
+  less.*
+  **THE SELECTION FUNCTION — which traces get replayed — is UNPINNED.** *(Confirmed still correct by
+  the drill. The leading normative candidate is Mattar & Daw 2018 `priority(s,a) = GAIN(s,a) × NEED(s)`,
+  *Nat Neurosci* 21:1609 — but NEED is computed from the successor representation `M = (I − γP)⁻¹`,
+  i.e. **organ D7, which we do not have**. So the selection function is not merely unpinned in the
+  literature; it is blocked on a missing organ for us specifically.)*
 - **OURS:** faithful-ish version `hdlab/continual.py:99-111` — `W += lr·(v_subᵀ @ k_sub)` forward
   plus `W_back += lr·(k_revᵀ @ v_rev)` reverse-orientation replay, triggered every N calls by an NREM
   decorator. **The LIVE loop instead does a single averaging op per cycle**
@@ -569,13 +609,52 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   over the 1.21M-edge CSKG.
 
 **D8 — The cascade synapse: memory lifetime** *(MISSING, and its math is FULLY PINNED)*
-- **BRAIN'S MATH:** each synapse carries an internal depth `d` with **plasticity `p(write | d) = 2^-d`**
-  and a depth-dependent reverse transition. This yields **power-law forgetting `f(t) ~ t^-α`
-  (α ≈ 0.5-1.0)** instead of `exp(-t/τ)`, and **capacity scaling ~N instead of ~√N** (Fusi, Drew &
-  Abbott 2005 *Neuron* 45:599; Roxin & Fusi 2012). Continuous version: a chain of variables coupled by
-  leaky integrators with **geometrically increasing time constants τ₁ < τ₂ < … < τ_K**, capacity
-  approximately linear in K, **`SNR(t) ~ N/(√K · t^0.5)`** vs `N/t` for a single-state synapse
-  (Benna & Fusi 2016 *Nat Neurosci* 19:1697).
+- **BRAIN'S MATH:** *(corrected 12 ways by `notes/drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md`; the pre-correction text had the N exponent, the model attribution and the α all wrong)*
+  each synapse carries an internal depth `d` with **TWO transition families, both falling as `2^-d`**:
+  a **PLASTIC** one `q_k = q·x^(k-1)` that flips efficacy and **RESETS depth to 1 in the OPPOSITE
+  cascade**, and a **METAPLASTIC** one `p_k = q·x^k` that moves `k → k+1` at constant efficacy
+  (`x = 1/2`; Ben Dayan Rubin & Fusi 2007 — *"the probability for BOTH transitions decreases
+  exponentially as the synapse moves down along the cascade"*). This yields **power-law forgetting
+  `f(t) ~ t^-α` with α = 1** (Fusi lab 2007/2021; **α = 3/4** is the number Fusi, Drew & Abbott 2005
+  actually published and is what must be quoted whenever that paper is cited — **α = 0.5 belongs to
+  Benna-Fusi 2016, a different model, and must not be offered as "the cascade"**) instead of
+  `exp(-t/τ)`. **Capacity scaling, corrected — the map previously had this exactly backwards:**
+
+  | model | signal decay | initial SNR | lifetime / capacity |
+  |---|---|---|---|
+  | binary, fast (`q = O(1)`) | `exp(-q r t)` | `O(1)` | **`log N`** |
+  | **cascade (Fusi, Drew & Abbott 2005** *Neuron* 45:599**)** | `1/t` | `√N/n` | **`√N`** |
+  | **bidirectional cascade (Benna & Fusi 2016** *Nat Neurosci* 19:1697**)** | `1/√t` | `√N/√m` | **`N`** (`N/log N` optimised) |
+
+  So `~N` is **Benna-Fusi 2016's** headline, not the cascade's — Benna & Fusi say so themselves:
+  *"the memory lifetime in previous models of complex synapses with bounded weights scales at most as
+  √N."* Continuous version: a chain of variables coupled by leaky integrators with **geometrically
+  increasing time constants**, ratio **4× per level** (`τ_k = 2^(2k+1)`, `C_k = 2^(k-1)`,
+  `g_{k,k+1} = 2^(-k-2)`), capacity approximately linear in K, and the SNR is
+
+  ```
+  SNR(t)  ~  √N · exp(-t/T) / ( √t · √(log T) ),        T = 2^(2m+1)
+  ```
+
+  **`√N`, NOT `N`** — the map's prior `N/(√K·t^0.5)` overstated the predicted retention level by a
+  factor of `√N`, which at `N = 1024` is **32×**. The `√K` part survives if `K = m`, since
+  `√(log T) ~ √m`. **And the comparison baseline was wrong too:** a single-state *bounded* or *binary*
+  synapse decays **exponentially** (`τ = 1/(qr)`, `SNR ~ q·√N_syn·exp(-qrt)`), **not** as `N/t`; the
+  `√N/t` form is the cascade itself and the Lahiri-Ganguli envelope. The only single-state model with
+  a power law is the **unbounded perfect integrator**, `SNR = √(N/t)` — which is the one we
+  accidentally own (see D8 **OURS** and the KNOWN-DEFECT register).
+  **A predicted, must-observe NEGATIVE:** complex synapses pay an initial-SNR cost of `1/n` (cascade)
+  / `1/√m` (Benna-Fusi). An arm that does not show early-retention LOSS is not implementing this organ.
+  *(Also corrected: Roxin & Fusi is **2013**, *PLoS Comput Biol* 9(7):e1003146, not 2012 — and its
+  multistage model SHARES the cascade's scaling rather than beating it, so it never supported the `~N`
+  claim it was cited for.)*
+- **🅿️ PARKED-BY-SCALE — CROSSOVER `N > ~1e6` SYNAPSES; WE RUN `d = 256..4096`.** Published cascade
+  advantages use 2.5e7 and 5.4e9 synapses. At `n = 10` the cascade only beats simpler multistate
+  models above ~1e6. We are **two to four orders of magnitude below the crossover on `d`**, and the
+  relevant synapse count is likewise far below it. **A negative result here is THE PUBLISHED
+  PREDICTION, not a ceiling and not evidence against the organ.** Do not queue a cascade-vs-single-state
+  capacity bake-off expecting a win; if it is run at all, it is run to confirm the predicted null and
+  the predicted initial-SNR cost, and it must be pre-registered as such.
 - **OURS:** **NONE.** Every store in the substrate is a **single-state weight**: `W += outer(v,k)`
   (`sequence_memory`, `hippocampal_encoder`, `kg_traversal`, `intent_classifier`, `continual`,
   `streaming_attention`). The only multi-timescale-ish object is `hdlab/temporal_trace.py:158-159`
@@ -669,7 +748,19 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **EVIDENCE:** `exp_read_coref_hobbs_centering_resolver_v1` HARD_PASS at **1.000 — on n=10**, with
   floors FULL-vs-OFF (10 vs 0) and NOGATE precision 0.949. **n=10 is not a capability.**
   `exp_extraction_quality_gate_neural_coref_v2` = **NO_GO** against **floors recency 0.5439 and
-  singleton 0.4737** — the honest number. The resolver's confidence signals were VET'd at AUC
+  singleton 0.4737** on metric `coref_b3_f1`, **n=57**.
+  **⚠️ CROSS-RUN CONFLATION CORRECTED (2026-08-14).** Those two floors are real and DO reproduce on
+  disk — but they belong to that ONE experiment, on `coref_b3_f1`, and this doc used them as *the*
+  floors for the whole organ. **On the run where our own resolver is actually measured
+  (`exp_wire_coref_accumulate_situation_model_v1`, identity-demanding query accuracy over 36 McGuffey
+  passages), the same-run floors re-aggregate to recency 0.5614 and singleton 0.3860, and our
+  resolver scores 0.7193** (earned 0.6842, oracle 0.9298). **So on the only comparison that is
+  same-corpus / same-metric / same-run, WE ARE NOT LOSING TO TRIVIAL BASELINES — we are ~0.16 above
+  recency and ~0.33 above singleton.** The prior "we lose to pick-the-last-subject" reading came from
+  comparing a resolver score in one run against floors from a different run on a different metric,
+  propagated one hop from a stale docstring. **Only the 0.5614 / 0.3860 pair may be set beside the
+  0.7193.** The real remaining gap is oracle 0.9298 − earned 0.6842.
+  The resolver's confidence signals were VET'd at AUC
   0.65-0.75 for predicting **its own errors** — metacognition, not resolution accuracy.
   **Competitive resolution among 2+ semantically plausible antecedents has NEVER been tested at
   scale.**
@@ -878,6 +969,24 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **WIRED:** `modulators` YES; `excitability` **NO** (ISLAND, zero consumer).
 - **EVIDENCE:** none floored. **UNTESTED.**
 - **BLOCKS:** C3's brain-faithful form as a *reuse* rather than a new build.
+- **🔑 WHAT THE DECORRELATION DRILL ADDED (2026-08-14) — the reason four reweightings failed.**
+  **Whitening IS per-dimension gain, but IN THE RIGHT BASIS.** That single qualifier is exactly what
+  our four failed reweighting attempts lacked: every one of them applied a gain **per raw dimension**,
+  in the basis the vectors happen to arrive in, which is not the basis in which the correlation lives.
+  A per-dimension gain in the wrong basis cannot decorrelate anything — it rescales axes that were
+  never the axes of the redundancy. This reclassifies those four negatives: they are **wrong-basis
+  implementations, NOT evidence that gain-based decorrelation fails.**
+  **Measured on our own code: a 58% COMMON MODE.** More than half the variance is a single shared
+  direction every vector carries. That is a rank-1 structure sitting on top of everything the
+  comparator does, and it is the dominant reason near-neighbours look alike.
+  **What is estimable at our scale, and what is not — this is the whole build decision.**
+  **Rank-1 mean removal IS estimable** at `d = 256..4096` with the sample counts we have: one
+  direction needs `O(d)` samples. **FULL covariance whitening is NOT** — it needs `O(d²)` samples
+  (65k to 16M) that we do not have, so an estimated full covariance would be dominated by its own
+  estimation noise and would *add* variance rather than remove it. **So the licensed step is
+  rank-1 (remove the common mode), and full-covariance whitening is PARKED-BY-SAMPLE-SIZE with the
+  crossover stated as `O(d²)` samples.** Do not queue full whitening; do not read the four prior
+  nulls as closing the question.
 
 **G4 — Basal ganglia: Go/NoGo action selection**
 - **BRAIN'S MATH:** WTA disinhibition over Go/NoGo pathways; TD learning with bootstrapped value.
@@ -1100,12 +1209,17 @@ Ranked by **(blocks the most) × (worst fidelity) × (we already own something t
   variable rather than building a new organ.
 - **CAN-FAIL TEST:** accuracy resolving a pronoun / definite NP among **≥2 semantically plausible**
   candidate antecedents, on real text, at n in the hundreds — **not n=10.**
-- **FLOOR — and this is what makes it honest:** **most-recent-mention (0.5439)** and
-  **singleton/subject-position-majority (0.4737)**, both already measured in
-  `exp_extraction_quality_gate_neural_coref_v2`, which returned **NO_GO** against them. Both floors are
-  trivial and both are known to be dangerously strong here — `frame_induction` already **lost** to a
-  position-majority baseline (0.833 vs 1.000). If the competitive resolver cannot beat "pick the last
-  subject", it has not earned the organ name.
+- **FLOOR — ⚠️ CORRECTED; USE THE SAME-RUN PAIR.** **most-recent-mention (0.5614)** and
+  **singleton/subject-position-majority (0.3860)**, as re-aggregated from
+  `exp_wire_coref_accumulate_situation_model_v1` — the run that also measures our resolver, on the
+  same 36-passage McGuffey corpus and the same identity-demanding query metric. **Our resolver is at
+  0.7193 there, i.e. ABOVE both floors.** The previously-quoted pair (recency 0.5439 / singleton
+  0.4737) is real but comes from `exp_extraction_quality_gate_neural_coref_v2` on `coref_b3_f1`, n=57
+  — a **different corpus, metric and run**, and must not be placed beside a situation-model score.
+  Both floors remain trivial and remain worth beating by a margin — `frame_induction` already **lost**
+  to a position-majority baseline (0.833 vs 1.000), so the hazard class is live. But the honest
+  statement of the gap is now **oracle 0.9298 vs earned 0.6842**, not "we lose to pick-the-last-subject".
+  **This step is therefore a WIDEN-THE-MARGIN step on a working organ, not a rescue.**
 - **Why fourth and not later:** genuinely untouched, textbook-necessary, and it is the wall the E2
   assembly hits organically (E2 measured coref at 0.5825 against chance 0.05 with a 0.98 ceiling —
   `LOCALIZED_WALL`). Its *metric* improves once 2-3 land; its *build* does not depend on them.
@@ -1114,14 +1228,28 @@ Ranked by **(blocks the most) × (worst fidelity) × (we already own something t
 - **Organ:** sleep — making new learning stick without destroying old learning.
 - **Fidelity fix, and note this is the ONE place in the plan where the brain's equation is fully
   pinned and we have literally none of it.** Two separable deficits:
-  - **D8, the synapse.** Every store we own is single-state `W += outer(v,k)`. The brain's is a
-    **cascade**: `p(write|d) = 2^-d` giving power-law forgetting and **capacity ~N instead of ~√N**
-    (Fusi 2005), or Benna-Fusi's geometric τ chain with `SNR(t) ~ N/(√K·t^0.5)`. **A consolidation
-    schedule on a single-state synapse cannot buy what a multi-timescale synapse buys for free.**
+  - **D8, the synapse. 🅿️ PARKED-BY-SCALE — see the crossover note in the D8 organ entry.** Every
+    store we own is single-state `W += outer(v,k)`. The brain's is a **cascade**: two transition
+    families both `~2^-d`, the plastic one resetting depth to 1 in the opposite cascade, giving
+    power-law forgetting `t^-1` and **capacity ~√N** (Fusi, Drew & Abbott 2005); or **Benna-Fusi
+    2016's** geometric τ chain, `SNR(t) ~ √N·e^(-t/T)/(√t·√(log T))`, which is where **`~N`** comes
+    from. **The cascade only beats simpler multistate models above ~1e6 synapses; we run
+    `d = 256..4096`. A negative here is the PUBLISHED PREDICTION.** This step is therefore NOT
+    queued as a capacity win — if run, it is run to confirm the predicted null AND the predicted
+    initial-SNR COST (`1/n`, `1/√m`), which is the only part observable at our scale.
+    **A consolidation schedule on a single-state synapse still cannot buy what a multi-timescale
+    synapse buys for free — that claim survives the correction, and it is the reason the organ stays
+    on the map rather than being deleted.**
   - **D4, the schedule.** The live loop's single averaging op per cycle is the wrong operation class.
     The faithful version is owned and islanded (`continual.py` forward + reverse-orientation replay).
-    The pinned biology to add: replay each item **1-3 times**, not uniformly; **expanding intervals,
-    approximately doubling**; and note that **only reverse replay scales with reward**.
+    The pinned biology to add, **restated after the drill's corrections**: replay is **selective at
+    the EVENT level** (large-SWR subset only), not uniform — **replay COUNT is a free parameter to
+    sweep, NOT the "1-3 times" this doc previously asserted unsourced**; schedule arms should include
+    Landauer & Bjork's **actual** `0,3,10` / `1,4,10` against uniform `(1,1,1)` / `(5,5,5)` /
+    `~(10,10,10)`, with **expanding treated as a HYPOTHESIS, not a law** (contested at long retention
+    intervals by Karpicke & Roediger 2007); and **only reverse replay scales with reward**
+    (Ambrose, Pfeiffer & Foster 2016, *not* Foster & Wilson 2006). The **selection function stays
+    UNPINNED** and is blocked on organ D7 for the one normative candidate (Mattar & Daw 2018).
 - **CAN-FAIL TEST:** interleaved OLD-vs-NEW retention on real text — after ingesting N new corpora
   (which step 1 makes possible), measure retention of held-out facts from the ORIGINAL foundation
   alongside acquisition of the new ones.
@@ -1130,9 +1258,17 @@ Ranked by **(blocks the most) × (worst fidelity) × (we already own something t
   single_seq 0.217** against `full_cls 0.808`, 3/3 seeds — a real failable floor that already exists
   and is not wired. **Averaging cannot pass an interleaved-retention test**; that asymmetry is what
   lets the test fail informatively.
-- **ONE VARIABLE:** run D8 (synapse) and D4 (schedule) as **separate arms**. Their effects are
-  confoundable and the pinned prediction differs — the cascade should change the *shape* of forgetting
-  (power-law vs exponential), the schedule should change the *level*.
+- **ONE VARIABLE — ⚠️ THE ORIGINAL SEPARATION WAS ONLY PARTLY SAFE.** Run D8 (synapse) and D4
+  (schedule) as **separate arms**; the pinned prediction differs — the cascade should change the
+  *SHAPE* of forgetting (power-law vs exponential), the schedule should change the *LEVEL*. That
+  framing is confirmed correct by the drill (§4.2). **But the confound is worse than this doc said:
+  the SPACING EFFECT is produced by the SYNAPSE ALONE** (Benna-Fusi Fig 7c, an inverted-U in
+  inter-repetition interval, with no schedule machinery present at all). So a cascade-only arm run on
+  a non-uniform ingest schedule **already shows schedule-like effects**, and a schedule arm run on a
+  single-state synapse **cannot show the inverted U at all**. **To keep one variable: the cascade-only
+  arm MUST be run at FIXED, UNIFORM inter-repetition spacing, or the two organs must be run as a full
+  2×2.** Otherwise the confound runs in the direction that FLATTERS the schedule — i.e. it manufactures
+  a false positive for the cheaper organ.
 - **Why after step 1:** interleaved retention is untestable without a stream of genuinely new material
   to forget. Today the loop reads the same 4 segments forever.
 
@@ -1237,3 +1373,63 @@ is 5 organs of 38, and three of those five are not wired.**
 - **Concurrent session:** the working tree is dirty with another session's uncommitted work. Only this
   file was staged.
 - **No tool call was denied during this audit.**
+
+---
+
+## 9. CORRECTIONS APPLIED (living log — newest first)
+
+### 2026-08-14 — 12 biology corrections + 2 evidence corrections
+
+Source: `notes/drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md` (a targeted
+literature drill against this map's own citations), plus two disk re-verifications.
+
+**The drill checked 12 claims this map made and found 12 of them wrong.** That is the headline, and
+it is a finding about the METHOD, not just the content: a citation copied once into a map is never
+re-read, so an error in it compounds silently into every plan that cites the map. The corrections:
+
+| # | organ | what was wrong | now |
+|---|---|---|---|
+| 1 | D8 | `SNR ~ N/(√K·t^0.5)` — wrong exponent of N | **`√N`**, full form `√N·e^(-t/T)/(√t·√(log T))`, `T=2^(2m+1)`. **32× error at N=1024** |
+| 2 | D8 | capacity `~N` credited to the cascade | `~N` is **Benna-Fusi 2016**; cascade is **`~√N`**; fast binary `~log N` |
+| 3 | D8 | "vs `N/t` for a single-state synapse" | single-state bounded/binary decays **exponentially**; `√N/t` is the cascade itself |
+| 4 | D8 | one write probability | **two** families both `~2^-d`; plastic one **resets depth to 1 in the opposite cascade** |
+| 5 | D8 | `α ≈ 0.5-1.0` | cascade α = **1** (or **3/4** as published 2005); **0.5 is a different model** |
+| 6 | D8 | "Roxin & Fusi 2012" | **2013**, *PLoS Comput Biol* 9:e1003146 — and it SHARES the cascade's scaling, never supported `~N` |
+| 7 | D4 | "each experience replayed 1-3 times" | **UNSOURCED** — not in the cited paper, not found anywhere. **Free parameter, sweep it** |
+| 8 | D4 | "expanding intervals, approximately doubling" | actual schedules **`0,3,10` / `1,4,10`** (~4× then 2.5×); scoped to **test-type** practice; **general superiority CONTESTED** |
+| 9 | D4 | reward-scaling cited to Foster & Wilson 2006 | **Ambrose, Pfeiffer & Foster 2016** *Neuron* 91:1124. The 2006 paper found reverse replay, never reward modulation |
+| 10 | D4 | `g=0.50` quoted as an integration effect | **Schimke et al. 2021**; `g=0.50` is the **omnibus sleep-vs-WAKE** effect; **integration is the WEAKEST** measure in it |
+| 11 | D4 | "Helfrich 2021 *PNAS* 118 e2012075118" | **UNVERIFIED** — flagged, not re-cited (LOW confidence = absence of confirmation) |
+| 12 | STEP 5 | "cascade→shape / schedule→level cleanly separable" | **spacing effect is produced by the SYNAPSE ALONE** — fix uniform spacing in the synapse arm or run 2×2, else the confound flatters the schedule |
+
+**Evidence correction A — coreference floors were a cross-run conflation.** This map cited recency
+0.5439 / singleton 0.4737 as *the* E3 floors and concluded we lose to trivial baselines. Those numbers
+are real, but come from `exp_extraction_quality_gate_neural_coref_v2` on metric `coref_b3_f1`, n=57.
+On the run that actually measures our resolver
+(`exp_wire_coref_accumulate_situation_model_v1`, 36 McGuffey passages), the same-run floors are
+**recency 0.5614 / singleton 0.3860 and our resolver scores 0.7193.** **We are NOT losing to trivial
+baselines at coreference.** A stale docstring propagated one hop into this map and turned a working
+organ into a rescue target. Rule reinforced: **a floor is only a floor on the SAME corpus, metric, run
+and arm.**
+
+**Evidence correction B — the floor census has an arithmetic slip.** 594 + 359 = 953, not 946. Flagged
+inline at §1; the scan needs re-running before the pair is quoted as exhaustive.
+
+**Addition — the decorrelation drill (recorded at organ G3).** Whitening is per-dimension gain **in the
+right basis**; our four failed reweightings were all per-RAW-dimension, i.e. wrong basis, so they are
+**not** evidence that gain-based decorrelation fails. Our code carries a **58% common mode**. Rank-1
+mean removal is estimable at our scale (`O(d)` samples); **full-covariance whitening is not**
+(`O(d²)` = 65k-16M samples) and is PARKED-BY-SAMPLE-SIZE.
+
+**Addition — PARKED-BY-SCALE is now a first-class status on this map.** D8's cascade only beats
+simpler multistate models above **~1e6 synapses** (published figures use 2.5e7 and 5.4e9); we run
+`d = 256..4096`. **A negative there is the published prediction, not a ceiling.** Any organ whose
+mechanism pays off orders of magnitude above our scale gets this tag with its crossover stated, and
+is NOT queued as a win.
+
+**What did NOT need correcting** (checked and upheld): the "SELECTION FUNCTION is UNPINNED" verdict at
+D4 — with the added detail that its leading normative candidate (Mattar & Daw 2018,
+`priority = GAIN × NEED`) is blocked for us on missing organ D7; and the per-`d` comparator table at
+§B4, which already stated `QUANT [0.6395, 0.7030, 0.7380]` / `GRAD [0.6980, 0.7495, 0.78225]`
+honestly. **`0.7495` is the d=1024 GRADED arm — it is NOT the live path.** The live path moved
+**0.6395 → 0.6980**. Anyone quoting 0.7495 as a shipped result is quoting an unshipped capacity change.
