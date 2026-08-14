@@ -110,20 +110,39 @@ finding, not as the cell's result.
 ## 5. THE Cf RANK MAP -- PRE-COMMITTED, LITERATURE-DERIVED, NOT SWEPT
 
 ```python
-CF_RANK = {"agent": 3, "experiencer": 3, "patient": 2, "theme": 2, "recipient": 1}
+CF_RANK = {"agent": 3, "experiencer": 3, "patient": 2, "theme": 2,
+           "recipient": 1, "addressee": 1, "possessor": 0}
 # entity with no role history at all -> -1 (sorts below every ranked entity)
 ```
 
 Derivation, CITED@Brennan/Friedman/Pollard 1987 Cf ordering SUBJ > DOBJ > IOBJ > OTHER, mapped onto
-this gold's thematic-role vocabulary (the complete vocabulary is exactly
-{agent, patient, experiencer, theme, recipient} -- verified against the corpus, not assumed):
-agent -> SUBJ; experiencer -> SUBJ (English psych verbs are predominantly experiencer-subject:
-see, hear, feel, fear, want); patient, theme -> DOBJ; recipient -> IOBJ.
+this gold's thematic-role vocabulary: agent -> SUBJ; experiencer -> SUBJ (English psych verbs are
+predominantly experiencer-subject: see, hear, feel, fear, want); patient, theme -> DOBJ;
+recipient, addressee -> IOBJ; possessor -> OTHER.
+
+> **AMENDMENT, 2026-08-14, BEFORE ANY ARM OF THIS CELL WAS RUN -- and disclosed rather than quietly
+> patched.** The first version of this section asserted "the complete vocabulary is exactly
+> {agent, patient, experiencer, theme, recipient} -- verified against the corpus, not assumed".
+> **That claim was WRONG.** It was verified only over the roles carried by PRONOUN mentions in the
+> competitive subset, not over all mentions. The cell's own self-test check (2) -- "CF_RANK must
+> cover the corpus role vocabulary, no silent -1 bucket" -- caught it and refused to run:
+> `SELF-TEST FAIL: CF_RANK does not cover corpus roles ['addressee', 'possessor']`.
+> Full vocabulary over all 349 mentions of the 36 primary passages: agent 181, theme 68, patient 42,
+> possessor 21, experiencer 19, recipient 17, addressee 1.
+> The two additions are assigned from the SAME literature ordering and from inspection of the
+> mentions themselves, NOT from any outcome -- no arm had been run when this amendment was written:
+> `possessor` is a genitive specifier ("Ben's turn", "her bedside", "Mrs. Lord and her two little
+> girls"), which BFP and Walker/Iida/Cote place in OTHER; the single `addressee` is a prepositional
+> indirect object of a speech verb ("Joab said unto the man"), i.e. IOBJ.
+> A fourth tier (rank 0 = OTHER) is therefore added, so `CF_TIERS = (3, 2, 1, 0)`.
+> This amendment is why the self-test coverage check exists; had it not fired, `possessor` would
+> have fallen into an unranked bucket silently and 21 mentions would have been mis-tiered.
 
 **This map is FIXED. It is not a tuning surface and will not be swept to reach a band.** One
 declared SENSITIVITY variant is computed and reported and is **NOT HEADLINE-ELIGIBLE**:
-`CF_RANK_ALT = {"agent": 3, "patient": 2, "theme": 2, "experiencer": 1, "recipient": 1}`
-(experiencer demoted, for the object-experiencer reading). If the two disagree materially that is
+`CF_RANK_ALT = {"agent": 3, "patient": 2, "theme": 2, "experiencer": 1, "recipient": 1,
+"addressee": 1, "possessor": 0}` (experiencer demoted, for the object-experiencer reading; the two
+amended roles are identical in both maps so the sensitivity isolates the experiencer tier only). If the two disagree materially that is
 itself reported as a fidelity caveat about thematic-vs-grammatical role.
 
 **Known fidelity caveat, stated in advance:** the gold supplies THEMATIC roles, and Centering's Cf
