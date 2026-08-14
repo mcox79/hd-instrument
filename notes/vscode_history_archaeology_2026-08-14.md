@@ -468,3 +468,81 @@ a distinct and separately actionable category: *not wrong, not superseded, just 
 Centering Cb tiers, a DIFFERENT mechanism, on a different gold set; it CORROBORATES rather than
 replaces). V2 is not superseded by the 08-14 forgetting-kernel work (that tested a sign-readout and
 a cascade kernel, not schedule). For V3-V9 no supersession check was run, and none should be assumed.
+
+## 5. THE INVISIBLE NEGATIVES — the mirror finding, and it may cost more than the positives
+
+The USER's hypothesis was about missed PROGRESS. The inventory surfaces the symmetric problem,
+which no previous sweep looked for: **failed and middling arcs are ALSO invisible, so a mechanism
+can be re-proposed as novel after having already been attacked and beaten.**
+
+### 5a. ATL / hub-and-spoke — attacked THREE times, never passed, and re-scanned yesterday
+
+Enumerated every cell whose name matches `atl|hub_and_spoke|hub_spoke|anterior_temporal`.
+**7 stems. ZERO floored passes. The arc is a documented failure ladder:**
+
+| cell | verdict | floor present |
+|---|---|---|
+| `exp_substrate_hub_spoke_E1_encoder_v1` | **HARD_FAIL** | yes |
+| `exp_substrate_hub_spoke_E1_encoder_v1_smoke` | MIDDLE_BAND | yes |
+| `exp_substrate_hub_spoke_E1_v2_diverse_algorithm` | MIDDLE_BAND | yes |
+| `exp_substrate_hub_spoke_E1_v2_diverse_algorithm_smoke` | MIDDLE_BAND | yes |
+| `exp_substrate_hub_spoke_E1_v2_diverse_algorithm_smoke_ti*` | MIDDLE_BAND | yes |
+| `exp_substrate_hub_spoke_E1_v3_MRC_calibrated_routing` | **HARD_FAIL** | yes |
+| `exp_hub_spoke_cross_encoder_alignment_smoke_v1` (+`_selftest`) | SELFTEST_OK | no |
+
+Three generations — a base encoder, a diverse-algorithm v2, and an MRC-calibrated-routing v3 —
+all floored, none clearing. All UNDATED (the pre-`ts_iso` template, §3f).
+
+**Why this matters right now.** ATL/hub-and-spoke is the brain's answer to exactly the defect the
+substrate currently has: the ATL is the graded, amodal hub whose job is to hold near-neighbours
+apart. `notes/lit_scan_atl_hub_and_spoke_2026-08-13.md` (28.4 KB, written yesterday) went to the
+literature on this mechanism. **VERIFIED: that note contains no reference to `hub_spoke_E1`,
+`E1_encoder`, `E1_v2`, `E1_v3` or `MRC_calibrated` — and neither does `ORGAN_MAP.md`,
+`SUBSTRATE_STRATEGY.md` or `STATUS.md`.** (Checked by reading all four files and testing for the
+literal strings, with `.venv` python.)
+
+So the project holds three floored in-house refutations of its own ATL implementations and
+commissioned a fresh literature scan of the same mechanism without citing any of them. That is not
+a wasted lit scan — the literature is worth having — but the scan could not perform its most
+valuable function, which is to explain WHY the three in-house attempts failed and what the
+literature says to do differently.
+
+### 5b. Cerebellum — built, then found to have no consumer
+
+- `exp_pfc_gate_cerebellum_sr_rollout_v1_smoke` (2026-07-07) —
+  **`HARD_FAIL_NO_CEREBELLAR_CONSUMER`**, floored.
+- `exp_substrate_cerebellar_random_expansion_write_v1` — **HARD_FAIL**, floored.
+- `exp_pfc_gate_cerebellum_sr_rollout_v1` — `SELFTEST_OK`.
+
+**The verdict string itself is the finding.** `HARD_FAIL_NO_CEREBELLAR_CONSUMER` is a machine-
+readable record of the ISLANDING failure mode: an organ was built and nothing downstream consumed
+it. The memory index's "WIRE DON'T ISLAND" rule and the standing registry-leak audit both describe
+this class in the abstract; here is a cell that measured a specific instance on 2026-07-07 and
+named it in its verdict. It is in no doc.
+
+### 5c. Entorhinal / grid — one cell, a pass, and no floor
+
+`exp_crt_multi_scale_grid_cell_composition_v1` — `HARD_PASS`, **no floor**, undated. The entire
+entorhinal/grid family is this one unfloored cell. Reported for completeness; **an unfloored pass
+is not evidence** and it is ranked accordingly.
+
+### 5d. Consistent, well-replicated negatives that are also dark
+
+- `exp_substrate_binding_op_x_capacity_v1_seed_{7,13,19}` (2026-07-01) — **HARD_FAIL on all three
+  seeds**, floored. A three-seed replicated negative on binding-operator-by-capacity.
+- `exp_substrate_pcgrad_cfrpe_stdp_v2_RESCUE` — **HARD_FAIL**; the rescue attempt on the STDP arc
+  failed. The `_RESCUE` suffix is itself a convention no current search knows about.
+- `exp_grounding_iterative_settling_cascade_depth_v1` (2026-07-09) —
+  **`HARD_FAIL_NO_EXTENSION`**: iterative settling does not extend with depth. Directly relevant to
+  the cue-clamped iterative-cleanup asset (A6) the prior sweep listed as a Tier-1 lead — **this cell
+  is the closest thing to a prior refutation of that lead, and the prior sweep did not surface it**
+  because it was hunting passes, not failures.
+- `exp_substrate_pattern_completion_corruption_cliff_v2p2_dense_c*` (2026-06-28) — HARD_FAIL on
+  three variants, floored, alongside `..._v2_narrow_re*` HARD_PASS. A pass and a fail in the same
+  family on the same day; only reading both tells you where the cliff is.
+
+**The general rule this suggests.** A capability index that records only WIRE-or-SHELVE for passes
+is half an index. The failures are what stop the next agent from re-proposing a beaten mechanism,
+and they are exactly what the current docs do not carry. `HARD_FAIL_NO_CEREBELLAR_CONSUMER`,
+`HARD_FAIL_NO_EXTENSION` and the three-seed binding failure are worth more per byte than most of
+the passes in §4, because they are cheap to record and they prevent expensive repeats.
