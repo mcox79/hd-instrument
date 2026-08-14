@@ -744,7 +744,7 @@ Nothing on disk was opened for these, so **none of them is VERIFIED and none may
 6. **NOT DONE -- nothing was WIRED.** Every row leaves this pass in VERIFIED or FOUND. By RECOVERY_PROGRAM sec 3 that means the tier is triaged, not finished.
 7. **NOT DONE -- the sibling tiers.** This file covers H1 only. H2 (127 `proven-bound` reading cells >= 07-15) is untouched here and the source note's own conclusion is that it is **richer for C3 than this tier** -- only 33 of these 565 cells are dated 2026-07-15 or later.
 
-## 6a. THE 12 STATE:REFUTED ROWS -- the cheapest thing in this file
+## 6a. THE 12 ROWS IN STATE REFUTED -- the cheapest thing in this file
 
 A refutation stops work, so these are listed by name rather than left to be found in a 565-row table. Each is a chain-graded cell whose own verdict is a negative.
 
