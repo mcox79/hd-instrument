@@ -1,0 +1,286 @@
+{
+  "anchor_name": "coref_cue_based_retrieval_actr_activation_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: delta vs base_principle_b = -0.1348 (CI -0.2500..-0.0337) | PRIMARY P = link-level pronoun accuracy on the COMPETITIVE subset (>=2 gn-compatible candidates), pooled over both gold sets.",
+  "run_mode": "full",
+  "prereg": "preregs/2026-08-14_coref_cue_based_retrieval_actr_activation_v1.md",
+  "prereg_commit": "1544d7e2a",
+  "elapsed_s": 0.3876838684082031,
+  "timeout_s": 900.0,
+  "ts_iso": "2026-08-14T04:09:05Z",
+  "pid": 19752,
+  "bands": {
+    "hard_pass_delta": 0.05,
+    "pass_delta": 0.02,
+    "fail_delta": -0.02,
+    "hard_fail_delta": -0.05,
+    "d1_vacuity_min": 10
+  },
+  "actr_params": {
+    "d_PINNED": 0.5,
+    "W_not_pinned": 1.0,
+    "S_not_pinned": 1.5
+  },
+  "datasets": {
+    "g5g6_reviewed": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+    "powered": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl"
+  },
+  "P_competitive_by_arm": {
+    "actr_base": 0.6179775280898876,
+    "actr_parallel": 0.5842696629213483,
+    "base_principle_b": 0.7191011235955056,
+    "base_salience": 0.5617977528089888,
+    "base_strict_cb": 0.6966292134831461,
+    "floor_chain_all": 0.5280898876404494,
+    "floor_most_recent": 0.5280898876404494,
+    "floor_singleton": 0.0,
+    "actr_parallel_scrambled": 0.59375
+  },
+  "pronoun_link_acc_by_arm": {
+    "actr_base": 0.6911764705882353,
+    "actr_parallel": 0.6691176470588235,
+    "base_principle_b": 0.7720588235294118,
+    "base_salience": 0.6691176470588235,
+    "base_strict_cb": 0.7573529411764706,
+    "floor_chain_all": 0.6323529411764706,
+    "floor_most_recent": 0.6323529411764706,
+    "floor_singleton": 0.10294117647058823,
+    "actr_parallel_scrambled": 0.6029411764705882
+  },
+  "b3_pronoun_f1_by_arm": {
+    "actr_base": 0.6911993580552663,
+    "actr_parallel": 0.6782703443060449,
+    "base_principle_b": 0.7141184018705513,
+    "base_salience": 0.6802924063360285,
+    "base_strict_cb": 0.7123496878132914,
+    "floor_chain_all": 0.7567287769669873,
+    "floor_most_recent": 0.5642346119029482,
+    "floor_singleton": 0.3466220748478356,
+    "actr_parallel_scrambled": 0.642008381356053
+  },
+  "n_competitive_decisions": 89,
+  "n_pronoun_decisions": 136,
+  "n_passages": 54,
+  "discriminators": {
+    "D1_actr_vs_salience_differing_competitive_decisions": 24,
+    "D2_n_multicandidate_decisions": 89,
+    "D3_competitive_decisions_with_gender_fan_ge2": 22,
+    "D2_salience_equals_argmax_count_fraction": 1.0
+  },
+  "paired_bootstrap": {
+    "actr_parallel_vs_base_principle_b": {
+      "delta_mean": -0.13262473774158348,
+      "ci_lo": -0.25,
+      "ci_hi": -0.0337078651685393,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0
+    },
+    "actr_base_vs_base_principle_b": {
+      "delta_mean": -0.10045544579437625,
+      "ci_lo": -0.21212121212121215,
+      "ci_hi": -0.009803921568627524,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0109
+    },
+    "base_strict_cb_vs_base_principle_b": {
+      "delta_mean": -0.02285673335024139,
+      "ci_lo": -0.0625,
+      "ci_hi": 0.0,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0
+    },
+    "base_salience_vs_base_principle_b": {
+      "delta_mean": -0.15475659939026742,
+      "ci_lo": -0.2857142857142857,
+      "ci_hi": -0.033333333333333326,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0044
+    },
+    "floor_most_recent_vs_base_principle_b": {
+      "delta_mean": -0.1883342654533717,
+      "ci_lo": -0.3372093023255814,
+      "ci_hi": -0.03488372093023251,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0058
+    },
+    "actr_base_vs_base_salience": {
+      "delta_mean": 0.054301153595891195,
+      "ci_lo": 0.0,
+      "ci_hi": 0.11458333333333337,
+      "n_resamples": 10000,
+      "frac_gt0": 0.9518
+    },
+    "actr_parallel_vs_actr_base": {
+      "delta_mean": -0.032169291947207225,
+      "ci_lo": -0.10870103314679297,
+      "ci_hi": 0.044117647058823595,
+      "n_resamples": 10000,
+      "frac_gt0": 0.1564
+    },
+    "actr_parallel_vs_scrambled": {
+      "delta_mean": -0.06079364745246105,
+      "ci_lo": -0.30000000000000004,
+      "ci_hi": 0.13085292174077198,
+      "n_resamples": 10000,
+      "frac_gt0": 0.2775
+    }
+  },
+  "sensitivity_S_NOT_headline_eligible": {
+    "g5g6_reviewed_S1.0": 0.5405405405405406,
+    "g5g6_reviewed_S1.5": 0.5945945945945946,
+    "g5g6_reviewed_S2.0": 0.6486486486486487,
+    "powered_S1.0": 0.5384615384615384,
+    "powered_S1.5": 0.5769230769230769,
+    "powered_S2.0": 0.6153846153846154
+  },
+  "per_dataset": {
+    "g5g6_reviewed": {
+      "actr_base": {
+        "P_competitive": 0.6486486486486487,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.7166666666666667,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.7046298995788794,
+        "b3_all_f1": 0.6858843319866766
+      },
+      "actr_parallel": {
+        "P_competitive": 0.5945945945945946,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.6833333333333333,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.6846825304829248,
+        "b3_all_f1": 0.6709960000518328
+      },
+      "base_principle_b": {
+        "P_competitive": 0.7567567567567568,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.8,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.723520766644521,
+        "b3_all_f1": 0.6981064442741095
+      },
+      "base_salience": {
+        "P_competitive": 0.5945945945945946,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.7,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.694587980603173,
+        "b3_all_f1": 0.6824822028460305
+      },
+      "base_strict_cb": {
+        "P_competitive": 0.7297297297297297,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.7833333333333333,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.7217667055293342,
+        "b3_all_f1": 0.6995537155287574
+      },
+      "floor_chain_all": {
+        "P_competitive": 0.5945945945945946,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.6833333333333333,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.7792212177106878,
+        "b3_all_f1": 0.7253088196197413
+      },
+      "floor_most_recent": {
+        "P_competitive": 0.5945945945945946,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.6833333333333333,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.5728583332700135,
+        "b3_all_f1": 0.5847266397632761
+      },
+      "floor_singleton": {
+        "P_competitive": 0.0,
+        "n_competitive": 37,
+        "pronoun_link_acc": 0.11666666666666667,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.3428139282543648,
+        "b3_all_f1": 0.4188481675392677
+      },
+      "actr_parallel_scrambled": {
+        "P_competitive": 0.627906976744186,
+        "n_competitive": 43,
+        "pronoun_link_acc": 0.65,
+        "n_pronoun": 60,
+        "b3_pronoun_f1": 0.6515179743592764,
+        "b3_all_f1": 0.6450861130557212
+      }
+    },
+    "powered": {
+      "actr_base": {
+        "P_competitive": 0.5961538461538461,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.6710526315789473,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.6777688165316532,
+        "b3_all_f1": 0.7964415309043307
+      },
+      "actr_parallel": {
+        "P_competitive": 0.5769230769230769,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.6578947368421053,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.671858158129165,
+        "b3_all_f1": 0.7947248631366053
+      },
+      "base_principle_b": {
+        "P_competitive": 0.6923076923076923,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.75,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.7047160370965815,
+        "b3_all_f1": 0.807526539322139
+      },
+      "base_salience": {
+        "P_competitive": 0.5384615384615384,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.6447368421052632,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.6659968320688839,
+        "b3_all_f1": 0.792912060545242
+      },
+      "base_strict_cb": {
+        "P_competitive": 0.6730769230769231,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.7368421052631579,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.7029326700972487,
+        "b3_all_f1": 0.8077837819288797
+      },
+      "floor_chain_all": {
+        "P_competitive": 0.4807692307692308,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.5921052631578947,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.7342363362232869,
+        "b3_all_f1": 0.5882112091316009
+      },
+      "floor_most_recent": {
+        "P_competitive": 0.4807692307692308,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.5921052631578947,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.5556108905358831,
+        "b3_all_f1": 0.7323369465369788
+      },
+      "floor_singleton": {
+        "P_competitive": 0.0,
+        "n_competitive": 52,
+        "pronoun_link_acc": 0.09210526315789473,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.3504302214413063,
+        "b3_all_f1": 0.46593406593406617
+      },
+      "actr_parallel_scrambled": {
+        "P_competitive": 0.5660377358490566,
+        "n_competitive": 53,
+        "pronoun_link_acc": 0.5657894736842105,
+        "n_pronoun": 76,
+        "b3_pronoun_f1": 0.6324987883528296,
+        "b3_all_f1": 0.7781184057392619
+      }
+    }
+  }
+}
