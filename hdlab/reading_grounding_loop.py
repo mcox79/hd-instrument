@@ -77,6 +77,7 @@ compliant.
 from __future__ import annotations
 
 import hashlib
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Mapping, Optional, Sequence, Tuple
@@ -97,6 +98,38 @@ from hdlab.grounding_acquisition_loop import (
     context_vector,
     schema_consistency_split_half,
 )
+GRADED_COMPARATOR: bool = os.environ.get("HD_GRADED_COMPARATOR", "1").lower() not in (
+    "0", "false", "no", "off")
+"""DEFAULT ON since 2026-08-14. THE COMPARATOR'S TERMINAL QUANTISERS ARE OFF BY DEFAULT.
+
+Set `HD_GRADED_COMPARATOR=0` in the environment to restore the pre-2026-08-14 behaviour
+BYTE-FOR-BYTE (asserted by `_selftest_graded_comparator_default`). One switch drives all four
+sites coherently -- `context_vector_masked`, `ConceptSpace.anchor_matrix`, `ConceptSpace.bundle`
+and `canonicalize_fast`'s query -- because a graded field read by a signed query (or the reverse)
+is WORSE than either pure convention, and an uncontrolled ternary/bipolar zero-convention mismatch
+of exactly that kind accounted for ~30% of an earlier smoke delta.
+
+LICENSED BY `data/exp_capacity_vs_format_2x2_livepath_v1` (prereg 29822f111, n=4000 held-out,
+measured by calling THESE functions, not a re-implementation):
+
+    near-neighbour 2AFC   d=256    d=1024
+      sign  (was default) 0.6395   0.7030
+      graded (now default) 0.6980   0.7495
+
+    FORMAT  @d256 +0.0585 CI [+0.0422,+0.0745], between-projection-draw sd 0.0056
+    FORMAT @d1024 +0.0465 CI [+0.0320,+0.0605], between-projection-draw sd 0.0100
+    floors: scrambled context 0.4975 / 0.5095 / 0.4842 / 0.4903; frequency baseline 0.4803
+
+BOTH capacity and format are real and roughly additive; CAPACITY (`D` in
+`grounding_acquisition_loop`) is the LARGER lever and is deliberately NOT changed here -- it
+rewrites every persisted anchor store, which this cell did not test.
+
+NOT LICENSED, and do not restate it: that per-component magnitude destruction is the BINDING
+CONSTRAINT on near-neighbour discrimination. An adversarial landed-VET reproduced the original win
+bit-exactly and then WITHDREW that explanation (term-space ablation puts magnitude at 27% of the
+effect; unmodified sign() at d=1024 beats graded at d=256). The CAPABILITY stands; the MECHANISM
+story does not. See notes/landed_vet_graded_comparator_mechanism_refuted_2026-08-14.md."""
+
 from hdlab.hd_fact_store import HDFactStore
 from hdlab.gap_detector import GapDetector
 from hdlab.thematic_role_labeler import lemma_word
@@ -202,14 +235,17 @@ def content_lemmas(sentence: str) -> List[str]:
 
 
 def context_vector_masked(sentence: str, target_lemma: str, d: int = CTX_D, *,
-                          graded: bool = False) -> np.ndarray:
+                          graded: Optional[bool] = None) -> np.ndarray:
     """context_vector() of `sentence` with every token whose lemma == target_lemma REMOVED
     first -- the no-leak fix (see module docstring). Reuses content_words + context_vector
     verbatim; this function only pre-filters the word list before re-joining and handing back
     to context_vector, so it inherits that function's exact bundling math unmodified.
 
-    `graded` (2026-08-13, ADDITIVE, keyword-only, DEFAULT False = prior behavior BYTE-FOR-BYTE):
-    forwarded to context_vector; see its docstring for the operation and the measured payoff."""
+    `graded` (keyword-only). DEFAULT CHANGED 2026-08-14: `None` now means "follow the module
+    switch `GRADED_COMPARATOR`", which is ON. Pass `graded=False` explicitly, or set
+    `HD_GRADED_COMPARATOR=0`, for the pre-2026-08-14 behaviour byte-for-byte."""
+    if graded is None:
+        graded = GRADED_COMPARATOR
     words = [w for w in content_words(sentence) if normalize_lemma(w) != target_lemma]
     return context_vector(" ".join(words), d=d, graded=graded)
 
@@ -447,17 +483,23 @@ class ConceptSpace:
             return self._mat_cache[1], self._mat_cache[2]
         anchors = sorted(self._sums)
         if anchors:
-            mat = np.sign(np.stack([self._sums[a] for a in anchors], axis=0))
+            mat = np.stack([self._sums[a] for a in anchors], axis=0)
+            if not GRADED_COMPARATOR:
+                mat = np.sign(mat)
         else:
             mat = np.zeros((0, self.d), dtype=np.float64)
         self._mat_cache = (self._version, anchors, mat)
         return anchors, mat
 
     def bundle(self, lemma: str) -> Optional[np.ndarray]:
+        """The anchor's profile. DEFAULT CHANGED 2026-08-14: returns the raw GRADED accumulated
+        sum, not `np.sign` of it (see `GRADED_COMPARATOR`). Kept byte-consistent with
+        `anchor_matrix` above -- the two must never disagree, or `canonicalize_fast` and the
+        reference `canonicalize` stop being equivalent."""
         s = self._sums.get(lemma)
         if s is None:
             return None
-        return np.sign(s)
+        return s.copy() if GRADED_COMPARATOR else np.sign(s)
 
     def __contains__(self, lemma: str) -> bool:
         return lemma in self._sums
@@ -613,7 +655,10 @@ class ReadoutConfig:
     margin_z_min: Optional[float] = None
     margin_stat: str = "z_top"          # "z_top" | "margin"
     scale_floor: float = 1e-6
-    graded_query: bool = False          # see below; deliberately NOT part of `active`
+    # DEFAULT CHANGED 2026-08-14: follows the module switch `GRADED_COMPARATOR` (ON), so a bare
+    # ReadoutConfig() does not silently pair a SIGNED query with a GRADED anchor field -- which is
+    # worse than either pure convention. Deliberately NOT part of `active`.
+    graded_query: bool = field(default_factory=lambda: GRADED_COMPARATOR)
     _aligned: Dict[int, Tuple[np.ndarray, np.ndarray]] = field(default_factory=dict, repr=False)
 
     @property
@@ -729,8 +774,11 @@ def canonicalize_fast(new_lemma: str, new_raw_sum: np.ndarray, space: "ConceptSp
         keep[idx] = False
     if not keep.any():
         return new_lemma, 0.0
-    # DEFAULT (readout is None, or graded_query False): byte-for-byte the prior `np.sign(...)`.
-    if readout is not None and readout.graded_query:
+    # DEFAULT CHANGED 2026-08-14: with `readout=None` the query now follows the module switch
+    # `GRADED_COMPARATOR` (ON), matching what `anchor_matrix` returns. An explicit
+    # `ReadoutConfig(graded_query=False)` still forces the signed query.
+    graded_q = GRADED_COMPARATOR if readout is None else readout.graded_query
+    if graded_q:
         nb = np.asarray(new_raw_sum, dtype=np.float64)
     else:
         nb = np.sign(new_raw_sum)
@@ -2013,6 +2061,37 @@ def _selftest_structural_unbound_matches_context_vector() -> None:
     assert abs(_cos(b, b2)) < 0.15, "two roles over one filler failed to separate"
 
 
+def _selftest_graded_comparator_default() -> None:
+    """The 2026-08-14 default flip: all four sites agree with the switch, and HD_GRADED_COMPARATOR=0
+    still reaches the pre-flip arithmetic byte-for-byte."""
+    import numpy as _np
+    sent = "The zibbo flickered by the lantern in the storm."
+
+    # (1) the switch is ON unless the environment says otherwise
+    assert GRADED_COMPARATOR == (os.environ.get("HD_GRADED_COMPARATOR", "1").lower()
+                                 not in ("0", "false", "no", "off"))
+
+    # (2) all four sites follow it COHERENTLY -- a mixed field/query convention is the failure mode
+    v = context_vector_masked(sent, "lantern")
+    space = ConceptSpace(d=CTX_D)
+    space.observe("lantern", v)
+    _a, mat = space.anchor_matrix()
+    assert _np.array_equal(mat[0], space.bundle("lantern")), \
+        "anchor_matrix and bundle disagree -- canonicalize_fast != canonicalize"
+    is_bipolar = set(_np.abs(v).tolist()) <= {0.0, 1.0}
+    if GRADED_COMPARATOR:
+        assert not is_bipolar, "graded default is ON but the context vector is still 1-bit"
+        assert not _np.array_equal(mat[0], _np.sign(mat[0])), "anchor field is still quantised"
+        assert ReadoutConfig().graded_query, "ReadoutConfig did not follow the switch"
+    else:
+        assert set(_np.abs(mat[0]).tolist()) <= {0.0, 1.0}, "anchor field is not bipolar"
+        assert not ReadoutConfig().graded_query
+
+    # (3) the OFF path is still exactly reachable and is the old arithmetic
+    old = _np.sign(context_vector_masked(sent, "lantern", graded=False))
+    assert set(_np.abs(old).tolist()) <= {0.0, 1.0}, "graded=False no longer quantises"
+
+
 def _selftest_structured_encoder_is_off_by_default() -> None:
     """process_sentence(encoder=None) must be the shipped path byte-for-byte."""
     import numpy as _np
@@ -2025,9 +2104,10 @@ def _selftest_structured_encoder_is_off_by_default() -> None:
     assert n >= 0
     # the seed word's accumulated profile must be exactly the masked bag-of-words vector
     got = st.space.bundle("lantern")
-    want = _np.sign(context_vector_masked("The zibbo flickered by the lantern in the storm.",
-                                          "lantern"))
-    want[want == 0] = 1.0
+    want = context_vector_masked("The zibbo flickered by the lantern in the storm.", "lantern")
+    if not GRADED_COMPARATOR:
+        want = _np.sign(want)
+        want[want == 0] = 1.0
     assert _np.array_equal(got, want), "encoder=None changed the default encoding path"
 
 
@@ -2065,8 +2145,10 @@ def _selftest_anchor_pool_is_off_by_default() -> None:
     assert "zibbo" in st_on.library.items, "a pool lemma stopped being a grounding target"
     # (3) the pool lemma is now an anchor, with exactly the masked bag-of-words profile
     assert "zibbo" in st_on.space, "anchor_pool did not add the lemma as an anchor"
-    want = _np.sign(context_vector_masked(sent, "zibbo"))
-    want[want == 0] = 1.0
+    want = context_vector_masked(sent, "zibbo")
+    if not GRADED_COMPARATOR:
+        want = _np.sign(want)
+        want[want == 0] = 1.0
     assert _np.array_equal(st_on.space.bundle("zibbo"), want), \
         "pool anchor profile is not the masked context vector"
     # (4) seed anchors are bit-identical with the pool on
@@ -2156,6 +2238,7 @@ def _selftest_definitional_wire_is_off_by_default() -> None:
 
 
 def _run_all_selftests() -> dict:
+    _selftest_graded_comparator_default()
     _selftest_structural_unbound_matches_context_vector()
     _selftest_structured_encoder_is_off_by_default()
     _selftest_anchor_pool_is_off_by_default()
