@@ -1,0 +1,47 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "signed_encoder_byte_identical_to_hdlab": true,
+    "graded_encoder": {
+      "n_distinct_abs_values": 5,
+      "max_abs": 8.0
+    },
+    "normalisation_selftest": {
+      "N_is_identity": true,
+      "C_centres": true,
+      "Z_unit_sd": true,
+      "sign_flattens_ratio_8_to_1": true
+    },
+    "readout_matches_canonicalize_fast_and_moves": {
+      "poetlike": "poet",
+      "riverlike": "river"
+    },
+    "bootstrap_selftest": {
+      "real_ci_excludes_zero": true,
+      "null_false_positives": 0,
+      "null_replicates": 6
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_BINARISATION_NOT_THE_LEVER",
+      "HARD_FAIL_BINARISATION_WAS_LOAD_BEARING",
+      "HARD_FAIL_FLOOR_BREACH",
+      "HARD_PASS",
+      "INSTRUMENTATION_SUSPECT_LIVE_ARM_DRIFT",
+      "INSTRUMENTATION_SUSPECT_READOUT_FORK",
+      "INSTRUMENTATION_SUSPECT_SELF_RETRIEVAL_BELOW_FLOOR",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "MIDDLE_BAND_REAL_BUT_SMALL"
+    ],
+    "parent": {
+      "anchor": "exp_context_conditioned_near_neighbour_v1",
+      "prereg_commit": "42792834c",
+      "max_items": 4000,
+      "n_profile": 70
+    },
+    "selftest_elapsed_s": 0.214
+  }
+}

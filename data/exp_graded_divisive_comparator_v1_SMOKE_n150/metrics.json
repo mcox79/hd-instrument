@@ -1,0 +1,780 @@
+{
+  "verdict": "HARD_FAIL_BINARISATION_NOT_THE_LEVER",
+  "verdict_msg": "n=150 | LIVE(A_SSN)=0.6467 PRIMARY(A_GGZ)=0.7267 | d=0.0800 CI=[0.0000,0.1600] | floors: SCRAM_PRIMARY=0.5067 SCRAM_LIVE=0.5733 FREQ=0.5400 CHANCE=0.50 | readout_disagreements=0 | self_retrieval={\"A_SSN\": 0.85, \"A_GGZ\": 0.9389} | d(PRIMARY-LIVE)=0.0800 CI=[0.0000,0.1600] INCLUDES 0: the audit's rank-1/rank-2 fidelity gaps are refuted as the binding constraint on this task; the measured field-geometry change is real but DECOUPLED from task performance",
+  "summary": "does replacing the comparator's per-component magnitude-destroying normalisation (np.sign) with a graded code + population divisive normalisation improve near-neighbour discrimination in context?",
+  "elapsed_s": 17.891,
+  "run_mode": "smoke",
+  "anchor_name": "exp_graded_divisive_comparator_v1",
+  "prereg": "preregs/2026-08-13_graded_divisive_comparator.md",
+  "prereg_commit": "d6c56353c",
+  "parent_cell": "exp_context_conditioned_near_neighbour_v1",
+  "parent_prereg_commit": "42792834c",
+  "audit_note": "notes/comparator_component_fidelity_audit_2026-08-13.md",
+  "ts_iso": "2026-08-14T01:52:50.761240+00:00",
+  "hdlab_modified": false,
+  "n_items": 150,
+  "min_items": 200,
+  "chance": 0.5,
+  "n_anchors": 180,
+  "arm_accuracy": {
+    "A_SSN": 0.646667,
+    "A_SSC": 0.646667,
+    "A_SSZ": 0.64,
+    "A_SSZA": 0.653333,
+    "A_SGN": 0.693333,
+    "A_SGC": 0.68,
+    "A_SGZ": 0.7,
+    "A_SGZA": 0.706667,
+    "A_GSN": 0.673333,
+    "A_GSC": 0.666667,
+    "A_GSZ": 0.673333,
+    "A_GSZA": 0.666667,
+    "A_GGN": 0.673333,
+    "A_GGC": 0.7,
+    "A_GGZ": 0.726667,
+    "A_GGZA": 0.726667,
+    "F_SSN_SCRAM": 0.573333,
+    "F_GGZ_SCRAM": 0.506667,
+    "B_FREQ": 0.54
+  },
+  "arm_labels": {
+    "A_<ENC><AGG><NORM>": "ENC = sentence->vector: S=np.sign (live) / G=graded sum; AGG = encounters->concept: S=np.sign (live) / G=graded sum; NORM = pool: N=none (live) / C=centre / Z=centre+scale (divisive normalisation) / ZA=Z on anchors only",
+    "A_SSN": "THE LIVE COMPARATOR -- positive control, must reproduce the landed 0.6395",
+    "A_GGZ": "THE PRE-DESIGNATED BRAIN-FAITHFUL ARM -- the only treatment arm",
+    "F_SSN_SCRAM": "LIVE arithmetic, another item's real sentence as the query",
+    "F_GGZ_SCRAM": "PRIMARY arithmetic, another item's real sentence as the query",
+    "B_FREQ": "pick the corpus-more-frequent candidate"
+  },
+  "HP_SCOPE": {
+    "A_GGZ": [
+      "d_PRIMARY_minus_LIVE",
+      "floor",
+      "above_chance"
+    ],
+    "all_other_factorial_arms": "NO VERDICT WEIGHT -- attribution only"
+  },
+  "bands": {
+    "HARD_PASS_delta": 0.05,
+    "floor_max": 0.55,
+    "landed_live_acc": 0.6395,
+    "landed_tol": 0.02,
+    "strict_margin_frac": 0.05,
+    "declared_in": "preregs/2026-08-13_graded_divisive_comparator.md",
+    "declared_at_commit": "d6c56353c"
+  },
+  "bootstrap_item": {
+    "n_boot": 1000,
+    "seed": 20260813,
+    "clustered": false,
+    "arm_acc_ci": {
+      "A_SSN": {
+        "acc": 0.646667,
+        "ci_lo": 0.573167,
+        "ci_hi": 0.72,
+        "sd": 0.039815
+      },
+      "A_SSC": {
+        "acc": 0.646667,
+        "ci_lo": 0.573333,
+        "ci_hi": 0.726667,
+        "sd": 0.040373
+      },
+      "A_SSZ": {
+        "acc": 0.64,
+        "ci_lo": 0.56,
+        "ci_hi": 0.72,
+        "sd": 0.040344
+      },
+      "A_SSZA": {
+        "acc": 0.653333,
+        "ci_lo": 0.58,
+        "ci_hi": 0.726667,
+        "sd": 0.039221
+      },
+      "A_SGN": {
+        "acc": 0.693333,
+        "ci_lo": 0.62,
+        "ci_hi": 0.766667,
+        "sd": 0.036379
+      },
+      "A_SGC": {
+        "acc": 0.68,
+        "ci_lo": 0.606667,
+        "ci_hi": 0.746833,
+        "sd": 0.0367
+      },
+      "A_SGZ": {
+        "acc": 0.7,
+        "ci_lo": 0.626667,
+        "ci_hi": 0.773333,
+        "sd": 0.036939
+      },
+      "A_SGZA": {
+        "acc": 0.706667,
+        "ci_lo": 0.633333,
+        "ci_hi": 0.78,
+        "sd": 0.036977
+      },
+      "A_GSN": {
+        "acc": 0.673333,
+        "ci_lo": 0.6,
+        "ci_hi": 0.746667,
+        "sd": 0.038429
+      },
+      "A_GSC": {
+        "acc": 0.666667,
+        "ci_lo": 0.586667,
+        "ci_hi": 0.74,
+        "sd": 0.039206
+      },
+      "A_GSZ": {
+        "acc": 0.673333,
+        "ci_lo": 0.6,
+        "ci_hi": 0.746667,
+        "sd": 0.038703
+      },
+      "A_GSZA": {
+        "acc": 0.666667,
+        "ci_lo": 0.593333,
+        "ci_hi": 0.74,
+        "sd": 0.038625
+      },
+      "A_GGN": {
+        "acc": 0.673333,
+        "ci_lo": 0.6,
+        "ci_hi": 0.74,
+        "sd": 0.037083
+      },
+      "A_GGC": {
+        "acc": 0.7,
+        "ci_lo": 0.6265,
+        "ci_hi": 0.766833,
+        "sd": 0.036416
+      },
+      "A_GGZ": {
+        "acc": 0.726667,
+        "ci_lo": 0.653333,
+        "ci_hi": 0.793333,
+        "sd": 0.035464
+      },
+      "A_GGZA": {
+        "acc": 0.726667,
+        "ci_lo": 0.659833,
+        "ci_hi": 0.793333,
+        "sd": 0.035325
+      },
+      "F_SSN_SCRAM": {
+        "acc": 0.573333,
+        "ci_lo": 0.493333,
+        "ci_hi": 0.653333,
+        "sd": 0.040441
+      },
+      "F_GGZ_SCRAM": {
+        "acc": 0.506667,
+        "ci_lo": 0.426667,
+        "ci_hi": 0.586667,
+        "sd": 0.040516
+      },
+      "B_FREQ": {
+        "acc": 0.54,
+        "ci_lo": 0.46,
+        "ci_hi": 0.613333,
+        "sd": 0.040016
+      }
+    },
+    "deltas": {
+      "d_PRIMARY_minus_LIVE": {
+        "delta": 0.08,
+        "ci_lo": 0.0,
+        "ci_hi": 0.16,
+        "sd": 0.040327,
+        "mde_95": 0.079041,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.971
+      },
+      "d_PRIMARY_minus_CHANCE": {
+        "delta": 0.226667,
+        "ci_lo": 0.153333,
+        "ci_hi": 0.293333,
+        "sd": 0.035464,
+        "mde_95": 0.06951,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_PRIMARY_minus_SCRAM": {
+        "delta": 0.22,
+        "ci_lo": 0.119833,
+        "ci_hi": 0.333333,
+        "sd": 0.05652,
+        "mde_95": 0.110779,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_LIVE_minus_CHANCE": {
+        "delta": 0.146667,
+        "ci_lo": 0.073167,
+        "ci_hi": 0.22,
+        "sd": 0.039815,
+        "mde_95": 0.078037,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_PRIMARY_minus_FREQ": {
+        "delta": 0.186667,
+        "ci_lo": 0.08,
+        "ci_hi": 0.3,
+        "sd": 0.055146,
+        "mde_95": 0.108087,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 0.999
+      },
+      "sec_ENC_G_minus_S_at_aggG_normN": {
+        "delta": -0.02,
+        "ci_lo": -0.086667,
+        "ci_hi": 0.046667,
+        "sd": 0.034758,
+        "mde_95": 0.068126,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.234
+      },
+      "sec_AGG_G_minus_S_at_encG_normN": {
+        "delta": 0.0,
+        "ci_lo": -0.08,
+        "ci_hi": 0.073333,
+        "sd": 0.037584,
+        "mde_95": 0.073665,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.469
+      },
+      "sec_ENC_G_minus_S_at_aggG_normC": {
+        "delta": 0.02,
+        "ci_lo": -0.04,
+        "ci_hi": 0.086667,
+        "sd": 0.031777,
+        "mde_95": 0.062282,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.71
+      },
+      "sec_AGG_G_minus_S_at_encG_normC": {
+        "delta": 0.033333,
+        "ci_lo": -0.033333,
+        "ci_hi": 0.106667,
+        "sd": 0.036297,
+        "mde_95": 0.071142,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.806
+      },
+      "sec_ENC_G_minus_S_at_aggG_normZ": {
+        "delta": 0.026667,
+        "ci_lo": -0.033333,
+        "ci_hi": 0.093333,
+        "sd": 0.033712,
+        "mde_95": 0.066076,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.744
+      },
+      "sec_AGG_G_minus_S_at_encG_normZ": {
+        "delta": 0.053333,
+        "ci_lo": -0.013333,
+        "ci_hi": 0.126833,
+        "sd": 0.035794,
+        "mde_95": 0.070157,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.929
+      },
+      "sec_ENC_G_minus_S_at_aggG_normZA": {
+        "delta": 0.02,
+        "ci_lo": -0.053333,
+        "ci_hi": 0.086833,
+        "sd": 0.035932,
+        "mde_95": 0.070428,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.691
+      },
+      "sec_AGG_G_minus_S_at_encG_normZA": {
+        "delta": 0.06,
+        "ci_lo": -0.006667,
+        "ci_hi": 0.133333,
+        "sd": 0.036599,
+        "mde_95": 0.071733,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.938
+      },
+      "sec_NORM_C_minus_N_at_GG": {
+        "delta": 0.026667,
+        "ci_lo": -0.006667,
+        "ci_hi": 0.06,
+        "sd": 0.016907,
+        "mde_95": 0.033138,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.924
+      },
+      "sec_NORM_C_minus_N_at_SS": {
+        "delta": 0.0,
+        "ci_lo": -0.04,
+        "ci_hi": 0.04,
+        "sd": 0.020218,
+        "mde_95": 0.039626,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.437
+      },
+      "sec_NORM_Z_minus_N_at_GG": {
+        "delta": 0.053333,
+        "ci_lo": 0.02,
+        "ci_hi": 0.093333,
+        "sd": 0.018061,
+        "mde_95": 0.035399,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "sec_NORM_Z_minus_N_at_SS": {
+        "delta": -0.006667,
+        "ci_lo": -0.06,
+        "ci_hi": 0.033333,
+        "sd": 0.023394,
+        "mde_95": 0.045852,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.304
+      },
+      "sec_NORM_ZA_minus_N_at_GG": {
+        "delta": 0.053333,
+        "ci_lo": 0.02,
+        "ci_hi": 0.093333,
+        "sd": 0.018595,
+        "mde_95": 0.036447,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "sec_NORM_ZA_minus_N_at_SS": {
+        "delta": 0.006667,
+        "ci_lo": -0.026667,
+        "ci_hi": 0.04,
+        "sd": 0.017373,
+        "mde_95": 0.03405,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.568
+      }
+    }
+  },
+  "bootstrap_cluster_by_target_word": {
+    "n_boot": 1000,
+    "seed": 20260814,
+    "clustered": true,
+    "arm_acc_ci": {
+      "A_SSN": {
+        "acc": 0.646667,
+        "ci_lo": 0.573525,
+        "ci_hi": 0.713178,
+        "sd": 0.035647
+      },
+      "A_SSC": {
+        "acc": 0.646667,
+        "ci_lo": 0.562835,
+        "ci_hi": 0.724656,
+        "sd": 0.041644
+      },
+      "A_SSZ": {
+        "acc": 0.64,
+        "ci_lo": 0.55782,
+        "ci_hi": 0.716242,
+        "sd": 0.041018
+      },
+      "A_SSZA": {
+        "acc": 0.653333,
+        "ci_lo": 0.585976,
+        "ci_hi": 0.716315,
+        "sd": 0.033738
+      },
+      "A_SGN": {
+        "acc": 0.693333,
+        "ci_lo": 0.61285,
+        "ci_hi": 0.769866,
+        "sd": 0.041453
+      },
+      "A_SGC": {
+        "acc": 0.68,
+        "ci_lo": 0.603896,
+        "ci_hi": 0.761922,
+        "sd": 0.040395
+      },
+      "A_SGZ": {
+        "acc": 0.7,
+        "ci_lo": 0.625786,
+        "ci_hi": 0.782336,
+        "sd": 0.04134
+      },
+      "A_SGZA": {
+        "acc": 0.706667,
+        "ci_lo": 0.628167,
+        "ci_hi": 0.784821,
+        "sd": 0.04046
+      },
+      "A_GSN": {
+        "acc": 0.673333,
+        "ci_lo": 0.594923,
+        "ci_hi": 0.7483,
+        "sd": 0.039238
+      },
+      "A_GSC": {
+        "acc": 0.666667,
+        "ci_lo": 0.594557,
+        "ci_hi": 0.743069,
+        "sd": 0.038229
+      },
+      "A_GSZ": {
+        "acc": 0.673333,
+        "ci_lo": 0.597403,
+        "ci_hi": 0.748427,
+        "sd": 0.038598
+      },
+      "A_GSZA": {
+        "acc": 0.666667,
+        "ci_lo": 0.590901,
+        "ci_hi": 0.741727,
+        "sd": 0.038745
+      },
+      "A_GGN": {
+        "acc": 0.673333,
+        "ci_lo": 0.604163,
+        "ci_hi": 0.743453,
+        "sd": 0.035317
+      },
+      "A_GGC": {
+        "acc": 0.7,
+        "ci_lo": 0.629365,
+        "ci_hi": 0.77423,
+        "sd": 0.036696
+      },
+      "A_GGZ": {
+        "acc": 0.726667,
+        "ci_lo": 0.659571,
+        "ci_hi": 0.794525,
+        "sd": 0.035343
+      },
+      "A_GGZA": {
+        "acc": 0.726667,
+        "ci_lo": 0.655839,
+        "ci_hi": 0.794894,
+        "sd": 0.036229
+      },
+      "F_SSN_SCRAM": {
+        "acc": 0.573333,
+        "ci_lo": 0.499925,
+        "ci_hi": 0.64597,
+        "sd": 0.039651
+      },
+      "F_GGZ_SCRAM": {
+        "acc": 0.506667,
+        "ci_lo": 0.430551,
+        "ci_hi": 0.584428,
+        "sd": 0.039917
+      },
+      "B_FREQ": {
+        "acc": 0.54,
+        "ci_lo": 0.430762,
+        "ci_hi": 0.647801,
+        "sd": 0.053808
+      }
+    },
+    "deltas": {
+      "d_PRIMARY_minus_LIVE": {
+        "delta": 0.08,
+        "ci_lo": 0.0,
+        "ci_hi": 0.152332,
+        "sd": 0.03832,
+        "mde_95": 0.075108,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.967
+      },
+      "d_PRIMARY_minus_CHANCE": {
+        "delta": 0.226667,
+        "ci_lo": 0.159571,
+        "ci_hi": 0.294525,
+        "sd": 0.035343,
+        "mde_95": 0.069273,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_PRIMARY_minus_SCRAM": {
+        "delta": 0.22,
+        "ci_lo": 0.131481,
+        "ci_hi": 0.320519,
+        "sd": 0.050798,
+        "mde_95": 0.099565,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_LIVE_minus_CHANCE": {
+        "delta": 0.146667,
+        "ci_lo": 0.073525,
+        "ci_hi": 0.213178,
+        "sd": 0.035647,
+        "mde_95": 0.069868,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_PRIMARY_minus_FREQ": {
+        "delta": 0.186667,
+        "ci_lo": 0.061336,
+        "ci_hi": 0.324503,
+        "sd": 0.065089,
+        "mde_95": 0.127575,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 0.998
+      }
+    }
+  },
+  "verdict_notes": [
+    "d(PRIMARY-LIVE)=0.0800 CI=[0.0000,0.1600] INCLUDES 0: the audit's rank-1/rank-2 fidelity gaps are refuted as the binding constraint on this task; the measured field-geometry change is real but DECOUPLED from task performance"
+  ],
+  "non_fork_controls": {
+    "signed_encoder_byte_identical_to_hdlab_context_vector": true,
+    "anchor_matrix_byte_identical_to_hdlab_ConceptSpace": true,
+    "query_encoder_matches_parent_ctx_masked_multi_on_first_n": 150,
+    "readout_disagreements_with_canonicalize_fast_on_LIVE": 0,
+    "note": "all four are the controls that stop this cell from being a silent fork of the substrate's own comparator; the anchor-matrix check covers EVERY anchor"
+  },
+  "positive_control_self_retrieval": {
+    "values": {
+      "A_SSN": 0.85,
+      "A_GGZ": 0.9389
+    },
+    "floor": 0.7,
+    "n": 180
+  },
+  "secondary_far_distractor": {
+    "prereg_status": "SECONDARY, NO VERDICT WEIGHT",
+    "A_SSN": {
+      "acc": 0.6267,
+      "n": 150
+    },
+    "A_GGZ": {
+      "acc": 0.6733,
+      "n": 150
+    }
+  },
+  "arm_diagnostics": {
+    "A_SSN": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.071713,
+      "mean_signed_margin": 0.037571
+    },
+    "A_SSC": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.088133,
+      "mean_signed_margin": 0.041493
+    },
+    "A_SSZ": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.087142,
+      "mean_signed_margin": 0.039695
+    },
+    "A_SSZA": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.085061,
+      "mean_signed_margin": 0.040988
+    },
+    "A_SGN": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.074932,
+      "mean_signed_margin": 0.047113
+    },
+    "A_SGC": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.099898,
+      "mean_signed_margin": 0.057029
+    },
+    "A_SGZ": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.098673,
+      "mean_signed_margin": 0.056485
+    },
+    "A_SGZA": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.097909,
+      "mean_signed_margin": 0.057214
+    },
+    "A_GSN": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.096868,
+      "mean_signed_margin": 0.05777
+    },
+    "A_GSC": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.102387,
+      "mean_signed_margin": 0.059438
+    },
+    "A_GSZ": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.102746,
+      "mean_signed_margin": 0.058901
+    },
+    "A_GSZA": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.101924,
+      "mean_signed_margin": 0.059418
+    },
+    "A_GGN": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.107055,
+      "mean_signed_margin": 0.069941
+    },
+    "A_GGC": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.115536,
+      "mean_signed_margin": 0.074808
+    },
+    "A_GGZ": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.114734,
+      "mean_signed_margin": 0.074414
+    },
+    "A_GGZA": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.114441,
+      "mean_signed_margin": 0.073999
+    },
+    "F_SSN_SCRAM": {
+      "n_ties": 1,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.060666,
+      "mean_signed_margin": 0.004393
+    },
+    "F_GGZ_SCRAM": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.068215,
+      "mean_signed_margin": 0.006079
+    },
+    "B_FREQ": {
+      "n_ties_fell_back_to_coin": 0
+    }
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A_SSN": "af1eee709d95ba7ab591cd631ac9b3d6340f8e335eb424c19f44dfdf8bdded91",
+    "A_SSC": "eda64a8088186340123e9cdc23ab0273126f35af984f8894a8a4cd313b6a1209",
+    "A_SSZ": "083a99cde1f8825586f718d3a0c11f6b4c6351f91b6ec93dde905298fcd5c7d2",
+    "A_SSZA": "bb70395b5e3ec0e68fc37230f8be96e4f86593d2292d4d3190356532a953ef8b",
+    "A_SGN": "d285ee32a67e43688b2a7513e7a927cf1239365d4e593f7ecf8f3073be771d38",
+    "A_SGC": "0c375005f83303f47033b0ff95cb6d60de8382200dac569dc2fea1c01260e959",
+    "A_SGZ": "5fd774aec32708a94c197faef53c7f9941ba2118bb3ce47657ca9f44dfa022f4",
+    "A_SGZA": "a1807a2ff829693c621eb963a4d1fbaabf911f433eda24a71539b51a0b978fd8",
+    "A_GSN": "c8adbaa2f6e2a37f373df20625a7b01c71647ace6fbc165275b42a9212701359",
+    "A_GSC": "e813e5203eaa6538079622303f0db236d0a19b889fb80a77ae2bafbe13c8bbed",
+    "A_GSZ": "dd21bd639fc9c5f4b8cb37e73532bb26ce121fe29c0ce52828bd55cf6211d91b",
+    "A_GSZA": "e31f3fbfed0fa9a92c036855bb9177d35217fc64540814e84cd960499e47c2f6",
+    "A_GGN": "039a3f6f846dc27d4280197d337f3463c3f51f3c55ee67b63b59650893bc16d3",
+    "A_GGC": "8c69b18643ea4f013c8ab44f31fb3d1e2169ec1efeea3de2c1b79010017d7828",
+    "A_GGZ": "46217b5bac6a173d3b1bbdf54da1b71cef03c88f304d016460558c4906a17193",
+    "A_GGZA": "bf79fefe205d266b387182ff1155d25d9131d1db9496a1690ad3ced4e98d7dea",
+    "F_SSN_SCRAM": "590008340da0a8c6bc340963718913b1f5b06c11bea05d42bcf8aea7d7770555",
+    "F_GGZ_SCRAM": "051ab5a8e3c3e2eb453264de2773a87c131033cddb98d4497c02e0c38cef12e5",
+    "B_FREQ": "199b4c3f7b84fbc4d5673ebf788de3061a2f1762ffa48f8b70085181ecc54bc2"
+  },
+  "duplicate_arm_digests": [],
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 150,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 54,
+    "max_items_per_word": 4
+  },
+  "normalisation_pools": {
+    "anchors": "per-dimension mean/sd over the ANCHOR MATRIX rows for that (ENC,AGG)",
+    "queries": "per-dimension mean/sd over the PROFILE-SENTENCE population under the same ENC (profile sentences are held out from scoring, so no eval item contributes to its own normaliser)",
+    "n_profile_sentences": 12600
+  },
+  "held_out": {
+    "n_profile": 70,
+    "split": "inherited from the parent cell verbatim"
+  },
+  "corpus": {
+    "path": "data/corpora/simplewiki/simplewiki_clean_v1.txt",
+    "n_lines": 2779032,
+    "vocab_size": 5011,
+    "n_pairs_strict": 7880
+  },
+  "wordnet_version": "3.0",
+  "organs_reused": {
+    "items_leak_controls_split_donors": "experiments.exp_context_conditioned_near_neighbour_v1",
+    "anchor_accumulator_control": "hdlab.reading_grounding_loop.ConceptSpace",
+    "readout_control": "hdlab.reading_grounding_loop.canonicalize_fast",
+    "encoder": "hdlab.grounding_acquisition_loop.context_vector, with the terminal per-component sign() removed for the GRADED levels"
+  },
+  "n_units": 19,
+  "expected_n_units": 19,
+  "cardinality_ok": true,
+  "crlb": {
+    "crlb_formula_reference": "paired-binomial se(delta) = sqrt(p_disc/n)",
+    "crlb_floor_computed": 0.113161,
+    "discriminator_reachability": false,
+    "discriminator_range_by_construction": "2AFC accuracy in [0,1], chance exactly 0.50, nothing hand-scored"
+  },
+  "compute_architecture": "sequential-CPU; thread pins set before numpy import",
+  "storage_strategy": "sharded (one anchor vector per candidate word); no_composition",
+  "selftest": {
+    "signed_encoder_byte_identical_to_hdlab": true,
+    "graded_encoder": {
+      "n_distinct_abs_values": 5,
+      "max_abs": 8.0
+    },
+    "normalisation_selftest": {
+      "N_is_identity": true,
+      "C_centres": true,
+      "Z_unit_sd": true,
+      "sign_flattens_ratio_8_to_1": true
+    },
+    "readout_matches_canonicalize_fast_and_moves": {
+      "poetlike": "poet",
+      "riverlike": "river"
+    },
+    "bootstrap_selftest": {
+      "real_ci_excludes_zero": true,
+      "null_false_positives": 0,
+      "null_replicates": 6
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_BINARISATION_NOT_THE_LEVER",
+      "HARD_FAIL_BINARISATION_WAS_LOAD_BEARING",
+      "HARD_FAIL_FLOOR_BREACH",
+      "HARD_PASS",
+      "INSTRUMENTATION_SUSPECT_LIVE_ARM_DRIFT",
+      "INSTRUMENTATION_SUSPECT_READOUT_FORK",
+      "INSTRUMENTATION_SUSPECT_SELF_RETRIEVAL_BELOW_FLOOR",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "MIDDLE_BAND_REAL_BUT_SMALL"
+    ],
+    "parent": {
+      "anchor": "exp_context_conditioned_near_neighbour_v1",
+      "prereg_commit": "42792834c",
+      "max_items": 4000,
+      "n_profile": 70
+    },
+    "selftest_elapsed_s": 0.149
+  }
+}
