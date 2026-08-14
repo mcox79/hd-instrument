@@ -42,6 +42,23 @@ and the standing rule is to only stop/undo what this session started. A misattri
 bookkeeping problem; a lost working tree is not recoverable. Disclosure is the correct remedy here
 and the decision belongs to the operator, not to me.
 
+## SECOND, SMALLER DEFECT FOUND IN THE SAME AUDIT: `data/capability_registry.jsonl` line endings
+
+My two registry writes rewrote the file with `newline=''` and `"\n"` joins, which **converted the
+whole file from CRLF to LF**. Measured: before `4093464b4` the file had 123 CRLF / 0 bare LF; it now
+has 0 CRLF / 124 LF. That is why both registry commits show ~124 insertions and ~124 deletions
+instead of one line each.
+
+Content is intact and verified: all **124 rows parse as JSON, 0 duplicate ids**, net change is
+exactly my one new row plus my one edited row. This is the mirror image of the standing CRLF hazard
+(text-mode writes DOUBLING CRLF) rather than that hazard itself — nothing is corrupted, and Python's
+`json` reads LF fine, so `capability_registry_audit.py` is unaffected.
+
+**Left as LF rather than restored**, deliberately: rewriting the whole file a third time to flip the
+endings back is another whole-file write with another collision window against a possibly-live
+concurrent session, to fix something cosmetic. The file is now internally consistent. Flagged so the
+next session reads the large diff as line endings and not as content.
+
 ## THE RULE THIS BUYS
 
 `git add <specific file>` is NOT sufficient isolation on a repo with a concurrent session — the
