@@ -151,6 +151,37 @@ Each entry: the route, why it is closed, and the evidence that closed it.
     `NO_QUALITY_CLAIM` field records that no hand-scoring was performed (correctly -- STANDING
     DISCIPLINE 1).
 
+24. **Distinctiveness WEIGHTING of composed features, as implemented (log-IDF).** REFUTED --
+    `exp_distinctiveness_weighted_composition_v1`, `HARD_FAIL_SHAPE`, dbac1ae9c. Held-out
+    SimLex-999: weighted-minus-uniform **-0.0175** on B_CSKG (coverage **1.000**, n=999) and
+    **-0.0004** on C_CSKG_NOLEXREL (n=639), against a **+0.08** pass bar. Not instrumentation: the
+    zero-noise **analytic** arms reproduce the null (B 0.6545 weighted vs 0.6443 uniform; C 0.0826
+    vs 0.0790 -- an order of magnitude under the bar, and the sign is not stable across supplies,
+    A being -0.0152). Supply A was VOID by construction (coverage 0.035).
+    **SCOPE, which must travel:** this refutes the log-IDF WEIGHTING TRANSFORM, **not** every
+    distinctiveness transform -- PMI is also logarithmic, and the realised weights span only
+    ~1.5-1.75x across shared features (`weight_shared_ratio_p95_p05` 1.5421 / 1.7481 / 1.6346), so
+    the manipulation had almost no dynamic range. Reopens with a transform that produces a real
+    spread, on a comparator that is not the lookup table of CORRECTION C8.
+
+25. **Extractor-derived DIFFERENTIA (or GENUS) features as the route to word-pair similarity, and
+    FEATURE SUPPLY as the binding constraint.** BOTH clauses HARD_FAIL --
+    `exp_differentia_feature_supply_v1`, 9825510bf. Stage 1 failed its own coverage gate at **29**
+    usable SimLex pairs (bar 50) and correctly diagnosed **DOMAIN, not volume** (the biology
+    segment: 1,111 terms -> 3 pairs). Prereg amendment A1 (`64a4ea4c2`, filed BEFORE extraction and
+    BEFORE any arm) authorised the supply fix: **169,982** COPULA/GLOSSARY facts from simplewiki in
+    ~5 minutes took coverage of SimLex-999 from **2.9% to 35.0%** and 29 pairs to **350**.
+    **Supply is therefore no longer the binding constraint and the answer is still no:**
+    A_DIFFERENTIA **0.0247**, B_GENUS_ONLY **0.0179**, B_STRICT_GENUS **-0.0464**, D_CSKG_NOLEXREL
+    **0.0751**, E_SCRAMBLE **-0.0235**, C_GROUNDED_RAW **0.2759**; A-B **+0.0068** with CI
+    **[-0.1179, +0.1395]** (includes 0), and **A <= D**.
+    The negative is informative, not a null run: **positive control** arm D reproduced the
+    predecessor exactly (rho_weighted **0.0804** at n=639 vs prior 0.0804, `abs_deviation` **0.0**,
+    `reproduced: true`); **leak controls excluded 216 of 566** covered pairs before the primary
+    (L1 direct leak 145, L2 synonym-statement 113, L3 same-source-sentence 8); and
+    `forbidden_conceptnet_edges_in_treatment_arms` / `pattern_restriction_frozen_in_advance` both
+    PASS. Do not re-propose "extract more/better features" for this task.
+
 ---
 
 ## CORRECTIONS TO PRIOR CLAIMS
@@ -243,6 +274,56 @@ a ~**0.1999** baseline, i.e. below the baseline it was supposed to beat. Item **
 (`cls_discrete_budget_consolidate`) is `VET_PENDING` / ISLAND with a **HARD_FAIL wiring smoke, gap
 0.000**; it also carries two mutually contradictory registry rows (`VET_PENDING` vs
 `ALREADY_WIRED`). Neither is a ranked opportunity as written; re-rank before acting on that map.
+
+**C8. THE COMPARATOR WAS AN EMBEDDED SIMILARITY LOOKUP TABLE.** Unplanned finding of
+`exp_distinctiveness_weighted_composition_v1` (dbac1ae9c), and more important than its planned one.
+Deleting ConceptNet's **synonym / relatedness (lexical-relation) edges** collapses the comparator
+from rho **0.5361** (B_CSKG, n=999) to **0.0804** (C_CSKG_NOLEXREL) on the identical construction,
+while **raw sensorimotor** scores **0.3003** on those same 639 pairs. So the comparator's apparent
+competence was carried by edges that STATE the answer, not by composed features -- and on the
+stripped supply it is beaten nearly 4x by a norm table it does not use. Every future "the
+comparator scores X" claim must state whether lexical-relation edges were in the supply.
+Corroborated the same night by `exp_near_vs_far_diagnostic_v1`: CSKG-minus-lexrel goes
+**significantly NEGATIVE** on the NEAR half (D **-0.2146**, CI [-0.4027, -0.0038], excludes 0).
+
+**C9. EXPERIMENT RESULTS *ARE* SEARCHABLE -- an earlier same-day Director claim that they might
+not be is WRONG.** The director_kb's last ingest discovered **7,501 `metrics` sources** (with 9,197
+notes and 3,689 preregs), per `data/director_kb_continuous_state.json`
+(`last_ingest_per_class_n_discovered`). The KB's own retrieval encoder is **`char_trigram_v1`**
+(`tools/director_kb_query.py:87`) -- relevant when judging what a KB miss means: a trigram index
+misses paraphrase, so "not found in the KB" is not evidence a result does not exist (this is
+STANDING DISCIPLINE 4's sub-rule -- an absence claim requires an enumeration, not a search).
+
+---
+
+## DIAGNOSTIC READS AND THE CAVEATS THAT TRAVEL WITH THEM (2026-08-13)
+
+Never-trim under `STATUS_SPEC.md` sec 4.7: a read quoted without its caveat becomes a stronger
+claim than the data supports, and the strengthened version is what the next session acts on.
+
+**D1. `exp_near_vs_far_diagnostic_v1` (804b02246) reads `NEAR_COLLAPSE`. The honest shape is
+MONOTONE DEGRADATION, not a clean collapse.** Read source SPLIT1_TAXONOMIC. Sensorimotor arm C:
+pooled **0.2759** [0.1727, 0.3798] -> FAR (n=272) **0.3042** [0.1828, 0.4155] -> NEAR (strict
+shared-synset / shared-direct-hypernym siblings, n=78) **0.1245** [-0.0926, 0.3315], null. Symbolic
+arms are at chance in BOTH halves (on FAR: A **0.0308**, B **0.0137**, D **0.0992**, none excluding
+zero). **Caveat 1: at n=78 the MDE is 0.2116**, so the NEAR null means COULD NOT DETECT, not proven
+zero. **Caveat 2: the balanced co-primary split does NOT show collapse** -- SPLIT1B_WN_PATH_MEDIAN
+NEAR_G (n=218) is **0.2185** [0.0787, 0.3520], still significant, against FAR_G **0.2559**.
+Also from the same run: **no dual-coding separation** (CONCRETE **0.3123** [0.1933, 0.4234] vs
+ABSTRACT **0.2612** [0.0257, 0.4688], CIs overlap heavily).
+
+**D2. `exp_encoder_swap_behind_fixed_brain_stack_v1` is HARD_PASS / `REFUTES_USER_CLAIM`, and it
+does NOT settle the trained-vs-simple question.** A_tuned **0.6386** vs B_char_trigram **0.0873**,
+delta_AB **+0.5513**. But the cell ran on **the encoder's OWN TUNING HARNESS**:
+`experiments/exp_encoder_swap_behind_fixed_brain_stack_v1.py:93` imports
+`exp_continuous_curriculum_learn_as_you_go_v1 as base_loop` -- the same base loop as the 08-01
+transfer cluster -- and takes the assembly loop, the `role_attn` readout and the held-out split from
+it. A **neutral-ground test is owed**. Its own **span control** argues the same way: when
+localization is GIVEN, all five encoder arms tie at **1.000** (A_tuned, A0_frozen_base,
+B_char_trigram, C_ppmi, D_random_init_twin), only E_scramble_floor at 0.0497 -- i.e. what the tuned
+encoder buys on this harness is localization, which is what the harness supplies.
+**Its results are UNCOMMITTED:** `data/exp_encoder_swap_behind_fixed_brain_stack_v1/metrics.json`
+is untracked; only the prereg and cell are committed (`f36ba7626`).
 
 ---
 
@@ -348,6 +429,31 @@ which artifact on disk is the *final landed* one for that subsystem -- check the
 `path` against its own `status`/numbers, check the cited cell's own `metrics.json` verdict, and
 check for a successor. A rating attached to the wrong version is not wrong reasoning, it is a
 wrong target.
+
+### 5. Before gating on a benchmark, check that the BRAIN performs the operation it scores
+
+**Cost: FOUR cells in ONE day**, all optimising **context-free word-pair similarity** --
+`exp_wire_definitional_v1` (MASS_NOT_CONTENT), `exp_distinctiveness_weighted_composition_v1`
+(HARD_FAIL_SHAPE), `exp_differentia_feature_supply_v1` (HARD_FAIL both clauses), and
+`exp_near_vs_far_diagnostic_v1` (NEAR degradation). All four were well-controlled: pre-registered
+bands, scramble floors, leak controls, positive controls that reproduced their predecessors
+exactly. They failed anyway, and the same day's brain drill
+(`notes/brain_drill_encoder_lexical_semantics_2026-08-13.md`, `471798502`) says why: **the brain
+never computes a context-free word-word similarity.** Lexical semantics is read out under a
+semantic-control system that applies GAIN to context-relevant features; the operation SimLex scores
+is not an operation the reference system performs.
+
+**The rule:** before adopting a benchmark as a gate, name the brain operation it corresponds to. If
+there is none, the benchmark can be standard, well-controlled, well-powered and STILL measure a
+function the reference system never computes -- and a clean answer to that question is worth little.
+
+**Distinct from DISCIPLINE 1, and the distinction is the useful part.** Discipline 1 is about
+POWER: those cells could not RESOLVE an answer (the discriminator had no range). These four
+RESOLVED cleanly -- for a question that should not have been asked. A power check would have passed
+all four. The two failure modes need separate checks: *can this cell answer its question?* and
+*does the reference system perform this operation at all?*
+
+Narrative and the full per-cell numbers: `notes/director_evening_digest_2026-08-13.md`.
 
 ---
 
