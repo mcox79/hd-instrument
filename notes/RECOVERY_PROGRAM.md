@@ -149,8 +149,15 @@ under-fire and is labelled as a name test wherever it is used.
 
 ## 5. THE RECOVERY LEDGER
 
-92 rows in seven groups. Group H (sec 6) holds the tiers too large to enumerate; **those are
-counted, not listed, and are explicitly NOT-YET-TRIAGED.**
+**95 rows in seven groups** (A 14, B 11, C 16, D 25, E 12, F 12, G 5). Group H (sec 6) holds the
+tiers too large to enumerate; **those are counted, not listed, and are explicitly
+NOT-YET-TRIAGED.**
+
+Of the 79 result artifacts opened on disk for these rows, **79 are git-tracked and committed**
+(checked with `git log -1 --format=%h -- data/<dir>/metrics.json` per row; **0 UNCOMMITTED**), so
+the bytes read are the bytes committed. The three names that resolved to **no directory** are
+recorded in-row: C6's two mis-named siblings, D22's `..._c1_entmax_alpha_readout_v1`, and F4/F5/F7's
+NOT LOCATED sources.
 
 ### Group A -- read-out / within-neighbourhood separation (bears on C3, THE GATE)
 
@@ -296,9 +303,9 @@ looked at, and what remains. Nothing here may be described as reviewed.**
 
 | # | tier | size | sampled / triaged | NOT-YET-TRIAGED | why it matters |
 |---|---|---|---|---|---|
-| H1 | terminal chain-graded cells in the cert ledger | **574** | 30 ranked individually in S1 sec 5; **26 of those re-opened on disk by me** | **~544** | the assigned tier; but only 35 of 574 are dated >= 07-15, so it is mostly June/early-July substrate physics |
+| H1 | terminal chain-graded cells in the cert ledger | **574** | 30 slots ranked in S1 sec 5 (covering ~24 distinct entries, several of which are multi-cell families); **28 of their directories re-opened on disk by me** | **~546** | the assigned tier; but only 35 of 574 are dated >= 07-15, so it is mostly June/early-July substrate physics |
 | H2 | `proven-bound` reading/grounding cells dated >= 07-15 | **127** (120 with a Class-A floor) | 6 named, **4 opened by me** (C14, C15, C16, A7) | **~121** | **S1's own conclusion is that this tier is probably RICHER for C3 than the chain-graded tier.** It is the obvious next pass and it has never been done |
-| H3 | FULL + floored + invisible brain-mechanism passes | **72** (of 97 FULL, of 251 floored) | 9 hand-verified in S2, **12 re-opened by me** | **~60** | the tightest form of "we missed a lot"; families k-WTA / attractor / Hebbian-STDP / cleanup / binding are at or near zero visibility |
+| H3 | FULL + floored + invisible brain-mechanism passes | **72** (of 97 FULL, of 251 floored) | 9 hand-verified in S2 (its V1-V9); **12 brain-family cells re-opened by me, of which only 4 are in the FULL-72 set** (D1, D2, D8, D10) -- the other 8 are SMOKE-only and were never in the 72. **Overlap between S2's nine and my four was NOT computed** | **at least 59; exact residue uncomputed** | the tightest form of "we missed a lot"; families k-WTA / attractor / Hebbian-STDP / cleanup / binding are at or near zero visibility |
 | H4 | results on disk absent from every index | **6,566 of 7,623 (86%)** | 0 individually | **6,566** | the derived index (G4) now SEES them; nobody has read them |
 | H5 | drift-alarm results: comparison SHAPE, no recognised floor token | **2,009 of 7,623 (26.4%)** | 0 individually | **2,009** | this count IS the vocabulary-drift alarm (sec 8). It is currently FIRING |
 | H6 | dangling 16-hex `supersedes` targets | **32** | 0 | **32** | 4 `cert_ledger.jsonl.bak_*` backups (1.2 MB each, 07-01/02) were never searched; they may hold the superseded rows |
@@ -321,19 +328,19 @@ does not become "reviewed".
 cd /d/AI/hd-instrument && grep -oE 'STATE:(FOUND|VERIFIED|WIRED|SHELVED|REFUTED)' notes/RECOVERY_PROGRAM.md | sort | uniq -c
 ```
 
-**Baseline at open (2026-08-14):**
+**Baseline at open (2026-08-14), produced by running exactly that command:**
 
-| STATE | count | of 92 |
+| STATE | count | of 95 |
 |---|---|---|
-| FOUND | 5 | 5% |
-| VERIFIED | **72** | 78% |
-| WIRED | **1** | 1% |
-| SHELVED | 2 | 2% |
-| REFUTED | 12 | 13% |
+| FOUND | 5 | 5.3% |
+| VERIFIED | **76** | 80.0% |
+| WIRED | **1** | 1.1% |
+| SHELVED | 2 | 2.1% |
+| REFUTED | 11 | 11.6% |
 
-The two numbers that must move: **WIRED/92 goes UP** and **VERIFIED/92 goes DOWN** (every VERIFIED
+The two numbers that must move: **WIRED/95 goes UP** and **VERIFIED/95 goes DOWN** (every VERIFIED
 row must exit to WIRED, SHELVED or REFUTED). FOUND must reach **0** first -- an unverified row is
-not an asset.
+not an asset. The sum must always equal the row count; if it does not, a row lost its STATE token.
 
 > **COUPLING NOTICE (per `CLAUDE.md` "a doc parsed by code is coupled to it"):** the literal token
 > `STATE:` and the five state words are an **API** for the command above. If they are reworded, the
@@ -497,8 +504,8 @@ Add to the **`## OTHER PATH STATE`** section (it is state, not a lesson, so it b
 capped file's re-derivable half, and it costs 232 bytes):
 
 ```
-RECOVERY: 92 recovered systems ledgered in notes/RECOVERY_PROGRAM.md (LIVING) -- 5 FOUND /
-72 VERIFIED / 1 WIRED / 2 SHELVED / 12 REFUTED at open; 10 tiers NOT-YET-TRIAGED incl 544
+RECOVERY: 95 recovered systems ledgered in notes/RECOVERY_PROGRAM.md (LIVING) -- 5 FOUND /
+76 VERIFIED / 1 WIRED / 2 SHELVED / 11 REFUTED at open; 10 tiers NOT-YET-TRIAGED incl 544
 chain-graded + 127 proven-bound reading cells. Count: grep -oE 'STATE:[A-Z]+' that file.
 ```
 
@@ -513,7 +520,7 @@ chain-graded + 127 proven-bound reading cells. Count: grep -oE 'STATE:[A-Z]+' th
   sections 5-6**. If tiers 1-4 do not free 232 bytes, hand the trim to a maintenance pass -- do not
   shrink the stub by dropping the count, because the count is the whole point.
 - If bytes truly cannot be found, the **minimum viable stub is one line**:
-  `RECOVERY LEDGER: notes/RECOVERY_PROGRAM.md (LIVING, 92 systems, states countable in-file).`
+  `RECOVERY LEDGER: notes/RECOVERY_PROGRAM.md (LIVING, 95 systems, states countable in-file).`
 
 ### 10c. If this file is the only thing a cold session has
 
