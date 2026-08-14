@@ -1,0 +1,407 @@
+{
+  "anchor_name": "exp_grounding_readout_known_answer_v1",
+  "run_mode": "full",
+  "prereg": "preregs/2026-08-14_grounding_readout_known_answer_v1.md",
+  "ts_iso": "2026-08-14T07:41:11.573138+00:00",
+  "graded_comparator": false,
+  "HD_GRADED_COMPARATOR_env": "0",
+  "wire_status": "VET_PENDING",
+  "verdict": "AT_FLOOR | HARD_FAIL_B_BELOW_CHANCE",
+  "verdict_msg": "STAGE_A(banked known-answer): AT_FLOOR -- arm=PBV_BASE GOLD_HIT=0.0251 floor_scramble=0.0125 floor_popularity=0.0094 d=0.0125 CI=[-0.0031,0.0313]; the banked meanings are statistically indistinguishable from a random re-pairing of the same object words || STAGE_B(2AFC known-answer, chance 0.50): HARD_FAIL_B_BELOW_CHANCE -- B1=0.4720 (chance 0.50) scramble_floor=0.4412 frequency_floor=0.4943 d(B1-B2)=0.0307 CI=[0.0105,0.0503]",
+  "stage_a": {
+    "per_banked_arm": {
+      "PBV_BASE": {
+        "n_facts_total": 384,
+        "n_wordnet_evaluable": 319,
+        "evaluable_fraction": 0.830729,
+        "tautology_rate_all_facts": 0.0,
+        "n_tautology_all_facts": 0,
+        "gold_hit": {
+          "A1_REAL": {
+            "acc": 0.025078,
+            "ci_lo": 0.009404,
+            "ci_hi": 0.043887,
+            "sd": 0.00878
+          },
+          "A2_SCRAMBLE": {
+            "acc": 0.012539,
+            "ci_lo": 0.003135,
+            "ci_hi": 0.025078,
+            "sd": 0.006316
+          },
+          "A3_POPULARITY": {
+            "acc": 0.009404,
+            "ci_lo": 0.0,
+            "ci_hi": 0.021944,
+            "sd": 0.005449
+          }
+        },
+        "bootstrap": {
+          "n_boot": 5000,
+          "seed": 20260814,
+          "n_items": 319,
+          "arm_acc_ci": {
+            "A1_REAL": {
+              "acc": 0.025078,
+              "ci_lo": 0.009404,
+              "ci_hi": 0.043887,
+              "sd": 0.00878
+            },
+            "A2_SCRAMBLE": {
+              "acc": 0.012539,
+              "ci_lo": 0.003135,
+              "ci_hi": 0.025078,
+              "sd": 0.006316
+            },
+            "A3_POPULARITY": {
+              "acc": 0.009404,
+              "ci_lo": 0.0,
+              "ci_hi": 0.021944,
+              "sd": 0.005449
+            }
+          },
+          "deltas": {
+            "d_A1_minus_A2": {
+              "delta": 0.012539,
+              "ci_lo": -0.003135,
+              "ci_hi": 0.031348,
+              "sd": 0.008818,
+              "mde_95": 0.017284,
+              "ci_excludes_zero": false
+            },
+            "d_A1_minus_A3": {
+              "delta": 0.015674,
+              "ci_lo": -0.003135,
+              "ci_hi": 0.037618,
+              "sd": 0.010393,
+              "mde_95": 0.020369,
+              "ci_excludes_zero": false
+            }
+          }
+        },
+        "arm_digests": {
+          "A1_REAL": "d478392a145c90877aeb16c7dccae48d9b976d090a7549d67c3d01fdd0f7a5de",
+          "A2_SCRAMBLE": "d7ed0b608e78e4f57f36dc80dd4880f1e4d5de05f0660a8dc4d27615f28091c9",
+          "A3_POPULARITY": "885cc2a8eafb3bed3523d7346a4a25411b3fcf0b03821e80304702df043d67a3"
+        },
+        "examples_hit": [
+          "calculate->bank",
+          "followers->visitor",
+          "recommend->clean",
+          "reward->drink",
+          "rolling->bob",
+          "sheet->paper",
+          "status->dark",
+          "swing->beat"
+        ]
+      },
+      "PBV_F1F3": {
+        "n_facts_total": 369,
+        "n_wordnet_evaluable": 303,
+        "evaluable_fraction": 0.821138,
+        "tautology_rate_all_facts": 0.0,
+        "n_tautology_all_facts": 0,
+        "gold_hit": {
+          "A1_REAL": {
+            "acc": 0.019802,
+            "ci_lo": 0.006601,
+            "ci_hi": 0.036304,
+            "sd": 0.008099
+          },
+          "A2_SCRAMBLE": {
+            "acc": 0.0033,
+            "ci_lo": 0.0,
+            "ci_hi": 0.009901,
+            "sd": 0.003323
+          },
+          "A3_POPULARITY": {
+            "acc": 0.009901,
+            "ci_lo": 0.0,
+            "ci_hi": 0.023102,
+            "sd": 0.00583
+          }
+        },
+        "bootstrap": {
+          "n_boot": 5000,
+          "seed": 20260814,
+          "n_items": 303,
+          "arm_acc_ci": {
+            "A1_REAL": {
+              "acc": 0.019802,
+              "ci_lo": 0.006601,
+              "ci_hi": 0.036304,
+              "sd": 0.008099
+            },
+            "A2_SCRAMBLE": {
+              "acc": 0.0033,
+              "ci_lo": 0.0,
+              "ci_hi": 0.009901,
+              "sd": 0.003323
+            },
+            "A3_POPULARITY": {
+              "acc": 0.009901,
+              "ci_lo": 0.0,
+              "ci_hi": 0.023102,
+              "sd": 0.00583
+            }
+          },
+          "deltas": {
+            "d_A1_minus_A2": {
+              "delta": 0.016502,
+              "ci_lo": 0.0,
+              "ci_hi": 0.036304,
+              "sd": 0.008733,
+              "mde_95": 0.017116,
+              "ci_excludes_zero": false
+            },
+            "d_A1_minus_A3": {
+              "delta": 0.009901,
+              "ci_lo": -0.009901,
+              "ci_hi": 0.029703,
+              "sd": 0.010017,
+              "mde_95": 0.019633,
+              "ci_excludes_zero": false
+            }
+          }
+        },
+        "arm_digests": {
+          "A1_REAL": "c292ecd907ac0ab54d062f24c0e6ac883daa513b7fb516b423c30e4da78b65e6",
+          "A2_SCRAMBLE": "5d4179c203c20d0c24303a6d50be7a2af1c7b4c4a913387ec7b6d55c7e5c4298",
+          "A3_POPULARITY": "d5a4bf38f6567052c758df315a22d6fba9e9d4b78e1c9a747afbea4ba7571511"
+        },
+        "examples_hit": [
+          "hitting->beat",
+          "interpret->tell",
+          "mouse->witness",
+          "nap->sleeping",
+          "status->dark",
+          "yahoo->program"
+        ]
+      }
+    },
+    "verdict": "AT_FLOOR",
+    "notes": [
+      "arm=PBV_BASE GOLD_HIT=0.0251 floor_scramble=0.0125 floor_popularity=0.0094 d=0.0125 CI=[-0.0031,0.0313]",
+      "the banked meanings are statistically indistinguishable from a random re-pairing of the same object words"
+    ],
+    "banked_provenance_note": "facts banked 2026-08-12 by exp_grounding_quality_readout_v1 (FULL, STRUCTURAL_PASS_PENDING_B3), i.e. BEFORE the HD_GRADED_COMPARATOR default flip (38f7a0d5c, 2026-08-14). No cross-setting comparison is drawn from stage A."
+  },
+  "stage_b": {
+    "verdict": "HARD_FAIL_B_BELOW_CHANCE",
+    "notes": [
+      "B1=0.4720 (chance 0.50) scramble_floor=0.4412 frequency_floor=0.4943 d(B1-B2)=0.0307 CI=[0.0105,0.0503]"
+    ],
+    "n_items": 4000,
+    "item_construction": {
+      "n_anchors": 5491,
+      "n_items_before_cap": 4603,
+      "n_items": 4000,
+      "removals": {
+        "foil_direction_fallback": 53,
+        "removed_L_not_in_wordnet": 404,
+        "removed_no_gold_anchor": 484
+      },
+      "n_items_with_heldout_sentence": 4000
+    },
+    "graded_comparator": false,
+    "self_retrieval": {
+      "acc": 0.719064,
+      "n": 299,
+      "floor": 0.7,
+      "ok": true
+    },
+    "twoafc": {
+      "n_boot": 5000,
+      "seed": 20260821,
+      "n_items": 4000,
+      "arm_acc_ci": {
+        "B1_ACCUM_REAL": {
+          "acc": 0.472,
+          "ci_lo": 0.457,
+          "ci_hi": 0.48775,
+          "sd": 0.007857
+        },
+        "B2_ACCUM_SCRAMBLE": {
+          "acc": 0.44125,
+          "ci_lo": 0.42625,
+          "ci_hi": 0.45675,
+          "sd": 0.007816
+        },
+        "B3_FREQUENCY": {
+          "acc": 0.49425,
+          "ci_lo": 0.47825,
+          "ci_hi": 0.50975,
+          "sd": 0.008105
+        },
+        "B4_SENTENCE_REAL": {
+          "acc": 0.48425,
+          "ci_lo": 0.4695,
+          "ci_hi": 0.4995,
+          "sd": 0.007751
+        }
+      },
+      "deltas": {
+        "d_B1_minus_B2": {
+          "delta": 0.03075,
+          "ci_lo": 0.0105,
+          "ci_hi": 0.05025,
+          "sd": 0.009929,
+          "mde_95": 0.019461,
+          "ci_excludes_zero": true
+        },
+        "d_B1_minus_B3": {
+          "delta": -0.02225,
+          "ci_lo": -0.044,
+          "ci_hi": -0.00025,
+          "sd": 0.011145,
+          "mde_95": 0.021844,
+          "ci_excludes_zero": true
+        },
+        "d_B4_minus_B2": {
+          "delta": 0.043,
+          "ci_lo": 0.02225,
+          "ci_hi": 0.064,
+          "sd": 0.010542,
+          "mde_95": 0.020662,
+          "ci_excludes_zero": true
+        },
+        "d_B1_ACCUM_REAL_minus_CHANCE": {
+          "delta": -0.028,
+          "ci_lo": -0.043,
+          "ci_hi": -0.01225,
+          "sd": 0.007857,
+          "mde_95": 0.015401,
+          "ci_excludes_zero": true
+        }
+      }
+    },
+    "arm_digests": {
+      "B1_ACCUM_REAL": "0a8d8a4f15812a14d5268c30c5b397c5d7dd35b1ff8b712b99f20601dc806f88",
+      "B2_ACCUM_SCRAMBLE": "ca6ef8ba2180180c231799842999a868807cdb5d79218e319ded40a41ee4ce71",
+      "B3_FREQUENCY": "2dc7773d327d930d195a52c795e9e77625112fb59e966e9f79daa6ee33b8d583",
+      "B4_SENTENCE_REAL": "82981cbfb0bddb43726e594993542b45f78750e74a97c076ce3a565d305361f5"
+    },
+    "arms_bit_identical": [],
+    "frequency_floor_in_band": {
+      "acc": 0.49425,
+      "band": [
+        0.4,
+        0.6
+      ],
+      "ok": true
+    },
+    "open_vocabulary_readout": {
+      "note": "B5/B6 are the OPEN-VOCABULARY argmax the reading loop actually performs (all 5491 anchors eligible). B5 hit@1 is the closest automated analogue of the MEANINGFUL rate; B6 is its floor.",
+      "n_anchors": 5491,
+      "hit_at_1": {
+        "B5_OPEN_REAL": {
+          "acc": 0.039,
+          "ci_lo": 0.033,
+          "ci_hi": 0.045,
+          "sd": 0.003076
+        },
+        "B6_OPEN_SCRAMBLE": {
+          "acc": 0.008,
+          "ci_lo": 0.00525,
+          "ci_hi": 0.011,
+          "sd": 0.001431
+        }
+      },
+      "delta": {
+        "d_B5_minus_B6": {
+          "delta": 0.031,
+          "ci_lo": 0.0245,
+          "ci_hi": 0.03775,
+          "sd": 0.003377,
+          "mde_95": 0.006619,
+          "ci_excludes_zero": true
+        }
+      },
+      "tautology_rate": 0.0,
+      "n_tautology": 0,
+      "tautology_rate_when_self_eligible": {
+        "rate": 1.0,
+        "note": "ANALYTICALLY PINNED, not a measurement: the query IS the lemma's own anchor, so an argmax that may return it always does. Reported because it is the mechanism behind the legacy store's 0.6569 tautology rate (2328/3544, data/foundation/reading_grounding_v1); the live loop excludes the pending lemma, and the 2026-08-12 banked arms carry 0 tautologies."
+      },
+      "example_picks": [
+        "abandon->body",
+        "abbey->downton",
+        "ability->face",
+        "able->still",
+        "abnormality->duplication",
+        "about->might",
+        "above->going",
+        "abroad->age",
+        "absence->regulate",
+        "absent->limitation",
+        "absolutely->maria",
+        "absorb->chlorophyll",
+        "absorption->bile",
+        "abundance->endemic",
+        "abuse->response",
+        "academic->findings",
+        "academy->journal",
+        "accelerate->fact",
+        "acceptor->nad",
+        "accept->stop",
+        "accessory->addition",
+        "access->internet",
+        "accident->call",
+        "accommodation->image",
+        "accompany->aspect"
+      ],
+      "example_gold_hits": [
+        "accessory->addition",
+        "adrenal->parathyroid",
+        "african->friend",
+        "aids->turn",
+        "amniote->reptile",
+        "amphibian->mammal",
+        "anaphase->telophase",
+        "ana->book",
+        "answer->support",
+        "atmosphere->nitrogen",
+        "atm->machine",
+        "atrium->ventricle",
+        "attempt->support",
+        "automate->improve",
+        "axon->dendrite",
+        "blade->weapon",
+        "boiling->evaporation",
+        "burning->produce",
+        "caecilian->salamander",
+        "cant->reach"
+      ]
+    },
+    "diagnostics": {
+      "B4_zero_query_fell_back_to_coin": 6
+    },
+    "elapsed_s": 542.4
+  },
+  "revival_criterion": {
+    "recorded": ">=0.10 MEANINGFUL against a recorded floor, tautologies <0.10",
+    "source": "notes/SUBSTRATE_STRATEGY.md PART 1 (C3)"
+  },
+  "config": {
+    "CTX_D": 256,
+    "MIN_LEMMA_COUNT": 8,
+    "K_SENT_TOTAL": 90,
+    "PROFILE_FRAC": 0.8,
+    "FOIL_RATIO_BAND": [
+      0.5,
+      2.0
+    ],
+    "MAX_ITEMS": 4000,
+    "MIN_ITEMS": 200,
+    "N_BOOTSTRAP": 5000,
+    "MASTER_SEED": 20260814,
+    "OMP_NUM_THREADS": "1"
+  },
+  "limitations": [
+    "GOLD_HIT is a KNOWN-ANSWER PROXY for a human MEANINGFUL judgement, chosen because it has a floor and the hand-score does not. Convergence with the prior hand-score is evidence ABOUT THE PROXY, never a substitute for it.",
+    "STAGE B is a 2-candidate forced choice; it licenses NO statement about the open-vocabulary argmax rate. Only STAGE A and the B5/B6 open-vocabulary block do.",
+    "L's accumulated bundle may contain sentences where the gold word co-occurs. The leak is left IN on purpose (co-occurrence IS the mechanism) and biases TOWARDS the treatment, so a null is conservative.",
+    "STAGE A re-scores facts banked 2026-08-12, BEFORE the HD_GRADED_COMPARATOR default flip. STAGE B's setting is reported in graded_comparator."
+  ],
+  "elapsed_s": 546.25
+}
