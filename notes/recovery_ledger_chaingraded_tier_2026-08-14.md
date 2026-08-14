@@ -83,7 +83,9 @@ A group is DISCARDED when its distinguishing labels are all seed-like or all con
 | the common six (`scramble/shuffle/random/chance/baseline/control`) | 103 | **69** |
 | a broad 31-token vocabulary | 128 | **44** |
 
-**Read the first row.** A `scramble`-keyed sweep sees **11** floored cells in this tier and misses **161** that have one. The June cohort is the reason: of **467** terminal cells dated June 2026, **0 contain the string `scramble`** while **90 have a real floor** -- the June convention names its floors `hebb_alpha_c`, `cap_unwhitened`, `last_token_raw`, `HA_ONLY`, `NO_CX`, `random_arm_pathology`, `FREQ_NULL`, or states them only in prose.
+**Read the first row.** A `scramble`-keyed sweep sees **11** floored cells in this tier and misses **161** that have one.
+
+**The June cohort is the reason, and the June figure must be quoted carefully.** 467 cells carry a June date, but 432 of those are dated only by the first-commit of their experiment file -- a batch estimate, and the saturation grid swamps it. On the **35 June cells dated by a RELIABLE source** (`ts_iso` in metrics.json, `_start_marker.json`, or the ledger `ts`): **0 contain the string `scramble`**, while **24 have a real floor**. The June convention names its floors `hebb_alpha_c`, `cap_unwhitened`, `last_token_raw`, `precision1_plain`, `HA_ONLY`, `NO_CX`, `FHRR` (as the failing arm), `random_arm_pathology`, `FREQ_NULL`, or states them only in prose. **The word was not the design, in either direction.**
 
 **Honest limits, so CONTRAST-ONLY and NO FLOOR are not over-read:** the detector reads only `metrics.json`. A floor declared in a pre-registration, a `notes/` writeup or a `_start_marker.json` is invisible to it. **`NO FLOOR` means "no floor visible in metrics.json", never "no floor".** And the reference-arm vocabulary is still a vocabulary: it will age exactly the way the control vocabulary aged. The 124 CONTRAST-ONLY rows are the live alarm -- each has a comparison SHAPE whose arms this pass could not name.
 
@@ -734,13 +736,32 @@ Nothing on disk was opened for these, so **none of them is VERIFIED and none may
 
 ## 6. WHAT IS **NOT DONE**, WITH ITS COUNT
 
-1. **NOT DONE -- floors hand-verified.** 172 cells carry a floor by SHAPE. I hand-read the `verdict_msg` of **26** of them (the CG-A group plus the ~10 checked while calibrating the detector). **The other 146 are machine-classified only. Cite 172 as a lower bound on floored cells, never as a verified floor rate.**
+1. **NOT DONE -- floors hand-verified.** 172 cells carry a floor by SHAPE. I hand-read the full `verdict_msg` of **48** cells (the 48 highest separation-geometry scores, which covers the whole CG-A group), plus ~10 more opened while calibrating the detector. **The remaining ~124 floored cells are MACHINE-CLASSIFIED ONLY. Cite 172 as a lower bound on floored cells, never as a verified floor rate.** Two over-fires were found by hand in the 48 and are marked in place (`perm_acc_mean` matched the control token `perm` where `perm` is the TREATMENT; `hf_gap_orth_freq_max` matched `freq`), so assume more exist in the unread remainder.
 2. **NOT DONE -- dates for the June batch.** **439 of 565 cells are dated ONLY from the first-commit date of `experiments/<name>.py`.** That is a BATCH ESTIMATE, not a run date; the whole whitening/pinv/codebook family lands on 2026-06-06 by this method and on 2026-06-16/17 by the source note's method. Both are git; neither is the run. A real fix needs the dispatch logs, which I did not open. **17 cells are UNDATED by all four sources.**
 3. **NOT DONE -- the 124 CG-C contrast-only cells were not re-examined by hand.** At least one of them (`..._encoder_capacity_at_scale_battery_gpu_v1`) turned out to carry a real floor under an unrecognised arm name. **Assume the floored count is understated by an unknown amount inside this group.**
 4. **NOT DONE -- the 14 chain-graded `META_RULE_*` atoms.** They resolve to no cell and are excluded from the 565. They are discipline rules, not experiments, and at least one (`META_RULE_floor_thresh_must_be_stat_valid_for_sample_regime_not_hardcoded_constant`) is directly about floor validity and should be read by whoever next touches the floor detector.
 5. **NOT DONE -- module/registry reconciliation.** `module` is a NAME match between the cell name and `hdlab/*.py`; it fires on 33 cells and is not a runtime claim. `live` is inherited from the 39-module closure measured in RECOVERY_PROGRAM sec 4, **not re-measured here**. EXISTS / IS-REACHED / IS-GOOD stay three separate questions and this file answers only the first.
 6. **NOT DONE -- nothing was WIRED.** Every row leaves this pass in VERIFIED or FOUND. By RECOVERY_PROGRAM sec 3 that means the tier is triaged, not finished.
 7. **NOT DONE -- the sibling tiers.** This file covers H1 only. H2 (127 `proven-bound` reading cells >= 07-15) is untouched here and the source note's own conclusion is that it is **richer for C3 than this tier** -- only 33 of these 565 cells are dated 2026-07-15 or later.
+
+## 6a. THE 12 STATE:REFUTED ROWS -- the cheapest thing in this file
+
+A refutation stops work, so these are listed by name rather than left to be found in a 565-row table. Each is a chain-graded cell whose own verdict is a negative.
+
+| cell | date | verdict as read |
+|---|---|---|
+| `exp_cross_axis_m_n_k_discriminating_arm_v2_3seed_full_chain_grade_substrate_` | 2026-07-02 | MIDDLE_BAND |
+| `exp_n1_concept_lm_substrate_native_token_decode_v3` | 2026-06-21 | HARD_FAIL |
+| `exp_phase_diagram_capacity_multi_bank_k4_envelope_v2c_n8192_gpu` | 2026-06-27 | HARD_FAIL |
+| `exp_q_b1_depth_extended_n32768` | 2026-06-02 | MIDDLE_BAND |
+| `exp_read_discourse_entitygrid_coherence_v1` | 2026-07-17 | MIDDLE_BAND |
+| `exp_read_grow_selectional_preference_precision_v2` | 2026-07-17 | HARD_FAIL |
+| `exp_substrate_capacity_multibank_alpha_k_phase_diagram_v2_gpu_seed_7` | 2026-06-29 | MIDDLE_BAND |
+| `exp_substrate_concept_encoder_spoke1_stress_test_cell1_apples_to_apples_labe` | 2026-07-03 | MIDDLE_BAND |
+| `exp_substrate_narrative_partition_oracle_v_c_sweep_v1_smoke` | 2026-06-28 | HARD_FAIL |
+| `exp_substrate_pattern_completion_corruption_cliff_v2p2_dense_cliff_grid_seed` | 2026-06-28 | HARD_FAIL |
+| `exp_substrate_stage_a_bio_smoke_b2_sparse_fix_v2` | UNDATED | HARD_FAIL |
+| `exp_theta_gamma_v4_extended_seeds_gpu_7seed_full_chain_grade_lift_of_v3_atom` | 2026-07-01 | MIDDLE_BAND |
 
 ## 7. THE ONE-LINE ANSWER TO "HOW MUCH OF THE RECORD DO WE UNDERSTAND?"
 
