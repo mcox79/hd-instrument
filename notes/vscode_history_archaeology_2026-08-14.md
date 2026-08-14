@@ -155,4 +155,187 @@ enumerated anywhere.
 
 ---
 
-*(sections 2-5 follow; see below)*
+## 2. THE CHAIN_GRADE TIER — 32 CELLS, 31 INVISIBLE
+
+`CHAIN_GRADE` is the project's highest historical verdict tier (a full rubric: discriminator fires,
+glass-box replay/tamper/causal-edit, non-ceiling, held-out). Enumerated by scanning every verdict
+string for `CHAIN_GRADE` / `CHAIN-GRADE` — **NOT** by expected cell name.
+
+**Result: 32 distinct cells carry a CHAIN_GRADE verdict. 31 of them appear in NONE of the four
+docs.** The single exception, `exp_cleanup_floor_learned_encoder_v1`, has a registry row only.
+26 of the 32 have a floor.
+
+**This is the single largest invisible block in the repo, and it is the top of the quality ladder.**
+
+### 2a. The three that matter most — VERIFIED ON DISK TODAY
+
+All three are `run_mode: full`, git-**tracked**, and **clean at HEAD** (no working-tree diff), so
+they are the same bytes that were committed. Read with `.venv` python.
+
+**`exp_consolidated_reader_chaingrade_demo_v1`** — `CHAIN_GRADE_DEMONSTRATED`,
+`ts 2026-07-23T21:11:15.667744+00:00`. All 4 rubric parts held.
+**Floor:** naive positional baseline F1 **0.3407**; `arm_a_baseline_svo` F1 **0.2708** (prec 0.1956,
+recall 0.44). Reader F1 **0.592**, margin **+0.2513**, recovering 18 gold tuples the naive baseline
+misses. Non-ceiling shown on BOTH disjoint halves (A=0.2775, B=0.2332) and 7/7 lessons.
+Glass-box: deterministic replay stable, sha256 audit hash tamper-detected, causal role-edit flips
+the who-did-what tuple, bridge head-edit re-routes a candidate.
+**A floored, full-run, glass-box, two-baseline win on the who-did-what reading competency, and it is
+in no current doc.**
+
+**`exp_consolidated_reader_hardsyntax_heldout_v1`** — `CHAIN_GRADE_HARDSYNTAX_EARNED`,
+`ts 2026-07-23T23:48:58`. **Floor:** naive **0/24 (0.0)** — at floor. Reader **4/24 (0.1667)**,
+discriminator margin +4, recovering `opposed_agent`, `opposed_patient`, `revealed_agent`,
+`revealed_patient` that an ORDER baseline misses. Per-type: `passive_agent_by` n=9 reader 1 naive 0;
+`passive_patient_preverbal` n=13 reader 2 naive 0. **N=24 across 11 novels — the cell itself calls
+this a "small-N held-out probe". Underpowered; cite as a lead, not as evidence.** But the direction
+is clean and the floor is a true zero.
+
+**`exp_consolidated_reader_chaingrade_FULL_v1`** — `CHAIN_GRADE_HELDOUT_PARTIAL`,
+`ts 2026-07-23T23:24:24`. **`chain_grade_heldout_earned = False`.** 2 of 4 bars held
+(`ARM_C_glass_box_ok`, `ARM_D_non_ceiling_reported`); 2 short (`ARM_A_transfer`,
+`ARM_B_discriminator_fires`). Composed LitBank who-did-what **10/13 (0.7692) vs naive 11** — the
+reader LOSES to naive on held-out LitBank. STEP1 McGuffey composed f1=0.6423 (STEP1_HARD_PASS).
+
+**The load-bearing reading of the triple, and why it should be in the plan.** Taken together these
+three establish, on 2026-07-23, exactly the shape the project re-derived in August: **the reader
+beats its baseline decisively IN-DOMAIN (McGuffey, +0.2513) and ATTENUATES OR REVERSES on HELD-OUT
+prose (LitBank, reader 10 vs naive 11).** That is the same in-domain/held-out gap the current
+banner describes as the entity-knowledge wall. It was measured, floored, glass-boxed and reported
+honestly three weeks earlier under a verdict string (`CHAIN_GRADE_*`) that no current search
+pattern looks for. **This is the strongest single instance of the USER's hypothesis being right.**
+
+### 2b. The rest of the CHAIN_GRADE block (all invisible, floor status noted)
+
+Multihop / routing arc — `exp_substrate_multihop_pfc_chunked_2hop_decomposition_v1_smoke`
+(`HARD_PASS_CHAIN_GRADE_BARRIER_1_VIA_CHUNKING`, floored, tracked, clean),
+`..._multihop_bidirectional_meet_middle_v1_smoke` (`..._BIDIRECTIONAL`) and `_v2_META_M`
+(`..._BIDIRECTIONAL_REVIVAL`), `..._multihop_compose_fly_lsh_multibank_partition*`
+(`..._COMPOSITION_ADDITIVE`, `..._BARRIER_1_REVIVAL`),
+`exp_gap1_partition_routing_bidirectional_collide_and_fly_lsh*` (`..._BOTH_ROUTERS`),
+`exp_substrate_partition_routing_hierarchical_2level_v1` (`CHAIN_GRADE_AT_M_10M`, **no floor**).
+
+Phase-diagram arc — `exp_phase_diagram_multihop_depth_extension_via_partition_o*`
+(`CHAIN_GRADE_DEPTH_EXTENDS`, floored), `..._depth_ceiling_sweep_20_25_30_v1`
+(`CHAIN_GRADE_DEPTH_CEILING_30`, **no floor**), `exp_phase_diagram_wm_multibank_K_8192_3seed_harvest_v1`
+(`CHAIN_GRADE_K_8192_3SEED`, floored, 3 seeds).
+
+Scaling / verification arc — `exp_lln_point_mass_verification_N_V_C_f_sweep_v1`
+(`CHAIN_GRADE_LLN_POINT_MASS_VERIFIED`, floored), `exp_lln_point_mass_large_vc_10k_1M_v1`
+(`CHAIN_GRADE_COMMERCIAL_SCALE_VC`, floored),
+`exp_substrate_intent_classifier_v2_production_scale_100plus` (`CHAIN_GRADE_AT_CLIFF_X`, floored),
+`exp_substrate_stage3_integrated_audit_device_demo_v2_production` (`CHAIN_GRADE_AT_LOWER_X`, **no
+floor**).
+
+Basis / contamination arc — `exp_substrate_basis_layer_label_contamination_proof_v3_bank`
+(`HARD_PASS_CHAIN_GRADE`) and `_v4_proof` (`HARD_PASS_CHAIN_GRADE_DEFINITIVE`), both floored.
+`exp_substrate_role_tagged_compositional_generalization_on_*` (`HARD_PASS_CHAIN_GRADE`, floored).
+
+Stage-1 arc — `exp_substrate_stage1_definitive_validation_v1` (`STAGE_1_CHAIN_GRADE_ALIVE`),
+`exp_substrate_stage1_SEMANTIC_concept_learner_battery_v1` (`CHAIN_GRADE`), both floored.
+
+Schema arc — `exp_substrate_schema_exemplar_bayes_capacity_stress_v4_seed_*` (`CHAIN_GRADE_MULTI`),
+**5 seeds, 2026-06-29, all floored** — the only DATED CHAIN_GRADE block before 07-23.
+
+**NOT DONE:** individual hand-verification of the 26 CHAIN_GRADE cells in §2b. Only the three in
+§2a plus `..._multihop_pfc_chunked_2hop_decomposition_v1_smoke` were opened and read. The rest are
+reported at their recorded verdict + floor-key presence, which is weaker evidence, and are labelled
+as such. Supersession was NOT checked for any of §2b.
+
+---
+
+## 3. MEASUREMENT-CONVENTION DRIFT — the key that unlocks the old material
+
+The USER explicitly warned about this. It is severe, and it fully explains why the older arc is
+invisible to current searches. Computed over all 7,649 metrics.json, bucketed by `ts_iso` month.
+
+### 3a. Verdict-string vocabulary EXPLODED, then contracted
+
+| month | files | DISTINCT verdict strings |
+|---|---|---|
+| 2026-06 | 386 | **13** |
+| 2026-07 | 1,699 | **444** |
+| 2026-08 | 370 | 151 |
+| UNDATED | 4,975 | **1,003** |
+
+June used a 13-word controlled vocabulary. July invented **444 distinct verdict strings for 1,699
+files** — roughly one new string per four runs. **Any filter written against the current August
+vocabulary is reading a language the July arc did not speak.** This is the mechanism behind the
+prior sweep's finding that an exact-match filter misses ~24% of passes; the family view shows the
+loss is not uniform — it is concentrated in July, which is when most brain-foundational work
+happened.
+
+### 3b. Verdict SHAPE by month
+
+| shape | 2026-06 | 2026-07 | 2026-08 | UNDATED |
+|---|---|---|---|---|
+| exact `HARD_PASS` / `HARD-PASS` | 117 | 491 | 62 | 1,733 |
+| `HARD_PASS` + prefix/suffix | 0 | **95** | 30 | 173 |
+| `CHAIN_GRADE` variant | 5 | 3 | 0 | 15 |
+| other PASS-containing | 0 | 48 | 37 | 308 |
+| **bespoke (NO PASS/FAIL token at all)** | **104** | **426** | **110** | **717** |
+| middle / partial | 89 | 306 | 61 | 1,060 |
+| fail / refute | 71 | 326 | 70 | 960 |
+| no `verdict` key at all | 0 | 0 | 1 | 218 |
+
+**1,357 results carry a verdict with NO `PASS` or `FAIL` token anywhere in it** (e.g.
+`OPERATOR_FIX_CONFIRMED_CONSOLIDATION_INCONCLUSIVE`, `MEANING_MATCH_PASS` is fine but
+`CHAIN_GRADE_AT_M_10M`, `LANE_D_E2E_PASS`, `STAGE_1_CHAIN_GRADE_ALIVE`, `BET_B_PASS`,
+`FOURSTAGE_HARD_PASS`, `PIPELINE_HARD_PASS`, `CASCADE_HARD_PASS` are not). A grep for `HARD_PASS`
+finds `FOURSTAGE_HARD_PASS` only because it is a substring; it finds `CHAIN_GRADE_AT_CLIFF_X`
+never. **218 results have no `verdict` key whatsoever** and are invisible to any verdict-based
+search by construction.
+
+### 3c. Hyphen-vs-underscore is real but RARE, and it is an AUGUST innovation
+
+`HARD-PASS` (hyphen): 2026-06 **0**, 2026-07 **1**, 2026-08 **4**, UNDATED **1** — 6 total against
+2,692 underscore. So the hyphen trap flagged in the memory index is genuine but tiny, and it does
+NOT explain the older material. **The `_fulldev` suffix and the bespoke-vocabulary problem explain
+far more.** Correcting the emphasis: hunting hyphens will recover 6 results; hunting bespoke
+verdict strings will recover ~1,357.
+
+### 3d. FLOOR-KEY NAMING drifted completely — this is the worst trap
+
+The name of the control key changed every month:
+
+| month | dominant floor/control key names |
+|---|---|
+| **2026-06** | `positive_control_result` (59), `random_arm_pathology` (29), `random_arm_pathology_pts` (29), `low_kv_mechanism_floor_met` (25), `n_FLOOR` (10), `all_floored` (10), `crlb_floor_computed` (8), `lift_over_baseline` (6) |
+| **2026-07** | `baseline_in_band` (284), `crlb_floor_computed` (86), `chance` (73), `controls` (46), `positive_control_result` (41), `chance_theoretical` (21) |
+| **2026-08** | `chance` (29), `stage0_bow_baseline_accuracy` (16), `positive_control` (15), `positive_control_self_retrieval` (12), `scramble_collapses` (11), `non_fork_controls` (9) |
+| **UNDATED** | `crlb_floor_computed` (43), `beta_floor` (20), `baseline_in_band_check` (19), `chance` (17), `scramble` (13), `majority_floor` (12), `crumble_floor` (11) |
+
+**The word `scramble` — the project's current canonical name for a floor — appears 11 times in
+August and ZERO times in June.** June's floor was called `random_arm_pathology` or
+`positive_control_result`. **A search for "does it have a scramble control" run over June's
+results returns FALSE for every single one, and that answer is wrong.** July's dominant key,
+`baseline_in_band` (284 files), is likewise not a word any current search uses. This is the
+single highest-leverage drift finding in this sweep: **the floor test is the gate that decides
+whether an old result counts, and the gate has been asking the wrong question of everything before
+August.**
+
+### 3e. THREE incompatible timestamp formats
+
+- `2026-06-29T07:01:32Z` — Zulu suffix (June, most of July)
+- `2026-07-23T21:11:15.667744+00:00` — microseconds + numeric UTC offset (the consolidated-reader
+  CHAIN_GRADE block, 07-23)
+- **absent entirely** — 5,193 of 7,649 files (68%)
+
+A parser keyed on a trailing `Z` silently drops the 07-23 block, which is where the three most
+live-relevant CHAIN_GRADE results live. **This is not hypothetical — it is exactly the block §2a
+recovered.**
+
+### 3f. The 5,193 UNDATED results are a DIFFERENT CELL TEMPLATE, not merely undated
+
+Top-level key vocabulary separates them cleanly. Dated cells (all months) carry `ts_iso` at
+**100%** plus `anchor_name`, `config_version`, `elapsed_s`. The undated block instead leads with
+`n_seeds` (2,908), `per_seed` (2,444), `config` (1,247), `N` (1,231) — a multi-seed sweep template
+— and carries `anchor_name` on only 3,053 of 5,193 and `config_version` on 656. June-only markers
+`_hardening_marker` (361) and `pid` (361) vanish after June.
+
+**Consequence:** the undated block is not a dating gap to be patched, it is a distinct generation
+of the harness. **68% of all results in the repo were produced by a cell template whose
+conventions no current tool matches.** The prior sweep correctly refused to substitute mtime or
+git-date; the finding here is *why* that matters — the whole template differs, so date is not the
+only field that will not join.
+
+---
