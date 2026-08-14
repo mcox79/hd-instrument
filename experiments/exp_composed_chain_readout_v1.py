@@ -553,11 +553,21 @@ def run(run_mode: str, out_dir: str) -> dict:
     sub_cap = [v for v in sweep.values() if v["within_pinv_capacity"]]
     pinv_helps_in_cap = any(v["A2_PINV"]["hit1"] - v["A0_BASELINE"]["hit1"] > 0.01
                             for v in sub_cap)
-    moved = abs(br["median_rank"] - base_rank) > (sd_rank if sd_rank == sd_rank else 0.0)
+    sdr = sd_rank if sd_rank == sd_rank else 0.0
+    moved = abs(br["median_rank"] - base_rank) > sdr
+    # PREREG GAP, disclosed rather than papered over: sec 5 named HARD_PASS / MIDDLE_BAND /
+    # HARD_FAIL_NO_EFFECT / CODEBOOK_DOOMED. It did NOT anticipate the outcome that actually
+    # occurred -- every stage moving the measurand STRONGLY IN THE ADVERSE DIRECTION. Scoring that
+    # as "MIDDLE_BAND" because "an arm moved" would be an unearned promotion of a clean negative,
+    # so an explicit adverse branch is added here and the prereg gap is recorded in metrics.
+    all_hurt = all(per_arm[a]["rank"]["median_rank"] > base_rank + sdr
+                   for a in ("A1_WHITEN", "A2_PINV", "A3_C2F", "A4_FULL"))
     if hard_pass:
         verdict = "HARD_PASS"
     elif pinv_helps_in_cap:
         verdict = "MIDDLE_BAND_MECHANISM_REAL_BELOW_CAPACITY_ONLY"
+    elif all_hurt:
+        verdict = "HARD_FAIL_EVERY_STAGE_HURTS"
     elif not moved:
         verdict = "HARD_FAIL_NO_EFFECT"
     else:
@@ -604,6 +614,22 @@ def run(run_mode: str, out_dir: str) -> dict:
         "lambda_sensitivity": lam_sens, "lambda_primary_rel": LAMBDA_PRIMARY,
         "between_draw": between_draw,
         "anchor_count_sweep": sweep,
+        "prereg_gap_disclosed": (
+            "prereg sec 5 named HARD_PASS / MIDDLE_BAND / HARD_FAIL_NO_EFFECT / CODEBOOK_DOOMED "
+            "and did not anticipate every arm moving the measurand strongly in the ADVERSE "
+            "direction. The HARD_FAIL_EVERY_STAGE_HURTS branch was added after the numbers were "
+            "seen, and is STRICTLY MORE NEGATIVE than the band the pre-registered logic would "
+            "have returned (MIDDLE_BAND). Disclosed so the change cannot be mistaken for "
+            "band-shopping."),
+        "failure_mode_a_resolution": (
+            "PRE-DECLARED: a pinv null at full anchor count would be a SCALE result, and the test "
+            "separating that from a genuine transfer failure was whether A2 beats A0 in the "
+            "n_anchors <= d=256 regime where the mechanism's precondition HOLDS. It does not: "
+            "A2-A0 is negative at every swept size (m=64 -0.0422, m=128 -0.0716, m=192 -0.0951, "
+            "m=256 -0.1155) and the deficit is LARGEST inside the capacity regime, shrinking "
+            "toward 0 as m grows. The scale explanation is therefore REFUTED BY ITS OWN "
+            "PRE-DECLARED TEST: the pseudoinverse write rule does not transfer to our codes, and "
+            "dimensionality is not the binding constraint."),
         "config": {"d_coarse": D_COARSE, "shortlist_frac": SHORTLIST_FRAC,
                    "whiten_eps_rel": WHITEN_EPS_REL, "n_bootstrap": n_boot,
                    "sweep_replicates": SWEEP_REPLICATES, "master_seed": MASTER_SEED},
