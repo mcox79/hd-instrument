@@ -717,3 +717,155 @@ numbers below are read off each cell's own `metrics.json` at HEAD.
    `exp_teacher_free_relational_encoder_cn_subgraph_v1` (2026-07-08, full, 5 seeds) HARD_PASS:
    `ARM_GRAPH_REPULSION` Z **497.90** (per-seed min 453.21) against random-init floor **148.97** and
    control **21.42**; ablation collapses; subgraph n=10,577, E=34,659.
+
+---
+
+## THE PHASE DIAGRAM -- THE STORE'S POSITION IS A CHOICE, AND IT HAS TWO UNSPENT CASH-INS
+
+**Never-trim under `STATUS_SPEC.md` sec 4.7.** The project owner said in as many words "we should
+not forget this", and it has already been forgotten once: on 2026-08-14 the `d=256 -> 1024` step was
+written into the build plan as *a priced capacity upgrade worth about +0.05*. That framing is WRONG
+and is corrected at the end of this section.
+
+**The freedom.** Four knobs are tunable at will, each with a known capacity peak / cliff:
+sparse-vs-dense codes; **superposition load** (how many facts are bundled into one vector); `K`;
+and `n_dim`. The theory is already banked, not hypothetical -- `notes/week8_scaling_summary.md`:
+FHRR capacity `k_50%(N) ~ N^1.003` (`k_50% ~= N/4.84` at pool=200, R^2 0.99999734) and nesting
+depth `depth_50%(N) = 0.717*log2(N) - 0.629` (pool=100, R^2 0.973, SUB-linear; HRR by contrast is
+super-linear in depth). Primary sources: `notes/exp_scaling_capacity.md`, `notes/exp_scaling_depth.md`.
+
+**Where the store sits, and why.** The store deliberately occupies the **maximally conservative
+corner: dense bipolar, SHARDED at ONE FACT PER VECTOR**. At a load of one there is no inter-item
+crosstalk, so recovery is exact and every read is inspectable. That is **OPTING OUT of the capacity
+phase diagram entirely**, and it is bought deliberately -- it is what makes the glass-box invariant
+hold at the storage layer. **A CHOICE, NOT A LIMITATION.** Anyone reading "1 fact per vector" as a
+capacity defect has the sign backwards.
+
+**Cash-in trigger 1 -- RAM CEILING -> CONTROLLED SUPERPOSITION.** When memory (not accuracy) is the
+binding constraint, bundle `B` facts per vector at a capacity-SAFE load read off the banked
+capacity-vs-load curve, as the substrate-native alternative to going on-disk. `B` is a dial and the
+curve says what it costs.
+
+**Cash-in trigger 2 -- BUILDING REASONING / GOING MORE BRAIN-FAITHFUL -> SPARSE CODES.** Biological
+codes run ~1-5% active: cheaper memory, cleaner cleanup, their own capacity peaks -- plus the
+composition-depth regime (how many bindings compose before a multi-hop chain degrades), which is
+exactly what a reasoning layer spends.
+
+**NEITHER TRIGGER HAS BEEN HIT.** Quality -- not RAM, not reasoning depth -- is the current binding
+constraint (`STATUS.md` TOP ITEM).
+
+**THE CORRECTION, recorded so the same error cannot recur.** `d=256 -> 1024` is **a move along a
+known curve whose present position is deliberate**, NOT a purchased upgrade. `ORGAN_MAP.md:338`
+already has the whole curve measured on the live comparator: QUANT `[0.6395, 0.7030, 0.7380]` and
+GRAD `[0.6980, 0.7495, 0.78225]` at `d = 256 / 1024 / 4096`. The "+0.05" is simply the
+`d=256 -> 1024` segment of GRAD, and `0.7495` is the **d=1024 GRADED arm, never shipped** -- the
+live path is `0.6980` at `d=256`. Quoting `0.7495` as the live number is the specific mistake this
+paragraph exists to prevent. Raising `d` also rewrites every persisted anchor store, which is why
+it is gated (`STATUS.md` WHAT IS RUNNING).
+
+---
+
+## DO NOT REDO -- entries added 2026-08-14 (continuing the numbering at the top of this file)
+
+29. **The composed five-stage read-out chain (whitening -> pseudoinverse write -> coarse-to-fine).**
+    `exp_composed_chain_readout_v1`, full run, verdict **HARD_FAIL_EVERY_STAGE_HURTS**
+    (`data/exp_composed_chain_readout_v1/metrics.json`, `ts_iso` 2026-08-14T17:38Z, n=600 items,
+    647 anchors, d=256). **Every arm is worse than the untouched baseline on hit@1 and on rank:**
+    A0_BASELINE median_rank **84**/647, top50 **0.400**, hit@1 **0.09833**, 2AFC **0.7083**;
+    A1_WHITEN 240.5 / 0.145 / **0.00667** / 0.6083; A2_PINV 153.5 / 0.3117 / 0.08167 / 0.665;
+    A3_C2F **647** / 0.3117 / 0.095 / 0.7083; **A4_FULL (the whole chain) 647 / 0.1083 / 0.00667 /
+    0.6117**. Floors in the same run: F_FREQUENCY hit@1 **0.00667**, F_SCRAMBLE hit@1 **0.00167**
+    (2AFC 0.45). **Precision that matters:** A4_FULL lands **exactly on the FREQUENCY floor** on
+    hit@1 and 4x ABOVE the scramble floor -- do not restate it as "at the scramble floor", which
+    overstates the collapse. The cell records that none of the three stages was live beforehand, so
+    this is a rejected ADDITION, not a regression. **SCOPE, in the cell's own words:** this is the
+    **647-anchor** space and its baseline hit@1 0.0983 is NOT comparable to the 5491-anchor live
+    figure of 0.0480.
+
+30. **Near-duplicate anchors as the explanation for the read-out defect.**
+    `exp_codebook_geometry_precheck_v1`, full run, verdict **NEAR_DUPLICATES_NOT_THE_DEFECT**
+    (2026-08-14T17:16Z; live codebook n=5491, d=256, 34,169 sentences, overcompleteness 21.4x).
+    `frac(NN >= 0.99) = 0.0000` against a random null of `0.0000` -- **zero** near-duplicates, so a
+    dedup/merge pass has nothing to remove. What IS real is **semantic crowding**: median
+    nearest-neighbour cosine **0.4637** vs null **0.2264** (excess +0.2373), max 0.8567; ZCA
+    whitening moves the median only to 0.3526. **Read the top pairs honestly:** they are a MIX of
+    genuine paradigmatic sisters (`sympathetic`/`parasympathetic` 0.857, `radial`/`bilateral` 0.835,
+    `innate`/`adaptive` 0.821, `guanine`/`cytosine` 0.810) AND of junk with no semantic relation at
+    all (`anal`/`notochord` 0.846, `garcia`/`moreno` 0.841, `chocolate`/`fraudulent` 0.789,
+    `vuitton`/`louis` 0.797). Quoting only the first group makes the crowding look purely taxonomic,
+    and it is not.
+
+---
+
+## CAVEATS THAT TRAVEL -- added 2026-08-14
+
+**D5. The sharpening / dense-Hopfield attack has NO full run and NO SNR-wall verdict.**
+`exp_sharpening_readout_sister_separation_v1` exists on disk as **SELFTEST + three SMOKE dirs only**
+(enumerated by globbing `data/exp_sharpening*/metrics.json`: `_SELFTEST`, `_SMOKE` which is
+`CELL_CRASHED` on a META_RULE_AF assertion, `_SMOKE_n150`, `_SMOKE_n600`). The two that ran read
+**MIDDLE_BAND**, and the n600 `verdict_msg` says in terms: "neither the HARD_PASS conjunction nor
+the **SNR-wall** conjunction is met". What it DOES show at n=600 / 647 anchors: best beta=512 gives
+`dS` **-0.0367** (CI [-0.0800, +0.0084], includes 0), **median target rank 84/647** with **60%
+outside the top 50**, **22 sister errors and ZERO converted** (content-blind control also 0),
+self-retrieval 0.9067. So sharpening did not help and the SNR headroom is genuinely small -- but
+"sharpening hit an SNR wall" is a STRONGER, DIFFERENT claim than the cell licenses. The honest
+label is **UNPINNED / smoke-scale**, not CLOSED, and it is deliberately NOT in the DO NOT REDO list.
+
+---
+
+## CORRECTIONS TO PRIOR CLAIMS -- added 2026-08-14
+
+**C12. The sub-linear gap-index design doc is dated 2026-08-12, not 2026-08-14.** The real path is
+`notes/research_sublinear_gap_detector_cleanup_shard_dg_ca3_design_2026-08-12.md`. The `..._08-14`
+filename cited in `notes/HANDOFF_full_project_report_for_new_team_2026-08-14.md` sec 7 and sec 11
+**does not exist**. Enumerated, not searched: listed all 9,912 entries of `notes/` and filtered on
+`sublinear|gap_detector|gap_index|shard`, which returns exactly one design doc -- the 08-12 one. Its
+build target `hdlab/sharded_gap_index.py` does not exist either, so the build is genuinely NOT DONE.
+
+**C13. "The grounding-quality validation harness FULL run never reported" is WRONG as stated.**
+`data/exp_foundation_validation_harness_v1/metrics.json` holds a **`run_mode: full`** run, `ts_iso`
+**2026-08-12T14:27:19Z**, verdict **`HARD_PASS_foundation_validated`**, `verdict_msg`
+`claim1=HARD_PASS(gap=0.2533) claim2=HARD_PASS(cohesion=0.4765,contra=0)
+claim3=HARD_PASS(mech=1.0,scr=0.0,abl=0.0) smoke_controls_discriminate=True`. It reported. The
+standing objection to it is a DIFFERENT one and still holds: that validation was judged
+**OVERSTATED** on 2026-08-12, and the live read-out measured two days later sits at 4.80%. So what
+is owed is a **re-run against the current foundation with floor arms**, not a first run. Say it that
+way -- "never reported" invites someone to rebuild a harness that already exists.
+
+---
+
+## OPEN THREADS (older) -- moved out of `STATUS.md` 2026-08-14 to make room
+
+Stubbed there as "(d) four older threads". None is closed; each is a thing someone must still do.
+
+1. **The encoder-swap results are UNCOMMITTED.**
+   `data/exp_encoder_swap_behind_fixed_brain_stack_v1/metrics.json` is untracked; only the prereg
+   and the cell are committed (`f36ba7626`). See CAVEAT D2 for why the result is also owed a
+   neutral-ground re-test.
+2. **The live parser loads RICH-TRAINED weights into the BASE class and its UAS is UNMEASURED.**
+   Nobody has scored the parser actually used on the live reading path.
+3. **42% of the glass-box trail is UNRECOVERABLE** -- the audit trail cannot be reconstructed for
+   that fraction of the run history.
+4. **Nothing enforces a post-landing import check.** `38f7a0d5c` left the C1 testbed UNIMPORTABLE
+   at HEAD and only a later cell noticed (repair `df149251f`). A landing gate that imports every
+   touched module would have caught it at land time.
+
+---
+
+## STANDING DISCIPLINES -- entry added 2026-08-14
+
+### 7. No demotion without a fresh on-disk re-check
+
+**Bought with ~11 wrongly-demoted results and 17 corrections-of-a-correction inside 48 hours**
+(`notes/vscode_week_results_validity_audit_2026-08-14.md`). Over that window the AUDIT layer was
+less reliable than the measurements it audited. A demotion is itself a claim and gets the scrutiny
+of the positive it attacks: re-open the metrics file at HEAD, in `.venv`, on the right arm, before
+writing "this does not hold".
+
+**The generative fault is discipline 4's sub-rule in a new costume:** each of these began as an
+ABSENCE CLAIM FROM A NAME SEARCH rather than an enumeration. Traps measured: verdict strings drift
+(`HARD_PASS` / `HARD-PASS` / 88 bespoke strings, so a literal grep undercounts); `_fulldev` and
+`_smoke` suffixes hide real passes; file mtime and git dates lie, so key on `ts_iso` INSIDE
+`metrics.json` (some assets are untracked by design); and a runtime trace of the DEFAULT path
+measures REACHABILITY, never EXISTENCE, so it cannot refute an opt-in module. Keep
+**EXISTS / IS-REACHED / IS-GOOD** as three separate questions and answer them separately.
