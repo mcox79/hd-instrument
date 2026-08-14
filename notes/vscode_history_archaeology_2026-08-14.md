@@ -19,6 +19,18 @@ READ-ONLY sweep. No repo code changed, no experiment run. `notes/STATUS.md`,
 
 ## 0. ANSWER IN ONE PARAGRAPH
 
+> **READ §7 FIRST. It was found last and it supersedes the framing of §1-§6.** There is a second,
+> independent results index — `data/substrate_index/meta/cert_ledger.jsonl`, **2,031 rows, live as
+> of 2026-08-03** — that no 2026-08-14 sweep has touched, including the two that preceded this one.
+> It records **506 distinct CHAIN-GRADED cells** and **1,925 content-addressed atoms with a
+> `supersedes` citation graph**. **493 of the 506 chain-graded cells, and 0 of 537 chain-graded atom
+> IDs, appear in any current planning doc.** A `metrics.json` verdict-string search — the method all
+> three 08-14 sweeps used — recovers **6%** of the chain-graded work, because chain-grade is a
+> `cert_status` FIELD in that ledger, not a verdict string. **Everything in §1-§6 is therefore a
+> LOWER BOUND, not a retraction.** §7 also recovers a USER-directed archaeology sweep from
+> **2026-06-25** with almost this exact brief, whose tooling is still on disk and which had already
+> diagnosed the same leak one stage upstream.
+
 **CONFIRMED, and the magnitude is larger than the previous sweep implied.** The substrate contains
 **21 distinct named brain-mechanism families** with experiment cells on disk — **843 distinct cell
 stems, of which 251 have BOTH a pass-flavoured verdict AND a floor/control. Of those 251 floored
@@ -869,3 +881,123 @@ seven weeks later three fresh sweeps ran on 2026-08-14 without any of the three 
 **NOT DONE:** reading the CONTENT of the fifteen reviews. Only the 2026-06-25 one was opened (first
 3,000 chars). The rest are identified by filename and date only. The parallel agent's
 `stack_review_lineage_2026-08-14.md` should be treated as authoritative on content.
+
+## 8. THE SIX TRIPLE-CHECKS — which I actually ran
+
+Per `CLAUDE.md` "Evidence discipline §5". Stated per-check, with what ruled the alternative out.
+
+1. **Right file — DONE.** Every cell in §2a, §4 and §6a was located by enumerating `metrics.json`
+   paths from a full `os.walk` index (`scratch/_classified.json`, 7,649 files) and matching by
+   PREFIX, then reporting how many directories matched. Where several matched (e.g. 3 for
+   `exp_substrate_acc_evc_*`, 7 for the sparsity seeds), all were listed and the NON-smoke variant
+   was preferred. This is what caught that ACC/EVC has no FULL run and that the `_smoke` carries
+   the HARD_PASS while `_v1` is only a SELFTEST — the exact `_smoke`/`_selftest` trap.
+2. **Right version at HEAD — DONE for §2a and V1; PARTIAL elsewhere.** `git ls-files
+   --error-unmatch` plus `git status --porcelain` per path confirmed the three consolidated-reader
+   CHAIN_GRADE cells, `..._multihop_pfc_chunked_2hop_decomposition_v1_smoke`,
+   `exp_hippocampal_sharp_wave_ripple_v1` and `exp_read_xsent_coref_scene_protagonist_v1` are
+   **tracked AND clean** — the bytes read are the bytes committed. This mattered: the working tree
+   currently has ~20+ modified `metrics.json` from a concurrent session, so "clean" is not the
+   default and had to be checked. **NOT DONE for §6b and the §2b block.**
+3. **Right environment — DONE, everywhere.** Every read used
+   `D:\AI\hd-instrument\.venv\Scripts\python.exe`. Bare `python` was never invoked. This is the
+   documented cause of past false ERROR readings.
+4. **Right corpus — DONE where a corpus exists.** Named per cell rather than assumed: McGuffey vs
+   **LitBank held-out** for the consolidated-reader triple (this is the whole point of V3 — the two
+   corpora give opposite answers); CSKG for the replay refutation; Pythia-160M real keys for the
+   Hopfield attention substitution; N=4096/8192 production scale for the sparsity sweep. Where the
+   corpus is synthetic or unstated I did not claim one.
+5. **Right metric — DONE, and it produced a finding.** Definitions were read from `verdict_msg`
+   rather than inferred from a key name. This is how §3e-bis was found: floors are frequently
+   PROSE (`vs random=0.0857`) or ARM NAMES (`CORTEX / NO_CONSOL / NAIVE_WTA`), not keys, so a
+   key-based floor test systematically undercounts floors in the older arc.
+6. **Right arm — DONE for every quoted number.** Treatment/control/oracle were read from the same
+   run, never across runs. Examples where it changed the reading: ACC/EVC ADAPT 0.1839 is quoted
+   against RAND 0.0396 and SCR 0.0369 **from the same bracket**; the replay refutation is reported
+   as failing `beat_pop` even though it passes `beat_cont`, because those are different comparison
+   arms and the cell's own primary is the former.
+
+**Additional check not on the list, run because the USER asked for it: RUN MODE.** All 251
+candidate results were opened to read `run_mode`, which is what reduced the headline from 251 to
+**97 FULL**, and then to **72 FULL+invisible**. Without it this note would have overstated by ~2.6x.
+
+**Check NOT run: LIVE-PATH / RUNTIME IMPORT.** I did not run an `importlib` wiredness probe.
+The prior sweep did (`notes/vscode_era_unrecognised_assets_2026-08-14.md` §5: 143 `hdlab/*.py` on
+disk, 31 reached by the two live loops) and its mandatory caveat carries over unchanged — a
+default-path trace measures the DEFAULT PATH, not EXISTENCE, and cannot see lazy or opt-in imports.
+**Nothing in this note should be read as a claim that any recovered cell is or is not on the live
+path.** EXISTS / IS-REACHED / IS-GOOD are three separate questions; this note answers only the
+first and (for the hand-verified subset) the third.
+
+---
+
+## 9. WHAT IS NOT DONE — stated so the gaps are visible
+
+1. **Individual verification of 63 of the 72 FULL+floored+invisible cells.** Nine were opened and
+   read (§4 V1-V9 plus §6a). The rest carry their recorded verdict and floor-key presence only.
+2. **Supersession analysis for everything except V1 and V2.** For V3-V9 and all of §6b, no check
+   was run for whether a later cell replaced them, or whether it kept or changed the TASK. None
+   should be acted on before that check.
+3. **The 26 CHAIN_GRADE cells in §2b** were not opened. Only the four named in §2a and the
+   multihop-PFC one were read.
+4. **Dating of the 5,193 undated results.** Carried over unresolved from the prior sweep. §3f adds
+   the reason it is hard — they are a different HARNESS GENERATION, not merely undated — but does
+   not fix it.
+5. **Runtime wiredness for any cell in this note** (see §8).
+6. **Quality assessment of the 213-vs-251 gap.** "Has a floor key" is not "has a GOOD floor". Only
+   the hand-verified subset was judged on floor quality.
+7. **The `_ranked.json` / prior-sweep cross-join was informal.** §6b notes convergence on four
+   cells by eye; no systematic diff between this brain-family enumeration and the prior sweep's
+   C3-relevance enumeration was computed.
+
+## 10. THE TRANSCRIPT SCAN — PARTIALLY DONE, STATE RECORDED
+
+**Status: the streaming parser RAN and is still running at the time of writing. Its aggregate
+outputs were NOT available in time and this section is therefore NOT DONE.** Recorded here so the
+work is not lost and so the next agent does not repeat the setup cost.
+
+**What was built.** `scratch/arch_scan.py` — a strictly streaming line-by-line `json.loads` parser
+over every `.jsonl` under `C:\Users\marsh\.claude\projects\{d--AI, D--AI-hd-instrument,
+D--AI--claude}`. It accumulates counters and capped short excerpts only; it never holds a
+transcript in memory. Buckets by PER-RECORD `timestamp`, not by file mtime, because sessions are
+resumed across days. Eight capture categories (top-result language, atom IDs, brain terms,
+whole-stack-review language, verdict strings, `exp_` cell names, metric names) each with a cheap
+lowercase substring pre-filter and a per-category excerpt cap.
+
+**Corpus, enumerated (NOT taken from the brief — the brief's list was incomplete):**
+**10,214 `.jsonl` files, 6,070 MB total.** The brief omitted `139818eb` (14.6 MB, the live session)
+and did not mention that `d--AI` alone holds 10,210 files / 6,069.9 MB, the great majority being
+per-subagent transcripts under `<session>/subagents/`.
+
+| file | MB | note |
+|---|---|---|
+| `02e8b04e-…` | **3,013.6** | **PARSED: 658,273 records, 2026-05-31 .. 2026-08-12** |
+| `c2d6732a-…` | 853.9 | parsed |
+| `9e37c80b-…` | 16.0 | parsed |
+| `139818eb-…` | 14.6 | not in the brief's list |
+| `a8943300-…` / `acd9536d-…` / `97a66fde-…` / `240e28fb-…` | 3.9 / 3.2 / 0.5 / 0.25 | parsed |
+| ~10,200 subagent transcripts | remainder | **in progress at cutoff (~1,000 of 10,214)** |
+
+**The one durable transcript fact established: the record is CONTINUOUS from 2026-05-31 to
+2026-08-12 in a single session file of 658,273 records.** That confirms the brief's premise that
+the history goes back far further than the 08-02..08-12 window prior sweeps covered.
+
+**Why shipping without it is defensible.** Priority 4 (the whole-stack reviews) was answered from a
+different and arguably stronger source — a filename census of all 9,830 notes (§7h), which is
+enumeration rather than sampling. Priorities 1, 2 and 3 were answered from disk. The transcripts
+would add the *discussion* around results — significance and caveats — which is genuinely valuable
+and is exactly what is still missing.
+
+**To finish it:** the parser writes `scratch/arch_out/{hits_*.jsonl, counts.json, tokens.json,
+tokdate.json, files.json}` on completion. If `counts.json` exists, the run finished and the
+excerpts can be read directly. If the process died, re-run
+`.venv\Scripts\python.exe scratch\arch_scan.py`; consider restricting `ROOTS` to the eight
+top-level session files first, since they carry the Director's own reasoning and the subagent
+files are ~2.2 GB of mostly-mechanical tool output.
+
+**Specific things the transcripts should be asked, once available, that disk cannot answer:**
+1. Why the cert ledger stopped being written to after 2026-08-03.
+2. What the 2026-06-18 "432 -> 61" capability-map deflation actually removed.
+3. Whether the ACC/EVC and SWR smokes (§4 V4, V9) were deliberately parked or simply dropped.
+4. Whether `exp_consolidated_reader_passive_mechanism_heldout_v1` (§6a) was ever discussed as a
+   construction-competency win, or landed silently.
