@@ -47,6 +47,20 @@ A **shared** denominator preserves every ratio inside the pool: a strong distinc
 strong relative to a weak one. A **per-component self** denominator (`x_i / |x_i|`) sets every ratio
 to exactly 1. We named our operation after the brain's and implemented its inverse.
 
+> **CORRECTION (2026-08-14, filed with `preregs/2026-08-13_task_local_normalisation_pool_AMENDMENT_A1.md`).**
+> The sentence above is right about what our operation destroys, and it is the finding this audit
+> stands on. But the PRESCRIPTION I derived from it in row C1 field 5 — "apply divisive
+> normalisation with the population as the pool" — TRANSPOSES the cited equation and is wrong. In
+> Carandini & Heeger the pool index `j` ranges over other NEURONS IN THE SAME POPULATION at the
+> same moment, so the denominator is a **SCALAR for the whole representation**. Cosine is invariant
+> to a scalar, so canonical divisive normalisation **cannot change a two-candidate argmax at all** —
+> not weakly, identically not at all. What I implemented and measured instead (per-dimension mean/sd
+> across the anchor population) is efficient-coding ADAPTATION (Laughlin 1981; Fairhall et al.
+> 2001), a different real mechanism, and it measured NULL (+0.0018, CI [-0.0030,+0.0065]) in
+> `data/exp_graded_divisive_comparator_v1`. The per-dimension gain that CAN act here is **semantic
+> control gain** (row C4), and the correction is recorded rather than silently patched because the
+> mis-citation is exactly the kind of error this audit method exists to catch.
+
 ### Measured, this session, on the live path
 
 `experiments/diag_anchor_field_geometry_v1.py`, 400 concepts, 70 held-out profile sentences each, d=256,
