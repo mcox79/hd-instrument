@@ -503,9 +503,24 @@ def stage_b(run_mode: str, output_dir: str) -> dict:
     donors = _derangement(n, lambda i, j: len({items[j]["L"], items[j]["G"], items[j]["F"]}
                                               & {items[i]["L"], items[i]["G"], items[i]["F"]}) > 0)
 
+    # OPEN-VOCABULARY eligibility. The first full run exposed a DEGENERATE construction: with L's
+    # own anchor eligible and the query BEING that anchor, argmax returns L 100% of the time
+    # (MEASURED: tautology_rate 1.0000 in data/exp_grounding_readout_known_answer_v1_SMOKE_G0).
+    # That is analytically pinned, not a measurement -- and it is precisely the mechanism behind the
+    # legacy store's 65.69% tautologies (MEASURED: 2328/3544 in data/foundation/reading_grounding_v1
+    # (X,GROUNDED_MEANING,X)). The live loop excludes the pending lemma from the grounded candidate
+    # pool, which is why the 2026-08-12 banked arms carry 0 tautologies. B5/B6 now do the same:
+    # L and every anchor sharing its normalized lemma are masked out. The pinned number is retained
+    # below as an explicit diagnostic, never as a quality claim.
+    norm2idx: Dict[str, List[int]] = defaultdict(list)
+    for a in anchors:
+        norm2idx[normalize_lemma(a)].append(pos[a])
+    open_base = np.ones(len(anchors), dtype=bool)
+
     correct: Dict[str, np.ndarray] = {k: np.zeros(n, dtype=bool) for k in STAGE_B_ARMS}
     open_pick_real: List[str] = []
     open_pick_scram: List[str] = []
+    open_pick_self_eligible: List[str] = []
     diag = Counter()
     rng = np.random.default_rng(MASTER_SEED + 3)
 
@@ -537,11 +552,21 @@ def stage_b(run_mode: str, output_dir: str) -> dict:
                                              eligible_mask=mask2)
                 correct["B4_SENTENCE_REAL"][i] = (pick == G)
 
-        # OPEN-VOCABULARY read-out (B5/B6): the argmax the reading loop actually performs.
-        p_open, _c = canonicalize_fast("__slot__", qL, space, thresh=-1.0)
+        # OPEN-VOCABULARY read-out (B5/B6): the argmax the reading loop actually performs, over
+        # every anchor EXCEPT the lemma's own (see the eligibility note above).
+        self_idx = sorted(set(norm2idx[normalize_lemma(L)] + [pos[L]]))
+        for k in self_idx:
+            open_base[k] = False
+        p_open, _c = canonicalize_fast("__slot__", qL, space, thresh=-1.0,
+                                       eligible_mask=open_base)
         open_pick_real.append(str(p_open))
-        p_open_s, _c = canonicalize_fast("__slot__", qD, space, thresh=-1.0)
+        p_open_s, _c = canonicalize_fast("__slot__", qD, space, thresh=-1.0,
+                                         eligible_mask=open_base)
         open_pick_scram.append(str(p_open_s))
+        p_self, _c = canonicalize_fast("__slot__", qL, space, thresh=-1.0)   # pinned diagnostic
+        open_pick_self_eligible.append(str(p_self))
+        for k in self_idx:
+            open_base[k] = True
 
         if (i + 1) % 250 == 0 or i == n - 1:
             print("[stageB] item %d/%d elapsed=%.1fs" % (i + 1, n, time.time() - t0), flush=True)
@@ -556,6 +581,8 @@ def stage_b(run_mode: str, output_dir: str) -> dict:
                                for i in range(n)], dtype=bool)
     open_taut = np.array([_is_tautology(items[i]["L"], open_pick_real[i]) for i in range(n)],
                          dtype=bool)
+    open_taut_self = np.array([_is_tautology(items[i]["L"], open_pick_self_eligible[i])
+                               for i in range(n)], dtype=bool)
     open_bs = paired_bootstrap({"B5_OPEN_REAL": open_real_hit, "B6_OPEN_SCRAMBLE": open_scram_hit},
                                ("B5_OPEN_REAL", "B6_OPEN_SCRAMBLE"),
                                [("d_B5_minus_B6", "B5_OPEN_REAL", "B6_OPEN_SCRAMBLE")],
@@ -616,6 +643,13 @@ def stage_b(run_mode: str, output_dir: str) -> dict:
             "hit_at_1": open_bs["arm_acc_ci"], "delta": open_bs["deltas"],
             "tautology_rate": round(float(open_taut.mean()), 6),
             "n_tautology": int(open_taut.sum()),
+            "tautology_rate_when_self_eligible": {
+                "rate": round(float(open_taut_self.mean()), 6),
+                "note": "ANALYTICALLY PINNED, not a measurement: the query IS the lemma's own "
+                        "anchor, so an argmax that may return it always does. Reported because it "
+                        "is the mechanism behind the legacy store's 0.6569 tautology rate "
+                        "(2328/3544, data/foundation/reading_grounding_v1); the live loop excludes "
+                        "the pending lemma, and the 2026-08-12 banked arms carry 0 tautologies."},
             "example_picks": ["%s->%s" % (items[i]["L"], open_pick_real[i])
                               for i in range(min(25, n))],
             "example_gold_hits": ["%s->%s" % (items[i]["L"], open_pick_real[i])
