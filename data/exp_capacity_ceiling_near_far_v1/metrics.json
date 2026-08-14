@@ -1,0 +1,459 @@
+{
+  "verdict": "MIDDLE_BAND_CAPACITY_PARTIAL",
+  "verdict_msg": "n=4000 | NEAR by d: QUANT [0.6395, 0.703, 0.738] GRAD [0.698, 0.7495, 0.78225] | GAP(FAR-NEAR) by d: QUANT [0.03575, 0.036, 0.04275] GRAD [0.047, 0.04925, 0.05425] | gap@d4096_GRAD CI=[0.0413,0.0685] | between-draw gap sd @d256 {\"QUANT\": 0.004668, \"GRAD\": 0.009001} | floors [0.49775, 0.5095, 0.4845, 0.49025, 0.4915, 0.4955] | at d=4096 GRAD: NEAR=0.7823 gap=0.0543 CI=[0.0413,0.0685] -- neither band met",
+  "summary": "at the capacity ceiling, does near-neighbour discrimination still lag far-distractor discrimination, or does the gap close?",
+  "elapsed_s": 380.849,
+  "run_mode": "full",
+  "anchor_name": "exp_capacity_ceiling_near_far_v1",
+  "prereg": "preregs/2026-08-14_capacity_ceiling_and_the_near_far_gap.md",
+  "prereg_commit": "f1511ee8f",
+  "ts_iso": "2026-08-14T02:44:10.702727+00:00",
+  "hdlab_modified": false,
+  "n_items": 4000,
+  "n_anchors": 2377,
+  "chance": 0.5,
+  "arm_accuracy": {
+    "A_d256_QUANT_NEAR": 0.6395,
+    "A_d256_QUANT_FAR": 0.67525,
+    "A_d256_GRAD_NEAR": 0.698,
+    "A_d256_GRAD_FAR": 0.745,
+    "A_d1024_QUANT_NEAR": 0.703,
+    "A_d1024_QUANT_FAR": 0.739,
+    "A_d1024_GRAD_NEAR": 0.7495,
+    "A_d1024_GRAD_FAR": 0.79875,
+    "A_d4096_QUANT_NEAR": 0.738,
+    "A_d4096_QUANT_FAR": 0.78075,
+    "A_d4096_GRAD_NEAR": 0.78225,
+    "A_d4096_GRAD_FAR": 0.8365,
+    "F_d256_QUANT_SCRAM": 0.49775,
+    "F_d256_GRAD_SCRAM": 0.5095,
+    "F_d1024_QUANT_SCRAM": 0.4845,
+    "F_d1024_GRAD_SCRAM": 0.49025,
+    "F_d4096_QUANT_SCRAM": 0.4915,
+    "F_d4096_GRAD_SCRAM": 0.4955,
+    "B_FREQ": 0.48025
+  },
+  "curve_by_dimension": {
+    "d256": {
+      "QUANT": {
+        "NEAR": 0.6395,
+        "FAR": 0.67525,
+        "gap": 0.03575,
+        "floor": 0.49775
+      },
+      "GRAD": {
+        "NEAR": 0.698,
+        "FAR": 0.745,
+        "gap": 0.047,
+        "floor": 0.5095
+      }
+    },
+    "d1024": {
+      "QUANT": {
+        "NEAR": 0.703,
+        "FAR": 0.739,
+        "gap": 0.036,
+        "floor": 0.4845
+      },
+      "GRAD": {
+        "NEAR": 0.7495,
+        "FAR": 0.79875,
+        "gap": 0.04925,
+        "floor": 0.49025
+      }
+    },
+    "d4096": {
+      "QUANT": {
+        "NEAR": 0.738,
+        "FAR": 0.78075,
+        "gap": 0.04275,
+        "floor": 0.4915
+      },
+      "GRAD": {
+        "NEAR": 0.78225,
+        "FAR": 0.8365,
+        "gap": 0.05425,
+        "floor": 0.4955
+      }
+    }
+  },
+  "arm_labels": {
+    "A_d<D>_<CODE>_<DISTRACTOR>": "CODE QUANT = the live sign/sign comparator; GRAD = the wired graded path. DISTRACTOR NEAR = WordNet dominant-sense sibling; FAR = random non-sibling for the SAME target and the SAME held-out sentence",
+    "F_d<D>_<CODE>_SCRAM": "scrambled-context floor at that (d, code)",
+    "B_FREQ": "corpus-frequency baseline"
+  },
+  "HP_SCOPE": {
+    "d4096_GRAD": [
+      "NEAR level",
+      "FAR-NEAR gap"
+    ],
+    "all_other_cells": "reported, no verdict weight"
+  },
+  "bands": {
+    "HP_NEAR_MIN": 0.8,
+    "HP_GAP_MAX": 0.02,
+    "HF_NEAR_MAX": 0.75,
+    "HF_GAP_MIN": 0.04,
+    "DIM_MIN_GAIN": 0.02,
+    "FLOOR_MAX": 0.55,
+    "declared_in": "preregs/2026-08-14_capacity_ceiling_and_the_near_far_gap.md",
+    "declared_at_commit": "f1511ee8f"
+  },
+  "bootstrap_item": {
+    "n_boot": 5000,
+    "seed": 20260814,
+    "clustered": false,
+    "arm_acc_ci": {
+      "A_d256_QUANT_NEAR": {
+        "acc": 0.6395,
+        "ci_lo": 0.6245,
+        "ci_hi": 0.65475,
+        "sd": 0.007622
+      },
+      "A_d256_QUANT_FAR": {
+        "acc": 0.67525,
+        "ci_lo": 0.6605,
+        "ci_hi": 0.689006,
+        "sd": 0.007384
+      },
+      "A_d256_GRAD_NEAR": {
+        "acc": 0.698,
+        "ci_lo": 0.684,
+        "ci_hi": 0.712,
+        "sd": 0.007242
+      },
+      "A_d256_GRAD_FAR": {
+        "acc": 0.745,
+        "ci_lo": 0.73175,
+        "ci_hi": 0.7585,
+        "sd": 0.006838
+      },
+      "A_d1024_QUANT_NEAR": {
+        "acc": 0.703,
+        "ci_lo": 0.689,
+        "ci_hi": 0.717,
+        "sd": 0.007184
+      },
+      "A_d1024_QUANT_FAR": {
+        "acc": 0.739,
+        "ci_lo": 0.725,
+        "ci_hi": 0.7525,
+        "sd": 0.007029
+      },
+      "A_d1024_GRAD_NEAR": {
+        "acc": 0.7495,
+        "ci_lo": 0.73625,
+        "ci_hi": 0.7625,
+        "sd": 0.006775
+      },
+      "A_d1024_GRAD_FAR": {
+        "acc": 0.79875,
+        "ci_lo": 0.78625,
+        "ci_hi": 0.811,
+        "sd": 0.006263
+      },
+      "A_d4096_QUANT_NEAR": {
+        "acc": 0.738,
+        "ci_lo": 0.724,
+        "ci_hi": 0.75125,
+        "sd": 0.006998
+      },
+      "A_d4096_QUANT_FAR": {
+        "acc": 0.78075,
+        "ci_lo": 0.767994,
+        "ci_hi": 0.79325,
+        "sd": 0.006487
+      },
+      "A_d4096_GRAD_NEAR": {
+        "acc": 0.78225,
+        "ci_lo": 0.76925,
+        "ci_hi": 0.795006,
+        "sd": 0.006633
+      },
+      "A_d4096_GRAD_FAR": {
+        "acc": 0.8365,
+        "ci_lo": 0.82525,
+        "ci_hi": 0.847756,
+        "sd": 0.005778
+      },
+      "F_d256_QUANT_SCRAM": {
+        "acc": 0.49775,
+        "ci_lo": 0.48175,
+        "ci_hi": 0.51325,
+        "sd": 0.007955
+      },
+      "F_d256_GRAD_SCRAM": {
+        "acc": 0.5095,
+        "ci_lo": 0.4935,
+        "ci_hi": 0.525006,
+        "sd": 0.00789
+      },
+      "F_d1024_QUANT_SCRAM": {
+        "acc": 0.4845,
+        "ci_lo": 0.46925,
+        "ci_hi": 0.49975,
+        "sd": 0.007855
+      },
+      "F_d1024_GRAD_SCRAM": {
+        "acc": 0.49025,
+        "ci_lo": 0.47425,
+        "ci_hi": 0.50525,
+        "sd": 0.007896
+      },
+      "F_d4096_QUANT_SCRAM": {
+        "acc": 0.4915,
+        "ci_lo": 0.47625,
+        "ci_hi": 0.50725,
+        "sd": 0.007854
+      },
+      "F_d4096_GRAD_SCRAM": {
+        "acc": 0.4955,
+        "ci_lo": 0.480244,
+        "ci_hi": 0.51075,
+        "sd": 0.007835
+      },
+      "B_FREQ": {
+        "acc": 0.48025,
+        "ci_lo": 0.465,
+        "ci_hi": 0.4955,
+        "sd": 0.007781
+      }
+    },
+    "deltas": {
+      "gap_d256_QUANT": {
+        "delta": 0.03575,
+        "ci_lo": 0.01925,
+        "ci_hi": 0.05175,
+        "sd": 0.008251,
+        "mde_95": 0.016172,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "gap_d256_GRAD": {
+        "delta": 0.047,
+        "ci_lo": 0.031494,
+        "ci_hi": 0.06275,
+        "sd": 0.00796,
+        "mde_95": 0.015602,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "gap_d1024_QUANT": {
+        "delta": 0.036,
+        "ci_lo": 0.02075,
+        "ci_hi": 0.051,
+        "sd": 0.007767,
+        "mde_95": 0.015223,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "gap_d1024_GRAD": {
+        "delta": 0.04925,
+        "ci_lo": 0.03525,
+        "ci_hi": 0.06325,
+        "sd": 0.007174,
+        "mde_95": 0.01406,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "gap_d4096_QUANT": {
+        "delta": 0.04275,
+        "ci_lo": 0.028,
+        "ci_hi": 0.0575,
+        "sd": 0.007536,
+        "mde_95": 0.014771,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "gap_d4096_GRAD": {
+        "delta": 0.05425,
+        "ci_lo": 0.04125,
+        "ci_hi": 0.0685,
+        "sd": 0.006933,
+        "mde_95": 0.013589,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "dim_QUANT_near_d4096_minus_d256": {
+        "delta": 0.0985,
+        "ci_lo": 0.081,
+        "ci_hi": 0.11525,
+        "sd": 0.008772,
+        "mde_95": 0.017193,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "code_GRAD_minus_QUANT_near_d4096": {
+        "delta": 0.04425,
+        "ci_lo": 0.03125,
+        "ci_hi": 0.057,
+        "sd": 0.00662,
+        "mde_95": 0.012976,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "dim_GRAD_near_d4096_minus_d256": {
+        "delta": 0.08425,
+        "ci_lo": 0.0695,
+        "ci_hi": 0.099,
+        "sd": 0.007586,
+        "mde_95": 0.014868,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      }
+    }
+  },
+  "verdict_notes": [
+    "at d=4096 GRAD: NEAR=0.7823 gap=0.0543 CI=[0.0413,0.0685] -- neither band met"
+  ],
+  "projection_draw_control": {
+    "n_draws": 3,
+    "gap_per_draw_d256": {
+      "QUANT": [
+        0.03575,
+        0.0445,
+        0.03375
+      ],
+      "GRAD": [
+        0.047,
+        0.025,
+        0.03725
+      ]
+    },
+    "between_draw_sd": {
+      "QUANT": 0.004668,
+      "GRAD": 0.009001
+    },
+    "note": "the landed-VET showed the item bootstrap is blind to projection-draw variance; no claim in this cell may rest on a difference smaller than this sd"
+  },
+  "non_fork_controls": {
+    "anchor_matrix_byte_identical_to_hdlab_ConceptSpace": true,
+    "readout_disagreements_with_canonicalize_fast_at_d256": 0,
+    "encoders_byte_identical_to_parent": true,
+    "float32_code_cache_lossless": true
+  },
+  "arm_diagnostics": {
+    "A_d256_QUANT_NEAR": {
+      "n_ties": 9
+    },
+    "A_d256_QUANT_FAR": {
+      "n_ties": 12
+    },
+    "F_d256_QUANT_SCRAM": {
+      "n_ties": 14
+    },
+    "A_d256_GRAD_NEAR": {
+      "n_ties": 0
+    },
+    "A_d256_GRAD_FAR": {
+      "n_ties": 0
+    },
+    "F_d256_GRAD_SCRAM": {
+      "n_ties": 0
+    },
+    "A_d1024_QUANT_NEAR": {
+      "n_ties": 0
+    },
+    "A_d1024_QUANT_FAR": {
+      "n_ties": 2
+    },
+    "F_d1024_QUANT_SCRAM": {
+      "n_ties": 4
+    },
+    "A_d1024_GRAD_NEAR": {
+      "n_ties": 0
+    },
+    "A_d1024_GRAD_FAR": {
+      "n_ties": 0
+    },
+    "F_d1024_GRAD_SCRAM": {
+      "n_ties": 0
+    },
+    "A_d4096_QUANT_NEAR": {
+      "n_ties": 0
+    },
+    "A_d4096_QUANT_FAR": {
+      "n_ties": 0
+    },
+    "F_d4096_QUANT_SCRAM": {
+      "n_ties": 0
+    },
+    "A_d4096_GRAD_NEAR": {
+      "n_ties": 0
+    },
+    "A_d4096_GRAD_FAR": {
+      "n_ties": 0
+    },
+    "F_d4096_GRAD_SCRAM": {
+      "n_ties": 0
+    },
+    "B_FREQ": {
+      "n_ties_fell_back_to_coin": 3
+    }
+  },
+  "arm_digests": {
+    "A_d256_QUANT_NEAR": "bc171ce4e660f7e704e52462c3caca8cff9942c260e41c93430f4f1dd8f11fa1",
+    "A_d256_QUANT_FAR": "e3d5645ead9c46f7d3b861f26af792e57c049625357f1664b637f8dba9cdd14c",
+    "A_d256_GRAD_NEAR": "23c211e618b92b526d354cdb0d4692b38d197b38d521d1f78611e5433bd0e2d0",
+    "A_d256_GRAD_FAR": "f3f5bc93cfb3ecd2169dea84695724ba1a5e158b1cf9283d098768a9592a0e51",
+    "A_d1024_QUANT_NEAR": "0e803e68f395293bdb8a07f59bd520e7d0b7ca6107f1213d1303fa746736801d",
+    "A_d1024_QUANT_FAR": "8f3471bc7d4a4de0488f704bc99a9978bf6982ffc1663bbe64ec1e0fa73879f6",
+    "A_d1024_GRAD_NEAR": "7dd2b76b0ec95c696ad83630813f9e427ed8b047455372ad6f1e335008a935bd",
+    "A_d1024_GRAD_FAR": "1a142e7135dbd8c3951e323c8c4bb1b1fa454036cbadb4161cee9fc2e39909b0",
+    "A_d4096_QUANT_NEAR": "510d26495d3b7e1458896c7a7bf59d655d80f029f3fe8c4ef15e9bd3763797eb",
+    "A_d4096_QUANT_FAR": "c5a6d19114b97aafeac601fd9d16173113456c88a77c3e729e10c773651bf067",
+    "A_d4096_GRAD_NEAR": "bcdaa0aebbfb7eaf0dbea1af8d903a6c477369b4cc0c178c28ce6d17e5ad6355",
+    "A_d4096_GRAD_FAR": "c1207ab61fa6487312fb41eec4bb501533b52429bf57fe83a6dd8e4cf2f43e9e",
+    "F_d256_QUANT_SCRAM": "59c388b3dd67a053affcc347c82bc55fa1c8af20c24c0930ce874f60d397b693",
+    "F_d256_GRAD_SCRAM": "bde954e49e147fee7225380267c4fd5d3015249ef1770e1fa0c3ee332d9f6baa",
+    "F_d1024_QUANT_SCRAM": "a4332ef50af16e0417f8e1e437e940aed9ecc6ba12bbbcb0c577306dea6753f1",
+    "F_d1024_GRAD_SCRAM": "d71f4d865476c63a239bf34531827f4464b139a8cdc7472df3a3eaab7dd98131",
+    "F_d4096_QUANT_SCRAM": "014bb468ddff5b4faa00729124d03d6bc551d9da06e7f8f9db8a54fd9806d044",
+    "F_d4096_GRAD_SCRAM": "cc0af221bdb0b8ed44f043232d560938e3c8bfff769a02afe227596ffc04130b",
+    "B_FREQ": "5644138c543dce9d2b88229b2464abbb37737c41e437ecad7b2d39f1687c57e3"
+  },
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 4000,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 1476,
+    "max_items_per_word": 4
+  },
+  "n_units": 19,
+  "expected_n_units": 19,
+  "cardinality_ok": true,
+  "crlb": {
+    "crlb_floor_computed": 0.021913,
+    "discriminator_range_by_construction": "2AFC accuracy, chance 0.50, nothing hand-scored; the gap is a WITHIN-ITEM paired contrast"
+  },
+  "selftest": {
+    "encoders_byte_identical_to_parent_and_hdlab": true,
+    "float32_lossless": true,
+    "draws_independent": {
+      "cos_draw0_draw1": 0.0781
+    },
+    "mean_abs_crosstalk_by_d": {
+      "d256": 0.04984,
+      "d1024": 0.02486,
+      "d4096": 0.01248
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_DIMENSION_DOES_NOTHING",
+      "HARD_FAIL_FLOOR_BREACH",
+      "HARD_FAIL_WALL_IS_NOT_CAPACITY",
+      "HARD_PASS_CAPACITY_EXPLAINS_THE_WALL",
+      "INSTRUMENTATION_SUSPECT_BASELINE_DRIFT",
+      "INSTRUMENTATION_SUSPECT_PRECISION",
+      "MIDDLE_BAND_CAPACITY_PARTIAL"
+    ],
+    "selftest_elapsed_s": 0.148
+  }
+}
