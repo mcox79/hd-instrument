@@ -1,0 +1,38 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "gain_symmetric": true,
+    "gain_suppresses_shared": {
+      "g_shared": 0.0476,
+      "g_distinctive": 0.1667,
+      "ratio": 3.5
+    },
+    "implementation_and_sensitivity": {
+      "matches_hand_weighted_cosine": true,
+      "frac_decisions_changed_vs_plain": 0.1725,
+      "disclosed_prior": "synthetic pre-checks did NOT favour the primary; no expectation of a pass is held, and both HARD_FAIL directions are live"
+    },
+    "wrongpool_differs": true,
+    "verdict_branches_reachable": [
+      "HARD_FAIL_FLOOR_BREACH",
+      "HARD_FAIL_GAIN_ADDS_NOTHING",
+      "HARD_FAIL_GAIN_HURTS",
+      "HARD_FAIL_GENERIC_NOT_TASK_LOCAL",
+      "HARD_PASS",
+      "INSTRUMENTATION_SUSPECT_BASELINE_DRIFT",
+      "INSTRUMENTATION_SUSPECT_READOUT_FORK",
+      "INSTRUMENTATION_SUSPECT_SELF_RETRIEVAL_BELOW_FLOOR",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "MIDDLE_BAND_REAL_BUT_SMALL"
+    ],
+    "predecessors": {
+      "parent": "exp_graded_divisive_comparator_v1",
+      "grandparent": "exp_context_conditioned_near_neighbour_v1"
+    },
+    "selftest_elapsed_s": 0.04
+  }
+}

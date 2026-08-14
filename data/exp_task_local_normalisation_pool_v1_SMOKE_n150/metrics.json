@@ -1,0 +1,426 @@
+{
+  "verdict": "INSTRUMENTATION_SUSPECT_BASELINE_DRIFT",
+  "verdict_msg": "n=150 | R_LIVE=0.6467 R_BASE=0.7267 P_CONTROL=0.6667 | d(P_CONTROL-R_BASE)=-0.0600 CI=[-0.1267,0.0067] | WRONGPOOL=0.6867 d=-0.0200 CI=[-0.1000,0.0667] | P_LOCAL(demoted)=0.6800 | floors: F_LOCAL_SCRAM=0.4667 F_BASE_SCRAM=0.5067 FREQ=0.5400 | readout_disagreements=0 | R_LIVE=0.6467 (want 0.6395+/-0.02) R_BASE=0.7267 (want 0.6997+/-0.02): the harness changed, not the hypothesis",
+  "summary": "is the brain's normalisation POOL (the concurrently active candidates) what the predecessor's global-field pool got wrong? task-local divisive normalisation == semantic-control gain == distinctive-feature privileging",
+  "elapsed_s": 13.647,
+  "run_mode": "smoke",
+  "anchor_name": "exp_task_local_normalisation_pool_v1",
+  "prereg": "preregs/2026-08-13_task_local_normalisation_pool.md",
+  "prereg_commit": "e07d8ffb3",
+  "amendment": "preregs/2026-08-13_task_local_normalisation_pool_AMENDMENT_A1.md",
+  "amendment_commit": "0b445b3bf",
+  "parent_cell": "exp_graded_divisive_comparator_v1",
+  "grandparent_cell": "exp_context_conditioned_near_neighbour_v1",
+  "ts_iso": "2026-08-14T02:24:08.549369+00:00",
+  "hdlab_modified": false,
+  "n_items": 150,
+  "n_anchors": 180,
+  "chance": 0.5,
+  "arm_accuracy": {
+    "R_LIVE": 0.646667,
+    "R_BASE": 0.726667,
+    "P_CONTROL": 0.666667,
+    "P_LOCAL": 0.68,
+    "W_WRONGPOOL": 0.686667,
+    "F_LOCAL_SCRAM": 0.466667,
+    "F_BASE_SCRAM": 0.506667,
+    "B_FREQ": 0.54
+  },
+  "arm_labels": {
+    "R_LIVE": "fully quantised live comparator (reference; must reproduce 0.6395)",
+    "R_BASE": "predecessor HARD_PASS arm A_GGZ (baseline; must reproduce 0.6997)",
+    "P_CONTROL": "AMENDMENT A1 PRE-DESIGNATED PRIMARY: semantic control gain g = |a_t - a_d| / mean(|a_t - a_d|); no free parameter",
+    "P_LOCAL": "DEMOTED by AMENDMENT A1, NO VERDICT WEIGHT, still scored because the base pre-reg predicted it would win: g = 1/(sigma + |a_t| + |a_d|). Registered prediction: at or below R_BASE (it up-weights jointly-low-evidence dimensions)",
+    "W_WRONGPOOL": "THE DECISIVE CONTROL: the same |a-b| gain from a DIFFERENT pair",
+    "F_LOCAL_SCRAM": "P_LOCAL with another item's real sentence as the query (floor)",
+    "F_BASE_SCRAM": "R_BASE scrambled (floor)",
+    "B_FREQ": "corpus-frequency baseline"
+  },
+  "HP_SCOPE": {
+    "P_CONTROL": [
+      "d_PCONTROL_minus_RBASE",
+      "wrongpool_control",
+      "floor"
+    ],
+    "P_LOCAL_and_all_secondaries": "NO VERDICT WEIGHT"
+  },
+  "bands": {
+    "HARD_PASS_delta": 0.03,
+    "floor_max": 0.55,
+    "landed_live": 0.6395,
+    "landed_base": 0.6997,
+    "tol": 0.02,
+    "declared_in": "preregs/2026-08-13_task_local_normalisation_pool.md",
+    "declared_at_commit": "e07d8ffb3"
+  },
+  "sigma": {
+    "value": 1.531624,
+    "definition": "mean of pool_j = |a_j|+|b_j| over ALL dimensions and ALL items; derived from the field, never tuned"
+  },
+  "bootstrap_item": {
+    "n_boot": 1000,
+    "seed": 20260813,
+    "clustered": false,
+    "arm_acc_ci": {
+      "R_LIVE": {
+        "acc": 0.646667,
+        "ci_lo": 0.573167,
+        "ci_hi": 0.72,
+        "sd": 0.039815
+      },
+      "R_BASE": {
+        "acc": 0.726667,
+        "ci_lo": 0.653333,
+        "ci_hi": 0.793333,
+        "sd": 0.035464
+      },
+      "P_CONTROL": {
+        "acc": 0.666667,
+        "ci_lo": 0.593167,
+        "ci_hi": 0.74,
+        "sd": 0.037697
+      },
+      "P_LOCAL": {
+        "acc": 0.68,
+        "ci_lo": 0.6065,
+        "ci_hi": 0.753333,
+        "sd": 0.037888
+      },
+      "W_WRONGPOOL": {
+        "acc": 0.686667,
+        "ci_lo": 0.613333,
+        "ci_hi": 0.76,
+        "sd": 0.038234
+      },
+      "F_LOCAL_SCRAM": {
+        "acc": 0.466667,
+        "ci_lo": 0.386667,
+        "ci_hi": 0.54,
+        "sd": 0.039913
+      },
+      "F_BASE_SCRAM": {
+        "acc": 0.506667,
+        "ci_lo": 0.426667,
+        "ci_hi": 0.586667,
+        "sd": 0.040516
+      },
+      "B_FREQ": {
+        "acc": 0.54,
+        "ci_lo": 0.46,
+        "ci_hi": 0.613333,
+        "sd": 0.040016
+      }
+    },
+    "deltas": {
+      "d_PCONTROL_minus_RBASE": {
+        "delta": -0.06,
+        "ci_lo": -0.126667,
+        "ci_hi": 0.006667,
+        "sd": 0.034263,
+        "mde_95": 0.067155,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.03
+      },
+      "d_PCONTROL_minus_WRONGPOOL": {
+        "delta": -0.02,
+        "ci_lo": -0.1,
+        "ci_hi": 0.066667,
+        "sd": 0.042692,
+        "mde_95": 0.083677,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.281
+      },
+      "d_PCONTROL_minus_RLIVE": {
+        "delta": 0.02,
+        "ci_lo": -0.08,
+        "ci_hi": 0.106833,
+        "sd": 0.047624,
+        "mde_95": 0.093343,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.611
+      },
+      "d_PCONTROL_minus_CHANCE": {
+        "delta": 0.166667,
+        "ci_lo": 0.093167,
+        "ci_hi": 0.24,
+        "sd": 0.037697,
+        "mde_95": 0.073885,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_PCONTROL_minus_SCRAM": {
+        "delta": 0.2,
+        "ci_lo": 0.086667,
+        "ci_hi": 0.3,
+        "sd": 0.055779,
+        "mde_95": 0.109327,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 0.999
+      },
+      "d_PLOCAL_minus_RBASE_DEMOTED": {
+        "delta": -0.046667,
+        "ci_lo": -0.106667,
+        "ci_hi": 0.006667,
+        "sd": 0.029395,
+        "mde_95": 0.057613,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.032
+      },
+      "d_WRONGPOOL_minus_RBASE": {
+        "delta": -0.04,
+        "ci_lo": -0.12,
+        "ci_hi": 0.04,
+        "sd": 0.041724,
+        "mde_95": 0.081779,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.132
+      },
+      "d_RBASE_minus_RLIVE": {
+        "delta": 0.08,
+        "ci_lo": 0.0,
+        "ci_hi": 0.16,
+        "sd": 0.040327,
+        "mde_95": 0.079041,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.971
+      }
+    }
+  },
+  "bootstrap_cluster_by_target_word": {
+    "n_boot": 1000,
+    "seed": 20260814,
+    "clustered": true,
+    "arm_acc_ci": {
+      "R_LIVE": {
+        "acc": 0.646667,
+        "ci_lo": 0.573525,
+        "ci_hi": 0.713178,
+        "sd": 0.035647
+      },
+      "R_BASE": {
+        "acc": 0.726667,
+        "ci_lo": 0.659571,
+        "ci_hi": 0.794525,
+        "sd": 0.035343
+      },
+      "P_CONTROL": {
+        "acc": 0.666667,
+        "ci_lo": 0.588226,
+        "ci_hi": 0.741779,
+        "sd": 0.038103
+      },
+      "P_LOCAL": {
+        "acc": 0.68,
+        "ci_lo": 0.609929,
+        "ci_hi": 0.7483,
+        "sd": 0.035819
+      },
+      "W_WRONGPOOL": {
+        "acc": 0.686667,
+        "ci_lo": 0.622212,
+        "ci_hi": 0.746949,
+        "sd": 0.03201
+      },
+      "F_LOCAL_SCRAM": {
+        "acc": 0.466667,
+        "ci_lo": 0.384591,
+        "ci_hi": 0.544886,
+        "sd": 0.041184
+      },
+      "F_BASE_SCRAM": {
+        "acc": 0.506667,
+        "ci_lo": 0.430551,
+        "ci_hi": 0.584428,
+        "sd": 0.039917
+      },
+      "B_FREQ": {
+        "acc": 0.54,
+        "ci_lo": 0.430762,
+        "ci_hi": 0.647801,
+        "sd": 0.053808
+      }
+    },
+    "deltas": {
+      "d_PCONTROL_minus_RBASE": {
+        "delta": -0.06,
+        "ci_lo": -0.115396,
+        "ci_hi": 0.0,
+        "sd": 0.02997,
+        "mde_95": 0.058742,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.017
+      },
+      "d_PCONTROL_minus_WRONGPOOL": {
+        "delta": -0.02,
+        "ci_lo": -0.090924,
+        "ci_hi": 0.050316,
+        "sd": 0.036383,
+        "mde_95": 0.07131,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.27
+      },
+      "d_PCONTROL_minus_RLIVE": {
+        "delta": 0.02,
+        "ci_lo": -0.065799,
+        "ci_hi": 0.103238,
+        "sd": 0.043107,
+        "mde_95": 0.08449,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.661
+      }
+    }
+  },
+  "verdict_notes": [
+    "R_LIVE=0.6467 (want 0.6395+/-0.02) R_BASE=0.7267 (want 0.6997+/-0.02): the harness changed, not the hypothesis"
+  ],
+  "secondary_no_verdict_weight": {
+    "sigma_sweep": {
+      "sigma_x0.25": 0.68,
+      "sigma_x0.50": 0.673333,
+      "sigma_x1.00": 0.68,
+      "sigma_x2.00": 0.706667,
+      "sigma_x4.00": 0.726667
+    },
+    "far_distractor": {
+      "R_BASE": 0.6733,
+      "P_CONTROL": 0.64,
+      "n": 150
+    },
+    "d_sweep": {
+      "d256": {
+        "R_BASE": 0.726667,
+        "P_CONTROL": 0.666667
+      }
+    },
+    "d_sweep_purpose": "FAIR-TEST diagnostic: a null for the task-local pool would be uninterpretable if random-indexing crosstalk at d=256 is the dominant limiter. Decides nothing here; informs the next cell."
+  },
+  "non_fork_controls": {
+    "anchor_matrix_byte_identical_to_hdlab_ConceptSpace": true,
+    "readout_disagreements_with_canonicalize_fast_on_LIVE": 0
+  },
+  "positive_control_self_retrieval": {
+    "values": {
+      "R_BASE": 0.9278
+    },
+    "floor": 0.7
+  },
+  "arm_diagnostics": {
+    "R_LIVE": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.071713,
+      "mean_signed_margin": 0.037571
+    },
+    "R_BASE": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.114734,
+      "mean_signed_margin": 0.074414
+    },
+    "P_CONTROL": {
+      "n_ties": 0,
+      "gain_mode": "diff",
+      "sigma": 1.531624,
+      "mean_abs_margin": 0.270154
+    },
+    "P_LOCAL": {
+      "n_ties": 0,
+      "gain_mode": "local",
+      "sigma": 1.531624,
+      "mean_abs_margin": 0.098895
+    },
+    "W_WRONGPOOL": {
+      "n_ties": 0,
+      "gain_mode": "wrong",
+      "sigma": 1.531624,
+      "mean_abs_margin": 0.145158
+    },
+    "F_LOCAL_SCRAM": {
+      "n_ties": 0,
+      "gain_mode": "diff",
+      "sigma": 1.531624,
+      "mean_abs_margin": 0.184187
+    },
+    "F_BASE_SCRAM": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_abs_margin": 0.068215,
+      "mean_signed_margin": 0.006079
+    },
+    "B_FREQ": {
+      "n_ties_fell_back_to_coin": 0
+    }
+  },
+  "arm_digests": {
+    "R_LIVE": "af1eee709d95ba7ab591cd631ac9b3d6340f8e335eb424c19f44dfdf8bdded91",
+    "R_BASE": "46217b5bac6a173d3b1bbdf54da1b71cef03c88f304d016460558c4906a17193",
+    "P_CONTROL": "024e13e749ba6eac1dfb7f503aae837c1bc8ae754a34c269e4c13ac4021eb4c0",
+    "P_LOCAL": "2c9a1090278a5dba9453bc325b5f51348c89ace40ca0ea879ccc45e876abbbb0",
+    "W_WRONGPOOL": "9da98c019bb8066ac9c157df7661d812cb78c3fa5a1525c7615e20a070a1b65c",
+    "F_LOCAL_SCRAM": "1ada2290ed2946291cf2d16cc260365f0176e954ad335be9039c4954cbb0ee2c",
+    "F_BASE_SCRAM": "051ab5a8e3c3e2eb453264de2773a87c131033cddb98d4497c02e0c38cef12e5",
+    "B_FREQ": "199b4c3f7b84fbc4d5673ebf788de3061a2f1762ffa48f8b70085181ecc54bc2"
+  },
+  "arms_differ_verified": true,
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 150,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 54,
+    "max_items_per_word": 4
+  },
+  "organs_reused": {
+    "items_leak_controls_split_donors": "exp_context_conditioned_near_neighbour_v1",
+    "encoders_normalisation_readout_bootstrap": "exp_graded_divisive_comparator_v1",
+    "anchor_accumulator_control": "hdlab.reading_grounding_loop.ConceptSpace",
+    "readout_control": "hdlab.reading_grounding_loop.canonicalize_fast"
+  },
+  "n_units": 8,
+  "expected_n_units": 8,
+  "cardinality_ok": true,
+  "crlb": {
+    "crlb_floor_computed": 0.113161,
+    "discriminator_reachability": false,
+    "discriminator_range_by_construction": "2AFC accuracy, chance 0.50, nothing hand-scored"
+  },
+  "compute_architecture": "sequential-CPU; thread pins before numpy import",
+  "selftest": {
+    "gain_symmetric": true,
+    "gain_suppresses_shared": {
+      "g_shared": 0.0476,
+      "g_distinctive": 0.1667,
+      "ratio": 3.5
+    },
+    "implementation_and_sensitivity": {
+      "matches_hand_weighted_cosine": true,
+      "frac_decisions_changed_vs_plain": 0.1725,
+      "disclosed_prior": "synthetic pre-checks did NOT favour the primary; no expectation of a pass is held, and both HARD_FAIL directions are live"
+    },
+    "wrongpool_differs": true,
+    "verdict_branches_reachable": [
+      "HARD_FAIL_FLOOR_BREACH",
+      "HARD_FAIL_GAIN_ADDS_NOTHING",
+      "HARD_FAIL_GAIN_HURTS",
+      "HARD_FAIL_GENERIC_NOT_TASK_LOCAL",
+      "HARD_PASS",
+      "INSTRUMENTATION_SUSPECT_BASELINE_DRIFT",
+      "INSTRUMENTATION_SUSPECT_READOUT_FORK",
+      "INSTRUMENTATION_SUSPECT_SELF_RETRIEVAL_BELOW_FLOOR",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "MIDDLE_BAND_REAL_BUT_SMALL"
+    ],
+    "predecessors": {
+      "parent": "exp_graded_divisive_comparator_v1",
+      "grandparent": "exp_context_conditioned_near_neighbour_v1"
+    },
+    "selftest_elapsed_s": 0.025
+  }
+}
