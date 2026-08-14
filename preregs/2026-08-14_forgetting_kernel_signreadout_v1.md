@@ -134,11 +134,18 @@ iff dAIC < -10; |dAIC| <= 10 is AMBIGUOUS** and is reported as such, not resolve
 
 **Additional pre-declared band on the CONTROL, and it is a FAIL band:** if `scram_order` reproduces
 the `real` curve shape (`|slope_real - slope_scram_order| < 0.05`), the curve is **not measuring
-consolidation** -- it is measuring interference/dilution in an order-invariant accumulator, and must
-be reported that way. I expect this to fire: `+=` is commutative, so for the GRADED arm the
-accumulator is order-invariant BY CONSTRUCTION and the two curves should be numerically identical.
-That is a finding about the substrate (it has no temporal structure to consolidate), not a defect of
-the control.
+consolidation** -- it is measuring interference/dilution in an order-insensitive accumulator, and
+must be reported that way.
+
+**CORRECTION to my stated expectation, noticed at smoke, band UNCHANGED.** I originally wrote that
+I expected this band to fire because "`+=` is commutative, so the GRADED accumulator is
+order-invariant BY CONSTRUCTION and the two curves should be numerically identical". **That
+reasoning is wrong.** Commutativity makes only the FINAL sum order-invariant; `sum_t` at an
+intermediate `t` depends on WHICH `t` encounters arrived first, so every interior point of the
+curve is genuinely order-sensitive. `scram_order` is therefore a real, non-degenerate control --
+stronger than I credited it, not weaker -- and it tests whether the ORDER of real encounters
+carries structure beyond exchangeable sampling. The numeric band above is unchanged; only my
+prediction about it is withdrawn. Recorded rather than silently edited.
 
 **No band is a tuning target.** A negative closes the hypothesis cheaply, which is the point.
 
