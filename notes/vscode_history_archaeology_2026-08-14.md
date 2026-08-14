@@ -653,3 +653,33 @@ Also in the block and already covered by the prior sweep:
 `exp_reader_image_word_grounding_v1` and `exp_vision_integrated_recognize_bind_ground_v1`
 (its Tier 2) — this sweep independently re-derived them from the brain-family angle, which is a
 weak convergence check between two differently-constructed enumerations.
+
+### 6c. REGISTRY COVERAGE BY MECHANISM — a fairness correction to §1
+
+§1's "invisible" test is a CELL-NAME test. To avoid overstating, the registry was also searched by
+MECHANISM TERM (`data/capability_registry.jsonl`, 127 rows, case-insensitive substring count):
+
+| well covered | term count | ZERO or near-zero coverage | term count |
+|---|---|---|---|
+| coref | 143 | **k-WTA / kwta** | **0** |
+| binding | 62 | **STDP** | **0** |
+| consolidat* | 45 | **sharp_wave / ripple** | **0** |
+| situation_model | 42 | **dentate** | **0** |
+| cleanup | 25 | **acc_evc** | **0** |
+| attractor | 21 | **cerebell*** | **0** |
+| replay | 18 | **hub_spoke** | **0** |
+| foraging | 17 | sparsity | 1 |
+| hebbian | 6 | pattern_separation | 1 |
+| predictive_coding | 6 | hopfield | 2 |
+| resonator / divisive / centering | 4 each | atl | 2 |
+
+**This is a genuine correction to the strong reading of §1.** The registry is NOT blind to
+brain mechanisms in general — coref, binding, consolidation and situation-model are well
+represented. **But seven mechanisms have literally zero registry presence: k-WTA, STDP,
+sharp-wave ripple, dentate gyrus, ACC/EVC, cerebellum, and hub-and-spoke.** Three of those
+(k-WTA, SWR, DG) have FULL floored passes on disk; two (cerebellum, hub-and-spoke) have only
+floored FAILURES, which is exactly the material §5 argues should be recorded and is not.
+
+So the precise claim is: **coverage is bimodal.** The mechanisms worked on RECENTLY are indexed;
+the June-July arc is not, and the sparse-coding / spike-timing / hippocampal-replay-primitive
+layer has no index entry at all.
