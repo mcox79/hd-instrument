@@ -1,0 +1,547 @@
+{
+  "anchor_name": "exp_composed_chain_readout_v1",
+  "prereg": "preregs/2026-08-14_composed_chain_readout_v1.md",
+  "run_mode": "full",
+  "ts_iso": "2026-08-14T17:38:27.823648+00:00",
+  "verdict": "HARD_FAIL_EVERY_STAGE_HURTS",
+  "verdict_msg": "n_items=600 n_anchors=647 d=256 | A0 median_rank=84/647 (baseline 84/647) top50=0.4000 (baseline 0.40) hit@1=0.09833 (baseline 0.09833) 2AFC=0.7083 (baseline 0.7083) | BEST-rank arm A2_PINV median_rank=154 cut=+82.7% top50=-0.0883 | BEST-hit@1 arm A3_C2F d=-0.00333 CI=[-0.00833,0.00000] | floors: scramble hit@1=0.00167 2AFC=0.4500, frequency hit@1=0.00667 2AFC=0.5000, between-draw sd(n=4) hit@1=0.00700 median_rank=16.51 | pinv within-capacity (m<=256) helps: False | c2f shortlist_hit=0.3300 (pre-declared COST arm, ceiling=A0)",
+  "baseline_quoted": {
+    "source": "data/exp_sharpening_readout_sister_separation_v1_SMOKE_n600/metrics.json",
+    "median_rank": 84.0,
+    "n_anchors": 647,
+    "frac_top50": 0.4,
+    "hit1": 0.098333,
+    "afc2_S0": 0.7083,
+    "SCOPE_NOTE": "SMOKE run at 647 anchors / n=600. NOT the 5491-anchor space, whose hit@1 is 0.0480 (exp_grounding_readout_known_answer_v1). The two hit@1 numbers describe different anchor-set sizes and must not be compared to each other."
+  },
+  "stages_already_live": {
+    "whitening": false,
+    "pseudoinverse_write": false,
+    "coarse_to_fine": false,
+    "evidence": "hdlab/reading_grounding_loop.py: ConceptSpace.observe is `self._sums[lemma] += ctx_vec` (Hebbian); canonicalize_fast is `(mat @ nb)/(norms*nn)` + argmax (plain cosine). ReadoutConfig FIX 2 anchor_background is a per-anchor mean/sd z-score = DIAGONAL whitening only, and is OFF by default."
+  },
+  "n_items": 600,
+  "n_anchors": 647,
+  "d": 256,
+  "overcompleteness_vs_pinv_capacity": 2.527,
+  "item_diag": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 600,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 213,
+    "max_items_per_word": 4
+  },
+  "n_zero_queries": 0,
+  "per_arm": {
+    "A0_BASELINE": {
+      "rank": {
+        "median_rank": 84.0,
+        "mean_rank": 167.52,
+        "frac_top50": 0.4,
+        "frac_outside_top50": 0.6,
+        "frac_rank1": 0.098333,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.098333,
+      "afc2": 0.708333
+    },
+    "A1_WHITEN": {
+      "rank": {
+        "median_rank": 240.5,
+        "mean_rank": 272.93,
+        "frac_top50": 0.145,
+        "frac_outside_top50": 0.855,
+        "frac_rank1": 0.006667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.006667,
+      "afc2": 0.608333
+    },
+    "A2_PINV": {
+      "rank": {
+        "median_rank": 153.5,
+        "mean_rank": 208.7,
+        "frac_top50": 0.311667,
+        "frac_outside_top50": 0.688333,
+        "frac_rank1": 0.081667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.081667,
+      "afc2": 0.665
+    },
+    "A3_C2F": {
+      "rank": {
+        "median_rank": 647.0,
+        "mean_rank": 437.56,
+        "frac_top50": 0.311667,
+        "frac_outside_top50": 0.688333,
+        "frac_rank1": 0.095,
+        "frac_target_dropped_from_shortlist": 0.67,
+        "n_items": 600
+      },
+      "hit1": 0.095,
+      "afc2": 0.708333,
+      "shortlist_hit": 0.33
+    },
+    "A4_FULL": {
+      "rank": {
+        "median_rank": 647.0,
+        "mean_rank": 567.4,
+        "frac_top50": 0.108333,
+        "frac_outside_top50": 0.891667,
+        "frac_rank1": 0.006667,
+        "frac_target_dropped_from_shortlist": 0.871667,
+        "n_items": 600
+      },
+      "hit1": 0.006667,
+      "afc2": 0.611667,
+      "shortlist_hit": 0.128333
+    },
+    "F_FREQUENCY": {
+      "rank": {
+        "median_rank": 326.0,
+        "mean_rank": 327.35,
+        "frac_top50": 0.073333,
+        "frac_outside_top50": 0.926667,
+        "frac_rank1": 0.006667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.006667,
+      "afc2": 0.5
+    },
+    "F_SCRAMBLE": {
+      "rank": {
+        "median_rank": 352.0,
+        "mean_rank": 340.14,
+        "frac_top50": 0.075,
+        "frac_outside_top50": 0.925,
+        "frac_rank1": 0.001667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.001667,
+      "afc2": 0.45
+    }
+  },
+  "bootstrap_hit1": {
+    "n_boot": 5000,
+    "n_items": 600,
+    "seed": 20260814,
+    "arm_acc": {
+      "A0_BASELINE": 0.098333,
+      "A1_WHITEN": 0.006667,
+      "A2_PINV": 0.081667,
+      "A3_C2F": 0.095,
+      "A4_FULL": 0.006667,
+      "F_FREQUENCY": 0.006667,
+      "F_SCRAMBLE": 0.001667
+    },
+    "deltas": {
+      "d_A1_WHITEN_minus_A0": {
+        "delta": -0.091667,
+        "ci_lo": -0.116667,
+        "ci_hi": -0.068333,
+        "excludes_zero": true
+      },
+      "d_A2_PINV_minus_A0": {
+        "delta": -0.016667,
+        "ci_lo": -0.033333,
+        "ci_hi": -0.001667,
+        "excludes_zero": true
+      },
+      "d_A3_C2F_minus_A0": {
+        "delta": -0.003333,
+        "ci_lo": -0.008333,
+        "ci_hi": 0.0,
+        "excludes_zero": false
+      },
+      "d_A4_FULL_minus_A0": {
+        "delta": -0.091667,
+        "ci_lo": -0.116667,
+        "ci_hi": -0.068333,
+        "excludes_zero": true
+      },
+      "d_A0_minus_SCRAMBLE": {
+        "delta": 0.096667,
+        "ci_lo": 0.073333,
+        "ci_hi": 0.12,
+        "excludes_zero": true
+      },
+      "d_A0_minus_FREQUENCY": {
+        "delta": 0.091667,
+        "ci_lo": 0.068333,
+        "ci_hi": 0.116667,
+        "excludes_zero": true
+      }
+    }
+  },
+  "bootstrap_2afc": {
+    "n_boot": 5000,
+    "n_items": 600,
+    "seed": 20260815,
+    "arm_acc": {
+      "A0_BASELINE": 0.708333,
+      "A1_WHITEN": 0.608333,
+      "A2_PINV": 0.665,
+      "A3_C2F": 0.708333,
+      "A4_FULL": 0.611667,
+      "F_FREQUENCY": 0.5,
+      "F_SCRAMBLE": 0.45
+    },
+    "deltas": {
+      "d_A1_WHITEN_minus_A0": {
+        "delta": -0.1,
+        "ci_lo": -0.151667,
+        "ci_hi": -0.051625,
+        "excludes_zero": true
+      },
+      "d_A2_PINV_minus_A0": {
+        "delta": -0.043333,
+        "ci_lo": -0.081667,
+        "ci_hi": -0.006667,
+        "excludes_zero": true
+      },
+      "d_A3_C2F_minus_A0": {
+        "delta": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "excludes_zero": false
+      },
+      "d_A4_FULL_minus_A0": {
+        "delta": -0.096667,
+        "ci_lo": -0.146667,
+        "ci_hi": -0.048333,
+        "excludes_zero": true
+      },
+      "d_A0_minus_SCRAMBLE": {
+        "delta": 0.258333,
+        "ci_lo": 0.205,
+        "ci_hi": 0.313333,
+        "excludes_zero": true
+      },
+      "d_A0_minus_FREQUENCY": {
+        "delta": 0.208333,
+        "ci_lo": 0.155,
+        "ci_hi": 0.263333,
+        "excludes_zero": true
+      }
+    }
+  },
+  "lambda_sensitivity": {
+    "lam_rel_0.0001": {
+      "rank": {
+        "median_rank": 153.5,
+        "mean_rank": 208.8,
+        "frac_top50": 0.311667,
+        "frac_outside_top50": 0.688333,
+        "frac_rank1": 0.081667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.081667,
+      "afc2": 0.663333
+    },
+    "lam_rel_0.001": {
+      "rank": {
+        "median_rank": 153.5,
+        "mean_rank": 208.7,
+        "frac_top50": 0.311667,
+        "frac_outside_top50": 0.688333,
+        "frac_rank1": 0.081667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.081667,
+      "afc2": 0.665
+    },
+    "lam_rel_0.01": {
+      "rank": {
+        "median_rank": 152.0,
+        "mean_rank": 207.58,
+        "frac_top50": 0.32,
+        "frac_outside_top50": 0.68,
+        "frac_rank1": 0.081667,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.081667,
+      "afc2": 0.666667
+    },
+    "lam_rel_0.1": {
+      "rank": {
+        "median_rank": 132.5,
+        "mean_rank": 200.64,
+        "frac_top50": 0.345,
+        "frac_outside_top50": 0.655,
+        "frac_rank1": 0.093333,
+        "frac_target_dropped_from_shortlist": 0.0,
+        "n_items": 600
+      },
+      "hit1": 0.093333,
+      "afc2": 0.68
+    }
+  },
+  "lambda_primary_rel": 0.001,
+  "between_draw": {
+    "n_draws": 4,
+    "sd": {
+      "median_rank": {
+        "A0_BASELINE": 16.50505,
+        "A1_WHITEN": 14.722432,
+        "A2_PINV": 21.406288
+      },
+      "frac_top50": {
+        "A0_BASELINE": 0.00459,
+        "A1_WHITEN": 0.010661,
+        "A2_PINV": 0.0075
+      },
+      "hit1": {
+        "A0_BASELINE": 0.007005,
+        "A1_WHITEN": 0.0025,
+        "A2_PINV": 0.002722
+      },
+      "afc2": {
+        "A0_BASELINE": 0.019359,
+        "A1_WHITEN": 0.00712,
+        "A2_PINV": 0.007861
+      }
+    },
+    "rows": [
+      {
+        "salt": "draw1",
+        "n_items": 600,
+        "n_anchors": 647,
+        "A0_BASELINE": {
+          "median_rank": 121.0,
+          "frac_top50": 0.396667,
+          "hit1": 0.09,
+          "afc2": 0.691667
+        },
+        "A1_WHITEN": {
+          "median_rank": 266.0,
+          "frac_top50": 0.146667,
+          "hit1": 0.001667,
+          "afc2": 0.591667
+        },
+        "A2_PINV": {
+          "median_rank": 187.0,
+          "frac_top50": 0.296667,
+          "hit1": 0.078333,
+          "afc2": 0.651667
+        }
+      },
+      {
+        "salt": "draw2",
+        "n_items": 600,
+        "n_anchors": 647,
+        "A0_BASELINE": {
+          "median_rank": 91.5,
+          "frac_top50": 0.406667,
+          "hit1": 0.101667,
+          "afc2": 0.69
+        },
+        "A1_WHITEN": {
+          "median_rank": 234.5,
+          "frac_top50": 0.136667,
+          "hit1": 0.006667,
+          "afc2": 0.596667
+        },
+        "A2_PINV": {
+          "median_rank": 136.5,
+          "frac_top50": 0.311667,
+          "hit1": 0.085,
+          "afc2": 0.665
+        }
+      },
+      {
+        "salt": "draw3",
+        "n_items": 600,
+        "n_anchors": 647,
+        "A0_BASELINE": {
+          "median_rank": 90.5,
+          "frac_top50": 0.405,
+          "hit1": 0.106667,
+          "afc2": 0.731667
+        },
+        "A1_WHITEN": {
+          "median_rank": 236.0,
+          "frac_top50": 0.123333,
+          "hit1": 0.006667,
+          "afc2": 0.601667
+        },
+        "A2_PINV": {
+          "median_rank": 150.5,
+          "frac_top50": 0.311667,
+          "hit1": 0.081667,
+          "afc2": 0.67
+        }
+      }
+    ]
+  },
+  "anchor_count_sweep": {
+    "m64": {
+      "n_anchors": 64,
+      "n_pooled_items": 450,
+      "within_pinv_capacity": true,
+      "A0_BASELINE": {
+        "hit1": 0.226667,
+        "median_rank": 9.0,
+        "frac_top50": 0.92
+      },
+      "A1_WHITEN": {
+        "hit1": 0.026667,
+        "median_rank": 25.0,
+        "frac_top50": 0.855556
+      },
+      "A2_PINV": {
+        "hit1": 0.184444,
+        "median_rank": 13.0,
+        "frac_top50": 0.911111
+      }
+    },
+    "m128": {
+      "n_anchors": 128,
+      "n_pooled_items": 992,
+      "within_pinv_capacity": true,
+      "A0_BASELINE": {
+        "hit1": 0.19254,
+        "median_rank": 16.0,
+        "frac_top50": 0.714718
+      },
+      "A1_WHITEN": {
+        "hit1": 0.00504,
+        "median_rank": 59.0,
+        "frac_top50": 0.445565
+      },
+      "A2_PINV": {
+        "hit1": 0.120968,
+        "median_rank": 31.0,
+        "frac_top50": 0.65121
+      }
+    },
+    "m192": {
+      "n_anchors": 192,
+      "n_pooled_items": 1336,
+      "within_pinv_capacity": true,
+      "A0_BASELINE": {
+        "hit1": 0.148204,
+        "median_rank": 26.0,
+        "frac_top50": 0.63024
+      },
+      "A1_WHITEN": {
+        "hit1": 0.002994,
+        "median_rank": 78.0,
+        "frac_top50": 0.326347
+      },
+      "A2_PINV": {
+        "hit1": 0.053144,
+        "median_rank": 60.0,
+        "frac_top50": 0.452844
+      }
+    },
+    "m256": {
+      "n_anchors": 256,
+      "n_pooled_items": 1887,
+      "within_pinv_capacity": true,
+      "A0_BASELINE": {
+        "hit1": 0.126126,
+        "median_rank": 35.0,
+        "frac_top50": 0.565978
+      },
+      "A1_WHITEN": {
+        "hit1": 0.009009,
+        "median_rank": 122.0,
+        "frac_top50": 0.222046
+      },
+      "A2_PINV": {
+        "hit1": 0.010599,
+        "median_rank": 92.0,
+        "frac_top50": 0.318495
+      }
+    },
+    "m384": {
+      "n_anchors": 384,
+      "n_pooled_items": 2815,
+      "within_pinv_capacity": false,
+      "A0_BASELINE": {
+        "hit1": 0.10302,
+        "median_rank": 51.0,
+        "frac_top50": 0.499822
+      },
+      "A1_WHITEN": {
+        "hit1": 0.004973,
+        "median_rank": 155.0,
+        "frac_top50": 0.186856
+      },
+      "A2_PINV": {
+        "hit1": 0.054707,
+        "median_rank": 107.0,
+        "frac_top50": 0.33357
+      }
+    },
+    "m512": {
+      "n_anchors": 512,
+      "n_pooled_items": 3831,
+      "within_pinv_capacity": false,
+      "A0_BASELINE": {
+        "hit1": 0.102584,
+        "median_rank": 66.0,
+        "frac_top50": 0.444531
+      },
+      "A1_WHITEN": {
+        "hit1": 0.007309,
+        "median_rank": 197.0,
+        "frac_top50": 0.172018
+      },
+      "A2_PINV": {
+        "hit1": 0.071,
+        "median_rank": 125.0,
+        "frac_top50": 0.329418
+      }
+    },
+    "m647": {
+      "n_anchors": 647,
+      "n_pooled_items": 4800,
+      "within_pinv_capacity": false,
+      "A0_BASELINE": {
+        "hit1": 0.098333,
+        "median_rank": 84.0,
+        "frac_top50": 0.4
+      },
+      "A1_WHITEN": {
+        "hit1": 0.006667,
+        "median_rank": 240.5,
+        "frac_top50": 0.145
+      },
+      "A2_PINV": {
+        "hit1": 0.081667,
+        "median_rank": 153.5,
+        "frac_top50": 0.311667
+      }
+    }
+  },
+  "prereg_gap_disclosed": "prereg sec 5 named HARD_PASS / MIDDLE_BAND / HARD_FAIL_NO_EFFECT / CODEBOOK_DOOMED and did not anticipate every arm moving the measurand strongly in the ADVERSE direction. The HARD_FAIL_EVERY_STAGE_HURTS branch was added after the numbers were seen, and is STRICTLY MORE NEGATIVE than the band the pre-registered logic would have returned (MIDDLE_BAND). Disclosed so the change cannot be mistaken for band-shopping.",
+  "failure_mode_a_resolution": "PRE-DECLARED: a pinv null at full anchor count would be a SCALE result, and the test separating that from a genuine transfer failure was whether A2 beats A0 in the n_anchors <= d=256 regime where the mechanism's precondition HOLDS. It does not: A2-A0 is negative at every swept size (m=64 -0.0422, m=128 -0.0716, m=192 -0.0951, m=256 -0.1155) and the deficit is LARGEST inside the capacity regime, shrinking toward 0 as m grows. The scale explanation is therefore REFUTED BY ITS OWN PRE-DECLARED TEST: the pseudoinverse write rule does not transfer to our codes, and dimensionality is not the binding constraint.",
+  "config": {
+    "d_coarse": 128,
+    "shortlist_frac": 0.1,
+    "whiten_eps_rel": 0.001,
+    "n_bootstrap": 5000,
+    "sweep_replicates": 8,
+    "master_seed": 20260814
+  },
+  "elapsed_s": 191.8,
+  "python": "3.12.10"
+}

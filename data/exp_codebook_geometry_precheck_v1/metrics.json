@@ -1,0 +1,780 @@
+{
+  "anchor_name": "exp_codebook_geometry_precheck_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-14T17:16:00.855650+00:00",
+  "verdict": "NEAR_DUPLICATES_NOT_THE_DEFECT",
+  "verdict_msg": "OUR live codebook n=5491 d=256: frac(NN>=0.99)=0.0000 (null 0.0000, excess +0.0000); median NN cos 0.4637 (null 0.2264, excess +0.2373); max 0.8567. After ZCA whitening frac(NN>=0.99)=0.0000 median=0.3526. 241-atom curated codebook reference was 0.2241.",
+  "graded_comparator": true,
+  "n_anchors": 5491,
+  "d": 256,
+  "n_sentences": 34169,
+  "overcompleteness_ratio": 21.449,
+  "nn_by_variant": {
+    "RAW_GRADED": {
+      "n": 5491,
+      "d": 256,
+      "nn_cos_mean": 0.481034,
+      "nn_cos_median": 0.463692,
+      "nn_cos_p95": 0.69753,
+      "nn_cos_max": 0.856691,
+      "frac_nn_above": {
+        "0.99": 0.0,
+        "0.95": 0.0,
+        "0.9": 0.0,
+        "0.8": 0.005828,
+        "0.7": 0.048443
+      },
+      "n_nn_above": {
+        "0.99": 0,
+        "0.95": 0,
+        "0.9": 0,
+        "0.8": 32,
+        "0.7": 266
+      },
+      "top_pairs": [
+        {
+          "a": "sympathetic",
+          "b": "parasympathetic",
+          "cos": 0.856691
+        },
+        {
+          "a": "anal",
+          "b": "notochord",
+          "cos": 0.845516
+        },
+        {
+          "a": "garcia",
+          "b": "moreno",
+          "cos": 0.840826
+        },
+        {
+          "a": "radial",
+          "b": "bilateral",
+          "cos": 0.835038
+        },
+        {
+          "a": "mcdonald",
+          "b": "mcdonalds",
+          "cos": 0.824563
+        },
+        {
+          "a": "hollow",
+          "b": "notochord",
+          "cos": 0.821789
+        },
+        {
+          "a": "lymphocyte",
+          "b": "antigen",
+          "cos": 0.820663
+        },
+        {
+          "a": "innate",
+          "b": "adaptive",
+          "cos": 0.820658
+        },
+        {
+          "a": "pharyngeal",
+          "b": "anal",
+          "cos": 0.820003
+        },
+        {
+          "a": "chordate",
+          "b": "anal",
+          "cos": 0.819357
+        },
+        {
+          "a": "organelle",
+          "b": "cytoplasm",
+          "cos": 0.816901
+        },
+        {
+          "a": "oceanic",
+          "b": "neritic",
+          "cos": 0.815831
+        },
+        {
+          "a": "synthase",
+          "b": "chemiosmosis",
+          "cos": 0.813308
+        },
+        {
+          "a": "guanine",
+          "b": "cytosine",
+          "cos": 0.809719
+        },
+        {
+          "a": "slit",
+          "b": "anal",
+          "cos": 0.805902
+        },
+        {
+          "a": "passport",
+          "b": "harriet",
+          "cos": 0.804718
+        },
+        {
+          "a": "urchin",
+          "b": "cucumber",
+          "cos": 0.804005
+        },
+        {
+          "a": "aureus",
+          "b": "staphylococcus",
+          "cos": 0.803057
+        },
+        {
+          "a": "methicillin",
+          "b": "aureus",
+          "cos": 0.797825
+        },
+        {
+          "a": "vuitton",
+          "b": "louis",
+          "cos": 0.797054
+        },
+        {
+          "a": "don",
+          "b": "dont",
+          "cos": 0.793195
+        },
+        {
+          "a": "hoxton",
+          "b": "analytic",
+          "cos": 0.793061
+        },
+        {
+          "a": "quinn",
+          "b": "gallagher",
+          "cos": 0.79002
+        },
+        {
+          "a": "chocolate",
+          "b": "fraudulent",
+          "cos": 0.788727
+        },
+        {
+          "a": "inhibitor",
+          "b": "substrate",
+          "cos": 0.788477
+        }
+      ]
+    },
+    "SIGNED": {
+      "n": 5491,
+      "d": 256,
+      "nn_cos_mean": 0.367139,
+      "nn_cos_median": 0.351562,
+      "nn_cos_p95": 0.528244,
+      "nn_cos_max": 0.876241,
+      "frac_nn_above": {
+        "0.99": 0.0,
+        "0.95": 0.0,
+        "0.9": 0.0,
+        "0.8": 0.000364,
+        "0.7": 0.001457
+      },
+      "n_nn_above": {
+        "0.99": 0,
+        "0.95": 0,
+        "0.9": 0,
+        "0.8": 2,
+        "0.7": 8
+      },
+      "top_pairs": [
+        {
+          "a": "neritic",
+          "b": "oceanic",
+          "cos": 0.876241
+        },
+        {
+          "a": "radial",
+          "b": "bilateral",
+          "cos": 0.772353
+        },
+        {
+          "a": "garcia",
+          "b": "moreno",
+          "cos": 0.702818
+        },
+        {
+          "a": "farm",
+          "b": "liberia",
+          "cos": 0.700808
+        },
+        {
+          "a": "chordate",
+          "b": "hollow",
+          "cos": 0.692022
+        },
+        {
+          "a": "aureus",
+          "b": "methicillin",
+          "cos": 0.68039
+        },
+        {
+          "a": "staphylococcus",
+          "b": "aureus",
+          "cos": 0.672076
+        },
+        {
+          "a": "logistic",
+          "b": "exponential",
+          "cos": 0.671875
+        },
+        {
+          "a": "don",
+          "b": "dont",
+          "cos": 0.668021
+        },
+        {
+          "a": "differentiate",
+          "b": "effector",
+          "cos": 0.666937
+        },
+        {
+          "a": "skeletal",
+          "b": "smooth",
+          "cos": 0.664062
+        },
+        {
+          "a": "division",
+          "b": "periphery",
+          "cos": 0.664062
+        },
+        {
+          "a": "hampton",
+          "b": "pantry",
+          "cos": 0.664058
+        },
+        {
+          "a": "contraction",
+          "b": "cardiac",
+          "cos": 0.65881
+        },
+        {
+          "a": "parasympathetic",
+          "b": "sympathetic",
+          "cos": 0.650876
+        },
+        {
+          "a": "littman",
+          "b": "pantry",
+          "cos": 0.65073
+        },
+        {
+          "a": "flowering",
+          "b": "seedless",
+          "cos": 0.648438
+        },
+        {
+          "a": "cucumber",
+          "b": "urchin",
+          "cos": 0.648438
+        },
+        {
+          "a": "cytoplasm",
+          "b": "organelle",
+          "cos": 0.648227
+        },
+        {
+          "a": "analytic",
+          "b": "hoxton",
+          "cos": 0.648183
+        },
+        {
+          "a": "mcdonald",
+          "b": "mcdonalds",
+          "cos": 0.647766
+        },
+        {
+          "a": "vaping",
+          "b": "vapers",
+          "cos": 0.646586
+        },
+        {
+          "a": "placental",
+          "b": "eutherian",
+          "cos": 0.644947
+        },
+        {
+          "a": "mit",
+          "b": "tonagawa",
+          "cos": 0.642869
+        },
+        {
+          "a": "mast",
+          "b": "differentiate",
+          "cos": 0.642582
+        }
+      ]
+    },
+    "CENTERED": {
+      "n": 5491,
+      "d": 256,
+      "nn_cos_mean": 0.474985,
+      "nn_cos_median": 0.458252,
+      "nn_cos_p95": 0.712007,
+      "nn_cos_max": 0.870407,
+      "frac_nn_above": {
+        "0.99": 0.0,
+        "0.95": 0.0,
+        "0.9": 0.0,
+        "0.8": 0.008013,
+        "0.7": 0.059734
+      },
+      "n_nn_above": {
+        "0.99": 0,
+        "0.95": 0,
+        "0.9": 0,
+        "0.8": 44,
+        "0.7": 328
+      },
+      "top_pairs": [
+        {
+          "a": "sympathetic",
+          "b": "parasympathetic",
+          "cos": 0.870407
+        },
+        {
+          "a": "bilateral",
+          "b": "radial",
+          "cos": 0.84512
+        },
+        {
+          "a": "oceanic",
+          "b": "neritic",
+          "cos": 0.844738
+        },
+        {
+          "a": "anal",
+          "b": "notochord",
+          "cos": 0.841532
+        },
+        {
+          "a": "guanine",
+          "b": "cytosine",
+          "cos": 0.839264
+        },
+        {
+          "a": "moreno",
+          "b": "garcia",
+          "cos": 0.838473
+        },
+        {
+          "a": "protostomes",
+          "b": "deuterostomes",
+          "cos": 0.830259
+        },
+        {
+          "a": "frontal",
+          "b": "parietal",
+          "cos": 0.821781
+        },
+        {
+          "a": "pharyngeal",
+          "b": "anal",
+          "cos": 0.821558
+        },
+        {
+          "a": "hollow",
+          "b": "notochord",
+          "cos": 0.820701
+        },
+        {
+          "a": "chordate",
+          "b": "anal",
+          "cos": 0.819981
+        },
+        {
+          "a": "harriet",
+          "b": "passport",
+          "cos": 0.818852
+        },
+        {
+          "a": "adaptive",
+          "b": "innate",
+          "cos": 0.817129
+        },
+        {
+          "a": "staphylococcus",
+          "b": "aureus",
+          "cos": 0.81634
+        },
+        {
+          "a": "vuitton",
+          "b": "louis",
+          "cos": 0.815969
+        },
+        {
+          "a": "chemiosmosis",
+          "b": "synthase",
+          "cos": 0.815569
+        },
+        {
+          "a": "cucumber",
+          "b": "urchin",
+          "cos": 0.813293
+        },
+        {
+          "a": "methicillin",
+          "b": "aureus",
+          "cos": 0.81134
+        },
+        {
+          "a": "lymphocyte",
+          "b": "antigen",
+          "cos": 0.810828
+        },
+        {
+          "a": "organelle",
+          "b": "cytoplasm",
+          "cos": 0.810626
+        },
+        {
+          "a": "fraudulent",
+          "b": "chocolate",
+          "cos": 0.80885
+        },
+        {
+          "a": "analytic",
+          "b": "hoxton",
+          "cos": 0.808108
+        },
+        {
+          "a": "slit",
+          "b": "anal",
+          "cos": 0.807336
+        },
+        {
+          "a": "adenosine",
+          "b": "triphosphate",
+          "cos": 0.804621
+        },
+        {
+          "a": "squeeze",
+          "b": "fraudulent",
+          "cos": 0.800376
+        }
+      ]
+    },
+    "ZCA_WHITEN": {
+      "n": 5491,
+      "d": 256,
+      "nn_cos_mean": 0.37663,
+      "nn_cos_median": 0.352599,
+      "nn_cos_p95": 0.615412,
+      "nn_cos_max": 0.823463,
+      "frac_nn_above": {
+        "0.99": 0.0,
+        "0.95": 0.0,
+        "0.9": 0.0,
+        "0.8": 0.001093,
+        "0.7": 0.013841
+      },
+      "n_nn_above": {
+        "0.99": 0,
+        "0.95": 0,
+        "0.9": 0,
+        "0.8": 6,
+        "0.7": 76
+      },
+      "top_pairs": [
+        {
+          "a": "neritic",
+          "b": "oceanic",
+          "cos": 0.823463
+        },
+        {
+          "a": "parasympathetic",
+          "b": "sympathetic",
+          "cos": 0.816531
+        },
+        {
+          "a": "bilateral",
+          "b": "radial",
+          "cos": 0.812579
+        },
+        {
+          "a": "urchin",
+          "b": "cucumber",
+          "cos": 0.799048
+        },
+        {
+          "a": "guanine",
+          "b": "cytosine",
+          "cos": 0.786929
+        },
+        {
+          "a": "logistic",
+          "b": "exponential",
+          "cos": 0.779286
+        },
+        {
+          "a": "vuitton",
+          "b": "louis",
+          "cos": 0.769809
+        },
+        {
+          "a": "anal",
+          "b": "notochord",
+          "cos": 0.767383
+        },
+        {
+          "a": "mcdonald",
+          "b": "mcdonalds",
+          "cos": 0.767356
+        },
+        {
+          "a": "staphylococcus",
+          "b": "aureus",
+          "cos": 0.759765
+        },
+        {
+          "a": "pharyngeal",
+          "b": "anal",
+          "cos": 0.757314
+        },
+        {
+          "a": "synthase",
+          "b": "chemiosmosis",
+          "cos": 0.757008
+        },
+        {
+          "a": "gallagher",
+          "b": "quinn",
+          "cos": 0.756985
+        },
+        {
+          "a": "moreno",
+          "b": "garcia",
+          "cos": 0.756113
+        },
+        {
+          "a": "squeeze",
+          "b": "fraudulent",
+          "cos": 0.755881
+        },
+        {
+          "a": "methicillin",
+          "b": "aureus",
+          "cos": 0.755784
+        },
+        {
+          "a": "hollow",
+          "b": "notochord",
+          "cos": 0.753489
+        },
+        {
+          "a": "analytic",
+          "b": "hoxton",
+          "cos": 0.749829
+        },
+        {
+          "a": "passport",
+          "b": "harriet",
+          "cos": 0.748301
+        },
+        {
+          "a": "chocolate",
+          "b": "fraudulent",
+          "cos": 0.746402
+        },
+        {
+          "a": "spine",
+          "b": "twist",
+          "cos": 0.745865
+        },
+        {
+          "a": "chordate",
+          "b": "anal",
+          "cos": 0.745851
+        },
+        {
+          "a": "pub",
+          "b": "timms",
+          "cos": 0.743868
+        },
+        {
+          "a": "photosystem",
+          "b": "photon",
+          "cos": 0.723891
+        },
+        {
+          "a": "swing",
+          "b": "romney",
+          "cos": 0.720838
+        }
+      ]
+    },
+    "NULL_RANDOM": {
+      "n": 5491,
+      "d": 256,
+      "nn_cos_mean": 0.229034,
+      "nn_cos_median": 0.226355,
+      "nn_cos_p95": 0.264009,
+      "nn_cos_max": 0.32892,
+      "frac_nn_above": {
+        "0.99": 0.0,
+        "0.95": 0.0,
+        "0.9": 0.0,
+        "0.8": 0.0,
+        "0.7": 0.0
+      },
+      "n_nn_above": {
+        "0.99": 0,
+        "0.95": 0,
+        "0.9": 0,
+        "0.8": 0,
+        "0.7": 0
+      },
+      "top_pairs": [
+        {
+          "a": "codon",
+          "b": "bare",
+          "cos": 0.32892
+        },
+        {
+          "a": "television",
+          "b": "addiction",
+          "cos": 0.326147
+        },
+        {
+          "a": "multiply",
+          "b": "african",
+          "cos": 0.322995
+        },
+        {
+          "a": "coal",
+          "b": "depict",
+          "cos": 0.316012
+        },
+        {
+          "a": "triphosphate",
+          "b": "experimental",
+          "cos": 0.314492
+        },
+        {
+          "a": "sensitivity",
+          "b": "membrane",
+          "cos": 0.314298
+        },
+        {
+          "a": "saint",
+          "b": "nothing",
+          "cos": 0.300261
+        },
+        {
+          "a": "aids",
+          "b": "choice",
+          "cos": 0.300197
+        },
+        {
+          "a": "observatory",
+          "b": "earlier",
+          "cos": 0.298533
+        },
+        {
+          "a": "gallagher",
+          "b": "logo",
+          "cos": 0.296717
+        },
+        {
+          "a": "moment",
+          "b": "setting",
+          "cos": 0.295503
+        },
+        {
+          "a": "endoplasmic",
+          "b": "mail",
+          "cos": 0.295413
+        },
+        {
+          "a": "boost",
+          "b": "huber",
+          "cos": 0.293043
+        },
+        {
+          "a": "seasonal",
+          "b": "commit",
+          "cos": 0.291197
+        },
+        {
+          "a": "infectious",
+          "b": "telophase",
+          "cos": 0.290797
+        },
+        {
+          "a": "cite",
+          "b": "classified",
+          "cos": 0.290426
+        },
+        {
+          "a": "biodiversity",
+          "b": "slightly",
+          "cos": 0.290194
+        },
+        {
+          "a": "myofibril",
+          "b": "vary",
+          "cos": 0.288203
+        },
+        {
+          "a": "petition",
+          "b": "annually",
+          "cos": 0.287701
+        },
+        {
+          "a": "recognition",
+          "b": "cooler",
+          "cos": 0.286438
+        },
+        {
+          "a": "reuse",
+          "b": "periphery",
+          "cos": 0.285256
+        },
+        {
+          "a": "energy",
+          "b": "hillsborough",
+          "cos": 0.284067
+        },
+        {
+          "a": "archaea",
+          "b": "harmful",
+          "cos": 0.283484
+        },
+        {
+          "a": "afford",
+          "b": "workplace",
+          "cos": 0.283409
+        },
+        {
+          "a": "darth",
+          "b": "assortment",
+          "cos": 0.283092
+        }
+      ]
+    }
+  },
+  "spectrum": {
+    "mean_anchor_norm_of_unit_rows": 0.259449,
+    "common_mode_energy_frac": 0.067314,
+    "top1_eigen_frac_after_centering": 0.030499,
+    "top10_eigen_frac_after_centering": 0.12854,
+    "participation_ratio": 171.1603
+  },
+  "excess_over_null": {
+    "frac_nn_ge_0.99": 0.0,
+    "nn_cos_median": 0.237337
+  },
+  "reference_curated_codebook": {
+    "cell": "exp_substrate_codebook_near_duplicate_diagnostic_cpu_v1",
+    "K": 241,
+    "n_atoms_nn_above_0.99": 54,
+    "rate": 0.2241,
+    "top_pair_cos": 1.0,
+    "top_pair": "math::T1/probability_space <-> math::T1/measure_space"
+  },
+  "elapsed_s": 143.6,
+  "python": "3.12.10"
+}
