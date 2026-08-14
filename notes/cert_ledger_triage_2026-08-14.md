@@ -269,6 +269,10 @@ outside the top-50**, every correct hit a *paradigmatic neighbour* (right neighb
 Cleanup-rule fixes are closed as a class (SNR wall). So the question for every candidate is: **does it
 raise the anchor score, or separate within-neighbourhood?** Ranked on that, not on how impressive it reads.
 
+**Ordering criterion: (proximity to hit@1) × (evidence weight), with dating confidence as a tiebreak.**
+Where those two pull apart I say so explicitly rather than silently averaging — see #5, which is the
+best-evidenced item in the list and is ranked 5th only because it acts one step further upstream.
+
 ---
 
 **#1 — `exp_substrate_codebook_near_duplicate_diagnostic_cpu_v1`**
@@ -350,7 +354,9 @@ which is why the lexical detector missed all 5).
 | `exp_pb_e5_vs_bge_pinv_headtohead_v1` | real whitened **E5-large** | 0.000 | 0.550 | Hebb≈0 → rescue |
 | `exp_pseudoinverse_real_encoder_keys_v1` | real whitened **MiniLM** | 0.000 | 0.400 | Hebb≈0 → rescue |
 
-**Why this is the strongest-evidenced item in §5.1:** it is the only lever here that **replicates across
+**This is the strongest-EVIDENCED item in §5.1 — it sits at #5 only because it is one step further
+from hit@1** (it changes how the store is *written*, not how a candidate is *scored*), and its dates
+are git-only. **On evidence weight alone it ranks first.** It is the only lever here that **replicates across
 four independent encoder families plus synthetic**, with a *non-degenerate* anchor point
 (Llama-L15: 122 → 614 capacity, a real 5.03× that is not a divide-by-zero), and the cells' own framing is
 *"largest single capacity lever, swap the write rule"* and *"encoder-class-general"*, *"stacks with
