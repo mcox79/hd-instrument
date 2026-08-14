@@ -15,6 +15,19 @@ Prior drill (biology, not re-derived here): `notes/brain_drill_encoder_lexical_s
 
 ---
 
+> **SUPERSEDED IN PART, 2026-08-14 — READ THIS FIRST.** Row C1's *mechanism* claim (that
+> per-component magnitude destruction is the BINDING CONSTRAINT on near-neighbour discrimination)
+> was tested, produced a HARD_PASS, and was then **refuted as an explanation** by an adversarial
+> landed-VET: `notes/landed_vet_graded_comparator_mechanism_refuted_2026-08-14.md`. The numbers in
+> this note are correct and reproduce bit-exactly; the *prototype-operator argument is
+> mathematically correct and predicts the right direction*; but it is NOT the dominant cause of the
+> measured effect. The unmodified quantised comparator at d=1024 beats the graded one at the live
+> d=256, and destroying all magnitude in the unprojected term space costs only 27% of the effect.
+> Correct reading: **at d=256 the quantised comparator is capacity-limited.** Row C7
+> (representation format / capacity), which this audit ranked LAST, is promoted to the head of the
+> queue. Two further corrections are recorded inline below: the log-IDF mechanism I predicted was
+> refuted, and I transposed Carandini & Heeger.
+
 ## HEADLINE — ONE ARITHMETIC DEFECT, FIVE SITES, AND IT IS A PROTOTYPE OPERATOR
 
 Every composition step in this substrate ends in a **per-component magnitude-destroying

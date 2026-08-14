@@ -502,7 +502,20 @@ class ConceptSpace:
 
         Returns a FrozenAnchorSpace, so it is a drop-in wherever a space is READ and never written;
         pass `ReadoutConfig(graded_query=True)` to `canonicalize_fast` so the QUERY is not
-        quantised either (comparing a graded field against a signed query is worse than either)."""
+        quantised either (comparing a graded field against a signed query is worse than either).
+
+        MECHANISM CAVEAT: see `grounding_acquisition_loop.context_vector`'s `graded` docstring and
+        notes/landed_vet_graded_comparator_mechanism_refuted_2026-08-14.md. The measured gain is
+        real and reproduces bit-exactly, but an adversarial review showed the UNMODIFIED quantised
+        comparator at d=1024 beats this one at the live d=256, so the effect is better read as
+        capacity at d=256 than as the quantiser being the binding constraint.
+
+        NOTE ALSO (found by this landing's own byte-identity control): `anchor_matrix` above uses a
+        PLAIN np.sign with no zero convention, so the default anchor code is TERNARY {-1,0,+1},
+        while `context_vector` maps sign-zero to +1 and is BIPOLAR. Those two live sites disagree,
+        13.2% of query dimensions are affected, and the mismatch was worth ~30% of this landing's
+        smoke-scale delta. It is left as-is here (changing it would change the default path) but any
+        future comparison of quantised against graded MUST control for it."""
         anchors = sorted(self._sums)
         if not anchors:
             return FrozenAnchorSpace([], np.zeros((0, self.d), dtype=np.float64))

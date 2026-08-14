@@ -134,7 +134,19 @@ def context_vector(window_text: str, d: int = D, *, graded: bool = False) -> np.
     MEASURED payoff, n=4000 held-out near-neighbour 2AFC in context, prereg d6c56353c:
     dropping this sign() is worth +0.0245 to +0.0267 accuracy on its own, CI excluding 0 at every
     normalisation level (data/exp_graded_divisive_comparator_v1/metrics.json). Witness:
-    verification/verify_graded_divisive_comparator.py."""
+    verification/verify_graded_divisive_comparator.py.
+
+    MECHANISM CAVEAT -- READ BEFORE CITING THIS AS "sign() IS THE BOTTLENECK"
+    (notes/landed_vet_graded_comparator_mechanism_refuted_2026-08-14.md). An adversarial review
+    reproduced the numbers bit-exactly and then refuted the EXPLANATION three ways: (1) the
+    UNMODIFIED sign() comparator at d=1024 scores 0.7030, BEATING the graded one at the live d=256
+    (0.69975), and the graded advantage shrinks 0.0602 -> 0.047 -> 0.041 as d goes 256 -> 1024 ->
+    4096; (2) in the unprojected TERM space, destroying ALL magnitude costs only 0.0165, i.e. 27%
+    of the measured effect, and query-side magnitude is worth exactly 0.000; (3) ~30% of the
+    smoke-scale delta was the ternary/bipolar zero-convention mismatch between this function and
+    ConceptSpace.anchor_matrix, not gradedness. The graded code IS better at every d tested and the
+    payoff above is real, but the correct reading is "at d=256 the quantised comparator is
+    CAPACITY-LIMITED", not "the quantiser is the binding constraint"."""
     words = content_words(window_text)
     if not words:
         return np.zeros(d, dtype=np.float64)
