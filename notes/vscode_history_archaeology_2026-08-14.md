@@ -683,3 +683,189 @@ floored FAILURES, which is exactly the material §5 argues should be recorded an
 So the precise claim is: **coverage is bimodal.** The mechanisms worked on RECENTLY are indexed;
 the June-July arc is not, and the sparse-coding / spike-timing / hippocampal-replay-primitive
 layer has no index entry at all.
+
+## 7. THE BIGGEST FINDING — AN ENTIRE CERTIFICATION LEDGER THAT NO 2026-08-14 SWEEP TOUCHED
+
+This section supersedes §2's framing. §2 is not wrong, it is **6% of the truth.**
+
+### 7a. How it was found
+
+Not by searching `data/`. By reading NOTE FILENAMES. A filename census of `notes/` surfaced
+**`notes/research_experimental_archaeology_comprehensive_inventory_2026-06-25.md`** (48 KB) — a
+**prior archaeology sweep, USER-directed, on 2026-06-25, with almost this exact brief.** Its opening
+quotes the USER:
+
+> "we've never properly crawled through the existing experimental data and really understood the
+> meaning of it and filed it correctly... should we do a proper accounting of all the results and
+> the relevance for current and future work?"
+
+That note names its tooling and its join key. **All of it still exists on disk:**
+
+| artifact | status | size | mtime |
+|---|---|---|---|
+| `data/_archaeology_extractor.py` | **EXISTS** | 7,477 B | 2026-06-25 |
+| `data/_archaeology_synthesize.py` | **EXISTS** | 12,904 B | 2026-06-25 |
+| `data/_archaeology_inventory_enriched.jsonl` | **EXISTS** | 2,418,546 B | 2026-06-25 |
+| `data/_archaeology_summary.json` | **EXISTS** | 99,430 B | 2026-06-25 |
+| **`data/substrate_index/meta/cert_ledger.jsonl`** | **EXISTS** | **4,553,798 B** | **2026-08-03** |
+
+### 7b. The cert ledger, measured today
+
+`data/substrate_index/meta/cert_ledger.jsonl` — **2,031 rows, 0 unparseable.** This is a SECOND,
+INDEPENDENT results index. It is not `data/capability_registry.jsonl` (127 rows) and it is not
+`metrics.json`. Its mtime is **2026-08-03**, so it was live during the current arc.
+
+| `cert_status` | rows |
+|---|---|
+| **`chain_grade`** | **540** |
+| (none) | 253 |
+| `proven-bound` | 208 |
+| `measured_mechanism` | 197 |
+| `under_classified` | 149 |
+| `honest_negative` | 84 |
+| `custom` | 54 |
+| `proven_bound` | 35 |
+| `hard_fail` | 32 |
+| `middle_band` | 26 |
+| `cert_ruling_test_design_failure` | 17 |
+| `honest-negative` | 11 |
+| **`chain-grade`** | **10** |
+| `mm_tentative_methodology_rule`, `observation`, `proven-negative`, `honest_negative_proven_bound`, `chain_grade_meta_rule`, `test_design_infra_failure`, `measured_mechanism_tentative_synthesis` | 4-9 each |
+
+**Total chain-graded rows = 550** (`chain_grade` 540 + `chain-grade` 10).
+
+### 7c. THE NUMBER
+
+- **550 chain-graded ledger rows → 506 DISTINCT CELLS.**
+- **537 distinct `atom_id`s** carry a chain-grade certification.
+- **Of the 506 chain-graded cells, 13 are named in any of the four planning docs. 493 ARE NOT.**
+- **Of the 537 chain-graded atom IDs, ZERO appear in any of the four docs.**
+
+**Compare with §2, which searched `metrics.json` verdict strings and found 32 CHAIN_GRADE cells.
+The real figure is 506. A verdict-string search recovers 6% of the chain-graded work.**
+
+The reason is pure measurement-convention drift, and it is the single most important instance in
+this note: **chain-grade is not primarily a VERDICT STRING in `metrics.json`. It is a
+`cert_status` FIELD in a separate ledger.** No tool in the current arc reads that ledger. Neither
+`notes/vscode_week_results_validity_audit_2026-08-14.md` nor
+`notes/vscode_era_unrecognised_assets_2026-08-14.md` mentions `cert_ledger.jsonl`, and neither does
+`ORGAN_MAP.md`, `SUBSTRATE_STRATEGY.md`, `STATUS.md` or `capability_registry.jsonl`.
+
+### 7d. The ledger has its OWN internal drift — three field-value pairs split by punctuation
+
+Inside the SAME field, in the SAME file:
+- `chain_grade` **540** vs `chain-grade` **10**
+- `proven-bound` **208** vs `proven_bound` **35**
+- `honest_negative` **84** vs `honest-negative` **11**
+
+**Any exact-match filter on `cert_status` silently loses 56 rows (10 + 35 + 11), including 10
+chain-grades.** This is the hyphen trap from the memory index — but it lives HERE, in the cert
+ledger, at 9x the rate it occurs in `metrics.json` verdict strings (6 total there, §3c).
+**The memory index's hyphen warning is correct and has been pointed at the wrong file.**
+
+Also: `ts_iso` is present on only 747 of 2,031 rows and `ts` on 1,953, so **1,282 rows carry no
+parseable month** — the same undated problem as §3f, in a second index.
+
+### 7e. What the `atom_id`s actually are
+
+They are not integers. They are **content-addressed semantic slugs**, e.g.
+`math::T3/EXP_a8_continual_writes_no_catastrophic_forgetting_v1`, and at the long end they encode
+an ENTIRE result in the identifier — one sampled atom is a ~1,400-character slug recording arms,
+floors, per-seed margins, controls and a commit hash inline.
+
+**This resolves the numeric atom references in the memory index** ("29587", "banked 29590"). Those
+numbers appear INSIDE the slugs as cross-references — e.g. one atom is named
+`..._CHAIN_GRADE_VET_CONFIRM_CLEAN_WIN_PROMOTES_29590_from_MEASURED_MECHANISM_...` and another
+`..._AMENDS_29631_removes_gold_verified_false_caveat_...`. So the atoms form a **versioned,
+self-amending citation graph** — atoms promote, amend and supersede other atoms by number.
+`supersedes` is a populated field on **1,249 rows**.
+
+**This is a far richer provenance structure than anything in the current planning docs, and it is
+entirely unread by the current arc.** 1,925 distinct atoms exist in total.
+
+### 7f. What the 2026-06-25 sweep already concluded — and it is the same conclusion as today
+
+Its own headline numbers, quoted from the note (NOT recomputed by me — see §9):
+- 3,269 full experiments banked (excluding 816 smoke); 201 lacking a verdict field.
+- All-time: 1,402 HARD_PASS, 591 MIDDLE_BAND, 526 HARD_FAIL, 22 KILLED, ~700 other.
+- Cert ledger at that date: 718 rows; chain_grade 466, under_classified 149,
+  measured_mechanism 76, honest_negative 17.
+- **"2026-06 HARD_PASS NOT in cert ledger at all: 841 (65% of recent HARD_PASS). This IS the
+  user's pain. The cert pipeline is dropping the majority of recent passes."**
+
+**Read that last line against today's finding.** On 2026-06-25 the diagnosis was that 65% of passes
+never reached the cert ledger. Today's finding is that **97% of what DID reach the cert ledger
+never reached the planning docs.** The leak moved one stage downstream and got worse. The
+2026-06-25 note also flagged a second thing worth carrying forward: *substrate-as-LM was the
+single most-tested capability AND the worst-performing* (81 experiments, 14% HARD_PASS, 42%
+HARD_FAIL) — the only capability with an HP:HF ratio below 1.0.
+
+### 7g. Consequence for the rest of this note
+
+§1's family inventory and §6's "72 FULL+floored+invisible" were computed from `metrics.json` only.
+**They are therefore LOWER BOUNDS.** They do not incorporate the cert ledger's 506 chain-graded
+cells. Reconciling the two indexes is the highest-value follow-up available and is **NOT DONE** —
+see §9. Nothing in §1-§6 is retracted; all of it is understated.
+
+---
+
+## 7h. THE PERIODIC WHOLE-STACK REVIEWS — what the FILENAME CENSUS shows (priority 4)
+
+A parallel agent owns the notes-side hunt (`notes/stack_review_lineage_2026-08-14.md`). Reported
+here is only the CENSUS, which is measurement rather than reading, plus what it implies.
+
+**`notes/` holds 9,830 markdown files.** By date suffix:
+
+| month | notes |
+|---|---|
+| 2026-05 | 394 |
+| **2026-06** | **6,209** |
+| 2026-07 | 652 |
+| 2026-08 | 253 |
+
+**63% of the entire notes corpus is from June.** And **4,891 files (50%) use the legacy
+`<from>_to_<recipient>_*.md` naming** that `CLAUDE.md` explicitly retires ("Do NOT use
+`<from>_to_<recipient>_*.md` filenames; those came from the legacy ferry mechanism"). Half the
+written record is in a naming convention the current model has abandoned — a filename-shaped
+instance of exactly the drift §3 documents in metrics.
+
+**A recurring whole-stack review cadence is visible in the filenames**, spanning May to August:
+
+- 2026-05-21 `synthesis_design_space_audit`; `strategy_research_angles_inventory`;
+  `meta_request_to_strategy_capability_test_inventory`
+- 2026-05-23 `research_comprehensive_audit`
+- 2026-05-29 `master_synthesis_v278_all_research`; `strategic_synthesis_v265_v276`
+- 2026-06-04 `exp_dev_state_of_experiments`
+- 2026-06-08 `research_STATE_OF_PLAY`
+- 2026-06-13 `research_TRACKING_DOCUMENT_RESYNTHESIS_post_audit_cycle_substrate_state_..._canonical_state_record_all_5_sessions`
+- **2026-06-18 the CAPABILITY_MAP series** — `research_to_skunkworks_CAPABILITY_MAP_atom_DRAFT_FINAL_VET_ask`,
+  `..._LANDED_verify_plus_parallel_landings`, `..._corrected_atom_unset_2_quick_reverify_ask`, and the
+  auditor's ruling **`skunkworks_to_research_432_map_VET_capability_map_kind_APPROVE_honest_61_not_432`**
+  — i.e. a capability map was VET'd DOWN from 432 claimed to 61 honest. That deflation event is
+  the direct ancestor of today's registry, and it is not referenced in any current doc.
+- 2026-06-23 `research_negative_landings_evidence_totality_synthesis` — a synthesis OF NEGATIVES,
+  the artifact §5 argues is missing today. It existed.
+- **2026-06-25 `research_experimental_archaeology_comprehensive_inventory`** (§7a) +
+  `research_capability_audit_CORRECTION_v2` + `research_drill_all_open_load_bearing_items`
+- 2026-07-05 `research_thrust_brain_component_inventory_and_build_priorities`
+- 2026-07-20 `drill5x_1_brain_reading_components_inventory`
+- 2026-07-22 `reader_capability_map_and_glassbox_improvement_roadmap`
+- 2026-07-23 `reader_space_MAP_and_deep_lessons_SESSION_SYNTHESIS`
+- 2026-08-01 `research_brain_fidelity_broad_audit_synthesis`
+- 2026-08-06 `brain_component_map_narrative_comprehension_ROADMAP`
+- 2026-08-09 `director_brain_fidelity_SYNTHESIS_and_direction_verdict`
+
+Plus the superseded standing maps still on disk: `substrate_capability_map.md`,
+`substrate_capability_map_history.md`, `capability_scorecard.md` — the three `CLAUDE.md` records as
+having "rotted silently".
+
+**Conclusion for priority 4: the USER is right that periodic whole-stack reviews happened. There
+have been at least fifteen since 2026-05-21, roughly fortnightly.** The failure is not that reviews
+were never done — it is that **each review started over rather than extending the last one**, and
+none of them is cited by the current planning docs. The 2026-06-25 archaeology sweep is the
+clearest case: it built durable tooling, wrote 48 KB of findings, diagnosed the exact leak, and
+seven weeks later three fresh sweeps ran on 2026-08-14 without any of the three knowing it existed.
+
+**NOT DONE:** reading the CONTENT of the fifteen reviews. Only the 2026-06-25 one was opened (first
+3,000 chars). The rest are identified by filename and date only. The parallel agent's
+`stack_review_lineage_2026-08-14.md` should be treated as authoritative on content.
