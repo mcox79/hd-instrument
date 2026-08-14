@@ -1,0 +1,80 @@
+{
+  "anchor_name": "exp_meaning_asset_coverage_probe_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-14T18:28:03.445521+00:00",
+  "scope": "MEASUREMENT_ONLY_NO_WIRING",
+  "live_path": {
+    "c3_readout_imports_from_rgl": [
+      "CTX_D",
+      "GRADED_COMPARATOR",
+      "ConceptSpace",
+      "canonicalize_fast",
+      "content_lemmas",
+      "context_vector_masked",
+      "normalize_lemma"
+    ],
+    "rgl_imports_lexical_similarity": false,
+    "rgl_imports_grounded_similarity": false,
+    "rgl_imports_closed_class_lexicon": true,
+    "ctx_d": 256,
+    "graded_comparator_default": true,
+    "decision_variable": "cosine between context_vector_masked bags of nearby content-word lemmas (hashed bipolar draws), compared in ConceptSpace"
+  },
+  "asset_sizes": {
+    "hand_lexicon_CONCEPT_FEATURES": 359,
+    "hand_lexicon_claimed_in_handoff": "~380",
+    "grounded_norms_joined_vocab": 36810,
+    "grounded_norms_claimed_in_handoff": 39707,
+    "grounded_cap": 0.45,
+    "grounded_n_dim": 12
+  },
+  "anchors": {
+    "n_anchors": 10502,
+    "n_corpus_sentences": 34169,
+    "source": "definitional-grounding v5 corpus, C3 cell's own filter"
+  },
+  "coverage_of_c3_anchors": {
+    "hand_lexicon": {
+      "n": 293,
+      "frac": 0.027899447724243
+    },
+    "grounded_norms": {
+      "n": 7249,
+      "frac": 0.6902494762902305
+    },
+    "either_live_fallback_path": {
+      "n": 7257,
+      "frac": 0.6910112359550562
+    },
+    "encoder_tokenizer": {
+      "loads": true,
+      "class": "EncoderExtractor",
+      "d_model": 512,
+      "tokenizer_vocab_size": 16000,
+      "cues": {
+        "ENT": "what was the entity ?",
+        "MARK": "what was tagged ?",
+        "S": "what was set to ?",
+        "P": "what was placed to ?"
+      },
+      "anchors_in_tokenizer_vocab": {
+        "n": 4606,
+        "frac": 0.4385831270234241
+      },
+      "has_word_embedding_api": false,
+      "public_api": [
+        "CUES",
+        "build",
+        "conditioning",
+        "cue_vec",
+        "d",
+        "decode_dataset_slots",
+        "model",
+        "oracle",
+        "pad_id",
+        "tok"
+      ]
+    }
+  },
+  "elapsed_s": 21.09
+}
