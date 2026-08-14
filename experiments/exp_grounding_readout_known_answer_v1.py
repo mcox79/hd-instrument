@@ -87,7 +87,9 @@ N_BOOTSTRAP = 5000
 MIN_LEMMA_COUNT = 8          # corpus sentence-count floor for a lemma to become an anchor
 MIN_LEMMA_LEN = 3
 K_SENT_TOTAL = 90            # sentences kept per lemma
-N_PROFILE = 60               # of those, the first N_PROFILE build the anchor; rest are held out
+PROFILE_FRAC = 0.8           # PROPORTIONAL profile/eval split; a fixed count starved the held-out
+                             # pool at smoke scale (SELF_RETRIEVAL n=2 -> VOID). Every lemma with
+                             # >=2 sentences now keeps >=1 held-out sentence.
 FOIL_RATIO_BAND = (0.5, 2.0)
 MAX_ITEMS = 4000
 MIN_ITEMS = 200              # HARD power gate (FULL only)
@@ -359,6 +361,13 @@ def build_buckets(sents: List[str]) -> Tuple[Dict[str, List[int]], Counter]:
     return {k: v for k, v in buckets.items() if counts[k] >= MIN_LEMMA_COUNT}, counts
 
 
+def _n_profile(k: int) -> int:
+    """PROFILE sentence count for a lemma with k sentences; always leaves >=1 held out (k>=2)."""
+    if k < 2:
+        return k
+    return min(k - 1, max(1, int(k * PROFILE_FRAC)))
+
+
 def build_space(sents: List[str], buckets: Dict[str, List[int]], output_dir: str) -> ConceptSpace:
     """The substrate's OWN anchor construction: hdlab ConceptSpace accumulating hdlab
     context_vector_masked over each lemma's PROFILE sentences. No new mechanism."""
@@ -366,7 +375,7 @@ def build_space(sents: List[str], buckets: Dict[str, List[int]], output_dir: str
     t0 = time.time()
     lemmas = sorted(buckets)
     for k, w in enumerate(lemmas):
-        for i in buckets[w][:N_PROFILE]:
+        for i in buckets[w][:_n_profile(len(buckets[w]))]:
             sp.observe(w, context_vector_masked(sents[i], w))
         if k % 500 == 0 or k == len(lemmas) - 1:
             print("[space] %d/%d lemmas elapsed=%.1fs" % (k + 1, len(lemmas), time.time() - t0),
@@ -397,12 +406,21 @@ def build_items(space: ConceptSpace, buckets: Dict[str, List[int]], counts: Coun
             continue
         G = max(cands, key=lambda w: (counts[w], w))       # best-estimated gold anchor
         # foil: nearest corpus count to G, excluded from L's gold set and symmetric-excluded
+        # FOIL. The smoke gate caught a construction confound: taking the NEAREST count in either
+        # direction produced a foil systematically RARER than G, so the pure-frequency floor arm
+        # scored 0.7488 and the item set was frequency-confounded. The search direction is now
+        # BALANCED deterministically per lemma (half the items get a foil at least as frequent as
+        # G, half at most), which pins the frequency floor at ~0.50 by construction.
         target = counts[G]
         pos = bisect.bisect_left(count_axis, target)
-        F = None
-        for step in range(len(by_count)):
-            for idx in (pos + step, pos - step - 1):
+        prefer_high = (_seed_for("foil|" + L) % 2 == 0)
+
+        def _pick(direction_high: bool) -> Optional[str]:
+            for step in range(len(by_count)):
+                idx = pos + step if direction_high else pos - step - 1
                 if not (0 <= idx < len(by_count)):
+                    if step > len(by_count):
+                        break
                     continue
                 cand = by_count[idx]
                 if cand in (L, G) or cand in gold:
@@ -411,13 +429,25 @@ def build_items(space: ConceptSpace, buckets: Dict[str, List[int]], counts: Coun
                     continue
                 if L in gold_meaning_set(cand):
                     continue
+                # STRICT direction. Allowing an EQUAL count let every prefer-high item resolve on
+                # the frequency arm's coin-flip tie-break, which by itself lifted the pure-frequency
+                # floor to 0.66-0.75. Strict inequality removes ties entirely, pinning that floor
+                # at ~0.50 by construction.
+                if direction_high and counts[cand] <= counts[G]:
+                    continue
+                if (not direction_high) and counts[cand] >= counts[G]:
+                    continue
                 ratio = counts[cand] / max(1.0, float(counts[G]))
                 if not (FOIL_RATIO_BAND[0] <= ratio <= FOIL_RATIO_BAND[1]):
                     continue
-                F = cand
-                break
+                return cand
+            return None
+
+        F = _pick(prefer_high)
+        if F is None:
+            F = _pick(not prefer_high)
             if F is not None:
-                break
+                rm["foil_direction_fallback"] += 1
         if F is None:
             rm["removed_no_frequency_matched_foil"] += 1
             continue
@@ -426,7 +456,7 @@ def build_items(space: ConceptSpace, buckets: Dict[str, List[int]], counts: Coun
             continue
         # held-out sentence for B4: an EVAL sentence of L free of G/F and their variants
         sent_idx = None
-        for i in buckets[L][N_PROFILE:]:
+        for i in buckets[L][_n_profile(len(buckets[L])):]:
             sent_idx = i
             break
         items.append({"item_id": "%s|%s|%s" % (L, G, F), "L": L, "G": G, "F": F,
@@ -564,13 +594,20 @@ def stage_b(run_mode: str, output_dir: str) -> dict:
                            ("d_B4_minus_B2", "B4_SENTENCE_REAL", "B2_ACCUM_SCRAMBLE")],
                           N_BOOTSTRAP, MASTER_SEED + 7, chance_arm="B1_ACCUM_REAL")
 
+    freq_floor = bs["arm_acc_ci"]["B3_FREQUENCY"]["acc"]
+    freq_in_band = abs(freq_floor - CHANCE) <= 0.10        # META_RULE_AG baseline_in_band
     verdict, notes = decide_stage_b(bs, self_retrieval, sr_n)
+    if not freq_in_band:
+        notes.append("ITEM-SET CAVEAT: the pure-frequency floor is %.4f, outside [0.40,0.60] -- "
+                     "the item set is frequency-confounded and B1 must be read against B3, not "
+                     "against chance alone." % freq_floor)
     out = {
         "verdict": verdict, "notes": notes, "n_items": n, "item_construction": item_diag,
         "graded_comparator": GRADED_COMPARATOR,
         "self_retrieval": {"acc": self_retrieval, "n": sr_n, "floor": SELF_RETRIEVAL_FLOOR,
                            "ok": self_retrieval >= SELF_RETRIEVAL_FLOOR},
         "twoafc": bs, "arm_digests": digests, "arms_bit_identical": dupes,
+        "frequency_floor_in_band": {"acc": freq_floor, "band": [0.40, 0.60], "ok": freq_in_band},
         "open_vocabulary_readout": {
             "note": "B5/B6 are the OPEN-VOCABULARY argmax the reading loop actually performs "
                     "(all %d anchors eligible). B5 hit@1 is the closest automated analogue of the "
@@ -789,7 +826,7 @@ def main() -> None:
                             % (REVIVAL_MEANINGFUL_MIN, REVIVAL_TAUTOLOGY_MAX),
                 "source": "notes/SUBSTRATE_STRATEGY.md PART 1 (C3)"},
             "config": {"CTX_D": CTX_D, "MIN_LEMMA_COUNT": MIN_LEMMA_COUNT,
-                       "K_SENT_TOTAL": K_SENT_TOTAL, "N_PROFILE": N_PROFILE,
+                       "K_SENT_TOTAL": K_SENT_TOTAL, "PROFILE_FRAC": PROFILE_FRAC,
                        "FOIL_RATIO_BAND": list(FOIL_RATIO_BAND), "MAX_ITEMS": MAX_ITEMS,
                        "MIN_ITEMS": MIN_ITEMS, "N_BOOTSTRAP": N_BOOTSTRAP,
                        "MASTER_SEED": MASTER_SEED,
