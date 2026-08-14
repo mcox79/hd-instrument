@@ -546,3 +546,110 @@ is half an index. The failures are what stop the next agent from re-proposing a 
 and they are exactly what the current docs do not carry. `HARD_FAIL_NO_CEREBELLAR_CONSUMER`,
 `HARD_FAIL_NO_EXTENSION` and the three-seed binding failure are worth more per byte than most of
 the passes in §4, because they are cheap to record and they prevent expensive repeats.
+
+## 6. THE HONEST HEADLINE NUMBER — 72 FULL, FLOORED, INVISIBLE
+
+§1's 251 is a floor-KEY count and includes smokes. Tightening it to the strictest defensible gate:
+opened all 251 primary `metrics.json` with `.venv` python and kept only `run_mode == "full"`.
+
+**Of the 251 floored brain-mechanism passes, 97 are FULL runs. 72 of those 97 are invisible to all
+four planning artifacts.** The remainder: 88 smoke, 39 selftest, 20 with no `run_mode` key, 5 with
+a junk `run_mode`.
+
+| family | FULL + floored + INVISIBLE |
+|---|---|
+| cleanup memory / resonator | **19** |
+| conjunctive binding / role binding | **14** |
+| CLS / systems consolidation | **8** |
+| hippocampus CA3/CA1/DG | **6** |
+| attractor / Hopfield | 5 |
+| k-WTA / sparse coding | 5 |
+| replay / sharp-wave ripple | 5 |
+| Hebbian/STDP, PFC/IFG, V1/VWFA, forgetting | 2 each |
+| Centering/coref, predictive coding | 1 each |
+| **TOTAL** | **72** |
+
+**72 is the number to quote.** It is FULL-run only, floored, pass-flavoured, brain-mechanism-named,
+and named in no plan doc or registry row. It is the tightest form of the USER's hypothesis and it
+holds.
+
+### 6a. Three more verified today, and one of them is the best result in this sweep
+
+**`exp_consolidated_reader_passive_mechanism_heldout_v1` — THE STRONGEST INVISIBLE RESULT FOUND.**
+`PASSIVE_MECHANISM_CAPABILITY_EARNED`, **run_mode FULL**, `ts 2026-07-24T00:29:16`.
+**Floor: `naive_acc = 0.0`, `n_naive = 0`, plus a `naive_hash` for reproducibility.**
+Reader recovers **23/24 who-did-what (acc = 0.9583) vs naive 0/24 (0.0), margin +23**, on
+**INDEPENDENT HELD-OUT passages**. The mechanism fires on **12/13 held-out passages, up from
+OFF = 2** (delta +10) — i.e. an explicit flag-ON/flag-OFF ablation. Non-regression verified:
+McGuffey composed F1 `base = 0.5868 -> on = 0.5868`, unchanged. P2 ablation with the flag OFF
+reproduces the banked parse-luck baseline exactly. Fired predicates are listed individually
+(`assailed, confined, evinced, freed, made, met, opposed, overset, overtaken, revealed, supplied,
+washed`) and the rule is stated as systematic (`subject -> PATIENT, by-obj -> AGENT`), not learned
+per-item.
+**Why this is the best one.** It is a FULL, held-out, floored-at-zero, ablated, non-regressing,
+glass-box win on a NAMED CONSTRUCTION TYPE (the passive). The standing anchor
+*"comprehension = a growing library of construction-competencies, not one objective"* asks for
+exactly this artifact — **a single construction type with its own learned, modular, glass-box
+capacity.** It exists, it is at 0.9583 against a true zero floor, it landed on 2026-07-24, and it is
+in **no** plan doc and **no** registry row. If any single item in this sweep should be promoted,
+it is this one.
+*Honest caveats:* n = 24 items / 13 passages is small; `n_seeds` is null (single run); and the
+mechanism is a systematic syntactic rule, so the win is a PARSER-side competency, not evidence
+about the substrate's own representation. It should be filed under the reading pipeline, not
+under C3.
+
+**`exp_resonator_verifier_readout_v1` — a read-out that REACHES ITS OWN ORACLE.**
+`HARD_PASS`, **run_mode FULL, n_seeds 3**, undated.
+K4 verifier `harvest = 0.806` (bar >= 0.50) at T0 = 0.50, **+0.353 over plurality = 0.453**, with
+**`oracle_any = 0.806`** and **`baseline_K4 = 0.133`**. The verifier's harvest EQUALS the oracle.
+The cell's own words: *"Reconstruction verifier harvests the already-reached answer; the residual
+gap WAS aggregation-loss, confirming the VET diagnostic."*
+**Why this is live-relevant.** The current C3 diagnosis is that retrieval is fine
+(`SELF_RETRIEVAL 0.786`) and the failure is selecting the right member from the right neighbourhood
+— i.e. **a loss at aggregation/selection, not at retrieval.** This cell states that same diagnosis
+and reports a mechanism that closes it to the oracle on its own task. Two siblings in the same
+invisible block point the same way: `exp_resonator_theta_gamma_peel_v1` and
+`exp_resonator_deflation_lowsnr_v1` (both FULL, HARD_PASS, invisible), and the peel/deflation family
+is the same mechanism class as the prior sweep's top-ranked A1 (`peel_sic`). **This strengthens the
+prior sweep's A1 recommendation with independent, previously-unlisted evidence.**
+*Honest caveat:* no `ts_iso`, and the floor is prose (`baseline_K4 = 0.133`, `plurality = 0.453`),
+not a key.
+
+**`exp_consol_inductive_entity_replay_cskg_v1` — the THIRD July replay/consolidation refutation.**
+`REFUTE_REPLAY_NO_INDUCTIVE_ADVANTAGE`, **run_mode FULL, n_seeds 5**, `ts 2026-07-15T11:40:51`.
+Full floor battery on inductive held-out MRR (nq = 2000): `RANDOM = 0.0021`, `SHUFFLE = 0.0026`,
+`SCRAMBLE = 0.0274`, `POP_RELFREQ = 0.0576`, `ORACLE = 0.1030`; arms `INTERLEAVED = 0.0556`,
+`CONTINUAL = 0.0307`. Headroom fires (`ratio = 50.1x`). Replay **beats CONTINUAL (+0.0249)** but
+**FAILS to beat the popularity baseline (`beat_pop = -0.0020`, bar >= 0.0101)** — and the cell
+reports that as the refutation rather than headlining the arm it won.
+Together with V2 (`exp_consol_conjunction_replay_v1`, same day-range, 5 seeds) and
+`exp_course_c_operator_fix_ssp_phase_rotation_replay_v1`, **there are THREE independent, floored,
+multi-seed July refutations of replay/consolidation advantage, all invisible.** The 08-14 banner
+records the cascade/forgetting-kernel refutation as a fresh conclusion. It is the fourth.
+
+### 6b. Other FULL+floored+invisible cells worth a second look (NOT individually verified)
+
+Listed so they are visible, explicitly WITHOUT hand-verification — they carry their recorded
+verdict only, which is weaker evidence:
+`exp_substrate_operational_wall_dual_readout_bit_matched_*` (3 variants, HARD_PASS),
+`exp_object_permanence_binding_stability_v1` (2026-07-09, HARD_PASS),
+`exp_cortex_attention_binding_router_v1/v2_seed_{7,13,19}` (HARD_PASS),
+`exp_cross_modal_binding_4_5_modality_v1_seed_{13,19}` (2026-07-01) and
+`exp_substrate_cross_modal_binding_3rd_modality_v1_seed_*`,
+`exp_interference_avoidance_conjunctive_vs_additive_v*`,
+`exp_e3b_permutation_binding_endtask_cpu_v1`, `exp_substrate_permutation_binding_multiocc_v2`,
+`exp_cls_distributed_protection_heldout_replay_v1`, `exp_substrate_continual_NREM_replay_v1`,
+`exp_c3_compressed_sequence_replay_v1_timing`,
+`exp_substrate_multihop_consolidation_memory_v1`, `exp_consolidation_correct_regimes_v1`
+(2026-07-16), `exp_d2_7_intentional_forgetting_cpu_v1`,
+`exp_fuzzy_shard_router_attractor_stage12_v1` (2026-07-17),
+`exp_substrate_resonator_focus_lever_depth_v2`,
+`exp_stage2_cleanup_latency_operating_curve_v1_seed_*`,
+`exp_pfc_gate_branching_depth_entropy_grid_v1` (2026-07-05),
+`exp_lap2_9_predictive_coding_cpu_v1`.
+Also in the block and already covered by the prior sweep:
+`exp_dense_hopfield_readout_capacity_correlated_codes_v1` (its A2),
+`exp_substrate_anisotropy_dg_pattern_separation_prewrite_v1` (its A4),
+`exp_reader_image_word_grounding_v1` and `exp_vision_integrated_recognize_bind_ground_v1`
+(its Tier 2) — this sweep independently re-derived them from the brain-family angle, which is a
+weak convergence check between two differently-constructed enumerations.
