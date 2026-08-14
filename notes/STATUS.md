@@ -1,15 +1,15 @@
 # STATUS
 
 AS OF: 2026-08-14 | branch `dataprep/mcguffey-graded-corpus` | GROWTH PAUSED | origin merge needs USER AUTH
-HEAD/push delta: `git log -1`, `git status`. Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
+HEAD delta: `git log -1`/`git status`. Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
 Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). PLAN: `notes/PLAN_NEXT_12H.md`.
 Rewrite in place; cap 8192 B.
 CHAIN: `HANDOFF_full_project_report_for_new_team_2026-08-14.md` -> HERE -> `PLAN_NEXT_12H.md` ->
 `RECOVERY_PROGRAM.md` -> `SUBSTRATE_STRATEGY.md` + `ORGAN_MAP.md`. 08-04 BACKUP SUPERSEDED.
 
 ## POSITION
-C3 read-out has a floor: open-vocab hit@1 4.80% vs scramble 0.80% (n=4000, 5491 anchors,
-`exp_grounding_readout_known_answer_v1`, `204eba1a0`). THE GATE ITSELF WAS GAMEABLE, NOW
+C3 read-out 4.80% hit@1 clears scramble 0.80% but is BELOW the ORTHOGRAPHIC floor 8.70% -- see
+FLOOR VET (`exp_grounding_readout_known_answer_v1`, `204eba1a0`). THE GATE ITSELF WAS GAMEABLE, NOW
 HARDENED (`9316f98ee`): bolting a PURE-SPELLING channel onto the base arm reaches 0.10275, clearing
 the old ">=10% vs a floor" criterion (`c0e6ec0da`), now RETIRED. C3 needs FOUR conditions, EXECUTABLE
 via `tools/c3_gate.py`; no string-form control = NOT_EVALUABLE, never PASS. NOTHING passes: 0 of 13
@@ -18,7 +18,7 @@ criterion; never re-quote it. GROWTH PAUSED -- the threshold did not separate me
 spelling.
 
 ## TOP ITEM -- A FLAT BAG OF CO-OCCURRING WORDS CANNOT HOLD MEANING
-Three independent floored results converge; our live comparator loses all three.
+Three independent floored results converge; our comparator loses all three.
 FACTORED role/filler held-out **1.000 vs FLAT 0.003** (`exp_role_filler_factorization_compgen_v1`).
 CONJUNCTIVE **1.000 vs ADDITIVE 0.273** at M=256
 (`exp_interference_avoidance_conjunctive_vs_additive_v1`) -- the additive arm IS our bag geometry.
@@ -26,15 +26,14 @@ PERMUTATION binding **1.0000 vs FHRR 0.0629** on same-role collision
 (`exp_substrate_permutation_binding_multiocc_v2_full`). NEXT = CONNECT EXISTING WORK, not invent:
 give the live comparator a structured code. Rows: reading ledger #1/#3, chain-graded #1/#2.
 
-## FLOOR VET (LESSONS: ORTHOGRAPHIC-FLOOR VET)
-`notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md` (`9ca1cffa2`). Pools ARE fair (bit-exact).
-BUT `A5_STRINGCTRL` = `z(base) + w*z(trigram)` -- substrate PLUS spelling, NOT spelling
-alone: **"we underperform a spell-checker" is NOT established, do not propagate it.**
-It indicts the METRIC: spelling adds +0.0425 hit@1 vs the encoder's +0.0270. Strongest MEASURED
-no-understanding floor = FREQUENCY 0.0185 (beaten 2.6x); the SPELLING-ALONE floor is
-UNMEASURED (`scratch/ortho_floor_vet_trigram_only.py` drafted, NOT RUN) and blocks every floor
-claim. `char_trigram_encoder` EXISTS but is NOT REACHED (runtime trace + positive control);
-its registry row wrongly claims WIRED.
+## FLOOR VET -- SPELLING ALONE IS MEASURED AND IT BEATS US (LESSONS: ORTHOGRAPHIC-FLOOR VET)
+`exp_orthographic_floor_vet_v1` / `tools/orthographic_floor_vet_v1.py`, n=4000, 5491 anchors;
+`A1_BASE` reproduces the 0.0480 headline EXACTLY -> harness IS identical. TRIGRAM-ONLY
+(`t_mat[sel] @ tq`, ZERO substrate signal) hit@1 **0.0870** CI [0.0783,0.0960] vs OURS **0.0480**
+CI [0.0413,0.0548]; delta +0.0390, CI EXCLUDES ZERO. PREFIX-ONLY 0.0588 beats us too.
+REVERSES `9ca1cffa2`: "we underperform a spell-checker" IS NOW ESTABLISHED -- string form with
+no meaning outscores the read-out 1.8x. Orthographic floor = 0.0870; WE ARE BELOW IT,
+CI-separated. `char_trigram_encoder` EXISTS but is NOT REACHED; its registry row wrongly says WIRED.
 
 ## RECOVERY TRIAGE (LESSONS: TRIAGE RESIDUE)
 **968 cells now have rows**, in TWO ledgers NOT yet merged into `RECOVERY_PROGRAM.md`: chain-graded

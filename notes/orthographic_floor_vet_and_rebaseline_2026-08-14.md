@@ -1,5 +1,15 @@
 # Is 4.80% below a spelling-only baseline? VET of the orthographic floor claim
 
+> **SUPERSEDED ON ITS HEADLINE CLAIM, 2026-08-14 (same day), by
+> `notes/spelling_alone_floor_measured_and_it_beats_the_readout_2026-08-14.md`
+> / cell `exp_orthographic_floor_vet_v1`.** This note concluded that "we underperform a
+> spell-checker" is NOT established, because the arm it examined (`A5_STRINGCTRL`) is
+> substrate PLUS spelling rather than spelling alone. That diagnosis of the arm is CORRECT and
+> stands. The open question it left has since been closed the other way: spelling ALONE
+> (`A6_TRIGRAM_ONLY`, zero substrate signal, identical items/pool/gold, base arm reproducing
+> 0.0480 to 1e-9) scores **0.0870 [0.0783, 0.0960]** against our **0.0480 [0.0413, 0.0548]**.
+> The answer to this note's title question is YES. Read the successor before citing anything below.
+
 Date: 2026-08-14. Auditor pass, read-only on `hdlab/` and `experiments/`. No experiment cell was
 run; every number below is read off metrics already on disk, or produced by a runtime import trace
 that writes only to `scratch/`.

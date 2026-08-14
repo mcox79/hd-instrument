@@ -1,0 +1,155 @@
+{
+ "anchor_name": "exp_orthographic_floor_vet_v1",
+ "what": "AUDITOR RECOMPUTE: orthography-ONLY arms on the identical C3 harness",
+ "provenance_note": "promoted from scratch/ortho_floor_vet_trigram_only.py 2026-08-14; see notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md (9ca1cffa2)",
+ "compares_against": {
+  "cell": "exp_grounding_readout_known_answer_v1",
+  "metrics": "204eba1a0",
+  "arm": "B5_OPEN_REAL",
+  "hit_at_1": 0.048
+ },
+ "ts_iso": "2026-08-14T21:30:09.836907+00:00",
+ "n_items": 4000,
+ "n_anchors": 5491,
+ "item_construction": {
+  "n_anchors": 5491,
+  "n_items_before_cap": 4603,
+  "n_items": 4000,
+  "removals": {
+   "foil_direction_fallback": 53,
+   "removed_L_not_in_wordnet": 404,
+   "removed_no_gold_anchor": 484
+  },
+  "n_items_with_heldout_sentence": 4000
+ },
+ "a1_base_reproduces_c3_headline_exactly": true,
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260819,
+  "n_items": 4000,
+  "arm_acc_ci": {
+   "A1_BASE": {
+    "acc": 0.048,
+    "ci_lo": 0.04125,
+    "ci_hi": 0.05475,
+    "sd": 0.003414134660129855
+   },
+   "A6_TRIGRAM_ONLY": {
+    "acc": 0.087,
+    "ci_lo": 0.07825,
+    "ci_hi": 0.096,
+    "sd": 0.004548074150395966
+   },
+   "A7_PREFIX_ONLY": {
+    "acc": 0.05875,
+    "ci_lo": 0.0515,
+    "ci_hi": 0.066,
+    "sd": 0.0037216867409146626
+   },
+   "A8_MAXORTHO": {
+    "acc": 0.061,
+    "ci_lo": 0.05374375,
+    "ci_hi": 0.0685,
+    "sd": 0.00380581887344892
+   }
+  },
+  "deltas": {
+   "d_A6_TRIGRAM_ONLY_minus_BASE": {
+    "delta": 0.03899999999999999,
+    "ci_lo": 0.028249999999999997,
+    "ci_hi": 0.049999999999999996,
+    "sd": 0.005527632291496965,
+    "ci_excludes_zero": true
+   },
+   "d_A7_PREFIX_ONLY_minus_BASE": {
+    "delta": 0.010749999999999996,
+    "ci_lo": 0.0005000000000000004,
+    "ci_hi": 0.020500000000000004,
+    "sd": 0.005010955349032758,
+    "ci_excludes_zero": true
+   },
+   "d_A8_MAXORTHO_minus_BASE": {
+    "delta": 0.012999999999999998,
+    "ci_lo": 0.0030000000000000027,
+    "ci_hi": 0.023,
+    "sd": 0.005076809691134779,
+    "ci_excludes_zero": true
+   }
+  }
+ },
+ "per_arm": {
+  "A1_BASE": {
+   "hit_at_1": 0.048,
+   "median_rank": 37.0,
+   "example_picks": [
+    "palm",
+    "highclere",
+    "work",
+    "might",
+    "chromosomal",
+    "more",
+    "metre",
+    "gain",
+    "presence",
+    "limitation",
+    "farm",
+    "pigment"
+   ]
+  },
+  "A6_TRIGRAM_ONLY": {
+   "hit_at_1": 0.087,
+   "median_rank": 37.0,
+   "example_picks": [
+    "don",
+    "able",
+    "capability",
+    "capable",
+    "abnormal",
+    "busy",
+    "burn",
+    "broad",
+    "absent",
+    "absence",
+    "solute",
+    "absorption"
+   ]
+  },
+  "A7_PREFIX_ONLY": {
+   "hit_at_1": 0.05875,
+   "median_rank": 33.5,
+   "example_picks": [
+    "abbey",
+    "able",
+    "abiotic",
+    "abbey",
+    "abnormal",
+    "above",
+    "about",
+    "abbey",
+    "absent",
+    "absence",
+    "absorb",
+    "absent"
+   ]
+  },
+  "A8_MAXORTHO": {
+   "hit_at_1": 0.061,
+   "median_rank": 43.0,
+   "example_picks": [
+    "able",
+    "able",
+    "abiotic",
+    "abbey",
+    "abnormal",
+    "above",
+    "about",
+    "broad",
+    "absent",
+    "absence",
+    "absorb",
+    "absorption"
+   ]
+  }
+ },
+ "elapsed_s": 269.33
+}
