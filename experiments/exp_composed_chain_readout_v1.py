@@ -197,17 +197,26 @@ def shortlist_c2f(Q: np.ndarray, K: np.ndarray, base_scores: np.ndarray,
 # Measurands
 # ---------------------------------------------------------------------------------------------
 def rank_stats(S: np.ndarray, ti: np.ndarray) -> dict:
-    """Rank of the TARGET among all anchors (1 = best). -inf-masked anchors rank last, so a
-    coarse-to-fine miss is counted, never hidden."""
-    n = S.shape[0]
+    """Rank of the TARGET among ALL anchors (1 = best).
+
+    CORRECTNESS NOTE (a bug the smoke gate caught in this file, not in the substrate): for a
+    shortlist arm the non-shortlisted anchors carry -inf. A target that FELL OUT of the shortlist
+    then has tscore = -inf, and `(S > -inf).sum()+1` counts only the k shortlisted anchors, so the
+    miss was scoring as rank k+1 -- an EXCELLENT rank. That produced frac_top50 = 1.0000 for an arm
+    whose shortlist only retained 31% of targets. A dropped target must rank LAST among all
+    anchors, which is what the explicit non-finite branch below enforces."""
+    n, m = S.shape
     tscore = S[np.arange(n), ti]
     rank = (S > tscore[:, None]).sum(axis=1) + 1
+    dropped = ~np.isfinite(tscore)
+    rank = np.where(dropped, m, rank)
     return {
         "median_rank": float(np.median(rank)),
         "mean_rank": round(float(rank.mean()), 2),
         "frac_top50": round(float((rank <= 50).mean()), 6),
         "frac_outside_top50": round(float((rank > 50).mean()), 6),
         "frac_rank1": round(float((rank == 1).mean()), 6),
+        "frac_target_dropped_from_shortlist": round(float(dropped.mean()), 6),
         "n_items": int(n),
     }, rank
 
@@ -326,9 +335,17 @@ def _selftest() -> None:
     Sm = np.array([[0.9, 0.5, 0.1], [0.1, 0.2, 0.3]])
     rs, rk = rank_stats(Sm, np.array([0, 0]))
     assert list(rk) == [1, 3], list(rk)
-    Sinf = np.array([[-np.inf, 0.5, 0.1]])
-    _rs2, rk2 = rank_stats(Sinf, np.array([0]))
-    assert int(rk2[0]) == 3, rk2
+    # a target DROPPED from a shortlist must rank LAST among ALL anchors, not (k+1)-th. This is
+    # the regression test for the bug the smoke gate caught: with 3 anchors of which only one is
+    # shortlisted, a dropped target scored rank 2 and counted as "top-50".
+    Sinf = np.array([[-np.inf, 0.5, -np.inf]])
+    rs2, rk2 = rank_stats(Sinf, np.array([0]))
+    assert int(rk2[0]) == 3, "dropped target must rank last, got %s" % rk2
+    assert rs2["frac_target_dropped_from_shortlist"] == 1.0, rs2
+    big = np.full((1, 200), -np.inf)
+    big[0, :20] = np.linspace(1, 0, 20)
+    rs3, _ = rank_stats(big, np.array([150]))
+    assert rs3["frac_top50"] == 0.0, "dropped target must NOT count as top-50: %s" % rs3
 
     # 7. bootstrap sanity: identical arms give a zero delta whose CI contains zero
     a = rng.random(200) < 0.6
@@ -395,11 +412,21 @@ def run(run_mode: str, out_dir: str) -> dict:
                                                                    v["hit1"])
                                    for k, v in sorted(lam_sens.items())), flush=True)
 
+    # 2AFC SOURCE, declared: a shortlist is an OPEN-VOCABULARY device. In a two-alternative forced
+    # choice the two candidates are named, so no shortlist is consulted and both are scored
+    # directly. Scoring 2AFC on the MASKED matrix would compare -inf with -inf and score every
+    # such item wrong, manufacturing a below-chance number that describes the mask, not the
+    # mechanism (the smoke gate showed exactly that: A4 2AFC 0.1067). The c2f arms therefore take
+    # 2AFC from their own UNMASKED fine scores; every other arm is unchanged.
+    afc_src = dict(scores)
+    afc_src["A3_C2F"] = scores["A0_BASELINE"]
+    afc_src["A4_FULL"] = full_fine
+
     per_arm, hits, afcs = {}, {}, {}
     for name in sorted(scores):
         rs, _rk = rank_stats(scores[name], ti)
         hits[name] = hit1(scores[name], ti)
-        afcs[name] = afc2(scores[name], ti, di)
+        afcs[name] = afc2(afc_src[name], ti, di)
         per_arm[name] = {"rank": rs, "hit1": round(float(hits[name].mean()), 6),
                          "afc2": round(float(afcs[name].mean()), 6)}
         print("[arm] %-12s median_rank=%6.1f/%d frac_top50=%.4f hit@1=%.5f 2AFC=%.4f"
