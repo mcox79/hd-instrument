@@ -1,0 +1,60 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "substrate_signature_checked": [
+      "context_vector_masked",
+      "canonicalize_fast",
+      "ConceptSpace.observe",
+      "concept_similarity"
+    ],
+    "wordnet_version": "3.0",
+    "selftest_strict_criterion": {
+      "novelist_poet": true,
+      "cathedral_basilica": true,
+      "cathedral_democracy": false
+    },
+    "leak_control_selftest": {
+      "poets~poet": true,
+      "river~poet": false
+    },
+    "ctx_masked_multi_matches_hdlab": true,
+    "readout_moves": {
+      "query_poetlike_picked": "poet",
+      "query_riverlike_picked": "river",
+      "cos_poetlike": 0.5274,
+      "cos_riverlike": 0.5345
+    },
+    "arm2_comparator": {
+      "concept_similarity_poet_river": 0.2604,
+      "grounded_lexicon_probe_coverage": 6
+    },
+    "bootstrap_selftest": {
+      "real_delta": 0.183333,
+      "real_ci_excludes_zero": true,
+      "null_false_positives": 0,
+      "null_replicates": 6,
+      "null_n_items": 800
+    },
+    "verdict_branches_reachable": [
+      "CONTEXT_IS_THE_MISSING_PIECE",
+      "HARD_FAIL_ANY_CONTEXT_WORKS_ARTIFACT",
+      "HARD_FAIL_CONTEXT_ADDS_NOTHING",
+      "HARD_PASS",
+      "MIDDLE_BAND",
+      "MIDDLE_BAND_FLOOR_HUGGING"
+    ],
+    "real_code_path_exercised": [
+      "ConceptSpace",
+      "ConceptSpace.observe",
+      "canonicalize_fast",
+      "concept_similarity",
+      "context_vector_masked",
+      "grounded_similarity"
+    ],
+    "selftest_elapsed_s": 8.609
+  }
+}

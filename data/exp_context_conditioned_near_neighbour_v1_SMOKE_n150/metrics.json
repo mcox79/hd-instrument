@@ -1,0 +1,364 @@
+{
+  "verdict": "CONTEXT_IS_THE_MISSING_PIECE",
+  "verdict_msg": "n=150 | A1=0.6467 A2=0.4667 A3=0.5733 A4=0.5400 CHANCE=0.50 | d12=0.1800 CI=[0.0667,0.2935] d13=0.0733 CI=[-0.0400,0.1733] d14=0.1067 CI=[0.0000,0.2267] | self_retrieval=0.8500 | d(A1-A2)=0.1800 CI=[0.0667,0.2935] excludes 0 and A1 > A3 (d=0.0733), but the full HARD_PASS conjunction is not met",
+  "summary": "near-neighbour disambiguation in context: does context-conditioning beat the context-free comparator on WordNet dominant-sense siblings/synonyms?",
+  "elapsed_s": 97.038,
+  "run_mode": "smoke",
+  "anchor_name": "exp_context_conditioned_near_neighbour_v1",
+  "prereg": "preregs/2026-08-13_context_conditioned_near_neighbour.md",
+  "prereg_commit": "42792834c",
+  "ts_iso": "2026-08-14T01:18:31.013153+00:00",
+  "hdlab_modified": false,
+  "n_items": 150,
+  "min_items": 200,
+  "chance": 0.5,
+  "arm_accuracy": {
+    "A1_CONTEXT_CONDITIONED": 0.646667,
+    "A2_CONTEXT_FREE": 0.466667,
+    "A3_CONTEXT_SCRAMBLED": 0.573333,
+    "A4_FREQUENCY": 0.54
+  },
+  "arm_labels": {
+    "A1_CONTEXT_CONDITIONED": "query = THIS sentence's masked context; read-out = canonicalize_fast argmax over the 2 candidate anchors",
+    "A2_CONTEXT_FREE": "SAME sentence, SAME candidates, but every comparison is context-blind concept_similarity, pooled over content lemmas",
+    "A3_CONTEXT_SCRAMBLED": "identical to A1 with a DIFFERENT item's real sentence as the query (deterministic derangement)",
+    "A4_FREQUENCY": "pick the corpus-more-frequent candidate",
+    "CHANCE": "0.50 by construction (2 candidates)"
+  },
+  "bootstrap_item": {
+    "n_boot": 1000,
+    "seed": 20260813,
+    "clustered": false,
+    "arm_acc_ci": {
+      "A1_CONTEXT_CONDITIONED": {
+        "acc": 0.646667,
+        "ci_lo": 0.573167,
+        "ci_hi": 0.72,
+        "sd": 0.039815
+      },
+      "A2_CONTEXT_FREE": {
+        "acc": 0.466667,
+        "ci_lo": 0.38,
+        "ci_hi": 0.546667,
+        "sd": 0.039626
+      },
+      "A3_CONTEXT_SCRAMBLED": {
+        "acc": 0.573333,
+        "ci_lo": 0.493333,
+        "ci_hi": 0.653333,
+        "sd": 0.040441
+      },
+      "A4_FREQUENCY": {
+        "acc": 0.54,
+        "ci_lo": 0.46,
+        "ci_hi": 0.613333,
+        "sd": 0.040016
+      }
+    },
+    "deltas": {
+      "d_A1_minus_A2": {
+        "delta": 0.18,
+        "ci_lo": 0.066667,
+        "ci_hi": 0.2935,
+        "sd": 0.059884,
+        "mde_95": 0.117372,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 0.999
+      },
+      "d_A1_minus_A3": {
+        "delta": 0.073333,
+        "ci_lo": -0.04,
+        "ci_hi": 0.173333,
+        "sd": 0.05494,
+        "mde_95": 0.107682,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.897
+      },
+      "d_A1_minus_A4": {
+        "delta": 0.106667,
+        "ci_lo": 0.0,
+        "ci_hi": 0.226667,
+        "sd": 0.05886,
+        "mde_95": 0.115366,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.967
+      },
+      "d_A1_minus_CHANCE": {
+        "delta": 0.146667,
+        "ci_lo": 0.073167,
+        "ci_hi": 0.22,
+        "sd": 0.039815,
+        "mde_95": 0.078037,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      }
+    }
+  },
+  "bootstrap_cluster_by_target_word": {
+    "n_boot": 1000,
+    "seed": 20260814,
+    "clustered": true,
+    "arm_acc_ci": {
+      "A1_CONTEXT_CONDITIONED": {
+        "acc": 0.646667,
+        "ci_lo": 0.573525,
+        "ci_hi": 0.713178,
+        "sd": 0.035647
+      },
+      "A2_CONTEXT_FREE": {
+        "acc": 0.466667,
+        "ci_lo": 0.390712,
+        "ci_hi": 0.549076,
+        "sd": 0.039881
+      },
+      "A3_CONTEXT_SCRAMBLED": {
+        "acc": 0.573333,
+        "ci_lo": 0.499925,
+        "ci_hi": 0.64597,
+        "sd": 0.039651
+      },
+      "A4_FREQUENCY": {
+        "acc": 0.54,
+        "ci_lo": 0.430762,
+        "ci_hi": 0.647801,
+        "sd": 0.053808
+      }
+    },
+    "deltas": {
+      "d_A1_minus_A2": {
+        "delta": 0.18,
+        "ci_lo": 0.072954,
+        "ci_hi": 0.281897,
+        "sd": 0.055484,
+        "mde_95": 0.108748,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      },
+      "d_A1_minus_A3": {
+        "delta": 0.073333,
+        "ci_lo": -0.026791,
+        "ci_hi": 0.169942,
+        "sd": 0.051598,
+        "mde_95": 0.101132,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.903
+      },
+      "d_A1_minus_A4": {
+        "delta": 0.106667,
+        "ci_lo": -0.018868,
+        "ci_hi": 0.233784,
+        "sd": 0.064911,
+        "mde_95": 0.127226,
+        "ci_excludes_zero": false,
+        "frac_boot_above_zero": 0.949
+      },
+      "d_A1_minus_CHANCE": {
+        "delta": 0.146667,
+        "ci_lo": 0.073525,
+        "ci_hi": 0.213178,
+        "sd": 0.035647,
+        "mde_95": 0.069868,
+        "ci_excludes_zero": true,
+        "frac_boot_above_zero": 1.0
+      }
+    }
+  },
+  "verdict_notes": [
+    "d(A1-A2)=0.1800 CI=[0.0667,0.2935] excludes 0 and A1 > A3 (d=0.0733), but the full HARD_PASS conjunction is not met"
+  ],
+  "bands": {
+    "HARD_PASS": {
+      "d12": 0.1,
+      "d13": 0.08,
+      "d14": 0.05,
+      "and_A1_above_chance": true
+    },
+    "CONTEXT_IS_THE_MISSING_PIECE": {
+      "d12": 0.05,
+      "and_A1_gt_A3": true
+    },
+    "HARD_FAIL": {
+      "d12_ci_includes_zero": true,
+      "or_A1_le_A3": true
+    },
+    "strict_margin_frac": 0.05,
+    "declared_in": "preregs/2026-08-13_context_conditioned_near_neighbour.md",
+    "declared_at_commit": "42792834c"
+  },
+  "HP_SCOPE": {
+    "A1_CONTEXT_CONDITIONED": [
+      "d12",
+      "d13",
+      "d14",
+      "above_chance"
+    ],
+    "A2_CONTEXT_FREE": [],
+    "A3_CONTEXT_SCRAMBLED": [],
+    "A4_FREQUENCY": []
+  },
+  "positive_control_self_retrieval": {
+    "value": 0.85,
+    "floor": 0.7,
+    "n": 180,
+    "definition": "a word's HELD-IN profile sentence scored against {own anchor, one random other anchor}; if the space cannot retrieve itself the harness is broken, not the hypothesis"
+  },
+  "secondary_far_distractor_diagnostic": {
+    "prereg_status": "ADDED POST-PREREG, NO VERDICT WEIGHT -- disclosed",
+    "acc": 0.6267,
+    "n": 150,
+    "definition": "A1's mechanism on the SAME held-out sentences against a RANDOM non-sibling distractor; parallels the predecessor's NEAR/FAR split"
+  },
+  "arm_diagnostics": {
+    "A1_CONTEXT_CONDITIONED": {
+      "n_ties": 0,
+      "n_zero_query": 0,
+      "mean_winning_cos": 0.13548
+    },
+    "A3_CONTEXT_SCRAMBLED": {
+      "n_ties": 1,
+      "n_zero_query": 0,
+      "mean_winning_cos": 0.109712
+    },
+    "A2_CONTEXT_FREE": {
+      "n_undefined_fell_back_to_coin": 17,
+      "n_ties_fell_back_to_coin": 6,
+      "mean_defined_context_words": 6.52,
+      "frac_items_with_any_defined_similarity": 0.9533
+    },
+    "A4_FREQUENCY": {
+      "n_ties_fell_back_to_coin": 0
+    }
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A1_CONTEXT_CONDITIONED": "af1eee709d95ba7ab591cd631ac9b3d6340f8e335eb424c19f44dfdf8bdded91",
+    "A3_CONTEXT_SCRAMBLED": "590008340da0a8c6bc340963718913b1f5b06c11bea05d42bcf8aea7d7770555",
+    "A2_CONTEXT_FREE": "04cc5fd424e8e39bafeb2b8610fe360383f048e0091f62d411b112d29f078059",
+    "A4_FREQUENCY": "199b4c3f7b84fbc4d5673ebf788de3061a2f1762ffa48f8b70085181ecc54bc2"
+  },
+  "baseline_in_band": true,
+  "baseline_arm": "A2_CONTEXT_FREE",
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 150,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 54,
+    "max_items_per_word": 4
+  },
+  "leak_controls": {
+    "definition": {
+      "L1": "target absent (and no morphological variant) anywhere but the masked slot",
+      "L2": "distractor and every morphological variant absent from the sentence",
+      "L3": ">= 4 distinct content lemmas remain after masking both candidates",
+      "variant_rule": "t==w, or normalize_lemma equal, or one is a <=3-character extension of the other (deliberately over-inclusive)"
+    },
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "n_eval_sentences_considered": 19680
+  },
+  "held_out": {
+    "k_sentences_per_word": 100,
+    "n_profile": 70,
+    "n_eval_pool": 30,
+    "disjoint": "profile and eval pools are disjoint by construction; no sentence that builds an anchor is ever scored",
+    "split_seed": "hashlib.sha256('split|'+word) (never builtin hash())"
+  },
+  "corpus": {
+    "path": "data/corpora/simplewiki/simplewiki_clean_v1.txt",
+    "n_lines": 2779032,
+    "vocab_size": 5011,
+    "min_word_count": 300,
+    "n_pairs_strict": 7880,
+    "n_pairs_loose_predecessor_criterion": 48354,
+    "cache_note": "corpus assets are cached under data\\exp_context_conditioned_near_neighbour_v1_cache keyed by a config hash; the cache is a pure speed device (both passes are deterministic)"
+  },
+  "wordnet_version": "3.0",
+  "wordnet_asset": "nltk corpora/wordnet.zip (data/wordnet_cache/ is EMPTY on disk)",
+  "organs_reused": {
+    "context_encoder": "hdlab.reading_grounding_loop.context_vector_masked",
+    "anchor_accumulator": "hdlab.reading_grounding_loop.ConceptSpace(.observe)",
+    "read_out": "hdlab.reading_grounding_loop.canonicalize_fast(eligible_mask=...)",
+    "context_free_comparator": "hdlab.lexical_similarity.concept_similarity",
+    "only_new_function": "_ctx_masked_multi (context_vector_masked generalised to a SET of lemmas; self-test S4 asserts byte-identity with hdlab's own single-lemma version)"
+  },
+  "n_anchors": 180,
+  "n_distinct_target_words": 54,
+  "n_units": 4,
+  "expected_n_units": 4,
+  "cardinality_ok": true,
+  "crlb": {
+    "crlb_formula_reference": "paired-binomial se(delta) = sqrt(p_disc/n)",
+    "crlb_floor_computed": 0.113161,
+    "discriminator_reachability": false,
+    "note": "reported mde_95 per delta is 1.96 * bootstrap sd (see bootstrap_item)"
+  },
+  "compute_architecture": "sequential-CPU (pre-reg 5); thread pins set before numpy import",
+  "storage_strategy": "sharded (one anchor vector per candidate word; nothing bundled across concepts); no_composition (single-hop read-out)",
+  "selftest": {
+    "substrate_signature_checked": [
+      "context_vector_masked",
+      "canonicalize_fast",
+      "ConceptSpace.observe",
+      "concept_similarity"
+    ],
+    "wordnet_version": "3.0",
+    "selftest_strict_criterion": {
+      "novelist_poet": true,
+      "cathedral_basilica": true,
+      "cathedral_democracy": false
+    },
+    "leak_control_selftest": {
+      "poets~poet": true,
+      "river~poet": false
+    },
+    "ctx_masked_multi_matches_hdlab": true,
+    "readout_moves": {
+      "query_poetlike_picked": "poet",
+      "query_riverlike_picked": "river",
+      "cos_poetlike": 0.5274,
+      "cos_riverlike": 0.5345
+    },
+    "arm2_comparator": {
+      "concept_similarity_poet_river": 0.2604,
+      "grounded_lexicon_probe_coverage": 6
+    },
+    "bootstrap_selftest": {
+      "real_delta": 0.183333,
+      "real_ci_excludes_zero": true,
+      "null_false_positives": 0,
+      "null_replicates": 6,
+      "null_n_items": 800
+    },
+    "verdict_branches_reachable": [
+      "CONTEXT_IS_THE_MISSING_PIECE",
+      "HARD_FAIL_ANY_CONTEXT_WORKS_ARTIFACT",
+      "HARD_FAIL_CONTEXT_ADDS_NOTHING",
+      "HARD_PASS",
+      "MIDDLE_BAND",
+      "MIDDLE_BAND_FLOOR_HUGGING"
+    ],
+    "real_code_path_exercised": [
+      "ConceptSpace",
+      "ConceptSpace.observe",
+      "canonicalize_fast",
+      "concept_similarity",
+      "context_vector_masked",
+      "grounded_similarity"
+    ],
+    "selftest_elapsed_s": 10.431
+  }
+}
