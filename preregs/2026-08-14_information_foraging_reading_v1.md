@@ -214,3 +214,75 @@ default is satisfied trivially.
   a genuine, publishable-internally negative and it is the single most likely outcome.
 - FORAGE concentrates on one high-novelty corpus and grounds worse -> the novelty trap in section 5
   fired; the fix is learning progress, not a bias term.
+
+---
+
+# AMENDMENT 1 -- 2026-08-14, filed AFTER the smoke gate and BEFORE any full run
+
+Two changes. The superseded prediction is **retained and still scored**, per the amendment
+discipline recorded in `notes/ORGAN_MAP.md` sec 3 correction 1. **No PASS/FAIL band in section 6
+is altered.** The smoke's own numbers are recorded below so that what was known at amendment time
+is on the record.
+
+## 12.1 What the smoke measured (900 sentences/arm, `data/exp_information_foraging_reading_v1_smoke/metrics.json`)
+
+| arm | grounded | corpora read | banked from | dominant share | held-out cov | WordNet agr |
+|---|---|---|---|---|---|---|
+| FORAGE | 64 | 8 | 4 | 0.594 | 0.0093 | 0.267 |
+| RANDOM | 25 | 8 | 3 | 0.720 | 0.0033 | 0.591 |
+| FROZEN | 265 | 4 | 3 | 0.381 | 0.0410 | 0.367 |
+| FIXED_LEAVE | 126 | 9 | 3 | 0.603 | 0.0190 | 0.279 |
+
+Verdict MIDDLE_BAND. **D2 passed (+180% over RANDOM). D1 failed and in the WRONG DIRECTION**
+(FORAGE concentrated MORE than FROZEN). **FROZEN grounded 4x what FORAGE grounded.**
+
+## 12.2 BUG FIXED (not a band change): the oracle was not an upper bound
+
+All four arms reported an oracle ratio ABOVE 1.0 (1.92 / 1.78 / 1.47 / 1.11). An online policy
+cannot beat a post-hoc oracle, so the oracle was wrong. Root cause: `oracle_mvt_optimum`
+implemented Charnov's FIRST-CROSSING stopping rule, which is optimal only for MONOTONE DECREASING
+gain. Real per-sentence gains are noisy, so first-crossing stops at the first dip and discards
+every later peak -- a WORSE policy than harvesting everything, not a bound on the best one.
+Replaced with the Dinkelbach fractional-programming form: each patch takes the residence
+maximising `cumsum(n) - rho*h*n`, rho driven to its fixed point, which makes `G/T <= rho*` for
+every feasible policy. Regression test `_selftest_oracle_is_a_true_upper_bound_on_noisy_gains`
+asserts the corrected oracle dominates seven fixed-residence policies AND "harvest everything" on
+noisy sequences; the old version fails it by ~1.9x.
+
+## 12.3 AMENDMENT: a fifth arm, `FORAGE_REFUSAL`
+
+The smoke shows what the pre-registered primary-selection rule actually selects on real corpora.
+`example_ranked_choices` for FORAGE: target `bbm`, target `blackberry`, target `page`, `page`,
+`page`. The rule was "the most-attempted still-PENDING Library item", and on real text
+"most-attempted" is very nearly a frequency ranking, so it surfaces high-frequency nouns that are
+barely knowledge gaps.
+
+`FORAGE_REFUSAL` is identical to `FORAGE` except that the primary blocked concept is the
+**most-REFUSED lemma that is still not banked**. A refusal means the item reached the consolidation
+gate and FAILED there -- a far stronger signal of a genuinely blocked concept than raw exposure.
+This also makes the refusal ledger drive a DECISION for the first time, which is precisely what
+`notes/gap_driven_learning_loop_audit_2026-08-13.md` sec 5 found nothing on disk does: 11,122 rows
+written, counted, reloaded, and never consulted by any branch.
+
+`FORAGE` (the superseded rule) remains in the arm list and remains the arm scored against D1-D4.
+`FORAGE_REFUSAL` is reported alongside and is explicitly EXPLORATORY: it was designed after seeing
+smoke numbers and its result carries that discount.
+
+## 12.4 ADDED INSTRUMENTATION (no band changes)
+
+FROZEN grounded 265 against FORAGE's 64 on an identical budget. The obvious candidate mechanism is
+**exposure fragmentation**: grounding requires `MIN_CONFIRM = 4` coherent encounters of the SAME
+lemma, and a forager that hops sources may never accumulate them. That is a testable claim, so it
+is now measured rather than argued: `exposure.{mean_traces_per_item, median_traces_per_item,
+max_traces, n_items_at_min_confirm, frac_items_at_min_confirm}` per arm. `heldout_precision`
+(held-out hits per banked fact) is added alongside `heldout_coverage` so volume and everyday-ness
+can be separated.
+
+**Prediction, recorded now:** if exposure fragmentation is the mechanism, FORAGE's
+`frac_items_at_min_confirm` will be materially below FROZEN's. If it is NOT, the grounding deficit
+has some other cause and I should not claim fragmentation.
+
+## 12.5 Budget
+
+`FULL_BUDGET` 12000 -> 10000 sentences per arm, because the arm count went 4 -> 5. Total sentences
+read across the experiment is unchanged to within 4%.

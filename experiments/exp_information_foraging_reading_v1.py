@@ -121,7 +121,7 @@ CHUNK = 150                        # sentences between consolidation checkpoints
 SCHEMA_THRESH = 0.25               # MEASURED@exp_reading_grounding_loop_cycle1_v1 SCHEMA_THRESH_FULL
 SUBSTRATE_SEED = 20260814
 
-FULL_BUDGET = 12000                # harvest steps (sentences) per arm
+FULL_BUDGET = 10000                # harvest steps (sentences) per arm
 SMOKE_BUDGET = 900
 FULL_MAX_SENT_PER_CORPUS = 4000
 SMOKE_MAX_SENT_PER_CORPUS = 600
@@ -137,7 +137,12 @@ BETA_LEAVE = 4.0
 PATCH_FIXED_LEN = 40               # FIXED_LEAVE arm's constant residence (pre-registered)
 SEG_WINDOW, SEG_K, SEG_MIN_RUN, SEG_MAX_RUN = 24, 1.0, 6, 120
 
-ARMS = ["FORAGE", "RANDOM", "FROZEN", "FIXED_LEAVE"]
+ARMS = ["FORAGE", "RANDOM", "FROZEN", "FIXED_LEAVE", "FORAGE_REFUSAL"]
+# FORAGE_REFUSAL is the dated AMENDMENT arm (prereg sec 12): identical to FORAGE except that the
+# blocked concept driving each choice is drawn from the REFUSAL ledger rather than from raw
+# pending exposure. The superseded FORAGE rule is retained and still scored, per the amendment
+# discipline in notes/ORGAN_MAP.md sec 3 correction 1.
+GAP_RANKED_ARMS = {"FORAGE": "pending", "FIXED_LEAVE": "pending", "FORAGE_REFUSAL": "refusal"}
 EXPECTED_N_UNITS = len(ARMS)
 
 # The historical frozen schedule, reproduced source-for-source from
@@ -358,8 +363,39 @@ class Shelf:
         return sorted(n for n in self.names if self.handles[n].remaining() > 0)
 
 
+def _primary_blocked_lemma(state: ReadingLoopState, source: str) -> Optional[str]:
+    """Which blocked concept drives the next choice.
+
+    `pending`  -- the most-attempted still-PENDING Library item. This is the ORIGINAL
+                  pre-registered rule. The first smoke showed what it actually selects on real
+                  corpora: `page`, `bbm`, `blackberry` -- high-frequency nouns that are barely
+                  knowledge gaps at all, because "most traces" is very nearly a frequency ranking.
+    `refusal`  -- the most-REFUSED lemma that is still not banked. A refusal means the item
+                  reached the consolidation gate and FAILED there, which is a far stronger signal
+                  of a genuine blocked concept than raw exposure. This is the AMENDMENT arm
+                  (preregs/2026-08-14_information_foraging_reading_v1.md sec 12, filed before the
+                  full run; the superseded `pending` rule is retained and still scored).
+                  It also finally reads the refusal ledger for a DECISION, which is the specific
+                  thing notes/gap_driven_learning_loop_audit_2026-08-13.md sec 5 found nothing on
+                  disk ever does: 11,122 rows written, counted, reloaded, and never consulted."""
+    if source == "refusal":
+        banked = {p["subject"] for p in state.provenance}
+        counts: Counter = Counter(r["lemma"] for r in state.refusals
+                                  if r.get("lemma") not in banked)
+        if counts:
+            return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+        # no refusals yet (early in a run): fall through to the pending rule
+    pending = [(len(it.traces), lem) for lem, it in sorted(state.library.items.items())
+               if getattr(it, "status", "") == "PENDING"]
+    if not pending:
+        return None
+    pending.sort(key=lambda t: (-t[0], t[1]))
+    return pending[0][1]
+
+
 def choose_gap_ranked(state: ReadingLoopState, tracker: PrereqTracker, shelf: Shelf,
-                      rng: random.Random, exclude: Optional[str], diag: dict) -> str:
+                      rng: random.Random, exclude: Optional[str], diag: dict,
+                      primary_source: str = "pending") -> str:
     """The substrate picks its own next corpus, using organs it already owns:
 
       1. the most-attempted still-unresolved word in its Library is the PRIMARY blocked concept;
@@ -376,13 +412,10 @@ def choose_gap_ranked(state: ReadingLoopState, tracker: PrereqTracker, shelf: Sh
     if not live:
         return sorted(shelf.names)[0]
 
-    pending = [(len(it.traces), lem) for lem, it in sorted(state.library.items.items())
-               if getattr(it, "status", "") == "PENDING"]
-    if not pending:
+    primary = _primary_blocked_lemma(state, primary_source)
+    if primary is None:
         diag["n_choice_fallback_random"] += 1
         return rng.choice(live)
-    pending.sort(key=lambda t: (-t[0], t[1]))
-    primary = pending[0][1]
     target, cands = next_read_target(state, tracker, primary, use_gap_signal=True)
     diag["targets"].append({"primary": primary, "target": target, "n_candidates": len(cands)})
 
@@ -440,8 +473,9 @@ def run_arm(arm: str, budget: int, run_mode: str, output_dir: str) -> dict:
         elif arm == "RANDOM":
             live = [n for n in shelf.live_names() if n != current] or shelf.live_names()
             nxt = rng.choice(live)
-        else:                                     # FORAGE and FIXED_LEAVE both choose gap-ranked
-            nxt = choose_gap_ranked(state, tracker, shelf, rng, current, diag)
+        else:                                     # every gap-ranked arm
+            nxt = choose_gap_ranked(state, tracker, shelf, rng, current, diag,
+                                    primary_source=GAP_RANKED_ARMS[arm])
         if nxt != current:
             if current is not None:
                 ctrl.travel()                      # r = 0, rho STILL updates (failure mode 2)
@@ -559,6 +593,10 @@ def _score_arm(arm, state, ctrl, shelf, gains, errs, visits, read_by_corpus, dia
     dom_by_domain = Counter(shelf.domains.get(s, "unknown") for _a, _b, s in banked)
     dbal, ddom, ddom_share = norm_entropy(dict(dom_by_domain))
 
+    items = getattr(state.library, "items", {})
+    trace_counts = sorted(len(getattr(it, "traces", []) or []) for it in items.values())
+    n_at_min_confirm = sum(1 for c in trace_counts if c >= 4)   # MIN_CONFIRM = 4
+
     heldout = sorted(set(load_base_vocab(HELDOUT_PROBE_LO, HELDOUT_PROBE_HI)))
     banked_subjects = sorted({a for a, _b, _s in banked})
     hits = sorted(set(banked_subjects) & set(heldout))
@@ -600,6 +638,18 @@ def _score_arm(arm, state, ctrl, shelf, gains, errs, visits, read_by_corpus, dia
         "heldout_probe_n": len(heldout),
         "heldout_hits": len(hits),
         "heldout_coverage": round(len(hits) / max(1, len(heldout)), 6),
+        "heldout_precision": round(len(hits) / max(1, len(banked_subjects)), 6),
+        # EXPOSURE FRAGMENTATION -- the candidate mechanism behind any FORAGE grounding deficit.
+        # Grounding needs MIN_CONFIRM=4 coherent encounters of the SAME lemma; a forager that
+        # hops sources may never accumulate them. Measured, not assumed.
+        "exposure": {
+            "n_library_items": len(trace_counts),
+            "mean_traces_per_item": round(sum(trace_counts) / max(1, len(trace_counts)), 4),
+            "median_traces_per_item": (trace_counts[len(trace_counts) // 2] if trace_counts else 0),
+            "max_traces": (trace_counts[-1] if trace_counts else 0),
+            "n_items_at_min_confirm": n_at_min_confirm,
+            "frac_items_at_min_confirm": round(n_at_min_confirm / max(1, len(trace_counts)), 6),
+        },
         # --- blind grounding quality
         "wordnet": _wordnet_scores([(a, b) for a, b, _s in banked]),
         # --- foraging diagnostics
@@ -645,7 +695,7 @@ def build_verdict(per_arm: Dict[str, dict]) -> dict:
         return {"verdict": "HARD_FAIL_META_RULE_AF_ARMS_BIT_IDENTICAL",
                 "verdict_msg": f"arms read identical sentence streams: {digests}"}
 
-    F, R, Z, X = (per_arm[a] for a in ARMS)
+    F, R, Z, X, FR = (per_arm[a] for a in ARMS)
     checks = {}
     # D1 -- the blind spot, FORAGE vs the frozen schedule. Declared: FORAGE is advantaged here
     # partly BY CONSTRUCTION (28 sources vs 4). That is the point of the shelf, and it is stated.
@@ -708,7 +758,12 @@ def build_verdict(per_arm: Dict[str, dict]) -> dict:
            f"D3 WordNet agreement FORAGE {fq} vs FROZEN {zq} (need delta >= -0.05); "
            f"D4 oracle ratio {orr}. "
            f"FORAGE read {F['n_distinct_corpora_read']} corpora / banked from "
-           f"{F['n_distinct_sources_banked']}; FROZEN read {Z['n_distinct_corpora_read']}.")
+           f"{F['n_distinct_sources_banked']}; FROZEN read {Z['n_distinct_corpora_read']}. "
+           f"AMENDMENT arm FORAGE_REFUSAL: dom_share {FR['dominant_source_share']}, "
+           f"heldout {FR['heldout_coverage']}, wn {FR['wordnet']['wn_agreement']}, "
+           f"grounded {FR['n_grounded']} vs FORAGE {F['n_grounded']} vs FROZEN {Z['n_grounded']}. "
+           f"EXPOSURE frac-at-MIN_CONFIRM: FORAGE {F['exposure']['frac_items_at_min_confirm']} "
+           f"vs FROZEN {Z['exposure']['frac_items_at_min_confirm']}.")
     return {"verdict": v, "verdict_msg": msg, "checks": checks}
 
 

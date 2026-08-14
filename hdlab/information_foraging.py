@@ -396,8 +396,22 @@ def oracle_mvt_optimum(patch_gain_sequences: Sequence[Sequence[float]], travel_t
     sequence -- knowledge no online forager has. Used ONLY to report how close the online forager
     landed. Landing at 100% of this means the oracle leaked.
 
-    Solves for the fixed point rho* of "harvest while the next gain >= rho*h", by bisection on
-    the achieved rate."""
+    CORRECTED 2026-08-14 after the first smoke run of exp_information_foraging_reading_v1 returned
+    oracle ratios of 1.92 / 1.78 / 1.47 / 1.11 -- i.e. the online forager "beat the oracle" in all
+    four arms, which is impossible for a genuine upper bound and therefore diagnostic of a broken
+    oracle. The bug: the first version implemented Charnov's FIRST-CROSSING stopping rule ("harvest
+    while the next gain >= rho*h"). That rule is optimal only when the gain sequence is MONOTONE
+    DECREASING. Real per-sentence gains are noisy, so first-crossing stops at the first dip and
+    throws away every later peak -- it is a WORSE policy than harvesting the whole patch, not a
+    bound on the best one.
+
+    The correct post-hoc optimum is the Dinkelbach / fractional-programming solution: for a
+    candidate rate rho, each patch independently chooses the residence n maximising the Lagrangian
+    `cumsum(n) - rho*h*n`, and rho is driven to its fixed point. At the fixed point rho*,
+    `max_policy (G - rho* T) = 0`, so EVERY feasible policy -- including whatever the online
+    forager actually did -- satisfies `G/T <= rho*`. That makes it a true upper bound, which is
+    what a leak check needs. `_selftest_oracle_is_a_true_upper_bound` asserts exactly that on
+    noisy sequences, which the first version failed."""
     seqs = [list(s) for s in patch_gain_sequences]
     if not seqs:
         return {"oracle_rate": 0.0, "oracle_gain": 0.0, "oracle_time": 0.0, "rho_star": 0.0,
@@ -406,15 +420,17 @@ def oracle_mvt_optimum(patch_gain_sequences: Sequence[Sequence[float]], travel_t
     def achieved(rho: float) -> Tuple[float, float, List[int]]:
         tot_g, tot_t, res = 0.0, 0.0, []
         for seq in seqs:
-            n = 0
-            for g in seq:
-                if n >= 1 and g < rho * h:
-                    break
-                tot_g += g
-                tot_t += h
-                n += 1
-            res.append(n)
-            tot_t += travel_tau
+            best_n, best_val, run = 0, None, 0.0
+            for n, g in enumerate(seq, start=1):
+                run += g
+                val = run - rho * h * n
+                if best_val is None or val > best_val:
+                    best_val, best_n = val, n
+            if best_val is None:
+                best_n = 0
+            res.append(best_n)
+            tot_g += sum(seq[:best_n])
+            tot_t += h * best_n + travel_tau
         return tot_g, tot_t, res
 
     lo, hi = 0.0, max((max(s) for s in seqs if s), default=1.0) + 1.0
@@ -713,6 +729,29 @@ def _selftest_oracle_beats_online_but_online_is_close() -> None:
     assert online > 0.5 * orc["oracle_rate"], (online, orc["oracle_rate"])
 
 
+def _selftest_oracle_is_a_true_upper_bound_on_noisy_gains() -> None:
+    """REGRESSION TEST for the 2026-08-14 oracle bug. On NOISY (non-monotone) gain sequences the
+    post-hoc oracle must dominate EVERY feasible fixed-residence policy, including "harvest
+    everything". The first-crossing implementation failed this by a factor of ~1.9."""
+    rng = random.Random(17)
+    seqs = []
+    for _ in range(25):
+        base = rng.choice([0.5, 1.5, 3.0])
+        seqs.append([max(0.0, base * (0.85 ** i) * (0.3 + 1.4 * rng.random())) for i in range(60)])
+    travel, h = 6.0, 1.0
+    orc = oracle_mvt_optimum(seqs, travel, h)
+    # every fixed-residence policy is feasible, so none may beat the oracle
+    for n in (1, 2, 5, 10, 20, 40, 60):
+        g = sum(sum(s[:n]) for s in seqs)
+        t = sum(min(n, len(s)) * h + travel for s in seqs)
+        assert g / t <= orc["oracle_rate"] + 1e-9, (n, g / t, orc["oracle_rate"])
+    # and the "harvest everything" policy specifically (the one the broken version lost to)
+    g = sum(sum(s) for s in seqs)
+    t = sum(len(s) * h + travel for s in seqs)
+    assert g / t <= orc["oracle_rate"] + 1e-9, (g / t, orc["oracle_rate"])
+    assert orc["oracle_rate"] > 0.0
+
+
 def _selftest_rho_carries_over_between_environments() -> None:
     """rho must never be reset by entering a new patch or a new environment."""
     cfg = ForagingConfig(rho_halflife_steps=100.0, stochastic=False)
@@ -741,6 +780,7 @@ def run_all_selftests() -> dict:
     _selftest_richer_environment_shortens_residence()
     _selftest_longer_travel_lengthens_residence()
     _selftest_oracle_beats_online_but_online_is_close()
+    _selftest_oracle_is_a_true_upper_bound_on_noisy_gains()
     _selftest_rho_carries_over_between_environments()
     return {
         "fm1_travel_in_denominator_ok": True,
@@ -756,6 +796,7 @@ def run_all_selftests() -> dict:
         "richer_environment_shortens_residence_ok": True,
         "longer_travel_lengthens_residence_ok": True,
         "oracle_dominates_online_no_leak_ok": True,
+        "oracle_is_true_upper_bound_on_noisy_gains_ok": True,
         "rho_carries_over_ok": True,
     }
 
