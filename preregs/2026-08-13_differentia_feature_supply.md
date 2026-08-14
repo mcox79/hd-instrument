@@ -174,3 +174,142 @@ hand-scored quantity.
 Thread pins above numpy import; `tools/exp_checkpoint.py` per-unit resume; metrics.json written
 once, tmp + `os.replace`; smoke to a SEPARATE output dir; `sorted(set())`; `except SystemExit:
 raise` before `except Exception`; no `BaseException`; no bare `except`.
+
+---
+
+# AMENDMENT A1 — Stage 2 authorized, supply rebuilt from simplewiki
+
+Filed 2026-08-13 by exp_dev, **BEFORE any Stage-2 arm was computed and BEFORE the extraction
+run**. Everything in this amendment is frozen at commit time. Section 5 above is SUPERSEDED by
+this amendment where the two differ; section 5 is left in place unedited as the record of what
+was pre-registered at Stage 1.
+
+Cells:
+- extraction  `experiments/exp_differentia_simplewiki_extract_v1.py`
+- measurement `experiments/exp_differentia_feature_supply_v1.py`
+
+## A1.1 EXTRACTION — pattern restriction, FROZEN IN ADVANCE
+
+`hdlab.definitional_extraction.extract_definitions` is run UNMODIFIED over every sentence of
+`data/corpora/simplewiki/simplewiki_clean_v1.txt` (2,779,032 lines; 10,294 with len > 600 are
+skipped, matching the Stage-1 probe). All five patterns are extracted so their counts can be
+reported, then:
+
+**TREATMENT SUPPLY = `COPULA` and `GLOSSARY_COLON` ONLY. `CALLED`, `REFERS_TO` and `APPOSITIVE`
+are FORBIDDEN in every treatment arm.** The cell asserts
+`sorted(set(patterns_in_treatment_store)) == ["COPULA", "GLOSSARY_COLON"]` and records the
+assertion plus the per-pattern counts in `metrics.json`.
+
+Rationale is section 4.1: simplewiki lead sentences state synonymy outright, and harvesting those
+spans would reimport the borrowed similarity lookup table this whole line exists to escape. This
+restriction is frozen NOW, before any correlation is computed, and is not revisited afterwards.
+
+The store is written to a NEW directory `data/exp_differentia_simplewiki_extract_v1/`. It is NOT
+written into any existing foundation store and is NOT banked into the canonical fact store. This
+is measurement supply, not a foundation commit.
+
+## A1.2 LEAK CONTROLS — run BEFORE the measurement, reported regardless of outcome
+
+Each can invalidate the result. All three are computed on the SimLex pair set before any arm is
+scored, and each excluded pair set is reported with its count and a sample.
+
+- **L1 DIRECT LEAK.** For pair (a, b): a's definiens text contains b as a whole word (surface or
+  lemma), or vice versa. A definition that names the other word is the lookup table wearing a
+  different hat. EXCLUDED from the primary.
+- **L2 SYNONYM-STATEMENT LEAK.** Within the kept COPULA/GLOSSARY facts for a or b, the definiens
+  or its source sentence contains an explicit synonymy construction. Frozen phrase list:
+  `another name for`, `also known as`, `same as`, `another word for`, `another term for`,
+  `also called`. (The first four are the dispatch brief's; the last two are the same construction
+  class and are included because a wider net is the stricter choice.) EXCLUDED from the primary.
+- **L3 SOURCE-SENTENCE OVERLAP.** a and b are defined from the SAME source line. Flagged and
+  EXCLUDED from the primary.
+
+**POWER GATE: if fewer than 50 pairs survive all three, STOP and report. Do not run an
+underpowered correlation.** This is the same gate Stage 1 enforced. The gate is armed on the FULL
+run only; smoke runs at reduced pair counts by design and is exempt.
+
+## A1.3 ARMS (all scored on the SAME surviving pair set)
+
+| arm | supply |
+|---|---|
+| A DIFFERENTIA | per word, union over its COPULA/GLOSSARY definitions of the definiens content lemmas with the genus head removed (`definiens_lemmas` is already closed-class-filtered by the organ). Feature token `DIFF\|<lemma>`. |
+| B GENUS_ONLY | per word, union of `GENUS\|<head>` over the new store, PLUS the genus half of `data/exp_definitional_predicate_v6/isa_facts_unchanged_v6.jsonl` where it covers (the dispatch brief names this file explicitly; it carries all five patterns). One-variable control and the semantic-dementia prediction. |
+| C GROUNDED_RAW | `hdlab.grounded_similarity._raw_cos(grounded_vector(a), grounded_vector(b))` — uncapped. NOT the 0.45-capped path. |
+| D CSKG_NOLEXREL | the predecessor's stripped supply, RECOMPUTED on the surviving pairs (not quoted across runs). |
+| E SCRAMBLE | the predecessor's `_scrambled_assignment` word-to-feature-set permutation applied to A's supply. NOT a within-feature value shuffle (the predecessor measured that that lands near uniform, so it is not a floor). |
+
+**COMPARATOR.** A, B, D and E go through the predecessor's FHRR bundling comparator
+(`hdlab.bundling.bundle` on unit-phase feature vectors, cosine via
+`hdlab.lexical_similarity._cos_complex`). The predecessor left two variants: UNIFORM and
+distinctiveness-WEIGHTED. **PRIMARY = UNIFORM**, because the predecessor HARD_FAIL_SHAPE'd the
+weighting hypothesis (`delta_weighted_minus_uniform` = -0.0003 on exactly this stripped supply),
+so carrying the weighting would add a refuted second variable. WEIGHTED is computed and reported
+for every arm as a declared secondary; no band reads it.
+
+**FORBIDDEN, asserted in code and recorded in metrics.json:** no ConceptNet synonym / relatedness
+/ similarity edge may enter A, B or E — asserted as "no feature token in A/B/E begins with `/r/`",
+plus the pattern assertion of A1.1. Arm D is the ConceptNet reference arm and drops
+`LEXREL_DROP` exactly as the predecessor did.
+
+**SENSITIVITY, reported not banded:** `B_STRICT` = arm B with the v6 ISA contribution restricted
+to COPULA + GLOSSARY_COLON. Reported so a reader can see whether B's synonym-pattern content
+moves the A - B delta.
+
+## A1.4 POWER — paired bootstrap (this replaces section 5's independent SE)
+
+All arms are scored on the SAME pairs, so the arm differences are DEPENDENT correlations and a
+naive independent SE is wrong. **Paired bootstrap over pairs: 5000 resamples (>= the 2000 the
+brief requires), fixed seed 20260813, percentile 95% CI.** Reported per delta (A-B, A-C, A-D):
+point estimate, CI low, CI high, bootstrap SD, and the minimum detectable delta
+`MDE = 1.96 * bootstrap_SD` at the surviving n. Arm rho values also get a bootstrap CI.
+
+## A1.5 BANDS (frozen; evaluated in this order)
+
+1. **HARD_FAIL** if `CI(A-B)` includes 0 (`CI_low <= 0 <= CI_high`) — the differentia adds
+   nothing over the genus — OR `A <= D`.
+2. **HARD_PASS** if `A >= 0.35` AND `CI_low(A-C) > 0` AND `CI_low(A-B) > 0` AND `E <= 0.05`.
+   META_RULE_L: if either one-sided threshold gate (`A >= 0.35`, `E <= 0.05`) is cleared by less
+   than 5% of its own magnitude, demote to MIDDLE_BAND.
+3. **SUPPLY_REAL_BUT_THIN** if `CI_low(A-C) > 0` but coverage of the full 999 < 30% — the
+   mechanism works where it reaches; the fix is more extraction, not a different mechanism.
+4. **MIDDLE_BAND** otherwise.
+
+Public calibration points are REPORTED ALONGSIDE, NOT AS ARMS: GloVe 0.41, counter-fitting 0.58,
+human IAA 0.67 (CITED@Mrksic et al. 2016 arXiv:1603.00892 Table 2).
+
+## A1.6 SCHEMA-VET fields
+
+```yaml
+cardinality_ok: true            # EXPECTED_N_UNITS = 7 arms (A,B,B_STRICT,C,D,E + A_WEIGHTED set)
+discriminating_fraction: n/a    # no sweep axis; one pair set, fixed arms
+sweep_alignment_verdict: ALIGNED
+composition_edges: [{from: definitional_extraction, to: bundle, verdict: SHAPE_MATCH}]
+positive_control_arms: [D_CSKG_NOLEXREL_REPRODUCES_PREDECESSOR]   # gate D, tolerance reported
+functional_requirements: [near-neighbour separation from extracted differentia]
+real_code_path_exercised: [extract_definitions, build_profile, bundle, unit_phase_vec,
+                           _cos_complex, grounded_similarity]
+substrate_signature_checked: [build_profile, bundle, grounded_similarity]
+guard_baseline_validated: n/a   # no control-beats-baseline break-guard
+deterministic_seeding: true     # fixed ints + hashlib; no builtin hash(), no list(set())
+crlb_n/a: "Spearman rho over continuous cosines has no noise floor of this kind; the power
+           statement is the paired bootstrap of A1.4, reported as an MDE."
+final_metrics_atomicity: tmp_replace
+arms_differ_verified: true      # per-arm score-vector sha256, asserted distinct
+baseline_in_band: reported      # D and E are the references; A must sit in (0.05, 0.95)
+calibration_check: default_ok_for_this_regime
+cell_chunked: false             # no seed axis; per-arm units.jsonl resume instead
+start_marker_written: true
+crash_diagnostic_present: true
+heartbeat_present: true
+progress_logging: print_flush_true
+```
+
+## A1.7 Known deviations from the dispatch brief, disclosed
+
+- The brief did not say which of the predecessor's two comparator variants to use. A1.3 declares
+  UNIFORM primary with WEIGHTED reported; the predecessor measured the two to differ by 0.0003 on
+  this supply.
+- The brief's L2 phrase list is extended by two same-class phrases (A1.2). Strictly more
+  exclusion, never less.
+- Arm B follows the brief literally in using the all-pattern v6 ISA file; `B_STRICT` is added as a
+  reported sensitivity, not as a band input.
