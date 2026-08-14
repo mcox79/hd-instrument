@@ -311,8 +311,12 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   `experiments/diag_anchor_field_geometry_v1.py`, 400 concepts × 70 held-out sentences, byte-identity
   to the live `context_vector` asserted first: **‖field mean‖/‖anchor‖ = 0.5841 (SIGN) vs 0.3545
   (GRADED); mean pairwise cosine 0.3397 vs 0.1319; participation ratio 126.6 vs 77.0** (sign
-  *flattens the spectrum toward noise*). Under the live code **58% of every concept vector's norm is
-  the component shared by all 400 concepts, and two arbitrary unrelated concepts sit at cosine 0.34.**
+  *flattens the spectrum toward noise*). ~~Under the live code **58% of every concept vector's norm
+  is the component shared by all 400 concepts.**~~
+  🔴 **CORRECTED 2026-08-14: re-measured on the LIVE field (n=2377, d=256) the same ratio is 0.2997
+  SIGN / 0.3650 GRADED, and it is a NORM RATIO, not a variance fraction — true shared-direction
+  energy 0.1535, PC1 0.0350.** Never restate it as "more than half the variance". Detail at organ
+  G3 and in `notes/STATUS_LESSONS.md` CORRECTION C11.
   Its task evidence is B2's cell, where it is not separately attributed.
 - **BLOCKS:** near-neighbour discrimination; sense selection.
 
@@ -976,9 +980,22 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   A per-dimension gain in the wrong basis cannot decorrelate anything — it rescales axes that were
   never the axes of the redundancy. This reclassifies those four negatives: they are **wrong-basis
   implementations, NOT evidence that gain-based decorrelation fails.**
-  **Measured on our own code: a 58% COMMON MODE.** More than half the variance is a single shared
-  direction every vector carries. That is a rank-1 structure sitting on top of everything the
-  comparator does, and it is the dominant reason near-neighbours look alike.
+  ~~**Measured on our own code: a 58% COMMON MODE.** More than half the variance is a single shared
+  direction every vector carries.~~
+  🔴 **CORRECTED 2026-08-14 — THIS PREMISE DOES NOT REPRODUCE, AND IT MIXED TWO QUANTITIES.**
+  Measured on the live anchor field (n=2377, d=256,
+  `data/exp_rank1_common_mode_removal_v1/metrics.json` `common_mode_measured`): using the SAME
+  definition this row quoted, `||mean_i a_i|| / mean_i ||a_i||` = **0.3650 GRADED / 0.2997 SIGN** —
+  the sign figure is HALF the claimed 0.5841. And **that definition is a NORM RATIO, not a variance
+  fraction**: the actual shared-direction energy fraction is **0.1535**, and **PC1 holds 0.0350** of
+  the centred field's variance. So "more than half the variance is one direction" overstates the
+  measured quantity by roughly **4x**. (The 0.5841 came from
+  `experiments/diag_anchor_field_geometry_v1.py` on a different, smaller field — 400 concepts x 70
+  held-out sentences — so the gap is partly scope and partly the definition swap.)
+  **The right-basis REASONING above still stands; the MAGNITUDE that made it look urgent does not**
+  — and the removal was tried and had **no effect** (`exp_rank1_common_mode_removal_v1`,
+  `34b94e8bc`: accuracy 0.6980 → 0.6985, CI includes 0, and a RANDOM rank-1 direction moved it
+  identically). See `notes/STATUS_LESSONS.md` CORRECTION C11.
   **What is estimable at our scale, and what is not — this is the whole build decision.**
   **Rank-1 mean removal IS estimable** at `d = 256..4096` with the sample counts we have: one
   direction needs `O(d)` samples. **FULL covariance whitening is NOT** — it needs `O(d²)` samples
@@ -1417,9 +1434,13 @@ inline at §1; the scan needs re-running before the pair is quoted as exhaustive
 
 **Addition — the decorrelation drill (recorded at organ G3).** Whitening is per-dimension gain **in the
 right basis**; our four failed reweightings were all per-RAW-dimension, i.e. wrong basis, so they are
-**not** evidence that gain-based decorrelation fails. Our code carries a **58% common mode**. Rank-1
+**not** evidence that gain-based decorrelation fails. ~~Our code carries a **58% common mode**.~~
+🔴 **SUPERSEDED 2026-08-14: the 58% does not reproduce (0.3650 graded / 0.2997 sign on the same
+definition; true energy fraction 0.1535, PC1 0.0350), and rank-1 removal was TRIED and had NO
+EFFECT** (`exp_rank1_common_mode_removal_v1`, `34b94e8bc` — 0.6980 → 0.6985, CI includes 0, random
+direction identical). Rank-1
 mean removal is estimable at our scale (`O(d)` samples); **full-covariance whitening is not**
-(`O(d²)` = 65k-16M samples) and is PARKED-BY-SAMPLE-SIZE.
+(`O(d²)` = 65k-16M samples) and is PARKED-BY-SAMPLE-SIZE — **still not closed by the rank-1 null.**
 
 **Addition — PARKED-BY-SCALE is now a first-class status on this map.** D8's cascade only beats
 simpler multistate models above **~1e6 synapses** (published figures use 2.5e7 and 5.4e9); we run

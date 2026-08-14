@@ -182,6 +182,49 @@ Each entry: the route, why it is closed, and the evidence that closed it.
     `forbidden_conceptnet_edges_in_treatment_arms` / `pattern_restriction_frozen_in_advance` both
     PASS. Do not re-propose "extract more/better features" for this task.
 
+26. **`sign()` as the destroyer of the forgetting kernel -- REFUTED.**
+    `exp_forgetting_kernel_signreadout_v1`: prereg+cell `d0c5c906e`, control amendment `a55638a63`,
+    results `41da8e454`, metrics `data/exp_forgetting_kernel_signreadout_v1/metrics.json`.
+    PRIMARY stream (real, 60 lemmas, simplewiki, live `context_vector_masked`, d=256, t to 1024):
+    graded slope **-0.2939** CI [-0.3527, -0.2443]; binarised **-0.3261** CI [-0.3925, -0.2729];
+    **CIs overlap**, |dslope| 0.0322 and never above 0.063 on any of the four streams. Power law
+    wins on all four (dAIC power-over-exponential **+38 to +94**); exponential never competitive.
+    MECHANISM, derived in the prereg BEFORE the run: Benna-Fusi's bound destroys information at
+    **WRITE** time, which is what costs an exponent; our `sign()` is a **READ-OUT quantiser on an
+    unbounded stored sum**, so it costs a constant factor `sqrt(2/pi)` and no exponent.
+    **THE SCRAMBLE CONTROL FIRED AND IT IS THE REAL FINDING:** shuffling ingest order moves the
+    slope by **0.0115 (graded) / 0.0106 (binarised)**, i.e. the accumulator is order-invariant, so
+    **the curve measures INTERFERENCE and DILUTION, not CONSOLIDATION.** There is no temporal
+    structure in the accumulator to consolidate. Real data is flatter than theory (-0.29 vs the
+    analytic -0.49) because real contexts are correlated and the shared component does not decay;
+    that was pre-registered as the one thing the derivation could not settle.
+    **CONSEQUENCE -- the D8 cascade / Benna-Fusi organ is ruled out TWICE:** already
+    PARKED-BY-SCALE (crossover ~1e6 synapses against our d = 256..4096) and now **unnecessary**,
+    because the exponent it would have supplied is already present in both arms. Do not queue it as
+    a capacity win, and do not re-propose "un-`sign()` the read-out to recover the forgetting
+    kernel" -- the kernel was never lost.
+
+27. **Rank-1 common-mode removal on the near-neighbour read-out (organ G3).**
+    HARD_FAIL_NO_EFFECT -- prereg `32ca72e9c`, cell `917dad83f`, metrics `34b94e8bc`
+    (`data/exp_rank1_common_mode_removal_v1/metrics.json`), n=4000, d=256, 2377 anchors.
+    **The operation WORKED and the task did not care.** Removal verified: shared-direction energy
+    fraction **0.1535 -> 0.0270**, mean pairwise cosine **0.1427 -> -0.0004**. Accuracy
+    **0.6980 -> 0.6985**, d = +0.0005 CI **[-0.0043, +0.0053]**, includes 0.
+    **The control is what closes it:** removing a RANDOM rank-1 direction gives mu **+0.0005** with
+    between-draw sd **0.0012** (K=20) -- statistically IDENTICAL to the treatment, so the treatment
+    is perturbation, not decorrelation-that-helps. Sister-term errors unchanged
+    (**0.0220 -> 0.0220**, **zero** converted), which is the diagnostic that matters: the arm that
+    should have moved did not. Literal mean subtraction HURTS (P5 **0.6767**, -0.0213, CI excludes
+    0). The top-PC arm is labelled NOT-BRAIN-LICENSED in the cell and carries no verdict weight
+    (cortical top PCs are MEANINGFUL -- Huth 2012 *Neuron* 76:1210).
+    **SCOPE:** full-covariance whitening stays PARKED-BY-SAMPLE-SIZE at `O(d^2)` = 65k-16M samples.
+    This null does NOT close it in either direction; the cell says so explicitly.
+
+28. **FORAGE_REFUSAL -- tightening the refusal gate as a foraging gain.** The amendment arm of
+    `exp_information_foraging_reading_v1` (`3d4761f69`) underperformed the plain FORAGE arm on its
+    own metrics: held-out coverage **0.0253** vs 0.0617, grounded facts **383** vs 604, and its
+    dominant-source share ROSE to 0.4151 (vs 0.2467). Refusing more does not forage better.
+
 ---
 
 ## CORRECTIONS TO PRIOR CLAIMS
@@ -294,6 +337,41 @@ notes and 3,689 preregs), per `data/director_kb_continuous_state.json`
 misses paraphrase, so "not found in the KB" is not evidence a result does not exist (this is
 STANDING DISCIPLINE 4's sub-rule -- an absence claim requires an enumeration, not a search).
 
+**C10. THE 65.7% TAUTOLOGY RATE WAS AN ELIGIBILITY BUG, NOT A MEANING FAILURE.** The claim that
+two thirds of grounded concepts are self-referential `(X, GROUNDED_MEANING, X)` -- carried since
+2026-08-12, quoted in `MEMORY.md`, in `SUBSTRATE_STRATEGY.md` PART 1 (C3) and in
+`notes/foundation_contents_audit_2026-08-13.md` -- described a **degenerate argmax**, not a
+property of the meanings. When the lemma's OWN anchor is left eligible in the open-vocabulary
+argmax, the read-out returns it **100% of the time**: this is ANALYTICALLY PINNED, not a
+measurement (`data/exp_grounding_readout_known_answer_v1/metrics.json`,
+`stage_b.open_vocabulary_readout.tautology_rate_when_self_eligible` = 1.0, with the note stating
+the reasoning). That is the whole mechanism behind the legacy store's 2328/3544 = 0.6569 in
+`data/foundation/reading_grounding_v1`.
+**The current path excludes the pending lemma and emits ZERO tautologies in every arm measured:**
+0/384 and 0/369 on the banked arms, `tautology_rate` 0.0 on the 4000-item open-vocabulary arm, and
+0.0 in the FORAGE arm of `exp_information_foraging_reading_v1` as well. Fix landed `1b2022522`,
+measured `204eba1a0`.
+**CONSEQUENCE for the C3 revival criterion (">= 0.10 MEANINGFUL against a recorded floor,
+tautologies < 0.10"): the TAUTOLOGY HALF NOW PASSES.** Only the quality half fails, and it fails
+by 5.2pp, not by two thirds. Do not re-quote 65.7% as a live number; cite it only as the legacy
+store's figure with this cause attached.
+
+**C11. THE "58% COMMON MODE" DOES NOT REPRODUCE, AND 0.5841 WAS A NORM RATIO QUOTED AS A VARIANCE
+FRACTION.** `ORGAN_MAP.md` B3 and G3 asserted "more than half the variance is a single shared
+direction", and that premise is what motivated build STEP 3. Measured on the live anchor field
+(n=2377, d=256, `data/exp_rank1_common_mode_removal_v1/metrics.json` `common_mode_measured`):
+- Using ORGAN_MAP's OWN definition `||mean_i a_i|| / mean_i ||a_i||`: **0.3650 GRADED / 0.2997
+  SIGN**. The graded figure is close to ORGAN_MAP's own 0.3545; the SIGN figure is **half** its
+  claimed 0.5841, on the same definition.
+- That definition is a **NORM RATIO, not a variance fraction.** The actual shared-direction energy
+  fraction (`mean_i (a_i_hat . u_hat)^2`) is **0.1535**, and **PC1 holds 0.0350** of the centred
+  field's variance. So "more than half the variance in one direction" overstates the measured
+  quantity by roughly **4x**, and the two numbers were never the same quantity.
+The 0.5841 came from `experiments/diag_anchor_field_geometry_v1.py` on 400 concepts x 70 held-out
+sentences -- a different, smaller field -- so the discrepancy is partly scope and partly the
+definition swap. State which quantity you mean whenever you quote it. `ORGAN_MAP.md` B3 and G3
+corrected in place, 2026-08-14.
+
 ---
 
 ## DIAGNOSTIC READS AND THE CAVEATS THAT TRAVEL WITH THEM (2026-08-13)
@@ -324,6 +402,30 @@ B_char_trigram, C_ppmi, D_random_init_twin), only E_scramble_floor at 0.0497 -- 
 encoder buys on this harness is localization, which is what the harness supplies.
 **Its results are UNCOMMITTED:** `data/exp_encoder_swap_behind_fixed_brain_stack_v1/metrics.json`
 is untracked; only the prereg and cell are committed (`f36ba7626`).
+
+**D3. `exp_information_foraging_reading_v1` is HARD_PASS (`3d4761f69`), and TWO NON-VERDICT ARMS
+BEAT FORAGE ON THE SAME METRICS.** Each declared check named its own comparator before the run, so
+neither reversal breaks the prereg -- but neither licenses "foraging is the best reader".
+- **D2, held-out coverage.** FORAGE **0.0617** vs RANDOM **0.0127** (+3.868 relative; this is the
+  declared, load-bearing test and it passes cleanly). **FROZEN scores 0.0743 -- HIGHER than
+  FORAGE.**
+- **D3, WordNet agreement.** FORAGE **0.3511** vs FROZEN **0.2920** (the declared non-inferiority
+  test). **RANDOM scores 0.3864 -- HIGHER than FORAGE.**
+- **D4 FAILED outright:** oracle ratio **0.5344** against its 0.70-1.00 band. The organ leaves
+  patches EARLY relative to the marginal-value-theorem optimum. Labelled "mechanism check only" in
+  the cell, so it carries no verdict weight -- but it is the specific thing to fix next if this
+  organ is worked on.
+- **Scale, corrected:** the shelf holds **28** readable corpora (`n_readable_corpora`). FORAGE read
+  **19** of them and banked from **16**; RANDOM read 28; FROZEN read 4. Any restatement using a
+  larger corpus count is wrong.
+
+**D4. THE FROZEN ARM DID NOT REPRODUCE THE 63.9% BIOLOGY SKEW, SO THE H2 LINKAGE IS UNCONFIRMED BY
+THIS CELL.** FROZEN read only four corpora (`adv_new`, `bio_new`, `ele_cont`, `int_cont`) and its
+dominant DOMAIN is **news at 0.8822**, with biology at **82 of 696** banked facts. It is therefore
+not a reproduction of the skewed baseline it was meant to stand in for. What the cell DOES show is
+that foraging **diversifies sources** (16 banked-from vs 4; dominant-source-share drop 0.1585).
+What it does NOT show is that foraging fixes the biology skew -- FORAGE's own dominant domain is
+`textbook_biology` at **0.6325**. Do not cite this cell as evidence on H2.
 
 ---
 
@@ -454,6 +556,43 @@ all four. The two failure modes need separate checks: *can this cell answer its 
 *does the reference system perform this operation at all?*
 
 Narrative and the full per-cell numbers: `notes/director_evening_digest_2026-08-13.md`.
+
+### 6. Run a POSITIVE / KNOWN-ANSWER arm: it catches measurement defects no arm of interest can
+
+**Cost: two cells in one night would have shipped confident wrong numbers without one. Both were
+saved by an arm that was not the arm anyone cared about.**
+
+- **`exp_forgetting_kernel_signreadout_v1` -- the estimator was wrong and only the known-answer arm
+  could show it.** The SYNTHETIC arm has an exactly computable curve, so its fitted slope can be
+  checked against the truth on the same finite grid. That check exposed **two** defects, disclosed
+  as prereg amendments 2 and 3 (`preregs/2026-08-14_forgetting_kernel_signreadout_v1.md:126-150`):
+  (i) **SURVIVORSHIP BIAS** -- logging before averaging silently dropped **96 of 1140** synth
+  points, all at the large-`t` end that sets the slope; (ii) **PSEUDO-REPLICATION** -- 19 t-points
+  x 60 lemmas counted as `n = 1140` independent observations, inflating AIC. **The first run
+  returned a confident CI that EXCLUDED the truth.** Neither real-data arm could have revealed
+  either defect: on real data there is no truth to compare against, and both arms carry the same
+  estimator, so they agree with each other while being jointly wrong (this is STANDING DISCIPLINE 3
+  in a new costume -- a checker sharing a flaw with what it checks). The first run's numbers are
+  retained under a separate unit-key namespace, not deleted.
+- **`exp_grounding_readout_known_answer_v1` -- the positive control is what makes the null
+  interpretable.** SELF_RETRIEVAL scored **0.786** (n=299, floor 0.70, `ok: true`), proving the
+  retrieval machinery runs end to end on this harness. That is the evidence licensing attribution
+  of the AT_FLOOR stage-A result to **MEANING** rather than to plumbing. Without it, "the banked
+  meanings are indistinguishable from a random re-pairing" is equally consistent with a broken
+  loader, and the cell resolves nothing.
+
+**DISTINCT FROM THE FLOOR DISCIPLINE, and the distinction is the whole point.**
+**A FLOOR tells you whether the EFFECT is real. A KNOWN-ANSWER ARM tells you whether the INSTRUMENT
+is.** They are independent failures: a cell can have an impeccable scramble floor and a broken
+estimator, and the forgetting-kernel cell had exactly that -- its floors and bands were all in
+order while its slope estimator was biased. So run BOTH, and say which is which: a floor arm
+(*what would a stupid method score?*) and an arm whose answer is already known
+(*what does this harness report when the answer is certain?*).
+
+**Also distinct from DISCIPLINE 1 (power) and DISCIPLINE 5 (is this the right question).** The
+three checks are: *can this cell resolve an answer?* (power), *does the reference system perform
+this operation?* (question), *does this harness report the truth when the truth is known?*
+(instrument). Passing any two says nothing about the third.
 
 ---
 
