@@ -70,10 +70,11 @@ MASTER_SEED = C3.MASTER_SEED
 N_BOOTSTRAP = 5000
 W_GRID = (0.25, 0.50, 1.00)
 W_HEADLINE = 0.50
-AUX_ARMS = ("A2_NORMS", "A3_ENCODER", "A4_BOTH")
+AUX_ARMS = ("A2_NORMS", "A3_ENCODER", "A4_BOTH", "A5_STRINGCTRL")
 ALL_ARMS = ("A1_BASE",) + AUX_ARMS
 N_PROJ_DRAWS = 3
 CROWD_SAMPLE = 400
+TRIGRAM_DIM = 512        # hashed char-trigram width (fixed, so the control's memory is bounded)
 SMOKE_MAX_ITEMS = 300
 ENC_SEED = 7
 ENC_BATCH = 256
@@ -147,6 +148,33 @@ def norms_matrix(anchors: Sequence[str]) -> Tuple[np.ndarray, np.ndarray]:
     return mat, covered
 
 
+def trigram_matrix(anchors: Sequence[str]) -> Tuple[np.ndarray, np.ndarray]:
+    """CONTROL. Row-L2-normalized character-trigram profile per anchor -- pure SURFACE STRING
+    similarity, no meaning whatsoever.
+
+    WHY THIS ARM EXISTS (layered-controls discipline: prefer the control that reproduces the win
+    from the WRONG source). The encoder arm embeds anchor WORD STRINGS through a BPE tokenizer, so
+    morphologically related words share subwords. Much of the WordNet gold set (synonyms,
+    hypernyms, sisters) is morphologically related to the query. A gain in A3_ENCODER is therefore
+    only a MEANING gain if it EXCEEDS what this string-only control achieves; if A5 reproduces A3,
+    A3 is a morphology shortcut, not encoder meaning."""
+    dim = TRIGRAM_DIM
+    mat = np.zeros((len(anchors), dim), dtype=np.float64)
+    covered = np.zeros(len(anchors), dtype=bool)
+    for i, a in enumerate(anchors):
+        s = "^" + a + "$"
+        for k in range(len(s) - 2):
+            # hashlib (never built-in hash()) -- PROT-023/F.5 determinism
+            j = int.from_bytes(hashlib.sha256(s[k:k + 3].encode("utf-8")).digest()[:4],
+                               "big") % dim
+            mat[i, j] += 1.0
+        nrm = float(np.linalg.norm(mat[i]))
+        if nrm >= 1e-9:
+            mat[i] /= nrm
+            covered[i] = True
+    return mat, covered
+
+
 def encoder_matrix(anchors: Sequence[str], output_dir: str) -> Tuple[np.ndarray, np.ndarray, dict]:
     """Row-L2-normalized mean-pooled contextual token reps of each anchor WORD from the persisted
     V2Transformer (hdlab.encoder_retrain_persist.load_improved_encoder, the 237.7M-token
@@ -179,9 +207,10 @@ def encoder_matrix(anchors: Sequence[str], output_dir: str) -> Tuple[np.ndarray,
         for r, x in enumerate(ids_list):
             ids[r, :len(x)] = x
         with torch.no_grad():
-            reps = ext.model.token_reps(torch.from_numpy(ids))     # [B, L, d], pad zeroed
+            # token_reps -> (h, pad_mask); h is [B, L, d], per-real-token L2-normed, pad zeroed
+            reps, pad_mask = ext.model.token_reps(torch.from_numpy(ids))
         arr = reps.numpy().astype(np.float64)
-        real = (ids != ext.pad_id).astype(np.float64)[:, :, None]
+        real = (~pad_mask.numpy()).astype(np.float64)[:, :, None]
         pooled = (arr * real).sum(axis=1) / np.maximum(real.sum(axis=1), 1.0)
         nrm = np.linalg.norm(pooled, axis=1)
         ok = nrm >= 1e-9
@@ -248,33 +277,51 @@ def paired_bootstrap(arms: Dict[str, np.ndarray], deltas: Sequence[Tuple[str, st
 
 
 # ============================================================ crowding
-def crowding(mat: np.ndarray, aux_mats: Sequence[np.ndarray], w: float, sample_idx: np.ndarray,
-             rng: np.random.Generator) -> dict:
-    """Median nearest-neighbour score among sampled anchors UNDER THIS ARM'S OWN METRIC, and the
-    same statistic under a random null (random bipolar profiles + permuted aux rows). The live
-    baseline pair this reproduces is 0.4637 vs 0.2264."""
+def _concat_space(mat: np.ndarray, aux_mats: Sequence[np.ndarray], w: float) -> np.ndarray:
+    """The arm's blend read GEOMETRICALLY: [profile_hat, w*aux1_hat, w*aux2_hat], row-L2-normalized.
+    Cosine in this space is a TRUE cosine in [-1,1] that EQUALS the base cosine at w=0, so
+    crowding is on ONE comparable scale across arms. (The per-item z-blend used for SCORING is
+    rank-equivalent to this up to per-item affine terms; crowding is a property of the space, not
+    of one query, so it is measured here.)"""
     nrm = np.linalg.norm(mat, axis=1)
     ok = nrm >= 1e-9
-    m = np.zeros_like(mat)
-    m[ok] = mat[ok] / nrm[ok][:, None]
+    blocks = [np.where(ok[:, None], mat / np.where(ok, nrm, 1.0)[:, None], 0.0)]
+    for a in aux_mats:
+        an = np.linalg.norm(a, axis=1)
+        aok = an >= 1e-9
+        blocks.append(w * np.where(aok[:, None], a / np.where(aok, an, 1.0)[:, None], 0.0))
+    cat = np.concatenate(blocks, axis=1)
+    cn = np.linalg.norm(cat, axis=1)
+    cok = cn >= 1e-9
+    cat[cok] /= cn[cok][:, None]
+    return cat
 
-    def _nn(profile: np.ndarray, auxes: Sequence[np.ndarray]) -> float:
+
+def crowding(mat: np.ndarray, aux_mats: Sequence[np.ndarray], w: float, sample_idx: np.ndarray,
+             rng: np.random.Generator) -> dict:
+    """Median nearest-neighbour COSINE among sampled anchors in the arm's own concatenated space,
+    against a random null (random bipolar profiles + row-permuted aux). The live baseline pair
+    this reproduces is 0.4637 vs 0.2264. Lower median_nn (and lower ratio-to-null) = LESS
+    semantic crowding = better separated."""
+    cat = _concat_space(mat, aux_mats, w)
+
+    def _nn(sp: np.ndarray) -> float:
         vals = []
         for i in sample_idx:
-            base = profile @ profile[i]
-            terms = [a @ a[i] for a in auxes]
-            sc = _z(base) + sum(w * _z(t) for t in terms) if terms else base
+            sc = sp @ sp[i]
             sc[i] = -np.inf
             vals.append(float(np.max(sc)))
         return float(np.median(vals))
 
-    real = _nn(m, aux_mats)
-    rnd = rng.choice([-1.0, 1.0], size=m.shape) / np.sqrt(m.shape[1])
-    perm = [a[rng.permutation(a.shape[0])] for a in aux_mats]
-    null = _nn(rnd, perm)
-    return {"median_nn": real, "median_nn_random_null": null, "ratio": real / null if null else None,
+    real = _nn(cat)
+    rnd_mat = rng.choice([-1.0, 1.0], size=mat.shape)
+    rnd_aux = [a[rng.permutation(a.shape[0])] for a in aux_mats]
+    null = _nn(_concat_space(rnd_mat, rnd_aux, w))
+    return {"median_nn": real, "median_nn_random_null": null,
+            "ratio_to_null": (real / null) if abs(null) > 1e-9 else None,
             "n_sample": int(len(sample_idx)),
-            "note": "arm's own metric; null = random bipolar profiles + row-permuted aux"}
+            "note": "cosine in the arm's concatenated space (comparable to base at w=0); "
+                    "null = random bipolar profiles + row-permuted aux"}
 
 
 # ============================================================ self-test
@@ -363,9 +410,11 @@ def run(run_mode: str, output_dir: str) -> dict:
 
     g_mat, g_cov = norms_matrix(anchors)
     e_mat, e_cov, e_info = encoder_matrix(anchors, output_dir)
+    t_mat, t_cov = trigram_matrix(anchors)
     rep["encoder"] = e_info
     rep["coverage_of_these_anchors"]["encoder_nonzero"] = e_info["encoded_nonzero"]
-    print("[aux] norms_cov=%.4f enc_cov=%.4f" % (g_cov.mean(), e_cov.mean()), flush=True)
+    print("[aux] norms_cov=%.4f enc_cov=%.4f trigram_cov=%.4f"
+          % (g_cov.mean(), e_cov.mean(), t_cov.mean()), flush=True)
 
     mat_nrm = np.linalg.norm(mat, axis=1)
     mat_ok = mat_nrm >= 1e-9
@@ -378,6 +427,7 @@ def run(run_mode: str, output_dir: str) -> dict:
     hits = {w: {a: np.zeros(n, dtype=bool) for a in ALL_ARMS} for w in W_GRID}
     ranks = {w: {a: np.zeros(n, dtype=np.int64) for a in ALL_ARMS} for w in W_GRID}
     top50 = {w: {a: np.zeros(n, dtype=bool) for a in ALL_ARMS} for w in W_GRID}
+    margins = {w: {a: np.zeros(n, dtype=np.float64) for a in ALL_ARMS} for w in W_GRID}
     picks = {w: {a: [] for a in ALL_ARMS} for w in W_GRID}
     scram_hit = np.zeros(n, dtype=bool)
     freq_hit = np.zeros(n, dtype=bool)
@@ -412,9 +462,11 @@ def run(run_mode: str, output_dir: str) -> dict:
             aux_g = np.zeros(sel.size)
         eq = e_mat[pos[L]] if e_cov[pos[L]] else None
         aux_e = e_mat[sel] @ eq if eq is not None else np.zeros(sel.size)
+        tq = t_mat[pos[L]] if t_cov[pos[L]] else None
+        aux_t = t_mat[sel] @ tq if tq is not None else np.zeros(sel.size)
 
         armaux = {"A1_BASE": [], "A2_NORMS": [aux_g], "A3_ENCODER": [aux_e],
-                  "A4_BOTH": [aux_g, aux_e]}
+                  "A4_BOTH": [aux_g, aux_e], "A5_STRINGCTRL": [aux_t]}
         for w in W_GRID:
             for arm in ALL_ARMS:
                 sc = arm_scores(base, armaux[arm], 0.0 if arm == "A1_BASE" else w)
@@ -427,6 +479,12 @@ def run(run_mode: str, output_dir: str) -> dict:
                     r = int(np.sum(sc > best_gold)) + 1
                     ranks[w][arm][i] = r
                     top50[w][arm][i] = r <= 50
+                    # SEPARATION MARGIN, in sd units of this item's candidate pool: how far the
+                    # best gold anchor stands above the best NON-gold competitor. This is the
+                    # direct measure of within-neighbourhood separation at the read-out.
+                    ng = np.ones(sel.size, dtype=bool)
+                    ng[gsel] = False
+                    margins[w][arm][i] = (best_gold - float(np.max(sc[ng]))) if ng.any() else 0.0
                 else:
                     ranks[w][arm][i] = sel.size
         # floors
@@ -477,7 +535,7 @@ def run(run_mode: str, output_dir: str) -> dict:
     crng = np.random.default_rng(MASTER_SEED + 11)
     sample_idx = crng.choice(n_anchors, size=min(CROWD_SAMPLE, n_anchors), replace=False)
     crowd_aux = {"A1_BASE": [], "A2_NORMS": [g_mat], "A3_ENCODER": [e_mat],
-                 "A4_BOTH": [g_mat, e_mat]}
+                 "A4_BOTH": [g_mat, e_mat], "A5_STRINGCTRL": [t_mat]}
 
     per_w: Dict[str, object] = {}
     for w in W_GRID:
@@ -498,6 +556,11 @@ def run(run_mode: str, output_dir: str) -> dict:
                 "median_rank": float(np.median(ranks[w][a])),
                 "mean_rank": float(np.mean(ranks[w][a])),
                 "frac_gold_in_top50": float(top50[w][a].mean()),
+                "separation_margin_z": {"mean": float(np.mean(margins[w][a])),
+                                        "median": float(np.median(margins[w][a])),
+                                        "note": "best-gold minus best-non-gold score, in sd units "
+                                                "of the item's candidate pool; HIGHER = better "
+                                                "within-neighbourhood separation"},
                 "sister_error_conversions": {
                     "converted_base_wrong_to_arm_right": len(conv),
                     "of_which_base_pick_was_a_wordnet_sister": len(sis),
@@ -531,6 +594,7 @@ def run(run_mode: str, output_dir: str) -> dict:
     base_rank = hb["per_arm"]["A1_BASE"]["median_rank"]
     base_crowd = hb["per_arm"]["A1_BASE"]["crowding"]["median_nn"]
     sd_proj = float(np.std(proj))
+    MEANING_ARMS = ("A2_NORMS", "A3_ENCODER", "A4_BOTH")
     reasons, cleared = [], []
     for a in AUX_ARMS:
         pa = hb["per_arm"][a]
@@ -539,18 +603,34 @@ def run(run_mode: str, output_dir: str) -> dict:
         rank_better = pa["median_rank"] <= 0.90 * base_rank
         crowd_better = pa["crowding"]["median_nn"] < base_crowd
         big = d >= 0.020 and ci["ci_excludes_zero"] and d > 2 * sd_proj
-        if pa["hit_at_1"] >= 0.10 and ci["ci_excludes_zero"]:
-            cleared.append((a, "PASS_GATE_CLEARED"))
-        elif big and rank_better and crowd_better:
-            cleared.append((a, "MIDDLE_BAND_REAL_BUT_SHORT"))
-        elif big:
-            cleared.append((a, "MIDDLE_BAND_ARGMAX_ONLY_SUSPECT"))
+        if a in MEANING_ARMS:
+            if pa["hit_at_1"] >= 0.10 and ci["ci_excludes_zero"]:
+                cleared.append((a, "PASS_GATE_CLEARED"))
+            elif big and rank_better and crowd_better:
+                cleared.append((a, "MIDDLE_BAND_REAL_BUT_SHORT"))
+            elif big:
+                cleared.append((a, "MIDDLE_BAND_ARGMAX_ONLY_SUSPECT"))
         reasons.append("%s d=%+.4f CI=[%+.4f,%+.4f] med_rank %.1f->%.1f crowd %.4f->%.4f" % (
             a, d, ci["ci_lo"], ci["ci_hi"], base_rank, pa["median_rank"], base_crowd,
             pa["crowding"]["median_nn"]))
     hurts = any((hb["per_arm"][a]["hit_at_1"] - base_hit) < 0
                 and hb["bootstrap"]["deltas"]["d_%s_minus_BASE" % a]["ci_excludes_zero"]
-                for a in AUX_ARMS)
+                for a in MEANING_ARMS)
+
+    # STRING-SHORTCUT CONTROL. The encoder embeds word STRINGS, so a gain it shares with a pure
+    # character-trigram control is morphology, not meaning.
+    d_enc = hb["per_arm"]["A3_ENCODER"]["hit_at_1"] - base_hit
+    d_str = hb["per_arm"]["A5_STRINGCTRL"]["hit_at_1"] - base_hit
+    shortcut = {"d_A3_ENCODER": d_enc, "d_A5_STRINGCTRL": d_str,
+                "encoder_gain_exceeds_string_control": bool(d_enc > d_str),
+                "encoder_gain_attributable_to_string_similarity": bool(d_str >= 0.75 * d_enc
+                                                                       and d_enc > 0),
+                "note": "if the string control reproduces the encoder's gain, A3 is a subword "
+                        "morphology shortcut, not encoder MEANING"}
+    rep["string_shortcut_control"] = shortcut
+    reasons.append("STRINGCTRL d=%+.4f vs ENCODER d=%+.4f -> %s" % (
+        d_str, d_enc, "ENCODER EXCEEDS CONTROL" if d_enc > d_str else "CONTROL MATCHES/EXCEEDS "
+        "ENCODER (shortcut suspected)"))
     if any(v == "PASS_GATE_CLEARED" for _, v in cleared):
         verdict = "PASS_GATE_CLEARED"
     elif any(v == "MIDDLE_BAND_REAL_BUT_SHORT" for _, v in cleared):
