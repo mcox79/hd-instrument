@@ -91,44 +91,76 @@ def probe(label: str, script: str, *args: str) -> str:
     return f"[{label}] {status}\n{body}"
 
 
-def status_summary() -> str:
+def _missing_literal_banner(literal: str, desc: str, path: Path) -> str:
+    """Unmissable banner for a required-literal parse failure. FAIL LOUD, not a placeholder
+    that reads like ordinary output -- that is exactly how the 2026-08-13 reword survived
+    undetected (see CLAUDE.md "A doc parsed by code is coupled to it"). Kept to plain string
+    formatting (no logging config, no extra deps) so it stays fast and dependency-free."""
+    bar = '=' * 78
+    return (
+        f"{bar}\n"
+        f"*** MISSING REQUIRED LITERAL {literal!r} ({desc}) ***\n"
+        f"    file: {path}\n"
+        f"    tools/session_start_hook.py status_summary() parses this EXACT string; it is\n"
+        f"    an API, not a formatting choice. Read notes/STATUS_SPEC.md sec 2 before\n"
+        f"    rewording it, and update this parser in the same commit if you must.\n"
+        f"{bar}"
+    )
+
+
+def status_summary(path: Path = STATUS_MD) -> str:
     """Cheap summary of notes/STATUS.md: its AS-OF line, its WHAT IS RUNNING section, and
     days since it was last modified (loud warning past 1 day).
 
     Deliberately a plain file read + line scan + a single os.stat call -- no subprocess, no
     git call, no parsing beyond splitting on section headers. The staleness GUARD (which does
     need a git call) lives in status_freshness_check.py and is reported separately via probe().
+
+    `path` defaults to the real STATUS_MD but is overridable so `_self_test()` below can point
+    this at a fixture file without ever touching the real notes/STATUS.md.
     """
-    if not STATUS_MD.exists():
-        return "[STATUS.md] MISSING <-- ATTENTION\n    create notes/STATUS.md (see task history)"
+    if not path.exists():
+        return f"[STATUS.md] MISSING <-- ATTENTION\n    create {path} (see task history)"
 
     try:
-        text = STATUS_MD.read_text(encoding='utf-8')
-        mtime = STATUS_MD.stat().st_mtime
+        text = path.read_text(encoding='utf-8')
+        mtime = path.stat().st_mtime
     except OSError as exc:
         return f"[STATUS.md] unreadable ({exc})"
 
     # CONTRACT: the two literals below ('AS OF:' and '## WHAT IS RUNNING') are parsed out of the
     # human-edited notes/STATUS.md. They are an API, not a formatting choice. Both were reworded
     # away on 2026-08-13 ('AS OF' without the colon, '## RUNNING / BLOCKED'); this function did not
-    # error, it silently injected the placeholders below into every compaction recovery. Doc-side
-    # record: notes/STATUS_SPEC.md sec 2. If either literal changes, change it here in the same
-    # commit. RECOMMENDED (not implemented): fail loudly here instead of substituting a placeholder
-    # that reads like ordinary output -- see CLAUDE.md "A doc parsed by code is coupled to it".
+    # error, it silently injected placeholders into every compaction recovery until someone read
+    # the injected text closely. Doc-side record: notes/STATUS_SPEC.md sec 2. If either literal
+    # changes, change it here in the same commit. FAILS LOUDLY below instead of substituting a
+    # quiet placeholder -- see CLAUDE.md "A doc parsed by code is coupled to it".
     lines = text.splitlines()
-    as_of_line = next((ln.strip() for ln in lines if ln.strip().startswith('AS OF:')), '(no AS OF line found)')
+    as_of_match = next((ln.strip() for ln in lines if ln.strip().startswith('AS OF:')), None)
+    as_of_line = as_of_match if as_of_match is not None else \
+        _missing_literal_banner('AS OF:', 'the AS-OF header line', path)
 
     running_lines: list[str] = []
     in_running = False
+    found_running_heading = False
     for ln in lines:
         if ln.strip().startswith('## WHAT IS RUNNING'):
             in_running = True
+            found_running_heading = True
             continue
         if in_running and ln.strip().startswith('## '):
             break
         if in_running and ln.strip():
             running_lines.append(ln)
-    running_body = '\n'.join(f'    {ln}' for ln in running_lines) if running_lines else '    (no WHAT IS RUNNING section found)'
+    if not found_running_heading:
+        banner = _missing_literal_banner('## WHAT IS RUNNING', 'the WHAT IS RUNNING heading', path)
+        running_body = '\n'.join(f'    {ln}' for ln in banner.splitlines())
+    elif running_lines:
+        running_body = '\n'.join(f'    {ln}' for ln in running_lines)
+    else:
+        # Heading IS present, just has no non-empty lines under it -- a real (if unusual) empty
+        # section, not a parse failure. Distinct from the missing-heading case above.
+        running_body = '    (section present but empty)'
 
     age_days = (time.time() - mtime) / 86400.0
     age_flag = ' <-- STALE, over 1 day old, rewrite it' if age_days > 1.0 else ''
@@ -137,6 +169,53 @@ def status_summary() -> str:
         f"    age: {age_days:.2f} days{age_flag}\n"
         f"  WHAT IS RUNNING:\n{running_body}"
     )
+
+
+def _self_test() -> int:
+    """Prove status_summary() fails LOUDLY (unmissable banner), not silently (a placeholder
+    that reads like ordinary output), when a required literal is missing. Uses FIXTURE files
+    in a tempdir -- never reads or mutates the real notes/STATUS.md for the failure cases.
+    Run: .venv/Scripts/python.exe tools/session_start_hook.py --self-test
+    """
+    import tempfile
+    ok = True
+
+    with tempfile.TemporaryDirectory() as td:
+        fixture = Path(td) / 'STATUS_fixture_no_as_of.md'
+        fixture.write_text(
+            "# STATUS\n\nNo as-of header on this fixture.\n\n## WHAT IS RUNNING\n- nothing\n",
+            encoding='utf-8',
+        )
+        out = status_summary(fixture)
+        if 'MISSING REQUIRED LITERAL' in out and 'AS OF:' in out:
+            print("[self-test] PASS: missing 'AS OF:' triggers the loud banner")
+        else:
+            print(f"[self-test] FAIL: missing 'AS OF:' did NOT trigger the loud banner:\n{out}")
+            ok = False
+
+    with tempfile.TemporaryDirectory() as td:
+        fixture = Path(td) / 'STATUS_fixture_no_running.md'
+        fixture.write_text(
+            "# STATUS\n\nAS OF: 2099-01-01 | fixture\n\n## SOMETHING ELSE\n- x\n",
+            encoding='utf-8',
+        )
+        out = status_summary(fixture)
+        if 'MISSING REQUIRED LITERAL' in out and 'WHAT IS RUNNING' in out:
+            print("[self-test] PASS: missing '## WHAT IS RUNNING' triggers the loud banner")
+        else:
+            print(f"[self-test] FAIL: missing '## WHAT IS RUNNING' did NOT trigger the loud banner:\n{out}")
+            ok = False
+
+    # Sanity: the REAL STATUS.md (read-only here, never written) must NOT trigger either banner.
+    out = status_summary(STATUS_MD)
+    if 'MISSING REQUIRED LITERAL' not in out:
+        print("[self-test] PASS: the real notes/STATUS.md parses clean (no false-positive banner)")
+    else:
+        print(f"[self-test] FAIL: the real notes/STATUS.md incorrectly triggered a banner:\n{out}")
+        ok = False
+
+    print(f"[self-test] {'ALL PASS' if ok else 'FAILED'}")
+    return 0 if ok else 1
 
 
 def registry_report() -> str:
@@ -195,4 +274,6 @@ def main() -> int:
 
 
 if __name__ == '__main__':
+    if '--self-test' in sys.argv:
+        sys.exit(_self_test())
     sys.exit(main())

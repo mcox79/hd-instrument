@@ -2,9 +2,10 @@
 
 AS OF: 2026-08-14 | branch `dataprep/mcguffey-graded-corpus` | GROWTH PAUSED | origin merge needs USER AUTH
 HEAD/push delta: `git log -1`, `git status`. Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
-Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). Rewrite in place; cap 8192 B.
-CHAIN: `HANDOFF_full_project_report_for_new_team_2026-08-14.md` -> HERE -> `RECOVERY_PROGRAM.md`
--> `SUBSTRATE_STRATEGY.md` + `ORGAN_MAP.md`. The 08-04 POST_COMPACTION_BACKUP is SUPERSEDED.
+Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). PLAN: `notes/PLAN_NEXT_12H.md`.
+Rewrite in place; cap 8192 B.
+CHAIN: `HANDOFF_full_project_report_for_new_team_2026-08-14.md` -> HERE -> `PLAN_NEXT_12H.md` ->
+`RECOVERY_PROGRAM.md` -> `SUBSTRATE_STRATEGY.md` + `ORGAN_MAP.md`. 08-04 BACKUP SUPERSEDED.
 
 ## POSITION
 C3 read-out has a floor: open-vocab hit@1 4.80% vs scramble 0.80% (n=4000, 5491 anchors,
@@ -27,11 +28,11 @@ give the live comparator a structured code. Rows: reading ledger #1/#3, chain-gr
 
 ## FLOOR VET (LESSONS: ORTHOGRAPHIC-FLOOR VET)
 `notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md` (`9ca1cffa2`). Pools ARE fair (bit-exact).
- BUT `A5_STRINGCTRL` = `z(base) + w*z(trigram)` -- substrate PLUS spelling, NOT spelling
+BUT `A5_STRINGCTRL` = `z(base) + w*z(trigram)` -- substrate PLUS spelling, NOT spelling
 alone: **"we underperform a spell-checker" is NOT established, do not propagate it.**
-It indicts the METRIC: spelling adds **+0.0425** hit@1 vs the encoder's +0.0270. Strongest MEASURED
-no-understanding floor = FREQUENCY **0.0185** (beaten 2.6x); the SPELLING-ALONE floor is
-**UNMEASURED** (`scratch/ortho_floor_vet_trigram_only.py` drafted, NOT RUN) and blocks every floor
+It indicts the METRIC: spelling adds +0.0425 hit@1 vs the encoder's +0.0270. Strongest MEASURED
+no-understanding floor = FREQUENCY 0.0185 (beaten 2.6x); the SPELLING-ALONE floor is
+UNMEASURED (`scratch/ortho_floor_vet_trigram_only.py` drafted, NOT RUN) and blocks every floor
 claim. `char_trigram_encoder` EXISTS but is NOT REACHED (runtime trace + positive control);
 its registry row wrongly claims WIRED.
 
@@ -40,15 +41,14 @@ its registry row wrongly claims WIRED.
 565/565 + reading 403 (`51b6f247a`, `40997bf85`, `da7fe14d4`, `b4e90942a`, `63d5cccd2`).
 **Until merged every count must run over ALL THREE** (`grep -oE 'STATE:[A-Z_]+'` = 1063 rows;
 `RECOVERY_PROGRAM.md` alone returns 95). DEFLATIONS: 280 of 565 chain-graded rows are ONE
-auto-generated grid, so "574 cells" is **~286 distinct investigations**; only **172 (30%) have a
-real floor**; **0 of the 968 are WIRED**. UNTRIAGED: ~1,180 atoms, ~7,150 of 7,660 `metrics.json`.
+auto-generated grid, so "574 cells" is ~286 distinct investigations; only 172 (30%) have a
+real floor; 0 of the 968 are WIRED. UNTRIAGED: ~1,180 atoms, ~7,150 of 7,660 `metrics.json`.
 
 ## OTHER PATH STATE
 LANDED: graded comparator DEFAULT ON (`38f7a0d5c`, 0.6395 -> 0.6980), MECHANISM WITHDRAWN
 (`f05b8a88a`) -- never quote 0.7495 or 0.69975 as live; FORAGING `3d4761f69` HARD_PASS w/ caveats.
-PHASE DIAGRAM: closed, NEITHER cash-in hit -- LESSONS. OPEN: C13 re-run; C12 sub-linear gap index
-NOT BUILT; orphan `hdlab/` files + 4 unregistered modules; LESSONS
-"OPEN THREADS (older)".
+PHASE DIAGRAM closed, neither cash-in hit; OPEN: C13 re-run, C12 sub-linear gap index NOT BUILT,
+orphan hdlab/ files + 4 unregistered modules -- LESSONS "OPEN THREADS (older)".
 NOT INVALIDATED: GROWTH stands (no-leak 0, scramble 0.077, persistence round-trip bit-identical;
 `ac430868d`/`0472eeb0b`) -- a DIFFERENT claim, that grounding tracks real reading context rather
 than shuffled, which spelling overlap cannot touch. INVALIDATED: the absolute-threshold framing and
