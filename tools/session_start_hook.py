@@ -108,6 +108,13 @@ def status_summary() -> str:
     except OSError as exc:
         return f"[STATUS.md] unreadable ({exc})"
 
+    # CONTRACT: the two literals below ('AS OF:' and '## WHAT IS RUNNING') are parsed out of the
+    # human-edited notes/STATUS.md. They are an API, not a formatting choice. Both were reworded
+    # away on 2026-08-13 ('AS OF' without the colon, '## RUNNING / BLOCKED'); this function did not
+    # error, it silently injected the placeholders below into every compaction recovery. Doc-side
+    # record: notes/STATUS_SPEC.md sec 2. If either literal changes, change it here in the same
+    # commit. RECOMMENDED (not implemented): fail loudly here instead of substituting a placeholder
+    # that reads like ordinary output -- see CLAUDE.md "A doc parsed by code is coupled to it".
     lines = text.splitlines()
     as_of_line = next((ln.strip() for ln in lines if ln.strip().startswith('AS OF:')), '(no AS OF line found)')
 
@@ -172,6 +179,10 @@ def main() -> int:
     blocks.append("== DURABILITY GATE (status read at session start) ==")
     blocks.append(registry_report())
     blocks.append(probe('director-kb-freshness', 'director_kb_freshness_check.py'))
+    # --hook reads the newest PERSISTED join report (0.6s); it never rescans, because a full
+    # scan walks 7885 data dirs and takes ~290s. Same split as registry_report() above: the
+    # expensive computation is a separate deliberate act, the hook only reports its staleness.
+    blocks.append(probe('result-index-join', 'result_index_join.py', '--hook'))
     blocks.append(
         "== ORIENT ==\n"
         "  notes/STATUS.md (read this FIRST -- cheap, current, sourced; <=6KB by design)\n"
