@@ -71,6 +71,31 @@ dimensions carry |sum| < 10% of p90** — near-zero evidence. `sign()` rescales 
 full ±1. So the operation does not merely discard the distinctive signal; it **amplifies pure noise
 to maximum weight at ~1 dimension in 7**.
 
+### The same claim, proven analytically with no corpus and none of our code
+
+`experiments/diag_sign_annihilates_distinctive_v1.py`: two near-neighbours share a category
+component S and differ only in a distinctive component D, at d=256 (the substrate's live context
+dimensionality), 4,000 trials per row.
+
+| |D|/|S| | cos(a1,a2) SIGN | cos(a1,a2) GRADED | frac pairs BIT-IDENTICAL under sign | D-recovery SIGN | D-recovery GRADED |
+|---|---|---|---|---|---|
+| 0.02 | 0.9821 | 0.9996 | **10.13%** | 0.1212 | 1.0 |
+| 0.05 | 0.9552 | 0.9975 | 0.18% | 0.1841 | 1.0 |
+| 0.10 | 0.9099 | 0.9900 | 0.00% | 0.2620 | 1.0 |
+| 0.20 | 0.8216 | 0.9614 | 0.00% | 0.3716 | 1.0 |
+| 0.80 | 0.4156 | 0.6077 | 0.00% | 0.6533 | 1.0 |
+
+D-recovery is `cos(a1 - a2, D1 - D2)`: how much of the code's difference between the two concepts
+IS the true distinctive difference. **At a 2% distinctive:shared ratio, one near-neighbour pair in
+ten becomes BIT-IDENTICAL — not degraded, annihilated. At 10%, only 26% of the difference direction
+is real distinctive meaning; the other 74% is quantisation noise.**
+
+Note the second-order point, which matters for diagnosis: `cos(a1,a2)` is LOWER under sign than
+under the graded code at every ratio. sign() makes near-neighbours look MORE separated while making
+the separation MEAN LESS. A comparator can therefore show a healthy-looking margin and still decide
+wrongly, which is exactly the pattern in the landed cell (`mean_winning_cos` 0.1476, accuracy
+floor-hugging).
+
 Secondary confirmation of the same defect in the code's shape: sign() RAISES the field's
 participation ratio 77 -> 127, i.e. it flattens the spectrum toward noise. The brain's cortical
 semantic code is DENSE, GRADED and LOW-effective-dimensional (Huth et al. 2012 *Neuron* 76:1210-1224,
