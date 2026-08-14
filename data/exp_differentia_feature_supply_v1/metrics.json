@@ -1,0 +1,547 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "n_surviving=350 (L1=145 L2=113 L3=8 union=216 of 566 covered) | A=0.0247 B=0.0179 C=0.2759 D=0.0751 E=-0.0235 | A-B=+0.0068 [-0.1179,0.1395] A-C=-0.2512 [-0.3916,-0.1106] A-D=-0.0503 [-0.1907,0.0974] | coverage999=0.350",
+  "notes": [
+    "CI(A-B)=[-0.1179,0.1395] includes 0: the DIFFERENTIA adds nothing over the GENUS."
+  ],
+  "summary": "extractor-derived DIFFERENTIA supply vs genus / grounded / CSKG on SimLex-999",
+  "elapsed_s": 19.431,
+  "run_mode": "full",
+  "anchor_name": "exp_differentia_feature_supply_v1",
+  "prereg": "preregs/2026-08-13_differentia_feature_supply.md",
+  "prereg_amendment": "A1 (commit 64a4ea4c2), filed BEFORE extraction and BEFORE any arm",
+  "pattern_restriction_frozen_in_advance": {
+    "treatment": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden": [
+      "CALLED",
+      "REFERS_TO",
+      "APPOSITIVE"
+    ],
+    "patterns_present_in_supply": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden_present_in_supply": [],
+    "assertion": "PASS"
+  },
+  "forbidden_conceptnet_edges_in_treatment_arms": {
+    "asserted": "no feature token in A/B/E begins with '/r/'",
+    "result": "PASS"
+  },
+  "ts_iso": "2026-08-14T00:49:28.126777+00:00",
+  "n_units": 11,
+  "expected_n_units": 11,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A_DIFFERENTIA|UNIFORM": "8cb753b7373bb5f4adc7b29fbf1ccba8b026ba9bc198924bdf4f6bcda7c41193",
+    "A_DIFFERENTIA|WEIGHTED": "23c26fe240751c467c28221dbcc4be4a06035ad87e7628592ea95ec860874e79",
+    "B_GENUS_ONLY|UNIFORM": "4c30fbbc2b0db62730d7f4fca66ea6995cc5ed9bb9f9aa8443c3e1db2afa7c3a",
+    "B_GENUS_ONLY|WEIGHTED": "f88deab73c20ee82c434bd56081b67d17fb4797ab21da5c66af4163fe8b4d2f4",
+    "B_STRICT_GENUS|UNIFORM": "ffb8d67fba97d74da96cb1648f85d3a6027c3361af9dcd1fd252bb3f697ae139",
+    "B_STRICT_GENUS|WEIGHTED": "8c12fd4915c875af4512968e6cea97a7b4cceb92fcb32db86edd94b4f36edbdd",
+    "D_CSKG_NOLEXREL|UNIFORM": "bac682e5ee39e408c63507a50a4de5f287f4d8d0afa4835ee284d8da5f0c1b20",
+    "D_CSKG_NOLEXREL|WEIGHTED": "c8a7f02773dc5c0a1536783e163f0d841f0575398c0ff52f029a2acd9312039f",
+    "E_SCRAMBLE|UNIFORM": "53109e4ed9626426a1a71600f3e1fd11b80a1e636037d8baccc6049c64134cf2",
+    "E_SCRAMBLE|WEIGHTED": "ac9788dca6f0dd0eeea5a8b4d9b719301331d31e0f2a0f152dd28947fc2ef78f",
+    "C_GROUNDED_RAW|RAW": "845efea3eaa403733e6cde2543ac783b37ae8509d14f5ecbd7b2b502a01f78bb"
+  },
+  "leak_controls": {
+    "n_pairs_before_controls": 566,
+    "L1_direct_leak": {
+      "n": 145,
+      "sample": [
+        [
+          "actress",
+          "actor"
+        ],
+        [
+          "alcohol",
+          "gin"
+        ],
+        [
+          "archbishop",
+          "bishop"
+        ],
+        [
+          "area",
+          "corner"
+        ],
+        [
+          "area",
+          "zone"
+        ],
+        [
+          "arm",
+          "body"
+        ],
+        [
+          "arm",
+          "wrist"
+        ],
+        [
+          "atom",
+          "carbon"
+        ],
+        [
+          "attention",
+          "interest"
+        ],
+        [
+          "attitude",
+          "confidence"
+        ],
+        [
+          "august",
+          "month"
+        ],
+        [
+          "ball",
+          "basket"
+        ],
+        [
+          "ball",
+          "costume"
+        ],
+        [
+          "ballad",
+          "song"
+        ],
+        [
+          "band",
+          "orchestra"
+        ]
+      ],
+      "definition": "a's definiens names b (whole word, surface or lemma), or vice versa"
+    },
+    "L2_synonym_statement_leak": {
+      "n": 113,
+      "sample": [
+        [
+          "actor",
+          "singer"
+        ],
+        [
+          "actress",
+          "actor"
+        ],
+        [
+          "animal",
+          "person"
+        ],
+        [
+          "apple",
+          "lemon"
+        ],
+        [
+          "area",
+          "corner"
+        ],
+        [
+          "area",
+          "zone"
+        ],
+        [
+          "arm",
+          "body"
+        ],
+        [
+          "arm",
+          "neck"
+        ],
+        [
+          "august",
+          "month"
+        ],
+        [
+          "ball",
+          "basket"
+        ],
+        [
+          "ball",
+          "cannon"
+        ],
+        [
+          "ball",
+          "costume"
+        ],
+        [
+          "ball",
+          "glove"
+        ],
+        [
+          "ballad",
+          "song"
+        ],
+        [
+          "band",
+          "orchestra"
+        ]
+      ],
+      "phrases": [
+        "another name for",
+        "also known as",
+        "same as",
+        "another word for",
+        "another term for",
+        "also called"
+      ],
+      "definition": "an explicit synonymy construction in either word's definiens or its source sentence"
+    },
+    "L3_source_sentence_overlap": {
+      "n": 8,
+      "sample": [
+        [
+          "book",
+          "theme"
+        ],
+        [
+          "mouse",
+          "cat"
+        ],
+        [
+          "movie",
+          "film"
+        ],
+        [
+          "music",
+          "melody"
+        ],
+        [
+          "night",
+          "day"
+        ],
+        [
+          "physician",
+          "doctor"
+        ],
+        [
+          "river",
+          "valley"
+        ],
+        [
+          "south",
+          "north"
+        ]
+      ],
+      "definition": "a and b defined from the SAME source line"
+    },
+    "n_excluded_union": 216,
+    "n_surviving": 350,
+    "all_three_excluded_from_primary": true,
+    "coverage_before_controls_of_evaluated": 0.5666,
+    "eligibility_before_leak_controls": {
+      "n_pairs_differentia_covered": 668,
+      "n_pairs_also_in_grounded_lexicon": 668,
+      "n_pairs_also_scorable_by_arm_D": 566,
+      "n_lost_to_arm_D_coverage": 102,
+      "why": "every arm must be scored on the SAME pairs for the paired bootstrap; arm D has no features for words whose only ConceptNet edges were the deleted lexical relations"
+    }
+  },
+  "n_pairs_evaluated_before_controls": 566,
+  "n_surviving_pairs": 350,
+  "coverage_of_full_999": 0.3504,
+  "primary_comparator": "UNIFORM",
+  "rho_primary": {
+    "A": 0.0247,
+    "B": 0.0179,
+    "B_STRICT": -0.0464,
+    "C": 0.2759,
+    "D": 0.0751,
+    "E": -0.0235
+  },
+  "rho_all_units": {
+    "A_DIFFERENTIA|UNIFORM": 0.0247,
+    "A_DIFFERENTIA|WEIGHTED": 0.007,
+    "B_GENUS_ONLY|UNIFORM": 0.0179,
+    "B_GENUS_ONLY|WEIGHTED": 0.0354,
+    "B_STRICT_GENUS|UNIFORM": -0.0464,
+    "B_STRICT_GENUS|WEIGHTED": -0.0492,
+    "D_CSKG_NOLEXREL|UNIFORM": 0.0751,
+    "D_CSKG_NOLEXREL|WEIGHTED": 0.0793,
+    "E_SCRAMBLE|UNIFORM": -0.0235,
+    "E_SCRAMBLE|WEIGHTED": -0.0772,
+    "C_GROUNDED_RAW|RAW": 0.2759
+  },
+  "bootstrap": {
+    "n_boot_requested": 5000,
+    "n_boot_used": 5000,
+    "n_degenerate_resamples": 0,
+    "seed": 20260813,
+    "arm_ci": {
+      "A": {
+        "lo": -0.0807698855514134,
+        "hi": 0.1299929012353833,
+        "sd": 0.05351097850654245
+      },
+      "B": {
+        "lo": -0.08747018611690148,
+        "hi": 0.12200524440539023,
+        "sd": 0.0533747988326674
+      },
+      "B_STRICT": {
+        "lo": -0.1509243565947211,
+        "hi": 0.05578870567923074,
+        "sd": 0.05266694650151544
+      },
+      "C": {
+        "lo": 0.17267782181964486,
+        "hi": 0.37975289168494725,
+        "sd": 0.05314300447522267
+      },
+      "D": {
+        "lo": -0.028591457352199184,
+        "hi": 0.17513880860806155,
+        "sd": 0.05204432166628488
+      },
+      "E": {
+        "lo": -0.1329577841807597,
+        "hi": 0.08286433535850826,
+        "sd": 0.05477820267311564
+      }
+    },
+    "delta_ci": {}
+  },
+  "bootstrap_weighted_secondary": {
+    "n_boot_requested": 5000,
+    "n_boot_used": 5000,
+    "n_degenerate_resamples": 0,
+    "seed": 20260813,
+    "arm_ci": {
+      "A": {
+        "lo": -0.09580362012319306,
+        "hi": 0.11265704852733396,
+        "sd": 0.05318695195193647
+      },
+      "B": {
+        "lo": -0.07195058778269714,
+        "hi": 0.13793929484284534,
+        "sd": 0.05421928198710929
+      },
+      "C": {
+        "lo": 0.17267782181964486,
+        "hi": 0.37975289168494725,
+        "sd": 0.05314300447522267
+      },
+      "D": {
+        "lo": -0.02173451213506952,
+        "hi": 0.18004880475696575,
+        "sd": 0.05154387247038975
+      },
+      "E": {
+        "lo": -0.18529154292299269,
+        "hi": 0.030087064230358798,
+        "sd": 0.05530088624003759
+      }
+    },
+    "delta_ci": {}
+  },
+  "deltas_primary": {
+    "A_minus_B": {
+      "point": 0.0068,
+      "ci_low": -0.1179,
+      "ci_high": 0.1395,
+      "bootstrap_sd": 0.0661,
+      "mde_95": 0.1295,
+      "includes_zero": true
+    },
+    "A_minus_C": {
+      "point": -0.2512,
+      "ci_low": -0.3916,
+      "ci_high": -0.1106,
+      "bootstrap_sd": 0.0717,
+      "mde_95": 0.1405,
+      "includes_zero": false
+    },
+    "A_minus_D": {
+      "point": -0.0503,
+      "ci_low": -0.1907,
+      "ci_high": 0.0974,
+      "bootstrap_sd": 0.0728,
+      "mde_95": 0.1426,
+      "includes_zero": true
+    },
+    "A_minus_B_STRICT": {
+      "point": 0.0711,
+      "ci_low": -0.058,
+      "ci_high": 0.2032,
+      "bootstrap_sd": 0.0671,
+      "mde_95": 0.1315,
+      "includes_zero": true
+    },
+    "A_minus_E": {
+      "point": 0.0482,
+      "ci_low": -0.0926,
+      "ci_high": 0.1954,
+      "bootstrap_sd": 0.0735,
+      "mde_95": 0.144,
+      "includes_zero": true
+    }
+  },
+  "deltas_weighted_secondary": {
+    "A_minus_B": {
+      "point": -0.0285,
+      "ci_low": -0.1663,
+      "ci_high": 0.1141,
+      "bootstrap_sd": 0.0716,
+      "mde_95": 0.1402,
+      "includes_zero": true
+    },
+    "A_minus_C": {
+      "point": -0.2689,
+      "ci_low": -0.4047,
+      "ci_high": -0.1303,
+      "bootstrap_sd": 0.0699,
+      "mde_95": 0.1369,
+      "includes_zero": false
+    },
+    "A_minus_D": {
+      "point": -0.0723,
+      "ci_low": -0.2048,
+      "ci_high": 0.0658,
+      "bootstrap_sd": 0.0707,
+      "mde_95": 0.1385,
+      "includes_zero": true
+    }
+  },
+  "bands": {
+    "HP_RHO_MIN": 0.35,
+    "HP_SCRAMBLE_MAX": 0.05,
+    "MIN_SURVIVING_PAIRS": 50,
+    "THIN_COVERAGE": 0.3,
+    "HARD_FAIL": "CI(A-B) includes 0 OR A <= D",
+    "HARD_PASS": "A>=0.35 AND CI_low(A-C)>0 AND CI_low(A-B)>0 AND E<=0.05"
+  },
+  "public_calibration_not_arms": {
+    "glove": 0.41,
+    "counter_fitting": 0.58,
+    "human_iaa": 0.67
+  },
+  "positive_control_D_reproduces_predecessor": {
+    "n": 639,
+    "prior_n": 639,
+    "rho_weighted": 0.0804,
+    "prior_rho_weighted": 0.0804,
+    "abs_deviation": 0.0,
+    "tolerance": 0.01,
+    "reproduced": true
+  },
+  "diagnostics": {
+    "analytic_incidence_rho_A": -0.0005,
+    "analytic_incidence_rho_B": -0.0133,
+    "median_diff_features_per_word": 24,
+    "median_genus_features_per_word": 8,
+    "n_features_A": 13269,
+    "n_features_B": 4428,
+    "n_features_D": 24403,
+    "baseline_in_band_B": false,
+    "se_rho_naive_independent_NOT_USED": 0.0535
+  },
+  "supply_provenance": {
+    "n_shards": 14,
+    "n_rows": 169982,
+    "n_population_terms": 119720,
+    "n_population_features": 58435,
+    "patterns_present": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden_present": [],
+    "load_elapsed_s": 1.03
+  },
+  "v6_provenance": {
+    "path": "data\\exp_definitional_predicate_v6\\isa_facts_unchanged_v6.jsonl",
+    "pattern_counts": {
+      "APPOSITIVE": 982,
+      "COPULA": 2785,
+      "CALLED": 1550,
+      "REFERS_TO": 72,
+      "GLOSSARY_COLON": 327
+    },
+    "simlex_words_covered_allpat": 169,
+    "simlex_words_covered_strict": 107
+  },
+  "hdlab_modified": false,
+  "units": {
+    "A_DIFFERENTIA|UNIFORM|full|350": {
+      "rho": 0.024733660506677083,
+      "n": 350,
+      "digest": "8cb753b7373bb5f4adc7b29fbf1ccba8b026ba9bc198924bdf4f6bcda7c41193",
+      "score_std": 0.04400060872519808,
+      "failure_class": null
+    },
+    "A_DIFFERENTIA|WEIGHTED|full|350": {
+      "rho": 0.006984970235205223,
+      "n": 350,
+      "digest": "23c26fe240751c467c28221dbcc4be4a06035ad87e7628592ea95ec860874e79",
+      "score_std": 0.035054182166001535,
+      "failure_class": null
+    },
+    "B_GENUS_ONLY|UNIFORM|full|350": {
+      "rho": 0.01793426325467175,
+      "n": 350,
+      "digest": "4c30fbbc2b0db62730d7f4fca66ea6995cc5ed9bb9f9aa8443c3e1db2afa7c3a",
+      "score_std": 0.08252470454857347,
+      "failure_class": null
+    },
+    "B_GENUS_ONLY|WEIGHTED|full|350": {
+      "rho": 0.035449800528977074,
+      "n": 350,
+      "digest": "f88deab73c20ee82c434bd56081b67d17fb4797ab21da5c66af4163fe8b4d2f4",
+      "score_std": 0.07895510817537106,
+      "failure_class": null
+    },
+    "B_STRICT_GENUS|UNIFORM|full|350": {
+      "rho": -0.04640972914743186,
+      "n": 350,
+      "digest": "ffb8d67fba97d74da96cb1648f85d3a6027c3361af9dcd1fd252bb3f697ae139",
+      "score_std": 0.08127831379244402,
+      "failure_class": null
+    },
+    "B_STRICT_GENUS|WEIGHTED|full|350": {
+      "rho": -0.04916433592268337,
+      "n": 350,
+      "digest": "8c12fd4915c875af4512968e6cea97a7b4cceb92fcb32db86edd94b4f36edbdd",
+      "score_std": 0.07589077469294808,
+      "failure_class": null
+    },
+    "D_CSKG_NOLEXREL|UNIFORM|full|350": {
+      "rho": 0.07507495998407439,
+      "n": 350,
+      "digest": "bac682e5ee39e408c63507a50a4de5f287f4d8d0afa4835ee284d8da5f0c1b20",
+      "score_std": 0.06413649650807757,
+      "failure_class": null
+    },
+    "D_CSKG_NOLEXREL|WEIGHTED|full|350": {
+      "rho": 0.0792671176927072,
+      "n": 350,
+      "digest": "c8a7f02773dc5c0a1536783e163f0d841f0575398c0ff52f029a2acd9312039f",
+      "score_std": 0.05524989222798154,
+      "failure_class": null
+    },
+    "E_SCRAMBLE|UNIFORM|full|350": {
+      "rho": -0.023465726978377524,
+      "n": 350,
+      "digest": "53109e4ed9626426a1a71600f3e1fd11b80a1e636037d8baccc6049c64134cf2",
+      "score_std": 0.06263100771348594,
+      "failure_class": null
+    },
+    "E_SCRAMBLE|WEIGHTED|full|350": {
+      "rho": -0.0772347853860884,
+      "n": 350,
+      "digest": "ac9788dca6f0dd0eeea5a8b4d9b719301331d31e0f2a0f152dd28947fc2ef78f",
+      "score_std": 0.058131374765130424,
+      "failure_class": null
+    },
+    "C_GROUNDED_RAW|RAW|full|350": {
+      "rho": 0.27589911694218383,
+      "n": 350,
+      "digest": "845efea3eaa403733e6cde2543ac783b37ae8509d14f5ecbd7b2b502a01f78bb",
+      "score_std": 0.3434006167886605,
+      "failure_class": null
+    }
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "verdict": "EXTRACTION_OK",
+  "verdict_msg": "simplewiki FULL: 2779032 lines, 2768769 sentences, 169982 treatment facts (COPULA+GLOSSARY_COLON), 119720 distinct terms; per-pattern ALL={\"APPOSITIVE\": 26814, \"CALLED\": 30143, \"COPULA\": 163797, \"GLOSSARY_COLON\": 6185, \"REFERS_TO\": 1194}; FORBIDDEN {CALLED,REFERS_TO,APPOSITIVE} persisted=0 (asserted)",
+  "summary": "differentia supply extraction from full Simple English Wikipedia",
+  "elapsed_s": 254.083,
+  "run_mode": "full",
+  "anchor_name": "exp_differentia_simplewiki_extract_v1",
+  "prereg": "preregs/2026-08-13_differentia_feature_supply.md",
+  "ts_iso": "2026-08-14T00:41:51.077442+00:00",
+  "n_units": 14,
+  "expected_n_units": 14,
+  "cardinality_ok": true,
+  "corpus": "data\\corpora\\simplewiki\\simplewiki_clean_v1.txt",
+  "n_lines_read": 2779032,
+  "n_sentences_processed": 2768769,
+  "n_treatment_facts": 169982,
+  "n_distinct_terms": 119720,
+  "pattern_counts_all_five": {
+    "COPULA": 163797,
+    "APPOSITIVE": 26814,
+    "GLOSSARY_COLON": 6185,
+    "CALLED": 30143,
+    "REFERS_TO": 1194
+  },
+  "treatment_patterns_frozen_in_advance": [
+    "COPULA",
+    "GLOSSARY_COLON"
+  ],
+  "forbidden_patterns": [
+    "CALLED",
+    "REFERS_TO",
+    "APPOSITIVE"
+  ],
+  "forbidden_pattern_assertion": {
+    "persisted_patterns": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden_persisted": [],
+    "assertion": "sorted(set(persisted)) subset of ['COPULA','GLOSSARY_COLON']",
+    "result": "PASS"
+  },
+  "hdlab_modified": false,
+  "written_to_foundation_store": false,
+  "banked_to_canonical_fact_store": false,
+  "units": {
+    "block|0": {
+      "block_idx": 0,
+      "first_line_no": 1,
+      "n_lines": 200000,
+      "n_sentences_processed": 199855,
+      "pattern_counts_all": {
+        "COPULA": 5532,
+        "APPOSITIVE": 1386,
+        "GLOSSARY_COLON": 214,
+        "CALLED": 2143,
+        "REFERS_TO": 75
+      },
+      "n_facts_kept": 5746,
+      "shard": "facts_block_000.jsonl",
+      "failure_class": null
+    },
+    "block|1": {
+      "block_idx": 1,
+      "first_line_no": 200001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199720,
+      "pattern_counts_all": {
+        "COPULA": 9254,
+        "APPOSITIVE": 1944,
+        "GLOSSARY_COLON": 311,
+        "CALLED": 3133,
+        "REFERS_TO": 131
+      },
+      "n_facts_kept": 9565,
+      "shard": "facts_block_001.jsonl",
+      "failure_class": null
+    },
+    "block|2": {
+      "block_idx": 2,
+      "first_line_no": 400001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199301,
+      "pattern_counts_all": {
+        "COPULA": 11035,
+        "APPOSITIVE": 2236,
+        "GLOSSARY_COLON": 411,
+        "CALLED": 2980,
+        "REFERS_TO": 210
+      },
+      "n_facts_kept": 11446,
+      "shard": "facts_block_002.jsonl",
+      "failure_class": null
+    },
+    "block|3": {
+      "block_idx": 3,
+      "first_line_no": 600001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199317,
+      "pattern_counts_all": {
+        "COPULA": 19423,
+        "APPOSITIVE": 2203,
+        "GLOSSARY_COLON": 473,
+        "CALLED": 2395,
+        "REFERS_TO": 101
+      },
+      "n_facts_kept": 19896,
+      "shard": "facts_block_003.jsonl",
+      "failure_class": null
+    },
+    "block|4": {
+      "block_idx": 4,
+      "first_line_no": 800001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199245,
+      "pattern_counts_all": {
+        "COPULA": 9768,
+        "APPOSITIVE": 2082,
+        "GLOSSARY_COLON": 634,
+        "CALLED": 2407,
+        "REFERS_TO": 93
+      },
+      "n_facts_kept": 10402,
+      "shard": "facts_block_004.jsonl",
+      "failure_class": null
+    },
+    "block|5": {
+      "block_idx": 5,
+      "first_line_no": 1000001,
+      "n_lines": 200000,
+      "n_sentences_processed": 198936,
+      "pattern_counts_all": {
+        "COPULA": 10236,
+        "APPOSITIVE": 1940,
+        "GLOSSARY_COLON": 560,
+        "CALLED": 2241,
+        "REFERS_TO": 93
+      },
+      "n_facts_kept": 10796,
+      "shard": "facts_block_005.jsonl",
+      "failure_class": null
+    },
+    "block|6": {
+      "block_idx": 6,
+      "first_line_no": 1200001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199106,
+      "pattern_counts_all": {
+        "COPULA": 10781,
+        "APPOSITIVE": 1624,
+        "GLOSSARY_COLON": 526,
+        "CALLED": 2246,
+        "REFERS_TO": 105
+      },
+      "n_facts_kept": 11307,
+      "shard": "facts_block_006.jsonl",
+      "failure_class": null
+    },
+    "block|7": {
+      "block_idx": 7,
+      "first_line_no": 1400001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199499,
+      "pattern_counts_all": {
+        "COPULA": 10007,
+        "APPOSITIVE": 1574,
+        "GLOSSARY_COLON": 407,
+        "CALLED": 1707,
+        "REFERS_TO": 55
+      },
+      "n_facts_kept": 10414,
+      "shard": "facts_block_007.jsonl",
+      "failure_class": null
+    },
+    "block|8": {
+      "block_idx": 8,
+      "first_line_no": 1600001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199167,
+      "pattern_counts_all": {
+        "COPULA": 11915,
+        "APPOSITIVE": 2095,
+        "GLOSSARY_COLON": 340,
+        "CALLED": 1719,
+        "REFERS_TO": 54
+      },
+      "n_facts_kept": 12255,
+      "shard": "facts_block_008.jsonl",
+      "failure_class": null
+    },
+    "block|9": {
+      "block_idx": 9,
+      "first_line_no": 1800001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199200,
+      "pattern_counts_all": {
+        "COPULA": 13390,
+        "APPOSITIVE": 1840,
+        "GLOSSARY_COLON": 316,
+        "CALLED": 1699,
+        "REFERS_TO": 46
+      },
+      "n_facts_kept": 13706,
+      "shard": "facts_block_009.jsonl",
+      "failure_class": null
+    },
+    "block|10": {
+      "block_idx": 10,
+      "first_line_no": 2000001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199245,
+      "pattern_counts_all": {
+        "COPULA": 15223,
+        "APPOSITIVE": 1954,
+        "GLOSSARY_COLON": 394,
+        "CALLED": 1510,
+        "REFERS_TO": 93
+      },
+      "n_facts_kept": 15617,
+      "shard": "facts_block_010.jsonl",
+      "failure_class": null
+    },
+    "block|11": {
+      "block_idx": 11,
+      "first_line_no": 2200001,
+      "n_lines": 200000,
+      "n_sentences_processed": 199082,
+      "pattern_counts_all": {
+        "COPULA": 15534,
+        "APPOSITIVE": 1774,
+        "GLOSSARY_COLON": 462,
+        "CALLED": 1670,
+        "REFERS_TO": 38
+      },
+      "n_facts_kept": 15996,
+      "shard": "facts_block_011.jsonl",
+      "failure_class": null
+    },
+    "block|12": {
+      "block_idx": 12,
+      "first_line_no": 2400001,
+      "n_lines": 200000,
+      "n_sentences_processed": 198949,
+      "pattern_counts_all": {
+        "COPULA": 12341,
+        "APPOSITIVE": 2245,
+        "GLOSSARY_COLON": 620,
+        "CALLED": 2188,
+        "REFERS_TO": 49
+      },
+      "n_facts_kept": 12961,
+      "shard": "facts_block_012.jsonl",
+      "failure_class": null
+    },
+    "block|13": {
+      "block_idx": 13,
+      "first_line_no": 2600001,
+      "n_lines": 179032,
+      "n_sentences_processed": 178147,
+      "pattern_counts_all": {
+        "COPULA": 9358,
+        "APPOSITIVE": 1917,
+        "GLOSSARY_COLON": 517,
+        "CALLED": 2105,
+        "REFERS_TO": 51
+      },
+      "n_facts_kept": 9875,
+      "shard": "facts_block_013.jsonl",
+      "failure_class": null
+    }
+  }
+}

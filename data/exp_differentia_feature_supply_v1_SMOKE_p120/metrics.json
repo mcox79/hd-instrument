@@ -1,0 +1,427 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "n_surviving=12 (L1=5 L2=1 L3=2 union=5 of 17 covered) | A=-0.1329 B=0.0629 C=0.4755 D=-0.3007 E=0.0979 | A-B=-0.1958 [-1.0571,0.6137] A-C=-0.6084 [-1.2177,0.0580] A-D=+0.1678 [-0.4517,0.8215] | coverage999=0.012",
+  "notes": [
+    "CI(A-B)=[-1.0571,0.6137] includes 0: the DIFFERENTIA adds nothing over the GENUS."
+  ],
+  "summary": "extractor-derived DIFFERENTIA supply vs genus / grounded / CSKG on SimLex-999",
+  "elapsed_s": 12.943,
+  "run_mode": "smoke",
+  "anchor_name": "exp_differentia_feature_supply_v1",
+  "prereg": "preregs/2026-08-13_differentia_feature_supply.md",
+  "prereg_amendment": "A1 (commit 64a4ea4c2), filed BEFORE extraction and BEFORE any arm",
+  "pattern_restriction_frozen_in_advance": {
+    "treatment": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden": [
+      "CALLED",
+      "REFERS_TO",
+      "APPOSITIVE"
+    ],
+    "patterns_present_in_supply": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden_present_in_supply": [],
+    "assertion": "PASS"
+  },
+  "forbidden_conceptnet_edges_in_treatment_arms": {
+    "asserted": "no feature token in A/B/E begins with '/r/'",
+    "result": "PASS"
+  },
+  "ts_iso": "2026-08-14T00:48:17.979626+00:00",
+  "n_units": 11,
+  "expected_n_units": 11,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A_DIFFERENTIA|UNIFORM": "be52670ad6699752e6c00575607bfc207373d2cbe096a43921efc3922fdee301",
+    "A_DIFFERENTIA|WEIGHTED": "5f09cb00df64dcc083db63052b64aeb5fe8dce536d4fc8470fc544a11eae0d65",
+    "B_GENUS_ONLY|UNIFORM": "598e6072199b0607348075d42881b13f582a3f8dc3f55c992fe1527051799ed1",
+    "B_GENUS_ONLY|WEIGHTED": "98c806e446467e897c9e123de88dcbae9a6c644dd68c271572d72908892fa2e4",
+    "B_STRICT_GENUS|UNIFORM": "2551c61b6af9fc7ba033c945a3ffa6ae7dddccec3dae0623b7ac2051ba2b4526",
+    "B_STRICT_GENUS|WEIGHTED": "20929e749685256590ca98e3f27b07191458abc40f86d36cf70502bab0be0a12",
+    "D_CSKG_NOLEXREL|UNIFORM": "844ed21422ac3876d042ecaaed04e4b1af520ff74d39d7a5caab00191a7aa185",
+    "D_CSKG_NOLEXREL|WEIGHTED": "3b05e794aacda8ddbd3b50a961c6220acf7df3d180a58ba162d3dda1b4d58817",
+    "E_SCRAMBLE|UNIFORM": "3fe806f441e2ea1e049b5b5b577af688c729a8ed5db76756720801547683f4c7",
+    "E_SCRAMBLE|WEIGHTED": "3e60d531bc91f53cdbd64c17eed40e250b30f6c3abd18403867632fb2171ca6b",
+    "C_GROUNDED_RAW|RAW": "5f8a097b7b5bf8d534c2b243b301d9d8424387f9ac343902936b9ca0df253fa6"
+  },
+  "leak_controls": {
+    "n_pairs_before_controls": 17,
+    "L1_direct_leak": {
+      "n": 5,
+      "sample": [
+        [
+          "book",
+          "text"
+        ],
+        [
+          "horse",
+          "mare"
+        ],
+        [
+          "night",
+          "day"
+        ],
+        [
+          "south",
+          "north"
+        ],
+        [
+          "wife",
+          "husband"
+        ]
+      ],
+      "definition": "a's definiens names b (whole word, surface or lemma), or vice versa"
+    },
+    "L2_synonym_statement_leak": {
+      "n": 1,
+      "sample": [
+        [
+          "night",
+          "day"
+        ]
+      ],
+      "phrases": [
+        "another name for",
+        "also known as",
+        "same as",
+        "another word for",
+        "another term for",
+        "also called"
+      ],
+      "definition": "an explicit synonymy construction in either word's definiens or its source sentence"
+    },
+    "L3_source_sentence_overlap": {
+      "n": 2,
+      "sample": [
+        [
+          "night",
+          "day"
+        ],
+        [
+          "south",
+          "north"
+        ]
+      ],
+      "definition": "a and b defined from the SAME source line"
+    },
+    "n_excluded_union": 5,
+    "n_surviving": 12,
+    "all_three_excluded_from_primary": true,
+    "coverage_before_controls_of_evaluated": 0.1417,
+    "eligibility_before_leak_controls": {
+      "n_pairs_differentia_covered": 33,
+      "n_pairs_also_in_grounded_lexicon": 33,
+      "n_pairs_also_scorable_by_arm_D": 17,
+      "n_lost_to_arm_D_coverage": 16,
+      "why": "every arm must be scored on the SAME pairs for the paired bootstrap; arm D has no features for words whose only ConceptNet edges were the deleted lexical relations"
+    }
+  },
+  "n_pairs_evaluated_before_controls": 17,
+  "n_surviving_pairs": 12,
+  "coverage_of_full_999": 0.012,
+  "primary_comparator": "UNIFORM",
+  "rho_primary": {
+    "A": -0.1329,
+    "B": 0.0629,
+    "B_STRICT": 0.5315,
+    "C": 0.4755,
+    "D": -0.3007,
+    "E": 0.0979
+  },
+  "rho_all_units": {
+    "A_DIFFERENTIA|UNIFORM": -0.1329,
+    "A_DIFFERENTIA|WEIGHTED": -0.035,
+    "B_GENUS_ONLY|UNIFORM": 0.0629,
+    "B_GENUS_ONLY|WEIGHTED": -0.2657,
+    "B_STRICT_GENUS|UNIFORM": 0.5315,
+    "B_STRICT_GENUS|WEIGHTED": 0.3077,
+    "D_CSKG_NOLEXREL|UNIFORM": -0.3007,
+    "D_CSKG_NOLEXREL|WEIGHTED": -0.3077,
+    "E_SCRAMBLE|UNIFORM": 0.0979,
+    "E_SCRAMBLE|WEIGHTED": 0.3077,
+    "C_GROUNDED_RAW|RAW": 0.4755
+  },
+  "bootstrap": {
+    "n_boot_requested": 5000,
+    "n_boot_used": 5000,
+    "n_degenerate_resamples": 0,
+    "seed": 20260813,
+    "arm_ci": {
+      "A": {
+        "lo": -0.7490774907749078,
+        "hi": 0.6113177752753723,
+        "sd": 0.34503220046200683
+      },
+      "B": {
+        "lo": -0.6531365313653137,
+        "hi": 0.7343660030006887,
+        "sd": 0.3577965738304612
+      },
+      "B_STRICT": {
+        "lo": -0.18729065973491466,
+        "hi": 0.9357142857142858,
+        "sd": 0.27758187216684516
+      },
+      "C": {
+        "lo": -0.09750862855555995,
+        "hi": 0.909484091067325,
+        "sd": 0.25430857814731184
+      },
+      "D": {
+        "lo": -0.7338368015265208,
+        "hi": 0.3285211449200619,
+        "sd": 0.2743549983640617
+      },
+      "E": {
+        "lo": -0.5217638339920948,
+        "hi": 0.6774193548387096,
+        "sd": 0.3116011176584968
+      }
+    },
+    "delta_ci": {}
+  },
+  "bootstrap_weighted_secondary": {
+    "n_boot_requested": 5000,
+    "n_boot_used": 5000,
+    "n_degenerate_resamples": 0,
+    "seed": 20260813,
+    "arm_ci": {
+      "A": {
+        "lo": -0.6357142857142858,
+        "hi": 0.6496441605839416,
+        "sd": 0.32691104155878165
+      },
+      "B": {
+        "lo": -0.8571428571428572,
+        "hi": 0.45986845560048295,
+        "sd": 0.3570543345217097
+      },
+      "C": {
+        "lo": -0.09750862855555995,
+        "hi": 0.909484091067325,
+        "sd": 0.25430857814731184
+      },
+      "D": {
+        "lo": -0.6934306569343066,
+        "hi": 0.3213028623001547,
+        "sd": 0.25872608004583975
+      },
+      "E": {
+        "lo": -0.26545454545454544,
+        "hi": 0.731908256160728,
+        "sd": 0.25546030614803283
+      }
+    },
+    "delta_ci": {}
+  },
+  "deltas_primary": {
+    "A_minus_B": {
+      "point": -0.1958,
+      "ci_low": -1.0571,
+      "ci_high": 0.6137,
+      "bootstrap_sd": 0.4401,
+      "mde_95": 0.8626,
+      "includes_zero": true
+    },
+    "A_minus_C": {
+      "point": -0.6084,
+      "ci_low": -1.2177,
+      "ci_high": 0.058,
+      "bootstrap_sd": 0.3267,
+      "mde_95": 0.6403,
+      "includes_zero": true
+    },
+    "A_minus_D": {
+      "point": 0.1678,
+      "ci_low": -0.4517,
+      "ci_high": 0.8215,
+      "bootstrap_sd": 0.3259,
+      "mde_95": 0.6388,
+      "includes_zero": true
+    },
+    "A_minus_B_STRICT": {
+      "point": -0.6643,
+      "ci_low": -1.491,
+      "ci_high": 0.5145,
+      "bootstrap_sd": 0.5139,
+      "mde_95": 1.0073,
+      "includes_zero": true
+    },
+    "A_minus_E": {
+      "point": -0.2308,
+      "ci_low": -1.1218,
+      "ci_high": 0.7754,
+      "bootstrap_sd": 0.4906,
+      "mde_95": 0.9617,
+      "includes_zero": true
+    }
+  },
+  "deltas_weighted_secondary": {
+    "A_minus_B": {
+      "point": 0.2308,
+      "ci_low": -0.6961,
+      "ci_high": 1.1112,
+      "bootstrap_sd": 0.4734,
+      "mde_95": 0.9279,
+      "includes_zero": true
+    },
+    "A_minus_C": {
+      "point": -0.5105,
+      "ci_low": -1.1753,
+      "ci_high": 0.1429,
+      "bootstrap_sd": 0.3384,
+      "mde_95": 0.6633,
+      "includes_zero": true
+    },
+    "A_minus_D": {
+      "point": 0.2727,
+      "ci_low": -0.2983,
+      "ci_high": 0.8429,
+      "bootstrap_sd": 0.2782,
+      "mde_95": 0.5453,
+      "includes_zero": true
+    }
+  },
+  "bands": {
+    "HP_RHO_MIN": 0.35,
+    "HP_SCRAMBLE_MAX": 0.05,
+    "MIN_SURVIVING_PAIRS": 50,
+    "THIN_COVERAGE": 0.3,
+    "HARD_FAIL": "CI(A-B) includes 0 OR A <= D",
+    "HARD_PASS": "A>=0.35 AND CI_low(A-C)>0 AND CI_low(A-B)>0 AND E<=0.05"
+  },
+  "public_calibration_not_arms": {
+    "glove": 0.41,
+    "counter_fitting": 0.58,
+    "human_iaa": 0.67
+  },
+  "positive_control_D_reproduces_predecessor": {
+    "n": 639,
+    "prior_n": 639,
+    "rho_weighted": 0.0804,
+    "prior_rho_weighted": 0.0804,
+    "abs_deviation": 0.0,
+    "tolerance": 0.01,
+    "reproduced": true
+  },
+  "diagnostics": {
+    "analytic_incidence_rho_A": 0.1101,
+    "analytic_incidence_rho_B": 0.2184,
+    "median_diff_features_per_word": 12,
+    "median_genus_features_per_word": 4,
+    "n_features_A": 13269,
+    "n_features_B": 4428,
+    "n_features_D": 24403,
+    "baseline_in_band_B": true,
+    "se_rho_naive_independent_NOT_USED": 0.3015
+  },
+  "supply_provenance": {
+    "n_shards": 14,
+    "n_rows": 169982,
+    "n_population_terms": 119720,
+    "n_population_features": 58435,
+    "patterns_present": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden_present": [],
+    "load_elapsed_s": 1.02
+  },
+  "v6_provenance": {
+    "path": "data\\exp_definitional_predicate_v6\\isa_facts_unchanged_v6.jsonl",
+    "pattern_counts": {
+      "APPOSITIVE": 982,
+      "COPULA": 2785,
+      "CALLED": 1550,
+      "REFERS_TO": 72,
+      "GLOSSARY_COLON": 327
+    },
+    "simlex_words_covered_allpat": 169,
+    "simlex_words_covered_strict": 107
+  },
+  "hdlab_modified": false,
+  "units": {
+    "A_DIFFERENTIA|UNIFORM|smoke|12": {
+      "rho": -0.1328671328671329,
+      "n": 12,
+      "digest": "be52670ad6699752e6c00575607bfc207373d2cbe096a43921efc3922fdee301",
+      "score_std": 0.049481773410006966,
+      "failure_class": null
+    },
+    "A_DIFFERENTIA|WEIGHTED|smoke|12": {
+      "rho": -0.034965034965034975,
+      "n": 12,
+      "digest": "5f09cb00df64dcc083db63052b64aeb5fe8dce536d4fc8470fc544a11eae0d65",
+      "score_std": 0.05991608807008337,
+      "failure_class": null
+    },
+    "B_GENUS_ONLY|UNIFORM|smoke|12": {
+      "rho": 0.06293706293706294,
+      "n": 12,
+      "digest": "598e6072199b0607348075d42881b13f582a3f8dc3f55c992fe1527051799ed1",
+      "score_std": 0.021565468388451952,
+      "failure_class": null
+    },
+    "B_GENUS_ONLY|WEIGHTED|smoke|12": {
+      "rho": -0.2657342657342658,
+      "n": 12,
+      "digest": "98c806e446467e897c9e123de88dcbae9a6c644dd68c271572d72908892fa2e4",
+      "score_std": 0.019813646531679673,
+      "failure_class": null
+    },
+    "B_STRICT_GENUS|UNIFORM|smoke|12": {
+      "rho": 0.5314685314685316,
+      "n": 12,
+      "digest": "2551c61b6af9fc7ba033c945a3ffa6ae7dddccec3dae0623b7ac2051ba2b4526",
+      "score_std": 0.02079017122509028,
+      "failure_class": null
+    },
+    "B_STRICT_GENUS|WEIGHTED|smoke|12": {
+      "rho": 0.3076923076923077,
+      "n": 12,
+      "digest": "20929e749685256590ca98e3f27b07191458abc40f86d36cf70502bab0be0a12",
+      "score_std": 0.01694396997568612,
+      "failure_class": null
+    },
+    "D_CSKG_NOLEXREL|UNIFORM|smoke|12": {
+      "rho": -0.30069930069930073,
+      "n": 12,
+      "digest": "844ed21422ac3876d042ecaaed04e4b1af520ff74d39d7a5caab00191a7aa185",
+      "score_std": 0.12519725033549794,
+      "failure_class": null
+    },
+    "D_CSKG_NOLEXREL|WEIGHTED|smoke|12": {
+      "rho": -0.3076923076923077,
+      "n": 12,
+      "digest": "3b05e794aacda8ddbd3b50a961c6220acf7df3d180a58ba162d3dda1b4d58817",
+      "score_std": 0.11972675132672438,
+      "failure_class": null
+    },
+    "E_SCRAMBLE|UNIFORM|smoke|12": {
+      "rho": 0.0979020979020979,
+      "n": 12,
+      "digest": "3fe806f441e2ea1e049b5b5b577af688c729a8ed5db76756720801547683f4c7",
+      "score_std": 0.025231246641620686,
+      "failure_class": null
+    },
+    "E_SCRAMBLE|WEIGHTED|smoke|12": {
+      "rho": 0.3076923076923077,
+      "n": 12,
+      "digest": "3e60d531bc91f53cdbd64c17eed40e250b30f6c3abd18403867632fb2171ca6b",
+      "score_std": 0.01916823670935121,
+      "failure_class": null
+    },
+    "C_GROUNDED_RAW|RAW|smoke|12": {
+      "rho": 0.4755244755244756,
+      "n": 12,
+      "digest": "5f8a097b7b5bf8d534c2b243b301d9d8424387f9ac343902936b9ca0df253fa6",
+      "score_std": 0.36132622414473975,
+      "failure_class": null
+    }
+  }
+}
