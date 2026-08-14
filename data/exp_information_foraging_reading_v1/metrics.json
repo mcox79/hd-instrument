@@ -1,0 +1,1256 @@
+{
+  "anchor_name": "information_foraging_reading_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "D1 dominant-source-share drop vs FROZEN = 0.158483 (need >=0.15); D2 held-out coverage FORAGE 0.061667 vs RANDOM 0.012667 rel=3.868319 (need >=+0.10); D3 WordNet agreement FORAGE 0.351103 vs FROZEN 0.291958 (need delta >= -0.05); D4 oracle ratio 0.534337. FORAGE read 19 corpora / banked from 16; FROZEN read 4. AMENDMENT arm FORAGE_REFUSAL: dom_share 0.415144, heldout 0.025333, wn 0.332335, grounded 383 vs FORAGE 604 vs FROZEN 696. EXPOSURE frac-at-MIN_CONFIRM: FORAGE 0.30294 vs FROZEN 0.443412.",
+  "summary": "HARD_PASS: D1 dominant-source-share drop vs FROZEN = 0.158483 (need >=0.15); D2 held-out coverage FORAGE 0.061667 vs RANDOM 0.012667 rel=3.868319 (need >=+0.10); D3 WordNet agreement FORAGE 0.351103 vs FROZEN 0.291958 (need delta >= -0.05); D4 oracle ratio 0.534337. FORAGE read 19 corpora / banked from 16; FROZEN read 4. AMENDMENT arm FORAGE_REFUSAL: dom_share 0.415144, heldout 0.025333, wn 0.332335, grounde",
+  "elapsed_s": 4144.65,
+  "ts_iso": "2026-08-14T07:25:10.307145+00:00",
+  "checks": {
+    "D1_dominant_share_drop_vs_FROZEN": {
+      "value": 0.158483,
+      "pass_band": ">= 0.15",
+      "pass": true
+    },
+    "D2_heldout_coverage_vs_RANDOM_rel": {
+      "value": 3.868319,
+      "pass_band": ">= +0.10",
+      "pass": true,
+      "forage": 0.061667,
+      "random": 0.012667,
+      "frozen": 0.074333
+    },
+    "D3_wn_agreement_vs_FROZEN": {
+      "forage": 0.351103,
+      "random": 0.386364,
+      "frozen": 0.291958,
+      "delta": 0.059145,
+      "pass_band": "delta >= -0.05 (non-inferiority)",
+      "pass": true
+    },
+    "D4_oracle_ratio": {
+      "value": 0.534337,
+      "pass_band": "0.70 <= r < 1.00",
+      "pass": false,
+      "note": "objective-aligned for FORAGE; mechanism check only"
+    },
+    "mechanism_fired": {
+      "gain_is_value_not_count": true,
+      "travel_updates_fired": true,
+      "multiple_patches": true,
+      "multiple_corpora_chosen": true,
+      "ranked_choice_not_all_fallback": true,
+      "baseline_in_band_META_RULE_AG": true
+    }
+  },
+  "arms": {
+    "FORAGE": {
+      "arm": "FORAGE",
+      "n_sentences_read": 10000,
+      "elapsed_s": 921.05,
+      "read_sentence_digest": "7dd9ebfbc971327b71bd908edafecbde55d379d94dd66bb2e9a4bbb411a45be4",
+      "n_grounded": 604,
+      "n_grounded_per_1k": 60.4,
+      "n_refused": 1633,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 1563,
+        "CLOSED_CLASS_SUBJECT": 70
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.781054,
+      "dominant_source": "textbook_concepts_biology",
+      "dominant_source_share": 0.246689,
+      "domain_balance_entropy": 0.571382,
+      "dominant_domain": "textbook_biology",
+      "dominant_domain_share": 0.63245,
+      "n_distinct_sources_banked": 16,
+      "banked_by_source": {
+        "textbook_concepts_biology": 149,
+        "textbook_biology_2e": 116,
+        "textbook_anatomy_physiology_2e": 102,
+        "breadth_v1": 61,
+        "textbook_chemistry_2e": 46,
+        "arc": 32,
+        "ud_english_ewt": 28,
+        "worldtree": 18,
+        "textbook_microbiology": 15,
+        "wiqa": 11,
+        "process_articles_v1": 8,
+        "anne_of_green_gables": 6,
+        "onestop": 4,
+        "simplewiki": 3,
+        "wizard_of_oz": 3,
+        "tinyshakespeare.txt": 2
+      },
+      "sentences_read_by_corpus": {
+        "textbook_anatomy_physiology_2e": 2501,
+        "textbook_biology_2e": 1138,
+        "arc": 829,
+        "ud_english_ewt": 819,
+        "textbook_concepts_biology": 800,
+        "anne_of_green_gables": 689,
+        "worldtree": 650,
+        "simplewiki": 497,
+        "textbook_chemistry_2e": 490,
+        "wiqa": 366,
+        "process_articles_v1": 243,
+        "onestop": 215,
+        "wizard_of_oz": 204,
+        "breadth_v1": 179,
+        "tom_sawyer": 155,
+        "textbook_microbiology": 124,
+        "tinyshakespeare.txt": 50,
+        "textbook_psychology_2e": 34,
+        "race": 17
+      },
+      "n_distinct_corpora_read": 19,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 185,
+      "heldout_coverage": 0.061667,
+      "heldout_precision": 0.306291,
+      "exposure": {
+        "n_library_items": 10715,
+        "mean_traces_per_item": 2.9848,
+        "median_traces_per_item": 2,
+        "max_traces": 68,
+        "n_items_at_min_confirm": 3246,
+        "frac_items_at_min_confirm": 0.30294
+      },
+      "wordnet": {
+        "n_pairs": 604,
+        "n_scorable": 544,
+        "n_related": 191,
+        "wn_agreement": 0.351103,
+        "wn_scorable_frac": 0.900662,
+        "mean_wup": 0.405938
+      },
+      "foraging": {
+        "achieved_gain_rate": 6.96079561,
+        "total_gain": 75566.397116,
+        "total_time": 10856.0,
+        "rho_final": 2.89754198,
+        "rho_fast_final": 2.89754198,
+        "rho_slow_final": 3.2595082,
+        "kappa_final": 1.018568,
+        "kappa_n_observed": 9723,
+        "n_patches": 107,
+        "mean_patch_residence": 93.4579,
+        "n_travel_updates": 107,
+        "n_visits": 107,
+        "n_distinct_visited": 19,
+        "oracle_rate": 13.02697174,
+        "oracle_ratio": 0.534337,
+        "gain_distinct_values": 9814,
+        "mean_gain": 7.55663971,
+        "learning_progress_first_half_minus_second": -0.002529,
+        "n_choice_ranked": 94,
+        "n_choice_fallback_random": 13,
+        "ranked_choice_frac": 0.878505,
+        "example_targets": [
+          {
+            "primary": "chapter",
+            "target": "huck",
+            "n_candidates": 163
+          },
+          {
+            "primary": "blackberry",
+            "target": "bbm",
+            "n_candidates": 71
+          },
+          {
+            "primary": "level",
+            "target": "domain",
+            "n_candidates": 86
+          },
+          {
+            "primary": "level",
+            "target": "domain",
+            "n_candidates": 85
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 56
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 57
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 57
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 57
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 57
+          },
+          {
+            "primary": "chemistry",
+            "target": "science",
+            "n_candidates": 240
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 100
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 100
+          },
+          {
+            "primary": "openstax",
+            "target": "resource",
+            "n_candidates": 84
+          },
+          {
+            "primary": "openstax",
+            "target": "resource",
+            "n_candidates": 84
+          },
+          {
+            "primary": "chemistry",
+            "target": "science",
+            "n_candidates": 243
+          }
+        ],
+        "example_ranked_choices": [
+          {
+            "target": "bbm",
+            "corpus": "breadth_v1",
+            "score": 1
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_microbiology",
+            "score": 3
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_biology_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "breadth_v1",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "breadth_v1",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "science",
+            "corpus": "textbook_concepts_biology",
+            "score": 8
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "breadth_v1",
+            "score": 1
+          },
+          {
+            "target": "resource",
+            "corpus": "process_articles_v1",
+            "score": 2
+          },
+          {
+            "target": "resource",
+            "corpus": "textbook_biology_2e",
+            "score": 2
+          },
+          {
+            "target": "science",
+            "corpus": "textbook_concepts_biology",
+            "score": 8
+          },
+          {
+            "target": "student",
+            "corpus": "textbook_psychology_2e",
+            "score": 6
+          }
+        ]
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 604,
+        "n_segments": 16,
+        "dominant_segment": "textbook_concepts_biology",
+        "dominant_share": 0.246689,
+        "normalised_entropy": 0.781054,
+        "grounded_by_segment": {
+          "onestop": 4,
+          "textbook_microbiology": 15,
+          "textbook_chemistry_2e": 46,
+          "breadth_v1": 61,
+          "textbook_biology_2e": 116,
+          "textbook_concepts_biology": 149,
+          "textbook_anatomy_physiology_2e": 102,
+          "arc": 32,
+          "worldtree": 18,
+          "ud_english_ewt": 28,
+          "tinyshakespeare.txt": 2,
+          "simplewiki": 3,
+          "anne_of_green_gables": 6,
+          "wiqa": 11,
+          "process_articles_v1": 8,
+          "wizard_of_oz": 3
+        },
+        "refused_by_segment": {
+          "textbook_microbiology": 65,
+          "textbook_chemistry_2e": 72,
+          "breadth_v1": 69,
+          "textbook_biology_2e": 280,
+          "textbook_concepts_biology": 297,
+          "textbook_anatomy_physiology_2e": 394,
+          "arc": 142,
+          "worldtree": 71,
+          "ud_english_ewt": 59,
+          "tinyshakespeare.txt": 14,
+          "simplewiki": 33,
+          "anne_of_green_gables": 44,
+          "wiqa": 65,
+          "process_articles_v1": 18,
+          "wizard_of_oz": 10
+        }
+      }
+    },
+    "RANDOM": {
+      "arm": "RANDOM",
+      "n_sentences_read": 10000,
+      "elapsed_s": 327.92,
+      "read_sentence_digest": "e06f1718a392c6e9f862d8a62b280cb92259be7322b121c2bd06a3afe2875f65",
+      "n_grounded": 157,
+      "n_grounded_per_1k": 15.7,
+      "n_refused": 1177,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 1162,
+        "CLOSED_CLASS_SUBJECT": 15
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.800655,
+      "dominant_source": "arc",
+      "dominant_source_share": 0.267516,
+      "domain_balance_entropy": 0.700469,
+      "dominant_domain": "narrative_fiction",
+      "dominant_domain_share": 0.305732,
+      "n_distinct_sources_banked": 21,
+      "banked_by_source": {
+        "arc": 42,
+        "tom_sawyer": 23,
+        "textbook_biology_2e": 16,
+        "textbook_microbiology": 13,
+        "simplewiki": 12,
+        "anne_of_green_gables": 10,
+        "sherlock_holmes": 8,
+        "graded_readers_graded": 6,
+        "textbook_anatomy_physiology_2e": 4,
+        "ud_english_ewt": 4,
+        "wizard_of_oz": 4,
+        "tinyshakespeare.txt": 3,
+        "onestop": 2,
+        "textbook_psychology_2e": 2,
+        "wiqa": 2,
+        "alice_in_wonderland": 1,
+        "litbank_coref_conll": 1,
+        "little_women": 1,
+        "mcguffey_readers": 1,
+        "race": 1,
+        "textbook_chemistry_2e": 1
+      },
+      "sentences_read_by_corpus": {
+        "arc": 1202,
+        "ud_english_ewt": 747,
+        "simplewiki": 730,
+        "anne_of_green_gables": 723,
+        "sherlock_holmes": 609,
+        "textbook_psychology_2e": 559,
+        "breadth_v1": 497,
+        "wiqa": 450,
+        "mcguffey_readers": 429,
+        "tinyshakespeare.txt": 418,
+        "textbook_biology_2e": 378,
+        "alice_in_wonderland": 328,
+        "tom_sawyer": 303,
+        "textbook_concepts_biology": 287,
+        "textbook_microbiology": 275,
+        "process_articles_v1": 269,
+        "onestop": 264,
+        "graded_readers_graded": 257,
+        "textbook_anatomy_physiology_2e": 221,
+        "textbook_chemistry_2e": 218,
+        "wizard_of_oz": 211,
+        "little_women": 201,
+        "social_iqa": 140,
+        "race": 112,
+        "litbank_coref_conll": 88,
+        "mcguffey_graded": 39,
+        "graded_readers_grade1": 28,
+        "worldtree": 17
+      },
+      "n_distinct_corpora_read": 28,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 38,
+      "heldout_coverage": 0.012667,
+      "heldout_precision": 0.242038,
+      "exposure": {
+        "n_library_items": 12727,
+        "mean_traces_per_item": 2.5312,
+        "median_traces_per_item": 2,
+        "max_traces": 55,
+        "n_items_at_min_confirm": 3469,
+        "frac_items_at_min_confirm": 0.27257
+      },
+      "wordnet": {
+        "n_pairs": 157,
+        "n_scorable": 132,
+        "n_related": 51,
+        "wn_agreement": 0.386364,
+        "wn_scorable_frac": 0.840764,
+        "mean_wup": 0.425623
+      },
+      "foraging": {
+        "achieved_gain_rate": 8.03627109,
+        "total_gain": 86791.727825,
+        "total_time": 10800.0,
+        "rho_final": 2.55197883,
+        "rho_fast_final": 2.55197883,
+        "rho_slow_final": 4.07805091,
+        "kappa_final": 1.022024,
+        "kappa_n_observed": 9772,
+        "n_patches": 100,
+        "mean_patch_residence": 100.0,
+        "n_travel_updates": 100,
+        "n_visits": 100,
+        "n_distinct_visited": 28,
+        "oracle_rate": 14.91718842,
+        "oracle_ratio": 0.538726,
+        "gain_distinct_values": 9851,
+        "mean_gain": 8.67917278,
+        "learning_progress_first_half_minus_second": 0.014871,
+        "n_choice_ranked": 0,
+        "n_choice_fallback_random": 0,
+        "ranked_choice_frac": 0.0,
+        "example_targets": [],
+        "example_ranked_choices": []
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 157,
+        "n_segments": 21,
+        "dominant_segment": "arc",
+        "dominant_share": 0.267516,
+        "normalised_entropy": 0.800655,
+        "grounded_by_segment": {
+          "tinyshakespeare.txt": 3,
+          "textbook_anatomy_physiology_2e": 4,
+          "arc": 42,
+          "ud_english_ewt": 4,
+          "wizard_of_oz": 4,
+          "textbook_microbiology": 13,
+          "anne_of_green_gables": 10,
+          "textbook_psychology_2e": 2,
+          "textbook_biology_2e": 16,
+          "graded_readers_graded": 6,
+          "sherlock_holmes": 8,
+          "simplewiki": 12,
+          "textbook_chemistry_2e": 1,
+          "alice_in_wonderland": 1,
+          "little_women": 1,
+          "mcguffey_readers": 1,
+          "tom_sawyer": 23,
+          "wiqa": 2,
+          "race": 1,
+          "litbank_coref_conll": 1,
+          "onestop": 2
+        },
+        "refused_by_segment": {
+          "tinyshakespeare.txt": 13,
+          "textbook_anatomy_physiology_2e": 4,
+          "arc": 232,
+          "ud_english_ewt": 52,
+          "wizard_of_oz": 15,
+          "textbook_microbiology": 12,
+          "anne_of_green_gables": 80,
+          "textbook_psychology_2e": 54,
+          "textbook_biology_2e": 103,
+          "graded_readers_graded": 106,
+          "sherlock_holmes": 93,
+          "simplewiki": 66,
+          "alice_in_wonderland": 35,
+          "textbook_chemistry_2e": 8,
+          "little_women": 29,
+          "process_articles_v1": 12,
+          "mcguffey_readers": 19,
+          "tom_sawyer": 26,
+          "wiqa": 35,
+          "textbook_concepts_biology": 62,
+          "breadth_v1": 43,
+          "race": 23,
+          "social_iqa": 14,
+          "litbank_coref_conll": 10,
+          "onestop": 31
+        }
+      }
+    },
+    "FROZEN": {
+      "arm": "FROZEN",
+      "n_sentences_read": 10000,
+      "elapsed_s": 338.46,
+      "read_sentence_digest": "377bd24557b195b4e70517406d82f11ae08373a66ccde697d2581bbe51e276e1",
+      "n_grounded": 696,
+      "n_grounded_per_1k": 69.6,
+      "n_refused": 3872,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 3792,
+        "CLOSED_CLASS_SUBJECT": 80
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.886863,
+      "dominant_source": "adv_new",
+      "dominant_source_share": 0.405172,
+      "domain_balance_entropy": 0.523051,
+      "dominant_domain": "news",
+      "dominant_domain_share": 0.882184,
+      "n_distinct_sources_banked": 4,
+      "banked_by_source": {
+        "adv_new": 282,
+        "int_cont": 255,
+        "bio_new": 82,
+        "ele_cont": 77
+      },
+      "sentences_read_by_corpus": {
+        "adv_new": 2500,
+        "bio_new": 2500,
+        "ele_cont": 2500,
+        "int_cont": 2500
+      },
+      "n_distinct_corpora_read": 4,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 223,
+      "heldout_coverage": 0.074333,
+      "heldout_precision": 0.320402,
+      "exposure": {
+        "n_library_items": 7749,
+        "mean_traces_per_item": 3.5047,
+        "median_traces_per_item": 3,
+        "max_traces": 88,
+        "n_items_at_min_confirm": 3436,
+        "frac_items_at_min_confirm": 0.443412
+      },
+      "wordnet": {
+        "n_pairs": 696,
+        "n_scorable": 572,
+        "n_related": 167,
+        "wn_agreement": 0.291958,
+        "wn_scorable_frac": 0.821839,
+        "mean_wup": 0.376494
+      },
+      "foraging": {
+        "achieved_gain_rate": 5.90267209,
+        "total_gain": 59215.606428,
+        "total_time": 10032.0,
+        "rho_final": 2.46193435,
+        "rho_fast_final": 2.46193435,
+        "rho_slow_final": 3.08490694,
+        "kappa_final": 0.950697,
+        "kappa_n_observed": 9903,
+        "n_patches": 4,
+        "mean_patch_residence": 2500.0,
+        "n_travel_updates": 4,
+        "n_visits": 4,
+        "n_distinct_visited": 4,
+        "oracle_rate": 20.36855955,
+        "oracle_ratio": 0.289793,
+        "gain_distinct_values": 9900,
+        "mean_gain": 5.92156064,
+        "learning_progress_first_half_minus_second": 0.024417,
+        "n_choice_ranked": 0,
+        "n_choice_fallback_random": 0,
+        "ranked_choice_frac": 0.0,
+        "example_targets": [],
+        "example_ranked_choices": []
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 696,
+        "n_segments": 4,
+        "dominant_segment": "adv_new",
+        "dominant_share": 0.405172,
+        "normalised_entropy": 0.886863,
+        "grounded_by_segment": {
+          "ele_cont": 77,
+          "int_cont": 255,
+          "adv_new": 282,
+          "bio_new": 82
+        },
+        "refused_by_segment": {
+          "ele_cont": 145,
+          "int_cont": 1281,
+          "adv_new": 1596,
+          "bio_new": 850
+        }
+      }
+    },
+    "FIXED_LEAVE": {
+      "arm": "FIXED_LEAVE",
+      "n_sentences_read": 10000,
+      "elapsed_s": 1735.28,
+      "read_sentence_digest": "8d580e8e6be4eff38d6f87b7460b0fd3fe996930d2f2cc0a44c52d515e26674d",
+      "n_grounded": 440,
+      "n_grounded_per_1k": 44.0,
+      "n_refused": 1464,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 1406,
+        "CLOSED_CLASS_SUBJECT": 58
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.796343,
+      "dominant_source": "textbook_biology_2e",
+      "dominant_source_share": 0.236364,
+      "domain_balance_entropy": 0.565846,
+      "dominant_domain": "textbook_biology",
+      "dominant_domain_share": 0.545455,
+      "n_distinct_sources_banked": 15,
+      "banked_by_source": {
+        "textbook_biology_2e": 104,
+        "textbook_concepts_biology": 78,
+        "anne_of_green_gables": 60,
+        "wizard_of_oz": 56,
+        "textbook_anatomy_physiology_2e": 50,
+        "textbook_psychology_2e": 26,
+        "tom_sawyer": 21,
+        "graded_readers_grade1": 16,
+        "textbook_microbiology": 8,
+        "wiqa": 6,
+        "simplewiki": 5,
+        "textbook_chemistry_2e": 5,
+        "arc": 3,
+        "alice_in_wonderland": 1,
+        "litbank_coref_conll": 1
+      },
+      "sentences_read_by_corpus": {
+        "textbook_biology_2e": 1000,
+        "wizard_of_oz": 960,
+        "textbook_anatomy_physiology_2e": 920,
+        "textbook_concepts_biology": 880,
+        "simplewiki": 720,
+        "arc": 680,
+        "textbook_microbiology": 680,
+        "breadth_v1": 600,
+        "tinyshakespeare.txt": 600,
+        "tom_sawyer": 480,
+        "textbook_chemistry_2e": 320,
+        "alice_in_wonderland": 280,
+        "anne_of_green_gables": 240,
+        "litbank_coref_conll": 200,
+        "process_articles_v1": 200,
+        "sherlock_holmes": 160,
+        "textbook_psychology_2e": 160,
+        "graded_readers_grade1": 120,
+        "mcguffey_graded": 120,
+        "race": 120,
+        "social_iqa": 120,
+        "wiqa": 120,
+        "graded_readers_graded": 80,
+        "mcguffey_readers": 80,
+        "ud_english_ewt": 80,
+        "little_women": 40,
+        "onestop": 40
+      },
+      "n_distinct_corpora_read": 27,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 156,
+      "heldout_coverage": 0.052,
+      "heldout_precision": 0.354545,
+      "exposure": {
+        "n_library_items": 11379,
+        "mean_traces_per_item": 2.7998,
+        "median_traces_per_item": 2,
+        "max_traces": 103,
+        "n_items_at_min_confirm": 3294,
+        "frac_items_at_min_confirm": 0.289481
+      },
+      "wordnet": {
+        "n_pairs": 440,
+        "n_scorable": 417,
+        "n_related": 142,
+        "wn_agreement": 0.340528,
+        "wn_scorable_frac": 0.947727,
+        "mean_wup": 0.410195
+      },
+      "foraging": {
+        "achieved_gain_rate": 6.62578072,
+        "total_gain": 79509.368659,
+        "total_time": 12000.0,
+        "rho_final": 4.11295916,
+        "rho_fast_final": 4.11295916,
+        "rho_slow_final": 4.68824509,
+        "kappa_final": 0.922654,
+        "kappa_n_observed": 9647,
+        "n_patches": 250,
+        "mean_patch_residence": 40.0,
+        "n_travel_updates": 250,
+        "n_visits": 250,
+        "n_distinct_visited": 27,
+        "oracle_rate": 9.33529219,
+        "oracle_ratio": 0.709756,
+        "gain_distinct_values": 9884,
+        "mean_gain": 7.95093687,
+        "learning_progress_first_half_minus_second": -0.041307,
+        "n_choice_ranked": 213,
+        "n_choice_fallback_random": 37,
+        "ranked_choice_frac": 0.852,
+        "example_targets": [
+          {
+            "primary": "iraqi",
+            "target": "baghdad",
+            "n_candidates": 70
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 53
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 60
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 60
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 104
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 104
+          },
+          {
+            "primary": "chemistry",
+            "target": "feature",
+            "n_candidates": 153
+          },
+          {
+            "primary": "openstax",
+            "target": "resource",
+            "n_candidates": 108
+          },
+          {
+            "primary": "openstax",
+            "target": "resource",
+            "n_candidates": 108
+          },
+          {
+            "primary": "openstax",
+            "target": "resource",
+            "n_candidates": 113
+          },
+          {
+            "primary": "openstax",
+            "target": "resource",
+            "n_candidates": 113
+          },
+          {
+            "primary": "openstax",
+            "target": "create",
+            "n_candidates": 104
+          },
+          {
+            "primary": "openstax",
+            "target": "create",
+            "n_candidates": 105
+          },
+          {
+            "primary": "openstax",
+            "target": "create",
+            "n_candidates": 105
+          },
+          {
+            "primary": "feature",
+            "target": "biological",
+            "n_candidates": 109
+          }
+        ],
+        "example_ranked_choices": [
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "breadth_v1",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "breadth_v1",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "feature",
+            "corpus": "textbook_psychology_2e",
+            "score": 3
+          },
+          {
+            "target": "resource",
+            "corpus": "process_articles_v1",
+            "score": 2
+          },
+          {
+            "target": "resource",
+            "corpus": "textbook_biology_2e",
+            "score": 2
+          },
+          {
+            "target": "resource",
+            "corpus": "process_articles_v1",
+            "score": 2
+          },
+          {
+            "target": "resource",
+            "corpus": "textbook_biology_2e",
+            "score": 2
+          },
+          {
+            "target": "create",
+            "corpus": "textbook_concepts_biology",
+            "score": 4
+          },
+          {
+            "target": "create",
+            "corpus": "textbook_chemistry_2e",
+            "score": 3
+          },
+          {
+            "target": "create",
+            "corpus": "textbook_concepts_biology",
+            "score": 4
+          },
+          {
+            "target": "biological",
+            "corpus": "textbook_psychology_2e",
+            "score": 4
+          },
+          {
+            "target": "connection",
+            "corpus": "textbook_biology_2e",
+            "score": 3
+          }
+        ]
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 440,
+        "n_segments": 15,
+        "dominant_segment": "textbook_biology_2e",
+        "dominant_share": 0.236364,
+        "normalised_entropy": 0.796343,
+        "grounded_by_segment": {
+          "textbook_psychology_2e": 26,
+          "textbook_biology_2e": 104,
+          "textbook_concepts_biology": 78,
+          "wizard_of_oz": 56,
+          "tom_sawyer": 21,
+          "anne_of_green_gables": 60,
+          "graded_readers_grade1": 16,
+          "textbook_chemistry_2e": 5,
+          "textbook_microbiology": 8,
+          "textbook_anatomy_physiology_2e": 50,
+          "wiqa": 6,
+          "litbank_coref_conll": 1,
+          "arc": 3,
+          "simplewiki": 5,
+          "alice_in_wonderland": 1
+        },
+        "refused_by_segment": {
+          "textbook_psychology_2e": 17,
+          "textbook_biology_2e": 224,
+          "textbook_concepts_biology": 268,
+          "wizard_of_oz": 224,
+          "tom_sawyer": 105,
+          "anne_of_green_gables": 80,
+          "graded_readers_grade1": 16,
+          "textbook_chemistry_2e": 14,
+          "textbook_microbiology": 22,
+          "textbook_anatomy_physiology_2e": 284,
+          "wiqa": 23,
+          "breadth_v1": 13,
+          "litbank_coref_conll": 18,
+          "arc": 37,
+          "simplewiki": 49,
+          "tinyshakespeare.txt": 55,
+          "mcguffey_readers": 10,
+          "alice_in_wonderland": 5
+        }
+      }
+    },
+    "FORAGE_REFUSAL": {
+      "arm": "FORAGE_REFUSAL",
+      "n_sentences_read": 10000,
+      "elapsed_s": 814.36,
+      "read_sentence_digest": "1626d069523edc010e5f0bb2ecc07a2c60e8b3ac87c544ef3be182cbb7277558",
+      "n_grounded": 383,
+      "n_grounded_per_1k": 38.3,
+      "n_refused": 1419,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 1397,
+        "CLOSED_CLASS_SUBJECT": 22
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.821121,
+      "dominant_source": "textbook_anatomy_physiology_2e",
+      "dominant_source_share": 0.415144,
+      "domain_balance_entropy": 0.820256,
+      "dominant_domain": "textbook_biology",
+      "dominant_domain_share": 0.48564,
+      "n_distinct_sources_banked": 8,
+      "banked_by_source": {
+        "textbook_anatomy_physiology_2e": 159,
+        "onestop": 53,
+        "anne_of_green_gables": 47,
+        "tinyshakespeare.txt": 42,
+        "process_articles_v1": 41,
+        "textbook_microbiology": 27,
+        "arc": 10,
+        "litbank_coref_conll": 4
+      },
+      "sentences_read_by_corpus": {
+        "textbook_anatomy_physiology_2e": 4000,
+        "anne_of_green_gables": 2305,
+        "process_articles_v1": 1208,
+        "textbook_microbiology": 700,
+        "onestop": 655,
+        "tinyshakespeare.txt": 472,
+        "graded_readers_graded": 263,
+        "breadth_v1": 113,
+        "textbook_biology_2e": 92,
+        "litbank_coref_conll": 88,
+        "little_women": 40,
+        "arc": 38,
+        "social_iqa": 26
+      },
+      "n_distinct_corpora_read": 13,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 76,
+      "heldout_coverage": 0.025333,
+      "heldout_precision": 0.198433,
+      "exposure": {
+        "n_library_items": 9994,
+        "mean_traces_per_item": 3.1407,
+        "median_traces_per_item": 2,
+        "max_traces": 92,
+        "n_items_at_min_confirm": 3256,
+        "frac_items_at_min_confirm": 0.325795
+      },
+      "wordnet": {
+        "n_pairs": 383,
+        "n_scorable": 334,
+        "n_related": 111,
+        "wn_agreement": 0.332335,
+        "wn_scorable_frac": 0.872063,
+        "mean_wup": 0.383342
+      },
+      "foraging": {
+        "achieved_gain_rate": 6.9824841,
+        "total_gain": 74908.089406,
+        "total_time": 10728.0,
+        "rho_final": 3.30932506,
+        "rho_fast_final": 3.30932506,
+        "rho_slow_final": 3.36267974,
+        "kappa_final": 0.810968,
+        "kappa_n_observed": 9807,
+        "n_patches": 91,
+        "mean_patch_residence": 109.8901,
+        "n_travel_updates": 91,
+        "n_visits": 91,
+        "n_distinct_visited": 13,
+        "oracle_rate": 15.59670234,
+        "oracle_ratio": 0.44769,
+        "gain_distinct_values": 9883,
+        "mean_gain": 7.49080894,
+        "learning_progress_first_half_minus_second": 0.012909,
+        "n_choice_ranked": 80,
+        "n_choice_fallback_random": 11,
+        "ranked_choice_frac": 0.879121,
+        "example_targets": [
+          {
+            "primary": "sale",
+            "target": "auction",
+            "n_candidates": 118
+          },
+          {
+            "primary": "sale",
+            "target": "auction",
+            "n_candidates": 118
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 44
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 44
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 44
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 44
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 44
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 44
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 48
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 64
+          },
+          {
+            "primary": "village",
+            "target": "scum",
+            "n_candidates": 64
+          },
+          {
+            "primary": "cigarette",
+            "target": "tobacco",
+            "n_candidates": 106
+          },
+          {
+            "primary": "cigarette",
+            "target": "tobacco",
+            "n_candidates": 106
+          },
+          {
+            "primary": "cigarette",
+            "target": "tobacco",
+            "n_candidates": 106
+          },
+          {
+            "primary": "cigarette",
+            "target": "tobacco",
+            "n_candidates": 106
+          }
+        ],
+        "example_ranked_choices": [
+          {
+            "target": "auction",
+            "corpus": "onestop",
+            "score": 2
+          },
+          {
+            "target": "scum",
+            "corpus": "onestop",
+            "score": 1
+          },
+          {
+            "target": "scum",
+            "corpus": "onestop",
+            "score": 1
+          },
+          {
+            "target": "scum",
+            "corpus": "onestop",
+            "score": 1
+          },
+          {
+            "target": "scum",
+            "corpus": "onestop",
+            "score": 1
+          },
+          {
+            "target": "tobacco",
+            "corpus": "breadth_v1",
+            "score": 3
+          },
+          {
+            "target": "tobacco",
+            "corpus": "breadth_v1",
+            "score": 3
+          },
+          {
+            "target": "tobacco",
+            "corpus": "breadth_v1",
+            "score": 3
+          },
+          {
+            "target": "tobacco",
+            "corpus": "breadth_v1",
+            "score": 3
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_microbiology",
+            "score": 3
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_biology_2e",
+            "score": 2
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_microbiology",
+            "score": 3
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_biology_2e",
+            "score": 2
+          },
+          {
+            "target": "domain",
+            "corpus": "textbook_microbiology",
+            "score": 3
+          },
+          {
+            "target": "level",
+            "corpus": "textbook_anatomy_physiology_2e",
+            "score": 7
+          }
+        ]
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 383,
+        "n_segments": 8,
+        "dominant_segment": "textbook_anatomy_physiology_2e",
+        "dominant_share": 0.415144,
+        "normalised_entropy": 0.821121,
+        "grounded_by_segment": {
+          "onestop": 53,
+          "litbank_coref_conll": 4,
+          "textbook_microbiology": 27,
+          "tinyshakespeare.txt": 42,
+          "textbook_anatomy_physiology_2e": 159,
+          "arc": 10,
+          "process_articles_v1": 41,
+          "anne_of_green_gables": 47
+        },
+        "refused_by_segment": {
+          "onestop": 83,
+          "litbank_coref_conll": 4,
+          "textbook_microbiology": 65,
+          "tinyshakespeare.txt": 161,
+          "textbook_anatomy_physiology_2e": 570,
+          "arc": 35,
+          "process_articles_v1": 215,
+          "anne_of_green_gables": 255,
+          "graded_readers_graded": 31
+        }
+      }
+    }
+  },
+  "arm_failures": {},
+  "cardinality": {
+    "expected_n_units": 5,
+    "n_units": 5,
+    "cardinality_ok": true
+  },
+  "arms_differ_verified": true,
+  "config": {
+    "n_dim": 2048,
+    "budget": 10000,
+    "chunk": 150,
+    "schema_thresh": 0.25,
+    "seed_vocab_n": 1000,
+    "heldout_probe_range": [
+      1000,
+      4000
+    ],
+    "travel_tau": 8.0,
+    "rho_halflife": 72.0,
+    "rho_slow_halflife": 360.0,
+    "beta_leave": 4.0,
+    "patch_fixed_len": 40,
+    "substrate_seed": 20260814,
+    "peek_n": 120,
+    "final_metrics_atomicity": "tmp_replace"
+  },
+  "selftest": {
+    "selftest_ok": true,
+    "exercised_entrypoints": [
+      "CorpusRegistry",
+      "ReadingLoopState",
+      "checkpoint_stage_a_detector",
+      "choose_gap_ranked",
+      "deterministic_seeding_ast_scan",
+      "frozen_shelf",
+      "information_foraging",
+      "read_and_track",
+      "substrate_signature",
+      "wordnet_scorer"
+    ],
+    "n_readable_corpora": 28,
+    "gains": [
+      13.227521,
+      5.621938,
+      8.980564
+    ]
+  }
+}
