@@ -77,8 +77,10 @@ compliant.
 from __future__ import annotations
 
 import hashlib
+import math
 import os
 import re
+from collections import Counter
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
@@ -1516,10 +1518,49 @@ def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: s
         "n_linked_this_pass": sum(1 for c in canon_log if not c["self_grounded"]),
         "n_refused_this_pass": sum(1 for r in state.refusals if r["pass_idx"] == pass_idx),
         "n_refused_cumulative": len(state.refusals),
+        # BLIND-SPOT DETECTOR (2026-08-14, PURELY ADDITIVE -- two new keys on a dict nothing
+        # branches on). Every refusal and every banked fact ALREADY carries `segment`; nothing on
+        # disk ever grouped by it, so "64.5% of every definitional fact we have ever banked came
+        # from one biology textbook" was derivable but never derived, for 16 days
+        # (notes/gap_driven_learning_loop_audit_2026-08-13.md sec 5). These two counters ride the
+        # existing persistence path -- the row is written into manifest.json's `growth_curve_all`
+        # by foundation_persistence.save_foundation and reloaded by load_foundation -- so the
+        # imbalance becomes a standing, persisted, first-class field instead of an ad-hoc query
+        # nobody thought to run. This is a DETECTOR, not a fix: it makes the skew loud, it does
+        # not make the loop act on it (that is hdlab/information_foraging.py + corpus_registry.py).
+        "refused_by_segment": dict(Counter(r.get("segment") for r in state.refusals)),
+        "grounded_by_segment": dict(Counter(p.get("segment") for p in state.provenance)),
         "canon_log": canon_log,
     }
     state.growth_curve.append(row)
     return row
+
+
+def segment_skew(growth_row: Mapping[str, object]) -> dict:
+    """Read the blind-spot detector off a growth-curve row (live or reloaded from manifest.json).
+
+    Returns the dominant segment's SHARE of everything banked so far plus the normalised entropy
+    of the segment distribution (1.0 = perfectly balanced across segments, 0.0 = everything from
+    one source). Returns zeros for a row written before the detector existed -- a v1 snapshot has
+    no `grounded_by_segment` key and must not crash a reader."""
+    g = dict(growth_row.get("grounded_by_segment") or {})
+    tot = sum(g.values())
+    if tot <= 0:
+        return {"n_grounded": 0, "n_segments": len(g), "dominant_segment": None,
+                "dominant_share": 0.0, "normalised_entropy": 0.0,
+                "refused_by_segment": dict(growth_row.get("refused_by_segment") or {})}
+    dom = sorted(g.items(), key=lambda kv: (-kv[1], str(kv[0])))[0]
+    ent = 0.0
+    for v in g.values():
+        p = v / tot
+        if p > 0:
+            ent -= p * math.log(p)
+    max_ent = math.log(len(g)) if len(g) > 1 else 1.0
+    return {"n_grounded": tot, "n_segments": len(g), "dominant_segment": dom[0],
+            "dominant_share": round(dom[1] / tot, 6),
+            "normalised_entropy": round(ent / max_ent, 6) if max_ent > 0 else 0.0,
+            "grounded_by_segment": g,
+            "refused_by_segment": dict(growth_row.get("refused_by_segment") or {})}
 
 
 # ===================== formula self-tests ==========================================
