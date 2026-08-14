@@ -20,8 +20,9 @@
 - **552/574 terminal cells have a live `metrics.json` on disk.** 21 have no resolvable directory
   (almost all are cross-seed *aggregate* atoms whose artifacts live in per-seed dirs), 1 has a directory
   but no `metrics.json`.
-- **Floors are the weak spot**: only **132/574 (23%)** carry a detectable control/comparison arm.
-  **322 (56%) have no floor shape of any kind** in their metrics.json — a large slice of those are
+- **Floors are the weak spot**: only **155/574 (27%)** carry a detectable control/comparison arm
+  (132 found lexically + 23 recovered structurally — see §4).
+  **300 (52%) have no floor shape of any kind** in their metrics.json — a large slice of those are
   saturation-by-construction grids (`exp_q_a3_l*_cross_layer_composition`, "all 97 levels EXACT-1.0"),
   which are constructions, not capability wins.
 - The **June-convention warning in the brief is confirmed and is worse than stated**: of 60 terminal cells
@@ -194,12 +195,19 @@ key names defeat a structured walk) and scanned for 18 *shape* regexes, then buc
   bar with nothing to compare against.
 - **Class D — no floor shape at all.**
 
-| class | terminal cells |
+A **second recovery pass** then re-parsed each Class-C/D cell structurally, looking for any dict with
+≥2 numeric sibling values (a multi-arm measurement) containing a **reference-arm key**
+(`_raw`/`_base`/`unwhit`/`frozen`/`plain`/`single`/`hebb`/`argmax`/`standard`/`naive`/`before`/`_off`/
+`chance`/`iid`/`ceiling`/`oracle`/…). That recovered **23 more Class-A cells** whose arm names contain
+no control word at all — e.g. `{hebb_alpha_c, pinv_alpha_c}`, `{cap_unwhitened, cap_pca_whitened}`,
+`{precision1_plain, precision1_alpha05}`, `{acc_before, acc_after}`.
+
+| class | terminal cells (after recovery pass) |
 |---|---|
-| A — control/comparison arm | **132** |
+| A — control/comparison arm | **155** (132 lexical + 23 structurally recovered) |
 | B — contrast/oracle arm only | 17 |
-| C — pre-reg band only | 81 |
-| D — none detected | **322** |
+| C — pre-reg band only | 80 |
+| D — none detected | **300** |
 | (no metrics.json readable) | 22 |
 
 **Individual shape frequencies (terminal set):** `random*` 41, `baseline` 37, `floor` 27,
@@ -328,12 +336,33 @@ a scoring/separation defect; a learned metric is the brain-compatible answer (an
 **Moves: C3, C1.** **Deflation:** `n_enc=2`; the recall scale (0.83) is on a synthetic KV task, not on
 open-vocabulary anchors.
 
-**#5 — the whitening / expansion / pseudoinverse recipe stack (4 cells, one seam)**
-All `chain_grade`, all **~2026-06-16/17 (git-date only)**, all artifacts **EXIST**, none superseded.
-- `exp_pseudoinverse_real_encoder_keys_v1` — pinv vs Hebb on **real whitened MiniLM keys**;
-  `hebb_alpha_c=0.000` → `pinv_alpha_c=0.400`. Floor: Class D by detector; real design is a 2-arm
-  contrast (Hebb arm is the floor). **The headline "400000000×" is a divide-by-zero artifact — the true
-  statement is "Hebb reaches 0 where pinv reaches 0.400". Do not propagate the ratio.**
+**#5 — the pseudoinverse write rule: a 5-CELL REPLICATED FAMILY across 4 encoder classes**
+All `chain_grade`, all terminal, all artifacts **EXIST**, none superseded. All **~2026-06-16/17
+(git-date only)**. **Floor: Class A in every one** — recovered structurally from the
+`{hebb_*, pinv_*}` arm pair (the Hebb arm *is* the floor; no arm name contains a control word,
+which is why the lexical detector missed all 5).
+
+| cell | keys | Hebb | pinv | ratio |
+|---|---|---|---|---|
+| `exp_hebb_vs_pseudoinverse_long_v1` | synthetic, N=4096 | 0.050 | 0.550 | **11.0×** (theory ~7×) |
+| `exp_pb_pinv_llama_l15_keys_v1` | **Llama-L15 causal-LM** | cap **122** | cap **614** | **5.03×** |
+| `exp_f6_bge_large_pinv_mmax_reaudit_v1` | real whitened **BGE-large** | 0.000 | 0.550 | Hebb≈0 → rescue |
+| `exp_pb_e5_vs_bge_pinv_headtohead_v1` | real whitened **E5-large** | 0.000 | 0.550 | Hebb≈0 → rescue |
+| `exp_pseudoinverse_real_encoder_keys_v1` | real whitened **MiniLM** | 0.000 | 0.400 | Hebb≈0 → rescue |
+
+**Why this is the strongest-evidenced item in §5.1:** it is the only lever here that **replicates across
+four independent encoder families plus synthetic**, with a *non-degenerate* anchor point
+(Llama-L15: 122 → 614 capacity, a real 5.03× that is not a divide-by-zero), and the cells' own framing is
+*"largest single capacity lever, swap the write rule"* and *"encoder-class-general"*, *"stacks with
+whitening"*. C3 reads out of a store written with some write rule; if that rule is Hebbian, three of
+these five cells say it is at **zero** capacity on real encoder keys.
+**Moves: C3, C1.** **Action:** determine the live store's write rule before anything else in this section.
+**Deflation:** three of the five ratios are `x/0` and must be quoted as *"Hebb reaches 0 where pinv
+reaches 0.4–0.55"*, **never as "400000000×"** — that literal figure appears in
+`exp_pseudoinverse_real_encoder_keys_v1`'s own `verdict_msg` and is an arithmetic artifact.
+
+**#5b — whitening / dimensional expansion (same seam, weaker numbers)**
+All `chain_grade`, ~06-16/17, artifacts **EXIST**, none superseded. Class A (structurally recovered).
 - `exp_substrate_pca_prewhitening_codebook_v1` — cap 3 → 7 at N=384, ratio 2.33×, 3 seeds bit-identical.
   **Deflate hard: the absolute capacities are 3 and 7 items.** "One-line universal real-encoder rescue"
   is the cell's own framing and is not supported by n=7.
@@ -343,8 +372,11 @@ All `chain_grade`, all **~2026-06-16/17 (git-date only)**, all artifacts **EXIST
   subsumption.** Production rule stated. **The "7000000000×" figure is again a divide-by-zero
   (`expand_only = 0.0`). Do not propagate.**
 **Moves: C3, C1** — same argument as #3, this is the recipe that #3 sits inside.
-**Why below #3:** the numbers are at toy scale and two of the four headline ratios are arithmetic
-artifacts. The *recipe* (last-token pool → expand → whiten → pinv readout) is the asset, not the ratios.
+**Why below #5:** toy scale, and two of these headline ratios are divide-by-zero artifacts.
+**The composite asset is the RECIPE, not any single ratio: last-token pool → dimensional expansion →
+whiten → pseudoinverse write → coarse-to-fine read (#2).** Every stage of that chain is independently
+chain-graded, terminal, and on disk. No cell tests the chain end-to-end — **that is the obvious
+un-run experiment, and it is upstream of the read-out rule that the SNR wall has closed off.**
 
 **#6 — `exp_situation_model_assembly_encoder_retrain_scale_v1`**
 `chain-grade` · **2026-07-31** · artifact **EXISTS** · superseded-by: **none**
@@ -540,12 +572,13 @@ the *word* instead of the *field*.
 
 ## 7. WHAT I COULD NOT FINISH — explicit gaps
 
-1. **NOT DONE — per-cell floor verification beyond the ~30 hand-read cells.** The §4 table (132 Class A /
-   322 Class D) is a **lexical** classification of `metrics.json` only. I hand-verified ~30 cells and found
-   **at least 4 Class-D false negatives** (`last_token_vs_whitening`, `pseudoinverse_real_encoder_keys`,
-   `pca_prewhitening_codebook`, `hallucination_detection_minilm` — all have real contrast arms whose arm
-   names simply don't contain a control word). **The true Class-A count is higher than 132 and I did not
-   measure how much higher.** Do not cite 132/574 as a verified floor rate.
+1. **PARTIALLY DONE — per-cell floor verification.** The first pass was purely lexical and gave
+   132 Class A / 322 Class D. A second, structural pass (multi-arm dict + reference-arm key) recovered
+   **23** more, giving **155 A / 300 D**, and it caught every Class-D false negative I had found by hand
+   (`last_token_vs_whitening`, `pca_prewhitening_codebook`, the whole 5-cell pinv family). **It did NOT
+   catch `exp_substrate_hallucination_detection_minilm_v1`**, whose floor is the grounded-vs-hallucinated
+   *contrast itself* — so false negatives remain. **The true Class-A count is ≥155 and I did not close
+   the gap. Do not cite 155/574 as a verified floor rate; cite it as a lower bound.**
 2. **NOT DONE — dates for the June substrate batch.** ~505 terminal cells have no `ts_iso` in
    `metrics.json` and no `ts` in the ledger. For the §5.1 #1/#3/#5 cells I fell back to **git dates**,
    which the project's own convention says lie. They are internally consistent (the whole
@@ -583,8 +616,13 @@ the *word* instead of the *field*.
    anchors. It found 22% of a 241-atom codebook had a near-identical neighbour and one pair at cos=1.0000
    between two genuinely distinct concepts. If that reproduces at 5491, median rank 84 has a mechanical
    explanation that no cleanup rule can fix.
-4. **Then check the pooling/whitening of the live read-out** (§7 gap 4) against the 0 / 40 / 122 capacity
-   ladder in #3.
+4. **Then audit the live store against the four-stage recipe every part of which is separately
+   chain-graded and on disk:** last-token pool (vs mean-pool: 122 vs 40) → dimensional expansion
+   (844 → 9011) → whitening (stacks, does not subsume) → **pseudoinverse write rule** (5 cells,
+   4 encoder families; Hebbian is at *zero* capacity on real MiniLM/BGE/E5 keys) → coarse-to-fine
+   read (#2, lossless vs full-fine ceiling). **No cell tests the chain end-to-end. That is the
+   experiment.** All of it is upstream of the read-out rule, which is the only place the SNR wall
+   leaves room.
 5. **Do not re-derive** the local-window coref result (§6.2) or the consolidation-schedule refutation
    (§6.3). Both are on disk with clean floors; neither is in a planning doc.
 
