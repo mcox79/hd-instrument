@@ -869,3 +869,198 @@ ABSENCE CLAIM FROM A NAME SEARCH rather than an enumeration. Traps measured: ver
 `metrics.json` (some assets are untracked by design); and a runtime trace of the DEFAULT path
 measures REACHABILITY, never EXISTENCE, so it cannot refute an opt-in module. Keep
 **EXISTS / IS-REACHED / IS-GOOD** as three separate questions and answer them separately.
+
+---
+
+## THE ORTHOGRAPHIC-FLOOR VET (2026-08-14) -- stubbed in `STATUS.md` as "THE FLOOR VET"
+
+Full note: `notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md` (`9ca1cffa2`). Summary of the
+parts that must not be re-derived:
+
+**The comparison IS fair.** `exp_meaning_supply_separation_v1` does not have its own corpus or item
+builder -- it IMPORTS `exp_grounding_readout_known_answer_v1` and calls its `build_corpus`,
+`build_buckets`, `build_space`, `build_items`, `gold_meaning_set`, `MAX_ITEMS` and `MASTER_SEED`
+(lines 69, 382-391, 447). Confirmed by four bit-identical statistics: `A1_BASE` == `B5_OPEN_REAL` =
+0.048, CI [0.04125, 0.05475], sd 0.003414134660129855; `F_SCRAMBLE` == `B6_OPEN_SCRAMBLE` = 0.008,
+CI [0.00525, 0.011], sd 0.001430965936002671; n=4000; 5491 anchors; identical removals (404 not in
+WordNet, 484 no gold anchor, 53 foil fallback). All six triple-checks run (right file / version at
+HEAD, both sources and both metrics unmodified in the working tree / `.venv` / corpus identical by
+construction / same metric definition and denominator / same arm, proven not assumed).
+
+**But the arm was misidentified, and this is the finding.** `arm_scores(base, aux, w)` returns
+`z(base) + w*sum(z(aux))` (lines 235-240) and `A5_STRINGCTRL`'s aux list is `[aux_t]` (line 469).
+The arm therefore carries the FULL substrate signal plus spelling. Its docstring (151-160) says it
+was built to compare two ADD-ON channels, never to be a standalone floor. **"A method with zero
+understanding scores 0.1027" is FALSE. "We underperform a spell-checker" is NOT ESTABLISHED and must
+not be propagated.** The orthography-ONLY number does not exist in any metrics file on disk.
+
+**What is established, and indicts the METRIC.** At the pre-declared `w=0.50`: spelling as an add-on
+buys **+0.0425** hit@1, the trained encoder only **+0.0270**; the cell's own conclusion fields read
+`encoder_gain_exceeds_string_control: false`, `encoder_gain_attributable_to_string_similarity:
+true`. Roughly half the movable range on this score needs no understanding, so a raw hit@1 gain is
+not evidence of a meaning gain unless a standalone string control was run and beaten.
+
+**The shortcut signature (this is what HG3 exists to catch).** `A5_STRINGCTRL` across w --
+hit@1 0.0693 / 0.0905 / 0.1027 climbs, while median rank 28.0 / 25.0 / **31.0** and top-50 0.6068 /
+0.6118 / **0.5867** (below base's 0.5565 at w=1.00) and separation margin (median) -2.278 / -3.178 /
+**-5.537** all degrade. `A4_BOTH` by contrast improves on all four at once (0.0940 / 18.0 / 0.6823 /
+-1.886). A shortcut lifts the winner without moving the distribution.
+
+**`F_PROJDRAW` is misnamed and should be renamed.** Built at line 506 by `build_salted_space(...,
+"PROJDRAW_%d|" % r, ...)`, it re-runs the BASE arm with a different random-projection salt: a
+run-to-run reliability estimate, NOT a no-understanding baseline. All three draws (0.05025, 0.0515,
+0.0525) land ABOVE the 4.80% headline. Treat 4.80% as one draw of a quantity with ~0.005 of seed
+noise; do not compare anything at finer resolution than 0.001.
+
+**`char_trigram_encoder`: EXISTS, NOT REACHED -- measured, not assumed.** Module
+`hdlab/char_trigram_encoder.py`, class `CharTrigramEncoder(n_dim=4096, pad_char=SPACE)` with
+`.encode` / `.encode_batch` / `.nearest`. Runtime trace (`scratch/ortho_trace_char_trigram.py`):
+recorder on BOTH `builtins.__import__` and `importlib.import_module`; eager closure of the live path
+= 40 `hdlab` modules, absent; `process_sentence(state, sentence, episode_id, pass_idx)` EXECUTED on
+three real definitional sentences (returned 5, 6, 5) pulling in ZERO further modules and logging
+ZERO `char_trigram` events. **POSITIVE CONTROL: `StructuralEncoder._load()` -- whose imports sit
+inside a function body at `hdlab/reading_grounding_loop.py:343-345` -- pulled in `arc_labeler`,
+`arc_parser`, `perceptron`, `pos_tagger`, proving the trace sees lazy imports.** Corroboration: an
+AST scan of every function-body import in `hdlab/` lists 26 lazy targets; `char_trigram_encoder` is
+not one, so there is no lazy call site the trace could have missed. Its registry row claims
+`wired_load_bearing` / `WIRED`; runtime overrules it.
+
+**What using it would mean, concretely.** Call site =
+`experiments/exp_grounding_readout_known_answer_v1.py:560-562`, the
+`canonicalize_fast("__slot__", qL, space, thresh=-1.0, eligible_mask=open_base)` open-vocabulary
+argmax -- the one place a spelling channel enters or is removed. Arms it makes possible, none of
+which exist: `F_ORTHO_ONLY` (the missing floor; decides the spell-checker question),
+`F_ORTHO_MAX` (that floor tuned over a grid -- legitimate for a FLOOR, since a floor should be the
+strongest available attack, though NOT for a treatment arm), `A_BASE_ORTHO_RESIDUALIZED` (substrate
+score with the trigram direction projected out -- what does the substrate know that spelling does
+not?), and `SPLIT_LOW_OVERLAP` (hit@1 restricted to items whose gold answer has low string overlap
+with the cue -- the cheapest honest fix, because it removes the confound from the METRIC rather than
+adding another arm, and it is computable from the existing item list).
+
+**`w=0.50` vs `w=1.00`.** The cell pre-declares `headline_w: "w_0.50"` and
+`max_over_w_is_an_optimistic_upper_bound: true`. Use `w=0.50` for arm-vs-arm. The asymmetry worth
+remembering: for a FLOOR, max-over-grid is the RIGHT choice; for a TREATMENT it is cherry-picking.
+Moot here twice over -- A5 is not a floor, and at `w=1.00` the meaning arm `A4_BOTH` (0.1190) is
+above A5 (0.1027) anyway.
+
+**Open, in priority order:** O1 spelling-alone floor (`scratch/ortho_floor_vet_trigram_only.py`,
+drafted, NOT RUN, ~10 min, pool-identical by construction -- blocks every floor claim); O2
+`A_BASE_ORTHO_RESIDUALIZED`; O3 `SPLIT_LOW_OVERLAP`; O4 rename `F_PROJDRAW`; O5 reconcile the
+`char_trigram_encoder` registry row against the runtime trace.
+
+---
+
+## RECOVERY TRIAGE RESIDUE (2026-08-14) -- stubbed in `STATUS.md` as "RECOVERY TRIAGE"
+
+968 cells have rows across two ledgers not yet merged into `RECOVERY_PROGRAM.md`:
+`notes/recovery_ledger_chaingraded_tier_2026-08-14.md` (565/565 terminal cells; `51b6f247a`,
+`40997bf85`, `da7fe14d4`, `b4e90942a`) and `notes/recovery_ledger_reading_tier_2026-08-14.md` (403;
+`63d5cccd2`). **Until the merge lands, every count must run over all three files** --
+`grep -oE 'STATE:[A-Z_]+'` over the three gives 1063 rows = 946 VERIFIED / 69 REFUTED / 45 FOUND /
+2 SHELVED / 1 WIRED (the single WIRED row is in `RECOVERY_PROGRAM.md`; **0 of the 968 new rows are
+wired**). A count over `RECOVERY_PROGRAM.md` alone returns 95 and is wrong by an order of magnitude.
+
+Deflations that must travel with the headline number:
+- **280 of 565 chain-graded rows (50%) are ONE auto-generated saturation grid**
+  (`exp_q_a3_l<N>_cross_layer_composition_v1_n<N>` / `exp_pp48_nkt_depth_*`), reporting EXACT-1.0 at
+  every level with no comparison arm because the result is construction-determined. "574
+  chain-graded cells" is **~286 distinct investigations**, not 574.
+- **Only 172 (30%) have a real floor** (control / reference / prose). 124 have a contrast arm but no
+  reference arm; 251 have no floor shape at all.
+- A `scramble`-keyed lexical sweep finds **11** floored cells in that tier and MISSES **161** -- the
+  June convention names floors `hebb_alpha_c`, `cap_unwhitened`, `last_token_raw`, `HA_ONLY`,
+  `NO_CX`, `FREQ_NULL`, or states them only in prose. Verdict-string and floor-name drift is why an
+  absence claim needs an enumeration.
+- **Still NOT-YET-TRIAGED: ~1,180 ledger atoms and ~7,150 of the repo's 7,660 `metrics.json`.**
+
+---
+
+## DO NOT REDO -- entries added 2026-08-14 (late)
+
+**31. MEANING SUPPLY AS THE C3 CONSTRAINT -- REFUTED.** The earlier 08-14 TOP ITEM claimed the
+read-out was starved of meaning content. `exp_meaning_supply_separation_v1` (`c0e6ec0da`) wired in
+the 39,707-word norms island and the 237.7M-token encoder and measured the result: hit@1 4.80% ->
+9.40% (`A4_BOTH` at the declared w=0.50), **but the string-form control reaches 9.05% through the
+identical blending mechanism**, crowding never fell (median NN 0.4553 -> 0.4493 against a null of
+0.2265), and sister conversions numbered 1-3 out of 4000. Supplying meaning does not close
+within-neighbourhood separation. Revival: only alongside a representation change, never as a supply
+fix on its own.
+
+**32. DG / PATTERN-SEPARATION AS THE GROUNDING ROUTE -- ALREADY BEATEN, IN JULY.**
+`exp_dg_pattern_separation_mcscript_purity_v1`, HARD_FAIL: DG separation at sparsity 0.05 gives
+`mean_purity_multi = 0.1013` against a **~0.1999 baseline -- BELOW it**. Its own words: "the
+substrate cannot discriminate 195-way online with this keying signal even with DG-style
+separation". Do not re-propose DG as the separation fix without a different keying signal.
+
+**33. CROWDING AS A GATE CRITERION -- worse than useless.** Measured across all 12 arm-by-w cells,
+crowding FALLS for the trigram attacker and RISES for the genuine meaning arms, so gating on it
+would pass the attacker and fail the real result. Report it; never gate on it.
+(`notes/c3_gate_hardening_2026-08-14.md` sec 1a.2, 2a.)
+
+---
+
+## CORRECTIONS TO PRIOR CLAIMS -- added 2026-08-14 (late)
+
+**C14. "No cell tests the whiten+pinv chain end-to-end" is WRONG.**
+`exp_pb_production_recipe_integration_v1`, verdict HARD_PASS, 3 seeds:
+`naive(raw+hebb)=3, full(whiten+pinv)=172, lift 57.3x`. The end-to-end composition was measured. An
+absence claim again failed for want of an enumeration.
+
+**C15. One stage of that same chain is CONTRADICTED from inside its own tier.**
+`exp_substrate_expansion_method_battery_gpu_v1` (full, 2026-06-06): "expansion cannot beat rank
+(rp_x4 ~ native) while whitening helps via decorrelation", `native=0.0065 rp_x4=0.0065
+zca_whiten=0.0517`. Neither cell cites the other. **Resolve this before running the chain
+end-to-end -- it is cheaper than the chain and it may DELETE the dimensional-expansion stage.**
+
+**C16. `A5_STRINGCTRL` is NOT a zero-meaning arm.** `notes/c3_gate_hardening_2026-08-14.md` describes
+it as "a pure character-trigram control containing no meaning at all". It is `z(base) + w*z(trigram)`
+and carries the full substrate signal. The gate-hardening note's CONCLUSION is unaffected -- an arm
+differing from the failing base ONLY by a spelling channel cleared the old criterion, which is the
+gameability demonstration -- but its WORDING overstates, and any restatement must use the corrected
+description. See the orthographic-floor VET above.
+
+---
+
+## STANDING DISCIPLINES -- entry added 2026-08-14 (late)
+
+### 8. A gate is a MARGIN above the strongest non-understanding baseline, never a bare number
+
+**Bought with the entire ">=10% hit@1 against a recorded floor" C3 criterion**, which a spelling
+channel bolted onto the failing base arm cleared at 0.10275 (`c0e6ec0da`), and with the weeks of
+"5.2pp short of the gate" framing that criterion produced.
+
+> A gate must be a **confidence-interval-separated MARGIN above max(ORTHOGRAPHIC, FREQUENCY,
+> SCRAMBLE)**, every baseline measured on the **identical scorer, n, candidate pool and gold set**.
+> Never a bare absolute number.
+
+Two sub-rules, each with its own incident:
+
+- **The baseline must be STANDALONE.** An arm that adds a shortcut channel ON TOP of the system
+  under test is a DECOMPOSITION, not a floor; quoting it as one produces the mirror-image error
+  ("we lose to a spell-checker") out of the same metrics file. **Read what is IN the arm -- open the
+  scoring function -- before quoting any arm as a floor.**
+- **The weakest available baseline is not "the" baseline.** Scramble controls only for random
+  re-pairing. It was being used alone while a frequency floor (0.0185) sat in the same file and an
+  orthographic floor was never measured at all. Enumerate the baselines the metric admits, then
+  take the maximum.
+
+
+---
+
+## CAP PRESSURE MEASURED 2026-08-14 (for the next STATUS maintainer)
+
+`STATUS.md` rebuilt to spec this session lands at **8183 B against the 8192 B cap -- 9 B of
+headroom**, versus the ~830 B the spec anticipated when it set 8192 (sec 7). The cause is
+structural and was predicted by the spec itself: **the never-trim class only grows.** Sections 5
+and 6 now carry 33 DO-NOT-REDO stubs + 5 caveats + 16 corrections + 8 standing disciplines = **62
+named items in ~3,600 B**, against their combined 2,400 B allocation. Every one is already a
+NAME-ONLY stub with its reasoning in this file, so escalation step 1 (move reasoning out) is
+EXHAUSTED. Tiers 1-4 were cut hard to fit: the PHASE DIAGRAM subsection was retired to a pointer
+(escalation step 2), and finished-work numbers, the OPEN-thread paths and the 2AFC / banked-arm
+figures were dropped as tier-1/tier-3 re-derivable.
+
+**Next over-cap event should go to escalation step 3 (a measured cap raise), not to another
+byte-shave** -- there is nothing left in tiers 1-4 worth 200 B. The alternative, if the cap is to
+hold, is to retire DO-NOT-REDO entries whose routes are dead beyond any revival (candidates: 6, 15,
+19), which is a deliberate judgement call for a maintenance pass and must NOT be made by an agent
+that merely needs room (spec sec 6).
