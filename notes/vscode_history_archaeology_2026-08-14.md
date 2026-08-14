@@ -324,6 +324,24 @@ A parser keyed on a trailing `Z` silently drops the 07-23 block, which is where 
 live-relevant CHAIN_GRADE results live. **This is not hypothetical — it is exactly the block §2a
 recovered.**
 
+### 3e-bis. THE FLOOR IS USUALLY NOT A KEY — it is prose inside `verdict_msg`, or an ARM NAME
+
+Discovered while hand-verifying §4. Of the brain-family cells opened, **most have NO top-level key
+matching any floor word at all** — and yet every one of them IS floored. The floor is carried:
+- **as an arm name**: `exp_substrate_concept_encoder_spoke3_dg_ca3_marr_cls_replay_v1` has arms
+  `MARR / CORTEX / DG_ONLY / DENSE_HOPF / NO_CONSOL / NAIVE_WTA`. `CORTEX`, `NO_CONSOL` and
+  `NAIVE_WTA` ARE the lesion controls. No key contains the word "control".
+- **as prose in `verdict_msg`**: `exp_hippocampal_sharp_wave_ripple_v1` reads
+  `fidelity_fast=1.0000 >= 0.7 vs random=0.0857`. The floor is `random=0.0857`, inside a string.
+- **as a bracketed arm table in `verdict_msg`**: `exp_substrate_acc_evc_adaptive_halting_v1_smoke`
+  reads `accpc[FIXED=0.0333 ADAPT=0.1839 RAND=0.0396 SCR=0.0369 ORC=0.1839]`.
+
+**Therefore any key-based floor test UNDERCOUNTS floors badly, and the direction of the error is to
+make old brain-foundational work look unfloored when it is in fact floored with 3-6 arms.** The
+prior sweep's recursive key/value scan caught more than a top-level scan would, but neither reads
+prose. **This, not the hyphen and not the `_fulldev` suffix, is the largest single reason the older
+arc scores badly against current gates.**
+
 ### 3f. The 5,193 UNDATED results are a DIFFERENT CELL TEMPLATE, not merely undated
 
 Top-level key vocabulary separates them cleanly. Dated cells (all months) carry `ts_iso` at
@@ -339,3 +357,114 @@ git-date; the finding here is *why* that matters — the whole template differs,
 only field that will not join.
 
 ---
+
+## 4. VERIFIED-BUT-INVISIBLE — the named list (priority 2)
+
+Each entry below was opened on disk TODAY with `.venv` python, by enumerating candidate directories
+from a full `os.walk` index and taking the non-smoke variant first — **never by guessing a name**.
+Run mode, floor and arm structure are quoted from the primary `metrics.json`. All are absent from
+`notes/ORGAN_MAP.md`, `notes/SUBSTRATE_STRATEGY.md`, `notes/STATUS.md` and
+`data/capability_registry.jsonl`.
+
+Ordered by how directly they bear on a CURRENTLY-OPEN question.
+
+### V1. `exp_read_xsent_coref_scene_protagonist_v1` — **THE 08-14 COREF CONCLUSION, REACHED ON 07-24**
+`HARD_PASS`, **run_mode FULL**, `ts 2026-07-24T05:45:55`. Tracked, clean at HEAD.
+Same-gender subset `sub_acc = 0.4003` vs backbone **0.2462** (delta **+0.1541**, sign_stability
+1.000); overall xsent 0.4023 vs 0.2487, no regression.
+**It carries its own refuting control and reports it:** LEVER 1 whole-doc topical FAILED on the
+subset (0.2412, delta **-0.0050**) — "global protagonist over-applies". And the scene-structure
+control: charset-detected 0.4003 vs **LOCALITY null max(fixed5=0.4070, Kmean-random=0.3710) =
+0.4070**, delta **-0.0067**, so `scene_structure_supported = False` — **"the lever is LOCAL-WINDOW
+subject"**.
+**Why this is load-bearing.** Commit `cba64a577` (2026-08-14) concluded of the Centering/Cb arc:
+*"the whole effect is the PREVIOUS-CLAUSE WINDOW, Cf role-grading adds nothing."* **That is the same
+conclusion, on the same competency, reached three weeks earlier by a different mechanism and a
+different control, and it is cited nowhere.** The E3 PHASE-1/PHASE-2 programme (`5f31c838f`,
+`27a2f27a8`, `36a2a68aa`, `cba64a577`) re-derived it from scratch. Had this cell been visible, E3's
+prereg could have STARTED from "the window is the lever, test whether anything beats it".
+
+### V2. `exp_consol_conjunction_replay_v1` — **CONSOLIDATION SCHEDULING ALREADY REFUTED, 5-ARM FLOOR**
+`REFUTE_CONSOLIDATION_NO_SCHEDULE_ADVANTAGE_CONJUNCTION_IS_READOUT_EFFECT`,
+**run_mode FULL, n_seeds 5**, `ts 2026-07-15T12:40:33`.
+**Floor battery (the most complete in this sweep):** `chance = 0.5118`, `SHUFFLE = 0.5192`,
+`FREQ_NULL = 0.4768` (HOM 0.4323 / POP 0.4768), `MEMO = 0.4768`, `ORACLE = 1.0000`.
+Arms: `INTERLEAVED = 1.0000`, `CONTINUAL = 1.0000`. **Primary schedule-gap INTER-CONT = 0.0000**
+(HP bar >= 0.0488 -> False; REFUTE bar <= 0.0100 -> met), votes 0/3. Validity gates all pass:
+`freq_at_chance = True`, `shuffle_flat = True`, `compute_matched = True (mism 0.0000)`.
+Positive direction retained: `readout_works INTER-FREQ = 0.5232` (>= 0.10).
+**Why this is load-bearing.** The current banner records the forgetting-kernel / Benna-Fusi cascade
+as REFUTED on 2026-08-14 and treats it as news. **Consolidation SCHEDULING was already refuted on
+2026-07-15, at 5 seeds, compute-matched, with a complete floor battery** — and the same cell
+positively attributes the conjunction effect to **the READ-OUT**, which is precisely where the C3
+defect is now diagnosed to live. This is a July result pointing at the August diagnosis.
+Corroborating sibling: `exp_course_c_operator_fix_ssp_phase_rotation_replay_v1` (2026-07-11),
+`OPERATOR_FIX_CONFIRMED_CONSOLIDATION_INCONCLUSIVE`. Two independent July refutations, both dark.
+
+### V3. `exp_consolidated_reader_chaingrade_demo_v1` + `_FULL_v1` + `_hardsyntax_heldout_v1`
+Fully detailed in §2a. In one line: **the in-domain-wins / held-out-attenuates shape of the current
+entity-knowledge wall was measured, floored, glass-boxed and honestly reported on 2026-07-23**
+(McGuffey F1 0.592 vs naive 0.3407, +0.2513; LitBank held-out reader 10 vs naive 11).
+
+### V4. `exp_substrate_acc_evc_adaptive_halting_v1_smoke` — ACC/EVC halting, ORACLE-MATCHING
+`HARD_PASS`, **run_mode SMOKE, n_seeds 2**, `ts 2026-07-08T13:53:23`.
+**5-arm floor, inside `verdict_msg`:** `accpc[FIXED=0.0333 ADAPT=0.1839 RAND=0.0396 SCR=0.0369
+ORC=0.1839]`. `adapt_vs_fixed = 4.517x`, `adapt_vs_random = 3.640x`, `scramble_gap = 0.799`,
+`closure = 1.000`. Task accuracy `acc[FIXED=0.133 ADAPT=0.733 ORC=0.733]` — **the adaptive halting
+arm EQUALS THE ORACLE (0.733 vs 0.733)** while using fewer hops (3.99 vs 4.00). Signal-specificity
+control `corr[A=1.000 S=-0.071]` — correlates with the true signal and NOT with the scrambled one.
+Gates `nav_rail / baseline_band / pressure / repro` all True.
+**HONEST CAVEAT, and it is the finding:** this exists ONLY as a SMOKE plus two SELFTESTs
+(`_v1` and `_v1_selftest`, both `SELFTEST_OK`, 07-08/07-09). **There is no FULL run.** A
+brain-mechanism arm that matches its own oracle with a 4-arm floor and a signal-specificity control
+was smoked, self-tested twice, and never promoted. That is a process finding as much as a result.
+Directly relevant: ACC/EVC "when to stop searching" is the same decision the newly-landed
+information-foraging (MVT) organ now makes — **and the foraging prereg does not cite it.**
+
+### V5. `exp_substrate_concept_encoder_spoke3_dg_ca3_marr_cls_replay_v1_smoke` — integrated hippocampal stack
+`HARD_PASS`, **run_mode SMOKE**, `ts 2026-07-02T23:46:48`.
+**Ablation ladder as ARM NAMES:** `MARR imm=1.000 after=0.000 pat=1.000 intf=0.000 sparse=0.0104`;
+lesions `CORTEX imm=0.000`, `DG_ONLY pat=0.705`, `NO_CONSOL after=0.000`, `NAIVE_WTA imm=0.100`;
+comparator `DENSE_HOPF imm=1.000`.
+One cell carrying DG + CA3 + Marr + CLS + replay with a five-way lesion ladder. **SMOKE only.**
+`after=0.000` on both MARR and NO_CONSOL is worth reading before reuse — the consolidation arm did
+not retain, which is consistent with V2's refutation.
+
+### V6. `exp_substrate_tier4_hopfield_attention_substitution_pythia160m_v1` — Hopfield INSIDE a real LM
+`HARD_PASS`, **run_mode FULL, n_seeds 2**, no `ts_iso`.
+Substrate-attention is training-stable inside Pythia-160M: `entropy_ratio(substrate/others) = 3.58`,
+`grad_ratio = 0.6`, **`ppl_ratio(substrate/baseline) = 0.94`** — i.e. the substrate's own attention
+mechanism reaches slightly BETTER perplexity than the baseline attention it replaced, in a real
+transformer. A sibling exists for `llama_3_2_*`. Neither is in any doc; there is no
+`hopfield` registry row. Floor = the baseline it is ratioed against; no separate scramble.
+
+### V7. `exp_substrate_sparsity_free_axis_v5_wm_fixed_n4096_seed_{7,13,...}` — k-WTA at production N
+`HP_WM_SPARSITY_AXIS_CG_ARCH_FIX`, **run_mode FULL**, `ts 2026-07-02T00:31:28Z`, 7 seed dirs.
+**Explicit floor KEYS (rare for this era):** `hp_random_floor = True`, `positive_control_wm_ok =
+True`, `hp_in_band_mid_c = True`. `rho_c <= -0.60` at all 9 (M, alpha) pairs; c-lever range >= 0.10
+at all 9; cross-seed cv < 0.15. The k-WTA family is **17 of 17 invisible** and this is its
+best-evidenced member.
+
+### V8. `exp_hopfield_spurious_minima_cpu_v1` — the control an attractor cleanup must pass
+`HARD_PASS`, **run_mode SMOKE**, undated. `genuine-convergence = 0.957` (>= 0.90 bar): 96% of random
+starts settle on a REAL stored pattern rather than a spurious attractor. Smoke only, but it is the
+specific safety property a Hopfield read-out needs, and the two Tier-1 Hopfield assets recommended
+by the prior sweep do not cite it.
+
+### V9. `exp_hippocampal_sharp_wave_ripple_v1` — the literal SWR organ
+`HARD_PASS`, **run_mode SMOKE**, undated. `fidelity_fast = 1.0000` (>= 0.7) **vs random = 0.0857**
+(>2.0x bar); `wrong_fidelity = 0.0000` (<= 0.2); sub-checks A/B/C all 1.00. Floor is prose. Smoke
+only.
+
+### Cross-cutting reading of V1-V9
+
+Two of the nine (**V1, V2**) are not merely invisible — **they answer questions the project spent
+August re-opening.** That is the concrete, costed form of the USER's hypothesis: the loss is not
+only unused assets, it is **repeated work**. Four of the nine (**V4, V5, V8, V9**) are
+SMOKE-ONLY brain-mechanism results with strong arm structure that were never promoted to FULL —
+a distinct and separately actionable category: *not wrong, not superseded, just never finished.*
+
+**SUPERSESSION — NOT DONE except where stated.** V1 is not superseded by the E3 arc (E3 tested
+Centering Cb tiers, a DIFFERENT mechanism, on a different gold set; it CORROBORATES rather than
+replaces). V2 is not superseded by the 08-14 forgetting-kernel work (that tested a sign-readout and
+a cascade kernel, not schedule). For V3-V9 no supersession check was run, and none should be assumed.
