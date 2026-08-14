@@ -73,14 +73,51 @@ Four CAPABILITY numbers. Three HYGIENE numbers. Nothing else is a headline.
 |---|---|---|---|---|---|
 | **C1** | **Near-neighbour 2AFC, live reading path** | **0.6980** (was 0.6395) | scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | `38f7a0d5c` (graded comparator ON) | the PRICED capacity step `d=256→1024`, worth ~**+0.05**, HELD (step 4). ~~rank-1 common-mode removal~~ — TRIED, **no effect** (step 3, `34b94e8bc`) |
 | **C2** | **Context-conditioned discrimination GAP** | **+0.1005** (0.6395 with context vs 0.5390 without) | scrambled-context **0.4975**, frequency 0.4800 | `exp_context_conditioned_near_neighbour_v1` | anything that makes the context port carry MORE than "some signal is present". The gap is real; its CONTENT is unproven |
-| **C3** | **Reading-grounding read-out quality** | **hit@1 4.80%** open-vocabulary, n=4000, 5491 anchors; **tautology rate 0.0%** | **scramble 0.80%** — a REAL FLOOR, recorded 2026-08-14 (`204eba1a0`). Delta **+4.00pp**, CI [+3.30, +4.70] | `exp_grounding_readout_known_answer_v1` (STEP 1, REPORTED) | **separation between sister terms.** Supply, mass, coverage and reweighting are all separately closed |
+| **C3** | **Reading-grounding read-out quality** | **NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions | **scramble 0.80%** — a REAL FLOOR (`204eba1a0`), delta **+4.00pp** CI [+3.30, +4.70]. But scramble is the WEAKEST baseline available: FREQUENCY is **1.85%** on the same pool and the ORTHOGRAPHIC floor is **UNMEASURED** (`notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md`) | `exp_grounding_readout_known_answer_v1` (STEP 1, REPORTED). Gate HARDENED 2026-08-14 after adding a zero-meaning SPELLING channel to the base arm cleared the old criterion (`c0e6ec0da`) | **separation between sister terms.** hit@1 alone is NOT the gate — a C3 claim with no string-form control arm is NOT EVALUABLE, never PASS |
 | **C4** | **Coreference, identity-demanding accuracy** | **0.7193** (earned 0.6842) | recency **0.5614**, singleton **0.3860**, oracle ceiling **0.9298** | `exp_wire_coref_accumulate_situation_model_v1` | closing earned-vs-oracle (0.6842 → 0.9298). This is a WIDEN-THE-MARGIN target on a WORKING organ |
 
-**C3 is the gate, and it is now HALF PASSED.** Revival criterion: **≥10% MEANINGFUL against a
-recorded floor, tautologies <10%.** The **tautology clause PASSES** (0.0%, and the old 65.7% was an
-eligibility bug — see PART 3 CORRECTIONS). The **quality clause FAILS by 5.2pp** (4.80% vs 10%).
-While it fails, **KNOWLEDGE-BASE GROWTH STAYS PAUSED.** No new corpora ingested for the sake of
-size. This is not caution, it is arithmetic: growth multiplies whatever the quality is.
+**C3 IS THE GATE, AND THE GATE WAS GAMEABLE UNTIL 2026-08-14.** The old criterion (**≥10%
+MEANINGFUL against a recorded floor, tautologies <10%**) is **RETIRED**: bolting a channel with no
+meaning in it — raw character-trigram string similarity — onto the failing base arm scored hit@1
+**0.10275** and cleared it (`exp_meaning_supply_separation_v1`, arm A5_STRINGCTRL at w=1.00,
+`c0e6ec0da`). Adding rank and top-50 does NOT fix it: that arm improves both against base
+(37.0 → 31.0, 0.5565 → 0.5867). The gate is now FOUR conditions, ALL required, and it is
+EXECUTABLE — "C3 is cleared" means `python tools/c3_gate.py --score <metrics.json>` exits 0:
+
+- **HG1 MAGNITUDE** — open-vocabulary hit@1 ≥ 0.10, n ≥ 1000, paired-bootstrap CI on
+  (arm − recorded floor) excludes zero, tautology rate < 0.10.
+- **HG2 DISTRIBUTION MOVED** — median target rank AND frac-gold-in-top-50 both strictly improve vs
+  the same cell's base arm on the same items.
+- **HG3 SEPARATION NOT DEGRADED** — separation margin ≥ the base arm's, reported restandardized on
+  the arm's own score vector. THIS is the condition that stops the string arm (−5.4731 vs base
+  −2.5423), provably so at w=1.00 even under the worst-case scale correction.
+- **HG4 STRING CONTROL RUN AND BEATEN** — a zero-meaning char-trigram channel, blended by the
+  identical mechanism at the identical weight, was RUN and REPORTED, and the paired CI on
+  (arm − string control) excludes zero. **A claim without this arm is NOT EVALUABLE, never PASS.**
+
+Crowding is REPORTED but NOT gating: on the record it moves the wrong way (it falls for the string
+arm and rises for the genuine meaning arms), so gating on it would pass the attacker and fail the
+real result. Rationale and the full re-scoring of every arm on disk:
+`notes/c3_gate_hardening_2026-08-14.md`.
+
+**TWO CORRECTIONS THAT TRAVEL WITH THE ABOVE** (`notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md`,
+`9ca1cffa2`). FIRST: A5_STRINGCTRL is `z(base) + w*z(trigram)` — it carries the FULL substrate
+signal plus spelling, so it is a DECOMPOSITION, not a standalone floor. It demonstrates
+gameability, but **"the read-out underperforms a spell-checker" is NOT established and must not be
+propagated**; the orthography-ONLY number does not exist on disk. SECOND, and harsher: at the
+pre-declared w=0.50 the spelling channel buys **+0.0425** hit@1 while the trained encoder buys only
+**+0.0270** (the cell's own `encoder_gain_attributable_to_string_similarity: true`). About half the
+movable range on this metric needs no understanding at all, so **a raw hit@1 gain is not evidence of
+a meaning gain unless a standalone string control was run and beaten.**
+
+**Nothing on disk passes the hardened gate** — 0 of 13 arms, including this cell itself, which is
+unmeasured on three of the four conditions. The best measured arm is `A4_BOTH` at w=1.00 (hit@1
+0.119), NOT_EVALUABLE on HG4 for want of an uncomputed CI, and w=1.00 is an optimistic upper bound
+rather than the pre-registered headline (w=0.50, where no arm reaches 0.10). The gate is REACHABLE,
+not vacuous: HG2 holds in 12 of 12 measured arm-by-w cells and HG3 in 9 of 12.
+**While C3 fails, KNOWLEDGE-BASE GROWTH STAYS PAUSED** — now for a stronger reason than before: not
+merely that quality is below a threshold, but that the threshold did not distinguish meaning from
+spelling. Growth multiplies whatever the quality is.
 
 **Two C3 numbers that are NOT the headline and must not be substituted for it.** On the *banked*
 2026-08-12 facts (n=319) the read-out is **AT_FLOOR** — GOLD_HIT 2.51% vs scramble 1.25% and
@@ -127,8 +164,10 @@ run alongside others.
 ### STEP 1 — ✅ **REPORTED 2026-08-14.** `exp_grounding_readout_known_answer_v1`
 - **Organ:** B1/B2 — what the context vector actually contains.
 - **RESULT: C3 HAS A FLOOR.** Open-vocabulary hit@1 **4.80%** vs scramble **0.80%**, n=4000 over
-  5491 anchors, delta **+4.00pp** CI [+3.30, +4.70]. Real, six times its floor, **half** the 10%
-  revival gate. Banked-fact arm **AT_FLOOR**; 2AFC arm **MIDDLE_BAND** (0.5393 ON / 0.4720 OFF).
+  5491 anchors, delta **+4.00pp** CI [+3.30, +4.70]. Real, and six times its scramble floor — but it
+  FAILS the hardened gate's MAGNITUDE condition and is UNMEASURED on the other three (this cell
+  records no rank, no top-50, no separation margin, and ran no string-form control). "Half the gate"
+  was a reading of the RETIRED single-number criterion — see the C3 row. Banked-fact arm **AT_FLOOR**; 2AFC arm **MIDDLE_BAND** (0.5393 ON / 0.4720 OFF).
   Prereg `a334501d2`, degenerate-arm fix `1b2022522`, results `204eba1a0`.
 - **HOW IT GOT DONE after three deaths:** the blind hand-score gate was replaced by a
   **KNOWN-ANSWER** gate (WordNet gold) with a scramble floor — a discriminator with range by
