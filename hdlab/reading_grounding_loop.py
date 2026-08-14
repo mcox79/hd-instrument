@@ -79,7 +79,7 @@ from __future__ import annotations
 import hashlib
 import re
 from dataclasses import dataclass, field
-from typing import Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -201,13 +201,17 @@ def content_lemmas(sentence: str) -> List[str]:
     return sorted(set(normalize_lemma(w) for w in content_words(sentence)))
 
 
-def context_vector_masked(sentence: str, target_lemma: str, d: int = CTX_D) -> np.ndarray:
+def context_vector_masked(sentence: str, target_lemma: str, d: int = CTX_D, *,
+                          graded: bool = False) -> np.ndarray:
     """context_vector() of `sentence` with every token whose lemma == target_lemma REMOVED
     first -- the no-leak fix (see module docstring). Reuses content_words + context_vector
     verbatim; this function only pre-filters the word list before re-joining and handing back
-    to context_vector, so it inherits that function's exact bundling math unmodified."""
+    to context_vector, so it inherits that function's exact bundling math unmodified.
+
+    `graded` (2026-08-13, ADDITIVE, keyword-only, DEFAULT False = prior behavior BYTE-FOR-BYTE):
+    forwarded to context_vector; see its docstring for the operation and the measured payoff."""
     words = [w for w in content_words(sentence) if normalize_lemma(w) != target_lemma]
-    return context_vector(" ".join(words), d=d)
+    return context_vector(" ".join(words), d=d, graded=graded)
 
 
 # =================================================================================================
@@ -475,6 +479,44 @@ class ConceptSpace:
         anchors, mat = self.anchor_matrix()
         return FrozenAnchorSpace(anchors, mat)
 
+    def freeze_graded(self, normalise: str = "none") -> "FrozenAnchorSpace":
+        """GRADED anchor field (2026-08-13, ADDITIVE; nothing about the default path changes).
+
+        `anchor_matrix()` above returns `np.sign(self._sums[a])`, which discards the accumulated
+        EVIDENCE MAGNITUDE this class spent the whole read building -- a dimension where 36 of 70
+        encounters agreed becomes bit-identical to one where 70 of 70 did. That quantiser is a
+        prototype operator (see `context_vector`'s `graded` docstring). This method hands back the
+        SAME field with the quantiser omitted.
+
+        `normalise` selects the divisive-normalisation pool (Carandini & Heeger 2012), computed
+        per-dimension over the anchor population:
+            "none"   -- raw graded sums.
+            "center" -- subtract the field mean (removes the component shared by all concepts).
+            "z"      -- subtract the mean and divide by the sd.
+        MEASURED (prereg d6c56353c, n=4000 held-out near-neighbour 2AFC): dropping the quantiser is
+        worth +0.0220 to +0.0260 on its own, CI excluding 0 at every normalisation level; the
+        GLOBAL-field normalisation on top of it is NULL (+0.0018, CI [-0.0030,+0.0065]) because a
+        component shared by both candidates nearly cancels in a two-candidate argmax however much
+        it dominates the geometry. `normalise` is therefore kept for threshold-based callers (where
+        absolute similarity matters) and defaults to "none".
+
+        Returns a FrozenAnchorSpace, so it is a drop-in wherever a space is READ and never written;
+        pass `ReadoutConfig(graded_query=True)` to `canonicalize_fast` so the QUERY is not
+        quantised either (comparing a graded field against a signed query is worse than either)."""
+        anchors = sorted(self._sums)
+        if not anchors:
+            return FrozenAnchorSpace([], np.zeros((0, self.d), dtype=np.float64))
+        mat = np.stack([self._sums[a] for a in anchors], axis=0).astype(np.float64)
+        if normalise == "none":
+            pass
+        elif normalise in ("center", "z"):
+            mat = mat - mat.mean(axis=0)
+            if normalise == "z":
+                mat = mat / (np.std(mat, axis=0) + 1e-9)
+        else:
+            raise ValueError("unknown normalise %r (expected 'none', 'center' or 'z')" % normalise)
+        return FrozenAnchorSpace(anchors, mat)
+
 
 class FrozenAnchorSpace:
     """Immutable snapshot of a ConceptSpace's anchor field.
@@ -539,6 +581,17 @@ class ReadoutConfig:
 
     FIX 3 is not a field here: it is `ConceptSpace.freeze()` (pass the frozen view AS the space).
 
+    `graded_query` (2026-08-13, ADDITIVE, DEFAULT False = prior behavior BYTE-FOR-BYTE): skip the
+    `np.sign(new_raw_sum)` quantisation of the QUERY in `canonicalize_fast`. Pair it with
+    `ConceptSpace.freeze_graded()` -- a graded field read by a signed query is worse than either,
+    because the query's magnitudes are exactly what the field's magnitudes are being compared to.
+    It is deliberately NOT part of `active`: it changes the query's representation, not the
+    winner-selection or accept rules that the FIX 1 / FIX 2 block implements, so setting it alone
+    must not switch that block on.
+    MEASURED (prereg d6c56353c, n=4000): graded query + graded field = 0.6997 vs 0.6395 for the
+    fully quantised live path, delta +0.0602 CI [+0.0440,+0.0762], with the scrambled-context floor
+    still at chance (0.5065).
+
     The returned cosine is always the RAW cosine of the winning anchor, on the same scale as
     before, so existing telemetry stays interpretable; only the WINNER and the ACCEPT decision
     change when the corresponding option is set."""
@@ -547,6 +600,7 @@ class ReadoutConfig:
     margin_z_min: Optional[float] = None
     margin_stat: str = "z_top"          # "z_top" | "margin"
     scale_floor: float = 1e-6
+    graded_query: bool = False          # see below; deliberately NOT part of `active`
     _aligned: Dict[int, Tuple[np.ndarray, np.ndarray]] = field(default_factory=dict, repr=False)
 
     @property
@@ -662,7 +716,11 @@ def canonicalize_fast(new_lemma: str, new_raw_sum: np.ndarray, space: "ConceptSp
         keep[idx] = False
     if not keep.any():
         return new_lemma, 0.0
-    nb = np.sign(new_raw_sum)
+    # DEFAULT (readout is None, or graded_query False): byte-for-byte the prior `np.sign(...)`.
+    if readout is not None and readout.graded_query:
+        nb = np.asarray(new_raw_sum, dtype=np.float64)
+    else:
+        nb = np.sign(new_raw_sum)
     nn = float(np.linalg.norm(nb))
     if nn < 1e-9:
         return new_lemma, 0.0
@@ -1223,6 +1281,53 @@ def _make_pbv_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag:
     return gate
 
 
+MEANING_SOURCE_DEFINITIONAL = "DEFINITIONAL_EXTRACTION"
+
+
+def _make_definitional_gate(state: ReadingLoopState, pass_idx: int,
+                            inner: Callable[[object], bool],
+                            definition_map: Mapping[str, str]) -> Callable[[object], bool]:
+    """DEFINITIONAL WIRE (2026-08-13, ADDITIVE, DEFAULT-OFF: `checkpoint(definition_map=None)` is
+    the shipped path byte-for-byte, and every existing caller passes nothing).
+
+    hdlab.definitional_extraction reads a genus statement straight off the page
+    ("X is a kind of Y", `Definition.term` -> `Definition.head`) and scores 64% MEANINGFUL on real
+    text against an 8% distributional floor -- but it is NOT on the live reading path
+    (notes/system_accounting_2026-08-13.md: absent from the 35-of-141 live closure). This is the
+    smallest wire that makes it reachable: WRAP the existing consolidation gate, and when a
+    consolidating item is one the extractor has a definition for, bank THAT object as the meaning
+    instead of the cosine argmax / carried hypothesis. It does not touch `_make_grounding_gate` or
+    `_make_pbv_grounding_gate` (either may be the `inner`), does not change what is FLAGGED, and
+    does not change the admission policy -- a defined word still has to survive consolidation_pass's
+    exposure and schema requirements to reach the gate at all.
+
+    Facts banked this way are LABELLED `meaning_source=DEFINITIONAL_EXTRACTION` in the provenance
+    ledger, so a read-off-the-page fact is never silently indistinguishable from a
+    distributionally-derived one.
+
+    REFUSALS STILL BIND. A definition is not allowed to launder anything the gate would otherwise
+    reject on principle: a closed-class subject or object, or a self-tautology, falls through to
+    `inner` and is refused there. Anything the map has no entry for is `inner`'s decision, untouched.
+
+    CIRCULARITY WARNING, stated where the code is: any evaluation that scores this wire against the
+    SAME extractor output it was fed is circular and its recall is 1.0 by construction. See
+    preregs/2026-08-13_wire_definitional.md -- the only honest measurement holds a disjoint subject
+    split OUT of `definition_map` entirely and scores that."""
+
+    def gate(item) -> bool:
+        lemma = item.lemma
+        obj = definition_map.get(lemma)
+        if obj is None or obj == lemma or is_closed_class(lemma) or is_closed_class(obj):
+            return inner(item)
+        raw_sum = np.sum([t.context_vec for t in item.traces], axis=0)
+        state.gate_decisions[lemma] = {"canonical_obj": obj, "best_cos": None,
+                                       "raw_sum": raw_sum, "pass_idx": pass_idx,
+                                       "meaning_source": MEANING_SOURCE_DEFINITIONAL}
+        return True
+
+    return gate
+
+
 def _provenance_rows(state: ReadingLoopState, lemma: str) -> List[dict]:
     """Expand the interned evidence rows for `lemma` into self-contained provenance rows carrying
     the VERBATIM source sentence text (so grounding_provenance.jsonl answers 'why did it learn
@@ -1244,7 +1349,8 @@ def _provenance_rows(state: ReadingLoopState, lemma: str) -> List[dict]:
 def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: str = "TRUST_MID",
               *, min_confirm: int = MIN_CONFIRM, schema_thresh: float = 0.10,
               refuse_non_groundings: bool = True, pbv: bool = False,
-              commit_strength: float = PBV_COMMIT_STRENGTH) -> dict:
+              commit_strength: float = PBV_COMMIT_STRENGTH,
+              definition_map: Optional[Mapping[str, str]] = None) -> dict:
     """One consolidation checkpoint: run consolidation_pass over state.library, then for every
     NEWLY-GROUNDED lemma this pass, canonicalize it against state.space and PROMOTE both a
     MEANING_RELATION fact (the semantic content) and a KNOWN_WORD fact (so the GATE recognizes
@@ -1263,7 +1369,11 @@ def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: s
     hypothesis the item CARRIED across encounters rather than an argmax recomputed from a
     collapsed sum of its traces. Requires the caller to have run process_sentence with
     make_pbv_fns(...) -- without a standing hypothesis every item is refused NO_STANDING_HYPOTHESIS,
-    which is a loud failure, not a silent fallback."""
+    which is a loud failure, not a silent fallback.
+
+    definition_map (2026-08-13, DEFAULT None = prior behaviour byte-for-byte): lemma -> object read
+    off the page by hdlab.definitional_extraction. Wraps whichever gate was built above; see
+    `_make_definitional_gate` for the semantics and for the circularity warning."""
     if pbv and not refuse_non_groundings:
         raise ValueError("pbv=True requires refuse_non_groundings=True (the PBV gate IS the "
                          "refusal gate; running PBV with refusals off would bank unverified "
@@ -1274,6 +1384,11 @@ def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: s
         gate = _make_grounding_gate(state, pass_idx, source_tag)
     else:
         gate = None
+    if definition_map:
+        if gate is None:
+            raise ValueError("definition_map requires refuse_non_groundings=True (there is no gate "
+                             "to wrap otherwise, so the definition could not reach the bank)")
+        gate = _make_definitional_gate(state, pass_idx, gate, definition_map)
     report = consolidation_pass(state.library, pass_idx, min_confirm=min_confirm,
                                 schema_thresh=schema_thresh, register=False, mdl_gate_fn=gate)
     newly = report["newly_grounded_pos"]  # pole is always POS in this loop (see module docstring)
@@ -1310,6 +1425,10 @@ def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: s
             # the FULL carried-hypothesis trajectory travels with the fact, so "why this meaning"
             # is answerable off the persisted ledger and a revision can be audited after the fact.
             prov_row["hypothesis"] = decision["hypothesis"]
+        if decision is not None and "meaning_source" in decision:
+            # a fact read off the page must never be indistinguishable, in the ledger, from one
+            # the distributional read-out chose.
+            prov_row["meaning_source"] = decision["meaning_source"]
         state.provenance.append(prov_row)
         state.evidence.pop(lemma, None)      # terminal item; its evidence now lives in provenance
         state.gate_decisions.pop(lemma, None)
@@ -1943,10 +2062,91 @@ def _selftest_anchor_pool_is_off_by_default() -> None:
             "anchor_pool perturbed an existing seed anchor's profile"
 
 
+def _selftest_definitional_wire_is_off_by_default() -> None:
+    """checkpoint(definition_map=None) must be the shipped path byte-for-byte, and a supplied map
+    must (a) bank exactly the mapped object for the mapped lemma, (b) label it in provenance,
+    (c) leave every UNMAPPED lemma's outcome bit-identical, (d) still refuse a closed-class or
+    self-tautological 'definition' rather than launder it.
+
+    CAN-FAIL by construction: the fixture is `_selftest_tautology_is_refused_not_recorded`'s, in
+    which `zibbo` is REFUSED (TAUTOLOGY_NO_ANCHOR) on the default path -- so if the wire did
+    nothing, assertion (a) fails; if the wire ran when it should not, the OFF assertions fail."""
+    sentences = [
+        "The zibbo glimmered softly across the quiet violet meadow.",
+        "A quiet zibbo glimmered above the violet meadow again.",
+        "Every violet meadow held a softly glimmering zibbo.",
+        "The glimmering zibbo drifted over that quiet violet meadow.",
+    ]
+
+    def _run(dmap, omit_kwarg=False):
+        state = _no_anchor_fixture(seed=901)
+        for i, s in enumerate(sentences):
+            process_sentence(state, s, f"z{i}", pass_idx=1)
+        for p in (1, 2, 3, 4, 5, 6):
+            if omit_kwarg:
+                # the LITERAL shipped call signature -- no `definition_map` argument at all
+                checkpoint(state, pass_idx=p, source_tag="selftest_defwire")
+            else:
+                checkpoint(state, pass_idx=p, source_tag="selftest_defwire", definition_map=dmap)
+        pairs = sorted((f.subject, f.obj) for f in state.store.live_facts()
+                       if f.relation == MEANING_RELATION)
+        return state, pairs
+
+    st_off, pairs_off = _run(None)
+    st_ref, pairs_ref = _run(None, omit_kwarg=True)
+    # (1) DEFAULT PATH UNCHANGED: passing None is identical to not passing the argument at all,
+    #     down to the refusal ledger and the anchor field, not merely the banked pairs.
+    assert pairs_off == pairs_ref, "definition_map=None differs from the shipped call signature"
+    assert st_off.space.anchors() == st_ref.space.anchors()
+    assert [r["reason"] for r in st_off.refusals] == [r["reason"] for r in st_ref.refusals]
+    assert "zibbo" not in [s for s, _ in pairs_off], (
+        "fixture broken: zibbo must be REFUSED on the default path, else this test cannot fail")
+    assert REFUSAL_TAUTOLOGY in [r["reason"] for r in st_off.refusals if r["lemma"] == "zibbo"]
+    assert is_gap(st_off, "zibbo") is True
+    assert all("meaning_source" not in p for p in st_off.provenance), \
+        "definition_map=None wrote a meaning_source label"
+
+    # (2) ON: the mapped lemma banks the MAPPED object, labelled, and stops being a gap.
+    st_on, pairs_on = _run({"zibbo": "engine"})
+    assert ("zibbo", "engine") in pairs_on, (
+        "definition_map did not reach the bank; banked pairs were %r" % (pairs_on,))
+    assert is_gap(st_on, "zibbo") is False, "a defined+banked word must stop being a gap"
+    prov = [p for p in st_on.provenance if p["subject"] == "zibbo"]
+    assert prov and prov[0].get("meaning_source") == MEANING_SOURCE_DEFINITIONAL, \
+        "a definitionally-banked fact was not labelled in provenance: %r" % (prov,)
+    assert prov[0]["object"] == "engine" and prov[0]["best_cos"] is None
+    # (3) NO UNMAPPED LEMMA IS EVER DECIDED BY THE WIRE. Unmapped lemmas still reach `inner`, so
+    #     their meaning comes from the ordinary read-out and carries no DEFINITIONAL label.
+    for p in st_on.provenance:
+        if p["subject"] != "zibbo":
+            assert p.get("meaning_source") is None, \
+                "an unmapped lemma was decided by the definitional wire: %r" % (p,)
+            assert p["best_cos"] is not None, \
+                "an unmapped lemma banked without a read-out cosine: %r" % (p,)
+    # (3b) THE NON-CIRCULAR CHANNEL, asserted rather than assumed. Banking a DEFINED word seeds it
+    #      as an anchor (checkpoint's seed_from_bundle), which can let words the map says NOTHING
+    #      about become groundable. Here `meadow` and `violet` have no definition and are refused
+    #      outright in the OFF arm; with `zibbo` defined they ground -- via the read-out, to
+    #      `zibbo`. This transitive effect is the ONLY channel by which the wire can help a
+    #      held-out word, and preregs/2026-08-13_wire_definitional.md measures exactly it.
+    assert pairs_off == [], "fixture broken: the OFF arm must bank nothing here"
+    newly = sorted(s for s, _ in pairs_on if s != "zibbo")
+    assert newly == ["meadow", "violet"], \
+        "the transitive anchor channel changed shape; expected meadow/violet, got %r" % (newly,)
+    assert all(o == "zibbo" for s, o in pairs_on if s != "zibbo")
+
+    # (4) refusals still bind: a closed-class object and a self-tautology are NOT laundered.
+    _, pairs_cc = _run({"zibbo": "also"})
+    assert pairs_cc == pairs_off, "a closed-class object was laundered through definition_map"
+    _, pairs_self = _run({"zibbo": "zibbo"})
+    assert pairs_self == pairs_off, "a self-tautology was laundered through definition_map"
+
+
 def _run_all_selftests() -> dict:
     _selftest_structural_unbound_matches_context_vector()
     _selftest_structured_encoder_is_off_by_default()
     _selftest_anchor_pool_is_off_by_default()
+    _selftest_definitional_wire_is_off_by_default()
     _selftest_no_leak_masking()
     _selftest_gap_gate_known_vs_novel()
     _selftest_grounding_needs_coherent_repeated_exposure()
@@ -1965,6 +2165,7 @@ def _run_all_selftests() -> dict:
     _selftest_terminal_episode_release_bounds_live_epochs()
     return {
         "anchor_pool_off_by_default_ok": True,
+        "definitional_wire_off_by_default_ok": True,
         "no_leak_masking_ok": True,
         "gap_gate_known_vs_novel_ok": True,
         "coherent_vs_incoherent_grounding_ok": True,

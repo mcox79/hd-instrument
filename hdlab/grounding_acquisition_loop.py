@@ -114,13 +114,27 @@ def content_words(window_text: str) -> List[str]:
             if w not in _STOPWORDS and len(w) > 2]
 
 
-def context_vector(window_text: str, d: int = D) -> np.ndarray:
+def context_vector(window_text: str, d: int = D, *, graded: bool = False) -> np.ndarray:
     """Deterministic bag-of-content-words bipolar bundle (Kanerva random-indexing / BEAGLE-style
     context encoding). Each content word's vector = a hashlib.sha256-seeded bipolar draw (fixed
     across every call, no external embedding, no torch.Generator state to thread); the trace's
     context = sign(sum of its content words' vectors). Deterministic, PROT-023/F.5-compliant
     (hashlib, not built-in hash()). Returns an all-zero vector if the window has no content word
-    (caller must guard cosine against a zero-norm vector -- see _cos)."""
+    (caller must guard cosine against a zero-norm vector -- see _cos).
+
+    `graded` (2026-08-13, ADDITIVE, keyword-only, DEFAULT False = prior behavior BYTE-FOR-BYTE):
+    return the raw accumulated sum instead of its sign. The terminal `np.sign` is a PER-COMPONENT
+    magnitude-destroying normalisation; the brain's divisive normalisation uses a POOL-SHARED
+    denominator (Carandini & Heeger 2012 Nat Rev Neurosci 13:51-62) which PRESERVES the ratios
+    that sign() flattens to 1. Because sign(shared + distinctive) = sign(shared) wherever
+    |shared| > |distinctive|, the default is a PROTOTYPE OPERATOR: at a 2% distinctive:shared
+    ratio 10.13% of near-neighbour pairs become BIT-IDENTICAL, and at 10% only 26% of the
+    difference direction between two concepts is real distinctive meaning
+    (experiments/diag_sign_annihilates_distinctive_v1.py).
+    MEASURED payoff, n=4000 held-out near-neighbour 2AFC in context, prereg d6c56353c:
+    dropping this sign() is worth +0.0245 to +0.0267 accuracy on its own, CI excluding 0 at every
+    normalisation level (data/exp_graded_divisive_comparator_v1/metrics.json). Witness:
+    verification/verify_graded_divisive_comparator.py."""
     words = content_words(window_text)
     if not words:
         return np.zeros(d, dtype=np.float64)
@@ -129,6 +143,8 @@ def context_vector(window_text: str, d: int = D) -> np.ndarray:
         seed = int.from_bytes(hashlib.sha256(w.encode("utf-8")).digest()[:8], "big") % (2**32)
         rng = np.random.default_rng(seed)
         acc += rng.choice([-1.0, 1.0], size=d)
+    if graded:
+        return acc
     out = np.sign(acc)
     out[out == 0] = 1.0
     return out
