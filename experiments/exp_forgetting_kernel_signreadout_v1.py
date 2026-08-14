@@ -55,6 +55,14 @@ CFG = {
 }
 
 FIT_T_MIN = 4          # PRE-DECLARED fit window floor (asymptotics invalid at t=1,2)
+UNIT_NS = "v2meanfit"  # unit-key namespace. Bumped when the ESTIMATOR changed, so the original
+                       # pre-declared (biased) units stay on disk in units.jsonl for audit
+                       # instead of being deleted or silently overwritten.
+
+
+def uk(readout: str, stream: str) -> str:
+    return unit_key(readout, stream, UNIT_NS)
+
 DAIC_DECISIVE = 10.0   # PRE-DECLARED decision threshold
 
 
@@ -109,25 +117,81 @@ def compare_fits(t: np.ndarray, snr: np.ndarray) -> dict:
     }
 
 
+def _p_walk_zero(t: int) -> float:
+    """P(W_t = 0) for a t-step +-1 walk (t even), via lgamma so t=1024 does not overflow.
+    For odd t the walk cannot be 0 and the relevant expectation equals the same asymptote, so
+    sqrt(2/(pi t)) is used there."""
+    if t % 2:
+        return math.sqrt(2.0 / (math.pi * t))
+    lg = math.lgamma(t + 1) - 2 * math.lgamma(t / 2 + 1) - t * math.log(2.0)
+    return math.exp(lg)
+
+
+def exact_reference_slopes(t_window: np.ndarray, d: int) -> dict:
+    """The slope the fitter returns on the EXACT, NOISE-FREE closed-form curves, evaluated on
+    THIS t-grid and THIS fit window.
+
+    Why this exists (2026-08-14, disclosed in the prereg): the closed forms are only ASYMPTOTICALLY
+    t^-1/2. The graded curve is sqrt(d/(t+1)), whose local log-log slope is -0.5*t/(t+1) -- at the
+    window floor t=4 that is -0.40, not -0.50. So an OLS slope over a window starting at t=4 is
+    LEGITIMATELY flatter than -1/2 by ~0.018, purely as a window artifact and with no estimator
+    defect involved. Comparing a measured slope to -0.5 therefore mis-scores it. Comparing it to
+    the exact curve pushed through the SAME fitter on the SAME grid removes the artifact exactly."""
+    g = np.sqrt(d / (t_window + 1.0))
+    b = np.array([d * _p_walk_zero(int(t)) / math.sqrt(d) for t in t_window])
+    return {"graded": compare_fits(t_window, g)["power_slope"],
+            "binarised": compare_fits(t_window, b)["power_slope"],
+            "asymptote": -0.5}
+
+
+def mean_curve(curves: np.ndarray) -> np.ndarray:
+    """Per-t MEAN SNR across tracked lemmas (nan-aware)."""
+    with np.errstate(invalid="ignore"):
+        return np.nanmean(curves, axis=0)
+
+
+def fit_mean_curve(t_grid: np.ndarray, curves: np.ndarray) -> dict:
+    """THE CORRECTED PRIMARY ESTIMATOR (added 2026-08-14, disclosed in the prereg).
+
+    Fits log(mean-over-lemmas SNR) against log t, with n = the number of t POINTS.
+
+    Two independent defects in the originally pre-declared pooled-per-lemma estimator, BOTH
+    caught by the known-answer synth arm and neither by any arm of interest:
+
+    1. SURVIVORSHIP BIAS. Pooling per-lemma log SNR must drop non-positive SNRs. Per-lemma SNR has
+       s.d. ~1 by construction, so at large t (where the true SNR falls below ~1) a large minority
+       of lemmas go negative and are DROPPED -- leaving only the upward fluctuations. That inflates
+       log SNR at exactly the large-t end that sets the slope, and FLATTENS it. Measured on the
+       synth arm, whose true slope is -0.5 by derivation: 96/1140 points dropped and the pooled
+       estimator returned -0.4271 with a CI EXCLUDING -0.5. Averaging BEFORE the log drops nothing.
+    2. PSEUDO-REPLICATION. The pooled fit counted 19 t-points x 60 lemmas as n=1140 independent
+       observations. The independent units are the LEMMAS, and the curve SHAPE is what is being
+       fitted, so the honest n for AIC is the number of t points. The pooled dAIC values were
+       inflated accordingly and must not be quoted.
+
+    The pooled fit is still computed and reported as `fit_pooled_perlemma_PREDECLARED_BIASED` so
+    the originally pre-declared number stays auditable."""
+    m = mean_curve(curves)
+    return compare_fits(t_grid, m)
+
+
 def cluster_bootstrap_slope(t_grid: np.ndarray, curves: np.ndarray, n_boot: int, seed: int) -> dict:
-    """Percentile CI on the power-law slope, resampling TRACKED LEMMAS (rows of `curves`)."""
+    """Percentile CI on the power-law slope of the MEAN curve, resampling TRACKED LEMMAS."""
     rng = np.random.default_rng(seed)
     n_lem = curves.shape[0]
-    tt = np.tile(t_grid, n_lem)
-    pooled = compare_fits(tt, curves.reshape(-1))
-    if pooled.get("insufficient"):
+    point = fit_mean_curve(t_grid, curves)
+    if point.get("insufficient"):
         return {"point": None, "ci_lo": None, "ci_hi": None, "n_boot": 0}
     slopes = []
     for _ in range(n_boot):
         idx = rng.integers(0, n_lem, size=n_lem)
-        sub = curves[idx]
-        f = compare_fits(np.tile(t_grid, n_lem), sub.reshape(-1))
+        f = fit_mean_curve(t_grid, curves[idx])
         if not f.get("insufficient"):
             slopes.append(f["power_slope"])
     if len(slopes) < 20:
-        return {"point": pooled["power_slope"], "ci_lo": None, "ci_hi": None, "n_boot": len(slopes)}
+        return {"point": point["power_slope"], "ci_lo": None, "ci_hi": None, "n_boot": len(slopes)}
     s = np.array(sorted(slopes))
-    return {"point": pooled["power_slope"], "ci_lo": float(np.percentile(s, 2.5)),
+    return {"point": point["power_slope"], "ci_lo": float(np.percentile(s, 2.5)),
             "ci_hi": float(np.percentile(s, 97.5)), "n_boot": len(slopes)}
 
 
@@ -262,11 +326,15 @@ def run_unit(readout: str, stream: str, cfg: dict, corpus, d: int, seed: int, lo
     curves = np.stack(curves, axis=0)
     tg = np.array(t_grid, dtype=np.float64)
     win = tg >= FIT_T_MIN
-    fit_win = compare_fits(np.tile(tg[win], curves.shape[0]), curves[:, win].reshape(-1))
-    fit_all = compare_fits(np.tile(tg, curves.shape[0]), curves.reshape(-1))
+    # PRIMARY (corrected): mean-over-lemmas first, then log-log fit; n = number of t points.
+    fit_win = fit_mean_curve(tg[win], curves[:, win])
+    fit_all = fit_mean_curve(tg, curves)
+    # The originally pre-declared estimator, retained verbatim so the number stays auditable.
+    fit_pooled = compare_fits(np.tile(tg[win], curves.shape[0]), curves[:, win].reshape(-1))
     boot = cluster_bootstrap_slope(tg[win], curves[:, win], cfg["n_boot"], seed + 7)
     with np.errstate(invalid="ignore"):
         med = np.nanmedian(curves, axis=0)
+        mn = np.nanmean(curves, axis=0)
     log("  %-9s %-14s slope=%.4f [%s, %s] dAIC=%+.1f winner=%s" % (
         readout, stream, fit_win.get("power_slope", float("nan")),
         ("%.4f" % boot["ci_lo"]) if boot.get("ci_lo") is not None else "na",
@@ -275,8 +343,12 @@ def run_unit(readout: str, stream: str, cfg: dict, corpus, d: int, seed: int, lo
     return {
         "readout": readout, "stream": stream, "n_lemmas_used": int(curves.shape[0]),
         "d": d, "t_grid": t_grid, "fit_window_t_min": FIT_T_MIN,
+        "estimator": "mean-over-lemmas then log-log OLS; n = number of t points",
+        "exact_reference_slopes_this_grid": exact_reference_slopes(tg[win], d),
         "fit": fit_win, "fit_full_window_sensitivity": fit_all,
+        "fit_pooled_perlemma_PREDECLARED_BIASED": fit_pooled,
         "slope_ci": boot,
+        "mean_snr_by_t": [None if not np.isfinite(x) else float(x) for x in mn],
         "median_snr_by_t": [None if not np.isfinite(x) else float(x) for x in med],
     }
 
@@ -352,7 +424,7 @@ def self_test(log) -> bool:
         c = np.stack(curves, axis=0)
         tg = np.array(t_grid, dtype=np.float64)
         w = tg >= FIT_T_MIN
-        f = compare_fits(np.tile(tg[w], c.shape[0]), c[:, w].reshape(-1))
+        f = fit_mean_curve(tg[w], c[:, w])   # the CORRECTED primary estimator
         res[name] = f
         log("  selftest %-9s slope=%.4f dAIC=%+.1f" % (name, f["power_slope"],
                                                        f["dAIC_exp_minus_pow"]))
@@ -360,10 +432,16 @@ def self_test(log) -> bool:
     ok = True
     sg = res["graded"]["power_slope"]
     sb = res["binarised"]["power_slope"]
-    if not (-0.53 <= sg <= -0.47):
-        log("  SELFTEST FAIL 1: graded synth slope %.4f outside [-0.53,-0.47]" % sg); ok = False
-    if not (-0.56 <= sb <= -0.44):
-        log("  SELFTEST FAIL 2: binarised synth slope %.4f outside [-0.56,-0.44]" % sb); ok = False
+    tgw = np.array([t for t in t_grid if t >= FIT_T_MIN], dtype=np.float64)
+    ref = exact_reference_slopes(tgw, d)
+    log("  selftest EXACT-curve reference slopes on this grid: graded %.4f binarised %.4f "
+        "(asymptote -0.5)" % (ref["graded"], ref["binarised"]))
+    if abs(sg - ref["graded"]) > 0.04:
+        log("  SELFTEST FAIL 1: graded synth slope %.4f differs from exact-curve %.4f by %.4f"
+            % (sg, ref["graded"], abs(sg - ref["graded"]))); ok = False
+    if abs(sb - ref["binarised"]) > 0.04:
+        log("  SELFTEST FAIL 2: binarised synth slope %.4f differs from exact-curve %.4f by %.4f"
+            % (sb, ref["binarised"], abs(sb - ref["binarised"]))); ok = False
 
     # 3. PREFACTOR gate -- the thing the sign() actually costs. AMENDED 2026-08-14 (disclosed in
     # the prereg): the original n=24 MEDIAN estimator had a sampling sd of ~0.2 on a quantity of
@@ -428,7 +506,7 @@ def self_test(log) -> bool:
 
 def assemble(out_dir: str, cfg: dict, meta: dict, log) -> bool:
     units = load_units(out_dir)
-    expected = sorted(set(unit_key(r, s) for r in READOUTS for s in STREAMS))
+    expected = sorted(set(uk(r, s) for r in READOUTS for s in STREAMS))
     missing = sorted(set(expected) - set(units))
     if missing:
         log("assembly deferred, %d unit(s) missing: %s" % (len(missing), missing))
@@ -470,8 +548,8 @@ def classify(units: dict) -> dict:
     """Apply the PRE-DECLARED bands from the prereg. No band is a tuning target."""
     out = {"per_stream": {}}
     for stream in STREAMS:
-        g = units.get(unit_key("graded", stream))
-        b = units.get(unit_key("binarised", stream))
+        g = units.get(uk("graded", stream))
+        b = units.get(uk("binarised", stream))
         if not g or not b:
             continue
         gs, bs = g["fit"]["power_slope"], b["fit"]["power_slope"]
@@ -505,8 +583,8 @@ def classify(units: dict) -> dict:
     # PRE-DECLARED control band: does shuffled ingest order change the shape?
     ctrl = {}
     for r in READOUTS:
-        rr = units.get(unit_key(r, "real"))
-        so = units.get(unit_key(r, "scram_order"))
+        rr = units.get(uk(r, "real"))
+        so = units.get(uk(r, "scram_order"))
         if rr and so:
             dd = abs(rr["fit"]["power_slope"] - so["fit"]["power_slope"])
             ctrl[r] = {"slope_real": rr["fit"]["power_slope"],
@@ -554,7 +632,7 @@ def main() -> int:
     os.makedirs(out_dir, exist_ok=True)
 
     from hdlab.reading_grounding_loop import (ConceptSpace, GRADED_COMPARATOR,
-                                              context_vector_masked, sentence_lemmas)
+                                              content_lemmas, context_vector_masked)
     from hdlab.grounding_acquisition_loop import D as LIVE_D
 
     meta = {"mode": args.mode, "cfg": cfg, "live_d": int(LIVE_D), "corpus": CORPUS,
@@ -572,16 +650,16 @@ def main() -> int:
                                                           LIVE_D, args.mode))
 
     done = completed_units(out_dir)
-    todo = [s for s in STREAMS if unit_key(args.readout, s) not in done]
+    todo = [s for s in STREAMS if uk(args.readout, s) not in done]
     need_corpus = any(s != "synth" for s in todo) or (
         unit_key("channel_b", args.readout) not in done)
     corpus = None
     if need_corpus:
-        corpus = build_corpus_pools(sentence_lemmas, context_vector_masked, cfg, log)
+        corpus = build_corpus_pools(content_lemmas, context_vector_masked, cfg, log)
         log("tracked lemmas (%d): %s" % (len(corpus["tracked"]), corpus["tracked"][:12]))
 
     for stream in STREAMS:
-        k = unit_key(args.readout, stream)
+        k = uk(args.readout, stream)
         if k in done:
             log("skip completed unit %s" % k)
             continue

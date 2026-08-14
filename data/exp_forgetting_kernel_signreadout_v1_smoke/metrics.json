@@ -1,0 +1,916 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "units",
+    "analytic_prediction",
+    "axis_reconciliation"
+  ],
+  "analytic_prediction": {
+    "binarised_over_graded_level_ratio": 0.7978845608028654,
+    "binarised_slope": -0.5,
+    "derivation": "unbounded integrator SNR=sqrt(d/(t+1)); sign() readout gives sqrt(d)*sqrt(2/(pi t)) -- same exponent, prefactor sqrt(2/pi)",
+    "graded_slope": -0.5
+  },
+  "axis_reconciliation": {
+    "primary_axis": "encounters of the tracked lemma == Benna-Fusi 'memories stored at this synapse' (_sums[lemma] is a bank of d dedicated accumulators)",
+    "reconcilable": true,
+    "second_channel": "anchor-dictionary growth; NOT a Benna-Fusi channel (no dictionary, no argmax in their model); see channel_b"
+  },
+  "cell": "exp_forgetting_kernel_signreadout_v1",
+  "channel_b": {
+    "channel_b|binarised": {
+      "accuracy_vs_anchor_count": [
+        {
+          "acc": 0.6,
+          "n": 5,
+          "n_anchors": 2
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 3
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 5
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 8
+        },
+        {
+          "acc": 0.4,
+          "n": 10,
+          "n_anchors": 14
+        },
+        {
+          "acc": 0.3,
+          "n": 10,
+          "n_anchors": 22
+        },
+        {
+          "acc": 0.16,
+          "n": 25,
+          "n_anchors": 36
+        },
+        {
+          "acc": 0.05,
+          "n": 40,
+          "n_anchors": 58
+        }
+      ],
+      "note": "NON-Benna-Fusi axis (dictionary competition), reported separately, never fitted against a BF prediction",
+      "readout": "binarised"
+    },
+    "channel_b|graded": {
+      "accuracy_vs_anchor_count": [
+        {
+          "acc": 0.6,
+          "n": 5,
+          "n_anchors": 2
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 3
+        },
+        {
+          "acc": 0.0,
+          "n": 5,
+          "n_anchors": 5
+        },
+        {
+          "acc": 0.0,
+          "n": 5,
+          "n_anchors": 8
+        },
+        {
+          "acc": 0.2,
+          "n": 10,
+          "n_anchors": 14
+        },
+        {
+          "acc": 0.2,
+          "n": 10,
+          "n_anchors": 22
+        },
+        {
+          "acc": 0.08,
+          "n": 25,
+          "n_anchors": 36
+        },
+        {
+          "acc": 0.025,
+          "n": 40,
+          "n_anchors": 58
+        }
+      ],
+      "note": "NON-Benna-Fusi axis (dictionary competition), reported separately, never fitted against a BF prediction",
+      "readout": "graded"
+    }
+  },
+  "generated_utc": "2026-08-14T07:58:37Z",
+  "meta": {
+    "cfg": {
+      "chanb_max_anchors": 200,
+      "max_scan": 40000,
+      "n_boot": 400,
+      "n_grid": 14,
+      "n_lemmas": 8,
+      "n_probes": 128,
+      "t_max": 64
+    },
+    "corpus": "D:\\AI\\hd-instrument\\data\\corpora\\simplewiki\\simplewiki_clean_v1.txt",
+    "live_d": 256,
+    "mode": "smoke",
+    "progress_logging": "print(..., flush=True) per unit and per corpus phase",
+    "timeout_s": 2400
+  },
+  "prereg": "preregs/2026-08-14_forgetting_kernel_signreadout_v1.md",
+  "units": {
+    "binarised|real": {
+      "d": 256,
+      "elapsed_s": 0.03,
+      "fit": {
+        "dAIC_exp_minus_pow": 8.59599765016577,
+        "exp_aic": -113.8907767536846,
+        "exp_intercept": 1.4407753514705974,
+        "exp_r2": 0.30535380871821993,
+        "exp_rate": -0.017096161821029934,
+        "insufficient": false,
+        "n": 78,
+        "n_dropped": 2,
+        "power_aic": -122.48677440385038,
+        "power_intercept": 2.1177377477295805,
+        "power_r2": 0.3778398468348815,
+        "power_slope": -0.38701232084489784,
+        "winner": "ambiguous"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 40.762628934199626,
+        "exp_aic": -143.1269901948461,
+        "exp_intercept": 1.6957477299129762,
+        "exp_r2": 0.43656515387876405,
+        "exp_rate": -0.02386094155342336,
+        "insufficient": false,
+        "n": 102,
+        "n_dropped": 2,
+        "power_aic": -183.8896191290457,
+        "power_intercept": 2.222412503289761,
+        "power_r2": 0.6221799265142108,
+        "power_slope": -0.4218484813316492,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        10.147053034205486,
+        6.8290577097198515,
+        5.801126188276834,
+        4.3472393800427245,
+        3.964564141640258,
+        3.891685773132205,
+        3.679361516678539,
+        3.3710193448805077,
+        2.6897357618339326,
+        2.3283445275454833,
+        1.9816754476328384,
+        1.9797042568293177,
+        2.2547325898353634
+      ],
+      "n_lemmas_used": 8,
+      "readout": "binarised",
+      "slope_ci": {
+        "ci_hi": -0.24657445331328817,
+        "ci_lo": -0.5797672344440896,
+        "n_boot": 400,
+        "point": -0.38701232084489784
+      },
+      "stream": "real",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "binarised|scram_content": {
+      "d": 256,
+      "elapsed_s": 0.03,
+      "fit": {
+        "dAIC_exp_minus_pow": 14.743295495656383,
+        "exp_aic": -146.00777235301697,
+        "exp_intercept": 1.4866860518428,
+        "exp_r2": 0.33418711366650966,
+        "exp_rate": -0.014451025018637174,
+        "insufficient": false,
+        "n": 80,
+        "n_dropped": 0,
+        "power_aic": -160.75106784867336,
+        "power_intercept": 2.1207901613700977,
+        "power_r2": 0.4462476938701695,
+        "power_slope": -0.35102790816129986,
+        "winner": "power"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 56.86879910410144,
+        "exp_aic": -173.16446717831275,
+        "exp_intercept": 1.7461112228823155,
+        "exp_r2": 0.46377442478518827,
+        "exp_rate": -0.02096918334395913,
+        "insufficient": false,
+        "n": 104,
+        "n_dropped": 0,
+        "power_aic": -230.0332662824142,
+        "power_intercept": 2.255061196164284,
+        "power_r2": 0.6896379417498304,
+        "power_slope": -0.39356934525514675,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        10.470284571184365,
+        7.168590061915506,
+        6.689060098267172,
+        5.058947893116617,
+        5.13246916552825,
+        4.050436585626487,
+        3.656715449062494,
+        2.910140916634364,
+        2.4969914368660984,
+        3.003769946458795,
+        2.703250948481,
+        2.3376237477936357,
+        2.253162854070463
+      ],
+      "n_lemmas_used": 8,
+      "readout": "binarised",
+      "slope_ci": {
+        "ci_hi": -0.2417889208106399,
+        "ci_lo": -0.45914336237358133,
+        "n_boot": 400,
+        "point": -0.35102790816129986
+      },
+      "stream": "scram_content",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "binarised|scram_order": {
+      "d": 256,
+      "elapsed_s": 0.02,
+      "fit": {
+        "dAIC_exp_minus_pow": 18.130066138463874,
+        "exp_aic": -78.68563159246662,
+        "exp_intercept": 1.4888274940258257,
+        "exp_r2": 0.3049867214956461,
+        "exp_rate": -0.021159364078646006,
+        "insufficient": false,
+        "n": 76,
+        "n_dropped": 4,
+        "power_aic": -96.8156977309305,
+        "power_intercept": 2.4478254558954364,
+        "power_r2": 0.45249179421032104,
+        "power_slope": -0.5251210705237566,
+        "winner": "power"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 45.24653907220288,
+        "exp_aic": -107.56517245201012,
+        "exp_intercept": 1.761325832133367,
+        "exp_r2": 0.4377146301508873,
+        "exp_rate": -0.028397272120155522,
+        "insufficient": false,
+        "n": 100,
+        "n_dropped": 4,
+        "power_aic": -152.811711524213,
+        "power_intercept": 2.399327697181354,
+        "power_r2": 0.6423538442607902,
+        "power_slope": -0.5079772086977767,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        10.498552520352264,
+        7.579652173557237,
+        6.874824422899624,
+        6.18420307501262,
+        5.870187645172349,
+        4.762835814209536,
+        4.041186404133092,
+        3.2204511641435283,
+        2.7919100240505106,
+        1.8697747194720882,
+        1.9105956471815055,
+        1.4502999397654524,
+        2.2547325898353634
+      ],
+      "n_lemmas_used": 8,
+      "readout": "binarised",
+      "slope_ci": {
+        "ci_hi": -0.41701080826416936,
+        "ci_lo": -0.7436645307896425,
+        "n_boot": 400,
+        "point": -0.5251210705237566
+      },
+      "stream": "scram_order",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "binarised|synth": {
+      "d": 256,
+      "elapsed_s": 0.03,
+      "fit": {
+        "dAIC_exp_minus_pow": 9.412103372625467,
+        "exp_aic": -192.84476418993145,
+        "exp_intercept": 1.7535643876920997,
+        "exp_r2": 0.7163770950552131,
+        "exp_rate": -0.02419070650276638,
+        "insufficient": false,
+        "n": 80,
+        "n_dropped": 0,
+        "power_aic": -202.25686756255692,
+        "power_intercept": 2.6290766542789497,
+        "power_r2": 0.7478575352177824,
+        "power_slope": -0.5195615382366966,
+        "winner": "ambiguous"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 58.561767955808875,
+        "exp_aic": -225.4936393916168,
+        "exp_intercept": 1.9661112250890176,
+        "exp_r2": 0.7394941941593016,
+        "exp_rate": -0.029539262288513585,
+        "insufficient": false,
+        "n": 104,
+        "n_dropped": 0,
+        "power_aic": -284.05540734742567,
+        "power_intercept": 2.534109600296527,
+        "power_r2": 0.8516563968842995,
+        "power_slope": -0.4879182230342181,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        12.077932003421623,
+        8.38546439202456,
+        8.138582925000703,
+        5.88665385561962,
+        6.204251498359149,
+        5.5182387708257625,
+        4.93702831588151,
+        4.094679028332834,
+        3.0911396501049544,
+        2.439984310304564,
+        2.6127321024532,
+        1.9811052064774002,
+        1.348480960841864
+      ],
+      "n_lemmas_used": 8,
+      "readout": "binarised",
+      "slope_ci": {
+        "ci_hi": -0.4145490429161586,
+        "ci_lo": -0.6341923400616583,
+        "n_boot": 400,
+        "point": -0.5195615382366966
+      },
+      "stream": "synth",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "channel_b|binarised": {
+      "accuracy_vs_anchor_count": [
+        {
+          "acc": 0.6,
+          "n": 5,
+          "n_anchors": 2
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 3
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 5
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 8
+        },
+        {
+          "acc": 0.4,
+          "n": 10,
+          "n_anchors": 14
+        },
+        {
+          "acc": 0.3,
+          "n": 10,
+          "n_anchors": 22
+        },
+        {
+          "acc": 0.16,
+          "n": 25,
+          "n_anchors": 36
+        },
+        {
+          "acc": 0.05,
+          "n": 40,
+          "n_anchors": 58
+        }
+      ],
+      "note": "NON-Benna-Fusi axis (dictionary competition), reported separately, never fitted against a BF prediction",
+      "readout": "binarised"
+    },
+    "channel_b|graded": {
+      "accuracy_vs_anchor_count": [
+        {
+          "acc": 0.6,
+          "n": 5,
+          "n_anchors": 2
+        },
+        {
+          "acc": 0.2,
+          "n": 5,
+          "n_anchors": 3
+        },
+        {
+          "acc": 0.0,
+          "n": 5,
+          "n_anchors": 5
+        },
+        {
+          "acc": 0.0,
+          "n": 5,
+          "n_anchors": 8
+        },
+        {
+          "acc": 0.2,
+          "n": 10,
+          "n_anchors": 14
+        },
+        {
+          "acc": 0.2,
+          "n": 10,
+          "n_anchors": 22
+        },
+        {
+          "acc": 0.08,
+          "n": 25,
+          "n_anchors": 36
+        },
+        {
+          "acc": 0.025,
+          "n": 40,
+          "n_anchors": 58
+        }
+      ],
+      "note": "NON-Benna-Fusi axis (dictionary competition), reported separately, never fitted against a BF prediction",
+      "readout": "graded"
+    },
+    "graded|real": {
+      "d": 256,
+      "elapsed_s": 0.04,
+      "fit": {
+        "dAIC_exp_minus_pow": 4.392571173048683,
+        "exp_aic": -23.63666951089502,
+        "exp_intercept": 1.6682087390512776,
+        "exp_r2": 0.14236689852991358,
+        "exp_rate": -0.01826530949227424,
+        "insufficient": false,
+        "n": 79,
+        "n_dropped": 1,
+        "power_aic": -28.029240683943705,
+        "power_intercept": 2.4488632221029896,
+        "power_r2": 0.1887516609497758,
+        "power_slope": -0.43542718763265686,
+        "winner": "ambiguous"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 11.443187807493231,
+        "exp_aic": -46.63346925046433,
+        "exp_intercept": 1.870977963948127,
+        "exp_r2": 0.23483129976330985,
+        "exp_rate": -0.023488196703157747,
+        "insufficient": false,
+        "n": 103,
+        "n_dropped": 1,
+        "power_aic": -58.07665705795756,
+        "power_intercept": 2.3778191704220544,
+        "power_r2": 0.3152886093588142,
+        "power_slope": -0.41132595223611995,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        11.029796521285554,
+        9.041264039510287,
+        7.845986330997784,
+        7.056988519854826,
+        6.6737353532347035,
+        5.195980953139901,
+        4.869115331493825,
+        3.795842979530896,
+        3.21937758082362,
+        2.7402942782734945,
+        2.2000848787033935,
+        2.184022020618073,
+        2.2324546492102813
+      ],
+      "n_lemmas_used": 8,
+      "readout": "graded",
+      "slope_ci": {
+        "ci_hi": -0.26579665906099076,
+        "ci_lo": -0.6628873986492608,
+        "n_boot": 400,
+        "point": -0.43542718763265686
+      },
+      "stream": "real",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "graded|scram_content": {
+      "d": 256,
+      "elapsed_s": 0.03,
+      "fit": {
+        "dAIC_exp_minus_pow": 2.892675393798701,
+        "exp_aic": -20.478365371692067,
+        "exp_intercept": 1.5467390943433024,
+        "exp_r2": 0.08300457232581815,
+        "exp_rate": -0.013448593887903856,
+        "insufficient": false,
+        "n": 80,
+        "n_dropped": 0,
+        "power_aic": -23.37104076549077,
+        "power_intercept": 2.1557121208976042,
+        "power_r2": 0.11556940395381132,
+        "power_slope": -0.33357781392973906,
+        "winner": "ambiguous"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 7.853012792755315,
+        "exp_aic": -37.554443690016804,
+        "exp_intercept": 1.7229573556952138,
+        "exp_r2": 0.14589593425577863,
+        "exp_rate": -0.017886097948809007,
+        "insufficient": false,
+        "n": 104,
+        "n_dropped": 0,
+        "power_aic": -45.40745648277212,
+        "power_intercept": 2.1414303354601927,
+        "power_r2": 0.2080143247731273,
+        "power_slope": -0.32871778607330415,
+        "winner": "ambiguous"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        8.551355216551784,
+        5.592700516202372,
+        5.229522364165633,
+        5.184678181761406,
+        4.446548789840259,
+        4.011970789636414,
+        4.001076202946226,
+        3.9062519796879385,
+        3.4008327325493286,
+        3.0876475422506955,
+        3.2556503670584496,
+        3.3036286108688127,
+        3.041956866034495
+      ],
+      "n_lemmas_used": 8,
+      "readout": "graded",
+      "slope_ci": {
+        "ci_hi": -0.1803351799811223,
+        "ci_lo": -0.4895594430482761,
+        "n_boot": 400,
+        "point": -0.33357781392973906
+      },
+      "stream": "scram_content",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "graded|scram_order": {
+      "d": 256,
+      "elapsed_s": 0.03,
+      "fit": {
+        "dAIC_exp_minus_pow": 3.601423141299179,
+        "exp_aic": -26.468362644732885,
+        "exp_intercept": 1.5979932746055423,
+        "exp_r2": 0.11010121910207582,
+        "exp_rate": -0.015488721682768014,
+        "insufficient": false,
+        "n": 79,
+        "n_dropped": 1,
+        "power_aic": -30.069785786032064,
+        "power_intercept": 2.272890156144285,
+        "power_r2": 0.1497587844459466,
+        "power_slope": -0.3739928447734723,
+        "winner": "ambiguous"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 13.277000183652213,
+        "exp_aic": -45.5636904136283,
+        "exp_intercept": 1.8439055555151025,
+        "exp_r2": 0.20768691795081073,
+        "exp_rate": -0.021820353154061767,
+        "insufficient": false,
+        "n": 103,
+        "n_dropped": 1,
+        "power_aic": -58.84069059728051,
+        "power_intercept": 2.3515024044188992,
+        "power_r2": 0.30350981243520225,
+        "power_slope": -0.39866109892442037,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        11.858193764382452,
+        10.182074831325135,
+        9.01400603446941,
+        7.663995287854927,
+        6.438124919550516,
+        4.981982115390343,
+        4.9162801451748575,
+        4.292754027045101,
+        3.4100254243560766,
+        3.131470011375635,
+        3.151460821582117,
+        2.5381445917126992,
+        2.2324546492102813
+      ],
+      "n_lemmas_used": 8,
+      "readout": "graded",
+      "slope_ci": {
+        "ci_hi": -0.27626632104204274,
+        "ci_lo": -0.49264955802144955,
+        "n_boot": 400,
+        "point": -0.3739928447734723
+      },
+      "stream": "scram_order",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    },
+    "graded|synth": {
+      "d": 256,
+      "elapsed_s": 0.03,
+      "fit": {
+        "dAIC_exp_minus_pow": 14.218517258142924,
+        "exp_aic": -175.2737961820882,
+        "exp_intercept": 1.8805574779442022,
+        "exp_r2": 0.6751052951875248,
+        "exp_rate": -0.024488173178604397,
+        "insufficient": false,
+        "n": 80,
+        "n_dropped": 0,
+        "power_aic": -189.49231344023113,
+        "power_intercept": 2.790337199609996,
+        "power_r2": 0.7280088092246977,
+        "power_slope": -0.5345505717245859,
+        "winner": "power"
+      },
+      "fit_full_window_sensitivity": {
+        "dAIC_exp_minus_pow": 44.74126440064791,
+        "exp_aic": -221.74230505065904,
+        "exp_intercept": 2.065018691953309,
+        "exp_r2": 0.7269902418671528,
+        "exp_rate": -0.029130556694870455,
+        "insufficient": false,
+        "n": 104,
+        "n_dropped": 0,
+        "power_aic": -266.48356945130695,
+        "power_intercept": 2.615580327087362,
+        "power_r2": 0.8224409777730255,
+        "power_slope": -0.47689133926853544,
+        "winner": "power"
+      },
+      "fit_window_t_min": 4,
+      "median_snr_by_t": [
+        12.077932003421623,
+        9.588951142698928,
+        8.33753018389635,
+        7.3089137856474595,
+        6.615037933399368,
+        5.97252239621654,
+        4.75406664832885,
+        4.423759501059497,
+        3.575450982872831,
+        2.6934761360516486,
+        2.674545474886479,
+        2.4555118651433476,
+        1.7289162197065984
+      ],
+      "n_lemmas_used": 8,
+      "readout": "graded",
+      "slope_ci": {
+        "ci_hi": -0.420767044557788,
+        "ci_lo": -0.6905929558310034,
+        "n_boot": 400,
+        "point": -0.5345505717245859
+      },
+      "stream": "synth",
+      "t_grid": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        13,
+        18,
+        25,
+        34,
+        46,
+        64
+      ]
+    }
+  },
+  "verdict": {
+    "band": "INCONCLUSIVE",
+    "per_stream": {
+      "real": {
+        "band": "INCONCLUSIVE",
+        "binarised_ci": [
+          -0.5797672344440896,
+          -0.24657445331328817
+        ],
+        "binarised_dAIC": 8.59599765016577,
+        "binarised_slope": -0.38701232084489784,
+        "binarised_winner": "ambiguous",
+        "graded_ci": [
+          -0.6628873986492608,
+          -0.26579665906099076
+        ],
+        "graded_dAIC": 4.392571173048683,
+        "graded_slope": -0.43542718763265686,
+        "graded_winner": "ambiguous",
+        "reason": "graded=ambiguous (slope -0.4354), binarised=ambiguous (slope -0.3870), |dslope|=0.0484",
+        "slope_delta": -0.048414866787759026
+      },
+      "scram_content": {
+        "band": "INCONCLUSIVE",
+        "binarised_ci": [
+          -0.45914336237358133,
+          -0.2417889208106399
+        ],
+        "binarised_dAIC": 14.743295495656383,
+        "binarised_slope": -0.35102790816129986,
+        "binarised_winner": "power",
+        "graded_ci": [
+          -0.4895594430482761,
+          -0.1803351799811223
+        ],
+        "graded_dAIC": 2.892675393798701,
+        "graded_slope": -0.33357781392973906,
+        "graded_winner": "ambiguous",
+        "reason": "graded=ambiguous (slope -0.3336), binarised=power (slope -0.3510), |dslope|=0.0175",
+        "slope_delta": 0.017450094231560798
+      },
+      "scram_order": {
+        "band": "INCONCLUSIVE",
+        "binarised_ci": [
+          -0.7436645307896425,
+          -0.41701080826416936
+        ],
+        "binarised_dAIC": 18.130066138463874,
+        "binarised_slope": -0.5251210705237566,
+        "binarised_winner": "power",
+        "graded_ci": [
+          -0.49264955802144955,
+          -0.27626632104204274
+        ],
+        "graded_dAIC": 3.601423141299179,
+        "graded_slope": -0.3739928447734723,
+        "graded_winner": "ambiguous",
+        "reason": "graded=ambiguous (slope -0.3740), binarised=power (slope -0.5251), |dslope|=0.1511",
+        "slope_delta": 0.15112822575028428
+      },
+      "synth": {
+        "band": "CONFIRMS",
+        "binarised_ci": [
+          -0.6341923400616583,
+          -0.4145490429161586
+        ],
+        "binarised_dAIC": 9.412103372625467,
+        "binarised_slope": -0.5195615382366966,
+        "binarised_winner": "ambiguous",
+        "graded_ci": [
+          -0.6905929558310034,
+          -0.420767044557788
+        ],
+        "graded_dAIC": 14.218517258142924,
+        "graded_slope": -0.5345505717245859,
+        "graded_winner": "power",
+        "reason": "graded fits power law (dAIC +14.2), binarised does not (ambiguous, dAIC +9.4)",
+        "slope_delta": -0.01498903348788927
+      }
+    },
+    "reason": "PRIMARY (stream=real): graded=ambiguous (slope -0.4354), binarised=ambiguous (slope -0.3870), |dslope|=0.0484",
+    "scramble_control": {
+      "binarised": {
+        "abs_delta": 0.13810874967885872,
+        "meaning": "order matters: some temporal structure is present",
+        "shape_unchanged_by_order": false,
+        "slope_real": -0.38701232084489784,
+        "slope_scram_order": -0.5251210705237566
+      },
+      "graded": {
+        "abs_delta": 0.06143434285918459,
+        "meaning": "order matters: some temporal structure is present",
+        "shape_unchanged_by_order": false,
+        "slope_real": -0.43542718763265686,
+        "slope_scram_order": -0.3739928447734723
+      }
+    }
+  }
+}

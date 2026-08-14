@@ -123,6 +123,41 @@ iff dAIC < -10; |dAIC| <= 10 is AMBIGUOUS** and is reported as such, not resolve
 - t-grid: ~24 log-spaced integers, `sorted(set(...))`.
 - Slope CI: cluster bootstrap over TRACKED LEMMAS, 2000 resamples, percentile 2.5/97.5.
 
+### AMENDMENT 2 -- the ESTIMATOR was wrong, caught by the KNOWN-ANSWER arm (disclosed 2026-08-14)
+
+The first full run was executed with the estimator exactly as pre-declared above (pool every
+`(lemma, t)` point, regress `log SNR`). **The `synth` arm, whose true slope is fixed by derivation,
+returned `-0.4271` with a bootstrap CI of `[-0.4772, -0.3790]` that EXCLUDED the truth.** That is a
+harness failure, and it was detectable only because a known-answer arm was built in. Two independent
+defects, both fixed, both applied identically to every arm:
+
+1. **SURVIVORSHIP BIAS.** Pooling per-lemma `log SNR` must discard non-positive SNRs. Per-lemma SNR
+   has s.d. ~1 by construction, so at large `t` -- where the true SNR falls below ~1 -- a sizeable
+   minority of lemmas go negative and are DROPPED, leaving only the upward fluctuations. Measured:
+   **96 of 1140 synth points dropped**, all at the large-`t` end that sets the slope, biasing it
+   FLAT. Fix: take the **mean over lemmas at each `t` FIRST**, then the log. Nothing is dropped.
+2. **PSEUDO-REPLICATION.** The pooled fit counted 19 t-points x 60 lemmas as `n = 1140` independent
+   observations. The independent units are the LEMMAS and the object being fitted is the CURVE
+   SHAPE, so the honest `n` for AIC is the number of t-points (19). **The first run's dAIC values
+   (+415.7, +144.5, ...) were inflated by this and are NOT quoted anywhere in the result.**
+
+Post-fix the `synth` arm returns `-0.4632`, CI `[-0.5662, -0.3945]`, `power_r2 = 0.998`.
+
+### AMENDMENT 3 -- compare to the EXACT-CURVE slope on the SAME grid, not to -1/2
+
+The closed forms are only ASYMPTOTICALLY `t^-1/2`. The graded curve is `sqrt(d/(t+1))`, whose local
+log-log slope is `-0.5 * t/(t+1)` -- at the window floor `t=4` that is `-0.40`, not `-0.50`. Pushing
+the EXACT, NOISE-FREE curves through the SAME fitter on the SAME grid gives **`-0.4861` (graded) and
+`-0.4964` (binarised)** for the full grid, so a fitted slope near `-0.48` is CORRECT, not biased.
+Self-test gates 1 and 2 now assert `|measured - exact_curve_slope| <= 0.04` instead of comparing to
+`-0.5`; `exact_reference_slopes_this_grid` is recorded in every unit. This is strictly more
+rigorous, and it removes a window artifact that would otherwise have been misread as a real
+flattening in the arms of interest.
+
+The original pre-declared units are NOT deleted -- the unit-key namespace was bumped to `v2meanfit`,
+so both estimators' outputs sit side by side in `units.jsonl`, and each unit also carries its own
+`fit_pooled_perlemma_PREDECLARED_BIASED` block.
+
 ## PASS / FAIL bands (pre-declared, per the brief)
 
 - **CONFIRMS** (the drill's hypothesis stands): the graded arm fits a power law (`dAIC > 10`) AND
@@ -164,7 +199,9 @@ The discriminator MUST FIRE at smoke, or the cell is vacuous:
    ~0.6 and it **cannot resolve a +-0.10 band at all**. Checked directly at n=400
    (`scratch/_fk_power.py`): measured means track the closed forms to 1-3 s.e. at t=16/64/512, and
    the ratio comes out 0.748/0.786/0.758 against derived 0.810/0.801/0.798. **The derivation is
-   confirmed; the gate was underpowered.** Re-specified as an **n=400 MEAN at t=64** compared to
+   confirmed; the gate was underpowered.** (That check is not left in `scratch/`: it is now gate 3
+   of the cell's own `--self-test`, which is the durable provenance for these numbers.)
+   Re-specified as an **n=400 MEAN at t=64** compared to
    the EXACT finite-t closed forms (`sqrt(d/(t+1))` graded; `d*C(t,t/2)/2^t/sqrt(d)` binarised,
    which tends to `sqrt(2/(pi t))`), asserting each arm within **8%** of its own closed form and
    the ratio within **0.08** of the derived ratio. This is TIGHTER than the original band, not
