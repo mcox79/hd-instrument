@@ -1,0 +1,29 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "encoders_byte_identical_to_parent_and_hdlab": true,
+    "float32_lossless": true,
+    "draws_independent": {
+      "cos_draw0_draw1": 0.0781
+    },
+    "mean_abs_crosstalk_by_d": {
+      "d256": 0.04984,
+      "d1024": 0.02486,
+      "d4096": 0.01248
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_DIMENSION_DOES_NOTHING",
+      "HARD_FAIL_FLOOR_BREACH",
+      "HARD_FAIL_WALL_IS_NOT_CAPACITY",
+      "HARD_PASS_CAPACITY_EXPLAINS_THE_WALL",
+      "INSTRUMENTATION_SUSPECT_BASELINE_DRIFT",
+      "INSTRUMENTATION_SUSPECT_PRECISION",
+      "MIDDLE_BAND_CAPACITY_PARTIAL"
+    ],
+    "selftest_elapsed_s": 0.142
+  }
+}
