@@ -1,0 +1,164 @@
+{
+  "anchor_name": "coref_actr_tiebreak_under_centering_v2",
+  "verdict": "VACUOUS",
+  "verdict_msg": "VACUOUS: D1=0 < 10. The Cb tier decides before the tiebreak is consulted often enough for the arms to differ; the tiebreak key is not where this resolver's signal lives. D_tier=0 of 23 competitive decisions reached the tiebreak. | PRIMARY P = link-level pronoun accuracy on the COMPETITIVE subset (>=2 gn-compatible candidates), pooled over both gold sets.",
+  "run_mode": "smoke",
+  "elapsed_s": 0.2043612003326416,
+  "timeout_s": 900.0,
+  "ts_iso": "2026-08-14T04:12:56Z",
+  "pid": 29584,
+  "prereg": "preregs/2026-08-14_coref_actr_tiebreak_under_centering_v2.md",
+  "prereg_commit": "dd4bb4794",
+  "v1_cell_commit": "277f84c36",
+  "bands": {
+    "hard_pass_delta": 0.05,
+    "pass_delta": 0.02,
+    "fail_delta": -0.02,
+    "hard_fail_delta": -0.05,
+    "d1_vacuity_min": 10
+  },
+  "actr_params": {
+    "d_PINNED": 0.5
+  },
+  "datasets": {
+    "g5g6_reviewed": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+    "powered": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl"
+  },
+  "P_competitive_by_arm": {
+    "base_principle_b": 0.782608695652174,
+    "floor_most_recent": 0.43478260869565216,
+    "floor_singleton": 0.0,
+    "pb_actr_tiebreak": 0.782608695652174,
+    "pb_salience_tiebreak": 0.782608695652174
+  },
+  "pronoun_link_acc_by_arm": {
+    "base_principle_b": 0.8125,
+    "floor_most_recent": 0.53125,
+    "floor_singleton": 0.09375,
+    "pb_actr_tiebreak": 0.8125,
+    "pb_salience_tiebreak": 0.8125
+  },
+  "b3_pronoun_f1_by_arm": {
+    "base_principle_b": 0.7357494155801125,
+    "floor_most_recent": 0.5150733259796934,
+    "floor_singleton": 0.34496808366155096,
+    "pb_actr_tiebreak": 0.7357494155801125,
+    "pb_salience_tiebreak": 0.7357494155801125
+  },
+  "n_competitive_decisions": 23,
+  "n_pronoun_decisions": 32,
+  "n_passages": 12,
+  "discriminators": {
+    "D1_actr_vs_principle_b_differing_competitive_decisions": 0,
+    "D_tier_competitive_decisions_reaching_the_tiebreak": 0
+  },
+  "paired_bootstrap": {
+    "pb_actr_tiebreak_vs_base_principle_b": {
+      "delta_mean": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0
+    },
+    "pb_salience_tiebreak_vs_base_principle_b": {
+      "delta_mean": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0
+    },
+    "pb_actr_tiebreak_vs_pb_salience_tiebreak": {
+      "delta_mean": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0,
+      "n_resamples": 10000,
+      "frac_gt0": 0.0
+    }
+  },
+  "per_dataset": {
+    "g5g6_reviewed": {
+      "base_principle_b": {
+        "P_competitive": 0.8,
+        "n_competitive": 15,
+        "pronoun_link_acc": 0.8333333333333334,
+        "n_pronoun": 24,
+        "b3_pronoun_f1": 0.7664509313813009,
+        "b3_all_f1": 0.73756044151973
+      },
+      "floor_most_recent": {
+        "P_competitive": 0.4666666666666667,
+        "n_competitive": 15,
+        "pronoun_link_acc": 0.5833333333333334,
+        "n_pronoun": 24,
+        "b3_pronoun_f1": 0.5050657458105193,
+        "b3_all_f1": 0.5518442838964533
+      },
+      "floor_singleton": {
+        "P_competitive": 0.0,
+        "n_competitive": 15,
+        "pronoun_link_acc": 0.125,
+        "n_pronoun": 24,
+        "b3_pronoun_f1": 0.3115577889447236,
+        "b3_all_f1": 0.3939393939393939
+      },
+      "pb_actr_tiebreak": {
+        "P_competitive": 0.8,
+        "n_competitive": 15,
+        "pronoun_link_acc": 0.8333333333333334,
+        "n_pronoun": 24,
+        "b3_pronoun_f1": 0.7664509313813009,
+        "b3_all_f1": 0.73756044151973
+      },
+      "pb_salience_tiebreak": {
+        "P_competitive": 0.8,
+        "n_competitive": 15,
+        "pronoun_link_acc": 0.8333333333333334,
+        "n_pronoun": 24,
+        "b3_pronoun_f1": 0.7664509313813009,
+        "b3_all_f1": 0.73756044151973
+      }
+    },
+    "powered": {
+      "base_principle_b": {
+        "P_competitive": 0.75,
+        "n_competitive": 8,
+        "pronoun_link_acc": 0.75,
+        "n_pronoun": 8,
+        "b3_pronoun_f1": 0.705047899778924,
+        "b3_all_f1": 0.8745976539716143
+      },
+      "floor_most_recent": {
+        "P_competitive": 0.375,
+        "n_competitive": 8,
+        "pronoun_link_acc": 0.375,
+        "n_pronoun": 8,
+        "b3_pronoun_f1": 0.5250809061488673,
+        "b3_all_f1": 0.7989331535083168
+      },
+      "floor_singleton": {
+        "P_competitive": 0.0,
+        "n_competitive": 8,
+        "pronoun_link_acc": 0.0,
+        "n_pronoun": 8,
+        "b3_pronoun_f1": 0.37837837837837834,
+        "b3_all_f1": 0.49999999999999983
+      },
+      "pb_actr_tiebreak": {
+        "P_competitive": 0.75,
+        "n_competitive": 8,
+        "pronoun_link_acc": 0.75,
+        "n_pronoun": 8,
+        "b3_pronoun_f1": 0.705047899778924,
+        "b3_all_f1": 0.8745976539716143
+      },
+      "pb_salience_tiebreak": {
+        "P_competitive": 0.75,
+        "n_competitive": 8,
+        "pronoun_link_acc": 0.75,
+        "n_pronoun": 8,
+        "b3_pronoun_f1": 0.705047899778924,
+        "b3_all_f1": 0.8745976539716143
+      }
+    }
+  }
+}
