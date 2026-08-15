@@ -1,6 +1,7 @@
 # ORGAN MAP — every brain organ, its equation, ours, and whether ours is the same one
 
-**LIVING DOC. Dateless filename, updated IN PLACE.** Last updated 2026-08-14. Branch
+**LIVING DOC. Dateless filename, updated IN PLACE.** Last updated 2026-08-15 (§9 SUM-vs-SIGN
+adjudication; §1 and B2 carry superseded-in-part markers pointing to it). Branch
 `dataprep/mcguffey-graded-corpus`. Read-only audit: no `hdlab/` or `experiments/` file was modified,
 no experiment was run, no `metrics.json` was touched.
 
@@ -146,6 +147,17 @@ addition IS the brain's composition operation here. So `bundle()`'s `vectors.sum
 only the normaliser that follows it is not. That is a genuinely useful narrowing: **the defect is one
 line, not the design.**
 
+🔴 **SUPERSEDED IN PART 2026-08-15 — "the defect is one line, not the design" is HALF RIGHT, and the
+half that is wrong is the word "the". SUPERSEDED-BY: §9 "2026-08-15 — SUM vs SIGN: the adjudication",
+evidence `data/exp_encoding_quality_instrument_v2/metrics.json` at `542e1fc0d` +
+`tools/audit_sum_vs_sign_probe{,2}.py` (authored in `scratch/`, PROMOTED to `tools/` because this
+note cites them — CLAUDE.md "Scratch files"; re-run from `tools/` reproduces bit-identically).** The sign IS a real one-line defect and the paragraph
+above is not retracted — but removing it buys **+0.0602 on 2AFC and +0.0015 (null) on
+open-vocabulary hit@1**, and it does nothing about a second, larger loss the same doc had not
+measured: a **superposition-capacity cliff below B=4** for correlated concept codes. Read §9 before
+quoting either "the SUM is fine" or "the SUM is the lossy stage" — **both are true only on a stated
+axis, and the axis is which codes are being summed.**
+
 ---
 
 ## 2. THE TWELVE ORGANS WHOSE EQUATION IS ACTUALLY PINNED
@@ -289,6 +301,12 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   LIVE 0.6395 → GRADED 0.6997, **d=+0.0602 CI [0.0440,0.0762]**.
   **FLOORS measured in-cell: scrambled-context 0.4975 / 0.5065; frequency baseline 0.4800;
   chance 0.50.** Mechanism claim WITHDRAWN (§3.3).
+  🔴 **SCOPE, 2026-08-15 (§9 SUM-vs-SIGN adjudication) — NOT a demotion, this number reproduced.**
+  It is **2AFC, chance 0.50, 2-candidate pool, 1476 distinct target words**; the same manipulation in
+  open-vocabulary hit@1 is **+0.0015, CI [-0.0055,+0.00825], null** (DO-NOT-REDO 34/35). Factorially
+  ~97% of the +0.0602 is sign-removal (ENC +0.0245 / AGG +0.0240) and the **divisive normaliser
+  contributes +0.00175, CI includes zero** — so this row's brain-faithful *normalisation* is
+  UNTESTED-BY-THIS-CELL; what was tested is *de-quantisation*.
 - **RELATED ORGAN WE OWN AND DO NOT USE:** `hdlab/random_indexing.py:219` implements the
   **order-sensitive** Sahlgren variant (`C[center] += roll(IDX[other], offset)`), with convergence
   error O(√(log V / N)) ≈ 0.037 at N=8192. The live path uses the unordered bag version
@@ -1432,6 +1450,103 @@ is 5 organs of 38, and three of those five are not wired.**
 ---
 
 ## 9. CORRECTIONS APPLIED (living log — newest first)
+
+### 2026-08-15 — SUM vs SIGN: the adjudication (both claims survive; neither generalises)
+
+*Auditor pass, AUDIT-ONLY: no `hdlab/` or `experiments/` file modified, no landed `metrics.json`
+touched, no experiment dispatched. Every number below recomputed with `.venv/Scripts/python.exe`
+off disk at HEAD `542e1fc0d`, branch `dataprep/mcguffey-graded-corpus`. Probes:
+`tools/audit_sum_vs_sign_probe.py`, `tools/audit_sum_vs_sign_probe2.py` (authored in `scratch/`,
+promoted because this note cites them; re-run from `tools/` reproduces bit-identically). Full record:
+`.claude/scan-out/sum-vs-sign-adjudication.json`. If this correction is registered in
+`STATUS_LESSONS.md` it takes the next free C-number (C28 as of this pass).*
+
+**THE CONFLICT.** This doc (§1, B2, B3) says the SUM is the brain-faithful part (Baron & Osherson
+2011) and the terminal `sign()` is the one-line defect, evidenced by **+0.0602 (0.6395 → 0.69975)**
+from removing the sign. `exp_encoding_quality_instrument_v2` (`542e1fc0d`,
+`.claude/scan-out/encoding-step2.json`) says **"bundling — THE SUM — destroys 6.93 of 7 bits of our
+real concept codes while sign-quantisation destroys 0.000."** Those cannot both be general.
+
+**VERDICT: BOTH SURVIVE ON THEIR OWN AXIS; NEITHER MAY BE QUOTED AS AN ORDERING OF THE TWO
+OPERATIONS. NOTHING IS DEMOTED — both source cells keep their verdicts on their own scorers. The
+new claim's HEADLINE is over-scoped, and is contradicted by its own cell's `S4` row.**
+
+**THE AXIS BOUNDARY, in one sentence a future reader cannot misapply:**
+> **The SUM is the dominant loss only when the summands are ≥4 MUTUALLY DISTINCT, CORRELATED concept
+> codes — a flat-store superposition that the live reading path never performs; the SIGN is the
+> dominant loss at every site the live path actually runs, where the summands are near-orthogonal
+> word codes and the query is a real held-out sentence rather than isotropic noise.**
+
+**WHAT WAS RECOMPUTED**
+
+1. **The 6.928 REPRODUCES and survives its own worst confound.** P_LIVE_CONCEPT, d=256, S2→S3,
+   ceiling log2(1024/8)=7 bits. **44.5%** of the first 1024 store rows are lemma-collided (the same
+   defect that ate 78% of that cell's GOLD_ORTHO lift), so this needed checking: on a **collision-free
+   store** the sum still retains only **1.4% of ceiling (0.099 bits)** vs 0.7% (0.051) on the full
+   store. **Upheld.**
+2. **The "0.000" REPRODUCES and is scoped three ways.** (a) It is the **PRE-sum** site — `sign()`
+   applied to ONE item code with store and probe both signed — **not** the post-sum site this doc is
+   about. (b) It is measured **only at `SIGMA_GATE = 1.0`**, which the *same cell's own FIX (b)*
+   declares saturated: *"at the pre-registered headline sigma=1.0 every non-degenerate arm scores
+   1.000; the metric cannot separate two GOOD encoders there."* Eight of ten arms sit at exactly
+   1.0000. (c) For the ±1 arms `sign()` is the **identity map**, so their 0.000 is by construction,
+   not measurement. Measured OFF the gate sigma the pre-sum sign is not neutral but **beneficial**
+   for graded profiles (top-8 recoverability **0.6465 → 0.7969** at sigma=4) — under *isotropic*
+   noise, magnitude is liability.
+3. **THE SAME CELL'S `S3→S4` ROW CONTRADICTS ITS OWN HEADLINE.** Sign applied AFTER the sum, d=256,
+   of 7 bits: **A_RANDOM_IID 0.838 · A_PLANTED_SEMANTIC 0.715 · A_ORTHOGRAPHIC 0.597 · P_LIVE_WORD
+   0.218.** On the production sentence encoder — bundle 8 word codes then sign, i.e. *exactly*
+   `grounding_acquisition_loop.context_vector` — **the sum costs 0.074 bits and the sign costs
+   0.218. At the stage production actually runs, the SIGN costs 3x what the SUM costs.**
+4. **The +0.0602 REPRODUCES, with its scope now attached.** 2AFC near-neighbour, chance 0.50, n=4000
+   items over **1476 distinct target words** (≤4 items/word), 2377 anchors, 2-candidate pool,
+   simplewiki, floors SCRAM 0.4975/0.5065 and FREQ 0.4800; item bootstrap CI [0.0440,0.0762],
+   cluster-by-target-word CI [0.0438,0.0761]; positive control A_SSN reproduces the landed 0.6395;
+   `readout_disagreements = 0`. It **does not carry to open-vocabulary hit@1**, where the same switch
+   is **+0.0015, CI [-0.0055,+0.00825], null** (DO-NOT-REDO 34/35).
+5. **NEW — bundle-size sweep settles the mechanism.** Fraction of the list-decoding ceiling retained
+   after the sum: **concept profiles (collision-free) B=2 93.5% · B=4 17.3% · B=8 1.4%**;
+   **production word codes B=2/4 100% · B=8 98.7% · B=16 80.5% · B=32 53.8%.** Same operation,
+   opposite verdict, decided entirely by whether the summands are near-orthogonal. **Our concept
+   codes have a superposition capacity below 4.**
+
+**WHAT THIS COSTS THIS DOC**
+
+- **"The defect is one line, not the design" is SUPERSEDED IN PART** (marker added at §1). The one
+  line is real and worth +0.0602 on 2AFC — but ~0 on open-vocab, and it does nothing about the
+  capacity cliff in point 5. **Removing sign is a real fix to a real defect; it is not A fix to THE
+  problem.** The prescription was too optimistic; the diagnosis was not wrong.
+- **Baron & Osherson still license `vectors.sum(0)`.** What the new cell adds is that **addition
+  preserves information only when its summands are near-orthogonal**, and our concept profiles are
+  not. That is a claim about the CODE, not about the addition — the same finding as B4 from the other
+  side, where 16x dimensionality bought +0.0843, more than any mechanism change this program has
+  produced.
+- **The ordering, at d=256 on the near-neighbour 2AFC, stated so it cannot be misapplied:**
+  **CAPACITY (+0.0985 for 16x d on the quantised arm) > SIGN (+0.0585) > DIVISIVE NORM (+0.00175,
+  CI includes zero).** And the graded advantage shrinks as d grows, which is what "the quantised
+  comparator is CAPACITY-limited at d=256" (§3.3) predicts.
+- **Citation drift in §3.3, corrected here rather than in place:** *"the graded advantage shrinks
+  0.0602 → 0.047 → 0.041 as d goes 256 → 1024 → 4096"* mixes two cells. 0.0602 is
+  `exp_graded_divisive_comparator_v1` (A_GGZ−A_SSN); the d-sweep is
+  `exp_capacity_ceiling_near_far_v1`, whose own within-cell deltas are **0.0585 / 0.0465 / 0.04425**.
+  Direction upheld; use 0.0585 to keep the series inside one cell.
+
+**RESIDUAL INSTRUMENT DEFECT, DISCLOSED NOT FIXED.** The v2 M4 "chain" is a **DAG, not a chain**:
+`S3` branches from `S1`'s *graded* codes, not from `S2`'s *signed* ones
+(`experiments/exp_encoding_quality_instrument_v2.py:829-835`), so `destroyed_bits_vs_prev` at S3 is
+labelled a chain step across an input that reverted. Numerically immaterial (bits(S1) == bits(S2) to
+3 dp for every arm but A_COLLAPSE), and `S1→S2` and `S3→S4` are each clean PAIRED contrasts — but the
+label is what invites the mis-reading adjudicated above. **Fix (a) verified as claimed** (v1's
+A_COLLAPSE `−0.350` → v2 `−0.121`; v1's 7.804-of-10 → v2's 5.723-of-7 for A_PLANTED_STRUCTURE at
+d=1024), and **the 6.93 figure POSTDATES it**: v1 has no `P_LIVE_CONCEPT` arm and no d=256 at all.
+
+**HOW THE LIVE SUMS WERE ENUMERATED** (an absence claim needs an enumeration): every `sum(` / `+=` /
+`bundle` site in the two documented live entry modules, `hdlab/grounding_acquisition_loop.py` and
+`hdlab/reading_grounding_loop.py`. They are: within-sentence over word codes (`:157`), `_bundle` =
+`sign(sum)` over traces of the SAME item (`:175`, `:446`), within-lemma accumulation (`:481`), and
+the default-OFF role-bound bind (`reading_grounding_loop.py:436`). `anchor_matrix` **stacks** rows
+and `canonicalize_fast` does `mat @ nb` — **no live site superposes distinct concept anchors.** Scope
+stated honestly: two entry modules, not all 44 live-path files.
 
 ### 2026-08-14 — 12 biology corrections + 2 evidence corrections
 
