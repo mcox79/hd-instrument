@@ -638,7 +638,11 @@ class ReadoutConfig:
 
     FIX 3 is not a field here: it is `ConceptSpace.freeze()` (pass the frozen view AS the space).
 
-    `graded_query` (2026-08-13, ADDITIVE, DEFAULT False = prior behavior BYTE-FOR-BYTE): skip the
+    `graded_query` (2026-08-13, ADDITIVE; DEFAULT CHANGED 2026-08-14 -- it now FOLLOWS
+    `GRADED_COMPARATOR`, which is ON, so the default is True, NOT False. The "DEFAULT False"
+    wording that stood here until 2026-08-14 was stale and read a brain-fidelity drill into
+    reporting this path as default-OFF; see the field's own comment below and
+    `notes/brain_drill_how_meaning_is_stored_and_separated_2026-08-14.md`): skip the
     `np.sign(new_raw_sum)` quantisation of the QUERY in `canonicalize_fast`. Pair it with
     `ConceptSpace.freeze_graded()` -- a graded field read by a signed query is worse than either,
     because the query's magnitudes are exactly what the field's magnitudes are being compared to.

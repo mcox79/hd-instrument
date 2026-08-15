@@ -1,5 +1,29 @@
 # Brain drill: how meaning is STORED and how near-identical meanings are SEPARATED
 
+> **CORRECTION, 2026-08-14, SAME NIGHT, TO THIS NOTE'S "LARGEST FIDELITY GAP" SECTION ONLY.**
+> This note reports that the graded path is **default-OFF** and therefore an unbanked gain.
+> **That is wrong, verified in the main thread by reading the code, not the docs:**
+> `GRADED_COMPARATOR` (`hdlab/reading_grounding_loop.py:103`) defaults to `"1"` = **ON**, and
+> `ReadoutConfig.graded_query` (line 663) is `field(default_factory=lambda: GRADED_COMPARATOR)`,
+> so it **follows the switch and is also ON**. The anchor field is likewise graded when the switch
+> is on (line 504: `s.copy() if GRADED_COMPARATOR else np.sign(s)`).
+>
+> **Root cause: a STALE DOCSTRING, not a reading error.** Line 641 still read
+> "`graded_query` ... DEFAULT False = prior behavior BYTE-FOR-BYTE" while the code three lines
+> below said the opposite -- the default was flipped on 2026-08-14 (`38f7a0d5c`) and only the
+> field's inline comment was updated. The docstring has now been corrected in the same commit as
+> this banner. This is the "a doc and the code it describes are coupled -- mark BOTH sides" rule
+> (`CLAUDE.md`) recurring inside a module rather than across files.
+>
+> **What this changes.** The 0.0480 headline was ALREADY measured with the graded path ON, so
+> +0.0602 is **already banked, not available**. The signed/graded distinction is therefore NOT
+> the largest remaining fidelity gap, and this note's recommendation to "flip the switch" is void.
+> **What survives:** `ConceptSpace.freeze_graded()` is a METHOD that must be explicitly called,
+> so whether the persisted anchor field is graded in the arm that produced 0.0480 is a SEPARATE
+> and still-open question -- do not assume either way; measure it.
+> Everything else in this note (the pinned operations, the UNPINNED verdicts, the three framing
+> corrections, and both DO-NOT-REDO re-openings) is unaffected.
+
 **Filed:** 2026-08-14 (late). **Author:** auditor (AUDIT-ONLY role; no cell authored, nothing wired,
 no live-path change, no experiment run).
 **Answers:** `notes/PLAN_NEXT_12H.md` step **1-4h — DRILL THE BRAIN MECHANISM. BUILD NOTHING.**
