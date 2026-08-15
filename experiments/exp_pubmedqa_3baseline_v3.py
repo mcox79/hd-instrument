@@ -1,9 +1,9 @@
 """
-exp_pubmedqa_3baseline_v2 -- PubMedQA 3-baseline with the CORRECT metric (final_decision accuracy) -- GPU.
+exp_pubmedqa_3baseline_v3 -- PubMedQA 3-baseline with the CORRECT metric (final_decision accuracy) -- GPU.
 
 ROUTING: fix for the multibench bundle's broken pubmedqa arm (F1-vs-long_answer gave ~0.00 for all arms because long_answer
   is a paragraph). v2 scores the standard PubMedQA target: final_decision in {yes,no,maybe} as ACCURACY. bare (closed-book) vs
-  vanilla-RAG (top-10 context) vs substrate (whiten+K-hop select 2) -- regulated medical-domain use case. GPU.
+  vanilla-RAG (top-10 context) vs substrate (whiten + top-SUB_K=6 nearest; v3 replaced v2's K-hop select 2) -- regulated medical-domain use case. GPU.
 PRE-REGISTERED: HARD-PASS both RAG and substrate beat bare by >= 0.10 accuracy AND substrate within 90% of RAG.
   MIDDLE retrieval beats bare 0.04-0.10. HARD-FAIL retrieval lift < 0.04 (Qwen already knows / context unhelpful).
 FORMULA SELF-TESTS (PROT-022): 1. decision parse. 2. self-retrieval. 3. accuracy bounds.
