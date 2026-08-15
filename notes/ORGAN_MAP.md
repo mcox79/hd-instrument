@@ -234,7 +234,7 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   quantiser is not.
 - **WIRED:** NO
 
-  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_orthographic_floor_vet_v1` A6_TRIGRAM_ONLY 0.0870 [0.0783,0.0960] vs live 0.0480; the orthography-only arm WINS. Its source script is untracked in `scratch/` — promote it.**
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_orthographic_floor_vet_v1` A6_TRIGRAM_ONLY 0.0870 [0.0783,0.0960] vs live 0.0480; the orthography-only arm WINS. (Provenance is sound: `tools/orthographic_floor_vet_v1.py`, tracked at `58a125c88`.)**
   `superseded_untouched_since_2026-07-03`. **UNTESTED — no floored number.**
 - **BLOCKS:** nothing today. The live path never reads characters.
 
@@ -1558,14 +1558,18 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
   [0.0413, 0.0548]**, delta +0.0390 [0.0282, 0.0500], CI excludes zero. `A7_PREFIX_ONLY` 0.05875,
   `A8_MAXORTHO` 0.0610 — all three orthography-only arms beat the substrate. That is a floored,
   can-fail, identical-pool measurement of an A1-family operation, and the organ **wins**.
-- **DEFECT FOUND, and it is load-bearing.** That cell's `provenance_note` says *"promoted from
-  scratch/ortho_floor_vet_trigram_only.py"*. **The promotion did not happen.** There is no
-  `experiments/exp_orthographic_floor_vet_v1.py` (enumerated: 0 of 5,777 filenames match), the script
-  exists only at `scratch/ortho_floor_vet_trigram_only.py`, `git ls-files` reports it untracked, and
-  `.gitignore:83` ignores `scratch/`. **The sole source of the 8.70% number now in `MEMORY.md`'s
-  banner is one `tools/clear_scratch.py --yes` away from deletion.** This is exactly the
-  dangling-scratch-citation case `CLAUDE.md` names. **Promote it before it is cleared** — filed here,
-  not fixed, because this pass builds nothing.
+- 🔴 **A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE
+  POINT.** I first wrote that the cell's `provenance_note` (*"promoted from
+  scratch/ortho_floor_vet_trigram_only.py"*) described a promotion that never happened, on the
+  grounds that no `experiments/exp_orthographic_floor_vet_v1.py` exists (true: 0 of 5,777 enumerated
+  filenames) and that the scratch copy is untracked (also true). **That conclusion was WRONG.** The
+  script WAS promoted — to **`tools/orthographic_floor_vet_v1.py`**, tracked, added in commit
+  `58a125c88` (the same commit that produced the finding), carrying an explicit header citing the
+  `CLAUDE.md` scratch corollary as its reason for existing. **I enumerated `experiments/` and
+  `scratch/` and never enumerated `tools/`** — which is precisely the
+  "an absence claim requires an enumeration, not a search" fault this whole section is auditing other
+  people for, committed by the auditor inside the audit. The residual is cosmetic: a leftover copy
+  still sits in `scratch/`, and deleting it would now cost nothing. **No action needed.**
 - **EXISTS** yes / **IS-REACHED** no (live path reads no characters) / **IS-GOOD** yes, and better
   than what is reached.
 - **FLOOR TEST:** already run. The remaining question is not a floor, it is a wiring decision, and the
@@ -1974,8 +1978,10 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
 - **§2's list of pinned equations should drop D9.** `tag × PRP > θ` is a model's device.
 - **The `WIRED` column should be renamed `LIVE-PATH`** — it collides with the capability registry's
   `WIRED`, and G2 is already recorded as both.
-- **PROMOTE `scratch/ortho_floor_vet_trigram_only.py`.** It is the only source of the 8.70%
-  orthographic floor, it is untracked, and `scratch/` is cleared on demand.
+- ~~**PROMOTE `scratch/ortho_floor_vet_trigram_only.py`.**~~ 🔴 **RETRACTED same pass — it was
+  already promoted to `tools/orthographic_floor_vet_v1.py` (tracked, `58a125c88`). I had enumerated
+  `experiments/` and `scratch/` but not `tools/`. See the A1 entry; the error is left visible on
+  purpose.**
 
 ### 10.3 DISCLOSURES FOR THIS PASS
 
