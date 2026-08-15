@@ -3,9 +3,9 @@
 AS OF: 2026-08-14 | branch `dataprep/mcguffey-graded-corpus` | GROWTH PAUSED | origin merge needs USER AUTH
 Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
 Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). PLAN: `notes/PLAN_NEXT_12H.md`.
-Rewrite in place; cap 8704 B (raised 2026-08-15, SPEC sec 7).
+Rewrite in place; cap 8704 B (SPEC sec 7).
 CHAIN: HANDOFF_full_project_report_for_new_team_2026-08-14.md -> HERE -> PLAN_NEXT_12H.md ->
-RECOVERY_PROGRAM.md -> SUBSTRATE_STRATEGY.md + ORGAN_MAP.md. 08-04 BACKUP SUPERSEDED.
+RECOVERY_PROGRAM.md -> SUBSTRATE_STRATEGY.md + ORGAN_MAP.md.
 
 ## POSITION
 C3 read-out 4.80% hit@1 clears scramble (0.80% / 1.375%, DONOR-RULE dependent) but is BELOW the
@@ -14,7 +14,6 @@ ORTHOGRAPHIC floor 8.70% -- see FLOOR VET
 (`9316f98ee`): a PURE-SPELLING channel on the base arm reaches 0.10275, clearing the old ">=10% vs
 a floor" criterion, now RETIRED. C3 needs FOUR conditions via `tools/c3_gate.py`; no string-form
 control = NOT_EVALUABLE, never PASS. NOTHING passes: 0 of 13 arms, incl. the gate's own cell.
-"5.2pp short of 10%" measured the RETIRED criterion; never re-quote it.
 
 ## TOP ITEM -- A FLAT BAG OF CO-OCCURRING WORDS CANNOT HOLD MEANING
 FACTORED role/filler held-out 1.000 vs FLAT 0.003 (`exp_role_filler_factorization_compgen_v1`).
@@ -32,19 +31,20 @@ fidelity (4 rescued `lit_scan_*_2026-08-14.md`).
 "we underperform a spell-checker" IS ESTABLISHED. `char_trigram_encoder` EXISTS but NOT REACHED;
 its registry row wrongly says WIRED.
 
-## FOUNDATION VALIDATION -- HARD_FAIL, SCORER LOOSE (metrics.json cited below, no LESSONS entry)
-Claim1 0.9667 vs FREQUENCY floor 0.96, CIs overlap -- HARD_FAIL
-(`exp_foundation_validation_harness_v2_floors_v1`, `62ecec9d5`). Claims 2/3 HOLD ROBUSTLY:
-coherence 0.3111 vs -0.0055; can-reason 1.0 vs 0.0267. v3 fixed the freq-floor bug (claim1 ->
-MIDDLE_BAND) but exposed the SCORER is loose: random decoy scores 0.76 on all 4 arms ->
-INSTRUMENT_STILL_LOOSE. NO VERSION YET TRUSTWORTHY. v4 running, gated on decoy<=0.15. Store
-CLEAN (0 junk/334 strings), not contamination.
+## FOUNDATION VALIDATION -- HARD_PASS, FIRST GATE-CLEARING INSTRUMENT (v4; v1-v3 in LESSONS)
+`exp_foundation_validation_harness_v4_proximity_v1` (`d62acfe58`): chance_hat 0.04<=0.15 gate
+(v3 0.76, v2 0.7667). precision_hat 0.4867 [.408,.566] vs FREQ floor 0.22 [.161,.293], CIs
+disjoint, gap 0.2667 -> HARD_PASS. NOT vindication: ~49% measured, HALF the 95-97% v1-v3
+claimed. Mechanism: 6-token same-sentence proximity window (median sentence len 18/3,
+set pre-result). Corpus defect FLAGGED NOT FIXED: base_vocabulary CSV lacks terminal
+punctuation -> one 74,660-token "sentence" of ~74,286 words inflated co-occurrence; window
+suppresses it. Claims 2/3 NOT recomputed, unchanged from v2 (both HARD_PASS).
 
 ## RECOVERY TRIAGE (LESSONS: TRIAGE RESIDUE)
-MERGED into `RECOVERY_PROGRAM.md` (`2fbd28ea5`): 974 rows/~696 investigations, count over THAT
-FILE ONLY ("all three" DOUBLE-COUNTS to 1944). 172/565 chain-graded have a real floor; 0 WIRED.
-RE-CHECK FLOOR+SCORER BEFORE WIRING -- green rows used weak floors. UNTRIAGED: 263
-atoms; ~7,150/7,634 metrics. Triage FP rate 49/49 (`kf2` sole true positive) -- disc.9.
+MERGED into `RECOVERY_PROGRAM.md` (`2fbd28ea5`); row/atom/metric counts live in that file only
+("all three" DOUBLE-COUNTS). 172/565 chain-graded have a real floor; 0 WIRED. RE-CHECK
+FLOOR+SCORER BEFORE WIRING -- green rows used weak floors. UNTRIAGED residue remains. Triage FP
+rate 49/49 (`kf2` sole true positive) -- disc.9.
 
 ## OTHER PATH STATE
 LANDED: graded comparator DEFAULT ON (`38f7a0d5c`; 2AFC scorer, NOT C3 -- see 34/35),
