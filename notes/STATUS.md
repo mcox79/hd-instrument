@@ -8,14 +8,13 @@ CHAIN: HANDOFF_full_project_report_for_new_team_2026-08-14.md -> HERE -> PLAN_NE
 RECOVERY_PROGRAM.md -> SUBSTRATE_STRATEGY.md + ORGAN_MAP.md. 08-04 BACKUP SUPERSEDED.
 
 ## POSITION
-C3 read-out 4.80% hit@1 clears scramble (0.80% / 1.375%, DONOR-RULE dependent -- name the
-harness) but is BELOW the ORTHOGRAPHIC floor 8.70% -- see
-FLOOR VET (`exp_grounding_readout_known_answer_v1`, `204eba1a0`). THE GATE WAS GAMEABLE, NOW HARDENED
+C3 read-out 4.80% hit@1 clears scramble (0.80% / 1.375%, DONOR-RULE dependent -- name the harness)
+but is BELOW the ORTHOGRAPHIC floor 8.70% -- see FLOOR VET
+(`exp_grounding_readout_known_answer_v1`, `204eba1a0`). THE GATE WAS GAMEABLE, NOW HARDENED
 (`9316f98ee`): a PURE-SPELLING channel on the base arm reaches 0.10275, clearing the old ">=10% vs
 a floor" criterion, now RETIRED. C3 needs FOUR conditions via `tools/c3_gate.py`; no string-form
 control = NOT_EVALUABLE, never PASS. NOTHING passes: 0 of 13 arms, incl. the gate's own cell.
-"5.2pp short of 10%" measured the RETIRED criterion; never re-quote it. The threshold did not
-separate meaning from spelling.
+"5.2pp short of 10%" measured the RETIRED criterion; never re-quote it.
 
 ## TOP ITEM -- A FLAT BAG OF CO-OCCURRING WORDS CANNOT HOLD MEANING
 Three independent floored results converge; our comparator loses all three.
@@ -31,16 +30,17 @@ choose, NOT pinned brain fidelity (4 rescued `lit_scan_*_2026-08-14.md`).
 ## FLOOR VET -- SPELLING ALONE IS MEASURED AND IT BEATS US (LESSONS: ORTHOGRAPHIC-FLOOR VET)
 `exp_orthographic_floor_vet_v1`, n=4000, 5491 anchors; `A1_BASE` reproduces the 0.0480 headline
 EXACTLY -> harness IS identical. TRIGRAM-ONLY (`t_mat[sel] @ tq`, ZERO substrate signal) 0.0870 vs
-OURS 0.0480, delta +0.0390 CI EXCLUDES ZERO; PREFIX-ONLY 0.0588 also beats us.
-REVERSES `9ca1cffa2`: "we underperform a spell-checker" IS NOW ESTABLISHED. WE ARE BELOW THE
-0.0870 FLOOR, CI-separated. `char_trigram_encoder` EXISTS but is NOT REACHED; its registry row wrongly says WIRED.
+OURS 0.0480, delta +0.0390 CI EXCLUDES ZERO; PREFIX-ONLY 0.0588 also beats us. REVERSES
+`9ca1cffa2`: "we underperform a spell-checker" IS ESTABLISHED; we are BELOW the floor, CI-separated.
+`char_trigram_encoder` EXISTS but is NOT REACHED; its registry row wrongly says WIRED.
 
 ## RECOVERY TRIAGE (LESSONS: TRIAGE RESIDUE)
-968 cells have rows in TWO ledgers NOT yet merged into `RECOVERY_PROGRAM.md`: chain-graded 565 +
-reading 403 (`b4e90942a`). Until merged every count must run over ALL THREE
-(`grep -oE 'STATE:[A-Z_]+'` = 1063 rows; RECOVERY_PROGRAM alone 95). DEFLATIONS: 280 of 565
-chain-graded rows are ONE auto-generated grid, so "574 cells" is ~286 distinct investigations;
-only 172 (30%) have a real floor; 0 of 968 WIRED. UNTRIAGED: ~1,180 atoms, ~7,150/7,660 metrics.
+MERGED into `RECOVERY_PROGRAM.md` (`2fbd28ea5`): 974 rows / ~696 distinct investigations; count
+over THAT FILE ONLY -- "run over all three" now DOUBLE-COUNTS (1944). 0 lost; 90 dups; 12 DANGLING;
+21 rows CORRECTED vs disk (3 wins carried as failures, 1 OOM abort recorded PASS, 14 "missing" dirs
+= case-sensitivity). 279 rows are ONE grid; only 172/565 chain-graded have a real floor; 0 WIRED.
+BEFORE WIRING ANY ROW RE-CHECK ITS FLOOR + SCORER -- green rows were graded against weak floors.
+UNTRIAGED: ~1,180 atoms, ~7,150/7,634 metrics.
 
 ## OTHER PATH STATE
 LANDED: graded comparator DEFAULT ON (`38f7a0d5c`; 0.6395->0.6980 = 2AFC, chance .50, pool 2377,
