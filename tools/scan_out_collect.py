@@ -296,6 +296,15 @@ def self_test() -> int:
     outside2 = Path(tempfile.mkdtemp(prefix="scan_out_selftest_negctrl_"))
     victim2 = outside2 / "would_be_deleted.json"
     victim2.write_text('{"agent": "x"}', encoding="utf-8")
+    # Pin mtime to an unambiguous 1h-old timestamp. Without this, `clear()`'s age filter
+    # (`age = now - mtime; skip if age < cutoff_secs`) races write_text()'s file-close mtime
+    # against this test's own datetime.now() call microseconds later -- on ~1/3 of runs the
+    # two clock reads land close enough that `age` comes out slightly negative (observed as
+    # low as -4.8e-07s), which skips the delete and fails this check for a reason that has
+    # nothing to do with the guard. older_than_days=0 alone does not make this deterministic;
+    # the fixture's age must be unambiguously >= the cutoff, not merely non-negative.
+    old_ts = datetime.now(timezone.utc).timestamp() - 3600
+    os.utime(victim2, (old_ts, old_ts))
     try:
         clear(outside2, apply=True, older_than_days=0)
         if not victim2.exists():
