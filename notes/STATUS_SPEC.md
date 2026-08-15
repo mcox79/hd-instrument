@@ -76,7 +76,8 @@ change). A silent degradation of the compaction entry point is exactly the failu
 spec exists to catch, so: **if either string is reworded, `tools/session_start_hook.py` must be
 updated in the same change.**
 
-Budget sum: **7950 B** against an **8192 B** cap -> 242 B of slack. Sections 5 and 6 together
+Budget sum: **7950 B** against an **8704 B** cap (raised from 8192 2026-08-15, sec 7) -> 754 B of
+slack. Sections 5 and 6 together
 hold **2400 B** and are floors as well as ceilings: they may not be squeezed below their
 content, only below their *wording*.
 
@@ -224,6 +225,44 @@ If a rewrite cannot fit within 8192 after applying tiers 1-4 honestly:
 **Never** resolve an over-cap by deleting a never-trim entry (sec 4), and never let an agent that
 merely needs room make the call (sec 6). Splitting costs one extra read. Trimming costs an
 experiment.
+
+### 2026-08-15: escalation step 3 invoked -- cap raised 8192 -> 8704
+
+An agent whose task WAS `STATUS.md` maintenance (`hdi_testbed`, dispatched by the research
+Director) proposed exactly this raise on 2026-08-14/15 and correctly DECLINED to enact it,
+citing sec 6: the actor who merely needs room is the worst-positioned party to grant it. That
+refusal is the mechanism working as designed -- it escalated instead of self-authorising.
+
+The Director (one level up, not the party needing the room) granted it, with this reasoning
+recorded here per the instruction that a raise be auditable: escalation steps 1 and 2 above were
+already spent before the raise was requested -- tier-4 formatting and stale-count trims had
+already been harvested by the proposing agent, and further squeezing would have meant cutting
+evidence pointers or never-trim content, the exact failure this spec exists to prevent. The
+proximate cause was two pieces of new content that could not be compressed into the existing
+830 B of headroom: (a) STANDING DISCIPLINE 9/10 had been living as a 58 B placeholder stub --
+barely a name-check -- for two disciplines each bought with a specific, costly failure (a
+keyword detector misreading honest scope disclosure as overclaim, 49/49 false positives across
+three atom-triage passes; and silent joins fabricating both false-green and false-red results);
+the stub needed room to actually state the lesson, not merely gesture at it. (b) A HARD_FAIL
+foundation-validation result (`exp_foundation_validation_harness_v2_floors_v1`, `62ecec9d5`,
+correctness 0.9667 against a frequency floor of 0.96, CIs overlapping) needed recording in the
+one file `notes/STATUS.md` that is guaranteed to be read after compaction -- it previously
+existed only in fragments and metrics files.
+
+512 B (8192 -> 8704) was chosen as the minimum that closes the measured gap: after applying
+tiers 1-4 exhaustively to the new content itself (the added FOUNDATION VALIDATION section was
+compressed from an initial 1224 B draft to 585 B by moving the full mechanism narrative to a new
+`STATUS_LESSONS.md` entry and leaving a citation-bearing pointer, per escalation step 1) and
+after modest tier-1/tier-4 trims elsewhere in the PATH STATE subsections (redundant recomputable
+counts, one duplicated cross-reference, connective prose), the rewritten file lands at **8697 B**
+-- under the new cap with 7 B to spare, and without touching any DO-NOT-REDO entry or
+STANDING DISCIPLINE 1-8 (verified byte-for-byte unchanged) and without removing any evidence
+pointer. Escalation step 2 (retiring a closed PATH STATE subsection to a bare pointer) was not
+needed; the gap closed via steps 1 and legitimate tier 1-4 trims of the new material.
+
+**The never-trim material stays never-trim.** This raise is not licence to relax eviction
+discipline going forward -- it closes a real, measured, one-time gap between two genuinely new
+never-trim-class entries and the room available to state them honestly.
 
 ---
 
