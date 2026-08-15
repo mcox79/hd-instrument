@@ -1,0 +1,2926 @@
+{
+  "verdict": "INSTRUMENT_VALIDATED",
+  "verdict_msg": "INSTRUMENT_VALIDATED: 21/21 pre-registered gates passed. PRODUCTION ARMS SCORED: P_LIVE_WORD, P_LIVE_CONCEPT, C_CONCEPT_SHUFFLED. TWO AXES REPORTED SEPARATELY AND DELIBERATELY NOT AVERAGED.",
+  "summary": "INSTRUMENT_VALIDATED: 21/21 pre-registered gates passed. PRODUCTION ARMS SCORED: P_LIVE_WORD, P_LIVE_CONCEPT, C_CONCEPT_SHUFFLED. TWO AXES REPORTED SEPARATELY AND DELIBERATELY NOT AVERAGED.",
+  "elapsed_s": 788.4686584472656,
+  "anchor": "encoding_quality_instrument_v2",
+  "run_mode": "full",
+  "prereg": "preregs/exp_encoding_quality_instrument_v2.md",
+  "parent_prereg": "preregs/exp_encoding_quality_instrument_v1.md",
+  "config": {
+    "V": 4096,
+    "D_SWEEP": [
+      1024,
+      256
+    ],
+    "D_GATE": 1024,
+    "N_SWEEP": [
+      128,
+      512,
+      1024,
+      4096
+    ],
+    "N_GATE": 1024,
+    "SIGMAS": [
+      1.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "HEADLINE_SIGMAS": [
+      4.0,
+      8.0,
+      16.0
+    ],
+    "SEEDS": [
+      7,
+      17,
+      23
+    ],
+    "K_DISTRACT": 31,
+    "BUNDLE_B": 8,
+    "AP_PROBES": 1024,
+    "CORPUS_BYTES": 64000000,
+    "N_PLANTED_GROUPS": 32
+  },
+  "production_encoder_identification": {
+    "method": "RUNTIME: imported the two live entry points and diffed sys.modules; then reconciled to data/capability_registry.jsonl. Never the reverse, and never from grep.",
+    "hdlab_modules_on_disk": 147,
+    "encoder_named_candidates": 12,
+    "hdlab_modules_loaded_by_live_entry_points": 40,
+    "encoder_named_candidates_on_live_path": 0,
+    "live_word_encoder": "INLINED in hdlab/grounding_acquisition_loop.context_vector and exposed as hdlab/reading_grounding_loop.symbol_vector: sha256(w)[:8] -> seed -> default_rng(seed).choice([-1,+1], d)",
+    "live_concept_encoder": "hdlab/reading_grounding_loop.ConceptSpace.bundle(lemma) with GRADED_COMPARATOR=True = accumulated raw sum of context_vector_masked over the corpus",
+    "live_constants_observed": {
+      "CTX_D": 256,
+      "GRADED_COMPARATOR": true
+    },
+    "registry_agreement": "every encoder-named registry row is WIRED_BUT_NOT_PIPELINE_REACHABLE; NO registry row names the live word encoder at all"
+  },
+  "concept_profile_build": {
+    "d": 256,
+    "corpus_lines": 748103,
+    "content_tokens": 6242818,
+    "unique_content_words": 251087,
+    "unique_lemmas": 226310,
+    "byte_equality_vs_live_context_vector_masked": "200/200",
+    "graded_comparator_live_default": true,
+    "n_vocab_words": 4096,
+    "n_lemma_unmapped": 4,
+    "n_zero_profile": 4,
+    "n_lemma_collisions": 1364,
+    "n_distinct_lemmas_in_vocab": 3340,
+    "collision_free_mask_sum": 2732,
+    "build_s": 57.6
+  },
+  "TWO_AXES": {
+    "1024": {
+      "A_ORACLE_ONEHOT": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.765625,
+            "32": 0.12109375
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 21.31342401050879,
+          "disc_ortho_headline": 1.0,
+          "disc_freq_headline": 1.0,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0109487439319869,
+          "GOLD_FREQBAND_lift": 1.0002865617067307,
+          "GOLD_PLANTED_lift": 0.9992428728608114,
+          "simlex_rho": NaN,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.999999999951707,
+            "S4_BUNDLE_SIGN": 6.999999999951707
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.0,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_RANDOM_IID": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.771484375,
+            "16": 0.109375,
+            "32": 0.013671875
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 10.680456515536273,
+          "disc_ortho_headline": 0.95703125,
+          "disc_freq_headline": 0.9596354166666666,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0074040892701357,
+          "GOLD_FREQBAND_lift": 1.000759870011504,
+          "GOLD_PLANTED_lift": 0.9972292955995203,
+          "simlex_rho": 0.01194967191862977,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.999999999951707,
+            "S4_BUNDLE_SIGN": 6.999999999951707
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.0,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_COLLAPSE": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 0.0026041666666666665,
+            "4": 0.001953125,
+            "8": 0.0006510416666666666,
+            "16": 0.001953125,
+            "32": 0.0006510416666666666
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 1.0,
+          "disc_ortho_headline": 0.025390625,
+          "disc_freq_headline": 0.024088541666666668,
+          "knee_N": null,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 0.9902815438759962,
+          "GOLD_FREQBAND_lift": 1.000344857022687,
+          "GOLD_PLANTED_lift": 1.0078890471861668,
+          "simlex_rho": 0.023474094808209767,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 0.0032433595064039387,
+            "S2_ENCODE_SIGN": 0.023660354491000863,
+            "S3_BUNDLE": 0.1450144522834608,
+            "S4_BUNDLE_SIGN": 0.000580118843888755
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": -0.12135409779245994,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_ORTHOGRAPHIC": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.7369791666666666,
+            "16": 0.12434895833333333,
+            "32": 0.01171875
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 10.42772792413888,
+          "disc_ortho_headline": 0.8802083333333334,
+          "disc_freq_headline": 0.9505208333333334,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 127.14101893329678,
+          "GOLD_FREQBAND_lift": 1.0037335948309554,
+          "GOLD_PLANTED_lift": 0.9955617272893905,
+          "simlex_rho": 0.01502783383663433,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 5.596332373959157,
+            "S4_BUNDLE_SIGN": 5.113487889291888
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 1.4036676259925496,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_PLANTED_STRUCTURE": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 0.5924479166666666,
+            "8": 0.177734375,
+            "16": 0.033854166666666664,
+            "32": 0.009114583333333334
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 4.559183606231192,
+          "disc_ortho_headline": 0.818359375,
+          "disc_freq_headline": 0.9479166666666666,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.047954545728255,
+          "GOLD_FREQBAND_lift": 0.9889044292784964,
+          "GOLD_PLANTED_lift": 30.40768043976796,
+          "simlex_rho": 0.07151831017144729,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 1.2767705471902184,
+            "S4_BUNDLE_SIGN": 0.8483214708119187
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 5.723229452761488,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_SHUFFLED_PLANTED": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 0.6067708333333334,
+            "8": 0.17708333333333334,
+            "16": 0.046875,
+            "32": 0.009765625
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 4.884495660134863,
+          "disc_ortho_headline": 0.810546875,
+          "disc_freq_headline": 0.810546875,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.051690544462022,
+          "GOLD_FREQBAND_lift": 0.9999035882045416,
+          "GOLD_PLANTED_lift": 1.0011272478446347,
+          "simlex_rho": -0.03051506609619593,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 1.2882728560880228,
+            "S4_BUNDLE_SIGN": 1.0115988749124536
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 5.711727143863683,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_PLANTED_SEMANTIC": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.7708333333333334,
+            "16": 0.11067708333333333,
+            "32": 0.014322916666666666
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 10.746316345565196,
+          "disc_ortho_headline": 0.9544270833333334,
+          "disc_freq_headline": 0.9583333333333334,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0015445039570452,
+          "GOLD_FREQBAND_lift": 1.0011758772769759,
+          "GOLD_PLANTED_lift": 0.9973589440622725,
+          "simlex_rho": 0.925607811945655,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.955913374719517,
+            "S4_BUNDLE_SIGN": 6.908055889290506
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.04408662523218965,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "P_LIVE_WORD": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.7701822916666666,
+            "16": 0.119140625,
+            "32": 0.013671875
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 10.377416189861963,
+          "disc_ortho_headline": 0.953125,
+          "disc_freq_headline": 0.9524739583333334,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0557219494226204,
+          "GOLD_FREQBAND_lift": 0.9973883898629161,
+          "GOLD_PLANTED_lift": 1.0028298849765653,
+          "simlex_rho": 0.07471616600328707,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.999999999951707,
+            "S4_BUNDLE_SIGN": 6.999999999951707
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.0,
+          "chain_ceiling_bits": 7.0
+        }
+      }
+    },
+    "256": {
+      "A_ORACLE_ONEHOT": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.765625,
+            "32": 0.12109375
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 21.31342401050879,
+          "disc_ortho_headline": 1.0,
+          "disc_freq_headline": 1.0,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0109487439319869,
+          "GOLD_FREQBAND_lift": 1.0002865617067307,
+          "GOLD_PLANTED_lift": 0.9992428728608114,
+          "simlex_rho": NaN,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.999999999951707,
+            "S4_BUNDLE_SIGN": 6.999999999951707
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.0,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_RANDOM_IID": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 0.779296875,
+            "8": 0.119140625,
+            "16": 0.016927083333333332,
+            "32": 0.0032552083333333335
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 5.342138639688716,
+          "disc_ortho_headline": 0.484375,
+          "disc_freq_headline": 0.4713541666666667,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 0.9703521971578711,
+          "GOLD_FREQBAND_lift": 1.0010107496452745,
+          "GOLD_PLANTED_lift": 1.001419641095384,
+          "simlex_rho": -0.028044257109320878,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.969058237659456,
+            "S4_BUNDLE_SIGN": 6.127877416090699
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.030941762292250985,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_COLLAPSE": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 0.0,
+            "4": 0.0006510416666666666,
+            "8": 0.0013020833333333333,
+            "16": 0.0,
+            "32": 0.0013020833333333333
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 1.0,
+          "disc_ortho_headline": 0.03125,
+          "disc_freq_headline": 0.031901041666666664,
+          "knee_N": null,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 0.9621008739436051,
+          "GOLD_FREQBAND_lift": 0.999605041711367,
+          "GOLD_PLANTED_lift": 1.0001433503786583,
+          "simlex_rho": 0.0008064533401845615,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 0.0004102033157108072,
+            "S2_ENCODE_SIGN": 0.004528171934297849,
+            "S3_BUNDLE": 0.03787531922519113,
+            "S4_BUNDLE_SIGN": 0.0008192906728616833
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": -0.033347147290893275,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_ORTHOGRAPHIC": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 0.71875,
+            "8": 0.10481770833333333,
+            "16": 0.014973958333333334,
+            "32": 0.0026041666666666665
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 5.08157906129476,
+          "disc_ortho_headline": 0.3541666666666667,
+          "disc_freq_headline": 0.4720052083333333,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 102.92644895437205,
+          "GOLD_FREQBAND_lift": 1.0020718361726917,
+          "GOLD_PLANTED_lift": 0.9930403601703999,
+          "simlex_rho": -0.012184567334673163,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 4.565699888040496,
+            "S4_BUNDLE_SIGN": 3.9679600251773315
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 2.434300111911211,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_PLANTED_STRUCTURE": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 0.9876302083333334,
+            "4": 0.21354166666666666,
+            "8": 0.044921875,
+            "16": 0.01171875,
+            "32": 0.0026041666666666665
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 2.4184985538627624,
+          "disc_ortho_headline": 0.4231770833333333,
+          "disc_freq_headline": 0.4856770833333333,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.018414791291072,
+          "GOLD_FREQBAND_lift": 0.9899122964890675,
+          "GOLD_PLANTED_lift": 30.40768043976796,
+          "simlex_rho": 0.007638935756556063,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 0.5166538707891112,
+            "S4_BUNDLE_SIGN": 0.36105926482679723
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 6.483346129162595,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_SHUFFLED_PLANTED": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 0.9850260416666666,
+            "4": 0.19075520833333334,
+            "8": 0.043619791666666664,
+            "16": 0.009114583333333334,
+            "32": 0.001953125
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 2.3252588129617253,
+          "disc_ortho_headline": 0.4186197916666667,
+          "disc_freq_headline": 0.4049479166666667,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0278646201233668,
+          "GOLD_FREQBAND_lift": 1.0007532105360226,
+          "GOLD_PLANTED_lift": 1.0016676111764335,
+          "simlex_rho": -0.016330020146525143,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.988652363296159,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 0.7064968783835001,
+            "S4_BUNDLE_SIGN": 0.4727551664451717
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 6.2935031215682065,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "A_PLANTED_SEMANTIC": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 0.7760416666666666,
+            "8": 0.11588541666666667,
+            "16": 0.018229166666666668,
+            "32": 0.004557291666666667
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 5.321895929487771,
+          "disc_ortho_headline": 0.498046875,
+          "disc_freq_headline": 0.4765625,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 0.9642336751297953,
+          "GOLD_FREQBAND_lift": 1.0013258606097983,
+          "GOLD_PLANTED_lift": 1.001991618991484,
+          "simlex_rho": 0.9269149445427393,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.76866836468362,
+            "S4_BUNDLE_SIGN": 6.053695311447949
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.2313316352680855,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "P_LIVE_WORD": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 1.0,
+            "4": 0.7532552083333334,
+            "8": 0.10481770833333333,
+            "16": 0.020833333333333332,
+            "32": 0.007161458333333333
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 5.24114111161479,
+          "disc_ortho_headline": 0.4720052083333333,
+          "disc_freq_headline": 0.4915364583333333,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 0.9872234704170383,
+          "GOLD_FREQBAND_lift": 0.9993378602470125,
+          "GOLD_PLANTED_lift": 1.0020930802323387,
+          "simlex_rho": -0.0019022491373113437,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.999999999951707,
+            "S2_ENCODE_SIGN": 6.999999999951707,
+            "S3_BUNDLE": 6.926275533817268,
+            "S4_BUNDLE_SIGN": 6.708891800561318
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 0.07372446613443866,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "P_LIVE_CONCEPT": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 0.8756510416666666,
+            "4": 0.33203125,
+            "8": 0.046875,
+            "16": 0.004557291666666667,
+            "32": 0.006510416666666667
+          },
+          "recoverability_collisionfree": {
+            "1": 0.9973958333333334,
+            "4": 0.4010416666666667,
+            "8": 0.080078125,
+            "16": 0.014322916666666666,
+            "32": 0.007161458333333333
+          },
+          "sigma_half": 2.699768718317952,
+          "disc_ortho_headline": 0.314453125,
+          "disc_freq_headline": 0.3600260416666667,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 26.85515102929401,
+          "GOLD_FREQBAND_lift": 1.0799921262866774,
+          "GOLD_PLANTED_lift": 0.9972421618183133,
+          "simlex_rho": 0.10477736169182189,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.988652363296159,
+            "S2_ENCODE_SIGN": 6.988652363296159,
+            "S3_BUNDLE": 0.06101077614031484,
+            "S4_BUNDLE_SIGN": 0.11122034777756913
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 6.927641587155843,
+          "chain_ceiling_bits": 7.0
+        }
+      },
+      "C_CONCEPT_SHUFFLED": {
+        "IDENTITY": {
+          "recoverability_curve_at_N_GATE": {
+            "1": 0.9479166666666666,
+            "4": 0.443359375,
+            "8": 0.0625,
+            "16": 0.013671875,
+            "32": 0.004557291666666667
+          },
+          "recoverability_collisionfree": null,
+          "sigma_half": 3.68909894126964,
+          "disc_ortho_headline": 0.3626302083333333,
+          "disc_freq_headline": 0.3600260416666667,
+          "knee_N": 4096,
+          "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win"
+        },
+        "STRUCTURE": {
+          "GOLD_ORTHO_lift": 1.0206807595603842,
+          "GOLD_FREQBAND_lift": 1.0009527235468598,
+          "GOLD_PLANTED_lift": 0.9989601796764038,
+          "simlex_rho": -0.009211128611296079,
+          "NOTE": "a RANDOM encoding must sit at lift ~1.0 / rho ~0.0 here; any real lift IS the signal"
+        },
+        "TRADEOFF": {
+          "stage_chain_bits": {
+            "S0_ORACLE": 6.999999999951707,
+            "S1_ENCODE": 6.978608648030613,
+            "S2_ENCODE_SIGN": 6.978608648030613,
+            "S3_BUNDLE": 0.08186690559631889,
+            "S4_BUNDLE_SIGN": 0.13043411735332278
+          },
+          "bits_destroyed_by_bundling_S2_to_S3": 6.896741742434294,
+          "chain_ceiling_bits": 7.0
+        }
+      }
+    }
+  },
+  "axes_note": "REPORTED SEPARATELY BY DESIGN. Any single scalar mixing IDENTITY and STRUCTURE is unfalsifiable because a random encoding is near-optimal on IDENTITY and at chance on STRUCTURE. This cell refuses to average them.",
+  "scope_disclaimer": "v2 fixes v1's mixed-criterion M4 chain (now top-8 at every stage, list-Fano bound, ceiling log2(N/B)=7 bits -- NOT comparable to v1's 10-bit numbers) and retires sigma=1.0 as the HEADLINE (kept as the GATE point). A_ORACLE_ONEHOT runs at d=V and is NOT dimension-matched. Fano numbers are LOWER BOUNDS. P_LIVE_CONCEPT is the production ALGORITHM run on the instrument's corpus, not a snapshot of any persisted store; data/foundation/** is never opened.",
+  "gates": [
+    {
+      "gate_id": "N1",
+      "family": "NULL",
+      "claim": "A_COLLAPSE recoverability <= 0.05",
+      "observed": 0.0026041666666666665,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": true
+    },
+    {
+      "gate_id": "N2",
+      "family": "NULL",
+      "claim": "A_RANDOM_IID GOLD_ORTHO lift <= 1.15",
+      "observed": 1.0074040892701357,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": true
+    },
+    {
+      "gate_id": "N3",
+      "family": "NULL",
+      "claim": "A_RANDOM_IID GOLD_FREQBAND lift <= 1.15",
+      "observed": 1.000759870011504,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": true
+    },
+    {
+      "gate_id": "N4",
+      "family": "NULL",
+      "claim": "A_RANDOM_IID |simlex_rho| <= 0.10",
+      "observed": 0.01194967191862977,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "N5a",
+      "family": "NULL",
+      "claim": "A_SHUFFLED_PLANTED GOLD_PLANTED lift <= 1.15",
+      "observed": 1.0011272478446347,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": true
+    },
+    {
+      "gate_id": "N5b",
+      "family": "NULL",
+      "claim": "A_SHUFFLED_PLANTED recoverability >= 0.90",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 0.9,
+      "passed": true
+    },
+    {
+      "gate_id": "N6a",
+      "family": "NULL",
+      "claim": "A_COLLAPSE disc_ortho <= 0.10",
+      "observed": 0.034505208333333336,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "N6b",
+      "family": "NULL",
+      "claim": "A_COLLAPSE disc_freq <= 0.10",
+      "observed": 0.033203125,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "K1",
+      "family": "KNOWN",
+      "claim": "A_ORACLE_ONEHOT recoverability >= 0.95",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 0.95,
+      "passed": true
+    },
+    {
+      "gate_id": "K2",
+      "family": "KNOWN",
+      "claim": "A_ORTHOGRAPHIC GOLD_ORTHO lift >= 3.0",
+      "observed": 127.14101893329678,
+      "op": ">=",
+      "threshold": 3.0,
+      "passed": true
+    },
+    {
+      "gate_id": "K3",
+      "family": "KNOWN",
+      "claim": "A_PLANTED_STRUCTURE GOLD_PLANTED lift >= 5.0",
+      "observed": 30.40768043976796,
+      "op": ">=",
+      "threshold": 5.0,
+      "passed": true
+    },
+    {
+      "gate_id": "K5",
+      "family": "KNOWN",
+      "claim": "A_RANDOM_IID recoverability >= 0.90",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 0.9,
+      "passed": true
+    },
+    {
+      "gate_id": "S1",
+      "family": "SAT",
+      "claim": "recoverability spread across arms >= 0.50",
+      "observed": 0.9973958333333334,
+      "op": ">=",
+      "threshold": 0.5,
+      "passed": true
+    },
+    {
+      "gate_id": "S2",
+      "family": "SAT",
+      "claim": "A_ORACLE_ONEHOT recoverability at sigma=32 <= 0.80",
+      "observed": 0.12109375,
+      "op": "<=",
+      "threshold": 0.8,
+      "passed": true
+    },
+    {
+      "gate_id": "S3",
+      "family": "SAT",
+      "claim": "GOLD_ORTHO lift spread across arms >= 2.0",
+      "observed": 126.15073738942078,
+      "op": ">=",
+      "threshold": 2.0,
+      "passed": true
+    },
+    {
+      "gate_id": "S4",
+      "family": "SAT",
+      "claim": "saturation_negative_control self-test exits 0",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "gate_id": "M1",
+      "family": "CHAIN",
+      "claim": "min destroyed_bits_vs_prev over ALL arms/d/stages >= -0.25",
+      "observed": -0.12135409779245994,
+      "op": ">=",
+      "threshold": -0.25,
+      "passed": true
+    },
+    {
+      "gate_id": "M2",
+      "family": "CHAIN",
+      "claim": "A_ORACLE_ONEHOT S0 bits == log2(N_GATE/B) = 7.000",
+      "observed": -4.829292521435491e-11,
+      "op": ">=",
+      "threshold": -0.01,
+      "passed": true
+    },
+    {
+      "gate_id": "M3",
+      "family": "CHAIN",
+      "claim": "A_COLLAPSE S1 bits <= 0.20",
+      "observed": 0.0032433595064039387,
+      "op": "<=",
+      "threshold": 0.2,
+      "passed": true
+    },
+    {
+      "gate_id": "SEP1",
+      "family": "SEP",
+      "claim": "ORACLE minus PLANTED_STRUCTURE recoverability at sigma=8 >= 0.20",
+      "observed": 0.822265625,
+      "op": ">=",
+      "threshold": 0.2,
+      "passed": true
+    },
+    {
+      "gate_id": "K4",
+      "family": "KNOWN_SEMANTIC_READOUT_ONLY",
+      "claim": "A_PLANTED_SEMANTIC simlex_rho >= 0.50",
+      "observed": 0.925607811945655,
+      "op": ">=",
+      "threshold": 0.5,
+      "passed": true
+    }
+  ],
+  "per_arm_by_d": {
+    "1024": {
+      "A_ORACLE_ONEHOT": {
+        "n_seeds": 3,
+        "d_eff": 4096,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.8802083333333334,
+            "32": 0.296875
+          },
+          "512": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.8092447916666666,
+            "32": 0.15559895833333334
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.765625,
+            "32": 0.12109375
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.6373697916666666,
+            "32": 0.060546875
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.9641927083333334,
+            "32": 0.486328125
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.9713541666666666,
+            "32": 0.4680989583333333
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.00439643947190026,
+            "chance": 0.004348436430633808,
+            "lift": 1.0109487439319869
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10150538696809165,
+            "chance": 0.10147633604940631,
+            "lift": 1.0002865617067307
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03286152502390263,
+            "chance": 0.03288649320857381,
+            "lift": 0.9992428728608114
+          }
+        },
+        "simlex_rho": NaN,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 21.31342401050879,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          }
+        ]
+      },
+      "A_RANDOM_IID": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9010416666666666,
+            "16": 0.3098958333333333,
+            "32": 0.07291666666666667
+          },
+          "512": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.8053385416666666,
+            "16": 0.15690104166666666,
+            "32": 0.027994791666666668
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.771484375,
+            "16": 0.109375,
+            "32": 0.013671875
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.634765625,
+            "16": 0.048828125,
+            "32": 0.006510416666666667
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.95703125,
+            "16": 0.47265625,
+            "32": 0.17317708333333334
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9596354166666666,
+            "16": 0.4765625,
+            "32": 0.19010416666666666
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004380608812440238,
+            "chance": 0.004348436430633808,
+            "lift": 1.0074040892701357
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10155343263773953,
+            "chance": 0.10147633604940631,
+            "lift": 1.000759870011504
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.032795311767742245,
+            "chance": 0.03288649320857381,
+            "lift": 0.9972292955995203
+          }
+        },
+        "simlex_rho": 0.01194967191862977,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 10.680456515536273,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          }
+        ]
+      },
+      "A_COLLAPSE": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 0.013020833333333334,
+            "4": 0.0,
+            "8": 0.0078125,
+            "16": 0.0078125,
+            "32": 0.0
+          },
+          "512": {
+            "1": 0.0026041666666666665,
+            "4": 0.001953125,
+            "8": 0.00390625,
+            "16": 0.0013020833333333333,
+            "32": 0.0032552083333333335
+          },
+          "1024": {
+            "1": 0.0026041666666666665,
+            "4": 0.001953125,
+            "8": 0.0006510416666666666,
+            "16": 0.001953125,
+            "32": 0.0006510416666666666
+          },
+          "4096": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0,
+            "16": 0.0006510416666666666,
+            "32": 0.0
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 0.034505208333333336,
+            "4": 0.036458333333333336,
+            "8": 0.025390625,
+            "16": 0.031901041666666664,
+            "32": 0.027994791666666668
+          },
+          "disc_freq": {
+            "1": 0.033203125,
+            "4": 0.026692708333333332,
+            "8": 0.024088541666666668,
+            "16": 0.03515625,
+            "32": 0.027994791666666668
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004304089263564859,
+            "chance": 0.004348436430633808,
+            "lift": 0.9902815438759962
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10151129316295215,
+            "chance": 0.10147633604940631,
+            "lift": 1.000344857022687
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.0331458131692149,
+            "chance": 0.03288649320857381,
+            "lift": 1.0078890471861668
+          }
+        },
+        "simlex_rho": 0.023474094808209767,
+        "simlex_pairs_covered": 322,
+        "knee_N": null,
+        "sigma_half_at_N_GATE": 1.0,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.01171875,
+            "info_bits_lower_bound": 0.0032433595064039387,
+            "destroyed_bits_vs_prev": 6.9967566404453025
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.025390625,
+            "info_bits_lower_bound": 0.023660354491000863,
+            "destroyed_bits_vs_prev": -0.020416994984596926
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.07291666666666667,
+            "info_bits_lower_bound": 0.1450144522834608,
+            "destroyed_bits_vs_prev": -0.12135409779245994
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.006510416666666667,
+            "info_bits_lower_bound": 0.000580118843888755,
+            "destroyed_bits_vs_prev": 0.14443433343957204
+          }
+        ]
+      },
+      "A_ORTHOGRAPHIC": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.8776041666666666,
+            "16": 0.3489583333333333,
+            "32": 0.057291666666666664
+          },
+          "512": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.796875,
+            "16": 0.15169270833333334,
+            "32": 0.031901041666666664
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.7369791666666666,
+            "16": 0.12434895833333333,
+            "32": 0.01171875
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.576171875,
+            "16": 0.044270833333333336,
+            "32": 0.006510416666666667
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.8802083333333334,
+            "16": 0.3717447916666667,
+            "32": 0.10872395833333333
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9505208333333334,
+            "16": 0.4837239583333333,
+            "32": 0.16861979166666666
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.5525135439121459,
+            "chance": 0.004348436430633808,
+            "lift": 127.14101893329678
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10185521484392174,
+            "chance": 0.10147633604940631,
+            "lift": 1.0037335948309554
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.032740506714910404,
+            "chance": 0.03288649320857381,
+            "lift": 0.9955617272893905
+          }
+        },
+        "simlex_rho": 0.01502783383663433,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 10.42772792413888,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.8763020833333334,
+            "info_bits_lower_bound": 5.596332373959157,
+            "destroyed_bits_vs_prev": 1.4036676259925496
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.8255208333333334,
+            "info_bits_lower_bound": 5.113487889291888,
+            "destroyed_bits_vs_prev": 0.4828444846672693
+          }
+        ]
+      },
+      "A_PLANTED_STRUCTURE": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.875,
+            "8": 0.609375,
+            "16": 0.21875,
+            "32": 0.049479166666666664
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.6901041666666666,
+            "8": 0.3040364583333333,
+            "16": 0.078125,
+            "32": 0.024088541666666668
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 0.5924479166666666,
+            "8": 0.177734375,
+            "16": 0.033854166666666664,
+            "32": 0.009114583333333334
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.3828125,
+            "8": 0.07682291666666667,
+            "16": 0.014973958333333334,
+            "32": 0.0026041666666666665
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.9596354166666666,
+            "8": 0.818359375,
+            "16": 0.4049479166666667,
+            "32": 0.15169270833333334
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.9967447916666666,
+            "8": 0.9479166666666666,
+            "16": 0.4973958333333333,
+            "32": 0.17122395833333334
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004559057483884463,
+            "chance": 0.004348436430633808,
+            "lift": 1.047954545728255
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.100350340844922,
+            "chance": 0.10147633604940631,
+            "lift": 0.9889044292784964
+          },
+          "GOLD_PLANTED": {
+            "ap": 1.0,
+            "chance": 0.03288649320857381,
+            "lift": 30.40768043976796
+          }
+        },
+        "simlex_rho": 0.07151831017144729,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 4.559183606231192,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.30859375,
+            "info_bits_lower_bound": 1.2767705471902184,
+            "destroyed_bits_vs_prev": 5.723229452761488
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.23111979166666666,
+            "info_bits_lower_bound": 0.8483214708119187,
+            "destroyed_bits_vs_prev": 0.42844907637829976
+          }
+        ]
+      },
+      "A_SHUFFLED_PLANTED": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.90625,
+            "8": 0.5390625,
+            "16": 0.2109375,
+            "32": 0.052083333333333336
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.6822916666666666,
+            "8": 0.2955729166666667,
+            "16": 0.06315104166666667,
+            "32": 0.013671875
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 0.6067708333333334,
+            "8": 0.17708333333333334,
+            "16": 0.046875,
+            "32": 0.009765625
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.3971354166666667,
+            "8": 0.08203125,
+            "16": 0.016276041666666668,
+            "32": 0.001953125
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.9635416666666666,
+            "8": 0.810546875,
+            "16": 0.3893229166666667,
+            "32": 0.15625
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.958984375,
+            "8": 0.810546875,
+            "16": 0.4186197916666667,
+            "32": 0.16471354166666666
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004562908880480971,
+            "chance": 0.004348436430633808,
+            "lift": 1.051690544462022
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10146654183245356,
+            "chance": 0.10147633604940631,
+            "lift": 0.9999035882045416
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.032923615954065386,
+            "chance": 0.03288649320857381,
+            "lift": 1.0011272478446347
+          }
+        },
+        "simlex_rho": -0.03051506609619593,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 4.884495660134863,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.310546875,
+            "info_bits_lower_bound": 1.2882728560880228,
+            "destroyed_bits_vs_prev": 5.711727143863683
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.26171875,
+            "info_bits_lower_bound": 1.0115988749124536,
+            "destroyed_bits_vs_prev": 0.27667398117556924
+          }
+        ]
+      },
+      "A_PLANTED_SEMANTIC": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.8958333333333334,
+            "16": 0.2994791666666667,
+            "32": 0.06770833333333333
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.9993489583333334,
+            "8": 0.802734375,
+            "16": 0.15559895833333334,
+            "32": 0.030598958333333332
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.7708333333333334,
+            "16": 0.11067708333333333,
+            "32": 0.014322916666666666
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.998046875,
+            "8": 0.634765625,
+            "16": 0.053385416666666664,
+            "32": 0.007161458333333333
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9544270833333334,
+            "16": 0.4602864583333333,
+            "32": 0.16731770833333334
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9583333333333334,
+            "16": 0.4759114583333333,
+            "32": 0.19205729166666666
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004355500116067525,
+            "chance": 0.004348436430633808,
+            "lift": 1.0015445039570452
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10159565172307196,
+            "chance": 0.10147633604940631,
+            "lift": 1.0011758772769759
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.032799576784680984,
+            "chance": 0.03288649320857381,
+            "lift": 0.9973589440622725
+          }
+        },
+        "simlex_rho": 0.925607811945655,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 10.746316345565196,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9973958333333334,
+            "info_bits_lower_bound": 6.955913374719517,
+            "destroyed_bits_vs_prev": 0.04408662523218965
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.994140625,
+            "info_bits_lower_bound": 6.908055889290506,
+            "destroyed_bits_vs_prev": 0.04785748542901066
+          }
+        ]
+      },
+      "P_LIVE_WORD": {
+        "n_seeds": 3,
+        "d_eff": 1024,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9114583333333334,
+            "16": 0.3333333333333333,
+            "32": 0.07291666666666667
+          },
+          "512": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.8118489583333334,
+            "16": 0.15885416666666666,
+            "32": 0.028645833333333332
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.7701822916666666,
+            "16": 0.119140625,
+            "32": 0.013671875
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.66015625,
+            "16": 0.055989583333333336,
+            "32": 0.005859375
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.953125,
+            "16": 0.4700520833333333,
+            "32": 0.1640625
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 0.9524739583333334,
+            "16": 0.4908854166666667,
+            "32": 0.169921875
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004587626279153391,
+            "chance": 0.004348436430633808,
+            "lift": 1.0557219494226204
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10121125140816985,
+            "chance": 0.10147633604940631,
+            "lift": 0.9973883898629161
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03297955815557484,
+            "chance": 0.03288649320857381,
+            "lift": 1.0028298849765653
+          }
+        },
+        "simlex_rho": 0.07471616600328707,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 10.377416189861963,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          }
+        ]
+      }
+    },
+    "256": {
+      "A_ORACLE_ONEHOT": {
+        "n_seeds": 3,
+        "d_eff": 4096,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.8802083333333334,
+            "32": 0.296875
+          },
+          "512": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.8092447916666666,
+            "32": 0.15559895833333334
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.765625,
+            "32": 0.12109375
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.6373697916666666,
+            "32": 0.060546875
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.9641927083333334,
+            "32": 0.486328125
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 1.0,
+            "8": 1.0,
+            "16": 0.9713541666666666,
+            "32": 0.4680989583333333
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.00439643947190026,
+            "chance": 0.004348436430633808,
+            "lift": 1.0109487439319869
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10150538696809165,
+            "chance": 0.10147633604940631,
+            "lift": 1.0002865617067307
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03286152502390263,
+            "chance": 0.03288649320857381,
+            "lift": 0.9992428728608114
+          }
+        },
+        "simlex_rho": NaN,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 21.31342401050879,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          }
+        ]
+      },
+      "A_RANDOM_IID": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.890625,
+            "8": 0.296875,
+            "16": 0.0625,
+            "32": 0.028645833333333332
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.798828125,
+            "8": 0.16796875,
+            "16": 0.024739583333333332,
+            "32": 0.0026041666666666665
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 0.779296875,
+            "8": 0.119140625,
+            "16": 0.016927083333333332,
+            "32": 0.0032552083333333335
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.6015625,
+            "8": 0.054036458333333336,
+            "16": 0.009114583333333334,
+            "32": 0.0013020833333333333
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.953125,
+            "8": 0.484375,
+            "16": 0.169921875,
+            "32": 0.07486979166666667
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.955078125,
+            "8": 0.4713541666666667,
+            "16": 0.18098958333333334,
+            "32": 0.095703125
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004216603122497938,
+            "chance": 0.004348436430633808,
+            "lift": 0.9703521971578711
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10157892279186337,
+            "chance": 0.10147633604940631,
+            "lift": 1.0010107496452745
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03293320913189865,
+            "chance": 0.03288649320857381,
+            "lift": 1.001419641095384
+          }
+        },
+        "simlex_rho": -0.028044257109320878,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 5.342138639688716,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.998046875,
+            "info_bits_lower_bound": 6.969058237659456,
+            "destroyed_bits_vs_prev": 0.030941762292250985
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9283854166666666,
+            "info_bits_lower_bound": 6.127877416090699,
+            "destroyed_bits_vs_prev": 0.8411808215687563
+          }
+        ]
+      },
+      "A_COLLAPSE": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 0.010416666666666666,
+            "4": 0.013020833333333334,
+            "8": 0.005208333333333333,
+            "16": 0.010416666666666666,
+            "32": 0.015625
+          },
+          "512": {
+            "1": 0.0026041666666666665,
+            "4": 0.001953125,
+            "8": 0.0032552083333333335,
+            "16": 0.0013020833333333333,
+            "32": 0.0026041666666666665
+          },
+          "1024": {
+            "1": 0.0,
+            "4": 0.0006510416666666666,
+            "8": 0.0013020833333333333,
+            "16": 0.0,
+            "32": 0.0013020833333333333
+          },
+          "4096": {
+            "1": 0.0,
+            "4": 0.0,
+            "8": 0.0006510416666666666,
+            "16": 0.0,
+            "32": 0.0
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 0.033203125,
+            "4": 0.029947916666666668,
+            "8": 0.03125,
+            "16": 0.027994791666666668,
+            "32": 0.035807291666666664
+          },
+          "disc_freq": {
+            "1": 0.038411458333333336,
+            "4": 0.027994791666666668,
+            "8": 0.031901041666666664,
+            "16": 0.0234375,
+            "32": 0.032552083333333336
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004181954560850561,
+            "chance": 0.004348436430633808,
+            "lift": 0.9621008739436051
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10143623722739901,
+            "chance": 0.10147633604940631,
+            "lift": 0.999605041711367
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03289105480425552,
+            "chance": 0.03288649320857381,
+            "lift": 1.0001433503786583
+          }
+        },
+        "simlex_rho": 0.0008064533401845615,
+        "simlex_pairs_covered": 322,
+        "knee_N": null,
+        "sigma_half_at_N_GATE": 1.0,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.009114583333333334,
+            "info_bits_lower_bound": 0.0004102033157108072,
+            "destroyed_bits_vs_prev": 6.999589796635995
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.009765625,
+            "info_bits_lower_bound": 0.004528171934297849,
+            "destroyed_bits_vs_prev": -0.004117968618587042
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.03515625,
+            "info_bits_lower_bound": 0.03787531922519113,
+            "destroyed_bits_vs_prev": -0.033347147290893275
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.006510416666666667,
+            "info_bits_lower_bound": 0.0008192906728616833,
+            "destroyed_bits_vs_prev": 0.037056028552329444
+          }
+        ]
+      },
+      "A_ORTHOGRAPHIC": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.8880208333333334,
+            "8": 0.2630208333333333,
+            "16": 0.059895833333333336,
+            "32": 0.0234375
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.7610677083333334,
+            "8": 0.15104166666666666,
+            "16": 0.028645833333333332,
+            "32": 0.008463541666666666
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 0.71875,
+            "8": 0.10481770833333333,
+            "16": 0.014973958333333334,
+            "32": 0.0026041666666666665
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.5833333333333334,
+            "8": 0.052734375,
+            "16": 0.007161458333333333,
+            "32": 0.0032552083333333335
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.8684895833333334,
+            "8": 0.3541666666666667,
+            "16": 0.10677083333333333,
+            "32": 0.0546875
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.9485677083333334,
+            "8": 0.4720052083333333,
+            "16": 0.16861979166666666,
+            "32": 0.08072916666666667
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.4473428732818654,
+            "chance": 0.004348436430633808,
+            "lift": 102.92644895437205
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.1016865462850751,
+            "chance": 0.10147633604940631,
+            "lift": 1.0020718361726917
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03265760646259647,
+            "chance": 0.03288649320857381,
+            "lift": 0.9930403601703999
+          }
+        },
+        "simlex_rho": -0.012184567334673163,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 5.08157906129476,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.7643229166666666,
+            "info_bits_lower_bound": 4.565699888040496,
+            "destroyed_bits_vs_prev": 2.434300111911211
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.693359375,
+            "info_bits_lower_bound": 3.9679600251773315,
+            "destroyed_bits_vs_prev": 0.5977398628631642
+          }
+        ]
+      },
+      "A_PLANTED_STRUCTURE": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.5703125,
+            "8": 0.1953125,
+            "16": 0.0625,
+            "32": 0.010416666666666666
+          },
+          "512": {
+            "1": 0.9908854166666666,
+            "4": 0.2532552083333333,
+            "8": 0.078125,
+            "16": 0.012369791666666666,
+            "32": 0.00390625
+          },
+          "1024": {
+            "1": 0.9876302083333334,
+            "4": 0.21354166666666666,
+            "8": 0.044921875,
+            "16": 0.01171875,
+            "32": 0.0026041666666666665
+          },
+          "4096": {
+            "1": 0.9661458333333334,
+            "4": 0.08528645833333333,
+            "8": 0.011067708333333334,
+            "16": 0.0032552083333333335,
+            "32": 0.0013020833333333333
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 0.9993489583333334,
+            "4": 0.8033854166666666,
+            "8": 0.4231770833333333,
+            "16": 0.16471354166666666,
+            "32": 0.07942708333333333
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.9446614583333334,
+            "8": 0.4856770833333333,
+            "16": 0.18619791666666666,
+            "32": 0.08203125
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004429985543369354,
+            "chance": 0.004348436430633808,
+            "lift": 1.018414791291072
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10045265171510509,
+            "chance": 0.10147633604940631,
+            "lift": 0.9899122964890675
+          },
+          "GOLD_PLANTED": {
+            "ap": 1.0,
+            "chance": 0.03288649320857381,
+            "lift": 30.40768043976796
+          }
+        },
+        "simlex_rho": 0.007638935756556063,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 2.4184985538627624,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.1640625,
+            "info_bits_lower_bound": 0.5166538707891112,
+            "destroyed_bits_vs_prev": 6.483346129162595
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.12955729166666666,
+            "info_bits_lower_bound": 0.36105926482679723,
+            "destroyed_bits_vs_prev": 0.1555946059623139
+          }
+        ]
+      },
+      "A_SHUFFLED_PLANTED": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.5130208333333334,
+            "8": 0.18489583333333334,
+            "16": 0.049479166666666664,
+            "32": 0.015625
+          },
+          "512": {
+            "1": 0.9915364583333334,
+            "4": 0.3118489583333333,
+            "8": 0.0703125,
+            "16": 0.022786458333333332,
+            "32": 0.005208333333333333
+          },
+          "1024": {
+            "1": 0.9850260416666666,
+            "4": 0.19075520833333334,
+            "8": 0.043619791666666664,
+            "16": 0.009114583333333334,
+            "32": 0.001953125
+          },
+          "4096": {
+            "1": 0.962890625,
+            "4": 0.08268229166666667,
+            "8": 0.018880208333333332,
+            "16": 0.0013020833333333333,
+            "32": 0.0006510416666666666
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.798828125,
+            "8": 0.4186197916666667,
+            "16": 0.1484375,
+            "32": 0.08333333333333333
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.818359375,
+            "8": 0.4049479166666667,
+            "16": 0.14453125,
+            "32": 0.07486979166666667
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004466157331736352,
+            "chance": 0.004348436430633808,
+            "lift": 1.0278646201233668
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10155274404668228,
+            "chance": 0.10147633604940631,
+            "lift": 1.0007532105360226
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.032941325408055694,
+            "chance": 0.03288649320857381,
+            "lift": 1.0016676111764335
+          }
+        },
+        "simlex_rho": -0.016330020146525143,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 2.3252588129617253,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9993489583333334,
+            "info_bits_lower_bound": 6.988652363296159,
+            "destroyed_bits_vs_prev": 0.011347636655547907
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": -0.011347636655547907
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.20377604166666666,
+            "info_bits_lower_bound": 0.7064968783835001,
+            "destroyed_bits_vs_prev": 6.2935031215682065
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.15494791666666666,
+            "info_bits_lower_bound": 0.4727551664451717,
+            "destroyed_bits_vs_prev": 0.23374171193832835
+          }
+        ]
+      },
+      "A_PLANTED_SEMANTIC": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.9010416666666666,
+            "8": 0.2916666666666667,
+            "16": 0.057291666666666664,
+            "32": 0.026041666666666668
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.8001302083333334,
+            "8": 0.16796875,
+            "16": 0.025390625,
+            "32": 0.00390625
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 0.7760416666666666,
+            "8": 0.11588541666666667,
+            "16": 0.018229166666666668,
+            "32": 0.004557291666666667
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.5944010416666666,
+            "8": 0.051432291666666664,
+            "16": 0.009114583333333334,
+            "32": 0.0013020833333333333
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.9518229166666666,
+            "8": 0.498046875,
+            "16": 0.16666666666666666,
+            "32": 0.07552083333333333
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.9576822916666666,
+            "8": 0.4765625,
+            "16": 0.17903645833333334,
+            "32": 0.09244791666666667
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004191938246676292,
+            "chance": 0.004348436430633808,
+            "lift": 0.9642336751297953
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10161089912992992,
+            "chance": 0.10147633604940631,
+            "lift": 1.0013258606097983
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.032951979569407604,
+            "chance": 0.03288649320857381,
+            "lift": 1.001991618991484
+          }
+        },
+        "simlex_rho": 0.9269149445427393,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 5.321895929487771,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9837239583333334,
+            "info_bits_lower_bound": 6.76866836468362,
+            "destroyed_bits_vs_prev": 0.2313316352680855
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9212239583333334,
+            "info_bits_lower_bound": 6.053695311447949,
+            "destroyed_bits_vs_prev": 0.714973053235673
+          }
+        ]
+      },
+      "P_LIVE_WORD": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 1.0,
+            "4": 0.90625,
+            "8": 0.2578125,
+            "16": 0.078125,
+            "32": 0.020833333333333332
+          },
+          "512": {
+            "1": 1.0,
+            "4": 0.8111979166666666,
+            "8": 0.16145833333333334,
+            "16": 0.0234375,
+            "32": 0.008463541666666666
+          },
+          "1024": {
+            "1": 1.0,
+            "4": 0.7532552083333334,
+            "8": 0.10481770833333333,
+            "16": 0.020833333333333332,
+            "32": 0.007161458333333333
+          },
+          "4096": {
+            "1": 1.0,
+            "4": 0.6256510416666666,
+            "8": 0.047526041666666664,
+            "16": 0.004557291666666667,
+            "32": 0.0013020833333333333
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 1.0,
+            "4": 0.9674479166666666,
+            "8": 0.4720052083333333,
+            "16": 0.18033854166666666,
+            "32": 0.07682291666666667
+          },
+          "disc_freq": {
+            "1": 1.0,
+            "4": 0.9661458333333334,
+            "8": 0.4915364583333333,
+            "16": 0.169921875,
+            "32": 0.06901041666666667
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004289859572393148,
+            "chance": 0.004348436430633808,
+            "lift": 0.9872234704170383
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10140917081426591,
+            "chance": 0.10147633604940631,
+            "lift": 0.9993378602470125
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03295521070509617,
+            "chance": 0.03288649320857381,
+            "lift": 1.0020930802323387
+          }
+        },
+        "simlex_rho": -0.0019022491373113437,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 5.24114111161479,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9954427083333334,
+            "info_bits_lower_bound": 6.926275533817268,
+            "destroyed_bits_vs_prev": 0.07372446613443866
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9791666666666666,
+            "info_bits_lower_bound": 6.708891800561318,
+            "destroyed_bits_vs_prev": 0.21738373325594887
+          }
+        ]
+      },
+      "P_LIVE_CONCEPT": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 0.984375,
+            "4": 0.5234375,
+            "8": 0.15885416666666666,
+            "16": 0.041666666666666664,
+            "32": 0.018229166666666668
+          },
+          "512": {
+            "1": 0.9088541666666666,
+            "4": 0.3990885416666667,
+            "8": 0.07161458333333333,
+            "16": 0.014322916666666666,
+            "32": 0.006510416666666667
+          },
+          "1024": {
+            "1": 0.8756510416666666,
+            "4": 0.33203125,
+            "8": 0.046875,
+            "16": 0.004557291666666667,
+            "32": 0.006510416666666667
+          },
+          "4096": {
+            "1": 0.7955729166666666,
+            "4": 0.271484375,
+            "8": 0.0234375,
+            "16": 0.00390625,
+            "32": 0.0006510416666666666
+          }
+        },
+        "recoverability_collisionfree": {
+          "1": 0.9973958333333334,
+          "4": 0.4010416666666667,
+          "8": 0.080078125,
+          "16": 0.014322916666666666,
+          "32": 0.007161458333333333
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 0.8046875,
+            "4": 0.67578125,
+            "8": 0.314453125,
+            "16": 0.11783854166666667,
+            "32": 0.0546875
+          },
+          "disc_freq": {
+            "1": 0.9986979166666666,
+            "4": 0.8248697916666666,
+            "8": 0.3600260416666667,
+            "16": 0.134765625,
+            "32": 0.059895833333333336
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.11665343175862126,
+            "chance": 0.004348436430633808,
+            "lift": 26.85515102929401
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.1095932769872639,
+            "chance": 0.10147633604940631,
+            "lift": 1.0799921262866774
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03279576946858826,
+            "chance": 0.03288649320857381,
+            "lift": 0.9972421618183133
+          }
+        },
+        "simlex_rho": 0.10477736169182189,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 2.699768718317952,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9993489583333334,
+            "info_bits_lower_bound": 6.988652363296159,
+            "destroyed_bits_vs_prev": 0.011347636655547907
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9993489583333334,
+            "info_bits_lower_bound": 6.988652363296159,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.044921875,
+            "info_bits_lower_bound": 0.06101077614031484,
+            "destroyed_bits_vs_prev": 6.927641587155843
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.0625,
+            "info_bits_lower_bound": 0.11122034777756913,
+            "destroyed_bits_vs_prev": -0.05020957163725429
+          }
+        ]
+      },
+      "C_CONCEPT_SHUFFLED": {
+        "n_seeds": 3,
+        "d_eff": 256,
+        "recoverability": {
+          "128": {
+            "1": 0.9973958333333334,
+            "4": 0.6588541666666666,
+            "8": 0.171875,
+            "16": 0.044270833333333336,
+            "32": 0.020833333333333332
+          },
+          "512": {
+            "1": 0.9752604166666666,
+            "4": 0.513671875,
+            "8": 0.09049479166666667,
+            "16": 0.017578125,
+            "32": 0.0078125
+          },
+          "1024": {
+            "1": 0.9479166666666666,
+            "4": 0.443359375,
+            "8": 0.0625,
+            "16": 0.013671875,
+            "32": 0.004557291666666667
+          },
+          "4096": {
+            "1": 0.8072916666666666,
+            "4": 0.2682291666666667,
+            "8": 0.029296875,
+            "16": 0.00390625,
+            "32": 0.0006510416666666666
+          }
+        },
+        "discriminability": {
+          "disc_ortho": {
+            "1": 0.9973958333333334,
+            "4": 0.8372395833333334,
+            "8": 0.3626302083333333,
+            "16": 0.12955729166666666,
+            "32": 0.06705729166666667
+          },
+          "disc_freq": {
+            "1": 0.9993489583333334,
+            "4": 0.8248697916666666,
+            "8": 0.3600260416666667,
+            "16": 0.1328125,
+            "32": 0.07161458333333333
+          }
+        },
+        "structure": {
+          "GOLD_ORTHO": {
+            "ap": 0.004439957470880837,
+            "chance": 0.004348436430633808,
+            "lift": 1.0206807595603842
+          },
+          "GOLD_FREQBAND": {
+            "ap": 0.10157294354210328,
+            "chance": 0.10147633604940631,
+            "lift": 1.0009527235468598
+          },
+          "GOLD_PLANTED": {
+            "ap": 0.03285223871645076,
+            "chance": 0.03288649320857381,
+            "lift": 0.9989601796764038
+          }
+        },
+        "simlex_rho": -0.009211128611296079,
+        "simlex_pairs_covered": 322,
+        "knee_N": 4096,
+        "sigma_half_at_N_GATE": 3.68909894126964,
+        "stage_chain": [
+          {
+            "stage": "S0_ORACLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 1.0,
+            "info_bits_lower_bound": 6.999999999951707,
+            "destroyed_bits_vs_prev": NaN
+          },
+          {
+            "stage": "S1_ENCODE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9986979166666666,
+            "info_bits_lower_bound": 6.978608648030613,
+            "destroyed_bits_vs_prev": 0.021391351921093833
+          },
+          {
+            "stage": "S2_ENCODE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.9986979166666666,
+            "info_bits_lower_bound": 6.978608648030613,
+            "destroyed_bits_vs_prev": 0.0
+          },
+          {
+            "stage": "S3_BUNDLE",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.052083333333333336,
+            "info_bits_lower_bound": 0.08186690559631889,
+            "destroyed_bits_vs_prev": 6.896741742434294
+          },
+          {
+            "stage": "S4_BUNDLE_SIGN",
+            "criterion": "top-8 of 1024",
+            "accuracy": 0.06770833333333333,
+            "info_bits_lower_bound": 0.13043411735332278,
+            "destroyed_bits_vs_prev": -0.04856721175700388
+          }
+        ]
+      }
+    }
+  },
+  "vocab_sample": [
+    "died",
+    "best",
+    "usually",
+    "movie",
+    "same",
+    "each",
+    "second",
+    "before",
+    "number",
+    "water",
+    "january",
+    "writer",
+    "around",
+    "national",
+    "well",
+    "country",
+    "april",
+    "area",
+    "being",
+    "series"
+  ],
+  "simlex_pairs_covered": 322,
+  "semantic_readout_validated": true,
+  "saturation_negative_control": {
+    "self_test_ok": true,
+    "reference": {
+      "nn_recall_at_1_on_iid_gaussian_keys_noise0.1": 1.0,
+      "nn_recall_at_1_on_iid_gaussian_keys_noise1.0": 1.0
+    }
+  },
+  "failed_gates": {
+    "NULL": [],
+    "KNOWN": [],
+    "SAT": [],
+    "CHAIN": [],
+    "SEP": []
+  },
+  "v2_fix_a_chain": {
+    "criterion": "top-8 at every stage (v1 mixed top-1 and top-8)",
+    "bound": "fano_bits_list(p, n, B) -- list-decoding Fano",
+    "ceiling_bits": 7.0,
+    "v1_ceiling_bits_for_reference_NOT_COMPARABLE": 10.0,
+    "worst_destroyed_bits_vs_prev": -0.12135409779245994,
+    "worst_destroyed_where": "A_COLLAPSE@d1024:S3_BUNDLE"
+  },
+  "v2_fix_b_saturation": {
+    "headline_sigmas": [
+      4.0,
+      8.0,
+      16.0
+    ],
+    "headline_sigma": 8.0,
+    "SEP1_gap_at_sigma8": 0.822265625,
+    "SEP2_DIAG_gap_at_sigma1": 0.0,
+    "SEP2_DIAG_note": "DIAGNOSTIC, not a verdict gate. A gap of ~0 at sigma=1 is the EVIDENCE that v1's headline point was saturated -- both arms sit at 1.000 there, so the metric cannot separate two GOOD encoders."
+  }
+}
