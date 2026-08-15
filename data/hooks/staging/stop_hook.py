@@ -139,6 +139,139 @@ def _testbed_lull_check_hint(repo_root: Path) -> str:
     return ''
 
 
+def _scan_out_gate(repo_root: Path, session: str) -> tuple:
+    """New signal (2026-08-14, owner directive on subagent fan-out): uncollected
+    `.claude/scan-out/` fragments from the fire-and-forget scan-agent convention
+    (see `.claude/scan-out/README.md`, `tools/scan_out_collect.py`, `.claude/agents/scan.md`).
+
+    FRAGMENT COUNT IS THE GATE, and zero is the mandatory early exit. A scan that is still
+    running in the background has written nothing yet -- an empty (or absent) scan-out
+    directory must NEVER look like a block-worthy signal. That is precisely the "hook that
+    won't let you stop" failure the owner's directive warns about: "with scans truly
+    fire-and-forget, your main session may legitimately want to end a turn before they land
+    ... gate the Stop hook on fragment count, as in that early exit 0."
+
+    Only a fragment that has ALREADY been written (the scan finished) AND is newer than this
+    session's last-collected mark can trigger a block -- mirrors the unread-inbox pattern
+    above (own file, first-run-is-not-a-backlog, advance-on-block) rather than inventing a
+    new idiom.
+
+    Returns (should_block: bool, fragment_name: str | None).
+    """
+    scan_out_dir = repo_root / '.claude' / 'scan-out'
+    if not scan_out_dir.is_dir():
+        return False, None  # early exit 0: no scan-out dir at all == nothing to gate on
+
+    try:
+        fragments = list(scan_out_dir.glob('*.json'))
+    except OSError:
+        return False, None
+    if not fragments:
+        return False, None  # early exit 0: scans legitimately in flight have written nothing yet
+
+    ts_file = repo_root / 'data' / f'last_scan_collected_{session}.timestamp'
+    if not ts_file.exists():
+        # First-run: pre-existing fragments are not a fresh backlog for THIS session --
+        # matches the unread-inbox first-run behavior (avoid retroactively blocking on
+        # history the session never saw appear).
+        try:
+            ts_file.touch()
+        except OSError:
+            pass
+        return False, None
+    try:
+        ts_mtime = ts_file.stat().st_mtime
+    except OSError:
+        return False, None
+
+    newest_name = None
+    newest_mtime = ts_mtime
+    for p in fragments:
+        try:
+            m = p.stat().st_mtime
+        except OSError:
+            continue
+        if m > newest_mtime:
+            newest_mtime = m
+            newest_name = p.name
+    if newest_name is None:
+        return False, None
+    return True, newest_name
+
+
+def _scan_out_gate_self_test() -> int:
+    """Prove _scan_out_gate both ways: exits clean (False) when scans are legitimately in
+    flight (no fragments written yet), and blocks (True) once a fragment has actually landed.
+    Runs entirely against a tempfile root -- never touches the real repo's hook_state."""
+    import tempfile
+    ok = True
+
+    root = Path(tempfile.mkdtemp(prefix="stop_hook_scan_gate_selftest_"))
+    (root / 'data').mkdir(parents=True, exist_ok=True)
+    session = 'selftest_session'
+
+    # 1. No .claude/scan-out/ directory at all -- must be the early exit 0.
+    should_block, name = _scan_out_gate(root, session)
+    if should_block is False and name is None:
+        print("[self-test] PASS no scan-out dir -> early exit 0 (no block)")
+    else:
+        print(f"[self-test] FAIL no scan-out dir should not block, got ({should_block!r}, {name!r})", file=sys.stderr)
+        ok = False
+
+    # 2. scan-out dir exists but empty -- scans "legitimately in flight" -- must not block.
+    scan_out = root / '.claude' / 'scan-out'
+    scan_out.mkdir(parents=True, exist_ok=True)
+    should_block, name = _scan_out_gate(root, session)
+    if should_block is False and name is None:
+        print("[self-test] PASS empty scan-out dir (scans in flight) -> no block")
+    else:
+        print(f"[self-test] FAIL empty scan-out dir should not block, got ({should_block!r}, {name!r})", file=sys.stderr)
+        ok = False
+
+    # 3. First fragment appears -- first-ever check for this session must NOT retroactively
+    #    block (matches unread-inbox first-run behavior); it should establish the mark instead.
+    frag1 = scan_out / 'probe_scan_1.json'
+    frag1.write_text('{"agent": "scan", "task": "t", "timestamp": "x", "findings": []}', encoding='utf-8')
+    should_block, name = _scan_out_gate(root, session)
+    if should_block is False:
+        print("[self-test] PASS pre-existing fragment on first check -> no retroactive block")
+    else:
+        print(f"[self-test] FAIL first check should not retroactively block, got ({should_block!r}, {name!r})", file=sys.stderr)
+        ok = False
+
+    # 4. A NEW fragment lands after the mark was set -- this is the real "blocks when it
+    #    should" case: a completed scan sitting uncollected.
+    import time as _t
+    _t.sleep(0.05)
+    ts_file = root / 'data' / f'last_scan_collected_{session}.timestamp'
+    # nudge the mark slightly into the past relative to the next write, deterministically
+    os.utime(ts_file, None)
+    _t.sleep(0.05)
+    frag2 = scan_out / 'probe_scan_2.json'
+    frag2.write_text('{"agent": "scan", "task": "t2", "timestamp": "y", "findings": []}', encoding='utf-8')
+    should_block, name = _scan_out_gate(root, session)
+    if should_block is True and name == 'probe_scan_2.json':
+        print("[self-test] PASS new completed fragment after the mark -> blocks, names the fragment")
+    else:
+        print(f"[self-test] FAIL new fragment should block and name itself, got ({should_block!r}, {name!r})", file=sys.stderr)
+        ok = False
+
+    # 5. Re-check immediately (no new fragment) -- must NOT block again until the mark is
+    #    advanced (mirrors main()'s advance-on-block; this self-test does not call main(), so
+    #    simulate the advance directly to prove the mark, once touched, silences the repeat).
+    os.utime(ts_file, None)
+    should_block, name = _scan_out_gate(root, session)
+    if should_block is False:
+        print("[self-test] PASS after mark is advanced, same fragments no longer block")
+    else:
+        print(f"[self-test] FAIL advancing the mark should silence repeat blocking, got ({should_block!r}, {name!r})", file=sys.stderr)
+        ok = False
+
+    print(f"[self-test] leftover temp dir (not auto-removed, by design): {root}")
+    print("[self-test] RESULT:", "PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+
 def _derive_session_from_transcript(transcript_path: str) -> str:
     """Derive a stable per-VS-Code-window session key from the Claude transcript path.
 
@@ -153,6 +286,11 @@ def _derive_session_from_transcript(transcript_path: str) -> str:
 
 
 def main() -> int:
+    # --self-test: run the scan-out gate self-test and exit, before any stdin/hook-protocol
+    # handling below (this is a maintenance entrypoint, not a hook firing).
+    if len(sys.argv) >= 2 and sys.argv[1] == '--self-test':
+        return _scan_out_gate_self_test()
+
     # DEBUG: prove invocation independent of all other logic (first thing; can't be missed)
     try:
         from pathlib import Path as _P
@@ -344,7 +482,12 @@ def main() -> int:
     # active commit cycles (any session's git commit triggers .git/index mtime).
     # The watchdog-ping signal is the more-targeted external wake-up trigger.
 
-    if have_unread or have_watchdog_ping:
+    # 3b: uncollected .claude/scan-out/ fragments (2026-08-14 fan-out fix). See
+    # _scan_out_gate's docstring for the early-exit-0 rationale -- an empty/absent scan-out
+    # dir (scans still in flight) must never reach here as a block signal.
+    have_scan_fragment, scan_fragment_name = _scan_out_gate(repo_root, session)
+
+    if have_unread or have_watchdog_ping or have_scan_fragment:
         # Concrete signal: increment counter + emit block decision
         try:
             cont_file.write_text(str(count + 1))
@@ -364,6 +507,15 @@ def main() -> int:
             signals.append(f"unread inbox ({have_unread_name})")
         if have_watchdog_ping:
             signals.append(f"watchdog ping ({have_watchdog_ping_name})")
+        if have_scan_fragment:
+            signals.append(f"scan fragment ready ({scan_fragment_name}) -- run "
+                            f"`python tools/scan_out_collect.py`")
+            # Advance this session's mark so the SAME fragment doesn't reblock every cycle
+            # (mirrors ts_file.touch() below for the unread-inbox signal).
+            try:
+                (repo_root / 'data' / f'last_scan_collected_{session}.timestamp').touch()
+            except OSError:
+                pass
         reason = (f"Pending work for {session}: " + " + ".join(signals) +
                   f"; continuing. (continuation {count + 1}/{hard_cap})")
         # Layer 1 of the lull-breaker enforcement (per USER 2026-06-21 + my own

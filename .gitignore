@@ -145,3 +145,12 @@ archive/reclaimed_2026-08-13/
 !data/literature_cache/README.md
 !data/literature_cache/index.jsonl
 data/literature_cache/files/**
+
+# Sub-agent scan-fragment convention (2026-08-14, notes/subagent_fanout_pattern_2026-08-14.md):
+# background scan agents (literature scans, codebase surveys) write their full findings to
+# .claude/scan-out/<name>.json instead of returning a large report into the dispatcher's
+# context -- tools/scan_out_collect.py assembles the fragments into one note. Fragments are
+# ephemeral working data, not source; track the schema README so the convention survives a
+# fresh clone even though the directory itself is empty of tracked content otherwise.
+.claude/scan-out/*.json
+!.claude/scan-out/README.md
