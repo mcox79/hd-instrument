@@ -42,6 +42,10 @@ htmlcov/
 # Project
 data/*
 !data/.gitkeep
+# Ready-work dispatch queue (2026-08-15, parallel-dispatch enforcement) -- must survive commits
+# so the queue is durable across sessions, not just this disk. See tools/dispatch_queue.py.
+!data/dispatch_queue.jsonl
+!data/dispatch_batch_do_not_touch.txt
 # DECISION 220 Tier-1 preservation sweep: keep load-bearing experimental measurements.
 # Pattern requires: (1) unignore subdirs so git traverses, (2) re-ignore their contents,
 # (3) explicit allowlist for files we want tracked.

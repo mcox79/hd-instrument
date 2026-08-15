@@ -75,7 +75,7 @@ point? multiplicative gain? sparse k-WTA? Hebbian outer product? a successor-rep
 | form pinned, key function/parameter UNPINNED | 12 / 38 | |
 | **core operation UNPINNED** | **14 / 38** | |
 | **on the LIVE path** | **~23 / 38 organs**, backed by **44 of 155 modules (= 35 of the 141 top-level)** | fresh runtime `sys.modules` trace this pass |
-| **UNTESTED — no floored evidence at all** | **16 / 38** | column 7 |
+| **UNTESTED — no floored evidence at all** | ~~**16 / 38**~~ 🔴 **DO NOT QUOTE — see §10** | column 7 |
 | organs whose only evidence is a self-test PASS | 10 / 38 | column 7 |
 | `.py` files in `hdlab/` by `os.walk` | **155** | 142 package root (141 modules + `__init__`) + 7 `learner/` + 5 `dashboard/` |
 | modules that import cleanly | **155 / 155**, zero ImportErrors | fresh subprocess per module |
@@ -233,7 +233,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **FIDELITY:** RIGHT-OP-WRONG-METRIC — n-gram coding is the right family; the 1-bit terminal
   quantiser is not.
 - **WIRED:** NO
-- **EVIDENCE:** registry `hdlab_encoder_cluster_vwfa_ppmi_composed_v3` = SHELVE,
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_orthographic_floor_vet_v1` A6_TRIGRAM_ONLY 0.0870 [0.0783,0.0960] vs live 0.0480; the orthography-only arm WINS. Its source script is untracked in `scratch/` — promote it.**
   `superseded_untouched_since_2026-07-03`. **UNTESTED — no floored number.**
 - **BLOCKS:** nothing today. The live path never reads characters.
 
@@ -264,7 +265,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   privileging of DISTINCTIVE (few-concept) features. Additionally: **the feature inventory is a
   hand-built lexicon, not learned** — the HD layer only re-encodes it.
 - **WIRED:** YES
-- **EVIDENCE:** self-test pins `sim(vessel,ferry)=0.634`. **NO FLOOR — UNTESTED as an organ.**
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_n11c_shared_feature_lexical_similarity_v1` HARD_PASS vs 3 floors (window 0.379 / hash 0.103 / scramble 0.310), BUT tier1/2/3 = 0.931/0.304/**0.002** vs window 0.859/0.852/0.830. A cliff, not a pass.**
 - **BLOCKS:** near-neighbour discrimination; any judgement over the ~99.4% of vocabulary outside the
   hand lexicon (which falls through to B5 and is capped below the decision threshold).
 
@@ -361,8 +363,16 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   claim that norms *collapse* near-synonyms was **theoretically motivated but empirically untested**
   — our measurement above fills that gap.
 - **WIRED:** YES — but capped below the decision threshold, so it never decides anything.
-- **EVIDENCE:** the self-documented table above. **NO FLOOR.** Sensorimotor-applied-to-abstract was
-  previously HARD_FAIL and SHELVED.
+- **EVIDENCE:** the self-documented table above. ~~**NO FLOOR.**~~ 🔴 **CORRECTED 2026-08-15
+  (C24) — A FLOOR NOW EXISTS AND THE ORGAN SITS ON IT.** On 124 both-covered blind pairs the NOISE
+  class sits **ON** the random-word-pair Lancaster floor (**0.8071 vs 0.8060**) while non-NOISE sits
+  at 0.8834; AUC 0.685 **in-sample** (`notes/grounding_asset_inventory_2026-08-13.md:248-249`).
+  Wired into the C3 harness it gives `A2_NORMS` **0.07125** at w=0.50, **below** the 0.0870
+  standalone-spelling floor. Sensorimotor-applied-to-abstract was previously HARD_FAIL and SHELVED.
+  **Two stale framings to retire in BOTH directions:** the norms are *not* an unwired island —
+  `hdlab/lexical_similarity.py:599` has `use_grounded_fallback: bool = True`, default-ON since
+  2026-08-11 (the live *reading loop* simply never calls `concept_similarity`) — and they are *not*
+  an untapped asset, having been measured and shelved with revival criteria (DO-NOT-REDO 11).
 - **BLOCKS:** grounding of concrete vocabulary; the ~99.4% of words outside `CONCEPT_FEATURES`.
 
 ### C. COMPARISON, SELECTION, CONTROL
@@ -480,7 +490,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   `sign()`**, adding a prototype operator the brain does not have.
 - **WIRED:** `cleanup_family` + `iterative_attractor` **YES** (live, consumed by `gap_detector`).
   `hippocampal_encoder` **NO**.
-- **EVIDENCE:** `hippocampal_encoder` self-test 14/14 PASS — **NO FLOOR**. Its live use inside
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: 3 cells vs an argmax floor: `exp_att1_iterative_attractor_cleanup_v1` lift +0.005 basin 1.00x; `exp_cleanup_graded_attractor_vs_argmax_v1` +0.003; `exp_att1_..._krotov_v1` HARD_FAIL −0.020. Settling buys nothing — this FLOORS §C4.**
   `gap_detector` is floored (see H1). **UNTESTED as a completion organ.**
 - **BLOCKS:** episodic recall. Explicitly **NOT** near-neighbour discrimination — see C4.
 
@@ -553,7 +564,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   reward scaling and no expanding schedule.
 - **FIDELITY:** WRONG-OP-CLASS at the live site. The faithful version exists and is **ISLANDED**.
 - **WIRED:** `continual.py` **NO**.
-- **EVIDENCE:** `continual.py` docstring claims `+0.57 drift_reduction` as MEASURED_MECHANISM — **no
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_substrate_continual_NREM_replay_v1` HARD_PASS_PARTIAL with a no-replay floor (0.8833) and a monotone dose ladder 0.3100/0.4833/0.6367; `exp_consol_interleaved_replay_v1` 0.9086 vs shuffle 0.3613; `exp_cls_prioritized_replay_closed_loop_surprise_v1` probes the selection function (delta_E 0.055).**
   floor stated in the module**. The one properly floored result:
   `exp_cls_interleaved_replay_consolidation_pilot_v1` **HARD_PASS**, old-recall `full_cls 0.808` vs
   **floors `naive_dual_w 0.217`, `single_seq 0.217`, 3/3 seeds** — a real, failable floor, and the
@@ -683,6 +695,7 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   PRP term, and there is no co-allocation window.
 - **WIRED:** **NO** — registry: ISLAND, **zero consumer**.
 - **EVIDENCE:** none. **UNTESTED.**
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_excitability_gated_substrate_cpu_v1` HARD_PASS, gated_hi 1.000 vs ungated_hi 0.500 at K=1200. Scope: tests the EWMA write-gain only; two-factor tag×PRP and co-allocation remain untested AND UNPINNED — §2 should drop D9.**
 - **BLOCKS:** selective consolidation; the "which of today's 11,122 refusals deserve a retry" question.
 
 ### E. BINDING AND STRUCTURE
@@ -796,6 +809,7 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   brain-side encoding operation is UNPINNED so the chunk algebra is ours.
 - **WIRED:** NO
 - **EVIDENCE:** none floored. **UNTESTED.**
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_focus_encode_shapefix_realprose_v1` HARD_FAIL — CHUNKEDFOCUS 0.0154 vs BOW 0.1448 and the scramble does NOT collapse, i.e. the order channel is measurably EMPTY.**
 - **BLOCKS:** ordered multi-item maintenance across a sentence.
 
 ### F. LANGUAGE STRUCTURE
@@ -808,7 +822,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **FIDELITY:** UNSCORABLE. Charter-compliant: our own learned mechanism, not a bolt-on parser.
 - **WIRED:** **YES — LAZILY**, inside `StructuralFrontEnd._load` (`reading_grounding_loop.py:300-303`).
   Invisible to grep and to an eager import trace.
-- **EVIDENCE:** no floored number surfaced. **UNTESTED here.**
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_pos_tagger_multiseed_cpu_v1` HARD_PASS 0.9063 std 0.0005 over 5 seeds on real PTB; `exp_pos_discriminative_perceptron_cpu_v1` 0.9499 vs its own HMM 0.906. Caveat: below the ~0.97 off-the-shelf taggers reach.**
 - **BLOCKS:** nothing directly.
 
 **F2 — Dependency / argument-structure parsing**
@@ -844,6 +859,17 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   is exactly what a validity-weighted model would expose. Related floored negative:
   `exp_syntactic_role_agent_patient_voice_probe_v1` scored **0.1792 / 0.1625 against chance 0.50 and
   shuffled controls 0.513/0.529**, verdict `ENCODER_POSITION_ONLY`.
+  🔴 **ADDED 2026-08-15 (correction C21), because a wrong number for this organ is in circulation:**
+  the revalidation cell's verdict is **`HARD_FAIL`**, not a pass —
+  `exp_thematic_role_labeler_qasrl_modern_revalidation_v1`, `mean_qasrl_noncanon` **0.7442**,
+  **n_noncanon = 3937**, 5 seeds, failing precisely because `animacy_only` reproduces the full model
+  within 0.05. The **HARD_PASS** figure (`mean_full_acc` **0.8666** vs positional 0.6032) is a
+  *different cell* at **n_test = 63** (`exp_thematic_role_labeler_cue_integration_v1`).
+  **"0.95 held-out" is not a number this organ ever produced** — its only source is
+  `notes/research_next_benchmark_after_propara_trap_check_2026-08-10.md:11,301`, which says
+  "0.95 **parse coverage**"; the coverage figure was transcribed as accuracy downstream. The
+  EVIDENCE line above was already honest; this note exists to kill the transcription, not to
+  demote the organ.
 - **BLOCKS:** verb-frame learning (F4).
 
 **F4 — Frame induction / syntactic bootstrapping**
@@ -935,7 +961,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   description of consolidation; nobody has tested that here.
 - **WIRED:** YES (live closure — `hdlab.learner` + 4 plugin entries in `sys.modules`).
   `compose_freq_routing` NO (registry: promoted, **zero consumer**).
-- **EVIDENCE:** the module's own docstring: **"THIS IS A REFACTOR. It does not claim any new substrate
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_learner_mdl_gate_on_acquisition_traces_v1` HARD_PASS (20/66 verdict changes vs the schema gate, full 2×2); `exp_substrate_compose_freq_routing_v5_DEFINITIVE` chain-grade (+0.1477 lift, cv 0.0009, 5 seeds, cross-N) — and that module has ZERO consumers. The PRIMITIVES are measured; the LOOP is not.**
   capability."** Acceptance bar was behaviour-preservation against two prior cells. **UNTESTED as a
   learning organ.**
 - **BLOCKS:** everything about growth. This is the organ the whole read-and-learn thesis rests on and
@@ -954,7 +981,8 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   the residual is computed on a `sign()`-quantised prediction, so a large graded error and a small one
   that flips the same bits are indistinguishable. No precision term.
 - **WIRED:** **NO**
-- **EVIDENCE:** self-test PASS (asserts the vanilla path matches the outer-product sum). **NO FLOOR —
+
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_pc1_predictive_coding_residual_gate_v1` MIDDLE_BAND — at thresh 0.3 **skip = 0.00, byte-identical to ungated: the gate never fired**; `exp_predictive_coding_relative_threshold_v1` REL F1 0.697 vs ABS 0.905, margin −0.248.**
   UNTESTED.**
 - **BLOCKS:** selective consolidation (D4/D9); efficient learning.
 
@@ -972,6 +1000,7 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   representation. **This is precisely the organ C3 needs and cannot currently reuse.**
 - **WIRED:** `modulators` YES; `excitability` **NO** (ISLAND, zero consumer).
 - **EVIDENCE:** none floored. **UNTESTED.**
+  🔴 **SEE §10.1 — NO LONGER UNTESTED: FOUR floored cells. Global/per-raw-dimension gain is null-to-harmful (`exp_wave14i_neuromod_gain` 0.0%; `exp_substrate_ACh_query_conditional_read_gain_LM_v1` +0.0058 HARD_FAIL; C3's −0.0220). Per-ROW write gain is +0.500 (`exp_excitability_gated_substrate_cpu_v1` HARD_PASS) — and it has zero consumers. **Largest fidelity gap in the §10 batch.****
 - **BLOCKS:** C3's brain-faithful form as a *reuse* rather than a new build.
 - **🔑 WHAT THE DECORRELATION DRILL ADDED (2026-08-14) — the reason four reweightings failed.**
   **Whitening IS per-dimension gain, but IN THE RIGHT BASIS.** That single qualifier is exactly what
@@ -1038,10 +1067,19 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **BLOCKS:** nothing. **Its output has nowhere to go — see H2. That is the tragedy of this row.**
 
 **H2 — Information foraging: deciding WHAT TO READ NEXT** *(MISSING — and it is step 1)*
-- **BRAIN'S MATH:** **UNPINNED.** Candidates exist (LC-NE gain/exploration; dopaminergic
+🔴 **SUPERSEDED 2026-08-14/15 — SEE §10.1/H2b BEFORE READING THIS ENTRY.** The organ is NOT missing
+(`hdlab/information_foraging.py`, witness + registry row `information_foraging_mvt_leave_rule`,
+integration_status WIRED), its brain math is NOT unpinned (Charnov 1976 MVT; Constantino & Daw 2015
+discrete form; Hayden 2011; Wittmann 2016), and its can-fail cell has RUN
+(`exp_information_foraging_reading_v1`, run_mode full, 5 arms × 10,000 sentences). The banked
+HARD_PASS is downgraded to **MIDDLE_BAND_COMPARATOR_SELECTED** in §10.1: FROZEN beats FORAGE on
+held-out coverage (0.0743 vs 0.0617) and on n_grounded (696 vs 604), RANDOM beats it on WordNet
+agreement (0.3864 vs 0.3511), and the oracle check FAILED (0.534 vs a 0.70 band) and was relabelled
+"mechanism check only".
+- **BRAIN'S MATH:** ~~**UNPINNED.** Candidates exist (LC-NE gain/exploration; dopaminergic
   information-seeking; curiosity as expected information gain) but there is no settled cortical
   equation for "choose the next source given what you don't know." **This is a real gap in the
-  literature, not in our reading of it.**
+  literature, not in our reading of it.**~~ 🔴 **WRONG — the operation IS pinned. See §10.1/H2b-3.**
 - **OURS:** **NONE.** `hdlab/gap_driven_reader.py:192-200` `rank_material()` exists but is, in its own
   docstring's words, *"intentionally target-agnostic"* — it ranks **only what the caller hands it**.
   Repo-wide there are **zero occurrences** of `select_corpus` / `choose_corpus` / `next_corpus` /
@@ -1454,3 +1492,510 @@ D4 — with the added detail that its leading normative candidate (Mattar & Daw 
 §B4, which already stated `QUANT [0.6395, 0.7030, 0.7380]` / `GRAD [0.6980, 0.7495, 0.78225]`
 honestly. **`0.7495` is the d=1024 GRADED arm — it is NOT the live path.** The live path moved
 **0.6395 → 0.6980**. Anyone quoting 0.7495 as a shipped result is quoting an unshipped capacity change.
+
+---
+
+## 10. THE TWELVE UNTESTED-ORGAN AUDITS (2026-08-15, auditor pass)
+
+Queue items `organ-untested-{a1,b1,d2,d3,d4,d9,e5,f1,g1,g2,g3,h2b}`. **BUILD NOTHING pass** — no
+experiment run, no `hdlab/` or `experiments/` file modified, no `metrics.json` touched. Every number
+below is read off disk from the cited `metrics.json` with `.venv/Scripts/python.exe`.
+
+### 10.0 THE HEADLINE, AND IT IS A CORRECTION TO THIS DOC
+
+**The UNTESTED column is wrong for NINE of the twelve organs audited.** Floored, can-fail evidence
+for them already exists on disk, and three of those results are NEGATIVE for the organ. The cause is
+diagnosable and is the exact fault named in `MEMORY.md`: **an absence claim was made by SEARCH
+(module docstrings + the capability registry) rather than by ENUMERATION.** This pass enumerated
+`data/` = **7,902 subdirectories** and `experiments/` = **5,777 `.py` files** by `os.scandir`, then
+matched by organ keyword. §8 discloses that the evidence column came from module docstrings and
+cited cells; it never enumerated the archive.
+
+**This does not retract the map.** The OUR-OP column was spot-re-verified at HEAD for E5
+(`situation_focus.py:72,79` `capacity: int = 4, fanout: int = 2`), G2
+(`predictive_coding.py:84-86` `return 0.5 * (1.0 - cos)`) and D9 (`excitability.py:59-61`
+EWMA `(1-eta)*E[idx] + eta*use_signal`) and is correct in all three. It is the EVIDENCE column that
+was built by the wrong method.
+
+**PINNED / UNPINNED tally for the twelve, stated strictly:**
+
+| | organs | note |
+|---|---|---|
+| **core operation PINNED** | **3** — H2, G2, D3 (write half) | an implementable equation with a primary citation |
+| **form or parameters pinned, OPERATION UNPINNED** | **4** — A1, D9, E5, G3 | do NOT read these as pinned; the buildable part is missing |
+| **core operation UNPINNED** | **5** — B1, D2, D4 (selection), F1, G1 (lexical) | UNSCORABLE for fidelity |
+
+**Write UNPINNED where the literature does not pin the operation.** The four PARTIAL rows are the
+dangerous ones: each has a pinned SHAPE or a pinned CONSTANT sitting next to an absent operation, and
+that is exactly the configuration that invites an invented equation dressed as biology. **D9 is the
+perirhinal case repeating**: the `tag × PRP > θ` product is a device in Clopath et al.'s RNN MODEL,
+not a measured synaptic operation; Frey & Morris pin the PHENOMENON and the TIMESCALES and nothing
+more. Do not build a superadditive product and call it synaptic tag and capture.
+
+### 10.1 PER-ORGAN
+
+Format: **BRAIN STRUCTURE** / **OPERATION** (cited or UNPINNED) / **SHAPE-POSITION-METRIC** brain vs
+ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLOOR TEST**.
+
+---
+
+**A1 — VWFA. Queue premise CONFIRMED-THEN-SUPERSEDED.**
+- **STRUCTURE:** left occipitotemporal sulcus (VWFA), between retinotopic visual cortex and lexical
+  access.
+- **OPERATION: form PINNED, update rule UNPINNED.** Open-bigram / position-tolerant hierarchical
+  feature detectors (Dehaene et al. 2005; Grainger & Whitney). The literature pins the CODE and the
+  LATENCY; it gives no learning rule and no objective.
+- **SHAPE** brain: graded activity over position-tolerant bigram/letter/morpheme detectors.
+  **OURS:** `vwfa.py:208-209` weighted multi-scale n-gram then `sign()`;
+  `char_trigram_encoder.py:92-94` bag of trigrams, order destroyed. Same family, 1-bit terminal
+  quantiser. **POSITION** brain: strictly pre-lexical. **OURS:** off the live path entirely — the
+  reading loop never reads characters. **METRIC** brain: UNPINNED. **OURS:** none.
+- **GAP:** not the encoder. **The gap is that A1's operation is not on the live path while an
+  external re-implementation of it beats the live path.**
+- **NO LONGER UNTESTED.** `data/exp_orthographic_floor_vet_v1/metrics.json` (2026-08-14T21:30Z,
+  n=4000, 5000-sample bootstrap, `a1_base_reproduces_c3_headline_exactly: true`):
+  **`A6_TRIGRAM_ONLY` 0.0870 [0.0783, 0.0960]** vs **`A1_BASE` (live substrate) 0.0480
+  [0.0413, 0.0548]**, delta +0.0390 [0.0282, 0.0500], CI excludes zero. `A7_PREFIX_ONLY` 0.05875,
+  `A8_MAXORTHO` 0.0610 — all three orthography-only arms beat the substrate. That is a floored,
+  can-fail, identical-pool measurement of an A1-family operation, and the organ **wins**.
+- **DEFECT FOUND, and it is load-bearing.** That cell's `provenance_note` says *"promoted from
+  scratch/ortho_floor_vet_trigram_only.py"*. **The promotion did not happen.** There is no
+  `experiments/exp_orthographic_floor_vet_v1.py` (enumerated: 0 of 5,777 filenames match), the script
+  exists only at `scratch/ortho_floor_vet_trigram_only.py`, `git ls-files` reports it untracked, and
+  `.gitignore:83` ignores `scratch/`. **The sole source of the 8.70% number now in `MEMORY.md`'s
+  banner is one `tools/clear_scratch.py --yes` away from deletion.** This is exactly the
+  dangling-scratch-citation case `CLAUDE.md` names. **Promote it before it is cleared** — filed here,
+  not fixed, because this pass builds nothing.
+- **EXISTS** yes / **IS-REACHED** no (live path reads no characters) / **IS-GOOD** yes, and better
+  than what is reached.
+- **FLOOR TEST:** already run. The remaining question is not a floor, it is a wiring decision, and the
+  standing rule is that **a floor is cleared by understanding, never adopted** — do not wire spelling in.
+
+---
+
+**B1 — ATL amodal hub. Queue premise CONFIRMED as written, SUPERSEDED by an archive cell.**
+- **STRUCTURE:** anterior temporal lobe, graded transmodal hub.
+- **OPERATION: UNPINNED.** Confirmed against `notes/lit_scan_atl_hub_and_spoke_2026-08-13.md` and
+  `notes/lit_scan_cortical_learning_rule_and_sparsity_2026-08-13.md`. Only qualitative dynamics
+  (Jackson, Rogers & Lambon Ralph 2021) plus one pinned sub-fact: LATL conceptual combination is
+  approximately ADDITIVE (Baron & Osherson 2011). The available equations belong to MODELS of the hub.
+- **SHAPE** brain: dense, graded, low effective dimensionality (~4 group PCs, Huth 2012); distinctive
+  (few-concept) features privileged. **OURS:** `lexical_similarity.py` FHRR bundle over an
+  **unweighted** hand-authored `CONCEPT_FEATURES` frozenset — the precise inverse of the
+  distinctiveness privilege. **POSITION** brain: convergence point after unimodal spokes, backward
+  connections stronger than forward. **OURS:** feedforward, one-shot, no recurrence. **METRIC** brain:
+  UNPINNED. **OURS:** designed similarity bands.
+- **GAP:** the feature inventory is a hand-built lexicon of ~230 concepts, not learned, and it is
+  unweighted. Concretely: **there is no frequency statistic anywhere in this organ**, so
+  distinctiveness cannot be computed even in principle.
+- **NO LONGER UNTESTED.** `data/exp_n11c_shared_feature_lexical_similarity_v1` **HARD_PASS**, with
+  three real failable floors: `ordered_frac` shared_feature **0.966** vs WINDOW distributional
+  **0.379**, HASH_RANDOM **0.103**, SCRAMBLE **0.310** (the scramble collapses the gain, so it is
+  earned). **But read the tier breakdown, which the headline hides: shared_feature tier1/2/3 =
+  (0.931, 0.304, 0.002) against window (0.859, 0.852, 0.830).** On tier 3 the organ scores **0.002**
+  while the distributional baseline scores **0.830**. Companion negative:
+  `exp_n11b_symmetric_pattern_lexical_similarity_v1` **HARD_FAIL**, sym 0.207 vs window 0.379, and the
+  scramble did NOT collapse (0.207 = 0.207) — that arm's signal was an artifact.
+- **HONEST TIER: not a HARD_PASS for the organ. It is a cliff.** 0.931 → 0.304 → 0.002 is the
+  ~230-concept hand lexicon becoming visible as a measurement. The map's `BLOCKS` line already
+  predicted this ("any judgement over the ~99.4% of vocabulary outside the hand lexicon"); the cell
+  measured it and nobody set the two beside each other.
+- **EXISTS** yes / **IS-REACHED** yes (live) / **IS-GOOD** only inside the hand lexicon.
+- **FLOOR TEST (still needed, and it is cheap):** re-score n11c with items stratified by *whether both
+  words are in `CONCEPT_FEATURES`*, reporting IN/OUT separately against the same WINDOW floor. Can
+  fail: if the OUT stratum does not lose to WINDOW, the coverage story is wrong. A re-scoring of an
+  existing cell, not a new experiment.
+
+---
+
+**D2 — CA3 pattern completion. Queue premise WRONG. The organ is TESTED THREE TIMES AND LOSES.**
+- **STRUCTURE:** CA3 recurrent collaterals.
+- **OPERATION: UNPINNED.** Anatomy and capacity are pinned (Treves & Rolls ~36,000 patterns); the
+  UPDATE RULE is not stated in the biology. Hopfield sign-update and modern-Hopfield softmax are OUR
+  imports. Map is correct here; confirmed.
+- **SHAPE** brain: sparse recurrent autoassociator. **OURS:** `cleanup_family.py:121-179`,
+  `iterative_attractor.py:104-126` — op-class right, every implementation terminates in `sign()`.
+  **POSITION** brain: after DG separation, before CA1 output. **OURS:** consumed by `gap_detector`,
+  i.e. used for FAMILIARITY, not for episodic completion. **METRIC** brain: output closer to the
+  stored pattern than its degraded input (Neunuebel & Knierim 2014) — a **basin** measure. **OURS:**
+  the cells measure exactly that, and it does not move.
+- **NO LONGER UNTESTED. Three floored cells, all against the correct floor (plain `argmax` = no
+  settling):**
+  - `exp_att1_iterative_attractor_cleanup_v1` **MIDDLE_BAND**: best lift over argmax **+0.005**
+    (argmax 0.002 → ATT1_HIGH_TEMP 0.007), **basin ratio 1.00x**, **cv 0.935**.
+  - `exp_cleanup_graded_attractor_vs_argmax_v1`: modern_hopfield **0.360** vs argmax **0.357** at the
+    cliff, max|gap| 0.008; verdict `STEP_IS_CODEBOOK_SNR_WALL_NOT_CLEANUP_RULE`.
+  - `exp_att1_iterative_attractor_v2_low_storage_ratio_krotov_v1` **HARD_FAIL**: lift **−0.020**,
+    *"mechanism truly rejected (revival exhausted)"*.
+- **THIS PROMOTES §C4 FROM A REASONED RECOMMENDATION TO A FLOORED ONE.** §C4 declines to build
+  settling on Tyler & Moss grounds. It is now also an empirical result: **the settling step buys
+  between −0.020 and +0.005 over argmax and never widens the basin.** Add the citation to C4 and stop
+  re-litigating it.
+- **EXISTS** yes / **IS-REACHED** yes (`cleanup_family` + `iterative_attractor` live via
+  `gap_detector`; `hippocampal_encoder` no) / **IS-GOOD** no — indistinguishable from argmax.
+- **FLOOR TEST:** none needed for the completion claim. If anyone revives it, the discriminator is the
+  BASIN RATIO at matched recall, not accuracy, and the prior is 1.00x.
+
+---
+
+**D3 — Hippocampal one-shot write / index. Queue premise CONFIRMED. Genuinely untested.**
+- **STRUCTURE:** hippocampus proper (CA3/CA1) as an INDEX into distributed neocortex.
+- **OPERATION: SPLIT. Write half PINNED** — one-shot Hebbian outer product on a sparse code
+  (Marr 1971), and `hippocampal_encoder.py:179` `W[ix_(nz,nz)] += outer(sub,sub)` **IS that equation**.
+  **Allocation/index half UNPINNED** — Teyler & Rudy 2007 and Goode et al. 2020 pin that the
+  hippocampus stores a POINTER and not the content; no source pins how an address is chosen.
+- **SHAPE** brain: sparse pointer, ~0.2% of MTL neurons per percept (Waydo 2006). **OURS:** sparse
+  ternary at sparsity 0.01-0.03 — 5-15× denser than the pinned figure, and that is a checkable number,
+  not a judgement. **POSITION** brain: fast store, read back by cortical reinstatement. **OURS:** not
+  on the live path at all. **METRIC** brain: one-trial retrieval of the full pattern from a partial
+  cue. **OURS:** a 14/14 self-test with no comparator.
+- **GAP:** the ADDRESS. We have the write and no allocator, and the allocator's brain math is UNPINNED,
+  so this cannot be closed by fidelity — it must be chosen and declared as ours.
+- **EXISTS** yes / **IS-REACHED** **no** (zero `hdlab/` importers) / **IS-GOOD** unknown.
+- **SMALLEST CAN-FAIL FLOOR TEST:** one-shot cued recall of N stored (context → lemma) pairs from the
+  live anchor field after a SINGLE exposure, sweeping N to find the collapse point. **Floors, each of
+  which can fail:** (i) **no-write arm** — query the untouched codebook, must sit at chance;
+  (ii) **random-address arm** — the same write op to a randomly chosen sparse address instead of the
+  DG-derived one, so the test isolates the ALLOCATOR rather than the outer product;
+  (iii) **shuffled-pair arm**. The organ is only interesting if it beats (ii), and (ii) is precisely
+  the arm that would be omitted by someone testing the write op. Report at our sparsity AND at the
+  pinned 0.2%.
+
+---
+
+**D4 — Consolidation / replay scheduling. Queue premise WRONG. Heavily floored, and passing.**
+- **STRUCTURE:** hippocampal sharp-wave ripples during SWS driving neocortical integration (CLS).
+- **OPERATION: phenomenology partly PINNED, SELECTION FUNCTION UNPINNED.** Re-verified against
+  `notes/drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md`, which opened the primary
+  sources and corrected this map 12 ways. Pinned: event-level selectivity (large SWRs only); only
+  REVERSE replay scales with reward (Ambrose, Pfeiffer & Foster 2016); Landauer & Bjork's schedules
+  are `0,3,10`/`1,4,10`, scoped to test-type practice; sleep-dependent lexical competition
+  (Dumay & Gaskell 2007). UNPINNED: replay count per experience (unsourced, a free parameter); the
+  selection function; the interleaving ratio (CLS pins the principle, not a number).
+- **SHAPE/POSITION/METRIC** brain: selective replay of a subset of episodes, offline, interleaved with
+  old material, scored by RETENTION OF OLD while acquiring new. **OURS:** `continual.py:99-111`
+  forward + reverse-orientation replay behind an NREM decorator — right shape, **islanded**; the LIVE
+  loop does one averaging op per cycle (`reading_grounding_loop.py:1291`), ungated and un-interleaved.
+- **NO LONGER UNTESTED. Three floored cells:**
+  - `exp_substrate_continual_NREM_replay_v1` **HARD_PASS_PARTIAL** — this is `continual.py`'s own
+    cell. `ARM_BASELINE_NO_REPLAY` fin_forget **0.8833 ± 0.0309** vs `ARM_REPLAY_EVERY_100`
+    **0.3100 ± 0.0497**, and a **monotone dose-response ladder** 100/500/1000 →
+    **0.3100 / 0.4833 / 0.6367**. A dose-response is a much stronger design than a single contrast and
+    the map does not carry it. (The map says *"no floor stated in the module"* — true of the module,
+    **false of the cell**.)
+  - `exp_consol_interleaved_replay_v1` **HARD_PASS** — INTERLEAVED mrr **0.9086** vs CONTINUAL
+    **0.4184**, SHUFFLE **0.3613**, POP **0.3307**, ceiling **0.9554**; 4/4 signatures, arms_differ.
+  - `exp_cls_prioritized_replay_closed_loop_surprise_v1` **MIDDLE_BAND** — a direct test of the
+    UNPINNED selection function using surprise as priority: closed-loop **0.576** vs uniform **0.521**
+    vs no-replay **0.097** vs stat **0.472**, chance 0.0069; delta_E **0.055** against a ≥0.08 bar.
+    **So the selection function has been probed and the priority signal is real but weak.**
+- **WHAT IS ACTUALLY UNTESTED:** D4 on REAL TEXT, and D4 AT THE LIVE CALL SITE. The map's own words
+  ("UNTESTED on real text") are right; the queue's "no floored evidence at all" is not.
+- **EXISTS** yes / **IS-REACHED** no (`continual.py` zero importers) / **IS-GOOD** yes on synthetic,
+  unknown on text.
+
+---
+
+**D9 — Synaptic tag and capture. Queue premise CONFIRMED for the fidelity gap; the module is floored.**
+- **STRUCTURE:** dendritic spine tagging + soma-wide plasticity-related proteins.
+- **OPERATION: UNPINNED, and this is the perirhinal lesson repeating.** What IS pinned: the
+  PHENOMENON (a weak-tetanus synapse consolidates if a strong event occurs nearby in time — Frey &
+  Morris 1997 *Nature* 385:533), the TIMESCALES (tag ~1-4 h, PRP over hours), and behavioural
+  co-allocation within a **~5 h** window (Redondo & Morris 2011). What is **NOT** pinned: any measured
+  functional form. The `consolidate iff tag × PRP > θ` rule is a **device inside Clopath et al.'s RNN
+  model**, not a measured synaptic operation, and no measured value of θ exists. **§2 lists D9 among
+  "the twelve organs whose equation is actually pinned". That listing is withdrawn here** — it pins a
+  model, exactly as the perirhinal superadditivity coefficient did.
+- **SHAPE** brain: TWO factors with different origins (synapse-local tag, cell-wide protein pool),
+  combined nonlinearly. **OURS:** `excitability.py:59-61` **ONE** EWMA scalar per atom. There is no
+  second factor at all, so the operation cannot be a product regardless of its form.
+  **POSITION** brain: between the fast write and the durable trace. **OURS:** an offline row-downscale.
+  **METRIC** brain: which memories survive. **OURS:** which rows keep their norm.
+- **GAP, named concretely:** **the missing thing is the CELL-WIDE second factor, not the product.**
+  An honest build target today is "add a soma-wide resource pool shared across atoms with a ~5 h
+  co-allocation window, and MEASURE what combination rule reproduces co-allocation" — not "implement
+  `tag × PRP > θ`".
+- **NO LONGER UNTESTED as an organ.** `exp_excitability_gated_substrate_cpu_v1` **HARD_PASS**: above
+  the capacity cliff at K=1200, **gated_hi 1.000 vs ungated_hi 0.500**. Real floor (ungated), real
+  regime (past the cliff). Scope: that tests **priority-proportional write gain**, i.e. the EWMA
+  importance half. It does not test two-factor tagging or co-allocation, which remain untested and
+  unpinned.
+- **EXISTS** yes / **IS-REACHED** **no** (registry `excitability_tensor_promoted_zero_consumer` =
+  SHELVE, ISLAND, zero consumers) / **IS-GOOD** yes for what it does.
+- **THE ANOMALY WORTH ESCALATING:** a HARD_PASS organ with a real failable floor and **zero
+  consumers**. The registry resolves that as SHELVE on the grounds of "no consumer" — circular, since
+  it has no consumer because it was shelved.
+
+---
+
+**E5 — Theta-gamma ordered buffer. Queue premise WRONG. Floored, and FAILING on real prose.**
+- **STRUCTURE:** hippocampal/cortical theta-gamma phase code.
+- **OPERATION: PARAMETERS PINNED, OPERATION UNPINNED.** ~7 gamma sub-cycles (~17 ms) per theta cycle
+  (~125 ms), one item per slot, order in theta phase (Lisman & Idiart 1995; Lisman & Jensen 2013;
+  Heusser 2016). **No source states how an item is written into a slot or read out.** The
+  `Σ perm^k(x_k)` form is Kanerva/Plate HDC — our math imported as the analogue.
+- **SHAPE** brain: ~7 discrete phase-addressed slots. **OURS:** `situation_focus.py:72,79`
+  `capacity=4, fanout=2` — verified at HEAD. 4 is a chosen constant, not the pinned ~7 (it is Cowan's
+  number, a different literature). **POSITION** brain: within-sentence maintenance feeding binding.
+  **OURS:** not on the live path. **METRIC** brain: ordered recall of a multi-item list. **OURS:**
+  event discrimination on prose.
+- **NO LONGER UNTESTED. Two floored cells, both HARD_FAIL:**
+  - `exp_focus_encode_shapefix_realprose_v1` **HARD_FAIL** — `GROUNDED_CHUNKEDFOCUS` gap_arm
+    **0.0154** against a bag-of-words reference **0.1448**, i.e. **~1/9 of BOW**; and the arm's own
+    **scramble control does not collapse** (`scramble_collapses: False`), which means the buffer is
+    carrying no order information at all. `GROUNDED_DROP_TENSE` reaches 0.1336 vs scramble 0.1337 —
+    identical. **The order channel is measurably empty.**
+  - `exp_focus_encode_grounded_event_discrimination_realprose_v1` **HARD_FAIL** — gap_grounded 0.0542
+    vs scramble **0.0551** (scramble is HIGHER).
+  - Adjacent, on the brain mechanism rather than our module:
+    `exp_substrate_theta_gamma_nested_with_brain_compensation_N4096_v1` **HARD_FAIL** —
+    `brain_full@16 = 0.1867` vs `nested_base@16 = 1.0000`. **The more brain-faithful arm was 5× worse.**
+    Per the standing rule that a brain-faithful arm losing is presumed an implementation bug until
+    proven structural, that is a BUG REPORT, not a verdict on theta-gamma.
+- **GAP:** capacity 4 vs ~7 is the least of it. **The gap is that the chunk algebra destroys order,
+  measured** — and it is diagnosable to the same `sign()` quantiser: `ChunkedFocus` compresses via
+  `sign(Σ_k bind(inner_key_k, sub_k))`, the 34-site defect applied to an ordered buffer.
+- **EXISTS** yes / **IS-REACHED** no / **IS-GOOD** no.
+
+---
+
+**F1 — Lexical category (POS). Queue premise WRONG. Floored, and passing well.**
+- **STRUCTURE:** posterior middle/superior temporal cortex lexical access.
+- **OPERATION: UNPINNED.** Localisation is established; no equation exists. Map is correct, confirmed.
+  The organ is therefore **UNSCORABLE for fidelity** and can only be judged on function.
+- **SHAPE/POSITION/METRIC:** brain — unknown / pre-syntactic / unknown. **OURS:** averaged structured
+  perceptron with Viterbi decode over a 5.3 MB learned model, lazily on the live path
+  (`reading_grounding_loop.py:300-303`). Charter-compliant: our own learned mechanism.
+- **NO LONGER UNTESTED. Three floored cells:**
+  - `exp_pos_tagger_multiseed_cpu_v1` **HARD_PASS** — mean tag-acc **0.9063**, **std 0.0005 over 5
+    seeds**, on real PTB. Cross-seed stability an order of magnitude inside any reasonable bar.
+  - `exp_pos_discriminative_perceptron_cpu_v1` **HARD_PASS** — **0.9499** on 18,699 tokens, and it
+    states its own comparator: *"discriminative weighting beats the HMM 0.906"*.
+  - `exp_pos_tagger_v3_hmm_cpu_v1` — verdict **UNKNOWN, `corpus_load_failed`**. A dead cell; do not
+    count it either way.
+- **HONEST CAVEAT:** 0.906/0.950 is well below the ~0.97 off-the-shelf taggers reach on UD/PTB, so
+  this is "works, is ours, is not state of the art" — the correct charter trade, and it should be
+  stated that way rather than as a headline.
+- **EXISTS** yes / **IS-REACHED** yes (lazily) / **IS-GOOD** yes, with the caveat above.
+- **NO FURTHER FLOOR NEEDED.** The right next question is not a floor on F1, it is whether
+  `arc_parser.py:19`'s placeholder head/deprel fields make F1's output unusable downstream
+  (KNOWN-DEFECT #5).
+
+---
+
+**G1 — The cortical learning rule. Queue premise WRONG on evidence, RIGHT on the fidelity gap.**
+- **STRUCTURE:** neocortex (association cortex), slow phase; hippocampus, fast phase.
+- **OPERATION: BIFURCATES, and for OUR use case it is UNPINNED.** Re-read
+  `notes/lit_scan_cortical_learning_rule_and_sparsity_2026-08-13.md` end to end. *Sensory hierarchies:*
+  a live and mathematically serious program — predictive-coding nets with purely local Hebbian
+  plasticity **provably converge to backprop's updates** (Whittington & Bogacz 2017 *Neural
+  Computation* 29:1229; generalised by Millidge 2022). *Lexical-semantic acquisition:* **UNPINNED,
+  deliberately** — the scan's own words are that the slow phase is *"closer to a Hebbian/statistical-
+  learning process operating over replayed samples than to literal backpropagated error"*, and **no
+  equation is offered for either half**. Also pinned and load-bearing: pure local/Hebbian rules **did
+  not beat fixed random projections** at large hidden width (Illing, Gerstner & Brea 2019).
+- **SHAPE/POSITION/METRIC** brain: graded synaptic weights / slow, offline, interleaved / retention
+  plus generalisation. **OURS:** `learner/core.py` MDL two-part-code model selection — an
+  algorithmic-level selection principle, not a synaptic update rule. The one genuine delta rule we own
+  is `compose_freq_routing.py:110-111`.
+- **NO LONGER UNTESTED. Two floored cells, and one is the strongest evidence in this batch:**
+  - `exp_learner_mdl_gate_on_acquisition_traces_v1` **HARD_PASS** — the MDL gate run on REAL
+    acquisition traces, `guard_invariant_held=True`, **20/66 verdict changes** against the schema gate
+    with a full 2×2 confusion (`T_T 7 / T_F 20 / F_T 8 / F_F 31`) and a named list of the 16 lemmas it
+    removes. A genuine can-fail comparison: an inert gate would show 0/66 changes.
+  - `exp_substrate_compose_freq_routing_v5_DEFINITIVE` **HARD_PASS chain-grade** — the delta-rule
+    module: `FREQ_N8192 7.1647` vs `BASE_N8192 7.3124` vs `unigram 7.738`, **lift +0.1477**, replicated
+    at N=4096 (+0.1435), **cv 0.0009 over 5 seeds**, both sanity rails pass, v4 reproduced to +0.0057.
+    **Cross-N, cross-seed, real baseline, real ceiling — and `compose_freq_routing` has ZERO consumers.**
+- **THE GAP IS UNCHANGED AND NOW SHARPER:** the map says G1 "has never been measured as a learner".
+  Corrected: **the MDL gate and the delta rule have both been measured; the LOOP has not.** What is
+  untested is whether reading more text improves the substrate — not whether either learning primitive
+  works.
+- **EXISTS** yes / **IS-REACHED** `learner` yes, `compose_freq_routing` **no** / **IS-GOOD** yes for
+  both primitives.
+
+---
+
+**G2 — Prediction-error gating of plasticity. Queue premise WRONG. Floored, and the gate is INERT.**
+- **STRUCTURE:** hierarchical cortex, superficial (error) vs deep (prediction) laminae.
+- **OPERATION: PINNED.** `residual = x − x̂` as the learning signal, precision-weighted
+  (Rao & Ballard 1999 *Nat Neurosci* 2:79; Friston). A genuine equation with an explicit generative
+  model. **The PRECISION ESTIMATOR is UNPINNED** — the form `precision × error` is pinned, what sets
+  the precision is not.
+- **SHAPE** brain: graded residual vector, magnitude carries the signal. **OURS:**
+  `predictive_coding.py:84-86` — verified at HEAD — `return 0.5 * (1.0 - cos)`, **a cosine-derived
+  scalar in [0,1], not the L2 of the residual its docstring implies**, computed on a `sign()`-quantised
+  prediction. A large graded error and a small one that flips the same bits are indistinguishable.
+  **POSITION** brain: gates plasticity at the moment of encoding. **OURS:** correct position.
+  **METRIC** brain: free energy / surprise. **OURS:** a threshold on the scalar.
+- **NO LONGER UNTESTED. Four cells, two of which indict the module:**
+  - `exp_pc1_predictive_coding_residual_gate_v1` **MIDDLE_BAND** — floors present and can-fail: `VAN`
+    (ungated) rec 1.000 norm 183177.2, and `RND` (random gate at MATCHED skip rate 0.50) rec **0.515**.
+    Result: **`PC_RESIDUAL_GATE_THRESH_0p3` has `skip = 0.00` and norm 183177.2 — byte-identical to the
+    ungated arm. The gate never fired.** An inert knob that reads as live — the same class as
+    KNOWN-DEFECT #6. `PC_RESIDUAL_PROPORTIONAL` does work: norm **91578.4** at rec 1.000, a 2×
+    compression.
+  - `exp_predictive_coding_relative_threshold_v1` **MIDDLE_BAND** — the `relative_threshold_gate`
+    (`:176-177`) scores F1 **0.697** against the ABSOLUTE threshold's **0.905**, worst-case margin
+    **−0.248**. **The brain-flavoured relative gate is decisively worse than a plain constant.**
+  - `exp_lap2_9_predictive_coding_cpu_v1` **HARD_PASS** — residual storage reconstructs at recall 1.000
+    with 0.35× the bits. Both recall arms are 1.000, so the discriminator is bits, not recall; treat
+    the 1.000 pair as suspect per the map's perfect-1.000 class.
+  - `exp_substrate_owned_predictive_coding_encoder_v1` **HARD_FAIL** vs word2vec — **do not cite**:
+    every arm reports bpc 7.738 and the word2vec arm reports `inf` with `lift=nan`. A broken harness,
+    not a result.
+- **GAP, named concretely: two lines.** (i) `residual_magnitude` should be the norm of the graded
+  residual, not `0.5·(1−cos)` of a quantised one; (ii) the default threshold produces skip=0.00, so
+  the organ is off by default. Neither is a research question.
+- **EXISTS** yes / **IS-REACHED** — **definition clash, resolve it**: this map says `WIRED: NO`
+  (meaning "not in the live reading-loop closure"); `capability_registry` says `predictive_coding`
+  `ALREADY_WIRED / WIRED` with 5+ experiment consumers. Both are true under their own definitions.
+  **The map should say "LIVE-PATH: NO" rather than "WIRED: NO"** — the word collides with the
+  registry's and has already produced one apparent contradiction. / **IS-GOOD** the proportional
+  variant yes, the threshold gates no.
+
+---
+
+**G3 — Neuromodulatory gain. Queue premise WRONG. Floored FOUR times, and it is the batch's headline.**
+- **STRUCTURE:** basal forebrain ACh and locus coeruleus NE projections to cortex.
+- **OPERATION: FORM PINNED, CONTROL LAW UNPINNED.** Multiplicative gain on cortical responsivity is
+  pinned as a form (Aston-Jones & Cohen 2005 adaptive gain theory; Servan-Schreiber, Printz & Cohen
+  1990's gain parameter on the activation function). **What SETS the gain is not pinned**; the related
+  C3 finding is that IFG boosts effective connectivity to the relevant spoke (Chiou & Lambon Ralph
+  2018, F(2,34)=3.86, p=.03) without specifying the multiplier.
+- **SHAPE** brain: a per-dimension (per-population) multiplier on the representation. **OURS:**
+  `modulators.py` — **five global SCALARS**, one module-level state holder. A global scalar is rank-0
+  where the brain is rank-d. **POSITION** brain: applied at READ, under task control. **OURS:** applied
+  to bundling RECENCY and as a HARD CUTOFF in `memory.Codebook.lookup:65-69`
+  (`return name if score >= attention else None` — a threshold, not a gain). **METRIC** brain:
+  task-relevant discriminability. **OURS:** none.
+- **NO LONGER UNTESTED. Four floored measurements, and together they make one clean statement:**
+  - `exp_wave14i_neuromod_gain` — verdict `NEUROMOD_GAIN_COSMETIC`: *"HGF improvement 0.0% < 5%.
+    Schedules are cosmetic in our regime."*
+  - `exp_substrate_ACh_query_conditional_read_gain_LM_v1` **HARD_FAIL** — per-query read-gain lift
+    **+0.0058** against a 0.03 bar; GLOBAL_BPC 5.1274 / MARGIN 5.1216 / ENTROPY 5.1355 / UNI 5.5226,
+    `replication_ok = False`.
+  - `data/exp_task_local_normalisation_pool_v1` (already in the map at C3) **HARD_FAIL_GAIN_HURTS** —
+    **−0.0220 CI [−0.0340, −0.0097]**.
+  - `exp_excitability_gated_substrate_cpu_v1` **HARD_PASS** — **gated_hi 1.000 vs ungated_hi 0.500** at
+    K=1200 above the capacity cliff.
+- **THE STATEMENT THOSE FOUR MAKE, AND IT IS THE LARGEST FIDELITY GAP IN THIS BATCH:**
+  **gain applied as a GLOBAL SCALAR or PER-RAW-DIMENSION is null-to-harmful in every measurement we
+  own (0.0%, +0.0058, −0.0220); gain applied as a PER-ROW MULTIPLIER ON THE WRITE is +0.500.** The
+  brain applies gain per-population at READ under task control; we apply a scalar at bundling and a
+  threshold at lookup. **The one place we implement real multiplicative gain on the right object is
+  `excitability.py` — and it is an ISLAND with zero consumers.** This also completes the G3
+  decorrelation-drill argument with evidence: those nulls are **wrong-basis and wrong-object**
+  implementations, not evidence that gain fails.
+- **EXISTS** yes (both) / **IS-REACHED** `modulators` yes but only in the two degenerate roles;
+  `excitability` **no** / **IS-GOOD** the row-gain yes, the scalar no.
+- **SMALLEST CAN-FAIL FLOOR TEST, and it is a re-scoring not a build:** apply `excitability.py`'s
+  existing row-gain to the READ side of the near-neighbour 2AFC, one variable, at the d chosen by
+  STEP 2. **Floors: (i) a RANDOM row-gain vector with the identical distribution** — the arm that kills
+  it, and the arm the four failed reweightings never ran; (ii) the ungained live arm 0.6395; (iii)
+  in-cell scrambled context. **If a random gain vector matches the learned one, the organ is
+  decorative** — exactly as `exp_rank1_common_mode_removal_v1` showed a random rank-1 direction
+  matching the real one.
+
+---
+
+**H2b — "information foraging is MISSING not UNTESTED; verify H2 is not double-counted."**
+**ANSWER: no double-count, and BOTH labels are now obsolete. The organ EXISTS, is PINNED, and is RUN.**
+
+1. **No double-count.** MISSING and UNTESTED are different COLUMNS — fidelity (col 5) and evidence
+   (col 7). An organ can legitimately be MISSING and UNTESTED at once; the two §1 tally rows do not
+   sum over the same set. The premise of the queue item is answered NO.
+2. **But the map is STALE, not wrong-by-reasoning, and the staleness is a few hours.**
+   `hdlab/information_foraging.py` **exists** (38,533 bytes), with a scaffold-free witness
+   `verification/test_information_foraging_organ_witness.py` (8,245 bytes), and
+   `capability_registry_query.py --serves forag` returns `information_foraging_mvt_leave_rule`,
+   **gate_decision WIRE, integration_status WIRED**, last audited `2026-08-15T14:59:44Z`.
+3. **THE BRAIN MATH IS PINNED, reversing this map's "UNPINNED … a real gap in the literature."**
+   The module's header carries the citations and they are the right ones: **Charnov 1976** *Theor
+   Popul Biol* 9:129-136 — leave when `g'(t) < ρ`, with travel time in ρ's denominator;
+   **Constantino & Daw 2015** *Cogn Affect Behav Neurosci* 15:837-853 Table 2 — discrete form
+   `harvest while κ·s_i ≥ ρ_i·h` and the timed delta rule
+   `ρ_{i+1} = ρ_i + [1−(1−α)^τ_i]·(r_i/τ_i − ρ_i)`, running during travel at r=0 and never reset;
+   **Hayden, Pearson & Platt 2011** *Nat Neurosci* 14:933 — longer travel RAISES the threshold,
+   β=0.92, p<0.01, so a fixed threshold is a broken organ; **Wittmann 2016** *Nat Commun* 7:12327 —
+   two ρ timescales. **The MIXING WEIGHT between ρ_fast and ρ_slow is UNPINNED, the module says so,
+   and it declares it a fallback.** That is the right handling.
+4. **IT HAS BEEN RUN, and it is the experiment §6 STEP 1 proposes as not-yet-built.**
+   `data/exp_information_foraging_reading_v1/metrics.json`, `run_mode: "full"`, ts
+   **2026-08-14T07:25:10Z**, elapsed 4,145 s, 5 arms × 10,000 sentences, all five with DISTINCT
+   `read_sentence_digest`s, `cardinality_ok: true`, `arms_differ_verified: true`. Verdict as banked:
+   **HARD_PASS**.
+5. **HONEST DOWNWARD CORRECTION — IT SHOULD NOT BE READ AS A HARD_PASS FOR THE ORGAN.** The three
+   passing checks each use a DIFFERENT comparator, and in each case it is the one FORAGE can beat.
+   Set all arms against all metrics at once:
+
+   | metric | FORAGE | FROZEN | RANDOM | FIXED_LEAVE | FORAGE_REFUSAL |
+   |---|---|---|---|---|---|
+   | dominant_source_share (lower better) | 0.2467 | 0.4052 | 0.2675 | **0.2364** | 0.4151 |
+   | heldout_coverage (higher better) | 0.0617 | **0.0743** | 0.0127 | 0.0520 | 0.0253 |
+   | WordNet agreement (higher better) | 0.3511 | 0.2920 | **0.3864** | — | 0.3323 |
+   | n_grounded | 604 | **696** | 157 | 440 | 383 |
+
+   - **D1** (dominant-share drop vs FROZEN, 0.1585 ≥ 0.15) passes — but **RANDOM 0.2675 and
+     FIXED_LEAVE 0.2364 also crush the dominant share.** Any non-frozen schedule spreads sources, so
+     **D1 cannot discriminate foraging from a coin flip.**
+   - **D2** (held-out coverage vs RANDOM, 3.87×) passes — but **FROZEN 0.0743 BEATS FORAGE 0.0617**,
+     and FROZEN is the incumbent the organ exists to replace. That comparison is not made.
+   - **D3** (WordNet agreement, non-inferiority vs FROZEN) passes — but **RANDOM 0.3864 BEATS FORAGE
+     0.3511.**
+   - **D4** oracle ratio **0.534 against a 0.70-1.00 band: `pass: false`**, re-labelled *"mechanism
+     check only"*.
+   - FROZEN also **grounds more terms** (696 vs 604).
+
+   **Honest tier: MIDDLE_BAND_COMPARATOR_SELECTED.** What is genuinely established is that the organ
+   FIRES (all six `mechanism_fired` flags true, 19 corpora read vs FROZEN's 4) and that it breaks the
+   64.5%-one-textbook skew. What is NOT established is that it produces better knowledge than either
+   baseline. **Caveat on my own read, per the triple-check rule:** FROZEN read 4 corpora and refused
+   3,872 times vs FORAGE's 1,633, and I do not know how the held-out probe range [1000,4000] was
+   sampled — if the probes are drawn from the frozen corpora, the coverage metric favours FROZEN by
+   construction. **That single check decides this**, and it is a re-scoring of an existing cell, not a
+   new run.
+6. **EXISTS** yes / **IS-REACHED** — **no, in the sense that matters.** `used_by` is the experiment
+   cell and the witness; the **live reading loop does not call it**. The 4-entry hard-coded corpus
+   dict at `exp_reading_grounding_loop_cycle2_v1.py:132-137` is still what the loop reads.
+   / **IS-GOOD** unresolved, see 5.
+
+### 10.2 WHAT THIS PASS CHANGES IN §1 AND §6
+
+- **§1 "UNTESTED — no floored evidence at all: 16/38" is not sustainable.** Nine of the twelve organs
+  audited here have floored evidence. Separately, enumerating the map's own EVIDENCE lines gives
+  **18 organs that say NO FLOOR or UNTESTED outright** plus **7 partials** — so 16 is not reproducible
+  from the doc's own text either, in the opposite direction. **Re-derive the row or delete it; do not
+  quote 16.**
+- **§6 STEP 1 (H2, "Independent. Start now") is superseded.** The organ is built, cited, witnessed,
+  registered WIRED, and its can-fail cell has run with both of the floors STEP 1 specifies (RANDOM and
+  FROZEN). The remaining work is the re-scoring in 10.1/H2b-5 and a live-path call site — not a build.
+- **§C4's negative recommendation is now floored** (D2's three cells), not merely reasoned.
+- **§2's list of pinned equations should drop D9.** `tag × PRP > θ` is a model's device.
+- **The `WIRED` column should be renamed `LIVE-PATH`** — it collides with the capability registry's
+  `WIRED`, and G2 is already recorded as both.
+- **PROMOTE `scratch/ortho_floor_vet_trigram_only.py`.** It is the only source of the 8.70%
+  orthographic floor, it is untracked, and `scratch/` is cleared on demand.
+
+### 10.3 DISCLOSURES FOR THIS PASS
+
+- **Prior-work check ran BEFORE scanning**, as required: `tools/director_kb_query.py` (6 questions,
+  ~60-73 s each) and an `os.scandir` enumeration of `notes/` — **10,541 `.md` files, 8,510 excluding
+  watchdog pings**. The four rescued `lit_scan_*_2026-08-14.md` files and
+  `drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md` were read and DID cover D4/D8
+  (fully) and B1/G1 (fully); **D9 is NOT covered by the cascade drill** despite adjacency.
+- **Reuse check ran per organ** via `capability_registry_query.py --serves` (198 rows). Note the flag
+  takes a SUBSTRING of `current_best_for`: multi-word phrases return 0 rows, and that is a matcher
+  artifact, not absence. Single-keyword queries were used.
+- **Right environment:** `D:/AI/hd-instrument/.venv/Scripts/python.exe` throughout.
+- **Right file / right version:** code claims re-read at HEAD from absolute paths for E5, G2, D9.
+  Metrics read from the cited absolute `metrics.json` paths, not from notes.
+- **Right arm:** where a cell has several arms, the arm name is quoted with the number.
+- **Not verified, and flagged as such:** the held-out probe construction in
+  `exp_information_foraging_reading_v1` (see 10.1/H2b-5); whether
+  `exp_substrate_owned_predictive_coding_encoder_v1`'s `inf`/`nan` harness has since been fixed.
+- **Read-only:** no experiment run, no `hdlab/`, `experiments/`, `metrics.json`, `data/foundation/`
+  or `capability_registry.jsonl` touched. Only this file and `data/dispatch_queue.jsonl` (claim/done
+  fields for the twelve items) were written.
+- **No tool call was denied during this pass.** Two early `ls`/`Glob` calls timed out against `notes/`
+  because it holds 10,541 files; re-run via `os.scandir` and completed.

@@ -199,6 +199,154 @@ def _scan_out_gate(repo_root: Path, session: str) -> tuple:
     return True, newest_name
 
 
+def _single_dispatch_turn_gate(repo_root: Path, session: str) -> tuple:
+    """New signal (2026-08-15, owner directive on parallel-dispatch enforcement -- see
+    notes/agent_usage_practices_audit_2026-08-14.md,
+    which measured 0/235 Agent-tool-use messages in an audited transcript ever batched more than
+    ONE Agent call). tools/agent_dispatch_stop_hook.py's PostToolUse/Agent hook increments
+    data/hook_state/agent_dispatch_turn_count_<session>.txt on every MAIN-THREAD Agent dispatch
+    (agent_type null -- subagent-originated Agent calls are filtered out there, not here). This
+    function reads that counter at the turn boundary (a Stop-hook fire IS the turn boundary --
+    see the calling site's reset-after-read, mirroring the unread-inbox / scan-out advance-on-
+    block pattern already used above) and fires ONLY when the turn dispatched EXACTLY ONE
+    main-thread Agent call while the ready-work queue (tools/dispatch_queue.py,
+    data/dispatch_queue.jsonl) still holds unclaimed items -- i.e. concurrency capacity was
+    available and not used.
+
+    Deliberately narrow: count==0 (no dispatch this turn) and count>=2 (already batching) both
+    return no-block. This is not a general nag-to-parallelize hook; it fires only on the exact
+    single-dispatch-while-work-remains pattern the owner asked to detect.
+
+    Returns (should_block: bool, message: str | None).
+    """
+    counter_file = repo_root / 'data' / 'hook_state' / f'agent_dispatch_turn_count_{session}.txt'
+    try:
+        count = int(counter_file.read_text().strip()) if counter_file.exists() else 0
+    except (ValueError, OSError):
+        count = 0
+    if count != 1:
+        return False, None
+
+    queue_file = repo_root / 'data' / 'dispatch_queue.jsonl'
+    if not queue_file.is_dir() and not queue_file.exists():
+        return False, None  # queue not seeded yet -- nothing to recommend
+    unclaimed = []
+    try:
+        with queue_file.open('r', encoding='utf-8') as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    it = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if it.get('status') == 'unclaimed':
+                    unclaimed.append(it)
+    except OSError:
+        return False, None
+    if not unclaimed:
+        return False, None
+
+    examples = unclaimed[:3]
+    example_str = "; ".join(f"{it.get('id', '?')} ({it.get('category', '?')})" for it in examples)
+    msg = (f"single-dispatch turn while {len(unclaimed)} ready-work item(s) remain unclaimed in "
+           f"data/dispatch_queue.jsonl, e.g. {example_str} -- consider "
+           f"`python tools/dispatch_batch.py --count K --by <name>` to batch K of them into "
+           f"ONE message next time (budget: up to 5 concurrent)")
+    return True, msg
+
+
+def _reset_dispatch_turn_counter(repo_root: Path, session: str) -> None:
+    """Zero the single-dispatch-turn counter at the Stop-hook turn boundary, whether or not
+    _single_dispatch_turn_gate fired -- mirrors the ts_file.touch() advance-on-block pattern:
+    this Stop-hook cycle IS the turn for counting purposes, so the next Agent dispatch starts a
+    fresh count. GUARD 1 (stop_hook_active) returns before this runs, so a forced continuation
+    keeps accumulating into the SAME count rather than resetting mid-continuation -- see this
+    function's caller for why that is deliberate, not an oversight."""
+    counter_file = repo_root / 'data' / 'hook_state' / f'agent_dispatch_turn_count_{session}.txt'
+    try:
+        if counter_file.exists():
+            counter_file.write_text('0')
+    except OSError:
+        pass
+
+
+def _single_dispatch_turn_gate_self_test() -> int:
+    """Prove _single_dispatch_turn_gate fires ONLY on count==1 AND unclaimed>0, and that
+    _reset_dispatch_turn_counter zeroes the counter regardless of which branch fired. Runs
+    against a tempfile root -- never touches the real repo's hook_state or dispatch_queue."""
+    import tempfile
+    ok = True
+    root = Path(tempfile.mkdtemp(prefix="stop_hook_single_dispatch_selftest_"))
+    (root / 'data' / 'hook_state').mkdir(parents=True, exist_ok=True)
+    session = 'selftest_session'
+    counter_file = root / 'data' / 'hook_state' / f'agent_dispatch_turn_count_{session}.txt'
+    queue_file = root / 'data' / 'dispatch_queue.jsonl'
+
+    # 1. No queue file at all -- must not block regardless of count.
+    counter_file.write_text('1')
+    should_block, msg = _single_dispatch_turn_gate(root, session)
+    if should_block is False and msg is None:
+        print("[self-test] PASS no queue file -> no block even at count==1")
+    else:
+        print(f"[self-test] FAIL no queue file should not block, got ({should_block!r}, {msg!r})", file=sys.stderr)
+        ok = False
+
+    # 2. Queue exists, all items done/claimed (none unclaimed) -- must not block.
+    queue_file.write_text(json.dumps({"id": "x1", "status": "claimed", "category": "c"}) + "\n"
+                           + json.dumps({"id": "x2", "status": "done", "category": "c"}) + "\n",
+                           encoding='utf-8')
+    should_block, msg = _single_dispatch_turn_gate(root, session)
+    if should_block is False:
+        print("[self-test] PASS queue with zero unclaimed items -> no block")
+    else:
+        print(f"[self-test] FAIL should not block with zero unclaimed, got ({should_block!r}, {msg!r})", file=sys.stderr)
+        ok = False
+
+    # 3. Queue has unclaimed items, count==1 -- MUST block, naming an example.
+    queue_file.write_text(json.dumps({"id": "y1", "status": "unclaimed", "category": "organ-missing"}) + "\n",
+                           encoding='utf-8')
+    should_block, msg = _single_dispatch_turn_gate(root, session)
+    if should_block is True and msg is not None and 'y1' in msg:
+        print("[self-test] PASS count==1 + unclaimed items present -> blocks, names an example")
+    else:
+        print(f"[self-test] FAIL should block and name y1, got ({should_block!r}, {msg!r})", file=sys.stderr)
+        ok = False
+
+    # 4. Same queue state, but count==0 -- must NOT block (no dispatch happened this turn).
+    counter_file.write_text('0')
+    should_block, msg = _single_dispatch_turn_gate(root, session)
+    if should_block is False:
+        print("[self-test] PASS count==0 -> no block even with unclaimed items present")
+    else:
+        print(f"[self-test] FAIL count==0 should never block, got ({should_block!r}, {msg!r})", file=sys.stderr)
+        ok = False
+
+    # 5. Same queue state, count==2 (already batching) -- must NOT block.
+    counter_file.write_text('2')
+    should_block, msg = _single_dispatch_turn_gate(root, session)
+    if should_block is False:
+        print("[self-test] PASS count==2 (already batched) -> no block")
+    else:
+        print(f"[self-test] FAIL count==2 should not block, got ({should_block!r}, {msg!r})", file=sys.stderr)
+        ok = False
+
+    # 6. Reset zeroes the counter regardless of prior value.
+    counter_file.write_text('7')
+    _reset_dispatch_turn_counter(root, session)
+    val = counter_file.read_text().strip()
+    if val == '0':
+        print("[self-test] PASS _reset_dispatch_turn_counter zeroes a nonzero counter")
+    else:
+        print(f"[self-test] FAIL counter after reset = {val!r}, expected '0'", file=sys.stderr)
+        ok = False
+
+    print(f"[self-test] leftover temp dir (not auto-removed, by design): {root}")
+    print("[self-test] RESULT:", "PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+
 def _scan_out_gate_self_test() -> int:
     """Prove _scan_out_gate both ways: exits clean (False) when scans are legitimately in
     flight (no fragments written yet), and blocks (True) once a fragment has actually landed.
@@ -286,10 +434,12 @@ def _derive_session_from_transcript(transcript_path: str) -> str:
 
 
 def main() -> int:
-    # --self-test: run the scan-out gate self-test and exit, before any stdin/hook-protocol
-    # handling below (this is a maintenance entrypoint, not a hook firing).
+    # --self-test: run all gate self-tests and exit, before any stdin/hook-protocol handling
+    # below (this is a maintenance entrypoint, not a hook firing).
     if len(sys.argv) >= 2 and sys.argv[1] == '--self-test':
-        return _scan_out_gate_self_test()
+        rc1 = _scan_out_gate_self_test()
+        rc2 = _single_dispatch_turn_gate_self_test()
+        return rc1 or rc2
 
     # DEBUG: prove invocation independent of all other logic (first thing; can't be missed)
     try:
@@ -487,7 +637,12 @@ def main() -> int:
     # dir (scans still in flight) must never reach here as a block signal.
     have_scan_fragment, scan_fragment_name = _scan_out_gate(repo_root, session)
 
-    if have_unread or have_watchdog_ping or have_scan_fragment:
+    # 3c: single-dispatch-turn detector (2026-08-15 fan-out fix). See
+    # _single_dispatch_turn_gate's docstring -- fires only when this turn dispatched exactly
+    # one main-thread Agent call while the ready-work queue still holds unclaimed items.
+    have_single_dispatch, single_dispatch_msg = _single_dispatch_turn_gate(repo_root, session)
+
+    if have_unread or have_watchdog_ping or have_scan_fragment or have_single_dispatch:
         # Concrete signal: increment counter + emit block decision
         try:
             cont_file.write_text(str(count + 1))
@@ -516,6 +671,13 @@ def main() -> int:
                 (repo_root / 'data' / f'last_scan_collected_{session}.timestamp').touch()
             except OSError:
                 pass
+        if have_single_dispatch:
+            signals.append(f"PARALLEL-DISPATCH: {single_dispatch_msg}")
+        # Reset the dispatch-turn counter regardless of whether this signal itself fired --
+        # this Stop-hook cycle is the turn boundary either way (see
+        # _reset_dispatch_turn_counter's docstring for why GUARD 1 above makes this safe
+        # against resetting mid-forced-continuation).
+        _reset_dispatch_turn_counter(repo_root, session)
         reason = (f"Pending work for {session}: " + " + ".join(signals) +
                   f"; continuing. (continuation {count + 1}/{hard_cap})")
         # Layer 1 of the lull-breaker enforcement (per USER 2026-06-21 + my own
@@ -566,6 +728,10 @@ def main() -> int:
             cont_file.write_text('0')
     except OSError:
         pass
+    # A true stop is also a turn boundary for the single-dispatch-turn counter -- reset it
+    # here too (this branch is reached when count==1 but the queue happened to be empty, or
+    # when count==0/2+ never entered the block above at all).
+    _reset_dispatch_turn_counter(repo_root, session)
     return 0
 
 

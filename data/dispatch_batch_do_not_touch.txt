@@ -1,0 +1,21 @@
+# Read live by tools/dispatch_batch.py and folded into every composed brief's boilerplate.
+# One path per line; '#' lines and blank lines ignored.
+#
+# WHY THIS IS A SEPARATE FILE AND NOT CLAUDE.md: CLAUDE.md is itself DO-NOT-TOUCH this session
+# (concurrent writers) and is also long-lived / project-wide, not session-scoped. This file is
+# the SESSION's current do-not-touch list (2026-08-15 parallel-dispatch-enforcement session) --
+# it can be edited freely as the session's constraints change, without touching CLAUDE.md, and
+# every brief composed by dispatch_batch.py picks up the change automatically on its next run.
+# When the session ends, fold anything durable into CLAUDE.md yourself (a concurrent writer
+# cannot do it for you) and this file can be trimmed back down.
+CLAUDE.md
+notes/STATUS.md
+notes/HANDOFF_full_project_report_for_new_team_2026-08-14.md
+notes/RECOVERY_PROGRAM.md
+notes/PROGRESS_SNAPSHOT.md
+data/capability_registry.jsonl
+data/foundation/
+data/exp_structured_code_vs_flat_bag_c3_v1/
+data/exp_structured_comparator_v1/probes/
+data/hooks/staging/stop_hook.py
+tools/scan_out_collect.py
