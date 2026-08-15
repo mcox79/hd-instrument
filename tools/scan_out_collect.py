@@ -391,7 +391,14 @@ def main(argv: list[str] | None = None) -> int:
         out_path.write_text(note, encoding="utf-8")
         print(f"[scan_out_collect] wrote assembled note to {out_path}")
     else:
-        print(note)
+        # Windows consoles default to cp1252; fragments carry non-ASCII (>=, arrows,
+        # Greek from lit-scans). Never let an encoding fault lose an assembled note --
+        # this crashed the Stop-hook collect path on 2026-08-14.
+        try:
+            print(note)
+        except UnicodeEncodeError:
+            sys.stdout.buffer.write(note.encode("utf-8", errors="replace"))
+            sys.stdout.buffer.write(b"\n")
     return 0
 
 
