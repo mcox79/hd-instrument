@@ -100,7 +100,7 @@ conclusion stands**.
 - COREF-MARGIN agent LIVE (STEP 5) owns
   `data/exp_coref_margin_gated_cleanup_local_window_break050_v1*` -- do not touch.
 - `data/exp_structured_comparator_v1/probes/` + `CLAUDE.md`: concurrent writers; never stage.
-- The two `recovery_ledger_*` files: owned elsewhere; read, do not edit.
+- `recovery_ledger_*` x2: MERGED into RECOVERY_PROGRAM.md; do not count them.
 - `data/foundation/reading_grounding_v1` + `v2_qualityfix` (22+23MB) on one disk, NO BACKUP; the
   37 MB snapshot is GITIGNORED and NOT in the remote (reproducible from code + corpora only).
 - STEP 4 (`d=256->1024`) HELD PENDING USER AUTH; framing WRONG (PHASE DIAGRAM), and it rewrites

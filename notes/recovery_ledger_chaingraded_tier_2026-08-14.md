@@ -2,11 +2,37 @@
 
 **2026-08-14. READ-ONLY triage of the terminal chain-graded cells in `data/substrate_index/meta/cert_ledger.jsonl`.**
 
+> # MERGED 2026-08-14 (late) -- THIS FILE IS NOW AN ARCHIVE. DO NOT COUNT IT.
+>
+> **All 565 rows below are carried into `notes/RECOVERY_PROGRAM.md` sec 5.4, which is now the
+> single working surface.** This file is retained unedited-in-substance as the PRIMARY-SOURCE
+> RECORD of what the 2026-08-14 chain-graded triage actually wrote, so that the merge's own
+> corrections can be checked against it.
+>
+> **DO NOT run a `STATE:` count over this file any more, and never add its total to
+> RECOVERY_PROGRAM's** -- that double-counts, which is the exact defect the merge closed
+> (`grep` over all three files returned 1,063 while RECOVERY_PROGRAM alone returned 95).
+> The count command now lives in RECOVERY_PROGRAM sec 7a and runs over that file only.
+>
+> **The merge changed 21 of these rows and you should read them THERE, not here.** In summary:
+> B70, B74 and B142 were carrying a `HARD_FAIL`/`MIDDLE_BAND` their own artifact does not have and
+> are restored to VERIFIED; B7 is demoted to FOUND (all three seeds are CUDA-OOM aborts, not a
+> result); B134 is reclassified FOUND (its run refused to start, so it refutes nothing); D5's
+> `CELL_CRASHED` does not reproduce; **14 of the 18 group CG-F rows reported as having NO
+> DIRECTORY do resolve** -- 11 case-insensitively, because the matcher used here was
+> case-SENSITIVE -- and are now VERIFIED with their verdicts read off disk; and one row was ADDED
+> (`exp_phase_diagram_capacity_multi_bank_K4_envelope_v2b_gpu`, the genuine HARD_FAIL that B70's
+> verdict had been mis-attached to).
+>
+> Original header follows.
+>
+> ---
+>
 > **THIS FILE NEEDS MERGING INTO `notes/RECOVERY_PROGRAM.md` sec 5.** It is written in that file's row format and the same five-word closed STATE vocabulary (FOUND / VERIFIED / WIRED / SHELVED / REFUTED, written as a `STATE:` token in the last column of every row) so the sec-7a count command works over it unchanged:
 > ```bash
 > grep -oE 'STATE:(FOUND|VERIFIED|WIRED|SHELVED|REFUTED)' notes/recovery_ledger_chaingraded_tier_2026-08-14.md | sort | uniq -c
 > ```
-> It was written as a separate file rather than appended because a concurrent session owns `RECOVERY_PROGRAM.md` and because 565 rows would swamp that file's cold-read function. **When merging, RECOVERY_PROGRAM sec 6 row H1 must change from `574 / ~546 NOT-YET-TRIAGED` to the counts in sec 1 below.**
+> It was written as a separate file rather than appended because a concurrent session owns `RECOVERY_PROGRAM.md` and because 565 rows would swamp that file's cold-read function. **When merging, RECOVERY_PROGRAM sec 6 row H1 must change from `574 / ~546 NOT-YET-TRIAGED` to the counts in sec 1 below.** *(Done 2026-08-14: H1 now reads COMPLETED AND MERGED.)*
 
 ---
 

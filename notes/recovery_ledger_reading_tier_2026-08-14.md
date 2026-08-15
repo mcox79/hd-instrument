@@ -1,5 +1,33 @@
 # RECOVERY LEDGER -- the reading tier and the brain-mechanism tier (2026-08-14)
 
+# MERGED 2026-08-14 (late) -- THIS FILE IS NOW AN ARCHIVE. DO NOT COUNT IT.
+
+**All 403 rows below are carried into `notes/RECOVERY_PROGRAM.md` sec 5.5** -- tier 1 as **group
+R**, tier 2 as **group M** -- which is now the single working surface. This file is retained
+unedited-in-substance as the PRIMARY-SOURCE RECORD of what the 2026-08-14 reading-tier sweep
+actually wrote.
+
+**DO NOT run a `STATE:` count over this file any more, and never add its total to
+RECOVERY_PROGRAM's** -- that double-counts, which is the exact defect the merge closed (`grep` over
+all three files returned 1,063 while RECOVERY_PROGRAM alone returned 95). The count command now
+lives in RECOVERY_PROGRAM sec 7a and runs over that file only.
+
+**What the merge changed for these rows.** 90 rows across the three ledgers named an experiment
+another row already covered; the duplicates among these are marked in place there and indexed in
+sec 5.6. Three rows here disagreed on a STATE with the other ledgers and all three were adjudicated
+by opening the artifact (sec 5.2): **M229** (`exp_hopfield_spurious_minima_cpu_v1`) and **M140**
+(`exp_substrate_permutation_binding_multiocc_v2_full`) were scored FOUND here for having no floor
+BY SHAPE, but both have a real floor written in PROSE (`genuine-convergence=0.957` vs a 0.90 bar;
+`FHRR=0.0629` against `perm=1.0000`) and are VERIFIED in the merged file; **M226** stays FOUND, and
+the chain-graded tier's REFUTED for the same artifact was the error (its run refused to start).
+Sec 11 of the merged file also corrects **M25** (`exp_graded_divisive_comparator_v1`): the claim
+here that it is "already WIRED and the only row in either tier that is" does not meet the sec-3
+definition of WIRED, and its `+0.0602` is a 2AFC margin, not a C3 movement.
+
+Original header follows.
+
+---
+
 **THIS FILE NEEDS MERGING INTO THE MASTER LEDGER `notes/RECOVERY_PROGRAM.md`.** It is written in
 that file's exact row format and its closed STATE vocabulary (`FOUND / VERIFIED / WIRED / SHELVED /
 REFUTED`, written literally as `STATE:<WORD>`) so its sec-7 count command
@@ -7,7 +35,8 @@ REFUTED`, written literally as `STATE:<WORD>`) so its sec-7 count command
 `RECOVERY_PROGRAM.md` was being written by a parallel agent at the time and must not be edited
 concurrently. **On merge these rows become groups H2 (tier 1) and H3 (tier 2), and the
 NOT-YET-TRIAGED counts in `RECOVERY_PROGRAM.md` sec 6 must be decremented by the counts in sec 2
-below -- never deleted, per that file's update protocol rule 3.**
+below -- never deleted, per that file's update protocol rule 3.** *(Done 2026-08-14: H2 and H3 now
+read COMPLETED AND MERGED, with their zeros recorded rather than the rows deleted.)*
 
 READ-ONLY sweep. No repo code changed, no experiment run. `notes/STATUS.md`,
 `notes/STATUS_LESSONS.md`, `CLAUDE.md`, `notes/ORGAN_MAP.md`, `notes/SUBSTRATE_STRATEGY.md`,
