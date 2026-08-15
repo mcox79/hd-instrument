@@ -234,6 +234,14 @@ def _print_find(rows: list[dict[str, Any]]) -> None:
     """Print find results in a compact human-readable form."""
     if not rows:
         print("NOT CACHED. No matching source. Safe to fetch, then register with 'add'.")
+        print("CAVEAT (2026-08-14, measured incident: 4 agents read an empty result here as")
+        print("'topic not researched' and spent ~280k tokens re-scanning a topic already covered")
+        print("87KB deep in notes/research_context_binding_conjunctive_coding_and_replay_necessity_2026-08-11.md):")
+        print("this tool only knows about PAPERS registered via 'add' -- it is a bibliography dedup,")
+        print("not a topic-coverage index. It cannot see raw notes/ content. An empty result here is")
+        print("NOT evidence the topic is unresearched. Before concluding that, also run")
+        print("director_kb_query.py on the topic AND grep/Glob notes/ by keyword -- see")
+        print("'an absence claim requires an enumeration, not a search' in CLAUDE.md.")
         return
     print("ALREADY CACHED: %d match(es). Do NOT re-fetch without checking these first." % len(rows))
     for r in rows:
