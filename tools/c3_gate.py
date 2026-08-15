@@ -48,6 +48,21 @@ HIT_AT_1_FLOOR = 0.10          # the historical magnitude clause, unchanged
 TAUTOLOGY_CEILING = 0.10       # the historical tautology clause, unchanged
 STRING_CONTROL_DIM = 512       # matches experiments/exp_meaning_supply_separation_v1.TRIGRAM_DIM
 
+# Every arm name ever used, across cells, for a floor CONTROL rather than a treatment. HG1's
+# "recorded floor" is defined (notes/SUBSTRATE_STRATEGY.md PART 1, MEMORY.md "A GATE IS A
+# CI-SEPARATED MARGIN...") as max(orthographic, frequency, scramble) -- never scramble alone.
+# 2026-08-15: found stale -- score_metrics() only ever chased scramble-shaped delta keys
+# (d_A1_BASE_minus_F_SCRAMBLE / d_*_minus_B6_OPEN_SCRAMBLE / d_B5_minus_B6) even on cells that
+# recorded a DIRECT arm-vs-orthographic and arm-vs-frequency delta in the same bootstrap block
+# (data/exp_graded_path_vs_orthographic_floor_v1/metrics.json has
+# d_A1_GRADED_ON_minus_A5_STRINGCTRL and d_A1_GRADED_ON_minus_F_FREQUENCY sitting unread next to
+# the scramble delta it did use). Widened below.
+FLOOR_ARM_NAMES = (
+    "F_SCRAMBLE", "F_SCRAMBLE_ON", "F_SCRAMBLE_OFF", "B6_OPEN_SCRAMBLE",
+    "F_FREQUENCY", "F_FREQ", "A5_STRINGCTRL", "A6_TRIGRAM_ONLY", "A7_PREFIX_ONLY",
+    "A8_MAXORTHO",
+)
+
 PASS, FAIL, NOT_EVALUABLE = "PASS", "FAIL", "NOT_EVALUABLE"
 
 # Set False only by --_disable_guard, to prove in the self-test that the guard is load-bearing.
@@ -119,7 +134,8 @@ def evaluate(arm: dict,
              arm_minus_floor_ci_lo: Optional[float] = None,
              arm_minus_stringctrl_ci_lo: Optional[float] = None,
              tautology_rate: Optional[float] = None,
-             arm_name: str = "ARM") -> dict:
+             arm_name: str = "ARM",
+             floor_source: Optional[str] = None) -> dict:
     """Score one candidate arm against the hardened four-condition C3 gate.
 
     HG1 MAGNITUDE_WITH_FLOOR       hit@1 >= 0.10, CI on (arm - recorded floor) excludes 0,
@@ -148,6 +164,15 @@ def evaluate(arm: dict,
         "hit_at_1": h,
         "threshold": HIT_AT_1_FLOOR,
         "arm_minus_floor_ci_lo": arm_minus_floor_ci_lo,
+        # NAMES which control supplied the floor this arm was measured against (standing rule:
+        # a floor is max(orthographic, frequency, scramble), never a bare number) -- e.g.
+        # "A5_STRINGCTRL" (orthographic), "F_FREQUENCY", or a scramble arm. The scramble arms
+        # themselves are donor-rule dependent -- F_SCRAMBLE in exp_meaning_supply_separation_v1
+        # is a conflict-avoiding derangement (0.0080); F_SCRAMBLE_ON/OFF in
+        # exp_graded_path_vs_orthographic_floor_v1 is a plain permutation (0.01375), the looser,
+        # more conservative construction. floor_source makes that provenance explicit per-arm
+        # rather than leaving "the floor" ambiguous.
+        "floor_source": floor_source,
         "tautology_rate": taut,
         "tautology_ceiling": TAUTOLOGY_CEILING,
     }
@@ -228,6 +253,53 @@ def evaluate(arm: dict,
     return {"arm": arm_name, "status": status, "conditions": cond, "reasons": reasons}
 
 
+def _floor_ci_lo(name: str, deltas: dict, string_arm: str) -> tuple:
+    """(arm - floor) CI lower bound, floor = max(orthographic, frequency, scramble).
+
+    Returns (ci_lo, source) -- source NAMES the control that produced the binding floor, so a
+    report never has to say "the floor" without saying which one (donor-rule for a scramble
+    control is itself a choice: conflict-avoiding derangement vs plain permutation give
+    different, both-correct numbers; naming the source arm makes that traceable).
+
+    Two sources for ci_lo, combined by MIN -- the tightest bound governs, because beating the
+    HIGHEST floor is what a floor comparison means (the standing rule: a gate is a margin above
+    max(...), never above whichever single control happens to be easiest to beat):
+
+      1. DIRECT arm-vs-floor deltas, `d_{name}_minus_{FLOOR_ARM}`, for every floor-shaped arm
+         name (see FLOOR_ARM_NAMES) the cell actually recorded a paired delta against. This is
+         the path that was missing entirely before 2026-08-15: a cell that ran an orthographic
+         or frequency control and recorded `d_{name}_minus_F_FREQUENCY` /
+         `d_{name}_minus_A5_STRINGCTRL` etc. had that number sitting unread.
+      2. The legacy scramble-only chain through the base arm
+         (`d_{name}_minus_BASE` composed with `d_A1_BASE_minus_F_SCRAMBLE` or equivalent),
+         kept as a FALLBACK ONLY for cells that predate the orthographic/frequency controls and
+         never recorded any direct arm-vs-floor delta at all.
+    """
+    direct = []
+    for cand in set(FLOOR_ARM_NAMES) | {string_arm}:
+        if cand == name:
+            continue
+        v = _get(deltas, f"d_{name}_minus_{cand}", "ci_lo")
+        if v is not None:
+            direct.append((v, cand))
+    if direct:
+        v, src = min(direct, key=lambda t: t[0])
+        return v, src
+    d_arm_base = _get(deltas, f"d_{name}_minus_BASE", "ci_lo")
+    d_base_floor = _get(deltas, "d_A1_BASE_minus_F_SCRAMBLE", "ci_lo")
+    floor_src = "F_SCRAMBLE (via BASE chain)"
+    if d_base_floor is None:
+        d_base_floor = _get(deltas, f"d_{name}_minus_B6_OPEN_SCRAMBLE", "ci_lo")
+        floor_src = "B6_OPEN_SCRAMBLE (via BASE chain)"
+        if d_base_floor is None:
+            d_base_floor = _get(deltas, "d_B5_minus_B6", "ci_lo")
+            floor_src = "B5_minus_B6 (via BASE chain)"
+        d_arm_base = d_base_floor
+    if d_arm_base is not None and d_base_floor is not None:
+        return min(d_arm_base, d_base_floor), floor_src
+    return None, None
+
+
 # ------------------------------------------------------------------ scoring a metrics.json
 def _open_vocab_pseudo_arms(m: dict) -> Optional[tuple]:
     """Adapter for exp_grounding_readout_known_answer_v1's own layout.
@@ -283,24 +355,16 @@ def score_metrics(path: str, base_arm: str = "A1_BASE", string_arm: str = "A5_ST
         for name in sorted(per_arm):
             if name == base_arm or (only_arm and name != only_arm):
                 continue
-            # (arm - floor) CI: the cell records arm-minus-BASE; base-minus-floor is a separate
-            # delta. An arm that beats base, where base beats the floor, beats the floor.
-            d_arm_base = _get(deltas, f"d_{name}_minus_BASE", "ci_lo")
-            d_base_floor = _get(deltas, "d_A1_BASE_minus_F_SCRAMBLE", "ci_lo")
-            if d_base_floor is None:
-                d_base_floor = _get(deltas, f"d_{name}_minus_B6_OPEN_SCRAMBLE", "ci_lo")
-                if d_base_floor is None:
-                    d_base_floor = _get(deltas, "d_B5_minus_B6", "ci_lo")
-                d_arm_base = d_base_floor
-            floor_ci = None
-            if d_arm_base is not None and d_base_floor is not None:
-                floor_ci = min(d_arm_base, d_base_floor)
+            # (arm - floor) CI, floor = max(orthographic, frequency, scramble) -- see
+            # _floor_ci_lo's docstring for why this replaced a scramble-only lookup 2026-08-15.
+            floor_ci, floor_src = _floor_ci_lo(name, deltas, string_arm)
             d_ctrl = _get(deltas, f"d_{name}_minus_{string_arm}", "ci_lo")
             r = evaluate(per_arm[name], base or {}, ctrl,
                          arm_minus_floor_ci_lo=floor_ci,
                          arm_minus_stringctrl_ci_lo=d_ctrl,
                          tautology_rate=cell_taut,
-                         arm_name=name)
+                         arm_name=name,
+                         floor_source=floor_src)
             r["w"] = w
             out.append(r)
     return out
@@ -312,10 +376,12 @@ def _fmt(r: dict) -> str:
     def mark(k):
         v = c[k]["ok"]
         return "PASS" if v is True else ("FAIL" if v is False else "  ? ")
-    return ("  %-16s w=%-6s %-14s HG1 %s | HG2 %s | HG3 %s | HG4 %s\n      %s"
+    floor_src = c.get("HG1_MAGNITUDE_WITH_FLOOR", {}).get("floor_source")
+    return ("  %-16s w=%-6s %-14s HG1 %s | HG2 %s | HG3 %s | HG4 %s  floor=%s\n      %s"
             % (r["arm"], r.get("w", "-"), r["status"],
                mark("HG1_MAGNITUDE_WITH_FLOOR"), mark("HG2_DISTRIBUTION_MOVED"),
                mark("HG3_SEPARATION_NOT_DEGRADED"), mark("HG4_STRING_CONTROL_BEATEN"),
+               floor_src or "(none)",
                " ".join(r["reasons"])))
 
 
@@ -400,6 +466,34 @@ def self_test() -> int:
     s2 = string_control_scores("sofa", ["couch", "sofas"])
     check("string control ranks 'sofas' above the SYNONYM 'couch' (no meaning in it)",
           bool(s2[1] > s2[0]), True)
+
+    # CASE 7 -- _floor_ci_lo must use the WORST (highest) floor, not merely a scramble floor,
+    # replaying the exact shape of exp_graded_path_vs_orthographic_floor_v1's bootstrap block
+    # (data/exp_graded_path_vs_orthographic_floor_v1/metrics.json): an arm that clears scramble
+    # comfortably but sits BELOW the orthographic control must get a floor_ci_lo that is
+    # negative (from the orthographic delta), not the positive one scramble alone would give.
+    deltas_mixed = {
+        "d_ARM_minus_F_SCRAMBLE_ON": {"ci_lo": 0.02675},   # beats scramble: positive margin
+        "d_ARM_minus_A5_STRINGCTRL": {"ci_lo": -0.05},     # loses to orthographic: negative
+        "d_ARM_minus_F_FREQUENCY": {"ci_lo": 0.02175},     # beats frequency: positive margin
+    }
+    fc, fc_src = _floor_ci_lo("ARM", deltas_mixed, "A5_STRINGCTRL")
+    check("floor_ci_lo takes the WORST floor (orthographic), not scramble alone",
+          fc, -0.05)
+    check("  and names its source as the orthographic control",
+          fc_src, "A5_STRINGCTRL")
+
+    # and the legacy scramble-only chain still works when no direct floor delta exists at all
+    # (pre-orthographic-control cells must not regress to NOT_EVALUABLE).
+    deltas_legacy = {
+        "d_ARM_minus_BASE": {"ci_lo": 0.02},
+        "d_A1_BASE_minus_F_SCRAMBLE": {"ci_lo": 0.01},
+    }
+    fc2, fc2_src = _floor_ci_lo("ARM", deltas_legacy, "A5_STRINGCTRL")
+    check("floor_ci_lo falls back to the legacy scramble-only chain when no direct delta exists",
+          fc2, 0.01)
+    check("  and names the legacy chain as its source",
+          fc2_src, "F_SCRAMBLE (via BASE chain)")
 
     # NEGATIVE CONTROL for the guard: with the guard disabled, CASE 1 must stop being protected.
     global GUARD_ENABLED
