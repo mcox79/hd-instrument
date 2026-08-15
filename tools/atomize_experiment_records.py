@@ -517,6 +517,104 @@ def classify_relevance(verdict_norm, depends_on, cap_serving, run_mode, pq) -> s
     return "ARCHIVE"
 
 
+# ===== run_mode resolution (Testbed fix 2026-08-15; source of the "run_mode None" defect) =====
+# ROOT CAUSE: line previously did a bare `metrics.get("run_mode")` with no fallback. Most cells
+# record smoke-ness ONLY as `config.smoke` / `summary.smoke` booleans (confirmed in
+# exp_kf2_isolation_proof_v2_n8192/metrics.json and exp_saad_solla_v13_n4096_5seed/metrics.json --
+# neither has a top-level `run_mode` key at all), so run_mode landed None, flowed into
+# provenance_quality() (which only checks run_mode == "full"/"smoke", never None-vs-smoke), and into
+# the atom's own quotable description as the literal string "run_mode None". Worse, it silently
+# skipped the `if run_mode == "smoke": return "SMOKE_ONLY"` branch (line ~388) entirely, so a smoke
+# run's self-authored verdict text (e.g. "...at production scale") landed in a citable atom tagged
+# LEGACY_EXCERPT / UNVERIFIED instead of SMOKE_ONLY -- an accurate-sounding tier for an inaccurate claim.
+def resolve_run_mode(metrics: dict) -> str:
+    """Resolve the true run mode from a metrics.json payload. Never returns None, never guesses "full".
+
+    Fallback order:
+      1. top-level `run_mode`, if a non-empty string.
+      2. `config.smoke` / `summary.smoke` boolean -> "smoke" if True else "full".
+      3. top-level `smoke` boolean -> same mapping.
+      4. "UNKNOWN" -- the honest floor when none of the above is present.
+    """
+    rm = metrics.get("run_mode")
+    if isinstance(rm, str) and rm:
+        return rm
+    cfg = metrics.get("config")
+    if isinstance(cfg, dict) and isinstance(cfg.get("smoke"), bool):
+        return "smoke" if cfg["smoke"] else "full"
+    summ = metrics.get("summary")
+    if isinstance(summ, dict) and isinstance(summ.get("smoke"), bool):
+        return "smoke" if summ["smoke"] else "full"
+    top_smoke = metrics.get("smoke")
+    if isinstance(top_smoke, bool):
+        return "smoke" if top_smoke else "full"
+    return "UNKNOWN"
+
+
+def _self_test_resolve_run_mode() -> bool:
+    """--self-test: resolve_run_mode against synthetic FIXTURES only -- never touches real data.
+
+    Proves: (a) the config.smoke/summary.smoke/top-level-smoke fallbacks fire in priority order,
+    (b) a real-shaped payload (run_mode key present but null, config.smoke True -- the exact shape
+    of exp_kf2_isolation_proof_v2_n8192/metrics.json) resolves to "smoke" not None, (c) an empty
+    payload resolves to the honest "UNKNOWN" floor, never a guessed "full"."""
+    cases = [
+        ({"run_mode": "full"}, "full"),
+        ({"run_mode": None, "config": {"smoke": True}}, "smoke"),   # real shape (kf2/saad_solla)
+        ({"config": {"smoke": True}}, "smoke"),
+        ({"config": {"smoke": False}}, "full"),
+        ({"summary": {"smoke": True}}, "smoke"),
+        ({"summary": {"smoke": False}}, "full"),
+        ({"smoke": True}, "smoke"),
+        ({"smoke": False}, "full"),
+        ({}, "UNKNOWN"),
+        ({"config": {}}, "UNKNOWN"),
+        ({"run_mode": ""}, "UNKNOWN"),                              # empty string is not a real value
+    ]
+    ok = True
+    for metrics, expected in cases:
+        got = resolve_run_mode(metrics)
+        passed = got == expected
+        ok = ok and passed
+        print(f"[self-test] resolve_run_mode({metrics!r}) = {got!r} (expected {expected!r}) "
+              f"-> {'PASS' if passed else 'FAIL'}")
+    print(f"[self-test] resolve_run_mode: {'ALL PASS' if ok else 'FAILURES PRESENT'}")
+    return ok
+
+
+def run_mode_guard(records: list) -> list:
+    """Ingestion-time guard (Testbed 2026-08-15): loudly flags every record whose true run_mode
+    could not be resolved (resolve_run_mode returned "UNKNOWN"). Modeled on the loud-banner pattern
+    in tools/director_kb_freshness_check.py -- a silent None here is the exact failure class that
+    let a smoke run's self-authored "production scale" claim stand unflagged in a citable atom.
+
+    Never DROPS the record: this project's preservation policy (has_substantive_content /
+    "BLOCKING-fix" above) keeps every substantive metrics.json atomized regardless. This guard only
+    makes the ambiguity VISIBLE at ingest time instead of silently coercing it to None -- run_mode
+    "UNKNOWN" still correctly fails would_be_cert (requires run_mode == "full") in provenance_quality(),
+    so an UNKNOWN-run-mode record can never reach CERT_CHAIN_GRADE, but it deserves a human look."""
+    unknown = [r["name"] for r in records if r["run_mode"] == "UNKNOWN"]
+    if unknown:
+        print("=" * 80)
+        print(f"[atomizer] RUN-MODE GUARD: {len(unknown)} record(s) have NO resolvable run_mode")
+        print("  (no top-level run_mode string, no config.smoke/summary.smoke/top-level smoke bool).")
+        print("  These atomize with run_mode='UNKNOWN' (never a guessed 'full'); provenance_quality")
+        print("  cannot reach CERT_CHAIN_GRADE for them (would_be_cert requires run_mode=='full').")
+        for nm in unknown[:20]:
+            print(f"    - {nm}")
+        if len(unknown) > 20:
+            print(f"    ... and {len(unknown) - 20} more; full list below")
+        log_path = REPO / "data" / "atomize_experiment_records_unknown_runmode.log"
+        with open(log_path, "w", encoding="utf-8") as f:
+            for nm in unknown:
+                f.write(nm + "\n")
+        print(f"  full list -> {log_path.relative_to(REPO)}")
+        print("=" * 80)
+    else:
+        print("[atomizer] RUN-MODE GUARD: all discovered records resolved a run_mode (0 UNKNOWN)")
+    return unknown
+
+
 def discover():
     """Yield record dicts for every data/*/metrics.json. Logs dropped (no silent truncation)."""
     records, dropped = [], []
@@ -554,7 +652,7 @@ def discover():
         if not has_substantive_content(metrics, cell):
             dropped.append((name, "genuinely empty: no verdict/headline/numeric-result/content + no cell"))
             continue
-        run_mode = metrics.get("run_mode")
+        run_mode = resolve_run_mode(metrics)
         n_seeds = metrics.get("n_seeds")
         # date: metrics timestamp -> prereg filename date -> metrics file mtime
         date_str = ""
@@ -737,6 +835,7 @@ def main():
 
     records, dropped = discover()
     print(f"[atomizer] discovered {len(records)} metrics tuples; dropped {len(dropped)}", flush=True)
+    run_mode_guard(records)   # Testbed 2026-08-15: loud flag, never silent, never drops
 
     # build specs; classify NEW vs UPDATE (queryable content changed) vs SKIP (identical) -- Skunkworks #3.
     # Replaces blind collision-skip: an existing atom whose content_hash differs (e.g. old-atomizer atom with empty
@@ -998,4 +1097,7 @@ def main():
 
 
 if __name__ == '__main__':
+    if "--self-test" in sys.argv:
+        # FIXTURE-only; never touches real data / the store. Testbed 2026-08-15.
+        sys.exit(0 if _self_test_resolve_run_mode() else 1)
     sys.exit(main())
