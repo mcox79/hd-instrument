@@ -4,26 +4,41 @@ Lets a script that crashes mid-run (CUDA OOM, runner timeout, process kill)
 resume from where it left off on the next ship instead of re-running every
 completed seed from scratch.
 
-Contract (script-side adoption):
+Contract (script-side adoption) -- USE THE *_config ENTRY POINTS:
 
     from _seed_checkpoint import (
-        resumable_seeds,
-        write_partial,
-        aggregate_partials,
+        resumable_seeds_config,
+        write_partial_config,
+        aggregate_partials_config,
     )
 
-    out_dir = get_output_dir()                       # data/exp_<HDLAB_EXP_NAME>
+    out_dir = get_output_dir(ANCHOR_NAME)            # data/exp_<HDLAB_EXP_NAME>
     seeds = SEEDS_FULL                               # e.g. [7, 17, 23, 31, 41]
-    done, remaining = resumable_seeds(seeds, out_dir)
+
+    # The RESOLVED config: every dimension that changes what is computed.
+    # It is HASHED into the checkpoint key, so a field added here later is
+    # part of the checkpoint identity automatically.
+    cfg = {"run_mode": run_mode, "N": N, "D": D, "M": M}
+
+    done, remaining = resumable_seeds_config(seeds, out_dir, cfg)
     print(f"[ckpt] {len(done)} of {len(seeds)} seeds already complete; "
           f"running {remaining}", flush=True)
 
     for seed in remaining:
         result = run_one_seed(seed, ...)             # whatever the script does
-        write_partial(out_dir, seed, result)         # atomic .tmp + replace
+        write_partial_config(out_dir, seed, result, cfg)   # atomic .tmp+replace
 
-    per_seed = aggregate_partials(out_dir, seeds)    # dict keyed by str(seed)
+    per_seed = aggregate_partials_config(out_dir, seeds, cfg)  # keyed by str(seed)
     # ... build summary / verdict / metrics.json from per_seed ...
+
+    A checkpoint whose recorded config does not match `cfg` raises
+    CheckpointConfigMismatchError. It is never skipped and never reloaded.
+
+LEGACY contract (resumable_seeds / write_partial / aggregate_partials, keyed on
+the SEED ALONE) is retained unchanged for callers already written against it,
+but it is NOT SAFE when a smoke and a full share an out_dir: nothing in the key
+records what was computed, so the full reloads the smoke's answer. See the
+PROT-021b block further down for the reproduction and the incident.
 
 PROT-021 config-mismatch guard (smoke-checkpoint contamination fix):
 
@@ -274,7 +289,33 @@ def list_completed_keys(
             if not _check_run_config(body, run_config, child.name):
                 continue
         done.append(key)
+    if done and not run_config:
+        _warn_unverified_legacy_reuse(out_dir, done)
     return done
+
+
+_LEGACY_REUSE_WARNED = False
+
+
+def _warn_unverified_legacy_reuse(out_dir: Path, done: List[str]) -> None:
+    """One stderr line per process when checkpoints are reused with NO config check.
+
+    Visibility only -- deliberately does not change which keys are returned, so
+    a run already in flight against the legacy contract is unaffected. See the
+    PROT-021b block below for why an unverified reuse is worth surfacing.
+    """
+    global _LEGACY_REUSE_WARNED
+    if _LEGACY_REUSE_WARNED:
+        return
+    _LEGACY_REUSE_WARNED = True
+    import sys as _sys
+    _sys.stderr.write(
+        f"[ckpt] UNVERIFIED REUSE: reloading {len(done)} checkpoint(s) from "
+        f"{out_dir} with no run_config, so nothing checks that they were "
+        f"computed under this run's config. If a smoke gate shares this "
+        f"out_dir its answers will be reported as this run's. Migrate to "
+        f"resumable_seeds_config(seeds, out_dir, cfg) (PROT-021b).\n"
+    )
 
 
 def resumable_seeds(
@@ -415,6 +456,293 @@ def clear_partials(out_dir: Path) -> int:
             except OSError:
                 pass
     return n
+
+
+# --- PROT-021b config-fingerprinted checkpoint keys (added 2026-08-15, Testbed) ---
+#
+# INCIDENT. The default checkpoint contract above keys a partial on the SEED
+# ALONE (`partial_metrics_17.json`). Nothing in the key records WHAT WAS
+# COMPUTED. A smoke gate that writes seed 17 at N=1024 and a FULL dispatch that
+# wants seed 17 at N=16384 therefore address the SAME FILE, and when both share
+# an out_dir the FULL reloads the smoke's answer and skips the work -- while
+# still writing a metrics.json that reads like a completed FULL run.
+#
+# Reproduced off-disk against this module at HEAD before this fix was written
+# (scratch/repro_checkpoint_collision.py, four arms):
+#   A  default contract, shared out_dir: FULL saw done=[17], recomputed only
+#      [7, 23], and its aggregate for seed 17 carried N=1024 / M=256 /
+#      run_mode='smoke' / elapsed_s=0.01. If the smoke's seed list EQUALS the
+#      FULL's, `remaining` is empty and the FULL computes NOTHING.
+#   B  the 2026-06-01 PROT-021 run_config guard (19544ae79) does hold -- but
+#      only when a caller remembers to pass run_config, and it prints rather
+#      than raises.
+#   C  a run_config listing {N, M} accepts a partial whose D disagrees, because
+#      D is not in the guard's hand-written vocabulary. THIS is why the key
+#      below is a HASH OF THE RESOLVED CONFIG and not a hand-listed tuple: a
+#      config field added next year is in the key automatically, and cannot be
+#      silently left out by whoever adds it.
+#
+# TWO DEFENCES, both required:
+#   1. SEPARATION -- the key carries a fingerprint of the resolved config, so
+#      smoke and full are DIFFERENT FILES and cannot collide even in one dir.
+#   2. A LOUD GUARD -- if a checkpoint is nonetheless found whose recorded
+#      config does not match the current config, the run RAISES. A silently
+#      mismatched reload is the exact failure this exists to prevent, so it is
+#      never downgraded to a skip or a warning.
+#
+# BACKWARD COMPATIBILITY (a run is in flight as this lands). Every function
+# above is untouched: same signatures, same defaults, same bytes on disk. The
+# new behaviour is reachable ONLY through the new *_config entry points below,
+# which no existing caller invokes. A cell already running keeps resolving its
+# own partials exactly as it did when it started.
+
+class CheckpointConfigMismatchError(RuntimeError):
+    """A checkpoint on disk does not match the config of the run loading it.
+
+    Raised instead of skipping, because a mismatched checkpoint that is merely
+    skipped is indistinguishable from one that was never there -- and a
+    mismatched checkpoint that is LOADED is the smoke-contaminates-full defect
+    itself. The run must stop so an operator decides.
+    """
+
+
+_CKPT_FP_FIELD = "_ckpt_config_fp"
+_CKPT_CFG_FIELD = "_ckpt_config"
+
+# Excluded from the fingerprint. These vary between two runs that compute the
+# SAME thing, so including them would orphan a resuming run's own checkpoints.
+# The seed is excluded because it is already carried explicitly in the key.
+_CKPT_VOLATILE_KEYS = frozenset({
+    "seed", "seeds", "elapsed_s", "elapsed", "timestamp", "started_at",
+    "out_dir", "output_dir", "device", "resume", "host", "hostname", "pid",
+})
+
+
+def _canonical_config(config: Dict[str, Any],
+                      exclude: Optional[Sequence[str]] = None) -> Dict[str, Any]:
+    """Drop volatile / caller-excluded / underscore-prefixed keys, sorted."""
+    if not isinstance(config, dict):
+        raise TypeError(
+            f"config must be a dict of resolved run parameters, got "
+            f"{type(config).__name__}")
+    drop = set(_CKPT_VOLATILE_KEYS) | set(exclude or ())
+    return {k: config[k] for k in sorted(config)
+            if k not in drop and not str(k).startswith("_")}
+
+
+def config_fingerprint(config: Dict[str, Any],
+                       exclude: Optional[Sequence[str]] = None,
+                       length: int = 12) -> str:
+    """Stable short hash of a RESOLVED run config.
+
+    A hash of the whole config rather than a hand-listed tuple, so that a
+    config field introduced later is part of the checkpoint identity without
+    anyone having to remember to add it (repro arm C above).
+
+    Deterministic across processes and platforms: canonical JSON with sorted
+    keys, non-JSON values coerced via str(), then sha256. Does NOT depend on
+    Python's per-process hash randomisation.
+    """
+    import hashlib
+    canon = json.dumps(_canonical_config(config, exclude),
+                       sort_keys=True, separators=(",", ":"), default=str)
+    return hashlib.sha256(canon.encode("utf-8")).hexdigest()[:length]
+
+
+def checkpoint_key(seed: Any, config: Dict[str, Any],
+                   exclude: Optional[Sequence[str]] = None) -> str:
+    """Checkpoint key for one seed under one resolved config: cfg<fp>_seed<seed>.
+
+    Every dimension that changes what is computed is in `config` and therefore
+    in `fp`; the seed is appended in clear so a directory listing stays legible.
+    Smoke and full differ in at least run_mode, so they can never collide.
+    """
+    return f"cfg{config_fingerprint(config, exclude)}_seed{seed}"
+
+
+def _config_contradictions(body: Dict[str, Any],
+                           config: Dict[str, Any]) -> List[str]:
+    """Fields present in BOTH the stored partial and the current config that disagree.
+
+    Compares the partial's own top-level fields and its stamped _ckpt_config.
+    Absent fields are not contradictions -- only a field the partial actually
+    recorded, whose value differs, counts.
+    """
+    stored: Dict[str, Any] = {}
+    embedded = body.get(_CKPT_CFG_FIELD)
+    if isinstance(embedded, dict):
+        stored.update(embedded)
+    for k, v in body.items():
+        if not str(k).startswith("_"):
+            stored.setdefault(k, v)
+    out: List[str] = []
+    for k in sorted(_canonical_config(config)):
+        if k not in stored:
+            continue
+        if str(stored[k]) != str(config[k]):
+            out.append(f"{k}: stored={stored[k]!r} current={config[k]!r}")
+    return out
+
+
+def list_completed_keys_config(
+    seeds: Sequence[Any],
+    out_dir: Path,
+    config: Dict[str, Any],
+    exclude: Optional[Sequence[str]] = None,
+) -> List[Any]:
+    """Seeds with a checkpoint written under THIS EXACT config. Raises on mismatch.
+
+    For each seed, looks only at cfg<fp>_seed<seed>. A partial found there whose
+    recorded fingerprint disagrees raises CheckpointConfigMismatchError rather
+    than being skipped.
+
+    Legacy bare-key partials (partial_metrics_<seed>.json, the pre-fix layout)
+    are also inspected, because they are exactly what the smoke gate left behind
+    on the affected runs:
+      * one that CONTRADICTS the current config RAISES -- this is the original
+        defect, now loud instead of silent;
+      * one carrying nothing comparable is reported on stderr and ignored, so
+        the seed is recomputed. Worst case is recomputation, never wrong reuse.
+    """
+    import sys as _sys
+    out_dir = Path(out_dir)
+    fp = config_fingerprint(config, exclude)
+    done: List[Any] = []
+    for seed in seeds:
+        key = checkpoint_key(seed, config, exclude)
+        p = _partial_path(out_dir, key)
+        if p.is_file() and _is_valid_partial(p, key):
+            try:
+                with open(p, "r", encoding="utf-8") as fh:
+                    body = json.load(fh)
+            except (OSError, ValueError):
+                continue
+            stored_fp = body.get(_CKPT_FP_FIELD)
+            if stored_fp is None or str(stored_fp) != fp:
+                raise CheckpointConfigMismatchError(
+                    f"{p.name} sits at the key for config fingerprint {fp} but "
+                    f"records {stored_fp!r}. Refusing to reload a checkpoint "
+                    f"whose config does not match this run. Contradictions: "
+                    f"{_config_contradictions(body, config) or '(fingerprint only)'}. "
+                    f"Delete the stale partial or dispatch into a fresh out_dir."
+                )
+            done.append(seed)
+            continue
+
+        legacy = _partial_path(out_dir, seed)
+        if legacy.is_file():
+            try:
+                with open(legacy, "r", encoding="utf-8") as fh:
+                    lbody = json.load(fh)
+            except (OSError, ValueError):
+                continue
+            if not isinstance(lbody, dict):
+                continue
+            clashes = _config_contradictions(lbody, config)
+            if clashes:
+                raise CheckpointConfigMismatchError(
+                    f"{legacy.name} is a pre-fix bare-seed checkpoint whose "
+                    f"recorded config contradicts this run: {clashes}. This is "
+                    f"the smoke-contaminates-full defect: reloading it would "
+                    f"skip seed {seed} and report another run's numbers as this "
+                    f"run's. Refusing. Re-run this seed into a clean out_dir, or "
+                    f"remove the stale partial once its provenance is recorded."
+                )
+            _sys.stderr.write(
+                f"[ckpt] IGNORING {legacy.name}: pre-fix bare-seed checkpoint "
+                f"with no comparable config fields, so it cannot be shown to "
+                f"match this run (fingerprint {fp}). Seed {seed} will be "
+                f"recomputed.\n"
+            )
+    return done
+
+
+def resumable_seeds_config(
+    seeds: Sequence[Any],
+    out_dir: Path,
+    config: Dict[str, Any],
+    exclude: Optional[Sequence[str]] = None,
+) -> Tuple[List[Any], List[Any]]:
+    """(done, remaining) under THIS config. Config-safe replacement for resumable_seeds."""
+    done_set = {str(s) for s in
+                list_completed_keys_config(seeds, out_dir, config, exclude)}
+    done: List[Any] = []
+    remaining: List[Any] = []
+    for s in seeds:
+        (done if str(s) in done_set else remaining).append(s)
+    return done, remaining
+
+
+def write_partial_config(
+    out_dir: Path,
+    seed: Any,
+    payload: Dict[str, Any],
+    config: Dict[str, Any],
+    exclude: Optional[Sequence[str]] = None,
+) -> Path:
+    """Write one seed's partial under a config-fingerprinted key.
+
+    Stamps the fingerprint AND the canonical config into the body, so a later
+    run can say exactly what it disagrees with rather than only that it does.
+    """
+    body = dict(payload)
+    body[_CKPT_FP_FIELD] = config_fingerprint(config, exclude)
+    body[_CKPT_CFG_FIELD] = _canonical_config(config, exclude)
+    return write_partial_key(out_dir, checkpoint_key(seed, config, exclude), body)
+
+
+def aggregate_partials_config(
+    out_dir: Path,
+    seeds: Sequence[Any],
+    config: Dict[str, Any],
+    exclude: Optional[Sequence[str]] = None,
+) -> Dict[str, Dict[str, Any]]:
+    """Load the partials for `seeds` under THIS config, keyed by str(seed).
+
+    Same mismatch guarantee as list_completed_keys_config: raises rather than
+    quietly returning another run's numbers.
+    """
+    out_dir = Path(out_dir)
+    done = list_completed_keys_config(seeds, out_dir, config, exclude)
+    out: Dict[str, Dict[str, Any]] = {}
+    for seed in done:
+        body = load_partial_key(out_dir, checkpoint_key(seed, config, exclude))
+        if body is not None:
+            out[str(seed)] = body
+    return out
+
+
+def _selftest_config_keys() -> None:
+    """Fingerprint/key invariants; runs at module import (pure, no file I/O)."""
+    smoke = {"run_mode": "smoke", "N": 1024, "D": 64, "M": 256}
+    full = {"run_mode": "full", "N": 16384, "D": 512, "M": 2048}
+    # 1. The original collision cannot recur: distinct keys for the same seed.
+    assert checkpoint_key(17, smoke) != checkpoint_key(17, full), \
+        "PROT-021b FAIL: smoke and full still share a checkpoint key"
+    # 2. Each dimension alone is enough to separate.
+    for field, other in (("run_mode", "full"), ("N", 4096), ("D", 128), ("M", 512)):
+        variant = dict(smoke)
+        variant[field] = other
+        assert checkpoint_key(17, smoke) != checkpoint_key(17, variant), \
+            f"PROT-021b FAIL: {field} does not affect the key"
+    # 3. An unforeseen config field is in the key automatically (repro arm C).
+    assert checkpoint_key(17, smoke) != checkpoint_key(
+        17, dict(smoke, some_field_invented_later=3)), \
+        "PROT-021b FAIL: a new config field does not reach the key"
+    # 4. Deterministic, and independent of dict insertion order.
+    assert config_fingerprint({"N": 1, "D": 2}) == config_fingerprint({"D": 2, "N": 1}), \
+        "PROT-021b FAIL: fingerprint is order-dependent"
+    assert checkpoint_key(17, smoke) == checkpoint_key(17, dict(smoke)), \
+        "PROT-021b FAIL: fingerprint is not deterministic"
+    # 5. Volatile fields do not fragment a resuming run's own checkpoints.
+    assert config_fingerprint(dict(smoke, elapsed_s=1.0, device="cuda")) == \
+        config_fingerprint(smoke), "PROT-021b FAIL: volatile key entered the fingerprint"
+    # 6. Seeds stay distinct under one config.
+    assert checkpoint_key(7, full) != checkpoint_key(17, full), \
+        "PROT-021b FAIL: two seeds share a key"
+
+
+_selftest_config_keys()
 
 
 def get_output_dir(anchor_name: str) -> Path:
@@ -944,6 +1272,13 @@ _selftest_get_output_dir()
 
 
 __all__ = [
+    "config_fingerprint",
+    "checkpoint_key",
+    "write_partial_config",
+    "resumable_seeds_config",
+    "list_completed_keys_config",
+    "aggregate_partials_config",
+    "CheckpointConfigMismatchError",
     "list_completed_keys",
     "resumable_seeds",
     "write_partial",
@@ -1140,5 +1475,105 @@ if __name__ == "__main__":
         assert m["summary"], "T10d FAIL: summary not injected"
         print("[selftest] T10 PASS: write_metrics atomic (tmp+replace, no residue)")
 
-    print("[selftest] ALL 10 TESTS PASS -- PROT-021 + META_RULE_H_ANCHOR "
-          "loader guard + vacuous-smoke guard + atomic write operational")
+        # --- Tests 11-14: PROT-021b config-fingerprinted keys ----------------
+        # T11 is the REGRESSION TEST for the original collision: it drives the
+        # exact smoke-then-full sequence that produced it and asserts the full
+        # actually computes. T12 proves the loud guard. T13 covers the pre-fix
+        # bare-seed artifact still on disk in the affected dirs. T14 proves the
+        # legacy contract is untouched for a run already in flight.
+        SMOKE_CFG = {"run_mode": "smoke", "N": 1024, "D": 64, "M": 256}
+        FULL_CFG = {"run_mode": "full", "N": 16384, "D": 512, "M": 2048}
+
+        # --- Test 11: smoke and full share an out_dir and DO NOT collide -----
+        t11 = td / "t11_shared_out_dir"
+        computed = []
+
+        def _run(seeds, cfg, tag):
+            done, remaining = resumable_seeds_config(seeds, t11, cfg)
+            for s in remaining:
+                computed.append((tag, s))
+                write_partial_config(t11, s, {"N": cfg["N"], "M": cfg["M"],
+                                              "run_mode": cfg["run_mode"],
+                                              "acc": 0.5 if tag == "smoke" else 0.97},
+                                     cfg)
+            return done, remaining
+
+        _run([17], SMOKE_CFG, "smoke")           # the smoke gate
+        computed.clear()
+        done11, rem11 = _run([7, 17, 23], FULL_CFG, "full")   # the FULL dispatch
+        assert done11 == [], (
+            f"T11 FAIL (ORIGINAL COLLISION IS BACK): FULL treated {done11} as "
+            f"already complete off the smoke's checkpoints")
+        assert sorted(s for _, s in computed) == [7, 17, 23], (
+            f"T11 FAIL: FULL did not compute every seed; computed={computed}")
+        agg11 = aggregate_partials_config(t11, [7, 17, 23], FULL_CFG)
+        assert set(agg11) == {"7", "17", "23"}, f"T11 FAIL: agg={sorted(agg11)}"
+        assert all(v["N"] == 16384 and v["run_mode"] == "full"
+                   for v in agg11.values()), (
+            f"T11 FAIL: FULL aggregate carries smoke-scale data: {agg11}")
+        # The smoke's own partial still exists, untouched, at its own key.
+        assert load_partial_key(t11, checkpoint_key(17, SMOKE_CFG))["N"] == 1024, \
+            "T11 FAIL: FULL overwrote the smoke's partial"
+        print("[selftest] T11 PASS: smoke+full in ONE out_dir -> distinct keys, "
+              "FULL computed all 3 seeds, both artifacts preserved")
+
+        # --- Test 12: a config-mismatched checkpoint RAISES, never reloads ---
+        t12 = td / "t12_mismatch"
+        # A partial parked at the FULL key but stamped with the smoke config.
+        write_partial_key(t12, checkpoint_key(17, FULL_CFG),
+                          {"N": 1024, "run_mode": "smoke",
+                           "_ckpt_config_fp": config_fingerprint(SMOKE_CFG),
+                           "_ckpt_config": _canonical_config(SMOKE_CFG)})
+        try:
+            resumable_seeds_config([17], t12, FULL_CFG)
+            raise AssertionError(
+                "T12 FAIL: mismatched checkpoint was accepted instead of raising")
+        except CheckpointConfigMismatchError as exc:
+            assert "17" in str(exc), f"T12 FAIL: unhelpful message: {exc}"
+        # aggregate_partials_config must refuse on the same footing.
+        try:
+            aggregate_partials_config(t12, [17], FULL_CFG)
+            raise AssertionError("T12b FAIL: aggregate accepted a mismatch")
+        except CheckpointConfigMismatchError:
+            pass
+        print("[selftest] T12 PASS: mismatched checkpoint RAISES "
+              "CheckpointConfigMismatchError (not skipped, not reloaded)")
+
+        # --- Test 13: pre-fix bare-seed smoke artifact -> loud, not silent ---
+        t13 = td / "t13_legacy_bare"
+        write_partial(t13, 17, {"seed": 17, "N": 1024, "M": 256,
+                                "run_mode": "smoke", "acc": 0.5})
+        try:
+            resumable_seeds_config([17], t13, FULL_CFG)
+            raise AssertionError(
+                "T13 FAIL: pre-fix bare-seed smoke partial silently tolerated")
+        except CheckpointConfigMismatchError as exc:
+            assert "N" in str(exc) and "run_mode" in str(exc), \
+                f"T13 FAIL: message does not name the contradicting fields: {exc}"
+        # A bare partial with nothing comparable is ignored (recompute), not fatal.
+        t13b = td / "t13b_opaque"
+        write_partial(t13b, 17, {"seed": 17, "acc": 0.5})
+        assert resumable_seeds_config([17], t13b, FULL_CFG) == ([], [17]), \
+            "T13b FAIL: opaque legacy partial should be ignored, seed recomputed"
+        print("[selftest] T13 PASS: pre-fix bare-seed partial RAISES when it "
+              "contradicts; recomputes when unverifiable")
+
+        # --- Test 14: legacy contract byte-unchanged (in-flight run safety) --
+        t14 = td / "t14_legacy_compat"
+        p14 = write_partial(t14, 17, {"seed": 17, "N": 1024, "acc": 0.5})
+        assert p14.name == "partial_metrics_17.json", \
+            f"T14 FAIL: legacy write_partial changed its filename: {p14.name}"
+        assert list_completed_keys(t14) == ["17"], \
+            "T14 FAIL: legacy list_completed_keys changed behaviour"
+        assert resumable_seeds([17, 23], t14) == ([17], [23]), \
+            "T14 FAIL: legacy resumable_seeds changed behaviour"
+        assert list_completed_keys(t14, run_config={"N": 16384}) == [], \
+            "T14 FAIL: legacy PROT-021 run_config filter changed behaviour"
+        assert "17" in aggregate_partials(t14, [17]), \
+            "T14 FAIL: legacy aggregate_partials changed behaviour"
+        print("[selftest] T14 PASS: legacy API unchanged (filenames, keys, "
+              "PROT-021 filter) -- a run already in flight is unaffected")
+
+    print("[selftest] ALL 14 TESTS PASS -- PROT-021 + META_RULE_H_ANCHOR "
+          "loader guard + vacuous-smoke guard + atomic write + PROT-021b "
+          "config-fingerprinted keys operational")
