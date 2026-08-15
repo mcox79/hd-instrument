@@ -2,10 +2,10 @@
 
 AS OF: 2026-08-14 | branch `dataprep/mcguffey-graded-corpus` | GROWTH PAUSED | origin merge needs USER AUTH
 Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
-Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). PLAN: `notes/PLAN_NEXT_12H.md`.
+Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). PLAN: `notes/PLAN.md`.
 Rewrite in place; cap 8704 B (SPEC sec 7).
-CHAIN: HANDOFF_full_project_report_for_new_team_2026-08-14.md -> HERE -> PLAN_NEXT_12H.md ->
-RECOVERY_PROGRAM.md -> SUBSTRATE_STRATEGY.md + ORGAN_MAP.md.
+CHAIN: HANDOFF_full_project_report_for_new_team_2026-08-14.md -> HERE -> PLAN.md ->
+ORGAN_MAP.md -> RECOVERY_PROGRAM.md -> SUBSTRATE_STRATEGY.md.
 
 ## POSITION
 C3 read-out 4.80% hit@1 clears scramble (0.80% / 1.375%, DONOR-RULE dependent) but is BELOW the
