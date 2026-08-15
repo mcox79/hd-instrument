@@ -409,9 +409,23 @@ class StructuralEncoder:
         return sorted(set(feats))
 
     def vector(self, sentence: str, target_lemma: str) -> np.ndarray:
-        """sign(sum over features of bind(rel_vec, filler_vec)). All-zero when no feature fires
-        (the caller's existing `if not np.any(ctx != 0)` guard then skips the occurrence, exactly
-        as it already does for an all-stopword window)."""
+        """sum over features of bind(rel_vec, filler_vec), sign-quantised only when
+        GRADED_COMPARATOR is off -- MUST follow the same switch as context_vector /
+        context_vector_masked (site 5; sites 1-4 are covered by
+        _selftest_graded_comparator_default). All-zero when no feature fires (the caller's
+        existing `if not np.any(ctx != 0)` guard then skips the occurrence, exactly as it
+        already does for an all-stopword window).
+
+        BUG FIXED 2026-08-15 (exp_structured_code_vs_flat_bag_c3_v1 VOID_PLUMBING diagnosis):
+        this method hardcoded np.sign(acc) unconditionally, so under the live
+        GRADED_COMPARATOR=True default the STRUCTURED arm was being sign-quantised at every
+        single occurrence (mean 2.82 features/encoding -- a handful of near-orthogonal bipolar
+        terms sign'd before any cross-occurrence bundling could average out the noise) while the
+        FLAT-BAG arm (context_vector_masked, graded=True) kept full real-valued magnitude through
+        every stage. That is not a fair structured-vs-flat comparison, it is
+        graded-vs-quantised -- the same "ternary/bipolar zero-convention mismatch" class the
+        docstring on grounding_acquisition_loop.context_vector already names as costing ~30% of a
+        prior smoke-scale delta, just never applied to this encoder."""
         feats = self.features(sentence, target_lemma)
         self.n_feature_counts += 1
         self.n_features_total += len(feats)
@@ -421,6 +435,8 @@ class StructuralEncoder:
         for rel, filler in feats:
             acc += _bipolar_bind(symbol_vector("REL:" + rel, self.d),
                                  symbol_vector(filler, self.d))
+        if GRADED_COMPARATOR:
+            return acc
         out = np.sign(acc)
         out[out == 0] = 1.0
         return out
