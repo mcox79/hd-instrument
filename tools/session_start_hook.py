@@ -214,8 +214,87 @@ def _self_test() -> int:
         print(f"[self-test] FAIL: the real notes/STATUS.md incorrectly triggered a banner:\n{out}")
         ok = False
 
+    # board_report(): must count open questions, and must never raise on a missing/garbage board.
+    with tempfile.TemporaryDirectory() as td:
+        missing = Path(td) / 'no_board.md'
+        out = board_report(missing)
+        if 'no board yet' in out:
+            print("[self-test] PASS: board_report reports a missing board without raising")
+        else:
+            print(f"[self-test] FAIL: board_report on a missing board said:\n{out}")
+            ok = False
+
+        garbage = Path(td) / 'garbage_board.md'
+        garbage.write_text("## QUESTIONS FOR YOU\n\nthe owner deleted the table\n", encoding='utf-8')
+        out = board_report(garbage)
+        if 'ERROR' not in out:
+            print("[self-test] PASS: board_report survives a hand-destroyed board table")
+        else:
+            print(f"[self-test] FAIL: board_report raised on a destroyed table:\n{out}")
+            ok = False
+
+        two = Path(td) / 'two_open.md'
+        two.write_text(
+            "## QUESTIONS FOR YOU\n\n"
+            "| ID | Question | What's blocked on it | My recommendation | ANSWER | status |\n"
+            "|---|---|---|---|---|---|\n"
+            "| Q1 | first? | a | b |  | open |\n"
+            "| Q2 | second? | a | b |  | open |\n"
+            "| Q3 | third? | a | b | already answered by hand | open |\n",
+            encoding='utf-8')
+        out = board_report(two)
+        if '2 OPEN QUESTION(S)' in out:
+            print("[self-test] PASS: board_report counts 2 open (the hand-answered row is not open)")
+        else:
+            print(f"[self-test] FAIL: board_report miscounted:\n{out}")
+            ok = False
+
     print(f"[self-test] {'ALL PASS' if ok else 'FAILED'}")
     return 0 if ok else 1
+
+
+def board_report(board_path: Path | None = None) -> str:
+    """Surface the count of open questions on notes/BOARD.md.
+
+    CONTRACT / COUPLING (CLAUDE.md "A doc parsed by code is coupled to it"): the parsing of
+    notes/BOARD.md lives in ONE place, `tools/board.py`, and this function calls it rather than
+    re-implementing a second table parser. That is deliberate: two parsers for one document is
+    how the literals drift apart. The literals themselves (`## QUESTIONS FOR YOU`, `## ANSWERED`,
+    the column orders) are documented on the doc side in the PARSER CONTRACT comment that
+    board.py writes into the top of BOARD.md.
+
+    Imported by absolute path, not by name: this hook is invoked with an absolute script path and
+    an unpredictable cwd. Never raises -- a broken board must not block a session start.
+    """
+    import importlib.util
+    bp = board_path
+    try:
+        mod_path = REPO / 'tools' / 'board.py'
+        if not mod_path.exists():
+            return "[board] SKIP - tools/board.py not found"
+        spec = importlib.util.spec_from_file_location('_sessionstart_board', mod_path)
+        if spec is None or spec.loader is None:
+            return "[board] SKIP - could not load tools/board.py"
+        board = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(board)
+        if bp is None:
+            bp = board.DEFAULT_BOARD
+        if not Path(bp).exists():
+            return ("[board] no board yet (notes/BOARD.md absent)\n"
+                    "    create one: python tools/board.py sync")
+        rows = board.open_questions(Path(bp))
+    except Exception as exc:
+        return f"[board] ERROR reading the board ({type(exc).__name__}: {exc})"
+
+    if not rows:
+        return "[board] 0 open questions on the board"
+    lines = [f"[board] {len(rows)} OPEN QUESTION(S) ON THE BOARD <-- the owner has not answered these",
+             "    they are waiting on the OWNER, not on you: do not block on them, work around them"]
+    for r in rows[:6]:
+        lines.append(f"    {r.get('id', '?')}: {str(r.get('question', ''))[:110]}")
+    if len(rows) > 6:
+        lines.append(f"    ... and {len(rows) - 6} more (python tools/board.py open)")
+    return '\n'.join(lines)
 
 
 def registry_report() -> str:
@@ -254,6 +333,9 @@ def registry_report() -> str:
 def main() -> int:
     blocks = [RULES, "== STATUS (single source of truth -- notes/STATUS.md) =="]
     blocks.append(status_summary())
+    # In-process (no subprocess): the board parse is a single small file read, so it costs
+    # milliseconds and cannot push this hook toward its 10s budget.
+    blocks.append(board_report())
     blocks.append(probe('status-freshness-guard', 'status_freshness_check.py'))
     blocks.append("== DURABILITY GATE (status read at session start) ==")
     blocks.append(registry_report())
@@ -262,6 +344,13 @@ def main() -> int:
     # scan walks 7885 data dirs and takes ~290s. Same split as registry_report() above: the
     # expensive computation is a separate deliberate act, the hook only reports its staleness.
     blocks.append(probe('result-index-join', 'result_index_join.py', '--hook'))
+    # progress_snapshot.py --hook: full derive (fast -- no recursive data/ walk, one bounded
+    # git log call, ~1s measured) that rewrites notes/PROGRESS_SNAPSHOT.md every session and
+    # prints only its headline here. This IS the "periodic without a cron" mechanism for the
+    # owner-facing snapshot: the hook is proven to fire every session, unlike three prior
+    # mechanisms that went silently disabled (11 hd_* tasks 12 days, KB ingest 6 days,
+    # hd_session_watchdog writing 1585 unread ping files).
+    blocks.append(probe('progress-snapshot', 'progress_snapshot.py', '--hook'))
     blocks.append(
         "== ORIENT ==\n"
         "  notes/STATUS.md (read this FIRST -- cheap, current, sourced; <=6KB by design)\n"

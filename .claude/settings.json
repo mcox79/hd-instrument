@@ -1,4 +1,33 @@
 {
+  "permissions": {
+    "deny": [
+      "Write(preregs/**)",
+      "Edit(preregs/**)",
+      "MultiEdit(preregs/**)",
+      "NotebookEdit(preregs/**)",
+      "Write(./preregs/**)",
+      "Edit(./preregs/**)",
+      "MultiEdit(./preregs/**)",
+      "NotebookEdit(./preregs/**)",
+      "Write(//d/AI/hd-instrument/preregs/**)",
+      "Edit(//d/AI/hd-instrument/preregs/**)",
+      "MultiEdit(//d/AI/hd-instrument/preregs/**)",
+      "NotebookEdit(//d/AI/hd-instrument/preregs/**)",
+
+      "Write(arm_key*)",
+      "Edit(arm_key*)",
+      "MultiEdit(arm_key*)",
+      "NotebookEdit(arm_key*)",
+      "Write(**/arm_key*)",
+      "Edit(**/arm_key*)",
+      "MultiEdit(**/arm_key*)",
+      "NotebookEdit(**/arm_key*)",
+      "Write(//d/AI/hd-instrument/**/arm_key*)",
+      "Edit(//d/AI/hd-instrument/**/arm_key*)",
+      "MultiEdit(//d/AI/hd-instrument/**/arm_key*)",
+      "NotebookEdit(//d/AI/hd-instrument/**/arm_key*)"
+    ]
+  },
   "hooks": {
     "Stop": [
       {
