@@ -1,0 +1,123 @@
+<!-- RESCUED VERBATIM SUB-AGENT OUTPUT. DO NOT EDIT THE BODY. -->
+# Literature scan: the mathematical operation of conjunctive coding in perirhinal cortex
+
+- **Filed:** 2026-08-14
+- **Question answered:** What IS the mathematical operation by which perirhinal cortex forms a conjunctive code? Is a superadditivity coefficient measured in real perirhinal neurons, and what do the models actually implement?
+- **Headline (the scan's own, not the rescuer's):** **THE OPERATION IS UNPINNED.** No study reports a quantitative superadditivity coefficient for real perirhinal neurons. The one model verified in detail (Cowell/Bussey/Saksida 2006) implements conjunction as a Kohonen self-organising map with Euclidean-distance readout, which its own authors frame as a computational abstraction, NOT a biophysical claim.
+- **Fed into:** [notes/graded_path_does_not_clear_the_orthographic_floor_2026-08-14.md](graded_path_does_not_clear_the_orthographic_floor_2026-08-14.md) section 5, which uses this scan to QUALIFY the standing TOP ITEM's reliance on conjunctive coding.
+- **Provenance:** sub-agent `a175a9617cb40b4b2`, transcript
+  `~/.claude/projects/d--AI/139818eb-7f83-457e-928d-a8db02a0214d/subagents/agent-a175a9617cb40b4b2.jsonl`
+- **Rescued:** 2026-08-14, by extracting the final assistant message from that transcript
+  (`scratch/extract_orphan_lit_reports.py`).
+- **RESCUE HAZARD, RECORDED:** this agent was killed as an orphan and its
+  `tasks/a175a9617cb40b4b2.output` hardlink is **0 BYTES ON DISK**. Only the canonical
+  `subagents/agent-a175a9617cb40b4b2.jsonl` retained the report. An absence claim made from the
+  `tasks/` directory alone would have been WRONG. Enumerate BOTH locations.
+
+> **This document is VERBATIM sub-agent output, preserved for citation. It was NOT re-derived,
+> re-summarised, or re-checked when filed.** The per-claim evidence tags
+> (ESTABLISHED / CONTESTED / SINGLE-STUDY / FAILED-REPLICATION / UNPINNED / UNVERIFIED-DETAIL) are
+> the point of preserving it and are reproduced exactly as the scanning agent wrote them. An
+> earlier synthesis dropped exactly these tags, which launders a contested claim into settled
+> fact; that is why the body below is byte-verbatim.
+>
+> Standing caveat (lit-scan calibration): a scanning agent's tags are its own judgement, not an
+> independent replication audit. Treat a tag as the scan's claim about the literature, and VET
+> before any tagged claim becomes load-bearing. The scan's own calibration note about which
+> retrieval tier each claim came from is part of the verbatim body and should be read with it.
+>
+> Non-ASCII characters and em dashes below are part of the verbatim text and are intentionally
+> left unmodified.
+
+---
+
+# Literature Scan: The Mathematical Operation of Conjunctive Coding in Perirhinal Cortex / MTL
+
+Search tools used: WebSearch (multiple queries per topic area) + WebFetch (full text where available: JNeurosci 2006 model paper via cached rendering, PMC7794537, biorxiv preprints). Several primary PDFs (oxcns.org Rolls papers, biorxiv 082628) could not be rendered as text (binary PDF stream returned) — flagged below as UNVERIFIED / secondary-source-only where that applies. I held the three categories (measured / modeled / inferred) strictly apart throughout, per your instructions.
+
+---
+
+## 1. MEASURED IN NEURONS
+
+### 1a. Sparsity/selectivity numbers — perirhinal vs other regions
+
+**Lehky, Tanaka & Sereno (2021), "Pseudosparse neural coding in the visual system of primates," Communications Biology 4:2 (doi confirmed via Nature/PMC7794537).** [ESTABLISHED — primary source, full text rendered via WebFetch]
+- Macaque, single- and multi-electrode recordings across V1, V2, MT, anterior IT, LIP, FEF, **and perirhinal cortex** (Prh: N=92 neurons, 110 object images, both natural and man-made).
+- **Perirhinal pseudosparseness = 0.813 ± 0.006** (on a 0–1 scale), comparable to or higher than anterior IT (0.642–0.815), higher than V1 (0.594–0.782), V2 (0.700±0.064), MT (0.621±0.010); LIP and FEF ranged even higher (up to 0.978, 0.971).
+- **Critical qualifier, and this is the actual point of the paper (do not drop it):** "pseudosparseness" is a *population-correlation* statistic that can mimic the signature of sparse coding even when the underlying response distribution is not authentically sparse. The paper's authors define **authentic sparseness** via a kurtosis-based statistic and report that authentic sparseness was **far lower than pseudosparseness in every region tested (near 0 by their kurtosis measure)**, i.e. the high "sparseness-like" numbers historically reported for these regions, including by implication perirhinal, are partly an artifact of correlated population structure rather than proof that individual neurons are truly sparsely/selectively firing in the classical sense. I could not get the tool to render the exact perirhinal-specific kurtosis value cleanly, so I am **not** quoting a specific authentic-sparseness number for Prh — flag as **PARTIALLY UNVERIFIED** (the 0.813 pseudosparseness figure is solid/verified; the associated true-sparseness contrast is reported qualitatively but I did not extract a clean matching number for Prh specifically).
+- TAG: **SINGLE-STUDY** for the perirhinal-specific 0.813 figure (I found only this one dataset with perirhinal in the same experimental design as other visual areas).
+
+**Rolls & Tovée (1995), J Neurophysiol 73(2), "Sparseness of the neuronal representation of stimuli in the primate temporal visual cortex."** [ESTABLISHED, but region caveat below]
+- Macaque temporal cortical visual neurons (anterior superior temporal sulcus / IT region), 68 stimuli (23 faces, 45 non-face).
+- Mean sparseness (Treves-Rolls single-cell sparseness, $a^s_{TR} = \langle r\rangle^2/\langle r^2\rangle$) = **0.65** across the population.
+- **Caveat:** this is classic "temporal cortex" (largely anterior IT/STS face-patch territory), **not perirhinal cortex specifically**. It is frequently cited in perirhinal reviews as the comparison baseline but is not itself a perirhinal recording. I flag this because your prompt asked for IT-vs-perirhinal comparison — the comparison exists in the literature (e.g., Rolls & Deco 2002; Rolls & Franco 2005 state IT sparseness < perirhinal sparseness) but I could not, despite multiple attempts (WebFetch on oxcns.org PDFs returned raw binary/undecoded PDF stream, not text), pull an exact matched perirhinal sparseness number from the Rolls lab's own perirhinal papers. **FLAG: UNVERIFIED numeric comparison** — I can report the *qualitative* claim ("perirhinal sparseness is described in Rolls & Deco 2002 / Rolls & Franco 2005 as greater than IT sparseness") only as a **SINGLE-STUDY, secondary-source-relayed** claim, not a verified number.
+
+**Rolls, Franco & Stringer (2005), Q J Exp Psychol B 58(3-4):234-245, "The Perirhinal Cortex and Long-Term Familiarity Memory."** [ESTABLISHED for the numbers I could verify; SINGLE-STUDY]
+- Macaque perirhinal single units, delayed-matching-to-sample with up to 3 intervening stimuli.
+- Verified number: responses to a **novel stimulus set averaged 47% of the response magnitude to a familiar stimulus set**, and rose to match the familiar-set magnitude over a mean of ~400 presentations across 7–13 days. This is a familiarity/novelty effect, not a conjunction-nonlinearity number — reported here because it's the one solid quantitative fact I could extract from this specific paper; I could not extract sparseness-index numbers from the full text (PDF would not render as text through the fetch tool).
+
+**Lehky/Tanaka pseudosparseness aside, other perirhinal single-unit lines I located but could not pull numeric sparseness data from (search-located, not fetched in full):**
+- Erickson, Jagadeesh & Desimone (2000), *Nat Neurosci* 3:1143-1148, "Clustering of perirhinal neurons with similar properties following visual experience in adult monkeys" — establishes that visual experience reorganizes tuning-similarity among nearby perirhinal neurons (spatial clustering of stimulus preference emerges with experience), but this is about topographic organization of selectivity, not a conjunction/nonlinearity metric. TAG: **SINGLE-STUDY**, numbers not extracted (abstract-level only).
+- Erickson & Desimone (1999), *J Neurosci* 19(23):10404 (found via search as "Responses of macaque perirhinal neurons during and after visual stimulus association learning") — associative learning changes perirhinal response profiles; again no nonlinearity coefficient obtained.
+- Naya, Yoshida & Miyashita and related "pair-coding" perirhinal work (the specific citation I was hunting, "Naya Yoshida Miyashita 2003 Science," did NOT surface — what surfaced instead was Naya et al., *J Neurosci* 23(7):2861-2871, "Forward Processing of Long-Term Associative Memory in Monkey Inferotemporal Cortex," 2003, which reports that associative pair-coding (a neuron that fires to both members of a learned visual pair) emerges first in perirhinal cortex and is later found in TE/IT). **FLAG: the "2003 Science" pair-coding paper I was asked to check could not be located/confirmed by this search — treat as UNVERIFIED/possibly misremembered citation; what I can confirm is the JNeurosci 2003 associative-coding finding above.**
+
+### Human single-unit data (MTL "concept cells")
+**Waydo, Kraskov, Quian Quiroga, Fried & Koch (2006), J Neurosci 26(40):10232-10234, "Sparse Representation in the Human Medial Temporal Lobe."** [ESTABLISHED]
+- Human epilepsy patients, depth electrodes, hippocampus/amygdala/entorhinal/parahippocampal regions (note: perirhinal cortex specifically is **rarely targeted** by standard human MTL depth-electrode trajectories — this and most "concept cell" studies, e.g. Quian Quiroga et al. 2005 Nature "invariant visual representation," sample hippocampus/amygdala/entorhinal/parahippocampal cortex predominantly, **not perirhinal per se**. This is an important gap: I could not find a human single-unit study explicitly labeled "perirhinal" with quantitative sparseness numbers.)
+- Verified number: response-probability distribution across neurons peaked at **0.23% and 0.70%** of stimuli tested (i.e., consistent with a small subset of cells responding to a small fraction of stimuli — the "sparse, not grandmother-cell" picture later elaborated in Quian Quiroga et al. 2008, "Sparse but not 'Grandmother-cell' coding in the medial temporal lobe," Trends Cogn Sci).
+
+### 1b. Measured superadditivity/nonlinearity specifically attributable to conjunctive coding in perirhinal cortex
+**I found NO study, after multiple targeted searches ("perirhinal cortex neurons nonlinear response configuration exceeds sum of components supralinear," "perirhinal cortex conjunctive coding nonlinearity superadditive"), that reports a quantitative superadditivity/nonlinearity coefficient (e.g. "configuration response = X% above sum of component responses") for real perirhinal neurons.** What the dendritic-nonlinearity literature offers (NMDA-spike supralinear summation, e.g. Polsky, Mel & Schiller 2004 *Nat Neurosci*; Losonczy & Magee 2006; work reviewed in Poirazi/Papoutsi and in Major, Larkum & Schiller 2013 *Annu Rev Neurosci*) is measured **in other cell types/regions** (hippocampal CA1 pyramidal cells, layer 5 cortical pyramidal neurons, piriform cortex, human cortical neurons per the 2024/2025 PNAS paper) — this is real, well-established dendritic biophysics (NMDA-receptor-dependent supralinear summation, threshold ~ tens of co-active synapses on a branch) but **I found no study connecting this specific dendritic mechanism to perirhinal conjunctive coding by direct measurement.** This is a genuine gap in the literature as far as I could determine, not something I am inferring away — flagging explicitly per your instruction not to manufacture a link.
+
+---
+
+## 2. MODELS — what is actually implemented, and what the papers claim about biological reality
+
+### 2a. Cowell, Bussey & Saksida (2006), J Neurosci 26(47):12186-12197, "Why Does Brain Damage Impair Memory? A Connectionist Model of Object Recognition Memory in Perirhinal Cortex." [ESTABLISHED as to model architecture — verified via full-text WebFetch]
+
+This is the flagship computational instantiation of the Perceptual-Mnemonic/Feature-Conjunction (PMFC) model. **The actual implemented computation, verified from the paper's own text:**
+- **Architecture:** two parallel layers of **two-dimensional Kohonen self-organizing maps (SOMs)** — a "caudal" layer (four independent grids, each with 2D inputs representing individual simple visual features) feeding a "perirhinal" layer (one grid with 8D input, i.e. the concatenation/conjunction of the four feature dimensions).
+- **Learning rule:** **unsupervised competitive learning** (Kohonen self-organization) — NOT Hebbian associative learning, NOT backpropagation. Weight update: $w_i(t) = w_i(t-1) + \alpha(t)\,v(r,t)\,[\text{input} - w_i(t-1)]$, where the winning unit and its topological neighbors (via neighborhood function $v$) move toward the input vector.
+- **"Activation function":** during readout/choice, unit activation is computed as **Euclidean distance** between the input vector and each unit's weight vector: $\text{dist} = \sqrt{\sum_j(\text{samp}_j - w_{ij})^2/n}$ — i.e., a distance-based (Gaussian-like, radial) similarity metric, not a sigmoid-of-weighted-sum or an outer product.
+- **Explicit biological-plausibility framing:** the paper presents the Kohonen grid as a **computational abstraction** standing in for cortical mechanisms such as lateral inhibition and topographic self-organization — it is offered as an engineering/explanatory device for reproducing lesion-deficit patterns, not as a claim that perirhinal neurons literally compute Euclidean distances or that synapses literally follow the Kohonen update rule. **This is a modeller's choice, and the paper does not claim it is the literal biological operation** — it claims the *emergent, systems-level behavior* (graded conjunctive representations, degrading gracefully under simulated lesion) reproduces empirical lesion patterns, which is a claim about **functional/representational correspondence, not mechanistic/biophysical correspondence.**
+
+### 2b. Bussey & Saksida (2002), Eur J Neurosci, "The organization of visual object representations: A connectionist model of effects of lesions in perirhinal cortex." [ESTABLISHED existence; SINGLE-STUDY; exact architecture NOT independently verified in this scan — search results confirmed the paper's existence and its general framing (hierarchical feature→conjunction organization, simulations reproducing lesion-induced impairments on configural/perceptual tasks) but did not surface the specific equations/layer count for this earlier model, and I was not able to fetch its full text.] Flag as **UNVERIFIED at the equation level** — I can confirm the paper exists and its conceptual claim (hierarchically organized conjunctive representations, tested via lesion simulation) but not the precise mathematical form used in 2002, which may or may not be the same Kohonen-SOM formalism used in the 2006 paper.
+
+### 2c. Sadil & Cowell (2017), J Cogn Neurosci 29(6):1075-1088, "A Computational Model of Perceptual and Mnemonic Deficits in Medial Temporal Lobe Amnesia" (biorxiv preprint 082628). [Existence ESTABLISHED via search; **could not fetch full text — 403 Forbidden on biorxiv PDF** — architecture details NOT verified in this scan, flag as **UNVERIFIED**.] This is a later successor model in the same representational-hierarchical lineage; I cannot report its equations without fabricating.
+
+### 2d. Kent, Hvoslef-Eide, Saksida & Bussey (2016), Neurobiol Learn Mem 129:99-106, "The representational-hierarchical view of pattern separation: Not just hippocampus, not just space, not just memory?" [ESTABLISHED as a conceptual/review claim, no equations sought or found] — this is a **theory/review paper**, not itself a mathematical model; it argues the same hierarchical feature→conjunction logic used for perirhinal object memory should generalize to hippocampal pattern separation and spatial coding. It is explicitly conceptual, not computational-equation-bearing.
+
+### 2e. A separate modelling lineage worth flagging: Bogacz, Brown & Giraud-Carrier-style autoassociative/energy-based models of perirhinal familiarity discrimination (located via search as "Mechanisms of memory storage in a model perirhinal network," PMC5241391) exist as a **distinct** family from the Bussey-Saksida-Cowell PMFC/Kohonen lineage — I did not fetch this one in full, flagging its existence only, to avoid conflating two different modeling traditions that both claim to model "perirhinal cortex" but implement different mathematics (this second lineage is generally Hopfield/energy-based autoassociator work, not Kohonen-SOM). **UNVERIFIED at equation level in this scan.**
+
+**Bottom line for Section 2, stated plainly: the one model I could verify in detail (Cowell/Bussey/Saksida 2006) implements conjunction via a Kohonen self-organizing map with Euclidean-distance-based readout — a competitive-learning / vector-quantization operation, not a product, not an outer product, not a sigmoid-of-weighted-sum, not backprop. This is explicitly a modeller's engineering choice offered for its emergent lesion-behavior, not a biophysical claim.** Do not let this get reported elsewhere as "the brain computes conjunctions via Kohonen maps" — that would misrepresent an explicitly-flagged abstraction as a measured mechanism.
+
+---
+
+## 3. Is the biological conjunction operation pinned to a specific mathematical form anywhere in the literature?
+
+**Short answer: NO — UNPINNED.** Specifically:
+
+- **Rigotti et al. (2013), Nature 497(7451):585-590, "The importance of mixed selectivity in complex cognitive tasks."** [ESTABLISHED] Recorded **prefrontal cortex** neurons in macaques during an object sequence/recall-recognition task. Found many PFC neurons exhibit **nonlinear mixed selectivity** — firing driven by nonlinear combinations of task variables rather than single variables — and that the *diversity* of such nonlinear combinations across the population raises the dimensionality of the neural representation, which in turn permits simple linear readout to extract arbitrary task-relevant variables. **Critical: this paper does not specify or claim a particular canonical nonlinearity (no product rule, no specific dendritic mechanism) — the claim is about the functional/geometric consequence (high dimensionality → linear separability), not about which biophysical nonlinearity produces it.** It is a **prefrontal cortex** finding; it was **not applied to perirhinal cortex** in this paper, and my searches for a direct extension of this framework to perirhinal/MTL turned up nothing that connects the two directly (some tangential findings that MTL structures — entorhinal, dentate gyrus, CA1 — also show "far more mixed selectivity than previously reported," per search snippets referencing later work, but this is a separate, more recent literature thread on hippocampal-formation mixed selectivity, not perirhinal, and not sourced to a primary paper I verified in full text).
+- Follow-on theory: **Fusi, Miller & Rigotti (2016), Curr Opin Neurobiol, "Why neurons mix: high dimensionality for higher cognition"** — a review elaborating the same dimensionality argument; again does not pin a specific biophysical operation, and is not perirhinal-specific.
+- **Dendritic nonlinearity literature** (NMDA-spike-mediated supralinear summation: Polsky/Mel/Schiller-type work, Losonczy & Magee, Major/Larkum/Schiller review, recent human-neuron PNAS paper on the sublinear→supralinear transition around ~35 co-active synapses) is real, measured, and mechanistically specific **at the level of single dendritic branches in the cell types actually recorded** (CA1 pyramidal cells, L5 cortical pyramidal neurons, piriform cortex, human cortical neurons) — but **none of the sources I found apply this measurement to perirhinal cortex neurons specifically.** This is the mathematically closest measured phenomenon to "conjunctive coding as a nonlinear operation," but the link to perirhinal is **inference, not measurement** — I am flagging it as a plausible mechanism class, explicitly NOT as something demonstrated in perirhinal tissue.
+
+### Statement per your instruction 4:
+
+**UNPINNED.** What is actually known, stated plainly and without manufacturing an equation:
+- Perirhinal cortex neurons are described across multiple studies as showing high "pseudosparseness" (Lehky et al. 2021: 0.813±0.006) and are widely characterized in the review/theoretical literature (Bussey/Saksida/Murray 2002, 2005; Cowell/Bussey/Saksida 2006; Kent et al. 2016) as encoding **conjunctions of object features** such that damage disrupts discriminations with high "feature ambiguity" — but this is a **behavioral/lesion inference about representational content**, not a measured single-neuron nonlinearity coefficient.
+- The nonlinear/dendritic-biophysics literature (NMDA-dependent supralinear dendritic integration) offers the closest **mathematically specific, measured** candidate mechanism for how a real neuron could implement a "conjunction is more than the sum of its parts" computation — but this has been measured in other cell types/regions, not verified in perirhinal neurons by any source I located.
+- The mixed-selectivity literature (Rigotti et al. 2013) establishes that **nonlinear combination coding exists and is functionally important** in cortex (PFC specifically) and gives a computational rationale for why it would be useful (dimensionality expansion for linear readout) — but explicitly does **not** specify which nonlinearity, and has not (per this search) been extended to perirhinal cortex with primary data.
+- Computational models of perirhinal conjunctive coding (Cowell/Bussey/Saksida 2006) implement a **specific, verifiable, but explicitly modeller's-choice** operation (Kohonen self-organizing map + Euclidean-distance readout) that the authors themselves frame as an abstraction for reproducing lesion-behavior patterns, not a claim about biophysical realism.
+
+**No equation should be adopted as "the" perirhinal conjunction operation on the basis of this literature.** If your project needs a working mathematical form to implement, that form must be flagged internally as a hypothesis/engineering choice (as Cowell et al. themselves flag their Kohonen-SOM formalism), not asserted as brain-established fact — doing otherwise would repeat exactly the modeller's-equation-as-brain-fact conflation your prompt asked me to guard against.
+
+---
+
+## Gaps / things I could not verify (explicit enumeration, per your absence-claim discipline)
+
+1. Could not extract full-text numeric sparseness data from Rolls' own perirhinal papers (oxcns.org PDFs returned raw binary stream via WebFetch, not parseable text) — the IT-vs-perirhinal sparseness comparison is reported in secondary sources as "perirhinal > IT" but I could not verify the specific numbers from primary text in this session.
+2. Could not confirm a "Naya, Yoshida & Miyashita 2003 Science" pair-coding paper as specified in your prompt — what I found instead was a 2003 J Neurosci paper by (likely) overlapping authors on associative coding; treat the "Science 2003" citation as unconfirmed/possibly misremembered pending direct lookup.
+3. Could not fetch Sadil & Cowell (2017) or the Bussey & Saksida (2002) EJN paper in full text (403 errors / not located) — their exact equations remain unverified in this scan; only their conceptual claims are confirmed via secondary search snippets.
+4. Found no primary study directly measuring a superadditivity/nonlinearity percentage in real perirhinal neurons — searched specifically and repeatedly for this and it does not appear to exist in the literature I could reach.
+5. Human single-unit "concept cell" literature (Quian Quiroga, Waydo et al., Ison et al.) is MTL-broad (hippocampus/amygdala/entorhinal/parahippocampal) and I found no human single-unit study explicitly targeting perirhinal cortex with sparseness numbers — human perirhinal single-unit data appears to be a genuine literature gap, not something I overlooked.
+6. Rigotti/Fusi mixed-selectivity framework applied to perirhinal specifically: not found as a primary-data paper; only tangential mentions of mixed selectivity in "medial entorhinal cortex, dentate gyrus, CA1" surfaced, sourced from search snippets only, not verified full text — flag as **UNVERIFIED, secondary-source-only**.

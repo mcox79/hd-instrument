@@ -1,56 +1,56 @@
 # STATUS
 
 AS OF: 2026-08-14 | branch `dataprep/mcguffey-graded-corpus` | GROWTH PAUSED | origin merge needs USER AUTH
-HEAD delta: `git log -1`/`git status`. Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
+Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING).
 Never-trim detail: `notes/STATUS_LESSONS.md` (uncapped). PLAN: `notes/PLAN_NEXT_12H.md`.
 Rewrite in place; cap 8192 B.
-CHAIN: `HANDOFF_full_project_report_for_new_team_2026-08-14.md` -> HERE -> `PLAN_NEXT_12H.md` ->
-`RECOVERY_PROGRAM.md` -> `SUBSTRATE_STRATEGY.md` + `ORGAN_MAP.md`. 08-04 BACKUP SUPERSEDED.
+CHAIN: HANDOFF_full_project_report_for_new_team_2026-08-14.md -> HERE -> PLAN_NEXT_12H.md ->
+RECOVERY_PROGRAM.md -> SUBSTRATE_STRATEGY.md + ORGAN_MAP.md. 08-04 BACKUP SUPERSEDED.
 
 ## POSITION
-C3 read-out 4.80% hit@1 clears scramble 0.80% but is BELOW the ORTHOGRAPHIC floor 8.70% -- see
-FLOOR VET (`exp_grounding_readout_known_answer_v1`, `204eba1a0`). THE GATE ITSELF WAS GAMEABLE, NOW
-HARDENED (`9316f98ee`): bolting a PURE-SPELLING channel onto the base arm reaches 0.10275, clearing
-the old ">=10% vs a floor" criterion (`c0e6ec0da`), now RETIRED. C3 needs FOUR conditions, EXECUTABLE
-via `tools/c3_gate.py`; no string-form control = NOT_EVALUABLE, never PASS. NOTHING passes: 0 of 13
-arms, incl. the gate's own cell (unmeasured on 3 of 4). "5.2pp short of 10%" measured the RETIRED
-criterion; never re-quote it. GROWTH PAUSED -- the threshold did not separate meaning from
-spelling.
+C3 read-out 4.80% hit@1 clears scramble (0.80% / 1.375%, DONOR-RULE dependent -- name the
+harness) but is BELOW the ORTHOGRAPHIC floor 8.70% -- see
+FLOOR VET (`exp_grounding_readout_known_answer_v1`, `204eba1a0`). THE GATE WAS GAMEABLE, NOW HARDENED
+(`9316f98ee`): a PURE-SPELLING channel on the base arm reaches 0.10275, clearing the old ">=10% vs
+a floor" criterion, now RETIRED. C3 needs FOUR conditions via `tools/c3_gate.py`; no string-form
+control = NOT_EVALUABLE, never PASS. NOTHING passes: 0 of 13 arms, incl. the gate's own cell.
+"5.2pp short of 10%" measured the RETIRED criterion; never re-quote it. The threshold did not
+separate meaning from spelling.
 
 ## TOP ITEM -- A FLAT BAG OF CO-OCCURRING WORDS CANNOT HOLD MEANING
 Three independent floored results converge; our comparator loses all three.
-FACTORED role/filler held-out **1.000 vs FLAT 0.003** (`exp_role_filler_factorization_compgen_v1`).
-CONJUNCTIVE **1.000 vs ADDITIVE 0.273** at M=256
+FACTORED role/filler held-out 1.000 vs FLAT 0.003 (`exp_role_filler_factorization_compgen_v1`).
+CONJUNCTIVE 1.000 vs ADDITIVE 0.273 at M=256
 (`exp_interference_avoidance_conjunctive_vs_additive_v1`) -- the additive arm IS our bag geometry.
-PERMUTATION binding **1.0000 vs FHRR 0.0629** on same-role collision
+PERMUTATION binding 1.0000 vs FHRR 0.0629 on same-role collision
 (`exp_substrate_permutation_binding_multiocc_v2_full`). NEXT = CONNECT EXISTING WORK, not invent:
-give the live comparator a structured code. Rows: reading ledger #1/#3, chain-graded #1/#2.
+give the live comparator a structured code. Rows: ledgers #1/#3, #1/#2. QUALIFIED: perirhinal
+CONJUNCTION OP is UNPINNED + feature-ambiguity CONTESTED (real failed replications) -- OURS to
+choose, NOT pinned brain fidelity (4 rescued `lit_scan_*_2026-08-14.md`).
 
 ## FLOOR VET -- SPELLING ALONE IS MEASURED AND IT BEATS US (LESSONS: ORTHOGRAPHIC-FLOOR VET)
-`exp_orthographic_floor_vet_v1` / `tools/orthographic_floor_vet_v1.py`, n=4000, 5491 anchors;
-`A1_BASE` reproduces the 0.0480 headline EXACTLY -> harness IS identical. TRIGRAM-ONLY
-(`t_mat[sel] @ tq`, ZERO substrate signal) hit@1 **0.0870** CI [0.0783,0.0960] vs OURS **0.0480**
-CI [0.0413,0.0548]; delta +0.0390, CI EXCLUDES ZERO. PREFIX-ONLY 0.0588 beats us too.
-REVERSES `9ca1cffa2`: "we underperform a spell-checker" IS NOW ESTABLISHED -- string form with
-no meaning outscores the read-out 1.8x. Orthographic floor = 0.0870; WE ARE BELOW IT,
-CI-separated. `char_trigram_encoder` EXISTS but is NOT REACHED; its registry row wrongly says WIRED.
+`exp_orthographic_floor_vet_v1`, n=4000, 5491 anchors; `A1_BASE` reproduces the 0.0480 headline
+EXACTLY -> harness IS identical. TRIGRAM-ONLY (`t_mat[sel] @ tq`, ZERO substrate signal) 0.0870 vs
+OURS 0.0480, delta +0.0390 CI EXCLUDES ZERO; PREFIX-ONLY 0.0588 also beats us.
+REVERSES `9ca1cffa2`: "we underperform a spell-checker" IS NOW ESTABLISHED. WE ARE BELOW THE
+0.0870 FLOOR, CI-separated. `char_trigram_encoder` EXISTS but is NOT REACHED; its registry row wrongly says WIRED.
 
 ## RECOVERY TRIAGE (LESSONS: TRIAGE RESIDUE)
-**968 cells now have rows**, in TWO ledgers NOT yet merged into `RECOVERY_PROGRAM.md`: chain-graded
-565/565 + reading 403 (`51b6f247a`, `40997bf85`, `da7fe14d4`, `b4e90942a`, `63d5cccd2`).
-**Until merged every count must run over ALL THREE** (`grep -oE 'STATE:[A-Z_]+'` = 1063 rows;
-`RECOVERY_PROGRAM.md` alone returns 95). DEFLATIONS: 280 of 565 chain-graded rows are ONE
-auto-generated grid, so "574 cells" is ~286 distinct investigations; only 172 (30%) have a
-real floor; 0 of the 968 are WIRED. UNTRIAGED: ~1,180 atoms, ~7,150 of 7,660 `metrics.json`.
+968 cells have rows in TWO ledgers NOT yet merged into `RECOVERY_PROGRAM.md`: chain-graded 565 +
+reading 403 (`b4e90942a`). Until merged every count must run over ALL THREE
+(`grep -oE 'STATE:[A-Z_]+'` = 1063 rows; RECOVERY_PROGRAM alone 95). DEFLATIONS: 280 of 565
+chain-graded rows are ONE auto-generated grid, so "574 cells" is ~286 distinct investigations;
+only 172 (30%) have a real floor; 0 of 968 WIRED. UNTRIAGED: ~1,180 atoms, ~7,150/7,660 metrics.
 
 ## OTHER PATH STATE
-LANDED: graded comparator DEFAULT ON (`38f7a0d5c`, 0.6395 -> 0.6980), MECHANISM WITHDRAWN
-(`f05b8a88a`) -- never quote 0.7495 or 0.69975 as live; FORAGING `3d4761f69` HARD_PASS w/ caveats.
-PHASE DIAGRAM closed, neither cash-in hit; OPEN: C13 re-run, C12 sub-linear gap index NOT BUILT,
-orphan hdlab/ files + 4 unregistered modules -- LESSONS "OPEN THREADS (older)".
-NOT INVALIDATED: GROWTH stands (no-leak 0, scramble 0.077, persistence round-trip bit-identical;
-`ac430868d`/`0472eeb0b`) -- a DIFFERENT claim, that grounding tracks real reading context rather
-than shuffled, which spelling overlap cannot touch. INVALIDATED: the absolute-threshold framing and
+LANDED: graded comparator DEFAULT ON (`38f7a0d5c`; 0.6395->0.6980 = 2AFC, chance .50, pool 2377,
+NOT C3; in C3 currency NULL, +0.0015 CI [-.0055,+.0083]), MECHANISM WITHDRAWN (`f05b8a88a`) --
+never quote 0.7495/0.69975 as live; FORAGING `3d4761f69` HARD_PASS w/ caveats.
+PHASE DIAGRAM closed, neither cash-in hit; OPEN (C13 re-run, C12 gap index NOT BUILT, orphan
+hdlab/ + 4 unregistered modules): LESSONS "OPEN THREADS (older)".
+NOT INVALIDATED: GROWTH stands (no-leak 0, scramble 0.077, round-trip bit-identical;
+`ac430868d`) -- a DIFFERENT claim: grounding tracks real reading context vs shuffled, which
+spelling overlap cannot touch. INVALIDATED: the absolute-threshold framing and
 any "did this help?" on raw hit@1.
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
@@ -65,7 +65,8 @@ vector is noise"; 17 co-occurrence as the explanation; 18 role-bound structure a
 as log-IDF*; 25 extractor differentia/genus + supply; 26 `sign()` vs the forgetting kernel; 27 rank-1
 common-mode removal*; 28 FORAGE_REFUSAL; 29 the five-stage read-out chain; 30 near-duplicate anchors
 as the defect; **31 MEANING SUPPLY AS THE C3 CONSTRAINT -- REFUTED**\*; **32 DG / pattern-separation
-for grounding -- beaten on the real task in July**; **33 crowding as a gate criterion**.
+for grounding -- beaten on the real task in July**; **33 crowding as a gate criterion**; **34 flipping the GRADED SWITCH for a C3 gain -- MEASURED
+NULL**\*; **35 quoting +0.0602 / 0.6395->0.6980 as a C3 number -- 2AFC, WRONG CURRENCY**.
 CAVEATS: D1 near-vs-far = degradation not collapse; D2 encoder-swap on its own harness; D3/D4
 foraging reversals; D5 sharpening is SMOKE-scale only.
 CORRECTIONS: C1 availability-binds-first; C2 CLIP-at-INGEST; C3 the 94% has NO floor;

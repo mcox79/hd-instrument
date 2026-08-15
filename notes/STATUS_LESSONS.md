@@ -1064,3 +1064,78 @@ byte-shave** -- there is nothing left in tiers 1-4 worth 200 B. The alternative,
 hold, is to retire DO-NOT-REDO entries whose routes are dead beyond any revival (candidates: 6, 15,
 19), which is a deliberate judgement call for a maintenance pass and must NOT be made by an agent
 that merely needs room (spec sec 6).
+
+## DO NOT REDO -- entries added 2026-08-15 (auditor, off-data)
+
+Stubbed in `STATUS.md` as entries **34** and **35**. Full analysis:
+`notes/graded_path_does_not_clear_the_orthographic_floor_2026-08-14.md`.
+
+**34. FLIPPING THE GRADED SWITCH EXPECTING A C3 GAIN -- MEASURED AND NULL.**
+`exp_graded_path_vs_orthographic_floor_v1` (n=4000, 5491 anchors, positive control
+`a1_graded_on_reproduces_c3_headline_0480_exactly = true`): `A1_GRADED_ON` **0.0480** vs
+`A9_GRADED_OFF` **0.0465**, d = **+0.0015**, CI **[-0.0055, +0.00825]**, `ci_excludes_zero =
+false`, against between-projection-draw sd 0.0009 (ON) / 0.0024 (OFF) -- the delta is at
+draw-noise scale. Verdict `DOES_NOT_CLEAR_ORTHOGRAPHIC_FLOOR`; `on_clears=False off_clears=False
+graded_helps=False graded_hurts=False`. Neither arm clears spelling: `A5_STRINGCTRL` **0.0870**,
+ON-minus-spelling **-0.0390** CI [-0.0500, -0.02825], CI EXCLUDES ZERO; `A7_PREFIX_ONLY` 0.05875
+also beats both. `median_rank` ON **37.0**, OFF 45.0, spelling 37.0, prefix 33.5 -- the ON arm
+only TIES the spelling control on rank and LOSES to prefix.
+**\* Revival criterion:** the projection-draw ensemble disagrees with the canonical projection
+(draw-mean delta +0.0092, 3 draws/arm; the canonical projection is worst-of-four for ON and
+best-of-four for OFF), so `graded_helps=False` is NOT settled -- a re-run with >=10 independent
+projection draws per arm could legitimately overturn it. It could NOT overturn the floor verdict:
++0.0092 still leaves the read-out 0.0356 below spelling. **Do NOT turn the switch off** -- every
+point estimate is positive and self-retrieval is better with it on (0.7860 vs 0.7358, floor 0.70).
+**Integrity flag recorded rather than waved through:** `arms_must_differ.ok = false` --
+`F_SCRAMBLE_ON` and `F_SCRAMBLE_OFF` share digest `4596b30dc13e9692` (bit-identical per-item hit
+vectors). The collision is confined to the two scramble floors; the two treatment arms have
+distinct digests (`9ee2af8d9ece6c2b` / `f3402395402fee12`), so the load-bearing comparison is
+unaffected -- but the cell's own gate did not pass and that is not silently adopted.
+
+**35. QUOTING +0.0602 (OR 0.6395 -> 0.6980 / 0.69975 / 0.7495) AS A C3 NUMBER -- WRONG CURRENCY.**
+Those are **near-neighbour 2AFC** accuracies from `data/exp_graded_divisive_comparator_v1`
+(verified off disk: `chance = 0.5`, `n_anchors = 2377`, verdict_msg `LIVE(A_SSN)=0.6395
+PRIMARY(A_GGZ)=0.69975 | d=0.0602 CI=[0.0440,0.0762]`). C3 is **open-vocabulary hit@1** -- chance
+~1/5491, pool **5491**. A gain measured on one scorer was carried across to another where it does
+not exist; the same manipulation in C3's own currency is **+0.0015, null** (entry 34). The source
+cell's HARD_PASS **stands on its own scorer and is NOT demoted** -- only the carry-across is
+refuted. **Revival criterion: none. This is a units error, not a hypothesis.** General form, and
+the reason it earns a slot: **a gain on one scorer is not a gain on another; carry a metric's
+identity with its number.**
+
+## CORRECTIONS TO PRIOR CLAIMS -- added 2026-08-15 (auditor, off-data)
+
+**C17. THE SCRAMBLE FLOOR IS DONOR-RULE DEPENDENT; 0.0080 AND 0.01375 ARE BOTH RIGHT.**
+`STATUS.md` quoted **0.0080** bare. Traced: 0.0080 is
+`exp_grounding_readout_known_answer_v1` -> `stage_b.open_vocabulary_readout.hit_at_1.
+B6_OPEN_SCRAMBLE` (CI [0.00525, 0.01100]); 0.01375 is `exp_graded_path_vs_orthographic_floor_v1`
+-> `F_SCRAMBLE_{ON,OFF}` (CI [0.01050, 0.01725]). Harness, n (4000), pool (5491), gold, metric and
+query format (BOTH graded -- the known-answer run had `HD_GRADED_COMPARATOR_env = 1`, and
+`reading_grounding_loop.py:504` returns the graded sum when the switch is on) are IDENTICAL. The
+**donor rule** is the whole difference: the known-answer cell uses a CONFLICT-AVOIDING DERANGEMENT
+(`:503`, a donor sharing any of `{L, G, F}` with the item is excluded); the graded-path cell uses a
+plain `rng.permutation(n)` (`:357`) with no conflict avoidance, so donors whose gold set overlaps
+the item's remain and score structural hits. Ruled out as the cause: that permutation has **zero
+fixed points** at `MASTER_SEED + 21 = 20260835` (independently re-drawn and counted). Neither
+number is retired and **neither may be quoted bare** -- quote the donor rule with the number. The
+looser rule gives the higher, more conservative floor, which is what a floor should do.
+Cross-check on scope: `exp_orthographic_floor_vet_v1` has NO scramble arm at all (`per_arm` =
+`A1_BASE`, `A6_TRIGRAM_ONLY`, `A7_PREFIX_ONLY`, `A8_MAXORTHO`), so 0.0080 was never sourced from
+the floor-VET cell despite sitting beside its numbers in the same paragraph.
+
+**C18. THE TOP ITEM'S CONJUNCTIVE-CODING LEAN IS QUALIFIED, NOT REFUTED.** Four orphaned
+perirhinal literature scans were rescued from sub-agent transcripts and persisted verbatim with
+their per-claim evidence tags intact (`notes/lit_scan_perirhinal_conjunctive_coding_operation_
+2026-08-14.md`, `..._feature_ambiguity_hypothesis_lesion_evidence_...`,
+`..._perirhinal_purely_mnemonic_counter_position_...`,
+`..._vvs_to_mtl_representational_hierarchy_interference_...`). They establish two qualifications.
+(a) The conjunction OPERATION is **UNPINNED**: no measured superadditivity coefficient exists for
+real perirhinal neurons, and the one verifiable model (Cowell, Bussey & Saksida 2006, J Neurosci
+26(47):12186-12197) uses a **Kohonen self-organising map with Euclidean-distance readout that its
+own authors flag as an abstraction, not a biophysical claim**. (b) The feature-ambiguity account
+is **actively CONTESTED with genuine FAILED REPLICATIONS** -- Clark et al. 2011 (Neuron), null in
+rats at every ambiguity level **with a memory-task positive control in the same animals**; Levy /
+Shrager / Squire null in humans. Consequence for the TOP ITEM: our own floored results (factored
+1.000 vs flat 0.003; conjunctive 1.000 vs additive 0.273; permutation 1.000 vs FHRR 0.0629) are
+UNAFFECTED and remain the reason to give the comparator a structured code. What may NOT be claimed
+is that this is PINNED BRAIN FIDELITY. Pursue it as OUR engineering choice on OUR measurements.

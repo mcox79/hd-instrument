@@ -483,7 +483,12 @@ per-dimension REWEIGHTING we have tried is null or harmful: **log-IDF null; glob
 **HARD_FAIL_GAIN_HURTS**, d = −0.0220 CI [−0.0340,−0.0097], floors 0.4953/0.5065 scrambled, 0.4800
 frequency). **The only thing that helped was REMOVING a per-dimension DESTRUCTION**
 (`exp_graded_divisive_comparator_v1`, **HARD_PASS**, LIVE 0.6395 -> GRADED 0.6997, d=+0.0602 CI
-[0.0440,0.0762], scrambled floors 0.4975/0.5065, frequency 0.4800). `ORGAN_MAP.md` C3 names the
+[0.0440,0.0762], scrambled floors 0.4975/0.5065, frequency 0.4800).
+> ⚠️ **MARKED, 2026-08-14 (not deleted): these are NEAR-NEIGHBOUR 2AFC accuracies (chance 0.50,
+> pool 2,377), NOT C3 open-vocab hit@1 (chance ~1/5491, pool 5,491).** The HARD_PASS stands on its
+> OWN scorer; the carry-across to the read-out does not. Measured in C3 currency the same contrast
+> is **+0.0015, CI [-0.0055,+0.0083], NULL** (`exp_graded_path_vs_orthographic_floor_v1`). See the
+> banner in §8 and `notes/graded_path_does_not_clear_the_orthographic_floor_2026-08-14.md`. `ORGAN_MAP.md` C3 names the
 mechanism unifying all four nulls: **with ~70 observations per concept in a 256-dim projection, the
 dimensions with the largest anchor-difference are disproportionately the WORST-ESTIMATED.** That is
 an **estimation-noise** statement, and **it points at capacity (B4), not at the weighting rule.**
@@ -630,7 +635,64 @@ organs.
 > **Note the live callers import `k_NN_lookup` (the single-shot form), not the iterative one** —
 > `role_slot_summarizer.py:60`, `semantic_parser.py:96`, `context_retention.py:56`.
 
-**THE SINGLE LARGEST FIDELITY GAP** (stated once, and it is not the one the brief anticipated):
+> **SECOND CORRECTION, 2026-08-14, SAME NIGHT, TO THE "LARGEST FIDELITY GAP" CLAIM IMMEDIATELY
+> BELOW. THE CLAIM IS WITHDRAWN AS STATED. The text below is left intact and is NOT deleted.**
+>
+> **The evidence cited for it, `+0.0602 CI [0.0440,0.0762]`, is NOT a C3 number and never was.**
+> It comes from `data/exp_graded_divisive_comparator_v1/metrics.json`, whose verdict string reads
+> `LIVE(A_SSN)=0.6395 PRIMARY(A_GGZ)=0.6997 | d=0.0602 | ... CHANCE=0.50`. That is a
+> **near-neighbour 2AFC** scorer -- **chance 0.50, pool 2,377 anchors**. C3 is **open-vocabulary
+> hit@1** -- chance ~1/5491, pool **5,491** anchors. A gain measured on one scorer was carried
+> across to another where it does not exist. The same error carried `0.6395 -> 0.6980` into the
+> read-out narrative in this note and in `STATUS.md`.
+>
+> **Measured in C3's own currency, the contrast is NULL.**
+> `data/exp_graded_path_vs_orthographic_floor_v1/metrics.json` (n=4000, 5491 anchors, positive
+> control `a1_graded_on_reproduces_c3_headline_0480_exactly = true`):
+> **`A1_GRADED_ON` 0.0480 vs `A9_GRADED_OFF` 0.0465, d = +0.0015, CI [-0.0055, +0.0083],
+> `ci_excludes_zero = false`.** Verdict `DOES_NOT_CLEAR_ORTHOGRAPHIC_FLOOR`; both arms lose to
+> spelling (`A5_STRINGCTRL` 0.0870; ON-minus-spelling **-0.0390**, CI excludes zero).
+>
+> **What this means for the sentence below.** "The single largest fidelity gap" was ranked largest
+> **on the strength of the +0.0602**. With that number withdrawn from this currency, **the ranking
+> has no evidential basis and the claim is withdrawn.** The *descriptive* half of the paragraph
+> stays true -- we DO compute a graded per-dimension count and `np.sign` DOES discard it -- but
+> "largest gap" was a claim about MAGNITUDE OF PAYOFF, and the measured payoff on the read-out is
+> **+0.0015, null**. Note the direction of this correction: the FIRST banner (head of this note)
+> said the gain was *"already banked, not available"*. That was also wrong. **It was never in this
+> currency at all.**
+>
+> **What survives, stated as hard as the negative:** the graded switch improves RANKING --
+> `median_rank` 45.0 -> **37.0**, `frac_gold_in_top50` 0.5225 -> 0.5565 (neither has a CI, so both
+> are uncontrolled observations); and the **projection-draw ensemble** disagrees with the canonical
+> projection, giving a draw-mean delta of **+0.0092** (ON mean 0.05142 vs OFF mean 0.04225, t~5.0
+> on 3 draws/arm), with the canonical projection being the worst-of-four for ON and the
+> best-of-four for OFF. So `graded_helps=False` is **NOT settled** and is the one live re-opening.
+> It cannot rescue the floor verdict: +0.0092 still leaves us **0.0356 below spelling**.
+> **Do NOT turn the graded switch off** -- every point estimate is positive and self-retrieval is
+> better with it on (0.7860 vs 0.7358).
+>
+> **Also qualified: section 4 of this note ((c) conjunctive coding).** The four orphaned perirhinal
+> scans it called for were RESCUED and persisted tonight, and they qualify it. The conjunction
+> OPERATION is **UNPINNED** -- no measured superadditivity coefficient exists for real perirhinal
+> neurons, and the one verifiable model (Cowell, Bussey & Saksida 2006, *J Neurosci*
+> 26(47):12186-12197) uses a Kohonen SOM with Euclidean-distance readout that **its own authors
+> flag as an abstraction, not a biophysical claim**. And the feature-ambiguity account is
+> **actively CONTESTED with genuine FAILED REPLICATIONS** (Clark et al. 2011, *Neuron*, null in rats
+> at every one of 14 ambiguity levels **with a memory-task positive control in the same animals**;
+> Levy/Shrager/Squire 2005 and Shrager et al. 2006 null in humans). This note's section 4 framing
+> of conjunctive coding as "the closest published match to our exact failure" may be pursued as
+> **our engineering choice on our own floored results**, but NOT as pinned brain fidelity.
+>
+> **Full analysis, with the scramble reconciliation and the six-point check:**
+> `notes/graded_path_does_not_clear_the_orthographic_floor_2026-08-14.md`.
+> **Scans:** `notes/lit_scan_perirhinal_conjunctive_coding_operation_2026-08-14.md`,
+> `notes/lit_scan_feature_ambiguity_hypothesis_lesion_evidence_2026-08-14.md`,
+> `notes/lit_scan_perirhinal_purely_mnemonic_counter_position_2026-08-14.md`,
+> `notes/lit_scan_vvs_to_mtl_representational_hierarchy_interference_2026-08-14.md`.
+
+**THE SINGLE LARGEST FIDELITY GAP** (stated once, and it is not the one the brief anticipated)
+[**WITHDRAWN AS STATED -- see the banner immediately above; the evidence was a 2AFC number**]:
 
 > **We compute the brain's statistic and then destroy it.** `ConceptSpace.observe` accumulates a
 > genuine graded per-dimension count — the exact quantity the brain uses to weight distinctiveness —
