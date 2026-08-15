@@ -1,0 +1,82 @@
+{
+ "anchor_name": "orthographic_floor_relinfer_B82_v1",
+ "what": "AUDITOR RECOMPUTE: trigram-surface-only ORTHO_ARM plugged into the module's own eval_relational_inference, paired-bootstrapped against re-trained LEARNED",
+ "target_cell": "experiments.exp_leakproof_relinfer_twonew_v1",
+ "target_cell_short": "B82",
+ "compares_against": {
+  "landed_metrics": "data/exp_leakproof_relinfer_twonew_v1/metrics.json",
+  "landed_learned_rel_infer_auc": 0.6719
+ },
+ "ts_iso": "2026-08-15T15:15:05.154254+00:00",
+ "reproduction_check": {
+  "recomputed_learned_auc_seed_mean": 0.6719225266456412,
+  "landed_learned_auc": 0.6719,
+  "abs_diff": 2.2526645641174348e-05,
+  "within_0.02_tolerance": true
+ },
+ "ortho_arm": {
+  "rel_infer_auc": 0.5080460907042346,
+  "n_query": 549,
+  "trigram_dim": 512,
+  "construction": "surface-string char-trigram cosine, ZERO substrate/embedding signal, same eval_relational_inference scorer as LEARNED/RAW/POPULARITY/COLLAPSE"
+ },
+ "learned_arm_recomputed": {
+  "rel_infer_auc_seed_mean": 0.6719225266456412,
+  "n_query_common_across_seeds": 549,
+  "seeds": [
+   7,
+   13,
+   19
+  ]
+ },
+ "paired_bootstrap_learned_minus_ortho": {
+  "n_query": 549,
+  "a_mean": 0.6719225266456412,
+  "b_mean": 0.5080460907042346,
+  "delta_a_minus_b": 0.16387643594140666,
+  "ci_lo": 0.14900402948538854,
+  "ci_hi": 0.17990808702409136,
+  "sd": 0.00784311405213894,
+  "ci_excludes_zero": true
+ },
+ "clears_ortho_floor_ci_separated": true,
+ "split_meta": {
+  "n_train": 1948,
+  "n_heldout": 552,
+  "n_eval_queries": 549,
+  "no_overlap_witness_overlap": 0,
+  "no_overlap_witness_predict_targets": 10866,
+  "mean_held_context_size": 81.16757741347905,
+  "mean_predict_deg": 19.684782608695652,
+  "n_rel_slots": 17,
+  "mode": "two_new_concept"
+ },
+ "data_meta": {
+  "n_grounded_total": 25312,
+  "n_induced_pairs_total": 188987,
+  "n_kept_concepts": 2500,
+  "n_kept_pairs": 138222,
+  "min_deg": 2,
+  "cap_nodes": 2500,
+  "top_rels": [
+   "/r/LocatedNear",
+   "mw:MayHaveProperty",
+   "/r/CapableOf",
+   "/r/AtLocation",
+   "/r/MannerOf",
+   "/r/UsedFor",
+   "/r/PartOf",
+   "/r/HasProperty",
+   "/r/HasSubevent",
+   "/r/HasPrerequisite",
+   "/r/Causes",
+   "/r/Desires",
+   "/r/HasA",
+   "/r/MadeOf",
+   "/r/MotivatedByGoal",
+   "/r/ReceivesAction"
+  ],
+  "n_rel_slots": 17
+ },
+ "elapsed_s": 54.22
+}

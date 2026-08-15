@@ -1,0 +1,108 @@
+{
+ "anchor_name": "orthographic_floor_comparator_v1",
+ "what": "AUDITOR RECOMPUTE: trigram-only ORTHO arm (visible-context-vs-candidate-spelling, zero substrate signal) added to M25's own paired_bootstrap alongside re-derived LIVE and PRIMARY",
+ "target_cell": "exp_graded_divisive_comparator_v1",
+ "compares_against": {
+  "landed_metrics": "data/exp_graded_divisive_comparator_v1/metrics.json",
+  "landed_LIVE_A_SSN": 0.6395,
+  "landed_PRIMARY_A_GGZ": 0.69975
+ },
+ "ts_iso": "2026-08-15T15:37:34.680249+00:00",
+ "reproduction_check": {
+  "recomputed_LIVE": 0.6395,
+  "recomputed_PRIMARY": 0.69975,
+  "exact_match": true
+ },
+ "n_items": 4000,
+ "n_anchors": 2377,
+ "chance": 0.5,
+ "arm_accuracy": {
+  "A_SSN": 0.6395,
+  "A_GGZ": 0.69975,
+  "H_ORTHO_TRIGRAM": 0.53275
+ },
+ "ortho_arm_construction": "trigram bag over VISIBLE (target/distractor-masked) context words vs single-word trigram of TARGET / DISTRACTOR spelling; same 2AFC tie-break as score_arm; TRIGRAM_DIM=512",
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260815,
+  "clustered": false,
+  "arm_acc_ci": {
+   "A_SSN": {
+    "acc": 0.6395,
+    "ci_lo": 0.62475,
+    "ci_hi": 0.6545,
+    "sd": 0.007636
+   },
+   "A_GGZ": {
+    "acc": 0.69975,
+    "ci_lo": 0.68575,
+    "ci_hi": 0.71425,
+    "sd": 0.00722
+   },
+   "H_ORTHO_TRIGRAM": {
+    "acc": 0.53275,
+    "ci_lo": 0.517244,
+    "ci_hi": 0.5485,
+    "sd": 0.007799
+   }
+  },
+  "deltas": {
+   "d_PRIMARY_minus_ORTHO": {
+    "delta": 0.167,
+    "ci_lo": 0.146744,
+    "ci_hi": 0.188,
+    "sd": 0.010474,
+    "mde_95": 0.02053,
+    "ci_excludes_zero": true,
+    "frac_boot_above_zero": 1.0
+   },
+   "d_LIVE_minus_ORTHO": {
+    "delta": 0.10675,
+    "ci_lo": 0.08575,
+    "ci_hi": 0.127756,
+    "sd": 0.010809,
+    "mde_95": 0.021186,
+    "ci_excludes_zero": true,
+    "frac_boot_above_zero": 1.0
+   },
+   "d_ORTHO_minus_CHANCE": {
+    "delta": 0.03275,
+    "ci_lo": 0.017244,
+    "ci_hi": 0.0485,
+    "sd": 0.007799,
+    "mde_95": 0.015286,
+    "ci_excludes_zero": true,
+    "frac_boot_above_zero": 1.0
+   },
+   "d_PRIMARY_minus_LIVE": {
+    "delta": 0.06025,
+    "ci_lo": 0.044,
+    "ci_hi": 0.0765,
+    "sd": 0.008308,
+    "mde_95": 0.016284,
+    "ci_excludes_zero": true,
+    "frac_boot_above_zero": 1.0
+   }
+  }
+ },
+ "clears_ortho_floor_ci_separated": {
+  "PRIMARY_vs_ORTHO": true,
+  "LIVE_vs_ORTHO": true
+ },
+ "item_construction": {
+  "n_eval_sentences_considered": 19680,
+  "n_items_before_cap": 8636,
+  "n_items": 4000,
+  "removals": {
+   "removed_L1_target_variant": 350,
+   "removed_L2_distractor_present": 289,
+   "removed_L3_too_few_context_words": 518,
+   "removed_no_eligible_sentence": 2,
+   "removed_sentence_reuse": 9887,
+   "removed_word_cap": 7122
+  },
+  "distinct_target_words": 1476,
+  "max_items_per_word": 4
+ },
+ "elapsed_s": 190.99
+}

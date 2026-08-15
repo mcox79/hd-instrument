@@ -1,0 +1,82 @@
+{
+ "anchor_name": "orthographic_floor_relinfer_B45_v1",
+ "what": "AUDITOR RECOMPUTE: trigram-surface-only ORTHO_ARM plugged into the module's own eval_relational_inference, paired-bootstrapped against re-trained LEARNED",
+ "target_cell": "experiments.exp_leakproof_relinfer_context_sweep_v1",
+ "target_cell_short": "B45",
+ "compares_against": {
+  "landed_metrics": "data/exp_leakproof_relinfer_context_sweep_v1/metrics.json",
+  "landed_learned_rel_infer_auc": 0.6614
+ },
+ "ts_iso": "2026-08-15T15:16:37.270117+00:00",
+ "reproduction_check": {
+  "recomputed_learned_auc_seed_mean": 0.6613710915754539,
+  "landed_learned_auc": 0.6614,
+  "abs_diff": 2.890842454605913e-05,
+  "within_0.02_tolerance": true
+ },
+ "ortho_arm": {
+  "rel_infer_auc": 0.49847314735261106,
+  "n_query": 552,
+  "trigram_dim": 512,
+  "construction": "surface-string char-trigram cosine, ZERO substrate/embedding signal, same eval_relational_inference scorer as LEARNED/RAW/POPULARITY/COLLAPSE"
+ },
+ "learned_arm_recomputed": {
+  "rel_infer_auc_seed_mean": 0.6613710915754539,
+  "n_query_common_across_seeds": 552,
+  "seeds": [
+   7,
+   13,
+   19
+  ]
+ },
+ "paired_bootstrap_learned_minus_ortho": {
+  "n_query": 552,
+  "a_mean": 0.6613710915754539,
+  "b_mean": 0.49847314735261106,
+  "delta_a_minus_b": 0.16289794422284287,
+  "ci_lo": 0.15050324518583075,
+  "ci_hi": 0.17558402607347695,
+  "sd": 0.006303954103767195,
+  "ci_excludes_zero": true
+ },
+ "clears_ortho_floor_ci_separated": true,
+ "split_meta": {
+  "n_train": 1948,
+  "n_heldout": 552,
+  "n_eval_queries": 552,
+  "no_overlap_witness_overlap": 0,
+  "no_overlap_witness_predict_targets": 22299,
+  "mean_held_context_size": 40.367753623188406,
+  "n_rel_slots": 17,
+  "predict_frac": 0.5,
+  "max_context": null
+ },
+ "data_meta": {
+  "n_grounded_total": 25312,
+  "n_induced_pairs_total": 188987,
+  "n_kept_concepts": 2500,
+  "n_kept_pairs": 138222,
+  "min_deg": 2,
+  "cap_nodes": 2500,
+  "top_rels": [
+   "/r/LocatedNear",
+   "mw:MayHaveProperty",
+   "/r/CapableOf",
+   "/r/AtLocation",
+   "/r/MannerOf",
+   "/r/UsedFor",
+   "/r/PartOf",
+   "/r/HasProperty",
+   "/r/HasSubevent",
+   "/r/HasPrerequisite",
+   "/r/Causes",
+   "/r/Desires",
+   "/r/HasA",
+   "/r/MadeOf",
+   "/r/MotivatedByGoal",
+   "/r/ReceivesAction"
+  ],
+  "n_rel_slots": 17
+ },
+ "elapsed_s": 86.17
+}
