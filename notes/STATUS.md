@@ -39,7 +39,7 @@ MERGED into `RECOVERY_PROGRAM.md` (`2fbd28ea5`): 974 rows / ~696 distinct invest
 over THAT FILE ONLY -- "run over all three" now DOUBLE-COUNTS (1944). 0 lost; 90 dups; 12 DANGLING;
 21 rows CORRECTED vs disk (3 wins carried as failures, 1 OOM abort recorded PASS, 14 "missing" dirs
 = case-sensitivity). 279 rows are ONE grid; only 172/565 chain-graded have a real floor; 0 WIRED.
-BEFORE WIRING ANY ROW RE-CHECK ITS FLOOR + SCORER -- green rows were graded against weak floors.
+BEFORE WIRING ANY ROW RE-CHECK ITS FLOOR + SCORER -- green rows used weak floors.
 UNTRIAGED: ~1,180 atoms, ~7,150/7,634 metrics.
 
 ## OTHER PATH STATE
