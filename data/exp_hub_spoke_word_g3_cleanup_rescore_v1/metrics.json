@@ -1,0 +1,880 @@
+{
+  "anchor_name": "hub_spoke_word_g3_cleanup_rescore_v1",
+  "code_version": "v1.0",
+  "run_mode": "full",
+  "amendment": "A3 (2026-08-15) to preregs/exp_hub_spoke_word_representation_v1.md section 6b G3",
+  "parent_cell": "experiments/exp_hub_spoke_word_representation_v1.py (UNMODIFIED)",
+  "prereg": "preregs/exp_hub_spoke_word_representation_v1.md",
+  "verdict": "G3_RESCORED_FAIL",
+  "verdict_msg": "AMENDMENT A3. G3 rescored through CLEANUP at d=256 seed=7: rho=0.1977 vs strongest floor HARDENED_FREQ_MIN=0.0797, margin 0.1180 CI [-0.028670621298342098, 0.2662558209347489] -> NOT_SEPARATED. Degenerate raw-unbound row re-verified at THIS run's scale (V=4096, 322 pairs): max |cos delta| vs bundled = 1.192e-07. NO THRESHOLD CHANGED.",
+  "summary": "AMENDMENT A3. G3 rescored through CLEANUP at d=256 seed=7: rho=0.1977 vs strongest floor HARDENED_FREQ_MIN=0.0797, margin 0.1180 CI [-0.028670621298342098, 0.2662558209347489] -> NOT_SEPARATED. Degenerate raw-unbound row re-verified at THIS run's scale (V=4096, 322 pairs): max |cos delta| vs bundled = 1.192e-07. NO THRESHOLD CHANGED.",
+  "d_headline": 256,
+  "seed_headline": 7,
+  "per_config": {
+    "d1024_seed7": {
+      "d": 1024,
+      "seed": 7,
+      "n_pairs": 322,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 2.980232238769531e-07,
+        "rho_bundled": 0.18892864431783865,
+        "rho_raw_unbound": 0.18892864431783865
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.7865397135416666,
+        "mean_identity_chance": 0.000244140625,
+        "mean_code_exact_acc": 0.9996744791666666,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.999755859375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.999755859375,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.999267578125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.999267578125,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.360595703125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.998779296875,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.998779296875,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.99853515625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.99853515625,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.360595703125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.19612886279748298,
+          "ci95": [
+            0.08340938033667147,
+            0.3023952061860097
+          ],
+          "n": 322
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.19612886279748298,
+          "ci95": [
+            0.08340938033667147,
+            0.3023952061860097
+          ],
+          "n": 322
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.18892864431783865,
+          "ci95": [
+            0.07572418084597415,
+            0.2964786069836757
+          ],
+          "n": 322
+        },
+        "bundled_vector": {
+          "point": 0.18892864431783865,
+          "ci95": [
+            0.07572418084597415,
+            0.2964786069836757
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.01630025231619061,
+          "ci95": [
+            -0.12706974853177982,
+            0.100124831315426
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": -0.018949278960513866,
+          "ci95": [
+            -0.12882617265855092,
+            0.09398410020441636
+          ],
+          "n": 322
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": 0.01502783383663433,
+          "ci95": [
+            -0.09202357633125711,
+            0.12164455458472864
+          ],
+          "n": 322
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07968751909728343,
+          "ci95": [
+            -0.02593871204721594,
+            0.18665019608028544
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.01630025231619061,
+          "ci95": [
+            -0.12706974853177982,
+            0.100124831315426
+          ],
+          "n": 322
+        }
+      },
+      "strongest_floor": "HARDENED_FREQ_MIN",
+      "margin_over_strongest_floor": {
+        "point": 0.11644134370019955,
+        "ci95": [
+          -0.030821282548687788,
+          0.2653253914111068
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    },
+    "d1024_seed17": {
+      "d": 1024,
+      "seed": 17,
+      "n_pairs": 322,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 4.76837158203125e-07,
+        "rho_bundled": 0.1978913475601618,
+        "rho_raw_unbound": 0.1978913475601618
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.7861328125,
+        "mean_identity_chance": 0.000244140625,
+        "mean_code_exact_acc": 0.9991861979166666,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 1.0,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.99755859375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.99755859375,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.36083984375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.999267578125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.999267578125,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.998046875,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.998046875,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.35986328125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.19815285575478742,
+          "ci95": [
+            0.0863340605106386,
+            0.3044946224096207
+          ],
+          "n": 322
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.19815285575478742,
+          "ci95": [
+            0.0863340605106386,
+            0.3044946224096207
+          ],
+          "n": 322
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.1978913475601618,
+          "ci95": [
+            0.0867470228928845,
+            0.30368478233864443
+          ],
+          "n": 322
+        },
+        "bundled_vector": {
+          "point": 0.1978913475601618,
+          "ci95": [
+            0.0867470228928845,
+            0.30368478233864443
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.0780996366907136,
+          "ci95": [
+            -0.18354686419199645,
+            0.03257102957579253
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": -0.09579075551123467,
+          "ci95": [
+            -0.20326213820806394,
+            0.014114306333491155
+          ],
+          "n": 322
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": 0.01502783383663433,
+          "ci95": [
+            -0.09202357633125711,
+            0.12164455458472864
+          ],
+          "n": 322
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07968751909728343,
+          "ci95": [
+            -0.02593871204721594,
+            0.18665019608028544
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.0780996366907136,
+          "ci95": [
+            -0.18354686419199645,
+            0.03257102957579253
+          ],
+          "n": 322
+        }
+      },
+      "strongest_floor": "HARDENED_FREQ_MIN",
+      "margin_over_strongest_floor": {
+        "point": 0.11846533665750399,
+        "ci95": [
+          -0.028131131390601465,
+          0.26773116279139975
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    },
+    "d1024_seed23": {
+      "d": 1024,
+      "seed": 23,
+      "n_pairs": 322,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 2.384185791015625e-07,
+        "rho_bundled": 0.1924373440451271,
+        "rho_raw_unbound": 0.1924373440451271
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.7858072916666666,
+        "mean_identity_chance": 0.000244140625,
+        "mean_code_exact_acc": 0.9988606770833334,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 1.0,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.99658203125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.99658203125,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.36083984375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.999755859375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.999755859375,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.997314453125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.997314453125,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.3603515625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.19635454381803474,
+          "ci95": [
+            0.08484458433599182,
+            0.30261114927814053
+          ],
+          "n": 322
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.19635454381803474,
+          "ci95": [
+            0.08484458433599182,
+            0.30261114927814053
+          ],
+          "n": 322
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.1924373440451271,
+          "ci95": [
+            0.08051386032028139,
+            0.29794433120773045
+          ],
+          "n": 322
+        },
+        "bundled_vector": {
+          "point": 0.1924373440451271,
+          "ci95": [
+            0.08051386032028139,
+            0.29794433120773045
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": 0.07820577937454341,
+          "ci95": [
+            -0.03321659946731508,
+            0.18716643992803453
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": 0.050864913461911805,
+          "ci95": [
+            -0.061864549679669034,
+            0.16283442797062025
+          ],
+          "n": 322
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": 0.01502783383663433,
+          "ci95": [
+            -0.09202357633125711,
+            0.12164455458472864
+          ],
+          "n": 322
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07968751909728343,
+          "ci95": [
+            -0.02593871204721594,
+            0.18665019608028544
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": 0.07820577937454341,
+          "ci95": [
+            -0.03321659946731508,
+            0.18716643992803453
+          ],
+          "n": 322
+        }
+      },
+      "strongest_floor": "HARDENED_FREQ_MIN",
+      "margin_over_strongest_floor": {
+        "point": 0.11666702472075131,
+        "ci95": [
+          -0.029642567468830924,
+          0.2653335280782203
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    },
+    "d256_seed7": {
+      "d": 256,
+      "seed": 7,
+      "n_pairs": 322,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 1.1920928955078125e-07,
+        "rho_bundled": 0.18798402895305721,
+        "rho_raw_unbound": 0.18798402895305721
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.72607421875,
+        "mean_identity_chance": 0.000244140625,
+        "mean_code_exact_acc": 0.9397786458333334,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.940673828125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.941162109375,
+            "n_distinct_codes_in_codebook": 4095
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.877197265625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.878173828125,
+            "n_distinct_codes_in_codebook": 4088
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.3603515625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.94384765625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.944091796875,
+            "n_distinct_codes_in_codebook": 4095
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.874755859375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.8759765625,
+            "n_distinct_codes_in_codebook": 4088
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.3603515625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.19774431011854252,
+          "ci95": [
+            0.08547646559971112,
+            0.3036078471320747
+          ],
+          "n": 322
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.1977121427255762,
+          "ci95": [
+            0.08613763977463182,
+            0.3022948224845273
+          ],
+          "n": 322
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.18798402895305721,
+          "ci95": [
+            0.07554850495780481,
+            0.2937242383439069
+          ],
+          "n": 322
+        },
+        "bundled_vector": {
+          "point": 0.18798402895305721,
+          "ci95": [
+            0.07554850495780481,
+            0.2937242383439069
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.029703217643049486,
+          "ci95": [
+            -0.14121364457359808,
+            0.08441116020061745
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": -0.029049631338878567,
+          "ci95": [
+            -0.13936093350011383,
+            0.08411237738199447
+          ],
+          "n": 322
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": -0.012184567334673161,
+          "ci95": [
+            -0.12033574638287124,
+            0.09632249548382829
+          ],
+          "n": 322
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07968751909728343,
+          "ci95": [
+            -0.02593871204721594,
+            0.18665019608028544
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.029703217643049486,
+          "ci95": [
+            -0.14121364457359808,
+            0.08441116020061745
+          ],
+          "n": 322
+        }
+      },
+      "strongest_floor": "HARDENED_FREQ_MIN",
+      "margin_over_strongest_floor": {
+        "point": 0.11802462362829276,
+        "ci95": [
+          -0.028670621298342098,
+          0.2662558209347489
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    },
+    "d256_seed17": {
+      "d": 256,
+      "seed": 17,
+      "n_pairs": 322,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 1.1920928955078125e-07,
+        "rho_bundled": 0.2016752006594975,
+        "rho_raw_unbound": 0.2016752006594975
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.72509765625,
+        "mean_identity_chance": 0.000244140625,
+        "mean_code_exact_acc": 0.9384765625,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.93994140625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.93994140625,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.87451171875,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.87548828125,
+            "n_distinct_codes_in_codebook": 4084
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.36083984375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.938232421875,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.938232421875,
+            "n_distinct_codes_in_codebook": 4096
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.88427734375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.88525390625,
+            "n_distinct_codes_in_codebook": 4084
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.360107421875,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.1979284207784862,
+          "ci95": [
+            0.0864844410824762,
+            0.3050416485244276
+          ],
+          "n": 322
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.19464222220539423,
+          "ci95": [
+            0.08379126943896442,
+            0.300933740089803
+          ],
+          "n": 322
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.2016752006594975,
+          "ci95": [
+            0.09068493161912969,
+            0.30752235769666564
+          ],
+          "n": 322
+        },
+        "bundled_vector": {
+          "point": 0.2016752006594975,
+          "ci95": [
+            0.09068493161912969,
+            0.30752235769666564
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.0677357083732954,
+          "ci95": [
+            -0.17546896589675767,
+            0.04216729795824136
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": -0.05284886208673438,
+          "ci95": [
+            -0.16377305704008263,
+            0.05729039104120277
+          ],
+          "n": 322
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": -0.012184567334673161,
+          "ci95": [
+            -0.12033574638287124,
+            0.09632249548382829
+          ],
+          "n": 322
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07968751909728343,
+          "ci95": [
+            -0.02593871204721594,
+            0.18665019608028544
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.0677357083732954,
+          "ci95": [
+            -0.17546896589675767,
+            0.04216729795824136
+          ],
+          "n": 322
+        }
+      },
+      "strongest_floor": "HARDENED_FREQ_MIN",
+      "margin_over_strongest_floor": {
+        "point": 0.1149547031081108,
+        "ci95": [
+          -0.031745524661262146,
+          0.26350704264918207
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    },
+    "d256_seed23": {
+      "d": 256,
+      "seed": 23,
+      "n_pairs": 322,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 1.7881393432617188e-07,
+        "rho_bundled": 0.18435635369846942,
+        "rho_raw_unbound": 0.18435635369846942
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.726318359375,
+        "mean_identity_chance": 0.000244140625,
+        "mean_code_exact_acc": 0.9393717447916666,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.9306640625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.930908203125,
+            "n_distinct_codes_in_codebook": 4094
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.88720703125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.88720703125,
+            "n_distinct_codes_in_codebook": 4090
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.361083984375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.9375,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.937744140625,
+            "n_distinct_codes_in_codebook": 4094
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.8798828125,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 0.8798828125,
+            "n_distinct_codes_in_codebook": 4090
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.3603515625,
+            "cleanup_identity_chance": 0.000244140625,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 1476
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.19151464155787093,
+          "ci95": [
+            0.08003977808299208,
+            0.29845365129100193
+          ],
+          "n": 322
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.18819851314586117,
+          "ci95": [
+            0.07604399661613634,
+            0.295835668603471
+          ],
+          "n": 322
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.18435635369846942,
+          "ci95": [
+            0.07263917011930805,
+            0.29016853873613696
+          ],
+          "n": 322
+        },
+        "bundled_vector": {
+          "point": 0.18435635369846942,
+          "ci95": [
+            0.07263917011930805,
+            0.29016853873613696
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": 0.04942464707222732,
+          "ci95": [
+            -0.061572407495673345,
+            0.16185820882037705
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": 0.05232245353199885,
+          "ci95": [
+            -0.05754087877163667,
+            0.16371220019371827
+          ],
+          "n": 322
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": -0.012184567334673161,
+          "ci95": [
+            -0.12033574638287124,
+            0.09632249548382829
+          ],
+          "n": 322
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07968751909728343,
+          "ci95": [
+            -0.02593871204721594,
+            0.18665019608028544
+          ],
+          "n": 322
+        },
+        "SCRAMBLE_cleaned": {
+          "point": 0.04942464707222732,
+          "ci95": [
+            -0.061572407495673345,
+            0.16185820882037705
+          ],
+          "n": 322
+        }
+      },
+      "strongest_floor": "HARDENED_FREQ_MIN",
+      "margin_over_strongest_floor": {
+        "point": 0.10851099404857774,
+        "ci95": [
+          -0.03881501069561162,
+          0.2575593055902271
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    }
+  },
+  "elapsed_s": 849.7224986553192
+}
