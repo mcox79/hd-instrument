@@ -79,7 +79,8 @@ if REPO not in sys.path:
     sys.path.insert(0, REPO)
 
 from tools.c3_gate import (  # noqa: E402  -- the ONE gate implementation, imported not forked
-    BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, CONTROL_ROLES, REQUIRED_FLOOR_ROLES,
+    BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, CONSTANT_FLOOR_COMPARED, CONSTANT_FLOOR_ROLE,
+    CONTROL_ROLES, NO_CONSTANT_FLOOR, REQUIRED_FLOOR_ROLES,
     arm_ceiling_shape, claim_arm_eligibility, classify_arm_role, evaluate_standing_bar,
     min_ci_lo,
 )
@@ -94,7 +95,8 @@ NO_FLOOR = "NO_FLOOR"
 NO_CI = "NO_CI"
 SATURATED_CEILING = "SATURATED_CEILING"
 NO_VERDICT = "NO_VERDICT"          # residue bucket; never silently dropped
-CLASSES = (SATURATED_CEILING, STRING_PASSES_BAR_FAILS, NO_FLOOR, NO_CI, AGREES, NO_VERDICT)
+CLASSES = (SATURATED_CEILING, STRING_PASSES_BAR_FAILS, NO_FLOOR, NO_CI, NO_CONSTANT_FLOOR,
+           AGREES, NO_VERDICT)
 
 # Set False only by --_disable_guard, to prove in the self-test that the guard is load-bearing.
 GUARD_ENABLED = True
@@ -389,17 +391,127 @@ def _ci_lo_of(node: dict) -> Optional[float]:
     return None
 
 
+_COMPARISON_SEPS = ("_minus_", "-minus-", "__vs__", "_vs_", "_over_", "_against_")
+
+
+def _split_comparison(key: str) -> Optional[Tuple[str, str]]:
+    """(LEFT, RIGHT) of an explicit comparison key, or None.
+
+    `d_A4_BOTH_minus_F_FREQUENCY` -> ("A4_BOTH", "F_FREQUENCY"). The LEFT side NAMES THE ARM and
+    the RIGHT side names the floor. Extracting the left side is new on 2026-08-16 and is what
+    lets the `bootstrap.deltas.d_{ARM}_minus_{FLOOR}` shape survive the allowlist below: without
+    it the owning arm resolves to the container `deltas`, and a container is not an arm.
+    """
+    s = str(key)
+    for sep in _COMPARISON_SEPS:
+        if sep in s:
+            lhs, rhs = s.split(sep, 1)
+            lhs = lhs.strip("_")
+            if lhs[:2] == "d_":
+                lhs = lhs[2:]
+            return lhs.strip("_"), rhs.strip("_")
+    return None
+
+
 def _floor_role_of_key(key: str) -> Optional[str]:
     """Role of the floor a delta-shaped key compares AGAINST.
 
     `d_A4_BOTH_minus_F_FREQUENCY` -> frequency (the RIGHT side of `_minus_` is the floor).
     A plain floor-named key -> its own role.
     """
-    s = str(key)
-    for sep in ("_minus_", "-minus-", "_vs_", "_over_", "_against_"):
-        if sep in s:
-            return classify_arm_role(s.split(sep, 1)[1])
-    return classify_arm_role(s)
+    parts = _split_comparison(key)
+    if parts:
+        return classify_arm_role(parts[1])
+    return classify_arm_role(str(key))
+
+
+# ================================================================== 4a. THE ALLOWLIST
+# 2026-08-16, DEFECT 2. `verdict_bar_check` reported a `+0.0544 min_ci_lo` on
+# data/exp_synonym_substitution_metric_v1 that was THE SPELLING FLOOR'S OWN CRITERION RISE --
+# the number showing that the FLOOR gains 0.0636 when the success criterion is loosened -- and
+# then named that same field as the "binding floor". It is not a margin over a floor; it is a
+# fact ABOUT a floor. The cell's author rejected the verdict and published their own arm-by-arm
+# margins instead, correctly.
+#
+# THIS IS THE THIRD DEFECT OF THE SAME CLASS in this tool (the first two: selecting a
+# planted-answer `__KA` arm, then a literal `oracle_` arm). All three have one cause: selection
+# was DENYLIST-shaped -- anything not positively recognised as bad was treated as a claim. A
+# denylist that grows by one entry per incident keeps failing, so the rule is inverted here.
+#
+# MEASURED SCOPE OF THE DENYLIST FAILURE, enumerated across all 7,787 banked metrics.json
+# (scratch/cf_enumerate.py) BEFORE this fix: of the 75 cells that had an identified claim arm,
+# 30 rested on a bucket literally named `arm_acc_ci`, and others on `paired_bootstrap`,
+# `bootstrap_2afc`, `bootstrap_item`, `stage_b`, `twoafc`, `comparisons`, `per_config`, `100`
+# and `20260810`. None of those is an arm. `arm_acc_ci` is a per-arm accuracy table, so the CI
+# being credited as "our margin over the floor" was THE FLOOR ARM'S OWN ACCURACY INTERVAL --
+# the synonym cell's defect, thirty cells wide and never noticed.
+#
+# TWO INDEPENDENT POSITIVE TESTS, both required, both fail-closed:
+#   T1 MARGIN PROVENANCE  -- the CI must come from a node positively identified as a
+#      TREATMENT-MINUS-FLOOR comparison. A bare interval sitting on a floor-named node is a
+#      floor's own statistic and is refused.
+#   T2 ARM PROVENANCE     -- the owning key must be positively identified as an ARM.
+# (The pre-existing eligibility check -- control / validity-scaffold / ceiling / non-finite --
+# still runs, but it is now the SECOND filter rather than the only one.)
+#
+# PINNED vs OURS: "a margin is TREATMENT MINUS FLOOR on the identical scorer/population" and "a
+# floor arm's own delta is not a claim margin" are PINNED by the standing rule. The two
+# vocabularies below are OUR-INVENTION, enumerated from disk, freely revisable, and falsifiable
+# by the residue this tool REPORTS (`floor_cis_without_margin_provenance`, `claim_arm_rejected`)
+# rather than hides.
+MARGIN_PROVENANCE_SUBKEY = "MARGIN_SUBKEY"
+MARGIN_PROVENANCE_COMPARISON = "COMPARISON_KEY"
+MARGIN_PROVENANCE_CONTAINER = "MARGIN_CONTAINER"
+
+# A path segment that declares "the numbers under me are COMPARISONS AGAINST A FLOOR".
+# Enumerated from the parents of every floor-margin CI on disk, not guessed.
+_MARGIN_CONTAINER_RE = re.compile(
+    r"margin|delta|diff|separation|(^|_)gain($|_)|per_floor|vs_each_floor|vs_floor|"
+    r"vs_the_floor|against_floor|_minus_|__vs__", re.IGNORECASE)
+# The sub-key that CARRIES a margin's interval, when the floor-named node wraps one.
+_MARGIN_SELF_KEYS = ("margin", "delta", "diff", "difference", "gain")
+
+# A path segment that declares "my CHILDREN are arms". This is the strongest positive evidence
+# available inside a JSON blob: the cell itself said so.
+_ARM_CONTAINER_RE = re.compile(
+    r"^(per_arm|arms|by_arm|arm|rows|results|per_w|per_population|per_config|per_regime|"
+    r"per_pool|arm_acc_ci|variants|arm_metrics|by_arm_name)$|arm_by_arm|^arms_|_per_arm$",
+    re.IGNORECASE)
+
+ARM_PROV_CONTAINER = "CHILD_OF_AN_ARM_CONTAINER"
+ARM_PROV_COMPARISON = "NAMED_BY_A_COMPARISON_KEY"
+ARM_PROV_SCORE = "CARRIES_ITS_OWN_SCORE_METRIC"
+CLAIM_ARM_NOT_A_MARGIN = "NOT_A_FLOOR_MARGIN"
+CLAIM_ARM_UNCLASSIFIABLE = "UNCLASSIFIABLE"
+
+
+def margin_provenance(kpath: Tuple[str, ...], node: dict) -> Optional[str]:
+    """T1. POSITIVE evidence that `node` is a margin AGAINST a floor, or None. Fail-closed.
+
+    Three accepted forms, each observed on disk:
+      MARGIN_SUBKEY   the floor-named node wraps its interval in `margin` / `delta` / `gain`
+                      (`DECOMPOSED_per_floor.<FLOOR>.margin.ci95`)
+      COMPARISON_KEY  the key itself states the comparison (`d_{ARM}_minus_{FLOOR}`,
+                      `{ARM}__vs__{FLOOR}`)
+      MARGIN_CONTAINER an ANCESTOR segment declares its children are margins
+                      (`MARGIN_per_floor`, `deltas`, `vs_each_floor`, `MARGINS_paired_...`)
+
+    REFUSED, and this is the whole point: a bare `ci_lo` / `ci95` sitting directly on a
+    floor-named node with no comparison anywhere above it. That is the floor's OWN interval.
+    `HEADLINE.THE_SPELLING_FLOORS_RISE_on_the_same_items.ci95` and
+    `arm_acc_ci.<FLOOR>.ci_lo` are both this shape and both produced false margins.
+    """
+    for sk in _MARGIN_SELF_KEYS:
+        sub = node.get(sk)
+        if isinstance(sub, dict) and _ci_lo_of(sub) is not None:
+            return f"{MARGIN_PROVENANCE_SUBKEY}:{sk}"
+    if kpath and _split_comparison(kpath[-1]):
+        return MARGIN_PROVENANCE_COMPARISON
+    for seg in kpath[:-1]:
+        s = str(seg)
+        if s and s != "[]" and _MARGIN_CONTAINER_RE.search(s):
+            return f"{MARGIN_PROVENANCE_CONTAINER}:{s}"
+    return None
 
 
 def floor_evidence(m: dict) -> dict:
@@ -423,8 +535,13 @@ def floor_evidence(m: dict) -> dict:
     # is what let a planted-answer arm carry a claim on 2026-08-16.
     per_arm_segments: Dict[str, set] = {}
     per_arm_nodes: Dict[str, dict] = {}
+    per_arm_provenance: Dict[str, set] = {}
     node_by_path: Dict[Tuple[str, ...], dict] = {}
     tie_conventions: set = set()
+    # RESIDUE, REPORTED NEVER DROPPED: intervals on a floor-named node that carry no positive
+    # evidence of being a comparison. Before 2026-08-16 these were credited as margins.
+    no_provenance: List[dict] = []
+    n_no_provenance = [0]                 # the COUNT is exact; the list above is capped for size
     truncated = False
 
     budget = [MAX_NODES]
@@ -467,7 +584,8 @@ def floor_evidence(m: dict) -> dict:
                     return str(seg)
             return None
 
-        def _record(arm_path: Tuple[str, ...], lo: float, fname: str, role: str) -> None:
+        def _record(arm_path: Tuple[str, ...], lo: float, fname: str, role: str,
+                    prov: Sequence[str] = ()) -> None:
             """Bucket one CI-bearing floor margin under the arm that owns it, and keep BOTH the
             arm's naming segments and the arm's own metrics dict -- the claim-arm eligibility
             check needs each, and having only the tail segment is what produced the false pass."""
@@ -480,6 +598,15 @@ def floor_evidence(m: dict) -> dict:
             roles_with_ci.add(role)
             per_arm.setdefault(arm, []).append((lo, fname, role))
             per_arm_segments.setdefault(arm, set()).update(segs)
+            prov = list(prov)
+            # T2, POSITIONAL and deliberately so: the arm must be a DESCENDANT of a container
+            # that declares its children are arms. Testing the whole path instead would hand
+            # arm-provenance to the CONTAINER ITSELF whenever a floor sits directly beneath it
+            # (`<block>.ARM_BY_ARM_vs_EACH_FLOOR.<FLOOR>` names the container as the arm), which
+            # is the same tail-vs-whole-path confusion that produced the 2026-08-16 false pass.
+            if any(_ARM_CONTAINER_RE.search(str(s)) for s in arm_prefix[:-1]):
+                prov.append(ARM_PROV_CONTAINER)
+            per_arm_provenance.setdefault(arm, set()).update(prov)
             if arm not in per_arm_nodes:
                 nd = node_by_path.get(arm_prefix)
                 if isinstance(nd, dict):
@@ -489,11 +616,29 @@ def floor_evidence(m: dict) -> dict:
         if role in REQUIRED_FLOOR_ROLES:
             lo = _ci_lo_of(node)
             if lo is not None:
+                # T1, THE ALLOWLIST. A bare interval on a floor-named node is the FLOOR'S OWN
+                # statistic, not our margin over it. Refuse it, and RECORD the refusal.
+                prov = margin_provenance(kpath, node)
+                if prov is None:
+                    n_no_provenance[0] += 1
+                    if len(no_provenance) < 12:
+                        no_provenance.append({"path": _dot(kpath), "floor": last, "role": role,
+                                              "ci_lo": lo})
                 # THE FINAL SEGMENT IS THE FLOOR, not part of the arm's name -- drop it before
                 # naming the arm. Keeping it would disqualify every honest arm whose margin is
                 # recorded under a floor-named child (the genuine synthetic fixture has exactly
                 # that shape: TREATMENT.DECOMPOSED_per_floor.A_ORTHOGRAPHIC).
-                _record(kpath[:-1], lo, last, role)
+                #
+                # EXCEPT when the key IS the comparison (`d_{ARM}_minus_{FLOOR}`): then the arm
+                # is named INSIDE the key and dropping the segment would throw it away, leaving
+                # the container `deltas` to masquerade as the arm.
+                else:
+                    cmp_parts = _split_comparison(last)
+                    arm_path, ap = kpath[:-1], [prov]
+                    if cmp_parts and cmp_parts[0]:
+                        arm_path = kpath[:-1] + (cmp_parts[0],)
+                        ap.append(ARM_PROV_COMPARISON)
+                    _record(arm_path, lo, last, role, ap)
 
         # (ii) this node carries a margin whose floor is named by a SIBLING field
         for k, v in node.items():
@@ -516,8 +661,9 @@ def floor_evidence(m: dict) -> dict:
             r = classify_arm_role(fname) if fname else None
             if r in REQUIRED_FLOOR_ROLES:
                 # Here the floor is named by a SIBLING FIELD, not by a path segment, so the whole
-                # path belongs to the arm and nothing is dropped.
-                _record(kpath, lo, fname, r)
+                # path belongs to the arm and nothing is dropped. T1 is already satisfied: this
+                # branch only fires on a key that is itself margin/delta/separation-shaped.
+                _record(kpath, lo, fname, r, [f"{MARGIN_PROVENANCE_CONTAINER}:{k}"])
     if budget[0] <= 0:
         truncated = True
 
@@ -529,6 +675,11 @@ def floor_evidence(m: dict) -> dict:
         "per_arm_floor_cis": {a: v for a, v in sorted(per_arm.items())},
         "per_arm_name_segments": {a: sorted(s) for a, s in sorted(per_arm_segments.items())},
         "per_arm_nodes": per_arm_nodes,
+        "per_arm_margin_provenance": {a: sorted(s) for a, s in sorted(per_arm_provenance.items())},
+        # An interval on a floor-named node with NO positive evidence of being a comparison.
+        # Before 2026-08-16 every one of these was credited as a margin over that floor.
+        "floor_cis_without_margin_provenance": no_provenance,
+        "n_floor_cis_without_margin_provenance": n_no_provenance[0],
         "tie_conventions_present": sorted(tie_conventions),
         "traversal_truncated": truncated,
     }
@@ -580,7 +731,20 @@ def _owning_arm(kpath: Tuple[str, ...]) -> Tuple[str, List[str], Tuple[str, ...]
              # precisely to catch `MARGIN_per_floor` / `TOP50_MARGIN_per_floor` /
              # `CONSERVATIVE_ties`, none of which START with the token. `.match` anchored at
              # position 0 and silently caught none of them.
-             if p and p != "[]" and p not in _CONTAINER_KEYS and not _CONTAINER_RE.search(p)]
+             #
+             # `_ARM_CONTAINER_RE` is filtered here too (added 2026-08-16). A segment that
+             # declares "my children are arms" is BY DEFINITION not itself an arm, and leaving
+             # it in the label cost a real SCOPE violation: in
+             # data/exp_synonym_substitution_metric_v1 the margins live at
+             # `RESULTS_BY_BLOCK.<block>.ARM_BY_ARM_vs_EACH_FLOOR_tie_corrected.<ARM>.<FLOOR>`,
+             # so with the container retained the label became
+             # `ARM_BY_ARM_vs_EACH_FLOOR_tie_corrected::R0_CTX_DENSE` and ALL 26 condition x
+             # regime blocks -- different pools, different criteria, different chance rates --
+             # POOLED into one bucket. The bar requires the IDENTICAL scorer / n / pool / gold,
+             # so merging them is exactly the comparison it forbids. Dropping the container puts
+             # the BLOCK in the scope slot and the blocks are judged apart.
+             if p and p != "[]" and p not in _CONTAINER_KEYS
+             and not _CONTAINER_RE.search(p) and not _ARM_CONTAINER_RE.search(p)]
     named = [p for p in parts if classify_arm_role(p) not in REQUIRED_FLOOR_ROLES]
     if not named:
         return (_dot(kpath) or "<cell>"), list(parts), kpath
@@ -610,9 +774,75 @@ def _finite(x) -> bool:
         return False
 
 
+def classify_claim_arm(scoped: str, segs: Sequence[str], node: Optional[dict],
+                       provenance: Sequence[str], cis: Sequence[tuple]) -> dict:
+    """ALLOWLIST. Is this bucket POSITIVELY a treatment arm eligible to carry a cell's claim?
+
+    Returns {"role": "TREATMENT" | <a refusal reason>, "detail": ...}. Anything that is not
+    positively a TREATMENT is refused -- there is no default-accept path, which is the whole
+    change. A tool that guesses in the passing direction is worse than no tool.
+
+    Order of tests is chosen so the refusal REASON is the most informative one available:
+      1. NON_FINITE_CI          -- NaN/inf bounds are unclassifiable, and unclassifiable is not
+                                   evidence (max() over a set containing NaN is order-dependent).
+      2. control / scaffold / ceiling -- the pre-existing eligibility check, over EVERY naming
+                                   segment. Now includes the CONSTANT floor, which before today
+                                   classified as None and was therefore claim-eligible.
+      3. NOT_A_FLOOR_MARGIN     -- T1: no CI credited to this arm came from a node positively
+                                   identified as a comparison against a floor.
+      4. UNCLASSIFIABLE         -- T2: nothing positively identifies this bucket as an ARM. It is
+                                   a container, a bootstrap block or a summary heading.
+    """
+    nonfinite = [c[1] for c in cis if not _finite(c[0])]
+    if nonfinite:
+        return {"role": "NON_FINITE_CI",
+                "detail": "floor margins with a non-finite bound: "
+                          + ", ".join(sorted(set(nonfinite))[:4]), "evidence": None}
+    elig = claim_arm_eligibility(segs, node)
+    if not elig["eligible"]:
+        return {"role": elig["reason"], "detail": elig["detail"], "evidence": elig["evidence"]}
+    prov = set(provenance or ())
+    if not any(p.startswith((MARGIN_PROVENANCE_SUBKEY, MARGIN_PROVENANCE_COMPARISON,
+                             MARGIN_PROVENANCE_CONTAINER)) for p in prov):
+        return {"role": CLAIM_ARM_NOT_A_MARGIN,
+                "detail": "no interval credited to this bucket came from a node positively "
+                          "identified as a TREATMENT-MINUS-FLOOR comparison; a bare interval on "
+                          "a floor-named node is that FLOOR'S OWN statistic",
+                "evidence": sorted(prov)[:4]}
+    arm_prov = [p for p in prov if p in (ARM_PROV_CONTAINER, ARM_PROV_COMPARISON)]
+    if not arm_prov:
+        # WEAK evidence, computed and REPORTED but deliberately NOT accepted. "This node carries
+        # a score of its own" was the first cut of T2 and it is measurably too loose: a POOL
+        # BLOCK carries `hit_at_1_TIE_CORRECTED_primary`, and a margin container such as
+        # `vs_each_floor` carries a headline number too, so both were admitted as arms on
+        # data/exp_synonym_substitution_metric_v1 -- replacing one wrong claim arm (`HEADLINE`)
+        # with another (`...::vs_each_floor`). Caught by re-running the corpus A/B and reading
+        # the surviving selections instead of accepting them.
+        #
+        # THE COST IS REAL AND IS STATED RATHER THAN BURIED: a cell that records
+        # `<ARM>/<STRATUM>/DECOMPOSED_per_floor/<FLOOR>` with no `per_arm`-style container above
+        # it now has NO identified claim arm and reads NO_EVIDENCE. That is the fail-closed
+        # answer -- the artifact does not declare which bucket is an arm, so neither can we --
+        # and the remedy belongs to the cell: nest arms under a `per_arm` / `arms` / `by_arm`
+        # container, or record margins under an explicit `{ARM}_minus_{FLOOR}` key.
+        weak = bool(node) and any(
+            _SCORE_KEY.search(str(k)) for k, v in (node or {}).items()
+            if not isinstance(v, bool) and isinstance(v, (int, float)))
+        return {"role": CLAIM_ARM_UNCLASSIFIABLE,
+                "detail": "nothing positively identifies this bucket as an ARM: it is not a "
+                          "child of a declared arm container and it is not named by a "
+                          "comparison key"
+                          + (" (it does carry a score of its own, which is NOT accepted as "
+                             "evidence: pool blocks and margin containers carry one too)"
+                             if weak else ""),
+                "evidence": sorted(prov)[:4] + ([ARM_PROV_SCORE] if weak else [])}
+    return {"role": "TREATMENT", "detail": None, "evidence": sorted(set(arm_prov))}
+
+
 def _best_treatment_arm(per_arm: Dict[str, list],
                         segments: Optional[Dict[str, list]] = None,
-                        nodes: Optional[Dict[str, dict]] = None):
+                        nodes: Optional[Dict[str, dict]] = None,
+                        provenance: Optional[Dict[str, list]] = None):
     """(best ELIGIBLE arm, its (ci_lo, floor) pairs, all scored arms, the rejected arms).
 
     "Best" = highest WITHIN-SCOPE min ci_lo among arms ELIGIBLE to carry a claim. Eligibility is
@@ -629,37 +859,22 @@ def _best_treatment_arm(per_arm: Dict[str, list],
     """
     segments = segments or {}
     nodes = nodes or {}
+    provenance = provenance or {}
     scores: Dict[str, dict] = {}
     rejected: Dict[str, dict] = {}
     for scoped, cis in per_arm.items():
         segs = segments.get(scoped) or [p for p in scoped.replace("::", " ").split() if p]
-        elig = claim_arm_eligibility(segs, nodes.get(scoped))
         lo, src = min_ci_lo([(c[0], c[1]) for c in cis])
-        # NON-FINITE bounds are UNCLASSIFIABLE, and unclassifiable is not a pass. Measured need:
-        # the d=256 f=0.002 / f=0.005 arms of the cell that produced the false pass round to
-        # k=1 active unit, their permutation null has zero variance and their margin CIs come
-        # back NaN. NaN comparisons are all False, so a NaN would slip through `ci_lo > 0` as a
-        # FAILS_BAR by accident rather than by rule -- and `max()` over a set containing NaN is
-        # order-dependent, so it could equally have been chosen as the BEST arm. Neither is a
-        # decision anyone made. Reject explicitly and say so.
-        nonfinite = [c[1] for c in cis if not _finite(c[0])]
-        if nonfinite:
-            rejected[scoped] = {"min_ci_lo": None, "binding_floor": None,
-                                "reason": "NON_FINITE_CI",
-                                "detail": "floor margins with a non-finite bound: "
-                                          + ", ".join(sorted(set(nonfinite))[:4]),
-                                "evidence": None}
-            continue
-        if not elig["eligible"]:
-            if lo is not None:
-                rejected[scoped] = {"min_ci_lo": lo, "binding_floor": src,
-                                    "reason": elig["reason"], "detail": elig["detail"],
-                                    "evidence": elig["evidence"]}
+        cls = classify_claim_arm(scoped, segs, nodes.get(scoped), provenance.get(scoped, []), cis)
+        if cls["role"] != "TREATMENT":
+            rejected[scoped] = {"min_ci_lo": lo, "binding_floor": src, "reason": cls["role"],
+                                "detail": cls["detail"], "evidence": cls["evidence"]}
             continue
         if lo is None:
             continue
         scores[scoped] = {"min_ci_lo": lo, "binding_floor": src,
-                          "floor_roles": sorted({c[2] for c in cis})}
+                          "floor_roles": sorted({c[2] for c in cis}),
+                          "arm_provenance": cls["evidence"]}
     if not scores:
         return None, [], {}, rejected
     best = max(scores, key=lambda k: scores[k]["min_ci_lo"])
@@ -719,7 +934,8 @@ def check_cell(path: str) -> dict:
     # the cell's claim stand on its BEST arm. The pooled minimum is kept as an informational
     # field, never as the verdict.
     best_arm, best_pairs, arm_scores, rejected_arms = _best_treatment_arm(
-        fe["per_arm_floor_cis"], fe["per_arm_name_segments"], fe["per_arm_nodes"])
+        fe["per_arm_floor_cis"], fe["per_arm_name_segments"], fe["per_arm_nodes"],
+        fe["per_arm_margin_provenance"])
     pooled_lo, pooled_src = min_ci_lo(fe["floor_margin_ci_pairs"])
     bar = evaluate_standing_bar(
         floor_ci_pairs=best_pairs if best_arm else fe["floor_margin_ci_pairs"],
@@ -780,7 +996,7 @@ def check_cell(path: str) -> dict:
                 failing_declared.append({"arm": arm, "scope": scoped, "min_ci_lo": lo,
                                          "binding_floor": src})
 
-    classes = _classify(reads, sat, bar, failing_declared)
+    classes = _classify(reads, sat, bar, failing_declared, best_arm is not None)
     rec.update({
         "verdict_string": verdict, "verdict_key": vkey, "verdict_reads_as": reads,
         "verdict_msg": (vmsg or "")[:400] or None,
@@ -809,6 +1025,18 @@ def check_cell(path: str) -> dict:
         "claim_arm_rejected": rejected_arms,
         "n_claim_arm_rejected": len(rejected_arms),
         "fail_closed_override": bar.get("fail_closed_override"),
+        # THE FOURTH FLOOR, per cell. CONSTANT_FLOOR_COMPARED / NO_CONSTANT_FLOOR. Reported on
+        # EVERY record, including the compact index, so a reader can count how many banked bar
+        # decisions were computed without it rather than having to take anyone's word.
+        "constant_floor_status": bar["constant_floor_status"],
+        "constant_floor_present_in_cell":
+            bar["conditions"]["CONSTANT_FLOOR_COMPARED"]["present_in_cell"],
+        # T1 RESIDUE. Intervals sitting on a floor-named node with no evidence of being a
+        # comparison -- the FLOOR'S OWN numbers. Every one of these was credited as a margin
+        # before 2026-08-16. Reported, never silently dropped.
+        "n_floor_cis_without_margin_provenance": fe["n_floor_cis_without_margin_provenance"],
+        "floor_cis_without_margin_provenance": fe["floor_cis_without_margin_provenance"],
+        "claim_arm_provenance": (arm_scores.get(best_arm, {}) or {}).get("arm_provenance"),
         # Which tie conventions this cell published, if any. When a cell publishes BOTH, every
         # `binding_floor` here carries the convention that bound (`<FLOOR>|<convention>`) and the
         # conservative one wins by min_ci_lo. When a cell publishes only ONE, that is worth
@@ -863,7 +1091,8 @@ def _declared_clearing_arms(m: dict) -> List[str]:
     return sorted(set(out))
 
 
-def _classify(reads: str, sat: dict, bar: dict, failing_declared: List[dict]) -> List[str]:
+def _classify(reads: str, sat: dict, bar: dict, failing_declared: List[dict],
+              has_claim_arm: bool = False) -> List[str]:
     """Precedence: SATURATED first (a broken measurement invalidates everything downstream of
     it), then the pass-claim disagreements, then AGREES. Every applicable class is returned;
     element 0 is the primary. OUR-INVENTION: the order, not the classes.
@@ -877,18 +1106,34 @@ def _classify(reads: str, sat: dict, bar: dict, failing_declared: List[dict]) ->
     sep = bar["conditions"]["MARGIN_CI_SEPARATED"]["ok"]
     absent = bar["conditions"]["FLOOR_PRESENT"]["required_roles_absent"]
     uncompared = bar["conditions"]["ALL_REQUIRED_FLOORS_COMPARED"]["not_compared"]
+    # THE FOURTH FLOOR gets its OWN class, and the split is deliberate. Once
+    # `constant_prototype` joined REQUIRED_FLOOR_ROLES, folding it into NO_FLOOR would have
+    # relabelled almost every PASS-reading cell in the corpus with a class that already means
+    # something else, and buried the one thing an operator needs to see: WHICH cells are missing
+    # ONLY the floor that became mandatory today.
+    #   absent is EXACTLY {constant_prototype} -> NO_CONSTANT_FLOOR (a new, specific finding)
+    #   absent is broader                      -> NO_FLOOR primary, NO_CONSTANT_FLOOR also listed
+    # NO_FLOOR therefore keeps its pre-existing population, which is what makes the before/after
+    # class counts comparable at all.
+    const_uncompared = CONSTANT_FLOOR_ROLE in uncompared
     if claims_pass:
-        # The bar is a margin over max(orthographic, frequency, scramble). Missing ANY of the
-        # three means the max cannot be formed, so this is NO_FLOOR even when one or two floors
-        # are present -- "cleared its strongest floor" is exactly the reading that let
+        # The bar is a margin over max(orthographic, frequency, scramble, constant). Missing ANY
+        # of them means the max cannot be formed, so this is NO_FLOOR even when some floors are
+        # present -- "cleared its strongest floor" is exactly the reading that let
         # exp_meaning_asset_calibrated_floor_verdict_v1 land as a clearance.
-        if absent:
+        if [r for r in absent if r != CONSTANT_FLOOR_ROLE]:
             cls.append(NO_FLOOR)
         # Present but never paired with a CI: the floor exists on paper and was never used.
-        if [r for r in uncompared if r not in absent]:
+        if [r for r in uncompared if r not in absent and r != CONSTANT_FLOOR_ROLE]:
             cls.append(NO_CI)
         if (sep is False) or failing_declared:
             cls.append(STRING_PASSES_BAR_FAILS)
+    # Fires on a PASS-shaped string OR on any cell where a bar decision was actually COMPUTED
+    # (an identified claim arm). The second trigger is the point of the class: those are the
+    # cells whose decision was taken against a three-floor max, and most of them do not read as
+    # a pass, so a claims_pass-only trigger would leave them silent.
+    if const_uncompared and (claims_pass or has_claim_arm):
+        cls.append(NO_CONSTANT_FLOOR)
     if not cls:
         cls.append(AGREES)
     # PRECEDENCE (OUR-INVENTION -- the order, not the classes). A broken measurement invalidates
@@ -900,7 +1145,8 @@ def _classify(reads: str, sat: dict, bar: dict, failing_declared: List[dict]) ->
     return sorted(set(cls), key=lambda c: _PRECEDENCE.index(c))
 
 
-_PRECEDENCE = (SATURATED_CEILING, STRING_PASSES_BAR_FAILS, NO_FLOOR, NO_CI, NO_VERDICT, AGREES)
+_PRECEDENCE = (SATURATED_CEILING, STRING_PASSES_BAR_FAILS, NO_FLOOR, NO_CI, NO_CONSTANT_FLOOR,
+               NO_VERDICT, AGREES)
 
 
 # ================================================================== 6. SCAN + REPORT
@@ -966,6 +1212,12 @@ def scan(data_dir: str = DATA, limit: Optional[int] = None,
                 NO_FLOOR: "PASS-shaped string, and at least one of orthographic / frequency / "
                           "scramble is absent, so max(...) cannot be formed at all",
                 NO_CI: "PASS-shaped string, the floor EXISTS, and it was never paired with a CI",
+                NO_CONSTANT_FLOOR:
+                    "the MANDATORY FOURTH floor -- a query-ignoring CONSTANT/PROTOTYPE ranking "
+                    "-- was never CI-compared on this cell's claim arm, so its bar decision was "
+                    "computed against max(orthographic, frequency, scramble) only. On the "
+                    "instrument where the constant floor WAS measured it was the STRONGEST "
+                    "member, so this is a missing-evidence finding, not a refutation.",
                 AGREES: "no overstatement detected. NOT a certificate that the cell is good -- "
                         "most AGREES cells simply claim nothing.",
                 NO_VERDICT: "no verdict string found; carried as residue, never dropped",
@@ -984,6 +1236,29 @@ def scan(data_dir: str = DATA, limit: Optional[int] = None,
         "verdict_reads_as_counts": reads_counts,
         "bar_status_counts": bar_counts,
         "n_flagged": len(flagged),
+        # THE FOURTH FLOOR, corpus-wide. This is the direct answer to "how many banked bar
+        # decisions were computed against a floor set missing its strongest member", and it is
+        # a COUNT OVER EVERY RECORD, not over the ones a reader opens.
+        "constant_floor_coverage": {
+            "the_finding": (
+                "the CONSTANT/PROTOTYPE floor became mandatory on 2026-08-16 and was not wired "
+                "into tools/c3_gate.REQUIRED_FLOOR_ROLES until later that day. Every bar "
+                "decision taken in that window formed max(orthographic, frequency, scramble) "
+                "only. These counts say how much of the corpus that covers."),
+            "cells_total": len(records),
+            "cells_with_a_constant_floor_margin":
+                sum(1 for r in records
+                    if r.get("constant_floor_status") == CONSTANT_FLOOR_COMPARED),
+            "cells_without_one":
+                sum(1 for r in records
+                    if r.get("constant_floor_status") == NO_CONSTANT_FLOOR),
+            "cells_where_a_bar_decision_actually_rested_on_a_claim_arm":
+                sum(1 for r in records
+                    if r.get("claim_arm_status") == "CLAIM_ARM_IDENTIFIED"),
+            "this_is_a_report_not_a_demotion": (
+                "no cell is relabelled, demoted or deleted by this count. Which of these to "
+                "re-run is the operator's call."),
+        },
         "n_records_total": len(full) + len(rest),
         "n_meeting_the_bar": len(meets),
         "cells_meeting_the_bar": [r["cell"] for r in meets],
@@ -1006,7 +1281,12 @@ _COMPACT_FIELDS = ("cell", "verdict_string", "verdict_reads_as", "bar_status",
                    "disagreement_class", "real_floor_exists", "ci_exists",
                    "margin_ci_separated", "min_ci_lo", "binding_floor", "floor_roles_present",
                    "has_known_answer_arm", "has_null_arm", "smoke",
-                   "claim_arm_status", "n_claim_arm_rejected")
+                   "claim_arm_status", "n_claim_arm_rejected",
+                   # THE FOURTH FLOOR is in the COMPACT index too, so the answer to "how many
+                   # banked bar decisions were computed without the constant floor" is a count
+                   # over every row rather than over the ones a reader happens to open.
+                   "constant_floor_status", "constant_floor_present_in_cell",
+                   "n_floor_cis_without_margin_provenance")
 
 
 _FULL_CLASSES = (SATURATED_CEILING, STRING_PASSES_BAR_FAILS, NO_CI)
@@ -1129,26 +1409,45 @@ def hook_line() -> Tuple[str, int]:
                 f"<-- ATTENTION", 1)
     c = d.get("class_counts", {})
     flag = " <-- STALE, re-run --scan" if age_h > 168 else ""
+    # THE FOURTH FLOOR is on the hook line because the hook is the only surface every session
+    # reads. A count that lives only in a report JSON is a count nobody sees, which is how the
+    # floor-set drift survived a day in the first place.
+    cf = d.get("constant_floor_coverage") or {}
     body = (f"[verdict-bar] last recompute {age_h:.1f}h ago{flag}\n"
             f"    {d.get('n_flagged', '?')} of {d.get('enumeration', {}).get('scanned', '?')} "
             f"banked verdicts DISAGREE with the standing bar; "
             f"{d.get('n_meeting_the_bar', '?')} meet it\n"
             f"    string_passes_bar_fails={c.get(STRING_PASSES_BAR_FAILS, 0)} "
             f"saturated={c.get(SATURATED_CEILING, 0)} no_floor={c.get(NO_FLOOR, 0)} "
-            f"no_ci={c.get(NO_CI, 0)}\n"
+            f"no_ci={c.get(NO_CI, 0)} no_constant_floor={c.get(NO_CONSTANT_FLOOR, 0)}\n"
+            f"    the bar's max is FOUR floors since 2026-08-16: "
+            f"{cf.get('cells_with_a_constant_floor_margin', '?')} of "
+            f"{cf.get('cells_total', '?')} banked cells record the CONSTANT floor at all\n"
             f"    a PASS-shaped verdict string is NOT a clearance of the bar: "
             f"{os.path.basename(newest)}")
     return body, 0
 
 
 # ================================================================== 7. SELF-TEST
-def _fixture_genuine(tmp: str) -> str:
-    """A synthetic cell that GENUINELY meets the bar, in full: three floors, three CI-separated
+def _fixture_genuine(tmp: str, with_constant_floor: bool = True) -> str:
+    """A synthetic cell that GENUINELY meets the bar, in full: FOUR floors, four CI-separated
     margins, a known-answer arm and a null arm. THE NEGATIVE CONTROL -- if this is flagged, the
     checker flags everything and proves nothing. Synthetic on purpose: no cell on disk currently
-    carries all three floors with paired CIs, which is itself the finding, and a control drawn
+    carries all four floors with paired CIs, which is itself the finding, and a control drawn
     from the population under audit would be circular.
+
+    `with_constant_floor=False` is the ONE-VARIABLE counterpart added 2026-08-16: the identical
+    cell with the CONSTANT/PROTOTYPE floor simply never run. It must stop meeting the bar and
+    must say NO_CONSTANT_FLOOR. Before that floor was wired into tools/c3_gate.py this fixture
+    passed WITHOUT it and reported `bar_evidence_complete: true`, which is the defect.
     """
+    floors = {
+        "A_ORTHOGRAPHIC": {"margin": {"point": 0.404, "ci95": [0.28, 0.52]}},
+        "HARDENED_FREQUENCY_FREQ_MIN": {"margin": {"point": 0.341, "ci95": [0.21, 0.47]}},
+        "SCRAMBLE_NULL_P95": {"margin": {"point": 0.328, "ci95": [0.19, 0.46]}},
+    }
+    if with_constant_floor:
+        floors["F5_CONSTANT_PROTOTYPE"] = {"margin": {"point": 0.302, "ci95": [0.17, 0.44]}}
     cell = {
         "verdict": "GENUINE_HARD_PASS",
         "verdict_msg": "arm=0.4210 floor_max=0.0932 margin=0.3278",
@@ -1157,16 +1456,66 @@ def _fixture_genuine(tmp: str) -> str:
             "rows": {
                 "TREATMENT": {
                     "rho": {"point": 0.4210, "ci95": [0.3100, 0.5200], "n": 322},
-                    "DECOMPOSED_per_floor": {
-                        "A_ORTHOGRAPHIC": {"margin": {"point": 0.404, "ci95": [0.28, 0.52]}},
-                        "HARDENED_FREQUENCY_FREQ_MIN": {"margin": {"point": 0.341,
-                                                                   "ci95": [0.21, 0.47]}},
-                        "SCRAMBLE_NULL_P95": {"margin": {"point": 0.328, "ci95": [0.19, 0.46]}},
-                    },
+                    "DECOMPOSED_per_floor": floors,
                 },
                 "GLOVE_KNOWN_ANSWER": {"rho": {"point": 0.3462, "ci95": [0.2403, 0.4465]}},
                 "CTRL_RANDINIT": {"rho": {"point": 0.004, "ci95": [-0.10, 0.11]}},
             }
+        },
+    }
+    p = os.path.join(tmp, "metrics.json")
+    with open(p, "w", encoding="utf-8", newline="") as fh:
+        json.dump(cell, fh)
+    return p
+
+
+def _fixture_floor_own_number(tmp: str) -> str:
+    """DEFECT 2, reproduced as a durable fixture: a FLOOR'S OWN interval offered as a margin.
+
+    Two shapes, both taken from real artifacts and both of which the tool credited as
+    "our margin over the floor" before 2026-08-16:
+
+      * `HEADLINE.THE_SPELLING_FLOORS_RISE_on_the_same_items.ci95[0]` -- the number showing that
+        the SPELLING FLOOR gains +0.0636 when the success criterion is loosened. It is a fact
+        ABOUT a floor, not a margin over one. The checker returned it as
+        `min_ci_lo = +0.0544, binding_floor = THE_SPELLING_FLOORS_RISE_on_the_same_items` on
+        data/exp_synonym_substitution_metric_v1, and the cell's author refused the verdict.
+      * `arm_acc_ci.<FLOOR>.{acc, ci_lo}` -- a per-arm accuracy table. The interval is the FLOOR
+        ARM'S OWN accuracy CI. Enumerated 2026-08-16: 30 of the 75 cells that had an identified
+        claim arm rested on a bucket literally named `arm_acc_ci`.
+
+    The cell ALSO carries one honest, negative treatment margin so the fixture can distinguish
+    "we refused the fake margin" from "we refused everything".
+    """
+    cell = {
+        "verdict": "RISE_FIXTURE",
+        "HEADLINE": {
+            "OUR_RISE_when_the_criterion_is_loosened": {
+                "n": 2471, "acc_loose": 0.0219, "acc_strict": 0.0020, "rise": 0.0198,
+                "ci95": [0.0146, 0.0255], "band": "ABOVE"},
+            "THE_SPELLING_FLOORS_RISE_on_the_same_items": {
+                "n": 2471, "acc_loose": 0.0900, "acc_strict": 0.0264, "rise": 0.0636,
+                "ci95": [0.0544, 0.0730], "band": "ABOVE"},
+        },
+        "arm_acc_ci": {
+            "F1_TRIGRAM_ONLY": {"acc": 0.0871, "ci_lo": 0.0783, "ci_hi": 0.0962},
+            "F3_FREQUENCY_ONLY": {"acc": 0.0185, "ci_lo": 0.0143, "ci_hi": 0.0229},
+            "R0_CTX_DENSE": {"acc": 0.0223, "ci_lo": 0.0178, "ci_hi": 0.0271},
+        },
+        "per_arm": {
+            "R0_CTX_DENSE": {
+                "hit_at_1": 0.0223,
+                "MARGIN_per_floor": {
+                    "F1_TRIGRAM_ONLY": {"margin": {"point": -0.0647,
+                                                   "ci95": [-0.0747, -0.0552]}},
+                    "F3_FREQUENCY_ONLY": {"margin": {"point": 0.0038,
+                                                     "ci95": [-0.0010, 0.0087]}},
+                    "NULL_SCRAMBLED_ANCHORS": {"margin": {"point": 0.0085,
+                                                          "ci95": [0.0041, 0.0130]}},
+                    "F5_CONSTANT_PROTOTYPE": {"margin": {"point": -0.1167,
+                                                         "ci95": [-0.1282, -0.1054]}},
+                },
+            },
         },
     }
     p = os.path.join(tmp, "metrics.json")
@@ -1200,12 +1549,18 @@ def _fixture_false_pass(tmp: str, scaffold_name: str = "S_INPLACE_d256_f0.020__K
     the negative control -- without it, a rule that rejected every arm would look correct.
     """
     def margins(vals):
+        # FOUR floors since 2026-08-16. The constant/prototype margin is set to the SCRAMBLE
+        # value so it never becomes the binding one -- this fixture tests claim-arm ELIGIBILITY,
+        # and letting a new floor change which margin binds would confound the 2x2.
+        v3 = vals[3] if len(vals) > 3 else vals[2]
         return {"F1_TRIGRAM_ONLY": {"margin": {"point": vals[0] + 0.009,
                                                "ci95": [vals[0], vals[0] + 0.018]}},
                 "F3_FREQUENCY_ONLY": {"margin": {"point": vals[1] + 0.004,
                                                  "ci95": [vals[1], vals[1] + 0.008]}},
                 "NULL_SCRAMBLED_ANCHORS": {"margin": {"point": vals[2] + 0.003,
-                                                      "ci95": [vals[2], vals[2] + 0.006]}}}
+                                                      "ci95": [vals[2], vals[2] + 0.006]}},
+                "F5_CONSTANT_PROTOTYPE": {"margin": {"point": v3 + 0.003,
+                                                     "ci95": [v3, v3 + 0.006]}}}
 
     scaffold = {"hit_at_1": 1.0 if degenerate_ci else 0.6200,
                 "hit_at_1_ci95": [1.0, 1.0] if degenerate_ci else [0.6000, 0.6400],
@@ -1312,11 +1667,58 @@ def self_test() -> int:
         check("NEGATIVE CONTROL: a genuinely-clearing cell is NOT flagged",
               r["disagreement_class"], AGREES)
         check("  it meets the bar outright", r["bar_status"], BAR_MEETS)
-        check("  with all three required floors CI-compared on the CLAIM-CARRYING arm",
-              r["claim_arm_floor_roles_compared"], ["frequency", "orthographic", "scramble"])
+        check("  with all FOUR required floors CI-compared on the CLAIM-CARRYING arm",
+              r["claim_arm_floor_roles_compared"],
+              ["constant_prototype", "frequency", "orthographic", "scramble"])
+        check("  and the constant floor is recorded as compared",
+              r["constant_floor_status"], CONSTANT_FLOOR_COMPARED)
         check("  and the claim-carrying arm is named",
               r["claim_carrying_arm"].endswith("TREATMENT"), True)
         check("  and its evidence is marked complete", r["bar_evidence_complete"], True)
+
+    # ---- DEFECT 1, THE FOURTH FLOOR. ONE VARIABLE against the fixture just above: the
+    #      identical cell with the CONSTANT/PROTOTYPE floor simply never run. Before 2026-08-16
+    #      this returned MEETS_BAR with bar_evidence_complete=true -- a max formed from three
+    #      floors, presented as the standing bar. It must now withhold and NAME the missing one.
+    with tempfile.TemporaryDirectory() as td:
+        r = check_cell(_fixture_genuine(td, with_constant_floor=False))
+        check("DEFECT 1: the same cell WITHOUT a constant floor no longer meets the bar",
+              r["bar_status"], BAR_NO_EVIDENCE)
+        check("  and the missing floor is NAMED as its own class",
+              (r["constant_floor_status"], r["disagreement_class"]),
+              (NO_CONSTANT_FLOOR, NO_CONSTANT_FLOOR))
+        check("  and it is NOT mislabelled NO_FLOOR (three floors are present and compared)",
+              (NO_FLOOR in r["classes"], r["claim_arm_floor_roles_compared"]),
+              (False, ["frequency", "orthographic", "scramble"]))
+        check("  and its evidence is not marked complete", r["bar_evidence_complete"], False)
+
+    # ---- DEFECT 2, THE FLOOR'S OWN NUMBER. Two shapes, both from real artifacts, both of which
+    #      the tool credited as "our margin over the floor". The +0.0544 is the SPELLING FLOOR'S
+    #      OWN criterion rise on data/exp_synonym_substitution_metric_v1; `arm_acc_ci.<FLOOR>` is
+    #      the floor arm's own accuracy interval, and 30 of 75 cells with a claim arm rested on
+    #      one. Neither may be selected, and the honest NEGATIVE margin must be what carries the
+    #      cell -- so the rule is shown to REPLACE the fake number, not merely to delete it.
+    with tempfile.TemporaryDirectory() as td:
+        r = check_cell(_fixture_floor_own_number(td))
+        check("DEFECT 2: a floor's OWN rise is never the claim margin",
+              r["min_ci_lo"] != 0.0544, True)
+        # BOTH DEFECTS IN ONE ASSERTION. The claim moves off the fake +0.0544 and onto the
+        # honest arm; and the margin that BINDS there is the CONSTANT floor at -0.1282, not the
+        # spelling floor at -0.0747 -- i.e. wiring the fourth floor changed which floor governs.
+        # Before today the answer would have been -0.0747 on F1_TRIGRAM_ONLY.
+        check("  and the claim falls to the honest treatment arm, at its own negative margin",
+              (str(r["claim_carrying_arm"]).endswith("R0_CTX_DENSE"), r["min_ci_lo"]),
+              (True, -0.1282))
+        check("  binding on the CONSTANT floor, which is the strongest one here",
+              r["binding_floor"], "F5_CONSTANT_PROTOTYPE")
+        check("  the HEADLINE summary block is NOT an arm and is not scored",
+              any("HEADLINE" in k for k in r["per_treatment_arm_min_ci_lo"]), False)
+        check("  nor is the per-arm accuracy table `arm_acc_ci`",
+              any("arm_acc_ci" in k for k in r["per_treatment_arm_min_ci_lo"]), False)
+        check("  and the refused intervals are COUNTED, not silently dropped",
+              r["n_floor_cis_without_margin_provenance"] >= 3, True)
+        check("  the surviving claim arm is positively identified, not merely not-refused",
+              bool(r["claim_arm_provenance"]), True)
 
     # ---- NEGATIVE CONTROL 2: the same fixture with ONE floor pushed below zero must flip.
     with tempfile.TemporaryDirectory() as td:

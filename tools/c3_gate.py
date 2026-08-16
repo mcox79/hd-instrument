@@ -58,10 +58,18 @@ STRING_CONTROL_DIM = 512       # matches experiments/exp_meaning_supply_separati
 # (data/exp_graded_path_vs_orthographic_floor_v1/metrics.json has
 # d_A1_GRADED_ON_minus_A5_STRINGCTRL and d_A1_GRADED_ON_minus_F_FREQUENCY sitting unread next to
 # the scramble delta it did use). Widened below.
+# 2026-08-16 (second widening): the CONSTANT/PROTOTYPE floor became MANDATORY when a
+# query-ignoring constant ranking (cosine to the mean anchor direction) beat the spelling floor
+# CI-separated on the open-vocabulary read-out. tools/floor_battery.FLOOR_SET_REQUIRED had
+# carried four members since that morning; this list and REQUIRED_FLOOR_ROLES below still
+# carried three. Names ENUMERATED from disk (scratch/cf_enumerate.py over 7,787 metrics.json),
+# not guessed.
 FLOOR_ARM_NAMES = (
     "F_SCRAMBLE", "F_SCRAMBLE_ON", "F_SCRAMBLE_OFF", "B6_OPEN_SCRAMBLE",
     "F_FREQUENCY", "F_FREQ", "A5_STRINGCTRL", "A6_TRIGRAM_ONLY", "A7_PREFIX_ONLY",
     "A8_MAXORTHO",
+    "F_CONSTANT_PROTOTYPE", "F4_CONSTANT_PROTOTYPE", "F5_CONSTANT_PROTOTYPE",
+    "F5_CONSTANT_PROTOTYPE_zero_query_information",
 )
 
 PASS, FAIL, NOT_EVALUABLE = "PASS", "FAIL", "NOT_EVALUABLE"
@@ -95,13 +103,42 @@ _ROLE_PATTERNS = (
                      r"pretrained_positive|glove|ceiling_ref|upper_bound_ref|gold_oracle|"
                      r"sanity_arm|(^|_)ka(_|$)|planted|query_?is_?gold|gold_?vector|"
                      r"ground_?truth|(^|_)gt(_|$)"),
+    # THE FOURTH FLOOR, added 2026-08-16. A CONSTANT ranking -- the same answer to every
+    # question, e.g. cosine to the mean anchor direction -- uses ZERO query information and beat
+    # the spelling floor CI-separated on the open-vocabulary read-out. tools/floor_battery.py
+    # computes it and has listed it in FLOOR_SET_REQUIRED since that morning; it was never wired
+    # into this classifier, so evaluate_standing_bar could not include it in the max.
+    #
+    # POSITION IS LOAD-BEARING, in BOTH directions:
+    #   * AFTER `frequency`, so `F3_FREQUENCY_ONLY_constant` (the frequency floor, whose name
+    #     says "constant column") keeps reading as FREQUENCY -- 386 occurrences on disk.
+    #   * AFTER `known_answer`, so `ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor` (192),
+    #     `B_ORACLE_CONSTANT_GOLD_DEGREE_not_a_floor` (61) and `ORACLE_CONSTANT_never_a_floor`
+    #     (29) keep reading as ORACLE. Those are fitted on the gold labels: they are the CEILING
+    #     of the constant family, never a floor, and promoting one to a required floor would
+    #     hand a cell a floor it is supposed to be unable to reach.
+    # The pattern requires the two tokens ADJACENT so it does not fire on the 20+ genuine
+    # treatment arms carrying `PROTOTYPE` or `CENTROID` alone (ARM_HRR_BUNDLE_PROTOTYPE,
+    # C_ISO_GLOBAL_CENTROID_beta0.50, memorize_prototype, FAMILY_PROTOTYPE_BASED), nor on
+    # `v4_constants` / `v2_metric_constants` / `S5_balanced_pool_kills_constant_rankings`.
+    ("constant_prototype",
+     r"constant_?prototype|prototype_?constant|const_?proto(type)?(_|$)|constant_?column|"
+     r"constant_?ranking_?floor|zero_query_information|mean_anchor_direction"),
     ("null_control", r"null_arm|null_control|negative_control|randinit|rand_init|noise_arm|"
                      r"untrained|no_signal|_null\b|null_"),
 )
 _ROLE_RE = tuple((role, re.compile(pat, re.IGNORECASE)) for role, pat in _ROLE_PATTERNS)
 
-REQUIRED_FLOOR_ROLES = ("orthographic", "frequency", "scramble")
+# THE STANDING BAR'S FLOOR SET. Four roles since 2026-08-16, matching
+# tools/floor_battery.FLOOR_SET_REQUIRED exactly -- the two lists are the same rule and a drift
+# between them is what this fix repairs. `random_chance` is still deliberately NOT one of them.
+CONSTANT_FLOOR_ROLE = "constant_prototype"
+REQUIRED_FLOOR_ROLES = ("orthographic", "frequency", "scramble", CONSTANT_FLOOR_ROLE)
 BAR_MEETS, BAR_FAILS, BAR_NO_EVIDENCE = "MEETS_BAR", "FAILS_BAR", "NO_EVIDENCE"
+# Reported when a cell's CLAIM ARM has no CI-bearing margin against the constant floor. This is
+# a NAMED, reportable condition rather than a silent pass: for every gate evaluation before this
+# date the max was formed from three floors, and the fourth was the strongest one measured.
+CONSTANT_FLOOR_COMPARED, NO_CONSTANT_FLOOR = "CONSTANT_FLOOR_COMPARED", "NO_CONSTANT_FLOOR"
 
 
 def classify_arm_role(name: str) -> Optional[str]:
@@ -145,8 +182,13 @@ CLAIM_ARM_CONTROL = "CONTROL_ARM"
 CLAIM_ARM_SCAFFOLD = "VALIDITY_SCAFFOLD"
 CLAIM_ARM_CEILING = "CEILING_BY_CONSTRUCTION"
 
-CONTROL_ROLES = ("orthographic", "frequency", "scramble", "random_chance", "null_control",
-                 "known_answer")
+CONTROL_ROLES = ("orthographic", "frequency", "scramble", CONSTANT_FLOOR_ROLE, "random_chance",
+                 "null_control", "known_answer")
+# `constant_prototype` joined this list 2026-08-16 for a reason worth stating: before the role
+# existed, `classify_arm_role("F5_CONSTANT_PROTOTYPE_zero_query_information")` returned None, so
+# the constant FLOOR was ELIGIBLE TO CARRY A CELL'S CLAIM -- a zero-query-information ranking
+# could have been selected as the arm a cell's result rests on. Measured, not hypothesised:
+# claim_arm_eligibility(["F5_CONSTANT_PROTOTYPE"]) returned {"eligible": True} before this edit.
 
 # The LOOSER lexicon: tokens that mark an arm as scaffolding/diagnostic rather than a result.
 # Enumerated from disk (see the known_answer comment above), NOT guessed. Each token below was
@@ -327,6 +369,24 @@ def evaluate_standing_bar(*,
         "compared": roles_with_ci,
         "not_compared": [r for r in REQUIRED_FLOOR_ROLES if r not in roles_with_ci],
     }
+    # THE FOURTH FLOOR, REPORTED BY NAME. It is already inside ALL_REQUIRED_FLOORS_COMPARED, but
+    # it gets its own condition because its absence has a specific, actionable meaning that a
+    # generic "one of the four is missing" hides: every bar decision computed before 2026-08-16
+    # was taken against max(orthographic, frequency, scramble) while the CONSTANT floor -- the
+    # strongest member on the instrument where it was measured -- sat uncomputed. A reader
+    # scanning old verdicts needs to see WHICH floor was missing, not merely that one was.
+    # `ok` is None, never False: not-measured and refuted are different findings.
+    _const_compared = CONSTANT_FLOOR_ROLE in roles_with_ci
+    c["CONSTANT_FLOOR_COMPARED"] = {
+        "ok": True if _const_compared else None,
+        "role": CONSTANT_FLOOR_ROLE,
+        "present_in_cell": CONSTANT_FLOOR_ROLE in roles_present,
+        "status": CONSTANT_FLOOR_COMPARED if _const_compared else NO_CONSTANT_FLOOR,
+        "why_it_matters": (
+            "a query-ignoring CONSTANT ranking beat the spelling floor CI-separated on the "
+            "open-vocabulary read-out (tools/floor_battery.constant_prototype_floor). A max "
+            "formed without it is not the standing bar's max."),
+    }
     c["KNOWN_ANSWER_ARM"] = {"ok": has_known_answer_arm}
     c["NULL_ARM"] = {"ok": has_null_arm}
 
@@ -353,6 +413,7 @@ def evaluate_standing_bar(*,
         "floor_roles_present": roles_present, "floor_roles_with_margin_ci": roles_with_ci,
         "required_floor_roles_without_margin_ci": missing_ci,
         "bar_evidence_complete": evidence_complete,
+        "constant_floor_status": c["CONSTANT_FLOOR_COMPARED"]["status"],
         "failed_conditions": sorted(failed), "unknown_conditions": sorted(unknown),
     }
 
@@ -799,10 +860,50 @@ def self_test() -> int:
                      ("random_chance", "random_chance"),
                      ("CTRL_RANDINIT_CTX", "null_control"),
                      ("GLOVE_POSITIVE_CONTROL", "known_answer"),
+                     # THE FOURTH FLOOR (2026-08-16). Every name below was enumerated from disk.
+                     ("F5_CONSTANT_PROTOTYPE_zero_query_information", "constant_prototype"),
+                     ("F4_CONSTANT_PROTOTYPE", "constant_prototype"),
+                     ("F_CONSTANT_PROTOTYPE", "constant_prototype"),
+                     ("B_vs_OWN_CONSTANT_PROTOTYPE", "constant_prototype"),
+                     ("constant_prototype_floor", "constant_prototype"),
+                     # ... and the OVER-FIRE guards, which matter more than the hits. The first
+                     # two must keep their EXISTING roles or the fourth floor would have stolen
+                     # 386 frequency arms and 282 oracle arms; the rest are genuine TREATMENT
+                     # arms that merely contain PROTOTYPE / CENTROID / "constants".
+                     ("F3_FREQUENCY_ONLY_constant", "frequency"),
+                     ("ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor", "known_answer"),
+                     ("B_ORACLE_CONSTANT_GOLD_DEGREE_not_a_floor", "known_answer"),
+                     ("ARM_HRR_BUNDLE_PROTOTYPE", None),
+                     ("C_ISO_GLOBAL_CENTROID_beta0.50", None),
+                     ("memorize_prototype", None),
+                     ("v4_constants", None),
+                     ("S5_balanced_pool_kills_constant_rankings", None),
                      ("A4_BOTH", None), ("d512|ASSET_RETRAIN_CTX", None)):
         check(f"classify_arm_role({nm!r})", classify_arm_role(nm), want)
-    check("a chance baseline is NOT one of the three required floor roles",
+    check("a chance baseline is NOT one of the required floor roles",
           "random_chance" in REQUIRED_FLOOR_ROLES, False)
+    # THE DRIFT THAT CAUSED THIS FIX, asserted so it cannot recur silently: the two lists that
+    # state "what the required floor set is" must agree. floor_battery carried four members for
+    # a day while this file carried three, and every gate evaluation in that window formed its
+    # max without the strongest floor.
+    check("REQUIRED_FLOOR_ROLES has four members and names the constant floor",
+          (len(REQUIRED_FLOOR_ROLES), CONSTANT_FLOOR_ROLE in REQUIRED_FLOOR_ROLES), (4, True))
+    try:
+        from tools.floor_battery import FLOOR_SET_REQUIRED as _FB
+    except ImportError:                                            # pragma: no cover
+        _FB = None
+    if _FB is not None:
+        check("  and it matches tools/floor_battery.FLOOR_SET_REQUIRED member for member",
+              sorted(r.upper().replace("CONSTANT_PROTOTYPE", "CONSTANT_PROTOTYPE")
+                     for r in REQUIRED_FLOOR_ROLES),
+              sorted(x.upper() for x in _FB))
+    else:
+        print("[self-test] SKIP floor_battery not importable; the two-list agreement is UNCHECKED")
+    # A CONSTANT FLOOR MAY NOT CARRY A CLAIM. Before this fix it could: the role did not exist,
+    # so the arm classified as None and claim_arm_eligibility returned eligible=True.
+    check("a constant-prototype floor arm is NOT eligible to carry a claim",
+          claim_arm_eligibility(["EXACT_KEY", "F5_CONSTANT_PROTOTYPE", "MARGIN_per_floor"])
+          ["reason"], CLAIM_ARM_CONTROL)
 
     # CASE 9 -- min_ci_lo is the ONE conservative rule and it names its source.
     check("min_ci_lo takes the minimum, not the first or the largest",
@@ -826,16 +927,49 @@ def self_test() -> int:
           r["conditions"]["MARGIN_CI_SEPARATED"]["min_ci_lo"] < 0 < 0.0704, True)
 
     # CASE 11 -- NON-VACUITY for the standing bar: a fully-evidenced win must MEET it, or the
-    # checker built on this predicate flags everything and is worthless.
+    # checker built on this predicate flags everything and is worthless. FOUR floors since
+    # 2026-08-16.
+    _FOUR = ["orthographic", "frequency", "scramble", CONSTANT_FLOOR_ROLE]
+    r = evaluate_standing_bar(
+        floor_ci_pairs=[(0.0455, "A_ORTHOGRAPHIC"), (0.0210, "F_FREQUENCY"),
+                        (0.0704, "F_SCRAMBLE"), (0.0180, "F5_CONSTANT_PROTOTYPE")],
+        floor_roles_present=_FOUR, floor_roles_with_ci=_FOUR,
+        has_known_answer_arm=True, has_null_arm=True, arm_name="GENUINE")
+    check("a fully-evidenced arm MEETS the standing bar (predicate is not vacuous)",
+          r["status"], BAR_MEETS)
+    check("  and its evidence is marked complete", r["bar_evidence_complete"], True)
+    check("  and the constant floor is recorded as COMPARED",
+          r["constant_floor_status"], CONSTANT_FLOOR_COMPARED)
+
+    # CASE 11b -- THE NEGATIVE CONTROL FOR THE FOURTH FLOOR, and the whole point of this fix.
+    # ONE VARIABLE: the identical arm, the identical three margins, the constant floor simply
+    # never run. Before 2026-08-16 this returned MEETS_BAR with bar_evidence_complete=True --
+    # a max formed from three floors, presented as the standing bar. It must now withhold.
     r = evaluate_standing_bar(
         floor_ci_pairs=[(0.0455, "A_ORTHOGRAPHIC"), (0.0210, "F_FREQUENCY"),
                         (0.0704, "F_SCRAMBLE")],
         floor_roles_present=["orthographic", "frequency", "scramble"],
         floor_roles_with_ci=["orthographic", "frequency", "scramble"],
-        has_known_answer_arm=True, has_null_arm=True, arm_name="GENUINE")
-    check("a fully-evidenced arm MEETS the standing bar (predicate is not vacuous)",
-          r["status"], BAR_MEETS)
-    check("  and its evidence is marked complete", r["bar_evidence_complete"], True)
+        has_known_answer_arm=True, has_null_arm=True, arm_name="THREE_FLOORS_ONLY")
+    check("the SAME arm without a constant floor is NO_EVIDENCE, not a pass", r["status"],
+          BAR_NO_EVIDENCE)
+    check("  and the missing floor is NAMED, not merely counted",
+          (r["constant_floor_status"],
+           r["conditions"]["ALL_REQUIRED_FLOORS_COMPARED"]["not_compared"]),
+          (NO_CONSTANT_FLOOR, [CONSTANT_FLOOR_ROLE]))
+    check("  and its evidence is NOT marked complete", r["bar_evidence_complete"], False)
+    # CASE 11c -- and the constant floor must be able to BIND, not merely be present: an arm
+    # that clears the old three but LOSES to the constant floor now FAILS. These are the
+    # synonym cell's own OPEN-pool / LANDED-criterion numbers
+    # (.claude/scan-out/synonym-substitution-metric.json section 3): R0 0.0223 with
+    # F5_CONSTANT_PROTOTYPE binding at -0.1167 [-0.1282, -0.1054].
+    r = evaluate_standing_bar(
+        floor_ci_pairs=[(0.0146, "F1_TRIGRAM"), (0.0038, "F3_FREQUENCY"),
+                        (0.0085, "NULL_SCRAMBLED"), (-0.1282, "F5_CONSTANT_PROTOTYPE")],
+        floor_roles_present=_FOUR, floor_roles_with_ci=_FOUR,
+        has_known_answer_arm=True, has_null_arm=True, arm_name="R0_CTX_DENSE")
+    check("an arm that clears the old three but loses to the CONSTANT floor FAILS the bar",
+          (r["status"], r["binding_floor"]), (BAR_FAILS, "F5_CONSTANT_PROTOTYPE"))
 
     # CASE 12 -- the three failure modes are INDEPENDENT: no floor, no CI, and incomplete
     # coverage each produce their own distinct finding rather than collapsing into one.
@@ -865,7 +999,7 @@ def self_test() -> int:
           (BAR_NO_EVIDENCE, ["orthographic", "frequency"], False))
     check("  and the uncompared floors are named",
           r["conditions"]["ALL_REQUIRED_FLOORS_COMPARED"]["not_compared"],
-          ["orthographic", "frequency"])
+          ["orthographic", "frequency", CONSTANT_FLOOR_ROLE])
 
     # NEGATIVE CONTROL for the guard: with the guard disabled, CASE 1 must stop being protected.
     global GUARD_ENABLED

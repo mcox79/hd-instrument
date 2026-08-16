@@ -41,8 +41,9 @@ if _REPO not in sys.path:
 
 from tools import verdict_bar_check as vbc          # noqa: E402
 from tools.c3_gate import (                         # noqa: E402
-    BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, arm_ceiling_shape, claim_arm_eligibility,
-    classify_arm_role,
+    BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, CONSTANT_FLOOR_COMPARED, CONSTANT_FLOOR_ROLE,
+    NO_CONSTANT_FLOOR, REQUIRED_FLOOR_ROLES, arm_ceiling_shape, claim_arm_eligibility,
+    classify_arm_role, evaluate_standing_bar,
 )
 
 OFFENDER_SATURATED = os.path.join(
@@ -133,13 +134,20 @@ def test_offender_2_is_not_flagged_by_the_cells_own_logic():
 
 # ---------------------------------------------------------------- negative controls
 def test_a_genuinely_clearing_cell_is_not_flagged(tmp_path):
-    """THE NEGATIVE CONTROL. A guard that flags everything proves nothing."""
+    """THE NEGATIVE CONTROL. A guard that flags everything proves nothing.
+
+    FOUR floors since 2026-08-16 -- adding the constant/prototype floor to REQUIRED_FLOOR_ROLES
+    would be worthless if nothing could satisfy it, so this fixture is what proves the widened
+    requirement is reachable and every refusal below therefore measures something.
+    """
     p = vbc._fixture_genuine(str(tmp_path))
     r = vbc.check_cell(p)
     assert r["disagreement_class"] == vbc.AGREES, r["classes"]
     assert r["bar_status"] == BAR_MEETS
-    assert r["claim_arm_floor_roles_compared"] == ["frequency", "orthographic", "scramble"]
+    assert r["claim_arm_floor_roles_compared"] == [
+        "constant_prototype", "frequency", "orthographic", "scramble"]
     assert r["bar_evidence_complete"] is True
+    assert r["constant_floor_status"] == CONSTANT_FLOOR_COMPARED
 
 
 def test_one_floor_below_zero_flips_the_same_cell(tmp_path):
@@ -310,6 +318,280 @@ def test_false_pass_cell_on_disk_if_present():
     assert (r["min_ci_lo"] is None or r["min_ci_lo"] < 0.5), (
         "the claim arm's margin is back in planted-answer territory (+0.9044 was the false "
         f"pass); got {r['min_ci_lo']} on {r['claim_carrying_arm']!r}")
+
+
+# ================================================================ DEFECT 1: THE FOURTH FLOOR
+# 2026-08-16. The CONSTANT/PROTOTYPE floor became MANDATORY when a query-ignoring constant
+# ranking (cosine to the mean anchor direction) beat the spelling floor CI-separated on the
+# open-vocabulary read-out. `tools/floor_battery.py` computed it and listed it in
+# FLOOR_SET_REQUIRED from that morning; `tools/c3_gate.REQUIRED_FLOOR_ROLES` still read
+# ("orthographic", "frequency", "scramble"), so `evaluate_standing_bar` could not include it in
+# the max and EVERY gate evaluation in that window was computed against a floor set missing its
+# strongest member. Found by the cell at .claude/scan-out/synonym-substitution-metric.json,
+# which measured F5_CONSTANT_PROTOTYPE at 0.2028 against our 0.0219 on the same items.
+def test_the_two_lists_that_state_the_floor_set_agree():
+    """THE DRIFT ITSELF. Two files each state "what the required floor set is"; they disagreed
+    for a day. A test that only checked one of them would not have caught it."""
+    # This half never skips: the fourth floor is required whatever else is on disk.
+    assert CONSTANT_FLOOR_ROLE in REQUIRED_FLOOR_ROLES
+    assert len(REQUIRED_FLOOR_ROLES) == 4
+    try:
+        from tools.floor_battery import FLOOR_SET_REQUIRED
+    except ImportError:                                   # pragma: no cover
+        # LOUD, not silent. As of 2026-08-16 `tools/floor_battery.py` is UNTRACKED in git
+        # (`git status` shows `?? tools/floor_battery.py`), so a clean checkout does not have
+        # it and this cross-check is INERT there. That is an open item for the operator -- two
+        # cells have now flagged that file as unregistered and it is also uncommitted -- and it
+        # is surfaced as a skip rather than hidden behind a hard import that would break
+        # run_certification.py on a fresh clone.
+        pytest.skip("tools/floor_battery.py is not importable (it is UNTRACKED in git); the "
+                    "two-list cross-check cannot run and the drift guard is INERT here")
+    assert sorted(r.upper() for r in REQUIRED_FLOOR_ROLES) == sorted(FLOOR_SET_REQUIRED), (
+        "tools/c3_gate.REQUIRED_FLOOR_ROLES and tools/floor_battery.FLOOR_SET_REQUIRED are the "
+        "same rule written twice; a drift between them is what this test exists to catch")
+
+
+def test_a_cell_lacking_a_constant_floor_reports_NO_CONSTANT_FLOOR(tmp_path):
+    """ONE VARIABLE against `test_a_genuinely_clearing_cell_is_not_flagged`.
+
+    The IDENTICAL cell, the IDENTICAL three margins, the constant floor simply never run.
+    Before this fix it returned MEETS_BAR with `bar_evidence_complete: true`. It must now
+    withhold, and it must NAME the missing floor rather than reporting a generic shortfall --
+    an operator reading an old verdict needs to know WHICH floor was absent.
+    """
+    r = vbc.check_cell(vbc._fixture_genuine(str(tmp_path), with_constant_floor=False))
+    assert r["bar_status"] == BAR_NO_EVIDENCE, (
+        "a bar decision taken against three floors is NOT a clearance of a four-floor bar; "
+        f"got {r['bar_status']} at min_ci_lo={r['min_ci_lo']}")
+    assert r["constant_floor_status"] == NO_CONSTANT_FLOOR
+    assert r["disagreement_class"] == vbc.NO_CONSTANT_FLOOR
+    assert r["bar_evidence_complete"] is False
+    # and it must NOT be mislabelled: the other three floors ARE present and ARE compared, so
+    # NO_FLOOR would send the operator to the wrong fix ("add a control" vs "add THIS control").
+    assert vbc.NO_FLOOR not in r["classes"]
+    assert r["claim_arm_floor_roles_compared"] == ["frequency", "orthographic", "scramble"]
+    assert r["claim_arm_required_floors_not_compared"] == [CONSTANT_FLOOR_ROLE]
+
+
+def test_the_constant_floor_can_bind_and_flip_a_verdict():
+    """NEGATIVE CONTROL for the fourth floor: it must be able to CHANGE an outcome, not merely
+    be present. Numbers are the synonym cell's own OPEN-pool / LANDED-criterion row: R0 0.0223
+    clears trigram, frequency and scramble, and loses to the constant floor at -0.1167."""
+    four = ["orthographic", "frequency", "scramble", CONSTANT_FLOOR_ROLE]
+    with_const = evaluate_standing_bar(
+        floor_ci_pairs=[(0.0146, "F1_TRIGRAM"), (0.0038, "F3_FREQUENCY"),
+                        (0.0085, "NULL_SCRAMBLED"), (-0.1282, "F5_CONSTANT_PROTOTYPE")],
+        floor_roles_present=four, floor_roles_with_ci=four,
+        has_known_answer_arm=True, has_null_arm=True, arm_name="R0")
+    assert with_const["status"] == BAR_FAILS
+    assert with_const["binding_floor"] == "F5_CONSTANT_PROTOTYPE"
+    # THE SAME ARM, the same three surviving margins, the fourth floor not run: this is what the
+    # tool reported for every cell before today. It must no longer read as a clearance.
+    without = evaluate_standing_bar(
+        floor_ci_pairs=[(0.0146, "F1_TRIGRAM"), (0.0038, "F3_FREQUENCY"),
+                        (0.0085, "NULL_SCRAMBLED")],
+        floor_roles_present=four[:3], floor_roles_with_ci=four[:3],
+        has_known_answer_arm=True, has_null_arm=True, arm_name="R0")
+    assert without["status"] == BAR_NO_EVIDENCE, (
+        "three floors is not the bar's max; withholding is the only honest reading")
+    assert without["constant_floor_status"] == NO_CONSTANT_FLOOR
+
+
+def test_a_constant_floor_arm_can_never_carry_a_claim():
+    """A consequence of the missing role that is worse than the missing max, and was live:
+    `classify_arm_role("F5_CONSTANT_PROTOTYPE_zero_query_information")` returned None, so the
+    ZERO-QUERY-INFORMATION floor was ELIGIBLE to be selected as the arm a cell's claim rests
+    on."""
+    for nm in ("F5_CONSTANT_PROTOTYPE", "F4_CONSTANT_PROTOTYPE",
+               "F5_CONSTANT_PROTOTYPE_zero_query_information"):
+        assert classify_arm_role(nm) == CONSTANT_FLOOR_ROLE
+        assert claim_arm_eligibility(["per_arm", nm, "MARGIN_per_floor"])["eligible"] is False
+
+
+@pytest.mark.parametrize("name,want", [
+    # HITS -- every one enumerated from disk across 7,787 metrics.json, not guessed
+    ("F5_CONSTANT_PROTOTYPE_zero_query_information", CONSTANT_FLOOR_ROLE),
+    ("F4_CONSTANT_PROTOTYPE", CONSTANT_FLOOR_ROLE),
+    ("F_CONSTANT_PROTOTYPE", CONSTANT_FLOOR_ROLE),
+    ("A2_F_CONSTANT_PROTOTYPE", CONSTANT_FLOOR_ROLE),
+    ("B_vs_OWN_CONSTANT_PROTOTYPE", CONSTANT_FLOOR_ROLE),
+    ("constant_prototype_floor", CONSTANT_FLOOR_ROLE),
+    # OVER-FIRE GUARDS, and these matter more than the hits. The first three must KEEP their
+    # existing roles: `F3_FREQUENCY_ONLY_constant` is the FREQUENCY floor (386 on disk) whose
+    # name merely says "constant column", and the ORACLE arms are fitted on the gold labels --
+    # they are the CEILING of the constant family and promoting one to a required floor would
+    # hand a cell a floor it is designed to be unable to reach (282 on disk).
+    ("F3_FREQUENCY_ONLY_constant", "frequency"),
+    ("ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor", "known_answer"),
+    ("B_ORACLE_CONSTANT_GOLD_DEGREE_not_a_floor", "known_answer"),
+    ("ORACLE_CONSTANT_never_a_floor", "known_answer"),
+    # ... and these are genuine TREATMENT arms that merely contain PROTOTYPE / CENTROID /
+    # "constants". A role that stole them would silently delete real arms from consideration.
+    ("ARM_HRR_BUNDLE_PROTOTYPE", None),
+    ("ARM_PROTOTYPE_CENTROID_BUNDLED", None),
+    ("C_ISO_GLOBAL_CENTROID_beta0.50", None),
+    ("FAMILY_PROTOTYPE_BASED", None),
+    ("memorize_prototype", None),
+    ("v4_constants", None),
+    ("v2_metric_constants", None),
+    ("S5_balanced_pool_kills_constant_rankings", None),
+])
+def test_constant_floor_lexicon(name, want):
+    assert classify_arm_role(name) == want
+
+
+# ================================================================ DEFECT 2: THE ALLOWLIST
+# 2026-08-16. On data/exp_synonym_substitution_metric_v1 the checker returned
+# `min_ci_lo +0.0544, binding_floor THE_SPELLING_FLOORS_RISE_on_the_same_items` -- the LOWER CI
+# BOUND OF THE SPELLING FLOOR'S OWN criterion rise. It is a fact ABOUT a floor, not a margin
+# over one, and the cell's author refused the verdict and published arm-by-arm margins instead.
+#
+# THIS IS THE THIRD DEFECT OF THE SAME CLASS (first: a planted-answer `__KA` arm; second: a
+# literal `oracle_` arm). One cause: selection was DENYLIST-shaped, so anything not positively
+# recognised as bad was accepted. Enumerated across all 7,787 banked metrics.json BEFORE the
+# fix: of the 75 cells with an identified claim arm, 30 rested on a bucket named `arm_acc_ci`
+# -- a per-arm accuracy table, so the interval credited as "our margin over the floor" was the
+# FLOOR ARM'S OWN ACCURACY CI -- and others on `paired_bootstrap`, `bootstrap_2afc`,
+# `bootstrap_item`, `stage_b`, `twoafc`, `comparisons`, `per_config`, `100` and `20260810`.
+def test_a_floors_own_rise_is_never_the_claim_margin(tmp_path):
+    """THE SYNONYM CELL'S DEFECT, as a durable fixture (the real cell is 484 KB and moves).
+
+    Asserted three ways so this cannot pass vacuously: the fake number is gone, the SUMMARY
+    BLOCK that carried it is not scored as an arm, and the claim lands on the honest arm at its
+    own recorded margin.
+    """
+    r = vbc.check_cell(vbc._fixture_floor_own_number(str(tmp_path)))
+    assert r["min_ci_lo"] != 0.0544, "the spelling floor's OWN rise is being read as our margin"
+    assert "RISE" not in str(r["binding_floor"]).upper()
+    assert not any("HEADLINE" in k for k in r["per_treatment_arm_min_ci_lo"]), (
+        "a summary heading was scored as a treatment arm")
+    assert not any("arm_acc_ci" in k for k in r["per_treatment_arm_min_ci_lo"]), (
+        "a per-arm ACCURACY TABLE was scored as a treatment arm; the interval under it is the "
+        "floor arm's own accuracy CI, not a margin")
+    assert str(r["claim_carrying_arm"]).endswith("R0_CTX_DENSE")
+    assert r["min_ci_lo"] == -0.1282 and r["binding_floor"] == "F5_CONSTANT_PROTOTYPE"
+    assert r["bar_status"] != BAR_MEETS
+
+
+def test_refused_intervals_are_reported_not_silently_dropped(tmp_path):
+    """An exclusion nobody can see is indistinguishable from a filter that matched nothing.
+
+    This repo shipped an `if base in src` check that could only ever inflate its own count, so
+    every rule added here has to expose its own residue. Non-vacuous by construction: the exact
+    count is asserted, not merely truthiness.
+    """
+    r = vbc.check_cell(vbc._fixture_floor_own_number(str(tmp_path)))
+    resid = r["floor_cis_without_margin_provenance"]
+    assert r["n_floor_cis_without_margin_provenance"] == 3, (
+        "expected exactly the 3 bare intervals (1 floor rise + 2 floor accuracy rows); got "
+        f"{r['n_floor_cis_without_margin_provenance']}: {resid}")
+    assert any("THE_SPELLING_FLOORS_RISE" in e["floor"] for e in resid)
+    assert any("arm_acc_ci" in e["path"] for e in resid)
+
+
+def test_margin_provenance_is_an_allowlist_and_can_be_satisfied():
+    """NEGATIVE CONTROL for T1. A rule that refused every interval would satisfy the tests above
+    and be worthless, so each accepted FORM is pinned alongside the refusals."""
+    # ACCEPTED -- the three positive forms, all observed on disk
+    assert vbc.margin_provenance(("ARM", "DECOMPOSED_per_floor", "A_ORTHOGRAPHIC"),
+                                 {"margin": {"ci95": [0.1, 0.2]}}).startswith("MARGIN_SUBKEY")
+    assert vbc.margin_provenance(("bootstrap", "deltas", "d_A4_minus_F_FREQUENCY"),
+                                 {"ci_lo": 0.03}) == "COMPARISON_KEY"
+    assert vbc.margin_provenance(("ARM", "MARGIN_per_floor", "F_SCRAMBLE"),
+                                 {"ci_lo": 0.03}).startswith("MARGIN_CONTAINER")
+    # REFUSED -- a bare interval on a floor-named node with no comparison anywhere above it
+    assert vbc.margin_provenance(("arm_acc_ci", "F1_TRIGRAM_ONLY"),
+                                 {"acc": 0.0871, "ci_lo": 0.0783}) is None
+    assert vbc.margin_provenance(("HEADLINE", "THE_SPELLING_FLOORS_RISE_on_the_same_items"),
+                                 {"rise": 0.0636, "ci95": [0.0544, 0.0730]}) is None
+
+
+def test_arm_provenance_is_an_allowlist_and_can_be_satisfied():
+    """NEGATIVE CONTROL for T2, in BOTH directions on one call each.
+
+    A container is refused; a child of a declared arm container is accepted on the IDENTICAL
+    margin. Without the accepting half, a rule that refused everything would look correct.
+    """
+    cis = [(0.11, "A_ORTHOGRAPHIC", "orthographic")]
+    refused = vbc.classify_claim_arm("bootstrap_item", ["bootstrap_item"], None,
+                                     ["MARGIN_CONTAINER:deltas"], cis)
+    assert refused["role"] == vbc.CLAIM_ARM_UNCLASSIFIABLE, refused
+    accepted = vbc.classify_claim_arm("per_arm::C4_PHASOR", ["C4_PHASOR"], None,
+                                      ["MARGIN_CONTAINER:MARGIN_per_floor",
+                                       vbc.ARM_PROV_CONTAINER], cis)
+    assert accepted["role"] == "TREATMENT", accepted
+    # and an arm with NO margin provenance at all is refused for THAT reason specifically, so
+    # the two rules stay distinguishable in the report rather than collapsing into one label
+    assert vbc.classify_claim_arm("per_arm::C4_PHASOR", ["C4_PHASOR"], None,
+                                  [vbc.ARM_PROV_CONTAINER], cis)["role"] == \
+        vbc.CLAIM_ARM_NOT_A_MARGIN
+
+
+def test_carrying_a_score_is_not_by_itself_evidence_of_being_an_arm():
+    """The first cut of T2 accepted "this node carries a score of its own" and was too loose.
+
+    A POOL BLOCK carries `hit_at_1_TIE_CORRECTED_primary`, and a MARGIN CONTAINER such as
+    `vs_each_floor` carries a headline number too, so on
+    data/exp_synonym_substitution_metric_v1 the fix merely swapped one wrong claim arm
+    (`HEADLINE`) for another (`...::vs_each_floor`). Caught by reading the surviving selections
+    in the corpus A/B rather than accepting them. The evidence is still REPORTED so the choice
+    is auditable, but it is not accepted.
+    """
+    cis = [(0.011, "F1_TRIGRAM_ONLY", "orthographic")]
+    r = vbc.classify_claim_arm("BLOCK::vs_each_floor", ["vs_each_floor"],
+                               {"hit_at_1_TIE_CORRECTED_primary": 0.0223},
+                               ["MARGIN_CONTAINER:vs_each_floor"], cis)
+    assert r["role"] == vbc.CLAIM_ARM_UNCLASSIFIABLE, r
+    assert vbc.ARM_PROV_SCORE in r["evidence"], (
+        "the weak evidence must still be REPORTED, or a reader cannot tell a refusal from a "
+        "filter that matched nothing")
+
+
+def test_the_delta_key_shape_still_names_its_arm(tmp_path):
+    """REGRESSION the allowlist could easily have broken: `bootstrap.deltas.d_{ARM}_minus_
+    {FLOOR}` names the arm INSIDE the key. Dropping the key segment leaves the container
+    `deltas` as the owner, and a container is not an arm -- so this shape would have been
+    refused wholesale. The left side of the comparison is extracted instead."""
+    p = tmp_path / "metrics.json"
+    p.write_text(json.dumps({
+        "verdict": "DELTA_FIXTURE",
+        "bootstrap": {"deltas": {
+            "d_A4_BOTH_minus_A5_STRINGCTRL": {"ci_lo": 0.11, "ci_hi": 0.19},
+            "d_A4_BOTH_minus_F_FREQUENCY": {"ci_lo": 0.09, "ci_hi": 0.17},
+            "d_A4_BOTH_minus_F_SCRAMBLE": {"ci_lo": 0.14, "ci_hi": 0.22},
+            "d_A4_BOTH_minus_F5_CONSTANT_PROTOTYPE": {"ci_lo": 0.07, "ci_hi": 0.15},
+        }},
+    }), encoding="utf-8")
+    r = vbc.check_cell(str(p))
+    assert list(r["per_treatment_arm_min_ci_lo"]) == ["A4_BOTH"], (
+        f"the arm named inside the delta key was lost: {sorted(r['per_treatment_arm_min_ci_lo'])}")
+    assert r["claim_carrying_arm"] == "A4_BOTH"
+    assert r["min_ci_lo"] == 0.07
+    assert r["claim_arm_floor_roles_compared"] == [
+        "constant_prototype", "frequency", "orthographic", "scramble"]
+
+
+def test_the_real_synonym_cell_no_longer_yields_a_floor_rise_margin():
+    """Pin the ACTUAL cell that caught this, for as long as it is on disk.
+
+    Skipping is honest -- the durable coverage is the fixture above -- but while the artifact
+    exists the real defect must not silently return.
+    """
+    p = os.path.join(_REPO, "data", "exp_synonym_substitution_metric_v1", "metrics.json")
+    if not os.path.exists(p):
+        pytest.skip(f"cell not on this disk: {p}")
+    r = vbc.check_cell(p)
+    assert r["claim_carrying_arm"] != "HEADLINE", (
+        "the cell's summary heading is again being scored as its claim-carrying arm")
+    assert r["min_ci_lo"] != 0.0544, (
+        "the spelling floor's own criterion rise is again being reported as our margin")
+    assert "RISE" not in str(r["binding_floor"]).upper()
+    assert r["bar_status"] != BAR_MEETS, (
+        "this cell makes no MEETS_BAR claim and its author explicitly does not either")
+    # the cell DOES record a constant floor; the classifier must now see it
+    assert CONSTANT_FLOOR_ROLE in r["floor_roles_present"], (
+        "F5_CONSTANT_PROTOTYPE_zero_query_information is in this artifact and must classify as "
+        f"the constant floor; got {r['floor_roles_present']}")
 
 
 # ---------------------------------------------------------------- the arm classifier itself
