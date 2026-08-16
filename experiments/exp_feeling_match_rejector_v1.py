@@ -1418,22 +1418,28 @@ def main() -> int:
     un_feel_vs_inc = band(mu_, "%s__vs__INCUMBENT" % PRIMARY_ARM)
     comb_vs_both = band(mp, "COMBINED_ATT_PLUS_FEEL__minus__ATTESTATION")
 
+    # ORDER MATTERS AND IT WAS WRONG IN THE FIRST DRAFT. A CONTROL CAN ONLY ADJUDICATE SOMETHING
+    # THAT EXISTS. If the treatment clears no floor anywhere, then "a width-matched non-channel
+    # profile does as well" is true but vacuous -- both are at chance -- and reporting it as the
+    # headline would dress a plain null as a refuted mechanism. So floor clearance is asked FIRST,
+    # and the channel and confound controls are only consulted once there is an effect to explain.
+    cleared_somewhere = (feel_vs_floor == "ABOVE") or (un_feel_vs_floor == "ABOVE")
     if not ka_ok:
         verdict = "HARNESS_UNLICENSED_KNOWN_ANSWER_ARM_DID_NOT_REACH_CEILING"
     elif not null_ok:
         verdict = "POOL_LEAK_NULL_ARM_ABOVE_CHANCE"
+    elif not cleared_somewhere:
+        verdict = "FEELING_MATCH_DOES_NOT_CLEAR_THE_FLOORS"
     elif feel_vs_negctrl != "ABOVE":
         verdict = "NOT_THE_CHANNEL_A_WIDTH_MATCHED_NON_CHANNEL_PROFILE_DOES_AS_WELL"
     elif feel_vs_freq != "ABOVE" or feel_vs_conc != "ABOVE":
         verdict = "CONFOUNDED_FEELING_MATCH_DOES_NOT_BEAT_FREQUENCY_OR_CONCRETENESS"
     elif feel_vs_floor == "ABOVE" and feel_vs_inc == "ABOVE":
         verdict = "FEELING_MATCH_BEATS_ATTESTATION_AND_CLEARS_THE_FLOORS"
-    elif feel_vs_floor == "ABOVE" and un_feel_vs_inc == "ABOVE":
+    elif un_feel_vs_inc == "ABOVE" or un_feel_vs_floor == "ABOVE":
         verdict = "FEELING_MATCH_CLEARS_THE_FLOORS_AND_GENERALISES_WHERE_ATTESTATION_IS_BLIND"
-    elif feel_vs_floor == "ABOVE":
-        verdict = "FEELING_MATCH_CLEARS_THE_FLOORS_BUT_DOES_NOT_BEAT_ATTESTATION"
     else:
-        verdict = "FEELING_MATCH_DOES_NOT_CLEAR_THE_FLOORS"
+        verdict = "FEELING_MATCH_CLEARS_THE_FLOORS_BUT_DOES_NOT_BEAT_ATTESTATION"
 
     gates = [
         record_gate("K1_oracle_hit_exp", float(g0.get("K1_ORACLE_GOLD_hit_exp") or 0.0),
