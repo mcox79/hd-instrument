@@ -1,0 +1,297 @@
+{
+ "anchor_name": "exp_structured_code_vs_flat_bag_c3_v1",
+ "run_mode": "full",
+ "prereg": "preregs/2026-08-14_exp_structured_code_vs_flat_bag_c3_v1.md",
+ "ts_iso": "2026-08-15T16:05:16.606979+00:00",
+ "GRADED_COMPARATOR_at_import": true,
+ "n_items": 4000,
+ "n_anchors": 5491,
+ "item_construction": {
+  "n_anchors": 5491,
+  "n_items_before_cap": 4603,
+  "n_items": 4000,
+  "removals": {
+   "foil_direction_fallback": 53,
+   "removed_L_not_in_wordnet": 404,
+   "removed_no_gold_anchor": 484
+  },
+  "n_items_with_heldout_sentence": 4000
+ },
+ "encoder_stats": {
+  "n_parsed": 29305,
+  "n_skipped_long_or_empty": 124,
+  "n_encodings": 153652,
+  "mean_features_per_encoding": 2.817913,
+  "max_tokens": 60,
+  "assets": [
+   "pos_tagger_ud_ewt_upos.json",
+   "arc_parser_richfeat_ud_ewt.npz",
+   "arc_labeler_hashed_ud_ewt.json"
+  ]
+ },
+ "a1_base_reproduces_c3_headline_0480_exactly": true,
+ "self_retrieval": {
+  "BASE": {
+   "acc": 0.7859531772575251,
+   "n": 299,
+   "ok": true
+  },
+  "STRUCT": {
+   "acc": 0.7636986301369864,
+   "n": 292,
+   "ok": true
+  },
+  "floor": 0.7
+ },
+ "projdraw": {
+  "BASE": {
+   "draws": [
+    0.0515,
+    0.0525,
+    0.05025
+   ],
+   "sd": 0.0009204467514322696
+  },
+  "STRUCT": {
+   "draws": [
+    0.03875,
+    0.0415,
+    0.038
+   ],
+   "sd": 0.0015046225071056504
+  }
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260819,
+  "n_items": 4000,
+  "arm_acc_ci": {
+   "A1_BASE": {
+    "acc": 0.048,
+    "ci_lo": 0.04125,
+    "ci_hi": 0.05475,
+    "sd": 0.003414134660129855
+   },
+   "A2_STRUCTURED": {
+    "acc": 0.03675,
+    "ci_lo": 0.031,
+    "ci_hi": 0.04275,
+    "sd": 0.0030238062173360246
+   },
+   "A5_STRINGCTRL": {
+    "acc": 0.087,
+    "ci_lo": 0.07825,
+    "ci_hi": 0.096,
+    "sd": 0.004548074150395966
+   },
+   "A7_PREFIX_ONLY": {
+    "acc": 0.05875,
+    "ci_lo": 0.0515,
+    "ci_hi": 0.066,
+    "sd": 0.0037216867409146626
+   },
+   "F_FREQUENCY": {
+    "acc": 0.0185,
+    "ci_lo": 0.0145,
+    "ci_hi": 0.02275,
+    "sd": 0.002085815188361615
+   },
+   "F_SCRAMBLE_BASE": {
+    "acc": 0.01375,
+    "ci_lo": 0.0105,
+    "ci_hi": 0.01725,
+    "sd": 0.0018001824844998354
+   },
+   "F_SCRAMBLE_STRUCT": {
+    "acc": 0.01375,
+    "ci_lo": 0.0105,
+    "ci_hi": 0.01725,
+    "sd": 0.0018001824844998354
+   }
+  },
+  "deltas": {
+   "d_A2_STRUCTURED_minus_A1_BASE": {
+    "delta": -0.011250000000000003,
+    "ci_lo": -0.019500000000000003,
+    "ci_hi": -0.0030000000000000027,
+    "sd": 0.004168054473912259,
+    "ci_excludes_zero": true
+   },
+   "d_A2_STRUCTURED_minus_BASE": {
+    "delta": -0.011250000000000003,
+    "ci_lo": -0.019500000000000003,
+    "ci_hi": -0.0030000000000000027,
+    "sd": 0.004168054473912259,
+    "ci_excludes_zero": true
+   },
+   "d_A1_BASE_minus_A5_STRINGCTRL": {
+    "delta": -0.03899999999999999,
+    "ci_lo": -0.049999999999999996,
+    "ci_hi": -0.028249999999999997,
+    "sd": 0.005527632291496965,
+    "ci_excludes_zero": true
+   },
+   "d_A2_STRUCTURED_minus_A5_STRINGCTRL": {
+    "delta": -0.050249999999999996,
+    "ci_lo": -0.06075,
+    "ci_hi": -0.04,
+    "sd": 0.005341912494369408,
+    "ci_excludes_zero": true
+   },
+   "d_A1_BASE_minus_A7_PREFIX_ONLY": {
+    "delta": -0.010749999999999996,
+    "ci_lo": -0.020500000000000004,
+    "ci_hi": -0.0005000000000000004,
+    "sd": 0.005010955349032758,
+    "ci_excludes_zero": true
+   },
+   "d_A2_STRUCTURED_minus_A7_PREFIX_ONLY": {
+    "delta": -0.022,
+    "ci_lo": -0.0315,
+    "ci_hi": -0.012749999999999997,
+    "sd": 0.004818201508602561,
+    "ci_excludes_zero": true
+   },
+   "d_A1_BASE_minus_F_FREQUENCY": {
+    "delta": 0.029500000000000002,
+    "ci_lo": 0.021750000000000002,
+    "ci_hi": 0.03725,
+    "sd": 0.003928612347572614,
+    "ci_excludes_zero": true
+   },
+   "d_A2_STRUCTURED_minus_F_FREQUENCY": {
+    "delta": 0.01825,
+    "ci_lo": 0.011000000000000003,
+    "ci_hi": 0.02550624999999991,
+    "sd": 0.003727048032961207,
+    "ci_excludes_zero": true
+   },
+   "d_A1_BASE_minus_F_SCRAMBLE_BASE": {
+    "delta": 0.03425,
+    "ci_lo": 0.026750000000000003,
+    "ci_hi": 0.042,
+    "sd": 0.003869162688489591,
+    "ci_excludes_zero": true
+   },
+   "d_A1_BASE_minus_F_SCRAMBLE": {
+    "delta": 0.03425,
+    "ci_lo": 0.026750000000000003,
+    "ci_hi": 0.042,
+    "sd": 0.003869162688489591,
+    "ci_excludes_zero": true
+   },
+   "d_A2_STRUCTURED_minus_F_SCRAMBLE_STRUCT": {
+    "delta": 0.023,
+    "ci_lo": 0.01625,
+    "ci_hi": 0.03000624999999991,
+    "sd": 0.003541867224713541,
+    "ci_excludes_zero": true
+   }
+  }
+ },
+ "per_arm": {
+  "A1_BASE": {
+   "hit_at_1": 0.048,
+   "median_rank": 37.0,
+   "frac_gold_in_top50": 0.5565,
+   "separation_margin_z": {
+    "mean": -0.1887435824197139,
+    "median": -0.16228779392999262
+   },
+   "tautology_rate": 0.0,
+   "example_picks": [
+    "palm",
+    "highclere",
+    "work",
+    "might",
+    "chromosomal",
+    "more",
+    "metre",
+    "gain",
+    "presence",
+    "limitation",
+    "farm",
+    "pigment"
+   ]
+  },
+  "A2_STRUCTURED": {
+   "hit_at_1": 0.03675,
+   "median_rank": 81.0,
+   "frac_gold_in_top50": 0.41575,
+   "separation_margin_z": {
+    "mean": -0.13260229203584145,
+    "median": -0.11094734228759177
+   },
+   "tautology_rate": 0.0,
+   "example_picks": [
+    "basin",
+    "chew",
+    "zone",
+    "prefer",
+    "area",
+    "evening",
+    "yoga",
+    "eye",
+    "technical",
+    "god",
+    "internet",
+    "means"
+   ]
+  },
+  "A5_STRINGCTRL": {
+   "hit_at_1": 0.087,
+   "median_rank": 37.0,
+   "frac_gold_in_top50": 0.5455,
+   "separation_margin_z": {
+    "mean": -0.3194307992287562,
+    "median": -0.33033655888473784
+   },
+   "tautology_rate": 0.0
+  },
+  "A7_PREFIX_ONLY": {
+   "hit_at_1": 0.05875,
+   "median_rank": 33.5,
+   "frac_gold_in_top50": 0.57675,
+   "separation_margin_z": {
+    "mean": -0.38898063741813743,
+    "median": -0.4
+   },
+   "tautology_rate": 0.0
+  },
+  "F_FREQUENCY": {
+   "hit_at_1": 0.0185
+  },
+  "F_SCRAMBLE_BASE": {
+   "hit_at_1": 0.01375
+  },
+  "F_SCRAMBLE_STRUCT": {
+   "hit_at_1": 0.01375
+  }
+ },
+ "arm_digests": {
+  "A1_BASE": "9ee2af8d9ece6c2b",
+  "A2_STRUCTURED": "621add21502d6669",
+  "A5_STRINGCTRL": "7bcd53b0f3881142",
+  "A7_PREFIX_ONLY": "ece65e27b82d595b",
+  "F_FREQUENCY": "5c81a21601f1a055",
+  "F_SCRAMBLE_BASE": "4596b30dc13e9692",
+  "F_SCRAMBLE_STRUCT": "4596b30dc13e9692"
+ },
+ "arms_must_differ": {
+  "ok": false,
+  "collisions": {
+   "4596b30dc13e9692": [
+    "F_SCRAMBLE_BASE",
+    "F_SCRAMBLE_STRUCT"
+   ]
+  }
+ },
+ "base_clears_floor": false,
+ "struct_clears_floor": false,
+ "structure_helps": false,
+ "structure_hurts": true,
+ "tautology_rate": 0.0,
+ "verdict": "STRUCTURE_HURTS",
+ "verdict_msg": "STRUCTURED is BELOW BASE by -0.0113 (CI [-0.0195,-0.0030]).",
+ "elapsed_s": 3505.77
+}
