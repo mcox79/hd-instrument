@@ -1,0 +1,526 @@
+{
+ "anchor_name": "exp_perirhinal_conjunctive_readout_c3_v1",
+ "run_mode": "smoke",
+ "prereg": "preregs/2026-08-15_exp_perirhinal_conjunctive_readout_c3_v1.md",
+ "ts_iso": "2026-08-16T00:21:58.480049+00:00",
+ "GRADED_COMPARATOR_at_import": true,
+ "PERIRHINAL_CONJUNCTIVE_at_import": false,
+ "n_items": 300,
+ "n_anchors": 716,
+ "item_construction": {
+  "n_anchors": 716,
+  "n_items_before_cap": 609,
+  "n_items": 300,
+  "removals": {
+   "foil_direction_fallback": 24,
+   "removed_L_not_in_wordnet": 39,
+   "removed_no_gold_anchor": 68
+  },
+  "n_items_with_heldout_sentence": 300
+ },
+ "encoder_stats": {
+  "A2_CONJ_PAIR": {
+   "organ": "perirhinal_conjunctive",
+   "mode": "pair",
+   "k_frac": null,
+   "d": 256,
+   "n_encodings": 10121,
+   "n_zero_out": 69,
+   "frac_zero_out": 0.006817508151368442,
+   "mean_masked_tokens": 12.502717122813952,
+   "default_switch_PERIRHINAL_CONJUNCTIVE": false
+  },
+  "A3_CONJ_HYBRID": {
+   "organ": "perirhinal_conjunctive",
+   "mode": "hybrid",
+   "k_frac": null,
+   "d": 256,
+   "n_encodings": 10121,
+   "n_zero_out": 21,
+   "frac_zero_out": 0.002074893785199091,
+   "mean_masked_tokens": 12.502717122813952,
+   "default_switch_PERIRHINAL_CONJUNCTIVE": false
+  },
+  "A4_CONJ_SPARSE": {
+   "organ": "perirhinal_conjunctive",
+   "mode": "sparse",
+   "k_frac": 0.1,
+   "d": 256,
+   "n_encodings": 10121,
+   "n_zero_out": 69,
+   "frac_zero_out": 0.006817508151368442,
+   "mean_masked_tokens": 12.502717122813952,
+   "default_switch_PERIRHINAL_CONJUNCTIVE": false
+  }
+ },
+ "a1_base_reproduces_c3_headline_0480_exactly": null,
+ "harness_integrity_gate_scope": "full only (null at smoke by construction)",
+ "known_answer_self_retrieval": {
+  "floor": 0.7,
+  "per_arm": {
+   "A1_BASE": {
+    "acc": 0.8154362416107382,
+    "n": 298,
+    "ok": true
+   },
+   "A2_CONJ_PAIR": {
+    "acc": 0.738255033557047,
+    "n": 298,
+    "ok": true
+   },
+   "A3_CONJ_HYBRID": {
+    "acc": 0.7483221476510067,
+    "n": 298,
+    "ok": true
+   },
+   "A4_CONJ_SPARSE": {
+    "acc": 0.7483221476510067,
+    "n": 298,
+    "ok": true
+   }
+  }
+ },
+ "scramble_null_arm": {
+  "design": "scrambled CONTEXT, per-arm encoder, shared donor perm",
+  "n_scored_per_arm": {
+   "A1_BASE": 298,
+   "A2_CONJ_PAIR": 296,
+   "A3_CONJ_HYBRID": 298,
+   "A4_CONJ_SPARSE": 296
+  }
+ },
+ "projdraw": {
+  "A1_BASE": {
+   "draws": [
+    0.06333333333333334,
+    0.04,
+    0.05333333333333334
+   ],
+   "sd": 0.00955813918560292
+  },
+  "A2_CONJ_PAIR": {
+   "draws": [
+    0.04666666666666667,
+    0.05333333333333334,
+    0.05333333333333334
+   ],
+   "sd": 0.0031426968052735453
+  },
+  "A3_CONJ_HYBRID": {
+   "draws": [
+    0.05,
+    0.05,
+    0.05333333333333334
+   ],
+   "sd": 0.0015713484026367726
+  }
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260819,
+  "n_items": 300,
+  "arm_acc_ci": {
+   "A1_BASE": {
+    "acc": 0.05333333333333334,
+    "ci_lo": 0.03,
+    "ci_hi": 0.08,
+    "sd": 0.012990628673522053
+   },
+   "A2_CONJ_PAIR": {
+    "acc": 0.07333333333333333,
+    "ci_lo": 0.04666666666666667,
+    "ci_hi": 0.10333333333333333,
+    "sd": 0.015169310524139777
+   },
+   "A3_CONJ_HYBRID": {
+    "acc": 0.06666666666666667,
+    "ci_lo": 0.04,
+    "ci_hi": 0.09666666666666666,
+    "sd": 0.014602251744166036
+   },
+   "A4_CONJ_SPARSE": {
+    "acc": 0.07666666666666666,
+    "ci_lo": 0.05,
+    "ci_hi": 0.11,
+    "sd": 0.015425959635195038
+   },
+   "A5_STRINGCTRL": {
+    "acc": 0.056666666666666664,
+    "ci_lo": 0.03333333333333333,
+    "ci_hi": 0.08333333333333333,
+    "sd": 0.013296747873070317
+   },
+   "A7_PREFIX_ONLY": {
+    "acc": 0.04666666666666667,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.07333333333333333,
+    "sd": 0.012344678817657068
+   },
+   "F_FREQUENCY": {
+    "acc": 0.043333333333333335,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.011691047115920228
+   },
+   "F_SCRAMBLE_A1_BASE": {
+    "acc": 0.043333333333333335,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.011751674755351067
+   },
+   "F_SCRAMBLE_A2_CONJ_PAIR": {
+    "acc": 0.043333333333333335,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.011698748954957153
+   },
+   "F_SCRAMBLE_A3_CONJ_HYBRID": {
+    "acc": 0.04,
+    "ci_lo": 0.02,
+    "ci_hi": 0.06333333333333334,
+    "sd": 0.011173976990211578
+   },
+   "F_SCRAMBLE_A4_CONJ_SPARSE": {
+    "acc": 0.04,
+    "ci_lo": 0.02,
+    "ci_hi": 0.06333333333333334,
+    "sd": 0.011205466741233445
+   }
+  },
+  "deltas": {
+   "d_A2_CONJ_PAIR_minus_A1_BASE": {
+    "delta": 0.019999999999999997,
+    "ci_lo": -0.009999999999999995,
+    "ci_hi": 0.049999999999999996,
+    "sd": 0.014821075444559795,
+    "ci_excludes_zero": false
+   },
+   "d_A2_CONJ_PAIR_minus_A5_STRINGCTRL": {
+    "delta": 0.01666666666666667,
+    "ci_lo": -0.023333333333333324,
+    "ci_hi": 0.056666666666666664,
+    "sd": 0.02025640502271922,
+    "ci_excludes_zero": false
+   },
+   "d_A2_CONJ_PAIR_minus_A7_PREFIX_ONLY": {
+    "delta": 0.026666666666666665,
+    "ci_lo": -0.010000000000000002,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.019435992625367333,
+    "ci_excludes_zero": false
+   },
+   "d_A2_CONJ_PAIR_minus_F_FREQUENCY": {
+    "delta": 0.03,
+    "ci_lo": -0.006666666666666661,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.018422644954270574,
+    "ci_excludes_zero": false
+   },
+   "d_A2_CONJ_PAIR_minus_F_SCRAMBLE_A2_CONJ_PAIR": {
+    "delta": 0.03,
+    "ci_lo": -0.006666666666666661,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.018379098744679148,
+    "ci_excludes_zero": false
+   },
+   "d_A3_CONJ_HYBRID_minus_A1_BASE": {
+    "delta": 0.013333333333333329,
+    "ci_lo": -0.013333333333333343,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.014768670985118014,
+    "ci_excludes_zero": false
+   },
+   "d_A3_CONJ_HYBRID_minus_A5_STRINGCTRL": {
+    "delta": 0.010000000000000002,
+    "ci_lo": -0.026666666666666665,
+    "ci_hi": 0.04666666666666667,
+    "sd": 0.01911949779675188,
+    "ci_excludes_zero": false
+   },
+   "d_A3_CONJ_HYBRID_minus_A7_PREFIX_ONLY": {
+    "delta": 0.019999999999999997,
+    "ci_lo": -0.016666666666666663,
+    "ci_hi": 0.056749999999998794,
+    "sd": 0.01894030386943849,
+    "ci_excludes_zero": false
+   },
+   "d_A3_CONJ_HYBRID_minus_F_FREQUENCY": {
+    "delta": 0.02333333333333333,
+    "ci_lo": -0.010000000000000002,
+    "ci_hi": 0.06,
+    "sd": 0.017920415421772144,
+    "ci_excludes_zero": false
+   },
+   "d_A3_CONJ_HYBRID_minus_F_SCRAMBLE_A3_CONJ_HYBRID": {
+    "delta": 0.026666666666666665,
+    "ci_lo": -0.006666666666666668,
+    "ci_hi": 0.06333333333333332,
+    "sd": 0.017636097212503928,
+    "ci_excludes_zero": false
+   },
+   "d_A4_CONJ_SPARSE_minus_A1_BASE": {
+    "delta": 0.023333333333333324,
+    "ci_lo": -0.009999999999999995,
+    "ci_hi": 0.05666666666666667,
+    "sd": 0.01683754381665502,
+    "ci_excludes_zero": false
+   },
+   "d_A4_CONJ_SPARSE_minus_A5_STRINGCTRL": {
+    "delta": 0.019999999999999997,
+    "ci_lo": -0.016666666666666663,
+    "ci_hi": 0.06,
+    "sd": 0.019349234552761455,
+    "ci_excludes_zero": false
+   },
+   "d_A4_CONJ_SPARSE_minus_A7_PREFIX_ONLY": {
+    "delta": 0.029999999999999992,
+    "ci_lo": -0.006666666666666661,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.018461373380957092,
+    "ci_excludes_zero": false
+   },
+   "d_A4_CONJ_SPARSE_minus_F_FREQUENCY": {
+    "delta": 0.033333333333333326,
+    "ci_lo": 0.003333333333333327,
+    "ci_hi": 0.06666666666666668,
+    "sd": 0.016889327807162065,
+    "ci_excludes_zero": true
+   },
+   "d_A4_CONJ_SPARSE_minus_F_SCRAMBLE_A4_CONJ_SPARSE": {
+    "delta": 0.03666666666666666,
+    "ci_lo": 0.0,
+    "ci_hi": 0.07341666666666545,
+    "sd": 0.018879373388848358,
+    "ci_excludes_zero": false
+   },
+   "d_A1_BASE_minus_A5_STRINGCTRL": {
+    "delta": -0.003333333333333327,
+    "ci_lo": -0.04000000000000001,
+    "ci_hi": 0.03333333333333333,
+    "sd": 0.01906765497438587,
+    "ci_excludes_zero": false
+   },
+   "d_A1_BASE_minus_A7_PREFIX_ONLY": {
+    "delta": 0.006666666666666668,
+    "ci_lo": -0.03,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.018240036537487774,
+    "ci_excludes_zero": false
+   },
+   "d_A1_BASE_minus_F_FREQUENCY": {
+    "delta": 0.010000000000000002,
+    "ci_lo": -0.02333333333333333,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.01663298137236176,
+    "ci_excludes_zero": false
+   },
+   "d_A1_BASE_minus_F_SCRAMBLE_A1_BASE": {
+    "delta": 0.010000000000000002,
+    "ci_lo": -0.02333333333333333,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.016543407132617982,
+    "ci_excludes_zero": false
+   }
+  }
+ },
+ "per_arm": {
+  "A1_BASE": {
+   "hit_at_1": 0.05333333333333334,
+   "median_rank": 19.0,
+   "frac_gold_in_top50": 0.7266666666666667,
+   "separation_margin_z": {
+    "mean": -0.2359183292145165,
+    "median": -0.20679178959163994
+   },
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear",
+    "reduce",
+    "science"
+   ]
+  },
+  "A2_CONJ_PAIR": {
+   "hit_at_1": 0.07333333333333333,
+   "median_rank": 19.0,
+   "frac_gold_in_top50": 0.71,
+   "separation_margin_z": {
+    "mean": -0.26689834651216876,
+    "median": -0.2523137868204334
+   },
+   "example_picks": [
+    "poverty",
+    "indiegogo",
+    "famous",
+    "situation",
+    "please",
+    "indigenous",
+    "trade",
+    "size",
+    "descent",
+    "instructor",
+    "respond",
+    "brand"
+   ]
+  },
+  "A3_CONJ_HYBRID": {
+   "hit_at_1": 0.06666666666666667,
+   "median_rank": 19.0,
+   "frac_gold_in_top50": 0.6966666666666667,
+   "separation_margin_z": {
+    "mean": -0.2598649580044618,
+    "median": -0.23798428065427532
+   },
+   "example_picks": [
+    "poverty",
+    "indiegogo",
+    "famous",
+    "clear",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "home",
+    "see",
+    "brand"
+   ]
+  },
+  "A4_CONJ_SPARSE": {
+   "hit_at_1": 0.07666666666666666,
+   "median_rank": 17.0,
+   "frac_gold_in_top50": 0.7333333333333333,
+   "separation_margin_z": {
+    "mean": -0.13145192055528312,
+    "median": -0.1027678651620231
+   },
+   "example_picks": [
+    "poverty",
+    "people",
+    "compare",
+    "coal",
+    "many",
+    "internet",
+    "new",
+    "may",
+    "descent",
+    "say",
+    "say",
+    "brand"
+   ]
+  },
+  "A5_STRINGCTRL": {
+   "hit_at_1": 0.056666666666666664,
+   "median_rank": 17.5,
+   "frac_gold_in_top50": 0.7366666666666667
+  },
+  "A7_PREFIX_ONLY": {
+   "hit_at_1": 0.04666666666666667,
+   "median_rank": 14.5
+  },
+  "F_FREQUENCY": {
+   "hit_at_1": 0.043333333333333335
+  },
+  "F_SCRAMBLE_A1_BASE": {
+   "hit_at_1": 0.043333333333333335
+  },
+  "F_SCRAMBLE_A2_CONJ_PAIR": {
+   "hit_at_1": 0.043333333333333335
+  },
+  "F_SCRAMBLE_A3_CONJ_HYBRID": {
+   "hit_at_1": 0.04
+  },
+  "F_SCRAMBLE_A4_CONJ_SPARSE": {
+   "hit_at_1": 0.04
+  }
+ },
+ "strongest_no_understanding_floor": {
+  "arm": "A5_STRINGCTRL",
+  "hit_at_1": 0.056666666666666664
+ },
+ "arm_verdicts": {
+  "A2_CONJ_PAIR": {
+   "hit_at_1": 0.07333333333333333,
+   "delta_vs_A1_BASE": {
+    "delta": 0.019999999999999997,
+    "ci_lo": -0.009999999999999995,
+    "ci_hi": 0.049999999999999996,
+    "sd": 0.014821075444559795,
+    "ci_excludes_zero": false
+   },
+   "projdraw_sd_gate": 0.00955813918560292,
+   "gate1_beats_base_CI_separated_and_exceeds_projdraw_sd": false,
+   "gate2_clears_max_orthographic_frequency_scramble": false,
+   "gate3_known_answer_self_retrieval_ok": true,
+   "is_below_base_CI_separated": false,
+   "WINS": false
+  },
+  "A3_CONJ_HYBRID": {
+   "hit_at_1": 0.06666666666666667,
+   "delta_vs_A1_BASE": {
+    "delta": 0.013333333333333329,
+    "ci_lo": -0.013333333333333343,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.014768670985118014,
+    "ci_excludes_zero": false
+   },
+   "projdraw_sd_gate": 0.00955813918560292,
+   "gate1_beats_base_CI_separated_and_exceeds_projdraw_sd": false,
+   "gate2_clears_max_orthographic_frequency_scramble": false,
+   "gate3_known_answer_self_retrieval_ok": true,
+   "is_below_base_CI_separated": false,
+   "WINS": false
+  },
+  "A4_CONJ_SPARSE": {
+   "hit_at_1": 0.07666666666666666,
+   "delta_vs_A1_BASE": {
+    "delta": 0.023333333333333324,
+    "ci_lo": -0.009999999999999995,
+    "ci_hi": 0.05666666666666667,
+    "sd": 0.01683754381665502,
+    "ci_excludes_zero": false
+   },
+   "projdraw_sd_gate": 0.00955813918560292,
+   "gate1_beats_base_CI_separated_and_exceeds_projdraw_sd": false,
+   "gate2_clears_max_orthographic_frequency_scramble": false,
+   "gate3_known_answer_self_retrieval_ok": true,
+   "is_below_base_CI_separated": false,
+   "WINS": false
+  }
+ },
+ "base_clears_floor": false,
+ "arm_digests": {
+  "A1_BASE": "10cd7a113bdc3444",
+  "A2_CONJ_PAIR": "afd6fd46089b2cf9",
+  "A3_CONJ_HYBRID": "f1308c29f816db70",
+  "A4_CONJ_SPARSE": "c0f8fbdd6a1c6aa2",
+  "A5_STRINGCTRL": "ca93c36f7940596e",
+  "A7_PREFIX_ONLY": "a6daaded62faed27",
+  "F_FREQUENCY": "5e0f9f3ecaaf6d77",
+  "F_SCRAMBLE_A1_BASE": "58f511b647ef2900",
+  "F_SCRAMBLE_A2_CONJ_PAIR": "45421f26bd9aa87c",
+  "F_SCRAMBLE_A3_CONJ_HYBRID": "272466428c29d391",
+  "F_SCRAMBLE_A4_CONJ_SPARSE": "6c44cd31cb544f2c"
+ },
+ "arms_must_differ": {
+  "ok": true,
+  "collisions": {}
+ },
+ "primary_arms": [
+  "A2_CONJ_PAIR",
+  "A3_CONJ_HYBRID"
+ ],
+ "diagnostic_only_arms": [
+  "A4_CONJ_SPARSE"
+ ],
+ "verdict": "CONJUNCTIVE_DOES_NOT_HELP",
+ "verdict_msg": "no conjunctive arm cleared all three gates and none is CI-separated below base either; strongest floor A5_STRINGCTRL=0.0567, live base=0.0533.",
+ "elapsed_s": 24.08
+}
