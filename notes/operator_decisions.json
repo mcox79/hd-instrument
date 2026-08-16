@@ -1,0 +1,89 @@
+{
+  "_README": [
+    "STANDING DECISIONS WAITING ON THE OWNER -- the data behind the WHAT NEEDS YOU tab of",
+    "tools/status_gui.py (collector: tools/status_plan.py).",
+    "",
+    "WHAT IS HERE AND WHAT IS NOT. The owner's decisions come from THREE places and only this one",
+    "needs a file:",
+    "  1. notes/BOARD.md          -- questions the owner can answer by typing into a cell.",
+    "                                Read LIVE by tools/board.py. Not duplicated here.",
+    "  2. notes/PLAN.md section 9 -- the D1..D7 decisions, each with a recommended default.",
+    "                                PARSED LIVE by tools/status_plan.py. Not duplicated here.",
+    "  3. running prose in notes/STATUS.md, notes/STATUS_LESSONS.md and notes/STATUS_SPEC.md --",
+    "                                these have no repeated heading shape to anchor a parse to,",
+    "                                so they are transcribed HERE.",
+    "",
+    "IT LIVES IN notes/ AND NOT IN data/ ON PURPOSE: `.gitignore` line 43 is `data/*`, so a copy",
+    "under data/ would be absent from a fresh clone and the tab would come up MISSING for the next",
+    "person. It belongs beside the documents it is transcribed from.",
+    "",
+    "IT IS NOT A SECOND SOURCE OF TRUTH. Every row carries a `verify` list of literal strings that",
+    "MUST still be findable in one of the authority documents. tools/status_plan.py re-checks them",
+    "on EVERY refresh and renders a row as CHECK-SOURCE when a string has gone missing, and counts",
+    "it in the drift figure shown on screen. Dashes, markdown emphasis and line breaks are",
+    "normalised before comparison, so typography cannot trip the check and a changed NUMBER still",
+    "fails it.",
+    "",
+    "IF ONE OF THESE EVER GROWS A HEADING SHAPE IN ITS SOURCE DOCUMENT, DELETE THE ROW AND PARSE IT.",
+    "A transcription is the fallback for prose, never the preference.",
+    "",
+    "FIELDS",
+    "  id / title      stable key; plain-language name the owner sees",
+    "  question        the decision, phrased as the thing the owner would actually answer",
+    "  blocked         what is held up while it is unanswered, in one plain sentence",
+    "  rec             my recommendation",
+    "  standing        what happens TODAY while nobody answers (silence is never neutral)",
+    "  source          the document the row is transcribed from",
+    "  verify          literal strings that must still appear in an authority document"
+  ],
+  "as_of": "2026-08-16",
+  "transcribed_from": [
+    "notes/STATUS.md TOOLING STATE and WHAT IS RUNNING / BLOCKED",
+    "notes/STATUS_LESSONS.md THE SKIPPED-FULLS RECOVERY and the verdict-bar scan block",
+    "notes/STATUS_SPEC.md sec 7 escalation record"
+  ],
+
+  "decisions": [
+    {
+      "id": "OP1",
+      "title": "238 overstated results have already been copied into an index",
+      "question": "What do we do about 238 results whose claim does not survive the standard, and which have ALREADY been cited by the certificate ledger or the capability list?",
+      "blocked": "Nothing is blocked mechanically -- which is the problem. Those 238 overstatements are sitting inside the two indexes the rest of the project reads, so anything quoting them inherits the overstatement.",
+      "rec": "Mark all 238 in place as flagged, so nobody quotes them, rather than re-adjudicating them one by one. Re-adjudication is weeks of work; marking is hours and removes the propagation.",
+      "standing": "NOTHING IS HAPPENING. The scan tool deliberately changed nothing, and the decision is recorded as not taken.",
+      "source": "notes/STATUS.md TOOLING STATE; notes/STATUS_LESSONS.md",
+      "verify": ["238 flagged cells ARE cited by an index", "OPEN OPERATOR DECISION"]
+    },
+    {
+      "id": "OP2",
+      "title": "4 experiments cannot be re-run because their pre-registration is missing",
+      "question": "Four of the collision-affected experiments cannot be re-dispatched: the pre-registration file they need does not exist, and the pre-registration folder is on the do-not-touch list. Do we authorise writing those four, or drop the four cells?",
+      "blocked": "Four re-runs from the skipped-fulls recovery. They cannot be shipped at all until this is answered -- it is not a priority call, it is a hard stop.",
+      "rec": "Authorise the cell author to write the four missing pre-registrations, dated and BEFORE the run. Writing a pre-registration after seeing a result is what the do-not-touch rule exists to prevent; writing one before a re-run is the normal path.",
+      "standing": "The four cells sit undispatched and nothing else moves them.",
+      "source": "notes/STATUS_LESSONS.md THE SKIPPED-FULLS RECOVERY",
+      "verify": ["4 cells cannot be dispatched because their prereg is absent"]
+    },
+    {
+      "id": "OP3",
+      "title": "98 archive-tier experiments: re-run them or leave them",
+      "question": "98 superseded experiments were affected by the same checkpoint fault. Re-running them is the largest single block of compute left in the backlog. Leave them?",
+      "blocked": "Nothing waits on it. It is a spending decision, and the cost is high while the value is the lowest of the three tiers.",
+      "rec": "Do NOT re-run them. Mark them collision-affected in place so nobody quotes them. This is the same decision as D5 in the near-term plan, and D5's recommended default already says no.",
+      "standing": "The standing default is already DO-NOT-RE-RUN, so silence here is safe and is being taken.",
+      "source": "notes/STATUS_LESSONS.md; duplicated as decision D5 in notes/PLAN.md section 9",
+      "verify": ["ARCHIVE-tier cells are untouched under a standing DO-NOT-RE-RUN default"]
+    },
+    {
+      "id": "OP4",
+      "title": "The status file is over its size limit and the raise needs granting",
+      "question": "The recovery document that every session reads first is about 720 bytes over its own size cap, deliberately. A raise from 8704 to 9216 bytes has been measured and proposed. Grant it?",
+      "blocked": "Nothing stops, but every future edit to that file has to choose between breaking the cap and evicting an entry that is marked never-trim. That is a bad choice to make repeatedly.",
+      "rec": "Grant the raise. The overspend is entirely in the never-trim class -- the lessons and corrections that exist precisely so they are not forgotten -- and every other section of the file is already under its own budget.",
+      "standing": "The file stays over cap and the next maintainer faces the same choice.",
+      "source": "notes/STATUS.md WHAT IS RUNNING / BLOCKED; notes/STATUS_SPEC.md sec 7",
+      "verify": ["OVER CAP BY ~720 B AND DELIBERATELY SO", "a raise to 9216 B",
+                 "escalation step 3 MEASURED AND PROPOSED (NOT ENACTED)"]
+    }
+  ]
+}

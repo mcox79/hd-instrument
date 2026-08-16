@@ -32,9 +32,50 @@
     "  evidence      where the number came from",
     "  verify        literal strings that must still appear in the plan/status docs"
   ],
-  "as_of": "2026-08-15",
-  "transcribed_from": ["notes/PLAN.md section 2 and section 3", "notes/STATUS.md"],
-  "verify_sources": ["notes/PLAN.md", "notes/STATUS.md"],
+  "as_of": "2026-08-16",
+  "transcribed_from": ["notes/PLAN.md section 2 and section 3", "notes/STATUS.md",
+                       "notes/LONG_TERM_PLAN.md section 2 (the governing floor, added 2026-08-16)"],
+  "verify_sources": ["notes/PLAN.md", "notes/STATUS.md", "notes/LONG_TERM_PLAN.md"],
+
+  "_CORRECTION_2026_08_16": [
+    "THE HEADLINE FLOOR BELOW IS NOT THE STRONGEST FLOOR, AND SAYING SO IS THE POINT OF THIS BLOCK.",
+    "",
+    "The pair `4.80% vs SPELLING 8.70%` stays exactly as it is: both numbers come from the same",
+    "cell, the same items, the same pool and the same gold, and that is what makes them comparable.",
+    "Substituting the constant guess into the `floor` field would carry a number across scorers,",
+    "which is standing discipline 11 and cost this project three retractions in one night.",
+    "",
+    "So the superseding floor is added as its OWN object, `governing_floor`, with its own scope,",
+    "and the window renders it ABOVE the table so the 8.70% can never be read without it.",
+    "",
+    "WHY THIS COULD BE FIXED NOW AND NOT BEFORE. The previous agent left the stale headline in",
+    "place and explained why: this file's `verify` literals were checked against notes/PLAN.md and",
+    "notes/STATUS.md only, the correction exists in neither, and notes/PLAN.md is do-not-touch --",
+    "so writing the correction here would have rendered the row CHECK-PLAN. The fix was to ADD",
+    "notes/LONG_TERM_PLAN.md to the authority corpus in tools/status_state.py, where the correction",
+    "actually lives. Adding an authority document is not editing one, and no do-not-touch file was",
+    "written to."
+  ],
+
+  "governing_floor": {
+    "id": "governing_floor",
+    "title": "THE STRONGEST FLOOR WE KNOW OF -- AND IT IS NOT SPELLING",
+    "what_it_does": "A baseline that gives THE SAME ANSWER TO EVERY QUESTION -- it never looks at what was asked at all.",
+    "score": "13.90% / 15.18%",
+    "floor_name": "CONSTANT GUESS (uses zero information about the question)",
+    "plain_verdict": "IT BEATS THE SPELLING CHANNEL, and the spelling channel already beats us. So our score AND the floor quoted throughout the table below are BOTH under a baseline that knows nothing at all. Nobody had ever run this comparison.",
+    "detail": "It beats spelling by +0.0523 [+0.0391,+0.0658] and +0.0627 [+0.0475,+0.0778], intervals separated.",
+    "scope": "Measured in a different cell from the 4.80% headline. It is quoted here as the strongest floor we know of, NOT as a like-for-like replacement for the 8.70% -- the two numbers below share a scorer and this one does not.",
+    "two_readings": [
+      "OUR FLOORS WERE TOO WEAK: the standing bar never included a popularity-shaped floor, so it under-set the bar everywhere.",
+      "THE TASK MAY BE DEGENERATE: if a constant answer wins, this task may be dominated by which words are common rather than by understanding. These two are distinguishable by measurement, and that measurement is the top priority."
+    ],
+    "evidence": "notes/LONG_TERM_PLAN.md section 2; .claude/scan-out/sparsify-right-object.json",
+    "verify": ["CONSTANT RANKING THAT USES ZERO INFORMATION ABOUT THE QUERY",
+               "0.1390 / 0.1518",
+               "+0.0523 [+0.0391,+0.0658]",
+               "+0.0627 [+0.0475,+0.0778]"]
+  },
 
   "headline": {
     "id": "readout",
@@ -48,9 +89,10 @@
     "floor": "8.70%",
     "floor_detail": "three-letter chunks of the spelling and nothing else -- zero substrate signal; confidence interval 7.83 to 9.60",
     "floor_name": "SPELLING ONLY",
+    "floor_superseded_by": "This is NOT the strongest floor. A CONSTANT GUESS that never looks at the question beats the spelling channel CI-separated -- see the governing floor above.",
     "standing": "BELOW_FLOOR",
     "separated": "YES",
-    "plain_verdict": "WE LOSE TO A SPELL-CHECKER. A channel that knows nothing but spelling beats us by 1.8x, and the intervals do not overlap. Prefix-only spelling (5.88%) also beats us.",
+    "plain_verdict": "WE LOSE TO A SPELL-CHECKER. A channel that knows nothing but spelling beats us by 1.8x, and the intervals do not overlap. Prefix-only spelling (5.88%) also beats us. AND THE SPELLING CHANNEL IS NOT THE FLOOR THAT GOVERNS: a constant answer that never looks at the question beats spelling too.",
     "evidence": "exp_orthographic_floor_vet_v1 (58a125c88); A6_TRIGRAM_ONLY arm; A1_BASE reproduces 0.0480",
     "verify": ["4.80%", "8.70%", "5.88%", "58a125c88"]
   },

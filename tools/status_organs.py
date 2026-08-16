@@ -395,11 +395,43 @@ def _derive_organ(o: dict) -> None:
     ev_noneg = ev_clean.replace("NO FLOORED", "").replace("NO FLOOR", "")
     says_untested = "UNTESTED" in ev_noneg
     has_floor = bool(re.search(r"FLOOR|BASELINE|CHANCE|SCRAMBLE", ev_noneg))
+
+    # THE CONFLICT IS REPORTED, NEVER RESOLVED HERE. Section 10 of the map re-audited twelve organs
+    # on 2026-08-15 and found nine of them were NOT untested after all -- but it did that in its own
+    # section and did NOT edit the section 4 rows. So several rows now assert BOTH "here is a
+    # floored comparison" AND "UNTESTED - no floored number", in the same paragraph, about the same
+    # organ. A1 is the clearest case.
+    #
+    # A parser that picks one of those readings fabricates in whichever direction its author's
+    # branch order happened to fall, and the reader has no way to know it happened. So this records
+    # WHICH TWO THINGS THE DOCUMENT SAYS, counts it, and puts the raw sentence in the detail box for
+    # the reader to adjudicate. Adjudicating it is a documentation edit, and notes/ORGAN_MAP.md is
+    # not this tool's to edit.
+    conflicts: list[dict] = []
+    if has_floor and (says_untested or says_no_floor):
+        conflicts.append({
+            "axis": "was it measured against something that could beat it?",
+            "says_a": "a floored, can-fail comparison is cited in this row",
+            "says_b": ("the same row still carries UNTESTED / 'no floored number'"
+                       if says_untested else "the same row still says NO FLOOR"),
+            "why": ("section 10 re-audited this organ and section 4 was never updated, so the "
+                    "document now says both"),
+        })
+    if o.get("reaudited") and says_untested:
+        conflicts.append({
+            "axis": "does the re-audit agree with the row it is attached to?",
+            "says_a": "section 10: NO LONGER UNTESTED",
+            "says_b": "section 4: UNTESTED",
+            "why": "the re-audit note was appended to the row rather than replacing its verdict",
+        })
+    o["conflicts"] = conflicts
+    o["has_conflict"] = bool(conflicts)
+
     if not ev:
         o["measured"], o["floor_named"] = "NOTHING RECORDED IN THE MAP", False
-    elif has_floor and (says_untested or says_no_floor):
-        o["measured"] = ("the map says BOTH -- a floored comparison AND still untested in part; "
-                         "read the detail")
+    elif conflicts:
+        o["measured"] = ("CONFLICT -- the map says BOTH; section 10 re-audited this row and "
+                         "section 4 was not updated. Read the detail.")
         o["floor_named"] = None
     elif says_no_floor:
         o["measured"], o["floor_named"] = "measured, NO FLOOR beside it", False
@@ -614,6 +646,8 @@ def collect_organs() -> dict:
             "evidence": o["evidence_raw"],
             "evidence_field": o.get("evidence_field"),
             "reaudited": o.get("reaudited"),
+            "conflicts": o.get("conflicts") or [],
+            "has_conflict": bool(o.get("has_conflict")),
             "blocks": o["blocks"],
             "fidelity_class": o["fidelity_class"],
             "fidelity_plain": o["fidelity_plain"],
@@ -686,6 +720,13 @@ def collect_organs() -> dict:
         "n_overlay": sum(1 for r in rows if r["source"] == "OVERLAY"),
         "n_missing": n_missing,
         "n_no_floor": sum(1 for r in rows if r.get("floor_named") is False),
+        "n_conflicts": sum(1 for r in rows if r.get("has_conflict")),
+        "conflict_ids": [r.get("id") for r in rows if r.get("has_conflict")],
+        "conflict_note": (
+            "notes/ORGAN_MAP.md section 10 re-audited twelve organs on 2026-08-15 and did not edit "
+            "the section 4 rows, so some rows now assert BOTH a floored comparison AND UNTESTED. "
+            "This panel reports the conflict instead of picking one -- resolving it is a "
+            "documentation edit and that document is not this window's to edit."),
         "missing_required": missing_required,
         "map_path": str(ORGAN_MAP_DOC),
         "overlay_path": str(ORGAN_SPEC),
@@ -1018,6 +1059,43 @@ def self_test() -> int:
           f"parser: a NO-FLOOR evidence line is reported as such "
           f"(got {one[0]['measured']!r})")
     check(parse_organ_map("") == [], "parser: an empty document yields no organs, not a crash")
+
+    # ---- THE SECTION-10-VERSUS-SECTION-4 CONFLICT ------------------------
+    # A row that carries a section-10 re-audit AND still carries section 4's UNTESTED verdict must
+    # be reported as saying BOTH. Picking one silently is a fabrication in whichever direction the
+    # code's branch order happens to fall.
+    both = ("## 4. THE ORGAN MAP\n\n### A. G\n\n**A9 - Conflicted organ**\n"
+            "- **BRAIN'S MATH:** something (Author 2020)\n- **OURS:** `hdlab/x.py` thing\n"
+            "- **FIDELITY:** SAME\n"
+            "- **WIRED:** NO\n\n"
+            "  SEE 10.1 - NO LONGER UNTESTED: `exp_floor_vet_v1` 0.0870 vs live 0.0480.\n"
+            "  UNTESTED - no floored number.\n"
+            "- **BLOCKS:** nothing\n\n## 5. NEXT\n")
+    cf = parse_organ_map(both)
+    check(len(cf) == 1 and cf[0]["has_conflict"],
+          f"conflict: a row asserting BOTH a floored result and UNTESTED is flagged "
+          f"(got {cf and cf[0].get('has_conflict')!r})")
+    check(cf and cf[0]["floor_named"] is None,
+          f"conflict: its floor status is UNKNOWN, not silently True or False "
+          f"(got {cf and cf[0].get('floor_named')!r})")
+    check(cf and "CONFLICT" in cf[0]["measured"].upper(),
+          f"conflict: the CELL THE OWNER READS says CONFLICT (got {cf and cf[0]['measured']!r})")
+    check(cf and len(cf[0]["conflicts"]) >= 2
+          and all(c.get("says_a") and c.get("says_b") for c in cf[0]["conflicts"]),
+          f"conflict: both sides of the disagreement are recorded, not just the flag "
+          f"(got {cf and cf[0]['conflicts']})")
+    clean = ("## 4. THE ORGAN MAP\n\n### A. G\n\n**A8 - Clean organ**\n"
+             "- **OURS:** `hdlab/y.py`\n- **FIDELITY:** SAME\n- **WIRED:** YES\n"
+             "- **EVIDENCE:** HARD_PASS vs a scramble floor 0.31.\n\n## 5. NEXT\n")
+    cl = parse_organ_map(clean)
+    check(cl and not cl[0]["has_conflict"] and cl[0]["floor_named"] is True,
+          f"conflict: an unambiguous floored row is NOT flagged as conflicted "
+          f"(got conflict={cl and cl[0]['has_conflict']!r}, "
+          f"floor={cl and cl[0]['floor_named']!r})")
+    live_conf = a["organs"].get("n_conflicts")
+    check(isinstance(live_conf, int) and live_conf >= 1,
+          f"conflict: the live organ map's real section-10-versus-section-4 conflicts are counted "
+          f"(got {live_conf!r} on {a['organs'].get('conflict_ids')})")
 
     print(f"[self-test] temp dir left in place by design: {td}")
     print("[self-test] RESULT:", "PASS" if ok else "FAIL")

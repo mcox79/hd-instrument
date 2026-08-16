@@ -113,6 +113,19 @@ except Exception as _e:  # pragma: no cover
 else:
     _ORGANS_ERR = ""
 
+# THE PLAN PANEL (added 2026-08-16, owner: "can you add your plan to that, and make sure you keep
+# all this updated?"). It PARSES notes/LONG_TERM_PLAN.md and notes/PLAN.md live on every refresh --
+# there is no transcription of the plan anywhere in this window, because a transcribed plan is
+# stale the moment the plan moves, which is the whole defect being fixed. Same import guard as the
+# others: a failure here degrades ONE panel.
+try:
+    import status_plan as _plan
+except Exception as _e:  # pragma: no cover
+    _plan = None
+    _PLAN_ERR = f"{type(_e).__name__}: {_e}"
+else:
+    _PLAN_ERR = ""
+
 # --- paths (env-overridable so the self-test can point at absent files) ------
 # notes/, not data/: `.gitignore` line 43 is `data/*`, so a spec kept under data/ would be
 # absent from a fresh clone and panel 1 would come up MISSING for the next person. It also
@@ -120,6 +133,14 @@ else:
 COMPONENT_SPEC = Path(os.environ.get("HD_COMPONENT_SPEC")
                       or (REPO / "notes" / "component_health.json"))
 PLAN_DOC = Path(os.environ.get("HD_PLAN_DOC") or (REPO / "notes" / "PLAN.md"))
+# ADDED 2026-08-16. Panel 1's headline named SPELLING 8.70% as the floor to beat; that is
+# superseded by the CONSTANT GUESS (13.90% / 15.18%), which beats the spelling channel
+# CI-separated. The correction is stated in notes/LONG_TERM_PLAN.md section 2 and NOWHERE in
+# notes/PLAN.md -- so without this document in the authority corpus, writing the correction into
+# the spec would have rendered the row as CHECK-PLAN, and the previous agent correctly declined to
+# make that trade. notes/PLAN.md is do-not-touch; ADDING an authority document is not editing one.
+LONG_PLAN_DOC = Path(os.environ.get("HD_LONG_PLAN_DOC")
+                     or (REPO / "notes" / "LONG_TERM_PLAN.md"))
 STATUS_DOC = Path(os.environ.get("HD_STATUS_DOC") or (REPO / "notes" / "STATUS.md"))
 BOARD_DOC = Path(os.environ.get("HD_BOARD_PATH") or (REPO / "notes" / "BOARD.md"))
 DATA_DIR = Path(os.environ.get("HD_DATA_DIR") or (REPO / "data"))
@@ -130,7 +151,13 @@ AGENT_ROOT = Path(os.environ.get("HD_AGENT_ROOT") or (Path.home() / ".claude" / 
 WALLS_BUDGET_S = 4.0
 BOARD_BUDGET_S = 4.0
 RUNNING_BUDGET_S = 14.0     # build_state is internally bounded to ~10s
-RESULTS_BUDGET_S = 8.0
+# RAISED 8.0 -> 12.0 on 2026-08-16, and the reason is on the record rather than implied. The panel
+# was measured at 18.08 s against the old 8 s while live runs were writing, so it intermittently
+# showed TIMEOUT and no results. The COST was fixed first (see `_newest_metrics`: 8,015 file stats
+# -> a few dozen, measured 0.866 s -> ~0.01 s warm); the budget is raised as well because the
+# failure mode is I/O CONTENTION, which multiplied the old cost roughly 20x and can multiply the
+# new one too. 12 s keeps the whole collection inside one 20 s refresh with room to spare.
+RESULTS_BUDGET_S = 12.0
 LOOP_BUDGET_S = 3.0
 # Measured, not guessed: the three new panels collect in ~0.05 s together (the organ map is parsed
 # once and cached on mtime; the fidelity score runs in-process at ~16 ms). The budgets are set two
@@ -139,6 +166,10 @@ LOOP_BUDGET_S = 3.0
 PROGRESS_BUDGET_S = 4.0
 ORGANS_BUDGET_S = 5.0
 FIDELITY_BUDGET_S = 5.0
+# The plan panel parses two markdown documents (~440 + ~1,150 lines) and reads three more for its
+# drift check. Measured at well under 0.1 s; no subprocess, no network. The budget is two orders of
+# magnitude above the cost so a pathological document cannot wedge the window.
+PLAN_BUDGET_S = 5.0
 AGENTS_BUDGET_S = 4.0
 REMOTE_CKPT_BUDGET_S = 7.0
 
@@ -302,7 +333,7 @@ def collect_walls() -> dict:
 
     # Load the authority documents once. Absent authority == cannot verify, NOT == verified.
     corpus_parts, missing_docs = [], []
-    for p in (PLAN_DOC, STATUS_DOC):
+    for p in (PLAN_DOC, STATUS_DOC, LONG_PLAN_DOC):
         try:
             corpus_parts.append(p.read_text(encoding="utf-8", errors="replace"))
         except OSError:
@@ -328,6 +359,8 @@ def collect_walls() -> dict:
     headline = spec.get("headline")
     if isinstance(headline, dict):
         headline = _check(dict(headline))
+    gov = spec.get("governing_floor")
+    gov = _check(dict(gov)) if isinstance(gov, dict) else None
     rows = [_check(dict(r)) for r in (spec.get("components") or []) if isinstance(r, dict)]
     watch = [_check(dict(w)) for w in (spec.get("watch_items") or []) if isinstance(w, dict)]
 
@@ -343,9 +376,10 @@ def collect_walls() -> dict:
         "status": "OK",
         "as_of": spec.get("as_of"),
         "spec_path": str(COMPONENT_SPEC),
-        "authority_docs": [str(PLAN_DOC), str(STATUS_DOC)],
+        "authority_docs": [str(PLAN_DOC), str(STATUS_DOC), str(LONG_PLAN_DOC)],
         "authority_missing": missing_docs,
         "can_verify": can_verify,
+        "governing_floor": gov,
         "headline": headline,
         "rows": rows,
         "watch": watch,
@@ -746,13 +780,83 @@ def _grade(verdict: str, msg: str, metrics: dict) -> dict:
     }
 
 
+def _newest_metrics(entries: list, n: int,
+                    time_cap_s: float = 3.0) -> tuple[list[tuple[float, str, Path]], dict]:
+    """The n newest `metrics.json` files, WITHOUT statting all ~8,000 of them.
+
+    THE DEFECT THIS FIXES, measured. The previous version called `stat()` on
+    `<dir>/metrics.json` for every one of 8,015 directories. Warm that costs 0.87 s; with the
+    live runs writing it was measured at **18.08 s against an 8 s budget**, so the panel
+    intermittently degraded to TIMEOUT and the owner saw no results at all. The panel was
+    behaving correctly -- it degraded rather than blocking -- but the cost was wrong.
+
+    THE MECHANISM. `os.scandir` on Windows returns the directory's own timestamps inside the
+    DirEntry, so `entry.stat()` costs no syscall at all: 8,015 of them measured at **0.006 s**
+    against 0.866 s for the same number of separate file stats, a 140x difference. So we sort
+    directories by the free timestamp and open `metrics.json` only in the newest few.
+
+    WHY THAT IS CORRECT AND NOT JUST FAST. `metrics.json` is created or replaced inside its
+    directory (CLAUDE.md mandates the atomic `os.replace` pattern), and creating or replacing an
+    entry updates the parent directory's own mtime. So for every directory
+    `dir_mtime >= metrics_mtime`. Probing in descending `dir_mtime` order, once we hold n
+    candidates whose n-th best `metrics_mtime` is at or above the `dir_mtime` of the next
+    unprobed directory, no unprobed directory can beat it. That is a proof, and it is recorded in
+    the return value as `complete: True`.
+
+    THE ONE ASSUMPTION, DISCLOSED RATHER THAN BURIED: a `metrics.json` REWRITTEN IN PLACE (opened
+    and written without a create or a rename) does not touch its parent directory's mtime, and
+    such a file could be missed. The repo's own convention forbids that write pattern. When the
+    proof cannot be completed inside `time_cap_s` the result is returned with `complete: False`
+    and the caller says so on screen rather than implying it scanned everything.
+    """
+    t0 = time.time()
+    dirs: list[tuple[float, str, str]] = []
+    for e in entries:
+        try:
+            dirs.append((e.stat().st_mtime, e.name, e.path))
+        except OSError:
+            continue
+    dirs.sort(key=lambda t: t[0], reverse=True)
+
+    found: list[tuple[float, str, Path]] = []
+    want = max(1, n)
+    i, probed, complete = 0, 0, False
+    step = max(want * 4, 64)
+    while i < len(dirs):
+        stop = min(i + step, len(dirs))
+        for _dm, name, path in dirs[i:stop]:
+            p = Path(path) / "metrics.json"
+            probed += 1
+            try:
+                found.append((p.stat().st_mtime, name, p))
+            except OSError:
+                continue
+        i = stop
+        found.sort(key=lambda t: t[0], reverse=True)
+        if i >= len(dirs):
+            complete = True
+            break
+        if len(found) >= want and found[want - 1][0] >= dirs[i][0]:
+            complete = True
+            break
+        if (time.time() - t0) > time_cap_s:
+            break
+        step = min(step * 4, 4096)
+    return found[:want], {
+        "n_dirs": len(dirs),
+        "n_metrics_opened": probed,
+        "complete": complete,
+        "took_s": round(time.time() - t0, 3),
+        "method": ("newest-first by the directory timestamp the scandir already carries; "
+                   "metrics.json is opened only where it can still be one of the newest"),
+    }
+
+
 def collect_results(n: int = RESULTS_N) -> dict:
     """The newest verdicts, newest first, each with its floor and whether it was separated.
 
-    Cost control: one os.scandir of `data/` (about 8,000 directories, roughly 0.4s) to get
-    mtimes, then only the newest `n` metrics.json files are actually opened. The full-tree
-    walk that a naive version would do is what makes a dashboard unusable, and the session
-    hook has the same rule for the same reason.
+    Cost control lives in `_newest_metrics` above and is a measured fix, not a guess: the naive
+    version statted 8,015 files and blew its budget under concurrent writes.
     """
     if not DATA_DIR.is_dir():
         return {"status": "MISSING", "detail": f"data directory not found: {DATA_DIR}",
@@ -761,21 +865,14 @@ def collect_results(n: int = RESULTS_N) -> dict:
         entries = [e for e in os.scandir(DATA_DIR) if e.is_dir()]
     except OSError as exc:
         return {"status": "ERROR", "detail": f"cannot scan {DATA_DIR}: {exc}", "rows": []}
-    stamped: list[tuple[float, str, Path]] = []
-    for e in entries:
-        p = Path(e.path) / "metrics.json"
-        try:
-            stamped.append((p.stat().st_mtime, e.name, p))
-        except OSError:
-            continue
+    stamped, scan_info = _newest_metrics(entries, max(1, n))
     if not stamped:
         return {"status": "MISSING",
                 "detail": f"no metrics.json under {DATA_DIR}; no results to show",
-                "rows": [], "n_scanned": len(entries)}
-    stamped.sort(reverse=True)
+                "rows": [], "n_scanned": len(entries), "scan": scan_info}
 
     rows: list[dict] = []
-    for mtime, name, p in stamped[: max(1, n)]:
+    for mtime, name, p in stamped:
         m = _read_metrics(p)
         verdict = str(m.get("verdict") or "").strip() or NO_VERDICT
         msg = str(m.get("verdict_msg") or m.get("summary") or "").strip()
@@ -797,6 +894,7 @@ def collect_results(n: int = RESULTS_N) -> dict:
         "rows": rows,
         "n_scanned": len(entries),
         "n_with_metrics": len(stamped),
+        "scan": scan_info,
         "n_negative": sum(1 for r in rows if r["negative"]),
         "n_no_floor": sum(1 for r in rows if not r["floor_named"]),
     }
@@ -874,8 +972,245 @@ def _organs_missing(what: str) -> dict:
                       f"{what} panel has no data. Showing MISSING rather than a stale value."}
 
 
+def _score_key(row: dict) -> str:
+    return str(row.get("id") or row.get("title") or "").strip().lower()
+
+
+def merge_scores(walls: dict, progress: dict) -> dict:
+    """ONE table of every part's score beside the floor it has to beat -- and what it was before.
+
+    WHY THIS MERGE EXISTS. The window had two tabs answering nearly the same question. THE WALLS
+    held `score + floor + can we measure it alone` per component; PROGRESS MADE held
+    `before + now + floor` per component. Five of the seven parts appeared in BOTH, so the owner had
+    to hold two tabs in their head and diff them by eye to answer "how are we doing" -- which is the
+    hunting the owner asked to be rid of.
+
+    WHAT IS PRESERVED, because both are load-bearing and neither is negotiable:
+      * A SCORE IS NEVER SHOWN WITHOUT ITS FLOOR. Every cell carries its floor or an explicit
+        non-answer, and the merged row keeps `floor_name` from whichever source supplied the score.
+      * RETRACTIONS STAY FIRST-CLASS ROWS in the same red as a loss, counted in the tab title.
+
+    AND WHERE THE TWO SOURCES DISAGREE, THE PANEL SAYS SO RATHER THAN PICKING ONE. They do disagree
+    today, and it is not a bug in either: THE WALLS records retrieval at 55.65% against a spelling
+    floor of 54.55% (measured with the exact key); the ledger records the SAME component at 0.3758
+    against 0.5235 (measured under a partial cue, which correction C30 established is the real
+    operating condition). Silently preferring one would hide the single most important retrieval
+    finding of 2026-08-16. So both are rendered and the disagreement is counted.
+    """
+    if not isinstance(walls, dict):
+        walls = {}
+    if not isinstance(progress, dict):
+        progress = {}
+    w_ok = walls.get("status") == "OK"
+    p_ok = progress.get("status") == "OK"
+    if not w_ok and not p_ok:
+        return {"status": "MISSING",
+                "detail": f"neither source is readable -- scores: {walls.get('status')} "
+                          f"({walls.get('detail', '')}); what-moved: {progress.get('status')} "
+                          f"({progress.get('detail', '')})",
+                "rows": [], "retractions": [], "governing_floor": None}
+
+    w_rows: list[dict] = []
+    if w_ok:
+        h = walls.get("headline")
+        if isinstance(h, dict):
+            w_rows.append(dict(h, _headline=True))
+        w_rows += [dict(r) for r in (walls.get("rows") or []) if isinstance(r, dict)]
+    p_rows = [dict(r) for r in (progress.get("components") or [])
+              if isinstance(r, dict)] if p_ok else []
+    p_by_key = {_score_key(r): r for r in p_rows}
+
+    merged: list[dict] = []
+    used: set[str] = set()
+    for w in w_rows:
+        key = _score_key(w)
+        p = p_by_key.get(key)
+        if p is not None:
+            used.add(key)
+        merged.append(_merge_one(w, p))
+    for p in p_rows:
+        if _score_key(p) in used:
+            continue
+        merged.append(_merge_one(None, p))
+
+    gov = walls.get("governing_floor") if w_ok else None
+    if not isinstance(gov, dict):
+        gov = progress.get("governing_floor") if p_ok else None
+    return {
+        "status": "OK",
+        "as_of": walls.get("as_of") or progress.get("as_of"),
+        "governing_floor": gov if isinstance(gov, dict) else None,
+        "rows": merged,
+        "retractions": [dict(r) for r in (progress.get("retractions") or [])
+                        if isinstance(r, dict)] if p_ok else [],
+        "n_retracted": progress.get("n_retracted") if p_ok else None,
+        "n_disagreements": sum(1 for r in merged if r.get("disagreement")),
+        "n_no_instrument": walls.get("n_no_instrument") if w_ok else None,
+        "sources_ok": {"scores": w_ok, "what_moved": p_ok},
+        "source_detail": {"scores": walls.get("detail"), "what_moved": progress.get("detail")},
+    }
+
+
+def _merge_one(w: dict | None, p: dict | None) -> dict:
+    """One merged row. Fields come from whichever source has them; nothing is invented."""
+    w = w or {}
+    p = p or {}
+    src = [s for s, present in (("scores", bool(w)), ("what moved", bool(p))) if present]
+    # NOW: the ledger's dated `now` when it has one, else the walls score. Both are carried.
+    p_now = p.get("now") if isinstance(p.get("now"), dict) else {}
+    now = {"score": p_now.get("score") or w.get("score"),
+           "score_detail": p_now.get("score_detail") or w.get("score_detail"),
+           "floor": p_now.get("floor") if p_now else w.get("floor"),
+           "floor_name": (p_now.get("floor_name") if p_now else None) or w.get("floor_name"),
+           "floor_detail": (p_now.get("floor_detail") if p_now else None) or w.get("floor_detail"),
+           "floor_superseded_by": w.get("floor_superseded_by"),
+           "when": p_now.get("when")}
+    disagreement = None
+    if p_now.get("score") and w.get("score") and p_now["score"] != w["score"]:
+        disagreement = (
+            f"the two sources report different current scores for this part: the component table "
+            f"says {w.get('score')} against {w.get('floor')} ({w.get('floor_name')}), the "
+            f"what-moved ledger says {p_now.get('score')} against {p_now.get('floor')} "
+            f"({p_now.get('floor_name')}). They are not both wrong -- they are measured under "
+            f"different conditions. Read both, and read the detail below before quoting either.")
+    return {
+        "id": w.get("id") or p.get("id"),
+        "n": w.get("n"),
+        "headline": bool(w.get("_headline")),
+        "title": w.get("title") or p.get("title"),
+        "what_it_does": w.get("what_it_does") or p.get("plain"),
+        "plain": p.get("plain") or w.get("plain_verdict"),
+        "instrument": w.get("instrument"),
+        "instrument_note": w.get("instrument_note"),
+        "instrument_evidence": w.get("instrument_evidence"),
+        "before": p.get("before") if isinstance(p.get("before"), dict) else None,
+        "now": now,
+        "direction": p.get("direction"),
+        "what_moved": p.get("what_moved"),
+        "standing": w.get("standing"),
+        "separated": w.get("separated"),
+        "plain_verdict": w.get("plain_verdict"),
+        "evidence": w.get("evidence") or p.get("evidence"),
+        "sources": src,
+        "disagreement": disagreement,
+        # The stricter of the two verify verdicts wins: a row is only VERIFIED if every source
+        # that fed it verified. A half-checked row reported as VERIFIED is a check that lies.
+        "verify_status": _strictest_verify(w.get("verify_status"), p.get("verify_status")),
+        "verify_missing": (w.get("verify_missing") or []) + (p.get("verify_missing") or []),
+    }
+
+
+_VERIFY_RANK = {"CHECK_PLAN": 0, "CHECK_SOURCE": 0, "CANNOT_VERIFY": 1, "NO_VERIFY_STRINGS": 2,
+                "VERIFIED": 3}
+
+
+def _strictest_verify(*states) -> str | None:
+    real = [s for s in states if s]
+    if not real:
+        return None
+    return min(real, key=lambda s: _VERIFY_RANK.get(s, 1))
+
+
+def _norm_phase_id(x) -> str:
+    return re.sub(r"[^A-Z0-9]", "", str(x or "").upper())
+
+
+def join_plan_numbers(plan: dict, progress: dict) -> None:
+    """Attach each phase's BEFORE/NOW numbers (from the ledger) to the LIVE phase (from the plan).
+
+    TWO SOURCES, ONE ROW, AND NEITHER DUPLICATES THE OTHER. The plan states goals, gates and stop-if
+    conditions in prose and states no numbers; the ledger states numbers with their floors and no
+    longer states any goal, gate or stop-if. Joining them here means the panel has one row per
+    phase with both, and there is no second copy of either to go stale.
+
+    THE JOIN IS ASSERTED, NOT ASSUMED (standing discipline: *silent joins fabricate both green and
+    red -- assert and count joined rows*). A ledger row whose `phase_ref` matches no live phase is
+    an ORPHAN: the plan renamed or renumbered that phase and the ledger did not follow. Orphans are
+    counted and surfaced as a contract violation rather than dropped on the floor, which is what an
+    unasserted join would do.
+    """
+    if not isinstance(plan, dict) or plan.get("status") != "OK":
+        return
+    phases = plan.get("phases") or []
+    by_id = {_norm_phase_id(p.get("id")): p for p in phases}
+    for p in phases:
+        p["numbers"] = None
+    matched = 0
+    orphans: list[str] = []
+    if isinstance(progress, dict) and progress.get("status") == "OK":
+        for row in progress.get("phases") or []:
+            if not isinstance(row, dict):
+                continue
+            key = _norm_phase_id(row.get("phase_ref") or row.get("id"))
+            target = by_id.get(key)
+            if target is None:
+                orphans.append(str(row.get("title") or row.get("id")))
+                continue
+            target["numbers"] = row
+            matched += 1
+    else:
+        orphans = []
+    plan["numbers_joined"] = matched
+    plan["numbers_orphaned"] = orphans
+    plan["numbers_unmatched_phases"] = [p["id"] for p in phases if not p.get("numbers")]
+    if orphans:
+        con = plan.setdefault("contract", {})
+        con.setdefault("violations", []).extend({
+            "kind": "PHASE_REF_ORPHAN", "literal": o, "phase": o,
+            "detail": f"notes/progress_ledger.json has a before/now row for '{o}' whose "
+                      f"phase_ref matches no phase in the plan. The plan renamed or renumbered "
+                      f"that phase; the numbers row was left behind.",
+        } for o in orphans)
+        con["n_violations"] = len(con.get("violations") or [])
+        con["status"] = "VIOLATIONS"
+        plan["n_contract_violations"] = con["n_violations"]
+
+
+def drift_rollup(s: dict) -> dict:
+    """ONE NUMBER FOR "how much of what is on screen no longer matches its source".
+
+    WHY IT IS ON SCREEN (owner, 2026-08-16: *"make sure you keep all this updated"*). Every panel
+    already re-checks its own transcribed literals against the authority document on every
+    refresh. That protection was invisible: a drifted row said CHECK-SOURCE in a cell the owner had
+    to scroll to and click. A divergence nobody can see is a divergence nobody fixes, so the total
+    is rendered in the window's top strip.
+
+    THREE STATES, NEVER TWO. A panel that could not be checked at all (its authority document was
+    unreadable, or the panel itself is MISSING or TIMEOUT) contributes to `n_unknown`, NEVER to
+    `n_drifted` as a zero. A check that silently passes when its input is missing is not a check --
+    the same rule the per-panel verifiers already follow, applied to the total.
+    """
+    parts: list[dict] = []
+
+    def _one(key: str, label: str, getter) -> None:
+        panel = s.get(key)
+        if not isinstance(panel, dict) or panel.get("status") not in ("OK", "PARTIAL",
+                                                                      "VIOLATIONS"):
+            parts.append({"panel": label, "n": None,
+                          "why": f"{(panel or {}).get('status', 'MISSING')} -- cannot be checked"})
+            return
+        items = getter(panel) or []
+        parts.append({"panel": label, "n": len(items), "items": [str(x) for x in items][:12]})
+
+    _one("walls", "scores and floors", lambda p: p.get("drifted"))
+    _one("progress", "what moved", lambda p: p.get("drifted"))
+    _one("organs", "brain organ map", lambda p: p.get("drifted"))
+    _one("plan", "the plan", lambda p: [v.get("literal") for v in
+                                        (p.get("contract") or {}).get("violations") or []])
+
+    known = [p for p in parts if isinstance(p.get("n"), int)]
+    unknown = [p for p in parts if p.get("n") is None]
+    return {
+        "n_drifted": sum(p["n"] for p in known),
+        "n_unknown": len(unknown),
+        "parts": parts,
+        "plain": ("Every number this window shows is re-checked against the document it came from, "
+                  "every refresh. This is how many no longer match."),
+    }
+
+
 def collect() -> dict:
-    """All eight panels. Never raises; never blocks past the sum of the panel budgets."""
+    """All nine panels. Never raises; never blocks past the sum of the panel budgets."""
     t0 = time.time()
     walls = _panel("walls", collect_walls, WALLS_BUDGET_S)
     board_p = _panel("board", collect_board, BOARD_BUDGET_S)
@@ -890,10 +1225,18 @@ def collect() -> dict:
         progress = _panel("progress", _organs.collect_progress, PROGRESS_BUDGET_S)
         organs = _panel("organs", _organs.collect_organs, ORGANS_BUDGET_S)
         fidelity = _panel("fidelity", _organs.collect_fidelity, FIDELITY_BUDGET_S)
-    return {
+    if _plan is None:
+        plan = {"status": "MISSING",
+                "detail": f"tools/status_plan.py could not be imported ({_PLAN_ERR}), so the plan "
+                          f"panel has no data. Showing MISSING rather than a remembered plan."}
+    else:
+        plan = _panel("plan", _plan.collect_plan, PLAN_BUDGET_S)
+    join_plan_numbers(plan, progress)
+    out = {
         "ts": _now_iso(),
         "took_s": round(time.time() - t0, 2),
         "repo": str(REPO),
+        "plan": plan,
         "walls": walls,
         "board": board_p,
         "running": running,
@@ -903,6 +1246,11 @@ def collect() -> dict:
         "organs": organs,
         "fidelity": fidelity,
     }
+    # The merged EVIDENCE view. Derived, never collected a second time: it is a join of two panels
+    # already in this dict, so there is no third source of truth and no extra file read.
+    out["scores"] = merge_scores(walls, progress)
+    out["drift"] = drift_rollup(out)
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -913,6 +1261,22 @@ def render_text(s: dict) -> str:
     L: list[str] = []
     L.append(f"WHERE WE ARE / WHAT IS HAPPENING     {s['ts']}   (collected in {s['took_s']}s)")
     L.append("=" * 78)
+
+    d = s.get("drift") or {}
+    L.append(f"DRIFT: {d.get('n_drifted')} value(s) on screen no longer match the document they "
+             f"came from; {d.get('n_unknown')} panel(s) could not be checked at all")
+    for p in d.get("parts") or []:
+        L.append(f"   {p.get('panel')}: "
+                 f"{p['n'] if p.get('n') is not None else 'UNKNOWN -- ' + str(p.get('why'))}")
+
+    L.append("")
+    if _plan is not None:
+        try:
+            L.append(_plan.render_text(s.get("plan") or {}))
+        except Exception as exc:
+            L.append(f"the plan: RENDER FAILED ({type(exc).__name__}: {exc})")
+    else:
+        L.append(f"the plan: MISSING ({_PLAN_ERR})")
 
     w = s["walls"]
     L.append("")
@@ -1054,14 +1418,46 @@ def self_test() -> int:
 
     budget = (WALLS_BUDGET_S + BOARD_BUDGET_S + RUNNING_BUDGET_S
               + RESULTS_BUDGET_S + LOOP_BUDGET_S)
-    panels = ("walls", "board", "running", "results", "loop",
+    panels = ("plan", "walls", "board", "running", "results", "loop",
               "progress", "organs", "fidelity")
 
     # ---- A. normal -------------------------------------------------------
     t0 = time.time()
     a = collect()
     took_a = time.time() - t0
-    check(all(k in a for k in panels), "A/normal: all eight panels present")
+    check(all(k in a for k in panels), "A/normal: all nine panels present")
+    check(a["plan"].get("status") == "OK",
+          f"A/normal: the plan panel populated ({a['plan'].get('status')}: "
+          f"{str(a['plan'].get('detail'))[:120]})")
+    check(a["plan"].get("current_id") is not None,
+          "A/normal: the plan panel resolves WHICH PHASE WE ARE IN")
+    check(bool((a["plan"].get("next_action") or {}).get("text")),
+          "A/normal: the plan panel resolves a single NEXT ACTION")
+    check(a["plan"].get("numbers_joined") == len(a["plan"].get("phases") or []),
+          f"A/normal: every phase's before/now numbers joined to a live phase "
+          f"(joined {a['plan'].get('numbers_joined')} of "
+          f"{len(a['plan'].get('phases') or [])})")
+    check(not a["plan"].get("numbers_orphaned"),
+          f"A/normal: no numbers row is orphaned by a plan rename "
+          f"({a['plan'].get('numbers_orphaned')})")
+    dr = a.get("drift") or {}
+    check(isinstance(dr.get("n_drifted"), int) and isinstance(dr.get("n_unknown"), int),
+          "A/normal: the drift roll-up produces two counts the window can render")
+    check(dr.get("n_unknown") == 0,
+          f"A/normal: every drift-checkable panel WAS checked "
+          f"(unchecked: {[p for p in dr.get('parts') or [] if p.get('n') is None]})")
+    # The results panel is the one that was blowing its budget. Prove the fix, not the intent.
+    sc = (a["results"] or {}).get("scan") or {}
+    check(sc.get("complete") is True,
+          f"A/normal: the newest-results search PROVED it found the newest "
+          f"(complete={sc.get('complete')!r})")
+    check(isinstance(sc.get("n_metrics_opened"), int)
+          and sc["n_metrics_opened"] < max(400, sc.get("n_dirs", 0) // 4),
+          f"A/normal: it opened {sc.get('n_metrics_opened')} metrics.json out of "
+          f"{sc.get('n_dirs')} directories, not all of them")
+    check((sc.get("took_s") or 99) < 3.0,
+          f"A/normal: the results scan cost {sc.get('took_s')}s, well inside its "
+          f"{RESULTS_BUDGET_S:.0f}s budget")
     check(took_a < budget, f"A/normal: returned in {took_a:.1f}s (budget {budget:.0f}s)")
     check(a["progress"].get("status") == "OK", "A/normal: progress panel populated")
     check(a["organs"].get("status") == "OK", "A/normal: organ-map panel populated")
@@ -1072,6 +1468,23 @@ def self_test() -> int:
     check(not (a["progress"].get("drifted") or []),
           f"A/normal: every transcribed progress number is still findable in its source "
           f"(drifted: {a['progress'].get('drifted')})")
+    sc_m = a.get("scores") or {}
+    check(sc_m.get("status") == "OK",
+          f"A/normal: the merged scores-and-floors view built ({sc_m.get('status')})")
+    check(len(sc_m.get("rows") or []) >= 8,
+          f"A/normal: the merge produced one row per part, not two tabs' worth "
+          f"(got {len(sc_m.get('rows') or [])})")
+    naked_m = [r.get("title") for r in sc_m.get("rows") or []
+               if (r.get("now") or {}).get("score") and not (r.get("now") or {}).get("floor")
+               and not (r.get("now") or {}).get("floor_name")]
+    check(not naked_m,
+          f"A/normal: THE RULE SURVIVES THE MERGE -- no merged row shows a score with neither a "
+          f"floor nor an explicit non-answer ({naked_m})")
+    check(isinstance(sc_m.get("n_retracted"), int) and sc_m["n_retracted"] > 0,
+          f"A/normal: retractions survive the merge as first-class rows "
+          f"(got {sc_m.get('n_retracted')})")
+    check(isinstance(sc_m.get("n_disagreements"), int),
+          "A/normal: where the two merged sources disagree, the count is reported not hidden")
     check(a["walls"].get("status") == "OK", "A/normal: walls panel populated")
     check(a["walls"].get("headline") is not None, "A/normal: headline score+floor present")
     hl = a["walls"].get("headline") or {}
@@ -1109,7 +1522,9 @@ def self_test() -> int:
             _inflight.SSH_ALIAS = saved["alias"]
         _ckpt_cache["ts"] = 0.0
         _ckpt_cache["value"] = None
-    check(all(k in b for k in panels), "B/remote-dead: all five panels still present")
+    check(all(k in b for k in panels), "B/remote-dead: all nine panels still present")
+    check(b["plan"].get("status") == "OK",
+          "B/remote-dead: the plan panel is UNAFFECTED by the remote being down")
     check(took_b < budget, f"B/remote-dead: returned in {took_b:.1f}s (budget {budget:.0f}s) "
                            f"-- did NOT hang on an unreachable remote")
     check(b["walls"].get("status") == "OK",
@@ -1151,7 +1566,16 @@ def self_test() -> int:
     og = vars(_organs) if _organs is not None else {}
     okeep = {k: og[k] for k in ("ORGAN_MAP_DOC", "PROGRESS_SPEC", "ORGAN_SPEC", "REGISTRY",
                                 "AUTHORITY_DOCS")} if og else {}
+    pg = vars(_plan) if _plan is not None else {}
+    pkeep = {k: pg[k] for k in ("LONG_PLAN_DOC", "NEAR_PLAN_DOC", "OPERATOR_SPEC", "CONTRACT_DOC",
+                                "AUTHORITY_DOCS")} if pg else {}
     try:
+        if pg:
+            pg["LONG_PLAN_DOC"] = td / "nope_LONG_TERM_PLAN.md"
+            pg["NEAR_PLAN_DOC"] = td / "nope_PLAN.md"
+            pg["OPERATOR_SPEC"] = td / "nope_operator_decisions.json"
+            pg["CONTRACT_DOC"] = td / "nope_contract.md"
+            pg["AUTHORITY_DOCS"] = [td / "nope_STATUS.md"]
         if og:
             og["ORGAN_MAP_DOC"] = td / "nope_ORGAN_MAP.md"
             og["PROGRESS_SPEC"] = td / "nope_progress_ledger.json"
@@ -1174,7 +1598,19 @@ def self_test() -> int:
         if og:
             og.update(okeep)
             _organs._cache.clear()
-    check(all(k in c for k in panels), "C/files-absent: all eight panels still present")
+        if pg:
+            pg.update(pkeep)
+    check(all(k in c for k in panels), "C/files-absent: all nine panels still present")
+    check(c["plan"].get("status") == "MISSING",
+          f"C/files-absent: the plan panel reports MISSING (got {c['plan'].get('status')!r})")
+    check(not (c["plan"].get("phases") or []),
+          "C/files-absent: the plan panel invents no phases when the plan is gone")
+    check((c["plan"].get("contract") or {}).get("status") == "CANNOT_CHECK",
+          "C/files-absent: the plan's parser contract says CANNOT_CHECK, never VERIFIED")
+    dc = c.get("drift") or {}
+    check(dc.get("n_unknown", 0) >= 3,
+          f"C/files-absent: unchecked panels count as UNKNOWN, never as zero drift "
+          f"(n_unknown={dc.get('n_unknown')}, n_drifted={dc.get('n_drifted')})")
     check(c["progress"].get("status") == "MISSING",
           f"C/files-absent: progress reports MISSING (got {c['progress'].get('status')!r})")
     check(not (c["progress"].get("components") or []),

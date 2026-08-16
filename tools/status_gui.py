@@ -11,32 +11,62 @@ and nothing about whether the system is beating what it has to beat. This one an
 questions: WHERE ARE WE, WHAT MOVED, WHICH BRAIN ORGANS DO WE ACTUALLY HAVE, and WHAT IS
 HAPPENING RIGHT NOW.
 
-THE THREE PANELS ADDED 2026-08-16, on the owner's request: *"in the dash I'd like to see some
-info on progress made (more info), and a brain organ map and fidelity measure with detail too"*.
+REORGANISED 2026-08-16, on the owner's request: *"can you add your plan to that, and make sure
+you keep all this updated? Also feel free to optimize all the content so it's better organized and
+actionable, and easier to keep updated."*
 
-  2. PROGRESS MADE                 what a thing scored BEFORE, what it scores NOW, and the floor
-                                   beside both. Losses and RETRACTIONS are rendered in the same
-                                   red as any other loss and counted in the tab title -- three
-                                   headline numbers were retracted on 2026-08-16 alone, and a
-                                   progress view that showed only gains would reproduce the exact
-                                   failure this project keeps having to unpick.
-  3. BRAIN ORGAN MAP               per organ: the brain structure, what it does in one plain
-                                   sentence, whether we built it, whether it is switched on, and
-                                   what it measures. Sourced from notes/ORGAN_MAP.md (PARSED on
-                                   every refresh, not transcribed) plus the brain_structure and
-                                   fidelity_basis fields in data/capability_registry.jsonl. Where
-                                   no brain structure is recorded the cell says NOT NAMED and the
-                                   header reports the deliberate backlog -- retro-filling that
-                                   field is banned, so the panel shows the gap instead of hiding it.
-  4. HOW CLOSELY WE COPY THE BRAIN the fidelity score, with an unmissable amber banner saying it
-                                   is NOT a measure of how well anything works and has NOT been
-                                   shown to predict that -- one positive in six points, p ~ 0.17,
-                                   and it scores the REFUTED completer well above the incumbent
-                                   that beats it. That banner is READ FROM THE SCORING TOOL'S OWN
-                                   verdict string, so if the tool's verdict changes the panel
-                                   changes with it. Rows are coloured by the OUTCOME, never by the
-                                   fidelity score: colouring by the score would imply it means
-                                   something about the result, which is the claim being denied.
+THREE GROUPS, SEVEN TABS -- DOWN FROM EIGHT, WITH THE PLAN ADDED. Eight tabs was already a lot;
+adding a ninth would have made the reorganisation worse than the problem. What was merged, and why:
+
+  WHERE WE ARE
+    1. WHERE WE ARE           NEW. The five phases of notes/LONG_TERM_PLAN.md, each with its goal,
+                              its GATE, its STOP-IF and its status, PLUS which phase we are in and
+                              the single next action. PARSED LIVE on every refresh by
+                              tools/status_plan.py -- never transcribed, because a transcribed plan
+                              is stale the moment the plan moves, and that is the whole defect this
+                              panel was asked to fix. Where the plan states no gate, the cell says
+                              NOT STATED IN THE PLAN and it is counted as a parser-contract
+                              violation on screen.
+    2. RUNNING NOW            agents, experiments, the remote box -- AND the overnight loop, MERGED
+                              IN from its own former tab. "Is the loop on" is a question about what
+                              is running; it did not need a tab of its own, and putting it beside
+                              the agents means one place answers "is anything happening".
+
+  WHAT NEEDS YOU
+    3. WAITING ON YOU         the board questions the owner can answer by typing, PLUS the standing
+                              decisions D1..Dn parsed live out of notes/PLAN.md section 9, PLUS the
+                              standing operator decisions that live only in prose. Previously the
+                              board questions were here and the standing decisions were in no panel
+                              at all -- the owner had to read three documents to find what was
+                              waiting on them.
+
+  EVIDENCE
+    4. SCORES AND FLOORS      MERGED from the former THE WALLS and PROGRESS MADE tabs. Five of the
+                              seven parts appeared in BOTH, so the owner was diffing two tabs by eye
+                              to answer one question. One row per part now: what it was, what it is
+                              now, and the floor beside both. THE TWO RULES SURVIVE THE MERGE
+                              INTACT -- a score is never rendered without its floor, and RETRACTIONS
+                              stay first-class rows in the same red as a loss, counted in the tab
+                              title. Where the two merged sources disagree about the same part the
+                              panel SAYS SO and counts it, rather than picking the flattering one.
+    5. BRAIN ORGAN MAP        per organ: the brain structure, what it does in one plain sentence,
+                              whether we built it, whether it is switched on, and what it measures.
+                              Parsed live from notes/ORGAN_MAP.md plus data/capability_registry.jsonl.
+                              Rows where section 10 re-audited an organ and section 4 was never
+                              updated are marked CONFLICT and counted -- the panel reports the
+                              disagreement instead of silently picking one of the two readings.
+    6. HOW CLOSELY WE COPY THE BRAIN
+                              the fidelity score, with an unmissable amber banner saying it is NOT a
+                              measure of how well anything works and has NOT been shown to predict
+                              that. Read from the scoring tool's own verdict string. Rows coloured
+                              by the OUTCOME, never by the fidelity score.
+    7. LATEST RESULTS         the newest finished experiments, losses as loud as wins.
+
+DRIFT IS ON SCREEN (job 2). Every transcribed number in this window is re-checked against the
+document it came from on every refresh, and every literal the plan parser depends on is checked
+against the plan. That protection used to be invisible -- a drifted row said CHECK-SOURCE in a cell
+you had to scroll to. The TOTAL now sits in the top strip, so a silent divergence becomes a visible
+one. A panel that could not be checked counts as UNKNOWN, never as zero.
 
 PLAIN LANGUAGE IS A REQUIREMENT, NOT A STYLE. The owner has said twice that jargon makes our
 artifacts unusable to them. Nothing on screen says recall@50, CI, hit@1, orthographic or
@@ -61,7 +91,7 @@ WRITES. Exactly one, and only when the owner presses the button: the board answe
 which goes through `board.resolve()` -- atomic temp-file-plus-replace, with its own self-test
 for hand-edited boards. Nothing else on this path writes anything.
 
-Keys: F5 or r = refresh now. Ctrl+1..8 = jump to a panel.
+Keys: F5 or r = refresh now. Ctrl+1..7 = jump to a panel.
 
   python tools/status_gui.py --self-test    # renders normal / degraded / garbage states
 """
@@ -162,7 +192,7 @@ class StatusWindow:
 
         root.bind("<F5>", lambda _e: self.refresh_now())
         root.bind("r", lambda _e: self.refresh_now())
-        for i in range(8):
+        for i in range(7):
             root.bind(f"<Control-Key-{i + 1}>",
                       lambda _e, k=i: self.nb.select(k))
         root.protocol("WM_DELETE_WINDOW", root.destroy)
@@ -273,14 +303,16 @@ class StatusWindow:
         self.nb = ttk.Notebook(root)
         self.nb.grid(row=1, column=0, sticky="nsew", padx=6, pady=6)
 
-        self._build_walls()
-        self._build_progress()
-        self._build_organs()
-        self._build_fidelity()
-        self._build_board()
-        self._build_running()
-        self._build_results()
-        self._build_loop()
+        # THE ORDER IS THE ANSWER TO "what do I look at first". Group A says where we are and
+        # what is happening; group B says what is stuck on the owner; group C is the evidence
+        # behind both. Anything that needed two tabs to answer one question was merged.
+        self._build_where()       # A
+        self._build_running()     # A  (the overnight loop is folded in here)
+        self._build_board()       # B  (board questions + the standing decisions)
+        self._build_scores()      # C  (the former THE WALLS + PROGRESS MADE, merged)
+        self._build_organs()      # C
+        self._build_fidelity()    # C
+        self._build_results()     # C
 
         bar = ttk.Frame(root)
         bar.grid(row=2, column=0, sticky="ew", padx=6, pady=(0, 6))
@@ -289,77 +321,96 @@ class StatusWindow:
         self.status_lbl.grid(row=0, column=0, sticky="ew")
         ttk.Button(bar, text="Refresh (F5)", command=self.refresh_now).grid(row=0, column=1)
 
-    # ---- PANEL 1 ------------------------------------------------------
-    def _build_walls(self) -> None:
+    # ---- TAB 1 (group A) ----------------------------------------------
+    def _build_where(self) -> None:
+        """WHERE WE ARE. The plan, rendered from the plan file, on every refresh.
+
+        Nothing in this panel is a stored copy of a sentence that exists in
+        notes/LONG_TERM_PLAN.md. A cell whose label is absent from the plan says NOT STATED IN THE
+        PLAN and is counted in the contract strip at the top, which is the difference between a
+        panel that goes quietly wrong and one that tells you it has."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="1. THE WALLS")
-        self.tab_walls = f
+        self.nb.add(f, text="1. WHERE WE ARE")
+        self.tab_where = f
         f.columnconfigure(0, weight=1)
-        f.rowconfigure(1, weight=1)
+        f.rowconfigure(2, weight=1)
 
-        tk.Label(f, text="Every part of the machine, what it is for, and -- always side by "
-                         "side -- our score and THE FLOOR IT HAS TO BEAT.",
-                 bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10), anchor="w",
-                 padx=4, pady=6).grid(row=0, column=0, sticky="ew")
+        now = tk.Frame(f, bg=_GREEN_BG)
+        now.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        now.columnconfigure(0, weight=1)
+        self.where_phase = tk.Label(now, text="", bg=_GREEN_BG, fg="#ffffff",
+                                    font=("Segoe UI", 14, "bold"), anchor="w", padx=12,
+                                    justify="left", wraplength=1200)
+        self.where_phase.grid(row=0, column=0, sticky="ew", pady=(9, 2))
+        self.where_next = tk.Label(now, text="", bg=_GREEN_BG, fg="#e8f4e9",
+                                   font=("Segoe UI", 11), anchor="w", justify="left",
+                                   padx=12, wraplength=1200)
+        self.where_next.grid(row=1, column=0, sticky="ew", pady=(0, 9))
 
-        frame, self.walls_tv = self._tree(
+        self.where_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
+                                   anchor="w", justify="left", wraplength=1200, padx=4, pady=4)
+        self.where_hint.grid(row=1, column=0, sticky="ew")
+
+        frame, self.where_tv = self._tree(
             f,
-            cols=("part", "alone", "ours", "floor", "standing"),
-            widths=(300, 210, 190, 300, 200),
-            headings=("PART OF THE MACHINE", "CAN WE MEASURE IT ON ITS OWN?",
-                      "OURS", "THE FLOOR IT MUST BEAT", "WHERE THAT LEAVES US"),
-            height=9)
-        frame.grid(row=1, column=0, sticky="nsew")
-        self.walls_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_wall_detail())
+            cols=("phase", "state", "goal", "gate", "stop"),
+            widths=(230, 150, 320, 340, 320),
+            headings=("PHASE", "WHERE IT IS", "WHAT IT IS FOR",
+                      "WHAT WOULD COUNT AS SUCCESS", "WHAT WOULD MAKE US STOP"),
+            height=8)
+        frame.grid(row=2, column=0, sticky="nsew")
+        self.where_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_where_detail())
 
-        self.walls_detail = self._detail(f, height=9)
-        self.walls_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
+        self.where_detail = self._detail(f, height=13)
+        self.where_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
-    # ---- PANEL A ------------------------------------------------------
-    def _build_progress(self) -> None:
-        """WHAT MOVED. Not a changelog: a before / now / floor view, with losses and retractions
-        rendered exactly as loudly as gains."""
+    # ---- TAB 4 (group C) ----------------------------------------------
+    def _build_scores(self) -> None:
+        """SCORES AND FLOORS -- the former THE WALLS and PROGRESS MADE, merged into one row per
+        part. Both load-bearing rules are preserved and are checked at the RENDERED CELL by the
+        self-test: no score without its floor, and retractions as loud as any loss."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="2. PROGRESS MADE")
-        self.tab_progress = f
+        self.nb.add(f, text="4. SCORES AND FLOORS")
+        self.tab_scores = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(2, weight=1)
 
         gov = tk.Frame(f, bg=_RED_BG)
         gov.grid(row=0, column=0, sticky="ew", pady=(4, 6))
         gov.columnconfigure(0, weight=1)
-        self.prog_gov_title = tk.Label(gov, text="", bg=_RED_BG, fg="#ffffff",
-                                       font=("Segoe UI", 12, "bold"), anchor="w", padx=12,
-                                       justify="left", wraplength=1200)
-        self.prog_gov_title.grid(row=0, column=0, sticky="ew", pady=(8, 2))
-        self.prog_gov_body = tk.Label(gov, text="", bg=_RED_BG, fg="#f4e9e8",
-                                      font=("Segoe UI", 10), anchor="w", justify="left",
-                                      padx=12, wraplength=1200)
-        self.prog_gov_body.grid(row=1, column=0, sticky="ew", pady=(0, 8))
+        self.sc_gov_title = tk.Label(gov, text="", bg=_RED_BG, fg="#ffffff",
+                                     font=("Segoe UI", 12, "bold"), anchor="w", padx=12,
+                                     justify="left", wraplength=1200)
+        self.sc_gov_title.grid(row=0, column=0, sticky="ew", pady=(8, 2))
+        self.sc_gov_body = tk.Label(gov, text="", bg=_RED_BG, fg="#f4e9e8",
+                                    font=("Segoe UI", 10), anchor="w", justify="left",
+                                    padx=12, wraplength=1200)
+        self.sc_gov_body.grid(row=1, column=0, sticky="ew", pady=(0, 8))
 
-        self.prog_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
-                                  anchor="w", justify="left", wraplength=1200, padx=4, pady=4)
-        self.prog_hint.grid(row=1, column=0, sticky="ew")
+        self.sc_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
+                                anchor="w", justify="left", wraplength=1200, padx=4, pady=4)
+        self.sc_hint.grid(row=1, column=0, sticky="ew")
 
-        frame, self.prog_tv = self._tree(
+        frame, self.sc_tv = self._tree(
             f,
-            cols=("what", "kind", "before", "now", "dir"),
-            widths=(330, 110, 300, 300, 150),
-            headings=("WHAT", "", "WHAT IT WAS  (and its floor)",
-                      "WHAT IT IS NOW  (and its floor)", "WHICH WAY IT MOVED"),
-            height=14)
+            cols=("what", "alone", "before", "now", "dir"),
+            widths=(300, 190, 280, 300, 220),
+            headings=("PART OF THE MACHINE", "CAN WE MEASURE IT ALONE?",
+                      "WHAT IT WAS  (and its floor)", "WHAT IT IS NOW  (and its floor)",
+                      "WHERE THAT LEAVES US"),
+            height=16)
         frame.grid(row=2, column=0, sticky="nsew")
-        self.prog_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_progress_detail())
+        self.sc_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_score_detail())
 
-        self.prog_detail = self._detail(f, height=10)
-        self.prog_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+        self.sc_detail = self._detail(f, height=11)
+        self.sc_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
     # ---- PANEL B ------------------------------------------------------
     def _build_organs(self) -> None:
         """THE BRAIN ORGAN MAP. Per organ: the brain structure, what it does in one plain
         sentence, whether we built it, whether it is switched on, and what it measures."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="3. BRAIN ORGAN MAP")
+        self.nb.add(f, text="5. BRAIN ORGAN MAP")
         self.tab_organs = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(1, weight=1)
@@ -386,7 +437,7 @@ class StatusWindow:
         """HOW CLOSELY WE COPY THE BRAIN -- and, on screen and unmissable, the fact that this
         number has NOT been shown to predict whether anything works."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="4. HOW CLOSELY WE COPY THE BRAIN")
+        self.nb.add(f, text="6. HOW CLOSELY WE COPY THE BRAIN")
         self.tab_fidelity = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(2, weight=1)
@@ -430,10 +481,21 @@ class StatusWindow:
         self.fid_detail = self._detail(f, height=9)
         self.fid_detail.grid(row=5, column=0, sticky="ew", pady=(6, 0))
 
-    # ---- PANEL 5 ------------------------------------------------------
+    # ---- TAB 3 (group B) ----------------------------------------------
     def _build_board(self) -> None:
+        """WAITING ON YOU -- everything stuck on a decision, in one place.
+
+        THREE KINDS IN ONE TABLE, and the kind column matters because only one of them is
+        answerable here:
+          QUESTION  a notes/BOARD.md row. Typing below writes straight into it.
+          DECISION  a D-numbered decision parsed live out of notes/PLAN.md section 9. Each has a
+                    recommended default, so SILENCE IS NOT NEUTRAL -- the default is what happens.
+          STANDING  a decision recorded in running prose in the status documents, transcribed with
+                    its numbers re-checked against the source on every refresh.
+        Before this merge the last two appeared in no panel at all and the owner had to read three
+        documents to find out what was waiting on them."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="5. WAITING ON YOU")
+        self.nb.add(f, text="3. WAITING ON YOU")
         self.tab_board = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(1, weight=1)
@@ -444,12 +506,13 @@ class StatusWindow:
         self.board_hint.grid(row=0, column=0, sticky="ew")
 
         frame, self.board_tv = self._tree(
-            f, cols=("id", "question"), widths=(60, 1120),
-            headings=("#", "QUESTION"), height=5)
+            f, cols=("id", "kind", "question", "now"), widths=(60, 190, 640, 330),
+            headings=("#", "", "WHAT NEEDS YOUR DECISION",
+                      "WHAT HAPPENS IF YOU SAY NOTHING"), height=12)
         frame.grid(row=1, column=0, sticky="nsew")
         self.board_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_board_detail())
 
-        self.board_detail = self._detail(f, height=9)
+        self.board_detail = self._detail(f, height=10)
         self.board_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
 
         ans = ttk.LabelFrame(f, text="YOUR ANSWER (typing here writes straight into notes/BOARD.md)")
@@ -471,37 +534,65 @@ class StatusWindow:
                                       font=("Segoe UI", 9), wraplength=1180, justify="left")
         self.answer_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 6))
 
-    # ---- PANEL 6 ------------------------------------------------------
+    # ---- TAB 2 (group A) ----------------------------------------------
     def _build_running(self) -> None:
+        """RUNNING NOW -- agents, experiments, the remote box, AND the overnight loop.
+
+        The loop had its own tab. It did not need one: "is the loop on" is a question about whether
+        anything is happening, which is this tab's question, and separating them meant the owner had
+        to check two tabs to answer "is work still going". The stop command stays on screen with a
+        copy button, because it is the one control in this window that stops the machine."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="6. RUNNING NOW")
+        self.nb.add(f, text="2. RUNNING NOW")
         self.tab_running = f
         f.columnconfigure(0, weight=1)
-        f.rowconfigure(1, weight=1)
-        f.rowconfigure(3, weight=1)
+        f.rowconfigure(2, weight=1)
+        f.rowconfigure(4, weight=1)
+
+        loop = tk.Frame(f, bg=_ALT)
+        loop.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        loop.columnconfigure(0, weight=1)
+        self.loop_big = tk.Label(loop, text="...", bg=_ALT, fg=_FG,
+                                 font=("Segoe UI", 15, "bold"), anchor="w", padx=12)
+        self.loop_big.grid(row=0, column=0, sticky="ew", pady=(8, 1))
+        self.loop_sub = tk.Label(loop, text="", bg=_ALT, fg=_DIM, font=("Segoe UI", 10),
+                                 anchor="w", justify="left", padx=12, wraplength=1000)
+        self.loop_sub.grid(row=1, column=0, sticky="ew")
+        tk.Label(loop, text="TO STOP IT, RUN THIS:", bg=_ALT, fg=_AMBER,
+                 font=("Segoe UI", 9, "bold"), anchor="w",
+                 padx=12).grid(row=2, column=0, sticky="ew", pady=(6, 1))
+        self.disarm_box = tk.Text(loop, height=1, wrap="none", bd=0, padx=12, pady=4,
+                                  bg="#1b1b1b", fg="#ffd479", insertbackground=_FG,
+                                  highlightthickness=0, font=("Consolas", 12, "bold"))
+        self.disarm_box.grid(row=3, column=0, sticky="ew", padx=12, pady=(0, 4))
+        self.loop_alt = tk.Label(loop, text="", bg=_ALT, fg=_DIM, font=("Segoe UI", 9),
+                                 anchor="w", justify="left", padx=12, wraplength=1000)
+        self.loop_alt.grid(row=4, column=0, sticky="ew", pady=(0, 8))
+        ttk.Button(loop, text="Copy the command",
+                   command=self._copy_disarm).grid(row=3, column=1, padx=(6, 12))
 
         tk.Label(f, text="AGENTS", bg=_PANEL, fg=_BLUE, anchor="w",
-                 font=("Segoe UI", 10, "bold"), padx=4).grid(row=0, column=0, sticky="ew",
+                 font=("Segoe UI", 10, "bold"), padx=4).grid(row=1, column=0, sticky="ew",
                                                              pady=(6, 2))
         frame, self.agents_tv = self._tree(
             f, cols=("state", "name", "doing", "running", "last"),
             widths=(110, 210, 520, 130, 150),
             headings=("", "AGENT", "WHAT IT IS DOING", "RUNNING FOR", "LAST ACTIVE"),
-            height=7)
-        frame.grid(row=1, column=0, sticky="nsew")
+            height=6)
+        frame.grid(row=2, column=0, sticky="nsew")
 
         tk.Label(f, text="EXPERIMENTS RUNNING ON THIS MACHINE", bg=_PANEL, fg=_BLUE,
                  anchor="w", font=("Segoe UI", 10, "bold"),
-                 padx=4).grid(row=2, column=0, sticky="ew", pady=(8, 2))
+                 padx=4).grid(row=3, column=0, sticky="ew", pady=(8, 2))
         frame2, self.local_tv = self._tree(
             f, cols=("name", "progress", "running", "pid", "mem"),
             widths=(430, 330, 130, 90, 100),
             headings=("EXPERIMENT", "PROGRESS", "RUNNING FOR", "PROCESS", "MEMORY"),
             height=5)
-        frame2.grid(row=3, column=0, sticky="nsew")
+        frame2.grid(row=4, column=0, sticky="nsew")
 
         self.running_detail = self._detail(f, height=10)
-        self.running_detail.grid(row=4, column=0, sticky="ew", pady=(8, 0))
+        self.running_detail.grid(row=5, column=0, sticky="ew", pady=(8, 0))
 
     # ---- PANEL 7 ------------------------------------------------------
     def _build_results(self) -> None:
@@ -527,40 +618,6 @@ class StatusWindow:
 
         self.results_detail = self._detail(f, height=8)
         self.results_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
-
-    # ---- PANEL 8 ------------------------------------------------------
-    def _build_loop(self) -> None:
-        f = ttk.Frame(self.nb)
-        self.nb.add(f, text="8. OVERNIGHT LOOP")
-        self.tab_loop = f
-        f.columnconfigure(0, weight=1)
-
-        self.loop_big = tk.Label(f, text="...", bg=_PANEL, fg=_FG,
-                                 font=("Segoe UI", 26, "bold"), anchor="w", padx=10, pady=14)
-        self.loop_big.grid(row=0, column=0, sticky="ew")
-        self.loop_sub = tk.Label(f, text="", bg=_PANEL, fg=_FG, font=("Segoe UI", 11),
-                                 anchor="w", justify="left", padx=12, wraplength=1180)
-        self.loop_sub.grid(row=1, column=0, sticky="ew")
-
-        stop = tk.Frame(f, bg=_AMBER_BG)
-        stop.grid(row=2, column=0, sticky="ew", padx=10, pady=16)
-        stop.columnconfigure(0, weight=1)
-        tk.Label(stop, text="TO STOP IT, RUN THIS:", bg=_AMBER_BG, fg="#ffffff",
-                 font=("Segoe UI", 11, "bold"), anchor="w",
-                 padx=12).grid(row=0, column=0, sticky="ew", pady=(10, 2))
-        self.disarm_box = tk.Text(stop, height=1, wrap="none", bd=0, padx=12, pady=6,
-                                  bg="#1b1b1b", fg="#ffd479", insertbackground=_FG,
-                                  highlightthickness=0, font=("Consolas", 14, "bold"))
-        self.disarm_box.grid(row=1, column=0, sticky="ew", padx=12)
-        self.loop_alt = tk.Label(stop, text="", bg=_AMBER_BG, fg="#f5e6c8",
-                                 font=("Segoe UI", 10), anchor="w", justify="left",
-                                 padx=12, wraplength=1140)
-        self.loop_alt.grid(row=2, column=0, sticky="ew", pady=(4, 12))
-        ttk.Button(stop, text="Copy the command",
-                   command=self._copy_disarm).grid(row=1, column=1, padx=(6, 12))
-
-        self.loop_detail = self._detail(f, height=8)
-        self.loop_detail.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 10))
 
     def _copy_disarm(self) -> None:
         try:
@@ -633,11 +690,11 @@ class StatusWindow:
     # rendering -- every panel independently guarded
     # ------------------------------------------------------------------
     def render(self, s: dict) -> None:
-        for name, fn in (("headline", self._r_headline), ("walls", self._r_walls),
-                         ("progress", self._r_progress), ("organs", self._r_organs),
+        for name, fn in (("headline", self._r_headline), ("where", self._r_where),
+                         ("scores", self._r_scores), ("organs", self._r_organs),
                          ("fidelity", self._r_fidelity),
                          ("board", self._r_board), ("running", self._r_running),
-                         ("results", self._r_results), ("loop", self._r_loop)):
+                         ("results", self._r_results)):
             try:
                 fn(s)
             except Exception:
@@ -647,137 +704,378 @@ class StatusWindow:
 
     # ---- headline -----------------------------------------------------
     def _r_headline(self, s: dict) -> None:
+        """The strip answers three things without a click: WHERE WE ARE, HOW WE ARE DOING against
+        the floor, and HOW MUCH OF THIS NO LONGER MATCHES ITS SOURCE."""
+        pl = _d(s.get("plan"))
         w = _d(s.get("walls"))
         h = _d(w.get("headline")) or None
-        if not isinstance(h, dict):
-            self.headline_lbl.configure(text="COMPONENT HEALTH DATA IS MISSING")
-            self.headsub_lbl.configure(
-                text=f"{w.get('status', '?')}: {w.get('detail', '')}"[:300])
-            for widget in (self.headbar, self.headline_lbl, self.headsub_lbl):
-                widget.configure(bg=_AMBER_BG)
-            self.headsub_lbl.configure(fg="#f5e6c8")
-            return
-        standing = h.get("standing")
+        standing = h.get("standing") if isinstance(h, dict) else None
         bg = {"BELOW_FLOOR": _RED_BG, "ABOVE_FLOOR": _GREEN_BG}.get(standing, _AMBER_BG)
         for widget in (self.headbar, self.headline_lbl, self.headsub_lbl):
             widget.configure(bg=bg)
-        verb = {"BELOW_FLOOR": "WE ARE BELOW IT", "ABOVE_FLOOR": "WE ARE ABOVE IT",
-                "LEVEL": "WE ARE LEVEL WITH IT"}.get(standing, "NOT ESTABLISHED")
-        self.headline_lbl.configure(
-            text=f"{h.get('title')}:  WE GET {h.get('score')}.   "
-                 f"{h.get('floor_name')} GETS {h.get('floor')}.   {verb}.")
 
+        # LINE 1: where we are, and the one next thing to do.
+        if pl.get("status") == "OK" and _d(pl.get("current")):
+            cur = _d(pl.get("current"))
+            nxt = _d(pl.get("next_action")).get("text") or "NOT STATED IN THE PLAN"
+            self.headline_lbl.configure(
+                text=f"WE ARE IN {cur.get('id')} -- {cur.get('title')}.    "
+                     f"NEXT: {str(nxt)[:150]}")
+        else:
+            self.headline_lbl.configure(
+                text=f"THE PLAN IS {pl.get('status', 'MISSING')} -- "
+                     f"{str(pl.get('detail', ''))[:160]}")
+
+        # LINE 2: the score beside its floor, then the counts. A score is never shown alone.
         bits = []
-        b = s.get("board") or {}
+        if isinstance(h, dict):
+            verb = {"BELOW_FLOOR": "WE ARE BELOW IT", "ABOVE_FLOOR": "WE ARE ABOVE IT",
+                    "LEVEL": "WE ARE LEVEL WITH IT"}.get(standing, "NOT ESTABLISHED")
+            bits.append(f"WE GET {h.get('score')}, {h.get('floor_name')} GETS "
+                        f"{h.get('floor')} -- {verb}")
+        else:
+            bits.append(f"SCORES ARE MISSING ({w.get('status', '?')})")
+        gov = _d(_d(s.get("scores")).get("governing_floor"))
+        if gov.get("score"):
+            bits.append(f"and a {gov.get('floor_name', 'constant')} gets {gov.get('score')}")
+        b = _d(s.get("board"))
+        pl_dec = len(_l(pl.get("decisions"))) + len(_l(_d(pl.get("operator")).get("rows")))
         n_open = b.get("n_open")
-        bits.append(f"{n_open if n_open is not None else '?'} question(s) waiting on you")
+        bits.append(f"{n_open if n_open is not None else '?'} question(s) + {pl_dec} standing "
+                    f"decision(s) waiting on you")
         rn = _d(s.get("running"))
         ag = _d(rn.get("agents"))
         bits.append(f"{ag.get('n_active', '?')} agent(s) working")
-        lx = _l(rn.get("local_experiments"))
-        bits.append(f"{len(lx)} experiment(s) running here")
-        res = _d(s.get("results"))
-        if res.get("status") == "OK":
-            bits.append(f"{res.get('n_negative')} of the last {len(_l(res.get('rows')))} "
-                        f"results are negative")
+        bits.append(f"{len(_l(rn.get('local_experiments')))} experiment(s) running here")
         lp = _d(s.get("loop"))
-        if lp.get("armed") is True:
-            bits.append(f"overnight loop ARMED (cap {lp.get('cap_label')})")
-        elif lp.get("armed") is False:
-            bits.append("overnight loop off")
-        else:
-            bits.append("overnight loop UNKNOWN")
-        n_no = w.get("n_no_instrument")
-        if n_no:
-            bits.append(f"{n_no} part(s) we still cannot measure at all")
-        self.headsub_lbl.configure(text="     ".join(bits), fg="#f4f4f4")
+        bits.append("overnight loop ON" if lp.get("armed") is True else
+                    "overnight loop off" if lp.get("armed") is False else
+                    "overnight loop UNKNOWN")
+        dr = _d(s.get("drift"))
+        nd, nu = dr.get("n_drifted"), dr.get("n_unknown")
+        if nd is not None:
+            bits.append(f"{nd} value(s) no longer match their source"
+                        + (f", {nu} panel(s) unchecked" if nu else ""))
+        self.headsub_lbl.configure(text="     |     ".join(bits), fg="#f4f4f4")
 
-    # ---- panel 1 ------------------------------------------------------
-    def _r_walls(self, s: dict) -> None:
-        w = _d(s.get("walls"))
-        tv = self.walls_tv
+    # ---- tab 1: WHERE WE ARE ------------------------------------------
+    def _r_where(self, s: dict) -> None:
+        p = _d(s.get("plan"))
+        tv = self.where_tv
         tv.delete(*tv.get_children())
-        self._wall_rows: dict[str, dict] = {}
-        if w.get("status") != "OK":
-            tv.insert("", "end", iid="_missing",
-                      values=(f"{w.get('status')}", "-", "MISSING", "MISSING",
-                              str(w.get("detail", ""))[:80]), tags=("warn",))
-            self._set_text(self.walls_detail, [
-                (f"{w.get('status')}\n", "warn"),
-                str(w.get("detail", "no detail")) + "\n\n",
-                ("A blank where a measurement should be is information. This panel is showing "
-                 "MISSING rather than a number it does not have.\n", "dim")])
+        self._where_rows: dict[str, dict] = {}
+        # Stashed from the payload JUST RENDERED, not read back from self._state. A direct
+        # render() (which is what the self-test does) must not be a different code path from the
+        # live poll, or the self-test stops testing the thing that ships.
+        self._where_state: dict = p
+        if p.get("status") != "OK":
+            self.where_phase.configure(text=f"THE PLAN IS {p.get('status', 'MISSING')}")
+            self.where_next.configure(text=str(p.get("detail", ""))[:400])
+            for wdg in (self.where_phase, self.where_next):
+                wdg.configure(bg=_AMBER_BG)
+            self.where_phase.master.configure(bg=_AMBER_BG)
+            self.where_hint.configure(text="", fg=_AMBER)
+            tv.insert("", "end", values=(f"{p.get('status')}", "MISSING", "MISSING",
+                                         "MISSING", "MISSING"), tags=("warn",))
+            self._set_text(self.where_detail, [
+                (f"{p.get('status')}\n", "warn"), str(p.get("detail", "no detail")) + "\n\n",
+                ("Nothing here is reconstructed from memory. If the plan cannot be read, this "
+                 "panel shows MISSING rather than a plan somebody remembers.\n", "dim")])
             return
 
-        rows = []
-        h = w.get("headline")
-        if isinstance(h, dict):
-            rows.append(("HEADLINE", h))
-        for r in _l(w.get("rows")):
-            rows.append((f"#{_d(r).get('n')}", _d(r)))
+        for wdg in (self.where_phase, self.where_next):
+            wdg.configure(bg=_GREEN_BG)
+        self.where_phase.master.configure(bg=_GREEN_BG)
+        cur = _d(p.get("current"))
+        nxt = _d(p.get("next_action"))
+        self.where_phase.configure(
+            text=f"WE ARE IN {cur.get('id')} -- {cur.get('title')}")
+        self.where_next.configure(
+            text=f"THE SINGLE NEXT ACTION: {nxt.get('text') or 'NOT STATED IN THE PLAN'}\n"
+                 f"(which phase: {p.get('current_basis')};  which action: {nxt.get('basis')})")
 
-        for i, (prefix, r) in enumerate(rows):
-            iid = f"w{i}"
-            self._wall_rows[iid] = r
+        con = _d(p.get("contract"))
+        nv = con.get("n_violations") or 0
+        self.where_hint.configure(
+            text=(f"Read live from {p.get('doc')} on every refresh -- nothing on this tab is a "
+                  f"copy. {nv} thing(s) the plan does not state are shown as NOT STATED IN THE "
+                  f"PLAN rather than filled in; select a phase to see which. "
+                  f"{p.get('numbers_joined', 0)} of {p.get('n_phases', 0)} phases also have "
+                  f"before/now numbers attached."),
+            fg=_AMBER if nv else _BLUE)
+
+        for i, ph in enumerate(_l(p.get("phases"))):
+            ph = _d(ph)
+            iid = f"ph{i}"
+            self._where_rows[iid] = ph
+            st = str(ph.get("status") or "NOT STATED")
+            tag = ("good" if st == "DONE" else
+                   "bad" if st == "BLOCKED" else
+                   "warn" if st in ("NOT STATED", "NOT STARTED") else "dim")
+            if st == "IN PROGRESS":
+                tag = "good"
+            tv.insert("", "end", iid=iid, values=(
+                f"{ph.get('id')}  {ph.get('title')}", st,
+                ph.get("goal") or "NOT STATED IN THE PLAN",
+                ph.get("gate") or "NOT STATED IN THE PLAN",
+                ph.get("kill") or "NOT STATED IN THE PLAN",
+            ), tags=(tag, "even" if i % 2 == 0 else "odd"))
+        keep = next((k for k, v in self._where_rows.items()
+                     if v.get("id") == p.get("current_id")), None)
+        if self._where_rows:
+            tv.selection_set(keep or "ph0")
+            self._show_where_detail()
+        try:
+            self.nb.tab(self.tab_where,
+                        text=f"1. WHERE WE ARE ({cur.get('id', '?')})")
+        except tk.TclError:
+            pass
+
+    def _show_where_detail(self) -> None:
+        sel = self.where_tv.selection()
+        ph = getattr(self, "_where_rows", {}).get(sel[0]) if sel else None
+        if not ph:
+            return
+        st = str(ph.get("status") or "NOT STATED")
+        tag = "good" if st in ("DONE", "IN PROGRESS") else "bad" if st == "BLOCKED" else "warn"
+        chunks = [
+            (f"{ph.get('id')}  {ph.get('title')}\n", "h"),
+            ("WHERE IT IS: ", "dim"), (f"{st}\n", tag),
+            (f"(how we know: {ph.get('status_basis')})\n\n", "dim"),
+            ("WHAT IT IS FOR\n", "dim"),
+            f"{ph.get('goal') or 'The plan states no goal line for this phase.'}\n",
+        ]
+        if ph.get("brain_structure"):
+            chunks += [("\nWHICH PART OF THE BRAIN\n", "dim"), f"{ph.get('brain_structure')}\n"]
+        if ph.get("where_it_stands"):
+            chunks += [("\nWHERE IT STANDS\n", "dim"), f"{ph.get('where_it_stands')}\n"]
+
+        work = _l(ph.get("work"))
+        if work:
+            chunks.append(("\nTHE WORK\n", "dim"))
+            for w in work:
+                w = _d(w)
+                if w.get("retracted"):
+                    chunks.append((f"  {w.get('n') or '-'}. RETRACTED -- {w.get('text')}\n", "bad"))
+                else:
+                    chunks.append(f"  {w.get('n') or '-'}. {w.get('text')}\n")
+        chunks += [("\nWHAT WOULD COUNT AS SUCCESS\n", "dim"),
+                   f"{ph.get('gate') or 'NOT STATED IN THE PLAN'}\n",
+                   ("\nWHAT WOULD MAKE US STOP\n", "dim"),
+                   f"{ph.get('kill') or 'NOT STATED IN THE PLAN'}\n"]
+
+        num = _d(ph.get("numbers"))
+        if num:
+            b, n = _d(num.get("before")), _d(num.get("now"))
+            chunks += [
+                ("\nWHAT MOVED\n", "dim"),
+                f"  before ({b.get('when') or 'date not recorded'}): "
+                f"{b.get('score') or 'NOT MEASURED'}   floor {b.get('floor') or 'MISSING'} "
+                f"= {b.get('floor_name') or 'MISSING'}\n",
+                f"  now    ({n.get('when') or 'date not recorded'}): "
+                f"{n.get('score') or 'NOT MEASURED'}   floor {n.get('floor') or 'MISSING'} "
+                f"= {n.get('floor_name') or 'MISSING'}\n",
+                f"  {num.get('what_moved', '')}\n",
+            ]
+        else:
+            chunks.append(("\nNo before/now numbers are recorded against this phase.\n", "dim"))
+
+        for lab in ph.get("missing_labels") or []:
+            chunks.append((f"\nTHE PLAN STATES NO '{lab}' FOR THIS PHASE. That cell is shown as "
+                           f"NOT STATED rather than filled in, and it is counted in the drift "
+                           f"figure at the top of the window. See "
+                           f"notes/LONG_TERM_PLAN_PARSER_CONTRACT.md.\n", "bad"))
+        if st == "NOT STATED":
+            chunks.append(("\nTHE PLAN STATES NO STATUS FOR THIS PHASE. Adding a '**Status:**' "
+                           "line to it resolves this; nothing is guessed in the meantime.\n",
+                           "warn"))
+
+        lad = _l(_d(getattr(self, "_where_state", None)).get("ladder"))
+        if lad:
+            chunks.append(("\nWHAT WOULD COUNT AS THE WHOLE THING WORKING, IN ORDER\n", "dim"))
+            for r in lad:
+                r = _d(r)
+                chunks.append(f"  {r.get('n')}. {r.get('text')}"
+                              f"{'   [' + str(r.get('phase')) + ']' if r.get('phase') else ''}\n")
+        self._set_text(self.where_detail, chunks)
+
+    # ---- tab 4: SCORES AND FLOORS -------------------------------------
+    def _r_scores(self, s: dict) -> None:
+        m = _d(s.get("scores"))
+        tv = self.sc_tv
+        tv.delete(*tv.get_children())
+        self._score_rows: dict[str, dict] = {}
+        if m.get("status") != "OK":
+            self.sc_gov_title.configure(text=f"SCORE DATA IS {m.get('status', 'MISSING')}")
+            self.sc_gov_body.configure(text=str(m.get("detail", ""))[:400])
+            self.sc_hint.configure(text="", fg=_AMBER)
+            tv.insert("", "end", values=(f"{m.get('status')}", "-", "MISSING", "MISSING", ""),
+                      tags=("warn",))
+            self._set_text(self.sc_detail, [
+                (f"{m.get('status')}\n", "warn"), str(m.get("detail", "no detail")) + "\n\n",
+                ("A blank where a measurement should be is information. This panel shows MISSING "
+                 "rather than a number it does not have.\n", "dim")])
+            return
+
+        gov = _d(m.get("governing_floor"))
+        if gov:
+            self.sc_gov_title.configure(text=str(gov.get("title", "")))
+            body = " ".join(str(x) for x in
+                            (gov.get("plain_verdict") or gov.get("plain") or "",
+                             gov.get("detail") or "") if x)
+            if gov.get("scope"):
+                body += f"   SCOPE: {gov.get('scope')}"
+            if gov.get("verify_status") in ("CHECK_PLAN", "CHECK_SOURCE"):
+                body += ("   [CHECK THE SOURCE: " + ", ".join(gov.get("verify_missing") or [])
+                         + " is no longer findable in the plan.]")
+            self.sc_gov_body.configure(text=body)
+        else:
+            self.sc_gov_title.configure(text="NO GOVERNING FLOOR RECORDED")
+            self.sc_gov_body.configure(
+                text="Nothing names the strongest floor. Read every number below with that gap "
+                     "in mind.")
+
+        nr = m.get("n_retracted") or 0
+        nd = m.get("n_disagreements") or 0
+        as_of = m.get("as_of") or "an unrecorded date"
+        self.sc_hint.configure(
+            text=(f"One row per part of the machine, as of {as_of}. "
+                  f"Every number sits beside the floor it has to beat -- a score with no "
+                  f"floor cannot be graded. {nr} claim(s) were RETRACTED and are shown in red at "
+                  f"the bottom exactly like a loss, on purpose. {nd} part(s) are reported "
+                  f"differently by the two sources that feed this table; those say so rather "
+                  f"than one being picked."),
+            fg=_AMBER if (nr or nd) else _BLUE)
+
+        i = 0
+        for r in _l(m.get("rows")):
+            r = _d(r)
+            iid = f"sc{i}"
+            self._score_rows[iid] = r
             inst_txt, inst_col = _INSTRUMENT_TEXT.get(
-                (r.get("instrument") or "").upper(), ("unknown", _AMBER))
+                (r.get("instrument") or "").upper(),
+                ("not recorded", _AMBER) if r.get("instrument") is None
+                else ("unknown", _AMBER))
             stand_txt, stand_col = _STANDING_TEXT.get(r.get("standing") or "UNKNOWN",
                                                       ("not established", _AMBER))
-            score = r.get("score") or "MISSING"
-            floor = r.get("floor") or "MISSING"
-            floor_cell = f"{floor}   ({r.get('floor_name') or 'MISSING'})"
             sep = r.get("separated")
             if sep == "YES":
                 stand_txt += " (separated)"
             elif sep == "NO":
                 stand_txt += " (not separated)"
-            drift = "" if r.get("verify_status") in ("VERIFIED", "NO_VERIFY_STRINGS") \
-                else f"   [{r.get('verify_status')}]"
-            tag = ("bad" if stand_col == _RED else
-                   "good" if stand_col == _GREEN else "warn")
-            title = f"{prefix}  {r.get('title')}"
+            direction = (r.get("direction") or "").upper()
+            if direction:
+                stand_txt = f"{direction} -- {stand_txt}"
+            before, _ = self._side_cell(r.get("before"))
+            now, gap = self._side_cell(r.get("now"))
+            if gap:
+                stand_txt += "  (no floor)"
+            if r.get("disagreement"):
+                stand_txt += "   [SOURCES DISAGREE]"
+            if r.get("verify_status") in ("CHECK_PLAN", "CHECK_SOURCE"):
+                stand_txt += "   [CHECK SOURCE]"
+            elif r.get("verify_status") == "CANNOT_VERIFY":
+                stand_txt += "   [CANNOT VERIFY]"
+            tag = ("bad" if (stand_col == _RED or direction in ("DOWN", "WORSE", "NULL"))
+                   else "good" if (stand_col == _GREEN or direction in ("UP", "BETTER"))
+                   else "warn")
+            title = (("HEADLINE  " if r.get("headline") else
+                      (f"#{r.get('n')}  " if r.get("n") else "")) + str(r.get("title")))
             tv.insert("", "end", iid=iid,
-                      values=(title, inst_txt, score, floor_cell, stand_txt + drift),
+                      values=(title, inst_txt, before, now, stand_txt),
                       tags=(tag, "even" if i % 2 == 0 else "odd"))
-        if rows:
-            tv.selection_set("w0")
-            tv.focus("w0")
-            self._show_wall_detail()
+            i += 1
 
-    def _show_wall_detail(self) -> None:
-        sel = self.walls_tv.selection()
-        r = getattr(self, "_wall_rows", {}).get(sel[0]) if sel else None
+        # RETRACTIONS. Same red, same table, at the bottom where they cannot be missed by a
+        # reader who scrolls -- never a separate tab a reader can decline to open.
+        for r in _l(m.get("retractions")):
+            r = _d(r)
+            iid = f"sc{i}"
+            r = dict(r, _retracted=True)
+            self._score_rows[iid] = r
+            before, _ = self._side_cell(r.get("before"))
+            now, gap = self._side_cell(r.get("now"))
+            tv.insert("", "end", iid=iid,
+                      values=(str(r.get("title")), "-", before, now,
+                              "RETRACTED" + ("  (no floor)" if gap else "")),
+                      tags=("bad", "even" if i % 2 == 0 else "odd"))
+            i += 1
+
+        if self._score_rows:
+            tv.selection_set("sc0")
+            tv.focus("sc0")
+            self._show_score_detail()
+        try:
+            self.nb.tab(self.tab_scores,
+                        text=f"4. SCORES AND FLOORS ({nr} retracted)" if nr
+                             else "4. SCORES AND FLOORS")
+        except tk.TclError:
+            pass
+
+    def _show_score_detail(self) -> None:
+        sel = self.sc_tv.selection()
+        r = getattr(self, "_score_rows", {}).get(sel[0]) if sel else None
         if not r:
             return
         stand_txt, stand_col = _STANDING_TEXT.get(r.get("standing") or "UNKNOWN",
                                                   ("not established", _AMBER))
         tag = "bad" if stand_col == _RED else "good" if stand_col == _GREEN else "warn"
-        chunks = [
-            (f"{r.get('title')}\n", "h"),
-            f"{r.get('what_it_does')}\n\n",
-            "Can we measure this part on its own?  ",
-            (f"{r.get('instrument')}", "warn" if (r.get('instrument') or '') != "YES" else "good"),
-            f" -- {r.get('instrument_note', '')}\n\n",
-            "OURS: ", (f"{r.get('score') or 'MISSING'}", "h"),
-            f"  ({r.get('score_detail') or 'no detail'})\n",
-            "FLOOR IT MUST BEAT: ", (f"{r.get('floor') or 'MISSING'}", "h"),
-            f"  = {r.get('floor_name')}  ({r.get('floor_detail') or 'no detail'})\n",
-            "VERDICT: ", (f"{stand_txt}", tag),
-            f"   intervals separated: {r.get('separated')}\n\n",
-            (f"{r.get('plain_verdict', '')}\n\n", tag),
-            (f"evidence: {r.get('evidence', '')}\n", "mono"),
-            (f"instrument: {r.get('instrument_evidence', '')}\n", "mono"),
+        if r.get("_retracted"):
+            tag = "bad"
+        b, n = _d(r.get("before")), _d(r.get("now"))
+        chunks = [(f"{r.get('title')}\n", "h")]
+        if r.get("_retracted"):
+            chunks.append(("THIS CLAIM WAS RETRACTED.\n", "bad"))
+        if r.get("what_it_does"):
+            chunks.append(f"{r.get('what_it_does')}\n")
+        if r.get("plain") and r.get("plain") != r.get("what_it_does"):
+            chunks.append(f"\n{r.get('plain')}\n")
+        chunks.append("\n")
+        if r.get("instrument"):
+            chunks += ["Can we measure this part on its own?  ",
+                       (f"{r.get('instrument')}",
+                        "good" if r.get("instrument") == "YES" else "warn"),
+                       f" -- {r.get('instrument_note', '')}\n\n"]
+        chunks += [
+            ("BEFORE", "dim"), f"  ({b.get('when') or 'date not recorded'})\n",
+            f"   {b.get('score') or 'NOT MEASURED'}"
+            f"{'  -- ' + str(b.get('score_detail')) if b.get('score_detail') else ''}\n",
+            f"   floor: {b.get('floor') or 'MISSING'}  = {b.get('floor_name') or 'MISSING'}"
+            f"{'  (' + str(b.get('floor_detail')) + ')' if b.get('floor_detail') else ''}\n\n",
+            ("NOW", "h"), f"  ({n.get('when') or 'date not recorded'})\n",
+            f"   {n.get('score') or 'NOT MEASURED'}"
+            f"{'  -- ' + str(n.get('score_detail')) if n.get('score_detail') else ''}\n",
+            f"   floor: {n.get('floor') or 'MISSING'}  = {n.get('floor_name') or 'MISSING'}"
+            f"{'  (' + str(n.get('floor_detail')) + ')' if n.get('floor_detail') else ''}\n",
         ]
-        if r.get("verify_status") == "CHECK_PLAN":
-            chunks.append(("\nCHECK THE PLAN: these numbers are no longer findable in "
-                           f"notes/PLAN.md: {r.get('verify_missing')}. The plan is the "
-                           "authority; this row may be stale.\n", "bad"))
+        if n.get("floor_superseded_by"):
+            chunks.append((f"   {n.get('floor_superseded_by')}\n", "bad"))
+        chunks.append("\n")
+        if r.get("standing"):
+            chunks += [("VERDICT: ", "dim"), (f"{stand_txt}", tag),
+                       f"   intervals separated: {r.get('separated')}\n"]
+        if r.get("plain_verdict"):
+            chunks.append((f"{r.get('plain_verdict')}\n", tag))
+        if r.get("what_moved"):
+            chunks += [("\nWHAT MOVED\n", "dim"), f"{r.get('what_moved')}\n"]
+        if r.get("disagreement"):
+            chunks += [("\nTHE TWO SOURCES DISAGREE ABOUT THIS PART\n", "warn"),
+                       f"{r.get('disagreement')}\n"]
+        chunks.append((f"\nevidence: {r.get('evidence', '')}\n", "mono"))
+        if r.get("instrument_evidence"):
+            chunks.append((f"instrument: {r.get('instrument_evidence')}\n", "mono"))
+        if r.get("sources"):
+            chunks.append((f"assembled from: {', '.join(r.get('sources'))}\n", "mono"))
+        if r.get("verify_status") in ("CHECK_PLAN", "CHECK_SOURCE"):
+            chunks.append(("\nCHECK THE SOURCE: these numbers are no longer findable in the plan "
+                           f"or status documents: {r.get('verify_missing')}. Those documents are "
+                           "the authority; this row may be stale.\n", "bad"))
         elif r.get("verify_status") == "CANNOT_VERIFY":
-            chunks.append(("\nCannot cross-check this row: notes/PLAN.md was not readable.\n",
-                           "warn"))
-        self._set_text(self.walls_detail, chunks)
+            chunks.append(("\nCannot cross-check this row: its authority document was not "
+                           "readable. That is NOT the same as verified.\n", "warn"))
+        self._set_text(self.sc_detail, chunks)
 
-    # ---- panel A ------------------------------------------------------
+    # ---- shared by the score cells ------------------------------------
     @staticmethod
     def _side_cell(side) -> tuple[str, bool]:
         """One before/now cell: the score AND the floor, or an explicit non-answer.
@@ -800,123 +1098,6 @@ class StatusWindow:
             return f"{score}   ({fname})", False
         return f"{score}   NO FLOOR STATED", True
 
-    def _r_progress(self, s: dict) -> None:
-        p = _d(s.get("progress"))
-        tv = self.prog_tv
-        tv.delete(*tv.get_children())
-        self._prog_rows: dict[str, dict] = {}
-        if p.get("status") != "OK":
-            self.prog_gov_title.configure(text=f"PROGRESS DATA IS {p.get('status', 'MISSING')}")
-            self.prog_gov_body.configure(text=str(p.get("detail", ""))[:400])
-            self.prog_hint.configure(text="", fg=_AMBER)
-            tv.insert("", "end", values=(f"{p.get('status')}", "", "MISSING", "MISSING", ""),
-                      tags=("warn",))
-            self._set_text(self.prog_detail, [
-                (f"{p.get('status')}\n", "warn"), str(p.get("detail", "no detail")) + "\n\n",
-                ("A blank where a measurement should be is information. This panel shows MISSING "
-                 "rather than a number it does not have.\n", "dim")])
-            return
-
-        gov = _d(p.get("governing_floor"))
-        if gov:
-            self.prog_gov_title.configure(text=str(gov.get("title", "")))
-            body = str(gov.get("plain", ""))
-            if gov.get("detail"):
-                body += "  " + str(gov.get("detail"))
-            if gov.get("verify_status") == "CHECK_SOURCE":
-                body += ("   [CHECK THE SOURCE: " + ", ".join(gov.get("verify_missing") or [])
-                         + " is no longer findable in the plan.]")
-            self.prog_gov_body.configure(text=body)
-        else:
-            self.prog_gov_title.configure(text="NO GOVERNING FLOOR RECORDED")
-            self.prog_gov_body.configure(
-                text="The ledger names no strongest floor. Read every number below with that "
-                     "gap in mind.")
-
-        self.prog_hint.configure(
-            text=(f"What moved, as of {p.get('as_of') or 'an unrecorded date'}. Every number sits "
-                  f"beside the floor it has to beat -- a score with no floor cannot be graded. "
-                  f"{p.get('n_retracted')} claim(s) were RETRACTED and are shown in red exactly "
-                  f"like a loss, on purpose: a progress view that showed only gains would "
-                  f"reproduce the failure this project keeps having to unpick."),
-            fg=_AMBER if p.get("n_retracted") else _BLUE)
-
-        groups = (("COMPONENT", _l(p.get("components"))),
-                  ("PLAN PHASE", _l(p.get("phases"))),
-                  ("RETRACTED", _l(p.get("retractions"))))
-        i = 0
-        for kind, rows in groups:
-            for r in rows:
-                r = _d(r)
-                iid = f"p{i}"
-                self._prog_rows[iid] = r
-                direction = (r.get("direction") or "UNKNOWN").upper()
-                tag = ("bad" if direction in ("DOWN", "RETRACTED", "NULL", "WORSE")
-                       else "good" if direction in ("UP", "BETTER")
-                       else "warn")
-                before, _ = self._side_cell(r.get("before"))
-                now, gap = self._side_cell(r.get("now"))
-                title = str(r.get("title", "?"))
-                if r.get("verify_status") == "CHECK_SOURCE":
-                    title += "   [CHECK SOURCE]"
-                elif r.get("verify_status") == "CANNOT_VERIFY":
-                    title += "   [CANNOT VERIFY]"
-                if gap:
-                    direction += "  (no floor)"
-                tv.insert("", "end", iid=iid,
-                          values=(title, kind, before, now, direction),
-                          tags=(tag, "even" if i % 2 == 0 else "odd"))
-                i += 1
-        if self._prog_rows:
-            tv.selection_set("p0")
-            self._show_progress_detail()
-        try:
-            n = p.get("n_retracted") or 0
-            self.nb.tab(self.tab_progress,
-                        text=f"2. PROGRESS MADE ({n} retracted)" if n else "2. PROGRESS MADE")
-        except tk.TclError:
-            pass
-
-    def _show_progress_detail(self) -> None:
-        sel = self.prog_tv.selection()
-        r = getattr(self, "_prog_rows", {}).get(sel[0]) if sel else None
-        if not r:
-            return
-        direction = (r.get("direction") or "UNKNOWN").upper()
-        tag = ("bad" if direction in ("DOWN", "RETRACTED", "NULL", "WORSE")
-               else "good" if direction in ("UP", "BETTER") else "warn")
-        b, n = _d(r.get("before")), _d(r.get("now"))
-        chunks = [
-            (f"{r.get('title')}\n", "h"),
-            f"{r.get('plain', '')}\n\n",
-            ("BEFORE", "dim"), f"  ({b.get('when') or 'date not recorded'})\n",
-            f"   {b.get('score') or 'NOT MEASURED'}"
-            f"{'  -- ' + str(b.get('score_detail')) if b.get('score_detail') else ''}\n",
-            f"   floor: {b.get('floor') or 'MISSING'}  = {b.get('floor_name') or 'MISSING'}"
-            f"{'  (' + str(b.get('floor_detail')) + ')' if b.get('floor_detail') else ''}\n\n",
-            ("NOW", "h"), f"  ({n.get('when') or 'date not recorded'})\n",
-            f"   {n.get('score') or 'NOT MEASURED'}"
-            f"{'  -- ' + str(n.get('score_detail')) if n.get('score_detail') else ''}\n",
-            f"   floor: {n.get('floor') or 'MISSING'}  = {n.get('floor_name') or 'MISSING'}"
-            f"{'  (' + str(n.get('floor_detail')) + ')' if n.get('floor_detail') else ''}\n\n",
-            ("WHICH WAY IT MOVED: ", "dim"), (f"{direction}\n", tag),
-            f"{r.get('what_moved', '')}\n",
-        ]
-        for key, label in (("state", "WHERE IT STANDS"), ("gate", "WHAT WOULD COUNT AS PASSING"),
-                           ("kill", "WHAT WOULD MAKE US STOP")):
-            if r.get(key):
-                chunks += [("\n" + label + ": ", "dim"), f"{r.get(key)}\n"]
-        chunks.append((f"\nevidence: {r.get('evidence', '')}\n", "mono"))
-        if r.get("verify_source"):
-            chunks.append((f"checked against: {r.get('verify_source')}\n", "mono"))
-        if r.get("verify_status") == "CHECK_SOURCE":
-            chunks.append(("\nCHECK THE SOURCE: these are no longer findable in the plan or "
-                           f"status documents: {r.get('verify_missing')}. Those documents are the "
-                           "authority; this row may be stale.\n", "bad"))
-        elif r.get("verify_status") == "CANNOT_VERIFY":
-            chunks.append((f"\nCannot cross-check this row: {r.get('verify_detail', '')}\n",
-                           "warn"))
-        self._set_text(self.prog_detail, chunks)
 
     # ---- panel B ------------------------------------------------------
     def _r_organs(self, s: dict) -> None:
@@ -941,6 +1122,14 @@ class StatusWindow:
                   f"{reg.get('n_no_brain_structure')} deliberately do not, and filling those in "
                   f"after the fact is banned -- so the backlog is shown rather than hidden."),
             fg=_BLUE)
+        n_conf = o.get("n_conflicts") or 0
+        if n_conf:
+            self.organ_hint.configure(
+                text=self.organ_hint.cget("text") +
+                     f"   {n_conf} organ(s) are marked CONFLICT: section 10 of the map re-audited "
+                     f"them and section 4 was never updated, so the document asserts BOTH a "
+                     f"floored result AND untested about the same organ. This panel reports the "
+                     f"disagreement instead of picking one.", fg=_AMBER)
         if o.get("missing_required"):
             self.organ_hint.configure(
                 text=self.organ_hint.cget("text") +
@@ -959,6 +1148,8 @@ class StatusWindow:
                 tag = "good"
             else:
                 tag = "warn"
+            if r.get("has_conflict"):
+                tag = "warn"
             brain = r.get("brain_structure") or "NOT NAMED"
             organ = f"{r.get('id', '?')}  {r.get('plain_name') or r.get('title') or '?'}"
             measured = str(r.get("measured") or "")
@@ -972,7 +1163,7 @@ class StatusWindow:
             self._show_organ_detail()
         try:
             self.nb.tab(self.tab_organs,
-                        text=f"3. BRAIN ORGAN MAP ({o.get('n_missing')} not built)")
+                        text=f"5. BRAIN ORGAN MAP ({o.get('n_missing')} not built)")
         except tk.TclError:
             pass
 
@@ -1013,6 +1204,15 @@ class StatusWindow:
         elif r.get("ours"):
             chunks.append((f"ours: {str(r.get('ours'))[:400]}\n", "mono"))
         chunks += [("\nWHAT IT MEASURES\n", "dim"), f"{r.get('measured')}\n"]
+        for c in _l(r.get("conflicts")):
+            c = _d(c)
+            chunks += [("\nTHE MAP CONTRADICTS ITSELF ABOUT THIS ORGAN\n", "bad"),
+                       f"on: {c.get('axis')}\n",
+                       f"  it says: {c.get('says_a')}\n",
+                       f"  and also: {c.get('says_b')}\n",
+                       (f"  why: {c.get('why')}. Both readings are shown because picking one "
+                        f"would be a fabrication in whichever direction this code happened to "
+                        f"fall. The raw sentence is below -- adjudicate it there.\n", "dim")]
         if r.get("evidence"):
             chunks.append((f"{str(r.get('evidence'))[:900]}\n", "mono"))
         if r.get("evidence_field") == "WIRED note":
@@ -1149,81 +1349,157 @@ class StatusWindow:
                        f"fact is banned.\n", "mono"))
         self._set_text(self.fid_detail, chunks)
 
-    # ---- panel 5 ------------------------------------------------------
+    # ---- tab 3: WAITING ON YOU ----------------------------------------
     def _r_board(self, s: dict) -> None:
         b = _d(s.get("board"))
+        pl = _d(s.get("plan"))
         tv = self.board_tv
         tv.delete(*tv.get_children())
         self._board_rows = [_d(r) for r in _l(b.get("open"))]
-        n = b.get("n_open") or 0
+        self._wait_rows: dict[str, dict] = {}
+
+        decisions = _l(pl.get("decisions")) if pl.get("status") == "OK" else []
+        ops = _d(pl.get("operator"))
+        standing = _l(ops.get("rows")) if ops.get("status") == "OK" else []
+        n_q = b.get("n_open") or 0
+        n_all = n_q + len(decisions) + len(standing)
         try:
-            self.nb.tab(self.tab_board, text=f"5. WAITING ON YOU ({n})" if n else
-                                             "5. WAITING ON YOU")
+            self.nb.tab(self.tab_board, text=f"3. WAITING ON YOU ({n_all})" if n_all else
+                                             "3. WAITING ON YOU")
         except tk.TclError:
             pass
 
+        parts = []
         if b.get("status") != "OK":
-            self.board_hint.configure(
-                text=f"{b.get('status')}: {b.get('detail', '')}\n"
-                     f"No questions can be shown or answered from here.", fg=_AMBER)
+            parts.append(f"THE BOARD IS {b.get('status')}: {b.get('detail', '')} -- no question "
+                         f"can be answered from here.")
             self.answer_btn.state(["disabled"])
-            self._set_text(self.board_detail, [(f"{b.get('status')}\n", "warn"),
-                                               str(b.get("detail", ""))])
-            return
-
-        self.board_hint.configure(
-            text=("Type your decision below and press Save -- it is written straight into "
-                  "notes/BOARD.md. You can also answer WITHOUT this window: open "
-                  "notes/BOARD.md in any markdown editor on any device, type into the ANSWER "
-                  "cell of the row, and save. That is the whole protocol."), fg=_BLUE)
-        if not self._board_rows:
-            tv.insert("", "end", values=("", "Nothing is waiting on you."), tags=("dim",))
-            self.answer_btn.state(["disabled"])
-            self._set_text(self.board_detail, [("No open questions.\n", "good"),
-                                               "Nothing is blocked on a decision from you."])
-            return
-
-        if b.get("writable") is False:
-            self.answer_btn.state(["disabled"])
-            self.answer_status.configure(
-                text="notes/BOARD.md is not writable from here -- answer it in the file "
-                     "instead.", fg=_AMBER)
         else:
-            self.answer_btn.state(["!disabled"])
+            parts.append("Type your decision below and press Save -- QUESTION rows are written "
+                         "straight into notes/BOARD.md. You can also answer without this window: "
+                         "open notes/BOARD.md in any markdown editor on any device, type into the "
+                         "ANSWER cell, and save.")
+            if b.get("writable") is False:
+                self.answer_btn.state(["disabled"])
+                self.answer_status.configure(
+                    text="notes/BOARD.md is not writable from here -- answer it in the file "
+                         "instead.", fg=_AMBER)
+            else:
+                self.answer_btn.state(["!disabled"])
+        if pl.get("status") == "OK":
+            parts.append(f"DECISION and STANDING rows are NOT answerable here -- they are recorded "
+                         f"in the plan and status documents and need an edit there. Every one of "
+                         f"them already has a default, so saying nothing IS a choice: the "
+                         f"right-hand column says what that choice currently is.")
+        else:
+            parts.append(f"The standing decisions could not be read ({pl.get('status')}).")
+        self.board_hint.configure(text="  ".join(parts),
+                                  fg=_AMBER if b.get("status") != "OK" else _BLUE)
 
-        for i, r in enumerate(self._board_rows):
-            tv.insert("", "end", iid=f"q{i}",
-                      values=(r.get("id", "?"), r.get("question", "")),
-                      tags=("even" if i % 2 == 0 else "odd",))
+        i = 0
+        if b.get("status") == "OK" and not self._board_rows:
+            tv.insert("", "end", values=("-", "QUESTION", "No open question -- you are up to date "
+                                                          "on the board.",
+                                         "nothing; there is nothing to answer"), tags=("dim",))
+        for j, r in enumerate(self._board_rows):
+            iid = f"q{j}"
+            self._wait_rows[iid] = dict(r, _kind="QUESTION")
+            tv.insert("", "end", iid=iid,
+                      values=(r.get("id", "?"), "QUESTION (answerable here)",
+                              r.get("question", ""), "it stays open"),
+                      tags=("warn", "even" if i % 2 == 0 else "odd"))
+            i += 1
+        for d in decisions:
+            d = _d(d)
+            iid = f"d{d.get('id')}"
+            self._wait_rows[iid] = dict(d, _kind="DECISION")
+            tv.insert("", "end", iid=iid,
+                      values=(d.get("id", "?"), "DECISION (from the plan)",
+                              d.get("question", ""),
+                              "the default happens: " + str(d.get("default") or "NONE STATED")),
+                      tags=("dim", "even" if i % 2 == 0 else "odd"))
+            i += 1
+        for o in standing:
+            o = _d(o)
+            iid = f"o{o.get('id')}"
+            self._wait_rows[iid] = dict(o, _kind="STANDING")
+            drift = ("   [CHECK SOURCE]"
+                     if o.get("verify_status") == "CHECK_SOURCE" else "")
+            tv.insert("", "end", iid=iid,
+                      values=(o.get("id", "?"), "STANDING (not taken)",
+                              str(o.get("title", "")) + drift,
+                              str(o.get("standing") or "not recorded")),
+                      tags=("bad" if drift else "warn", "even" if i % 2 == 0 else "odd"))
+            i += 1
+
         keep = None
         if self._selected_qid:
-            keep = next((f"q{i}" for i, r in enumerate(self._board_rows)
-                         if r.get("id") == self._selected_qid), None)
-        tv.selection_set(keep or "q0")
-        self._show_board_detail()
+            keep = next((k for k, v in self._wait_rows.items()
+                         if v.get("id") == self._selected_qid), None)
+        if self._wait_rows:
+            tv.selection_set(keep or next(iter(self._wait_rows)))
+            self._show_board_detail()
+        else:
+            self._set_text(self.board_detail, [("Nothing is waiting on you.\n", "good"),
+                                               "No open question and no undecided standing item."])
 
     def _show_board_detail(self) -> None:
         sel = self.board_tv.selection()
-        if not sel or not sel[0].startswith("q"):
+        r = getattr(self, "_wait_rows", {}).get(sel[0]) if sel else None
+        if not r:
             return
-        try:
-            r = self._board_rows[int(sel[0][1:])]
-        except (ValueError, IndexError):
+        kind = r.get("_kind")
+        # Only a board QUESTION is answerable from this window; selecting anything else must not
+        # arm the Save button against a row it cannot write.
+        self._selected_qid = r.get("id") if kind == "QUESTION" else None
+        if kind == "QUESTION":
+            self._set_text(self.board_detail, [
+                (f"{r.get('id')}  {r.get('question')}\n\n", "h"),
+                ("WHAT IS BLOCKED ON IT\n", "warn"),
+                f"{r.get('why') or '(not recorded)'}\n\n",
+                ("MY RECOMMENDATION\n", "good"),
+                f"{r.get('rec') or '(none)'}\n\n",
+                ("You can answer this one by typing below and pressing Save.\n", "dim"),
+            ])
             return
-        self._selected_qid = r.get("id")
-        self._set_text(self.board_detail, [
-            (f"{r.get('id')}  {r.get('question')}\n\n", "h"),
-            ("WHAT IS BLOCKED ON IT\n", "warn"),
-            f"{r.get('why') or '(not recorded)'}\n\n",
-            ("MY RECOMMENDATION\n", "good"),
-            f"{r.get('rec') or '(none)'}\n",
-        ])
+        if kind == "DECISION":
+            self._set_text(self.board_detail, [
+                (f"{r.get('id')}  {r.get('question')}\n\n", "h"),
+                ("WHY IT IS OPEN\n", "warn"), f"{r.get('why') or '(not recorded)'}\n\n",
+                ("WHAT HAPPENS IF YOU SAY NOTHING\n", "good"),
+                f"{r.get('default') or 'NO DEFAULT IS STATED, so nothing happens at all.'}\n\n",
+                ("Read live out of notes/PLAN.md section 9 on every refresh. It is not "
+                 "answerable from this window -- deciding it means editing that document.\n",
+                 "dim"),
+            ])
+            return
+        chunks = [
+            (f"{r.get('id')}  {r.get('title')}\n\n", "h"),
+            f"{r.get('question') or ''}\n\n",
+            ("WHAT IS BLOCKED ON IT\n", "warn"), f"{r.get('blocked') or '(not recorded)'}\n\n",
+            ("WHAT IS HAPPENING TODAY WHILE NOBODY ANSWERS\n", "warn"),
+            f"{r.get('standing') or '(not recorded)'}\n\n",
+            ("MY RECOMMENDATION\n", "good"), f"{r.get('rec') or '(none)'}\n\n",
+            (f"recorded in: {r.get('source', '')}\n", "mono"),
+        ]
+        if r.get("verify_status") == "CHECK_SOURCE":
+            chunks.append(("\nCHECK THE SOURCE: these numbers are no longer findable in the "
+                           f"status documents: {r.get('verify_missing')}. This row may be "
+                           "stale.\n", "bad"))
+        elif r.get("verify_status") == "CANNOT_VERIFY":
+            chunks.append(("\nThis row's numbers could not be cross-checked -- the status "
+                           "documents were not readable. That is NOT the same as verified.\n",
+                           "warn"))
+        self._set_text(self.board_detail, chunks)
 
     def _save_answer(self) -> None:
         text = self.answer_box.get("1.0", "end").strip()
         qid = self._selected_qid
         if not qid:
-            self.answer_status.configure(text="Pick a question first.", fg=_AMBER)
+            self.answer_status.configure(
+                text="Pick a question first. Only QUESTION rows can be answered from this window "
+                     "-- DECISION and STANDING rows live in the plan and status documents and "
+                     "have to be decided there.", fg=_AMBER)
             return
         ok, msg = status_state.answer_question(qid, text)
         self.answer_status.configure(text=msg, fg=_GREEN if ok else _RED)
@@ -1234,6 +1510,30 @@ class StatusWindow:
 
     # ---- panel 6 ------------------------------------------------------
     def _r_running(self, s: dict) -> None:
+        # THE OVERNIGHT LOOP, merged in from its own former tab. Whether the machine keeps working
+        # is part of "what is running", and the stop command belongs beside it.
+        lp = _d(s.get("loop"))
+        armed = lp.get("armed")
+        if armed is True:
+            self.loop_big.configure(text="THE OVERNIGHT LOOP IS ON", fg=_GREEN)
+            self.loop_sub.configure(
+                text=(f"It will keep working through the night without you, and will stop by "
+                      f"itself after {lp.get('cap_label')} continuations. Switched on at "
+                      f"{lp.get('armed_at')} by {lp.get('armed_by')}. "
+                      f"{lp.get('continuations_recent_total', 0)} continuation(s) used in the "
+                      f"last 24 hours."))
+        elif armed is False:
+            self.loop_big.configure(text="THE OVERNIGHT LOOP IS OFF", fg=_DIM)
+            self.loop_sub.configure(text="Work stops when the current turn ends.")
+        else:
+            self.loop_big.configure(text="OVERNIGHT LOOP: UNKNOWN", fg=_AMBER)
+            self.loop_sub.configure(text=str(lp.get("detail", "")))
+        self.disarm_box.configure(state="normal")
+        self.disarm_box.delete("1.0", "end")
+        self.disarm_box.insert("1.0", lp.get("disarm_cmd") or "python tools/autoloop.py disarm")
+        self.loop_alt.configure(text=str(lp.get("disarm_alt", ""))
+                                + f"   setting file: {lp.get('state_path')}")
+
         rn = _d(s.get("running"))
         ag = _d(rn.get("agents"))
         tv = self.agents_tv
@@ -1330,8 +1630,9 @@ class StatusWindow:
         self._set_text(self.running_detail, chunks)
 
         n_act = ag.get("n_active", 0) if ag.get("status") == "OK" else "?"
+        loop_tag = ("loop ON" if armed is True else "loop off" if armed is False else "loop ?")
         try:
-            self.nb.tab(self.tab_running, text=f"6. RUNNING NOW ({n_act})")
+            self.nb.tab(self.tab_running, text=f"2. RUNNING NOW ({n_act}, {loop_tag})")
         except tk.TclError:
             pass
 
@@ -1395,48 +1696,6 @@ class StatusWindow:
         chunks.append((f"\nfinished {r.get('when')} | took "
                        f"{_fmt_dur(r.get('elapsed_s'))} | {r.get('path')}\n", "mono"))
         self._set_text(self.results_detail, chunks)
-
-    # ---- panel 8 ------------------------------------------------------
-    def _r_loop(self, s: dict) -> None:
-        lp = _d(s.get("loop"))
-        armed = lp.get("armed")
-        if armed is True:
-            self.loop_big.configure(text="THE OVERNIGHT LOOP IS ON", fg=_GREEN)
-            self.loop_sub.configure(
-                text=(f"It will keep working through the night without you. It will stop by "
-                      f"itself after {lp.get('cap_label')} continuations. "
-                      f"Switched on at {lp.get('armed_at')} by {lp.get('armed_by')}."))
-            try:
-                self.nb.tab(self.tab_loop, text="8. OVERNIGHT LOOP (ON)")
-            except tk.TclError:
-                pass
-        elif armed is False:
-            self.loop_big.configure(text="THE OVERNIGHT LOOP IS OFF", fg=_DIM)
-            self.loop_sub.configure(text="Work stops when the current turn ends.")
-            try:
-                self.nb.tab(self.tab_loop, text="8. OVERNIGHT LOOP (off)")
-            except tk.TclError:
-                pass
-        else:
-            self.loop_big.configure(text="OVERNIGHT LOOP: UNKNOWN", fg=_AMBER)
-            self.loop_sub.configure(text=str(lp.get("detail", "")))
-
-        self.disarm_box.configure(state="normal")
-        self.disarm_box.delete("1.0", "end")
-        self.disarm_box.insert("1.0", lp.get("disarm_cmd") or "python tools/autoloop.py disarm")
-        self.loop_alt.configure(text=lp.get("disarm_alt", ""))
-
-        rows = [_d(c) for c in _l(lp.get("continuations"))]
-        chunks = [("How many times it has carried on by itself\n", "h"),
-                  f"{lp.get('continuations_recent_total', 0)} continuation(s) in the last "
-                  f"24 hours, across these sessions:\n"]
-        if not rows:
-            chunks.append(("no continuation counters on disk yet\n", "dim"))
-        for c in rows[:6]:
-            chunks.append(f"  {c['session']}: {c['count']}  "
-                          f"(last touched {_fmt_dur(c['age_s'])} ago)\n")
-        chunks.append((f"\nsetting file: {lp.get('state_path')}\n", "mono"))
-        self._set_text(self.loop_detail, chunks)
 
 
 # ---------------------------------------------------------------------------
@@ -1507,31 +1766,87 @@ def self_test() -> int:
         check(gui._last_error is None,
               f"renders LIVE data with no panel error ({gui._last_error})")
         check(time.time() - t0 < 40, "live collect + render is well inside a refresh cycle")
-        check("WE GET" in gui.headline_lbl.cget("text"),
-              "the headline states our score and the floor together")
-        check(len(gui.walls_tv.get_children()) >= 6,
-              f"the walls panel drew its rows "
-              f"(got {len(gui.walls_tv.get_children())})")
-        check(len(gui.results_tv.get_children()) >= 1, "the results panel drew its rows")
+        check(len(gui.nb.tabs()) == 7,
+              f"seven tabs, down from eight, with the plan added (got {len(gui.nb.tabs())})")
 
-        # --- the three panels added 2026-08-16 -------------------------------
-        check(len(gui.prog_tv.get_children()) >= 8,
-              f"the progress panel drew its rows "
-              f"(got {len(gui.prog_tv.get_children())})")
+        # --- the headline strip answers WHERE WE ARE and HOW WE ARE DOING ----
+        head1 = gui.headline_lbl.cget("text")
+        head2 = gui.headsub_lbl.cget("text")
+        check("WE ARE IN PHASE" in head1.upper(),
+              f"the top strip says which phase we are in (got {head1[:80]!r})")
+        check("NEXT:" in head1,
+              f"the top strip says the single next action without a click (got {head1[:120]!r})")
+        check("WE GET" in head2 and "GETS" in head2,
+              f"the top strip still states our score AND its floor together (got {head2[:110]!r})")
+        check("no longer match their source" in head2,
+              f"THE DRIFT COUNT IS ON SCREEN, not buried in a cell (got {head2[-140:]!r})")
+
+        # --- tab 1: the plan, parsed live -----------------------------------
+        check(len(gui.where_tv.get_children()) >= 5,
+              f"the plan panel drew one row per phase (got {len(gui.where_tv.get_children())})")
+        wcells = [gui.where_tv.item(i, "values") for i in gui.where_tv.get_children()]
+        # A gate the plan does not state must SAY SO in the rendered cell. Never blank, never
+        # invented, never carried over from a remembered version of the plan.
+        blanks = [c[0] for c in wcells if not str(c[3]).strip()]
+        check(not blanks, f"no phase renders an empty gate cell ({blanks})")
+        check(any("NOT STATED IN THE PLAN" in str(c[3]) for c in wcells),
+              "a gate the plan does not state renders as NOT STATED IN THE PLAN")
+        check(any(str(c[1]).strip() in ("DONE", "MOSTLY DONE", "IN PROGRESS", "BLOCKED",
+                                        "NOT STARTED", "NOT STATED") for c in wcells),
+              f"every phase renders one of the declared status values "
+              f"(got {[c[1] for c in wcells]})")
+        wd = gui.where_detail.get("1.0", "end")
+        check("WHAT WOULD COUNT AS SUCCESS" in wd and "WHAT WOULD MAKE US STOP" in wd,
+              "the plan detail box shows the gate and the stop-if for the selected phase")
+        check("WHAT WOULD COUNT AS THE WHOLE THING WORKING" in wd,
+              "the plan detail box carries the ordered success ladder from section 7")
+        check("RETRACTED" in wd,
+              "a struck-through work item is shown AS retracted, not hidden and not offered")
+
+        # --- tab 4: the merged scores view ----------------------------------
+        check(len(gui.sc_tv.get_children()) >= 10,
+              f"the merged scores panel drew its rows "
+              f"(got {len(gui.sc_tv.get_children())})")
+        check(len(gui.results_tv.get_children()) >= 1, "the results panel drew its rows")
         check(len(gui.organ_tv.get_children()) >= 30,
               f"the organ map drew its rows (got {len(gui.organ_tv.get_children())})")
         check(len(gui.fid_tv.get_children()) >= 1, "the fidelity panel drew its rows")
         check(len(gui.fid_div_tv.get_children()) >= 30,
               "the per-organ divergence table drew its rows")
-        # EVERY progress row shows a floor or an explicit non-answer -- the rule the whole
-        # dashboard is built around, checked at the RENDERED CELL, not at the data.
-        cells = [gui.prog_tv.item(i, "values") for i in gui.prog_tv.get_children()]
+        # THE RULE, checked at the RENDERED CELL and not at the data, and it must survive the
+        # merge: no row may show a score with neither a floor nor an explicit non-answer.
+        cells = [gui.sc_tv.item(i, "values") for i in gui.sc_tv.get_children()]
         naked = [c[0] for c in cells
                  if c[3] and not any(k in c[3] for k in
                                      ("floor", "NOT MEASURED", "NOT APPLICABLE", "NOT STARTED",
                                       "NOT REACHED", "NOT YET", "NOT ESTABLISHED", "NONE",
                                       "NO FLOOR", "(", "MISSING"))]
-        check(not naked, f"every progress row renders a floor or an explicit non-answer ({naked})")
+        check(not naked, f"every score row renders a floor or an explicit non-answer ({naked})")
+        # RETRACTIONS SURVIVE THE MERGE, in the same table, in the same red.
+        retr = [c for c in cells if "RETRACTED" in str(c[4])]
+        check(len(retr) >= 3,
+              f"retraction rows are still rendered as rows, not a footnote (got {len(retr)})")
+        check("retracted" in gui.nb.tab(gui.tab_scores, "text"),
+              f"the tab title counts the retractions "
+              f"(got {gui.nb.tab(gui.tab_scores, 'text')!r})")
+
+        # --- tab 3: everything waiting on the owner, in one place -----------
+        bcells = [gui.board_tv.item(i, "values") for i in gui.board_tv.get_children()]
+        kinds = {str(c[1]).split(" ")[0] for c in bcells}
+        check({"DECISION", "STANDING"} <= kinds,
+              f"the waiting-on-you tab carries the plan's decisions AND the standing operator "
+              f"decisions, which previously appeared in no panel at all (got {kinds})")
+        # The board legitimately empties -- the owner answers questions. So the QUESTION kind is
+        # asserted against the DATA rather than against a fixed expectation: a self-test that
+        # demanded an open question would start failing the moment the owner did their job.
+        n_open_live = ((live.get("board") or {}).get("n_open")
+                       if isinstance(live.get("board"), dict) else None)
+        check("QUESTION" in kinds,
+              f"the answerable board questions have their own kind in the same table "
+              f"({n_open_live} open right now)")
+        check(all(str(c[3]).strip() for c in bcells),
+              f"every waiting row says what happens if the owner says nothing "
+              f"({[c[0] for c in bcells if not str(c[3]).strip()]})")
         # The fidelity warning must be ON SCREEN, not merely in the data.
         warn_txt = gui.fid_warn.cget("text").upper()
         check("UNVALIDATED" in warn_txt,
@@ -1545,10 +1860,16 @@ def self_test() -> int:
         oh = gui.organ_hint.cget("text")
         check("deliberately do not" in oh,
               f"the organ header reports the empty-brain-structure backlog (got {oh[:90]!r})")
+        check("CONFLICT" in oh,
+              f"the organ header reports the section-10-versus-section-4 conflicts rather than "
+              f"silently picking one reading (got {oh[-200:]!r})")
 
         # every panel MISSING
         gui._last_error = None
         missing = {"ts": "x", "took_s": 0.0,
+                   "plan": {"status": "MISSING", "detail": "the plan document is gone"},
+                   "scores": {"status": "MISSING", "detail": "both score sources gone"},
+                   "drift": {"n_drifted": 0, "n_unknown": 4, "parts": []},
                    "walls": {"status": "MISSING", "detail": "spec gone"},
                    "board": {"status": "MISSING", "detail": "board gone"},
                    "running": {"status": "ERROR", "detail": "monitor gone",
@@ -1564,15 +1885,19 @@ def self_test() -> int:
         check(gui._last_error is None,
               f"renders an ALL-MISSING state with no panel error ({gui._last_error})")
         check("MISSING" in gui.headline_lbl.cget("text").upper(),
-              "the headline SAYS the data is missing rather than showing a stale number")
-        check("MISSING" in gui.walls_detail.get("1.0", "end").upper(),
-              "the walls panel tells the reader it is MISSING")
+              "the headline SAYS the plan is missing rather than showing a remembered one")
+        check("MISSING" in gui.where_detail.get("1.0", "end").upper(),
+              "the plan panel tells the reader it is MISSING")
+        check(len(gui.where_tv.get_children()) <= 1,
+              "the plan panel draws no phases it does not have")
+        check("MISSING" in gui.sc_detail.get("1.0", "end").upper(),
+              "the scores panel tells the reader it is MISSING")
         check(str(gui.answer_btn.state()).find("disabled") >= 0,
               "the answer button is DISABLED when the board is unreadable")
         check("UNKNOWN" in gui.running_detail.get("1.0", "end").upper(),
               "remote liveness renders as UNKNOWN, not as idle")
-        check("MISSING" in gui.prog_detail.get("1.0", "end").upper(),
-              "the progress panel tells the reader it is MISSING")
+        check("UNKNOWN" in gui.loop_big.cget("text").upper(),
+              "the overnight loop renders as UNKNOWN inside the running tab, not as off")
         check("MISSING" in gui.organ_detail.get("1.0", "end").upper(),
               "the organ map tells the reader it is MISSING")
         check("MISSING" in gui.fid_detail.get("1.0", "end").upper(),
@@ -1582,7 +1907,8 @@ def self_test() -> int:
 
         # structurally wrong types everywhere
         gui._last_error = None
-        garbage = {"ts": None, "took_s": None, "walls": "not a dict", "board": 42,
+        garbage = {"ts": None, "took_s": None, "plan": 3.14, "scores": "not a dict",
+                   "drift": [1, 2], "walls": "not a dict", "board": 42,
                    "running": ["nope"], "results": None, "loop": "?"}
         gui.render(garbage)
         check(gui._last_error is None,
