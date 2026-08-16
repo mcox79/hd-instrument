@@ -317,6 +317,167 @@ The real mechanisms are `slot_attention_wm.py` and `situation_model_accumulate.p
 
 ---
 
+### 5.1 THE GRADED BRAIN-FIDELITY SCORE (2026-08-16, owner directive)
+
+Owner: *"for everything you do — include a brain foundational fidelity score (and THINK about
+that)."* The parenthesis is the instruction. **A score that is a ritual is worse than nothing,
+because it launders a guess into a number.** So this one is built to be checkable and it has been
+tested against results we already have, and the test is reported honestly below including where it
+failed.
+
+Tool: `tools/brain_fidelity_score.py` (`--self-test`, `--retrodict`, `--score-components`).
+It **extends R13, it does not replace it.** R13 asks *did you state which brain structure?*
+This asks *how far off is it?* A component can answer R13 perfectly and match nothing.
+
+#### The honesty gate comes first, and it VOIDS rather than deducts
+
+Every claim is labelled **PINNED-BY-EVIDENCE** or **OUR-INVENTION-BEING-TESTED**. **Invention is
+fully authorised and costs zero points.** Presenting an invention as established biology emits
+**no score at all** — not a low one. Three checks, all mechanical:
+
+- a basis must be declared;
+- a **pinned** claim must carry a traceable biological source (an author-year citation, or a named
+  lit-derived audit such as `ORGAN_MAP`). **Citing our own module, docstring or experiment as
+  biology voids the score.** This clause exists because `hdlab/iterative_attractor.py` calls
+  `alpha = 0.5` "brain-canonical" while `ORGAN_MAP` D2 records that the update rule *is not stated
+  in the biology* — an invention wearing a pinned label, and it shipped;
+- nothing may be both pinned and invention.
+
+This gate is not decorative: **it caught the first draft of my own scored evidence** and forced the
+citations in the tool to be replaced with primary sources.
+
+#### Six dimensions, 0–2 each — and four changes to the proposed scheme, each justified
+
+| | dimension | what it asks |
+|---|---|---|
+| **D1** | structure specificity | is a **neural system** named? 2 = named and its computation documented; 1 = named but the attribution is contested or our mapping is loose; 0 = a cognitive-theory label, a computational-model name, or nothing |
+| **D2** | operation match | **SHAPE, POSITION and METRIC scored separately**, then combined: 3 match → 2, 2 → 1, ≤1 → 0 |
+| **D3** | regime match | sparse/dense, **partial-cue/exact-key**, graded/binary, timescale — fraction of applicable axes matched |
+| **D4** | organ reuse | **REPORTED, NOT SCORED** — see below |
+| **D5** | pairing completeness | is the matched partner organ **present AND reached**? present-not-reached = 1; absent or unnamed = 0 |
+| **D6** | failure-mode match | does it degrade gracefully, or fall off a cliff, against a matched reference? |
+
+**Change 1 — UNPINNED is NOT APPLICABLE, never zero, and it must be EARNED.** This is the most
+important correction and we have made it once before and lost it. The proposal said invention must
+not cost points *and* that a dimension with no citable basis scores 0. Where the literature does
+not pin the brain fact — **14 of 38 organs on today's `ORGAN_MAP`** — those two collide: honest
+invention has no citable brain basis, scores 0, and has cost 2 points. That is exactly why
+`ORGAN_MAP` §7 point 2 superseded `component_brain_fidelity_ledger.md`: *"it scored fidelity where
+the brain math is UNPINNED"*. So a dimension has **three** outcomes: 0/1/2, or **N/A** when the
+brain fact is *documented as* unpinned, or **0**. Claiming N/A requires citing the source that says
+it is unpinned; unsourced, the tool coerces it to 0 and records the coercion. **Silence is 0, never
+N/A.** Consequence: the number is a **percentage of applicable points and is meaningless without
+its coverage** — 6/6 over three scorable dimensions is not 12/12 over six, and the tool refuses to
+print one without the other.
+
+**Change 2 — D2 is three questions, not one.** `ORGAN_MAP`'s own tally has 13/38 organs
+RIGHT-OP-WRONG-METRIC and 3/38 RIGHT-OP-WRONG-PLACE — different populations. Collapsing shape,
+position and metric into a single 0–2 throws away information we already paid for. Scored this
+way, RIGHT-OP-WRONG-METRIC *is* D2=1 with metric false, so the two vocabularies line up.
+
+**Change 3 — D4 organ reuse is reported, not scored.** Whether *we* reused *our* module is a fact
+about our codebase, not about whether our thing resembles the brain, and **a parallel build that
+matches the brain is more faithful than reusing an owned organ that does not.** This is not
+hypothetical: the CA3 completer scores 2 on D4 for reusing `hdlab/iterative_attractor.py`
+bit-identically, and that module's update rule is one `ORGAN_MAP` names as *our* import — so D4
+rewards importing an unfaithful operation. Measured: counting D4 lifts the **refuted** CA3 arm from
+62% to 70% and the **inert** cue-clamp from 50% to 60%, while correctly lifting the flat bag above
+the conjunctive arm. It helps one pair and hurts two. Islanding already has an owner — the
+WIRE-or-SHELVE registry gate — so scoring it here double-counts. `--count-d4` shows both.
+
+**Change 4 — D6 cannot be scored at design time.** It needs a measured degradation curve, which by
+definition does not exist before the run. The tool has a `design_time` mode (D1, D2, D3, D5) and a
+`post_hoc` mode (adds D6). **A post-hoc score describes a result; it does not predict one** — and
+the retrodiction below shows D6 carrying much of the apparent separating power precisely by leaking
+the outcome.
+
+#### The validation, reported including where it failed
+
+Six banked results, scored against their own **pre-run** documents wherever those exist (the
+pre-registrations for the first three were written before the runs). Genuine blindness was not
+available to me and I am not claiming it; every dimension records whether its evidence was
+available before the run.
+
+| result | outcome | blind (D1 D2 D3 D5) | with D6 |
+|---|---|---|---|
+| hub-and-spoke role addressing | **HELD** under partial cue | **8/8 100%** | 10/10 100% |
+| CA3 completion as built | **REFUTED**, 0/5 gates | 5/8 62% | 5/10 50% |
+| cue-clamp as deployed | **INERT** at the live operating point | 4/8 50% | 4/8 50% |
+| conjunctive / perirhinal coding | **FAILED**, CI-separated below flat | 2/8 25% | 2/10 20% |
+| the flat bag (incumbent) | **beaten by a spelling floor** | 2/8 25% | 4/10 40% |
+| sha256 hash word encoder | **the null by construction** | **0/8 0%** | 0/10 0% |
+
+**VERDICT: UNVALIDATED AS A PREDICTOR, and it must be reported that way.** Six points with exactly
+**one** positive-class member cannot support a separation claim — any monotone score that happens
+to rank the single hold first does so with probability 1/6 under a null of random ranking. What it
+did do: it put the one result that held alone at the top, and the construction-null alone at the
+bottom. What it got **wrong**, stated plainly: the **refuted** CA3 completer scores well above the
+**incumbent flat bag that beats it**, and the flat bag **ties** the conjunctive arm it beats. **No
+weight was tuned to fix that.** Fitting six free dimensions to six points would be curve-fitting and
+would prove nothing, and the temptation is recorded here because it was real.
+
+**The right validation, named and not yet done:** `ORGAN_MAP` already carries an **independent**
+fidelity classification for **38 organs** (SAME / RIGHT-OP-WRONG-METRIC / RIGHT-OP-WRONG-PLACE /
+WRONG-OP / MISSING), produced by a different pass on different evidence before this scheme existed.
+Concordance against those 38 labels is a real test with a real n. Six results is not.
+
+**One hypothesis this generated, labelled as a hypothesis.** A **zero on D3 (regime) or D5
+(pairing)** co-occurred with failure in 7 of the 8 distinct cases scored today — every failure
+except CA3 — and stayed silent on both things that are healthy (hub-and-spoke, retrieval). It was
+observed **after** seeing the scores, so it is not a result. **Pre-registered forward test: any
+future component scoring 0 on D3 or D5 fails its floor.** Cheap, falsifiable, and it is the only
+part of this worth betting on yet.
+
+#### The component table (§3), scored
+
+Blind mode. Reproduce with `python tools/brain_fidelity_score.py --score-components`.
+
+| # | component | fidelity | D3/D5 = 0 | how it is actually doing |
+|---|---|---|---|---|
+| 1 | word / concept encoding | **0/8 — 0%** | YES | the live word code IS the structure-axis null |
+| 2 | storage | 2/8 — 25% | YES | no key is applied at write time |
+| 3 | reading / extraction | **NOT SCORED** | — | ~0.22–0.25 precision |
+| 4 | retrieval | 5/8 — 62% | — | FINE — top-50 55.65% vs spelling 54.55% |
+| 5 | selection | 4/8 — 50% | YES | FAILS — 8.63% vs spelling 15.95%, separated |
+| 6 | foundation (end to end) | **NOT SCORED** | — | ~49% correct |
+
+**The two NOT SCORED entries are the finding, not an omission, and the absence claim is made by
+ENUMERATION.** §5's ledger has exactly ten rows — word form, word meaning, combining one encounter,
+combining many encounters, storage/addressing, avoiding interference, retrieval, selection,
+settling/pattern completion, foraging. **Reading/extraction and the end-to-end foundation appear in
+the component table and in none of them.** No neural system has ever been named for either. Scoring
+them would mean inventing an anatomy, which is the move the honesty gate voids. Naming them needs a
+person with the biology in hand, and it is the largest gap this exercise found in this document.
+(For #6 there is a second reason: §4 says the end-to-end number is *joint* and cannot be attributed
+to a component. An assembled system does not have one brain structure.)
+
+#### WHAT THIS SCORE CANNOT DO — read this before quoting any number above
+
+**It measures fidelity, NOT capability.** A high-fidelity component can lose and a low-fidelity one
+can win, and **both are in the table above**: hub-and-spoke scores 100% and did not beat the flat
+bag; the flat bag scores 25% and beats the conjunctive arm that scores the same. **The
+floor-and-CI bar (R1) stays a completely separate gate.** This score can never clear it, soften it,
+or stand in for it. **A component with 12/12 and no floored result has measured nothing.** What the
+score is *for* is deciding what to build and understanding *why a negative happened* — so a loss
+can be diagnosed as "we built the wrong regime" instead of "the brain's way does not work here".
+
+#### How it is enforced
+
+`data/capability_registry.jsonl` rows decided at or after the gate must carry
+**`brain_fidelity_score`** alongside `brain_structure` and `fidelity_basis`. **The field stores the
+per-dimension verdicts, not just the total, and `tools/capability_registry_audit.py` RECOMPUTES the
+total from them** — a number that does not recompute is flagged as fabricated. **The 199 pre-gate
+rows are NOT retro-filled**, by design and permanently: a fabricated score is worse than a missing
+one. As of 2026-08-16 the graded-score backlog is **199 of 200 rows**; the single row that was
+scored (`hub_spoke_word`) was the only post-gate violation, and its score is computed by the tool
+from cited claims, not typed in.
+
+**Every backlog item in §7 carries a score from here on.** Add a line to the item's format:
+**fidelity** — `Dn` verdicts and the coverage, in `design_time` mode, produced by the tool. An item
+with no score is not ready to run, for the same reason an item with no floor is not.
+
+---
+
 ## 6. WHERE WORK RUNS — the runners, and which one each job goes to
 
 The owner has reminded us a **remote GPU machine exists**. Heavy sweeps must not sit on the local
@@ -377,9 +538,20 @@ CPU. Enumerated from `tools/remote_launchers/*.bat`, `tools/remote_sync.sh` and
 ## 7. THE SEQUENCED BACKLOG
 
 Format for every item: **the question** → **the can-fail design** → **the floor it must clear** →
-**the stop-if**. The floor is always *a CI-separated margin over the strongest of
-{orthographic, frequency, scramble} on the identical scorer, n, pool and gold* — **never a bare
-number**. If an item does not name its floor, it is not ready to run.
+**the stop-if** → **the fidelity score**. The floor is always *a CI-separated margin over the
+strongest of {orthographic, frequency, scramble} on the identical scorer, n, pool and gold* —
+**never a bare number**. If an item does not name its floor, it is not ready to run.
+
+**Fidelity score (added 2026-08-16, §5.1 and R13).** Every item carries one, in `design_time` mode
+(D1 D2 D3 D5), produced by `python tools/brain_fidelity_score.py --score-json <claims>` — with its
+**coverage**, because a percentage without the number of scorable dimensions is not a number. An
+item with no score is not ready to run, for the same reason an item with no floor is not.
+**It is not a second floor and it can never substitute for one:** the score says how closely the
+thing resembles the brain, the floor says whether it works, and §5.1's own retrodiction contains
+both a 100%-fidelity component that did not win and a 25%-fidelity component that beat a
+higher-scoring one. Items already scored as part of the component table: **1** (word/concept
+encoding, 0/8), **2** (storage, 2/8) — both firing the D3/D5-zero flag, which is §5.1's
+pre-registered forward test and not yet an established rule.
 
 Items are ordered. Do the lowest open one.
 
@@ -864,6 +1036,23 @@ the exact defect the CA3 correction in section 5 had to repair.**
     *Contradiction closed 2026-08-16:* this rule used to sit in the same document as an explicit
     "do NOT build CA3" recommendation in section 5. Resolved in favour of **building the completer**
     — see the dated correction under the section 5 table.
+    *EXTENDED 2026-08-16 by a GRADED SCORE, filed here rather than as a new rule R16, because
+    splitting one discipline across two numbered rules is how the section-5 contradiction came to
+    exist (see R12's note).* R13 asks *did you state which brain structure?*; the graded score asks
+    *how far off is it?* — a component can satisfy R13 perfectly and match nothing. **Section 5.1
+    carries the scheme, the six dimensions, the four changes made to the owner's starting proposal
+    and why, and the retrodiction against six banked results.** Three things from it that bind here:
+    (a) **invention costs zero points; presenting invention as pinned emits NO SCORE AT ALL**, and
+    citing our own module or experiment as biology is what voids it; (b) where the literature does
+    not pin the brain fact the dimension is **NOT APPLICABLE, never zero** — otherwise honest
+    invention is punished, which is the exact fault `ORGAN_MAP` §7 found when it superseded
+    `component_brain_fidelity_ledger.md`; (c) the score is **UNVALIDATED as a predictor** on six
+    points with one positive, and it **measures fidelity, not capability** — a 12/12 component with
+    no floored result has measured nothing, and R1 remains a completely separate gate.
+    *Enforced by construction:* `tools/brain_fidelity_score.py` (`--self-test`) and the
+    `brain_fidelity_score` field required on post-gate registry rows, whose total
+    `tools/capability_registry_audit.py` RECOMPUTES from the stored per-dimension verdicts rather
+    than trusting it.
 14. **NEW — a claim measured at the EXACT-KEY operating point does not transfer to the PARTIAL-CUE
     regime, and the partial-cue regime is the real one.** The brain never presents a stored key back
     to itself; every real query is a new, partly-overlapping encounter. So a measurement taken with

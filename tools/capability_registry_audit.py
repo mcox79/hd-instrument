@@ -1023,18 +1023,108 @@ def _decided_at_or_after_gate(row: dict) -> bool:
     return ts >= BRAIN_FIDELITY_GATE_EFFECTIVE_UTC
 
 
+# --- the GRADED score, added 2026-08-16 beside the two qualitative fields ---------------
+#
+# `brain_structure` and `fidelity_basis` ask "did you state it?". `brain_fidelity_score` asks
+# "how far off is it?". A row can answer the first two perfectly and describe a component that
+# matches nothing, which is why the graded field is separate rather than a refinement.
+#
+# THE FIELD STORES THE DIMENSIONS, NOT JUST THE NUMBER, AND THE AUDIT RECOMPUTES.  A bare
+# number is a number anyone can type; a fabricated score is worse than a missing one for the
+# same reason a fabricated brain justification is. Storing the per-dimension verdicts makes
+# the total CHECKABLE, and the recompute below is what checks it.
+#
+# Shape (see tools/brain_fidelity_score.py for the scoring rules and the honesty gate):
+#   "brain_fidelity_score": {
+#       "mode": "design_time" | "post_hoc",
+#       "dimensions": {"D1": 2, "D2": 1, "D3": "NA", "D5": 0, "D6": 2},
+#       "points": 5, "max_points": 8}
+# `NA` means the brain fact is DOCUMENTED AS UNPINNED and the dimension leaves BOTH numerator
+# and denominator. It is not a middle value and it is not free -- tools/brain_fidelity_score.py
+# coerces an unsourced NA to 0. Silence (a dimension simply absent) is 0, never NA.
+#
+# NOT RETRO-FILLED, for the same reason as the two fields above. 200 rows predate this.
+BRAIN_FIDELITY_SCORE_FIELD = "brain_fidelity_score"
+_BFS_MODE_DIMS = {"design_time": ("D1", "D2", "D3", "D5"),
+                  "post_hoc": ("D1", "D2", "D3", "D5", "D6")}
+_BFS_VALID_VERDICTS = (0, 1, 2, "NA")
+
+
+def recompute_brain_fidelity_score(block: dict) -> dict:
+    """Recompute points/max_points from the stored per-dimension verdicts.
+
+    This is the anti-fabrication check. It is pure arithmetic and it deliberately does NOT
+    import tools/brain_fidelity_score.py -- an audit that trusts the scorer to check the
+    scorer is not a check. The two must agree by construction, and the self-test asserts they
+    do on a shared fixture.
+    """
+    mode = str(block.get("mode") or "")
+    dims = block.get("dimensions")
+    problems = []
+    if mode not in _BFS_MODE_DIMS:
+        problems.append(f"mode must be one of {list(_BFS_MODE_DIMS)}; got {mode!r}")
+        return {"problems": problems, "points": None, "max_points": None}
+    if not isinstance(dims, dict):
+        problems.append("dimensions must be an object mapping D1..D6 -> 0/1/2/'NA'")
+        return {"problems": problems, "points": None, "max_points": None}
+
+    required = _BFS_MODE_DIMS[mode]
+    points = 0
+    max_points = 0
+    for d in required:
+        if d not in dims:
+            # Silence is a ZERO that stays in the denominator, never an omission and never NA.
+            problems.append(f"{d} has no verdict; scored 0 and kept in the denominator "
+                            f"(silence is not 'not applicable')")
+            max_points += 2
+            continue
+        v = dims[d]
+        if v not in _BFS_VALID_VERDICTS:
+            problems.append(f"{d} verdict {v!r} is not one of {list(_BFS_VALID_VERDICTS)}")
+            max_points += 2
+            continue
+        if v == "NA":
+            continue                      # leaves numerator AND denominator
+        points += int(v)
+        max_points += 2
+    extra = [d for d in dims if d not in required and d != "D4"]
+    if extra:
+        problems.append(f"dimensions carries {extra} which mode {mode!r} does not score "
+                        f"(D4 is reported, not scored -- see tools/brain_fidelity_score.py)")
+    return {"problems": problems, "points": points, "max_points": max_points}
+
+
 def check_brain_fidelity_fields(rows: list[dict]) -> dict:
-    """Report rows missing/invalid `brain_structure` + `fidelity_basis`. REPORT-ONLY: never
-    writes a field, never guesses one, never mutates a row. See the section comment above for
-    why retro-filling is banned rather than merely skipped."""
+    """Report rows missing/invalid `brain_structure` + `fidelity_basis` + the graded
+    `brain_fidelity_score`. REPORT-ONLY: never writes a field, never guesses one, never
+    mutates a row. See the section comment above for why retro-filling is banned rather than
+    merely skipped."""
     violations, backlog, invalid_basis = [], [], []
     suspected_label, revival_not_brain_framed = [], []
+    score_inconsistent = []
 
     for i, r in enumerate(rows, start=1):
         rid = r.get("id")
         bs = (r.get("brain_structure") or "").strip()
         fb = (r.get("fidelity_basis") or "").strip()
+        sc = r.get(BRAIN_FIDELITY_SCORE_FIELD)
         missing = [f for f, v in (("brain_structure", bs), ("fidelity_basis", fb)) if not v]
+        if not isinstance(sc, dict) or not sc:
+            missing.append(BRAIN_FIDELITY_SCORE_FIELD)
+        else:
+            rc = recompute_brain_fidelity_score(sc)
+            stated_p, stated_m = sc.get("points"), sc.get("max_points")
+            if rc["problems"] or (rc["points"] is not None
+                                  and (stated_p != rc["points"] or stated_m != rc["max_points"])):
+                score_inconsistent.append({
+                    "row_index": i, "id": rid,
+                    "stated": {"points": stated_p, "max_points": stated_m},
+                    "recomputed": {"points": rc["points"], "max_points": rc["max_points"]},
+                    "problems": rc["problems"],
+                    "reason": ("the stored total does not follow from the stored per-dimension "
+                               "verdicts. The field stores DIMENSIONS so the number is "
+                               "checkable; a number that does not recompute is a fabricated "
+                               "score, and a fabricated score is worse than a missing one")})
 
         if missing:
             entry = {"row_index": i, "id": rid, "missing_fields": missing,
@@ -1077,9 +1167,23 @@ def check_brain_fidelity_fields(rows: list[dict]) -> dict:
         "brain_fidelity_invalid_basis": invalid_basis,
         "brain_fidelity_suspected_label_not_structure": suspected_label,
         "brain_fidelity_revival_not_brain_framed": revival_not_brain_framed,
+        "brain_fidelity_score_inconsistent": score_inconsistent,
         "brain_fidelity_stats": {
             "gate_effective_utc": BRAIN_FIDELITY_GATE_EFFECTIVE_UTC,
             "n_rows": len(rows),
+            # The graded score is reported SEPARATELY from the two qualitative fields so the
+            # two backlogs never get merged into one comfortable number.
+            "n_with_graded_score": sum(
+                1 for r in rows if isinstance(r.get(BRAIN_FIDELITY_SCORE_FIELD), dict)
+                and r.get(BRAIN_FIDELITY_SCORE_FIELD)),
+            "n_graded_score_backlog": sum(
+                1 for r in rows if not (isinstance(r.get(BRAIN_FIDELITY_SCORE_FIELD), dict)
+                                        and r.get(BRAIN_FIDELITY_SCORE_FIELD))),
+            "graded_score_retro_fill": (
+                "BANNED, same as the qualitative fields. A fabricated SCORE is worse than a "
+                "missing one: it converts a guess into a number that reads like a "
+                "measurement. Clearing this backlog is honest per-row work, not a script."),
+            "graded_score_tool": "tools/brain_fidelity_score.py",
             # "Compliant" requires a VALID basis, not merely a non-empty one -- a row declaring
             # fidelity_basis:"probably_fine" has answered the question with a non-answer, and
             # counting it as compliant is the kind of soft pass this gate exists to remove.
@@ -1589,6 +1693,22 @@ def print_report(summary: dict) -> None:
               f"post-gate VIOLATIONS={bf.get('n_violations_post_gate')}  "
               f"pre-gate BACKLOG={bf.get('n_backlog_pre_gate')} (reported, never auto-filled: "
               f"a fabricated brain justification is worse than a missing one)")
+        print(f"[brain-fidelity] GRADED SCORE (brain_fidelity_score): "
+              f"present={bf.get('n_with_graded_score')}/{bf.get('n_rows')}  "
+              f"BACKLOG={bf.get('n_graded_score_backlog')} -- NOT retro-filled. "
+              f"Score a row with {bf.get('graded_score_tool')}; the field stores the "
+              f"per-dimension verdicts so this audit can RECOMPUTE the total.")
+    sci = summary.get("brain_fidelity_score_inconsistent", [])
+    if sci:
+        print(f"\n[FLAG] {len(sci)} row(s) whose brain_fidelity_score does NOT recompute from "
+              f"its own per-dimension verdicts (a number that does not recompute is a "
+              f"FABRICATED score):")
+        for v in sci[:30]:
+            print(f"    row {v['row_index']} {v['id']} -> stated {v['stated']} vs recomputed "
+                  f"{v['recomputed']}"
+                  + (f"  {v['problems']}" if v["problems"] else ""))
+    else:
+        print("[ok] every brain_fidelity_score present recomputes from its own dimensions")
     viol = summary.get("brain_fidelity_violations", [])
     if viol:
         print(f"\n[FLAG] {len(viol)} row(s) decided AFTER the brain-fidelity gate with missing "
@@ -1803,12 +1923,23 @@ def self_test() -> int:
     ok7 = True
     post = "2026-12-01T00:00:00Z"   # after BRAIN_FIDELITY_GATE_EFFECTIVE_UTC
     pre = "2026-01-01T00:00:00Z"    # before it
+    # A valid graded-score block, and one whose stated total does not follow from its own
+    # per-dimension verdicts (the fabrication case the recompute exists to catch).
+    good_score = {"mode": "design_time",
+                  "dimensions": {"D1": 2, "D2": 1, "D3": 1, "D5": 1},
+                  "points": 5, "max_points": 8}
+    na_score = {"mode": "design_time",
+                "dimensions": {"D1": 2, "D2": 1, "D3": "NA", "D5": 1},
+                "points": 4, "max_points": 6}
+    fab_score = {"mode": "design_time",
+                 "dimensions": {"D1": 2, "D2": 1, "D3": 1, "D5": 1},
+                 "points": 8, "max_points": 8}
     fixture = [
         # 1: post-gate, missing BOTH -> violation
         {"id": "missing_both_post", "last_decision_utc": post},
         # 2: post-gate, missing only fidelity_basis -> violation naming exactly that field
         {"id": "missing_basis_post", "last_decision_utc": post,
-         "brain_structure": "hippocampal CA3"},
+         "brain_structure": "hippocampal CA3", "brain_fidelity_score": good_score},
         # 3: pre-gate, missing both -> BACKLOG, never a violation, never auto-filled
         {"id": "missing_both_pre", "last_decision_utc": pre},
         # 4: no timestamp at all -> backlog, not a manufactured violation
@@ -1816,16 +1947,19 @@ def self_test() -> int:
         # 5: fully compliant post-gate row -> flags nothing at all
         {"id": "compliant_post", "last_decision_utc": post,
          "brain_structure": "perirhinal cortex (conjunctive coding)",
-         "fidelity_basis": "invention_under_test"},
+         "fidelity_basis": "invention_under_test", "brain_fidelity_score": good_score},
         # 6: invalid basis value -> invalid_basis flag
         {"id": "bad_basis", "last_decision_utc": post,
-         "brain_structure": "dentate gyrus", "fidelity_basis": "probably_fine"},
+         "brain_structure": "dentate gyrus", "fidelity_basis": "probably_fine",
+         "brain_fidelity_score": good_score},
         # 7: cognitive-theory LABEL with no anatomy -> label hint
         {"id": "label_not_structure", "last_decision_utc": post,
-         "brain_structure": "working memory", "fidelity_basis": "pinned"},
+         "brain_structure": "working memory", "fidelity_basis": "pinned",
+         "brain_fidelity_score": good_score},
         # 8: label WITH anatomy beside it -> must NOT fire (precision case)
         {"id": "label_with_anatomy", "last_decision_utc": post,
-         "brain_structure": "hippocampal CA3 pattern completion", "fidelity_basis": "pinned"},
+         "brain_structure": "hippocampal CA3 pattern completion", "fidelity_basis": "pinned",
+         "brain_fidelity_score": good_score},
         # 9: THE INCIDENT, reconstructed: performance-framed revival criterion, no anatomy.
         {"id": "incident_perf_framed_revival", "last_decision_utc": pre,
          "revival_criteria": "Revive ONLY for a task whose QUERY IS THE STORED KEY "
@@ -1835,6 +1969,25 @@ def self_test() -> int:
          "revival_criteria": "Not testable until pattern completion (hippocampal CA3) sits in "
                              "front of it; dentate gyrus separation and CA3 completion are a "
                              "matched pair."},
+        # 11: post-gate, both qualitative fields present, NO graded score -> violation naming
+        #     exactly the score field. This is what makes the graded field REQUIRED and not
+        #     merely welcome.
+        {"id": "missing_score_post", "last_decision_utc": post,
+         "brain_structure": "dentate gyrus", "fidelity_basis": "pinned"},
+        # 12: THE FABRICATION CASE. Every field present, and the stated total does not follow
+        #     from the stored per-dimension verdicts. Must be flagged as INCONSISTENT and must
+        #     NOT be counted as a missing-field violation -- "you did not answer" and "your
+        #     answer does not add up" are different faults.
+        {"id": "fabricated_score_post", "last_decision_utc": post,
+         "brain_structure": "hippocampal CA3", "fidelity_basis": "invention_under_test",
+         "brain_fidelity_score": fab_score},
+        # 13: a SOURCED not-applicable dimension shrinking the denominator, recomputing
+        #     correctly -> must fire NOTHING. If this flagged, UNPINNED would be punished and
+        #     honest invention would cost points, which is the fault this whole design exists
+        #     to avoid.
+        {"id": "sourced_na_score_post", "last_decision_utc": post,
+         "brain_structure": "anterior temporal lobe hub", "fidelity_basis": "invention_under_test",
+         "brain_fidelity_score": na_score},
     ]
     fr = check_brain_fidelity_fields(fixture)
     v_ids = {v["id"] for v in fr["brain_fidelity_violations"]}
@@ -1842,14 +1995,37 @@ def self_test() -> int:
     i_ids = {v["id"] for v in fr["brain_fidelity_invalid_basis"]}
     l_ids = {v["id"] for v in fr["brain_fidelity_suspected_label_not_structure"]}
     r_ids = {v["id"] for v in fr["brain_fidelity_revival_not_brain_framed"]}
+    s_ids = {v["id"] for v in fr["brain_fidelity_score_inconsistent"]}
 
     bf_cases = [
         # NOTE: `bad_basis` is deliberately NOT here. It DECLARED both fields, so it is not a
         # missing-field violation; it is caught by the invalid-value clause below instead. Both
         # clauses feed the exit code, so it cannot slip through -- the two flags just mean
         # different things ("you did not answer" vs "your answer is not one of the options").
-        (v_ids == {"missing_both_post", "missing_basis_post"},
+        (v_ids == {"missing_both_post", "missing_basis_post", "missing_score_post"},
          f"post-gate rows missing a field are FLAGGED as violations (got {sorted(v_ids)})"),
+        (next((v["missing_fields"] for v in fr["brain_fidelity_violations"]
+               if v["id"] == "missing_score_post"), None) == ["brain_fidelity_score"],
+         "the GRADED SCORE is REQUIRED post-gate and the violation names exactly it"),
+        (sorted(next((v["missing_fields"] for v in fr["brain_fidelity_violations"]
+                      if v["id"] == "missing_both_post"), []))
+         == ["brain_fidelity_score", "brain_structure", "fidelity_basis"],
+         "a row missing everything names all THREE fields"),
+        (s_ids == {"fabricated_score_post"},
+         f"a score that does not recompute from its own dimensions is FLAGGED (got {sorted(s_ids)})"),
+        ("fabricated_score_post" not in v_ids,
+         "a FABRICATED score is not filed as a missing-field violation -- 'you did not "
+         "answer' and 'your answer does not add up' are different faults"),
+        ("sourced_na_score_post" not in (v_ids | b_ids | i_ids | l_ids | r_ids | s_ids),
+         "a SOURCED not-applicable dimension shrinking the denominator fires NOTHING "
+         "(UNPINNED must not be punished, or honest invention costs points)"),
+        (recompute_brain_fidelity_score(na_score)["max_points"] == 6,
+         "an NA dimension leaves the DENOMINATOR, not just the numerator"),
+        (recompute_brain_fidelity_score(
+            {"mode": "design_time", "dimensions": {"D1": 2, "D2": 1, "D3": 1}}
+         )["max_points"] == 8,
+         "a dimension with NO verdict is scored 0 and STAYS in the denominator "
+         "(silence is not 'not applicable')"),
         (next((v["missing_fields"] for v in fr["brain_fidelity_violations"]
                if v["id"] == "missing_basis_post"), None) == ["fidelity_basis"],
          "the violation names EXACTLY the missing field, not both"),
@@ -1864,22 +2040,35 @@ def self_test() -> int:
         (r_ids == {"incident_perf_framed_revival"},
          f"THE INCIDENT: performance-framed revival criterion flagged, brain-framed one NOT "
          f"(got {sorted(r_ids)})"),
-        # 3 = compliant_post, label_not_structure, label_with_anatomy. `bad_basis` is excluded
-        # despite declaring both fields, because its basis value is not one of the allowed three.
-        (fr["brain_fidelity_stats"]["n_compliant"] == 3,
+        # 6 = compliant_post, label_not_structure, label_with_anatomy, missing_score_post,
+        # fabricated_score_post, sourced_na_score_post. `bad_basis` is excluded despite
+        # declaring both fields, because its basis value is not one of the allowed three.
+        (fr["brain_fidelity_stats"]["n_compliant"] == 6,
          f"compliant count requires a VALID basis (got "
-         f"{fr['brain_fidelity_stats']['n_compliant']}, expected 3)"),
+         f"{fr['brain_fidelity_stats']['n_compliant']}, expected 6)"),
+        # The two backlogs are reported SEPARATELY and must not be merged: 6 of the 13 fixture
+        # rows carry no graded score at all (missing_both_post, missing_both_pre, no_timestamp,
+        # both incident rows, and missing_score_post).
+        (fr["brain_fidelity_stats"]["n_graded_score_backlog"] == 6,
+         f"the GRADED-SCORE backlog is counted on its own (got "
+         f"{fr['brain_fidelity_stats']['n_graded_score_backlog']}, expected 6)"),
+        (fr["brain_fidelity_stats"]["n_with_graded_score"]
+         + fr["brain_fidelity_stats"]["n_graded_score_backlog"]
+         == fr["brain_fidelity_stats"]["n_rows"],
+         "present + backlog accounts for every row (no row falls between the two)"),
     ]
     for passed, label in bf_cases:
         if not passed:
             ok7 = False
             print(f"[selftest] brain-fidelity FAIL: {label}")
     # Non-mutation: the gate must not have written a field onto any fixture row.
-    if any("brain_structure" in r for r in fixture if r["id"] in
-           ("missing_both_post", "missing_both_pre", "no_timestamp")):
+    if any("brain_structure" in r or "brain_fidelity_score" in r for r in fixture
+           if r["id"] in ("missing_both_post", "missing_both_pre", "no_timestamp")):
         ok7 = False
         print("[selftest] brain-fidelity FAIL: the check MUTATED a row (retro-fill is banned)")
-    print(f"[selftest] brain-fidelity gate (8 clauses + non-mutation): {'OK' if ok7 else 'FAIL'}")
+    print(f"[selftest] brain-fidelity gate (17 clauses + non-mutation, incl. the GRADED "
+          f"brain_fidelity_score and its anti-fabrication recompute): "
+          f"{'OK' if ok7 else 'FAIL'}")
 
     ok_all = ok and ok2 and ok3 and ok4 and ok5 and ok6 and ok7
     print(f"[selftest] invisible-island classify+match logic: {'OK' if ok2 and ok3 else 'FAIL'}")
