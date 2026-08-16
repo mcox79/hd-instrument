@@ -1613,3 +1613,377 @@ is trustworthy*, when the truth is that **the field is only ever populated when 
 `full`**, so its agreement carries no information. `tools/skunkworks_cert_integrity_audit_v1.py`
 D2 already checks `run_mode == smoke AND provenance_quality == CERT_CHAIN_GRADE`; that check is
 reading the ingestion default, not the run.
+
+---
+
+## DO NOT REDO -- entries added 2026-08-16 (auditor, off-data recompute)
+
+Continuing the numbering. Stubbed in `STATUS.md` as entries **38-42**. Every number below was
+recomputed by the auditor off the artifact named beside it, not read from a report.
+
+**38. BRIDGING GROUNDING ACROSS A RELATION GRAPH, WITH THE THEMATIC HUB SUPPLIED -- MEASURED
+NULL.** `data/exp_thematic_relation_supply_bridged_grounding_v2_smoke/metrics.json` (SMOKE:
+N_BOOT=2000, N_PERM=400; the FULL is still running and may move the CI widths, not the point
+estimates). Verdict `BRIDGED_CODES_DO_NOT_CLEAR_THE_FLOOR_ON_OUR_GRAPH`. Primary stratum
+PRIMARY_DEF_THEMATIC_CORE, n=394, mean in-CORE bridge degree 3.573, `ADDITIVITY_EXERCISED=true`:
+`B1_BRIDGE_MEAN` rho **0.0270** [-0.0736,+0.1267]; the best of the five additive transformations is
+`B5_BRIDGE_TOP3_PMI` at **0.0406**. Floors recomputed on the identical stratum/scorer/gold:
+F_ORTHOGRAPHIC 0.0412, F_FREQUENCY_HARDENED 0.0209, F_SCRAMBLE_PERM_P95 0.0900 (higher of row- and
+gold-permutation p95, not a max-of-draws). Margin over the strongest floor **-0.0615
+[-0.2109,+0.0869] NOT_SEPARATED**, permutation p=0.2768. Holds on all four control configs
+(MORPHBLOCK 0.0288, C6a partner-context-excluded 0.0220, C6b never-co-occur 0.0159, HUBCENSOR
+0.0029). **The instrument is alive:** K1_OWN_NORMS 0.3301 [0.2305,0.4254] ABOVE and K2_ORACLE_BRIDGE
+0.2893 [0.1888,0.3822] ABOVE, so G0 passes on every whole-stratum config and this is a REAL null,
+not a dead ruler. **Revival criterion (brain-framed, not performance-framed):** edge TYPING -- the
+thematic edges here are UNTYPED co-participation, whereas the brain's thematic relations are
+role-structured (agent / patient / location / instrument). We own `extract_predicates_v62`
+(`hdlab/definitional_predicate_v61.py`) and have never run it at scale. Re-open when a role-typed
+graph exists, not before.
+
+**39. SPARSIFYING THE READING ANCHOR (the high-rank object) -- COLLAPSES ON THE REAL TASK.**
+`scratch/sparse_code_real_task/real.json` + `mechanism.json`. hit@1 is MONOTONE INCREASING in
+active fraction over a 250x range and in BOTH architectures (in-place d256: 0.0130 at f=0.002 ->
+0.0483 at f=0.50; expand-then-cap: 0.0120 -> 0.0428), i.e. every sparsification makes it worse, and
+the densest point merely returns to the dense incumbent 0.0481. All 18 arms are CI-separated BELOW
+the spelling floor 0.0866. Under a PARTIAL cue the expand-then-cap family falls below its own
+scrambled null. **Mechanism, hypothesis written before the measurement:** a k-cap keeps the
+largest-drive coordinates, which is signal-preserving only on a LOW-EFFECTIVE-RANK source. Measured
+participation ratio: reading anchors **88.74 of ambient 256** (34.7%); the lifted grounded norms
+**9.15 of ambient 1024** (0.89%) -- a 39x difference as a fraction of ambient. At f=0.002, 99.55% of
+reading-anchor pair cosines are EXACTLY ZERO: the code stops being a similarity space and becomes a
+near-orthogonal hash. **Revival criterion:** sparsify the LOW-RANK GROUNDED asset, not the anchor.
+That object is where the same operator wins (see "SPARSE CODE" below).
+
+**40. QUOTING +0.2285 AS THE BRIDGING CELL'S TREATMENT MARGIN.** See correction C28.
+
+**41. QUOTING A "0.073 LIFT GAP" / "a quarter of the signal lost to SimHash".** See correction C29.
+
+**42. USING `grounded_similarity()` AS A SCORER, EVER.** `hdlab/grounded_similarity.py`. Measured
+and RE-EARNED BY RUNTIME in every probe that touches it: over 999 SimLex pairs it returns 229
+distinct values, with **654 pairs at exactly 0.45 (the GROUNDED_CAP) and 107 at exactly 0.0 --
+76.18% of all pairs on two values**. Any rho computed through it is a rank statistic over a
+two-valued variable. Cells that need a grounded score use the raw 12-dim vector, L2-normalised,
+plain cosine. `exp_thematic_relation_supply_bridged_grounding_v2` asserts the saturation in its own
+selftest and aborts if it ever stops being true. This is not a style preference; it is a trap that
+has been re-armed rather than removed. **No revival criterion** -- the function is fine for its own
+gating job; it is a SCORER that it must never be.
+
+---
+
+## CORRECTIONS TO PRIOR CLAIMS -- added 2026-08-16 (auditor, off-data recompute)
+
+Stubbed in `STATUS.md` as **C28-C31**. Each preserves the superseded claim verbatim and names what
+replaced it; none is a silent rewrite.
+
+**C28. THE "+0.2285 CI-SEPARATED MARGIN OVER THE SPELLING FLOOR" IS NOT A RESULT ON THE INSTRUMENT
+THAT MATTERS.**
+
+> SUPERSEDED CLAIM: "the thematic channel clears the spelling floor by +0.2285 [+0.1861,+0.2717]
+> even after morphology blocking."
+
+That number is real and its own author labelled it correctly: it is the relation-supply scan's
+NEIGHBOUR-CHOICE diagnostic -- cosine between the mean of a held-out word's d=1 CORE neighbour codes
+and that word's own hidden 12-dim code, against a floor in which SPELLING chooses the neighbour
+(`.claude/scan-out/relation-supply.json` STEP_4, which says verbatim "A SUPPLY DIAGNOSTIC ON A
+DIFFERENT QUANTITY FROM THE PHASE-2 VERDICT, and it must never be quoted as that cell's result").
+**On the bridging cell's own instrument -- SimLex rho, same stratum -- the bridged arm's margin over
+the orthographic floor is -0.0142 [-0.1636,+0.1397], NOT_SEPARATED**
+(`data/exp_thematic_relation_supply_bridged_grounding_v2_smoke/metrics.json`,
+`PRIMARY_DEF_THEMATIC_CORE.arms.B1_BRIDGE_MEAN.DECOMPOSED_per_floor.F_ORTHOGRAPHIC`). SUPERSEDED-BY:
+this entry. The supply diagnostic still supports what it was built to support -- that our edges
+point at genuinely-related words -- and supports nothing about transported meaning.
+
+**C29. THE "0.073 LIFT LOSS / a quarter of the signal" IS 0.0034.**
+
+> SUPERSEDED CLAIM: "SimHash quantisation costs ~0.073 rho, about a quarter of the signal."
+
+`data/exp_meaning_lift_population_code_v1/metrics.json`: the incumbent SimHash, re-implemented
+bit-identically through `hdlab.hub_spoke_word.bipolar_quantize`, scores **0.2667 at d=256** and
+0.2680 at d=1024 against a ceiling of **0.2701**. The gap is **0.0034** (d=256) and 0.0021 (d=1024)
+-- 3% and 2% of the assumed 0.073. The 0.073 came from comparing this ruler's number against
+`exp_hub_spoke_word_g3_cleanup_rescore_v1`'s landed 0.1977, which used a different projection seed
+and a different OOV policy: a number carried between populations. **Consequence that must travel
+with it:** every closure fraction in that cell divides by ~0.003, so the closure values -110.28,
+-102.12 and +31.15 are arithmetic on a degenerate denominator and MUST NOT be quoted as effect
+sizes; gate G0 was unreachable by arithmetic and its failure is NOT evidence against the candidates.
+The cell's pre-registered mechanism prediction (Goemans-Williamson: a signed random projection
+should cost ~zero rho, and the loss should shrink with d) is CONFIRMED: 0.003402 at d=256 ->
+0.002137 at d=1024.
+
+**C30. "RETRIEVAL IS FINE, WE TIE SPELLING" IS AN EXACT-KEY, OPTIMISTIC-TIE STATEMENT, AND BOTH
+QUALIFIERS ARE LOAD-BEARING.**
+
+> SUPERSEDED CLAIM: "retrieval FINE -- top-50 55.65% vs spelling 54.55%, CI NOT separable;
+> SELECTION FAILS."
+
+Recomputed off `scratch/sparse_code_real_task/real.json`, 3,994 scored items, identical pool and
+gold. Three things are true at once and the standing claim states only the first:
+
+1. **TIE CONVENTION.** The trigram floor has 15.27% of the eligible pool tied with the gold; our
+   dense read-out has 0.0%. Under the OPTIMISTIC convention our top-50 margin over spelling is
+   +0.0105 [-0.0080,+0.0290] NOT_SEPARATED (the standing claim, and it reproduces exactly). Under
+   the CONSERVATIVE convention it is **+0.0641 [+0.0456,+0.0829] ABOVE**. Note the DIRECTION: the
+   conservative convention penalises the arm holding the tie mass, which is the FLOOR, so this
+   correction runs in OUR favour, not against us. Any relay saying "spelling is above us by
+   +0.0641" has the sign backwards. Neither convention is obviously right; what is established is
+   that the comparison hinges on a choice nobody had stated.
+2. **THE FLOOR IT NEVER FACED.** PURE CORPUS POPULARITY -- always answer with the commonest
+   permitted word, reading nothing -- reaches top-50 **0.5235** [0.5078,0.5388] against our 0.5566.
+   Our margin over it is +0.0331 [+0.0155,+0.0508]: CI-separated, and small. A top-50 metric on a
+   5,491-anchor pool is largely a popularity measurement.
+3. **THE REGIME.** All of the above is the EXACT-KEY operating point. Under a PARTIAL cue (a single
+   held-out sentence, which is the regime the brain actually operates in) our top-50 falls to
+   **0.3758** while spelling holds 0.5461 (optimistic) / 0.4925 (conservative) and popularity holds
+   0.5235: we are **CI-separated BELOW spelling (-0.1167 [-0.1352,-0.0981] conservative; -0.1702
+   optimistic) and BELOW popularity (-0.1477 [-0.1650,-0.1304])**, and above only the scrambled
+   null (+0.0693). hit@1 falls 0.0481 -> 0.0223, BELOW spelling by -0.0644 [-0.0741,-0.0546] and
+   NOT separated from the frequency floor.
+
+SUPERSEDED-BY: this entry. What SURVIVES unchanged: at hit@1 (single convention, no tie mass on the
+dense arm) spelling still beats us 0.0866 vs 0.0481, in both regimes. What must STOP: quoting
+"retrieval is fine" without naming the regime and the tie convention.
+
+**C31. `tools/verdict_bar_check.py` HAD A FALSE-PASS DEFECT, AND IT WAS THREE DEFECTS, NOT ONE.**
+
+The scanner at `c0802fc36` could select a PLANTED-ANSWER validity arm as a cell's claim-carrying
+arm and return MEETS_BAR off it (+0.9044 on `S_INPLACE_d256_f0.020__KA`, an arm whose own node reads
+hit@1 = 1.0 with zero bootstrap variance). Reproduced exactly off disk before any edit. The three
+defects: (D1) the path walker joined segments with `.`, and arm names contain literal dots
+(`f0.020__KA`), so a name lost its boundary; (D2) the selector classified only the LAST path
+segment, which was the CONTAINER `MARGIN_per_floor` -- this made the role classifier's CORRECT
+answers irrelevant and let through 9 `__KA` and 9 `__NULL` arms, so a lexicon fix alone would have
+excluded none of them; (D3) the role lexicon did not know `__KA` / `KA_QUERY_IS_GOLD_VECTOR` /
+`PLANTED`. Now fail-closed: if no arm is ELIGIBLE the status is **NO_EVIDENCE**, never MEETS_BAR and
+never FAILS_BAR (the first cut returned FAILS_BAR, which pooled the deliberately-losing null arms
+and reported their negative bound as a measured refutation of an arm that does not exist -- the
+exact conflation behind the 17 corrections-of-a-correction). Exclusions are now REPORTED, never
+silent. **The defect is ANTI-CORRELATED WITH RIGOUR:** only a cell that ships planted-answer
+validity arms can trip it, so the better-instrumented the cell, the more exposed it was. **Until the
+full re-scan lands on the fixed code, a MEETS_BAR from this tool is not evidence.** A named,
+unpatched SCOPE limit remains: the tool scores a cell on its best arm ANYWHERE in the cell, so a
+cell shipping two instruments can have an encoding-side clearance reported beside a reading-task
+verdict string.
+
+---
+
+## STANDING DISCIPLINES -- entries added 2026-08-16 (auditor)
+
+Stubbed in `STATUS.md` as standing disciplines **11-13**. All three are one failure mode seen from
+three angles: a number is only meaningful together with the ruler that produced it.
+
+### 11. A NUMBER MAY NOT BE CARRIED BETWEEN SCORERS OR POPULATIONS
+
+> **A margin, a rho, a hit-rate or a lift belongs to the scorer, the item population, the pool and
+> the gold set it was computed on. Moving it to another one is fabrication, even when both numbers
+> are individually correct and even when the same word names both quantities.**
+
+Cost, in one night, three times: the +0.2285 neighbour-choice diagnostic quoted as a bridging
+treatment margin, where the same cell's own instrument reads -0.0142 (C28); the 0.073 "lift gap"
+that is 0.0034 once both sides are computed on one ruler (C29); and the "retrieval is fine" tie that
+depends on a convention and a regime nobody named (C30). The tell is a comparison whose two sides
+come from different files. **Before quoting a margin, name the scorer, the n, the pool and the gold
+-- if you cannot name all four for BOTH sides, you do not have a comparison.**
+
+### 12. A CLAIM MEASURED AT THE EXACT-KEY OPERATING POINT DOES NOT TRANSFER TO THE PARTIAL-CUE REGIME, WHICH IS THE REAL ONE
+
+> **Exact-key retrieval and partial-cue completion are different capabilities. A number measured
+> with the whole key in hand says nothing about the regime the system will actually be used in, and
+> the gap is large enough to reverse a conclusion.**
+
+Measured (C30 item 3): top-50 0.5566 at the exact key, **0.3758** under a single held-out-sentence
+cue -- from "ties spelling" to CI-separated below both spelling and pure popularity. Independently,
+the storage instrument shows the same shape structurally: `HDFactStore` is genuinely ADDRESSED
+(key-sensitivity 2.0) and degrades gracefully to 62.5% cue overlap, but its LIVE read path is an
+exact content-hash index that returns 1.0 at full overlap and **0.0 at the first flipped bit**, and
+its shipped cosine threshold 0.75 cliff-edges at 87.5% overlap -- the partial-cue tolerance of the
+shipped path is a config constant. This is the same fault that shelved `perirhinal_conjunctive` on
+"exact-key retrieval only" and hid the missing CA3 completer. **State the cue regime beside every
+retrieval number.**
+
+### 13. REPORT TIE CONVENTIONS BOTH WAYS, NEVER SILENTLY PICK THE FLATTERING ONE
+
+> **Any rank or top-k metric over a scorer that can produce ties has TWO answers. Publish both, or
+> the comparison is a choice presented as a measurement.**
+
+Cost: the whole "we tie spelling at top-50" reading (C30 item 1), which flips from NOT_SEPARATED to
++0.0641 ABOVE depending on how a tie is counted, because the floor holds 15.27% tie mass and we hold
+0.0%. Prefix-only is worse still (29.37% tie mass: top-50 0.5771 optimistic vs 0.3485 conservative,
+median rank 33 vs 155.5). `tools/verdict_bar_check.py` now APPENDS the convention to the floor name
+(`F2_PREFIX_ONLY|optimistic_ties`) and takes the min across conventions, so the flattering one can
+no longer be picked silently by the bar machinery. **Residual, named and unsolved:** a cell that
+publishes only ONE convention still has an unstated choice, and the tool reads
+`tie_conventions_present = []` for it.
+
+---
+
+## THE TWO RELATIONAL HUBS (2026-08-16) -- stubbed in `STATUS.md` as "TWO HUBS"
+
+**We had built one of the brain's two relational systems.** TAXONOMIC relations (shared features;
+anterior temporal lobe) we had: all 5,799 rows of our definitional fact files are
+`GROUNDED_MEANING`, 100% taxonomic-definitional (COPULA 2006, APPOSITIVE 1521, CALLED 1303,
+GLOSSARY_COLON 944, REFERS_TO 25). THEMATIC relations (co-participation in an event; a SEPARATE
+temporo-parietal system -- pMTG and angular gyrus) we had not. The dissociation is PINNED and
+causal, not a cognitive-theory label: lesion location predicts which error type a patient makes
+(Schwartz et al. 2011 PNAS, voxel-based lesion-symptom mapping; Mirman, Landrigan & Britt 2017
+Psych Bull). Thematic organisation is developmentally PRIOR (Nelson/Lucariello slot-filler
+programme) -- and the honest counterweight, recorded because it cuts against the headline: a WORD
+CUE is exactly what recruits the TAXONOMIC system (Markman & Hutchinson 1984), so the fix is
+ADDITIVE, never a replacement.
+
+**The organ was already on disk with no callers.**
+`hdlab/definitional_extraction.py::extract_predicates` and
+`hdlab/definitional_predicate_v61.py::extract_predicates_v62` produce role-typed thematic facts
+(ENABLING_CONDITION 69, ENABLING_CONDITION_AGENT 49, PROCESS_ACTION 48, PROCESS_PATIENT 39,
+ENABLING_CONDITION_PATIENT 16 in the 221-row v62 bank) and are called by nothing but their own
+self-tests. A prereg deviation had recorded the ATL-vs-AG contrast as NOT CONSTRUCTIBLE; that was
+true of the FILES and false of the SUBSTRATE.
+
+**What supplying the missing hub bought, measured** (event co-participation over the identical
+64,000,000-byte simplewiki budget the frequency floor is computed on, PMI>=2.0, count>=5, top-k 24,
+sources = AoA<=6.0 CORE): mean in-CORE bridge degree **1.216 -> 3.573**, median 1 -> 3, primary
+stratum **47 -> 394** pairs, both-endpoints stratum **4 -> 138**, verb stratum **0 -> 86** (the
+Hills 2009 noun-specific falsifier became runnable on our own graph for the first time), adjectives
+6 -> 49. It is NOT a spelling channel in disguise: the morphology blocker deletes 7 of 1,472 edges
+(0.48%) and the score goes UP, not down.
+
+**And it did not rescue bridging** -- DO-NOT-REDO 38. **Audit correction to the cell's own
+`dissociation` block, which reads "OUR RELATIONS ARE STILL THE LIMITER":** that is not supported by
+this cell's own arms. The EXTERNAL, hand-curated CSKG ceiling arm ALSO fails to clear
+(`CEILING_CSKG_NOLEXREL_CORE_EXTERNAL_REFERENCE`, n=243, B1 0.0457, margin -0.0713
+[-0.2499,+0.0953] NOT_SEPARATED) while ITS known-answer arms pass (K1 0.3256, K2 0.2934). So a
+better relation set OF THE SAME KIND does not rescue it either; what clears is ORACLE NEIGHBOUR
+CHOICE, which uses no graph at all. The evidence supports "neighbour CHOICE and/or the target space
+is the limiter", not "our relation supply is the limiter". Recorded as a framing correction, not a
+demotion: the cell's VERDICT is correct and stands.
+
+---
+
+## THE TARGET SPACE IS MISSING CHANNELS, NOT DIMENSIONS (2026-08-16) -- stubbed as "TARGET SPACE"
+
+`notes/drill_target_space_dimensionality_semantic_representation_verbs_2026-08-16.md`, `03055c7fa`.
+Our 12-dim landing space (11 Lancaster sensorimotor means + Brysbaert concreteness) covers **two of
+the seven** attribute blocks the brain's semantic systems use, plus one scalar. Missing: AFFECT,
+SOCIAL, SPATIAL/TEMPORAL/CAUSAL -- and taxonomic/thematic structure we carry only as a graph, never
+as dimensions of the space a word lands in.
+
+**Measured, paired, identical 977-pair stratum, 4000 bootstrap draws with a shared resample index,
+plain cosine on the L2-normalised concatenation:** adding the three Warriner VAD columns lifts
+Spearman rho vs SimLex from 0.3130 to 0.4143, **paired delta +0.1013 [+0.0615,+0.1419],
+CI-SEPARATED**. Per POS: nouns +0.0253 (NOT separated), verbs **+0.1228** [+0.0150,+0.2314],
+adjectives **+0.3399** [+0.1919,+0.4978]. **The gain profile mirrors the failure profile** -- the
+word classes our bridging cannot carry are the ones the missing channel serves. Survives z-scoring
+(+0.1344), so it is not a scale artefact.
+
+**The negative control FIRED, and it is what makes this a channel claim rather than a width claim:**
+adding 11 MORE columns from the SAME file (the Lancaster rater-SD columns, 23 dims) scores 0.3035,
+and 6 derived nonlinear summaries of the same 11 dims (18 dims) score 0.3025 -- both BELOW the
+12-dim incumbent's 0.3130. Widening without a new channel buys NOTHING.
+
+**Scope, stated because it is easy to over-read:** this is a CEILING diagnostic in the K1 condition
+(the word's own hand-rated code, no graph, no bridging). NO floors, NO null arm, NOT a cell, NOT a
+verdict. It decides which spaces are worth putting into a can-fail cell; it clears nothing.
+Independent sanity check that the scorer is not broken: our 11-dim Lancaster-only arm measures
+0.3186 on 999 pairs against Wingfield & Connell's published |r| = 0.32 on 993 pairs.
+
+**Two independent gates had excluded this channel, neither on a brain-framed criterion, and that is
+the reusable lesson.** (i) `hdlab/grounded_similarity.py` lines 51-56 exclude Warriner because
+affect is "not an identity-content signal" -- a cognitive-theory assertion never measured on the
+meaning axis. (ii) `exp_grounding_multiattribute_fusion_v1` pruned valence/arousal/dominance on a
+`MIN_TARGET_R = 0.20` gate whose TARGET is held-out CONCRETENESS; valence correlates with
+concreteness at r = 0.025. Since the biology says affect is the grounding channel for ABSTRACT
+concepts, an affect channel MUST be near-orthogonal to concreteness -- so that gate prunes it BY
+CONSTRUCTION, every time, precisely by working correctly. The prior cell was NOT wrong for its own
+task (predicting concreteness); carrying its pruning decision onto the MEANING axis would be the
+cross-task carry of discipline 11. **What stands:** the zero-fill warning in `grounded_similarity.py`
+is CORRECT and zero-fill REMAINS BARRED -- the fix is intersection-stratum evaluation.
+
+---
+
+## THE STORAGE INSTRUMENT NOW EXISTS (2026-08-16) -- stubbed as "STORAGE"
+
+Supersedes the standing line "STORAGE has NO ISOLATED INSTRUMENT = step 1". Probes:
+`scratch/storage_instrument_premise_probe_v1.py` / `scratch/storage_instrument_factstore_probe_v1.py`
+(+ their `.json` results). **These are in `scratch/` and are now cited by a durable doc, so per the
+CLAUDE.md scratch corollary they must be PROMOTED to `experiments/` or the citation dangles.**
+
+**The flat store is ADDRESS_ABSENT, not address-degraded, and the distinction decides the repair.**
+Replicating the shipped default line byte-faithfully (`acc += symbol_vector(filler)`, no key, using
+the shipped codebook): key-sensitivity **0.0**, facet addressability **exactly 0.2500** = chance,
+**sd 0.0 across 5 seeds**, invariant across M in {16,64,256} and cue overlap in {1.0 ... 0.5} -- all
+15 cells read 0.2500 with zero variance and return BIT-IDENTICAL content for every query. A DEGRADED
+address scores between chance and ceiling and FALLS with load; an ABSENT address is not repaired by
+any amount of capacity, because there is no channel to widen. Independently corroborated by a
+different route: `.claude/scan-out/wall2-wire-perirhinal.json` PART 4 measured 0.2534 for the same
+store.
+
+**`HDFactStore` IS addressed** (key-sensitivity 2.0; `_sr_key` verified bit-exactly) **and its read
+paths throw the address away**: the live exact content-hash index returns 1.0 at full overlap and
+0.0 at 93.75%; the shipped cosine scan cliff-edges at 87.5% because bipolar cosine at overlap p is
+(2p-1) and the threshold is the config constant 0.75. The representation tolerates a partial cue to
+62.5% overlap; the shipped path does not use that tolerance. See standing discipline 12.
+
+---
+
+## THE ONE ARM THAT CARRIES MEANING, AND WHY IT DOES NOT TRANSFER (2026-08-16) -- stubbed as "SPARSE CODE"
+
+`data/exp_meaning_lift_population_code_v1/metrics.json`, arm `C1_KCAP_GRD_f005_BOOST` at d=1024,
+3 seeds, 322 pairs: SimLex rho **0.2801** [0.1737,0.3806], `CLEARS_ALL_THREE_FLOORS_CI_SEPARATED =
+true` -- A_ORTHOGRAPHIC 0.0150 (margin +0.2651 [+0.1125,+0.4171]), HARDENED_FREQUENCY_FREQ_MIN
+0.0797 (+0.2004 [+0.0555,+0.3396]), OWN_SCRAMBLE_PERM_P95 0.0961 (+0.1839 [+0.0702,+0.2917]);
+permutation p = 0.0005 on every seed. AND it survives the sum: **3.5264 of the 7.000-bit ceiling**
+retained after bundling, against a pre-registered 0.5-bit criterion. The sparsity sweep's knee is
+**f=0.02** (5.05 bits, still clearing all three floors), not the landed f=0.05.
+
+**Three things that must travel with it.** (1) The CELL as a whole reads `FAILS_BAR` and its own
+verdict is `BUNDLING_SURVIVED_BUT_NO_MEANING_GAIN`; the base rate stays 0 of 7,769. (2) It is a
+SimLex-rho encoding ruler, not the reading task -- and on the reading task the same operator
+collapses (DO-NOT-REDO 39). (3) The two results are NOT in tension: they are one operator on two
+sources that differ 39x in effective rank. **The unresolved half, stated by its own author:**
+geometry preservation explains where the k-cap is SAFE (0.6455 of dense pair-cosine structure
+preserved on the norms at f=0.05) but NOT where it HELPS -- it scores 0.2801 against the dense
+incumbent's 0.2680, so the cap CHANGES the geometry favourably on that source, and nobody has
+explained why.
+
+---
+
+## THE BANKED-EVIDENCE BASE RATE (2026-08-16) -- stubbed as "VERDICT BAR"
+
+`tools/verdict_bar_check.py` (`c0802fc36`), enumerated by `os.walk` over the absolute data dir --
+every directory visited, every `metrics.json` opened, no glob, no name filter, no registry input.
+**7,769 metrics.json found and scanned; 0 MEET the bar; 7,762 FAIL; 7 NO_EVIDENCE.** Disagreement
+classes: NO_FLOOR 2,966 (a PASS-shaped string with at least one of orthographic/frequency/scramble
+absent, so max(...) cannot be formed at all), SATURATED_CEILING 264 (headline numbers pinned at
+1.000 across every arm), NO_CI 4, **STRING_PASSES_BAR_FAILS 1** (a PASS-shaped string whose margin is
+not CI-separated from a floor the cell ITSELF recorded), AGREES 4,318, NO_VERDICT 216.
+Reconciliation, filesystem first: 2,031 cert-ledger rows citing 592 cells and 200 registry rows
+citing 52; 633 cited cells are on disk, 9 cited cells are NOT on disk, **7,127 cells on disk are
+cited by no index**, and **238 flagged cells ARE cited by an index** -- i.e. their overstatement has
+already propagated into the ledger or the registry. **That 238-cell list is an OPEN OPERATOR
+DECISION and has NOT been taken.** The tool changed nothing
+(`test_scan_never_mutates_anything`). Read `AGREES` as "the string does not lie", NEVER as "the cell
+is good" -- most AGREES cells claim nothing at all. And see C31: this scan predates the false-pass
+fix.
+
+---
+
+## THE SKIPPED-FULLS RECOVERY (2026-08-16) -- stubbed as "SKIPPED FULLS"
+
+Checkpoint-collision fix `ee7c42c0f` (config-fingerprinted keys, so a smoke can never be reloaded by
+a full). ~128 runs are collision-affected; the 30 MEDIUM+LOW ones were audited. **Forensic proof
+they are smokes wearing a full's name: 23 of 29 comparable banked "full" metrics are BIT-IDENTICAL
+to a freshly-run smoke after stripping volatile fields; 29 of 29 match on verdict string;** several
+self-label (`KF45_SMOKE_PASS`, `KF5_PHASE_SMOKE_ONLY`, `KF4_V4_SMOKE_FAIL`, and `seeds=1 N=512`
+written inside a directory named `_n16384`). An independent scale test confirms all 30 (elapsed
+< 1.5 s, actual N on disk below the declared N, smoke flag present). Outcome so far: 7 re-run, 1
+recovered from a sibling that was already a clean full (so recoveries are 9, not 8), 1 local
+timeout, 2 killed mid-run, 19 ready. **1 DEMOTION:** `exp_kf45_pre_argmax_joint_probe_v1_n4096`
+banked PASS -> `KF45_JOINT_MIDDLE_BAND` on a real N=4096 / 3-seed run (1 of 3 sub-gates passes).
+2 upgrades (`exp_alpha1_cleanup_sweep_n4096`, `exp_bid_m_normalized_v5_n8192`). **0 of the 30 meet
+the standing bar, in EITHER direction** -- 23 gate on a bare threshold, 6 have a floor but no CI, 1
+has CI but no floor, and NONE has both, so none CAN produce a CI-separated margin even in principle.
+The most dangerous shape found kept its label and lost its claim:
+`exp_reasoning_storage_4way_cleanup_v3_hadamard_hopid_v1_n16384` reads `4WC_HARD_PASS` before AND
+after, but its ratios go 1.000/1.000/1.000/1.000 (seeds=1, N=512, 0.09 s) ->
+0.951/0.966/0.942/0.980 (seeds=5, N=16384, 1015 s). **Blocked, and it is an operator decision:** 4
+cells cannot be dispatched because their prereg is absent and `preregs/` is do-not-touch; and 98
+ARCHIVE-tier cells are untouched under a standing DO-NOT-RE-RUN default.

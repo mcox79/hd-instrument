@@ -76,6 +76,18 @@ change). A silent degradation of the compaction entry point is exactly the failu
 spec exists to catch, so: **if either string is reworded, `tools/session_start_hook.py` must be
 updated in the same change.**
 
+**A SECOND READER JOINED 2026-08-15: `tools/board.py`.** It mirrors this file into the `## STATUS`
+section of `notes/BOARD.md` (the owner-facing async decision board) and parses **four** literals:
+`AS OF:` (colon required), `## POSITION`, `## TOP ITEM`, and `## WHAT IS RUNNING`. The first and
+last were already an API of `session_start_hook.py`; **`## POSITION` and `## TOP ITEM` are newly
+machine-parsed and are now in the same do-not-reword class.** All four are matched by
+*heading prefix*, so extending a heading is safe (`## TOP ITEM -- A FLAT BAG...` matches
+`## TOP ITEM`) but renaming or dropping one is not. `board.py` FAILS LOUD on a missing literal --
+it writes a `MISSING REQUIRED LITERAL` banner into the board rather than a quiet placeholder --
+but the banner only helps if someone reads the board, so: **if any of the four is reworded, update
+BOTH `tools/session_start_hook.py` and `tools/board.py` in the same change.** All four are covered
+by `python tools/board.py self-test`.
+
 Budget sum: **7950 B** against an **8704 B** cap (raised from 8192 2026-08-15, sec 7) -> 754 B of
 slack. Sections 5 and 6 together
 hold **2400 B** and are floors as well as ceilings: they may not be squeezed below their
@@ -263,6 +275,61 @@ needed; the gap closed via steps 1 and legitimate tier 1-4 trims of the new mate
 **The never-trim material stays never-trim.** This raise is not licence to relax eviction
 discipline going forward -- it closes a real, measured, one-time gap between two genuinely new
 never-trim-class entries and the room available to state them honestly.
+
+
+### 2026-08-16: escalation step 3 MEASURED AND PROPOSED (NOT ENACTED) -- 8704 -> 9216
+
+Written by the agent whose assigned task WAS `STATUS.md` maintenance (auditor pass, 2026-08-16),
+following sec 6: the party that needs the room measures and proposes; it does not grant. Recorded
+here per sec 7's requirement that any raise be auditable, and left OPEN for the Director.
+
+**The measurement, section by section, after tiers 1-4 were applied exhaustively to the whole file
+(not merely to the new content):**
+
+| section | bytes | SPEC budget | over/under |
+|---|---|---|---|
+| header | ~480 | 450 | +30 |
+| `## POSITION` | ~390 | 450 | -60 |
+| `## TOP ITEM` | ~800 | 900 | -100 |
+| PATH STATE (3 subsections) | ~2,540 | 3,100 | **-560** |
+| `## DO NOT REDO` (+ CAVEATS + CORRECTIONS stubs) | 2,669 | 1,000 | **+1,669** |
+| `## STANDING DISCIPLINES` | 1,867 | 1,400 | **+467** |
+| `## WHAT IS RUNNING` | ~980 | 650 | +330 |
+| **total** | **9,725** | 7,950 (+754 slack) | **+1,021 over the 8,704 cap** |
+
+**The overage is entirely in the never-trim class, and every other section is already under its own
+budget.** Sections 5 and 6 together hold 4,536 B against a 2,400 B allowance -- 89% over -- and they
+are *pure stubs already*: 42 DO-NOT-REDO names, 6 caveat names, 31 correction names, 13 disciplines.
+There is no reasoning left in them to move; sec 7 escalation step 1 was spent tonight (about 27 KB of
+new reasoning was appended to `STATUS_LESSONS.md`, leaving only names behind), and step 2 was spent
+too (the FOUNDATION VALIDATION and RECOVERY TRIAGE subsections were reduced to bare pointers).
+
+**Why this was predictable and is not a failure of the rewrite.** Sec 2 states the growth law: the
+never-trim class grows monotonically and will breach any fixed cap eventually. It breached 6,144 on
+2026-08-13, 8,192 on 2026-08-15, and 8,704 tonight. Five never-trim entries were added on
+2026-08-16 -- DO-NOT-REDO 38-42, corrections C28-C31, standing disciplines 11-13 -- each bought with
+a measured result or a measured mistake:
+
+- 38/39 are two MEASURED NULLS with brain-framed revival criteria (bridging with the thematic hub
+  supplied; sparsifying the reading anchor). Losing either buys a repeat of the experiment.
+- C28-C31 are four retractions, three of which are the SAME failure mode (a number carried between
+  scorers or populations) and one of which is a tool defect that can hand out a FALSE PASS.
+- Disciplines 11-13 are the rules those retractions bought. Sec 4 item 2 makes them unremovable, and
+  sec 8 is the record of what happens when a discipline is evicted for space.
+
+**What was NOT done, deliberately.** No DO-NOT-REDO entry, caveat, correction or discipline was
+dropped or merged away; no evidence pointer was deleted; the four machine-parsed literals are
+unchanged. The file is left OVER CAP with the overage disclosed in its own `## WHAT IS RUNNING`
+section, because sec 3 is explicit that the correct response to "tiers 1-6 do not free enough bytes"
+is to escalate, not to descend into the never-trim list.
+
+**The proposal.** 9,216 B (+512, the same increment as the 2026-08-15 raise) closes the measured gap
+with ~500 B of headroom. **It is NOT enacted here.** If the Director declines, the alternative that
+does not destroy anything is a THIRD file -- an uncapped `STATUS_CLOSED.md` holding the DO-NOT-REDO
+and CORRECTIONS stub indexes, with `STATUS.md` keeping only the disciplines plus a single pointer.
+That trades one extra cold read for a permanently bounded `STATUS.md`, and it is the structurally
+honest fix if the stub lists keep growing at the current rate (11 new never-trim entries in 72
+hours).
 
 ---
 
