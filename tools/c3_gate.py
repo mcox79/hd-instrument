@@ -81,8 +81,20 @@ _ROLE_PATTERNS = (
     ("frequency",    r"\bfreq\b|frequenc|_freq_|freq_min|freq_sum|unigram_?count|zipf"),
     ("scramble",     r"scrambl|shuffl|permut|derange|_perm_null|permutation_null"),
     ("random_chance", r"random_chance|\bchance\b|random_baseline|uniform_baseline|coin_flip"),
-    ("known_answer", r"known_answer|oracle|positive_control|pretrained_positive|glove|"
-                     r"ceiling_ref|upper_bound_ref|gold_oracle|sanity_arm"),
+    # KNOWN-ANSWER / PLANTED-ANSWER / ORACLE. Widened 2026-08-16 after a PER-PIPELINE validity
+    # arm named `S_INPLACE_d256_f0.020__KA` was selected as the CLAIM-CARRYING ARM by
+    # tools/verdict_bar_check.py and produced a false MEETS_BAR at min ci_lo +0.9044 on a cell
+    # whose every genuine arm is negative. The additions were ENUMERATED from disk, not guessed:
+    # every dict key sitting in an arm-shaped position across all 7,772 banked metrics.json was
+    # collected and bucketed (scratch/fp_enumerate_names.py), which is why `ka`, `planted`,
+    # `query_is_gold` and the `gt` shape are here and why `identity` / `sanity` / `ceiling` /
+    # `leak` are NOT (they live in _SCAFFOLD_RE below, where over-firing costs nothing).
+    #   * `(^|_)ka(_|$)`  covers `__KA`, `_KA`, `KA_QUERY_IS_GOLD_VECTOR`, `KA_PLANTED_SEMANTIC`.
+    #     Bounded on both sides deliberately: it must NOT fire on `kappa`, `kalman`, `weka`.
+    ("known_answer", r"known_answer|known_?ans|oracle|positive_control|pos_?ctrl|"
+                     r"pretrained_positive|glove|ceiling_ref|upper_bound_ref|gold_oracle|"
+                     r"sanity_arm|(^|_)ka(_|$)|planted|query_?is_?gold|gold_?vector|"
+                     r"ground_?truth|(^|_)gt(_|$)"),
     ("null_control", r"null_arm|null_control|negative_control|randinit|rand_init|noise_arm|"
                      r"untrained|no_signal|_null\b|null_"),
 )
@@ -105,6 +117,138 @@ def classify_arm_role(name: str) -> Optional[str]:
         if rx.search(s):
             return role
     return None
+
+
+# ------------------------------------------------------------------ CLAIM-ARM ELIGIBILITY
+# Added 2026-08-16. A KNOWN-ANSWER / planted-answer / oracle / control arm may NEVER be selected
+# as the arm that carries a cell's claim. It is VALIDITY SCAFFOLDING: near ceiling BY
+# CONSTRUCTION, so its margin over a floor is arithmetic, not evidence.
+#
+# WHY THIS IS A SEPARATE PREDICATE FROM classify_arm_role. Role classification feeds the bar's
+# bookkeeping (does this cell HAVE a known-answer arm? which floors did it record?), where a
+# false positive would wrongly credit a cell with evidence it lacks -- so it is kept tight.
+# Eligibility only ever REMOVES an arm from consideration, so over-firing costs a NO_EVIDENCE,
+# never a false pass. The two therefore get different tolerances on purpose, and the looser
+# lexicon lives here where it is safe.
+#
+# ANTI-CORRELATION WITH RIGOUR is the reason this exists at all: a cell that ships a known-answer
+# and a null for EVERY pipeline -- the MORE rigorous design -- was MORE likely to be falsely
+# passed than a sloppy one, because it published more planted-answer arms for the selector to
+# find. Any rule here must not re-create that inversion.
+#
+# PINNED vs OURS (brain-fidelity block c, and this whole file is INSTRUMENTATION -- no brain
+# claim): "a planted-answer arm is not evidence" is PINNED by the standing bar. The lexicon
+# below and the two structural tells are OUR-INVENTION, freely revisable, and falsifiable by
+# the self-test and by verification/test_verdict_bar_checker.py.
+CLAIM_ARM_ELIGIBLE = "ELIGIBLE"
+CLAIM_ARM_CONTROL = "CONTROL_ARM"
+CLAIM_ARM_SCAFFOLD = "VALIDITY_SCAFFOLD"
+CLAIM_ARM_CEILING = "CEILING_BY_CONSTRUCTION"
+
+CONTROL_ROLES = ("orthographic", "frequency", "scramble", "random_chance", "null_control",
+                 "known_answer")
+
+# The LOOSER lexicon: tokens that mark an arm as scaffolding/diagnostic rather than a result.
+# Enumerated from disk (see the known_answer comment above), NOT guessed. Each token below was
+# observed as a real arm-position key in data/**/metrics.json.
+_SCAFFOLD_RE = re.compile(
+    r"(^|_)ka(_|$)|planted|query_?is_?gold|gold_?vector|known_?ans|oracle|"
+    r"(^|_)sanity(_|$)|sanity_|_sanity|(^|_)ceil(ing)?(_|$)|ceiling_|_ceiling|"
+    r"(^|_)identity(_|$)|self_?retriev|(^|_)gt(_|$)|ground_?truth|"
+    r"leak_control|leakage_control|_direct_leak|leak_probe|leak_audit|leakage_audit|"
+    r"positive_control|pos_?ctrl|posctrl|upper_?bound|skyline|topline|cheat",
+    re.IGNORECASE)
+
+# Bounded PERFORMANCE scores only -- the keys whose ceiling of 1.0 means "answered everything
+# correctly". Deliberately NARROWER than tools/verdict_bar_check._SCORE_KEY, which answers a
+# different question (which key is a cell's HEADLINE metric for the saturation-across-arms
+# shape). `margin`, `separation` and `agreement` are excluded: a margin of 1.0 is not a ceiling.
+#
+# `frac` / `fraction` / `rate` / `ratio` are excluded too, and that exclusion is MEASURED, not
+# cautious drafting. With them in, the first cut of this detector excluded `INC_SIMHASH` -- the
+# legitimate INCUMBENT arm of exp_meaning_lift_population_code_v1 -- as "at ceiling", because a
+# SimHash is a sign function so its `active_frac_realised` is 1.0 by definition. A realised
+# configuration fraction is not a score, and over-exclusion here silently deletes real arms from
+# consideration, which is the opposite failure to the one this whole change is fixing.
+CEILING_SCORE_KEY = re.compile(
+    r"(^|_)(acc|accuracy|hit|hits|recall|precision|f1|auc|success|coverage|mrr|ndcg)($|_)|"
+    r"hit_?at_?\d+|top_?\d+", re.IGNORECASE)
+_CEIL_TOL = 1e-9
+
+
+def _is_ceiling_value(x: float) -> bool:
+    return abs(float(x) - 1.0) <= _CEIL_TOL
+
+
+def arm_ceiling_shape(node: Optional[dict]) -> Optional[dict]:
+    """STRUCTURAL, name-free tell that an arm sits at the instrument ceiling BY CONSTRUCTION.
+
+    Returns evidence, or None. Two tells, reported separately because they catch different arms:
+
+      S1 DEGENERATE_CI_AT_CEILING -- a bounded score has a confidence interval of ZERO WIDTH at
+         1.0, e.g. `hit_at_1: 1.0` beside `hit_at_1_ci95: [1.0, 1.0]`. An arm that answers every
+         item correctly on every bootstrap draw is not measuring anything; it is proving the
+         pipeline can reach ceiling. This is the tell that catches the arm behind the false pass.
+      S2 ALL_SCORES_AT_CEILING -- every bounded score on the node is exactly 1.0.
+
+    LIMIT, stated rather than buried: this CANNOT see a planted-answer arm that FAILS. The two
+    degenerate `f=0.002/0.005` known-answer arms in the cell that produced the false pass read
+    hit@1 0.4056 (k=1 active unit of 256, so anchors collide) and are structurally
+    indistinguishable from a mediocre treatment arm. Those are caught by NAME only. Anyone
+    reading this must not treat the structural tell as sufficient.
+    """
+    if not isinstance(node, dict):
+        return None
+    scores = []
+    for k, v in node.items():
+        if isinstance(v, bool) or not isinstance(v, (int, float)):
+            continue
+        if CEILING_SCORE_KEY.search(str(k)):
+            scores.append((str(k), float(v)))
+    for k, v in node.items():
+        if (isinstance(v, (list, tuple)) and len(v) == 2
+                and all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in v)
+                and abs(float(v[0]) - float(v[1])) <= _CEIL_TOL
+                and _is_ceiling_value(v[0])):
+            return {"tell": "DEGENERATE_CI_AT_CEILING", "key": str(k), "value": [v[0], v[1]],
+                    "scores_at_ceiling": [s for s in scores if _is_ceiling_value(s[1])][:6]}
+    if scores and all(_is_ceiling_value(v) for _, v in scores):
+        return {"tell": "ALL_SCORES_AT_CEILING", "key": None, "value": None,
+                "scores_at_ceiling": scores[:6]}
+    return None
+
+
+def claim_arm_eligibility(name_segments: Sequence[str],
+                          node: Optional[dict] = None) -> dict:
+    """May this arm carry the cell's CLAIM? FAIL-CLOSED: when in doubt, NOT eligible.
+
+    `name_segments` is EVERY path segment that could name the arm -- not just the last one. That
+    is load-bearing: the false pass on 2026-08-16 selected `020__KA::MARGIN_per_floor`, and the
+    old check classified only the tail `MARGIN_per_floor` (a CONTAINER), so nine `__NULL` arms
+    that the classifier ALREADY recognised correctly were scored as treatment arms anyway. Any
+    segment matching disqualifies the whole arm.
+
+    `node` is the arm's own metrics dict when the caller can supply it, for the structural tell.
+
+    Returns {"eligible": bool, "reason": <CLAIM_ARM_*>, "detail": ..., "evidence": ...}.
+    """
+    segs = [str(s) for s in name_segments if s not in (None, "", "[]")]
+    for s in segs:
+        role = classify_arm_role(s)
+        if role in CONTROL_ROLES:
+            return {"eligible": False, "reason": CLAIM_ARM_CONTROL,
+                    "detail": f"segment {s!r} classifies as role {role!r}", "evidence": None}
+    for s in segs:
+        mt = _SCAFFOLD_RE.search(s)
+        if mt:
+            return {"eligible": False, "reason": CLAIM_ARM_SCAFFOLD,
+                    "detail": f"segment {s!r} matches validity-scaffold token {mt.group(0)!r}",
+                    "evidence": None}
+    shape = arm_ceiling_shape(node)
+    if shape:
+        return {"eligible": False, "reason": CLAIM_ARM_CEILING,
+                "detail": f"structural: {shape['tell']}", "evidence": shape}
+    return {"eligible": True, "reason": CLAIM_ARM_ELIGIBLE, "detail": None, "evidence": None}
 
 
 def min_ci_lo(candidates: Sequence[tuple]) -> tuple:

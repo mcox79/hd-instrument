@@ -68,6 +68,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 
 import argparse
 import json
+import math
 import re
 import sys
 import time
@@ -78,8 +79,9 @@ if REPO not in sys.path:
     sys.path.insert(0, REPO)
 
 from tools.c3_gate import (  # noqa: E402  -- the ONE gate implementation, imported not forked
-    BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, REQUIRED_FLOOR_ROLES,
-    classify_arm_role, evaluate_standing_bar, min_ci_lo,
+    BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, CONTROL_ROLES, REQUIRED_FLOOR_ROLES,
+    arm_ceiling_shape, claim_arm_eligibility, classify_arm_role, evaluate_standing_bar,
+    min_ci_lo,
 )
 
 DATA = os.path.join(REPO, "data")
@@ -258,7 +260,8 @@ def saturation_scan(m: dict, verdict_msg: Optional[str]) -> dict:
 
     # (b) the STRUCTURAL shape: >=2 ARM-shaped sub-dicts sharing a SCORE-shaped metric key, all
     #     at ceiling.
-    for parent_key, node in _iter_dicts(m):
+    for parent_path, node in _iter_dicts(m):
+        parent_key = _dot(parent_path)
         subs = {k: v for k, v in node.items() if isinstance(v, dict)}
         if len(subs) < 2 or not _looks_like_arm_container(subs):
             continue
@@ -314,8 +317,16 @@ _NON_METRIC_KEY = re.compile(
     r"version|config_version|index|idx|id|size|len|length|batch|.*_count|.*_n)$", re.IGNORECASE)
 
 
-def _iter_dicts(o, key: str = "", depth: int = 0, budget: Optional[List[int]] = None):
-    """Yield (dotted key path, dict) for every dict in the tree, depth- and budget-bounded.
+def _iter_dicts(o, key: Tuple[str, ...] = (), depth: int = 0,
+                budget: Optional[List[int]] = None):
+    """Yield (path TUPLE, dict) for every dict in the tree, depth- and budget-bounded.
+
+    A TUPLE of segments, not a dotted string. That is a correctness fix, not a style choice:
+    arm names on disk contain literal dots (`S_INPLACE_d256_f0.020__KA` -- the active fraction
+    is in the name), so a dotted path splits the arm's name in half and `path.rsplit('.')` hands
+    back `020__KA` as if it were a whole segment. On 2026-08-16 that is one of the three
+    independent reasons a planted-answer arm was chosen to carry a cell's claim. A tuple cannot
+    lose a segment boundary, whatever a key contains.
 
     Budget exists because 9 metrics.json on disk exceed 1 MB (max 6.5 MB) and an unbounded walk
     of those dominates the scan. Bounded traversal is a measured cost decision, and the bound is
@@ -331,11 +342,16 @@ def _iter_dicts(o, key: str = "", depth: int = 0, budget: Optional[List[int]] = 
         yield key, o
         for k, v in o.items():
             if isinstance(v, (dict, list)):
-                yield from _iter_dicts(v, f"{key}.{k}" if key else str(k), depth + 1, budget)
+                yield from _iter_dicts(v, key + (str(k),), depth + 1, budget)
     elif isinstance(o, list):
         for v in o[:MAX_LIST]:
             if isinstance(v, (dict, list)):
-                yield from _iter_dicts(v, key + "[]", depth + 1, budget)
+                yield from _iter_dicts(v, key + ("[]",), depth + 1, budget)
+
+
+def _dot(path: Tuple[str, ...]) -> str:
+    """Display form of a path tuple. For HUMAN OUTPUT ONLY -- never parsed back."""
+    return ".".join(path)
 
 
 MAX_DEPTH = 8
@@ -402,11 +418,19 @@ def floor_evidence(m: dict) -> dict:
     pairs: List[Tuple[float, str]] = []      # (ci_lo, source) -- fed to c3_gate.min_ci_lo
     roles_with_ci: set = set()
     per_arm: Dict[str, List[Tuple[float, str, str]]] = {}
+    # For each scoped arm: every path SEGMENT that could name it, and the arm's own metrics dict.
+    # Both are required by the claim-arm eligibility check -- classifying only the last segment
+    # is what let a planted-answer arm carry a claim on 2026-08-16.
+    per_arm_segments: Dict[str, set] = {}
+    per_arm_nodes: Dict[str, dict] = {}
+    node_by_path: Dict[Tuple[str, ...], dict] = {}
+    tie_conventions: set = set()
     truncated = False
 
     budget = [MAX_NODES]
     for kpath, node in _iter_dicts(m, budget=budget):
-        last = kpath.rsplit(".", 1)[-1].replace("[]", "") if kpath else ""
+        node_by_path[kpath] = node
+        last = kpath[-1].replace("[]", "") if kpath else ""
 
         # --- roles PRESENT: from dict keys, and from the VALUE of a floor-naming field
         for k, v in node.items():
@@ -425,14 +449,51 @@ def floor_evidence(m: dict) -> dict:
 
         # --- CI-bearing margins against a named floor
         # (i) this node IS the margin, and its own key names the floor
+        # TIE CONVENTION, MADE EXPLICIT (2026-08-16). Rank-shaped margins DO reach this tool:
+        # on the cell audited today, 30 of 55 eligible arms bind on a TOP-50 margin rather than
+        # on hit@1. Top-50 recall and median rank are TIE-CONVENTION DEPENDENT -- rank =
+        # #(scores strictly greater) + 1 gives a gold buried in a tie of thousands rank 1, while
+        # #(>=) does not -- and on that cell the trigram/spelling channel carries 15.3% of the
+        # eligible pool tied with the gold while the dense read-out carries 0.0%. A cell that
+        # publishes BOTH conventions (the honest thing to do) must not have the flattering one
+        # picked for it silently, so the convention is APPENDED TO THE FLOOR NAME and travels
+        # into `binding_floor` in every record. min_ci_lo across the two conventions then makes
+        # the CONSERVATIVE one bind, and says so by name.
+        # NOT IN SCOPE and deliberately not done: choosing which convention is correct, or
+        # re-scoring any cell. This tool reports; the operator decides.
+        def _tie_convention(path: Tuple[str, ...]) -> Optional[str]:
+            for seg in path:
+                if _TIE_CONVENTION_RE.search(str(seg)):
+                    return str(seg)
+            return None
+
+        def _record(arm_path: Tuple[str, ...], lo: float, fname: str, role: str) -> None:
+            """Bucket one CI-bearing floor margin under the arm that owns it, and keep BOTH the
+            arm's naming segments and the arm's own metrics dict -- the claim-arm eligibility
+            check needs each, and having only the tail segment is what produced the false pass."""
+            arm, segs, arm_prefix = _owning_arm(arm_path)
+            conv = _tie_convention(kpath)
+            if conv:
+                fname = f"{fname}|{conv}"
+                tie_conventions.add(conv)
+            pairs.append((lo, fname))
+            roles_with_ci.add(role)
+            per_arm.setdefault(arm, []).append((lo, fname, role))
+            per_arm_segments.setdefault(arm, set()).update(segs)
+            if arm not in per_arm_nodes:
+                nd = node_by_path.get(arm_prefix)
+                if isinstance(nd, dict):
+                    per_arm_nodes[arm] = nd
+
         role = _floor_role_of_key(last)
         if role in REQUIRED_FLOOR_ROLES:
             lo = _ci_lo_of(node)
             if lo is not None:
-                arm = _owning_arm(kpath)
-                pairs.append((lo, last))
-                roles_with_ci.add(role)
-                per_arm.setdefault(arm, []).append((lo, last, role))
+                # THE FINAL SEGMENT IS THE FLOOR, not part of the arm's name -- drop it before
+                # naming the arm. Keeping it would disqualify every honest arm whose margin is
+                # recorded under a floor-named child (the genuine synthetic fixture has exactly
+                # that shape: TREATMENT.DECOMPOSED_per_floor.A_ORTHOGRAPHIC).
+                _record(kpath[:-1], lo, last, role)
 
         # (ii) this node carries a margin whose floor is named by a SIBLING field
         for k, v in node.items():
@@ -454,10 +515,9 @@ def floor_evidence(m: dict) -> dict:
                     break
             r = classify_arm_role(fname) if fname else None
             if r in REQUIRED_FLOOR_ROLES:
-                arm = _owning_arm(kpath)
-                pairs.append((lo, fname))
-                roles_with_ci.add(r)
-                per_arm.setdefault(arm, []).append((lo, fname, r))
+                # Here the floor is named by a SIBLING FIELD, not by a path segment, so the whole
+                # path belongs to the arm and nothing is dropped.
+                _record(kpath, lo, fname, r)
     if budget[0] <= 0:
         truncated = True
 
@@ -467,58 +527,143 @@ def floor_evidence(m: dict) -> dict:
         "floor_margin_ci_pairs": pairs,
         "floor_roles_with_margin_ci": sorted(roles_with_ci),
         "per_arm_floor_cis": {a: v for a, v in sorted(per_arm.items())},
+        "per_arm_name_segments": {a: sorted(s) for a, s in sorted(per_arm_segments.items())},
+        "per_arm_nodes": per_arm_nodes,
+        "tie_conventions_present": sorted(tie_conventions),
         "traversal_truncated": truncated,
     }
 
 
+# A rank/top-k metric computed under a NAMED tie convention. Both spellings found on disk:
+# `CONSERVATIVE_ties` / `optimistic_ties`, and the `_tie(s)` variants.
+_TIE_CONVENTION_RE = re.compile(r"_ties$|^ties_|_tie$|conservative_tie|optimistic_tie",
+                                re.IGNORECASE)
+
+
 _CONTAINER_KEYS = ("DECOMPOSED_per_floor", "deltas", "bootstrap", "rows", "results",
                    "per_arm", "per_w", "per_population", "margin", "delta")
+# A path segment that is a CONTAINER, not an arm name. Widened to a regex 2026-08-16: the fixed
+# tuple above missed `MARGIN_per_floor`, `TOP50_MARGIN_per_floor`, `regimes` and the
+# tie-convention level `CONSERVATIVE_ties` / `optimistic_ties`, so `_owning_arm` named the arm
+# `MARGIN_per_floor` and pushed the REAL arm name into the scope slot -- where the old
+# control check, which looked only at the tail, could never see it.
+_CONTAINER_RE = re.compile(
+    r"^(per_arm|per_w|per_population|per_seed|per_regime|per_floor|regimes|rows|results|"
+    r"bootstrap|deltas|delta|margin|margins|arms|by_arm|by_d|metrics|summary|the_bar)$"
+    r"|_per_floor$|^decomposed_per_floor$|_ties$|^ci9?5?$", re.IGNORECASE)
+# `the_bar` and `by_d` are on that list for a SCOPE reason, not a cosmetic one. In
+# data/exp_meaning_lift_population_code_v1 the margins live at
+# `by_d.<D>.per_arm.<ARM>.THE_BAR.MARGIN_per_floor.<FLOOR>`. Without `the_bar` the walker names
+# the arm `THE_BAR` and pushes the real arm into the scope slot, so `by_d.256.per_arm.C4_PHASOR`
+# and `by_d.1024.per_arm.C4_PHASOR` BOTH label as `C4_PHASOR::THE_BAR` and their margins POOL --
+# and the standing bar requires the IDENTICAL scorer / n / pool / gold, so merging a 256- and a
+# 1024-dimensional run is precisely the comparison it forbids. With both dropped the label is
+# `1024::C4_PHASOR` / `256::C4_PHASOR` and the two dimensionalities are judged apart.
 
 
-def _owning_arm(kpath: str) -> str:
-    """`<scope>::<arm>` for the margin at `kpath`, or `<arm>` when there is no outer scope.
+def _owning_arm(kpath: Tuple[str, ...]) -> Tuple[str, List[str], Tuple[str, ...]]:
+    """(`<scope>::<arm>`, the arm's naming SEGMENTS, the path PREFIX of the arm's own dict).
 
     The SCOPE is kept deliberately. Without it, an arm name reused across populations (e.g.
     `ASSET_NORMS12` appears under both SIMLEX999 and WORDSIM353 in
     exp_meaning_asset_calibrated_floor_verdict_v1) would merge its margins into one bucket, and
     the bar requires the IDENTICAL scorer / n / pool / gold. Merging two pools is the very
     comparison the bar forbids, so the key must keep them apart.
+
+    The SEGMENTS are returned as well, and this is the load-bearing change of 2026-08-16: the
+    caller must be able to test EVERY name that could identify the arm, not just the one chosen
+    for the display label. `kpath` must already have any trailing FLOOR segment removed by the
+    caller -- the floor names the comparison, not the arm.
     """
-    parts = [p.replace("[]", "") for p in kpath.split(".")
-             if p and p not in _CONTAINER_KEYS]
+    parts = [p for p in kpath
+             # SEARCH, not MATCH: the non-anchored alternatives (`_per_floor$`, `_ties$`) exist
+             # precisely to catch `MARGIN_per_floor` / `TOP50_MARGIN_per_floor` /
+             # `CONSERVATIVE_ties`, none of which START with the token. `.match` anchored at
+             # position 0 and silently caught none of them.
+             if p and p != "[]" and p not in _CONTAINER_KEYS and not _CONTAINER_RE.search(p)]
     named = [p for p in parts if classify_arm_role(p) not in REQUIRED_FLOOR_ROLES]
     if not named:
-        return kpath or "<cell>"
+        return (_dot(kpath) or "<cell>"), list(parts), kpath
     arm = named[-1]
     scope = named[-2] if len(named) >= 2 else None
-    return f"{scope}::{arm}" if scope else arm
+    label = f"{scope}::{arm}" if scope else arm
+    # The arm's own dict is the prefix of kpath ending at the LAST occurrence of `arm`.
+    prefix = kpath
+    for i in range(len(kpath) - 1, -1, -1):
+        if kpath[i] == arm:
+            prefix = kpath[:i + 1]
+            break
+    return label, named, prefix
 
 
-_CONTROL_ROLES = ("orthographic", "frequency", "scramble", "random_chance", "null_control",
-                  "known_answer")
+# Kept as a name for the report; the authoritative list is tools/c3_gate.CONTROL_ROLES and this
+# aliases it rather than restating it, because two lists of "what counts as a control" is the
+# same second-implementation defect this tool exists to catch.
+_CONTROL_ROLES = CONTROL_ROLES
 
 
-def _best_treatment_arm(per_arm: Dict[str, list]):
-    """(best scoped arm, its (ci_lo, floor) pairs, all scored arms) -- or (None, [], {}).
+def _finite(x) -> bool:
+    """True only for a real, finite number. NaN and +/-inf are NOT evidence."""
+    try:
+        return math.isfinite(float(x))
+    except (TypeError, ValueError):
+        return False
 
-    "Best" = highest WITHIN-SCOPE min ci_lo among arms that are not themselves controls. A
-    control arm losing to a floor is the design working, not a disagreement, so scoring the cell
-    on its controls would flag every well-built cell in the repo.
+
+def _best_treatment_arm(per_arm: Dict[str, list],
+                        segments: Optional[Dict[str, list]] = None,
+                        nodes: Optional[Dict[str, dict]] = None):
+    """(best ELIGIBLE arm, its (ci_lo, floor) pairs, all scored arms, the rejected arms).
+
+    "Best" = highest WITHIN-SCOPE min ci_lo among arms ELIGIBLE to carry a claim. Eligibility is
+    tools/c3_gate.claim_arm_eligibility and it is FAIL-CLOSED: a control arm, a validity-scaffold
+    arm (known-answer / planted / oracle) and an arm pinned at the instrument ceiling are all
+    removed. A control arm losing to a floor is the design working, not a disagreement, so
+    scoring the cell on its controls would flag every well-built cell in the repo; and a
+    PLANTED-ANSWER arm BEATING a floor is likewise the design working, which is why scoring the
+    cell on one produced a MEETS_BAR at +0.9044 on a cell whose every genuine arm is negative.
+
+    The rejected arms are RETURNED, not dropped. An exclusion nobody can see is indistinguishable
+    from a filter that matched nothing, which is exactly how `if base in src` inflated its own
+    count in this repo.
     """
+    segments = segments or {}
+    nodes = nodes or {}
     scores: Dict[str, dict] = {}
+    rejected: Dict[str, dict] = {}
     for scoped, cis in per_arm.items():
-        arm = scoped.split("::")[-1]
-        if classify_arm_role(arm) in _CONTROL_ROLES:
-            continue
+        segs = segments.get(scoped) or [p for p in scoped.replace("::", " ").split() if p]
+        elig = claim_arm_eligibility(segs, nodes.get(scoped))
         lo, src = min_ci_lo([(c[0], c[1]) for c in cis])
+        # NON-FINITE bounds are UNCLASSIFIABLE, and unclassifiable is not a pass. Measured need:
+        # the d=256 f=0.002 / f=0.005 arms of the cell that produced the false pass round to
+        # k=1 active unit, their permutation null has zero variance and their margin CIs come
+        # back NaN. NaN comparisons are all False, so a NaN would slip through `ci_lo > 0` as a
+        # FAILS_BAR by accident rather than by rule -- and `max()` over a set containing NaN is
+        # order-dependent, so it could equally have been chosen as the BEST arm. Neither is a
+        # decision anyone made. Reject explicitly and say so.
+        nonfinite = [c[1] for c in cis if not _finite(c[0])]
+        if nonfinite:
+            rejected[scoped] = {"min_ci_lo": None, "binding_floor": None,
+                                "reason": "NON_FINITE_CI",
+                                "detail": "floor margins with a non-finite bound: "
+                                          + ", ".join(sorted(set(nonfinite))[:4]),
+                                "evidence": None}
+            continue
+        if not elig["eligible"]:
+            if lo is not None:
+                rejected[scoped] = {"min_ci_lo": lo, "binding_floor": src,
+                                    "reason": elig["reason"], "detail": elig["detail"],
+                                    "evidence": elig["evidence"]}
+            continue
         if lo is None:
             continue
         scores[scoped] = {"min_ci_lo": lo, "binding_floor": src,
                           "floor_roles": sorted({c[2] for c in cis})}
     if not scores:
-        return None, [], {}
+        return None, [], {}, rejected
     best = max(scores, key=lambda k: scores[k]["min_ci_lo"])
-    return best, [(c[0], c[1]) for c in per_arm[best]], scores
+    return best, [(c[0], c[1]) for c in per_arm[best]], scores, rejected
 
 
 def _match_declared_arm(declared: str, per_arm: Dict[str, list]) -> List[Tuple[str, list]]:
@@ -573,7 +718,8 @@ def check_cell(path: str) -> dict:
     # c3_gate rule), drop arms that are themselves floors / nulls / known-answer arms, and let
     # the cell's claim stand on its BEST arm. The pooled minimum is kept as an informational
     # field, never as the verdict.
-    best_arm, best_pairs, arm_scores = _best_treatment_arm(fe["per_arm_floor_cis"])
+    best_arm, best_pairs, arm_scores, rejected_arms = _best_treatment_arm(
+        fe["per_arm_floor_cis"], fe["per_arm_name_segments"], fe["per_arm_nodes"])
     pooled_lo, pooled_src = min_ci_lo(fe["floor_margin_ci_pairs"])
     bar = evaluate_standing_bar(
         floor_ci_pairs=best_pairs if best_arm else fe["floor_margin_ci_pairs"],
@@ -582,6 +728,45 @@ def check_cell(path: str) -> dict:
                              if best_arm else fe["floor_roles_with_margin_ci"]),
         has_known_answer_arm=known, has_null_arm=nulla,
         arm_name=best_arm or rec["cell"])
+
+    # ---------------------------------------------------------------- FAIL CLOSED
+    # A checker that guesses in the PASSING direction is worse than no checker. If no arm is
+    # ELIGIBLE to carry the claim -- every candidate is a control, a planted-answer arm, or
+    # pinned at the instrument ceiling -- then the cell has not been shown to clear anything,
+    # whatever the pooled numbers say. That is NO_EVIDENCE, never MEETS_BAR.
+    #
+    # This is the only place the tool is allowed to OVERRIDE evaluate_standing_bar, and it may
+    # only ever move a status DOWNWARD. Asserted by
+    # verification/test_verdict_bar_checker.py::test_fail_closed_never_upgrades.
+    claim_arm_status = "CLAIM_ARM_IDENTIFIED"
+    if best_arm is None:
+        claim_arm_status = ("NO_ELIGIBLE_CLAIM_ARM" if rejected_arms
+                            else "NO_ARM_WITH_A_FLOOR_MARGIN_CI")
+        bar["bar_evidence_complete"] = False
+        if rejected_arms:
+            # Arms EXIST, and every one of them is a control, a validity-scaffold /
+            # planted-answer arm, or pinned at the instrument ceiling. Two things must not
+            # happen here. MEETS_BAR is obviously wrong. But FAILS_BAR is ALSO wrong, and
+            # wrong in the direction this project has paid for: it asserts a MEASURED
+            # refutation of a claim arm that does not exist. Without this branch the fallback
+            # pools every comparison in the cell -- including the deliberately-losing null
+            # arms -- and reports their negative bound as the cell's verdict. "We could not
+            # identify a claim arm" and "we recomputed it and it does not separate" are
+            # different findings; c3_gate.evaluate_standing_bar exists partly to keep them
+            # apart, and 17 corrections-of-a-correction came from conflating them.
+            prior = bar["status"]
+            bar["status"] = BAR_NO_EVIDENCE
+            bar["fail_closed_override"] = (
+                f"{prior} withheld: no arm is eligible to carry the claim (every candidate is a "
+                "control, a validity-scaffold/planted-answer arm, pinned at ceiling, or has a "
+                "non-finite bound). See claim_arm_rejected.")
+        # INVARIANT, asserted by
+        # verification/test_verdict_bar_checker.py::test_fail_closed_never_reports_meets_bar:
+        # with no eligible claim arm the status is NEVER MEETS_BAR, by any path.
+        if bar["status"] == BAR_MEETS:
+            bar["status"] = BAR_NO_EVIDENCE
+            bar["fail_closed_override"] = (
+                "MEETS_BAR withheld: no arm is eligible to carry the claim.")
 
     # A cell that NAMES its clearing arms is checked arm-by-arm against those names: the
     # calibrated-floor defect is exactly an arm listed as clearing whose own recorded margin
@@ -616,7 +801,20 @@ def check_cell(path: str) -> dict:
             bar["conditions"]["ALL_REQUIRED_FLOORS_COMPARED"]["not_compared"],
         "min_ci_lo": bar["min_ci_lo"], "binding_floor": bar["binding_floor"],
         "claim_carrying_arm": best_arm,
+        "claim_arm_status": claim_arm_status,
         "per_treatment_arm_min_ci_lo": arm_scores,
+        # EXCLUSIONS ARE REPORTED, NEVER SILENT. Each entry names the arm, the min ci_lo it
+        # WOULD have contributed, and why it was refused -- so a reader can see that the filter
+        # matched something, and can challenge any single exclusion.
+        "claim_arm_rejected": rejected_arms,
+        "n_claim_arm_rejected": len(rejected_arms),
+        "fail_closed_override": bar.get("fail_closed_override"),
+        # Which tie conventions this cell published, if any. When a cell publishes BOTH, every
+        # `binding_floor` here carries the convention that bound (`<FLOOR>|<convention>`) and the
+        # conservative one wins by min_ci_lo. When a cell publishes only ONE, that is worth
+        # seeing: an unnamed rank convention is an unstated choice, and on the cell audited
+        # 2026-08-16 the spelling-vs-substrate top-50 comparison REVERSES between the two.
+        "tie_conventions_present": fe["tie_conventions_present"],
         # informational ONLY -- pools scopes and includes control arms; never the verdict
         "most_conservative_comparison_anywhere": {"min_ci_lo": pooled_lo, "floor": pooled_src},
         "has_known_answer_arm": known, "has_null_arm": nulla,
@@ -807,7 +1005,8 @@ def scan(data_dir: str = DATA, limit: Optional[int] = None,
 _COMPACT_FIELDS = ("cell", "verdict_string", "verdict_reads_as", "bar_status",
                    "disagreement_class", "real_floor_exists", "ci_exists",
                    "margin_ci_separated", "min_ci_lo", "binding_floor", "floor_roles_present",
-                   "has_known_answer_arm", "has_null_arm", "smoke")
+                   "has_known_answer_arm", "has_null_arm", "smoke",
+                   "claim_arm_status", "n_claim_arm_rejected")
 
 
 _FULL_CLASSES = (SATURATED_CEILING, STRING_PASSES_BAR_FAILS, NO_CI)
@@ -976,6 +1175,63 @@ def _fixture_genuine(tmp: str) -> str:
     return p
 
 
+def _fixture_false_pass(tmp: str, scaffold_name: str = "S_INPLACE_d256_f0.020__KA",
+                        degenerate_ci: bool = True) -> str:
+    """THE 2026-08-16 FALSE PASS, reproduced as a 2x2 so each new rule can be tested alone.
+
+    The real cell that produced it lives in `scratch/`, which is gitignored and periodically
+    cleared, so a durable test cannot cite it (CLAUDE.md: promote or do not depend on scratch).
+    This fixture carries the shape and the REAL numbers instead:
+
+      * an honest treatment arm `R0_BASE_DENSE` whose every floor margin is NEGATIVE;
+      * a PLANTED-ANSWER arm at hit@1 1.0000 with a ZERO-WIDTH CI, carrying floor margins of
+        +0.9044 / +0.9342 / +0.9855 -- which are arithmetic, not evidence;
+      * a per-pipeline `__NULL` arm, which the role classifier ALREADY recognised correctly and
+        which was scored as a treatment arm anyway because only the tail path segment was
+        classified and the tail was the CONTAINER `MARGIN_per_floor`;
+      * a LITERAL DOT inside the arm name (`f0.020`), which is why the walker had to stop
+        building dotted path strings.
+
+    TWO INDEPENDENT VARIABLES, and the floor margins are held CONSTANT across all four cells so
+    that the only thing that changes is whether the arm is ALLOWED to carry the claim:
+      scaffold_name  -- does the NAME mark it as validity scaffolding?
+      degenerate_ci  -- does the SHAPE mark it as pinned at ceiling by construction?
+    Expected: FAILS_BAR unless BOTH are off, and MEETS_BAR when both are off. That last cell is
+    the negative control -- without it, a rule that rejected every arm would look correct.
+    """
+    def margins(vals):
+        return {"F1_TRIGRAM_ONLY": {"margin": {"point": vals[0] + 0.009,
+                                               "ci95": [vals[0], vals[0] + 0.018]}},
+                "F3_FREQUENCY_ONLY": {"margin": {"point": vals[1] + 0.004,
+                                                 "ci95": [vals[1], vals[1] + 0.008]}},
+                "NULL_SCRAMBLED_ANCHORS": {"margin": {"point": vals[2] + 0.003,
+                                                      "ci95": [vals[2], vals[2] + 0.006]}}}
+
+    scaffold = {"hit_at_1": 1.0 if degenerate_ci else 0.6200,
+                "hit_at_1_ci95": [1.0, 1.0] if degenerate_ci else [0.6000, 0.6400],
+                "n_scored": 3994,
+                "MARGIN_per_floor": margins([0.9044, 0.9772, 0.9855])}
+    cell = {
+        "verdict": "SPARSE_CODE_DOES_NOT_CLEAR_THE_SPELLING_FLOOR_ON_THE_REAL_TASK",
+        "REAL_TASK": {"regimes": {"EXACT_KEY_profile_bundle": {"per_arm": {
+            "R0_BASE_DENSE": {"hit_at_1": 0.0481, "hit_at_1_ci95": [0.0418, 0.0548],
+                              "n_scored": 3994,
+                              "MARGIN_per_floor": margins([-0.0741, 0.0234, 0.0308])},
+            scaffold_name: scaffold,
+            "S_INPLACE_d256_f0.020__NULL": {
+                "hit_at_1": 0.0113, "hit_at_1_ci95": [0.0081, 0.0148], "n_scored": 3994,
+                "MARGIN_per_floor": margins([-0.0896, -0.0084, -0.0011])},
+            "KA_QUERY_IS_GOLD_VECTOR": {
+                "hit_at_1": 1.0, "hit_at_1_ci95": [1.0, 1.0], "n_scored": 3994,
+                "MARGIN_per_floor": margins([0.9044, 0.9772, 0.9855])},
+        }}}},
+    }
+    p = os.path.join(tmp, "metrics.json")
+    with open(p, "w", encoding="utf-8", newline="") as fh:
+        json.dump(cell, fh)
+    return p
+
+
 def self_test() -> int:
     """Prove the checker flags BOTH known offenders and does NOT flag genuine cells.
 
@@ -1088,6 +1344,60 @@ def self_test() -> int:
               r["disagreement_class"], AGREES)
         check("  and its bar status is still recorded as FAILS_BAR for the record",
               r["bar_status"], BAR_FAILS)
+
+    # ---- OFFENDER 3: THE FALSE PASS. A planted-answer arm carried a cell's claim to MEETS_BAR
+    #      at min ci_lo +0.9044 while every genuine arm in the cell was negative. Run as a 2x2 so
+    #      the NAME rule and the SHAPE rule are each shown to work ALONE, and so the last cell
+    #      proves they can be satisfied -- a rule that rejects everything is not a rule.
+    for nm, deg, want, why in (
+            ("S_INPLACE_d256_f0.020__KA", True, BAR_FAILS, "name AND shape"),
+            ("S_INPLACE_d256_f0.020__KA", False, BAR_FAILS, "NAME alone (arm not at ceiling)"),
+            ("S_INPLACE_d256_f0.020_TREATMENT", True, BAR_FAILS, "SHAPE alone (name is clean)"),
+            ("S_INPLACE_d256_f0.020_TREATMENT", False, BAR_MEETS,
+             "NEGATIVE CONTROL: neither rule fires, the SAME +0.9044 margins pass")):
+        with tempfile.TemporaryDirectory() as td:
+            r = check_cell(_fixture_false_pass(td, scaffold_name=nm, degenerate_ci=deg))
+            check(f"false-pass 2x2 [{why}] -> {want}", r["bar_status"], want)
+            if want is BAR_FAILS:
+                check("  and the claim falls back to the HONEST negative arm",
+                      str(r["claim_carrying_arm"]).endswith("R0_BASE_DENSE"), True)
+                check("  with the scaffold arm REJECTED and the reason recorded",
+                      any(nm in k for k in r["claim_arm_rejected"]), True)
+            else:
+                check("  and the claim arm is the renamed, non-saturated arm",
+                      str(r["claim_carrying_arm"]).endswith(nm), True)
+
+    # ---- FAIL CLOSED: when EVERY arm is scaffolding there is no claim arm, and no claim arm is
+    #      NO_EVIDENCE -- never MEETS_BAR. A tool that guesses in the passing direction is worse
+    #      than no tool.
+    with tempfile.TemporaryDirectory() as td:
+        p = _fixture_false_pass(td)
+        with open(p, encoding="utf-8") as fh:
+            cell = json.load(fh)
+        arms = cell["REAL_TASK"]["regimes"]["EXACT_KEY_profile_bundle"]["per_arm"]
+        arms["R0_BASE_DENSE__KA"] = arms.pop("R0_BASE_DENSE")     # the last honest arm removed
+        with open(p, "w", encoding="utf-8", newline="") as fh:
+            json.dump(cell, fh)
+        r = check_cell(p)
+        check("FAIL CLOSED: no eligible claim arm is NO_EVIDENCE, never MEETS_BAR",
+              (r["bar_status"], r["claim_carrying_arm"]), (BAR_NO_EVIDENCE, None))
+        check("  and the reason is stated, not inferred",
+              r["claim_arm_status"], "NO_ELIGIBLE_CLAIM_ARM")
+
+    # ---- REGRESSION: a realised CONFIGURATION fraction at 1.0 is not a ceiling. The first cut
+    #      of the shape rule excluded INC_SIMHASH -- a legitimate incumbent arm -- because a
+    #      SimHash is a sign function so its `active_frac_realised` is 1.0 by construction.
+    check("a config fraction at 1.0 does NOT read as an instrument ceiling",
+          arm_ceiling_shape({"simlex_rho": 0.268, "active_frac_realised": 1.0,
+                             "bundle_bits": 0.874}), None)
+    check("but hit@1 1.0 with a ZERO-WIDTH CI does",
+          (arm_ceiling_shape({"hit_at_1": 1.0, "hit_at_1_ci95": [1.0, 1.0]}) or {}).get("tell"),
+          "DEGENERATE_CI_AT_CEILING")
+    check("and so does every bounded score pinned at 1.0",
+          (arm_ceiling_shape({"hit_at_1": 1.0, "recall": 1.0}) or {}).get("tell"),
+          "ALL_SCORES_AT_CEILING")
+    check("an honest arm is NOT called a ceiling",
+          arm_ceiling_shape({"hit_at_1": 0.0481, "hit_at_1_ci95": [0.0418, 0.0548]}), None)
 
     # ---- the verdict lexicon, on strings measured on disk
     for s, want in (("4WC_HARD_PASS", READS_PASS),
