@@ -722,7 +722,8 @@ results stand — but nothing here depends on running it.
 
 ## 10. STANDING RULES — earned the hard way
 
-R1–R10 carry forward. **R11 and R12 are new tonight.**
+R1–R12 carry forward. **R13 is new (2026-08-16) and is a standing owner directive, not a
+session finding.**
 
 1. **A gate is a CI-separated margin above the strongest no-understanding floor** —
    `max(orthographic, frequency, scramble)` — on the identical scorer, n, pool and gold. **Never a
@@ -762,6 +763,30 @@ R1–R10 carry forward. **R11 and R12 are new tonight.**
     does not. The premise came from reading a code path that exists and is never called. **Before
     building on "the code does X", run the code and reconstruct X from what it actually produces.**
     Cost of not doing it: a whole instrument design measuring the wrong arm.
+13. **NEW — every component names WHICH BRAIN STRUCTURE, and every shelve reason is BRAIN-framed,
+    never performance-framed.** The question is not "did we consider the brain?" — it is **"which
+    brain structure, and are we replicating it or substituting something convenient?"** The default
+    opening move on any component is *how does the brain do this*, **before** surveying available
+    tools, before measuring, before optimising what we already have. For each component state: (a)
+    the **brain structure** — a neural system (CA3, dentate gyrus, perirhinal cortex, DMN), not a
+    cognitive-theory label ("working memory" and "attention" are labels); (b) whether it **reuses an
+    organ we already own** — the brain reuses circuits, so a parallel build is both unfaithful and
+    islanding; (c) each design choice marked **PINNED-BY-EVIDENCE** or **OUR-INVENTION-BEING-TESTED**
+    — invention is authorised, presenting invention as pinned is not; (d) any **shelve or revival
+    criterion in brain terms**.
+    *The incident:* `hdlab/perirhinal_conjunctive.py` was shelved with the revival criterion
+    **"exact-key retrieval only"** — a performance-engineering framing in a project whose whole
+    thesis is brain fidelity. The brain never retrieves with an exact key; it **completes from a
+    partial cue**. The brain-framed criterion is that conjunction is not testable until **pattern
+    completion (CA3)** sits in front of it, because **separation (DG) and completion (CA3) are a
+    matched pair**. The wrong frame would have shelved a correct component for the wrong reason and
+    **hidden the actual missing organ**. That is the cost: a wrong frame closes a live research
+    direction. Owner, 2026-08-15: *"we need to be doing brain foundational things - not maximizing
+    performance in single areas"*; *"the way we lose is by trying fancy available tools."*
+    *Enforced by construction, not by this paragraph:* `tools/dispatch_batch.py` folds the block
+    into every composed brief, and `tools/capability_registry_audit.py` requires `brain_structure` +
+    `fidelity_basis` on registry rows going forward (pre-existing rows are reported as a backlog and
+    **never auto-filled** — a fabricated brain justification is worse than a missing one).
 
 **Two disciplines that are not rules but are how we work:**
 - **Plain language.** The owner has said twice that jargon makes these documents unusable to them.

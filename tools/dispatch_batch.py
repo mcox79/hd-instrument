@@ -59,6 +59,65 @@ FRAGMENT_RULE = (
     "The dispatching session reads your returned text, not files you create as a side effect."
 )
 
+# ---------------------------------------------------------------------------
+# MANDATORY BRAIN-FIDELITY BLOCK (owner standing directive, 2026-08-15)
+#
+# THE OWNER'S WORDS, VERBATIM AND LOAD-BEARING:
+#   "your response there is really important - you overlooked that key aspect about brain
+#    fidelity - I want you to SOLIDIFY that sentiment - you need to approach every problem
+#    with that consideration."
+#   "I see you talking about exact-key retrieval only - wtf is that? we need to be doing
+#    brain foundational things - not maximizing performance in single areas"
+#   "the way we lose is by trying fancy available tools. The way we win is by understanding
+#    exactly how the brain does it (which is NOT necessarily a trigram encoder), and
+#    replicating it as exactly as we can."
+#
+# THE INCIDENT THAT EARNED IT (cited here so the rule is never unsourced prose): the landed
+# capability hdlab/perirhinal_conjunctive.py was SHELVED with the revival criterion "exact-key
+# retrieval only" -- a PERFORMANCE-ENGINEERING framing, in a project whose entire thesis is
+# brain fidelity. The brain NEVER retrieves with an exact key; it COMPLETES FROM A PARTIAL CUE.
+# The correct, brain-framed criterion is that conjunction is not testable until PATTERN
+# COMPLETION (hippocampal CA3) sits in front of it, because separation (dentate gyrus) and
+# completion (CA3) are a MATCHED PAIR. The engineering framing did not merely sound wrong: it
+# would have shelved a component FOR THE WRONG REASON and hidden the actual missing organ. That
+# is the cost being prevented -- a wrong frame closes a live research direction.
+#
+# The question this block forces is NOT "did we consider the brain?" It is "WHICH BRAIN
+# STRUCTURE, and are we replicating it or substituting something convenient?"
+#
+# It lives HERE, in the composer, rather than in prose in a plan document, because prose is
+# exactly what got overlooked. Every composed brief carries it by construction.
+# ---------------------------------------------------------------------------
+BRAIN_FIDELITY_RULE = (
+    "The DEFAULT OPENING MOVE on ANY component is HOW DOES THE BRAIN DO THIS -- before "
+    "surveying available tools, before measuring, before optimising what we already have. "
+    "The question is never 'did we consider the brain?'; it is 'WHICH BRAIN STRUCTURE, and "
+    "are we replicating it or substituting something convenient?'\n"
+    "  For EACH component you touch, STATE ALL FOUR in your report:\n"
+    "  (a) BRAIN STRUCTURE -- the neural system it corresponds to (hippocampal CA3, dentate "
+    "gyrus, perirhinal cortex, DMN, TPJ, left IFG...), NOT a cognitive-theory label "
+    "('working memory', 'attention', 'binding' are labels, not structures). If the "
+    "literature does not pin it, write UNPINNED -- an honest UNPINNED beats an invented "
+    "anatomy. UNPINNED does NOT mean stop: propose the best brain-motivated candidate and "
+    "TEST it (USER 2026-08-15). What is barred is reaching for a convenient available tool "
+    "INSTEAD of asking how the brain does it.\n"
+    "  (b) ORGAN REUSE -- does this REUSE an organ we already own? The brain reuses circuits; "
+    "a parallel build is BOTH unfaithful AND islanding. Query "
+    "data/capability_registry.jsonl before building. Name the organ reused, or state why no "
+    "existing organ serves.\n"
+    "  (c) FIDELITY BASIS per design choice -- mark each as PINNED-BY-EVIDENCE (neuroscience "
+    "or a measured result pins this shape/order/metric) or OUR-INVENTION-BEING-TESTED. "
+    "Invention is AUTHORISED; presenting an invention as pinned is NOT.\n"
+    "  (d) BRAIN-FRAMED SHELVE/REVIVAL -- if you SHELVE anything or write a revival "
+    "criterion, the reason must be BRAIN-FRAMED, never performance-framed. 'Revive when "
+    "exact-key retrieval is needed' is a performance frame and is REJECTED; 'not testable "
+    "until pattern completion (CA3) sits in front of it, because separation (DG) and "
+    "completion (CA3) are a matched pair' is the brain frame. A performance-framed shelve "
+    "closes a live research direction for the wrong reason and hides the missing organ -- "
+    "that is the measured incident this rule comes from (hdlab/perirhinal_conjunctive.py, "
+    "2026-08-15)."
+)
+
 
 def _read_do_not_touch() -> list[str]:
     if not DO_NOT_TOUCH_FILE.exists():
@@ -79,6 +138,7 @@ def compose_brief(item: dict, do_not_touch: list[str]) -> str:
         f"--- MANDATORY BOILERPLATE (do not skip) ---\n"
         f"DISCLOSURE: {DISCLOSURE_RULE}\n"
         f"NO-SPAWN: {NO_SPAWN_RULE}\n"
+        f"BRAIN FIDELITY (MANDATORY, applies to every component you touch): {BRAIN_FIDELITY_RULE}\n"
         f"REPORT FORMAT: {FRAGMENT_RULE}"
         f"{dnt}\n\n"
         f"--- QUEUE PROVENANCE ---\n"
@@ -218,6 +278,30 @@ def _self_test() -> int:
         ("under 400 words" in brief_text, "report-format rule present"),
         ("notes/STATUS.md" in brief_text and "CLAUDE.md" in brief_text, "do-not-touch list present"),
         ("queue id: d1" in brief_text, "queue provenance present"),
+        # --- MANDATORY BRAIN-FIDELITY BLOCK (2026-08-15) ---
+        # Asserted clause-by-clause, not as one "is the block present" check: the whole point
+        # of the incident is that a rule can be nominally present and still not carry the
+        # part that would have caught the defect. Each of (a)-(d) is checked on its own.
+        ("HOW DOES THE BRAIN DO THIS" in brief_text,
+         "brain-fidelity: default-opening-move clause present"),
+        ("WHICH BRAIN STRUCTURE, and are we replicating it or substituting something convenient?"
+         in brief_text, "brain-fidelity: the framing question present verbatim"),
+        ("(a) BRAIN STRUCTURE" in brief_text and "NOT a cognitive-theory label" in brief_text,
+         "brain-fidelity (a): names a NEURAL STRUCTURE, not a cognitive-theory label"),
+        ("(b) ORGAN REUSE" in brief_text and "capability_registry.jsonl" in brief_text,
+         "brain-fidelity (b): organ-reuse requirement + registry query present"),
+        ("PINNED-BY-EVIDENCE" in brief_text and "OUR-INVENTION-BEING-TESTED" in brief_text,
+         "brain-fidelity (c): both fidelity-basis markers present"),
+        ("BRAIN-FRAMED SHELVE/REVIVAL" in brief_text and "never performance-framed" in brief_text,
+         "brain-fidelity (d): brain-framed shelve/revival requirement present"),
+        ("perirhinal_conjunctive" in brief_text,
+         "brain-fidelity: the earning INCIDENT is cited inline (rule is never unsourced prose)"),
+        ("exact-key retrieval" in brief_text and "REJECTED" in brief_text,
+         "brain-fidelity: the rejected performance framing is quoted as the negative example"),
+        ("CA3" in brief_text and ("dentate gyrus" in brief_text.lower() or "(DG)" in brief_text),
+         "brain-fidelity: the CORRECT brain-framed criterion (DG/CA3 matched pair) is shown"),
+        ("UNPINNED" in brief_text and "does NOT mean stop" in brief_text,
+         "brain-fidelity: UNPINNED-is-honest but does-not-mean-stop clause present"),
     ]
     for passed, label in checks:
         if passed:
@@ -225,6 +309,36 @@ def _self_test() -> int:
         else:
             print(f"[self-test] FAIL missing: {label}", file=sys.stderr)
             ok = False
+
+    # 4b. NEGATIVE CONTROL for the brain-fidelity block -- a check that cannot fail is not a
+    # check. This project has shipped multiple guards that silently did nothing, so the
+    # assertions in (4) are re-run against a brief composed WITHOUT the block; every one of
+    # them MUST flip to False. If any survives, that assertion is matching incidental text
+    # somewhere else in the boilerplate and is not actually testing the block.
+    stripped = brief_text.replace(BRAIN_FIDELITY_RULE, "")
+    bf_labels = [lab for _, lab in checks if lab.startswith("brain-fidelity")]
+    bf_preds_on_stripped = [
+        "HOW DOES THE BRAIN DO THIS" in stripped,
+        "WHICH BRAIN STRUCTURE, and are we replicating it or substituting something convenient?" in stripped,
+        "(a) BRAIN STRUCTURE" in stripped and "NOT a cognitive-theory label" in stripped,
+        "(b) ORGAN REUSE" in stripped and "capability_registry.jsonl" in stripped,
+        "PINNED-BY-EVIDENCE" in stripped and "OUR-INVENTION-BEING-TESTED" in stripped,
+        "BRAIN-FRAMED SHELVE/REVIVAL" in stripped and "never performance-framed" in stripped,
+        "perirhinal_conjunctive" in stripped,
+        "exact-key retrieval" in stripped and "REJECTED" in stripped,
+        "CA3" in stripped and ("dentate gyrus" in stripped.lower() or "(DG)" in stripped),
+        "UNPINNED" in stripped and "does NOT mean stop" in stripped,
+    ]
+    survivors = [lab for lab, still_true in zip(bf_labels, bf_preds_on_stripped) if still_true]
+    if survivors:
+        print(f"[self-test] FAIL negative control: {len(survivors)} brain-fidelity assertion(s) "
+              f"still pass with the block REMOVED, so they do not test it: {survivors}",
+              file=sys.stderr)
+        ok = False
+    else:
+        print(f"[self-test] PASS negative control: all {len(bf_labels)} brain-fidelity "
+              f"assertions flip to FAIL when the block is removed (they test the block, "
+              f"not incidental boilerplate text)")
 
     # 5. --by required unless --dry-run
     rc3 = main(["--queue", str(qpath2), "--count", "1"])

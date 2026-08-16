@@ -145,6 +145,22 @@ COMPOSED_ENTRY_PATHS_REL = [
     "hdlab/situation_model_accumulate.py",
     "hdlab/self_improving_loop.py",
     "hdlab/state_of_mind.py",
+    # -- added 2026-08-15 (hdi_testbed registry-reconcile audit): these two were
+    # missing from BOTH entry-point lists even though CLAUDE.md's own evidence-
+    # discipline section (2026-08-13) already names them as live -- "hdlab/reading_
+    # grounding_loop.py:300-303" is cited as the exact site where pos_tagger/
+    # arc_parser/arc_labeler are imported inside a function body "on the live path",
+    # and grounding_acquisition_loop.py is named "one of the two live entry points."
+    # Both are standalone-runnable (`if __name__ == "__main__":`), not imported by
+    # any of the five entries above (verified: grep for the two module names inside
+    # coreference_resolver.py / situation_model_accumulate.py / self_improving_loop.py
+    # / state_of_mind.py / read_anne_glassbox_v2_honest_ledger.py returns nothing) --
+    # they are independent roots, not already-reachable nodes, so omitting them
+    # silently truncated the closure. This was the root cause of the 19 (row, module)
+    # pairs mismarked WIRED_BUT_NOT_PIPELINE_REACHABLE while measurably live,
+    # including reading_grounding_loop's own row.
+    "hdlab/reading_grounding_loop.py",
+    "hdlab/grounding_acquisition_loop.py",
 ]
 
 # CLAUDE.md is NOT an entry point and is NO LONGER a WIRED signal (D2). A prose
@@ -186,6 +202,12 @@ ACTIVE_PIPELINE_ENTRY_POINTS = [
     "hdlab/situation_model_accumulate.py",
     "hdlab/self_improving_loop.py",
     "hdlab/state_of_mind.py",
+    # -- added 2026-08-15, same evidence as the COMPOSED_ENTRY_PATHS_REL addition
+    # above: both are independent, standalone-runnable roots that CLAUDE.md's
+    # evidence-discipline section already documents as live, and neither was
+    # reachable from the other five. See that comment for the full citation.
+    "hdlab/reading_grounding_loop.py",
+    "hdlab/grounding_acquisition_loop.py",
 ]
 
 _RE_FROM_HDLAB = ih.RE_FROM_HDLAB
@@ -256,28 +278,39 @@ def compute_pipeline_reachable_modules(entry_points: list[str] | None = None) ->
 
 
 def scan_unregistered_hdlab_modules(rows: list[dict]) -> list[str]:
-    """Disk-scan glob(hdlab/*.py) diffed against every registry row's `path` field.
+    """Disk-scan hdlab/**/*.py (recursive) diffed against every registry row's `path` field.
 
     Catches the OTHER half of the working_memory failure mode: it wasn't just
     unreachable from the pipeline, it had NO registry row at all, so it never even
     hit the wire-or-shelve gate. Fails loud (returned list is non-empty) rather
     than silently passing -- run alongside the reachability check at session start.
+
+    FIX 2026-08-15 (hdi_testbed registry-reconcile audit): this used to be a flat
+    os.listdir(hdlab_dir), which only ever sees files directly inside hdlab/ --
+    it silently skipped every subpackage (hdlab/learner/*.py, hdlab/learner/
+    plugins/*.py, hdlab/dashboard/*.py), 9 files that never got a chance to hit the
+    unregistered-module flag at all. os.walk is the same enumerate-from-filesystem
+    fix CLAUDE.md's evidence-discipline section prescribes for this exact class of
+    blind spot: the audit tool must not be structurally blind to its own subject.
     """
     registered_paths: set[str] = set()
     for r in rows:
         for p in (r.get("path") or []):
-            registered_paths.add(p)
+            registered_paths.add(p.replace("\\", "/"))
     hdlab_dir = ROOT / "hdlab"
     if not hdlab_dir.is_dir():
         return []
     unregistered = []
-    for f in sorted(os.listdir(hdlab_dir)):
-        if not f.endswith(".py") or f == "__init__.py":
-            continue
-        rel = f"hdlab/{f}"
-        if rel not in registered_paths:
-            unregistered.append(rel)
-    return unregistered
+    for dirpath, dirnames, filenames in os.walk(hdlab_dir):
+        dirnames[:] = [d for d in dirnames if d != "__pycache__"]
+        for f in sorted(filenames):
+            if not f.endswith(".py") or f == "__init__.py":
+                continue
+            full = Path(dirpath) / f
+            rel = _rel(full)
+            if rel not in registered_paths:
+                unregistered.append(rel)
+    return sorted(unregistered)
 
 
 # ---------------------------------------------------------------------------
@@ -895,6 +928,173 @@ def check_undecided_validated(rows: list[dict]) -> list[dict]:
     return undecided
 
 
+# ---------------------------------------------------------------------------
+# BRAIN-FIDELITY GATE (2026-08-16, owner standing directive 2026-08-15)
+#
+# THE OWNER'S WORDS, VERBATIM: "you overlooked that key aspect about brain fidelity - I want
+# you to SOLIDIFY that sentiment - you need to approach every problem with that
+# consideration." And: "I see you talking about exact-key retrieval only - wtf is that? we
+# need to be doing brain foundational things - not maximizing performance in single areas."
+#
+# THE INCIDENT (cited here so this gate is never unsourced prose): the landed capability
+# hdlab/perirhinal_conjunctive.py -- row id `perirhinal_conjunctive` in THIS FILE -- was
+# SHELVED with the revival criterion "exact-key retrieval only". That is a PERFORMANCE-
+# ENGINEERING framing in a project whose entire thesis is brain fidelity. The brain NEVER
+# retrieves with an exact key; it COMPLETES FROM A PARTIAL CUE. The brain-framed criterion is
+# that conjunction is not testable until PATTERN COMPLETION (hippocampal CA3) sits in front of
+# it, because separation (dentate gyrus) and completion (CA3) are a MATCHED PAIR. The wrong
+# frame would have shelved a real component FOR THE WRONG REASON and hidden the actual missing
+# organ -- a wrong frame closes a live research direction.
+#
+# WHAT THIS GATE DOES: every row going forward must declare (1) `brain_structure` -- the NEURAL
+# SYSTEM it corresponds to, not a cognitive-theory label -- and (2) `fidelity_basis`, one of
+# pinned / invention_under_test / unpinned_and_unstated. Invention is AUTHORISED; presenting an
+# invention as pinned is not, which is why the basis is a declared field rather than a vibe.
+#
+# WHAT THIS GATE DELIBERATELY DOES NOT DO: it does NOT retro-fill the 199 pre-existing rows.
+# A fabricated brain justification is WORSE than a missing one -- it would launder invention as
+# evidence, which is the exact defect the fidelity_basis field exists to prevent. Pre-existing
+# rows are reported as a BACKLOG COUNT for humans to clear honestly, one at a time.
+#
+# WHY THE EFFECTIVE-DATE SPLIT: a permanently-red 199-row alarm is an alarm nobody reads. This
+# file already carries that lesson (the 3042-candidate invisible-island alarm was narrowed to a
+# triageable set for exactly this reason: "an alarm that fires 3042 times catches nothing").
+# So: rows decided AT OR AFTER the gate landed are VIOLATIONS and count toward the exit code;
+# older rows are BACKLOG, reported every run, never auto-filled, never masked.
+# ---------------------------------------------------------------------------
+
+# The moment this gate landed. Rows whose last_decision_utc is >= this must comply; anything
+# older is backlog. Do NOT move this date backward to "catch" old rows -- that converts a
+# clearable backlog into a permanent red and invites exactly the guess-filling this gate bans.
+BRAIN_FIDELITY_GATE_EFFECTIVE_UTC = "2026-08-16T01:02:26Z"
+
+VALID_FIDELITY_BASIS = ("pinned", "invention_under_test", "unpinned_and_unstated")
+
+# Report-only heuristics below. Neither ever changes a row or the exit code -- whether a given
+# string names a real neural system is a judgment call, and a tool that auto-rejected on a word
+# list would just teach people to write anatomy-flavoured noise to get past it.
+
+# Cognitive-theory LABELS that are routinely mistaken for structures. The owner's (a) clause is
+# precisely "a neural system, not a cognitive-theory label."
+_COGNITIVE_LABEL_TERMS = [
+    "working memory", "attention", "binding", "retrieval", "encoding", "short-term memory",
+    "long-term memory", "executive function", "cognitive control", "semantic memory",
+    "episodic memory", "pattern separation", "pattern completion", "chunking", "priming",
+]
+# Anatomical / systems-level vocabulary. Presence of ANY of these means the author at least
+# reached for a structure, so the label heuristic stands down (e.g. "hippocampal working-memory
+# buffer" names a structure AND a label and must not be flagged).
+_ANATOMICAL_TERMS = [
+    "hippocamp", "ca1", "ca3", "ca2", "dentate", "subiculum", "entorhinal", "perirhinal",
+    "parahippocampal", "amygdala", "thalam", "pulvinar", "striat", "caudate", "putamen",
+    "basal ganglia", "cerebell", "cortex", "cortical", "gyrus", "sulcus", "prefrontal",
+    "mpfc", "vmpfc", "dlpfc", "ifg", "stg", "mtg", "itg", "tpj", "precuneus", "pcc", "acc",
+    "insula", "angular", "supramarginal", "fusiform", "occipit", "pariet", "tempor", "frontal",
+    "default mode", "dmn", "mtl", "v1", "v2", "v4", "mt", "brainstem", "locus coeruleus",
+    "hypothalam", "septal", "fornix", "claustrum", "colliculus", "olfactory", "piriform",
+    "neocort", "allocort", "mentalizing network", "language network", "salience network",
+]
+# Performance-engineering vocabulary in a SHELVE / revival criterion -- the incident's signature.
+_PERFORMANCE_FRAME_TERMS = [
+    "exact-key", "exact key", "accuracy", "outperform", "beats baseline", "beat the baseline",
+    "faster", "speedup", "speed-up", "throughput", "latency", "higher score",
+    "improves the metric", "wins on", "sota", "state of the art", "performance improve",
+]
+
+
+def _has_term(text: str, terms: list[str]) -> str | None:
+    t = (text or "").lower()
+    for term in terms:
+        if term in t:
+            return term
+    return None
+
+
+def _decided_at_or_after_gate(row: dict) -> bool:
+    """True if this row's decision timestamp is at/after the gate's effective moment.
+
+    A row with NO last_decision_utc is treated as BACKLOG, not as a violation: an absent
+    timestamp is not evidence the row is new, and guessing 'new' would manufacture violations
+    for the same reason retro-filling would manufacture justifications.
+    """
+    ts = str(row.get("last_decision_utc") or "")
+    if not ts:
+        return False
+    return ts >= BRAIN_FIDELITY_GATE_EFFECTIVE_UTC
+
+
+def check_brain_fidelity_fields(rows: list[dict]) -> dict:
+    """Report rows missing/invalid `brain_structure` + `fidelity_basis`. REPORT-ONLY: never
+    writes a field, never guesses one, never mutates a row. See the section comment above for
+    why retro-filling is banned rather than merely skipped."""
+    violations, backlog, invalid_basis = [], [], []
+    suspected_label, revival_not_brain_framed = [], []
+
+    for i, r in enumerate(rows, start=1):
+        rid = r.get("id")
+        bs = (r.get("brain_structure") or "").strip()
+        fb = (r.get("fidelity_basis") or "").strip()
+        missing = [f for f, v in (("brain_structure", bs), ("fidelity_basis", fb)) if not v]
+
+        if missing:
+            entry = {"row_index": i, "id": rid, "missing_fields": missing,
+                     "last_decision_utc": r.get("last_decision_utc")}
+            if _decided_at_or_after_gate(r):
+                violations.append(entry)
+            else:
+                backlog.append(entry)
+
+        if fb and fb not in VALID_FIDELITY_BASIS:
+            invalid_basis.append({"row_index": i, "id": rid, "fidelity_basis": fb,
+                                  "allowed": list(VALID_FIDELITY_BASIS)})
+
+        # (a)-clause heuristic: a cognitive-theory label with NO anatomical term anywhere.
+        if bs:
+            label = _has_term(bs, _COGNITIVE_LABEL_TERMS)
+            if label and not _has_term(bs, _ANATOMICAL_TERMS):
+                suspected_label.append({
+                    "row_index": i, "id": rid, "brain_structure": bs, "matched_label": label,
+                    "reason": ("names a cognitive-theory label with no neural system beside it; "
+                               "the ask is WHICH BRAIN STRUCTURE (heuristic, report-only)")})
+
+        # (d)-clause heuristic: the incident's own signature -- a SHELVE/revival criterion
+        # written in performance-engineering terms with no anatomy anywhere in it.
+        rc = str(r.get("revival_criteria") or "")
+        if rc:
+            perf = _has_term(rc, _PERFORMANCE_FRAME_TERMS)
+            if perf and not _has_term(rc, _ANATOMICAL_TERMS):
+                revival_not_brain_framed.append({
+                    "row_index": i, "id": rid, "matched_performance_term": perf,
+                    "revival_criteria_snippet": rc[:180],
+                    "reason": ("revival criterion is PERFORMANCE-framed with no brain structure "
+                               "named; a shelve reason must be BRAIN-framed (incident: "
+                               "perirhinal_conjunctive shelved on 'exact-key retrieval only', "
+                               "which hid the missing CA3 pattern-completion organ)")})
+
+    return {
+        "brain_fidelity_violations": violations,
+        "brain_fidelity_backlog": backlog,
+        "brain_fidelity_invalid_basis": invalid_basis,
+        "brain_fidelity_suspected_label_not_structure": suspected_label,
+        "brain_fidelity_revival_not_brain_framed": revival_not_brain_framed,
+        "brain_fidelity_stats": {
+            "gate_effective_utc": BRAIN_FIDELITY_GATE_EFFECTIVE_UTC,
+            "n_rows": len(rows),
+            # "Compliant" requires a VALID basis, not merely a non-empty one -- a row declaring
+            # fidelity_basis:"probably_fine" has answered the question with a non-answer, and
+            # counting it as compliant is the kind of soft pass this gate exists to remove.
+            "n_compliant": sum(1 for r in rows
+                               if (r.get("brain_structure") or "").strip()
+                               and (r.get("fidelity_basis") or "").strip() in VALID_FIDELITY_BASIS),
+            "n_violations_post_gate": len(violations),
+            "n_backlog_pre_gate": len(backlog),
+            "valid_fidelity_basis_values": list(VALID_FIDELITY_BASIS),
+            "retro_fill": "BANNED -- a fabricated brain justification is worse than a missing one",
+            "report_only": True,
+        },
+    }
+
+
 def check_stale_decisions(rows: list[dict], stale_days: int, now: datetime) -> list[dict]:
     stale = []
     for r in rows:
@@ -1223,6 +1423,9 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False,
 
         undecided = check_undecided_validated(rows)
         stale = check_stale_decisions(rows, stale_days, now)
+        # BRAIN-FIDELITY GATE (report-only; never writes or guesses a field). Runs INSIDE the
+        # lock only because it reads `rows`; it contributes nothing to the write-back.
+        fidelity_report = check_brain_fidelity_fields(rows)
         # REPORT-ONLY (2026-08-13): does the evidence each row cites exist / get collected /
         # pass? Never mutates a row -- see check_registry_witnesses() docstring.
         witness_report = check_registry_witnesses(rows, run_witnesses=run_witnesses)
@@ -1277,6 +1480,7 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False,
         "registry_path": _rel(REGISTRY),
     }
     summary.update(witness_report)
+    summary.update(fidelity_report)
     return summary
 
 
@@ -1374,6 +1578,47 @@ def print_report(summary: dict) -> None:
                       + (f"  rc={it.get('returncode')}" if it.get("returncode") is not None else ""))
         else:
             print(f"[ok] no rows with: {label}")
+
+    # --- brain-fidelity gate (report-only; never retro-fills) ---
+    bf = summary.get("brain_fidelity_stats", {})
+    if bf:
+        print(f"\n[brain-fidelity] gate effective {bf.get('gate_effective_utc')} -- every row "
+              f"DECIDED at/after that must declare brain_structure + fidelity_basis "
+              f"({'/'.join(bf.get('valid_fidelity_basis_values', []))}).")
+        print(f"[brain-fidelity] compliant={bf.get('n_compliant')}/{bf.get('n_rows')}  "
+              f"post-gate VIOLATIONS={bf.get('n_violations_post_gate')}  "
+              f"pre-gate BACKLOG={bf.get('n_backlog_pre_gate')} (reported, never auto-filled: "
+              f"a fabricated brain justification is worse than a missing one)")
+    viol = summary.get("brain_fidelity_violations", [])
+    if viol:
+        print(f"\n[FLAG] {len(viol)} row(s) decided AFTER the brain-fidelity gate with missing "
+              f"field(s) -- WHICH BRAIN STRUCTURE, and are we replicating it or substituting "
+              f"something convenient?")
+        for v in viol[:30]:
+            print(f"    row {v['row_index']} {v['id']} -> missing {', '.join(v['missing_fields'])}"
+                  f"  (decided {v.get('last_decision_utc')})")
+    else:
+        print("[ok] no post-gate rows missing brain_structure / fidelity_basis")
+    inv = summary.get("brain_fidelity_invalid_basis", [])
+    if inv:
+        print(f"\n[FLAG] {len(inv)} row(s) with an invalid fidelity_basis value:")
+        for v in inv[:30]:
+            print(f"    row {v['row_index']} {v['id']} -> {v['fidelity_basis']!r} "
+                  f"(allowed: {', '.join(v['allowed'])})")
+    lab = summary.get("brain_fidelity_suspected_label_not_structure", [])
+    if lab:
+        print(f"\n[hint] {len(lab)} row(s) whose brain_structure reads as a COGNITIVE-THEORY "
+              f"LABEL with no neural system beside it (heuristic, report-only):")
+        for v in lab[:20]:
+            print(f"    row {v['row_index']} {v['id']} -> {v['brain_structure']!r} "
+                  f"[matched: {v['matched_label']}]")
+    rev = summary.get("brain_fidelity_revival_not_brain_framed", [])
+    if rev:
+        print(f"\n[hint] {len(rev)} revival criterion/criteria written in PERFORMANCE terms with "
+              f"no brain structure named (heuristic, report-only -- this is the "
+              f"perirhinal_conjunctive incident's own signature):")
+        for v in rev[:20]:
+            print(f"    row {v['row_index']} {v['id']} [matched: {v['matched_performance_term']}]")
     print("-" * 72)
 
 
@@ -1550,7 +1795,93 @@ def self_test() -> int:
         print(f"[selftest] _witness_is_collected(outside testpaths) -> ({coll3}, {why3!r})")
     print(f"[selftest] witness-citation check logic: {'OK' if ok6 else 'FAIL'}")
 
-    ok_all = ok and ok2 and ok3 and ok4 and ok5 and ok6
+    # brain-fidelity gate (2026-08-16). Pure/synthetic: no disk, no writes. A gate nobody
+    # verified is a gate that does not exist -- this project has shipped guards that silently
+    # did nothing (the `if base in src` substring check that could only INFLATE the WIRED
+    # count, D2 above), so each clause is proved to FIRE, and the compliant row is proved NOT
+    # to fire (a check that flags everything is as useless as one that flags nothing).
+    ok7 = True
+    post = "2026-12-01T00:00:00Z"   # after BRAIN_FIDELITY_GATE_EFFECTIVE_UTC
+    pre = "2026-01-01T00:00:00Z"    # before it
+    fixture = [
+        # 1: post-gate, missing BOTH -> violation
+        {"id": "missing_both_post", "last_decision_utc": post},
+        # 2: post-gate, missing only fidelity_basis -> violation naming exactly that field
+        {"id": "missing_basis_post", "last_decision_utc": post,
+         "brain_structure": "hippocampal CA3"},
+        # 3: pre-gate, missing both -> BACKLOG, never a violation, never auto-filled
+        {"id": "missing_both_pre", "last_decision_utc": pre},
+        # 4: no timestamp at all -> backlog, not a manufactured violation
+        {"id": "no_timestamp"},
+        # 5: fully compliant post-gate row -> flags nothing at all
+        {"id": "compliant_post", "last_decision_utc": post,
+         "brain_structure": "perirhinal cortex (conjunctive coding)",
+         "fidelity_basis": "invention_under_test"},
+        # 6: invalid basis value -> invalid_basis flag
+        {"id": "bad_basis", "last_decision_utc": post,
+         "brain_structure": "dentate gyrus", "fidelity_basis": "probably_fine"},
+        # 7: cognitive-theory LABEL with no anatomy -> label hint
+        {"id": "label_not_structure", "last_decision_utc": post,
+         "brain_structure": "working memory", "fidelity_basis": "pinned"},
+        # 8: label WITH anatomy beside it -> must NOT fire (precision case)
+        {"id": "label_with_anatomy", "last_decision_utc": post,
+         "brain_structure": "hippocampal CA3 pattern completion", "fidelity_basis": "pinned"},
+        # 9: THE INCIDENT, reconstructed: performance-framed revival criterion, no anatomy.
+        {"id": "incident_perf_framed_revival", "last_decision_utc": pre,
+         "revival_criteria": "Revive ONLY for a task whose QUERY IS THE STORED KEY "
+                             "(exact-key facet addressing)."},
+        # 10: THE FIX: same row, brain-framed revival criterion -> must NOT fire.
+        {"id": "incident_brain_framed_revival", "last_decision_utc": pre,
+         "revival_criteria": "Not testable until pattern completion (hippocampal CA3) sits in "
+                             "front of it; dentate gyrus separation and CA3 completion are a "
+                             "matched pair."},
+    ]
+    fr = check_brain_fidelity_fields(fixture)
+    v_ids = {v["id"] for v in fr["brain_fidelity_violations"]}
+    b_ids = {v["id"] for v in fr["brain_fidelity_backlog"]}
+    i_ids = {v["id"] for v in fr["brain_fidelity_invalid_basis"]}
+    l_ids = {v["id"] for v in fr["brain_fidelity_suspected_label_not_structure"]}
+    r_ids = {v["id"] for v in fr["brain_fidelity_revival_not_brain_framed"]}
+
+    bf_cases = [
+        # NOTE: `bad_basis` is deliberately NOT here. It DECLARED both fields, so it is not a
+        # missing-field violation; it is caught by the invalid-value clause below instead. Both
+        # clauses feed the exit code, so it cannot slip through -- the two flags just mean
+        # different things ("you did not answer" vs "your answer is not one of the options").
+        (v_ids == {"missing_both_post", "missing_basis_post"},
+         f"post-gate rows missing a field are FLAGGED as violations (got {sorted(v_ids)})"),
+        (next((v["missing_fields"] for v in fr["brain_fidelity_violations"]
+               if v["id"] == "missing_basis_post"), None) == ["fidelity_basis"],
+         "the violation names EXACTLY the missing field, not both"),
+        (b_ids == {"missing_both_pre", "no_timestamp", "incident_perf_framed_revival",
+                   "incident_brain_framed_revival"},
+         f"pre-gate/undated rows are BACKLOG, never violations (got {sorted(b_ids)})"),
+        ("compliant_post" not in (v_ids | b_ids | i_ids | l_ids | r_ids),
+         "a fully compliant row triggers NOTHING (the gate is not a blanket alarm)"),
+        (i_ids == {"bad_basis"}, f"invalid fidelity_basis value is flagged (got {sorted(i_ids)})"),
+        (l_ids == {"label_not_structure"},
+         f"cognitive-theory label flagged, label+anatomy NOT flagged (got {sorted(l_ids)})"),
+        (r_ids == {"incident_perf_framed_revival"},
+         f"THE INCIDENT: performance-framed revival criterion flagged, brain-framed one NOT "
+         f"(got {sorted(r_ids)})"),
+        # 3 = compliant_post, label_not_structure, label_with_anatomy. `bad_basis` is excluded
+        # despite declaring both fields, because its basis value is not one of the allowed three.
+        (fr["brain_fidelity_stats"]["n_compliant"] == 3,
+         f"compliant count requires a VALID basis (got "
+         f"{fr['brain_fidelity_stats']['n_compliant']}, expected 3)"),
+    ]
+    for passed, label in bf_cases:
+        if not passed:
+            ok7 = False
+            print(f"[selftest] brain-fidelity FAIL: {label}")
+    # Non-mutation: the gate must not have written a field onto any fixture row.
+    if any("brain_structure" in r for r in fixture if r["id"] in
+           ("missing_both_post", "missing_both_pre", "no_timestamp")):
+        ok7 = False
+        print("[selftest] brain-fidelity FAIL: the check MUTATED a row (retro-fill is banned)")
+    print(f"[selftest] brain-fidelity gate (8 clauses + non-mutation): {'OK' if ok7 else 'FAIL'}")
+
+    ok_all = ok and ok2 and ok3 and ok4 and ok5 and ok6 and ok7
     print(f"[selftest] invisible-island classify+match logic: {'OK' if ok2 and ok3 else 'FAIL'}")
     print(f"[selftest] high-signal precision-tier logic: {'OK' if ok4 else 'FAIL'}")
     print(f"[selftest] registry concurrency (RegistryLock/registry_transaction/append_rows): "
@@ -1616,7 +1947,14 @@ def main() -> int:
                   and "note" not in summary["undecided_validated_capabilities"][0] else 0)
                + len(summary["stale_vet_pending"])
                + len(summary.get("unregistered_hdlab_modules", []))
-               + len(summary.get("invisible_island_candidates_HIGH", [])))
+               + len(summary.get("invisible_island_candidates_HIGH", []))
+               # Brain-fidelity gate: POST-GATE violations + invalid values only. The pre-gate
+               # BACKLOG is deliberately excluded from the exit code -- 199 permanently-red rows
+               # would be an alarm nobody reads (the same alarm-fatigue lesson this file already
+               # learned from the 3042-candidate invisible-island scan), and the fix for backlog
+               # is honest human clearing, not a louder exit code.
+               + len(summary.get("brain_fidelity_violations", []))
+               + len(summary.get("brain_fidelity_invalid_basis", [])))
     return 5 if n_flags else 0
 
 
