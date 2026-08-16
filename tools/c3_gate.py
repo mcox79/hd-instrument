@@ -36,6 +36,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 import argparse
 import hashlib
 import json
+import re
 import sys
 from typing import Dict, List, Optional, Sequence
 
@@ -64,6 +65,152 @@ FLOOR_ARM_NAMES = (
 )
 
 PASS, FAIL, NOT_EVALUABLE = "PASS", "FAIL", "NOT_EVALUABLE"
+
+# ------------------------------------------------------------------ arm ROLE classification
+# Added 2026-08-16 for tools/verdict_bar_check.py. It lives HERE, not in the checker, for the
+# same reason FLOOR_ARM_NAMES does: a second opinion about "which arms are floors" is a second
+# gate, and a second gate is the defect class this file exists to prevent.
+#
+# The three roles that make up the standing bar's max(orthographic, frequency, scramble) are
+# REQUIRED_FLOOR_ROLES. `random_chance` is deliberately NOT one of them: a chance baseline is not
+# an orthographic, frequency or scramble floor, and counting it as one is precisely how a bare
+# threshold gets dressed up as a floor comparison.
+_ROLE_PATTERNS = (
+    ("orthographic", r"orthograph|stringctrl|string_ctrl|trigram|prefix_only|char_?ngram|"
+                     r"spelling|maxortho|surface_form|edit_?dist"),
+    ("frequency",    r"\bfreq\b|frequenc|_freq_|freq_min|freq_sum|unigram_?count|zipf"),
+    ("scramble",     r"scrambl|shuffl|permut|derange|_perm_null|permutation_null"),
+    ("random_chance", r"random_chance|\bchance\b|random_baseline|uniform_baseline|coin_flip"),
+    ("known_answer", r"known_answer|oracle|positive_control|pretrained_positive|glove|"
+                     r"ceiling_ref|upper_bound_ref|gold_oracle|sanity_arm"),
+    ("null_control", r"null_arm|null_control|negative_control|randinit|rand_init|noise_arm|"
+                     r"untrained|no_signal|_null\b|null_"),
+)
+_ROLE_RE = tuple((role, re.compile(pat, re.IGNORECASE)) for role, pat in _ROLE_PATTERNS)
+
+REQUIRED_FLOOR_ROLES = ("orthographic", "frequency", "scramble")
+BAR_MEETS, BAR_FAILS, BAR_NO_EVIDENCE = "MEETS_BAR", "FAILS_BAR", "NO_EVIDENCE"
+
+
+def classify_arm_role(name: str) -> Optional[str]:
+    """Role of an arm/floor/delta NAME, or None if it looks like a treatment arm.
+
+    Name-shape only -- deliberately. The alternative is a hand-maintained list of arm names,
+    which is what went stale in FLOOR_ARM_NAMES between June and 2026-08-15 (see that constant's
+    comment). Precedence is the tuple order above: `null_control` is checked LAST so that
+    `F_SCRAMBLE_NULL_P95` reads as a scramble floor rather than as a null arm.
+    """
+    s = str(name)
+    for role, rx in _ROLE_RE:
+        if rx.search(s):
+            return role
+    return None
+
+
+def min_ci_lo(candidates: Sequence[tuple]) -> tuple:
+    """THE conservative rule, in ONE place: take the MIN ci_lo and NAME its source.
+
+    `candidates` is a sequence of (ci_lo, source_name). Returns (ci_lo, source) or (None, None).
+
+    Why MIN and not "the floor with the highest point estimate": the standing bar is a margin
+    above max(orthographic, frequency, scramble), and under a PAIRED bootstrap the floor with the
+    highest point value is NOT always the hardest to separate from -- the arm and the floor
+    channel are correlated, so a lower-point floor can produce the tighter bound. Measured on
+    2026-08-16 in data/exp_meaning_asset_calibrated_floor_verdict_v1: arm d512|ASSET_RETRAIN_CTX
+    separates from the scramble floor (highest point, 0.0932) at ci_lo +0.0704 but does NOT
+    separate from the frequency floor (lower point, 0.0797) at ci_lo -0.0156. Picking by point
+    value passed that arm; MIN over ci_lo fails it, which is the correct reading.
+    """
+    vals = [(v, s) for v, s in candidates if v is not None]
+    if not vals:
+        return None, None
+    return min(vals, key=lambda t: t[0])
+
+
+def evaluate_standing_bar(*,
+                          floor_ci_pairs: Sequence[tuple],
+                          floor_roles_present: Sequence[str],
+                          floor_roles_with_ci: Sequence[str],
+                          has_known_answer_arm: Optional[bool] = None,
+                          has_null_arm: Optional[bool] = None,
+                          arm_name: str = "ARM") -> dict:
+    """The STANDING BAR as an executable predicate, for any cell -- not just C3-shaped ones.
+
+    The bar (notes/LONG_TERM_PLAN.md sec 5, MEMORY.md "A GATE IS A CI-SEPARATED MARGIN"):
+      a CI-SEPARATED margin over max(orthographic, frequency, scramble) on the IDENTICAL
+      scorer / n / pool / gold -- never a bare absolute number -- PLUS a KNOWN-ANSWER arm
+      licensing the instrument and a NULL arm licensing the effect, which fail INDEPENDENTLY.
+
+    Independence is structural here: each of the five conditions is computed from its own
+    evidence and reported separately, so "no floor" never masquerades as "not separated" and a
+    missing known-answer arm never silently downgrades a real separation.
+
+    `floor_ci_pairs` is [(ci_lo, floor_source_name), ...] -- one entry per floor the cell
+    actually recorded a CI-bearing margin against. This function does NOT invent one.
+
+    Returns a dict; `status` is MEETS_BAR / FAILS_BAR / NO_EVIDENCE. It is never a bare bool,
+    because "we cannot tell" and "it fails" are different findings and this project has paid for
+    conflating them (17 corrections-of-a-correction from premature demotion).
+    """
+    roles_present = sorted(set(floor_roles_present))
+    roles_with_ci = sorted(set(floor_roles_with_ci))
+    required_present = [r for r in REQUIRED_FLOOR_ROLES if r in roles_present]
+    ci_lo, ci_src = min_ci_lo(floor_ci_pairs)
+
+    c: Dict[str, dict] = {}
+    c["FLOOR_PRESENT"] = {
+        "ok": bool(required_present),
+        "roles_present": roles_present,
+        "required_roles_present": required_present,
+        "required_roles_absent": [r for r in REQUIRED_FLOOR_ROLES if r not in roles_present],
+    }
+    c["CI_PRESENT"] = {"ok": bool(floor_ci_pairs), "n_floor_margins_with_ci": len(floor_ci_pairs)}
+    if not floor_ci_pairs or not required_present:
+        c["MARGIN_CI_SEPARATED"] = {"ok": None, "min_ci_lo": ci_lo, "binding_floor": ci_src}
+    else:
+        c["MARGIN_CI_SEPARATED"] = {"ok": bool(ci_lo > 0.0), "min_ci_lo": ci_lo,
+                                    "binding_floor": ci_src}
+    # The bar is a margin over max(orthographic, frequency, scramble). If a cell never PAIRED
+    # against one of the three, we cannot know it cleared the max -- so this is None (unknown),
+    # never False. "Not measured" and "refuted" are different findings and conflating them is
+    # what produces premature demotions. This condition is what stops
+    # "cleared its strongest floor" from being read as "cleared THE floor": the calibrated-floor
+    # cell picked its strongest floor by POINT value and the paired test against a
+    # lower-pointed floor is the one that failed.
+    _all_compared = set(REQUIRED_FLOOR_ROLES).issubset(set(roles_with_ci))
+    c["ALL_REQUIRED_FLOORS_COMPARED"] = {
+        "ok": True if _all_compared else None,
+        "compared": roles_with_ci,
+        "not_compared": [r for r in REQUIRED_FLOOR_ROLES if r not in roles_with_ci],
+    }
+    c["KNOWN_ANSWER_ARM"] = {"ok": has_known_answer_arm}
+    c["NULL_ARM"] = {"ok": has_null_arm}
+
+    # Coverage is reported, never silently folded into the verdict: a cell can separate from
+    # every floor it MEASURED while never having measured one of the three. That is a real and
+    # different defect from failing to separate, and the operator decides what to do about it.
+    missing_ci = [r for r in required_present if r not in roles_with_ci]
+    evidence_complete = bool(
+        not missing_ci
+        and sorted(required_present) == sorted(REQUIRED_FLOOR_ROLES)
+        and has_known_answer_arm and has_null_arm)
+
+    failed = [k for k, v in c.items() if v["ok"] is False]
+    unknown = [k for k, v in c.items() if v["ok"] is None]
+    if failed:
+        status = BAR_FAILS
+    elif unknown:
+        status = BAR_NO_EVIDENCE
+    else:
+        status = BAR_MEETS
+    return {
+        "arm": arm_name, "status": status, "conditions": c,
+        "min_ci_lo": ci_lo, "binding_floor": ci_src,
+        "floor_roles_present": roles_present, "floor_roles_with_margin_ci": roles_with_ci,
+        "required_floor_roles_without_margin_ci": missing_ci,
+        "bar_evidence_complete": evidence_complete,
+        "failed_conditions": sorted(failed), "unknown_conditions": sorted(unknown),
+    }
 
 # Set False only by --_disable_guard, to prove in the self-test that the guard is load-bearing.
 GUARD_ENABLED = True
@@ -283,8 +430,9 @@ def _floor_ci_lo(name: str, deltas: dict, string_arm: str) -> tuple:
         if v is not None:
             direct.append((v, cand))
     if direct:
-        v, src = min(direct, key=lambda t: t[0])
-        return v, src
+        # ONE implementation of "take the MIN ci_lo": min_ci_lo(). tools/verdict_bar_check.py
+        # calls the SAME function, so the two tools cannot drift apart on the conservative rule.
+        return min_ci_lo(direct)
     d_arm_base = _get(deltas, f"d_{name}_minus_BASE", "ci_lo")
     d_base_floor = _get(deltas, "d_A1_BASE_minus_F_SCRAMBLE", "ci_lo")
     floor_src = "F_SCRAMBLE (via BASE chain)"
@@ -494,6 +642,86 @@ def self_test() -> int:
           fc2, 0.01)
     check("  and names the legacy chain as its source",
           fc2_src, "F_SCRAMBLE (via BASE chain)")
+
+    # CASE 8 -- ARM ROLE CLASSIFICATION (added 2026-08-16 for tools/verdict_bar_check.py).
+    # Naming drift is the enemy here: the verdict vocabulary went from 13 strings in June to 444
+    # in July, and floor arms are named just as loosely. Classification is by SHAPE, and these
+    # cases are the shapes actually found on disk.
+    for nm, want in (("A5_STRINGCTRL", "orthographic"), ("A6_TRIGRAM_ONLY", "orthographic"),
+                     ("A_ORTHOGRAPHIC", "orthographic"), ("A7_PREFIX_ONLY", "orthographic"),
+                     ("HARDENED_FREQUENCY_FREQ_MIN", "frequency"), ("F_FREQUENCY", "frequency"),
+                     ("F_SCRAMBLE_ON", "scramble"), ("B6_OPEN_SCRAMBLE", "scramble"),
+                     ("SCRAMBLE_NULL_P95", "scramble"),
+                     ("random_chance", "random_chance"),
+                     ("CTRL_RANDINIT_CTX", "null_control"),
+                     ("GLOVE_POSITIVE_CONTROL", "known_answer"),
+                     ("A4_BOTH", None), ("d512|ASSET_RETRAIN_CTX", None)):
+        check(f"classify_arm_role({nm!r})", classify_arm_role(nm), want)
+    check("a chance baseline is NOT one of the three required floor roles",
+          "random_chance" in REQUIRED_FLOOR_ROLES, False)
+
+    # CASE 9 -- min_ci_lo is the ONE conservative rule and it names its source.
+    check("min_ci_lo takes the minimum, not the first or the largest",
+          min_ci_lo([(0.07, "SCRAMBLE"), (-0.0156, "FREQUENCY"), (0.045, "ORTHO")]),
+          (-0.0156, "FREQUENCY"))
+    check("min_ci_lo on nothing is (None, None)", min_ci_lo([]), (None, None))
+
+    # CASE 10 -- THE STANDING BAR, replaying the measured shape of
+    # data/exp_meaning_asset_calibrated_floor_verdict_v1 row d512|ASSET_RETRAIN_CTX. Its verdict
+    # string reads as a clearance; two of its three floors do not separate.
+    r = evaluate_standing_bar(
+        floor_ci_pairs=[(0.0455, "A_ORTHOGRAPHIC"), (-0.0156, "HARDENED_FREQUENCY_FREQ_MIN"),
+                        (0.0704, "SCRAMBLE_NULL_P95")],
+        floor_roles_present=["orthographic", "frequency", "scramble"],
+        floor_roles_with_ci=["orthographic", "frequency", "scramble"],
+        has_known_answer_arm=False, has_null_arm=True, arm_name="d512|ASSET_RETRAIN_CTX")
+    check("measured ASSET_RETRAIN_CTX FAILS the standing bar", r["status"], BAR_FAILS)
+    check("  and the FREQUENCY floor is named as the binding one",
+          r["binding_floor"], "HARDENED_FREQUENCY_FREQ_MIN")
+    check("  and picking the highest-POINT floor alone would have passed it",
+          r["conditions"]["MARGIN_CI_SEPARATED"]["min_ci_lo"] < 0 < 0.0704, True)
+
+    # CASE 11 -- NON-VACUITY for the standing bar: a fully-evidenced win must MEET it, or the
+    # checker built on this predicate flags everything and is worthless.
+    r = evaluate_standing_bar(
+        floor_ci_pairs=[(0.0455, "A_ORTHOGRAPHIC"), (0.0210, "F_FREQUENCY"),
+                        (0.0704, "F_SCRAMBLE")],
+        floor_roles_present=["orthographic", "frequency", "scramble"],
+        floor_roles_with_ci=["orthographic", "frequency", "scramble"],
+        has_known_answer_arm=True, has_null_arm=True, arm_name="GENUINE")
+    check("a fully-evidenced arm MEETS the standing bar (predicate is not vacuous)",
+          r["status"], BAR_MEETS)
+    check("  and its evidence is marked complete", r["bar_evidence_complete"], True)
+
+    # CASE 12 -- the three failure modes are INDEPENDENT: no floor, no CI, and incomplete
+    # coverage each produce their own distinct finding rather than collapsing into one.
+    r = evaluate_standing_bar(floor_ci_pairs=[], floor_roles_present=[], floor_roles_with_ci=[],
+                              has_known_answer_arm=False, has_null_arm=False, arm_name="BARE")
+    check("a bare-threshold cell FAILS on FLOOR_PRESENT",
+          r["conditions"]["FLOOR_PRESENT"]["ok"], False)
+    check("  and its separation is UNKNOWN, not False (no evidence != refuted)",
+          r["conditions"]["MARGIN_CI_SEPARATED"]["ok"], None)
+    r = evaluate_standing_bar(floor_ci_pairs=[], floor_roles_present=["scramble"],
+                              floor_roles_with_ci=[],
+                              has_known_answer_arm=True, has_null_arm=True, arm_name="FLOOR_NO_CI")
+    check("a floor-without-CI cell FAILS on CI_PRESENT and not on FLOOR_PRESENT",
+          (r["conditions"]["FLOOR_PRESENT"]["ok"], r["conditions"]["CI_PRESENT"]["ok"]),
+          (True, False))
+    r = evaluate_standing_bar(floor_ci_pairs=[(0.20, "SCRAMBLE_NULL_P95")],
+                              floor_roles_present=["orthographic", "frequency", "scramble"],
+                              floor_roles_with_ci=["scramble"],
+                              has_known_answer_arm=True, has_null_arm=True, arm_name="PARTIAL_COV")
+    # An arm that separates from the ONE floor it was paired against has not been shown to clear
+    # max(ortho, freq, scramble) -- that is NO_EVIDENCE, not a clearance. Measured on disk
+    # 2026-08-16: exp_meaning_asset_pretrained_positive_control_v1 and
+    # exp_context_conditioned_near_neighbour_v1 both have this shape, and calling either of them
+    # MEETS_BAR would reproduce the exact "cleared its strongest floor" error being audited.
+    check("separating from only the floor it MEASURED is NO_EVIDENCE, not a clearance",
+          (r["status"], r["required_floor_roles_without_margin_ci"], r["bar_evidence_complete"]),
+          (BAR_NO_EVIDENCE, ["orthographic", "frequency"], False))
+    check("  and the uncompared floors are named",
+          r["conditions"]["ALL_REQUIRED_FLOORS_COMPARED"]["not_compared"],
+          ["orthographic", "frequency"])
 
     # NEGATIVE CONTROL for the guard: with the guard disabled, CASE 1 must stop being protected.
     global GUARD_ENABLED

@@ -344,6 +344,14 @@ def main() -> int:
     # scan walks 7885 data dirs and takes ~290s. Same split as registry_report() above: the
     # expensive computation is a separate deliberate act, the hook only reports its staleness.
     blocks.append(probe('result-index-join', 'result_index_join.py', '--hook'))
+    # --hook reads the newest PERSISTED verdict-bar report (<1s); it never rescans, because a
+    # full recompute walks 7,769 metrics.json. Same split as registry_report() and
+    # result-index-join above: the expensive computation is a deliberate act
+    # (`python tools/verdict_bar_check.py --scan`), the hook only reports its result + staleness.
+    # WHY IT IS IN THE HOOK AT ALL: a cell's verdict STRING can say PASS while its claim does
+    # not survive the standing bar, and the string is what every triage tool keys on. That is
+    # only useful if someone SEES the count without remembering to ask for it.
+    blocks.append(probe('verdict-bar', 'verdict_bar_check.py', '--hook'))
     # progress_snapshot.py --hook: full derive (fast -- no recursive data/ walk, one bounded
     # git log call, ~1s measured) that rewrites notes/PROGRESS_SNAPSHOT.md every session and
     # prints only its headline here. This IS the "periodic without a cron" mechanism for the
