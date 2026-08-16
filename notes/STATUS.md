@@ -37,11 +37,11 @@ its registry row wrongly says WIRED.
 disjoint, gap 0.2667 -> HARD_PASS. NOT vindication: ~49% measured, HALF the 95-97% v1-v3
 claimed. Mechanism: 6-token same-sentence proximity window (median sentence len 18/3,
 set pre-result). Corpus defect FLAGGED NOT FIXED: base_vocabulary CSV lacks terminal
-punctuation -> one 74,660-token "sentence" of ~74,286 words inflated co-occurrence; window
+punctuation -> one 74,660-token "sentence" inflated co-occurrence; window
 suppresses it. Claims 2/3 NOT recomputed, unchanged from v2 (both HARD_PASS).
 
 ## RECOVERY TRIAGE (LESSONS: TRIAGE RESIDUE)
-MERGED into `RECOVERY_PROGRAM.md` (`2fbd28ea5`); row/atom/metric counts live in that file only
+MERGED into `RECOVERY_PROGRAM.md`; row/atom/metric counts live in that file only
 ("all three" DOUBLE-COUNTS). 172/565 chain-graded have a real floor; 0 WIRED. RE-CHECK
 FLOOR+SCORER BEFORE WIRING -- green rows used weak floors. UNTRIAGED residue remains. Triage FP
 rate 49/49 (`kf2` sole true positive) -- disc.9.
@@ -62,9 +62,10 @@ bootstrapping*; 4 F2 freq-corrected pool*; 5 same-sentence cosine/PMI; 6 FHRR su
 8 read-out vs v5's 64%; 9 F1+F3 stabilisation; 10 news->textbook swap; 11 sensorimotor norms as
 FILTER*; 12 context-conditioned sense selection v2; 13 minimum-grounded-basis derivation;
 14 `genuine_cross_source_corroboration_v1`*; 15 `exp_combined_dictionary_...v1`; 16 "the context
-vector is noise"; 17 co-occurrence as the explanation; 18 role-bound structure alone; 19 frontmatter
-`isolation:`/`background:`; 20 wiring the voting mechanism*; 21 hand-scoring a MEANINGFUL delta at
-1-3%; 22 the 2-hop bridges; 23 definitional extraction as DIRECT-BANK*; 24 distinctiveness weighting
+vector is noise"; 17 co-occurrence as the explanation; 18 role-bound structure alone -- RE-CLOSED
+08-15 STRUCTURE_HURTS on a valid gate*; 19 frontmatter `isolation:`/`background:`; 20 wiring the
+voting mechanism*; 21 hand-scoring a MEANINGFUL delta at 1-3%; 22 the 2-hop bridges;
+23 definitional extraction as DIRECT-BANK*; 24 distinctiveness weighting
 as log-IDF*; 25 extractor differentia/genus + supply; 26 `sign()` vs the forgetting kernel; 27 rank-1
 common-mode removal*; 28 FORAGE_REFUSAL; 29 the five-stage read-out chain; 30 near-duplicate anchors
 as the defect; 31 meaning supply as an ADDITIVE CHANNEL -- REFUTED; NARROWED 08-15, a native /

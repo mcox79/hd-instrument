@@ -2,6 +2,10 @@
 
 **LIVING DOCUMENT. Dateless filename on purpose. Edit in place.**
 Last substantive rewrite: 2026-08-15 late, at commit `cd8d15cd2`, branch `dataprep/mcguffey-graded-corpus`.
+**Dated corrections since, appended not overwritten (every superseded claim is preserved verbatim
+with a superseded-by line):** 2026-08-16 — the **CA3 self-contradiction** is resolved in favour of
+**building the completer** (section 5 table row + the dated correction under that table), and
+**R14 / R15** are added to section 10 with a dated re-earning note on **R12**.
 
 This replaces `notes/PLAN_NEXT_12H.md`, which is now a one-line pointer to here so the recovery
 chain does not break. It is written for a session with **no memory of the night that produced it**,
@@ -248,8 +252,64 @@ cognitive-theory label), say whether we **reuse an organ we already own**, and t
 | 2. avoiding interference | complementary learning systems; sparse conjunctive coding in perirhinal cortex | `exp_interference_avoidance_conjunctive_vs_additive_v1` (conjunctive 1.000 vs additive 0.273 — the additive arm *is* our geometry) | that overlapping representations interfere more in an additive store: **PINNED-BY-EVIDENCE**. **The perirhinal feature-ambiguity attribution is CONTESTED** (real failed replications) and the conjunction operator is UNPINNED — ours to choose, and we must say so |
 | 4. retrieval | cue-driven cortical reinstatement | live | **OUR-INVENTION-BEING-TESTED** (cosine over a stacked matrix). "There is no cosine anywhere in the brain" — the honest brain analogue is a recurrent settling trajectory, whose metric is UNPINNED |
 | 5. selection | basal-ganglia Go/NoGo disinhibition; graded competition implemented *by* the normalisation pool, not by a hard argmax | live path uses `argmax` | **For a two-choice accuracy metric, argmax is the deterministic limit of a softmax and cannot change the expected score.** Low priority *by the brain's own metric*. **PINNED-BY-EVIDENCE that this is not our bottleneck** |
-| — settling / pattern completion | CA3 recurrent attractor | `cleanup_family`, `iterative_attractor` (both live) | **EXPLICIT NEGATIVE RECOMMENDATION — do NOT build.** Distinctive features are weakly correlated with a concept's other features, and attractor settling is driven by correlational structure, so completion makes near-neighbour discrimination *worse*. Three cells already floor it: lift +0.005, +0.003, and one HARD_FAIL at −0.020 |
+| — settling / pattern completion | **CA3 recurrent collaterals — the COMPLETER.** The brain never retrieves with an exact key; it completes a stored pattern from a PARTIAL CUE. Separation (dentate gyrus) and completion (CA3) are a **MATCHED PAIR** | `cleanup_family`, `iterative_attractor` (both live, both terminate in `sign()`); `hdlab/dg_pattern_separation.py` (the separating half, **zero importers**) | **IN SCOPE AND BEING BUILT (2026-08-16, owner direction).** We built separators with no completer, which is why conjunction failed. Read the dated correction directly under this table before acting on this row. **SUPERSEDED 2026-08-16 — the prior recommendation, preserved verbatim so the reversal is auditable:** *"EXPLICIT NEGATIVE RECOMMENDATION — do NOT build. Distinctive features are weakly correlated with a concept's other features, and attractor settling is driven by correlational structure, so completion makes near-neighbour discrimination worse. Three cells already floor it: lift +0.005, +0.003, and one HARD_FAIL at −0.020."* superseded-by: the 2026-08-16 correction note below this table, and R13 in section 10 |
 | — foraging (what to read next) | UNPINNED as an equation; functionally, the system that notices what it does not know | `gap_driven_reader.rank_material()` already HARD_PASS; the "shelf" of corpora does not exist | function parity only, **OUR-INVENTION-BEING-TESTED**, and the writeup must say so |
+
+### DATED CORRECTION 2026-08-16 — THE CA3 CONTRADICTION IS RESOLVED IN FAVOUR OF BUILDING IT
+
+**The defect being fixed.** This file contradicted itself in a way that would have mis-routed
+dispatch. The settling / pattern-completion row of the table above said **do NOT build CA3**.
+Rule **R13** in section 10 says conjunction **is not testable until CA3 completion sits in front of
+it**. Both cannot guide the same decision, and an agent taking the lowest-numbered open item would
+have hit one or the other depending on which it read first. Flagged by the cell author who ran the
+hub-and-spoke full cell (`.claude/scan-out/wall1-hubspoke-full.json`,
+`A_LIVE_TENSION_IN_OUR_OWN_DOCUMENTS_recorded_not_resolved`), who correctly declined to adjudicate
+it and escalated instead.
+
+**The resolution, and it is the owner's, not an agent's.** *CA3 completion is IN SCOPE and is being
+built.* The reasoning is brain-fidelity, not performance: **the brain never retrieves with an exact
+key — it completes from a partial cue**, and **dentate-gyrus separation and CA3 completion are a
+matched pair**. We built the separating half and never built the completing half, and that is why
+conjunction failed. A conjunctive code measured with no completer in front of it is being asked to
+do its partner organ's job.
+
+**The prior negative is NOT demoted — it is re-scoped, and it stands as measured.** All three cells
+were re-checked on disk today before this correction was written (right file / right version at
+HEAD / `.venv` / right metric / right arm):
+
+- `data/exp_att1_iterative_attractor_cleanup_v1/metrics.json` — `run_mode=full`, `MIDDLE_BAND`,
+  best lift over argmax **+0.005**, basin ratio 1.00x, cv 0.935.
+- `data/exp_cleanup_graded_attractor_vs_argmax_v1/metrics.json` — `STEP_IS_CODEBOOK_SNR_WALL_NOT_CLEANUP_RULE`,
+  modern_hopfield **0.360** vs argmax **0.357** at the cliff, max|gap| 0.008.
+- `data/exp_att1_iterative_attractor_v2_low_storage_ratio_krotov_v1/metrics.json` — `run_mode=full`,
+  **HARD_FAIL**, lift **−0.020**.
+
+What those three measured is **settling as a re-ranker bolted onto an argmax read-out**, scored by
+lift-over-argmax and basin ratio. What R13 asks for is **completion standing between a partial cue
+and a conjunctive or addressed code**. Those are different questions, and generalising the first
+into "CA3 is closed" is the narrow-failure-to-impossible fault (`notes/STATUS_LESSONS.md`, and the
+owner's standing directive of 2026-08-11). Two further facts make the re-scoping concrete rather
+than convenient: `notes/ORGAN_MAP.md` §D2 records that **every one of our completion
+implementations terminates in `sign()`**, and tonight measured that **the terminal sign is free at
+an exact key and expensive under a partial cue** (new rule R14 below) — so the three cells may have
+been scoring a crippled completer at the one operating point where its defect is invisible.
+
+**What the new evidence adds, stated without overselling it.** `data/exp_hub_spoke_partial_cue_curve_v1/metrics.json`
+(`run_mode=full`, verdict `ADDRESSING_HOLDS_UNDER_PARTIAL_CUE`, instrument validity 8/8, recomputed
+off disk for this correction) measures how far each operator degrades **before** a completer would
+have to do any work. At 50% cue overlap, item identification: **CONJUNCTIVE 0.4850** against
+**FLAT 0.9564** and **ADDRESSED 0.9668**; the paired conjunctive-vs-flat delta at 20% overlap is
+**−0.0247, CI [−0.0371, −0.0127]**, CI-separated below, while addressing's is **−0.0007,
+CI [−0.0160, +0.0147]**, a tie. So the conjunctive operator's damage starts well before the cue is
+badly degraded — which is the measurement the R13 argument needed, and it is what makes the missing
+completer a *build target* rather than an assertion. **This licenses no meaning claim**: that cell
+is a construction proof on synthetic and norm-derived codes, its own headline gate `G1` FAILED, and
+nothing in it touches the 4.80% read-out.
+
+**Sequencing is the Director's call, not this correction's.** No backlog item was created or
+renumbered here (this note was written by the audit role, which does not author or dispatch cells).
+The storage instrument, ITEM 1, still blocks the architecture items, and a completer has to be
+measured on an instrument before it can be believed.
 
 **A note we keep getting wrong, so it is written here.** `hdlab/working_memory.py` contains no
 working memory — 116 lines of guard functions and constants. Auditing by filename will mislead you.
@@ -723,7 +783,10 @@ results stand — but nothing here depends on running it.
 ## 10. STANDING RULES — earned the hard way
 
 R1–R12 carry forward. **R13 is new (2026-08-16) and is a standing owner directive, not a
-session finding.**
+session finding. R14 and R15 are new (2026-08-16), each earned by an incident on the same night
+and each citing it inline. R12 carries a dated re-earning note; it was NOT duplicated as a new
+rule, because two rules for one discipline drift apart and then contradict each other — which is
+the exact defect the CA3 correction in section 5 had to repair.**
 
 1. **A gate is a CI-separated margin above the strongest no-understanding floor** —
    `max(orthographic, frequency, scramble)` — on the identical scorer, n, pool and gold. **Never a
@@ -763,6 +826,17 @@ session finding.**
     does not. The premise came from reading a code path that exists and is never called. **Before
     building on "the code does X", run the code and reconstruct X from what it actually produces.**
     Cost of not doing it: a whole instrument design measuring the wrong arm.
+    *RE-EARNED AND CONFIRMED 2026-08-16, with the incident named precisely so the rule is
+    recognisable next time:* `preregs/DRAFT_storage_quality_instrument_v1.md` "key finding 2" was
+    written against **"the store keeps a smeared key"** — a latent address degraded by crosstalk.
+    Runtime reconstruction shows what actually accumulates is `acc += symbol_vector(w)`: **the store
+    keeps no key at all.** The difference is not a detail. A smeared key makes "recover the address"
+    the measurement; an absent key makes key sensitivity ~0 **by construction**, so that arm is a
+    positive control and not a finding, and the real measurement moves to the built-but-uncalled
+    role-binding path (`hdlab/reading_grounding_loop.py:436`, default-OFF). Backlog item 3 exists
+    solely to repair that spec. **This was deliberately NOT filed as a new rule R16** — it is the
+    same rule, re-earned, and splitting one discipline across two numbered rules is how the CA3
+    contradiction in section 5 came to exist.
 13. **NEW — every component names WHICH BRAIN STRUCTURE, and every shelve reason is BRAIN-framed,
     never performance-framed.** The question is not "did we consider the brain?" — it is **"which
     brain structure, and are we replicating it or substituting something convenient?"** The default
@@ -787,6 +861,48 @@ session finding.**
     into every composed brief, and `tools/capability_registry_audit.py` requires `brain_structure` +
     `fidelity_basis` on registry rows going forward (pre-existing rows are reported as a backlog and
     **never auto-filled** — a fabricated brain justification is worse than a missing one).
+    *Contradiction closed 2026-08-16:* this rule used to sit in the same document as an explicit
+    "do NOT build CA3" recommendation in section 5. Resolved in favour of **building the completer**
+    — see the dated correction under the section 5 table.
+14. **NEW — a claim measured at the EXACT-KEY operating point does not transfer to the PARTIAL-CUE
+    regime, and the partial-cue regime is the real one.** The brain never presents a stored key back
+    to itself; every real query is a new, partly-overlapping encounter. So a measurement taken with
+    the query set equal to the stored item is a *best case*, not a *typical case*, and a cost that
+    is invisible there can be large one step away from it.
+    *The incident, both halves measured the same night on the same object:* with an **exact key**,
+    `data/exp_hub_spoke_word_representation_v1/metrics.json` gate G5 reports the terminal `sign()`
+    costing **exactly 0.000 bits** at bundle sizes 2 and 3 — the sizes this architecture actually
+    uses — which reads as "the sign is free here". With a **partial cue**,
+    `data/exp_hub_spoke_partial_cue_curve_v1/metrics.json` reports item identification of
+    **0.9668 unsigned versus 0.7018 signed at 50% overlap** (0.0322 vs 0.0153 at 20%), and the
+    signed arm's paired delta against the flat bag is **−0.2546, CI [−0.2848, −0.2243]** at 50% and
+    **−0.0176, CI [−0.0309, −0.0046]** at 20% — CI-separated below at both. Recomputed off disk,
+    3-seed mean at d=256, for this rule. **The live read-out does `sign()` of a sum and always
+    queries with a never-seen context**, so this is a measured cost sitting on the live path that
+    the exact-key number would have told you was zero.
+    *How to apply it:* before quoting any "X costs nothing / X is free", state the query model in
+    the same sentence (this is R11's axis requirement, and this is the case that shows why the
+    **query model** is the axis that gets dropped most often). Where the claim is load-bearing, run
+    the partial-cue arm; it is usually one extra loop over a degradation fraction, not a new cell.
+15. **NEW — a smoke's HAND-COMPUTED gate verdict is not a gate. Only the cell's own gate code, run
+    at full, decides.** A hand-computed verdict is an argument about what the gate would say, made
+    by the party who wants it to pass, using numbers it selected itself. It is not evidence, and it
+    must never appear in a report in the grammatical form of a result.
+    *The incident:* the hub-and-spoke smoke report recorded **"G1 would pass"**. At full, the cell's
+    own `evaluate()` returned **G1 = FAIL**, with no threshold touched
+    (`data/exp_hub_spoke_word_representation_v1/metrics.json`, `verdict: PARTIAL`). The hand
+    computation had silently used a max-floor CI upper of **0.2583**, i.e. it dropped `F_SCRAMBLE`
+    from the pre-registered floor set. Recomputed off disk today, per arm at d=256: **F_SCRAMBLE
+    facet recovery 1.0000, CI [1.0000, 1.0000]** — bit-for-bit the treatment arm's own score, and
+    `N_NULLCONTENT` scores 1.0000 there too. So the pre-registered gate is unpassable as written,
+    and the automated path had never run at smoke at all (it produced NaNs from a `load_units` bug).
+    The full run was the **first** evaluation of that gate by code.
+    *Two things this rule does NOT say.* It does not say the floor set was right — `F_SCRAMBLE` is a
+    floor on the MEANING axis and not on the facet axis, which is a real design defect, recorded as
+    prereg amendment A4. It says the place to fix that is **a dated prereg amendment BEFORE the
+    run**, never a hand adjustment after it. And it does not say the substantive reading must be
+    withheld: report it **beside** the failing gate, never **instead of** it, which is what that
+    cell did.
 
 **Two disciplines that are not rules but are how we work:**
 - **Plain language.** The owner has said twice that jargon makes these documents unusable to them.

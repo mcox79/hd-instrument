@@ -98,12 +98,66 @@ Each entry: the route, why it is closed, and the evidence that closed it.
     co-occurrence" is not the diagnosis --
     `notes/director_handscore_text_vs_mechanism_2026-08-13.md`, RECONCILIATION section.
 
-18. **Role-bound dependency structure ALONE as a route to meaning.** NULL on quality (0% vs 2%
-    MEANINGFUL, delta -0.02) -- but it DID bind mechanically, which is why the negative is
-    informative rather than a smoke failure: argmax disagreement 97.80%, co-occurrence agreement
-    at top5 fell 0.2552 -> 0.0749, band DIVERGED. The structure was really imposed and the
-    quality did not move --
-    `notes/director_handscore_structured_comparator_2026-08-13.md`, 0db7cfdaa.
+18. **Role-bound dependency structure ALONE as a route to meaning.**
+    **RE-CLOSED 2026-08-15 ON A VALID RULER, AND THE DIRECTION IS NOW KNOWN: STRUCTURE HURTS.**
+
+    *The 2026-08-13 entry, preserved verbatim, superseded-by the 2026-08-15 result below:*
+    > NULL on quality (0% vs 2% MEANINGFUL, delta -0.02) -- but it DID bind mechanically, which is
+    > why the negative is informative rather than a smoke failure: argmax disagreement 97.80%,
+    > co-occurrence agreement at top5 fell 0.2552 -> 0.0749, band DIVERGED. The structure was
+    > really imposed and the quality did not move --
+    > `notes/director_handscore_structured_comparator_2026-08-13.md`, 0db7cfdaa.
+
+    **Why the old judgement could not stand.** That NULL was a HAND-SCORED MEANINGFUL delta on
+    `exp_structured_comparator_v1` -- 1 MEANINGFUL row in 100, max attainable |delta| 0.02 against
+    its own declared minimum detectable 0.11. STANDING DISCIPLINE 1 in this file names that cell
+    explicitly as underpowered by floor and prescribes gating on KNOWN-ANSWER RECALL instead. So
+    entry 18 was closed by an instrument since ruled invalid, and until 2026-08-15 the honest label
+    was *UNTESTED WITH A WORKING RULER, NOT REFUTED*.
+
+    **The licensed result that replaces it.** `data/exp_structured_code_vs_flat_bag_c3_v1/metrics.json`
+    (banked 2026-08-16 at `15d94cf67`; it was untracked until then). Verified off disk for this
+    entry, all six checks stated: right FILE (that absolute path, no `_scratch_` neighbour); right
+    VERSION (the 2026-08-15T16:05Z graded-fix RE-RUN, which replaced a 2026-08-14 run VOIDED by its
+    own positive control at `SR_STRUCT=0.6712`); right ENV (`.venv`); right CORPUS (C3 harness
+    imported wholesale from `exp_grounding_readout_known_answer_v1`, `MASTER_SEED=20260814`,
+    `n_items=4000`, 5491 anchors); right METRIC (open-vocabulary hit@1, the same scorer that gives
+    the 4.80% headline -- `a1_base_reproduces_c3_headline_0480_exactly: true`); right ARM (`A1_BASE`
+    vs `A2_STRUCTURED`, distinct arm digests `9ee2af8d9ece6c2b` / `621add21502d6669`).
+    - **verdict `STRUCTURE_HURTS`.** `A2_STRUCTURED` **0.03675** [0.03100, 0.04275] vs `A1_BASE`
+      **0.04800** [0.04125, 0.05475]. Paired delta **-0.01125, CI [-0.01950, -0.00300]**, excludes
+      zero. Between-projection-draw sd 0.0015 (STRUCT) / 0.0009 (BASE), so the effect is larger
+      than the shared-randomness noise.
+    - **BOTH known-answer arms clear their pre-registered floor**: self-retrieval BASE **0.7860**
+      (n=299) and STRUCT **0.7637** (n=292) against `SELF_RETRIEVAL_FLOOR=0.70`. That is what makes
+      this a licensed negative rather than a plumbing failure, and it is exactly the gate the
+      2026-08-14 run failed.
+    - **Neither arm clears the spelling floor**: `A5_STRINGCTRL` **0.0870**, `A7_PREFIX_ONLY`
+      **0.05875**. `base_clears_floor=false`, `struct_clears_floor=false`.
+    - The organ is unchanged and was reused, not rebuilt: `StructuralEncoder` /
+      `structural_vector_masked` in `hdlab/reading_grounding_loop.py`, i.e.
+      `sign(sum(bind(REL_vec, filler_vec)))` over 1-hop dependency relations, mean 2.82 features per
+      encoding. Pre-reg `preregs/2026-08-14_exp_structured_code_vs_flat_bag_c3_v1.md` plus the
+      addendum `preregs/2026-08-15_..._graded_fix_rerun.md`.
+
+    **Disclosed defect in the artifact, not patched and not hidden.** `arms_must_differ.ok = false`:
+    `F_SCRAMBLE_BASE` and `F_SCRAMBLE_STRUCT` share digest `4596b30dc13e9692`, so ONE scramble floor
+    serves both arms rather than one per arm. It does not touch the BASE-vs-STRUCT head-to-head
+    (which is what this entry turns on) but it does mean the two scramble columns are one number
+    reported twice, and nobody may quote them as independent per-arm floors.
+
+    **What is closed and what is NOT.** Closed: *this* structured code, as a drop-in swap for the
+    flat bag, on the live open-vocabulary read-out, with nothing in front of it -- it is worse than
+    the flat bag, CI-separated. NOT closed, and the distinction is the whole point: the code was
+    measured **with no completer in front of it**. Per PLAN R13 and the 2026-08-16 CA3 correction in
+    `notes/PLAN.md` section 5, separation and completion are a matched pair, and a structured or
+    conjunctive code with no CA3-shaped completion stage is being asked to do its partner organ's
+    job. **REVIVAL CRITERION (brain-framed, never performance-framed): re-run this exact arm, on
+    this exact harness, once a CA3-style pattern-completion stage exists and sits between the query
+    and the code.** A better hit@1 on its own is NOT a revival criterion.
+
+    *Adjacent, do not merge with this entry:* DO-NOT-REDO 32 (DG / pattern separation) is a
+    different organ and was NOT re-tested on 2026-08-15. It remains where it was.
 
 19. **Agent frontmatter keys `isolation:` and `background:`.** `isolation:` is ignored.
     `background:` is worse than ignored -- it fails the WHOLE agent definition to load (all five
@@ -986,6 +1040,41 @@ identical blending mechanism**, crowding never fell (median NN 0.4553 -> 0.4493 
 within-neighbourhood separation. Revival: only alongside a representation change, never as a supply
 fix on its own.
 
+> 🔴 **ENTRY 31 NARROWED 2026-08-15 (auditor, off-data) -- NOT DELETED, NOT WEAKENED IN ITS OWN
+> SCOPE. Corrected text, which supersedes the paragraph above:**
+>
+> **31. MEANING SUPPLY AS AN ADDITIVE SIMILARITY CHANNEL ON THE FLAT-BAG C3 READ-OUT -- REFUTED**
+> (argmax-only; string control matches; encoder ties spelling-alone 0.0870). **NOT refuted: a
+> native word-level or in-distribution encoder, or meaning as separately-addressed structure.**
+>
+> **Why the narrowing is required, not a courtesy.** The refutation was obtained by improvising an
+> interface the artifact does not have, and **a negative obtained by improvising a missing
+> interface bounds THAT improvisation.** Left unscoped it silently upgrades into the strictly
+> larger claim "meaning supply cannot help", which the cell did not test. Verified at runtime by
+> the propagating auditor: `load_improved_encoder(seed=7)` returns an `EncoderExtractor` (d=512)
+> whose public attributes are `['CUES','build','conditioning','cue_vec','d','decode_dataset_slots',
+> 'model','oracle','pad_id','tok']` -- `hasattr` is **False** for every one of `embed_word`,
+> `embed`, `encode_word`, `word_vector`, `get_word_embedding`. **No encoder artifact exposes a
+> word-embedding interface at all**, which is why the cell had to mean-pool contextual token
+> representations, and the cell says so in its own `encoder.note`.
+> **Correcting a correction that is already circulating: it is FALSE that "the cell did not test
+> the large encoder."** `experiments/exp_meaning_supply_separation_v1.py:183-185` calls
+> `load_improved_encoder(seed=ENC_SEED)` -- the real landed artifact, `d_model` 512,
+> `tokenizer_vocab_size` 16000. The `USE_IS_OUT_OF_DISTRIBUTION: true` flag describes **how it was
+> used** (mean-pooled to fake an absent word-level API), **not which artifact was used.** Do not
+> let "the big encoder was never tested" propagate.
+> **The optimistic reading, recomputed:** `A3_ENCODER` best-over-w is **0.0880** [0.07925, 0.09700]
+> at w=1.00 (the cell's own `max_over_w_is_an_optimistic_upper_bound: true`), against standalone
+> spelling **0.0870** [0.07825, 0.09600]. **0.0880 sits inside the spelling CI: at its most
+> optimistic the encoder TIES a zero-meaning control.** The cell's own field already reads
+> `encoder_gain_exceeds_string_control: false`.
+> **This is a RE-GATE OBLIGATION, NOT AUTHOR ERROR.** The cell's floors were `F_SCRAMBLE` 0.0080
+> and `F_FREQUENCY` 0.0185 -- the weakest on the shelf -- because the orthographic floor did not
+> exist when it ran: `exp_meaning_supply_separation_v1` `ts_iso` **2026-08-14T18:48:21Z**,
+> `exp_orthographic_floor_vet_v1` `ts_iso` **2026-08-14T21:30:09Z**, i.e. the stronger floor landed
+> **2h41m48s AFTER** the cell it re-gates. The author used the best floor available at run time.
+> Read the row that way.
+
 **32. DG / PATTERN-SEPARATION AS THE GROUNDING ROUTE -- ALREADY BEATEN, IN JULY.**
 `exp_dg_pattern_separation_mcscript_purity_v1`, HARD_FAIL: DG separation at sparsity 0.05 gives
 `mean_purity_multi = 0.1013` against a **~0.1999 baseline -- BELOW it**. Its own words: "the
@@ -1139,3 +1228,388 @@ Shrager / Squire null in humans. Consequence for the TOP ITEM: our own floored r
 1.000 vs flat 0.003; conjunctive 1.000 vs additive 0.273; permutation 1.000 vs FHRR 0.0629) are
 UNAFFECTED and remain the reason to give the comparator a structured code. What may NOT be claimed
 is that this is PINNED BRAIN FIDELITY. Pursue it as OUR engineering choice on OUR measurements.
+
+---
+
+## DO NOT REDO -- entries added 2026-08-15 (auditor, 15-claim VET propagation)
+
+Source: a 15-claim VET (`.claude/scan-out/vet-claims.json`). **Every number below was
+independently re-verified off disk by the propagating auditor before being written here**, and two
+of the VET's own statements did NOT survive that re-check -- both are recorded as corrections C19
+and C22 rather than propagated. Stubbed in `STATUS.md` as entries **36** and **37**.
+
+**36. TREATING `k_eff ~= 50` AS A MEASURED DISCRIMINABILITY LIMIT -- IT IS THE CONFIGURED
+SHORTLIST SIZE.** `SHORTLIST_K = 50` is a hard-coded config line at
+`experiments/exp_focus_pullin_causal_stage2b_cskg_scale_gate_v1.py:118`, inherited verbatim by
+`stage2e:160` and `stage2g:137` (`SHORTLIST_K = S2B_SHORTLIST_K`). Where the symbol `k_eff` does
+occur in code it is a **clamp, not a measurement**: `k_eff = min(shortlist_k_eff, scores.shape[1])`
+(`stage2d:446`, `stage2f:185`), i.e. the configured K reduced to the number of available entities.
+**Had `SHORTLIST_K` been 20, the identical evidence would have read "k_eff ~= 20."** Nobody has ever
+swept K at any of the three sites, so the size of the confusion set is UNMEASURED.
+**What is real and is NOT retracted:** `exp_focus_pullin_causal_stage2g_deeper_leaf_split_v1`
+verdict `HARD_FAIL`, `wrong_argmax_frac_1213912` = **0.7077 / 0.7656 / 0.7121 / 0.7500** across
+leaf sizes 25000 / 15000 / 10000 / (4th) -- **flat**, which falsifies within-leaf crosstalk as the
+cause. That is a clean, well-controlled negative and it stands on its own. Only the *interpretation*
+("the confusion set has ~50 members") is withdrawn.
+**\* Revival criterion:** a genuine K-sweep -- report recall@K and argmax accuracy CONDITIONAL on
+in-set over K in {5,10,20,50,100,500,full}. A knee at ~50 that survives varying `SHORTLIST_K` would
+earn the phrase. Note the counter-evidence to a *fixed* k_eff already on disk: conditional argmax
+accuracy is 0.5333/0.9467 = **56% at 100K** but 0.1867/0.8533 = **22% at 1.21M** at the SAME leaf
+size, i.e. the failure is scale-dependent.
+
+**37. "RIGHT NEIGHBOURHOOD, WRONG MEMBER" / WITHIN-NEIGHBOURHOOD SEPARATION AS THE C3 DIAGNOSIS --
+NOT SUPPORTED, ON TWO INDEPENDENT GROUNDS.** Recomputed off
+`data/exp_orthographic_floor_vet_v1/metrics.json` (identical items/pool/gold, n_items=4000,
+n_anchors=5491):
+(i) **A zero-substrate spelling channel reproduces the rank profile exactly.**
+`per_arm.A1_BASE.median_rank` = **37.0**; `per_arm.A6_TRIGRAM_ONLY.median_rank` = **37.0** --
+identical, from `t_mat[sel] @ tq` with no substrate signal at all; `A7_PREFIX_ONLY` = **33.5**,
+BETTER than the substrate; `A8_MAXORTHO` = 43.0. Accuracies: A1_BASE 0.0480 [0.04125, 0.05475],
+A6_TRIGRAM_ONLY 0.0870 [0.07825, 0.09600]. "Landing in the right neighbourhood" is a claim about
+semantic geometry, and a channel with no semantics lands in the same place.
+(ii) **The actual error population is not co-hyponyms.** `stage_b.open_vocabulary_readout.
+example_picks` off `data/exp_grounding_readout_known_answer_v1/metrics.json`, verbatim and in order:
+`abandon->palm`, `abbey->highclere`, `ability->work`, `able->might`, `abnormality->chromosomal`,
+`about->more`, `above->metre`, `abroad->gain`, `absence->presence`, `absent->limitation`,
+`absolutely->farm`, `absorb->pigment`, `absorption->fold`, `abundance->endemic`, `abuse->mouse`,
+`academic->findings`, `academy->proceedings`, `accelerate->tness`, `acceptor->nad`,
+`accept->donate`, `accessory->louis`. `abuse->mouse` is an ORTHOGRAPHIC rhyme; `accelerate->tness`
+is a broken token; only a minority (`absence->presence`, `accept->donate`) fit the paradigmatic
+story. The hand-picked `axon->dendrite` / `artery->vessel` pairs describe a SUB-POPULATION, not the
+95.2% of misses.
+**What is NOT refuted and must not be over-corrected away:** retrieval is genuinely healthy --
+`stage_b.self_retrieval` = `{"acc": 0.785953, "n": 299, "floor": 0.7, "ok": true}`. Supply is still
+closed (DO-NOT-REDO 31). The read-out is still below the spelling floor (C12/entry 34). What
+changed is only the *mechanism story* for WHY, and therefore what to build next.
+**\* Revival criterion:** a same-harness measurement showing the miss population is
+disproportionately co-hyponymic RELATIVE TO the trigram/prefix arms' own miss populations -- i.e.
+the neighbourhood claim has to beat the orthographic control, not merely be illustrated by
+cherry-picked pairs. `exp_meaning_supply_separation_v1.py:463` already ships an `_is_sister()`
+WordNet-hypernym predicate, so the measurement is cheap; it has simply never been run as a
+*contrast against the spelling arms*.
+
+## CORRECTIONS TO PRIOR CLAIMS -- added 2026-08-15 (auditor, 15-claim VET propagation)
+
+**C19. CORRECTION TO THE CORRECTION: "`k_eff` appears in NO metrics.json and NO source file" is
+FALSE.** The VET asserted this absence; enumeration refutes it. Method: `git grep` over all
+**28,338 tracked files** (7,637 of them `metrics.json`), substring then word-bounded. `k_eff` occurs
+as a local variable in `experiments/exp_focus_pullin_causal_stage2d_...py:446` and
+`...stage2f_...py:185-187`, and the literal string `k_eff=50` occurs **once inside
+`data/exp_focus_pullin_causal_stage2g_deeper_leaf_split_v1/metrics.json`**, in the `crlb_n/a` prose
+field ("comparison-set-size-restricted (k_eff=50) discriminability vs per-leaf write count").
+**This does not rescue the phrase -- it sharpens entry 36**: the on-disk `k_eff` *is* the configured
+shortlist size (`min(shortlist_k, n_ent)`), which is exactly why it cannot be cited as a measured
+limit. Recorded because STANDING DISCIPLINE 4's sub-rule ("an absence claim requires an
+enumeration, not a search") binds corrections too, and an overstated refutation is the mechanism
+that produced 17 corrections-of-a-correction in 48h.
+
+**C20. THE EXTRACTOR'S "~0.90 PRECISION ON CLEAN EXPLICIT SENTENCES" HAS NO SOURCE ON DISK.**
+Against INDEPENDENT gold (`data/exp_coherence_gate_extraction_correctness_independent_gold_v1/
+metrics.json`, verdict **MIDDLE_BAND**, `n_gold` = **34**), triple precision is **0.222-0.250** and
+primary precision **0.244-0.278**; `verdict_msg` reads `UNGATED P=0.180 ... FULL P=0.275 F1=0.297`.
+The three cells that would have supplied a precision number --
+`exp_definitional_predicate_v6`, `_v61`, `_v62` -- all landed verdict
+**`STRUCTURAL_PASS_PENDING_HANDSCORE`**; **the hand-score was never done.**
+Worse, `data/exp_wire_definitional_v1/metrics.json` `primary_HELDOUT_B` is **bit-identical between
+the ON arm and the SHUFFLE control on all eight fields** (availability 0.751891, recall_at_1
+0.037821, recall_at_5 0.104387, availability_conditioned_recall_at_1 0.050302,
+n_availability_conditioned 497, n_probe_subjects 661, live_banked_recall 0.097561,
+n_banked_correct 4 -- verified by direct dict comparison, `True`); its own band is
+**`MASS_NOT_CONTENT`** ("delta >= +0.03 but ON does not beat BOTH controls by >= +0.02").
+**NOT an indictment of the cells:** `exp_wire_definitional_v1` carries explicit
+`NO_QUALITY_CLAIM` ("No hand-scoring was performed and no quality claim is made") and a
+`CIRCULARITY` disclosure. The cells were honest; the **0.90 is a documentation-layer number with no
+experiment behind it.** Do not quote it.
+
+**C21. THE THEMATIC-ROLE LABELER'S "0.95 HELD-OUT" IS PARSE COVERAGE, AND THE MODERN-PROSE
+REVALIDATION IS A HARD_FAIL.** Provenance traced: the only on-disk source is
+`notes/research_next_benchmark_after_propara_trap_check_2026-08-10.md:11` and `:301`, both of which
+read "native LOCAL thematic-role reading at **0.95 parse coverage**".
+`notes/HANDOFF_full_project_report_for_new_team_2026-08-14.md:158` restates it as "local thematic-
+role reading (0.95 held-out)" -- **a coverage number transcribed into an accuracy number.**
+Off disk: `exp_thematic_role_labeler_qasrl_modern_revalidation_v1` verdict **`HARD_FAIL`**,
+`mean_qasrl_noncanon` = **0.7442**, `n_noncanon` = **3937**, `n_canon` = 9820, 5 seeds, and its own
+`verdict_msg` states the reason: *"single-cue ablation (animacy_only) reproduces full model within
+0.05 ... disguised single-cue rule on modern prose too"* (`animacy_only` 0.7203 vs full 0.7442 on
+that slice; 0.8623 vs 0.8666 on the MCGuffey repro slice).
+**What stands:** `exp_thematic_role_labeler_cue_integration_v1` is a genuine **HARD_PASS** at
+`mean_full_acc` **0.8666** vs `positional_baseline` 0.6032, 5 seeds -- **but n_test = 63**, and its
+own `best_single_cue` was `frame_only@0.6984 (matches_full=False)`. The honest statement is: the
+labeler passes on a 63-item curated set and FAILS at n=3937 on modern prose because one cue does its
+work. **This cell family is the one place the strongest floor (single-cue ablation) was actually
+run -- and at scale it beat the system.** That is a model for the discipline, not a scandal.
+
+**C22. CORRECTION TO THE CORRECTION: `A5_STRINGCTRL` IS STILL NOT A ZERO-MEANING ARM -- C16
+STANDS.** The VET describes `exp_meaning_supply_separation_v1`'s `A5_STRINGCTRL` as "a pure
+zero-meaning string control". Re-verified in source, independently of C16:
+`experiments/exp_meaning_supply_separation_v1.py:235-240` defines
+`arm_scores(base, aux, w) = _z(base) + w * sum(_z(aux))`, and `:469` sets
+`"A5_STRINGCTRL": [aux_t]` where `aux_t = t_mat[sel] @ tq`. The arm is therefore
+**`z(base) + w*z(trigram)` -- it carries the FULL substrate signal plus spelling**, exactly as C16
+recorded. Any restatement must use the corrected description ("a spelling channel added to the base
+arm"), never "zero-meaning control". The **standalone** zero-substrate arm is a different object in
+a different cell: `exp_orthographic_floor_vet_v1`'s `A6_TRIGRAM_ONLY` (see entry 37), and that one
+IS `t_mat[sel] @ tq` with no base term.
+
+**C23. THE "237.7M-TOKEN ENCODER" IS A 121.1M-TOKEN ENCODER TRAINED ON A 237.7M-TOKEN CORPUS, AND
+WIRING IT INTO C3 WAS ALREADY TESTED AND BEATEN.**
+`data/exp_scale_meaning_learn_arc_heldout_v2/metrics.json` `results_summary.trained_tokens` =
+**[121082196, 121082196]** -- **121.08M, not 237.7M.**
+**ORIGIN OF THE ERROR, FOUND:** both training cells' docstrings read
+`ARC_Corpus (data/corpora/arc/ARC-V1-Feb2018-2/ARC_Corpus.txt: 237.7M alpha tokens, 14.62M
+sentences)` -- `exp_scale_meaning_learn_arc_heldout_v2.py:21` and
+`exp_scale_meaning_learn_arc_heldout_v3_relobj.py:60`. **237.7M is the size of the CORPUS the
+sampler drew from; it is not the training budget.** The two were conflated in restatement.
+**HONEST FORM, to be used everywhere: "a 121.1M-token encoder trained on a 237.7M-token corpus."**
+The mislabel also sits in `experiments/exp_meaning_supply_separation_v1.py:180` ("the 237.7M-token
+lineage") and in the `scale_win_tinytransformer_encoder` row of `data/capability_registry.jsonl`
+(**not corrected here -- that file is owned by another pass; flagged, not edited**).
+*Scope note on this correction: the auditor verified the two docstring sites and the
+`trained_tokens` field directly. A full enumeration of every metrics.json for a token count in
+[200M, 300M] was attempted and did NOT complete within the time budget, so no absence claim of that
+form is made here -- cf. C19.*
+**The encoder's own-task win is REAL and is NOT demoted:** that cell's verdict is
+**`HARD_PASS_CLEAN_WIN`**.
+**What is refuted is the TRANSFER, and it was already measured** (`exp_meaning_supply_separation_v1`,
+`c0e6ec0da`, verdict **`MIDDLE_BAND_ARGMAX_ONLY_SUSPECT`**). At the pre-declared w=0.50, off disk:
+`A1_BASE` **0.0480**, `A2_NORMS` **0.07125**, `A3_ENCODER` **0.0750**, `A4_BOTH` **0.0940**,
+`A5_STRINGCTRL` **0.0905**. The spelling-add-on arm reaches **96% of A4_BOTH's score and 92% of its
+gain over base** ((0.0905-0.0480)/(0.0940-0.0480)). The cell's own conclusion fields read
+`encoder_gain_exceeds_string_control: false` and
+`encoder_gain_attributable_to_string_similarity: true`.
+**Therefore: the encoder is not an untapped asset for C3. It is a measured, floored, already-beaten
+one.** Treating "supply the encoder" as the next move re-runs `c0e6ec0da`. See DO-NOT-REDO 31.
+
+**C24. THE 39,707-WORD SENSORIMOTOR NORMS ARE NOT AN UNUSED ASSET -- STALE IN BOTH DIRECTIONS.**
+(a) NOT unwired: `hdlab/lexical_similarity.py:599` has
+`concept_similarity(word_a, word_b, use_grounded_fallback: bool = True)` -- the norms have been a
+**default-ON fallback since 2026-08-11**. What is true is narrower: the live reading loop never
+calls `concept_similarity`.
+(b) NOT unmeasured: on 124 both-covered blind pairs the NOISE class sits **ON** the random-word-pair
+Lancaster floor (**0.8071 vs 0.8060**) while non-NOISE sits at 0.8834, AUC 0.685 **in-sample**
+(`notes/grounding_asset_inventory_2026-08-13.md:248-249`).
+(c) Structurally inert by construction: `hdlab/grounded_similarity.py:96` `GROUNDED_CAP = 0.45`,
+and the module's own docstring (`:41-42`, `:94`) states it sits **below**
+`lexical_similarity.SIMILARITY_LINK_THRESHOLD` (0.50) -- so it can never flip a same-idea decision.
+(d) Wired into the C3 harness it gives `A2_NORMS` **0.07125** at w=0.50, **below** the 0.0870
+spelling floor.
+This is DO-NOT-REDO 11 ("sensorimotor norms as FILTER") in a new costume; it was shelved with
+revival criteria, not overlooked.
+
+**C25. THE STORE'S "SHORTLIST-HIT 0.853 @ 1.2M" IS ARITHMETICALLY RIGHT AND OUT OF SCOPE.**
+Recomputed off `data/exp_focus_pullin_causal_stage2e_hierarchical_subject_tier_v1/metrics.json`:
+`per_scale.1213912.hierarchical_sparse.relevant_in_shortlist_rate` = **0.8533** = 64/75
+(`n_relevant_queried` = 75, so the third digit is noise). But the cell's `verdict` is
+**`MIDDLE_BAND`**, and its declared `hp_scope.hierarchical_sparse` =
+`["relevant_recall", "false_pull_in_rate", "scramble_margin"]` -- **`relevant_in_shortlist_rate` is
+not in scope.** The in-scope headline at full cardinality is `relevant_recall` = **0.2133** against
+`HP_RECALL_MIN` = 0.50; `checks.recall_ok_both` = **false**, `checks.margin_ok_both` = **false**,
+`checks.margin_1213912` = 0.1333 against `HP_MARGIN_MIN` = 0.30.
+**FLOOR INVENTORY, enumerated over the per-scale arm keys of stage2b/2e/2f/2g rather than searched:
+the only floor arm that exists anywhere in the store arc is `scrambled_tier2`** -- a label-scramble,
+the weakest baseline there is. There is **no node-degree, popularity, or relation-conditioned-
+frequency floor anywhere in the arc**, and CSKG object distributions are heavily skewed, so
+"return the 50 highest-degree objects for this relation from this leaf" is a plausibly strong and
+completely unmeasured baseline for exactly the quoted metric. **This is the single highest-value
+missing floor currently identified** and it is the reason "the store solved candidate retrieval"
+may not be stated unqualified.
+
+**C26. FHRR "SELF-CONSISTENCY 0.956" IS EXACT, AND ITS CELL IS A HARD_FAIL SCORED AGAINST A BARE
+ABSOLUTE.** Recomputed: `capacity.retrieval_self_consistency` = **0.9556** = **215/225**
+(`fhrr_dim` 4096, `n_registers` 15, `mean_load` 15.0, `max_load` 30). The cell's `verdict` is
+**`HARD_FAIL_no_rise+no_fade_lesion_gap+scramble_no_collapse`**. Its band was
+`bands.SEPARATES_MIN_SELFCONSIST = 0.85` -- **a bare absolute number, the exact pattern retired by
+STANDING DISCIPLINE 8**; a majority-fate floor was never run. Its scramble control **inverted**:
+`scramble.retained_fraction` = **1.1663** (>1, the scramble arm scored HIGHER), waved through in
+`diagnosis.scramble_caveat` as small-N noise.
+**What survives, precisely:** the cell's own `final_verdict` is
+`HARD_FAIL_PARTIAL_BOOTSTRAP_but_superposition_separates_rules_out_averaging`. The FHRR
+bind/bundle/unbind algebra demonstrably separates 225 conjunctive keys over 15 registers at d=4096
+rather than averaging them -- **that refutation of the averaging hypothesis stands**. What may NOT
+be claimed is "storage solved + brain-faithful": the retrieval is a 3-way argmax over
+`EFFECTS = ('CREATE','MOVE','DESTROY')` (chance 0.333) at a load ~2 orders of magnitude below what
+the store arc runs at.
+
+**C27. WHAT THE 15-CLAIM VET LEFT STANDING (recorded so the propagation is not read as blanket
+demotion).** Re-verified off disk by the propagating auditor:
+- **MAVEN-ERE stands, and is the reference case.**
+  `data/exp_maven_ere_convergence_gated_causal_v2_fulldev/metrics.json` verdict **`HARD-PASS`**,
+  `official_micro_f1_positive_only.f1` = **14.7834** (P 11.489 / R 20.728) against
+  `order_majority_floor` **5.9305** -- and **four** floors were run, not one (majority **0.0**,
+  `bag_of_event_types` **0.6375**, `adjacent_sentence_heuristic` **0.7270**, order_majority 5.9305).
+  **The strongest available floor is the one quoted and it was cleared, 2.49x.** Two scope
+  qualifiers travel with it: accuracy_pct is a trap (positives are 2.2% of pairs, so scramble scores
+  HIGHER accuracy than the system), and the lift is carried by the learner plugin, not the
+  convergence gate the cell is named for (`gate_learned_noentity` f1 **14.860** exceeds full_v2's
+  14.783).
+- **4.80% < 8.70% stands, CI-separated** (entry 34 / C12).
+- **The 359-word hand lexicon is exact** -- `data/exp_reading_grounding_loop_cycle2_v1/metrics.json`
+  `hand_lexicon_baseline` = **359**, `progress_toward_hand_lexicon` = 9.8719.
+- **Growth cleanliness stands** -- same cell: `no_leak_ok` true, `scramble_ratio` **0.07705**,
+  `monotone_growth_ok` true, persistence round-trip ok.
+- **The graded comparator is a scoring layer, not the store** -- unchanged; its HARD_PASS stands on
+  its own 2AFC scorer, and only the carry-across to C3 is refuted (entry 35).
+**A refuted FRAMING is not a refuted RESULT.** Six of the eight items above are framing/scope
+corrections sitting on numbers that reproduce exactly.
+
+---
+
+## STANDING DISCIPLINES -- entries added 2026-08-15 (auditor, atom-triage residue)
+
+Stubbed in `STATUS.md` as standing disciplines **9** and **10**.
+
+### 9. A KEYWORD DETECTOR READS A SCOPE DISCLOSURE AS THE OVERCLAIM -- so hand-adjudicate every large flag class before believing it
+
+**Bought with the atom-triage misstatement pass**, whose flags did not survive contact with the
+files they were about.
+
+> **Our detectors fire on honesty.** A cell that names the scale it did not reach is behaving
+> exactly as this project's discipline demands. A keyword detector reads that disclosure as the
+> overclaim. The audit is therefore **biased against the most careful cells**, and no large flag
+> class may be believed until it is hand-adjudicated.
+
+**The measured incident.** All **7** misstatement flags that two hand-reading passes overturned
+were triggered by cells *explicitly disclosing their own scope*:
+
+- one says `REGIME SCOPE (honest): N=512` and was flagged **for naming the `N=4096+` it stated it
+  had NOT tested**;
+- another's only mention of a large scale sits inside a field named **`open_followup_cells`** -- a
+  proposal for future work, not a claim about work done;
+- the rest fire on **prior-landing reference values** (`SPARSITY-NEUTRAL at N=2048 (replicate of
+  the N=1024 finding)` -- N=1024 is a back-reference) and on **a file legitimately citing itself**.
+
+**The adjudication record, which is the argument.** Three passes triaged overlapping atom
+populations. Two hand-read; one ran detectors at scale. There were **11 disagreements. All 11
+resolved against the scaled detector** -- 10 against pass C, 1 against pass A, 0 against pass B.
+The two passes that hand-read agreed with each other.
+
+**Confirmed independently on the residue (2026-08-15).** The uncovered residue was triaged on the
+same five defect classes, with every detector self-tested on a known positive AND a known negative
+first. They produced **30 candidates; hand-reading overturned 30 of 30.** Across three passes this
+detector class now stands at **49 candidates, 49 false positives, 0 survivors.**
+
+**Two false-positive mechanisms, both worth recognising by shape:**
+
+1. **The arm exists under a different name.** The detector asserts "the atom names a comparison
+   arm absent from the artifact". Worked example:
+   `exp_conceptnet_rerank_parity_multiseed_v1` was flagged for naming oracle + control + ceiling.
+   Its metrics file carries `closure_hits10` = 1.0 (*that is* the oracle) and `random_floor_hits10`
+   = 0.0515 (*that is* the control). Atom prose and metrics keys are two vocabularies for the same
+   arms.
+2. **A derived number is absent from the file BY CONSTRUCTION.** Demanding that every cited number
+   appear verbatim in the artifact fires hardest on the atoms that did the **most** independent
+   recomputation. Of 61 such "missing" numbers, **60 are a difference, mean or ratio of the file's
+   own values**, and the 61st is a Poisson chance-floor statistic that recomputes exactly
+   (mu = 304/1024 = 0.2969, P(0) = exp(-mu) = 0.7431, P(0)^3 = **0.4104**, cited as 0.41).
+   Verified by hand against named keys: per-seed lift `0.047` = `SEM_RERANK_RRF_hits10` 0.5708154
+   minus `RANDOM_BEAM_hits10` 0.5236051.
+
+**The discriminator that does work is REPRODUCTION, not vocabulary.**
+`exp_kf2_isolation_proof_v2_n8192` is a true positive because its config N is **1024** while its
+verdict asserts `PROVED N=8192 ... at production scale` -- the scale does not reproduce. Two
+residue atoms of apparently identical shape both CLEAR:
+`EXP_metric_dependence_top_k_semantic_v1_seed_7_smoke` claims `N_c=8192, N_h=4096, sparsity=0.1,
+load=[0.1,0.2,0.3]` and the file carries exactly those; and
+`EXP_substrate_relation_type_binding_cross_domain_analogy_v1` claims `3-seed smoke [7,13,19] at
+V=1024 N=8192 K=10` against a file with `N_DIM=8192, V_ENTITIES=1024, K_SHOTS=10,
+seeds=[7,13,19]`.
+
+**Corollary, and the reason both cleared: in this codebase `smoke` means REDUCED SEEDS, not
+reduced N.** A smoke run at N=8192 is honest and ordinary. "Smoke + a large N in the text" is NOT
+a defect signature; a detector built on that premise flags the disclosure and misses the real
+thing.
+
+**Report the DENOMINATOR with every zero.** A class that fires 0 times against 0 applicable atoms
+is an INAPPLICABLE test, not a clean result, and reporting it as "0 defects" is the same overclaim
+the audit exists to catch. Residue example: class 3 (directory name contradicting config) found 0
+defects against a denominator of **0** -- no residue artifact directory carries an N token at all.
+Class 5 also found 0, but against a denominator of **128**, with the detector self-testing PASS on
+a known positive pair -- a *meaningful* zero. The two zeros are not the same claim.
+
+### 10. A JOIN THAT SILENTLY FAILS TO MATCH FABRICATES BOTH REASSURANCE AND ALARM
+
+The single most dangerous tool defect found in this audit, and the companion to discipline 9: the
+same class of silent mis-reading, running in **both** directions at once.
+
+> A join that does not match does not error. It returns a smaller set, and the smaller set reads
+> as a *result*. **Never report a join-derived count without first proving the join matches on a
+> known-present pair.**
+
+**Incident A -- false GREEN.** Dropped id prefixes left **314 of 400 atoms silently unjoined**
+inside one pass, which read as a clean population rather than as a broken join.
+
+**Incident B -- false RED, from the same defect.** "Only **812 of 1,925** ledger ids exist as
+atoms" was the most alarming number in the whole triage. It is a raw-id artifact: ledger rows are
+written `math::T3/EXP_...` while most store partitions write `T3/EXP_...`. Normalised on both
+sides the figure is **1,893 of 1,925** -- so **32 absent, not 1,113**. The reconciliation gap was
+overstated **35-fold**.
+
+**The canonical key that fixes it:** strip a leading `<corpus>::`, then strip ONE leading tier
+segment (`T<n>/`, `T_<word>/`, `META/`). Measured effect of getting this wrong: a raw-id merge
+**invents 341 phantom atoms** (union 5,176 vs 4,835) and reports one pass-intersection as **22
+instead of 307**.
+
+**Incident C -- normalising the VALUE does not save you if you assume the FIELD NAME.** Found
+2026-08-15 while re-deriving the above. The merge's ledger enumeration reads the field `atom_id`;
+**4 of 2,031 ledger rows carry their id under `id` instead** (schemas
+`['id','seq','anchor_name','tier','cert_status']` x3 and
+`['id','anchor','tier','cert_status','author_verdict']` x1). Those rows sat silently outside the
+triageable universe. Corrected: distinct ledger ids **1,929** not 1,925; triageable union **5,098**
+not 5,095; uncovered residue **263** not 260; ledger ids present as an atom **1,896 of 1,929**;
+genuinely absent **33** not 32. Small in size, exact in shape: **value-normalisation and
+key-presence are two separate failures, and fixing one does not fix the other.**
+
+**Sub-rule: the truncation family, which bit the audit tool itself.** A hand-adjudication table
+keyed on **truncated** atom names printed to screen (`n[:70]` / `n[:75]`) silently failed to join
+**7 of 11 rulings**, leaving 5 already-cleared false positives still counted as defects. Elsewhere
+the same family split `N=8192` into `N=81` and manufactured roughly **700 false positives**. It
+recurred on 2026-08-15 in the residue pass: extracting cited numbers from a 700-character
+**excerpt** rather than the full atom text manufactured 19 spurious "partial / none reproduce"
+rows, all of which dissolved when the full text was used.
+
+**How it was caught, and the rule that follows: ASSERT, THEN COUNT THE JOINED ROWS.** The merge
+asserted "all 11 adjudicated", then printed the join result and counted ADJ-OK rows: **4**. **The
+assertion caught what the eye did not.** So: after any join, assert the expected cardinality and
+print the residue. Self-test every pattern against a known positive AND a known negative before
+trusting a count -- the residue pass's own canonicaliser was validated on 6 positives and 5
+negatives, and its class-2 detector **failed its own known positive on first run** because the
+self-test read the field `claim` while templated atoms carry their text in `description`. That
+failure was the tool being wrong in exactly the way this discipline predicts, caught only because
+a known positive was run through it.
+
+**Prefer withdrawal to accumulation.** The merge withdrew its own reading of the wave14 family
+after finding those files contain no numeric results outside prose, so payload identity merely
+restates config identity. An artifact whose only numbers are its config collides with every
+sibling under a numeric-payload comparator whether or not anything was double-banked.
+
+---
+
+## CAVEATS THAT TRAVEL -- added 2026-08-15 (residue audit); CARRY VERBATIM
+
+These two are being misread downstream. Quote them as written.
+
+**CT1. The scope limit on the largest triage bucket.**
+
+> **Consistent on checked axes means an atom does not contradict its artifact on mode, scale,
+> seeds, name or independence. It does NOT mean the result is good.**
+
+`CONSISTENT_ON_CHECKED_AXES` is the largest bucket in the merge at **3,654** atoms. It is a
+**citation-safety** result, not a **quality** result: it says the atom's words match its file, and
+says nothing about whether the experiment was worth running. The worked example that proves it:
+**one atom so labelled is a smoke pass at 1.000 with no comparison arm.** Never let this bucket be
+paraphrased into a clean bill of health.
+
+**CT2. `run_mode` in templated atoms is an ingestion constant, not a measurement.**
+
+> **All 162 say `full`. Four contradict their file; the other 158 agree by coincidence. Never gate
+> or certify on it. Read the mode from inside the `metrics.json`.**
+
+Confirmed on a fourth independent population 2026-08-15: across the 263 residue atoms the
+`run_mode` field takes exactly two non-null values -- `full` (22) and
+`full_config_independently_recomputed` (1). It is **never** written as `smoke`, even though 8 of
+the residue's resolved artifacts *are* smoke -- and every one of those 8 has no `run_mode` field at
+all. This matters more than the "0 inversions" headline suggests: 0 inversions reads as *the field
+is trustworthy*, when the truth is that **the field is only ever populated when the answer is
+`full`**, so its agreement carries no information. `tools/skunkworks_cert_integrity_audit_v1.py`
+D2 already checks `run_mode == smoke AND provenance_quality == CERT_CHAIN_GRADE`; that check is
+reading the ingestion default, not the run.
