@@ -7,8 +7,36 @@ WHY THIS REPLACES THE OLD WINDOW. The owner's verdict on `tools/dash_gui.py` (20
 *"that gui is ancient and it's not showing anything I care about - can you update it so it's
 relevant?"* That window was built for the 4-session fleet/queue architecture, which is dead --
 it is agent-spawn only now -- so it showed GPU temperature, queue depth and runner heartbeats,
-and nothing about whether the system is beating what it has to beat. This one answers two
-questions and only those two: WHERE ARE WE, and WHAT IS HAPPENING RIGHT NOW.
+and nothing about whether the system is beating what it has to beat. This one answers four
+questions: WHERE ARE WE, WHAT MOVED, WHICH BRAIN ORGANS DO WE ACTUALLY HAVE, and WHAT IS
+HAPPENING RIGHT NOW.
+
+THE THREE PANELS ADDED 2026-08-16, on the owner's request: *"in the dash I'd like to see some
+info on progress made (more info), and a brain organ map and fidelity measure with detail too"*.
+
+  2. PROGRESS MADE                 what a thing scored BEFORE, what it scores NOW, and the floor
+                                   beside both. Losses and RETRACTIONS are rendered in the same
+                                   red as any other loss and counted in the tab title -- three
+                                   headline numbers were retracted on 2026-08-16 alone, and a
+                                   progress view that showed only gains would reproduce the exact
+                                   failure this project keeps having to unpick.
+  3. BRAIN ORGAN MAP               per organ: the brain structure, what it does in one plain
+                                   sentence, whether we built it, whether it is switched on, and
+                                   what it measures. Sourced from notes/ORGAN_MAP.md (PARSED on
+                                   every refresh, not transcribed) plus the brain_structure and
+                                   fidelity_basis fields in data/capability_registry.jsonl. Where
+                                   no brain structure is recorded the cell says NOT NAMED and the
+                                   header reports the deliberate backlog -- retro-filling that
+                                   field is banned, so the panel shows the gap instead of hiding it.
+  4. HOW CLOSELY WE COPY THE BRAIN the fidelity score, with an unmissable amber banner saying it
+                                   is NOT a measure of how well anything works and has NOT been
+                                   shown to predict that -- one positive in six points, p ~ 0.17,
+                                   and it scores the REFUTED completer well above the incumbent
+                                   that beats it. That banner is READ FROM THE SCORING TOOL'S OWN
+                                   verdict string, so if the tool's verdict changes the panel
+                                   changes with it. Rows are coloured by the OUTCOME, never by the
+                                   fidelity score: colouring by the score would imply it means
+                                   something about the result, which is the claim being denied.
 
 PLAIN LANGUAGE IS A REQUIREMENT, NOT A STYLE. The owner has said twice that jargon makes our
 artifacts unusable to them. Nothing on screen says recall@50, CI, hit@1, orthographic or
@@ -23,16 +51,17 @@ floor. Likewise the results panel shows the losses as loudly as the wins -- a da
 only surfaces good news is worse than none.
 
 DIVISION OF LABOUR. All data collection lives in `tools/status_state.py` (which itself reuses
-`inflight_monitor.build_state()`, `tools/board.py` and `tools/autoloop.py` rather than forking
-a second source of truth). This file is a renderer and nothing else: it polls on a background
-thread, hands the result to the Tk main thread through a queue, and every render is wrapped so
-that a bad field degrades one panel instead of freezing the window.
+`inflight_monitor.build_state()`, `tools/board.py`, `tools/autoloop.py` and -- for the three
+panels above -- `tools/status_organs.py`, rather than forking a second source of truth). This
+file is a renderer and nothing else: it polls on a background thread, hands the result to the Tk
+main thread through a queue, and every render is wrapped so that a bad field degrades one panel
+instead of freezing the window.
 
 WRITES. Exactly one, and only when the owner presses the button: the board answer write-back,
 which goes through `board.resolve()` -- atomic temp-file-plus-replace, with its own self-test
 for hand-edited boards. Nothing else on this path writes anything.
 
-Keys: F5 or r = refresh now. Ctrl+1..5 = jump to a panel.
+Keys: F5 or r = refresh now. Ctrl+1..8 = jump to a panel.
 
   python tools/status_gui.py --self-test    # renders normal / degraded / garbage states
 """
@@ -133,7 +162,7 @@ class StatusWindow:
 
         root.bind("<F5>", lambda _e: self.refresh_now())
         root.bind("r", lambda _e: self.refresh_now())
-        for i in range(5):
+        for i in range(8):
             root.bind(f"<Control-Key-{i + 1}>",
                       lambda _e, k=i: self.nb.select(k))
         root.protocol("WM_DELETE_WINDOW", root.destroy)
@@ -245,6 +274,9 @@ class StatusWindow:
         self.nb.grid(row=1, column=0, sticky="nsew", padx=6, pady=6)
 
         self._build_walls()
+        self._build_progress()
+        self._build_organs()
+        self._build_fidelity()
         self._build_board()
         self._build_running()
         self._build_results()
@@ -283,10 +315,125 @@ class StatusWindow:
         self.walls_detail = self._detail(f, height=9)
         self.walls_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
 
-    # ---- PANEL 2 ------------------------------------------------------
+    # ---- PANEL A ------------------------------------------------------
+    def _build_progress(self) -> None:
+        """WHAT MOVED. Not a changelog: a before / now / floor view, with losses and retractions
+        rendered exactly as loudly as gains."""
+        f = ttk.Frame(self.nb)
+        self.nb.add(f, text="2. PROGRESS MADE")
+        self.tab_progress = f
+        f.columnconfigure(0, weight=1)
+        f.rowconfigure(2, weight=1)
+
+        gov = tk.Frame(f, bg=_RED_BG)
+        gov.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        gov.columnconfigure(0, weight=1)
+        self.prog_gov_title = tk.Label(gov, text="", bg=_RED_BG, fg="#ffffff",
+                                       font=("Segoe UI", 12, "bold"), anchor="w", padx=12,
+                                       justify="left", wraplength=1200)
+        self.prog_gov_title.grid(row=0, column=0, sticky="ew", pady=(8, 2))
+        self.prog_gov_body = tk.Label(gov, text="", bg=_RED_BG, fg="#f4e9e8",
+                                      font=("Segoe UI", 10), anchor="w", justify="left",
+                                      padx=12, wraplength=1200)
+        self.prog_gov_body.grid(row=1, column=0, sticky="ew", pady=(0, 8))
+
+        self.prog_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
+                                  anchor="w", justify="left", wraplength=1200, padx=4, pady=4)
+        self.prog_hint.grid(row=1, column=0, sticky="ew")
+
+        frame, self.prog_tv = self._tree(
+            f,
+            cols=("what", "kind", "before", "now", "dir"),
+            widths=(330, 110, 300, 300, 150),
+            headings=("WHAT", "", "WHAT IT WAS  (and its floor)",
+                      "WHAT IT IS NOW  (and its floor)", "WHICH WAY IT MOVED"),
+            height=14)
+        frame.grid(row=2, column=0, sticky="nsew")
+        self.prog_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_progress_detail())
+
+        self.prog_detail = self._detail(f, height=10)
+        self.prog_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+
+    # ---- PANEL B ------------------------------------------------------
+    def _build_organs(self) -> None:
+        """THE BRAIN ORGAN MAP. Per organ: the brain structure, what it does in one plain
+        sentence, whether we built it, whether it is switched on, and what it measures."""
+        f = ttk.Frame(self.nb)
+        self.nb.add(f, text="3. BRAIN ORGAN MAP")
+        self.tab_organs = f
+        f.columnconfigure(0, weight=1)
+        f.rowconfigure(1, weight=1)
+
+        self.organ_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
+                                   anchor="w", justify="left", wraplength=1200, padx=4, pady=6)
+        self.organ_hint.grid(row=0, column=0, sticky="ew")
+
+        frame, self.organ_tv = self._tree(
+            f,
+            cols=("organ", "brain", "built", "state", "measured"),
+            widths=(300, 300, 90, 210, 300),
+            headings=("ORGAN (plain name)", "THE PART OF THE BRAIN", "BUILT?",
+                      "IS IT SWITCHED ON?", "WHAT IT MEASURES"),
+            height=15)
+        frame.grid(row=1, column=0, sticky="nsew")
+        self.organ_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_organ_detail())
+
+        self.organ_detail = self._detail(f, height=12)
+        self.organ_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
+
+    # ---- PANEL C ------------------------------------------------------
+    def _build_fidelity(self) -> None:
+        """HOW CLOSELY WE COPY THE BRAIN -- and, on screen and unmissable, the fact that this
+        number has NOT been shown to predict whether anything works."""
+        f = ttk.Frame(self.nb)
+        self.nb.add(f, text="4. HOW CLOSELY WE COPY THE BRAIN")
+        self.tab_fidelity = f
+        f.columnconfigure(0, weight=1)
+        f.rowconfigure(2, weight=1)
+        f.rowconfigure(4, weight=1)
+
+        warn = tk.Frame(f, bg=_AMBER_BG)
+        warn.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        warn.columnconfigure(0, weight=1)
+        tk.Label(warn, text="THIS IS NOT A SCORE FOR HOW WELL ANYTHING WORKS.",
+                 bg=_AMBER_BG, fg="#ffffff", font=("Segoe UI", 12, "bold"), anchor="w",
+                 padx=12).grid(row=0, column=0, sticky="ew", pady=(8, 2))
+        self.fid_warn = tk.Label(warn, text="", bg=_AMBER_BG, fg="#f7ecd8",
+                                 font=("Segoe UI", 10), anchor="w", justify="left",
+                                 padx=12, wraplength=1200)
+        self.fid_warn.grid(row=1, column=0, sticky="ew", pady=(0, 8))
+
+        tk.Label(f, text="WHAT WE SCORED, AND WHAT ACTUALLY HAPPENED TO IT",
+                 bg=_PANEL, fg=_BLUE, anchor="w", font=("Segoe UI", 10, "bold"),
+                 padx=4).grid(row=1, column=0, sticky="ew", pady=(2, 2))
+        frame, self.fid_tv = self._tree(
+            f, cols=("thing", "pct", "outcome"),
+            widths=(360, 190, 640),
+            headings=("WHAT WAS SCORED", "HOW CLOSELY WE COPY THE BRAIN",
+                      "WHAT ACTUALLY HAPPENED WHEN IT WAS MEASURED"),
+            height=7)
+        frame.grid(row=2, column=0, sticky="nsew")
+        self.fid_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_fidelity_detail())
+
+        tk.Label(f, text="WHERE OURS DIVERGES FROM THE BIOLOGY, ORGAN BY ORGAN",
+                 bg=_PANEL, fg=_BLUE, anchor="w", font=("Segoe UI", 10, "bold"),
+                 padx=4).grid(row=3, column=0, sticky="ew", pady=(8, 2))
+        frame2, self.fid_div_tv = self._tree(
+            f, cols=("organ", "shape", "position", "metric", "pinned"),
+            widths=(390, 170, 190, 190, 250),
+            headings=("ORGAN", "IS IT THE SAME OPERATION?", "IS IT IN THE RIGHT PLACE?",
+                      "IS IT JUDGED THE BRAIN'S WAY?", "DOES THE SCIENCE PIN THIS DOWN?"),
+            height=8)
+        frame2.grid(row=4, column=0, sticky="nsew")
+        self.fid_div_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_fidelity_detail(True))
+
+        self.fid_detail = self._detail(f, height=9)
+        self.fid_detail.grid(row=5, column=0, sticky="ew", pady=(6, 0))
+
+    # ---- PANEL 5 ------------------------------------------------------
     def _build_board(self) -> None:
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="2. WAITING ON YOU")
+        self.nb.add(f, text="5. WAITING ON YOU")
         self.tab_board = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(1, weight=1)
@@ -324,10 +471,10 @@ class StatusWindow:
                                       font=("Segoe UI", 9), wraplength=1180, justify="left")
         self.answer_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 6))
 
-    # ---- PANEL 3 ------------------------------------------------------
+    # ---- PANEL 6 ------------------------------------------------------
     def _build_running(self) -> None:
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="3. RUNNING NOW")
+        self.nb.add(f, text="6. RUNNING NOW")
         self.tab_running = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(1, weight=1)
@@ -356,10 +503,10 @@ class StatusWindow:
         self.running_detail = self._detail(f, height=10)
         self.running_detail.grid(row=4, column=0, sticky="ew", pady=(8, 0))
 
-    # ---- PANEL 4 ------------------------------------------------------
+    # ---- PANEL 7 ------------------------------------------------------
     def _build_results(self) -> None:
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="4. LATEST RESULTS")
+        self.nb.add(f, text="7. LATEST RESULTS")
         self.tab_results = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(1, weight=1)
@@ -381,10 +528,10 @@ class StatusWindow:
         self.results_detail = self._detail(f, height=8)
         self.results_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
 
-    # ---- PANEL 5 ------------------------------------------------------
+    # ---- PANEL 8 ------------------------------------------------------
     def _build_loop(self) -> None:
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="5. OVERNIGHT LOOP")
+        self.nb.add(f, text="8. OVERNIGHT LOOP")
         self.tab_loop = f
         f.columnconfigure(0, weight=1)
 
@@ -487,6 +634,8 @@ class StatusWindow:
     # ------------------------------------------------------------------
     def render(self, s: dict) -> None:
         for name, fn in (("headline", self._r_headline), ("walls", self._r_walls),
+                         ("progress", self._r_progress), ("organs", self._r_organs),
+                         ("fidelity", self._r_fidelity),
                          ("board", self._r_board), ("running", self._r_running),
                          ("results", self._r_results), ("loop", self._r_loop)):
             try:
@@ -628,7 +777,379 @@ class StatusWindow:
                            "warn"))
         self._set_text(self.walls_detail, chunks)
 
-    # ---- panel 2 ------------------------------------------------------
+    # ---- panel A ------------------------------------------------------
+    @staticmethod
+    def _side_cell(side) -> tuple[str, bool]:
+        """One before/now cell: the score AND the floor, or an explicit non-answer.
+
+        Returns (text, floor_missing). THE RULE: a score is never rendered alone. If a row states
+        a score and no floor, this returns the score with 'NO FLOOR STATED' beside it and flags
+        it, because a score with no floor beside it cannot be graded and saying so is the useful
+        output."""
+        d = _d(side)
+        score = d.get("score")
+        floor = d.get("floor")
+        fname = d.get("floor_name") or ""
+        if not score:
+            return (d.get("score_detail") or "NOT MEASURED"), False
+        if floor:
+            return f"{score}   vs floor {floor}" + (f" ({fname})" if fname else ""), False
+        if fname and ("NOT APPLICABLE" in fname.upper() or "NOT MEASURED" in fname.upper()
+                      or "NONE" in fname.upper() or "NOT YET" in fname.upper()
+                      or "NOT REACHED" in fname.upper() or "NOT ESTABLISHED" in fname.upper()):
+            return f"{score}   ({fname})", False
+        return f"{score}   NO FLOOR STATED", True
+
+    def _r_progress(self, s: dict) -> None:
+        p = _d(s.get("progress"))
+        tv = self.prog_tv
+        tv.delete(*tv.get_children())
+        self._prog_rows: dict[str, dict] = {}
+        if p.get("status") != "OK":
+            self.prog_gov_title.configure(text=f"PROGRESS DATA IS {p.get('status', 'MISSING')}")
+            self.prog_gov_body.configure(text=str(p.get("detail", ""))[:400])
+            self.prog_hint.configure(text="", fg=_AMBER)
+            tv.insert("", "end", values=(f"{p.get('status')}", "", "MISSING", "MISSING", ""),
+                      tags=("warn",))
+            self._set_text(self.prog_detail, [
+                (f"{p.get('status')}\n", "warn"), str(p.get("detail", "no detail")) + "\n\n",
+                ("A blank where a measurement should be is information. This panel shows MISSING "
+                 "rather than a number it does not have.\n", "dim")])
+            return
+
+        gov = _d(p.get("governing_floor"))
+        if gov:
+            self.prog_gov_title.configure(text=str(gov.get("title", "")))
+            body = str(gov.get("plain", ""))
+            if gov.get("detail"):
+                body += "  " + str(gov.get("detail"))
+            if gov.get("verify_status") == "CHECK_SOURCE":
+                body += ("   [CHECK THE SOURCE: " + ", ".join(gov.get("verify_missing") or [])
+                         + " is no longer findable in the plan.]")
+            self.prog_gov_body.configure(text=body)
+        else:
+            self.prog_gov_title.configure(text="NO GOVERNING FLOOR RECORDED")
+            self.prog_gov_body.configure(
+                text="The ledger names no strongest floor. Read every number below with that "
+                     "gap in mind.")
+
+        self.prog_hint.configure(
+            text=(f"What moved, as of {p.get('as_of') or 'an unrecorded date'}. Every number sits "
+                  f"beside the floor it has to beat -- a score with no floor cannot be graded. "
+                  f"{p.get('n_retracted')} claim(s) were RETRACTED and are shown in red exactly "
+                  f"like a loss, on purpose: a progress view that showed only gains would "
+                  f"reproduce the failure this project keeps having to unpick."),
+            fg=_AMBER if p.get("n_retracted") else _BLUE)
+
+        groups = (("COMPONENT", _l(p.get("components"))),
+                  ("PLAN PHASE", _l(p.get("phases"))),
+                  ("RETRACTED", _l(p.get("retractions"))))
+        i = 0
+        for kind, rows in groups:
+            for r in rows:
+                r = _d(r)
+                iid = f"p{i}"
+                self._prog_rows[iid] = r
+                direction = (r.get("direction") or "UNKNOWN").upper()
+                tag = ("bad" if direction in ("DOWN", "RETRACTED", "NULL", "WORSE")
+                       else "good" if direction in ("UP", "BETTER")
+                       else "warn")
+                before, _ = self._side_cell(r.get("before"))
+                now, gap = self._side_cell(r.get("now"))
+                title = str(r.get("title", "?"))
+                if r.get("verify_status") == "CHECK_SOURCE":
+                    title += "   [CHECK SOURCE]"
+                elif r.get("verify_status") == "CANNOT_VERIFY":
+                    title += "   [CANNOT VERIFY]"
+                if gap:
+                    direction += "  (no floor)"
+                tv.insert("", "end", iid=iid,
+                          values=(title, kind, before, now, direction),
+                          tags=(tag, "even" if i % 2 == 0 else "odd"))
+                i += 1
+        if self._prog_rows:
+            tv.selection_set("p0")
+            self._show_progress_detail()
+        try:
+            n = p.get("n_retracted") or 0
+            self.nb.tab(self.tab_progress,
+                        text=f"2. PROGRESS MADE ({n} retracted)" if n else "2. PROGRESS MADE")
+        except tk.TclError:
+            pass
+
+    def _show_progress_detail(self) -> None:
+        sel = self.prog_tv.selection()
+        r = getattr(self, "_prog_rows", {}).get(sel[0]) if sel else None
+        if not r:
+            return
+        direction = (r.get("direction") or "UNKNOWN").upper()
+        tag = ("bad" if direction in ("DOWN", "RETRACTED", "NULL", "WORSE")
+               else "good" if direction in ("UP", "BETTER") else "warn")
+        b, n = _d(r.get("before")), _d(r.get("now"))
+        chunks = [
+            (f"{r.get('title')}\n", "h"),
+            f"{r.get('plain', '')}\n\n",
+            ("BEFORE", "dim"), f"  ({b.get('when') or 'date not recorded'})\n",
+            f"   {b.get('score') or 'NOT MEASURED'}"
+            f"{'  -- ' + str(b.get('score_detail')) if b.get('score_detail') else ''}\n",
+            f"   floor: {b.get('floor') or 'MISSING'}  = {b.get('floor_name') or 'MISSING'}"
+            f"{'  (' + str(b.get('floor_detail')) + ')' if b.get('floor_detail') else ''}\n\n",
+            ("NOW", "h"), f"  ({n.get('when') or 'date not recorded'})\n",
+            f"   {n.get('score') or 'NOT MEASURED'}"
+            f"{'  -- ' + str(n.get('score_detail')) if n.get('score_detail') else ''}\n",
+            f"   floor: {n.get('floor') or 'MISSING'}  = {n.get('floor_name') or 'MISSING'}"
+            f"{'  (' + str(n.get('floor_detail')) + ')' if n.get('floor_detail') else ''}\n\n",
+            ("WHICH WAY IT MOVED: ", "dim"), (f"{direction}\n", tag),
+            f"{r.get('what_moved', '')}\n",
+        ]
+        for key, label in (("state", "WHERE IT STANDS"), ("gate", "WHAT WOULD COUNT AS PASSING"),
+                           ("kill", "WHAT WOULD MAKE US STOP")):
+            if r.get(key):
+                chunks += [("\n" + label + ": ", "dim"), f"{r.get(key)}\n"]
+        chunks.append((f"\nevidence: {r.get('evidence', '')}\n", "mono"))
+        if r.get("verify_source"):
+            chunks.append((f"checked against: {r.get('verify_source')}\n", "mono"))
+        if r.get("verify_status") == "CHECK_SOURCE":
+            chunks.append(("\nCHECK THE SOURCE: these are no longer findable in the plan or "
+                           f"status documents: {r.get('verify_missing')}. Those documents are the "
+                           "authority; this row may be stale.\n", "bad"))
+        elif r.get("verify_status") == "CANNOT_VERIFY":
+            chunks.append((f"\nCannot cross-check this row: {r.get('verify_detail', '')}\n",
+                           "warn"))
+        self._set_text(self.prog_detail, chunks)
+
+    # ---- panel B ------------------------------------------------------
+    def _r_organs(self, s: dict) -> None:
+        o = _d(s.get("organs"))
+        tv = self.organ_tv
+        tv.delete(*tv.get_children())
+        self._organ_rows: dict[str, dict] = {}
+        if o.get("status") != "OK":
+            self.organ_hint.configure(text=f"{o.get('status')}: {o.get('detail', '')}", fg=_AMBER)
+            tv.insert("", "end", values=(f"{o.get('status')}", "MISSING", "?", "?", "MISSING"),
+                      tags=("warn",))
+            self._set_text(self.organ_detail,
+                           [(f"{o.get('status')}\n", "warn"), str(o.get("detail", ""))])
+            return
+        reg = _d(o.get("registry"))
+        self.organ_hint.configure(
+            text=(f"{o.get('n_organs')} organs -- {o.get('n_from_map')} from the organ map, "
+                  f"{o.get('n_overlay')} built or measured since it was last written. "
+                  f"{o.get('n_missing')} are NOT BUILT. "
+                  f"{reg.get('n_brain_structure')} of {reg.get('n_rows')} entries in the "
+                  f"capability list name a part of the brain; "
+                  f"{reg.get('n_no_brain_structure')} deliberately do not, and filling those in "
+                  f"after the fact is banned -- so the backlog is shown rather than hidden."),
+            fg=_BLUE)
+        if o.get("missing_required"):
+            self.organ_hint.configure(
+                text=self.organ_hint.cget("text") +
+                     f"   MISSING FROM THE SOURCES: {o.get('missing_required')}", fg=_RED)
+
+        for i, r in enumerate(_l(o.get("rows"))):
+            r = _d(r)
+            iid = f"o{i}"
+            self._organ_rows[iid] = r
+            built = r.get("built_short") or "?"
+            state = str(r.get("state") or "NOT STATED")
+            su = state.upper()
+            if built == "NO" or su.startswith("MISSING"):
+                tag = "bad"
+            elif su in ("SWITCHED ON", "WIRED"):
+                tag = "good"
+            else:
+                tag = "warn"
+            brain = r.get("brain_structure") or "NOT NAMED"
+            organ = f"{r.get('id', '?')}  {r.get('plain_name') or r.get('title') or '?'}"
+            measured = str(r.get("measured") or "")
+            if r.get("floor_named") is False and r.get("source") == "ORGAN_MAP":
+                measured = "NO FLOOR -- " + measured
+            tv.insert("", "end", iid=iid,
+                      values=(organ, str(brain)[:120], built, state, measured),
+                      tags=(tag, "even" if i % 2 == 0 else "odd"))
+        if self._organ_rows:
+            tv.selection_set("o0")
+            self._show_organ_detail()
+        try:
+            self.nb.tab(self.tab_organs,
+                        text=f"3. BRAIN ORGAN MAP ({o.get('n_missing')} not built)")
+        except tk.TclError:
+            pass
+
+    def _show_organ_detail(self) -> None:
+        sel = self.organ_tv.selection()
+        r = getattr(self, "_organ_rows", {}).get(sel[0]) if sel else None
+        if not r:
+            return
+        built = r.get("built_short")
+        tag = "bad" if built == "NO" else "good" if built == "YES" else "warn"
+        chunks = [(f"{r.get('id')}  {r.get('plain_name') or r.get('title')}\n", "h")]
+        if r.get("title") and r.get("title") != r.get("plain_name"):
+            chunks.append((f"{r.get('title')}\n", "dim"))
+        chunks.append("\n")
+        chunks += [("THE PART OF THE BRAIN\n", "dim")]
+        if r.get("brain_structure"):
+            chunks.append(f"{r.get('brain_structure')}\n")
+        else:
+            chunks.append(("NOT NAMED. No brain structure is recorded for this organ, and one "
+                           "is NOT invented here.\n", "warn"))
+        if r.get("brain_structure_source"):
+            chunks.append((f"(named in {r.get('brain_structure_source')})\n", "mono"))
+        if r.get("brain_plain"):
+            chunks += [("\nWHAT IT DOES IN THE BRAIN\n", "dim"), f"{r.get('brain_plain')}\n"]
+        else:
+            chunks.append(("\nNo plain-language summary written yet for this organ.\n", "dim"))
+        if r.get("brain_math_pinned") is False:
+            chunks.append(("\nThe science does NOT pin down the equation for this one, so its "
+                           "fidelity cannot be scored at all. That is a finding about the state "
+                           "of neuroscience, not a hole to fill with something plausible.\n",
+                           "warn"))
+        chunks += [("\nHAVE WE BUILT IT: ", "dim"), (f"{r.get('built')}\n", tag),
+                   ("IS IT SWITCHED ON: ", "dim"), f"{r.get('state')}\n"]
+        if r.get("state_detail"):
+            chunks.append((f"{r.get('state_detail')}\n", "mono"))
+        if r.get("module"):
+            chunks.append((f"our module: hdlab/{r.get('module')}\n", "mono"))
+        elif r.get("ours"):
+            chunks.append((f"ours: {str(r.get('ours'))[:400]}\n", "mono"))
+        chunks += [("\nWHAT IT MEASURES\n", "dim"), f"{r.get('measured')}\n"]
+        if r.get("evidence"):
+            chunks.append((f"{str(r.get('evidence'))[:900]}\n", "mono"))
+        if r.get("evidence_field") == "WIRED note":
+            chunks.append(("(that evidence is recorded in the map's wiring note, not in a "
+                           "separate evidence line)\n", "dim"))
+        if r.get("the_honest_part"):
+            chunks += [("\nTHE HONEST PART\n", "warn"), f"{r.get('the_honest_part')}\n"]
+        if r.get("has_registry_row") is False:
+            chunks.append(("\nThis module has NO entry in the capability list at all, so the "
+                           "keep-it-or-shelve-it decision has never been applied to it.\n", "bad"))
+        if r.get("blocks"):
+            chunks += [("\nWHAT IT HOLDS UP: ", "dim"), f"{r.get('blocks')}\n"]
+        if r.get("verify_status") == "CHECK_SOURCE":
+            chunks.append((f"\nCHECK THE SOURCE: {r.get('verify_missing')} no longer findable.\n",
+                           "bad"))
+        self._set_text(self.organ_detail, chunks)
+
+    # ---- panel C ------------------------------------------------------
+    def _r_fidelity(self, s: dict) -> None:
+        fd = _d(s.get("fidelity"))
+        tv, tv2 = self.fid_tv, self.fid_div_tv
+        tv.delete(*tv.get_children())
+        tv2.delete(*tv2.get_children())
+        self._fid_rows: dict[str, dict] = {}
+        self._fid_div: dict[str, dict] = {}
+        # Stashed for the detail box, which needs the panel-level warning alongside a single row.
+        # Taken from the payload just rendered rather than from self._state, so a direct render()
+        # (as the self-test does) is not a different code path from the live one.
+        self._fid_state: dict = fd
+        if fd.get("status") == "MISSING":
+            self.fid_warn.configure(text=str(fd.get("detail", ""))[:500])
+            tv.insert("", "end", values=("MISSING", "MISSING", str(fd.get("detail", ""))[:120]),
+                      tags=("warn",))
+            self._set_text(self.fid_detail, [("MISSING\n", "warn"), str(fd.get("detail", ""))])
+            return
+
+        # THE WARNING, read from the scoring tool itself rather than paraphrased here, so that if
+        # the tool's own verdict ever changes this panel changes with it.
+        self.fid_warn.configure(
+            text=(f"{fd.get('headline', '')}\n\n{fd.get('validation_verdict', '')}"))
+
+        for i, r in enumerate(_l(fd.get("rows"))):
+            r = _d(r)
+            iid = f"f{i}"
+            self._fid_rows[iid] = r
+            pct = r.get("pct")
+            pct_s = (f"{pct * 100:.0f}%  ({r.get('points')} of {r.get('max')})"
+                     if isinstance(pct, (int, float)) else "not scored")
+            outcome = str(r.get("outcome") or "")
+            # Colour by the OUTCOME, never by the fidelity score. Colouring by the score would
+            # imply the score means something about the result, which is the exact claim this
+            # panel exists to deny.
+            tag = "good" if r.get("held") else "bad"
+            tv.insert("", "end", iid=iid,
+                      values=(str(r.get("component") or "?"), pct_s, outcome[:220]),
+                      tags=(tag, "even" if i % 2 == 0 else "odd"))
+
+        for i, r in enumerate(_l(fd.get("divergence"))):
+            r = _d(r)
+            iid = f"dv{i}"
+            self._fid_div[iid] = r
+            pinned = r.get("pinned")
+            pin_s = ("yes, the equation is pinned" if pinned is True
+                     else "NO -- the science does not pin it" if pinned is False
+                     else "not stated")
+            bad = any(str(v).upper().startswith(("DIVERGES", "NOT BUILT"))
+                      for v in (r.get("shape"), r.get("position"), r.get("metric")))
+            tag = "bad" if bad else ("good" if r.get("class") == "SAME" else "warn")
+            tv2.insert("", "end", iid=iid,
+                       values=(f"{r.get('id')}  {r.get('title')}", r.get("shape"),
+                               r.get("position"), r.get("metric"), pin_s),
+                       tags=(tag, "even" if i % 2 == 0 else "odd"))
+        if not _l(fd.get("divergence")):
+            tv2.insert("", "end", values=(str(fd.get("divergence_detail")
+                                              or "the organ map is not readable -- MISSING"),
+                                          "", "", "", ""), tags=("warn",))
+        if self._fid_rows:
+            tv.selection_set("f0")
+            self._show_fidelity_detail()
+
+    def _show_fidelity_detail(self, from_div: bool = False) -> None:
+        st = _d(getattr(self, "_fid_state", None))
+        if from_div:
+            sel = self.fid_div_tv.selection()
+            r = getattr(self, "_fid_div", {}).get(sel[0]) if sel else None
+            if not r:
+                return
+            self._set_text(self.fid_detail, [
+                (f"{r.get('id')}  {r.get('title')}\n", "h"),
+                (f"{r.get('map_title', '')}\n", "dim"),
+                f"\n{r.get('plain', '')}\n\n",
+                ("Is it the same operation?  ", "dim"), f"{r.get('shape')}\n",
+                ("Is it in the right place in the pipeline?  ", "dim"), f"{r.get('position')}\n",
+                ("Is it judged the way the brain judges it?  ", "dim"), f"{r.get('metric')}\n\n",
+                (f"the organ map's own verdict: {r.get('class')}\n", "mono"),
+                ("\nNone of this says whether the organ WORKS. It says how closely it resembles "
+                 "the biology. Those are two different gates and neither can soften the other.\n",
+                 "warn"),
+            ])
+            return
+        sel = self.fid_tv.selection()
+        r = getattr(self, "_fid_rows", {}).get(sel[0]) if sel else None
+        if not r:
+            return
+        pct = r.get("pct")
+        chunks = [
+            (f"{r.get('component')}\n", "h"),
+            ("HOW CLOSELY WE COPY THE BRAIN: ", "dim"),
+            (f"{pct * 100:.0f}%" if isinstance(pct, (int, float)) else "not scored", "h"),
+            f"   ({r.get('points')} of {r.get('max')} points, over {r.get('n_scorable')} "
+            f"scorable aspects)\n\n",
+            ("WHAT ACTUALLY HAPPENED WHEN IT WAS MEASURED\n", "warn"),
+            f"{r.get('outcome')}\n",
+            (f"{r.get('outcome_source', '')}\n", "mono"),
+        ]
+        if r.get("regime_or_pairing_zero"):
+            chunks.append(("\nThis one is flagged: it was measured at an operating point where "
+                           "the thing being tested could not show an effect, or its matched "
+                           "partner organ does not exist.\n", "warn"))
+        if r.get("dimensions"):
+            chunks.append((f"\nper-aspect scores: {r.get('dimensions')}\n", "mono"))
+        chunks += [("\nWHY THIS NUMBER MUST NOT BE READ AS A PREDICTION\n", "bad"),
+                   f"{st.get('validation_verdict', '')}\n"]
+        if st.get("was_anything_tuned"):
+            chunks += [("\nWAS ANYTHING TUNED TO MAKE THIS LOOK BETTER?\n", "dim"),
+                       f"{st.get('was_anything_tuned')}\n"]
+        if st.get("unscored_is_the_finding"):
+            chunks += [("\nWHAT COULD NOT BE SCORED AT ALL\n", "dim"),
+                       f"{st.get('unscored_is_the_finding')}\n"]
+        chunks.append((f"\n{st.get('n_registry_with_basis')} of {st.get('n_registry_rows')} "
+                       f"capability entries record whether their design choice is pinned by "
+                       f"evidence or is our own invention under test; "
+                       f"{st.get('n_registry_backlog')} do not, and filling those in after the "
+                       f"fact is banned.\n", "mono"))
+        self._set_text(self.fid_detail, chunks)
+
+    # ---- panel 5 ------------------------------------------------------
     def _r_board(self, s: dict) -> None:
         b = _d(s.get("board"))
         tv = self.board_tv
@@ -636,8 +1157,8 @@ class StatusWindow:
         self._board_rows = [_d(r) for r in _l(b.get("open"))]
         n = b.get("n_open") or 0
         try:
-            self.nb.tab(self.tab_board, text=f"2. WAITING ON YOU ({n})" if n else
-                                             "2. WAITING ON YOU")
+            self.nb.tab(self.tab_board, text=f"5. WAITING ON YOU ({n})" if n else
+                                             "5. WAITING ON YOU")
         except tk.TclError:
             pass
 
@@ -711,7 +1232,7 @@ class StatusWindow:
             self._selected_qid = None
             self.refresh_now()
 
-    # ---- panel 3 ------------------------------------------------------
+    # ---- panel 6 ------------------------------------------------------
     def _r_running(self, s: dict) -> None:
         rn = _d(s.get("running"))
         ag = _d(rn.get("agents"))
@@ -810,11 +1331,11 @@ class StatusWindow:
 
         n_act = ag.get("n_active", 0) if ag.get("status") == "OK" else "?"
         try:
-            self.nb.tab(self.tab_running, text=f"3. RUNNING NOW ({n_act})")
+            self.nb.tab(self.tab_running, text=f"6. RUNNING NOW ({n_act})")
         except tk.TclError:
             pass
 
-    # ---- panel 4 ------------------------------------------------------
+    # ---- panel 7 ------------------------------------------------------
     def _r_results(self, s: dict) -> None:
         res = _d(s.get("results"))
         tv = self.results_tv
@@ -875,7 +1396,7 @@ class StatusWindow:
                        f"{_fmt_dur(r.get('elapsed_s'))} | {r.get('path')}\n", "mono"))
         self._set_text(self.results_detail, chunks)
 
-    # ---- panel 5 ------------------------------------------------------
+    # ---- panel 8 ------------------------------------------------------
     def _r_loop(self, s: dict) -> None:
         lp = _d(s.get("loop"))
         armed = lp.get("armed")
@@ -886,14 +1407,14 @@ class StatusWindow:
                       f"itself after {lp.get('cap_label')} continuations. "
                       f"Switched on at {lp.get('armed_at')} by {lp.get('armed_by')}."))
             try:
-                self.nb.tab(self.tab_loop, text="5. OVERNIGHT LOOP (ON)")
+                self.nb.tab(self.tab_loop, text="8. OVERNIGHT LOOP (ON)")
             except tk.TclError:
                 pass
         elif armed is False:
             self.loop_big.configure(text="THE OVERNIGHT LOOP IS OFF", fg=_DIM)
             self.loop_sub.configure(text="Work stops when the current turn ends.")
             try:
-                self.nb.tab(self.tab_loop, text="5. OVERNIGHT LOOP (off)")
+                self.nb.tab(self.tab_loop, text="8. OVERNIGHT LOOP (off)")
             except tk.TclError:
                 pass
         else:
@@ -993,6 +1514,38 @@ def self_test() -> int:
               f"(got {len(gui.walls_tv.get_children())})")
         check(len(gui.results_tv.get_children()) >= 1, "the results panel drew its rows")
 
+        # --- the three panels added 2026-08-16 -------------------------------
+        check(len(gui.prog_tv.get_children()) >= 8,
+              f"the progress panel drew its rows "
+              f"(got {len(gui.prog_tv.get_children())})")
+        check(len(gui.organ_tv.get_children()) >= 30,
+              f"the organ map drew its rows (got {len(gui.organ_tv.get_children())})")
+        check(len(gui.fid_tv.get_children()) >= 1, "the fidelity panel drew its rows")
+        check(len(gui.fid_div_tv.get_children()) >= 30,
+              "the per-organ divergence table drew its rows")
+        # EVERY progress row shows a floor or an explicit non-answer -- the rule the whole
+        # dashboard is built around, checked at the RENDERED CELL, not at the data.
+        cells = [gui.prog_tv.item(i, "values") for i in gui.prog_tv.get_children()]
+        naked = [c[0] for c in cells
+                 if c[3] and not any(k in c[3] for k in
+                                     ("floor", "NOT MEASURED", "NOT APPLICABLE", "NOT STARTED",
+                                      "NOT REACHED", "NOT YET", "NOT ESTABLISHED", "NONE",
+                                      "NO FLOOR", "(", "MISSING"))]
+        check(not naked, f"every progress row renders a floor or an explicit non-answer ({naked})")
+        # The fidelity warning must be ON SCREEN, not merely in the data.
+        warn_txt = gui.fid_warn.cget("text").upper()
+        check("UNVALIDATED" in warn_txt,
+              f"the fidelity panel says UNVALIDATED on screen (got {warn_txt[:70]!r})")
+        check("NOT A MEASURE OF HOW WELL" in warn_txt,
+              "the fidelity panel's banner denies that the score measures how well it works")
+        check("P ~ 0.17" in warn_txt or "1/6" in warn_txt,
+              f"the banner carries WHY it is unvalidated, not just the word "
+              f"(got {warn_txt[-160:]!r})")
+        # The organ header must state the deliberate backlog rather than hiding it.
+        oh = gui.organ_hint.cget("text")
+        check("deliberately do not" in oh,
+              f"the organ header reports the empty-brain-structure backlog (got {oh[:90]!r})")
+
         # every panel MISSING
         gui._last_error = None
         missing = {"ts": "x", "took_s": 0.0,
@@ -1003,7 +1556,10 @@ def self_test() -> int:
                                "alerts": [], "gpu": {}, "local_experiments": [],
                                "remote_checkpoint": {"state": "UNKNOWN", "reason": "ssh down"}},
                    "results": {"status": "MISSING", "detail": "no data dir"},
-                   "loop": {"status": "ERROR", "detail": "autoloop gone", "armed": None}}
+                   "loop": {"status": "ERROR", "detail": "autoloop gone", "armed": None},
+                   "progress": {"status": "MISSING", "detail": "progress ledger gone"},
+                   "organs": {"status": "MISSING", "detail": "organ map and registry gone"},
+                   "fidelity": {"status": "MISSING", "detail": "scoring tool gone"}}
         gui.render(missing)
         check(gui._last_error is None,
               f"renders an ALL-MISSING state with no panel error ({gui._last_error})")
@@ -1015,6 +1571,14 @@ def self_test() -> int:
               "the answer button is DISABLED when the board is unreadable")
         check("UNKNOWN" in gui.running_detail.get("1.0", "end").upper(),
               "remote liveness renders as UNKNOWN, not as idle")
+        check("MISSING" in gui.prog_detail.get("1.0", "end").upper(),
+              "the progress panel tells the reader it is MISSING")
+        check("MISSING" in gui.organ_detail.get("1.0", "end").upper(),
+              "the organ map tells the reader it is MISSING")
+        check("MISSING" in gui.fid_detail.get("1.0", "end").upper(),
+              "the fidelity panel tells the reader it is MISSING rather than showing a number")
+        check(len(gui.organ_tv.get_children()) <= 1,
+              "the organ map draws no organs it does not have")
 
         # structurally wrong types everywhere
         gui._last_error = None

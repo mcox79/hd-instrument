@@ -1,0 +1,444 @@
+{
+  "_README": [
+    "PROGRESS MADE -- the data behind panel A of tools/status_gui.py (collector: tools/status_organs.py).",
+    "",
+    "IT LIVES IN notes/ AND NOT IN data/ ON PURPOSE: `.gitignore` line 43 is `data/*`, so a copy under",
+    "data/ would be invisible to git and absent from a fresh clone, and the panel would come up MISSING",
+    "for the next person. It belongs beside the documents it is transcribed from.",
+    "",
+    "WHY THIS FILE EXISTS. notes/LONG_TERM_PLAN.md and notes/STATUS.md state their numbers in prose, so",
+    "a window cannot pull a BEFORE, a NOW and a FLOOR out of them as a triple. This is the structured",
+    "transcription. It is NOT a second source of truth: every row carries a `verify` list of literal",
+    "strings that MUST still be findable in notes/STATUS.md, notes/LONG_TERM_PLAN.md, notes/PLAN.md or",
+    "notes/ORGAN_MAP.md (or, where a row names one, in the `verify_source` file). tools/status_organs.py",
+    "re-checks them on every refresh and renders a row as CHECK-SOURCE when a string has gone missing,",
+    "so an edit that moves a number shows up as a mismatch instead of the window quietly showing a",
+    "stale figure. Dashes are normalised to '-' before comparison, so an em-dash in the plan matches.",
+    "",
+    "THREE RULES THIS FILE ENFORCES, EACH ONE PAID FOR:",
+    "  1. A SCORE IS NEVER WRITTEN WITHOUT THE FLOOR IT MUST BEAT. If the floor is unknown, floor is",
+    "     null and floor_name says so. MISSING is information; an invented number is damage.",
+    "  2. LOSSES AND RETRACTIONS ARE FIRST-CLASS ROWS, not a footnote. The `retractions` array is",
+    "     rendered in the same red as a loss. Three headline numbers were retracted on 2026-08-16",
+    "     alone, and a progress panel that showed only gains would reproduce the exact failure this",
+    "     project keeps having to unpick.",
+    "  3. THE STRONGEST FLOOR GOVERNS. `governing_floor` is rendered above everything else because on",
+    "     2026-08-16 a constant ranking that uses ZERO information about the query was measured above",
+    "     both our read-out and the spelling channel. Every row below it is read in that light.",
+    "",
+    "FIELDS",
+    "  id / title        stable key; plain-language name the owner sees",
+    "  plain             ONE plain sentence, no jargon. The owner has said twice that jargon makes our",
+    "                    artifacts unusable to them.",
+    "  before / now      {when, score, score_detail, floor, floor_name, floor_detail}",
+    "                    a null score means NOT MEASURED -- render as MISSING, never as 0",
+    "  direction         UP | DOWN | FLAT | NULL | NEW | RETRACTED | MIXED | UNKNOWN",
+    "  what_moved        what actually changed between before and now, in one sentence",
+    "  evidence          where the number came from",
+    "  verify            literal strings that must still appear in the authority documents",
+    "  verify_source     optional repo-relative path to an EXTRA authority for this row"
+  ],
+  "as_of": "2026-08-16",
+  "transcribed_from": [
+    "notes/LONG_TERM_PLAN.md sections 2, 5 and 7",
+    "notes/STATUS.md",
+    "notes/PLAN.md sections 2 and 3",
+    ".claude/scan-out/checker-falsepass-fix.json"
+  ],
+
+  "governing_floor": {
+    "id": "governing_floor",
+    "title": "THE FLOOR THAT GOVERNS EVERYTHING -- AND IT IS NOT SPELLING",
+    "plain": "A baseline that gives THE SAME ANSWER TO EVERY QUESTION -- it never even looks at what was asked -- scores 13.90% and 15.18%. That beats the spelling-only channel, and the spelling-only channel already beats us. So OUR score, and the floor we have been quoting for weeks, are BOTH below a baseline that knows nothing at all.",
+    "score": "13.90% / 15.18%",
+    "floor_name": "CONSTANT GUESS (uses zero information about the question)",
+    "detail": "It beats the spelling channel by +0.0523 [+0.0391,+0.0658] and +0.0627 [+0.0475,+0.0778], and the intervals do not overlap. Nobody had ever run this comparison.",
+    "two_readings": [
+      "OUR FLOORS WERE TOO WEAK. The standing bar never included a popularity-shaped floor, so it under-set the bar everywhere.",
+      "THE TASK MAY BE DEGENERATE. If a constant answer wins, this task may be dominated by which words are common rather than by understanding -- in which case it cannot show understanding no matter what we build. These two are distinguishable by measurement and that measurement is the top priority."
+    ],
+    "evidence": "notes/LONG_TERM_PLAN.md section 2; .claude/scan-out/sparsify-right-object.json",
+    "verify": ["0.1390", "0.1518", "+0.0523", "+0.0627"]
+  },
+
+  "components": [
+    {
+      "id": "readout",
+      "title": "THE WHOLE THING: name the right word",
+      "plain": "Ask the machine to name the right word out of the entire vocabulary. Our score has not moved. What moved is the floor -- three times, each time upward, each time making our position worse and the picture more honest.",
+      "before": {
+        "when": "until 2026-08-14",
+        "score": "4.80%",
+        "score_detail": "unchanged; the same measurement throughout",
+        "floor": "a scrambled-context arm",
+        "floor_name": "SCRAMBLED CONTEXT -- too weak, and superseded TWICE since",
+        "floor_detail": "quoted at the time as '6x its floor'. That phrasing is RETIRED and must never be re-quoted. The floor was never the strongest available one, which is why the standing looked healthy."
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "4.80%",
+        "score_detail": "confidence interval 4.13 to 5.48",
+        "floor": "8.70%",
+        "floor_name": "SPELLING ONLY -- itself now beaten by the constant guess above",
+        "floor_detail": "three-letter chunks of the spelling and nothing else. Intervals do not overlap. Prefix-only spelling (5.88%) also beats us."
+      },
+      "direction": "DOWN",
+      "what_moved": "Not the score. The floor. We now lose to a spell-checker, and both of us lose to a constant answer.",
+      "evidence": "exp_orthographic_floor_vet_v1 (58a125c88), reproduced off disk 2026-08-16",
+      "verify": ["4.80%", "8.70%", "5.88%", "58a125c88"]
+    },
+    {
+      "id": "retrieval",
+      "title": "Retrieval: is the right answer in our shortlist",
+      "plain": "Given a cue, build a shortlist of 50 and check whether the right answer is in it. This looked FINE for weeks. It was measured under the easy conditions only.",
+      "before": {
+        "when": "2026-08-15",
+        "score": "55.65%",
+        "score_detail": "right answer somewhere in our top 50, given the EXACT key",
+        "floor": "54.55%",
+        "floor_name": "SPELLING ONLY",
+        "floor_detail": "the same measurement, spelling channel only -- read at the time as 'we tie spelling'"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "0.3758",
+        "score_detail": "the same measurement under a PARTIAL cue, which is the real operating condition",
+        "floor": "0.5235",
+        "floor_name": "PURE CORPUS POPULARITY",
+        "floor_detail": "just how common the word is [0.5078,0.5388]. We are CI-separated BELOW this AND below spelling."
+      },
+      "direction": "DOWN",
+      "what_moved": "The cue. With the whole key we tie spelling; with a partial key we fall to 0.3758 and lose to both spelling and simple popularity. The live index dies at the FIRST FLIPPED BIT.",
+      "evidence": "notes/STATUS.md correction C30; notes/LONG_TERM_PLAN.md section 2",
+      "verify": ["55.65%", "54.55%", "0.3758", "0.5235"]
+    },
+    {
+      "id": "selection",
+      "title": "Selection: pick the one right answer off the shortlist",
+      "plain": "This is where we measurably lose, and it has not moved. Do NOT go and improve the selector: it is being asked to sort by meaning using codes that carry no meaning.",
+      "before": {
+        "when": "2026-08-15",
+        "score": "8.63%",
+        "score_detail": "how often we pick the right one",
+        "floor": "15.95%",
+        "floor_name": "SPELLING ONLY",
+        "floor_detail": "same items, same pool, same gold"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "8.63%",
+        "score_detail": "unchanged",
+        "floor": "15.95%",
+        "floor_name": "SPELLING ONLY",
+        "floor_detail": "1.85x worse than spelling, intervals separated"
+      },
+      "direction": "FLAT",
+      "what_moved": "Nothing, and that is the finding. Two of tonight's floored negatives were selection interventions. The plan now says STOP TUNING SELECTION -- it is the symptom, not the defect.",
+      "evidence": "notes/LONG_TERM_PLAN.md section 2 row 5 and section 6",
+      "verify": ["8.63%", "15.95%"]
+    },
+    {
+      "id": "storage",
+      "title": "Storage: hold many things so any one can be asked for",
+      "plain": "For weeks this could not be measured on its own at all. Now it can -- and the first honest measurement says the store applies no address whatsoever.",
+      "before": {
+        "when": "until 2026-08-15",
+        "score": null,
+        "score_detail": "NO ISOLATED INSTRUMENT EXISTED. Not a low score -- no score.",
+        "floor": null,
+        "floor_name": "NONE -- nothing to compare against"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "0.2500",
+        "score_detail": "how often asking for one specific facet gets that facet back",
+        "floor": "0.2500",
+        "floor_name": "CHANCE (1 in 4)",
+        "floor_detail": "EXACTLY chance, with zero variance across 5 seeds, and key-sensitivity 0.0. This is not a damaged address. It is an absent one."
+      },
+      "direction": "UP",
+      "what_moved": "We gained the instrument, and the instrument says ADDRESS_ABSENT. Gaining a ruler that reports bad news is progress; it supersedes the standing 'no instrument = step 1'.",
+      "evidence": "notes/STATUS.md TWO HUBS / STORAGE / SPARSE CODE",
+      "verify": ["ADDRESS_ABSENT", "0.2500 = chance"]
+    },
+    {
+      "id": "thematic_hub",
+      "title": "The brain's SECOND relations hub (built tonight)",
+      "plain": "The brain has TWO systems for relations. One knows 'a dog is an animal'. The other knows 'dogs go with leashes'. We had built only the first. We already owned the parts for the second and nothing was calling them.",
+      "before": {
+        "when": "until 2026-08-16",
+        "score": "1.216",
+        "score_detail": "average number of relational links a word had to the grounded core",
+        "floor": null,
+        "floor_name": "NOT APPLICABLE -- this is a supply count, not a score"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "3.573",
+        "score_detail": "same count with the second hub switched on; held-out stratum 47 -> 394; verbs 0 -> 86, which makes the noun-versus-verb falsifier constructible for the first time",
+        "floor": null,
+        "floor_name": "NOT APPLICABLE -- see the row below for the scored result"
+      },
+      "direction": "NEW",
+      "what_moved": "An organ that already existed with 221 facts and NO CALLERS was switched on, from the same corpus budget.",
+      "evidence": "notes/STATUS.md TWO HUBS; notes/LONG_TERM_PLAN.md section 4",
+      "verify": ["1.216 -> 3.573", "verbs 0 -> 86", "221 facts"]
+    },
+    {
+      "id": "bridging",
+      "title": "Growing meaning by bridging (the central bet) -- A REAL NULL",
+      "plain": "The bet: ground a small core of words through the senses, then reach every other word by its relations to those. With the missing hub now supplying three times the bridges, it STILL does not work. This is a real negative, not a broken test.",
+      "before": {
+        "when": "before the second hub",
+        "score": null,
+        "score_detail": "not constructible -- there were too few bridges to score",
+        "floor": null,
+        "floor_name": "NOT MEASURED"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "0.0270",
+        "score_detail": "agreement with human judgements for words grounded ONLY by bridging, n=394",
+        "floor": "0.0900",
+        "floor_name": "STRONGEST OF THREE FLOORS (0.0412 / 0.0209 / 0.0900)",
+        "floor_detail": "NOT SEPARATED. Both known-answer arms PASS (0.3301 and 0.2893), so the instrument is alive -- this is a real null. Bridged codes KEEP IDENTITY (96.1% distinct) and LOSE MEANING."
+      },
+      "direction": "NULL",
+      "what_moved": "The supply tripled and the score did not follow. The externally curated graph fails too, so 'our relations are the limiter' is unsupported.",
+      "evidence": "notes/STATUS.md BRIDGING; DO-NOT-REDO 38",
+      "verify": ["0.0270", "0.0412/0.0209/0.0900", "0.3301", "96.1%"]
+    },
+    {
+      "id": "meaning_supply",
+      "title": "Meaning supply: the one thing that is genuinely working",
+      "plain": "The hand-rated sensory ratings add something a spell-checker does not have. It is small, it is real, it replicated in all four blocks -- and it is still below the constant guess.",
+      "before": {
+        "when": "2026-08-15",
+        "score": null,
+        "score_detail": "not separated from the combined spelling-and-context baseline",
+        "floor": null,
+        "floor_name": "NOT ESTABLISHED"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "+0.0168 to +0.0274",
+        "score_detail": "the margin the grounded asset adds, replicated in all four blocks and under a calibration-invariant fusion",
+        "floor": "0.0",
+        "floor_name": "SPELLING AND CONTEXT COMBINED",
+        "floor_detail": "the floor here is the fused baseline itself; the number IS the margin above it"
+      },
+      "direction": "UP",
+      "what_moved": "THE ONLY ENCOURAGING NUMBER on the board. Coverage is the catch: this asset covers 60.4% of running text but just 10.3% of distinct words.",
+      "evidence": "notes/LONG_TERM_PLAN.md section 2 'THE ONE SURVIVOR' and PHASE 1",
+      "verify": ["+0.0168", "60.4% of running text", "10.3% of distinct words"]
+    },
+    {
+      "id": "sparse_code",
+      "title": "A sparse code that survives being piled up with others",
+      "plain": "A code that carries meaning AND still survives being mixed with others is the combination this project has never had. One arm now does both. The experiment it came from still does not pass the bar.",
+      "before": {
+        "when": "until 2026-08-16",
+        "score": "0.0097 bits",
+        "score_detail": "the best meaning-carrying arm retained almost nothing through mixing",
+        "floor": "0.5 bits",
+        "floor_name": "THE PRE-REGISTERED CRITERION",
+        "floor_detail": "meaning you cannot pile up is meaning you cannot store"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "0.2801",
+        "score_detail": "agreement with human judgements, clearing all three floors, AND retaining 3.5264 of 7 bits through mixing -- 7x the pre-registered criterion",
+        "floor": "0.5 bits",
+        "floor_name": "THE PRE-REGISTERED CRITERION (on the mixing axis)",
+        "floor_detail": "the ARM clears its floors. The CELL does not: it reads FAILS_BAR, and on the REAL task all 18 arms sit CI-separated BELOW spelling."
+      },
+      "direction": "MIXED",
+      "what_moved": "A promising arm inside a cell that is not a pass. We sparsified a HIGH-rank reading anchor, not the LOW-rank grounded asset -- the wrong object.",
+      "evidence": "notes/STATUS.md SPARSE CODE; DO-NOT-REDO 39",
+      "verify": ["0.2801", "3.5264", "FAILS_BAR"]
+    },
+    {
+      "id": "affect_channel",
+      "title": "The missing feeling channel",
+      "plain": "Our target space describes words on 12 measures that cover only 2 of the 7 kinds of information the brain uses. The biggest missing kind is how a word FEELS. The ratings for it have been sitting on disk unused.",
+      "before": {
+        "when": "until 2026-08-16",
+        "score": "0.3130",
+        "score_detail": "the best score any perfect system could reach in our current 12-measure space",
+        "floor": null,
+        "floor_name": "NOT APPLICABLE -- this is a ceiling, not a score"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "0.4143",
+        "score_detail": "the same ceiling with the feeling channel added: +0.1013 [+0.0615,+0.1419] on 977 pairs, intervals separated",
+        "floor": "0.3035",
+        "floor_name": "NEGATIVE CONTROL: adding the SAME NUMBER of columns that are not a channel",
+        "floor_detail": "the control FIRED -- 11 extra rater-spread columns score 0.3035 and 6 derived columns 0.3025, both BELOW the 12-measure incumbent. Widening without a CHANNEL buys nothing."
+      },
+      "direction": "UP",
+      "what_moved": "SCOPE, and it matters: this is a ceiling diagnostic with no floors and no null arm. It clears nothing. It decides what goes into an experiment that CAN fail.",
+      "evidence": "notes/STATUS.md TOP ITEM (03055c7fa)",
+      "verify": ["0.3130 -> 0.4143", "+0.1013", "977 pairs", "2 of the brain's 7 attribute blocks"]
+    },
+    {
+      "id": "foundation",
+      "title": "The assembled knowledge base",
+      "plain": "Of the facts sitting in the finished knowledge base, how many are actually right. This is the one component that clears its floor.",
+      "before": {
+        "when": "three earlier harness versions",
+        "score": "95-97%",
+        "score_detail": "every number those three versions produced was VOID -- a random decoy scored 0.76 on them",
+        "floor": null,
+        "floor_name": "NONE -- the harness itself was invalid"
+      },
+      "now": {
+        "when": "2026-08-16",
+        "score": "0.4867",
+        "score_detail": "precision, confidence interval 0.408 to 0.566",
+        "floor": "0.22",
+        "floor_name": "FREQUENCY",
+        "floor_detail": "confidence interval 0.161 to 0.293. Intervals separated."
+      },
+      "direction": "UP",
+      "what_moved": "The instrument, not the system. Roughly half of what is in there is right -- not the 95% three broken harnesses reported. A corpus defect is flagged and NOT fixed.",
+      "evidence": "commit d62acfe58; notes/STATUS.md",
+      "verify": ["0.4867", "d62acfe58", "0.22"]
+    }
+  ],
+
+  "phases": [
+    {
+      "id": "phase0",
+      "title": "PHASE 0 -- TRUSTWORTHY INSTRUMENTS",
+      "plain": "You cannot improve what you cannot measure, and our rulers were bent. Mostly done.",
+      "before": {"when": "2026-08-14", "score": null, "score_detail": "rulers unvalidated", "floor": null, "floor_name": "NOT APPLICABLE"},
+      "now": {"when": "2026-08-16", "score": "SUBSTANTIALLY DONE", "score_detail": "encoding instrument 21 of 21 gates; the checkpoint-collision fix ended about 128 silently-skipped runs; the brain-fidelity gate; the brain-canonical-defaults tripwire", "floor": null, "floor_name": "NOT APPLICABLE -- this phase is overhead, not a bet"},
+      "direction": "UP",
+      "what_moved": "TWO ITEMS REMAIN AND ONE BLOCKS PHASE 3: the storage instrument must be redesigned (its premise was falsified), and verdict strings are not trustworthy -- twice in one night a cell reported a passing label whose claim did not survive the bar.",
+      "state": "SUBSTANTIALLY DONE",
+      "gate": "none -- permanent overhead",
+      "kill": "none",
+      "evidence": "notes/LONG_TERM_PLAN.md PHASE 0",
+      "verify": ["PHASE 0 - TRUSTWORTHY INSTRUMENTS", "ee7c42c0f"]
+    },
+    {
+      "id": "phase1",
+      "title": "PHASE 1 -- MEANING SUPPLY",
+      "plain": "Give a word's code some actual meaning. This is the current bottleneck and where work should start.",
+      "before": {"when": "2026-08-15", "score": null, "score_detail": "coverage only, never scored on new words", "floor": null, "floor_name": "NOT MEASURED"},
+      "now": {"when": "2026-08-16", "score": "60.4% of running text", "score_detail": "but just 10.3% of distinct words, falling to 4% beyond rank 64,000. The plan is +14,704 words, the knee of the curve.", "floor": null, "floor_name": "NOT YET SCORED ON NEW WORDS -- so the coverage number is arithmetic, not capability"},
+      "direction": "FLAT",
+      "what_moved": "The lever changed. Sparsity is now the live Phase 1 lever, and it is also the largest named fidelity gap: the brain is sparse and we are dense.",
+      "state": "CURRENT BOTTLENECK -- START HERE",
+      "gate": "the widened, lifted meaning code clears max(orthographic, frequency, scramble) CI-separated on NEW words it was not built from",
+      "kill": "if a 15,000-word widening does not move the margin on new words, hand-rated ratings are not a scalable meaning source and Phase 2 becomes the only route. Do NOT buy the number with a pretrained table.",
+      "evidence": "notes/LONG_TERM_PLAN.md PHASE 1",
+      "verify": ["PHASE 1 - MEANING SUPPLY", "+14,704", "60.4% of running text"]
+    },
+    {
+      "id": "phase2",
+      "title": "PHASE 2 -- GROUNDING GROWTH",
+      "plain": "Ground a small core of words through the senses, then reach every other word by its relations to those. This is the central scientific bet, and tonight it measured NULL.",
+      "before": {"when": "2026-08-15", "score": null, "score_detail": "not constructible", "floor": null, "floor_name": "NOT MEASURED"},
+      "now": {"when": "2026-08-16", "score": "0.0270", "score_detail": "bridged-word agreement, n=394; a FULL run is in flight", "floor": "0.0900", "floor_name": "STRONGEST OF THREE FLOORS", "floor_detail": "NOT SEPARATED, with both known-answer arms passing -- a real null"},
+      "direction": "NULL",
+      "what_moved": "A correction that cost a whole planned workstream: NONE of gap_detector, gap_driven_reader or the grounding evaluation computes any distance at all, so the distance-to-frontier metric has to be BUILT, not unified.",
+      "state": "RUNNING -- FULL in flight",
+      "gate": "a word grounded ONLY by bridging clears max(orthographic, hardened-frequency, scramble) CI-separated on that same stratum",
+      "kill": "if bridged words never clear the floor while hand-rated words do, grounding does not propagate through our relations. This is the most important negative result available to this project -- report it loudly.",
+      "evidence": "notes/LONG_TERM_PLAN.md PHASE 2; notes/STATUS.md BRIDGING",
+      "verify": ["PHASE 2 - GROUNDING GROWTH", "0.0270"]
+    },
+    {
+      "id": "phase3",
+      "title": "PHASE 3 -- ADDRESSED STORAGE",
+      "plain": "Give every stored piece its own address instead of adding everything into one pile. Blocked until Phase 1 clears -- a result here cannot be read while the codes carry no meaning.",
+      "before": {"when": "2026-08-15", "score": null, "score_detail": "not measured under a partial cue", "floor": null, "floor_name": "NOT MEASURED"},
+      "now": {"when": "2026-08-16", "score": "-0.0007", "score_detail": "per-spoke role addressing against the flat pile at 20% cue overlap -- a TIE, not a win", "floor": "0.0", "floor_name": "THE FLAT PILE (the incumbent)", "floor_detail": "conjunctive addressing is CI-separated BELOW the flat pile at -0.0247. Role keys survive a partial cue; conjunctive keys collapse."},
+      "direction": "FLAT",
+      "what_moved": "Adding an address to the REAL read-out made it WORSE (-0.01125, intervals separated). Structure is not an unconnected fix waiting to be plugged in -- it was connected, and it lost.",
+      "state": "BLOCKED until Phase 1 clears",
+      "gate": "addressed beats flat CI-separated on the REAL reading task, not in isolation",
+      "kill": "if addressing still does not beat flat with meaningful codes and no codebook collision, addressing is not our lever",
+      "evidence": "notes/LONG_TERM_PLAN.md PHASE 3 and section 2",
+      "verify": ["PHASE 3 - ADDRESSED STORAGE", "-0.0247", "-0.0007", "STRUCTURE_HURTS"]
+    },
+    {
+      "id": "phase4",
+      "title": "PHASE 4 -- COMPLETION AND SELECTION",
+      "plain": "Fill in a whole memory from a fragment, then pick the right answer. This is the first point at which the system would do something a spell-checker cannot.",
+      "before": {"when": "2026-08-15", "score": null, "score_detail": "not built", "floor": null, "floor_name": "NOT MEASURED"},
+      "now": {"when": "2026-08-16", "score": "REFUTED", "score_detail": "0 of 5 gates at full scale; completion HURTS at every partial overlap, with a handicap we introduced (one spoke had 1,476 distinct codes for 4,096 words)", "floor": null, "floor_name": "NOT REACHED -- the fair re-test is filed and not yet run"},
+      "direction": "DOWN",
+      "what_moved": "A refutation of OUR implementation, not of the capability. The handicap is ours and the fair re-test is filed.",
+      "state": "BLOCKED until Phase 3 clears",
+      "gate": "the read-out clears the SPELLING floor CI-separated -- the first moment this system does something a spell-checker cannot",
+      "kill": "if completion cannot be made to help under a partial cue once the handicap is removed, record that separation and completion do not compose in our geometry",
+      "evidence": "notes/LONG_TERM_PLAN.md PHASE 4",
+      "verify": ["PHASE 4 - COMPLETION AND SELECTION", "1,476"]
+    },
+    {
+      "id": "phase5",
+      "title": "PHASE 5 -- CONSOLIDATION",
+      "plain": "The brain writes a memory fast and then re-learns it slowly during sleep. We have one store doing both jobs, which is why capacity and interference fight each other. Deliberately last.",
+      "before": {"when": "n/a", "score": null, "score_detail": "not started", "floor": null, "floor_name": "NOT MEASURED"},
+      "now": {"when": "2026-08-16", "score": null, "score_detail": "NOT STARTED, on purpose", "floor": null, "floor_name": "NOT MEASURED"},
+      "direction": "FLAT",
+      "what_moved": "Nothing. It is an optimisation of a system that must first work at all.",
+      "state": "NOT STARTED (long horizon)",
+      "gate": "not yet set",
+      "kill": "not yet set",
+      "evidence": "notes/LONG_TERM_PLAN.md PHASE 5",
+      "verify": ["PHASE 5 - CONSOLIDATION"]
+    }
+  ],
+
+  "retractions": [
+    {
+      "id": "r_lift_gap",
+      "title": "RETRACTED: the '0.073 lift gap'",
+      "plain": "We said that turning the sensory ratings into vector codes threw away about a quarter of the signal, and called it the cheapest win available. Measured like for like, the gap is 0.0034, not 0.073. There is no quarter to recover.",
+      "before": {"when": "quoted until 2026-08-16", "score": "0.073", "score_detail": "claimed loss, described as 'a quarter of the signal'", "floor": null, "floor_name": "NONE -- and that was the defect"},
+      "now": {"when": "2026-08-16", "score": "0.0034", "score_detail": "0.2667 against the 0.2701 direct-read ceiling, all six validity gates passing", "floor": "0.2701", "floor_name": "THE DIRECT-READ CEILING"},
+      "direction": "RETRACTED",
+      "what_moved": "The larger figure came from comparing numbers computed on DIFFERENT POPULATIONS. A number may not be carried between scorers or populations.",
+      "evidence": "notes/STATUS.md correction C29; notes/LONG_TERM_PLAN.md PHASE 1 item 3",
+      "verify": ["0.0034", "0.2667", "0.2701"]
+    },
+    {
+      "id": "r_2285",
+      "title": "RETRACTED: the '+0.2285 margin over the spelling floor'",
+      "plain": "This was written down as the first time this programme ever beat the spelling baseline with separated intervals. It was measured on a DIFFERENT ruler. On the ruler that actually mattered the margin is MINUS 0.0142, and the intervals include zero.",
+      "before": {"when": "quoted 2026-08-16 (same day)", "score": "+0.2285", "score_detail": "[+0.1861,+0.2717], reported as the first CI-separated margin over the spelling floor", "floor": "the spelling channel", "floor_name": "SPELLING ONLY -- but scored by a DIFFERENT instrument"},
+      "now": {"when": "2026-08-16", "score": "-0.0142", "score_detail": "[-0.1636,+0.1397] on the bridging cell's own instrument -- the interval covers zero", "floor": "the spelling channel", "floor_name": "SPELLING ONLY, on the same instrument this time"},
+      "direction": "RETRACTED",
+      "what_moved": "The +0.2285 was a neighbour-choice diagnostic on a different scorer. WHAT SURVIVES: blocking spelling-lookalike links removes 0.48% of edges and the score goes UP, so the second hub is genuinely NOT a spelling channel.",
+      "evidence": "notes/STATUS.md correction C28; DO-NOT-REDO 40",
+      "verify": ["+0.2285", "-0.0142"]
+    },
+    {
+      "id": "r_0_of_7769",
+      "title": "RETRACTED: '0 of 7,769 banked results meet the bar'",
+      "plain": "The standing headline said not one of 7,769 stored results met the standard. On today's corpus the UNFIXED checker passes one, and the fixed one passes two. The headline was already stale -- and the one the old tool passed, it passed on an arm that had been given the answer.",
+      "before": {"when": "quoted until 2026-08-16", "score": "0 of 7,769", "score_detail": "the standing base rate", "floor": null, "floor_name": "NOT APPLICABLE -- this is a count, not a score"},
+      "now": {"when": "2026-08-16", "score": "1 -> 2 of 7,772", "score_detail": "the honest A/B on the IDENTICAL corpus: unfixed passes 1, fixed passes 2. NEITHER pass is on the open-vocabulary read-out, so nothing here touches the 'we underperform a spell-checker' position.", "floor": null, "floor_name": "NOT APPLICABLE"},
+      "direction": "RETRACTED",
+      "what_moved": "The checker had THREE defects, only one of which was the one originally reported. A checker sharing a flaw with what it checks hides it -- this is the fifth instance.",
+      "evidence": ".claude/scan-out/checker-falsepass-fix.json STEP_4_FULL_RESCAN",
+      "verify_source": ".claude/scan-out/checker-falsepass-fix.json",
+      "verify": ["0 of 7,769 becomes 2 of 7,772", "oracle_K2_uses_NO_graph"]
+    },
+    {
+      "id": "r_retrieval_fine",
+      "title": "RETRACTED: 'retrieval is FINE, we tie spelling'",
+      "plain": "True only with the whole key in hand, and only under the tie convention that flattered us. Under a partial cue -- the real condition -- we fall to 0.3758 and lose to both spelling and simple popularity.",
+      "before": {"when": "quoted until 2026-08-16", "score": "0.5566", "score_detail": "top-50 with the EXACT key", "floor": "0.5455", "floor_name": "SPELLING ONLY, exact key"},
+      "now": {"when": "2026-08-16", "score": "0.3758", "score_detail": "top-50 under a PARTIAL cue", "floor": "0.5235", "floor_name": "PURE CORPUS POPULARITY", "floor_detail": "CI-separated BELOW both spelling and popularity"},
+      "direction": "RETRACTED",
+      "what_moved": "Two lessons, both now standing: a claim measured at the exact-key operating point does not transfer to the partial-cue regime, and tie conventions must be reported BOTH ways -- the same comparison flips from +0.0105 not-separated to +0.0641 in our favour depending on which convention is used.",
+      "evidence": "notes/STATUS.md correction C30 and standing disciplines 12 and 13",
+      "verify": ["0.5566", "0.3758", "+0.0641", "15.27% tie mass"]
+    }
+  ]
+}

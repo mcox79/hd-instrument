@@ -1,0 +1,327 @@
+{
+  "_README": [
+    "THE BRAIN ORGAN MAP -- the plain-language layer behind panel B of tools/status_gui.py",
+    "(collector: tools/status_organs.py).",
+    "",
+    "WHAT THIS FILE IS AND IS NOT. It is NOT the organ map. notes/ORGAN_MAP.md is the organ map, it is",
+    "a LIVING document updated in place, and the panel PARSES it on every refresh rather than",
+    "transcribing it -- a transcription would go stale in exactly the way this panel exists to prevent.",
+    "This file adds only two things the map cannot supply:",
+    "",
+    "  1. `glosses`  -- ONE plain sentence per organ saying what that part of the brain DOES, for a",
+    "                   reader who is not a neuroscientist. The owner has said twice that jargon makes",
+    "                   our artifacts unusable to them. Each gloss is a translation of the organ's own",
+    "                   BRAIN'S MATH line in notes/ORGAN_MAP.md. It NEVER names a brain structure the",
+    "                   map does not already name. An organ with no gloss here renders as 'no",
+    "                   plain-language summary written yet' -- never as invented biology.",
+    "",
+    "  2. `overlay_organs` -- organs that POST-DATE the map (it was last updated 2026-08-15) or that",
+    "                   have no row in it at all. Each carries its own `verify` strings, checked on",
+    "                   every refresh against the authority documents exactly like the progress ledger.",
+    "                   WHERE data/capability_registry.jsonl CARRIES A `brain_structure` FIELD, THAT",
+    "                   FIELD WINS: the collector reads it from the registry and this file's value is",
+    "                   not used. Retro-filling `brain_structure` onto the backlog is banned",
+    "                   (`3e70c3ba4`), so the panel reports the empty count instead of hiding it.",
+    "",
+    "  `required_organs` is the display order for the organs the owner asked to see first. If one of",
+    "  them cannot be resolved the collector reports it in `missing_required` and the self-test FAILS,",
+    "  so an organ silently disappearing from the map is caught rather than simply not shown."
+  ],
+  "as_of": "2026-08-16",
+
+  "required_organs": ["B1", "THEMATIC", "PERIRHINAL", "D1", "CA3", "SPARSE", "HUBSPOKE", "AFFECT"],
+
+  "glosses": {
+    "A1": {
+      "plain_name": "Reading the shape of a word",
+      "brain_structure": "Visual word form area (left fusiform gyrus)",
+      "brain_plain": "A patch of cortex behind the left ear that turns marks on a page into a word you recognise, whatever the handwriting or type."
+    },
+    "B1": {
+      "plain_name": "THE MEANING HUB (taxonomic relations)",
+      "brain_structure": "Anterior temporal lobe -- the amodal semantic hub",
+      "brain_plain": "The tip of the temporal lobe holds what a word MEANS in a form not tied to seeing, hearing or touching. Damage it and meaning fails for everything at once; damage one sense area and only that facet is lost. This is the hub that knows 'a dog is an animal'."
+    },
+    "B2": {
+      "plain_name": "Turning ONE encounter with a word into a pattern",
+      "brain_structure": "Cortical pooling with divisive normalisation",
+      "brain_plain": "Many cells fire at different strengths, and then the whole pool is scaled together so the RATIOS between them survive. Ours throws the strengths away and keeps only on-or-off."
+    },
+    "B3": {
+      "plain_name": "Turning MANY encounters into one settled idea",
+      "brain_structure": "Slow replay-driven cortical consolidation",
+      "brain_plain": "Separate meetings with a word are averaged slowly, mostly during sleep, into one graded idea of what it means. We build that graded quantity correctly and then throw it away one line before we use it."
+    },
+    "B4": {
+      "plain_name": "What a concept's code physically looks like",
+      "brain_structure": "Cortical population code (dense, graded, low effective dimension)",
+      "brain_plain": "The brain's code for an idea is many cells each partly on, not a handful of on-or-off switches. Sparse, near-silent coding is a DIFFERENT system deeper in; confusing the two is a known trap."
+    },
+    "B5": {
+      "plain_name": "The senses that give a concrete word its feel",
+      "brain_structure": "Sensorimotor spokes -- modality-specific cortex feeding the hub",
+      "brain_plain": "Seeing, hearing, touching and moving areas each contribute a facet of a concrete word's meaning to the hub."
+    },
+    "C1": {
+      "plain_name": "Judging whether two ideas are alike",
+      "brain_structure": "Recurrent settling in the semantic network",
+      "brain_plain": "There is no such thing as a similarity score in the brain. Activity is let loose and settles, and the PATH it takes is the judgement."
+    },
+    "C2": {
+      "plain_name": "Picking a winner when several answers compete",
+      "brain_structure": "Winner-take-all competition",
+      "brain_plain": "When several candidates are active at once, one is allowed through and the rest are suppressed."
+    },
+    "C3": {
+      "plain_name": "Letting the task reshape the comparison",
+      "brain_structure": "Semantic control (inferior frontal / posterior temporal)",
+      "brain_plain": "The same two words count as similar for one purpose and different for another; a frontal system reshapes the comparison to fit the job in hand."
+    },
+    "C4": {
+      "plain_name": "Letting activity settle to a stable answer",
+      "brain_structure": "Attractor settling",
+      "brain_plain": "Running the network until it stops changing. DELIBERATELY NOT BUILT: our own three tests say settling buys nothing here."
+    },
+    "D1": {
+      "plain_name": "PULLING SIMILAR MEMORIES APART",
+      "brain_structure": "Dentate gyrus -- pattern separation",
+      "brain_plain": "Part of the hippocampus whose whole job is to force similar experiences apart so they do not blur into each other. It spreads the pattern over a much larger, much quieter set of cells."
+    },
+    "D2": {
+      "plain_name": "FILLING IN A WHOLE MEMORY FROM A FRAGMENT (the general operation)",
+      "brain_structure": "CA3 -- recurrent auto-associative network",
+      "brain_plain": "Give it a piece of a memory and it completes the rest. The brain NEVER retrieves with an exact key; it always completes from a partial cue. Separating (dentate gyrus) and completing (CA3) are a matched pair."
+    },
+    "D3": {
+      "plain_name": "Storing an experience the first time it happens",
+      "brain_structure": "Hippocampus -- one-shot episodic index",
+      "brain_plain": "The hippocampus does not hold the content of an experience. It holds a pointer to where in the cortex that experience is written, laid down in a single exposure."
+    },
+    "D4": {
+      "plain_name": "Replaying the day during sleep",
+      "brain_structure": "Sharp-wave ripple replay / consolidation",
+      "brain_plain": "During sleep the day's experiences are replayed in bursts so the cortex can learn the pattern slowly without overwriting what it already knows."
+    },
+    "D5": {
+      "plain_name": "Holding a few things in mind right now",
+      "brain_structure": "Persistent activity in prefrontal cortex",
+      "brain_plain": "Keeping a handful of items live while you work on them."
+    },
+    "D6": {
+      "plain_name": "Remembering what order things came in",
+      "brain_structure": "Sequence memory",
+      "brain_plain": "Not just what happened, but what followed what."
+    },
+    "D7": {
+      "plain_name": "A map of what usually comes next -- WE DO NOT HAVE THIS",
+      "brain_structure": "Successor representation (hippocampal-entorhinal predictive map)",
+      "brain_plain": "A map of which situations tend to follow which, so the brain can look several steps ahead. Its equation is FULLY pinned in the literature and we have not built it."
+    },
+    "D8": {
+      "plain_name": "Forgetting at the right speed -- WE DO NOT HAVE THIS",
+      "brain_structure": "Cascade synapse",
+      "brain_plain": "A synapse with several depths of stability, so a memory fades gradually over the right timescale instead of all at once. Fully pinned, not built."
+    },
+    "D9": {
+      "plain_name": "Deciding which of today's memories is worth keeping",
+      "brain_structure": "Synaptic tag and capture",
+      "brain_plain": "A memory is only made permanent if it was tagged AND the ingredients for permanence arrive within about five hours."
+    },
+    "E1": {
+      "plain_name": "Keeping WHO DID WHAT straight",
+      "brain_structure": "Relational binding (entorhinal-hippocampal conjunctive code)",
+      "brain_plain": "'Dog bites man' must not turn into 'man bites dog'. The brain binds the role to the filler so they cannot come apart."
+    },
+    "E2": {
+      "plain_name": "Keeping track of who is in the scene",
+      "brain_structure": "Situation-model / event indexing",
+      "brain_plain": "As a story unfolds, holding on to who and what is currently present and what has changed."
+    },
+    "E3": {
+      "plain_name": "Working out what 'she' refers to",
+      "brain_structure": "Coreference as competitive retrieval",
+      "brain_plain": "Deciding that a pronoun points back to a person mentioned two sentences ago, by letting the candidates compete."
+    },
+    "E4": {
+      "plain_name": "Filling in the unstated link between sentences -- WE DO NOT HAVE THIS",
+      "brain_structure": "Discourse bridging inference",
+      "brain_plain": "'He dropped the glass. It shattered.' Nothing says the glass broke because it was dropped; you supply that."
+    },
+    "E5": {
+      "plain_name": "The brain's short ordered list",
+      "brain_structure": "Theta-gamma nested oscillation buffer",
+      "brain_plain": "About seven slots, each holding one item, cycled through several times a second."
+    },
+    "F1": {
+      "plain_name": "Is this word a noun or a verb here",
+      "brain_structure": "Lexical category assignment",
+      "brain_plain": "Telling how a word is being used in this particular sentence."
+    },
+    "F2": {
+      "plain_name": "Which words go with which",
+      "brain_structure": "Dependency / argument-structure parsing",
+      "brain_plain": "Working out the skeleton of a sentence: which word attaches to which."
+    },
+    "F3": {
+      "plain_name": "Who is the doer and who is the done-to",
+      "brain_structure": "Thematic role assignment",
+      "brain_plain": "Deciding which noun is acting and which is being acted on, by weighing several competing cues against each other."
+    },
+    "F4": {
+      "plain_name": "Learning a new verb from the sentences it appears in",
+      "brain_structure": "Frame induction / syntactic bootstrapping",
+      "brain_plain": "A child works out roughly what an unfamiliar verb means from the SHAPE of the sentences it turns up in."
+    },
+    "F5": {
+      "plain_name": "The alarm when a sentence does not make sense -- WE DO NOT HAVE THIS",
+      "brain_structure": "Coherence monitor (the N400 generator)",
+      "brain_plain": "About a third of a second after a word that does not fit, the brain fires a distinctive signal. We have no equivalent, so nothing tells us when we have understood wrongly."
+    },
+    "F6": {
+      "plain_name": "Settling several sentences into one reading -- WE DO NOT HAVE THIS",
+      "brain_structure": "Construction-integration",
+      "brain_plain": "Letting the interpretations of several sentences compete and settle into a single coherent understanding of the passage."
+    },
+    "G1": {
+      "plain_name": "How a connection actually changes with experience",
+      "brain_structure": "The cortical learning rule",
+      "brain_plain": "What physically changes in a synapse when something is learned."
+    },
+    "G2": {
+      "plain_name": "Learning only from what surprised you",
+      "brain_structure": "Prediction-error gating of plasticity",
+      "brain_plain": "The brain predicts what is coming, and learns from the difference between the prediction and what actually arrived."
+    },
+    "G3": {
+      "plain_name": "Turning attention up when something matters",
+      "brain_structure": "Neuromodulatory gain control",
+      "brain_plain": "Chemical signals sharpen or blur the whole system, so important things are learned harder than background."
+    },
+    "G4": {
+      "plain_name": "The go / no-go gate",
+      "brain_structure": "Basal ganglia -- Go/NoGo action selection",
+      "brain_plain": "A structure deep in the brain that releases one action and holds all the others back."
+    },
+    "H1": {
+      "plain_name": "The 'I have seen this before' feeling",
+      "brain_structure": "Perirhinal familiarity signal",
+      "brain_plain": "Knowing that something is familiar WITHOUT recalling anything about it. A separate signal from actual recall."
+    },
+    "H2": {
+      "plain_name": "Deciding what to look at next -- WE DO NOT HAVE THIS",
+      "brain_structure": "Information foraging",
+      "brain_plain": "Choosing where to go for the next piece of information, the way an animal chooses the next patch to forage. Missing, and it is why the system cannot notice what it does not know."
+    },
+    "H3": {
+      "plain_name": "Knowing when to say 'I don't know'",
+      "brain_structure": "Refusal / confidence gating",
+      "brain_plain": "Declining to answer when the evidence is not there, instead of producing something anyway."
+    }
+  },
+
+  "overlay_organs": [
+    {
+      "id": "THEMATIC",
+      "title": "The brain's SECOND relations hub -- BUILT TONIGHT",
+      "plain_name": "THEMATIC RELATIONS: what-goes-with-what",
+      "brain_structure": "Temporo-parietal cortex -- a system SEPARATE from the anterior temporal hub. Lesion studies dissociate the two cleanly (Schwartz 2011 PNAS; Mirman 2017 dual-hub), and this one is DEVELOPMENTALLY PRIOR: children group things by what-goes-together before they group by what-kind-of-thing.",
+      "brain_plain": "The brain has TWO relations hubs, not one. The first knows 'a dog is an animal'. THIS one knows 'dogs go with leashes, spoons go with soup'. We had built only the first, and this was the single largest fidelity gap in the substrate.",
+      "built": "YES -- BUILT 2026-08-16",
+      "state": "SWITCHED ON",
+      "module": "definitional_predicate_v61.py",
+      "measured": "Switching it on tripled the supply: bridge degree 1.216 -> 3.573, held-out stratum 47 -> 394, verbs 0 -> 86 -- which makes the noun-versus-verb falsifier constructible for the first time.",
+      "floor_named": true,
+      "the_honest_part": "IT DID NOT RESCUE BRIDGING. With three times the bridges the score is 0.0270 against floors of 0.0412/0.0209/0.0900 -- NOT SEPARATED -- while both known-answer arms pass, so the instrument is alive and this is a real null. An externally curated graph fails too.",
+      "fidelity_basis": "pinned_by_evidence for the ORGAN (the two-hub dissociation); our extraction operator is OUR INVENTION UNDER TEST",
+      "axis_shape": "matches",
+      "axis_position": "matches",
+      "axis_metric": "unknown",
+      "evidence": "notes/STATUS.md TWO HUBS; notes/LONG_TERM_PLAN.md section 4; .claude/scan-out/relation-supply.json",
+      "verify": ["1.216 -> 3.573", "verbs 0 -> 86", "221 facts", "0.0270"]
+    },
+    {
+      "id": "PERIRHINAL",
+      "title": "Conjunctive coding -- BUILT, SWITCHED OFF, SHELVED",
+      "plain_name": "TELLING APART THINGS THAT SHARE FEATURES",
+      "brain_plain": "A patch of cortex that exists specifically to keep apart things which share most of their features -- the case where simply adding features together collapses them into one.",
+      "built": "YES",
+      "module": "perirhinal_conjunctive.py",
+      "measured": "It LOSES to the plain flat pile: CI-separated BELOW it at -0.0247 under a partial cue. Shelved.",
+      "floor_named": true,
+      "the_honest_part": "The revival criterion is BRAIN-FRAMED, not performance-framed, and that correction matters: it is NOT 'revive when it scores higher'. It is 'this organ cannot be tested at all until the COMPLETING half sits in front of it'. Separating and completing are a matched pair in the brain, and we built the separating half only.",
+      "axis_shape": "matches",
+      "axis_position": "DIVERGES",
+      "axis_metric": "unknown",
+      "evidence": "data/capability_registry.jsonl row perirhinal_conjunctive; notes/LONG_TERM_PLAN.md section 2",
+      "verify": ["-0.0247"]
+    },
+    {
+      "id": "CA3",
+      "title": "Our CA3 completer -- BUILT, REFUTED, AND IN NO REGISTRY",
+      "plain_name": "FILLING IN A WHOLE MEMORY FROM A FRAGMENT (our module)",
+      "brain_structure": "Hippocampal CA3 recurrent collaterals -- pattern completion from a partial cue. This is the MATCHED PARTNER of dentate-gyrus separation, and the brain never retrieves with an exact key.",
+      "brain_plain": "Give the brain a fragment of a memory and it fills in the rest. We built the separating half years ago and only built the completing half on 2026-08-15.",
+      "built": "YES -- hdlab/ca3_completer.py",
+      "module": "ca3_completer.py",
+      "measured": "REFUTED at full scale, 0 of 5 gates. Completion HURTS at every partial overlap.",
+      "floor_named": true,
+      "the_honest_part": "TWO things the panel will not round off. First, the refutation carries a handicap WE introduced: one spoke had 1,476 distinct codes for 4,096 words, so words collided before completion was even asked to work. The fair re-test is filed. Second, this module has ZERO rows in data/capability_registry.jsonl -- the collector checks that live -- so the wire-or-shelve gate has never been applied to it at all.",
+      "axis_shape": "matches",
+      "axis_position": "DIVERGES",
+      "axis_metric": "DIVERGES",
+      "evidence": "data/exp_ca3_completion_partial_cue_v1/metrics.json (PAIRING_HYPOTHESIS_REFUTED, run_mode=full); notes/LONG_TERM_PLAN.md PHASE 4",
+      "verify": ["1,476"]
+    },
+    {
+      "id": "SPARSE",
+      "title": "Sparse coding -- A FIDELITY FAILURE, NOT A BUILD",
+      "plain_name": "USING VERY FEW CELLS AT A TIME",
+      "brain_structure": "Sparse coding in the medial temporal lobe: about 0.2 per cent of neurons active per percept, each neuron responding to roughly 50-150 concepts (notes/ORGAN_MAP.md D1).",
+      "brain_plain": "Deep in the brain, only about one cell in five hundred is active for any one thing. That is what keeps similar memories from blurring together.",
+      "built": "NO -- WE HAVE AN OPERATOR THAT DOES THE OPPOSITE",
+      "state": "MISSING -- ours does the OPPOSITE",
+      "measured": "Our k-cap operator RAISES the effective rank instead of lowering it: the grounded asset goes 7.5 -> 259.5 at f=0.005, a 35-fold increase, and the reading anchor 90.9 -> 647.6 of 1024. It only lowers rank when applied with no expansion at very low settings, where rows go nearly one-hot.",
+      "floor_named": false,
+      "the_honest_part": "This is the point. WE ARE NOT IMPLEMENTING SPARSITY. The brain's operation concentrates a representation onto few units; ours spreads it out. Calling this 'sparse coding built' would be a fidelity claim the measurement refuses. It is a named divergence and therefore a build target.",
+      "axis_shape": "DIVERGES",
+      "axis_position": "DIVERGES",
+      "axis_metric": "unknown",
+      "evidence": ".claude/scan-out/sparsify-right-object.json",
+      "verify_source": ".claude/scan-out/sparsify-right-object.json",
+      "verify": ["7.5 -> 259.5", "90.9 -> 647.6"]
+    },
+    {
+      "id": "HUBSPOKE",
+      "title": "Hub-and-spoke word representation -- CANDIDATE, NOT WIRED",
+      "plain_name": "GIVING EVERY PIECE OF A WORD ITS OWN ADDRESS",
+      "brain_plain": "Word FORM and word MEANING are separate systems in the brain, and each facet of meaning keeps its own address rather than being blended into one pile. Damage the hub and meaning fails everywhere at once; damage one spoke and only that facet goes. A single blended store predicts only the first pattern.",
+      "built": "YES",
+      "module": "hub_spoke_word.py",
+      "measured": "It SURVIVES a partial cue where conjunctive addressing collapses (-0.0007, a tie, versus -0.0247 CI-separated below). It does NOT beat the flat pile.",
+      "floor_named": true,
+      "the_honest_part": "Registered WIRE_CANDIDATE, correctly, not WIRE -- a construction proof is not a capability. It also scores 10 out of 10 on the brain-fidelity scheme while beating nothing, which is the cleanest available demonstration that the fidelity score is not a performance prediction.",
+      "axis_shape": "matches",
+      "axis_position": "matches",
+      "axis_metric": "unknown",
+      "evidence": "data/capability_registry.jsonl row hub_spoke_word; data/exp_hub_spoke_partial_cue_curve_v1/metrics.json",
+      "verify": ["-0.0007", "-0.0247"]
+    },
+    {
+      "id": "AFFECT",
+      "title": "The feeling channel -- MISSING",
+      "plain_name": "HOW A WORD FEELS",
+      "brain_structure": "Affective valence and arousal as a semantic attribute block in its own right. Our 12-measure landing space covers 2 of the brain's 7 attribute blocks; this is the largest missing one.",
+      "brain_plain": "Part of what a word means is how it FEELS -- pleasant or unpleasant, calm or stirring. We describe words on 12 measures that cover only two of the seven kinds of information the brain uses, and feeling is not among them.",
+      "built": "NO -- MISSING",
+      "state": "MISSING",
+      "measured": "Adding the feeling channel lifts the best-possible score in our space 0.3130 -> 0.4143, a paired gain of +0.1013 [+0.0615,+0.1419] on 977 pairs with the intervals separated. The ratings have been sitting on disk unused.",
+      "floor_named": true,
+      "the_honest_part": "SCOPE, and it must not be lost: this is a CEILING DIAGNOSTIC. No floors, no null arm, not an experiment. It clears nothing. It decides what goes into an experiment that CAN fail. The negative control DID fire -- adding the same number of columns that are not a channel scores BELOW the current incumbent, so widening without a channel buys nothing.",
+      "axis_shape": "NOT BUILT",
+      "axis_position": "NOT BUILT",
+      "axis_metric": "NOT BUILT",
+      "evidence": "notes/STATUS.md TOP ITEM (03055c7fa); .claude/scan-out/target-space-drill.json",
+      "verify": ["0.3130 -> 0.4143", "+0.1013", "977 pairs", "2 of the brain's 7 attribute blocks"]
+    }
+  ]
+}

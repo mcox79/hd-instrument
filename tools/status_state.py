@@ -101,6 +101,18 @@ except Exception as _e:  # pragma: no cover
 else:
     _AUTOLOOP_ERR = ""
 
+# Panels A (progress), B (the brain organ map) and C (fidelity). Their collection lives in its own
+# module purely for size -- it is NOT a second source of truth: this file remains the one entry
+# point, and each collector below runs through the same `_panel()` wrapper as the original five,
+# so a failure there degrades one panel and leaves the rest of the window standing.
+try:
+    import status_organs as _organs
+except Exception as _e:  # pragma: no cover
+    _organs = None
+    _ORGANS_ERR = f"{type(_e).__name__}: {_e}"
+else:
+    _ORGANS_ERR = ""
+
 # --- paths (env-overridable so the self-test can point at absent files) ------
 # notes/, not data/: `.gitignore` line 43 is `data/*`, so a spec kept under data/ would be
 # absent from a fresh clone and panel 1 would come up MISSING for the next person. It also
@@ -120,6 +132,13 @@ BOARD_BUDGET_S = 4.0
 RUNNING_BUDGET_S = 14.0     # build_state is internally bounded to ~10s
 RESULTS_BUDGET_S = 8.0
 LOOP_BUDGET_S = 3.0
+# Measured, not guessed: the three new panels collect in ~0.05 s together (the organ map is parsed
+# once and cached on mtime; the fidelity score runs in-process at ~16 ms). The budgets are set two
+# orders of magnitude above that so a pathological file cannot wedge the window, and no panel here
+# ever shells out or touches the network.
+PROGRESS_BUDGET_S = 4.0
+ORGANS_BUDGET_S = 5.0
+FIDELITY_BUDGET_S = 5.0
 AGENTS_BUDGET_S = 4.0
 REMOTE_CKPT_BUDGET_S = 7.0
 
@@ -849,14 +868,28 @@ def collect_loop() -> dict:
 # assembly
 # ---------------------------------------------------------------------------
 
+def _organs_missing(what: str) -> dict:
+    return {"status": "MISSING",
+            "detail": f"tools/status_organs.py could not be imported ({_ORGANS_ERR}), so the "
+                      f"{what} panel has no data. Showing MISSING rather than a stale value."}
+
+
 def collect() -> dict:
-    """All five panels. Never raises; never blocks past the sum of the panel budgets."""
+    """All eight panels. Never raises; never blocks past the sum of the panel budgets."""
     t0 = time.time()
     walls = _panel("walls", collect_walls, WALLS_BUDGET_S)
     board_p = _panel("board", collect_board, BOARD_BUDGET_S)
     running = _panel("running", collect_running, RUNNING_BUDGET_S)
     results = _panel("results", collect_results, RESULTS_BUDGET_S)
     loop = _panel("loop", collect_loop, LOOP_BUDGET_S)
+    if _organs is None:
+        progress = _organs_missing("progress")
+        organs = _organs_missing("organ map")
+        fidelity = _organs_missing("fidelity")
+    else:
+        progress = _panel("progress", _organs.collect_progress, PROGRESS_BUDGET_S)
+        organs = _panel("organs", _organs.collect_organs, ORGANS_BUDGET_S)
+        fidelity = _panel("fidelity", _organs.collect_fidelity, FIDELITY_BUDGET_S)
     return {
         "ts": _now_iso(),
         "took_s": round(time.time() - t0, 2),
@@ -866,6 +899,9 @@ def collect() -> dict:
         "running": running,
         "results": results,
         "loop": loop,
+        "progress": progress,
+        "organs": organs,
+        "fidelity": fidelity,
     }
 
 
@@ -972,6 +1008,20 @@ def render_text(s: dict) -> str:
         L.append(f"   UNKNOWN: {lp.get('detail', '')}")
     L.append(f"   continuations used recently: {lp.get('continuations_recent_total')}")
     L.append(f"   STOP IT WITH:  {lp.get('disarm_cmd')}")
+
+    # Panels A / B / C. Rendered by their own module so there is one renderer per collector.
+    L.append("")
+    L.append("=" * 78)
+    if _organs is not None:
+        try:
+            L.append(_organs.render_text({"progress": s.get("progress"),
+                                          "organs": s.get("organs"),
+                                          "fidelity": s.get("fidelity")}))
+        except Exception as exc:  # a broken renderer must not take the dump down
+            L.append(f"progress / organ map / fidelity: RENDER FAILED "
+                     f"({type(exc).__name__}: {exc})")
+    else:
+        L.append(f"progress / organ map / fidelity: MISSING ({_ORGANS_ERR})")
     return "\n".join(L)
 
 
@@ -1004,14 +1054,24 @@ def self_test() -> int:
 
     budget = (WALLS_BUDGET_S + BOARD_BUDGET_S + RUNNING_BUDGET_S
               + RESULTS_BUDGET_S + LOOP_BUDGET_S)
-    panels = ("walls", "board", "running", "results", "loop")
+    panels = ("walls", "board", "running", "results", "loop",
+              "progress", "organs", "fidelity")
 
     # ---- A. normal -------------------------------------------------------
     t0 = time.time()
     a = collect()
     took_a = time.time() - t0
-    check(all(k in a for k in panels), "A/normal: all five panels present")
+    check(all(k in a for k in panels), "A/normal: all eight panels present")
     check(took_a < budget, f"A/normal: returned in {took_a:.1f}s (budget {budget:.0f}s)")
+    check(a["progress"].get("status") == "OK", "A/normal: progress panel populated")
+    check(a["organs"].get("status") == "OK", "A/normal: organ-map panel populated")
+    check(a["fidelity"].get("status") in ("OK", "PARTIAL"),
+          "A/normal: fidelity panel populated")
+    check("UNVALIDATED" in str(a["fidelity"].get("validation_verdict", "")).upper(),
+          "A/normal: the fidelity panel carries its UNVALIDATED verdict, not a bare number")
+    check(not (a["progress"].get("drifted") or []),
+          f"A/normal: every transcribed progress number is still findable in its source "
+          f"(drifted: {a['progress'].get('drifted')})")
     check(a["walls"].get("status") == "OK", "A/normal: walls panel populated")
     check(a["walls"].get("headline") is not None, "A/normal: headline score+floor present")
     hl = a["walls"].get("headline") or {}
@@ -1086,7 +1146,19 @@ def self_test() -> int:
     g = globals()
     keep = {k: g[k] for k in ("COMPONENT_SPEC", "PLAN_DOC", "STATUS_DOC", "BOARD_DOC",
                               "DATA_DIR", "HOOK_STATE", "AGENT_ROOT")}
+    # The new panels read their own files, so pointing only THIS module's paths at nowhere would
+    # leave them populated and the scenario would not be the scenario it claims to be.
+    og = vars(_organs) if _organs is not None else {}
+    okeep = {k: og[k] for k in ("ORGAN_MAP_DOC", "PROGRESS_SPEC", "ORGAN_SPEC", "REGISTRY",
+                                "AUTHORITY_DOCS")} if og else {}
     try:
+        if og:
+            og["ORGAN_MAP_DOC"] = td / "nope_ORGAN_MAP.md"
+            og["PROGRESS_SPEC"] = td / "nope_progress_ledger.json"
+            og["ORGAN_SPEC"] = td / "nope_organ_panel.json"
+            og["REGISTRY"] = td / "nope_capability_registry.jsonl"
+            og["AUTHORITY_DOCS"] = [td / "nope_STATUS.md"]
+            _organs._cache.clear()
         g["COMPONENT_SPEC"] = td / "nope_component_health.json"
         g["PLAN_DOC"] = td / "nope_PLAN.md"
         g["STATUS_DOC"] = td / "nope_STATUS.md"
@@ -1099,7 +1171,18 @@ def self_test() -> int:
         took_c = time.time() - t0
     finally:
         g.update(keep)
-    check(all(k in c for k in panels), "C/files-absent: all five panels still present")
+        if og:
+            og.update(okeep)
+            _organs._cache.clear()
+    check(all(k in c for k in panels), "C/files-absent: all eight panels still present")
+    check(c["progress"].get("status") == "MISSING",
+          f"C/files-absent: progress reports MISSING (got {c['progress'].get('status')!r})")
+    check(not (c["progress"].get("components") or []),
+          "C/files-absent: progress invents no rows when its ledger is gone")
+    check(c["organs"].get("status") == "MISSING",
+          f"C/files-absent: organ map reports MISSING (got {c['organs'].get('status')!r})")
+    check(not (c["organs"].get("rows") or []),
+          "C/files-absent: the organ map invents no organs when its sources are gone")
     check(took_c < budget, f"C/files-absent: returned in {took_c:.1f}s")
     check(c["walls"].get("status") == "MISSING",
           f"C/files-absent: walls reports MISSING (got {c['walls'].get('status')!r})")
