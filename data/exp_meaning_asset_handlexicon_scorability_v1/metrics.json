@@ -1,0 +1,24 @@
+{
+  "anchor_name": "meaning_asset_handlexicon_scorability_v1",
+  "run_mode": "full",
+  "asset": {
+    "module": "hdlab/lexical_similarity.py",
+    "symbol": "CONCEPT_FEATURES",
+    "kind": "hand-authored DOM/ROLE feature lexicon (not learned, not distributional)",
+    "n_concepts": 359
+  },
+  "coverage": {
+    "instrument_vocabulary_size": 4096,
+    "instrument_words_covered": 161,
+    "instrument_coverage_fraction": 0.0393,
+    "simlex_pairs_covered_by_the_instrument": 322,
+    "simlex_pairs_both_words_in_lexicon_whole_simlex": 35,
+    "simlex_pairs_both_words_in_lexicon_AND_in_instrument_vocab": 16
+  },
+  "min_pairs_to_score_predeclared": 100,
+  "verdict": "NOT_SCORABLE_ON_THE_SEMANTIC_GOLD",
+  "verdict_msg": "The hand lexicon covers 161 of the instrument's 4096 vocabulary words (3.9%) and only 16 SimLex pairs have BOTH words in it, against a pre-declared floor of 100. At that n the readout cannot separate any arm from any other, so NO rho is reported. This is a coverage fact about the asset, not a failure of the asset: the instrument's vocabulary is the 4,096 most frequent corpus surface forms and the lexicon is a hand-built inventory of ~359 concepts. Scoring it would require either a different item population (a decomposition, not a like-for-like arm) or extending the lexicon (construction, not measurement).",
+  "what_would_make_it_scorable": "a semantic gold whose pairs are drawn FROM the lexicon's own inventory, scored against floors on that same population -- a different, legitimate cell, not this one",
+  "elapsed_s": 0.0,
+  "summary": "The hand lexicon covers 161 of the instrument's 4096 vocabulary words (3.9%) and only 16 SimLex pairs have BOTH words in it, against a pre-declared floor of 100. At that n the readout cannot separate any arm from any other, so NO rho is reported. This is a coverage fact about the asset, not a failure of the asset: the instrument's vocabulary is the 4,096 most frequent corpus surface forms and the lexicon is a hand-built inventory of ~359 concepts. Scoring it would require either a different item population (a decomposition, not a like-for-like arm) or extending the lexicon (construction, not measurement)."
+}

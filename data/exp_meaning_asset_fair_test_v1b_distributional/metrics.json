@@ -1,0 +1,477 @@
+{
+  "anchor_name": "meaning_asset_fair_test_v1b_distributional",
+  "run_mode": "full",
+  "verdict": "NO_ASSET_CLEARS_THE_STRONGEST_FLOOR",
+  "code_version": "v1b.0",
+  "config_fingerprint": "88a94b45e64b34e9",
+  "instrument": {
+    "module": "experiments/exp_encoding_quality_instrument_v2.py",
+    "edited": false
+  },
+  "asset": {
+    "module": "hdlab/random_indexing.py",
+    "why_here": "built, complete, has encode(word), NEVER scored on an encoding-quality instrument; ORGAN_MAP B2 records the order-sensitive variant as owned and not used",
+    "modes": {
+      "ASSET_RI_WINDOW": {
+        "context_mode": "window",
+        "order_binding": false
+      },
+      "ASSET_RI_ORDER": {
+        "context_mode": "window",
+        "order_binding": true
+      },
+      "ASSET_RI_SYMPAT": {
+        "context_mode": "symmetric_pattern",
+        "order_binding": false
+      }
+    }
+  },
+  "ri_build_stats": {
+    "ASSET_RI_ORDER": {
+      "ri_vocab_size": 58859,
+      "n_tokens_seen": 10212808,
+      "n_instrument_words_missing": 0,
+      "fit_s": 2375.5,
+      "N": 1024,
+      "window": 5,
+      "min_count": 5,
+      "context_mode": "window",
+      "order_binding": true
+    },
+    "ASSET_RI_SYMPAT": {
+      "ri_vocab_size": 58859,
+      "n_tokens_seen": 10212808,
+      "n_instrument_words_missing": 0,
+      "fit_s": 27.2,
+      "N": 1024,
+      "window": 5,
+      "min_count": 5,
+      "context_mode": "symmetric_pattern",
+      "order_binding": false
+    },
+    "ASSET_RI_WINDOW": {
+      "ri_vocab_size": 58859,
+      "n_tokens_seen": 10212808,
+      "n_instrument_words_missing": 0,
+      "fit_s": 332.6,
+      "N": 1024,
+      "window": 5,
+      "min_count": 5,
+      "context_mode": "window",
+      "order_binding": false
+    }
+  },
+  "validity_gates": [
+    {
+      "gate_id": "REG2a",
+      "claim": "A_RANDOM_IID |simlex rho| <= 0.10",
+      "observed": 0.01194967191862977,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "REG2b",
+      "claim": "A_RANDOM_IID GOLD_ORTHO lift <= 1.15",
+      "observed": 1.0074040892701357,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": true
+    },
+    {
+      "gate_id": "REG3",
+      "claim": "A_COLLAPSE recoverability <= 0.05",
+      "observed": 0.0026041666666666665,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": true
+    },
+    {
+      "gate_id": "REG4",
+      "claim": "A_ORTHOGRAPHIC GOLD_ORTHO lift >= 3.0",
+      "observed": 127.14101893329678,
+      "op": ">=",
+      "threshold": 3.0,
+      "passed": true
+    }
+  ],
+  "validity_gates_all_passed": true,
+  "config": {
+    "d": 1024,
+    "V": 4096,
+    "SEEDS": [
+      7,
+      17,
+      23
+    ],
+    "CORPUS_BYTES": 64000000
+  },
+  "per_arm": {
+    "A_ORTHOGRAPHIC": {
+      "simlex_rho": 0.01502783383663433,
+      "GOLD_ORTHO_lift": 127.14101893329678,
+      "GOLD_FREQBAND_lift": 1.0037335948309554,
+      "GOLD_PLANTED_lift": 0.9955617272893905,
+      "sigma_half": 10.459702421956605
+    },
+    "A_FREQUENCY": {
+      "simlex_rho": 0.00010178218574097286,
+      "GOLD_ORTHO_lift": 0.9760272119496105,
+      "GOLD_FREQBAND_lift": 7.761278384404328,
+      "GOLD_PLANTED_lift": 0.932877489752034,
+      "sigma_half": 1.0
+    },
+    "A_RANDOM_IID": {
+      "simlex_rho": 0.01194967191862977,
+      "GOLD_ORTHO_lift": 1.0074040892701357,
+      "GOLD_FREQBAND_lift": 1.000759870011504,
+      "GOLD_PLANTED_lift": 0.9972292955995203,
+      "sigma_half": 10.627932551568433
+    },
+    "A_COLLAPSE": {
+      "simlex_rho": 0.023474094808209767,
+      "GOLD_ORTHO_lift": 0.9902815438759962,
+      "GOLD_FREQBAND_lift": 1.000344857022687,
+      "GOLD_PLANTED_lift": 1.0078890471861668,
+      "sigma_half": 1.0
+    },
+    "P_LIVE_WORD": {
+      "simlex_rho": 0.07471616600328707,
+      "GOLD_ORTHO_lift": 1.0557219494226204,
+      "GOLD_FREQBAND_lift": 0.9973883898629161,
+      "GOLD_PLANTED_lift": 1.0028298849765653,
+      "sigma_half": 10.668615154265792
+    },
+    "ASSET_RI_ORDER": {
+      "simlex_rho": 0.048803150245630846,
+      "GOLD_ORTHO_lift": 4.415079649094729,
+      "GOLD_FREQBAND_lift": 1.0398660359924659,
+      "GOLD_PLANTED_lift": 1.0019202031487995,
+      "sigma_half": 4.490030699968631
+    },
+    "ASSET_RI_SYMPAT": {
+      "simlex_rho": 0.09969861633539899,
+      "GOLD_ORTHO_lift": 2.2797957296461724,
+      "GOLD_FREQBAND_lift": 1.057753264026318,
+      "GOLD_PLANTED_lift": 1.000019139059993,
+      "sigma_half": 9.69115294404766
+    },
+    "ASSET_RI_WINDOW": {
+      "simlex_rho": 0.06128353928225903,
+      "GOLD_ORTHO_lift": 4.105658508624288,
+      "GOLD_FREQBAND_lift": 1.040438871067297,
+      "GOLD_PLANTED_lift": 1.0004791924527725,
+      "sigma_half": 3.236047649991786
+    },
+    "ASSET_RI_ORDER_SHUFFLED": {
+      "simlex_rho": -0.02406612524108701,
+      "GOLD_ORTHO_lift": 0.9758374469523683,
+      "GOLD_FREQBAND_lift": 1.00195729307732,
+      "GOLD_PLANTED_lift": 1.0007112065320232,
+      "sigma_half": 5.252597192367285
+    },
+    "ASSET_RI_SYMPAT_SHUFFLED": {
+      "simlex_rho": -0.022074542157175636,
+      "GOLD_ORTHO_lift": 1.0098582088448893,
+      "GOLD_FREQBAND_lift": 1.0018674838077792,
+      "GOLD_PLANTED_lift": 1.0005873439361939,
+      "sigma_half": 10.044121943723026
+    },
+    "ASSET_RI_WINDOW_SHUFFLED": {
+      "simlex_rho": -0.020570964521436853,
+      "GOLD_ORTHO_lift": 1.013486074059769,
+      "GOLD_FREQBAND_lift": 1.0024131046915958,
+      "GOLD_PLANTED_lift": 1.0026348723955576,
+      "sigma_half": 4.077567662299764
+    }
+  },
+  "comparisons": {
+    "ASSET_RI_ORDER": {
+      "IDENTITY": {
+        "sigma_half": 4.490030699968631,
+        "recov_at_N_GATE_sigma1": 1.0,
+        "disc_freq_minus_disc_ortho_at_sigma8": 0.057291666666666685
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.04880315024563085,
+          "ci95": [
+            -0.06322440899268472,
+            0.15309243320107574
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_ORTHOGRAPHIC",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.01502783383663433,
+          "A_FREQUENCY": 0.00010178218574097286,
+          "ASSET_RI_ORDER_SHUFFLED": -0.02406612524108701
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.033775316408996524,
+          "ci95": [
+            -0.11187084743692423,
+            0.17870500403138984
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 4.415079649094729,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 127.14101893329678,
+            "A_FREQUENCY": 0.9760272119496105,
+            "ASSET_RI_ORDER_SHUFFLED": 0.9758374469523683
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -119.7880580301038,
+            "ci95": [
+              -128.68153831668775,
+              -111.542655367894
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0398660359924659,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.0037335948309554,
+            "A_FREQUENCY": 7.761278384404328,
+            "ASSET_RI_ORDER_SHUFFLED": 1.00195729307732
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.734917932877099,
+            "ci95": [
+              -6.863548893426676,
+              -6.604683505810665
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0019202031487995,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9955617272893905,
+            "A_FREQUENCY": 0.932877489752034,
+            "ASSET_RI_ORDER_SHUFFLED": 1.0007112065320232
+          },
+          "strongest_floor": "ASSET_RI_ORDER_SHUFFLED",
+          "diff_vs_strongest_floor": {
+            "point": 1.6422021681616883e-05,
+            "ci95": [
+              -0.009620950306357201,
+              0.009754622382862895
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 0.05586833828695248,
+        "bits_destroyed_by_the_sum": 6.944131661664754,
+        "ceiling_bits": 7.0
+      }
+    },
+    "ASSET_RI_SYMPAT": {
+      "IDENTITY": {
+        "sigma_half": 9.69115294404766,
+        "recov_at_N_GATE_sigma1": 0.9993489583333334,
+        "disc_freq_minus_disc_ortho_at_sigma8": 0.0013020833333333703
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.09969861633539899,
+          "ci95": [
+            -0.009786232316133054,
+            0.2073763706994389
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_ORTHOGRAPHIC",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.01502783383663433,
+          "A_FREQUENCY": 0.00010178218574097286,
+          "ASSET_RI_SYMPAT_SHUFFLED": -0.022074542157175636
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.08467078249876465,
+          "ci95": [
+            -0.07402732438153337,
+            0.24267909023045406
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 2.2797957296461724,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 127.14101893329678,
+            "A_FREQUENCY": 0.9760272119496105,
+            "ASSET_RI_SYMPAT_SHUFFLED": 1.0098582088448893
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -122.43528946273305,
+            "ci95": [
+              -131.68034024075516,
+              -114.12884960225193
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.057753264026318,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.0037335948309554,
+            "A_FREQUENCY": 7.761278384404328,
+            "ASSET_RI_SYMPAT_SHUFFLED": 1.0018674838077792
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.719187485662034,
+            "ci95": [
+              -6.848276387722734,
+              -6.588537700020743
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.000019139059993,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9955617272893905,
+            "A_FREQUENCY": 0.932877489752034,
+            "ASSET_RI_SYMPAT_SHUFFLED": 1.0005873439361939
+          },
+          "strongest_floor": "ASSET_RI_SYMPAT_SHUFFLED",
+          "diff_vs_strongest_floor": {
+            "point": 0.003361594605151841,
+            "ci95": [
+              -0.0063575995480019375,
+              0.013341961332404714
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.9659570899850625,
+        "bits_after_sum_S3": 0.8329242459506183,
+        "bits_destroyed_by_the_sum": 6.133032844034444,
+        "ceiling_bits": 7.0
+      }
+    },
+    "ASSET_RI_WINDOW": {
+      "IDENTITY": {
+        "sigma_half": 3.236047649991786,
+        "recov_at_N_GATE_sigma1": 0.9993489583333334,
+        "disc_freq_minus_disc_ortho_at_sigma8": 0.037109375
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.06128353928225903,
+          "ci95": [
+            -0.04990433787976723,
+            0.16630789906634655
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_ORTHOGRAPHIC",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.01502783383663433,
+          "A_FREQUENCY": 0.00010178218574097286,
+          "ASSET_RI_WINDOW_SHUFFLED": -0.020570964521436853
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.0462557054456247,
+          "ci95": [
+            -0.09945893967537256,
+            0.18895478564735985
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 4.105658508624288,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 127.14101893329678,
+            "A_FREQUENCY": 0.9760272119496105,
+            "ASSET_RI_WINDOW_SHUFFLED": 1.013486074059769
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -120.38277303537544,
+            "ci95": [
+              -129.31519214188938,
+              -112.13671289250456
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.040438871067297,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.0037335948309554,
+            "A_FREQUENCY": 7.761278384404328,
+            "ASSET_RI_WINDOW_SHUFFLED": 1.0024131046915958
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.734470944973841,
+            "ci95": [
+              -6.863723412119418,
+              -6.603400464440091
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0004791924527725,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9955617272893905,
+            "A_FREQUENCY": 0.932877489752034,
+            "ASSET_RI_WINDOW_SHUFFLED": 1.0026348723955576
+          },
+          "strongest_floor": "ASSET_RI_WINDOW_SHUFFLED",
+          "diff_vs_strongest_floor": {
+            "point": -0.0018056330368476647,
+            "ci95": [
+              -0.011494423777607178,
+              0.00789598055116527
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 0.02152140051986784,
+        "bits_destroyed_by_the_sum": 6.978478599431838,
+        "ceiling_bits": 7.0
+      }
+    }
+  },
+  "elapsed_s": 3471.6,
+  "summary": "NO_ASSET_CLEARS_THE_STRONGEST_FLOOR"
+}

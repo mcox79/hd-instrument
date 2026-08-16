@@ -1,0 +1,88 @@
+{
+  "anchor_name": "meaning_asset_norms_coverage_gap_v1",
+  "run_mode": "full",
+  "why": "the norms are the only asset whose meaning signal survives leaving the frequent vocabulary, so widening them is the concrete next build; this cell sizes it",
+  "norm_table": {
+    "words": 36810,
+    "source": "hdlab/grounded_similarity.py _table(): Lancaster sensorimotor JOIN Brysbaert concreteness, lower-cased, single-token, z-scored",
+    "NOT_39707": "39,707 is the Lancaster CSV filename, not the usable asset"
+  },
+  "corpus": {
+    "path": "D:/AI/hd-instrument/data/corpora/simplewiki/simplewiki_clean_v1.txt",
+    "bytes": 64000000,
+    "distinct_types": 235876,
+    "total_tokens": 5558698,
+    "tokenisation": "the instrument's own: [a-z]+ lower-cased, min length 3, top 100 dropped"
+  },
+  "HEADLINE_COVERAGE": {
+    "instrument_vocab_4096_types_covered": 2622,
+    "instrument_vocab_type_coverage": 0.6401,
+    "whole_corpus_type_coverage": 0.1027,
+    "whole_corpus_TOKEN_coverage": 0.6035,
+    "simlex999_pair_coverage": 1.0,
+    "reading_rule": "type coverage is the breadth number and is LOW; token coverage is what determines how often the asset speaks while reading and is HIGH. Both are real; neither alone is the answer."
+  },
+  "coverage_by_frequency_band": {
+    "rank_0_1000": {
+      "n_types": 1000,
+      "types_covered": 757,
+      "type_coverage": 0.757,
+      "token_coverage_within_band": 0.792,
+      "share_of_all_tokens": 0.4144
+    },
+    "rank_1000_4096": {
+      "n_types": 3096,
+      "types_covered": 1865,
+      "type_coverage": 0.6024,
+      "token_coverage_within_band": 0.6259,
+      "share_of_all_tokens": 0.2556
+    },
+    "rank_4096_16384": {
+      "n_types": 12288,
+      "types_covered": 5381,
+      "type_coverage": 0.4379,
+      "token_coverage_within_band": 0.4752,
+      "share_of_all_tokens": 0.1901
+    },
+    "rank_16384_65536": {
+      "n_types": 49152,
+      "types_covered": 9372,
+      "type_coverage": 0.1907,
+      "token_coverage_within_band": 0.236,
+      "share_of_all_tokens": 0.0967
+    },
+    "rank_65536_235876": {
+      "n_types": 170340,
+      "types_covered": 6846,
+      "type_coverage": 0.0402,
+      "token_coverage_within_band": 0.0512,
+      "share_of_all_tokens": 0.0432
+    }
+  },
+  "BUILD_TARGET_how_many_more_words_to_norm": {
+    "token_coverage_90pct": {
+      "words_needed_in_frequency_order": 25463,
+      "of_those_already_in_the_norms": 10759,
+      "ADDITIONAL_WORDS_TO_NORM": 14704
+    },
+    "token_coverage_95pct": {
+      "words_needed_in_frequency_order": 56524,
+      "of_those_already_in_the_norms": 16364,
+      "ADDITIONAL_WORDS_TO_NORM": 40160
+    },
+    "token_coverage_98pct": {
+      "words_needed_in_frequency_order": 124703,
+      "of_those_already_in_the_norms": 21145,
+      "ADDITIONAL_WORDS_TO_NORM": 103558
+    },
+    "token_coverage_99pct": {
+      "words_needed_in_frequency_order": 180290,
+      "of_those_already_in_the_norms": 22621,
+      "ADDITIONAL_WORDS_TO_NORM": 157669
+    }
+  },
+  "what_would_make_the_widening_worth_it": "the widened set must hold the SAME signal on the words it adds. The rarer-677 result (0.2289 [+0.1517,+0.3014]) is evidence the norms do NOT degrade off the frequent vocabulary, but it is evidence about words that ALREADY have norms. A widened set must be re-scored on ITS OWN new words against the same floors before any of this coverage arithmetic converts into capability.",
+  "elapsed_s": 9.5,
+  "verdict": "COVERAGE_GAP_SIZED",
+  "summary": "norms cover 10.3% of corpus types but 60.4% of tokens; 40160 more words would reach 95% token coverage"
+}

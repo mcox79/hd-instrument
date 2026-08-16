@@ -1,0 +1,44 @@
+{
+  "anchor_name": "meaning_asset_permutation_null_v1",
+  "run_mode": "full",
+  "n_pairs": 322,
+  "arm": "ASSET_NORMS12 (hdlab/grounded_similarity, Lancaster + Brysbaert, d=12)",
+  "observed_rho": 0.2701227920100438,
+  "permutation_null": {
+    "n_permutations": 2000,
+    "what_is_permuted": "the rows of the 4096 x 12 code table, across words",
+    "mean": 0.0005814439611357872,
+    "sd": 0.055535773991949346,
+    "p50": 0.0005104984672111274,
+    "p95": 0.09425107380254918,
+    "p99": 0.1298833474192123,
+    "max": 0.18877318535845206,
+    "exact_permutation_p_value_for_the_observed_rho": 0.0004997501249375312,
+    "the_three_original_draws": {
+      "7": 0.022,
+      "17": 0.0241,
+      "23": 0.1152
+    },
+    "where_the_max_of_3_draws_sat_in_the_null": 0.977
+  },
+  "floors": {
+    "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+    "A_ORTHOGRAPHIC": 0.0647,
+    "SCRAMBLE_NULL_P95": 0.0943
+  },
+  "strongest_floor": "SCRAMBLE_NULL_P95",
+  "margin_over_strongest_floor": {
+    "point": 0.15488564831093882,
+    "ci95": [
+      -0.007103793258421187,
+      0.3100500966025942
+    ],
+    "n": 322
+  },
+  "band": "NOT_SEPARATED",
+  "clears_floor": false,
+  "paired_bootstrap_partner_for_the_scramble_floor": "seed 23, the stored draw closest to the null p95",
+  "verdict": "NORMS_DO_NOT_CLEAR_CI_SEPARATED",
+  "elapsed_s": 47.8,
+  "summary": "NORMS_DO_NOT_CLEAR_CI_SEPARATED"
+}

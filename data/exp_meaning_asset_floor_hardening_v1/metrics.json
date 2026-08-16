@@ -1,0 +1,53 @@
+{
+  "anchor_name": "meaning_asset_floor_hardening_v1",
+  "run_mode": "full",
+  "n_pairs": 322,
+  "vocab": 4096,
+  "corpus_bytes": 64000000,
+  "channels": {
+    "FREQ_NEG_ABS_DIFF": {
+      "point": 0.012914776676707925,
+      "ci95": [
+        -0.08985371473427013,
+        0.11990120441243535
+      ],
+      "n": 322
+    },
+    "FREQ_MIN_OVER_MAX": {
+      "point": 0.018345055814319954,
+      "ci95": [
+        -0.08371009654117562,
+        0.1244502042879987
+      ],
+      "n": 322
+    },
+    "FREQ_SUM": {
+      "point": 0.059026958133058915,
+      "ci95": [
+        -0.05006981113339145,
+        0.16883973390489693
+      ],
+      "n": 322
+    },
+    "FREQ_MIN": {
+      "point": 0.07968751909728343,
+      "ci95": [
+        -0.02593871204721594,
+        0.18665019608028544
+      ],
+      "n": 322
+    }
+  },
+  "strongest_seed_free_frequency_floor": {
+    "channel": "FREQ_MIN",
+    "point": 0.07968751909728343,
+    "ci95": [
+      -0.02593871204721594,
+      0.18665019608028544
+    ],
+    "n": 322
+  },
+  "note": "These are STANDALONE zero-meaning channels computed directly on the pair scores, with no random projection and no seed. The largest of them is the number a meaning asset must beat on the semantic gold, alongside the orthographic and scramble floors.",
+  "elapsed_s": 0.0,
+  "summary": ""
+}

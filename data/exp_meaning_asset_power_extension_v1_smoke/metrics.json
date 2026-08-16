@@ -1,0 +1,1243 @@
+{
+  "anchor_name": "meaning_asset_power_extension_v1",
+  "run_mode": "smoke",
+  "scope_disclaimer": "POWER EXTENSION. The item population is the SimLex+WordSim word list, NOT the instrument's frequency-ranked vocabulary. These numbers are NOT instrument numbers and may not be quoted as such. Identity and bundling axes are NOT measured here.",
+  "config": {
+    "vocab_size": 200,
+    "K_CTX": 4,
+    "N_BOOT": 500,
+    "seed": 7,
+    "corpus_bytes": 8000000
+  },
+  "occurrence_index": {
+    "corpus": "data/corpora/simplewiki/simplewiki_clean_v1.txt",
+    "corpus_bytes": 8000000,
+    "lines_scanned": 96296,
+    "k_requested_per_word": 4,
+    "n_occurrences": 753,
+    "n_words_short_of_k": 21,
+    "build_s": 0.4
+  },
+  "results": {
+    "SIMLEX999|BOTH_IN_NORMS": {
+      "n_pairs": 47,
+      "n_pairs_with_concreteness": 47,
+      "arms": {
+        "ASSET_V2_TOKEMB": {
+          "rho": {
+            "point": 0.044002428683242625,
+            "ci95": [
+              -0.22762741339153378,
+              0.32564602518926294
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_V2_TOKEMB_SHUFFLED": -0.11564370218986235
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.043311090602312335,
+            "ci95": [
+              -0.4264386472290859,
+              0.32965706773052267
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.04892909088741787,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_TOKEMB",
+            "diff": {
+              "point": 0.025672901886149443,
+              "ci95": [
+                -0.12088254209103944,
+                0.16506670384138342
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_V2_ISOL": {
+          "rho": {
+            "point": 0.1446702714395178,
+            "ci95": [
+              -0.14491097311466997,
+              0.4484072209743188
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_V2_ISOL_SHUFFLED": 0.05394778707157079
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.05735675215396284,
+            "ci95": [
+              -0.3820888424733629,
+              0.4858988703656692
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.05518691768282391,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_ISOL",
+            "diff": {
+              "point": -0.014339819071542942,
+              "ci95": [
+                -0.2864375712196624,
+                0.25118242336362595
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_V2_CTX": {
+          "rho": {
+            "point": 0.04741391789784356,
+            "ci95": [
+              -0.2900274939955398,
+              0.39382158232888864
+            ],
+            "n": 47
+          },
+          "strongest_floor": "ASSET_V2_CTX_SHUFFLED",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_V2_CTX_SHUFFLED": 0.1795368476497613
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.13212292975191775,
+            "ci95": [
+              -0.4856600969672318,
+              0.22741537716836416
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.0571614675785741,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_CTX",
+            "diff": {
+              "point": 0.17589407103078064,
+              "ci95": [
+                -0.30073892009518743,
+                0.6277655567515421
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_RETRAIN_TOKEMB": {
+          "rho": {
+            "point": 0.044002428683242625,
+            "ci95": [
+              -0.22762741339153378,
+              0.32564602518926294
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.043311090602312335,
+            "ci95": [
+              -0.4264386472290859,
+              0.32965706773052267
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.04892909088741787,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_TOKEMB",
+            "diff": {
+              "point": 0.025672901886149443,
+              "ci95": [
+                -0.12088254209103944,
+                0.16506670384138342
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_RETRAIN_ISOL": {
+          "rho": {
+            "point": 0.2330798817636676,
+            "ci95": [
+              -0.056794024446396356,
+              0.5294771971997816
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.14576636247811264,
+            "ci95": [
+              -0.3183406314854273,
+              0.5609347042354108
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.1391504455631943,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_ISOL",
+            "diff": {
+              "point": 0.07406979125260685,
+              "ci95": [
+                -0.21109744285003784,
+                0.36799789839460295
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_RETRAIN_CTX": {
+          "rho": {
+            "point": 0.060019081436538564,
+            "ci95": [
+              -0.27317570571667105,
+              0.38801951526503
+            ],
+            "n": 47
+          },
+          "strongest_floor": "ASSET_RETRAIN_CTX_SHUFFLED",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_RETRAIN_CTX_SHUFFLED": 0.20561450249357527
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.1455954210570367,
+            "ci95": [
+              -0.5235277007046831,
+              0.2309033676830482
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.002926201878664731,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_CTX",
+            "diff": {
+              "point": 0.18849923456947562,
+              "ci95": [
+                -0.296442344650243,
+                0.6521501015730921
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "CTRL_RANDINIT_TOKEMB": {
+          "rho": {
+            "point": 0.018329526797093182,
+            "ci95": [
+              -0.260739734480477,
+              0.30194807146450225
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.06898399248846178,
+            "ci95": [
+              -0.4875842644437845,
+              0.3651705136780424
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.04722008103858846
+        },
+        "CTRL_RANDINIT_ISOL": {
+          "rho": {
+            "point": 0.15901009051106074,
+            "ci95": [
+              -0.13532436820786156,
+              0.4506645639264578
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.07169657122550578,
+            "ci95": [
+              -0.2961023628076536,
+              0.4259897337399021
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.23654183448643085
+        },
+        "CTRL_RANDINIT_CTX": {
+          "rho": {
+            "point": -0.12848015313293706,
+            "ci95": [
+              -0.4186650363402505,
+              0.14611645596279943
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "CTRL_RANDINIT_CTX_SHUFFLED": -0.14264650665119522
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.215793672418492,
+            "ci95": [
+              -0.5600816714458161,
+              0.17105511543210133
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.015023577122853703
+        },
+        "ASSET_NORMS12": {
+          "rho": {
+            "point": 0.11483419627453333,
+            "ci95": [
+              -0.15770059946136974,
+              0.3628306675934332
+            ],
+            "n": 47
+          },
+          "strongest_floor": "ASSET_NORMS12_SHUFFLED",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_NORMS12_SHUFFLED": 0.16421405710960454
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.04937986083507122,
+            "ci95": [
+              -0.43977195818990805,
+              0.3250282779662851
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.2292732464964844
+        },
+        "A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": 0.00011566042119733596,
+            "ci95": [
+              -0.244069453633146,
+              0.2758159875220946
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.08719785886435763,
+            "ci95": [
+              -0.4810941400673406,
+              0.3039966985847205
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.04006054888526621
+        },
+        "A_FREQUENCY": {
+          "rho": {
+            "point": 0.08731351928555496,
+            "ci95": [
+              -0.23024570240621667,
+              0.39425480619954484
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.25544767176585115
+        },
+        "A_RANDOM_IID": {
+          "rho": {
+            "point": 0.18040417541618528,
+            "ci95": [
+              -0.11156340312646716,
+              0.4622773574242954
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.09309065613063032,
+            "ci95": [
+              -0.30083605418688797,
+              0.498586073593152
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.1063977554442535
+        },
+        "P_LIVE_WORD": {
+          "rho": {
+            "point": 0.06741502512971892,
+            "ci95": [
+              -0.197020514745819,
+              0.3458534655660025
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.01989849415583604,
+            "ci95": [
+              -0.390936253728848,
+              0.342423980859953
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.22019457994695887
+        },
+        "CTRL_CONCRETENESS_ONLY": {
+          "rho": {
+            "point": -0.05236071358478452,
+            "ci95": [
+              -0.3918309841382969,
+              0.2773343488900382
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.13967423287033948,
+            "ci95": [
+              -0.5959216600697917,
+              0.33149164874151693
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.08433753802372963
+        },
+        "ASSET_V2_CTX_SHUFFLED": {
+          "rho": {
+            "point": 0.1795368476497613,
+            "ci95": [
+              -0.16785410071001983,
+              0.47491165158855675
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.09222332836420634,
+            "ci95": [
+              -0.3786635217309391,
+              0.5340322139045326
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.13950877435353357
+        },
+        "ASSET_RETRAIN_CTX_SHUFFLED": {
+          "rho": {
+            "point": 0.20561450249357527,
+            "ci95": [
+              -0.11746628589970169,
+              0.5015857484141122
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.11830098320802031,
+            "ci95": [
+              -0.3097856106784988,
+              0.5541391958810611
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.1626695771399401
+        },
+        "CTRL_RANDINIT_CTX_SHUFFLED": {
+          "rho": {
+            "point": -0.14264650665119522,
+            "ci95": [
+              -0.45450904942163173,
+              0.2174527073530927
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.2299600259367502,
+            "ci95": [
+              -0.6264391947395727,
+              0.14995827633298092
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.062486415470427006
+        },
+        "ASSET_NORMS12_SHUFFLED": {
+          "rho": {
+            "point": 0.16421405710960454,
+            "ci95": [
+              -0.12629009449555845,
+              0.4207512901131163
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.07690053782404958,
+            "ci95": [
+              -0.30978848325350417,
+              0.45237832780311116
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.11457310115067024
+        },
+        "ASSET_V2_ISOL_SHUFFLED": {
+          "rho": {
+            "point": 0.05394778707157079,
+            "ci95": [
+              -0.24989808655645507,
+              0.3340912380210312
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.03336573221398417,
+            "ci95": [
+              -0.47914408666618574,
+              0.3685437649381558
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.0029627448191428696
+        },
+        "ASSET_V2_TOKEMB_SHUFFLED": {
+          "rho": {
+            "point": -0.11564370218986235,
+            "ci95": [
+              -0.42582669482447916,
+              0.18378622213481077
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.2029572214754173,
+            "ci95": [
+              -0.600656700697939,
+              0.18127878763767463
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.03512451441974816
+        }
+      }
+    },
+    "SIMLEX999|ALL_COVERED": {
+      "n_pairs": 47,
+      "n_pairs_with_concreteness": 47,
+      "arms": {
+        "ASSET_V2_TOKEMB": {
+          "rho": {
+            "point": 0.044002428683242625,
+            "ci95": [
+              -0.22762741339153378,
+              0.32564602518926294
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_V2_TOKEMB_SHUFFLED": -0.11564370218986235
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.043311090602312335,
+            "ci95": [
+              -0.4264386472290859,
+              0.32965706773052267
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.04892909088741787,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_TOKEMB",
+            "diff": {
+              "point": 0.025672901886149443,
+              "ci95": [
+                -0.12088254209103944,
+                0.16506670384138342
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_V2_ISOL": {
+          "rho": {
+            "point": 0.1446702714395178,
+            "ci95": [
+              -0.14491097311466997,
+              0.4484072209743188
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_V2_ISOL_SHUFFLED": 0.05394778707157079
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.05735675215396284,
+            "ci95": [
+              -0.3820888424733629,
+              0.4858988703656692
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.05518691768282391,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_ISOL",
+            "diff": {
+              "point": -0.014339819071542942,
+              "ci95": [
+                -0.2864375712196624,
+                0.25118242336362595
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_V2_CTX": {
+          "rho": {
+            "point": 0.04741391789784356,
+            "ci95": [
+              -0.2900274939955398,
+              0.39382158232888864
+            ],
+            "n": 47
+          },
+          "strongest_floor": "ASSET_V2_CTX_SHUFFLED",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_V2_CTX_SHUFFLED": 0.1795368476497613
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.13212292975191775,
+            "ci95": [
+              -0.4856600969672318,
+              0.22741537716836416
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.0571614675785741,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_CTX",
+            "diff": {
+              "point": 0.17589407103078064,
+              "ci95": [
+                -0.30073892009518743,
+                0.6277655567515421
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_RETRAIN_TOKEMB": {
+          "rho": {
+            "point": 0.044002428683242625,
+            "ci95": [
+              -0.22762741339153378,
+              0.32564602518926294
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.043311090602312335,
+            "ci95": [
+              -0.4264386472290859,
+              0.32965706773052267
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.04892909088741787,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_TOKEMB",
+            "diff": {
+              "point": 0.025672901886149443,
+              "ci95": [
+                -0.12088254209103944,
+                0.16506670384138342
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_RETRAIN_ISOL": {
+          "rho": {
+            "point": 0.2330798817636676,
+            "ci95": [
+              -0.056794024446396356,
+              0.5294771971997816
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.14576636247811264,
+            "ci95": [
+              -0.3183406314854273,
+              0.5609347042354108
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.1391504455631943,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_ISOL",
+            "diff": {
+              "point": 0.07406979125260685,
+              "ci95": [
+                -0.21109744285003784,
+                0.36799789839460295
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "ASSET_RETRAIN_CTX": {
+          "rho": {
+            "point": 0.060019081436538564,
+            "ci95": [
+              -0.27317570571667105,
+              0.38801951526503
+            ],
+            "n": 47
+          },
+          "strongest_floor": "ASSET_RETRAIN_CTX_SHUFFLED",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_RETRAIN_CTX_SHUFFLED": 0.20561450249357527
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.1455954210570367,
+            "ci95": [
+              -0.5235277007046831,
+              0.2309033676830482
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.002926201878664731,
+          "vs_random_init": {
+            "arm": "CTRL_RANDINIT_CTX",
+            "diff": {
+              "point": 0.18849923456947562,
+              "ci95": [
+                -0.296442344650243,
+                0.6521501015730921
+              ],
+              "n": 47
+            },
+            "band": "NOT_SEPARATED"
+          }
+        },
+        "CTRL_RANDINIT_TOKEMB": {
+          "rho": {
+            "point": 0.018329526797093182,
+            "ci95": [
+              -0.260739734480477,
+              0.30194807146450225
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.06898399248846178,
+            "ci95": [
+              -0.4875842644437845,
+              0.3651705136780424
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.04722008103858846
+        },
+        "CTRL_RANDINIT_ISOL": {
+          "rho": {
+            "point": 0.15901009051106074,
+            "ci95": [
+              -0.13532436820786156,
+              0.4506645639264578
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.07169657122550578,
+            "ci95": [
+              -0.2961023628076536,
+              0.4259897337399021
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.23654183448643085
+        },
+        "CTRL_RANDINIT_CTX": {
+          "rho": {
+            "point": -0.12848015313293706,
+            "ci95": [
+              -0.4186650363402505,
+              0.14611645596279943
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "CTRL_RANDINIT_CTX_SHUFFLED": -0.14264650665119522
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.215793672418492,
+            "ci95": [
+              -0.5600816714458161,
+              0.17105511543210133
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.015023577122853703
+        },
+        "ASSET_NORMS12": {
+          "rho": {
+            "point": 0.11483419627453333,
+            "ci95": [
+              -0.15770059946136974,
+              0.3628306675934332
+            ],
+            "n": 47
+          },
+          "strongest_floor": "ASSET_NORMS12_SHUFFLED",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496,
+            "ASSET_NORMS12_SHUFFLED": 0.16421405710960454
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.04937986083507122,
+            "ci95": [
+              -0.43977195818990805,
+              0.3250282779662851
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.2292732464964844
+        },
+        "A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": 0.00011566042119733596,
+            "ci95": [
+              -0.244069453633146,
+              0.2758159875220946
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.08719785886435763,
+            "ci95": [
+              -0.4810941400673406,
+              0.3039966985847205
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.04006054888526621
+        },
+        "A_FREQUENCY": {
+          "rho": {
+            "point": 0.08731351928555496,
+            "ci95": [
+              -0.23024570240621667,
+              0.39425480619954484
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.25544767176585115
+        },
+        "A_RANDOM_IID": {
+          "rho": {
+            "point": 0.18040417541618528,
+            "ci95": [
+              -0.11156340312646716,
+              0.4622773574242954
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.09309065613063032,
+            "ci95": [
+              -0.30083605418688797,
+              0.498586073593152
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.1063977554442535
+        },
+        "P_LIVE_WORD": {
+          "rho": {
+            "point": 0.06741502512971892,
+            "ci95": [
+              -0.197020514745819,
+              0.3458534655660025
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.01989849415583604,
+            "ci95": [
+              -0.390936253728848,
+              0.342423980859953
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.22019457994695887
+        },
+        "CTRL_CONCRETENESS_ONLY": {
+          "rho": {
+            "point": -0.05236071358478452,
+            "ci95": [
+              -0.3918309841382969,
+              0.2773343488900382
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.13967423287033948,
+            "ci95": [
+              -0.5959216600697917,
+              0.33149164874151693
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.08433753802372963
+        },
+        "ASSET_V2_CTX_SHUFFLED": {
+          "rho": {
+            "point": 0.1795368476497613,
+            "ci95": [
+              -0.16785410071001983,
+              0.47491165158855675
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.09222332836420634,
+            "ci95": [
+              -0.3786635217309391,
+              0.5340322139045326
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.13950877435353357
+        },
+        "ASSET_RETRAIN_CTX_SHUFFLED": {
+          "rho": {
+            "point": 0.20561450249357527,
+            "ci95": [
+              -0.11746628589970169,
+              0.5015857484141122
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.11830098320802031,
+            "ci95": [
+              -0.3097856106784988,
+              0.5541391958810611
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.1626695771399401
+        },
+        "CTRL_RANDINIT_CTX_SHUFFLED": {
+          "rho": {
+            "point": -0.14264650665119522,
+            "ci95": [
+              -0.45450904942163173,
+              0.2174527073530927
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.2299600259367502,
+            "ci95": [
+              -0.6264391947395727,
+              0.14995827633298092
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": -0.062486415470427006
+        },
+        "ASSET_NORMS12_SHUFFLED": {
+          "rho": {
+            "point": 0.16421405710960454,
+            "ci95": [
+              -0.12629009449555845,
+              0.4207512901131163
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": 0.07690053782404958,
+            "ci95": [
+              -0.30978848325350417,
+              0.45237832780311116
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.11457310115067024
+        },
+        "ASSET_V2_ISOL_SHUFFLED": {
+          "rho": {
+            "point": 0.05394778707157079,
+            "ci95": [
+              -0.24989808655645507,
+              0.3340912380210312
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.03336573221398417,
+            "ci95": [
+              -0.47914408666618574,
+              0.3685437649381558
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.0029627448191428696
+        },
+        "ASSET_V2_TOKEMB_SHUFFLED": {
+          "rho": {
+            "point": -0.11564370218986235,
+            "ci95": [
+              -0.42582669482447916,
+              0.18378622213481077
+            ],
+            "n": 47
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "floor_rho": {
+            "A_ORTHOGRAPHIC": 0.00011566042119733596,
+            "A_FREQUENCY": 0.08731351928555496
+          },
+          "diff_vs_strongest_floor": {
+            "point": -0.2029572214754173,
+            "ci95": [
+              -0.600656700697939,
+              0.18127878763767463
+            ],
+            "n": 47
+          },
+          "band": "NOT_SEPARATED",
+          "partial_rho_concreteness_controlled": 0.03512451441974816
+        }
+      }
+    }
+  },
+  "elapsed_s": 106.1,
+  "summary": ""
+}

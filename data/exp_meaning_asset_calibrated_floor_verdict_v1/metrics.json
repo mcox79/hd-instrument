@@ -1,0 +1,2562 @@
+{
+  "anchor_name": "meaning_asset_calibrated_floor_verdict_v1",
+  "run_mode": "full",
+  "verdict": "ASSET_CLEARS_THE_CALIBRATED_FLOOR_ON_THE_INSTRUMENT_POPULATION",
+  "populations_never_merged": [
+    "INSTRUMENT_322_like_for_like",
+    "SIMLEX999",
+    "WORDSIM353"
+  ],
+  "arms_clearing_by_population": {
+    "INSTRUMENT_322_like_for_like": [
+      "d512|ASSET_RETRAIN_CTX",
+      "d512|ASSET_RETRAIN_ISOL",
+      "d512|ASSET_V2_CTX"
+    ],
+    "SIMLEX999": [
+      "ASSET_NORMS12"
+    ],
+    "WORDSIM353": [
+      "ASSET_NORMS12"
+    ]
+  },
+  "scramble_floor_policy": "95th percentile of the Spearman permutation null, 2000 permutations, validated in self-test against a 2,000-draw row-permutation null on the one case where both exist",
+  "note_on_the_power_population_frequency_floor": "The power cell stored its frequency floor as a scalar, not per-pair, so the frequency channel cannot be a paired-bootstrap partner there. Its value is recorded per population and is WEAKER than the scramble/orthographic floors that ARE used, so excluding it does not lower the bar: SIMLEX999 FREQ_NEG_ABS_DIFF = {'FREQ_NEG_ABS_DIFF': 0.0125, 'FREQ_SUM': -0.1565, 'FREQ_MIN': -0.1263, 'FREQ_MIN_OVER_MAX': -0.0272}, WORDSIM353 FREQ_NEG_ABS_DIFF = {'FREQ_NEG_ABS_DIFF': 0.0403, 'FREQ_SUM': 0.0294, 'FREQ_MIN': 0.0332, 'FREQ_MIN_OVER_MAX': 0.036}",
+  "results": {
+    "INSTRUMENT_322_like_for_like": {
+      "n_pairs": 322,
+      "rows": {
+        "d1024|ASSET_RI_ORDER": {
+          "rho": {
+            "point": 0.04880315024563085,
+            "ci95": [
+              -0.06322440899268472,
+              0.15309243320107574
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09187779958707193,
+            "mean": 0.0019757751815567526,
+            "sd": 0.05458625306701665,
+            "p_value": 0.2028985507246377
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.015,
+            "SCRAMBLE_NULL_P95": 0.0919
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.03595289469060081,
+            "ci95": [
+              -0.1275786077006996,
+              0.19882695301431202
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.030884368851652577,
+                "ci95": [
+                  -0.172566133170994,
+                  0.10814990275261195
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.033775316408996524,
+                "ci95": [
+                  -0.11187084743692423,
+                  0.17870500403138984
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.03595289469060081,
+                "ci95": [
+                  -0.1275786077006996,
+                  0.19882695301431202
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.2028985507246377
+        },
+        "d1024|ASSET_RI_SYMPAT": {
+          "rho": {
+            "point": 0.09969861633539899,
+            "ci95": [
+              -0.009786232316133054,
+              0.2073763706994389
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.0907690537082329,
+            "mean": -0.0006408172866268163,
+            "sd": 0.055598011228968826,
+            "p_value": 0.03698150924537731
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.015,
+            "SCRAMBLE_NULL_P95": 0.0908
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.06999695834978784,
+            "ci95": [
+              -0.08882302466980437,
+              0.22768708171802696
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": 0.02001109723811556,
+                "ci95": [
+                  -0.1091243774586637,
+                  0.15092326089548327
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.08467078249876465,
+                "ci95": [
+                  -0.07402732438153337,
+                  0.24267909023045406
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.06999695834978784,
+                "ci95": [
+                  -0.08882302466980437,
+                  0.22768708171802696
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.03698150924537731
+        },
+        "d1024|ASSET_RI_WINDOW": {
+          "rho": {
+            "point": 0.06128353928225903,
+            "ci95": [
+              -0.04990433787976723,
+              0.16630789906634655
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09016082277614962,
+            "mean": 0.0018358752377666604,
+            "sd": 0.054090150276859414,
+            "p_value": 0.14042978510744628
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.015,
+            "SCRAMBLE_NULL_P95": 0.0902
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.0445468097425641,
+            "ci95": [
+              -0.12021688448952703,
+              0.20725554952387487
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.018403979815024403,
+                "ci95": [
+                  -0.1592125532019423,
+                  0.11996701241702391
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0462557054456247,
+                "ci95": [
+                  -0.09945893967537256,
+                  0.18895478564735985
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.0445468097425641,
+                "ci95": [
+                  -0.12021688448952703,
+                  0.20725554952387487
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.14042978510744628
+        },
+        "d1024|A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": 0.01502783383663433,
+            "ci95": [
+              -0.09202357633125711,
+              0.12164455458472864
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09041546726811324,
+            "mean": -0.001162922190944066,
+            "sd": 0.05685309525871011,
+            "p_value": 0.39480259870064965
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.015
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.0646596852606491,
+            "ci95": [
+              -0.21410885783613776,
+              0.08615908205398969
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.0646596852606491,
+                "ci95": [
+                  -0.21410885783613776,
+                  0.08615908205398969
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.39480259870064965
+        },
+        "d1024|P_LIVE_WORD": {
+          "rho": {
+            "point": 0.07471616600328707,
+            "ci95": [
+              -0.035040543804148755,
+              0.18110794792629673
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09169926593707055,
+            "mean": -0.0010450103275702982,
+            "sd": 0.056996857324457896,
+            "p_value": 0.09095452273863068
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.015
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.004971353093996364,
+            "ci95": [
+              -0.1611263371094381,
+              0.14833460515039248
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.004971353093996364,
+                "ci95": [
+                  -0.1611263371094381,
+                  0.14833460515039248
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.05968833216665274,
+                "ci95": [
+                  -0.08696453844500072,
+                  0.205855940485841
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.09095452273863068
+        },
+        "d12|ASSET_NORMS12": {
+          "rho": {
+            "point": 0.2701227920100438,
+            "ci95": [
+              0.1604336792630507,
+              0.371214092815251
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09425107380254918,
+            "mean": 0.0009970193219412812,
+            "sd": 0.05456509559393119,
+            "p_value": 0.0004997501249375312,
+            "p95_source": "max(gold-permutation, row-permutation) = row-permutation",
+            "p95_gold_permutation": 0.08884837174411206
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0647,
+            "SCRAMBLE_NULL_P95": 0.0943
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.15488564831093882,
+            "ci95": [
+              -0.007103793258421187,
+              0.3100500966025942
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": 0.19043527291276036,
+                "ci95": [
+                  0.03968602183942315,
+                  0.33929760409237386
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.20541276265724612,
+                "ci95": [
+                  0.054363220485200626,
+                  0.35364935328831154
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.15488564831093882,
+                "ci95": [
+                  -0.007103793258421187,
+                  0.3100500966025942
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "d12|A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": 0.06471002935279768,
+            "ci95": [
+              -0.04784936377910314,
+              0.17130300920572789
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09054871766782567,
+            "mean": 0.0013380065166804385,
+            "sd": 0.05441967063355187,
+            "p_value": 0.12043978010994502
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0647
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.014977489744485747,
+            "ci95": [
+              -0.16860595733355313,
+              0.13993070499807672
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.014977489744485747,
+                "ci95": [
+                  -0.16860595733355313,
+                  0.13993070499807672
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.12043978010994502
+        },
+        "d12|CTRL_CONCRETENESS_ONLY": {
+          "rho": {
+            "point": 0.000911459725972545,
+            "ci95": [
+              -0.10776946314300448,
+              0.11101182856987177
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.08684999862766,
+            "mean": -0.0015276335039487226,
+            "sd": 0.05472814878123818,
+            "p_value": 0.4862568715642179
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0647
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.07877605937131088,
+            "ci95": [
+              -0.22859294126523994,
+              0.06918435536883703
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.07877605937131088,
+                "ci95": [
+                  -0.22859294126523994,
+                  0.06918435536883703
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.06379856962682513,
+                "ci95": [
+                  -0.22041778349336952,
+                  0.09578267233204642
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.4862568715642179
+        },
+        "d12|P_LIVE_WORD": {
+          "rho": {
+            "point": 0.005457697923654736,
+            "ci95": [
+              -0.10442220808450921,
+              0.11304625705258838
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09330387240612786,
+            "mean": -9.282568597900542e-05,
+            "sd": 0.05592937683232982,
+            "p_value": 0.4512743628185907
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0647
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.0742298211736287,
+            "ci95": [
+              -0.22504824200880863,
+              0.07462086886763447
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.0742298211736287,
+                "ci95": [
+                  -0.22504824200880863,
+                  0.07462086886763447
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.05925233142914295,
+                "ci95": [
+                  -0.22456181100302566,
+                  0.1060687179920233
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.4512743628185907
+        },
+        "d512|ASSET_RETRAIN_CTX": {
+          "rho": {
+            "point": 0.2026712163276137,
+            "ci95": [
+              0.09253589315050399,
+              0.3076539650336427
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09318276522528471,
+            "mean": 0.000987820195275752,
+            "sd": 0.05613838733713872,
+            "p_value": 0.0004997501249375312
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169,
+            "SCRAMBLE_NULL_P95": 0.0932
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.2204386477541088,
+            "ci95": [
+              0.07038215868963228,
+              0.3666578604543284
+            ],
+            "n": 322
+          },
+          "band": "ABOVE",
+          "clears_floor": true,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": 0.12298369723033027,
+                "ci95": [
+                  -0.01564131277487185,
+                  0.25833498663655535
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.1857863848000537,
+                "ci95": [
+                  0.04548176825061112,
+                  0.3274807281605872
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.2204386477541088,
+                "ci95": [
+                  0.07038215868963228,
+                  0.3666578604543284
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "d512|ASSET_RETRAIN_ISOL": {
+          "rho": {
+            "point": 0.2580794852731014,
+            "ci95": [
+              0.14674125267760174,
+              0.36206564189679374
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09348538001813457,
+            "mean": 0.0024189111250095836,
+            "sd": 0.055904732664656835,
+            "p_value": 0.0004997501249375312
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.17839196617581798,
+            "ci95": [
+              0.039758495916647395,
+              0.3135999158443274
+            ],
+            "n": 322
+          },
+          "band": "ABOVE",
+          "clears_floor": true,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": 0.17839196617581798,
+                "ci95": [
+                  0.039758495916647395,
+                  0.3135999158443274
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.24119465374554142,
+                "ci95": [
+                  0.1101158857120263,
+                  0.36838475463796694
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "d512|ASSET_RETRAIN_TOKEMB": {
+          "rho": {
+            "point": 0.07825642266314932,
+            "ci95": [
+              -0.030478624044852066,
+              0.18834210800213758
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.0939306665970065,
+            "mean": 0.0017160420802312631,
+            "sd": 0.055691828261173505,
+            "p_value": 0.07796101949025487
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.0014310964341341104,
+            "ci95": [
+              -0.14753190968308114,
+              0.14661122882375816
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.0014310964341341104,
+                "ci95": [
+                  -0.14753190968308114,
+                  0.14661122882375816
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.06137159113558931,
+                "ci95": [
+                  -0.08310191969523774,
+                  0.20595753831295568
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.07796101949025487
+        },
+        "d512|ASSET_V2_CTX": {
+          "rho": {
+            "point": 0.20646711075675162,
+            "ci95": [
+              0.0997478040122889,
+              0.3109630145967303
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09428451994398485,
+            "mean": 0.0012260035397068036,
+            "sd": 0.05632474562069777,
+            "p_value": 0.0004997501249375312
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169,
+            "SCRAMBLE_NULL_P95": 0.0943
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.22626413527960834,
+            "ci95": [
+              0.0747243741611361,
+              0.3722140473731412
+            ],
+            "n": 322
+          },
+          "band": "ABOVE",
+          "clears_floor": true,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": 0.12677959165946817,
+                "ci95": [
+                  -0.009965436578762277,
+                  0.2628831854567636
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.1895822792291916,
+                "ci95": [
+                  0.04369596975519052,
+                  0.33320497250090214
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.22626413527960834,
+                "ci95": [
+                  0.0747243741611361,
+                  0.3722140473731412
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "d512|ASSET_V2_ISOL": {
+          "rho": {
+            "point": 0.18904546318905402,
+            "ci95": [
+              0.07675434401956338,
+              0.29524565555044396
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09533686028016088,
+            "mean": 0.002681616188279463,
+            "sd": 0.05612749415718581,
+            "p_value": 0.0009995002498750624
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.10935794409177059,
+            "ci95": [
+              -0.02569550052705038,
+              0.24123040600240891
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": 0.10935794409177059,
+                "ci95": [
+                  -0.02569550052705038,
+                  0.24123040600240891
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.172160631661494,
+                "ci95": [
+                  0.03642323216033706,
+                  0.30471579696014534
+                ],
+                "n": 322
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0009995002498750624
+        },
+        "d512|ASSET_V2_TOKEMB": {
+          "rho": {
+            "point": 0.07825642266314932,
+            "ci95": [
+              -0.030478624044852066,
+              0.18834210800213758
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.0939306665970065,
+            "mean": 0.0017160420802312631,
+            "sd": 0.055691828261173505,
+            "p_value": 0.07796101949025487
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.0014310964341341104,
+            "ci95": [
+              -0.14753190968308114,
+              0.14661122882375816
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.0014310964341341104,
+                "ci95": [
+                  -0.14753190968308114,
+                  0.14661122882375816
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.06137159113558931,
+                "ci95": [
+                  -0.08310191969523774,
+                  0.20595753831295568
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.07796101949025487
+        },
+        "d512|A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": 0.016884831527560016,
+            "ci95": [
+              -0.08794522895649169,
+              0.12021820273821958
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09307878629636293,
+            "mean": -0.0010080316043243672,
+            "sd": 0.05688343414955022,
+            "p_value": 0.3828085957021489
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.06280268756972342,
+            "ci95": [
+              -0.20710532067671078,
+              0.08229985806835285
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.06280268756972342,
+                "ci95": [
+                  -0.20710532067671078,
+                  0.08229985806835285
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.3828085957021489
+        },
+        "d512|CTRL_RANDINIT_CTX": {
+          "rho": {
+            "point": 0.029834820823041865,
+            "ci95": [
+              -0.08307576746065666,
+              0.142622569719681
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09322521540587096,
+            "mean": 0.0016417248797661655,
+            "sd": 0.05531058011188279,
+            "p_value": 0.3023488255872064
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169,
+            "SCRAMBLE_NULL_P95": 0.0932
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.014866727648541175,
+            "ci95": [
+              -0.145259363561821,
+              0.17601244747482356
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.04985269827424156,
+                "ci95": [
+                  -0.20169186095338443,
+                  0.10589197716464943
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.01294998929548185,
+                "ci95": [
+                  -0.13567400834533833,
+                  0.15982941413444823
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.014866727648541175,
+                "ci95": [
+                  -0.145259363561821,
+                  0.17601244747482356
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.3023488255872064
+        },
+        "d512|CTRL_RANDINIT_ISOL": {
+          "rho": {
+            "point": 0.020747750413209434,
+            "ci95": [
+              -0.08342334657681169,
+              0.12548994178584835
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09147445098296635,
+            "mean": 0.001280548247611999,
+            "sd": 0.05502121376203586,
+            "p_value": 0.36431784107946025
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.058939768684073995,
+            "ci95": [
+              -0.20719450463172112,
+              0.09216367344106917
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.058939768684073995,
+                "ci95": [
+                  -0.20719450463172112,
+                  0.09216367344106917
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0038629188856494183,
+                "ci95": [
+                  -0.13982523364608146,
+                  0.14623263476534937
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.36431784107946025
+        },
+        "d512|CTRL_RANDINIT_TOKEMB": {
+          "rho": {
+            "point": 0.009918820772885802,
+            "ci95": [
+              -0.0997615251181103,
+              0.12140919698864563
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09003944796895685,
+            "mean": 0.0004438081012656706,
+            "sd": 0.055587133798735595,
+            "p_value": 0.4447776111944028
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.06976869832439762,
+            "ci95": [
+              -0.22236378990370276,
+              0.08626120663382897
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.06976869832439762,
+                "ci95": [
+                  -0.22236378990370276,
+                  0.08626120663382897
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.006966010754674214,
+                "ci95": [
+                  -0.1501326775717707,
+                  0.13852910875552302
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.4447776111944028
+        },
+        "d512|P_LIVE_WORD": {
+          "rho": {
+            "point": -0.010575112921517894,
+            "ci95": [
+              -0.12249188968781538,
+              0.0999406089803364
+            ],
+            "n": 322
+          },
+          "scramble_null": {
+            "p95": 0.09091833343286572,
+            "mean": -0.0019621764861163073,
+            "sd": 0.05725131703185449,
+            "p_value": 0.5537231384307846
+          },
+          "floor_rho_by_arm": {
+            "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+            "A_ORTHOGRAPHIC": 0.0169
+          },
+          "strongest_floor": "HARDENED_FREQUENCY_FREQ_MIN",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.09026263201880133,
+            "ci95": [
+              -0.24700214792533115,
+              0.06598149968427237
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "HARDENED_FREQUENCY_FREQ_MIN": {
+              "margin": {
+                "point": -0.09026263201880133,
+                "ci95": [
+                  -0.24700214792533115,
+                  0.06598149968427237
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.02745994444907791,
+                "ci95": [
+                  -0.18299735012344717,
+                  0.12492625608352673
+                ],
+                "n": 322
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.5537231384307846
+        }
+      }
+    },
+    "SIMLEX999": {
+      "n_pairs": 999,
+      "rows": {
+        "ASSET_NORMS12": {
+          "rho": {
+            "point": 0.24492119453847425,
+            "ci95": [
+              0.18301434921133097,
+              0.30359696520274854
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05255059003553321,
+            "mean": 1.4606589076041287e-05,
+            "sd": 0.03128201486660318,
+            "p_value": 0.0004997501249375312
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.0526
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.26213097864421386,
+            "ci95": [
+              0.17386437679273664,
+              0.3483744448330551
+            ],
+            "n": 999
+          },
+          "band": "ABOVE",
+          "clears_floor": true,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.25133274048968574,
+                "ci95": [
+                  0.16202429707005617,
+                  0.34220845616284407
+                ],
+                "n": 999
+              },
+              "band": "ABOVE"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.26213097864421386,
+                "ci95": [
+                  0.17386437679273664,
+                  0.3483744448330551
+                ],
+                "n": 999
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "ASSET_RETRAIN_CTX": {
+          "rho": {
+            "point": 0.026422341756498505,
+            "ci95": [
+              -0.0374481100436627,
+              0.09074111617560195
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05224823859520194,
+            "mean": -9.203521557143163e-05,
+            "sd": 0.03172461572076908,
+            "p_value": 0.2028985507246377
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.0522
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.0151574462865338,
+            "ci95": [
+              -0.07587899400672894,
+              0.10241803489402705
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.03283388770770997,
+                "ci95": [
+                  -0.054021361137580125,
+                  0.12020619803627623
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.0151574462865338,
+                "ci95": [
+                  -0.07587899400672894,
+                  0.10241803489402705
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.2028985507246377
+        },
+        "ASSET_RETRAIN_ISOL": {
+          "rho": {
+            "point": 0.08596270183920347,
+            "ci95": [
+              0.02245021161597038,
+              0.14849965588246647
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05503227546783623,
+            "mean": 0.0004173302900381184,
+            "sd": 0.03194624913010641,
+            "p_value": 0.00399800099950025
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.055
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.043335506563958084,
+            "ci95": [
+              -0.04539542404240579,
+              0.13219122423121016
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.09237424779041493,
+                "ci95": [
+                  0.005717835032372119,
+                  0.17743163138703857
+                ],
+                "n": 999
+              },
+              "band": "ABOVE"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.043335506563958084,
+                "ci95": [
+                  -0.04539542404240579,
+                  0.13219122423121016
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.00399800099950025
+        },
+        "ASSET_RETRAIN_TOKEMB": {
+          "rho": {
+            "point": 0.026536157146118244,
+            "ci95": [
+              -0.035347413718932644,
+              0.08797616332741662
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05537557378770201,
+            "mean": 0.0007406168460290054,
+            "sd": 0.032299815827298795,
+            "p_value": 0.2143928035982009
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.0554
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.0027285094180901047,
+            "ci95": [
+              -0.09146661366658823,
+              0.08498784216288087
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.03294770309732971,
+                "ci95": [
+                  -0.05118981175623845,
+                  0.11741723041121688
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": -0.0027285094180901047,
+                "ci95": [
+                  -0.09146661366658823,
+                  0.08498784216288087
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.2143928035982009
+        },
+        "ASSET_V2_CTX": {
+          "rho": {
+            "point": 0.006192053938252681,
+            "ci95": [
+              -0.05712152716795326,
+              0.06984300964173372
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.051311111937609274,
+            "mean": -0.0002492284445594369,
+            "sd": 0.03188350456160317,
+            "p_value": 0.42278860569715143
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.0513
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.01691083287607814,
+            "ci95": [
+              -0.10938937296523116,
+              0.07178663345991494
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.012603599889464148,
+                "ci95": [
+                  -0.07607178128892864,
+                  0.1012774825930446
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": -0.01691083287607814,
+                "ci95": [
+                  -0.10938937296523116,
+                  0.07178663345991494
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.42278860569715143
+        },
+        "ASSET_V2_ISOL": {
+          "rho": {
+            "point": 0.05392114000471653,
+            "ci95": [
+              -0.00865333334900248,
+              0.11740071599318289
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05288002145608776,
+            "mean": 4.800625626543068e-05,
+            "sd": 0.031349898253279954,
+            "p_value": 0.047976011994003
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.0529
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.02543103272602194,
+            "ci95": [
+              -0.0661857588635296,
+              0.11635891467498098
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.060332685955928,
+                "ci95": [
+                  -0.025404405492708212,
+                  0.14828284346703485
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.02543103272602194,
+                "ci95": [
+                  -0.0661857588635296,
+                  0.11635891467498098
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.047976011994003
+        },
+        "ASSET_V2_TOKEMB": {
+          "rho": {
+            "point": 0.026536157146118244,
+            "ci95": [
+              -0.035347413718932644,
+              0.08797616332741662
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05537557378770201,
+            "mean": 0.0007406168460290054,
+            "sd": 0.032299815827298795,
+            "p_value": 0.2143928035982009
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064,
+            "SCRAMBLE_NULL_P95": 0.0554
+          },
+          "strongest_floor": "SCRAMBLE_NULL_P95",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.0027285094180901047,
+            "ci95": [
+              -0.09146661366658823,
+              0.08498784216288087
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.03294770309732971,
+                "ci95": [
+                  -0.05118981175623845,
+                  0.11741723041121688
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": -0.0027285094180901047,
+                "ci95": [
+                  -0.09146661366658823,
+                  0.08498784216288087
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.2143928035982009
+        },
+        "A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": -0.0064115459512114675,
+            "ci95": [
+              -0.06947018215835582,
+              0.05629511504703012
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.04966244822792319,
+            "mean": -0.0007531382993120577,
+            "sd": 0.030954961935354512,
+            "p_value": 0.5787106446776612
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.5787106446776612
+        },
+        "CTRL_CONCRETENESS_ONLY": {
+          "rho": {
+            "point": -0.0039138285200577315,
+            "ci95": [
+              -0.06469440099579069,
+              0.05687642092109339
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.052721210540031954,
+            "mean": -0.000144969976457898,
+            "sd": 0.03137735350476803,
+            "p_value": 0.5492253873063468
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.002497717431153736,
+            "ci95": [
+              -0.08660346427457402,
+              0.09075054233884962
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.002497717431153736,
+                "ci95": [
+                  -0.08660346427457402,
+                  0.09075054233884962
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.5492253873063468
+        },
+        "CTRL_RANDINIT_CTX": {
+          "rho": {
+            "point": 0.042496128985103604,
+            "ci95": [
+              -0.017771348938494285,
+              0.10447492914937517
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05196980748768321,
+            "mean": 0.0001999171106190407,
+            "sd": 0.032398742202176714,
+            "p_value": 0.09745127436281859
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.04890767493631507,
+            "ci95": [
+              -0.035134644803285806,
+              0.13340400848587083
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.04890767493631507,
+                "ci95": [
+                  -0.035134644803285806,
+                  0.13340400848587083
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.09745127436281859
+        },
+        "CTRL_RANDINIT_ISOL": {
+          "rho": {
+            "point": -0.044764265640665914,
+            "ci95": [
+              -0.10541884936099379,
+              0.01576844795809478
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05297499833597674,
+            "mean": 0.00027495451053958673,
+            "sd": 0.032122621145990064,
+            "p_value": 0.9135432283858071
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.038352719689454445,
+            "ci95": [
+              -0.12179847457141452,
+              0.04622298848191395
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.038352719689454445,
+                "ci95": [
+                  -0.12179847457141452,
+                  0.04622298848191395
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.9135432283858071
+        },
+        "CTRL_RANDINIT_TOKEMB": {
+          "rho": {
+            "point": 0.015198300620192505,
+            "ci95": [
+              -0.04682868188226647,
+              0.07740542673281653
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.0548179324924724,
+            "mean": 0.0009531397848856305,
+            "sd": 0.03233949262152188,
+            "p_value": 0.31784107946026985
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.02160984657140397,
+            "ci95": [
+              -0.0628585949939266,
+              0.10686835880127965
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.02160984657140397,
+                "ci95": [
+                  -0.0628585949939266,
+                  0.10686835880127965
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.31784107946026985
+        },
+        "P_LIVE_WORD": {
+          "rho": {
+            "point": 0.012432832476206338,
+            "ci95": [
+              -0.049334361906220335,
+              0.07341219899145325
+            ],
+            "n": 999
+          },
+          "scramble_null": {
+            "p95": 0.05241301457976261,
+            "mean": 0.00033747752056800004,
+            "sd": 0.031854647566104434,
+            "p_value": 0.3553223388305847
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": -0.0064
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.018844378427417804,
+            "ci95": [
+              -0.06929304716401896,
+              0.10944570713922111
+            ],
+            "n": 999
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.018844378427417804,
+                "ci95": [
+                  -0.06929304716401896,
+                  0.10944570713922111
+                ],
+                "n": 999
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.3553223388305847
+        }
+      }
+    },
+    "WORDSIM353": {
+      "n_pairs": 334,
+      "rows": {
+        "ASSET_NORMS12": {
+          "rho": {
+            "point": 0.4092981372065533,
+            "ci95": [
+              0.30576837404168494,
+              0.5022067029841769
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.09033588381337215,
+            "mean": 0.001003042256962514,
+            "sd": 0.05459299714813803,
+            "p_value": 0.0004997501249375312
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.0903
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.27576939974231973,
+            "ci95": [
+              0.12129997781284695,
+              0.42585108427485113
+            ],
+            "n": 334
+          },
+          "band": "ABOVE",
+          "clears_floor": true,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.27576939974231973,
+                "ci95": [
+                  0.12129997781284695,
+                  0.42585108427485113
+                ],
+                "n": 334
+              },
+              "band": "ABOVE"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.25148614331305263,
+                "ci95": [
+                  0.10592904813210996,
+                  0.39456651838830514
+                ],
+                "n": 334
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "ASSET_RETRAIN_CTX": {
+          "rho": {
+            "point": 0.1761690004996712,
+            "ci95": [
+              0.06456223045789612,
+              0.28517546175322034
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.09218461633348594,
+            "mean": 0.0004915564662769632,
+            "sd": 0.0557616486884,
+            "p_value": 0.0009995002498750624
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.0922
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.04264026303543764,
+            "ci95": [
+              -0.09641405297159544,
+              0.1844024401703588
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.04264026303543764,
+                "ci95": [
+                  -0.09641405297159544,
+                  0.1844024401703588
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.09164525355549771,
+                "ci95": [
+                  -0.05889940558128531,
+                  0.24477452939873984
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0009995002498750624
+        },
+        "ASSET_RETRAIN_ISOL": {
+          "rho": {
+            "point": 0.13352192828904824,
+            "ci95": [
+              0.021021808451095206,
+              0.244445116120218
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.08882833076959618,
+            "mean": 0.001134304121833508,
+            "sd": 0.054151071644466205,
+            "p_value": 0.009495252373813094
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.0888
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -6.80917518533497e-06,
+            "ci95": [
+              -0.14426837285784092,
+              0.1511508666764923
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -6.80917518533497e-06,
+                "ci95": [
+                  -0.14426837285784092,
+                  0.1511508666764923
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.0071925939493465985,
+                "ci95": [
+                  -0.1468633530820886,
+                  0.160684191931756
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.009495252373813094
+        },
+        "ASSET_RETRAIN_TOKEMB": {
+          "rho": {
+            "point": 0.13462277217560076,
+            "ci95": [
+              0.02502977663009804,
+              0.24097142784547435
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.08897090422409577,
+            "mean": 0.0011805613049640747,
+            "sd": 0.054092646868606604,
+            "p_value": 0.006496751624187906
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.089
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.0010940347113671811,
+            "ci95": [
+              -0.1451809395274026,
+              0.14999516137487376
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0010940347113671811,
+                "ci95": [
+                  -0.1451809395274026,
+                  0.14999516137487376
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.1575857379454892,
+                "ci95": [
+                  0.011385076999341888,
+                  0.300845615022177
+                ],
+                "n": 334
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.006496751624187906
+        },
+        "ASSET_V2_CTX": {
+          "rho": {
+            "point": 0.20929079466854467,
+            "ci95": [
+              0.1018089961950455,
+              0.31430132311409026
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.089010284756951,
+            "mean": -0.00010539598741156297,
+            "sd": 0.05524150122831784,
+            "p_value": 0.0004997501249375312
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.089
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.07576205720431109,
+            "ci95": [
+              -0.0647492172498469,
+              0.21917782963022572
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.07576205720431109,
+                "ci95": [
+                  -0.0647492172498469,
+                  0.21917782963022572
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.10331539873990654,
+                "ci95": [
+                  -0.04078968521789035,
+                  0.24935385460932505
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0004997501249375312
+        },
+        "ASSET_V2_ISOL": {
+          "rho": {
+            "point": 0.1880243290666856,
+            "ci95": [
+              0.07823224535437184,
+              0.2960059017149208
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.08982202917927366,
+            "mean": 0.000594781515355313,
+            "sd": 0.05376759992689407,
+            "p_value": 0.0009995002498750624
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.0898
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.054495591602452015,
+            "ci95": [
+              -0.08613616956148362,
+              0.1992509076415794
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.054495591602452015,
+                "ci95": [
+                  -0.08613616956148362,
+                  0.1992509076415794
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.0843069921356159,
+                "ci95": [
+                  -0.06615835653237785,
+                  0.23673510445689636
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.0009995002498750624
+        },
+        "ASSET_V2_TOKEMB": {
+          "rho": {
+            "point": 0.13462277217560076,
+            "ci95": [
+              0.02502977663009804,
+              0.24097142784547435
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.08897090422409577,
+            "mean": 0.0011805613049640747,
+            "sd": 0.054092646868606604,
+            "p_value": 0.006496751624187906
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335,
+            "SCRAMBLE_NULL_P95": 0.089
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.0010940347113671811,
+            "ci95": [
+              -0.1451809395274026,
+              0.14999516137487376
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0010940347113671811,
+                "ci95": [
+                  -0.1451809395274026,
+                  0.14999516137487376
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            },
+            "SCRAMBLE_NULL_P95": {
+              "margin": {
+                "point": 0.1575857379454892,
+                "ci95": [
+                  0.011385076999341888,
+                  0.300845615022177
+                ],
+                "n": 334
+              },
+              "band": "ABOVE"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.006496751624187906
+        },
+        "A_ORTHOGRAPHIC": {
+          "rho": {
+            "point": 0.13352873746423358,
+            "ci95": [
+              0.025520221749568306,
+              0.23903526511739984
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.08806277110173259,
+            "mean": -0.0001698033663636156,
+            "sd": 0.05427158449105669,
+            "p_value": 0.004997501249375313
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.004997501249375313
+        },
+        "CTRL_CONCRETENESS_ONLY": {
+          "rho": {
+            "point": 0.01874907353966641,
+            "ci95": [
+              -0.0926379391391251,
+              0.1303423124503265
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.0918183892019888,
+            "mean": 0.001921484978744771,
+            "sd": 0.054604219631293284,
+            "p_value": 0.3758120939530235
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.11477966392456716,
+            "ci95": [
+              -0.2617273231979205,
+              0.03441425978022085
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.11477966392456716,
+                "ci95": [
+                  -0.2617273231979205,
+                  0.03441425978022085
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.3758120939530235
+        },
+        "CTRL_RANDINIT_CTX": {
+          "rho": {
+            "point": 0.07322770321089368,
+            "ci95": [
+              -0.03632311366922573,
+              0.18008914840222703
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.09743036833290211,
+            "mean": 0.0007513583410985663,
+            "sd": 0.05559944040782334,
+            "p_value": 0.09945027486256872
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.060301034253339894,
+            "ci95": [
+              -0.2080646707241502,
+              0.08778118913050491
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.060301034253339894,
+                "ci95": [
+                  -0.2080646707241502,
+                  0.08778118913050491
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.09945027486256872
+        },
+        "CTRL_RANDINIT_ISOL": {
+          "rho": {
+            "point": 0.057646311719294026,
+            "ci95": [
+              -0.05094968396730642,
+              0.16676086116416372
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.09116627937573317,
+            "mean": 0.00038243418876861035,
+            "sd": 0.05451076896929478,
+            "p_value": 0.1549225387306347
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.07588242574493956,
+            "ci95": [
+              -0.2227366745065853,
+              0.0758876857714032
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.07588242574493956,
+                "ci95": [
+                  -0.2227366745065853,
+                  0.0758876857714032
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.1549225387306347
+        },
+        "CTRL_RANDINIT_TOKEMB": {
+          "rho": {
+            "point": 0.05371034824791472,
+            "ci95": [
+              -0.058410741384803476,
+              0.16302841209323668
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.08720679925532233,
+            "mean": 0.00047220574291886576,
+            "sd": 0.054134883399954925,
+            "p_value": 0.17191404297851073
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.07981838921631886,
+            "ci95": [
+              -0.22866200442963983,
+              0.07176692338911962
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.07981838921631886,
+                "ci95": [
+                  -0.22866200442963983,
+                  0.07176692338911962
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.17191404297851073
+        },
+        "P_LIVE_WORD": {
+          "rho": {
+            "point": -0.009218937569555757,
+            "ci95": [
+              -0.11595473805194578,
+              0.09934627537749942
+            ],
+            "n": 334
+          },
+          "scramble_null": {
+            "p95": 0.09133398252237948,
+            "mean": 0.001335284860777322,
+            "sd": 0.054417997127117396,
+            "p_value": 0.5832083958020989
+          },
+          "floor_rho_by_arm": {
+            "A_ORTHOGRAPHIC": 0.1335
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "LITERAL_margin_over_strongest_floor": {
+            "point": -0.14274767503378932,
+            "ci95": [
+              -0.28872363119699984,
+              0.008111382744121163
+            ],
+            "n": 334
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false,
+          "DECOMPOSED_per_floor": {
+            "A_ORTHOGRAPHIC": {
+              "margin": {
+                "point": -0.14274767503378932,
+                "ci95": [
+                  -0.28872363119699984,
+                  0.008111382744121163
+                ],
+                "n": 334
+              },
+              "band": "NOT_SEPARATED"
+            }
+          },
+          "permutation_p_vs_scramble_null": 0.5832083958020989
+        }
+      }
+    }
+  },
+  "elapsed_s": 6057.9,
+  "summary": "ASSET_CLEARS_THE_CALIBRATED_FLOOR_ON_THE_INSTRUMENT_POPULATION"
+}

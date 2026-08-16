@@ -1,0 +1,535 @@
+{
+  "anchor_name": "meaning_asset_frequency_generalisation_v1",
+  "run_mode": "full",
+  "verdict": "SOME_ASSETS_GENERALISE_BEYOND_THE_FREQUENT_VOCABULARY",
+  "strata": {
+    "FREQUENT_322": "both words among the 4,096 most frequent corpus forms -- this IS the instrument's like-for-like population",
+    "RARER_677": "the disjoint complement within SimLex-999"
+  },
+  "criterion": "an asset generalises if its rho on the RARER stratum has a bootstrap CI entirely above zero -- a weaker test than the floor gate, chosen deliberately so a marginal generaliser is not dismissed",
+  "assets_whose_signal_survives": [
+    "ASSET_NORMS12"
+  ],
+  "rows": {
+    "ASSET_NORMS12": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.2701227920100438,
+        "ci95": [
+          0.1604336792630507,
+          0.371214092815251
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.22888991035253495,
+        "ci95": [
+          0.15165198139541733,
+          0.30136908532284873
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.24492119453847425,
+        "ci95": [
+          0.18301434921133097,
+          0.30359696520274854
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.04123288165750885,
+        "ci95": [
+          -0.09234224444505178,
+          0.16438972188902923
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": true
+    },
+    "ASSET_RETRAIN_CTX": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.2026712163276137,
+        "ci95": [
+          0.09253589315050399,
+          0.3076539650336427
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": -0.013993828340421047,
+        "ci95": [
+          -0.08988567464193309,
+          0.06367125929287441
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.026422341756498505,
+        "ci95": [
+          -0.0374481100436627,
+          0.09074111617560195
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.21666504466803474,
+        "ci95": [
+          0.08302050792537408,
+          0.3484480229094874
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "ABOVE",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "ASSET_RETRAIN_ISOL": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.2580794852731014,
+        "ci95": [
+          0.14674125267760174,
+          0.36206564189679374
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.038680855793478824,
+        "ci95": [
+          -0.03560577372400202,
+          0.11242219220684607
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.08596270183920347,
+        "ci95": [
+          0.02245021161597038,
+          0.14849965588246647
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.2193986294796226,
+        "ci95": [
+          0.08644084662453856,
+          0.350410201541407
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "ABOVE",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "ASSET_RETRAIN_TOKEMB": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.07828159068504069,
+        "ci95": [
+          -0.030478624044852066,
+          0.18834271501935868
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.014447441927814771,
+        "ci95": [
+          -0.05919833051799689,
+          0.08790973639344664
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.026536157146118244,
+        "ci95": [
+          -0.035347413718932644,
+          0.08797616332741662
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.06383414875722591,
+        "ci95": [
+          -0.06644558178406806,
+          0.19591167506677346
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "ASSET_V2_CTX": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.20646711075675162,
+        "ci95": [
+          0.0997478040122889,
+          0.3109630145967303
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": -0.03894820279150126,
+        "ci95": [
+          -0.11528934433615469,
+          0.03766224622124194
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.006192053938252681,
+        "ci95": [
+          -0.05712152716795326,
+          0.06984300964173372
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.24541531354825288,
+        "ci95": [
+          0.11330758885318602,
+          0.3747324018998175
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "ABOVE",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "ASSET_V2_ISOL": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.18904546318905402,
+        "ci95": [
+          0.07675434401956338,
+          0.29524565555044396
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.015243634520846963,
+        "ci95": [
+          -0.061264523932322734,
+          0.09085353714950734
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.05392114000471653,
+        "ci95": [
+          -0.00865333334900248,
+          0.11740071599318289
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.17380182866820706,
+        "ci95": [
+          0.038809951213555356,
+          0.30438886752946415
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "ABOVE",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "ASSET_V2_TOKEMB": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.07828159068504069,
+        "ci95": [
+          -0.030478624044852066,
+          0.18834271501935868
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.014447441927814771,
+        "ci95": [
+          -0.05919833051799689,
+          0.08790973639344664
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.026536157146118244,
+        "ci95": [
+          -0.035347413718932644,
+          0.08797616332741662
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.06383414875722591,
+        "ci95": [
+          -0.06644558178406806,
+          0.19591167506677346
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "A_ORTHOGRAPHIC": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.018292007948212806,
+        "ci95": [
+          -0.08686102043574777,
+          0.12160301406419148
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": -0.024203217011796223,
+        "ci95": [
+          -0.10041917092924596,
+          0.05206947670151583
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": -0.0064115459512114675,
+        "ci95": [
+          -0.06947018215835582,
+          0.05629511504703012
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.04249522496000903,
+        "ci95": [
+          -0.08583544518371657,
+          0.1687437239981881
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "A_RANDOM_IID": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": -0.016623505095286196,
+        "ci95": [
+          -0.12125911430670809,
+          0.09117715797040976
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.0021035948407763815,
+        "ci95": [
+          -0.07406548321439803,
+          0.07797903910565748
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": -0.005819606014039032,
+        "ci95": [
+          -0.068195401550805,
+          0.056963932165019125
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": -0.01872709993606258,
+        "ci95": [
+          -0.1478135586183887,
+          0.11084213760445467
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "CTRL_CONCRETENESS_ONLY": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": -0.01661771790840233,
+        "ci95": [
+          -0.12254979763800265,
+          0.0910920164833496
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.002795416013538764,
+        "ci95": [
+          -0.07117208299043064,
+          0.07457609984266861
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": -0.0039138285200577315,
+        "ci95": [
+          -0.06469440099579069,
+          0.05687642092109339
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": -0.019413133921941092,
+        "ci95": [
+          -0.14886657700187855,
+          0.11034830086422509
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "CTRL_RANDINIT_CTX": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.029834820823041865,
+        "ci95": [
+          -0.08307576746065666,
+          0.142622569719681
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.023202408701130998,
+        "ci95": [
+          -0.05138778733965034,
+          0.09830137062380229
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.042496128985103604,
+        "ci95": [
+          -0.017771348938494285,
+          0.10447492914937517
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.0066324121219108675,
+        "ci95": [
+          -0.12737581069573542,
+          0.14128940017300412
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "CTRL_RANDINIT_ISOL": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.020747750413209434,
+        "ci95": [
+          -0.08342334657681169,
+          0.12548994178584835
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": -0.04716731481654504,
+        "ci95": [
+          -0.12313134330816006,
+          0.02972543707855148
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": -0.044764265640665914,
+        "ci95": [
+          -0.10541884936099379,
+          0.01576844795809478
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": 0.06791506522975448,
+        "ci95": [
+          -0.06276476789202835,
+          0.19867389882063896
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "CTRL_RANDINIT_TOKEMB": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": 0.009912621277374951,
+        "ci95": [
+          -0.0997615251181103,
+          0.12140919698864563
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.017437495867877746,
+        "ci95": [
+          -0.05703312357322849,
+          0.09019322933415722
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.015198300620192505,
+        "ci95": [
+          -0.04682868188226647,
+          0.07740542673281653
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": -0.007524874590502795,
+        "ci95": [
+          -0.1400725023508239,
+          0.1263670638285522
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    },
+    "P_LIVE_WORD": {
+      "rho_FREQUENT_322_in_instrument_vocab": {
+        "point": -0.0019022491373113437,
+        "ci95": [
+          -0.1084425161326077,
+          0.10828512950198964
+        ],
+        "n": 322
+      },
+      "rho_RARER_677_outside_it": {
+        "point": 0.020895619039425453,
+        "ci95": [
+          -0.05273939393515675,
+          0.09387327970120371
+        ],
+        "n": 677
+      },
+      "rho_ALL_999": {
+        "point": 0.012432832476206338,
+        "ci95": [
+          -0.049334361906220335,
+          0.07341219899145325
+        ],
+        "n": 999
+      },
+      "drop_frequent_minus_rarer": {
+        "point": -0.022797868176736798,
+        "ci95": [
+          -0.153978961068661,
+          0.10701700262342471
+        ],
+        "n_a": 322,
+        "n_b": 677
+      },
+      "band_of_drop": "NOT_SEPARATED",
+      "signal_survives_leaving_the_frequent_words": false
+    }
+  },
+  "elapsed_s": 2163.3,
+  "summary": "SOME_ASSETS_GENERALISE_BEYOND_THE_FREQUENT_VOCABULARY"
+}

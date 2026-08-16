@@ -1,0 +1,138 @@
+{
+  "anchor_name": "meaning_asset_pretrained_positive_control_v1",
+  "run_mode": "full",
+  "n_pairs": 322,
+  "role": "POSITIVE CONTROL / known-answer arm. NOT a recommendation to wire, and NOT a brain-fidelity claim -- a co-occurrence table is a measuring instrument here.",
+  "asset": {
+    "source": "data/gensim_cache/glove-wiki-gigaword-300/glove-wiki-gigaword-300.gz",
+    "kind": "external pretrained distributional word table (GloVe 6B, 300d)",
+    "loaded_from": "LOCAL cache, network never touched",
+    "native_d": 300,
+    "vector_size": 300,
+    "vocab_words_missing": 2,
+    "simlex_pairs_with_a_missing_word": 0,
+    "admissibility": "NOT an LLM and nothing is called at inference; codes are a static offline lookup, the same shape as the Lancaster norms. Whether an external distributional table is admissible under the foundation policy is an OPERATOR decision, deliberately not made in this cell."
+  },
+  "rho": {
+    "point": 0.3461645085962902,
+    "ci95": [
+      0.24027476703917316,
+      0.44651328147602887
+    ],
+    "n": 322
+  },
+  "floors": {
+    "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+    "A_ORTHOGRAPHIC": -0.016,
+    "SCRAMBLE_NULL_P95": 0.092
+  },
+  "frequency_channels_rho": {
+    "FREQ_NEG_ABS_DIFF": 0.0129,
+    "FREQ_SUM": 0.059,
+    "FREQ_MIN": 0.0797,
+    "FREQ_MIN_OVER_MAX": 0.0183
+  },
+  "orthographic_by_seed": {
+    "7": -0.016,
+    "17": -0.016,
+    "23": -0.016
+  },
+  "scramble_null": {
+    "n_permutations": 2000,
+    "what_is_permuted": "rows of this table",
+    "mean": -0.0016848993364988944,
+    "sd": 0.057188148333225816,
+    "p95": 0.09196654598492755,
+    "max": 0.18149950327256267,
+    "permutation_p_value": 0.0004997501249375312
+  },
+  "strongest_floor": "SCRAMBLE_NULL_P95",
+  "margin_over_strongest_floor": {
+    "point": 0.35111708957180054,
+    "ci95": [
+      0.20116256584739803,
+      0.49574424655366456
+    ],
+    "n": 322
+  },
+  "band": "ABOVE",
+  "clears_floor": true,
+  "head_to_head_vs_our_arms_same_322_pairs": {
+    "d12|ASSET_NORMS12": {
+      "our_rho": 0.2701,
+      "glove_minus_ours": {
+        "point": 0.07604171658624642,
+        "ci95": [
+          -0.047994471475920404,
+          0.20452358808164234
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED"
+    },
+    "d512|ASSET_RETRAIN_ISOL": {
+      "our_rho": 0.2581,
+      "glove_minus_ours": {
+        "point": 0.0880850233231888,
+        "ci95": [
+          -0.023493169114382532,
+          0.19886696931516415
+        ],
+        "n": 322
+      },
+      "band": "NOT_SEPARATED"
+    },
+    "d512|ASSET_V2_CTX": {
+      "our_rho": 0.2065,
+      "glove_minus_ours": {
+        "point": 0.1396973978395386,
+        "ci95": [
+          0.03010159246172517,
+          0.2529667329454997
+        ],
+        "n": 322
+      },
+      "band": "ABOVE"
+    },
+    "d512|ASSET_V2_ISOL": {
+      "our_rho": 0.189,
+      "glove_minus_ours": {
+        "point": 0.1571190454072362,
+        "ci95": [
+          0.05074610132431364,
+          0.2629692168059676
+        ],
+        "n": 322
+      },
+      "band": "ABOVE"
+    },
+    "d1024|ASSET_RI_SYMPAT": {
+      "our_rho": 0.0997,
+      "glove_minus_ours": {
+        "point": 0.24646589226089122,
+        "ci95": [
+          0.10776009309422954,
+          0.38249721558981997
+        ],
+        "n": 322
+      },
+      "band": "ABOVE"
+    },
+    "d512|P_LIVE_WORD": {
+      "our_rho": -0.0106,
+      "glove_minus_ours": {
+        "point": 0.35673962151780814,
+        "ci95": [
+          0.19621731549708357,
+          0.5138892377874182
+        ],
+        "n": 322
+      },
+      "band": "ABOVE"
+    }
+  },
+  "verdict": "RULER_CAN_DETECT_MEANING_AT_THIS_N",
+  "reading_rule": "If this arm clears and ours do not, the nulls are about OUR ASSETS and not about the population. If this arm also fails to clear, no conclusion about any asset is available from this population.",
+  "elapsed_s": 447.7,
+  "summary": "RULER_CAN_DETECT_MEANING_AT_THIS_N"
+}

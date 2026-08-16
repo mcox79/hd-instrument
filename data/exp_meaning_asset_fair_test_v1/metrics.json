@@ -1,0 +1,1655 @@
+{
+  "anchor_name": "meaning_asset_fair_test_v1",
+  "run_mode": "full",
+  "code_version": "v1.0",
+  "config_fingerprint": "53fd7ab1a5de79b6",
+  "verdict": "ASSET_CLEARS_THE_STRONGEST_FLOOR",
+  "verdict_msg": "Do the built-but-unwired meaning assets clear the strongest floor CI-separated on the structure axis? -> ASSET_CLEARS_THE_STRONGEST_FLOOR",
+  "instrument": {
+    "module": "experiments/exp_encoding_quality_instrument_v2.py",
+    "commit_at_authoring": "542e1fc0d",
+    "edited": false
+  },
+  "config": {
+    "V": 4096,
+    "SEEDS": [
+      7,
+      17,
+      23
+    ],
+    "SIGMAS": [
+      1.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "N_SWEEP": [
+      128,
+      512,
+      1024,
+      4096
+    ],
+    "N_GATE": 1024,
+    "AP_PROBES": 1024,
+    "CORPUS_BYTES": 64000000,
+    "K_CTX": 8,
+    "CTX_HALFWIN": 10,
+    "N_BOOT": 10000,
+    "D_BLOCKS": [
+      512,
+      12
+    ]
+  },
+  "validity_gates": [
+    {
+      "gate_id": "REG1",
+      "claim": "P_LIVE_WORD d=256 reproduces published v2 seed-mean (max |delta|)",
+      "observed": -0.0,
+      "op": ">=",
+      "threshold": -1e-09,
+      "passed": true
+    },
+    {
+      "gate_id": "REG2a_d512",
+      "claim": "A_RANDOM_IID |simlex rho| <= 0.1 at d=512",
+      "observed": 0.011902884463030181,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "REG2b_d512",
+      "claim": "A_RANDOM_IID GOLD_ORTHO lift <= 1.15 at d=512",
+      "observed": 1.018028049469658,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": true
+    },
+    {
+      "gate_id": "REG3_d512",
+      "claim": "A_COLLAPSE recoverability <= 0.05 at d=512",
+      "observed": 0.001953125,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": true
+    },
+    {
+      "gate_id": "REG4_d512",
+      "claim": "A_ORTHOGRAPHIC GOLD_ORTHO lift >= 3.0 at d=512",
+      "observed": 118.12145812945681,
+      "op": ">=",
+      "threshold": 3.0,
+      "passed": true
+    },
+    {
+      "gate_id": "REG2a_d12",
+      "claim": "A_RANDOM_IID |simlex rho| <= 0.1 at d=12",
+      "observed": 0.023335917435320836,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "REG2b_d12",
+      "claim": "A_RANDOM_IID GOLD_ORTHO lift <= 1.15 at d=12",
+      "observed": 1.0303406944061166,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": true
+    },
+    {
+      "gate_id": "REG3_d12",
+      "claim": "A_COLLAPSE recoverability <= 0.05 at d=12",
+      "observed": 0.0006510416666666666,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": true
+    },
+    {
+      "gate_id": "REG4_d12",
+      "claim": "A_ORTHOGRAPHIC GOLD_ORTHO lift >= 3.0 at d=12",
+      "observed": 5.497015854393112,
+      "op": ">=",
+      "threshold": 3.0,
+      "passed": true
+    },
+    {
+      "gate_id": "REG5",
+      "claim": "loaded ckpt sha256 == recorded and != v3_relobj",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "gate_id": "REG6",
+      "claim": "CTRL_RANDINIT codes differ from ASSET_V2 codes",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true
+    }
+  ],
+  "validity_gates_all_passed": true,
+  "REG1_detail": {
+    "published_metrics": "data/exp_encoding_quality_instrument_v2/metrics.json",
+    "deltas": {
+      "simlex_rho": 0.0,
+      "lift_GOLD_ORTHO": 0.0,
+      "lift_GOLD_FREQBAND": 0.0,
+      "lift_GOLD_PLANTED": 0.0
+    },
+    "n_seeds": 3,
+    "published": {
+      "simlex_rho": -0.0019022491373113437,
+      "GOLD_ORTHO_lift": 0.9872234704170383
+    },
+    "recomputed": {
+      "simlex_rho": -0.0019022491373113437,
+      "GOLD_ORTHO_lift": 0.9872234704170383
+    }
+  },
+  "asset_provenance": {
+    "ASSET_V2": {
+      "path": "data/exp_scale_meaning_learn_arc_heldout_v2/ckpt_seed_7.pt",
+      "sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6",
+      "trained_tokens_per_seed": 121082196,
+      "corpus_tokens": 237700000,
+      "note": "121.1M-token encoder trained on a 237.7M-token corpus"
+    },
+    "ASSET_RETRAIN": {
+      "path": "data/exp_encoder_retrain_persist_v1/ckpt_seed_7.pt"
+    },
+    "REJECTED_WRONG_CKPT": {
+      "path": "data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt",
+      "sha256": "f03051248c26a756d09d0076697cb470b477405cbaa289376e4a876bef3cb17a",
+      "why": "correction C6: HARD_FAIL_ARCHITECTURE_BOUND"
+    },
+    "ASSET_NORMS12": {
+      "module": "hdlab/grounded_similarity.py"
+    }
+  },
+  "occurrence_index": {
+    "corpus": "data/corpora/simplewiki/simplewiki_clean_v1.txt",
+    "corpus_bytes": 64000000,
+    "lines_scanned": 688823,
+    "k_requested_per_word": 8,
+    "n_occurrences": 32768,
+    "n_words_short_of_k": 0,
+    "build_s": 5.8
+  },
+  "ctx_build_stats": {
+    "V2": {
+      "n_occurrences": 32768,
+      "n_words_with_zero_occurrences": 0,
+      "mean_occurrences_per_word": 8.0,
+      "n_span_resolution_failures": 0,
+      "elapsed_s": 1887.6
+    },
+    "RETRAIN": {
+      "n_occurrences": 32768,
+      "n_words_with_zero_occurrences": 0,
+      "mean_occurrences_per_word": 8.0,
+      "n_span_resolution_failures": 0,
+      "elapsed_s": 2286.2
+    },
+    "RANDINIT": {
+      "n_occurrences": 32768,
+      "n_words_with_zero_occurrences": 0,
+      "mean_occurrences_per_word": 8.0,
+      "n_span_resolution_failures": 0,
+      "elapsed_s": 1538.8
+    }
+  },
+  "norms_missing_in_vocab": 1474,
+  "per_arm": {
+    "d512|A_ORTHOGRAPHIC": {
+      "simlex_rho": 0.016884831527560016,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 118.12145812945681,
+      "GOLD_FREQBAND_lift": 1.002615902835614,
+      "GOLD_PLANTED_lift": 0.9953940930244757,
+      "sigma_half": 6.5057310239223325,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 5.227736640794942
+    },
+    "d512|A_FREQUENCY": {
+      "simlex_rho": 0.023609453315305118,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 0.9659256230253347,
+      "GOLD_FREQBAND_lift": 7.757182440718817,
+      "GOLD_PLANTED_lift": 0.9328470914487074,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.20442708333333334,
+      "bundling_bits_after_sum": 5.976647565951366
+    },
+    "d512|A_RANDOM_IID": {
+      "simlex_rho": 0.011902884463030181,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.018028049469658,
+      "GOLD_FREQBAND_lift": 1.0012957966228004,
+      "GOLD_PLANTED_lift": 0.9972603220018096,
+      "sigma_half": 6.73987751205532,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 6.999999999951706
+    },
+    "d512|A_COLLAPSE": {
+      "simlex_rho": 0.01784382016765611,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 0.992432565584541,
+      "GOLD_FREQBAND_lift": 0.9998306470119157,
+      "GOLD_PLANTED_lift": 1.0021136515849285,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.001953125,
+      "bundling_bits_after_sum": 0.06593905000621092
+    },
+    "d512|P_LIVE_WORD": {
+      "simlex_rho": -0.010575112921517894,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.0121242002252961,
+      "GOLD_FREQBAND_lift": 0.9992576293504735,
+      "GOLD_PLANTED_lift": 1.002352430785902,
+      "sigma_half": 6.6564049931278175,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 6.999999999951706
+    },
+    "d512|ASSET_V2_TOKEMB": {
+      "simlex_rho": 0.07825642266314932,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 16.803863531160864,
+      "GOLD_FREQBAND_lift": 1.0049424544566108,
+      "GOLD_PLANTED_lift": 1.0001805737717209,
+      "sigma_half": 6.750270259881513,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 6.72470175422742
+    },
+    "d512|ASSET_V2_ISOL": {
+      "simlex_rho": 0.18904546318905402,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 12.786202126502689,
+      "GOLD_FREQBAND_lift": 1.0305623840855753,
+      "GOLD_PLANTED_lift": 0.9943393811561855,
+      "sigma_half": 2.6739171852510872,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 0.0819584842871901
+    },
+    "d512|ASSET_V2_CTX": {
+      "simlex_rho": 0.20646711075675162,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 9.280423085882182,
+      "GOLD_FREQBAND_lift": 1.0337476360466133,
+      "GOLD_PLANTED_lift": 1.0005258211317969,
+      "sigma_half": 2.1441787079047305,
+      "recov_N_GATE_sigma1": 0.9934895833333334,
+      "bundling_bits_after_sum": 0.0819584842871901
+    },
+    "d512|ASSET_RETRAIN_TOKEMB": {
+      "simlex_rho": 0.07825642266314932,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 16.803863531160864,
+      "GOLD_FREQBAND_lift": 1.0049424544566108,
+      "GOLD_PLANTED_lift": 1.0001805737717209,
+      "sigma_half": 6.750270259881513,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 6.72470175422742
+    },
+    "d512|ASSET_RETRAIN_ISOL": {
+      "simlex_rho": 0.2580794852731014,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 12.36861718760513,
+      "GOLD_FREQBAND_lift": 1.0300995672187316,
+      "GOLD_PLANTED_lift": 0.9948591240608282,
+      "sigma_half": 5.314334610276543,
+      "recov_N_GATE_sigma1": 0.9993489583333334,
+      "bundling_bits_after_sum": 0.22492936296019828
+    },
+    "d512|ASSET_RETRAIN_CTX": {
+      "simlex_rho": 0.20267121632761373,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 9.736000423848997,
+      "GOLD_FREQBAND_lift": 1.037000683059862,
+      "GOLD_PLANTED_lift": 1.0005783244813184,
+      "sigma_half": 4.027331335272987,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 0.14203477996130864
+    },
+    "d512|CTRL_RANDINIT_TOKEMB": {
+      "simlex_rho": 0.009918820772885802,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 16.238691716061755,
+      "GOLD_FREQBAND_lift": 0.9997378369056307,
+      "GOLD_PLANTED_lift": 0.9998074087382234,
+      "sigma_half": 6.750049324580769,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 6.72470175422742
+    },
+    "d512|CTRL_RANDINIT_ISOL": {
+      "simlex_rho": 0.020747750413209434,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 14.030180781580329,
+      "GOLD_FREQBAND_lift": 1.0295414734068442,
+      "GOLD_PLANTED_lift": 1.0046844567567332,
+      "sigma_half": 5.284006533375858,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 1.7143746836495888
+    },
+    "d512|CTRL_RANDINIT_CTX": {
+      "simlex_rho": 0.029834820823041865,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 15.338991689457416,
+      "GOLD_FREQBAND_lift": 1.01244880600382,
+      "GOLD_PLANTED_lift": 1.0021047938225036,
+      "sigma_half": 6.046203075569463,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 1.8258401186921631
+    },
+    "d512|ASSET_V2_CTX_SHUFFLED": {
+      "simlex_rho": -0.042407047464579344,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 0.9143600207965372,
+      "GOLD_FREQBAND_lift": 1.0004221286841153,
+      "GOLD_PLANTED_lift": 0.9980040280092858,
+      "sigma_half": 2.1615236240804694,
+      "recov_N_GATE_sigma1": 0.9947916666666666,
+      "bundling_bits_after_sum": 0.07650303057188701
+    },
+    "d512|ASSET_RETRAIN_CTX_SHUFFLED": {
+      "simlex_rho": -0.020150716120628773,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 0.922468938034073,
+      "GOLD_FREQBAND_lift": 1.0002181986275558,
+      "GOLD_PLANTED_lift": 0.9974677015882807,
+      "sigma_half": 4.3293399249771225,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 0.15511174664439054
+    },
+    "d512|CTRL_RANDINIT_CTX_SHUFFLED": {
+      "simlex_rho": -0.021226767243970417,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.0118269185742998,
+      "GOLD_FREQBAND_lift": 1.000904332846441,
+      "GOLD_PLANTED_lift": 0.9997854607670286,
+      "sigma_half": 6.0162957762113365,
+      "recov_N_GATE_sigma1": 1.0,
+      "bundling_bits_after_sum": 1.5687017773766252
+    },
+    "d12|A_ORTHOGRAPHIC": {
+      "simlex_rho": 0.06471002935279768,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 5.497015854393112,
+      "GOLD_FREQBAND_lift": 0.9985008928795481,
+      "GOLD_PLANTED_lift": 1.0039558457916848,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.18880208333333334,
+      "bundling_bits_after_sum": 0.1168836818019372
+    },
+    "d12|A_FREQUENCY": {
+      "simlex_rho": 0.02602191277368593,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 0.9643825694301439,
+      "GOLD_FREQBAND_lift": 6.814336140176937,
+      "GOLD_PLANTED_lift": 0.9330103023101062,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.026041666666666668,
+      "bundling_bits_after_sum": 6.01741316366763
+    },
+    "d12|A_RANDOM_IID": {
+      "simlex_rho": -0.023335917435320836,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.0303406944061166,
+      "GOLD_FREQBAND_lift": 1.001593669254839,
+      "GOLD_PLANTED_lift": 0.9994863878729218,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.23046875,
+      "bundling_bits_after_sum": 0.19616564854813667
+    },
+    "d12|A_COLLAPSE": {
+      "simlex_rho": -0.010777969135249208,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.0361038539973635,
+      "GOLD_FREQBAND_lift": 1.0020256177388334,
+      "GOLD_PLANTED_lift": 1.001331930955987,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.0006510416666666666,
+      "bundling_bits_after_sum": 0.02152140051986784
+    },
+    "d12|P_LIVE_WORD": {
+      "simlex_rho": 0.005457697923654736,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.0253083582384448,
+      "GOLD_FREQBAND_lift": 0.9967895605494941,
+      "GOLD_PLANTED_lift": 1.0030953740008464,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.18880208333333334,
+      "bundling_bits_after_sum": 0.21041544524931588
+    },
+    "d12|ASSET_NORMS12": {
+      "simlex_rho": 0.2701227920100438,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 3.4468823392519816,
+      "GOLD_FREQBAND_lift": 1.0112585248783295,
+      "GOLD_PLANTED_lift": 1.0027329853925766,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.171875,
+      "bundling_bits_after_sum": 0.07650303057188701
+    },
+    "d12|ASSET_NORMS12_SHUFFLED": {
+      "simlex_rho": 0.05379155567498054,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.0117183122197508,
+      "GOLD_FREQBAND_lift": 1.0015413903231372,
+      "GOLD_PLANTED_lift": 0.9967972655388344,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.17903645833333334,
+      "bundling_bits_after_sum": 0.1292863135105069
+    },
+    "d12|CTRL_CONCRETENESS_ONLY": {
+      "simlex_rho": -0.008734215000270792,
+      "simlex_pairs_covered": 322.0,
+      "GOLD_ORTHO_lift": 1.1727927820978425,
+      "GOLD_FREQBAND_lift": 1.0027930063034196,
+      "GOLD_PLANTED_lift": 0.997087577078613,
+      "sigma_half": 1.0,
+      "recov_N_GATE_sigma1": 0.134765625,
+      "bundling_bits_after_sum": 0.12304060652385473
+    }
+  },
+  "comparisons": {
+    "d512|ASSET_V2_TOKEMB": {
+      "arm": "ASSET_V2_TOKEMB",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 6.750270259881513,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.984375,
+          "8": 0.33984375,
+          "16": 0.02734375,
+          "32": 0.01171875
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.01236979166666663
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.07825642266314932,
+          "ci95": [
+            -0.030478624044852066,
+            0.18834210800213758
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118
+        },
+        "diff_vs_strongest_floor": {
+          "point": -0.013319867417315792,
+          "ci95": [
+            -0.15969693829893133,
+            0.13138852120212746
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 16.803863531160864,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -100.89573218072678,
+            "ci95": [
+              -108.73825745274604,
+              -93.57435463263033
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0049424544566108,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.7744456472051,
+            "ci95": [
+              -6.897317380062975,
+              -6.650418583096062
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0001805737717209,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": 0.004429374231165406,
+            "ci95": [
+              -0.004769941623382931,
+              0.013538576538997538
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 6.72470175422742,
+        "bits_destroyed_by_the_sum": 0.2752982457242865,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": true
+      },
+      "TRAINED_VS_RANDOM_INIT": {
+        "vs": "CTRL_RANDINIT_TOKEMB",
+        "simlex_diff": {
+          "point": 0.06833760189026351,
+          "ci95": [
+            0.01689285378738021,
+            0.11977695148262721
+          ],
+          "n": 322
+        },
+        "simlex_band": "ABOVE"
+      }
+    },
+    "d512|ASSET_V2_ISOL": {
+      "arm": "ASSET_V2_ISOL",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 2.6739171852510872,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.28515625,
+          "8": 0.03125,
+          "16": 0.00390625,
+          "32": 0.0
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.04817708333333334
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.18904546318905402,
+          "ci95": [
+            0.07675434401956338,
+            0.29524565555044396
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.09746917310858891,
+          "ci95": [
+            -0.055498452341261224,
+            0.24820529627483723
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 12.786202126502689,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -104.0547645498869,
+            "ci95": [
+              -112.03021881499957,
+              -96.63173190243697
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0305623840855753,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.750193123004656,
+            "ci95": [
+              -6.872746172931183,
+              -6.627624389531817
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 0.9943393811561855,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -0.005024057785652625,
+            "ci95": [
+              -0.013997700278644259,
+              0.0037851258649228663
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 0.0819584842871901,
+        "bits_destroyed_by_the_sum": 6.918041515664516,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": false
+      },
+      "TRAINED_VS_RANDOM_INIT": {
+        "vs": "CTRL_RANDINIT_ISOL",
+        "simlex_diff": {
+          "point": 0.1682977127758446,
+          "ci95": [
+            0.02933489339534759,
+            0.3043082773923177
+          ],
+          "n": 322
+        },
+        "simlex_band": "ABOVE"
+      }
+    },
+    "d512|ASSET_V2_CTX": {
+      "arm": "ASSET_V2_CTX",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 2.1441787079047305,
+        "recoverability_at_N_GATE": {
+          "1": 0.9921875,
+          "4": 0.08203125,
+          "8": 0.005859375,
+          "16": 0.00390625,
+          "32": 0.001953125
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.012369791666666657
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.20646711075675162,
+          "ci95": [
+            0.0997478040122889,
+            0.3109630145967303
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118,
+          "ASSET_V2_CTX_SHUFFLED": -0.042407047464579344
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.1148908206762865,
+          "ci95": [
+            -0.03383899506629211,
+            0.2642935401707832
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 9.280423085882182,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347,
+            "ASSET_V2_CTX_SHUFFLED": 0.9143600207965372
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -106.99048168081836,
+            "ci95": [
+              -115.08444282865443,
+              -99.48934900751159
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0337476360466133,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817,
+            "ASSET_V2_CTX_SHUFFLED": 1.0004221286841153
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.745289254800571,
+            "ci95": [
+              -6.869197763275884,
+              -6.621013495452097
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0005258211317969,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074,
+            "ASSET_V2_CTX_SHUFFLED": 0.9980040280092858
+          },
+          "strongest_floor": "ASSET_V2_CTX_SHUFFLED",
+          "diff_vs_strongest_floor": {
+            "point": 0.0008018062177667096,
+            "ci95": [
+              -0.0090102888965099,
+              0.010660216457104231
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 0.0819584842871901,
+        "bits_destroyed_by_the_sum": 6.918041515664516,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": false
+      },
+      "TRAINED_VS_RANDOM_INIT": {
+        "vs": "CTRL_RANDINIT_CTX",
+        "simlex_diff": {
+          "point": 0.17663228993370975,
+          "ci95": [
+            0.00046875578635109904,
+            0.3475060995991397
+          ],
+          "n": 322
+        },
+        "simlex_band": "ABOVE"
+      }
+    },
+    "d512|ASSET_RETRAIN_TOKEMB": {
+      "arm": "ASSET_RETRAIN_TOKEMB",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 6.750270259881513,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.984375,
+          "8": 0.33984375,
+          "16": 0.02734375,
+          "32": 0.01171875
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.01236979166666663
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.07825642266314932,
+          "ci95": [
+            -0.030478624044852066,
+            0.18834210800213758
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118
+        },
+        "diff_vs_strongest_floor": {
+          "point": -0.013319867417315792,
+          "ci95": [
+            -0.15969693829893133,
+            0.13138852120212746
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 16.803863531160864,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -100.89573218072678,
+            "ci95": [
+              -108.73825745274604,
+              -93.57435463263033
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0049424544566108,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.7744456472051,
+            "ci95": [
+              -6.897317380062975,
+              -6.650418583096062
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0001805737717209,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": 0.004429374231165406,
+            "ci95": [
+              -0.004769941623382931,
+              0.013538576538997538
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 6.72470175422742,
+        "bits_destroyed_by_the_sum": 0.2752982457242865,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": true
+      },
+      "TRAINED_VS_RANDOM_INIT": {
+        "vs": "CTRL_RANDINIT_TOKEMB",
+        "simlex_diff": {
+          "point": 0.06833760189026351,
+          "ci95": [
+            0.01689285378738021,
+            0.11977695148262721
+          ],
+          "n": 322
+        },
+        "simlex_band": "ABOVE"
+      }
+    },
+    "d512|ASSET_RETRAIN_ISOL": {
+      "arm": "ASSET_RETRAIN_ISOL",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 5.314334610276543,
+        "recoverability_at_N_GATE": {
+          "1": 0.998046875,
+          "4": 0.75,
+          "8": 0.123046875,
+          "16": 0.01953125,
+          "32": 0.0078125
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.056640625000000056
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.2580794852731014,
+          "ci95": [
+            0.14674125267760174,
+            0.36206564189679374
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.16650319519263632,
+          "ci95": [
+            0.016053852350090485,
+            0.312945954221259
+          ],
+          "n": 322
+        },
+        "band": "ABOVE",
+        "clears_floor": true
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 12.36861718760513,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -104.34801630798073,
+            "ci95": [
+              -112.37197570210238,
+              -96.8809375455824
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0300995672187316,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.750611312255861,
+            "ci95": [
+              -6.873577832304519,
+              -6.627770285026253
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 0.9948591240608282,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -0.0017260409657121611,
+            "ci95": [
+              -0.010851958909357404,
+              0.007137001711545925
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 0.22492936296019828,
+        "bits_destroyed_by_the_sum": 6.775070636991508,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": false
+      },
+      "TRAINED_VS_RANDOM_INIT": {
+        "vs": "CTRL_RANDINIT_ISOL",
+        "simlex_diff": {
+          "point": 0.237331734859892,
+          "ci95": [
+            0.10272929785630701,
+            0.37035727719640354
+          ],
+          "n": 322
+        },
+        "simlex_band": "ABOVE"
+      }
+    },
+    "d512|ASSET_RETRAIN_CTX": {
+      "arm": "ASSET_RETRAIN_CTX",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 4.027331335272987,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.4765625,
+          "8": 0.0859375,
+          "16": 0.009765625,
+          "32": 0.0
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.064453125
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.2026712163276137,
+          "ci95": [
+            0.09253589315050399,
+            0.3076539650336427
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118,
+          "ASSET_RETRAIN_CTX_SHUFFLED": -0.020150716120628773
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.11109492624714859,
+          "ci95": [
+            -0.03976198673471909,
+            0.2626709194901624
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 9.736000423848997,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347,
+            "ASSET_RETRAIN_CTX_SHUFFLED": 0.922468938034073
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -106.92415556945365,
+            "ci95": [
+              -114.96180893357109,
+              -99.41841803005923
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.037000683059862,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817,
+            "ASSET_RETRAIN_CTX_SHUFFLED": 1.0002181986275558
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.742421758192407,
+            "ci95": [
+              -6.8662428587627975,
+              -6.618395486967357
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0005783244813184,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074,
+            "ASSET_RETRAIN_CTX_SHUFFLED": 0.9974677015882807
+          },
+          "strongest_floor": "ASSET_RETRAIN_CTX_SHUFFLED",
+          "diff_vs_strongest_floor": {
+            "point": 0.003490459865075568,
+            "ci95": [
+              -0.0061966929320874335,
+              0.013115843283157616
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 0.14203477996130864,
+        "bits_destroyed_by_the_sum": 6.8579652199903975,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": false
+      },
+      "TRAINED_VS_RANDOM_INIT": {
+        "vs": "CTRL_RANDINIT_CTX",
+        "simlex_diff": {
+          "point": 0.17283639550457183,
+          "ci95": [
+            -0.003034039188138839,
+            0.34296654661200043
+          ],
+          "n": 322
+        },
+        "simlex_band": "NOT_SEPARATED"
+      }
+    },
+    "d512|CTRL_RANDINIT_TOKEMB": {
+      "arm": "CTRL_RANDINIT_TOKEMB",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 6.750049324580769,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.986328125,
+          "8": 0.330078125,
+          "16": 0.04296875,
+          "32": 0.013671875
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.02213541666666663
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.009918820772885802,
+          "ci95": [
+            -0.0997615251181103,
+            0.12140919698864563
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118
+        },
+        "diff_vs_strongest_floor": {
+          "point": -0.0816574693075793,
+          "ci95": [
+            -0.22340681414853866,
+            0.06266179578637396
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 16.238691716061755,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -101.36518898615748,
+            "ci95": [
+              -109.2467811892625,
+              -94.02190876666772
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 0.9997378369056307,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.780477697590179,
+            "ci95": [
+              -6.9033585140271105,
+              -6.6569696580816435
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 0.9998074087382234,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": 0.003296693695545194,
+            "ci95": [
+              -0.005911219317191424,
+              0.012484672652248412
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 6.72470175422742,
+        "bits_destroyed_by_the_sum": 0.2752982457242865,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": true
+      },
+      "TRAINED_VS_RANDOM_INIT": null
+    },
+    "d512|CTRL_RANDINIT_ISOL": {
+      "arm": "CTRL_RANDINIT_ISOL",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 5.284006533375858,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.740234375,
+          "8": 0.140625,
+          "16": 0.01171875,
+          "32": 0.005859375
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.0013020833333332593
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.020747750413209434,
+          "ci95": [
+            -0.08342334657681169,
+            0.12548994178584835
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118
+        },
+        "diff_vs_strongest_floor": {
+          "point": -0.07082853966725568,
+          "ci95": [
+            -0.21155418532247933,
+            0.06894516539313107
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 14.030180781580329,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -102.94640520686106,
+            "ci95": [
+              -110.81558597305501,
+              -95.64186887870875
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0295414734068442,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.752827287947683,
+            "ci95": [
+              -6.877057352459946,
+              -6.627955373441025
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0046844567567332,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": 0.01088553077699661,
+            "ci95": [
+              0.0014213618498200105,
+              0.020261205956637208
+            ],
+            "n": 1024
+          },
+          "band": "ABOVE"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 1.7143746836495888,
+        "bits_destroyed_by_the_sum": 5.285625316302117,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": true
+      },
+      "TRAINED_VS_RANDOM_INIT": null
+    },
+    "d512|CTRL_RANDINIT_CTX": {
+      "arm": "CTRL_RANDINIT_CTX",
+      "d": 512,
+      "IDENTITY": {
+        "sigma_half": 6.046203075569463,
+        "recoverability_at_N_GATE": {
+          "1": 1.0,
+          "4": 0.919921875,
+          "8": 0.21484375,
+          "16": 0.01953125,
+          "32": 0.01171875
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.0
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.029834820823041865,
+          "ci95": [
+            -0.08307576746065666,
+            0.142622569719681
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_FREQUENCY",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.016884831527560016,
+          "A_FREQUENCY": 0.023609453315305118,
+          "CTRL_RANDINIT_CTX_SHUFFLED": -0.021226767243970417
+        },
+        "diff_vs_strongest_floor": {
+          "point": -0.06174146925742324,
+          "ci95": [
+            -0.2216934642767728,
+            0.10166543465221921
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 15.338991689457416,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 118.12145812945681,
+            "A_FREQUENCY": 0.9659256230253347,
+            "CTRL_RANDINIT_CTX_SHUFFLED": 1.0118269185742998
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -102.48053851813428,
+            "ci95": [
+              -110.33864427655267,
+              -95.18098447678638
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.01244880600382,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.002615902835614,
+            "A_FREQUENCY": 7.757182440718817,
+            "CTRL_RANDINIT_CTX_SHUFFLED": 1.000904332846441
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -6.770098155358061,
+            "ci95": [
+              -6.889848790792984,
+              -6.6499729568036425
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0021047938225036,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9953940930244757,
+            "A_FREQUENCY": 0.9328470914487074,
+            "CTRL_RANDINIT_CTX_SHUFFLED": 0.9997854607670286
+          },
+          "strongest_floor": "CTRL_RANDINIT_CTX_SHUFFLED",
+          "diff_vs_strongest_floor": {
+            "point": -0.003228094673259574,
+            "ci95": [
+              -0.012986094508114818,
+              0.00654853343571308
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 6.999999999951706,
+        "bits_after_sum_S3": 1.8258401186921631,
+        "bits_destroyed_by_the_sum": 5.174159881259543,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": true
+      },
+      "TRAINED_VS_RANDOM_INIT": null
+    },
+    "d12|ASSET_NORMS12": {
+      "arm": "ASSET_NORMS12",
+      "d": 12,
+      "IDENTITY": {
+        "sigma_half": 1.0,
+        "recoverability_at_N_GATE": {
+          "1": 0.1796875,
+          "4": 0.0078125,
+          "8": 0.00390625,
+          "16": 0.001953125,
+          "32": 0.0
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.005208333333333329
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.2701227920100438,
+          "ci95": [
+            0.1604336792630507,
+            0.371214092815251
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_ORTHOGRAPHIC",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.06471002935279768,
+          "A_FREQUENCY": 0.02602191277368593,
+          "ASSET_NORMS12_SHUFFLED": 0.05379155567498054
+        },
+        "diff_vs_strongest_floor": {
+          "point": 0.20541276265724612,
+          "ci95": [
+            0.054363220485200626,
+            0.35364935328831154
+          ],
+          "n": 322
+        },
+        "band": "ABOVE",
+        "clears_floor": true
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 3.4468823392519816,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 5.497015854393112,
+            "A_FREQUENCY": 0.9643825694301439,
+            "ASSET_NORMS12_SHUFFLED": 1.0117183122197508
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -1.3371032763540431,
+            "ci95": [
+              -2.2719715357702803,
+              -0.34905455272113894
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0112585248783295,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9985008928795481,
+            "A_FREQUENCY": 6.814336140176937,
+            "ASSET_NORMS12_SHUFFLED": 1.0015413903231372
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -5.647736097490295,
+            "ci95": [
+              -5.8025439250144135,
+              -5.495307165310316
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 1.0027329853925766,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.0039558457916848,
+            "A_FREQUENCY": 0.9330103023101062,
+            "ASSET_NORMS12_SHUFFLED": 0.9967972655388344
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -0.006014331865543676,
+            "ci95": [
+              -0.01601952487901008,
+              0.004033399494042493
+            ],
+            "n": 1024
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 2.7830603977381614,
+        "bits_after_sum_S3": 0.07650303057188701,
+        "bits_destroyed_by_the_sum": 2.7065573671662744,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": false
+      },
+      "TRAINED_VS_RANDOM_INIT": null
+    },
+    "d12|CTRL_CONCRETENESS_ONLY": {
+      "arm": "CTRL_CONCRETENESS_ONLY",
+      "d": 12,
+      "IDENTITY": {
+        "sigma_half": 1.0,
+        "recoverability_at_N_GATE": {
+          "1": 0.15625,
+          "4": 0.009765625,
+          "8": 0.001953125,
+          "16": 0.005859375,
+          "32": 0.00390625
+        },
+        "disc_ortho_minus_disc_freq_at_sigma8": 0.0026041666666666644
+      },
+      "STRUCTURE_SEMANTIC_SIMLEX": {
+        "arm_rho": {
+          "point": 0.000911459725972545,
+          "ci95": [
+            -0.10776946314300448,
+            0.11101182856987177
+          ],
+          "n": 322
+        },
+        "strongest_floor": "A_ORTHOGRAPHIC",
+        "floor_rho_by_arm": {
+          "A_ORTHOGRAPHIC": 0.06471002935279768,
+          "A_FREQUENCY": 0.02602191277368593
+        },
+        "diff_vs_strongest_floor": {
+          "point": -0.06379856962682513,
+          "ci95": [
+            -0.22041778349336952,
+            0.09578267233204642
+          ],
+          "n": 322
+        },
+        "band": "NOT_SEPARATED",
+        "clears_floor": false
+      },
+      "STRUCTURE_GOLDS": {
+        "GOLD_ORTHO": {
+          "arm_lift": 1.1727927820978425,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 5.497015854393112,
+            "A_FREQUENCY": 0.9643825694301439
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -3.7029770781582902,
+            "ci95": [
+              -4.421074151618141,
+              -3.0253737815544546
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_FREQBAND": {
+          "arm_lift": 1.0027930063034196,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 0.9985008928795481,
+            "A_FREQUENCY": 6.814336140176937
+          },
+          "strongest_floor": "A_FREQUENCY",
+          "diff_vs_strongest_floor": {
+            "point": -5.6573998196065025,
+            "ci95": [
+              -5.81152898049371,
+              -5.504958920442902
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        },
+        "GOLD_PLANTED": {
+          "arm_lift": 0.997087577078613,
+          "floor_lift_by_arm": {
+            "A_ORTHOGRAPHIC": 1.0039558457916848,
+            "A_FREQUENCY": 0.9330103023101062
+          },
+          "strongest_floor": "A_ORTHOGRAPHIC",
+          "diff_vs_strongest_floor": {
+            "point": -0.012556388165550714,
+            "ci95": [
+              -0.021902660318497275,
+              -0.00304017416967761
+            ],
+            "n": 1024
+          },
+          "band": "BELOW"
+        }
+      },
+      "BUNDLING": {
+        "bits_before_sum_S2": 2.3837014254124806,
+        "bits_after_sum_S3": 0.12304060652385473,
+        "bits_destroyed_by_the_sum": 2.260660818888626,
+        "ceiling_bits": 7.0,
+        "retained_ge_half_bit": false
+      },
+      "TRAINED_VS_RANDOM_INIT": null
+    }
+  },
+  "elapsed_s": 7228.5,
+  "summary": "Do the built-but-unwired meaning assets clear the strongest floor CI-separated on the structure axis? -> ASSET_CLEARS_THE_STRONGEST_FLOOR"
+}

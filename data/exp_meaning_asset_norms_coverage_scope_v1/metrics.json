@@ -1,0 +1,101 @@
+{
+  "anchor_name": "meaning_asset_norms_coverage_scope_v1",
+  "run_mode": "full",
+  "scope_disclaimer": "SCOPE-RESTRICTED. The COVERED_BOTH population is the subset of the instrument's 322 SimLex pairs where BOTH words are in the norm table. It is NOT the like-for-like instrument population and its numbers may not be quoted as the headline result.",
+  "verdict": "NORMS_DO_NOT_CLEAR_ON_THE_POPULATION_THEY_COVER",
+  "coverage": {
+    "norm_table_words": 36810,
+    "instrument_vocab": 4096,
+    "instrument_vocab_covered": 2622,
+    "instrument_vocab_covered_fraction": 0.6401,
+    "instrument_pairs_total": 322,
+    "instrument_pairs_both_covered": 322,
+    "instrument_pairs_both_covered_fraction": 1.0,
+    "instrument_pairs_FULLY_covered_so_no_OOV_dilution": true,
+    "whole_simlex999_pairs_both_covered": 999,
+    "whole_simlex999_pairs_both_covered_fraction": 1.0,
+    "oov_policy_in_the_fair_test": "missing words get a 1e-3 gaussian vector, then L2 normalised -- a random direction, i.e. no signal"
+  },
+  "populations": {
+    "ALL_322_like_for_like": {
+      "n_pairs": 322,
+      "frequency_channels_rho": {
+        "FREQ_NEG_ABS_DIFF": 0.0129,
+        "FREQ_SUM": 0.059,
+        "FREQ_MIN": 0.0797,
+        "FREQ_MIN_OVER_MAX": 0.0183
+      },
+      "floor_rho_by_arm": {
+        "HARDENED_FREQUENCY_FREQ_MIN": 0.0797,
+        "A_ORTHOGRAPHIC": 0.0647,
+        "OWN_SCRAMBLE": 0.1152
+      },
+      "strongest_floor": "OWN_SCRAMBLE",
+      "arms": {
+        "ASSET_NORMS12": {
+          "rho": {
+            "point": 0.2701227920100438,
+            "ci95": [
+              0.1604336792630507,
+              0.371214092815251
+            ],
+            "n": 322
+          },
+          "margin_over_strongest_floor": {
+            "point": 0.15488564831093882,
+            "ci95": [
+              -0.007103793258421187,
+              0.3100500966025942
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false
+        },
+        "CTRL_CONCRETENESS_ONLY": {
+          "rho": {
+            "point": 0.000911459725972545,
+            "ci95": [
+              -0.10776946314300448,
+              0.11101182856987177
+            ],
+            "n": 322
+          },
+          "margin_over_strongest_floor": {
+            "point": -0.11432568397313243,
+            "ci95": [
+              -0.26840398645526775,
+              0.04160022297990319
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false
+        },
+        "P_LIVE_WORD": {
+          "rho": {
+            "point": 0.005457697923654736,
+            "ci95": [
+              -0.10442220808450921,
+              0.11304625705258838
+            ],
+            "n": 322
+          },
+          "margin_over_strongest_floor": {
+            "point": -0.10977944577545025,
+            "ci95": [
+              -0.2535149381386156,
+              0.034559794977261186
+            ],
+            "n": 322
+          },
+          "band": "NOT_SEPARATED",
+          "clears_floor": false
+        }
+      }
+    }
+  },
+  "reading_rule": "COVERED_BOTH says what the asset is worth WHERE IT SPEAKS. Coverage says how often it speaks at all. A ceiling claim needs both: a high covered-subset score on a low-coverage asset still caps the system.",
+  "elapsed_s": 162.5,
+  "summary": "NORMS_DO_NOT_CLEAR_ON_THE_POPULATION_THEY_COVER"
+}
