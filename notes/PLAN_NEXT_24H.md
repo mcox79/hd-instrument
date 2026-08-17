@@ -32,6 +32,25 @@ of the handoff -- see `notes/STATUS.md` CORRECTIONS and `notes/STATUS_LESSONS.md
 
 ---
 
+**UPDATE, LATER STILL THE SAME DAY (2026-08-17, THIRD audit/docs-only pass, at HEAD `30cc1fd8a`).**
+**ITEM 3 IS DONE AND IT IS A NULL, AND FOUR MORE RESULTS LANDED BEHIND IT.** Every figure was
+re-derived from the named `metrics.json` with `.venv` python by this pass. This pass authored no
+experiment cell, ran none, dispatched nobody, and opened neither `experiments/` nor `hdlab/`.
+
+| result | landed | what fired | what it settles |
+|---|---|---|---|
+| **ITEM 3** sparse address / regime switch, uncompressed base | `2e5a467ae` | **stop-if (i)** | **A CLEAN NULL. "Neither capability nor efficiency."** No arm beat the flat store; the sparsified arms LOST accuracy rather than matching it more cheaply |
+| the basin explanation for the cleanup nulls | landed 08-16 22:41, **read 08-17** | its own pre-registered REFUTING pattern | **REFUTED.** Lift separates ABOVE only in the LOWEST-tau stratum. Licensed skipping a settle mechanism -- DO-NOT-REDO 45 |
+| the compression diagnosis | `201776cc9` | **stop-if (ii)** | **PRESENCE BEATS COUNTS.** Binarising the cue is +0.0383 over the incumbent; the defect is magnitude, not sparsity or sign |
+| **binarised read-out transfer** | `1e085d761` | **stop-if (ii)** | **IT DOES NOT TRANSFER. ADDRESSING AND READ-OUT ARE SEPARATELY CAPPED.** The single most consequential of the five |
+| the paradigmatic **WRITE RULE** | `a8fdc968f` / `24ca42661` | **none cleanly** | **THE FIRST ARM IN THE PROGRAMME TO MOVE READ-OUT AT ALL**, and the first that changed the WRITE instead of the COMPARATOR |
+
+**THE CONSEQUENCE FOR THIS PLAN: CUE-SIDE ENGINEERING IS CLOSED (section 4 is rewritten around the
+write rule), and correction C36 is filed against the phase-diagram note's d-sweep row and against the
+correction that was already filed against it.**
+
+---
+
 **EVIDENCE CLASSES, never merged.** Every figure below is marked **RECOMPUTED** (this pass opened
 the artifact and re-derived it with `.venv` python), **ON DISK** (the artifact records it and this
 pass read the field), or **AGENT MEASUREMENT** (exists only in another actor's fragment; attributed,
@@ -302,7 +321,7 @@ inspecting or polling any process.
 | `exp_cleanup_memory_capability_v1` | landed 08-16 22:38 | read in 2.2(b) |
 | `exp_sparse_address_dense_value_v1` | landed 08-16 22:56 | read in 2.2(c) |
 | `exp_surprise_weighted_update_v1` | landed 08-16 22:24 | read in 2.2(d) |
-| `exp_cleanup_basin_conditional_v1` | landed 08-16 22:41 | **NOT YET READ by anyone. Read it before designing ITEM 3's basin arms.** |
+| `exp_cleanup_basin_conditional_v1` | landed 08-16 22:41 | **READ 2026-08-17 -- ~14 hours after it landed.** Twice and independently: by the ITEM 3 cell author before arming its settle arm, and by the third docs pass off the metrics file. **IT REFUTES THE BASIN EXPLANATION** -- section 4, ITEM 3, and DO-NOT-REDO 45. |
 | `exp_target_space_vs_bridge_mechanism_v1` | SMOKE only; the FULL directory does not exist | parked, section 5 |
 
 **RESOLVED 2026-08-17 (later pass).** The two agents that had stopped mid-task on a denied fragment
@@ -567,6 +586,132 @@ convenient) -> the can-fail design -> the floor -> the stop-if -> the runner -> 
   EFFICIENCY, not capability, and must be reported in those words -- and **the phase-diagram pass
   (`32cc8ce71`) says the `d=256 -> 1024` raise is justified for the comparison job and NOT for the
   addressing job, so dimensionality here is a swept variable and not an adopted setting.**
+- **STATUS: DONE, 2026-08-17, commit `2e5a467ae`. IT IS A CLEAN NULL.** All figures below RECOMPUTED
+  from `data/exp_sparse_address_regime_switch_uncompressed_v1/metrics.json` by the third docs pass,
+  not taken from the cell's findings note or its verdict string. Findings note:
+  `notes/sparse_address_regime_switch_uncompressed_v1_findings_2026-08-17.md`.
+  - **WHICH STOP-IF FIRED: (i)**, recorded in the cell as
+    `i_ADDRESS_NOT_ARCHITECTURE_IS_THE_LIMIT_for_T1`. `T1_SPARSE_KEY_DENSE_VALUE` loses to
+    `A0_FLAT` CI-separated while `K1_ORACLE_ADDRESS` passes -- **the address, not the store's
+    architecture, is the limit.**
+  - Addressing accuracy, partial cue, n=3,994 over 5,491 anchors, chance 0.000182:
+    `A0_FLAT` **0.0849** (and the regression gate against ITEM 1's target PASSES exactly:
+    measured 0.0849, expected 0.0849, tol 0.006); `T1` (key truncated to 32) **0.0704**, margin
+    **-0.0145 [-0.0203, -0.0088]**, half-width 0.0057, **BELOW**; `T2_REGIME_SWITCH` (cue truncated
+    to 8) **0.0886**, which is **the grid's raw maximum** and yet **+0.0037 [-0.0013, +0.0088],
+    half-width 0.0051, NOT_SEPARATED**; `T2` vs `T1` **+0.0182 [+0.0118, +0.0248] ABOVE**;
+    `K1_ORACLE_ADDRESS` **1.0000** (gate 0.999) and `N1_RANDOM_ADDRESS` **0.0000** against chance
+    0.000182, both passing independently.
+  - **THE VERDICT, IN THE CELL'S OWN WORDS, QUOTED RATHER THAN PARAPHRASED:** *"Neither, cleanly.
+    This item did not buy a second capability win beyond item 1's (T2 vs A0_FLAT is NOT_SEPARATED,
+    not a beat) and it did not buy a clean efficiency win either (T1/C1, the genuinely
+    sparsified-key arms, LOSE accuracy CI-separated rather than matching it at lower cost)."*
+    **NEITHER CAPABILITY NOR EFFICIENCY. No arm beat the flat store, and the sparsified arms lost
+    accuracy rather than matching it more cheaply.** Stop-if (iv)'s "efficiency, not capability"
+    wording does NOT apply and must not be used for this result.
+  - **THE CONSTRUCTION CAVEAT THAT MUST TRAVEL WITH THE C1 NUMBER.** `C1_SPARSE_BOTH` vs `T1` is
+    bit-identical, **0.0000 [0.0000, 0.0000]** -- which looks like a decisive answer to "is the
+    key/value distinction inert?" and is not one. T1's `K_WRITE=32` sits **above the cue's own median
+    nnz of 12.0 words** (`NNZ_PER_ROW.cue_median`), so truncating the cue at 32 changes nothing for
+    at least half the items. **The tie is partly a construction artifact.** The cell flags this
+    itself in `C1_CONSTRUCTION_CAVEAT`; the cleaner read of the same question is T1 vs T2, which move
+    in OPPOSITE directions. Do not quote the 0.0 without this sentence.
+  - Secondary hit@1 on the same population: every arm CI-separated BELOW the binding trigram floor
+    0.0871 (`A0_FLAT` 0.0240, -0.0631 [-0.0727, -0.0536]). Not a new negative.
+  - **THE SETTLE ARM WAS ARMED CHEAPLY AND CAME BACK NULL AS PREDICTED** by the basin cell:
+    `T1_SETTLED` vs `T1` **-0.0010 [-0.0025, +0.0003] NOT_SEPARATED**.
+
+---
+
+## 4b. THE LIVE FRONTIER AFTER ITEMS 1-3: THE WRITE RULE. CUE-SIDE ENGINEERING IS CLOSED.
+
+**Written by the third docs pass. THESE ARE NOT PRE-REGISTRATIONS.** This pass is audit/docs-only:
+it records what the landed evidence licenses and forbids, with the floors any such cell must clear.
+**The design, the arms and the stop-if list are the Director's and the cell author's to write** --
+nothing below is a dispatch, and no cell was authored here.
+
+### 4b.1 WHAT IS CLOSED, AND WHY IT IS CLOSED RATHER THAN MERELY UNPROMISING
+
+**CUE-SIDE ENGINEERING IS MEASURED, UNDERSTOOD AND EXHAUSTED.** In plain language: we have now tried
+every way we have of rewriting the QUESTION we hand the store, and the best of them makes the store
+much better at finding the right drawer and no better at reading what is in it.
+
+- Compress / don't compress (ITEM 1): uncompressed 0.0849 vs projected 0.0711, +0.0138 ABOVE.
+- Which property the compression destroys (`201776cc9`): **presence, not counts** -- `B1_BINARIZED_RAW`
+  **0.1094**, +0.0383 [+0.0293, +0.0476] over the incumbent and +0.0248 [+0.0160, +0.0338] over raw
+  counts; sparsity (`S1`) -0.0100 BELOW; non-negativity (`N1`) -0.0003 NOT_SEPARATED. The loss is
+  CONCENTRATED: the 93 items the projection loses have shorter cues (10.80 vs 12.48 words) and much
+  sparser store profiles (106.4 vs 210.8 distinct words), both CI-separated.
+- Sparsify the address, sparsify the cue, switch the regime (ITEM 3): the null above.
+- Settle the result against the cleanup organ: null, and the basin theory that motivated a bigger
+  version of it is refuted.
+- **And the decisive one (`1e085d761`): the biggest cue-side addressing gain we have -- +0.0383
+  [+0.0295, +0.0473] -- moves hit@1 by +0.0026 [-0.0026, +0.0078], NOT_SEPARATED.** Its stop-if (ii)
+  fired: **`ii_ADDRESSING_AND_READOUT_ARE_SEPARATELY_CAPPED`**, with
+  `does_fixing_addressing_fix_readout: "NO"` written into the metrics file. Binarising and then
+  projecting (`R2`) hands back two thirds of the addressing gain (-0.0260 [-0.0333, -0.0188] BELOW
+  R1), so **the two defects are not independent either.**
+
+**THE STANDING CONSEQUENCE: no further cell may be justified by an addressing gain.** The transfer
+from addressing to read-out is now measured at approximately zero on this population. A cue-side
+proposal must be scored DIRECTLY on hit@1 against all four floors recomputed on its own population,
+or it is not licensed. *(DO-NOT-REDO 44, 45, 46, each with its revival criterion.)*
+
+### 4b.2 WHAT IS OPEN, AND IT IS ONE THING: WHAT WE WRITE
+
+**THE ONE POSITIVE RESULT OF THE DAY IS ON THE WRITE SIDE, AND IT IS THE FIRST OF ITS KIND.**
+`exp_readout_writerule_paradigmatic_v1` (`a8fdc968f`, findings appended at
+`notes/readout_ceiling_findings_2026-08-17.md` section 10) rebuilt the STORE so that a word's code
+sums its neighbours' own context PROFILES rather than their arbitrary identity draws, and changed
+nothing about the comparator.
+
+- **`W1_PARADIGMATIC` 0.0298 vs `W0_SYNTAGMATIC` 0.0223: +0.0075 [+0.0023, +0.0128]**, CI half-width
+  0.00525, analytic null half-width at this n 0.00458, **ABOVE** -- about 34% relative.
+- **The controls hold.** Frequency-matched profile control 0.0225, **+0.0002 [-0.0048, +0.0053]
+  NOT_SEPARATED vs W0** -- the lift is not frequency wearing a costume. Random-profile permutation
+  null 0.0188, **-0.0035 [-0.0078, +0.0008] NOT_SEPARATED vs W0** -- numerically lower, not
+  CI-separated lower, and it should be stated that way rather than as "BELOW". Three hybrid alphas
+  land +0.0065 to +0.0070 ABOVE, so it is not one lucky configuration. `K1` addressing 1.0000 on all
+  seven arms. Orthographic leakage flat at W0's own value (0.02939 vs 0.02684, no CI reported --
+  descriptive, and adequate for its purpose).
+- **IT DOES NOT CLEAR A FLOOR AND THE CELL SAYS SO.** W1 is **-0.0575 [-0.0673, -0.0478] BELOW** its
+  own binding floor (orthographic 0.08731) -- **2.9x short**. **NO STOP-IF FIRED CLEANLY**, and the
+  cell recorded an honest fourth reading instead of forcing one: *"the write rule was PART of the
+  defect ... it is nowhere near enough. The write rule is not innocent, and it is not sufficient
+  either."*
+- **THE CONTRAST IS THE SESSION'S STRATEGIC FINDING.** The read-out scoreboard
+  (`notes/readout_ceiling_findings_2026-08-17.md` section 7) records ~39 read-out arms across two
+  cells, on the identical scorer / n / pool / gold, **NONE of which clears the binding floor and NONE
+  of which beats the incumbent CI-separated** -- CSLS x6, constant-channel subtraction x6, per-anchor
+  z-normalisation, divisive normalisation x12, second-order read-time profile x6, successor
+  representation x4, plus the incumbent. **Every one of them changed the COMPARATOR. This one changed
+  the WRITE RULE, and it is the first to beat the incumbent CI-separated.** *(Tally honesty: that
+  section's headline says 39 while its own family rows sum to 36. This pass did not re-enumerate; the
+  contrast, not the count, is what is load-bearing.)*
+
+**WHAT THE EVIDENCE LICENSES NEXT -- REPORTED, NOT DESIGNED HERE.** Three things follow from the
+landed numbers, and the Director owns which (if any) is dispatched:
+
+1. **Compose the two things that worked.** The one cue-side finding that survives is a WRITE-side
+   design constraint in disguise -- *presence, not counts* -- and the one read-out gain is a write-rule
+   change. They have never been run together. **An agent is already authoring a 2x2 composition in
+   `experiments/` as of this pass**; this file records the constraint that its write-up must satisfy:
+   the primary measure is hit@1 against `max(four floors)` recomputed on its own population, both tie
+   conventions, CI half-width and null p95 beside every margin, and an addressing gain may be
+   reported but may NOT be the claim.
+2. **The write rule's own revival question is brain-framed and not tool-framed.** W1 substitutes a
+   neighbour's PROFILE for a neighbour's IDENTITY. Which of those the brain writes is not settled by
+   this cell and should be asked before the next variant is chosen. *(Standing rule: which structure,
+   and are we replicating it or substituting something convenient.)*
+3. **The gap that remains is 2.9x and this cell does not explain it.** Nothing here licenses "the
+   write rule was the defect" in the strong form; the cell refuses that claim explicitly. The
+   shortlist-plus-verifier route (measured oracle ceiling 0.1715 at k=5 against the 0.1390 floor)
+   remains the untried structure named in the read-out diagnosis, and remains blocked on the owner's
+   word about a denied path.
+
+**WHAT IS NOT LICENSED:** another comparator variant (39 have failed), another cue representation
+(4b.1), a settle/attractor mechanism (DO-NOT-REDO 45), key sparsification (44), or any claim resting
+on an addressing number (46).
 
 ---
 
@@ -630,7 +775,16 @@ Carried forward unchanged. None is a research item.
 - **Not sparsifying the meaning VALUE, and not sparsifying the reading anchor.** Settled, with a
   theoretical reason: separation IS the deliberate destruction of similarity, so a code optimised to
   make two similar things orthogonal is optimised to make a similarity judgement impossible. Revive
-  only where the object being sparsified is an ADDRESS -- which is ITEM 3.
+  only where the object being sparsified is an ADDRESS -- **and as of 2026-08-17 not even there:
+  ITEM 3 measured key sparsification at -0.0145 [-0.0203, -0.0088] BELOW the flat store
+  (DO-NOT-REDO 44).**
+- **ADDED 2026-08-17: not spending another cell on the CUE.** Cue-side engineering is closed --
+  section 4b.1. The biggest addressing gain we have (+0.0383 CI-separated) transfers to read-out at
+  +0.0026 NOT_SEPARATED, and no proposal may be justified by an addressing number again
+  (DO-NOT-REDO 46).
+- **ADDED 2026-08-17: not building a settle / attractor-dynamics mechanism for the cleanup organ.**
+  The basin explanation is refuted on its own stratification (DO-NOT-REDO 45), and the one cheap
+  settle arm run anyway is null.
 - **Not making the cue lower-rank.** The theory says the cue should be DENSER than the store; our
   2.3x ratio is an under-mismatch on both sides.
 - **Not stirring the store.** Free clumping reached the owner's target (synonym cosine 0.1214 ->
@@ -664,6 +818,23 @@ with its CI half-width and null p95, never a bare number.
 5. **`data/exp_cleanup_basin_conditional_v1/metrics.json` is READ.** An unread run is a run that did
    not happen; the 47-foundation grid sat unread for hours and it carried the session's biggest
    finding.
+   **DONE 2026-08-17, about fourteen hours after it landed, and it REFUTED the theory it was built to
+   test** -- cleanup lift is CI-separated ABOVE only in the LOWEST-tau stratum (+0.0036
+   [+0.0009, +0.0072]) and NOT_SEPARATED in every higher one including the highest (+0.0154
+   [-0.0039, +0.0347]), with the known-answer arm at 1.0000 in all six strata. It saved an elaborate
+   settle mechanism and correctly predicted the one settle arm that was run. **The lesson is now a
+   standing one: reading landed artifacts is not the chore after the work, it IS the work.**
+
+**ADDED 2026-08-17 (third pass), because items 1-3 are all closed:**
+
+6. **The honest scoreboard for the day: one positive, four negatives, and the positive is on a side
+   we had never tested.** ITEM 3 null, the basin theory refuted, cue-side closed, the addressing/
+   read-out transfer measured at zero -- against **the first arm in the programme to move read-out**
+   (+0.0075 [+0.0023, +0.0128]), which changed the WRITE RULE rather than the comparator. **A day
+   that closes four roads and opens one is a good day, provided the four stay closed.**
+7. **Nothing quoted from today may cross the addressing / read-out boundary.** 0.1094 is an
+   ADDRESSING number and 0.0249 is its read-out; they are different scorers on the same population
+   and the whole point of `1e085d761` is that the first does not predict the second.
 
 **The honest position on timing, unchanged.** We are before step 1 of the long-term plan. The first
 moment this system does something a trivial baseline cannot is when the read-out clears the
@@ -682,17 +853,21 @@ COMPUTATION exactly, and treat the PARAMETER as a hypothesis.**
 
 ## 9. WHAT NEEDS CHANGING IN `notes/LONG_TERM_PLAN.md` -- REPORTED, NOT EDITED
 
-That file is **DIRECTOR-OWNED and was not opened for writing by this pass, nor by the later
-2026-08-17 pass.** Five things in it are now stale, in descending order of cost. **Items 1 and 2
-were re-checked on disk on 2026-08-17 and both are still unfixed at that date.**
+That file is **DIRECTOR-OWNED and was not opened for writing by this pass, nor by either later
+2026-08-17 pass.** **SEVEN** things in it are now stale, in descending order of cost -- items 1-5 from
+the earlier passes, items 6-7 added by the third pass on 2026-08-17. **Items 1 and 2 were re-checked
+on disk on 2026-08-17 and both are still unfixed at that date. Its item 0 hazard IS now fixed.**
+*(Numbering note: the earlier passes' item 5 -- the phase-diagram entry -- is now item 7, renumbered
+to keep the list contiguous when 5 and 6 were inserted ahead of it. Its text is unchanged and nothing
+was dropped.)*
 
-0. **BEFORE ANY OF THE BELOW: THE FILE HAS NEVER BEEN COMMITTED.** `git log -- notes/LONG_TERM_PLAN.md`
-   returns nothing and `git check-ignore` does not match it: **32,823 B of strategy exists in exactly
-   one uncommitted copy on disk.** That is the same state `PLAN_NEXT_24H.md` was in before it was
-   preserved verbatim at `da678875c`, and the same hazard class as the no-backup foundation stores.
-   **Commit it UNCHANGED first, then make the edits below** -- otherwise the first edit is also the
-   only version. This pass did not commit it because the file is Director-owned and this pass was
-   instructed not to touch it; the hazard is reported, not acted on.
+0. ~~**BEFORE ANY OF THE BELOW: THE FILE HAS NEVER BEEN COMMITTED.**~~ **RESOLVED 2026-08-17 at
+   commit `0c8d202d7`** ("notes: commit LONG_TERM_PLAN.md unchanged -- it had never been tracked").
+   Verified by the third pass: `git log -- notes/LONG_TERM_PLAN.md` now returns exactly that one
+   commit, and the working tree is clean against it at 32,823 B. **The hazard is closed and this
+   entry is kept, struck through rather than deleted, because it is the record of a near-miss:
+   32,823 B of strategy existed in a single uncommitted copy for the file's whole life.** The
+   staleness in items 1-7 below is NOT resolved.
 
 1. **ITS PHASE 2 KILL IS RECORDED AS FIRED, WITHOUT THE SUSPENSION THAT FOLLOWED IT.**
    `LONG_TERM_PLAN.md` line 343 carries the banner *">>> THIS KILL CONDITION FIRED, 2026-08-17. TWO
@@ -718,7 +893,25 @@ were re-checked on disk on 2026-08-17 and both are still unfixed at that date.**
    only"** is superseded by the owner's Q3 ruling (a foundation may be built however is efficient;
    only an LLM at inference is disqualifying) and by the measured consequence: **21 of 47 foundations
    clear the binding floor and every one of them is a static-table supply or fusion arm.**
-5. **ADDED 2026-08-17: anywhere the file treats a substrate setting as decided, it is leaning on a
+5. **ADDED 2026-08-17 (third pass): ITS STANDING INSTRUCTION TO SPARSIFY IS NOW MEASURED, AND IT
+   FAILED.** Line 390-391 reads *"Sparsify -- the brain is sparse and we are dense, and this is the
+   largest unexplored fidelity gap we have."* It is no longer unexplored:
+   `exp_sparse_address_regime_switch_uncompressed_v1` (full, `2e5a467ae`, n=3,994) puts key
+   sparsification at **-0.0145 [-0.0203, -0.0088] BELOW** the flat store with the oracle-address arm
+   at 1.0000, and cue sparsification at **+0.0037 NOT_SEPARATED**. The word "unexplored" should come
+   out and DO-NOT-REDO 44 with its revival criterion (sparsify only into an EXPANSION that does not
+   yet exist, and below the cue's own median nnz) should go in. **The brain-fidelity argument for
+   sparsity is untouched -- it is the parameter copy that failed, which is this week's own standing
+   rule 6 firing again: our worst results copy a NUMBER.**
+6. **ADDED 2026-08-17 (third pass): ITS "IF THE CUE DOES NOT CARRY THE IDENTITY" BRANCH IS RESOLVED,
+   AND IT RESOLVED THE OTHER WAY.** Lines 367-371 say the bridging null and the partial-cue null
+   *"may be one finding"* and route the diagnosis to PLAN item 1. **Item 1 landed** (`eec21487d`):
+   the cue DOES carry identity -- uncompressed count vectors address 0.0849 against the live
+   projection's 0.0711, +0.0138 CI-separated -- so the shared-upstream-cause hypothesis is NOT
+   supported in the form written, and the sentence should be updated rather than left as an open
+   diagnosis. **What replaces it is narrower and better evidenced: addressing and read-out are
+   SEPARATELY capped (`1e085d761`), so fixing the cue cannot fix the reading.**
+7. **ADDED 2026-08-17: anywhere the file treats a substrate setting as decided, it is leaning on a
    phase diagram that does not exist.** The recovery pass (`32cc8ce71`) enumerated 7,804 result
    files from the filesystem and found **23 of 42 parameter-by-operation squares never measured**,
    about 59 files varying dimensionality and about 21 varying sparsity, and six separate diagrams on
@@ -749,3 +942,30 @@ files, directory listings and mtimes, which is a read of an artifact.
 (this file, rewritten after committing the superseded version at `da678875c`),
 `notes/plan_status_compaction_report_2026-08-17.md`, and
 `C:\Users\marsh\.claude\projects\D--AI\memory\MEMORY.md`.
+
+---
+
+### DISCLOSURE FOR THE THIRD PASS (2026-08-17, this file's most recent edit)
+
+**No tool call was denied at any point in the third pass.** Nothing was retried as a variant and no
+step was silently skipped. No deletion token was issued, alone or bundled. No `git add -A` -- every
+path staged by name. No origin push. No subagent spawned. No experiment authored, smoked or
+dispatched. No process signalled, inspected or polled. No LLM in any path.
+
+**Every figure the third pass wrote was re-derived from the named `metrics.json` with
+`.venv/Scripts/python.exe`**, by enumerating the file's own keys -- not from a findings note, a
+verdict string, a commit message or another agent's report. Where a figure in circulation did not
+reproduce, it is named and corrected rather than dropped (C36, the N1 null's band, the "below every
+floor" phrasing, the 39-vs-36 arm tally).
+
+**Protected paths, read-only, none written by the third pass:** `notes/LONG_TERM_PLAN.md` (now
+tracked at `0c8d202d7`; its needed changes are REPORTED in section 9), `notes/verb_representation_*`
+(owned by a live agent), `experiments/**`, `hdlab/**` (a live agent is authoring a 2x2 write-rule
+composition there), `data/foundation/**` (never opened), `preregs/**`, `tools/**`,
+`data/capability_registry.jsonl`, `CLAUDE.md`.
+
+**Files written by the third pass:** `notes/STATUS.md`, `notes/STATUS_LESSONS.md`,
+`notes/PLAN_NEXT_24H.md` (this file), `notes/COMPACTION_HANDOFF_2026-08-17.md` (section 8d), and two
+one-line citation corrections in
+`notes/substrate_phase_diagram_recovered_from_experimental_history_2026-08-17.md` and
+`notes/cue_compression_property_diagnosis_v1_findings_2026-08-17.md` (C36).

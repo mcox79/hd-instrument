@@ -409,6 +409,164 @@ and "we have never been able to tell" are different claims, and only the second 
 
 ---
 
+## 8d. LANDED **AFTER** SECTION 8c -- FIVE MORE, AND THEY CLOSE THE CUE SIDE AND OPEN THE WRITE SIDE
+
+Written by a **third** audit/docs-only pass on 2026-08-17 (HEAD `30cc1fd8a`). **Every number in this
+section was re-derived from the named `metrics.json` with `.venv` python by that pass, by enumerating
+the file's own keys** -- none was taken from a findings note, a verdict string, a commit message or
+another agent's summary. That pass authored no experiment, ran none, dispatched nobody, and opened
+neither `experiments/` nor `hdlab/` for writing. Full detail for all five is in
+`notes/STATUS_LESSONS.md` under "CUE SIDE CLOSED" and "WRITE RULE".
+
+**READ THIS SECTION FIRST IF YOU READ ONLY ONE: the programme's blocker has MOVED.** Sections 8b and
+8c leave the reader believing the address side is the live question. **It is not, as of the five
+results below.** Four cells closed the cue side; one cell opened the write side.
+
+**(1) PLAN ITEM 3 IS DONE AND IT IS A CLEAN NULL -- "NEITHER CAPABILITY NOR EFFICIENCY".**
+`data/exp_sparse_address_regime_switch_uncompressed_v1/metrics.json`, commit `2e5a467ae`, findings
+`notes/sparse_address_regime_switch_uncompressed_v1_findings_2026-08-17.md`.
+
+Addressing accuracy, partial cue, n=3,994 over 5,491 anchors, chance 0.000182:
+
+| arm | K_WRITE / K_READ | value | vs `A0_FLAT` |
+|---|---|---|---|
+| `A0_FLAT` | ALL / ALL | **0.0849** | -- (reproduces ITEM 1's target exactly; regression gate PASS) |
+| `T1_SPARSE_KEY_DENSE_VALUE` | 32 / ALL | 0.0704 | **-0.0145 [-0.0203, -0.0088], hw 0.0057, BELOW** |
+| `T2_REGIME_SWITCH` | ALL / 8 | **0.0886** (grid maximum) | **+0.0037 [-0.0013, +0.0088], hw 0.0051, NOT_SEPARATED** |
+| `C1_SPARSE_BOTH` | 32 / 32 | 0.0704 | bit-identical to T1: 0.0 [0, 0] |
+| `K1_ORACLE_ADDRESS` | -- | **1.0000** | gate 0.999, PASS |
+| `N1_RANDOM_ADDRESS` | -- | **0.0000** | against chance 0.000182 |
+
+`T2` vs `T1` is **+0.0182 [+0.0118, +0.0248] ABOVE** -- sparsifying the CUE beats sparsifying the KEY,
+a direction and not a win. **STOP-IF (i) FIRED** (`i_ADDRESS_NOT_ARCHITECTURE_IS_THE_LIMIT_for_T1`).
+**The verdict in the cell's own words:** *"Neither, cleanly. This item did not buy a second capability
+win beyond item 1's ... and it did not buy a clean efficiency win either (T1/C1 ... LOSE accuracy
+CI-separated rather than matching it at lower cost)."* **No arm beat the flat store, and the
+sparsified arms lost accuracy rather than matching it more cheaply.**
+
+**THE CONSTRUCTION CAVEAT ON THE C1 TIE MUST NOT BE DROPPED.** T1's `K_WRITE=32` sits **above the
+cue's own median nnz of 12.0** (`NNZ_PER_ROW.cue_median`), so the cue truncation is a no-op for at
+least half the items -- **the bit-identical tie is partly a construction artifact and is NOT evidence
+that the key/value distinction is inert.** The cell flags this itself in `C1_CONSTRUCTION_CAVEAT`.
+
+**(2) THE BASIN EXPLANATION IS REFUTED, AND THE RUN THAT REFUTES IT WAS UNREAD FOR ~14 HOURS.**
+`data/exp_cleanup_basin_conditional_v1/metrics.json`, landed **2026-08-16T22:41**, first read on
+08-17. The organ's own basin cliff is between tau 0.20 and 0.30 (recovery 0.0667 -> 0.9493). Cleanup
+lift over no-cleanup, six tau strata summing to 3,994, known-answer arm **1.0000 in every stratum**:
+
+| stratum | n | lift | band |
+|---|---|---|---|
+| tau [-1.00, 0.05) | 1112 | **+0.0036 [+0.0009, +0.0072]** | **ABOVE** |
+| tau [0.05, 0.10) | 616 | +0.0016 [0.0000, +0.0049] | NOT_SEPARATED |
+| tau [0.10, 0.20) | 911 | +0.0022 [0.0000, +0.0055] | NOT_SEPARATED |
+| tau [0.20, 0.30) | 589 | -0.0000 [-0.0051, +0.0051] | NOT_SEPARATED |
+| tau [0.30, 0.45) | 507 | +0.0040 [-0.0059, +0.0138] | NOT_SEPARATED |
+| tau [0.45, 1.01) | 259 | +0.0154 [-0.0039, +0.0347] | NOT_SEPARATED |
+
+The one separation is in the **LOWEST**-tau stratum -- **the opposite of what the basin account
+predicts**, and the cell pre-registered that reading in advance (`PREREGISTERED_READ.how_to_read`:
+*"Flat everywhere, including where the organ's own recovery axis reads 1.0000, REFUTES it and is the
+more interesting result."*). **It licensed NOT building an elaborate settle mechanism**, and the one
+cheap settle arm run anyway came back exactly as predicted: -0.0010 [-0.0025, +0.0003] NOT_SEPARATED.
+Recorded as **DO-NOT-REDO 45** with a revival criterion (a cue distribution whose tau mass sits inside
+the measured basin -- only 6.5% of items reach tau >= 0.45 -- or a completer whose basin is re-measured
+where our cues already are). **PROCESS LESSON, second instance in two days: AN UNREAD RUN IS A RUN
+THAT DID NOT HAPPEN.**
+
+**(3) WHAT THE 256-DIM PROJECTION DESTROYS IS *MAGNITUDE*: PRESENCE BEATS COUNTS.**
+`data/exp_cue_compression_property_diagnosis_v1/metrics.json`, commit `201776cc9`. Same population,
+addressing accuracy, both regression gates PASS (C0 0.0711 exact; U0 0.0846 vs the landed 0.0849,
+inside tol 5e-4):
+
+- **`B1_BINARIZED_RAW` 0.1094: +0.0383 [+0.0293, +0.0476] ABOVE the projected incumbent, and +0.0248
+  [+0.0160, +0.0338] ABOVE uncompressed raw counts.** Recording only THAT a word occurred beats
+  recording how often, by more than the compression gap itself (284% of it).
+- `S1_SPARSE_HASH_PROJ` (exact zeros) **-0.0100 [-0.0160, -0.0040] BELOW**; `N1_NONNEG_PROJ`
+  (non-negativity) **-0.0003 [-0.0068, +0.0060] NOT_SEPARATED**. Between-draw SD 0.0019 / 0.0009,
+  both inside their CI half-widths.
+- **The loss is CONCENTRATED, not diffuse:** 93 items lost by the projection vs 39 gained; the lost
+  ones have shorter cues (**10.80 vs 12.48** distinct words, -1.69 [-2.73, -0.65]) and much sparser
+  store profiles (**106.4 vs 210.8**, -104.4 [-119.9, -88.4]), both CI-separated; item-level word
+  collision is NOT separated. **Caution for anyone reading the metrics file directly: the cell's own
+  `ITEM_LEVEL_LOSS_IS_CONCENTRATED` boolean reads `false` because it only recognises separations in
+  the ABOVE direction, and both real ones are BELOW. The boolean under-reports; the per-feature
+  margins are the source of truth.**
+- **This is a design constraint for the next encoder, not a capability claim** -- the cell says so.
+
+**(4) AND IT DOES NOT TRANSFER. ADDRESSING AND READ-OUT ARE SEPARATELY CAPPED. THIS IS THE MOST
+IMPORTANT OF THE FIVE.** `data/exp_cue_binarised_readout_transfer_v1/metrics.json`, commit
+`1e085d761`. Nine regression sub-gates against (3) all PASS.
+
+| arm | addressing | hit@1 (tie-corrected) |
+|---|---|---|
+| `R0_INCUMBENT` | 0.0711 | 0.0223 |
+| **`R1_BINARISED`** | **0.1094** (+0.0383 [+0.0295, +0.0473] **ABOVE**) | **0.0249** (**+0.0026 [-0.0026, +0.0078] NOT_SEPARATED**) |
+| `R2_BINARISED_PROJECTED` | 0.0834 (**-0.0260 [-0.0333, -0.0188] BELOW R1**) | 0.0205 (-0.0018 NOT_SEPARATED) |
+
+- **A 54% relative gain in finding the right drawer buys nothing measurable in reading what is
+  inside it.**
+- **The two defects are not independent:** binarise-then-project hands back two thirds of the
+  addressing gain.
+- Four floors recomputed on this population, partial-cue regime for scramble: orthographic **0.0873**,
+  frequency **0.0185**, scramble **0.0095**, constant/prototype **0.1390** -- **the constant floor
+  binds**, and R1 is **-0.1140 [-0.1257, -0.1024] BELOW** it. *(Precision, because a looser phrasing
+  is circulating: the arms are CI-separated below the TWO STRONGEST floors, not below all four --
+  R1 at 0.0249 is numerically above the frequency floor 0.0185 and the scramble floor 0.0095. The
+  gate is max(four floors) = 0.1390 and that is what they fail.)*
+- Orthographic-correlation check clean: r **-0.0037 [-0.0328, +0.0246] NOT_SEPARATED** over all 3,994
+  items, -0.037 NOT_SEPARATED on the 119 items with non-zero gain. The gain is not spelling in
+  costume.
+- **STOP-IF (ii) FIRED:** `ii_ADDRESSING_AND_READOUT_ARE_SEPARATELY_CAPPED`, with
+  `does_fixing_addressing_fix_readout: "NO"` written into the metrics file.
+
+**THE STRATEGIC CONSEQUENCE, AND IT IS THE HEADLINE OF THIS SECTION: CUE-SIDE ENGINEERING IS
+MEASURED, UNDERSTOOD AND EXHAUSTED. EVERY REMAINING ROAD RUNS THROUGH THE WRITE RULE.** Recorded as
+**DO-NOT-REDO 46**: no further cell may be justified by an addressing gain; a cue-side proposal must
+be scored directly on hit@1 against all four floors recomputed on its own population.
+
+**(5) THE WRITE RULE MOVED READ-OUT -- THE FIRST THING IN THE PROGRAMME THAT EVER HAS.**
+`data/exp_readout_writerule_paradigmatic_v1/metrics.json`, commits `a8fdc968f` / `24ca42661`,
+findings appended at `notes/readout_ceiling_findings_2026-08-17.md` section 10.
+
+The store was rebuilt so a word's code sums its neighbours' own context PROFILES instead of their
+arbitrary identity draws; the comparator was left alone.
+
+- **`W1_PARADIGMATIC` 0.0298 vs `W0_SYNTAGMATIC` 0.0223: +0.0075 [+0.0023, +0.0128]**, CI half-width
+  0.00525, analytic null half-width 0.00458, **ABOVE** (~34% relative).
+- Frequency-matched profile control **0.0225, +0.0002 [-0.0048, +0.0053] NOT_SEPARATED vs W0** -- not
+  a frequency effect. Random-profile null **0.0188, -0.0035 [-0.0078, +0.0008] NOT_SEPARATED vs W0**
+  -- numerically lower, **not CI-separated lower; state it that way.** Three hybrid alphas all
+  +0.0065..+0.0070 ABOVE. `K1` addressing 1.0000 on all seven arms; permuted null near chance on all
+  seven. Orthographic leakage flat at W0's own value (0.02939 vs 0.02684; no CI on that check).
+- **It is still 2.9x short of its own floor** -- W1 vs its binding orthographic floor 0.08731 is
+  **-0.0575 [-0.0673, -0.0478] BELOW**. **NO STOP-IF FIRED CLEANLY** and the cell recorded an honest
+  fourth reading instead of forcing one: *"the write rule was PART of the defect ... The write rule is
+  not innocent, and it is not sufficient either."*
+- **THE CONTRAST IS THE SESSION'S STRATEGIC FINDING, AND IT CORRECTS THE FRAME OF SECTION 8b(D).**
+  That section said *"the FORMAT costs a few points; the WRITE RULE puts the system below its own
+  constant floor"* -- true, and it now has a measured follow-up. The read-out scoreboard records
+  ~39 read-out arms across two cells, **NONE clearing the binding floor and NONE beating the incumbent
+  CI-separated**, and **every one of them changed the COMPARATOR** (CSLS x6, constant-channel
+  subtraction x6, per-anchor z-normalisation, divisive normalisation x12, second-order read-time
+  profile x6, successor representation x4, plus the incumbent). **This arm changed the WRITE RULE and
+  is the first to beat the incumbent CI-separated.** *(Tally honesty: that scoreboard's headline says
+  39 while its own family rows sum to 36; this pass did not re-enumerate the arms. The CONTRAST, not
+  the count, is load-bearing.)*
+- `wire_status` reads `VET_PENDING`; WIRE-or-SHELVE has not been decided.
+
+**(6) CORRECTION C36, FILED AGAINST THE PHASE-DIAGRAM NOTE AND AGAINST THE CORRECTION ALREADY FILED
+AGAINST IT.** The line *"d 256 -> 8192 moves partial-cue addressing 0.0711 -> 0.0716"* **mixes two
+read regimes**: on disk, at `a_write=1.0`, D=8192 reads **0.0716 with `a_read=0.2`** and **0.0709
+with `a_read=1.0`** (and 0.0709 symmetric), while the 256 and 2048 figures are `a_read=1.0`. Matched,
+the sweep is **0.0711 / 0.0714 / 0.0709** -- the conclusion (dimensionality does nothing for
+addressing) is unchanged and slightly strengthened, but the row as written is a cross-regime
+comparison that this project's own rules forbid. **And the correction already filed against it is
+itself wrong:** `cue_compression_property_diagnosis_v1_findings` attributed the 0.0716 to a D=2048
+draw; it is a genuine D=8192 reading (`BEST_ASYMMETRIC_REGIME_SWITCH_CONFIG`). **Second
+correction-of-a-correction in one day (C35 was the first).** Both notes are fixed in place.
+
+---
+
 ## 9. THE NEXT THREE THINGS, IN ORDER
 
 1. ~~**Diagnose the partial-cue structural cap.**~~ **DONE 2026-08-17 -- see 8c(1).** The answer is
@@ -416,13 +574,20 @@ and "we have never been able to tell" are different claims, and only the second 
    what loses part of it. No redirect upstream.
 2. ~~**Re-measure verbs at n=222.**~~ **DONE 2026-08-17 -- see 8c(2).** Neither retracted nor
    confirmed: MEASURED. A verb-channel build is licensed on this number and never on the old one.
-3. **Build sparse-address / dense-value per-organ**, which three independent lines now agree on: the
-   theory drill, the owner's per-process answer, and the write/read asymmetry. **Its capability half
-   is UNBLOCKED as of 8c(1) and an agent is building it; treat `experiments/` and `hdlab/` as owned
-   while that runs.** It is now an EXPANSION question with a measured target (0.0849 addressing
-   against the incumbent's 0.0711), and dimensionality is a SWEPT variable here, not an adopted
-   setting -- per 8c(3), the `d=256 -> 1024` raise is justified for the comparison job and not for
-   the addressing job.
-4. **NEW, and it is a question for the owner rather than a build:** we have no channel that can
-   represent the starting sound of a word, which is one of the two things the owner's own
+3. ~~**Build sparse-address / dense-value per-organ.**~~ **DONE 2026-08-17 -- see 8d(1), AND IT IS A
+   CLEAN NULL.** The three converging lines did not survive contact: key sparsification is
+   CI-separated BELOW the flat store, cue sparsification is NOT_SEPARATED from it, and the cell's own
+   verdict is *"Neither, cleanly"* -- neither capability nor efficiency. **Do not re-read the
+   optimistic framing in this list as an open item.**
+4. **THE LIST ABOVE IS SPENT. THE LIVE FRONTIER IS THE WRITE RULE** -- 8d(4) and 8d(5). Cue-side
+   engineering is closed (DO-NOT-REDO 46); the one arm that has ever moved read-out changed what gets
+   STORED. An agent is authoring a 2x2 write-rule composition in `experiments/` as of this pass;
+   treat `experiments/` and `hdlab/` as owned while that runs. **What that write-up must satisfy is
+   fixed in `PLAN_NEXT_24H.md` section 4b.2 BEFORE it lands: the claim is hit@1 against
+   max(four floors) recomputed on its own population, both tie conventions, CI half-width and null
+   p95 beside every margin -- and an addressing gain may be reported but may NOT be the claim.**
+5. **A question for the owner rather than a build (unchanged, still open):** we have no channel that
+   can represent the starting sound of a word, which is one of the two things the owner's own
    introspection said a half-remembered word is made of (8c(1)). A board question is open.
+   **Note as of 8d: this is a CUE-side build, so DO-NOT-REDO 46 applies to it -- if it is built, it
+   must be scored directly on hit@1, not on an addressing gain.**

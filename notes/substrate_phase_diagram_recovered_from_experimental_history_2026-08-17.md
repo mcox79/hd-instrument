@@ -82,6 +82,15 @@ Only four settings have an answer that survives the project's own evidence rules
   **sixteen times smaller than the measurement's own error bar**. That is not an improvement, it is
   noise. So "raise d from 256 to 1024" is a good idea for one job and a waste for another, and we
   have never written that down.
+  > **CORRECTED 2026-08-17 (C36; see `notes/STATUS_LESSONS.md`). The 0.0716 is a real D=8192 reading
+  > but it is the `a_read=0.2` cell (`BEST_ASYMMETRIC_REGIME_SWITCH_CONFIG`), while the 256 and 2048
+  > figures in this note are `a_read=1.0` -- so the sweep as written compares across READ REGIMES,
+  > which this project's own standing rule 11 forbids.** Matched at `a_write=1.0, a_read=1.0` the
+  > sweep is **0.0711 / 0.0714 / 0.0709**, i.e. 32x the memory buys slightly LESS than nothing and
+  > **the paragraph's conclusion is unchanged and slightly strengthened.** The same mixing appears in
+  > the partial-cue dense-sweep table row further down (0.0711 / 0.0714 / 0.0716). Verified by
+  > enumerating every `PART_1_ADDRESSING` key of
+  > `data/exp_sparse_address_dense_value_v1/metrics.json` with `.venv` python.
 - **How much of the diagram is filled in: about 1%.** Of 7,804 result files on disk, roughly 59
   vary the dimensionality at all, roughly 21 vary sparsity, and exactly 2 cells vary the expansion
   factor. Everything else fixes every knob and varies something else.

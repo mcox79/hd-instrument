@@ -32,6 +32,15 @@ without it and completed normally.
   seed, which reads 0.0719). This does not change the claim -- the whole d-sweep sits inside 0.0705-
   0.0719, one CI half-width -- but the specific number in the prose does not match its own cited
   cell exactly and is flagged here.
+  > **THAT PROVENANCE IS WRONG AND IS CORRECTED 2026-08-17 (C36; `notes/STATUS_LESSONS.md`).** The
+  > 0.0716 does **not** trace to a D=2048 draw. It is a genuine **D=8192** reading:
+  > `BEST_ASYMMETRIC_REGIME_SWITCH_CONFIG` (D=8192, `a_write=1.0`, `a_read=0.2`, ci95
+  > [0.0636, 0.0796]), and it appears at that exact grid key in `PART_1_ADDRESSING`. 0.0719 is
+  > separately real -- it is `BEST_ADDRESSING_CONFIG_partial_cue` at D=2048, `a_read=sym` -- but it
+  > is not where 0.0716 came from. **The defect in the phase-diagram prose is a mixed READ REGIME,
+  > not a mixed DIMENSION:** matched at `a_read=1.0` the sweep is 0.0711 / 0.0714 / 0.0709. The
+  > flag's conclusion (the d-sweep is flat within one CI half-width) stands. Verified by enumerating
+  > every `PART_1_ADDRESSING` key of the cited metrics file with `.venv` python.
 
 ## Property-by-property margins vs C0 (primary) and vs U0 (secondary), n=3994
 
