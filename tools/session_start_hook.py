@@ -249,6 +249,43 @@ def _self_test() -> int:
             print(f"[self-test] FAIL: board_report miscounted:\n{out}")
             ok = False
 
+    # commentary_report(): must surface an unread note verbatim, mark it read, and never raise.
+    with tempfile.TemporaryDirectory() as td:
+        doc = Path(td) / 'COMMENTARY.md'
+        mk = Path(td) / 'read.json'
+        out = commentary_report(doc, mk)
+        if 'no unread notes' in out:
+            print("[self-test] PASS commentary_report on an absent file says so without raising")
+        else:
+            print(f"[self-test] FAIL commentary_report on an absent file said:\n{out}")
+            ok = False
+
+        doc.write_text("## 2026-08-16T23:00:00Z  --  typed on my phone\n\n"
+                       "look at the affect channel before another night on bridging\n",
+                       encoding='utf-8')
+        out = commentary_report(doc, mk)
+        if 'affect channel' in out and 'UNREAD' in out:
+            print("[self-test] PASS commentary_report surfaces a hand-written note VERBATIM")
+        else:
+            print(f"[self-test] FAIL commentary_report did not surface the note:\n{out}")
+            ok = False
+
+        out2 = commentary_report(doc, mk)
+        if 'no unread notes' in out2:
+            print("[self-test] PASS and it is marked read, so it surfaces ONCE, not every session")
+        else:
+            print(f"[self-test] FAIL the note surfaced twice:\n{out2}")
+            ok = False
+
+        with doc.open('a', encoding='utf-8') as fh:
+            fh.write("\n## 2026-08-16T23:30:00Z\n\nand a second, newer one\n")
+        out3 = commentary_report(doc, mk)
+        if 'second, newer one' in out3 and 'affect channel' not in out3:
+            print("[self-test] PASS a NEW note surfaces while the already-seen one stays quiet")
+        else:
+            print(f"[self-test] FAIL new-note handling wrong:\n{out3}")
+            ok = False
+
     print(f"[self-test] {'ALL PASS' if ok else 'FAILED'}")
     return 0 if ok else 1
 
@@ -297,6 +334,40 @@ def board_report(board_path: Path | None = None) -> str:
     return '\n'.join(lines)
 
 
+def commentary_report(doc: Path | None = None, mark: Path | None = None) -> str:
+    """Surface anything the owner has written to notes/COMMENTARY.md and not been shown yet.
+
+    WHY IT IS HERE (owner, 2026-08-16): *"a box that I can write any commentary I'd like you to look
+    at during a run without interrupting you... a hook on that that tells you that I've sent
+    something to look at."* This is one of the two places that promise is kept; the other is
+    data/hooks/staging/stop_hook.py, which fires at every turn boundary and therefore reaches an
+    unattended overnight run mid-flight. Both read the SAME unread set, so a note surfaces once and
+    a new one is never missed.
+
+    IT IS MARKED READ HERE, because being injected into the session IS being shown -- the same
+    advance-on-surface idiom the board and scan-out gates already use. Costs one small file read
+    plus one json read (measured 0.32 ms), so it cannot push this hook toward its 10s budget.
+    Never raises: a broken side channel must not block a session start."""
+    import importlib.util
+    try:
+        mod_path = REPO / 'tools' / 'commentary.py'
+        if not mod_path.exists():
+            return "[commentary] SKIP - tools/commentary.py not found"
+        spec = importlib.util.spec_from_file_location('_sessionstart_commentary', mod_path)
+        if spec is None or spec.loader is None:
+            return "[commentary] SKIP - could not load tools/commentary.py"
+        commentary = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(commentary)
+        rows = commentary.unread(doc, mark)
+        if not rows:
+            return "[commentary] no unread notes from the owner"
+        text = commentary.report(doc, mark)
+        commentary.mark_read(rows, doc, mark)
+        return text
+    except Exception as exc:
+        return f"[commentary] ERROR reading the side channel ({type(exc).__name__}: {exc})"
+
+
 def registry_report() -> str:
     """Report the newest registry-audit result + its age. Does NOT re-run the audit.
 
@@ -336,7 +407,19 @@ def main() -> int:
     # In-process (no subprocess): the board parse is a single small file read, so it costs
     # milliseconds and cannot push this hook toward its 10s budget.
     blocks.append(board_report())
+    # The owner's side channel. In-process like board_report above (one small file read), and
+    # placed immediately after it because the two answer the same question -- "has the owner said
+    # anything to me" -- and reading one without the other is how a note goes unanswered.
+    blocks.append(commentary_report())
     blocks.append(probe('status-freshness-guard', 'status_freshness_check.py'))
+    # Sits directly under WHAT IS RUNNING because it CORRECTS that section. A pid file is
+    # written once at startup and never touched again, so nothing on disk distinguished
+    # "still running" from "finished hours ago" from "crashed in 16 seconds" -- on 2026-08-16
+    # all 39 scratch/*.pid pointed at dead processes while briefs described three of them as
+    # live runs not to disturb. Reads pid files + one ctypes liveness call each (~1s measured,
+    # no subprocess, no console-window flash); it never rescans data/, so it stays inside the
+    # hook budget. Bounded output: header plus at most 6 alarm lines.
+    blocks.append(probe('pid-reconcile', 'pid_reconcile.py', '--hook'))
     blocks.append("== DURABILITY GATE (status read at session start) ==")
     blocks.append(registry_report())
     blocks.append(probe('director-kb-freshness', 'director_kb_freshness_check.py'))

@@ -31,6 +31,10 @@ CRITICAL safety guards (load-bearing per Orchestrator + documented ~50min Stop-h
            3a unread inbox   3b uncollected scan-out fragment   3c single-dispatch turn
            3d AUTOLOOP (2026-08-15): re-read the plan from disk, update it, and continue.
               Fires ONLY when tools/autoloop.py reports ARMED. Default is DISARMED.
+           3e COMMENTARY (2026-08-16): the owner wrote something to notes/COMMENTARY.md that has
+              not been surfaced yet. Their words are quoted verbatim into the block reason and the
+              read mark is advanced only after that. This is the gate that reaches an unattended
+              overnight run mid-flight -- session start alone cannot. See _commentary_gate().
 
 DISARM, ONE STEP:  python tools/autoloop.py disarm
 
@@ -282,6 +286,94 @@ def _single_dispatch_turn_gate(repo_root: Path, session: str) -> tuple:
     return True, msg
 
 
+def _commentary_gate(doc=None, mark=None) -> tuple:
+    """GUARD 3e (2026-08-16, owner directive): has the owner written something to look at?
+
+    Owner, verbatim: *"a box that I can write any commentary I'd like you to look at during a run
+    without interrupting you... a hook on that that tells you that I've sent something to look at
+    during a computational run."* A Stop-hook fire IS the turn boundary, so this is the mechanism
+    that reaches an unattended overnight run mid-flight -- session start alone would not, because
+    an armed loop can go all night without one.
+
+    Returns (should_block, text). The text is the owner's own words, quoted verbatim into the block
+    reason, because a signal that says only "you have mail" makes the agent go looking and is one
+    more thing to get wrong.
+
+    UNREAD IS DERIVED FROM THE FILE, never from a flag set at write time, so a note the owner typed
+    straight into notes/COMMENTARY.md on another device fires this exactly like one submitted
+    through the status window. Marking read is left to the CALLER, on the same advance-on-block
+    idiom as the unread-inbox and scan-out gates: nothing is marked until it has actually been put
+    in front of the session.
+
+    Never raises, and falls back to no-block if tools/commentary.py cannot be loaded -- a broken
+    side channel must not wedge the Stop hook."""
+    commentary = _load_tool('commentary')
+    if commentary is None:
+        return False, None
+    try:
+        rows = commentary.unread(doc, mark)
+        if not rows:
+            return False, None
+        return True, commentary.report(doc, mark)
+    except Exception:
+        return False, None
+
+
+def _mark_commentary_read(doc=None, mark=None) -> None:
+    """Advance the read mark AFTER the notes have been put in the block reason."""
+    commentary = _load_tool('commentary')
+    if commentary is None:
+        return
+    try:
+        commentary.mark_read(None, doc, mark)
+    except Exception:
+        pass
+
+
+def _commentary_gate_self_test() -> int:
+    """Prove GUARD 3e fires on an unread note, quotes it verbatim, fires ONCE, and fires again on a
+    NEW note -- including one typed into the markdown by hand with no help from any tool."""
+    import tempfile
+    ok = True
+
+    def check(cond, label):
+        nonlocal ok
+        print(f"[self-test] {'PASS' if cond else 'FAIL'} {label}",
+              file=sys.stdout if cond else sys.stderr)
+        if not cond:
+            ok = False
+
+    td = Path(tempfile.mkdtemp(prefix="stop_hook_commentary_selftest_"))
+    doc, mk = td / 'COMMENTARY.md', td / 'read.json'
+
+    block, text = _commentary_gate(doc, mk)
+    check(block is False and text is None, "an absent file does not block")
+
+    # THE HAND EDIT IS THE POINT: written straight into the markdown, no tool involved.
+    doc.write_text("## 2026-08-16T23:00:00Z  --  typed on my phone\n\n"
+                   "stop tuning bridging and look at the affect channel\n", encoding='utf-8')
+    block, text = _commentary_gate(doc, mk)
+    check(block is True, "a hand-written note blocks the stop, so the run is told about it")
+    check(text and "affect channel" in text,
+          f"and the owner's own words are in the block reason verbatim ({str(text)[:90]!r})")
+
+    _mark_commentary_read(doc, mk)
+    block, _ = _commentary_gate(doc, mk)
+    check(block is False, "once surfaced it does NOT re-fire every turn until the cap")
+
+    with doc.open('a', encoding='utf-8') as fh:
+        fh.write("\n## 2026-08-16T23:30:00Z\n\na second thing, sent later\n")
+    block, text = _commentary_gate(doc, mk)
+    check(block is True and text and "second thing" in text,
+          f"a NEW note fires again -- a later note is never missed ({str(text)[:90]!r})")
+    check(text and "affect channel" not in text,
+          "and the already-seen one is not repeated alongside it")
+
+    print(f"[self-test] leftover temp dir (not auto-removed, by design): {td}")
+    print("[self-test] RESULT:", "PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+
 def _reset_dispatch_turn_counter(repo_root: Path, session: str) -> None:
     """Zero the single-dispatch-turn counter at the Stop-hook turn boundary, whether or not
     _single_dispatch_turn_gate fired -- mirrors the ts_file.touch() advance-on-block pattern:
@@ -503,6 +595,14 @@ def _end_to_end_self_test() -> int:
         env['CLAUDE_SESSION_NAME'] = session
         env['HD_AUTOLOOP_STATE'] = str(state)
         env['HD_BOARD_PATH'] = str(board_md)
+        # The side channel is redirected for the SAME reason as the board and the loop state: if it
+        # were not, this suite would read the owner's real notes/COMMENTARY.md, GUARD 3e would fire
+        # on their genuine unread notes, and the "disarmed + no signal -> no block" baseline below
+        # would fail for a reason that has nothing to do with the guard being tested. It would also
+        # MARK THOSE NOTES READ as a side effect of running the tests -- silently consuming the
+        # owner's messages, which is the worst thing this file could do.
+        env['HD_COMMENTARY_PATH'] = str(td / 'COMMENTARY.md')
+        env['HD_COMMENTARY_MARK'] = str(td / 'commentary_read.json')
         env['HD_STOP_DEDUPE_WINDOW_S'] = '0'
         env.pop('HD_STOP_HOOK_HARD_CAP', None)
         payload = {"stop_hook_active": stop_hook_active,
@@ -539,7 +639,8 @@ def _end_to_end_self_test() -> int:
     check(d is not None and d.get('decision') == 'block', "ARMED -> the hook blocks")
     reason = (d or {}).get('reason', '')
     check('RE-READ FROM DISK' in reason, "the continuation prompt orders a RE-READ FROM DISK")
-    for want in ('notes/STATUS.md', 'notes/BOARD.md', 'UPDATE THE PLAN IN PLACE'):
+    for want in ('notes/STATUS.md', 'notes/BOARD.md', 'notes/COMMENTARY.md',
+                 'UPDATE THE PLAN IN PLACE'):
         check(want in reason, f"the continuation prompt names {want}")
     check('PLAN_NEXT_12H.md' in reason or 'PLAN.md' in reason,
           "the continuation prompt names the plan file that actually exists on disk")
@@ -548,6 +649,29 @@ def _end_to_end_self_test() -> int:
     check('autoloop.py disarm' in reason, "every block reason carries the one-step disarm command")
     check('/unlimited)' in reason,
           f"an UNCAPPED run says so on every turn (GUARD 2 visible, not deleted)")
+
+    # --- GUARD 3e: a note the owner typed into the markdown reaches the run, from the OUTSIDE ---
+    # Disarmed on purpose: this proves the note ALONE is enough to reach the session, rather than
+    # riding on the autoloop block that would have happened anyway.
+    autoloop.disarm(state)
+    session_c = session + '_cmt'
+    saved, session = session, session_c
+    fire()                                       # establish this session's marks
+    (td / 'COMMENTARY.md').write_text(
+        "## 2026-08-16T23:00:00Z  --  typed on my phone\n\n"
+        "stop tuning bridging and look at the affect channel\n", encoding='utf-8')
+    d_c = blocked(fire())
+    check(d_c is not None and d_c.get('decision') == 'block',
+          "GUARD 3e: a note written straight into notes/COMMENTARY.md reaches the run "
+          "(disarmed, no other signal)")
+    check(d_c and 'affect channel' in d_c.get('reason', ''),
+          f"GUARD 3e: and the owner's own words are quoted verbatim in the block reason "
+          f"(got {str(d_c and d_c.get('reason'))[:140]!r})")
+    out_c = fire()
+    check(out_c == "",
+          f"GUARD 3e: the same note does NOT re-fire every turn until the cap (got {out_c!r})")
+    session = saved
+    autoloop.arm(0, 'self-test', state)
 
     # --- GUARD 1: stop_hook_active wins even while ARMED ---
     out = fire(stop_hook_active=True)
@@ -963,12 +1087,17 @@ def _autoloop_prompt(repo_root: Path) -> str:
     open_note = (f"{n_open} question(s) are OPEN on the board and the owner has not answered them; "
                  f"do NOT block on them, work around them"
                  if n_open else "no open questions on the board")
+    commentary = _load_tool('commentary')
+    n_notes = commentary.count_unread() if commentary is not None else 0
+    note_note = (f"{n_notes} UNREAD NOTE(S) FROM THE OWNER -- read them, they are quoted above"
+                 if n_notes else "the owner's side channel; nothing unread right now")
     return (
         "AUTOLOOP IS ARMED. Do not end the turn. Do not rely on anything from earlier in this\n"
         "conversation -- after a compaction it is gone. RE-READ FROM DISK, IN THIS ORDER:\n"
         f"  1. {plan}   <- the plan\n"
         "  2. notes/STATUS.md          <- position, top item, what is running\n"
         f"  3. notes/BOARD.md           <- {open_note}\n"
+        f"  4. notes/COMMENTARY.md      <- {note_note}\n"
         "THEN, IN THIS ORDER:\n"
         "  a. UPDATE THE PLAN IN PLACE to reflect what has actually landed since it was written\n"
         "     (edit the file; a plan you did not update is a plan you did not read).\n"
@@ -1007,6 +1136,7 @@ def main() -> int:
             ('scan-out gate (GUARD 3b)', _scan_out_gate_self_test()),
             ('single-dispatch gate (GUARD 3c)', _single_dispatch_turn_gate_self_test()),
             ('denial gate (GUARD 1D)', _denial_gate_self_test()),
+            ('commentary gate (GUARD 3e)', _commentary_gate_self_test()),
             ('END-TO-END guards 1 / 1D / 2 / 3', _end_to_end_self_test()),
         ]
         print()
@@ -1256,8 +1386,14 @@ def main() -> int:
     # signal changes nothing at all until the loop is deliberately armed.
     have_autoloop = bool(armed)
 
+    # 3e: THE OWNER'S SIDE CHANNEL (2026-08-16). notes/COMMENTARY.md holds anything they wanted
+    # looked at without interrupting the run. This gate is what makes that promise real DURING a
+    # computational run: session start alone cannot reach an armed loop that goes all night without
+    # one. Unread is derived from the file, so a note typed on another device fires it identically.
+    have_commentary, commentary_text = _commentary_gate()
+
     if have_unread or have_watchdog_ping or have_scan_fragment or have_single_dispatch \
-            or have_autoloop:
+            or have_autoloop or have_commentary:
         # Concrete signal: increment counter + emit block decision
         if _should_count_this_fire(repo_root, session):
             try:
@@ -1291,6 +1427,9 @@ def main() -> int:
                 pass
         if have_single_dispatch:
             signals.append(f"PARALLEL-DISPATCH: {single_dispatch_msg}")
+        if have_commentary:
+            signals.append("THE OWNER HAS WRITTEN SOMETHING FOR YOU TO LOOK AT "
+                           "(notes/COMMENTARY.md) -- the note is quoted in full below")
         if have_autoloop and not signals:
             signals.append("autoloop armed (no other pending signal)")
         # Reset the dispatch-turn counter regardless of whether this signal itself fired --
@@ -1300,6 +1439,14 @@ def main() -> int:
         _reset_dispatch_turn_counter(repo_root, session)
         reason = (f"Pending work for {session}: " + " + ".join(signals) +
                   f"; continuing. (continuation {count + 1}/{cap_str})")
+        # THE OWNER'S WORDS GO FIRST, before anything this hook has to say about fleet state or
+        # plans. They are the only part of a block reason written by a human, and a note buried
+        # under three paragraphs of machine output is a note that gets skimmed. The read mark is
+        # advanced only HERE -- after the text is actually in the reason -- so a note can never be
+        # marked seen without having been shown.
+        if have_commentary and commentary_text:
+            reason = reason + "\n\n" + commentary_text
+            _mark_commentary_read()
         # Layer 1 of the lull-breaker enforcement (per USER 2026-06-21 + my own
         # protocol commit). For the testbed (audit) role only: query the dashboard
         # health endpoint + check if >= 2 OTHER sessions have substantive-note age

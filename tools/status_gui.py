@@ -123,12 +123,55 @@ defects, one shape -- the controls did not describe the state:
 Hence: a caption naming the target question, per-question drafts, selection restored by row id for
 every kind, a Save that is disabled with a stated reason rather than refusing on press, a
 confirmation that quotes what landed and where, and an unconditional destination for typed text.
-Guarded by `verification/test_board_answer_panel.py`, every check of which failed before the fix.
+
+AND THEN THE FIX WAS ITSELF THE NEXT DEFECT (2026-08-16, second report): *"there is a new ~'save as
+a new submission', but save answer is greyed out for all?"* Making Save honest about what it could
+write revealed that it could write almost nothing -- the board had ZERO open questions, so all
+eleven live rows were a DECISION (D1-D7) or a STANDING item (OP1-OP4), and the panel was correctly,
+uselessly, dead everywhere. The decisions are exactly what the owner had been trying to answer.
+EVERY ROW IS ANSWERABLE NOW. A QUESTION is still written into its own ANSWER cell; a DECISION or
+STANDING answer becomes a NEW board row that names it and repeats its text in full, because
+`notes/PLAN.md` and `notes/STATUS.md` are read by code -- `tools/status_plan.py` parses section 9 of
+the first, `tools/session_start_hook.py` greps the second for `AS OF:` and `## WHAT IS RUNNING` --
+and owner prose must never be typed into a machine-read region. The row carries the whole decision
+rather than a bare identifier, because the owner has said twice that bare ids are useless to them:
+*"I do not remember what Q7 was."* An answer already recorded is read BACK off the board, so a
+decision settled on a phone shows as settled here.
+Guarded by `verification/test_board_answer_panel.py` (32 checks) and
+`verification/test_board_answerable_all.py` (26), every check of which failed before its fix.
+
+THE RUNNING PANEL, rebuilt 2026-08-16 (*"the current runs have very small fields for me to see
+what's currently running"*). Two faults, neither visible in the source and both obvious the moment
+the widths were dumped from a rendered window: the table declared 1140 px of columns inside a
+~1000 px viewport, so `stretch` had no spare space to give out and NOT ONE COLUMN GREW however large
+the window got; and the window asked for 1280x860 on a 1128x752 screen, so its right-hand edge was
+never on the display at all. Both are now measured against the live screen. The panel is a
+PanedWindow, so the run list can be given room at the expense of its neighbours.
+AND IT NO LONGER SHOWS DEAD WORK AS LIVE: the scan can only see processes that EXIST, so a run that
+died simply vanished while its `scratch/<name>.pid` file went on asserting it -- 39 of 39 pointed at
+nothing on the night this was written, three of them cited as live in agent briefs for hours, one of
+them this window's own process. `tools/status_pidclaims.py` checks every claim against the OS and
+the panel gives a dead one its own row reading DEAD BUT CLAIMED LIVE. A missing row reads as nothing
+to see; a stale RUNNING is read as evidence, which is worse than no panel.
+Guarded by `verification/test_status_running_panel.py` (25 checks; 3/21 before).
+
+THE NOTE BOX AT THE BOTTOM (*"a box that I can write any commentary I'd like you to look at during a
+run without interrupting you... a hook on that that tells you that I've sent something"*). It is
+under the notebook rather than on a tab, because a note is written while looking at whatever the
+owner was already looking at. It appends to `notes/COMMENTARY.md`, and BOTH
+`tools/session_start_hook.py` and the Stop hook's continuation path (GUARD 3e) surface anything
+unread -- the Stop hook being the half that reaches an unattended overnight run mid-flight. Unread
+is derived from the file's own contents, never from a flag this window sets, so a note typed into
+the markdown from a phone is noticed identically. Guarded by
+`verification/test_commentary_channel.py` (20 checks).
 
 Keys: F5 or r = refresh now. Ctrl+1..7 = jump to a panel.
 
   python tools/status_gui.py --self-test    # renders normal / degraded / garbage states
-  python verification/test_board_answer_panel.py   # the answer panel's own witness
+  python verification/test_board_answer_panel.py     # the answer panel's own witness
+  python verification/test_board_answerable_all.py   # every row is answerable
+  python verification/test_status_running_panel.py   # widths, resizing, dead-but-claimed-live
+  python verification/test_commentary_channel.py     # the note box and both hooks
 """
 from __future__ import annotations
 
@@ -155,6 +198,17 @@ try:
     import status_evidence as _ev  # noqa: E402
 except Exception:  # pragma: no cover - the window must open without it
     _ev = None
+
+# THE OWNER'S SIDE CHANNEL. The only other writer in this file besides the board. Guarded like
+# every other import here: if it will not load, the box says so and points at the markdown file,
+# which works on its own.
+try:
+    import commentary as _commentary  # noqa: E402
+except Exception as _e:  # pragma: no cover - the window must open without it
+    _commentary = None
+    _COMMENTARY_ERR = f"{type(_e).__name__}: {_e}"
+else:
+    _COMMENTARY_ERR = ""
 
 REFRESH_MS = 20000        # collection costs ~2.5s; 20s is live enough and stays cheap
 TICK_MS = 1000
@@ -296,8 +350,20 @@ class StatusWindow:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         root.title("hd-instrument -- where we are / what is happening")
-        root.geometry("1280x860")
-        root.minsize(980, 660)
+        # OPEN AT A SIZE THAT ACTUALLY FITS THE SCREEN (2026-08-16). The window asked for 1280x860
+        # unconditionally; this display is 1128x752, so Windows clamped it and the right-hand
+        # columns and the bottom of every panel were off the edge. That is half of *"the current
+        # runs have very small fields for me to see what's currently running"* -- the table never
+        # got the width it was asking for, so no column could ever stretch into space that was not
+        # there. The minimum is clamped too, because a minsize LARGER than the screen is a window
+        # the owner cannot shrink into view.
+        try:
+            sw, sh = root.winfo_screenwidth(), root.winfo_screenheight()
+        except tk.TclError:                        # pragma: no cover - no display
+            sw, sh = 1280, 860
+        w, h = min(1280, max(700, sw - 60)), min(860, max(500, sh - 80))
+        root.geometry(f"{w}x{h}")
+        root.minsize(min(980, w), min(620, h))
 
         self._q: _queue.Queue = _queue.Queue()
         self._poll_inflight = False
@@ -322,6 +388,12 @@ class StatusWindow:
         self._answer_for: str | None = None
         self._drafts: dict[str, str] = {}
         self._board_writable: bool = False
+        # The KIND and the full ROW of the selection, because an answer to a DECISION or a STANDING
+        # item is filed as a NEW board row that must carry that row's own text inline -- the owner
+        # has twice said a bare identifier is useless to them ("I do not remember what Q7 was").
+        self._selected_kind: str | None = None
+        self._selected_row: dict = {}
+        self._board_state: dict = {}
 
         self._style()
         self._build()
@@ -370,14 +442,26 @@ class StatusWindow:
                      bordercolor=_BORDER, arrowcolor=_FG,
                      darkcolor=_PANEL, lightcolor=_PANEL)
 
-    def _tree(self, parent, cols, widths, headings, height=8):
+    def _tree(self, parent, cols, widths, headings, height=8, minwidths=None, stretch_all=False):
+        """A table. `minwidths` and `stretch_all` exist because of the 2026-08-16 owner report:
+        *"the current runs have very small fields for me to see what's currently running."*
+
+        Two separate faults produced that. (1) Only columns already >=200 px wide were allowed to
+        stretch, so widening the window grew the columns that were ALREADY roomy and left the
+        narrow ones -- the ones holding the run's identity -- exactly as cramped as before.
+        (2) Nothing set a MINIMUM, so Tk was free to shrink a column below the width of the text in
+        it. `stretch_all` makes every column share the extra space; `minwidths` puts a floor under
+        each one so the identity of a run can never be squeezed into an ellipsis."""
         frame = ttk.Frame(parent)
         frame.columnconfigure(0, weight=1)
         frame.rowconfigure(0, weight=1)
         tv = ttk.Treeview(frame, columns=cols, show="headings", height=height)
-        for c, w, h in zip(cols, widths, headings):
+        mins = list(minwidths) if minwidths else [None] * len(cols)
+        for c, w, h, mn in zip(cols, widths, headings, mins):
             tv.heading(c, text=h)
-            tv.column(c, width=w, anchor="w", stretch=(w >= 200))
+            tv.column(c, width=w, anchor="w",
+                      minwidth=int(mn if mn is not None else min(w, 90)),
+                      stretch=(True if stretch_all else (w >= 200)))
         tv.grid(row=0, column=0, sticky="nsew")
         sb = ttk.Scrollbar(frame, orient="vertical", command=tv.yview)
         tv.configure(yscrollcommand=sb.set)
@@ -450,12 +534,83 @@ class StatusWindow:
         self._build_fidelity()    # C
         self._build_results()     # C
 
+        self._build_commentary(root)
+
         bar = ttk.Frame(root)
-        bar.grid(row=2, column=0, sticky="ew", padx=6, pady=(0, 6))
+        bar.grid(row=3, column=0, sticky="ew", padx=6, pady=(0, 6))
         bar.columnconfigure(0, weight=1)
         self.status_lbl = ttk.Label(bar, text="starting...", anchor="w", foreground=_DIM)
         self.status_lbl.grid(row=0, column=0, sticky="ew")
         ttk.Button(bar, text="Refresh (F5)", command=self.refresh_now).grid(row=0, column=1)
+
+    # ---- the side channel (always on screen, on every tab) -------------
+    def _build_commentary(self, root) -> None:
+        """A box for anything the owner wants looked at, without interrupting a run.
+
+        Owner, 2026-08-16: *"a box that I can write any commentary I'd like you to look at during a
+        run without interrupting you... a hook on that that tells you that I've sent something to
+        look at during a computational run."*
+
+        IT IS NOT ON A TAB, and that is the design. A note is written when the owner thinks of it,
+        which is while they are looking at whatever they were already looking at -- putting it
+        behind a tab means finding the tab first. It sits under the notebook and is present on all
+        seven panels.
+
+        THE CONFIRMATION QUOTES THE TEXT AND NAMES THE FILE. That is not politeness: the Save
+        button on the panel above failed silently for hours and the owner had no way to tell, and
+        the whole value of this channel is the owner's confidence that the note landed. So a
+        success echoes what was written and where, and a failure says the write did not happen and
+        leaves the text in the box.
+
+        IT IS NOT THE ONLY WAY IN. `notes/COMMENTARY.md` is a plain markdown file; typing into it
+        from a phone works identically, because unread is derived from the file's contents rather
+        than from a flag this window sets."""
+        wrap = ttk.LabelFrame(root, text="A NOTE FOR ME -- write anything here; it does not "
+                                         "interrupt whatever is running")
+        wrap.grid(row=2, column=0, sticky="ew", padx=6, pady=(0, 4))
+        wrap.columnconfigure(0, weight=1)
+        self.commentary_frame = wrap
+        self.commentary_box = tk.Text(wrap, height=2, wrap="word", bd=0, padx=8, pady=5,
+                                      bg="#1b1b1b", fg=_FG, insertbackground=_FG,
+                                      highlightthickness=1, highlightbackground=_BORDER,
+                                      font=("Segoe UI", 11))
+        self.commentary_box.grid(row=0, column=0, sticky="ew", padx=6, pady=5)
+        btns = ttk.Frame(wrap)
+        btns.grid(row=0, column=1, sticky="ns", padx=(0, 6))
+        self.commentary_btn = ttk.Button(btns, text="Send it to me", command=self._send_commentary)
+        self.commentary_btn.grid(row=0, column=0, sticky="ew", pady=(5, 3))
+        ttk.Button(btns, text="Clear", command=lambda: self.commentary_box.delete(
+            "1.0", "end")).grid(row=1, column=0, sticky="ew")
+        self.commentary_status = tk.Label(wrap, text="", bg=_PANEL, fg=_DIM, anchor="w",
+                                          font=("Segoe UI", 9), wraplength=1100, justify="left")
+        self.commentary_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8,
+                                    pady=(0, 5))
+
+    def _send_commentary(self) -> None:
+        """Append the box to notes/COMMENTARY.md and SAY, on screen, exactly what landed where."""
+        text = self.commentary_box.get("1.0", "end").strip()
+        if not text:
+            self.commentary_status.configure(
+                text="NOT SENT: the box is empty, so there is nothing to record.", fg=_AMBER)
+            return
+        if _commentary is None:
+            self.commentary_status.configure(
+                text=f"NOT SENT: tools/commentary.py could not be loaded ({_COMMENTARY_ERR}). "
+                     f"Your text is still in the box -- you can paste it into "
+                     f"notes/COMMENTARY.md directly and it will be picked up.", fg=_RED)
+            return
+        try:
+            e = _commentary.add(text, source="the status window")
+        except Exception as exc:
+            self.commentary_status.configure(
+                text=f"NOT SENT ({type(exc).__name__}: {exc}). Your text is still in the box.",
+                fg=_RED)
+            return
+        self.commentary_status.configure(
+            text=(f"SENT at {e['stamp']}. Written to notes/COMMENTARY.md ({e['path']}): "
+                  f"\"{_verbatim(text)}\"   I am told about it at the end of the current turn, "
+                  f"even mid-run, and again at my next start."), fg=_GREEN)
+        self.commentary_box.delete("1.0", "end")
 
     # ---- TAB 1 (group A) ----------------------------------------------
     def _build_where(self) -> None:
@@ -810,8 +965,6 @@ class StatusWindow:
         self.nb.add(f, text="2. RUNNING NOW")
         self.tab_running = f
         f.columnconfigure(0, weight=1)
-        f.rowconfigure(2, weight=1)
-        f.rowconfigure(4, weight=1)
 
         loop = tk.Frame(f, bg=_ALT)
         loop.grid(row=0, column=0, sticky="ew", pady=(4, 6))
@@ -835,30 +988,71 @@ class StatusWindow:
         ttk.Button(loop, text="Copy the command",
                    command=self._copy_disarm).grid(row=3, column=1, padx=(6, 12))
 
-        tk.Label(f, text="AGENTS", bg=_PANEL, fg=_BLUE, anchor="w",
-                 font=("Segoe UI", 10, "bold"), padx=4).grid(row=1, column=0, sticky="ew",
-                                                             pady=(6, 2))
+        # A RESIZABLE PANEL (owner, 2026-08-16). The three parts of this tab used to be fixed-height
+        # grid rows, so the owner could not give the run list more room no matter how large they
+        # made the window. A PanedWindow puts a draggable sash between each pair: whichever part
+        # they are reading can be grown at the expense of the others, and the whole thing still
+        # grows with the window.
+        pw = tk.PanedWindow(f, orient="vertical", bg=_BG, bd=0, sashwidth=7, sashrelief="raised",
+                            sashpad=1, showhandle=False, opaqueresize=False)
+        pw.grid(row=1, column=0, sticky="nsew")
+        f.rowconfigure(1, weight=1)
+        self.running_panes = pw
+
+        ag_wrap = ttk.Frame(pw)
+        ag_wrap.columnconfigure(0, weight=1)
+        ag_wrap.rowconfigure(1, weight=1)
+        tk.Label(ag_wrap, text="AGENTS", bg=_PANEL, fg=_BLUE, anchor="w",
+                 font=("Segoe UI", 10, "bold"), padx=4).grid(row=0, column=0, sticky="ew",
+                                                             pady=(4, 2))
+        # THE DECLARED WIDTHS DELIBERATELY SUM TO LESS THAN THE VIEWPORT. That is the second half of
+        # the cramped-fields fault: the previous widths summed to 1140 px inside a ~1100 px table,
+        # so there was never any spare space for `stretch` to distribute and every column stayed at
+        # its declared size no matter how large the window got. Leave room, and stretching becomes
+        # real. The MINIMUMS are the floor under the identity columns.
         frame, self.agents_tv = self._tree(
-            f, cols=("state", "name", "doing", "running", "last"),
-            widths=(110, 200, 470, 120, 200),
+            ag_wrap, cols=("state", "name", "doing", "running", "last"),
+            widths=(115, 210, 340, 100, 150),
+            minwidths=(105, 175, 240, 95, 135),
             headings=("", "AGENT", "WHAT IT IS DOING", "RUNNING FOR",
                       "TRANSCRIPT LAST WRITTEN"),
-            height=6)
-        frame.grid(row=2, column=0, sticky="nsew")
+            height=6, stretch_all=True)
+        frame.grid(row=1, column=0, sticky="nsew")
+        pw.add(ag_wrap, minsize=110, stretch="always")
 
-        tk.Label(f, text="EXPERIMENTS RUNNING ON THIS MACHINE", bg=_PANEL, fg=_BLUE,
-                 anchor="w", font=("Segoe UI", 10, "bold"),
-                 padx=4).grid(row=3, column=0, sticky="ew", pady=(8, 2))
+        # ONE TABLE FOR "WHAT IS RUNNING", not two, and it includes the things that are NOT.
+        # A run that died used to vanish from this tab entirely while its scratch/<name>.pid file
+        # stayed on disk and went on being quoted as live -- 37 of 39 of them pointed at nothing on
+        # the night this was written, three of those cited as live in agent briefs for hours, and
+        # one was this dashboard's own process. A missing row reads as "nothing to see"; a row that
+        # says DEAD BUT CLAIMED LIVE cannot be misread. Identity and state get the width here:
+        # WHAT IT IS and WHETHER IT IS ACTUALLY ALIVE are the two things the owner asked to see.
+        lx_wrap = ttk.Frame(pw)
+        lx_wrap.columnconfigure(0, weight=1)
+        lx_wrap.rowconfigure(1, weight=1)
+        self.local_head = tk.Label(lx_wrap, text="WORK ON THIS MACHINE", bg=_PANEL, fg=_BLUE,
+                                   anchor="w", font=("Segoe UI", 10, "bold"), padx=4,
+                                   justify="left", wraplength=1200)
+        self.local_head.grid(row=0, column=0, sticky="ew", pady=(4, 2))
+        # MEMORY was dropped as a column. The owner asked to see run IDENTITY and STATE; a megabyte
+        # figure was consuming width that those two needed, and it is still in the detail box below.
         frame2, self.local_tv = self._tree(
-            f, cols=("name", "progress", "running", "pid", "mem", "updated"),
-            widths=(380, 300, 120, 80, 90, 170),
-            headings=("EXPERIMENT", "PROGRESS", "RUNNING FOR", "PROCESS", "MEMORY",
-                      "OUTPUT LAST WRITTEN"),
-            height=5)
-        frame2.grid(row=4, column=0, sticky="nsew")
+            lx_wrap, cols=("state", "name", "progress", "running", "pid", "updated"),
+            widths=(190, 300, 210, 105, 70, 130),
+            minwidths=(165, 250, 165, 95, 60, 115),
+            headings=("IS IT ACTUALLY RUNNING?", "WHAT IT IS", "PROGRESS / LAST OUTPUT",
+                      "RUNNING FOR", "PROCESS", "OUTPUT LAST WRITTEN"),
+            height=9, stretch_all=True)
+        frame2.grid(row=1, column=0, sticky="nsew")
+        self.local_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_running_detail())
+        pw.add(lx_wrap, minsize=150, stretch="always")
 
-        self.running_detail = self._detail(f, height=10)
-        self.running_detail.grid(row=5, column=0, sticky="ew", pady=(8, 0))
+        det_wrap = ttk.Frame(pw)
+        det_wrap.columnconfigure(0, weight=1)
+        det_wrap.rowconfigure(0, weight=1)
+        self.running_detail = self._detail(det_wrap, height=10)
+        self.running_detail.grid(row=0, column=0, sticky="nsew")
+        pw.add(det_wrap, minsize=90, stretch="never")
 
     # ---- PANEL 7 ------------------------------------------------------
     def _build_results(self) -> None:
@@ -1702,6 +1896,7 @@ class StatusWindow:
     def _r_board(self, s: dict) -> None:
         b = _d(s.get("board"))
         pl = _d(s.get("plan"))
+        self._board_state = b
         tv = self.board_tv
         tv.delete(*tv.get_children())
         self._board_rows = [_d(r) for r in _l(b.get("open"))]
@@ -1727,19 +1922,20 @@ class StatusWindow:
             parts.append(f"THE BOARD IS {b.get('status')}: {b.get('detail', '')} -- no question "
                          f"can be answered from here.")
         else:
-            parts.append("Type your decision below and press Save -- QUESTION rows are written "
-                         "straight into notes/BOARD.md. You can also answer without this window: "
-                         "open notes/BOARD.md in any markdown editor on any device, type into the "
-                         "ANSWER cell, and save.")
+            parts.append("EVERY ROW HERE CAN BE ANSWERED. Pick any one -- a question, a decision "
+                         "or a standing item -- type below, press Save. All of them land in "
+                         "notes/BOARD.md, which you can also open in any markdown editor on any "
+                         "device and type into directly.")
             if b.get("writable") is False:
                 self.answer_status.configure(
                     text="notes/BOARD.md is not writable from here -- answer it in the file "
                          "instead.", fg=_AMBER)
         if pl.get("status") == "OK":
-            parts.append(f"DECISION and STANDING rows are NOT answerable here -- they are recorded "
-                         f"in the plan and status documents and need an edit there. Every one of "
-                         f"them already has a default, so saying nothing IS a choice: the "
-                         f"right-hand column says what that choice currently is.")
+            parts.append("A DECISION or STANDING answer is recorded as its own board row that "
+                         "names the decision and repeats its text in full, because the plan and "
+                         "status documents are read by code and nothing typed here is written into "
+                         "them. Every one of these already has a default, so saying nothing IS a "
+                         "choice: the right-hand column says what that choice currently is.")
         else:
             parts.append(f"The standing decisions could not be read ({pl.get('status')}).")
         parts.append(_panel_age_text(s.get("ages"), "waiting on you").strip())
@@ -1765,16 +1961,24 @@ class StatusWindow:
                               r.get("question", ""), "it stays open", _age_cell(r)),
                       tags=("warn", "even" if i % 2 == 0 else "odd"))
             i += 1
+        # WHICH OF THESE THE OWNER HAS ALREADY ANSWERED, read back out of notes/BOARD.md. A panel
+        # that keeps presenting a settled decision as outstanding is the same defect as a stale
+        # RUNNING row: it is read as evidence and it is wrong.
+        recorded = _d(b.get("recorded"))
         for d in decisions:
             d = _d(d)
             iid = f"d{d.get('id')}"
             self._wait_rows[iid] = dict(d, _kind="DECISION")
+            done = _d(recorded.get(str(d.get("id") or "").upper()))
             tv.insert("", "end", iid=iid,
-                      values=(d.get("id", "?"), "DECISION (from the plan)",
+                      values=(d.get("id", "?"),
+                              "DECISION - ANSWERED" if done else "DECISION (answerable here)",
                               d.get("question", ""),
-                              "the default happens: " + str(d.get("default") or "NONE STATED"),
+                              ("you answered: " + _verbatim(str(done.get("answer") or ""), 120))
+                              if done else
+                              ("the default happens: " + str(d.get("default") or "NONE STATED")),
                               _age_cell(d)),
-                      tags=("dim", "even" if i % 2 == 0 else "odd"))
+                      tags=("good" if done else "dim", "even" if i % 2 == 0 else "odd"))
             i += 1
         for o in standing:
             o = _d(o)
@@ -1782,11 +1986,16 @@ class StatusWindow:
             self._wait_rows[iid] = dict(o, _kind="STANDING")
             drift = ("   [CHECK SOURCE]"
                      if o.get("verify_status") == "CHECK_SOURCE" else "")
+            done = _d(recorded.get(str(o.get("id") or "").upper()))
             tv.insert("", "end", iid=iid,
-                      values=(o.get("id", "?"), "STANDING (not taken)",
+                      values=(o.get("id", "?"),
+                              "STANDING - ANSWERED" if done else "STANDING (answerable here)",
                               str(o.get("title", "")) + drift,
-                              str(o.get("standing") or "not recorded"), _age_cell(o)),
-                      tags=("bad" if drift else "warn", "even" if i % 2 == 0 else "odd"))
+                              ("you answered: " + _verbatim(str(done.get("answer") or ""), 120))
+                              if done else str(o.get("standing") or "not recorded"),
+                              _age_cell(o)),
+                      tags=("bad" if drift else ("good" if done else "warn"),
+                            "even" if i % 2 == 0 else "odd"))
             i += 1
 
         # A REFRESH MUST NEVER DESTROY IN-PROGRESS INPUT (2026-08-16 owner report: "periodically it
@@ -1842,27 +2051,34 @@ class StatusWindow:
     def _sync_answer_ui(self, row: dict | None) -> None:
         """Make the box SAY what it will do, and make the button able to do only that.
 
-        The 2026-08-16 report was three defects with one shape: the panel's controls did not
-        describe the panel's state. A caption that names the target question turns a silent
-        mis-attachment into something the owner can see before pressing anything, and a button
-        disabled with a stated reason turns "Save does nothing" into "Save cannot write THIS row,
-        because ...". An enabled control that refuses on press is the defect, not the guard."""
+        EVERY ROW IS ANSWERABLE (2026-08-16, second owner report: *"there is a new 'save as a new
+        submission', but save answer is greyed out for all?"*). The previous fix greyed Save out on
+        any row that was not a board QUESTION -- and the board had ZERO open questions, so all
+        eleven live rows were DECISION or STANDING and Save was correctly, uselessly, dead
+        everywhere. Decisions are precisely what the owner has been trying to answer. So the
+        question is no longer WHAT KIND OF ROW this is; it is only whether notes/BOARD.md can be
+        written and whether a row is selected at all.
+
+        The earlier discipline survives intact: the caption names the exact row the box is bound to,
+        and Save is disabled WITH A STATED REASON rather than enabled-and-refusing. An enabled
+        control that refuses on press is the defect; a disabled control that says why is the fix."""
         kind = (row or {}).get("_kind")
         rid = (row or {}).get("id")
-        can_save = bool(self._board_writable and kind == "QUESTION" and rid)
-        if can_save:
+        can_save = bool(self._board_writable and rid)
+        if can_save and kind == "QUESTION":
             cap = (f"YOUR ANSWER TO {rid}  --  pressing Save writes it into the ANSWER cell of "
                    f"{rid} in notes/BOARD.md")
+        elif can_save:
+            cap = (f"YOUR ANSWER TO {rid}  --  pressing Save records it in notes/BOARD.md as a new "
+                   f"row that names {rid} and carries the whole of its text, so it reads on its own "
+                   f"later. {rid} lives in a document that code parses, so nothing is written "
+                   f"there.")
         elif row is None:
             cap = ("YOUR ANSWER  --  NOT ANSWERABLE: no row is selected, so there is nothing to "
                    "write to. Anything you type here can still be filed with 'File as a new note'.")
-        elif kind == "QUESTION":
+        else:
             cap = (f"YOUR ANSWER TO {rid}  --  NOT ANSWERABLE: notes/BOARD.md cannot be written "
                    f"from here. Type into the ANSWER cell in the file instead.")
-        else:
-            cap = (f"YOUR ANSWER  --  NOT ANSWERABLE: {rid} is a {kind} row, which is recorded in "
-                   f"the plan and status documents and has to be decided there. Use 'File as a new "
-                   f"note' to record a thought about it on the board instead.")
         try:
             self.answer_frame.configure(text=cap)
         except tk.TclError:
@@ -1883,9 +2099,12 @@ class StatusWindow:
         # written for and the incoming question's own draft is loaded -- switching rows can neither
         # carry text across nor discard it.
         self._stash_draft()
-        # Only a board QUESTION is answerable from this window; selecting anything else must not
-        # arm the Save button against a row it cannot write.
-        self._selected_qid = r.get("id") if kind == "QUESTION" else None
+        # EVERY KIND IS ANSWERABLE NOW, so the draft key and the Save target are the row id
+        # whatever the row is. Before this, `_selected_qid` was set only for QUESTION rows, which is
+        # what made Save dead on all eleven live rows.
+        self._selected_qid = r.get("id")
+        self._selected_kind = kind
+        self._selected_row = r
         self._selected_row_id = r.get("id")
         self._load_draft(self._selected_qid)
         self._sync_answer_ui(r)
@@ -1905,10 +2124,12 @@ class StatusWindow:
                 ("WHY IT IS OPEN\n", "warn"), f"{r.get('why') or '(not recorded)'}\n\n",
                 ("WHAT HAPPENS IF YOU SAY NOTHING\n", "good"),
                 f"{r.get('default') or 'NO DEFAULT IS STATED, so nothing happens at all.'}\n\n",
-                ("Read live out of notes/PLAN.md section 9 on every refresh. It is not "
-                 "answerable from this window -- deciding it means editing that document.\n",
-                 "dim"),
-            ] + _age_chunks(r, "WHEN THE DOCUMENT RECORDING THIS WAS LAST WRITTEN"))
+                ("Read live out of notes/PLAN.md section 9 on every refresh. You CAN answer it "
+                 "here: your answer is recorded in notes/BOARD.md as its own row naming this "
+                 "decision and carrying its text, because notes/PLAN.md is parsed by code and no "
+                 "typed prose is written into it.\n", "dim"),
+            ] + self._recorded_chunks(r) + _age_chunks(
+                r, "WHEN THE DOCUMENT RECORDING THIS WAS LAST WRITTEN"))
             return
         chunks = [
             (f"{r.get('id')}  {r.get('title')}\n\n", "h"),
@@ -1927,11 +2148,27 @@ class StatusWindow:
             chunks.append(("\nThis row's numbers could not be cross-checked -- the status "
                            "documents were not readable. That is NOT the same as verified.\n",
                            "warn"))
+        chunks += self._recorded_chunks(r)
         chunks += _age_chunks(r, "WHEN THE DOCUMENT RECORDING THIS WAS LAST WRITTEN")
         self._set_text(self.board_detail, chunks)
 
+    def _recorded_chunks(self, row: dict) -> list:
+        """If this row has ALREADY been answered on the board, show the answer back.
+
+        Read out of notes/BOARD.md by the collector, never remembered here, so an answer the owner
+        typed on a phone shows up identically to one typed in this window. Without this, a decision
+        the owner has already settled keeps presenting itself as outstanding forever."""
+        rec = _d(_d(getattr(self, "_board_state", None)).get("recorded")).get(
+            str(_d(row).get("id") or "").upper())
+        if not isinstance(rec, dict):
+            return []
+        return [("\nYOU HAVE ALREADY ANSWERED THIS\n", "good"),
+                f"{rec.get('answer') or ''}\n",
+                (f"recorded on the board as {rec.get('board_id')} at {rec.get('resolved')}. "
+                 f"Answering again simply records another row; nothing is overwritten.\n", "mono")]
+
     def _save_answer(self) -> None:
-        """Write the box into the selected question's ANSWER cell, and SAY SO ON SCREEN.
+        """Write the box into notes/BOARD.md for the selected row, and SAY SO ON SCREEN.
 
         Every branch here reports. The owner's report was "'save my answer' doesn't do anything",
         and an operation whose failure and whose success look identical is indistinguishable from
@@ -1941,10 +2178,10 @@ class StatusWindow:
         qid = self._selected_qid
         if not qid:
             self.answer_status.configure(
-                text="NOT SAVED: no answerable question is selected, so there is nothing to write "
-                     "to. Only QUESTION rows can be answered from this window -- DECISION and "
-                     "STANDING rows live in the plan and status documents. Your text is still in "
-                     "the box; 'File as a new note' will record it on the board as its own row.",
+                text="NOT SAVED: no row is selected, so there is nothing to record an answer "
+                     "against. Pick any row above -- a question, a decision or a standing item; "
+                     "all three can be answered here. Your text is still in the box, and 'File as "
+                     "a new note' will record it on the board as its own row.",
                 fg=_AMBER)
             return
         # DEFENCE IN DEPTH against the mis-attachment defect. The box and the selection are kept in
@@ -1962,7 +2199,23 @@ class StatusWindow:
                 text=f"NOT SAVED: the box is empty, and an empty answer would silently close "
                      f"{qid}. Nothing was written.", fg=_AMBER)
             return
-        ok, msg = status_state.answer_question(qid, text)
+        # THE ROW AND THE ID MUST AGREE (found by this file's own self-test, 2026-08-16). Now that
+        # the KIND decides where an answer goes -- into a question's own cell, or into a new row
+        # carrying a decision's text -- a kind left over from a previous selection would file an
+        # answer against a row the panel is not showing. It is the same class of fault as the
+        # mis-attachment guard above, one level up, so it gets the same treatment: refuse, say so,
+        # and keep the text. Writing SOMETHING plausible is what loses an answer.
+        row = _d(getattr(self, "_selected_row", None))
+        kind = getattr(self, "_selected_kind", None)
+        if not kind or row.get("id") != qid:
+            self.answer_status.configure(
+                text=f"NOT SAVED: REFUSED -- this window has lost track of which row {qid} is "
+                     f"(it is holding {row.get('id')!r} as a "
+                     f"{kind or 'row of no known kind'}). Nothing was written. Click the row you "
+                     f"meant in the table above and press Save again; your text is still in the "
+                     f"box.", fg=_RED)
+            return
+        ok, msg, board_id = status_state.record_answer(kind, qid, row, text)
         if not ok:
             # The text is deliberately LEFT IN THE BOX and in the draft, so a failed write never
             # costs the owner what they typed.
@@ -1970,17 +2223,21 @@ class StatusWindow:
                 text=f"NOT SAVED to {status_state.BOARD_DOC}: {msg}   Your text is still in the "
                      f"box.", fg=_RED)
             return
-        # THE CONFIRMATION. It names the question, the file, and quotes the text back, so that
+        # THE CONFIRMATION. It names the row, the file, and quotes the text back, so that
         # "did that land?" is answerable from the screen alone.
+        where = (f"in {qid}'s ANSWER cell" if kind == "QUESTION"
+                 else f"as row {board_id}, which names {qid} and repeats its text in full")
         self.answer_status.configure(
-            text=(f"SAVED to {qid}. Written into notes/BOARD.md ({status_state.BOARD_DOC}), in "
-                  f"{qid}'s ANSWER cell: \"{_verbatim(text)}\"   -- {msg}"),
+            text=(f"SAVED against {qid}. Written into notes/BOARD.md "
+                  f"({status_state.BOARD_DOC}), {where}: \"{_verbatim(text)}\"   -- {msg}"),
             fg=_GREEN)
         self._drafts.pop(qid, None)
         self.answer_box.delete("1.0", "end")
         self._answer_for = None
         self._selected_qid = None
         self._selected_row_id = None
+        self._selected_kind = None
+        self._selected_row = {}
         self.refresh_now()
 
     def _file_note(self) -> None:
@@ -2066,11 +2323,27 @@ class StatusWindow:
 
         tv2 = self.local_tv
         tv2.delete(*tv2.get_children())
+        self._run_rows: dict[str, dict] = {}
         lx = [_d(e) for e in _l(rn.get("local_experiments"))]
-        if not lx:
-            tv2.insert("", "end", values=("nothing running directly on this machine",
-                                          "", "", "", "", ""), tags=("dim",))
-        for i, e in enumerate(lx):
+        cl = _d(rn.get("claims"))
+        claims = [_d(c) for c in _l(cl.get("claims"))]
+
+        head = "WORK ON THIS MACHINE -- what is running, AND what only CLAIMS to be"
+        if cl.get("status") == "OK":
+            head += "        " + str(cl.get("headline") or "")
+        elif cl.get("status"):
+            head += (f"        the pid-file claims could NOT be checked ({cl.get('status')}: "
+                     f"{str(cl.get('detail'))[:90]}) -- treat this list as INCOMPLETE, not as empty")
+        self.local_head.configure(
+            text=head, fg=_RED if (cl.get("n_dead") or 0) else _BLUE)
+
+        i = 0
+        if not lx and not claims:
+            tv2.insert("", "end", values=("nothing at all", "no process is running here and "
+                                          "nothing claims to be", "", "", "", ""),
+                       tags=("dim",))
+        # THE LIVE ONES FIRST. These are observed processes, not claims.
+        for e in lx:
             prog = ""
             if e.get("progress_pct") is not None:
                 prog = (f"{e.get('unit_idx')}/{e.get('total_units')} "
@@ -2079,11 +2352,40 @@ class StatusWindow:
                     prog += f"  about {_fmt_dur(e['eta_s'])} left"
                 if e.get("phase"):
                     prog += f"  ({e['phase']})"
-            tv2.insert("", "end", values=(
-                _short(e.get("name", "?"), 58), prog or "no progress reported",
-                _fmt_dur(e.get("elapsed_s")), e.get("pid", "?"),
-                f"{int((e.get('mem_kb') or 0) / 1024)} MB", _age_cell(e),
-            ), tags=("even" if i % 2 == 0 else "odd",))
+            iid = f"lx{i}"
+            self._run_rows[iid] = dict(e, _kind="LIVE")
+            tv2.insert("", "end", iid=iid, values=(
+                "RUNNING - process seen", _short(e.get("name", "?"), 70),
+                prog or "no progress reported",
+                _fmt_dur(e.get("elapsed_s")), e.get("pid", "?"), _age_cell(e),
+            ), tags=("good", "even" if i % 2 == 0 else "odd"))
+            i += 1
+        # THEN THE CLAIMS. A claim already matched to a live process is skipped -- it is the row
+        # above. Everything else is a run that SAYS it is going and is not, and it is shown in the
+        # loss colour, because being quietly absent is exactly how three dead runs were briefed as
+        # live for hours.
+        live_pids = {e.get("pid") for e in lx} | {e.get("shim_pid") for e in lx}
+        for c in claims:
+            if c.get("state") == "RUNNING" and c.get("pid") in live_pids:
+                continue
+            state = str(c.get("state") or "UNKNOWN")
+            tag = ("bad" if state.startswith("DEAD") else
+                   "warn" if state.startswith(("UNKNOWN", "PID FILE", "ALIVE")) else "good")
+            logs = _l(c.get("logs"))
+            newest = _d(logs[0]) if logs else {}
+            iid = f"cl{i}"
+            self._run_rows[iid] = dict(c, _kind="CLAIM")
+            tv2.insert("", "end", iid=iid, values=(
+                state, _short(str(c.get("name") or "?"), 70),
+                (f"its last output was {_fmt_dur(newest.get('age_s'))} ago ({newest.get('name')})"
+                 if newest else "it left no output file at all"),
+                (f"claimed {_fmt_dur(c.get('claimed_age_s'))} ago"
+                 if c.get("claimed_age_s") is not None else "unknown"),
+                c.get("pid", "?"),
+                (_fmt_dur(newest.get("age_s")) + " ago" if newest.get("age_s") is not None
+                 else "UNKNOWN"),
+            ), tags=(tag, "even" if i % 2 == 0 else "odd"))
+            i += 1
 
         # remote box + alerts
         g = _d(rn.get("gpu"))
@@ -2139,14 +2441,67 @@ class StatusWindow:
                                "bad" if lvl == "CRITICAL" else "warn"))
         else:
             chunks.append(("Nothing is broken that the monitor can see.\n", "good"))
-        self._set_text(self.running_detail, chunks)
+        self._running_summary = chunks
+        self._show_running_detail()
 
         n_act = ag.get("n_active", 0) if ag.get("status") == "OK" else "?"
+        n_dead = cl.get("n_dead") or 0
         loop_tag = ("loop ON" if armed is True else "loop off" if armed is False else "loop ?")
+        dead_tag = f", {n_dead} DEAD-BUT-CLAIMED" if n_dead else ""
         try:
-            self.nb.tab(self.tab_running, text=f"2. RUNNING NOW ({n_act}, {loop_tag})")
+            self.nb.tab(self.tab_running,
+                        text=f"2. RUNNING NOW ({n_act}, {loop_tag}{dead_tag})")
         except tk.TclError:
             pass
+
+    def _show_running_detail(self) -> None:
+        """The selected run's own story, above the machine-wide summary.
+
+        For a DEAD BUT CLAIMED LIVE row this is the whole point of the panel: it names the pid file
+        that is still asserting the run, says how the operating system was asked, and points at the
+        log files -- which are the only evidence a detached run leaves behind once its process is
+        gone."""
+        summary = list(getattr(self, "_running_summary", []) or [])
+        sel = self.local_tv.selection() if hasattr(self, "local_tv") else ()
+        r = _d(getattr(self, "_run_rows", {}).get(sel[0])) if sel else {}
+        if not r:
+            self._set_text(self.running_detail, summary)
+            return
+        head: list = []
+        if r.get("_kind") == "CLAIM":
+            state = str(r.get("state") or "UNKNOWN")
+            head += [(f"{r.get('name')}  --  {state}\n", "bad" if state.startswith("DEAD") else
+                      "warn")]
+            if state.startswith("DEAD"):
+                head.append(("This run is NOT happening. Something wrote a file saying it was, and "
+                             "that file is still there. Do not read it as evidence of work in "
+                             "flight.\n", "bad"))
+            head += [(f"how we know: {r.get('basis', '')}\n", "dim"),
+                     (f"the claim lives in: {r.get('pid_file')}\n", "mono"),
+                     (f"it names process {r.get('pid')}, and was written "
+                      f"{_fmt_dur(r.get('claimed_age_s'))} ago\n", "mono")]
+            logs = _l(r.get("logs"))
+            if logs:
+                head.append(("what it left behind (this is the only evidence left once the process "
+                             "is gone):\n", "dim"))
+                for lg in logs:
+                    lg = _d(lg)
+                    head.append((f"    {lg.get('path')}  --  {lg.get('bytes')} bytes, last "
+                                 f"written {_fmt_dur(lg.get('age_s'))} ago\n", "mono"))
+            else:
+                head.append(("it left no output file at all, so there is nothing to read.\n",
+                             "warn"))
+            head.append(("Nothing in this window deletes or tidies these files; it only reports "
+                         "them.\n", "dim"))
+        else:
+            head += [(f"{r.get('name')}  --  RUNNING\n", "good"),
+                     (f"process {r.get('pid')}"
+                      + (f" (started through shim {r.get('shim_pid')})" if r.get("shim_pid")
+                         else "") + f", running for {_fmt_dur(r.get('elapsed_s'))}\n", "mono"),
+                     ("This one was observed as a live process, not inferred from a file.\n",
+                      "dim")]
+            head += _age_chunks(r, "WHEN THIS RUN LAST WROTE ANYTHING")
+        self._set_text(self.running_detail, head + ["\n"] + summary)
 
     # ---- panel 7 ------------------------------------------------------
     def _r_results(self, s: dict) -> None:

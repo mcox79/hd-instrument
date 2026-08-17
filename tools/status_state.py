@@ -139,6 +139,17 @@ except Exception as _e:  # pragma: no cover
 else:
     _EV_ERR = ""
 
+# WHAT CLAIMS TO BE RUNNING (added 2026-08-16). The live scan can only see processes that exist, so
+# a dead run vanished from the panel while its scratch/*.pid file went on being quoted as live. This
+# module reads those claims and checks each against the OS. Same import guard as the rest.
+try:
+    import status_pidclaims as _pidclaims
+except Exception as _e:  # pragma: no cover
+    _pidclaims = None
+    _PIDCLAIMS_ERR = f"{type(_e).__name__}: {_e}"
+else:
+    _PIDCLAIMS_ERR = ""
+
 # --- paths (env-overridable so the self-test can point at absent files) ------
 # notes/, not data/: `.gitignore` line 43 is `data/*`, so a spec kept under data/ would be
 # absent from a fresh clone and panel 1 would come up MISSING for the next person. It also
@@ -185,6 +196,9 @@ FIDELITY_BUDGET_S = 5.0
 PLAN_BUDGET_S = 5.0
 AGENTS_BUDGET_S = 4.0
 REMOTE_CKPT_BUDGET_S = 7.0
+# Measured on the real scratch/ (39 pid files, each an in-process OpenProcess + a few stats):
+# 855 ms cold, well under this. No subprocess, no window, no signal ever sent.
+CLAIMS_BUDGET_S = 4.0
 
 RESULTS_N = 14              # newest verdicts to show
 # An agent is WORKING if its transcript was appended to this recently. 15 minutes, not 4: a
@@ -430,6 +444,9 @@ def collect_board() -> dict:
         "n_open": len(open_rows),
         "answered_count": len(answered),
         "writable": os.access(str(BOARD_DOC), os.W_OK),
+        # Which DECISION / STANDING rows already carry an answer on the board. Read back off the
+        # document, so an answer typed on a phone counts the same as one typed in the window.
+        "recorded": answers_recorded_for(BOARD_DOC),
         "how_to_answer_in_file": (
             "Open notes/BOARD.md in any markdown editor, on any device. Type your decision "
             "into the ANSWER cell of the row. Save. That is the whole protocol -- you do not "
@@ -499,6 +516,127 @@ def file_board_note(text: str, context: str = "",
     return (True,
             f"{done.get('id')} recorded under ANSWERED at {done.get('resolved')}.",
             str(done.get("id") or ""))
+
+
+# ---------------------------------------------------------------------------
+# ANSWERING A ROW THAT IS NOT A BOARD QUESTION (2026-08-16, owner report)
+# ---------------------------------------------------------------------------
+#
+# THE DEFECT THIS FIXES IS A DESIGN ERROR, NOT A BUG. The previous fix made Save honest -- it greys
+# out on a row it cannot write -- and `notes/BOARD.md` then had ZERO open questions, so every one of
+# the eleven live rows was a DECISION (D1-D7, notes/PLAN.md section 9) or a STANDING item
+# (OP1-OP4, transcribed from the status documents). The panel was therefore CORRECTLY telling the
+# owner that nothing at all was answerable, which is useless to them: the decisions are exactly what
+# they have been trying to answer, and one attempt (D1) was lost entirely.
+#
+# WHY THE ANSWER GOES TO THE BOARD AND NOT TO THE SOURCE DOCUMENT. `notes/PLAN.md` and
+# `notes/STATUS.md` are both PARSER-COUPLED -- `tools/status_plan.py` parses section 9 of the first;
+# `tools/session_start_hook.py` greps the second for the literals `AS OF:` and `## WHAT IS RUNNING`,
+# and a past rewording of exactly those two silently degraded every compaction recovery for days
+# (CLAUDE.md, "A doc parsed by code is coupled to it"). Writing owner prose into either document
+# would put a human sentence inside a machine-read region on the owner's keystrokes. So every answer
+# lands in `notes/BOARD.md` instead: ONE write path, ONE parser, ONE file the owner can read on a
+# phone, and it already round-trips a hand edit under its own self-test.
+#
+# THE ROW CARRIES THE DECISION'S TEXT INLINE, never a bare identifier. The owner has said so twice,
+# most recently: "In general, you should include context in these questions. I do not remember what
+# Q7 was." A row that says only "D3" is a row that is unreadable a day later.
+
+_KIND_PLAIN = {
+    "QUESTION": "a question on the board",
+    "DECISION": "a standing decision from notes/PLAN.md section 9",
+    "STANDING": "a standing operator decision recorded in the status documents",
+}
+
+
+def _context_block(kind: str, row_id: str, row: dict) -> tuple[str, str]:
+    """(question_text, recommendation) for a board row that RECORDS an answer to `row_id`.
+
+    Everything the owner would need to understand the decision a month later is written into the
+    question cell itself, because that cell is what they will re-read. Fields that the source
+    document does not state are OMITTED rather than filled with a placeholder."""
+    row = row if isinstance(row, dict) else {}
+    what = _KIND_PLAIN.get(kind, "an item on the WAITING ON YOU panel")
+    bits = [f"ANSWER TO {row_id} -- {what}."]
+    title = str(row.get("title") or "").strip()
+    question = str(row.get("question") or "").strip()
+    if title and title != question:
+        bits.append(f"IT IS ABOUT: {title}")
+    if question:
+        bits.append(f"THE DECISION, IN FULL: {question}")
+    why = str(row.get("why") or row.get("blocked") or "").strip()
+    if why:
+        bits.append(f"WHAT IS BLOCKED ON IT: {why}")
+    default = str(row.get("default") or row.get("standing") or "").strip()
+    if default:
+        bits.append(f"WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: {default}")
+    src = str(row.get("source") or "").strip()
+    if src:
+        bits.append(f"RECORDED IN: {src}")
+    rec = str(row.get("rec") or row.get("default") or "").strip()
+    return " ".join(bits), (rec or "(the source document states no recommendation)")
+
+
+def record_answer(kind: str, row_id: str, row: dict, answer: str,
+                  board_path: Path | None = None) -> tuple[bool, str, str]:
+    """Record the owner's answer to ANY row on the WAITING ON YOU panel. (ok, message, board_id).
+
+    QUESTION rows keep the pre-existing path exactly: `board.resolve()` writes into that question's
+    own ANSWER cell. Every OTHER kind becomes a NEW board row that names the decision and carries
+    its text inline, filed already-answered through `board.ask()` + `board.resolve()`.
+
+    NO SECOND WRITE PATH, for the same reason as `answer_question` and `file_board_note` above:
+    those two board calls do the atomic temp-file-plus-os.replace rewrite, preserve hand-added
+    sections verbatim, and round-trip a raw `|` typed into a cell, all under `board.py self-test`.
+    This function validates, delegates, and reports."""
+    text = (answer or "").strip()
+    rid = (row_id or "").strip()
+    if not text:
+        return False, "REFUSED: an empty answer would record nothing.", ""
+    if not rid:
+        return False, "REFUSED: no row is selected, so there is nothing to record an answer to.", ""
+    if _board is None:
+        return False, f"tools/board.py unavailable ({_BOARD_ERR})", ""
+    bp = Path(board_path) if board_path else BOARD_DOC
+
+    if kind == "QUESTION":
+        ok, msg = answer_question(rid, text, bp)
+        return ok, msg, (rid if ok else "")
+
+    question, rec = _context_block(kind, rid, row)
+    try:
+        new = _board.ask(question, why=f"{rid} was waiting on you and now it is not.",
+                         rec=rec, board_path=bp, status_path=STATUS_DOC)
+        done = _board.resolve(new["id"], text, bp, STATUS_DOC)
+    except Exception as exc:
+        return False, f"WRITE FAILED ({type(exc).__name__}: {exc}) -- board NOT changed.", ""
+    return (True,
+            f"recorded as {done.get('id')} on the board at {done.get('resolved')}, naming {rid} "
+            f"and carrying its full text.",
+            str(done.get("id") or ""))
+
+
+def answers_recorded_for(board_path: Path | None = None) -> dict:
+    """{row_id: board_id} for every DECISION/STANDING row already answered on the board.
+
+    Read back out of the DOCUMENT rather than remembered in the window, so an answer typed on a
+    phone into notes/BOARD.md counts exactly the same as one typed here, and so the panel can show
+    ANSWERED beside a decision instead of asking for it again forever."""
+    out: dict = {}
+    if _board is None:
+        return out
+    bp = Path(board_path) if board_path else BOARD_DOC
+    try:
+        _q, answered, _e = _board.load(bp)
+    except Exception:
+        return out
+    for r in answered:
+        m = re.match(r"ANSWER TO ([A-Za-z]{1,10}\d{1,4})\b", str(r.get("question") or "").strip())
+        if m:
+            out.setdefault(m.group(1).upper(), {"board_id": r.get("id"),
+                                                "answer": r.get("answer"),
+                                                "resolved": r.get("resolved")})
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -720,6 +858,27 @@ def collect_running() -> dict:
 
     g = base.get("gpu") or {}
     util = g.get("util_ema") if g.get("util_ema") is not None else g.get("util_pct")
+    local = base.get("local_experiments") or []
+
+    # WHAT CLAIMS TO BE RUNNING (2026-08-16). The scan above can only see processes that EXIST, so a
+    # run that died simply vanished from the panel while its scratch/<name>.pid file stayed on disk
+    # and kept being quoted as live -- 37 of 39 such files pointed at nothing on the night this was
+    # added, three of them cited as live in agent briefs for hours. A stale RUNNING is worse than no
+    # panel because it is read as evidence, so the claim and the OS's answer are now shown together.
+    # The live pid set is what separates "our run is up" from a recycled process number.
+    live_pids = set()
+    for e in local:
+        if isinstance(e, dict):
+            for k in ("pid", "shim_pid"):
+                if isinstance(e.get(k), int):
+                    live_pids.add(e[k])
+    if _pidclaims is None:
+        claims = {"status": "ERROR", "claims": [], "n_claims": 0, "n_dead": 0,
+                  "detail": f"tools/status_pidclaims.py unavailable ({_PIDCLAIMS_ERR})"}
+    else:
+        claims = _panel("pid claims",
+                        lambda: _pidclaims.scan_claims(live_pids=live_pids), CLAIMS_BUDGET_S)
+
     return {
         "status": "OK" if st_status == "OK" else st_status,
         "state_status": st_status,
@@ -728,7 +887,8 @@ def collect_running() -> dict:
         "gpu_util": util,
         "queues": base.get("queues") or {},
         "runners": base.get("runners") or {},
-        "local_experiments": base.get("local_experiments") or [],
+        "local_experiments": local,
+        "claims": claims,
         "cache_age_s": base.get("cache_age_s"),
         "agents": agents,
         "remote_checkpoint": ckpt,

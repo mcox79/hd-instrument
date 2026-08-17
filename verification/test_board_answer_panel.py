@@ -242,17 +242,34 @@ def run() -> int:
 
         # ---------------------------------------------------------------
         # D1 -- SAVE MUST NEVER LOOK LIVE AND DO NOTHING.
-        # On a row that cannot be written, the control is disabled and SAYS WHY. An enabled button
-        # that refuses on press is the defect being fixed.
+        #
+        # AMENDED 2026-08-16 (second owner report: *"save answer is greyed out for all?"*). The
+        # ORIGINAL form of this check asserted that Save is DISABLED on a STANDING row, which was
+        # right for the design as it stood and wrong as a design: the board had zero open questions
+        # that night, so every live row was DECISION or STANDING and the button was dead
+        # everywhere. Every row is answerable now -- see verification/test_board_answerable_all.py,
+        # which asserts that positively against the real D1-D7 / OP1-OP4.
+        #
+        # THE PROPERTY THIS CHECK EXISTS FOR IS UNCHANGED AND STILL ASSERTED: the button's state
+        # must always match what pressing it will do. So it is live on a row it can write, dead
+        # WITH A STATED REASON on the one case it cannot (nothing selected), and never
+        # enabled-and-refusing.
         # ---------------------------------------------------------------
         _select(gui, "OP1")
-        check("disabled" in str(gui.answer_btn.state()),
-              f"D1 Save is DISABLED while a not-answerable row is selected, rather than accepting "
-              f"a typed answer and refusing it (state {gui.answer_btn.state()})")
+        check("disabled" not in str(gui.answer_btn.state()),
+              f"D1 Save is LIVE on a STANDING row -- it records the answer on the board rather "
+              f"than greying out (state {gui.answer_btn.state()})")
         frame_txt = _frame_text(gui).upper()
-        check("NOT ANSWERABLE" in frame_txt or "CANNOT" in frame_txt,
-              f"D1 and the box SAYS the selected row cannot be answered here "
-              f"(frame reads {frame_txt[:90]!r})")
+        check("OP1" in frame_txt and "NOT ANSWERABLE" not in frame_txt,
+              f"D1 and the box names OP1 as the row it will record against "
+              f"(frame reads {frame_txt[:110]!r})")
+        gui._selected_qid = None
+        gui._sync_answer_ui(None)
+        check("disabled" in str(gui.answer_btn.state()),
+              f"D1 with NOTHING selected Save is disabled, not enabled-and-refusing "
+              f"(state {gui.answer_btn.state()})")
+        check("NOT ANSWERABLE" in _frame_text(gui).upper(),
+              f"D1 and it states the reason (frame reads {_frame_text(gui)[:90]!r})")
 
         # ---------------------------------------------------------------
         # D1b -- A SUCCESSFUL SAVE MUST SHOW WHAT WAS WRITTEN AND WHERE.
@@ -329,18 +346,31 @@ def run() -> int:
         gui._answer_for = None
         gui._drafts.clear()
         gui._r_board(empty)
-        check("disabled" in str(gui.answer_btn.state()),
-              f"D1c with nothing answerable, Save is DISABLED rather than enabled-and-refusing "
+        # AMENDED 2026-08-16, same reason as D1 above. With no open question the panel falls back
+        # to the STANDING row, and that row is now answerable -- so the text the owner types in
+        # exactly this state REACHES DISK instead of having nowhere to go. That is the whole point:
+        # this is the state their lost answer was typed in.
+        check("disabled" not in str(gui.answer_btn.state()),
+              f"D1c with ZERO open questions Save is still live, against the standing row "
               f"(state {gui.answer_btn.state()})")
         _type(gui, "remember that we have a phase diagram | per-process, not one global setting")
         gui._save_answer()
-        check("NOT SAVED" in gui.answer_status.cget("text").upper(),
-              f"D1c pressing Save SAYS it did not save, rather than doing nothing visible "
-              f"(got {gui.answer_status.cget('text')[:100]!r})")
-        check(_box(gui).strip() != "",
-              "D1c and the typed text is still in the box -- it is never silently dropped")
+        check("SAVED" in gui.answer_status.cget("text").upper()
+              and "NOT SAVED" not in gui.answer_status.cget("text").upper(),
+              f"D1c pressing Save in the exact state that lost an answer now writes it "
+              f"(got {gui.answer_status.cget('text')[:120]!r})")
+        _q0, a0, _e0 = board_mod.load(_FIXTURE_BOARD)
+        landed = [r for r in a0 if "phase diagram" in (r.get("answer") or "")]
+        check(len(landed) == 1,
+              f"D1c and the text is on disk in notes/BOARD.md (found {len(landed)})")
+        check(landed and "OP1" in (landed[0].get("question") or ""),
+              f"D1c naming the row it was written against "
+              f"({(landed[0].get('question') if landed else '')[:90]!r})")
 
-        # The escape hatch: the same text must now have somewhere to go.
+        # The escape hatch is still there for text that belongs to no row at all. Deliberately a
+        # DIFFERENT sentence from the one saved above, so the two destinations cannot be confused
+        # for one another when counting rows on disk.
+        _type(gui, "a loose thought | belonging to no row at all")
         check("disabled" not in str(gui.note_btn.state()),
               "D1c a writable board always offers a destination for typed text")
         gui._file_note()
@@ -348,7 +378,7 @@ def run() -> int:
         check("FILED" in note_conf.upper() and "BOARD.md" in note_conf,
               f"D1c filing a note confirms WHERE it went (got {note_conf[:120]!r})")
         _q, a_notes, _e = board_mod.load(_FIXTURE_BOARD)
-        filed = [r for r in a_notes if "phase diagram" in (r.get("answer") or "")]
+        filed = [r for r in a_notes if "loose thought" in (r.get("answer") or "")]
         check(len(filed) == 1,
               f"D1c the text reached notes/BOARD.md verbatim as its own ANSWERED row "
               f"(found {len(filed)})")
