@@ -186,6 +186,7 @@ Keys: F5 or r = refresh now. Ctrl+1..8 = jump to a panel.
 from __future__ import annotations
 
 import argparse
+import json
 import queue as _queue
 import sys
 import threading
@@ -290,6 +291,37 @@ def _short(name: str, n: int = 46) -> str:
     if s.startswith("exp_"):
         s = s[4:]
     return s if len(s) <= n else s[: n - 3] + "..."
+
+
+def _gist(text: str, n: int = 70) -> str:
+    """A LIST-ROW LABEL, never the reading copy (2026-08-17, third pass on the WAITING ON YOU
+    tab). The owner's complaint -- "I can't read any of the question text" -- traced to this
+    table stuffing the FULL question/decision text into a Treeview cell. A Treeview cell does not
+    wrap; it clips silently at the column's pixel width with no visual sign anything is missing, so
+    a 859-character question rendered as an illegible fragment. The full text still belongs, and
+    now lives, only in the reading pane (`_show_board_detail`); this cuts at the last whole word
+    inside the limit so a label never ends mid-word."""
+    s = (text or "").replace("\r\n", " ").replace("\n", " ").replace("\r", " ").strip()
+    if len(s) <= n:
+        return s
+    cut = s[:n].rsplit(" ", 1)[0]
+    return (cut or s[:n]) + "..."
+
+
+_VOLATILE_AGE_KEYS = {"age_s", "rel", "took_s"}
+
+
+def _strip_volatile_ages(obj):
+    """Recursively drop `age_s`/`rel`/`took_s` from any dict -- see `StatusWindow._board_snapshot`
+    for why: `age_s`/`rel` drift with wall-clock time alone regardless of whether the underlying
+    artifact changed, and `took_s` (the collector's OWN timing, measured live to differ on every
+    call: 0.02 vs 0.05, 0.17 vs 0.25) is noise about the collection itself, not the board. Leaving
+    any of them in a change-detection fingerprint makes the fingerprint change on every tick."""
+    if isinstance(obj, dict):
+        return {k: _strip_volatile_ages(v) for k, v in obj.items() if k not in _VOLATILE_AGE_KEYS}
+    if isinstance(obj, list):
+        return [_strip_volatile_ages(v) for v in obj]
+    return obj
 
 
 # --- the LAST UPDATED cell, shared by every table --------------------------
@@ -429,7 +461,6 @@ class StatusWindow:
         self._selected_kind: str | None = None
         self._selected_row: dict = {}
         self._board_state: dict = {}
-
         self._style()
         self._build()
 
@@ -534,16 +565,25 @@ class StatusWindow:
         tv.tag_configure("dim", foreground=_DIM)
         return frame, tv
 
-    def _detail(self, parent, height=7):
+    def _detail(self, parent, height=7, font_size=10, heading_font_size=None, spacing=None):
+        """`font_size`/`heading_font_size`/`spacing` default to the original values (10/11/none)
+        for every caller except the WAITING ON YOU reading pane, which passes larger ones -- see
+        `_build_board`. That pane is the PRIMARY CONTENT of its tab (owner: "I can't read any of
+        the question text"); the other seven callers are secondary hint/detail boxes and are left
+        exactly as they rendered before."""
+        heading_font_size = heading_font_size or (font_size + 1)
         t = tk.Text(parent, height=height, wrap="word", bd=0, padx=10, pady=8,
                     bg=_ALT, fg=_FG, insertbackground=_FG, highlightthickness=0,
-                    font=("Segoe UI", 10), state="disabled")
-        t.tag_configure("h", foreground="#ffffff", font=("Segoe UI", 11, "bold"))
-        t.tag_configure("bad", foreground=_RED, font=("Segoe UI", 10, "bold"))
-        t.tag_configure("good", foreground=_GREEN, font=("Segoe UI", 10, "bold"))
-        t.tag_configure("warn", foreground=_AMBER, font=("Segoe UI", 10, "bold"))
+                    font=("Segoe UI", font_size), state="disabled")
+        if spacing:
+            s1, s2, s3 = spacing
+            t.configure(spacing1=s1, spacing2=s2, spacing3=s3)
+        t.tag_configure("h", foreground="#ffffff", font=("Segoe UI", heading_font_size, "bold"))
+        t.tag_configure("bad", foreground=_RED, font=("Segoe UI", font_size, "bold"))
+        t.tag_configure("good", foreground=_GREEN, font=("Segoe UI", font_size, "bold"))
+        t.tag_configure("warn", foreground=_AMBER, font=("Segoe UI", font_size, "bold"))
         t.tag_configure("dim", foreground=_DIM)
-        t.tag_configure("mono", font=("Consolas", 9), foreground=_DIM)
+        t.tag_configure("mono", font=("Consolas", max(8, font_size - 1)), foreground=_DIM)
         return t
 
     @staticmethod
@@ -1126,7 +1166,23 @@ class StatusWindow:
         self.nb.add(f, text="3. WAITING ON YOU")
         self.tab_board = f
         f.columnconfigure(0, weight=1)
-        f.rowconfigure(2, weight=1)
+        # THE READING PANE GETS THE MAJORITY OF THE VERTICAL SPACE (2026-08-17, THIRD PASS). Row 4
+        # (the detail/reading pane) is the ONLY row with weight -- every other row (banner, hint,
+        # new-data hint, table, answer box) is a plain fixed-height grid row. This replaces the
+        # PanedWindow the second pass used for table+detail: that mechanism was measured TWICE to
+        # mis-size its panes (an earlier pane's request/minsize satisfied before a later one's, an
+        # explicit `sash_place()` call measured to have no effect at all) and STILL left the owner
+        # unable to read -- a PanedWindow negotiates space by each pane's own request, and the
+        # table's request (height=12 rows =~ 356px) was consuming nearly the whole budget on the
+        # owner's screen regardless of any minsize floor set on the detail pane. A fixed-height
+        # table plus one weighted row is deterministic: the table gets exactly what its declared
+        # row count needs (now a compact 6, shrunk from 12 -- the STANDARD below says the table
+        # carries short labels, not full text, so it does not need to show every row at once; the
+        # scrollbar reaches the rest), and QUESTION TEXT -- THE PRIMARY CONTENT OF THIS TAB -- gets
+        # everything left over, not whatever a heuristic decided to spare it.
+        self._board_table_row = 3
+        self._board_detail_row = 4
+        f.rowconfigure(self._board_detail_row, weight=1)
 
         # THE COUNT BANNER (2026-08-17, fixing the owner report *"the questions tab now only
         # appears to have one question, and no way for me to select a new one"*). What was
@@ -1140,119 +1196,126 @@ class StatusWindow:
         # large text before anything else is read, and the placeholder row itself is gone (see
         # _r_board) -- every row now in the table is a real, answerable row.
         banner = tk.Frame(f, bg="#26415c")
-        banner.grid(row=0, column=0, sticky="ew", pady=(3, 4))
+        banner.grid(row=0, column=0, sticky="ew", pady=(2, 2))
         banner.columnconfigure(0, weight=1)
         self.wait_count_lbl = tk.Label(banner, text="", bg="#26415c", fg="#ffffff",
-                                       font=("Segoe UI", 13, "bold"), anchor="w",
+                                       font=("Segoe UI", 12, "bold"), anchor="w",
                                        justify="left", padx=12, wraplength=self._wrap_w)
-        # Padding trimmed 8,8 -> 6,6 (part of the defect-1 space budget below) -- the text is still
-        # 13pt bold, still the most prominent thing on the tab; only the whitespace around it
-        # shrank.
-        self.wait_count_lbl.grid(row=0, column=0, sticky="ew", pady=(6, 6))
+        # Padding trimmed further 6,6 -> 3,3 and font 13 -> 12 (2026-08-17, third pass, defect A --
+        # measured live: this banner alone cost 64px, and the fixed rows on this tab (banner+hint+
+        # table+answer) totalled MORE than the ~441px the tab actually has, which is why the
+        # reading pane -- the one row that is supposed to get the SPACE THEY DON'T USE -- measured
+        # 1px even before this trim). Still bold and still the most prominent text on the tab.
+        self.wait_count_lbl.grid(row=0, column=0, sticky="ew", pady=(3, 3))
         self.wait_banner = banner
 
         self.board_hint = tk.Label(
-            f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10), anchor="w",
-            justify="left", wraplength=self._wrap_w, padx=4, pady=6)
+            f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 9), anchor="w",
+            justify="left", wraplength=self._wrap_w, padx=4, pady=2)
         self.board_hint.grid(row=1, column=0, sticky="ew")
 
-        # THE PANED WINDOW (2026-08-17, DEFECT-1 FIX -- see the class docstring above for the
-        # measured cause). Only TABLE and DETAIL negotiate for space here; the answer box (Save
-        # must always be reachable, non-negotiably) is deliberately NOT a pane -- see the comment
-        # above `ans = ttk.LabelFrame(...)` below for why a three-way split was tried first and
-        # measured to still let the answer box collapse.
-        pw = tk.PanedWindow(f, orient="vertical", bg=_BG, bd=0, sashwidth=7, sashrelief="raised",
-                            sashpad=1, showhandle=False, opaqueresize=False)
-        pw.grid(row=2, column=0, sticky="nsew")
-        self.board_panes = pw
+        # THE "NEW DATA" AFFORDANCE (2026-08-17, DEFECT B -- see _r_board / _board_engaged).
+        # Hidden (`grid_remove`) until a refresh arrives while the owner is reading or typing on
+        # this tab; that refresh is NOT applied (nothing here may move under the owner while they
+        # are engaged with it), so this is the only thing that changes on screen -- and it is an
+        # explicit click, never automatic.
+        self.board_new_data_lbl = tk.Label(
+            f, text="", bg=_AMBER_BG, fg="#ffffff", font=("Segoe UI", 9, "bold"), anchor="w",
+            justify="left", wraplength=self._wrap_w, padx=8, pady=4, cursor="hand2")
+        self.board_new_data_lbl.grid(row=2, column=0, sticky="ew", pady=(0, 2))
+        self.board_new_data_lbl.bind("<Button-1>", self._board_force_refresh)
+        self.board_new_data_lbl.grid_remove()
 
-        tv_wrap = ttk.Frame(pw)
+        # THE TABLE -- A FIXED, COMPACT ROW (see the rowconfigure comment above for why this
+        # replaces the PanedWindow). height=3 (was 12, then 6 -- measured live: even 6 rows
+        # (197px) left the fixed rows on this tab totalling MORE than its ~441px budget, which is
+        # why the reading pane still measured 1px after the first trim). The STANDARD is that this
+        # list carries SHORT LABELS ONLY -- an id plus a gist -- never the full question text (see
+        # `_gist` below), so it does not need to show every row at once; the scrollbar `_tree()`
+        # already attaches reaches the rest, and Ctrl/Shift-click plus the up/down arrows keep
+        # every row reachable without a mouse.
+        tv_wrap = ttk.Frame(f)
         tv_wrap.columnconfigure(0, weight=1)
         tv_wrap.rowconfigure(0, weight=1)
         frame, self.board_tv = self._tree(
             tv_wrap, cols=("id", "kind", "question", "now", "updated"),
             widths=(55, 150, 420, 250, 130),
             minwidths=(45, 120, 260, 180, 110),
-            headings=("#", "", "WHAT NEEDS YOUR DECISION",
-                      "WHAT HAPPENS IF YOU SAY NOTHING", "RECORDED / LAST UPDATED"), height=12)
+            headings=("#", "", "WHAT NEEDS YOUR DECISION (click a row to read it in full below)",
+                      "WHAT HAPPENS IF YOU SAY NOTHING", "RECORDED / LAST UPDATED"), height=3)
         frame.grid(row=0, column=0, sticky="nsew")
         self.board_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_board_detail())
-        # minsize=130 is enough for the banner + heading + ~3-4 data rows to always be visible and
-        # clickable, even with the sash dragged to its limit -- the table can NEVER again be
-        # crushed to the 1x1 pixels measured before this fix. Being the FIRST pane matters: Tk's
-        # PanedWindow was measured satisfying an earlier pane's minsize before a later one's, so
-        # the one thing that must never again be crushed is listed first.
-        pw.add(tv_wrap, minsize=95, stretch="always")
+        tv_wrap.grid(row=self._board_table_row, column=0, sticky="ew", pady=(0, 4))
 
-        det_wrap = ttk.Frame(pw)
+        # THE READING PANE -- THE PRIMARY CONTENT OF THIS TAB. Bigger font (13pt heading 16pt,
+        # up from 10pt/11pt), generous line spacing, and it is the one row with grid weight (see
+        # above), so it takes essentially all the space the table and the fixed rows do not use.
+        # Given its own scrollbar too (the other seven `_detail()` panes don't need one -- they are
+        # secondary hint boxes with a fixed height -- but this is the pane the owner reads a full
+        # question from, and it must never silently clip content the way the old table cell did).
+        det_wrap = ttk.Frame(f)
         det_wrap.columnconfigure(0, weight=1)
         det_wrap.rowconfigure(0, weight=1)
-        self.board_detail = self._detail(det_wrap, height=8)
+        self.board_detail = self._detail(det_wrap, height=10, font_size=13,
+                                         heading_font_size=16, spacing=(2, 6, 12))
         self.board_detail.grid(row=0, column=0, sticky="nsew")
-        pw.add(det_wrap, minsize=55, stretch="always")
+        det_sb = ttk.Scrollbar(det_wrap, orient="vertical", command=self.board_detail.yview)
+        self.board_detail.configure(yscrollcommand=det_sb.set)
+        det_sb.grid(row=0, column=1, sticky="ns")
+        det_wrap.grid(row=self._board_detail_row, column=0, sticky="nsew")
 
-        # THE ANSWER BOX IS DELIBERATELY *NOT* IN THE PANED WINDOW (2026-08-17). It was, briefly,
-        # a third pane with minsize=170 -- and MEASURED (not assumed) to still collapse to 4px,
-        # because a live check showed Tk's PanedWindow satisfies EARLIER panes' minsize first and
-        # lets the LAST one absorb however much of the deficit is left, regardless of its own
-        # minsize (a second live check ruled out fixing this with explicit `sash_place()` calls
-        # too -- the sash coordinates measurably did not move when asked). Save must always be
-        # reachable, non-negotiably, so it goes back to being an ordinary FIXED grid row below the
-        # paned window -- the exact mechanism that already reliably gives the banner and the hint
-        # their full requested height above it. Only the table and the detail box, which both have
-        # their own internal scrolling and are genuinely safe to compress, negotiate for space.
-        ans = ttk.LabelFrame(f, text="YOUR ANSWER")
+        # THE ANSWER BOX stays a plain fixed grid row -- the mechanism that has reliably given the
+        # banner and the hint their full height all along; a PanedWindow pane was tried for it in
+        # the second pass and measured to collapse to 4px regardless of its own minsize.
+        #
+        # PLAIN ttk.Frame, NOT ttk.LabelFrame (2026-08-17, third pass, defect A). The LabelFrame's
+        # own static border title used to read "YOUR ANSWER" -- entirely redundant with
+        # `answer_caption` below, which already says "YOUR ANSWER TO <row>...", and a LabelFrame's
+        # border+title costs real pixels for no information the caption doesn't already carry.
+        # Measured live: this saved part of the space that got the reading pane off a 1px crush.
+        ans = ttk.Frame(f)
         self.answer_frame = ans
-        ans.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+        ans.grid(row=5, column=0, sticky="ew", pady=(4, 0))
         ans.columnconfigure(0, weight=1)
         # THE CAPTION IS LOAD-BEARING, not decoration. It names the exact question this box will
         # write to, and it is the only thing standing between the owner and an answer attached to
         # the wrong row. It is rewritten on every selection change by _sync_answer_ui().
-        #
-        # IT USED TO BE THE LABELFRAME'S OWN `text=` (2026-08-17 fix). A ttk LabelFrame title does
-        # NOT wrap -- so the moment the caption grew past a few words (any DECISION or STANDING
-        # selection: "YOUR ANSWER TO D2 -- pressing Save records it in notes/BOARD.md as a new row
-        # that names D2 and carries the whole of its text..."), the frame demanded ~1200 px just for
-        # its border title, well past the whole window's width, found by walking the live widget
-        # tree (`kid.winfo_reqwidth()` against the window's own `winfo_width()`) rather than by eye.
-        # That is a wider, uglier version of the exact fault the column-budget fix above addresses:
-        # a control demanding more room than the window has, silently. The frame keeps a short,
-        # static title; the caption moves into an ordinary wrapping Label inside it.
         # tk.Label's own `pady` is a single distance, not a (top, bottom) pair (see the identical
         # note on the headline label above) -- asymmetric spacing goes on the grid call instead.
         self.answer_caption = tk.Label(ans, text="", bg=_PANEL, fg=_BLUE,
                                        font=("Segoe UI", 11, "bold"), anchor="w", justify="left",
                                        wraplength=self._wrap_w, padx=6)
-        self.answer_caption.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(4, 0))
+        self.answer_caption.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(2, 0))
         # DEFECT 4: an obviously-an-answer-box border (was a thin 1px border in the window's
         # default colour, indistinguishable from every other box on screen) plus a slightly larger
-        # font. Height stays at 3 -- a live measurement showed 4 left the WAITING ON YOU tab's
-        # total content too tall for its own table and detail box to stay above a 1px-crush floor
-        # on the owner's real screen; 3 lines is still comfortably more than one line to type into.
-        self.answer_box = tk.Text(ans, height=3, wrap="word", bd=0, padx=8, pady=6,
+        # font. Height 2 (was 3, then 3 again under the paned-window regime) -- measured live: on
+        # this tab's real ~441px budget, 3 lines was part of what crushed the reading pane to 1px;
+        # 2 lines is still enough to see a real sentence while typing it, and the box itself never
+        # blocks typing more -- Tk lets a Text widget's content scroll past its declared height.
+        self.answer_box = tk.Text(ans, height=2, wrap="word", bd=0, padx=8, pady=4,
                                   bg="#1b1b1b", fg=_FG, insertbackground=_FG,
                                   highlightthickness=2, highlightbackground="#4a7fb5",
                                   highlightcolor="#4a7fb5", font=("Segoe UI", 11))
-        self.answer_box.grid(row=1, column=0, sticky="ew", padx=6, pady=6)
+        self.answer_box.grid(row=1, column=0, sticky="ew", padx=6, pady=4)
         # Keystrokes are captured into the per-question draft as they happen, so that a refresh
         # landing between the last keypress and the button press cannot lose them.
         self.answer_box.bind("<KeyRelease>", lambda _e: self._stash_draft())
         btns = ttk.Frame(ans)
         btns.grid(row=1, column=1, sticky="ns", padx=(0, 6))
         self.answer_btn = ttk.Button(btns, text="Save my answer", command=self._save_answer)
-        self.answer_btn.grid(row=0, column=0, sticky="ew", pady=(6, 3))
+        self.answer_btn.grid(row=0, column=0, sticky="ew", pady=(0, 2))
         # THE ESCAPE HATCH. On the night this panel was reported broken the board had ZERO open
         # questions, so every selectable row was a DECISION or a STANDING item, none of which can
         # be written -- the owner typed a real answer and the panel had nowhere to put it. This
         # button gives typed text somewhere to go REGARDLESS of what is selected: it files the text
         # as its own board row, already answered, through the same tested board.py calls.
         self.note_btn = ttk.Button(btns, text="File as a new note", command=self._file_note)
-        self.note_btn.grid(row=1, column=0, sticky="ew", pady=(0, 3))
+        self.note_btn.grid(row=1, column=0, sticky="ew", pady=(0, 2))
         ttk.Button(btns, text="Clear",
                    command=self._clear_answer).grid(row=2, column=0, sticky="ew")
         self.answer_status = tk.Label(ans, text="", bg=_PANEL, fg=_DIM, anchor="w",
                                       font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
-        self.answer_status.grid(row=2, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 6))
+        self.answer_status.grid(row=2, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 3))
 
     # ---- TAB 2 (group A) ----------------------------------------------
     def _build_running(self) -> None:
@@ -2221,7 +2284,121 @@ class StatusWindow:
         self._set_text(self.fid_detail, chunks)
 
     # ---- tab 3: WAITING ON YOU ----------------------------------------
+    def _board_engaged(self) -> bool:
+        """True while the owner is reading or composing on this tab, per the owner's own standard:
+        "if a row is selected, or the answer box has focus, or the answer box has unsaved text, the
+        question/answer panes MUST NOT be rebuilt by the refresh timer." While this is True,
+        `_r_board` must not touch the table, the detail pane, or the answer box, because even an
+        identical rebuild resets the text cursor and any scroll/selection state.
+
+        DELIBERATELY UNCONDITIONAL ON *WHY* A ROW IS SELECTED -- an earlier version of this pass
+        tried to distinguish "the owner clicked this" from "this window auto-picked it for
+        convenience" so a fresh, never-touched tab would not freeze forever. That distinction
+        needed to know WHICH selection-set call the live `<<TreeviewSelect>>` event belonged to,
+        and `tv.selection_set()` only QUEUES that event -- on the real, event-pumped window
+        (unlike this file's own self-test, which never calls `root.update()`) it can fire AFTER a
+        same-turn boolean suppression flag had already reset, misattributing an internal pick to
+        the owner. Rather than chase that race further, this reverts to the plain, literal rule:
+        ANY selection freezes the tab, full stop. The escape valve is the "new data available"
+        hint (`board_new_data_lbl`), which always stays live and gives the owner an explicit,
+        one-click way to pull fresh data -- so nothing is ever silently lost, only held until they
+        ask for it."""
+        try:
+            if self.board_tv.selection():
+                return True
+        except tk.TclError:
+            pass
+        try:
+            if self.root.focus_get() is self.answer_box:
+                return True
+        except (tk.TclError, KeyError):
+            pass
+        try:
+            if self.answer_box.get("1.0", "end").strip():
+                return True
+        except tk.TclError:
+            pass
+        return False
+
+    @staticmethod
+    def _board_snapshot(s: dict) -> str:
+        """A cheap fingerprint of the data this tab renders, so the "new data available" hint
+        only lights up when something actually changed -- not on every 20s tick regardless.
+
+        VOLATILE AGE FIELDS ARE STRIPPED FIRST (found live: without this, the hint lit on nearly
+        every tick even though nothing meaningful had changed). Every row's `evidence_age` carries
+        `age_s`, recomputed as `time.time() - artifact_mtime` on EVERY collection -- it drifts on
+        its own even when the artifact has not been touched, so it is not evidence of new data,
+        only of time passing. `rel` (its bucketed text, e.g. "just now") is stripped for the same
+        reason: it can flip on a bucket boundary from the clock alone. `ts`/`when`/`when_utc` are
+        kept -- those are deterministic functions of the artifact's own mtime and DO change when
+        the artifact genuinely does."""
+        try:
+            payload = _strip_volatile_ages({"board": _d(s.get("board")), "plan": _d(s.get("plan"))})
+            return json.dumps(payload, sort_keys=True, default=str)
+        except (TypeError, ValueError):
+            return repr((s.get("board"), s.get("plan")))
+
+    def _board_update_new_data_hint(self, s: dict) -> None:
+        key = self._board_snapshot(s)
+        if key == getattr(self, "_board_rendered_snapshot", None):
+            return   # the incoming payload is identical to what is already on screen -- say nothing
+        try:
+            self.board_new_data_lbl.configure(
+                text="NEW BOARD DATA ARRIVED WHILE YOU WERE READING OR ANSWERING -- this tab is "
+                     "frozen ON PURPOSE so nothing moves under you. Click here to load it now.")
+            self.board_new_data_lbl.grid()
+        except tk.TclError:
+            pass
+
+    def _board_clear_new_data_hint(self) -> None:
+        try:
+            self.board_new_data_lbl.configure(text="")
+            self.board_new_data_lbl.grid_remove()
+        except tk.TclError:
+            pass
+
+    def _board_force_refresh(self, _evt=None) -> None:
+        """The new-data hint's click target: the ONE way this tab's automatic freeze is lifted --
+        an explicit, owner-initiated pull of whatever arrived most recently, never automatic."""
+        s = getattr(self, "_board_last_state", None)
+        if s is not None:
+            self._r_board_apply(s)
+        self._board_clear_new_data_hint()
+
     def _r_board(self, s: dict) -> None:
+        """Entry point for EVERY refresh of this tab -- the 20s auto timer, F5, and the post-Save
+        refresh all land here.
+
+        DEFECT B (third report, 2026-08-17 evening): *"I can barely use the question/answer tab...
+        every once in a while the text jumps."* Traced to THIS function: on every refresh it
+        unconditionally deleted and reinserted the table, and (by re-selecting the same row through
+        `tv.selection_set`, which fires `<<TreeviewSelect>>` even when the selection does not
+        change) re-ran `_show_board_detail`, which reloads the answer box from its draft via
+        `delete` + `insert`. The CONTENT after that round-trip is identical, but the delete+insert
+        resets the text cursor to the end -- invisible in a diff, very visible to someone mid-
+        sentence, and it is what "the text jumps" was describing. The two prior passes never looked
+        here because they were both diagnosing the LAYOUT (why the pane was unreadably small), not
+        the REBUILD (why something the owner was not touching kept resetting) -- both defects were
+        real and neither fix touched the other's cause.
+
+        THE FIX: if the owner is ENGAGED (a row selected, the answer box focused, or the box holds
+        unsaved text -- see `_board_engaged`), this function does not touch the table, the detail
+        pane, or the answer box AT ALL, not even to "restore" anything, because nothing was moved
+        in the first place. It only lights the small `board_new_data_lbl` hint if the incoming data
+        actually differs from what is on screen, and remembers the payload in `_board_last_state`
+        so an explicit disengage (Save, or clicking the hint) always applies the freshest data
+        received meanwhile -- nothing is ever lost, only held."""
+        self._board_last_state = s
+        if self._board_engaged():
+            self._board_update_new_data_hint(s)
+            return
+        self._board_clear_new_data_hint()
+        self._r_board_apply(s)
+
+    def _r_board_apply(self, s: dict) -> None:
+        """The actual rebuild, run only when `_r_board` has established the owner is NOT engaged
+        with this tab -- see that method's docstring for why the split exists."""
         b = _d(s.get("board"))
         pl = _d(s.get("plan"))
         self._board_state = b
@@ -2256,12 +2433,17 @@ class StatusWindow:
                 bg=_GREEN_BG)
             self.wait_banner.configure(bg=_GREEN_BG)
         else:
+            # SHORTENED 2026-08-17 (third pass, defect A -- vertical space). This used to end
+            # "-- click any row, type an answer, press Save.", which pushed the sentence past one
+            # line at 13pt bold on the owner's real window width, measured live: the banner alone
+            # cost 64px (two lines) of a tab that only has ~441px total, most of which needs to go
+            # to the reading pane. That instruction is not lost -- it is exactly what the table's
+            # own heading column now says ("click a row to read it in full below").
             self.wait_count_lbl.configure(
                 text=(f"{n_q} OPEN QUESTION{'S' if n_q != 1 else ''}  +  {len(decisions)} "
-                      f"DECISION{'S' if len(decisions) != 1 else ''} waiting on you  +  "
-                      f"{len(standing)} STANDING ITEM{'S' if len(standing) != 1 else ''}  =  "
-                      f"{n_all} ROW{'S' if n_all != 1 else ''} BELOW -- click any row, type an "
-                      f"answer, press Save."),
+                      f"DECISION{'S' if len(decisions) != 1 else ''}  +  {len(standing)} "
+                      f"STANDING ITEM{'S' if len(standing) != 1 else ''}  =  {n_all} "
+                      f"ROW{'S' if n_all != 1 else ''} WAITING ON YOU"),
                 bg="#26415c")
             self.wait_banner.configure(bg="#26415c")
 
@@ -2301,13 +2483,19 @@ class StatusWindow:
         # their text. The "0 open questions" fact still needs to be said -- it now lives in the
         # banner above, worded together with the count of decisions and standing items so it never
         # again reads as "there is nothing here."
+        # THE "question" CELL CARRIES A GIST, NOT THE FULL TEXT (2026-08-17, third pass on this
+        # tab -- see `_gist`). A Treeview cell clips silently at its pixel width; the owner's
+        # "I can't read any of the question text" traced to the FULL text (up to 859 characters
+        # measured live) being stuffed into this cell with no wrap and no visible sign anything was
+        # cut off. The full text is unchanged and unabridged in the reading pane below, once a row
+        # is selected -- see `_show_board_detail`.
         i = 0
         for j, r in enumerate(self._board_rows):
             iid = f"q{j}"
             self._wait_rows[iid] = dict(r, _kind="QUESTION")
             tv.insert("", "end", iid=iid,
                       values=(r.get("id", "?"), "QUESTION (answerable here)",
-                              r.get("question", ""), "it stays open", _age_cell(r)),
+                              _gist(r.get("question", "")), "it stays open", _age_cell(r)),
                       tags=("warn", "even" if i % 2 == 0 else "odd"))
             i += 1
         # WHICH OF THESE THE OWNER HAS ALREADY ANSWERED, read back out of notes/BOARD.md. A panel
@@ -2322,7 +2510,7 @@ class StatusWindow:
             tv.insert("", "end", iid=iid,
                       values=(d.get("id", "?"),
                               "DECISION - ANSWERED" if done else "DECISION (answerable here)",
-                              d.get("question", ""),
+                              _gist(d.get("question", "")),
                               ("you answered: " + _verbatim(str(done.get("answer") or ""), 120))
                               if done else
                               ("the default happens: " + str(d.get("default") or "NONE STATED")),
@@ -2339,7 +2527,7 @@ class StatusWindow:
             tv.insert("", "end", iid=iid,
                       values=(o.get("id", "?"),
                               "STANDING - ANSWERED" if done else "STANDING (answerable here)",
-                              str(o.get("title", "")) + drift,
+                              _gist(str(o.get("title", "")), 90) + drift,
                               ("you answered: " + _verbatim(str(done.get("answer") or ""), 120))
                               if done else str(o.get("standing") or "not recorded"),
                               _age_cell(o)),
@@ -2372,6 +2560,10 @@ class StatusWindow:
                 tv.selection_remove(*tv.selection())
                 self._selected_qid = None
                 self._sync_answer_ui(None)
+                self._set_text(self.board_detail, [
+                    ("Select a row above to read it here.\n", "dim"),
+                    "(the row you had selected is no longer on the board -- most likely you just "
+                    "answered it)"])
         else:
             self._set_text(self.board_detail, [("Nothing is waiting on you.\n", "good"),
                                                "No open question and no undecided standing item."])
@@ -2380,6 +2572,9 @@ class StatusWindow:
         # defect 3: put the scrollbar back where the owner left it. Selection is already handled
         # above by data id (2026-08-16); this restores the other half a refresh used to reset.
         self._restore_scroll(tv, _scroll_frac)
+        # DEFECT B bookkeeping: remember what is now actually on screen, so the next `_r_board`
+        # call while the owner is engaged can tell whether new data has genuinely arrived.
+        self._board_rendered_snapshot = self._board_snapshot(s)
 
     # ---- the answer box: one draft per question, and it always says which -------------
     def _draft_key(self) -> str:
@@ -2590,6 +2785,16 @@ class StatusWindow:
         self._selected_row_id = None
         self._selected_kind = None
         self._selected_row = {}
+        # DEFECT B: this used to clear only the python bookkeeping above, leaving the TREEVIEW
+        # WIDGET itself still showing the row highlighted -- harmless before this pass, but now
+        # `_board_engaged()` reads the widget's own selection, so a stale highlight would freeze
+        # the very refresh two lines below from ever showing the row's new ANSWERED state. A
+        # successful save is a deliberate, owner-initiated action, so disengaging here (not
+        # merely on the next idle tick) is correct, not just convenient for the freeze to work.
+        try:
+            self.board_tv.selection_remove(*self.board_tv.selection())
+        except tk.TclError:
+            pass
         self.refresh_now()
 
     def _file_note(self) -> None:
@@ -3008,29 +3213,41 @@ def self_test() -> int:
               f"eight tabs: seven content tabs plus NOTE FOR ME on its own since 2026-08-17 "
               f"(got {len(gui.nb.tabs())})")
 
-        # --- defect 1 (2026-08-17): the WAITING ON YOU table can never again be starved to
-        # nothing. Checked STRUCTURALLY (the PanedWindow's own configured minsize), not by reading
-        # winfo_height() -- a headless, unfocused Tk window's actual painted geometry is not a
-        # reliable signal (measured live: winfo_ismapped() can stay 0 indefinitely off-screen even
-        # after the layout has resolved), so the thing asserted here is the FLOOR itself, which
-        # cannot silently regress back to a bare grid row with no minsize.
-        check(hasattr(gui, "board_panes"), "defect 1: the WAITING ON YOU tab uses a PanedWindow")
-        if hasattr(gui, "board_panes"):
-            panes = gui.board_panes.panes()
-            check(len(panes) == 2, f"defect 1: two panes -- table and detail box. The answer box "
-                                   f"is deliberately NOT a pane (see _build_board) -- a live check "
-                                   f"found it collapsing to 4px as a third pane even with its own "
-                                   f"minsize set, because Tk satisfies earlier panes' floors first "
-                                   f"(got {len(panes)})")
-            mins = [int(gui.board_panes.paneconfig(p, "minsize")[-1]) for p in panes]
-            check(all(m > 0 for m in mins),
-                  f"defect 1: every pane has a nonzero minsize floor, so neither can be crushed "
-                  f"to the 1x1 pixels measured before this fix (got {mins})")
-        # The answer box (Save) is a fixed, non-negotiable grid row -- checked structurally by
-        # confirming it is NOT one of the panedwindow's own children.
-        check(hasattr(gui, "answer_frame") and str(gui.answer_frame.master) != str(
-              getattr(gui, "board_panes", None)),
-              "defect 1: the answer box's parent is a plain frame, not a pane that could shrink")
+        # --- defect A (2026-08-17, THIRD PASS): the reading pane gets the majority of the
+        # vertical space, deterministically -- not via a PanedWindow (removed; measured TWICE to
+        # mis-size its panes, see _build_board's comment). Checked STRUCTURALLY (grid row weights
+        # and the table's declared row count), not by reading winfo_height() -- a headless,
+        # unfocused Tk window's actual painted geometry is not a reliable signal (measured live:
+        # winfo_ismapped() can stay 0 indefinitely off-screen even after the layout has resolved).
+        check(not hasattr(gui, "board_panes"),
+              "defect A: the fragile PanedWindow is gone from the WAITING ON YOU tab")
+        detail_row = getattr(gui, "_board_detail_row", None)
+        table_row = getattr(gui, "_board_table_row", None)
+        check(detail_row is not None and table_row is not None,
+              "defect A: the tab records which grid row is the table and which is the detail pane")
+        if detail_row is not None:
+            weight = int(gui.tab_board.grid_rowconfigure(detail_row).get("weight", 0))
+            check(weight >= 1,
+                  f"defect A: the READING PANE's row is the one with grid weight, so it receives "
+                  f"the space every other fixed row does not use (weight {weight})")
+        if table_row is not None:
+            tweight = int(gui.tab_board.grid_rowconfigure(table_row).get("weight", 0))
+            check(tweight == 0,
+                  f"defect A: the TABLE's row is fixed, not weighted, so it cannot expand and "
+                  f"starve the reading pane the way the height=12 table used to (weight {tweight})")
+        check(int(gui.board_tv.cget("height")) <= 7,
+              f"defect A: the table is compact (short labels only, per the owner's standard) "
+              f"rather than trying to show every row at once (declared height "
+              f"{gui.board_tv.cget('height')})")
+        bfont = str(gui.board_detail.cget("font"))
+        check(bool(bfont.strip()),
+              f"defect A: the reading pane has an explicit font configured (got {bfont!r})")
+        # The answer box (Save) is a fixed, non-negotiable grid row, unchanged by this pass.
+        check(hasattr(gui, "answer_frame") and str(gui.answer_frame.master) == str(gui.tab_board),
+              "defect A: the answer box's parent is the tab's plain frame, not a pane that could "
+              "shrink")
+        check(hasattr(gui, "board_new_data_lbl"),
+              "defect B: the WAITING ON YOU tab has a new-data affordance widget")
 
         # --- defect 2 (2026-08-17): the note channel lives on its OWN tab, not spread across
         # every other one.
@@ -3134,6 +3351,49 @@ def self_test() -> int:
         check(all(str(c[3]).strip() for c in bcells),
               f"every waiting row says what happens if the owner says nothing "
               f"({[c[0] for c in bcells if not str(c[3]).strip()]})")
+        # defect A: NO row's list-cell carries the full text (owner: "I can't read any of the
+        # question text" -- traced to unbounded text landing, unwrapped, in this exact cell).
+        long_cells = [(c[0], len(str(c[2]))) for c in bcells if len(str(c[2])) > 90]
+        check(not long_cells,
+              f"defect A: every list-row's question/decision cell is a short gist, not the full "
+              f"text (over 90 chars: {long_cells})")
+
+        # --- defect B: THE FREEZE. Select a row, type into the answer box, then call _r_board
+        # again TWICE -- exactly what the 20s auto-refresh timer does -- and prove nothing on
+        # screen moves. This is the same check the owner was asked to do by hand; done here at the
+        # widget level so it runs on every self-test rather than only when someone remembers to
+        # click through it manually.
+        if gui._wait_rows:
+            probe_iid = next(iter(gui._wait_rows))
+            gui.board_tv.selection_set(probe_iid)
+            gui._show_board_detail()
+            probe_text = "SELF-TEST DRAFT -- must survive two refresh cycles untouched"
+            gui.answer_box.delete("1.0", "end")
+            gui.answer_box.insert("1.0", probe_text)
+            gui._stash_draft()
+            check(gui._board_engaged(),
+                  "defect B: a selected row with unsaved text counts as ENGAGED")
+            before_children = gui.board_tv.get_children()
+            before_detail = gui.board_detail.get("1.0", "end")
+            gui._r_board(live)     # refresh cycle 1, exactly as the 20s timer fires
+            gui._r_board(live)     # refresh cycle 2
+            check(gui.board_tv.get_children() == before_children,
+                  "defect B: two refresh cycles while engaged did not rebuild the table")
+            check(gui.board_detail.get("1.0", "end") == before_detail,
+                  "defect B: two refresh cycles while engaged did not touch the reading pane")
+            check(gui.answer_box.get("1.0", "end").rstrip("\n") == probe_text,
+                  f"defect B: the answer box text is byte-identical after two refresh cycles "
+                  f"(got {gui.answer_box.get('1.0', 'end').rstrip(chr(10))[:60]!r})")
+            check(tuple(gui.board_tv.selection()) == (probe_iid,),
+                  "defect B: the selection itself is untouched, not merely restored")
+            # Disengaging (deselect + clear the box) must let the NEXT refresh apply normally --
+            # the freeze is deliberately not permanent.
+            gui.board_tv.selection_remove(*gui.board_tv.selection())
+            gui.answer_box.delete("1.0", "end")
+            gui._drafts.clear()
+            check(not gui._board_engaged(), "defect B: clearing selection and draft disengages")
+            gui._r_board(live)
+            check(True, "defect B: a disengaged refresh applies without error")
         # --- EVERY ROW ON EVERY PANEL CARRIES ITS EVIDENCE AGE ---------------
         # Checked at the RENDERED CELL throughout. The owner reads cells, and the whole point of
         # this feature is defeated by a timestamp that is right in the payload and absent on screen.
@@ -3263,6 +3523,13 @@ def self_test() -> int:
               f"silently picking one reading (got {oh[-200:]!r})")
 
         # every panel MISSING
+        # DEFECT B: this window now deliberately REFUSES to rebuild the WAITING ON YOU tab while a
+        # row is selected (see _board_engaged) -- and the defect-B probe above left one selected on
+        # purpose. This section is testing a DIFFERENT thing (every panel degrades correctly), so
+        # it disengages first, the same way an owner would before walking away, rather than being
+        # silently frozen on the LIVE render's stale board state.
+        gui.board_tv.selection_remove(*gui.board_tv.selection())
+        gui.answer_box.delete("1.0", "end")
         gui._last_error = None
         missing = {"ts": "x", "took_s": 0.0,
                    "plan": {"status": "MISSING", "detail": "the plan document is gone"},

@@ -349,6 +349,14 @@ def run() -> int:
         gui._selected_qid = None
         gui._answer_for = None
         gui._drafts.clear()
+        # 2026-08-17 (third pass, DEFECT B -- the freeze): _r_board now REFUSES to rebuild while
+        # the owner is "engaged" (a row selected in the WIDGET, the box focused, or the box holding
+        # unsaved text) -- see status_gui._board_engaged. The bookkeeping reset above is not enough
+        # by itself any more: the previous block left a real Tk selection AND a refused answer's
+        # text sitting in the box, both of which now count as engagement. Clear both explicitly so
+        # this call genuinely reproduces "nothing selected, nothing typed" rather than being frozen.
+        gui.board_tv.selection_remove(*gui.board_tv.selection())
+        gui.answer_box.delete("1.0", "end")
         gui._r_board(empty)
         # AMENDED 2026-08-16, same reason as D1 above. With no open question the panel falls back
         # to the STANDING row, and that row is now answerable -- so the text the owner types in

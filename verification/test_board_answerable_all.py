@@ -333,6 +333,15 @@ def run() -> int:
         check(len(live_rows) >= 11,
               f"E the real repo really does have the eleven rows the owner saw "
               f"(got {len(live_rows)}: {[r.get('id') for r in live_rows]})")
+        # 2026-08-17 (third pass, DEFECT B -- the freeze): the block just above deliberately left
+        # D1 selected with an unsaved draft in the box, which now counts as "engaged" -- see
+        # status_gui._board_engaged -- and _r_board REFUSES to rebuild while engaged, on purpose,
+        # so nothing moves under an owner who is mid-answer. This section is testing a DIFFERENT
+        # thing (every live row is selectable), so it explicitly finishes with that draft first,
+        # the same way an owner would before moving on, rather than being silently frozen.
+        gui.board_tv.selection_remove(*gui.board_tv.selection())
+        gui.answer_box.delete("1.0", "end")
+        gui._drafts.clear()
         gui._r_board({"board": _payload()["board"],
                       "plan": {"status": "OK",
                                "decisions": [r for r in live_rows if r["_kind"] == "DECISION"],
