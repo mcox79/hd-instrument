@@ -857,3 +857,107 @@ here does. It DOES license retiring the narrower claim that the relation encoded
 ceiling: a controlled, frequency-ruled-out, orthography-ruled-out change to what gets written moved
 hit@1 by a small but CI-separated amount. The remaining ~2-3x gap to the floor is not explained by
 this cell and is not claimed to be.
+
+---
+
+## 11. ARM 7 -- BINARISING THE WRITE-SIDE ROWS THAT FEED THE PARADIGMATIC PROFILE:
+`exp_readout_writerule_binary_profile_v1`
+
+**FULL RUN LANDED. 64.2s.** `data/exp_readout_writerule_binary_profile_v1/metrics.json`. n=3994,
+N_BOOT=10000. REGRESSION GATE reproduced ARM 6's own A (0.02228) and B (0.02979) EXACTLY (tol 5e-4,
+both PASS). K1 addressing 1.0000 on all five arms (A, B, C, D, F_FREQ_MATCHED_D). NULL_PERMUTED near
+chance on all five (0.0043-0.0058). ARMS_MUST_DIFFER (four distinct SHA digests) held.
+
+**THE QUESTION AND THE HONEST PRIOR, STATED BEFORE THE RUN.** Section 10's write-rule cell (B, aka
+W1_PARADIGMATIC) built its second-order profiles from the incumbent's CACHED COUNT-WEIGHTED rows. A
+sibling result the same day (`exp_cue_binarised_readout_transfer_v1`, commit 1e085d761) found that
+discarding counts for presence/absence lifted partial-cue ADDRESSING by +0.0383 CI-separated but did
+NOT move hit@1 (+0.0026 CI [-0.0026,+0.0078] NOT_SEPARATED) -- the pre-registered reason given was
+that a cue-side change cannot alter what relation was written to the store. This cell applied the
+identical presence/absence intervention to the WRITE side instead, where that specific objection does
+not apply by construction, testing whether B's +0.0075 lift was a LOWER BOUND depressed by the
+count-weighted rows it was built from. THE PRIOR WAS STATED AS LOW before any number was read, because
+the same intervention had already failed once, on the cue.
+
+**2x2, ALL FOUR CELLS ON THE IDENTICAL STORE/POOL/GOLD/SCORER, CI half-widths and analytic null
+half-widths beside every margin:**
+
+| arm | hit@1 (partial cue) | own binding floor | margin vs own floor |
+|---|---|---|---|
+| A_COUNT_IDENTITY (= W0) | 0.02228 | F_CONSTANT_PROTOTYPE 0.13896 | -0.1167 [-0.1282,-0.1052] hw=0.0115, BELOW |
+| B_COUNT_PROFILE (= W1) | 0.02979 | F_ORTHOGRAPHIC 0.08731 | -0.0575 [-0.0673,-0.0476] hw=0.00985, BELOW |
+| C_BINARY_IDENTITY (never run before) | 0.02153 | F_ORTHOGRAPHIC 0.08731 | -0.0658 [-0.0752,-0.0562] hw=0.0095, BELOW |
+| **D_BINARY_PROFILE (this cell's target)** | **0.02954** | F_ORTHOGRAPHIC 0.08731 | -0.0578 [-0.0674,-0.0478] hw=0.0098, BELOW |
+| F_FREQ_MATCHED_D (control) | 0.02278 | -- | -- |
+
+**THE FOUR PAIRWISE MARGINS (shared bootstrap, MASTER_SEED+7101, N_BOOT=10000):**
+
+| comparison | point | ci95 | ci_halfwidth | analytic_null_halfwidth | band |
+|---|---|---|---|---|---|
+| B vs A (profile write, given count rows) | +0.0075 | [+0.0023,+0.0128] | 0.00525 | 0.00494 | **ABOVE** |
+| C vs A (binarisation, given identity write) | -0.0008 | [-0.0055,+0.0040] | 0.00475 | 0.00454 | NOT_SEPARATED |
+| **D vs B (binarisation, given profile write)** | **-0.0002** | **[-0.0045,+0.0040]** | 0.00425 | 0.00526 | **NOT_SEPARATED** |
+| D vs C (profile write, given binary rows) | +0.0081 | [+0.0028,+0.0133] | 0.00525 | 0.00489 | ABOVE |
+| F_FREQ_MATCHED_D vs D | -0.0068 | [-0.0120,-0.0015] | 0.00525 | 0.00495 | BELOW |
+
+**REGRESSION GATE: reproduced A and B exactly** (0.02228/0.02228, 0.02979/0.02979, tol 5e-4, enforced
+at --grid full only, both PASS).
+
+**DO THE TWO INTERVENTIONS ADD OR INTERACT?** diff-of-diffs `(D-C) - (B-A)` on the SAME bootstrap
+draws: point **+0.0005**, CI **[-0.0060,+0.0073]**, ci_halfwidth 0.00663 -- **CI includes zero:
+ADDITIVE_CI_OVERLAPS_ZERO.** The two margins themselves are nearly identical (D-C=+0.0081,
+B-A=+0.0075), which is the arithmetic signature of additivity, not of substitution or interaction: the
+profile-write lift is present at essentially the SAME size whether the rows it draws on are
+count-weighted or binary, and the binarisation-alone lift (C-A, D-C's row-source analogue at the
+identity-write level) is near zero either way (C vs A also NOT_SEPARATED, point -0.0008). Read plainly:
+binarisation does not add anything ON TOP of the profile write, and the profile write's own effect
+size does not depend on which rows it profiles.
+
+**THE FOUR FLOORS on this population** (identical to section 10's, since this is the same store/pool):
+F_ORTHOGRAPHIC 0.08731, F_FREQUENCY 0.01853, F_SCRAMBLE per-arm 0.0078-0.0108, F_CONSTANT_PROTOTYPE
+per-arm 0.0-0.139 (A's own store still carries the highest constant floor, 0.13896; C's constant floor
+reads exactly 0.0 -- the binary-identity store's mean anchor direction carries essentially zero
+generic-prototype signal, itself informative but not pursued further here). D's binding floor is
+F_ORTHOGRAPHIC at 0.08731, same as B's -- D remains **2.95x short of it**.
+
+**ORTHOGRAPHIC-LEAKAGE CHECK (standing rule 12), both forms, CLEAN.** Mean trigram-cosine of each
+arm's top-1 winner to the query: A 0.02684, B 0.02939, C 0.02621, D 0.02938, F_FREQ_MATCHED_D 0.02794
+-- D and B sit at essentially the same value, nowhere near the orthographic floor's own reference
+(1.0). Per-item correlation of D's gain over B against that item's own best-gold orthographic score:
+all 3994 items r=0.012 CI [-0.0157,+0.0389] NOT_SEPARATED; the 73 gain-nonzero items r=0.106 CI
+[-0.1235,+0.3276] NOT_SEPARATED. No spelling channel in D's tie with B.
+
+**WHICH STOP-IF FIRED: (iii), CLEANLY.** (i) did not fire -- D does not clear its own binding floor
+(-0.0578 BELOW). (ii) did not fire -- D does not CI-separate above B (NOT_SEPARATED, point -0.0002,
+almost exactly zero). **(iii) fired: D TIES B.** (iv) did not fire in its stated form (C also does not
+beat A, so "C beats A while D ties B" is false as a conjunction, though the qualitative substitute-not-
+complement reading is consistent with the diff-of-diffs being additive-null on BOTH sides rather than
+one intervention compensating for the other).
+
+**THE ANSWER, IN THE WORDS THE PRE-REGISTRATION COMMITTED TO USING.** Binarisation is a **CUE-SIDE
+property only.** The transfer reasoning stated in the honest prior -- "the cue and the store are
+different objects, and this intervention changes what gets written, unlike the cue fix" -- is
+**REFUTED.** Changing what gets written did not help either: applied directly to the identity-draw
+store (C vs A) it is NOT_SEPARATED, and applied to the rows a second-order profile draws on (D vs B)
+it is ALSO NOT_SEPARATED, at effectively zero. The two negative results (cue-side, sec 10's sibling;
+write-side, here) now bracket the intervention from both directions on the SAME representation family
+and land in the same place: **presence/absence versus raw count is not where this store's defect
+lives, on either side of the read/write boundary.** Combined with section 10's own honest reading
+("the write rule was part of the defect but not sufficient") and section 5's diagnosis (the store
+encodes SYNTAGMATIC co-occurrence; the task scores PARADIGMATIC substitutability), the remaining
+~2.9x gap to the floor is not a magnitude-of-representation problem (count vs binary) and not
+resolved by a second-order smoothing of it either; it remains, as of this arc, an open quantity
+attributable to the relation the write rule encodes, not to how it weights or compresses that
+relation.
+
+**BRAIN FIDELITY:** none newly claimed. This cell inherits section 10's own brain-fidelity block for
+the second-order write mechanism verbatim (CLS-motivated, OURS/invention-under-test, not laundered as
+biology) and adds nothing beyond it; count-vs-presence aggregation is an information-theoretic
+property of the encoder, exactly like the FACT-2 cue cell's own position.
+
+**ORGAN REUSE, runtime-witnessed:** `exp_readout_writerule_paradigmatic_v1.build_arm` /
+`.occurrence_vector` / `.deranged_permutation` / `.l2n_rows64` / `.l2n` were IMPORTED AND CALLED, never
+reimplemented -- B and D are built by the literal same function as section 10's W1, with only the
+`mat0n` argument differing, so the regression-gate reproduction of B is not a coincidence but a
+structural guarantee. `exp_cue_binarised_readout_transfer_v1.pearson_ci_bootstrap` reused for the
+rule-12 correlation. `tools/floor_battery` supplies every floor and the scorer, never edited.

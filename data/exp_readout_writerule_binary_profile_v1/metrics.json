@@ -1,0 +1,394 @@
+{
+ "anchor_name": "exp_readout_writerule_binary_profile_v1",
+ "grid": "full",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_ceiling_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T17:02:17.752198+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_writerule_binary_profile_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "cache": {
+  "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+  "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+  "rebuilt": false
+ },
+ "HYPOTHESIS": "the paradigmatic (second-order) write rule was trained on the incumbent's count-weighted rows; if counts are a defect generally (not only on the cue, where the same fix already failed to transfer to hit@1), the profiles those rows produce are degraded and B's +0.0075 is a lower bound.",
+ "HONEST_PRIOR": "LOW -- the identical presence/absence intervention already failed to move hit@1 when applied to the cue (exp_cue_binarised_readout_transfer_v1, margin +0.0026 CI [-0.0026,+0.0078] NOT_SEPARATED); this cell tests it on the store/write side instead, where the cue result's own stated reason for not transferring (a cue-side change cannot change what was written) does not apply by construction.",
+ "FREQ_DECILE_DERANGEMENT": {
+  "no_fixed_points": true,
+  "groups_respected": true,
+  "n_deciles": 10
+ },
+ "ARMS_MUST_DIFFER_DIGESTS": {
+  "A_COUNT_IDENTITY": "0b82203231769b60",
+  "B_COUNT_PROFILE": "0d5568b3ad070b0b",
+  "C_BINARY_IDENTITY": "75198a839e1114be",
+  "D_BINARY_PROFILE": "3bef7dd0762ac8bb"
+ },
+ "K1_KNOWN_ANSWER_addressing": {
+  "A_COUNT_IDENTITY": 1.0,
+  "B_COUNT_PROFILE": 1.0,
+  "C_BINARY_IDENTITY": 1.0,
+  "D_BINARY_PROFILE": 1.0,
+  "F_FREQ_MATCHED_D": 1.0
+ },
+ "K1_GATE": 0.95,
+ "NULL_PERMUTED_partial_cue": {
+  "A_COUNT_IDENTITY": 0.005508,
+  "B_COUNT_PROFILE": 0.004256,
+  "C_BINARY_IDENTITY": 0.005759,
+  "D_BINARY_PROFILE": 0.005008,
+  "F_FREQ_MATCHED_D": 0.004507
+ },
+ "FLOORS_SHARED_STORE_INDEPENDENT": [
+  "F_ORTHOGRAPHIC",
+  "F_FREQUENCY"
+ ],
+ "FLOORS_PER_ARM_STORE_DEPENDENT": [
+  "F_SCRAMBLE",
+  "F_CONSTANT_PROTOTYPE"
+ ],
+ "NEVER_IMPORTED": [
+  "0.1390",
+  "0.0873",
+  "0.1382",
+  "0.2070",
+  "-0.1959"
+ ],
+ "ORTHOGRAPHIC_LEAKAGE_CHECK": {
+  "what": "mean trigram-cosine(top-1 winner, query), PARTIAL-CUE regime, per arm",
+  "values": {
+   "A_COUNT_IDENTITY": 0.02684,
+   "B_COUNT_PROFILE": 0.02939,
+   "C_BINARY_IDENTITY": 0.02621,
+   "D_BINARY_PROFILE": 0.02938,
+   "F_FREQ_MATCHED_D": 0.02794
+  },
+  "F_ORTHOGRAPHIC_floor_own_reference": 1.0
+ },
+ "INTERACTION": {
+  "margin_D_minus_C_binarisation_given_profile_write": {
+   "point": 0.0081,
+   "ci95": [
+    0.0028,
+    0.0133
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00525,
+   "analytic_null_halfwidth_at_this_n": 0.00489
+  },
+  "margin_B_minus_A_profile_write_given_count_rows": {
+   "point": 0.0075,
+   "ci95": [
+    0.0023,
+    0.0128
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00525,
+   "analytic_null_halfwidth_at_this_n": 0.00494
+  },
+  "diff_of_diffs_point": 0.0005,
+  "diff_of_diffs_ci95": [
+   -0.006,
+   0.0073
+  ],
+  "diff_of_diffs_ci_halfwidth": 0.00663,
+  "band": "ADDITIVE_CI_OVERLAPS_ZERO",
+  "reading": "CI includes zero -- consistent with the two interventions being ADDITIVE, not proof of exact additivity, just no evidence against it"
+ },
+ "RULE12_ORTHOGRAPHIC_CORRELATION_CHECK": {
+  "what": "pearson r between per-item (D_hit_exp - B_hit_exp) and that item's own best-gold F_ORTHOGRAPHIC score. ABOVE (CI-separated positive) would mean D's gains concentrate on items where the answer LOOKS LIKE the query -- a spelling-shaped win, not a substitutability win, per standing rule 12.",
+  "all_items": {
+   "n": 3994,
+   "r": 0.012,
+   "ci95": [
+    -0.0157,
+    0.0389
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "gain_nonzero_items_only": {
+   "n": 73,
+   "r": 0.106,
+   "ci95": [
+    -0.1235,
+    0.3276
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "n_gain_nonzero": 73
+ },
+ "REGRESSION_GATE": {
+  "A_measured": 0.02228,
+  "A_expected": 0.02228,
+  "A_PASS": true,
+  "B_measured": 0.02979,
+  "B_expected": 0.02979,
+  "B_PASS": true,
+  "ALL_PASS": true,
+  "enforced": true,
+  "note_if_not_enforced": "ONLY MEANINGFUL at --grid full: the landed parent-cell figures (A=0.02228, B=0.02979) were measured on the full 3994-item/5491-anchor pool; a --grid reduced population (400 items) is a different, much smaller pool by construction and is NOT expected to reproduce them -- reported here for visibility, never enforced."
+ },
+ "HIT_AT_1_PARTIAL_CUE_PRIMARY": {
+  "n_common_scored": 3994,
+  "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED, PARTIAL-CUE regime",
+  "per_arm": {
+   "A_COUNT_IDENTITY": {
+    "value_tie_corrected": 0.02228,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005508,
+    "orthographic_leakage": 0.02684,
+    "binding_floor_name": "F_CONSTANT_PROTOTYPE__A_COUNT_IDENTITY",
+    "binding_floor_value": 0.13896,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__A_COUNT_IDENTITY": 0.01027,
+     "F_CONSTANT_PROTOTYPE__A_COUNT_IDENTITY": 0.13896
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1052
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0115,
+     "analytic_null_halfwidth_at_this_n": 0.01073
+    }
+   },
+   "B_COUNT_PROFILE": {
+    "value_tie_corrected": 0.02979,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.004256,
+    "orthographic_leakage": 0.02939,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__B_COUNT_PROFILE": 0.00926,
+     "F_CONSTANT_PROTOTYPE__B_COUNT_PROFILE": 0.03155
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0575,
+     "ci95": [
+      -0.0673,
+      -0.0476
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00985,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    }
+   },
+   "C_BINARY_IDENTITY": {
+    "value_tie_corrected": 0.02153,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005759,
+    "orthographic_leakage": 0.02621,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__C_BINARY_IDENTITY": 0.01077,
+     "F_CONSTANT_PROTOTYPE__C_BINARY_IDENTITY": 0.0
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0658,
+     "ci95": [
+      -0.0752,
+      -0.0562
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0095,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    }
+   },
+   "D_BINARY_PROFILE": {
+    "value_tie_corrected": 0.02954,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005008,
+    "orthographic_leakage": 0.02938,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__D_BINARY_PROFILE": 0.00776,
+     "F_CONSTANT_PROTOTYPE__D_BINARY_PROFILE": 0.01602
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0578,
+     "ci95": [
+      -0.0674,
+      -0.0478
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0098,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    }
+   },
+   "F_FREQ_MATCHED_D": {
+    "value_tie_corrected": 0.02278,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.004507,
+    "orthographic_leakage": 0.02794
+   }
+  },
+  "ALL_VALUES_tie_corrected": {
+   "F_ORTHOGRAPHIC": 0.08731,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE__A_COUNT_IDENTITY": 0.01027,
+   "F_CONSTANT_PROTOTYPE__A_COUNT_IDENTITY": 0.13896,
+   "A_COUNT_IDENTITY": 0.02228,
+   "F_SCRAMBLE__B_COUNT_PROFILE": 0.00926,
+   "F_CONSTANT_PROTOTYPE__B_COUNT_PROFILE": 0.03155,
+   "B_COUNT_PROFILE": 0.02979,
+   "F_SCRAMBLE__C_BINARY_IDENTITY": 0.01077,
+   "F_CONSTANT_PROTOTYPE__C_BINARY_IDENTITY": 0.0,
+   "C_BINARY_IDENTITY": 0.02153,
+   "F_SCRAMBLE__D_BINARY_PROFILE": 0.00776,
+   "F_CONSTANT_PROTOTYPE__D_BINARY_PROFILE": 0.01602,
+   "D_BINARY_PROFILE": 0.02954,
+   "F_FREQ_MATCHED_D": 0.02278
+  },
+  "MARGINS": {
+   "B_vs_A": {
+    "point": 0.0075,
+    "ci95": [
+     0.0023,
+     0.0128
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.00525,
+    "analytic_null_halfwidth_at_this_n": 0.00494
+   },
+   "C_vs_A": {
+    "point": -0.0008,
+    "ci95": [
+     -0.0055,
+     0.004
+    ],
+    "band": "NOT_SEPARATED",
+    "ci_halfwidth": 0.00475,
+    "analytic_null_halfwidth_at_this_n": 0.00454
+   },
+   "D_vs_B": {
+    "point": -0.0002,
+    "ci95": [
+     -0.0045,
+     0.004
+    ],
+    "band": "NOT_SEPARATED",
+    "ci_halfwidth": 0.00425,
+    "analytic_null_halfwidth_at_this_n": 0.00526
+   },
+   "D_vs_C": {
+    "point": 0.0081,
+    "ci95": [
+     0.0028,
+     0.0133
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.00525,
+    "analytic_null_halfwidth_at_this_n": 0.00489
+   },
+   "F_FREQ_MATCHED_D_vs_D": {
+    "point": -0.0068,
+    "ci95": [
+     -0.012,
+     -0.0015
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.00525,
+    "analytic_null_halfwidth_at_this_n": 0.00495
+   }
+  }
+ },
+ "STOP_IF_VERDICT": {
+  "verdict": "iii_D_TIES_B_BINARISATION_IS_CUE_SIDE_PROPERTY_ONLY_TRANSFER_REASONING_REFUTED",
+  "d_clears_its_own_binding_floor": false,
+  "d_vs_b_band": "NOT_SEPARATED",
+  "c_vs_a_band": "NOT_SEPARATED",
+  "interaction_band": "ADDITIVE_CI_OVERLAPS_ZERO",
+  "does_binarising_the_write_side_help": "NO -- BINARISATION IS A CUE-SIDE PROPERTY ONLY; THE TRANSFER REASONING IS REFUTED"
+ },
+ "POWER": {
+  "n_common_scored": 3994,
+  "reading": "A WIDTH IS NOT AN EFFECT. Every margin carries its own ci_halfwidth and analytic_null_halfwidth_at_this_n."
+ },
+ "ORGAN_REUSE_RUNTIME_WITNESS": {
+  "loaded": [
+   "exp_cue_binarised_readout_transfer_v1",
+   "exp_cue_to_store_translation_v1",
+   "exp_grounding_readout_known_answer_v1",
+   "exp_readout_ceiling_diagnosis_v1",
+   "exp_readout_writerule_paradigmatic_v1",
+   "hdlab",
+   "hdlab.ablation",
+   "hdlab.animacy_lexicon",
+   "hdlab.atoms",
+   "hdlab.binding",
+   "hdlab.bundling",
+   "hdlab.char_trigram_encoder",
+   "hdlab.cleanup_family",
+   "hdlab.closed_class_lexicon",
+   "hdlab.consequence_learning_loop",
+   "hdlab.coreference_resolver",
+   "hdlab.definitional_extraction",
+   "hdlab.event_bundle",
+   "hdlab.foundation_persistence",
+   "hdlab.frame_induction",
+   "hdlab.gap_detector",
+   "hdlab.goal_typing",
+   "hdlab.grounded_similarity",
+   "hdlab.grounding_acquisition_loop",
+   "hdlab.hd_fact_store",
+   "hdlab.iterative_attractor",
+   "hdlab.learner",
+   "hdlab.learner.core",
+   "hdlab.learner.plugins",
+   "hdlab.learner.plugins.estimation_plugin",
+   "hdlab.learner.plugins.gam_plugin",
+   "hdlab.learner.plugins.proginduction_plugin",
+   "hdlab.learner.plugins.ruleind_plugin",
+   "hdlab.learner.registry",
+   "hdlab.lexical_similarity",
+   "hdlab.low_information_filter",
+   "hdlab.memory",
+   "hdlab.modulators",
+   "hdlab.reading_grounding_loop",
+   "hdlab.role_slot_summarizer",
+   "hdlab.self_improving_loop",
+   "hdlab.semantic",
+   "hdlab.situation_model_accumulate",
+   "hdlab.snapshots",
+   "hdlab.state_of_mind",
+   "hdlab.thematic_role_labeler",
+   "hdlab.tracing",
+   "hdlab.verb_lexical_similarity",
+   "hdlab.working_memory",
+   "tools.exp_checkpoint",
+   "tools.floor_battery",
+   "tools.saturation_negative_control"
+  ],
+  "edited_by_this_cell": [],
+  "cache_never_rebuilt": true
+ },
+ "elapsed_s": 64.2,
+ "verdict": "iii_D_TIES_B_BINARISATION_IS_CUE_SIDE_PROPERTY_ONLY_TRANSFER_REASONING_REFUTED",
+ "verdict_msg": "STOP_IF=iii_D_TIES_B_BINARISATION_IS_CUE_SIDE_PROPERTY_ONLY_TRANSFER_REASONING_REFUTED || A=0.0223 B=0.0298 C=0.0215 D=0.0295 (D_floor=0.08731) || d_vs_b=NOT_SEPARATED c_vs_a=NOT_SEPARATED",
+ "wire_status": "VET_PENDING"
+}
