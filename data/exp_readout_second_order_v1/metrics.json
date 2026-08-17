@@ -1,0 +1,601 @@
+{
+ "anchor_name": "exp_readout_second_order_v1",
+ "grid": "full",
+ "arm": "all",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_ceiling_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T14:40:18.509102+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_second_order_v1.py",
+   "--grid",
+   "full",
+   "--arm",
+   "all"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "cache": {
+  "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+  "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+  "rebuilt": false
+ },
+ "population": {
+  "n_anchors": 5491,
+  "n_items_scored": 3994,
+  "pool": "the LANDED OPEN pool, identical to the sibling diagnosis cell",
+  "gold": "WordNet 3.0 generous set, exp_grounding_readout_known_answer_v1",
+  "scorer": "tools/floor_battery.hit_at_1_both_tie_conventions"
+ },
+ "REGRESSION_GATE": {
+  "partial_cue_FULL_POP": 0.0223,
+  "expected": 0.0223,
+  "exact_key_FULL_POP": 0.0481,
+  "expected_exact": 0.0481,
+  "PASS": true
+ },
+ "VALIDITY": {
+  "KA_SELF_ADDRESS": {
+   "value": 1.0,
+   "gate": 0.95,
+   "PASS": true
+  },
+  "NULL_PERMUTED": {
+   "hit_at_1": 0.012018,
+   "addressing": 0.0,
+   "chance_addressing": 0.00018212
+  },
+  "they_fail_independently": "a scorer/comparator bug drops KA and leaves NULL at chance; a pairing or leak bug leaves KA at ceiling and lifts NULL."
+ },
+ "FLOORS_RECOMPUTED_ON_THIS_POPULATION": [
+  "F_CONSTANT_PROTOTYPE",
+  "F_FREQUENCY",
+  "F_ORTHOGRAPHIC",
+  "F_SCRAMBLE"
+ ],
+ "NEVER_IMPORTED": [
+  "0.1382",
+  "0.2070",
+  "-0.1959"
+ ],
+ "C1_WINNER_FORENSICS": {
+  "n_probed": 2000,
+  "what_the_top1_pick_IS": {
+   "TAXONOMICALLY_DISTANT": 1068,
+   "NO_WORDNET_PATH_AT_ALL": 518,
+   "WINNER_NOT_IN_WORDNET": 194,
+   "TAXONOMICALLY_CLOSE_but_outside_the_gold": 127,
+   "IN_THE_GENEROUS_GOLD": 93
+  },
+  "as_fraction": {
+   "TAXONOMICALLY_DISTANT": 0.534,
+   "NO_WORDNET_PATH_AT_ALL": 0.259,
+   "WINNER_NOT_IN_WORDNET": 0.097,
+   "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0635,
+   "IN_THE_GENEROUS_GOLD": 0.0465
+  },
+  "examples": [
+   "abandon -> palm (path_sim=0.091)",
+   "ability -> work (path_sim=0.167)",
+   "able -> might (path_sim=0.000)",
+   "abnormality -> chromosomal (path_sim=0.000)",
+   "about -> more (path_sim=0.333)",
+   "above -> metre (path_sim=0.091)",
+   "abroad -> gain (path_sim=0.000)",
+   "absence -> presence (path_sim=0.143)",
+   "absent -> limitation (path_sim=0.000)",
+   "absolutely -> farm (path_sim=0.000)",
+   "absorb -> pigment (path_sim=0.200)",
+   "absorption -> fold (path_sim=0.250)",
+   "abundance -> endemic (path_sim=0.077)",
+   "abuse -> mouse (path_sim=0.100)",
+   "academic -> findings (path_sim=0.111)",
+   "academy -> proceedings (path_sim=0.091)",
+   "acceptor -> nad (path_sim=0.083)",
+   "accept -> donate (path_sim=0.200)",
+   "accessory -> louis (path_sim=0.100)",
+   "access -> internet (path_sim=0.125)",
+   "accident -> buy (path_sim=0.091)",
+   "accommodation -> antisocial (path_sim=0.000)",
+   "accompany -> empire (path_sim=0.000)",
+   "accomplish -> shell (path_sim=0.000)",
+   "accord -> month (path_sim=0.111)",
+   "account -> average (path_sim=0.111)",
+   "accumulate -> divide (path_sim=0.167)",
+   "accuracy -> analyse (path_sim=0.000)",
+   "accurate -> already (path_sim=0.000)",
+   "accused -> treaty (path_sim=0.067)",
+   "achievement -> neuroscientist (path_sim=0.071)",
+   "achieve -> thompson (path_sim=0.000)",
+   "acid -> glycerol (path_sim=0.111)",
+   "acknowledge -> full (path_sim=0.167)",
+   "acquire -> improvement (path_sim=0.000)",
+   "acres -> mid (path_sim=0.000)",
+   "actin -> furrow (path_sim=0.067)",
+   "action -> accord (path_sim=0.200)",
+   "activate -> digestive (path_sim=0.000)",
+   "activation -> proceed (path_sim=0.000)"
+  ],
+  "reading": "the generous gold already contains synonyms, hypernyms 2 up, sisters and hyponyms. A winner OUTSIDE it that also has no close WordNet path is not a taxonomic near-miss at all -- it is a different KIND of relation, which is what C2 tests directly."
+ },
+ "C2_SYNTAGMATIC_TEST": {
+  "PRE_REGISTERED_PREDICTION": "the top-1 WINNER co-occurs with the query word in the same sentence far more than the best GOLD synonym does. If it fires, our store's neighbourhood is SYNTAGMATIC (occurs-with) where the task is PARADIGMATIC (substitutes-for), and that is a property of the WRITE RULE (a first-order co-occurrence sum), not of the comparator.",
+  "measure": "sentence-level Jaccard over the corpus the store was built from; counts only, THE STORE IS NEVER REBUILT",
+  "n_sentences": 34169,
+  "TOP1_WINNER": {
+   "n": 1500,
+   "mean": 0.0809,
+   "median": 0.05714,
+   "frac_ever_co_occurring": 0.8987
+  },
+  "BEST_GOLD_SYNONYM": {
+   "n": 1500,
+   "mean": 0.01908,
+   "median": 0.0,
+   "frac_ever_co_occurring": 0.4673
+  },
+  "RANDOM_ELIGIBLE_ANCHOR": {
+   "n": 1500,
+   "mean": 0.00043,
+   "median": 0.0,
+   "frac_ever_co_occurring": 0.0493
+  },
+  "winner_over_gold_ratio_of_means": 4.24,
+  "VERDICT": "SYNTAGMATIC_CONFIRMED"
+ },
+ "KA_PER_NEW_READOUT": {
+  "what": "the KNOWN-ANSWER arm re-run for every new read-out. NOTE, and it is a real caveat not a formality: a SECOND-ORDER read-out is NOT expected to address the item's own row at 1.0000, because a word's profile is similar to its NEIGHBOURS' profiles by construction. A low KA here is a property of the measure, not necessarily a broken instrument -- so it is REPORTED beside each arm and is NOT used to void an arm the way it is for the first-order family.",
+  "values": {
+   "C3_SECOND_ORDER_profileK10": 1.0,
+   "C3_SECOND_ORDER_profileK25": 1.0,
+   "C3_SECOND_ORDER_profileK50": 1.0,
+   "C3_SECOND_ORDER_profileK100": 1.0,
+   "C3_SECOND_ORDER_profileK250": 1.0,
+   "C3_SECOND_ORDER_profileK0": 1.0,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": 1.0,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": 1.0,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": 1.0,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": 1.0
+  }
+ },
+ "HIT_AT_1": {
+  "n_common_scored": 3994,
+  "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED",
+  "tie_corrected": {
+   "F_ORTHOGRAPHIC": 0.08731,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE": 0.01327,
+   "F_CONSTANT_PROTOTYPE": 0.13896,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.17151,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.04807,
+   "C3_SECOND_ORDER_profileK10": 0.0343,
+   "C3_SECOND_ORDER_profileK25": 0.04231,
+   "C3_SECOND_ORDER_profileK50": 0.04432,
+   "C3_SECOND_ORDER_profileK100": 0.04957,
+   "C3_SECOND_ORDER_profileK250": 0.05183,
+   "C3_SECOND_ORDER_profileK0": 0.05358,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": 0.03756,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": 0.03806,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": 0.03631,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": 0.03506
+  },
+  "optimistic_tie": {
+   "F_ORTHOGRAPHIC": 0.0984,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE": 0.01327,
+   "F_CONSTANT_PROTOTYPE": 0.13896,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.17151,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.04807,
+   "C3_SECOND_ORDER_profileK10": 0.0343,
+   "C3_SECOND_ORDER_profileK25": 0.04231,
+   "C3_SECOND_ORDER_profileK50": 0.04432,
+   "C3_SECOND_ORDER_profileK100": 0.04957,
+   "C3_SECOND_ORDER_profileK250": 0.05183,
+   "C3_SECOND_ORDER_profileK0": 0.05358,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": 0.03831,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": 0.03881,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": 0.03706,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": 0.0358
+  },
+  "conservative_tie": {
+   "F_ORTHOGRAPHIC": 0.07887,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE": 0.01327,
+   "F_CONSTANT_PROTOTYPE": 0.13896,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.17151,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.04807,
+   "C3_SECOND_ORDER_profileK10": 0.0343,
+   "C3_SECOND_ORDER_profileK25": 0.04231,
+   "C3_SECOND_ORDER_profileK50": 0.04432,
+   "C3_SECOND_ORDER_profileK100": 0.04957,
+   "C3_SECOND_ORDER_profileK250": 0.05183,
+   "C3_SECOND_ORDER_profileK0": 0.05358,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": 0.03756,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": 0.03806,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": 0.0363,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": 0.03505
+  },
+  "mean_tie_mass": {
+   "F_ORTHOGRAPHIC": 5e-05,
+   "F_FREQUENCY": 0.0,
+   "F_SCRAMBLE": 0.0,
+   "F_CONSTANT_PROTOTYPE": 0.0,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.0,
+   "C3_SECOND_ORDER_profileK10": 0.0,
+   "C3_SECOND_ORDER_profileK25": 0.0,
+   "C3_SECOND_ORDER_profileK50": 0.0,
+   "C3_SECOND_ORDER_profileK100": 0.0,
+   "C3_SECOND_ORDER_profileK250": 0.0,
+   "C3_SECOND_ORDER_profileK0": 0.0,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": 0.00075,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": 0.00075,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": 0.00075,
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": 0.00075
+  },
+  "BINDING_FLOOR": "F_CONSTANT_PROTOTYPE",
+  "BINDING_FLOOR_VALUE": 0.13896,
+  "ALL_FOUR_FLOORS": {
+   "F_ORTHOGRAPHIC": 0.08731,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE": 0.01327,
+   "F_CONSTANT_PROTOTYPE": 0.13896
+  },
+  "ORACLE_CONSTANT_not_a_floor": 0.17151,
+  "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+   "C3_SECOND_ORDER_profileK0": {
+    "point": -0.0854,
+    "ci95": [
+     -0.0976,
+     -0.0729
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01235,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.05358,
+    "margin_over_own_ci_halfwidth": 6.91
+   },
+   "C3_SECOND_ORDER_profileK10": {
+    "point": -0.1047,
+    "ci95": [
+     -0.1167,
+     -0.0926
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01205,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.0343,
+    "margin_over_own_ci_halfwidth": 8.69
+   },
+   "C3_SECOND_ORDER_profileK100": {
+    "point": -0.0894,
+    "ci95": [
+     -0.1019,
+     -0.0769
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0125,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.04957,
+    "margin_over_own_ci_halfwidth": 7.15
+   },
+   "C3_SECOND_ORDER_profileK25": {
+    "point": -0.0967,
+    "ci95": [
+     -0.1092,
+     -0.0846
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0123,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.04231,
+    "margin_over_own_ci_halfwidth": 7.86
+   },
+   "C3_SECOND_ORDER_profileK250": {
+    "point": -0.0872,
+    "ci95": [
+     -0.0996,
+     -0.0749
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01235,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.05183,
+    "margin_over_own_ci_halfwidth": 7.06
+   },
+   "C3_SECOND_ORDER_profileK50": {
+    "point": -0.0946,
+    "ci95": [
+     -0.1069,
+     -0.0824
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01225,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.04432,
+    "margin_over_own_ci_halfwidth": 7.72
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": {
+    "point": -0.1014,
+    "ci95": [
+     -0.1137,
+     -0.0894
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01215,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.03756,
+    "margin_over_own_ci_halfwidth": 8.35
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": {
+    "point": -0.1009,
+    "ci95": [
+     -0.1132,
+     -0.0886
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0123,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.03806,
+    "margin_over_own_ci_halfwidth": 8.2
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": {
+    "point": -0.1027,
+    "ci95": [
+     -0.1149,
+     -0.0904
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01225,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.03631,
+    "margin_over_own_ci_halfwidth": 8.38
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": {
+    "point": -0.1039,
+    "ci95": [
+     -0.1162,
+     -0.0919
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.01215,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.03506,
+    "margin_over_own_ci_halfwidth": 8.55
+   },
+   "F_FREQUENCY": {
+    "point": -0.1205,
+    "ci95": [
+     -0.1322,
+     -0.1092
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0115,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.01853,
+    "margin_over_own_ci_halfwidth": 10.48
+   },
+   "F_ORTHOGRAPHIC": {
+    "point": -0.0517,
+    "ci95": [
+     -0.0653,
+     -0.0383
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0135,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.08731,
+    "margin_over_own_ci_halfwidth": 3.83
+   },
+   "F_SCRAMBLE": {
+    "point": -0.1257,
+    "ci95": [
+     -0.1367,
+     -0.1147
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.011,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.01327,
+    "margin_over_own_ci_halfwidth": 11.43
+   },
+   "R0_COSINE_ARGMAX_INCUMBENT": {
+    "point": -0.0909,
+    "ci95": [
+     -0.1034,
+     -0.0786
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0124,
+    "analytic_null_halfwidth_at_this_n": 0.01073,
+    "arm_value": 0.04807,
+    "margin_over_own_ci_halfwidth": 7.33
+   }
+  },
+  "ARMS_CI_SEPARATED_ABOVE_THE_BINDING_FLOOR": [],
+  "ARMS_CI_SEPARATED_ABOVE_THE_INCUMBENT": [],
+  "MARGIN_vs_the_INCUMBENT": {
+   "C3_SECOND_ORDER_profileK0": {
+    "point": 0.0055,
+    "ci95": [
+     -0.0013,
+     0.0125
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "C3_SECOND_ORDER_profileK10": {
+    "point": -0.0137,
+    "ci95": [
+     -0.0215,
+     -0.006
+    ],
+    "band": "BELOW"
+   },
+   "C3_SECOND_ORDER_profileK100": {
+    "point": 0.0015,
+    "ci95": [
+     -0.0055,
+     0.0088
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "C3_SECOND_ORDER_profileK25": {
+    "point": -0.0057,
+    "ci95": [
+     -0.0135,
+     0.002
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "C3_SECOND_ORDER_profileK250": {
+    "point": 0.0038,
+    "ci95": [
+     -0.0033,
+     0.0108
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "C3_SECOND_ORDER_profileK50": {
+    "point": -0.0037,
+    "ci95": [
+     -0.0108,
+     0.0035
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.3": {
+    "point": -0.0105,
+    "ci95": [
+     -0.017,
+     -0.004
+    ],
+    "band": "BELOW"
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.5": {
+    "point": -0.01,
+    "ci95": [
+     -0.0168,
+     -0.0035
+    ],
+    "band": "BELOW"
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.7": {
+    "point": -0.0117,
+    "ci95": [
+     -0.018,
+     -0.0053
+    ],
+    "band": "BELOW"
+   },
+   "C4_SUCCESSOR_REPRESENTATION_gamma0.9": {
+    "point": -0.013,
+    "ci95": [
+     -0.0195,
+     -0.0068
+    ],
+    "band": "BELOW"
+   },
+   "F_CONSTANT_PROTOTYPE": {
+    "point": 0.0909,
+    "ci95": [
+     0.0786,
+     0.1034
+    ],
+    "band": "ABOVE"
+   },
+   "F_FREQUENCY": {
+    "point": -0.0295,
+    "ci95": [
+     -0.0373,
+     -0.0218
+    ],
+    "band": "BELOW"
+   },
+   "F_ORTHOGRAPHIC": {
+    "point": 0.0393,
+    "ci95": [
+     0.0289,
+     0.0499
+    ],
+    "band": "ABOVE"
+   },
+   "F_SCRAMBLE": {
+    "point": -0.0348,
+    "ci95": [
+     -0.0423,
+     -0.0275
+    ],
+    "band": "BELOW"
+   }
+  }
+ },
+ "POWER": {
+  "n_common_scored": 3994,
+  "binom_ci_halfwidth_at_binding_floor": 0.010728,
+  "reading": "A WIDTH IS NOT AN EFFECT. Every margin carries margin_over_own_ci_halfwidth beside it."
+ },
+ "ORGAN_REUSE_RUNTIME_WITNESS": {
+  "loaded": [
+   "exp_cue_to_store_translation_v1",
+   "exp_readout_ceiling_diagnosis_v1",
+   "hdlab",
+   "hdlab.ablation",
+   "hdlab.animacy_lexicon",
+   "hdlab.atoms",
+   "hdlab.binding",
+   "hdlab.bundling",
+   "hdlab.char_trigram_encoder",
+   "hdlab.cleanup_family",
+   "hdlab.closed_class_lexicon",
+   "hdlab.consequence_learning_loop",
+   "hdlab.coreference_resolver",
+   "hdlab.definitional_extraction",
+   "hdlab.event_bundle",
+   "hdlab.foundation_persistence",
+   "hdlab.frame_induction",
+   "hdlab.gap_detector",
+   "hdlab.goal_typing",
+   "hdlab.grounded_similarity",
+   "hdlab.grounding_acquisition_loop",
+   "hdlab.hd_fact_store",
+   "hdlab.iterative_attractor",
+   "hdlab.learner",
+   "hdlab.learner.core",
+   "hdlab.learner.plugins",
+   "hdlab.learner.plugins.estimation_plugin",
+   "hdlab.learner.plugins.gam_plugin",
+   "hdlab.learner.plugins.proginduction_plugin",
+   "hdlab.learner.plugins.ruleind_plugin",
+   "hdlab.learner.registry",
+   "hdlab.lexical_similarity",
+   "hdlab.low_information_filter",
+   "hdlab.memory",
+   "hdlab.modulators",
+   "hdlab.reading_grounding_loop",
+   "hdlab.role_slot_summarizer",
+   "hdlab.self_improving_loop",
+   "hdlab.semantic",
+   "hdlab.situation_model_accumulate",
+   "hdlab.snapshots",
+   "hdlab.state_of_mind",
+   "hdlab.thematic_role_labeler",
+   "hdlab.tracing",
+   "hdlab.verb_lexical_similarity",
+   "hdlab.working_memory",
+   "tools.exp_checkpoint",
+   "tools.floor_battery",
+   "tools.saturation_negative_control"
+  ],
+  "edited_by_this_cell": []
+ },
+ "elapsed_s": 132.1,
+ "verdict": "SYNTAGMATIC_CONFIRMED__NEW_READOUT_CLEARS_FLOOR_NO__BEATS_INCUMBENT_NO",
+ "verdict_msg": "C2 co-occurrence: winner 0.0809 vs best-gold 0.01908 vs random 0.00043 (ratio 4.24) || binding floor F_CONSTANT_PROTOTYPE=0.13896; incumbent=0.04807; 0 arms above the floor, 0 above the incumbent",
+ "wire_status": "VET_PENDING"
+}

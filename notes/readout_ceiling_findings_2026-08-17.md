@@ -509,6 +509,17 @@ does so for only 44.25%, and its MEDIAN co-occurrence is EXACTLY ZERO** -- meani
 half of all items, the right answer is a word that NEVER APPEARS IN THE SAME SENTENCE AS THE QUERY
 ANYWHERE IN THE 34,169-SENTENCE CORPUS.**
 
+**TWO CONFOUNDS A REVIEWER WOULD RAISE, BOTH CHECKED, AND THE FIRST MAKES THE RESULT STRONGER.**
+(1) The "BEST GOLD SYNONYM" arm is the **highest-scoring gold in our own space** -- i.e. the gold
+that is MOST similar to the query by our own metric, and therefore the gold most likely to
+co-occur. **The comparison is deliberately stacked against the finding and it fires anyway**: the
+winner is the most-similar-overall candidate and the gold arm is the most-similar-among-correct, so
+this is a matched most-vs-most contrast, not a best-vs-average one. (2) Frequency: a very common
+winner would co-occur with everything. **Jaccard normalises by the union**, so a high-frequency
+word's large denominator suppresses rather than inflates its score -- the measure already controls
+the direction of that confound, and S3 independently measured corr(times won, log frequency) =
+0.146.
+
 **A store built exclusively from co-occurrence cannot represent a relation whose instances mostly
 never co-occur.** That is not a tuning shortfall, a comparator shortfall, or a capacity shortfall.
 It is a **representational impossibility given the write rule**, and it holds for the majority of
@@ -528,6 +539,85 @@ second-order leakage, which is exactly the faint 4.77x we measured.
 
 **82% of the winners are taxonomically distant or have no WordNet path whatsoever.** They are not
 failed synonyms. They are not almost-right. They are a **different relation**.
+
+---
+
+### ARM 5 -- **C-CELL FULL RUN LANDED. 132 s.** `data/exp_readout_second_order_v1/metrics.json`
+
+Verdict: **`SYNTAGMATIC_CONFIRMED__NEW_READOUT_CLEARS_FLOOR_NO__BEATS_INCUMBENT_NO`**
+
+n = 3,994 items, N_BOOT = 10,000. Regression re-passed inside this cell (0.0223 / 0.0481),
+KA 1.0000, NULL 0.012018.
+
+#### C2 CONFIRMED AT FULL SCALE
+
+| sentence-level Jaccard with the query | mean | median | fraction that EVER co-occur |
+|---|---|---|---|
+| **read-out's TOP-1 WINNER** | **0.08090** | 0.05714 | **89.87%** |
+| BEST GOLD SYNONYM | 0.01908 | **0.0000** | **46.73%** |
+| RANDOM ELIGIBLE ANCHOR | 0.00043 | 0.0000 | 4.93% |
+
+**Ratio 4.24x.** The ordering winner >> gold >> random is the honest one: gold DOES co-occur far
+more than random (9.5x), so co-occurrence is not orthogonal to meaning. But what we RETURN
+co-occurs almost twice as often as what is CORRECT, and **the median correct answer never shares a
+sentence with the query at all.**
+
+#### C1 AT FULL SCALE -- 79.3% of winners are not a taxonomic relation
+
+`TAXONOMICALLY_DISTANT` 0.534, `NO_WORDNET_PATH_AT_ALL` 0.259, winner not in WordNet 0.097,
+taxonomically close but outside the gold 0.0635, **in the gold (the hit) 0.0465**. With the
+path-similarities printed: `able -> might (0.000)`, `abnormality -> chromosomal (0.000)`,
+`abroad -> gain (0.000)`, `absolutely -> farm (0.000)`, `absorb -> pigment (0.200)`.
+
+#### C3 / C4 -- **BOTH NEW READ-OUTS FAIL, AND THE SUCCESSOR REPRESENTATION FAILS CI-SEPARATED BELOW**
+
+| arm | hit@1 | margin vs incumbent |
+|---|---|---|
+| **F_CONSTANT_PROTOTYPE (binding floor)** | **0.13896** | -- |
+| F_ORTHOGRAPHIC | 0.08731 | -- |
+| C3_SECOND_ORDER_profileK0 (untruncated) | 0.05358 | +0.0055 [-0.0013,+0.0125] NOT_SEPARATED |
+| C3_SECOND_ORDER_profileK250 | 0.05183 | +0.0038 NOT_SEPARATED |
+| **R0_COSINE_ARGMAX_INCUMBENT** | **0.04807** | -- |
+| C4_SR_gamma0.5 | 0.03806 | **-0.0100 [-0.0168,-0.0035] BELOW** |
+| C4_SR_gamma0.3 | 0.03756 | **-0.0105 BELOW** |
+| C4_SR_gamma0.7 | 0.03631 | **-0.0117 BELOW** |
+| C4_SR_gamma0.9 | 0.03506 | **-0.0130 BELOW** |
+| C3_SECOND_ORDER_profileK10 | 0.03430 | **-0.0137 BELOW** |
+
+**0 of 10 arms clear the floor. 0 beat the incumbent. The SUCCESSOR REPRESENTATION is CI-separated
+BELOW the incumbent at ALL FOUR values of gamma.**
+
+**THE SUCCESSOR REPRESENTATION HAS NOW BEEN RUN.** `ORGAN_MAP` D7 lists it as MISSING and the
+08-16 theory drill said of it *"it is cheap, it is glass-box (a matrix inverse of a graph we own),
+it uses no external asset, and it has never been run"*, with a deflated P ~ 0.35. **It is run, on
+our own anchor graph, in closed form, with gamma swept over four values, and it LOSES -- not
+narrowly, but CI-separated below a read-out that is itself 0.35x its floor.** The drill's own
+stated reason for the deflation is the one that bit: propagating through a graph whose multi-hop
+tail is noise adds noise, and every increase in gamma (more propagation) makes it monotonically
+worse -- 0.03806 -> 0.03506 as gamma goes 0.5 -> 0.9. That monotone ordering is itself the
+mechanism, and it is evidence rather than an excuse.
+
+**AND TRUNCATION HURTS, WHICH IS THE OPPOSITE OF WHAT THE METHOD PREDICTS.** The
+distributional-semantics expectation is that truncating profiles to their top-k is what makes a
+second-order measure express paradigmatic similarity. Measured here: k=10 is the WORST arm
+(-0.0137, CI-separated BELOW), and performance rises monotonically with k until the UNTRUNCATED
+profile is the best of the family. **Our top-k neighbourhoods are the syntagmatic part; the
+paradigmatic residue is in the tail.** That is consistent with everything else in this log and it
+was not predicted.
+
+#### **A THIRD RETRACTION OF MY OWN, AND IT IS THE SAME LESSON AS THE FIRST TWO**
+
+At n=400 this cell reported **`BEATS_INCUMBENT_YES`** with two arms CI-separated above the
+incumbent (`profileK0` +0.0251 [+0.0075,+0.0450]; `profileK250` +0.0227 [+0.0075,+0.0400]).
+**At n=3,994 both collapse to NOT_SEPARATED** (+0.0055 [-0.0013,+0.0125] and +0.0038
+[-0.0033,+0.0108]).
+
+**That is the third time tonight a small-n reading did not survive scaling** -- the permuted-cue
+null's apparent identity to the exact key (retracted in ARM 2), and now two apparent wins. **In one
+case the smoke was pessimistic and in two it was optimistic**, which is exactly what a width does:
+it moves in both directions. **A WIDTH IS NOT AN EFFECT**, and the only reason none of these three
+became a claim is that every smoke number in this log was labelled SMOKE and the full run was
+always the one that counted.
 
 ---
 
@@ -617,3 +707,72 @@ owner's Q10 ("the FEELING of the word") points at register/formality, a sibling 
 rejector generalises where attestation is structurally blind, and **AFFECT contributed nothing once
 width-matched** -- so the verifier's content is UNPINNED and is its own build. And nothing here
 tests VSA binding, which remains UNPINNED in the brain with three live accounts.
+
+---
+
+## 7. WHAT WAS TESTED AND WHAT IT COST -- the scoreboard
+
+**39 read-out arms across two cells, all on the identical scorer / n / pool / gold. NONE clears the
+binding floor. NONE beats the incumbent CI-separated.**
+
+| family | arms | brain status | result |
+|---|---|---|---|
+| exhaustive cosine argmax (incumbent) | 1 | **OURS, never chosen -- assumed** | 0.04807, **0.35x its floor** |
+| CSLS (Conneau 2017) | 6 | OURS, engineering baseline | best +0.0025, none clears |
+| subtract the constant/genericity channel | 6 | divisive normalisation PINNED as a computation, parameters SWEPT | monotonically WORSE (0.0438 -> 0.0273) |
+| per-anchor z-normalisation | 1 | same | 0.03756, worse |
+| divisive normalisation, sigma x exponent | 12 | same | best 0.04932, none clears; KA collapses at sigma=0.01 |
+| second-order profile, truncation swept | 6 | OURS (Ruge / distributional tradition) | best +0.0055 NOT_SEPARATED; truncation HURTS |
+| **successor representation, gamma swept** | 4 | **PINNED as a representational signature; using M as a retrieval score is OURS** | **CI-separated BELOW at all four gammas** |
+
+**The one thing that was never tried is the one the brain actually does: a shortlist plus a
+verifier that is not the generator.** Its measured ceiling is 0.1715 at k=5 and 0.2604 at k=10,
+against a floor of 0.1390 and an incumbent of 0.0481.
+
+---
+
+## 8. BRAIN-FIDELITY CLOSE-OUT
+
+**(a) STRUCTURE PER COMPONENT.** The read-out under test has **no brain structure** -- nothing in
+the brain compares a query against every stored item and takes the maximum, and serial lexicon
+scanning is refuted. Competitive selection by divisive normalisation is PINNED as a computation
+(Carandini & Heeger 2012) and its parameters were swept, not adopted. The successor representation
+is PINNED as a representational signature (Stachenfeld et al. 2017) and CONTESTED in its learning
+rule; using M's rows as a retrieval score is OURS and is now a measured negative. **Where nothing
+pins a choice, this log says so rather than inventing an anatomy for it.**
+
+**(b) ORGAN REUSE -- enumerated from disk, then reconciled, verified by RUNTIME.** `dehub_transforms`
+(the owned de-hubbing organ), `tools/floor_battery`, `exp_cue_to_store_translation_v1`,
+`tools/exp_checkpoint`, and the diagnosis cell itself were IMPORTED and **none was edited**. The
+runtime witness is `sys.modules` after the work, recorded in both metrics files -- not grep.
+**`dehub_transforms` is an `experiments/`-level module, NOT in `hdlab/` and NOT registry-WIRED**,
+which a registry-first audit would have missed entirely.
+
+**(c) PINNED vs OURS.** Stated per arm in section 7. **VSA algebraic binding -- the substrate's core
+operation -- is UNPINNED in the brain, with three live accounts and published objections to each.
+Nothing in this run depends on it and nothing in this run tests it.**
+
+**(d) SHELVE / REVIVAL, BRAIN-FRAMED.** The **normalisation family** is shelved: revive when a
+PROPOSE stage has narrowed the pool, or when the value code is built by a residual rather than a
+uniform sum -- because that is the regime the brain's normalisation actually operates in. The
+**successor representation** is shelved: revive on a graph whose multi-hop tail is not noise, since
+the monotone gamma ordering shows propagation is adding noise, not structure. **Neither is shelved
+for "not scoring."**
+
+---
+
+## 9. WHAT THIS RUN DOES **NOT** CLAIM
+
+- **No number here crosses scorers, pools or populations.** Everything is hit@1 tie-corrected over
+  5,491 anchors on 3,994 items, landed OPEN pool, WordNet generous gold. The 0.0481 / 0.1390 /
+  0.0873 / 0.17151 are facts about **this** population only.
+- **It does not claim the read-out ceiling is a CEILING.** Children acquire most of their
+  vocabulary this way, so the capability is DEMONSTRATED. Every negative here is a fact about our
+  implementation, and section 6 names the specific implementation that was never built.
+- **It does not claim the store is worthless.** It claims the store encodes a DIFFERENT RELATION
+  from the one the task scores, and that the target relation's instances mostly do not co-occur.
+- **It does not claim a verifier will work.** The 0.1715/0.2604 figures are ORACLE ceilings.
+- `verdict_bar_check.py` was run on the landed diagnosis metrics and returned
+  **`disagreement_class: AGREES`, `declared_clearing_arms: []`**. **Reported, NOT relied on** -- it
+  has four false passes on record. Every margin in this log is stated arm-by-arm with its own CI
+  half-width independently of it.
