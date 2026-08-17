@@ -1987,3 +1987,192 @@ after, but its ratios go 1.000/1.000/1.000/1.000 (seeds=1, N=512, 0.09 s) ->
 0.951/0.966/0.942/0.980 (seeds=5, N=16384, 1015 s). **Blocked, and it is an operator decision:** 4
 cells cannot be dispatched because their prereg is absent and `preregs/` is do-not-touch; and 98
 ARCHIVE-tier cells are untouched under a standing DO-NOT-RE-RUN default.
+
+---
+
+# 2026-08-17 ADDITIONS -- THE UNDERPOWERED-NULL NIGHT
+
+Stubbed in `notes/STATUS.md` as DO-NOT-REDO 43, CORRECTIONS C32-C34, STANDING DISCIPLINE 14.
+Every number below was recomputed off disk on 2026-08-17 by the pass that wrote
+`notes/plan_status_compaction_report_2026-08-17.md`, which carries the full verification table and
+names the two handoff figures it could NOT reproduce.
+
+## THE ERROR PATTERN THAT PRODUCED C32-C34 -- read this before believing any negative here
+
+**An UNDERPOWERED NULL was read as a CAPABILITY STATEMENT three times in one session.** The three
+are unrelated in subject and identical in shape: a margin was compared with a floor without anyone
+asking whether the sample could separate ANY effect at that n, or whether the floor was itself a
+width rather than a level.
+
+**The rule that closes it (STANDING DISCIPLINE 14): report the CI HALF-WIDTH and the NULL p95 at
+that n BESIDE every margin. A WIDTH IS NOT AN EFFECT.** A scramble/permutation p95 of 0.18 at n=86
+is not a strong competitor -- it is the null distribution's own spread, and any arm whose CI is
+wider than the gap it must clear cannot separate regardless of how good the underlying thing is.
+
+### C32 -- "0 of 7,769 banked cells meet the bar" is RETRACTED
+
+- **SUPERSEDED CLAIM, preserved verbatim:** *"7,769 banked cells scanned (`verdict_bar_check.py`,
+  `c0802fc36`): 0 MEET the bar"* (`notes/STATUS.md`, 2026-08-16 revision, POSITION and TOOLING
+  STATE). Also retired on the way: the intermediate **"2 of 7,772"**.
+- **SUPERSEDED BY:** `data/verdict_bar_reports/verdict-bar-20260817T002627Z.json` -- 7,789
+  metrics.json enumerated by `os.walk` over an absolute data dir; **MEETS_BAR 1**, FAILS_BAR 7,770,
+  NO_EVIDENCE 18. The one pass is `exp_cue_to_store_translation_v1`.
+- **AND THE SURVIVOR IS ITSELF REJECTED**, on grounds recorded in `notes/PLAN_NEXT_24H.md`: its
+  matched pool admits a fitted constant at 0.7354 against chance 0.0625; it is the EXACT-KEY regime,
+  not the operating point (the same cell reads -0.0295 / -0.0776 / -0.0931 / -0.0809 elsewhere); the
+  cell declines a cell-level verdict (`verdict = "COMPUTED"`); and its margin was overstated 4.20x
+  once its own declared orthographic floor stopped classifying as a non-floor.
+- **WHY IT WAS WRONG BOTH WAYS:** stale twice over. The count was taken before the constant-floor
+  role was wired in AND before claim-arm selection was made allowlist-based. **"0 of N" was never a
+  statement about the corpus; it was a statement about the checker.**
+
+### C33 -- "our instrument cannot resolve verbs even when handed the right answer" is SUSPENDED, probably FALSE
+
+- **SUPERSEDED CLAIM:** that the 12-dim target space cannot order verb pairs even for a known-answer
+  arm, used to motivate building a new channel.
+- **THE MEASUREMENT IT RESTED ON, verified on disk**
+  (`data/exp_thematic_relation_supply_bridged_grounding_v2/metrics.json`,
+  `HILLS_2009_NOUN_VERB_FALSIFIER.known_answer_K1.V`): n=**86**, rho 0.2576 [0.0401,0.4524], floor
+  (scramble p95) **0.1776**, margin **+0.0801 NOT_SEPARATED**.
+- **WHY IT PROVES NOTHING:** at n=86 the margin's own CI spans roughly +/-0.30, and the floor it had
+  to clear, 0.1776-0.1814, is **1.645/sqrt(85) = 0.1784** -- i.e. THE FLOOR IS THE NULL
+  DISTRIBUTION'S WIDTH AT THAT n. No arm of any quality separates there. The verb stratum was
+  power-starved by construction, and the cell says so itself
+  (`pos_stratified_note`, `G0_power_gate`).
+- **THE TEST THAT SETTLES IT, and it needs no new asset:** `data/encoder_eval_benchmarks/simlex999.txt`
+  holds **222 verb pairs** (counted: N 666, V 222, A 111). The bridged stratum used 86 because
+  bridging requires one endpoint held out; **K1_OWN_NORMS needs no bridge and can run on all 222.**
+  Floors must be recomputed on that population -- it is NOT the bridged stratum.
+
+### C34 -- "the constant/prototype floor is the binding one" is FALSE AS A GENERAL CLAIM
+
+- **SUPERSEDED CLAIM:** that the constant/prototype floor, having been the strongest member on the
+  open read-out pool (0.1382 / 0.1390), is the binding floor generally.
+- **SUPERSEDED BY two populations where it is the WEAKEST member:**
+  - bridging stratum n=394: **-0.1959** (optimistic tie; midrank -0.1977, pessimistic -0.1996; tie
+    mass 0.287) -- *AGENT MEASUREMENT*, `.claude/scan-out/collect-completed-runs.json`, computed by
+    that agent's own script `.claude/scan-out/constfloor/const_floor_bridging.py`, which reproduced
+    the n=394 / 412-bridged stratum exactly.
+  - selectional-bridge stratum n=308: **-0.2253** -- READ ON DISK,
+    `data/exp_selectional_constraint_bridge_v1/metrics.json`, `floors.F_CONSTANT_PROTOTYPE`. That is
+    an independent instance, on a different stratum, of the same reversal.
+- **THE MECHANISM, and it is obvious in hindsight:** on a hit@1 instrument a constant ranking still
+  wins whenever the gold is a popular item, so it is strong; on a PAIR-CORRELATION instrument giving
+  every bridged word the SAME code makes the pair ordering ANTI-correlated with the gold, so it is
+  weak. **The floor's strength is a property of the SCORER, not of the floor.**
+- **STANDING CONSEQUENCE:** compute all four floors on the item's own population every time.
+  **Never import 0.1382, 0.2070 or -0.1959.**
+
+## DO NOT REDO 43 -- SELECTIONAL-CONSTRAINT BRIDGING. A SECOND MEASURED NULL, AND IT IS WORSE THAN THE FIRST
+
+`data/exp_selectional_constraint_bridge_v1/metrics.json`, **run_mode `full`, elapsed 5330 s**,
+verdict `SELECTIONAL_CONSTRAINT_BRIDGE_DOES_NOT_CLEAR_THE_FLOOR`, mtime 2026-08-17T00:32.
+**Caveat carried deliberately: no `.pid` file on disk names the process the operator described as
+live, and none was modified on 08-17; the file read is a COMPLETE full with a verdict. If a live
+process later rewrites it, re-check the mtime before quoting any of this.**
+
+The cell implements the owner's own answer to "how does a new word get its meaning" -- bridge by the
+**selectional restrictions of the verbs the word is an argument of** ("ran implies legs implies
+animal"), rather than by copying a co-occurring neighbour's code, which is what we had built.
+
+**On the common stratum (n=308; N 259 / V 27 / A 22; Spearman CI half-width 0.1122):**
+- **It is CI-separated BELOW the neighbour-copy incumbent it was meant to beat:** head-to-head
+  paired margin **-0.1049 [-0.2041,-0.0057] BELOW**. Three of four selectional variants are BELOW
+  (S2 -0.1176, S3 -0.1422); the fourth (S4, subject-slot only) is -0.0195 NOT_SEPARATED.
+- **It is indistinguishable from a random target:** S1 vs `N2_NULL_RANDOM_TARGET`
+  **-0.0015 [-0.1391,+0.1361] NOT_SEPARATED**. It does beat the slot-rewire null (+0.1139 ABOVE),
+  which says the slots carry SOMETHING, and the random-target comparison says that something does
+  not identify the word.
+- **The instrument was alive:** K1_OWN_NORMS on the same stratum reads **rho 0.3311**.
+- **Meaning retention is negative:** -0.1224 against the incumbent's 0.0819.
+- **The mechanism was genuinely different, not a re-run of the incumbent:** source-set Jaccard
+  overlap with the incumbent's bridge sources is 0.0133 mean, and 38.6% of words share no source at
+  all; `G3_passed` true; supply is real (8.6 slots and 145 fillers per word on average).
+- **Evidence gap, stated rather than papered over:** this cell records THREE floor roles
+  (orthographic 0.0503, hardened frequency ~0.0000, constant/prototype -0.2253) and no scramble
+  floor; the two seeded null arms carry that role instead. Its bar decision is therefore not
+  four-role complete.
+- **REVIVAL CRITERION (brain-framed, never performance-framed):** the owner's account has THREE
+  stages -- selectional constraint, then EPISODIC recall of instances ("rabbits and deer which I
+  have SEEN cross roads"), then a DISTRIBUTION over categories. **We built stage one only, and
+  scored it with a single point estimate.** Revive when the episodic-recall stage exists and the
+  read-out is a distribution rather than a mean, i.e. when the thing being tested is the mechanism
+  the owner described rather than its first third.
+
+## THE PARTIAL-CUE STRUCTURAL CAP -- stubbed as the TOP ITEM
+
+`data/exp_foundation_neighbourhood_purity_v1/metrics.json`, grid `full`, 47 foundations, population
+n=2358, ruler-mode gate PASS, **KA 0.9807-1.0000 on 47 of 47**.
+
+| | exact key | partial cue |
+|---|---|---|
+| purity predicts retrieval at | rho **0.961** (n=45) | rho **-0.0167** (n=40) |
+| range across the 47 foundations | 0.0129-0.8787, a **68.1x** span | 0.0064-0.0365 |
+| circular WordNet ORACLE, allowed to cheat | **0.8787** | **0.0365** |
+
+**The oracle's 0.0365 is the single best partial-cue reading anywhere in the grid.** A foundation
+built by consulting the answer key cannot beat 3.7% under the operating cue. That is not a supply
+problem, not a purity problem and not a mechanism problem -- **something structural makes the
+partial cue uninformative**, and every downstream build is aimed at the wrong object until it is
+diagnosed. The only thing that moves it at all is a two-stage cue, from 0.0225 to **0.0322** at
+best, which is a rounding error against the exact key.
+
+**Two measured facts that constrain the diagnosis:** the partial cue's cosine to its OWN stored row
+is **0.1621** (`exp_cue_to_store_translation_v1`), and addressing is **1.0000 exact / 0.0325
+partial** in the same pipeline. A sparsifier keeping the top few per cent of an expansion turns a
+0.16 alignment into a near-random active set, so the address stage never gets close enough for the
+key to matter.
+
+## THE WRITE/READ ASYMMETRY -- the one live positive, stated in its recomputed form
+
+`data/exp_sparse_address_dense_value_v1/metrics.json`, n=3994 addressable items, partial-cue regime.
+The cell computes every rung itself and explicitly refuses to import
+`exp_cue_to_store_translation_v1`'s 0.0325 as a comparator, because that is a different population.
+
+- **Best partial-cue addressing anywhere in the grid: 0.0719 [0.0638,0.0796], at a DENSE address**
+  (D=2048, `a_write`=1.0). **Sparsifying the address never beats dense outright.**
+- **But at 1% occupancy it MATCHES dense, if you expand first and read with a dense cue:**
+  D=8192, `a_write`=0.01 (82 active units of 8192), `a_read`=1.0 -> **0.0699 [0.0621,0.0779]**,
+  CIs heavily overlapping with the dense best. **A 100x sparser address for no measured loss.**
+- **The asymmetry itself:** the same config read SYMMETRICALLY (sparse cue against sparse key) reads
+  0.0483 [0.0418,0.0548] -- **1.45x worse**. Across all matched pairs (same regime, D, `a_write`,
+  code type, projection seed; sparse writes only) **the dense read wins 18 of 24, ties 5, loses 1
+  (0.99x), and the largest gain is 6.27x** (D=2048, `a_write`=0.002).
+- **This is the owner's per-process regime ruling showing up as a measured effect**, and it is the
+  one place where three independent lines agree: the computational-theory drill (sparsify the
+  ADDRESS, keep the VALUE dense), the owner's answer (set the regime per organ, not globally), and
+  this grid.
+- **The honest ceiling beside it:** every rung of this grid sits at or below ~0.072 addressing under
+  a partial cue. The asymmetry is real and the LEVEL is still the structural cap above.
+
+## THE CLEANUP MEMORY -- it works, and it makes five banked nulls STRONGER
+
+`hdlab/vsa_cleanup_memory.py`, scored in `data/exp_cleanup_memory_capability_v1/metrics.json`.
+
+- **The organ is not inert and this was the standing doubt:** stored symbols are fixed points at
+  **1.0000**, the map is idempotent, recovery is monotone in cue quality (0.9987 at tau=0.45 against
+  chance 0.00018), and the theory capacity scale `d/log d` is reported (46.17 at d=256, M=5491).
+  Known-answer and null arms break independently.
+- **It produces the first cleanup lift this programme has measured**, over no-cleanup, partial cue:
+  **+0.0033 [+0.0013,+0.0055] ABOVE** on the open pool and **+0.0078 [+0.0008,+0.0150] ABOVE** on
+  the K49 balanced pool; the K15 pool is +0.0046 NOT_SEPARATED. **CI-separated in 2 of 3 pools.**
+- **And every arm remains far below the binding floor:** on the open pool the binding floor is the
+  CONSTANT/PROTOTYPE at 0.1390 and the best cleanup arm sits at **-0.1135 [-0.1249,-0.1019] BELOW**.
+- **Why this matters more than the lift:** it removes the "the load-bearing half of VSA was missing"
+  defence. The five banked cleanup nulls were not measuring a broken organ. **They are stronger
+  negatives now, not weaker ones.**
+
+## SURPRISE-WEIGHTED UPDATE -- a clean null with a named cause
+
+`data/exp_surprise_weighted_update_v1/metrics.json`.
+
+- **The surprise signal is DEGENERATE:** sampled surprise has median **0.875** and mean 0.853 where
+  1.0 is exact orthogonality (p10 0.6525, p90 1.0128). There is no informative tail to select from.
+- **Selection therefore does not beat reading the same number of tokens at random:** across 6
+  conditions x 3 selection rates, `T2_TOPSURPRISE` beats its token-matched `C1_RANDOM_SUBSET` in
+  only **4 of 18** point comparisons and never by more than +0.0035. **Reading fewer occurrences is
+  a different corpus, not a better rule, and the matched control is what says so.**
+- **The residual rule is a near-no-op and the cell pre-registered why:** `mean_cos_to_A0_rows` is
+  **0.9771** at every eta, i.e. the prediction comes from the store being criticised, so early in
+  training the residual IS the observation. **That is the BOOTSTRAPPING PROBLEM, not a refutation of
+  surprise weighting.** The stronger brain-faithful version is a SEPARATE predictor or a warm start.

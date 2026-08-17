@@ -331,6 +331,60 @@ That trades one extra cold read for a permanently bounded `STATUS.md`, and it is
 honest fix if the stub lists keep growing at the current rate (11 new never-trim entries in 72
 hours).
 
+### 2026-08-17: the 9216 B proposal is SUPERSEDED. RE-MEASURED, TWO OPTIONS, NEITHER ENACTED
+
+Written by the agent whose assigned task WAS `STATUS.md` maintenance (audit pass, 2026-08-17),
+following sec 6: the party that needs the room measures and proposes; it does not grant. **The
+2026-08-16 proposal of 9216 B is now insufficient and should not be enacted as written.**
+
+**The measurement, after tiers 1-4 were applied to the whole file (not only to the new content):**
+
+| section | bytes | SPEC budget | over/under |
+|---|---|---|---|
+| header | 493 | 450 | +43 |
+| `## POSITION` | 509 | 450 | +59 |
+| `## TOP ITEM` | 805 | 900 | **-95** |
+| PATH STATE (4 subsections) | 3,094 | 3,100 | **-6** |
+| `## DO NOT REDO` (+ CAVEATS + CORRECTIONS stubs) | 3,109 | 1,000 | **+2,109** |
+| `## STANDING DISCIPLINES` | 2,011 | 1,400 | **+611** |
+| `## WHAT IS RUNNING` | 1,550 | 650 | **+900** |
+| **total** | **11,571** (140 lines) | 7,950 (+754 slack) | **+2,867 over the 8,704 cap** |
+
+**The overage is again almost entirely the never-trim class: sections 5 and 6 hold 5,120 B against a
+2,400 B allowance and are PURE STUBS -- 43 DO-NOT-REDO names, 6 caveats, 34 corrections, 14
+disciplines, with every line of reasoning already moved to `STATUS_LESSONS.md`.** Escalation step 1
+was spent again on 2026-08-17 (about 14 KB of new reasoning appended to `STATUS_LESSONS.md`, leaving
+only names behind). Four never-trim entries were added, each bought with a measured result or a
+measured mistake: DO-NOT-REDO 43 (selectional-constraint bridging, a landed FULL null that is
+CI-separated BELOW the incumbent it was built to beat) and CORRECTIONS C32-C34 plus STANDING
+DISCIPLINE 14 (three retractions with one shared cause -- an underpowered null read as a capability
+statement -- and the rule that closes it).
+
+`## WHAT IS RUNNING` is 900 B over its budget and that is not prose bloat: it carries a data-loss
+hazard, three USER-authorisation gates, a blocked path, two agents stopped mid-task, and a livelocked
+index that makes a query tool return stale answers. Sec 4 items 5-6 make most of that never-trim too.
+
+**TWO OPTIONS. THE DIRECTOR CHOOSES; NEITHER IS ENACTED HERE.**
+
+1. **Raise the cap to 12,288 B** (+3,584, closing the measured gap with ~700 B of headroom). Honest
+   about the growth law, but it is the third raise in five days and it weakens the one-cold-read
+   justification the cap exists for.
+2. **RECOMMENDED -- take the THIRD-FILE option this spec already named on 2026-08-16, and NO RAISE
+   IS NEEDED.** Move the `## DO NOT REDO` stub index (with CAVEATS and CORRECTIONS) into an uncapped
+   `notes/STATUS_CLOSED.md`, leaving a single pointer line in `STATUS.md`. Measured: 11,571 - 3,109 +
+   ~120 for the pointer = **~8,580 B, UNDER the existing 8,704 cap**, with nothing deleted, nothing
+   demoted and no evidence pointer lost. It costs one extra cold read and it bounds `STATUS.md`
+   permanently, because the list that grows monotonically stops sharing a budget with the list that
+   is rewritten. The same structural argument that justified splitting `STATUS_LESSONS.md` off in
+   the first place applies here one level up.
+
+**What was NOT done, deliberately.** No DO-NOT-REDO entry, caveat, correction or discipline was
+dropped or merged. No evidence pointer was deleted. The four machine-parsed literals are unchanged
+and `tools/session_start_hook.py --self-test` passes ALL, including its check that the real
+`notes/STATUS.md` parses clean. The file is left OVER CAP with the overage disclosed in its own
+`## WHAT IS RUNNING` section, because sec 3 says the correct response to "tiers 1-6 do not free
+enough bytes" is to escalate, not to descend into the never-trim list.
+
 ---
 
 ## 8. The incident this spec exists to prevent (2026-08-13)
