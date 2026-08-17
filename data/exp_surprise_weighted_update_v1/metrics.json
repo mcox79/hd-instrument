@@ -1,0 +1,6897 @@
+{
+ "anchor_name": "exp_surprise_weighted_update_v1",
+ "CODE_VERSION": "v1.0.0",
+ "grid": "full",
+ "ts_iso": "2026-08-17T02:19:56.533662+00:00",
+ "host": "FrameworkMPC",
+ "pid": 24656,
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_surprise_weighted_update_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "cache": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "NO_LLM_IN_FLOW": true,
+ "obs_stream": {
+  "source": "rebuilt",
+  "n_obs": 153352,
+  "n_lemmas": 5491,
+  "d": 256
+ },
+ "STREAM_REGRESSION_GATE": {
+  "mean_cos_rebuilt_A0_vs_LANDED_anchor_matrix": 1.0,
+  "gate": 0.9999,
+  "PASSES": true,
+  "what": "summing the recorded observation stream must reproduce the landed anchor matrix. If it does not, the stream is not what ConceptSpace.observe consumed and no arm below is a one-variable comparison."
+ },
+ "ARM_DIAGNOSTICS": {
+  "A0_UNIFORM": {
+   "rule": "A0_UNIFORM",
+   "param": 0.0,
+   "n_tokens_consumed": 153352,
+   "n_zero_rows": 0
+  },
+  "T1_RESIDUAL_eta0.25": {
+   "rule": "T1_RESIDUAL",
+   "param": 0.25,
+   "n_tokens_consumed": 153352,
+   "n_zero_rows": 0,
+   "mean_cos_to_A0_rows": 0.977151
+  },
+  "T1_RESIDUAL_eta0.5": {
+   "rule": "T1_RESIDUAL",
+   "param": 0.5,
+   "n_tokens_consumed": 153352,
+   "n_zero_rows": 0,
+   "mean_cos_to_A0_rows": 0.977151
+  },
+  "T1_RESIDUAL_eta1": {
+   "rule": "T1_RESIDUAL",
+   "param": 1.0,
+   "n_tokens_consumed": 153352,
+   "n_zero_rows": 0,
+   "mean_cos_to_A0_rows": 0.977151
+  },
+  "T1_RESIDUAL_eta2": {
+   "rule": "T1_RESIDUAL",
+   "param": 2.0,
+   "n_tokens_consumed": 153352,
+   "n_zero_rows": 0,
+   "mean_cos_to_A0_rows": 0.977151
+  },
+  "T2_TOPSURPRISE_p0.07": {
+   "rule": "T2_TOPSURPRISE",
+   "param": 0.07,
+   "n_tokens_consumed": 11496,
+   "n_zero_rows": 2,
+   "surprise_distribution_sampled": {
+    "n": 368,
+    "mean": 0.853,
+    "p10": 0.6525,
+    "p50": 0.875,
+    "p90": 1.0128
+   },
+   "mean_cos_to_A0_rows": 0.294717
+  },
+  "C1_RANDOM_SUBSET_p0.07": {
+   "rule": "C1_RANDOM_SUBSET",
+   "param": 0.07,
+   "n_tokens_consumed": 11496,
+   "n_zero_rows": 12,
+   "mean_cos_to_A0_rows": 0.426784
+  },
+  "T2_TOPSURPRISE_p0.15": {
+   "rule": "T2_TOPSURPRISE",
+   "param": 0.15,
+   "n_tokens_consumed": 23184,
+   "n_zero_rows": 2,
+   "surprise_distribution_sampled": {
+    "n": 368,
+    "mean": 0.853,
+    "p10": 0.6525,
+    "p50": 0.875,
+    "p90": 1.0128
+   },
+   "mean_cos_to_A0_rows": 0.413009
+  },
+  "C1_RANDOM_SUBSET_p0.15": {
+   "rule": "C1_RANDOM_SUBSET",
+   "param": 0.15,
+   "n_tokens_consumed": 23184,
+   "n_zero_rows": 6,
+   "mean_cos_to_A0_rows": 0.538579
+  },
+  "T2_TOPSURPRISE_p0.3": {
+   "rule": "T2_TOPSURPRISE",
+   "param": 0.3,
+   "n_tokens_consumed": 46250,
+   "n_zero_rows": 0,
+   "surprise_distribution_sampled": {
+    "n": 368,
+    "mean": 0.853,
+    "p10": 0.6525,
+    "p50": 0.875,
+    "p90": 1.0128
+   },
+   "mean_cos_to_A0_rows": 0.616319
+  },
+  "C1_RANDOM_SUBSET_p0.3": {
+   "rule": "C1_RANDOM_SUBSET",
+   "param": 0.3,
+   "n_tokens_consumed": 46250,
+   "n_zero_rows": 1,
+   "mean_cos_to_A0_rows": 0.70794
+  },
+  "T2_TOPSURPRISE_p0.6": {
+   "rule": "T2_TOPSURPRISE",
+   "param": 0.6,
+   "n_tokens_consumed": 91964,
+   "n_zero_rows": 0,
+   "surprise_distribution_sampled": {
+    "n": 368,
+    "mean": 0.853,
+    "p10": 0.6525,
+    "p50": 0.875,
+    "p90": 1.0128
+   },
+   "mean_cos_to_A0_rows": 0.844642
+  },
+  "C1_RANDOM_SUBSET_p0.6": {
+   "rule": "C1_RANDOM_SUBSET",
+   "param": 0.6,
+   "n_tokens_consumed": 91964,
+   "n_zero_rows": 0,
+   "mean_cos_to_A0_rows": 0.883788
+  },
+  "K1_ORACLE_WEIGHT": {
+   "rule": "K1_ORACLE_WEIGHT",
+   "param": 0.0,
+   "n_tokens_consumed": 153352,
+   "n_zero_rows": 0,
+   "mean_cos_to_A0_rows": 0.886435
+  },
+  "N1_SHUFFLED_WEIGHTS_p0.07": {
+   "rule": "N1_SHUFFLED_WEIGHTS",
+   "param": 0.07,
+   "n_tokens_consumed": 11496,
+   "n_zero_rows": 10,
+   "surprise_distribution_sampled": {
+    "n": 368,
+    "mean": 0.853,
+    "p10": 0.6525,
+    "p50": 0.875,
+    "p90": 1.0128
+   },
+   "mean_cos_to_A0_rows": 0.425512
+  }
+ },
+ "PREREGISTERED_NULL_CAUSE_BOOTSTRAPPING": {
+  "mean_cos_A0_vs_T1_rows": {
+   "T1_RESIDUAL_eta0.25": 0.977151,
+   "T1_RESIDUAL_eta0.5": 0.977151,
+   "T1_RESIDUAL_eta1": 0.977151,
+   "T1_RESIDUAL_eta2": 0.977151
+  },
+  "reading": "a cosine at 1.0000 means the residual rule reproduced the uniform sum and the finding is the BOOTSTRAPPING PROBLEM (our prediction comes from the store we are criticising), NOT a refutation of surprise weighting."
+ },
+ "POOLS": {
+  "P1_OPEN": {
+   "chance": 0.010087905988131371,
+   "POOL_ORACLE_CHECK": {
+    "ok": null,
+    "oracle_constant_hit_exp": 0.1715,
+    "chance": 0.010088,
+    "note": "an OPEN pool is not de-biased by construction; the value is reported so the reader can see how much constant signal it admits."
+   }
+  },
+  "P2_BALANCED_K15": {
+   "chance": 0.0625,
+   "K": 15,
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0784,
+    "chance": 0.0625,
+    "margin_over_chance": 0.0159,
+    "tol": 0.03,
+    "n_items": 3994
+   }
+  },
+  "P2_BALANCED_K49": {
+   "chance": 0.02,
+   "K": 49,
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0245,
+    "chance": 0.02,
+    "margin_over_chance": 0.0045,
+    "tol": 0.03,
+    "n_items": 3994
+   }
+  }
+ },
+ "ARMS": {
+  "B|v1.0.0|full|PARTIAL_CUE|P1_OPEN": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.010088,
+   "n_boot": 10000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.0105,
+    "chance": 0.010088,
+    "NULL_near_chance": true,
+    "CONDITION_READABLE": true
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.0871,
+    "F2_PREFIX_orthographic": 0.0551,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "A0_UNIFORM": 0.0223,
+    "T1_RESIDUAL_eta0.25": 0.0233,
+    "T1_RESIDUAL_eta0.5": 0.0233,
+    "T1_RESIDUAL_eta1": 0.0233,
+    "T1_RESIDUAL_eta2": 0.0233,
+    "T2_TOPSURPRISE_p0.07": 0.017,
+    "C1_RANDOM_SUBSET_p0.07": 0.016,
+    "T2_TOPSURPRISE_p0.15": 0.0165,
+    "C1_RANDOM_SUBSET_p0.15": 0.025,
+    "T2_TOPSURPRISE_p0.3": 0.0193,
+    "C1_RANDOM_SUBSET_p0.3": 0.0238,
+    "T2_TOPSURPRISE_p0.6": 0.0195,
+    "C1_RANDOM_SUBSET_p0.6": 0.025,
+    "K1_ORACLE_WEIGHT": 0.0195,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0173,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.0984,
+    "F2_PREFIX_orthographic": 0.0941,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "A0_UNIFORM": 0.0223,
+    "T1_RESIDUAL_eta0.25": 0.0233,
+    "T1_RESIDUAL_eta0.5": 0.0233,
+    "T1_RESIDUAL_eta1": 0.0233,
+    "T1_RESIDUAL_eta2": 0.0233,
+    "T2_TOPSURPRISE_p0.07": 0.017,
+    "C1_RANDOM_SUBSET_p0.07": 0.016,
+    "T2_TOPSURPRISE_p0.15": 0.0165,
+    "C1_RANDOM_SUBSET_p0.15": 0.025,
+    "T2_TOPSURPRISE_p0.3": 0.0193,
+    "C1_RANDOM_SUBSET_p0.3": 0.0238,
+    "T2_TOPSURPRISE_p0.6": 0.0195,
+    "C1_RANDOM_SUBSET_p0.6": 0.025,
+    "K1_ORACLE_WEIGHT": 0.0195,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0173,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0786,
+    "F2_PREFIX_orthographic": 0.0371,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "A0_UNIFORM": 0.0223,
+    "T1_RESIDUAL_eta0.25": 0.0233,
+    "T1_RESIDUAL_eta0.5": 0.0233,
+    "T1_RESIDUAL_eta1": 0.0233,
+    "T1_RESIDUAL_eta2": 0.0233,
+    "T2_TOPSURPRISE_p0.07": 0.017,
+    "C1_RANDOM_SUBSET_p0.07": 0.016,
+    "T2_TOPSURPRISE_p0.15": 0.0165,
+    "C1_RANDOM_SUBSET_p0.15": 0.025,
+    "T2_TOPSURPRISE_p0.3": 0.0193,
+    "C1_RANDOM_SUBSET_p0.3": 0.0238,
+    "T2_TOPSURPRISE_p0.6": 0.0195,
+    "C1_RANDOM_SUBSET_p0.6": 0.025,
+    "K1_ORACLE_WEIGHT": 0.0195,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0173,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0788,
+     0.0957
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0489,
+     0.0616
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0145,
+     0.0228
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.1284,
+     0.1497
+    ],
+    "A0_UNIFORM": [
+     0.0178,
+     0.0268
+    ],
+    "T1_RESIDUAL_eta0.25": [
+     0.0188,
+     0.028
+    ],
+    "T1_RESIDUAL_eta0.5": [
+     0.0188,
+     0.028
+    ],
+    "T1_RESIDUAL_eta1": [
+     0.0188,
+     0.028
+    ],
+    "T1_RESIDUAL_eta2": [
+     0.0188,
+     0.028
+    ],
+    "T2_TOPSURPRISE_p0.07": [
+     0.013,
+     0.021
+    ],
+    "C1_RANDOM_SUBSET_p0.07": [
+     0.0123,
+     0.02
+    ],
+    "T2_TOPSURPRISE_p0.15": [
+     0.0128,
+     0.0205
+    ],
+    "C1_RANDOM_SUBSET_p0.15": [
+     0.0203,
+     0.03
+    ],
+    "T2_TOPSURPRISE_p0.3": [
+     0.0153,
+     0.0238
+    ],
+    "C1_RANDOM_SUBSET_p0.3": [
+     0.019,
+     0.0285
+    ],
+    "T2_TOPSURPRISE_p0.6": [
+     0.0153,
+     0.024
+    ],
+    "C1_RANDOM_SUBSET_p0.6": [
+     0.0203,
+     0.03
+    ],
+    "K1_ORACLE_WEIGHT": [
+     0.0153,
+     0.024
+    ],
+    "N1_SHUFFLED_WEIGHTS_p0.07": [
+     0.0135,
+     0.0215
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0075,
+     0.0138
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0075,
+     0.0138
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ]
+   },
+   "BINDING_FLOOR": "F4_CONSTANT_PROTOTYPE_zero_query_information",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.139,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.0871,
+    "F2_PREFIX_orthographic": 0.0551,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0518,
+     "ci95": [
+      -0.065,
+      -0.0383
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0838,
+     "ci95": [
+      -0.0956,
+      -0.0721
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1319,
+      -0.1094
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.122,
+     "ci95": [
+      -0.1332,
+      -0.1109
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.123,
+     "ci95": [
+      -0.1342,
+      -0.1119
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1225,
+     "ci95": [
+      -0.1337,
+      -0.1114
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1139,
+     "ci95": [
+      -0.1254,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.1197,
+     "ci95": [
+      -0.1309,
+      -0.1087
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1153,
+     "ci95": [
+      -0.1269,
+      -0.1039
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.1195,
+     "ci95": [
+      -0.1309,
+      -0.1084
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.114,
+     "ci95": [
+      -0.1254,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.1195,
+     "ci95": [
+      -0.1309,
+      -0.1079
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1217,
+     "ci95": [
+      -0.1332,
+      -0.1104
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8503,
+      0.8716
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0603,
+     "ci95": [
+      -0.0736,
+      -0.0471
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.1019,
+     "ci95": [
+      -0.1137,
+      -0.0901
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1319,
+      -0.1094
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.122,
+     "ci95": [
+      -0.1332,
+      -0.1109
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.123,
+     "ci95": [
+      -0.1342,
+      -0.1119
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1225,
+     "ci95": [
+      -0.1337,
+      -0.1114
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1139,
+     "ci95": [
+      -0.1254,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.1197,
+     "ci95": [
+      -0.1309,
+      -0.1087
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1153,
+     "ci95": [
+      -0.1269,
+      -0.1039
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.1195,
+     "ci95": [
+      -0.1309,
+      -0.1084
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.114,
+     "ci95": [
+      -0.1254,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.1195,
+     "ci95": [
+      -0.1309,
+      -0.1079
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1217,
+     "ci95": [
+      -0.1332,
+      -0.1104
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8503,
+      0.8716
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0405,
+     "ci95": [
+      -0.0541,
+      -0.0268
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0449,
+     "ci95": [
+      -0.0581,
+      -0.0318
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1319,
+      -0.1094
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.1158,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.122,
+     "ci95": [
+      -0.1332,
+      -0.1109
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.123,
+     "ci95": [
+      -0.1342,
+      -0.1119
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1225,
+     "ci95": [
+      -0.1337,
+      -0.1114
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1139,
+     "ci95": [
+      -0.1254,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.1197,
+     "ci95": [
+      -0.1309,
+      -0.1087
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1153,
+     "ci95": [
+      -0.1269,
+      -0.1039
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.1195,
+     "ci95": [
+      -0.1309,
+      -0.1084
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.114,
+     "ci95": [
+      -0.1254,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.1195,
+     "ci95": [
+      -0.1309,
+      -0.1079
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1217,
+     "ci95": [
+      -0.1332,
+      -0.1104
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8503,
+      0.8716
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0649,
+     "ci95": [
+      0.0555,
+      0.0743
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": 0.0329,
+     "ci95": [
+      0.0251,
+      0.0406
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0037,
+     "ci95": [
+      -0.0098,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": 0.1167,
+     "ci95": [
+      0.1054,
+      0.1282
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0052,
+     "ci95": [
+      -0.011,
+      0.0005
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0062,
+     "ci95": [
+      -0.012,
+      -0.0005
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0058,
+     "ci95": [
+      -0.0115,
+      0.0
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": 0.0028,
+     "ci95": [
+      -0.0033,
+      0.0088
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.003,
+     "ci95": [
+      -0.0085,
+      0.0028
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": 0.0015,
+     "ci95": [
+      -0.004,
+      0.007
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0027,
+     "ci95": [
+      -0.008,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0028,
+     "ci95": [
+      -0.0018,
+      0.0073
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0027,
+     "ci95": [
+      -0.0073,
+      0.002
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.005,
+     "ci95": [
+      -0.0105,
+      0.0008
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0117,
+     "ci95": [
+      -0.0175,
+      -0.0063
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0117,
+     "ci95": [
+      -0.0175,
+      -0.0063
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9777,
+     "ci95": [
+      0.9732,
+      0.9822
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0564,
+     "ci95": [
+      0.0471,
+      0.0658
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": 0.0148,
+     "ci95": [
+      0.0073,
+      0.0223
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0037,
+     "ci95": [
+      -0.0098,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": 0.1167,
+     "ci95": [
+      0.1054,
+      0.1282
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.001,
+     "ci95": [
+      -0.002,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0052,
+     "ci95": [
+      -0.011,
+      0.0005
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0062,
+     "ci95": [
+      -0.012,
+      -0.0005
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0058,
+     "ci95": [
+      -0.0115,
+      0.0
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": 0.0028,
+     "ci95": [
+      -0.0033,
+      0.0088
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.003,
+     "ci95": [
+      -0.0085,
+      0.0028
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": 0.0015,
+     "ci95": [
+      -0.004,
+      0.007
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0027,
+     "ci95": [
+      -0.008,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0028,
+     "ci95": [
+      -0.0018,
+      0.0073
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0027,
+     "ci95": [
+      -0.0073,
+      0.002
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.005,
+     "ci95": [
+      -0.0105,
+      0.0008
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0117,
+     "ci95": [
+      -0.0175,
+      -0.0063
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0117,
+     "ci95": [
+      -0.0175,
+      -0.0063
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9777,
+     "ci95": [
+      0.9732,
+      0.9822
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "SELECTION_vs_TOKEN_MATCHED_RANDOM": {
+    "T2_TOPSURPRISE_p0.07": {
+     "point": 0.001,
+     "ci95": [
+      -0.0043,
+      0.0063
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0086,
+     "ci95": [
+      -0.0145,
+      -0.0028
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0045,
+     "ci95": [
+      -0.0103,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0055,
+     "ci95": [
+      -0.011,
+      0.0
+     ],
+     "band": "NOT_SEPARATED"
+    }
+   },
+   "regime": "PARTIAL_CUE",
+   "pool": "P1_OPEN",
+   "POOL_ORACLE_CHECK": {
+    "ok": null,
+    "oracle_constant_hit_exp": 0.1715,
+    "chance": 0.010088,
+    "note": "an OPEN pool is not de-biased by construction; the value is reported so the reader can see how much constant signal it admits."
+   },
+   "NOTE_ON_EXACT_KEY": "PARTIAL_CUE: the cue is context_vector_masked of a held-out sentence and is BIT-IDENTICAL across arms, so only the store differs."
+  },
+  "B|v1.0.0|full|PARTIAL_CUE|P2_BALANCED_K15": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.0625,
+   "n_boot": 10000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.0636,
+    "chance": 0.0625,
+    "NULL_near_chance": true,
+    "CONDITION_READABLE": true
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.1081,
+    "F2_PREFIX_orthographic": 0.0761,
+    "F3_FREQUENCY_constant": 0.0685,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "A0_UNIFORM": 0.0924,
+    "T1_RESIDUAL_eta0.25": 0.0824,
+    "T1_RESIDUAL_eta0.5": 0.0824,
+    "T1_RESIDUAL_eta1": 0.0824,
+    "T1_RESIDUAL_eta2": 0.0824,
+    "T2_TOPSURPRISE_p0.07": 0.0766,
+    "C1_RANDOM_SUBSET_p0.07": 0.0764,
+    "T2_TOPSURPRISE_p0.15": 0.0759,
+    "C1_RANDOM_SUBSET_p0.15": 0.0809,
+    "T2_TOPSURPRISE_p0.3": 0.0811,
+    "C1_RANDOM_SUBSET_p0.3": 0.0831,
+    "T2_TOPSURPRISE_p0.6": 0.0841,
+    "C1_RANDOM_SUBSET_p0.6": 0.0891,
+    "K1_ORACLE_WEIGHT": 0.0896,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0756,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0784
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.2661,
+    "F2_PREFIX_orthographic": 0.4284,
+    "F3_FREQUENCY_constant": 0.0689,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "A0_UNIFORM": 0.0924,
+    "T1_RESIDUAL_eta0.25": 0.0824,
+    "T1_RESIDUAL_eta0.5": 0.0824,
+    "T1_RESIDUAL_eta1": 0.0824,
+    "T1_RESIDUAL_eta2": 0.0824,
+    "T2_TOPSURPRISE_p0.07": 0.0766,
+    "C1_RANDOM_SUBSET_p0.07": 0.0764,
+    "T2_TOPSURPRISE_p0.15": 0.0759,
+    "C1_RANDOM_SUBSET_p0.15": 0.0809,
+    "T2_TOPSURPRISE_p0.3": 0.0811,
+    "C1_RANDOM_SUBSET_p0.3": 0.0831,
+    "T2_TOPSURPRISE_p0.6": 0.0841,
+    "C1_RANDOM_SUBSET_p0.6": 0.0891,
+    "K1_ORACLE_WEIGHT": 0.0896,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0756,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0786
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0924,
+    "F2_PREFIX_orthographic": 0.0438,
+    "F3_FREQUENCY_constant": 0.0681,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "A0_UNIFORM": 0.0924,
+    "T1_RESIDUAL_eta0.25": 0.0824,
+    "T1_RESIDUAL_eta0.5": 0.0824,
+    "T1_RESIDUAL_eta1": 0.0824,
+    "T1_RESIDUAL_eta2": 0.0824,
+    "T2_TOPSURPRISE_p0.07": 0.0766,
+    "C1_RANDOM_SUBSET_p0.07": 0.0764,
+    "T2_TOPSURPRISE_p0.15": 0.0759,
+    "C1_RANDOM_SUBSET_p0.15": 0.0809,
+    "T2_TOPSURPRISE_p0.3": 0.0811,
+    "C1_RANDOM_SUBSET_p0.3": 0.0831,
+    "T2_TOPSURPRISE_p0.6": 0.0841,
+    "C1_RANDOM_SUBSET_p0.6": 0.0891,
+    "K1_ORACLE_WEIGHT": 0.0896,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0756,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0781
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0991,
+     0.1171
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0698,
+     0.0827
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0606,
+     0.0762
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.0618,
+     0.0776
+    ],
+    "A0_UNIFORM": [
+     0.0834,
+     0.1017
+    ],
+    "T1_RESIDUAL_eta0.25": [
+     0.0739,
+     0.0911
+    ],
+    "T1_RESIDUAL_eta0.5": [
+     0.0739,
+     0.0911
+    ],
+    "T1_RESIDUAL_eta1": [
+     0.0739,
+     0.0911
+    ],
+    "T1_RESIDUAL_eta2": [
+     0.0739,
+     0.0911
+    ],
+    "T2_TOPSURPRISE_p0.07": [
+     0.0686,
+     0.0849
+    ],
+    "C1_RANDOM_SUBSET_p0.07": [
+     0.0684,
+     0.0846
+    ],
+    "T2_TOPSURPRISE_p0.15": [
+     0.0679,
+     0.0841
+    ],
+    "C1_RANDOM_SUBSET_p0.15": [
+     0.0726,
+     0.0896
+    ],
+    "T2_TOPSURPRISE_p0.3": [
+     0.0726,
+     0.0896
+    ],
+    "C1_RANDOM_SUBSET_p0.3": [
+     0.0746,
+     0.0916
+    ],
+    "T2_TOPSURPRISE_p0.6": [
+     0.0756,
+     0.0929
+    ],
+    "C1_RANDOM_SUBSET_p0.6": [
+     0.0804,
+     0.0981
+    ],
+    "K1_ORACLE_WEIGHT": [
+     0.0809,
+     0.0986
+    ],
+    "N1_SHUFFLED_WEIGHTS_p0.07": [
+     0.0674,
+     0.0839
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0561,
+     0.0714
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0561,
+     0.0714
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ],
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": [
+     0.0701,
+     0.0869
+    ]
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_orthographic",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.1081,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.1081,
+    "F2_PREFIX_orthographic": 0.0761,
+    "F3_FREQUENCY_constant": 0.0685,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0319,
+     "ci95": [
+      -0.0419,
+      -0.022
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0397,
+     "ci95": [
+      -0.0516,
+      -0.0278
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0385,
+     "ci95": [
+      -0.0504,
+      -0.0267
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0157,
+     "ci95": [
+      -0.0279,
+      -0.0034
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0257,
+     "ci95": [
+      -0.0373,
+      -0.0138
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0257,
+     "ci95": [
+      -0.0373,
+      -0.0138
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0257,
+     "ci95": [
+      -0.0373,
+      -0.0138
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0257,
+     "ci95": [
+      -0.0373,
+      -0.0138
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0314,
+     "ci95": [
+      -0.0434,
+      -0.0193
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0317,
+     "ci95": [
+      -0.0435,
+      -0.0199
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0322,
+     "ci95": [
+      -0.0441,
+      -0.0204
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0272,
+     "ci95": [
+      -0.0393,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0269,
+     "ci95": [
+      -0.0392,
+      -0.0151
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0249,
+     "ci95": [
+      -0.0371,
+      -0.0129
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0239,
+     "ci95": [
+      -0.036,
+      -0.0118
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.019,
+     "ci95": [
+      -0.0311,
+      -0.0066
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0184,
+     "ci95": [
+      -0.0304,
+      -0.0061
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0325,
+     "ci95": [
+      -0.0445,
+      -0.0203
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0444,
+     "ci95": [
+      -0.0562,
+      -0.0326
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0444,
+     "ci95": [
+      -0.0562,
+      -0.0326
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.8919,
+     "ci95": [
+      0.8829,
+      0.9009
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0297,
+     "ci95": [
+      -0.0422,
+      -0.0171
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0486,
+     "ci95": [
+      -0.0586,
+      -0.0388
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0244,
+     "ci95": [
+      -0.0363,
+      -0.0125
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0228,
+     "ci95": [
+      -0.0348,
+      -0.011
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0,
+     "ci95": [
+      -0.0123,
+      0.0123
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.01,
+     "ci95": [
+      -0.0215,
+      0.0018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.01,
+     "ci95": [
+      -0.0215,
+      0.0018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.01,
+     "ci95": [
+      -0.0215,
+      0.0018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.01,
+     "ci95": [
+      -0.0215,
+      0.0018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0158,
+     "ci95": [
+      -0.0275,
+      -0.0035
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.016,
+     "ci95": [
+      -0.0278,
+      -0.0043
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0165,
+     "ci95": [
+      -0.0285,
+      -0.0045
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0115,
+     "ci95": [
+      -0.0235,
+      0.0008
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0113,
+     "ci95": [
+      -0.0235,
+      0.0005
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0093,
+     "ci95": [
+      -0.0213,
+      0.0028
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0083,
+     "ci95": [
+      -0.0203,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0033,
+     "ci95": [
+      -0.0155,
+      0.009
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0027,
+     "ci95": [
+      -0.0148,
+      0.0095
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0168,
+     "ci95": [
+      -0.0288,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9076,
+     "ci95": [
+      0.8986,
+      0.9166
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0143,
+     "ci95": [
+      -0.0268,
+      -0.0018
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F2_PREFIX_orthographic": {
+     "point": 0.1624,
+     "ci95": [
+      0.1432,
+      0.1818
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1974,
+     "ci95": [
+      -0.2131,
+      -0.1818
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.1965,
+     "ci95": [
+      -0.2121,
+      -0.181
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.1737,
+     "ci95": [
+      -0.19,
+      -0.1577
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.1837,
+     "ci95": [
+      -0.1995,
+      -0.168
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.1837,
+     "ci95": [
+      -0.1995,
+      -0.168
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.1837,
+     "ci95": [
+      -0.1995,
+      -0.168
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.1837,
+     "ci95": [
+      -0.1995,
+      -0.168
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.1895,
+     "ci95": [
+      -0.2053,
+      -0.1738
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.1897,
+     "ci95": [
+      -0.2056,
+      -0.1743
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1903,
+     "ci95": [
+      -0.2063,
+      -0.1743
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1852,
+     "ci95": [
+      -0.2008,
+      -0.1693
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.185,
+     "ci95": [
+      -0.2008,
+      -0.1693
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.183,
+     "ci95": [
+      -0.199,
+      -0.167
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.182,
+     "ci95": [
+      -0.198,
+      -0.1662
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.177,
+     "ci95": [
+      -0.193,
+      -0.161
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.1765,
+     "ci95": [
+      -0.1925,
+      -0.1605
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1905,
+     "ci95": [
+      -0.2063,
+      -0.1748
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.2025,
+     "ci95": [
+      -0.2176,
+      -0.1865
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.2025,
+     "ci95": [
+      -0.2176,
+      -0.1865
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.7339,
+     "ci95": [
+      0.7201,
+      0.7474
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.1875,
+     "ci95": [
+      -0.2036,
+      -0.1713
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0157,
+     "ci95": [
+      0.0034,
+      0.0279
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0162,
+     "ci95": [
+      -0.0273,
+      -0.0053
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.024,
+     "ci95": [
+      -0.0359,
+      -0.0121
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0228,
+     "ci95": [
+      -0.0346,
+      -0.0108
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0157,
+     "ci95": [
+      -0.0273,
+      -0.0043
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.016,
+     "ci95": [
+      -0.0268,
+      -0.0053
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0165,
+     "ci95": [
+      -0.0275,
+      -0.0055
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0115,
+     "ci95": [
+      -0.0218,
+      -0.0013
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0113,
+     "ci95": [
+      -0.0215,
+      -0.0008
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0093,
+     "ci95": [
+      -0.019,
+      0.0003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0082,
+     "ci95": [
+      -0.017,
+      0.0003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0033,
+     "ci95": [
+      -0.011,
+      0.0045
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0027,
+     "ci95": [
+      -0.0105,
+      0.005
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0168,
+     "ci95": [
+      -0.0278,
+      -0.0058
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9076,
+     "ci95": [
+      0.8983,
+      0.9166
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.014,
+     "ci95": [
+      -0.0264,
+      -0.0016
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0,
+     "ci95": [
+      -0.0123,
+      0.0123
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0485,
+     "ci95": [
+      -0.0593,
+      -0.0376
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0244,
+     "ci95": [
+      -0.0363,
+      -0.0125
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0228,
+     "ci95": [
+      -0.0346,
+      -0.0108
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.01,
+     "ci95": [
+      -0.0153,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0157,
+     "ci95": [
+      -0.0273,
+      -0.0043
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.016,
+     "ci95": [
+      -0.0268,
+      -0.0053
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0165,
+     "ci95": [
+      -0.0275,
+      -0.0055
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0115,
+     "ci95": [
+      -0.0218,
+      -0.0013
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0113,
+     "ci95": [
+      -0.0215,
+      -0.0008
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0093,
+     "ci95": [
+      -0.019,
+      0.0003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0082,
+     "ci95": [
+      -0.017,
+      0.0003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0033,
+     "ci95": [
+      -0.011,
+      0.0045
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0027,
+     "ci95": [
+      -0.0105,
+      0.005
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0168,
+     "ci95": [
+      -0.0278,
+      -0.0058
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9076,
+     "ci95": [
+      0.8983,
+      0.9166
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0143,
+     "ci95": [
+      -0.0265,
+      -0.0018
+     ],
+     "band": "BELOW"
+    }
+   },
+   "SELECTION_vs_TOKEN_MATCHED_RANDOM": {
+    "T2_TOPSURPRISE_p0.07": {
+     "point": 0.0002,
+     "ci95": [
+      -0.011,
+      0.0113
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.005,
+     "ci95": [
+      -0.0163,
+      0.0063
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.002,
+     "ci95": [
+      -0.0128,
+      0.009
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.005,
+     "ci95": [
+      -0.0143,
+      0.0045
+     ],
+     "band": "NOT_SEPARATED"
+    }
+   },
+   "regime": "PARTIAL_CUE",
+   "pool": "P2_BALANCED_K15",
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0784,
+    "chance": 0.0625,
+    "margin_over_chance": 0.0159,
+    "tol": 0.03,
+    "n_items": 3994
+   },
+   "NOTE_ON_EXACT_KEY": "PARTIAL_CUE: the cue is context_vector_masked of a held-out sentence and is BIT-IDENTICAL across arms, so only the store differs."
+  },
+  "B|v1.0.0|full|PARTIAL_CUE|P2_BALANCED_K49": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.02,
+   "n_boot": 10000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.022,
+    "chance": 0.02,
+    "NULL_near_chance": true,
+    "CONDITION_READABLE": true
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.0618,
+    "F2_PREFIX_orthographic": 0.0332,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "A0_UNIFORM": 0.0396,
+    "T1_RESIDUAL_eta0.25": 0.0396,
+    "T1_RESIDUAL_eta0.5": 0.0396,
+    "T1_RESIDUAL_eta1": 0.0396,
+    "T1_RESIDUAL_eta2": 0.0396,
+    "T2_TOPSURPRISE_p0.07": 0.0268,
+    "C1_RANDOM_SUBSET_p0.07": 0.0293,
+    "T2_TOPSURPRISE_p0.15": 0.0273,
+    "C1_RANDOM_SUBSET_p0.15": 0.0318,
+    "T2_TOPSURPRISE_p0.3": 0.0288,
+    "C1_RANDOM_SUBSET_p0.3": 0.0356,
+    "T2_TOPSURPRISE_p0.6": 0.0346,
+    "C1_RANDOM_SUBSET_p0.6": 0.0396,
+    "K1_ORACLE_WEIGHT": 0.0398,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0278,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022,
+    "NULL_SCRAMBLED_ANCHORS": 0.022,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0245
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.0834,
+    "F2_PREFIX_orthographic": 0.1467,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "A0_UNIFORM": 0.0396,
+    "T1_RESIDUAL_eta0.25": 0.0396,
+    "T1_RESIDUAL_eta0.5": 0.0396,
+    "T1_RESIDUAL_eta1": 0.0396,
+    "T1_RESIDUAL_eta2": 0.0396,
+    "T2_TOPSURPRISE_p0.07": 0.0268,
+    "C1_RANDOM_SUBSET_p0.07": 0.0293,
+    "T2_TOPSURPRISE_p0.15": 0.0273,
+    "C1_RANDOM_SUBSET_p0.15": 0.0318,
+    "T2_TOPSURPRISE_p0.3": 0.0288,
+    "C1_RANDOM_SUBSET_p0.3": 0.0356,
+    "T2_TOPSURPRISE_p0.6": 0.0346,
+    "C1_RANDOM_SUBSET_p0.6": 0.0396,
+    "K1_ORACLE_WEIGHT": 0.0398,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0278,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022,
+    "NULL_SCRAMBLED_ANCHORS": 0.022,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0245
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0568,
+    "F2_PREFIX_orthographic": 0.023,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "A0_UNIFORM": 0.0396,
+    "T1_RESIDUAL_eta0.25": 0.0396,
+    "T1_RESIDUAL_eta0.5": 0.0396,
+    "T1_RESIDUAL_eta1": 0.0396,
+    "T1_RESIDUAL_eta2": 0.0396,
+    "T2_TOPSURPRISE_p0.07": 0.0268,
+    "C1_RANDOM_SUBSET_p0.07": 0.0293,
+    "T2_TOPSURPRISE_p0.15": 0.0273,
+    "C1_RANDOM_SUBSET_p0.15": 0.0318,
+    "T2_TOPSURPRISE_p0.3": 0.0288,
+    "C1_RANDOM_SUBSET_p0.3": 0.0356,
+    "T2_TOPSURPRISE_p0.6": 0.0346,
+    "C1_RANDOM_SUBSET_p0.6": 0.0396,
+    "K1_ORACLE_WEIGHT": 0.0398,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0278,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022,
+    "NULL_SCRAMBLED_ANCHORS": 0.022,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0245
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0545,
+     0.0691
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0284,
+     0.0382
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0148,
+     0.023
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.018,
+     0.0273
+    ],
+    "A0_UNIFORM": [
+     0.0336,
+     0.0458
+    ],
+    "T1_RESIDUAL_eta0.25": [
+     0.0336,
+     0.0458
+    ],
+    "T1_RESIDUAL_eta0.5": [
+     0.0336,
+     0.0458
+    ],
+    "T1_RESIDUAL_eta1": [
+     0.0336,
+     0.0458
+    ],
+    "T1_RESIDUAL_eta2": [
+     0.0336,
+     0.0458
+    ],
+    "T2_TOPSURPRISE_p0.07": [
+     0.022,
+     0.0318
+    ],
+    "C1_RANDOM_SUBSET_p0.07": [
+     0.024,
+     0.0346
+    ],
+    "T2_TOPSURPRISE_p0.15": [
+     0.0223,
+     0.0325
+    ],
+    "C1_RANDOM_SUBSET_p0.15": [
+     0.0265,
+     0.0373
+    ],
+    "T2_TOPSURPRISE_p0.3": [
+     0.0235,
+     0.0341
+    ],
+    "C1_RANDOM_SUBSET_p0.3": [
+     0.0298,
+     0.0416
+    ],
+    "T2_TOPSURPRISE_p0.6": [
+     0.029,
+     0.0403
+    ],
+    "C1_RANDOM_SUBSET_p0.6": [
+     0.0338,
+     0.0458
+    ],
+    "K1_ORACLE_WEIGHT": [
+     0.0338,
+     0.0461
+    ],
+    "N1_SHUFFLED_WEIGHTS_p0.07": [
+     0.0228,
+     0.0328
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0178,
+     0.0265
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0178,
+     0.0265
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ],
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": [
+     0.0198,
+     0.0293
+    ]
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_orthographic",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.0618,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.0618,
+    "F2_PREFIX_orthographic": 0.0332,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0286,
+     "ci95": [
+      -0.0364,
+      -0.0209
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0431,
+     "ci95": [
+      -0.0514,
+      -0.0347
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0393,
+     "ci95": [
+      -0.048,
+      -0.0306
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0313,
+      -0.013
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0315,
+      -0.013
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0315,
+      -0.013
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0315,
+      -0.013
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0315,
+      -0.013
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.035,
+     "ci95": [
+      -0.0435,
+      -0.0267
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0326,
+     "ci95": [
+      -0.0413,
+      -0.0238
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0345,
+     "ci95": [
+      -0.0431,
+      -0.0259
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.03,
+     "ci95": [
+      -0.039,
+      -0.021
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.033,
+     "ci95": [
+      -0.0418,
+      -0.0242
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0263,
+     "ci95": [
+      -0.0354,
+      -0.0171
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0273,
+     "ci95": [
+      -0.0364,
+      -0.0185
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0313,
+      -0.0132
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.022,
+     "ci95": [
+      -0.0312,
+      -0.0127
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0341,
+     "ci95": [
+      -0.0427,
+      -0.0255
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0398,
+     "ci95": [
+      -0.0483,
+      -0.0311
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0398,
+     "ci95": [
+      -0.0483,
+      -0.0311
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9382,
+     "ci95": [
+      0.9309,
+      0.9455
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0373,
+     "ci95": [
+      -0.0462,
+      -0.0286
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0338,
+     "ci95": [
+      -0.0416,
+      -0.0265
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0381,
+     "ci95": [
+      -0.0463,
+      -0.0298
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0344,
+     "ci95": [
+      -0.0431,
+      -0.0255
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0263,
+      -0.0083
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0263,
+      -0.008
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0263,
+      -0.008
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0263,
+      -0.008
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0263,
+      -0.008
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0301,
+     "ci95": [
+      -0.0386,
+      -0.0218
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0276,
+     "ci95": [
+      -0.0363,
+      -0.019
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0296,
+     "ci95": [
+      -0.0381,
+      -0.021
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0341,
+      -0.0163
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0281,
+     "ci95": [
+      -0.0368,
+      -0.0193
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0214,
+     "ci95": [
+      -0.0303,
+      -0.0123
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0224,
+     "ci95": [
+      -0.0315,
+      -0.0135
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0263,
+      -0.0085
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0171,
+     "ci95": [
+      -0.0263,
+      -0.008
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0291,
+     "ci95": [
+      -0.0376,
+      -0.0205
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0348,
+     "ci95": [
+      -0.0433,
+      -0.0263
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0348,
+     "ci95": [
+      -0.0433,
+      -0.0263
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9431,
+     "ci95": [
+      0.9359,
+      0.9502
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0323,
+     "ci95": [
+      -0.0411,
+      -0.0238
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F2_PREFIX_orthographic": {
+     "point": 0.0633,
+     "ci95": [
+      0.0503,
+      0.0764
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0647,
+     "ci95": [
+      -0.0744,
+      -0.0551
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0609,
+     "ci95": [
+      -0.0706,
+      -0.0511
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0438,
+     "ci95": [
+      -0.0538,
+      -0.0336
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0438,
+     "ci95": [
+      -0.0538,
+      -0.0333
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0438,
+     "ci95": [
+      -0.0538,
+      -0.0333
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0438,
+     "ci95": [
+      -0.0538,
+      -0.0333
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0438,
+     "ci95": [
+      -0.0538,
+      -0.0333
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0566,
+     "ci95": [
+      -0.0663,
+      -0.0471
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0542,
+     "ci95": [
+      -0.0641,
+      -0.0443
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0561,
+     "ci95": [
+      -0.0658,
+      -0.0463
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0516,
+     "ci95": [
+      -0.0616,
+      -0.0413
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0546,
+     "ci95": [
+      -0.0646,
+      -0.0446
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0479,
+     "ci95": [
+      -0.0578,
+      -0.0376
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0489,
+     "ci95": [
+      -0.0588,
+      -0.0388
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0438,
+     "ci95": [
+      -0.0538,
+      -0.0338
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0436,
+     "ci95": [
+      -0.0538,
+      -0.0333
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0556,
+     "ci95": [
+      -0.0653,
+      -0.0458
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0613,
+     "ci95": [
+      -0.0711,
+      -0.0516
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0613,
+     "ci95": [
+      -0.0711,
+      -0.0516
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9166,
+     "ci95": [
+      0.9079,
+      0.9251
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0589,
+     "ci95": [
+      -0.0689,
+      -0.0488
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0223,
+     "ci95": [
+      0.013,
+      0.0313
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0063,
+     "ci95": [
+      -0.0141,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0208,
+     "ci95": [
+      -0.0283,
+      -0.0135
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.017,
+     "ci95": [
+      -0.0248,
+      -0.0093
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0127,
+     "ci95": [
+      -0.0203,
+      -0.0055
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0103,
+     "ci95": [
+      -0.0173,
+      -0.0035
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0123,
+     "ci95": [
+      -0.0198,
+      -0.005
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0078,
+     "ci95": [
+      -0.0148,
+      -0.001
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0108,
+     "ci95": [
+      -0.0175,
+      -0.0043
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.004,
+     "ci95": [
+      -0.0103,
+      0.002
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.005,
+     "ci95": [
+      -0.011,
+      0.001
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0,
+     "ci95": [
+      -0.005,
+      0.0048
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0002,
+     "ci95": [
+      -0.005,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0118,
+     "ci95": [
+      -0.019,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0175,
+     "ci95": [
+      -0.0253,
+      -0.0098
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0175,
+     "ci95": [
+      -0.0253,
+      -0.0098
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9604,
+     "ci95": [
+      0.9542,
+      0.9664
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.015,
+     "ci95": [
+      -0.023,
+      -0.0075
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0173,
+     "ci95": [
+      0.0083,
+      0.0263
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0165,
+     "ci95": [
+      -0.0243,
+      -0.009
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0208,
+     "ci95": [
+      -0.0283,
+      -0.0135
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.017,
+     "ci95": [
+      -0.0248,
+      -0.0093
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.0,
+     "ci95": [
+      -0.0035,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0127,
+     "ci95": [
+      -0.0203,
+      -0.0055
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0103,
+     "ci95": [
+      -0.0173,
+      -0.0035
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0123,
+     "ci95": [
+      -0.0198,
+      -0.005
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0078,
+     "ci95": [
+      -0.0148,
+      -0.001
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0108,
+     "ci95": [
+      -0.0175,
+      -0.0043
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.004,
+     "ci95": [
+      -0.0103,
+      0.002
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.005,
+     "ci95": [
+      -0.011,
+      0.001
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0,
+     "ci95": [
+      -0.005,
+      0.0048
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0002,
+     "ci95": [
+      -0.005,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0118,
+     "ci95": [
+      -0.019,
+      -0.0048
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0175,
+     "ci95": [
+      -0.0253,
+      -0.0098
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0175,
+     "ci95": [
+      -0.0253,
+      -0.0098
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9604,
+     "ci95": [
+      0.9542,
+      0.9664
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.015,
+     "ci95": [
+      -0.023,
+      -0.0075
+     ],
+     "band": "BELOW"
+    }
+   },
+   "SELECTION_vs_TOKEN_MATCHED_RANDOM": {
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0024,
+     "ci95": [
+      -0.0093,
+      0.004
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0045,
+     "ci95": [
+      -0.0113,
+      0.0028
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0067,
+     "ci95": [
+      -0.0135,
+      0.0
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.005,
+     "ci95": [
+      -0.0113,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    }
+   },
+   "regime": "PARTIAL_CUE",
+   "pool": "P2_BALANCED_K49",
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0245,
+    "chance": 0.02,
+    "margin_over_chance": 0.0045,
+    "tol": 0.03,
+    "n_items": 3994
+   },
+   "NOTE_ON_EXACT_KEY": "PARTIAL_CUE: the cue is context_vector_masked of a held-out sentence and is BIT-IDENTICAL across arms, so only the store differs."
+  },
+  "B|v1.0.0|full|EXACT_KEY|P1_OPEN": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.010088,
+   "n_boot": 10000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.0105,
+    "chance": 0.010088,
+    "NULL_near_chance": true,
+    "CONDITION_READABLE": true
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.0871,
+    "F2_PREFIX_orthographic": 0.0551,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "A0_UNIFORM": 0.0481,
+    "T1_RESIDUAL_eta0.25": 0.0481,
+    "T1_RESIDUAL_eta0.5": 0.0481,
+    "T1_RESIDUAL_eta1": 0.0481,
+    "T1_RESIDUAL_eta2": 0.0481,
+    "T2_TOPSURPRISE_p0.07": 0.023,
+    "C1_RANDOM_SUBSET_p0.07": 0.023,
+    "T2_TOPSURPRISE_p0.15": 0.0285,
+    "C1_RANDOM_SUBSET_p0.15": 0.0255,
+    "T2_TOPSURPRISE_p0.3": 0.0293,
+    "C1_RANDOM_SUBSET_p0.3": 0.0258,
+    "T2_TOPSURPRISE_p0.6": 0.0423,
+    "C1_RANDOM_SUBSET_p0.6": 0.0426,
+    "K1_ORACLE_WEIGHT": 0.0959,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0205,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.0984,
+    "F2_PREFIX_orthographic": 0.0941,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "A0_UNIFORM": 0.0481,
+    "T1_RESIDUAL_eta0.25": 0.0481,
+    "T1_RESIDUAL_eta0.5": 0.0481,
+    "T1_RESIDUAL_eta1": 0.0481,
+    "T1_RESIDUAL_eta2": 0.0481,
+    "T2_TOPSURPRISE_p0.07": 0.0233,
+    "C1_RANDOM_SUBSET_p0.07": 0.0235,
+    "T2_TOPSURPRISE_p0.15": 0.0288,
+    "C1_RANDOM_SUBSET_p0.15": 0.026,
+    "T2_TOPSURPRISE_p0.3": 0.0293,
+    "C1_RANDOM_SUBSET_p0.3": 0.0258,
+    "T2_TOPSURPRISE_p0.6": 0.0423,
+    "C1_RANDOM_SUBSET_p0.6": 0.0426,
+    "K1_ORACLE_WEIGHT": 0.0959,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0215,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0786,
+    "F2_PREFIX_orthographic": 0.0371,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "A0_UNIFORM": 0.0481,
+    "T1_RESIDUAL_eta0.25": 0.0481,
+    "T1_RESIDUAL_eta0.5": 0.0481,
+    "T1_RESIDUAL_eta1": 0.0481,
+    "T1_RESIDUAL_eta2": 0.0481,
+    "T2_TOPSURPRISE_p0.07": 0.023,
+    "C1_RANDOM_SUBSET_p0.07": 0.023,
+    "T2_TOPSURPRISE_p0.15": 0.0285,
+    "C1_RANDOM_SUBSET_p0.15": 0.0255,
+    "T2_TOPSURPRISE_p0.3": 0.0293,
+    "C1_RANDOM_SUBSET_p0.3": 0.0258,
+    "T2_TOPSURPRISE_p0.6": 0.0423,
+    "C1_RANDOM_SUBSET_p0.6": 0.0426,
+    "K1_ORACLE_WEIGHT": 0.0959,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0205,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0788,
+     0.0957
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0489,
+     0.0616
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0145,
+     0.0228
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.1284,
+     0.1497
+    ],
+    "A0_UNIFORM": [
+     0.0416,
+     0.0548
+    ],
+    "T1_RESIDUAL_eta0.25": [
+     0.0416,
+     0.0548
+    ],
+    "T1_RESIDUAL_eta0.5": [
+     0.0416,
+     0.0548
+    ],
+    "T1_RESIDUAL_eta1": [
+     0.0416,
+     0.0548
+    ],
+    "T1_RESIDUAL_eta2": [
+     0.0416,
+     0.0548
+    ],
+    "T2_TOPSURPRISE_p0.07": [
+     0.0185,
+     0.0278
+    ],
+    "C1_RANDOM_SUBSET_p0.07": [
+     0.0185,
+     0.0278
+    ],
+    "T2_TOPSURPRISE_p0.15": [
+     0.0235,
+     0.0338
+    ],
+    "C1_RANDOM_SUBSET_p0.15": [
+     0.0208,
+     0.0305
+    ],
+    "T2_TOPSURPRISE_p0.3": [
+     0.024,
+     0.0348
+    ],
+    "C1_RANDOM_SUBSET_p0.3": [
+     0.021,
+     0.0308
+    ],
+    "T2_TOPSURPRISE_p0.6": [
+     0.0363,
+     0.0486
+    ],
+    "C1_RANDOM_SUBSET_p0.6": [
+     0.0366,
+     0.0491
+    ],
+    "K1_ORACLE_WEIGHT": [
+     0.0869,
+     0.1052
+    ],
+    "N1_SHUFFLED_WEIGHTS_p0.07": [
+     0.0163,
+     0.0248
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0075,
+     0.0138
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0075,
+     0.0138
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ]
+   },
+   "BINDING_FLOOR": "F4_CONSTANT_PROTOTYPE_zero_query_information",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.139,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.0871,
+    "F2_PREFIX_orthographic": 0.0551,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0518,
+     "ci95": [
+      -0.065,
+      -0.0383
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0838,
+     "ci95": [
+      -0.0956,
+      -0.0721
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1319,
+      -0.1094
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1032,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.116,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.116,
+     "ci95": [
+      -0.1277,
+      -0.1044
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1105,
+     "ci95": [
+      -0.1222,
+      -0.0986
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1134,
+     "ci95": [
+      -0.1249,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.1097,
+     "ci95": [
+      -0.1214,
+      -0.0976
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1132,
+     "ci95": [
+      -0.1247,
+      -0.1014
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0967,
+     "ci95": [
+      -0.1092,
+      -0.0846
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0964,
+     "ci95": [
+      -0.1087,
+      -0.0841
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0431,
+     "ci95": [
+      -0.0571,
+      -0.0293
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1185,
+     "ci95": [
+      -0.1299,
+      -0.1074
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8503,
+      0.8716
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0603,
+     "ci95": [
+      -0.0736,
+      -0.0471
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.1019,
+     "ci95": [
+      -0.1137,
+      -0.0901
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1319,
+      -0.1094
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1032,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.116,
+     "ci95": [
+      -0.1272,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.116,
+     "ci95": [
+      -0.1277,
+      -0.1044
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1105,
+     "ci95": [
+      -0.1222,
+      -0.0986
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1134,
+     "ci95": [
+      -0.1249,
+      -0.1022
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.1097,
+     "ci95": [
+      -0.1214,
+      -0.0976
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1132,
+     "ci95": [
+      -0.1247,
+      -0.1014
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0967,
+     "ci95": [
+      -0.1092,
+      -0.0846
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0964,
+     "ci95": [
+      -0.1087,
+      -0.0841
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0431,
+     "ci95": [
+      -0.0571,
+      -0.0293
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1185,
+     "ci95": [
+      -0.1299,
+      -0.1074
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8503,
+      0.8716
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0405,
+     "ci95": [
+      -0.0541,
+      -0.0268
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0449,
+     "ci95": [
+      -0.0581,
+      -0.0318
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1319,
+      -0.1094
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1032,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1029,
+      -0.0786
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.1157,
+     "ci95": [
+      -0.1269,
+      -0.1044
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.1155,
+     "ci95": [
+      -0.1272,
+      -0.1039
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.1102,
+     "ci95": [
+      -0.1219,
+      -0.0984
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1129,
+     "ci95": [
+      -0.1244,
+      -0.1017
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.1097,
+     "ci95": [
+      -0.1214,
+      -0.0976
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1132,
+     "ci95": [
+      -0.1247,
+      -0.1014
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0967,
+     "ci95": [
+      -0.1092,
+      -0.0846
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0964,
+     "ci95": [
+      -0.1087,
+      -0.0841
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0431,
+     "ci95": [
+      -0.0571,
+      -0.0293
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1175,
+     "ci95": [
+      -0.1289,
+      -0.1064
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1392,
+      -0.1182
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8503,
+      0.8716
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0391,
+     "ci95": [
+      0.0287,
+      0.0497
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": 0.0071,
+     "ci95": [
+      -0.0019,
+      0.0162
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0295,
+     "ci95": [
+      -0.0371,
+      -0.0218
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": 0.0909,
+     "ci95": [
+      0.0786,
+      0.1032
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0325,
+      -0.0173
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0328,
+      -0.0175
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0195,
+     "ci95": [
+      -0.0273,
+      -0.0115
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0225,
+     "ci95": [
+      -0.03,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0187,
+     "ci95": [
+      -0.026,
+      -0.0115
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0293,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0058,
+     "ci95": [
+      -0.0133,
+      0.0018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0055,
+     "ci95": [
+      -0.0123,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0478,
+     "ci95": [
+      0.0391,
+      0.0568
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0275,
+     "ci95": [
+      -0.0351,
+      -0.0198
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0376,
+     "ci95": [
+      -0.0448,
+      -0.03
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0376,
+     "ci95": [
+      -0.0448,
+      -0.03
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9519,
+     "ci95": [
+      0.9452,
+      0.9584
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0306,
+     "ci95": [
+      0.0203,
+      0.0411
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.011,
+     "ci95": [
+      -0.0198,
+      -0.0023
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0295,
+     "ci95": [
+      -0.0371,
+      -0.0218
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": 0.0909,
+     "ci95": [
+      0.0786,
+      0.1032
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0,
+     "ci95": [
+      -0.006,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0325,
+      -0.0173
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0328,
+      -0.0175
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0195,
+     "ci95": [
+      -0.0273,
+      -0.0115
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0225,
+     "ci95": [
+      -0.03,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0187,
+     "ci95": [
+      -0.026,
+      -0.0115
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0223,
+     "ci95": [
+      -0.0293,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0058,
+     "ci95": [
+      -0.0133,
+      0.0018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0055,
+     "ci95": [
+      -0.0123,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0478,
+     "ci95": [
+      0.0391,
+      0.0568
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0276,
+     "ci95": [
+      -0.0351,
+      -0.0198
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0376,
+     "ci95": [
+      -0.0448,
+      -0.03
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0376,
+     "ci95": [
+      -0.0448,
+      -0.03
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9519,
+     "ci95": [
+      0.9452,
+      0.9584
+     ],
+     "band": "ABOVE"
+    }
+   },
+   "SELECTION_vs_TOKEN_MATCHED_RANDOM": {
+    "T2_TOPSURPRISE_p0.07": {
+     "point": 0.0,
+     "ci95": [
+      -0.0063,
+      0.0063
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": 0.003,
+     "ci95": [
+      -0.004,
+      0.01
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": 0.0035,
+     "ci95": [
+      -0.0033,
+      0.0105
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0003,
+     "ci95": [
+      -0.008,
+      0.007
+     ],
+     "band": "NOT_SEPARATED"
+    }
+   },
+   "regime": "EXACT_KEY",
+   "pool": "P1_OPEN",
+   "POOL_ORACLE_CHECK": {
+    "ok": null,
+    "oracle_constant_hit_exp": 0.1715,
+    "chance": 0.010088,
+    "note": "an OPEN pool is not de-biased by construction; the value is reported so the reader can see how much constant signal it admits."
+   },
+   "NOTE_ON_EXACT_KEY": "in EXACT_KEY the query is the ARM'S OWN bundle, so the arm supplies both sides; it is a self-consistency read, NOT the operating point. PARTIAL_CUE is the operating point and its cue is identical across arms."
+  },
+  "B|v1.0.0|full|EXACT_KEY|P2_BALANCED_K15": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.0625,
+   "n_boot": 10000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.0636,
+    "chance": 0.0625,
+    "NULL_near_chance": true,
+    "CONDITION_READABLE": true
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.1081,
+    "F2_PREFIX_orthographic": 0.0761,
+    "F3_FREQUENCY_constant": 0.0685,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "A0_UNIFORM": 0.1292,
+    "T1_RESIDUAL_eta0.25": 0.1287,
+    "T1_RESIDUAL_eta0.5": 0.1287,
+    "T1_RESIDUAL_eta1": 0.1287,
+    "T1_RESIDUAL_eta2": 0.1287,
+    "T2_TOPSURPRISE_p0.07": 0.0751,
+    "C1_RANDOM_SUBSET_p0.07": 0.0837,
+    "T2_TOPSURPRISE_p0.15": 0.0809,
+    "C1_RANDOM_SUBSET_p0.15": 0.0872,
+    "T2_TOPSURPRISE_p0.3": 0.0991,
+    "C1_RANDOM_SUBSET_p0.3": 0.1009,
+    "T2_TOPSURPRISE_p0.6": 0.1222,
+    "C1_RANDOM_SUBSET_p0.6": 0.1167,
+    "K1_ORACLE_WEIGHT": 0.1865,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0697,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0784
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.2661,
+    "F2_PREFIX_orthographic": 0.4284,
+    "F3_FREQUENCY_constant": 0.0689,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "A0_UNIFORM": 0.1292,
+    "T1_RESIDUAL_eta0.25": 0.1287,
+    "T1_RESIDUAL_eta0.5": 0.1287,
+    "T1_RESIDUAL_eta1": 0.1287,
+    "T1_RESIDUAL_eta2": 0.1287,
+    "T2_TOPSURPRISE_p0.07": 0.0754,
+    "C1_RANDOM_SUBSET_p0.07": 0.0841,
+    "T2_TOPSURPRISE_p0.15": 0.0811,
+    "C1_RANDOM_SUBSET_p0.15": 0.0876,
+    "T2_TOPSURPRISE_p0.3": 0.0991,
+    "C1_RANDOM_SUBSET_p0.3": 0.1009,
+    "T2_TOPSURPRISE_p0.6": 0.1222,
+    "C1_RANDOM_SUBSET_p0.6": 0.1167,
+    "K1_ORACLE_WEIGHT": 0.1865,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0706,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0786
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0924,
+    "F2_PREFIX_orthographic": 0.0438,
+    "F3_FREQUENCY_constant": 0.0681,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "A0_UNIFORM": 0.1292,
+    "T1_RESIDUAL_eta0.25": 0.1287,
+    "T1_RESIDUAL_eta0.5": 0.1287,
+    "T1_RESIDUAL_eta1": 0.1287,
+    "T1_RESIDUAL_eta2": 0.1287,
+    "T2_TOPSURPRISE_p0.07": 0.0751,
+    "C1_RANDOM_SUBSET_p0.07": 0.0836,
+    "T2_TOPSURPRISE_p0.15": 0.0809,
+    "C1_RANDOM_SUBSET_p0.15": 0.0871,
+    "T2_TOPSURPRISE_p0.3": 0.0991,
+    "C1_RANDOM_SUBSET_p0.3": 0.1009,
+    "T2_TOPSURPRISE_p0.6": 0.1222,
+    "C1_RANDOM_SUBSET_p0.6": 0.1167,
+    "K1_ORACLE_WEIGHT": 0.1865,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0781
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0991,
+     0.1171
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0698,
+     0.0827
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0606,
+     0.0762
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.0618,
+     0.0776
+    ],
+    "A0_UNIFORM": [
+     0.1187,
+     0.1397
+    ],
+    "T1_RESIDUAL_eta0.25": [
+     0.1182,
+     0.1392
+    ],
+    "T1_RESIDUAL_eta0.5": [
+     0.1182,
+     0.1392
+    ],
+    "T1_RESIDUAL_eta1": [
+     0.1182,
+     0.1392
+    ],
+    "T1_RESIDUAL_eta2": [
+     0.1182,
+     0.1392
+    ],
+    "T2_TOPSURPRISE_p0.07": [
+     0.0671,
+     0.0834
+    ],
+    "C1_RANDOM_SUBSET_p0.07": [
+     0.0752,
+     0.0924
+    ],
+    "T2_TOPSURPRISE_p0.15": [
+     0.0726,
+     0.0894
+    ],
+    "C1_RANDOM_SUBSET_p0.15": [
+     0.0786,
+     0.0962
+    ],
+    "T2_TOPSURPRISE_p0.3": [
+     0.0901,
+     0.1084
+    ],
+    "C1_RANDOM_SUBSET_p0.3": [
+     0.0916,
+     0.1104
+    ],
+    "T2_TOPSURPRISE_p0.6": [
+     0.1119,
+     0.1324
+    ],
+    "C1_RANDOM_SUBSET_p0.6": [
+     0.1067,
+     0.1267
+    ],
+    "K1_ORACLE_WEIGHT": [
+     0.1748,
+     0.1988
+    ],
+    "N1_SHUFFLED_WEIGHTS_p0.07": [
+     0.0619,
+     0.0775
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0561,
+     0.0714
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0561,
+     0.0714
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ],
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": [
+     0.0701,
+     0.0869
+    ]
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_orthographic",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.1081,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.1081,
+    "F2_PREFIX_orthographic": 0.0761,
+    "F3_FREQUENCY_constant": 0.0685,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0319,
+     "ci95": [
+      -0.0419,
+      -0.022
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0397,
+     "ci95": [
+      -0.0516,
+      -0.0278
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0385,
+     "ci95": [
+      -0.0504,
+      -0.0267
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": 0.0211,
+     "ci95": [
+      0.0078,
+      0.0341
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.0206,
+     "ci95": [
+      0.0074,
+      0.0337
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.0206,
+     "ci95": [
+      0.0074,
+      0.0337
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.0206,
+     "ci95": [
+      0.0074,
+      0.0337
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.0206,
+     "ci95": [
+      0.0074,
+      0.0337
+     ],
+     "band": "ABOVE"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.033,
+     "ci95": [
+      -0.0451,
+      -0.0207
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0244,
+     "ci95": [
+      -0.0363,
+      -0.0122
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0271,
+     "ci95": [
+      -0.0389,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0209,
+     "ci95": [
+      -0.0333,
+      -0.0085
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0089,
+     "ci95": [
+      -0.0213,
+      0.0036
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0072,
+     "ci95": [
+      -0.0198,
+      0.0059
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": 0.014,
+     "ci95": [
+      0.0011,
+      0.0273
+     ],
+     "band": "ABOVE"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0086,
+     "ci95": [
+      -0.0041,
+      0.0212
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0785,
+     "ci95": [
+      0.0637,
+      0.093
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0384,
+     "ci95": [
+      -0.0502,
+      -0.0264
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0444,
+     "ci95": [
+      -0.0562,
+      -0.0326
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0444,
+     "ci95": [
+      -0.0562,
+      -0.0326
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.8919,
+     "ci95": [
+      0.8829,
+      0.9009
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0297,
+     "ci95": [
+      -0.0422,
+      -0.0171
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0486,
+     "ci95": [
+      -0.0586,
+      -0.0388
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0244,
+     "ci95": [
+      -0.0363,
+      -0.0125
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0228,
+     "ci95": [
+      -0.0348,
+      -0.011
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": 0.0368,
+     "ci95": [
+      0.0238,
+      0.0498
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.0363,
+     "ci95": [
+      0.0233,
+      0.0493
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.0363,
+     "ci95": [
+      0.0233,
+      0.0493
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.0363,
+     "ci95": [
+      0.0233,
+      0.0493
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.0363,
+     "ci95": [
+      0.0233,
+      0.0493
+     ],
+     "band": "ABOVE"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0173,
+     "ci95": [
+      -0.0295,
+      -0.005
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0087,
+     "ci95": [
+      -0.0205,
+      0.0035
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0115,
+     "ci95": [
+      -0.0233,
+      0.0008
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0053,
+     "ci95": [
+      -0.0175,
+      0.0073
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": 0.0067,
+     "ci95": [
+      -0.0058,
+      0.0193
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": 0.0085,
+     "ci95": [
+      -0.004,
+      0.0215
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": 0.0297,
+     "ci95": [
+      0.0168,
+      0.0431
+     ],
+     "band": "ABOVE"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0243,
+     "ci95": [
+      0.0115,
+      0.0368
+     ],
+     "band": "ABOVE"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0942,
+     "ci95": [
+      0.0796,
+      0.1087
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0228,
+     "ci95": [
+      -0.0346,
+      -0.0108
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9076,
+     "ci95": [
+      0.8986,
+      0.9166
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0143,
+     "ci95": [
+      -0.0268,
+      -0.0018
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F2_PREFIX_orthographic": {
+     "point": 0.1624,
+     "ci95": [
+      0.1432,
+      0.1818
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1974,
+     "ci95": [
+      -0.2131,
+      -0.1818
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.1965,
+     "ci95": [
+      -0.2121,
+      -0.181
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.1369,
+     "ci95": [
+      -0.154,
+      -0.1202
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.1374,
+     "ci95": [
+      -0.1545,
+      -0.1207
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.1374,
+     "ci95": [
+      -0.1545,
+      -0.1207
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.1374,
+     "ci95": [
+      -0.1545,
+      -0.1207
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.1374,
+     "ci95": [
+      -0.1545,
+      -0.1207
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.1908,
+     "ci95": [
+      -0.2066,
+      -0.1748
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.182,
+     "ci95": [
+      -0.198,
+      -0.166
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.185,
+     "ci95": [
+      -0.2011,
+      -0.169
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.1785,
+     "ci95": [
+      -0.1948,
+      -0.1622
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.167,
+     "ci95": [
+      -0.1835,
+      -0.151
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.1652,
+     "ci95": [
+      -0.1818,
+      -0.1485
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.144,
+     "ci95": [
+      -0.1607,
+      -0.1272
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.1495,
+     "ci95": [
+      -0.1662,
+      -0.1332
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": -0.0795,
+     "ci95": [
+      -0.0976,
+      -0.0623
+     ],
+     "band": "BELOW"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.1955,
+     "ci95": [
+      -0.2111,
+      -0.1798
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.2025,
+     "ci95": [
+      -0.2176,
+      -0.1865
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.2025,
+     "ci95": [
+      -0.2176,
+      -0.1865
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.7339,
+     "ci95": [
+      0.7201,
+      0.7474
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.1875,
+     "ci95": [
+      -0.2036,
+      -0.1713
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0211,
+     "ci95": [
+      -0.0341,
+      -0.0078
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.053,
+     "ci95": [
+      -0.0653,
+      -0.0408
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0608,
+     "ci95": [
+      -0.073,
+      -0.0481
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0596,
+     "ci95": [
+      -0.0719,
+      -0.0473
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0541,
+     "ci95": [
+      -0.0671,
+      -0.0415
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0455,
+     "ci95": [
+      -0.0581,
+      -0.0328
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0483,
+     "ci95": [
+      -0.0608,
+      -0.0358
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.042,
+     "ci95": [
+      -0.0538,
+      -0.0297
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.03,
+     "ci95": [
+      -0.0418,
+      -0.018
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0283,
+     "ci95": [
+      -0.0396,
+      -0.0173
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0071,
+     "ci95": [
+      -0.0175,
+      0.0035
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0125,
+     "ci95": [
+      -0.022,
+      -0.0033
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0574,
+     "ci95": [
+      0.0466,
+      0.0686
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0595,
+     "ci95": [
+      -0.0723,
+      -0.0472
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0655,
+     "ci95": [
+      -0.0784,
+      -0.0526
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0655,
+     "ci95": [
+      -0.0784,
+      -0.0526
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.8708,
+     "ci95": [
+      0.8603,
+      0.8813
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0508,
+     "ci95": [
+      -0.0648,
+      -0.0369
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0368,
+     "ci95": [
+      -0.0498,
+      -0.0238
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0853,
+     "ci95": [
+      -0.0976,
+      -0.0734
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0612,
+     "ci95": [
+      -0.0734,
+      -0.0486
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0596,
+     "ci95": [
+      -0.0719,
+      -0.0473
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0065,
+      0.0055
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0541,
+     "ci95": [
+      -0.0671,
+      -0.0416
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0455,
+     "ci95": [
+      -0.0581,
+      -0.0328
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0483,
+     "ci95": [
+      -0.0608,
+      -0.0358
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0421,
+     "ci95": [
+      -0.0538,
+      -0.0298
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.03,
+     "ci95": [
+      -0.0418,
+      -0.018
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0283,
+     "ci95": [
+      -0.0396,
+      -0.0173
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0071,
+     "ci95": [
+      -0.0175,
+      0.0035
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0125,
+     "ci95": [
+      -0.022,
+      -0.0033
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0574,
+     "ci95": [
+      0.0466,
+      0.0686
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0596,
+     "ci95": [
+      -0.0724,
+      -0.0473
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0655,
+     "ci95": [
+      -0.0784,
+      -0.0526
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0655,
+     "ci95": [
+      -0.0784,
+      -0.0526
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.8708,
+     "ci95": [
+      0.8603,
+      0.8813
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0511,
+     "ci95": [
+      -0.0651,
+      -0.0373
+     ],
+     "band": "BELOW"
+    }
+   },
+   "SELECTION_vs_TOKEN_MATCHED_RANDOM": {
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0086,
+     "ci95": [
+      -0.0201,
+      0.003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0062,
+     "ci95": [
+      -0.0183,
+      0.0057
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0018,
+     "ci95": [
+      -0.0138,
+      0.0103
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": 0.0054,
+     "ci95": [
+      -0.0053,
+      0.0163
+     ],
+     "band": "NOT_SEPARATED"
+    }
+   },
+   "regime": "EXACT_KEY",
+   "pool": "P2_BALANCED_K15",
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0784,
+    "chance": 0.0625,
+    "margin_over_chance": 0.0159,
+    "tol": 0.03,
+    "n_items": 3994
+   },
+   "NOTE_ON_EXACT_KEY": "in EXACT_KEY the query is the ARM'S OWN bundle, so the arm supplies both sides; it is a self-consistency read, NOT the operating point. PARTIAL_CUE is the operating point and its cue is identical across arms."
+  },
+  "B|v1.0.0|full|EXACT_KEY|P2_BALANCED_K49": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.02,
+   "n_boot": 10000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.022,
+    "chance": 0.02,
+    "NULL_near_chance": true,
+    "CONDITION_READABLE": true
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.0618,
+    "F2_PREFIX_orthographic": 0.0332,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "A0_UNIFORM": 0.0709,
+    "T1_RESIDUAL_eta0.25": 0.0694,
+    "T1_RESIDUAL_eta0.5": 0.0694,
+    "T1_RESIDUAL_eta1": 0.0694,
+    "T1_RESIDUAL_eta2": 0.0694,
+    "T2_TOPSURPRISE_p0.07": 0.026,
+    "C1_RANDOM_SUBSET_p0.07": 0.0316,
+    "T2_TOPSURPRISE_p0.15": 0.0376,
+    "C1_RANDOM_SUBSET_p0.15": 0.0376,
+    "T2_TOPSURPRISE_p0.3": 0.0458,
+    "C1_RANDOM_SUBSET_p0.3": 0.0463,
+    "T2_TOPSURPRISE_p0.6": 0.0578,
+    "C1_RANDOM_SUBSET_p0.6": 0.0616,
+    "K1_ORACLE_WEIGHT": 0.1104,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0293,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022,
+    "NULL_SCRAMBLED_ANCHORS": 0.022,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0245
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.0834,
+    "F2_PREFIX_orthographic": 0.1467,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "A0_UNIFORM": 0.0709,
+    "T1_RESIDUAL_eta0.25": 0.0694,
+    "T1_RESIDUAL_eta0.5": 0.0694,
+    "T1_RESIDUAL_eta1": 0.0694,
+    "T1_RESIDUAL_eta2": 0.0694,
+    "T2_TOPSURPRISE_p0.07": 0.0263,
+    "C1_RANDOM_SUBSET_p0.07": 0.032,
+    "T2_TOPSURPRISE_p0.15": 0.0378,
+    "C1_RANDOM_SUBSET_p0.15": 0.0381,
+    "T2_TOPSURPRISE_p0.3": 0.0458,
+    "C1_RANDOM_SUBSET_p0.3": 0.0463,
+    "T2_TOPSURPRISE_p0.6": 0.0578,
+    "C1_RANDOM_SUBSET_p0.6": 0.0616,
+    "K1_ORACLE_WEIGHT": 0.1104,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0303,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022,
+    "NULL_SCRAMBLED_ANCHORS": 0.022,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0245
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0568,
+    "F2_PREFIX_orthographic": 0.023,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "A0_UNIFORM": 0.0709,
+    "T1_RESIDUAL_eta0.25": 0.0694,
+    "T1_RESIDUAL_eta0.5": 0.0694,
+    "T1_RESIDUAL_eta1": 0.0694,
+    "T1_RESIDUAL_eta2": 0.0694,
+    "T2_TOPSURPRISE_p0.07": 0.026,
+    "C1_RANDOM_SUBSET_p0.07": 0.0315,
+    "T2_TOPSURPRISE_p0.15": 0.0376,
+    "C1_RANDOM_SUBSET_p0.15": 0.0376,
+    "T2_TOPSURPRISE_p0.3": 0.0458,
+    "C1_RANDOM_SUBSET_p0.3": 0.0463,
+    "T2_TOPSURPRISE_p0.6": 0.0578,
+    "C1_RANDOM_SUBSET_p0.6": 0.0616,
+    "K1_ORACLE_WEIGHT": 0.1104,
+    "N1_SHUFFLED_WEIGHTS_p0.07": 0.0293,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022,
+    "NULL_SCRAMBLED_ANCHORS": 0.022,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0245
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0545,
+     0.0691
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0284,
+     0.0382
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0148,
+     0.023
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.018,
+     0.0273
+    ],
+    "A0_UNIFORM": [
+     0.0628,
+     0.0791
+    ],
+    "T1_RESIDUAL_eta0.25": [
+     0.0616,
+     0.0776
+    ],
+    "T1_RESIDUAL_eta0.5": [
+     0.0616,
+     0.0776
+    ],
+    "T1_RESIDUAL_eta1": [
+     0.0616,
+     0.0776
+    ],
+    "T1_RESIDUAL_eta2": [
+     0.0616,
+     0.0776
+    ],
+    "T2_TOPSURPRISE_p0.07": [
+     0.0213,
+     0.0311
+    ],
+    "C1_RANDOM_SUBSET_p0.07": [
+     0.0263,
+     0.0371
+    ],
+    "T2_TOPSURPRISE_p0.15": [
+     0.0318,
+     0.0436
+    ],
+    "C1_RANDOM_SUBSET_p0.15": [
+     0.0318,
+     0.0436
+    ],
+    "T2_TOPSURPRISE_p0.3": [
+     0.0396,
+     0.0523
+    ],
+    "C1_RANDOM_SUBSET_p0.3": [
+     0.0398,
+     0.0531
+    ],
+    "T2_TOPSURPRISE_p0.6": [
+     0.0506,
+     0.0651
+    ],
+    "C1_RANDOM_SUBSET_p0.6": [
+     0.0543,
+     0.0691
+    ],
+    "K1_ORACLE_WEIGHT": [
+     0.1009,
+     0.1204
+    ],
+    "N1_SHUFFLED_WEIGHTS_p0.07": [
+     0.0243,
+     0.0343
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0178,
+     0.0265
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0178,
+     0.0265
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ],
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": [
+     0.0198,
+     0.0293
+    ]
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_orthographic",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.0618,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.0618,
+    "F2_PREFIX_orthographic": 0.0332,
+    "F3_FREQUENCY_constant": 0.0188,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0225,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.022
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0286,
+     "ci95": [
+      -0.0364,
+      -0.0209
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0431,
+     "ci95": [
+      -0.0514,
+      -0.0347
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0393,
+     "ci95": [
+      -0.048,
+      -0.0306
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": 0.0091,
+     "ci95": [
+      -0.0014,
+      0.0193
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.0076,
+     "ci95": [
+      -0.0027,
+      0.018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.0076,
+     "ci95": [
+      -0.0027,
+      0.018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.0076,
+     "ci95": [
+      -0.0027,
+      0.018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.0076,
+     "ci95": [
+      -0.0027,
+      0.018
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0359,
+     "ci95": [
+      -0.0446,
+      -0.0271
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0303,
+     "ci95": [
+      -0.0389,
+      -0.0216
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0243,
+     "ci95": [
+      -0.0334,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0243,
+     "ci95": [
+      -0.0335,
+      -0.015
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.016,
+     "ci95": [
+      -0.0252,
+      -0.0068
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0155,
+     "ci95": [
+      -0.025,
+      -0.0058
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0041,
+     "ci95": [
+      -0.0137,
+      0.006
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0003,
+     "ci95": [
+      -0.0099,
+      0.0098
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0487,
+     "ci95": [
+      0.0373,
+      0.0599
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0325,
+     "ci95": [
+      -0.0413,
+      -0.0236
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0398,
+     "ci95": [
+      -0.0483,
+      -0.0311
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0398,
+     "ci95": [
+      -0.0483,
+      -0.0311
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9382,
+     "ci95": [
+      0.9309,
+      0.9455
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0373,
+     "ci95": [
+      -0.0462,
+      -0.0286
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0338,
+     "ci95": [
+      -0.0416,
+      -0.0265
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0381,
+     "ci95": [
+      -0.0463,
+      -0.0298
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0344,
+     "ci95": [
+      -0.0431,
+      -0.0255
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": 0.014,
+     "ci95": [
+      0.0038,
+      0.0243
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": 0.0125,
+     "ci95": [
+      0.0023,
+      0.023
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": 0.0125,
+     "ci95": [
+      0.0023,
+      0.023
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": 0.0125,
+     "ci95": [
+      0.0023,
+      0.023
+     ],
+     "band": "ABOVE"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": 0.0125,
+     "ci95": [
+      0.0023,
+      0.023
+     ],
+     "band": "ABOVE"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0309,
+     "ci95": [
+      -0.0396,
+      -0.0223
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0253,
+     "ci95": [
+      -0.0338,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0193,
+     "ci95": [
+      -0.0285,
+      -0.01
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0194,
+     "ci95": [
+      -0.0285,
+      -0.0103
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0111,
+     "ci95": [
+      -0.0203,
+      -0.0018
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0106,
+     "ci95": [
+      -0.02,
+      -0.001
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": 0.0009,
+     "ci95": [
+      -0.0085,
+      0.0108
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": 0.0047,
+     "ci95": [
+      -0.005,
+      0.0148
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0536,
+     "ci95": [
+      0.0423,
+      0.0648
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0276,
+     "ci95": [
+      -0.0363,
+      -0.0188
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0348,
+     "ci95": [
+      -0.0433,
+      -0.0263
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0348,
+     "ci95": [
+      -0.0433,
+      -0.0263
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9431,
+     "ci95": [
+      0.9359,
+      0.9502
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0323,
+     "ci95": [
+      -0.0411,
+      -0.0238
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F2_PREFIX_orthographic": {
+     "point": 0.0633,
+     "ci95": [
+      0.0503,
+      0.0764
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0647,
+     "ci95": [
+      -0.0744,
+      -0.0551
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0609,
+     "ci95": [
+      -0.0706,
+      -0.0511
+     ],
+     "band": "BELOW"
+    },
+    "A0_UNIFORM": {
+     "point": -0.0125,
+     "ci95": [
+      -0.024,
+      -0.0013
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.014,
+     "ci95": [
+      -0.0253,
+      -0.0028
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.014,
+     "ci95": [
+      -0.0253,
+      -0.0028
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.014,
+     "ci95": [
+      -0.0253,
+      -0.0028
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.014,
+     "ci95": [
+      -0.0253,
+      -0.0028
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0572,
+     "ci95": [
+      -0.0669,
+      -0.0473
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0514,
+     "ci95": [
+      -0.0611,
+      -0.0413
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0456,
+     "ci95": [
+      -0.0556,
+      -0.0353
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0454,
+     "ci95": [
+      -0.0556,
+      -0.0348
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0376,
+     "ci95": [
+      -0.0478,
+      -0.027
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0371,
+     "ci95": [
+      -0.0476,
+      -0.0265
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0256,
+     "ci95": [
+      -0.0366,
+      -0.0145
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0218,
+     "ci95": [
+      -0.0328,
+      -0.011
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0271,
+     "ci95": [
+      0.0148,
+      0.0393
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0531,
+     "ci95": [
+      -0.0631,
+      -0.0428
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0613,
+     "ci95": [
+      -0.0711,
+      -0.0516
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0613,
+     "ci95": [
+      -0.0711,
+      -0.0516
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9166,
+     "ci95": [
+      0.9079,
+      0.9251
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0589,
+     "ci95": [
+      -0.0689,
+      -0.0488
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0091,
+     "ci95": [
+      -0.0193,
+      0.0014
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0376,
+     "ci95": [
+      -0.0469,
+      -0.0285
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0522,
+     "ci95": [
+      -0.0613,
+      -0.0431
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0484,
+     "ci95": [
+      -0.0576,
+      -0.0391
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0449,
+     "ci95": [
+      -0.0538,
+      -0.0361
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0394,
+     "ci95": [
+      -0.0481,
+      -0.0305
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0333,
+     "ci95": [
+      -0.0421,
+      -0.0248
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0334,
+     "ci95": [
+      -0.0421,
+      -0.0245
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0333,
+      -0.017
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0246,
+     "ci95": [
+      -0.0325,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0131,
+     "ci95": [
+      -0.0203,
+      -0.0058
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0093,
+     "ci95": [
+      -0.0163,
+      -0.0023
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0396,
+     "ci95": [
+      0.0315,
+      0.0478
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0416,
+     "ci95": [
+      -0.0506,
+      -0.0325
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0489,
+     "ci95": [
+      -0.0581,
+      -0.0396
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0489,
+     "ci95": [
+      -0.0581,
+      -0.0396
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9291,
+     "ci95": [
+      0.9209,
+      0.9372
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0464,
+     "ci95": [
+      -0.0558,
+      -0.0368
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_UNIFORM_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.014,
+     "ci95": [
+      -0.0243,
+      -0.0038
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0479,
+     "ci95": [
+      -0.0568,
+      -0.0388
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0522,
+     "ci95": [
+      -0.0613,
+      -0.0431
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0484,
+     "ci95": [
+      -0.0576,
+      -0.0391
+     ],
+     "band": "BELOW"
+    },
+    "T1_RESIDUAL_eta0.25": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta0.5": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta1": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_RESIDUAL_eta2": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0063,
+      0.0033
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0449,
+     "ci95": [
+      -0.0538,
+      -0.0361
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.07": {
+     "point": -0.0394,
+     "ci95": [
+      -0.0481,
+      -0.0305
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": -0.0333,
+     "ci95": [
+      -0.0421,
+      -0.0248
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.15": {
+     "point": -0.0334,
+     "ci95": [
+      -0.0421,
+      -0.0245
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0251,
+     "ci95": [
+      -0.0333,
+      -0.017
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.3": {
+     "point": -0.0246,
+     "ci95": [
+      -0.0325,
+      -0.0168
+     ],
+     "band": "BELOW"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0131,
+     "ci95": [
+      -0.0203,
+      -0.0058
+     ],
+     "band": "BELOW"
+    },
+    "C1_RANDOM_SUBSET_p0.6": {
+     "point": -0.0093,
+     "ci95": [
+      -0.0163,
+      -0.0023
+     ],
+     "band": "BELOW"
+    },
+    "K1_ORACLE_WEIGHT": {
+     "point": 0.0396,
+     "ci95": [
+      0.0315,
+      0.0478
+     ],
+     "band": "ABOVE"
+    },
+    "N1_SHUFFLED_WEIGHTS_p0.07": {
+     "point": -0.0416,
+     "ci95": [
+      -0.0506,
+      -0.0325
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0489,
+     "ci95": [
+      -0.0581,
+      -0.0396
+     ],
+     "band": "BELOW"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0489,
+     "ci95": [
+      -0.0581,
+      -0.0396
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9291,
+     "ci95": [
+      0.9209,
+      0.9372
+     ],
+     "band": "ABOVE"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0464,
+     "ci95": [
+      -0.0558,
+      -0.0368
+     ],
+     "band": "BELOW"
+    }
+   },
+   "SELECTION_vs_TOKEN_MATCHED_RANDOM": {
+    "T2_TOPSURPRISE_p0.07": {
+     "point": -0.0056,
+     "ci95": [
+      -0.0128,
+      0.0015
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.15": {
+     "point": 0.0,
+     "ci95": [
+      -0.008,
+      0.008
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.3": {
+     "point": -0.0005,
+     "ci95": [
+      -0.0088,
+      0.0075
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T2_TOPSURPRISE_p0.6": {
+     "point": -0.0038,
+     "ci95": [
+      -0.011,
+      0.0038
+     ],
+     "band": "NOT_SEPARATED"
+    }
+   },
+   "regime": "EXACT_KEY",
+   "pool": "P2_BALANCED_K49",
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0245,
+    "chance": 0.02,
+    "margin_over_chance": 0.0045,
+    "tol": 0.03,
+    "n_items": 3994
+   },
+   "NOTE_ON_EXACT_KEY": "in EXACT_KEY the query is the ARM'S OWN bundle, so the arm supplies both sides; it is a self-consistency read, NOT the operating point. PARTIAL_CUE is the operating point and its cue is identical across arms."
+  }
+ },
+ "n_units": 20,
+ "elapsed_s": 253.7,
+ "verdict": "COMPUTED",
+ "verdict_msg": "see ARMS; gates are per (regime, pool)"
+}
