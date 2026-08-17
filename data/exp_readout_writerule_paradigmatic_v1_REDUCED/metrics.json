@@ -1,0 +1,434 @@
+{
+ "anchor_name": "exp_readout_writerule_paradigmatic_v1",
+ "grid": "reduced",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_ceiling_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T16:29:41.317906+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_writerule_paradigmatic_v1.py",
+   "--grid",
+   "reduced"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "cache": {
+  "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+  "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+  "rebuilt": false
+ },
+ "DIFFERENCE_FROM_exp_readout_second_order_v1": "that cell applied second-order structure AT READ TIME to an unmodified first-order store (comparator = cos of similarity PROFILES over the existing store). This cell applies second-order structure AT WRITE TIME: the store itself is rebuilt so a word's code is a sum of its neighbours' first-order PROFILE rows rather than a sum of neighbours' IDENTITY draws. The comparator (plain cosine argmax) is unchanged in every arm here.",
+ "W0_REGRESSION_GATE": {
+  "partial_cue_FULL_POP": 0.0223,
+  "expected": 0.0223,
+  "exact_key_FULL_POP": 0.0481,
+  "expected_exact": 0.0481,
+  "PASS": true
+ },
+ "PERMUTATION_CONTROLS": {
+  "n1_global_derangement_no_fixed_points": true,
+  "freq_matched_decile_derangement_no_fixed_points": true,
+  "freq_matched_groups_respected": true,
+  "n_deciles": 10
+ },
+ "K1_KNOWN_ANSWER_addressing": {
+  "W0_SYNTAGMATIC": 1.0,
+  "W1_PARADIGMATIC": 1.0,
+  "W2_HYBRID_alpha0.25": 1.0,
+  "W2_HYBRID_alpha0.5": 1.0,
+  "W2_HYBRID_alpha0.75": 1.0,
+  "N1_NULL": 1.0,
+  "F_FREQ_MATCHED_PROFILE": 1.0
+ },
+ "K1_GATE": 0.95,
+ "NULL_PERMUTED_partial_cue": {
+  "W0_SYNTAGMATIC": 0.0075,
+  "W1_PARADIGMATIC": 0.005,
+  "W2_HYBRID_alpha0.25": 0.0075,
+  "W2_HYBRID_alpha0.5": 0.005,
+  "W2_HYBRID_alpha0.75": 0.005,
+  "N1_NULL": 0.015,
+  "F_FREQ_MATCHED_PROFILE": 0.0075
+ },
+ "FLOORS_SHARED_STORE_INDEPENDENT": [
+  "F_ORTHOGRAPHIC",
+  "F_FREQUENCY"
+ ],
+ "FLOORS_PER_ARM_STORE_DEPENDENT": [
+  "F_SCRAMBLE",
+  "F_CONSTANT_PROTOTYPE"
+ ],
+ "NEVER_IMPORTED": [
+  "0.1382",
+  "0.2070",
+  "0.1390",
+  "-0.1959"
+ ],
+ "EXACT_KEY_hit_at_1_secondary": {
+  "W0_SYNTAGMATIC": 0.0275,
+  "W1_PARADIGMATIC": 0.065,
+  "W2_HYBRID_alpha0.25": 0.0725,
+  "W2_HYBRID_alpha0.5": 0.0725,
+  "W2_HYBRID_alpha0.75": 0.06,
+  "N1_NULL": 0.045,
+  "F_FREQ_MATCHED_PROFILE": 0.06
+ },
+ "ORTHOGRAPHIC_LEAKAGE_CHECK": {
+  "what": "mean trigram-cosine(top-1 winner, query), PARTIAL-CUE regime. If an arm's write rule secretly encodes spelling similarity, this rises relative to W0 and the orthographic floor's own value -- a floor cleared this way is a failure, not a win.",
+  "values": {
+   "W0_SYNTAGMATIC": 0.02098,
+   "W1_PARADIGMATIC": 0.02154,
+   "W2_HYBRID_alpha0.25": 0.02415,
+   "W2_HYBRID_alpha0.5": 0.01971,
+   "W2_HYBRID_alpha0.75": 0.02039,
+   "N1_NULL": 0.02175,
+   "F_FREQ_MATCHED_PROFILE": 0.01907
+  },
+  "F_ORTHOGRAPHIC_floor_own_reference": 1.0
+ },
+ "HIT_AT_1_PARTIAL_CUE_PRIMARY": {
+  "n_common_scored": 400,
+  "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED, PARTIAL-CUE regime",
+  "per_arm": {
+   "W0_SYNTAGMATIC": {
+    "value_tie_corrected": 0.0325,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0075,
+    "EXACT_KEY_hit_at_1": 0.0275,
+    "orthographic_leakage": 0.02098,
+    "binding_floor_name": "F_CONSTANT_PROTOTYPE__W0_SYNTAGMATIC",
+    "binding_floor_value": 0.125,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__W0_SYNTAGMATIC": 0.015,
+     "F_CONSTANT_PROTOTYPE__W0_SYNTAGMATIC": 0.125
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0932,
+     "ci95": [
+      -0.13,
+      -0.0575
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03625,
+     "analytic_null_halfwidth_at_this_n": 0.03241
+    }
+   },
+   "W1_PARADIGMATIC": {
+    "value_tie_corrected": 0.0325,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005,
+    "EXACT_KEY_hit_at_1": 0.065,
+    "orthographic_leakage": 0.02154,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__W1_PARADIGMATIC": 0.01,
+     "F_CONSTANT_PROTOTYPE__W1_PARADIGMATIC": 0.04
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0845,
+     "ci95": [
+      -0.1204,
+      -0.05
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0352,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_W0": {
+     "point": 0.0,
+     "ci95": [
+      -0.0176,
+      0.0175
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.01755,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "W2_HYBRID_alpha0.25": {
+    "value_tie_corrected": 0.045,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0075,
+    "EXACT_KEY_hit_at_1": 0.0725,
+    "orthographic_leakage": 0.02415,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__W2_HYBRID_alpha0.25": 0.015,
+     "F_CONSTANT_PROTOTYPE__W2_HYBRID_alpha0.25": 0.015
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0721,
+     "ci95": [
+      -0.1095,
+      -0.037
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03625,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_W0": {
+     "point": 0.0124,
+     "ci95": [
+      -0.0025,
+      0.0275
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.015,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "W2_HYBRID_alpha0.5": {
+    "value_tie_corrected": 0.04,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005,
+    "EXACT_KEY_hit_at_1": 0.0725,
+    "orthographic_leakage": 0.01971,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__W2_HYBRID_alpha0.5": 0.01,
+     "F_CONSTANT_PROTOTYPE__W2_HYBRID_alpha0.5": 0.015
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0769,
+     "ci95": [
+      -0.1145,
+      -0.0412
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03665,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_W0": {
+     "point": 0.0076,
+     "ci95": [
+      -0.01,
+      0.025
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0175,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "W2_HYBRID_alpha0.75": {
+    "value_tie_corrected": 0.0375,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005,
+    "EXACT_KEY_hit_at_1": 0.06,
+    "orthographic_leakage": 0.02039,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__W2_HYBRID_alpha0.75": 0.0075,
+     "F_CONSTANT_PROTOTYPE__W2_HYBRID_alpha0.75": 0.04
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0795,
+     "ci95": [
+      -0.1166,
+      -0.0444
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0361,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_W0": {
+     "point": 0.005,
+     "ci95": [
+      -0.0125,
+      0.0225
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0175,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "N1_NULL": {
+    "value_tie_corrected": 0.0125,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.015,
+    "EXACT_KEY_hit_at_1": 0.045,
+    "orthographic_leakage": 0.02175,
+    "binding_floor_name": "F_CONSTANT_PROTOTYPE__N1_NULL",
+    "binding_floor_value": 0.1325,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__N1_NULL": 0.0075,
+     "F_CONSTANT_PROTOTYPE__N1_NULL": 0.1325
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.12,
+     "ci95": [
+      -0.155,
+      -0.085
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.035,
+     "analytic_null_halfwidth_at_this_n": 0.03323
+    },
+    "margin_vs_W0": {
+     "point": -0.0198,
+     "ci95": [
+      -0.035,
+      -0.0075
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.01375,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "F_FREQ_MATCHED_PROFILE": {
+    "value_tie_corrected": 0.0175,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0075,
+    "EXACT_KEY_hit_at_1": 0.06,
+    "orthographic_leakage": 0.01907,
+    "binding_floor_name": "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_PROFILE",
+    "binding_floor_value": 0.12,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__F_FREQ_MATCHED_PROFILE": 0.01,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_PROFILE": 0.12
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.1028,
+     "ci95": [
+      -0.1375,
+      -0.0699
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0338,
+     "analytic_null_halfwidth_at_this_n": 0.03185
+    },
+    "margin_vs_W0": {
+     "point": -0.0151,
+     "ci95": [
+      -0.0325,
+      0.0
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.01625,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   }
+  },
+  "ALL_VALUES_tie_corrected": {
+   "F_ORTHOGRAPHIC": 0.11619,
+   "F_FREQUENCY": 0.0125,
+   "F_SCRAMBLE__W0_SYNTAGMATIC": 0.015,
+   "F_CONSTANT_PROTOTYPE__W0_SYNTAGMATIC": 0.125,
+   "W0_SYNTAGMATIC": 0.0325,
+   "F_SCRAMBLE__W1_PARADIGMATIC": 0.01,
+   "F_CONSTANT_PROTOTYPE__W1_PARADIGMATIC": 0.04,
+   "W1_PARADIGMATIC": 0.0325,
+   "F_SCRAMBLE__W2_HYBRID_alpha0.25": 0.015,
+   "F_CONSTANT_PROTOTYPE__W2_HYBRID_alpha0.25": 0.015,
+   "W2_HYBRID_alpha0.25": 0.045,
+   "F_SCRAMBLE__W2_HYBRID_alpha0.5": 0.01,
+   "F_CONSTANT_PROTOTYPE__W2_HYBRID_alpha0.5": 0.015,
+   "W2_HYBRID_alpha0.5": 0.04,
+   "F_SCRAMBLE__W2_HYBRID_alpha0.75": 0.0075,
+   "F_CONSTANT_PROTOTYPE__W2_HYBRID_alpha0.75": 0.04,
+   "W2_HYBRID_alpha0.75": 0.0375,
+   "F_SCRAMBLE__N1_NULL": 0.0075,
+   "F_CONSTANT_PROTOTYPE__N1_NULL": 0.1325,
+   "N1_NULL": 0.0125,
+   "F_SCRAMBLE__F_FREQ_MATCHED_PROFILE": 0.01,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_PROFILE": 0.12,
+   "F_FREQ_MATCHED_PROFILE": 0.0175
+  }
+ },
+ "STOP_IF_VERDICT": {
+  "verdict": "ii_RELATION_NOT_THE_LIMITER_CEILING_ELSEWHERE",
+  "w1_clears_its_own_binding_floor": false,
+  "w0_clears_its_own_binding_floor": false,
+  "w1_beats_w0_CI_separated": false,
+  "w1_ties_w0_NOT_SEPARATED": true,
+  "freq_matched_also_beats_w0_CI_separated": false,
+  "freq_matched_margin_CI_overlaps_w1_margin": false
+ },
+ "POWER": {
+  "n_common_scored": 400,
+  "reading": "A WIDTH IS NOT AN EFFECT. Every margin carries its own ci_halfwidth and analytic_null_halfwidth_at_this_n."
+ },
+ "ORGAN_REUSE_RUNTIME_WITNESS": {
+  "loaded": [
+   "exp_cue_to_store_translation_v1",
+   "exp_grounding_readout_known_answer_v1",
+   "exp_readout_ceiling_diagnosis_v1",
+   "hdlab",
+   "hdlab.ablation",
+   "hdlab.animacy_lexicon",
+   "hdlab.atoms",
+   "hdlab.binding",
+   "hdlab.bundling",
+   "hdlab.char_trigram_encoder",
+   "hdlab.cleanup_family",
+   "hdlab.closed_class_lexicon",
+   "hdlab.consequence_learning_loop",
+   "hdlab.coreference_resolver",
+   "hdlab.definitional_extraction",
+   "hdlab.event_bundle",
+   "hdlab.foundation_persistence",
+   "hdlab.frame_induction",
+   "hdlab.gap_detector",
+   "hdlab.goal_typing",
+   "hdlab.grounded_similarity",
+   "hdlab.grounding_acquisition_loop",
+   "hdlab.hd_fact_store",
+   "hdlab.iterative_attractor",
+   "hdlab.learner",
+   "hdlab.learner.core",
+   "hdlab.learner.plugins",
+   "hdlab.learner.plugins.estimation_plugin",
+   "hdlab.learner.plugins.gam_plugin",
+   "hdlab.learner.plugins.proginduction_plugin",
+   "hdlab.learner.plugins.ruleind_plugin",
+   "hdlab.learner.registry",
+   "hdlab.lexical_similarity",
+   "hdlab.low_information_filter",
+   "hdlab.memory",
+   "hdlab.modulators",
+   "hdlab.reading_grounding_loop",
+   "hdlab.role_slot_summarizer",
+   "hdlab.self_improving_loop",
+   "hdlab.semantic",
+   "hdlab.situation_model_accumulate",
+   "hdlab.snapshots",
+   "hdlab.state_of_mind",
+   "hdlab.thematic_role_labeler",
+   "hdlab.tracing",
+   "hdlab.verb_lexical_similarity",
+   "hdlab.working_memory",
+   "tools.exp_checkpoint",
+   "tools.floor_battery",
+   "tools.saturation_negative_control"
+  ],
+  "edited_by_this_cell": [],
+  "cache_never_rebuilt": true
+ },
+ "elapsed_s": 55.6,
+ "verdict": "ii_RELATION_NOT_THE_LIMITER_CEILING_ELSEWHERE",
+ "verdict_msg": "STOP_IF=ii_RELATION_NOT_THE_LIMITER_CEILING_ELSEWHERE || W0=0.0325 (floor 0.125) W1=0.0325 (floor 0.11619) FREQ_MATCHED=0.0175 || w1_vs_w0=NOT_SEPARATED freq_vs_w0=NOT_SEPARATED",
+ "wire_status": "VET_PENDING"
+}
