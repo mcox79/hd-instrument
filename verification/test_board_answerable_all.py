@@ -163,11 +163,16 @@ def _box(gui) -> str:
 
 
 def _frame_text(gui) -> str:
-    frame = getattr(gui, "answer_frame", None)
-    if frame is None:
+    """The answer box's own caption. 2026-08-17: moved from the LabelFrame's own `text=` (which
+    does not wrap -- a long caption forced the frame wider than the whole window, found by walking
+    the live widget tree) to a dedicated wrapping `answer_caption` label inside it. Reads whichever
+    exists, so this witness still fails loudly rather than crashing if a future refactor removes
+    both."""
+    widget = getattr(gui, "answer_caption", None) or getattr(gui, "answer_frame", None)
+    if widget is None:
         return "(NO CAPTION WIDGET EXISTS)"
     try:
-        return str(frame.cget("text") or "")
+        return str(widget.cget("text") or "")
     except tk.TclError:
         return "(CAPTION UNREADABLE)"
 

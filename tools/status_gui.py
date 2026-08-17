@@ -364,6 +364,31 @@ class StatusWindow:
         w, h = min(1280, max(700, sw - 60)), min(860, max(500, sh - 80))
         root.geometry(f"{w}x{h}")
         root.minsize(min(980, w), min(620, h))
+        # THE COLUMN BUDGET (2026-08-17). Every table below was authored with column widths that
+        # summed to 1180-1370 px -- comfortable on a wide monitor, but measured on the owner's
+        # actual 1128x752 screen those sums exceed the ~980 px a tab frame has left after the
+        # notebook's own padding and the vertical scrollbar. A table whose declared widths already
+        # exceed the viewport needs horizontal scrolling NO MATTER what `stretch` is set to --
+        # stretch only ever grows columns into space that exists, it does not shrink them into
+        # space that doesn't. `_tree()` reads this to scale every table's widths down together, so
+        # nothing important on any tab requires a horizontal scrollbar on this screen, and the
+        # scaling loosens automatically on a wider one.
+        self._col_budget = max(560, w - 90)
+        # THE WRAP WIDTH, same problem one level up. Every long label in this window (the headline,
+        # every panel's hint line, every colored banner) was given a hardcoded `wraplength` of
+        # 1000-1200 px, authored the same way the table columns were -- against a wide monitor.
+        # On the owner's actual 1068 px window that number is BIGGER than the window, so Tk never
+        # wraps: the text runs past the visible right edge instead, silently, which is worse than a
+        # narrow column because there is no scrollbar to reveal what is missing. One shared value,
+        # measured off the real window like `_col_budget` above, used everywhere instead of a
+        # literal that goes stale the next time this ships to a smaller screen.
+        self._wrap_w = max(620, w - 60)
+        # A NARROWER wrap width for the few labels that share their row with a fixed-width sibling
+        # (the RUNNING NOW tab's status text sits beside a "Copy the command" button in the same
+        # grid, so its column's width adds to the button column's regardless of which row the
+        # button is actually gridded on). Found the same way as the caption/disarm-box fixes: the
+        # widget tree's own `winfo_reqwidth()` still exceeded the window after `_wrap_w` alone.
+        self._wrap_w_narrow = max(480, self._wrap_w - 150)
 
         self._q: _queue.Queue = _queue.Queue()
         self._poll_inflight = False
@@ -431,8 +456,13 @@ class StatusWindow:
                      padding=(14, 7), font=("Segoe UI", 10, "bold"))
         st.map("TNotebook.Tab", background=[("selected", _PANEL)],
                foreground=[("selected", "#ffffff")])
+        # ROW FONT AND HEIGHT (2026-08-17 ui/ux pass). Rows had no explicit font -- Tk's system
+        # default (~9 px on this machine) -- which is the other half of "very small fields for me
+        # to see", the half that widening columns alone does not fix. Bumped one size up, with a
+        # taller row to match, so text is not merely wider but genuinely larger.
         st.configure("Treeview", background=_PANEL, foreground=_FG,
-                     fieldbackground=_PANEL, bordercolor=_BORDER, rowheight=24)
+                     fieldbackground=_PANEL, bordercolor=_BORDER, rowheight=28,
+                     font=("Segoe UI", 10))
         st.map("Treeview", background=[("selected", _SEL_BG)],
                foreground=[("selected", "#ffffff")])
         st.configure("Treeview.Heading", background=_HEAD_BG, foreground="#d4d4d4",
@@ -442,26 +472,46 @@ class StatusWindow:
                      bordercolor=_BORDER, arrowcolor=_FG,
                      darkcolor=_PANEL, lightcolor=_PANEL)
 
-    def _tree(self, parent, cols, widths, headings, height=8, minwidths=None, stretch_all=False):
-        """A table. `minwidths` and `stretch_all` exist because of the 2026-08-16 owner report:
-        *"the current runs have very small fields for me to see what's currently running."*
+    def _tree(self, parent, cols, widths, headings, height=8, minwidths=None, stretch_all=True):
+        """A table. `minwidths` and the column-budget fit exist because of two owner reports.
 
-        Two separate faults produced that. (1) Only columns already >=200 px wide were allowed to
-        stretch, so widening the window grew the columns that were ALREADY roomy and left the
-        narrow ones -- the ones holding the run's identity -- exactly as cramped as before.
-        (2) Nothing set a MINIMUM, so Tk was free to shrink a column below the width of the text in
-        it. `stretch_all` makes every column share the extra space; `minwidths` puts a floor under
-        each one so the identity of a run can never be squeezed into an ellipsis."""
+        2026-08-16, *"the current runs have very small fields for me to see what's currently
+        running."* Two faults: (1) only columns already >=200 px wide were allowed to stretch, so
+        widening the window grew the columns that were ALREADY roomy and left the narrow ones --
+        the ones holding the run's identity -- exactly as cramped as before; (2) nothing set a
+        MINIMUM, so Tk was free to shrink a column below the width of the text in it. Every column
+        now stretches (`stretch_all` is kept as a parameter for callers that pass it explicitly,
+        but the fix applies unconditionally -- a table with only some stretchy columns reproduces
+        fault (1) the moment a new column is added and someone forgets the threshold); `minwidths`
+        puts a floor under each one.
+
+        2026-08-17, the "waiting on you" ui/ux pass: every table's widths were AUTHORED against a
+        wide monitor and summed to 1180-1370 px, comfortably wider than the ~980 px a tab has left
+        on the owner's actual 1128x752 screen (`self._col_budget`, set once from the real screen
+        size in `__init__`). `stretch` only ever grows a column into space that exists; a table
+        whose declared widths already exceed the viewport needs a horizontal scrollbar regardless
+        of that flag. So when the declared sum exceeds the budget, every width (and minwidth) is
+        scaled down together by the same factor, floored so no column collapses to nothing --
+        rather than hand-tuning seven call sites to numbers that go stale the next time a column is
+        added."""
         frame = ttk.Frame(parent)
         frame.columnconfigure(0, weight=1)
         frame.rowconfigure(0, weight=1)
         tv = ttk.Treeview(frame, columns=cols, show="headings", height=height)
+        widths = list(widths)
         mins = list(minwidths) if minwidths else [None] * len(cols)
+        budget = getattr(self, "_col_budget", None)
+        total = sum(widths)
+        if budget and total > budget:
+            scale = max(0.45, budget / total)
+            widths = [max(40, int(round(wv * scale))) for wv in widths]
+            mins = [(max(32, int(round(mv * scale))) if isinstance(mv, (int, float)) else mv)
+                    for mv in mins]
         for c, w, h, mn in zip(cols, widths, headings, mins):
             tv.heading(c, text=h)
             tv.column(c, width=w, anchor="w",
                       minwidth=int(mn if mn is not None else min(w, 90)),
-                      stretch=(True if stretch_all else (w >= 200)))
+                      stretch=True)
         tv.grid(row=0, column=0, sticky="nsew")
         sb = ttk.Scrollbar(frame, orient="vertical", command=tv.yview)
         tv.configure(yscrollcommand=sb.set)
@@ -510,13 +560,19 @@ class StatusWindow:
         # NOTE: tk.Label's own `pady` is a single distance, not a (top, bottom) pair -- a
         # tuple there raises TclError('bad screen distance'). Asymmetric spacing goes on the
         # geometry manager instead.
+        # BOTH HEADLINE LABELS WRAP (2026-08-17). Neither had a wraplength, so on a window this
+        # narrow the one line the owner sees on every tab without clicking anything -- the score,
+        # the floor, the running counts, all pipe-joined onto one line -- ran off the right edge of
+        # the window with no scrollbar to reveal the rest. Wrapping onto two or three lines costs a
+        # little vertical space; running text invisibly off-screen costs the whole point of a
+        # headline strip.
         self.headline_lbl = tk.Label(head, text="loading...", bg=_RED_BG, fg="#ffffff",
                                      font=("Segoe UI", 15, "bold"), anchor="w",
-                                     justify="left", padx=14)
+                                     justify="left", padx=14, wraplength=self._wrap_w)
         self.headline_lbl.grid(row=0, column=0, sticky="ew", pady=(9, 2))
         self.headsub_lbl = tk.Label(head, text="", bg=_RED_BG, fg="#f0e6e5",
                                     font=("Segoe UI", 10), anchor="w", justify="left",
-                                    padx=14)
+                                    padx=14, wraplength=self._wrap_w)
         self.headsub_lbl.grid(row=1, column=0, sticky="ew", pady=(0, 9))
         self.headbar = head
 
@@ -582,7 +638,7 @@ class StatusWindow:
         ttk.Button(btns, text="Clear", command=lambda: self.commentary_box.delete(
             "1.0", "end")).grid(row=1, column=0, sticky="ew")
         self.commentary_status = tk.Label(wrap, text="", bg=_PANEL, fg=_DIM, anchor="w",
-                                          font=("Segoe UI", 9), wraplength=1100, justify="left")
+                                          font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
         self.commentary_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8,
                                     pady=(0, 5))
 
@@ -631,15 +687,15 @@ class StatusWindow:
         now.columnconfigure(0, weight=1)
         self.where_phase = tk.Label(now, text="", bg=_GREEN_BG, fg="#ffffff",
                                     font=("Segoe UI", 14, "bold"), anchor="w", padx=12,
-                                    justify="left", wraplength=1200)
+                                    justify="left", wraplength=self._wrap_w)
         self.where_phase.grid(row=0, column=0, sticky="ew", pady=(9, 2))
         self.where_next = tk.Label(now, text="", bg=_GREEN_BG, fg="#e8f4e9",
                                    font=("Segoe UI", 11), anchor="w", justify="left",
-                                   padx=12, wraplength=1200)
+                                   padx=12, wraplength=self._wrap_w)
         self.where_next.grid(row=1, column=0, sticky="ew", pady=(0, 9))
 
         self.where_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
-                                   anchor="w", justify="left", wraplength=1200, padx=4, pady=4)
+                                   anchor="w", justify="left", wraplength=self._wrap_w, padx=4, pady=4)
         self.where_hint.grid(row=1, column=0, sticky="ew")
 
         frame, self.where_tv = self._tree(
@@ -662,7 +718,7 @@ class StatusWindow:
         part. Both load-bearing rules are preserved and are checked at the RENDERED CELL by the
         self-test: no score without its floor, and retractions as loud as any loss."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="4. SCORES AND FLOORS")
+        self.nb.add(f, text="4. SCORES")
         self.tab_scores = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(2, weight=1)
@@ -672,15 +728,15 @@ class StatusWindow:
         gov.columnconfigure(0, weight=1)
         self.sc_gov_title = tk.Label(gov, text="", bg=_RED_BG, fg="#ffffff",
                                      font=("Segoe UI", 12, "bold"), anchor="w", padx=12,
-                                     justify="left", wraplength=1200)
+                                     justify="left", wraplength=self._wrap_w)
         self.sc_gov_title.grid(row=0, column=0, sticky="ew", pady=(8, 2))
         self.sc_gov_body = tk.Label(gov, text="", bg=_RED_BG, fg="#f4e9e8",
                                     font=("Segoe UI", 10), anchor="w", justify="left",
-                                    padx=12, wraplength=1200)
+                                    padx=12, wraplength=self._wrap_w)
         self.sc_gov_body.grid(row=1, column=0, sticky="ew", pady=(0, 8))
 
         self.sc_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
-                                anchor="w", justify="left", wraplength=1200, padx=4, pady=4)
+                                anchor="w", justify="left", wraplength=self._wrap_w, padx=4, pady=4)
         self.sc_hint.grid(row=1, column=0, sticky="ew")
 
         frame, self.sc_tv = self._tree(
@@ -702,13 +758,13 @@ class StatusWindow:
         """THE BRAIN ORGAN MAP. Per organ: the brain structure, what it does in one plain
         sentence, whether we built it, whether it is switched on, and what it measures."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="5. BRAIN ORGAN MAP")
+        self.nb.add(f, text="5. ORGAN MAP")
         self.tab_organs = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(1, weight=1)
 
         self.organ_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
-                                   anchor="w", justify="left", wraplength=1200, padx=4, pady=6)
+                                   anchor="w", justify="left", wraplength=self._wrap_w, padx=4, pady=6)
         self.organ_hint.grid(row=0, column=0, sticky="ew")
 
         frame, self.organ_tv = self._tree(
@@ -744,7 +800,7 @@ class StatusWindow:
         because the owner asked to see the band for themselves. Six points visible beats any
         adjective, including any adjective this window might have chosen for them."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="6. HOW CLOSELY WE COPY THE BRAIN")
+        self.nb.add(f, text="6. COPYING THE BRAIN")
         self.tab_fidelity = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(4, weight=1)
@@ -756,11 +812,11 @@ class StatusWindow:
         self.fid_head = tk.Label(
             warn, text="UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY.",
             bg=_AMBER_BG, fg="#ffffff", font=("Segoe UI", 12, "bold"), anchor="w",
-            justify="left", padx=12, wraplength=1200)
+            justify="left", padx=12, wraplength=self._wrap_w)
         self.fid_head.grid(row=0, column=0, sticky="ew", pady=(8, 2))
         self.fid_warn = tk.Label(warn, text="", bg=_AMBER_BG, fg="#f7ecd8",
                                  font=("Segoe UI", 10), anchor="w", justify="left",
-                                 padx=12, wraplength=1200)
+                                 padx=12, wraplength=self._wrap_w)
         self.fid_warn.grid(row=1, column=0, sticky="ew", pady=(0, 8))
 
         # THE SCATTER. Every scored point, with its n, on the two axes that matter: how closely it
@@ -772,7 +828,7 @@ class StatusWindow:
         self.fid_canvas.bind("<Configure>", lambda _e: self._draw_scatter())
         self.fid_scatter_cap = tk.Label(f, text="", bg=_PANEL, fg=_DIM,
                                         font=("Segoe UI", 9), anchor="w", justify="left",
-                                        wraplength=1200, padx=4)
+                                        wraplength=self._wrap_w, padx=4)
         self.fid_scatter_cap.grid(row=2, column=0, sticky="ew", pady=(0, 4))
 
         tk.Label(f, text="WHAT WE SCORED, AND WHAT ACTUALLY HAPPENED TO IT",
@@ -903,41 +959,78 @@ class StatusWindow:
         self.nb.add(f, text="3. WAITING ON YOU")
         self.tab_board = f
         f.columnconfigure(0, weight=1)
-        f.rowconfigure(1, weight=1)
+        f.rowconfigure(2, weight=1)
+
+        # THE COUNT BANNER (2026-08-17, fixing the owner report *"the questions tab now only
+        # appears to have one question, and no way for me to select a new one"*). What was
+        # actually happening: BOARD.md had zero OPEN QUESTIONS that night, so this tab drew exactly
+        # one tree row literally labelled QUESTION -- a placeholder reading "No open question", not
+        # selectable, not answerable, id "-". The eleven real, answerable DECISION and STANDING
+        # rows were there too, but nothing on screen said "there are 11 more things below, and they
+        # count as things to answer even though they are not called questions" -- so a reader
+        # scanning for "questions" found the one placeholder, tried to select a new one, and there
+        # was nothing behind it to select. Fixed two ways: this banner states the real breakdown in
+        # large text before anything else is read, and the placeholder row itself is gone (see
+        # _r_board) -- every row now in the table is a real, answerable row.
+        banner = tk.Frame(f, bg="#26415c")
+        banner.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        banner.columnconfigure(0, weight=1)
+        self.wait_count_lbl = tk.Label(banner, text="", bg="#26415c", fg="#ffffff",
+                                       font=("Segoe UI", 13, "bold"), anchor="w",
+                                       justify="left", padx=12, wraplength=self._wrap_w)
+        self.wait_count_lbl.grid(row=0, column=0, sticky="ew", pady=(8, 8))
+        self.wait_banner = banner
 
         self.board_hint = tk.Label(
             f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10), anchor="w",
-            justify="left", wraplength=1180, padx=4, pady=6)
-        self.board_hint.grid(row=0, column=0, sticky="ew")
+            justify="left", wraplength=self._wrap_w, padx=4, pady=6)
+        self.board_hint.grid(row=1, column=0, sticky="ew")
 
         frame, self.board_tv = self._tree(
             f, cols=("id", "kind", "question", "now", "updated"),
-            widths=(60, 175, 545, 300, 150),
+            widths=(55, 150, 420, 250, 130),
+            minwidths=(45, 120, 260, 180, 110),
             headings=("#", "", "WHAT NEEDS YOUR DECISION",
                       "WHAT HAPPENS IF YOU SAY NOTHING", "RECORDED / LAST UPDATED"), height=12)
-        frame.grid(row=1, column=0, sticky="nsew")
+        frame.grid(row=2, column=0, sticky="nsew")
         self.board_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_board_detail())
 
         self.board_detail = self._detail(f, height=10)
-        self.board_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
+        self.board_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
         # THE CAPTION IS LOAD-BEARING, not decoration. It names the exact question this box will
         # write to, and it is the only thing standing between the owner and an answer attached to
         # the wrong row. It is rewritten on every selection change by _sync_answer_ui().
+        #
+        # IT USED TO BE THE LABELFRAME'S OWN `text=` (2026-08-17 fix). A ttk LabelFrame title does
+        # NOT wrap -- so the moment the caption grew past a few words (any DECISION or STANDING
+        # selection: "YOUR ANSWER TO D2 -- pressing Save records it in notes/BOARD.md as a new row
+        # that names D2 and carries the whole of its text..."), the frame demanded ~1200 px just for
+        # its border title, well past the whole window's width, found by walking the live widget
+        # tree (`kid.winfo_reqwidth()` against the window's own `winfo_width()`) rather than by eye.
+        # That is a wider, uglier version of the exact fault the column-budget fix above addresses:
+        # a control demanding more room than the window has, silently. The frame keeps a short,
+        # static title; the caption moves into an ordinary wrapping Label inside it.
         ans = ttk.LabelFrame(f, text="YOUR ANSWER")
         self.answer_frame = ans
-        ans.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+        ans.grid(row=4, column=0, sticky="ew", pady=(6, 0))
         ans.columnconfigure(0, weight=1)
+        # tk.Label's own `pady` is a single distance, not a (top, bottom) pair (see the identical
+        # note on the headline label above) -- asymmetric spacing goes on the grid call instead.
+        self.answer_caption = tk.Label(ans, text="", bg=_PANEL, fg=_BLUE,
+                                       font=("Segoe UI", 10, "bold"), anchor="w", justify="left",
+                                       wraplength=self._wrap_w, padx=6)
+        self.answer_caption.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(4, 0))
         self.answer_box = tk.Text(ans, height=3, wrap="word", bd=0, padx=8, pady=6,
                                   bg="#1b1b1b", fg=_FG, insertbackground=_FG,
                                   highlightthickness=1, highlightbackground=_BORDER,
                                   font=("Segoe UI", 11))
-        self.answer_box.grid(row=0, column=0, sticky="ew", padx=6, pady=6)
+        self.answer_box.grid(row=1, column=0, sticky="ew", padx=6, pady=6)
         # Keystrokes are captured into the per-question draft as they happen, so that a refresh
         # landing between the last keypress and the button press cannot lose them.
         self.answer_box.bind("<KeyRelease>", lambda _e: self._stash_draft())
         btns = ttk.Frame(ans)
-        btns.grid(row=0, column=1, sticky="ns", padx=(0, 6))
+        btns.grid(row=1, column=1, sticky="ns", padx=(0, 6))
         self.answer_btn = ttk.Button(btns, text="Save my answer", command=self._save_answer)
         self.answer_btn.grid(row=0, column=0, sticky="ew", pady=(6, 3))
         # THE ESCAPE HATCH. On the night this panel was reported broken the board had ZERO open
@@ -950,8 +1043,8 @@ class StatusWindow:
         ttk.Button(btns, text="Clear",
                    command=self._clear_answer).grid(row=2, column=0, sticky="ew")
         self.answer_status = tk.Label(ans, text="", bg=_PANEL, fg=_DIM, anchor="w",
-                                      font=("Segoe UI", 9), wraplength=1180, justify="left")
-        self.answer_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 6))
+                                      font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
+        self.answer_status.grid(row=2, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 6))
 
     # ---- TAB 2 (group A) ----------------------------------------------
     def _build_running(self) -> None:
@@ -962,7 +1055,7 @@ class StatusWindow:
         to check two tabs to answer "is work still going". The stop command stays on screen with a
         copy button, because it is the one control in this window that stops the machine."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="2. RUNNING NOW")
+        self.nb.add(f, text="2. RUNNING")
         self.tab_running = f
         f.columnconfigure(0, weight=1)
 
@@ -970,20 +1063,29 @@ class StatusWindow:
         loop.grid(row=0, column=0, sticky="ew", pady=(4, 6))
         loop.columnconfigure(0, weight=1)
         self.loop_big = tk.Label(loop, text="...", bg=_ALT, fg=_FG,
-                                 font=("Segoe UI", 15, "bold"), anchor="w", padx=12)
+                                 font=("Segoe UI", 15, "bold"), anchor="w", padx=12,
+                                 wraplength=self._wrap_w_narrow)
         self.loop_big.grid(row=0, column=0, sticky="ew", pady=(8, 1))
         self.loop_sub = tk.Label(loop, text="", bg=_ALT, fg=_DIM, font=("Segoe UI", 10),
-                                 anchor="w", justify="left", padx=12, wraplength=1000)
+                                 anchor="w", justify="left", padx=12,
+                                 wraplength=self._wrap_w_narrow)
         self.loop_sub.grid(row=1, column=0, sticky="ew")
         tk.Label(loop, text="TO STOP IT, RUN THIS:", bg=_ALT, fg=_AMBER,
                  font=("Segoe UI", 9, "bold"), anchor="w",
                  padx=12).grid(row=2, column=0, sticky="ew", pady=(6, 1))
-        self.disarm_box = tk.Text(loop, height=1, wrap="none", bd=0, padx=12, pady=4,
+        # `width=` PINNED (2026-08-17). A bare tk.Text defaults to width=80 CHARACTERS -- at this
+        # font that is ~1150 px, wider than the whole window, found the same way as the caption fix
+        # above (a live widget requesting more than `winfo_width()`). `sticky="ew"` does not shrink
+        # a widget below its own request, so this alone was forcing the RUNNING NOW tab, and with
+        # it the Notebook itself, to demand ~1150 px regardless of the column-budget work elsewhere.
+        # The real disarm command is ~35 chars; 56 leaves headroom without reproducing the fault.
+        self.disarm_box = tk.Text(loop, height=1, width=56, wrap="none", bd=0, padx=12, pady=4,
                                   bg="#1b1b1b", fg="#ffd479", insertbackground=_FG,
                                   highlightthickness=0, font=("Consolas", 12, "bold"))
         self.disarm_box.grid(row=3, column=0, sticky="ew", padx=12, pady=(0, 4))
         self.loop_alt = tk.Label(loop, text="", bg=_ALT, fg=_DIM, font=("Segoe UI", 9),
-                                 anchor="w", justify="left", padx=12, wraplength=1000)
+                                 anchor="w", justify="left", padx=12,
+                                 wraplength=self._wrap_w_narrow)
         self.loop_alt.grid(row=4, column=0, sticky="ew", pady=(0, 8))
         ttk.Button(loop, text="Copy the command",
                    command=self._copy_disarm).grid(row=3, column=1, padx=(6, 12))
@@ -1032,7 +1134,7 @@ class StatusWindow:
         lx_wrap.rowconfigure(1, weight=1)
         self.local_head = tk.Label(lx_wrap, text="WORK ON THIS MACHINE", bg=_PANEL, fg=_BLUE,
                                    anchor="w", font=("Segoe UI", 10, "bold"), padx=4,
-                                   justify="left", wraplength=1200)
+                                   justify="left", wraplength=self._wrap_w)
         self.local_head.grid(row=0, column=0, sticky="ew", pady=(4, 2))
         # MEMORY was dropped as a column. The owner asked to see run IDENTITY and STATE; a megabyte
         # figure was consuming width that those two needed, and it is still in the detail box below.
@@ -1064,7 +1166,7 @@ class StatusWindow:
 
         self.results_hint = tk.Label(
             f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10), anchor="w",
-            justify="left", wraplength=1180, padx=4, pady=6)
+            justify="left", wraplength=self._wrap_w, padx=4, pady=6)
         self.results_hint.grid(row=0, column=0, sticky="ew")
 
         frame, self.results_tv = self._tree(
@@ -1484,9 +1586,10 @@ class StatusWindow:
             tv.focus("sc0")
             self._show_score_detail()
         try:
+            # Base label shortened 2026-08-17 (see the RUNNING tab comment above) -- "retracted"
+            # itself must survive; the self-test asserts it is in this exact string.
             self.nb.tab(self.tab_scores,
-                        text=f"4. SCORES AND FLOORS ({nr} retracted)" if nr
-                             else "4. SCORES AND FLOORS")
+                        text=f"4. SCORES ({nr} retracted)" if nr else "4. SCORES")
         except tk.TclError:
             pass
 
@@ -1642,8 +1745,7 @@ class StatusWindow:
             tv.selection_set("o0")
             self._show_organ_detail()
         try:
-            self.nb.tab(self.tab_organs,
-                        text=f"5. BRAIN ORGAN MAP ({o.get('n_missing')} not built)")
+            self.nb.tab(self.tab_organs, text=f"5. ORGAN MAP ({o.get('n_missing')} missing)")
         except tk.TclError:
             pass
 
@@ -1814,7 +1916,7 @@ class StatusWindow:
             self._show_fidelity_detail()
         try:
             self.nb.tab(self.tab_fidelity,
-                        text=f"6. HOW CLOSELY WE COPY THE BRAIN (n={_d(fd.get('scatter')).get('n', '?')})")
+                        text=f"6. COPYING THE BRAIN ({_d(fd.get('scatter')).get('n', '?')} pts)")
         except tk.TclError:
             pass
 
@@ -1913,6 +2015,30 @@ class StatusWindow:
         except tk.TclError:
             pass
 
+        # THE BANNER STATES THE BREAKDOWN IN ONE SENTENCE, in the largest text on the tab, before
+        # the table below is even scanned. "0 open questions" reads as nothing to do UNLESS the
+        # decisions and standing items are named in the same breath -- they are what was actually
+        # missed on 2026-08-17.
+        if b.get("status") != "OK":
+            self.wait_count_lbl.configure(
+                text="THE BOARD COULD NOT BE READ -- see the line below.", bg=_RED_BG)
+            self.wait_banner.configure(bg=_RED_BG)
+        elif n_all == 0:
+            self.wait_count_lbl.configure(
+                text="NOTHING IS WAITING ON YOU. No open questions, no undecided items.",
+                bg=_GREEN_BG)
+            self.wait_banner.configure(bg=_GREEN_BG)
+        else:
+            self.wait_count_lbl.configure(
+                text=(f"{n_q} OPEN QUESTION{'S' if n_q != 1 else ''}  +  {len(decisions)} "
+                      f"DECISION{'S' if len(decisions) != 1 else ''} waiting on you  +  "
+                      f"{len(standing)} STANDING ITEM{'S' if len(standing) != 1 else ''}  =  "
+                      f"{n_all} ROW{'S' if n_all != 1 else ''} BELOW. Every row is answerable, not "
+                      f"just the ones literally called a question -- click any row, type your "
+                      f"answer, press Save."),
+                bg="#26415c")
+            self.wait_banner.configure(bg="#26415c")
+
         # Whether the DOCUMENT can be written at all. Whether the SELECTED ROW can be written is a
         # separate question and is decided in _sync_answer_ui() -- conflating the two is what left
         # the Save button enabled over a row it could never write.
@@ -1942,17 +2068,18 @@ class StatusWindow:
         self.board_hint.configure(text="  ".join(x for x in parts if x),
                                   fg=_AMBER if b.get("status") != "OK" else _BLUE)
 
+        # NO PLACEHOLDER ROW (removed 2026-08-17). A row reading "No open question", unselectable
+        # and carrying id "-", used to be drawn here whenever BOARD.md had zero open QUESTIONS --
+        # which is most of the time, since a question leaves this list the moment it is answered.
+        # That row was the entire reproduction of *"the questions tab now only appears to have one
+        # question, and no way for me to select a new one"*: it was the only row literally kind
+        # QUESTION, it could not be clicked (it is not in `self._wait_rows`, so selecting it makes
+        # `_show_board_detail` return immediately and nothing on screen changes), and it sat above
+        # eleven real, answerable DECISION/STANDING rows that do not say "question" anywhere in
+        # their text. The "0 open questions" fact still needs to be said -- it now lives in the
+        # banner above, worded together with the count of decisions and standing items so it never
+        # again reads as "there is nothing here."
         i = 0
-        if b.get("status") == "OK" and not self._board_rows:
-            # Even the placeholder is dated. "You are up to date on the board" is itself a claim
-            # read off notes/BOARD.md, and an undated claim is exactly what this column exists to
-            # stop -- so it carries the panel's own newest evidence age rather than a blank.
-            tv.insert("", "end", values=("-", "QUESTION", "No open question -- you are up to date "
-                                                          "on the board.",
-                                         "nothing; there is nothing to answer",
-                                         str(_d(_d(_d(s.get("ages")).get("panels"))
-                                                .get("waiting on you")).get("newest_rel")
-                                             or "UNKNOWN")), tags=("dim",))
         for j, r in enumerate(self._board_rows):
             iid = f"q{j}"
             self._wait_rows[iid] = dict(r, _kind="QUESTION")
@@ -2080,7 +2207,7 @@ class StatusWindow:
             cap = (f"YOUR ANSWER TO {rid}  --  NOT ANSWERABLE: notes/BOARD.md cannot be written "
                    f"from here. Type into the ANSWER cell in the file instead.")
         try:
-            self.answer_frame.configure(text=cap)
+            self.answer_caption.configure(text=cap)
         except tk.TclError:
             pass
         self.answer_btn.state(["!disabled"] if can_save else ["disabled"])
@@ -2444,13 +2571,17 @@ class StatusWindow:
         self._running_summary = chunks
         self._show_running_detail()
 
-        n_act = ag.get("n_active", 0) if ag.get("status") == "OK" else "?"
         n_dead = cl.get("n_dead") or 0
-        loop_tag = ("loop ON" if armed is True else "loop off" if armed is False else "loop ?")
-        dead_tag = f", {n_dead} DEAD-BUT-CLAIMED" if n_dead else ""
+        # TAB LABELS SHORTENED (2026-08-17). The seven tab labels, measured with their own font,
+        # needed ~1750 px in a row to display unclipped -- more than the whole 1068 px window on
+        # the owner's actual screen, forcing ttk to wrap the tab strip onto a second row before the
+        # content below it is even reached. This one drops "loop ON/off" (already the first thing
+        # shown, in large text, the moment this tab is opened) and the active-agent count (not
+        # covered by any self-test); the dead-run count survives because
+        # verification/test_status_running_panel.py asserts it is visible without opening the tab.
+        dead_tag = f" ({n_dead} dead)" if n_dead else ""
         try:
-            self.nb.tab(self.tab_running,
-                        text=f"2. RUNNING NOW ({n_act}, {loop_tag}{dead_tag})")
+            self.nb.tab(self.tab_running, text=f"2. RUNNING{dead_tag}")
         except tk.TclError:
             pass
 
@@ -2709,12 +2840,24 @@ def self_test() -> int:
               f"decisions, which previously appeared in no panel at all (got {kinds})")
         # The board legitimately empties -- the owner answers questions. So the QUESTION kind is
         # asserted against the DATA rather than against a fixed expectation: a self-test that
-        # demanded an open question would start failing the moment the owner did their job.
+        # demanded an open question would start failing the moment the owner did their job. This
+        # used to be checked unconditionally (a comment-vs-code mismatch: the comment said "against
+        # the DATA" but the assertion did not), which only passed because of a placeholder row that
+        # faked a QUESTION-kind entry even at zero open questions -- exactly the row removed
+        # 2026-08-17 as the fix for *"the questions tab now only appears to have one question, and
+        # no way for me to select a new one"* (that placeholder was unselectable and answerable to
+        # nobody). Now genuinely conditional both ways: QUESTION present iff there is really one.
         n_open_live = ((live.get("board") or {}).get("n_open")
                        if isinstance(live.get("board"), dict) else None)
-        check("QUESTION" in kinds,
-              f"the answerable board questions have their own kind in the same table "
-              f"({n_open_live} open right now)")
+        if n_open_live:
+            check("QUESTION" in kinds,
+                  f"open board questions render with their own kind in the same table "
+                  f"({n_open_live} open right now, got {kinds})")
+        else:
+            check("QUESTION" not in kinds,
+                  f"with zero open questions, no placeholder QUESTION row is drawn -- the count "
+                  f"lives in the banner instead, and every remaining row is really selectable "
+                  f"({n_open_live} open right now, got {kinds})")
         check(all(str(c[3]).strip() for c in bcells),
               f"every waiting row says what happens if the owner says nothing "
               f"({[c[0] for c in bcells if not str(c[3]).strip()]})")
