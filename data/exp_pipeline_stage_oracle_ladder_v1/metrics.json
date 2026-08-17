@@ -1,0 +1,1037 @@
+{
+  "anchor_name": "pipeline_stage_oracle_ladder_v1",
+  "run_mode": "full",
+  "code_version": "v1.0",
+  "findings_log": "notes/pipeline_stage_oracle_ladder_v1_findings_2026-08-17.md",
+  "verdict": "LADDER_MONOTONE__TOP_DROP_DIAG_B1_SINGLE_OCC_UNCOMPRESSED_ORACLE_CUE_TO_DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE__DOMINANT_NO_DISTRIBUTED",
+  "verdict_msg": "STAGE-WISE ORACLE LADDER over the live grounding-readout pipeline. PART A (read side, true downstream chain, monotonicity asserted) walks cue quality from the item's own exact key (S3/S4 held oracle) to the real held-out partial cue (nothing left oracle). PART B (write side, counterfactual, not chained into the monotonicity assertion) isolates accumulation depth and the 256-dim projection at a fixed oracle cue. -> LADDER_MONOTONE__TOP_DROP_DIAG_B1_SINGLE_OCC_UNCOMPRESSED_ORACLE_CUE_TO_DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE__DOMINANT_NO_DISTRIBUTED",
+  "HOW_TO_READ_THIS": "The RANKED_DROP_TABLE answers 'which stage destroys the most' directly -- read it top to bottom. MONOTONICITY_PART_A being MONOTONE means the read-side chain behaved as a real downstream walk should; a LEAK there would mean an oracle saw something the real stage could not, or two rungs were scored on different items, and no number from that chain should be trusted until fixed.",
+  "STAGE_ENUMERATION": {
+    "method": "read hdlab/grounding_acquisition_loop.py, hdlab/reading_grounding_loop.py, experiments/exp_grounding_readout_known_answer_v1.py, and the runtime-verified (machine-asserted, not merely claimed) encoder identity in experiments/exp_cue_information_audit_v1.py",
+    "live_stages": [
+      "S1 content words -> 256-dim per-occurrence code (one fixed random projection; collapses the Director sketch's stages 2, 3 and 5)",
+      "S2 per-occurrence codes -> anchor row by unweighted summation across profile occurrences (sketch stage 4)",
+      "S3 held-out sentence -> partial cue, the SAME S1 encoder (sketch stage 6)",
+      "S4 cue -> winner by a single cosine-argmax (collapses sketch stages 7+8; no separate shortlist stage exists in the incumbent path)",
+      "S5 winner -> scored against WordNet gold, tie-corrected hit@1 (sketch stage 9)"
+    ],
+    "corrections_to_directors_sketch": [
+      "sketch stages 1+2 (tokens kept, context vector) carry IDENTICAL information -- a count vector loses nothing relative to the token list this architecture uses",
+      "sketch stages 2/3 boundary and stage 5 (superposition/interference) are THE SAME physical event (cross-talk inside the one d=256 random projection), not two events",
+      "sketch stages 7 and 8 (address, comparator) are the SAME argmax operation in the incumbent path, not two stages"
+    ]
+  },
+  "config": {
+    "LAMBDAS": [
+      1.0,
+      0.8,
+      0.6,
+      0.45,
+      0.3,
+      0.2,
+      0.15,
+      0.1,
+      0.05,
+      0.0
+    ],
+    "N_BOOT": 10000,
+    "MASTER_SEED": 20260816,
+    "ADDRESS_EXACT_MIN": 0.95,
+    "MONOTONE_TOL_SIGMA": 1.5
+  },
+  "selftest_evidence_keys": [
+    "DOSE_RESPONSE_planted_store",
+    "INFO_selftest_keys",
+    "MIX_known_answer",
+    "RULER_MODE_GATE",
+    "dprime_stats_known_answers",
+    "floor_battery_selftest_keys",
+    "monotonicity_checker",
+    "rank_summary_planted_top"
+  ],
+  "report": {
+    "anchor_name": "pipeline_stage_oracle_ladder_v1",
+    "grid": "full",
+    "code_version": "v1.0",
+    "findings_log": "notes/pipeline_stage_oracle_ladder_v1_findings_2026-08-17.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "RULER_MODE_GATE": {
+      "RUN_MODE": "full",
+      "V": 4096,
+      "CORPUS_BYTES": 64000000,
+      "argv": [
+        "experiments/exp_pipeline_stage_oracle_ladder_v1.py",
+        "--grid",
+        "full"
+      ],
+      "PASS": true
+    },
+    "cache": {
+      "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+      "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+      "rebuilt": false
+    },
+    "population": {
+      "n_anchors": 5491,
+      "n_items_scored": 3994,
+      "pool": "the LANDED OPEN pool (mat_ok minus per-item exclusions); no matched or balanced pool, per the same rationale the sibling cells record: eligB is on record admitting a fitted constant at 0.1715 vs chance 0.0101",
+      "chance_addressing": 0.00018212
+    },
+    "REGRESSION_GATE": {
+      "measured": 0.0223,
+      "expected": 0.0223,
+      "tol": 0.0005,
+      "PASS": true,
+      "n_scored": 3994
+    },
+    "PART_B_corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "PART_B_checkpoint_reuse": {
+      "n_units_loaded": 9485,
+      "n_anchors_found": 5491,
+      "n_anchors_missing": 0,
+      "n_items_found": 3994,
+      "n_items_missing": 0,
+      "elapsed_s": 0.5,
+      "missing_p_sample": [],
+      "missing_q_sample": []
+    },
+    "PART_B_single_occurrence_build": {
+      "n_anchors": 5491,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.3
+    },
+    "PART_B_vocab_n_distinct_content_words": 21688,
+    "PART_B_REGRESSION_CHECKS": {
+      "K1_EXACT_KEY_C0_this_cell_vs_landed": {
+        "this_cell_LAM_1.00": 0.0481,
+        "landed_exp_cue_information_audit_v1_or_cue_regime": 0.0481
+      },
+      "K1_EXACT_KEY_U0_this_cell_vs_landed": {
+        "this_cell_DIAG_B2": 0.0603,
+        "landed_exp_cue_information_audit_v1": 0.0603
+      },
+      "U0_REAL_CUE_this_cell_vs_landed": {
+        "this_cell_DIAG_B2r": 0.024,
+        "landed_exp_cue_information_audit_v1": 0.024
+      },
+      "note": "these are cross-cell regression checks, not gates that halt the run -- the run's own REGRESSION_GATE (lam=0.00 on the full population) is the hard gate. These are reported and their agreement/disagreement is stated plainly, per exp_dev's own NEVER-silently-adopt-another-agent's-number discipline."
+    },
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "F_ORTHOGRAPHIC": "0a7622ca80e0db22",
+      "F_FREQUENCY": "9cbf7818fc8d08ef",
+      "F_SCRAMBLE": "be85e8f7a2ccb091",
+      "F_CONSTANT_PROTOTYPE": "81e39dc4bbf317b4",
+      "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": "2c6f1f15dd14034b",
+      "LAM_1.00": "bcc875780c4a7de3",
+      "LAM_0.80": "f27c12926ee3d036",
+      "LAM_0.60": "0deaac93c5545512",
+      "LAM_0.45": "2031f0c84f46f7ae",
+      "LAM_0.30": "f9b0fc83cfbb45ae",
+      "LAM_0.20": "5d580a0c3b5e4e1a",
+      "LAM_0.15": "9ee6e81982937377",
+      "LAM_0.10": "aeb0345d5ab81ebd",
+      "LAM_0.05": "5d788cec4728ad87",
+      "LAM_0.00": "c972114a630d38d5",
+      "RANDOM_NULL": "b364f1fa29967062",
+      "DIAG_B1_SINGLE_OCC_UNCOMPRESSED_ORACLE_CUE": "b2cc33bff9f6174d",
+      "DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE": "cd8dc7824aa60f58",
+      "DIAG_B2r_FULL_ACCUM_UNCOMPRESSED_REAL_CUE": "8f54372744ba0272"
+    },
+    "POWER": {
+      "n_common_scored": 3994,
+      "analytic_null_halfwidth_1.645_over_sqrt_n_minus_1": 0.02603,
+      "reading": "a margin smaller than its own CI half-width cannot separate at this n"
+    },
+    "FLOORS_RECOMPUTED_ON_THIS_POPULATION": [
+      "F_CONSTANT_PROTOTYPE",
+      "F_FREQUENCY",
+      "F_ORTHOGRAPHIC",
+      "F_SCRAMBLE"
+    ],
+    "NEVER_IMPORTED": [
+      "0.1382",
+      "0.2070",
+      "-0.1959"
+    ],
+    "BINDING_FLOOR": "F_CONSTANT_PROTOTYPE",
+    "BINDING_FLOOR_VALUE": 0.139,
+    "GOLD_CAVEAT": {
+      "constant_floor_tie_corrected": 0.139,
+      "oracle_constant_fitted_on_golds": 0.1715,
+      "reading": "the constant floor is partly a generous gold; the oracle constant is the fitted CEILING of the constant family on this pool and is reported so no margin over it is mistaken for a margin over chance"
+    },
+    "RANKED_DROP_TABLE": [
+      {
+        "from": "DIAG_B1_SINGLE_OCC_UNCOMPRESSED_ORACLE_CUE",
+        "to": "DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE",
+        "drop_point": -0.0263,
+        "drop_ci95": [
+          -0.0343,
+          -0.0186
+        ],
+        "drop_ci_halfwidth": 0.0078,
+        "band": "BELOW",
+        "chain": "B1_accumulation_depth_NOT_a_downstream_pair_more_evidence_not_less"
+      },
+      {
+        "from": "DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE",
+        "to": "LAM_1.00",
+        "drop_point": 0.0123,
+        "drop_ci95": [
+          0.006,
+          0.0188
+        ],
+        "drop_ci_halfwidth": 0.0064,
+        "band": "ABOVE",
+        "chain": "B2_projection_alone_at_oracle_cue"
+      },
+      {
+        "from": "LAM_0.60",
+        "to": "LAM_0.45",
+        "drop_point": 0.0115,
+        "drop_ci95": [
+          0.006,
+          0.0173
+        ],
+        "drop_ci_halfwidth": 0.0056,
+        "band": "ABOVE",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_0.45",
+        "to": "LAM_0.30",
+        "drop_point": 0.0083,
+        "drop_ci95": [
+          0.0035,
+          0.013
+        ],
+        "drop_ci_halfwidth": 0.0047,
+        "band": "ABOVE",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_0.30",
+        "to": "LAM_0.20",
+        "drop_point": 0.0042,
+        "drop_ci95": [
+          0.001,
+          0.0075
+        ],
+        "drop_ci_halfwidth": 0.0032,
+        "band": "ABOVE",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_1.00",
+        "to": "LAM_0.80",
+        "drop_point": -0.0033,
+        "drop_ci95": [
+          -0.0078,
+          0.0013
+        ],
+        "drop_ci_halfwidth": 0.0046,
+        "band": "NOT_SEPARATED",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "DIAG_B2r_FULL_ACCUM_UNCOMPRESSED_REAL_CUE",
+        "to": "LAM_0.00",
+        "drop_point": 0.0018,
+        "drop_ci95": [
+          -0.0025,
+          0.006
+        ],
+        "drop_ci_halfwidth": 0.0043,
+        "band": "NOT_SEPARATED",
+        "chain": "B2r_projection_alone_at_the_real_cue_reproduces_landed_info_audit_headline"
+      },
+      {
+        "from": "LAM_0.20",
+        "to": "LAM_0.15",
+        "drop_point": 0.0015,
+        "drop_ci95": [
+          -0.0005,
+          0.0038
+        ],
+        "drop_ci_halfwidth": 0.0022,
+        "band": "NOT_SEPARATED",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_0.05",
+        "to": "LAM_0.00",
+        "drop_point": 0.0015,
+        "drop_ci95": [
+          0.0003,
+          0.003
+        ],
+        "drop_ci_halfwidth": 0.0014,
+        "band": "ABOVE",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_0.15",
+        "to": "LAM_0.10",
+        "drop_point": 0.001,
+        "drop_ci95": [
+          -0.0005,
+          0.0025
+        ],
+        "drop_ci_halfwidth": 0.0015,
+        "band": "NOT_SEPARATED",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_0.80",
+        "to": "LAM_0.60",
+        "drop_point": 0.0005,
+        "drop_ci95": [
+          -0.0048,
+          0.0058
+        ],
+        "drop_ci_halfwidth": 0.0053,
+        "band": "NOT_SEPARATED",
+        "chain": "PART_A_read_side_true_downstream"
+      },
+      {
+        "from": "LAM_0.10",
+        "to": "LAM_0.05",
+        "drop_point": 0.0005,
+        "drop_ci95": [
+          -0.0008,
+          0.002
+        ],
+        "drop_ci_halfwidth": 0.0014,
+        "band": "NOT_SEPARATED",
+        "chain": "PART_A_read_side_true_downstream"
+      }
+    ],
+    "MONOTONICITY_PART_A": {
+      "n_leaks": 0,
+      "leaks": [],
+      "MONOTONE": true,
+      "tol_sigma": 1.5,
+      "chain": [
+        "LAM_1.00",
+        "LAM_0.80",
+        "LAM_0.60",
+        "LAM_0.45",
+        "LAM_0.30",
+        "LAM_0.20",
+        "LAM_0.15",
+        "LAM_0.10",
+        "LAM_0.05",
+        "LAM_0.00"
+      ],
+      "values": [
+        0.0481,
+        0.0513,
+        0.0508,
+        0.0393,
+        0.031,
+        0.0268,
+        0.0253,
+        0.0243,
+        0.0238,
+        0.0223
+      ]
+    },
+    "MONOTONICITY_PART_B_NOTE": "Part B (accumulation depth, B1) is DELIBERATELY EXCLUDED from the monotonicity assertion: more accumulated evidence is not a downstream-loses-information step, it is strictly more real material, so a rise there is not a leak and is reported as a plain margin instead.",
+    "SANITY_KNOWN_ANSWER": {
+      "addressing_at_lam_1.00": 1.0,
+      "gate": 0.95,
+      "PASSED": true
+    },
+    "SANITY_RANDOM_NULL": {
+      "addressing_RANDOM_NULL": 0.00025,
+      "chance_addressing": 0.00018212,
+      "hit_at_1_RANDOM_NULL": 0.0058,
+      "PASSED": true
+    },
+    "PER_RUNG": {
+      "F_ORTHOGRAPHIC": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0873,
+        "SIGNAL_hit_at_1_optimistic": 0.0984,
+        "SIGNAL_hit_at_1_conservative": 0.0789,
+        "ci95_tie_corrected": [
+          0.0788,
+          0.0958
+        ],
+        "ci_halfwidth": 0.0085,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 4.2919,
+          "median_dprime_vs_p95": 1.8997,
+          "mean_dprime_vs_mean": 4.5898,
+          "mean_dprime_vs_p95": 2.3455
+        },
+        "RANK": {
+          "median_rank_optimistic": 37.0,
+          "q1_rank_optimistic": 6.0,
+          "q3_rank_optimistic": 212.0,
+          "median_rank_conservative": 54.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": null,
+        "margin_vs_binding_floor": {
+          "point": -0.0517,
+          "ci95": [
+            -0.0653,
+            -0.0383
+          ],
+          "band": "BELOW"
+        }
+      },
+      "F_FREQUENCY": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0185,
+        "SIGNAL_hit_at_1_optimistic": 0.0185,
+        "SIGNAL_hit_at_1_conservative": 0.0185,
+        "ci95_tie_corrected": [
+          0.0143,
+          0.0228
+        ],
+        "ci_halfwidth": 0.00426,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.6336,
+          "median_dprime_vs_p95": 0.8142,
+          "mean_dprime_vs_mean": 2.3043,
+          "mean_dprime_vs_p95": 0.4838
+        },
+        "RANK": {
+          "median_rank_optimistic": 44.0,
+          "q1_rank_optimistic": 18.0,
+          "q3_rank_optimistic": 173.0,
+          "median_rank_conservative": 44.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": null,
+        "margin_vs_binding_floor": {
+          "point": -0.1205,
+          "ci95": [
+            -0.1322,
+            -0.1092
+          ],
+          "band": "BELOW"
+        }
+      },
+      "F_SCRAMBLE": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0118,
+        "SIGNAL_hit_at_1_optimistic": 0.0118,
+        "SIGNAL_hit_at_1_conservative": 0.0118,
+        "ci95_tie_corrected": [
+          0.0085,
+          0.0153
+        ],
+        "ci_halfwidth": 0.00338,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.0014,
+          "median_dprime_vs_p95": 0.3614,
+          "mean_dprime_vs_mean": 1.9786,
+          "mean_dprime_vs_p95": 0.3323
+        },
+        "RANK": {
+          "median_rank_optimistic": 132.5,
+          "q1_rank_optimistic": 38.0,
+          "q3_rank_optimistic": 520.75,
+          "median_rank_conservative": 132.5,
+          "n_items": 3994
+        },
+        "addressing_accuracy": null,
+        "margin_vs_binding_floor": {
+          "point": -0.1272,
+          "ci95": [
+            -0.1382,
+            -0.1164
+          ],
+          "band": "BELOW"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.139,
+        "SIGNAL_hit_at_1_optimistic": 0.139,
+        "SIGNAL_hit_at_1_conservative": 0.139,
+        "ci95_tie_corrected": [
+          0.1284,
+          0.15
+        ],
+        "ci_halfwidth": 0.01077,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.4459,
+          "median_dprime_vs_p95": 0.5556,
+          "mean_dprime_vs_mean": 2.2421,
+          "mean_dprime_vs_p95": 0.3508
+        },
+        "RANK": {
+          "median_rank_optimistic": 58.0,
+          "q1_rank_optimistic": 8.0,
+          "q3_rank_optimistic": 331.75,
+          "median_rank_conservative": 58.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": null,
+        "margin_vs_binding_floor": null
+      },
+      "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.1715,
+        "SIGNAL_hit_at_1_optimistic": 0.1715,
+        "SIGNAL_hit_at_1_conservative": 0.1715,
+        "ci95_tie_corrected": [
+          0.1597,
+          0.1833
+        ],
+        "ci_halfwidth": 0.01177,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 5.2697,
+          "median_dprime_vs_p95": 3.2134,
+          "mean_dprime_vs_mean": 5.4179,
+          "mean_dprime_vs_p95": 3.3577
+        },
+        "RANK": {
+          "median_rank_optimistic": 24.0,
+          "q1_rank_optimistic": 3.0,
+          "q3_rank_optimistic": 231.0,
+          "median_rank_conservative": 25.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": null,
+        "margin_vs_binding_floor": {
+          "point": 0.0326,
+          "ci95": [
+            0.019,
+            0.0458
+          ],
+          "band": "ABOVE"
+        }
+      },
+      "LAM_1.00": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0481,
+        "SIGNAL_hit_at_1_optimistic": 0.0481,
+        "SIGNAL_hit_at_1_conservative": 0.0481,
+        "ci95_tie_corrected": [
+          0.0416,
+          0.0548
+        ],
+        "ci_halfwidth": 0.00663,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.6397,
+          "median_dprime_vs_p95": 0.9463,
+          "mean_dprime_vs_mean": 2.751,
+          "mean_dprime_vs_p95": 1.0723
+        },
+        "RANK": {
+          "median_rank_optimistic": 37.0,
+          "q1_rank_optimistic": 10.0,
+          "q3_rank_optimistic": 162.0,
+          "median_rank_conservative": 37.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 1.0,
+        "margin_vs_binding_floor": {
+          "point": -0.0909,
+          "ci95": [
+            -0.1034,
+            -0.0786
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.80": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0513,
+        "SIGNAL_hit_at_1_optimistic": 0.0513,
+        "SIGNAL_hit_at_1_conservative": 0.0513,
+        "ci95_tie_corrected": [
+          0.0446,
+          0.0581
+        ],
+        "ci_halfwidth": 0.00676,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.6418,
+          "median_dprime_vs_p95": 0.9573,
+          "mean_dprime_vs_mean": 2.7467,
+          "mean_dprime_vs_p95": 1.068
+        },
+        "RANK": {
+          "median_rank_optimistic": 36.0,
+          "q1_rank_optimistic": 9.0,
+          "q3_rank_optimistic": 164.0,
+          "median_rank_conservative": 36.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 1.0,
+        "margin_vs_binding_floor": {
+          "point": -0.0877,
+          "ci95": [
+            -0.1004,
+            -0.0751
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.60": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0508,
+        "SIGNAL_hit_at_1_optimistic": 0.0508,
+        "SIGNAL_hit_at_1_conservative": 0.0508,
+        "ci95_tie_corrected": [
+          0.0441,
+          0.0576
+        ],
+        "ci_halfwidth": 0.00676,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.5971,
+          "median_dprime_vs_p95": 0.9238,
+          "mean_dprime_vs_mean": 2.6849,
+          "mean_dprime_vs_p95": 1.0112
+        },
+        "RANK": {
+          "median_rank_optimistic": 39.0,
+          "q1_rank_optimistic": 10.0,
+          "q3_rank_optimistic": 172.0,
+          "median_rank_conservative": 39.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 1.0,
+        "margin_vs_binding_floor": {
+          "point": -0.0882,
+          "ci95": [
+            -0.1007,
+            -0.0756
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.45": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0393,
+        "SIGNAL_hit_at_1_optimistic": 0.0393,
+        "SIGNAL_hit_at_1_conservative": 0.0393,
+        "ci95_tie_corrected": [
+          0.0333,
+          0.0453
+        ],
+        "ci_halfwidth": 0.00601,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.5072,
+          "median_dprime_vs_p95": 0.8484,
+          "mean_dprime_vs_mean": 2.5927,
+          "mean_dprime_vs_p95": 0.9286
+        },
+        "RANK": {
+          "median_rank_optimistic": 44.0,
+          "q1_rank_optimistic": 12.0,
+          "q3_rank_optimistic": 196.0,
+          "median_rank_conservative": 44.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.997747,
+        "margin_vs_binding_floor": {
+          "point": -0.0997,
+          "ci95": [
+            -0.1119,
+            -0.0879
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.30": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.031,
+        "SIGNAL_hit_at_1_optimistic": 0.031,
+        "SIGNAL_hit_at_1_conservative": 0.031,
+        "ci95_tie_corrected": [
+          0.0258,
+          0.0366
+        ],
+        "ci_halfwidth": 0.00538,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.4202,
+          "median_dprime_vs_p95": 0.7676,
+          "mean_dprime_vs_mean": 2.4779,
+          "mean_dprime_vs_p95": 0.8247
+        },
+        "RANK": {
+          "median_rank_optimistic": 55.0,
+          "q1_rank_optimistic": 15.0,
+          "q3_rank_optimistic": 225.0,
+          "median_rank_conservative": 55.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.736605,
+        "margin_vs_binding_floor": {
+          "point": -0.108,
+          "ci95": [
+            -0.1199,
+            -0.0964
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.20": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0268,
+        "SIGNAL_hit_at_1_optimistic": 0.0268,
+        "SIGNAL_hit_at_1_conservative": 0.0268,
+        "ci95_tie_corrected": [
+          0.022,
+          0.0318
+        ],
+        "ci_halfwidth": 0.00488,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.3118,
+          "median_dprime_vs_p95": 0.6641,
+          "mean_dprime_vs_mean": 2.3955,
+          "mean_dprime_vs_p95": 0.747
+        },
+        "RANK": {
+          "median_rank_optimistic": 68.0,
+          "q1_rank_optimistic": 18.0,
+          "q3_rank_optimistic": 255.75,
+          "median_rank_conservative": 68.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.359289,
+        "margin_vs_binding_floor": {
+          "point": -0.1122,
+          "ci95": [
+            -0.1237,
+            -0.1009
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.15": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0253,
+        "SIGNAL_hit_at_1_optimistic": 0.0253,
+        "SIGNAL_hit_at_1_conservative": 0.0253,
+        "ci95_tie_corrected": [
+          0.0205,
+          0.0303
+        ],
+        "ci_halfwidth": 0.00488,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.2685,
+          "median_dprime_vs_p95": 0.6218,
+          "mean_dprime_vs_mean": 2.3559,
+          "mean_dprime_vs_p95": 0.7088
+        },
+        "RANK": {
+          "median_rank_optimistic": 76.0,
+          "q1_rank_optimistic": 20.0,
+          "q3_rank_optimistic": 276.0,
+          "median_rank_conservative": 76.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.227842,
+        "margin_vs_binding_floor": {
+          "point": -0.1137,
+          "ci95": [
+            -0.1252,
+            -0.1024
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.10": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0243,
+        "SIGNAL_hit_at_1_optimistic": 0.0243,
+        "SIGNAL_hit_at_1_conservative": 0.0243,
+        "ci95_tie_corrected": [
+          0.0195,
+          0.029
+        ],
+        "ci_halfwidth": 0.00476,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.2316,
+          "median_dprime_vs_p95": 0.5854,
+          "mean_dprime_vs_mean": 2.3174,
+          "mean_dprime_vs_p95": 0.6706
+        },
+        "RANK": {
+          "median_rank_optimistic": 82.0,
+          "q1_rank_optimistic": 22.0,
+          "q3_rank_optimistic": 292.0,
+          "median_rank_conservative": 82.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.150976,
+        "margin_vs_binding_floor": {
+          "point": -0.1147,
+          "ci95": [
+            -0.1262,
+            -0.1034
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.05": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0238,
+        "SIGNAL_hit_at_1_optimistic": 0.0238,
+        "SIGNAL_hit_at_1_conservative": 0.0238,
+        "ci95_tie_corrected": [
+          0.019,
+          0.0285
+        ],
+        "ci_halfwidth": 0.00476,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.206,
+          "median_dprime_vs_p95": 0.5604,
+          "mean_dprime_vs_mean": 2.2799,
+          "mean_dprime_vs_p95": 0.633
+        },
+        "RANK": {
+          "median_rank_optimistic": 87.0,
+          "q1_rank_optimistic": 23.0,
+          "q3_rank_optimistic": 317.75,
+          "median_rank_conservative": 87.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.099399,
+        "margin_vs_binding_floor": {
+          "point": -0.1152,
+          "ci95": [
+            -0.1267,
+            -0.1039
+          ],
+          "band": "BELOW"
+        }
+      },
+      "LAM_0.00": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0223,
+        "SIGNAL_hit_at_1_optimistic": 0.0223,
+        "SIGNAL_hit_at_1_conservative": 0.0223,
+        "ci95_tie_corrected": [
+          0.0178,
+          0.027
+        ],
+        "ci_halfwidth": 0.00463,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 2.1799,
+          "median_dprime_vs_p95": 0.5342,
+          "mean_dprime_vs_mean": 2.244,
+          "mean_dprime_vs_p95": 0.5966
+        },
+        "RANK": {
+          "median_rank_optimistic": 93.5,
+          "q1_rank_optimistic": 24.0,
+          "q3_rank_optimistic": 345.0,
+          "median_rank_conservative": 93.5,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.071107,
+        "margin_vs_binding_floor": {
+          "point": -0.1167,
+          "ci95": [
+            -0.1282,
+            -0.1054
+          ],
+          "band": "BELOW"
+        }
+      },
+      "RANDOM_NULL": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0058,
+        "SIGNAL_hit_at_1_optimistic": 0.0058,
+        "SIGNAL_hit_at_1_conservative": 0.0058,
+        "ci95_tie_corrected": [
+          0.0035,
+          0.0083
+        ],
+        "ci_halfwidth": 0.00238,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 1.973,
+          "median_dprime_vs_p95": 0.3274,
+          "mean_dprime_vs_mean": 1.9329,
+          "mean_dprime_vs_p95": 0.2867
+        },
+        "RANK": {
+          "median_rank_optimistic": 140.0,
+          "q1_rank_optimistic": 41.0,
+          "q3_rank_optimistic": 500.0,
+          "median_rank_conservative": 140.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.00025,
+        "margin_vs_binding_floor": {
+          "point": -0.1332,
+          "ci95": [
+            -0.1442,
+            -0.1227
+          ],
+          "band": "BELOW"
+        }
+      },
+      "DIAG_B1_SINGLE_OCC_UNCOMPRESSED_ORACLE_CUE": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.034,
+        "SIGNAL_hit_at_1_optimistic": 0.0714,
+        "SIGNAL_hit_at_1_conservative": 0.0195,
+        "ci95_tie_corrected": [
+          0.0293,
+          0.039
+        ],
+        "ci_halfwidth": 0.00485,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0035,
+        "NOISE_dprime": {
+          "n_valid": 3981,
+          "median_dprime_vs_mean": 3.1532,
+          "median_dprime_vs_p95": 1.2058,
+          "mean_dprime_vs_mean": 4.8618,
+          "mean_dprime_vs_p95": 3.5813
+        },
+        "RANK": {
+          "median_rank_optimistic": 74.0,
+          "q1_rank_optimistic": 19.0,
+          "q3_rank_optimistic": 206.0,
+          "median_rank_conservative": 114.5,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 0.997496,
+        "margin_vs_binding_floor": {
+          "point": -0.105,
+          "ci95": [
+            -0.1165,
+            -0.0937
+          ],
+          "band": "BELOW"
+        }
+      },
+      "DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.0603,
+        "SIGNAL_hit_at_1_optimistic": 0.0603,
+        "SIGNAL_hit_at_1_conservative": 0.0603,
+        "ci95_tie_corrected": [
+          0.0531,
+          0.0679
+        ],
+        "ci_halfwidth": 0.00739,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.0,
+        "NOISE_dprime": {
+          "n_valid": 3994,
+          "median_dprime_vs_mean": 3.3602,
+          "median_dprime_vs_p95": 1.4806,
+          "mean_dprime_vs_mean": 4.0035,
+          "mean_dprime_vs_p95": 2.1854
+        },
+        "RANK": {
+          "median_rank_optimistic": 28.0,
+          "q1_rank_optimistic": 8.0,
+          "q3_rank_optimistic": 116.0,
+          "median_rank_conservative": 28.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": 1.0,
+        "margin_vs_binding_floor": {
+          "point": -0.0786,
+          "ci95": [
+            -0.0914,
+            -0.0658
+          ],
+          "band": "BELOW"
+        }
+      },
+      "DIAG_B2r_FULL_ACCUM_UNCOMPRESSED_REAL_CUE": {
+        "SIGNAL_hit_at_1_tie_corrected": 0.024,
+        "SIGNAL_hit_at_1_optimistic": 0.025,
+        "SIGNAL_hit_at_1_conservative": 0.024,
+        "ci95_tie_corrected": [
+          0.0195,
+          0.0288
+        ],
+        "ci_halfwidth": 0.00463,
+        "analytic_null_halfwidth": 0.02603,
+        "mean_tie_mass": 0.001,
+        "NOISE_dprime": {
+          "n_valid": 3990,
+          "median_dprime_vs_mean": 3.132,
+          "median_dprime_vs_p95": 1.3155,
+          "mean_dprime_vs_mean": 4.0634,
+          "mean_dprime_vs_p95": 2.3107
+        },
+        "RANK": {
+          "median_rank_optimistic": 72.0,
+          "q1_rank_optimistic": 19.0,
+          "q3_rank_optimistic": 249.0,
+          "median_rank_conservative": 73.0,
+          "n_items": 3994
+        },
+        "addressing_accuracy": null,
+        "margin_vs_binding_floor": {
+          "point": -0.115,
+          "ci95": [
+            -0.1267,
+            -0.1037
+          ],
+          "band": "BELOW"
+        }
+      }
+    },
+    "READ_SIDE_CHAIN_ORDER": [
+      "LAM_1.00",
+      "LAM_0.80",
+      "LAM_0.60",
+      "LAM_0.45",
+      "LAM_0.30",
+      "LAM_0.20",
+      "LAM_0.15",
+      "LAM_0.10",
+      "LAM_0.05",
+      "LAM_0.00"
+    ],
+    "RANDOM_NULL_RANK_AS_THE_RANDOM_RANKING_EXPECTATION": {
+      "median_rank_optimistic": 140.0,
+      "q1_rank_optimistic": 41.0,
+      "q3_rank_optimistic": 500.0,
+      "median_rank_conservative": 140.0,
+      "n_items": 3994
+    },
+    "elapsed_s": 101.0
+  },
+  "elapsed_s": 111.9,
+  "summary": "STAGE-WISE ORACLE LADDER over the live grounding-readout pipeline. PART A (read side, true downstream chain, monotonicity asserted) walks cue quality from the item's own exact key (S3/S4 held oracle) to the real held-out partial cue (nothing left oracle). PART B (write side, counterfactual, not chained into the monotonicity assertion) isolates accumulation depth and the 256-dim projection at a fixed oracle cue. -> LADDER_MONOTONE__TOP_DROP_DIAG_B1_SINGLE_OCC_UNCOMPRESSED_ORACLE_CUE_TO_DIAG_B2_FULL_ACCUM_UNCOMPRESSED_ORACLE_CUE__DOMINANT_NO_DISTRIBUTED"
+}
