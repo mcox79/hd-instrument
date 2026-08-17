@@ -127,11 +127,21 @@ def run() -> int:
                 root.update()
             check(hasattr(gui, "commentary_box") and hasattr(gui, "commentary_btn"),
                   "C1 the window has a commentary box with its own send button")
-            # It must be reachable from EVERY tab, not parked behind one.
+            # DESIGN REVERSED 2026-08-17 (defect 2). It used to have to live OUTSIDE the tab strip
+            # so it was reachable from every panel; the owner reported that made it "take a whole
+            # section of every tab" and asked for "a separate tab only." Now the assertion is the
+            # opposite: it must live INSIDE the notebook, on its OWN dedicated tab, so it no longer
+            # costs the other seven tabs any space. The unread count moves to the tab's own title.
+            check(hasattr(gui, "tab_commentary"),
+                  "C1-DEFECT2 the note box has its own dedicated notebook tab")
             parent = str(gui.commentary_box.winfo_parent())
-            check(".!notebook" not in parent,
-                  f"C1 and it lives OUTSIDE the tab strip, so it is on screen whatever panel is "
-                  f"open (its parent is {parent!r})")
+            if hasattr(gui, "tab_commentary"):
+                check(parent.startswith(str(gui.tab_commentary)),
+                      f"C1-DEFECT2 it lives INSIDE that one tab, not spread across every panel "
+                      f"(its parent is {parent!r}, its tab is {str(gui.tab_commentary)!r})")
+            check(".!notebook" in parent,
+                  f"C1-DEFECT2 and that tab is part of the notebook, not a bar under it (its "
+                  f"parent is {parent!r})")
 
             gui.commentary_box.insert("1.0", FROM_WINDOW)
             gui._send_commentary()
