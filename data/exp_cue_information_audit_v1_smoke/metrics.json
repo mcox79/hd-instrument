@@ -1,0 +1,539 @@
+{
+ "anchor_name": "exp_cue_information_audit_v1",
+ "grid": "reduced",
+ "out_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_information_audit_v1_smoke",
+ "ts_iso": "2026-08-17T15:32:03.081594+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_cue_information_audit_v1.py",
+   "--grid",
+   "reduced"
+  ],
+  "PASS": true
+ },
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "progress_logging": true,
+ "cache_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "REGRESSION_GATE": {
+  "what": "C0_PROJECTED_256 on the FULL landed open pool must reproduce the landed A0 number.",
+  "measured": 0.0223,
+  "expected": 0.0223,
+  "tol": 0.0005,
+  "PASS": true,
+  "n_scored": 3994
+ },
+ "corpus_provenance": {
+  "source": "rebuilt",
+  "elapsed_s": 25.7
+ },
+ "RECOVERABILITY_GATE": {
+  "n_items_total": 4000,
+  "n_checked_full_pop": 3994,
+  "n_L_mismatch": 0,
+  "n_sentidx_none_but_cache_kept_true": 0,
+  "max_abs_error": 0.0,
+  "ALL_EXACT": true,
+  "method": "C3.build_items() over a read-only shim serving the CACHED anchor matrix, checked against EVERY item the cache marks kept -- not a subsample."
+ },
+ "POOL": {
+  "grid": "reduced",
+  "n_items_working": 150,
+  "n_anchors_working": 250,
+  "n_items_eligible_full_pop": 3994,
+  "n_anchors_full_pop": 5491
+ },
+ "aux_source": "reused:D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+ "STORE_COUNTS_BUILD": {
+  "n_built": 250,
+  "n_reused": 0,
+  "elapsed_s": 4.0
+ },
+ "CONTEXT_CUE_BUILD": {
+  "n_built": 150,
+  "n_reused": 0,
+  "elapsed_s": 2.3
+ },
+ "CUE_KIND_COVERAGE": {
+  "context_sentence": 150,
+  "synonym_set_nonempty": 150,
+  "word_onset": 150,
+  "n_items_working": 150
+ },
+ "VOCAB": {
+  "n_distinct_content_words": 17557
+ },
+ "ENCODER_IDENTITY_STORE_SIDE": {
+  "n_anchors_checked": 250,
+  "max_abs_error_H_T_Pa_vs_mat": 0.0,
+  "BIT_EXACT": true
+ },
+ "ADDRESSING_ACCURACY_PRIMARY": {
+  "CONTEXT_SENTENCE": {
+   "n_items": 150,
+   "chance_1_over_n_anchors_eligible": 0.004,
+   "addressing_accuracy_tie_free_argmax": {
+    "C0_PROJECTED_256": 0.2333,
+    "U0_UNCOMPRESSED": 0.3267,
+    "K1_EXACT_KEY_C0": 1.0,
+    "K1_EXACT_KEY_U0": 1.0,
+    "N1_RANDOM_KEY_C0": 0.0,
+    "N1_RANDOM_KEY_U0": 0.0
+   },
+   "arm_digests": {
+    "C0_PROJECTED_256": "989bd1e68d7bd50f",
+    "U0_UNCOMPRESSED": "e2ddcbd0a5182509",
+    "K1_EXACT_KEY_C0": "4b8f1fdf84b712b0",
+    "K1_EXACT_KEY_U0": "4b8f1fdf84b712b0",
+    "N1_RANDOM_KEY_C0": "655a3ef0465a9f30",
+    "N1_RANDOM_KEY_U0": "655a3ef0465a9f30"
+   },
+   "MARGIN_vs_chance": {
+    "C0_PROJECTED_256": {
+     "point": 0.2293
+    },
+    "U0_UNCOMPRESSED": {
+     "point": 0.3227
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": 0.996
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": 0.996
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": -0.004
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": -0.004
+    }
+   },
+   "DECISIVE_MARGINS": {
+    "U0_UNCOMPRESSED_vs_C0_PROJECTED_256": {
+     "point": 0.0932,
+     "ci95": [
+      0.04,
+      0.1467
+     ],
+     "band": "ABOVE"
+    },
+    "U0_UNCOMPRESSED_vs_N1_RANDOM_KEY_U0": {
+     "point": 0.3267,
+     "ci95": [
+      0.2533,
+      0.4
+     ],
+     "band": "ABOVE"
+    },
+    "C0_PROJECTED_256_vs_N1_RANDOM_KEY_C0": {
+     "point": 0.2334,
+     "ci95": [
+      0.1667,
+      0.3067
+     ],
+     "band": "ABOVE"
+    },
+    "U0_UNCOMPRESSED_vs_K1_EXACT_KEY_U0": {
+     "point": -0.6733,
+     "ci95": [
+      -0.7467,
+      -0.6
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256_vs_K1_EXACT_KEY_C0": {
+     "point": -0.7666,
+     "ci95": [
+      -0.8333,
+      -0.6933
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "SYNONYM_SET": {
+   "n_items": 150,
+   "chance_1_over_n_anchors_eligible": 0.004,
+   "addressing_accuracy_tie_free_argmax": {
+    "C0_PROJECTED_256": 0.0333,
+    "U0_UNCOMPRESSED": 0.0533,
+    "K1_EXACT_KEY_C0": 1.0,
+    "K1_EXACT_KEY_U0": 1.0,
+    "N1_RANDOM_KEY_C0": 0.0133,
+    "N1_RANDOM_KEY_U0": 0.0
+   },
+   "arm_digests": {
+    "C0_PROJECTED_256": "4589983a20453f8e",
+    "U0_UNCOMPRESSED": "8b2ccc8161aa80b9",
+    "K1_EXACT_KEY_C0": "4b8f1fdf84b712b0",
+    "K1_EXACT_KEY_U0": "4b8f1fdf84b712b0",
+    "N1_RANDOM_KEY_C0": "396537a4a54f7ef0",
+    "N1_RANDOM_KEY_U0": "655a3ef0465a9f30"
+   },
+   "MARGIN_vs_chance": {
+    "C0_PROJECTED_256": {
+     "point": 0.0293
+    },
+    "U0_UNCOMPRESSED": {
+     "point": 0.0493
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": 0.996
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": 0.996
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": 0.0093
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": -0.004
+    }
+   },
+   "DECISIVE_MARGINS": {
+    "U0_UNCOMPRESSED_vs_C0_PROJECTED_256": {
+     "point": 0.0201,
+     "ci95": [
+      0.0,
+      0.0467
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "U0_UNCOMPRESSED_vs_N1_RANDOM_KEY_U0": {
+     "point": 0.0535,
+     "ci95": [
+      0.02,
+      0.0933
+     ],
+     "band": "ABOVE"
+    },
+    "C0_PROJECTED_256_vs_N1_RANDOM_KEY_C0": {
+     "point": 0.0201,
+     "ci95": [
+      -0.0133,
+      0.0533
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "U0_UNCOMPRESSED_vs_K1_EXACT_KEY_U0": {
+     "point": -0.9465,
+     "ci95": [
+      -0.98,
+      -0.9067
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256_vs_K1_EXACT_KEY_C0": {
+     "point": -0.9666,
+     "ci95": [
+      -0.9933,
+      -0.9333
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "WORD_ONSET": {
+   "n_items": 150,
+   "chance_1_over_n_anchors_eligible": 0.004,
+   "addressing_accuracy_tie_free_argmax": {
+    "C0_PROJECTED_256": 0.0,
+    "U0_UNCOMPRESSED": 0.0067,
+    "K1_EXACT_KEY_C0": 1.0,
+    "K1_EXACT_KEY_U0": 1.0,
+    "N1_RANDOM_KEY_C0": 0.0,
+    "N1_RANDOM_KEY_U0": 0.0067
+   },
+   "arm_digests": {
+    "C0_PROJECTED_256": "655a3ef0465a9f30",
+    "U0_UNCOMPRESSED": "f5221de1694d427f",
+    "K1_EXACT_KEY_C0": "4b8f1fdf84b712b0",
+    "K1_EXACT_KEY_U0": "4b8f1fdf84b712b0",
+    "N1_RANDOM_KEY_C0": "655a3ef0465a9f30",
+    "N1_RANDOM_KEY_U0": "f5221de1694d427f"
+   },
+   "MARGIN_vs_chance": {
+    "C0_PROJECTED_256": {
+     "point": -0.004
+    },
+    "U0_UNCOMPRESSED": {
+     "point": 0.0027
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": 0.996
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": 0.996
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": -0.004
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": 0.0027
+    }
+   },
+   "DECISIVE_MARGINS": {
+    "U0_UNCOMPRESSED_vs_C0_PROJECTED_256": {
+     "point": 0.0067,
+     "ci95": [
+      0.0,
+      0.02
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "U0_UNCOMPRESSED_vs_N1_RANDOM_KEY_U0": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C0_PROJECTED_256_vs_N1_RANDOM_KEY_C0": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "U0_UNCOMPRESSED_vs_K1_EXACT_KEY_U0": {
+     "point": -0.9933,
+     "ci95": [
+      -1.0,
+      -0.98
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256_vs_K1_EXACT_KEY_C0": {
+     "point": -1.0,
+     "ci95": [
+      -1.0,
+      -1.0
+     ],
+     "band": "BELOW"
+    }
+   }
+  }
+ },
+ "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "C0_PROJECTED_256": "989bd1e68d7bd50f",
+  "U0_UNCOMPRESSED": "e2ddcbd0a5182509",
+  "K1_EXACT_KEY_C0": "4b8f1fdf84b712b0",
+  "K1_EXACT_KEY_U0": "4b8f1fdf84b712b0",
+  "N1_RANDOM_KEY_C0": "655a3ef0465a9f30",
+  "N1_RANDOM_KEY_U0": "655a3ef0465a9f30"
+ },
+ "HIT_AT_1_SECONDARY": {
+  "chance_for_this_pool": 0.012932,
+  "C0_PROJECTED_256_regime": {
+   "n_common_scored": 100,
+   "chance_for_this_pool": 0.012932,
+   "hit_at_1_TIE_CORRECTED": {
+    "F1_TRIGRAM_ONLY": 0.175,
+    "F2_PREFIX_ONLY": 0.1039,
+    "F3_FREQUENCY": 0.0,
+    "C0_PROJECTED_256": 0.04,
+    "F4_CONSTANT_PROTOTYPE_C0": 0.03,
+    "F5_SCRAMBLE_C0": 0.04,
+    "K1_EXACT_KEY_C0": 0.06,
+    "N1_RANDOM_KEY_C0": 0.02
+   },
+   "hit_at_1_OPTIMISTIC": {
+    "F1_TRIGRAM_ONLY": 0.19,
+    "F2_PREFIX_ONLY": 0.17,
+    "F3_FREQUENCY": 0.0,
+    "C0_PROJECTED_256": 0.04,
+    "F4_CONSTANT_PROTOTYPE_C0": 0.03,
+    "F5_SCRAMBLE_C0": 0.04,
+    "K1_EXACT_KEY_C0": 0.06,
+    "N1_RANDOM_KEY_C0": 0.02
+   },
+   "hit_at_1_CONSERVATIVE": {
+    "F1_TRIGRAM_ONLY": 0.16,
+    "F2_PREFIX_ONLY": 0.08,
+    "F3_FREQUENCY": 0.0,
+    "C0_PROJECTED_256": 0.04,
+    "F4_CONSTANT_PROTOTYPE_C0": 0.03,
+    "F5_SCRAMBLE_C0": 0.04,
+    "K1_EXACT_KEY_C0": 0.06,
+    "N1_RANDOM_KEY_C0": 0.02
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_ONLY",
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_ONLY": {
+     "point": -0.0712,
+     "ci95": [
+      -0.1215,
+      -0.0275
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY": {
+     "point": -0.1751,
+     "ci95": [
+      -0.25,
+      -0.105
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256": {
+     "point": -0.1349,
+     "ci95": [
+      -0.215,
+      -0.06
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_C0": {
+     "point": -0.1452,
+     "ci95": [
+      -0.23,
+      -0.065
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_C0": {
+     "point": -0.1352,
+     "ci95": [
+      -0.215,
+      -0.06
+     ],
+     "band": "BELOW"
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": -0.1148,
+     "ci95": [
+      -0.205,
+      -0.025
+     ],
+     "band": "BELOW"
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": -0.1551,
+     "ci95": [
+      -0.235,
+      -0.08
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "U0_UNCOMPRESSED_regime": {
+   "n_common_scored": 100,
+   "chance_for_this_pool": 0.012932,
+   "hit_at_1_TIE_CORRECTED": {
+    "F1_TRIGRAM_ONLY": 0.175,
+    "F2_PREFIX_ONLY": 0.1039,
+    "F3_FREQUENCY": 0.0,
+    "U0_UNCOMPRESSED": 0.01,
+    "F4_CONSTANT_PROTOTYPE_U0": 0.0,
+    "F5_SCRAMBLE_U0": 0.02,
+    "K1_EXACT_KEY_U0": 0.05,
+    "N1_RANDOM_KEY_U0": 0.01
+   },
+   "hit_at_1_OPTIMISTIC": {
+    "F1_TRIGRAM_ONLY": 0.19,
+    "F2_PREFIX_ONLY": 0.17,
+    "F3_FREQUENCY": 0.0,
+    "U0_UNCOMPRESSED": 0.01,
+    "F4_CONSTANT_PROTOTYPE_U0": 0.0,
+    "F5_SCRAMBLE_U0": 0.02,
+    "K1_EXACT_KEY_U0": 0.05,
+    "N1_RANDOM_KEY_U0": 0.01
+   },
+   "hit_at_1_CONSERVATIVE": {
+    "F1_TRIGRAM_ONLY": 0.16,
+    "F2_PREFIX_ONLY": 0.08,
+    "F3_FREQUENCY": 0.0,
+    "U0_UNCOMPRESSED": 0.01,
+    "F4_CONSTANT_PROTOTYPE_U0": 0.0,
+    "F5_SCRAMBLE_U0": 0.02,
+    "K1_EXACT_KEY_U0": 0.05,
+    "N1_RANDOM_KEY_U0": 0.01
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_ONLY",
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_ONLY": {
+     "point": -0.0712,
+     "ci95": [
+      -0.1215,
+      -0.0275
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY": {
+     "point": -0.1751,
+     "ci95": [
+      -0.25,
+      -0.105
+     ],
+     "band": "BELOW"
+    },
+    "U0_UNCOMPRESSED": {
+     "point": -0.165,
+     "ci95": [
+      -0.24,
+      -0.095
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_U0": {
+     "point": -0.1751,
+     "ci95": [
+      -0.25,
+      -0.105
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_U0": {
+     "point": -0.1551,
+     "ci95": [
+      -0.23,
+      -0.085
+     ],
+     "band": "BELOW"
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": -0.1245,
+     "ci95": [
+      -0.21,
+      -0.045
+     ],
+     "band": "BELOW"
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": -0.1651,
+     "ci95": [
+      -0.245,
+      -0.09
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "note": "K1_EXACT_KEY's hit@1-vs-WordNet-gold number here is NOT a validity gate (the item's own index is excluded from its eligible pool by construction -- see excl arrays), unlike its addressing-accuracy reading above which IS the gate. Reported for transparency only."
+ },
+ "CUE_KIND_SPLIT_NOTE": "SYNONYM_SET's hit@1-vs-WordNet-gold read (not computed here, addressing-accuracy only) would be INADMISSIBLE_CIRCULAR: the cue is built from the SAME WordNet relation that builds the gold set. The addressing-accuracy read above is NOT circular -- the item's own identity is never in its synonym/onset cue -- and is the one reported.",
+ "STOP_IF_VERDICT": {
+  "verdict": "iii_U0_BEATS_C0_compression_is_the_defect",
+  "headline": "U0_UNCOMPRESSED CI-separated ABOVE C0_PROJECTED_256 ({'point': 0.0932, 'ci95': [0.04, 0.1467], 'band': 'ABOVE'}): the 256-dim random projection is destroying recoverable information. The sibling item's address build becomes an EXPANSION question with this measured target.",
+  "K1_EXACT_KEY_C0": 1.0,
+  "K1_EXACT_KEY_U0": 1.0,
+  "decisive_margin_U0_vs_C0": {
+   "point": 0.0932,
+   "ci95": [
+    0.04,
+    0.1467
+   ],
+   "band": "ABOVE"
+  }
+ },
+ "elapsed_s": 52.0
+}

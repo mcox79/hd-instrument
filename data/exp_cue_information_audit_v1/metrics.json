@@ -1,0 +1,539 @@
+{
+ "anchor_name": "exp_cue_information_audit_v1",
+ "grid": "full",
+ "out_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_information_audit_v1",
+ "ts_iso": "2026-08-17T15:33:56.316728+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_cue_information_audit_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "progress_logging": true,
+ "cache_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "REGRESSION_GATE": {
+  "what": "C0_PROJECTED_256 on the FULL landed open pool must reproduce the landed A0 number.",
+  "measured": 0.0223,
+  "expected": 0.0223,
+  "tol": 0.0005,
+  "PASS": true,
+  "n_scored": 3994
+ },
+ "corpus_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+ },
+ "RECOVERABILITY_GATE": {
+  "n_items_total": 4000,
+  "n_checked_full_pop": 3994,
+  "n_L_mismatch": 0,
+  "n_sentidx_none_but_cache_kept_true": 0,
+  "max_abs_error": 0.0,
+  "ALL_EXACT": true,
+  "method": "C3.build_items() over a read-only shim serving the CACHED anchor matrix, checked against EVERY item the cache marks kept -- not a subsample."
+ },
+ "POOL": {
+  "grid": "full",
+  "n_items_working": 3994,
+  "n_anchors_working": 5491,
+  "n_items_eligible_full_pop": 3994,
+  "n_anchors_full_pop": 5491
+ },
+ "aux_source": "reused:D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+ "STORE_COUNTS_BUILD": {
+  "n_built": 5491,
+  "n_reused": 0,
+  "elapsed_s": 94.7
+ },
+ "CONTEXT_CUE_BUILD": {
+  "n_built": 3994,
+  "n_reused": 0,
+  "elapsed_s": 55.7
+ },
+ "CUE_KIND_COVERAGE": {
+  "context_sentence": 3994,
+  "synonym_set_nonempty": 3994,
+  "word_onset": 3994,
+  "n_items_working": 3994
+ },
+ "VOCAB": {
+  "n_distinct_content_words": 54298
+ },
+ "ENCODER_IDENTITY_STORE_SIDE": {
+  "n_anchors_checked": 5491,
+  "max_abs_error_H_T_Pa_vs_mat": 0.0,
+  "BIT_EXACT": true
+ },
+ "ADDRESSING_ACCURACY_PRIMARY": {
+  "CONTEXT_SENTENCE": {
+   "n_items": 3994,
+   "chance_1_over_n_anchors_eligible": 0.000182,
+   "addressing_accuracy_tie_free_argmax": {
+    "C0_PROJECTED_256": 0.0711,
+    "U0_UNCOMPRESSED": 0.0849,
+    "K1_EXACT_KEY_C0": 1.0,
+    "K1_EXACT_KEY_U0": 1.0,
+    "N1_RANDOM_KEY_C0": 0.0003,
+    "N1_RANDOM_KEY_U0": 0.0003
+   },
+   "arm_digests": {
+    "C0_PROJECTED_256": "ead1b262d643f9d5",
+    "U0_UNCOMPRESSED": "bcdf70a9071d09fa",
+    "K1_EXACT_KEY_C0": "f6d4b640739754f0",
+    "K1_EXACT_KEY_U0": "f6d4b640739754f0",
+    "N1_RANDOM_KEY_C0": "12abbb6c9be6da35",
+    "N1_RANDOM_KEY_U0": "12abbb6c9be6da35"
+   },
+   "MARGIN_vs_chance": {
+    "C0_PROJECTED_256": {
+     "point": 0.0709
+    },
+    "U0_UNCOMPRESSED": {
+     "point": 0.0847
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": 0.9998
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": 0.9998
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": 0.0001
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": 0.0001
+    }
+   },
+   "DECISIVE_MARGINS": {
+    "U0_UNCOMPRESSED_vs_C0_PROJECTED_256": {
+     "point": 0.0138,
+     "ci95": [
+      0.0083,
+      0.0195
+     ],
+     "band": "ABOVE"
+    },
+    "U0_UNCOMPRESSED_vs_N1_RANDOM_KEY_U0": {
+     "point": 0.0846,
+     "ci95": [
+      0.0761,
+      0.0934
+     ],
+     "band": "ABOVE"
+    },
+    "C0_PROJECTED_256_vs_N1_RANDOM_KEY_C0": {
+     "point": 0.0708,
+     "ci95": [
+      0.0628,
+      0.0789
+     ],
+     "band": "ABOVE"
+    },
+    "U0_UNCOMPRESSED_vs_K1_EXACT_KEY_U0": {
+     "point": -0.9151,
+     "ci95": [
+      -0.9236,
+      -0.9064
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256_vs_K1_EXACT_KEY_C0": {
+     "point": -0.9289,
+     "ci95": [
+      -0.9369,
+      -0.9209
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "SYNONYM_SET": {
+   "n_items": 3994,
+   "chance_1_over_n_anchors_eligible": 0.000182,
+   "addressing_accuracy_tie_free_argmax": {
+    "C0_PROJECTED_256": 0.0035,
+    "U0_UNCOMPRESSED": 0.0148,
+    "K1_EXACT_KEY_C0": 1.0,
+    "K1_EXACT_KEY_U0": 1.0,
+    "N1_RANDOM_KEY_C0": 0.0,
+    "N1_RANDOM_KEY_U0": 0.0003
+   },
+   "arm_digests": {
+    "C0_PROJECTED_256": "36b709218d6ca3f3",
+    "U0_UNCOMPRESSED": "5c87b56b014c0248",
+    "K1_EXACT_KEY_C0": "f6d4b640739754f0",
+    "K1_EXACT_KEY_U0": "f6d4b640739754f0",
+    "N1_RANDOM_KEY_C0": "8f65568c6bc6fc1f",
+    "N1_RANDOM_KEY_U0": "d81de0ac27b81f17"
+   },
+   "MARGIN_vs_chance": {
+    "C0_PROJECTED_256": {
+     "point": 0.0033
+    },
+    "U0_UNCOMPRESSED": {
+     "point": 0.0146
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": 0.9998
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": 0.9998
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": -0.0002
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": 0.0001
+    }
+   },
+   "DECISIVE_MARGINS": {
+    "U0_UNCOMPRESSED_vs_C0_PROJECTED_256": {
+     "point": 0.0113,
+     "ci95": [
+      0.008,
+      0.0148
+     ],
+     "band": "ABOVE"
+    },
+    "U0_UNCOMPRESSED_vs_N1_RANDOM_KEY_U0": {
+     "point": 0.0145,
+     "ci95": [
+      0.0108,
+      0.0185
+     ],
+     "band": "ABOVE"
+    },
+    "C0_PROJECTED_256_vs_N1_RANDOM_KEY_C0": {
+     "point": 0.0035,
+     "ci95": [
+      0.0018,
+      0.0055
+     ],
+     "band": "ABOVE"
+    },
+    "U0_UNCOMPRESSED_vs_K1_EXACT_KEY_U0": {
+     "point": -0.9852,
+     "ci95": [
+      -0.989,
+      -0.9815
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256_vs_K1_EXACT_KEY_C0": {
+     "point": -0.9965,
+     "ci95": [
+      -0.9982,
+      -0.9945
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "WORD_ONSET": {
+   "n_items": 3994,
+   "chance_1_over_n_anchors_eligible": 0.000182,
+   "addressing_accuracy_tie_free_argmax": {
+    "C0_PROJECTED_256": 0.0008,
+    "U0_UNCOMPRESSED": 0.0008,
+    "K1_EXACT_KEY_C0": 1.0,
+    "K1_EXACT_KEY_U0": 1.0,
+    "N1_RANDOM_KEY_C0": 0.0005,
+    "N1_RANDOM_KEY_U0": 0.0003
+   },
+   "arm_digests": {
+    "C0_PROJECTED_256": "01df2254dcb3e103",
+    "U0_UNCOMPRESSED": "97002717cdafe773",
+    "K1_EXACT_KEY_C0": "f6d4b640739754f0",
+    "K1_EXACT_KEY_U0": "f6d4b640739754f0",
+    "N1_RANDOM_KEY_C0": "aef347c10245bf9a",
+    "N1_RANDOM_KEY_U0": "b03012c174254ee9"
+   },
+   "MARGIN_vs_chance": {
+    "C0_PROJECTED_256": {
+     "point": 0.0006
+    },
+    "U0_UNCOMPRESSED": {
+     "point": 0.0006
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": 0.9998
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": 0.9998
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": 0.0003
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": 0.0001
+    }
+   },
+   "DECISIVE_MARGINS": {
+    "U0_UNCOMPRESSED_vs_C0_PROJECTED_256": {
+     "point": 0.0,
+     "ci95": [
+      -0.0013,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "U0_UNCOMPRESSED_vs_N1_RANDOM_KEY_U0": {
+     "point": 0.0005,
+     "ci95": [
+      0.0,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C0_PROJECTED_256_vs_N1_RANDOM_KEY_C0": {
+     "point": 0.0003,
+     "ci95": [
+      -0.0008,
+      0.0015
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "U0_UNCOMPRESSED_vs_K1_EXACT_KEY_U0": {
+     "point": -0.9992,
+     "ci95": [
+      -1.0,
+      -0.9982
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256_vs_K1_EXACT_KEY_C0": {
+     "point": -0.9993,
+     "ci95": [
+      -1.0,
+      -0.9982
+     ],
+     "band": "BELOW"
+    }
+   }
+  }
+ },
+ "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "C0_PROJECTED_256": "ead1b262d643f9d5",
+  "U0_UNCOMPRESSED": "bcdf70a9071d09fa",
+  "K1_EXACT_KEY_C0": "f6d4b640739754f0",
+  "K1_EXACT_KEY_U0": "f6d4b640739754f0",
+  "N1_RANDOM_KEY_C0": "12abbb6c9be6da35",
+  "N1_RANDOM_KEY_U0": "12abbb6c9be6da35"
+ },
+ "HIT_AT_1_SECONDARY": {
+  "chance_for_this_pool": 0.010088,
+  "C0_PROJECTED_256_regime": {
+   "n_common_scored": 3994,
+   "chance_for_this_pool": 0.010088,
+   "hit_at_1_TIE_CORRECTED": {
+    "F1_TRIGRAM_ONLY": 0.0871,
+    "F2_PREFIX_ONLY": 0.0551,
+    "F3_FREQUENCY": 0.0185,
+    "C0_PROJECTED_256": 0.0223,
+    "F4_CONSTANT_PROTOTYPE_C0": 0.139,
+    "F5_SCRAMBLE_C0": 0.0105,
+    "K1_EXACT_KEY_C0": 0.0481,
+    "N1_RANDOM_KEY_C0": 0.0068
+   },
+   "hit_at_1_OPTIMISTIC": {
+    "F1_TRIGRAM_ONLY": 0.0984,
+    "F2_PREFIX_ONLY": 0.0941,
+    "F3_FREQUENCY": 0.0185,
+    "C0_PROJECTED_256": 0.0223,
+    "F4_CONSTANT_PROTOTYPE_C0": 0.139,
+    "F5_SCRAMBLE_C0": 0.0105,
+    "K1_EXACT_KEY_C0": 0.0481,
+    "N1_RANDOM_KEY_C0": 0.0068
+   },
+   "hit_at_1_CONSERVATIVE": {
+    "F1_TRIGRAM_ONLY": 0.0786,
+    "F2_PREFIX_ONLY": 0.0371,
+    "F3_FREQUENCY": 0.0185,
+    "C0_PROJECTED_256": 0.0223,
+    "F4_CONSTANT_PROTOTYPE_C0": 0.139,
+    "F5_SCRAMBLE_C0": 0.0105,
+    "K1_EXACT_KEY_C0": 0.0481,
+    "N1_RANDOM_KEY_C0": 0.0068
+   },
+   "BINDING_FLOOR": "F4_CONSTANT_PROTOTYPE_C0",
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F1_TRIGRAM_ONLY": {
+     "point": -0.0519,
+     "ci95": [
+      -0.0655,
+      -0.0382
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_ONLY": {
+     "point": -0.0838,
+     "ci95": [
+      -0.0957,
+      -0.0718
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY": {
+     "point": -0.1205,
+     "ci95": [
+      -0.1322,
+      -0.1092
+     ],
+     "band": "BELOW"
+    },
+    "C0_PROJECTED_256": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1284,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_C0": {
+     "point": -0.1284,
+     "ci95": [
+      -0.1395,
+      -0.1177
+     ],
+     "band": "BELOW"
+    },
+    "K1_EXACT_KEY_C0": {
+     "point": -0.0909,
+     "ci95": [
+      -0.1032,
+      -0.0784
+     ],
+     "band": "BELOW"
+    },
+    "N1_RANDOM_KEY_C0": {
+     "point": -0.1322,
+     "ci95": [
+      -0.1432,
+      -0.1214
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "U0_UNCOMPRESSED_regime": {
+   "n_common_scored": 3994,
+   "chance_for_this_pool": 0.010088,
+   "hit_at_1_TIE_CORRECTED": {
+    "F1_TRIGRAM_ONLY": 0.0871,
+    "F2_PREFIX_ONLY": 0.0551,
+    "F3_FREQUENCY": 0.0185,
+    "U0_UNCOMPRESSED": 0.024,
+    "F4_CONSTANT_PROTOTYPE_U0": 0.0013,
+    "F5_SCRAMBLE_U0": 0.0113,
+    "K1_EXACT_KEY_U0": 0.0603,
+    "N1_RANDOM_KEY_U0": 0.0068
+   },
+   "hit_at_1_OPTIMISTIC": {
+    "F1_TRIGRAM_ONLY": 0.0984,
+    "F2_PREFIX_ONLY": 0.0941,
+    "F3_FREQUENCY": 0.0185,
+    "U0_UNCOMPRESSED": 0.025,
+    "F4_CONSTANT_PROTOTYPE_U0": 0.0013,
+    "F5_SCRAMBLE_U0": 0.0123,
+    "K1_EXACT_KEY_U0": 0.0603,
+    "N1_RANDOM_KEY_U0": 0.0078
+   },
+   "hit_at_1_CONSERVATIVE": {
+    "F1_TRIGRAM_ONLY": 0.0786,
+    "F2_PREFIX_ONLY": 0.0371,
+    "F3_FREQUENCY": 0.0185,
+    "U0_UNCOMPRESSED": 0.024,
+    "F4_CONSTANT_PROTOTYPE_U0": 0.0013,
+    "F5_SCRAMBLE_U0": 0.0113,
+    "K1_EXACT_KEY_U0": 0.0603,
+    "N1_RANDOM_KEY_U0": 0.0068
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_ONLY",
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_ONLY": {
+     "point": -0.032,
+     "ci95": [
+      -0.0407,
+      -0.0234
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY": {
+     "point": -0.0686,
+     "ci95": [
+      -0.078,
+      -0.059
+     ],
+     "band": "BELOW"
+    },
+    "U0_UNCOMPRESSED": {
+     "point": -0.0631,
+     "ci95": [
+      -0.0727,
+      -0.0536
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_U0": {
+     "point": -0.0859,
+     "ci95": [
+      -0.0943,
+      -0.0773
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_U0": {
+     "point": -0.0759,
+     "ci95": [
+      -0.0849,
+      -0.0668
+     ],
+     "band": "BELOW"
+    },
+    "K1_EXACT_KEY_U0": {
+     "point": -0.0267,
+     "ci95": [
+      -0.0376,
+      -0.0158
+     ],
+     "band": "BELOW"
+    },
+    "N1_RANDOM_KEY_U0": {
+     "point": -0.0804,
+     "ci95": [
+      -0.0892,
+      -0.0715
+     ],
+     "band": "BELOW"
+    }
+   }
+  },
+  "note": "K1_EXACT_KEY's hit@1-vs-WordNet-gold number here is NOT a validity gate (the item's own index is excluded from its eligible pool by construction -- see excl arrays), unlike its addressing-accuracy reading above which IS the gate. Reported for transparency only."
+ },
+ "CUE_KIND_SPLIT_NOTE": "SYNONYM_SET's hit@1-vs-WordNet-gold read (not computed here, addressing-accuracy only) would be INADMISSIBLE_CIRCULAR: the cue is built from the SAME WordNet relation that builds the gold set. The addressing-accuracy read above is NOT circular -- the item's own identity is never in its synonym/onset cue -- and is the one reported.",
+ "STOP_IF_VERDICT": {
+  "verdict": "iii_U0_BEATS_C0_compression_is_the_defect",
+  "headline": "U0_UNCOMPRESSED CI-separated ABOVE C0_PROJECTED_256 ({'point': 0.0138, 'ci95': [0.0083, 0.0195], 'band': 'ABOVE'}): the 256-dim random projection is destroying recoverable information. The sibling item's address build becomes an EXPANSION question with this measured target.",
+  "K1_EXACT_KEY_C0": 1.0,
+  "K1_EXACT_KEY_U0": 1.0,
+  "decisive_margin_U0_vs_C0": {
+   "point": 0.0138,
+   "ci95": [
+    0.0083,
+    0.0195
+   ],
+   "band": "ABOVE"
+  }
+ },
+ "elapsed_s": 239.8
+}
