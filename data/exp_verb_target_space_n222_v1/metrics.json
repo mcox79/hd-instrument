@@ -1,0 +1,340 @@
+{
+  "anchor_name": "verb_target_space_n222_v1",
+  "code_version": "v1.0",
+  "prereg": "notes/PLAN_NEXT_24H.md section 4 ITEM 2 (2026-08-17) + section 0 RETRACTION 2 -- every threshold below (bar, floor set, N_PERM>=2000, stop-if) is fixed there, before this script was written. No separate preregs/*.md file: this item is explicitly a measurement of an existing target space, not a new channel.",
+  "run_mode": "full",
+  "N_PERM": 2000,
+  "N_BOOT": 10000,
+  "measures_the_instrument_not_a_capability": true,
+  "ruler_mode_gate": {
+    "RUN_MODE": "full",
+    "V": 4096,
+    "CORPUS_BYTES": 64000000,
+    "argv": [
+      "experiments/exp_verb_target_space_n222_v1.py"
+    ],
+    "PASS": true
+  },
+  "population_recount": {
+    "N": 666,
+    "V": 222,
+    "A": 111,
+    "total": 999,
+    "other_tags": {}
+  },
+  "pos_strata": {
+    "V": {
+      "pos": "V",
+      "n": 222,
+      "spearman_ci_halfwidth_approx_1_96_over_sqrt_n_minus_3": 0.1324,
+      "null_width_orientation_1_645_over_sqrt_n_minus_1": 0.1107,
+      "arm": "K1_OWN_NORMS",
+      "rho": {
+        "point": 0.260664623528911,
+        "ci95": [
+          0.12819156181508037,
+          0.38412857853684307
+        ],
+        "n": 222
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": 0.0183,
+        "F_FREQUENCY_HARDENED": 0.0341,
+        "F_CONSTANT_PROTOTYPE": 0.0536,
+        "F_SCRAMBLE_PERM_P95": 0.1152
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.14520982102612975,
+        "ci95": [
+          -0.049578333698588724,
+          0.33793877866114785
+        ],
+        "n": 222
+      },
+      "band": "NOT_SEPARATED",
+      "clears_floor": false,
+      "clears_ALL_FOUR_floors_ci_separated": false,
+      "min_ci_lo_over_all_floors": -0.049578333698588724,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.11523801249204918,
+        "p95_row_permutation": 0.10820665087783818,
+        "p95_gold_permutation": 0.11523801249204918,
+        "row_null_mean": 0.0014112844773023969,
+        "row_null_sd": 0.0666125894084163,
+        "n_perm": 2000,
+        "permutation_p_value": 0.0009995002498750624
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": 0.01825451913910641,
+          "margin": {
+            "point": 0.2424101043898046,
+            "ci95": [
+              0.04263438206274973,
+              0.4286849919110961
+            ],
+            "n": 222
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": 0.03405328005242816,
+          "margin": {
+            "point": 0.22661134347648285,
+            "ci95": [
+              0.04843279764672085,
+              0.40588160158844305
+            ],
+            "n": 222
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.05364982134668359,
+          "margin": {
+            "point": 0.20701480218222743,
+            "ci95": [
+              0.049562673767920236,
+              0.3589961664032459
+            ],
+            "n": 222
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.11523801249204918,
+          "margin": {
+            "point": 0.14520982102612975,
+            "ci95": [
+              -0.049578333698588724,
+              0.33793877866114785
+            ],
+            "n": 222
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_construction": {
+        "STATUS": "OURS -- generalised from the sibling bridging cells' asymmetric construction; see module docstring for why the exact construction does not type-check on a non-bridged population.",
+        "variant_used_as_the_reported_floor": "word2_replaced_by_stratum_prototype_word1_real",
+        "rho_word2_replaced_word1_real": 0.05365,
+        "rho_word1_replaced_word2_real": -0.03657,
+        "rho_both_endpoints_constant_DEGENERATE": null,
+        "both_endpoints_constant_note": "cos(proto, proto) == 1.0 for every pair by construction (zero variance in the scored channel); Spearman is mathematically UNDEFINED there. INS._spearman returns nan on zero-variance input; reported as null, not silently omitted, and NOT used as the reported floor."
+      },
+      "elapsed_s": 179.57
+    },
+    "N": {
+      "pos": "N",
+      "n": 666,
+      "spearman_ci_halfwidth_approx_1_96_over_sqrt_n_minus_3": 0.0761,
+      "null_width_orientation_1_645_over_sqrt_n_minus_1": 0.0638,
+      "arm": "K1_OWN_NORMS",
+      "rho": {
+        "point": 0.27453843280535856,
+        "ci95": [
+          0.199606555133666,
+          0.34745226090370596
+        ],
+        "n": 666
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": 0.0222,
+        "F_FREQUENCY_HARDENED": 0.0159,
+        "F_CONSTANT_PROTOTYPE": -0.1247,
+        "F_SCRAMBLE_PERM_P95": 0.068
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.20650632821994325,
+        "ci95": [
+          0.10153291146096298,
+          0.31023614698940893
+        ],
+        "n": 666
+      },
+      "band": "ABOVE",
+      "clears_floor": true,
+      "clears_ALL_FOUR_floors_ci_separated": true,
+      "min_ci_lo_over_all_floors": 0.10153291146096298,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.06803254940616786,
+        "p95_row_permutation": 0.06803254940616786,
+        "p95_gold_permutation": 0.06357803415968084,
+        "row_null_mean": 4.35292351507581e-05,
+        "row_null_sd": 0.0407096994621576,
+        "n_perm": 2000,
+        "permutation_p_value": 0.0004997501249375312
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": 0.02223305988844723,
+          "margin": {
+            "point": 0.25230537291691135,
+            "ci95": [
+              0.14164889679902146,
+              0.3581718152148766
+            ],
+            "n": 666
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": 0.01594979026129135,
+          "margin": {
+            "point": 0.2585886425440672,
+            "ci95": [
+              0.15892884288257042,
+              0.35775126688558484
+            ],
+            "n": 666
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": -0.12468580387611579,
+          "margin": {
+            "point": 0.39922423668147433,
+            "ci95": [
+              0.30272928826634377,
+              0.49272624791219266
+            ],
+            "n": 666
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.06803254940616786,
+          "margin": {
+            "point": 0.20650632821994325,
+            "ci95": [
+              0.10153291146096298,
+              0.31023614698940893
+            ],
+            "n": 666
+          },
+          "band": "ABOVE"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_construction": {
+        "STATUS": "OURS -- generalised from the sibling bridging cells' asymmetric construction; see module docstring for why the exact construction does not type-check on a non-bridged population.",
+        "variant_used_as_the_reported_floor": "word2_replaced_by_stratum_prototype_word1_real",
+        "rho_word2_replaced_word1_real": -0.124686,
+        "rho_word1_replaced_word2_real": -0.135755,
+        "rho_both_endpoints_constant_DEGENERATE": null,
+        "both_endpoints_constant_note": "cos(proto, proto) == 1.0 for every pair by construction (zero variance in the scored channel); Spearman is mathematically UNDEFINED there. INS._spearman returns nan on zero-variance input; reported as null, not silently omitted, and NOT used as the reported floor."
+      },
+      "elapsed_s": 422.27
+    },
+    "A": {
+      "pos": "A",
+      "n": 111,
+      "spearman_ci_halfwidth_approx_1_96_over_sqrt_n_minus_3": 0.1886,
+      "null_width_orientation_1_645_over_sqrt_n_minus_1": 0.1568,
+      "arm": "K1_OWN_NORMS",
+      "rho": {
+        "point": 0.14716690573412702,
+        "ci95": [
+          -0.04470294749424575,
+          0.32997723271679036
+        ],
+        "n": 111
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": 0.1237,
+        "F_FREQUENCY_HARDENED": 0.0067,
+        "F_CONSTANT_PROTOTYPE": 0.1492,
+        "F_SCRAMBLE_PERM_P95": 0.1546
+      },
+      "margin_over_strongest_floor": {
+        "point": -0.00741977452583209,
+        "ci95": [
+          -0.26662237780935166,
+          0.24786004074948495
+        ],
+        "n": 111
+      },
+      "band": "NOT_SEPARATED",
+      "clears_floor": false,
+      "clears_ALL_FOUR_floors_ci_separated": false,
+      "min_ci_lo_over_all_floors": -0.26662237780935166,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.15459764976694584,
+        "p95_row_permutation": 0.1544574594676553,
+        "p95_gold_permutation": 0.15459764976694584,
+        "row_null_mean": -0.00046241517922330323,
+        "row_null_sd": 0.09573270182264614,
+        "n_perm": 2000,
+        "permutation_p_value": 0.06046976511744128
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": 0.12368721502257506,
+          "margin": {
+            "point": 0.023479690711551968,
+            "ci95": [
+              -0.2507858911539659,
+              0.2993128950241697
+            ],
+            "n": 111
+          },
+          "band": "NOT_SEPARATED"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": 0.006665087066773838,
+          "margin": {
+            "point": 0.14050181866735317,
+            "ci95": [
+              -0.14790317161469557,
+              0.4210441191722521
+            ],
+            "n": 111
+          },
+          "band": "NOT_SEPARATED"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.14917506601790073,
+          "margin": {
+            "point": -0.002008160283773708,
+            "ci95": [
+              -0.21976003068288358,
+              0.22372854159214908
+            ],
+            "n": 111
+          },
+          "band": "NOT_SEPARATED"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.15459764976694584,
+          "margin": {
+            "point": -0.00741977452583209,
+            "ci95": [
+              -0.26662237780935166,
+              0.24786004074948495
+            ],
+            "n": 111
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_construction": {
+        "STATUS": "OURS -- generalised from the sibling bridging cells' asymmetric construction; see module docstring for why the exact construction does not type-check on a non-bridged population.",
+        "variant_used_as_the_reported_floor": "word1_replaced_by_stratum_prototype_word2_real",
+        "rho_word2_replaced_word1_real": 0.072289,
+        "rho_word1_replaced_word2_real": 0.149175,
+        "rho_both_endpoints_constant_DEGENERATE": null,
+        "both_endpoints_constant_note": "cos(proto, proto) == 1.0 for every pair by construction (zero variance in the scored channel); Spearman is mathematically UNDEFINED there. INS._spearman returns nan on zero-variance input; reported as null, not silently omitted, and NOT used as the reported floor."
+      },
+      "elapsed_s": 41.05
+    }
+  },
+  "verdict": "RETRACTION_2_MEASURED_K1_DOES_NOT_CLEAR_AT_N222",
+  "verdict_msg": "K1_OWN_NORMS does NOT clear max(4 floors) CI-separated at n=222 (band=NOT_SEPARATED, margin 0.14520982102612975 ci95=[-0.049578333698588724, 0.33793877866114785]) over strongest floor F_SCRAMBLE_PERM_P95. Null width orientation 0.1107, measured scramble p95 0.11523801249204918. THIS MEASURES THE INSTRUMENT, NOT A CAPABILITY. Whether this is 'measured rather than asserted' (plan stop-if ii) or 'power insufficient at every available n' (stop-if iii) turns on whether p95 fell toward the null-width orientation value or stayed elevated -- read both numbers above before citing either reading; this script does not adjudicate that judgment call.",
+  "elapsed_s": 652.75,
+  "summary": "K1_OWN_NORMS does NOT clear max(4 floors) CI-separated at n=222 (band=NOT_SEPARATED, margin 0.14520982102612975 ci95=[-0.049578333698588724, 0.33793877866114785]) over strongest floor F_SCRAMBLE_PERM_P95. Null width orientation 0.1107, measured scramble p95 0.11523801249204918. THIS MEASURES THE INSTRUMENT, NOT A CAPABILITY. Whether this is 'measured rather than asserted' (plan stop-if ii) or 'power insufficient at every available n' (stop-if iii) turns on whether p95 fell toward the null-width orientation value or stayed elevated -- read both numbers above before citing either reading; this script does not adjudicate that judgment call."
+}
