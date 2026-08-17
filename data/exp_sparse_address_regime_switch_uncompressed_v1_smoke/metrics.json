@@ -1,0 +1,373 @@
+{
+ "anchor_name": "exp_sparse_address_regime_switch_uncompressed_v1",
+ "CODE_VERSION": "v1.0.0",
+ "grid": "smoke",
+ "ts_iso": "2026-08-17T16:04:41.611674+00:00",
+ "host": "FrameworkMPC",
+ "pid": 27400,
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_sparse_address_regime_switch_uncompressed_v1.py",
+   "--grid",
+   "smoke"
+  ],
+  "PASS": true
+ },
+ "NO_LLM_IN_FLOW": true,
+ "progress_logging": true,
+ "TARGET_FROM_ITEM_1": {
+  "what": "exp_cue_information_audit_v1's U0_UNCOMPRESSED partial-cue addressing accuracy -- the ceiling this item is trying to reach or beat. REPRODUCED below as REGRESSION_GATE_U0_TARGET, never imported as a bare number.",
+  "measured_value": 0.0849,
+  "source": "data/exp_cue_information_audit_v1/metrics.json:ADDRESSING_ACCURACY_PRIMARY.CONTEXT_SENTENCE.addressing_accuracy_tie_free_argmax.U0_UNCOMPRESSED"
+ },
+ "EXPECTATION_BEFORE_RUNNING": "Per notes/substrate_phase_diagram_recovered_from_experimental_history_2026-08-17.md, d 256->8192 moved partial-cue addressing only 0.0711->0.0716 (1/16 of its own CI half-width) and a_write=1.0 beat every sparser level monotonically on the C0-based grid. EXPECTED here: A0_FLAT reproduces ~0.0849; no truncated-key config beats it CI-separated; the result is an EFFICIENCY finding, not a second capability win.",
+ "SETTLE_DESIGN_NOTE": "data/exp_cleanup_basin_conditional_v1/metrics.json (landed 2026-08-16 22:41, read here for the first time): lift vs A0_NO_CLEANUP is CI-separated ABOVE ONLY in the LOWEST-tau stratum (+0.0036 [+0.0009,+0.0072], b64) and NOT_SEPARATED in every higher stratum including the HIGHEST (+0.0154 [-0.0039,+0.0347]) -- the OPPOSITE of what basin theory predicts. This REFUTES the basin explanation for this organ and licenses NOT building an elaborate settle mechanism here. One cheap check (T1_SETTLED, score-space centering) is armed and EXPECTED null.",
+ "cache_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "REGRESSION_GATE_POPULATION": {
+  "what": "C0_PROJECTED_256 hit@1 on the FULL landed open pool must reproduce the landed number -- proves this cell scores the IDENTICAL population as exp_cue_information_audit_v1.",
+  "measured": 0.0223,
+  "expected": 0.0223,
+  "tol": 0.0005,
+  "PASS": true,
+  "n_scored": 3994
+ },
+ "corpus_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+ },
+ "RECOVERABILITY_GATE": {
+  "n_items_total": 4000,
+  "n_checked_full_pop": 3994,
+  "n_L_mismatch": 0,
+  "n_sentidx_none_but_cache_kept_true": 0,
+  "max_abs_error": 0.0,
+  "ALL_EXACT": true,
+  "method": "C3.build_items() over a read-only shim serving the CACHED anchor matrix, checked against EVERY item the cache marks kept -- not a subsample."
+ },
+ "POOL": {
+  "grid": "smoke",
+  "n_items_working": 200,
+  "n_anchors_working": 300,
+  "n_items_eligible_full_pop": 3994,
+  "n_anchors_full_pop": 5491
+ },
+ "STORE_COUNTS_BUILD": {
+  "n_built": 0,
+  "n_reused": 300,
+  "elapsed_s": 0.0
+ },
+ "CONTEXT_CUE_BUILD": {
+  "n_built": 0,
+  "n_reused": 200,
+  "elapsed_s": 0.0
+ },
+ "VOCAB": {
+  "n_distinct_content_words": 12551
+ },
+ "NNZ_PER_ROW": {
+  "anchor_key_mean": 209.88,
+  "anchor_key_median": 141.0,
+  "cue_mean": 12.16,
+  "cue_median": 11.0
+ },
+ "CARDINALITY": {
+  "expected_n_units": 36,
+  "measured_n_units": 36
+ },
+ "REGRESSION_GATE_U0_TARGET": {
+  "what": "A0_FLAT (K_WRITE=ALL, K_READ=ALL) must reproduce item 1's U0_UNCOMPRESSED partial-cue addressing accuracy on this cell's own construction of the identical population.",
+  "applicable_at_this_grid": false,
+  "note_if_not_applicable": "smoke uses a 300-anchor pool (chance=1/300) vs the full population's 5491 anchors (chance=1/5491) -- raw addressing accuracy is NOT comparable across pool sizes; this gate is meaningful ONLY at grid=full. Smoke instead verifies the MECHANISM fires: accuracy should separate cleanly across K_WRITE/K_READ levels, checked below.",
+  "measured": 0.34,
+  "expected": 0.0849,
+  "tol": 0.006,
+  "PASS": true
+ },
+ "SMOKE_DISCRIMINATOR_FIRES": {
+  "addressing_accuracy_by_K_WRITE_at_K_READ_ALL": {
+   "2": 0.125,
+   "4": 0.2,
+   "8": 0.21,
+   "16": 0.24,
+   "32": 0.27,
+   "ALL": 0.34
+  },
+  "monotone_in_K_WRITE": true
+ },
+ "ARM_SELECTION": {
+  "A0_FLAT": {
+   "K_WRITE": "ALL",
+   "K_READ": "ALL",
+   "ADDRESSING_ACCURACY": 0.34
+  },
+  "T1_SPARSE_KEY_DENSE_VALUE": {
+   "K_WRITE": "32",
+   "K_READ": "ALL",
+   "ADDRESSING_ACCURACY": 0.27
+  },
+  "T2_REGIME_SWITCH": {
+   "K_WRITE": "ALL",
+   "K_READ": "16",
+   "ADDRESSING_ACCURACY": 0.34
+  },
+  "C1_SPARSE_BOTH": {
+   "K_WRITE": "32",
+   "K_READ": "32",
+   "ADDRESSING_ACCURACY": 0.27
+  }
+ },
+ "VALIDITY": {
+  "K1_ORACLE_ADDRESS_self_match": {
+   "ADDRESSING_ACCURACY": 1.0,
+   "gate": 0.999,
+   "PASSES": true
+  },
+  "N1_RANDOM_ADDRESS": {
+   "ADDRESSING_ACCURACY": 0.01,
+   "chance": 0.00333333,
+   "NEAR_CHANCE": true
+  }
+ },
+ "ARMS_DIFFER_VERIFIED": {
+  "digests": {
+   "A0_FLAT": "dc5292ba3e957b7e",
+   "T1": "2994c34030bfebcb",
+   "T2": "dc5292ba3e957b7e",
+   "C1": "2994c34030bfebcb",
+   "K1_ORACLE": "e4d8a08d6fb2ee48",
+   "N1_RANDOM": "6f558cf988d8cb28",
+   "T1_SETTLED": "113ac1e8c4ef18ec"
+  },
+  "n_distinct": 5
+ },
+ "DECISIVE_MARGINS_ADDRESSING_PARTIAL_CUE": {
+  "T1_vs_A0_FLAT": {
+   "point": -0.07,
+   "ci95": [
+    -0.115,
+    -0.03
+   ],
+   "band": "BELOW"
+  },
+  "C1_vs_T1_key_value_decider": {
+   "point": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "T2_vs_T1_regime_switch_decider": {
+   "point": 0.07,
+   "ci95": [
+    0.03,
+    0.115
+   ],
+   "band": "ABOVE"
+  },
+  "T1_vs_N1_RANDOM": {
+   "point": 0.2603,
+   "ci95": [
+    0.195,
+    0.325
+   ],
+   "band": "ABOVE"
+  },
+  "T1_vs_K1_ORACLE": {
+   "point": -0.7297,
+   "ci95": [
+    -0.79,
+    -0.665
+   ],
+   "band": "BELOW"
+  },
+  "T1_SETTLED_vs_T1": {
+   "point": -0.0001,
+   "ci95": [
+    -0.015,
+    0.015
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "A0_FLAT_vs_N1_RANDOM": {
+   "point": 0.3303,
+   "ci95": [
+    0.2649,
+    0.4
+   ],
+   "band": "ABOVE"
+  }
+ },
+ "CI_HALF_WIDTHS": {
+  "T1_vs_A0_FLAT": 0.0425,
+  "C1_vs_T1_key_value_decider": 0.0,
+  "T2_vs_T1_regime_switch_decider": 0.0425,
+  "T1_vs_N1_RANDOM": 0.065,
+  "T1_vs_K1_ORACLE": 0.0625,
+  "T1_SETTLED_vs_T1": 0.015,
+  "A0_FLAT_vs_N1_RANDOM": 0.0675
+ },
+ "HIT_AT_1_SECONDARY_PARTIAL_CUE": {
+  "n_common_scored": 120,
+  "chance_for_this_pool": 0.009632,
+  "hit_at_1_TIE_CORRECTED": {
+   "F1_TRIGRAM_orthographic": 0.1292,
+   "F2_PREFIX_orthographic": 0.0869,
+   "F3_FREQUENCY_constant": 0.0,
+   "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0,
+   "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.025,
+   "A0_FLAT": 0.0083,
+   "T1_SPARSE_KEY_DENSE_VALUE": 0.0083,
+   "T2_REGIME_SWITCH": 0.0083,
+   "C1_SPARSE_BOTH": 0.0083,
+   "K1_ORACLE_ADDRESS": 0.0667,
+   "N1_RANDOM_ADDRESS": 0.0001,
+   "T1_SETTLED": 0.0083
+  },
+  "hit_at_1_OPTIMISTIC": {
+   "F1_TRIGRAM_orthographic": 0.1417,
+   "F2_PREFIX_orthographic": 0.15,
+   "F3_FREQUENCY_constant": 0.0,
+   "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0,
+   "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.025,
+   "A0_FLAT": 0.0083,
+   "T1_SPARSE_KEY_DENSE_VALUE": 0.0083,
+   "T2_REGIME_SWITCH": 0.0083,
+   "C1_SPARSE_BOTH": 0.0083,
+   "K1_ORACLE_ADDRESS": 0.0667,
+   "N1_RANDOM_ADDRESS": 0.0083,
+   "T1_SETTLED": 0.0083
+  },
+  "hit_at_1_CONSERVATIVE": {
+   "F1_TRIGRAM_orthographic": 0.1167,
+   "F2_PREFIX_orthographic": 0.0667,
+   "F3_FREQUENCY_constant": 0.0,
+   "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0,
+   "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.025,
+   "A0_FLAT": 0.0083,
+   "T1_SPARSE_KEY_DENSE_VALUE": 0.0083,
+   "T2_REGIME_SWITCH": 0.0083,
+   "C1_SPARSE_BOTH": 0.0083,
+   "K1_ORACLE_ADDRESS": 0.0667,
+   "N1_RANDOM_ADDRESS": 0.0,
+   "T1_SETTLED": 0.0083
+  },
+  "BINDING_FLOOR": "F1_TRIGRAM_orthographic",
+  "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+   "F2_PREFIX_orthographic": {
+    "point": -0.0424,
+    "ci95": [
+     -0.0793,
+     -0.012
+    ],
+    "band": "BELOW"
+   },
+   "F3_FREQUENCY_constant": {
+    "point": -0.1296,
+    "ci95": [
+     -0.1917,
+     -0.0708
+    ],
+    "band": "BELOW"
+   },
+   "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+    "point": -0.1296,
+    "ci95": [
+     -0.1917,
+     -0.0708
+    ],
+    "band": "BELOW"
+   },
+   "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+    "point": -0.1044,
+    "ci95": [
+     -0.1708,
+     -0.0375
+    ],
+    "band": "BELOW"
+   },
+   "A0_FLAT": {
+    "point": -0.1211,
+    "ci95": [
+     -0.1833,
+     -0.0625
+    ],
+    "band": "BELOW"
+   },
+   "T1_SPARSE_KEY_DENSE_VALUE": {
+    "point": -0.1211,
+    "ci95": [
+     -0.1833,
+     -0.0625
+    ],
+    "band": "BELOW"
+   },
+   "T2_REGIME_SWITCH": {
+    "point": -0.1211,
+    "ci95": [
+     -0.1833,
+     -0.0625
+    ],
+    "band": "BELOW"
+   },
+   "C1_SPARSE_BOTH": {
+    "point": -0.1211,
+    "ci95": [
+     -0.1833,
+     -0.0625
+    ],
+    "band": "BELOW"
+   },
+   "K1_ORACLE_ADDRESS": {
+    "point": -0.0631,
+    "ci95": [
+     -0.1417,
+     0.0126
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "N1_RANDOM_ADDRESS": {
+    "point": -0.1295,
+    "ci95": [
+     -0.1916,
+     -0.0708
+    ],
+    "band": "BELOW"
+   },
+   "T1_SETTLED": {
+    "point": -0.1211,
+    "ci95": [
+     -0.1833,
+     -0.0625
+    ],
+    "band": "BELOW"
+   }
+  }
+ },
+ "HIT_AT_1_NULL_p95_note": "F5_SCRAMBLE_NULL_anchor_map_permuted IS the empirical null distribution's representative draw (a single permutation, per the sibling cells' convention); its own hit@1 value is reported in hit_at_1_TIE_CORRECTED above and serves as the null p95 proxy beside every margin in DECISIVE_MARGINS_ADDRESSING_PARTIAL_CUE.",
+ "STOP_IF_VERDICT": {
+  "verdict": "ii_KEY_VALUE_DISTINCTION_NOT_DOING_THE_WORK",
+  "headline": "C1_SPARSE_BOTH matches T1_SPARSE_KEY_DENSE_VALUE ({'point': 0.0, 'ci95': [0.0, 0.0], 'band': 'NOT_SEPARATED'}) -- the key/value distinction is NOT doing the work on this geometry; the two-literature convergence claimed for the sibling design is REFUTED here.",
+  "old_ceiling_context": {
+   "OLD_C0_BASED_CEILING": 0.0716,
+   "A0_FLAT_exceeds_old_ceiling_by_construction": true,
+   "note": "A0_FLAT already sits above the OLD C0-based ceiling by construction (it reproduces item 1's 0.0849 target); comparing the new sweep to the OLD ceiling is reported for context only and is NOT the primary stop-if (iv) test."
+  },
+  "max_sweep_addressing_accuracy": 0.34
+ },
+ "ARMS_DIFFER_VERIFIED_flag": true,
+ "final_metrics_atomicity": "tmp_replace",
+ "cell_chunked": false,
+ "start_marker_written": true,
+ "crash_diagnostic_present": true,
+ "heartbeat_present": false,
+ "elapsed_s": 15.1,
+ "verdict": "COMPUTED",
+ "verdict_msg": "see STOP_IF_VERDICT / DECISIVE_MARGINS_ADDRESSING_PARTIAL_CUE / HIT_AT_1_SECONDARY_PARTIAL_CUE"
+}
