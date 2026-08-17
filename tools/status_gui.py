@@ -104,13 +104,31 @@ file is a renderer and nothing else: it polls on a background thread, hands the 
 main thread through a queue, and every render is wrapped so that a bad field degrades one panel
 instead of freezing the window.
 
-WRITES. Exactly one, and only when the owner presses the button: the board answer write-back,
-which goes through `board.resolve()` -- atomic temp-file-plus-replace, with its own self-test
-for hand-edited boards. Nothing else on this path writes anything.
+WRITES. Two, both to `notes/BOARD.md`, both only when the owner presses a button, and both
+delegated to `tools/board.py` rather than reimplemented -- it does the atomic temp-file-plus-replace
+rewrite, preserves hand-added sections verbatim, and round-trips a raw `|` typed into a cell, all
+under its own self-test. `Save my answer` -> `board.resolve()`; `File as a new note` ->
+`board.ask()` + `board.resolve()`. Nothing else on this path writes anything.
+
+THE ANSWER PANEL, and why it looks over-built (2026-08-16). The owner reported: *"'save my answer'
+doesn't do anything and regardless of what question I select the text box doesn't change. Also,
+periodically it resets my selected answer to the first one"*, and an answer was lost to it. Three
+defects, one shape -- the controls did not describe the state:
+  - the box was never rebound on selection, so a draft could be written to the WRONG question and
+    nothing on screen said so (the worst of the three: silent, and it corrupts the record);
+  - the 20 s refresh rebuilt the table and restored the selection only for QUESTION rows, so any
+    other row snapped back to the first one;
+  - Save stayed ENABLED over rows it could never write, and with zero open questions -- the live
+    state that night -- it could not write at all while still looking live.
+Hence: a caption naming the target question, per-question drafts, selection restored by row id for
+every kind, a Save that is disabled with a stated reason rather than refusing on press, a
+confirmation that quotes what landed and where, and an unconditional destination for typed text.
+Guarded by `verification/test_board_answer_panel.py`, every check of which failed before the fix.
 
 Keys: F5 or r = refresh now. Ctrl+1..7 = jump to a panel.
 
   python tools/status_gui.py --self-test    # renders normal / degraded / garbage states
+  python verification/test_board_answer_panel.py   # the answer panel's own witness
 """
 from __future__ import annotations
 
@@ -141,6 +159,12 @@ except Exception:  # pragma: no cover - the window must open without it
 REFRESH_MS = 20000        # collection costs ~2.5s; 20s is live enough and stays cheap
 TICK_MS = 1000
 POLL_WEDGE_S = 60         # collection is internally bounded well below this
+
+# The draft key for text typed while no answerable question is selected. It is a reserved key
+# rather than a discard, because that is precisely the text that was lost on 2026-08-16: the board
+# had no open question, every selectable row was a DECISION or STANDING item, and the owner's typed
+# answer had nowhere to live. It cannot collide with a board id -- board.py mints `Q<n>`.
+_UNATTACHED_DRAFT = "\x00unattached"
 
 # --- palette (dark, matched to the terminal; meanings are load-bearing) -----
 _BG = "#1e1e1e"
@@ -186,6 +210,15 @@ def _d(obj) -> dict:
 def _l(obj) -> list:
     """Same idea for anything rendered as a sequence of rows."""
     return obj if isinstance(obj, list) else []
+
+
+def _verbatim(text: str, n: int = 400) -> str:
+    """Quote the owner's own words back at them UNALTERED (only truncated, and visibly so).
+
+    Deliberately NOT `_short`, which strips a leading `exp_` -- harmless on an experiment name and
+    dishonest on a confirmation whose entire job is to show exactly what was written."""
+    s = (text or "").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
+    return s if len(s) <= n else s[:n] + f" [...{len(s) - n} more characters were also written]"
 
 
 def _short(name: str, n: int = 46) -> str:
@@ -273,7 +306,22 @@ class StatusWindow:
         self._last_error: str | None = None
         self._state: dict | None = None
         self._board_rows: list[dict] = []
+        # --- the answer panel's state. All four exist because of the 2026-08-16 report that an
+        # answer was typed, saved, and lost. See _show_board_detail / _save_answer.
+        # _selected_qid    the question Save may write to (None on a row that is not answerable)
+        # _selected_row_id the row the owner picked, WHATEVER ITS KIND, so a refresh can put it
+        #                  back. Restoring only QUESTION rows is what made the selection snap to
+        #                  the first row every 20 s.
+        # _answer_for      the question the text CURRENTLY IN THE BOX belongs to. Save refuses if
+        #                  this and _selected_qid disagree, so a draft can never be attached to a
+        #                  question the owner was not looking at.
+        # _drafts          one in-progress answer per question id, so switching rows neither
+        #                  carries text across nor throws it away.
         self._selected_qid: str | None = None
+        self._selected_row_id: str | None = None
+        self._answer_for: str | None = None
+        self._drafts: dict[str, str] = {}
+        self._board_writable: bool = False
 
         self._style()
         self._build()
@@ -718,7 +766,11 @@ class StatusWindow:
         self.board_detail = self._detail(f, height=10)
         self.board_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
 
-        ans = ttk.LabelFrame(f, text="YOUR ANSWER (typing here writes straight into notes/BOARD.md)")
+        # THE CAPTION IS LOAD-BEARING, not decoration. It names the exact question this box will
+        # write to, and it is the only thing standing between the owner and an answer attached to
+        # the wrong row. It is rewritten on every selection change by _sync_answer_ui().
+        ans = ttk.LabelFrame(f, text="YOUR ANSWER")
+        self.answer_frame = ans
         ans.grid(row=3, column=0, sticky="ew", pady=(6, 0))
         ans.columnconfigure(0, weight=1)
         self.answer_box = tk.Text(ans, height=3, wrap="word", bd=0, padx=8, pady=6,
@@ -726,13 +778,22 @@ class StatusWindow:
                                   highlightthickness=1, highlightbackground=_BORDER,
                                   font=("Segoe UI", 11))
         self.answer_box.grid(row=0, column=0, sticky="ew", padx=6, pady=6)
+        # Keystrokes are captured into the per-question draft as they happen, so that a refresh
+        # landing between the last keypress and the button press cannot lose them.
+        self.answer_box.bind("<KeyRelease>", lambda _e: self._stash_draft())
         btns = ttk.Frame(ans)
         btns.grid(row=0, column=1, sticky="ns", padx=(0, 6))
         self.answer_btn = ttk.Button(btns, text="Save my answer", command=self._save_answer)
         self.answer_btn.grid(row=0, column=0, sticky="ew", pady=(6, 3))
+        # THE ESCAPE HATCH. On the night this panel was reported broken the board had ZERO open
+        # questions, so every selectable row was a DECISION or a STANDING item, none of which can
+        # be written -- the owner typed a real answer and the panel had nowhere to put it. This
+        # button gives typed text somewhere to go REGARDLESS of what is selected: it files the text
+        # as its own board row, already answered, through the same tested board.py calls.
+        self.note_btn = ttk.Button(btns, text="File as a new note", command=self._file_note)
+        self.note_btn.grid(row=1, column=0, sticky="ew", pady=(0, 3))
         ttk.Button(btns, text="Clear",
-                   command=lambda: self.answer_box.delete("1.0", "end")).grid(row=1, column=0,
-                                                                              sticky="ew")
+                   command=self._clear_answer).grid(row=2, column=0, sticky="ew")
         self.answer_status = tk.Label(ans, text="", bg=_PANEL, fg=_DIM, anchor="w",
                                       font=("Segoe UI", 9), wraplength=1180, justify="left")
         self.answer_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 6))
@@ -1657,23 +1718,23 @@ class StatusWindow:
         except tk.TclError:
             pass
 
+        # Whether the DOCUMENT can be written at all. Whether the SELECTED ROW can be written is a
+        # separate question and is decided in _sync_answer_ui() -- conflating the two is what left
+        # the Save button enabled over a row it could never write.
+        self._board_writable = bool(b.get("status") == "OK" and b.get("writable") is not False)
         parts = []
         if b.get("status") != "OK":
             parts.append(f"THE BOARD IS {b.get('status')}: {b.get('detail', '')} -- no question "
                          f"can be answered from here.")
-            self.answer_btn.state(["disabled"])
         else:
             parts.append("Type your decision below and press Save -- QUESTION rows are written "
                          "straight into notes/BOARD.md. You can also answer without this window: "
                          "open notes/BOARD.md in any markdown editor on any device, type into the "
                          "ANSWER cell, and save.")
             if b.get("writable") is False:
-                self.answer_btn.state(["disabled"])
                 self.answer_status.configure(
                     text="notes/BOARD.md is not writable from here -- answer it in the file "
                          "instead.", fg=_AMBER)
-            else:
-                self.answer_btn.state(["!disabled"])
         if pl.get("status") == "OK":
             parts.append(f"DECISION and STANDING rows are NOT answerable here -- they are recorded "
                          f"in the plan and status documents and need an edit there. Every one of "
@@ -1728,16 +1789,86 @@ class StatusWindow:
                       tags=("bad" if drift else "warn", "even" if i % 2 == 0 else "odd"))
             i += 1
 
+        # A REFRESH MUST NEVER DESTROY IN-PROGRESS INPUT (2026-08-16 owner report: "periodically it
+        # resets my selected answer to the first one so it's hard to answer").
+        #
+        # This table is rebuilt from scratch every 20 s, which throws the selection away, so the
+        # selection has to be put back by ROW ID. It used to be put back from `_selected_qid`,
+        # which `_show_board_detail` sets to None for every kind except QUESTION -- so selecting a
+        # DECISION or a STANDING row left nothing to restore and the rebuild fell through to
+        # `next(iter(...))`, the first row. `_selected_row_id` records the pick WHATEVER ITS KIND.
+        # Falling back to the first row is now reserved for the case where the owner has genuinely
+        # not picked anything yet; if their row has disappeared (they just answered it) the
+        # selection is dropped rather than silently moved onto a neighbour.
         keep = None
-        if self._selected_qid:
+        if self._selected_row_id:
             keep = next((k for k, v in self._wait_rows.items()
-                         if v.get("id") == self._selected_qid), None)
+                         if v.get("id") == self._selected_row_id), None)
         if self._wait_rows:
-            tv.selection_set(keep or next(iter(self._wait_rows)))
-            self._show_board_detail()
+            if keep is None and self._selected_row_id is None:
+                keep = next(iter(self._wait_rows))
+            if keep is not None:
+                tv.selection_set(keep)
+                self._show_board_detail()
+            else:
+                tv.selection_remove(*tv.selection())
+                self._selected_qid = None
+                self._sync_answer_ui(None)
         else:
             self._set_text(self.board_detail, [("Nothing is waiting on you.\n", "good"),
                                                "No open question and no undecided standing item."])
+            self._selected_qid = None
+            self._sync_answer_ui(None)
+
+    # ---- the answer box: one draft per question, and it always says which -------------
+    def _draft_key(self) -> str:
+        """The key the box's CURRENT contents belong under. A draft typed while no question was
+        selected is kept too (under a reserved key) rather than thrown away -- that text is exactly
+        what was lost on 2026-08-16."""
+        return self._answer_for or _UNATTACHED_DRAFT
+
+    def _stash_draft(self) -> None:
+        self._drafts[self._draft_key()] = self.answer_box.get("1.0", "end").rstrip("\n")
+
+    def _load_draft(self, qid: str | None) -> None:
+        self.answer_box.delete("1.0", "end")
+        self.answer_box.insert("1.0", self._drafts.get(qid or _UNATTACHED_DRAFT, ""))
+        self._answer_for = qid
+
+    def _clear_answer(self) -> None:
+        self.answer_box.delete("1.0", "end")
+        self._drafts.pop(self._draft_key(), None)
+
+    def _sync_answer_ui(self, row: dict | None) -> None:
+        """Make the box SAY what it will do, and make the button able to do only that.
+
+        The 2026-08-16 report was three defects with one shape: the panel's controls did not
+        describe the panel's state. A caption that names the target question turns a silent
+        mis-attachment into something the owner can see before pressing anything, and a button
+        disabled with a stated reason turns "Save does nothing" into "Save cannot write THIS row,
+        because ...". An enabled control that refuses on press is the defect, not the guard."""
+        kind = (row or {}).get("_kind")
+        rid = (row or {}).get("id")
+        can_save = bool(self._board_writable and kind == "QUESTION" and rid)
+        if can_save:
+            cap = (f"YOUR ANSWER TO {rid}  --  pressing Save writes it into the ANSWER cell of "
+                   f"{rid} in notes/BOARD.md")
+        elif row is None:
+            cap = ("YOUR ANSWER  --  NOT ANSWERABLE: no row is selected, so there is nothing to "
+                   "write to. Anything you type here can still be filed with 'File as a new note'.")
+        elif kind == "QUESTION":
+            cap = (f"YOUR ANSWER TO {rid}  --  NOT ANSWERABLE: notes/BOARD.md cannot be written "
+                   f"from here. Type into the ANSWER cell in the file instead.")
+        else:
+            cap = (f"YOUR ANSWER  --  NOT ANSWERABLE: {rid} is a {kind} row, which is recorded in "
+                   f"the plan and status documents and has to be decided there. Use 'File as a new "
+                   f"note' to record a thought about it on the board instead.")
+        try:
+            self.answer_frame.configure(text=cap)
+        except tk.TclError:
+            pass
+        self.answer_btn.state(["!disabled"] if can_save else ["disabled"])
+        self.note_btn.state(["!disabled"] if self._board_writable else ["disabled"])
 
     def _show_board_detail(self) -> None:
         sel = self.board_tv.selection()
@@ -1745,9 +1876,19 @@ class StatusWindow:
         if not r:
             return
         kind = r.get("_kind")
+        # THE BOX FOLLOWS THE SELECTION (2026-08-16 owner report: "regardless of what question I
+        # select the text box doesn't change"). Before this, the box was never touched here, so
+        # text composed for one question stayed put when another was selected and Save attached it
+        # to the WRONG id, silently. Now the outgoing draft is banked under the question it was
+        # written for and the incoming question's own draft is loaded -- switching rows can neither
+        # carry text across nor discard it.
+        self._stash_draft()
         # Only a board QUESTION is answerable from this window; selecting anything else must not
         # arm the Save button against a row it cannot write.
         self._selected_qid = r.get("id") if kind == "QUESTION" else None
+        self._selected_row_id = r.get("id")
+        self._load_draft(self._selected_qid)
+        self._sync_answer_ui(r)
         if kind == "QUESTION":
             self._set_text(self.board_detail, [
                 (f"{r.get('id')}  {r.get('question')}\n\n", "h"),
@@ -1790,20 +1931,87 @@ class StatusWindow:
         self._set_text(self.board_detail, chunks)
 
     def _save_answer(self) -> None:
+        """Write the box into the selected question's ANSWER cell, and SAY SO ON SCREEN.
+
+        Every branch here reports. The owner's report was "'save my answer' doesn't do anything",
+        and an operation whose failure and whose success look identical is indistinguishable from
+        one that does nothing -- so a success echoes the id, the file and the text that landed, and
+        a failure says which of those did not happen. Nothing exits quietly."""
         text = self.answer_box.get("1.0", "end").strip()
         qid = self._selected_qid
         if not qid:
             self.answer_status.configure(
-                text="Pick a question first. Only QUESTION rows can be answered from this window "
-                     "-- DECISION and STANDING rows live in the plan and status documents and "
-                     "have to be decided there.", fg=_AMBER)
+                text="NOT SAVED: no answerable question is selected, so there is nothing to write "
+                     "to. Only QUESTION rows can be answered from this window -- DECISION and "
+                     "STANDING rows live in the plan and status documents. Your text is still in "
+                     "the box; 'File as a new note' will record it on the board as its own row.",
+                fg=_AMBER)
+            return
+        # DEFENCE IN DEPTH against the mis-attachment defect. The box and the selection are kept in
+        # step by _show_board_detail; if they have somehow drifted apart, REFUSE rather than write
+        # a draft against a question the owner was not looking at. Silence here is what put one
+        # question's words into another question's cell.
+        if self._answer_for != qid:
+            self.answer_status.configure(
+                text=f"NOT SAVED: the text in the box was written for "
+                     f"{self._answer_for or 'no question'}, but {qid} is selected. Nothing was "
+                     f"written. Re-select the question you meant and press Save again.", fg=_RED)
+            return
+        if not text:
+            self.answer_status.configure(
+                text=f"NOT SAVED: the box is empty, and an empty answer would silently close "
+                     f"{qid}. Nothing was written.", fg=_AMBER)
             return
         ok, msg = status_state.answer_question(qid, text)
-        self.answer_status.configure(text=msg, fg=_GREEN if ok else _RED)
-        if ok:
-            self.answer_box.delete("1.0", "end")
-            self._selected_qid = None
-            self.refresh_now()
+        if not ok:
+            # The text is deliberately LEFT IN THE BOX and in the draft, so a failed write never
+            # costs the owner what they typed.
+            self.answer_status.configure(
+                text=f"NOT SAVED to {status_state.BOARD_DOC}: {msg}   Your text is still in the "
+                     f"box.", fg=_RED)
+            return
+        # THE CONFIRMATION. It names the question, the file, and quotes the text back, so that
+        # "did that land?" is answerable from the screen alone.
+        self.answer_status.configure(
+            text=(f"SAVED to {qid}. Written into notes/BOARD.md ({status_state.BOARD_DOC}), in "
+                  f"{qid}'s ANSWER cell: \"{_verbatim(text)}\"   -- {msg}"),
+            fg=_GREEN)
+        self._drafts.pop(qid, None)
+        self.answer_box.delete("1.0", "end")
+        self._answer_for = None
+        self._selected_qid = None
+        self._selected_row_id = None
+        self.refresh_now()
+
+    def _file_note(self) -> None:
+        """Record the typed text on the board as its OWN already-answered row.
+
+        WHY THIS EXISTS. On 2026-08-16 the board had zero open questions, so every selectable row
+        was a DECISION or STANDING item, none of which this window can write -- and the owner typed
+        a real answer that consequently had nowhere to go and was lost. A panel with a text box and
+        no reachable destination is a trap. This gives typed text a destination unconditionally.
+
+        It goes through `board.ask()` + `board.resolve()` rather than touching the document,
+        because those are the tested calls: atomic temp-file rewrite, hand-added sections preserved
+        verbatim, a raw `|` in the text round-tripped."""
+        text = self.answer_box.get("1.0", "end").strip()
+        if not text:
+            self.answer_status.configure(
+                text="NOT FILED: the box is empty, so there is nothing to record.", fg=_AMBER)
+            return
+        ctx = self._selected_row_id or "no row selected"
+        ok, msg, new_id = status_state.file_board_note(text, context=ctx)
+        if not ok:
+            self.answer_status.configure(
+                text=f"NOT FILED to {status_state.BOARD_DOC}: {msg}   Your text is still in the "
+                     f"box.", fg=_RED)
+            return
+        self.answer_status.configure(
+            text=(f"FILED as {new_id}. Written into notes/BOARD.md ({status_state.BOARD_DOC}) "
+                  f"under ANSWERED, noted against {ctx}: \"{_verbatim(text)}\""), fg=_GREEN)
+        self._drafts.pop(self._draft_key(), None)
+        self.answer_box.delete("1.0", "end")
+        self.refresh_now()
 
     # ---- panel 6 ------------------------------------------------------
     def _r_running(self, s: dict) -> None:
@@ -2370,17 +2578,38 @@ def self_test() -> int:
               f"survives structurally wrong types in every panel ({gui._last_error})")
         check(bool(root.winfo_exists()), "the window is still alive after all three states")
 
-        # the write-back guard, through the button path
+        # THE WRITE-BACK GUARDS, through the button path. Every branch must SAY what it did:
+        # "Save does nothing" was the owner's report on 2026-08-16, and an operation whose failure
+        # is invisible is indistinguishable from one that does nothing. The panel's full behaviour
+        # (selection restore, per-question drafts, the caption, the round trip) is covered by
+        # verification/test_board_answer_panel.py; these three are the button-path guards.
         gui._selected_qid = None
+        gui._answer_for = None
+        gui.answer_box.delete("1.0", "end")
+        gui.answer_box.insert("1.0", "an answer with nothing selected")
         gui._save_answer()
-        check("Pick a question" in gui.answer_status.cget("text"),
-              "pressing Save with nothing selected refuses instead of writing")
+        check("NOT SAVED" in gui.answer_status.cget("text").upper(),
+              f"pressing Save with nothing selected SAYS it did not save, rather than doing "
+              f"nothing visible ({gui.answer_status.cget('text')[:70]!r})")
+        check(gui.answer_box.get("1.0", "end").strip() != "",
+              "and it does NOT discard what the owner typed")
+        # The box and the selection disagreeing is the mis-attachment defect. It must refuse.
+        gui._selected_qid = "Q_SELECTED_SELFTEST"
+        gui._answer_for = "Q_TYPED_FOR_SOMETHING_ELSE"
+        gui._save_answer()
+        check("NOT SAVED" in gui.answer_status.cget("text").upper()
+              and "Q_TYPED_FOR_SOMETHING_ELSE" in gui.answer_status.cget("text"),
+              f"a draft written for one question is REFUSED against a different selected "
+              f"question, and the refusal names both ({gui.answer_status.cget('text')[:90]!r})")
+        # And an id that is not on the board at all is refused by board.py itself.
         gui._selected_qid = "Q_DOES_NOT_EXIST_SELFTEST"
-        gui.answer_box.insert("1.0", "an answer to a question that does not exist")
+        gui._answer_for = "Q_DOES_NOT_EXIST_SELFTEST"
         gui._save_answer()
-        check("REFUSED" in gui.answer_status.cget("text"),
+        check("REFUSED" in gui.answer_status.cget("text").upper(),
               f"answering an unknown question id is REFUSED "
               f"({gui.answer_status.cget('text')[:70]})")
+        check("NOT SAVED" in gui.answer_status.cget("text").upper(),
+              "and the refusal leads with the fact that nothing was written")
     finally:
         try:
             root.destroy()

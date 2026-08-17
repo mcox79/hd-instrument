@@ -466,6 +466,41 @@ def answer_question(item_id: str, answer: str,
     return True, f"{row.get('id')} answered and moved to ANSWERED at {row.get('resolved')}."
 
 
+def file_board_note(text: str, context: str = "",
+                    board_path: Path | None = None) -> tuple[bool, str, str]:
+    """Record free text on the board as its own already-answered row. Returns (ok, msg, id).
+
+    WHY THIS EXISTS (2026-08-16). The GUI could only write into an EXISTING open question. On the
+    night the answer panel was reported broken the board had zero open questions, so the owner's
+    typed answer had no reachable destination and was lost. A text box the owner can type into must
+    always have somewhere to put the text.
+
+    Same discipline as answer_question above: NO second write path. It composes `board.ask()` and
+    `board.resolve()`, which between them do the atomic temp-file rewrite, preserve hand-added
+    sections verbatim, and round-trip a raw `|` typed into the text -- all covered by
+    `board.py self-test`. This function validates, delegates, and reports.
+    """
+    if _board is None:
+        return False, f"tools/board.py unavailable ({_BOARD_ERR})", ""
+    bp = Path(board_path) if board_path else BOARD_DOC
+    body = (text or "").strip()
+    if not body:
+        return False, "REFUSED: an empty note would record nothing.", ""
+    where = (context or "").strip() or "no row selected"
+    prompt = (f"NOTE TYPED INTO THE STATUS WINDOW while looking at {where}. Recorded verbatim "
+              f"because it did not belong to any open question.")
+    try:
+        row = _board.ask(prompt, why="nothing -- this is a record, not a question",
+                         rec="(no recommendation: the owner wrote this unprompted)",
+                         board_path=bp, status_path=STATUS_DOC)
+        done = _board.resolve(row["id"], body, bp, STATUS_DOC)
+    except Exception as exc:
+        return False, f"WRITE FAILED ({type(exc).__name__}: {exc}) -- board NOT changed.", ""
+    return (True,
+            f"{done.get('id')} recorded under ANSWERED at {done.get('resolved')}.",
+            str(done.get("id") or ""))
+
+
 # ---------------------------------------------------------------------------
 # PANEL 3 -- WHAT IS RUNNING RIGHT NOW
 # ---------------------------------------------------------------------------
