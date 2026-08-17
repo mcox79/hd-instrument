@@ -13,6 +13,25 @@ section 5 with pointers, and the three items it got wrong are retracted in secti
 authored no experiment cell, ran no cell, spawned no subagent, signalled no process, and demoted,
 re-labelled or deleted no metrics.json, atom or registry row.**
 
+---
+
+**UPDATE, LATER THE SAME DAY (2026-08-17, second audit/docs-only pass, at HEAD `0652e20a5`).**
+**ITEM 1 and ITEM 2 are both DONE.** Their outcomes, and which stop-if fired for each, are recorded
+in their own blocks in section 4 and summarised here:
+
+| item | landed | which stop-if fired | what it licenses |
+|---|---|---|---|
+| ITEM 1 -- is the answer in the cue at all | `eec21487d`, `data/exp_cue_information_audit_v1/` | **(iii)** -- `U0_UNCOMPRESSED` 0.0849 beats `C0_PROJECTED_256` 0.0711, +0.0138 [+0.0083,+0.0195], CI-separated | the information IS in the cue; the 256-dim compression is a MEASURED DEFECT; ITEM 3's capability half is UNBLOCKED with 0.0849 as the measured target |
+| ITEM 2 -- verbs at n=222 | `0652e20a5`, `data/exp_verb_target_space_n222_v1/` | **(ii)** -- does not clear, but the null width fell to ~0.11 as predicted | retraction 2 closes as **MEASURED**, not confirmed and not withdrawn; a verb-channel build is licensed citing THIS measurement and never the retired n=86 one |
+
+Every figure in this update block was re-derived from the two `metrics.json` files with `.venv`
+python by the second pass, not read from any agent's report. **ITEM 3's capability half is now
+unblocked and an agent is building it; this pass authored nothing for it and did not open
+`experiments/` or `hdlab/` for writing.** A new correction, **C35**, was filed against section 8b(D)
+of the handoff -- see `notes/STATUS.md` CORRECTIONS and `notes/STATUS_LESSONS.md`.
+
+---
+
 **EVIDENCE CLASSES, never merged.** Every figure below is marked **RECOMPUTED** (this pass opened
 the artifact and re-derived it with `.venv` python), **ON DISK** (the artifact records it and this
 pass read the field), or **AGENT MEASUREMENT** (exists only in another actor's fragment; attributed,
@@ -53,7 +72,20 @@ rewrite.** Stubs live in `notes/STATUS.md` as C32-C34; full reasoning in `notes/
 
 - **SUPERSEDED CLAIM:** that the existing 12-dim target space cannot order verb pairs even for a
   known-answer arm -- used to motivate building a new channel.
-- **STATUS: SUSPENDED, PROBABLY FALSE.** Not "confirmed wrong"; **unmeasurable as run.**
+- **STATUS AS OF 2026-08-17 (CLOSED): MEASURED.** Not confirmed and not withdrawn. It was SUSPENDED
+  because it was unmeasurable at n=86; ITEM 2 has now measured it at n=222 and the result stands as
+  a real, CI-honest negative rather than an artifact of sample size. *RECOMPUTED off
+  `data/exp_verb_target_space_n222_v1/metrics.json`:* K1_OWN_NORMS rho **0.2607** [0.1282, 0.3841]
+  (half-width 0.128); strongest floor `F_SCRAMBLE_PERM_P95` **0.1152** against the plan's own
+  null-width orientation 1.645/sqrt(221) = **0.1107** -- the null genuinely tightened, so this is
+  NOT a repeat of the n=86 failure; margin **+0.1452 [-0.0496, +0.3379] NOT_SEPARATED**;
+  row-permutation **p = 0.001**. Contrast strata, each on its own floors, never crossed: nouns
+  n=666 **+0.2065 [+0.1015, +0.3102] ABOVE**; adjectives n=111 **-0.0074 NOT_SEPARATED**
+  (permutation p 0.060). **A verb-channel build is licensed and must cite this measurement. The
+  n=86 number is RETIRED and may not be quoted again.**
+- **The two statistics disagree and both are reported rather than picking the flattering one:** the
+  permutation test says the verb correlation is real; the paired bootstrap on the margin says its
+  interval still crosses zero. The bar is the bootstrap, so the arm does not clear.
 - **THE MEASUREMENT IT RESTED ON, *ON DISK*:**
   `data/exp_thematic_relation_supply_bridged_grounding_v2/metrics.json`,
   `HILLS_2009_NOUN_VERB_FALSIFIER.known_answer_K1.V` -- n=**86**, rho 0.2576 [0.0401,0.4524], floor
@@ -273,9 +305,16 @@ inspecting or polling any process.
 | `exp_cleanup_basin_conditional_v1` | landed 08-16 22:41 | **NOT YET READ by anyone. Read it before designing ITEM 3's basin arms.** |
 | `exp_target_space_vs_bridge_mechanism_v1` | SMOKE only; the FULL directory does not exist | parked, section 5 |
 
-**Two agents stopped mid-task, both correctly, both on a denied fragment `Write`:**
-`partial-cue-structural` (owns ITEM 1's diagnosis) and `verb-target-space` (owns ITEM 2).
-**Resume each with one instruction: write your findings to `notes/`, not `.claude/scan-out/`.**
+**RESOLVED 2026-08-17 (later pass).** The two agents that had stopped mid-task on a denied fragment
+`Write` -- `partial-cue-structural` (ITEM 1) and `verb-target-space` (ITEM 2) -- were resumed with
+the "write findings to `notes/`" instruction and **both finished**. Their cells, findings notes and
+commits are in the UPDATE block at the top of this file. **Now live instead: an agent is building
+ITEM 3 in `experiments/` and `hdlab/`. Do not edit either tree while it runs.**
+
+| landed today | metrics | findings note |
+|---|---|---|
+| `exp_cue_information_audit_v1` | `data/exp_cue_information_audit_v1/metrics.json` | `notes/cue_information_audit_v1_findings_2026-08-17.md` |
+| `exp_verb_target_space_n222_v1` | `data/exp_verb_target_space_n222_v1/metrics.json` | `notes/item2_verb_target_space_n222_measurement_2026-08-17.md` |
 
 **Do not touch:** `data/foundation/reading_grounding_v1` and `v2_qualityfix` (22+23 MB, no backup,
 gitignored); `data/exp_coref_margin_gated_cleanup_local_window_break050_v1*`;
@@ -344,8 +383,35 @@ convenient) -> the can-fail design -> the floor -> the stop-if -> the runner -> 
 - **RUNNER.** `cpu_runner_local` (sparse count vectors over ~4,000 items is cheap); escalate to
   `cpu_runner_0` only if the full type vocabulary makes the dense contrast large.
 - **DEPENDENCY.** None. **BLOCKS ITEM 3's capability claim.**
-- **STATUS.** `experiments/exp_cue_information_audit_v1.py` is **NOT on disk as of this pass.
-  NO NUMBER EXISTS.** *(Verified by `ls` on the absolute path.)*
+- **STATUS: DONE, 2026-08-17, commit `eec21487d`.** *(The line this replaces read: "NOT on disk as
+  of this pass. NO NUMBER EXISTS." That was true when written and is now superseded.)*
+  **STOP-IF (iii) FIRED.** All figures below RECOMPUTED from
+  `data/exp_cue_information_audit_v1/metrics.json` by a later audit pass, not taken from any report.
+  - Primary measure, addressing accuracy, n=3,994, chance 1/5,491 = 0.000182:
+    **U0_UNCOMPRESSED 0.0849** vs **C0_PROJECTED_256 0.0711**, decisive margin **+0.0138
+    [+0.0083, +0.0195]**, half-width **0.0056**, band **ABOVE**. `K1_EXACT_KEY` **1.0000** on both
+    regimes (instrument alive); `N1_RANDOM_KEY` **0.0003** (chance, as designed).
+  - **THE ANSWER: the information IS in the cue, and our own 256-dim random projection is throwing
+    part of it away.** The compression is a measured defect. ITEM 3's capability half is UNBLOCKED
+    and 0.0849 is its measured target. Stop-if (i) did NOT fire, so the programme does NOT redirect
+    to the write side on this evidence.
+  - **DEFLATION THAT MUST TRAVEL WITH IT:** 0.0849 is still about eight percent. The gain is real
+    and small; the read-out ceiling is untouched (both regimes sit BELOW their own binding floors at
+    hit@1, C0 -0.1167 [-0.1284,-0.1054], U0 -0.0631 [-0.0727,-0.0536]).
+  - **THE PRECONDITION HELD.** Exact recoverability of the held-out sentence reproduced on **every**
+    eligible item (n=3,994, `max_abs_error 0.0`, `ALL_EXACT True`), not the 400-item sample the
+    earlier agent fragment checked, plus a store-side encoder identity `H^T P_a == mat[a]` that was
+    **bit-exact on all 5,491 anchors** and that the fragment never ran. It is no longer an unadopted
+    agent measurement. The regression gate reproduced the landed C0 number exactly (0.0223).
+  - **THE CUE-KIND SPLIT IS THE PART THAT SHOULD CHANGE A BUILD.** The owner's description of a
+    half-remembered word had TWO parts and we serve only one: same-meaning words **+0.0113
+    [+0.0080, +0.0148] ABOVE**; word onset **0.0 [-0.0013, +0.0013] NOT_SEPARATED**, with both
+    onset arms at 0.0008 against a random key at 0.0003-0.0005. The reason is structural, not
+    tuning: our only onset channel is the word's **first four characters hashed as one whole
+    symbol** (`ONSET_LEN = 4`), which cannot resemble anything unless a stored word IS that string.
+    *(The findings note calls this a "single-character-prefix" cue; that description is wrong, the
+    code uses four. Corrected here, off the source.)* **A BOARD QUESTION IS OPEN on whether to build
+    a real onset channel; it is not assumed.**
 
 ---
 
@@ -391,9 +457,33 @@ convenient) -> the can-fail design -> the floor -> the stop-if -> the runner -> 
   what benchmark could.
 - **RUNNER.** `cpu_runner_local`. It is a cosine and a Spearman over 222 pairs plus permutations.
 - **DEPENDENCY.** None. Does not touch ITEM 1's population or ITEM 3's store.
-- **STATUS.** No cell on disk. The agent that owns it (`verb-target-space`) stopped mid-task and
-  must be resumed with the "write to `notes/`" instruction. **It must run this BEFORE building any
-  channel, per section 0.**
+- **STATUS: DONE, 2026-08-17, commit `0652e20a5`.** *(The line this replaces read: "No cell on disk.
+  The agent that owns it stopped mid-task." Superseded.)* **STOP-IF (ii) FIRED.** All figures
+  RECOMPUTED from `data/exp_verb_target_space_n222_v1/metrics.json` by a later audit pass.
+  - Population recounted from the benchmark file itself: N 666, V 222, A 111, total 999 -- as the
+    plan expected.
+  - Verbs n=222: K1_OWN_NORMS rho **0.2607** [0.1282, 0.3841], half-width **0.128**. Floors on this
+    population only: orthographic 0.0183, frequency 0.0341, constant/prototype 0.0536, **scramble
+    p95 0.1152** (strongest). Margin over the strongest floor **+0.1452 [-0.0496, +0.3379]**,
+    **NOT_SEPARATED**. Row-permutation **p = 0.001** over 2,000 draws. It clears the other three
+    floors CI-separated; the scramble floor is the one it fails.
+  - **WHY THIS IS NOT THE n=86 FAILURE AGAIN, WHICH IS THE WHOLE POINT OF THE ITEM:** the plan
+    predicted the null width would fall to 1.645/sqrt(221) = **0.1107**; the measured scramble p95
+    came in at **0.1152**, a ratio of 1.04. The null tightened exactly as predicted, so the negative
+    is now a property of the space and not of the sample. That is stop-if (ii), not (iii).
+    *(Stop-if (iii)'s wording -- "p95 still of the same order as the margin" -- overlaps (ii) and
+    both numbers are given here so a reader can check the adjudication rather than take it. The
+    cell itself declined to adjudicate, and said so in its own verdict message.)*
+  - Contrast strata, own floors, never compared across populations: nouns n=666 **+0.2065
+    [+0.1015, +0.3102] ABOVE**; adjectives n=111 **-0.0074 [-0.2666, +0.2479] NOT_SEPARATED**,
+    permutation p 0.060.
+  - **RETRACTION 2 CLOSES IN THE "MEASURED RATHER THAN ASSERTED" DIRECTION.** A verb-channel build
+    is licensed by the plan's own wording for this branch -- after the brain-framed question ("which
+    experiential block is missing?") -- and **must cite this n=222 measurement. The n=86 number is
+    retired.**
+  - Independent reproduction worth keeping: this cell's noun stratum puts the constant/prototype
+    floor at **-0.1247**, a second, differently-constructed instance of retraction 3's reversal.
+    Direction only; the number is not importable.
 
 ---
 
@@ -467,6 +557,16 @@ convenient) -> the can-fail design -> the floor -> the stop-if -> the runner -> 
 - **DEPENDENCY.** **The CAPABILITY claim has a HARD DEPENDENCY ON ITEM 1** -- if the information is
   not in the cue, a better address cannot recover it. **The EFFICIENCY claim does not**, because the
   1%-occupancy match is already measured; that half may proceed as a wiring task at any time.
+- **STATUS 2026-08-17: THE DEPENDENCY IS DISCHARGED AND THE CAPABILITY HALF IS UNBLOCKED.** ITEM 1
+  fired stop-if (iii): the information is in the cue and the 256-dim projection is what loses it, so
+  this item becomes an EXPANSION question with a measured target of **0.0849** addressing (against
+  the incumbent's 0.0711) rather than an open bet. **An agent is building it now**; this docs pass
+  authored nothing for it and opened neither `experiments/` nor `hdlab/` for writing.
+  **Two constraints on the write-up, fixed before it lands, so they cannot be chosen afterwards:**
+  stop-if (iv) still stands -- if the sweep sits at or below the ~0.072-0.085 band it bought
+  EFFICIENCY, not capability, and must be reported in those words -- and **the phase-diagram pass
+  (`32cc8ce71`) says the `d=256 -> 1024` raise is justified for the comparison job and NOT for the
+  addressing job, so dimensionality here is a swept variable and not an adopted setting.**
 
 ---
 
@@ -582,22 +682,51 @@ COMPUTATION exactly, and treat the PARAMETER as a hypothesis.**
 
 ## 9. WHAT NEEDS CHANGING IN `notes/LONG_TERM_PLAN.md` -- REPORTED, NOT EDITED
 
-That file is **DIRECTOR-OWNED and was not opened for writing by this pass.** Four things in it are
-now stale, in descending order of cost:
+That file is **DIRECTOR-OWNED and was not opened for writing by this pass, nor by the later
+2026-08-17 pass.** Five things in it are now stale, in descending order of cost. **Items 1 and 2
+were re-checked on disk on 2026-08-17 and both are still unfixed at that date.**
 
-1. **Its Phase 2 kill condition has FIRED and the file does not say so.** Two bridging mechanisms --
-   thematic-hub copying and the owner's own selectional-constraint route -- are both measured nulls
-   with passing known-answer arms, and the second is CI-separated BELOW the first. Section 2.2(a).
-2. **Section 4 carries the DUAL-HUB account as `[PINNED]`.** It is **CONTESTED**: Lambon Ralph's
-   group reads the temporo-parietal effects as SEMANTIC CONTROL demands over one store rather than a
-   second store, and the two readings imply different builds (a second STORE vs a second CONTROL
-   SETTING). Downgrade the label.
+0. **BEFORE ANY OF THE BELOW: THE FILE HAS NEVER BEEN COMMITTED.** `git log -- notes/LONG_TERM_PLAN.md`
+   returns nothing and `git check-ignore` does not match it: **32,823 B of strategy exists in exactly
+   one uncommitted copy on disk.** That is the same state `PLAN_NEXT_24H.md` was in before it was
+   preserved verbatim at `da678875c`, and the same hazard class as the no-backup foundation stores.
+   **Commit it UNCHANGED first, then make the edits below** -- otherwise the first edit is also the
+   only version. This pass did not commit it because the file is Director-owned and this pass was
+   instructed not to touch it; the hazard is reported, not acted on.
+
+1. **ITS PHASE 2 KILL IS RECORDED AS FIRED, WITHOUT THE SUSPENSION THAT FOLLOWED IT.**
+   `LONG_TERM_PLAN.md` line 343 carries the banner *">>> THIS KILL CONDITION FIRED, 2026-08-17. TWO
+   INDEPENDENT MECHANISMS, BOTH NULL, BOTH GATED. <<<"*. That banner is now **half superseded** by
+   `COMPACTION_HANDOFF_2026-08-17.md` section 8b(B): the bridging instrument cannot CI-separate a
+   cue carrying under about 60% of the target's identity, and the thematic arm the kill fired on
+   carried 21-22%, so **the kill is WITHDRAWN for thematic neighbour-copying and only RE-WORDED for
+   the selectional route** (whose cue is genuinely near-empty). The file's own power caveat further
+   down is not the same statement and does not cover it. **The generalisation "grounding does not
+   propagate through our relations", which that section DOES license, does not survive either --
+   nothing below 60% was visible in that instrument at all.** *(This pass did not re-verify 8b(B)'s
+   numbers; it confirmed only that `data/exp_cue_regime_one_variable_v1/metrics.json` exists at
+   `run_mode: full` with verdict `BRIDGE_CUE_CARRIES_IDENTITY_NO__LAMBDA_STAR_0p60`.)*
+2. **Section 4 carries the DUAL-HUB account as `[PINNED]`** -- still present at line 185, unchanged
+   as of 2026-08-17. It is **CONTESTED**: Lambon Ralph's group reads the temporo-parietal effects as
+   SEMANTIC CONTROL demands over one store rather than a second store, and the two readings imply
+   different builds (a second STORE vs a second CONTROL SETTING). Downgrade the label. Presenting a
+   contested reading as pinned is the exact thing the standing fidelity gate bars, so this one is a
+   rule violation and not only a staleness.
 3. **Section 2 rows 3, 4 and 6** are superseded by the storage findings and by correction C30
    ("retrieval fine / we tie spelling" was exact-key and optimistic-tie only).
 4. **Section 6's "GloVe would raise our number tomorrow and teach us nothing -- ceiling reference
    only"** is superseded by the owner's Q3 ruling (a foundation may be built however is efficient;
    only an LLM at inference is disqualifying) and by the measured consequence: **21 of 47 foundations
    clear the binding floor and every one of them is a static-table supply or fusion arm.**
+5. **ADDED 2026-08-17: anywhere the file treats a substrate setting as decided, it is leaning on a
+   phase diagram that does not exist.** The recovery pass (`32cc8ce71`) enumerated 7,804 result
+   files from the filesystem and found **23 of 42 parameter-by-operation squares never measured**,
+   about 59 files varying dimensionality and about 21 varying sparsity, and six separate diagrams on
+   six scorers that may not be merged. The practical consequence for this file: the `d=256 -> 1024`
+   raise is justified for the comparison job and NOT for the addressing job, and **the binding
+   operator -- our core operation -- has never been varied on any job this programme runs on** (see
+   correction C35). Nothing here needs a new decision; it needs the word "measured" removed from
+   places where the measurement was never made.
 
 ---
 

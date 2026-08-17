@@ -26,46 +26,52 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-16 | branch `dataprep/mcguffey-graded-corpus` | HEAD `03055c7fa` | GROWTH PAUSED | origin merge needs USER AUTH
+AS OF: 2026-08-17 | branch `dataprep/mcguffey-graded-corpus` | HEAD `0652e20a5` | GROWTH PAUSED | origin merge needs USER AUTH
 
 **POSITION**
-Read-out still BELOW its spelling floor: hit@1 4.80% vs TRIGRAM-ONLY 8.70%, CI-separated
-(`exp_orthographic_floor_vet_v1`, reproduced off disk tonight). Two STRUCTURAL gaps measured
-tonight: we built ONE of the brain's TWO relational hubs, and the target space is missing CHANNELS.
-The missing hub did NOT rescue bridging. 0 of 7,769 banked cells meet the bar.
+THE CUE IS NOT EMPTY -- OUR OWN COMPRESSION IS THROWING PART OF THE ANSWER AWAY. On one identical
+store/cue/pool/gold (n=3,994; chance 1/5,491 = 0.000182), uncompressed count vectors address the
+right item 0.0849 of the time where the live 256-dim projection manages 0.0711: +0.0138
+[+0.0083,+0.0195], half-width 0.0056, CI-SEPARATED; exact key 1.0000, random key 0.0003. The
+compression is a MEASURED DEFECT, not a suspicion. The READ-OUT ceiling is untouched -- both regimes
+still sit below their own floors at hit@1. Verbs now MEASURED at n=222 (C33). C35 is new and
+corrects the Director's own handoff.
 
-**TOP ITEM -- MISSING CHANNELS, NOT MISSING DIMENSIONS (LESSONS: TARGET SPACE)**
-Our 12-dim landing space covers 2 of the brain's 7 attribute blocks. Adding AFFECT (Warriner VAD, on
-disk, unused) lifts the hand-rated SimLex ceiling 0.3130 -> 0.4143, paired +0.1013
-[+0.0615,+0.1419] on 977 pairs, CI-SEPARATED; nouns +0.0253 NOT sep, verbs +0.1228 and adjectives
-+0.3399 separated -- the GAIN profile mirrors the FAILURE profile. NEGATIVE CONTROL FIRED: +11
-rater-SD cols (23d) 0.3035 and +6 derived cols (18d) 0.3025 sit BELOW the 12d incumbent, so widening
-without a CHANNEL buys nothing (`03055c7fa`). SCOPE: ceiling diagnostic, K1, no floors, no null, NOT
-a cell -- it clears nothing, it decides what enters a can-fail cell. Decider RUNNING. Two prior
-gates had excluded affect on non-brain-framed criteria (LESSONS).
+**TOP ITEM -- THE ADDRESS SIDE IS NOW AN EXPANSION QUESTION WITH A MEASURED TARGET (LESSONS: CUE INFORMATION AUDIT)**
+`exp_cue_information_audit_v1` (full, `eec21487d`) answered the question that blocked everything and
+its stop-if (iii) fired: `U0_UNCOMPRESSED` 0.0849 beats `C0_PROJECTED_256` 0.0711 CI-separated, so
+the information IS in the cue and the projection is what loses it. Recoverability of the held-out
+sentence reproduced independently on all 3,994 items (max abs error 0.000e+00) plus a store-side
+bit-exact encoder identity on 5,491 anchors, so it is no longer an unadopted agent measurement. That
+UNBLOCKS the capability half of sparse-address/dense-value (PLAN ITEM 3). TWO CAUTIONS TRAVEL WITH
+IT: the absolute level is still ~8%, and the owner's two-part partial cue is only HALF served --
+same-meaning words +0.0113 [+0.008,+0.0148] ABOVE, word onset exactly 0.0 [-0.0013,+0.0013]
+NOT_SEPARATED, because our only onset channel is a 4-character prefix hashed as one whole symbol.
+BOARD question open on whether to build a real one.
 
 **WHAT IS RUNNING / BLOCKED**
-- Phase 2 FULL `exp_thematic_..._v2` -- `scratch/them_v2_full.pid` (shim 30812, worker 35328);
-  LOCAL, hours. DO NOT TOUCH. AFFECT DECIDER `exp_target_space_vs_bridge_mechanism_v1`
-  (`scratch/ts_decider_smoke.pid`), gate PASS n=372, owns `data/exp_target_space_*`. Checker-fix
-  RE-SCAN running (C31). Sparsify-the-right-object: skeleton only, nothing measured.
-- `data/foundation/reading_grounding_v1` + `v2_qualityfix` (22+23MB): NO BACKUP, gitignored.
-- STEP 4 (`d=256->1024`) HELD PENDING USER AUTH. Merge to `origin/main`: USER AUTH required.
-- `LONG_TERM_PLAN.md` is DIRECTOR-OWNED; its sec 2 rows 3/4/6 are superseded by STORAGE + C30.
-- OVER CAP BY ~720 B AND DELIBERATELY SO: never-trim stubs alone now cost 4,536 B of 8704 (tonight
-  added DO-NOT-REDO 38-42, C28-C31, disciplines 11-13). Every other section is already UNDER its
-  SPEC budget. Escalation steps 1-2 are spent; step 3 (a raise to 9216 B) is MEASURED AND PROPOSED
-  in `STATUS_SPEC.md` sec 7 and is the Director's call, not a maintainer's. Do NOT close the gap by
-  evicting a never-trim entry.
+- ITEM 1 and ITEM 2 both LANDED today (`eec21487d`, `0652e20a5`); the two agents that had stopped
+  mid-task were resumed and are done. An agent is building PLAN ITEM 3 in `experiments/` and
+  `hdlab/` RIGHT NOW -- do not edit either tree.
+- `.claude/scan-out/` REFUSES FILE CREATION (4x); `notes/ tools/ experiments/ verification/` accept.
+  `experiments/exp_propose_reject_retrieval_v1.py` IS A BLOCKED PATH -- OWNER'S CALL, never retry a
+  variant.
+- NO BACKUP, gitignored: `data/foundation/reading_grounding_v1` + `v2_qualityfix` (22+23MB).
+  Also gitignored and citation-bearing: `scratch/sparsify_right_object/` (the Q13 sparsity numbers).
+- Three `data/cornerstone_results/*/metrics.json` are deleted in the working tree but PRESENT in
+  git (`39cc197ff`) -- recoverable, not lost; nobody has decided whether the deletion was intended.
+- USER AUTH: `d=256->1024` (rewrites every anchor store; the phase-diagram pass says it is justified
+  for the comparison job and NOT for addressing), merge to `origin/main`, any push. Autoloop ARMED
+  at 200.
+- `hd_director_kb_continuous_ingest` LIVELOCKED (10.65 GB, self-killed at 45 min) while the
 
-_mirrored from `notes/STATUS.md` at 2026-08-17T01:50:42Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-17T16:06:23Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q16 | When you half-remember a word you told us there are two things: the starting sound, and other words that mean the same thing. We just measured both against the same 3,994-word test on the same store. The same-meaning half works -- it finds the right word slightly but reliably more often than the machinery we already had (+0.0113, and the error bars do not overlap). The starting-sound half reads EXACTLY ZERO, and not because it is weak: we have no way to represent the start of a word at all. The only thing we have is a word's first four letters hashed into one meaningless token, which can only match if some other stored word happens to BE those four letters. Nothing has been built and nothing is scheduled. Should we build a real starting-sound channel -- something that knows 'unhelpful' and 'unhealthy' begin the same way -- or leave that half of your description unserved for now? | Half of your own description of a half-remembered word is unserved and cannot be served by anything we currently have. Two honest cautions, both against building it. (1) Our own rule 12 says a floor is cleared by understanding, never by adopting it: our scores are already beaten by a plain spelling baseline, and bolting a spelling-shaped channel on to beat a spelling baseline is exactly how a previous target got gamed and then retired. A sound channel is not the same thing as a spelling channel, but built carelessly it becomes one. (2) An earlier measurement found that narrowing candidates by word-start looked like a big win (0.0711 to 0.5734) but a randomly-chosen shortlist of the same SIZE did marginally better -- so that gain was the shortlist, not the sound. The reason to build it anyway is that it is YOUR report of how your own memory works, and your reports have twice been the most useful thing on this board. | DEFAULT IF YOU SAY NOTHING: do not build it yet. Finish the address work already running, which your same-meaning half now licenses, and keep the starting-sound channel as the next candidate. If you do want it, we would build it as SOUND (how the word is pronounced) and not as SPELLING, and gate it on beating a random shortlist of the same size plus the plain spelling baseline before it is allowed to count for anything. |  | open |
 
 ## ANSWERED
 
@@ -84,3 +90,5 @@ _No open questions. Nothing is waiting on you._
 | Q11 | Do you ever retrieve a word you have never actually SEEN in that exact use? | Think of a phrase you have certainly never encountered - 'the kettle apologised', 'she poured the argument' - and say whether you can still judge quickly that one is odder than the other. If you can judge unseen combinations confidently, then your rejector generalises and ours does not, and that gap is our next build. | The kettle apologized I can reject immediately becuase kettle's aren't sentient, so that's either a weird made up story or an error. The argument one is a bit tricker- I could see it being a metaphor for "laying it on thick" - and I can still make sense of it so it isn't discarded out of hand. So yes, the rejector generalizes, but the rejections for those two sentences are very different | 2026-08-16T21:52:27Z |
 | Q12 | When retrieval FAILS and you switch to figuring it out from the sentence - what makes you give up? | Say what tells you to stop searching - a number of failed candidates, a feeling of exhaustion, running out of leads, or a sense that you genuinely do not know this word. If it is 'I have no more candidates to propose', we build the exit on an empty proposal set. If it is a confidence signal, we need to build a confidence estimate we do not currently have. | In general, you should include context in these questions. I do not remember what Q7 was.<br>If I can't remember the word, i'll give up basically because it's not worth it - I'll use a word that means the same thing instead. Also, if I'm trying to hard to think of a word, it typically works against me. If I stop thinking about it, often it will come to me later for some reason. | 2026-08-16T21:57:57Z |
 | Q13 | OWNER ANSWER RECOVERED AND RECORDED, not a question. On 2026-08-16 the owner typed this into the status window answer panel; the panel silently failed to write it (three defects, now fixed). Recorded verbatim here so it exists on disk. Full reasoning: notes/sparsity_and_dimensionality_are_per_process_not_one_global_setting_owner_2026-08-16.md | (no recommendation: the owner wrote this unprompted) | remember that we have a phase diagram for substrate - we can set all variables, including dimensionality, wherever we want for each process. The brain does some in sparse space, some in dense, and we have the ability to change them on the fly. | 2026-08-17T01:50:42Z |
+| Q14 | ANSWER TO Q_DOES_NOT_EXIST_SELFTEST -- a standing decision from notes/PLAN.md section 9. THE DECISION, IN FULL: Raise the working dimensionality from 256 to 1024 on the live path? WHAT IS BLOCKED ON IT: Sixteen times the dimensions bought +0.0843 at probe scale, the largest lever measured. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: HOLD. Do it only when no concurrent session is running and a backup of the persisted stores exists. It is item 7 and it is worth doing; it is not worth doing unsafely. | HOLD. Do it only when no concurrent session is running and a backup of the persisted stores exists. It is item 7 and it is worth doing; it is not worth doing unsafely. | an answer with nothing selected | 2026-08-17T02:28:12Z |
+| Q15 | ANSWER TO D1 -- a standing decision from notes/PLAN.md section 9. THE DECISION, IN FULL: Raise the working dimensionality from 256 to 1024 on the live path? WHAT IS BLOCKED ON IT: Sixteen times the dimensions bought +0.0843 at probe scale, the largest lever measured. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: HOLD. Do it only when no concurrent session is running and a backup of the persisted stores exists. It is item 7 and it is worth doing; it is not worth doing unsafely. | HOLD. Do it only when no concurrent session is running and a backup of the persisted stores exists. It is item 7 and it is worth doing; it is not worth doing unsafely. | It's fine to do this - but remember this is the phase diagram. you should run each process at the optimal point. there is a TON of data in the experimental history on this- I belive we mapped the full phase diagram for a significant portion of operation. | 2026-08-17T12:42:30Z |

@@ -164,7 +164,11 @@ Rewrites are drafted in `notes/QUESTION_LOG.md`.
 
 ---
 
-## 8. TWO AGENTS STOPPED MID-TASK, BOTH WAITING ON ONE INSTRUCTION
+## 8. TWO AGENTS STOPPED MID-TASK, BOTH WAITING ON ONE INSTRUCTION -- **RESOLVED, SEE 8c**
+
+**Both were resumed with the "write your findings to `notes/`" instruction and both finished on
+2026-08-17.** Their results are 8c(1) and 8c(2). The rest of this section is kept because the
+recoverability lesson in it is the reason 8c(1) was constructible at all.
 
 Both stopped CORRECTLY on a denied fragment `Write` and refused to work around it. **Resume each with:
 write your findings to `notes/` instead of `.claude/scan-out/`.**
@@ -241,9 +245,16 @@ as one: a graded, non-structural ADDRESSING deficit, and a READ-OUT CEILING.
 
 **(D) THE SUBSTRATE-BASIS REVIEW -- the owner's named first post-compaction topic.** Verified off disk
 but **its write was denied, so it exists only in the agent's transcript**; re-issue it. Findings:
-- **The binding-operator choice is EMPIRICALLY NULL at full mode** across two cells and six operators
-  (`K_cliff` 750/750/750 for Hadamard/HRR/FHRR with 0.0 shift; `K*` 500/500/500 for cyclic-shift /
-  permutation / phase-rotation with **0.000 separation**).
+- **[CORRECTED 2026-08-17 -- SEE C35 IN `notes/STATUS.md` AND `notes/STATUS_LESSONS.md`. THE CLAIM
+  BELOW IS PRESERVED VERBATIM AND MUST NOT BE QUOTED WITHOUT ITS CORRECTION.]**
+  ~~**The binding-operator choice is EMPIRICALLY NULL at full mode** across two cells and six
+  operators (`K_cliff` 750/750/750 for Hadamard/HRR/FHRR with 0.0 shift; `K*` 500/500/500 for
+  cyclic-shift / permutation / phase-rotation with **0.000 separation**).~~
+  **What survives:** among the three standard algebraic operators, no instrument we have built could
+  resolve a difference. **What does not:** "null" is a three-bin grid artifact (FHRR reads 0.8000
+  against Hadamard's 0.2889 inside the very bin that produced the word "invariant"); the second half
+  names the wrong cell and is superseded rather than absent; and two of the six operators COLLAPSE
+  (0.0720 and 0.0000 against about 0.81). Full working in 8c(4).
 - The one clean live-path format cell (`data/exp_capacity_vs_format_2x2_livepath_v1`, full, floored,
   projection-draw-controlled) puts `sign()` at +0.0585 and d=256 at +0.0635 -- roughly equal and
   additive -- **but the graded gain is NULL on open-vocabulary hit@1.**
@@ -257,11 +268,161 @@ but **its write was denied, so it exists only in the agent's transcript**; re-is
 
 ---
 
+## 8c. LANDED **AFTER** SECTION 8b -- FOUR MORE, AND ONE OF THEM CORRECTS THIS FILE
+
+Written by a later audit/docs-only pass on 2026-08-17. **Every number in this section was
+re-derived from the artifact with `.venv` python by that pass; none was taken from a report, a
+verdict message or another agent's summary.** That pass authored no experiment, ran none, dispatched
+nobody, and did not open `experiments/` or `hdlab/` for writing.
+
+**(1) THE ANSWER IS IN THE CUE, AND OUR OWN COMPRESSION IS THROWING PART OF IT AWAY. This is the
+most consequential of the four, and it unblocks a build.**
+`data/exp_cue_information_audit_v1/metrics.json`, commit `eec21487d`, findings in
+`notes/cue_information_audit_v1_findings_2026-08-17.md`.
+
+On one identical store, cue, pool and gold (n=3,994 items, 5,491 candidate addresses, chance
+1/5,491 = 0.000182), addressing accuracy:
+
+| arm | value |
+|---|---|
+| raw uncompressed count vectors (`U0_UNCOMPRESSED`) | **0.0849** |
+| the live 256-dim projection (`C0_PROJECTED_256`) | **0.0711** |
+| handed the exact key (`K1_EXACT_KEY`, both regimes) | **1.0000** |
+| a size-matched random key (`N1_RANDOM_KEY`) | **0.0003** |
+
+Decisive margin **+0.0138, 95% CI [+0.0083, +0.0195], half-width 0.0056, CI-SEPARATED**. The cell's
+own stop-if (iii) fired: **the 256-dimensional compression is a MEASURED DEFECT**, the information
+IS in the cue, and the address-side build is licensed as a capability claim with **0.0849 as the
+measured target**. Deflation that travels with it: 0.0849 is still about eight percent, and the
+read-out ceiling is untouched -- both regimes remain CI-separated BELOW their own binding floors at
+hit@1.
+
+**The precondition this rested on is no longer an unadopted agent measurement.** Exact
+recoverability of the held-out sentence reproduced on **every** eligible item (3,994 of 3,994, max
+absolute error 0.000e+00), not on the 400-item sample the earlier fragment checked, and the run
+added a store-side encoder identity check the fragment never ran (`H^T P_a == mat[a]`, **bit-exact
+on all 5,491 anchors**).
+
+**The cue-kind split is the part that should change a build.** The owner's Q4 introspection named
+TWO parts to a half-remembered word, and we serve one of them:
+- same-meaning words: **+0.0113 [+0.0080, +0.0148] ABOVE**;
+- the word's starting sound: **0.0 [-0.0013, +0.0013] NOT_SEPARATED** -- exactly zero, because our
+  only onset channel is the word's **first four characters hashed as a single whole symbol**
+  (`ONSET_LEN = 4`), which cannot resemble anything unless a stored word IS that four-character
+  string. **We have no channel that can represent a word's onset.** A board question is open on
+  whether to build one; it is not assumed.
+
+**(2) VERBS RE-MEASURED AT n=222. RETRACTION 2 CLOSES AS *MEASURED*, NOT CONFIRMED AND NOT
+WITHDRAWN.** `data/exp_verb_target_space_n222_v1/metrics.json`, commit `0652e20a5`, findings in
+`notes/item2_verb_target_space_n222_measurement_2026-08-17.md`.
+
+- Verbs n=222: known-answer arm rho **0.2607** [0.1282, 0.3841], half-width **0.128**. Strongest
+  floor (scramble p95) **0.1152** against the predicted null width 1.645/sqrt(221) = **0.1107** --
+  **the null genuinely tightened, so this is NOT a repeat of the n=86 failure** where the floor
+  simply WAS the null's own spread. Margin **+0.1452 [-0.0496, +0.3379] NOT_SEPARATED**;
+  row-permutation **p = 0.001**. Stop-if (ii) fired.
+- Nouns n=666: **+0.2065 [+0.1015, +0.3102] ABOVE**. Adjectives n=111: **-0.0074 NOT_SEPARATED**,
+  permutation p 0.060. Never compared across populations.
+- **Section 1 of this file must be read with this update: the entry "SimLex holds 222 verb pairs; we
+  used 86 -- re-measure before building anything" is now DISCHARGED.** A verb-channel build is
+  licensed **citing this measurement and never the retired n=86 one**.
+
+**(3) THERE IS NO MAPPED PHASE DIAGRAM, AND THE RECOLLECTION THAT THERE IS ONE HAS A TRACEABLE
+SOURCE.** `notes/substrate_phase_diagram_recovered_from_experimental_history_2026-08-17.md`, commit
+`32cc8ce71`.
+
+The history was enumerated from the filesystem, never from a registry or an index: 8,661
+directories, **7,804 `metrics.json`**. *(Re-walked by this pass: 8,662 directories and 7,807
+`metrics.json`, the difference being exactly the three files this session added --
+`exp_cue_information_audit_v1`, its smoke, and `exp_verb_target_space_n222_v1`. Nothing in the
+original enumeration is missing; the two sets were diffed by path, not by count. Re-run minutes
+later it read 8,663 and 7,808, the fourth file being the ITEM 3 agent's first smoke landing live.
+Script, promoted out of `scratch/` so this does not cite a wiped directory:
+`tools/phase_diagram_recovery/verify_metrics_enumeration.py`.)* Of those files, about **59 vary dimensionality**, about **21 vary
+sparsity**, and **2 cells vary the expansion factor**. The note's own classification tally:
+**23 of 42 parameter-by-operation squares have never been measured**, 13 are usable. Six separate
+diagrams on six different scorers, which under this project's own rules may not be merged.
+
+The "we have a phase diagram, 55-65% covered" recollection most likely traces to
+`notes/director_TRUE_PHASE_DIAGRAM_COVERAGE_2026-06-30.md`, whose overall estimate reads
+*"~55-60% -> 60-65%"* while **its own line items say dimensionality "Outer ~10%" and sparsity
+"<5%"**. And the sparsity sweep the owner's Q13 note leans on **has no cell under `data/` at all**
+-- it lives in `scratch/sparsify_right_object/`, which `.gitignore` line 83 excludes and
+`tools/clear_scratch.py` periodically wipes. Promote it before the next clear.
+
+**(4) THE CORRECTION TO THIS FILE'S OWN SECTION 8b(D), FILED AS C35.** The claim that the
+binding-operator choice is "empirically null at full mode across two cells and six operators" is
+**wrong in three separate places**, and one of the corrections is itself a correction of the
+phase-diagram note. Verified by opening all eleven relevant `metrics.json` files.
+
+- **The `750/750/750` half REPRODUCES** -- `data/exp_substrate_binding_op_x_capacity_v1_seed_{7,13,19}`,
+  all `run_mode: full`, all `HARD_FAIL_BINDING_OP_CAPACITY_INVARIANT`, `K_cliff` 750 for Hadamard,
+  circular-convolution HRR and FHRR with shift 0.0. **But the capacity axis had only THREE values,
+  [150, 750, 1350], and all three operators landed in the middle one. A three-bin instrument cannot
+  report a difference smaller than a bin. That is a RESOLUTION LIMIT, NOT A NULL.**
+- **And the same files' own per-point scores contradict the word "invariant".** At the middle grid
+  point, top-1 by seed: FHRR **0.8667 / 0.7333 / 0.8000** (mean 0.8000) against Hadamard
+  **0.2667 / 0.2667 / 0.3333** (mean 0.2889) and circular-convolution **0.3667 / 0.2000 / 0.3333**
+  (mean 0.3000). At the top grid point, FHRR 0.4444 against Hadamard 0.1000. **FHRR is 2.77x
+  Hadamard at the same point, on all three seeds.** The cell reports no confidence interval at all;
+  an approximate two-proportion check by this pass (three seeds x 30 queries pooled as n=90, normal
+  approximation, queries treated as independent -- an optimistic assumption, since queries within a
+  seed share one bundle) puts that gap at **+0.5111 with an approximate 95% half-width of 0.1249**.
+  The "null" is the `K_cliff` read-out quantising a large difference into one bucket.
+- **The `K* 500/500/500 with 0.000 separation` half DOES reproduce, in a cell neither the handoff
+  nor the phase-diagram note named** -- `data/exp_substrate_order_binding_family_v1_seed_{13,19}`,
+  `run_mode: full`, verdict `HARD_FAIL_ORDER_BINDING_INVARIANT`, `K_star_per_op` = 500 for
+  cyclic-shift, random-permutation and phase-rotation, `max_sep=0.000` -- again on a **three-value
+  grid, K in [50, 500, 2000]**, 50 queries per point, and **only 2 of 3 seeds landed** (seed 7's
+  `metrics.json` holds no phase map and records `RUNNING` at 0.15 s elapsed). **It is SUPERSEDED,
+  not absent:** the later cell of the same family, `exp_substrate_order_binding_family_v2_seed_{7,13,19}`
+  (also full, a discriminator-targeted load sweep, 60 queries per point), returns
+  `MIDDLE_BAND_PARTIAL` with **the winner changing by seed** -- cyclic-shift / random-permutation /
+  phase-rotation = 0.2667 / 0.1833 / 0.2167 (seed 7), 0.2333 / 0.2000 / 0.2333 (13), 0.2167 /
+  0.2500 / 0.2000 (19).
+  **THEREFORE THE PHASE-DIAGRAM NOTE'S OWN WORDING -- "that does not reproduce ... is not what is on
+  disk" -- IS ITSELF TOO STRONG AND IS CORRECTED HERE.** It reproduces in the v1 cell and is
+  superseded by the v2 cell. This is standing discipline 7 (no demotion without a fresh on-disk
+  re-check) applying to a correction rather than to a result.
+- **The summary omitted that two of the six operators COLLAPSE.** In
+  `data/exp_substrate_seqbind_binding_op_family_v2_seed_7` (full), per-operator mean top-1 over its
+  five sequence-length points: Hadamard **0.8160**, circular-convolution HRR **0.8360**, tensor
+  product **0.7720**, XOR-on-binary **0.0720**, sum-modulo-N **0.0000**. That cell's own separation
+  metric is `max_log2_sep = 3.322` -- which is log2(500/50), a **tenfold** gap -- **not 0.000**. Its
+  `K_cliff` is 500 for the three algebraic operators and **50** for the other two. And note the
+  handoff named the wrong operators for this cell: it is Hadamard / HRR / tensor product here, not
+  cyclic-shift / permutation / phase-rotation.
+
+**THE STANDING FACT TO RECORD ALONGSIDE, and it is the load-bearing half: the binding operator has
+never been varied on any operation this programme actually runs on.** All four binding-operator cell
+families score top-1 retrieval from a bundle on a SYNTHETIC corpus (every `corpus_provenance` string
+begins `synthetic_substrate_`), at **30, 50, 50 and 60 queries per point** respectively -- *(the
+"50 queries per point" figure in circulation does not reproduce; it is right for two of the four)* --
+and **not one of the eleven files contains a confidence interval, a bootstrap or a permutation
+test.** Zero binding cells score on the comparator, on addressing, or on open-vocabulary read-out.
+
+**So "unfalsified" here means "never tested", not "confirmed".** The honest statement is: among the
+three standard algebraic operators the difference is smaller than any instrument we have built could
+see, and one of them (FHRR) is visibly better at the one grid point where the others are not
+saturated; two non-algebraic operators are decisively worse. **"We tested it and it does not matter"
+and "we have never been able to tell" are different claims, and only the second is supported.**
+
+---
+
 ## 9. THE NEXT THREE THINGS, IN ORDER
 
-1. **Diagnose the partial-cue structural cap.** Nothing downstream is worth building until this is
-   answered. If the answer is "the cue does not carry the identity", the programme redirects upstream
-   to what the cue is made of -- **and that is a GOOD outcome, not a defeat.**
-2. **Re-measure verbs at n=222** and either retract or confirm the target-space claim.
+1. ~~**Diagnose the partial-cue structural cap.**~~ **DONE 2026-08-17 -- see 8c(1).** The answer is
+   the opposite of the feared one: the cue DOES carry identity, and our own 256-dim compression is
+   what loses part of it. No redirect upstream.
+2. ~~**Re-measure verbs at n=222.**~~ **DONE 2026-08-17 -- see 8c(2).** Neither retracted nor
+   confirmed: MEASURED. A verb-channel build is licensed on this number and never on the old one.
 3. **Build sparse-address / dense-value per-organ**, which three independent lines now agree on: the
-   theory drill, the owner's per-process answer, and the 9-of-9 write/read asymmetry.
+   theory drill, the owner's per-process answer, and the write/read asymmetry. **Its capability half
+   is UNBLOCKED as of 8c(1) and an agent is building it; treat `experiments/` and `hdlab/` as owned
+   while that runs.** It is now an EXPANSION question with a measured target (0.0849 addressing
+   against the incumbent's 0.0711), and dimensionality is a SWEPT variable here, not an adopted
+   setting -- per 8c(3), the `d=256 -> 1024` raise is justified for the comparison job and not for
+   the addressing job.
+4. **NEW, and it is a question for the owner rather than a build:** we have no channel that can
+   represent the starting sound of a word, which is one of the two things the owner's own
+   introspection said a half-remembered word is made of (8c(1)). A board question is open.

@@ -46,6 +46,12 @@ Decisive paired-bootstrap margins (10,000 draws), CI half-width beside each:
   the same relation that builds the gold set.)
 - WORD_ONSET addressing: U0=0.0008 vs C0=0.0008, margin 0.0 [-0.0013, +0.0013] NOT_SEPARATED -- a
   single-character-prefix cue carries almost nothing either way, as expected.
+  **[AUDITOR CORRECTION, 2026-08-17: "single-character-prefix" is wrong. The cell uses `ONSET_LEN =
+  4` (`experiments/exp_cue_information_audit_v1.py` lines 61 and 146) -- the word's first FOUR
+  characters, treated as ONE symbol through the same hashed content-word channel. That is why the
+  reading is exactly zero rather than merely small: a four-character string can only match if a
+  stored word IS that string. We have no channel that represents a word's onset at all. See
+  `notes/STATUS_LESSONS.md`, "THE CUE INFORMATION AUDIT".]**
 
 ## Secondary measure (hit@1 vs WordNet gold, n=3994, chance=0.0101)
 
