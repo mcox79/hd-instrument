@@ -776,3 +776,84 @@ for "not scoring."**
   **`disagreement_class: AGREES`, `declared_clearing_arms: []`**. **Reported, NOT relied on** -- it
   has four false passes on record. Every margin in this log is stated arm-by-arm with its own CI
   half-width independently of it.
+
+---
+
+## 10. ARM 6 -- THE WRITE RULE, NOT THE COMPARATOR: `exp_readout_writerule_paradigmatic_v1`
+
+**FULL RUN LANDED. 84.2s.** `data/exp_readout_writerule_paradigmatic_v1/metrics.json`, commit
+`a8fdc968f`. n=3994, N_BOOT=10000, W0 regression gate PASS (0.0223/0.0481), K1 addressing 1.0000 on
+ALL seven arms (W0, W1, three W2 alphas, N1, F_FREQ_MATCHED), NULL_PERMUTED near chance on all seven
+(0.0055-0.0085 vs chance ~0.0002... actually vs the item-count-scaled chance, all far below the real
+arms' own values). No K1 failure -- the instrument did not need to void this run.
+
+**HOW THIS DIFFERS FROM ARM 5 (`exp_readout_second_order_v1`), STATED PRECISELY.** ARM 5 applied
+second-order structure AT READ TIME: an unmodified first-order store, comparator = cosine of
+similarity PROFILES over that store. This cell applies it AT WRITE TIME: a NEW store is built where
+each word's code sums its neighbours' own first-order PROFILE ROWS (reused from the incumbent's
+cached `mat`, never rebuilt) instead of their identity draws. The comparator (plain cosine argmax) is
+unchanged in every arm. ARM 5's own conclusion -- "a second-order READ of a first-order store cannot
+manufacture a distinction the WRITE never encoded" -- is the exact hypothesis this cell tests by
+changing the WRITE instead.
+
+**ARM-BY-ARM, PARTIAL-CUE hit@1 (primary), margins with CI half-width and analytic null half-width
+beside each:**
+
+| arm | value | own binding floor | margin vs own floor | margin vs W0 |
+|---|---|---|---|---|
+| W0_SYNTAGMATIC (incumbent) | 0.02228 | F_CONSTANT_PROTOTYPE 0.13896 | -0.1167 [-0.1282,-0.1054] hw=0.0114, BELOW | -- |
+| **W1_PARADIGMATIC** | **0.02979** | F_ORTHOGRAPHIC 0.08731 | -0.0575 [-0.0673,-0.0478] hw=0.00975, BELOW | **+0.0075 [0.0023,0.0128] hw=0.00525, ABOVE (1.4x)** |
+| W2_HYBRID alpha=0.25 | 0.02879 | F_ORTHOGRAPHIC 0.08731 | -0.0586 hw=0.00975, BELOW | +0.0065 [0.0028,0.0105] hw=0.00385, ABOVE |
+| W2_HYBRID alpha=0.5 | 0.02929 | F_ORTHOGRAPHIC 0.08731 | -0.0581 hw=0.00995, BELOW | +0.0070 [0.0023,0.0118] hw=0.00475, ABOVE |
+| W2_HYBRID alpha=0.75 | 0.02904 | F_ORTHOGRAPHIC 0.08731 | -0.0583 hw=0.00985, BELOW | +0.0068 [0.0018,0.0118] hw=0.005, ABOVE |
+| N1_NULL (random-profile perm) | 0.01878 | F_CONSTANT_PROTOTYPE 0.14472 | -0.1260 hw=0.01155, BELOW | -0.0035 [-0.0078,0.0008] hw=0.0043, NOT_SEPARATED |
+| F_FREQ_MATCHED_PROFILE | 0.02253 | F_CONSTANT_PROTOTYPE 0.12318 | -0.1006 hw=0.01105, BELOW | +0.0002 [-0.0048,0.0053] hw=0.00505, NOT_SEPARATED |
+
+Analytic null half-widths at n=3994 are all 0.0046-0.0109, close to the CI half-widths above -- these
+margins are real effects, not artifacts of an underpowered comparison, but they are SMALL effects.
+
+**WHICH STOP-IF FIRED: NONE OF THE THREE CLEANLY.** (i) did not fire -- W1 does not clear its own
+floor (0.02979 vs 0.08731, still 2.9x short). (ii) did not fire -- W1 CI-separates ABOVE W0, it does
+not tie it. (iii) did not fire in the form pre-registered -- F_FREQ_MATCHED_PROFILE does NOT beat W0
+(NOT_SEPARATED, point +0.0002), so W1's lift is not explained away as a frequency effect in costume.
+N1_NULL (pure random-profile smoothing) also does not beat W0. **The honest fourth reading, not
+anticipated in the stop-if list: the write rule was PART of the defect -- swapping identity for
+profile buys a small, real, non-frequency, non-smoothing lift (+0.0075, about 34% relative) -- but it
+is nowhere near enough to close a gap that is still 2-3x the floor.** The write rule is not innocent,
+and it is not sufficient either.
+
+**ORTHOGRAPHIC LEAKAGE CHECK (standing rule 12): CLEAN.** Mean trigram-cosine of each arm's top-1
+winner to the query: W0 0.02684, W1 0.02939, W2 alphas 0.02711-0.02825, N1 0.02640, FREQ_MATCHED
+0.02691 -- all clustered near W0's own value and nowhere near the orthographic floor's own reference
+point (1.0, i.e. that floor's own top-1 pick is essentially a spelling match to the query, as
+expected for a construction that ranks purely on trigram similarity). W1's small lift over W0 is NOT
+a floor cleared by encoding spelling; the write rule was not gamed into a disguised orthographic
+channel.
+
+**SELF-TEST CAUGHT TWO REAL BUGS BEFORE ANY NUMBER WAS TRUSTED, BOTH DISCLOSED IN THE CELL'S OWN
+COMMENTS.** (1) `hdlab.reading_grounding_loop.content_words()` extracts only alphabetic runs of
+length>2 via regex on lowercased text; a first fixture using tokens like `"c0"` and single-letter
+`"A"` silently vanished at tokenization, and T2 read `cos_P=0.0000` -- caught, not silently patched
+around. (2) A first fixture drew both targets' filler words from ONE shared pool, so the
+"first-order-orthogonal" control read `cos_I=0.2414`, not the near-zero the fixture intended --
+literal token overlap, not sampling noise. Fixed by giving each target a disjoint filler pool.
+Post-fix: `cos_I=-0.0263` (unrelated, first-order), `cos_P=0.9912` (near-total recovery,
+second-order), `N1_NULL` destroys it back to `0.0452`, hybrid alpha interpolates monotonically
+`-0.026 -> 0.41 -> 0.85 -> 0.97 -> 0.99`, masking is load-bearing, and PROFILE does NOT fire on a
+flat/unrelated-profile fixture (`-0.0263 -> -0.0397`, falsifiable). The full-scale corpus/bucket
+reconstruction was also re-verified inside the self-test (not just the pre-authoring probe):
+5491/5491 anchors match the cache exactly.
+
+**Prior-work check (per the standing rule):** `exp_readout_second_order_v1` (ARM 3-5 above) is the
+one directly relevant prior cell and is credited throughout as the read-time sibling this cell's
+write-time construction is contrasted against; no other cell in this repo changes the write rule
+itself (enumerated via the same `experiments/` filter used in section 1: readout / rerank / hub /
+csls / normal / argmax / rank / write / second_order / profile turned up nothing else that rebuilds
+the store).
+
+**WHAT THIS DOES AND DOES NOT LICENSE.** It does NOT license "the write rule was the defect" in the
+strong form the dispatch's stop-if (i) described -- that would require clearing a floor, and nothing
+here does. It DOES license retiring the narrower claim that the relation encoded is irrelevant to the
+ceiling: a controlled, frequency-ruled-out, orthography-ruled-out change to what gets written moved
+hit@1 by a small but CI-separated amount. The remaining ~2-3x gap to the floor is not explained by
+this cell and is not claimed to be.
