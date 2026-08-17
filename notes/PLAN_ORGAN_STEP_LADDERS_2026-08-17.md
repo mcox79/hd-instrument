@@ -218,9 +218,18 @@ measured predictor of our performance. Both halves are load-bearing.
 - **The write rule is FOUR live steps, not five.** "Superposition" is not a separate step -- it is the
   SAME EVENT as coding. Same class of correction as the read side's 9 -> 5. **The Director's model of
   the machine has now been wrong about the joints twice; enumerate from live code, always.**
-- **ONE STEP DOMINATES: ACCUMULATE, at 64% of total drop mass.** This **REFUTES the Director's
-  2026-08-17 "the deficit is distributed" conclusion FOR THIS ORGAN.** Recorded as a correction, not
-  softened.
+- **RETRACTED, 2026-08-17, and the retraction is load-bearing: "ONE STEP DOMINATES -- ACCUMULATE, at
+  64% of total drop mass."** That sentence was written into this plan and relayed to the owner. **IT
+  WAS A SIGN ERROR.** The two ladders difference the identical quantity with the identical convention
+  and reproduce BIT-FOR-BIT; the cell author's own PROSE read its `drop_point` field backwards.
+  Corrected: ACCUMULATE's -0.0263 means downstream is HIGHER, i.e. **a GAIN of +0.0263 -- accumulation
+  is the biggest POSITIVE contributor, not the biggest destroyer.** CODE_PROJECT's +0.0123 is the
+  LOSS. **The pipeline ladder was right all along and the write-rule ladder's prose was wrong.** Every
+  drop-table row now carries an explicit `direction_of_step_a_to_b` (GAIN/LOSS/FLAT) so no reader has
+  to re-derive a sign. **The Director's "deficit is distributed" conclusion is therefore NOT refuted
+  by this ladder** -- it stands unchallenged on this evidence. *This is the fourth time in two days a
+  number was quoted with its meaning inverted or mismatched; the fix is a machine-readable direction
+  field, not more care.*
 - **The composition measurement is the real finding.** Across that single step the share of top-1
   winners that have EVER co-occurred with the query jumps **66.0% -> 94.4%**. *Unweighted summation is
   the operation that converts our store into a record of adjacency.*
@@ -257,13 +266,34 @@ questions, and **both are true**:
 > **MORE EVIDENCE HELPS. COLLAPSING IT INTO ONE UNWEIGHTED SUM THROWS PART OF IT BACK AWAY AND BIASES
 > WHAT SURVIVES TOWARD CO-OCCURRENCE.**
 
-**So accumulation is simultaneously our best lever and our worst destroyer, and the build target is
-ACCUMULATE WITHOUT COLLAPSING** -- keep episodes distinguishable (multi-vector, per-occurrence
-normalisation, or downweighting the high-frequency context words that carry adjacency rather than
-identity) instead of averaging them into one point. That is the first genuinely actionable design
-instruction this programme has produced, and it is brain-framed rather than tool-framed: **PINNED**
-that neocortex extracts cross-episode REGULARITIES while hippocampus keeps the EPISODE; adjacency is
-episodic, substitutability is the regularity; **we built the hippocampal half and called it cortex.**
+**THE DECISIVE ARM SETTLED IT, AND IT IS STRONGER THAN THE CLAIM IT WAS CHECKING.** Holding the
+background fixed at single-occurrence for every anchor and varying ONLY the target's own stored row
+(n=300, discriminator-fires fixture self-tested first), all three margins CI-separated:
+
+| arm | hit@1 |
+|---|---|
+| `SUM_ALL` -- sum of the target's own occurrences | **0.0100** |
+| `RANDOM_SINGLE` -- ONE occurrence, picked at random | **0.0367** |
+| `BEST_SINGLE_ORACLE` -- best of the target's ~20-31 occurrences | **0.3033** |
+
+**SUMMING A WORD'S OCCURRENCES IS WORSE THAN KEEPING JUST ONE OF THEM AT RANDOM** (-0.0266
+[-0.0500,-0.0033]). And **0.3033 is roughly 8x the incumbent and WELL ABOVE the 0.1390 floor this
+programme has never cleared.** *`BEST_SINGLE_ORACLE` IS A CEILING DIAGNOSTIC -- it consults the answer
+when choosing the occurrence. NEVER quote it as a capability.* What it establishes is nonetheless new
+and load-bearing: **the information needed to clear the floor is already present in individual
+sentences, and our averaging destroys it.**
+
+**Both facts hold at once, and the distinction is not cosmetic:** deepening EVERY anchor's profile
+together (+0.0263) changes the whole competitive landscape; what summing does to ONE word's own row
+is a different comparison. They are not the same claim in different clothes.
+
+**So the build target is ACCUMULATE WITHOUT COLLAPSING** -- keep episodes distinguishable
+(multi-vector, per-occurrence normalisation, or downweighting the high-frequency context words that
+carry adjacency rather than identity) instead of averaging them into one point. **No longer a
+hypothesis: a measured target with a measured ceiling.** And it is brain-framed rather than
+tool-framed: **PINNED** that neocortex extracts cross-episode REGULARITIES while hippocampus keeps the
+EPISODE; adjacency is episodic, substitutability is the regularity; **we built the hippocampal half
+and called it cortex.**
 
 *In flight: `accumulate-no-collapse`, with a RANDOM-PARTITION control so a multi-vector store cannot
 win merely by having more vectors to match against, and matched-storage as well as matched-depth
