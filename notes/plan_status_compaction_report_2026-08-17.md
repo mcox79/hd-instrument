@@ -241,5 +241,6 @@ deletion token was issued, alone or bundled. No `git add -A`. No origin push. No
 `notes/PLAN_NEXT_24H.md`, `notes/plan_status_compaction_report_2026-08-17.md`,
 `C:\Users\marsh\.claude\projects\D--AI\memory\MEMORY.md`.
 
-**Commits, both by explicit path list:** `da678875c` (preserve the superseded plan verbatim) and the
-docs commit recorded in the final line of this report.
+**Commits, both by explicit path list, no `git add -A`, no push:** `da678875c` (preserve the
+superseded plan verbatim, one path) and **`faf8ec882`** (the five documentation paths above).
+`MEMORY.md` lives outside the repo and is not committed.
