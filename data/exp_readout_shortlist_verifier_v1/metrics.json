@@ -1,0 +1,936 @@
+{
+ "anchor_name": "exp_readout_shortlist_verifier_v1",
+ "grid": "full",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_shortlist_verifier_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T17:58:59.141667+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_shortlist_verifier_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "signal_independence_claim": {
+  "PROPOSER": "cosine of first-order Hebbian-sum co-occurrence code vs the PARTIAL CUE (a dense vector similarity)",
+  "R1_ATTESTATION": "discrete coordination-pattern ('X and/or Y') count over RAW SENTENCE TEXT, never touches the vector store; STRUCTURALLY BLIND for unseen pairs (0 by construction)",
+  "R2_PROFILE": "cos(profile(anchor), profile(query)) -- second-order, reused verbatim from exp_readout_second_order_v1.second_order_scores(k=0)",
+  "claim": "R1 and R2 are BOTH mathematically distinct from the proposer's raw first-order cosine; R1 is additionally independent of the vector store entirely. Verified empirically below via correlation of each rejector's SCORE against the proposer's own score on the shared shortlist."
+ },
+ "REGRESSION_GATE": {
+  "partial_cue_hit1_FULL_POP": 0.02228,
+  "expected": 0.13896,
+  "exact_key_hit1_FULL_POP": 0.04807,
+  "exact_key_hit5_FULL_POP": 0.17151,
+  "exact_key_hit10_FULL_POP": 0.26039,
+  "exact_key_addressing_FULL_POP": 1.0,
+  "F_CONSTANT_PROTOTYPE_hit1_FULL_POP": 0.13896,
+  "tol": 0.0005,
+  "n_full": 3994,
+  "source": "the three ceiling figures (0.04807/0.17151/0.26039) and the binding floor (0.13896) VERIFIED OFF DISK against data/exp_readout_ceiling_diagnosis_v1/metrics.json .S2_WHERE_DOES_THE_ANSWER_RANK.curves.EXACT_KEY_COSINE / .F_CONSTANT_PROTOTYPE BEFORE this cell was authored.",
+  "PASS": true
+ },
+ "population": {
+  "n_anchors": 5491,
+  "n_items_scored": 3994,
+  "pool": "the LANDED OPEN pool (mat_ok minus per-item exclusions), matching exp_readout_ceiling_diagnosis_v1 exactly",
+  "gold": "WordNet 3.0 generous meaning set, exp_grounding_readout_known_answer_v1 UNMODIFIED",
+  "scorer": "tools/floor_battery.hit_at_1_both_tie_conventions, tie-corrected primary",
+  "cue_regime_primary": "PARTIAL CUE for G0/shortlists/rejectors (the real regime); EXACT KEY used only for G1's ceiling curve and the K1 known-answer checks"
+ },
+ "VALIDITY": {
+  "KA_SELF_ADDRESS": {
+   "value": 1.0,
+   "gate": 0.95,
+   "PASS": true
+  },
+  "NULL_PERMUTED": {
+   "hit_at_1_tie_corrected": 0.01327,
+   "addressing": 0.0,
+   "chance_addressing": 0.00018212,
+   "binom_ci_halfwidth_at_null_hit": 0.003549
+  }
+ },
+ "FLOORS_RECOMPUTED_ON_THIS_POPULATION": {
+  "cue": "PARTIAL",
+  "names": [
+   "F_CONSTANT_PROTOTYPE",
+   "F_FREQUENCY",
+   "F_ORTHOGRAPHIC",
+   "F_SCRAMBLE"
+  ],
+  "never_imported": [
+   "0.1390",
+   "0.1715",
+   "0.2604",
+   "0.0873",
+   "0.1382",
+   "0.2070",
+   "-0.1959"
+  ]
+ },
+ "G1_SHORTLIST_ORACLE": {
+  "EXACT_KEY_curve": {
+   "1": 0.04807,
+   "2": 0.09314,
+   "3": 0.12494,
+   "5": 0.17151,
+   "10": 0.26039,
+   "20": 0.38608,
+   "50": 0.55658
+  },
+  "PARTIAL_CUE_curve_THE_PRECONDITION": {
+   "1": 0.02228,
+   "5": 0.08838,
+   "10": 0.14171,
+   "20": 0.22183,
+   "50": 0.37581
+  },
+  "random_ranking_null_curve": {
+   "1": 0.01009,
+   "5": 0.04779,
+   "10": 0.08972,
+   "20": 0.16002,
+   "50": 0.30406
+  },
+  "PRECOND_ABS_THRESHOLD": 0.05,
+  "precondition_value_at_k50": 0.37581,
+  "PRECONDITION_FAILURE": false,
+  "reading": "the achievable ceiling of ANY rejector, real or oracle, under the PARTIAL cue is exactly the PARTIAL_CUE_curve value at that k. If PRECONDITION_FAILURE is True, no rejector work below is licensed regardless of its own numbers."
+ },
+ "ATTESTATION_INDEX": {
+  "n_sentences": 34169,
+  "n_vocab": 5487,
+  "n_pairs_attested": 62173,
+  "window_tokens": 4,
+  "build_t_s": 5.1
+ },
+ "SIGNAL_INDEPENDENCE_FROM_PROPOSER_MEASURED": {
+  "R1_vs_proposer_k5": {
+   "n": 19970,
+   "r": 0.1082,
+   "ci95": [
+    0.0938,
+    0.1226
+   ],
+   "band": "ABOVE"
+  },
+  "R2_vs_proposer_k5": {
+   "n": 19970,
+   "r": 0.6127,
+   "ci95": [
+    0.606,
+    0.6196
+   ],
+   "band": "ABOVE"
+  },
+  "R1_vs_proposer_k10": {
+   "n": 39940,
+   "r": 0.1179,
+   "ci95": [
+    0.1057,
+    0.1298
+   ],
+   "band": "ABOVE"
+  },
+  "R2_vs_proposer_k10": {
+   "n": 39940,
+   "r": 0.5932,
+   "ci95": [
+    0.5879,
+    0.5982
+   ],
+   "band": "ABOVE"
+  },
+  "R1_vs_proposer_k20": {
+   "n": 79880,
+   "r": 0.1182,
+   "ci95": [
+    0.1087,
+    0.1289
+   ],
+   "band": "ABOVE"
+  },
+  "R2_vs_proposer_k20": {
+   "n": 79880,
+   "r": 0.5837,
+   "ci95": [
+    0.5803,
+    0.5872
+   ],
+   "band": "ABOVE"
+  },
+  "R1_vs_proposer_k50": {
+   "n": 199700,
+   "r": 0.1093,
+   "ci95": [
+    0.1019,
+    0.1169
+   ],
+   "band": "ABOVE"
+  },
+  "R2_vs_proposer_k50": {
+   "n": 199700,
+   "r": 0.5885,
+   "ci95": [
+    0.586,
+    0.5912
+   ],
+   "band": "ABOVE"
+  }
+ },
+ "K1_KNOWN_ANSWER": {
+  "BINDING_GATE": "KA_SELF_ADDRESS on the store (>= 0.95, already enforced above): 1.0000 PASS",
+  "shortlist_k_for_informational_check": 5,
+  "own_address_preference_INFORMATIONAL_NOT_GATED": {
+   "PROPOSER_G0_KA_SELF_ADDRESS": 1.0,
+   "R1_ATTESTATION_prefers_own_address": 0.0,
+   "R2_PROFILE_prefers_own_address": 0.0,
+   "R3_COMBINED_prefers_own_address": 0.0
+  },
+  "why_not_gated": "R1 skips self-pairs by construction (qw==cw excluded) and R2's second_order_scores zeroes the profile self-term by construction; both therefore CANNOT structurally prefer a candidate's own identity, so a 'must rank own address top-1' bar does not test anything meaningful for them and is reported, not gated."
+ },
+ "ARMS_MUST_DIFFER": {
+  "n_arms_checked": 20,
+  "checked_on": "winner_idx (selection identity)",
+  "exempted_equivalence_class": [
+   "G0_ARGMAX",
+   "N2_PROPOSER_AS_REJECTOR_k10",
+   "N2_PROPOSER_AS_REJECTOR_k20",
+   "N2_PROPOSER_AS_REJECTOR_k5",
+   "N2_PROPOSER_AS_REJECTOR_k50"
+  ],
+  "exempted_rationale": "the proposer's own global top-1 is always inside any shortlist derived from its own score, by construction",
+  "collisions_besides_exemption": [],
+  "PASS": true
+ },
+ "N_BOOT": 10000,
+ "n_common_scored": 3994,
+ "BINDING_FLOOR": {
+  "per_floor_acc": {
+   "F_ORTHOGRAPHIC": 0.08731,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE": 0.01077,
+   "F_CONSTANT_PROTOTYPE": 0.13896
+  },
+  "binding_floor_name": "F_CONSTANT_PROTOTYPE",
+  "binding_floor_value": 0.13896
+ },
+ "MARGINS": {
+  "R1_ATTESTATION_REJECTOR_k5__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1084,
+   "ci95": [
+    -0.1199,
+    -0.0972
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01135,
+   "analytic_null_halfwidth_a": 0.00534,
+   "acc_a": 0.03056,
+   "acc_b": 0.13896
+  },
+  "R1_ATTESTATION_REJECTOR_k5__vs__G0_ARGMAX": {
+   "point": 0.0083,
+   "ci95": [
+    0.0036,
+    0.0132
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.0048,
+   "analytic_null_halfwidth_a": 0.00534,
+   "acc_a": 0.03056,
+   "acc_b": 0.02228
+  },
+  "R1_ATTESTATION_REJECTOR_k5__vs__N1_RANDOM_REJECTOR_k5": {
+   "point": 0.0058,
+   "ci95": [
+    0.0009,
+    0.0108
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00495,
+   "analytic_null_halfwidth_a": 0.00534,
+   "acc_a": 0.03056,
+   "acc_b": 0.02479
+  },
+  "R1_ATTESTATION_REJECTOR_k10__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1047,
+   "ci95": [
+    -0.1162,
+    -0.0934
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.0114,
+   "analytic_null_halfwidth_a": 0.00564,
+   "acc_a": 0.03423,
+   "acc_b": 0.13896
+  },
+  "R1_ATTESTATION_REJECTOR_k10__vs__G0_ARGMAX": {
+   "point": 0.012,
+   "ci95": [
+    0.0066,
+    0.0175
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00545,
+   "analytic_null_halfwidth_a": 0.00564,
+   "acc_a": 0.03423,
+   "acc_b": 0.02228
+  },
+  "R1_ATTESTATION_REJECTOR_k10__vs__N1_RANDOM_REJECTOR_k10": {
+   "point": 0.0157,
+   "ci95": [
+    0.0101,
+    0.0213
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.0056,
+   "analytic_null_halfwidth_a": 0.00564,
+   "acc_a": 0.03423,
+   "acc_b": 0.01853
+  },
+  "R1_ATTESTATION_REJECTOR_k20__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1015,
+   "ci95": [
+    -0.1133,
+    -0.09
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01165,
+   "analytic_null_halfwidth_a": 0.00589,
+   "acc_a": 0.03749,
+   "acc_b": 0.13896
+  },
+  "R1_ATTESTATION_REJECTOR_k20__vs__G0_ARGMAX": {
+   "point": 0.0152,
+   "ci95": [
+    0.0094,
+    0.0212
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.0059,
+   "analytic_null_halfwidth_a": 0.00589,
+   "acc_a": 0.03749,
+   "acc_b": 0.02228
+  },
+  "R1_ATTESTATION_REJECTOR_k20__vs__N1_RANDOM_REJECTOR_k20": {
+   "point": 0.0232,
+   "ci95": [
+    0.0174,
+    0.0291
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00585,
+   "analytic_null_halfwidth_a": 0.00589,
+   "acc_a": 0.03749,
+   "acc_b": 0.01427
+  },
+  "R1_ATTESTATION_REJECTOR_k50__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.098,
+   "ci95": [
+    -0.1098,
+    -0.0864
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.0117,
+   "analytic_null_halfwidth_a": 0.00614,
+   "acc_a": 0.04093,
+   "acc_b": 0.13896
+  },
+  "R1_ATTESTATION_REJECTOR_k50__vs__G0_ARGMAX": {
+   "point": 0.0187,
+   "ci95": [
+    0.0125,
+    0.025
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00625,
+   "analytic_null_halfwidth_a": 0.00614,
+   "acc_a": 0.04093,
+   "acc_b": 0.02228
+  },
+  "R1_ATTESTATION_REJECTOR_k50__vs__N1_RANDOM_REJECTOR_k50": {
+   "point": 0.0274,
+   "ci95": [
+    0.0215,
+    0.0334
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00595,
+   "analytic_null_halfwidth_a": 0.00614,
+   "acc_a": 0.04093,
+   "acc_b": 0.01352
+  },
+  "R2_PROFILE_REJECTOR_k5__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1197,
+   "ci95": [
+    -0.1312,
+    -0.1087
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01125,
+   "analytic_null_halfwidth_a": 0.00426,
+   "acc_a": 0.01928,
+   "acc_b": 0.13896
+  },
+  "R2_PROFILE_REJECTOR_k5__vs__G0_ARGMAX": {
+   "point": -0.003,
+   "ci95": [
+    -0.007,
+    0.0008
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.0039,
+   "analytic_null_halfwidth_a": 0.00426,
+   "acc_a": 0.01928,
+   "acc_b": 0.02228
+  },
+  "R2_PROFILE_REJECTOR_k5__vs__N1_RANDOM_REJECTOR_k5": {
+   "point": -0.0055,
+   "ci95": [
+    -0.0113,
+    0.0
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.00565,
+   "analytic_null_halfwidth_a": 0.00426,
+   "acc_a": 0.01928,
+   "acc_b": 0.02479
+  },
+  "R2_PROFILE_REJECTOR_k10__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1195,
+   "ci95": [
+    -0.1309,
+    -0.1082
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01135,
+   "analytic_null_halfwidth_a": 0.00429,
+   "acc_a": 0.01953,
+   "acc_b": 0.13896
+  },
+  "R2_PROFILE_REJECTOR_k10__vs__G0_ARGMAX": {
+   "point": -0.0028,
+   "ci95": [
+    -0.0068,
+    0.0013
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.00405,
+   "analytic_null_halfwidth_a": 0.00429,
+   "acc_a": 0.01953,
+   "acc_b": 0.02228
+  },
+  "R2_PROFILE_REJECTOR_k10__vs__N1_RANDOM_REJECTOR_k10": {
+   "point": 0.0009,
+   "ci95": [
+    -0.005,
+    0.0068
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.0059,
+   "analytic_null_halfwidth_a": 0.00429,
+   "acc_a": 0.01953,
+   "acc_b": 0.01853
+  },
+  "R2_PROFILE_REJECTOR_k20__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.12,
+   "ci95": [
+    -0.1314,
+    -0.1087
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01135,
+   "analytic_null_halfwidth_a": 0.00424,
+   "acc_a": 0.01903,
+   "acc_b": 0.13896
+  },
+  "R2_PROFILE_REJECTOR_k20__vs__G0_ARGMAX": {
+   "point": -0.0033,
+   "ci95": [
+    -0.0073,
+    0.0008
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.00405,
+   "analytic_null_halfwidth_a": 0.00424,
+   "acc_a": 0.01903,
+   "acc_b": 0.02228
+  },
+  "R2_PROFILE_REJECTOR_k20__vs__N1_RANDOM_REJECTOR_k20": {
+   "point": 0.0047,
+   "ci95": [
+    -0.0008,
+    0.0103
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.00555,
+   "analytic_null_halfwidth_a": 0.00424,
+   "acc_a": 0.01903,
+   "acc_b": 0.01427
+  },
+  "R2_PROFILE_REJECTOR_k50__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.12,
+   "ci95": [
+    -0.1314,
+    -0.1087
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01135,
+   "analytic_null_halfwidth_a": 0.00424,
+   "acc_a": 0.01903,
+   "acc_b": 0.13896
+  },
+  "R2_PROFILE_REJECTOR_k50__vs__G0_ARGMAX": {
+   "point": -0.0033,
+   "ci95": [
+    -0.0073,
+    0.0008
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.00405,
+   "analytic_null_halfwidth_a": 0.00424,
+   "acc_a": 0.01903,
+   "acc_b": 0.02228
+  },
+  "R2_PROFILE_REJECTOR_k50__vs__N1_RANDOM_REJECTOR_k50": {
+   "point": 0.0055,
+   "ci95": [
+    0.0003,
+    0.0108
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00525,
+   "analytic_null_halfwidth_a": 0.00424,
+   "acc_a": 0.01903,
+   "acc_b": 0.01352
+  },
+  "R3_COMBINED_k20_beta0.25__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1167,
+   "ci95": [
+    -0.1283,
+    -0.1052
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01155,
+   "analytic_null_halfwidth_a": 0.00458,
+   "acc_a": 0.02228,
+   "acc_b": 0.13896
+  },
+  "R3_COMBINED_k20_beta0.25__vs__G0_ARGMAX": {
+   "point": 0.0,
+   "ci95": [
+    -0.0049,
+    0.0049
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.0049,
+   "analytic_null_halfwidth_a": 0.00458,
+   "acc_a": 0.02228,
+   "acc_b": 0.02228
+  },
+  "R3_COMBINED_k20_beta0.25__vs__N1_RANDOM_REJECTOR_k20": {
+   "point": 0.008,
+   "ci95": [
+    0.0025,
+    0.0136
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00555,
+   "analytic_null_halfwidth_a": 0.00458,
+   "acc_a": 0.02228,
+   "acc_b": 0.01427
+  },
+  "R3_COMBINED_k20_beta0.5__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1129,
+   "ci95": [
+    -0.1246,
+    -0.1013
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01165,
+   "analytic_null_halfwidth_a": 0.00495,
+   "acc_a": 0.02612,
+   "acc_b": 0.13896
+  },
+  "R3_COMBINED_k20_beta0.5__vs__G0_ARGMAX": {
+   "point": 0.0038,
+   "ci95": [
+    -0.0014,
+    0.0091
+   ],
+   "band": "NOT_SEPARATED",
+   "ci_halfwidth": 0.00525,
+   "analytic_null_halfwidth_a": 0.00495,
+   "acc_a": 0.02612,
+   "acc_b": 0.02228
+  },
+  "R3_COMBINED_k20_beta0.5__vs__N1_RANDOM_REJECTOR_k20": {
+   "point": 0.0118,
+   "ci95": [
+    0.0061,
+    0.0177
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.0058,
+   "analytic_null_halfwidth_a": 0.00495,
+   "acc_a": 0.02612,
+   "acc_b": 0.01427
+  },
+  "R3_COMBINED_k20_beta0.75__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1086,
+   "ci95": [
+    -0.1205,
+    -0.0971
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.0117,
+   "analytic_null_halfwidth_a": 0.00532,
+   "acc_a": 0.03038,
+   "acc_b": 0.13896
+  },
+  "R3_COMBINED_k20_beta0.75__vs__G0_ARGMAX": {
+   "point": 0.0081,
+   "ci95": [
+    0.0022,
+    0.0142
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.006,
+   "analytic_null_halfwidth_a": 0.00532,
+   "acc_a": 0.03038,
+   "acc_b": 0.02228
+  },
+  "R3_COMBINED_k20_beta0.75__vs__N1_RANDOM_REJECTOR_k20": {
+   "point": 0.0161,
+   "ci95": [
+    0.0101,
+    0.0222
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.00605,
+   "analytic_null_halfwidth_a": 0.00532,
+   "acc_a": 0.03038,
+   "acc_b": 0.01427
+  },
+  "N1_RANDOM_REJECTOR_k5__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1142,
+   "ci95": [
+    -0.1259,
+    -0.1029
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.0115,
+   "analytic_null_halfwidth_a": 0.00482,
+   "acc_a": 0.02479,
+   "acc_b": 0.13896
+  },
+  "G1_SHORTLIST_ORACLE_PARTIAL_k5__vs__RANDOM_RANKING_NULL_PARTIAL_k5": {
+   "point": 0.0406,
+   "ci95": [
+    0.0322,
+    0.0492
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.0085,
+   "analytic_null_halfwidth_a": 0.0088,
+   "acc_a": 0.08838,
+   "acc_b": 0.04779
+  },
+  "N1_RANDOM_REJECTOR_k10__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1204,
+   "ci95": [
+    -0.1317,
+    -0.1092
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01125,
+   "analytic_null_halfwidth_a": 0.00418,
+   "acc_a": 0.01853,
+   "acc_b": 0.13896
+  },
+  "G1_SHORTLIST_ORACLE_PARTIAL_k10__vs__RANDOM_RANKING_NULL_PARTIAL_k10": {
+   "point": 0.052,
+   "ci95": [
+    0.0417,
+    0.0624
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.01035,
+   "analytic_null_halfwidth_a": 0.01082,
+   "acc_a": 0.14171,
+   "acc_b": 0.08972
+  },
+  "N1_RANDOM_REJECTOR_k20__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1247,
+   "ci95": [
+    -0.1362,
+    -0.1137
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01125,
+   "analytic_null_halfwidth_a": 0.00368,
+   "acc_a": 0.01427,
+   "acc_b": 0.13896
+  },
+  "G1_SHORTLIST_ORACLE_PARTIAL_k20__vs__RANDOM_RANKING_NULL_PARTIAL_k20": {
+   "point": 0.0619,
+   "ci95": [
+    0.0499,
+    0.0739
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.012,
+   "analytic_null_halfwidth_a": 0.01289,
+   "acc_a": 0.22183,
+   "acc_b": 0.16002
+  },
+  "N1_RANDOM_REJECTOR_k50__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1255,
+   "ci95": [
+    -0.1367,
+    -0.1144
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.01115,
+   "analytic_null_halfwidth_a": 0.00358,
+   "acc_a": 0.01352,
+   "acc_b": 0.13896
+  },
+  "G1_SHORTLIST_ORACLE_PARTIAL_k50__vs__RANDOM_RANKING_NULL_PARTIAL_k50": {
+   "point": 0.0718,
+   "ci95": [
+    0.0586,
+    0.0848
+   ],
+   "band": "ABOVE",
+   "ci_halfwidth": 0.0131,
+   "analytic_null_halfwidth_a": 0.01502,
+   "acc_a": 0.37581,
+   "acc_b": 0.30406
+  },
+  "G0_ARGMAX__vs__FLOOR(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1167,
+   "ci95": [
+    -0.1282,
+    -0.1054
+   ],
+   "band": "BELOW",
+   "ci_halfwidth": 0.0114,
+   "analytic_null_halfwidth_a": 0.00458,
+   "acc_a": 0.02228,
+   "acc_b": 0.13896
+  }
+ },
+ "STOP_IF": {
+  "i_real_win_arms": [],
+  "ii_precondition_failure": false,
+  "iii_shortlist_not_rejector_arms": [],
+  "iv_n2_void": false,
+  "v_rule12_failure_arms": [],
+  "clearing_arms_tested_for_rule12": [
+   "R1_ATTESTATION_REJECTOR_k5",
+   "R1_ATTESTATION_REJECTOR_k10",
+   "R1_ATTESTATION_REJECTOR_k20",
+   "R1_ATTESTATION_REJECTOR_k50",
+   "R2_PROFILE_REJECTOR_k50",
+   "R3_COMBINED_k20_beta0.25",
+   "R3_COMBINED_k20_beta0.5",
+   "R3_COMBINED_k20_beta0.75"
+  ],
+  "RULE_12_DETAIL": {
+   "R1_ATTESTATION_REJECTOR_k5": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.013,
+     "ci95": [
+      -0.0167,
+      0.0419
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0361,
+     "ci95": [
+      -0.0653,
+      -0.0081
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02878
+   },
+   "R1_ATTESTATION_REJECTOR_k10": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0227,
+     "ci95": [
+      -0.0073,
+      0.052
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0311,
+     "ci95": [
+      -0.0589,
+      -0.0043
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02832
+   },
+   "R1_ATTESTATION_REJECTOR_k20": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0242,
+     "ci95": [
+      -0.0051,
+      0.0554
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0261,
+     "ci95": [
+      -0.0566,
+      0.0045
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "mean_trigram_cosine_of_winner": 0.02684
+   },
+   "R1_ATTESTATION_REJECTOR_k50": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0252,
+     "ci95": [
+      -0.0047,
+      0.0549
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.044,
+     "ci95": [
+      -0.0752,
+      -0.0123
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02723
+   },
+   "R2_PROFILE_REJECTOR_k50": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0007,
+     "ci95": [
+      -0.0303,
+      0.0329
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0368,
+     "ci95": [
+      -0.0652,
+      -0.0084
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02515
+   },
+   "R3_COMBINED_k20_beta0.25": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0076,
+     "ci95": [
+      -0.0223,
+      0.038
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0357,
+     "ci95": [
+      -0.0633,
+      -0.0076
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02389
+   },
+   "R3_COMBINED_k20_beta0.5": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0201,
+     "ci95": [
+      -0.0117,
+      0.0503
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0355,
+     "ci95": [
+      -0.0642,
+      -0.0067
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02663
+   },
+   "R3_COMBINED_k20_beta0.75": {
+    "ortho_gain_corr": {
+     "n": 3994,
+     "r": 0.0194,
+     "ci95": [
+      -0.0107,
+      0.0503
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "word_length_gain_corr": {
+     "n": 3994,
+     "r": -0.0318,
+     "ci95": [
+      -0.0611,
+      -0.0032
+     ],
+     "band": "BELOW"
+    },
+    "mean_trigram_cosine_of_winner": 0.02427
+   }
+  }
+ },
+ "verdict": "NO_REAL_REJECTOR_CLEARS_AND_NO_PRECONDITION_FAILURE__NULL_ON_THIS_ARCHITECTURE",
+ "verdict_msg": "PRECOND(partial-cue G1@k50)=0.37581 (fail<0.05: False). BindingFloor=F_CONSTANT_PROTOTYPE@0.13896. REAL_WIN_ARMS=[]. SHORTLIST_NOT_REJECTOR_ARMS=[]. RULE12_FAIL=[]. N2==G0 verified for all k (no VOID).",
+ "summary": "NO_REAL_REJECTOR_CLEARS_AND_NO_PRECONDITION_FAILURE__NULL_ON_THIS_ARCHITECTURE",
+ "elapsed_s": 180.6,
+ "run_mode": "full",
+ "ORGAN_REUSE_RUNTIME_WITNESS": [
+  "exp_cue_to_store_translation_v1",
+  "exp_readout_ceiling_diagnosis_v1",
+  "exp_readout_second_order_v1",
+  "experiments.exp_cue_binarised_readout_transfer_v1",
+  "experiments.exp_definitional_grounding_v5",
+  "experiments.exp_reading_grounding_loop_cycle1_v1",
+  "experiments.exp_reading_grounding_loop_cycle2_v1",
+  "hdlab.reading_grounding_loop",
+  "tools.exp_checkpoint",
+  "tools.floor_battery"
+ ]
+}
