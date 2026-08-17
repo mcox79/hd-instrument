@@ -1,7 +1,7 @@
 {
   "anchor_name": "writerule_step_ladder_v1",
   "run_mode": "full",
-  "code_version": "v1.1",
+  "code_version": "v1.2",
   "findings_log": "notes/writerule_step_ladder_v1_findings_2026-08-17.md",
   "verdict": "WRITERULE_LADDER_MONOTONE__TOP_STEP_ACCUMULATE_not_a_downstream_pair__STOPIF_FIRED",
   "verdict_msg": "ORGAN A write-rule step ladder: FILTER / ACCUMULATE(not a downstream pair) / CODE_PROJECT / NORMALISE, oracle-cue self-address throughout, with WordNet-relation-rate and co-occurrence-ratio composition measured at every rung on a shared paired probe. -> WRITERULE_LADDER_MONOTONE__TOP_STEP_ACCUMULATE_not_a_downstream_pair__STOPIF_FIRED",
@@ -17,6 +17,7 @@
     "NORMALISE_isolation_changes_score",
     "PIPE_selftest_keys",
     "arms_must_differ_digest_sensitivity",
+    "best_single_occurrence_oracle_discriminator_fires",
     "exp_checkpoint_selftest",
     "syntagmatic_jaccard_known_answer",
     "wordnet_relation_composition_known_answers"
@@ -24,7 +25,7 @@
   "report": {
     "anchor_name": "writerule_step_ladder_v1",
     "grid": "full",
-    "code_version": "v1.1",
+    "code_version": "v1.2",
     "findings_log": "notes/writerule_step_ladder_v1_findings_2026-08-17.md",
     "NO_LLM_IN_OPERATIONAL_FLOW": true,
     "RULER_MODE_GATE": {
@@ -136,7 +137,9 @@
           -0.0186
         ],
         "drop_ci_halfwidth": 0.0078,
-        "band": "BELOW"
+        "band": "BELOW",
+        "direction_of_step_a_to_b": "GAIN",
+        "reading": "ACCUMULATE_not_a_downstream_pair: acc(R2_FILTERED_SINGLE_OCC)=0.034 acc(R3_FILTERED_FULL_ACCUM)=0.0603; going R2_FILTERED_SINGLE_OCC->R3_FILTERED_FULL_ACCUM is a GAIN of 0.0263"
       },
       {
         "from": "R3_FILTERED_FULL_ACCUM",
@@ -148,7 +151,9 @@
           0.0188
         ],
         "drop_ci_halfwidth": 0.0064,
-        "band": "ABOVE"
+        "band": "ABOVE",
+        "direction_of_step_a_to_b": "LOSS",
+        "reading": "CODE_PROJECT: acc(R3_FILTERED_FULL_ACCUM)=0.0603 acc(R4_PROJECTED_GRADED_FULL_ACCUM)=0.0481; going R3_FILTERED_FULL_ACCUM->R4_PROJECTED_GRADED_FULL_ACCUM is a LOSS of 0.0123"
       },
       {
         "from": "R4_PROJECTED_GRADED_FULL_ACCUM",
@@ -160,7 +165,9 @@
           0.0085
         ],
         "drop_ci_halfwidth": 0.0068,
-        "band": "NOT_SEPARATED"
+        "band": "NOT_SEPARATED",
+        "direction_of_step_a_to_b": "LOSS",
+        "reading": "NORMALISE: acc(R4_PROJECTED_GRADED_FULL_ACCUM)=0.0481 acc(R5_PROJECTED_SIGN_FULL_ACCUM)=0.0464; going R4_PROJECTED_GRADED_FULL_ACCUM->R5_PROJECTED_SIGN_FULL_ACCUM is a LOSS of 0.0016"
       },
       {
         "from": "R1_UNFILTERED_SINGLE_OCC",
@@ -172,9 +179,27 @@
           0.0033
         ],
         "drop_ci_halfwidth": 0.0024,
-        "band": "NOT_SEPARATED"
+        "band": "NOT_SEPARATED",
+        "direction_of_step_a_to_b": "LOSS",
+        "reading": "FILTER: acc(R1_UNFILTERED_SINGLE_OCC)=0.0349 acc(R2_FILTERED_SINGLE_OCC)=0.034; going R1_UNFILTERED_SINGLE_OCC->R2_FILTERED_SINGLE_OCC is a LOSS of 0.0009"
       }
     ],
+    "RECONCILIATION_WITH_exp_pipeline_stage_oracle_ladder_v1": {
+      "quantity_both_cells_difference": "hit@1(upstream_arm) - hit@1(downstream_arm), identical formula (FB.margin), identical sign convention, on the SAME reused DIAG_B1/DIAG_B2 arm constructions",
+      "ACCUMULATE_R2_to_R3": {
+        "this_cell_drop_point": -0.0263,
+        "sibling_drop_point_DIAG_B1_to_DIAG_B2": -0.0263,
+        "agreement": "bit-for-bit once both are read via the SAME sign convention",
+        "plain_reading": "accumulation (1 occurrence -> ~72) is a GAIN of +0.0263 in BOTH cells"
+      },
+      "CODE_PROJECT_R3_to_R4": {
+        "this_cell_drop_point": 0.0123,
+        "sibling_drop_point_DIAG_B2_to_LAM_1.00": 0.0123,
+        "agreement": "bit-for-bit once both are read via the SAME sign convention",
+        "plain_reading": "the 256-dim projection (unprojected -> projected) is a LOSS of -0.0123 in BOTH cells"
+      },
+      "note": "an earlier draft of this cell's own PROSE (not its numbers) mislabelled these two directions -- see MONOTONICITY_NOTE_BUG_DISCLOSURE and the findings note section 0b for the correction. The raw drop_point/band fields were always correct and always matched the sibling cell; only the narrative interpretation was wrong."
+    },
     "MONOTONICITY_PER_LEG": {
       "FILTER_R1_to_R2": {
         "n_leaks": 0,
@@ -11075,12 +11100,54 @@
         "band": "NOT_SEPARATED"
       }
     ],
+    "DECISIVE_ARM_best_single_vs_sum_vs_random": {
+      "n_probe": 300,
+      "n_occ_per_item_mean": 30.96,
+      "n_occ_per_item_median": 20.0,
+      "RANDOM_SINGLE_hit_at_1": 0.0367,
+      "SUM_ALL_hit_at_1": 0.01,
+      "BEST_SINGLE_ORACLE_hit_at_1": 0.3033,
+      "elapsed_s": 1.2,
+      "margin_BEST_SINGLE_ORACLE_minus_SUM_ALL": {
+        "point": 0.293,
+        "ci95": [
+          0.24,
+          0.3433
+        ],
+        "band": "ABOVE"
+      },
+      "margin_BEST_SINGLE_ORACLE_minus_RANDOM_SINGLE": {
+        "point": 0.2664,
+        "ci95": [
+          0.2167,
+          0.3133
+        ],
+        "band": "ABOVE"
+      },
+      "margin_SUM_ALL_minus_RANDOM_SINGLE": {
+        "point": -0.0266,
+        "ci95": [
+          -0.05,
+          -0.0033
+        ],
+        "band": "BELOW"
+      }
+    },
     "STOP_IF_FIRED": [
-      "(i) ONE_STEP_DOMINATES -- the 'distributed deficit' reading is WRONG",
-      "(iii) ACCURACY_FLAT_COMPOSITION_SHIFTS -- a build target independent of accuracy: [{'from': 'R2_FILTERED_SINGLE_OCC', 'to': 'R3_FILTERED_FULL_ACCUM', 'step': 'ACCUMULATE_not_a_downstream_pair', 'no_relation_rate_from': 0.84, 'no_relation_rate_to': 0.7971, 'delta_point': -0.043, 'delta_ci95': [-0.08, -0.0086], 'band': 'BELOW'}]"
+      "(i) ONE_STEP_DOMINATES (ACCUMULATE_not_a_downstream_pair, a GAIN) -- the 'distributed deficit' reading is WRONG for this organ's write-rule steps"
     ],
-    "elapsed_s": 41.6
+    "STOP_IF_iii_LOOSE_TRIGGER_DISAGREES_WITH_STRICT": {
+      "loose_trigger_fires_on": [
+        "ACCUMULATE_not_a_downstream_pair"
+      ],
+      "strict_trigger_fires_on": [],
+      "disagreement": [
+        "ACCUMULATE_not_a_downstream_pair"
+      ],
+      "why": "the loose set includes any step with a CI-separated composition move regardless of whether that step's OWN accuracy also moved; the strict set additionally requires the accuracy band for that step to be NOT_SEPARATED, matching stop-if (iii)'s literal wording ('a step leaves ACCURACY unchanged'). A future reader must use the STRICT set (STOP_IF_FIRED) as the coded verdict and read this field before citing (iii) for any step in the disagreement list."
+    },
+    "elapsed_s": 39.7
   },
-  "elapsed_s": 49.6,
+  "elapsed_s": 48.0,
   "summary": "ORGAN A write-rule step ladder: FILTER / ACCUMULATE(not a downstream pair) / CODE_PROJECT / NORMALISE, oracle-cue self-address throughout, with WordNet-relation-rate and co-occurrence-ratio composition measured at every rung on a shared paired probe. -> WRITERULE_LADDER_MONOTONE__TOP_STEP_ACCUMULATE_not_a_downstream_pair__STOPIF_FIRED"
 }

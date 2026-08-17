@@ -1,193 +1,186 @@
 # ORGAN A -- THE WRITE-RULE STEP LADDER: WHICH STEP DESTROYS SUBSTITUTABILITY?
 
-Cell: `experiments/exp_writerule_step_ladder_v1.py`. FULL landed, 50s,
-`data/exp_writerule_step_ladder_v1/metrics.json`, code_version v1.1. Smoke (`--grid reduced`, n=300)
-landed first at `data/exp_writerule_step_ladder_v1_reduced/metrics.json`.
+Cell: `experiments/exp_writerule_step_ladder_v1.py`. FULL landed, code_version v1.2, 48s,
+`data/exp_writerule_step_ladder_v1/metrics.json`. Smoke (`--grid reduced`, n=300) landed first at
+`data/exp_writerule_step_ladder_v1_reduced/metrics.json`. **v1.2 is a correction round** on v1.1
+(monotonicity-bug fix) after the coordinator caught an apparent sign disagreement with the sibling
+cell -- section 0b below is the resolution, and it changes the sentence this note leads with.
 
-## 0. A CONSTRUCTION BUG CAUGHT BY THE CELL'S OWN FIRST FULL RUN, DISCLOSED
+## 0a. THE MONOTONICITY CONSTRUCTION BUG (v1.0 -> v1.1, kept for the record)
 
-v1.0's first FULL run (elapsed 41.3s, same session) printed
-`WRITERULE_LADDER_LEAK_DETECTED__TOP_STEP_ACCUMULATE...`. The "leak" was an artifact of my own
-monotonicity-chain construction: I meant to exempt only the R2->R3 (ACCUMULATE) *transition* from
-the strict "signal cannot rise" check, but I did it by dropping R3 out of the ordered array
-entirely, which made R2 and R4 artificially *adjacent*. `check_monotone_nonincreasing` then scored
-`acc[R4] - acc[R2]` (two real steps summed) as if it were one step's rise, and flagged it
-(rung_index=2, rise=0.0140, combined_ci_halfwidth=0.0057). Fixed in v1.1: three separate PER-LEG
-checks (`[R1,R2]`, `[R3,R4]`, `[R4,R5]`), each on genuinely adjacent rungs, with R2->R3 exempted as
-its own declared margin (not hidden from the drop table). Re-ran FULL after the fix; both runs'
-underlying arm accuracies are identical (only the monotonicity bookkeeping changed). This is stated
-first because the brief is explicit that a leak matters more than any number, and the honest reading
-is: v1.0's "leak" was in my ladder's plumbing, not in the pipeline being measured.
+v1.0's first FULL run printed `WRITERULE_LADDER_LEAK_DETECTED`. It excluded R3 out of the
+monotonicity chain array entirely (meaning to exempt only the R2->R3 transition), which made R2 and
+R4 artificially adjacent and scored a two-step movement as a one-step "leak". Fixed in v1.1 with
+three PER-LEG checks (`[R1,R2]`, `[R3,R4]`, `[R4,R5]`); the underlying arm accuracies never changed.
 
-## 1. THE STEP LIST -- WHAT WAS ENUMERATED AND HOW, AND HOW IT DIFFERS FROM THE SKETCH
+## 0b. THE SIGN RECONCILIATION WITH `exp_pipeline_stage_oracle_ladder_v1` -- RESOLVED, IN WRITING
 
-Method: read `hdlab/grounding_acquisition_loop.py` (content_words, context_vector) and
-`hdlab/reading_grounding_loop.py` (ConceptSpace.observe/anchor_matrix/bundle, symbol_vector,
-GRADED_COMPARATOR) directly, then verified against the runtime-verified enumeration already landed
-in `exp_pipeline_stage_oracle_ladder_v1.py` (commit e28d1b8d6), which itself read the same files plus
-the machine-asserted `H^T p == mat[a]` identity. Not re-derived from scratch; read, checked against
-the live source, then extended (that cell's own S1/S2 stop short of the composition question and
-never isolate FILTER or NORMALISE).
+**The coordinator is right that two numbers looked like a contradiction, and the cause was found:
+this cell's own PROSE mislabelled two directions. The underlying data was never in conflict.**
 
-**The Director's five-item sketch (filter / code / accumulate / normalise / superpose) collapses to
-FOUR live steps, and the collapse is itself a result, matching the shape of the correction the READ
-side already went through (nine sketch stages -> five live stages):**
+Both cells difference the IDENTICAL quantity with the IDENTICAL formula and sign convention
+(`FB.margin`: `point = hit@1(upstream_arm) - hit@1(downstream_arm)`), on the SAME reused DIAG_B1 /
+DIAG_B2 arm constructions:
 
-- **FILTER** -- `content_words`: regex tokens, minus ~70 stopwords, minus length<=2.
-- **CODE** -- `symbol_vector` per surviving word, summed into one d=256 vector via ONE fixed
-  sha256-seeded random basis shared by the whole vocabulary. The Director's "superpose with every
-  other word" item is **not a separate step**: cross-talk between different words' codes happens
-  *inside* this one shared-basis projection (mean \|cos\| among 5000 sampled symbol-vector pairs =
-  0.0499, close to the 1/sqrt(256) JL bound -- established by the reused sibling cell). There is no
-  later, independently-manipulable superposition event to ladder.
-  - **CORRECTION STATED PLAINLY: NORMALISE is OFF in the live default.** `GRADED_COMPARATOR`
-    (env `HD_GRADED_COMPARATOR`, default ON) means `anchor_matrix()` returns the raw graded sums;
-    `np.sign()` only fires when the flag is OFF, which is NOT the default and has not been since
-    2026-08-14. Every headline number in this arc, including the 79.3%/4.24x ARM5 finding, was
-    measured on the ungraded (sign-free) path. Sign-quantisation is real, live, and reachable by one
-    env var -- laddered here anyway because it is enumerable from code and toggleable -- but it is
-    not currently part of what wrote the store this program's other measurements describe.
-- **ACCUMULATE** -- `ConceptSpace.observe`: `self._sums[lemma] += ctx_vec`, unweighted, across every
-  profile occurrence.
-- **NORMALISE** -- conditional sign() quantisation, as above.
-
-## 2. THE LADDER, RUNGS, ORACLE-CUE THROUGHOUT
-
-Every rung is scored with the item's own oracle self-address (query = that representation's own
-stored row), the same "exact key" regime this whole 2026-08-17 arc uses, so the numbers below are
-write-side residue with the read side held perfect.
-
-| rung | construction | reuse status |
-|---|---|---|
-| R1 UNFILTERED_SINGLE_OCC | one profile sentence/anchor, every token kept, raw counts, unprojected | NEW |
-| R2 FILTERED_SINGLE_OCC | same sentence, content-word filtered | REUSED VERBATIM (= `exp_pipeline_stage_oracle_ladder_v1`'s own DIAG_B1 construction) |
-| R3 FILTERED_FULL_ACCUM | full profile (~72 sentences/anchor avg), filtered, unprojected | REUSED VERBATIM (= its own DIAG_B2, via its landed checkpoint) |
-| R4 PROJECTED_GRADED_FULL_ACCUM | the REAL incumbent store (d=256, graded) | numerically = its LAM_1.00 / this arc's headline 0.0481 |
-| R5 PROJECTED_SIGN_FULL_ACCUM | same store, sign()-quantised (store AND query) | NEW |
-
-FILTER is isolated at matched single-occurrence depth only (R1 vs R2), a disclosed scope limit: an
-unfiltered FULL-accumulation rung would need a fresh, uncached full-corpus pass at the same cost
-class as `exp_cue_information_audit_v1`'s own >1800s build, and was not run given the machine
-contention this session (a CPU-heavy verb rescore and a sibling accumulation-ladder cell in flight).
-
-## 3. GATES -- ALL PASSED BEFORE ANY NUMBER WAS READ
-
-REGRESSION (lam=0.00 full population): 0.0223 vs expected 0.0223, PASS. K1 KNOWN-ANSWER: addressing
-0.9975-1.0000 on all 5 main rungs (gate 0.95), PASS. N1 NULL (deranged query assignment on the
-incumbent rung): addressing 0.000000 against chance 0.00018, hit@1 0.0095, PASS. ARMS-MUST-DIFFER:
-11 of 11 arms produced distinct SHA digests. `R4`'s own hit@1 (0.0481) reproduces this arc's
-established exact-key headline bit-for-bit.
-
-## 4. RANKED DROP TABLE (n=3994, N_BOOT=10000, paired bootstrap, CI half-width beside every drop)
-
-| rank | step | from -> to | drop | CI95 | band |
-|---|---|---|---|---|---|
-| 1 | **ACCUMULATE** | R2 -> R3 | **-0.0263** | [-0.0343,-0.0186] | BELOW |
-| 2 | CODE_PROJECT | R3 -> R4 | +0.0123 | [+0.0060,+0.0188] | ABOVE |
-| 3 | NORMALISE | R4 -> R5 | +0.0016 | [-0.0051,+0.0085] | NOT_SEPARATED |
-| 4 | FILTER | R1 -> R2 | +0.0009 | [-0.0016,+0.0033] | NOT_SEPARATED |
-
-**ACCUMULATE dominates: |0.0263| is 64% of the summed absolute drop (0.0263 / (0.0263+0.0123+0.0016+0.0009)).**
-ACCUMULATE and CODE_PROJECT both reproduce `exp_pipeline_stage_oracle_ladder_v1`'s own DIAG_B1->DIAG_B2
-(-0.0263 [-0.0343,-0.0186]) and DIAG_B2->LAM_1.00 (+0.0123 [+0.006,+0.0188]) margins **bit-for-bit**
--- an independent cross-cell replication, not a coincidence of shared code (the two cells build these
-arms via genuinely reused function calls, so this is the expected outcome of correct reuse, and it is
-reported as the validity check it is).
-
-## 5. MONOTONICITY -- HELD, PER LEG, ONCE THE CONSTRUCTION BUG WAS FIXED
-
-FILTER (R1->R2), CODE_PROJECT (R3->R4) and NORMALISE (R4->R5) each checked as a genuinely-adjacent
-pair via the reused `check_monotone_nonincreasing` (same individual-arm-half-width convention
-`exp_pipeline_stage_oracle_ladder_v1` uses for its own Part A chain): **MONOTONE, 0 leaks, on all
-three legs.** ACCUMULATE (R2->R3) is excluded from this assertion for the same reason the sibling
-cell excludes its own B1->B2: more accumulated evidence is not a downstream information-loss
-transform, so a change there (in either direction) is a plain margin, not a leak candidate.
-
-**A finer instrument (the paired-bootstrap drop table above) DOES show CODE_PROJECT rising
-CI-separated (+0.0123, ABOVE).** This is not a contradiction: the leak-detector's tolerance is
-deliberately coarse (built to catch order-of-magnitude errors, not to certify small effects), and the
-paired-bootstrap margin is the correct, finer-grained instrument for a genuine small effect. Read
-plainly: a lossy d=256 random projection of a much higher-dimensional sparse count space measurably
-**improves** exact-key nearest-neighbour accuracy here. This is a known, unsurprising property of
-random projection / dimensionality reduction acting as a denoiser in high-dimensional metric spaces
-(unrelated words' near-orthogonal codes attenuate faster than the query's own signal under
-projection) and is not a construction leak -- reproduced bit-for-bit by an independent cell, which is
-the strongest evidence available that it is real.
-
-## 6. WINNER COMPOSITION -- THE SCIENTIFIC CORE, MEASURED AT EVERY RUNG FOR THE FIRST TIME
-
-`n_probe=700`, one SHARED, seeded, paired index subset across all 5 rungs (so every delta below is a
-paired comparison on identical items, not two independently-drawn samples).
-
-| rung | fraction NO close WordNet relation | winner-query Jaccard mean (frac ever co-occur) | gold-query Jaccard mean (frac ever co-occur) | winner/gold ratio |
+| step | this cell's `drop_point` | sibling's `drop_point` | agreement | plain reading |
 |---|---|---|---|---|
-| R1 UNFILTERED_SINGLE_OCC | 0.8529 | 0.0392 (65.4%) | 0.0090 (22.0%) | 4.36x |
-| R2 FILTERED_SINGLE_OCC | 0.8400 | 0.0382 (66.0%) | 0.0096 (23.9%) | 3.97x |
-| R3 FILTERED_FULL_ACCUM | 0.7971 | 0.0911 (**94.4%**) | 0.0238 (60.3%) | 3.82x |
-| R4 PROJECTED_GRADED_FULL_ACCUM | 0.8000 | 0.0823 (90.6%) | 0.0200 (50.4%) | 4.11x |
-| R5 PROJECTED_SIGN_FULL_ACCUM | 0.8071 | 0.0659 (74.0%) | 0.0170 (43.0%) | 3.88x |
+| ACCUMULATE (single occ -> full accum) | **-0.0263** [-0.0343,-0.0186] | **-0.0263** [-0.0343,-0.0186] | bit-for-bit | a **GAIN of +0.0263** |
+| CODE_PROJECT (unprojected -> projected) | **+0.0123** [+0.0060,+0.0188] | **+0.0123** [+0.006,+0.0188] | bit-for-bit | a **LOSS of -0.0123** |
 
-**Paired composition deltas (bootstrap CI over the shared idx_probe):** ONLY ACCUMULATE (R2->R3)
-CI-separates on the WordNet-relation axis: no-relation rate **-0.0430 [-0.0800,-0.0086], BELOW** --
-i.e. accumulation slightly *reduces* the taxonomically-unrelated fraction. FILTER, CODE_PROJECT and
-NORMALISE all sit NOT_SEPARATED on this axis (deltas +/-0.003 to -0.013, none excluding zero).
+**A negative `drop_point` means the downstream arm scored HIGHER (a GAIN); a positive `drop_point`
+means the downstream arm scored LOWER (a real LOSS).** `band="BELOW"` means "upstream sits below
+downstream" (downstream higher = GAIN); `band="ABOVE"` means "upstream sits above downstream"
+(downstream lower = LOSS). An earlier draft of this note's own prose read these backwards --
+calling ACCUMULATE's GAIN "the largest drop" / "the step with the largest accuracy cost", and
+calling CODE_PROJECT's LOSS a case of "projection genuinely helping accuracy". **Both were wrong
+readings of a correctly-computed number.** v1.2 adds an explicit `direction_of_step_a_to_b` field
+(`GAIN`/`LOSS`/`FLAT`) to every row of the RANKED_DROP_TABLE in the metrics so no future reader has
+to re-derive the sign, and this note is rewritten below to state directions in plain language
+throughout, never via a bare signed number.
 
-**BUT the co-occurrence axis tells a sharper, and more diagnostic, story about the SAME step.**
-Going from R2 to R3 (single occurrence to full accumulation, filter held fixed), the fraction of
-winners that **ever share a sentence with the query anywhere in the 34,169-sentence corpus** jumps
-from **66.0% to 94.4%** -- and the same jump happens for the best gold synonym too (23.9% -> 60.3%),
-which is why the *ratio* barely moves (3.97x -> 3.82x): both numerator and denominator are being
-pulled toward "has ever co-occurred with the query" by the same mechanism. **Accumulating more
-occurrences of an anchor makes its stored representation converge toward words that are its OWN
-corpus co-occurrence partners -- almost universally so, for both the winner and the best available
-gold.** This is the step, read plainly: ACCUMULATE is where the representation goes from "occasionally
-overlaps with something the query has co-occurred with" to "returns something the query has almost
-certainly co-occurred with, 94% of the time" -- the signature of a store answering "what occurs near
-this word" rather than "what could replace this word." The WordNet-relation-rate delta alone (a
-small, CI-separated *improvement*) would have hidden this if co-occurrence had not also been
-measured at the same rung -- exactly the brief's warning that a step can move one axis and not the
-other, and that both must be watched.
+**Corrected ranked drop table** (n=3994, paired bootstrap):
 
-## 7. WHICH STOP-IF FIRED, STATED PRECISELY (not just the cell's mechanical tag)
+| rank (by \|drop\|) | step | direction | magnitude | CI95 |
+|---|---|---|---|---|
+| 1 | ACCUMULATE (single occ -> full accum, background ALSO accumulated) | **GAIN** | +0.0263 | [+0.0186,+0.0343] |
+| 2 | CODE_PROJECT (unprojected -> d=256 projected) | **LOSS** | -0.0123 | [-0.0188,-0.0060] |
+| 3 | NORMALISE (graded -> sign-quantised) | loss, not significant | -0.0016 | [-0.0085,+0.0051] NOT_SEPARATED |
+| 4 | FILTER (unfiltered -> filtered) | loss, not significant | -0.0009 | [-0.0033,+0.0016] NOT_SEPARATED |
 
-- **(i) ONE STEP DOMINATES, FIRED.** ACCUMULATE is 64% of the total ranked-drop mass; the "deficit is
-  distributed" reading is **wrong for the write rule's internal steps**, and this corrects that
-  framing plainly, as instructed.
-- **(ii) does not apply** -- a single step dominates, so the loss is not spread evenly.
-- **(iii), AS LITERALLY WORDED, DID NOT FIRE.** The brief's precondition is accuracy *flat* while
-  composition shifts. ACCUMULATE's accuracy move is the *largest* of the four (-0.0263, BELOW), not
-  flat, so it does not meet (iii)'s letter even though the cell's own coarse trigger (which checked
-  only "composition CI-separated," not "accuracy also flat") flagged it. The metrics.json
-  `STOP_IF_FIRED` field over-fires (iii) for this reason and should be read with this correction, not
-  quoted verbatim -- disclosed here rather than silently patched a second time this session. The
-  genuinely interesting, precisely-stated finding is different from (iii) but related: **the one step
-  with the largest accuracy cost is also the only step with a CI-separated composition move, and the
-  two move in opposite readings depending which composition axis is read** (WordNet: improves;
-  co-occurrence share: sharply worsens). That dissociation, not a flat-accuracy flip, is what
-  ACCUMULATE actually shows.
-- **(iv) monotonicity leak: did NOT fire** on the corrected (v1.1) per-leg check. v1.0's apparent
-  leak was the construction bug in section 0.
-- **(v) K1 held.** Published.
+ACCUMULATE (a gain) still dominates the ranked-|drop| table at 64% of total movement -- STOP-IF (i)
+still fires, but the correct reading is **"one step is doing almost all of the WORK, and that work
+is a gain, not a loss"**, not "one step destroys almost everything". CODE_PROJECT is the only
+CI-separated genuine LOSS among the four steps.
 
-## 8. ONE PLAIN-LANGUAGE SENTENCE
+## 1. THE DECISIVE ARM -- THE COORDINATOR'S SUSPECTED READING, TESTED, NOT ADOPTED
 
-**Summing more sentences into an anchor's stored vector is the step that pulls the write rule's
-winners toward words the query has actually appeared next to -- the co-occurrence share of the
-top-1 winner nearly triples (66% to 94% ever-co-occurring) between one occurrence and the full
-profile, which is the write rule quietly turning "what this word means" into "what this word
-sits beside."**
+**The question:** does R2->R3's ACCUMULATE gain come from more evidence, from summing it into one
+vector, or both -- and does summing throw part of the evidence back away, as suspected?
 
-## 9. WHAT THIS DOES NOT LICENSE
+**Design.** Background (every OTHER anchor) held at single-occurrence throughout. ONLY the target
+item's own cue/row varies: `RANDOM_SINGLE` (its own first occurrence, R2's construction exactly),
+`SUM_ALL` (its full-accumulation row swapped in), `BEST_SINGLE_ORACLE` (every one of its own profile
+occurrences -- mean 31.0, median 20 per item -- tried individually against the SAME fixed
+background; any hit counts). n=300 (cost-bounded subsample of the composition idx_probe),
+self-tested with a discriminator-fires fixture (a "loud decoy" occurrence buries a "correct"
+occurrence so RANDOM_SINGLE and SUM_ALL both miss and only the oracle finds it -- proved the
+instrument can actually discriminate the three arms before trusting it on real data).
 
-- FILTER was only isolated at single-occurrence depth (disclosed scope limit, section 2); a
-  full-accumulation FILTER rung remains unmeasured.
-- The composition instrument runs on n_probe=700 of 3994 scored items (cost-bounded, same convention
-  as this arc's other composition measurements); reported with its own n throughout, never silently
-  generalised to the full population.
-- This cell LOCALISES; it does not rebuild the write rule. The rebuild decision belongs to the
-  Director, per the dispatch's own instruction.
-- Nothing here claims a brain structure computes second-order co-occurrence or performs the
-  accumulation step; every operator laddered (the stopword list, the random basis, unweighted
-  summation, sign quantisation) is OUR INVENTION UNDER TEST, not pinned biology. PINNED: only the
-  complementary-learning-systems framing (cortex extracts cross-episode regularities; hippocampus
-  keeps the episode) that motivated asking this question in the first place.
+**Result, all three margins CI-separated:**
+
+| arm | hit@1 (n=300) | margin vs RANDOM_SINGLE |
+|---|---|---|
+| RANDOM_SINGLE | 0.0367 | -- |
+| **SUM_ALL** | **0.0100** | **-0.0266 [-0.0500,-0.0033], BELOW** |
+| **BEST_SINGLE_ORACLE** | **0.3033** | **+0.2664 [+0.2167,+0.3133], ABOVE** |
+
+BEST_SINGLE_ORACLE vs SUM_ALL: +0.2930 [+0.2400,+0.3433], ABOVE.
+
+**The reading, stated as the coordinator asked, and it is SHARPER than the suspected version, not
+merely confirmed:** holding the competitive field fixed, summing an anchor's occurrences does not
+merely "throw part of the gain away" -- **it scores WORSE than a single arbitrary occurrence**
+(0.0100 vs 0.0367), while the retrievable information is an order of magnitude larger than either
+(0.3033 via an oracle that only ever looks at ONE occurrence at a time). This is DIFFERENT from and
+does not contradict R2->R3's population-level +0.0263 GAIN: that comparison ALSO deepens every
+competing anchor, so the whole competitive landscape gets diluted together and relative
+discriminability can rise even while the SUM ITSELF is, per-target, a worse representation than a
+single well-chosen sentence. **Two true, non-contradictory statements about different comparisons:**
+"more evidence, summed into everyone's store together, nets a population-level gain" and "summing
+one anchor's own evidence, holding its competitors fixed, is worse than not summing at all."
+
+**"Accumulate without collapsing" SURVIVES as the build target, and this arm is the direct evidence
+for it, not an inference from the population-level number.** The oracle ceiling (0.30) is roughly
+2.5x the incumbent's own real read-out (0.0481) and ~8x RANDOM_SINGLE -- summing is actively
+destroying reachable signal, not merely failing to add it.
+
+## 2. THE STEP LIST (unchanged from v1.1) -- WHAT WAS ENUMERATED AND HOW
+
+Read `hdlab/grounding_acquisition_loop.py` and `hdlab/reading_grounding_loop.py` directly, verified
+against and extending `exp_pipeline_stage_oracle_ladder_v1` (e28d1b8d6). **The Director's five-item
+sketch (filter / code / accumulate / normalise / superpose) collapses to FOUR live steps** --
+FILTER, CODE (the sketch's "superposition with every other word" is the SAME event as CODE, not
+separate: cross-talk lives inside the one shared-basis d=256 projection), ACCUMULATE, NORMALISE.
+
+**NORMALISE (sign quantisation) is OFF BY DEFAULT since 2026-08-14** (`GRADED_COMPARATOR`, env
+`HD_GRADED_COMPARATOR`, default ON means sign() never fires). **This recontextualises the whole
+arc: every headline number in this programme, including the 79.3% no-relation and 4.24x
+co-occurrence figures, was measured with quantisation NOT firing. Anyone who believed quantisation
+was in the live path was wrong.**
+
+## 3. GATES
+
+REGRESSION (lam=0.00 full population) 0.0223 vs 0.0223 PASS. K1 KNOWN-ANSWER: addressing
+0.9975-1.0000 on all 5 rungs (gate 0.95) PASS. N1 NULL (deranged assignment): 0.000000 vs chance
+0.00018, PASS. ARMS-MUST-DIFFER: 11 of 11 distinct digests. `R4` reproduces this arc's exact-key
+headline (0.0481) bit-for-bit.
+
+## 4. MONOTONICITY -- HELD, PER LEG
+
+FILTER, CODE_PROJECT, NORMALISE each checked as a genuinely-adjacent pair (reused
+`check_monotone_nonincreasing`, same convention the sibling cell uses): **MONOTONE, 0 leaks, all
+three legs.** ACCUMULATE (R2->R3) is excluded from this assertion for the same reason the sibling
+excludes its own B1->B2: more accumulated evidence is not a downstream information-loss transform.
+
+## 5. WINNER COMPOSITION -- MEASURED AT EVERY RUNG FOR THE FIRST TIME
+
+`n_probe=700`, one shared, seeded, paired index subset across all 5 rungs.
+
+| rung | no-close-WordNet-relation fraction | winner-query co-occur (frac ever) | gold-query co-occur (frac ever) | ratio |
+|---|---|---|---|---|
+| R1 UNFILTERED_SINGLE_OCC | 0.8529 | 65.4% | 22.0% | 4.36x |
+| R2 FILTERED_SINGLE_OCC | 0.8400 | 66.0% | 23.9% | 3.97x |
+| R3 FILTERED_FULL_ACCUM | 0.7971 | **94.4%** | 60.3% | 3.82x |
+| R4 PROJECTED_GRADED_FULL_ACCUM | 0.8000 | 90.6% | 50.4% | 4.11x |
+| R5 PROJECTED_SIGN_FULL_ACCUM | 0.8071 | 74.0% | 43.0% | 3.88x |
+
+Only ACCUMULATE (R2->R3) CI-separates on the WordNet axis: no-relation rate **-0.0430
+[-0.0800,-0.0086]** (slightly IMPROVES). But co-occurrence tells the sharper story: the winner's
+"ever co-occurs with the query" share nearly triples across the SAME step, **66.0% -> 94.4%** (and
+gold's does too, 23.9% -> 60.3%, which is why the RATIO barely moves even as the absolute share
+jumps). **ACCUMULATE is the step that pulls winners toward the query's own corpus neighbours,**
+visible only because both composition axes were measured at the same rung -- the WordNet axis alone
+would have hidden it, and would have suggested (wrongly) that accumulation helps relation-type
+purity.
+
+## 6. STOP-IF, PRECISELY, INCLUDING THE CODED-VS-WRITTEN DISAGREEMENT (coordinator item 1)
+
+- **(i) FIRED, corrected direction:** ACCUMULATE dominates the ranked-|drop| table (64% of the
+  total), but it is a **GAIN**, not a loss -- "one step does almost all the work" is right;
+  "one step destroys almost everything" is not.
+- **(ii) does not apply.**
+- **(iii): the CODED verdict field and this note's WRITTEN conclusion DISAGREE, and the metrics.json
+  now states why (`STOP_IF_iii_LOOSE_TRIGGER_DISAGREES_WITH_STRICT`).** A loose, mechanical trigger
+  (any step with a CI-separated composition move) fires on ACCUMULATE. The brief's literal wording
+  requires accuracy to be FLAT at that step; ACCUMULATE's own accuracy move is the LARGEST of the
+  four (a real +0.0263 GAIN), not flat, so it does NOT satisfy (iii) as written. v1.2's `rep[
+  "STOP_IF_FIRED"]` now reports only the STRICT reading (empty for (iii)); a separate field records
+  the disagreement explicitly so a future grep of the verdict string is never misled by a trigger
+  the author has already disowned. The real, correctly-stated finding is a DISSOCIATION, not a
+  flat-accuracy flip: the one step with the largest (gain-direction) accuracy move is ALSO the only
+  step whose composition CI-separates, and it separates in OPPOSITE directions on the two composition
+  axes (WordNet: improves; co-occurrence share: nearly triples).
+- **(iv) monotonicity leak: did not fire** on the v1.1+ per-leg check.
+- **(v) K1 held.**
+
+## 7. ONE PLAIN-LANGUAGE SENTENCE
+
+**Summing an anchor's occurrences into one vector is worse than keeping even one arbitrary
+occurrence (holding everything else fixed), while the retrievable signal sitting across those same
+occurrences is roughly eight times larger than either -- the write rule's real defect is not
+"too little accumulation" but "accumulation collapsed into a sum instead of kept separate", and the
+step that most needs replacing is ACCUMULATE, without changing FILTER, CODE, or NORMALISE.**
+
+## 8. WHAT THIS DOES NOT LICENSE
+
+- FILTER is isolated only at single-occurrence depth (disclosed scope limit); a full-accumulation
+  FILTER rung remains unmeasured.
+- The composition and decisive-arm instruments run on n=700 / n=300 of 3994 scored items
+  (cost-bounded, reported with their own n throughout).
+- This cell LOCALISES; it does not rebuild the write rule. A separate agent (ORGAN F) is
+  concurrently running an accumulation-depth sweep with token-matched and frequency-stratified
+  controls, well past the ~72-sentence depth used here -- this cell does not duplicate that scope
+  and does not edit its files.
+- Nothing here claims a brain structure computes second-order co-occurrence or performs summation;
+  every operator laddered is OUR INVENTION UNDER TEST. PINNED: only the complementary-learning-
+  systems framing (cortex extracts cross-episode regularities; hippocampus keeps the episode) that
+  motivated asking this question.

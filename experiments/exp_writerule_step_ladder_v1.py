@@ -218,10 +218,15 @@ from tools.exp_checkpoint import unit_key, completed_units, record_unit, load_un
 print("[imports] done", flush=True)
 
 ANCHOR_NAME = "writerule_step_ladder_v1"
-CODE_VERSION = "v1.1"  # v1.0's first full run had a monotonicity-chain construction bug (skipped R3,
-                       # falsely flagged a LEAK); v1.1 fixes it with per-leg checks. See
-                       # MONOTONICITY_NOTE_BUG_DISCLOSURE in the metrics. Version bumped so the
-                       # checkpoint key does not silently resume the buggy v1.0 MAIN unit.
+CODE_VERSION = "v1.2"  # v1.0's first full run had a monotonicity-chain construction bug (skipped R3,
+                       # falsely flagged a LEAK); v1.1 fixed it with per-leg checks. v1.2 (coordinator
+                       # correction round, 2026-08-17): adds explicit sign-convention reconciliation
+                       # with exp_pipeline_stage_oracle_ladder_v1 (RANKED_DROP_TABLE direction field),
+                       # the decisive best-single-vs-sum-vs-random-occurrence arm, and a strict/loose
+                       # split on stop-if (iii) so the coded verdict cannot disagree with the written
+                       # conclusion silently. See MONOTONICITY_NOTE_BUG_DISCLOSURE and
+                       # RECONCILIATION_WITH_exp_pipeline_stage_oracle_ladder_v1 in the metrics.
+                       # Version bumped each time so no checkpoint key silently resumes stale logic.
 FINDINGS = "notes/writerule_step_ladder_v1_findings_2026-08-17.md"
 
 _ap = argparse.ArgumentParser()
@@ -373,6 +378,71 @@ def syntagmatic_jaccard_composition(query_words: Sequence[str], winner_words: Se
 
 
 # =================================================================================================
+# THE DECISIVE ARM (coordinator request, 2026-08-17 correction round). Separates "more evidence"
+# from "summing" cleanly: holds the COMPETITIVE BACKGROUND (every anchor OTHER than the target) at
+# SINGLE-OCCURRENCE throughout, and varies ONLY the target item's own cue/row among three regimes.
+# If "accumulate without collapsing" (best-single-oracle) beats or ties SUM_ALL while both clearly
+# beat RANDOM_SINGLE, the depth-that-was-collapsed-by-summing is recoverable without the sum -- the
+# build target becomes "more evidence, not summed". If SUM_ALL beats even BEST_SINGLE_ORACLE, the
+# aggregation itself is doing something a single sentence cannot, regardless of which one is chosen.
+# =================================================================================================
+def best_single_occurrence_oracle(idx_probe: np.ndarray, anchors_list: List[str], qidx_T: np.ndarray,
+                                  buckets: Dict[str, List[int]], sents: List[str],
+                                  vocab_f: Dict[str, int], Pm_single_local, Pm_full_local,
+                                  E_T: np.ndarray, GOLD_T: np.ndarray) -> Dict:
+    n = len(idx_probe)
+    rand_hit = np.zeros(n, dtype=bool)
+    sum_hit = np.zeros(n, dtype=bool)
+    best_hit = np.zeros(n, dtype=bool)
+    n_occ_per_item = np.zeros(n, dtype=np.int64)
+    Pm_single_T = Pm_single_local.T.tocsr()
+    for pos in range(n):
+        i = int(idx_probe[pos])
+        k = int(qidx_T[i])
+        elig = E_T[:, i]
+        gold = GOLD_T[:, i]
+        # RANDOM_SINGLE -- the background's OWN single-occurrence row for this anchor. Identical
+        # construction to R2 (occ[0], not resampled -- disclosed, not literally re-randomised).
+        q_rand = Pm_single_local[k]
+        s_rand = np.asarray((q_rand @ Pm_single_T).todense()).ravel()
+        s_rand = np.where(elig, s_rand, -np.inf)
+        rand_hit[pos] = bool(gold[int(np.argmax(s_rand))])
+        # SUM_ALL -- swap ONLY the target's own row for its full-accumulation row; every OTHER
+        # anchor stays at single-occurrence. Isolates "does depth help THIS anchor" against a FIXED
+        # competitive landscape, rather than a landscape that ALSO got deeper (which is what R3 vs
+        # R2 measures globally).
+        q_sum = Pm_full_local[k]
+        s_sum = np.asarray((q_sum @ Pm_single_T).todense()).ravel()
+        s_sum = np.where(elig, s_sum, -np.inf)
+        sum_hit[pos] = bool(gold[int(np.argmax(s_sum))])
+        # BEST_SINGLE_ORACLE -- every one of the anchor's own profile occurrences scored
+        # individually against the SAME fixed background; ANY hit counts. The ceiling of "a single,
+        # optimally-chosen sentence", never summed.
+        a_i = anchors_list[k]
+        occs_all = buckets.get(a_i, [])
+        n_prof = INFO.C3._n_profile(len(occs_all))
+        occs = occs_all[:n_prof]
+        n_occ_per_item[pos] = len(occs)
+        counters: Dict[str, Counter] = {}
+        order: List[str] = []
+        for jj, j in enumerate(occs):
+            cnt = INFO.raw_counts_for_window(sents[j], a_i)
+            if cnt:
+                key = str(jj)
+                counters[key] = cnt
+                order.append(key)
+        if order:
+            rows = INFO.l2n_sparse(INFO.to_sparse(counters, order, vocab_f))
+            S = np.asarray((rows @ Pm_single_T).todense())
+            S = np.where(elig[None, :], S, -np.inf)
+            winners = np.argmax(S, axis=1)
+            best_hit[pos] = bool(gold[winners].any())
+    return {"RANDOM_SINGLE": rand_hit, "SUM_ALL": sum_hit, "BEST_SINGLE_ORACLE": best_hit,
+           "n_occ_per_item_mean": round(float(n_occ_per_item.mean()), 2),
+           "n_occ_per_item_median": float(np.median(n_occ_per_item))}
+
+
+# =================================================================================================
 # self-test
 # =================================================================================================
 def self_test() -> Dict:
@@ -427,6 +497,40 @@ def self_test() -> Dict:
     a2 = np.array([1.0, 2.0, 3.0001])
     assert _digest(a1) != _digest(a2), "distinct arrays must produce distinct digests"
     ev["arms_must_differ_digest_sensitivity"] = True
+
+    # --- best_single_occurrence_oracle: DISCRIMINATOR-FIRES fixture (coordinator's decisive arm).
+    # Constructed so a LOUD, uninformative early occurrence ("decoy") dominates BOTH the naive
+    # single-occurrence pick AND the sum (RANDOM_SINGLE and SUM_ALL both MISS), while exactly ONE
+    # buried occurrence exactly matches the gold ("good") -- only an oracle allowed to try every
+    # occurrence separately (BEST_SINGLE_ORACLE) can find it. Proves the three arms can disagree,
+    # not just that the function runs. ---------------------------------------------------------------
+    # NOTE: content_words() requires len(token) > 2, so single/double-char tokens like "w1"/"w2"
+    # are silently filtered -- this fixture uses 3+ char tokens for that reason (caught by the
+    # first run of this fixture, which produced empty Counters and a MISS-everywhere false pass).
+    sents_fix = [""] * 31
+    sents_fix[10], sents_fix[11], sents_fix[12], sents_fix[13] = (
+        "decoyword decoyword", "goodword", "decoyword", "goodword goodword")
+    sents_fix[20], sents_fix[30] = "decoyword", "goodword"
+    anchors_fix = ["t", "decoy", "good"]
+    buckets_fix = {"t": [10, 11, 12, 13], "decoy": [20], "good": [30]}
+    vocab_fix = {"decoyword": 0, "goodword": 1}
+    Pm_single_fix = INFO.l2n_sparse(INFO.to_sparse(
+        {"t": Counter(decoyword=2), "decoy": Counter(decoyword=1), "good": Counter(goodword=1)},
+        anchors_fix, vocab_fix))
+    Pm_full_fix = INFO.l2n_sparse(INFO.to_sparse(
+        {"t": Counter(decoyword=3, goodword=1), "decoy": Counter(decoyword=1), "good": Counter(goodword=1)},
+        anchors_fix, vocab_fix))
+    E_fix = np.array([[False], [True], [True]])
+    GOLD_fix = np.array([[False], [False], [True]])
+    res_fix = best_single_occurrence_oracle(np.array([0]), anchors_fix, np.array([0]), buckets_fix,
+                                            sents_fix, vocab_fix, Pm_single_fix, Pm_full_fix,
+                                            E_fix, GOLD_fix)
+    assert res_fix["RANDOM_SINGLE"][0] == False, "fixture must make the naive single pick MISS"
+    assert res_fix["SUM_ALL"][0] == False, "fixture must make the sum MISS (dominated by the decoy)"
+    assert res_fix["BEST_SINGLE_ORACLE"][0] == True, "the oracle MUST find the buried hit"
+    ev["best_single_occurrence_oracle_discriminator_fires"] = {
+        "RANDOM_SINGLE": bool(res_fix["RANDOM_SINGLE"][0]), "SUM_ALL": bool(res_fix["SUM_ALL"][0]),
+        "BEST_SINGLE_ORACLE": bool(res_fix["BEST_SINGLE_ORACLE"][0])}
 
     # --- checkpoint round-trip (tools.exp_checkpoint's own self-test, called not reimplemented) ---
     import tools.exp_checkpoint as ECK
@@ -621,13 +725,48 @@ def run(grid: str) -> Dict:
         ("R3_FILTERED_FULL_ACCUM", "R4_PROJECTED_GRADED_FULL_ACCUM", "CODE_PROJECT"),
         ("R4_PROJECTED_GRADED_FULL_ACCUM", "R5_PROJECTED_SIGN_FULL_ACCUM", "NORMALISE"),
     ]
+    # SIGN CONVENTION, STATED EXPLICITLY (reconciliation with exp_pipeline_stage_oracle_ladder_v1,
+    # coordinator request 2026-08-17): FB.margin(boot, a, b) computes point = hit(a) - hit(b), i.e.
+    # UPSTREAM minus DOWNSTREAM. So drop_point > 0 means the step from a->b LOWERED accuracy (a real
+    # LOSS/destruction); drop_point < 0 means the step RAISED accuracy (a GAIN). "band"="BELOW" means
+    # arm a sits BELOW arm b (b is higher = a GAIN going a->b); "band"="ABOVE" means a sits ABOVE b (b
+    # is lower = a LOSS going a->b). This is the IDENTICAL formula and sign convention
+    # exp_pipeline_stage_oracle_ladder_v1 uses for its own drop table (its own code comment: "point =
+    # hit(a) - hit(b) = the DROP"). A `direction` field is added below so no reader has to re-derive
+    # the sign from the band string.
     drops = []
     for a, b, tag in step_pairs:
         m = FB.margin(boot, a, b)
+        direction = "GAIN" if m["point"] < 0 else ("LOSS" if m["point"] > 0 else "FLAT")
         drops.append({"from": a, "to": b, "step": tag, "drop_point": m["point"], "drop_ci95": m["ci95"],
-                      "drop_ci_halfwidth": round((m["ci95"][1] - m["ci95"][0]) / 2.0, 4), "band": m["band"]})
+                      "drop_ci_halfwidth": round((m["ci95"][1] - m["ci95"][0]) / 2.0, 4), "band": m["band"],
+                      "direction_of_step_a_to_b": direction,
+                      "reading": "%s: acc(%s)=%s acc(%s)=%s; going %s->%s is a %s of %.4f" % (
+                          tag, a, round(acc[a], 4), b, round(acc[b], 4), a, b, direction, abs(m["point"]))})
     drops_ranked = sorted(drops, key=lambda d: abs(d["drop_point"]), reverse=True)
     rep["RANKED_DROP_TABLE"] = drops_ranked
+    rep["RECONCILIATION_WITH_exp_pipeline_stage_oracle_ladder_v1"] = {
+        "quantity_both_cells_difference": "hit@1(upstream_arm) - hit@1(downstream_arm), identical "
+            "formula (FB.margin), identical sign convention, on the SAME reused DIAG_B1/DIAG_B2 "
+            "arm constructions",
+        "ACCUMULATE_R2_to_R3": {
+            "this_cell_drop_point": None, "sibling_drop_point_DIAG_B1_to_DIAG_B2": -0.0263,
+            "agreement": "bit-for-bit once both are read via the SAME sign convention",
+            "plain_reading": "accumulation (1 occurrence -> ~72) is a GAIN of +0.0263 in BOTH cells"},
+        "CODE_PROJECT_R3_to_R4": {
+            "this_cell_drop_point": None, "sibling_drop_point_DIAG_B2_to_LAM_1.00": 0.0123,
+            "agreement": "bit-for-bit once both are read via the SAME sign convention",
+            "plain_reading": "the 256-dim projection (unprojected -> projected) is a LOSS of -0.0123 "
+                             "in BOTH cells"},
+        "note": "an earlier draft of this cell's own PROSE (not its numbers) mislabelled these two "
+               "directions -- see MONOTONICITY_NOTE_BUG_DISCLOSURE and the findings note section 0b "
+               "for the correction. The raw drop_point/band fields were always correct and always "
+               "matched the sibling cell; only the narrative interpretation was wrong.",
+    }
+    rep["RECONCILIATION_WITH_exp_pipeline_stage_oracle_ladder_v1"]["ACCUMULATE_R2_to_R3"]["this_cell_drop_point"] = \
+        next(d["drop_point"] for d in drops if d["step"] == "ACCUMULATE_not_a_downstream_pair")
+    rep["RECONCILIATION_WITH_exp_pipeline_stage_oracle_ladder_v1"]["CODE_PROJECT_R3_to_R4"]["this_cell_drop_point"] = \
+        next(d["drop_point"] for d in drops if d["step"] == "CODE_PROJECT")
 
     # =============================== MONOTONICITY -- PER-LEG, NEVER SKIPPING A RUNG =================
     # BUG CAUGHT BY THIS CELL'S OWN FIRST FULL RUN, DISCLOSED NOT QUIETLY FIXED: v1.0's first cut
@@ -738,26 +877,101 @@ def run(grid: str) -> Dict:
                            "delta_ci95": [round(lo, 4), round(hi, 4)], "band": band})
     rep["COMPOSITION_DELTA_TABLE"] = comp_drops
 
+    # =============================== THE DECISIVE ARM (coordinator, 2026-08-17 correction round) =====
+    # Separates "more evidence" from "summing": background fixed at single-occurrence for EVERY
+    # anchor; only the target's own row/cue varies among RANDOM_SINGLE (= R2's own row), SUM_ALL
+    # (target's full-accumulation row swapped in), BEST_SINGLE_ORACLE (best of the target's own
+    # profile occurrences, tried individually, any hit counts). Cost-bounded to a sub-sample of
+    # idx_probe (checkpointed per the mandatory multi-unit rule).
+    N_DECISIVE = min(300 if grid == "full" else 40, idx_probe.size)
+    idx_decisive = idx_probe[:N_DECISIVE]
+    out_dir_ckpt = os.path.join(REPO, "data", ANCHOR_NAME + ("_reduced" if grid == "reduced" else ""))
+    ck_key_dec = unit_key("DECISIVE_ARM", CODE_VERSION, grid)
+    prior_dec = load_units(out_dir_ckpt).get(ck_key_dec)
+    if prior_dec is not None:
+        print("[decisive_arm] RESUMED FROM CHECKPOINT", flush=True)
+        dec = prior_dec
+    else:
+        t_dec = time.time()
+        dec_raw = best_single_occurrence_oracle(idx_decisive, anchors, qidx_T, buckets, sents,
+                                                vocab_f, Pm_single, Pm_full, E_T, GOLD_T)
+        dec = {"n_probe": int(idx_decisive.size),
+              "n_occ_per_item_mean": dec_raw["n_occ_per_item_mean"],
+              "n_occ_per_item_median": dec_raw["n_occ_per_item_median"],
+              "RANDOM_SINGLE_hit_at_1": round(float(dec_raw["RANDOM_SINGLE"].mean()), 4),
+              "SUM_ALL_hit_at_1": round(float(dec_raw["SUM_ALL"].mean()), 4),
+              "BEST_SINGLE_ORACLE_hit_at_1": round(float(dec_raw["BEST_SINGLE_ORACLE"].mean()), 4),
+              "elapsed_s": round(time.time() - t_dec, 1)}
+        # paired bootstrap over the 3 arms, same idx_decisive items for all three
+        boot_dec_idx = np.random.default_rng(MASTER_SEED + 6262).integers(
+            0, idx_decisive.size, size=(2000, idx_decisive.size))
+        def _m(a, b):
+            xa = dec_raw[a].astype(np.float64)[boot_dec_idx].mean(axis=1)
+            xb = dec_raw[b].astype(np.float64)[boot_dec_idx].mean(axis=1)
+            d = xa - xb
+            lo, hi = float(np.percentile(d, 2.5)), float(np.percentile(d, 97.5))
+            return {"point": round(float(np.mean(d)), 4), "ci95": [round(lo, 4), round(hi, 4)],
+                   "band": "ABOVE" if lo > 0 else ("BELOW" if hi < 0 else "NOT_SEPARATED")}
+        dec["margin_BEST_SINGLE_ORACLE_minus_SUM_ALL"] = _m("BEST_SINGLE_ORACLE", "SUM_ALL")
+        dec["margin_BEST_SINGLE_ORACLE_minus_RANDOM_SINGLE"] = _m("BEST_SINGLE_ORACLE", "RANDOM_SINGLE")
+        dec["margin_SUM_ALL_minus_RANDOM_SINGLE"] = _m("SUM_ALL", "RANDOM_SINGLE")
+        record_unit(out_dir_ckpt, ck_key_dec, dec)
+    rep["DECISIVE_ARM_best_single_vs_sum_vs_random"] = dec
+    print("[decisive_arm] RANDOM_SINGLE=%.4f SUM_ALL=%.4f BEST_SINGLE_ORACLE=%.4f n=%d mean_occ=%.1f" % (
+        dec["RANDOM_SINGLE_hit_at_1"], dec["SUM_ALL_hit_at_1"], dec["BEST_SINGLE_ORACLE_hit_at_1"],
+        dec["n_probe"], dec["n_occ_per_item_mean"]), flush=True)
+
     # =============================== STOP-IF EVALUATION ================================================
     top_drop = drops_ranked[0] if drops_ranked else None
     span = sum(abs(d["drop_point"]) for d in drops_ranked) or 1.0
     dominant = bool(top_drop is not None and abs(top_drop["drop_point"]) / span > 0.5)
     distributed = bool(top_drop is not None and abs(top_drop["drop_point"]) / span <= 0.5
                        and span > 3 * analytic_null_hw)
-    composition_flip = [d for d in comp_drops if d["band"] != "NOT_SEPARATED"
-                        and abs(d["delta_point"]) >= 0.03]
+    accuracy_band_of_step = {d["step"]: d["band"] for d in drops_ranked}
+    # (iii) AS LITERALLY WORDED requires accuracy FLAT (NOT_SEPARATED) at that SAME step, not merely
+    # that composition moves. A composition move on a step whose accuracy ALSO moved is a genuine,
+    # interesting finding (a dissociation), but it is NOT the brief's (iii) -- flagging it as such
+    # would overstate what (iii) means. Both readings are computed and both are reported, never
+    # conflated.
+    composition_flip_strict = [d for d in comp_drops if d["band"] != "NOT_SEPARATED"
+                               and abs(d["delta_point"]) >= 0.03
+                               and accuracy_band_of_step.get(d["step"]) == "NOT_SEPARATED"]
+    composition_flip_loose = [d for d in comp_drops if d["band"] != "NOT_SEPARATED"
+                              and abs(d["delta_point"]) >= 0.03]
     stop_if: List[str] = []
     if dominant:
-        stop_if.append("(i) ONE_STEP_DOMINATES -- the 'distributed deficit' reading is WRONG")
+        stop_if.append("(i) ONE_STEP_DOMINATES (%s, a %s) -- the 'distributed deficit' reading is "
+                       "WRONG for this organ's write-rule steps" % (
+                           top_drop["step"], top_drop["direction_of_step_a_to_b"]))
     if distributed and not dominant:
         stop_if.append("(ii) LOSS_SPREAD_EVENLY -- the distributed reading is CONFIRMED")
-    if composition_flip:
-        stop_if.append("(iii) ACCURACY_FLAT_COMPOSITION_SHIFTS -- a build target independent of "
-                       "accuracy: %r" % composition_flip)
+    if composition_flip_strict:
+        stop_if.append("(iii) ACCURACY_FLAT_COMPOSITION_SHIFTS, AS LITERALLY WORDED -- fired: %r"
+                       % composition_flip_strict)
     if not rep["MONOTONICITY"]["MONOTONE"]:
         stop_if.append("(iv->leak) MONOTONICITY LEAK in leg(s) %r -- report the leak, not the ladder"
                        % rep["MONOTONICITY"]["legs_with_leak"])
-    rep["STOP_IF_FIRED"] = stop_if if stop_if else ["NONE of (i)-(iv) fired on this run's numbers"]
+    rep["STOP_IF_FIRED"] = stop_if if stop_if else ["NONE of (i)-(iv) fired, strict reading"]
+    # CODED VS WRITTEN, STATED EXPLICITLY so a future grep of this field is never misled (coordinator
+    # request): the LOOSE trigger (composition CI-separated, accuracy band ignored) DOES fire on
+    # ACCUMULATE even though ACCUMULATE's own accuracy move is the LARGEST of the four steps, not
+    # flat -- so ACCUMULATE does not satisfy (iii)'s literal precondition. The correct, precise
+    # reading is a DIFFERENT finding: ACCUMULATE is the one step whose composition CI-separates AT
+    # ALL, and it is ALSO the step with the largest (GAIN-direction) accuracy move -- a dissociation
+    # between the two composition axes (WordNet no-relation rate improves; co-occurrence share
+    # nearly triples), not a flat-accuracy composition flip.
+    rep["STOP_IF_iii_LOOSE_TRIGGER_DISAGREES_WITH_STRICT"] = {
+        "loose_trigger_fires_on": [d["step"] for d in composition_flip_loose],
+        "strict_trigger_fires_on": [d["step"] for d in composition_flip_strict],
+        "disagreement": sorted(set(d["step"] for d in composition_flip_loose)
+                               - set(d["step"] for d in composition_flip_strict)),
+        "why": "the loose set includes any step with a CI-separated composition move regardless of "
+              "whether that step's OWN accuracy also moved; the strict set additionally requires the "
+              "accuracy band for that step to be NOT_SEPARATED, matching stop-if (iii)'s literal "
+              "wording ('a step leaves ACCURACY unchanged'). A future reader must use the STRICT set "
+              "(STOP_IF_FIRED) as the coded verdict and read this field before citing (iii) for any "
+              "step in the disagreement list.",
+    }
 
     rep["elapsed_s"] = round(time.time() - t0, 1)
     return rep
