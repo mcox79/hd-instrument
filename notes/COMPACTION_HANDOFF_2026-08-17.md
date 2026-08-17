@@ -182,6 +182,81 @@ its `selftest()` was poisoning `_ORTHO_CACHE` with a ~60-row fixture the real ru
 
 ---
 
+## 8b. LANDED **AFTER** THIS FILE WAS FIRST WRITTEN -- THESE SUPERSEDE SECTIONS ABOVE
+
+**(A) THE READ-OUT CEILING IS DIAGNOSED. THIS IS THE MOST IMPORTANT FINDING OF THE SESSION.**
+Commits `10213434e`, `30a34dee5`; `notes/readout_ceiling_findings_2026-08-17.md`.
+
+**Our store encodes CO-OCCURRENCE (syntagmatic: "appears near"). The task scores SUBSTITUTABILITY
+(paradigmatic: "could replace"). For most items the correct answer's MEDIAN co-occurrence with the
+query is EXACTLY ZERO -- it never shares a sentence with the query anywhere in the corpus.**
+
+- **The answer IS in the store** -- rank curve CI-separated above a per-item random-ranking null at all
+  11 values of k (4.77x at k=1) and above a permuted-cue null at all 11 (margins 4.9x-11.3x their own
+  CI half-widths); median gold rank **37 of 5,491** against 203 expected. **So "content is missing" is
+  FALSIFIED.** The defect is WHICH RELATION WAS ENCODED, not whether anything was stored.
+- The winners are **collocates, not failed synonyms**: 79.3% have no close WordNet relation; they
+  co-occur with the query **4.24x** more than the correct answer does. Qualitatively:
+  `abbey -> highclere`, `absorb -> pigment`, **`absence -> presence`** -- an antonym, the textbook
+  co-occurrence failure, since opposites share contexts.
+- **39 read-out arms across two cells; NONE clears the binding floor, none beats the incumbent.**
+  Includes the SUCCESSOR REPRESENTATION (ORGAN_MAP D7's "never run" organ) -- now run, CI-separated
+  BELOW at all four gammas, worse as gamma rises: propagating through a graph whose multi-hop tail is
+  noise adds noise.
+- **Analytic closure of 29 arms:** the hubness correction and the constant floor are THE SAME OBJECT
+  (corr 0.9995), so subtracting it removes signal.
+- **THE ONE UNTRIED STRUCTURE IS THE BRAIN'S:** a shortlist plus **a verifier that is not the
+  generator** (the owner's BOARD Q8 propose-and-reject). Measured oracle ceiling **0.1715 at k=5** and
+  0.2604 at k=10, against the 0.1390 floor. **This is the only remaining road on this instrument.**
+- Caveat the agent flagged rather than buried: the 0.1390 floor is partly a generous gold (the word
+  `work` alone is correct for 13.9% of items), which is why the primary finding was stated against the
+  per-item random-ranking curve instead.
+
+**(B) THE PHASE 2 KILL IS WITHDRAWN FOR ONE MECHANISM AND RE-WORDED FOR THE OTHER.**
+`exp_cue_regime_one_variable_v1`, verdict `BRIDGE_CUE_CARRIES_IDENTITY_NO__LAMBDA_STAR_0p60`.
+**lambda* = 0.60 CONFIRMED** at full grid on all three configs, all four ladders, all three
+definitions, morphology-blocked control reproducing exactly. The bridging instrument **cannot
+CI-separate a cue carrying under ~60% of the target's identity**; the retrieval instrument's threshold
+is 0.05.
+- **The arm the kill fired on carried 21-22%.** Margin **-0.0566 [-0.1901,+0.0771]**, CI half-width
+  **0.1336 = 2.4x the margin**, `MARGIN_NARROWER_THAN_ITS_OWN_CI = True`. **It could not have
+  separated regardless of mechanism.** Population identity proved three ways, reproducing the landed
+  numbers bit-for-bit including the exact `B1 0.0270` the kill fired on.
+- **KILL WITHDRAWN** for thematic neighbour-copy (23.5-26.1% equivalent -- a power statement, the
+  FOURTH underpowered null this session). **RE-WORDED, NOT WITHDRAWN,** for selectional bridging
+  (0.0-2.6% equivalent, NOT_SEPARATED from a random word's code -- that estimator's cue is genuinely
+  EMPTY). **But the generalisation "grounding does not propagate through our relations" DOES NOT
+  SURVIVE** -- nothing under 60% was visible either way.
+- Gates: KA rho 0.3311 (+0.2350 ABOVE), NULL 0.0118 NOT_SEPARATED, monotonicity 1.0000 on all four
+  ladders. **The constant floor was the WEAKEST of the four here (-0.2253 / -0.1977); scramble p95
+  binds.** Third time that assumption was wrong.
+
+**(C) "THE PARTIAL CUE IS STRUCTURALLY DEAD" IS RETRACTED.** At full scale it addresses at 0.0711
+against chance 0.00018 (**390x**), carries a derived **12-18% exact-key-equivalent**, and beats a
+marginals-matched non-informative filler on 7 of 10 rungs. **The cue carries real information.**
+What caps us is the READ-OUT, independently of the cue: a PERFECT cue (exact-key addressing 1.0000)
+still yields hit@1 **0.0481**, CI-separated BELOW the constant floor 0.1390 by **7.3x its own CI
+half-width**. **No rung clears at any cue quality.** So the ~0.037 oracle cap was TWO defects quoted
+as one: a graded, non-structural ADDRESSING deficit, and a READ-OUT CEILING.
+
+**(D) THE SUBSTRATE-BASIS REVIEW -- the owner's named first post-compaction topic.** Verified off disk
+but **its write was denied, so it exists only in the agent's transcript**; re-issue it. Findings:
+- **The binding-operator choice is EMPIRICALLY NULL at full mode** across two cells and six operators
+  (`K_cliff` 750/750/750 for Hadamard/HRR/FHRR with 0.0 shift; `K*` 500/500/500 for cyclic-shift /
+  permutation / phase-rotation with **0.000 separation**).
+- The one clean live-path format cell (`data/exp_capacity_vs_format_2x2_livepath_v1`, full, floored,
+  projection-draw-controlled) puts `sign()` at +0.0585 and d=256 at +0.0635 -- roughly equal and
+  additive -- **but the graded gain is NULL on open-vocabulary hit@1.**
+- **The cell justifying `sign()` (`exp_bipolar_quantization_quality_cpu_v1`) is SMOKE-MODE with NO
+  FLOORS and NO CIs, and is contradicted by two later full-mode cells.**
+- All three quoted landmarks reproduce exactly but are ISOLATION proofs; the arc is verified:
+  `1.000 -> 0.954 -> 0.919 (tied control 0.700) -> 0.063 fails its bar under matched difficulty ->
+  CONJUNCTIVE_HURTS, CI-separated below flat`.
+- **THE SEPARATION THAT MATTERS FOR THE OWNER'S DECISION: the FORMAT costs a few points; the WRITE
+  RULE puts the system below its own constant floor.** Do not conflate them.
+
+---
+
 ## 9. THE NEXT THREE THINGS, IN ORDER
 
 1. **Diagnose the partial-cue structural cap.** Nothing downstream is worth building until this is
