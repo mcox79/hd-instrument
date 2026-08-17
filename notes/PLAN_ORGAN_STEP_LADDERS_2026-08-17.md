@@ -206,3 +206,76 @@ measured predictor of our performance. Both halves are load-bearing.
   organ we have built beats its floors.
 - **If accumulation is still climbing steeply at 72 sentences**, "more reading" is a lever we ignored
   while optimising everything downstream, and the order above is wrong.
+
+---
+
+## 6. RESULTS SINCE THIS PLAN WAS WRITTEN -- TWO LADDERS LANDED THE SAME NIGHT
+
+**Both stop-ifs in section 5 FIRED. The plan's own order of work was wrong, in the way it predicted.**
+
+### 6.1 ORGAN A LADDER LANDED (`exp_writerule_step_ladder_v1`, commit `ab3555eb6`)
+
+- **The write rule is FOUR live steps, not five.** "Superposition" is not a separate step -- it is the
+  SAME EVENT as coding. Same class of correction as the read side's 9 -> 5. **The Director's model of
+  the machine has now been wrong about the joints twice; enumerate from live code, always.**
+- **ONE STEP DOMINATES: ACCUMULATE, at 64% of total drop mass.** This **REFUTES the Director's
+  2026-08-17 "the deficit is distributed" conclusion FOR THIS ORGAN.** Recorded as a correction, not
+  softened.
+- **The composition measurement is the real finding.** Across that single step the share of top-1
+  winners that have EVER co-occurred with the query jumps **66.0% -> 94.4%**. *Unweighted summation is
+  the operation that converts our store into a record of adjacency.*
+- **`sign()` NORMALISE has been OFF BY DEFAULT since 2026-08-14.** Every headline number in this arc,
+  including 79.3% no-relation and 4.24x co-occurrence, was measured with quantisation NOT FIRING.
+  Anyone who believed it was in the live path was wrong.
+- Its coded verdict string and its written conclusion disagree (stop-if iii fired mechanically; its
+  precondition of flat accuracy does not hold). The author disowned the string in the note. **Do not
+  quote that verdict.**
+
+### 6.2 ORGAN F LADDER LANDED (`exp_organ_f_accumulation_depth_ladder_v1`, commit `379c42833`)
+
+- **DEPTH IS STILL CLIMBING PAST OUR OPERATING POINT.** 72 -> 128 sentences per anchor is **+0.0503
+  [+0.0139,+0.0861]** CI-separated on the best-powered population; gold median rank falls **4-6x**
+  with depth (38 -> 9). Past 128 is UNDERPOWERED, **not** a measured plateau -- say "underpowered",
+  never "saturated".
+- **All three spoiler controls failed to explain it:** token-matched (+0.039 ABOVE), random-occurrence
+  (+0.1057 ABOVE), and a deliberately lower-frequency stratum showing the same late-rise shape. It is
+  not tokens, not any-material, not frequency in disguise.
+- **THE "72" IS AN ARBITRARY CODE CONSTANT** (`K_SENT_TOTAL=90` in `build_buckets`), **not a corpus
+  limit.** Uncapped, the most frequent anchor reaches **k=2,019**. *We have been operating at a
+  ceiling nobody chose.*
+- **A REAL LEAK WAS FOUND AND FIXED BEFORE IT CONTAMINATED ANYTHING.** The held-out evaluation
+  sentence sits INSIDE the first-90 window, so naively reading deeper pulls the answer into the store.
+  A leak-safe profile pool was built and self-tested against a hand-built example with a real gap.
+  **Any future depth work MUST reuse that pool.** This catch alone justifies the ladder method.
+
+### 6.3 THE RECONCILIATION, AND THE BUILD TARGET IT PRODUCES
+
+The two ladders report the SAME MAGNITUDES WITH OPPOSITE SIGNS (accumulation +0.0263 as a gain,
+-0.0263 as a drop; projection 0.0123 either way). They are not in conflict -- they answer different
+questions, and **both are true**:
+
+> **MORE EVIDENCE HELPS. COLLAPSING IT INTO ONE UNWEIGHTED SUM THROWS PART OF IT BACK AWAY AND BIASES
+> WHAT SURVIVES TOWARD CO-OCCURRENCE.**
+
+**So accumulation is simultaneously our best lever and our worst destroyer, and the build target is
+ACCUMULATE WITHOUT COLLAPSING** -- keep episodes distinguishable (multi-vector, per-occurrence
+normalisation, or downweighting the high-frequency context words that carry adjacency rather than
+identity) instead of averaging them into one point. That is the first genuinely actionable design
+instruction this programme has produced, and it is brain-framed rather than tool-framed: **PINNED**
+that neocortex extracts cross-episode REGULARITIES while hippocampus keeps the EPISODE; adjacency is
+episodic, substitutability is the regularity; **we built the hippocampal half and called it cortex.**
+
+*In flight: `accumulate-no-collapse`, with a RANDOM-PARTITION control so a multi-vector store cannot
+win merely by having more vectors to match against, and matched-storage as well as matched-depth
+comparisons so it cannot win by being bigger.*
+
+### 6.4 REVISED ORDER OF WORK
+
+1. Land the verb rescore (in flight; 4 of 5 arms scored on the common n=3161 -- A0 0.2711, A1 0.3705,
+   A2 0.3081, A3_noise 0.2543 BELOW baseline; paired CIs outstanding).
+2. **Accumulate-without-collapsing** (in flight). Promoted above everything else on the strength of
+   6.3.
+3. **Raise the arbitrary depth cap** and re-measure end to end, using the leak-safe pool. We are
+   leaving measured, controlled gains on the table at 72.
+4. Ladder ORGAN B (the meaning space) once the rescore lands.
+5. BOARD Q16 and Q17 remain unanswered; both carry recommended defaults so silence is safe.
