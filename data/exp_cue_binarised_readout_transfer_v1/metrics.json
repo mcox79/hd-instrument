@@ -1,0 +1,491 @@
+{
+ "anchor_name": "exp_cue_binarised_readout_transfer_v1",
+ "grid": "full",
+ "out_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_binarised_readout_transfer_v1",
+ "ts_iso": "2026-08-17T16:44:05.000360+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_cue_binarised_readout_transfer_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "progress_logging": true,
+ "cache_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "corpus_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+ },
+ "RECOVERABILITY_GATE": {
+  "n_items_total": 4000,
+  "n_checked_full_pop": 3994,
+  "n_L_mismatch": 0,
+  "n_sentidx_none_but_cache_kept_true": 0,
+  "max_abs_error": 0.0,
+  "ALL_EXACT": true,
+  "method": "C3.build_items() over a read-only shim serving the CACHED anchor matrix, checked against EVERY item the cache marks kept -- not a subsample."
+ },
+ "POOL": {
+  "grid": "full",
+  "n_items_working": 3994,
+  "n_anchors_working": 5491,
+  "n_items_eligible_full_pop": 3994,
+  "n_anchors_full_pop": 5491,
+  "reuse_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_information_audit_v1",
+  "pool_description": "the LANDED OPEN pool (mat_ok minus per-item exclusions), identical construction to exp_cue_information_audit_v1 / exp_cue_compression_property_diagnosis_v1 / exp_readout_ceiling_diagnosis_v1 (same CACHE file)."
+ },
+ "STORE_COUNTS_SOURCE": {
+  "n_built": 0,
+  "n_reused_local": 0,
+  "n_reused_external": 5491,
+  "elapsed_s": 0.0
+ },
+ "CONTEXT_CUE_SOURCE": {
+  "n_built": 0,
+  "n_reused_local": 0,
+  "n_reused_external": 3994,
+  "elapsed_s": 0.0
+ },
+ "VOCAB": {
+  "n_distinct_content_words": 21688
+ },
+ "R2_BINARISED_PROJECTED": {
+  "draws": [
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0834,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "2405641e7abaefed",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0794,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "d118d134125dcde3",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0834,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0003
+    },
+    "arm_digest_MAIN": "620ea3947babb7f7",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   }
+  ],
+  "BETWEEN_PROJECTION_DRAW_SD": {
+   "n_draws": 3,
+   "mean": 0.0821,
+   "sd": 0.0019,
+   "values": [
+    0.0834,
+    0.0794,
+    0.0834
+   ]
+  }
+ },
+ "REGRESSION_GATE_DIAGNOSIS_CELL_REPRODUCTION": {
+  "C0_addr": {
+   "measured": 0.0711,
+   "expected": 0.0711,
+   "PASS": true
+  },
+  "U0_addr": {
+   "measured": 0.0846,
+   "expected": 0.0849,
+   "PASS": true
+  },
+  "B1_addr": {
+   "measured": 0.1094,
+   "expected": 0.1094,
+   "PASS": true
+  },
+  "S1_draw0_addr": {
+   "measured": 0.0611,
+   "expected": 0.0611,
+   "PASS": true
+  },
+  "N1_draw0_addr": {
+   "measured": 0.0709,
+   "expected": 0.0709,
+   "PASS": true
+  },
+  "B1_vs_C0_margin": {
+   "measured": {
+    "point": 0.0384,
+    "ci95": [
+     0.029,
+     0.0476
+    ],
+    "band": "ABOVE"
+   },
+   "expected": {
+    "point": 0.0383,
+    "ci95": [
+     0.0293,
+     0.0476
+    ],
+    "band": "ABOVE"
+   },
+   "PASS": true
+  },
+  "B1_vs_U0_margin": {
+   "measured": {
+    "point": 0.0248,
+    "ci95": [
+     0.0158,
+     0.0338
+    ],
+    "band": "ABOVE"
+   },
+   "expected": {
+    "point": 0.0248,
+    "ci95": [
+     0.016,
+     0.0338
+    ],
+    "band": "ABOVE"
+   },
+   "PASS": true
+  },
+  "S1_vs_C0_band": {
+   "measured": {
+    "point": -0.01,
+    "ci95": [
+     -0.0158,
+     -0.004
+    ],
+    "band": "BELOW"
+   },
+   "expected_band": "BELOW",
+   "PASS": true
+  },
+  "N1_vs_C0_band": {
+   "measured": {
+    "point": -0.0002,
+    "ci95": [
+     -0.0065,
+     0.0063
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "expected_band": "NOT_SEPARATED",
+   "PASS": true
+  },
+  "ALL_PASS": true,
+  "enforced": true,
+  "note_if_not_enforced": "ONLY MEANINGFUL at --grid full: the landed diagnosis-cell figures were measured on the full 3994-item/5491-anchor pool; a --grid reduced population is a different, much smaller pool by construction and is NOT expected to reproduce them."
+ },
+ "K1_KNOWN_ANSWER": {
+  "values": {
+   "R0_INCUMBENT": 1.0,
+   "R1_BINARISED": 1.0,
+   "R2_BINARISED_PROJECTED_draw0": 1.0
+  },
+  "gate": 0.98,
+  "PASS_by_space": {
+   "R0_INCUMBENT": true,
+   "R1_BINARISED": true,
+   "R2_BINARISED_PROJECTED_draw0": true
+  },
+  "ALL_PASS": true
+ },
+ "N1_NULL_ADDRESSING": {
+  "R0": 0.0,
+  "R1": 0.0,
+  "R2_draw0": 0.0,
+  "chance": 0.00018212,
+  "S1_regr": 0.0,
+  "N1_regr": 0.0003
+ },
+ "ADDRESSING_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "R0_INCUMBENT": "ead1b262d643f9d5",
+  "U0_UNCOMPRESSED_regression_only": "8dd05a4f55bf8ea4",
+  "R1_BINARISED": "38c24e1ef456e51f",
+  "R2_BINARISED_PROJECTED": "2405641e7abaefed",
+  "S1_REGRESSION_CHECK": "b37d57cfd967598b",
+  "N1_REGRESSION_CHECK": "a75024ec146be9b5"
+ },
+ "ADDRESSING_ACCURACY": {
+  "spaces": {
+   "R0_INCUMBENT": {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0711,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "ead1b262d643f9d5",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   "U0_UNCOMPRESSED_regression_only": {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0846,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0003
+    },
+    "arm_digest_MAIN": "8dd05a4f55bf8ea4",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   "R1_BINARISED": {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.1094,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "38c24e1ef456e51f",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   "R2_BINARISED_PROJECTED": {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0834,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "2405641e7abaefed",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   }
+  },
+  "margins": {
+   "R1_vs_R0": {
+    "point": 0.0383,
+    "ci95": [
+     0.0295,
+     0.0473
+    ],
+    "band": "ABOVE"
+   },
+   "R2_vs_R0": {
+    "point": 0.0123,
+    "ci95": [
+     0.0035,
+     0.021
+    ],
+    "band": "ABOVE"
+   },
+   "R2_vs_R1": {
+    "point": -0.026,
+    "ci95": [
+     -0.0333,
+     -0.0188
+    ],
+    "band": "BELOW"
+   }
+  }
+ },
+ "HIT1_POPULATION": {
+  "n_items": 3994,
+  "n_anchors": 5491,
+  "n_gold_per_item_mean": 55.383,
+  "n_elig_per_item_mean": 5490.0,
+  "analytic_chance_hit1_mean_gold_over_elig": 0.010088,
+  "scorer": "tools/floor_battery.hit_at_1_both_tie_conventions, hit_exp (tie-corrected) primary",
+  "gold": "WordNet generous meaning set as built by exp_grounding_readout_known_answer_v1, identical construction to every sibling cell on this cache",
+  "cue_regime": "PARTIAL (context-sentence), matching R0/R1/R2's own regime"
+ },
+ "FLOOR_NOTE": "F_ORTHOGRAPHIC / F_FREQUENCY / F_CONSTANT_PROTOTYPE do not depend on cue regime; F_SCRAMBLE is scored against the PARTIAL cue Q_part here (matching R0/R1/R2), NOT the EXACT-KEY cue exp_readout_ceiling_diagnosis_v1 used -- crossing that regime would be a population-crossing error.",
+ "HIT1_ARM_SUMMARY": {
+  "R0_INCUMBENT": {
+   "hit_exp_tie_corrected": 0.0223,
+   "halfwidth_analytic_null_at_this_n": 0.0046,
+   "hit_opt": 0.0223,
+   "hit_cons": 0.0223
+  },
+  "R1_BINARISED": {
+   "hit_exp_tie_corrected": 0.0249,
+   "halfwidth_analytic_null_at_this_n": 0.0048,
+   "hit_opt": 0.026,
+   "hit_cons": 0.0248
+  },
+  "R2_BINARISED_PROJECTED": {
+   "hit_exp_tie_corrected": 0.0205,
+   "halfwidth_analytic_null_at_this_n": 0.0044,
+   "hit_opt": 0.0205,
+   "hit_cons": 0.0205
+  },
+  "F_ORTHOGRAPHIC": {
+   "hit_exp_tie_corrected": 0.0873,
+   "halfwidth_analytic_null_at_this_n": 0.0088,
+   "hit_opt": 0.0984,
+   "hit_cons": 0.0789
+  },
+  "F_FREQUENCY": {
+   "hit_exp_tie_corrected": 0.0185,
+   "halfwidth_analytic_null_at_this_n": 0.0042,
+   "hit_opt": 0.0185,
+   "hit_cons": 0.0185
+  },
+  "F_SCRAMBLE": {
+   "hit_exp_tie_corrected": 0.0095,
+   "halfwidth_analytic_null_at_this_n": 0.003,
+   "hit_opt": 0.0095,
+   "hit_cons": 0.0095
+  },
+  "F_CONSTANT_PROTOTYPE": {
+   "hit_exp_tie_corrected": 0.139,
+   "halfwidth_analytic_null_at_this_n": 0.0107,
+   "hit_opt": 0.139,
+   "hit_cons": 0.139
+  },
+  "ORACLE_CONSTANT_not_a_floor": {
+   "hit_exp_tie_corrected": 0.1715,
+   "halfwidth_analytic_null_at_this_n": 0.0117,
+   "hit_opt": 0.1715,
+   "hit_cons": 0.1715
+  }
+ },
+ "HIT1_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "R0_INCUMBENT": "c972114a630d38d5",
+  "R1_BINARISED": "4bcc280086144be9",
+  "R2_BINARISED_PROJECTED": "bbe78ff8161b7e63",
+  "F_ORTHOGRAPHIC": "0a7622ca80e0db22",
+  "F_FREQUENCY": "9cbf7818fc8d08ef",
+  "F_SCRAMBLE": "e5be90d36b89c6fe",
+  "F_CONSTANT_PROTOTYPE": "81e39dc4bbf317b4",
+  "ORACLE_CONSTANT_not_a_floor": "2c6f1f15dd14034b"
+ },
+ "HIT1_MARGINS": {
+  "R1_vs_R0": {
+   "point": 0.0026,
+   "ci95": [
+    -0.0026,
+    0.0078
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "R2_vs_R0": {
+   "point": -0.0018,
+   "ci95": [
+    -0.007,
+    0.0033
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "R2_vs_R1": {
+   "point": -0.0044,
+   "ci95": [
+    -0.0089,
+    0.0001
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "R1_vs_max_floor(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.114,
+   "ci95": [
+    -0.1257,
+    -0.1024
+   ],
+   "band": "BELOW"
+  },
+  "R0_vs_max_floor(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1166,
+   "ci95": [
+    -0.1279,
+    -0.1052
+   ],
+   "band": "BELOW"
+  },
+  "R2_vs_max_floor(F_CONSTANT_PROTOTYPE)": {
+   "point": -0.1184,
+   "ci95": [
+    -0.1299,
+    -0.1069
+   ],
+   "band": "BELOW"
+  },
+  "R1_vs_F_ORTHOGRAPHIC": {
+   "point": -0.0624,
+   "ci95": [
+    -0.0722,
+    -0.0527
+   ],
+   "band": "BELOW"
+  },
+  "F_ORTHOGRAPHIC_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width",
+  "F_FREQUENCY_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width",
+  "F_SCRAMBLE_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width",
+  "F_CONSTANT_PROTOTYPE_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width"
+ },
+ "N1_NULL_HIT1": {
+  "R0_null_hit_exp": 0.009765,
+  "R1_null_hit_exp": 0.00702,
+  "R2_null_hit_exp": 0.008262,
+  "analytic_chance_reference": 0.010088,
+  "near_chance": {
+   "R0_null_hit_exp": true,
+   "R1_null_hit_exp": true,
+   "R2_null_hit_exp": true
+  }
+ },
+ "RULE12_ORTHOGRAPHIC_CORRELATION_CHECK": {
+  "what": "pearson r between per-item (R1_hit_exp - R0_hit_exp) and that item's own best-gold F_ORTHOGRAPHIC score. ABOVE (CI-separated positive) means R1's gains concentrate on items where the answer LOOKS LIKE the query -- a spelling-shaped win, not a substitutability win, per standing rule 12.",
+  "all_items": {
+   "n": 3994,
+   "r": -0.0037,
+   "ci95": [
+    -0.0328,
+    0.0246
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "gain_nonzero_items_only": {
+   "n": 119,
+   "r": -0.037,
+   "ci95": [
+    -0.2092,
+    0.1487
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "n_gain_nonzero": 119
+ },
+ "STOP_IF_VERDICT": {
+  "fired": [
+   "ii_ADDRESSING_AND_READOUT_ARE_SEPARATELY_CAPPED"
+  ],
+  "primary_verdict": "ii_ADDRESSING_AND_READOUT_ARE_SEPARATELY_CAPPED",
+  "r1_clears_max_floor": false,
+  "winning_floor": "F_CONSTANT_PROTOTYPE",
+  "r1_addressing_above_r0": true,
+  "r1_hit1_not_separated_from_r0": true,
+  "r1_beats_trigram_floor": false,
+  "gain_correlates_with_orthographic_similarity_to_gold": false,
+  "does_fixing_addressing_fix_readout": "NO -- addressing and read-out are separately capped"
+ },
+ "elapsed_s": 85.0
+}

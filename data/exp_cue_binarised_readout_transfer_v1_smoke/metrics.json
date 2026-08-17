@@ -1,0 +1,486 @@
+{
+ "anchor_name": "exp_cue_binarised_readout_transfer_v1",
+ "grid": "reduced",
+ "out_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_binarised_readout_transfer_v1_smoke",
+ "ts_iso": "2026-08-17T16:43:07.199965+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_cue_binarised_readout_transfer_v1.py",
+   "--grid",
+   "reduced"
+  ],
+  "PASS": true
+ },
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "progress_logging": true,
+ "cache_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "corpus_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+ },
+ "RECOVERABILITY_GATE": {
+  "n_items_total": 4000,
+  "n_checked_full_pop": 3994,
+  "n_L_mismatch": 0,
+  "n_sentidx_none_but_cache_kept_true": 0,
+  "max_abs_error": 0.0,
+  "ALL_EXACT": true,
+  "method": "C3.build_items() over a read-only shim serving the CACHED anchor matrix, checked against EVERY item the cache marks kept -- not a subsample."
+ },
+ "POOL": {
+  "grid": "reduced",
+  "n_items_working": 150,
+  "n_anchors_working": 250,
+  "n_items_eligible_full_pop": 3994,
+  "n_anchors_full_pop": 5491,
+  "reuse_dir": null,
+  "pool_description": "the LANDED OPEN pool (mat_ok minus per-item exclusions), identical construction to exp_cue_information_audit_v1 / exp_cue_compression_property_diagnosis_v1 / exp_readout_ceiling_diagnosis_v1 (same CACHE file)."
+ },
+ "STORE_COUNTS_SOURCE": {
+  "n_built": 250,
+  "n_reused_local": 0,
+  "n_reused_external": 0,
+  "elapsed_s": 2.7
+ },
+ "CONTEXT_CUE_SOURCE": {
+  "n_built": 150,
+  "n_reused_local": 0,
+  "n_reused_external": 0,
+  "elapsed_s": 1.4
+ },
+ "VOCAB": {
+  "n_distinct_content_words": 11574
+ },
+ "R2_BINARISED_PROJECTED": {
+  "draws": [
+   {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.2133,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0133
+    },
+    "arm_digest_MAIN": "9cf838fa61bbe653",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.2333,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.02
+    },
+    "arm_digest_MAIN": "62c13650e2383d39",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": false
+   },
+   {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.22,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "a17d8ef1bec13904",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   }
+  ],
+  "BETWEEN_PROJECTION_DRAW_SD": {
+   "n_draws": 3,
+   "mean": 0.2222,
+   "sd": 0.0083,
+   "values": [
+    0.2133,
+    0.2333,
+    0.22
+   ]
+  }
+ },
+ "REGRESSION_GATE_DIAGNOSIS_CELL_REPRODUCTION": {
+  "C0_addr": {
+   "measured": 0.2467,
+   "expected": 0.0711,
+   "PASS": false
+  },
+  "U0_addr": {
+   "measured": 0.34,
+   "expected": 0.0849,
+   "PASS": false
+  },
+  "B1_addr": {
+   "measured": 0.3867,
+   "expected": 0.1094,
+   "PASS": false
+  },
+  "S1_draw0_addr": {
+   "measured": 0.2133,
+   "expected": 0.0611,
+   "PASS": false
+  },
+  "N1_draw0_addr": {
+   "measured": 0.1933,
+   "expected": 0.0709,
+   "PASS": false
+  },
+  "B1_vs_C0_margin": {
+   "measured": {
+    "point": 0.14,
+    "ci95": [
+     0.08,
+     0.2
+    ],
+    "band": "ABOVE"
+   },
+   "expected": {
+    "point": 0.0383,
+    "ci95": [
+     0.0293,
+     0.0476
+    ],
+    "band": "ABOVE"
+   },
+   "PASS": false
+  },
+  "B1_vs_U0_margin": {
+   "measured": {
+    "point": 0.0466,
+    "ci95": [
+     0.0,
+     0.1
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "expected": {
+    "point": 0.0248,
+    "ci95": [
+     0.016,
+     0.0338
+    ],
+    "band": "ABOVE"
+   },
+   "PASS": false
+  },
+  "S1_vs_C0_band": {
+   "measured": {
+    "point": -0.0335,
+    "ci95": [
+     -0.08,
+     0.0133
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "expected_band": "BELOW",
+   "PASS": false
+  },
+  "N1_vs_C0_band": {
+   "measured": {
+    "point": -0.0533,
+    "ci95": [
+     -0.1133,
+     0.0
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "expected_band": "NOT_SEPARATED",
+   "PASS": true
+  },
+  "ALL_PASS": false
+ },
+ "K1_KNOWN_ANSWER": {
+  "values": {
+   "R0_INCUMBENT": 1.0,
+   "R1_BINARISED": 1.0,
+   "R2_BINARISED_PROJECTED_draw0": 1.0
+  },
+  "gate": 0.98,
+  "PASS_by_space": {
+   "R0_INCUMBENT": true,
+   "R1_BINARISED": true,
+   "R2_BINARISED_PROJECTED_draw0": true
+  },
+  "ALL_PASS": true
+ },
+ "N1_NULL_ADDRESSING": {
+  "R0": 0.0,
+  "R1": 0.0,
+  "R2_draw0": 0.0133,
+  "chance": 0.004,
+  "S1_regr": 0.0,
+  "N1_regr": 0.0067
+ },
+ "ADDRESSING_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "R0_INCUMBENT": "3c2da008cb6c99ec",
+  "U0_UNCOMPRESSED_regression_only": "527ab3af7251f57d",
+  "R1_BINARISED": "9995ca975f6de465",
+  "R2_BINARISED_PROJECTED": "9cf838fa61bbe653",
+  "S1_REGRESSION_CHECK": "f7696c9a6644c6c7",
+  "N1_REGRESSION_CHECK": "3747b78a0076841f"
+ },
+ "ADDRESSING_ACCURACY": {
+  "spaces": {
+   "R0_INCUMBENT": {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.2467,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "3c2da008cb6c99ec",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   "U0_UNCOMPRESSED_regression_only": {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.34,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "527ab3af7251f57d",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   "R1_BINARISED": {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.3867,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0
+    },
+    "arm_digest_MAIN": "9995ca975f6de465",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   "R2_BINARISED_PROJECTED": {
+    "n_items": 150,
+    "chance": 0.004,
+    "accuracy": {
+     "MAIN": 0.2133,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0133
+    },
+    "arm_digest_MAIN": "9cf838fa61bbe653",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   }
+  },
+  "margins": {
+   "R1_vs_R0": {
+    "point": 0.1399,
+    "ci95": [
+     0.08,
+     0.2067
+    ],
+    "band": "ABOVE"
+   },
+   "R2_vs_R0": {
+    "point": -0.0333,
+    "ci95": [
+     -0.0933,
+     0.0267
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "R2_vs_R1": {
+    "point": -0.1732,
+    "ci95": [
+     -0.24,
+     -0.1067
+    ],
+    "band": "BELOW"
+   }
+  }
+ },
+ "HIT1_POPULATION": {
+  "n_items": 150,
+  "n_anchors": 250,
+  "n_gold_per_item_mean": 3.133,
+  "n_elig_per_item_mean": 249.0,
+  "analytic_chance_hit1_mean_gold_over_elig": 0.012584,
+  "scorer": "tools/floor_battery.hit_at_1_both_tie_conventions, hit_exp (tie-corrected) primary",
+  "gold": "WordNet generous meaning set as built by exp_grounding_readout_known_answer_v1, identical construction to every sibling cell on this cache",
+  "cue_regime": "PARTIAL (context-sentence), matching R0/R1/R2's own regime"
+ },
+ "FLOOR_NOTE": "F_ORTHOGRAPHIC / F_FREQUENCY / F_CONSTANT_PROTOTYPE do not depend on cue regime; F_SCRAMBLE is scored against the PARTIAL cue Q_part here (matching R0/R1/R2), NOT the EXACT-KEY cue exp_readout_ceiling_diagnosis_v1 used -- crossing that regime would be a population-crossing error.",
+ "HIT1_ARM_SUMMARY": {
+  "R0_INCUMBENT": {
+   "hit_exp_tie_corrected": 0.0133,
+   "halfwidth_analytic_null_at_this_n": 0.0184,
+   "hit_opt": 0.0133,
+   "hit_cons": 0.0133
+  },
+  "R1_BINARISED": {
+   "hit_exp_tie_corrected": 0.0133,
+   "halfwidth_analytic_null_at_this_n": 0.0184,
+   "hit_opt": 0.0133,
+   "hit_cons": 0.0133
+  },
+  "R2_BINARISED_PROJECTED": {
+   "hit_exp_tie_corrected": 0.0067,
+   "halfwidth_analytic_null_at_this_n": 0.013,
+   "hit_opt": 0.0067,
+   "hit_cons": 0.0067
+  },
+  "F_ORTHOGRAPHIC": {
+   "hit_exp_tie_corrected": 0.1033,
+   "halfwidth_analytic_null_at_this_n": 0.0487,
+   "hit_opt": 0.1133,
+   "hit_cons": 0.0933
+  },
+  "F_FREQUENCY": {
+   "hit_exp_tie_corrected": 0.0,
+   "halfwidth_analytic_null_at_this_n": 0.0,
+   "hit_opt": 0.0,
+   "hit_cons": 0.0
+  },
+  "F_SCRAMBLE": {
+   "hit_exp_tie_corrected": 0.0067,
+   "halfwidth_analytic_null_at_this_n": 0.013,
+   "hit_opt": 0.0067,
+   "hit_cons": 0.0067
+  },
+  "F_CONSTANT_PROTOTYPE": {
+   "hit_exp_tie_corrected": 0.0,
+   "halfwidth_analytic_null_at_this_n": 0.0,
+   "hit_opt": 0.0,
+   "hit_cons": 0.0
+  },
+  "ORACLE_CONSTANT_not_a_floor": {
+   "hit_exp_tie_corrected": 0.1333,
+   "halfwidth_analytic_null_at_this_n": 0.0544,
+   "hit_opt": 0.1333,
+   "hit_cons": 0.1333
+  }
+ },
+ "HIT1_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "R0_INCUMBENT": "c20d7df9c9f19ce2",
+  "R1_BINARISED": "b2e1fe32bc674a8b",
+  "R2_BINARISED_PROJECTED": "c95c9378023f2760",
+  "F_ORTHOGRAPHIC": "3ab1cd2c0c4bac1d",
+  "F_FREQUENCY": "655a3ef0465a9f30",
+  "F_SCRAMBLE": "6f2d80369ca1a163",
+  "F_CONSTANT_PROTOTYPE": "655a3ef0465a9f30",
+  "ORACLE_CONSTANT_not_a_floor": "2677a8e334a4ba86"
+ },
+ "HIT1_MARGINS": {
+  "R1_vs_R0": {
+   "point": 0.0001,
+   "ci95": [
+    -0.0267,
+    0.0267
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "R2_vs_R0": {
+   "point": -0.0065,
+   "ci95": [
+    -0.0333,
+    0.0133
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "R2_vs_R1": {
+   "point": -0.0067,
+   "ci95": [
+    -0.0333,
+    0.0133
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "R1_vs_max_floor(F_ORTHOGRAPHIC)": {
+   "point": -0.0897,
+   "ci95": [
+    -0.1433,
+    -0.04
+   ],
+   "band": "BELOW"
+  },
+  "R0_vs_max_floor(F_ORTHOGRAPHIC)": {
+   "point": -0.0898,
+   "ci95": [
+    -0.14,
+    -0.0433
+   ],
+   "band": "BELOW"
+  },
+  "R2_vs_max_floor(F_ORTHOGRAPHIC)": {
+   "point": -0.0963,
+   "ci95": [
+    -0.1467,
+    -0.05
+   ],
+   "band": "BELOW"
+  },
+  "R1_vs_F_ORTHOGRAPHIC": {
+   "point": -0.0897,
+   "ci95": [
+    -0.1433,
+    -0.04
+   ],
+   "band": "BELOW"
+  },
+  "F_ORTHOGRAPHIC_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width",
+  "F_FREQUENCY_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width",
+  "F_SCRAMBLE_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width",
+  "F_CONSTANT_PROTOTYPE_vs_null_p95_note": "half-width reported per-arm above (halfwidth_analytic_null_at_this_n); this margin uses the PAIRED bootstrap, which is stricter than the marginal analytic width"
+ },
+ "N1_NULL_HIT1": {
+  "R0_null_hit_exp": 0.013333,
+  "R1_null_hit_exp": 0.006667,
+  "R2_null_hit_exp": 0.006667,
+  "analytic_chance_reference": 0.012584,
+  "near_chance": {
+   "R0_null_hit_exp": true,
+   "R1_null_hit_exp": true,
+   "R2_null_hit_exp": true
+  }
+ },
+ "RULE12_ORTHOGRAPHIC_CORRELATION_CHECK": {
+  "what": "pearson r between per-item (R1_hit_exp - R0_hit_exp) and that item's own best-gold F_ORTHOGRAPHIC score. ABOVE (CI-separated positive) means R1's gains concentrate on items where the answer LOOKS LIKE the query -- a spelling-shaped win, not a substitutability win, per standing rule 12.",
+  "all_items": {
+   "n": 99,
+   "r": 0.0008,
+   "ci95": [
+    -0.2082,
+    0.1855
+   ],
+   "band": "NOT_SEPARATED"
+  },
+  "gain_nonzero_items_only": {
+   "n": 4,
+   "r": null,
+   "ci95": null,
+   "band": "VOID_INSUFFICIENT_VARIANCE"
+  },
+  "n_gain_nonzero": 4
+ },
+ "STOP_IF_VERDICT": {
+  "fired": [
+   "ii_ADDRESSING_AND_READOUT_ARE_SEPARATELY_CAPPED"
+  ],
+  "primary_verdict": "ii_ADDRESSING_AND_READOUT_ARE_SEPARATELY_CAPPED",
+  "r1_clears_max_floor": false,
+  "winning_floor": "F_ORTHOGRAPHIC",
+  "r1_addressing_above_r0": true,
+  "r1_hit1_not_separated_from_r0": true,
+  "r1_beats_trigram_floor": false,
+  "gain_correlates_with_orthographic_similarity_to_gold": false,
+  "does_fixing_addressing_fix_readout": "NO -- addressing and read-out are separately capped"
+ },
+ "elapsed_s": 12.5
+}
