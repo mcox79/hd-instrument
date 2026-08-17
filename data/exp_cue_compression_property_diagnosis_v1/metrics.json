@@ -1,0 +1,380 @@
+{
+ "anchor_name": "exp_cue_compression_property_diagnosis_v1",
+ "grid": "full",
+ "out_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_compression_property_diagnosis_v1",
+ "ts_iso": "2026-08-17T16:26:10.754925+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_cue_compression_property_diagnosis_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "progress_logging": true,
+ "cache_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "corpus_provenance": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+ },
+ "RECOVERABILITY_GATE": {
+  "n_items_total": 4000,
+  "n_checked_full_pop": 3994,
+  "n_L_mismatch": 0,
+  "n_sentidx_none_but_cache_kept_true": 0,
+  "max_abs_error": 0.0,
+  "ALL_EXACT": true,
+  "method": "C3.build_items() over a read-only shim serving the CACHED anchor matrix, checked against EVERY item the cache marks kept -- not a subsample."
+ },
+ "POOL": {
+  "grid": "full",
+  "n_items_working": 3994,
+  "n_anchors_working": 5491,
+  "n_items_eligible_full_pop": 3994,
+  "n_anchors_full_pop": 5491,
+  "reuse_dir": "D:\\AI\\hd-instrument\\data\\exp_cue_information_audit_v1"
+ },
+ "STORE_COUNTS_SOURCE": {
+  "n_built": 0,
+  "n_reused_local": 0,
+  "n_reused_external": 5491,
+  "elapsed_s": 0.1
+ },
+ "CONTEXT_CUE_SOURCE": {
+  "n_built": 0,
+  "n_reused_local": 0,
+  "n_reused_external": 3994,
+  "elapsed_s": 0.0
+ },
+ "VOCAB": {
+  "n_distinct_content_words": 21688
+ },
+ "REGRESSION_GATE": {
+  "what": "C0_PROJECTED_256 / U0_UNCOMPRESSED addressing accuracy, recomputed fresh here, must reproduce the landed exp_cue_information_audit_v1 numbers. ONLY MEANINGFUL at --grid full: the landed figures were measured on the full 3994-item/5491-anchor pool, and a --grid reduced (smoke) population is a different, much smaller pool by construction, so it is NOT expected to reproduce them and the gate is advisory only at reduced scale (checked, never enforced, at reduced scale).",
+  "grid": "full",
+  "enforced": true,
+  "C0_measured": 0.0711,
+  "C0_expected": 0.0711,
+  "U0_measured": 0.0846,
+  "U0_expected": 0.0849,
+  "tol": 0.0005,
+  "C0_PASS": true,
+  "U0_PASS": true
+ },
+ "S1_SPARSE_HASH_PROJ": {
+  "draws": [
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0611,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0005
+    },
+    "arm_digest_MAIN": "b37d57cfd967598b",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0658,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0005
+    },
+    "arm_digest_MAIN": "27e8ea9712610795",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0638,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0003
+    },
+    "arm_digest_MAIN": "ea6740a591e173c1",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   }
+  ],
+  "BETWEEN_PROJECTION_DRAW_SD": {
+   "n_draws": 3,
+   "mean": 0.0636,
+   "sd": 0.0019,
+   "values": [
+    0.0611,
+    0.0658,
+    0.0638
+   ]
+  }
+ },
+ "N1_NONNEG_PROJ": {
+  "draws": [
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0709,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0005
+    },
+    "arm_digest_MAIN": "a75024ec146be9b5",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0724,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0005
+    },
+    "arm_digest_MAIN": "fc6f5a12f4f31598",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   },
+   {
+    "n_items": 3994,
+    "chance": 0.000182,
+    "accuracy": {
+     "MAIN": 0.0731,
+     "K1_EXACT_KEY": 1.0,
+     "N1_RANDOM_KEY": 0.0008
+    },
+    "arm_digest_MAIN": "2093fbb2c6b2d279",
+    "K1_validity_PASS": true,
+    "N1_validity_near_chance": true
+   }
+  ],
+  "BETWEEN_PROJECTION_DRAW_SD": {
+   "n_draws": 3,
+   "mean": 0.0721,
+   "sd": 0.0009,
+   "values": [
+    0.0709,
+    0.0724,
+    0.0731
+   ]
+  }
+ },
+ "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+  "C0_PROJECTED_256": "ead1b262d643f9d5",
+  "U0_UNCOMPRESSED": "8dd05a4f55bf8ea4",
+  "B1_BINARIZED_RAW": "38c24e1ef456e51f",
+  "S1_SPARSE_HASH_PROJ": "b37d57cfd967598b",
+  "N1_NONNEG_PROJ": "a75024ec146be9b5"
+ },
+ "DECISIVE_MARGINS": {
+  "S1_SPARSE_HASH_PROJ": {
+   "vs_C0_PROJECTED_256": {
+    "point": -0.01,
+    "ci95": [
+     -0.016,
+     -0.004
+    ],
+    "band": "BELOW"
+   },
+   "vs_U0_UNCOMPRESSED": {
+    "point": -0.0235,
+    "ci95": [
+     -0.0298,
+     -0.0173
+    ],
+    "band": "BELOW"
+   },
+   "fraction_of_U0_minus_C0_gap_recovered": -0.741
+  },
+  "N1_NONNEG_PROJ": {
+   "vs_C0_PROJECTED_256": {
+    "point": -0.0003,
+    "ci95": [
+     -0.0068,
+     0.006
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "vs_U0_UNCOMPRESSED": {
+    "point": -0.0138,
+    "ci95": [
+     -0.02,
+     -0.0078
+    ],
+    "band": "BELOW"
+   },
+   "fraction_of_U0_minus_C0_gap_recovered": -0.022
+  },
+  "B1_BINARIZED_RAW": {
+   "vs_C0_PROJECTED_256": {
+    "point": 0.0383,
+    "ci95": [
+     0.0293,
+     0.0476
+    ],
+    "band": "ABOVE"
+   },
+   "vs_U0_UNCOMPRESSED": {
+    "point": 0.0248,
+    "ci95": [
+     0.016,
+     0.0338
+    ],
+    "band": "ABOVE"
+   },
+   "fraction_of_U0_minus_C0_gap_recovered": 2.837
+  },
+  "U0_UNCOMPRESSED": {
+   "vs_C0_PROJECTED_256": {
+    "point": 0.0135,
+    "ci95": [
+     0.008,
+     0.0193
+    ],
+    "band": "ABOVE"
+   }
+  }
+ },
+ "SPACES": {
+  "C0_PROJECTED_256": {
+   "n_items": 3994,
+   "chance": 0.000182,
+   "accuracy": {
+    "MAIN": 0.0711,
+    "K1_EXACT_KEY": 1.0,
+    "N1_RANDOM_KEY": 0.0003
+   },
+   "arm_digest_MAIN": "ead1b262d643f9d5",
+   "K1_validity_PASS": true,
+   "N1_validity_near_chance": true
+  },
+  "U0_UNCOMPRESSED": {
+   "n_items": 3994,
+   "chance": 0.000182,
+   "accuracy": {
+    "MAIN": 0.0846,
+    "K1_EXACT_KEY": 1.0,
+    "N1_RANDOM_KEY": 0.0003
+   },
+   "arm_digest_MAIN": "8dd05a4f55bf8ea4",
+   "K1_validity_PASS": true,
+   "N1_validity_near_chance": true
+  },
+  "B1_BINARIZED_RAW": {
+   "n_items": 3994,
+   "chance": 0.000182,
+   "accuracy": {
+    "MAIN": 0.1094,
+    "K1_EXACT_KEY": 1.0,
+    "N1_RANDOM_KEY": 0.0005
+   },
+   "arm_digest_MAIN": "38c24e1ef456e51f",
+   "K1_validity_PASS": true,
+   "N1_validity_near_chance": true
+  },
+  "S1_SPARSE_HASH_PROJ": {
+   "n_items": 3994,
+   "chance": 0.000182,
+   "accuracy": {
+    "MAIN": 0.0611,
+    "K1_EXACT_KEY": 1.0,
+    "N1_RANDOM_KEY": 0.0005
+   },
+   "arm_digest_MAIN": "b37d57cfd967598b",
+   "K1_validity_PASS": true,
+   "N1_validity_near_chance": true
+  },
+  "N1_NONNEG_PROJ": {
+   "n_items": 3994,
+   "chance": 0.000182,
+   "accuracy": {
+    "MAIN": 0.0709,
+    "K1_EXACT_KEY": 1.0,
+    "N1_RANDOM_KEY": 0.0005
+   },
+   "arm_digest_MAIN": "a75024ec146be9b5",
+   "K1_validity_PASS": true,
+   "N1_validity_near_chance": true
+  }
+ },
+ "BUCKETS": {
+  "n_items": 3994,
+  "n_both_hit": 245,
+  "n_both_miss": 3617,
+  "n_lost_by_projection_U0_only": 93,
+  "n_gained_by_projection_C0_only": 39,
+  "net_lost_minus_gained": 54,
+  "net_over_n_items": 0.0135,
+  "reconciles_with_MAIN_margin_point": 0.0135,
+  "fraction_of_pool_lost": 0.0233
+ },
+ "ENCODER_COLLISION_FLOOR_C0": {
+  "n_pairs_sampled": 5000,
+  "mean_abs_cos": 0.0499,
+  "theoretical_1_over_sqrt_d": 0.0625
+ },
+ "ITEM_LEVEL_DECOMPOSITION": {
+  "n_distinct_cue_words": {
+   "mean_lost_by_projection": 10.7957,
+   "mean_other": 12.4806,
+   "margin": {
+    "point": -1.6909,
+    "ci95": [
+     -2.727,
+     -0.6476
+    ],
+    "band": "BELOW"
+   },
+   "n_a": 93,
+   "n_b": 3901
+  },
+  "cue_collision_mean_abs_cos": {
+   "mean_lost_by_projection": 0.0521,
+   "mean_other": 0.0498,
+   "margin": {
+    "point": 0.0024,
+    "ci95": [
+     -0.0004,
+     0.0059
+    ],
+    "band": "NOT_SEPARATED"
+   },
+   "n_a": 93,
+   "n_b": 3888
+  },
+  "target_store_breadth": {
+   "mean_lost_by_projection": 106.3763,
+   "mean_other": 210.8277,
+   "margin": {
+    "point": -104.412,
+    "ci95": [
+     -119.8822,
+     -88.3714
+    ],
+    "band": "BELOW"
+   },
+   "n_a": 93,
+   "n_b": 3901
+  }
+ },
+ "ITEM_LEVEL_LOSS_IS_CONCENTRATED": false,
+ "STOP_IF_VERDICT": {
+  "verdict": "ii_SINGLE_PROPERTY_ACCOUNTS_FOR_GAP",
+  "headline": "B1_BINARIZED_RAW is CI-separated ABOVE C0 ({'point': 0.0383, 'ci95': [0.0293, 0.0476], 'band': 'ABOVE'}), recovering 2.837 of the U0-C0 gap. This is a DESIGN CONSTRAINT for the next encoder, not a capability claim.",
+  "separated_property_arms": [
+   "B1_BINARIZED_RAW"
+  ],
+  "item_level_loss_is_concentrated": false
+ },
+ "elapsed_s": 72.7
+}
