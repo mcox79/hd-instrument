@@ -639,6 +639,9 @@ def collect_plan() -> dict:
     return {
         "status": "OK",
         "doc": str(LONG_PLAN_DOC),
+        # Exposed so the evidence-age pass can date the D1..Dn decisions from the document they are
+        # parsed out of rather than falling back to the file that merely holds them.
+        "near_doc": str(NEAR_PLAN_DOC),
         "phases": phases,
         "ladder": ladder,
         "n_phases": len(phases),

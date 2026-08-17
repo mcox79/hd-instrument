@@ -741,6 +741,239 @@ def collect_organs() -> dict:
 # PANEL C -- FIDELITY, WITH ITS OWN HONESTY BUILT IN
 # ---------------------------------------------------------------------------
 
+# The two components whose adjacency is the panel's own counter-evidence, and the incumbent they
+# are measured against. Named as SUBSTRINGS of the tool's component keys rather than as fixed
+# indices, so a reordering of the fixture cannot silently point these at the wrong rows.
+_FID_CA3 = "ca3_completion"
+_FID_FLAT = "flat_bag"
+_FID_CONJ = "conjunctive"
+# Organ-map fidelity classes that mean OUR OPERATION IS THE BRAIN'S. Everything else diverges, is
+# absent, or cannot be scored. Used for the SYSTEM-level picture, which is a different population
+# from the six per-component rubric scores and is never mixed with them.
+_FID_MATCHES = ("SAME",)
+
+
+def _pct_of(rows: list[dict], needle: str):
+    """The design-time score of the one component whose key contains `needle`, or None.
+
+    Returns None -- never 0 and never a nearby row -- when the component is absent or ambiguous.
+    A claim that silently resolves to the wrong row is worse than a claim that cannot be checked."""
+    hits = [r for r in rows if needle in str(r.get("component") or "")]
+    if len(hits) != 1:
+        return None
+    v = hits[0].get("pct")
+    return v if isinstance(v, (int, float)) else None
+
+
+def _fidelity_claims(rows: list[dict], verdict, counts: dict) -> list[dict]:
+    """RE-DERIVE, ON EVERY REFRESH, EVERY FACTUAL CLAIM THE BANNER MAKES.
+
+    THE DEFECT THIS CLOSES. The rest of this window protects transcribed NUMBERS by re-finding the
+    literal in its source document. The fidelity banner makes a different kind of transcription: it
+    states RELATIONS between numbers ("the refuted arm scores above the incumbent that beats it").
+    A relation cannot be checked by a substring search, so before this it was not checked at all --
+    the banner would have gone on asserting it long after the underlying scores moved.
+
+    So each claim below is RECOMPUTED from the tool's live output and carries `holds`:
+        True  -- recomputed and it still holds
+        False -- recomputed and IT NO LONGER HOLDS; the banner is stale and says so on screen
+        None  -- the components it depends on are not present, so it CANNOT be checked. Never True.
+    `None` is a third state on purpose: a check that passes when its input is missing is not a
+    check, which is the rule the per-row verifiers here already follow.
+    """
+    claims: list[dict] = []
+
+    def add(cid: str, holds, text: str, basis: str, detail: str = "") -> None:
+        claims.append({"id": cid, "holds": holds, "text": text, "basis": basis,
+                       "detail": detail})
+
+    n = len(rows)
+    held = [r for r in rows if r.get("held")]
+    pcts = [r.get("pct") for r in rows if isinstance(r.get("pct"), (int, float))]
+
+    add("F1",
+        ("UNVALIDATED" in str(verdict).upper()) if verdict else None,
+        "the scoring tool's own verdict still says UNVALIDATED",
+        "substring check of brain_fidelity_score.run_retrodiction()['VALIDATION_VERDICT']",
+        "If the tool ever validates itself this banner must be rewritten, not left standing.")
+
+    add("F2",
+        (len(held) <= 1) if rows else None,
+        f"there is still at most ONE point in the positive class ({len(held)} of {n})",
+        "recounted from the tool's rows on this refresh",
+        "This is WHY the score is unvalidated. A second positive result would change the "
+        "power argument and this banner would need rewriting.")
+
+    ca3, flat, conj = (_pct_of(rows, _FID_CA3), _pct_of(rows, _FID_FLAT),
+                       _pct_of(rows, _FID_CONJ))
+    add("F3",
+        (ca3 > flat) if (ca3 is not None and flat is not None) else None,
+        (f"the refuted CA3 arm still scores ABOVE the flat bag that beats it in practice "
+         f"({_fmt_pct(ca3)} against {_fmt_pct(flat)})"),
+        "recomputed from the two rows on this refresh",
+        "This is the panel's own strongest counter-evidence and it is kept on screen. If the "
+        "scores ever cross, the sentence must go.")
+    add("F4",
+        (abs(flat - conj) < 1e-9) if (flat is not None and conj is not None) else None,
+        (f"the flat bag still TIES the conjunctive arm it beats "
+         f"({_fmt_pct(flat)} against {_fmt_pct(conj)})"),
+        "recomputed from the two rows on this refresh",
+        "The second named miss. Same rule: if they stop tying, the sentence goes.")
+
+    add("F5",
+        (all(str(r.get("outcome") or "").strip() for r in rows)) if rows else None,
+        "every scored point still carries a recorded outcome",
+        "checked across the tool's rows on this refresh",
+        "A point with a score and no outcome cannot sit on the scatter, because there would be "
+        "nothing to plot it against.")
+
+    total_organs = sum(v for v in counts.values()) if counts else 0
+    same = sum(counts.get(k, 0) for k in _FID_MATCHES) if counts else 0
+    add("F6",
+        (same * 2 < total_organs) if total_organs else None,
+        (f"fewer than half our organs match the brain's operation "
+         f"({same} of {total_organs} read SAME in the organ map)"),
+        "recounted from notes/ORGAN_MAP.md on this refresh",
+        "This is the SYSTEM-level reading of 'our current low fidelity'. It is a different "
+        "population from the six per-component rubric scores above and the two are never "
+        "quoted for one another.")
+
+    if pcts:
+        add("F7",
+            None if len(pcts) < 2 else True,
+            f"the observed rubric scores span {_fmt_pct(min(pcts))} to {_fmt_pct(max(pcts))} "
+            f"across {len(pcts)} points",
+            "recomputed from the tool's rows on this refresh",
+            "Printed rather than characterised: the reader decides whether that band is narrow, "
+            "and it is recomputed so the printed band can never be a remembered one.")
+    return claims
+
+
+def _fmt_pct(v) -> str:
+    return f"{v * 100:.0f}%" if isinstance(v, (int, float)) else "MISSING"
+
+
+def _fidelity_framing(rows: list[dict], verdict, counts: dict, claims: list[dict]) -> dict:
+    """THE BANNER, CORRECTED. Owner, 2026-08-16, and the correction is theirs, not this module's:
+
+      *"in the how closely we follow the brain tab you go out of your way to say it's not a
+      predictor of how well it works. While I agree with that, I actually think it MIGHT be a
+      predictor of how well it works up to a certain point. There is nothing that humanity has that
+      is as efficient and high performance as the human brain, so if we could recreate it, it would
+      be an absolute breakthrough. this is why I think we should try to recreate it as closely as we
+      can - at least in function and the operations of thought."*
+
+    WHAT WAS WRONG WITH THE OLD WORDING, precisely. The scoring tool's own verdict has always been
+    correctly scoped -- it says UNVALIDATED, which means we have not shown it. This panel's own
+    wording went further: it said the score *"has NOT been shown to predict"* performance and headed
+    the detail box *"WHY THIS NUMBER MUST NOT BE READ AS A PREDICTION"*, with no scope on either.
+    Read together those state a general negative. **Too little evidence to tell is not the same
+    statement as no relationship**, and only the first one is supported by six points with one
+    positive.
+
+    WHAT REPLACES IT, in three clauses that are each separately true:
+      1. UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY
+      2. EXPECTED TO BECOME PREDICTIVE AS FIDELITY RISES  -- carried as the OWNER'S ARGUMENT, named
+         as such, because this module has measured no such thing and presenting an argument as a
+         finding is the laundering the fidelity gate exists to stop
+      3. NOT USABLE AS A PERFORMANCE CLAIM TODAY -- unchanged, and it is the clause that actually
+         prevents the failure mode
+
+    AND THE PREMISE IS CHECKED RATHER THAN REPEATED. The owner's reasoning rests on the tested band
+    being narrow and low. On the SYSTEM-level organ picture that holds and this function computes
+    it. On the per-component rubric it does NOT: the six points span the full range of the rubric,
+    and this function prints that range instead of calling it narrow. Both are shown, labelled with
+    which population they belong to, and neither is quoted for the other."""
+    n = len(rows)
+    held = [r for r in rows if r.get("held")]
+    pcts = [r.get("pct") for r in rows if isinstance(r.get("pct"), (int, float))]
+    total_organs = sum(v for v in counts.values()) if counts else 0
+    same = sum(counts.get(k, 0) for k in _FID_MATCHES) if counts else 0
+    missing = counts.get("MISSING", 0) if counts else 0
+
+    lo = min(pcts) if pcts else None
+    hi = max(pcts) if pcts else None
+    span = (f"{_fmt_pct(lo)} to {_fmt_pct(hi)}" if pcts else "MISSING -- no point carries a score")
+
+    by_id = {c["id"]: c for c in claims}
+    stale = [c for c in claims if c.get("holds") is False]
+
+    misses = []
+    for cid in ("F3", "F4"):
+        c = by_id.get(cid)
+        if not c:
+            continue
+        if c.get("holds") is True:
+            misses.append(c["text"])
+        elif c.get("holds") is False:
+            misses.append(f"NO LONGER TRUE, and this line is stale: {c['text']}")
+        else:
+            misses.append(f"CANNOT BE CHECKED on this refresh: {c['text']}")
+
+    return {
+        "verdict_line": ("UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY. "
+                         "EXPECTED TO BECOME PREDICTIVE AS FIDELITY RISES. "
+                         "NOT USABLE AS A PERFORMANCE CLAIM TODAY."),
+        "what_it_is": ("This number says HOW CLOSELY ONE PART COPIES THE BRAIN. It does not say "
+                       "how well that part works, and it may not be quoted today as if it did."),
+        "why_unvalidated": (
+            f"We have {n} scored points and {len(held)} of them is in the positive class. That "
+            f"cannot separate anything: a score that happens to rank the single positive first "
+            f"does so with probability 1 in {n} by chance alone. So the honest reading is TOO "
+            f"LITTLE EVIDENCE TO TELL."),
+        "the_correction": (
+            "TOO LITTLE EVIDENCE TO TELL IS NOT THE SAME STATEMENT AS NO RELATIONSHIP, and this "
+            "panel used to blur the two. Six points inside a low-fidelity range are exactly where "
+            "a real fidelity-to-performance relationship would be hardest to detect, so absence of "
+            "evidence here is not evidence of absence."),
+        "owner_argument": (
+            "THE OWNER'S ARGUMENT, recorded as an argument and NOT as a measurement: the human "
+            "brain is the only existing system with this combination of efficiency and "
+            "performance, so it is the only existence proof we have; if we could recreate it the "
+            "result would be a breakthrough, and that is the reason to copy it as closely as we "
+            "can -- at least in function and in the operations of thought. On that reasoning the "
+            "relationship should hold once fidelity is high enough. Nothing on this panel tests "
+            "that claim. Nothing on this panel contradicts it either."),
+        "still_true_today": (
+            "What has NOT changed: a fidelity score may not be used as evidence that something "
+            "works. That gate stands, and the two misses below are why."),
+        "named_misses": misses,
+        "counter_evidence_note": (
+            "Those are TWO POINTS, not a refutation. They are kept on screen because they are the "
+            "honest counter-evidence and hiding them would be the same failure in the other "
+            "direction."),
+        "range_text": (
+            f"THE BAND ACTUALLY TESTED, per component: {span} across {len(pcts)} scored points. "
+            f"Printed rather than described -- on this rubric the points span the full range, so "
+            f"'a narrow band' does NOT hold here, and saying otherwise would be carrying a claim "
+            f"between two populations."),
+        "system_text": (
+            (f"THE BAND AT THE SYSTEM LEVEL, which is the different population and the one where "
+             f"'our current low fidelity' does hold: {same} of {total_organs} organs read SAME as "
+             f"the brain's operation in the organ map, and {missing} are not built at all.")
+            if total_organs else
+            "THE SYSTEM-LEVEL PICTURE IS MISSING -- the organ map could not be read, so how much "
+            "of the brain we actually copy cannot be stated."),
+        "two_populations_warning": (
+            "The two bands above are NOT comparable and must never be quoted for one another: the "
+            "first is a per-component design rubric over 6 points, the second is a per-organ "
+            "verdict over the whole map. Carrying a number between populations cost this project "
+            "three retractions in one night."),
+        "n_points": n,
+        "n_held": len(held),
+        "pct_min": lo,
+        "pct_max": hi,
+        "n_scored": len(pcts),
+        "organs_same": same,
+        "organs_total": total_organs,
+        "organs_missing": missing,
+        "n_claims": len(claims),
+        "n_claims_stale": len(stale),
+        "n_claims_uncheckable": sum(1 for c in claims if c.get("holds") is None),
+        "tool_verdict": verdict,
+    }
+
+
 def collect_fidelity() -> dict:
     """How closely we copy the brain -- and, on screen, the fact that this number does NOT predict
     whether the thing works.
@@ -819,8 +1052,13 @@ def collect_fidelity() -> dict:
                                     if isinstance(table, dict) else None),
         "retro_error": retro.get("_error") if isinstance(retro, dict) else None,
         "table_error": table.get("_error") if isinstance(table, dict) else None,
+        # THE HEADLINE, CORRECTED 2026-08-16 on the owner's argument. It used to read "...and it has
+        # NOT been shown to predict that", which is an unscoped general negative that six points
+        # with one positive cannot support. The scope is now stated. See `_fidelity_framing`.
         "headline": ("HOW CLOSELY WE COPY THE BRAIN. This is NOT a measure of how well anything "
-                     "works, and it has NOT been shown to predict that."),
+                     "works, and it may NOT be used as one today. It is UNVALIDATED AS A PREDICTOR "
+                     "AT OUR CURRENT LOW FIDELITY -- which is too little evidence to tell, not a "
+                     "finding that there is no relationship."),
     })
     if verdict is None:
         out["validation_verdict"] = (
@@ -847,9 +1085,40 @@ def collect_fidelity() -> dict:
     out["divergence"] = div
     out["divergence_counts"] = counts
     out["n_unscorable"] = counts.get("UNSCORABLE", 0)
+    out["map_path"] = str(ORGAN_MAP_DOC)
     if not organs:
         out["divergence_detail"] = (f"notes/ORGAN_MAP.md is not readable ({ORGAN_MAP_DOC}), so the "
                                     f"per-organ divergence table is MISSING.")
+
+    # THE SCATTER, and its n. Six points visible beats any adjective about them, which is why the
+    # owner asked for it: fidelity on one axis, what actually happened on the other. Nothing here
+    # is a new number -- it is the same `rows` re-shaped so the window can draw it, and a row with
+    # no score is EXCLUDED from the plot and COUNTED, never plotted at zero.
+    pts = [{"component": r.get("component"), "pct": r.get("pct"),
+            "held": bool(r.get("held")), "outcome": r.get("outcome")}
+           for r in rows if isinstance(r.get("pct"), (int, float))]
+    out["scatter"] = {
+        "points": pts,
+        "n": len(pts),
+        "n_unscored": len(rows) - len(pts),
+        "x_label": "how closely it copies the brain",
+        "y_label": "did the result hold?",
+        "caption": (f"{len(pts)} point(s). Every scored point is here -- there is no selection. "
+                    f"The vertical axis has exactly two values because an outcome either held or "
+                    f"it did not; that is the whole of the evidence behind this instrument."),
+        "detail": ("A relationship cannot be seen in this many points, and that is the finding "
+                   "being shown, not a defect in the drawing."),
+    }
+
+    # THE FRAMING AND ITS DRIFT CHECK. Every relation the banner asserts is recomputed here from
+    # the tool's own live output, so a banner sentence cannot outlive the numbers it describes.
+    claims = _fidelity_claims(rows, verdict, counts)
+    out["claims"] = claims
+    out["framing"] = _fidelity_framing(rows, verdict, counts, claims)
+    out["drifted"] = [c["id"] for c in claims if c.get("holds") is False]
+    out["cannot_check"] = [c["id"] for c in claims if c.get("holds") is None]
+    if out["drifted"] and out.get("status") == "OK":
+        out["status"] = "PARTIAL"
 
     reg = load_registry()
     out["registry_basis"] = [
@@ -973,6 +1242,77 @@ def self_test() -> int:
           f"normal: panel C carries the UNVALIDATED verdict on screen (got {v[:80]!r})")
     check("NOT a measure of how well" in str(a["fidelity"].get("headline")),
           "normal: panel C's headline separates fidelity from performance")
+
+    # ---- PANEL C's CORRECTED FRAMING (owner, 2026-08-16) -----------------
+    fd = a["fidelity"]
+    fr = fd.get("framing") or {}
+    vl = str(fr.get("verdict_line") or "").upper()
+    for clause in ("UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY",
+                   "EXPECTED TO BECOME PREDICTIVE AS FIDELITY RISES",
+                   "NOT USABLE AS A PERFORMANCE CLAIM TODAY"):
+        check(clause in vl, f"framing: the banner carries '{clause[:44]}...'")
+    check("TOO LITTLE EVIDENCE TO TELL IS NOT THE SAME STATEMENT AS NO RELATIONSHIP"
+          in str(fr.get("the_correction") or "").upper(),
+          "framing: the correction names exactly what the old wording overreached into")
+    check("NOT AS A MEASUREMENT" in str(fr.get("owner_argument") or "").upper(),
+          "framing: the owner's reasoning is labelled an ARGUMENT, never presented as something "
+          "this module measured -- presenting it as a finding would be the laundering the "
+          "fidelity gate exists to stop")
+    check("hardest to detect" in str(fr.get("the_correction") or ""),
+          "framing: it states WHY six low-fidelity points are the worst place to look")
+    check(str(fr.get("range_text") or "").startswith("THE BAND ACTUALLY TESTED"),
+          "framing: the range actually observed is printed for the reader to judge")
+    check("never quoted for one another" in str(fr.get("two_populations_warning") or "")
+          or "never be quoted for one another" in str(fr.get("two_populations_warning") or ""),
+          "framing: the per-component band and the system-level band are marked as different "
+          "populations, because carrying a number between populations is a banned move here")
+
+    # THE CLAIMS. Each is RECOMPUTED; the negative controls below prove each can fail.
+    cl = {c["id"]: c for c in (fd.get("claims") or [])}
+    check(len(cl) >= 6, f"claims: the banner's assertions are re-derived (got {len(cl)})")
+    check(all(c.get("holds") is not False for c in cl.values()),
+          f"claims: on the live data every one still holds "
+          f"({[k for k, c in cl.items() if c.get('holds') is False]})")
+    check(not fd.get("drifted"), f"claims: nothing on the banner is stale ({fd.get('drifted')})")
+
+    doctored = [
+        {"component": "c_ca3_completion_as_built", "pct": 0.10, "held": False, "outcome": "x"},
+        {"component": "d_the_flat_bag_incumbent", "pct": 0.90, "held": True, "outcome": ""},
+        {"component": "a_conjunctive_perirhinal_coding", "pct": 0.10, "held": True, "outcome": "x"},
+    ]
+    bad = {c["id"]: c for c in _fidelity_claims(doctored, "NOW VALIDATED", {"SAME": 9})}
+    check(bad["F1"]["holds"] is False,
+          "claims NEGATIVE CONTROL: a tool that stopped saying UNVALIDATED is caught")
+    check(bad["F2"]["holds"] is False,
+          "claims NEGATIVE CONTROL: a second positive point is caught (it changes the power "
+          "argument the banner rests on)")
+    check(bad["F3"]["holds"] is False,
+          "claims NEGATIVE CONTROL: the CA3-above-the-flat-bag sentence is caught when it stops "
+          "being true, instead of being repeated")
+    check(bad["F4"]["holds"] is False,
+          "claims NEGATIVE CONTROL: the flat-bag/conjunctive tie is caught when it breaks")
+    check(bad["F5"]["holds"] is False,
+          "claims NEGATIVE CONTROL: a scored point with no outcome is caught")
+    check(bad["F6"]["holds"] is False,
+          "claims NEGATIVE CONTROL: 'fewer than half our organs match' is recounted and can fail")
+    gone = {c["id"]: c for c in _fidelity_claims([], None, {})}
+    check(all(c["holds"] is None for c in gone.values()),
+          f"claims: with the components absent EVERY claim is CANNOT-CHECK, never True -- a check "
+          f"that passes when its input is missing is not a check "
+          f"({[(k, c['holds']) for k, c in gone.items()]})")
+    check(_pct_of([{"component": "x_ca3_a"}, {"component": "y_ca3_b"}], "ca3") is None,
+          "claims: an AMBIGUOUS component match resolves to None rather than to the wrong row")
+
+    # THE SCATTER -- six points visible beats any adjective about them.
+    sc = fd.get("scatter") or {}
+    check(sc.get("n") == 6,
+          f"scatter: all six banked points are plotted, with n stated (got {sc.get('n')})")
+    check(sc.get("n_unscored") == 0 and all(isinstance(p.get("pct"), (int, float))
+                                            for p in sc.get("points") or []),
+          "scatter: an unscored point would be COUNTED and left off, never plotted at zero")
+    check(sum(1 for p in sc.get("points") or [] if p.get("held")) == 1,
+          f"scatter: exactly one point is in the positive class, which is the whole problem "
+          f"(got {sum(1 for p in sc.get('points') or [] if p.get('held'))})")
 
     # Drift: every transcribed literal must still be findable in its authority.
     check(not a["progress"].get("drifted"),

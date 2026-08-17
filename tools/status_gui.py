@@ -62,11 +62,28 @@ adding a ninth would have made the reorganisation worse than the problem. What w
                               by the OUTCOME, never by the fidelity score.
     7. LATEST RESULTS         the newest finished experiments, losses as loud as wins.
 
+EVERY ROW SAYS WHEN ITS OWN EVIDENCE WAS LAST UPDATED (owner, 2026-08-16: *"I'd also like
+timestamps for each entry on the dash - when it was last updated so I know what's new and what is
+old."*). Every table has a LAST UPDATED column, and what it shows is THE AGE OF THE ARTIFACT THE ROW
+IS DERIVED FROM -- the experiment's own `metrics.json`, the document the row was parsed out of, the
+transcript an agent is appending to right now. It is NEVER the time this window last refreshed.
+Those are different things and conflating them would be worse than showing nothing: a stale number
+under a fresh clock reads as current. A row whose artifact cannot be found says UNKNOWN.
+
+Relative ages are shown in the cell because that is what reads at a glance; the absolute time, the
+artifact path and how it was resolved are all in the detail box under each table. Per panel, the
+newest evidence is the reference point and any row more than an hour behind it is marked OLDER, so
+"what is new and what is old" is answerable by looking rather than by subtracting. The resolution
+rules live in `tools/status_evidence.py`.
+
 DRIFT IS ON SCREEN (job 2). Every transcribed number in this window is re-checked against the
 document it came from on every refresh, and every literal the plan parser depends on is checked
 against the plan. That protection used to be invisible -- a drifted row said CHECK-SOURCE in a cell
 you had to scroll to. The TOTAL now sits in the top strip, so a silent divergence becomes a visible
-one. A panel that could not be checked counts as UNKNOWN, never as zero.
+one. A panel that could not be checked counts as UNKNOWN, never as zero. Extended 2026-08-16 to the
+fidelity banner, which transcribes RELATIONS between numbers rather than literals -- those are
+recomputed from the scoring tool every refresh, because a substring search cannot check a relation
+and so nothing was checking them at all.
 
 PLAIN LANGUAGE IS A REQUIREMENT, NOT A STYLE. The owner has said twice that jargon makes our
 artifacts unusable to them. Nothing on screen says recall@50, CI, hit@1, orthographic or
@@ -113,6 +130,13 @@ if _TOOLS_DIR not in sys.path:
 
 import status_state  # noqa: E402  (the collector; this file only renders)
 from status_state import _fmt_dur  # noqa: E402
+
+# The evidence-age formatter. Imported for its RENDERING helpers only -- every stamp on every row
+# was already resolved by the collector, so this file still computes nothing and remains a renderer.
+try:
+    import status_evidence as _ev  # noqa: E402
+except Exception:  # pragma: no cover - the window must open without it
+    _ev = None
 
 REFRESH_MS = 20000        # collection costs ~2.5s; 20s is live enough and stays cheap
 TICK_MS = 1000
@@ -169,6 +193,70 @@ def _short(name: str, n: int = 46) -> str:
     if s.startswith("exp_"):
         s = s[4:]
     return s if len(s) <= n else s[: n - 3] + "..."
+
+
+# --- the LAST UPDATED cell, shared by every table --------------------------
+#
+# ONE FUNCTION, USED EVERYWHERE, so that no panel can quietly render an age differently from its
+# neighbours -- and so that the single most important property is enforced in ONE place: what is
+# shown is the ARTIFACT's age, and a row with no artifact says UNKNOWN rather than borrowing the
+# refresh clock.
+
+def _age_cell(row) -> str:
+    st = _d(row).get("evidence_age")
+    if not isinstance(st, dict):
+        return "UNKNOWN"
+    if _ev is not None:
+        return _ev.line(st)
+    txt = str(st.get("rel") or "UNKNOWN")
+    return txt + ("   OLDER" if st.get("behind") else "")
+
+
+# NOTE ON COLOUR, since its absence is a decision rather than an oversight: an older row is NOT
+# recoloured. Being older is not being wrong, and spending the loss colour on age would devalue the
+# colour that means a result went the wrong way. The OLDER marker lives in the text of the cell.
+
+
+def _age_chunks(row, label: str = "WHEN THIS ROW'S EVIDENCE WAS LAST UPDATED") -> list:
+    """The detail-box block: relative AND absolute, the artifact, and how it was resolved.
+
+    The cell is deliberately terse and this is where the rest lives -- the owner asked for the
+    relative form to read at a glance and for the absolute value to remain available."""
+    st = _d(row).get("evidence_age")
+    if not isinstance(st, dict):
+        return [("\n" + label + "\n", "dim"),
+                ("UNKNOWN -- this row carries no provenance at all.\n", "warn")]
+    out: list = [("\n" + label + "\n", "dim")]
+    if st.get("ts") is None:
+        out.append(("UNKNOWN. ", "warn"))
+        out.append(str(st.get("detail") or
+                       "No artifact could be found for this row, so its age is not known. "
+                       "UNKNOWN is shown rather than the time this window refreshed.") + "\n")
+        for u in _l(st.get("undated"))[:4]:
+            out.append((f"  it names {_d(u).get('raw')} -- {_d(u).get('why')}\n", "mono"))
+        return out
+    tag = "warn" if st.get("behind") else "good"
+    out += [(f"{st.get('rel')}", tag), f"    (exactly: {st.get('when')})\n"]
+    out.append((f"from: {st.get('source')}\n", "mono"))
+    out.append((f"which is {st.get('kind_plain')}\n", "dim"))
+    if st.get("behind") and st.get("behind_text"):
+        out.append((f"This is {st.get('behind_text')} the newest evidence on this panel.\n",
+                    "warn"))
+    weaker = _l(st.get("weaker"))
+    if weaker:
+        out.append(("it also cites, and these were NOT used because they are weaker evidence: "
+                    + ", ".join(str(_d(w).get('path')) for w in weaker[:4]) + "\n", "mono"))
+    for u in _l(st.get("undated"))[:3]:
+        out.append((f"named but not datable: {_d(u).get('raw')} -- {_d(u).get('why')}\n", "mono"))
+    return out
+
+
+def _panel_age_text(ages, panel_name: str) -> str:
+    """The one-line summary a panel header carries: newest, oldest, how many are behind."""
+    p = _d(_d(ages).get("panels")).get(panel_name)
+    if not isinstance(p, dict):
+        return ""
+    return "   " + str(p.get("plain") or "")
 
 
 class StatusWindow:
@@ -353,10 +441,11 @@ class StatusWindow:
 
         frame, self.where_tv = self._tree(
             f,
-            cols=("phase", "state", "goal", "gate", "stop"),
-            widths=(230, 150, 320, 340, 320),
+            cols=("phase", "state", "goal", "gate", "stop", "updated"),
+            widths=(230, 140, 280, 300, 260, 160),
             headings=("PHASE", "WHERE IT IS", "WHAT IT IS FOR",
-                      "WHAT WOULD COUNT AS SUCCESS", "WHAT WOULD MAKE US STOP"),
+                      "WHAT WOULD COUNT AS SUCCESS", "WHAT WOULD MAKE US STOP",
+                      "EVIDENCE LAST UPDATED"),
             height=8)
         frame.grid(row=2, column=0, sticky="nsew")
         self.where_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_where_detail())
@@ -393,11 +482,11 @@ class StatusWindow:
 
         frame, self.sc_tv = self._tree(
             f,
-            cols=("what", "alone", "before", "now", "dir"),
-            widths=(300, 190, 280, 300, 220),
+            cols=("what", "alone", "before", "now", "dir", "updated"),
+            widths=(270, 150, 250, 270, 200, 160),
             headings=("PART OF THE MACHINE", "CAN WE MEASURE IT ALONE?",
                       "WHAT IT WAS  (and its floor)", "WHAT IT IS NOW  (and its floor)",
-                      "WHERE THAT LEAVES US"),
+                      "WHERE THAT LEAVES US", "EVIDENCE LAST UPDATED"),
             height=16)
         frame.grid(row=2, column=0, sticky="nsew")
         self.sc_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_score_detail())
@@ -421,10 +510,10 @@ class StatusWindow:
 
         frame, self.organ_tv = self._tree(
             f,
-            cols=("organ", "brain", "built", "state", "measured"),
-            widths=(300, 300, 90, 210, 300),
+            cols=("organ", "brain", "built", "state", "measured", "updated"),
+            widths=(280, 260, 80, 190, 250, 160),
             headings=("ORGAN (plain name)", "THE PART OF THE BRAIN", "BUILT?",
-                      "IS IT SWITCHED ON?", "WHAT IT MEASURES"),
+                      "IS IT SWITCHED ON?", "WHAT IT MEASURES", "EVIDENCE LAST UPDATED"),
             height=15)
         frame.grid(row=1, column=0, sticky="nsew")
         self.organ_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_organ_detail())
@@ -434,52 +523,165 @@ class StatusWindow:
 
     # ---- PANEL C ------------------------------------------------------
     def _build_fidelity(self) -> None:
-        """HOW CLOSELY WE COPY THE BRAIN -- and, on screen and unmissable, the fact that this
-        number has NOT been shown to predict whether anything works."""
+        """HOW CLOSELY WE COPY THE BRAIN -- with the banner the owner corrected on 2026-08-16.
+
+        WHAT CHANGED AND WHY. This panel used to say the fidelity score *"has NOT been shown to
+        predict"* how well anything works, and headed its detail box *"WHY THIS NUMBER MUST NOT BE
+        READ AS A PREDICTION"*. Both were unscoped, and read together they assert a general negative
+        that six points with one positive cannot support. The owner's correction is the better
+        argument and it is now what the panel says: TOO LITTLE EVIDENCE TO TELL IS NOT THE SAME
+        STATEMENT AS NO RELATIONSHIP, and a handful of points inside a low-fidelity range is exactly
+        where a real relationship would be hardest to detect.
+
+        WHAT DID NOT CHANGE, because it is true and it stops a real failure: a fidelity score may
+        not be used today as evidence that something works. The two named misses stay on screen as
+        the honest counter-evidence, presented as what they are -- two points, not a refutation.
+
+        AND THE PREMISE IS SHOWN RATHER THAN ASSERTED. The scatter and the range line are here
+        because the owner asked to see the band for themselves. Six points visible beats any
+        adjective, including any adjective this window might have chosen for them."""
         f = ttk.Frame(self.nb)
         self.nb.add(f, text="6. HOW CLOSELY WE COPY THE BRAIN")
         self.tab_fidelity = f
         f.columnconfigure(0, weight=1)
-        f.rowconfigure(2, weight=1)
         f.rowconfigure(4, weight=1)
+        f.rowconfigure(6, weight=1)
 
         warn = tk.Frame(f, bg=_AMBER_BG)
         warn.grid(row=0, column=0, sticky="ew", pady=(4, 6))
         warn.columnconfigure(0, weight=1)
-        tk.Label(warn, text="THIS IS NOT A SCORE FOR HOW WELL ANYTHING WORKS.",
-                 bg=_AMBER_BG, fg="#ffffff", font=("Segoe UI", 12, "bold"), anchor="w",
-                 padx=12).grid(row=0, column=0, sticky="ew", pady=(8, 2))
+        self.fid_head = tk.Label(
+            warn, text="UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY.",
+            bg=_AMBER_BG, fg="#ffffff", font=("Segoe UI", 12, "bold"), anchor="w",
+            justify="left", padx=12, wraplength=1200)
+        self.fid_head.grid(row=0, column=0, sticky="ew", pady=(8, 2))
         self.fid_warn = tk.Label(warn, text="", bg=_AMBER_BG, fg="#f7ecd8",
                                  font=("Segoe UI", 10), anchor="w", justify="left",
                                  padx=12, wraplength=1200)
         self.fid_warn.grid(row=1, column=0, sticky="ew", pady=(0, 8))
 
+        # THE SCATTER. Every scored point, with its n, on the two axes that matter: how closely it
+        # copies the brain, and whether the result actually held. It is drawn rather than described
+        # because the owner asked to see the band, and because a picture of six points makes the
+        # power problem self-evident in a way no sentence does.
+        self.fid_canvas = tk.Canvas(f, height=178, bg=_ALT, highlightthickness=0, bd=0)
+        self.fid_canvas.grid(row=1, column=0, sticky="ew", pady=(0, 2))
+        self.fid_canvas.bind("<Configure>", lambda _e: self._draw_scatter())
+        self.fid_scatter_cap = tk.Label(f, text="", bg=_PANEL, fg=_DIM,
+                                        font=("Segoe UI", 9), anchor="w", justify="left",
+                                        wraplength=1200, padx=4)
+        self.fid_scatter_cap.grid(row=2, column=0, sticky="ew", pady=(0, 4))
+
         tk.Label(f, text="WHAT WE SCORED, AND WHAT ACTUALLY HAPPENED TO IT",
                  bg=_PANEL, fg=_BLUE, anchor="w", font=("Segoe UI", 10, "bold"),
-                 padx=4).grid(row=1, column=0, sticky="ew", pady=(2, 2))
+                 padx=4).grid(row=3, column=0, sticky="ew", pady=(2, 2))
         frame, self.fid_tv = self._tree(
-            f, cols=("thing", "pct", "outcome"),
-            widths=(360, 190, 640),
+            f, cols=("thing", "pct", "outcome", "updated"),
+            widths=(330, 180, 520, 150),
             headings=("WHAT WAS SCORED", "HOW CLOSELY WE COPY THE BRAIN",
-                      "WHAT ACTUALLY HAPPENED WHEN IT WAS MEASURED"),
+                      "WHAT ACTUALLY HAPPENED WHEN IT WAS MEASURED",
+                      "EVIDENCE LAST UPDATED"),
             height=7)
-        frame.grid(row=2, column=0, sticky="nsew")
+        frame.grid(row=4, column=0, sticky="nsew")
         self.fid_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_fidelity_detail())
 
         tk.Label(f, text="WHERE OURS DIVERGES FROM THE BIOLOGY, ORGAN BY ORGAN",
                  bg=_PANEL, fg=_BLUE, anchor="w", font=("Segoe UI", 10, "bold"),
-                 padx=4).grid(row=3, column=0, sticky="ew", pady=(8, 2))
+                 padx=4).grid(row=5, column=0, sticky="ew", pady=(8, 2))
         frame2, self.fid_div_tv = self._tree(
-            f, cols=("organ", "shape", "position", "metric", "pinned"),
-            widths=(390, 170, 190, 190, 250),
+            f, cols=("organ", "shape", "position", "metric", "pinned", "updated"),
+            widths=(340, 160, 170, 180, 190, 140),
             headings=("ORGAN", "IS IT THE SAME OPERATION?", "IS IT IN THE RIGHT PLACE?",
-                      "IS IT JUDGED THE BRAIN'S WAY?", "DOES THE SCIENCE PIN THIS DOWN?"),
+                      "IS IT JUDGED THE BRAIN'S WAY?", "DOES THE SCIENCE PIN THIS DOWN?",
+                      "LAST UPDATED"),
             height=8)
-        frame2.grid(row=4, column=0, sticky="nsew")
+        frame2.grid(row=6, column=0, sticky="nsew")
         self.fid_div_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_fidelity_detail(True))
 
         self.fid_detail = self._detail(f, height=9)
-        self.fid_detail.grid(row=5, column=0, sticky="ew", pady=(6, 0))
+        self.fid_detail.grid(row=7, column=0, sticky="ew", pady=(6, 0))
+
+    def _draw_scatter(self) -> None:
+        """Fidelity against outcome, one dot per scored point, with n stated on the chart.
+
+        NOTHING IS INVENTED ON THIS CHART. The points come from the collector's `scatter` block,
+        which is the same `rows` the table above shows, re-shaped. A point with no score is left
+        OFF and COUNTED in the caption -- plotting it at zero would put a number on the chart that
+        nobody measured, which is the failure this whole panel exists to prevent."""
+        c = getattr(self, "fid_canvas", None)
+        if c is None:
+            return
+        try:
+            c.delete("all")
+            w = max(int(c.winfo_width()), 400)
+            h = max(int(c.winfo_height()), 120)
+        except tk.TclError:
+            return
+        sc = _d(_d(getattr(self, "_fid_state", None)).get("scatter"))
+        pts = [_d(p) for p in _l(sc.get("points"))]
+        left, right, top, bot = 190, w - 30, 34, h - 34
+        if right <= left + 40:
+            return
+
+        # axes
+        c.create_line(left, bot, right, bot, fill=_BORDER)
+        c.create_line(left, top, left, bot, fill=_BORDER)
+        c.create_text(left, 14, text="EVERY POINT WE HAVE, PLOTTED", anchor="w",
+                      fill=_FG, font=("Segoe UI", 9, "bold"))
+        c.create_text(right, 14, text=f"n = {sc.get('n', 0)}", anchor="e", fill=_AMBER,
+                      font=("Segoe UI", 10, "bold"))
+        c.create_text((left + right) // 2, h - 12,
+                      text=str(sc.get("x_label") or "how closely it copies the brain"),
+                      fill=_DIM, font=("Segoe UI", 9))
+        for frac, lab in ((0.0, "0%"), (0.25, "25%"), (0.5, "50%"), (0.75, "75%"), (1.0, "100%")):
+            x = left + (right - left) * frac
+            c.create_line(x, bot, x, bot + 4, fill=_BORDER)
+            c.create_text(x, bot + 14, text=lab, fill=_DIM, font=("Segoe UI", 8))
+
+        y_hold, y_fail = top + 26, bot - 30
+        c.create_text(left - 10, y_hold, text="the result HELD", anchor="e", fill=_GREEN,
+                      font=("Segoe UI", 9, "bold"))
+        c.create_text(left - 10, y_fail, text="it did NOT hold", anchor="e", fill=_RED,
+                      font=("Segoe UI", 9, "bold"))
+        if not pts:
+            c.create_text((left + right) // 2, (top + bot) // 2,
+                          text="NO SCORED POINTS -- nothing to plot", fill=_AMBER,
+                          font=("Segoe UI", 11, "bold"))
+            return
+
+        # A tiny horizontal jitter for exact ties, so two points at the same score do not hide each
+        # other. It is applied to the DRAWING only and is disclosed in the caption -- the flat bag
+        # and the conjunctive arm genuinely tie, and a chart that showed five dots for six points
+        # would be lying about the sample size.
+        seen: dict[tuple, int] = {}
+        for p in pts:
+            pct = p.get("pct")
+            if not isinstance(pct, (int, float)):
+                continue
+            held = bool(p.get("held"))
+            key = (round(pct, 4), held)
+            k = seen.get(key, 0)
+            seen[key] = k + 1
+            x = left + (right - left) * max(0.0, min(1.0, float(pct))) + (k * 13)
+            y = y_hold if held else y_fail
+            col = _GREEN if held else _RED
+            c.create_oval(x - 6, y - 6, x + 6, y + 6, fill=col, outline="#ffffff", width=1)
+            name = str(p.get("component") or "")
+            name = name.split("_", 1)[1] if (name[:2].isalpha() is False and "_" in name) else name
+            c.create_text(x, y + (-18 if held else 18), text=_short(name, 26)[:26],
+                          fill=_FG, font=("Segoe UI", 8))
+
+    def _r_scatter_caption(self, fd: dict) -> None:
+        sc = _d(fd.get("scatter"))
+        fr = _d(fd.get("framing"))
+        bits = [str(sc.get("caption") or "")]
+        if sc.get("n_unscored"):
+            bits.append(f"{sc.get('n_unscored')} scored nothing at all and is therefore NOT on "
+                        f"the chart rather than being drawn at zero.")
+        bits.append("Points that tie exactly are nudged sideways so six points show as six dots.")
+        if fr.get("range_text"):
+            bits.append(str(fr.get("range_text")))
+        self.fid_scatter_cap.configure(text="  ".join(b for b in bits if b))
 
     # ---- TAB 3 (group B) ----------------------------------------------
     def _build_board(self) -> None:
@@ -506,9 +708,10 @@ class StatusWindow:
         self.board_hint.grid(row=0, column=0, sticky="ew")
 
         frame, self.board_tv = self._tree(
-            f, cols=("id", "kind", "question", "now"), widths=(60, 190, 640, 330),
+            f, cols=("id", "kind", "question", "now", "updated"),
+            widths=(60, 175, 545, 300, 150),
             headings=("#", "", "WHAT NEEDS YOUR DECISION",
-                      "WHAT HAPPENS IF YOU SAY NOTHING"), height=12)
+                      "WHAT HAPPENS IF YOU SAY NOTHING", "RECORDED / LAST UPDATED"), height=12)
         frame.grid(row=1, column=0, sticky="nsew")
         self.board_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_board_detail())
 
@@ -576,8 +779,9 @@ class StatusWindow:
                                                              pady=(6, 2))
         frame, self.agents_tv = self._tree(
             f, cols=("state", "name", "doing", "running", "last"),
-            widths=(110, 210, 520, 130, 150),
-            headings=("", "AGENT", "WHAT IT IS DOING", "RUNNING FOR", "LAST ACTIVE"),
+            widths=(110, 200, 470, 120, 200),
+            headings=("", "AGENT", "WHAT IT IS DOING", "RUNNING FOR",
+                      "TRANSCRIPT LAST WRITTEN"),
             height=6)
         frame.grid(row=2, column=0, sticky="nsew")
 
@@ -585,9 +789,10 @@ class StatusWindow:
                  anchor="w", font=("Segoe UI", 10, "bold"),
                  padx=4).grid(row=3, column=0, sticky="ew", pady=(8, 2))
         frame2, self.local_tv = self._tree(
-            f, cols=("name", "progress", "running", "pid", "mem"),
-            widths=(430, 330, 130, 90, 100),
-            headings=("EXPERIMENT", "PROGRESS", "RUNNING FOR", "PROCESS", "MEMORY"),
+            f, cols=("name", "progress", "running", "pid", "mem", "updated"),
+            widths=(380, 300, 120, 80, 90, 170),
+            headings=("EXPERIMENT", "PROGRESS", "RUNNING FOR", "PROCESS", "MEMORY",
+                      "OUTPUT LAST WRITTEN"),
             height=5)
         frame2.grid(row=4, column=0, sticky="nsew")
 
@@ -609,8 +814,8 @@ class StatusWindow:
 
         frame, self.results_tv = self._tree(
             f, cols=("when", "what", "verdict", "floor", "sep", "name"),
-            widths=(120, 110, 300, 160, 190, 380),
-            headings=("WHEN", "", "WHAT IT CONCLUDED", "DID IT NAME A FLOOR?",
+            widths=(175, 100, 280, 150, 175, 350),
+            headings=("RESULT LAST WRITTEN", "", "WHAT IT CONCLUDED", "DID IT NAME A FLOOR?",
                       "INTERVALS SEPARATED?", "EXPERIMENT"),
             height=13)
         frame.grid(row=1, column=0, sticky="nsew")
@@ -681,8 +886,11 @@ class StatusWindow:
                          else "refreshing...")
         if self._last_error:
             parts.append(f"LAST REFRESH ERROR: {self._last_error[:160]}")
+        # This bar is the ONLY place the refresh clock appears, and it says so: every timestamp in
+        # every table is an evidence age, and the two must not be read for one another.
         parts.append(f"auto-refresh every {REFRESH_MS // 1000}s  |  F5 = refresh  |  "
-                     f"Ctrl+1..5 = jump to a panel")
+                     f"Ctrl+1..7 = jump to a panel  |  this clock is the REFRESH, not the age of "
+                     f"anything on screen")
         self.status_lbl.configure(text="    |    ".join(parts))
         self.root.after(TICK_MS, self._tick)
 
@@ -756,6 +964,16 @@ class StatusWindow:
         if nd is not None:
             bits.append(f"{nd} value(s) no longer match their source"
                         + (f", {nu} panel(s) unchecked" if nu else ""))
+        # HOW OLD IS WHAT I AM LOOKING AT -- answerable without opening a tab. Deliberately worded
+        # as EVIDENCE, because the refresh clock lives in the status bar at the bottom and the two
+        # must never be mistaken for each other.
+        ags = _d(s.get("ages"))
+        if ags.get("status") == "OK":
+            bits.append(f"evidence on screen: newest {ags.get('newest_rel')}, oldest "
+                        f"{ags.get('oldest_rel')}"
+                        + (f", {ags.get('n_unknown')} undated" if ags.get("n_unknown") else ""))
+        else:
+            bits.append(f"evidence ages {ags.get('status', 'MISSING')}")
         self.headsub_lbl.configure(text="     |     ".join(bits), fg="#f4f4f4")
 
     # ---- tab 1: WHERE WE ARE ------------------------------------------
@@ -776,7 +994,7 @@ class StatusWindow:
             self.where_phase.master.configure(bg=_AMBER_BG)
             self.where_hint.configure(text="", fg=_AMBER)
             tv.insert("", "end", values=(f"{p.get('status')}", "MISSING", "MISSING",
-                                         "MISSING", "MISSING"), tags=("warn",))
+                                         "MISSING", "MISSING", "UNKNOWN"), tags=("warn",))
             self._set_text(self.where_detail, [
                 (f"{p.get('status')}\n", "warn"), str(p.get("detail", "no detail")) + "\n\n",
                 ("Nothing here is reconstructed from memory. If the plan cannot be read, this "
@@ -801,7 +1019,8 @@ class StatusWindow:
                   f"copy. {nv} thing(s) the plan does not state are shown as NOT STATED IN THE "
                   f"PLAN rather than filled in; select a phase to see which. "
                   f"{p.get('numbers_joined', 0)} of {p.get('n_phases', 0)} phases also have "
-                  f"before/now numbers attached."),
+                  f"before/now numbers attached."
+                  + _panel_age_text(s.get("ages"), "the plan")),
             fg=_AMBER if nv else _BLUE)
 
         for i, ph in enumerate(_l(p.get("phases"))):
@@ -819,6 +1038,7 @@ class StatusWindow:
                 ph.get("goal") or "NOT STATED IN THE PLAN",
                 ph.get("gate") or "NOT STATED IN THE PLAN",
                 ph.get("kill") or "NOT STATED IN THE PLAN",
+                _age_cell(ph),
             ), tags=(tag, "even" if i % 2 == 0 else "odd"))
         keep = next((k for k, v in self._where_rows.items()
                      if v.get("id") == p.get("current_id")), None)
@@ -890,6 +1110,8 @@ class StatusWindow:
                            "line to it resolves this; nothing is guessed in the meantime.\n",
                            "warn"))
 
+        chunks += _age_chunks(ph, "WHEN THIS PHASE'S EVIDENCE WAS LAST UPDATED")
+
         lad = _l(_d(getattr(self, "_where_state", None)).get("ladder"))
         if lad:
             chunks.append(("\nWHAT WOULD COUNT AS THE WHOLE THING WORKING, IN ORDER\n", "dim"))
@@ -909,8 +1131,8 @@ class StatusWindow:
             self.sc_gov_title.configure(text=f"SCORE DATA IS {m.get('status', 'MISSING')}")
             self.sc_gov_body.configure(text=str(m.get("detail", ""))[:400])
             self.sc_hint.configure(text="", fg=_AMBER)
-            tv.insert("", "end", values=(f"{m.get('status')}", "-", "MISSING", "MISSING", ""),
-                      tags=("warn",))
+            tv.insert("", "end", values=(f"{m.get('status')}", "-", "MISSING", "MISSING", "",
+                                         "UNKNOWN"), tags=("warn",))
             self._set_text(self.sc_detail, [
                 (f"{m.get('status')}\n", "warn"), str(m.get("detail", "no detail")) + "\n\n",
                 ("A blank where a measurement should be is information. This panel shows MISSING "
@@ -944,7 +1166,8 @@ class StatusWindow:
                   f"floor cannot be graded. {nr} claim(s) were RETRACTED and are shown in red at "
                   f"the bottom exactly like a loss, on purpose. {nd} part(s) are reported "
                   f"differently by the two sources that feed this table; those say so rather "
-                  f"than one being picked."),
+                  f"than one being picked."
+                  + _panel_age_text(s.get("ages"), "scores and floors")),
             fg=_AMBER if (nr or nd) else _BLUE)
 
         i = 0
@@ -982,7 +1205,7 @@ class StatusWindow:
             title = (("HEADLINE  " if r.get("headline") else
                       (f"#{r.get('n')}  " if r.get("n") else "")) + str(r.get("title")))
             tv.insert("", "end", iid=iid,
-                      values=(title, inst_txt, before, now, stand_txt),
+                      values=(title, inst_txt, before, now, stand_txt, _age_cell(r)),
                       tags=(tag, "even" if i % 2 == 0 else "odd"))
             i += 1
 
@@ -997,7 +1220,7 @@ class StatusWindow:
             now, gap = self._side_cell(r.get("now"))
             tv.insert("", "end", iid=iid,
                       values=(str(r.get("title")), "-", before, now,
-                              "RETRACTED" + ("  (no floor)" if gap else "")),
+                              "RETRACTED" + ("  (no floor)" if gap else ""), _age_cell(r)),
                       tags=("bad", "even" if i % 2 == 0 else "odd"))
             i += 1
 
@@ -1061,6 +1284,7 @@ class StatusWindow:
         if r.get("disagreement"):
             chunks += [("\nTHE TWO SOURCES DISAGREE ABOUT THIS PART\n", "warn"),
                        f"{r.get('disagreement')}\n"]
+        chunks += _age_chunks(r)
         chunks.append((f"\nevidence: {r.get('evidence', '')}\n", "mono"))
         if r.get("instrument_evidence"):
             chunks.append((f"instrument: {r.get('instrument_evidence')}\n", "mono"))
@@ -1107,8 +1331,8 @@ class StatusWindow:
         self._organ_rows: dict[str, dict] = {}
         if o.get("status") != "OK":
             self.organ_hint.configure(text=f"{o.get('status')}: {o.get('detail', '')}", fg=_AMBER)
-            tv.insert("", "end", values=(f"{o.get('status')}", "MISSING", "?", "?", "MISSING"),
-                      tags=("warn",))
+            tv.insert("", "end", values=(f"{o.get('status')}", "MISSING", "?", "?", "MISSING",
+                                         "UNKNOWN"), tags=("warn",))
             self._set_text(self.organ_detail,
                            [(f"{o.get('status')}\n", "warn"), str(o.get("detail", ""))])
             return
@@ -1120,7 +1344,8 @@ class StatusWindow:
                   f"{reg.get('n_brain_structure')} of {reg.get('n_rows')} entries in the "
                   f"capability list name a part of the brain; "
                   f"{reg.get('n_no_brain_structure')} deliberately do not, and filling those in "
-                  f"after the fact is banned -- so the backlog is shown rather than hidden."),
+                  f"after the fact is banned -- so the backlog is shown rather than hidden."
+                  + _panel_age_text(s.get("ages"), "brain organ map")),
             fg=_BLUE)
         n_conf = o.get("n_conflicts") or 0
         if n_conf:
@@ -1156,7 +1381,7 @@ class StatusWindow:
             if r.get("floor_named") is False and r.get("source") == "ORGAN_MAP":
                 measured = "NO FLOOR -- " + measured
             tv.insert("", "end", iid=iid,
-                      values=(organ, str(brain)[:120], built, state, measured),
+                      values=(organ, str(brain)[:120], built, state, measured, _age_cell(r)),
                       tags=(tag, "even" if i % 2 == 0 else "odd"))
         if self._organ_rows:
             tv.selection_set("o0")
@@ -1228,6 +1453,7 @@ class StatusWindow:
         if r.get("verify_status") == "CHECK_SOURCE":
             chunks.append((f"\nCHECK THE SOURCE: {r.get('verify_missing')} no longer findable.\n",
                            "bad"))
+        chunks += _age_chunks(r, "WHEN THIS ORGAN'S EVIDENCE WAS LAST UPDATED")
         self._set_text(self.organ_detail, chunks)
 
     # ---- panel C ------------------------------------------------------
@@ -1243,16 +1469,55 @@ class StatusWindow:
         # (as the self-test does) is not a different code path from the live one.
         self._fid_state: dict = fd
         if fd.get("status") == "MISSING":
+            self.fid_head.configure(text="HOW CLOSELY WE COPY THE BRAIN: MISSING")
             self.fid_warn.configure(text=str(fd.get("detail", ""))[:500])
-            tv.insert("", "end", values=("MISSING", "MISSING", str(fd.get("detail", ""))[:120]),
-                      tags=("warn",))
+            self.fid_scatter_cap.configure(text="")
+            self._draw_scatter()
+            tv.insert("", "end", values=("MISSING", "MISSING", str(fd.get("detail", ""))[:120],
+                                         "UNKNOWN"), tags=("warn",))
             self._set_text(self.fid_detail, [("MISSING\n", "warn"), str(fd.get("detail", ""))])
             return
 
-        # THE WARNING, read from the scoring tool itself rather than paraphrased here, so that if
-        # the tool's own verdict ever changes this panel changes with it.
-        self.fid_warn.configure(
-            text=(f"{fd.get('headline', '')}\n\n{fd.get('validation_verdict', '')}"))
+        # THE BANNER. Three clauses, each separately true, replacing an unscoped general negative:
+        #   1. UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY
+        #   2. EXPECTED TO BECOME PREDICTIVE AS FIDELITY RISES  (the OWNER'S argument, named as one)
+        #   3. NOT USABLE AS A PERFORMANCE CLAIM TODAY          (unchanged, and it is the gate)
+        # The tool's own VALIDATION_VERDICT is still carried VERBATIM below them, so if the tool
+        # ever changes its mind the panel changes with it rather than repeating a typed sentence.
+        fr = _d(fd.get("framing"))
+        self.fid_head.configure(
+            text=str(fr.get("verdict_line")
+                     or "UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY."))
+        body = [
+            str(fr.get("what_it_is") or fd.get("headline") or ""),
+            str(fr.get("why_unvalidated") or ""),
+            str(fr.get("the_correction") or ""),
+            str(fr.get("owner_argument") or ""),
+            str(fr.get("still_true_today") or ""),
+        ]
+        misses = _l(fr.get("named_misses"))
+        if misses:
+            body.append("THE TWO MISSES, KEPT ON SCREEN: "
+                        + "; and ".join(str(m) for m in misses) + ".  "
+                        + str(fr.get("counter_evidence_note") or ""))
+        body.append(str(fr.get("system_text") or ""))
+        body.append(str(fr.get("two_populations_warning") or ""))
+        body.append("THE SCORING TOOL'S OWN VERDICT, VERBATIM: "
+                    + str(fd.get("validation_verdict") or ""))
+        stale = _l(fd.get("drifted"))
+        if stale:
+            body.insert(0, f"CHECK THIS BANNER: {len(stale)} of the statements below "
+                            f"({', '.join(str(x) for x in stale)}) no longer hold when recomputed "
+                            f"from the scoring tool. They are re-derived every refresh precisely "
+                            f"so this cannot pass unnoticed.")
+        cc = _l(fd.get("cannot_check"))
+        if cc:
+            body.append(f"{len(cc)} statement(s) could not be re-checked on this refresh "
+                        f"({', '.join(str(x) for x in cc)}) -- that is NOT the same as verified.")
+        self.fid_warn.configure(text="\n\n".join(b for b in body if b))
+
+        self._draw_scatter()
+        self._r_scatter_caption(fd)
 
         for i, r in enumerate(_l(fd.get("rows"))):
             r = _d(r)
@@ -1263,11 +1528,11 @@ class StatusWindow:
                      if isinstance(pct, (int, float)) else "not scored")
             outcome = str(r.get("outcome") or "")
             # Colour by the OUTCOME, never by the fidelity score. Colouring by the score would
-            # imply the score means something about the result, which is the exact claim this
-            # panel exists to deny.
+            # imply the score means something about the result -- and that is the claim this panel
+            # says we have too little evidence to make either way.
             tag = "good" if r.get("held") else "bad"
             tv.insert("", "end", iid=iid,
-                      values=(str(r.get("component") or "?"), pct_s, outcome[:220]),
+                      values=(str(r.get("component") or "?"), pct_s, outcome[:220], _age_cell(r)),
                       tags=(tag, "even" if i % 2 == 0 else "odd"))
 
         for i, r in enumerate(_l(fd.get("divergence"))):
@@ -1283,15 +1548,20 @@ class StatusWindow:
             tag = "bad" if bad else ("good" if r.get("class") == "SAME" else "warn")
             tv2.insert("", "end", iid=iid,
                        values=(f"{r.get('id')}  {r.get('title')}", r.get("shape"),
-                               r.get("position"), r.get("metric"), pin_s),
+                               r.get("position"), r.get("metric"), pin_s, _age_cell(r)),
                        tags=(tag, "even" if i % 2 == 0 else "odd"))
         if not _l(fd.get("divergence")):
             tv2.insert("", "end", values=(str(fd.get("divergence_detail")
                                               or "the organ map is not readable -- MISSING"),
-                                          "", "", "", ""), tags=("warn",))
+                                          "", "", "", "", "UNKNOWN"), tags=("warn",))
         if self._fid_rows:
             tv.selection_set("f0")
             self._show_fidelity_detail()
+        try:
+            self.nb.tab(self.tab_fidelity,
+                        text=f"6. HOW CLOSELY WE COPY THE BRAIN (n={_d(fd.get('scatter')).get('n', '?')})")
+        except tk.TclError:
+            pass
 
     def _show_fidelity_detail(self, from_div: bool = False) -> None:
         st = _d(getattr(self, "_fid_state", None))
@@ -1311,7 +1581,7 @@ class StatusWindow:
                 ("\nNone of this says whether the organ WORKS. It says how closely it resembles "
                  "the biology. Those are two different gates and neither can soften the other.\n",
                  "warn"),
-            ])
+            ] + _age_chunks(r, "WHEN THIS ORGAN'S VERDICT WAS LAST UPDATED"))
             return
         sel = self.fid_tv.selection()
         r = getattr(self, "_fid_rows", {}).get(sel[0]) if sel else None
@@ -1334,8 +1604,26 @@ class StatusWindow:
                            "partner organ does not exist.\n", "warn"))
         if r.get("dimensions"):
             chunks.append((f"\nper-aspect scores: {r.get('dimensions')}\n", "mono"))
-        chunks += [("\nWHY THIS NUMBER MUST NOT BE READ AS A PREDICTION\n", "bad"),
+        chunks += _age_chunks(r, "WHEN THIS POINT'S EVIDENCE WAS LAST UPDATED")
+        # HEADING CORRECTED 2026-08-16. It read "WHY THIS NUMBER MUST NOT BE READ AS A PREDICTION",
+        # which is an unscoped general negative -- and six points with one positive cannot support
+        # one. What IS supported is that we have too little evidence to tell, and that the number
+        # may not be used as a performance claim today. Both of those are said instead.
+        fr2 = _d(st.get("framing"))
+        chunks += [("\nHOW FAR THIS NUMBER MAY BE READ\n", "warn"),
+                   f"{fr2.get('why_unvalidated', '')}\n",
+                   (f"{fr2.get('the_correction', '')}\n", "warn"),
+                   (f"{fr2.get('still_true_today', '')}\n", "bad"),
+                   ("\nTHE SCORING TOOL'S OWN VERDICT, VERBATIM\n", "dim"),
                    f"{st.get('validation_verdict', '')}\n"]
+        for c in _l(st.get("claims")):
+            c = _d(c)
+            holds = c.get("holds")
+            mark = ("still holds" if holds is True else
+                    "NO LONGER HOLDS -- this banner line is stale" if holds is False else
+                    "CANNOT BE CHECKED on this refresh, which is not the same as verified")
+            chunks.append((f"  [{c.get('id')}] {c.get('text')} -- {mark}\n",
+                           "dim" if holds is True else "bad" if holds is False else "warn"))
         if st.get("was_anything_tuned"):
             chunks += [("\nWAS ANYTHING TUNED TO MAKE THIS LOOK BETTER?\n", "dim"),
                        f"{st.get('was_anything_tuned')}\n"]
@@ -1393,20 +1681,27 @@ class StatusWindow:
                          f"right-hand column says what that choice currently is.")
         else:
             parts.append(f"The standing decisions could not be read ({pl.get('status')}).")
-        self.board_hint.configure(text="  ".join(parts),
+        parts.append(_panel_age_text(s.get("ages"), "waiting on you").strip())
+        self.board_hint.configure(text="  ".join(x for x in parts if x),
                                   fg=_AMBER if b.get("status") != "OK" else _BLUE)
 
         i = 0
         if b.get("status") == "OK" and not self._board_rows:
+            # Even the placeholder is dated. "You are up to date on the board" is itself a claim
+            # read off notes/BOARD.md, and an undated claim is exactly what this column exists to
+            # stop -- so it carries the panel's own newest evidence age rather than a blank.
             tv.insert("", "end", values=("-", "QUESTION", "No open question -- you are up to date "
                                                           "on the board.",
-                                         "nothing; there is nothing to answer"), tags=("dim",))
+                                         "nothing; there is nothing to answer",
+                                         str(_d(_d(_d(s.get("ages")).get("panels"))
+                                                .get("waiting on you")).get("newest_rel")
+                                             or "UNKNOWN")), tags=("dim",))
         for j, r in enumerate(self._board_rows):
             iid = f"q{j}"
             self._wait_rows[iid] = dict(r, _kind="QUESTION")
             tv.insert("", "end", iid=iid,
                       values=(r.get("id", "?"), "QUESTION (answerable here)",
-                              r.get("question", ""), "it stays open"),
+                              r.get("question", ""), "it stays open", _age_cell(r)),
                       tags=("warn", "even" if i % 2 == 0 else "odd"))
             i += 1
         for d in decisions:
@@ -1416,7 +1711,8 @@ class StatusWindow:
             tv.insert("", "end", iid=iid,
                       values=(d.get("id", "?"), "DECISION (from the plan)",
                               d.get("question", ""),
-                              "the default happens: " + str(d.get("default") or "NONE STATED")),
+                              "the default happens: " + str(d.get("default") or "NONE STATED"),
+                              _age_cell(d)),
                       tags=("dim", "even" if i % 2 == 0 else "odd"))
             i += 1
         for o in standing:
@@ -1428,7 +1724,7 @@ class StatusWindow:
             tv.insert("", "end", iid=iid,
                       values=(o.get("id", "?"), "STANDING (not taken)",
                               str(o.get("title", "")) + drift,
-                              str(o.get("standing") or "not recorded")),
+                              str(o.get("standing") or "not recorded"), _age_cell(o)),
                       tags=("bad" if drift else "warn", "even" if i % 2 == 0 else "odd"))
             i += 1
 
@@ -1460,7 +1756,7 @@ class StatusWindow:
                 ("MY RECOMMENDATION\n", "good"),
                 f"{r.get('rec') or '(none)'}\n\n",
                 ("You can answer this one by typing below and pressing Save.\n", "dim"),
-            ])
+            ] + _age_chunks(r, "WHEN THIS QUESTION WAS LAST TOUCHED"))
             return
         if kind == "DECISION":
             self._set_text(self.board_detail, [
@@ -1471,7 +1767,7 @@ class StatusWindow:
                 ("Read live out of notes/PLAN.md section 9 on every refresh. It is not "
                  "answerable from this window -- deciding it means editing that document.\n",
                  "dim"),
-            ])
+            ] + _age_chunks(r, "WHEN THE DOCUMENT RECORDING THIS WAS LAST WRITTEN"))
             return
         chunks = [
             (f"{r.get('id')}  {r.get('title')}\n\n", "h"),
@@ -1490,6 +1786,7 @@ class StatusWindow:
             chunks.append(("\nThis row's numbers could not be cross-checked -- the status "
                            "documents were not readable. That is NOT the same as verified.\n",
                            "warn"))
+        chunks += _age_chunks(r, "WHEN THE DOCUMENT RECORDING THIS WAS LAST WRITTEN")
         self._set_text(self.board_detail, chunks)
 
     def _save_answer(self) -> None:
@@ -1540,7 +1837,7 @@ class StatusWindow:
         tv.delete(*tv.get_children())
         if ag.get("status") != "OK":
             tv.insert("", "end", values=(ag.get("status", "?"),
-                                         str(ag.get("detail", ""))[:60], "", "", ""),
+                                         str(ag.get("detail", ""))[:60], "", "", "UNKNOWN"),
                       tags=("warn",))
         else:
             agents = [_d(a) for a in _l(ag.get("agents"))]
@@ -1556,7 +1853,7 @@ class StatusWindow:
                     state, tag = "no output 15min+", "warn"
                 tv.insert("", "end", values=(
                     state, f"{a.get('name')}  ({a.get('model')})", a.get("description", ""),
-                    _fmt_dur(a.get("elapsed_s")), f"{_fmt_dur(a.get('idle_s'))} ago",
+                    _fmt_dur(a.get("elapsed_s")), _age_cell(a),
                 ), tags=(tag, "even" if i % 2 == 0 else "odd"))
 
         tv2 = self.local_tv
@@ -1564,7 +1861,7 @@ class StatusWindow:
         lx = [_d(e) for e in _l(rn.get("local_experiments"))]
         if not lx:
             tv2.insert("", "end", values=("nothing running directly on this machine",
-                                          "", "", "", ""), tags=("dim",))
+                                          "", "", "", "", ""), tags=("dim",))
         for i, e in enumerate(lx):
             prog = ""
             if e.get("progress_pct") is not None:
@@ -1577,7 +1874,7 @@ class StatusWindow:
             tv2.insert("", "end", values=(
                 _short(e.get("name", "?"), 58), prog or "no progress reported",
                 _fmt_dur(e.get("elapsed_s")), e.get("pid", "?"),
-                f"{int((e.get('mem_kb') or 0) / 1024)} MB",
+                f"{int((e.get('mem_kb') or 0) / 1024)} MB", _age_cell(e),
             ), tags=("even" if i % 2 == 0 else "odd",))
 
         # remote box + alerts
@@ -1617,6 +1914,13 @@ class StatusWindow:
                        "ping: the ping is coarse and has wrongly cried 'stalled' three "
                        "times.\n", "dim"))
 
+        age_line = _panel_age_text(s.get("ages"), "running now").strip()
+        if age_line:
+            chunks += [("\nHOW FRESH IS ANY OF THIS\n", "dim"), age_line + "\n",
+                       ("These are the times the transcripts and output files were last written "
+                        "-- what the processes actually produced, not what this window last "
+                        "asked.\n", "dim")]
+
         alerts = [_d(a) for a in _l(rn.get("alerts"))]
         chunks.append("\n")
         if alerts:
@@ -1654,7 +1958,8 @@ class StatusWindow:
                   f"{res.get('n_negative')} of them are negative and "
                   f"{res.get('n_no_floor')} never named a floor at all -- a result with no "
                   f"floor beside it cannot be graded. Losses are shown exactly as loudly as "
-                  f"wins, on purpose."),
+                  f"wins, on purpose."
+                  + _panel_age_text(s.get("ages"), "latest results")),
             fg=_AMBER if res.get("n_negative") else _BLUE)
         for i, r in enumerate(rows):
             iid = f"r{i}"
@@ -1667,8 +1972,10 @@ class StatusWindow:
             name = _short(r.get("name", "?"), 52)
             if r.get("is_smoke"):
                 name += "   (smoke)"
+            # The relative age is what reads at a glance; the exact stamp stays one click away in
+            # the detail box, which is the split the owner asked for.
             tv.insert("", "end", iid=iid, values=(
-                r.get("when"), label, r.get("verdict"), floor_cell, sep, name),
+                _age_cell(r), label, r.get("verdict"), floor_cell, sep, name),
                 tags=(tag, "even" if i % 2 == 0 else "odd"))
         if rows:
             tv.selection_set("r0")
@@ -1693,6 +2000,7 @@ class StatusWindow:
         if r.get("separated") == "UNKNOWN":
             chunks.append(("It also does not say whether the intervals are separated.\n",
                            "warn"))
+        chunks += _age_chunks(r, "WHEN THIS RESULT WAS LAST WRITTEN")
         chunks.append((f"\nfinished {r.get('when')} | took "
                        f"{_fmt_dur(r.get('elapsed_s'))} | {r.get('path')}\n", "mono"))
         self._set_text(self.results_detail, chunks)
@@ -1847,15 +2155,126 @@ def self_test() -> int:
         check(all(str(c[3]).strip() for c in bcells),
               f"every waiting row says what happens if the owner says nothing "
               f"({[c[0] for c in bcells if not str(c[3]).strip()]})")
-        # The fidelity warning must be ON SCREEN, not merely in the data.
+        # --- EVERY ROW ON EVERY PANEL CARRIES ITS EVIDENCE AGE ---------------
+        # Checked at the RENDERED CELL throughout. The owner reads cells, and the whole point of
+        # this feature is defeated by a timestamp that is right in the payload and absent on screen.
+        age_tables = {
+            "the plan": (gui.where_tv, 5),
+            "scores and floors": (gui.sc_tv, 5),
+            "brain organ map": (gui.organ_tv, 5),
+            "fidelity points": (gui.fid_tv, 3),
+            "organ divergence": (gui.fid_div_tv, 5),
+            "waiting on you": (gui.board_tv, 4),
+            "agents": (gui.agents_tv, 4),
+            "latest results": (gui.results_tv, 0),
+        }
+        blank_cells = []
+        all_age_cells: list[str] = []
+        for tname, (tv, col) in age_tables.items():
+            cells = [str(tv.item(i, "values")[col]) for i in tv.get_children()
+                     if len(tv.item(i, "values")) > col]
+            all_age_cells += cells
+            if any(not c.strip() for c in cells):
+                blank_cells.append(tname)
+        check(not blank_cells,
+              f"ages: NO row on any table renders an empty last-updated cell ({blank_cells})")
+        check(len(all_age_cells) >= 100,
+              f"ages: the column is populated across the whole window, not one table "
+              f"(got {len(all_age_cells)} cells)")
+        # A stamp must be an ARTIFACT age. Documents and experiment outputs are hours or days old,
+        # so a window in which EVERY cell reads 'just now' would mean the refresh clock had leaked
+        # in -- which is the one failure this feature exists to prevent.
+        real_ages = [c for c in all_age_cells if ("ago" in c or "UNKNOWN" in c)]
+        check(len(real_ages) >= 100,
+              f"ages: cells read as ages, not as anything else ({len(real_ages)} of "
+              f"{len(all_age_cells)})")
+        check(any(("h ago" in c or "d ago" in c or "w ago" in c) for c in all_age_cells),
+              "ages: real artifact ages in hours/days are on screen, so the clock did not leak in")
+        check(sum(1 for c in all_age_cells if "just now" in c) < len(all_age_cells) // 2,
+              f"ages NEGATIVE CONTROL: the window is NOT stamping everything with the refresh "
+              f"time ({sum(1 for c in all_age_cells if 'just now' in c)} of "
+              f"{len(all_age_cells)} read 'just now')")
+        check(any("OLDER" in c for c in all_age_cells),
+              "ages: rows resting on older evidence than the rest of their panel are MARKED, so "
+              "the owner does not have to subtract dates")
+        check(not all("OLDER" in c for c in all_age_cells),
+              "ages NEGATIVE CONTROL: the OLDER marker is not simply on every row")
+        # The absolute value must remain reachable, as asked.
+        sc_det = gui.sc_detail.get("1.0", "end")
+        check("EVIDENCE WAS LAST UPDATED" in sc_det.upper(),
+              "ages: the detail box carries the evidence-age block")
+        check("exactly:" in sc_det,
+              f"ages: the exact absolute timestamp is kept available beside the relative one")
+        check("from: " in sc_det,
+              "ages: the detail box names WHICH artifact the age came from")
+        head2b = gui.headsub_lbl.cget("text")
+        check("evidence on screen: newest" in head2b,
+              f"ages: the top strip answers how old the whole window is without a click "
+              f"(got {head2b[-120:]!r})")
+        # And the panel headers answer it per panel.
+        check("Newest evidence on this panel" in gui.results_hint.cget("text"),
+              f"ages: each panel states its own newest and oldest evidence "
+              f"(got {gui.results_hint.cget('text')[-140:]!r})")
+
+        # --- tab 6: the fidelity banner, CORRECTED ---------------------------
+        # Every assertion here reads the RENDERED WIDGET, not the payload. The owner reads the
+        # screen; a banner that is right in the data and wrong on screen is wrong.
+        head_txt = gui.fid_head.cget("text").upper()
         warn_txt = gui.fid_warn.cget("text").upper()
-        check("UNVALIDATED" in warn_txt,
-              f"the fidelity panel says UNVALIDATED on screen (got {warn_txt[:70]!r})")
-        check("NOT A MEASURE OF HOW WELL" in warn_txt,
-              "the fidelity panel's banner denies that the score measures how well it works")
-        check("P ~ 0.17" in warn_txt or "1/6" in warn_txt,
-              f"the banner carries WHY it is unvalidated, not just the word "
-              f"(got {warn_txt[-160:]!r})")
+        check("UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY" in head_txt,
+              f"fidelity: the banner SCOPES the null to our current low fidelity "
+              f"(got {head_txt[:80]!r})")
+        check("EXPECTED TO BECOME PREDICTIVE AS FIDELITY RISES" in head_txt,
+              f"fidelity: the banner carries the clause the owner argued for (got {head_txt!r})")
+        check("NOT USABLE AS A PERFORMANCE CLAIM TODAY" in head_txt,
+              "fidelity: and the clause that actually prevents the failure mode is still there")
+        check("IT DOES NOT SAY HOW WELL THAT PART WORKS" in warn_txt,
+              f"fidelity: the banner still denies that this measures how well anything works "
+              f"(got {warn_txt[:150]!r})")
+        # THE OVERREACH MUST BE GONE FROM THE SCREEN, not merely softened somewhere in the data.
+        check("HAS NOT BEEN SHOWN TO PREDICT" not in (head_txt + warn_txt),
+              "fidelity NEGATIVE CONTROL: the unscoped 'has NOT been shown to predict' wording is "
+              "no longer anywhere on the banner")
+        check("TOO LITTLE EVIDENCE TO TELL IS NOT THE SAME STATEMENT AS NO RELATIONSHIP"
+              in warn_txt,
+              "fidelity: the banner names exactly what the old wording overreached into")
+        check("HARDEST TO DETECT" in warn_txt,
+              "fidelity: it says WHY six low-fidelity points are the worst place to look")
+        check("OWNER'S ARGUMENT" in warn_txt and "NOT AS A MEASUREMENT" in warn_txt,
+              "fidelity: the owner's reasoning is on screen AS AN ARGUMENT, explicitly not as "
+              "something this window measured")
+        check("THE TWO MISSES, KEPT ON SCREEN" in warn_txt,
+              f"fidelity: the two named misses are still rendered (got {warn_txt[-400:-200]!r})")
+        check("TWO POINTS, NOT A REFUTATION" in warn_txt,
+              "fidelity: and they are framed as two points rather than as a refutation")
+        check("62%" in warn_txt and "25%" in warn_txt,
+              f"fidelity: the miss carries its actual numbers, re-derived from the tool")
+        check("P ~ 0.17" in warn_txt or "1 IN 6" in warn_txt,
+              f"fidelity: the banner carries WHY it is unvalidated, not just the word "
+              f"(got {warn_txt[-200:]!r})")
+        check("THE SCORING TOOL'S OWN VERDICT, VERBATIM" in warn_txt and "UNVALIDATED" in warn_txt,
+              "fidelity: the tool's own verdict is still quoted verbatim beneath the framing")
+        # THE RANGE, on screen, so the owner can judge the band rather than be told about it.
+        cap_txt = gui.fid_scatter_cap.cget("text")
+        check("THE BAND ACTUALLY TESTED" in cap_txt.upper(),
+              f"fidelity: the range of scores actually observed is printed (got {cap_txt[:120]!r})")
+        check("0%" in cap_txt and "100%" in cap_txt,
+              f"fidelity: and it prints the real endpoints rather than characterising them "
+              f"(got {cap_txt[:200]!r})")
+        # THE SCATTER, drawn, with its n visible.
+        items = gui.fid_canvas.find_all()
+        check(len(items) > 10,
+              f"fidelity: the six-point scatter is actually drawn (got {len(items)} canvas items)")
+        texts = " ".join(str(gui.fid_canvas.itemcget(i, "text"))
+                         for i in items if gui.fid_canvas.type(i) == "text")
+        check("N = 6" in texts.upper(),
+              f"fidelity: the scatter states its n on the chart (got {texts[:120]!r})")
+        ovals = [i for i in items if gui.fid_canvas.type(i) == "oval"]
+        check(len(ovals) == 6,
+              f"fidelity: six points means six dots -- exact ties are nudged apart, not merged "
+              f"(got {len(ovals)})")
+        check("THE RESULT HELD" in texts.upper() and "IT DID NOT HOLD" in texts.upper(),
+              "fidelity: the outcome axis is labelled in plain words")
         # The organ header must state the deliberate backlog rather than hiding it.
         oh = gui.organ_hint.cget("text")
         check("deliberately do not" in oh,
@@ -1904,6 +2323,42 @@ def self_test() -> int:
               "the fidelity panel tells the reader it is MISSING rather than showing a number")
         check(len(gui.organ_tv.get_children()) <= 1,
               "the organ map draws no organs it does not have")
+        # THE ALL-MISSING PAYLOAD CARRIES NO `ages` KEY AT ALL, which is the sharpest test of the
+        # rule: with no age data whatsoever, a cell must say UNKNOWN and must never fall back to
+        # the refresh clock. A window that fills a blank with `now()` is the failure this feature
+        # was built to prevent, and it would look completely normal on screen.
+        gone_cells = []
+        for tname, (tv, col) in age_tables.items():
+            gone_cells += [str(tv.item(i, "values")[col]) for i in tv.get_children()
+                           if len(tv.item(i, "values")) > col]
+        check(all(("UNKNOWN" in c or not c.strip()) for c in gone_cells),
+              f"ages/all-missing: with no age data at all, every cell says UNKNOWN -- not a time "
+              f"({[c for c in gone_cells if c.strip() and 'UNKNOWN' not in c][:4]})")
+        check(not any("just now" in c or "ago" in c for c in gone_cells),
+              f"ages/all-missing NEGATIVE CONTROL: NOT ONE cell invents an age "
+              f"({[c for c in gone_cells if 'ago' in c][:4]})")
+        check("MISSING" in gui.sc_detail.get("1.0", "end").upper()
+              and "exactly:" not in gui.sc_detail.get("1.0", "end"),
+              "ages/all-missing: the detail box shows NO timestamp at all rather than last "
+              "refresh's one")
+        check("MISSING" in gui.headsub_lbl.cget("text")
+              or "UNKNOWN" in gui.headsub_lbl.cget("text"),
+              f"ages/all-missing: the top strip reports the age data as unavailable "
+              f"(got {gui.headsub_lbl.cget('text')[-90:]!r})")
+        # And the fidelity banner must degrade too, rather than keeping last refresh's framing.
+        check("MISSING" in gui.fid_head.cget("text").upper(),
+              f"fidelity/all-missing: the banner says MISSING instead of leaving the corrected "
+              f"framing standing over no data (got {gui.fid_head.cget('text')[:70]!r})")
+        gone_items = gui.fid_canvas.find_all()
+        gone_ovals = [i for i in gone_items if gui.fid_canvas.type(i) == "oval"]
+        gone_text = " ".join(str(gui.fid_canvas.itemcget(i, "text")) for i in gone_items
+                             if gui.fid_canvas.type(i) == "text").upper()
+        check(not gone_ovals,
+              f"fidelity/all-missing: the scatter draws NO points rather than keeping last "
+              f"refresh's (got {len(gone_ovals)} dots)")
+        check("NO SCORED POINTS" in gone_text,
+              f"fidelity/all-missing: and it SAYS there is nothing to plot instead of showing an "
+              f"empty chart that reads as zero (got {gone_text[:120]!r})")
 
         # structurally wrong types everywhere
         gui._last_error = None

@@ -126,6 +126,19 @@ except Exception as _e:  # pragma: no cover
 else:
     _PLAN_ERR = ""
 
+# PER-ROW EVIDENCE AGES (owner, 2026-08-16: *"I'd also like timestamps for each entry on the dash -
+# when it was last updated so I know what's new and what is old."*). Same import guard as the rest:
+# a failure here leaves every panel standing and the ages simply report UNKNOWN, which is the
+# correct degradation -- the one thing that must never happen is a row stamped with the REFRESH
+# time, because a fresh clock over a stale number reads as current.
+try:
+    import status_evidence as _ev
+except Exception as _e:  # pragma: no cover
+    _ev = None
+    _EV_ERR = f"{type(_e).__name__}: {_e}"
+else:
+    _EV_ERR = ""
+
 # --- paths (env-overridable so the self-test can point at absent files) ------
 # notes/, not data/: `.gitignore` line 43 is `data/*`, so a spec kept under data/ would be
 # absent from a fresh clone and panel 1 would come up MISSING for the next person. It also
@@ -1197,6 +1210,12 @@ def drift_rollup(s: dict) -> dict:
     _one("organs", "brain organ map", lambda p: p.get("drifted"))
     _one("plan", "the plan", lambda p: [v.get("literal") for v in
                                         (p.get("contract") or {}).get("violations") or []])
+    # ADDED 2026-08-16. The fidelity banner transcribes RELATIONS between numbers ("the refuted arm
+    # scores above the incumbent that beats it"), not literals, so the substring check the other
+    # four panels use cannot see it -- and before this it was checked by nothing at all. Each of
+    # those relations is now recomputed from the scoring tool's live output every refresh, and one
+    # that no longer holds lands here.
+    _one("fidelity", "how closely we copy the brain", lambda p: p.get("drifted"))
 
     known = [p for p in parts if isinstance(p.get("n"), int)]
     unknown = [p for p in parts if p.get("n") is None]
@@ -1209,9 +1228,197 @@ def drift_rollup(s: dict) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# WHEN WAS EACH ROW'S EVIDENCE LAST UPDATED
+# ---------------------------------------------------------------------------
+
+def _rel_to_repo(p) -> str:
+    """A repo-relative path string, which is the form the reference scanner recognises."""
+    if not p:
+        return ""
+    try:
+        return str(Path(str(p)).resolve().relative_to(REPO)).replace("\\", "/")
+    except (ValueError, OSError, TypeError):
+        return str(p).replace("\\", "/")
+
+
+def _rows_of(panel: dict, *keys) -> list[dict]:
+    out: list[dict] = []
+    for k in keys:
+        v = panel.get(k)
+        if isinstance(v, list):
+            out += [r for r in v if isinstance(r, dict)]
+        elif isinstance(v, dict):
+            out.append(v)
+    return out
+
+
+def attach_evidence(s: dict) -> dict:
+    """Stamp EVERY ROW ON EVERY PANEL with when its own evidence was last updated.
+
+    DERIVED, NOT COLLECTED A SECOND TIME. This runs after `collect()` has assembled the panels and
+    reads only what those panels already carry -- the same discipline as `merge_scores()` and
+    `drift_rollup()`. No panel is re-read, no collector is forked, and a panel that came back
+    MISSING simply has no rows to stamp.
+
+    WHERE EACH ROW'S TIME COMES FROM, panel by panel. In every case it is THE ARTIFACT, never the
+    refresh clock (see `tools/status_evidence.py` for the ranking that decides between several):
+
+      the plan            the plan document it is parsed from, or the measurement its numbers cite
+      waiting on you      the board / plan / status document the item is recorded in
+      scores and floors   the experiment directory named in the row's own `evidence` line
+      brain organ map     the module or experiment the organ row cites, else the map document
+      fidelity            the `outcome_source` metrics.json of each scored point
+      latest results      that run's own metrics.json -- already stat'd while ranking them
+      running now         the agent transcript / experiment output being written RIGHT NOW
+
+    AND THE POINT OF IT: per panel, every row is compared against the newest evidence on that same
+    panel, so "what is new and what is old" is answerable by looking rather than by subtracting.
+    """
+    if _ev is None:
+        s["ages"] = {"status": "MISSING",
+                     "detail": f"tools/status_evidence.py could not be imported ({_EV_ERR}), so no "
+                               f"row can be dated. Every row shows UNKNOWN -- which is correct, "
+                               f"and is not the same as up to date.",
+                     "panels": {}, "n_unknown": None, "n_behind": None}
+        return s["ages"]
+
+    t0 = time.time()
+    panels: dict[str, dict] = {}
+
+    def do(label: str, rows: list[dict], texts_fn, carrier=None, carrier_label=None) -> None:
+        rows = [r for r in rows if isinstance(r, dict)]
+        for r in rows:
+            try:
+                texts = [t for t in (texts_fn(r) or []) if isinstance(t, str) and t]
+            except Exception:
+                texts = []
+            r["evidence_age"] = _ev.stamp(texts, carrier=carrier,
+                                          carrier_label=carrier_label)
+        panels[label] = _ev.mark_panel(rows, key="evidence_age")
+
+    def known(label: str, rows: list[dict], ts_fn, kind: str, source_fn) -> None:
+        rows = [r for r in rows if isinstance(r, dict)]
+        for r in rows:
+            try:
+                ts, src = ts_fn(r), source_fn(r)
+            except Exception:
+                ts, src = None, ""
+            r["evidence_age"] = _ev.stamp_known(ts, kind, src)
+        panels[label] = _ev.mark_panel(rows, key="evidence_age")
+
+    # ---- the plan ------------------------------------------------------
+    plan = s.get("plan") if isinstance(s.get("plan"), dict) else {}
+    plan_doc = _rel_to_repo(plan.get("doc")) or "notes/LONG_TERM_PLAN.md"
+    do("the plan", _rows_of(plan, "phases"),
+       lambda r: [str((r.get("numbers") or {}).get("evidence") or ""), plan_doc])
+
+    # ---- waiting on you: board questions, plan decisions, standing items ----
+    board = s.get("board") if isinstance(s.get("board"), dict) else {}
+    board_doc = _rel_to_repo(board.get("path")) or "notes/BOARD.md"
+    near_doc = _rel_to_repo(plan.get("near_doc")) or "notes/PLAN.md"
+    ops = plan.get("operator") if isinstance(plan.get("operator"), dict) else {}
+    ops_path = ops.get("path")
+    waiting = []
+    for r in _rows_of(board, "open"):
+        r["_ev_texts"] = [board_doc]
+        waiting.append(r)
+    for r in _rows_of(plan, "decisions"):
+        r["_ev_texts"] = [near_doc]
+        waiting.append(r)
+    for r in _rows_of(ops, "rows"):
+        r["_ev_texts"] = [str(r.get("source") or ""), _rel_to_repo(ops_path)]
+        waiting.append(r)
+    do("waiting on you", waiting, lambda r: r.pop("_ev_texts", []),
+       carrier=ops_path, carrier_label="the standing-decisions file")
+
+    # ---- scores and floors (the merged evidence table) ------------------
+    scores = s.get("scores") if isinstance(s.get("scores"), dict) else {}
+    walls = s.get("walls") if isinstance(s.get("walls"), dict) else {}
+    spec = walls.get("spec_path") or str(COMPONENT_SPEC)
+    do("scores and floors", _rows_of(scores, "rows", "retractions", "governing_floor"),
+       lambda r: [str(r.get("evidence") or ""), str(r.get("instrument_evidence") or "")],
+       carrier=spec, carrier_label="the component-health file")
+
+    # ---- the brain organ map -------------------------------------------
+    organs = s.get("organs") if isinstance(s.get("organs"), dict) else {}
+    map_doc = _rel_to_repo(organs.get("map_path")) or "notes/ORGAN_MAP.md"
+
+    def _organ_texts(r: dict) -> list:
+        t = [str(r.get("evidence") or ""), str(r.get("ours") or "")]
+        if r.get("module"):
+            t.append("hdlab/" + str(r["module"]))
+        if r.get("source") == "ORGAN_MAP":
+            t.append(map_doc)
+        return t
+
+    do("brain organ map", _rows_of(organs, "rows"), _organ_texts,
+       carrier=organs.get("overlay_path"), carrier_label="the organ-panel file")
+
+    # ---- how closely we copy the brain ---------------------------------
+    fid = s.get("fidelity") if isinstance(s.get("fidelity"), dict) else {}
+    fid_map = _rel_to_repo(fid.get("map_path")) or "notes/ORGAN_MAP.md"
+    do("how closely we copy the brain", _rows_of(fid, "rows"),
+       lambda r: [str(r.get("outcome_source") or "")],
+       carrier=REPO / "tools" / "brain_fidelity_score.py",
+       carrier_label="the scoring tool that carries this fixture")
+    # The divergence table is a second table on the same tab and is stamped separately, because its
+    # evidence is a different artifact (the map) from the scored points above (their own runs).
+    do("organ divergence", _rows_of(fid, "divergence"), lambda r: [fid_map])
+
+    # ---- latest results: the mtime is already in hand from the ranking ---
+    res = s.get("results") if isinstance(s.get("results"), dict) else {}
+    now = time.time()
+    known("latest results", _rows_of(res, "rows"),
+          lambda r: (now - r["age_s"]) if isinstance(r.get("age_s"), (int, float)) else None,
+          "MEASUREMENT", lambda r: _rel_to_repo(r.get("path")))
+
+    # ---- running now: liveness IS the evidence timestamp ----------------
+    run = s.get("running") if isinstance(s.get("running"), dict) else {}
+    ag = run.get("agents") if isinstance(run.get("agents"), dict) else {}
+    known("running now", _rows_of(ag, "agents"),
+          lambda r: (now - r["idle_s"]) if isinstance(r.get("idle_s"), (int, float)) else None,
+          "ACTIVITY", lambda r: "the agent's own transcript, appended to as it works")
+    ag_summary = panels.pop("running now", None)
+    do("running experiments", _rows_of(run, "local_experiments"),
+       lambda r: [str(r.get("name") or "")])
+    exp_summary = panels.get("running experiments")
+    # One tab, one summary: the agents and the experiments on it are merged into a single
+    # "running now" reading rather than two, because the owner reads one tab.
+    merged_rows = _rows_of(ag, "agents") + _rows_of(run, "local_experiments")
+    panels["running now"] = _ev.mark_panel(merged_rows, key="evidence_age")
+    panels.pop("running experiments", None)
+    _ = (ag_summary, exp_summary)
+
+    all_summaries = list(panels.values())
+    dated_ts = [p["newest_ts"] for p in all_summaries if p.get("newest_ts")]
+    old_ts = [p["oldest_ts"] for p in all_summaries if p.get("oldest_ts")]
+    out = {
+        "status": "OK",
+        "panels": panels,
+        "n_rows": sum(p.get("n_rows", 0) for p in all_summaries),
+        "n_unknown": sum(p.get("n_unknown", 0) for p in all_summaries),
+        "n_behind": sum(p.get("n_behind", 0) for p in all_summaries),
+        "newest_rel": _ev.relative(now - max(dated_ts)) if dated_ts else "UNKNOWN",
+        "oldest_rel": _ev.relative(now - min(old_ts)) if old_ts else "UNKNOWN",
+        "took_s": round(time.time() - t0, 3),
+        "cache": _ev.cache_stats(),
+        "plain": ("Every row carries WHEN ITS OWN EVIDENCE was last updated -- the experiment's "
+                  "output file, the document it was parsed from, the transcript being written. "
+                  "Never when this window last refreshed: a fresh clock over a stale number is "
+                  "worse than no clock at all."),
+    }
+    s["ages"] = out
+    return out
+
+
 def collect() -> dict:
     """All nine panels. Never raises; never blocks past the sum of the panel budgets."""
     t0 = time.time()
+    if _ev is not None:
+        # One stat per distinct artifact per refresh. Cleared here so an experiment that finishes
+        # between two refreshes shows its new time on the next one.
+        _ev.begin_refresh()
     walls = _panel("walls", collect_walls, WALLS_BUDGET_S)
     board_p = _panel("board", collect_board, BOARD_BUDGET_S)
     running = _panel("running", collect_running, RUNNING_BUDGET_S)
@@ -1250,6 +1457,8 @@ def collect() -> dict:
     # already in this dict, so there is no third source of truth and no extra file read.
     out["scores"] = merge_scores(walls, progress)
     out["drift"] = drift_rollup(out)
+    # LAST, because it stamps the rows of every panel above INCLUDING the merged scores view.
+    attach_evidence(out)
     return out
 
 
@@ -1268,6 +1477,19 @@ def render_text(s: dict) -> str:
     for p in d.get("parts") or []:
         L.append(f"   {p.get('panel')}: "
                  f"{p['n'] if p.get('n') is not None else 'UNKNOWN -- ' + str(p.get('why'))}")
+
+    ag = s.get("ages") or {}
+    L.append("")
+    if ag.get("status") != "OK":
+        L.append(f"EVIDENCE AGE: {ag.get('status')} -- {str(ag.get('detail'))[:160]}")
+    else:
+        L.append(f"EVIDENCE AGE: newest thing on screen {ag.get('newest_rel')}, oldest "
+                 f"{ag.get('oldest_rel')}. {ag.get('n_behind')} of {ag.get('n_rows')} rows rest on "
+                 f"evidence behind the newest on their own panel; {ag.get('n_unknown')} could not "
+                 f"be dated. (These are ARTIFACT times, never the refresh clock.)")
+        for name, p in (ag.get("panels") or {}).items():
+            L.append(f"   {name}: newest {p.get('newest_rel')}, oldest {p.get('oldest_rel')}, "
+                     f"{p.get('n_behind')} older, {p.get('n_unknown')} undated")
 
     L.append("")
     if _plan is not None:
@@ -1355,7 +1577,9 @@ def render_text(s: dict) -> str:
                  f"negative; {res.get('n_no_floor')} state no floor")
         for r in res.get("rows") or []:
             mark = r.get("label", "FINDING")
-            L.append(f"   {r['when']}  {r['verdict']:<22} [{mark}] "
+            age = (r.get("evidence_age") or {})
+            age_s = _ev.line(age) if _ev is not None else "?"
+            L.append(f"   {r['when']}  ({age_s})  {r['verdict']:<22} [{mark}] "
                      f"floor named: {'yes' if r['floor_named'] else 'NO'}  "
                      f"separated: {r['separated']}  {r['name']}")
             if r["verdict_msg"]:
@@ -1455,8 +1679,12 @@ def self_test() -> int:
           and sc["n_metrics_opened"] < max(400, sc.get("n_dirs", 0) // 4),
           f"A/normal: it opened {sc.get('n_metrics_opened')} metrics.json out of "
           f"{sc.get('n_dirs')} directories, not all of them")
-    check((sc.get("took_s") or 99) < 3.0,
-          f"A/normal: the results scan cost {sc.get('took_s')}s, well inside its "
+    # `(x or 99)` was the original form and it is WRONG for a duration: a scan that costs 0.0 s is
+    # the best possible outcome and `0.0 or 99` evaluates to 99, so the assertion failed precisely
+    # when the panel was fastest. Caught 2026-08-16 when the warm scan hit 0.0 s.
+    _scan_s = sc.get("took_s")
+    check(isinstance(_scan_s, (int, float)) and _scan_s < 3.0,
+          f"A/normal: the results scan cost {_scan_s}s, well inside its "
           f"{RESULTS_BUDGET_S:.0f}s budget")
     check(took_a < budget, f"A/normal: returned in {took_a:.1f}s (budget {budget:.0f}s)")
     check(a["progress"].get("status") == "OK", "A/normal: progress panel populated")
@@ -1502,6 +1730,163 @@ def self_test() -> int:
     drift = a["walls"].get("drifted") or []
     check(not drift, f"A/normal: every quoted number still found in notes/PLAN.md "
                      f"(drifted: {drift})")
+
+    # ---- A2. EVERY ROW CARRIES WHEN ITS OWN EVIDENCE WAS LAST UPDATED ----
+    ages = a.get("ages") or {}
+    check(ages.get("status") == "OK",
+          f"A2/ages: the evidence-age pass ran ({ages.get('status')}: "
+          f"{str(ages.get('detail'))[:110]})")
+    check((ages.get("took_s") or 99) < 1.0,
+          f"A2/ages: dating every row cost {ages.get('took_s')}s -- the refresh stays cheap")
+    check(len(ages.get("panels") or {}) >= 7,
+          f"A2/ages: every panel got an age summary (got {sorted(ages.get('panels') or {})})")
+    check((ages.get("n_rows") or 0) >= 100,
+          f"A2/ages: it stamped the whole window, not one panel (got {ages.get('n_rows')} rows)")
+
+    # Collect every stamp that was actually produced, so the rules below are checked against the
+    # rendered values and not against the intent.
+    def _stamps(state: dict) -> list[dict]:
+        found: list[dict] = []
+        stack = [state]
+        seen = 0
+        while stack and seen < 20000:
+            cur = stack.pop()
+            seen += 1
+            if isinstance(cur, dict):
+                st = cur.get("evidence_age")
+                if isinstance(st, dict):
+                    found.append(st)
+                stack.extend(v for v in cur.values() if isinstance(v, (dict, list)))
+            elif isinstance(cur, list):
+                stack.extend(v for v in cur if isinstance(v, (dict, list)))
+        return found
+
+    st_all = _stamps(a)
+    check(len(st_all) >= 100,
+          f"A2/ages: the stamps are ON THE ROWS the window renders (found {len(st_all)})")
+    check(all(("rel" in x) for x in st_all),
+          "A2/ages: every stamp carries a relative age the owner can read at a glance")
+    check(all((x.get("when") or x.get("rel") == "UNKNOWN") for x in st_all),
+          "A2/ages: every dated stamp ALSO carries its absolute value, as asked")
+
+    # THE RULE THAT MATTERS, AND ITS NEGATIVE CONTROL. A stamp must be the ARTIFACT's time. A
+    # stamp equal to the refresh clock would be the exact failure this was built to prevent -- a
+    # fresh clock over a stale number. The only rows legitimately at 'now' are the live ones on
+    # RUNNING NOW, whose artifact genuinely is being written this second, so they are excluded by
+    # KIND rather than by panel name.
+    t_now = time.time()
+    clocked = [x for x in st_all
+               if isinstance(x.get("ts"), (int, float))
+               and abs(x["ts"] - t_now) < 5.0 and x.get("kind") != "ACTIVITY"]
+    check(not clocked,
+          f"A2/ages: NO row is stamped with the refresh clock "
+          f"({[c.get('source') for c in clocked][:4]})")
+    kinds = {x.get("kind") for x in st_all}
+    check("MEASUREMENT" in kinds,
+          f"A2/ages: rows ARE being dated from experiment output files, not just documents "
+          f"(kinds seen: {sorted(k for k in kinds if k)})")
+    # The control that proves the line above can fail: the SAME machinery, pointed at nothing.
+    if _ev is not None:
+        blank = _ev.stamp(["nothing at all is named here"], carrier=None)
+        check(blank.get("ts") is None and blank.get("rel") == "UNKNOWN",
+              f"A2/ages NEGATIVE CONTROL: a row with no artifact is UNKNOWN, so the pass above "
+              f"is not passing everything (got {blank.get('rel')!r})")
+
+    # "what is new and what is old" must be answerable without arithmetic.
+    res_ages = (ages.get("panels") or {}).get("latest results") or {}
+    check(res_ages.get("newest_rel") and res_ages.get("oldest_rel"),
+          f"A2/ages: each panel states its newest AND oldest evidence "
+          f"({res_ages.get('newest_rel')} / {res_ages.get('oldest_rel')})")
+    check(isinstance(ages.get("n_behind"), int) and ages["n_behind"] > 0,
+          f"A2/ages: rows behind the newest evidence on their own panel are FLAGGED, and the live "
+          f"window really does have some (got {ages.get('n_behind')})")
+    # ... and the control that the flag is not simply always on.
+    fresh_panel = [p for p in (ages.get("panels") or {}).values()
+                   if p.get("n_dated", 0) >= 2 and p.get("n_behind") == 0]
+    check(bool(fresh_panel),
+          f"A2/ages NEGATIVE CONTROL: at least one multi-row panel has NO row flagged older, so "
+          f"the marker is not fired on everything "
+          f"({[(k, v.get('n_behind')) for k, v in (ages.get('panels') or {}).items()]})")
+
+    # ---- A3. THE FIDELITY PANEL'S FRAMING AND ITS RE-DERIVED CLAIMS ------
+    fd = a.get("fidelity") or {}
+    fr = fd.get("framing") or {}
+    vl = str(fr.get("verdict_line") or "").upper()
+    check("UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY" in vl,
+          f"A3/fidelity: the banner scopes the null to our CURRENT LOW FIDELITY (got {vl[:90]!r})")
+    check("EXPECTED TO BECOME PREDICTIVE AS FIDELITY RISES" in vl,
+          "A3/fidelity: the banner carries the second clause the owner argued for")
+    check("NOT USABLE AS A PERFORMANCE CLAIM TODAY" in vl,
+          "A3/fidelity: and the clause that actually prevents the failure mode is still there")
+    check("NOT A MEASURE OF HOW WELL" in str(fd.get("headline")).upper(),
+          "A3/fidelity: the headline still denies that this measures how well anything works")
+    check("OWNER'S ARGUMENT" in str(fr.get("owner_argument") or "").upper()
+          and "NOT AS A MEASUREMENT" in str(fr.get("owner_argument") or "").upper(),
+          "A3/fidelity: the owner's reasoning is carried as an ARGUMENT, explicitly not as a "
+          "measurement this module made")
+    check(len(fr.get("named_misses") or []) == 2,
+          f"A3/fidelity: BOTH named misses are kept on screen as counter-evidence "
+          f"(got {fr.get('named_misses')})")
+    check("TWO POINTS, not a refutation" in str(fr.get("counter_evidence_note") or ""),
+          "A3/fidelity: and they are presented as two points rather than as a refutation")
+    check(isinstance(fr.get("pct_min"), (int, float))
+          and isinstance(fr.get("pct_max"), (int, float)),
+          f"A3/fidelity: the RANGE of scores actually observed is computed and shown "
+          f"(got {fr.get('pct_min')}..{fr.get('pct_max')})")
+    sca = fd.get("scatter") or {}
+    check(sca.get("n") == len(fd.get("rows") or []) - (sca.get("n_unscored") or 0),
+          f"A3/fidelity: the scatter carries every scored point and counts the unscored "
+          f"(n={sca.get('n')}, unscored={sca.get('n_unscored')})")
+    check(sca.get("n", 0) >= 5 and all(isinstance(p.get("pct"), (int, float))
+                                       for p in sca.get("points") or []),
+          f"A3/fidelity: every plotted point has a real score -- none is plotted at zero to fill "
+          f"the chart (n={sca.get('n')})")
+    claims = fd.get("claims") or []
+    check(len(claims) >= 6,
+          f"A3/fidelity: every relation the banner asserts is re-derived, not transcribed "
+          f"(got {len(claims)} claims)")
+    check(all(c.get("holds") is not False for c in claims),
+          f"A3/fidelity: on the live data every re-derived claim still holds "
+          f"({[c['id'] for c in claims if c.get('holds') is False]})")
+    check(not (fd.get("cannot_check") or []),
+          f"A3/fidelity: every claim could actually be checked ({fd.get('cannot_check')})")
+
+    # THE NEGATIVE CONTROL FOR THE NEW DRIFT RULE. Feed the claim machinery a world in which the
+    # named miss has stopped being true, and prove it is CAUGHT rather than repeated. Without this
+    # the whole drift extension could be a no-op that always says zero.
+    if _organs is not None:
+        doctored = [
+            {"component": "c_ca3_completion_as_built", "pct": 0.10, "held": False, "outcome": "x"},
+            {"component": "d_the_flat_bag_incumbent", "pct": 0.90, "held": True, "outcome": "x"},
+            {"component": "a_conjunctive_perirhinal_coding", "pct": 0.10, "held": True,
+             "outcome": "x"},
+        ]
+        dc = {c["id"]: c for c in _organs._fidelity_claims(doctored, "NOW VALIDATED", {"SAME": 9})}
+        check(dc["F3"]["holds"] is False,
+              "A3/drift NEGATIVE CONTROL: if the CA3 arm stopped outscoring the flat bag the "
+              "banner sentence is caught as STALE, not repeated")
+        check(dc["F4"]["holds"] is False,
+              "A3/drift NEGATIVE CONTROL: the flat-bag/conjunctive tie is re-derived and can fail")
+        check(dc["F1"]["holds"] is False,
+              "A3/drift NEGATIVE CONTROL: a tool that stopped saying UNVALIDATED is caught")
+        check(dc["F2"]["holds"] is False,
+              "A3/drift NEGATIVE CONTROL: a second positive result is caught, because it would "
+              "change the power argument the banner rests on")
+        check(dc["F6"]["holds"] is False,
+              "A3/drift NEGATIVE CONTROL: 'fewer than half our organs match' is recounted and "
+              "can fail")
+        missing_comp = {c["id"]: c for c in _organs._fidelity_claims([], None, {})}
+        check(missing_comp["F3"]["holds"] is None,
+              "A3/drift: a claim whose components are absent is CANNOT-CHECK, never True -- a "
+              "check that passes when its input is gone is not a check")
+        # And it must reach the roll-up the owner reads, not stop at the data.
+        doctored_state = dict(a)
+        doctored_state["fidelity"] = dict(fd, status="OK", drifted=["F3", "F4"])
+        roll = drift_rollup(doctored_state)
+        base_roll = drift_rollup(a)
+        check(roll["n_drifted"] == base_roll["n_drifted"] + 2,
+              f"A3/drift NEGATIVE CONTROL: a stale fidelity claim RAISES the drift count on screen "
+              f"({base_roll['n_drifted']} -> {roll['n_drifted']})")
 
     # ---- B. remote unreachable ------------------------------------------
     saved = {}
@@ -1569,7 +1954,16 @@ def self_test() -> int:
     pg = vars(_plan) if _plan is not None else {}
     pkeep = {k: pg[k] for k in ("LONG_PLAN_DOC", "NEAR_PLAN_DOC", "OPERATOR_SPEC", "CONTRACT_DOC",
                                 "AUTHORITY_DOCS")} if pg else {}
+    # The evidence resolver has its own idea of where the repo is, so pointing only the collectors
+    # at nowhere would leave every artifact resolvable and the scenario would be vacuous -- the
+    # same trap the organ panels fell into when they were added.
+    eg = vars(_ev) if _ev is not None else {}
+    ekeep = {k: eg[k] for k in ("REPO", "DATA_DIR")} if eg else {}
     try:
+        if eg:
+            eg["REPO"] = td / "nope_repo"
+            eg["DATA_DIR"] = td / "nope_repo" / "data"
+            _ev.begin_refresh()
         if pg:
             pg["LONG_PLAN_DOC"] = td / "nope_LONG_TERM_PLAN.md"
             pg["NEAR_PLAN_DOC"] = td / "nope_PLAN.md"
@@ -1600,6 +1994,9 @@ def self_test() -> int:
             _organs._cache.clear()
         if pg:
             pg.update(pkeep)
+        if eg:
+            eg.update(ekeep)
+            _ev.begin_refresh()
     check(all(k in c for k in panels), "C/files-absent: all nine panels still present")
     check(c["plan"].get("status") == "MISSING",
           f"C/files-absent: the plan panel reports MISSING (got {c['plan'].get('status')!r})")
@@ -1631,8 +2028,34 @@ def self_test() -> int:
     ag_c = (c["running"] or {}).get("agents") or {}
     check(ag_c.get("status") in ("MISSING", "OK"),
           "C/files-absent: agents panel resolves without raising")
+    # The evidence pass must survive every artifact vanishing, and -- the point -- must NOT fall
+    # back to the refresh clock when it can no longer find anything to date.
+    ac = c.get("ages") or {}
+    check(ac.get("status") == "OK",
+          f"C/files-absent: the evidence-age pass still returns (got {ac.get('status')!r})")
+    st_c = _stamps(c)
+    t_now_c = time.time()
+    clocked_c = [x for x in st_c
+                 if isinstance(x.get("ts"), (int, float)) and abs(x["ts"] - t_now_c) < 5.0
+                 and x.get("kind") != "ACTIVITY"]
+    check(not clocked_c,
+          f"C/files-absent: with every artifact gone, NOT ONE row falls back to the refresh clock "
+          f"({[x.get('source') for x in clocked_c][:4]})")
+    # With the repo pointed at nowhere, NO row may still claim a measurement, a fragment or a
+    # document behind it. The only stamps that may survive are UNKNOWN, or the CARRIER stamp of a
+    # file that genuinely did not vanish (the scoring tool is an imported MODULE, so it is still
+    # there) -- and a CARRIER stamp says on screen that it is not the evidence date.
+    kinds_c = {x.get("kind") for x in st_c}
+    check(not (kinds_c & {"MEASUREMENT", "FRAGMENT", "NOTE", "REGISTRY", "CODE"}),
+          f"C/files-absent: no row still claims an artifact that is gone (kinds: "
+          f"{sorted(k for k in kinds_c if k)})")
+    check(all(x.get("rel") == "UNKNOWN" or x.get("kind") == "CARRIER" for x in st_c),
+          f"C/files-absent: every remaining stamp is UNKNOWN or an explicitly-labelled carrier "
+          f"({[(x.get('kind'), x.get('rel')) for x in st_c][:4]})")
     txt = render_text(c)
     check("MISSING" in txt, "C/files-absent: the rendered view SAYS MISSING to the reader")
+    check("EVIDENCE AGE" in txt,
+          "C/files-absent: the rendered view still tells the reader about evidence ages")
 
     # ---- D. the write-back refuses the dangerous cases -------------------
     ok_w, msg_w = answer_question("Q1", "   ", td / "nope_BOARD.md")
