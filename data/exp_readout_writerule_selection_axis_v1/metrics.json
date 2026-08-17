@@ -1,0 +1,1308 @@
+{
+ "anchor_name": "exp_readout_writerule_selection_axis_v1",
+ "grid": "full",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_ceiling_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T17:24:00.906471+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_writerule_selection_axis_v1.py",
+   "--grid",
+   "full"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "cache": {
+  "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+  "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+  "rebuilt": false
+ },
+ "K_GRID_SEL": [
+  10,
+  30,
+  100
+ ],
+ "P3_K_prereg": 30,
+ "P3_BETAS": [
+  0.25,
+  0.5,
+  0.75
+ ],
+ "CLAIM_UNDER_TEST": "the landed P0/W1 write rule selects contributors by co-occurrence (a word contributes to L's code iff it appears in a sentence with L) and only changed the PAYLOAD (identity->profile). P1 selects contributors by profile SIMILARITY instead, with the IDENTICAL payload.",
+ "W1_REGRESSION_GATE": {
+  "P0_partial_cue_this_cell": 0.02979,
+  "expected_W1": 0.02979,
+  "tol": 0.0005,
+  "PASS": true
+ },
+ "PERMUTATION_CONTROLS": {
+  "global_no_fixed_points": true,
+  "freq_matched_no_fixed_points": true,
+  "freq_matched_groups_respected": true
+ },
+ "COOC_CENSUS_P2_VALID_CANDIDATE_STATS": {
+  "k10": {
+   "requested_k": 10,
+   "mean_valid": 10.0,
+   "median_valid": 10.0,
+   "fraction_rows_with_zero_admissible": 0.0,
+   "fraction_rows_full_k": 1.0
+  },
+  "k30": {
+   "requested_k": 30,
+   "mean_valid": 30.0,
+   "median_valid": 30.0,
+   "fraction_rows_with_zero_admissible": 0.0,
+   "fraction_rows_full_k": 1.0
+  },
+  "k100": {
+   "requested_k": 100,
+   "mean_valid": 100.0,
+   "median_valid": 100.0,
+   "fraction_rows_with_zero_admissible": 0.0,
+   "fraction_rows_full_k": 1.0
+  }
+ },
+ "ARMS_MUST_DIFFER_DIGESTS": {
+  "P0_SYNTAGMATIC_SELECTION": "6ee771f93a1228d3",
+  "P1_PARADIGMATIC_SELECTION_k10": "03e9072f4c96e644",
+  "P2_ZERO_COOCCURRENCE_ONLY_k10": "504eba267fbf6c27",
+  "N1_NULL_k10": "93e9fbec26d2dc0d",
+  "F_FREQ_MATCHED_SELECTION_k10": "2bd8816ae890358d",
+  "P1_PARADIGMATIC_SELECTION_k30": "b67582b8eeb280d1",
+  "P2_ZERO_COOCCURRENCE_ONLY_k30": "8f8caf8d3000fa4c",
+  "N1_NULL_k30": "3ea58a5d4a1d2d22",
+  "F_FREQ_MATCHED_SELECTION_k30": "cd9d2c58d5357e46",
+  "P1_PARADIGMATIC_SELECTION_k100": "75391af6a477324e",
+  "P2_ZERO_COOCCURRENCE_ONLY_k100": "3cf551baf21db3b4",
+  "N1_NULL_k100": "bb9ff73131ac4402",
+  "F_FREQ_MATCHED_SELECTION_k100": "b65d91a629a11a59",
+  "P3_HYBRID_beta0.25": "d65ecbac965fd789",
+  "P3_HYBRID_beta0.5": "7f26ddaa44a314ca",
+  "P3_HYBRID_beta0.75": "4192e39d51c12779"
+ },
+ "ARMS_MUST_DIFFER_OK": true,
+ "K1_KNOWN_ANSWER_addressing": {
+  "P0_SYNTAGMATIC_SELECTION": 1.0,
+  "P1_PARADIGMATIC_SELECTION_k10": 0.9995,
+  "P2_ZERO_COOCCURRENCE_ONLY_k10": 1.0,
+  "N1_NULL_k10": 0.9995,
+  "F_FREQ_MATCHED_SELECTION_k10": 0.9995,
+  "P1_PARADIGMATIC_SELECTION_k30": 1.0,
+  "P2_ZERO_COOCCURRENCE_ONLY_k30": 1.0,
+  "N1_NULL_k30": 1.0,
+  "F_FREQ_MATCHED_SELECTION_k30": 1.0,
+  "P1_PARADIGMATIC_SELECTION_k100": 1.0,
+  "P2_ZERO_COOCCURRENCE_ONLY_k100": 1.0,
+  "N1_NULL_k100": 1.0,
+  "F_FREQ_MATCHED_SELECTION_k100": 1.0,
+  "P3_HYBRID_beta0.25": 1.0,
+  "P3_HYBRID_beta0.5": 1.0,
+  "P3_HYBRID_beta0.75": 1.0
+ },
+ "K1_GATE": 0.95,
+ "NULL_PERMUTED_partial_cue": {
+  "P0_SYNTAGMATIC_SELECTION": 0.00676,
+  "P1_PARADIGMATIC_SELECTION_k10": 0.017526,
+  "P2_ZERO_COOCCURRENCE_ONLY_k10": 0.013771,
+  "N1_NULL_k10": 0.007261,
+  "F_FREQ_MATCHED_SELECTION_k10": 0.021032,
+  "P1_PARADIGMATIC_SELECTION_k30": 0.016274,
+  "P2_ZERO_COOCCURRENCE_ONLY_k30": 0.010516,
+  "N1_NULL_k30": 0.008012,
+  "F_FREQ_MATCHED_SELECTION_k30": 0.018528,
+  "P1_PARADIGMATIC_SELECTION_k100": 0.01302,
+  "P2_ZERO_COOCCURRENCE_ONLY_k100": 0.009264,
+  "N1_NULL_k100": 0.011517,
+  "F_FREQ_MATCHED_SELECTION_k100": 0.011017,
+  "P3_HYBRID_beta0.25": 0.015023,
+  "P3_HYBRID_beta0.5": 0.011768,
+  "P3_HYBRID_beta0.75": 0.008513
+ },
+ "FLOORS_SHARED_STORE_INDEPENDENT": [
+  "F_ORTHOGRAPHIC",
+  "F_FREQUENCY"
+ ],
+ "FLOORS_PER_ARM_STORE_DEPENDENT": [
+  "F_SCRAMBLE",
+  "F_CONSTANT_PROTOTYPE"
+ ],
+ "NEVER_IMPORTED": [
+  "0.1382",
+  "0.2070",
+  "0.1390",
+  "-0.1959"
+ ],
+ "ORTHOGRAPHIC_LEAKAGE_CHECK": {
+  "what": "mean trigram-cosine(top-1 winner, query), PARTIAL-CUE regime.",
+  "values": {
+   "P0_SYNTAGMATIC_SELECTION": 0.02939,
+   "P1_PARADIGMATIC_SELECTION_k10": 0.02441,
+   "P2_ZERO_COOCCURRENCE_ONLY_k10": 0.024,
+   "N1_NULL_k10": 0.02152,
+   "F_FREQ_MATCHED_SELECTION_k10": 0.01975,
+   "P1_PARADIGMATIC_SELECTION_k30": 0.02562,
+   "P2_ZERO_COOCCURRENCE_ONLY_k30": 0.02603,
+   "N1_NULL_k30": 0.02098,
+   "F_FREQ_MATCHED_SELECTION_k30": 0.02332,
+   "P1_PARADIGMATIC_SELECTION_k100": 0.02604,
+   "P2_ZERO_COOCCURRENCE_ONLY_k100": 0.02783,
+   "N1_NULL_k100": 0.02056,
+   "F_FREQ_MATCHED_SELECTION_k100": 0.02206,
+   "P3_HYBRID_beta0.25": 0.02811,
+   "P3_HYBRID_beta0.5": 0.02959,
+   "P3_HYBRID_beta0.75": 0.02809
+  },
+  "F_ORTHOGRAPHIC_floor_own_reference": 1.0
+ },
+ "HIT_AT_1_PARTIAL_CUE_PRIMARY": {
+  "n_common_scored": 3994,
+  "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED, PARTIAL-CUE regime",
+  "per_arm": {
+   "P0_SYNTAGMATIC_SELECTION": {
+    "value_tie_corrected": 0.02979,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.00676,
+    "orthographic_leakage": 0.02939,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P0_SYNTAGMATIC_SELECTION": 0.01302,
+     "F_CONSTANT_PROTOTYPE__P0_SYNTAGMATIC_SELECTION": 0.03155
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0575,
+     "ci95": [
+      -0.0673,
+      -0.0478
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00975,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    }
+   },
+   "P1_PARADIGMATIC_SELECTION_k10": {
+    "value_tie_corrected": 0.03055,
+    "K1_addressing": 0.9995,
+    "NULL_PERMUTED": 0.017526,
+    "orthographic_leakage": 0.02441,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k10": 0.01052,
+     "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k10": 0.05058
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0568,
+     "ci95": [
+      -0.0668,
+      -0.047
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0099,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": 0.0008,
+     "ci95": [
+      -0.0063,
+      0.0078
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.00705,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k10": {
+    "value_tie_corrected": 0.02153,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.013771,
+    "orthographic_leakage": 0.024,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k10": 0.01077,
+     "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k10": 0.02554
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0657,
+     "ci95": [
+      -0.0754,
+      -0.0563
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00955,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0082,
+     "ci95": [
+      -0.0148,
+      -0.0015
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00665,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "N1_NULL_k10": {
+    "value_tie_corrected": 0.01202,
+    "K1_addressing": 0.9995,
+    "NULL_PERMUTED": 0.007261,
+    "orthographic_leakage": 0.02152,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__N1_NULL_k10": 0.01052,
+     "F_CONSTANT_PROTOTYPE__N1_NULL_k10": 0.00451
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0753,
+     "ci95": [
+      -0.0843,
+      -0.0662
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00905,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0177,
+     "ci95": [
+      -0.024,
+      -0.0115
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00625,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "F_FREQ_MATCHED_SELECTION_k10": {
+    "value_tie_corrected": 0.01627,
+    "K1_addressing": 0.9995,
+    "NULL_PERMUTED": 0.021032,
+    "orthographic_leakage": 0.01975,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k10": 0.00876,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k10": 0.04807
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.071,
+     "ci95": [
+      -0.0803,
+      -0.0618
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00925,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0135,
+     "ci95": [
+      -0.02,
+      -0.007
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0065,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P1_PARADIGMATIC_SELECTION_k30": {
+    "value_tie_corrected": 0.02829,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.016274,
+    "orthographic_leakage": 0.02562,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k30": 0.01152,
+     "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k30": 0.00826
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.059,
+     "ci95": [
+      -0.0688,
+      -0.0494
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0097,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0015,
+     "ci95": [
+      -0.0078,
+      0.0048
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0063,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k30": {
+    "value_tie_corrected": 0.02479,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.010516,
+    "orthographic_leakage": 0.02603,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k30": 0.01177,
+     "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k30": 0.0358
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0625,
+     "ci95": [
+      -0.0723,
+      -0.053
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00965,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.005,
+     "ci95": [
+      -0.0113,
+      0.0013
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0063,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "N1_NULL_k30": {
+    "value_tie_corrected": 0.00951,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.008012,
+    "orthographic_leakage": 0.02098,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__N1_NULL_k30": 0.01227,
+     "F_CONSTANT_PROTOTYPE__N1_NULL_k30": 0.01152
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0778,
+     "ci95": [
+      -0.0869,
+      -0.0688
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00905,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0203,
+     "ci95": [
+      -0.0263,
+      -0.0143
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.006,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "F_FREQ_MATCHED_SELECTION_k30": {
+    "value_tie_corrected": 0.02028,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.018528,
+    "orthographic_leakage": 0.02332,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k30": 0.01252,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k30": 0.01978
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.067,
+     "ci95": [
+      -0.0766,
+      -0.0574
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0096,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0095,
+     "ci95": [
+      -0.0163,
+      -0.0028
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00675,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P1_PARADIGMATIC_SELECTION_k100": {
+    "value_tie_corrected": 0.0323,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.01302,
+    "orthographic_leakage": 0.02604,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k100": 0.01102,
+     "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k100": 0.00901
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.055,
+     "ci95": [
+      -0.0648,
+      -0.0452
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0098,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": 0.0026,
+     "ci95": [
+      -0.0035,
+      0.0085
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.006,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k100": {
+    "value_tie_corrected": 0.03055,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.009264,
+    "orthographic_leakage": 0.02783,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k100": 0.01052,
+     "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k100": 0.0358
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0567,
+     "ci95": [
+      -0.0665,
+      -0.0469
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0098,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": 0.0008,
+     "ci95": [
+      -0.005,
+      0.0068
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0059,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "N1_NULL_k100": {
+    "value_tie_corrected": 0.00776,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.011517,
+    "orthographic_leakage": 0.02056,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__N1_NULL_k100": 0.00976,
+     "F_CONSTANT_PROTOTYPE__N1_NULL_k100": 0.003
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0795,
+     "ci95": [
+      -0.0885,
+      -0.0706
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00895,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.022,
+     "ci95": [
+      -0.028,
+      -0.0163
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00585,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "F_FREQ_MATCHED_SELECTION_k100": {
+    "value_tie_corrected": 0.01127,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.011017,
+    "orthographic_leakage": 0.02206,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k100": 0.01452,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k100": 0.00826
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0761,
+     "ci95": [
+      -0.0852,
+      -0.067
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0091,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.0185,
+     "ci95": [
+      -0.0248,
+      -0.0123
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00625,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P3_HYBRID_beta0.25": {
+    "value_tie_corrected": 0.0303,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.015023,
+    "orthographic_leakage": 0.02811,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P3_HYBRID_beta0.25": 0.01077,
+     "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.25": 0.00826
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.057,
+     "ci95": [
+      -0.0669,
+      -0.0473
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0098,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": 0.0005,
+     "ci95": [
+      -0.0055,
+      0.0065
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.006,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P3_HYBRID_beta0.5": {
+    "value_tie_corrected": 0.02879,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.011768,
+    "orthographic_leakage": 0.02959,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P3_HYBRID_beta0.5": 0.01227,
+     "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.5": 0.03155
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0585,
+     "ci95": [
+      -0.0683,
+      -0.0488
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00975,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": -0.001,
+     "ci95": [
+      -0.0065,
+      0.0043
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0054,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   },
+   "P3_HYBRID_beta0.75": {
+    "value_tie_corrected": 0.0328,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.008513,
+    "orthographic_leakage": 0.02809,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.08731,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.08731,
+     "F_FREQUENCY": 0.01853,
+     "F_SCRAMBLE__P3_HYBRID_beta0.75": 0.01327,
+     "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.75": 0.03155
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0545,
+     "ci95": [
+      -0.0645,
+      -0.0446
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.00995,
+     "analytic_null_halfwidth_at_this_n": 0.00876
+    },
+    "margin_vs_P0": {
+     "point": 0.003,
+     "ci95": [
+      -0.0013,
+      0.0073
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0043,
+     "analytic_null_halfwidth_at_this_n": 0.00527
+    }
+   }
+  },
+  "ALL_VALUES_tie_corrected": {
+   "F_ORTHOGRAPHIC": 0.08731,
+   "F_FREQUENCY": 0.01853,
+   "F_SCRAMBLE__P0_SYNTAGMATIC_SELECTION": 0.01302,
+   "F_CONSTANT_PROTOTYPE__P0_SYNTAGMATIC_SELECTION": 0.03155,
+   "P0_SYNTAGMATIC_SELECTION": 0.02979,
+   "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k10": 0.01052,
+   "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k10": 0.05058,
+   "P1_PARADIGMATIC_SELECTION_k10": 0.03055,
+   "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k10": 0.01077,
+   "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k10": 0.02554,
+   "P2_ZERO_COOCCURRENCE_ONLY_k10": 0.02153,
+   "F_SCRAMBLE__N1_NULL_k10": 0.01052,
+   "F_CONSTANT_PROTOTYPE__N1_NULL_k10": 0.00451,
+   "N1_NULL_k10": 0.01202,
+   "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k10": 0.00876,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k10": 0.04807,
+   "F_FREQ_MATCHED_SELECTION_k10": 0.01627,
+   "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k30": 0.01152,
+   "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k30": 0.00826,
+   "P1_PARADIGMATIC_SELECTION_k30": 0.02829,
+   "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k30": 0.01177,
+   "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k30": 0.0358,
+   "P2_ZERO_COOCCURRENCE_ONLY_k30": 0.02479,
+   "F_SCRAMBLE__N1_NULL_k30": 0.01227,
+   "F_CONSTANT_PROTOTYPE__N1_NULL_k30": 0.01152,
+   "N1_NULL_k30": 0.00951,
+   "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k30": 0.01252,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k30": 0.01978,
+   "F_FREQ_MATCHED_SELECTION_k30": 0.02028,
+   "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k100": 0.01102,
+   "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k100": 0.00901,
+   "P1_PARADIGMATIC_SELECTION_k100": 0.0323,
+   "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k100": 0.01052,
+   "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k100": 0.0358,
+   "P2_ZERO_COOCCURRENCE_ONLY_k100": 0.03055,
+   "F_SCRAMBLE__N1_NULL_k100": 0.00976,
+   "F_CONSTANT_PROTOTYPE__N1_NULL_k100": 0.003,
+   "N1_NULL_k100": 0.00776,
+   "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k100": 0.01452,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k100": 0.00826,
+   "F_FREQ_MATCHED_SELECTION_k100": 0.01127,
+   "F_SCRAMBLE__P3_HYBRID_beta0.25": 0.01077,
+   "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.25": 0.00826,
+   "P3_HYBRID_beta0.25": 0.0303,
+   "F_SCRAMBLE__P3_HYBRID_beta0.5": 0.01227,
+   "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.5": 0.03155,
+   "P3_HYBRID_beta0.5": 0.02879,
+   "F_SCRAMBLE__P3_HYBRID_beta0.75": 0.01327,
+   "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.75": 0.03155,
+   "P3_HYBRID_beta0.75": 0.0328
+  }
+ },
+ "RULE12_ORTHOGRAPHIC_CORRELATION_CHECK": {
+  "best_P1_arm": "P1_PARADIGMATIC_SELECTION_k100",
+  "all_items": {
+   "n": 3994,
+   "r": 0.0474,
+   "ci95": [
+    0.0197,
+    0.0744
+   ],
+   "band": "ABOVE"
+  },
+  "gain_nonzero_items": {
+   "n": 148,
+   "r": 0.2611,
+   "ci95": [
+    0.1026,
+    0.4081
+   ],
+   "band": "ABOVE"
+  },
+  "n_gain_nonzero": 148
+ },
+ "MECH_A_cooccurrence_of_P1s_new_wins": {
+  "prediction": "the diagnosis predicts P1's new wins (right where P0 is wrong) concentrate on ZERO co-occurrence pairs -- the exact population a co-occurrence-selecting write rule cannot structurally reach.",
+  "by_arm": {
+   "P1_PARADIGMATIC_SELECTION_k10": {
+    "n_new_wins": 104,
+    "n_measured": 104,
+    "mean_jaccard": 0.01704,
+    "median_jaccard": 0.00435,
+    "fraction_ever_cooccur": 0.6058
+   },
+   "P1_PARADIGMATIC_SELECTION_k30": {
+    "n_new_wins": 79,
+    "n_measured": 79,
+    "mean_jaccard": 0.02107,
+    "median_jaccard": 0.00833,
+    "fraction_ever_cooccur": 0.6835
+   },
+   "P1_PARADIGMATIC_SELECTION_k100": {
+    "n_new_wins": 79,
+    "n_measured": 79,
+    "mean_jaccard": 0.03134,
+    "median_jaccard": 0.02174,
+    "fraction_ever_cooccur": 0.8354
+   },
+   "P0_BASELINE_general_population_TOP1_vs_query": {
+    "n_measured": 1500,
+    "mean_jaccard": 0.04622,
+    "median_jaccard": 0.02469,
+    "fraction_ever_cooccur": 0.8373
+   }
+  }
+ },
+ "MECH_B_wordnet_relation_rate_per_arm": {
+  "n_probe": 800,
+  "reference_landed_W0_rate_from_ARM5_79.3pct_no_close_relation_n3994": 0.793,
+  "by_arm": {
+   "P0_SYNTAGMATIC_SELECTION": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 478,
+     "NO_WORDNET_PATH_AT_ALL": 180,
+     "WINNER_NOT_IN_WORDNET": 80,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 32,
+     "IN_THE_GENEROUS_GOLD": 30
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.5975,
+     "NO_WORDNET_PATH_AT_ALL": 0.225,
+     "WINNER_NOT_IN_WORDNET": 0.1,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.04,
+     "IN_THE_GENEROUS_GOLD": 0.0375
+    },
+    "fraction_no_close_wordnet_relation": 0.9225,
+    "examples": [
+     "abandon -> reserves (path_sim=0.143)",
+     "ability -> reducing (path_sim=0.091)",
+     "abnormality -> chromosomal (path_sim=0.000)",
+     "about -> vatican (path_sim=0.000)",
+     "above -> countryside (path_sim=0.071)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> synovial (path_sim=0.000)",
+     "absent -> mollusk (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> vascular (path_sim=0.000)",
+     "absorption -> soluble (path_sim=0.000)",
+     "abundance -> genus (path_sim=0.111)",
+     "abuse -> telecom (path_sim=0.077)",
+     "academic -> integrity (path_sim=0.083)",
+     "academy -> resilience (path_sim=0.091)",
+     "accelerate -> extinction (path_sim=0.000)",
+     "acceptor -> aerobic (path_sim=0.000)",
+     "accept -> electrochemical (path_sim=0.000)",
+     "accessory -> semen (path_sim=0.100)",
+     "access -> text (path_sim=0.125)"
+    ]
+   },
+   "P1_PARADIGMATIC_SELECTION_k10": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 495,
+     "NO_WORDNET_PATH_AT_ALL": 220,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 37,
+     "WINNER_NOT_IN_WORDNET": 31,
+     "IN_THE_GENEROUS_GOLD": 17
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6188,
+     "NO_WORDNET_PATH_AT_ALL": 0.275,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0462,
+     "WINNER_NOT_IN_WORDNET": 0.0387,
+     "IN_THE_GENEROUS_GOLD": 0.0213
+    },
+    "fraction_no_close_wordnet_relation": 0.9325,
+    "examples": [
+     "abandon -> resource (path_sim=0.125)",
+     "abbey -> castle (path_sim=0.143)",
+     "ability -> turn (path_sim=0.143)",
+     "able -> visit (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> now (path_sim=0.333)",
+     "above -> most (path_sim=0.333)",
+     "abroad -> another (path_sim=0.333)",
+     "absence -> fibrous (path_sim=0.000)",
+     "absent -> closely (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> through (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> protection (path_sim=0.143)",
+     "abuse -> access (path_sim=0.111)",
+     "academic -> build (path_sim=0.091)",
+     "academy -> suggest (path_sim=0.000)",
+     "accelerate -> humans (path_sim=0.000)",
+     "acceptor -> anaerobic (path_sim=0.000)",
+     "accept -> eventually (path_sim=0.000)"
+    ]
+   },
+   "P1_PARADIGMATIC_SELECTION_k30": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 502,
+     "NO_WORDNET_PATH_AT_ALL": 204,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 40,
+     "WINNER_NOT_IN_WORDNET": 30,
+     "IN_THE_GENEROUS_GOLD": 24
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6275,
+     "NO_WORDNET_PATH_AT_ALL": 0.255,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05,
+     "WINNER_NOT_IN_WORDNET": 0.0375,
+     "IN_THE_GENEROUS_GOLD": 0.03
+    },
+    "fraction_no_close_wordnet_relation": 0.92,
+    "examples": [
+     "abandon -> resource (path_sim=0.125)",
+     "ability -> reduce (path_sim=0.000)",
+     "able -> visit (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> concern (path_sim=0.000)",
+     "above -> most (path_sim=0.333)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> disperse (path_sim=0.250)",
+     "absorption -> chains (path_sim=0.143)",
+     "abundance -> closely (path_sim=0.000)",
+     "abuse -> permission (path_sim=0.200)",
+     "academic -> along (path_sim=0.000)",
+     "academy -> rely (path_sim=0.000)",
+     "accelerate -> rate (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accessory -> female (path_sim=0.333)",
+     "access -> modern (path_sim=0.125)"
+    ]
+   },
+   "P1_PARADIGMATIC_SELECTION_k100": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 497,
+     "NO_WORDNET_PATH_AT_ALL": 191,
+     "WINNER_NOT_IN_WORDNET": 48,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 38,
+     "IN_THE_GENEROUS_GOLD": 26
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6212,
+     "NO_WORDNET_PATH_AT_ALL": 0.2387,
+     "WINNER_NOT_IN_WORDNET": 0.06,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0475,
+     "IN_THE_GENEROUS_GOLD": 0.0325
+    },
+    "fraction_no_close_wordnet_relation": 0.92,
+    "examples": [
+     "abandon -> exploit (path_sim=0.250)",
+     "ability -> tackle (path_sim=0.100)",
+     "able -> detail (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> public (path_sim=0.333)",
+     "above -> real (path_sim=0.091)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> roots (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> species (path_sim=0.111)",
+     "abuse -> telecom (path_sim=0.077)",
+     "academic -> emerge (path_sim=0.000)",
+     "academy -> attract (path_sim=0.000)",
+     "accelerate -> wild (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accept -> diffuse (path_sim=0.200)",
+     "accessory -> semen (path_sim=0.100)"
+    ]
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k10": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 491,
+     "NO_WORDNET_PATH_AT_ALL": 230,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 40,
+     "WINNER_NOT_IN_WORDNET": 25,
+     "IN_THE_GENEROUS_GOLD": 14
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6138,
+     "NO_WORDNET_PATH_AT_ALL": 0.2875,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05,
+     "WINNER_NOT_IN_WORDNET": 0.0312,
+     "IN_THE_GENEROUS_GOLD": 0.0175
+    },
+    "fraction_no_close_wordnet_relation": 0.9325,
+    "examples": [
+     "abandon -> ability (path_sim=0.143)",
+     "abbey -> acceptable (path_sim=0.000)",
+     "ability -> cant (path_sim=0.125)",
+     "able -> aim (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> estimate (path_sim=0.000)",
+     "abroad -> currently (path_sim=0.333)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> decay (path_sim=0.000)",
+     "absorption -> otherwise (path_sim=0.000)",
+     "abundance -> language (path_sim=0.143)",
+     "abuse -> ban (path_sim=0.111)",
+     "academic -> discover (path_sim=0.000)",
+     "academy -> rely (path_sim=0.000)",
+     "accelerate -> antibiotic (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accept -> eventually (path_sim=0.000)",
+     "accessory -> annual (path_sim=0.333)"
+    ]
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k30": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 489,
+     "NO_WORDNET_PATH_AT_ALL": 214,
+     "WINNER_NOT_IN_WORDNET": 39,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 37,
+     "IN_THE_GENEROUS_GOLD": 21
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6112,
+     "NO_WORDNET_PATH_AT_ALL": 0.2675,
+     "WINNER_NOT_IN_WORDNET": 0.0488,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0462,
+     "IN_THE_GENEROUS_GOLD": 0.0262
+    },
+    "fraction_no_close_wordnet_relation": 0.9275,
+    "examples": [
+     "abandon -> exploit (path_sim=0.250)",
+     "ability -> effect (path_sim=0.250)",
+     "able -> aim (path_sim=0.000)",
+     "abnormality -> mainly (path_sim=0.000)",
+     "about -> asking (path_sim=0.000)",
+     "above -> real (path_sim=0.091)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> ear (path_sim=0.100)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> decay (path_sim=0.000)",
+     "absorption -> digest (path_sim=0.077)",
+     "abundance -> bird (path_sim=0.100)",
+     "abuse -> surveillance (path_sim=0.143)",
+     "academic -> japan (path_sim=0.091)",
+     "academy -> rely (path_sim=0.000)",
+     "accelerate -> wild (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accept -> diffuse (path_sim=0.200)",
+     "accessory -> bonus (path_sim=0.077)"
+    ]
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k100": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 487,
+     "NO_WORDNET_PATH_AT_ALL": 199,
+     "WINNER_NOT_IN_WORDNET": 57,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 33,
+     "IN_THE_GENEROUS_GOLD": 24
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6088,
+     "NO_WORDNET_PATH_AT_ALL": 0.2487,
+     "WINNER_NOT_IN_WORDNET": 0.0712,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0413,
+     "IN_THE_GENEROUS_GOLD": 0.03
+    },
+    "fraction_no_close_wordnet_relation": 0.9287,
+    "examples": [
+     "abandon -> exploit (path_sim=0.250)",
+     "ability -> reducing (path_sim=0.091)",
+     "able -> aim (path_sim=0.000)",
+     "abnormality -> either (path_sim=0.000)",
+     "about -> asking (path_sim=0.000)",
+     "above -> real (path_sim=0.091)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> mollusk (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> vascular (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> species (path_sim=0.111)",
+     "abuse -> telecom (path_sim=0.077)",
+     "academic -> integrity (path_sim=0.083)",
+     "academy -> warn (path_sim=0.000)",
+     "accelerate -> wild (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accept -> diffusion (path_sim=0.000)",
+     "accessory -> semen (path_sim=0.100)"
+    ]
+   },
+   "P3_HYBRID_beta0.5": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 493,
+     "NO_WORDNET_PATH_AT_ALL": 197,
+     "WINNER_NOT_IN_WORDNET": 57,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 31,
+     "IN_THE_GENEROUS_GOLD": 22
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6162,
+     "NO_WORDNET_PATH_AT_ALL": 0.2462,
+     "WINNER_NOT_IN_WORDNET": 0.0712,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0387,
+     "IN_THE_GENEROUS_GOLD": 0.0275
+    },
+    "fraction_no_close_wordnet_relation": 0.9337,
+    "examples": [
+     "abandon -> oil (path_sim=0.077)",
+     "ability -> reducing (path_sim=0.091)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> public (path_sim=0.333)",
+     "above -> most (path_sim=0.333)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> synovial (path_sim=0.000)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> roots (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> species (path_sim=0.111)",
+     "abuse -> telecom (path_sim=0.077)",
+     "academic -> integrity (path_sim=0.083)",
+     "academy -> resilience (path_sim=0.091)",
+     "accelerate -> species (path_sim=0.000)",
+     "acceptor -> aerobic (path_sim=0.000)",
+     "accessory -> semen (path_sim=0.100)",
+     "access -> page (path_sim=0.100)",
+     "accident -> driver (path_sim=0.100)"
+    ]
+   },
+   "F_FREQ_MATCHED_SELECTION_k30": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 492,
+     "NO_WORDNET_PATH_AT_ALL": 199,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 46,
+     "WINNER_NOT_IN_WORDNET": 45,
+     "IN_THE_GENEROUS_GOLD": 18
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.615,
+     "NO_WORDNET_PATH_AT_ALL": 0.2487,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0575,
+     "WINNER_NOT_IN_WORDNET": 0.0563,
+     "IN_THE_GENEROUS_GOLD": 0.0225
+    },
+    "fraction_no_close_wordnet_relation": 0.92,
+    "examples": [
+     "abbey -> down (path_sim=0.083)",
+     "ability -> city (path_sim=0.111)",
+     "able -> resource (path_sim=0.000)",
+     "abnormality -> cent (path_sim=0.083)",
+     "about -> model (path_sim=0.000)",
+     "above -> lot (path_sim=0.111)",
+     "abroad -> win (path_sim=0.000)",
+     "absence -> hurricane (path_sim=0.067)",
+     "absent -> report (path_sim=0.000)",
+     "absolutely -> threat (path_sim=0.000)",
+     "absorb -> amino (path_sim=0.000)",
+     "absorption -> first (path_sim=0.111)",
+     "abundance -> essential (path_sim=0.111)",
+     "abuse -> hand (path_sim=0.143)",
+     "academic -> wild (path_sim=0.333)",
+     "academy -> change (path_sim=0.125)",
+     "accelerate -> basic (path_sim=0.000)",
+     "acceptor -> upload (path_sim=0.000)",
+     "accessory -> shift (path_sim=0.083)",
+     "access -> stable (path_sim=0.143)"
+    ]
+   },
+   "N1_NULL_k30": {
+    "n_probed": 800,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 485,
+     "NO_WORDNET_PATH_AT_ALL": 219,
+     "WINNER_NOT_IN_WORDNET": 62,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 25,
+     "IN_THE_GENEROUS_GOLD": 9
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.6062,
+     "NO_WORDNET_PATH_AT_ALL": 0.2737,
+     "WINNER_NOT_IN_WORDNET": 0.0775,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0312,
+     "IN_THE_GENEROUS_GOLD": 0.0112
+    },
+    "fraction_no_close_wordnet_relation": 0.9575,
+    "examples": [
+     "abandon -> astronaut (path_sim=0.083)",
+     "abbey -> distance (path_sim=0.091)",
+     "ability -> distance (path_sim=0.143)",
+     "able -> ambition (path_sim=0.000)",
+     "about -> ambition (path_sim=0.000)",
+     "above -> destruction (path_sim=0.111)",
+     "abroad -> finally (path_sim=0.333)",
+     "absence -> paterson (path_sim=0.083)",
+     "absent -> rome (path_sim=0.000)",
+     "absolutely -> coordination (path_sim=0.000)",
+     "absorb -> role (path_sim=0.000)",
+     "absorption -> ideal (path_sim=0.111)",
+     "abundance -> copenhagen (path_sim=0.062)",
+     "abuse -> analyze (path_sim=0.167)",
+     "academy -> newly (path_sim=0.000)",
+     "accelerate -> permit (path_sim=0.143)",
+     "acceptor -> virtually (path_sim=0.000)",
+     "accept -> midnight (path_sim=0.000)",
+     "accessory -> electrical (path_sim=0.000)",
+     "accident -> strain (path_sim=0.200)"
+    ]
+   }
+  }
+ },
+ "STOP_IF_VERDICT": {
+  "verdict": "iii_SELECTION_NOT_THE_AXIS_EITHER_CEILING_ELSEWHERE",
+  "i_p1_clears_floor_where_p0_does_not_by_k": {
+   "10": false,
+   "30": false,
+   "100": false
+  },
+  "ii_p1_beats_p0_by_k": {
+   "10": false,
+   "30": false,
+   "100": false
+  },
+  "iii_p1_ties_p0_by_k": {
+   "10": true,
+   "30": true,
+   "100": true
+  },
+  "iv_freq_matched_also_beats_p0_comparable_by_k": {},
+  "v_p2_collapses_to_near_scramble_by_k": {
+   "10": false,
+   "30": false,
+   "100": false
+  },
+  "vi_k1_all_pass": true,
+  "p0_clears_its_own_floor": false
+ },
+ "POWER": {
+  "n_common_scored": 3994,
+  "reading": "A WIDTH IS NOT AN EFFECT. Every margin carries its own ci_halfwidth and analytic_null_halfwidth_at_this_n."
+ },
+ "ORGAN_REUSE_RUNTIME_WITNESS": {
+  "loaded": [
+   "exp_cue_binarised_readout_transfer_v1",
+   "exp_cue_to_store_translation_v1",
+   "exp_grounding_readout_known_answer_v1",
+   "exp_readout_ceiling_diagnosis_v1",
+   "exp_readout_writerule_paradigmatic_v1",
+   "hdlab",
+   "hdlab.ablation",
+   "hdlab.animacy_lexicon",
+   "hdlab.atoms",
+   "hdlab.binding",
+   "hdlab.bundling",
+   "hdlab.char_trigram_encoder",
+   "hdlab.cleanup_family",
+   "hdlab.closed_class_lexicon",
+   "hdlab.consequence_learning_loop",
+   "hdlab.coreference_resolver",
+   "hdlab.definitional_extraction",
+   "hdlab.event_bundle",
+   "hdlab.foundation_persistence",
+   "hdlab.frame_induction",
+   "hdlab.gap_detector",
+   "hdlab.goal_typing",
+   "hdlab.grounded_similarity",
+   "hdlab.grounding_acquisition_loop",
+   "hdlab.hd_fact_store",
+   "hdlab.iterative_attractor",
+   "hdlab.learner",
+   "hdlab.learner.core",
+   "hdlab.learner.plugins",
+   "hdlab.learner.plugins.estimation_plugin",
+   "hdlab.learner.plugins.gam_plugin",
+   "hdlab.learner.plugins.proginduction_plugin",
+   "hdlab.learner.plugins.ruleind_plugin",
+   "hdlab.learner.registry",
+   "hdlab.lexical_similarity",
+   "hdlab.low_information_filter",
+   "hdlab.memory",
+   "hdlab.modulators",
+   "hdlab.reading_grounding_loop",
+   "hdlab.role_slot_summarizer",
+   "hdlab.self_improving_loop",
+   "hdlab.semantic",
+   "hdlab.situation_model_accumulate",
+   "hdlab.snapshots",
+   "hdlab.state_of_mind",
+   "hdlab.thematic_role_labeler",
+   "hdlab.tracing",
+   "hdlab.verb_lexical_similarity",
+   "hdlab.working_memory",
+   "tools.exp_checkpoint",
+   "tools.floor_battery",
+   "tools.saturation_negative_control"
+  ],
+  "edited_by_this_cell": [],
+  "cache_never_rebuilt": true
+ },
+ "elapsed_s": 64.1,
+ "verdict": "iii_SELECTION_NOT_THE_AXIS_EITHER_CEILING_ELSEWHERE",
+ "verdict_msg": "STOP_IF=iii_SELECTION_NOT_THE_AXIS_EITHER_CEILING_ELSEWHERE || P0=0.0298 (floor 0.08731) || P1_k10=0.0306 floor=0.08731 vs_p0=NOT_SEPARATED || P1_k30=0.0283 floor=0.08731 vs_p0=NOT_SEPARATED || P1_k100=0.0323 floor=0.08731 vs_p0=NOT_SEPARATED",
+ "wire_status": "VET_PENDING"
+}

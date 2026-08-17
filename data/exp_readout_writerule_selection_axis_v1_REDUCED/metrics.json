@@ -1,0 +1,1306 @@
+{
+ "anchor_name": "exp_readout_writerule_selection_axis_v1",
+ "grid": "reduced",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_ceiling_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T17:23:07.497215+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_writerule_selection_axis_v1.py",
+   "--grid",
+   "reduced"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "cache": {
+  "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+  "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+  "rebuilt": false
+ },
+ "K_GRID_SEL": [
+  5,
+  15,
+  40
+ ],
+ "P3_K_prereg": 15,
+ "P3_BETAS": [
+  0.25,
+  0.5,
+  0.75
+ ],
+ "CLAIM_UNDER_TEST": "the landed P0/W1 write rule selects contributors by co-occurrence (a word contributes to L's code iff it appears in a sentence with L) and only changed the PAYLOAD (identity->profile). P1 selects contributors by profile SIMILARITY instead, with the IDENTICAL payload.",
+ "W1_REGRESSION_GATE": {
+  "P0_partial_cue_this_cell": 0.02979,
+  "expected_W1": 0.02979,
+  "tol": 0.0005,
+  "PASS": true
+ },
+ "PERMUTATION_CONTROLS": {
+  "global_no_fixed_points": true,
+  "freq_matched_no_fixed_points": true,
+  "freq_matched_groups_respected": true
+ },
+ "COOC_CENSUS_P2_VALID_CANDIDATE_STATS": {
+  "k5": {
+   "requested_k": 5,
+   "mean_valid": 5.0,
+   "median_valid": 5.0,
+   "fraction_rows_with_zero_admissible": 0.0,
+   "fraction_rows_full_k": 1.0
+  },
+  "k15": {
+   "requested_k": 15,
+   "mean_valid": 15.0,
+   "median_valid": 15.0,
+   "fraction_rows_with_zero_admissible": 0.0,
+   "fraction_rows_full_k": 1.0
+  },
+  "k40": {
+   "requested_k": 40,
+   "mean_valid": 40.0,
+   "median_valid": 40.0,
+   "fraction_rows_with_zero_admissible": 0.0,
+   "fraction_rows_full_k": 1.0
+  }
+ },
+ "ARMS_MUST_DIFFER_DIGESTS": {
+  "P0_SYNTAGMATIC_SELECTION": "6ee771f93a1228d3",
+  "P1_PARADIGMATIC_SELECTION_k5": "8275e732532d6b6d",
+  "P2_ZERO_COOCCURRENCE_ONLY_k5": "038c23d38601cffe",
+  "N1_NULL_k5": "88b81155d781998f",
+  "F_FREQ_MATCHED_SELECTION_k5": "e4b6a2737bd7dc35",
+  "P1_PARADIGMATIC_SELECTION_k15": "86c59671da9731b2",
+  "P2_ZERO_COOCCURRENCE_ONLY_k15": "8aff4d97eef2d1ef",
+  "N1_NULL_k15": "93a2289697c1ea59",
+  "F_FREQ_MATCHED_SELECTION_k15": "cbd5baa1dd00dab1",
+  "P1_PARADIGMATIC_SELECTION_k40": "178286ef5735bf5c",
+  "P2_ZERO_COOCCURRENCE_ONLY_k40": "e3be61b0b14475b8",
+  "N1_NULL_k40": "f60aaa075c17fa00",
+  "F_FREQ_MATCHED_SELECTION_k40": "e7b0afc0fab7c928",
+  "P3_HYBRID_beta0.25": "ea20b7c8c8ddeafa",
+  "P3_HYBRID_beta0.5": "c291c28ce14064b9",
+  "P3_HYBRID_beta0.75": "99078497ad96dc15"
+ },
+ "ARMS_MUST_DIFFER_OK": true,
+ "K1_KNOWN_ANSWER_addressing": {
+  "P0_SYNTAGMATIC_SELECTION": 1.0,
+  "P1_PARADIGMATIC_SELECTION_k5": 1.0,
+  "P2_ZERO_COOCCURRENCE_ONLY_k5": 1.0,
+  "N1_NULL_k5": 1.0,
+  "F_FREQ_MATCHED_SELECTION_k5": 1.0,
+  "P1_PARADIGMATIC_SELECTION_k15": 1.0,
+  "P2_ZERO_COOCCURRENCE_ONLY_k15": 1.0,
+  "N1_NULL_k15": 1.0,
+  "F_FREQ_MATCHED_SELECTION_k15": 1.0,
+  "P1_PARADIGMATIC_SELECTION_k40": 1.0,
+  "P2_ZERO_COOCCURRENCE_ONLY_k40": 1.0,
+  "N1_NULL_k40": 1.0,
+  "F_FREQ_MATCHED_SELECTION_k40": 1.0,
+  "P3_HYBRID_beta0.25": 1.0,
+  "P3_HYBRID_beta0.5": 1.0,
+  "P3_HYBRID_beta0.75": 1.0
+ },
+ "K1_GATE": 0.95,
+ "NULL_PERMUTED_partial_cue": {
+  "P0_SYNTAGMATIC_SELECTION": 0.005,
+  "P1_PARADIGMATIC_SELECTION_k5": 0.0075,
+  "P2_ZERO_COOCCURRENCE_ONLY_k5": 0.01,
+  "N1_NULL_k5": 0.01125,
+  "F_FREQ_MATCHED_SELECTION_k5": 0.0175,
+  "P1_PARADIGMATIC_SELECTION_k15": 0.0225,
+  "P2_ZERO_COOCCURRENCE_ONLY_k15": 0.0175,
+  "N1_NULL_k15": 0.0025,
+  "F_FREQ_MATCHED_SELECTION_k15": 0.0225,
+  "P1_PARADIGMATIC_SELECTION_k40": 0.015,
+  "P2_ZERO_COOCCURRENCE_ONLY_k40": 0.0125,
+  "N1_NULL_k40": 0.0075,
+  "F_FREQ_MATCHED_SELECTION_k40": 0.02,
+  "P3_HYBRID_beta0.25": 0.0175,
+  "P3_HYBRID_beta0.5": 0.01,
+  "P3_HYBRID_beta0.75": 0.0075
+ },
+ "FLOORS_SHARED_STORE_INDEPENDENT": [
+  "F_ORTHOGRAPHIC",
+  "F_FREQUENCY"
+ ],
+ "FLOORS_PER_ARM_STORE_DEPENDENT": [
+  "F_SCRAMBLE",
+  "F_CONSTANT_PROTOTYPE"
+ ],
+ "NEVER_IMPORTED": [
+  "0.1382",
+  "0.2070",
+  "0.1390",
+  "-0.1959"
+ ],
+ "ORTHOGRAPHIC_LEAKAGE_CHECK": {
+  "what": "mean trigram-cosine(top-1 winner, query), PARTIAL-CUE regime.",
+  "values": {
+   "P0_SYNTAGMATIC_SELECTION": 0.02154,
+   "P1_PARADIGMATIC_SELECTION_k5": 0.02612,
+   "P2_ZERO_COOCCURRENCE_ONLY_k5": 0.01497,
+   "N1_NULL_k5": 0.0191,
+   "F_FREQ_MATCHED_SELECTION_k5": 0.01618,
+   "P1_PARADIGMATIC_SELECTION_k15": 0.01987,
+   "P2_ZERO_COOCCURRENCE_ONLY_k15": 0.01558,
+   "N1_NULL_k15": 0.01471,
+   "F_FREQ_MATCHED_SELECTION_k15": 0.01861,
+   "P1_PARADIGMATIC_SELECTION_k40": 0.02365,
+   "P2_ZERO_COOCCURRENCE_ONLY_k40": 0.02202,
+   "N1_NULL_k40": 0.02022,
+   "F_FREQ_MATCHED_SELECTION_k40": 0.01855,
+   "P3_HYBRID_beta0.25": 0.02074,
+   "P3_HYBRID_beta0.5": 0.01755,
+   "P3_HYBRID_beta0.75": 0.02125
+  },
+  "F_ORTHOGRAPHIC_floor_own_reference": 1.0
+ },
+ "HIT_AT_1_PARTIAL_CUE_PRIMARY": {
+  "n_common_scored": 400,
+  "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED, PARTIAL-CUE regime",
+  "per_arm": {
+   "P0_SYNTAGMATIC_SELECTION": {
+    "value_tie_corrected": 0.0325,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.005,
+    "orthographic_leakage": 0.02154,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P0_SYNTAGMATIC_SELECTION": 0.01,
+     "F_CONSTANT_PROTOTYPE__P0_SYNTAGMATIC_SELECTION": 0.04
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0845,
+     "ci95": [
+      -0.1204,
+      -0.05
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0352,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    }
+   },
+   "P1_PARADIGMATIC_SELECTION_k5": {
+    "value_tie_corrected": 0.0175,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0075,
+    "orthographic_leakage": 0.02612,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k5": 0.0125,
+     "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k5": 0.0
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0994,
+     "ci95": [
+      -0.1328,
+      -0.0661
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03335,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0149,
+     "ci95": [
+      -0.0351,
+      0.0075
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0213,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k5": {
+    "value_tie_corrected": 0.0125,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.01,
+    "orthographic_leakage": 0.01497,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k5": 0.0075,
+     "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k5": 0.0025
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.1045,
+     "ci95": [
+      -0.1358,
+      -0.0732
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0313,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.02,
+     "ci95": [
+      -0.04,
+      0.0
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "N1_NULL_k5": {
+    "value_tie_corrected": 0.005,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.01125,
+    "orthographic_leakage": 0.0191,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__N1_NULL_k5": 0.0075,
+     "F_CONSTANT_PROTOTYPE__N1_NULL_k5": 0.0
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.112,
+     "ci95": [
+      -0.1432,
+      -0.0807
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03125,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0276,
+     "ci95": [
+      -0.0475,
+      -0.01
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.01875,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "F_FREQ_MATCHED_SELECTION_k5": {
+    "value_tie_corrected": 0.02,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0175,
+    "orthographic_leakage": 0.01618,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k5": 0.01,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k5": 0.0
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0969,
+     "ci95": [
+      -0.1295,
+      -0.0633
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0331,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0125,
+     "ci95": [
+      -0.035,
+      0.01
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0225,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P1_PARADIGMATIC_SELECTION_k15": {
+    "value_tie_corrected": 0.015,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0225,
+    "orthographic_leakage": 0.01987,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k15": 0.0075,
+     "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k15": 0.005
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.102,
+     "ci95": [
+      -0.1338,
+      -0.0695
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03215,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0175,
+     "ci95": [
+      -0.0375,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k15": {
+    "value_tie_corrected": 0.015,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0175,
+    "orthographic_leakage": 0.01558,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k15": 0.01,
+     "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k15": 0.0625
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.102,
+     "ci95": [
+      -0.134,
+      -0.07
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.032,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0176,
+     "ci95": [
+      -0.0375,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "N1_NULL_k15": {
+    "value_tie_corrected": 0.005,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0025,
+    "orthographic_leakage": 0.01471,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__N1_NULL_k15": 0.005,
+     "F_CONSTANT_PROTOTYPE__N1_NULL_k15": 0.0
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.112,
+     "ci95": [
+      -0.1421,
+      -0.0812
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03045,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0275,
+     "ci95": [
+      -0.0475,
+      -0.0075
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "F_FREQ_MATCHED_SELECTION_k15": {
+    "value_tie_corrected": 0.0125,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0225,
+    "orthographic_leakage": 0.01861,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k15": 0.005,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k15": 0.015
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.1045,
+     "ci95": [
+      -0.1365,
+      -0.0728
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03185,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.02,
+     "ci95": [
+      -0.04,
+      0.0
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P1_PARADIGMATIC_SELECTION_k40": {
+    "value_tie_corrected": 0.0275,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.015,
+    "orthographic_leakage": 0.02365,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k40": 0.0075,
+     "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k40": 0.005
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0894,
+     "ci95": [
+      -0.1224,
+      -0.0571
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03265,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0049,
+     "ci95": [
+      -0.025,
+      0.015
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k40": {
+    "value_tie_corrected": 0.0225,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0125,
+    "orthographic_leakage": 0.02202,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k40": 0.01,
+     "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k40": 0.0625
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0944,
+     "ci95": [
+      -0.1283,
+      -0.0608
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03375,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.01,
+     "ci95": [
+      -0.03,
+      0.01
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "N1_NULL_k40": {
+    "value_tie_corrected": 0.0075,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0075,
+    "orthographic_leakage": 0.02022,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__N1_NULL_k40": 0.0175,
+     "F_CONSTANT_PROTOTYPE__N1_NULL_k40": 0.0525
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.1095,
+     "ci95": [
+      -0.1399,
+      -0.079
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03045,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.025,
+     "ci95": [
+      -0.045,
+      -0.005
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "F_FREQ_MATCHED_SELECTION_k40": {
+    "value_tie_corrected": 0.0175,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.02,
+    "orthographic_leakage": 0.01855,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k40": 0.0175,
+     "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k40": 0.0
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0994,
+     "ci95": [
+      -0.1325,
+      -0.067
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03275,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0149,
+     "ci95": [
+      -0.0375,
+      0.0075
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0225,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P3_HYBRID_beta0.25": {
+    "value_tie_corrected": 0.025,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0175,
+    "orthographic_leakage": 0.02074,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P3_HYBRID_beta0.25": 0.005,
+     "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.25": 0.005
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.092,
+     "ci95": [
+      -0.1242,
+      -0.0599
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03215,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0076,
+     "ci95": [
+      -0.03,
+      0.015
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.0225,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P3_HYBRID_beta0.5": {
+    "value_tie_corrected": 0.03,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.01,
+    "orthographic_leakage": 0.01755,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P3_HYBRID_beta0.5": 0.0075,
+     "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.5": 0.005
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0872,
+     "ci95": [
+      -0.1224,
+      -0.0536
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.0344,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0027,
+     "ci95": [
+      -0.0225,
+      0.0175
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.02,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   },
+   "P3_HYBRID_beta0.75": {
+    "value_tie_corrected": 0.03,
+    "K1_addressing": 1.0,
+    "NULL_PERMUTED": 0.0075,
+    "orthographic_leakage": 0.02125,
+    "binding_floor_name": "F_ORTHOGRAPHIC",
+    "binding_floor_value": 0.11619,
+    "all_four_floors": {
+     "F_ORTHOGRAPHIC": 0.11619,
+     "F_FREQUENCY": 0.0125,
+     "F_SCRAMBLE__P3_HYBRID_beta0.75": 0.0125,
+     "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.75": 0.04
+    },
+    "margin_vs_binding_floor": {
+     "point": -0.0868,
+     "ci95": [
+      -0.1195,
+      -0.0546
+     ],
+     "band": "BELOW",
+     "ci_halfwidth": 0.03245,
+     "analytic_null_halfwidth_at_this_n": 0.0314
+    },
+    "margin_vs_P0": {
+     "point": -0.0024,
+     "ci95": [
+      -0.0175,
+      0.0125
+     ],
+     "band": "NOT_SEPARATED",
+     "ci_halfwidth": 0.015,
+     "analytic_null_halfwidth_at_this_n": 0.01738
+    }
+   }
+  },
+  "ALL_VALUES_tie_corrected": {
+   "F_ORTHOGRAPHIC": 0.11619,
+   "F_FREQUENCY": 0.0125,
+   "F_SCRAMBLE__P0_SYNTAGMATIC_SELECTION": 0.01,
+   "F_CONSTANT_PROTOTYPE__P0_SYNTAGMATIC_SELECTION": 0.04,
+   "P0_SYNTAGMATIC_SELECTION": 0.0325,
+   "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k5": 0.0125,
+   "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k5": 0.0,
+   "P1_PARADIGMATIC_SELECTION_k5": 0.0175,
+   "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k5": 0.0075,
+   "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k5": 0.0025,
+   "P2_ZERO_COOCCURRENCE_ONLY_k5": 0.0125,
+   "F_SCRAMBLE__N1_NULL_k5": 0.0075,
+   "F_CONSTANT_PROTOTYPE__N1_NULL_k5": 0.0,
+   "N1_NULL_k5": 0.005,
+   "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k5": 0.01,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k5": 0.0,
+   "F_FREQ_MATCHED_SELECTION_k5": 0.02,
+   "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k15": 0.0075,
+   "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k15": 0.005,
+   "P1_PARADIGMATIC_SELECTION_k15": 0.015,
+   "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k15": 0.01,
+   "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k15": 0.0625,
+   "P2_ZERO_COOCCURRENCE_ONLY_k15": 0.015,
+   "F_SCRAMBLE__N1_NULL_k15": 0.005,
+   "F_CONSTANT_PROTOTYPE__N1_NULL_k15": 0.0,
+   "N1_NULL_k15": 0.005,
+   "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k15": 0.005,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k15": 0.015,
+   "F_FREQ_MATCHED_SELECTION_k15": 0.0125,
+   "F_SCRAMBLE__P1_PARADIGMATIC_SELECTION_k40": 0.0075,
+   "F_CONSTANT_PROTOTYPE__P1_PARADIGMATIC_SELECTION_k40": 0.005,
+   "P1_PARADIGMATIC_SELECTION_k40": 0.0275,
+   "F_SCRAMBLE__P2_ZERO_COOCCURRENCE_ONLY_k40": 0.01,
+   "F_CONSTANT_PROTOTYPE__P2_ZERO_COOCCURRENCE_ONLY_k40": 0.0625,
+   "P2_ZERO_COOCCURRENCE_ONLY_k40": 0.0225,
+   "F_SCRAMBLE__N1_NULL_k40": 0.0175,
+   "F_CONSTANT_PROTOTYPE__N1_NULL_k40": 0.0525,
+   "N1_NULL_k40": 0.0075,
+   "F_SCRAMBLE__F_FREQ_MATCHED_SELECTION_k40": 0.0175,
+   "F_CONSTANT_PROTOTYPE__F_FREQ_MATCHED_SELECTION_k40": 0.0,
+   "F_FREQ_MATCHED_SELECTION_k40": 0.0175,
+   "F_SCRAMBLE__P3_HYBRID_beta0.25": 0.005,
+   "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.25": 0.005,
+   "P3_HYBRID_beta0.25": 0.025,
+   "F_SCRAMBLE__P3_HYBRID_beta0.5": 0.0075,
+   "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.5": 0.005,
+   "P3_HYBRID_beta0.5": 0.03,
+   "F_SCRAMBLE__P3_HYBRID_beta0.75": 0.0125,
+   "F_CONSTANT_PROTOTYPE__P3_HYBRID_beta0.75": 0.04,
+   "P3_HYBRID_beta0.75": 0.03
+  }
+ },
+ "RULE12_ORTHOGRAPHIC_CORRELATION_CHECK": {
+  "best_P1_arm": "P1_PARADIGMATIC_SELECTION_k40",
+  "all_items": {
+   "n": 400,
+   "r": 0.1538,
+   "ci95": [
+    0.0706,
+    0.2281
+   ],
+   "band": "ABOVE"
+  },
+  "gain_nonzero_items": {
+   "n": 16,
+   "r": 0.7305,
+   "ci95": [
+    0.4975,
+    0.8889
+   ],
+   "band": "ABOVE"
+  },
+  "n_gain_nonzero": 16
+ },
+ "MECH_A_cooccurrence_of_P1s_new_wins": {
+  "prediction": "the diagnosis predicts P1's new wins (right where P0 is wrong) concentrate on ZERO co-occurrence pairs -- the exact population a co-occurrence-selecting write rule cannot structurally reach.",
+  "by_arm": {
+   "P1_PARADIGMATIC_SELECTION_k5": {
+    "n_new_wins": 7,
+    "n_measured": 7,
+    "mean_jaccard": 0.01268,
+    "median_jaccard": 0.00292,
+    "fraction_ever_cooccur": 0.7143
+   },
+   "P1_PARADIGMATIC_SELECTION_k15": {
+    "n_new_wins": 5,
+    "n_measured": 5,
+    "mean_jaccard": 0.00729,
+    "median_jaccard": 0.00251,
+    "fraction_ever_cooccur": 0.6
+   },
+   "P1_PARADIGMATIC_SELECTION_k40": {
+    "n_new_wins": 7,
+    "n_measured": 7,
+    "mean_jaccard": 0.02828,
+    "median_jaccard": 0.025,
+    "fraction_ever_cooccur": 1.0
+   },
+   "P0_BASELINE_general_population_TOP1_vs_query": {
+    "n_measured": 300,
+    "mean_jaccard": 0.04456,
+    "median_jaccard": 0.02454,
+    "fraction_ever_cooccur": 0.85
+   }
+  }
+ },
+ "MECH_B_wordnet_relation_rate_per_arm": {
+  "n_probe": 150,
+  "reference_landed_W0_rate_from_ARM5_79.3pct_no_close_relation_n3994": 0.793,
+  "by_arm": {
+   "P0_SYNTAGMATIC_SELECTION": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 79,
+     "NO_WORDNET_PATH_AT_ALL": 49,
+     "WINNER_NOT_IN_WORDNET": 13,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 6,
+     "IN_THE_GENEROUS_GOLD": 3
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.5267,
+     "NO_WORDNET_PATH_AT_ALL": 0.3267,
+     "WINNER_NOT_IN_WORDNET": 0.0867,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.04,
+     "IN_THE_GENEROUS_GOLD": 0.02
+    },
+    "fraction_no_close_wordnet_relation": 0.94,
+    "examples": [
+     "abandon -> reserves (path_sim=0.143)",
+     "ability -> reducing (path_sim=0.091)",
+     "abnormality -> chromosomal (path_sim=0.000)",
+     "about -> vatican (path_sim=0.000)",
+     "above -> countryside (path_sim=0.071)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> synovial (path_sim=0.000)",
+     "absent -> mollusk (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> vascular (path_sim=0.000)",
+     "absorption -> soluble (path_sim=0.000)",
+     "abundance -> genus (path_sim=0.111)",
+     "abuse -> telecom (path_sim=0.077)",
+     "academic -> integrity (path_sim=0.083)",
+     "academy -> resilience (path_sim=0.091)",
+     "accelerate -> extinction (path_sim=0.000)",
+     "acceptor -> aerobic (path_sim=0.000)",
+     "accept -> electrochemical (path_sim=0.000)",
+     "accessory -> semen (path_sim=0.100)",
+     "access -> text (path_sim=0.125)"
+    ]
+   },
+   "P1_PARADIGMATIC_SELECTION_k5": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 73,
+     "NO_WORDNET_PATH_AT_ALL": 60,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 10,
+     "WINNER_NOT_IN_WORDNET": 5,
+     "IN_THE_GENEROUS_GOLD": 2
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.4867,
+     "NO_WORDNET_PATH_AT_ALL": 0.4,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0667,
+     "WINNER_NOT_IN_WORDNET": 0.0333,
+     "IN_THE_GENEROUS_GOLD": 0.0133
+    },
+    "fraction_no_close_wordnet_relation": 0.92,
+    "examples": [
+     "abandon -> show (path_sim=0.100)",
+     "abbey -> couple (path_sim=0.067)",
+     "ability -> turn (path_sim=0.143)",
+     "able -> hard (path_sim=0.333)",
+     "abnormality -> call (path_sim=0.125)",
+     "about -> include (path_sim=0.000)",
+     "above -> include (path_sim=0.000)",
+     "abroad -> child (path_sim=0.000)",
+     "absence -> fibrous (path_sim=0.000)",
+     "absent -> bird (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> through (path_sim=0.000)",
+     "absorption -> constant (path_sim=0.100)",
+     "abundance -> bird (path_sim=0.100)",
+     "abuse -> access (path_sim=0.111)",
+     "academic -> role (path_sim=0.077)",
+     "academy -> new (path_sim=0.000)",
+     "accelerate -> language (path_sim=0.000)",
+     "acceptor -> perform (path_sim=0.000)",
+     "accept -> occur (path_sim=0.250)"
+    ]
+   },
+   "P1_PARADIGMATIC_SELECTION_k15": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 70,
+     "NO_WORDNET_PATH_AT_ALL": 63,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 8,
+     "WINNER_NOT_IN_WORDNET": 7,
+     "IN_THE_GENEROUS_GOLD": 2
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.4667,
+     "NO_WORDNET_PATH_AT_ALL": 0.42,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0533,
+     "WINNER_NOT_IN_WORDNET": 0.0467,
+     "IN_THE_GENEROUS_GOLD": 0.0133
+    },
+    "fraction_no_close_wordnet_relation": 0.9333,
+    "examples": [
+     "abandon -> outside (path_sim=0.083)",
+     "ability -> development (path_sim=0.143)",
+     "able -> visit (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> now (path_sim=0.333)",
+     "above -> most (path_sim=0.333)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> fibrous (path_sim=0.000)",
+     "absent -> closely (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> material (path_sim=0.000)",
+     "absorption -> chains (path_sim=0.143)",
+     "abundance -> closely (path_sim=0.000)",
+     "abuse -> access (path_sim=0.111)",
+     "academic -> centre (path_sim=0.091)",
+     "academy -> new (path_sim=0.000)",
+     "accelerate -> animal (path_sim=0.000)",
+     "acceptor -> cell (path_sim=0.125)",
+     "accept -> eventually (path_sim=0.000)",
+     "accessory -> female (path_sim=0.333)"
+    ]
+   },
+   "P1_PARADIGMATIC_SELECTION_k40": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 73,
+     "NO_WORDNET_PATH_AT_ALL": 52,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 11,
+     "WINNER_NOT_IN_WORDNET": 9,
+     "IN_THE_GENEROUS_GOLD": 5
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.4867,
+     "NO_WORDNET_PATH_AT_ALL": 0.3467,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0733,
+     "WINNER_NOT_IN_WORDNET": 0.06,
+     "IN_THE_GENEROUS_GOLD": 0.0333
+    },
+    "fraction_no_close_wordnet_relation": 0.8933,
+    "examples": [
+     "abandon -> oil (path_sim=0.077)",
+     "ability -> reducing (path_sim=0.091)",
+     "able -> visit (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> costs (path_sim=0.000)",
+     "above -> most (path_sim=0.333)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> desiccation (path_sim=0.000)",
+     "absorption -> chains (path_sim=0.143)",
+     "abundance -> closely (path_sim=0.000)",
+     "abuse -> permission (path_sim=0.200)",
+     "academic -> learning (path_sim=0.071)",
+     "academy -> launch (path_sim=0.091)",
+     "accelerate -> rate (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accessory -> female (path_sim=0.333)",
+     "access -> account (path_sim=0.111)"
+    ]
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k5": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 81,
+     "NO_WORDNET_PATH_AT_ALL": 52,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 8,
+     "WINNER_NOT_IN_WORDNET": 6,
+     "IN_THE_GENEROUS_GOLD": 3
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.54,
+     "NO_WORDNET_PATH_AT_ALL": 0.3467,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0533,
+     "WINNER_NOT_IN_WORDNET": 0.04,
+     "IN_THE_GENEROUS_GOLD": 0.02
+    },
+    "fraction_no_close_wordnet_relation": 0.9267,
+    "examples": [
+     "abandon -> ability (path_sim=0.143)",
+     "abbey -> last (path_sim=0.067)",
+     "ability -> russian (path_sim=0.100)",
+     "able -> baby (path_sim=0.000)",
+     "about -> estimate (path_sim=0.000)",
+     "above -> almost (path_sim=0.333)",
+     "abroad -> building (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> monitor (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> worm (path_sim=0.000)",
+     "absorption -> digest (path_sim=0.077)",
+     "abundance -> language (path_sim=0.143)",
+     "abuse -> surveillance (path_sim=0.143)",
+     "academic -> introduce (path_sim=0.000)",
+     "academy -> significantly (path_sim=0.000)",
+     "accelerate -> language (path_sim=0.000)",
+     "acceptor -> one (path_sim=0.071)",
+     "accept -> perform (path_sim=0.250)",
+     "accessory -> cycling (path_sim=0.071)"
+    ]
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k15": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 79,
+     "NO_WORDNET_PATH_AT_ALL": 55,
+     "WINNER_NOT_IN_WORDNET": 7,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 6,
+     "IN_THE_GENEROUS_GOLD": 3
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.5267,
+     "NO_WORDNET_PATH_AT_ALL": 0.3667,
+     "WINNER_NOT_IN_WORDNET": 0.0467,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.04,
+     "IN_THE_GENEROUS_GOLD": 0.02
+    },
+    "fraction_no_close_wordnet_relation": 0.94,
+    "examples": [
+     "abbey -> acceptable (path_sim=0.000)",
+     "ability -> agency (path_sim=0.200)",
+     "able -> visit (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> sign (path_sim=0.000)",
+     "above -> prison (path_sim=0.100)",
+     "abroad -> economy (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> decay (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> collaborate (path_sim=0.000)",
+     "abuse -> check (path_sim=0.111)",
+     "academic -> motor (path_sim=0.333)",
+     "academy -> rely (path_sim=0.000)",
+     "accelerate -> antibiotic (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accept -> diffuse (path_sim=0.200)",
+     "accessory -> boss (path_sim=0.125)"
+    ]
+   },
+   "P2_ZERO_COOCCURRENCE_ONLY_k40": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 80,
+     "NO_WORDNET_PATH_AT_ALL": 56,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 8,
+     "WINNER_NOT_IN_WORDNET": 3,
+     "IN_THE_GENEROUS_GOLD": 3
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.5333,
+     "NO_WORDNET_PATH_AT_ALL": 0.3733,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0533,
+     "WINNER_NOT_IN_WORDNET": 0.02,
+     "IN_THE_GENEROUS_GOLD": 0.02
+    },
+    "fraction_no_close_wordnet_relation": 0.9267,
+    "examples": [
+     "abandon -> exploit (path_sim=0.250)",
+     "ability -> effect (path_sim=0.250)",
+     "able -> aim (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> asking (path_sim=0.000)",
+     "above -> real (path_sim=0.091)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> joint (path_sim=0.125)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> decay (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> bird (path_sim=0.100)",
+     "abuse -> surveillance (path_sim=0.143)",
+     "academic -> integrity (path_sim=0.083)",
+     "academy -> rely (path_sim=0.000)",
+     "accelerate -> wild (path_sim=0.000)",
+     "acceptor -> breaking (path_sim=0.067)",
+     "accept -> diffuse (path_sim=0.200)",
+     "accessory -> bonus (path_sim=0.077)"
+    ]
+   },
+   "P3_HYBRID_beta0.5": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 67,
+     "NO_WORDNET_PATH_AT_ALL": 64,
+     "WINNER_NOT_IN_WORDNET": 12,
+     "IN_THE_GENEROUS_GOLD": 4,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 3
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.4467,
+     "NO_WORDNET_PATH_AT_ALL": 0.4267,
+     "WINNER_NOT_IN_WORDNET": 0.08,
+     "IN_THE_GENEROUS_GOLD": 0.0267,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.02
+    },
+    "fraction_no_close_wordnet_relation": 0.9533,
+    "examples": [
+     "abandon -> oil (path_sim=0.077)",
+     "ability -> urban (path_sim=0.000)",
+     "abnormality -> size (path_sim=0.167)",
+     "about -> know (path_sim=0.000)",
+     "above -> part (path_sim=0.125)",
+     "abroad -> experience (path_sim=0.000)",
+     "absence -> synovial (path_sim=0.000)",
+     "absent -> protection (path_sim=0.000)",
+     "absolutely -> disgust (path_sim=0.000)",
+     "absorb -> roots (path_sim=0.000)",
+     "absorption -> fat (path_sim=0.100)",
+     "abundance -> indicate (path_sim=0.000)",
+     "abuse -> permission (path_sim=0.200)",
+     "academic -> integrity (path_sim=0.083)",
+     "academy -> new (path_sim=0.000)",
+     "accelerate -> species (path_sim=0.000)",
+     "acceptor -> aerobic (path_sim=0.000)",
+     "accessory -> semen (path_sim=0.100)",
+     "access -> viewing (path_sim=0.125)",
+     "accident -> college (path_sim=0.111)"
+    ]
+   },
+   "F_FREQ_MATCHED_SELECTION_k15": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 68,
+     "NO_WORDNET_PATH_AT_ALL": 64,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 8,
+     "WINNER_NOT_IN_WORDNET": 8,
+     "IN_THE_GENEROUS_GOLD": 2
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.4533,
+     "NO_WORDNET_PATH_AT_ALL": 0.4267,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0533,
+     "WINNER_NOT_IN_WORDNET": 0.0533,
+     "IN_THE_GENEROUS_GOLD": 0.0133
+    },
+    "fraction_no_close_wordnet_relation": 0.9333,
+    "examples": [
+     "abandon -> channel (path_sim=0.100)",
+     "abbey -> invest (path_sim=0.000)",
+     "ability -> between (path_sim=0.000)",
+     "able -> years (path_sim=0.000)",
+     "abnormality -> observe (path_sim=0.000)",
+     "about -> level (path_sim=0.000)",
+     "above -> have (path_sim=0.091)",
+     "abroad -> win (path_sim=0.000)",
+     "absence -> none (path_sim=0.111)",
+     "absent -> camera (path_sim=0.000)",
+     "absolutely -> threat (path_sim=0.000)",
+     "absorb -> poison (path_sim=0.250)",
+     "absorption -> give (path_sim=0.091)",
+     "abundance -> hundred (path_sim=0.091)",
+     "abuse -> centre (path_sim=0.091)",
+     "academic -> turn (path_sim=0.071)",
+     "academy -> politician (path_sim=0.100)",
+     "accelerate -> own (path_sim=0.250)",
+     "acceptor -> single (path_sim=0.071)",
+     "accessory -> introduce (path_sim=0.000)"
+    ]
+   },
+   "N1_NULL_k15": {
+    "n_probed": 150,
+    "counts": {
+     "TAXONOMICALLY_DISTANT": 62,
+     "NO_WORDNET_PATH_AT_ALL": 59,
+     "WINNER_NOT_IN_WORDNET": 24,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 5
+    },
+    "as_fraction": {
+     "TAXONOMICALLY_DISTANT": 0.4133,
+     "NO_WORDNET_PATH_AT_ALL": 0.3933,
+     "WINNER_NOT_IN_WORDNET": 0.16,
+     "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0333
+    },
+    "fraction_no_close_wordnet_relation": 0.9667,
+    "examples": [
+     "abandon -> molecular (path_sim=0.000)",
+     "abbey -> intention (path_sim=0.062)",
+     "able -> prokaryote (path_sim=0.000)",
+     "abnormality -> driving (path_sim=0.143)",
+     "about -> molecular (path_sim=0.000)",
+     "above -> reset (path_sim=0.071)",
+     "abroad -> reset (path_sim=0.000)",
+     "absence -> landscape (path_sim=0.100)",
+     "absent -> equal (path_sim=0.250)",
+     "absolutely -> coordination (path_sim=0.000)",
+     "absorb -> role (path_sim=0.000)",
+     "absorption -> passive (path_sim=0.091)",
+     "abundance -> restore (path_sim=0.000)",
+     "abuse -> molecular (path_sim=0.000)",
+     "academy -> weigh (path_sim=0.000)",
+     "accelerate -> role (path_sim=0.000)",
+     "acceptor -> cheese (path_sim=0.111)",
+     "accept -> assure (path_sim=0.250)",
+     "accessory -> must (path_sim=0.333)",
+     "access -> prokaryote (path_sim=0.143)"
+    ]
+   }
+  }
+ },
+ "STOP_IF_VERDICT": {
+  "verdict": "iii_SELECTION_NOT_THE_AXIS_EITHER_CEILING_ELSEWHERE",
+  "i_p1_clears_floor_where_p0_does_not_by_k": {
+   "5": false,
+   "15": false,
+   "40": false
+  },
+  "ii_p1_beats_p0_by_k": {
+   "5": false,
+   "15": false,
+   "40": false
+  },
+  "iii_p1_ties_p0_by_k": {
+   "5": true,
+   "15": true,
+   "40": true
+  },
+  "iv_freq_matched_also_beats_p0_comparable_by_k": {},
+  "v_p2_collapses_to_near_scramble_by_k": {
+   "5": true,
+   "15": true,
+   "40": false
+  },
+  "vi_k1_all_pass": true,
+  "p0_clears_its_own_floor": false
+ },
+ "POWER": {
+  "n_common_scored": 400,
+  "reading": "A WIDTH IS NOT AN EFFECT. Every margin carries its own ci_halfwidth and analytic_null_halfwidth_at_this_n."
+ },
+ "ORGAN_REUSE_RUNTIME_WITNESS": {
+  "loaded": [
+   "exp_cue_binarised_readout_transfer_v1",
+   "exp_cue_to_store_translation_v1",
+   "exp_grounding_readout_known_answer_v1",
+   "exp_readout_ceiling_diagnosis_v1",
+   "exp_readout_writerule_paradigmatic_v1",
+   "hdlab",
+   "hdlab.ablation",
+   "hdlab.animacy_lexicon",
+   "hdlab.atoms",
+   "hdlab.binding",
+   "hdlab.bundling",
+   "hdlab.char_trigram_encoder",
+   "hdlab.cleanup_family",
+   "hdlab.closed_class_lexicon",
+   "hdlab.consequence_learning_loop",
+   "hdlab.coreference_resolver",
+   "hdlab.definitional_extraction",
+   "hdlab.event_bundle",
+   "hdlab.foundation_persistence",
+   "hdlab.frame_induction",
+   "hdlab.gap_detector",
+   "hdlab.goal_typing",
+   "hdlab.grounded_similarity",
+   "hdlab.grounding_acquisition_loop",
+   "hdlab.hd_fact_store",
+   "hdlab.iterative_attractor",
+   "hdlab.learner",
+   "hdlab.learner.core",
+   "hdlab.learner.plugins",
+   "hdlab.learner.plugins.estimation_plugin",
+   "hdlab.learner.plugins.gam_plugin",
+   "hdlab.learner.plugins.proginduction_plugin",
+   "hdlab.learner.plugins.ruleind_plugin",
+   "hdlab.learner.registry",
+   "hdlab.lexical_similarity",
+   "hdlab.low_information_filter",
+   "hdlab.memory",
+   "hdlab.modulators",
+   "hdlab.reading_grounding_loop",
+   "hdlab.role_slot_summarizer",
+   "hdlab.self_improving_loop",
+   "hdlab.semantic",
+   "hdlab.situation_model_accumulate",
+   "hdlab.snapshots",
+   "hdlab.state_of_mind",
+   "hdlab.thematic_role_labeler",
+   "hdlab.tracing",
+   "hdlab.verb_lexical_similarity",
+   "hdlab.working_memory",
+   "tools.exp_checkpoint",
+   "tools.floor_battery",
+   "tools.saturation_negative_control"
+  ],
+  "edited_by_this_cell": [],
+  "cache_never_rebuilt": true
+ },
+ "elapsed_s": 20.2,
+ "verdict": "iii_SELECTION_NOT_THE_AXIS_EITHER_CEILING_ELSEWHERE",
+ "verdict_msg": "STOP_IF=iii_SELECTION_NOT_THE_AXIS_EITHER_CEILING_ELSEWHERE || P0=0.0325 (floor 0.11619) || P1_k5=0.0175 floor=0.11619 vs_p0=NOT_SEPARATED || P1_k15=0.0150 floor=0.11619 vs_p0=NOT_SEPARATED || P1_k40=0.0275 floor=0.11619 vs_p0=NOT_SEPARATED",
+ "wire_status": "VET_PENDING"
+}
