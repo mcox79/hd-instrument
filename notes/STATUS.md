@@ -403,9 +403,63 @@ the number of queries per point beside every "no difference".**
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
-- **🟢 LANDED 05:36 (2026-08-18) -- `exp_typed_role_context_write_rule_dissociation_v1` (`5170c7751`).
-  THE FIRST ARM IN THIS PROGRAMME TO CLEAR THE 0.5431 BAR CI-SEPARATED WITH ITS COVERAGE CONTROL
-  INTACT -- AND THE STOP-IF THAT FIRED ALONGSIDE IT IS WHAT THE RESULT ACTUALLY IS.**
+- **🚨🚨 RETRACTION, 06:15 -- I HEADLINED "THE FIRST ARM EVER TO CLEAR THE BAR" AND TWO INDEPENDENT
+  LANES TOOK IT APART WITHIN THE HOUR. THREE OF THE FOUR SUPPORTS ARE GONE. READ THIS BEFORE THE
+  GREEN BLOCK BELOW, WHICH IS SUPERSEDED.**
+  1. **THE BAR WAS THE WRONG BAR -- MY OWN RULE, BROKEN BY THE CELL AND MISSED BY ME.**
+     `bfc0e941c` rebuilt the arms from the cell's persisted `arc_events`, **reproduced U1 0.6669 /
+     U3 0.6466 exactly**, then recomputed the floors **on the arc representation the arms actually
+     use.** An **ATTESTATION floor -- `log(min(arc_mass))`, NO WORDS, NO MEANING -- reads 0.6317
+     [0.5820, 0.6781]**, effectively at the 0.6669 headline. The 0.5431 bar was a **BAG**-
+     representation number imported across representations. *"EVERY FLOOR RECOMPUTED ON THE ITEM'S
+     OWN POPULATION, NEVER IMPORT" is discipline (2) in this file, and the run imported one.*
+     `U1_COVERAGE_MATCHED` could not catch it -- `COVERAGE_MIN=3` dropped **0 of 242 pairs**, so the
+     control never bound.
+     **WHAT SURVIVES, AND IT IS NOT NOTHING:** on a **mass-matched subsample (n=189, residual floor
+     0.507)** the effect holds -- **U3 0.6369, U1 0.6284** -- and against **frequency-matched random
+     noun pairs** U3 reads **0.5958 [0.5458, 0.6458]** vs floors 0.5141 / 0.5053. **A 64-bin role
+     histogram with the words thrown away does carry real substitutability. It is a SMALLER, HONEST
+     result standing on a REBUILT floor, not the headline I wrote.**
+  2. **🔴 "SECOND INDEPENDENT NEGATIVE ON PREDICTION ERROR" IS RETRACTED OUTRIGHT -- I VERIFIED THE
+     DEFECT IN SOURCE MYSELF.** `store_from_s1` and `store_from_s1_permuted_magnitude` both iterate
+     **`rec["bag_counts"]`** (`experiments/exp_typed_role_context_write_rule_dissociation_v1.py`
+     ~590-640, called at 954-957). **The prediction-error rule was applied to the BAG channel -- the
+     one already known to be a pure co-occurrence detector at A0 0.0510 -- NOT to the typed channel.**
+     That is why S1 0.0695 and N3 0.0591 sit right beside A0. **A null there says essentially nothing
+     about whether an error signal helps the typed representation. PREDICTION ERROR ON THE TYPED
+     CHANNEL HAS NEVER BEEN TESTED.** *I propagated this claim twice tonight.*
+  3. **THE CORRUPTION-TOLERANCE EVIDENCE IS RETIRED.** `N6` replaces corrupted arcs by drawing from
+     the marginal, which **adds a shared vector to every word -- near rank-preserving for a rank-sum
+     AUC. THE CONTROL AS BUILT IS NEARLY INCAPABLE OF FAILING**, so "survives 50% corruption" was a
+     property of the corruption model, not of the representation.
+  4. **BRANCH (B) FIRED ON THE HUMAN INSTRUMENT (`16475c9c5`), EXACTLY AS PRE-COMMITTED AT
+     `fa5da1d2c`: `U1_TYPED_CONTEXT` = 0.4125 [0.3148, 0.5138] -- BELOW CHANCE.** (`U3` 0.5037,
+     `T2` 0.3567; bar 0.5943 **derived here, nothing imported**; both gates PASS.) **6.24 PARTIALLY
+     RE-OPENS: the two instruments agree about the poor arms (rho 0.9034) and DISAGREE at the top of
+     the range, which is the only region anyone cares about.** **THIS IS THE INFORMATIVE CASE AND IS
+     NOT TO BE WRITTEN UP AS "MIXED".**
+     **CONFOUND, FLAGGED BY THE AGENT AND NOT RESOLVED: that human population is 83% VERB pairs
+     (108v / 18n / 4a) while the WordNet instrument is NOUNS-ONLY. "WORDNET-SPECIFIC" AND
+     "NOUN-SPECIFIC" ARE NOT SEPARATED BY THIS RUN.** *A POS-stratified re-read is named, not run.*
+  - **WHERE THAT LEAVES THE "WHICH KIND OF SLOT, NOT WHICH WORD" READING -- THE TWO LANES DISAGREE,
+    AND THE DISAGREEMENT IS THE POINT.** The OBSERVATION replicates on both sticks (`U1-U3` NOT
+    separated: +0.0203 [-0.0185, 0.0591] WordNet, **-0.0911 [-0.2014, 0.0192] human**). But
+    `bfc0e941c` argues the tie is **DATA POVERTY, NOT A FINDING: a median 130 arcs per word cannot
+    populate 21,093 dimensions, so the lexical channel was STARVED, NOT FALSIFIED** (effective code
+    is **~3 relation bins**; top-3 gives 0.6240 of U3's 0.6466). **A starved lexical channel would
+    tie on BOTH instruments too, so replication does not discriminate.** *The observation stands;
+    my interpretation of it does not follow. I stated it as the finding twice.*
+  - **🧠 THE BIOLOGY PUTS THE WHOLE NIGHT IN A DIFFERENT FRAME (PINNED, and the most useful thing
+    anyone produced tonight): taxonomic (ATL) and thematic (pMTG/TPJ) systems DOUBLY DISSOCIATE.
+    OUR INSTRUMENT *IS* THAT DISSOCIATION MEASURED IN A CORPUS, AND THE WINNING ARM IS THE THEMATIC
+    ORGAN DOING THE TAXONOMIC ORGAN'S JOB.** Coarse frames drive **CATEGORY** induction unsupervised
+    (Mintz 2003); syntactic bootstrapping shows frames **CONSTRAIN** a meaning hypothesis, they do
+    not **SUPPLY** it. **So role profile = STAGE ONE, grounded cross-modal convergence = STAGE TWO --
+    WE BUILT STAGE ONE AND SCORED IT ON A STAGE-TWO INSTRUMENT.** *That, not the AUC, is the finding
+    worth keeping.* **OPEN (do NOT write as pinned): whether role is coded SEPARATELY from filler --
+    F&G's own ROIs reanalyse as non-orthogonal, and Fedorenko 2020 finds NO syntax-selective region.*
+- **[SUPERSEDED BY THE RETRACTION ABOVE -- KEPT SO THE OVERCLAIM STAYS VISIBLE] LANDED 05:36
+  (2026-08-18) -- `exp_typed_role_context_write_rule_dissociation_v1` (`5170c7751`).**
   Instrument re-licensed IN THIS RUN (all 8 cached DSI checks reproduced at delta 0.0000, floors at
   chance, **n=242 per cell** -- not the n=7 of the human v1 attempt). **Matching is per-POS-stratum,
   so SET_P/SET_S cannot differ in POS by construction.**
