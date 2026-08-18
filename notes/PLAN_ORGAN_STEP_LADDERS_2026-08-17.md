@@ -434,6 +434,59 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.12 THE DISSOCIATION INSTRUMENT IS BUILT, LICENSED, AND THE CO-OCCURRENCE DIAGNOSIS IS NOW MEASURED RATHER THAN SUSPECTED.
+
+`exp_dissociation_score_instrument_v1`, commit `0eb44eb1d`; findings
+`notes/dissociation_score_instrument_2026-08-18.md`. **This is the first instrument this programme has
+owned that can discriminate its own arms.**
+
+**THE LICENCE, reported first because nothing below means anything without it. ALL FOUR FLOORS SIT AT
+CHANCE:** orthographic **0.5000** [0.4875,0.5124]; frequency **0.4901** [0.4376,0.5413]; scramble
+**0.4664** [0.4148,0.5178]; constant/prototype **0.5431** [0.4922,0.5953] -- **every CI includes 0.5.**
+Known-answer (WordNet path similarity) **0.9599** [0.9441,0.9739] against a >=0.95 gate; random-vector
+store **0.4862**, includes 0.5. `INSTRUMENT_LICENSED = True`.
+*This is the property that matters: on hit@1 our floors were 0.1390-0.2291 while our arms sat at
+0.02-0.04, so "margin over floor" returned the same verdict for a promising arm and a hopeless one.
+**Here the floors are at chance by construction and VERIFIED to be, so the bar finally measures US
+instead of the POOL.***
+
+**THE RESULT. Above 0.5 = encodes SUBSTITUTABILITY. Below 0.5 = encodes CO-OCCURRENCE. 0.5 = neither.**
+
+| arm | AUC | CI half-width |
+|---|---|---|
+| `RAW_COUNT_SINGLE_OCC` | **0.4173** | 0.0333 |
+| `PARADIGMATIC_PROFILE_WRITE` | **0.2165** | 0.0397 |
+| `INCUMBENT_LIVE_STORE` | **0.0710** | 0.0214 |
+| `RAW_COUNT_FULL_ACCUM` | **0.0510** | 0.0189 |
+| `PRESENCE_ABSENCE_BINARIZED` | **0.0294** | 0.0162 |
+
+**STOP-IF (iii) FIRED exactly as pre-registered: the incumbent is CI-separated BELOW 0.5.** Verdict
+`DISSOCIATION_INSTRUMENT_LICENSED__STOP_IF_iii_COOCCURRENCE_DIAGNOSIS_CONFIRMED`. **Our store, asked to
+separate "could replace but never co-occur" from "co-occur constantly but cannot replace", picks the
+SECOND as more similar.** Not a suspicion any more -- a licensed measurement.
+
+**AND THE RANKING IS RESOLVABLE, NOT NOISE** (max_lo 0.3835 > min_hi 0.0470; the store arms' CIs do not
+mutually overlap). **It independently corroborates two separate findings:**
+- **`RAW_COUNT_SINGLE_OCC` (0.4173) is nearest chance -- i.e. LEAST co-occurrence-biased -- which is the
+  same ordering as the decisive arm** where ONE occurrence (0.0367) beat the SUM of all (0.0100).
+  **Accumulating is what drives the store toward co-occurrence, measured now on a second, independent
+  instrument.**
+- **`PARADIGMATIC_PROFILE_WRITE` (0.2165) is second-best**, and it is the ONLY write-rule change that
+  ever moved read-out (+0.0075). **The one intervention that helped on the old instrument is also the
+  one that helps on the new one.** Two instruments, same winner.
+- **`PRESENCE_ABSENCE_BINARIZED` is WORST (0.0294)** -- binarising makes the store MORE
+  co-occurrence-biased, even though it HELPED addressing (+0.0383). **A clean example of why
+  addressing and relation are different axes and why the old instrument could not see this.**
+
+**STATED LIMITS, not buried:** n=**242 matched pairs per cell, ALL NOUNS** -- the verb/adjective/adverb
+strata did not survive the frequency caliper at this candidate-pool size. Matching went through
+**7 versions**; each floor failure was measured and fixed by ADDING a covariate or TIGHTENING a
+caliper, **never by widening one** -- and post-match SMDs are reported for all five covariates
+(mean_log_freq -0.0416 from -3.0798; trigram cosine 0.0007 from 0.4980). A bug in the STOP-IF (v)
+check was found and fixed before the final run.
+
+---
+
 ### 6.11 DRILL 2 LANDED: WHY ELEVEN CONTROLLED EXPERIMENTS PRODUCED ALMOST NOTHING, AND THE PROTOCOL THAT REPLACES THEM.
 
 `notes/protocol_representational_content_organ_gates_2026-08-18.md` (commit `446f61aa0`). **ADOPTED.**
