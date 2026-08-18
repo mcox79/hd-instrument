@@ -24,6 +24,17 @@ DISPOSITIONS -- every vetted cell gets exactly one, and nothing is allowed to si
 THE RECORD SO FAR: 30 cells vetted across five passes -- 13 REFUTED, 5 SUSPENDED, 11 QUALIFIED,
 **1 UPHELD**.
 
+THE ORGAN LAYER IS A DIFFERENT POPULATION AND MUST NOT BE JUDGED BY THIS LEDGER'S BASE RATE.
+This file audits CLAIMS. `hdlab/` holds 147 modules / 3.15 MB of source, and an experiment's claim
+can be refuted while the ORGAN it exercised is perfectly good machinery. Owner, 2026-08-18: "we made
+a lot of effort to build fully functional organs and we should make sure we're working off of that
+significant effort." The organ accounting is a SEPARATE artifact
+(`notes/ORGAN_ACCOUNTING_2026-08-18.md`) and 0-for-30 HERE says nothing about it.
+*Correction on the way in: the Director told the owner "only 31 organs declare a self-test". The
+real figure is ~82 (81 with a `__main__` self-test, independently matching
+`notes/system_accounting_2026-08-13.md`'s 81 of 141). The testable surface is 2.6x larger than
+claimed, and the error was a too-narrow regex.*
+
 TWO PREDICTORS, IN ORDER OF STRENGTH. Both were learned from this ledger's own contents:
   1. **DID THE TEST ITEMS EXIST BEFORE THE MECHANISM DID?** This is the strong one. Every survivor
      was scored on items built independently of the rule; every refutation in pass 5 had detectors
