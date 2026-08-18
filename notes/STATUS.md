@@ -443,7 +443,37 @@ excludes nothing is not a control -- report how many items each control actually
   `predictive_coding` gate on 0.5 and hold 0.5431 only inside regression gates. **Branch (iii) ALSO
   fired: NO `metrics.json` ANYWHERE records the REPRESENTATION a floor came from** -- every
   determination above needed the source, so this is unauditable from artifacts today.
-- **🔬 MY OWN FOLLOW-UP, HYPOTHESIS NOT FINDING -- THE ONE ITEM THE AUDIT FLAGGED AND LEFT UNVERIFIED,
+- **🔴🔴 07:05 -- THE DEGENERACY HYPOTHESIS BELOW IS NOW CONFIRMED FROM THE CELL'S OWN PERSISTED
+  DIAGNOSTICS, AND IT MEANS THE HUMAN INSTRUMENT COULD NOT FAIRLY TEST `U1` AT ALL.**
+  `report/OCCURRENCE_DATA_STATS`: **`n_occurrences_total` = 10,215, `n_occurrences_with_slot` =
+  1,112. ONLY 10.9% OF OCCURRENCES ON THIS POPULATION CARRY THE SLOT INFORMATION THE TYPED ARM IS
+  BUILT FROM.** And `report/ARM_DIAGS` gives `U1` **`vocab_size` = 10,121** dimensions. **That is
+  ~8.6 SLOTTED OCCURRENCES PER WORD SPREAD OVER A 10,121-DIMENSIONAL SPACE.** *Nearly every pair of
+  words shares no dimension at all, so nearly every cosine is zero and the arm collapses onto the
+  constant-prototype value -- which is EXACTLY the 0.4125/0.4125 tie the audit spotted.*
+  **THE CONTRAST INSIDE THE SAME RUN SETTLES IT: `U3_ROLE_ONLY` uses `vocab_size` = 58 -- DENSE --
+  and reads 0.5037, at chance but NOT degenerate. Same corpus, same population, same 28,832 arc
+  events; the only thing that changed is how thinly they were spread.**
+  **WHAT THIS DOES TO BRANCH (B). THE BRANCH FIRED AS PRE-COMMITTED AND I AM NOT UNFIRING IT -- BUT
+  ITS INTERPRETATION IS NOT SUPPORTED. "The 0.6669 was WORDNET-SPECIFIC" REQUIRES THAT THE HUMAN
+  INSTRUMENT GAVE THE ARM A FAIR TEST, AND AT 10.9% SLOT COVERAGE IT DID NOT.** *The correct reading
+  is much closer to 6.39's branch (C): **this population cannot test this arm.** The agent noted (C)
+  "did not fire only because `U1` is not above chance" -- and a starved arm sitting ON its own
+  constant floor is precisely how an untestable arm presents.*
+  **WHAT IS STILL TRUE AND MUST NOT BE QUIETLY DROPPED: THIS DOES NOT RESCUE THE 0.6669.** That
+  number died for an unrelated and still-standing reason -- **its bar was a bag-representation floor,
+  and on a rebuilt arc floor a no-words attestation control reads 0.6317.** *Two independent defects,
+  one per instrument; fixing this one does not touch that one.*
+  **AND IT CONVERGES WITH THE BIOLOGY DRILL, WHICH REACHED THE SAME DIAGNOSIS FROM THE OTHER
+  INSTRUMENT: "a median 130 arcs per word cannot populate 21,093 dimensions -- the lexical channel
+  was STARVED, NOT FALSIFIED." TWO LANES, TWO POPULATIONS, SAME CAUSE.** *The typed channel has never
+  once been given enough data to be tested, on EITHER instrument.*
+  **HONEST SCOPE: I measured SLOT COVERAGE, which is the upstream CAUSE. I did NOT measure the
+  pairwise-cosine spread, which is the direct SYMPTOM and is still the cleaner confirmation.** *I said
+  I would not rewrite branch (B) before measuring, and I am recording a re-interpretation on
+  different evidence than the check I named -- stronger evidence, but not the same evidence. The
+  cosine-spread check stays open.*
+- **🔬 [SUPERSEDED BY THE CONFIRMATION ABOVE] MY OWN FOLLOW-UP, HYPOTHESIS NOT FINDING -- THE ONE ITEM THE AUDIT FLAGGED AND LEFT UNVERIFIED,
   NOW CONFIRMED NUMERICALLY AND IT MAY RE-INTERPRET BRANCH (B).** In the human cell, `U1_TYPED_CONTEXT`
   reads **0.4125 [0.3148, 0.5138]** and `F_CONSTANT_PROTOTYPE` reads **0.4125 [0.3164, 0.5153]** --
   **IDENTICAL TO FOUR DECIMALS, different CIs** (so two genuinely different computations, not one value
