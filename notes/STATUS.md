@@ -9,7 +9,41 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
-**DRILL 1'S CENTRAL PREDICTION IS REFUTED. `CODE` IS EXONERATED -- TWICE (`ac629b1e7`,
+**ORGAN A (THE WRITE RULE) IS CLOSED. ALL FIVE STEPS GATED. THE ANSWER IS A LEARNING SIGNAL, AND THE
+CORPUS IS EXONERATED (`0f8a3254a`).** The substitutability signal **IS PRESENT** in first-order counts
+from our own corpus: a supervised diagonal reweighting of a PPMI+SVD space reaches AUC **0.9670**
+fitted / **0.9606** held-out and -- after the leakage objection was TESTED rather than waved away
+(37.6% of pair-member words appear in >1 pair) -- **0.8629 under GROUP-DISJOINT, word-clean CV**
+(`56175e456`, `tools/verify_ppmi_svd_oracle_group_disjoint_cv.py`). **AND NOTHING UNSUPERVISED
+REACHES IT:** our five steps 0.03-0.42; vanilla PPMI **0.0519**; TUNED counts **0.1144** (shift
+selected on a WORD-DISJOINT held-out set, the Levy/Goldberg/Dagan steelman, `120cfefae`); second-order
+cosine 0.0510; **from-scratch SGNS 0.4417 -- BELOW its own UNTRAINED random-init control at exactly
+0.5000.** *Training a neural predictor on this corpus moves it TOWARD co-occurrence.* **So: the corpus
+is NOT the blocker, first-order counts CONTAIN the signal, no unsupervised transform extracts it, and
+the missing ingredient is WHAT TO SUPERVISE WITH.**
+
+**THE TRAP THAT GOVERNS EVERYTHING NEXT, and it must be stated before any build: the instrument
+defines its positive set by WORDNET SYNONYMY and its known-answer arm IS WordNet (0.9599). ANY
+supervision derived from WordNet TRAINS ON THE TEST. The 0.8629 fitted oracle is a CEILING
+DIAGNOSTIC, NEVER a candidate build.** Drill in flight: `admissible_supervision_sources_drill`.
+
+**METHOD RESULT WORTH AS MUCH AS THE SCIENCE: FOUR arms produced apparent CI-separated wins that their
+own controls destroyed** -- max-pool, prediction-error gating (**+0.2369, a 4.3x "improvement"**, killed
+by a RATE-MATCHED random gate reading 0.3007 vs 0.3079), the `C2` denominator, and the learned basis.
+**Without rate-matched and identity-matched twins this session would have reported four breakthroughs
+and built on all of them.** *Any arm that changes HOW MUCH gets written now REQUIRES a rate-matched
+random twin.*
+
+**ELIMINATED, each with its own control:** the basis (learned = random), the denominator (row-norm is
+a cosine no-op, PROVEN by an identical wrongpool control), not-collapsing (max-pool **-0.0210 BELOW**
+the sum at 55x storage; its random-occurrence control sat AT CHANCE, proving the loss is
+content-specific), the filter (**a same-size RANDOM draw reads 0.5041 vs the incumbent's 0.4173 --
+our stopword selection is WORSE than random**), superposition (**DOES NOT EXIST** -- each word
+reconstructs from its own counts to **1.76e-08** across all 617 words), prediction-error gating, and
+corpus capacity.
+
+**SUPERSEDED BELOW BUT KEPT FOR ITS REASONING:** **DRILL 1'S CENTRAL PREDICTION IS REFUTED. `CODE` IS
+EXONERATED -- TWICE (`ac629b1e7`,
 `exp_writerule_learned_basis_denominator_gate_v1`).** The drill argued our store is `H^T p_a`, a random
 rotation of `Sigma_yx`, and that the missing operation is factorisation `Sigma_yx Sigma_xx^-1` living
 in the `CODE` slot -- so a LEARNED basis should create substitutability where a random projection
@@ -114,7 +148,26 @@ was an ORACLE-CUE number; on the REAL partial cue POP_72 32->72 is BELOW and POP
 with winner composition FLAT at every depth.** Eleven cells across six organs on 08-17 returned ~+0.01
 each; the two LADDERS redirected the programme. Method is not in question -- organ selection was.
 
-## TOP ITEM -- THE WRITE RULE IS THE FIRST THING IN THE PROGRAMME TO MOVE READ-OUT (LESSONS: WRITE RULE)
+## TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD
+Organ A is closed and its answer is that we need a LEARNING SIGNAL. **The whole question is now WHICH
+ONE, and the binding constraint is CIRCULARITY, not performance.** The licensed instrument builds
+`SET_P` from **WordNet synonymy** and its known-answer arm IS WordNet path similarity (0.9599), so
+**any signal derived from WordNet -- synonyms, hypernyms, glosses, or anything computed from them --
+trains on the test and is UNUSABLE AS SUPERVISION however well it scores.** Second constraint, the
+owner's invariant: **NO LLM in the operational path**, and a pretrained table is disqualified as a
+MEANING SOURCE (ceiling reference only) -- **but a STATIC OFFLINE-BUILT ASSET IS ADMISSIBLE** (owner
+Q3: *"we can build that foundation however we want, as long as it is a strong foundation, and the
+operation is not llm"*). Do not hold us to a stricter standard than the brain meets.
+**IN FLIGHT:** `admissible_supervision_sources_drill` -- biology first (what supervises cortical
+semantics, and what the prediction-error NULL does and does NOT rule out: it tested error against the
+word's OWN accumulator, which is not error against ANOTHER MODALITY or a DOWNSTREAM CONSEQUENCE);
+then an **on-disk enumeration by `os.walk`, never registry-first** (a 1.21M-edge CSKG read by nobody
+live -- **check whether it CONTAINS WordNet before trusting it**; OpenStax 117,642 sentences;
+Brysbaert concreteness; Warriner VAD; Binder; UD parses); then a ranking on brain fidelity /
+independence-from-gold / coverage on the 617 matched-pair words / no-LLM survival; then ONE build
+with a mandatory rate-matched control.
+
+## SUPERSEDED TOP ITEM -- THE WRITE RULE WAS THE FIRST THING TO MOVE READ-OUT (LESSONS: WRITE RULE)
 `exp_readout_writerule_paradigmatic_v1` (full, `a8fdc968f` / `24ca42661`) rebuilt the STORE so a
 word's code sums its neighbours' own context PROFILES instead of their arbitrary identity tags, and
 left the comparator untouched. `W1_PARADIGMATIC` **0.0298** vs `W0_SYNTAGMATIC` **0.0223**: **+0.0075
