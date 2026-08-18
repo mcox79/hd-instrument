@@ -40,8 +40,12 @@ VERIFIED there** (0.5000 / 0.4901 / 0.4664 / 0.5431, every CI including 0.5; kno
 plan sec 6.18).** Instrument licensed by EXACT reproduction -- all 8 regression checks at **delta
 0.0000**; population loaded BYTE-IDENTICAL from the instrument's own checkpoint; matrix 5,491 x 21,576,
 density 0.91%, 1.82M tokens, **coverage PERFECT 242/242 in both cells**.
-- **PPMI+SVD -- the decades-old gold standard for extracting substitutability from counts -- FAILS ON
-  OUR CORPUS AT EVERY RANK:** k=50/100/300/500 -> **0.0519 / 0.0285 / 0.0230 / 0.0278**, all BELOW 0.5,
+- **PPMI+SVD FAILS ON OUR CORPUS AT EVERY RANK -- but QUALIFIED 2026-08-18 (`96caca8de`): we ran the
+  VANILLA construction (no context-distribution smoothing, no shift, no subsampling). Levy & Goldberg
+  proved SGNS implicitly factorises SHIFTED PMI, and a TUNED count method MATCHES SGNS. So the honest
+  claim is "UNTUNED PPMI+SVD fails", and A TUNED-COUNT ARM IS NOW MANDATORY AND MUST BE REPORTED
+  BEFORE ANY SUPERVISED ARM -- if it clears 0.5 unsupervised, the supervision conclusion below is
+  WRONG and the missing thing was hyperparameters.** Numbers as run: k=50/100/300/500 -> **0.0519 / 0.0285 / 0.0230 / 0.0278**, all BELOW 0.5,
   and its BEST is WORSE than our incumbent 0.0710. No k dropped for cost. **We are NOT being beaten by
   truncated SVD.**
 - **A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS READS 0.8629 UNDER THE STRICTEST TEST.**

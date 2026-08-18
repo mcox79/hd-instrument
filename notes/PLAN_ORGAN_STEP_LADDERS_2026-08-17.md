@@ -548,11 +548,20 @@ result below is a coverage artifact.
 
 **TWO FACTS, AND THEY POINT THE SAME WAY.**
 
-**(1) THE CLASSICAL METHOD DOES NOT BEAT US -- IT FAILS TOO, AND SLIGHTLY WORSE.** PPMI+SVD is the
-decades-old gold standard for extracting paradigmatic similarity from co-occurrence counts, run on
-OUR corpus at four ranks up to a reachable 5,490. **Every rank lands BELOW 0.5, and its best (0.0519)
-is WORSE than our incumbent store (0.0710).** *Branch A is dead: we are not being embarrassed by
-truncated SVD.* No k was dropped for cost; the sweep is complete.
+**(1) THE **UNTUNED** CLASSICAL METHOD DOES NOT BEAT US -- IT FAILS TOO, AND SLIGHTLY WORSE.**
+PPMI+SVD run on OUR corpus at four ranks up to a reachable 5,490: **every rank BELOW 0.5, best
+(0.0519) WORSE than our incumbent (0.0710).** No k dropped; the sweep is complete.
+
+> **QUALIFIED 2026-08-18 BY THE SUPERVISION DRILL (`96caca8de`) -- AND THIS QUALIFICATION IS
+> LOAD-BEARING, SO DO NOT QUOTE THE HEADLINE WITHOUT IT.** The Director wrote "the decades-old gold
+> standard fails on our corpus". **That is established only for the VANILLA construction we ran** --
+> no context-distribution smoothing, no shift, no subsampling. Levy & Goldberg proved SGNS implicitly
+> factorises a SHIFTED PMI matrix, and Levy, Goldberg & Dagan showed a **TUNED count method matches
+> SGNS** on similarity tasks. **So the honest claim is "untuned PPMI+SVD fails", and the TUNED-COUNT
+> arm is what decides whether SUPERVISION is even the variable that matters.** If a tuned count method
+> clears 0.5 unsupervised, then 6.18's supervision conclusion is wrong and the missing thing was
+> hyperparameters, not a learning signal. **That arm is now mandatory in the next build and must be
+> reported before any supervised arm.**
 
 **(2) A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS REACHES 0.8629 UNDER THE STRICTEST TEST.**
 
