@@ -486,6 +486,56 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.21 **PREDICTION ERROR AS A WRITE GATE: A CLEAN NEGATIVE, AND THE CONTROL IS THE ONLY REASON IT IS NOT A FALSE HEADLINE.**
+
+`exp_predictive_coding_write_gate_dissociation_v1`, FULL, commit `e822eeaaf`. **First time
+`hdlab/predictive_coding.py` has ever been scored on this instrument.**
+
+**LICENCE: all 8 DSI checks reproduced at delta 0.0000**, plus a second cell-specific STREAM gate --
+rebuild A0 from the cached occurrence stream and compare to the live store: **`mean_cos = 1.000000`
+exact**, rebuilt-A0 AUC delta **-0.000001**. That second gate is the stronger one and it is new.
+
+**THE SURPRISE SIGNAL IS NOT DEGENERATE THIS TIME, SO THE MECHANISM GOT A FAIR TEST.** Measured over
+all 33,907 occurrences of the 617 matched-pair words with `residual_magnitude` verbatim: mean 0.4497,
+p10 0.3556, median 0.4497, p90 0.5151, spread 0.1595. **Pre-registered degeneracy test (median >= 0.80
+AND spread <= 0.20) does NOT fire** -- materially healthier than `exp_surprise_weighted_update_v1`'s
+median 0.875 on a different population. *This matters: a null here is about the MECHANISM, not about a
+broken signal.*
+
+**THE NUMBERS THAT LOOK LIKE A BREAKTHROUGH.** Gating harder monotonically raises AUC:
+**0.0961 -> 0.1526 -> 0.2268 -> 0.3079** across the swept thresholds (p25/p50/p75/p90), against
+`A0_INCUMBENT` **0.0710**. **`P1` vs `A0` = +0.2369 [0.1921,0.2831], CI-SEPARATED ABOVE.** *Reported
+alone, that is a 4.3x improvement and the largest movement this programme has ever produced.*
+
+**AND THE CONTROL KILLS IT.** `N1_RANDOM_GATE` -- same machinery, same acceptance RATE, gate fires at
+RANDOM -- reads **0.3007 [0.2546,0.3485]** against P1's 0.3079. Paired: **`P1` vs `N1` = +0.0071
+[-0.0565,+0.0703], NOT_SEPARATED.** **STOP-IF (ii) FIRED: THE GAIN IS THE GATING RATE, NOT PREDICTION
+ERROR.** *Writing FEWER occurrences helps; selecting the RIGHT ones does not.*
+
+**THIS IS THE SESSION'S SHARPEST ILLUSTRATION OF WHY THE RATE-MATCHED CONTROL IS NON-NEGOTIABLE.**
+Without `N1`, this cell reports "prediction error takes the store from 0.0710 to 0.3079, CI-separated"
+-- a headline the Director would have relayed. **The control converts a 4.3x win into a null, and it
+is the same control that decided the max-pool cell.** *Any future arm that changes how much gets
+written MUST carry a rate-matched random twin.*
+
+**CONSISTENT WITH THE ORGAN-LEVEL FINDING (6.15), NOT A NEW MYSTERY:** interventions that DESTROY
+information move stores TOWARD chance. Gating destroys information; so does random gating; both move
+the same distance.
+
+**COMPOSITION:** every arm still scores CO-OCCURRING pairs above SUBSTITUTABLE ones (A0 SET-P 0.1508 /
+SET-S 0.3708, difference -0.2200; best-P1 0.0534 / 0.1113, -0.0580; its N1 0.0561 / 0.1318, -0.0757).
+Gating shrinks the gap and **random gating shrinks it about as much at identical token count.**
+
+**TWO PIECES OF HONESTY WORTH KEEPING.** (1) `N2_ANTI_GATE` reads **exactly 0.5000** at every
+threshold -- **a structural artifact, not a chance reading**: every lemma's FIRST occurrence has
+residual 1.0 (undefined predictor), so it never falls below any real threshold and the anti-gate store
+stays permanently EMPTY. Diagnosed and disclosed rather than reported as "at chance"; the fix would be
+a warm start, not built here. (2) The agent **declined to force the "winner/gold co-occurrence share"
+vocabulary**, which has no referent on a rank-sum AUC instrument with no per-item argmax, and reported
+a faithful analogue instead. *Forcing a metric that does not apply is how a number gets invented.*
+
+---
+
 ### 6.20 **THE SUPERVISION DRILL LANDED (`96caca8de`). IT NAMES THE MECHANISM, CORRECTS TWO OF THE DIRECTOR'S INSTRUCTIONS, AND ITS BEST CONTRIBUTION IS AN ATTACK ON THE DIRECTOR'S OWN HEADLINE.**
 
 `notes/what_supervision_the_brain_has_that_we_do_not_error_driven_learning_drill_2026-08-18.md`.
