@@ -299,10 +299,40 @@ and called it cortex.**
 win merely by having more vectors to match against, and matched-storage as well as matched-depth
 comparisons so it cannot win by being bigger.*
 
+### 6.5 THE VERB RESCORE LANDED. **IT SURVIVES. THIS IS THE PROGRAMME'S FIRST PROPERLY-CONTROLLED POSITIVE.**
+
+All five arms rescored on ONE common population (n=3,161), paired bootstrap CIs, every regression arm
+reproducing its landed value to full precision first:
+
+| comparison | paired margin | band |
+|---|---|---|
+| A1_EVENT_SALIENT vs A0_INCUMBENT_12 | **+0.0993 [+0.0853,+0.1134]**, hw 0.0140 | **ABOVE** |
+| A1 vs A3_WIDTH_MATCHED_NOISE | **+0.1162 [+0.0995,+0.1327]**, hw 0.0166 | **ABOVE** |
+| A1 vs A4_WIDTH_MATCHED_WRONG | **+0.1435 [+0.1250,+0.1622]**, hw 0.0186 | **ABOVE** |
+| A1 vs A2_EVENT_ONLY | **+0.0624 [+0.0246,+0.1006]**, hw 0.0380 | **ABOVE** |
+
+Absolute rho on the common population: A0 **0.2711**, A1 **0.3705**, A2 **0.3081**,
+A3_noise **0.2543**, A4_wrong **0.2269**. **C1_PARTIAL (concreteness partialled out) SURVIVES ON
+EVERY ARM.** K1_WORDNET_ORACLE ABOVE; N1_RANDOM_GAUSSIAN clean.
+
+- **The "+0.1008 is not a valid margin" flag is DISCHARGED.** It is +0.0993 and it is now quotable.
+  The value barely moved; what changed is that it is no longer compared across different item sets.
+- **PADDING HURTS, WHICH IS WHY THIS IS A CHANNEL RESULT AND NOT A DIMENSIONALITY RESULT.** Both
+  width-matched controls land BELOW the narrower incumbent (0.2543 and 0.2269 against 0.2711). Adding
+  columns of noise or of real-but-irrelevant scalars makes the space WORSE. Only the right CONTENT
+  helps.
+- **Against the ceiling** (0.6121, SimVerb's own inter-annotator agreement, recomputed from its
+  released annotator matrix; carry the +/-16% relative band because its consistency set is 20 items):
+  A0 is **~44%** of achievable, A1 is **~61%**.
+- **SCOPE LIMIT, to be stated in the same breath every time this is quoted:** A1 is **15 dimensions of
+  AFFECT ONLY** (valence, arousal, dominance). Consequentiality was dropped at a 0.547-against-0.70
+  coverage gate; socialness norms are NOT on disk. **The owner's Q6 described a PICTURE plus a
+  FEELING. We have measured the feeling half. We have built neither the picture half nor the social
+  half.**
+
 ### 6.4 REVISED ORDER OF WORK
 
-1. Land the verb rescore (in flight; 4 of 5 arms scored on the common n=3161 -- A0 0.2711, A1 0.3705,
-   A2 0.3081, A3_noise 0.2543 BELOW baseline; paired CIs outstanding).
+1. **DONE -- the verb rescore landed and survives (6.5).**
 2. **Accumulate-without-collapsing** (in flight). Promoted above everything else on the strength of
    6.3.
 3. **Raise the arbitrary depth cap** and re-measure end to end, using the leak-safe pool. We are
