@@ -1,3 +1,15 @@
+<!-- CORRECTION 2026-08-18 -- READ BEFORE THE TEXT BELOW -->
+> **⛔ THE FIGURE "3,544 GROUNDED CONCEPTS / 9.87x THE HAND LEXICON" IS RETIRED. DO NOT QUOTE IT.**
+> This project refuted it ON ITS OWN DISK and the correction never propagated:
+> `exp_reading_grounding_loop_cycle3_groundingfix_v1` records `B1_taut 0.656885 -> 0.0` and
+> `B4_grounded 3544 -> 634`. Independently recomputed 2026-08-18 from
+> `data/foundation/reading_grounding_v1/store/store_facts.json`: **2,328 of the 3,544
+> GROUNDED_MEANING facts are SELF-ANCHORED -- 67% of the "grounded concepts" have THEMSELVES as
+> their meaning.** Of the 1,216 real links the commonest anchors are `also` (31), `say` (15) and
+> `people` (10), with entries like `web -> polar`; and 121 stem/full-form pairs (`cigarett` /
+> `cigarette`) are counted as two concepts. **The surviving number is 634, and it has not been
+> re-vetted.** Evidence: vetting pass 3, commit `d91fbbc2c`.
+
 # SUBSTRATE STRATEGY — how this thing gets better, and how we know
 
 **LIVING DOCUMENT. Undated filename on purpose — edit it in place, don't fork a dated copy.**
@@ -37,6 +49,25 @@ finds the right *neighbourhood* and cannot pick the right *member*. That is not 
 and not a retrieval problem — retrieval scores 0.786 when asked for something it definitely knows.
 It is a **separation** problem.
 
+> 🔴 **SUPERSEDED 2026-08-15 — THE PARAGRAPH ABOVE IS REFUTED AS A GENERAL CHARACTERISATION.**
+> Kept in place, not deleted: what was believed is the audit trail.
+> Correcting evidence, recomputed off `data/exp_orthographic_floor_vet_v1/metrics.json` and
+> `data/exp_grounding_readout_known_answer_v1/metrics.json` (identical items/pool/gold, n=4000,
+> 5491 anchors):
+> 1. **A channel with zero semantics reproduces the rank profile exactly.** `A1_BASE.median_rank`
+>    **37.0** = `A6_TRIGRAM_ONLY.median_rank` **37.0**; `A7_PREFIX_ONLY` **33.5**, i.e. spelling
+>    alone is *better* on rank. "Finds the right neighbourhood" is a claim about semantic geometry,
+>    and something with no semantics lands in the same place.
+> 2. **The actual miss population is not co-hyponyms.** Real picks include `abandon->palm`,
+>    `above->metre`, `absolutely->farm`, `abuse->mouse` (an orthographic rhyme) and
+>    `accelerate->tness` (a broken token). The four sister pairs quoted above are a
+>    **sub-population**, not the 95.2% of misses.
+> **What still stands, precisely:** retrieval IS healthy (`self_retrieval` acc **0.785953**,
+> n=299, floor 0.70) — that sentence above is correct. Supply is still closed (DO-NOT-REDO 31,
+> narrowed 08-15). The read-out is still below the spelling floor. **Only the mechanism story
+> fell**, and with it the licence to build "within-neighbourhood separation" fixes.
+> Full entry: `notes/STATUS_LESSONS.md` DO-NOT-REDO **37**.
+
 **The trap we already fell into.** Six separate ideas for fixing this were tried and all six failed
 *cleanly* — meaning we know they're dead, which is worth something. More facts: no. Better text:
 no. More coverage: no. Cleverer weighting: no. Removing the shared component every vector carries
@@ -73,7 +104,7 @@ Four CAPABILITY numbers. Three HYGIENE numbers. Nothing else is a headline.
 |---|---|---|---|---|---|
 | **C1** | **Near-neighbour 2AFC, live reading path** | **0.6980** (was 0.6395) | scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | `38f7a0d5c` (graded comparator ON) | the PRICED capacity step `d=256→1024`, worth ~**+0.05**, HELD (step 4). ~~rank-1 common-mode removal~~ — TRIED, **no effect** (step 3, `34b94e8bc`) |
 | **C2** | **Context-conditioned discrimination GAP** | **+0.1005** (0.6395 with context vs 0.5390 without) | scrambled-context **0.4975**, frequency 0.4800 | `exp_context_conditioned_near_neighbour_v1` | anything that makes the context port carry MORE than "some signal is present". The gap is real; its CONTENT is unproven |
-| **C3** | **Reading-grounding read-out quality** | **NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions | **scramble 0.80%** — a REAL FLOOR (`204eba1a0`), delta **+4.00pp** CI [+3.30, +4.70]. But scramble is the WEAKEST baseline available: FREQUENCY is **1.85%** on the same pool and the ORTHOGRAPHIC floor is **UNMEASURED** (`notes/orthographic_floor_vet_and_rebaseline_2026-08-14.md`) | `exp_grounding_readout_known_answer_v1` (STEP 1, REPORTED). Gate HARDENED 2026-08-14 after adding a zero-meaning SPELLING channel to the base arm cleared the old criterion (`c0e6ec0da`) | **separation between sister terms.** hit@1 alone is NOT the gate — a C3 claim with no string-form control arm is NOT EVALUABLE, never PASS |
+| **C3** | **Reading-grounding read-out quality** | **NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions | **scramble 0.80%** — a REAL FLOOR (`204eba1a0`), delta **+4.00pp** CI [+3.30, +4.70]. But scramble is the WEAKEST baseline available: FREQUENCY is **1.85%** on the same pool and the ORTHOGRAPHIC floor is ~~**UNMEASURED**~~ 🔴 **NOW MEASURED (2026-08-15 correction): standalone spelling = 8.70% [7.83, 9.60], and it BEATS us, CI-separated** (`exp_orthographic_floor_vet_v1`) | `exp_grounding_readout_known_answer_v1` (STEP 1, REPORTED). Gate HARDENED 2026-08-14 after adding a zero-meaning SPELLING channel to the base arm cleared the old criterion (`c0e6ec0da`) — note the channel is zero-meaning but the ARM is not: `A5_STRINGCTRL` = `z(base) + w*z(trigram)`, a decomposition, not a standalone floor (correction C16/C22) | ~~**separation between sister terms.**~~ 🔴 **REFUTED 2026-08-15 (DO-NOT-REDO 37)** — spelling ties `median_rank` 37.0 and the misses are not co-hyponyms. hit@1 alone is NOT the gate — a C3 claim with no string-form control arm is NOT EVALUABLE, never PASS |
 | **C4** | **Coreference, identity-demanding accuracy** | **0.7193** (earned 0.6842) | recency **0.5614**, singleton **0.3860**, oracle ceiling **0.9298** | `exp_wire_coref_accumulate_situation_model_v1` | closing earned-vs-oracle (0.6842 → 0.9298). This is a WIDEN-THE-MARGIN target on a WORKING organ |
 
 **C3 IS THE GATE, AND THE GATE WAS GAMEABLE UNTIL 2026-08-14.** The old criterion (**≥10%
@@ -175,9 +206,15 @@ run alongside others.
   and could not have resolved.
 - **The correction it produced:** the **65.7% tautology rate was an ELIGIBILITY BUG**, not a meaning
   failure — see PART 3.
-- **WHAT IT HANDS THE NEXT STEP:** every correct hit is a **SISTER term** (axon→dendrite,
+- **WHAT IT HANDS THE NEXT STEP:** ~~every correct hit is a **SISTER term** (axon→dendrite,
   artery→vessel, anaphase→telophase). The read-out finds the neighbourhood and cannot pick the
-  member. **Separation is the target**; supply, mass, coverage and reweighting are closed.
+  member. **Separation is the target**~~ — 🔴 **SUPERSEDED 2026-08-15, see the banner in PART 3:**
+  the sister characterisation does not survive the orthographic control (zero-meaning spelling ties
+  `median_rank` 37.0; prefix 33.5 beats it) and the real miss population is not co-hyponymic. What
+  it actually hands the next step is **an open question about the mechanism**, not a separation
+  target. Supply, mass, coverage and reweighting **are still closed** (DO-NOT-REDO 31, narrowed
+  08-15: closed as an *additive similarity channel*; a native/in-distribution encoder is NOT
+  closed). Full entry: `notes/STATUS_LESSONS.md` DO-NOT-REDO **37**.
 - ⚠️ **Do NOT re-run the F1+F3 stabilisation question off this.** Stability is not quality, and
   F1F3 scored no better than base here (banked-arm 1.98% vs 2.51%).
 

@@ -1,3 +1,15 @@
+<!-- CORRECTION 2026-08-18 -- READ BEFORE THE TEXT BELOW -->
+> **⛔ THE FIGURE "3,544 GROUNDED CONCEPTS / 9.87x THE HAND LEXICON" IS RETIRED. DO NOT QUOTE IT.**
+> This project refuted it ON ITS OWN DISK and the correction never propagated:
+> `exp_reading_grounding_loop_cycle3_groundingfix_v1` records `B1_taut 0.656885 -> 0.0` and
+> `B4_grounded 3544 -> 634`. Independently recomputed 2026-08-18 from
+> `data/foundation/reading_grounding_v1/store/store_facts.json`: **2,328 of the 3,544
+> GROUNDED_MEANING facts are SELF-ANCHORED -- 67% of the "grounded concepts" have THEMSELVES as
+> their meaning.** Of the 1,216 real links the commonest anchors are `also` (31), `say` (15) and
+> `people` (10), with entries like `web -> polar`; and 121 stem/full-form pairs (`cigarett` /
+> `cigarette`) are counted as two concepts. **The surviving number is 634, and it has not been
+> re-vetted.** Evidence: vetting pass 3, commit `d91fbbc2c`.
+
 # OPERATING DOC / CHARTER — READ FIRST, EVERY SESSION (the durable anchor)
 
 Read at the start of every session. Durability lives HERE — in what we READ — not in cron/scheduled tasks (schedulers can be silently disabled; a rule that lives only in a scheduler is one disable away from not existing). If a rule matters, it is written here. §1-2 and §4 are TIMELESS (change rarely); only §3 is time-bound (rewritten each session).
