@@ -549,6 +549,49 @@ excludes nothing is not a control -- report how many items each control actually
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
+- **🟢🟢 VETTING PASS 5 (`ae41755a`) -- *** THE FIRST UPHELD RESULT IN 30 VETTED CELLS. ***
+  1 UPHELD, 2 QUALIFIED, 1 SUSPENDED, 2 REFUTED.**
+  **✅ UPHELD -- `exp_agreement_depth_productivity_generalization_v1`. IT GENERALISES, AND THE SPLIT
+  IS ASSERTED IN CODE.** A learned function-word accumulator **supervised ONLY on depth<=1**, tested
+  on **2,597 HELD-OUT depth>1 Linzen items: 0.7324 [0.7154, 0.7494]** against the strongest floor
+  ACTUALLY RUN (majority 0.5741, upper bound 0.5931) -- **margin +0.1223 READ FROM THE CI LOWER
+  BOUND.** Still holds out-of-distribution at **depth 4+: 0.6810 [0.6462, 0.7111]** vs majority
+  upper 0.5751. Real seed spread (not one measurement printed n times); scramble drops 0.2947 and
+  changes 86.5% of decisions; five filters removed 350 / 289 / 518 / 9,887 / 7,122 items, so the
+  controls BIND. No LLM on the path.
+  **⚠️ ITS HONEST CEILING, STATED BY THE AUDITOR AND NOT TO BE DROPPED: IT *TIES* THE HAND-WRITTEN
+  RECURSIVE RULE (0.7312). IT DOES NOT BEAT IT.** *So: a learned mechanism reaches parity with the
+  symbolic rule it was meant to replace, generalising to depths it never saw. That is a real result
+  and a bounded one.*
+  - **QUALIFIED -- `exp_graded_divisive_comparator_v1`:** real +0.0602 [0.0440, 0.0762] with a
+    scramble twin at 0.5065, **but the CI lower bound does NOT clear its own pre-registered
+    `d >= 0.05`, and the "divisive normalisation" half of the title contributes +0.00175.**
+  - **QUALIFIED -- `exp_read_xsent_coref_scene_protagonist_v1`:** the gain is real (0.2462 -> 0.4003,
+    McNemar CI lower +0.1039) **but the mechanism is a 5-sentence window, not "scenes" -- the cell
+    says so itself.**
+  - **SUSPENDED -- `exp_multi_turn_loop_realtext_nphead_gate_v1`:** "true zero confident-wrong" is
+    **0 wrong of 18 kept** (rule-of-three upper bound 0.167) against a declared band of 0.01, and its
+    one new variable fired on **two items that are the same passage, same answer, same gold** -- n=1.
+  - **REFUTED -- `exp_social_relational_grounding_axis_v1`: THE SUBSTRATE CANNOT CHANGE ANY
+    PREDICTION.** `valence` takes exactly **three distinct values across all 12 items**, and
+    `acc_real` equals the WordNet `dictionary_lookup` accuracy **EXACTLY** (10/12). It is a 3-entry
+    lookup table wearing a substrate.
+  - **REFUTED -- `exp_desiderative_negation_channel_v1`: 8 OF 8 RECOVERIES LIE INSIDE THE 10-ITEM SET
+    THE TAXONOMY WAS DESIGNED FROM, AND 0 OF 27 NON-DESIGN ITEMS RECOVERED.** The channel is
+    **bit-identical ON vs OFF on both full benches** (n=80: 0.6992/0.6992; n=160: 0.6623/0.6623).
+- **🚨 A BUG IN MY OWN GATE, CAUGHT BY THE AUDITOR, AND I HAD ALREADY QUOTED ITS NUMBER TO THE OWNER.**
+  `CI_PAT` contained a bare `confidence`, which matched `lookup_confidence` and
+  `high_confidence_idxs` -- model confidences, not intervals -- so two cells computing NO interval
+  entered the "best evidenced" shortlist. **CORRECTED FIGURES: 28 carry a CI (not 52), 13 carry BOTH
+  a CI and a null (NOT 26), and EVIDENCE_INSUFFICIENT is 2,665 = 99.5% (not 99.0%).** *The direction
+  was right and the shortlist was half the size I said.*
+- **🎯 THE BEST PREDICTOR IS NOT EVIDENCE-CARRYING, AND THIS IS THE MOST USEFUL THING FIVE PASSES
+  PRODUCED: WHAT SEPARATES THE SURVIVORS FROM THE FAILURES IS *** WHETHER THE TEST ITEMS EXISTED
+  BEFORE THE MECHANISM DID. ***** The three that survived this batch were scored on items built
+  independently of the rule; the three that failed had detectors authored against the very items
+  they were scored on -- one docstring even names the specific token pair its rule was written for.
+  **CARRYING A CI IS NECESSARY AND WEAK; ITEM-PRIORITY IS THE STRONG TEST, AND IT SHOULD BE THE
+  FIRST QUESTION ASKED OF EVERY REMAINING CLAIM.**
 - **🔬🔬🔬 VETTING PASS 4 (`a6e60cfa`): 3 REFUTED, 1 SUSPENDED, 2 QUALIFIED, 0 UPHELD.
   RUNNING TOTAL OVER 24 CELLS: 11 REFUTED, 4 SUSPENDED, 9 QUALIFIED, *** ZERO UPHELD ***.**
   - **🚨 THE CAUSAL-LINK RESULT IS PROVEN CONTENT-FREE, NOT MERELY SUSPECT. The auditor RE-RAN the

@@ -55,8 +55,13 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 DATA = REPO / "data"
 
-CI_PAT = re.compile(r"ci95|ci_9|ci_low|ci_high|conf_int|confidence|half_width|\bhw\b|wilson|"
-                    r"bootstrap|credible|lower_bound|upper_bound", re.I)
+# `confidence` ALONE WAS A BUG AND IT INFLATED THE HEADLINE NUMBER. It matched
+# `lookup_confidence` and `high_confidence_idxs` -- fields that are model confidences, not
+# intervals -- so two cells with NO interval of any kind entered the "best evidenced" shortlist and
+# the Director quoted 26 cells / 1.0% to the owner. Caught by the vetting agent reading those two
+# cells. Only interval-shaped names count.
+CI_PAT = re.compile(r"ci95|ci_9|ci_low|ci_high|conf_int|confidence_interval|half_width|\bhw\b|"
+                    r"wilson|bootstrap|credible|lower_bound|upper_bound", re.I)
 NULL_PAT = re.compile(r"permut|scramble|shuffl|null_|_null|p95|pval|p_value|binomtest|"
                       r"exact_test|mcnemar|z_score|montecarlo", re.I)
 FLOOR_PAT = re.compile(r"floor|baseline|control|chance|prototype|orthographic|frequency_only|"
