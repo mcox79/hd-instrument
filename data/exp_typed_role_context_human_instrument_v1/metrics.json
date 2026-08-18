@@ -1,0 +1,603 @@
+{
+  "anchor_name": "typed_role_context_human_instrument_v1",
+  "run_mode": "full",
+  "code_version": "v1.0",
+  "findings_log": "notes/typed_role_context_human_instrument_v1_2026-08-18.md",
+  "verdict": "TYPED_CONTEXT_HUMAN_INSTRUMENT__BRANCH_B__U1=0.4125_CI[0.3148, 0.5138]_halfwidth=0.0995__bar=0.5943__STOPIF3_TIES",
+  "verdict_msg": "Score the CONTEXT cell's U1_TYPED_CONTEXT / U3_ROLE_ONLY / T2_UNTYPED_SAME_COVERAGE on the HUMAN instrument (v3/v4 population, n=65/cell, bar derived here = 0.5943), both v4 regression gates re-run, every floor recomputed on this population, CI half-width and permutation-null p95 beside every margin, U1-vs-U3 read from the paired-difference CI. Pre-committed branch (6.39) -> B",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "N_PERM": 20000,
+    "PREREG_BAR_6_39": 0.5943,
+    "N_SMOKE_PAIRS": 12
+  },
+  "selftest_evidence_keys": [
+    "URC_selftest_evidence_keys",
+    "branch_selector_known_answers",
+    "name_collision_guard",
+    "paired_null_known_answer",
+    "perm_null_known_answers",
+    "real_code_path_three_arms",
+    "tie_diagnostics_known_answer",
+    "vocab_ordering_known_answer"
+  ],
+  "report": {
+    "anchor_name": "typed_role_context_human_instrument_v1",
+    "grid": "full",
+    "code_version": "v1.0",
+    "findings_log": "notes/typed_role_context_human_instrument_v1_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "NO_PRETRAINED_TABLE_IMPORTED": true,
+    "PRECOMMITMENT_SOURCE": "notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md sec 6.39 @ fa5da1d2c",
+    "PRECOMMITTED_BRANCH_TEXT": {
+      "A": "(A) U1 CLEARS 0.5943 CI-SEPARATED -> the typed-context result holds on two independently built instruments. That would be this programme's first genuine cross-instrument capability win, and it must still be reported with STOPIF3 attached -- clearing the bar does NOT retire the finding that role-only ties it.",
+      "B": "(B) U1 LANDS AT OR BELOW CHANCE ON HUMAN JUDGEMENT -> the 0.6669 was WORDNET-SPECIFIC, and rho 0.9034 was carried by agreement about the POOR arms while the instruments DISAGREE at the top of the range -- which is where it matters. THIS IS THE INFORMATIVE CASE. IT MUST NOT BE REPORTED AS 'MIXED', AND IT PARTIALLY RE-OPENS 6.24 for the only region of the scale anyone cares about.",
+      "C": "(C) ABOVE CHANCE BUT NOT CI-SEPARATED FROM 0.5943 -> POWER_INSUFFICIENT, FULL STOP. n=65 against n=242 is a 3.7x smaller sample and the human CI half-widths in v4 run ~0.10 -- wide enough to swallow the entire 0.6669-vs-0.5943 margin before any capability question is asked. DO NOT READ THIS AS A CEILING.",
+      "D_NOT_PRECOMMITTED": "NOT ONE OF 6.39's THREE BRANCHES: AUC strictly above chance yet the CI is separated BELOW the bar (ci_hi < bar). Reported as-is, unadjudicated; no band was moved to accommodate it."
+    },
+    "NAME_COLLISION_DISCLOSURE": "TWO CELLS OWN AN ARM NAMED T2_UNTYPED_SAME_COVERAGE. This cell scores the CONTEXT cell's (exp_typed_role_context_write_rule_dissociation_v1, URC.store_from_arc_events mode='neighbour_only'). v4's 24-arm table contains the SIMPLEWIKI cell's (exp_typed_role_selectional_asset_writerule_v1, TR.collapse_roles) with WordNet AUC 0.5900, and v4's T1_TYPED_ROLE (WordNet AUC 0.5802) is that same SimpleWiki cell -- it is NOT U1_TYPED_CONTEXT (WordNet AUC 0.6669). The two families are kept distinct by construction here: this file imports only URC for arm construction and never calls TR.",
+    "ARM_PROVENANCE": {
+      "U1_TYPED_CONTEXT": {
+        "source_cell": "experiments/exp_typed_role_context_write_rule_dissociation_v1.py",
+        "source_commit_when_landed": "5170c7751",
+        "construction": "URC.store_from_arc_events(mode='typed')  # (neighbour, relation, direction)",
+        "corpus": "exp_cue_information_audit_v1.load_corpus_and_buckets (34,169 sentences)"
+      },
+      "U3_ROLE_ONLY": {
+        "source_cell": "experiments/exp_typed_role_context_write_rule_dissociation_v1.py",
+        "source_commit_when_landed": "5170c7751",
+        "construction": "URC.store_from_arc_events(mode='role_only')  # (relation, direction) only",
+        "corpus": "exp_cue_information_audit_v1.load_corpus_and_buckets (34,169 sentences)"
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "source_cell": "experiments/exp_typed_role_context_write_rule_dissociation_v1.py",
+        "source_commit_when_landed": "5170c7751",
+        "construction": "URC.store_from_arc_events(mode='neighbour_only')  # label STRIPPED",
+        "corpus": "exp_cue_information_audit_v1.load_corpus_and_buckets (34,169 sentences)",
+        "NOT_THE_SAME_ARM_AS": "v4/exp_typed_role_selectional_asset_writerule_v1's T2_UNTYPED_SAME_COVERAGE (TR.collapse_roles + TR.ppmi_svd over the SimpleWiki selectional asset, WordNet AUC 0.5900) -- different cell, different corpus, different construction, same name"
+      },
+      "A0_INCUMBENT_HUMAN": {
+        "source_cell": "experiments/exp_dissociation_score_instrument_human_v3.py (cached scores)",
+        "construction": "REUSED BIT-FOR-BIT from v3's SCORES_EXPENSIVE checkpoint, arm RAW_COUNT_FULL_ACCUM -- never rebuilt here",
+        "corpus": "same 34,169-sentence corpus, plain bag-of-words raw-count store"
+      }
+    },
+    "REGRESSION_GATE_A_DSI_WORDNET_INSTRUMENT": {
+      "PASS": true,
+      "measured": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431,
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": 0.9599,
+        "RANDOM_VECTOR_STORE": 0.4862,
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051
+      },
+      "expected": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431,
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": 0.9599,
+        "RANDOM_VECTOR_STORE": 0.4862,
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051
+      },
+      "failures": [],
+      "tol": 0.0005
+    },
+    "REGRESSION_GATE_B_V3_HUMAN_INSTRUMENT": {
+      "PASS": true,
+      "measured": {
+        "F_ORTHOGRAPHIC": 0.492,
+        "F_FREQUENCY": 0.4151,
+        "F_SCRAMBLE": 0.5943,
+        "F_CONSTANT_PROTOTYPE": 0.4125,
+        "KNOWN_ANSWER_HUMAN_RATING": 1.0,
+        "RANDOM_VECTOR_STORE": 0.4578
+      },
+      "expected": {
+        "F_ORTHOGRAPHIC": 0.492,
+        "F_FREQUENCY": 0.4151,
+        "F_SCRAMBLE": 0.5943,
+        "F_CONSTANT_PROTOTYPE": 0.4125,
+        "KNOWN_ANSWER_HUMAN_RATING": 1.0,
+        "RANDOM_VECTOR_STORE": 0.4578
+      },
+      "n_match": 65,
+      "failures": [],
+      "tol": 0.0005
+    },
+    "BOTH_GATES_PASSED": true,
+    "N_MATCHED_PAIRS_PER_CELL": 65,
+    "N_MATCHED_PAIRS_PER_CELL_FULL_POPULATION": 65,
+    "N_WORDS_NEEDED": 180,
+    "POS_HISTOGRAM_THIS_POPULATION": {
+      "a": 4,
+      "n": 18,
+      "v": 108
+    },
+    "FLOORS_RECOMPUTED_ON_THIS_POPULATION": {
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4125,
+        "ci95": [
+          0.3164,
+          0.5153
+        ],
+        "ci_halfwidth": 0.0994,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "NULL": {
+          "null_p50": 0.4998,
+          "null_p95_at_this_n": 0.5837,
+          "null_p99_at_this_n": 0.6178,
+          "null_sd": 0.0507,
+          "observed_auc": 0.4125,
+          "p_one_sided_vs_null": 0.9578,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "RECOMPUTED_ON": "this population (v3 human, n=65/cell) -- NOT imported"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4151,
+        "ci95": [
+          0.3174,
+          0.5154
+        ],
+        "ci_halfwidth": 0.099,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "NULL": {
+          "null_p50": 0.4999,
+          "null_p95_at_this_n": 0.5828,
+          "null_p99_at_this_n": 0.6167,
+          "null_sd": 0.0506,
+          "observed_auc": 0.4151,
+          "p_one_sided_vs_null": 0.9539,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "RECOMPUTED_ON": "this population (v3 human, n=65/cell) -- NOT imported"
+      },
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.492,
+        "ci95": [
+          0.4466,
+          0.5359
+        ],
+        "ci_halfwidth": 0.0446,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "NULL": {
+          "null_p50": 0.4946,
+          "null_p95_at_this_n": 0.5385,
+          "null_p99_at_this_n": 0.5536,
+          "null_sd": 0.0223,
+          "observed_auc": 0.492,
+          "p_one_sided_vs_null": 0.6712,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "RECOMPUTED_ON": "this population (v3 human, n=65/cell) -- NOT imported"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.5943,
+        "ci95": [
+          0.4937,
+          0.6911
+        ],
+        "ci_halfwidth": 0.0987,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "NULL": {
+          "null_p50": 0.4994,
+          "null_p95_at_this_n": 0.583,
+          "null_p99_at_this_n": 0.618,
+          "null_sd": 0.0507,
+          "observed_auc": 0.5943,
+          "p_one_sided_vs_null": 0.0316,
+          "observed_exceeds_null_p95": true,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "RECOMPUTED_ON": "this population (v3 human, n=65/cell) -- NOT imported"
+      },
+      "KNOWN_ANSWER_HUMAN_RATING": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "NULL": {
+          "null_p50": 0.5001,
+          "null_p95_at_this_n": 0.5839,
+          "null_p99_at_this_n": 0.6187,
+          "null_sd": 0.0513,
+          "observed_auc": 1.0,
+          "p_one_sided_vs_null": 0.0,
+          "observed_exceeds_null_p95": true,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "RECOMPUTED_ON": "this population (v3 human, n=65/cell) -- NOT imported"
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4578,
+        "ci95": [
+          0.3586,
+          0.5581
+        ],
+        "ci_halfwidth": 0.0998,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "NULL": {
+          "null_p50": 0.5008,
+          "null_p95_at_this_n": 0.5846,
+          "null_p99_at_this_n": 0.6185,
+          "null_sd": 0.0507,
+          "observed_auc": 0.4578,
+          "p_one_sided_vs_null": 0.8,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "RECOMPUTED_ON": "this population (v3 human, n=65/cell) -- NOT imported"
+      }
+    },
+    "BAR_MAX_FLOOR_AUC_DERIVED_HERE": 0.5943,
+    "BAR_OWNING_FLOOR": "F_SCRAMBLE",
+    "BAR_KNOWN_ANSWER_CHECK": {
+      "prereg_6_39_bar": 0.5943,
+      "derived_bar": 0.5943,
+      "delta": 0.0,
+      "tol": 0.0005,
+      "AGREES": true,
+      "note": "reduced grid truncates the population, so the derived bar legitimately differs there; the check is only meaningful at grid=full"
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "n_corpus_sentences": 34169,
+    "OCCURRENCE_DATA_STATS": {
+      "n_words": 180,
+      "n_occurrences_total": 10215,
+      "n_occurrences_with_slot": 1112,
+      "frac_with_slot": 0.1089,
+      "n_words_with_zero_occurrences": 0
+    },
+    "N_ARC_EVENTS_TOTAL": 28832,
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "U1_TYPED_CONTEXT": "0cafc1a9d115d507",
+      "U3_ROLE_ONLY": "3ca864c23523cfe6",
+      "T2_UNTYPED_SAME_COVERAGE": "b61e529d3cb089d7",
+      "A0_INCUMBENT_HUMAN": "f504fbbb5e55799f"
+    },
+    "ARMS_MUST_DIFFER_DUPLICATE_GROUPS": {},
+    "HUMAN_AUC_PER_ARM": {
+      "A0_INCUMBENT_HUMAN": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.1796,
+        "ci95": [
+          0.1112,
+          0.2561
+        ],
+        "ci_halfwidth": 0.0724,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "band_vs_bar": "BELOW_BAR",
+        "margin_vs_bar": -0.4147,
+        "margin_vs_chance": -0.3204,
+        "NULL": {
+          "null_p50": 0.4994,
+          "null_p95_at_this_n": 0.5832,
+          "null_p99_at_this_n": 0.6185,
+          "null_sd": 0.0509,
+          "observed_auc": 0.1796,
+          "p_one_sided_vs_null": 1.0,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "TIES": {
+          "auc_ties_half": 0.1796,
+          "auc_ties_as_loss": 0.1796,
+          "auc_ties_as_win": 0.1796,
+          "frac_tied_comparisons": 0.0,
+          "n_zero_scores_P": 0,
+          "n_zero_scores_S": 0
+        }
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.3567,
+        "ci95": [
+          0.2613,
+          0.4533
+        ],
+        "ci_halfwidth": 0.096,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "band_vs_bar": "BELOW_BAR",
+        "margin_vs_bar": -0.2376,
+        "margin_vs_chance": -0.1433,
+        "NULL": {
+          "null_p50": 0.5004,
+          "null_p95_at_this_n": 0.5841,
+          "null_p99_at_this_n": 0.6173,
+          "null_sd": 0.0514,
+          "observed_auc": 0.3567,
+          "p_one_sided_vs_null": 0.9973,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "TIES": {
+          "auc_ties_half": 0.3567,
+          "auc_ties_as_loss": 0.3567,
+          "auc_ties_as_win": 0.3567,
+          "frac_tied_comparisons": 0.0,
+          "n_zero_scores_P": 0,
+          "n_zero_scores_S": 1
+        }
+      },
+      "U1_TYPED_CONTEXT": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4125,
+        "ci95": [
+          0.3148,
+          0.5138
+        ],
+        "ci_halfwidth": 0.0995,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "band_vs_bar": "BELOW_BAR",
+        "margin_vs_bar": -0.1818,
+        "margin_vs_chance": -0.0875,
+        "NULL": {
+          "null_p50": 0.5006,
+          "null_p95_at_this_n": 0.5853,
+          "null_p99_at_this_n": 0.6204,
+          "null_sd": 0.0513,
+          "observed_auc": 0.4125,
+          "p_one_sided_vs_null": 0.957,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "TIES": {
+          "auc_ties_half": 0.4125,
+          "auc_ties_as_loss": 0.4123,
+          "auc_ties_as_win": 0.4128,
+          "frac_tied_comparisons": 0.0005,
+          "n_zero_scores_P": 1,
+          "n_zero_scores_S": 2
+        }
+      },
+      "U3_ROLE_ONLY": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.5037,
+        "ci95": [
+          0.4026,
+          0.6026
+        ],
+        "ci_halfwidth": 0.1,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "band_vs_bar": "NOT_SEPARATED_FROM_BAR",
+        "margin_vs_bar": -0.0906,
+        "margin_vs_chance": 0.0037,
+        "NULL": {
+          "null_p50": 0.5008,
+          "null_p95_at_this_n": 0.5846,
+          "null_p99_at_this_n": 0.6175,
+          "null_sd": 0.0507,
+          "observed_auc": 0.5037,
+          "p_one_sided_vs_null": 0.4774,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000,
+          "n_pairs_P": 65,
+          "n_pairs_S": 65
+        },
+        "TIES": {
+          "auc_ties_half": 0.5037,
+          "auc_ties_as_loss": 0.5037,
+          "auc_ties_as_win": 0.5037,
+          "frac_tied_comparisons": 0.0,
+          "n_zero_scores_P": 0,
+          "n_zero_scores_S": 0
+        }
+      }
+    },
+    "ARM_DIAGS": {
+      "U1_TYPED_CONTEXT": {
+        "n_arc_events": 28832,
+        "vocab_size": 10121,
+        "mode": "typed"
+      },
+      "U3_ROLE_ONLY": {
+        "n_arc_events": 28832,
+        "vocab_size": 58,
+        "mode": "role_only"
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "n_arc_events": 28832,
+        "vocab_size": 4262,
+        "mode": "neighbour_only"
+      },
+      "A0_INCUMBENT_HUMAN": {
+        "reused_from": "v3 SCORES_EXPENSIVE.RAW_COUNT_FULL_ACCUM"
+      }
+    },
+    "PAIRED_MARGINS": {
+      "U1_vs_U3": {
+        "auc_a": 0.4125,
+        "auc_b": 0.5037,
+        "point_diff": -0.0911,
+        "ci95_diff": [
+          -0.2014,
+          0.0192
+        ],
+        "band": "NOT_SEPARATED",
+        "ci_halfwidth_diff": 0.1103,
+        "NULL": {
+          "observed_diff": -0.0911,
+          "null_p95_abs_diff_at_this_n": 0.1696,
+          "null_sd": 0.0865,
+          "p_two_sided_vs_null": 0.2924,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000
+        },
+        "comparison": "U1_TYPED_CONTEXT - U3_ROLE_ONLY",
+        "READ_FROM": "paired-difference CI (same resampled indices both arms), NOT CI overlap"
+      },
+      "U1_vs_T2": {
+        "auc_a": 0.4125,
+        "auc_b": 0.3567,
+        "point_diff": 0.0559,
+        "ci95_diff": [
+          0.008,
+          0.1051
+        ],
+        "band": "A_ABOVE_B",
+        "ci_halfwidth_diff": 0.0485,
+        "NULL": {
+          "observed_diff": 0.0559,
+          "null_p95_abs_diff_at_this_n": 0.0708,
+          "null_sd": 0.0361,
+          "p_two_sided_vs_null": 0.1258,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000
+        },
+        "comparison": "U1_TYPED_CONTEXT - T2_UNTYPED_SAME_COVERAGE",
+        "READ_FROM": "paired-difference CI (same resampled indices both arms), NOT CI overlap"
+      },
+      "U3_vs_T2": {
+        "auc_a": 0.5037,
+        "auc_b": 0.3567,
+        "point_diff": 0.147,
+        "ci95_diff": [
+          0.0372,
+          0.2575
+        ],
+        "band": "A_ABOVE_B",
+        "ci_halfwidth_diff": 0.1101,
+        "NULL": {
+          "observed_diff": 0.147,
+          "null_p95_abs_diff_at_this_n": 0.1662,
+          "null_sd": 0.0849,
+          "p_two_sided_vs_null": 0.0852,
+          "observed_exceeds_null_p95": false,
+          "n_perm": 20000
+        },
+        "comparison": "U3_ROLE_ONLY - T2_UNTYPED_SAME_COVERAGE",
+        "READ_FROM": "paired-difference CI (same resampled indices both arms), NOT CI overlap"
+      },
+      "U1_vs_A0": {
+        "auc_a": 0.4125,
+        "auc_b": 0.1796,
+        "point_diff": 0.2329,
+        "ci95_diff": [
+          0.1295,
+          0.3368
+        ],
+        "band": "A_ABOVE_B",
+        "ci_halfwidth_diff": 0.1036,
+        "NULL": {
+          "observed_diff": 0.2329,
+          "null_p95_abs_diff_at_this_n": 0.1191,
+          "null_sd": 0.0606,
+          "p_two_sided_vs_null": 0.0,
+          "observed_exceeds_null_p95": true,
+          "n_perm": 20000
+        },
+        "comparison": "U1_TYPED_CONTEXT - A0_INCUMBENT_HUMAN",
+        "READ_FROM": "paired-difference CI (same resampled indices both arms), NOT CI overlap"
+      },
+      "T2_vs_A0": {
+        "auc_a": 0.3567,
+        "auc_b": 0.1796,
+        "point_diff": 0.177,
+        "ci95_diff": [
+          0.0821,
+          0.2724
+        ],
+        "band": "A_ABOVE_B",
+        "ci_halfwidth_diff": 0.0951,
+        "NULL": {
+          "observed_diff": 0.177,
+          "null_p95_abs_diff_at_this_n": 0.1077,
+          "null_sd": 0.0545,
+          "p_two_sided_vs_null": 0.0008,
+          "observed_exceeds_null_p95": true,
+          "n_perm": 20000
+        },
+        "comparison": "T2_UNTYPED_SAME_COVERAGE - A0_INCUMBENT_HUMAN",
+        "READ_FROM": "paired-difference CI (same resampled indices both arms), NOT CI overlap"
+      }
+    },
+    "PRECOMMITTED_BRANCH": "B",
+    "PRECOMMITTED_BRANCH_QUOTED_TEXT": "(B) U1 LANDS AT OR BELOW CHANCE ON HUMAN JUDGEMENT -> the 0.6669 was WORDNET-SPECIFIC, and rho 0.9034 was carried by agreement about the POOR arms while the instruments DISAGREE at the top of the range -- which is where it matters. THIS IS THE INFORMATIVE CASE. IT MUST NOT BE REPORTED AS 'MIXED', AND IT PARTIALLY RE-OPENS 6.24 for the only region of the scale anyone cares about.",
+    "BRANCH_INPUTS": {
+      "u1_auc": 0.4125,
+      "u1_ci95": [
+        0.3148,
+        0.5138
+      ],
+      "u1_ci_halfwidth": 0.0995,
+      "u1_null_p95_at_this_n": 0.5853,
+      "bar_derived": 0.5943,
+      "chance": 0.5,
+      "u1_margin_vs_bar": -0.1818
+    },
+    "STOPIF3_ON_HUMAN_INSTRUMENT": {
+      "U1_ties_U3": true,
+      "paired_diff": -0.0911,
+      "ci95_diff": [
+        -0.2014,
+        0.0192
+      ],
+      "ci_halfwidth_diff": 0.1103,
+      "null_p95_abs_diff": 0.1696,
+      "READING": "U1 TIES U3 ON THE HUMAN INSTRUMENT TOO -- the which-kind-of-slot reading is confirmed on BOTH sticks and stops being a one-instrument caveat",
+      "WORDNET_SIDE_FOR_REFERENCE_NOT_COMPARED_NUMERICALLY": "on the WordNet instrument U1-U3 = +0.0203 [-0.0185, 0.0591] (STOPIF3 FIRED). Different population and different scorer input; the two numbers are NOT pooled or compared."
+    },
+    "POWER_DISCLOSURE": {
+      "n_per_cell_here": 65,
+      "n_per_cell_wordnet_instrument": 242,
+      "ratio": 3.72,
+      "u1_ci_halfwidth": 0.0995,
+      "bar_minus_chance": 0.0943,
+      "halfwidth_exceeds_bar_minus_chance": true,
+      "statement": "a CI half-width wider than the entire chance-to-bar interval means the instrument cannot resolve a bar-clearing effect at this n at all; report the width, never convert it into a capability statement in either direction"
+    },
+    "POPULATIONS_NOT_COMPARABLE": "this instrument's matched population (human judgement, n=65/cell) and the WordNet instrument's (n=242/cell) are DIFFERENT, non-overlapping-by-construction pools. Absolute AUCs are NEVER compared across the two instruments; only within-instrument margins against within-instrument floors are valid statements.",
+    "elapsed_s": 302.9
+  },
+  "elapsed_s": 326.0,
+  "summary": "Score the CONTEXT cell's U1_TYPED_CONTEXT / U3_ROLE_ONLY / T2_UNTYPED_SAME_COVERAGE on the HUMAN instrument (v3/v4 population, n=65/cell, bar derived here = 0.5943), both v4 regression gates re-run, every floor recomputed on this population, CI half-width and permutation-null p95 beside every margin, U1-vs-U3 read from the paired-difference CI. Pre-committed branch (6.39) -> B"
+}
