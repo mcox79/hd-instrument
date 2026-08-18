@@ -268,6 +268,19 @@ measured predictor of our performance. Both halves are load-bearing.
 > | 6.22 | the falsifier (tuned counts) SURVIVES -- closes the organ |
 > | 6.23 | **ORGAN A CLOSED** |
 > | 6.24 | **the instrument measures agreement with WORDNET, not substitutability in the abstract** |
+> | 6.25 | prior art found BY HAND that the broken check missed -- and it REPLICATES the 6.21 null |
+> | 6.26 | the human instrument's reading, **pre-committed while it was still running** |
+> | **6.27** | **that instrument came back `POWER_INSUFFICIENT` at n=7 -- called per 6.26 without reading the arms** |
+> | 6.28 | the supervision drill: most candidate teachers are CIRCULAR; the one that is not is typed role slots |
+> | **6.29** | **four corrections the drill forced -- incl. THE BAR IS 0.5431, NOT 0.5, which I said all night** |
+> | 6.30 | the n=7 collapse was a DESIGN error (rank correlation over arms needs no shared items) |
+> | 6.31 | the typed-role hypothesis was **implemented here once and NEVER RUN**; Levy & Goldberg 2014 |
+> | 6.32 | "enumerate from disk" is right; **"enumerate EVERYTHING" is what stalled two lanes for an hour** |
+>
+> **CURRENT FRONTIER (2026-08-18 ~04:35):** Organ A is closed and the answer is a LEARNING SIGNAL.
+> Two lanes in flight -- the **typed-role write rule** (the first arm ever to use the grammatical
+> relation rather than an unordered bag) and **human instrument v2** (rebuilt on its own population;
+> decides whether 6.23 is about our store or about WordNet). **Both questions are OPEN.**
 >
 > **THE FOUR RETRACTIONS AND CORRECTIONS ARE THE MOST VALUABLE ENTRIES HERE** -- 6.6, 6.13, 6.17,
 > and the sign error corrected inside 6.3. *A plan that only records its wins teaches a future
