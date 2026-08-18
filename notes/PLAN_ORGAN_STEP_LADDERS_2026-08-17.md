@@ -434,6 +434,51 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.10 DRILL 1 LANDED, AND IT RELOCATES THE ORGAN'S DEFECT FROM `ACCUMULATE` TO `CODE`.
+
+`notes/drill_what_cortex_computes_across_episodes_write_rule_equations_2026-08-18.md` (36 KB).
+Enumerated from live code with file-and-line citations, confirmed at HEAD. **Three findings, in
+descending order of consequence. All three are the DRILL'S claims, VET-pending -- but the first is
+already independently supported by our own measurements.**
+
+**(1) NO BIOLOGICAL ACCOUNT OF "COMBINE MANY EXPERIENCES" HAS EVER BEEN WRITTEN WITHOUT A
+DENOMINATOR.** Every one divides -- by the pooled activity of the neighbouring population, by a
+running average of the cell's own recent output, or by the input's correlation structure. **Plain
+summation is not a simplified version of what cortex does; it is the one form cortex is specifically
+known NOT to use, because a network that does it is unstable.** Our `ACCUMULATE` is
+`self._sums[lemma] += ctx_vec` -- no weight, no decay, no cap, **no denominator**
+(`hdlab/reading_grounding_loop.py:478-482`).
+
+**(2) THE FINDING THAT MATTERS MOST, AND IT MOVES THE BUILD TARGET.** Going from *"these two words
+appear next to each other"* to *"these two words can replace each other"* is **not a matter of adding
+more carefully.** It requires an operation that **does not exist anywhere in our write rule.** Summing
+a word's own neighbours records WHO ITS NEIGHBOURS ARE. To learn that *cat* and *dog* are
+interchangeable you must notice that **their neighbour-LISTS resemble each other** -- a comparison
+BETWEEN two different words' records. No amount of summing one word's neighbours ever computes it.
+The brain performs it by learning a **shared low-dimensional code** in which words that predict the
+same things are pulled onto the same axes. **The slot where that belongs in our system is `CODE` --
+and `CODE` is a RANDOM PROJECTION, whose defining mathematical property is that it PRESERVES the
+geometry it is handed.** In the drill's words: *we chose an operation whose defining property is that
+it changes nothing, to occupy the slot where the brain does the one thing that matters.*
+**CONSEQUENCE: `CODE` is not "a small measured loss of 0.0123". It is the MISSING OPERATION.** The
+gate board (6.9) is updated accordingly.
+
+**(3) A CORRECTION TO THIS PLAN, NOT TO THE LITERATURE. RETRACTED: "summing is what converts our
+store from could-replace into appears-near."** That sentence appears in 6.1/6.2 and the Director
+relayed it to the owner. The drill checked it against the cell it cites and reports it **NOT
+SUPPORTED**: the co-occurrence share rises across `ACCUMULATE` **for the RIGHT answer too**, and the
+bias RATIO slightly **FALLS**. **Adjacency does not get in at `ACCUMULATE`. It was there from the
+first sentence, because a bag of neighbours IS an adjacency record.** *The 66.0% -> 94.4% figure is
+real; the causal reading the Director put on it was not.* **VET THIS before it is quoted further --
+it is a correction of our own headline and it deserves the same scrutiny as a positive.**
+
+**AND THE ANSWER TO "DOES THE BRAIN AVERAGE EPISODES INTO ONE REPRESENTATION?"** -- **BOTH, in two
+anatomically separate pathways, at the same time, permanently.** So our write rule is **not a category
+error; it is a HALF-error: we built the averaging half and threw the episode away, and the evidence
+says the brain never throws the episode away.**
+
+---
+
 ### 6.9 ORGAN A GATE BOARD -- THE ONE-ORGAN CHECKLIST. **KEEP THIS UPDATED; IT IS THE RULING MADE TRACKABLE.**
 
 The owner's ruling is *"evaluate every component of it... evaluate every gate of the organ process, to
