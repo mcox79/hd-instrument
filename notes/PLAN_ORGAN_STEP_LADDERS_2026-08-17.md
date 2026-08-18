@@ -486,6 +486,65 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.20 **THE SUPERVISION DRILL LANDED (`96caca8de`). IT NAMES THE MECHANISM, CORRECTS TWO OF THE DIRECTOR'S INSTRUCTIONS, AND ITS BEST CONTRIBUTION IS AN ATTACK ON THE DIRECTOR'S OWN HEADLINE.**
+
+`notes/what_supervision_the_brain_has_that_we_do_not_error_driven_learning_drill_2026-08-18.md`.
+
+**THE MECHANISM, and it is specific rather than hand-wavy.** Prediction error changes WHAT A WORD IS:
+counting defines a word by the sentences it OCCURRED IN; prediction defines it by the distribution it
+PREDICTS -- and **only the second is invariant to sampling**. Substitutable words predict the same
+continuations **without ever co-occurring**, which is exactly our SET P, where co-occurrence is ZERO by
+construction. It supplies **NEGATIVE information a tally has no cell for**. And it **DISCOUNTS
+ALREADY-PREDICTED CUES** (Rescorla-Wagner blocking, causally pinned in dopamine) -- *which is precisely
+the collocate dominance our AUC 0.05 records.*
+
+**THE FOUR CANDIDATE SIGNALS, with honest labels.** (1) **Prediction error** -- PINNED that cortex
+computes an error-like comparison (mouse V1 L2/3 mismatch cells scaling linearly with error, opposing
+input signs, appearing only AFTER learning; human ECoG pre-onset predictive information; N400 graded
+by cloze). THEORY: hierarchical Rao-Ballard/Friston with laminar error units. **Objections at full
+strength: synaptic-depression adaptation reproduces MMN, and a 9-lab N=334 replication FAILED on
+DeLong's article pre-activation while replicating the noun effect.** (2) **Cross-modal
+correspondence** -- hub PINNED (semantic dementia, causal rTMS), but "trained BY cross-modal error" is
+THEORY, and we lack the grounded data. (3) **Consequences of use** -- best-pinned error signal in
+neuroscience (causal optogenetic dopamine RPE), but the no-negative-evidence objection (~85 verbatim
+repetitions needed) kills its BANDWIDTH for a 21k-dim geometry. (4) **Replay** -- PINNED (SWR
+suppression impairs consolidation; TMR aids vocabulary) but **computes no error**; it re-supplies
+samples and MULTIPLIES whatever signal exists.
+
+**CORRECTION 1 -- THE DIRECTOR SENT THE AGENT AT THE WRONG MODULE.** 6.19 said "reuse the learner".
+**`hdlab/learner/` is an MDL SYMBOLIC-HYPOTHESIS engine and CANNOT learn a real-valued matrix.** The
+right home is **`hdlab/predictive_coding.py` (WIRED, 15 consumers)** -- **expand it, do not fork it.**
+Enumerated properly: `ls hdlab/` = 148 files, a full parse of all 200 registry rows, plus a
+recoverability check that found **six differently-named `spoke1` result dirs** the registry names
+missed. *Predictive coding has NEVER been scored on this instrument; its only full softmax-controlled
+run measured the NON-predictive arm.*
+
+**CORRECTION 2 -- THE STEELMAN AGAINST 6.18, recorded in the 6.18 qualification box and repeated here
+because it is the single most important open question:** we ran VANILLA PPMI+SVD. Levy & Goldberg
+proved SGNS implicitly factorises SHIFTED PMI; Levy, Goldberg & Dagan showed a TUNED count method
+MATCHES SGNS. **If a tuned UNSUPERVISED count method clears 0.5, the supervision conclusion is WRONG
+and the missing thing was hyperparameters.** *That falsifier is dispatched and must report before any
+supervised arm.*
+
+**THE NO-LLM LINE, drawn per design rather than in general.** **SAFE:** tuned counts; a delta rule over
+our own counts; **from-scratch SGNS on our own sentences frozen to a static table** (Q3-admissible --
+read is a lookup). **DISQUALIFYING:** any pretrained table (our own cell measured **0.4376 BPC
+attributable to Google-News knowledge**), and any LM in the read path. **FLAGGED AS DRIFTING:** a
+self-trained CONTEXTUAL encoder run at inference, and replay that GENERATES text.
+
+**THE BUILD SPEC (`exp_error_driven_write_rule_dissociation_v1`):** tuned-count / delta-rule /
+analytic-equilibrium / from-scratch-SGNS / prediction-gated-write arms on the same corpus, scored on
+the licensed dissociation AUC over `POPULATION|v1.7|full`, with four floors, known-answer 0.9599, a
+permutation null, and **a MANDATORY UNTRAINED CONTROL PER LEARNED ARM** -- *because a random-init arm
+BEAT the trained one on 2026-08-17.*
+
+**SHELVE CRITERION, BRAIN-FRAMED AS REQUIRED:** abandon only if the cortical pre-onset signal fails
+replication **and** mismatch responses reduce to synaptic depression; or if the children's
+syntagmatic-to-paradigmatic shift proves driven by literacy instruction rather than accumulated
+predictive experience. **NO AUC SHELVES IT.**
+
+---
+
 ### 6.19 **THE LEARNER ALREADY EXISTS ON DISK, AND SO DOES A 41 KB DRILL ON THIS EXACT QUESTION. DO NOT BUILD A PARALLEL ONE.**
 
 Found by the Director while 6.18's drill was running. **This is the MISSING-LEARNING rule firing
