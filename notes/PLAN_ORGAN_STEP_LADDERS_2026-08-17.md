@@ -566,6 +566,52 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
+### 6.29 **CORRECTIONS THE DRILL FORCED, INCLUDING ONE NUMBER THE DIRECTOR HAS BEEN REPEATING ALL NIGHT.**
+
+`bd3fb130b`. Four things, each changing how earlier sections must be read.
+
+**(1) THE BAR IS 0.5431, NOT 0.5. I HAVE SAID "the 0.5 boundary" REPEATEDLY AND IT IS WRONG.** The
+gate is `max(four floors)`, and the constant/prototype floor reads **0.5431**. Chance is 0.5; **the
+BAR is 0.5431.** Every "below 0.5" statement in 6.12-6.23 is still true (all arms sat at 0.03-0.44,
+far below either), so no conclusion flips -- **but any future arm must clear 0.5431, and describing
+0.5 as the target would understate the bar.**
+
+**(2) WHY THE HUMAN INSTRUMENT COLLAPSED TO n=7, MEASURED RATHER THAN GUESSED.** SimLex-999 has
+**573/999 pairs inside our anchor set but only 23 touching the 617 evaluation words.** *The design
+was doomed at the intersection, not at the matching step.* The drill also classes SimLex as
+**CONSTRUCT-ADJACENT** -- a near-disjoint VALIDATOR, **not supervision** -- and could **not** verify
+its provenance. **6.27's "do not re-run hoping for a better draw" is now quantified.**
+
+**(3) CONCEPTNET IS CIRCULAR, AND THE CONTAMINATION IS MEASURED, NOT ASSUMED.** Streamed all
+**34,074,917 rows**: `/r/Entails` **405/405 = 100%** WordNet-derived; `/r/MannerOf` **12,702/12,715 =
+99.9%**; `/r/Synonym` 88,524/222,156; `/r/SimilarTo` 21,244/30,280; `/r/IsA` 74,802/230,137.
+**And the non-WordNet remainder is the same CONSTRUCT, so it fails the circularity test anyway.**
+*By contrast CSKG is **96.33% WordNet-free** across 1,213,912 edges, with contamination confined to
+PartOf/MadeOf/MannerOf/Entails -- the Synonym/IsA/SimilarTo family was already dropped at build.*
+
+**(4) THE OBSERVATION NOBODY MADE ALL NIGHT: EVERY ORGAN A ARM TREATED THE SENTENCE AS AN UNORDERED
+BAG.** Filter, code, accumulate, normalise, superpose, max-pool, binarise, profiles -- **all of them
+varied WHICH words counted or HOW they were weighted; none used the GRAMMATICAL RELATION.** The one
+arm that came closest, `F3_SYNTACTIC_NEIGHBOURS_ONLY` (0.4876 +/-0.0114), **still discarded the
+label** and kept only the neighbour identity. **So "the write rule has been fully explored" is
+FALSE: one whole axis -- typed structure -- was never varied.**
+
+**ALSO CORRECTED: 6.21's NULL IS NARROWER THAN I REPORTED.** It tested a **BINARY GATE** against a
+**SELF-prediction**, where the biology specifies a scaled eligibility trace against **another
+stream**. And a *signed* update rule writes 100% of occurrences -- **so the rate-matched random
+control that killed it CANNOT recur against a signed rule.** *My "prediction error does nothing"
+relay was too broad.*
+
+**ONE MORE SCOPE LIMIT TO CARRY EVERYWHERE: ALL 242 MATCHED PAIRS ARE NOUNS.** Every Organ A
+conclusion is a conclusion about nouns.
+
+**DISCIPLINE WORTH COPYING:** the drill **deliberately computed no diagnostic AUC**, on the grounds
+that peeking would turn every arm it proposed into a second fitted oracle. It also disclosed
+unprompted that `exp_selectional_constraint_bridge_v1` already FAILED on this same asset (different
+task, scorer and population), rather than letting its recommendation look unopposed.
+
+---
+
 ### 6.27 **THE HUMAN INSTRUMENT IS `POWER_INSUFFICIENT` AT n=7. CALLED EXACTLY AS PRE-COMMITTED IN 6.26.**
 
 **`MATCHED n_P=7 n_S=7`.** Seven pairs per cell. The funnel: 2,233 benchmark pairs survive
