@@ -549,6 +549,58 @@ excludes nothing is not a control -- report how many items each control actually
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
+- **🔬 VETTING PASS 2 (`afb293f4`): 3 REFUTED, 3 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 12 CELLS:
+  4 REFUTED, 3 SUSPENDED, 5 QUALIFIED, *** ZERO UPHELD AS CLAIMED ***.**
+  - **REFUTED -- `exp_causal_link_comprehension_fuller_v2`: THE ANSWER IS WRITTEN IN.** The cell
+    calls `reg.add_causal_link(cause_idx, effect_idx)` for every item and then queries
+    `query_effect_of(c_idx)` against `e_idx`. **That is write-then-read from a register at bundle
+    load 2, and the two "baselines" NEVER RECEIVED THE WRITE**, so `most_recent=0.0000` and
+    `random=0.0000` are STRUCTURAL, not measured. **NO COMPREHENSION WAS TESTED.** *What is
+    actually there is 91.7% exact-key retrieval at 697 slots [0.782, 0.971] -- an 8% error rate at
+    load 2, which reads as a MILD NEGATIVE ABOUT THE STORE.*
+  - **REFUTED -- `exp_pivot_scaled_seed_knowledge_table_v1`: A ZERO-KNOWLEDGE FLOOR COMPUTABLE FROM
+    THE CELL'S OWN CACHE SCORES 1.0000 (108/108) AGAINST THE LLM TABLE'S 0.6898.** Its gold is the
+    verb's most-frequent attested patient and its distractor a never-attested noun, so plain corpus
+    attestation is perfect by construction. **AND SCALING CHANGED NOTHING: the scaled and tiny
+    digests are IDENTICAL (`5df85d80df03d57b`), `arms_differ_verified=False`.** *Surviving: LLM
+    ratings do carry attestation signal (+0.1852, p=0.0054, n=108). That is not the claim made.*
+  - **REFUTED -- `exp_read_grow_adaptor_pyp_kn_breadth_v1`: THE GATE CANNOT FAIL.** `kn_covered =
+    (count>0) OR (...)` is a STRICT SUPERSET of flat coverage by construction. **Its "3/3 seeds" is
+    ONE measurement printed three times** (identical gain 0.037475 across seeds; the tables do not
+    depend on the salt). A **Zipf-count null with no linguistic mechanism reproduces the preemption
+    correlation** (-0.60 vs the observed -0.5639 against a -0.15 gate). **On the only genuine
+    generalization test -- 132 unseen items -- KN scores 0.1439 vs its OWN scramble 0.1591, WORSE
+    in 2 of 3 seeds.**
+  - **QUALIFIED -- `exp_information_foraging_reading_v1`: A FLOOR-BEATER, NOT A SHELF-BEATER.**
+    FORAGE genuinely beats RANDOM (185 vs 38 of 3000, z=10.1) -- **but FROZEN, the fixed schedule
+    foraging exists to REPLACE, scores HIGHER (0.0743 vs 0.0617).** The headline compares only
+    against RANDOM. *Any claim that the decision organ improved reading must say this.*
+  - **QUALIFIED -- `exp_lexicon_coverage_audit_barrier2_v1`: the COVERAGE half is UPHELD EXACTLY**
+    (independently re-implemented: 2077 sentences, 2605 verb tokens, 568 types; union 0.9893/0.9648;
+    every figure reproduces to 4 dp). **The second half is a SINGLE-RATER, UNBLINDED LLM
+    HAND-AUDIT BY THE AUTHORING AGENT OF THE PREDICTION IT WAS TESTING**, no inter-rater
+    reliability. **Under the stricter rubric THE CELL ITSELF NAMES in `honest_limitations`, it is
+    89/120 = 0.7417 [0.657, 0.812] -- BELOW its own 0.80 floor.**
+  - **✅ QUALIFIED -- `exp_context_vector_signal_v1`, AND A LONG-OPEN QUESTION IS NOW CLOSED CLEAN.**
+    CLAUDE.md records that its figure came from a run whose clean-slate teardown was DENIED and
+    silently dropped, that the figure is LOAD-BEARING in MEMORY.md, and that closing it needs a
+    clean-slate re-run. **IT DOES NOT: the heartbeat trace settles it.** `_start_marker` 22:49:29.5,
+    reading pass logged from unit 0 (22:49:43) to unit 49 (22:53:01), `pass_elapsed_s=208.99`; the
+    cache is checked BEFORE the pass and skips it on hit, so **unit-0 heartbeats PROVE a cache
+    miss**, and the FULL run wrote to a different directory than the denied smoke.
+    **CONTAMINATION DID NOT OCCUR -- DEMONSTRATED, NOT ASSUMED. NO RE-RUN NEEDED.**
+    **⚠️ BUT TWO CORRECTIONS TO HOW IT IS CITED: (a) the HARD_PASS IS POST-HOC -- the pre-registered
+    ceiling guard fired on SCRAMBLE_SENT 0.9984 and was AMENDED AWAY AFTER THE RUN; the
+    prereg-literal verdict is MIDDLE_BAND. (b) STOP QUOTING 0.7830 vs 0.9984 -- it is
+    ceiling-saturated, all three nulls sit at 0.995-0.999. QUOTE `argmax_in_own_window_rate` REAL
+    0.2871 vs an EXACTLY BAG-MATCHED SCRAMBLE 0.0050 (informative_rate 0.416808 vs 0.416687).
+    A RATE-MATCHED TWIN DOES NOT REPRODUCE IT -- the strongest control-passing result in the batch.**
+- **🚨 A THIRD FLOOR-DEFECT CLASS, DISTINCT FROM THE IMPORTED-BAR ONE, AND IT IS THE MOST COMMON:
+  THE CELL HAD A STRONGER FLOOR ALREADY COMPUTABLE FROM ITS OWN DATA AND DISCRIMINATED AGAINST A
+  WEAKER ONE.** Three of six this pass: attestation at **1.0000**, a superset-by-construction
+  coverage gate, and FROZEN at **0.0743**. **THE RULE IS NOT JUST "RECOMPUTE THE FLOOR ON THIS
+  REPRESENTATION" -- IT IS "RUN THE STRONGEST FLOOR THE CELL'S OWN DATA SUPPORTS".**
+  **AND AUDIT "N SEEDS" FOR SEED-DEPENDENCE: three identical numbers are one measurement.**
 - **🔬 FIRST SIX VETTED (`a2e65896`, AUDIT-ONLY, all recomputed off disk from per-item arrays, never
   from `verdict_msg`). ONE REFUTED, TWO SUSPENDED, THREE QUALIFIED. NOT ONE IS UPHELD AS CLAIMED.**
   - **REFUTED -- `exp_base_reader_grounded_relations_coref_v1`.** Headline `coref_lift=0.714,
