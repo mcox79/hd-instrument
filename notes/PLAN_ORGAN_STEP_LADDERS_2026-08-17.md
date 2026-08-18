@@ -634,6 +634,45 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.43 **STEP TWO: CAN THE SENSORIMOTOR CHANNEL TELL OUR PAIRS APART AT ALL? PRE-COMMITMENT, WRITTEN BEFORE THE RUN.**
+
+**VERIFIED ON DISK BY THE DIRECTOR, not taken from the drill's prose:**
+`data/grounding_testbed/Lancaster_sensorimotor_norms_for_39707_words.csv` -- **16.4 MB, 39,707 rows,
+45 columns, and the 11 mean dimensions are there** (Auditory, Gustatory, Haptic, Interoceptive,
+Olfactory, Visual, Foot_leg, Hand_arm, Head, Mouth, Torso). Brysbaert concreteness is beside it.
+
+**WHY THIS TEST COMES BEFORE ANY SUPERVISION BUILD: A SIGNAL THAT CANNOT DISCRIMINATE CANNOT
+TEACH.** *We do not need to know yet whether it makes a good training target; we need to know whether
+it distinguishes `SET_P` from `SET_S` at all. If it cannot, everything downstream is dead and we
+have spent one cell instead of five.*
+
+**THE DRILL ALREADY NAMED THE WAY THIS FAILS, AND IT IS SPECIFIC AND PLAUSIBLE: `SET_S` pairs are
+high-co-occurrence SAME-POS SAME-DOMAIN nouns ("calcium/carbonate", "connective/tissue") that will
+tend to share a sensorimotor profile MUCH AS `SET_P` PAIRS DO. A LOW-DIMENSIONAL RATING SCORE IS AT
+REAL RISK OF BEHAVING LIKE THE CONSTANT/PROTOTYPE FLOOR** -- which is **the strongest of our four.**
+*This is a pre-registered prediction of failure, not a hedge written afterwards.*
+
+**PRE-COMMITTED READINGS:**
+- **(A) Sensorimotor distance discriminates CI-separated above its OWN credible bar** -> **we have an
+  admissible teaching signal that is NOT text-derived, NOT WordNet-derived and NOT an LLM** -- the
+  first one this programme has found. **Report the coverage (how many matched pairs survive the
+  intersection) BESIDE the AUC; a win on 20 pairs is not a win.**
+- **(B) It sits at or near the constant/prototype floor** -> **the drill's flagged risk FIRED: 11
+  dimensions cannot separate same-domain pairs.** **THIS IS NOT A REFUTATION OF GROUNDING -- IT IS A
+  REFUTATION OF THIS RESOLUTION.** *Say what resolution would be needed; Binder's 65 dimensions
+  discriminate far better but cover only 9.2% of eval words, so name that trade rather than
+  concluding grounding fails.*
+- **(C) Its own floor's credible bar is unclearable at the available n** -> **UNTESTABLE, not
+  negative** (discipline 18). **Report the n required.**
+- **MANDATORY:** floors recomputed on **THIS representation** (11-dim ratings -- discipline 16, and
+  the reason 21 arms are currently suspended); **credible bar = floor + its own half-width**
+  (discipline 18); CI half-width and null p95 beside every margin (14); and **state how many pairs
+  each control actually removed** (16 corollary).
+- **🚫 DO NOT let this become a supervision build. It is a DISCRIMINATION TEST.** *If (A) fires, the
+  supervision cell is a SEPARATE, later decision with its own pre-commitment.*
+
+---
+
 ### 6.42 **WHAT THE NIGHT ACTUALLY SETTLED, AND THE ONE DIRECTION IT OPENED. READ THIS BEFORE BUILDING ANYTHING.**
 
 **THE HONEST LEDGER.** Tonight produced one retracted headline, four measurement defects, one real
