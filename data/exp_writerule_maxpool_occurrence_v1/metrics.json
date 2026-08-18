@@ -1,0 +1,1066 @@
+{
+  "anchor_name": "writerule_maxpool_occurrence_v1",
+  "run_mode": "full",
+  "code_version": "v1.0",
+  "findings_log": "notes/writerule_maxpool_occurrence_v1_findings_2026-08-18.md",
+  "verdict": "MAXPOOL_OCCURRENCE__NONE__M1_vs_A0_BELOW__M1_vs_N1_BELOW",
+  "verdict_msg": "Does keeping a word's occurrences separate and scoring by best match (max-pool) beat summing, on the dissociation AUC (primary) and hit@1 + winner composition (secondary)? -> MAXPOOL_OCCURRENCE__NONE__M1_vs_A0_BELOW__M1_vs_N1_BELOW",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "K_SWEEP": [
+      2,
+      3,
+      5
+    ],
+    "N_DECISIVE": 300,
+    "N_BANDS": 3
+  },
+  "selftest_evidence_keys": [
+    "DISS_selftest_keys",
+    "WR_selftest_keys",
+    "arms_must_differ_digest_sensitivity",
+    "auc_tie_variants_known_answer",
+    "build_band_shuffle_selftest",
+    "build_occurrence_lists_selftest",
+    "build_random_occ_indices_selftest",
+    "exp_checkpoint_selftest",
+    "max_vs_sum_known_answer",
+    "paired_auc_diff_bootstrap_known_answer",
+    "paired_hit1_diff_bootstrap_known_answer",
+    "topk_mean_known_answer"
+  ],
+  "report": {
+    "anchor_name": "writerule_maxpool_occurrence_v1",
+    "grid": "full",
+    "code_version": "v1.0",
+    "findings_log": "notes/writerule_maxpool_occurrence_v1_findings_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "DISSOCIATION_POPULATION_REUSED_FROM": {
+      "path": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1",
+      "key": "POPULATION|v1.7|full",
+      "n_matchedP_available": 242,
+      "n_matchedS_available": 242,
+      "n_matchedP_used": 242,
+      "n_matchedS_used": 242
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "REGIME_A_OCC_BUILD": {
+      "n_words": 617,
+      "n_empty_profile": 0,
+      "n_occurrences_total": 33907,
+      "elapsed_s": 0.6
+    },
+    "REGIME_A_PAIRS_AFTER_OCC_FILTER": {
+      "n_matchedP_dropped": 0,
+      "n_matchedS_dropped": 0,
+      "n_matchedP": 242,
+      "n_matchedS": 242
+    },
+    "REGIME_A_words_needed": 617,
+    "REGIME_A_OCC_sparse_shape": [
+      33907,
+      17377
+    ],
+    "REGIME_A_mean_occurrences_per_word": 54.95,
+    "REGIME_A_vocab_size": 17377,
+    "REGIME_A_single_occurrence_build_diag": {
+      "n_anchors": 617,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.0
+    },
+    "REGIME_A_N2_band_shuffle_self_maps": 0,
+    "REGIME_A_ARM_DIGESTS": {
+      "A0_SUM": "0cf6541fd3e90178",
+      "S1_SINGLE_OCC": "110dcef82ce61a81",
+      "M1_MAXPOOL": "7c63d8991becbae6",
+      "N1_MAXPOOL_RANDOM_OCC": "2968ee22f5ae9efa",
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": "ed33f32533a5014d",
+      "M2_TOPK_MEAN_K2": "161aeeb24e97d366",
+      "M2_TOPK_MEAN_K3": "7a832c1ba47ac678",
+      "M2_TOPK_MEAN_K5": "fe970aa2dea99145",
+      "F_ORTHOGRAPHIC": "77884d6bdc579622",
+      "F_FREQUENCY": "acfaa99eee38027f",
+      "F_SCRAMBLE": "dc38783ac5223458",
+      "F_CONSTANT_PROTOTYPE": "f5229d6b895af849",
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": "c2b49dcacd2f4f11",
+      "RANDOM_VECTOR_STORE": "99969b8067abf138"
+    },
+    "REGIME_A_AUC_PER_ARM": {
+      "A0_SUM": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.051,
+        "ci95": [
+          0.0329,
+          0.0714
+        ],
+        "ci_halfwidth": 0.0193,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.051,
+          "optimistic": 0.051,
+          "conservative": 0.051
+        }
+      },
+      "S1_SINGLE_OCC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4173,
+        "ci95": [
+          0.3842,
+          0.4501
+        ],
+        "ci_halfwidth": 0.033,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.4173,
+          "optimistic": 0.7557,
+          "conservative": 0.0789
+        }
+      },
+      "M1_MAXPOOL": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0299,
+        "ci95": [
+          0.0148,
+          0.0481
+        ],
+        "ci_halfwidth": 0.0166,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0299,
+          "optimistic": 0.0302,
+          "conservative": 0.0296
+        }
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4545,
+        "ci95": [
+          0.4043,
+          0.5061
+        ],
+        "ci_halfwidth": 0.0509,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.4545,
+          "optimistic": 0.458,
+          "conservative": 0.4511
+        }
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5296,
+        "ci95": [
+          0.479,
+          0.5812
+        ],
+        "ci_halfwidth": 0.0511,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.5296,
+          "optimistic": 0.5328,
+          "conservative": 0.5263
+        }
+      },
+      "M2_TOPK_MEAN_K2": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0264,
+        "ci95": [
+          0.0125,
+          0.0426
+        ],
+        "ci_halfwidth": 0.0151,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0264,
+          "optimistic": 0.0264,
+          "conservative": 0.0264
+        }
+      },
+      "M2_TOPK_MEAN_K3": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.024,
+        "ci95": [
+          0.0111,
+          0.0384
+        ],
+        "ci_halfwidth": 0.0137,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.024,
+          "optimistic": 0.024,
+          "conservative": 0.024
+        }
+      },
+      "M2_TOPK_MEAN_K5": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0217,
+        "ci95": [
+          0.01,
+          0.0357
+        ],
+        "ci_halfwidth": 0.0129,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0217,
+          "optimistic": 0.0217,
+          "conservative": 0.0217
+        }
+      },
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5,
+        "ci95": [
+          0.4875,
+          0.5124
+        ],
+        "ci_halfwidth": 0.0125,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.5,
+          "optimistic": 0.9795,
+          "conservative": 0.0204
+        }
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4901,
+        "ci95": [
+          0.4387,
+          0.5429
+        ],
+        "ci_halfwidth": 0.0521,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.4901,
+          "optimistic": 0.4926,
+          "conservative": 0.4877
+        }
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4664,
+        "ci95": [
+          0.4141,
+          0.5178
+        ],
+        "ci_halfwidth": 0.0518,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.4664,
+          "optimistic": 0.4664,
+          "conservative": 0.4664
+        }
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5431,
+        "ci95": [
+          0.4907,
+          0.5947
+        ],
+        "ci_halfwidth": 0.052,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.5431,
+          "optimistic": 0.5431,
+          "conservative": 0.5431
+        }
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.9599,
+        "ci95": [
+          0.9439,
+          0.9741
+        ],
+        "ci_halfwidth": 0.0151,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "tie_variants": {
+          "mid": 0.9599,
+          "optimistic": 0.9691,
+          "conservative": 0.9508
+        }
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4862,
+        "ci95": [
+          0.4342,
+          0.5371
+        ],
+        "ci_halfwidth": 0.0515,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.4862,
+          "optimistic": 0.4862,
+          "conservative": 0.4862
+        }
+      }
+    },
+    "REGIME_A_STORAGE_HONESTY": {
+      "A0_SUM": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "S1_SINGLE_OCC": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "M1_MAXPOOL": {
+        "vectors_per_anchor": 54.95,
+        "dim": 17377,
+        "floats_per_anchor": 954866.2,
+        "storage_multiplier_vs_A0_SUM": 54.95
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "vectors_per_anchor": 54.95,
+        "dim": 17377,
+        "floats_per_anchor": 954866.2,
+        "storage_multiplier_vs_A0_SUM": 54.95
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "vectors_per_anchor": 54.95,
+        "dim": 17377,
+        "floats_per_anchor": 954866.2,
+        "storage_multiplier_vs_A0_SUM": 54.95
+      },
+      "M2_TOPK_MEAN_K2": {
+        "vectors_per_anchor": 54.95,
+        "dim": 17377,
+        "floats_per_anchor": 954866.2,
+        "storage_multiplier_vs_A0_SUM": 54.95
+      },
+      "M2_TOPK_MEAN_K3": {
+        "vectors_per_anchor": 54.95,
+        "dim": 17377,
+        "floats_per_anchor": 954866.2,
+        "storage_multiplier_vs_A0_SUM": 54.95
+      },
+      "M2_TOPK_MEAN_K5": {
+        "vectors_per_anchor": 54.95,
+        "dim": 17377,
+        "floats_per_anchor": 954866.2,
+        "storage_multiplier_vs_A0_SUM": 54.95
+      },
+      "F_ORTHOGRAPHIC": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "F_FREQUENCY": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "F_SCRAMBLE": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "RANDOM_VECTOR_STORE": {
+        "vectors_per_anchor": 1,
+        "dim": 17377,
+        "floats_per_anchor": 17377,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      }
+    },
+    "REGIME_A_LICENSING": {
+      "floors_at_chance": {
+        "PASS": true,
+        "failures": []
+      },
+      "known_answer_ok": {
+        "PASS": true,
+        "auc": 0.9599,
+        "gate": 0.95
+      },
+      "random_vector_store_at_chance": {
+        "PASS": true
+      },
+      "INSTRUMENT_LICENSED": true
+    },
+    "REGRESSION_GATE_A0_SUM": {
+      "measured": 0.051,
+      "expected": 0.051,
+      "tol": 0.006,
+      "PASS": true
+    },
+    "REGRESSION_GATE_S1_SINGLE_OCC": {
+      "measured": 0.4173,
+      "expected": 0.4173,
+      "tol": 0.006,
+      "PASS": true
+    },
+    "REGIME_A_M1_vs_A0": {
+      "point": -0.021,
+      "ci95": [
+        -0.0393,
+        -0.002
+      ],
+      "ci_halfwidth": 0.0186,
+      "band": "BELOW"
+    },
+    "REGIME_A_M1_vs_N1": {
+      "point": -0.4246,
+      "ci95": [
+        -0.4777,
+        -0.3718
+      ],
+      "ci_halfwidth": 0.053,
+      "band": "BELOW"
+    },
+    "REGIME_A_STOP_IF_FIRED": [
+      "NONE of (i)-(iv) fired cleanly"
+    ],
+    "REGIME_A_elapsed_s": 31.2,
+    "REGIME_B_CACHE_REGRESSION_GATE": {
+      "measured": 0.0223,
+      "expected": 0.0223,
+      "PASS": true
+    },
+    "REGIME_B_corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "REGIME_B_checkpoint_reuse_full_accum": {
+      "n_units_loaded": 9485,
+      "n_anchors_found": 5491,
+      "n_anchors_missing": 0,
+      "n_items_found": 3994,
+      "n_items_missing": 0,
+      "elapsed_s": 0.5,
+      "missing_p_sample": [],
+      "missing_q_sample": []
+    },
+    "REGIME_B_single_occurrence_build_diag": {
+      "n_anchors": 5491,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.1
+    },
+    "REGIME_B_vocab_size": 21576,
+    "REGIME_B_A0_SUM_hit1_FULL_POPULATION": {
+      "n": 3994,
+      "hit_at_1": 0.027
+    },
+    "REGIME_B_S1_SINGLE_OCC_hit1_FULL_POPULATION": {
+      "n": 3994,
+      "hit_at_1": 0.0328
+    },
+    "REGIME_B_N_DECISIVE": 300,
+    "REGRESSION_GATE_WR_DECISIVE_ARM": {
+      "SUM_ALL": {
+        "measured": 0.02,
+        "expected": 0.01,
+        "tol": 0.03,
+        "PASS": true
+      },
+      "RANDOM_SINGLE": {
+        "measured": 0.0267,
+        "expected": 0.0367,
+        "tol": 0.03,
+        "PASS": true
+      },
+      "BEST_SINGLE_ORACLE": {
+        "measured": 0.26,
+        "expected": 0.3033,
+        "tol": 0.03,
+        "PASS": false
+      }
+    },
+    "REGIME_B_SELF_CONSISTENCY": {
+      "n_mismatch_SUM_ALL": 0,
+      "n_mismatch_RANDOM_SINGLE": 0,
+      "PASS": true
+    },
+    "REGIME_B_OCC_CACHE_DIAG": {
+      "n_distinct_anchors": 300,
+      "elapsed_s": 0.1
+    },
+    "REGIME_B_mean_occurrences_per_item": 29.48,
+    "REGIME_B_HIT1_PER_ARM": {
+      "M1_MAXPOOL": 0.0233,
+      "M2_TOPK_MEAN_K2": 0.0133,
+      "M2_TOPK_MEAN_K3": 0.0167,
+      "M2_TOPK_MEAN_K5": 0.0233,
+      "N1_MAXPOOL_RANDOM_OCC": 0.02,
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": 0.0067,
+      "A0_SUM": 0.02,
+      "S1_SINGLE_OCC": 0.0267
+    },
+    "REGIME_B_STORAGE_HONESTY": {
+      "M1_MAXPOOL": {
+        "vectors_per_item": 29.48,
+        "dim": 21576,
+        "floats_per_item": 636132.4,
+        "storage_multiplier_vs_A0_SUM": 29.48
+      },
+      "M2_TOPK_MEAN_K2": {
+        "vectors_per_item": 29.48,
+        "dim": 21576,
+        "floats_per_item": 636132.4,
+        "storage_multiplier_vs_A0_SUM": 29.48
+      },
+      "M2_TOPK_MEAN_K3": {
+        "vectors_per_item": 29.48,
+        "dim": 21576,
+        "floats_per_item": 636132.4,
+        "storage_multiplier_vs_A0_SUM": 29.48
+      },
+      "M2_TOPK_MEAN_K5": {
+        "vectors_per_item": 29.48,
+        "dim": 21576,
+        "floats_per_item": 636132.4,
+        "storage_multiplier_vs_A0_SUM": 29.48
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "vectors_per_item": 29.48,
+        "dim": 21576,
+        "floats_per_item": 636132.4,
+        "storage_multiplier_vs_A0_SUM": 29.48
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "vectors_per_item": 29.48,
+        "dim": 21576,
+        "floats_per_item": 636132.4,
+        "storage_multiplier_vs_A0_SUM": 29.48
+      },
+      "A0_SUM": {
+        "vectors_per_item": 1.0,
+        "dim": 21576,
+        "floats_per_item": 21576.0,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "S1_SINGLE_OCC": {
+        "vectors_per_item": 1.0,
+        "dim": 21576,
+        "floats_per_item": 21576.0,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      }
+    },
+    "REGIME_B_ARM_DIGESTS": {
+      "M1_MAXPOOL": "1b13511e54bc7df6",
+      "M2_TOPK_MEAN_K2": "1533c70e7f549992",
+      "M2_TOPK_MEAN_K3": "8a70f8ed5ce50f25",
+      "M2_TOPK_MEAN_K5": "661d9c2ab211c805",
+      "N1_MAXPOOL_RANDOM_OCC": "8dd63278bb0c0474",
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": "ef49475891241a25",
+      "A0_SUM": "7fca15f609262b58",
+      "S1_SINGLE_OCC": "a467ab3db8585df8"
+    },
+    "REGIME_B_WINNER_COMPOSITION": {
+      "M1_MAXPOOL": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 160,
+            "NO_WORDNET_PATH_AT_ALL": 100,
+            "WINNER_NOT_IN_WORDNET": 18,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 15,
+            "IN_THE_GENEROUS_GOLD": 7
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5333,
+            "NO_WORDNET_PATH_AT_ALL": 0.3333,
+            "WINNER_NOT_IN_WORDNET": 0.06,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05,
+            "IN_THE_GENEROUS_GOLD": 0.0233
+          },
+          "fraction_no_close_relation": 0.8667,
+          "examples": [
+            "abundance -> endemic (path_sim=0.077)",
+            "accident -> cleaning (path_sim=0.111)",
+            "acetyl -> citric (path_sim=0.000)",
+            "activate -> humoral (path_sim=0.000)",
+            "adult -> conserve (path_sim=0.083)",
+            "advance -> essentially (path_sim=0.000)",
+            "advice -> observe (path_sim=0.000)",
+            "affairs -> islander (path_sim=0.083)",
+            "afghanistan -> australian (path_sim=0.077)",
+            "africa -> learning (path_sim=0.077)",
+            "aid -> flowing (path_sim=0.125)",
+            "airliner -> sudden (path_sim=0.000)",
+            "amendment -> approval (path_sim=0.250)",
+            "andersen -> further (path_sim=0.000)",
+            "angel -> essentially (path_sim=0.000)",
+            "answer -> abnormal (path_sim=0.000)",
+            "anticipate -> prior (path_sim=0.000)",
+            "aorta -> respiratory (path_sim=0.000)",
+            "apart -> detect (path_sim=0.000)",
+            "appetite -> extraction (path_sim=0.091)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.04172,
+            "median": 0.02746,
+            "frac_ever_co_occurring": 0.9
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 3.786
+        }
+      },
+      "M2_TOPK_MEAN_K2": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 167,
+            "NO_WORDNET_PATH_AT_ALL": 91,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 21,
+            "WINNER_NOT_IN_WORDNET": 17,
+            "IN_THE_GENEROUS_GOLD": 4
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5567,
+            "NO_WORDNET_PATH_AT_ALL": 0.3033,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.07,
+            "WINNER_NOT_IN_WORDNET": 0.0567,
+            "IN_THE_GENEROUS_GOLD": 0.0133
+          },
+          "fraction_no_close_relation": 0.86,
+          "examples": [
+            "abundance -> endemic (path_sim=0.077)",
+            "accident -> cleaning (path_sim=0.111)",
+            "acetyl -> citric (path_sim=0.000)",
+            "activate -> researcher (path_sim=0.000)",
+            "adult -> reserve (path_sim=0.200)",
+            "advance -> skill (path_sim=0.111)",
+            "advice -> budding (path_sim=0.083)",
+            "affairs -> islander (path_sim=0.083)",
+            "afghanistan -> shortly (path_sim=0.000)",
+            "africa -> viable (path_sim=0.000)",
+            "aid -> emergency (path_sim=0.125)",
+            "airliner -> sudden (path_sim=0.000)",
+            "amendment -> approval (path_sim=0.250)",
+            "andersen -> blue (path_sim=0.091)",
+            "angel -> essentially (path_sim=0.000)",
+            "anticipate -> prior (path_sim=0.000)",
+            "aorta -> lymph (path_sim=0.067)",
+            "apart -> detect (path_sim=0.000)",
+            "appetite -> illinois (path_sim=0.077)",
+            "apply -> asylum (path_sim=0.000)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.04417,
+            "median": 0.02952,
+            "frac_ever_co_occurring": 0.89
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 4.008
+        }
+      },
+      "M2_TOPK_MEAN_K3": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 165,
+            "NO_WORDNET_PATH_AT_ALL": 92,
+            "WINNER_NOT_IN_WORDNET": 21,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 17,
+            "IN_THE_GENEROUS_GOLD": 5
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.55,
+            "NO_WORDNET_PATH_AT_ALL": 0.3067,
+            "WINNER_NOT_IN_WORDNET": 0.07,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0567,
+            "IN_THE_GENEROUS_GOLD": 0.0167
+          },
+          "fraction_no_close_relation": 0.8567,
+          "examples": [
+            "abundance -> endemic (path_sim=0.077)",
+            "accident -> cleaning (path_sim=0.111)",
+            "acetyl -> citric (path_sim=0.000)",
+            "activate -> researcher (path_sim=0.000)",
+            "advance -> skill (path_sim=0.111)",
+            "advice -> budding (path_sim=0.083)",
+            "afghanistan -> intermediate (path_sim=0.071)",
+            "africa -> come (path_sim=0.091)",
+            "aid -> emergency (path_sim=0.125)",
+            "airliner -> sudden (path_sim=0.000)",
+            "amendment -> approval (path_sim=0.250)",
+            "andersen -> blue (path_sim=0.091)",
+            "angel -> essentially (path_sim=0.000)",
+            "anticipate -> prior (path_sim=0.000)",
+            "aorta -> lymph (path_sim=0.067)",
+            "apart -> military (path_sim=0.000)",
+            "appetite -> increasingly (path_sim=0.000)",
+            "archbishop -> nobel (path_sim=0.100)",
+            "architect -> exhibition (path_sim=0.100)",
+            "around -> destructive (path_sim=0.000)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.04305,
+            "median": 0.02985,
+            "frac_ever_co_occurring": 0.88
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 3.907
+        }
+      },
+      "M2_TOPK_MEAN_K5": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 166,
+            "NO_WORDNET_PATH_AT_ALL": 90,
+            "WINNER_NOT_IN_WORDNET": 24,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 13,
+            "IN_THE_GENEROUS_GOLD": 7
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5533,
+            "NO_WORDNET_PATH_AT_ALL": 0.3,
+            "WINNER_NOT_IN_WORDNET": 0.08,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0433,
+            "IN_THE_GENEROUS_GOLD": 0.0233
+          },
+          "fraction_no_close_relation": 0.8533,
+          "examples": [
+            "abundance -> endemic (path_sim=0.077)",
+            "accident -> cleaning (path_sim=0.111)",
+            "acetyl -> citric (path_sim=0.000)",
+            "activate -> humoral (path_sim=0.000)",
+            "advance -> skill (path_sim=0.111)",
+            "advice -> budding (path_sim=0.083)",
+            "affairs -> islander (path_sim=0.083)",
+            "afghanistan -> intermediate (path_sim=0.071)",
+            "africa -> absolutely (path_sim=0.000)",
+            "aid -> emergency (path_sim=0.125)",
+            "airliner -> sudden (path_sim=0.000)",
+            "amendment -> morris (path_sim=0.083)",
+            "andersen -> further (path_sim=0.000)",
+            "angel -> essentially (path_sim=0.000)",
+            "anticipate -> prior (path_sim=0.000)",
+            "aorta -> lymph (path_sim=0.067)",
+            "apart -> military (path_sim=0.000)",
+            "appetite -> increasingly (path_sim=0.000)",
+            "archbishop -> nobel (path_sim=0.100)",
+            "architect -> circular (path_sim=0.083)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.04385,
+            "median": 0.03243,
+            "frac_ever_co_occurring": 0.8733
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 3.979
+        }
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 191,
+            "NO_WORDNET_PATH_AT_ALL": 87,
+            "WINNER_NOT_IN_WORDNET": 12,
+            "IN_THE_GENEROUS_GOLD": 6,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 4
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.6367,
+            "NO_WORDNET_PATH_AT_ALL": 0.29,
+            "WINNER_NOT_IN_WORDNET": 0.04,
+            "IN_THE_GENEROUS_GOLD": 0.02,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0133
+          },
+          "fraction_no_close_relation": 0.9267,
+          "examples": [
+            "abundance -> education (path_sim=0.111)",
+            "accident -> edinburgh (path_sim=0.067)",
+            "acetyl -> budding (path_sim=0.091)",
+            "activate -> closing (path_sim=0.000)",
+            "adult -> anticipate (path_sim=0.000)",
+            "advance -> dream (path_sim=0.091)",
+            "advice -> ribosome (path_sim=0.077)",
+            "affairs -> simply (path_sim=0.000)",
+            "afghanistan -> prior (path_sim=0.067)",
+            "africa -> eruption (path_sim=0.083)",
+            "aid -> outer (path_sim=0.000)",
+            "airliner -> originally (path_sim=0.000)",
+            "amendment -> shell (path_sim=0.091)",
+            "angel -> bacterial (path_sim=0.000)",
+            "answer -> destruction (path_sim=0.125)",
+            "anticipate -> spots (path_sim=0.000)",
+            "aorta -> chief (path_sim=0.071)",
+            "apart -> cite (path_sim=0.000)",
+            "appetite -> economy (path_sim=0.125)",
+            "apply -> mobile (path_sim=0.000)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.00065,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0533
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 0.059
+        }
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 212,
+            "NO_WORDNET_PATH_AT_ALL": 73,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 13,
+            "IN_THE_GENEROUS_GOLD": 2
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.7067,
+            "NO_WORDNET_PATH_AT_ALL": 0.2433,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0433,
+            "IN_THE_GENEROUS_GOLD": 0.0067
+          },
+          "fraction_no_close_relation": 0.95,
+          "examples": [
+            "abundance -> aorta (path_sim=0.062)",
+            "accident -> coca (path_sim=0.083)",
+            "acetyl -> stops (path_sim=0.083)",
+            "activate -> march (path_sim=0.000)",
+            "adult -> football (path_sim=0.091)",
+            "advance -> education (path_sim=0.143)",
+            "advice -> cure (path_sim=0.083)",
+            "affairs -> microscopy (path_sim=0.111)",
+            "afghanistan -> spots (path_sim=0.111)",
+            "africa -> apply (path_sim=0.000)",
+            "aid -> refuse (path_sim=0.091)",
+            "airliner -> des (path_sim=0.056)",
+            "amendment -> inspect (path_sim=0.000)",
+            "andersen -> amendment (path_sim=0.083)",
+            "angel -> opponent (path_sim=0.250)",
+            "answer -> safe (path_sim=0.071)",
+            "anticipate -> collecting (path_sim=0.250)",
+            "aorta -> handle (path_sim=0.071)",
+            "apart -> around (path_sim=0.333)",
+            "appetite -> physics (path_sim=0.071)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.00052,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0733
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 0.047
+        }
+      },
+      "A0_SUM": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 169,
+            "NO_WORDNET_PATH_AT_ALL": 87,
+            "WINNER_NOT_IN_WORDNET": 25,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 13,
+            "IN_THE_GENEROUS_GOLD": 6
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5633,
+            "NO_WORDNET_PATH_AT_ALL": 0.29,
+            "WINNER_NOT_IN_WORDNET": 0.0833,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0433,
+            "IN_THE_GENEROUS_GOLD": 0.02
+          },
+          "fraction_no_close_relation": 0.8533,
+          "examples": [
+            "abundance -> endemic (path_sim=0.077)",
+            "accident -> persuade (path_sim=0.000)",
+            "acetyl -> citric (path_sim=0.000)",
+            "activate -> humoral (path_sim=0.000)",
+            "adult -> vary (path_sim=0.000)",
+            "advance -> skill (path_sim=0.111)",
+            "advice -> budding (path_sim=0.083)",
+            "affairs -> islander (path_sim=0.083)",
+            "afghanistan -> intermediate (path_sim=0.071)",
+            "aid -> emergency (path_sim=0.125)",
+            "airliner -> sudden (path_sim=0.000)",
+            "amendment -> morris (path_sim=0.083)",
+            "andersen -> further (path_sim=0.000)",
+            "angel -> essentially (path_sim=0.000)",
+            "answer -> partnership (path_sim=0.167)",
+            "anticipate -> prior (path_sim=0.000)",
+            "aorta -> lymph (path_sim=0.067)",
+            "apart -> detect (path_sim=0.000)",
+            "appetite -> increasingly (path_sim=0.000)",
+            "apply -> replication (path_sim=0.000)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.04113,
+            "median": 0.02817,
+            "frac_ever_co_occurring": 0.84
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 3.732
+        }
+      },
+      "S1_SINGLE_OCC": {
+        "wordnet": {
+          "n_probed": 300,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 183,
+            "NO_WORDNET_PATH_AT_ALL": 74,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 19,
+            "WINNER_NOT_IN_WORDNET": 16,
+            "IN_THE_GENEROUS_GOLD": 8
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.61,
+            "NO_WORDNET_PATH_AT_ALL": 0.2467,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0633,
+            "WINNER_NOT_IN_WORDNET": 0.0533,
+            "IN_THE_GENEROUS_GOLD": 0.0267
+          },
+          "fraction_no_close_relation": 0.8567,
+          "examples": [
+            "abundance -> category (path_sim=0.125)",
+            "accident -> nuclear (path_sim=0.000)",
+            "acetyl -> brainstem (path_sim=0.100)",
+            "activate -> researcher (path_sim=0.000)",
+            "adult -> yorkshire (path_sim=0.111)",
+            "advance -> skill (path_sim=0.111)",
+            "advice -> background (path_sim=0.125)",
+            "afghanistan -> dream (path_sim=0.062)",
+            "africa -> african (path_sim=0.111)",
+            "aid -> bill (path_sim=0.111)",
+            "airliner -> sudden (path_sim=0.000)",
+            "andersen -> daughter (path_sim=0.143)",
+            "angel -> repeat (path_sim=0.100)",
+            "answer -> natural (path_sim=0.111)",
+            "anticipate -> rocket (path_sim=0.000)",
+            "aorta -> lymph (path_sim=0.067)",
+            "apart -> military (path_sim=0.000)",
+            "appetite -> increasingly (path_sim=0.000)",
+            "archbishop -> nobel (path_sim=0.100)",
+            "architect -> unemployed (path_sim=0.100)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 300,
+            "mean": 0.03606,
+            "median": 0.0181,
+            "frac_ever_co_occurring": 0.6767
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 300,
+            "mean": 0.01102,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.3067
+          },
+          "winner_over_gold_ratio_of_means": 3.272
+        }
+      }
+    },
+    "REGIME_B_M1_vs_A0": {
+      "point": 0.0033,
+      "ci95": [
+        -0.0133,
+        0.02
+      ],
+      "ci_halfwidth": 0.0167,
+      "band": "NOT_SEPARATED"
+    },
+    "REGIME_B_M1_vs_N1": {
+      "point": 0.0033,
+      "ci95": [
+        -0.02,
+        0.0267
+      ],
+      "ci_halfwidth": 0.0233,
+      "band": "NOT_SEPARATED"
+    },
+    "REGIME_B_elapsed_s": 18.8,
+    "elapsed_s": 50.2
+  },
+  "elapsed_s": 59.1,
+  "summary": "Does keeping a word's occurrences separate and scoring by best match (max-pool) beat summing, on the dissociation AUC (primary) and hit@1 + winner composition (secondary)? -> MAXPOOL_OCCURRENCE__NONE__M1_vs_A0_BELOW__M1_vs_N1_BELOW"
+}

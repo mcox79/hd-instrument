@@ -1,0 +1,1064 @@
+{
+  "anchor_name": "writerule_maxpool_occurrence_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.0",
+  "findings_log": "notes/writerule_maxpool_occurrence_v1_findings_2026-08-18.md",
+  "verdict": "MAXPOOL_OCCURRENCE__iii__M1_vs_A0_NOT_SEPARATED__M1_vs_N1_BELOW",
+  "verdict_msg": "Does keeping a word's occurrences separate and scoring by best match (max-pool) beat summing, on the dissociation AUC (primary) and hit@1 + winner composition (secondary)? -> MAXPOOL_OCCURRENCE__iii__M1_vs_A0_NOT_SEPARATED__M1_vs_N1_BELOW",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1200,
+    "K_SWEEP": [
+      2,
+      3,
+      5
+    ],
+    "N_DECISIVE": 40,
+    "N_BANDS": 3
+  },
+  "selftest_evidence_keys": [
+    "DISS_selftest_keys",
+    "WR_selftest_keys",
+    "arms_must_differ_digest_sensitivity",
+    "auc_tie_variants_known_answer",
+    "build_band_shuffle_selftest",
+    "build_occurrence_lists_selftest",
+    "build_random_occ_indices_selftest",
+    "exp_checkpoint_selftest",
+    "max_vs_sum_known_answer",
+    "paired_auc_diff_bootstrap_known_answer",
+    "paired_hit1_diff_bootstrap_known_answer",
+    "topk_mean_known_answer"
+  ],
+  "report": {
+    "anchor_name": "writerule_maxpool_occurrence_v1",
+    "grid": "reduced",
+    "code_version": "v1.0",
+    "findings_log": "notes/writerule_maxpool_occurrence_v1_findings_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "DISSOCIATION_POPULATION_REUSED_FROM": {
+      "path": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1",
+      "key": "POPULATION|v1.7|full",
+      "n_matchedP_available": 242,
+      "n_matchedS_available": 242,
+      "n_matchedP_used": 40,
+      "n_matchedS_used": 40
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "REGIME_A_OCC_BUILD": {
+      "n_words": 142,
+      "n_empty_profile": 0,
+      "n_occurrences_total": 7467,
+      "elapsed_s": 0.2
+    },
+    "REGIME_A_PAIRS_AFTER_OCC_FILTER": {
+      "n_matchedP_dropped": 0,
+      "n_matchedS_dropped": 0,
+      "n_matchedP": 40,
+      "n_matchedS": 40
+    },
+    "REGIME_A_words_needed": 142,
+    "REGIME_A_OCC_sparse_shape": [
+      7467,
+      11121
+    ],
+    "REGIME_A_mean_occurrences_per_word": 52.58,
+    "REGIME_A_vocab_size": 11121,
+    "REGIME_A_single_occurrence_build_diag": {
+      "n_anchors": 142,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.0
+    },
+    "REGIME_A_N2_band_shuffle_self_maps": 0,
+    "REGIME_A_ARM_DIGESTS": {
+      "A0_SUM": "e3a5dc3f0b895671",
+      "S1_SINGLE_OCC": "baad6ec5e2b644f2",
+      "M1_MAXPOOL": "bc47f848af1515bd",
+      "N1_MAXPOOL_RANDOM_OCC": "aaaa40135003b27c",
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": "63139fad05380af0",
+      "M2_TOPK_MEAN_K2": "3ecdb3769a42f6b3",
+      "M2_TOPK_MEAN_K3": "1fa78740da4e9528",
+      "M2_TOPK_MEAN_K5": "ded7ceb6dc4f146f",
+      "F_ORTHOGRAPHIC": "9e132485d5107211",
+      "F_FREQUENCY": "1dc0db437687ed3c",
+      "F_SCRAMBLE": "0c4779c3b3aeb8f8",
+      "F_CONSTANT_PROTOTYPE": "65543a6dcf204ef8",
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": "ade4229406055182",
+      "RANDOM_VECTOR_STORE": "fde73fbb5ca4b638"
+    },
+    "REGIME_A_AUC_PER_ARM": {
+      "A0_SUM": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0456,
+        "ci95": [
+          0.0094,
+          0.0981
+        ],
+        "ci_halfwidth": 0.0444,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0456,
+          "optimistic": 0.0456,
+          "conservative": 0.0456
+        }
+      },
+      "S1_SINGLE_OCC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.4094,
+        "ci95": [
+          0.3356,
+          0.476
+        ],
+        "ci_halfwidth": 0.0702,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.4094,
+          "optimistic": 0.7775,
+          "conservative": 0.0413
+        }
+      },
+      "M1_MAXPOOL": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0381,
+        "ci95": [
+          0.0006,
+          0.095
+        ],
+        "ci_halfwidth": 0.0472,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0381,
+          "optimistic": 0.0387,
+          "conservative": 0.0375
+        }
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.5069,
+        "ci95": [
+          0.3791,
+          0.6391
+        ],
+        "ci_halfwidth": 0.13,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.5069,
+          "optimistic": 0.515,
+          "conservative": 0.4988
+        }
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.57,
+        "ci95": [
+          0.4387,
+          0.6922
+        ],
+        "ci_halfwidth": 0.1267,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.57,
+          "optimistic": 0.5719,
+          "conservative": 0.5681
+        }
+      },
+      "M2_TOPK_MEAN_K2": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0163,
+        "ci95": [
+          0.0013,
+          0.0406
+        ],
+        "ci_halfwidth": 0.0197,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0163,
+          "optimistic": 0.0163,
+          "conservative": 0.0163
+        }
+      },
+      "M2_TOPK_MEAN_K3": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0156,
+        "ci95": [
+          0.0,
+          0.0394
+        ],
+        "ci_halfwidth": 0.0197,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0156,
+          "optimistic": 0.0156,
+          "conservative": 0.0156
+        }
+      },
+      "M2_TOPK_MEAN_K5": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0169,
+        "ci95": [
+          0.0006,
+          0.0462
+        ],
+        "ci_halfwidth": 0.0228,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "tie_variants": {
+          "mid": 0.0169,
+          "optimistic": 0.0169,
+          "conservative": 0.0169
+        }
+      },
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.5,
+          "optimistic": 1.0,
+          "conservative": 0.0
+        }
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.5088,
+        "ci95": [
+          0.3812,
+          0.6422
+        ],
+        "ci_halfwidth": 0.1305,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.5088,
+          "optimistic": 0.5138,
+          "conservative": 0.5038
+        }
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.4844,
+        "ci95": [
+          0.3581,
+          0.61
+        ],
+        "ci_halfwidth": 0.126,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.4844,
+          "optimistic": 0.4844,
+          "conservative": 0.4844
+        }
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.525,
+        "ci95": [
+          0.4012,
+          0.6488
+        ],
+        "ci_halfwidth": 0.1238,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.525,
+          "optimistic": 0.525,
+          "conservative": 0.525
+        }
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.9712,
+        "ci95": [
+          0.9313,
+          0.9984
+        ],
+        "ci_halfwidth": 0.0336,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "tie_variants": {
+          "mid": 0.9712,
+          "optimistic": 0.9756,
+          "conservative": 0.9669
+        }
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.4356,
+        "ci95": [
+          0.3118,
+          0.572
+        ],
+        "ci_halfwidth": 0.1301,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "tie_variants": {
+          "mid": 0.4356,
+          "optimistic": 0.4356,
+          "conservative": 0.4356
+        }
+      }
+    },
+    "REGIME_A_STORAGE_HONESTY": {
+      "A0_SUM": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "S1_SINGLE_OCC": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "M1_MAXPOOL": {
+        "vectors_per_anchor": 52.58,
+        "dim": 11121,
+        "floats_per_anchor": 584742.2,
+        "storage_multiplier_vs_A0_SUM": 52.58
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "vectors_per_anchor": 52.58,
+        "dim": 11121,
+        "floats_per_anchor": 584742.2,
+        "storage_multiplier_vs_A0_SUM": 52.58
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "vectors_per_anchor": 52.58,
+        "dim": 11121,
+        "floats_per_anchor": 584742.2,
+        "storage_multiplier_vs_A0_SUM": 52.58
+      },
+      "M2_TOPK_MEAN_K2": {
+        "vectors_per_anchor": 52.58,
+        "dim": 11121,
+        "floats_per_anchor": 584742.2,
+        "storage_multiplier_vs_A0_SUM": 52.58
+      },
+      "M2_TOPK_MEAN_K3": {
+        "vectors_per_anchor": 52.58,
+        "dim": 11121,
+        "floats_per_anchor": 584742.2,
+        "storage_multiplier_vs_A0_SUM": 52.58
+      },
+      "M2_TOPK_MEAN_K5": {
+        "vectors_per_anchor": 52.58,
+        "dim": 11121,
+        "floats_per_anchor": 584742.2,
+        "storage_multiplier_vs_A0_SUM": 52.58
+      },
+      "F_ORTHOGRAPHIC": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "F_FREQUENCY": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "F_SCRAMBLE": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "RANDOM_VECTOR_STORE": {
+        "vectors_per_anchor": 1,
+        "dim": 11121,
+        "floats_per_anchor": 11121,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      }
+    },
+    "REGIME_A_LICENSING": {
+      "floors_at_chance": {
+        "PASS": true,
+        "failures": []
+      },
+      "known_answer_ok": {
+        "PASS": true,
+        "auc": 0.9712,
+        "gate": 0.95
+      },
+      "random_vector_store_at_chance": {
+        "PASS": true
+      },
+      "INSTRUMENT_LICENSED": true
+    },
+    "REGRESSION_GATE_A0_SUM": {
+      "measured": 0.0456,
+      "expected": 0.051,
+      "tol": 0.006,
+      "PASS": true
+    },
+    "REGRESSION_GATE_S1_SINGLE_OCC": {
+      "measured": 0.4094,
+      "expected": 0.4173,
+      "tol": 0.006,
+      "PASS": false
+    },
+    "REGIME_A_M1_vs_A0": {
+      "point": -0.0075,
+      "ci95": [
+        -0.0613,
+        0.055
+      ],
+      "ci_halfwidth": 0.0581,
+      "band": "NOT_SEPARATED"
+    },
+    "REGIME_A_M1_vs_N1": {
+      "point": -0.4687,
+      "ci95": [
+        -0.6054,
+        -0.3341
+      ],
+      "ci_halfwidth": 0.1357,
+      "band": "BELOW"
+    },
+    "REGIME_A_STOP_IF_FIRED": [
+      "(iii) M1_TIES_A0 -- not-collapsing insufficient"
+    ],
+    "REGIME_A_elapsed_s": 4.7,
+    "REGIME_B_CACHE_REGRESSION_GATE": {
+      "measured": 0.0223,
+      "expected": 0.0223,
+      "PASS": true
+    },
+    "REGIME_B_corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "REGIME_B_checkpoint_reuse_full_accum": {
+      "n_units_loaded": 9485,
+      "n_anchors_found": 5491,
+      "n_anchors_missing": 0,
+      "n_items_found": 400,
+      "n_items_missing": 0,
+      "elapsed_s": 0.4,
+      "missing_p_sample": [],
+      "missing_q_sample": []
+    },
+    "REGIME_B_single_occurrence_build_diag": {
+      "n_anchors": 5491,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.1
+    },
+    "REGIME_B_vocab_size": 21576,
+    "REGIME_B_A0_SUM_hit1_FULL_POPULATION": {
+      "n": 400,
+      "hit_at_1": 0.015
+    },
+    "REGIME_B_S1_SINGLE_OCC_hit1_FULL_POPULATION": {
+      "n": 400,
+      "hit_at_1": 0.0375
+    },
+    "REGIME_B_N_DECISIVE": 40,
+    "REGRESSION_GATE_WR_DECISIVE_ARM": {
+      "SUM_ALL": {
+        "measured": 0.025,
+        "expected": 0.01,
+        "tol": 0.03,
+        "PASS": true
+      },
+      "RANDOM_SINGLE": {
+        "measured": 0.05,
+        "expected": 0.0367,
+        "tol": 0.03,
+        "PASS": true
+      },
+      "BEST_SINGLE_ORACLE": {
+        "measured": 0.325,
+        "expected": 0.3033,
+        "tol": 0.03,
+        "PASS": true
+      }
+    },
+    "REGIME_B_SELF_CONSISTENCY": {
+      "n_mismatch_SUM_ALL": 0,
+      "n_mismatch_RANDOM_SINGLE": 0,
+      "PASS": true
+    },
+    "REGIME_B_OCC_CACHE_DIAG": {
+      "n_distinct_anchors": 40,
+      "elapsed_s": 0.0
+    },
+    "REGIME_B_mean_occurrences_per_item": 31.68,
+    "REGIME_B_HIT1_PER_ARM": {
+      "M1_MAXPOOL": 0.05,
+      "M2_TOPK_MEAN_K2": 0.05,
+      "M2_TOPK_MEAN_K3": 0.1,
+      "M2_TOPK_MEAN_K5": 0.1,
+      "N1_MAXPOOL_RANDOM_OCC": 0.0,
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": 0.025,
+      "A0_SUM": 0.025,
+      "S1_SINGLE_OCC": 0.05
+    },
+    "REGIME_B_STORAGE_HONESTY": {
+      "M1_MAXPOOL": {
+        "vectors_per_item": 31.68,
+        "dim": 21576,
+        "floats_per_item": 683419.8,
+        "storage_multiplier_vs_A0_SUM": 31.68
+      },
+      "M2_TOPK_MEAN_K2": {
+        "vectors_per_item": 31.68,
+        "dim": 21576,
+        "floats_per_item": 683419.8,
+        "storage_multiplier_vs_A0_SUM": 31.68
+      },
+      "M2_TOPK_MEAN_K3": {
+        "vectors_per_item": 31.68,
+        "dim": 21576,
+        "floats_per_item": 683419.8,
+        "storage_multiplier_vs_A0_SUM": 31.68
+      },
+      "M2_TOPK_MEAN_K5": {
+        "vectors_per_item": 31.68,
+        "dim": 21576,
+        "floats_per_item": 683419.8,
+        "storage_multiplier_vs_A0_SUM": 31.68
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "vectors_per_item": 31.68,
+        "dim": 21576,
+        "floats_per_item": 683419.8,
+        "storage_multiplier_vs_A0_SUM": 31.68
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "vectors_per_item": 31.68,
+        "dim": 21576,
+        "floats_per_item": 683419.8,
+        "storage_multiplier_vs_A0_SUM": 31.68
+      },
+      "A0_SUM": {
+        "vectors_per_item": 1.0,
+        "dim": 21576,
+        "floats_per_item": 21576.0,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      },
+      "S1_SINGLE_OCC": {
+        "vectors_per_item": 1.0,
+        "dim": 21576,
+        "floats_per_item": 21576.0,
+        "storage_multiplier_vs_A0_SUM": 1.0
+      }
+    },
+    "REGIME_B_ARM_DIGESTS": {
+      "M1_MAXPOOL": "114fa7e2a2481229",
+      "M2_TOPK_MEAN_K2": "869506b0fcd1d5f9",
+      "M2_TOPK_MEAN_K3": "0e24fa6a36b4fb74",
+      "M2_TOPK_MEAN_K5": "0e24fa6a36b4fb74",
+      "N1_MAXPOOL_RANDOM_OCC": "7b6436b0c98f6238",
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": "949e23c2ab5f5aac",
+      "A0_SUM": "06f962f009ac6ca9",
+      "S1_SINGLE_OCC": "9152f04760d23fab"
+    },
+    "REGIME_B_WINNER_COMPOSITION": {
+      "M1_MAXPOOL": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 20,
+            "NO_WORDNET_PATH_AT_ALL": 10,
+            "WINNER_NOT_IN_WORDNET": 6,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 2,
+            "IN_THE_GENEROUS_GOLD": 2
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5,
+            "NO_WORDNET_PATH_AT_ALL": 0.25,
+            "WINNER_NOT_IN_WORDNET": 0.15,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05,
+            "IN_THE_GENEROUS_GOLD": 0.05
+          },
+          "fraction_no_close_relation": 0.75,
+          "examples": [
+            "abroad -> unlikely (path_sim=0.333)",
+            "absence -> marsupial (path_sim=0.062)",
+            "actin -> microtubule (path_sim=0.077)",
+            "activate -> humoral (path_sim=0.000)",
+            "actually -> overestimate (path_sim=0.000)",
+            "admit -> entitle (path_sim=0.143)",
+            "adrenal -> epinephrine (path_sim=0.083)",
+            "adult -> conserve (path_sim=0.083)",
+            "advice -> observe (path_sim=0.000)",
+            "affairs -> islander (path_sim=0.083)",
+            "agree -> consideration (path_sim=0.000)",
+            "aim -> fleet (path_sim=0.111)",
+            "align -> cytokinesis (path_sim=0.000)",
+            "allege -> principle (path_sim=0.000)",
+            "allele -> capillary (path_sim=0.056)",
+            "allergy -> genuine (path_sim=0.000)",
+            "alone -> actively (path_sim=0.000)",
+            "ancestor -> divergence (path_sim=0.091)",
+            "artery -> cholesterol (path_sim=0.067)",
+            "arts -> artist (path_sim=0.111)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.04878,
+            "median": 0.03727,
+            "frac_ever_co_occurring": 0.9
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 2.061
+        }
+      },
+      "M2_TOPK_MEAN_K2": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 23,
+            "NO_WORDNET_PATH_AT_ALL": 8,
+            "WINNER_NOT_IN_WORDNET": 6,
+            "IN_THE_GENEROUS_GOLD": 2,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.575,
+            "NO_WORDNET_PATH_AT_ALL": 0.2,
+            "WINNER_NOT_IN_WORDNET": 0.15,
+            "IN_THE_GENEROUS_GOLD": 0.05,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.025
+          },
+          "fraction_no_close_relation": 0.775,
+          "examples": [
+            "abroad -> unlikely (path_sim=0.333)",
+            "absence -> marsupial (path_sim=0.062)",
+            "actin -> microtubule (path_sim=0.077)",
+            "activate -> researcher (path_sim=0.000)",
+            "actually -> overestimate (path_sim=0.000)",
+            "admit -> bad (path_sim=0.000)",
+            "adrenal -> epinephrine (path_sim=0.083)",
+            "adult -> reserve (path_sim=0.200)",
+            "advice -> budding (path_sim=0.083)",
+            "affairs -> islander (path_sim=0.083)",
+            "agree -> consideration (path_sim=0.000)",
+            "aim -> construct (path_sim=0.200)",
+            "align -> elongate (path_sim=0.167)",
+            "allege -> contract (path_sim=0.111)",
+            "allele -> capillary (path_sim=0.056)",
+            "allergy -> scientific (path_sim=0.000)",
+            "alone -> actively (path_sim=0.000)",
+            "amphibian -> freshwater (path_sim=0.071)",
+            "ana -> relaxation (path_sim=0.111)",
+            "ancestor -> clade (path_sim=0.100)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.05151,
+            "median": 0.03362,
+            "frac_ever_co_occurring": 0.925
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 2.176
+        }
+      },
+      "M2_TOPK_MEAN_K3": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 20,
+            "NO_WORDNET_PATH_AT_ALL": 8,
+            "WINNER_NOT_IN_WORDNET": 6,
+            "IN_THE_GENEROUS_GOLD": 4,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 2
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5,
+            "NO_WORDNET_PATH_AT_ALL": 0.2,
+            "WINNER_NOT_IN_WORDNET": 0.15,
+            "IN_THE_GENEROUS_GOLD": 0.1,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05
+          },
+          "fraction_no_close_relation": 0.7,
+          "examples": [
+            "abroad -> unlikely (path_sim=0.333)",
+            "absence -> marsupial (path_sim=0.062)",
+            "actin -> microtubule (path_sim=0.077)",
+            "activate -> researcher (path_sim=0.000)",
+            "actually -> technician (path_sim=0.000)",
+            "admit -> bad (path_sim=0.000)",
+            "adrenal -> epinephrine (path_sim=0.083)",
+            "advice -> budding (path_sim=0.083)",
+            "aim -> construct (path_sim=0.200)",
+            "align -> elongate (path_sim=0.167)",
+            "allege -> contract (path_sim=0.111)",
+            "allele -> capillary (path_sim=0.056)",
+            "allergy -> scientific (path_sim=0.000)",
+            "alone -> rates (path_sim=0.000)",
+            "amphibian -> losses (path_sim=0.077)",
+            "ana -> relaxation (path_sim=0.111)",
+            "ancestor -> clade (path_sim=0.100)",
+            "apparatus -> lysosome (path_sim=0.200)",
+            "arts -> remove (path_sim=0.083)",
+            "asia -> obvious (path_sim=0.000)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.04306,
+            "median": 0.02932,
+            "frac_ever_co_occurring": 0.9
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 1.819
+        }
+      },
+      "M2_TOPK_MEAN_K5": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 22,
+            "NO_WORDNET_PATH_AT_ALL": 7,
+            "WINNER_NOT_IN_WORDNET": 5,
+            "IN_THE_GENEROUS_GOLD": 4,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 2
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.55,
+            "NO_WORDNET_PATH_AT_ALL": 0.175,
+            "WINNER_NOT_IN_WORDNET": 0.125,
+            "IN_THE_GENEROUS_GOLD": 0.1,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05
+          },
+          "fraction_no_close_relation": 0.725,
+          "examples": [
+            "abroad -> unlikely (path_sim=0.333)",
+            "absence -> marsupial (path_sim=0.062)",
+            "actin -> microtubule (path_sim=0.077)",
+            "activate -> humoral (path_sim=0.000)",
+            "actually -> overestimate (path_sim=0.000)",
+            "admit -> bad (path_sim=0.000)",
+            "adrenal -> epinephrine (path_sim=0.083)",
+            "advice -> budding (path_sim=0.083)",
+            "affairs -> islander (path_sim=0.083)",
+            "aim -> construct (path_sim=0.200)",
+            "align -> elongate (path_sim=0.167)",
+            "allege -> contract (path_sim=0.111)",
+            "allele -> segregation (path_sim=0.100)",
+            "allergy -> genuine (path_sim=0.000)",
+            "alone -> rates (path_sim=0.000)",
+            "amphibian -> losses (path_sim=0.077)",
+            "ana -> publicity (path_sim=0.143)",
+            "ancestor -> clade (path_sim=0.100)",
+            "apparatus -> lysosome (path_sim=0.200)",
+            "arts -> remove (path_sim=0.083)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.04833,
+            "median": 0.03727,
+            "frac_ever_co_occurring": 0.95
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 2.042
+        }
+      },
+      "N1_MAXPOOL_RANDOM_OCC": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "NO_WORDNET_PATH_AT_ALL": 20,
+            "TAXONOMICALLY_DISTANT": 17,
+            "WINNER_NOT_IN_WORDNET": 2,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+          },
+          "fractions": {
+            "NO_WORDNET_PATH_AT_ALL": 0.5,
+            "TAXONOMICALLY_DISTANT": 0.425,
+            "WINNER_NOT_IN_WORDNET": 0.05,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.025
+          },
+          "fraction_no_close_relation": 0.925,
+          "examples": [
+            "abroad -> actin (path_sim=0.000)",
+            "absence -> amniote (path_sim=0.071)",
+            "actin -> lily (path_sim=0.059)",
+            "activate -> apparatus (path_sim=0.000)",
+            "actually -> aim (path_sim=0.000)",
+            "admit -> alone (path_sim=0.000)",
+            "adult -> allege (path_sim=0.000)",
+            "advancement -> actively (path_sim=0.000)",
+            "advice -> sugar (path_sim=0.091)",
+            "affairs -> photosynthesis (path_sim=0.083)",
+            "agree -> allergy (path_sim=0.000)",
+            "aim -> advancement (path_sim=0.111)",
+            "align -> regard (path_sim=0.000)",
+            "allege -> factor (path_sim=0.000)",
+            "allele -> axon (path_sim=0.067)",
+            "allergy -> auction (path_sim=0.059)",
+            "alone -> axon (path_sim=0.000)",
+            "amphibian -> aim (path_sim=0.077)",
+            "ana -> lily (path_sim=0.067)",
+            "angiosperm -> alone (path_sim=0.000)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.00011,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.025
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 0.005
+        }
+      },
+      "N2_MAXPOOL_SIZE_MATCHED_SHUFFLE": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 19,
+            "NO_WORDNET_PATH_AT_ALL": 16,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 4,
+            "IN_THE_GENEROUS_GOLD": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.475,
+            "NO_WORDNET_PATH_AT_ALL": 0.4,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.1,
+            "IN_THE_GENEROUS_GOLD": 0.025
+          },
+          "fraction_no_close_relation": 0.875,
+          "examples": [
+            "abroad -> actin (path_sim=0.000)",
+            "absence -> amphibian (path_sim=0.071)",
+            "actin -> attendance (path_sim=0.071)",
+            "activate -> ana (path_sim=0.000)",
+            "actually -> adult (path_sim=0.000)",
+            "admit -> aim (path_sim=0.000)",
+            "adrenal -> barrels (path_sim=0.071)",
+            "adult -> alone (path_sim=0.333)",
+            "advancement -> australian (path_sim=0.111)",
+            "advice -> bay (path_sim=0.100)",
+            "affairs -> allege (path_sim=0.000)",
+            "agree -> atom (path_sim=0.000)",
+            "aim -> asia (path_sim=0.111)",
+            "align -> attribute (path_sim=0.250)",
+            "allege -> beauty (path_sim=0.000)",
+            "allele -> admit (path_sim=0.000)",
+            "allergy -> advice (path_sim=0.077)",
+            "alone -> ancestor (path_sim=0.000)",
+            "amphibian -> axon (path_sim=0.100)",
+            "ana -> absence (path_sim=0.143)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.00052,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.05
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 0.022
+        }
+      },
+      "A0_SUM": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 20,
+            "NO_WORDNET_PATH_AT_ALL": 13,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 3,
+            "WINNER_NOT_IN_WORDNET": 3,
+            "IN_THE_GENEROUS_GOLD": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.5,
+            "NO_WORDNET_PATH_AT_ALL": 0.325,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.075,
+            "WINNER_NOT_IN_WORDNET": 0.075,
+            "IN_THE_GENEROUS_GOLD": 0.025
+          },
+          "fraction_no_close_relation": 0.825,
+          "examples": [
+            "abroad -> unlikely (path_sim=0.333)",
+            "absence -> regeneration (path_sim=0.111)",
+            "actin -> microtubule (path_sim=0.077)",
+            "activate -> humoral (path_sim=0.000)",
+            "actually -> overestimate (path_sim=0.000)",
+            "admit -> description (path_sim=0.000)",
+            "adrenal -> epinephrine (path_sim=0.083)",
+            "adult -> vary (path_sim=0.000)",
+            "advice -> budding (path_sim=0.083)",
+            "affairs -> islander (path_sim=0.083)",
+            "agree -> dream (path_sim=0.000)",
+            "aim -> error (path_sim=0.167)",
+            "align -> homologous (path_sim=0.000)",
+            "allege -> contract (path_sim=0.111)",
+            "allele -> suppress (path_sim=0.000)",
+            "allergy -> genuine (path_sim=0.000)",
+            "alone -> rates (path_sim=0.000)",
+            "amphibian -> losses (path_sim=0.077)",
+            "ana -> publicity (path_sim=0.143)",
+            "ancestor -> liberia (path_sim=0.077)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.03862,
+            "median": 0.03333,
+            "frac_ever_co_occurring": 0.825
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 1.632
+        }
+      },
+      "S1_SINGLE_OCC": {
+        "wordnet": {
+          "n_probed": 40,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 18,
+            "WINNER_NOT_IN_WORDNET": 9,
+            "NO_WORDNET_PATH_AT_ALL": 8,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 3,
+            "IN_THE_GENEROUS_GOLD": 2
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.45,
+            "WINNER_NOT_IN_WORDNET": 0.225,
+            "NO_WORDNET_PATH_AT_ALL": 0.2,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.075,
+            "IN_THE_GENEROUS_GOLD": 0.05
+          },
+          "fraction_no_close_relation": 0.65,
+          "examples": [
+            "abroad -> unlikely (path_sim=0.333)",
+            "absence -> autopsy (path_sim=0.111)",
+            "actin -> microtubule (path_sim=0.077)",
+            "activate -> researcher (path_sim=0.000)",
+            "actually -> technician (path_sim=0.000)",
+            "admit -> bad (path_sim=0.000)",
+            "adrenal -> epinephrine (path_sim=0.083)",
+            "adult -> yorkshire (path_sim=0.111)",
+            "advice -> background (path_sim=0.125)",
+            "agree -> income (path_sim=0.000)",
+            "aim -> helping (path_sim=0.100)",
+            "allege -> carefully (path_sim=0.000)",
+            "allele -> dominance (path_sim=0.083)",
+            "allergy -> restrict (path_sim=0.000)",
+            "alone -> rates (path_sim=0.000)",
+            "amphibian -> freshwater (path_sim=0.071)",
+            "ancestor -> field (path_sim=0.111)",
+            "artery -> competition (path_sim=0.091)",
+            "arts -> artist (path_sim=0.111)",
+            "asia -> drought (path_sim=0.125)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 40,
+            "mean": 0.05006,
+            "median": 0.02092,
+            "frac_ever_co_occurring": 0.725
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 40,
+            "mean": 0.02367,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.425
+          },
+          "winner_over_gold_ratio_of_means": 2.115
+        }
+      }
+    },
+    "REGIME_B_M1_vs_A0": {
+      "point": 0.025,
+      "ci95": [
+        0.0,
+        0.075
+      ],
+      "ci_halfwidth": 0.0375,
+      "band": "NOT_SEPARATED"
+    },
+    "REGIME_B_M1_vs_N1": {
+      "point": 0.05,
+      "ci95": [
+        0.0,
+        0.125
+      ],
+      "ci_halfwidth": 0.0625,
+      "band": "NOT_SEPARATED"
+    },
+    "REGIME_B_elapsed_s": 10.0,
+    "elapsed_s": 14.8
+  },
+  "elapsed_s": 23.5,
+  "summary": "Does keeping a word's occurrences separate and scoring by best match (max-pool) beat summing, on the dissociation AUC (primary) and hit@1 + winner composition (secondary)? -> MAXPOOL_OCCURRENCE__iii__M1_vs_A0_NOT_SEPARATED__M1_vs_N1_BELOW"
+}
