@@ -625,6 +625,48 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.35 **PRE-COMMITTED READING OF THE CROSS-CORPUS PAIR -- WRITTEN BEFORE EITHER CELL HAS A NUMBER.**
+
+Same discipline as 6.26, which let 6.27 call `POWER_INSUFFICIENT` at n=7 without reading the arms.
+**Both typed-role cells are still running. Nothing below is fitted to a result.**
+
+**THE BAR IN BOTH: `max(four floors)` ~= 0.5431, NOT 0.5.** Report both margins separately.
+
+**THE FOUR OUTCOMES, decided now:**
+
+1. **BOTH clear the bar, and both beat their own `T2_UNTYPED_SAME_COVERAGE`** -> **the grammatical
+   relation carries substitutability, and it replicates across corpora and extraction paths.** This
+   would be the programme's first genuine write-rule win and the strongest result it has produced.
+   *Report the LEVEL as prominently as the margin, and the coverage numbers in the same sentence.*
+2. **BOTH fail** -> typed structure does not help either, on our corpus OR on SimpleWiki, by live
+   parse OR pre-built asset. **The last unexplored write-rule axis closes**, and Organ A's answer is
+   final: the missing ingredient is a learning signal, not a better feature. *Say it plainly.*
+3. **THEY DISAGREE** -> **this is the informative case and must NOT be reported as "mixed".** The
+   difference between them is exactly two things -- **corpus** (ours vs SimpleWiki) and **extraction**
+   (live parse vs pre-built asset). *Name which cell won, state both candidate causes, and say which
+   further test would separate them.* **Do not average them and do not pick the flattering one.**
+4. **EITHER beats `A0` but NOT its `T2_UNTYPED`** -> the gain is **word SELECTION, not TYPE**, in
+   that cell. The role label is doing nothing; a different set of contributing words is. *Report as
+   such and claim no mechanism.*
+
+**THE TRAPS I AM PRE-COMMITTING AGAINST:**
+- **A win on ONE cell is not a win.** With two shots at one hypothesis, one clearing by chance is
+  ordinary. **If exactly one clears, the honest headline is "one of two independent tests cleared",
+  with both numbers stated.**
+- **`N5_COVERAGE_MATCHED` decides before anything else.** The SimpleWiki asset covers a corpus our
+  store never saw; a coverage asymmetry can manufacture a margin. *If a cell beats `A0` but not its
+  coverage-matched control, it is an artifact regardless of how clean the rest looks.*
+- **All 242 matched pairs are NOUNS.** Every claim from either cell is a claim about nouns.
+- **Neither cell's absolute AUC may be compared to the other's** if their populations differ after
+  coverage-matching -- **only the pass/fail against each cell's OWN recomputed floors.**
+
+**AND THE PRIOR I AM HOLDING MYSELF TO:** the supervision drill's deflated estimate was **0.15 / 0.20
+for the two positive outcomes and 0.45 THAT THIS IS A CLEAN NEGATIVE.** *I have talked about this
+pair as "the first arm to use grammatical relation" all night, which is true and is not evidence. On
+the drill's own numbers, outcome 2 is the most likely single result.*
+
+---
+
 ### 6.34 **THE TYPED-ROLE TEST IS NOW A CROSS-CORPUS PAIR -- BY ACCIDENT, AFTER TWO DIRECTOR MISJUDGEMENTS.**
 
 **Two cells, same hypothesis, different assets AND different corpora.** Verified off disk, not taken
