@@ -566,6 +566,52 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
+### 6.31 **THE TYPED-ROLE HYPOTHESIS WAS ALREADY IMPLEMENTED HERE ONCE, AND NEVER RUN.**
+
+Found by hand (name-level enumeration over `experiments/`, ~1 second) after the broken
+`substrate_query.sh` returned nothing:
+**`exp_dependency_context_codebook_location_artifact_v1.py`** + a `_weight_sweep_..._v2`.
+
+Its own docstring: *"Dependency-context vs window-context PPMI-SVD codebook... SAME pipeline,
+differing ONLY in the co-occurrence feature: window (word, word) vs dependency-typed
+(word, relation+direction), e.g. `(word, dobj_of:build)`, `(word, pobj_of:in)`."* **That is exactly
+the `T1_TYPED_ROLE_CONTEXT` vs `T2_UNTYPED_SAME_COVERAGE` contrast, built before.**
+
+**IT NEVER LANDED -- there is NO data directory.** So the hypothesis is **UNPROVEN HERE, NOT
+REFUTED.** *Do not cite it as a closed negative and do not cite it as support.*
+
+**IT ALSO SUPPLIES PUBLISHED PRIOR ART OUR DRILL REACHED INDEPENDENTLY, which is corroboration
+rather than coincidence:**
+- **Levy & Goldberg 2014** -- dependency-based embeddings: typed relations shift induced similarity
+  from **RELATEDNESS** (window / bag-of-words) toward **SIMILARITY / co-type**. *That is our
+  co-occurrence-vs-substitutability axis, named in the literature a decade ago.*
+- **Komninos & Manandhar 2016** -- **window + dependency COMBINED beats either alone.** **THIS IS A
+  GAP IN MY DESIGN: our `T1` REPLACES the bag; it does not COMBINE with it.** A combined arm is
+  cheap and is now flagged to the running cell.
+
+**Credit is owed and has been passed to the running agent** (learn-from / build-on, never "steal").
+
+---
+
+### 6.32 **"ENUMERATE FROM DISK" IS THE RIGHT RULE AND I GAVE IT THE WRONG IMPLEMENTATION, IN EVERY BRIEF TONIGHT.**
+
+**What I wrote into brief after brief:** *"enumerate with a bounded `os.walk` over `data/`"*.
+**On THIS repo that is 157.6 GB across 8,712 directories**, and `grep` / `Glob` / `Grep` already time
+out here. **Two agents produced nothing for 30-45 minutes and neither had stalled -- they were doing
+exactly what I asked.** My own attempt died at the 5-minute tool limit.
+
+**THE CORRECTION, and it costs nothing:** a **name-level enumeration over `experiments/`** answers
+"has this been built before?" **in about a second** --
+`ls experiments/ | grep -iE "typed|role_context|syntactic|dependency|slot"`. It found the prior art
+above, and earlier found `exp_pc1_predictive_coding_residual_gate_v1` (6.25). **Walk `data/` ONLY
+when the question is "did it ever RUN", and even then scope it to the candidate names first.**
+
+**THE GENERAL FORM: "enumerate, don't search" is correct; "enumerate EVERYTHING" is not.** Name the
+smallest surface that can answer the question. *A rule that is too expensive to follow gets skipped
+or eats the lane -- and tonight it did both.*
+
+---
+
 ### 6.30 **THE n=7 COLLAPSE WAS A DESIGN ERROR, NOT A SAMPLING ONE. THE LESSON GENERALISES.**
 
 **What I did wrong:** I briefed the human-judgement instrument to score **the WordNet instrument's
