@@ -403,16 +403,38 @@ the number of queries per point beside every "no difference".**
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
-- **IN FLIGHT, VERIFIED ALIVE AT 05:33 (2026-08-18) -- CHECK THESE FIRST AFTER A COMPACTION:**
-  (a) **`exp_typed_role_context_write_rule_dissociation_v1` (LIVE-PARSE arm) is RUNNING and healthy.**
-  Position read off disk, not inferred: **381 of 617 per-word occurrence units** written
-  (`data/exp_typed_role_context_write_rule_dissociation_v1/units.jsonl`, mtime 0 min ago, newest keys
-  `OCC|v1.0|full|peak / period / pest` -- it is walking the anchor list alphabetically). Slot
-  distribution already DONE (`n_slots=9981`, `n_slot_obs=71103`, 315 s). **Its stdout log lags the
-  units file by ~10 min because stdout is block-buffered -- JUDGE LIVENESS FROM `units.jsonl` mtime,
-  NEVER from the log tail.** *That buffering gap is exactly what made an earlier agent look dead
-  tonight when it was working fine.* Detached, so it survives this session: PID in
-  `scratch/typed_role_full.pid`.
+- **🟢 LANDED 05:36 (2026-08-18) -- `exp_typed_role_context_write_rule_dissociation_v1` (`5170c7751`).
+  THE FIRST ARM IN THIS PROGRAMME TO CLEAR THE 0.5431 BAR CI-SEPARATED WITH ITS COVERAGE CONTROL
+  INTACT -- AND THE STOP-IF THAT FIRED ALONGSIDE IT IS WHAT THE RESULT ACTUALLY IS.**
+  Instrument re-licensed IN THIS RUN (all 8 cached DSI checks reproduced at delta 0.0000, floors at
+  chance, **n=242 per cell** -- not the n=7 of the human v1 attempt). **Matching is per-POS-stratum,
+  so SET_P/SET_S cannot differ in POS by construction.**
+  **`U1_TYPED_CONTEXT` 0.6669 [0.6184, 0.7136] vs incumbent bag-of-words `A0` 0.0510** -- and the
+  three mandatory controls all held: beats `N1_LABEL_PERMUTED` **+0.1105 [0.0800, 0.1420]**, beats
+  `N2_RANDOM_TYPING` **+0.1068 [0.0696, 0.1449]**, and `U1_COVERAGE_MATCHED` is 0.6669, unmoved.
+  **READ THE MARGINS FROM THE PAIRED-DIFFERENCE CI, NOT FROM WHETHER THE TWO ARMS' OWN CIs OVERLAP**
+  -- I misread overlap as "not separated" while checking this, and the two tests disagree.
+  **BUT `STOPIF3` FIRED AND IT DOWNGRADES THE HEADLINE: `U3_ROLE_ONLY` 0.6466 TIES `U1`**
+  (+0.0203 [-0.0185, 0.0591], NOT separated), and an independent parse-noise sweep **barely moved the
+  score -- 0.667 -> 0.651 with 50% of the parse neighbours CORRUPTED.** *If half the neighbours can be
+  wrong and the answer survives, the specific typed neighbours are not what is carrying it.*
+  **THE HONEST CLAIM IS THE COARSER ONE: most of the signal is WHICH KIND OF SLOT a word fills, not
+  WHICH WORD fills it.** `T2_UNTYPED_SAME_COVERAGE` 0.6128 clears the bar on its own -- selection
+  carries the bulk -- with the type label adding a real but small CI-separated increment
+  (**+0.0541 [0.0339, 0.0753]**). **DO NOT WRITE "GRAMMAR CARRIES SUBSTITUTABILITY."**
+  **SECOND INDEPENDENT NEGATIVE ON PREDICTION ERROR:** `S1_SLOT_COMPETITION` 0.0695 does NOT beat
+  `N3_MAGNITUDE_PERMUTED` 0.0591 (+0.0104 [-0.0069, 0.0289]). *That is now twice, on different
+  mechanisms.*
+  **AND 6.38's PREMISE REPLICATES ACROSS CORPORA:** `T3_COMBINED` (the published Komninos &
+  Manandhar window+dependency pattern) **HURT in both corpora** -- 0.3533 here, **-0.3136
+  [-0.3476, -0.2812] vs `U1` alone**, and 0.2264 on SimpleWiki. **Concatenating an anti-correlated
+  channel is now a two-corpus finding, not a one-off.**
+  **CORRECTION TO MY OWN 93d54ba72, MADE 10 MINUTES EARLIER: I claimed this run's stdout log lagged
+  its `units.jsonl` because stdout was block-buffered. THAT WAS WRONG.** Re-checked at 05:34: both
+  mtimes 2 min ago, in sync. The 11-minute gap I saw was **PRINT CADENCE** -- the occdata stage prints
+  every 100 words, and 381 units sat between the 300 and 400 marks. *There is no buffering defect;
+  `units.jsonl` mtime is still the better liveness signal, but the log is not lying.*
+- **IN FLIGHT:**
   (b) **`arm-expansion` (rank-correlation CI) is dispatched and has produced NO transcript bytes yet.**
   **This is NOT evidence it is dead.** I misread agent silence as death twice tonight and was wrong
   both times -- once standing down a healthy agent that was authoring a 58 KB cell. **Do not respawn
