@@ -101,3 +101,23 @@ tail -3 D:/AI/hd-instrument/data/hook_state/_canary.txt
 A recent timestamp means stop events are reaching the registration. **A stale timestamp means the
 registration is not being loaded, no matter how green the hook's own self-test is** -- that is
 exactly the state this project sat in from 2026-08-13 to 2026-08-18 without noticing.
+
+## 2026-08-18 -- THE PROTECTIVE DENY RULES WERE NOT LOADING, AND NOBODY NOTICED
+
+`hd-instrument/.claude/settings.json` carried 24 deny rules protecting `preregs/**` and
+`arm_key*`. **They were never in force.** That file is a SUBDIRECTORY settings file, and the
+session's project root is `D:\AI` -- the same reason the Stop hook silently never fired between
+2026-08-13 and 2026-08-18. **The rules read as protection in code review and did nothing at
+runtime.**
+
+**How it was caught, and it was luck:** a subagent was asked to write a pre-registration and
+SUCCEEDED. `Write(preregs/**)` should have blocked it. The success was the evidence.
+
+**Fix applied:** all 24 rules copied into `D:/AI/.claude/settings.json`, which does load. Backup of
+the prior state at `D:/AI/.claude/settings.json.bak_before_deny_merge`. **They take effect at the
+NEXT session start** -- settings load at session start, so this session still runs unprotected.
+
+**The general rule this is the third instance of: a control that lives in an unloaded file is not a
+control, and nothing reports its absence.** Same class as the 11 scheduled tasks disabled for 12
+days and the KB ingest disabled for 6. Verify enforcement by OBSERVING A DENIAL, never by reading
+the rule.
