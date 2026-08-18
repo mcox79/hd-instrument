@@ -486,6 +486,79 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.22 **THE FALSIFIER LANDED AND THE SUPERVISION CONCLUSION SURVIVES. THIS CLOSES THE ORGAN.**
+
+`exp_tuned_count_unsupervised_dissociation_v1` (`120cfefae`), the steelman the supervision drill
+itself demanded: Levy/Goldberg/Dagan showed a *properly tuned* count method matches SGNS, and our
+earlier PPMI+SVD arm was the VANILLA version. **If tuning closed the gap, supervision was never the
+variable and 6.18-6.21 would all be wrong.** It does not.
+
+**METHOD POINT THAT MAKES THIS TRUSTWORTHY:** every knob (alpha, shift, subsampling, eigenvalue
+weight, rank) was selected on a **held-out validation population of 54 matched pairs built by
+excluding all 617 words that appear anywhere in the evaluation population** -- *word-level*
+disjointness, stronger than pair-level. The winning config's eval AUC is read ONCE as the result;
+the sweep-max on eval is reported separately and always labelled `CEILING_NOT_A_RESULT`.
+
+| arm | RESULT (held-out-selected) |
+|---|---|
+| `T0` vanilla PPMI+SVD | 0.0519 |
+| `T1` context smoothing | 0.0519 (alpha selected OFF -- never helped) |
+| `T2` shift (k_shift=15) | **0.1144** |
+| `T3` subsampling | 0.0519 (selected OFF) |
+| `T4` combined | 0.1144 (ceiling 0.1253) |
+| `T5` SGNS from scratch | **0.4417** |
+
+**EVERY RESULT AND EVERY CEILING IS CI-SEPARATED BELOW 0.5.** The highest number anywhere in the
+entire sweep is 0.1253 (upper CI 0.1572). **The shift term roughly DOUBLES the classical method
+(0.05 -> 0.11) and comes nowhere near the boundary.**
+
+**AND THE MOST STRIKING SINGLE NUMBER IN THE ORGAN:** `T5_SGNS_FROM_SCRATCH` reads **0.4417,
+CI-separated BELOW 0.5 -- and below its own UNTRAINED random-init control, which sits at exactly
+0.5000.** *A neural predictor trained from scratch on our corpus is WORSE than the same network
+before training.* Training on this corpus actively moves a model toward co-occurrence.
+
+**THE HONEST CORRECTION TO THE 6.18 HEADLINE, in the agent's own words:** not "the classical method
+fails" but **"the vanilla method fails, tuning helps but stays far short, and a from-scratch neural
+predictor on the same corpus also fails."**
+
+**COMPOSITION CORROBORATES:** T0/T1/T3 pick the collocate **96%** of the time; the shift-tuned arms
+improve to **89%**; the genuine oracle picks it **4.6%**; random sits at 55%. *Tuning moves the
+needle 7 points on a scale where the oracle is 91 points away.*
+
+---
+
+### 6.23 **ORGAN A: CLOSED. THE COMPLETE FINDING.**
+
+**THE INFORMATION IS THERE.** A supervised diagonal reweighting of the SVD space reaches **0.9670
+fitted / 0.9606 held-out**, and -- after the Director's leakage objection was tested rather than
+waved away (37.6% of pair-member words appear in more than one pair) -- **0.8629 under
+GROUP-DISJOINT, word-level-clean cross-validation.** A real gap, honestly measured, still clearing
+0.5 by a wide margin.
+
+**NOTHING UNSUPERVISED REACHES IT.** Vanilla PPMI 0.05, tuned counts 0.11, second-order cosine 0.05,
+from-scratch SGNS 0.44, and every one of our own five write-rule steps between 0.03 and 0.42.
+
+**SO THE ORGAN'S ANSWER IS:**
+> **The corpus is NOT the blocker. First-order counts CONTAIN the substitutability signal. No
+> unsupervised transform -- ours, classical, or neural -- extracts it. The missing ingredient is a
+> LEARNING SIGNAL, and the open question is what to supervise the write rule WITH, given that an
+> LLM at inference is disqualifying and a pretrained table is disqualifying as a meaning source.**
+
+**WHAT WAS ELIMINATED TONIGHT, each with its own control:** the basis (learned = random), the
+denominator (row-normalisation is a cosine no-op), not-collapsing (worse than the sum, and its
+random-occurrence control proved the loss is content-specific), the filter (worse than a random
+draw of the same size), superposition (does not exist -- proven by 1.76e-08 reconstruction),
+prediction-error gating (matched by a rate-matched random gate), and corpus capacity (refuted --
+the signal is present).
+
+**METHOD RESULT, and it is worth as much as the science:** **FOUR arms tonight produced apparent
+CI-separated wins that their own controls destroyed** -- max-pool, prediction-gating (+0.2369, a
+4.3x "improvement"), the C2 denominator, and the learned basis. **Without rate-matched and
+identity-matched twins, this session would have reported four breakthroughs and built on all of
+them.**
+
+---
+
 ### 6.21 **PREDICTION ERROR AS A WRITE GATE: A CLEAN NEGATIVE, AND THE CONTROL IS THE ONLY REASON IT IS NOT A FALSE HEADLINE.**
 
 `exp_predictive_coding_write_gate_dissociation_v1`, FULL, commit `e822eeaaf`. **First time
