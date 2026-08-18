@@ -1,0 +1,692 @@
+{
+  "anchor_name": "typed_role_context_write_rule_dissociation_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.1",
+  "findings_log": "notes/typed_role_context_write_rule_dissociation_2026-08-18.md",
+  "verdict": "TYPED_ROLE_CONTEXT__STOPIF3_U1_TIES_U3__POS_PROFILE_IN_DISGUISE__STOPIF5_S1_NOT_ABOVE_N3__SECOND_INDEPENDENT_NEGATIVE_ON_PREDICTION_ERROR__U1_BEATS_BOTH_A0_AND_T2__TYPE_CARRIES_MARGINAL_INFORMATION_OVER_SELECTION__T3_COMBINED_BEATS_A0_BUT_NOT_U1__COMBINATION_DID_NOT_HELP_OVER_TYPED_ALONE__STOPIF8_ORGAN_A_REOPENS__U1_TYPED_CONTEXT",
+  "verdict_msg": "Does the grammatical relation carry substitutability a bag-of-words context discards? U1 (typed context) vs N1 (label-permuted)/N2 (random-typing)/U3 (role-only) vs A0 (reused bag-of-words); S1 (slot-competition write rule) vs N3 (magnitude-permuted) vs A0. Bar = max(4 floors) = 0.5431, not 0.5. -> STOPIF3_U1_TIES_U3__POS_PROFILE_IN_DISGUISE; STOPIF5_S1_NOT_ABOVE_N3__SECOND_INDEPENDENT_NEGATIVE_ON_PREDICTION_ERROR; U1_BEATS_BOTH_A0_AND_T2__TYPE_CARRIES_MARGINAL_INFORMATION_OVER_SELECTION; T3_COMBINED_BEATS_A0_BUT_NOT_U1__COMBINATION_DID_NOT_HELP_OVER_TYPED_ALONE; STOPIF8_ORGAN_A_REOPENS__U1_TYPED_CONTEXT",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "COVERAGE_MIN": 3,
+    "CORRUPT_FRACS": [
+      0.0,
+      0.25
+    ],
+    "DSI_CODE_VERSION": "v1.7",
+    "N_WORKERS": 4
+  },
+  "selftest_evidence_keys": [
+    "arms_must_differ_digest_sensitivity",
+    "band_vs_bar_known_answers",
+    "corrupt_neighbors_field_scoped",
+    "delta_known_answers",
+    "exp_checkpoint_selftest",
+    "label_permute_marginal_preserved",
+    "n3_occurrence_count_preserved",
+    "owner_sentence_slot_recovery",
+    "reused_functions_importable",
+    "s1_sign_is_load_bearing",
+    "slot_dist_known_answer",
+    "t2_untyped_same_coverage",
+    "t3_combined_known_answer",
+    "u1_u3_differ"
+  ],
+  "report": {
+    "anchor_name": "typed_role_context_write_rule_dissociation_v1",
+    "grid": "reduced",
+    "code_version": "v1.1",
+    "findings_log": "notes/typed_role_context_write_rule_dissociation_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "NO_PRETRAINED_TABLE_IMPORTED": true,
+    "BAR_MAX_FLOOR_AUC": 0.5431,
+    "DSI_REGRESSION_GATE": {
+      "n_matched_pairs_per_cell": 242,
+      "n_arms_recomputed": 11,
+      "checks": {
+        "F_ORTHOGRAPHIC": {
+          "PASS": true,
+          "expected": 0.5,
+          "measured": 0.5,
+          "delta": 0.0
+        },
+        "F_FREQUENCY": {
+          "PASS": true,
+          "expected": 0.4901,
+          "measured": 0.4901,
+          "delta": 0.0
+        },
+        "F_SCRAMBLE": {
+          "PASS": true,
+          "expected": 0.4664,
+          "measured": 0.4664,
+          "delta": 0.0
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "PASS": true,
+          "expected": 0.5431,
+          "measured": 0.5431,
+          "delta": 0.0
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "PASS": true,
+          "expected": 0.9599,
+          "measured": 0.9599,
+          "delta": 0.0
+        },
+        "RANDOM_VECTOR_STORE": {
+          "PASS": true,
+          "expected": 0.4862,
+          "measured": 0.4862,
+          "delta": 0.0
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "PASS": true,
+          "expected": 0.071,
+          "measured": 0.071,
+          "delta": 0.0
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "PASS": true,
+          "expected": 0.051,
+          "measured": 0.051,
+          "delta": 0.0
+        }
+      },
+      "floors_at_chance": true,
+      "known_answer_ok": true,
+      "random_store_ok": true,
+      "INSTRUMENT_LICENSED": true,
+      "recomputed_AUC_PER_ARM": {
+        "F_ORTHOGRAPHIC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5,
+          "ci95": [
+            0.4875,
+            0.5124
+          ],
+          "ci_halfwidth": 0.0125,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_FREQUENCY": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4901,
+          "ci95": [
+            0.4384,
+            0.5402
+          ],
+          "ci_halfwidth": 0.0509,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_SCRAMBLE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4664,
+          "ci95": [
+            0.4138,
+            0.5175
+          ],
+          "ci_halfwidth": 0.0518,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5431,
+          "ci95": [
+            0.4938,
+            0.5947
+          ],
+          "ci_halfwidth": 0.0504,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.9599,
+          "ci95": [
+            0.9443,
+            0.974
+          ],
+          "ci_halfwidth": 0.0148,
+          "band": "ABOVE_0.5_SUBSTITUTABILITY"
+        },
+        "RANDOM_VECTOR_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4862,
+          "ci95": [
+            0.4357,
+            0.5369
+          ],
+          "ci_halfwidth": 0.0506,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.071,
+          "ci95": [
+            0.051,
+            0.0948
+          ],
+          "ci_halfwidth": 0.0219,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.051,
+          "ci95": [
+            0.0324,
+            0.0711
+          ],
+          "ci_halfwidth": 0.0193,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_SINGLE_OCC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4173,
+          "ci95": [
+            0.3875,
+            0.4506
+          ],
+          "ci_halfwidth": 0.0315,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PRESENCE_ABSENCE_BINARIZED": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0294,
+          "ci95": [
+            0.0147,
+            0.0465
+          ],
+          "ci_halfwidth": 0.0159,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PARADIGMATIC_PROFILE_WRITE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.2165,
+          "ci95": [
+            0.1794,
+            0.2584
+          ],
+          "ci_halfwidth": 0.0395,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 40,
+    "N_WORDS_NEEDED": 142,
+    "REUSED_ARMS": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5,
+        "ci95": [
+          0.4866,
+          0.5124
+        ],
+        "ci_halfwidth": 0.0129,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4901,
+        "ci95": [
+          0.4384,
+          0.5392
+        ],
+        "ci_halfwidth": 0.0504,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4664,
+        "ci95": [
+          0.4158,
+          0.5191
+        ],
+        "ci_halfwidth": 0.0517,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5431,
+        "ci95": [
+          0.4943,
+          0.5931
+        ],
+        "ci_halfwidth": 0.0494,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.9599,
+        "ci95": [
+          0.9452,
+          0.9741
+        ],
+        "ci_halfwidth": 0.0145,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4862,
+        "ci95": [
+          0.4334,
+          0.5397
+        ],
+        "ci_halfwidth": 0.0531,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "RAW_COUNT_FULL_ACCUM": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.051,
+        "ci95": [
+          0.0334,
+          0.0705
+        ],
+        "ci_halfwidth": 0.0186,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "A0_INCUMBENT": {
+      "n_pairs_P": 40,
+      "n_pairs_S": 40,
+      "auc": 0.0456,
+      "ci95": [
+        0.0103,
+        0.0938
+      ],
+      "ci_halfwidth": 0.0417,
+      "band": "BELOW_0.5_COOCCURRENCE"
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "n_corpus_sentences": 34169,
+    "GLOBAL_SLOT_DISTRIBUTION_STATS": {
+      "stats": {
+        "n_seen": 34169,
+        "n_parsed": 34044,
+        "n_slot_observations": 71103
+      },
+      "role_histogram": {
+        "OBJ": 33956,
+        "obl:*": 17853,
+        "SUBJ": 18983,
+        "IOBJ": 311
+      },
+      "n_slots": 9981,
+      "n_workers": 4,
+      "elapsed_s": 311.4
+    },
+    "OCCURRENCE_DATA_STATS": {
+      "n_words": 142,
+      "n_occurrences_total": 7467,
+      "n_occurrences_with_slot": 2706,
+      "frac_with_slot": 0.3624
+    },
+    "COVERAGE_MIN": 3,
+    "N5_COVERAGE_MATCHED_N": {
+      "u1_before": {
+        "P": 40,
+        "S": 40
+      },
+      "u1_after": {
+        "P": 40,
+        "S": 40
+      },
+      "s1_before": {
+        "P": 40,
+        "S": 40
+      },
+      "s1_after": {
+        "P": 37,
+        "S": 27
+      }
+    },
+    "N_ARC_EVENTS_TOTAL": 17256,
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "U1_TYPED_CONTEXT": "8b2ae73b08bc02f7",
+      "U3_ROLE_ONLY": "0878c57555a60bd7",
+      "T2_UNTYPED_SAME_COVERAGE": "4cf5694294269e69",
+      "T3_COMBINED": "d3a4c9db1b97b634",
+      "N1_LABEL_PERMUTED": "1418a759082fa0cc",
+      "N2_RANDOM_TYPING": "c08ddac39dc01575",
+      "S1_SLOT_COMPETITION": "f5088401cb2bd2e5",
+      "N3_MAGNITUDE_PERMUTED": "44425e73924f4c36",
+      "A0_INCUMBENT": "fcc2bffcbf904e26"
+    },
+    "AUC_PER_ARM": {
+      "U1_TYPED_CONTEXT": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.7503,
+        "ci95": [
+          0.6395,
+          0.856
+        ],
+        "ci_halfwidth": 0.1082,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "band_vs_bar": "ABOVE_BAR"
+      },
+      "U3_ROLE_ONLY": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.7306,
+        "ci95": [
+          0.6076,
+          0.8391
+        ],
+        "ci_halfwidth": 0.1157,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "band_vs_bar": "ABOVE_BAR"
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.6631,
+        "ci95": [
+          0.5393,
+          0.7842
+        ],
+        "ci_halfwidth": 0.1224,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "band_vs_bar": "NOT_SEPARATED_FROM_BAR"
+      },
+      "T3_COMBINED": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.4025,
+        "ci95": [
+          0.2844,
+          0.5294
+        ],
+        "ci_halfwidth": 0.1225,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "band_vs_bar": "BELOW_BAR"
+      },
+      "N1_LABEL_PERMUTED": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.6344,
+        "ci95": [
+          0.5058,
+          0.7541
+        ],
+        "ci_halfwidth": 0.1242,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "band_vs_bar": "NOT_SEPARATED_FROM_BAR"
+      },
+      "N2_RANDOM_TYPING": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.5581,
+        "ci95": [
+          0.4353,
+          0.6856
+        ],
+        "ci_halfwidth": 0.1252,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "band_vs_bar": "NOT_SEPARATED_FROM_BAR"
+      },
+      "S1_SLOT_COMPETITION": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0437,
+        "ci95": [
+          0.0094,
+          0.0885
+        ],
+        "ci_halfwidth": 0.0395,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "band_vs_bar": "BELOW_BAR"
+      },
+      "N3_MAGNITUDE_PERMUTED": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0537,
+        "ci95": [
+          0.0131,
+          0.1062
+        ],
+        "ci_halfwidth": 0.0466,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "band_vs_bar": "BELOW_BAR"
+      },
+      "U1_COVERAGE_MATCHED": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.7503,
+        "ci95": [
+          0.645,
+          0.8541
+        ],
+        "ci_halfwidth": 0.1045,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "band_vs_bar": "ABOVE_BAR"
+      },
+      "S1_COVERAGE_MATCHED": {
+        "n_pairs_P": 37,
+        "n_pairs_S": 27,
+        "auc": 0.027,
+        "ci95": [
+          0.003,
+          0.0636
+        ],
+        "ci_halfwidth": 0.0303,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "band_vs_bar": "BELOW_BAR"
+      }
+    },
+    "N6_PARSE_NOISE_SWEEP": {
+      "p0.00": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.7503,
+        "ci95": [
+          0.6351,
+          0.8581
+        ],
+        "ci_halfwidth": 0.1115,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "p0.25": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.7319,
+        "ci95": [
+          0.6169,
+          0.8389
+        ],
+        "ci_halfwidth": 0.111,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      }
+    },
+    "ARM_DIAGS": {
+      "U1_TYPED_CONTEXT": {
+        "n_arc_events": 17256,
+        "vocab_size": 6493,
+        "mode": "typed"
+      },
+      "U3_ROLE_ONLY": {
+        "n_arc_events": 17256,
+        "vocab_size": 55,
+        "mode": "role_only"
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "n_arc_events": 17256,
+        "vocab_size": 3324,
+        "mode": "neighbour_only"
+      },
+      "T3_COMBINED": {
+        "channel_a": "bag_this_cells_own_occ_data",
+        "channel_b": "U1_TYPED_CONTEXT",
+        "channel_a_diag": {
+          "n_occurrences": 7467,
+          "vocab_size": 11121
+        }
+      },
+      "N1_LABEL_PERMUTED": {
+        "n_arc_events": 17256,
+        "vocab_size": 11438,
+        "mode": "typed"
+      },
+      "N2_RANDOM_TYPING": {
+        "n_arc_events": 17256,
+        "vocab_size": 13373,
+        "mode": "typed"
+      },
+      "S1_SLOT_COMPETITION": {
+        "n_occurrences": 7467,
+        "vocab_size": 11121
+      },
+      "N3_MAGNITUDE_PERMUTED": {
+        "n_occurrences": 7467,
+        "vocab_size": 11121
+      }
+    },
+    "UAS_CITED_NOT_RECOMPUTED": {
+      "source": "data/exp_depparse_hashed_cpu_v1/metrics.json",
+      "value": 0.7868
+    },
+    "PAIRED_MARGINS": {
+      "U1_vs_N1": {
+        "auc_a": 0.7503,
+        "auc_b": 0.6344,
+        "point_diff": 0.1159,
+        "ci95_diff": [
+          0.045,
+          0.1959
+        ],
+        "band": "A_ABOVE_B"
+      },
+      "U1_vs_N2": {
+        "auc_a": 0.7503,
+        "auc_b": 0.5581,
+        "point_diff": 0.1922,
+        "ci95_diff": [
+          0.0992,
+          0.297
+        ],
+        "band": "A_ABOVE_B"
+      },
+      "U1_vs_U3": {
+        "auc_a": 0.7503,
+        "auc_b": 0.7306,
+        "point_diff": 0.0197,
+        "ci95_diff": [
+          -0.0641,
+          0.1121
+        ],
+        "band": "NOT_SEPARATED"
+      },
+      "U1_vs_A0": {
+        "auc_a": 0.7503,
+        "auc_b": 0.0456,
+        "point_diff": 0.7047,
+        "ci95_diff": [
+          0.5859,
+          0.8163
+        ],
+        "band": "A_ABOVE_B"
+      },
+      "U1_vs_T2": {
+        "auc_a": 0.7503,
+        "auc_b": 0.6631,
+        "point_diff": 0.0872,
+        "ci95_diff": [
+          0.033,
+          0.1503
+        ],
+        "band": "A_ABOVE_B"
+      },
+      "T2_vs_A0": {
+        "auc_a": 0.6631,
+        "auc_b": 0.0456,
+        "point_diff": 0.6175,
+        "ci95_diff": [
+          0.4953,
+          0.735
+        ],
+        "band": "A_ABOVE_B"
+      },
+      "T3_vs_U1": {
+        "auc_a": 0.4025,
+        "auc_b": 0.7503,
+        "point_diff": -0.3478,
+        "ci95_diff": [
+          -0.4446,
+          -0.2626
+        ],
+        "band": "A_BELOW_B"
+      },
+      "T3_vs_A0": {
+        "auc_a": 0.4025,
+        "auc_b": 0.0456,
+        "point_diff": 0.3569,
+        "ci95_diff": [
+          0.2497,
+          0.4732
+        ],
+        "band": "A_ABOVE_B"
+      },
+      "S1_vs_N3": {
+        "auc_a": 0.0437,
+        "auc_b": 0.0537,
+        "point_diff": -0.01,
+        "ci95_diff": [
+          -0.0387,
+          0.0175
+        ],
+        "band": "NOT_SEPARATED"
+      },
+      "S1_vs_A0": {
+        "auc_a": 0.0437,
+        "auc_b": 0.0456,
+        "point_diff": -0.0019,
+        "ci95_diff": [
+          -0.0213,
+          0.0181
+        ],
+        "band": "NOT_SEPARATED"
+      }
+    },
+    "STOP_IF_FINDINGS": [
+      "STOPIF3_U1_TIES_U3__POS_PROFILE_IN_DISGUISE",
+      "STOPIF5_S1_NOT_ABOVE_N3__SECOND_INDEPENDENT_NEGATIVE_ON_PREDICTION_ERROR",
+      "U1_BEATS_BOTH_A0_AND_T2__TYPE_CARRIES_MARGINAL_INFORMATION_OVER_SELECTION",
+      "T3_COMBINED_BEATS_A0_BUT_NOT_U1__COMBINATION_DID_NOT_HELP_OVER_TYPED_ALONE",
+      "STOPIF8_ORGAN_A_REOPENS__U1_TYPED_CONTEXT"
+    ],
+    "SUMMARY_AUC": {
+      "bar": 0.5431,
+      "A0_INCUMBENT": 0.0456,
+      "U1_TYPED_CONTEXT": 0.7503,
+      "U3_ROLE_ONLY": 0.7306,
+      "T2_UNTYPED_SAME_COVERAGE": 0.6631,
+      "T3_COMBINED": 0.4025,
+      "S1_SLOT_COMPETITION": 0.0437,
+      "N1_LABEL_PERMUTED": 0.6344,
+      "N2_RANDOM_TYPING": 0.5581,
+      "N3_MAGNITUDE_PERMUTED": 0.0537
+    },
+    "elapsed_s": 786.2
+  },
+  "elapsed_s": 818.5,
+  "summary": "Does the grammatical relation carry substitutability a bag-of-words context discards? U1 (typed context) vs N1 (label-permuted)/N2 (random-typing)/U3 (role-only) vs A0 (reused bag-of-words); S1 (slot-competition write rule) vs N3 (magnitude-permuted) vs A0. Bar = max(4 floors) = 0.5431, not 0.5. -> STOPIF3_U1_TIES_U3__POS_PROFILE_IN_DISGUISE; STOPIF5_S1_NOT_ABOVE_N3__SECOND_INDEPENDENT_NEGATIVE_ON_PREDICTION_ERROR; U1_BEATS_BOTH_A0_AND_T2__TYPE_CARRIES_MARGINAL_INFORMATION_OVER_SELECTION; T3_COMBINED_BEATS_A0_BUT_NOT_U1__COMBINATION_DID_NOT_HELP_OVER_TYPED_ALONE; STOPIF8_ORGAN_A_REOPENS__U1_TYPED_CONTEXT"
+}
