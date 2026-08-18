@@ -434,6 +434,43 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.9 ORGAN A GATE BOARD -- THE ONE-ORGAN CHECKLIST. **KEEP THIS UPDATED; IT IS THE RULING MADE TRACKABLE.**
+
+The owner's ruling is *"evaluate every component of it... evaluate every gate of the organ process, to
+see where we're failing."* This is that, as a checklist. **A step is not done because a cell ran; it
+is done when it has a MEASURED PASS/FAIL with its controls.** Nothing outside Organ A is worked until
+every row here is resolved.
+
+The four LIVE steps, enumerated from live code (the Director's five-item sketch was already wrong --
+superposition is the SAME EVENT as coding, not a separate step):
+
+| # | STEP | what it does | GATE STATUS | evidence |
+|---|---|---|---|---|
+| 1 | **FILTER** | which tokens survive (`content_words`) | **NOT GATED** | +0.0009 NOT_SEPARATED in the step ladder -- that is a drop measurement, NOT a gate. No control, no composition split. |
+| 2 | **CODE** | occurrence -> 256-d vector, one shared random basis | **PARTLY GATED** | the projection is a measured LOSS (0.0123); uncompressed beats projected +0.0138 CI-sep; 32x more dimensions recovers almost none. Missing: composition at this step. |
+| 3 | **ACCUMULATE** | unweighted sum over occurrences | **GATE IN FLIGHT** | the organ's centre. Decisive arm: SUM_ALL 0.0100 < RANDOM_SINGLE 0.0367 < BEST_SINGLE_ORACLE 0.3033 vs a 0.1390 floor. Depth dissociation (6.6). Interference cell dispatched 2026-08-18. |
+| 4 | **NORMALISE** | `sign()` quantisation | **NOT GATED, AND OFF BY DEFAULT** | +0.0016 NOT_SEPARATED. **It has been OFF since 2026-08-14, so every headline number in this arc was measured with it NOT FIRING.** Anyone who believed quantisation was live was wrong. |
+
+**WHAT "GATED" REQUIRES, so the word is not diluted:** a measurement on ONE population with all four
+floors recomputed there, a known-answer arm, a null arm, BOTH tie conventions, the CI half-width and
+null p95 beside every margin, **and the WINNER COMPOSITION split** (WordNet-relation rate and
+co-occurrence share). Composition is non-negotiable for this organ: it is the only measurement that
+distinguishes *fixing the RELATION* from *improving the RANKING*, and it caught a step that accuracy
+alone could not see.
+
+**THE OPERATIVE HYPOTHESIS FOR STEP 3, from 6.6, and the sharpest thing we have:** summing ADDS
+information and adds MORE INTERFERENCE THAN THE READER CAN CUT THROUGH. Rank improves with depth
+while hit@1 halves. **PINNED brain contrast: divisive normalisation is a canonical cortical operation
+whose documented function is to suppress the shared component so that what remains distinguishes. Our
+ACCUMULATE is a bare unnormalised sum -- the one thing cortex is not.** That is a
+REPLICATE-vs-SUBSTITUTE gap and step 3's gate measures whether it is the operative one.
+
+**IN FLIGHT 2026-08-18:** ACCUMULATE interference gate; two research drills (cortical write-rule
+mathematics; experimental-protocol audit). **QUEUED BEHIND THE GATES:** the morphological onset
+channel (6.8), and any write-rule REBUILD -- diagnosis first, build second.
+
+---
+
 ### 6.8 TWO OWNER ANSWERS LANDED AND WERE MISSED FOR HOURS. BOTH CHANGE A DESIGN.
 
 **Process failure first, because it caused the delay:** both answers were sitting in `notes/BOARD.md`
