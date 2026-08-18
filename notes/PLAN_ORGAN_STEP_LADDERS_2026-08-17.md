@@ -634,6 +634,47 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.40 **6.39's BRANCH (B) FIRED, AND THE POST-MORTEM FOUND A DEFECT THAT IS PROBABLY NOT CONFINED TO ONE CELL. THE FLOOR-PROVENANCE AUDIT IS NOW THE TOP ITEM.**
+
+**WHAT FIRED (all four Director-verified; full detail in `notes/STATUS.md`, commit `2b49c9dbc`):**
+**(B)** on the human instrument -- `U1_TYPED_CONTEXT` **0.4125 [0.3148, 0.5138], BELOW CHANCE**
+(`16475c9c5`). The **bar was a BAG-representation number imported into an ARC-representation arm**;
+rebuilt on the arms' own representation, a **no-words attestation floor reads 0.6317** against the
+0.6669 headline (`bfc0e941c`). **`S1`/`N3` were applied to `rec["bag_counts"]`** -- I verified this
+in source -- so **PREDICTION ERROR ON THE TYPED CHANNEL HAS NEVER BEEN TESTED**. And `N6`'s
+corruption model is **near rank-preserving, hence nearly incapable of failing.**
+
+**🚨 THE GENERALISATION, AND IT IS THE REASON THIS IS THE TOP ITEM: `0.5431` HAS BEEN QUOTED AS "THE
+BAR" ACROSS THIS PLAN AND `STATUS.md` FOR TWO DAYS, INCLUDING IN THE BANNER THAT CORRECTED EVERYONE
+FOR SAYING 0.5.** It is now known to be **representation-specific**. **Every arm gated against it
+that does NOT use the bag representation is mis-gated, and nobody has enumerated which those are.**
+*The rule "recompute every floor on the item's own population" was written in this file, is checked
+at session start, and was still violated -- because the violation was across REPRESENTATIONS, and
+the rule as written says POPULATION.* **THE RULE ITSELF IS TOO NARROW AND MUST READ: RECOMPUTE ON
+THE ITEM'S OWN POPULATION *AND* ITS OWN REPRESENTATION.**
+
+**PRE-COMMITTED READINGS FOR THE AUDIT, WRITTEN BEFORE IT RUNS:**
+- **(i) SOME arms are found gated against an imported cross-representation floor** -> list them, mark
+  each affected conclusion **SUSPENDED, NOT REFUTED** (*a wrong floor makes a verdict UNSUPPORTED; it
+  does not establish the opposite*), and re-gate the load-bearing ones on rebuilt floors.
+- **(ii) NO other arm imported a floor across representations** -> then this was a **one-cell defect**,
+  say so plainly and **do NOT inflate it into a programme-wide crisis.** *The base rate for "worse
+  than documented" being a measurement error is high in this repo; the audit is also a check on my
+  own alarm.*
+- **(iii) THE AUDIT CANNOT DETERMINE PROVENANCE for some arms** (floors unrecorded in `metrics.json`)
+  -> that is itself a reportable finding: **a floor whose provenance is not recorded cannot be
+  audited, and every future cell must record it.**
+- **MANDATORY EITHER WAY: state HOW the enumeration was done.** An absence claim requires an
+  enumeration, never a search that returned nothing -- `substrate_query.sh` returns zero bytes and
+  exits 0, and at least five agents have already misread that as "no prior work".
+
+**SECOND ITEM, NOT DISPATCHED YET -- PREDICTION ERROR ON THE TYPED CHANNEL.** The `S1`/`N3` defect
+leaves a real question fully open. **Do NOT report it as "retested" until an arm applies the error
+rule to the ARC channel with a rate-matched random-gate control** -- *the control that killed the
++0.2369 prediction-error win earlier in this programme.*
+
+---
+
 ### 6.39 **BOTH LANES LANDED. ONE ARM CLEARED A BAR FOR THE FIRST TIME, AND THE INSTRUMENT THAT SAID SO IS NOW VALIDATED -- BUT THE TWO FACTS HAVE NEVER MET. PRE-COMMITMENT FOR THE TEST THAT MAKES THEM MEET, WRITTEN BEFORE IT RUNS.**
 
 **WHAT LANDED (both verified off disk by the Director, not read from agent prose):**
