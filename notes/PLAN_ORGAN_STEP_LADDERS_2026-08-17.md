@@ -277,10 +277,19 @@ measured predictor of our performance. Both halves are load-bearing.
 > | 6.31 | the typed-role hypothesis was **implemented here once and NEVER RUN**; Levy & Goldberg 2014 |
 > | 6.32 | "enumerate from disk" is right; **"enumerate EVERYTHING" is what stalled two lanes for an hour** |
 >
-> **CURRENT FRONTIER (2026-08-18 ~04:35):** Organ A is closed and the answer is a LEARNING SIGNAL.
-> Two lanes in flight -- the **typed-role write rule** (the first arm ever to use the grammatical
-> relation rather than an unordered bag) and **human instrument v2** (rebuilt on its own population;
-> decides whether 6.23 is about our store or about WordNet). **Both questions are OPEN.**
+> | 6.33 | verified 0.8629 (it had NO artifact); **RETRACTS my n=7 diagnosis in 6.30** |
+> | 6.34 | the typed-role test became a CROSS-CORPUS PAIR after two Director misjudgements |
+> | 6.35 | the pair's reading, **pre-committed before either cell had a number** |
+> | **6.36** | **arm 1 (SimpleWiki): `WORD_SELECTION_NOT_TYPE`. First arm ever CI-separated ABOVE 0.5 (0.5802) -- and it dies to its own controls** |
+> | **6.37** | **the human instrument is LICENSED at n=65; the power limit MOVED to the ARM COUNT** |
+>
+> **CURRENT FRONTIER (2026-08-18 ~05:15):** Organ A is closed; the answer is a **LEARNING SIGNAL**.
+> **The typed-role axis is one-for-two: the SimpleWiki arm is a clean negative (6.36); the
+> same-corpus arm is still running.** **The human instrument is now LICENSED (6.37)** and the two
+> instruments' arm orderings correlate at **rho 0.79, p=0.048, but with a CI spanning zero over only
+> 7 arms** -- so **the 6.24 WordNet caveat is still OPEN**, and the fix is **more ARMS, not more
+> pairs**. In flight: the same-corpus typed-role cell, and `arm-expansion` harvesting 20+ existing
+> store variants onto both instruments.
 >
 > **THE FOUR RETRACTIONS AND CORRECTIONS ARE THE MOST VALUABLE ENTRIES HERE** -- 6.6, 6.13, 6.17,
 > and the sign error corrected inside 6.3. *A plan that only records its wins teaches a future
