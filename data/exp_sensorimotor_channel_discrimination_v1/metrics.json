@@ -1,0 +1,1229 @@
+{
+  "anchor_name": "sensorimotor_channel_discrimination_v1",
+  "run_mode": "full",
+  "code_version": "v1.2",
+  "findings_log": "notes/sensorimotor_channel_discrimination_2026-08-18.md",
+  "verdict": "SENSORIMOTOR_DISCRIMINATION__B_AT_OR_NEAR_CONSTANT_PROTOTYPE_FLOOR",
+  "verdict_msg": "SENSORIMOTOR_DISCRIMINATION__B_AT_OR_NEAR_CONSTANT_PROTOTYPE_FLOOR || best arm SM11_Z_NEG_EUCLID AUC=0.6039 CI=[0.5439, 0.6644] hw=0.0602 (paired CI=[0.5465, 0.662]) || credible bar=0.6791 from F_CONSTANT_PROTOTYPE__SM11 (auc=0.6195 hw=0.0596) -> margin=-0.0752 ; margin over floor POINT value=-0.0156 || paired-swap null p95=0.5502 p=0.0011 ; label-shuffle null p95=0.552 || ties: mass=0.0 auc_ties_to_P=0.6039 auc_ties_to_S=0.6039 || COVERAGE 166/242 matched units survive (76 removed by the norms filter), word coverage 90.3% || instrument still licensed at this n=True (known-answer AUC=0.9448 CI=[0.9204, 0.9654]: strict-point gate FAIL, CI-inclusive gate PASS) || constant/prototype floor ON THE 11-DIM REPRESENTATION reads 0.6195 ABOVE_0.5_SUBSTITUTABILITY || n=166 per cell",
+  "summary": "SENSORIMOTOR_DISCRIMINATION__B_AT_OR_NEAR_CONSTANT_PROTOTYPE_FLOOR || best arm SM11_Z_NEG_EUCLID AUC=0.6039 CI=[0.5439, 0.6644] hw=0.0602 (paired CI=[0.5465, 0.662]) || credible bar=0.6791 from F_CONS",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "N_PERM": 10000,
+    "N_SCRAMBLE_SEEDS": 20,
+    "SOURCE": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1 v1.7"
+  },
+  "selftest_evidence_keys": [
+    "auc_known_answers",
+    "concreteness_known_answer",
+    "credible_bar_can_pass_and_can_fail",
+    "exp_checkpoint_selftest",
+    "planted_separable_fires",
+    "representations_differ",
+    "scramble_is_a_real_control",
+    "sensorimotor_metric_known_answers",
+    "tie_conventions_both_ways"
+  ],
+  "selftest_evidence": {
+    "auc_known_answers": {
+      "separable": 1.0,
+      "null": 0.491
+    },
+    "sensorimotor_metric_known_answers": {
+      "trumpet_drum": 0.8789,
+      "trumpet_justice": 0.8494,
+      "apple_banana": 0.9866,
+      "apple_justice": 0.6264
+    },
+    "representations_differ": true,
+    "planted_separable_fires": {
+      "auc": 1.0,
+      "ci95": [
+        1.0,
+        1.0
+      ],
+      "paired_null_p95": 0.5604,
+      "n_per_cell": 166
+    },
+    "tie_conventions_both_ways": {
+      "tie_mass_frac": 1.0,
+      "auc_ties_half": 0.5,
+      "auc_ties_to_P": 1.0,
+      "auc_ties_to_S": 0.0
+    },
+    "credible_bar_can_pass_and_can_fail": {
+      "max_floor_name": "F_A",
+      "max_floor_auc": 0.55,
+      "max_floor_ci95": [
+        0.49,
+        0.61
+      ],
+      "max_floor_ci_halfwidth": 0.06,
+      "CREDIBLE_BAR": 0.61,
+      "strict_two_sided_floor_name": "F_A",
+      "strict_two_sided_floor_value": 0.55,
+      "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+    },
+    "scramble_is_a_real_control": {
+      "frac_changed": 0.6666666666666666
+    },
+    "concreteness_known_answer": {
+      "apple": 5.0,
+      "justice": 1.45
+    },
+    "exp_checkpoint_selftest": true
+  },
+  "report": {
+    "anchor_name": "sensorimotor_channel_discrimination_v1",
+    "grid": "full",
+    "code_version": "v1.2",
+    "findings_log": "notes/sensorimotor_channel_discrimination_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "NOTHING_IS_TRAINED_ON_THE_NORMS": true,
+    "REGRESSION_GATE_LICENSED_INSTRUMENT": {
+      "source_dir": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1",
+      "source_code_version_in_metrics": "v1.7",
+      "source_verdict": "DISSOCIATION_INSTRUMENT_LICENSED__STOP_IF_iii_COOCCURRENCE_DIAGNOSIS_CONFIRMED",
+      "expected_version": "v1.7",
+      "n_matched_checkpoint": 242,
+      "n_matched_metrics": 242,
+      "post_match_smd_metrics": {
+        "mean_log_freq": -0.0416,
+        "abs_freq_diff": 0.0045,
+        "mean_length": -0.0121,
+        "orthographic_trigram_cos": 0.0007,
+        "mean_constant_prototype": 0.1574
+      },
+      "n_dropped_caliper_upstream": 3555,
+      "n_candidates_P_upstream": 3912,
+      "source_licensing": {
+        "STOP_IF_i_floors_at_chance": {
+          "PASS": true,
+          "floor_failures": []
+        },
+        "STOP_IF_ii_known_answer_near_1": {
+          "PASS": true,
+          "measured_auc": 0.9599,
+          "gate": 0.95
+        },
+        "random_vector_store_at_chance": {
+          "PASS": true
+        },
+        "INSTRUMENT_LICENSED": true
+      },
+      "PASS": true
+    },
+    "COVERAGE": {
+      "n_matched_units_input": 242,
+      "n_distinct_words_input": 617,
+      "n_distinct_words_in_norms": 557,
+      "word_coverage_frac": 0.9028,
+      "n_setP_pairs_fully_covered": 218,
+      "n_setS_pairs_fully_covered": 187,
+      "n_matched_units_surviving": 166,
+      "n_matched_units_REMOVED_by_coverage_filter": 76,
+      "removal_reason": "a matched unit is dropped unless ALL FOUR of its words are in the norms; dropping the whole unit rather than one side preserves the 1:1 matched structure the instrument was licensed on",
+      "n_dropped_caliper_UPSTREAM_in_licensed_matcher": 3555,
+      "n_candidates_P_UPSTREAM": 3912
+    },
+    "POST_MATCH_BALANCE_ON_SURVIVORS": {
+      "smd": {
+        "mean_log_freq": -0.0617,
+        "abs_freq_diff": 0.0036,
+        "mean_length": 0.0026,
+        "orthographic_trigram_cos": 0.0027,
+        "mean_constant_prototype": 0.1501
+      },
+      "smd_on_full_242_from_source_metrics": {
+        "mean_log_freq": -0.0416,
+        "abs_freq_diff": 0.0045,
+        "mean_length": -0.0121,
+        "orthographic_trigram_cos": 0.0007,
+        "mean_constant_prototype": 0.1574
+      },
+      "note": "shrinking a matched population can unbalance it; this is the check, not an assumption. Compare against the source run's own post-match SMD."
+    },
+    "LICENSING_RECHECK_AT_SURVIVING_N": {
+      "arms": {
+        "F_ORTHOGRAPHIC": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.5,
+          "ci95": [
+            0.488,
+            0.512
+          ],
+          "ci_halfwidth": 0.012,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_FREQUENCY": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.4851,
+          "ci95": [
+            0.4222,
+            0.5476
+          ],
+          "ci_halfwidth": 0.0627,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_SCRAMBLE": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.4557,
+          "ci95": [
+            0.3928,
+            0.5172
+          ],
+          "ci_halfwidth": 0.0622,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.5385,
+          "ci95": [
+            0.4768,
+            0.6006
+          ],
+          "ci_halfwidth": 0.0619,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.9448,
+          "ci95": [
+            0.9204,
+            0.9654
+          ],
+          "ci_halfwidth": 0.0225,
+          "band": "ABOVE_0.5_SUBSTITUTABILITY"
+        },
+        "RANDOM_VECTOR_STORE": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.4958,
+          "ci95": [
+            0.4355,
+            0.5578
+          ],
+          "ci_halfwidth": 0.0611,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "n_pairs_P": 166,
+          "n_pairs_S": 166,
+          "auc": 0.0884,
+          "ci95": [
+            0.0605,
+            0.1208
+          ],
+          "ci_halfwidth": 0.0302,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "instrument_floor_failures": [],
+      "known_answer_auc": 0.9448,
+      "known_answer_ci95": [
+        0.9204,
+        0.9654
+      ],
+      "known_answer_gate": 0.95,
+      "known_answer_PASSES_STRICT_POINT_GATE": false,
+      "known_answer_PASSES_CI_INCLUSIVE_GATE": true,
+      "gate_actually_used_for_the_branch": "CI_INCLUSIVE (see docstring item 1; both reported)",
+      "INSTRUMENT_STILL_LICENSED_AT_THIS_N": true,
+      "note": "these are the SOURCE instrument's own arms, re-scored on the surviving units from its persisted per-pair score arrays -- nothing recomputed, nothing loosened. They license the SUB-POPULATION; they are NOT the floors the sensorimotor arms are gated against (those are rebuilt on the 11-dim representation below)."
+    },
+    "REPRESENTATION_POPULATION": {
+      "n_words": 460,
+      "n_dims": 11,
+      "dims": [
+        "Auditory.mean",
+        "Gustatory.mean",
+        "Haptic.mean",
+        "Interoceptive.mean",
+        "Olfactory.mean",
+        "Visual.mean",
+        "Foot_leg.mean",
+        "Hand_arm.mean",
+        "Head.mean",
+        "Mouth.mean",
+        "Torso.mean"
+      ],
+      "population_statistics_computed_over": "the instrument's own covered word population (460 words), never all 39,707 Lancaster rows"
+    },
+    "CONCRETENESS_REFERENCE_ARM_USABLE": true,
+    "CONCRETENESS_ALL_WORDS_COVERED": true,
+    "ARM_RESULTS": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5,
+        "ci95": [
+          0.488,
+          0.512
+        ],
+        "ci_halfwidth": 0.012,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.5,
+          0.5003
+        ],
+        "ci_halfwidth_paired": 0.0002,
+        "paired_swap_null_p50": 0.5,
+        "paired_swap_null_p95": 0.5,
+        "paired_swap_null_p_two_sided": 0.502,
+        "label_shuffle_null_p50": 0.5,
+        "label_shuffle_null_p95": 0.512,
+        "label_shuffle_null_p_two_sided": 0.8703,
+        "tie_mass_frac": 0.976049,
+        "auc_ties_half": 0.5,
+        "auc_ties_to_P": 0.9881,
+        "auc_ties_to_S": 0.012
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.4851,
+        "ci95": [
+          0.4226,
+          0.547
+        ],
+        "ci_halfwidth": 0.0622,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4737,
+          0.4953
+        ],
+        "ci_halfwidth_paired": 0.0108,
+        "paired_swap_null_p50": 0.5,
+        "paired_swap_null_p95": 0.5083,
+        "paired_swap_null_p_two_sided": 0.0025,
+        "label_shuffle_null_p50": 0.5005,
+        "label_shuffle_null_p95": 0.551,
+        "label_shuffle_null_p_two_sided": 0.6322,
+        "tie_mass_frac": 0.005298,
+        "auc_ties_half": 0.4851,
+        "auc_ties_to_P": 0.4877,
+        "auc_ties_to_S": 0.4824
+      },
+      "F_CONSTANT_PROTOTYPE__SM11": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.6195,
+        "ci95": [
+          0.5599,
+          0.6792
+        ],
+        "ci_halfwidth": 0.0596,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "ci95_paired": [
+          0.5601,
+          0.6773
+        ],
+        "ci_halfwidth_paired": 0.0586,
+        "paired_swap_null_p50": 0.4993,
+        "paired_swap_null_p95": 0.553,
+        "paired_swap_null_p_two_sided": 0.0003,
+        "label_shuffle_null_p50": 0.4997,
+        "label_shuffle_null_p95": 0.5511,
+        "label_shuffle_null_p_two_sided": 0.0003,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.6195,
+        "auc_ties_to_P": 0.6195,
+        "auc_ties_to_S": 0.6195
+      },
+      "F_PROTOTYPE_MAGNITUDE__SM11": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.4709,
+        "ci95": [
+          0.4103,
+          0.5345
+        ],
+        "ci_halfwidth": 0.0621,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4099,
+          0.5344
+        ],
+        "ci_halfwidth_paired": 0.0622,
+        "paired_swap_null_p50": 0.4999,
+        "paired_swap_null_p95": 0.5515,
+        "paired_swap_null_p_two_sided": 0.3525,
+        "label_shuffle_null_p50": 0.4991,
+        "label_shuffle_null_p95": 0.552,
+        "label_shuffle_null_p_two_sided": 0.3693,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.4709,
+        "auc_ties_to_P": 0.4709,
+        "auc_ties_to_S": 0.4709
+      },
+      "SM11_RAW_COSINE": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.599,
+        "ci95": [
+          0.5386,
+          0.658
+        ],
+        "ci_halfwidth": 0.0597,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "ci95_paired": [
+          0.54,
+          0.6584
+        ],
+        "ci_halfwidth_paired": 0.0592,
+        "paired_swap_null_p50": 0.5005,
+        "paired_swap_null_p95": 0.5527,
+        "paired_swap_null_p_two_sided": 0.0017,
+        "label_shuffle_null_p50": 0.4996,
+        "label_shuffle_null_p95": 0.5528,
+        "label_shuffle_null_p_two_sided": 0.0018,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.599,
+        "auc_ties_to_P": 0.599,
+        "auc_ties_to_S": 0.599
+      },
+      "F_SCRAMBLE__SM11_RAW_COSINE": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.4669,
+        "ci95": [
+          0.4052,
+          0.5303
+        ],
+        "ci_halfwidth": 0.0626,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4073,
+          0.529
+        ],
+        "ci_halfwidth_paired": 0.0609,
+        "paired_swap_null_p50": 0.4993,
+        "paired_swap_null_p95": 0.5509,
+        "paired_swap_null_p_two_sided": 0.2908,
+        "label_shuffle_null_p50": 0.5002,
+        "label_shuffle_null_p95": 0.552,
+        "label_shuffle_null_p_two_sided": 0.2928,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.4669,
+        "auc_ties_to_P": 0.4669,
+        "auc_ties_to_S": 0.4669
+      },
+      "SM11_RAW_NEG_EUCLID": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.6019,
+        "ci95": [
+          0.5403,
+          0.6619
+        ],
+        "ci_halfwidth": 0.0608,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "ci95_paired": [
+          0.5413,
+          0.6583
+        ],
+        "ci_halfwidth_paired": 0.0585,
+        "paired_swap_null_p50": 0.5,
+        "paired_swap_null_p95": 0.5523,
+        "paired_swap_null_p_two_sided": 0.0006,
+        "label_shuffle_null_p50": 0.4999,
+        "label_shuffle_null_p95": 0.5509,
+        "label_shuffle_null_p_two_sided": 0.0012,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.6019,
+        "auc_ties_to_P": 0.6019,
+        "auc_ties_to_S": 0.6019
+      },
+      "F_SCRAMBLE__SM11_RAW_NEG_EUCLID": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5,
+        "ci95": [
+          0.4367,
+          0.5626
+        ],
+        "ci_halfwidth": 0.0629,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4414,
+          0.5593
+        ],
+        "ci_halfwidth_paired": 0.059,
+        "paired_swap_null_p50": 0.5,
+        "paired_swap_null_p95": 0.5484,
+        "paired_swap_null_p_two_sided": 0.999,
+        "label_shuffle_null_p50": 0.5006,
+        "label_shuffle_null_p95": 0.5521,
+        "label_shuffle_null_p_two_sided": 0.9995,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5,
+        "auc_ties_to_P": 0.5,
+        "auc_ties_to_S": 0.5
+      },
+      "SM11_Z_COSINE": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5358,
+        "ci95": [
+          0.4735,
+          0.5969
+        ],
+        "ci_halfwidth": 0.0617,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4688,
+          0.6011
+        ],
+        "ci_halfwidth_paired": 0.0662,
+        "paired_swap_null_p50": 0.5003,
+        "paired_swap_null_p95": 0.5543,
+        "paired_swap_null_p_two_sided": 0.2847,
+        "label_shuffle_null_p50": 0.5004,
+        "label_shuffle_null_p95": 0.551,
+        "label_shuffle_null_p_two_sided": 0.2638,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5358,
+        "auc_ties_to_P": 0.5358,
+        "auc_ties_to_S": 0.5358
+      },
+      "F_SCRAMBLE__SM11_Z_COSINE": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5297,
+        "ci95": [
+          0.4676,
+          0.5925
+        ],
+        "ci_halfwidth": 0.0625,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4653,
+          0.5913
+        ],
+        "ci_halfwidth_paired": 0.063,
+        "paired_swap_null_p50": 0.5005,
+        "paired_swap_null_p95": 0.553,
+        "paired_swap_null_p_two_sided": 0.3597,
+        "label_shuffle_null_p50": 0.5002,
+        "label_shuffle_null_p95": 0.5529,
+        "label_shuffle_null_p_two_sided": 0.3485,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5297,
+        "auc_ties_to_P": 0.5297,
+        "auc_ties_to_S": 0.5297
+      },
+      "SM11_Z_NEG_EUCLID": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.6039,
+        "ci95": [
+          0.5439,
+          0.6644
+        ],
+        "ci_halfwidth": 0.0602,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "ci95_paired": [
+          0.5465,
+          0.662
+        ],
+        "ci_halfwidth_paired": 0.0577,
+        "paired_swap_null_p50": 0.4996,
+        "paired_swap_null_p95": 0.5502,
+        "paired_swap_null_p_two_sided": 0.0011,
+        "label_shuffle_null_p50": 0.4997,
+        "label_shuffle_null_p95": 0.552,
+        "label_shuffle_null_p_two_sided": 0.001,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.6039,
+        "auc_ties_to_P": 0.6039,
+        "auc_ties_to_S": 0.6039
+      },
+      "F_SCRAMBLE__SM11_Z_NEG_EUCLID": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5056,
+        "ci95": [
+          0.4428,
+          0.5678
+        ],
+        "ci_halfwidth": 0.0625,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4493,
+          0.5621
+        ],
+        "ci_halfwidth_paired": 0.0564,
+        "paired_swap_null_p50": 0.5,
+        "paired_swap_null_p95": 0.5467,
+        "paired_swap_null_p_two_sided": 0.8463,
+        "label_shuffle_null_p50": 0.5007,
+        "label_shuffle_null_p95": 0.553,
+        "label_shuffle_null_p_two_sided": 0.8661,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5056,
+        "auc_ties_to_P": 0.5056,
+        "auc_ties_to_S": 0.5056
+      },
+      "SM11_CENTERED_COSINE": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5381,
+        "ci95": [
+          0.4751,
+          0.599
+        ],
+        "ci_halfwidth": 0.0619,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.473,
+          0.6032
+        ],
+        "ci_halfwidth_paired": 0.0651,
+        "paired_swap_null_p50": 0.5,
+        "paired_swap_null_p95": 0.5552,
+        "paired_swap_null_p_two_sided": 0.2674,
+        "label_shuffle_null_p50": 0.5,
+        "label_shuffle_null_p95": 0.5519,
+        "label_shuffle_null_p_two_sided": 0.2274,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5381,
+        "auc_ties_to_P": 0.5381,
+        "auc_ties_to_S": 0.5381
+      },
+      "F_SCRAMBLE__SM11_CENTERED_COSINE": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5231,
+        "ci95": [
+          0.4616,
+          0.5851
+        ],
+        "ci_halfwidth": 0.0617,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4589,
+          0.5853
+        ],
+        "ci_halfwidth_paired": 0.0632,
+        "paired_swap_null_p50": 0.5002,
+        "paired_swap_null_p95": 0.5536,
+        "paired_swap_null_p_two_sided": 0.4736,
+        "label_shuffle_null_p50": 0.5007,
+        "label_shuffle_null_p95": 0.5532,
+        "label_shuffle_null_p_two_sided": 0.4589,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5231,
+        "auc_ties_to_P": 0.5231,
+        "auc_ties_to_S": 0.5231
+      },
+      "SM11_CENTERED_NEG_EUCLID": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.6019,
+        "ci95": [
+          0.542,
+          0.6608
+        ],
+        "ci_halfwidth": 0.0594,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "ci95_paired": [
+          0.5435,
+          0.6613
+        ],
+        "ci_halfwidth_paired": 0.0589,
+        "paired_swap_null_p50": 0.5003,
+        "paired_swap_null_p95": 0.5519,
+        "paired_swap_null_p_two_sided": 0.001,
+        "label_shuffle_null_p50": 0.4998,
+        "label_shuffle_null_p95": 0.5511,
+        "label_shuffle_null_p_two_sided": 0.0013,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.6019,
+        "auc_ties_to_P": 0.6019,
+        "auc_ties_to_S": 0.6019
+      },
+      "F_SCRAMBLE__SM11_CENTERED_NEG_EUCLID": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5,
+        "ci95": [
+          0.4368,
+          0.5637
+        ],
+        "ci_halfwidth": 0.0634,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4422,
+          0.5576
+        ],
+        "ci_halfwidth_paired": 0.0577,
+        "paired_swap_null_p50": 0.5003,
+        "paired_swap_null_p95": 0.5486,
+        "paired_swap_null_p_two_sided": 0.9998,
+        "label_shuffle_null_p50": 0.5002,
+        "label_shuffle_null_p95": 0.5528,
+        "label_shuffle_null_p_two_sided": 0.9999,
+        "tie_mass_frac": 0.0,
+        "auc_ties_half": 0.5,
+        "auc_ties_to_P": 0.5,
+        "auc_ties_to_S": 0.5
+      },
+      "CONC1_NEG_ABSDIFF": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5388,
+        "ci95": [
+          0.4775,
+          0.6002
+        ],
+        "ci_halfwidth": 0.0614,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.4808,
+          0.5975
+        ],
+        "ci_halfwidth_paired": 0.0584,
+        "paired_swap_null_p50": 0.5001,
+        "paired_swap_null_p95": 0.549,
+        "paired_swap_null_p_two_sided": 0.1858,
+        "label_shuffle_null_p50": 0.4992,
+        "label_shuffle_null_p95": 0.5521,
+        "label_shuffle_null_p_two_sided": 0.2159,
+        "tie_mass_frac": 0.002504,
+        "auc_ties_half": 0.5388,
+        "auc_ties_to_P": 0.5401,
+        "auc_ties_to_S": 0.5376
+      },
+      "F_CONSTANT_PROTOTYPE__CONC1": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.5646,
+        "ci95": [
+          0.5033,
+          0.6254
+        ],
+        "ci_halfwidth": 0.061,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "ci95_paired": [
+          0.5021,
+          0.6259
+        ],
+        "ci_halfwidth_paired": 0.0619,
+        "paired_swap_null_p50": 0.5001,
+        "paired_swap_null_p95": 0.5533,
+        "paired_swap_null_p_two_sided": 0.0449,
+        "label_shuffle_null_p50": 0.5005,
+        "label_shuffle_null_p95": 0.552,
+        "label_shuffle_null_p_two_sided": 0.04,
+        "tie_mass_frac": 0.000653,
+        "auc_ties_half": 0.5646,
+        "auc_ties_to_P": 0.5649,
+        "auc_ties_to_S": 0.5642
+      },
+      "F_PROTOTYPE_MAGNITUDE__CONC1": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.3195,
+        "ci95": [
+          0.264,
+          0.3772
+        ],
+        "ci_halfwidth": 0.0566,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "ci95_paired": [
+          0.2659,
+          0.3744
+        ],
+        "ci_halfwidth_paired": 0.0542,
+        "paired_swap_null_p50": 0.4998,
+        "paired_swap_null_p95": 0.5524,
+        "paired_swap_null_p_two_sided": 0.0,
+        "label_shuffle_null_p50": 0.5005,
+        "label_shuffle_null_p95": 0.5531,
+        "label_shuffle_null_p_two_sided": 0.0,
+        "tie_mass_frac": 0.001452,
+        "auc_ties_half": 0.3195,
+        "auc_ties_to_P": 0.3203,
+        "auc_ties_to_S": 0.3188
+      },
+      "F_SCRAMBLE__CONC1_NEG_ABSDIFF": {
+        "n_pairs_P": 166,
+        "n_pairs_S": 166,
+        "auc": 0.4534,
+        "ci95": [
+          0.3913,
+          0.5158
+        ],
+        "ci_halfwidth": 0.0622,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "ci95_paired": [
+          0.3943,
+          0.514
+        ],
+        "ci_halfwidth_paired": 0.0598,
+        "paired_swap_null_p50": 0.4994,
+        "paired_swap_null_p95": 0.5496,
+        "paired_swap_null_p_two_sided": 0.1309,
+        "label_shuffle_null_p50": 0.5,
+        "label_shuffle_null_p95": 0.5513,
+        "label_shuffle_null_p_two_sided": 0.1409,
+        "tie_mass_frac": 0.002323,
+        "auc_ties_half": 0.4534,
+        "auc_ties_to_P": 0.4546,
+        "auc_ties_to_S": 0.4523
+      }
+    },
+    "ARM_DIGESTS": {
+      "F_ORTHOGRAPHIC": "0d7c8b73a7f6c192",
+      "F_FREQUENCY": "ffa11e6985abf462",
+      "F_CONSTANT_PROTOTYPE__SM11": "745673fefb5d7b29",
+      "F_PROTOTYPE_MAGNITUDE__SM11": "b5fa431da20925e2",
+      "SM11_RAW_COSINE": "f9beb8faf7f846bd",
+      "F_SCRAMBLE__SM11_RAW_COSINE": "3a5c7e7aa1614f30",
+      "SM11_RAW_NEG_EUCLID": "b2a99401032c5c63",
+      "F_SCRAMBLE__SM11_RAW_NEG_EUCLID": "1f1e8e8cb4f87396",
+      "SM11_Z_COSINE": "9fae427d3a48f03f",
+      "F_SCRAMBLE__SM11_Z_COSINE": "2d30e36e37eb9048",
+      "SM11_Z_NEG_EUCLID": "dd7e816ed2c019a8",
+      "F_SCRAMBLE__SM11_Z_NEG_EUCLID": "5390abb9e37e7a89",
+      "SM11_CENTERED_COSINE": "06b5722a201e6132",
+      "F_SCRAMBLE__SM11_CENTERED_COSINE": "c26f71781005b9b3",
+      "SM11_CENTERED_NEG_EUCLID": "a4383e1a105d3f1b",
+      "F_SCRAMBLE__SM11_CENTERED_NEG_EUCLID": "360e033aa7b9261c",
+      "CONC1_NEG_ABSDIFF": "c49e01db8743ab4a",
+      "F_CONSTANT_PROTOTYPE__CONC1": "f62c28496f13f579",
+      "F_PROTOTYPE_MAGNITUDE__CONC1": "17ad3ec53114721b",
+      "F_SCRAMBLE__CONC1_NEG_ABSDIFF": "ea7289c741b5f51f"
+    },
+    "SCRAMBLE_CONTROL_DIAGNOSTICS": {
+      "SM11_RAW_COSINE": {
+        "frac_pair_scores_changed_by_scramble": 1.0,
+        "spearman_scrambled_vs_true": 0.0439,
+        "n_pairs_removed_by_this_control": 0,
+        "control_note": "a scramble removes no pairs BY DESIGN, so its evidence of being a real control is that it changed this fraction of scores and decorrelated from the true arm",
+        "multi_seed_scramble_auc_mean": 0.4933,
+        "multi_seed_scramble_auc_p95": 0.5538,
+        "n_scramble_seeds": 20
+      },
+      "SM11_RAW_NEG_EUCLID": {
+        "frac_pair_scores_changed_by_scramble": 1.0,
+        "spearman_scrambled_vs_true": 0.0536,
+        "n_pairs_removed_by_this_control": 0,
+        "control_note": "a scramble removes no pairs BY DESIGN, so its evidence of being a real control is that it changed this fraction of scores and decorrelated from the true arm",
+        "multi_seed_scramble_auc_mean": 0.498,
+        "multi_seed_scramble_auc_p95": 0.5465,
+        "n_scramble_seeds": 20
+      },
+      "SM11_Z_COSINE": {
+        "frac_pair_scores_changed_by_scramble": 1.0,
+        "spearman_scrambled_vs_true": 0.0384,
+        "n_pairs_removed_by_this_control": 0,
+        "control_note": "a scramble removes no pairs BY DESIGN, so its evidence of being a real control is that it changed this fraction of scores and decorrelated from the true arm",
+        "multi_seed_scramble_auc_mean": 0.5082,
+        "multi_seed_scramble_auc_p95": 0.5514,
+        "n_scramble_seeds": 20
+      },
+      "SM11_Z_NEG_EUCLID": {
+        "frac_pair_scores_changed_by_scramble": 1.0,
+        "spearman_scrambled_vs_true": 0.0714,
+        "n_pairs_removed_by_this_control": 0,
+        "control_note": "a scramble removes no pairs BY DESIGN, so its evidence of being a real control is that it changed this fraction of scores and decorrelated from the true arm",
+        "multi_seed_scramble_auc_mean": 0.4983,
+        "multi_seed_scramble_auc_p95": 0.5473,
+        "n_scramble_seeds": 20
+      },
+      "SM11_CENTERED_COSINE": {
+        "frac_pair_scores_changed_by_scramble": 1.0,
+        "spearman_scrambled_vs_true": 0.0446,
+        "n_pairs_removed_by_this_control": 0,
+        "control_note": "a scramble removes no pairs BY DESIGN, so its evidence of being a real control is that it changed this fraction of scores and decorrelated from the true arm",
+        "multi_seed_scramble_auc_mean": 0.5088,
+        "multi_seed_scramble_auc_p95": 0.5548,
+        "n_scramble_seeds": 20
+      },
+      "SM11_CENTERED_NEG_EUCLID": {
+        "frac_pair_scores_changed_by_scramble": 1.0,
+        "spearman_scrambled_vs_true": 0.0536,
+        "n_pairs_removed_by_this_control": 0,
+        "control_note": "a scramble removes no pairs BY DESIGN, so its evidence of being a real control is that it changed this fraction of scores and decorrelated from the true arm",
+        "multi_seed_scramble_auc_mean": 0.498,
+        "multi_seed_scramble_auc_p95": 0.5465,
+        "n_scramble_seeds": 20
+      }
+    },
+    "ARMS_DIFFER_VERIFIED": true,
+    "SWEEP_RESOLUTION": {
+      "representations_swept": [
+        "RAW",
+        "Z",
+        "CENTERED"
+      ],
+      "metrics_swept": [
+        "COSINE",
+        "NEG_EUCLID"
+      ],
+      "n_grid_points": 6,
+      "queries_per_grid_point": {
+        "setP_pair_scores": 166,
+        "setS_pair_scores": 166,
+        "total": 332
+      },
+      "note": "discipline 15: a grid's resolution is part of its verdict. This is a 3x2 grid over representation x metric on ONE fixed 11-dimensional channel; it does NOT sweep the channel's dimensionality, which is the variable branch (B) would indict."
+    },
+    "PER_ARM_DECISION": {
+      "SM11_RAW_COSINE": {
+        "auc": 0.599,
+        "ci95": [
+          0.5386,
+          0.658
+        ],
+        "ci_halfwidth": 0.0597,
+        "ci95_paired": [
+          0.54,
+          0.6584
+        ],
+        "ci_halfwidth_paired": 0.0592,
+        "paired_swap_null_p95": 0.5527,
+        "paired_swap_null_p_two_sided": 0.0017,
+        "label_shuffle_null_p95": 0.5528,
+        "tie_mass_frac": 0.0,
+        "auc_ties_to_P": 0.599,
+        "auc_ties_to_S": 0.599,
+        "floor_family": [
+          "F_ORTHOGRAPHIC",
+          "F_FREQUENCY",
+          "F_CONSTANT_PROTOTYPE__SM11",
+          "F_PROTOTYPE_MAGNITUDE__SM11",
+          "F_SCRAMBLE__SM11_RAW_COSINE"
+        ],
+        "bar": {
+          "max_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "max_floor_auc": 0.6195,
+          "max_floor_ci95": [
+            0.5599,
+            0.6792
+          ],
+          "max_floor_ci_halfwidth": 0.0596,
+          "CREDIBLE_BAR": 0.6791,
+          "strict_two_sided_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "strict_two_sided_floor_value": 0.6195,
+          "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+        },
+        "margin_over_credible_bar": -0.0801,
+        "margin_over_floor_point_value": -0.0205,
+        "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+        "beats_floor_point_but_not_credible_bar": false,
+        "ci_overlaps_constant_prototype_floor": true,
+        "n_pairs_per_cell": 166
+      },
+      "SM11_RAW_NEG_EUCLID": {
+        "auc": 0.6019,
+        "ci95": [
+          0.5403,
+          0.6619
+        ],
+        "ci_halfwidth": 0.0608,
+        "ci95_paired": [
+          0.5413,
+          0.6583
+        ],
+        "ci_halfwidth_paired": 0.0585,
+        "paired_swap_null_p95": 0.5523,
+        "paired_swap_null_p_two_sided": 0.0006,
+        "label_shuffle_null_p95": 0.5509,
+        "tie_mass_frac": 0.0,
+        "auc_ties_to_P": 0.6019,
+        "auc_ties_to_S": 0.6019,
+        "floor_family": [
+          "F_ORTHOGRAPHIC",
+          "F_FREQUENCY",
+          "F_CONSTANT_PROTOTYPE__SM11",
+          "F_PROTOTYPE_MAGNITUDE__SM11",
+          "F_SCRAMBLE__SM11_RAW_NEG_EUCLID"
+        ],
+        "bar": {
+          "max_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "max_floor_auc": 0.6195,
+          "max_floor_ci95": [
+            0.5599,
+            0.6792
+          ],
+          "max_floor_ci_halfwidth": 0.0596,
+          "CREDIBLE_BAR": 0.6791,
+          "strict_two_sided_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "strict_two_sided_floor_value": 0.6195,
+          "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+        },
+        "margin_over_credible_bar": -0.0772,
+        "margin_over_floor_point_value": -0.0176,
+        "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+        "beats_floor_point_but_not_credible_bar": false,
+        "ci_overlaps_constant_prototype_floor": true,
+        "n_pairs_per_cell": 166
+      },
+      "SM11_Z_COSINE": {
+        "auc": 0.5358,
+        "ci95": [
+          0.4735,
+          0.5969
+        ],
+        "ci_halfwidth": 0.0617,
+        "ci95_paired": [
+          0.4688,
+          0.6011
+        ],
+        "ci_halfwidth_paired": 0.0662,
+        "paired_swap_null_p95": 0.5543,
+        "paired_swap_null_p_two_sided": 0.2847,
+        "label_shuffle_null_p95": 0.551,
+        "tie_mass_frac": 0.0,
+        "auc_ties_to_P": 0.5358,
+        "auc_ties_to_S": 0.5358,
+        "floor_family": [
+          "F_ORTHOGRAPHIC",
+          "F_FREQUENCY",
+          "F_CONSTANT_PROTOTYPE__SM11",
+          "F_PROTOTYPE_MAGNITUDE__SM11",
+          "F_SCRAMBLE__SM11_Z_COSINE"
+        ],
+        "bar": {
+          "max_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "max_floor_auc": 0.6195,
+          "max_floor_ci95": [
+            0.5599,
+            0.6792
+          ],
+          "max_floor_ci_halfwidth": 0.0596,
+          "CREDIBLE_BAR": 0.6791,
+          "strict_two_sided_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "strict_two_sided_floor_value": 0.6195,
+          "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+        },
+        "margin_over_credible_bar": -0.1433,
+        "margin_over_floor_point_value": -0.0837,
+        "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+        "beats_floor_point_but_not_credible_bar": false,
+        "ci_overlaps_constant_prototype_floor": true,
+        "n_pairs_per_cell": 166
+      },
+      "SM11_Z_NEG_EUCLID": {
+        "auc": 0.6039,
+        "ci95": [
+          0.5439,
+          0.6644
+        ],
+        "ci_halfwidth": 0.0602,
+        "ci95_paired": [
+          0.5465,
+          0.662
+        ],
+        "ci_halfwidth_paired": 0.0577,
+        "paired_swap_null_p95": 0.5502,
+        "paired_swap_null_p_two_sided": 0.0011,
+        "label_shuffle_null_p95": 0.552,
+        "tie_mass_frac": 0.0,
+        "auc_ties_to_P": 0.6039,
+        "auc_ties_to_S": 0.6039,
+        "floor_family": [
+          "F_ORTHOGRAPHIC",
+          "F_FREQUENCY",
+          "F_CONSTANT_PROTOTYPE__SM11",
+          "F_PROTOTYPE_MAGNITUDE__SM11",
+          "F_SCRAMBLE__SM11_Z_NEG_EUCLID"
+        ],
+        "bar": {
+          "max_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "max_floor_auc": 0.6195,
+          "max_floor_ci95": [
+            0.5599,
+            0.6792
+          ],
+          "max_floor_ci_halfwidth": 0.0596,
+          "CREDIBLE_BAR": 0.6791,
+          "strict_two_sided_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "strict_two_sided_floor_value": 0.6195,
+          "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+        },
+        "margin_over_credible_bar": -0.0752,
+        "margin_over_floor_point_value": -0.0156,
+        "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+        "beats_floor_point_but_not_credible_bar": false,
+        "ci_overlaps_constant_prototype_floor": true,
+        "n_pairs_per_cell": 166
+      },
+      "SM11_CENTERED_COSINE": {
+        "auc": 0.5381,
+        "ci95": [
+          0.4751,
+          0.599
+        ],
+        "ci_halfwidth": 0.0619,
+        "ci95_paired": [
+          0.473,
+          0.6032
+        ],
+        "ci_halfwidth_paired": 0.0651,
+        "paired_swap_null_p95": 0.5552,
+        "paired_swap_null_p_two_sided": 0.2674,
+        "label_shuffle_null_p95": 0.5519,
+        "tie_mass_frac": 0.0,
+        "auc_ties_to_P": 0.5381,
+        "auc_ties_to_S": 0.5381,
+        "floor_family": [
+          "F_ORTHOGRAPHIC",
+          "F_FREQUENCY",
+          "F_CONSTANT_PROTOTYPE__SM11",
+          "F_PROTOTYPE_MAGNITUDE__SM11",
+          "F_SCRAMBLE__SM11_CENTERED_COSINE"
+        ],
+        "bar": {
+          "max_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "max_floor_auc": 0.6195,
+          "max_floor_ci95": [
+            0.5599,
+            0.6792
+          ],
+          "max_floor_ci_halfwidth": 0.0596,
+          "CREDIBLE_BAR": 0.6791,
+          "strict_two_sided_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "strict_two_sided_floor_value": 0.6195,
+          "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+        },
+        "margin_over_credible_bar": -0.141,
+        "margin_over_floor_point_value": -0.0814,
+        "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+        "beats_floor_point_but_not_credible_bar": false,
+        "ci_overlaps_constant_prototype_floor": true,
+        "n_pairs_per_cell": 166
+      },
+      "SM11_CENTERED_NEG_EUCLID": {
+        "auc": 0.6019,
+        "ci95": [
+          0.542,
+          0.6608
+        ],
+        "ci_halfwidth": 0.0594,
+        "ci95_paired": [
+          0.5435,
+          0.6613
+        ],
+        "ci_halfwidth_paired": 0.0589,
+        "paired_swap_null_p95": 0.5519,
+        "paired_swap_null_p_two_sided": 0.001,
+        "label_shuffle_null_p95": 0.5511,
+        "tie_mass_frac": 0.0,
+        "auc_ties_to_P": 0.6019,
+        "auc_ties_to_S": 0.6019,
+        "floor_family": [
+          "F_ORTHOGRAPHIC",
+          "F_FREQUENCY",
+          "F_CONSTANT_PROTOTYPE__SM11",
+          "F_PROTOTYPE_MAGNITUDE__SM11",
+          "F_SCRAMBLE__SM11_CENTERED_NEG_EUCLID"
+        ],
+        "bar": {
+          "max_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "max_floor_auc": 0.6195,
+          "max_floor_ci95": [
+            0.5599,
+            0.6792
+          ],
+          "max_floor_ci_halfwidth": 0.0596,
+          "CREDIBLE_BAR": 0.6791,
+          "strict_two_sided_floor_name": "F_CONSTANT_PROTOTYPE__SM11",
+          "strict_two_sided_floor_value": 0.6195,
+          "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+        },
+        "margin_over_credible_bar": -0.0772,
+        "margin_over_floor_point_value": -0.0176,
+        "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+        "beats_floor_point_but_not_credible_bar": false,
+        "ci_overlaps_constant_prototype_floor": true,
+        "n_pairs_per_cell": 166
+      }
+    },
+    "CONCRETENESS_REFERENCE_DECISION": {
+      "auc": 0.5388,
+      "ci95": [
+        0.4775,
+        0.6002
+      ],
+      "ci_halfwidth": 0.0614,
+      "paired_swap_null_p95": 0.549,
+      "bar": {
+        "max_floor_name": "F_CONSTANT_PROTOTYPE__CONC1",
+        "max_floor_auc": 0.5646,
+        "max_floor_ci95": [
+          0.5033,
+          0.6254
+        ],
+        "max_floor_ci_halfwidth": 0.061,
+        "CREDIBLE_BAR": 0.6256,
+        "strict_two_sided_floor_name": "F_PROTOTYPE_MAGNITUDE__CONC1",
+        "strict_two_sided_floor_value": 0.6805,
+        "note": "CREDIBLE BAR = max floor point value + that floor's own 95% half-width. An arm beating the point value but not this bar is NOT a pass. The strict two-sided figure is disclosed, not gated on."
+      },
+      "CLEARS_CREDIBLE_BAR_CI_SEPARATED": false,
+      "note": "REFERENCE ONLY, gated against ITS OWN 1-dim representation's floors. It is the low-dimensional limit of a rating channel, reported to locate the resolution axis -- it is NOT part of the (A)/(B)/(C) decision."
+    },
+    "BRANCH": "B_AT_OR_NEAR_CONSTANT_PROTOTYPE_FLOOR",
+    "BEST_SENSORIMOTOR_ARM": "SM11_Z_NEG_EUCLID",
+    "N_REQUIRED_FOR_FLOOR_HALFWIDTH_REFERENCE_TABLE": {
+      "0.05": "250-290",
+      "0.03": "770",
+      "0.02": "1550-1780",
+      "0.01": "6300-7200"
+    },
+    "N_ACHIEVED": 166,
+    "SENSORIMOTOR_FLOOR_NEUTRALITY": {
+      "F_CONSTANT_PROTOTYPE__SM11": {
+        "auc": 0.6195,
+        "ci95": [
+          0.5599,
+          0.6792
+        ],
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "F_PROTOTYPE_MAGNITUDE__SM11": {
+        "auc": 0.4709,
+        "ci95": [
+          0.4103,
+          0.5345
+        ],
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "constant_prototype_floor_SEPARATES_FROM_CHANCE_ON_THIS_REPRESENTATION": true,
+      "meaning": "if this reads SEPARATED, then a QUERY-INDEPENDENT per-word genericity score on the 11 dimensions already tells the two cells apart, so the matched population is NOT balanced on sensorimotor typicality even though it IS balanced on the store's own four floors. That does not invalidate the measurement -- the credible bar is built from exactly this floor, so the comparison stays conservative -- but any sensorimotor arm at or below it is measuring typicality, not relation."
+    },
+    "PRECISION_AT_THIS_N": {
+      "n_per_cell": 166,
+      "max_floor_ci_halfwidth_measured": 0.0596,
+      "best_arm_ci_halfwidth_measured": 0.0602,
+      "n_required_for_a_given_floor_halfwidth": {
+        "0.05": "250-290",
+        "0.03": "770",
+        "0.02": "1550-1780",
+        "0.01": "6300-7200"
+      },
+      "note": "discipline 18: decide what n the instrument needs BEFORE building. The licensed matcher yields 242 units and the norms intersection leaves what it leaves -- it cannot be increased without loosening the matcher, which is forbidden."
+    },
+    "KNOWN_ANSWER_BOUNDARY_DISCLOSURE": {
+      "strict_point_gate_passed": false,
+      "ci_inclusive_gate_passed": true,
+      "auc": 0.9448,
+      "ci95": [
+        0.9204,
+        0.9654
+      ],
+      "gate": 0.95
+    },
+    "RESOLUTION_TRADE_IF_B": "Branch (B) indicts THIS RESOLUTION, not grounding. The resolution that would be needed is MORE DIMENSIONS, and the trade is measured, not hypothetical: Binder's 65-dimension norms discriminate far better but cover only 9.2% of the eval words (5.0% of anchors), against Lancaster's coverage measured HERE on this very population. At 9.2% coverage this instrument's 242 matched units would fall to a handful, i.e. below the 'a win on 20 pairs is not a win' line -- so the honest statement is a COVERAGE-RESOLUTION TRADE with no currently-held asset on the good side of it, NOT that grounding fails.",
+    "elapsed_s": 308.2
+  },
+  "elapsed_s": 311.0
+}
