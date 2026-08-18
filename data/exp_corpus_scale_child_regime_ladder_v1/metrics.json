@@ -1,0 +1,347 @@
+{
+ "verdict": "A_SCALE_WAS_A_REAL_PRECONDITION__REOPEN_PRIOR_VERDICTS",
+ "code_version": "v1.0",
+ "corpus": "D:\\AI\\hd-instrument\\data\\corpora\\simplewiki\\simplewiki_clean_v1.txt",
+ "window": 5,
+ "ctx_vocab": 50000,
+ "svd_k": 300,
+ "n_boot": 10000,
+ "n_scramble_permutations": 500,
+ "n_rank_null": 200,
+ "child_scale_tokens": 50000000,
+ "branch_info": {
+  "tokens": [
+   600002,
+   2000011,
+   6000015,
+   20000011,
+   39563102
+  ],
+  "best_margin_vs_bar": [
+   0.08199999999999996,
+   0.08360000000000001,
+   0.08599999999999997,
+   0.09330000000000005,
+   0.08040000000000003
+  ]
+ },
+ "rungs": [
+  {
+   "tokens_requested": 600000,
+   "tokens_used": 600002,
+   "types": 30111,
+   "eval_words_covered": 596,
+   "eval_words_total": 617,
+   "median_contexts_per_eval_word": 283.0,
+   "median_contexts_per_COVERED_eval_word": 297.0,
+   "arms": {
+    "RAW_COUNT": {
+     "auc": 0.6321,
+     "ci95": [
+      0.5833,
+      0.6809
+     ],
+     "hw": 0.048799999999999955,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5493682125537872,
+      "F_SCRAMBLE_mean": 0.500569394167065,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5501
+     },
+     "bar": 0.5501,
+     "margin_vs_bar": 0.08199999999999996,
+     "CI_SEPARATED_ABOVE_BAR": true,
+     "rank_matched_null_mean": NaN,
+     "rank_matched_null_p95": NaN,
+     "rank_null_applicable": false,
+     "beats_rank_null": null,
+     "arm_rank": "FULL",
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    },
+    "PPMI_SVD": {
+     "auc": 0.3894,
+     "ci95": [
+      0.3406,
+      0.4399
+     ],
+     "hw": 0.04965,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5475138310224711,
+      "F_SCRAMBLE_mean": 0.4992598353937573,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5501
+     },
+     "bar": 0.5501,
+     "margin_vs_bar": -0.1607,
+     "CI_SEPARATED_ABOVE_BAR": false,
+     "rank_matched_null_mean": 0.4032346663479271,
+     "rank_matched_null_p95": 0.43238422921931563,
+     "rank_null_applicable": true,
+     "beats_rank_null": false,
+     "arm_rank": 300,
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    }
+   }
+  },
+  {
+   "tokens_requested": 2000000,
+   "tokens_used": 2000011,
+   "types": 85495,
+   "eval_words_covered": 614,
+   "eval_words_total": 617,
+   "median_contexts_per_eval_word": 968.0,
+   "median_contexts_per_COVERED_eval_word": 973.0,
+   "arms": {
+    "RAW_COUNT": {
+     "auc": 0.6418,
+     "ci95": [
+      0.5925,
+      0.6903
+     ],
+     "hw": 0.0489,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5496307458506933,
+      "F_SCRAMBLE_mean": 0.5000249982924664,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5582
+     },
+     "bar": 0.5582,
+     "margin_vs_bar": 0.08360000000000001,
+     "CI_SEPARATED_ABOVE_BAR": true,
+     "rank_matched_null_mean": NaN,
+     "rank_matched_null_p95": NaN,
+     "rank_null_applicable": false,
+     "beats_rank_null": null,
+     "arm_rank": "FULL",
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    },
+    "PPMI_SVD": {
+     "auc": 0.3765,
+     "ci95": [
+      0.3281,
+      0.4259
+     ],
+     "hw": 0.0489,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5457503756574005,
+      "F_SCRAMBLE_mean": 0.4991233863807117,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5582
+     },
+     "bar": 0.5582,
+     "margin_vs_bar": -0.18170000000000003,
+     "CI_SEPARATED_ABOVE_BAR": false,
+     "rank_matched_null_mean": 0.3887878218700908,
+     "rank_matched_null_p95": 0.4136517314391094,
+     "rank_null_applicable": true,
+     "beats_rank_null": false,
+     "arm_rank": 300,
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    }
+   }
+  },
+  {
+   "tokens_requested": 6000000,
+   "tokens_used": 6000015,
+   "types": 162584,
+   "eval_words_covered": 617,
+   "eval_words_total": 617,
+   "median_contexts_per_eval_word": 2848.0,
+   "median_contexts_per_COVERED_eval_word": 2848.0,
+   "arms": {
+    "RAW_COUNT": {
+     "auc": 0.6465,
+     "ci95": [
+      0.5966,
+      0.695
+     ],
+     "hw": 0.049199999999999966,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5506676456526194,
+      "F_SCRAMBLE_mean": 0.4997986134826856,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5605
+     },
+     "bar": 0.5605,
+     "margin_vs_bar": 0.08599999999999997,
+     "CI_SEPARATED_ABOVE_BAR": true,
+     "rank_matched_null_mean": NaN,
+     "rank_matched_null_p95": NaN,
+     "rank_null_applicable": false,
+     "beats_rank_null": null,
+     "arm_rank": "FULL",
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    },
+    "PPMI_SVD": {
+     "auc": 0.3381,
+     "ci95": [
+      0.2911,
+      0.3857
+     ],
+     "hw": 0.04729999999999998,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.553570452837921,
+      "F_SCRAMBLE_mean": 0.5009615804931358,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5605
+     },
+     "bar": 0.5605,
+     "margin_vs_bar": -0.2224,
+     "CI_SEPARATED_ABOVE_BAR": false,
+     "rank_matched_null_mean": 0.35219179017826646,
+     "rank_matched_null_p95": 0.37364421829110034,
+     "rank_null_applicable": true,
+     "beats_rank_null": false,
+     "arm_rank": 300,
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    }
+   }
+  },
+  {
+   "tokens_requested": 20000000,
+   "tokens_used": 20000011,
+   "types": 397414,
+   "eval_words_covered": 617,
+   "eval_words_total": 617,
+   "median_contexts_per_eval_word": 9667.0,
+   "median_contexts_per_COVERED_eval_word": 9667.0,
+   "arms": {
+    "RAW_COUNT": {
+     "auc": 0.6528,
+     "ci95": [
+      0.6027,
+      0.7006
+     ],
+     "hw": 0.048949999999999994,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5496448330032101,
+      "F_SCRAMBLE_mean": 0.500739020558705,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5595
+     },
+     "bar": 0.5595,
+     "margin_vs_bar": 0.09330000000000005,
+     "CI_SEPARATED_ABOVE_BAR": true,
+     "rank_matched_null_mean": NaN,
+     "rank_matched_null_p95": NaN,
+     "rank_null_applicable": false,
+     "beats_rank_null": null,
+     "arm_rank": "FULL",
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    },
+    "PPMI_SVD": {
+     "auc": 0.3192,
+     "ci95": [
+      0.2725,
+      0.3664
+     ],
+     "hw": 0.04694999999999999,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5506966737244723,
+      "F_SCRAMBLE_mean": 0.5008470732873438,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5595
+     },
+     "bar": 0.5595,
+     "margin_vs_bar": -0.2403,
+     "CI_SEPARATED_ABOVE_BAR": false,
+     "rank_matched_null_mean": 0.32961221911071653,
+     "rank_matched_null_p95": 0.3489746260501332,
+     "rank_null_applicable": true,
+     "beats_rank_null": false,
+     "arm_rank": 300,
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    }
+   }
+  },
+  {
+   "tokens_requested": 42000000,
+   "tokens_used": 39563102,
+   "types": 734698,
+   "eval_words_covered": 617,
+   "eval_words_total": 617,
+   "median_contexts_per_eval_word": 17237.0,
+   "median_contexts_per_COVERED_eval_word": 17237.0,
+   "arms": {
+    "RAW_COUNT": {
+     "auc": 0.6368,
+     "ci95": [
+      0.5866,
+      0.6851
+     ],
+     "hw": 0.049250000000000016,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5514770165972268,
+      "F_SCRAMBLE_mean": 0.4997412062017621,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5564
+     },
+     "bar": 0.5564,
+     "margin_vs_bar": 0.08040000000000003,
+     "CI_SEPARATED_ABOVE_BAR": true,
+     "rank_matched_null_mean": NaN,
+     "rank_matched_null_p95": NaN,
+     "rank_null_applicable": false,
+     "beats_rank_null": null,
+     "arm_rank": "FULL",
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    },
+    "PPMI_SVD": {
+     "auc": 0.3318,
+     "ci95": [
+      0.284,
+      0.3797
+     ],
+     "hw": 0.047850000000000004,
+     "n": 242,
+     "floors": {
+      "F_SCRAMBLE_p95": 0.5492273410286183,
+      "F_SCRAMBLE_mean": 0.5007192473191722,
+      "F_CONSTANT_PROTOTYPE": 0.5,
+      "F_ORTHOGRAPHIC": 0.4959,
+      "F_FREQUENCY": 0.5564
+     },
+     "bar": 0.5564,
+     "margin_vs_bar": -0.22460000000000002,
+     "CI_SEPARATED_ABOVE_BAR": false,
+     "rank_matched_null_mean": 0.33601905607540467,
+     "rank_matched_null_p95": 0.3599890717847142,
+     "rank_null_applicable": true,
+     "beats_rank_null": false,
+     "arm_rank": 300,
+     "rows_dropped_coverage": 0,
+     "UNDERPOWERED": false
+    }
+   }
+  }
+ ],
+ "NOTE_BARS_RECOMPUTED_PER_RUNG": "no bar imported; each rung's bar is max(4 floors) on ITS OWN representation and population",
+ "NOTE_RANK_NULL": "an arm that does not exceed rank_matched_null_p95 has shown nothing, because degradation alone walks a below-chance score toward 0.5"
+}
