@@ -79,7 +79,27 @@ after the pre-registered ceiling guard fired and was amended away).
 **MIDDLE_BAND MAY HOLD BETTER SCIENCE THAN HARD_PASS, BECAUSE IT IS WHERE THE HONEST
 SELF-ASSESSMENTS WENT. 117 meaning-relevant MIDDLE_BAND cells have never been read.**
 
-**And 121 meaning-relevant cells were authored and NEVER RUN** -- unproven rather than refuted,
+**⚠️ CORRECTION, OWNER-PROMPTED, 2026-08-18 -- "NEVER LANDED" IS A LOCAL-DISK CLAIM AND I
+STATED IT AS A FACT ABOUT THE WORLD.** The owner: *"I would be very surprised if those were never
+run - many experiments were run on the remote desktop."* They are right. Measured immediately after:
+
+- **1,193 distinct cell names appear in the local remote-queue caches** -- 451 in
+  `data/_cache_remote_cpu_queue.json`, 752 in `data/_cache_remote_gpu_queue.json` -- and **112 of
+  those are cells this index called NEVER LANDED. THEY WERE DISPATCHED.** A configured remote host
+  exists (`marsh@home...`, in `tools/queue_add.sh`).
+- **30 more have a `metrics.json` under a DIFFERENT LOCAL DIRECTORY NAME.** My index only scanned
+  `data/exp_*`; results also live in `data/results`, `data/lambda_batch_results`,
+  `data/skypilot_results`, `data/tier4_llama_results`, and roughly 60 `substrate_*` directories
+  carrying no `exp_` prefix at all.
+- **The queue caches are SNAPSHOTS, not a dispatch history, so 112 is a FLOOR, not a count.**
+
+**THE HONEST STATEMENT: 1,042 cells have no local result at the expected path. AT LEAST 142 of
+those did run or were shipped to run. THE TRUE NUMBER NEVER RUN IS UNKNOWN AND LOWER.** Settling it
+requires SSH to the remote and a metrics sync, which is the orchestrator lane and needs owner
+authorization. *This is the same error class the audit exists to catch -- an absence claim made from
+a search rather than an enumeration -- committed by me while cataloguing it in others.*
+
+**And 121 meaning-relevant cells have no local result** -- unproven rather than refuted,
 including a cross-channel independence gate with a trap arm whose FULL never landed.
 
 ## 7.5 THE ORGAN LAYER IS A SEPARATE POPULATION AND MUST NOT BE JUDGED BY 7.1
