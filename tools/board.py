@@ -430,6 +430,20 @@ def _next_id(questions: list[dict], answered: list[dict]) -> str:
 
 def ask(question: str, why: str, rec: str, board_path: Path = DEFAULT_BOARD,
         status_path: Path = DEFAULT_STATUS, item_id: str | None = None) -> dict:
+    """File an owner question. `question` MUST LEAD WITH A COMPLETE ONE-LINE ASK.
+
+    THE OWNER CANNOT READ PAST THE FIRST LINE. Their own words, answering Q20 on 2026-08-17:
+    "I can't read this entire question, nor many of the others there's no way to read beyond one
+    line." The viewer shows one line; nothing here truncates, so this is an AUTHORING rule and the
+    only place it can be enforced is the caller.
+
+    Anything after the first line is detail the owner may never see. Put the decision, and the
+    allowed answers, in the first line:
+        GOOD: "Delete 3,894 junk files clogging notes/ and switch off the task making them? (yes/no)"
+        BAD:  "MEASURED EVIDENCE for Q51, which I had only hypothesised: a plain find just TIMED..."
+    The BAD example is real -- it is what Q56 said for a full day while the owner could see only
+    its first few words, none of which contained a question.
+    """
     q, a, extra = load(board_path)
     q, a = _migrate_settled(q, a)
     new = {"id": item_id or _next_id(q, a), "question": question.strip(),
