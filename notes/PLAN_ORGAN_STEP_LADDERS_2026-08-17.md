@@ -463,6 +463,63 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.18 **THE CAPACITY RESULT LANDED. BRANCH B FIRES. THE INFORMATION IS THERE; NOTHING UNSUPERVISED REACHES IT. THIS IS THE MOST INFORMATIVE RESULT OF THE PROGRAMME.**
+
+`exp_corpus_capacity_ppmi_svd_ceiling_v1`, FULL. **Instrument licensed by exact reproduction: all
+8 regression checks land at delta 0.0000** (four floors, known-answer 0.9599, random store 0.4862,
+incumbent 0.0710, full accumulation 0.0510). Population loaded BYTE-IDENTICAL from the instrument's
+own checkpoint, not reconstructed. Matrix **5,491 x 21,576, nnz 1,074,605, density 0.91%, 1,824,296
+tokens**, and **coverage is PERFECT -- 242/242 pairs have both members present in BOTH cells**, so no
+result below is a coverage artifact.
+
+| arm | AUC | band |
+|---|---|---|
+| `B1_PPMI` | 0.0275 (smoke) | below |
+| `B3_SECOND_ORDER_COSINE` | 0.0456 (smoke) | below |
+| `B2_PPMI_SVD` k=50 | **0.0519** [0.0349,0.0714] | **BELOW** |
+| `B2_PPMI_SVD` k=100 | **0.0285** | **BELOW** |
+| `B2_PPMI_SVD` k=300 | **0.0230** | **BELOW** |
+| `B2_PPMI_SVD` k=500 | **0.0278** | **BELOW** |
+| `C1_FITTED_ORACLE` fitted | **0.9670** [0.9514,0.9805] | **ABOVE** |
+| **`C1_FITTED_ORACLE` HELD-OUT CV** | **0.9606** [0.9430,0.9754] | **ABOVE** |
+
+**TWO FACTS, AND THEY POINT THE SAME WAY.**
+
+**(1) THE CLASSICAL METHOD DOES NOT BEAT US -- IT FAILS TOO, AND SLIGHTLY WORSE.** PPMI+SVD is the
+decades-old gold standard for extracting paradigmatic similarity from co-occurrence counts, run on
+OUR corpus at four ranks up to a reachable 5,490. **Every rank lands BELOW 0.5, and its best (0.0519)
+is WORSE than our incumbent store (0.0710).** *Branch A is dead: we are not being embarrassed by
+truncated SVD.* No k was dropped for cost; the sweep is complete.
+
+**(2) A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS REACHES 0.9606 ON HELD-OUT DATA.** Not
+in-sample -- **held out, 5-fold, and the fitted/held-out gap is 0.0064**, so it is not memorising.
+**The substitutability signal is PRESENT IN THE COUNTS, richly, and linearly extractable.**
+
+**THEREFORE THE MISSING THING IS NOT INFORMATION, NOT REPRESENTATION CAPACITY, AND NOT THE WRITE
+STEPS. IT IS THE LEARNING SIGNAL.** Every arm this programme has built is UNSUPERVISED -- it decides
+what to write with no error signal telling it which directions matter. The oracle differs in exactly
+one respect: it is TOLD which pairs are substitutable and fits accordingly. **Same counts, same
+population, same scorer; supervision is the only variable, and it moves AUC from 0.03-0.07 to 0.96.**
+
+**THIS ROUTES TO A NAMED ERROR FLAVOUR THE PROJECT ALREADY HAS: MISSING-LEARNING -> REUSE/EXPAND THE
+LEARNER MODULE, DO NOT BUILD A PARALLEL ONE.** The standing rule says every negative must ask "is a
+needed COMPONENT missing -- especially LEARNING?" before "intrinsic ceiling". **Five write-rule gates
+and a corpus-capacity ceiling all answer: yes, and it is learning.**
+
+**WHAT THIS DOES NOT LICENSE, stated now to prevent the obvious over-reach.** The oracle is fitted on
+the evaluation construct itself. It proves the counts CONTAIN the signal; it does NOT prove an
+unsupervised or brain-plausible learner can find it, and **0.9606 must never be quoted as a
+capability.** The honest next question is what supervision a BRAIN has that we do not -- and the
+answer is not "a labelled synonym list": it is prediction error, cross-modal correspondence, and
+the consequences of use. *That is a research drill, not a build, and it is the top item.*
+
+**LABEL DISCREPANCY, disclosed rather than smoothed:** the cell's verdict string reads
+`STOP_IF_iii_...` while plan 6.16 numbers this outcome **BRANCH B**. The cell's internal stop-if
+numbering differs from 6.16's lettering; **the CONTENT matches 6.16 Branch B exactly** (info present,
+no unsupervised transform reaches it). 6.16's Branch C -- the oracle also failing -- **did NOT fire.**
+
+---
+
 ### 6.17 **THE DIRECTOR REPEATED THE PROJECT'S OWN NAMED ERROR: "NOT PERSISTED" READ AS "GONE".**
 
 While the capacity cell was authoring, the Director tried to shortcut its decisive number with a
