@@ -634,6 +634,42 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.42 **WHAT THE NIGHT ACTUALLY SETTLED, AND THE ONE DIRECTION IT OPENED. READ THIS BEFORE BUILDING ANYTHING.**
+
+**THE HONEST LEDGER.** Tonight produced one retracted headline, four measurement defects, one real
+engineering fault (the typed channel starved on both instruments), and one refutation of my own
+excuse for the rest: **24 of 24 human-side arms fail even at their CI upper bound, so the negatives
+are REAL and the instrument is NOT what is holding us back.** *We are not mis-measuring a working
+substrate. We are measuring a substrate that does not yet do this.*
+
+**THE ONE THING THAT DEMONSTRABLY WORKS, AND IT HAS NOT CHANGED ALL NIGHT: a SUPERVISED diagonal
+reweighting of first-order counts reaches 0.8629 group-disjoint, while NOTHING UNSUPERVISED gets
+near it** (vanilla PPMI 0.0519, tuned 0.1144, SGNS 0.4417 *below its own untrained control*).
+**THE SIGNAL IS IN OUR CORPUS. NO UNSUPERVISED TRANSFORM EXTRACTS IT. THAT IS A SOLVED QUESTION AND
+WE KEEP RE-ASKING IT.** *Every typed-role arm tonight was another unsupervised transform -- **we
+sampled again from a space we had already shown to be empty.** That, not bad luck, is why the
+results were negative.*
+
+**🧠 THE DIRECTION THE BIOLOGY OPENED (`bfc0e941c`, PINNED): taxonomic (ATL) and thematic
+(pMTG/TPJ) systems DOUBLY DISSOCIATE, and coarse grammatical frames drive CATEGORY induction
+unsupervised (Mintz 2003) while syntactic bootstrapping shows frames CONSTRAIN a meaning hypothesis
+from 12-18 months -- THEY DO NOT SUPPLY IT.** *So the frame channel was never going to be the
+answer: **it is a FILTER on hypotheses, and we have been asking it to be a SOURCE of them.***
+**WHAT SUPPLIES THEM, IN THE BRAIN, IS GROUNDED CROSS-MODAL CONVERGENCE -- the word co-occurring
+with a PERCEPTUAL experience of its referent, not with other words.** **THAT IS THE STAGE-TWO
+SUPERVISION SIGNAL, AND IT IS EXACTLY WHAT `TOP ITEM` HAS BEEN ASKING FOR: a signal that is NOT the
+evaluation gold and NOT an LLM.**
+
+**THE HARD PART, STATED PLAINLY RATHER THAN ROUTED AROUND: WE HAVE NO PERCEPTUAL MODALITY.** Our
+assets are text, WordNet (**disqualified -- it DEFINES both sides of the labels**), and CSKG.
+**DO NOT BUILD A FAKE "CROSS-MODAL" CHANNEL OUT OF MORE TEXT AND CALL IT GROUNDING** -- that is the
+substitution-of-something-convenient this project keeps being caught doing, and it would be
+mislabelled as brain-derived. **THE QUESTION TO ANSWER BEFORE ANY BUILD: what admissible
+non-linguistic convergence signal do we actually have, or can we legitimately construct offline?**
+*Check `admissible_supervision_sources_drill` FIRST and build on it -- do not re-run it.*
+
+---
+
 ### 6.41 **THE NIGHT CONVERGED: THE TYPED CHANNEL HAS NEVER BEEN GIVEN ENOUGH DATA TO BE TESTED, ON EITHER INSTRUMENT. THAT IS A DENSITY PROBLEM, AND DENSITY IS A PARAMETER WE ARE FREE TO SET.**
 
 **TWO LANES, TWO POPULATIONS, ONE CAUSE -- neither was looking for it and neither knew of the other:**
