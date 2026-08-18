@@ -491,9 +491,26 @@ OUR corpus at four ranks up to a reachable 5,490. **Every rank lands BELOW 0.5, 
 is WORSE than our incumbent store (0.0710).** *Branch A is dead: we are not being embarrassed by
 truncated SVD.* No k was dropped for cost; the sweep is complete.
 
-**(2) A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS REACHES 0.9606 ON HELD-OUT DATA.** Not
-in-sample -- **held out, 5-fold, and the fitted/held-out gap is 0.0064**, so it is not memorising.
-**The substitutability signal is PRESENT IN THE COUNTS, richly, and linearly extractable.**
+**(2) A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS REACHES 0.8629 UNDER THE STRICTEST TEST.**
+
+**CORRECTED -- and the agent caught this itself, before reporting a clean number.** The landed
+pair-level held-out figure is **0.9606**, and the Director relayed it. But **37.6% of the 617
+pair-member words appear in more than one pair**, so pair-level cross-validation lets the SAME WORD'S
+embedding sit on both sides of a fold -- word-identity leakage. A supplementary group-disjoint check
+was built (`tools/verify_ppmi_svd_oracle_group_disjoint_cv.py`: union-find over shared word
+membership -> **148 word-disjoint components**, GroupKFold by component), and under it the oracle
+reads **0.8629**.
+
+- **QUOTE 0.8629, NOT 0.9606.** The gap (0.098) is real and is exactly the leakage the naive split
+  hid. *The Director quoted 0.9606 as proof it "generalises rather than memorises" -- the honest
+  version of that claim is 0.8629, and it is still decisive.*
+- **THE FINDING SURVIVES THE STRICTER TEST.** 0.8629 clears 0.5 by a wide margin on word-pairs whose
+  members were never jointly seen during fitting. **The substitutability signal is PRESENT IN THE
+  COUNTS and linearly extractable.**
+- Also verified: `B3_SECOND_ORDER_COSINE` is **bit-identical (8.94e-08) to the instrument's own
+  `RAW_COUNT_FULL_ACCUM`**, an independent cross-check that the two cells compute the same object.
+- The row space is the **full 5,491 anchor set, not restricted to pair words**, so the PPMI marginals
+  are not biased toward the evaluation population.
 
 **THEREFORE THE MISSING THING IS NOT INFORMATION, NOT REPRESENTATION CAPACITY, AND NOT THE WRITE
 STEPS. IT IS THE LEARNING SIGNAL.** Every arm this programme has built is UNSUPERVISED -- it decides

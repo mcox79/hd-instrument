@@ -43,8 +43,12 @@ density 0.91%, 1.82M tokens, **coverage PERFECT 242/242 in both cells**.
   OUR CORPUS AT EVERY RANK:** k=50/100/300/500 -> **0.0519 / 0.0285 / 0.0230 / 0.0278**, all BELOW 0.5,
   and its BEST is WORSE than our incumbent 0.0710. No k dropped for cost. **We are NOT being beaten by
   truncated SVD.**
-- **A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS READS 0.9606 HELD-OUT** (5-fold; fitted
-  0.9670; **gap 0.0064**, so it generalises rather than memorises).
+- **A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS READS 0.8629 UNDER THE STRICTEST TEST.**
+  CORRECTED, and the agent caught it before reporting clean: the landed pair-level held-out figure is
+  0.9606, but **37.6% of the 617 pair-member words appear in >1 pair**, so pair-level CV leaks word
+  identity across folds. Group-disjoint GroupKFold (union-find -> 148 word-disjoint components,
+  `tools/verify_ppmi_svd_oracle_group_disjoint_cv.py`) gives **0.8629**. **QUOTE 0.8629, NOT 0.9606**
+  -- the finding SURVIVES, clearing 0.5 by a wide margin on pairs never jointly seen in fitting.
 - **SAME counts, SAME 242 pairs, SAME scorer. SUPERVISION IS THE ONLY VARIABLE, AND IT MOVES AUC FROM
   0.03-0.07 TO 0.96.** So the missing thing is **NOT information, NOT representation capacity, NOT the
   write steps** -- **IT IS THE LEARNING SIGNAL.** Every arm we have ever built is unsupervised and
