@@ -8,6 +8,24 @@ CHAIN: `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` (**THE PLAN; sec 6.6/6.7 are the 
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+**THE MISSING OPERATION HAS A NAME AND AN EQUATION (drill 1, `4f83dd8ce`, VET-pending).** Our store is
+`H^T p_a` -- a RANDOM ROTATION of the co-occurrence matrix `Sigma_yx`. The rule that yields
+SUBSTITUTABILITY is `Sigma_yx Sigma_xx^-1`: co-occurrence FACTORISED against the context correlation
+structure. **WE BUILT `Sigma_yx` AND STOPPED.** The slot where the factorisation belongs is our `CODE`
+step, and `CODE` is a Johnson-Lindenstrauss RANDOM PROJECTION -- a near-isometry, **provably incapable
+of creating structure that was not already in what it was handed.** Its measured composition delta is
+**+0.0031 [-0.0243,+0.0300] NOT_SEPARATED** -- it does not move the relation at all, exactly as
+"preserves geometry" predicts. **0 OF THE ORGAN'S 4 STEPS REPLICATE THE BRAIN**; and no biological
+account of combining experience has EVER been written without a DENOMINATOR, while our `ACCUMULATE` is
+`sums[lemma] += ctx_vec` with none. `sign()` is a per-component SELF-denominator -- the algebraic
+INVERSE of divisive normalisation -- and it is OFF by default.
+**RETRACTED (VET COMPLETE, off `exp_writerule_step_ladder_v1` `COMPOSITION_DELTA_TABLE`): "summing is
+what converts our store from could-replace to appears-near."** FALSE, and backwards: across
+`ACCUMULATE` the no-close-relation rate FALLS 0.8400 -> 0.7971, **-0.043 [-0.0800,-0.0086]
+CI-SEPARATED**. Adjacency was there from sentence one -- a bag of neighbours IS an adjacency record.
+The Director quoted the winner's co-occur share (66.0->94.4) and dropped the gold's (23.9->60.3) and
+the RATIO, which FELL 3.967->3.822. **REPORT WINNER SHARE, GOLD SHARE AND RATIO TOGETHER, ALWAYS.**
+
 ONE ORGAN AT A TIME, AND THE ORGAN IS THE WRITE RULE (owner ruling 2026-08-18, `PLAN_ORGAN_STEP_LADDERS`
 sec 6.7). The cue side is finished and did not fix the reading; four cells changed the QUESTION we hand
 the store and every one improved FINDING THE DRAWER while none improved READING WHAT IS IN IT
