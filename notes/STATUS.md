@@ -511,6 +511,38 @@ excludes nothing is not a control -- report how many items each control actually
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
+- **🔴 CROSS-VIEW CONVERGENCE HUB: CLEAN NEGATIVE, `B_NEGATIVE` FIRED AS PRE-COMMITTED. THE
+  BEST-CONTROLLED CELL OF THE SESSION, AND THE FIRST BUILT FROM THE BIOLOGY RATHER THAN FROM WHAT
+  WAS LYING AROUND.** `experiments/exp_crossview_convergence_hub_v1.py`, all 16 mechanism arms fail.
+  Primary `HUB_CCA_BOTH` **0.3129 [0.2630, 0.3644]** against a **RECOMPUTED** bar of **0.5510**;
+  margin **-0.2880**. **NOT UNDERPOWERED -- the CI upper bound sits 5.7 half-widths below the bar**,
+  so this is a resolved negative, not a width.
+  **✅ WHY THE NEGATIVE IS TRUSTWORTHY, and it clears every trap that caught us earlier:** BOTH trap
+  pairings stayed dead (0.0446 / 0.1375, `ANY_TRAP_CLEARS_ITS_OWN_BAR` false) so it is not a trap
+  artifact; held-out split 3,064 fit / 617 eval with eval words excluded from the SVD basis,
+  vocabulary, CCA, ridge, lambda AND k*; all four floors NOT_SEPARATED, known-answer 0.9612, random
+  0.4919; **the coverage control removed 40 of 242 rows (16.5%) -- IT BINDS**, unlike the one that
+  removed 0 of 242 earlier tonight. A **planted-positive self-test** refused the cell until the
+  pipeline could recover a planted invariant (now hub 0.9934, raw views 0.0000).
+  **⚠️ THE PART THAT IS NOT NOTHING, AND MUST NOT BE OVERSOLD: the hub reads 0.3129 against an
+  incumbent of 0.0603 and its own wrong-source residual control of 0.0575. THE CROSS-PREDICTABLE
+  COMPONENT GENUINELY STRIPS CO-OCCURRENCE ENCODING** -- CCA found real shared structure (rho
+  0.4701, k*=8). **BUT 0.3129 IS STILL DEEP BELOW 0.5. MOVING TOWARD CHANCE IS NOT ACQUIRING
+  SUBSTITUTABILITY**, and the pre-registered direction says only above 0.5 counts. *Definitional
+  view alone 0.4780; the naive-fusion arm was pre-registered to fail and did (0.1258).*
+  **SCOPE, as pre-registered: one definitional channel, one usage channel, one LINEAR extractor,
+  one instrument, n=202. It says the missing ingredient is not a second view OF THIS KIND.**
+- **🚨 A LICENSING DEFECT THIS CELL FOUND THAT REACHES BACKWARDS INTO EVERY RUN WE HAVE GATED:
+  `F_SCRAMBLE` WAS A SINGLE COIN FLIP.** Its first smoke voided on `F_SCRAMBLE` 0.4266
+  [0.3701, 0.4867] -- **one permutation's own CI excludes 0.5 about 5% of the time BY CONSTRUCTION,
+  and across four floors that voids or passes roughly 18% of runs ON NOISE ALONE.** Measured
+  single-draw false-fire rate **0.010-0.080 across 17 floors** -- that is the receipt, not an
+  estimate. **FIXED HERE: `F_SCRAMBLE` is now a POLICY over 500 permutations with the bar term taken
+  from the 95th percentile of that distribution -- which RAISED the bar and made it the BINDING
+  term (0.5510).** *So this cell was judged against a HARDER bar than any predecessor.*
+  **OPEN AND NOT YET ASSESSED: every earlier licensing decision in this programme used the
+  single-draw form. That does not invalidate them, but it means an unknown fraction turned on a coin
+  flip, and the fix belongs in the shared instrument, not in one cell.**
 - **🚨🚨🚨 AUDIT LANDED 06:52 (`37181d944`) -- BRANCH (i): 3 CELLS, 21 ARMS MIS-GATED, TWO OF THEM NEW.
   AND IT SURFACED SOMETHING LARGER THAN THE IMPORT: THE BAR ITSELF WAS NEVER SEPARATED FROM CHANCE.**
   **`F_CONSTANT_PROTOTYPE` = 0.5431 CARRIES CI [0.4922, 0.5953] -- IT INCLUDES 0.5.** I checked the

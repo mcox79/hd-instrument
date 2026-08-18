@@ -1,0 +1,2574 @@
+{
+  "verdict": "FAIL",
+  "verdict_msg": "B_NEGATIVE | primary MAIN_STORE_DEF::HUB_CCA_BOTH AUC=0.3129 CI=[0.2630,0.3644] HW=0.0507 BAR=0.5510 nullp95=0.5465 margin=-0.2880 | rows 242->202 | THE MECHANISM DOES NOT WORK HERE. Cross-view mutual prediction between a usage view and a definitional view does not produce substitutability on this instrument, at n=202 rows, with the strongest floor recomputed on THIS",
+  "elapsed_s": 154.0,
+  "summary": {
+    "branch": "B_NEGATIVE",
+    "primary_arm": "MAIN_STORE_DEF::HUB_CCA_BOTH",
+    "primary": {
+      "branch": "B_NEGATIVE",
+      "lo": 0.263,
+      "hi": 0.3644,
+      "ci_halfwidth": 0.0507,
+      "BAR": 0.551,
+      "margin_lo_minus_bar": -0.288,
+      "chance_to_bar_interval": 0.051,
+      "halfwidth_exceeds_chance_to_bar": false,
+      "null_p95": 0.5465,
+      "kind": "MAIN"
+    },
+    "n_rows_before": 242,
+    "n_rows_after": 202,
+    "licensed": true,
+    "trap_fired": false
+  },
+  "report": {
+    "anchor_name": "crossview_convergence_hub_v1",
+    "code_version": "v1.1",
+    "grid": "full",
+    "prereg": "preregs/2026-08-18_crossview_convergence_hub_v1.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "PREREG_AMBIGUITY_ADJUDICATION": "VIEWS says the SVD basis is fit on 'HELD-OUT WORDS ONLY'; HELD-OUT SPLIT excludes evaluation words from EVERY fit including the SVD basis. THE SECOND IS DEFINITIVE: the basis is fit on the 3064 FIT words. The prereg file was NOT edited.",
+    "RE_ATTEMPT_OF_FAILED_MECHANISM_CLASS": [
+      "exp_self_teacher_gloss_relational_predictive_heldout_new_v1 landed -0.0105 (gloss ablation 0.5978, WORSE than grounding alone 0.6361)",
+      "exp_redundancy_decorrelation_from_coherence_gate_precheck_v1 landed HARD_FAIL_NO_SAFE_SECOND_VIEW"
+    ],
+    "FORBIDDEN_SOURCES_NOT_USED": {
+      "data/foundation/**": "11-14 of 242 rows, unmeasurable; READ-ONLY, ONE DISK, NO BACKUP -- nothing read from or written to it",
+      "wordnet_glosses_as_view": "AUC 0.8911, it IS the answer key; WordNet appears ONLY as the licensing KNOWN_ANSWER arm"
+    },
+    "NO_CACHED_BAR_IMPORTED": "0.5431 / 0.5943 / 0.6317 appear nowhere as a threshold",
+    "POPULATION_SOURCE": {
+      "dir": "data\\exp_dissociation_score_instrument_v1",
+      "unit": "POPULATION|v1.7|full",
+      "n_rows": 242,
+      "n_eval_words": 617
+    },
+    "DEFINITIONAL_CACHE": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\_simplewiki_defs.json",
+      "n_definienda": 3646,
+      "corpus": "data\\corpora\\simplewiki\\simplewiki_clean_v1.txt"
+    },
+    "HELD_OUT_SPLIT": {
+      "n_definienda_total": 3646,
+      "n_definienda_that_are_valid_anchors": 3646,
+      "n_fit_words": 3064,
+      "n_eval_words": 617,
+      "n_eval_words_with_definitional_view": 582,
+      "group_disjoint_assert_passed": true,
+      "excluded_from": [
+        "svd_basis",
+        "feature_vocabulary",
+        "cca",
+        "ridge",
+        "lam_selection",
+        "k_star_selection"
+      ],
+      "adjudication": "basis fit on FIT words (see PREREG_AMBIGUITY_ADJUDICATION)"
+    },
+    "CORPUS": {
+      "n_sentences": 34169,
+      "provenance": "reused",
+      "half_sizes": [
+        17084,
+        17085
+      ]
+    },
+    "VIEWS": {
+      "DEFINITIONAL": {
+        "tag": "DEFINITIONAL",
+        "k_requested": 128,
+        "k_effective": 128,
+        "fit_shape": [
+          3064,
+          15663
+        ],
+        "solver": "svds_arpack_v0",
+        "singular_values_top5": [
+          7.96306,
+          5.27473,
+          5.04198,
+          4.10772,
+          4.01778
+        ],
+        "spectral_energy_kept": 0.28788,
+        "n_vocab_from_fit_words_only": 15663,
+        "eval_rows_with_zero_retained_mass": 35,
+        "eval_mean_nonzero_features": 27.36,
+        "fit_mean_nonzero_features": 24.73
+      },
+      "USAGE_COUNTS": {
+        "tag": "USAGE_COUNTS",
+        "k_requested": 128,
+        "k_effective": 128,
+        "fit_shape": [
+          3064,
+          20745
+        ],
+        "solver": "svds_arpack_v0",
+        "singular_values_top5": [
+          14.71659,
+          6.82795,
+          4.12773,
+          3.9192,
+          3.71413
+        ],
+        "spectral_energy_kept": 0.32953,
+        "n_vocab_from_fit_words_only": 20745,
+        "eval_rows_with_zero_retained_mass": 0,
+        "eval_mean_nonzero_features": 359.2,
+        "fit_mean_nonzero_features": 168.19
+      },
+      "USAGE_HALF_A": {
+        "tag": "USAGE_HALF_A",
+        "k_requested": 128,
+        "k_effective": 128,
+        "fit_shape": [
+          3064,
+          16694
+        ],
+        "solver": "svds_arpack_v0",
+        "singular_values_top5": [
+          12.36938,
+          5.9915,
+          3.89961,
+          3.66143,
+          3.5772
+        ],
+        "spectral_energy_kept": 0.3163,
+        "n_vocab_from_fit_words_only": 16694,
+        "eval_rows_with_zero_retained_mass": 0,
+        "eval_mean_nonzero_features": 221.95,
+        "fit_mean_nonzero_features": 102.51
+      },
+      "USAGE_HALF_B": {
+        "tag": "USAGE_HALF_B",
+        "k_requested": 128,
+        "k_effective": 128,
+        "fit_shape": [
+          3064,
+          16763
+        ],
+        "solver": "svds_arpack_v0",
+        "singular_values_top5": [
+          12.26754,
+          5.95844,
+          3.98584,
+          3.66027,
+          3.6347
+        ],
+        "spectral_energy_kept": 0.31307,
+        "n_vocab_from_fit_words_only": 16763,
+        "eval_rows_with_zero_retained_mass": 0,
+        "eval_mean_nonzero_features": 225.46,
+        "fit_mean_nonzero_features": 103.22
+      },
+      "USAGE_STORE": {
+        "dim": 256,
+        "source": "CTS.load_cache()['mat']"
+      },
+      "STORE_DIM_LO": {
+        "dim": 128,
+        "source": "store dims 0:128"
+      },
+      "STORE_DIM_HI": {
+        "dim": 128,
+        "source": "store dims 128:256"
+      }
+    },
+    "CONTROL_5_COVERAGE": {
+      "rule": "row dropped unless ALL FOUR member words have BOTH a definitional view and a usage profile",
+      "n_rows_before": 242,
+      "n_rows_after": 202,
+      "N_ROWS_REMOVED": 40,
+      "removed_pct": 16.53,
+      "removed_definitional_only": 40,
+      "removed_usage_only": 0,
+      "removed_both": 0,
+      "BINDING": true,
+      "NOT_BINDING_NOTE": null,
+      "examples": [
+        {
+          "row": 16,
+          "no_definitional": [
+            "million"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 28,
+          "no_definitional": [
+            "boost"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 31,
+          "no_definitional": [
+            "smooth"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 39,
+          "no_definitional": [
+            "front"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 40,
+          "no_definitional": [
+            "nothing"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 50,
+          "no_definitional": [
+            "nsa"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 51,
+          "no_definitional": [
+            "part"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 55,
+          "no_definitional": [
+            "name"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 61,
+          "no_definitional": [
+            "parts"
+          ],
+          "no_usage": []
+        },
+        {
+          "row": 62,
+          "no_definitional": [
+            "showing",
+            "nsa"
+          ],
+          "no_usage": []
+        }
+      ]
+    },
+    "CONTROL_5_POST_DROP_BALANCE": {
+      "smd_P_vs_S_on_surviving_rows": {
+        "mean_log_freq": -0.046,
+        "abs_freq_diff": 0.0045,
+        "mean_length": -0.0021,
+        "trigram_cosine": 0.0002,
+        "mean_prototype": 0.1602
+      },
+      "n_eval_words_covered": 582,
+      "n_eval_words_uncovered": 35,
+      "smd_log_freq_covered_vs_uncovered": -0.4532,
+      "note": "the audit measured SMD +0.550 for the STORE corpus; this is the simplewiki measurement, which was previously unmeasured"
+    },
+    "CONTROL_6_CHANNEL_PREFLIGHT": {
+      "MAIN_STORE_DEF": {
+        "cross_sim_r": 0.0363,
+        "n_pairs": 3999,
+        "REDUNDANT_CROSS": 0.95,
+        "redundant": false,
+        "source": "experiments/exp_grounding_consolidation_loop_degree_invariant_v1.py :: REDUNDANT_CROSS = 0.95",
+        "kind": "MAIN",
+        "VOID_IF_MAIN_AND_REDUNDANT": false
+      },
+      "MAIN_COUNTS_DEF": {
+        "cross_sim_r": 0.0626,
+        "n_pairs": 3999,
+        "REDUNDANT_CROSS": 0.95,
+        "redundant": false,
+        "source": "experiments/exp_grounding_consolidation_loop_degree_invariant_v1.py :: REDUNDANT_CROSS = 0.95",
+        "kind": "MAIN",
+        "VOID_IF_MAIN_AND_REDUNDANT": false
+      },
+      "TRAP_CORPUS_HALVES": {
+        "cross_sim_r": 0.521,
+        "n_pairs": 3999,
+        "REDUNDANT_CROSS": 0.95,
+        "redundant": false,
+        "source": "experiments/exp_grounding_consolidation_loop_degree_invariant_v1.py :: REDUNDANT_CROSS = 0.95",
+        "kind": "TRAP",
+        "VOID_IF_MAIN_AND_REDUNDANT": false
+      },
+      "TRAP_STORE_DIMHALVES": {
+        "cross_sim_r": 0.2372,
+        "n_pairs": 3999,
+        "REDUNDANT_CROSS": 0.95,
+        "redundant": false,
+        "source": "experiments/exp_grounding_consolidation_loop_degree_invariant_v1.py :: REDUNDANT_CROSS = 0.95",
+        "kind": "TRAP",
+        "VOID_IF_MAIN_AND_REDUNDANT": false
+      }
+    },
+    "REGRESSION_GATE": {
+      "expected": 0.071,
+      "tol": 0.006,
+      "measured": 0.071,
+      "ci95": [
+        0.0508,
+        0.0932
+      ],
+      "n_rows": 242,
+      "PASS": true
+    },
+    "CCA_DIAGNOSTICS": {
+      "MAIN_STORE_DEF": {
+        "x_view": "USAGE_STORE",
+        "y_view": "DEFINITIONAL",
+        "kind": "MAIN",
+        "selection": {
+          "lam_grid_trace": [
+            {
+              "lam_rel": 0.0001,
+              "mean_heldout_rho_top32": 0.06691,
+              "n_components_ge_0.10": 3
+            },
+            {
+              "lam_rel": 0.001,
+              "mean_heldout_rho_top32": 0.06702,
+              "n_components_ge_0.10": 3
+            },
+            {
+              "lam_rel": 0.01,
+              "mean_heldout_rho_top32": 0.06811,
+              "n_components_ge_0.10": 3
+            },
+            {
+              "lam_rel": 0.1,
+              "mean_heldout_rho_top32": 0.07655,
+              "n_components_ge_0.10": 6
+            },
+            {
+              "lam_rel": 1.0,
+              "mean_heldout_rho_top32": 0.09103,
+              "n_components_ge_0.10": 8
+            }
+          ],
+          "lam_rel_selected": 1.0,
+          "mean_heldout_rho_at_selected_lam": 0.09103,
+          "k_raw_components_with_heldout_rho_ge_0.10": 8,
+          "k_star": 8,
+          "k_star_clipped": false,
+          "heldout_rho_top10": [
+            0.5372,
+            0.2088,
+            0.1956,
+            0.1662,
+            0.1773,
+            0.1759,
+            0.1375,
+            0.0733,
+            0.0628,
+            0.0889
+          ]
+        },
+        "rho_top10": [
+          0.4701,
+          0.3089,
+          0.3072,
+          0.2824,
+          0.2756,
+          0.2646,
+          0.2564,
+          0.2474
+        ],
+        "rho_mean": 0.3016,
+        "k_star": 8,
+        "ridge_lam": 10.0,
+        "ridge_trace": [
+          {
+            "lam": 0.0001,
+            "heldout_mse": 1.930208,
+            "heldout_cos": 0.034896
+          },
+          {
+            "lam": 0.001,
+            "heldout_mse": 1.930202,
+            "heldout_cos": 0.034899
+          },
+          {
+            "lam": 0.01,
+            "heldout_mse": 1.930139,
+            "heldout_cos": 0.034931
+          },
+          {
+            "lam": 0.1,
+            "heldout_mse": 1.929518,
+            "heldout_cos": 0.035241
+          },
+          {
+            "lam": 1.0,
+            "heldout_mse": 1.92404,
+            "heldout_cos": 0.03798
+          },
+          {
+            "lam": 10.0,
+            "heldout_mse": 1.897652,
+            "heldout_cos": 0.051174
+          }
+        ],
+        "fit_halves": [
+          1532,
+          1532
+        ]
+      },
+      "MAIN_COUNTS_DEF": {
+        "x_view": "USAGE_COUNTS",
+        "y_view": "DEFINITIONAL",
+        "kind": "MAIN",
+        "selection": {
+          "lam_grid_trace": [
+            {
+              "lam_rel": 0.0001,
+              "mean_heldout_rho_top32": 0.14329,
+              "n_components_ge_0.10": 17
+            },
+            {
+              "lam_rel": 0.001,
+              "mean_heldout_rho_top32": 0.14335,
+              "n_components_ge_0.10": 17
+            },
+            {
+              "lam_rel": 0.01,
+              "mean_heldout_rho_top32": 0.14388,
+              "n_components_ge_0.10": 17
+            },
+            {
+              "lam_rel": 0.1,
+              "mean_heldout_rho_top32": 0.14725,
+              "n_components_ge_0.10": 17
+            },
+            {
+              "lam_rel": 1.0,
+              "mean_heldout_rho_top32": 0.15116,
+              "n_components_ge_0.10": 15
+            }
+          ],
+          "lam_rel_selected": 1.0,
+          "mean_heldout_rho_at_selected_lam": 0.15116,
+          "k_raw_components_with_heldout_rho_ge_0.10": 15,
+          "k_star": 15,
+          "k_star_clipped": false,
+          "heldout_rho_top10": [
+            0.6239,
+            0.4275,
+            0.4061,
+            0.3323,
+            0.3447,
+            0.2499,
+            0.3157,
+            0.2376,
+            0.2379,
+            0.1799
+          ]
+        },
+        "rho_top10": [
+          0.5217,
+          0.3497,
+          0.3382,
+          0.2998,
+          0.2981,
+          0.2696,
+          0.2619,
+          0.2484,
+          0.2385,
+          0.2251
+        ],
+        "rho_mean": 0.2699,
+        "k_star": 15,
+        "ridge_lam": 10.0,
+        "ridge_trace": [
+          {
+            "lam": 0.0001,
+            "heldout_mse": 1.813768,
+            "heldout_cos": 0.093116
+          },
+          {
+            "lam": 0.001,
+            "heldout_mse": 1.813764,
+            "heldout_cos": 0.093118
+          },
+          {
+            "lam": 0.01,
+            "heldout_mse": 1.813725,
+            "heldout_cos": 0.093137
+          },
+          {
+            "lam": 0.1,
+            "heldout_mse": 1.813344,
+            "heldout_cos": 0.093328
+          },
+          {
+            "lam": 1.0,
+            "heldout_mse": 1.809745,
+            "heldout_cos": 0.095128
+          },
+          {
+            "lam": 10.0,
+            "heldout_mse": 1.786918,
+            "heldout_cos": 0.106541
+          }
+        ],
+        "fit_halves": [
+          1532,
+          1532
+        ]
+      },
+      "TRAP_CORPUS_HALVES": {
+        "x_view": "USAGE_HALF_A",
+        "y_view": "USAGE_HALF_B",
+        "kind": "TRAP",
+        "selection": {
+          "lam_grid_trace": [
+            {
+              "lam_rel": 0.0001,
+              "mean_heldout_rho_top32": 0.56483,
+              "n_components_ge_0.10": 114
+            },
+            {
+              "lam_rel": 0.001,
+              "mean_heldout_rho_top32": 0.56486,
+              "n_components_ge_0.10": 114
+            },
+            {
+              "lam_rel": 0.01,
+              "mean_heldout_rho_top32": 0.56517,
+              "n_components_ge_0.10": 114
+            },
+            {
+              "lam_rel": 0.1,
+              "mean_heldout_rho_top32": 0.56775,
+              "n_components_ge_0.10": 114
+            },
+            {
+              "lam_rel": 1.0,
+              "mean_heldout_rho_top32": 0.55765,
+              "n_components_ge_0.10": 115
+            }
+          ],
+          "lam_rel_selected": 0.1,
+          "mean_heldout_rho_at_selected_lam": 0.56775,
+          "k_raw_components_with_heldout_rho_ge_0.10": 114,
+          "k_star": 114,
+          "k_star_clipped": false,
+          "heldout_rho_top10": [
+            0.8983,
+            0.8237,
+            0.7355,
+            0.7558,
+            0.6681,
+            0.6384,
+            0.6311,
+            0.6525,
+            0.6246,
+            0.5756
+          ]
+        },
+        "rho_top10": [
+          0.8989,
+          0.8357,
+          0.778,
+          0.7642,
+          0.7221,
+          0.7108,
+          0.7041,
+          0.6914,
+          0.6771,
+          0.6676
+        ],
+        "rho_mean": 0.4121,
+        "k_star": 114,
+        "ridge_lam": 10.0,
+        "ridge_trace": [
+          {
+            "lam": 0.0001,
+            "heldout_mse": 1.225508,
+            "heldout_cos": 0.387246
+          },
+          {
+            "lam": 0.001,
+            "heldout_mse": 1.225506,
+            "heldout_cos": 0.387247
+          },
+          {
+            "lam": 0.01,
+            "heldout_mse": 1.225481,
+            "heldout_cos": 0.38726
+          },
+          {
+            "lam": 0.1,
+            "heldout_mse": 1.225239,
+            "heldout_cos": 0.38738
+          },
+          {
+            "lam": 1.0,
+            "heldout_mse": 1.223185,
+            "heldout_cos": 0.388408
+          },
+          {
+            "lam": 10.0,
+            "heldout_mse": 1.220788,
+            "heldout_cos": 0.389606
+          }
+        ],
+        "fit_halves": [
+          1532,
+          1532
+        ]
+      },
+      "TRAP_STORE_DIMHALVES": {
+        "x_view": "STORE_DIM_LO",
+        "y_view": "STORE_DIM_HI",
+        "kind": "TRAP",
+        "selection": {
+          "lam_grid_trace": [
+            {
+              "lam_rel": 0.0001,
+              "mean_heldout_rho_top32": 0.35538,
+              "n_components_ge_0.10": 85
+            },
+            {
+              "lam_rel": 0.001,
+              "mean_heldout_rho_top32": 0.3555,
+              "n_components_ge_0.10": 85
+            },
+            {
+              "lam_rel": 0.01,
+              "mean_heldout_rho_top32": 0.35665,
+              "n_components_ge_0.10": 84
+            },
+            {
+              "lam_rel": 0.1,
+              "mean_heldout_rho_top32": 0.36602,
+              "n_components_ge_0.10": 83
+            },
+            {
+              "lam_rel": 1.0,
+              "mean_heldout_rho_top32": 0.38276,
+              "n_components_ge_0.10": 82
+            }
+          ],
+          "lam_rel_selected": 1.0,
+          "mean_heldout_rho_at_selected_lam": 0.38276,
+          "k_raw_components_with_heldout_rho_ge_0.10": 82,
+          "k_star": 82,
+          "k_star_clipped": false,
+          "heldout_rho_top10": [
+            0.7564,
+            0.64,
+            0.5698,
+            0.4781,
+            0.4298,
+            0.4555,
+            0.4037,
+            0.4286,
+            0.3915,
+            0.4477
+          ]
+        },
+        "rho_top10": [
+          0.6168,
+          0.4767,
+          0.4336,
+          0.3757,
+          0.3624,
+          0.3431,
+          0.3355,
+          0.3303,
+          0.318,
+          0.3126
+        ],
+        "rho_mean": 0.2094,
+        "k_star": 82,
+        "ridge_lam": 10.0,
+        "ridge_trace": [
+          {
+            "lam": 0.0001,
+            "heldout_mse": 1.46841,
+            "heldout_cos": 0.265795
+          },
+          {
+            "lam": 0.001,
+            "heldout_mse": 1.468407,
+            "heldout_cos": 0.265796
+          },
+          {
+            "lam": 0.01,
+            "heldout_mse": 1.468382,
+            "heldout_cos": 0.265809
+          },
+          {
+            "lam": 0.1,
+            "heldout_mse": 1.468133,
+            "heldout_cos": 0.265933
+          },
+          {
+            "lam": 1.0,
+            "heldout_mse": 1.465982,
+            "heldout_cos": 0.267009
+          },
+          {
+            "lam": 10.0,
+            "heldout_mse": 1.459986,
+            "heldout_cos": 0.270007
+          }
+        ],
+        "fit_halves": [
+          1532,
+          1532
+        ]
+      }
+    },
+    "ARMS_MUST_DIFFER": {
+      "n_arms": 41,
+      "n_distinct_digests": 41,
+      "digests": {
+        "A_INCUMBENT_STORE": "41f2845e0fa89909",
+        "A_USAGE_COUNTS": "b2bd68692acf5037",
+        "A_DEF": "8726454ca11d4589",
+        "A_FUSE_NAIVE": "0787b13e369488bc",
+        "KNOWN_ANSWER_WORDNET": "3cfd0ee977310165",
+        "RANDOM_VECTOR": "5a10104845b9cf47",
+        "F_ORTHOGRAPHIC": "5deb2cfa89cd2056",
+        "F_FREQUENCY": "a069d8af0fa21a45",
+        "F_CONSTANT_PROTOTYPE_INCUMBENT": "f94b30dee7806113",
+        "MAIN_STORE_DEF::HUB_CCA_BOTH": "62249104efbd96bd",
+        "MAIN_STORE_DEF::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": "35eb37c5e4609eef",
+        "MAIN_STORE_DEF::HUB_CCA_X": "101258b55f69a8fd",
+        "MAIN_STORE_DEF::HUB_CCA_X__F_CONSTANT_PROTOTYPE": "654a10dea0b56788",
+        "MAIN_STORE_DEF::HUB_RRR": "00262d7d33b78f96",
+        "MAIN_STORE_DEF::HUB_RRR__F_CONSTANT_PROTOTYPE": "54adc4d598522751",
+        "MAIN_STORE_DEF::RESIDUAL_X": "ccaad3851f74db00",
+        "MAIN_STORE_DEF::RESIDUAL_X__F_CONSTANT_PROTOTYPE": "1848ce2224b5e346",
+        "MAIN_COUNTS_DEF::HUB_CCA_BOTH": "04f458ad41c82a88",
+        "MAIN_COUNTS_DEF::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": "70a1ac4255b4a4b6",
+        "MAIN_COUNTS_DEF::HUB_CCA_X": "1d2629c5cbdafae1",
+        "MAIN_COUNTS_DEF::HUB_CCA_X__F_CONSTANT_PROTOTYPE": "5ae2e2cd63bbec3a",
+        "MAIN_COUNTS_DEF::HUB_RRR": "9d8e84e00238b593",
+        "MAIN_COUNTS_DEF::HUB_RRR__F_CONSTANT_PROTOTYPE": "1790e4cd6c74b6a7",
+        "MAIN_COUNTS_DEF::RESIDUAL_X": "317069fc72898184",
+        "MAIN_COUNTS_DEF::RESIDUAL_X__F_CONSTANT_PROTOTYPE": "0ffd650327332967",
+        "TRAP_CORPUS_HALVES::HUB_CCA_BOTH": "8b108d612de617f3",
+        "TRAP_CORPUS_HALVES::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": "4c93d1dfe4c1d99f",
+        "TRAP_CORPUS_HALVES::HUB_CCA_X": "26f235fa63db5937",
+        "TRAP_CORPUS_HALVES::HUB_CCA_X__F_CONSTANT_PROTOTYPE": "f64a06a266256ea4",
+        "TRAP_CORPUS_HALVES::HUB_RRR": "85f71d635a3d6180",
+        "TRAP_CORPUS_HALVES::HUB_RRR__F_CONSTANT_PROTOTYPE": "02f9f2ab9d20998c",
+        "TRAP_CORPUS_HALVES::RESIDUAL_X": "07b93a664f7d723f",
+        "TRAP_CORPUS_HALVES::RESIDUAL_X__F_CONSTANT_PROTOTYPE": "3c5ec7a2907907e9",
+        "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH": "968d782b6ee08072",
+        "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": "2c6ef6bee1c671f6",
+        "TRAP_STORE_DIMHALVES::HUB_CCA_X": "dc3b66e85b496177",
+        "TRAP_STORE_DIMHALVES::HUB_CCA_X__F_CONSTANT_PROTOTYPE": "720a0356bfff746b",
+        "TRAP_STORE_DIMHALVES::HUB_RRR": "cc121647f0e0e61e",
+        "TRAP_STORE_DIMHALVES::HUB_RRR__F_CONSTANT_PROTOTYPE": "7182989742802d37",
+        "TRAP_STORE_DIMHALVES::RESIDUAL_X": "79a5b7043eb47cba",
+        "TRAP_STORE_DIMHALVES::RESIDUAL_X__F_CONSTANT_PROTOTYPE": "86e6ba357ae278cd"
+      }
+    },
+    "AUC_PER_ARM": {
+      "A_DEF": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.478,
+        "ci95": [
+          0.4223,
+          0.535
+        ],
+        "ci_halfwidth": 0.0563,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5481,
+          "p50": 0.5009,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5343,
+        "BAR_UPPER": 0.5343,
+        "digest": "8726454ca11d4589"
+      },
+      "A_FUSE_NAIVE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1258,
+        "ci95": [
+          0.0925,
+          0.1611
+        ],
+        "ci_halfwidth": 0.0343,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5477,
+          "p50": 0.4996,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.1601,
+        "BAR_UPPER": 0.1601,
+        "digest": "0787b13e369488bc"
+      },
+      "A_INCUMBENT_STORE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.0603,
+        "ci95": [
+          0.0401,
+          0.0833
+        ],
+        "ci_halfwidth": 0.0216,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5448,
+          "p50": 0.4993,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.0819,
+        "BAR_UPPER": 0.0819,
+        "digest": "41f2845e0fa89909"
+      },
+      "A_USAGE_COUNTS": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.0655,
+        "ci95": [
+          0.0446,
+          0.0891
+        ],
+        "ci_halfwidth": 0.0223,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5489,
+          "p50": 0.5006,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.0878,
+        "BAR_UPPER": 0.0878,
+        "digest": "b2bd68692acf5037"
+      },
+      "F_CONSTANT_PROTOTYPE_INCUMBENT": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.544,
+        "ci95": [
+          0.4872,
+          0.6011
+        ],
+        "ci_halfwidth": 0.057,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5472,
+          "p50": 0.5,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.601,
+        "BAR_UPPER": 0.601,
+        "digest": "f94b30dee7806113"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4869,
+        "ci95": [
+          0.4307,
+          0.5431
+        ],
+        "ci_halfwidth": 0.0562,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5475,
+          "p50": 0.5004,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5431,
+        "BAR_UPPER": 0.5431,
+        "digest": "a069d8af0fa21a45"
+      },
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.5,
+        "ci95": [
+          0.4874,
+          0.5125
+        ],
+        "ci_halfwidth": 0.0125,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.51,
+          "p50": 0.5,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5125,
+        "BAR_UPPER": 0.5125,
+        "digest": "5deb2cfa89cd2056"
+      },
+      "KNOWN_ANSWER_WORDNET": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.9612,
+        "ci95": [
+          0.9436,
+          0.9758
+        ],
+        "ci_halfwidth": 0.0161,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "null": {
+          "p95": 0.5469,
+          "p50": 0.4987,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.9773,
+        "BAR_UPPER": 0.9773,
+        "digest": "3cfd0ee977310165"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_BOTH": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.3095,
+        "ci95": [
+          0.2597,
+          0.3615
+        ],
+        "ci_halfwidth": 0.0509,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.546,
+          "p50": 0.4998,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.3604,
+        "BAR_UPPER": 0.3604,
+        "digest": "04f458ad41c82a88"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.5314,
+        "ci95": [
+          0.4748,
+          0.5887
+        ],
+        "ci_halfwidth": 0.057,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.547,
+          "p50": 0.5005,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5884,
+        "BAR_UPPER": 0.5884,
+        "digest": "70a1ac4255b4a4b6"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1844,
+        "ci95": [
+          0.1434,
+          0.2268
+        ],
+        "ci_halfwidth": 0.0417,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5491,
+          "p50": 0.5002,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.2261,
+        "BAR_UPPER": 0.2261,
+        "digest": "1d2629c5cbdafae1"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.5021,
+        "ci95": [
+          0.4457,
+          0.5586
+        ],
+        "ci_halfwidth": 0.0565,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.545,
+          "p50": 0.5,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5586,
+        "BAR_UPPER": 0.5586,
+        "digest": "5ae2e2cd63bbec3a"
+      },
+      "MAIN_COUNTS_DEF::HUB_RRR": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.119,
+        "ci95": [
+          0.0868,
+          0.1538
+        ],
+        "ci_halfwidth": 0.0335,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5478,
+          "p50": 0.5018,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.1525,
+        "BAR_UPPER": 0.1525,
+        "digest": "9d8e84e00238b593"
+      },
+      "MAIN_COUNTS_DEF::HUB_RRR__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.5448,
+        "ci95": [
+          0.4883,
+          0.6009
+        ],
+        "ci_halfwidth": 0.0563,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5463,
+          "p50": 0.5004,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.6011,
+        "BAR_UPPER": 0.6011,
+        "digest": "1790e4cd6c74b6a7"
+      },
+      "MAIN_COUNTS_DEF::RESIDUAL_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.0338,
+        "ci95": [
+          0.0196,
+          0.051
+        ],
+        "ci_halfwidth": 0.0157,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5479,
+          "p50": 0.5006,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.0495,
+        "BAR_UPPER": 0.0495,
+        "digest": "317069fc72898184"
+      },
+      "MAIN_COUNTS_DEF::RESIDUAL_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.5476,
+        "ci95": [
+          0.4924,
+          0.6049
+        ],
+        "ci_halfwidth": 0.0563,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5468,
+          "p50": 0.4997,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.6039,
+        "BAR_UPPER": 0.6039,
+        "digest": "0ffd650327332967"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_BOTH": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.3129,
+        "ci95": [
+          0.263,
+          0.3644
+        ],
+        "ci_halfwidth": 0.0507,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5465,
+          "p50": 0.4996,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.3636,
+        "BAR_UPPER": 0.3636,
+        "digest": "62249104efbd96bd"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4789,
+        "ci95": [
+          0.4221,
+          0.5356
+        ],
+        "ci_halfwidth": 0.0568,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5477,
+          "p50": 0.5005,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5357,
+        "BAR_UPPER": 0.5357,
+        "digest": "35eb37c5e4609eef"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.2458,
+        "ci95": [
+          0.2006,
+          0.2941
+        ],
+        "ci_halfwidth": 0.0467,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5449,
+          "p50": 0.4993,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.2925,
+        "BAR_UPPER": 0.2925,
+        "digest": "101258b55f69a8fd"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4479,
+        "ci95": [
+          0.3925,
+          0.506
+        ],
+        "ci_halfwidth": 0.0567,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5471,
+          "p50": 0.4999,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5046,
+        "BAR_UPPER": 0.5046,
+        "digest": "654a10dea0b56788"
+      },
+      "MAIN_STORE_DEF::HUB_RRR": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1365,
+        "ci95": [
+          0.1036,
+          0.1727
+        ],
+        "ci_halfwidth": 0.0346,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5456,
+          "p50": 0.5004,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.1711,
+        "BAR_UPPER": 0.1711,
+        "digest": "00262d7d33b78f96"
+      },
+      "MAIN_STORE_DEF::HUB_RRR__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4659,
+        "ci95": [
+          0.4113,
+          0.5224
+        ],
+        "ci_halfwidth": 0.0555,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5492,
+          "p50": 0.5009,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5214,
+        "BAR_UPPER": 0.5214,
+        "digest": "54adc4d598522751"
+      },
+      "MAIN_STORE_DEF::RESIDUAL_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.0575,
+        "ci95": [
+          0.0374,
+          0.0806
+        ],
+        "ci_halfwidth": 0.0216,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5489,
+          "p50": 0.5,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.0791,
+        "BAR_UPPER": 0.0791,
+        "digest": "ccaad3851f74db00"
+      },
+      "MAIN_STORE_DEF::RESIDUAL_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.48,
+        "ci95": [
+          0.4223,
+          0.5355
+        ],
+        "ci_halfwidth": 0.0566,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5463,
+          "p50": 0.5003,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5366,
+        "BAR_UPPER": 0.5366,
+        "digest": "1848ce2224b5e346"
+      },
+      "RANDOM_VECTOR": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4919,
+        "ci95": [
+          0.4356,
+          0.5481
+        ],
+        "ci_halfwidth": 0.0563,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5486,
+          "p50": 0.5007,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5482,
+        "BAR_UPPER": 0.5482,
+        "digest": "5a10104845b9cf47"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_BOTH": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.0446,
+        "ci95": [
+          0.0277,
+          0.0638
+        ],
+        "ci_halfwidth": 0.018,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5474,
+          "p50": 0.4993,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.0626,
+        "BAR_UPPER": 0.0626,
+        "digest": "8b108d612de617f3"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.6058,
+        "ci95": [
+          0.5498,
+          0.661
+        ],
+        "ci_halfwidth": 0.0556,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "null": {
+          "p95": 0.5469,
+          "p50": 0.4995,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.6614,
+        "BAR_UPPER": 0.6614,
+        "digest": "4c93d1dfe4c1d99f"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.062,
+        "ci95": [
+          0.0408,
+          0.0863
+        ],
+        "ci_halfwidth": 0.0227,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.546,
+          "p50": 0.4991,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.0847,
+        "BAR_UPPER": 0.0847,
+        "digest": "26f235fa63db5937"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.5736,
+        "ci95": [
+          0.5188,
+          0.6292
+        ],
+        "ci_halfwidth": 0.0552,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "null": {
+          "p95": 0.5468,
+          "p50": 0.5001,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.6288,
+        "BAR_UPPER": 0.6288,
+        "digest": "f64a06a266256ea4"
+      },
+      "TRAP_CORPUS_HALVES::HUB_RRR": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1632,
+        "ci95": [
+          0.1269,
+          0.2029
+        ],
+        "ci_halfwidth": 0.038,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5457,
+          "p50": 0.5002,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.2012,
+        "BAR_UPPER": 0.2012,
+        "digest": "85f71d635a3d6180"
+      },
+      "TRAP_CORPUS_HALVES::HUB_RRR__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.488,
+        "ci95": [
+          0.4322,
+          0.5447
+        ],
+        "ci_halfwidth": 0.0562,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.545,
+          "p50": 0.5012,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5442,
+        "BAR_UPPER": 0.5442,
+        "digest": "02f9f2ab9d20998c"
+      },
+      "TRAP_CORPUS_HALVES::RESIDUAL_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.2437,
+        "ci95": [
+          0.198,
+          0.2911
+        ],
+        "ci_halfwidth": 0.0466,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5468,
+          "p50": 0.5006,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.2903,
+        "BAR_UPPER": 0.2903,
+        "digest": "07b93a664f7d723f"
+      },
+      "TRAP_CORPUS_HALVES::RESIDUAL_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4331,
+        "ci95": [
+          0.3771,
+          0.4903
+        ],
+        "ci_halfwidth": 0.0566,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5478,
+          "p50": 0.4981,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.4897,
+        "BAR_UPPER": 0.4897,
+        "digest": "3c5ec7a2907907e9"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1375,
+        "ci95": [
+          0.1045,
+          0.1746
+        ],
+        "ci_halfwidth": 0.035,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5485,
+          "p50": 0.4984,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.1725,
+        "BAR_UPPER": 0.1725,
+        "digest": "968d782b6ee08072"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4662,
+        "ci95": [
+          0.4099,
+          0.5238
+        ],
+        "ci_halfwidth": 0.057,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5475,
+          "p50": 0.501,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5232,
+        "BAR_UPPER": 0.5232,
+        "digest": "2c6ef6bee1c671f6"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1553,
+        "ci95": [
+          0.1196,
+          0.1937
+        ],
+        "ci_halfwidth": 0.037,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5465,
+          "p50": 0.4999,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.1923,
+        "BAR_UPPER": 0.1923,
+        "digest": "dc3b66e85b496177"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4637,
+        "ci95": [
+          0.4073,
+          0.5208
+        ],
+        "ci_halfwidth": 0.0568,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5465,
+          "p50": 0.4999,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5205,
+        "BAR_UPPER": 0.5205,
+        "digest": "720a0356bfff746b"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_RRR": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1806,
+        "ci95": [
+          0.1414,
+          0.2229
+        ],
+        "ci_halfwidth": 0.0408,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5472,
+          "p50": 0.5005,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.2214,
+        "BAR_UPPER": 0.2214,
+        "digest": "cc121647f0e0e61e"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_RRR__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4558,
+        "ci95": [
+          0.3987,
+          0.5123
+        ],
+        "ci_halfwidth": 0.0568,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5489,
+          "p50": 0.5,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5126,
+        "BAR_UPPER": 0.5126,
+        "digest": "7182989742802d37"
+      },
+      "TRAP_STORE_DIMHALVES::RESIDUAL_X": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.1699,
+        "ci95": [
+          0.1317,
+          0.2105
+        ],
+        "ci_halfwidth": 0.0394,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "null": {
+          "p95": 0.5478,
+          "p50": 0.5,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.2093,
+        "BAR_UPPER": 0.2093,
+        "digest": "79a5b7043eb47cba"
+      },
+      "TRAP_STORE_DIMHALVES::RESIDUAL_X__F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 202,
+        "n_pairs_S": 202,
+        "auc": 0.4772,
+        "ci95": [
+          0.4214,
+          0.5331
+        ],
+        "ci_halfwidth": 0.0559,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "null": {
+          "p95": 0.5481,
+          "p50": 0.4997,
+          "n_perm": 2000
+        },
+        "ci_upper_point_plus_hw": 0.5331,
+        "BAR_UPPER": 0.5331,
+        "digest": "86e6ba357ae278cd"
+      },
+      "F_SCRAMBLE_INCUMBENT": {
+        "auc": 0.5012,
+        "ci95": [
+          0.4985,
+          0.5039
+        ],
+        "ci_halfwidth": 0.0027,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.031,
+        "p95_across_permutations": 0.5555,
+        "p05_across_permutations": 0.4503,
+        "single_draw_false_fire_rate": 0.076,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5555,
+        "null": {
+          "p95": 0.5555,
+          "p50": 0.501,
+          "n_perm": 500
+        },
+        "digest": "2ce183fe93821e56"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_BOTH__F_SCRAMBLE": {
+        "auc": 0.5019,
+        "ci95": [
+          0.4993,
+          0.5045
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0298,
+        "p95_across_permutations": 0.551,
+        "p05_across_permutations": 0.4535,
+        "single_draw_false_fire_rate": 0.064,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.551,
+        "null": {
+          "p95": 0.551,
+          "p50": 0.5009,
+          "n_perm": 500
+        },
+        "digest": "702a3cdee36a53e0"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_X__F_SCRAMBLE": {
+        "auc": 0.5024,
+        "ci95": [
+          0.4999,
+          0.505
+        ],
+        "ci_halfwidth": 0.0025,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.029,
+        "p95_across_permutations": 0.5517,
+        "p05_across_permutations": 0.4567,
+        "single_draw_false_fire_rate": 0.058,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5517,
+        "null": {
+          "p95": 0.5517,
+          "p50": 0.5015,
+          "n_perm": 500
+        },
+        "digest": "ef4ef378afca5d6a"
+      },
+      "MAIN_STORE_DEF::HUB_RRR__F_SCRAMBLE": {
+        "auc": 0.5025,
+        "ci95": [
+          0.4999,
+          0.5051
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0297,
+        "p95_across_permutations": 0.5497,
+        "p05_across_permutations": 0.4535,
+        "single_draw_false_fire_rate": 0.058,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5497,
+        "null": {
+          "p95": 0.5497,
+          "p50": 0.5014,
+          "n_perm": 500
+        },
+        "digest": "97174dba6b66092a"
+      },
+      "MAIN_STORE_DEF::RESIDUAL_X__F_SCRAMBLE": {
+        "auc": 0.5009,
+        "ci95": [
+          0.4985,
+          0.5033
+        ],
+        "ci_halfwidth": 0.0024,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0274,
+        "p95_across_permutations": 0.5457,
+        "p05_across_permutations": 0.4576,
+        "single_draw_false_fire_rate": 0.032,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5457,
+        "null": {
+          "p95": 0.5457,
+          "p50": 0.5008,
+          "n_perm": 500
+        },
+        "digest": "00945d397d66cd7f"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_BOTH__F_SCRAMBLE": {
+        "auc": 0.5027,
+        "ci95": [
+          0.5,
+          0.5055
+        ],
+        "ci_halfwidth": 0.0027,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.031,
+        "p95_across_permutations": 0.5533,
+        "p05_across_permutations": 0.4549,
+        "single_draw_false_fire_rate": 0.062,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5533,
+        "null": {
+          "p95": 0.5533,
+          "p50": 0.5012,
+          "n_perm": 500
+        },
+        "digest": "15f40c23330e6817"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_X__F_SCRAMBLE": {
+        "auc": 0.5019,
+        "ci95": [
+          0.4993,
+          0.5046
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0301,
+        "p95_across_permutations": 0.5466,
+        "p05_across_permutations": 0.4529,
+        "single_draw_false_fire_rate": 0.054,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5466,
+        "null": {
+          "p95": 0.5466,
+          "p50": 0.5005,
+          "n_perm": 500
+        },
+        "digest": "a4da7b4aaac97246"
+      },
+      "MAIN_COUNTS_DEF::HUB_RRR__F_SCRAMBLE": {
+        "auc": 0.5014,
+        "ci95": [
+          0.4988,
+          0.5039
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0291,
+        "p95_across_permutations": 0.5481,
+        "p05_across_permutations": 0.4562,
+        "single_draw_false_fire_rate": 0.046,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5481,
+        "null": {
+          "p95": 0.5481,
+          "p50": 0.5003,
+          "n_perm": 500
+        },
+        "digest": "e082d182700b35e8"
+      },
+      "MAIN_COUNTS_DEF::RESIDUAL_X__F_SCRAMBLE": {
+        "auc": 0.5009,
+        "ci95": [
+          0.4983,
+          0.5035
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0296,
+        "p95_across_permutations": 0.5471,
+        "p05_across_permutations": 0.4515,
+        "single_draw_false_fire_rate": 0.054,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5471,
+        "null": {
+          "p95": 0.5471,
+          "p50": 0.5019,
+          "n_perm": 500
+        },
+        "digest": "bc05215dacf6db80"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_BOTH__F_SCRAMBLE": {
+        "auc": 0.5014,
+        "ci95": [
+          0.4987,
+          0.504
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0299,
+        "p95_across_permutations": 0.5459,
+        "p05_across_permutations": 0.4479,
+        "single_draw_false_fire_rate": 0.05,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5459,
+        "null": {
+          "p95": 0.5459,
+          "p50": 0.505,
+          "n_perm": 500
+        },
+        "digest": "80010d2ab619e906"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_X__F_SCRAMBLE": {
+        "auc": 0.5002,
+        "ci95": [
+          0.4977,
+          0.5028
+        ],
+        "ci_halfwidth": 0.0025,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0289,
+        "p95_across_permutations": 0.5466,
+        "p05_across_permutations": 0.4501,
+        "single_draw_false_fire_rate": 0.058,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5466,
+        "null": {
+          "p95": 0.5466,
+          "p50": 0.5009,
+          "n_perm": 500
+        },
+        "digest": "4b27f4a0d8e56292"
+      },
+      "TRAP_CORPUS_HALVES::HUB_RRR__F_SCRAMBLE": {
+        "auc": 0.5009,
+        "ci95": [
+          0.4984,
+          0.5035
+        ],
+        "ci_halfwidth": 0.0026,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0296,
+        "p95_across_permutations": 0.5508,
+        "p05_across_permutations": 0.4512,
+        "single_draw_false_fire_rate": 0.052,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5508,
+        "null": {
+          "p95": 0.5508,
+          "p50": 0.501,
+          "n_perm": 500
+        },
+        "digest": "60d0d97e1f61e066"
+      },
+      "TRAP_CORPUS_HALVES::RESIDUAL_X__F_SCRAMBLE": {
+        "auc": 0.4984,
+        "ci95": [
+          0.4959,
+          0.5009
+        ],
+        "ci_halfwidth": 0.0025,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0288,
+        "p95_across_permutations": 0.547,
+        "p05_across_permutations": 0.4521,
+        "single_draw_false_fire_rate": 0.056,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.547,
+        "null": {
+          "p95": 0.547,
+          "p50": 0.4983,
+          "n_perm": 500
+        },
+        "digest": "4794f158c47fc842"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH__F_SCRAMBLE": {
+        "auc": 0.5011,
+        "ci95": [
+          0.4987,
+          0.5036
+        ],
+        "ci_halfwidth": 0.0024,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0278,
+        "p95_across_permutations": 0.5474,
+        "p05_across_permutations": 0.4551,
+        "single_draw_false_fire_rate": 0.046,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5474,
+        "null": {
+          "p95": 0.5474,
+          "p50": 0.5005,
+          "n_perm": 500
+        },
+        "digest": "d65c6fb70b5a6e26"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_X__F_SCRAMBLE": {
+        "auc": 0.5018,
+        "ci95": [
+          0.4992,
+          0.5043
+        ],
+        "ci_halfwidth": 0.0025,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0287,
+        "p95_across_permutations": 0.5479,
+        "p05_across_permutations": 0.453,
+        "single_draw_false_fire_rate": 0.052,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5479,
+        "null": {
+          "p95": 0.5479,
+          "p50": 0.4997,
+          "n_perm": 500
+        },
+        "digest": "8acdbc3634ee6105"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_RRR__F_SCRAMBLE": {
+        "auc": 0.5014,
+        "ci95": [
+          0.4988,
+          0.5039
+        ],
+        "ci_halfwidth": 0.0025,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0286,
+        "p95_across_permutations": 0.5481,
+        "p05_across_permutations": 0.4542,
+        "single_draw_false_fire_rate": 0.056,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5481,
+        "null": {
+          "p95": 0.5481,
+          "p50": 0.5006,
+          "n_perm": 500
+        },
+        "digest": "94c5aefe0f72b92e"
+      },
+      "TRAP_STORE_DIMHALVES::RESIDUAL_X__F_SCRAMBLE": {
+        "auc": 0.5006,
+        "ci95": [
+          0.4982,
+          0.5031
+        ],
+        "ci_halfwidth": 0.0024,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "estimator": "mean over 500 independent permutations (a floor is a POLICY)",
+        "n_reps": 500,
+        "sd_across_permutations": 0.0277,
+        "p95_across_permutations": 0.5426,
+        "p05_across_permutations": 0.454,
+        "single_draw_false_fire_rate": 0.046,
+        "single_draw_false_fire_note": "fraction of individual permutations whose own 95% CI would have excluded 0.5 and voided the run",
+        "BAR_UPPER": 0.5426,
+        "null": {
+          "p95": 0.5426,
+          "p50": 0.5015,
+          "n_perm": 500
+        },
+        "digest": "8ca0a4747f13b2b0"
+      }
+    },
+    "F_SCRAMBLE_ESTIMATOR_NOTE": "F_SCRAMBLE is the MEAN over 500 independent word-to-row permutations; its BAR term is the 95th PERCENTILE of that distribution, which is STRICTLY HARDER than a single draw's point-plus-half-width. Changed after the first smoke fired L0_UNLICENSED on a single draw at 0.4266 [0.3701,0.4867]; see DISCLOSURE 3c in the cell docstring.",
+    "L0_LICENSING": {
+      "floors_at_chance": true,
+      "floor_failures": [],
+      "known_answer_auc": 0.9612,
+      "known_answer_gate": 0.95,
+      "random_vector_at_chance": true,
+      "SUBPOPULATION_LICENSED": true,
+      "n_rows": 202,
+      "note": "L0 UNLICENSED means NO arm number may be interpreted."
+    },
+    "BARS_RECOMPUTED_PER_REPRESENTATION": {
+      "MAIN_STORE_DEF::HUB_CCA_BOTH": {
+        "BAR": 0.551,
+        "binding_term": [
+          "HUB_CCA_BOTH__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_hi": 0.551,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_hi": 0.5357,
+          "NULL_P95": 0.5465
+        },
+        "BAR_STRICT_PERCENTILE": 0.551,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_ci95hi": 0.551,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_ci95hi": 0.5357,
+          "NULL_P95": 0.5465
+        },
+        "chance_to_bar_interval": 0.051
+      },
+      "MAIN_STORE_DEF::HUB_CCA_X": {
+        "BAR": 0.5517,
+        "binding_term": [
+          "HUB_CCA_X__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_hi": 0.5517,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_hi": 0.5046,
+          "NULL_P95": 0.5449
+        },
+        "BAR_STRICT_PERCENTILE": 0.5517,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_ci95hi": 0.5517,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.506,
+          "NULL_P95": 0.5449
+        },
+        "chance_to_bar_interval": 0.0517
+      },
+      "MAIN_STORE_DEF::HUB_RRR": {
+        "BAR": 0.5497,
+        "binding_term": [
+          "HUB_RRR__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_hi": 0.5497,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_hi": 0.5214,
+          "NULL_P95": 0.5456
+        },
+        "BAR_STRICT_PERCENTILE": 0.5497,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_ci95hi": 0.5497,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_ci95hi": 0.5224,
+          "NULL_P95": 0.5456
+        },
+        "chance_to_bar_interval": 0.0497
+      },
+      "MAIN_STORE_DEF::RESIDUAL_X": {
+        "BAR": 0.5489,
+        "binding_term": [
+          "NULL_P95"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_hi": 0.5457,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_hi": 0.5366,
+          "NULL_P95": 0.5489
+        },
+        "BAR_STRICT_PERCENTILE": 0.5489,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_ci95hi": 0.5457,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.5366,
+          "NULL_P95": 0.5489
+        },
+        "chance_to_bar_interval": 0.0489
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_BOTH": {
+        "BAR": 0.5884,
+        "binding_term": [
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_hi": 0.5533,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_hi": 0.5884,
+          "NULL_P95": 0.546
+        },
+        "BAR_STRICT_PERCENTILE": 0.5887,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_ci95hi": 0.5533,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_ci95hi": 0.5887,
+          "NULL_P95": 0.546
+        },
+        "chance_to_bar_interval": 0.0884
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_X": {
+        "BAR": 0.5586,
+        "binding_term": [
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_hi": 0.5466,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_hi": 0.5586,
+          "NULL_P95": 0.5491
+        },
+        "BAR_STRICT_PERCENTILE": 0.5586,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_ci95hi": 0.5466,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.5586,
+          "NULL_P95": 0.5491
+        },
+        "chance_to_bar_interval": 0.0586
+      },
+      "MAIN_COUNTS_DEF::HUB_RRR": {
+        "BAR": 0.6011,
+        "binding_term": [
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_hi": 0.5481,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_hi": 0.6011,
+          "NULL_P95": 0.5478
+        },
+        "BAR_STRICT_PERCENTILE": 0.6011,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_ci95hi": 0.5481,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_ci95hi": 0.6011,
+          "NULL_P95": 0.5478
+        },
+        "chance_to_bar_interval": 0.1011
+      },
+      "MAIN_COUNTS_DEF::RESIDUAL_X": {
+        "BAR": 0.6039,
+        "binding_term": [
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_hi": 0.5471,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_hi": 0.6039,
+          "NULL_P95": 0.5479
+        },
+        "BAR_STRICT_PERCENTILE": 0.6049,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_ci95hi": 0.5471,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.6049,
+          "NULL_P95": 0.5479
+        },
+        "chance_to_bar_interval": 0.1039
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_BOTH": {
+        "BAR": 0.6614,
+        "binding_term": [
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_hi": 0.5459,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_hi": 0.6614,
+          "NULL_P95": 0.5474
+        },
+        "BAR_STRICT_PERCENTILE": 0.6614,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_ci95hi": 0.5459,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_ci95hi": 0.6614,
+          "NULL_P95": 0.5474
+        },
+        "chance_to_bar_interval": 0.1614
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_X": {
+        "BAR": 0.6288,
+        "binding_term": [
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_hi": 0.5466,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_hi": 0.6288,
+          "NULL_P95": 0.546
+        },
+        "BAR_STRICT_PERCENTILE": 0.6292,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_ci95hi": 0.5466,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.6292,
+          "NULL_P95": 0.546
+        },
+        "chance_to_bar_interval": 0.1288
+      },
+      "TRAP_CORPUS_HALVES::HUB_RRR": {
+        "BAR": 0.5508,
+        "binding_term": [
+          "HUB_RRR__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_hi": 0.5508,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_hi": 0.5442,
+          "NULL_P95": 0.5457
+        },
+        "BAR_STRICT_PERCENTILE": 0.5508,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_ci95hi": 0.5508,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_ci95hi": 0.5447,
+          "NULL_P95": 0.5457
+        },
+        "chance_to_bar_interval": 0.0508
+      },
+      "TRAP_CORPUS_HALVES::RESIDUAL_X": {
+        "BAR": 0.547,
+        "binding_term": [
+          "RESIDUAL_X__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_hi": 0.547,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_hi": 0.4897,
+          "NULL_P95": 0.5468
+        },
+        "BAR_STRICT_PERCENTILE": 0.547,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_ci95hi": 0.547,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.4903,
+          "NULL_P95": 0.5468
+        },
+        "chance_to_bar_interval": 0.047
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH": {
+        "BAR": 0.5485,
+        "binding_term": [
+          "NULL_P95"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_hi": 0.5474,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_hi": 0.5232,
+          "NULL_P95": 0.5485
+        },
+        "BAR_STRICT_PERCENTILE": 0.5485,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_BOTH__F_SCRAMBLE_ci95hi": 0.5474,
+          "HUB_CCA_BOTH__F_CONSTANT_PROTOTYPE_ci95hi": 0.5238,
+          "NULL_P95": 0.5485
+        },
+        "chance_to_bar_interval": 0.0485
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_X": {
+        "BAR": 0.5479,
+        "binding_term": [
+          "HUB_CCA_X__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_hi": 0.5479,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_hi": 0.5205,
+          "NULL_P95": 0.5465
+        },
+        "BAR_STRICT_PERCENTILE": 0.5479,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_CCA_X__F_SCRAMBLE_ci95hi": 0.5479,
+          "HUB_CCA_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.5208,
+          "NULL_P95": 0.5465
+        },
+        "chance_to_bar_interval": 0.0479
+      },
+      "TRAP_STORE_DIMHALVES::HUB_RRR": {
+        "BAR": 0.5481,
+        "binding_term": [
+          "HUB_RRR__F_SCRAMBLE_hi"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_hi": 0.5481,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_hi": 0.5126,
+          "NULL_P95": 0.5472
+        },
+        "BAR_STRICT_PERCENTILE": 0.5481,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "HUB_RRR__F_SCRAMBLE_ci95hi": 0.5481,
+          "HUB_RRR__F_CONSTANT_PROTOTYPE_ci95hi": 0.5126,
+          "NULL_P95": 0.5472
+        },
+        "chance_to_bar_interval": 0.0481
+      },
+      "TRAP_STORE_DIMHALVES::RESIDUAL_X": {
+        "BAR": 0.5478,
+        "binding_term": [
+          "NULL_P95"
+        ],
+        "terms": {
+          "F_ORTHOGRAPHIC_hi": 0.5125,
+          "F_FREQUENCY_hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_hi": 0.5426,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_hi": 0.5331,
+          "NULL_P95": 0.5478
+        },
+        "BAR_STRICT_PERCENTILE": 0.5478,
+        "strict_terms": {
+          "F_ORTHOGRAPHIC_ci95hi": 0.5125,
+          "F_FREQUENCY_ci95hi": 0.5431,
+          "RESIDUAL_X__F_SCRAMBLE_ci95hi": 0.5426,
+          "RESIDUAL_X__F_CONSTANT_PROTOTYPE_ci95hi": 0.5331,
+          "NULL_P95": 0.5478
+        },
+        "chance_to_bar_interval": 0.0478
+      }
+    },
+    "BRANCH_PER_ARM": {
+      "MAIN_STORE_DEF::HUB_CCA_BOTH": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.263,
+        "hi": 0.3644,
+        "ci_halfwidth": 0.0507,
+        "BAR": 0.551,
+        "margin_lo_minus_bar": -0.288,
+        "chance_to_bar_interval": 0.051,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5465,
+        "kind": "MAIN"
+      },
+      "MAIN_STORE_DEF::HUB_CCA_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.2006,
+        "hi": 0.2941,
+        "ci_halfwidth": 0.0467,
+        "BAR": 0.5517,
+        "margin_lo_minus_bar": -0.3511,
+        "chance_to_bar_interval": 0.0517,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5449,
+        "kind": "MAIN"
+      },
+      "MAIN_STORE_DEF::HUB_RRR": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1036,
+        "hi": 0.1727,
+        "ci_halfwidth": 0.0346,
+        "BAR": 0.5497,
+        "margin_lo_minus_bar": -0.4461,
+        "chance_to_bar_interval": 0.0497,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5456,
+        "kind": "MAIN"
+      },
+      "MAIN_STORE_DEF::RESIDUAL_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.0374,
+        "hi": 0.0806,
+        "ci_halfwidth": 0.0216,
+        "BAR": 0.5489,
+        "margin_lo_minus_bar": -0.5115,
+        "chance_to_bar_interval": 0.0489,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5489,
+        "kind": "MAIN"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_BOTH": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.2597,
+        "hi": 0.3615,
+        "ci_halfwidth": 0.0509,
+        "BAR": 0.5884,
+        "margin_lo_minus_bar": -0.3287,
+        "chance_to_bar_interval": 0.0884,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.546,
+        "kind": "MAIN"
+      },
+      "MAIN_COUNTS_DEF::HUB_CCA_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1434,
+        "hi": 0.2268,
+        "ci_halfwidth": 0.0417,
+        "BAR": 0.5586,
+        "margin_lo_minus_bar": -0.4152,
+        "chance_to_bar_interval": 0.0586,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5491,
+        "kind": "MAIN"
+      },
+      "MAIN_COUNTS_DEF::HUB_RRR": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.0868,
+        "hi": 0.1538,
+        "ci_halfwidth": 0.0335,
+        "BAR": 0.6011,
+        "margin_lo_minus_bar": -0.5143,
+        "chance_to_bar_interval": 0.1011,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5478,
+        "kind": "MAIN"
+      },
+      "MAIN_COUNTS_DEF::RESIDUAL_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.0196,
+        "hi": 0.051,
+        "ci_halfwidth": 0.0157,
+        "BAR": 0.6039,
+        "margin_lo_minus_bar": -0.5843,
+        "chance_to_bar_interval": 0.1039,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5479,
+        "kind": "MAIN"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_BOTH": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.0277,
+        "hi": 0.0638,
+        "ci_halfwidth": 0.018,
+        "BAR": 0.6614,
+        "margin_lo_minus_bar": -0.6337,
+        "chance_to_bar_interval": 0.1614,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5474,
+        "kind": "TRAP"
+      },
+      "TRAP_CORPUS_HALVES::HUB_CCA_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.0408,
+        "hi": 0.0863,
+        "ci_halfwidth": 0.0227,
+        "BAR": 0.6288,
+        "margin_lo_minus_bar": -0.588,
+        "chance_to_bar_interval": 0.1288,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.546,
+        "kind": "TRAP"
+      },
+      "TRAP_CORPUS_HALVES::HUB_RRR": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1269,
+        "hi": 0.2029,
+        "ci_halfwidth": 0.038,
+        "BAR": 0.5508,
+        "margin_lo_minus_bar": -0.4239,
+        "chance_to_bar_interval": 0.0508,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5457,
+        "kind": "TRAP"
+      },
+      "TRAP_CORPUS_HALVES::RESIDUAL_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.198,
+        "hi": 0.2911,
+        "ci_halfwidth": 0.0466,
+        "BAR": 0.547,
+        "margin_lo_minus_bar": -0.349,
+        "chance_to_bar_interval": 0.047,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5468,
+        "kind": "TRAP"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_BOTH": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1045,
+        "hi": 0.1746,
+        "ci_halfwidth": 0.035,
+        "BAR": 0.5485,
+        "margin_lo_minus_bar": -0.444,
+        "chance_to_bar_interval": 0.0485,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5485,
+        "kind": "TRAP"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_CCA_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1196,
+        "hi": 0.1937,
+        "ci_halfwidth": 0.037,
+        "BAR": 0.5479,
+        "margin_lo_minus_bar": -0.4283,
+        "chance_to_bar_interval": 0.0479,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5465,
+        "kind": "TRAP"
+      },
+      "TRAP_STORE_DIMHALVES::HUB_RRR": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1414,
+        "hi": 0.2229,
+        "ci_halfwidth": 0.0408,
+        "BAR": 0.5481,
+        "margin_lo_minus_bar": -0.4067,
+        "chance_to_bar_interval": 0.0481,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5472,
+        "kind": "TRAP"
+      },
+      "TRAP_STORE_DIMHALVES::RESIDUAL_X": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.1317,
+        "hi": 0.2105,
+        "ci_halfwidth": 0.0394,
+        "BAR": 0.5478,
+        "margin_lo_minus_bar": -0.4161,
+        "chance_to_bar_interval": 0.0478,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5478,
+        "kind": "TRAP"
+      }
+    },
+    "B_TRAP_VOID": {
+      "traps": {
+        "TRAP_CORPUS_HALVES": {
+          "HUB_CCA_BOTH_auc": 0.0446,
+          "ci95": [
+            0.0277,
+            0.0638
+          ],
+          "BAR": 0.6614,
+          "branch": "B_NEGATIVE",
+          "cross_sim_r": 0.521
+        },
+        "TRAP_STORE_DIMHALVES": {
+          "HUB_CCA_BOTH_auc": 0.1375,
+          "ci95": [
+            0.1045,
+            0.1746
+          ],
+          "BAR": 0.5485,
+          "branch": "B_NEGATIVE",
+          "cross_sim_r": 0.2372
+        }
+      },
+      "ANY_TRAP_CLEARS_ITS_OWN_BAR": false,
+      "fired": []
+    },
+    "BRANCH_FIRED": {
+      "branch": "B_NEGATIVE",
+      "reading": "THE MECHANISM DOES NOT WORK HERE. Cross-view mutual prediction between a usage view and a definitional view does not produce substitutability on this instrument, at n=202 rows, with the strongest floor recomputed on THIS representation (BAR=0.5510, arm CI=[0.2630,0.3644]). The missing ingredient is not 'a second view of this kind'.",
+      "primary_arm": "MAIN_STORE_DEF::HUB_CCA_BOTH",
+      "primary": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.263,
+        "hi": 0.3644,
+        "ci_halfwidth": 0.0507,
+        "BAR": 0.551,
+        "margin_lo_minus_bar": -0.288,
+        "chance_to_bar_interval": 0.051,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5465,
+        "kind": "MAIN"
+      },
+      "residual_control": {
+        "branch": "B_NEGATIVE",
+        "lo": 0.0374,
+        "hi": 0.0806,
+        "ci_halfwidth": 0.0216,
+        "BAR": 0.5489,
+        "margin_lo_minus_bar": -0.5115,
+        "chance_to_bar_interval": 0.0489,
+        "halfwidth_exceeds_chance_to_bar": false,
+        "null_p95": 0.5489,
+        "kind": "MAIN"
+      },
+      "own_baseline_A_INCUMBENT_STORE": 0.0603,
+      "n_rows_scored": 202,
+      "direction_prereg": "only AUC ABOVE 0.5 counts; an arm further BELOW 0.5 is more co-occurrence encoding, which is the incumbent's disease, not a win"
+    },
+    "WHAT_THIS_MAY_NOT_CONCLUDE": "Nothing about cross-channel learning in general. ONE definitional channel (simplewiki definienda), ONE usage channel (this corpus), ONE linear invariant-extractor, ONE instrument, n=202 rows. A negative here is a negative about THAT.",
+    "elapsed_s": 154.0
+  }
+}
