@@ -625,6 +625,48 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.36 **CROSS-CORPUS ARM 1 LANDED: `WORD_SELECTION_NOT_TYPE`. OUTCOME 4 OF 6.35, AND THE N5 TRAP FIRED EXACTLY AS NAMED.**
+
+`exp_typed_role_selectional_asset_writerule_v1` (`c1d2bc80e`), the **SimpleWiki pre-built asset**
+arm. Regression gate 8/8 at delta 0.0000. Coverage 555/617 (90.0%); pairs SET_P 242->218,
+SET_S 242->185. **Bar = 0.5431.**
+
+| arm | AUC | halfwidth | vs bar 0.5431 | vs chance 0.5 |
+|---|---|---|---|---|
+| `A0_INCUMBENT` | 0.0710 | 0.0213 | -0.4721 | -0.4290 |
+| **`T1_TYPED_ROLE`** | **0.5802** | 0.0504 | **+0.0371 NOT CI-sep** | **+0.0802 CI-SEPARATED** |
+| `T2_UNTYPED_SAME_COVERAGE` | **0.5900** | 0.0503 | +0.0469 | +0.0900 |
+| `T3_COMBINED` | 0.2264 | 0.0410 | -0.3167 | -0.2736 |
+| `N1_LABEL_PERMUTED` | 0.5516 | 0.0510 | +0.0085 | +0.0516 |
+| `N3_MAGNITUDE_PERMUTED` | 0.5630 | 0.0522 | +0.0199 | +0.0630 |
+| **`N5_COVERAGE_MATCHED`** | **0.5217** | 0.0574 | **-0.0214** | **+0.0217 NOT SEP** |
+
+**THE ONE GENUINELY NEW FACT, AND IT MUST BE STATED WITHOUT INFLATION: `T1` AT 0.5802 IS THE FIRST
+ARM THIS PROGRAMME HAS EVER PUT CI-SEPARATED ABOVE 0.5.** Every previous arm topped out AT chance
+(6.15). *That is a real change in kind -- and it does NOT survive its controls.*
+
+**WHY IT IS STILL A CLEAN NEGATIVE, three independent ways:**
+1. **`T2_UNTYPED` reads HIGHER (0.5900) with fully overlapping CIs.** Strip the role label, keep the
+   identical contributing words, and it does not get worse. **The TYPE adds nothing; the WORD
+   SELECTION is doing the work.** Stop-if (ii).
+2. **`N1_LABEL_PERMUTED` reads 0.5516** -- shuffle the labels and you keep almost all of it.
+3. **`N5_COVERAGE_MATCHED` COLLAPSES IT TO 0.5217, NOT SEPARATED FROM CHANCE.** *6.35 named this as
+   the trap that "decides before anything else" because SET_P 218 vs SET_S 185 can manufacture a
+   margin. It did.*
+
+**AND `T3_COMBINED` IS THE MECHANISTIC SURPRISE: 0.2264, WORSE THAN EITHER CHANNEL ALONE.** Komninos
+& Manandhar's window+dependency combination *fails here* -- and the cell diagnosed why rather than
+reporting it flat: **`T1` leans mildly toward substitutability while `A0` leans hard toward
+co-occurrence, and simple concatenation cannot average ANTI-CORRELATED channels.** *It re-checked for
+a bug and found none. That is a real finding about combining opposed signals, not a null.*
+
+**SCOPE, and the cell said it itself:** this arm's slots come from **SimpleWiki**, not the corpus the
+store and instrument are built on -- a corpus confound its same-corpus sibling
+(`exp_typed_role_context_write_rule_dissociation_v1`, not yet landed) does not have. **Per 6.35, ONE
+of two independent tests is not a result. Wait for the sibling before any headline.**
+
+---
+
 ### 6.35 **PRE-COMMITTED READING OF THE CROSS-CORPUS PAIR -- WRITTEN BEFORE EITHER CELL HAS A NUMBER.**
 
 Same discipline as 6.26, which let 6.27 call `POWER_INSUFFICIENT` at n=7 without reading the arms.
