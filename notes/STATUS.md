@@ -33,10 +33,22 @@ magnitude.**
 its bar to ±0.03 needs roughly **12x** the pairs, and its matching funnel is what caps it -- which is
 why "buy n by loosening the matcher" keeps being proposed and must keep being refused: **a bigger
 sample of an unlicensed instrument is worse than no sample.***
-**THE STRATEGIC READ (hypothesis, not a result): WE HAVE BEEN RUNNING EXPERIMENTS THAT COULD NOT
-HAVE RETURNED A CREDIBLE POSITIVE, AND THEN TREATING THE ABSENCE AS EVIDENCE ABOUT THE SUBSTRATE.**
-*Discipline 14 says a width is not an effect; this is the same error one level up -- **a width in the
-FLOOR is not a GATE.** Before the next arm is built, decide what n its instrument needs.*
+**❌ MY STRATEGIC READ WAS "we have been running experiments that could not have returned a credible
+positive, then treating the absence as evidence about the substrate." I TESTED IT IMMEDIATELY AND ON
+THE HUMAN SIDE IT IS FALSE. RETRACTED, SAME SESSION, BEFORE IT COULD BE QUOTED.**
+Classified all 24 human-side arms by whether their CI **upper** bound could even reach the credible
+bar 0.6918: **24 of 24 CANNOT. ZERO are undetectable. EVERY ONE IS A REAL NEGATIVE.** The best arm
+`F1_NO_FILTER` tops out at **0.6508** and the runner-up `T1_TYPED_ROLE` at **0.6057** -- both short
+of 0.6918 *even in the most favourable corner of their own error bars.*
+**SO BOTH THINGS ARE TRUE AND THE SECOND DOMINATES: the human instrument IS underpowered (it demands
+>=0.69), AND our arms are so far below that the power problem does not rescue a single one.** *I
+reached for an instrument-level excuse for a substrate-level result; the excuse does not survive
+contact with the arm table.*
+**WHERE THE POWER ISSUE GENUINELY BITES IS NARROW: arms sitting NEAR a floor -- which tonight means
+exactly ONE, `U1_TYPED_CONTEXT` at 0.6669 against a 0.6810 credible bar.** *Discipline 18 is still
+right and still binding; its SCOPE is "arms near the bar", NOT "our negative record generally".*
+**AND THE OWNER'S QUESTION KEEPS ITS HONEST ANSWER: the negatives are mostly REAL. The instrument is
+not what is holding us back -- what we are BUILDING is.**
 
 **🚨 OVERNIGHT 08-18, AND THIS BLOCK IS MIRRORED TO YOUR BOARD SO READ IT FIRST: I HEADLINED A WIN AND
 THEN TOOK IT APART. NO ARM CURRENTLY CLEARS A TRUSTWORTHY BAR.**
