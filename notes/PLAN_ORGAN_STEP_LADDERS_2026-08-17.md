@@ -634,6 +634,53 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.39 **BOTH LANES LANDED. ONE ARM CLEARED A BAR FOR THE FIRST TIME, AND THE INSTRUMENT THAT SAID SO IS NOW VALIDATED -- BUT THE TWO FACTS HAVE NEVER MET. PRE-COMMITMENT FOR THE TEST THAT MAKES THEM MEET, WRITTEN BEFORE IT RUNS.**
+
+**WHAT LANDED (both verified off disk by the Director, not read from agent prose):**
+
+- **`exp_typed_role_context_write_rule_dissociation_v1` (`5170c7751`).** `U1_TYPED_CONTEXT`
+  **0.6669 [0.6184, 0.7136]**, CI-separated above the **0.5431** bar -- *the first arm in this
+  programme to do so with its coverage control intact* (`U1_COVERAGE_MATCHED` 0.6669, unmoved).
+  Beats `N1_LABEL_PERMUTED` **+0.1105 [0.0800, 0.1420]** and `N2_RANDOM_TYPING` **+0.1068
+  [0.0696, 0.1449]**. **BUT `STOPIF3` FIRED: `U3_ROLE_ONLY` 0.6466 TIES IT** (+0.0203
+  [-0.0185, 0.0591]) and a parse-noise sweep moved it only 0.667 -> 0.651 **at 50% neighbour
+  corruption.** **THE HONEST CLAIM IS THE COARSE ONE: WHICH KIND OF SLOT, NOT WHICH WORD.**
+- **`exp_dissociation_score_instrument_human_v4` (`75e093747`).** **rho 0.9034 at 24 arms, CI
+  [0.7548, 0.9676], EXCLUDES ZERO** (vs [-0.0435, 1.0] at 7). **6.24 DISCHARGED: Organ A's closure
+  is about OUR STORE, not agreement with WordNet.** *And the arm count really was the limit -- at
+  n=7 arms no estimate quality could have separated that CI from zero.*
+
+**THE GAP, AND IT IS NOT A SMALL ONE: `U1` IS NOT AMONG THE 24.** It landed at 05:36; the harvest
+was already built. **The `T1_TYPED_ROLE` in v4's table is the SimpleWiki cell -- a DIFFERENT ARM.**
+So **the single best result this programme has ever produced has never been scored against human
+judgement**, and the instrument validation that would license it was computed without it.
+
+**PRE-COMMITTED READINGS -- WRITTEN BEFORE THE RUN, AND THE ONLY REASON THE LAST THREE NULLS WERE
+CALLED HONESTLY INSTEAD OF SPUN.** Score `U1_TYPED_CONTEXT`, `U3_ROLE_ONLY` and
+`T2_UNTYPED_SAME_COVERAGE` on the **human** instrument (v3/v4 population, **n=65 per cell**, bar
+**0.5943**), reusing v4's harvesting machinery verbatim and re-running both regression gates.
+
+- **(A) `U1` CLEARS 0.5943 CI-SEPARATED** -> the typed-context result holds on **two independently
+  built instruments**. *That would be this programme's first genuine cross-instrument capability
+  win, and it must still be reported with `STOPIF3` attached -- clearing the bar does NOT retire the
+  finding that role-only ties it.*
+- **(B) `U1` LANDS AT OR BELOW CHANCE ON HUMAN JUDGEMENT** -> the 0.6669 was **WORDNET-SPECIFIC**,
+  and rho 0.9034 was carried by agreement about the POOR arms while the instruments **DISAGREE at
+  the top of the range** -- which is where it matters. **THIS IS THE INFORMATIVE CASE. IT MUST NOT
+  BE REPORTED AS "MIXED", AND IT PARTIALLY RE-OPENS 6.24** *for the only region of the scale anyone
+  cares about.*
+- **(C) ABOVE CHANCE BUT NOT CI-SEPARATED FROM 0.5943** -> **`POWER_INSUFFICIENT`, FULL STOP.**
+  n=65 against n=242 is a **3.7x smaller** sample and the human CI half-widths in v4 run ~0.10 --
+  wide enough to swallow the entire 0.6669-vs-0.5943 margin **before any capability question is
+  asked.** **DO NOT READ THIS AS A CEILING.** *Three retractions in this project came from reading
+  an underpowered null as a capability statement, one of them the same night.*
+- **MANDATORY REGARDLESS OF BRANCH:** report the **CI half-width and the null p95 at n=65 beside
+  every margin**, and score `U3_ROLE_ONLY` in the same run -- **if `U1` ties `U3` on the human
+  instrument too, the which-kind-of-slot reading is confirmed on BOTH sticks and stops being a
+  one-instrument caveat.**
+
+---
+
 ### 6.38 **A TESTABLE PREDICTION FALLING OUT OF THE `T3_COMBINED` COLLAPSE. NOT RUN -- RECORDED SO IT IS NOT LOST.**
 
 **The observation (6.36):** `T3_COMBINED` -- the published-best window+dependency configuration
