@@ -346,7 +346,25 @@ the number of queries per point beside every "no difference".**
   = substitutability" -- **that describes CHANCE, not the GATE.** No conclusion flips (every arm sat
   0.03-0.44, far below both), but **any future arm must clear 0.5431**, and the Director spent a night
   describing 0.5 as the target. Corrected in `PLAN_ORGAN_STEP_LADDERS` 6.29.
-- **IN FLIGHT (2026-08-18 ~04:20), both authoring, neither stalled:**
+- **HUMAN INSTRUMENT: TWO ATTEMPTS, BOTH `POWER_INSUFFICIENT` AT n=7. CAUSE NOW MEASURED (`6976f08ca`).**
+  v2 used the FULL 5,491-anchor set and got the SAME n=7 as v1 -- **which disproves the Director's
+  own diagnosis.** *I claimed v1 collapsed because I restricted it to the WordNet instrument's 617
+  words; v1's checkpoint diagnostics show that restriction NEVER EXISTED. Plan 6.30 is RETRACTED by
+  6.33(B).* **The real cause: a structural frequency gap between the human-labelled sets (pre-match
+  SMD on `mean_log_freq` = -1.8396) colliding with the WordNet-tuned caliper (0.02), which drops
+  429 of 436 candidates. Adjective and noun strata yield ZERO matches; the 7 survivors are VERBS.**
+  **So the blocker is the MATCHER, not the population** -- and loosening the caliper stays forbidden
+  because it would unlicense the instrument. **The 6.24 WordNet caveat REMAINS OPEN.**
+- **0.8629 IS VERIFIED AND NOW HAS AN ARTIFACT (`dfc84429a`).** Spot-checking found the night's most
+  load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
+  script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
+  0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
+- **IN FLIGHT (2026-08-18 ~04:45):** (a) **typed-role write rule** (re-dispatched tight after the
+  first attempt stalled an hour on my own over-broad enumeration instruction); (b) **frequency-
+  stratified matcher** -- matches WITHIN frequency bands instead of one global caliper, to fix the
+  n=7 cause above. **Its gate is unchanged: if it buys n but ANY floor leaves chance, it is REJECTED
+  as a worse matcher.** A bigger sample of an unlicensed instrument is worse than no sample.
+- **SUPERSEDED IN-FLIGHT NOTE (2026-08-18 ~04:20):**
   (1) **`typed-role write rule`** -- the FIRST arm in ~15 experiments to use the GRAMMATICAL RELATION
   rather than an unordered bag of words. *Every prior arm varied WHICH words counted or HOW they were
   weighted; none used the role label.* Uses `data/selectional_preferences_v1/` (41,529 verb+ROLE
