@@ -1,22 +1,26 @@
 # STATUS
 
-AS OF: 2026-08-17 | branch `dataprep/mcguffey-graded-corpus` | HEAD `30cc1fd8a` | GROWTH PAUSED | origin merge needs USER AUTH
+AS OF: 2026-08-18 | branch `dataprep/mcguffey-graded-corpus` | HEAD `7003df4c1` | GROWTH PAUSED | origin merge needs USER AUTH
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
-CHAIN: `COMPACTION_HANDOFF_2026-08-17.md` -> HERE -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
+CHAIN: `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` (**THE PLAN; sec 6.6/6.7 are the current orders**) ->
+HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
-THE CUE SIDE IS FINISHED AND IT DID NOT FIX THE READING; THE WRITE RULE IS THE ONLY ROAD LEFT AND IT
-IS THE FIRST ONE THAT HAS EVER MOVED. Plainly: we spent four cells changing the QUESTION we hand the
-store (compress it, don't, keep only presence, sparsify the address, sparsify the cue, settle it) and
-one cell changing WHAT IS STORED. Everything on the question side improved FINDING THE RIGHT DRAWER
-and nothing improved READING WHAT IS IN IT. Best cue-side result: binarising the cue takes addressing
-0.0711 -> 0.1094 (+0.0383 [+0.0295,+0.0473]) while hit@1 moves 0.0223 -> 0.0249, +0.0026
-[-0.0026,+0.0078] NOT_SEPARATED -- ADDRESSING AND READ-OUT ARE SEPARATELY CAPPED (stop-if fired).
-The one write-side arm moved hit@1 0.0223 -> 0.0298, +0.0075 [+0.0023,+0.0128] ABOVE, with the
-frequency-matched and random-profile controls both failing to reproduce it. It is still 2.9x short of
-its own floor. Verbs MEASURED at n=222 (C33); C35/C36 correct this project's own prior docs.
+ONE ORGAN AT A TIME, AND THE ORGAN IS THE WRITE RULE (owner ruling 2026-08-18, `PLAN_ORGAN_STEP_LADDERS`
+sec 6.7). The cue side is finished and did not fix the reading; four cells changed the QUESTION we hand
+the store and every one improved FINDING THE DRAWER while none improved READING WHAT IS IN IT
+(binarising takes addressing 0.0711 -> 0.1094 while hit@1 moves 0.0223 -> 0.0249, +0.0026
+[-0.0026,+0.0078] NOT_SEPARATED -- ADDRESSING AND READ-OUT ARE SEPARATELY CAPPED).
+**THE DECISIVE WRITE-RULE MEASUREMENT, and it is why this organ is the one:** varying ONLY the target's
+own stored row, `SUM_ALL` reads **0.0100**, ONE occurrence picked at RANDOM reads **0.0367**, and
+`BEST_SINGLE_ORACLE` reads **0.3033** against the **0.1390** floor we have never cleared. *Summing is
+worse than not summing, and individual sentences already carry enough to clear the floor.* The oracle
+is a CEILING DIAGNOSTIC, never a capability. **DEPTH IS RETRACTED (sec 6.6): "+0.0503 still climbing"
+was an ORACLE-CUE number; on the REAL partial cue POP_72 32->72 is BELOW and POP_128 is NOT_SEPARATED,
+with winner composition FLAT at every depth.** Eleven cells across six organs on 08-17 returned ~+0.01
+each; the two LADDERS redirected the programme. Method is not in question -- organ selection was.
 
 ## TOP ITEM -- THE WRITE RULE IS THE FIRST THING IN THE PROGRAMME TO MOVE READ-OUT (LESSONS: WRITE RULE)
 `exp_readout_writerule_paradigmatic_v1` (full, `a8fdc968f` / `24ca42661`) rebuilt the STORE so a
