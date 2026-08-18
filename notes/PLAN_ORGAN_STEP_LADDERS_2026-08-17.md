@@ -566,6 +566,46 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
+### 6.25 **PRIOR ART FOUND BY HAND THAT THE BROKEN PRIOR-WORK CHECK MISSED -- AND IT REPLICATES TONIGHT'S NULL FROM A DIFFERENT DIRECTION.**
+
+**Why this was found late:** `tools/substrate_query.sh` **returns zero bytes and exits 0** (measured
+2026-08-18, both interpreters, ~38-51 s). Every "not a rediscovery" claim tonight rested on it.
+Re-checked BY FILESYSTEM ENUMERATION instead: **max-pool, filter/superpose, tuned-count and the step
+ladder have ZERO pre-existing cells** -- genuinely new. **But `predictive_coding` has SEVEN**, and one
+is the same mechanism.
+
+**`exp_pc1_predictive_coding_residual_gate_v1` (2026-06-22, FULL, landed 06-25).** Its own words:
+*"don't write what's already predicted; concentrate plasticity on surprising patterns."* That is
+tonight's write gate, built two months earlier on a different substrate.
+
+| | June cell | tonight (`e822eeaaf`) |
+|---|---|---|
+| substrate | Hopfield-style W matrix, N=4096, M=2000, alpha 0.488 | the real anchor store |
+| instrument | recall@1 + W-norm | dissociation AUC |
+| gate outcome | **`skip=0.00` -- THE GATE NEVER FIRED AT ALL** | gate fires; gain matched by a rate-matched random twin |
+| random control | 50% random skip: **recall 1.000 -> 0.515** | random gate: 0.3007 vs the real gate's 0.3079 |
+| verdict | `MIDDLE_BAND` | STOP-IF (ii): gain is the RATE, not the error |
+
+**THE CONVERGENCE, and it is stronger than either result alone: on two different substrates, two
+different instruments, and two months apart, THE RESIDUAL SIGNAL ITSELF DID NO WORK.** In June it
+could not even select anything (`skip=0.00` at threshold 0.3 -- a degenerate signal, which is the
+same failure `exp_surprise_weighted_update_v1` independently found as a median residual of 0.875).
+Tonight it selected plenty and a coin flip did equally well. **Tonight's null is therefore a
+REPLICATION, not a one-off.**
+
+**AND THE ONE PLACE THEY DISAGREE IS INFORMATIVE RATHER THAN CONTRADICTORY.** Random skipping
+**HURT** in June (recall 1.000 -> 0.515) and **HELPED** tonight (on the AUC). Different instruments,
+and the difference is the whole point of 6.15: writing less **destroys exact recall** and
+**reduces the co-occurrence bias**, because the bias is built from accumulated content. *Both are
+true simultaneously, and a programme that only measured recall would never have seen the second.*
+
+**PROCESS CONSEQUENCE:** the June cell should have been cited in tonight's brief and was not,
+because the tool that exists to surface it is non-functional. **Until it is fixed, "not a
+rediscovery" claims in this project are unsupported unless the agent enumerated the filesystem and
+SAID SO.**
+
+---
+
 ### 6.24 **SCOPE LIMIT ON THE INSTRUMENT ITSELF, stated before it hardens into an overclaim.**
 
 Verified off disk 2026-08-18 (`exp_dissociation_score_instrument_v1.py`): `SET_P` is built by
