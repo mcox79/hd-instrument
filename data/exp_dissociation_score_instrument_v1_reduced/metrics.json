@@ -1,0 +1,288 @@
+{
+  "anchor_name": "dissociation_score_instrument_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.4",
+  "findings_log": "notes/dissociation_score_instrument_2026-08-18.md",
+  "verdict": "DISSOCIATION_INSTRUMENT_LICENSED__STOP_IF_iii_COOCCURRENCE_DIAGNOSIS_CONFIRMED",
+  "verdict_msg": "Dissociation-score instrument (protocol sec 8.3): SET P (WordNet-synonym, zero co-occurrence) vs SET S (top co-occurring, no close WordNet relation), frequency/length/POS matched. AUC separating them under the store's own similarity, per arm, with 4 floors + known-answer + random-store licensing. -> DISSOCIATION_INSTRUMENT_LICENSED__STOP_IF_iii_COOCCURRENCE_DIAGNOSIS_CONFIRMED",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "WN_CLOSE_THRESHOLD": 0.25,
+    "TOP_DECILE_Q": 0.9,
+    "CELL_S_CAND_CAP": 1500,
+    "KNOWN_ANSWER_MIN_AUC": 0.95
+  },
+  "selftest_evidence_keys": [
+    "AUC_known_answers",
+    "arms_must_differ_digest_sensitivity",
+    "binarize_changes_store",
+    "bootstrap_known_answers",
+    "cooccurrence_known_answer",
+    "exp_checkpoint_selftest",
+    "matching_caliper_drop_known_answer",
+    "matching_known_answer",
+    "path_similarity_known_answers",
+    "set_S_excludes_wordnet_pair_even_at_high_cooccurrence",
+    "wordnet_synonym_real_code_path"
+  ],
+  "report": {
+    "anchor_name": "dissociation_score_instrument_v1",
+    "grid": "reduced",
+    "code_version": "v1.4",
+    "findings_log": "notes/dissociation_score_instrument_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "population_n_anchors": 5491,
+    "REGRESSION_GATE": {
+      "expected_source": "PIPE.REGRESSION_A0_PARTIAL == 0.0223 (same cache CTS loads); this cell scores PAIRWISE similarity, not hit@1, so it cannot reproduce that number directly -- instead it asserts the cache identity (anchor count, mat shape) matches every sibling cell's own regression-gated load.",
+      "n_anchors": 5491,
+      "mat_shape": [
+        5491,
+        256
+      ],
+      "PASS": true
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "POPULATION": {
+      "n_wordnet_synonym_candidates": 696,
+      "n_distinct_cooccurring_anchor_pairs": 71718,
+      "n_setP_raw_zero_cooccurrence": 542,
+      "setS_candidate_construction": {
+        "n_raw_top_pool": 1500,
+        "cap_requested": 1500,
+        "actual_min_count_in_pool": 9,
+        "decile_90_threshold_full_population": 4.0,
+        "pool_is_at_least_top_decile": true,
+        "n_excluded_wn_exact_synonym": 6,
+        "n_excluded_wn_near_path_sim_ge_thresh": 106,
+        "n_excluded_pos_mismatch_or_no_synsets": 807,
+        "n_kept": 581
+      },
+      "matching": {
+        "per_pos_stratum": {
+          "a": {
+            "n_P_candidates": 27,
+            "n_S_candidates": 3,
+            "n_matched": 0,
+            "n_dropped_caliper": 27
+          },
+          "n": {
+            "n_P_candidates": 241,
+            "n_S_candidates": 576,
+            "n_matched": 45,
+            "n_dropped_caliper": 196
+          },
+          "r": {
+            "n_P_candidates": 16,
+            "n_S_candidates": 0,
+            "n_matched": 0,
+            "n_dropped_caliper": 0
+          },
+          "v": {
+            "n_P_candidates": 258,
+            "n_S_candidates": 2,
+            "n_matched": 0,
+            "n_dropped_caliper": 258
+          }
+        },
+        "n_candidates_P": 542,
+        "n_candidates_S": 581,
+        "n_matched_P": 45,
+        "n_matched_S": 45,
+        "n_dropped_caliper": 481,
+        "caliper_sq": 0.3,
+        "matching_covariates": [
+          "mean_log_freq",
+          "abs_freq_diff",
+          "mean_length",
+          "orthographic_trigram_cos",
+          "mean_constant_prototype"
+        ],
+        "pre_match_smd": {
+          "mean_log_freq": -2.5923,
+          "abs_freq_diff": -0.0613,
+          "mean_length": 0.5444,
+          "orthographic_trigram_cos": 0.7898,
+          "mean_constant_prototype": -1.1213
+        },
+        "post_match_smd": {
+          "mean_log_freq": -0.1966,
+          "abs_freq_diff": 0.0044,
+          "mean_length": -0.0082,
+          "orthographic_trigram_cos": 0.0,
+          "mean_constant_prototype": 0.0219
+        },
+        "post_match_pos_distribution_P": {
+          "n": 45
+        },
+        "post_match_pos_distribution_S": {
+          "n": 45
+        }
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 45,
+    "single_occurrence_build_diag": {
+      "n_anchors": 141,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.0
+    },
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "F_ORTHOGRAPHIC": "fe2f74a1e0b16a66",
+      "F_FREQUENCY": "e00254072213ea4f",
+      "F_SCRAMBLE": "04f8fdc5bd29e515",
+      "F_CONSTANT_PROTOTYPE": "1903759fffcc058f",
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": "c968cbb2dbea83bc",
+      "RANDOM_VECTOR_STORE": "c29e08054cf7e6f4",
+      "INCUMBENT_LIVE_STORE": "0fff655c820251d3",
+      "RAW_COUNT_FULL_ACCUM": "96706c03655abf12",
+      "RAW_COUNT_SINGLE_OCC": "3a372ca9ceeb609a",
+      "PRESENCE_ABSENCE_BINARIZED": "ffe436078d89af87",
+      "PARADIGMATIC_PROFILE_WRITE": "81932065057969f2"
+    },
+    "AUC_PER_ARM": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.4467,
+        "ci95": [
+          0.3222,
+          0.5664
+        ],
+        "ci_halfwidth": 0.1221,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.5185,
+        "ci95": [
+          0.3963,
+          0.6356
+        ],
+        "ci_halfwidth": 0.1196,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.5101,
+        "ci95": [
+          0.3936,
+          0.6304
+        ],
+        "ci_halfwidth": 0.1184,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.9901,
+        "ci95": [
+          0.971,
+          1.0
+        ],
+        "ci_halfwidth": 0.0145,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.319,
+        "ci95": [
+          0.2173,
+          0.4349
+        ],
+        "ci_halfwidth": 0.1088,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "INCUMBENT_LIVE_STORE": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.0741,
+        "ci95": [
+          0.0244,
+          0.1363
+        ],
+        "ci_halfwidth": 0.0559,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "RAW_COUNT_FULL_ACCUM": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.0523,
+        "ci95": [
+          0.0133,
+          0.1059
+        ],
+        "ci_halfwidth": 0.0463,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "RAW_COUNT_SINGLE_OCC": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.4509,
+        "ci95": [
+          0.3872,
+          0.5096
+        ],
+        "ci_halfwidth": 0.0612,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "PRESENCE_ABSENCE_BINARIZED": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.0321,
+        "ci95": [
+          0.0064,
+          0.0691
+        ],
+        "ci_halfwidth": 0.0314,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "PARADIGMATIC_PROFILE_WRITE": {
+        "n_pairs_P": 45,
+        "n_pairs_S": 45,
+        "auc": 0.2291,
+        "ci95": [
+          0.1385,
+          0.3274
+        ],
+        "ci_halfwidth": 0.0945,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "LICENSING": {
+      "STOP_IF_i_floors_at_chance": {
+        "PASS": true,
+        "floor_failures": []
+      },
+      "STOP_IF_ii_known_answer_near_1": {
+        "PASS": true,
+        "measured_auc": 0.9901,
+        "gate": 0.95
+      },
+      "random_vector_store_at_chance": {
+        "PASS": false
+      },
+      "INSTRUMENT_LICENSED": true
+    },
+    "INTERPRETATION": "STOP_IF_iii_COOCCURRENCE_DIAGNOSIS_CONFIRMED",
+    "elapsed_s": 7.8
+  },
+  "elapsed_s": 12.1,
+  "summary": "Dissociation-score instrument (protocol sec 8.3): SET P (WordNet-synonym, zero co-occurrence) vs SET S (top co-occurring, no close WordNet relation), frequency/length/POS matched. AUC separating them under the store's own similarity, per arm, with 4 floors + known-answer + random-store licensing. -> DISSOCIATION_INSTRUMENT_LICENSED__STOP_IF_iii_COOCCURRENCE_DIAGNOSIS_CONFIRMED"
+}
