@@ -463,6 +463,53 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.16 **PRE-COMMITTED DECISION ON THE CAPACITY RESULT -- WRITTEN BEFORE IT LANDS, ON PURPOSE.**
+
+`exp_corpus_capacity_*` is in flight. It asks whether THIS CORPUS supports a substitutability signal
+at all, using PPMI, PPMI+SVD, second-order cosine, and a **fitted oracle allowed to cheat**. **This
+section is written NOW, while the answer is unknown, because the failure mode this programme keeps
+hitting is deciding what a number means AFTER seeing it.** Whichever branch fires, the Director is
+bound to it.
+
+**BRANCH A -- `B2_PPMI_SVD` CI-SEPARATED ABOVE 0.5.**
+Then the corpus DOES carry substitutability, a classical 1990s method extracts it, and **our substrate
+is being beaten on its own task by truncated SVD.** The mandated response is NOT to celebrate a
+diagnosis:
+1. **Say plainly, in the owner-facing report, that a decades-old linear method beat the substrate**,
+   with the k and the margin. No softening.
+2. The next build is a **write rule whose PRIMARY quantity is second-order (distributional)
+   similarity** -- the only family that ever moved both instruments (`PARADIGMATIC_PROFILE_WRITE`,
+   AUC 0.2165 vs incumbent 0.0710, and the sole +0.0075 read-out mover).
+3. **Do NOT wire SVD in as the answer.** It is a CEILING REFERENCE and an existence proof that the
+   information is present. Wiring it in would clear the bar by adopting a tool rather than by
+   understanding -- standing rule 12 -- and it abandons the glass-box invariant. It is admissible only
+   as an offline FOUNDATION under the owner's Q3 ruling, and that is a separate decision the owner
+   makes, not a default.
+
+**BRANCH B -- `B2`/`B3` FAIL BUT `C1_FITTED_ORACLE` CLEARS 0.5.**
+The information is present but no unsupervised first-order transform reaches it. Then the question
+becomes what the oracle used, and the build target is whatever supervision-free proxy approximates it.
+**Report the fitted-vs-held-out gap prominently**; a fitted-only clearance is a statement about
+capacity, never about a method.
+
+**BRANCH C -- `C1_FITTED_ORACLE` ALSO FAILS TO CLEAR 0.5. THE HARDEST BRANCH, AND THE ONE MOST LIKELY
+TO BE RATIONALISED AWAY.**
+Then **a transformation FITTED ON THE ANSWER cannot extract substitutability from first-order counts
+of this corpus, and no write rule can invent information that is not there.** The mandated response:
+1. **STOP WRITE-RULE ENGINEERING.** Organ A is not merely gated, it is CLOSED. Any further step-fix
+   proposal must first explain how it beats a fitted oracle.
+2. **The blocker relocates to the CORPUS or the FIRST-ORDER REPRESENTATION** -- i.e. to what a
+   context window over ~5,491 anchors can carry at all. That is a supply question and it goes to the
+   owner with a recommendation, not another cell.
+3. **Do NOT respond by loosening the instrument.** The dissociation instrument's floors are verified
+   at chance and its known-answer arm reads 0.9599; if the answer is unwelcome, the instrument is not
+   the thing to adjust. *Adjusting the bands is not a result.*
+
+**WHAT WOULD INVALIDATE ALL THREE BRANCHES:** a regression-gate or `K1` failure, which means
+INSTRUMENT_NOT_LICENSED and nothing is concluded from that run at all.
+
+---
+
 ### 6.15 **ORGAN A IS FULLY GATED. ALL FIVE STEPS. AND THE ORGAN-LEVEL READING IS SHARPER THAN ANY SINGLE GATE.**
 
 Two cells closed the last three steps: `exp_writerule_maxpool_occurrence_v1` (`f311d0ac2`) and
