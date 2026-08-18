@@ -357,6 +357,37 @@ are CONSTANT across D=1..768. **Depth changes neither the score nor the kind of 
 **CONSEQUENCE: ORGAN F IS CLOSED as a lever.** Do not re-open it on an oracle-cue argument. Revival
 criterion: a real-partial-cue gain, CI-separated, on a population that is not underpowered.
 
+**SHARPENED 2026-08-18 FROM THE PER-RUNG VALUES (the STEP_TABLE serialised its margins as null, so
+the first reading used only the BANDS -- these are the actual signals).** The finding is stronger and
+more specific than "the gain does not survive": **THE TWO CUES MOVE IN OPPOSITE DIRECTIONS WITH
+DEPTH.**
+
+| depth | POP_72 ORACLE | POP_72 **REAL** | POP_128 ORACLE | POP_128 **REAL** |
+|---|---|---|---|---|
+| 1 | 0.0404 | **0.0264** | 0.0453 | **0.0312** |
+| 16 | 0.0605 | 0.0159 | 0.0389 | 0.0194 |
+| 72 | **0.1066** | **0.0130** | 0.0917 | 0.0139 |
+| 128 | -- | -- | **0.1417** | **0.0139** |
+
+**Reading more sentences roughly HALVES real-cue accuracy while nearly TRIPLING what an oracle can
+extract from the same store.**
+
+**AND THE DISSOCIATION THAT NAMES THE DEFECT: median gold RANK IMPROVES WITH DEPTH ON THE REAL CUE
+TOO** -- 78 -> 72 (POP_72) and 78 -> 70 (POP_128) -- **while hit@1 FALLS.** So accumulation is
+genuinely ADDING recoverable information (the ordering improves, and the oracle exploits it); what
+degrades is the TOP-1 pick.
+
+**THEREFORE THE WRITE-RULE DEFECT IS NOT "SUMMING LOSES INFORMATION". IT IS: SUMMING ADDS
+INFORMATION AND ADDS MORE INTERFERENCE THAN THE READER CAN CUT THROUGH.** That is a different defect
+with different fixes -- it points at separability/interference control (normalisation, downweighting
+the shared high-frequency mass, keeping components distinguishable) rather than at "store less". It
+is also exactly consistent with the decisive arm, where ONE occurrence (0.0367) beats the SUM of all
+of them (0.0100) while an oracle over the same occurrences reaches 0.3033.
+
+**FLOOR NOTE, a live instance of a standing rule:** on POP_72 the constant floor is **0.2291** and
+orthographic is **0.1073** -- NOT the 0.1390/0.0873 of the read-out population. Floors are properties
+of the population and the scorer. The real-cue arm sits ~8x below even the SPELLING floor here.
+
 **TWO ARTIFACT DEFECTS, recorded so nobody quotes a hole:** the STEP_TABLE serialises `point` and
 `ci95` as **null** (only `band` survives), so exact margins are NOT quotable from that file; and
 `tools/scan_out_collect.py` crashes on a list-shaped fragment (`'list' object has no attribute
