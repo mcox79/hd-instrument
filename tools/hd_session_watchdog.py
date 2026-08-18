@@ -335,6 +335,28 @@ def daemon(poll_sec: int = DEFAULT_POLL_SEC, dry_run: bool = False) -> int:
 
 
 def main() -> int:
+    # RETIRED 2026-08-18 ON OWNER INSTRUCTION (board Q51 + Q56, both answered "yes":
+    # "Delete 3,894 junk files clogging notes/ and switch off the task still making them?").
+    #
+    # WHY A GUARD HERE RATHER THAN A DISABLED SCHEDULED TASK: `Disable-ScheduledTask
+    # -TaskName hd_session_watchdog` returned "Access is denied" (HRESULT 0x80070005) -- it needs
+    # elevation, which this session does not have. The task therefore STILL FIRES; this guard is
+    # what makes it a no-op. To disable it properly, run from an ELEVATED PowerShell:
+    #     Disable-ScheduledTask -TaskName 'hd_session_watchdog'
+    #
+    # WHY RETIRING IT LOSES NOTHING: it pings sessions in the FOUR-SESSION FLEET, which CLAUDE.md
+    # records as DEAD ("the 4-session fleet model is dead"; "notes/ is NOT a cross-session
+    # mailbox"). Its pings target sessions that no longer exist. It had written 3,894 files --
+    # 31% of notes/ -- at 6/hour, and a plain `find` over notes/ TIMED OUT AT 300 SECONDS,
+    # costing two agents ~40 minutes each and every session-start read.
+    #
+    # REVERSIBLE: set HD_WATCHDOG_ENABLE=1 to restore the old behaviour unchanged.
+    if os.environ.get('HD_WATCHDOG_ENABLE') != '1':
+        print('hd_session_watchdog: RETIRED 2026-08-18 (owner board Q51/Q56). '
+              'No-op. Set HD_WATCHDOG_ENABLE=1 to re-enable. '
+              'It served the dead four-session fleet and wrote 3,894 files into notes/.')
+        return 0
+
     ap = argparse.ArgumentParser(description='HD session watchdog')
     ap.add_argument('--dry-run', action='store_true', help='No notes written; log only')
     ap.add_argument('--once', action='store_true', help='Single poll then exit')
