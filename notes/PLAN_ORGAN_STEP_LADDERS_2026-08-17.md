@@ -434,6 +434,60 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.13 **THE CODE GATE REFUTES DRILL 1's CENTRAL PREDICTION. `CODE` IS EXONERATED -- A SECOND TIME, ON A HARDER TEST.**
+
+`exp_writerule_learned_basis_denominator_gate_v1`, commit `ac629b1e7`; findings
+`notes/writerule_learned_basis_denominator_gate_v1_findings_2026-08-18.md`. Regression gate
+reproduced exactly (0.0223 vs 0.0223); K1 and N1 PASS on every arm.
+
+**THE PREDICTION THAT FAILED, and the Director relayed it to the owner as the night's headline.**
+Drill 1 argued that `CODE` is "the missing operation": a random projection preserves the geometry it
+is handed, so replacing it with a LEARNED basis should create the substitutability structure. **It does
+not.**
+
+| arm | hit@1 | vs A0 = 0.0481 |
+|---|---|---|
+| `C1_LEARNED_BASIS` (k=64, best of a 64-2048 sweep) | 0.0553 | **+0.0073 NOT_SEPARATED** |
+| `C1_CTRL_MATCHED_RANK_RANDOM` | 0.0421 | -0.0060 NOT_SEPARATED -- **it MATCHES C1** |
+| `C1_CTRL_FREQUENCY_SHUFFLED` | 0.0148 | -0.0333 BELOW |
+| `C2_WRITE_TIME_DIVISIVE_NORM` | 0.0586 | +0.0105 ABOVE |
+| `C2_CTRL_WRONGPOOL` | 0.0586 | **NUMERICALLY IDENTICAL TO C2** |
+| `C2_CTRL_PURE_IDF` | 0.0303 | -0.0177 BELOW |
+
+**COMPOSITION -- THE PRIMARY MEASURE -- MOVES FOR NOTHING.** Every arm NOT_SEPARATED from A0 except
+`C1_CTRL_FREQUENCY_SHUFFLED`, which is **+0.0858 [+0.0486,+0.1229] ABOVE, i.e. clearly WORSE.** *That
+large CI-separated degradation is load-bearing: it proves the composition instrument CAN detect a
+change, so the flat readings are real nulls and not a blind instrument.*
+
+**STOP-IF (iv) FIRED: neither a learned basis nor a denominator moves the relation. `CODE` IS
+EXONERATED.**
+
+**AND C2's ONE APPARENT WIN IS NOT A DENOMINATOR EFFECT -- the agent caught this rather than banking
+it.** The winning config was `pool='row'`, which divides each anchor's whole row by a single scalar,
+**and cosine scoring is provably invariant to that** -- the same class as the drill's own prediction
+that synaptic scaling is a rank-0 no-op for us. The `WRONGPOOL` control being numerically identical to
+four decimal places is the *proof*, not a control failure. **C2's +0.0105 traces to an incidental
+Gaussian-vs-bipolar basis swap, not to the denominator; the GENUINE denominator variants
+(`pool='col'`, `pool='both'` = PPMI) scored BELOW A0 and never won the sweep.** A real bug was found and
+fixed en route (`divisive_normalize(pool='both')` silently dropped `wrongpool_seed`), CODE_VERSION
+bumped to v1.1 and pinned by two new self-test assertions.
+
+**Also refuted: "cortex expands where we compress."** Accuracy fell MONOTONICALLY across the whole k
+sweep, 0.0553 at k=64 down to 0.0393 at k=2048. **More dimensions is worse, not better, here.**
+
+**WHAT THIS LEAVES.** `CODE` exonerated twice. `ACCUMULATE` is the measured INTERFERENCE source
+(6.9) and, on the independent dissociation instrument (6.12), **single-occurrence is the LEAST
+co-occurrence-biased arm we own (0.4173 vs the incumbent 0.0710).** Two instruments now agree that
+**COLLAPSING OCCURRENCES INTO ONE VECTOR is the operative defect** -- not the basis they are written
+in. *The `exp_organ_f_noncollapsing_accumulation_v1` cell already exists and was killed for runtime
+(~9 h projected); it is now the highest-value unfinished work in the organ.*
+
+**METHOD NOTE, and it is the drill's own rule turned on the drill: an elegant derivation is a
+HYPOTHESIS. This one was mathematically clean, made a specific prediction, and the prediction failed
+against its own controls. That is the system working.**
+
+---
+
 ### 6.12 THE DISSOCIATION INSTRUMENT IS BUILT, LICENSED, AND THE CO-OCCURRENCE DIAGNOSIS IS NOW MEASURED RATHER THAN SUSPECTED.
 
 `exp_dissociation_score_instrument_v1`, commit `0eb44eb1d`; findings
