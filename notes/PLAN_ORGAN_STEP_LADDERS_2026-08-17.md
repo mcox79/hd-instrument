@@ -625,6 +625,49 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.37 **THE HUMAN INSTRUMENT IS LICENSED AT LAST (n=65). AND THE POWER LIMIT MOVED TO A PLACE I DID NOT EXPECT: THE NUMBER OF ARMS.**
+
+`exp_dissociation_score_instrument_human_v3` (`f792c3ab8`). **Third attempt; first one that works.**
+Frequency-stratified matching -- bin each POS stratum's pooled frequency into 3 quantile bins, then
+run the UNCHANGED `DSI.match_cells` inside each (POS, bin) cell, so bin membership bounds frequency
+and the per-pair residual caliper can relax.
+
+**n = 7 -> 65 per cell.** **All four floors CI-include 0.5** (orthographic 0.4920, frequency 0.4151,
+scramble 0.5943, constant 0.4125). **`INSTRUMENT_LICENSED = True`.** `max(four floors) = 0.5943`,
+*higher* than the WordNet instrument's 0.5431. Known-answer is the **published human rating itself**,
+not WordNet path similarity -- and the agent flagged its AUC 1.0 as **tautological, a plumbing check
+only**, which is the correct reading.
+
+**ALL SEVEN ARMS SIT AT OR BELOW CHANCE ON HUMAN JUDGEMENTS:** INCUMBENT 0.2265, FULL_ACCUM 0.1796,
+SINGLE_OCC 0.4644 (at chance), BINARIZED 0.1673, PARADIGMATIC 0.2788, T0 0.2928, T2 0.2649.
+*The same qualitative picture the WordNet instrument gave.*
+
+**THE DECIDING NUMBER, AND IT IS THE PRE-COMMITTED "INCONCLUSIVE" BRANCH (6.26 outcome ii):**
+**Spearman rho = 0.7857 between the two instruments' arm orderings, exact permutation p = 0.048, but
+the bootstrap-of-arms 95% CI = [-0.0439, 1.0] -- INCLUDES ZERO.** **So: the ordering LEANS the same
+way, and the sample cannot certify it. The 6.24 WordNet caveat REMAINS OPEN.** *Do not read
+rho = 0.79 as agreement; do not read the CI as disagreement.*
+
+**THE POWER LIMIT HAS MOVED, AND THIS IS THE ACTIONABLE FINDING: THE BOOTSTRAP IS OVER SEVEN ARMS,
+NOT OVER 65 PAIRS.** Fixing the matcher fixed the pair count and exposed the real constraint. **A
+rank correlation over 7 items cannot have a tight CI no matter how good each item's AUC is.** *The
+route to a decisive answer is MORE ARMS -- every store variant we own, scored on both instruments --
+not more pairs and not a better matcher.*
+
+**THE CAVEAT THE AGENT DISCLOSED RATHER THAN BURIED, and it is serious:** post-match balance is **NOT
+comparable** to the WordNet instrument. `mean_log_freq` -0.4382 (WordNet: -0.0416); `mean_length`
+0.3988 (-0.0121); `abs_freq_diff` 0.2466 (0.0045). **Every residual is worse, some by an order of
+magnitude.** Binning bought a large reduction (from -1.8396 on frequency) but not near-zero
+residuals. **The floors still pass, which is the gate I set -- but this instrument is LOOSER than its
+sibling and every number from it carries that.**
+
+**ON MY OWN "NEVER LOOSEN THE CALIPER" RULE:** the per-pair frequency caliper was relaxed 400x --
+legitimately, because bin membership now does that bounding, which is what stratification IS. **The
+gate I actually set was "the floors decide", and the floors passed.** *Recording it explicitly so
+nobody later reads this as the rule being broken.*
+
+---
+
 ### 6.36 **CROSS-CORPUS ARM 1 LANDED: `WORD_SELECTION_NOT_TYPE`. OUTCOME 4 OF 6.35, AND THE N5 TRAP FIRED EXACTLY AS NAMED.**
 
 `exp_typed_role_selectional_asset_writerule_v1` (`c1d2bc80e`), the **SimpleWiki pre-built asset**
