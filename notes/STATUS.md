@@ -549,6 +549,53 @@ excludes nothing is not a control -- report how many items each control actually
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
+- **🔬🔬 VETTING PASS 3 (`a04ef6b9`): 4 REFUTED, 2 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 18 CELLS:
+  8 REFUTED, 3 SUSPENDED, 7 QUALIFIED, *** STILL ZERO UPHELD AS CLAIMED ***.**
+  **AT 0-FOR-18 THE PRIOR HAS MOVED: A HARD_PASS IN THIS ARCHIVE SHOULD BE READ AS "UNVERIFIED
+  CLAIM", NOT AS EVIDENCE. THAT IS NOW A MEASURED BASE RATE, NOT A CAUTION.**
+  - **REFUTED -- `exp_gap_driven_reader_controlled_v1`: A 12-LINE `Counter` WITH NO SUBSTRATE
+    REPRODUCES THE HEADLINE 8/8 EXACTLY.** Ranking co-occurring unknown words by raw count scores
+    1.0000, identical to the treatment. *The templates write the target into 2 of 2 intro sentences
+    and the distractor into 1 of 2 -- **the margin is AUTHORED**. Its "ablated=0.0000" arm replaces
+    the novelty filter with noise, removing the candidate SET rather than changing the RANKING: an
+    extreme lesion, not a matched control.*
+  - **🚨 REFUTED -- `exp_reading_grounding_loop_cycle2_v1`: THIS PROJECT ALREADY REFUTED IT ON DISK
+    AND THIS DOCUMENT NEVER CAUGHT UP.** `exp_reading_grounding_loop_cycle3_groundingfix_v1` records
+    `B1_taut 0.656885 -> 0.0` and `B4_grounded 3544 -> 634`. Independently recomputed from
+    `data/foundation/reading_grounding_v1/store/store_facts.json`: **2,328 of 3,544
+    GROUNDED_MEANING facts are SELF-ANCHORED -- 67% of "grounded concepts" have THEMSELVES as their
+    meaning.** Of the 1,216 real links the top anchors are `also` (31), `say` (15), `people` (10),
+    with samples like `web -> polar` and `stargaz -> million`; 121 stem/full-form pairs
+    (`cigarett`/`cigarette`) are counted as separate concepts.
+    **⛔ RETIRE THE FIGURE "3,544 CONCEPTS / 9.87x THE HAND LEXICON" WHEREVER IT APPEARS.**
+  - **REFUTED -- `exp_verb_class_openvocab_similarity_v1`: THE "HELD-OUT" SET IS FOUR VECTORS.**
+    In `hdlab/verb_lexical_similarity.py` every desiderative word -- 10 seeds AND all 16 held-out --
+    carries the SAME four hand-written tags. **Held-out similarity to its own class is EXACTLY
+    1.0000, cross-class 0.0104. The 64 "held-out" decisions are 4 distinct vectors; accuracy 1.0 is
+    AN IDENTITY, NOT GENERALIZATION.**
+    **AND ITS CITED BASELINE DOES NOT EXIST AS QUOTED:** it claims owner-acc 0.30 from
+    `exp_real_text_goal_owner_generalization_diagnostic_v1`, whose single copy on disk reads
+    **0.6000** and was written AFTER this cell ran. **The claimed +0.20 is unreproducible.** *In its
+    own landed numbers the organ scores 0.5 owner vs recency 0.7 and ties its own lexicon baseline
+    on polarity -- it LOSES to one dumb baseline and TIES the other, inside a HARD_PASS.*
+  - **REFUTED -- `exp_c5_multigoal_content_coherence_tiebreak_v1`: GOLD IS DEFINED BY THE RULE THE
+    MECHANISM APPLIES.** Plain bag-of-words overlap scores **12/12 = 1.0000 under all three tie
+    conventions with zero ties**; margin over the strongest floor is **0.0000**. The cell's own
+    docstring says gold IS the unique theme-overlapper.
+  - **QUALIFIED -- `exp_c5_primacy_trap_endtoend_goal_coherence_candidate_gen_v1`: LEAK-CLEAN AND
+    REAL, BUT NOT CI-SEPARATED.** It explicitly fixed a predecessor's gold leak and proves it with
+    seven self-tests. **But its four floors are ALL POSITIONAL and read 0.0000 BY CONSTRUCTION**,
+    while a lexical-overlap floor scores 0.80 / 0.675 depending on tie convention. System 20/20,
+    Wilson lower 0.8389 vs the floor's upper 0.9193 -- **overlapping**; paired exact test on the one
+    discordant item, p=1.0. *The auditor MEASURED THIS FLOOR AT 0.9839 FIRST AND CORRECTED ITSELF --
+    that convention used roster-key order, which favours the owner. Both are reported.*
+  - **QUALIFIED -- `exp_reading_grounding_loop_cycle1_v1`:** its context-scramble control BINDS
+    (removed 132 of 185), but the same 67% self-anchoring applies, and its curriculum-order arm
+    moved link-rate 0.3297 -> 0.3047 -- **a null shipped inside a pass**.
+  - **✅ CLEAN ON TWO DIMENSIONS, AND WORTH SAYING: NO LLM in any operational path across six cells
+    and four organs (grepped), and every cited path in this batch exists.** *But **NO CELL IN THIS
+    BATCH REPORTS A p-VALUE OR A CI AT ALL**, and all three "3-seed" cells return bit-identical
+    per-seed numbers BY DESIGN -- one measurement, printed three times.*
 - **🔬 VETTING PASS 2 (`afb293f4`): 3 REFUTED, 3 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 12 CELLS:
   4 REFUTED, 3 SUSPENDED, 5 QUALIFIED, *** ZERO UPHELD AS CLAIMED ***.**
   - **REFUTED -- `exp_causal_link_comprehension_fuller_v2`: THE ANSWER IS WRITTEN IN.** The cell
