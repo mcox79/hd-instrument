@@ -456,7 +456,24 @@ the number of queries per point beside every "no difference".**
   RUNNING: a pre-committed prediction that can FAIL.** *Recorded, deliberately NOT dispatched --
   CLAUDE.md's rule is that an agent report ends my involvement and the owner decides what happens
   next.*
-- **IN FLIGHT: nothing. Both lanes have landed.**
+- **IN FLIGHT (2 lanes, both dispatched 05:50-05:55). DO NOT RESPAWN EITHER -- a duplicate is the
+  more expensive error, and I made exactly that mistake twice tonight.**
+  1. **`U1` ON THE HUMAN INSTRUMENT** -- scoring `U1_TYPED_CONTEXT`, `U3_ROLE_ONLY` and
+     `T2_UNTYPED_SAME_COVERAGE` against human similarity ratings (n=65, bar **0.5943**). **Its
+     branches were PRE-COMMITTED at `fa5da1d2c` BEFORE dispatch -- plan 6.39. READ THEM BEFORE
+     READING ITS RESULT.** *(A) clears CI-separated -> holds on two independent instruments;
+     (B) at or below chance -> the 0.6669 was WordNet-specific, rho 0.9034 was carried by the poor
+     arms, instruments DISAGREE where it matters, 6.24 partially RE-OPENS -- **the informative case,
+     NOT "mixed"**; (C) above chance but not separated -> **`POWER_INSUFFICIENT`, NOT a ceiling.***
+  2. **BIOLOGY DRILL: role vs filler** -- how cortex represents a word's grammatical role, whether
+     role is coded separately from the word filling it, and **whether our coarse corruption-tolerant
+     role profile REPLICATES something real or is a symptom of an impoverished encoding.** *That
+     second reading is the one that would deflate tonight's result, which is why the drill was told
+     to argue both.* Writes a note only; touches no cell.
+- **⚠️ WHY (C) IS A LIVE OUTCOME, NOT A HEDGE: the human population is n=65 against the WordNet
+  instrument's n=242 -- 3.7x smaller -- and v4's human CI half-widths run ~0.10, WIDE ENOUGH TO
+  SWALLOW THE ENTIRE 0.6669-vs-0.5943 MARGIN BEFORE ANY CAPABILITY QUESTION IS ASKED.** *Do not let
+  a width be read as an effect in either direction.*
   **This is NOT evidence it is dead.** I misread agent silence as death twice tonight and was wrong
   both times -- once standing down a healthy agent that was authoring a 58 KB cell. **Do not respawn
   it; a duplicate is the more expensive error.**
