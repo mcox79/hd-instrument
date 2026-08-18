@@ -566,7 +566,39 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
-### 6.25 **PRIOR ART FOUND BY HAND THAT THE BROKEN PRIOR-WORK CHECK MISSED -- AND IT REPLICATES TONIGHT'S NULL FROM A DIFFERENT DIRECTION.**
+### 6.26 **PRE-COMMITTED READING OF THE HUMAN INSTRUMENT -- WRITTEN WHILE IT IS STILL RUNNING, ON PURPOSE.**
+
+`exp_dissociation_score_instrument_human_v1` is mid-flight (self-test ALL PASS, full launched
+detached). **This section is written BEFORE its numbers land so the reading cannot be fitted to
+them.** Section 6.16 did the same for the capacity result and it worked.
+
+**THE POWER CONSTRAINT IS ALREADY VISIBLE IN ITS PROGRESS LOG AND IT IS THE BINDING RISK.** From the
+live run: 2,233 benchmark pairs survive restriction to our anchor set; **`SET_P_HUMAN` raw candidates
+(zero co-occurrence, human score >= 6.0) = 436; `SET_S_HUMAN` raw candidates (>= decile-90
+co-occurrence, human score <= 4.0) = 122.** **122 is the ceiling on cell size BEFORE matching, against
+242 per cell on the WordNet instrument.** Matching will only shrink it.
+
+**HOW I WILL READ IT, decided now:**
+1. **If the instrument is NOT LICENSED** (any of the four floors misses chance) -> **report the floor
+   failure and NOTHING else.** No arm numbers. A second instrument that cannot pass its own floors is
+   not evidence about the first one.
+2. **If licensed but the arm-ordering rank correlation's CI INCLUDES ZERO** -> **`POWER_INSUFFICIENT`.**
+   **This is the outcome I currently consider MOST LIKELY given n<=122, and it is NOT evidence that
+   the orderings disagree.** It would mean the test was not run at adequate size -- report the
+   achieved n and CI half-width, and say plainly that 6.23's WordNet caveat remains OPEN rather than
+   resolved either way. **Do NOT read a wide CI as agreement OR as disagreement.**
+3. **If licensed AND the rank correlation is CI-separated ABOVE zero** -> the two instruments agree,
+   **6.23's conclusion is about OUR STORE**, and the WordNet dependency was not load-bearing.
+4. **If licensed AND the orderings genuinely DISAGREE** -> **6.24's caveat becomes the headline**,
+   6.23 was substantially about WordNet, and the programme redirects.
+5. **If any arm reads CI-separated ABOVE 0.5 on human judgements** -> that is the most important
+   result this programme has produced, and it must be reported with its coverage, its controls, and
+   its n **in the same sentence as the margin**.
+
+**THE TRAP I AM PRE-COMMITTING AGAINST:** with n possibly under 122, a null result here is cheap to
+misread as "the WordNet worry was unfounded". **It is not.** Three retractions in this project came
+from reading an underpowered null as a capability statement, and 6.6 was one of them TODAY. **A wide
+CI resolves nothing, and if that is what lands, the honest report is that we still do not know.**
 
 **Why this was found late:** `tools/substrate_query.sh` **returns zero bytes and exits 0** (measured
 2026-08-18, both interpreters, ~38-51 s). Every "not a rediscovery" claim tonight rested on it.
